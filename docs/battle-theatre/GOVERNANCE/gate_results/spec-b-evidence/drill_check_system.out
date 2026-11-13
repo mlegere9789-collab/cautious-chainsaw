@@ -1,0 +1,7 @@
+  File "/home/user/cautious-chainsaw/tools/bt/drill_text.py", line 125, in normtext
+    lines = raw(manual)
+  File "/home/user/cautious-chainsaw/tools/bt/drill_text.py", line 107, in raw
+    with open(p, encoding='utf-8', errors='replace') as f:
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/cautious-chainsaw/tmp/library/misc/infantrytacticsf01brig_djvu.txt'
+exit 1

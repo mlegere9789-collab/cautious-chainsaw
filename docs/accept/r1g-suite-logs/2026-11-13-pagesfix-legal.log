@@ -1,0 +1,7 @@
+run_suites: 1 suite(s), port base 8480, agent r1g-harness-after
+run_suites: child environment + NODE_USE_ENV_PROXY (an HTTPS proxy is set); load average (1 min) 5.17, 4 CPUs
+PASS    pagesfix.R1c.legal     1/1                3.9 s  load 5.17>5.17  T0-PGF-14 on R1c built with the opt-in PG-legal group (the privacy table is keyboard-reachable)
+
+run_suites: load average (1 min) 5.17>5.17 from the start to the end of this run, 4 CPUs
+
+run_suites: 1/1 suites OK; green tests 1/1; red-first proofs 0/0 (0 legacy tests red as required); 4s -> tmp/r1g-harness/after-pagesfix-legal.json

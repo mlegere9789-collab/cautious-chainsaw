@@ -12,7 +12,7 @@ import { serve } from '../tools/serve.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), REPO = path.resolve(here, '../../../..');
 const out = path.resolve(process.argv[2] || path.join(REPO, 'tmp/ext-loader-browser')), mode = process.argv[3] === 'full' ? 'full' : 'light', port = +process.env.BT_EXT_PORT || 10823; fs.mkdirSync(out, { recursive: true });
-const Q = mode === 'full' ? 'api=webgl2' : 'api=webgl2&crowd=off&structures=off&fx=off&nearR=12&midR=60', WAIT = 600000;
+const Q = mode === 'full' ? 'api=webgl2' : 'api=webgl2&crowd=off&structures=off&fx=off&nearR=12&midR=60', WAIT = 600000, T = ms => (mode === 'full' ? WAIT : ms);      // light keeps the short limits; full draws every figure on software GL, a frame there can take longer than any of them
 const CTX_KEYS = 'choices,env,history,host,registerLayerToggle,registerPanel,state,structures,theatre,tierMark,urls', FRAME_KEYS = 'cam,dtMs,paused,speed,tMin';
 
 // ---- the stand-in modules
@@ -58,7 +58,7 @@ const srv = await serve(port), base = `http://127.0.0.1:${port}/app/index.html`;
 const br = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
 let routeMode = 'absent'; const extRequests = [];
 async function session(query) {
-  const ctx = await br.newContext({ viewport: { width: 1100, height: 660 }, deviceScaleFactor: 1 }), page = await ctx.newPage(), log = { errors: [], warnings: [], pageerrors: [], failed: [] };
+  const ctx = await br.newContext({ viewport: { width: 1100, height: 660 }, deviceScaleFactor: 1 }), page = await ctx.newPage(); page.setDefaultTimeout(T(30000)); const log = { errors: [], warnings: [], pageerrors: [], failed: [] };
   page.on('console', m => { const t = m.type(), x = m.text(); if (t === 'error') log.errors.push(x.slice(0, 300)); else if (t === 'warning') log.warnings.push(x.slice(0, 300)); });
   page.on('pageerror', e => log.pageerrors.push(String(e.stack || e).slice(0, 400))); page.on('response', r => { if (r.status() >= 400) log.failed.push(r.url().replace(/^.*\/app\//, 'app/') + ' HTTP ' + r.status()); });
   await ctx.route('**/app/src/ext/**', route => {
@@ -69,7 +69,7 @@ async function session(query) {
   });
   await page.goto(base + '?' + query, { waitUntil: 'load' });
   const enter = async () => { const t0 = Date.now(); await page.click('[data-bt-enter]'); await page.waitForFunction(() => (window.btApp && window.btApp.ready) || document.querySelector('.loading .fail'), null, { timeout: WAIT }); const ok = await page.evaluate(() => !!(window.btApp && window.btApp.ready)); if (!ok) throw new Error('the theatre did not start: ' + await page.evaluate(() => document.querySelector('.loading .fail')?.textContent)); await page.evaluate(() => window.btApp.frames(2)); return Date.now() - t0; };
-  const leave = async () => { await page.click('#bt-back'); await page.waitForSelector('#landing:not([hidden])', { timeout: 60000 }); await page.waitForFunction(() => !window.btApp, null, { timeout: 20000 }); };
+  const leave = async () => { await page.click('#bt-back'); await page.waitForSelector('#landing:not([hidden])', { timeout: T(60000) }); await page.waitForFunction(() => !window.btApp, null, { timeout: T(20000) }); };
   const shot = async name => { await page.evaluate(() => (window.btApp ? window.btApp.frames(2) : null)); const f = path.join(out, name + '.png'); await page.screenshot({ path: f }); results.shots.push(f); };      // two drawn frames first: the picture then shows what the page already says
   return { ctx, page, log, enter, leave, shot, frames: n => page.evaluate(k => window.btApp.frames(k), n) };
 }
@@ -120,7 +120,7 @@ try {
   await P.waitForTimeout(80); check('More drawer: the keyboard focus goes to the first control', await P.evaluate(() => document.activeElement?.dataset.xlayer === 'demo-marks'));
   await s.shot('1-more-drawer');
   // the switch
-  await P.check('input[data-xlayer="demo-marks"]'); await P.waitForSelector('#demo-badge', { timeout: 20000 }); await P.waitForTimeout(120);
+  await P.check('input[data-xlayer="demo-marks"]'); await P.waitForSelector('#demo-badge', { timeout: T(20000) }); await P.waitForTimeout(120);
   const sw = await P.evaluate(() => ({ on: globalThis.__extDemo.on, checked: document.querySelector('input[data-xlayer="demo-marks"]').checked, live: document.querySelector('#bt-live').textContent, pill: !!document.querySelector('#demo-badge .pill[data-tier="plausible-procedural"] svg') }));
   check('the switch: setFn(true) ran, the box follows getFn, the layer drew its mark with the tier pill, the screen reader line says "shown"', sw.on === true && sw.checked === true && sw.pill && sw.live === 'Stand-in layer shown.', sw);
   await s.shot('2-layer-on');
@@ -144,7 +144,7 @@ try {
   check('Views: the added switches sit right after the structure switches, under "More layers", showing the current state', vw.after && vw.head === 'More layers' && vw.checked === true && vw.moreExpanded === 'false', vw);
   check('Views: the structure switches and the bookmark rows are untouched', (mode === 'full' ? vw.structBoxes.join() === 'roads,fences,buildings,masses,markers,works' : vw.structBoxes.length === 0) && vw.items === vw.tour, vw);
   await s.shot('4-views');
-  await P.uncheck('#xl-block input[data-xlayer="demo-marks"]'); await P.waitForSelector('#demo-badge', { state: 'detached', timeout: 20000 }); await P.waitForTimeout(120);
+  await P.uncheck('#xl-block input[data-xlayer="demo-marks"]'); await P.waitForSelector('#demo-badge', { state: 'detached', timeout: T(20000) }); await P.waitForTimeout(120);
   check('Views: switching it off there calls setFn(false) and is announced', await P.evaluate(() => globalThis.__extDemo.on === false && document.querySelector('#bt-live').textContent === 'Stand-in layer hidden.'));
   await P.keyboard.press('Escape'); check('Escape closes the drawer and the focus returns to the tool that opened it', await P.evaluate(() => document.querySelector('#bt-drawer').hidden && document.activeElement?.dataset.panel === 'views'));
   await P.evaluate(() => window.btApp.theatre.openPanel('demo-panel')); await P.waitForSelector('#demo-p'); await P.keyboard.press('Escape');

@@ -63,4 +63,12 @@ export function designators(s) {
   while ((m = re.exec(t))) out.add(m[1] + (STATES[m[2]] || m[2]));
   return out;
 }
+// the regiment designators of a text WITH their context: [{ key: '6wi', index, after: 'the next 40 characters, folded' }], so that "26th Pennsylvania Emergency Militia" is not taken for the 26th Pennsylvania Volunteers
+export function designatorHits(s) {
+  const t = fold(unpossess(s)).replace(/[^a-z0-9]+/g, ' '), out = [];
+  const names = Object.keys(STATES).sort((a, b) => b.length - a.length).join('|'), abbr = [...new Set(Object.values(STATES))].join('|');
+  const re = new RegExp(`\\b(\\d{1,3})(?:st|nd|rd|th)?\\s+(${names}|${abbr})\\b`, 'g'); let m;
+  while ((m = re.exec(t))) out.push({ key: m[1] + (STATES[m[2]] || m[2]), index: m.index, after: t.slice(m.index + m[0].length, m.index + m[0].length + 40).trim() });
+  return out;
+}
 export const round = (x, d = 1) => (x == null || !Number.isFinite(x) ? x : Math.round(x * 10 ** d) / 10 ** d);

@@ -4,7 +4,7 @@ Why: the NPS Then-And-Now pages carry statements about where the camera stood, b
 attached to a LOC record when the pictures are the same negative, so this script tests that with feature matching (SIFT, ratio test, RANSAC homography) and writes
 the ranked candidates. A match is accepted only with >= MIN_INLIERS inliers; the result is a lead for the person who looks at both images, never a verdict.
 Inputs: tools/bt/photomatch/nps_then_now.json (the 'then' files), tmp/photomatch/loc/*_v.jpg (1024 px) or *_r.jpg (640 px) when no large JPEG exists.
-Output: tools/bt/photomatch/nps_then_to_loc.json.   Usage: nice -n 10 python3 -I tools/bt/photomatch/match_nps_then.py"""
+Output: tools/bt/photomatch/nps_then_to_loc.json.   Usage: nice -n 10 python3 -I tools/bt/photomatch/match_nps_then.py [query name ...]   (names like rose-woods#1; with names, only those are re-run and merged into the output)"""
 import json, os, glob, sys, time
 import numpy as np, cv2
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
@@ -29,11 +29,14 @@ def match(a, b):
     return len(good), int(mask.sum()) if mask is not None else 0
 def main():
     tn = json.load(open(os.path.join(HERE, 'nps_then_now.json')))
+    only = [a for a in sys.argv[1:] if not a.startswith('-')]; prev = {}
+    outp = os.path.join(HERE, 'nps_then_to_loc.json')
+    if only and os.path.exists(outp): prev = json.load(open(outp)).get('queries', {})
     queries = []
     for s in tn['series']:
         for c in s['comparisons']:
             f = c['then'].get('local_file')
-            if f: queries.append((f"{s['series']}#{c['n']}", os.path.join(ROOT, f)))
+            if f and (not only or f"{s['series']}#{c['n']}" in only): queries.append((f"{s['series']}#{c['n']}", os.path.join(ROOT, f)))
     cand = {}
     for p in sorted(glob.glob(os.path.join(LOC, '*_r.jpg'))):
         rid = os.path.basename(p)[:-6]; v = os.path.join(LOC, rid + '_v.jpg'); cand[rid] = v if os.path.exists(v) else p
@@ -49,7 +52,7 @@ def main():
     for f in glob.glob(os.path.join(ROOT, 'tmp', 'photomatch', 'raw', 'item_*.json')):
         d = json.load(open(f))
         for r in d.get('resources') or []: rec[r['id']] = d['item']['control_number']
-    out = {'_doc': 'Feature-matching leads: which LOC resource each NPS Then photograph is. inliers = RANSAC-consistent SIFT matches; accepted only at >= %d. A lead, to be confirmed by looking at both images.' % MIN_INLIERS, 'min_inliers': MIN_INLIERS, 'queries': {}}
+    out = {'_doc': 'Feature-matching leads: which LOC resource each NPS Then photograph is. inliers = RANSAC-consistent SIFT matches; accepted only at >= %d. A lead, to be confirmed by looking at both images.' % MIN_INLIERS, 'min_inliers': MIN_INLIERS, 'queries': dict(prev)}
     for qn, qp in queries:
         q = feats(qp, side=1024)
         if not q: out['queries'][qn] = {'status': 'no features'}; continue
@@ -61,6 +64,6 @@ def main():
         top = [{'resource': r, 'loc_id': rec.get(r.split('_')[0] if not r.startswith('IMG_') else r) or rec.get(r), 'inliers': i, 'good_matches': n} for i, n, r in res[:5]]
         out['queries'][qn] = {'nps_then_file': os.path.relpath(qp, ROOT), 'top': top, 'accepted': [t for t in top if t['inliers'] >= MIN_INLIERS]}
         print(qn, [(t['resource'], t['inliers']) for t in top[:3]], flush=True)
-    json.dump(out, open(os.path.join(HERE, 'nps_then_to_loc.json'), 'w'), indent=1)
+    json.dump(out, open(outp, 'w'), indent=1)
     print('done', round(time.time() - t0), 's')
 if __name__ == '__main__': main()

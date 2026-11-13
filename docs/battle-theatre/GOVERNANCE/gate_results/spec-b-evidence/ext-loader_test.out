@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: no list: nothing is imported, nothing is logged, nothing runs (with the existence check and without it)
+ok 1 - no list: nothing is imported, nothing is logged, nothing runs (with the existence check and without it)
+  ---
+  duration_ms: 3.156294
+  type: 'test'
+  ...
+# Subtest: a list that is there but cannot be read is logged and shown, never passed over in silence
+ok 2 - a list that is there but cannot be read is logged and shown, never passed over in silence
+  ---
+  duration_ms: 1.539401
+  type: 'test'
+  ...
+# Subtest: a list that does not answer does not hold the theatre: the check is passed over, the list itself counts as failed after the wait, a late answer starts nothing
+ok 3 - a list that does not answer does not hold the theatre: the check is passed over, the list itself counts as failed after the wait, a late answer starts nothing
+  ---
+  duration_ms: 248.201735
+  type: 'test'
+  ...
+# Subtest: list entries: refused ones are reported and the rest runs; a path listed twice is started once; ./ is dropped
+ok 4 - list entries: refused ones are reported and the rest runs; a path listed twice is started once; ./ is dropped
+  ---
+  duration_ms: 1.404401
+  type: 'test'
+  ...
+# Subtest: real files: import(base + path), init(ctx) awaited with exactly the eleven keys, update(frame) with exactly the five fields, dispose on Back
+ok 5 - real files: import(base + path), init(ctx) awaited with exactly the eleven keys, update(frame) with exactly the five fields, dispose on Back
+  ---
+  duration_ms: 21.730375
+  type: 'test'
+  ...
+# Subtest: a real folder without a list: the same importer, nothing happens
+ok 6 - a real folder without a list: the same importer, nothing happens
+  ---
+  duration_ms: 1.51991
+  type: 'test'
+  ...
+# Subtest: order: init in list order one after another, update in list order every frame, dispose in reverse
+ok 7 - order: init in list order one after another, update in list order every frame, dispose in reverse
+  ---
+  duration_ms: 21.678064
+  type: 'test'
+  ...
+# Subtest: a failing module is logged and skipped, never fatal: import, init (thrown and rejected), update (thrown and rejected); the others go on
+ok 8 - a failing module is logged and skipped, never fatal: import, init (thrown and rejected), update (thrown and rejected); the others go on
+  ---
+  duration_ms: 12.181333
+  type: 'test'
+  ...
+# Subtest: one module cannot change the frame the next one is given
+ok 9 - one module cannot change the frame the next one is given
+  ---
+  duration_ms: 0.692705
+  type: 'test'
+  ...
+# Subtest: a module with nothing to run is said so; a module without update costs nothing per frame
+ok 10 - a module with nothing to run is said so; a module without update costs nothing per frame
+  ---
+  duration_ms: 0.590197
+  type: 'test'
+  ...
+# Subtest: a slow start does not hold the theatre: it goes on after the wait and the module joins when it is ready
+ok 11 - a slow start does not hold the theatre: it goes on after the wait and the module joins when it is ready
+  ---
+  duration_ms: 31.686461
+  type: 'test'
+  ...
+# Subtest: Back while a module is starting: no update ever, dispose exactly once as soon as its init settles; the rest of the list is not started
+ok 12 - Back while a module is starting: no update ever, dispose exactly once as soon as its init settles; the rest of the list is not started
+  ---
+  duration_ms: 17.982063
+  type: 'test'
+  ...
+# Subtest: registerPanel: listed in order, reserved and foreign ids refused, own id replaced, the handle opens and closes through the theatre
+ok 13 - registerPanel: listed in order, reserved and foreign ids refused, own id replaced, the handle opens and closes through the theatre
+  ---
+  duration_ms: 1.203506
+  type: 'test'
+  ...
+# Subtest: registerLayerToggle: the switch shows what getFn reports; setFn gets true or false, may be async, may refuse, may throw; the viewer is told
+ok 14 - registerLayerToggle: the switch shows what getFn reports; setFn gets true or false, may be async, may refuse, may throw; the viewer is told
+  ---
+  duration_ms: 13.934324
+  type: 'test'
+  ...
+# Subtest: the More drawer: switches with their state, panels, what is not running; titles are escaped; no forbidden wording
+ok 15 - the More drawer: switches with their state, panels, what is not running; titles are escaped; no forbidden wording
+  ---
+  duration_ms: 1.287154
+  type: 'test'
+  ...
+# Subtest: drawAdded: every form a renderFn may return; the scope ends the cleanup; a throw or a rejection goes to fail; a late result is not drawn but its cleanup is called
+ok 16 - drawAdded: every form a renderFn may return; the scope ends the cleanup; a throw or a rejection goes to fail; a late result is not drawn but its cleanup is called
+  ---
+  duration_ms: 118.33084
+  type: 'test'
+  ...
+# Subtest: tierMark: the four tiers and their short spellings give the card pill; a longer statement is marked by the weakest tier it names and stays visible; unknown is said, never guessed
+ok 17 - tierMark: the four tiers and their short spellings give the card pill; a longer statement is marked by the weakest tier it names and stays visible; unknown is said, never guessed
+  ---
+  duration_ms: 3.269482
+  type: 'test'
+  ...
+# Subtest: choices: callable and readable, always the choices in effect now, never writable
+ok 18 - choices: callable and readable, always the choices in effect now, never writable
+  ---
+  duration_ms: 0.502296
+  type: 'test'
+  ...
+# Subtest: theatre.mjs: the loader starts after the renderer, the effects and the sound exist; update comes before host.frame; Back ends the modules before anything is torn down
+ok 19 - theatre.mjs: the loader starts after the renderer, the effects and the sound exist; update comes before host.frame; Back ends the modules before anything is torn down
+  ---
+  duration_ms: 0.78562
+  type: 'test'
+  ...
+# Subtest: render-host: addSceneHook draws after the figures and the structures without taking the one slot; a throwing hook is removed and the frame goes on
+ok 20 - render-host: addSceneHook draws after the figures and the structures without taking the one slot; a throwing hook is removed and the frame goes on
+  ---
+  duration_ms: 0.880409
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 603.512859

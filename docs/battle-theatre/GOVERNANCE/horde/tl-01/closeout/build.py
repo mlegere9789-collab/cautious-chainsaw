@@ -166,8 +166,13 @@ def resolve(cid, c):
 # ---------------------------------------------------------------- build
 def main():
     check_only = '--check-only' in sys.argv
-    import rows_a, rows_b, rows_c
-    rows = rows_a.ROWS + rows_b.ROWS + rows_c.ROWS
+    import importlib
+    rows = []
+    for mod in ('rows_a', 'rows_b', 'rows_c'):
+        try:
+            rows += importlib.import_module(mod).ROWS
+        except ModuleNotFoundError:
+            if '--partial' not in sys.argv: raise
     seed = [json.loads(l) for l in open(os.path.join(G, 'timeline_seed.jsonl'), encoding='utf-8')][:57]
     seed_by = {r['id']: r for r in seed}
     ver = {json.loads(l)['id']: json.loads(l) for l in open(os.path.join(G, 'timeline_verified.jsonl'), encoding='utf-8')}
@@ -250,6 +255,10 @@ def main():
         for e in errs: print(' -', e)
         sys.exit(1)
     print('rows %d, citations verified verbatim %d' % (len(out_rows), nq))
+    if '--show' in sys.argv:
+        for r_, line_, cites_ in out_rows:
+            for k_, c_ in cites_.items():
+                print('  %s %-12s %-26s %-13s p.%-9s @%-8s %s' % (line_['id'], k_, c_['source_id'], c_.get('report_id') or '', c_.get('printed_page'), c_['text_offset'], ('| ' + (c_.get('page_basis') or '')[:60]) if not c_.get('report_id') else ''))
     if check_only: return
     # ---- corrections file
     cdir = os.path.join(G, 'timeline_corrections'); os.makedirs(cdir, exist_ok=True)

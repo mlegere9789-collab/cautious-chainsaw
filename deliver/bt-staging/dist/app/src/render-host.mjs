@@ -5,7 +5,7 @@ import { URLS } from './config.mjs';
 import { mulberry32 } from '../../render/prototype/src/math.mjs';
 
 export class RenderHost {
-  constructor() { this.api = null; this.R = null; this.destroyed = false; this.inflight = 0; this.canvas = null; this.TW = 2048; this.padUnits = null; this.log = []; this.crowd = null; this._userExt = null; }
+  constructor() { this.api = null; this.R = null; this.destroyed = false; this.inflight = 0; this.canvas = null; this.TW = 2048; this.padUnits = null; this.log = []; this.crowd = null; this._userExt = null; this._hooks = []; }
   static async create({ canvas, world, api = 'auto', opts, replaceCanvas }) {
     const h = new RenderHost(); h.canvas = canvas; h.world = world;
     const tryGPU = (api === 'auto' || api === 'webgpu') && 'gpu' in navigator;
@@ -16,10 +16,20 @@ export class RenderHost {
     if (!h.R) { const m = await import(URLS.proto + 'src/webgl2.mjs'); h.R = await m.GLRenderer.create(canvas, world, opts); h.api = 'webgl2'; }
     h._wireExt(); return h;
   }
-  // the prototype renderer has ONE extension slot (R.ext: scene and shadow hooks); the structures set it. It becomes an accessor: the crowd (figures) is drawn first, whoever sets R.ext afterwards is drawn after it.
+  // the prototype renderer has ONE extension slot (R.ext: scene and shadow hooks); the structures set it. It becomes an accessor: the crowd (figures) is drawn first, whoever sets R.ext afterwards is drawn after it,
+  // then every hook added with addSceneHook, in the order added. The effects host wraps all of this and draws the weather and the smoke last.
   _wireExt() {
-    const h = this, comp = { scene: (p, r) => { if (h.crowd) h.crowd.scene(p); if (h._userExt) h._userExt.scene(p, r); }, shadow: (p, c, r) => { if (h.crowd) h.crowd.shadow(p, c); if (h._userExt) h._userExt.shadow(p, c, r); } };
+    const h = this, more = (k, a, b, c) => { const L = h._hooks; for (let i = 0; i < L.length; i++) { const x = L[i]; if (typeof x[k] !== 'function') continue; try { x[k](a, b, c); } catch (e) { h._hooks = h._hooks.filter(y => y !== x); h.log.push(`scene hook removed after an error in ${k}: ${e && e.message || e}`); console.error('a scene hook failed and was removed:', e); } } };
+    const comp = { scene: (p, r) => { if (h.crowd) h.crowd.scene(p); if (h._userExt) h._userExt.scene(p, r); if (h._hooks.length) more('scene', p, r); }, shadow: (p, c, r) => { if (h.crowd) h.crowd.shadow(p, c); if (h._userExt) h._userExt.shadow(p, c, r); if (h._hooks.length) more('shadow', p, c, r); } };
     Object.defineProperty(this.R, 'ext', { configurable: true, enumerable: true, get() { return comp; }, set(v) { h._userExt = v || null; } });
+  }
+  // More geometry in the picture without taking the renderer's one slot: hook = { scene(pass, R), shadow(pass, cascade, R) } (either may be left out), called inside the scene pass and inside each
+  // of the two shadow passes, after the figures and the structures and before the weather and the smoke. `pass` is the WebGL2 context (api 'webgl2') or the render pass encoder (api 'webgpu').
+  // A hook that throws is removed and logged; the frame goes on. Returns the function that removes the hook; destroy() removes them all. Never assign R.ext for this: that replaces the structures.
+  addSceneHook(hook) {
+    if (!hook || (typeof hook.scene !== 'function' && typeof hook.shadow !== 'function')) throw new TypeError('addSceneHook: an object with scene(pass, R) and/or shadow(pass, cascade, R) is required');
+    if (this.destroyed) return () => {}; if (!this._hooks.includes(hook)) this._hooks = [...this._hooks, hook];
+    return () => { this._hooks = this._hooks.filter(y => y !== hook); };
   }
   // the figures (src/crowd): the prototype's single soldier model is switched off and every figure is drawn with the figures3d models and the anim3d state machine. `o.progress(frac, text)` reports loading.
   async attachCrowd(o) { const { Crowd } = await import('./crowd/crowd.mjs'); this.crowd = await Crowd.create(this, o); return this.crowd; }
@@ -72,7 +82,7 @@ export class RenderHost {
   memoryBytes() { return this.R.memoryBytes(); }
   get gpuMs() { return this.R.gpuMs || {}; }
   destroy() {
-    if (this.destroyed) return; this.destroyed = true; const R = this.R;
+    if (this.destroyed) return; this.destroyed = true; const R = this.R; this._hooks = [];
     if (this.crowd) { try { this.crowd.destroy(); } catch (e) { console.warn('crowd teardown', e); } this.crowd = null; }
     if (this.structures) { try { this.structures.destroy(); } catch (e) { console.warn('structures teardown', e); } this.structures = null; }
     try {

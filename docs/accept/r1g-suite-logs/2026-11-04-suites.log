@@ -1,0 +1,84 @@
+run_suites: 79 suite(s), port base 8480, agent r1g
+PASS    static.gates           4/4                  0 s  build gates of the four trains (gate.json written by build.py)
+PASS    static.overlap         exit 0            40.8 s  geometric overlap audit of the patch set
+PASS    static.verify          10/10              2.8 s  verify_release: manifest, static crawl, dev pages, names, identity vs the baseline, cumulative, legacy and baseline pinned
+PASS    static.selftest        10/10             56.6 s  build system self-test (10 properties incl. determinism and ledger)
+PASS    static.baseline        17/17             13.8 s  baseline machinery self-test (17 cases: Netlify post-processing model, lock and build refusal, CRLF-aware patching, overlay guard, verify-live against a local Netlify fake, mirror -> reconstruct -> prove, JS/Python model parity, compare-zip of a downloaded deploy)
+PASS    static.baselinelock    exit 0             0.1 s  baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, no network)
+PASS    static.legal           13/13              0.5 s  privacy/terms fact base vs the built R1c tree
+FAIL    static.lib             7/9 2 failed      23.5 s  tiles 3/300  browser harness self-test
+        FAIL  LIB-02       Mapbox request from a dedicated WORKER gets the production Referer and is counted; block mode keeps it local
+        FAIL  LIB-08       app helpers on the R1a build: chooseLayout, mapView, real drag/wheel move the camera (and do not on R0)
+PASS    static.overlap.selftest 1/1                 0 s  overlap audit self-test (6 cases incl. the failing ones: an anchor that no longer matches, an undeclared overwrite, an anchor with no source)
+PASS    static.hygiene         1/1                  9 s  source hygiene of tools/t0, tests/t0, tools/ship and ops: no stray control bytes (a regex escape that reached the file as BACKSPACE), every script parses, every JSON file is valid
+PASS    static.ship            11/11              1.5 s  pack_zip self-test (tools/ship/pack_zip.py, the Netlify drag-and-drop zip: files at the zip root, byte-identical packs, a changed, extra or missing file or a wrong tree digest against manifest.json is refused, the staging variant differs in _headers only, the real R1c packs)
+PASS    static.fixes           11/11              106 s  release-verifier fixes self-test (11 cases: failed builds leave nothing deployable, ledger errors, gate cache beside --out, kill switch outside dist, opt-in legal group, stage guard, verify-url exit codes, stale-dist refusal, S5 asks the previous train)
+PASS    static.determinism     8/8              101.2 s  determinism: every train rebuilt into release/check/<train> is byte-identical to release/<train> (dist, manifest, anchors, gate, kill-switch copy)
+FAIL    static.controls        exit 2            16.2 s  control trees for the red-first proofs and the opt-in legal variant built (R1c without A2, without the Mapbox precompile, without the mobile + shell fixes, and R1c with PG-legal with its gates on; each differs from the real R1c)
+FAIL    r0.R0                  12/13 1 failed    43.1 s  tiles 2/300  R0 acceptance (X1/X2) on R0
+        FAIL  T0-R0-03     first visit: one Mapbox sku, one style request (one map session) (X1)
+FAIL    r0.R1a                 12/13 1 failed    42.9 s  tiles 2/300  R0 acceptance (X1/X2) on R1a
+        FAIL  T0-R0-03     first visit: one Mapbox sku, one style request (one map session) (X1)
+FAIL    r0.R1b                 11/13 (+1 skipped) 1 failed   45.7 s  tiles 2/300  R0 acceptance (X1/X2) on R1b
+        FAIL  T0-R0-03     first visit: one Mapbox sku, one style request (one map session) (X1)
+FAIL    r0.R1c                 10/13 (+1 skipped) 2 failed   49.2 s  tiles 14/300  R0 acceptance (X1/X2) on R1c
+        FAIL  T0-R0-03     first visit: one Mapbox sku, one style request (one map session) (X1)
+        FAIL  T0-R0-04     upgrade drill: profile seeded with the legacy tree + old SW gets new bytes on the next navigation (X2)
+FAIL    journeys.R1a           13/41 (+11 skipped) 17 failed    232 s  tiles 1/300  desktop journeys J1-J8, inputs, group A on R1a
+        FAIL  T0-J1        J1 load: app mounts, HUD/toolbar/minimap present, units drawn, one map, no exceptions
+        FAIL  T0-J2        J2 play 30 ticks at 8x: tick advances, minimap follows, pause stops it
+        FAIL  T0-J3        J3 pan by real mouse drag, wheel zoom, pinch zoom (CDP touch): camera changes each time (X4)
+        FAIL  T0-J4        J4 select a unit by real click: panel opens for exactly that unit; Escape closes it (X4)
+        FAIL  T0-J5        J5 search: type a unit name, pick the result, the unit panel opens for it; Escape closes
+        FAIL  T0-IN-01     real mouse drag on the map changes getCenter()
+        FAIL  T0-IN-02     real wheel on the map changes zoom in both directions
+        FAIL  T0-IN-03     click selects a unit (nearest within the hit radius) and clicking empty ground clears; Toggle Units off blocks selection
+FAIL    journeys.R1b           13/41 (+10 skipped) 18 failed  214.7 s  tiles 2/300  desktop journeys J1-J8, inputs, group A on R1b
+        FAIL  T0-J1        J1 load: app mounts, HUD/toolbar/minimap present, units drawn, one map, no exceptions
+        FAIL  T0-J2        J2 play 30 ticks at 8x: tick advances, minimap follows, pause stops it
+        FAIL  T0-J3        J3 pan by real mouse drag, wheel zoom, pinch zoom (CDP touch): camera changes each time (X4)
+        FAIL  T0-J4        J4 select a unit by real click: panel opens for exactly that unit; Escape closes it (X4)
+        FAIL  T0-J5        J5 search: type a unit name, pick the result, the unit panel opens for it; Escape closes
+        FAIL  T0-IN-01     real mouse drag on the map changes getCenter()
+        FAIL  T0-IN-02     real wheel on the map changes zoom in both directions
+        FAIL  T0-IN-03     click selects a unit (nearest within the hit radius) and clicking empty ground clears; Toggle Units off blocks selection
+FAIL    journeys.R1c           30/41 11 failed  233.9 s  tiles 196/300  desktop journeys J1-J8, inputs, group A, group B on R1c
+        FAIL  T0-J1        J1 load: app mounts, HUD/toolbar/minimap present, units drawn, one map, no exceptions
+        FAIL  T0-J2        J2 play 30 ticks at 8x: tick advances, minimap follows, pause stops it
+        FAIL  T0-J3        J3 pan by real mouse drag, wheel zoom, pinch zoom (CDP touch): camera changes each time (X4)
+        FAIL  T0-J4        J4 select a unit by real click: panel opens for exactly that unit; Escape closes it (X4)
+        FAIL  T0-J5        J5 search: type a unit name, pick the result, the unit panel opens for it; Escape closes
+        FAIL  T0-J6        J6 Help (? key and button) and every desktop Tools button toggle open/closed without errors
+        FAIL  T0-J7        J7 day 2/3 jump by tab and by keys 2/3: data loads within 2 s, minimap follows, dates stay July 1-3 (X6)
+        FAIL  T0-IN-05     phone 375x812 (mobile shell, real CDP touch): swipe pans, pinch zooms, a tap selects a unit and its panel opens (X4 mobile)
+FAIL    deeplinks.R1c          9/12 3 failed    178.2 s  tiles 36/300  deep links, moments.json, Turning Points (X7)
+        FAIL  T0-DL-02     ?t=538&u=U-20ME&z=15.5&ll=39.7918,-77.2359 (the app's own share-link shape): July 3, tick 538, the 20th Maine panel, camera at ll/z (X7)
+        FAIL  T0-DL-04b    junk map parameters leave the camera at home (ll=0,0 with z=abc); z alone moves only the zoom and is clamped to 11..18
+        FAIL  T0-DL-05     round trip: the unit panel's share button writes ?t=&u=&z=&ll=; loading that link reproduces tick, unit, zoom and centre (X7)
+FAIL    desktop.R1a            2/10 8 failed     35.7 s  tiles 1/300  desktop fixes T0-DF-01..09 (group A2) on R1a
+        FAIL  T0-DF-01     (a) after a click, a drag and a unit selection on the map the documented keys work (ArrowRight +1, Shift+ArrowRight +12, +/-/0 speed, Space play) and do not move the map
+        FAIL  T0-DF-02     (a) keyboard route: Tab reaches the map, arrows pan, = / - zoom it (Mapbox keys, tick and speed untouched); Esc gives focus back and the arrows step time again
+        FAIL  T0-DF-03     (b) paused: the unit canvas follows a mouse drag and a wheel zoom (a unit stays under its place); trail canvas is empty after a move; no stale screen-fixed monument overlay
+        FAIL  T0-DF-04     (c) Mapbox wordmark + attribution links are on top, above the dock and clear of the credit line and minimap at 1024x768, 1280x720, 1440x900, 1920x1080, 2560x1440
+        FAIL  T0-DF-05     (d) the story and event cards leave the zoom buttons, the Trails toggle, the minimap and the dock free; Esc dismisses the topmost card, panels and a selected unit go first
+        FAIL  T0-DF-06     (e) a filter change on a paused map is painted at once (no tick needed), and so is its reset
+        FAIL  T0-DF-07     (f) a window resize repaints the units at once and resizes the z-index 8 and 9 overlay canvases to the map
+        FAIL  T0-DF-08     (g) NPS Auto Tour: dots inside the panel and clear of the text, day tabs and attribution free, X and Esc give the speed back
+FAIL    desktop.R1b            2/10 8 failed     36.9 s  tiles 1/300  desktop fixes T0-DF-01..09 (group A2) on R1b
+        FAIL  T0-DF-01     (a) after a click, a drag and a unit selection on the map the documented keys work (ArrowRight +1, Shift+ArrowRight +12, +/-/0 speed, Space play) and do not move the map
+        FAIL  T0-DF-02     (a) keyboard route: Tab reaches the map, arrows pan, = / - zoom it (Mapbox keys, tick and speed untouched); Esc gives focus back and the arrows step time again
+        FAIL  T0-DF-03     (b) paused: the unit canvas follows a mouse drag and a wheel zoom (a unit stays under its place); trail canvas is empty after a move; no stale screen-fixed monument overlay
+        FAIL  T0-DF-04     (c) Mapbox wordmark + attribution links are on top, above the dock and clear of the credit line and minimap at 1024x768, 1280x720, 1440x900, 1920x1080, 2560x1440
+        FAIL  T0-DF-05     (d) the story and event cards leave the zoom buttons, the Trails toggle, the minimap and the dock free; Esc dismisses the topmost card, panels and a selected unit go first
+        FAIL  T0-DF-06     (e) a filter change on a paused map is painted at once (no tick needed), and so is its reset
+        FAIL  T0-DF-07     (f) a window resize repaints the units at once and resizes the z-index 8 and 9 overlay canvases to the map
+        FAIL  T0-DF-08     (g) NPS Auto Tour: dots inside the panel and clear of the text, day tabs and attribution free, X and Esc give the speed back
+FAIL    desktop.R1c            1/10 9 failed    111.1 s  tiles 178/300  desktop fixes T0-DF-01..09 (group A2) on R1c
+        FAIL  T0-DF-01     (a) after a click, a drag and a unit selection on the map the documented keys work (ArrowRight +1, Shift+ArrowRight +12, +/-/0 speed, Space play) and do not move the map
+        FAIL  T0-DF-02     (a) keyboard route: Tab reaches the map, arrows pan, = / - zoom it (Mapbox keys, tick and speed untouched); Esc gives focus back and the arrows step time again
+        FAIL  T0-DF-03     (b) paused: the unit canvas follows a mouse drag and a wheel zoom (a unit stays under its place); trail canvas is empty after a move; no stale screen-fixed monument overlay
+        FAIL  T0-DF-04     (c) Mapbox wordmark + attribution links are on top, above the dock and clear of the credit line and minimap at 1024x768, 1280x720, 1440x900, 1920x1080, 2560x1440
+        FAIL  T0-DF-05     (d) the story and event cards leave the zoom buttons, the Trails toggle, the minimap and the dock free; Esc dismisses the topmost card, panels and a selected unit go first
+        FAIL  T0-DF-06     (e) a filter change on a paused map is painted at once (no tick needed), and so is its reset
+        FAIL  T0-DF-07     (f) a window resize repaints the units at once and resizes the z-index 8 and 9 overlay canvases to the map
+        FAIL  T0-DF-08     (g) NPS Auto Tour: dots inside the panel and clear of the text, day tabs and attribution free, X and Esc give the speed back

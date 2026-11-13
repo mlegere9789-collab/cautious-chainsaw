@@ -1,7 +1,6 @@
 {
   "_doc": "The stated tolerances and conventions of the realization harness (gate Q17). These are rules of the CHECK, not historical claims. A record may ask for a tighter tolerance than these; it can never ask for a wider one (check.mjs refuses it). Changing a value here changes what counts as realized, so it is a recorded decision (GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md, DD-RZ-01 to DD-RZ-04) and it changes the harness digest printed in RESULTS.json.",
   "version": "bt-realize-1",
-
   "distance": {
     "_doc": "How far a unit (the centre of its block, as the stage places it) may be from a named place and still be 'at' it. The place's own radius is the tolerance: sigma_m of the entry. For entries of the product gazetteer (app/data/gazetteer.json) sigma_m is the value that file states; its builder (app/tools/build-gazetteer.mjs) derives it per kind as max(floor of the kind, 90th percentile distance of the name-bearing features from their centre). For places this harness adds from the structures, base-map and terrain data the same rule is applied with the floors below.",
     "measure": {
@@ -9,23 +8,89 @@
       "line": "distance from the unit's centre to the nearest point of the mapped line (road, lane, railway, stream)",
       "footprint": "distance from the unit's centre to the centre of the mapped footprint(s) of the structure"
     },
-    "floor_m_by_kind": { "ridge": 350, "hill": 250, "knoll": 200, "woods": 150, "field": 150, "orchard": 150, "farm": 80, "building": 40, "spring": 50, "area": 300, "town": 350, "bridge": 40, "work": 150, "wall": 150 },
+    "floor_m_by_kind": {
+      "ridge": 350,
+      "hill": 250,
+      "knoll": 200,
+      "woods": 150,
+      "field": 150,
+      "orchard": 150,
+      "farm": 80,
+      "building": 40,
+      "spring": 50,
+      "area": 300,
+      "town": 350,
+      "bridge": 40,
+      "work": 150,
+      "wall": 150
+    },
     "floor_basis": "ridge, hill, knoll, woods, field, orchard, farm, building, spring, area, town: the FLOOR table of app/tools/build-gazetteer.mjs (the product's own gazetteer rule; tests/governance/realize.test.mjs fails if that table changes). bridge: a point feature, the building floor. work, wall: no line of any work or wall is mapped in the repository, so the place its record names stands for it and the woods/field floor is the minimum.",
     "line_extra_m": 20,
     "line_basis": "a mapped line: the positional error its record states plus 20 m for the width of the way (the rule of app/tools/build-gazetteer.mjs for roads); streams use the same rule on the waterway lines of the base map (their product-gazetteer entries are centre-and-spread and are not used for distance)",
     "default_positional_error_m": 40,
     "off_ground_note": "A place outside the loaded ground (render/prototype/data/terrain.json: lng -77.272..-77.200, lat 39.783..39.838) can be resolved but no unit can be drawn there; a check against it reports place_off_ground."
   },
-
   "time": {
     "_doc": "The allowed window of a timeline row: every time a check uses must lie inside it. It is derived from the printed time cell of the row (the whole cell, see timeline.mjs parseTimeCell), or from the corrected claim when GOVERNANCE/timeline_corrections carries a machine-readable window.",
     "clock_tolerance_min": 20,
     "clock_basis": "PDF p.9 (B.2 column 2): Union and Confederate clocks 'differed by about 20 minutes ... that offset is not applied to any row, it is carried as uncertainty'. A printed clock time or clock range is widened by 20 minutes at each end; a phrase without a clock gets no extra margin.",
-    "sun_table_lmt": { "civil_dawn": "04:03", "sunrise": "04:35", "sunset": "19:32", "civil_dusk": "20:04" },
+    "sun_table_lmt": {
+      "civil_dawn": "04:03",
+      "sunrise": "04:35",
+      "sunset": "19:32",
+      "civil_dusk": "20:04"
+    },
     "sun_basis": "PDF p.9 (sunrise 04:35, sunset 19:32 on July 1, local mean time) and the PDF B.2.2 / B.10.2 sun table as tools/bt/timewindows.py uses it for the [DAWN], [DUSK] and [NIGHT] markers; one table for every date of the window (the same simplification as GOVERNANCE/timeline_windows.jsonl)",
     "day_parts": {
       "_doc": "A phrase without a clock time. [from, to] in minutes after midnight of the printed date (to > 1440 runs into the next date). Qualifiers early, mid, late and shortly are not given numbers: the phrase keeps the window of its base word.",
-      "pre-dawn": [0, 275], "dawn": [243, 275], "morning": [0, 720], "noon": [720, 720], "afternoon": [720, 1204], "evening": [1080, 1440], "dusk": [1172, 1204], "after-dark": [1172, 1683], "night-late": [1204, 1683], "night-early": [0, 243], "midnight": [0, 0], "day": [0, 1440]
+      "pre-dawn": [
+        0,
+        275
+      ],
+      "dawn": [
+        243,
+        275
+      ],
+      "morning": [
+        0,
+        720
+      ],
+      "noon": [
+        720,
+        720
+      ],
+      "afternoon": [
+        720,
+        1204
+      ],
+      "evening": [
+        1080,
+        1440
+      ],
+      "dusk": [
+        1172,
+        1204
+      ],
+      "after-dark": [
+        1172,
+        1683
+      ],
+      "night-late": [
+        1204,
+        1683
+      ],
+      "night-early": [
+        0,
+        243
+      ],
+      "midnight": [
+        0,
+        0
+      ],
+      "day": [
+        0,
+        1440
+      ]
     },
     "day_part_basis": {
       "pre-dawn": "before sunrise (04:35)",
@@ -40,17 +105,30 @@
       "midnight": "00:00 widened by the clock tolerance, at the start or the end of the printed date; between the two dates when two are printed",
       "day": "the whole printed date: 'all day', no phrase, or a phrase tied to another event (cannonade, mid-advance, after the assault, totals)"
     },
-    "clock_range": { "battle": ["1863-06-26T00:00", "1863-07-15T00:00"], "epilogue": ["1863-11-18T00:00", "1863-11-20T00:00"] },
+    "clock_range": {
+      "battle": [
+        "1863-06-26T00:00",
+        "1863-07-15T00:00"
+      ],
+      "epilogue": [
+        "1863-11-18T00:00",
+        "1863-11-20T00:00"
+      ]
+    },
     "clock_range_basis": "app/src/clock.mjs BATTLE and EPILOGUE: the minutes the theatre can show. A row whose allowed window has no minute inside these ranges cannot be shown at its time (missing code time_outside_clock)."
   },
-
   "sampling": {
     "step_min": 1,
     "basis": "every whole minute of a check window is evaluated (the product is a function of time: app/src/stage.mjs); nothing is sampled sparsely"
   },
-
   "units": {
     "aggregate_rule": "A formation above the regiments (corps, division, brigade, battalion of artillery) is realized by its leaf units. Every leaf unit the layer lists on the field under it must be drawn and must satisfy the check; a leaf unit that is not drawn fails the check and is named in the result.",
     "moves_rule": "A unit moves in a window when the picture shows it marching (the activity timeline the figures are animated from: march, double_quick or gallop) at some minute of the window and its centre is in a different place at the end of the window than at its start. No distance threshold is set here: where the move goes is proven by the place relations of the check (from, to, toward, along), each with the tolerance of its place."
+  },
+  "weather": {
+    "_doc": "How far the picture's weather may be from a number a row prints. These are rules of the CHECK, not historical claims. A record may ask for a tighter tolerance, never a wider one.",
+    "temp_f_tolerance": 1.0,
+    "temp_f_basis": "the environment layer interpolates linearly between the thermometer readings (08:00, 14:00, 21:00 and the printed 07:00 and 21:00 readings of Jacobs via the PDF, secondary source): at the minute of a reading the picture shows that reading, so a row that prints '60 F at 07:00' is matched to 1 F; between readings the interpolation is the product's own and a row that prints a reading is checked at the minute it prints.",
+    "cloud_fraction_note": "cloud cover is checked by thresholds the record states (cloud_min, cloud_max); the record's words ('overcast', 'clear') are not given numbers here"
   }
 }

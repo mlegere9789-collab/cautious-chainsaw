@@ -10,6 +10,7 @@ import { esc, ic, pill, regLink, fmtN, debounce } from './util.mjs';
 import { strengthDrawn } from '../history/contract.mjs';
 import { mountLayersBlock, mountStructScenarios } from './structures-ui.mjs';
 import { soundPanel, mountSoundBlock } from './sound-panel.mjs';
+import { mountExtToggles } from './ext-panel.mjs';
 
 export const PANELS = {};
 const own = (name, th, fn) => { const ps = new Scope(name); PANELS[name].dispose = () => { ps.dispose(); PANELS[name].dispose = null; }; fn(ps); };
@@ -81,7 +82,7 @@ PANELS.views = {
         <div class="seg" role="tablist" aria-label="Kinds of view" id="vw-tabs" style="margin-top:0"><button role="tab" data-tab="tour" aria-selected="true" aria-pressed="true">Tour stops (${B.tour.length})</button><button role="tab" data-tab="mon" aria-selected="false" aria-pressed="false">Monuments (${B.monuments.length})</button><button role="tab" data-tab="unit" aria-selected="false" aria-pressed="false">Units</button><button role="tab" data-tab="saved" aria-selected="false" aria-pressed="false">Saved</button></div>
         <div id="vw-tools"></div><ul class="list" id="vw-list"></ul>`;
       const tools = body.querySelector('#vw-tools'), list = body.querySelector('#vw-list');
-      mountLayersBlock(body, th, ps);
+      mountLayersBlock(body, th, ps); mountExtToggles(body, th, ps);       // the structure switches, then the switches of the added layers (none: nothing is drawn)
       const monIn = m => { const [x, z] = th.geo.xz(m.lng, m.lat); return th.geo.inside(x, z, 0); };
       const sideName = s => s;
       function draw() {

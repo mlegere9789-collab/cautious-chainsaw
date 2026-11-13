@@ -1,5 +1,6 @@
-// Shader sources of the effect layer. NOT COMPILED OR RUN in this round (no browser, no GPU: Release 1 acceptance is timing the machine). The CPU functions in core.mjs, wind.mjs, pack.mjs
-// are the reference; every formula below is a port, and docs/BROWSER-VERIFICATION-LIST-FX3D.md lists the readback comparison that must pass before anything is claimed about the look.
+// Shader sources of the effect layer. The CPU functions in core.mjs, wind.mjs, pack.mjs are the reference; every formula below is a port, and docs/BROWSER-VERIFICATION-LIST-FX3D.md lists the
+// readback comparison that must pass before anything is claimed about the look. Status: GLSL_VERT / GLSL_FRAG and WGSL_RENDER compile and draw on software adapters (SwiftShader WebGL2 and
+// SwiftShader WebGPU, through src/weather3d/gl.mjs and gpu.mjs); nothing has run on a real GPU. WGSL_COMPUTE has not been compiled into a pipeline (see the note above it).
 //
 // Two paths, one particle definition:
 //  * WebGL2 (the fallback, no transform feedback, no compute): one instanced draw of 4-vertex strips, instance s = sprite number (+ uFirst). The vertex shader finds the event of sprite s by binary
@@ -100,7 +101,7 @@ void main(){
     vCol = vec4(mix(vec3(1.0, 0.85, 0.55), vec3(1.0, 0.45, 0.12), x01) * mass0 * env * 0.1, 1.0); gl_Position = uVP * vec4(c, 1.0); vViewZ = dot(c - uCam, cross(uUp, uRight)); return;
   } else if (ty == 12){                                                                             // fuze trail: sparks along the flight, orange, short-lived
     float dt = max(A2, 0.01); float tj = min(float(i) * dt, A1); float since = age - tj; float v0 = length(a2.xyz);
-    if (since < 0.0 || tj > A1 || since > 0.5) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); return; }
+    if (since < 0.0 || float(i) * dt > A1 || since > 0.5) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); return; }
     vec2 w = windDisp(since); c = a0.xyz + a2.xyz * tj - vec3(0.0, 4.903325 * tj * tj, 0.0) + vec3(w.x, 0.0, w.y) + vec3(g3(seed, ui, 0u), g3(seed, ui, 1u), g3(seed, ui, 2u)) * 0.05;
     size = 0.06; vRs = size; vKind = 4.0; vOD = 0.0; vCol = vec4(vec3(1.0, 0.55, 0.15) * 3.0 * (1.0 - since / 0.5), 1.0);
   } else if (ty == ${C.TYPES.FLAME}){                                                               // fire: flame tongues rising from a footprint, flicker from hashes of time
@@ -189,6 +190,7 @@ fn F(e: u32, k: u32) -> f32 { return ev[e * GSTRIDE + k]; }
     let sh = sqrt(sig0 * sig0 + 2.0 * K * age + beta * age * age * age); let sv = sqrt(sig0 * sig0 + vr * (2.0 * K * age + beta * age * age * age));
     let mass = mass0 * exp(-age / tauDis); let s24 = seed & 0xffffffu;
     let off = vec3<f32>(g3(s24, i, 0u) * sh, g3(s24, i, 1u) * sv, g3(s24, i, 2u) * sh) * 0.8;
+    cc.y = max(cc.y, gnd + 0.0);
     c = cc + off; c.y = max(c.y, gnd + 0.05);
     let rs = SPRITE_K * sh * (0.6 + 0.8 * jit); size = rs; o.rs = rs;
     let dusty = (ty == 10 || ty == 8 || ty == 9 || ty == 7);

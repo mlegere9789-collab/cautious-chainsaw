@@ -1,6 +1,6 @@
 {
  "name": "Battle Theatre staging",
- "version": "bb0d74d2",
+ "version": "8d19ce14",
  "source": "docs/battle-theatre",
  "files": [
   {
@@ -15,8 +15,8 @@
   },
   {
    "path": "GOVERNANCE/register_index.json",
-   "bytes": 593273,
-   "sha256": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c"
+   "bytes": 8659,
+   "sha256": "20371c6211319e544377146b960ca5d77a9b4c9c71cad56152d7cb98fa0bd436"
   },
   {
    "path": "GOVERNANCE/timeline_seed.jsonl",
@@ -209,6 +209,16 @@
    "sha256": "4aebf577df1d55e033bb210c0f50c57751447440a31d24155a7e3ba0d4a56d63"
   },
   {
+   "path": "app/data/site-memorials.json",
+   "bytes": 124219,
+   "sha256": "7739ac309015502528444c8059c6e67fd48b463840c3f05f9abf48f0da9d9dd6"
+  },
+  {
+   "path": "app/data/site-tour-stops.json",
+   "bytes": 3910,
+   "sha256": "2b62b82dea42b8cc4be27f9375d5885c1b348695611391695e18d1b83e686a99"
+  },
+  {
    "path": "app/data/structures3d.json",
    "bytes": 469623,
    "sha256": "a9fc7ee84a0498ae8b90e45ff2764d78b93cfc26046bbbea84277860ad1c3637"
@@ -220,8 +230,8 @@
   },
   {
    "path": "app/index.html",
-   "bytes": 12917,
-   "sha256": "022c34e24154013525bab20c0f422bb4626f3251fa47bfb60bddf26a4719a674"
+   "bytes": 13483,
+   "sha256": "d394d1c7c273a2bbb9e8a5d58416282a1b359368d2358b52e5943f8db6fc9473"
   },
   {
    "path": "app/src/anim3d/authoring.mjs",
@@ -549,6 +559,26 @@
    "sha256": "80313579369cf8165cc73f17143e120d41d573311ec5b5f7d85f049fc16d87ac"
   },
   {
+   "path": "app/src/ext/index.mjs",
+   "bytes": 375,
+   "sha256": "4dd4dd82aad6af844e5b2fea46d962f88df6ee5862f8578ab6f59b1e08d98284"
+  },
+  {
+   "path": "app/src/ext/monuments.mjs",
+   "bytes": 15687,
+   "sha256": "571e8f6b5cea67e0640e2334b643c664f3bd7f683ce5b1e7582d18bc6a7a6c9b"
+  },
+  {
+   "path": "app/src/ext/site-places.mjs",
+   "bytes": 42753,
+   "sha256": "742fff2be620e4be97bd7b66f027aea16a7f6694edf32cc2c83172e81faf19b5"
+  },
+  {
+   "path": "app/src/ext/tour.mjs",
+   "bytes": 6250,
+   "sha256": "2af7c90c45152ee47e1a81f69b349480b4746d7e648e1568f66974ff563ed1bc"
+  },
+  {
    "path": "app/src/figures3d/acw-tiers.mjs",
    "bytes": 1243,
    "sha256": "3c390440f163e12598c87d8adc9946d0f23a6405b8b03ff07cd51a80f719342a"
@@ -725,8 +755,8 @@
   },
   {
    "path": "app/src/fx-host.mjs",
-   "bytes": 10120,
-   "sha256": "20115e04ddda30485df322e44b8f5c51d72ab6c2460282f540719abe9e12df64"
+   "bytes": 13202,
+   "sha256": "a373b30c380c9936191814fd4f6b5d34e99c2fd4de34a7477a45cf993f06f5e4"
   },
   {
    "path": "app/src/fx3d/budget.mjs",
@@ -780,8 +810,8 @@
   },
   {
    "path": "app/src/fx3d/shaders.mjs",
-   "bytes": 28851,
-   "sha256": "eb1486591bf52e8fefe685bed9c175570e89b8143a3b1505b4291ff9bc46feb0"
+   "bytes": 29076,
+   "sha256": "839c5d2a6a9c677ea9879ac2c40e5b6ba1006a05b24a0e61b4653faeffe06f76"
   },
   {
    "path": "app/src/fx3d/store.mjs",
@@ -890,8 +920,8 @@
   },
   {
    "path": "app/src/render-host.mjs",
-   "bytes": 7101,
-   "sha256": "e1c9fd70c3cbedc405397afc14b46e9d8b20ce0f621492a9882e08d4b9f945c7"
+   "bytes": 8742,
+   "sha256": "39b54542c14713303521adc691021aaa519cdd88e49a4454bd0cedb964dcd37c"
   },
   {
    "path": "app/src/scenario-defaults.mjs",
@@ -960,8 +990,8 @@
   },
   {
    "path": "app/src/theatre.mjs",
-   "bytes": 30053,
-   "sha256": "c2cd19f0211e7d6e2d9918234b2a22d31b2a74f614b68081af18d7f912e73137"
+   "bytes": 32076,
+   "sha256": "00272b9b3587ff3f55007468d54dfef6c380d08a01961dd2ccc94c89a522e218"
   },
   {
    "path": "app/src/ui/card-sections.mjs",
@@ -975,13 +1005,23 @@
   },
   {
    "path": "app/src/ui/chrome.mjs",
-   "bytes": 9630,
-   "sha256": "6b0a999880eefcff8153234620c8f3041e760e18fcac98a2298851aeae202cbf"
+   "bytes": 10291,
+   "sha256": "2daddcb720efaeceda9ba274e8299b993fa75f9007144c2cd8b0ac8dd7978d86"
   },
   {
    "path": "app/src/ui/dock.mjs",
    "bytes": 8604,
    "sha256": "8a029b746999f1c6063b92f3e17215b9493fac5cc0ad418a3017ebf4399a7f0c"
+  },
+  {
+   "path": "app/src/ui/ext-panel.mjs",
+   "bytes": 8831,
+   "sha256": "e154fa9902cd5683a39541dd7b41fcf7d44511cbcec5cafc993ce5c9070322b0"
+  },
+  {
+   "path": "app/src/ui/extensions.mjs",
+   "bytes": 21345,
+   "sha256": "3cb3bc856de3b6003b399a196d37711403031655baea4122c194899b27114ee1"
   },
   {
    "path": "app/src/ui/object-card.mjs",
@@ -990,8 +1030,8 @@
   },
   {
    "path": "app/src/ui/panels.mjs",
-   "bytes": 31779,
-   "sha256": "50b1ede1e2a7300a70cf0ee73b88bfebf38f7c9a7852bae8b678c20d49e113a3"
+   "bytes": 31958,
+   "sha256": "1eadf75bca8031c9544ecb37394f9504ce92b72d53f7bcac9fc0672fb6e3e411"
   },
   {
    "path": "app/src/ui/sound-panel.mjs",
@@ -1014,9 +1054,19 @@
    "sha256": "d200db355f342b700a7cb5c558b621b1aba800cd9c30916a78a1bd6d9eee33a6"
   },
   {
+   "path": "app/src/weather3d/gpu.mjs",
+   "bytes": 15362,
+   "sha256": "a35bd9cbc6e077ba3c39d63c8b38b3fb9ab5825eeb29ac54bca175272bb9ea9d"
+  },
+  {
    "path": "app/src/weather3d/params.mjs",
    "bytes": 8362,
    "sha256": "becccbe05ccf13fcc25cd4b1e6d1ebf89ae58cbad892068b30a068b684d6891e"
+  },
+  {
+   "path": "app/src/weather3d/shaders-wgsl.mjs",
+   "bytes": 11918,
+   "sha256": "e3dbdae9ee18384bd05a5203a0e68aba414a67c7c9e00eddb1b07cd44afa667b"
   },
   {
    "path": "app/src/weather3d/shaders.mjs",
@@ -1035,8 +1085,8 @@
   },
   {
    "path": "app/styles.css",
-   "bytes": 25009,
-   "sha256": "5aca3d01ab58188c2ff0342e712d7aa63833a012caee1155146891553824986c"
+   "bytes": 26574,
+   "sha256": "5f5eeb4ffdb5344fe7770c5f04fcd9bc1ca88fb64929a7b0079fe3ce20a1dd98"
   },
   {
    "path": "environment/ephemeris_1863.json",
@@ -1066,7 +1116,7 @@
   {
    "path": "index.html",
    "bytes": 759,
-   "sha256": "a39b04d7111f505201397d30e3088dccde8e26e265e77db17b6b483425a0b3b7"
+   "sha256": "09a5cb10aae3ef83f7f11a9adbb2faf4c7c110ed3249e477fe2df7da4c95bf4a"
   },
   {
    "path": "kit/artillery_batteries.json",
@@ -1145,8 +1195,8 @@
   },
   {
    "path": "render/prototype/src/webgpu.mjs",
-   "bytes": 33523,
-   "sha256": "d4093261902b68f2653e18e36308c872a7f17926964a62fb524ec7ef537dc0ae"
+   "bytes": 33736,
+   "sha256": "1dd912836c6265f5c84e379ce9850e22b2869bd4503f8fe78a92fac802bb72e7"
   },
   {
    "path": "render/prototype/src/world.mjs",
@@ -1192,5 +1242,21 @@
  "notLoadedByShell": [
   "GOVERNANCE/timeline_verified.jsonl",
   "GOVERNANCE/decisions/conflict_defaults.json"
+ ],
+ "withheld": [
+  {
+   "pattern": "GOVERNANCE/register/**/*.md",
+   "files": 820,
+   "why": "Working copies of the evidence-gap register carry internal notes that the copy rules keep out of a published build. The \"Open register entry\" links of the unit card and the event panel answer 404 in this build until a public copy of the entries exists."
+  }
+ ],
+ "reduced": [
+  {
+   "path": "GOVERNANCE/register_index.json",
+   "keeps": [
+    "id"
+   ],
+   "why": "The shell reads only the entry ids (to know which timeline rows have a register entry); the working file also carries internal notes."
+  }
  ]
 }

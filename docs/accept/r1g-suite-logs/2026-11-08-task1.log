@@ -1,0 +1,21 @@
+run_suites: 8 suite(s), port base 8480, agent r1g
+FAIL    static.lib             8/10 (+1 skipped) 1 failed   14.8 s  tiles 68/300  browser harness self-test
+        FAIL  LIB-08       app helpers on the R1a build: chooseLayout, mapView, real drag/wheel move the camera (and do not on R0)
+PASS    deeplinks.R1c          12/12            169.6 s  tiles 30/300  deep links, moments.json, Turning Points (X7)
+PASS    desktop.R1c            10/10            109.3 s  tiles 10/300  desktop fixes T0-DF-01..09 (group A2) on R1c
+PASS    r1.clock               18/18            535.7 s  CLOCK: one clock for the whole site (T0-CLK-*) on the Release 1 candidate
+FAIL    r1.base1863            11/12 1 failed   177.5 s  tiles 60/300  BASE1863: the 1863 reconstruction as the map base (B63-*) on the Release 1 candidate
+        FAIL  T0-B63-11    static: the group's anchors matched once each, the Walkthrough span is byte-identical to the control, its own map still names the Mapbox style (untouched), nothing else names a satellite style, the til
+FAIL    r1.perf2               6/12 (+1 skipped) 5 failed  473.7 s  PERF2: compare/precompile/roster performance (T0-P2-*) on the Release 1 candidate
+        FAIL  T0-P2-01     compare (desktop, mouse): Dark on both maps never logs "Unable to perform style diff", has no long task and answers within 100 ms; the style really changes
+        FAIL  T0-P2-03     compare (desktop, mouse): 3D Terrain on a fresh page, and after Dark, answers within 100 ms with no long task, and the terrain is really switched on
+        FAIL  T0-P2-02     compare (phone, touch): Dark on both maps never logs "Unable to perform style diff", has no long task and answers within 100 ms; the style really changes
+        FAIL  T0-P2-04     compare (phone, touch): 3D Terrain on a fresh page, and after Dark, answers within 100 ms with no long task, and the terrain is really switched on
+        FAIL  T0-P2-07     app (desktop): the first press of Monuments has no long task, links no Mapbox program on demand, and the monuments are drawn
+FAIL    r1.wtpeer              2/4 2 failed       8.8 s  WTP: /watch-together does not close a Live Sync connection that is still being opened (T0-WTP-*, page group PG-zwt)
+        FAIL  T0-WTP-01    Host pressed twice while the first connection is still opening: no connecting peer is destroyed; the first one is retired when it has opened and the page shows only the newest
+        FAIL  T0-WTP-03    Join pressed twice with a code: same rule as Host (no connecting peer destroyed)
+FAIL    r1.ztail               5/7 (+1 skipped) 1 failed  131.9 s  ZTAIL: the dark style fog of /ground-remembers is off for the first frames (T0-ZT-*, page group PG-ztail) on the Release 1 candidate, against release/R1f/dist
+        FAIL  T0-ZT-01     /ground-remembers (phone), settled: the default view is pixel-identical to the control, the style's fog and globe projection are the style's own again, the layer list is unchanged, no console error
+
+run_suites: 3/8 suites OK; green tests 72/85; red-first proofs 0/0 (0 legacy tests red as required); 1621s -> tmp/r1g-pack/task1.json

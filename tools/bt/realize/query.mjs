@@ -13,7 +13,7 @@
 //
 // A time is a number of minutes since 1863-06-01 00:00 local mean time (app/src/clock.mjs) or 'YYYY-MM-DDTHH:MM'.
 import fs from 'node:fs'; import path from 'node:path'; import { pathToFileURL, fileURLToPath } from 'node:url';
-import { ROOT, BT, APP, GOV, readJSON, readJSONL, exists, rel, sha256File, toMin, isoOf, round, tokens, designators, fold } from './lib.mjs';
+import { ROOT, BT, APP, GOV, readJSON, readJSONL, exists, rel, sha256File, toMin, isoOf, round, tokens, designators, designatorHits, fold } from './lib.mjs';
 import { Places, distM, measure } from './gazetteer.mjs';
 
 const T_ = x => (typeof x === 'number' ? x : toMin(x));
@@ -64,7 +64,7 @@ export class Product {
     if (typeof spec === 'object') return { id: spec.id || 'custom', label: spec.label || 'custom', choices: { ...(spec.choices || {}) } };
     throw new Error(`unknown scenario "${spec}" (use 'default', 'pdf' or { choices })`);
   }
-  scene(spec = 'default') { const sc = this.scenarioSpec(spec), key = JSON.stringify([sc.id, sc.choices]); let s = this._scenes.get(key); if (!s) { s = new Scene(this, sc, key); this._scenes.set(key, s); } return s; }
+  scene(spec = 'default') { const sc = this.scenarioSpec(spec), key = JSON.stringify([sc.id, sc.choices]); let s = this._scenes.get(key); if (!s) { s = new Scene(this, sc, key, spec); this._scenes.set(key, s); } return s; }
   // ---- units: static facts
   unit(id) { const u = this.byId.get(id); return u || null; }
   ancestors(id) { const out = []; let u = this.byId.get(id); while (u && u.parent) { out.push(u.parent); u = this.byId.get(u.parent); } return out; }
@@ -88,10 +88,13 @@ export class Product {
   // the units a text names, with the reason: a regiment or battery by its designator ("6th Wisconsin" = 6 WI), a formation by the words of its own name (Early, Meredith's Iron Brigade), a brigade, division or
   // corps by its commander's surname. Place names are blanked first, so that "Cemetery Hill" never names a general Hill. -> [{ id, why, score }]
   unitsNamedIn(text) {
-    const blank = this._blank(text), tk = new Set(tokens(blank)), des = designators(blank), idx = this._unitIndex(), out = [];       // tokens() strips possessives
+    const blank = this._blank(text), tk = new Set(tokens(blank)), hits = designatorHits(blank), idx = this._unitIndex(), out = [];       // tokens() strips possessives
+    // a designator names a unit only if the words after it agree with the unit: "26th Pennsylvania Emergency Militia" is not the 26th PA Volunteers, "35th Va Cav Bn" is a cavalry unit, "1st Va Artillery" an artillery unit
+    const agrees = (h, u) => { const a = h.after; if (/^(emergency|militia|state militia)\b/.test(a)) return /militia/i.test(u.name); if (/^(cav|cavalry|cav bn)\b/.test(a)) return u.arm === 'cavalry'; if (/^(art|artillery|battery|btty|light artillery)\b/.test(a)) return u.arm === 'artillery'; return true; };
+    const des = { has: (k, u) => hits.some(h => h.key === k && agrees(h, u)) };
     for (const [id, x] of idx) {
       const u = this.byId.get(id); let why = null, score = 0;
-      if (x.designators.size && [...x.designators].some(d => des.has(d))) { why = 'designator ' + [...x.designators].filter(d => des.has(d)).join(','); score = 3; }
+      if (x.designators.size && [...x.designators].some(d => des.has(d, u))) { why = 'designator ' + [...x.designators].filter(d => des.has(d, u)).join(','); score = 3; }
       else if (!x.numbered && x.tokens.length && x.tokens.every(w => tk.has(w))) { why = 'name ' + x.tokens.join(' '); score = 2 + Math.min(2, x.tokens.length) / 10; }
       else if (['brigade', 'division', 'corps', 'army', 'artillery_brigade', 'artillery_battalion', 'artillery_group', 'group', 'command'].includes(x.level) && x.commanders.some(w => tk.has(w))) { why = 'commander ' + x.commanders.filter(w => tk.has(w)).join(','); score = 1; }
       if (why) out.push({ id, name: u.name, level: u.level, side: u.side, why, score });
@@ -111,7 +114,7 @@ export class Product {
     const m = await imp('src/structures/index.mjs'), inputs = this._sin || (this._sin = await m.loadStructureInputs(this.raw));
     const th = { layer: this.layer, stage: sc.stage, state: { scenario: sc.sc, layers: m.DEFAULT_LAYERS(), settings: {}, structPD: {}, structChoice: {}, trainChoice: null }, bus: { emit() {} } };
     const S = new m.Structures(th, inputs, this.T), byState = new Map();
-    for (const o of S.model.objects) { for (const k of [o.id, o.state_id, o.rec]) if (k) (byState.get(k) || byState.set(k, []).get(k)).push(o); }
+    for (const o of S.model.objects) { for (const k of new Set([o.id, o.state_id, o.rec])) if (k) (byState.get(k) || byState.set(k, []).get(k)).push(o); }
     return (sc._struct = { S, inputs, model: S.model, engine: S.engine, byState, th });
   }
   // ---- weather: the drawn state (app/src/weather3d/timeline.mjs WeatherTimeline.at) and the record (app/src/environment.mjs weatherAt), for a scenario's choices
@@ -167,8 +170,8 @@ export class Product {
 // one scenario: the stage's events, presence and activity timelines, and the per-minute frame
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 export class Scene {
-  constructor(P, sc, key) {
-    this.P = P; this.sc = sc; this.key = key; const { layer, world, T, geo, Stage } = P;
+  constructor(P, sc, key, spec = 'default') {
+    this.P = P; this.sc = sc; this.key = key; this.spec = spec; const { layer, world, T, geo, Stage } = P;
     this.stage = new Stage({ layer, world, T, geo }); this.info = this.stage.loadScenario(sc); this.both = layer.both(sc);
     this.stage.cache.build(P.clock.BATTLE.to * 60); this._frames = new Map(); this._segs = new Map(); this._ev = null;
   }

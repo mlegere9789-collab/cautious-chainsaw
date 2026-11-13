@@ -1,0 +1,315 @@
+[
+{
+"id": "VC-LIB-001",
+"src": "WS9:HASKELL-1908",
+"quote": "fields of wheat, now nearly ripe, with grass and pastures, with some peach orchards",
+"tier": "documented",
+"kind": "regional",
+"says": "In front of the Second and Third Corps (between Cemetery Ridge and the Emmitsburg road) the ground was cultivated: fields of wheat, now nearly ripe, grass and pastures, and some peach orchards.",
+"feature": "fields between Cemetery Ridge and the Emmitsburg road",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-02"
+},
+"about": {
+"crop": "wheat",
+"stage": "nearly_ripe"
+},
+"note": "Haskell, aide to General Gibbon, writing of the ground he saw on 1-2 July."
+},
+{
+"id": "VC-LIB-002",
+"src": "WS9:HASKELL-1908",
+"quote": "with fields of waving com",
+"tier": "documented",
+"kind": "regional",
+"says": "The same fields held waving corn (the OCR of the 1908 edition prints 'com' for corn).",
+"feature": "fields between Cemetery Ridge and the Emmitsburg road",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-02"
+},
+"about": {
+"crop": "corn"
+},
+"note": "OCR misreading kept in the quote."
+},
+{
+"id": "VC-LIB-003",
+"src": "WS9:HASKELL-1908",
+"quote": "There are some oaks of considerable growth, along the position of the right of the Second Corps, a group of small trees, sassafras and oak, in front of the right of the Second Division",
+"tier": "documented",
+"kind": "tree",
+"says": "Oaks of considerable growth stood along the right of the Second Corps, and a group of small sassafras and oak trees in front of the Second Division's right.",
+"feature": "trees on Cemetery Ridge (Ziegler's Grove to the Angle)",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-02"
+},
+"about": {
+"species": [
+"oak",
+"sassafras"
+]
+},
+"anchor": {
+"gz": "Ziegler's Grove",
+"bearing": 180,
+"dist_m": 300,
+"r_m": 450,
+"class": "woods"
+},
+"note": "The anchor spans the right of the Second Corps from Ziegler's Grove southward."
+},
+{
+"id": "VC-LIB-004",
+"src": "WS9:HASKELL-1908",
+"quote": "considerable woods immediately in front of the left of the Third Corps, and also to the West of, and near Round Top",
+"tier": "documented",
+"kind": "woodlot",
+"says": "There were considerable woods in front of the left of the Third Corps and west of and near Round Top.",
+"feature": "woods west of Round Top and in front of the Third Corps' left",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-02"
+},
+"about": {
+"canopy": "woods"
+}
+},
+{
+"id": "VC-LIB-005",
+"src": "WS9:HASKELL-1908",
+"quote": "the ripening grain, the luxuriant corn, the orchards, the grassy meadows",
+"tier": "documented",
+"kind": "regional",
+"says": "On the evening of 2 July Haskell recalled the fields in front of the Second and Third Corps as ripening grain, luxuriant corn, orchards and grassy meadows 'this morning'.",
+"feature": "fields in front of the Second and Third Corps",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat",
+"stage": "ripening",
+"other": [
+"corn",
+"meadow",
+"orchard"
+]
+},
+"note": "Meadows still 'grassy': not mown in that area on the morning of 2 July."
+},
+{
+"id": "VC-LIB-006",
+"src": "WS9:HASKELL-1908",
+"quote": "trampled by the countless feet of the combatants, plowed and scored by the shot and shell",
+"tier": "documented",
+"kind": "damage",
+"says": "By the evening of 2 July the fields in front of the Second and Third Corps, which had been ripening grain, corn, orchards and meadow that morning, were trampled by the combatants and scored by shot and shell.",
+"feature": "fields in front of the Second and Third Corps after the fighting of 2 July",
+"when": "1863-07-02",
+"about": {
+"damage": "trampled",
+"evening": true
+},
+"note": "'Mud' is Haskell's figure; the ground was dry on 2-3 July in the weather record."
+},
+{
+"id": "VC-LIB-007",
+"src": "WS9:BACH-STORY-1904",
+"quote": "in which wheat was standing uncut when the battle began",
+"tier": "documented",
+"kind": "crop",
+"says": "Bachelder: the wheat-field, an inclosure of several acres near Devil's Den, held wheat standing uncut when the battle began.",
+"feature": "Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat",
+"stage": "standing_uncut"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+},
+"note": "Bachelder collected the testimony of participants and of the farmers from 1863 on; the text is of 1870 and 1904."
+},
+{
+"id": "VC-LIB-008",
+"src": "WS9:NJ-FINAL-1891",
+"quote": "The wheat was up to our chins, and we could just see over the top of it",
+"tier": "documented",
+"kind": "crop",
+"says": "A soldier of the Sixth New Jersey marching through the Wheatfield on 2 July: the wheat was up to their chins.",
+"feature": "Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat",
+"height_words": "chin high",
+"height_m": [
+1.35,
+1.6
+],
+"height_derived": true
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+},
+"note": "A recollection written decades after the battle. The metres are an inference from chin height of a man of the time (about 1.5 m, 1.35 to 1.6 m allowing for height and ground); the quote documents the words, not the figure."
+},
+{
+"id": "VC-LIB-009",
+"src": "WS9:NJ-FINAL-1891",
+"quote": "we came near a battery in corn, to right flank and to the woods",
+"tier": "documented",
+"kind": "crop",
+"says": "Beyond the Wheatfield the same regiment came near a battery standing in corn.",
+"feature": "corn beside the Wheatfield",
+"when": "1863-07-02",
+"about": {
+"crop": "corn"
+},
+"anchor": {
+"poly": "LC-FIELD-0001",
+"class": "field",
+"r_m": 380,
+"exclude_self": true
+},
+"note": "Placed at the field nearest the Wheatfield that is not the Wheatfield: an inference from the march described."
+},
+{
+"id": "VC-LIB-010",
+"src": "WS9:NJ-TOOMBS-1888",
+"quote": "On the right of Smith's battery was a thin belt of woods, and into the open ground (a wheat-field) beyond it Winslow's battery of light twelve-pounders was placed",
+"tier": "documented",
+"kind": "crop",
+"says": "Winslow's battery was placed in a wheat-field beyond a thin belt of woods to the right of Smith's battery.",
+"feature": "wheat-field east of Houck's Ridge",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+},
+"note": "Toombs's history of the New Jersey troops; the field is the one the Third Corps' left faced (the Wheatfield or the small field beside it)."
+},
+{
+"id": "VC-LIB-011",
+"src": "WS9:FREMANTLE-1864",
+"quote": "where we ate quantities of cherries",
+"tier": "documented",
+"kind": "orchard",
+"says": "On 2 July Fremantle, riding to the extreme right of the Confederate line, ate quantities of cherries there.",
+"feature": "cherry trees at the Confederate right",
+"when": "1863-07-02",
+"about": {
+"species": "cherry",
+"fruit": "ripe_edible"
+},
+"note": "Date from the entry (Longstreet's divisions 'present to-day', 4.45 p.m. the attack). Not placed beyond 'the extreme right'."
+},
+{
+"id": "VC-LIB-012",
+"src": "WS9:FREMANTLE-1864",
+"quote": "all set to work to eat cherries",
+"tier": "documented",
+"kind": "orchard",
+"says": "On 5 July, on the march in retreat, the party halted at noon and ate cherries.",
+"feature": "cherry trees on the retreat road",
+"when": "1863-07-05",
+"about": {
+"species": "cherry",
+"fruit": "ripe_edible"
+},
+"note": "Under the heading '5th July (Sunday)' of the journal."
+},
+{
+"id": "VC-LIB-013",
+"src": "WS9:NJ-TOOMBS-1888",
+"quote": "stripping the cherry trees on every hand and enjoying a royal feast of that delicious fruit which abounded in profusion and perfection just at that time",
+"tier": "documented",
+"kind": "orchard",
+"says": "On about 27 June, marching to Frederick (Maryland), troops stripped the cherry trees, which abounded in profusion and perfection just then.",
+"feature": "cherry trees in Maryland",
+"when": "1863-06-27",
+"about": {
+"species": "cherry",
+"fruit": "ripe"
+},
+"note": "Letter of an officer of the Second New Jersey Brigade, quoted by Toombs in 1888. Maryland, 40 miles south of Gettysburg."
+},
+{
+"id": "VC-LIB-014",
+"src": "WS9:EVERETT-1864",
+"quote": "As the trees are not dead, though their foliage is gone",
+"tier": "documented",
+"kind": "regional",
+"says": "At the dedication on 19 November the speaker said the foliage of the trees was gone.",
+"feature": "trees at the National Cemetery, 19 November 1863",
+"when": "1863-11-19",
+"about": {
+"leaf": "off"
+},
+"note": "Said in the open air on Cemetery Hill; a figure of speech that rests on what the audience could see. The state of oak leaves that hang on in autumn is not stated."
+},
+{
+"id": "VC-LIB-015",
+"src": "WS9:GBG-COMPILER-1863-07-27",
+"quote": "Most of that cut was no doubt garnered yesterday",
+"tier": "documented",
+"kind": "regional",
+"says": "In the week to 27 July the wheat harvest was going on near Gettysburg: most of the wheat already cut had been garnered the day before; the crop was not materially injured by the late rains.",
+"feature": "wheat harvest near Gettysburg",
+"when": {
+"from": "1863-07-20",
+"to": "1863-07-27"
+},
+"about": {
+"crop": "wheat",
+"stage": "harvest_under_way"
+},
+"note": "Newspaper OCR is spaced and misread in places; only the words that match are quoted."
+},
+{
+"id": "VC-LIB-016",
+"src": "WS9:GBG-COMPILER-1863-06-22",
+"quote": "lay in your liquors for harvest",
+"tier": "inferred",
+"kind": "regional",
+"says": "An advertisement of 22 June told farmers to lay in their liquor for harvest 'now', so the harvest was expected within weeks.",
+"feature": "timing of the harvest",
+"when": "1863-06-22",
+"about": {
+"stage": "harvest_expected"
+},
+"note": "Weak: advertising copy. Used only to bound the earliest harvest from below."
+},
+{
+"id": "VC-LIB-017",
+"src": "WS9:BACH-WHATTOSEE-1889",
+"quote": "Cross' brigade of Caldwell's division formed in the Wheat-field and partly in woods south of it",
+"tier": "documented",
+"kind": "geometry",
+"says": "Cross's brigade formed in the Wheat-field and partly in the woods south of it.",
+"feature": "Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"adjacent": "woods_south"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+}
+},
+{
+"id": "VC-LIB-018",
+"src": "WS9:HASKELL-1908",
+"quote": "splintered, the fences prostrate, the harvest trodden in the mud",
+"tier": "documented",
+"kind": "damage",
+"says": "The orchards in front of the Second and Third Corps were splintered, the fences down and the standing harvest trodden down by the evening of 2 July.",
+"feature": "orchards and harvest in front of the Second and Third Corps after 2 July",
+"when": "1863-07-02",
+"about": {
+"damage": "trampled",
+"evening": true
+},
+"note": "A page header of the 1908 edition sits inside the sentence between 'orchards' and 'splintered'; the quote starts after it."
+}
+]

@@ -1,0 +1,181 @@
+run_suites: 79 suite(s), port base 8480, agent integrator
+PASS    static.gates           4/4                  0 s  build gates of the four trains (gate.json written by build.py)
+PASS    static.overlap         exit 0            31.1 s  geometric overlap audit of the patch set
+PASS    static.verify          10/10             11.3 s  verify_release: manifest, static crawl, dev pages, names, identity vs the baseline, cumulative, legacy and baseline pinned
+PASS    static.selftest        10/10             43.5 s  build system self-test (10 properties incl. determinism and ledger)
+PASS    static.baseline        17/17              9.7 s  baseline machinery self-test (17 cases: Netlify post-processing model, lock and build refusal, CRLF-aware patching, overlay guard, verify-live against a local Netlify fake, mirror -> reconstruct -> prove, JS/Python model parity, compare-zip of a downloaded deploy)
+PASS    static.baselinelock    exit 0             0.1 s  baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, no network)
+PASS    static.legal           13/13              0.4 s  privacy/terms fact base vs the built R1c tree
+PASS    static.lib             9/10 (+1 skipped)   21.2 s  tiles 118/300  browser harness self-test
+PASS    static.overlap.selftest 1/1               0.2 s  overlap audit self-test (6 cases incl. the failing ones: an anchor that no longer matches, an undeclared overwrite, an anchor with no source)
+PASS    static.hygiene         1/1                4.8 s  source hygiene of tools/t0, tests/t0, tools/ship and ops: no stray control bytes (a regex escape that reached the file as BACKSPACE), every script parses, every JSON file is valid
+PASS    static.ship            11/11              1.3 s  pack_zip self-test (tools/ship/pack_zip.py, the Netlify drag-and-drop zip: files at the zip root, byte-identical packs, a changed, extra or missing file or a wrong tree digest against manifest.json is refused, the staging variant differs in _headers only, the real R1c packs)
+PASS    static.fixes           11/11             72.6 s  release-verifier fixes self-test (11 cases: failed builds leave nothing deployable, ledger errors, gate cache beside --out, kill switch outside dist, opt-in legal group, stage guard, verify-url exit codes, stale-dist refusal, S5 asks the previous train)
+PASS    static.determinism     8/8               83.1 s  determinism: every train rebuilt into release/check/<train> is byte-identical to release/<train> (dist, manifest, anchors, gate, kill-switch copy)
+PASS    static.controls        exit 0            15.5 s  control trees for the red-first proofs and the opt-in legal variant built (R1c without A2, without the Mapbox precompile, without the mobile + shell fixes, and R1c with PG-legal with its gates on; each differs from the real R1c)
+PASS    r0.R0                  13/13             46.4 s  tiles 100/300  R0 acceptance (X1/X2) on R0
+PASS    r0.R1a                 13/13             50.5 s  tiles 104/300  R0 acceptance (X1/X2) on R1a
+FAIL    r0.R1b                 11/13 (+1 skipped) 1 failed   49.5 s  tiles 104/300  R0 acceptance (X1/X2) on R1b
+        FAIL  T0-R0-09     timing sanity (no Lighthouse): paint before app boot, splash is the LCP, no entrance fades, CLS
+PASS    r0.R1c                 12/13 (+1 skipped)   48.8 s  tiles 10/300  R0 acceptance (X1/X2) on R1c
+PASS    journeys.R1a           30/41 (+11 skipped)    233 s  tiles 153/300  desktop journeys J1-J8, inputs, group A on R1a
+PASS    journeys.R1b           31/41 (+10 skipped)  273.9 s  tiles 201/300  desktop journeys J1-J8, inputs, group A on R1b
+FAIL    journeys.R1c           40/41 1 failed   399.5 s  tiles 17/300  desktop journeys J1-J8, inputs, group A, group B on R1c
+        FAIL  T0-J7        J7 day 2/3 jump by tab and by keys 2/3: data loads within 2 s, minimap follows, dates stay July 1-3 (X6)
+FAIL    deeplinks.R1c          9/12 3 failed    344.2 s  tiles 10/300  deep links, moments.json, Turning Points (X7)
+        FAIL  T0-DL-04     junk parameters degrade to the defaults (tick 1, no unit, no Follow panel, home camera) with 0 errors and no script execution (X7)
+        FAIL  T0-DL-04b    junk map parameters leave the camera at home (ll=0,0 with z=abc); z alone moves only the zoom and is clamped to 11..18
+        FAIL  T0-DL-05     round trip: the unit panel's share button writes ?t=&u=&z=&ll=; loading that link reproduces tick, unit, zoom and centre (X7)
+PASS    desktop.R1a            10/10            153.7 s  tiles 157/300  desktop fixes T0-DF-01..09 (group A2) on R1a
+PASS    desktop.R1b            10/10            123.5 s  tiles 174/300  desktop fixes T0-DF-01..09 (group A2) on R1b
+PASS    desktop.R1c            10/10              153 s  tiles 10/300  desktop fixes T0-DF-01..09 (group A2) on R1c
+PASS    mobile.R1b             19/19              359 s  tiles 96/300  mobile shell matrix (X5) on R1b: portrait, landscape, misc, touch slices
+PASS    mobile.R1c             19/19            325.2 s  tiles 58/300  mobile shell matrix (X5) on R1c: portrait, landscape, misc, touch slices
+FAIL    mobilefix.R1b          28/29 1 failed   408.3 s  tiles 92/300  mobile + shell fixes T0-MFIX-01..12 on R1b: three viewport slices and the desktop-shell slice
+        FAIL  T0-MFIX-11   desktop shell: the Ask the Historian / Extra Features pills sit below modal layers, hide while a modal is open (Help, Bookmarks, onboarding, Walkthrough) and never overlap panels or cards
+FAIL    mobilefix.R1c          22/29 7 failed   776.5 s  tiles 62/300  mobile + shell fixes T0-MFIX-01..12 on R1c: three viewport slices and the desktop-shell slice
+        FAIL  T0-MFIX-02   D-02: Search-to-unit on the phone shell: popup + fly-to (last known keyframe), highlight, close deselects; ?u= deep links (with and without camera, not-yet-arrived, unknown id)
+        FAIL  T0-MFIX-02   D-02: Search-to-unit on the phone shell: popup + fly-to (last known keyframe), highlight, close deselects; ?u= deep links (with and without camera, not-yet-arrived, unknown id)
+        FAIL  T0-MFIX-12   zero uncaught exceptions and first-party console errors across the T0-MFIX flows (Mapbox tile noise and blocked Google requests ignored)
+        FAIL  T0-MFIX-02   D-02: Search-to-unit on the phone shell: popup + fly-to (last known keyframe), highlight, close deselects; ?u= deep links (with and without camera, not-yet-arrived, unknown id)
+        FAIL  T0-MFIX-12   zero uncaught exceptions and first-party console errors across the T0-MFIX flows (Mapbox tile noise and blocked Google requests ignored)
+        FAIL  T0-MFIX-10   desktop shell: the Extra Features menu has a viewport-sized max-height with internal scrolling: every entry reachable (wheel, keyboard), Escape returns focus
+        FAIL  T0-MFIX-11   desktop shell: the Ask the Historian / Extra Features pills sit below modal layers, hide while a modal is open (Help, Bookmarks, onboarding, Walkthrough) and never overlap panels or cards
+PASS    perf.R0                3/10 (+7 skipped)   27.5 s  perf PF-01..10 on R0 (PF-01..06 skip on R0: no PERF group by design)
+PASS    perf.R1a               8/10 (+2 skipped)   54.7 s  perf PF-01..10 on R1a (PF-01..06 skip on R0: no PERF group by design)
+PASS    perf.R1b               9/10 (+1 skipped)   41.8 s  perf PF-01..10 on R1b (PF-01..06 skip on R0: no PERF group by design)
+PASS    perf.R1c               9/10 (+1 skipped)   39.6 s  perf PF-01..10 on R1c (PF-01..06 skip on R0: no PERF group by design)
+PASS    a11y.R1b               26/28 (+2 skipped)  516.8 s  a11y bridge (axe, keyboard, contrast) on R1b (AX without CP)
+PASS    a11y.R1c               26/28 (+2 skipped)  564.4 s  a11y bridge on R1c
+PASS    a11y.R1a.chooser       1/1                9.5 s  a11y: the legacy layout chooser is a keyboard-operable dialog on R1a (A11Y-28, group A extension A+chooser; R0 keeps the legacy chooser by design)
+PASS    a11y.R1c.tiles         1/1               24.7 s  a11y with real tiles (A11Y-14, production Referer, capped)
+PASS    copy.R1c               4/4               53.7 s  truthful-copy subset (CP-01..04: copy rows, Help rows, the keyboard-route row)
+PASS    pagescore.R1a          28/28            327.3 s  page defect pack PGC-01..27 on R1a
+PASS    pagescore.R1b          28/28            325.5 s  page defect pack PGC-01..27 on R1b
+PASS    pagescore.R1c          28/28              327 s  page defect pack PGC-01..27 on R1c
+PASS    pagescore.R1c.real     1/1                4.9 s  tiles 20/300  PGC-28 Watch Together + Immersive with the real Mapbox library
+PASS    pagescore.R1c.full     1/1              317.8 s  PGC-01 duplicate-id sweep of every page under 0/300/1500/4000 ms data delay (X11)
+FAIL    pagesmaps.R1a          14/34 20 failed   18.3 s  tiles 100/300  map sub-pages, og card, manifest (PG-01..08) on R1a
+        FAIL  PG-02-camera camera: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-cinematic-export cinematic-export: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-compare compare: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-ground-remembers ground-remembers: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-immersive immersive: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-sandbox sandbox: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-viewshed viewshed: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-watch-together watch-together: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+FAIL    pagesmaps.R1b          14/34 20 failed     18 s  tiles 100/300  map sub-pages, og card, manifest (PG-01..08) on R1b
+        FAIL  PG-02-camera camera: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-cinematic-export cinematic-export: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-compare compare: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-ground-remembers ground-remembers: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-immersive immersive: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-sandbox sandbox: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-viewshed viewshed: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-watch-together watch-together: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+FAIL    pagesmaps.R1c          14/34 20 failed   17.7 s  tiles 116/300  map sub-pages, og card, manifest (PG-01..08) on R1c
+        FAIL  PG-02-camera camera: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-cinematic-export cinematic-export: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-compare compare: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-ground-remembers ground-remembers: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-immersive immersive: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-sandbox sandbox: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-viewshed viewshed: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+        FAIL  PG-02-watch-together watch-together: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+FAIL    pagesfix.R1a           0/21 21 failed     0.5 s  sub-page fixes T0-PGF-01..19 on R1a (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)
+        FAIL  T0-PGF-01a   axe: 0 serious / critical violations on all 24 sub-pages (and on the map app on trains that carry its a11y bridge, R1b+) at 1440x900, also with the nav menu open
+        FAIL  T0-PGF-01b   axe: 0 serious / critical violations on all 24 sub-pages (and on the map app on trains that carry its a11y bridge, R1b+) at 375x812, also with the nav menu open
+        FAIL  T0-PGF-02    no horizontal overflow and no layout-viewport expansion on any of the 25 pages at 375 and 320 px (sandbox was 527 px, 19 pages were 329 px at 320)
+        FAIL  T0-PGF-03a   targets at 375 px: every button, link, field, select, slider and checkbox is at least 44 px tall and wide (links inside a sentence and Mapbox's own attribution excepted)
+        FAIL  T0-PGF-03b   targets at 1440 px: at least 24 px (the nav, footer and back link were 16-34 px)
+        FAIL  T0-PGF-04    no text under 12 px (SVG text as drawn, nav menu included) on the 24 sub-pages at 375 and 1440 px
+        FAIL  T0-PGF-05    every field has an accessible name and no placeholder is under 4.5:1 (all 24 sub-pages and the map app on trains with its a11y bridge, 375 and 1440 px)
+        FAIL  T0-PGF-06    text over a solid background is at least 4.5:1 (3:1 for large text) on the 24 sub-pages (DOM estimate; text over images and gradients is left to axe)
+FAIL    pagesfix.R1b           0/21 21 failed     0.5 s  sub-page fixes T0-PGF-01..19 on R1b (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)
+        FAIL  T0-PGF-01a   axe: 0 serious / critical violations on all 24 sub-pages (and on the map app on trains that carry its a11y bridge, R1b+) at 1440x900, also with the nav menu open
+        FAIL  T0-PGF-01b   axe: 0 serious / critical violations on all 24 sub-pages (and on the map app on trains that carry its a11y bridge, R1b+) at 375x812, also with the nav menu open
+        FAIL  T0-PGF-02    no horizontal overflow and no layout-viewport expansion on any of the 25 pages at 375 and 320 px (sandbox was 527 px, 19 pages were 329 px at 320)
+        FAIL  T0-PGF-03a   targets at 375 px: every button, link, field, select, slider and checkbox is at least 44 px tall and wide (links inside a sentence and Mapbox's own attribution excepted)
+        FAIL  T0-PGF-03b   targets at 1440 px: at least 24 px (the nav, footer and back link were 16-34 px)
+        FAIL  T0-PGF-04    no text under 12 px (SVG text as drawn, nav menu included) on the 24 sub-pages at 375 and 1440 px
+        FAIL  T0-PGF-05    every field has an accessible name and no placeholder is under 4.5:1 (all 24 sub-pages and the map app on trains with its a11y bridge, 375 and 1440 px)
+        FAIL  T0-PGF-06    text over a solid background is at least 4.5:1 (3:1 for large text) on the 24 sub-pages (DOM estimate; text over images and gradients is left to axe)
+FAIL    pagesfix.R1c           0/21 21 failed     0.6 s  sub-page fixes T0-PGF-01..19 on R1c (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)
+        FAIL  T0-PGF-01a   axe: 0 serious / critical violations on all 24 sub-pages (and on the map app on trains that carry its a11y bridge, R1b+) at 1440x900, also with the nav menu open
+        FAIL  T0-PGF-01b   axe: 0 serious / critical violations on all 24 sub-pages (and on the map app on trains that carry its a11y bridge, R1b+) at 375x812, also with the nav menu open
+        FAIL  T0-PGF-02    no horizontal overflow and no layout-viewport expansion on any of the 25 pages at 375 and 320 px (sandbox was 527 px, 19 pages were 329 px at 320)
+        FAIL  T0-PGF-03a   targets at 375 px: every button, link, field, select, slider and checkbox is at least 44 px tall and wide (links inside a sentence and Mapbox's own attribution excepted)
+        FAIL  T0-PGF-03b   targets at 1440 px: at least 24 px (the nav, footer and back link were 16-34 px)
+        FAIL  T0-PGF-04    no text under 12 px (SVG text as drawn, nav menu included) on the 24 sub-pages at 375 and 1440 px
+        FAIL  T0-PGF-05    every field has an accessible name and no placeholder is under 4.5:1 (all 24 sub-pages and the map app on trains with its a11y bridge, 375 and 1440 px)
+        FAIL  T0-PGF-06    text over a solid background is at least 4.5:1 (3:1 for large text) on the 24 sub-pages (DOM estimate; text over images and gradients is left to axe)
+FAIL    pagesfix.R1c.legal     0/1 1 failed       0.4 s  T0-PGF-14 on R1c built with the opt-in PG-legal group (the privacy table is keyboard-reachable)
+        FAIL  T0-PGF-14    Privacy: a table that scrolls sideways can be reached with the keyboard (focusable, named region)
+PASS    static.legal.optin     19/19              0.3 s  privacy/terms fact base vs R1c built with PG-legal (exit 0 = no FAIL: the text matches the headers; the Street View delegation is disclosed, so the WARN of the default build is gone)
+PASS    r1.clock               18/18            593.7 s  CLOCK: one clock for the whole site (T0-CLK-*) on the Release 1 candidate
+PASS    r1.data                18/18               43 s  DATA: audited displayed data (T0-DATA-*) on the Release 1 candidate
+PASS    r1.monuments           19/20 (+1 skipped)    279 s  tiles 522/300  MON: the Monuments layer (MONL-*) on the Release 1 candidate
+PASS    r1.verifymon           16/16            380.7 s  MON verifier tests (VMON-*) on the Release 1 candidate
+FAIL    r1.anim                27/29 (+1 skipped) 1 failed  649.2 s  ANIM: continuous unit motion (T0-ANIM-*) on the Release 1 candidate
+        FAIL  T0-ANIM-B11  cost: 60 fps on the densest tick (desktop), 30 fps or more at 4x CPU on a phone, the engine never makes a long task and its own frame cost stays inside its budget
+FAIL    r1.base1863            11/12 1 failed   226.1 s  tiles 60/300  BASE1863: the 1863 reconstruction as the map base (B63-*) on the Release 1 candidate
+        FAIL  T0-B63-11    static: the group's anchors matched once each, the Walkthrough span is byte-identical to the control, its own map still names the Mapbox style (untouched), nothing else names a satellite style, the til
+PASS    r1.images              12/13 (+1 skipped)    8.9 s  IMG: only real images of Gettysburg (T0-RIMG-*) on the Release 1 candidate
+FAIL    r1.polish              4/13 (+4 skipped) 5 failed 1572.6 s  POLISH: one name per feature, layout, targets, welcome window, historian scroll (T0-POL-*) on the Release 1 candidate
+        FAIL  T0-POL-02    desktop layout: no card, rail, control or logo overlaps another at 1024..1920 wide (mouse and touch), over every story tick and a third of the event ticks; with a unit card open too
+        FAIL  T0-POL-04    phone and tablet shell, portrait and landscape: legend, overview, cards, header and the Mapbox logo never overlap; the logo stays visible above the cards
+        FAIL  T0-POL-05    targets: every control of the map is at least 32 px on a fine pointer and 44 px high on touch (width too from 1000 px on touch, 1100 px with a mouse); the toolbar still fits and nothing in it overlaps
+        FAIL  T0-POL-06    every toolbar and dock control takes a real click at its centre (elementFromPoint), and the time scrubber takes a click 12 px above and below its line
+        FAIL  T0-POL-13    the User Guide link and Toggle Units are reachable at 360, 390, 768, 1024, 1320, 1440 and 1920 wide, mouse and touch: in the toolbar where it has room, otherwise in the More to Explore menu or the phon
+FAIL    r1.polish.pair         3/4 1 failed     149.7 s  POLISH T0-POL-09..12 (the control and the build) on the matched pair of tools/t0/polish_pair.py (R1c + CLOCK,DATA,MON,ANIM without and with POLISH: R1e without POLISH cannot be built)
+        FAIL  T0-POL-09    input latency of the touched controls is unchanged (median within 6 ms of the control tree): legend, menu, speed, filters, welcome choice, historian ask
+FAIL    r1.perf2               5/12 (+1 skipped) 6 failed  483.4 s  PERF2: compare/precompile/roster performance (T0-P2-*) on the Release 1 candidate
+        FAIL  T0-P2-01     compare (desktop, mouse): Dark on both maps never logs "Unable to perform style diff", has no long task and answers within 100 ms; the style really changes
+        FAIL  T0-P2-03     compare (desktop, mouse): 3D Terrain on a fresh page, and after Dark, answers within 100 ms with no long task, and the terrain is really switched on
+        FAIL  T0-P2-02     compare (phone, touch): Dark on both maps never logs "Unable to perform style diff", has no long task and answers within 100 ms; the style really changes
+        FAIL  T0-P2-04     compare (phone, touch): 3D Terrain on a fresh page, and after Dark, answers within 100 ms with no long task, and the terrain is really switched on
+        FAIL  T0-P2-05     app (desktop): Unit Roster opens with no long task and within 100 ms, and ends with every unit row in the DOM
+        FAIL  T0-P2-07     app (desktop): the first press of Monuments has no long task, links no Mapbox program on demand, and the monuments are drawn
+PASS    r1.acc                 6/6                7.6 s  ACC: no casualty rate above 100 percent is printed as fact (T0-ACC-*): red on R1d, green from R1e
+FAIL    r1.perf4               8/13 (+1 skipped) 4 failed  210.4 s  PERF4: app-route blocking time and the sliced start-up (T0-P4-*) on the Release 1 candidate, against release/R1d/dist
+        FAIL  T0-P4-03     phone 4x, cold: the blocking time of / is at most 60 percent of the control (interleaved medians; R1d: 425-575 ms, R1e: 105-225 ms on a shared machine) and each cold load stays under 400 ms
+        FAIL  T0-P4-04     the map is complete after the sliced start-up: all product layers exist with the visibility BASE1863 gives them, both maps have performanceMetricsCollection off, the engine draws (phone and desktop), n
+        FAIL  T0-P4-06     the glyph warm runs in slices while the page boots: every measureText step is its own task (26 steps), none longer than 100 ms at 4x CPU, all of them done within 2.5 s
+        FAIL  T0-P4-07     days 2 and 3 arrive on the phone by themselves and a jump to day 3 straight after the load works (the idle request does not lose the day)
+FAIL    r1.perf5               0/9 (+1 skipped) 8 failed  306.2 s  PERF5: first frame of the Virtual Walkthrough and of the Monuments layer, heat layer of /ground-remembers (T0-P5-*) on the Release 1 candidate, against release/R1e/dist
+        FAIL  T0-P5-01     Virtual Walkthrough, settled: the map has its three layers in the original order with the default zoom range (0 to 24) and shows the 16 stops with their numbers and the monument dots, no console error
+        FAIL  T0-P5-02     Virtual Walkthrough: the overlay is painted before its map exists, the stops (circle + number) appear in one frame and the monument dots in a later one, and Back after a quick open leaves no map behind
+        FAIL  T0-P5-03     Monuments layer: the first toggle adds the four layers in the original order at once (out of view until their programs are queued), shows the dots first and the glow, ring and stars together a step lat
+        FAIL  T0-P5-04     Monuments layer: toggling off and on again in the middle of the first reveal, and again later, always ends with all four layers shown (a layer left out of its zoom range would be invisible for good)
+        FAIL  T0-P5-05     long tasks of the first click on the Virtual Walkthrough with a slow shader link (15 ms): the tree's longest task in the 450 ms window is under 50 ms and below the control's (interleaved, medians)
+        FAIL  T0-P5-06     long tasks of the first click on Monuments with a slow shader link (25 ms): no task over 50 ms in the 450 ms window on the tree (interleaved with the control, reported)
+        FAIL  T0-P5-07     /ground-remembers (phone): the heat layer is added in a task of its own, after the load event, with the same layer, source and paint as before; the slider and the play button work; no console error
+        FAIL  T0-P5-08     /ground-remembers phone 4x, cold, interleaved with the control: blocking time as the harness counts it (reported; the tree must not be worse than the control by more than 40 ms in the median, each load
+FAIL    r1.wtpeer              2/4 2 failed       8.8 s  WTP: /watch-together does not close a Live Sync connection that is still being opened (T0-WTP-*, page group PG-zwt)
+        FAIL  T0-WTP-01    Host pressed twice while the first connection is still opening: no connecting peer is destroyed; the first one is retired when it has opened and the page shows only the newest
+        FAIL  T0-WTP-03    Join pressed twice with a code: same rule as Host (no connecting peer destroyed)
+FAIL    r1.perf6               6/7 1 failed     842.4 s  PERF6: the Unit Roster list is virtualised, 3D Terrain off on a tilted map links no program in a frame (T0-P6-*, group PERF6 + page group PG-zperf6) on the Release 1 candidate, against release/R1f/dist
+        FAIL  T0-P6-06     compare (desktop): 3D Terrain switched on (click), off (Enter) and on (Space) in a style with fog links no shader program inside a frame (none above 8 ms) and no task reaches 50 ms; the control is meas
+FAIL    r1.ztail               5/7 (+1 skipped) 1 failed  131.8 s  ZTAIL: the dark style fog of /ground-remembers is off for the first frames (T0-ZT-*, page group PG-ztail) on the Release 1 candidate, against release/R1f/dist
+        FAIL  T0-ZT-01     /ground-remembers (phone), settled: the default view is pixel-identical to the control, the style's fog and globe projection are the style's own again, the layer list is unchanged, no console error
+PASS    r1.seo                 17/17              0.1 s  SEO: titles, descriptions, canonicals, sitemap, JSON-LD, Open Graph, crawlable links, no build-method wording (T0-SEO-*, page group PG-zseo) on the Release 1 candidate
+FAIL    baseline.walkguard     11/18 (+5 skipped) 2 failed  147.2 s  tiles 107/300  walkthrough guard T0-WG-01..17 on baseline/dist (what production serves): 16 tour stops, 512 monuments, Monuments tab, Back without leaks, keyboard, phone, layouts, the real Street View embed
+        FAIL  T0-WG-09     phone 375x812: Tools -> Virtual Walkthrough (group C): stops, the phone-branch map, Monuments tab, Back; before group C the phone shell has no such tile (intended)
+        FAIL  T0-WG-12     one run with real Mapbox tiles and the REAL Google Street View embed: the first-party console stays clean (known third-party Google noise is listed, not ignored silently)
+FAIL    walkguard.R0           11/18 (+6 skipped) 1 failed  106.9 s  tiles 106/300  walkthrough guard T0-WG-01..17 on R0 (every difference from production is a named capability of a group this train has; anything else fails)
+        FAIL  T0-WG-12     one run with real Mapbox tiles and the REAL Google Street View embed: the first-party console stays clean (known third-party Google noise is listed, not ignored silently)
+FAIL    walkguard.R1a          11/18 (+6 skipped) 1 failed  107.1 s  tiles 108/300  walkthrough guard T0-WG-01..17 on R1a (every difference from production is a named capability of a group this train has; anything else fails)
+        FAIL  T0-WG-12     one run with real Mapbox tiles and the REAL Google Street View embed: the first-party console stays clean (known third-party Google noise is listed, not ignored silently)
+FAIL    walkguard.R1b          13/18 (+4 skipped) 1 failed  115.1 s  tiles 130/300  walkthrough guard T0-WG-01..17 on R1b (every difference from production is a named capability of a group this train has; anything else fails)
+        FAIL  T0-WG-12     one run with real Mapbox tiles and the REAL Google Street View embed: the first-party console stays clean (known third-party Google noise is listed, not ignored silently)
+FAIL    walkguard.R1c          16/18 (+1 skipped) 1 failed  136.4 s  tiles 83/300  walkthrough guard T0-WG-01..17 on R1c (every difference from production is a named capability of a group this train has; anything else fails)
+        FAIL  T0-WG-12     one run with real Mapbox tiles and the REAL Google Street View embed: the first-party console stays clean (known third-party Google noise is listed, not ignored silently)
+FAIL    headers.R1c            16/18 (+1 skipped) 1 failed   67.8 s  R1c generated _headers/_redirects + real-Chrome framing and CSP crawl
+        FAIL  HDR-11       fixed-name files (manifest screenshots, og/twitter cards, icons, manifest.json, favicon) are never cached immutably; the only immutable class is /assets/* (hashed names)
+PASS    staging.R0             10/10                6 s  staging-verify --local rehearsal on R0 (S0-S10 against local emulators; S5 and the manual S11 are not part of a rehearsal)
+PASS    staging.R1a            10/10              6.5 s  staging-verify --local rehearsal on R1a (S0-S10 against local emulators; S5 and the manual S11 are not part of a rehearsal)
+PASS    staging.R1b            10/10              7.4 s  staging-verify --local rehearsal on R1b (S0-S10 against local emulators; S5 and the manual S11 are not part of a rehearsal)
+PASS    staging.R1c            9/9                7.4 s  staging-verify --local rehearsal on R1c (S0-S10 against local emulators; S5 and the manual S11 are not part of a rehearsal)
+PASS    baseline.drift         9/9              109.9 s  live drift: T0-BL-01..09 (hide-bar block, monuments overlay removed, animationend reveal, hide-bar block superseded in R1b/R1c and kept in R0/R1a, every train keeps the live index.html and terrain.json)
+
+run_suites: 51/79 suites OK; green tests 826/1073; red-first proofs 0/0 (0 legacy tests red as required); 13443s -> tmp/r1g-pack/suites-r1g-full2.json

@@ -19,24 +19,28 @@ export function mountChrome(th) {
   th.els.chrome = el;
   sc.on(el.back, 'click', () => th.opts.onBack?.());
   // ---- panels (one drawer at a time)
-  let openName = null, opener = null;
+  let openName = null, opener = null, openP = null;
   const tools = [...root.querySelectorAll('.tool[data-panel]')];
+  const panelOf = name => PANELS[name] || (th.panelFor ? th.panelFor(name) : null);      // the shell's own panels, then the added ones (ui/ext-panel.mjs)
   function openPanel(name, from) {
     if (openName === name) return closePanel(true);
-    openName = name; opener = from || tools.find(b => b.dataset.panel === name) || null; th.state.panel = name;
-    tools.forEach(b => b.setAttribute('aria-expanded', String(b.dataset.panel === name)));
-    const P = PANELS[name]; el.title.textContent = P.title; el.body.replaceChildren(); P.render(el.body, th); el.drawer.hidden = false; el.drawer.dataset.panel = name;
+    const P = panelOf(name); if (!P) return;                                               // no such panel (an added panel that is gone)
+    if (openName) { const prev = openName; openP?.dispose?.(); openP = null; th.bus.emit('panel-close', prev); }      // one drawer: the panel it replaces is ended first
+    const tool = PANELS[name] ? name : 'more';                                             // an added panel is reached through the More tool
+    openName = name; openP = P; opener = from || tools.find(b => b.dataset.panel === tool) || null; th.state.panel = name;
+    tools.forEach(b => b.setAttribute('aria-expanded', String(b.dataset.panel === tool)));
+    el.title.textContent = P.title; el.body.replaceChildren(); P.render(el.body, th); el.drawer.hidden = false; el.drawer.dataset.panel = name;
     sc.timeout(() => { const f = el.body.querySelector('[data-autofocus]') || el.body; f.focus({ preventScroll: true }); }, 30);
     th.bus.emit('panel-open', name);
   }
   function closePanel(restore) {
-    if (!openName) return; const name = openName; PANELS[name].dispose?.(); openName = null; th.state.panel = null; el.drawer.hidden = true; el.body.replaceChildren();
-    tools.forEach(b => b.setAttribute('aria-expanded', 'false')); if (restore && opener) opener.focus({ preventScroll: true }); th.bus.emit('panel-close', name);
+    if (!openName) return; const name = openName; openP?.dispose?.(); openP = null; openName = null; th.state.panel = null; el.drawer.hidden = true; el.body.replaceChildren();
+    tools.forEach(b => b.setAttribute('aria-expanded', 'false')); if (restore && opener && opener.isConnected && !opener.hidden) opener.focus({ preventScroll: true }); th.bus.emit('panel-close', name);
   }
   tools.forEach(b => sc.on(b, 'click', () => openPanel(b.dataset.panel, b)));
   sc.on($(root, '#bt-drawer-close'), 'click', () => closePanel(true));
   th.bus.on('panel', name => openPanel(name), sc);
-  sc.add(() => { PANELS[openName]?.dispose?.(); });
+  sc.add(() => { openP?.dispose?.(); openP = null; });
   // ---- evidence overlay
   function setOverlay(on) {
     th.state.overlay = on; el.ovBtn.setAttribute('aria-pressed', String(on)); el.legend.hidden = !on;

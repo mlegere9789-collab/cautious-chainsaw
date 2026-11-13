@@ -1,0 +1,23 @@
+(node:29287) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+run_suites: 28 suite(s), port base 8480, agent integrator
+PASS    r0.R1b                 12/13 (+1 skipped)   46.4 s  tiles 104/300  R0 acceptance (X1/X2) on R1b
+FAIL    journeys.R1c           40/41 1 failed   299.3 s  tiles 17/300  desktop journeys J1-J8, inputs, group A, group B on R1c
+        FAIL  T0-J7        J7 day 2/3 jump by tab and by keys 2/3: data loads within 2 s, minimap follows, dates stay July 1-3 (X6)
+PASS    deeplinks.R1c          12/12            181.4 s  tiles 30/300  deep links, moments.json, Turning Points (X7)
+FAIL    mobilefix.R1b          28/29 1 failed   434.6 s  tiles 92/300  mobile + shell fixes T0-MFIX-01..12 on R1b: three viewport slices and the desktop-shell slice
+        FAIL  T0-MFIX-11   desktop shell: the Ask the Historian / Extra Features pills sit below modal layers, hide while a modal is open (Help, Bookmarks, onboarding, Walkthrough) and never overlap panels or cards
+FAIL    mobilefix.R1c          27/29 2 failed  1026.9 s  tiles 60/300  mobile + shell fixes T0-MFIX-01..12 on R1c: three viewport slices and the desktop-shell slice
+        FAIL  T0-MFIX-02   D-02: Search-to-unit on the phone shell: popup + fly-to (last known keyframe), highlight, close deselects; ?u= deep links (with and without camera, not-yet-arrived, unknown id)
+        FAIL  T0-MFIX-11   desktop shell: the Ask the Historian / Extra Features pills sit below modal layers, hide while a modal is open (Help, Bookmarks, onboarding, Walkthrough) and never overlap panels or cards
+PASS    pagesmaps.R1a          34/34             91.8 s  tiles 101/300  map sub-pages, og card, manifest (PG-01..08) on R1a
+PASS    pagesmaps.R1b          34/34               85 s  tiles 100/300  map sub-pages, og card, manifest (PG-01..08) on R1b
+PASS    pagesmaps.R1c          34/34             95.1 s  tiles 112/300  map sub-pages, og card, manifest (PG-01..08) on R1c
+PASS    pagesfix.R1a           20/21 (+1 skipped)  603.2 s  tiles 15/300  sub-page fixes T0-PGF-01..19 on R1a (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)
+PASS    pagesfix.R1b           20/21 (+1 skipped)  564.7 s  tiles 15/300  sub-page fixes T0-PGF-01..19 on R1b (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)
+PASS    pagesfix.R1c           20/21 (+1 skipped)  574.3 s  tiles 15/300  sub-page fixes T0-PGF-01..19 on R1c (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)
+PASS    pagesfix.R1c.legal     1/1                2.3 s  T0-PGF-14 on R1c built with the opt-in PG-legal group (the privacy table is keyboard-reachable)
+FAIL    r1.anim                27/29 (+1 skipped) 1 failed  620.8 s  ANIM: continuous unit motion (T0-ANIM-*) on the Release 1 candidate
+        FAIL  T0-ANIM-B11  cost: 60 fps on the densest tick (desktop), 30 fps or more at 4x CPU on a phone, the engine never makes a long task and its own frame cost stays inside its budget
+FAIL    r1.base1863            11/12 1 failed   172.3 s  tiles 60/300  BASE1863: the 1863 reconstruction as the map base (B63-*) on the Release 1 candidate
+        FAIL  T0-B63-11    static: the group's anchors matched once each, the Walkthrough span is byte-identical to the control, its own map still names the Mapbox style (untouched), nothing else names a satellite style, the til

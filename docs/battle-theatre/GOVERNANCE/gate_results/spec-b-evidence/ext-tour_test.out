@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: the tour file is fit: 16 stops numbered 1 to 16 in order, each with a name, a label, the site's day and a place; 15 with a viewpoint of the site's own
+ok 1 - the tour file is fit: 16 stops numbered 1 to 16 in order, each with a name, a label, the site's day and a place; 15 with a viewpoint of the site's own
+  ---
+  duration_ms: 2.012118
+  type: 'test'
+  ...
+# Subtest: the file keeps a stop's name, label, day, place and viewpoint, and leaves the narration, the video, the street-level image and any key in the site
+ok 2 - the file keeps a stop's name, label, day, place and viewpoint, and leaves the narration, the video, the street-level image and any key in the site
+  ---
+  duration_ms: 0.555693
+  type: 'test'
+  ...
+# Subtest: every stop has a camera position over the loaded ground, above it, looking at the stop; 14 stops are on the ground (seen from the site's viewpoint), 2 beyond it (seen from the edge)
+ok 3 - every stop has a camera position over the loaded ground, above it, looking at the stop; 14 stops are on the ground (seen from the site's viewpoint), 2 beyond it (seen from the edge)
+  ---
+  duration_ms: 9.336644
+  type: 'test'
+  ...
+# Subtest: a stop on the ground is flown to exactly as the shell's own Views list flies there (flyToLngLat with the site's viewpoint, 30 m up), so the two never disagree
+ok 4 - a stop on the ground is flown to exactly as the shell's own Views list flies there (flyToLngLat with the site's viewpoint, 30 m up), so the two never disagree
+  ---
+  duration_ms: 0.819116
+  type: 'test'
+  ...
+# Subtest: gate hook checkTourBookmarks: ok on the real data and terrain; negative controls
+ok 5 - gate hook checkTourBookmarks: ok on the real data and terrain; negative controls
+  ---
+  duration_ms: 20.033333
+  type: 'test'
+  ...
+# Subtest: the words: a stop beyond the ground says how far beyond which edge; the pin says "modern tour stop"
+ok 6 - the words: a stop beyond the ground says how far beyond which edge; the pin says "modern tour stop"
+  ---
+  duration_ms: 2.001088
+  type: 'test'
+  ...
+# Subtest: module: at entry no pin shows and nothing is registered but the panel: no switch, no scene hook, no clock call
+ok 7 - module: at entry no pin shows and nothing is registered but the panel: no switch, no scene hook, no clock call
+  ---
+  duration_ms: 22.866326
+  type: 'test'
+  ...
+# Subtest: module: choosing a stop sends the camera there and shows the pin once the stop is in view; the clock, play and speed are never touched
+ok 8 - module: choosing a stop sends the camera there and shows the pin once the stop is in view; the clock, play and speed are never touched
+  ---
+  duration_ms: 6.86282
+  type: 'test'
+  ...
+# Subtest: module: a stop beyond the ground is flown to from the edge, the pin and the words say how far beyond; the camera stays over the ground
+ok 9 - module: a stop beyond the ground is flown to from the edge, the pin and the words say how far beyond; the camera stays over the ground
+  ---
+  duration_ms: 3.827026
+  type: 'test'
+  ...
+# Subtest: module: the panel lists the 16 stops, flies to the one that is picked, marks it, and takes the pin away; the pin's own close button does the same
+ok 10 - module: the panel lists the 16 stops, flies to the one that is picked, marks it, and takes the pin away; the pin's own close button does the same
+  ---
+  duration_ms: 5.862121
+  type: 'test'
+  ...
+# Subtest: module: Back leaves nothing and a second visit starts with no stop chosen; data that fails its checks is not offered; a visit that ended while the list was read starts nothing
+ok 11 - module: Back leaves nothing and a second visit starts with no stop chosen; data that fails its checks is not offered; a visit that ended while the list was read starts nothing
+  ---
+  duration_ms: 8.58805
+  type: 'test'
+  ...
+# Subtest: module: the file asks for nothing it must not: no scene hook, no clock, no document listener, no random numbers, no wall clock, nothing kept between visits
+ok 12 - module: the file asks for nothing it must not: no scene hook, no clock, no document listener, no random numbers, no wall clock, nothing kept between visits
+  ---
+  duration_ms: 0.558027
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 485.795059

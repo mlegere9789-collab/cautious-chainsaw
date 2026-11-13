@@ -1,0 +1,54 @@
+{
+ "finished": "see file mtime",
+ "seconds": 4,
+ "portBase": "8480",
+ "machine": {
+  "platform": "linux",
+  "cpus": 4,
+  "node": "v22.23.4"
+ },
+ "load1": {
+  "start": 5.17,
+  "end": 5.17
+ },
+ "childEnv": {
+  "httpsProxy": true,
+  "added": [
+   "NODE_USE_ENV_PROXY"
+  ]
+ },
+ "totals": {
+  "suites": 1,
+  "ok": 1,
+  "notOk": 0,
+  "greenTests": 1,
+  "greenTestsTotal": 1,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "pagesfix.R1c.legal",
+   "title": "T0-PGF-14 on R1c built with the opt-in PG-legal group (the privacy table is keyboard-reachable)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 3.9,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-PGF-14    Privacy: a table that scrolls sideways can be reached with the keyboard (focusable, named region)",
+    "pages-fixes: 1/1 passed",
+    "mapbox requests used this run: 0 of 300"
+   ],
+   "load1Start": 5.17,
+   "load1End": 5.17
+  }
+ ]
+}

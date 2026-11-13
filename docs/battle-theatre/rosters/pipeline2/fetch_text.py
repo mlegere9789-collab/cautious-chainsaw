@@ -56,6 +56,13 @@ def get(url, dest=None, tries=3):
     return last
 
 
+def pick(names, suffix):
+    """The one file of an item whose name ends with suffix.  Most items name their files <identifier>_hocr_searchtext.txt.gz, but
+    the *.emory.edu copies use <number>_<number>_hocr_searchtext.txt.gz, so the file is found by its ending, never by guessing."""
+    c = [n for n in names if n.endswith(suffix)]
+    return c[0] if len(c) == 1 else None
+
+
 def sha256_file(p):
     h = hashlib.sha256()
     with open(p, 'rb') as f:
@@ -99,18 +106,18 @@ def main():
         print('REFUSED: access-restricted item')
         return 1
     names = {f['name']: f for f in d.get('files', [])}
-    want = [(a.identifier + '_hocr_searchtext.txt.gz', 'text'), (a.identifier + '_hocr_pageindex.json.gz', 'pageindex'),
-            (a.identifier + '_page_numbers.json', 'page_numbers')]
-    if want[0][0] not in names or want[1][0] not in names:
+    want = [(pick(names, '_hocr_searchtext.txt.gz'), 'text'), (pick(names, '_hocr_pageindex.json.gz'), 'pageindex'),
+            (pick(names, '_page_numbers.json'), 'page_numbers')]
+    if want[0][0] is None or want[1][0] is None:
         led['failed'].append({'identifier': a.identifier, 'what': 'item has no hocr search text or page index; use xml_text.py',
-                              'has_djvu_xml': (a.identifier + '_djvu.xml') in names, 'at': now()})
+                              'has_djvu_xml': pick(names, '_djvu.xml') is not None, 'at': now()})
         json.dump(led, open(led_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
         print('NO SEARCH TEXT for', a.identifier)
         return 2
     files = {}
     old = led['texts'].get(text_id, {}).get('files', {})
     for name, role in want:
-        if name not in names:
+        if name is None or name not in names:
             continue
         dest = os.path.join(raw_dir, name)
         if os.path.exists(dest) and old.get(role, {}).get('sha256') == sha256_file(dest):

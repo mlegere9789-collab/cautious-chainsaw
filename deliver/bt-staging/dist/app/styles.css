@@ -174,6 +174,25 @@ a:hover { color: #fff; }
 .keys td { padding: 5px 0; border: 0; }
 .keys td:first-child { white-space: nowrap; padding-right: 14px; }
 
+/* added layers and panels (the More tool and its drawer) */
+.tool[data-alert="true"] { position: relative; }
+.tool[data-alert="true"]::after { content: ""; position: absolute; right: 5px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--gap); box-shadow: 0 0 0 2px rgba(10, 10, 20, .9); }
+.xp-list { margin: 0 0 6px; }
+.xp-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 46px; padding: 8px 6px 8px 4px; border: 0; border-top: 1px solid var(--line); background: none; text-align: left; font-size: 14px; color: var(--text); }
+.xp-item::after { content: "\203A"; flex: none; font-size: 20px; line-height: 1; color: var(--muted); }
+.xp-item:hover { background: rgba(255, 255, 255, .04); }
+.xp-bad { margin: 8px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--text-2); }
+.xp-bad li { padding: 7px 10px; margin-top: 6px; border-radius: 8px; border: 1px dashed rgba(239, 125, 107, .5); background: rgba(239, 125, 107, .06); overflow-wrap: anywhere; }
+.xp-bad b { color: var(--text); font-weight: 600; }
+.xp-back { margin: 0 0 14px; }
+.xp-back .btn-s { min-height: 32px; font-size: 12.5px; }
+.xp-body .fail { font-size: 13px; }
+#xl-block > h3:first-child { margin-top: 0; }
+#ly-block + #xl-block > h3:first-child { margin-top: 14px; }
+.tier-mark { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+.tier-note { overflow-wrap: anywhere; }
+.pill[data-tier="none"] { color: var(--muted); border-style: dashed; white-space: normal; }
+
 /* dock */
 .dock { position: absolute; z-index: 20; left: 0; right: 0; bottom: 0; height: calc(var(--dock-h) + var(--safe-b)); padding: 10px var(--gut) var(--safe-b); background: linear-gradient(0deg, rgba(10, 10, 20, .92), rgba(10, 10, 20, .74)); border-top: 1px solid rgba(58, 58, 86, .6); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); }
 .dock-row { display: flex; align-items: center; gap: 14px; height: 46px; }

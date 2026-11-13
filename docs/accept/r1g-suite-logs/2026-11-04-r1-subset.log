@@ -1,0 +1,33 @@
+run_suites: 10 suite(s), port base 8480, agent r1g
+FAIL    r1.clock               16/18 2 failed   599.9 s  CLOCK: one clock for the whole site (T0-CLK-*) on the Release 1 candidate
+        FAIL  T0-CLK-12    sub-pages: Compare, Camera, Immersive, Living Ledger, Documentary, Education, Turning Points, Search, Regiment, Sandbox, Cinematic export, Ground Remembers and Watch Together print model clocks (no "Ti
+        FAIL  T0-CLK-15    ticks stay permanent frame ids: the same units stand on the same frames as in the control tree (R1c), ?tick= lands on the same frame, playback still advances
+PASS    r1.data                18/18             41.3 s  DATA: audited displayed data (T0-DATA-*) on the Release 1 candidate
+FAIL    r1.base1863            4/7 3 failed    1806.2 s  BASE1863: the 1863 reconstruction as the map base (B63-*) on the Release 1 candidate
+        FAIL  T0-B63-05    beyond coverage: neutral ground colour, no 404, no console error, also at z16 to z18 outside the detail rectangle
+        FAIL  T0-B63-06    tile errors: tiles that fail (offline) raise no uncaught exception, show the status text and the neutral ground; when the connection is back the tiles load and the status clears
+        FAIL  T0-B63-07    the product's overlays on the new base: layer order, catalogue geometry for the labels, old hand-placed lines gone, units canvas and a unit panel on top
+PASS    r1.images              12/13 (+1 skipped)    8.9 s  IMG: only real images of Gettysburg (T0-RIMG-*) on the Release 1 candidate
+FAIL    r1.perf2               4/12 (+1 skipped) 7 failed  492.8 s  PERF2: compare/precompile/roster performance (T0-P2-*) on the Release 1 candidate
+        FAIL  T0-P2-01     compare (desktop, mouse): Dark on both maps never logs "Unable to perform style diff", has no long task and answers within 100 ms; the style really changes
+        FAIL  T0-P2-03     compare (desktop, mouse): 3D Terrain on a fresh page, and after Dark, answers within 100 ms with no long task, and the terrain is really switched on
+        FAIL  T0-P2-02     compare (phone, touch): Dark on both maps never logs "Unable to perform style diff", has no long task and answers within 100 ms; the style really changes
+        FAIL  T0-P2-04     compare (phone, touch): 3D Terrain on a fresh page, and after Dark, answers within 100 ms with no long task, and the terrain is really switched on
+        FAIL  T0-P2-05     app (desktop): Unit Roster opens with no long task and within 100 ms, and ends with every unit row in the DOM
+        FAIL  T0-P2-07     app (desktop): the first press of Monuments has no long task, links no Mapbox program on demand, and the monuments are drawn
+        FAIL  T0-P2-09     ground-remembers, immersive, viewshed and compare still draw their maps: a canvas that is not blank, no console error, the layers present
+PASS    r1.acc                 6/6                8.4 s  ACC: no casualty rate above 100 percent is printed as fact (T0-ACC-*): red on R1d, green from R1e
+FAIL    r1.wtpeer              1/4 3 failed       8.1 s  WTP: /watch-together does not close a Live Sync connection that is still being opened (T0-WTP-*, page group PG-zwt)
+        FAIL  T0-WTP-01    Host pressed twice while the first connection is still opening: no connecting peer is destroyed; the first one is retired when it has opened and the page shows only the newest
+        FAIL  T0-WTP-02    Host after the first peer has opened destroys it at once (as before); a retired peer that fails reports no error on the page
+        FAIL  T0-WTP-03    Join pressed twice with a code: same rule as Host (no connecting peer destroyed)
+PASS    r1.perf6               7/7             1482.3 s  PERF6: the Unit Roster list is virtualised, 3D Terrain off on a tilted map links no program in a frame (T0-P6-*, group PERF6 + page group PG-zperf6) on the Release 1 candidate, against release/R1f/dist
+FAIL    r1.ztail               1/7 (+1 skipped) 5 failed     93 s  ZTAIL: the dark style fog of /ground-remembers is off for the first frames (T0-ZT-*, page group PG-ztail) on the Release 1 candidate, against release/R1f/dist
+        FAIL  T0-ZT-01     /ground-remembers (phone), settled: the default view is pixel-identical to the control, the style's fog and globe projection are the style's own again, the layer list is unchanged, no console error
+        FAIL  T0-ZT-02     /ground-remembers (phone): tilted to 60 degrees and zoomed out to 3 and to 0.8 the pictures are identical to the control (fog, atmosphere and globe are back)
+        FAIL  T0-ZT-03     /ground-remembers (phone): a visitor who moves the map before it is idle gets the fog back at once (the tilted picture is identical to the control)
+        FAIL  T0-ZT-04     /ground-remembers (phone): before the first idle the painter has built no atmosphere (the 16,000 star quads); after the idle it has, and the fog is on
+        FAIL  T0-ZT-07     /ground-remembers (phone): a visitor who does not move the map gets the fog back in a quiet moment about 4.5 s after the first idle (not before, not while the map moves), and never twice
+PASS    r1.seo                 17/17              0.1 s  SEO: titles, descriptions, canonicals, sitemap, JSON-LD, Open Graph, crawlable links, no build-method wording (T0-SEO-*, page group PG-zseo) on the Release 1 candidate
+
+run_suites: 5/10 suites OK; green tests 86/109; red-first proofs 0/0 (0 legacy tests red as required); 4541s -> tmp/r1g-pack/suites-r1-subset.json

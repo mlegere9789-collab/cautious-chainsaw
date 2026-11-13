@@ -1,0 +1,88 @@
+{
+ "unit": "u-vt-10th-vermont-infantry",
+ "rows": 1031,
+ "raw_bytes": 126851,
+ "gz_bytes": 36296,
+ "mean_line": 122.9,
+ "median_line": 118,
+ "p90_line": 155,
+ "share_over_90": 0.923,
+ "alignment": {
+  "xml_words": 25423,
+  "aligned": 25422,
+  "unaligned": 1,
+  "text_tokens": 25424,
+  "leaves_without_header": 7
+ },
+ "verify": {
+  "rows": 1031,
+  "name_ok": 882,
+  "remark_ok": 1022,
+  "remark_gap_rows": 944,
+  "remark_empty": 9,
+  "page_ok": 1031,
+  "page_null": 0,
+  "rank_ok": 0,
+  "rank_empty": 1031,
+  "order_breaks": 0
+ },
+ "defect_samples": [
+  {
+   "kind": "name-not-at-offset",
+   "t": "VT-ROSTER-1892.1",
+   "off": 2313229,
+   "name": "George Church, Q. M. -Sergeants."
+  },
+  {
+   "kind": "name-not-at-offset",
+   "t": "VT-ROSTER-1892.1",
+   "off": 2313489,
+   "name": "Henry H. Adams, Com. -Sergeants."
+  },
+  {
+   "kind": "name-not-at-offset",
+   "t": "VT-ROSTER-1892.1",
+   "off": 2313763,
+   "name": "Edward Bushnell, Hospital Stewards."
+  },
+  {
+   "kind": "name-not-at-offset",
+   "t": "VT-ROSTER-1892.1",
+   "off": 2314111,
+   "name": "William H. Brackett, Prin. Musician."
+  },
+  {
+   "kind": "name-not-at-offset",
+   "t": "VT-ROSTER-1892.1",
+   "off": 2314271,
+   "name": "James H. George. Drum-Majors."
+  },
+  {
+   "kind": "name-not-at-offset",
+   "t": "VT-ROSTER-1892.1",
+   "off": 2321347,
+   "name": "Rich, Robinson \u2022Enlisted for one"
+  },
+  {
+   "kind": "name-not-at-offset",
+   "t": "VT-ROSTER-1892.1",
+   "off": 2330798,
+   "name": "Henry L. Marshall, *EnIisted for one"
+  },
+  {
+   "kind": "name-not-at-offset",
+   "t": "VT-ROSTER-1892.1",
+   "off": 2332949,
+   "name": "Glines, Hamilton Waterbury,"
+  }
+ ],
+ "by_company": {
+  "": 90,
+  "B": 83,
+  "C": 213,
+  "E": 218,
+  "G": 209,
+  "I": 89,
+  "K": 129
+ }
+}

@@ -1,0 +1,48 @@
+run_suites: 79 suite(s), port base 8480, agent r1g
+PASS    static.gates           4/4                  0 s  build gates of the four trains (gate.json written by build.py)
+PASS    static.overlap         exit 0            30.6 s  geometric overlap audit of the patch set
+PASS    static.verify          10/10              9.3 s  verify_release: manifest, static crawl, dev pages, names, identity vs the baseline, cumulative, legacy and baseline pinned
+PASS    static.selftest        10/10               41 s  build system self-test (10 properties incl. determinism and ledger)
+PASS    static.baseline        17/17              9.7 s  baseline machinery self-test (17 cases: Netlify post-processing model, lock and build refusal, CRLF-aware patching, overlay guard, verify-live against a local Netlify fake, mirror -> reconstruct -> prove, JS/Python model parity, compare-zip of a downloaded deploy)
+PASS    static.baselinelock    exit 0             0.1 s  baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, no network)
+PASS    static.legal           13/13              0.4 s  privacy/terms fact base vs the built R1c tree
+FAIL    static.lib             8/10 (+1 skipped) 1 failed     12 s  tiles 68/300  browser harness self-test
+        FAIL  LIB-08       app helpers on the R1a build: chooseLayout, mapView, real drag/wheel move the camera (and do not on R0)
+PASS    static.overlap.selftest 1/1               0.1 s  overlap audit self-test (6 cases incl. the failing ones: an anchor that no longer matches, an undeclared overwrite, an anchor with no source)
+PASS    static.hygiene         1/1                5.1 s  source hygiene of tools/t0, tests/t0, tools/ship and ops: no stray control bytes (a regex escape that reached the file as BACKSPACE), every script parses, every JSON file is valid
+PASS    static.ship            11/11              1.9 s  pack_zip self-test (tools/ship/pack_zip.py, the Netlify drag-and-drop zip: files at the zip root, byte-identical packs, a changed, extra or missing file or a wrong tree digest against manifest.json is refused, the staging variant differs in _headers only, the real R1c packs)
+PASS    static.fixes           11/11             73.6 s  release-verifier fixes self-test (11 cases: failed builds leave nothing deployable, ledger errors, gate cache beside --out, kill switch outside dist, opt-in legal group, stage guard, verify-url exit codes, stale-dist refusal, S5 asks the previous train)
+PASS    static.determinism     8/8               78.2 s  determinism: every train rebuilt into release/check/<train> is byte-identical to release/<train> (dist, manifest, anchors, gate, kill-switch copy)
+PASS    static.controls        exit 0            14.8 s  control trees for the red-first proofs and the opt-in legal variant built (R1c without A2, without the Mapbox precompile, without the mobile + shell fixes, and R1c with PG-legal with its gates on; each differs from the real R1c)
+PASS    r0.R0                  13/13             43.3 s  tiles 100/300  R0 acceptance (X1/X2) on R0
+PASS    r0.R1a                 13/13             42.2 s  tiles 104/300  R0 acceptance (X1/X2) on R1a
+PASS    r0.R1b                 12/13 (+1 skipped)     44 s  tiles 104/300  R0 acceptance (X1/X2) on R1b
+PASS    r0.R1c                 12/13 (+1 skipped)   48.5 s  tiles 10/300  R0 acceptance (X1/X2) on R1c
+PASS    journeys.R1a           30/41 (+11 skipped)  221.9 s  tiles 158/300  desktop journeys J1-J8, inputs, group A on R1a
+PASS    journeys.R1b           31/41 (+10 skipped)  191.5 s  tiles 202/300  desktop journeys J1-J8, inputs, group A on R1b
+FAIL    journeys.R1c           40/41 1 failed   251.1 s  tiles 16/300  desktop journeys J1-J8, inputs, group A, group B on R1c
+        FAIL  T0-J7        J7 day 2/3 jump by tab and by keys 2/3: data loads within 2 s, minimap follows, dates stay July 1-3 (X6)
+PASS    deeplinks.R1c          12/12              196 s  tiles 30/300  deep links, moments.json, Turning Points (X7)
+PASS    desktop.R1a            10/10               99 s  tiles 174/300  desktop fixes T0-DF-01..09 (group A2) on R1a
+PASS    desktop.R1b            10/10            100.9 s  tiles 177/300  desktop fixes T0-DF-01..09 (group A2) on R1b
+PASS    desktop.R1c            10/10            112.3 s  tiles 10/300  desktop fixes T0-DF-01..09 (group A2) on R1c
+PASS    mobile.R1b             19/19            241.2 s  tiles 93/300  mobile shell matrix (X5) on R1b: portrait, landscape, misc, touch slices
+PASS    mobile.R1c             19/19            251.4 s  tiles 58/300  mobile shell matrix (X5) on R1c: portrait, landscape, misc, touch slices
+PASS    mobilefix.R1b          29/29            350.2 s  tiles 92/300  mobile + shell fixes T0-MFIX-01..12 on R1b: three viewport slices and the desktop-shell slice
+FAIL    mobilefix.R1c          24/29 5 failed   487.6 s  tiles 60/300  mobile + shell fixes T0-MFIX-01..12 on R1c: three viewport slices and the desktop-shell slice
+        FAIL  T0-MFIX-02   D-02: Search-to-unit on the phone shell: popup + fly-to (last known keyframe), highlight, close deselects; ?u= deep links (with and without camera, not-yet-arrived, unknown id)
+        FAIL  T0-MFIX-02   D-02: Search-to-unit on the phone shell: popup + fly-to (last known keyframe), highlight, close deselects; ?u= deep links (with and without camera, not-yet-arrived, unknown id)
+        FAIL  T0-MFIX-12   zero uncaught exceptions and first-party console errors across the T0-MFIX flows (Mapbox tile noise and blocked Google requests ignored)
+        FAIL  T0-MFIX-10   desktop shell: the Extra Features menu has a viewport-sized max-height with internal scrolling: every entry reachable (wheel, keyboard), Escape returns focus
+        FAIL  T0-MFIX-11   desktop shell: the Ask the Historian / Extra Features pills sit below modal layers, hide while a modal is open (Help, Bookmarks, onboarding, Walkthrough) and never overlap panels or cards
+PASS    perf.R0                3/10 (+7 skipped)   17.4 s  perf PF-01..10 on R0 (PF-01..06 skip on R0: no PERF group by design)
+PASS    perf.R1a               8/10 (+2 skipped)   36.8 s  perf PF-01..10 on R1a (PF-01..06 skip on R0: no PERF group by design)
+PASS    perf.R1b               9/10 (+1 skipped)   35.7 s  perf PF-01..10 on R1b (PF-01..06 skip on R0: no PERF group by design)
+PASS    perf.R1c               9/10 (+1 skipped)   38.1 s  perf PF-01..10 on R1c (PF-01..06 skip on R0: no PERF group by design)
+PASS    a11y.R1b               26/28 (+2 skipped)  502.2 s  a11y bridge (axe, keyboard, contrast) on R1b (AX without CP)
+PASS    a11y.R1c               26/28 (+2 skipped)  510.2 s  a11y bridge on R1c
+PASS    a11y.R1a.chooser       1/1                8.3 s  a11y: the legacy layout chooser is a keyboard-operable dialog on R1a (A11Y-28, group A extension A+chooser; R0 keeps the legacy chooser by design)
+PASS    a11y.R1c.tiles         1/1               23.7 s  a11y with real tiles (A11Y-14, production Referer, capped)
+PASS    copy.R1c               4/4               48.8 s  truthful-copy subset (CP-01..04: copy rows, Help rows, the keyboard-route row)
+PASS    pagescore.R1a          28/28            313.8 s  page defect pack PGC-01..27 on R1a
+PASS    pagescore.R1b          28/28            312.7 s  page defect pack PGC-01..27 on R1b

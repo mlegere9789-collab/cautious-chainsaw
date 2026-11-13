@@ -3,7 +3,7 @@
  "file": "docs/plan/STATUS/items-A.json",
  "part": "A",
  "generated": "2026-11-13",
- "scope": "Chapters 01 to 08b of docs/plan/FINAL, the nodes of 15-roadmap.json whose chapter list touches them (77 of 98), docs/decisions/*, and the release reports as far as those chapters need them.",
+ "scope": "Chapters 01 to 08b of docs/plan/FINAL: the 34 decisions of the register, its 17 decision-support packages and 12 owner actions, the 253 work packages (finding groups) of chapters 02 to 08b, the owner decisions listed in each chapter, the nodes of 15-roadmap.json whose chapter list touches them (77 of 98), docs/decisions/*, and the release reports as far as those chapters need them.",
  "status_definitions": {
   "SHIPPED": "Present in the release candidate, train R1g (and the trains named), with the patch group and the test that prove it. No train has been deployed: ops/RELEASE-LOG.md has no row and production still serves deploy 6abd6d62.",
   "BUILT_NOT_SHIPPED": "Exists in src/, historian-src/, data-src/, candidates/ or as an opt-in patch group, but is in no train; the evidence says what is missing.",
@@ -24,18 +24,18 @@
   "Acceptance: 0 of 8 consecutive clean passes on R1g (docs/accept/R1G-STATUS.md); the best streak on R1f was 1.",
   "The zips packed in this container carry a stand-in 1863 tile pyramid (96 of 1,885 files equal the original); the final zip must be packed where the original pyramid is.",
   "Source rebuild: src/ holds the time module only (10 files); there is no rebuilt app, no parity harness, no site generator. data-src/ (63 files) and historian-src/ (299 files) are built and tested but served by no train.",
-  "Run by this survey on 2026-11-13 through the machine lock: T0-J7 on R1g and on frozen R1f (red on both, tmp/r1h-cand/statusA/j7.log); node --test tests/time/*.test.mjs on 2026-11-13: 638 tests, 638 pass, 0 fail. npm run time:check: exit 0. node --test tests/data/*.test.mjs was started through the machine lock on 2026-11-13 and had not finished when this file was written (no result claimed). npm run data:check: not finished. node --test tests/historian/*.test.mjs was started through the machine lock on 2026-11-13 and had not finished when this file was written (no result claimed).",
-  "Not run by this survey: any other browser suite, the eight acceptance passes, Lighthouse (no runner in the repository), any real device."
+  "Run by this survey on 2026-11-13, long suites through the machine lock: T0-J7 on R1g and on frozen R1f (red on both, tmp/r1h-cand/statusA/j7.log); node --test tests/time/*.test.mjs: 638 tests, 638 pass, 0 fail; npm run time:check: exit 0; node --test tests/data/*.test.mjs: 207 tests, 206 pass, 0 fail, 1 skipped; npm run data:check: exit 0. Run directly (under 5 s CPU, no browser): node tools/environment/validate.mjs and node tools/ledger/validate.mjs: 0 errors, 0 warnings each; HDR-11 alone (see VER-HDR-11). node --test tests/historian/*.test.mjs: under the default node here (22.23.4) every file fails to load because tools/historian/ingest/times.mjs uses a regular-expression modifier group (?-i:...) that needs V8 12.5 or later; the run under /opt/node24/bin/node (24.22.1) was started through the machine lock on 2026-11-13 and had not finished when this file was written (no result claimed).",
+  "Not run by this survey: any other browser suite, the eight acceptance passes, Lighthouse (no runner in the repository), any real device. The default node of this container is 22.23.4; /opt/node24/bin/node is 24.22.1."
  ],
  "counts": {
-  "SHIPPED": 85,
+  "SHIPPED": 84,
   "BUILT_NOT_SHIPPED": 14,
-  "OPEN_BUILDABLE": 228,
-  "OPEN_NEEDS_DECISION": 64,
-  "OWNER_ONLY": 55,
-  "SUPERSEDED": 9
+  "OPEN_BUILDABLE": 230,
+  "OPEN_NEEDS_DECISION": 95,
+  "OWNER_ONLY": 70,
+  "SUPERSEDED": 14
  },
- "total": 455,
+ "total": 507,
  "counts_by_kind": {
   "decision": {
    "SHIPPED": 12,
@@ -47,9 +47,9 @@
   "decision (ADR)": {
    "SHIPPED": 5,
    "BUILT_NOT_SHIPPED": 1,
-   "OPEN_BUILDABLE": 13,
+   "OPEN_BUILDABLE": 12,
    "OPEN_NEEDS_DECISION": 4,
-   "OWNER_ONLY": 9,
+   "OWNER_ONLY": 10,
    "SUPERSEDED": 2
   },
   "decision-support package": {
@@ -63,92 +63,102 @@
    "OWNER_ONLY": 9,
    "SUPERSEDED": 1
   },
+  "owner decision (chapter)": {
+   "SHIPPED": 4,
+   "OPEN_BUILDABLE": 2,
+   "OPEN_NEEDS_DECISION": 30,
+   "OWNER_ONLY": 11,
+   "SUPERSEDED": 5
+  },
   "owner decision (implemented)": {
    "SHIPPED": 4,
    "OPEN_BUILDABLE": 1
   },
   "roadmap-node": {
-   "SHIPPED": 14,
+   "SHIPPED": 9,
    "BUILT_NOT_SHIPPED": 5,
-   "OPEN_BUILDABLE": 37,
-   "OPEN_NEEDS_DECISION": 12,
+   "OPEN_BUILDABLE": 41,
+   "OPEN_NEEDS_DECISION": 13,
    "OWNER_ONLY": 9
   },
   "verification debt": {
-   "OPEN_BUILDABLE": 6,
-   "OWNER_ONLY": 1
+   "OPEN_BUILDABLE": 5,
+   "OWNER_ONLY": 2
   },
   "work package (finding group)": {
    "SHIPPED": 49,
    "BUILT_NOT_SHIPPED": 8,
-   "OPEN_BUILDABLE": 163,
+   "OPEN_BUILDABLE": 161,
    "OPEN_NEEDS_DECISION": 21,
-   "OWNER_ONLY": 12
+   "OWNER_ONLY": 14
   }
  },
  "counts_by_chapter": {
   "01": {
    "SHIPPED": 10,
    "BUILT_NOT_SHIPPED": 2,
-   "OPEN_BUILDABLE": 20,
+   "OPEN_BUILDABLE": 19,
    "OPEN_NEEDS_DECISION": 8,
-   "OWNER_ONLY": 31,
+   "OWNER_ONLY": 32,
    "SUPERSEDED": 6
   },
   "02": {
-   "SHIPPED": 33,
-   "OPEN_BUILDABLE": 8,
+   "SHIPPED": 31,
+   "OPEN_BUILDABLE": 9,
    "OPEN_NEEDS_DECISION": 3,
-   "OWNER_ONLY": 9,
+   "OWNER_ONLY": 10,
    "SUPERSEDED": 2
   },
   "03": {
-   "SHIPPED": 1,
+   "SHIPPED": 3,
    "BUILT_NOT_SHIPPED": 2,
    "OPEN_BUILDABLE": 42,
-   "OPEN_NEEDS_DECISION": 5,
-   "OWNER_ONLY": 1,
-   "SUPERSEDED": 1
+   "OPEN_NEEDS_DECISION": 7,
+   "OWNER_ONLY": 3,
+   "SUPERSEDED": 2
   },
   "04": {
    "SHIPPED": 10,
    "BUILT_NOT_SHIPPED": 2,
-   "OPEN_BUILDABLE": 16,
-   "OPEN_NEEDS_DECISION": 7,
-   "OWNER_ONLY": 2
+   "OPEN_BUILDABLE": 17,
+   "OPEN_NEEDS_DECISION": 11,
+   "OWNER_ONLY": 4
   },
   "05": {
-   "SHIPPED": 7,
-   "OPEN_BUILDABLE": 23,
-   "OPEN_NEEDS_DECISION": 6,
-   "OWNER_ONLY": 2
+   "SHIPPED": 6,
+   "OPEN_BUILDABLE": 25,
+   "OPEN_NEEDS_DECISION": 9,
+   "OWNER_ONLY": 3
   },
   "06": {
    "SHIPPED": 6,
-   "OPEN_BUILDABLE": 32,
-   "OPEN_NEEDS_DECISION": 10,
-   "OWNER_ONLY": 4
+   "OPEN_BUILDABLE": 33,
+   "OPEN_NEEDS_DECISION": 14,
+   "OWNER_ONLY": 6
   },
   "07": {
    "SHIPPED": 3,
    "BUILT_NOT_SHIPPED": 3,
    "OPEN_BUILDABLE": 25,
-   "OPEN_NEEDS_DECISION": 6,
-   "OWNER_ONLY": 3
+   "OPEN_NEEDS_DECISION": 11,
+   "OWNER_ONLY": 4,
+   "SUPERSEDED": 1
   },
   "08a": {
    "SHIPPED": 8,
    "BUILT_NOT_SHIPPED": 3,
-   "OPEN_BUILDABLE": 42,
-   "OPEN_NEEDS_DECISION": 5,
-   "OWNER_ONLY": 1
+   "OPEN_BUILDABLE": 40,
+   "OPEN_NEEDS_DECISION": 13,
+   "OWNER_ONLY": 3,
+   "SUPERSEDED": 2
   },
   "08b": {
    "SHIPPED": 7,
    "BUILT_NOT_SHIPPED": 2,
    "OPEN_BUILDABLE": 20,
-   "OPEN_NEEDS_DECISION": 14,
-   "OWNER_ONLY": 2
+   "OPEN_NEEDS_DECISION": 19,
+   "OWNER_ONLY": 5,
+   "SUPERSEDED": 1
   }
  },
  "items": [
@@ -483,7 +493,7 @@
    "chapter": "01",
    "title": "Historian architecture: static retrieval, records only",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Engine, corpus (Official Records vol. 27), page and build exist in historian-src/ and tools/historian/ with tests/historian/; nothing of it is in any train (docs/decisions/R1E-PROVISIONAL-DECISIONS: \"the historian is not shipped\"). The shipped /historian page is the legacy page with fixes (PGC-hist-*, COPY2).",
+   "evidence": "Engine, corpus (Official Records vol. 27), page and build exist in historian-src/ and tools/historian/ with tests/historian/; nothing of it is in any train (docs/decisions/R1E-PROVISIONAL-DECISIONS: \"the historian is not shipped\"). The shipped /historian page is the legacy page with fixes (PGC-hist-*, COPY2). node --test tests/historian/*.test.mjs: under the default node here (22.23.4) every file fails to load because tools/historian/ingest/times.mjs uses a regular-expression modifier group (?-i:...) that needs V8 12.5 or later; the run under /opt/node24/bin/node (24.22.1) was started through the machine lock on 2026-11-13 and had not finished when this file was written (no result claimed).",
    "next_step": "Register the /hx/ artefacts and the new page as a candidate group once its gates are green; part B (chapter 14) owns it.",
    "size": "L",
    "files": [
@@ -568,14 +578,15 @@
    "id": "D-VIEWSHED",
    "chapter": "01",
    "title": "Rename \"What They Could See\" to High Ground; correct elevations",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "Rename and honest caveat shipped: POL-N07, POL-N15..N17, PGC-viewshed-caveat (title in R1g: \"High Ground\"). Elevation correction against USGS 3DEP is not in any group (docs/data-audit/fixes.json has no elevation row).",
-   "next_step": "WP-PAGE-44 second half: correct the 30 elevations from a 3DEP DEM (look for the DEM acquired for BASE1863 under tmp/b1863; USGS hosts are not on the reachable list).",
+   "status": "OWNER_ONLY",
+   "evidence": "Rename and honest caveat shipped: POL-N07, POL-N15..N17, PGC-viewshed-caveat (title in R1g: \"High Ground\"). Elevation correction against USGS 3DEP is not in any group (docs/data-audit/fixes.json has no elevation row) and is blocked here: no DEM exists in the working tree and the USGS host is refused by this container's proxy (WP-PAGE-15).",
+   "next_step": "WP-PAGE-44 second half once the DEM is supplied.",
    "size": "M",
    "files": [
     "tools/t0/patches/PG-polish.json"
    ],
-   "kind": "decision (ADR)"
+   "kind": "decision (ADR)",
+   "owner_step": "Copy the 3DEP DEM raster that the 1863 base-map build used (fetched by docs/basemap1863/modern/scripts/fetch/fetch_dem.py) from the Windows machine into tmp/b1863/dem/ of this working tree, or allow the host elevation.nationalmap.gov for this environment, and say which file it is."
   },
   {
    "id": "D-SCHOOLS",
@@ -643,7 +654,7 @@
    "chapter": "01",
    "title": "Contact identity: role addresses and mail DNS",
    "status": "SUPERSEDED",
-   "evidence": "Owner decision 2026-10-04 item 5: the only public contact is the site address gettysburginteractivemap@gmail.com; it is the only address in release/R1g/dist (5 hits in HTML, 3 in scripts); the personal address is not published.",
+   "evidence": "Owner decision 2026-10-04 item 5: the only public contact is the site address gettysburginteractivemap@gmail.com. It is the only e-mail address in release/R1g/dist (grep on 2026-11-13: 7 occurrences in 4 files: privacy.html, terms.html, site-nav.js and the app bundle); the personal address is not published.",
    "next_step": "None. A report form and security.txt are tracked under RM-20.",
    "size": "S",
    "files": [
@@ -2050,15 +2061,16 @@
    "id": "VER-HDR-11",
    "chapter": "02",
    "title": "HDR-11 (fixed-name files never immutable) red in the container",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "headers.R1c 16/18 in suites-r1g-full2.json; green on the Windows machine for R1f. Cause not established.",
-   "next_step": "Release workstream: rerun alone and read the rule it names.",
+   "status": "OWNER_ONLY",
+   "evidence": "headers.R1c 16/18 in suites-r1g-full2.json (HDR-11 red; HDR-23 skipped, it needs --online); green on the Windows machine for R1f. Triaged 2026-11-13: the failing assertion is the first one of HDR-11, 'tiles1863 directories whose name is not the hash of their files'. release/R1g/dist/tiles1863/v1-65d491b8 holds this container's stand-in pyramid, whose files hash to v1-22e20fb7 (VER-TILES; log tmp/r1h-cand/statusA/hdr11-nobrowser.log). On a hard-linked scratch copy of the dist with that one directory renamed to its computed hash, HDR-11 passes in full (hdr11-renamed.log), so the header rules are not at fault.",
+   "next_step": "Closes with VER-TILES: pack the final zip with the owner's tile pyramid and re-run the headers suite there; the header rules themselves are not at fault.",
    "size": "S",
    "files": [
     "tests/t0/headers.spec.mjs"
    ],
    "owner_workstream": "release",
-   "kind": "verification debt"
+   "kind": "verification debt",
+   "owner_step": "Pack the final deploy zip on the machine that holds the original tile pyramid (see VER-TILES), then run node tests/t0/headers.spec.mjs --dist <that dist> there."
   },
   {
    "id": "VER-LAYOUT-TIMING",
@@ -2243,7 +2255,7 @@
    "chapter": "03",
    "title": "Data pipeline, schemas, validators, hashed artefacts, facts",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "data-src/ (9 JSON schemas, unit_registry, id_crosswalk, unit_index, facts.json, data-manifest, data.lock.json), tools/data (validate with 12 rule files, facts, manifest, rights audit, emit_legacy), tests/data (11 test files). Served data is corrected by the DATA patch group instead; no hashed v2 artefacts and no consumer exist.",
+   "evidence": "data-src/ (9 JSON schemas, unit_registry, id_crosswalk, unit_index, facts.json, data-manifest, data.lock.json), tools/data (validate with 12 rule files, facts, manifest, rights audit, emit_legacy), tests/data (11 test files). node --test tests/data/*.test.mjs on 2026-11-13 through the machine lock: 207 tests, 206 pass, 0 fail, 1 skipped (a case-sensitive file system test); npm run data:check exit 0 (51 baselined rules, nearest baseline expiry 2027-01-31); logs tmp/r1h-cand/statusA/data-test2.log and data-check2.log. Served data is corrected by the DATA patch group instead; no hashed v2 artefacts and no consumer exist.",
    "next_step": "Missing: the v2 artefact build (per-day files, columnar placements) and an app that reads it; fold the 2,473 DATA corrections into data-src so the pipeline output equals the served R1g data.",
    "size": "L",
    "files": [
@@ -2770,11 +2782,12 @@
    "chapter": "04",
    "title": "Solar-driven lighting",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Shipped: map tint hour from the clock (CLK-95, CLK-96; T0-CLK-17 over 79 ticks), camera and immersive hours (CLK-35), solar table (tools/time/solar.mjs, tests/time/solar.test.mjs). No Daylight toggle in the bundle; label contrast under the tint (TT-10) is untested.",
-   "next_step": "Candidate: Daylight toggle and the contrast test.",
+   "evidence": "Shipped: map tint hour from the clock (CLK-95, CLK-96; T0-CLK-17 over 79 ticks), camera and immersive hours (CLK-35), solar table (tools/time/solar.mjs, tests/time/solar.test.mjs). No Daylight toggle in the bundle; label contrast under the tint (TT-10) is untested. Candidate data exist: data-src/environment/astro_by_tick.json (sun and moon for all 675 ticks, computed; rebuild with tools/environment/build-astro.mjs after any anchor change) with tests/environment; node tools/environment/validate.mjs on 2026-11-13: 0 errors, 0 warnings.",
+   "next_step": "Candidate: Daylight toggle and the contrast test; read sun altitude from data-src/environment/astro_by_tick.json instead of recomputing it in the page.",
    "size": "S",
    "files": [
-    "tools/time/solar.mjs"
+    "tools/time/solar.mjs",
+    "data-src/environment/astro_by_tick.json"
    ],
    "kind": "work package (finding group)"
   },
@@ -2855,7 +2868,7 @@
    "chapter": "04",
    "title": "Historian time-facts tier and temporal index",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "historian-src/corpus/time_evidence.json, historian-src/core/atime.js and clock.js, tests/historian/atime.test.mjs. Not in any train.",
+   "evidence": "historian-src/corpus/time_evidence.json, historian-src/core/atime.js and clock.js, tests/historian/atime.test.mjs. Not in any train. Run note: the historian suite needs Node 23 or later (see D-HIST-ARCH).",
    "next_step": "Ships with the Historian (part B).",
    "size": "M",
    "files": [
@@ -3105,7 +3118,8 @@
    "patch_groups": [
     "R0",
     "PERF",
-    "PG-polish"
+    "PG-polish",
+    "PG-zperf3"
    ],
    "tests": [
     "PF-01..06"
@@ -3139,7 +3153,7 @@
    "chapter": "05",
    "title": "Data delivery (per-day hashed data)",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Stage 1 header change is not in the generated _headers; stage 2 is rebuild work with WP-ARCH-11/12.",
+   "evidence": "Stage 1 header change is not in the generated _headers; stage 2 is rebuild work with WP-ARCH-11/12. Delegated A67 keeps /data/* at 3600 s.",
    "next_step": "With the data pipeline.",
    "size": "L",
    "files": [],
@@ -4525,14 +4539,15 @@
    "id": "WP-PAGE-15",
    "chapter": "08a",
    "title": "USGS 3DEP DEM and hillshade build; coordinate QA",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "No DEM artefact is tracked for the pages; the 1863 base map build used USGS imagery and elevation on the owner machine (docs/basemap1863/BUILD.md).",
-   "next_step": "Locate the DEM under tmp/b1863; if absent, record USGS as not reachable from this container and ask the owner to copy the file.",
+   "status": "OWNER_ONLY",
+   "evidence": "No DEM artefact is tracked for the pages and none exists under tmp/b1863 (searched 2026-11-13: a browser profile, a stage folder and a test result only). The 1863 base-map build fetched the USGS 3DEP DEM on the owner machine (docs/basemap1863/BUILD.md; fetch script docs/basemap1863/modern/scripts/fetch/fetch_dem.py, host elevation.nationalmap.gov). This container's proxy refuses that host (one probe on 2026-11-13: CONNECT tunnel failed, response 403), so it is recorded as blocked and not worked around.",
+   "next_step": "Once the DEM is supplied: hillshade and coordinate QA build (docs/basemap1863/maps/tools/hillshade.py is the reference), then WP-PAGE-44 and D-VIEWSHED elevations.",
    "size": "M",
    "files": [
     "docs/basemap1863/"
    ],
-   "kind": "work package (finding group)"
+   "kind": "work package (finding group)",
+   "owner_step": "Copy the 3DEP DEM raster that the 1863 base-map build used (fetched by docs/basemap1863/modern/scripts/fetch/fetch_dem.py) from the Windows machine into tmp/b1863/dem/ of this working tree, or allow the host elevation.nationalmap.gov for this environment, and say which file it is."
   },
   {
    "id": "WP-PAGE-16",
@@ -4605,7 +4620,8 @@
    "train": "R1a+",
    "patch_groups": [
     "PG-core",
-    "PG-polish"
+    "PG-polish",
+    "PG-maps"
    ],
    "tests": [
     "T0-PGC-*",
@@ -4653,7 +4669,8 @@
    "train": "R1a+/R1e+",
    "patch_groups": [
     "PG-core",
-    "PG-zacc"
+    "PG-zacc",
+    "PG-maps"
    ],
    "tests": [
     "T0-PGC-*",
@@ -4891,19 +4908,20 @@
    "id": "WP-PAGE-44",
    "chapter": "08a",
    "title": "High Ground: rename and corrected elevations",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "Rename and caveat ship (see D-VIEWSHED). Elevations are not corrected.",
-   "next_step": "After WP-PAGE-15.",
+   "status": "OWNER_ONLY",
+   "evidence": "Rename and caveat ship (see D-VIEWSHED). Elevations are not corrected, and cannot be from this container: the 3DEP DEM is neither present nor reachable (see WP-PAGE-15).",
+   "next_step": "After WP-PAGE-15: correct the 30 elevations from the DEM with the source and date recorded per row.",
    "size": "M",
    "files": [],
-   "kind": "work package (finding group)"
+   "kind": "work package (finding group)",
+   "owner_step": "Copy the 3DEP DEM raster that the 1863 base-map build used (fetched by docs/basemap1863/modern/scripts/fetch/fetch_dem.py) from the Windows machine into tmp/b1863/dem/ of this working tree, or allow the host elevation.nationalmap.gov for this environment, and say which file it is."
   },
   {
    "id": "WP-PAGE-45",
    "chapter": "08a",
    "title": "Real viewshed (plan option, Labs)",
    "status": "OPEN_NEEDS_DECISION",
-   "evidence": "Not built; default off in the plan.",
+   "evidence": "Not built; default off in the plan. It also needs the 3DEP DEM, which is not present and not reachable from this container (WP-PAGE-15).",
    "next_step": "Delegated: keep in scope after the DEM exists; labelled \"terrain only\".",
    "size": "L",
    "files": [],
@@ -5398,7 +5416,7 @@
    "chapter": "08b",
    "title": "Remove the two developer pages",
    "status": "SHIPPED",
-   "evidence": "delete:diagnostics.html, delete:unit-rendering-reference.html and forced 404 in both spellings; verify_release dev-page check 404 on R1a..R1g.",
+   "evidence": "delete:diagnostics.html, delete:unit-rendering-reference.html and forced 404 in both spellings; verify_release dev-page check 404 on R1a..R1g. The optional /support page is not built (PAGEC-OD-11, delegated A65).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -5463,7 +5481,8 @@
    ],
    "train": "R1d+",
    "patch_groups": [
-    "PG-zcopy2"
+    "PG-zcopy2",
+    "PG-core"
    ],
    "tests": [
     "copy audit"
@@ -5548,7 +5567,7 @@
    "title": "Decision ratification: 11 class-B ADRs, capacity contract, WBS upkeep",
    "status": "OPEN_NEEDS_DECISION",
    "evidence": "No class-B decision was ratified in writing except contact (2026-10-04) and the clock (2026-10-05). The owner delegated the pending decisions on 2026-11-11.",
-   "next_step": "Record each proposal of this file as a delegated decision in docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md (done for part A by this survey).",
+   "next_step": "Recorded as delegated rows A01 to A67 in docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md (A41 is the ratification itself); the owner can override any row in writing.",
    "size": "S",
    "files": [
     "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
@@ -5562,7 +5581,8 @@
    "audit_ids": [
     "N1"
    ],
-   "decision": "The class-B decisions of the register"
+   "decision": "The class-B decisions of the register",
+   "delegated_decision": "A41"
   },
   {
    "id": "RM-04",
@@ -5817,10 +5837,10 @@
    "id": "RM-12",
    "chapter": "02",
    "title": "T0 deep-link reader, moments.json v0, Turning Points anchors, emitters repointed",
-   "status": "SHIPPED",
-   "evidence": "See WP-T0-09.",
-   "next_step": "None.",
-   "size": "S",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Shipped (see WP-T0-09): the reader (group DL: tick, t, day, unit, u, z, ll, lat+lng, ancestor, vignette), data/moments.json v0 with 22 moments and the six Turning Points anchors (DL, POL-F03); deeplinks 12/12 on R1g [C11 rerun]. Not shipped: the repointed emitters (WP-PAGE-03 and WP-PAGEC-03: the pages still write their old parameter names and there is no shared mapLink()), moment-id keys for Turning Points (WP-PAGEC-18) and the rest of the URL-state contract (WP-UX-04).",
+   "next_step": "WP-PAGE-03 and WP-PAGEC-03 as one candidate group under candidates/r1h with a crawl test over every emitter URL; keys by moment id with WP-TIME-05.",
+   "size": "M",
    "files": [
     "tools/t0/patches/DL.json"
    ],
@@ -5839,7 +5859,7 @@
     "H4",
     "D3"
    ],
-   "train": "R1c+",
+   "train": "R1c+ (part)",
    "patch_groups": [
     "DL"
    ],
@@ -5887,10 +5907,10 @@
    "id": "RM-14",
    "chapter": "02",
    "title": "Page hotfix core: Watch Together XSS, AR hidden, dev pages removed, Historian undefined, dashboard/search/report defects, map sub-pages non-blocking",
-   "status": "SHIPPED",
-   "evidence": "See WP-T0-12 and WP-T0-13.",
-   "next_step": "None.",
-   "size": "S",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Shipped (WP-T0-12, WP-T0-13, WP-PAGEC-15, WP-PAGEC-34, WP-PERF-19): Watch Together stored XSS closed, AR hidden with a notice, the two developer pages removed, Historian chronology without \"undefined\", dashboard and search hotfixes, non-blocking map pages. Open inside the node: WP-PAGEC-12 (AR permission order and stream clean-up unchanged) and WP-PAGEC-24 (Cinematic Export meta still says \"narrated flyover video\"; MediaRecorder is unguarded).",
+   "next_step": "WP-PAGEC-12 and WP-PAGEC-24 as candidate groups under candidates/r1h, each with a red-first test.",
+   "size": "M",
    "files": [
     "tools/t0/patches/PG-core.json",
     "tools/t0/patches/PG-maps.json"
@@ -5915,7 +5935,7 @@
     "X4"
    ],
    "shared_with_part_B": true,
-   "train": "R1a+",
+   "train": "R1a+ (part)",
    "patch_groups": [
     "PG-core",
     "PG-maps"
@@ -6030,9 +6050,9 @@
    "id": "RM-18",
    "chapter": "05",
    "title": "R1 legacy performance increment: idle CPU to zero, shell CLS, one map on phones, Day-data stage 1",
-   "status": "SHIPPED",
-   "evidence": "See WP-PERF-06, -07, -08.",
-   "next_step": "None.",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Shipped: idle CPU to zero (WP-PERF-06), shell layout stability and intro deletion (WP-PERF-07), one shell and one map on phones (WP-PERF-08). Not shipped: day-data stage 1 of WP-PERF-09. release/R1g/dist/_headers gives /data/* \"public, max-age=3600\" with no stale-while-revalidate; the plan's stage 1 (max-age=300, stale-while-revalidate=86400) is held back because the DATA corrections keep their file names (delegated A67).",
+   "next_step": "Delegated A67: keep 3600 s; stage 2 (hashed per-day data) replaces stage 1 with the data pipeline (WP-PERF-09, WP-ARCH-11/12). Nothing else to build for the legacy increment unless the owner asks for the header row.",
    "size": "S",
    "files": [
     "tools/t0/patches/A.json",
@@ -6049,7 +6069,7 @@
     "P1",
     "P3"
    ],
-   "train": "R1a+/R1b+",
+   "train": "R1a+/R1b+ (part)",
    "patch_groups": [
     "A",
     "PERF",
@@ -6059,7 +6079,8 @@
     "T0-MON-01",
     "PF-01..06",
     "T0-MOB-*"
-   ]
+   ],
+   "delegated_decision": "A67"
   },
   {
    "id": "RM-19",
@@ -6263,7 +6284,7 @@
    "chapter": "03",
    "title": "Data authoring repo, versioning (data_version, dv), schemas, 60-rule validator, ratchet, CI",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "See WP-ARCH-11. node --test tests/data/*.test.mjs was started through the machine lock on 2026-11-13 and had not finished when this file was written (no result claimed). npm run data:check: not finished.",
+   "evidence": "See WP-ARCH-11. node --test tests/data/*.test.mjs on 2026-11-13 through the machine lock: 207 tests, 206 pass, 0 fail, 1 skipped (a case-sensitive file system test); npm run data:check exit 0 (51 baselined rules, nearest baseline expiry 2027-01-31); logs tmp/r1h-cand/statusA/data-test2.log and data-check2.log.",
    "next_step": "Missing: CI and the v2 artefacts.",
    "size": "L",
    "files": [
@@ -6368,7 +6389,7 @@
    "chapter": "08b",
    "title": "Historian P1: search-core, entities and facts tier, composers and linter, UI v2 with page UI",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "See D-HIST-ARCH and WP-PAGEC-08. node --test tests/historian/*.test.mjs was started through the machine lock on 2026-11-13 and had not finished when this file was written (no result claimed).",
+   "evidence": "See D-HIST-ARCH and WP-PAGEC-08. node --test tests/historian/*.test.mjs: under the default node here (22.23.4) every file fails to load because tools/historian/ingest/times.mjs uses a regular-expression modifier group (?-i:...) that needs V8 12.5 or later; the run under /opt/node24/bin/node (24.22.1) was started through the machine lock on 2026-11-13 and had not finished when this file was written (no result claimed).",
    "next_step": "Missing: registration in a train.",
    "size": "L",
    "files": [
@@ -6418,10 +6439,10 @@
    "id": "RM-43",
    "chapter": "04",
    "title": "Time module: 33-anchor piecewise clock, schemas, golden tick-clock, validators TM-V1..V21",
-   "status": "SHIPPED",
-   "evidence": "See WP-TIME-02, -03, -20: module, anchors and validators exist and the clock ships through CLOCK.",
-   "next_step": "None.",
-   "size": "S",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Shipped and passing: the module (src/lib/time, 10 files), 33 adjudicated anchors, schemas, golden tick-clock and validators (node --test tests/time/*.test.mjs on 2026-11-13: 638 tests, 638 pass; npm run time:check exit 0; logs tmp/r1h-cand/statusA/time-test.log and time-check.log). Open inside the node: WP-TIME-06 (metadata truth: release/R1g/dist/data/placement_schema.json still says \"430,000\") and WP-ARCH-13 (no workspace consumes the module as a package).",
+   "next_step": "WP-TIME-06 as candidate DATA rows; WP-ARCH-13 with the workspace (WP-ARCH-09).",
+   "size": "M",
    "files": [
     "src/lib/time/",
     "tools/time/"
@@ -6439,7 +6460,7 @@
     "H9"
    ],
    "shared_with_part_B": true,
-   "train": "R1d+",
+   "train": "R1d+ (part)",
    "patch_groups": [
     "CLOCK"
    ],
@@ -6452,9 +6473,9 @@
    "id": "RM-44",
    "chapter": "04",
    "title": "Clock on the legacy app (bridge patch on all surfaces) plus truthful clock copy",
-   "status": "SHIPPED",
-   "evidence": "See WP-TIME-10 and -14: CLOCK on every surface; clock suite 18/18 on R1g.",
-   "next_step": "Truthful descriptive copy is WP-TIME-16.",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "Shipped: CLOCK on every surface (WP-TIME-10, WP-TIME-14; clock suite 18/18 on R1g [C11]). Open inside the node: the truthful clock copy (WP-TIME-16): \"real time\", \"five-minute\" or \"minute by minute\" remain in index.html meta text, manifest.json, site-nav.js and living-ledger.html.",
+   "next_step": "WP-TIME-16 under delegated A35 and A47 (fix the false words as a candidate group now; hold the index.html meta description for train S2).",
    "size": "S",
    "files": [
     "tools/t0/patches/CLOCK.json"
@@ -6472,13 +6493,14 @@
     "H9"
    ],
    "shared_with_part_B": true,
-   "train": "R1d+",
+   "train": "R1d+ (part)",
    "patch_groups": [
     "CLOCK"
    ],
    "tests": [
     "T0-CLK-01..18"
-   ]
+   ],
+   "delegated_decision": "A35, A47"
   },
   {
    "id": "RM-45",
@@ -6531,7 +6553,7 @@
    "title": "Geometry, extents, places, terrain vs 3DEP, monuments extraction and rights (A part)",
    "status": "OPEN_BUILDABLE",
    "evidence": "Monuments and story markers were checked against the Park markers (verify-monuments 16/16 on R1g). Terrain against 3DEP and place extents are open.",
-   "next_step": "WP-PAGE-15 and part B.",
+   "next_step": "Terrain against 3DEP waits for the DEM (WP-PAGE-15, owner-supplied); place extents and the rest are buildable here with part B.",
    "size": "M",
    "files": [],
    "kind": "roadmap-node",
@@ -7393,7 +7415,7 @@
    "title": "Contingent: AST-split bridge, July 4 epilogue ticks, Labs accessibility if kept, CWSS rosters if permitted (rosters not sized)",
    "status": "OPEN_NEEDS_DECISION",
    "evidence": "AST split not triggered (WP-ARCH-34); July 4 epilogue (WP-TIME-23); Labs accessibility (WP-A11Y-28); rosters wait for NPS (D-CWSS).",
-   "next_step": "See those items.",
+   "next_step": "Each contingent item follows its own row (A32 AST split not triggered, A36 July 4 epilogue cards, A03 Labs accessibility in scope, D-CWSS rosters wait for written NPS confirmation); row A42 records this.",
    "size": "M",
    "files": [],
    "kind": "roadmap-node",
@@ -7407,7 +7429,1062 @@
    "source_wps": "WP-ARCH-34, WP-TIME-23, WP-A11Y-28, WP-HIST-30",
    "audit_ids": [],
    "shared_with_part_B": true,
-   "decision": "Contingent items"
+   "decision": "Contingent items",
+   "delegated_decision": "A42"
+  },
+  {
+   "id": "ARCH-OD-01",
+   "chapter": "03",
+   "title": "Owner decision: hours per week and a target date (plan A, B or C)",
+   "status": "SUPERSEDED",
+   "evidence": "Overtaken by the owner's standing instruction to finish everything with no pause (the instruction relayed to this workstream; CLAUDE.md law 1: effort is never a reason to narrow or defer). OWNER-ACTION-07 and WP-DEC-14 are superseded on the same ground.",
+   "next_step": "None. No capacity contract or plan choice is needed; work is sequenced by dependency, not by hours per week.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-SCOPE-TIERS",
+    "OWNER-ACTION-07",
+    "WP-DEC-14"
+   ]
+  },
+  {
+   "id": "ARCH-OD-02",
+   "chapter": "03",
+   "title": "Owner decision: confirm D-SOURCE and that md5 7ef75b95f4... is the authoritative bundle",
+   "status": "SHIPPED",
+   "evidence": "Pinned and checked: tools/t0/trains.json entry_md5 7ef75b95f4c02700430b8aa91e3a7459; md5sum of baseline/dist/assets/index-Cg8FAMXN.js on 2026-11-13 returns the same value; tools/t0/verify_release.mjs check V5 pins it for every train; owner decision 2026-10-04 item 4 records baseline/dist as the verified reconstruction of live deploy 6abd6d62. static.verify 10/10 and static.baseline 17/17 [C11].",
+   "next_step": "None.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md",
+    "tools/t0/trains.json",
+    "tools/t0/verify_release.mjs",
+    "docs/decisions/OWNER-DECISIONS-2026-10-04.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-SOURCE",
+    "WP-ARCH-02"
+   ],
+   "train": "tooling (input of every train)",
+   "patch_groups": [
+    "baseline"
+   ],
+   "tests": [
+    "static.verify",
+    "static.baseline"
+   ]
+  },
+  {
+   "id": "ARCH-OD-03",
+   "chapter": "03",
+   "title": "Owner decision: GitHub plan: Pro, public after a secret scan, or a workflow guard",
+   "status": "OWNER_ONLY",
+   "evidence": "The repository is on GitHub (git remote origin; docs/accept/R1G-STATUS.md 2026-11-04). There is no .github/ directory, so no workflow guard exists; the visibility and the plan are not recorded in the repository.",
+   "next_step": "Owner chooses. The workflow guard needs no payment and is written here as part of RM-02 once the owner has chosen.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "RM-02",
+    "D-CI-HOST"
+   ],
+   "owner_step": "On GitHub open Settings > General and read the repository visibility. Choose one: keep it private on the free plan with a workflow guard (no cost); upgrade to GitHub Pro for protected branches on a private repository (a payment); or make it public after a secret scan (a publication). Tell the session which."
+  },
+  {
+   "id": "ARCH-OD-04",
+   "chapter": "03",
+   "title": "Owner decision: carry-forward rule (keep forever or sign a TTL) and whether glide interpolation may ship as schematic",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "The shipped rule is B-i2-stateless-carry-forward (a unit stays at its last keyframe; delegated A05 keeps it). Glide between keyframes ships as group ANIM by owner decision 2026-10-05 item 5; tools/t0/ANIM-README.md states \"between two keyframes it is a Modelled interpolation\"; the legend \"What the marks say\" has no line that says so (the word schematic in the bundle belongs to the 1863 base layers).",
+   "next_step": "Delegated, conservative: keep \"forever\" (A05) and keep the glide the owner asked for; add one plain sentence to Help and the legend that positions between recorded moments are drawn by interpolation, as a candidate group. A TTL stays selectable (see PAGE-OD-07).",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md",
+    "tools/t0/ANIM-README.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "O-T0-3",
+    "WP-ARCH-14",
+    "OWNER-2026-10-05-5"
+   ],
+   "delegated_decision": "A44"
+  },
+  {
+   "id": "ARCH-OD-06",
+   "chapter": "03",
+   "title": "Owner decision: real hardware: mid-range Android, iPhone SE, 4 GB Chromebook",
+   "status": "OWNER_ONLY",
+   "evidence": "No real-device run is archived: tests/t0/journeys-manual.md Parts B and C are unfilled; the lab half of the unit-render benchmark runs at 4x CPU in tests/t0/anim.spec.mjs.",
+   "next_step": "Owner supplies the devices and the results (see WP-DEC-03, WP-DEC-16, OWNER-ACTION-12).",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-DEC-03",
+    "WP-DEC-16",
+    "PERF-OD-03"
+   ],
+   "owner_step": "Run Part B (real mouse) and Part C (phones) of tests/t0/journeys-manual.md and the 8x playback check on an iPhone SE, a mid-range Android phone and a 4 GB Chromebook, and send the results."
+  },
+  {
+   "id": "ARCH-OD-09",
+   "chapter": "03",
+   "title": "Owner decision: beta promotion banner and its copy",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "No rebuilt app and no /next/ beta exist (src/ holds only src/lib/time), so there is nothing to promote.",
+   "next_step": "Delegated, conservative: no banner on any production page until a rebuilt build passes the parity gate and has been seen; the beta is then opt-in by URL, noindex, with a visible link back to the classic map, and neutral copy that says what differs. A flag-controlled banner stays selectable.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-ARCH-30",
+    "RM-70"
+   ],
+   "delegated_decision": "A43"
+  },
+  {
+   "id": "ARCH-OD-11",
+   "chapter": "03",
+   "title": "Owner decision: sound and heatmap deletion answered before the port",
+   "status": "SHIPPED",
+   "evidence": "Answered by the register defaults and carried out from R1a (group A): see D-SOUND, D-HEATMAP, O-T0-1, O-T0-2. T0-SND-01 and T0-J6 pass on R1g (release/R1g/test-journeys-desktop.json).",
+   "next_step": "None.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md",
+    "tools/t0/patches/A.json"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-SOUND",
+    "D-HEATMAP"
+   ],
+   "train": "R1a+",
+   "patch_groups": [
+    "A"
+   ],
+   "tests": [
+    "T0-SND-01",
+    "T0-J6"
+   ]
+  },
+  {
+   "id": "TIME-OD-01",
+   "chapter": "04",
+   "title": "Owner decision: name the reviewer and second reader; weekly hours",
+   "status": "OWNER_ONLY",
+   "evidence": "No reviewer is named; docs/editorial/reviewer-charter.md and sign-off-states.md are drafts (D-HIST-REVIEW, WP-DEC-10, WP-TIME-04).",
+   "next_step": "Owner names the people; the review queue is built from docs/editorial/anchor-review-packet.md.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md",
+    "docs/editorial/reviewer-charter.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-HIST-REVIEW",
+    "WP-DEC-10",
+    "WP-TIME-04"
+   ],
+   "owner_step": "Name a historical reviewer and a second reader and agree the hours (the charter proposes 5 to 6 hours a week for 8 to 10 weeks, then 3 to 4)."
+  },
+  {
+   "id": "TIME-OD-02",
+   "chapter": "04",
+   "title": "Owner decision: sign the three design anchors (t100, t226, t675) and the time conventions",
+   "status": "OWNER_ONLY",
+   "evidence": "The conventions are in force in data-src/time/time_anchors.json (tz LMT; tab_days 1-225, 226-450, 451-675 with day 2 at first light 04:30; the clock is prefixed \"about\" when its bound exceeds 20 minutes) and ship through CLOCK. t100, t226 and t675 are state proposed; none of the 33 anchors is signed.",
+   "next_step": "A named person signs (WP-TIME-04). The conventions are kept as shipped (delegated A45).",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md",
+    "data-src/time/time_anchors.json"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-TIME",
+    "WP-TIME-04"
+   ],
+   "owner_step": "A named historian signs the three design anchors and the conventions, or the owner says in writing that they stand as unsigned design choices.",
+   "delegated_decision": "A45"
+  },
+  {
+   "id": "TIME-OD-03",
+   "chapter": "04",
+   "title": "Owner decision: t5 anchor: drop, or import as a design anchor with sigma 30",
+   "status": "SHIPPED",
+   "evidence": "Imported as the plan default: the t5 anchor is kept with sigma 30 and the note \"circular, kept as a design-class anchor\" (data-src/time/time_anchors.json, state proposed); shipped through CLOCK; tests/time anchors tests pass (638 of 638 on 2026-11-13).",
+   "next_step": "None.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md",
+    "data-src/time/time_anchors.json"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-TIME-03"
+   ],
+   "train": "R1d+",
+   "patch_groups": [
+    "CLOCK"
+   ],
+   "tests": [
+    "T0-CLK-*",
+    "tests/time/anchors.test.mjs"
+   ]
+  },
+  {
+   "id": "TIME-OD-04",
+   "chapter": "04",
+   "title": "Owner decision: provisional launch when no reviewer is named (proposed rows, pill, \"about\")",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "R1g already launches provisionally: 4 of 33 anchors are proposed and 4 contested, none signed, and every clock whose bound exceeds 20 minutes prints \"about\". No \"Unreviewed reconstruction\" pill exists in the shipped tree (0 hits in release/R1g/dist).",
+   "next_step": "Delegated, conservative: keep the provisional launch with the evidence class (Documented, Estimated, Contested) and the \"about\" prefix; add no reviewed or unreviewed pill (the owner dropped the equivalent label for the Theatre in DEC-006 and A14 applies the same rule here); the pill stays a selectable flag.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-HIST-REVIEW",
+    "PAGE-OD-08",
+    "WP-TIME-17"
+   ],
+   "delegated_decision": "A45"
+  },
+  {
+   "id": "TIME-OD-07",
+   "chapter": "04",
+   "title": "Owner decision: triage scope: t8 as a context card or delete; July 4 as epilogue cards or ticks 676+",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "Content triage is not finished (WP-TIME-07: 5 of 27 defects open, 5 need a person); the July 4 question is WP-TIME-23 (delegated A36).",
+   "next_step": "Delegated, conservative: t8 becomes a context card (no event is deleted, so nothing leaves the record); July 4 items become dated epilogue cards (A36); ticks 1..675 stay permanent.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-TIME-07",
+    "WP-TIME-23"
+   ],
+   "delegated_decision": "A46"
+  },
+  {
+   "id": "TIME-OD-10",
+   "chapter": "04",
+   "title": "Owner decision: bridge the clock into the legacy app or wait for the rebuild",
+   "status": "SHIPPED",
+   "evidence": "The bridge was chosen and shipped: group CLOCK (113 patches) from R1d by owner decision 2026-10-05 item 2; clock suite 18/18 on R1g [C11].",
+   "next_step": "None.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md",
+    "tools/t0/patches/CLOCK.json"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-TIME",
+    "WP-TIME-10"
+   ],
+   "train": "R1d+",
+   "patch_groups": [
+    "CLOCK"
+   ],
+   "tests": [
+    "T0-CLK-01..18"
+   ]
+  },
+  {
+   "id": "TIME-OD-11",
+   "chapter": "04",
+   "title": "Owner decision: wording: approve \"moment by moment\", the ban list and the D-CLOCK sentence",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "Not applied everywhere: release/R1g/dist still carries \"real time\", \"five-minute\" or \"minute by minute\" in index.html meta text, manifest.json, site-nav.js and living-ledger.html, and has no \"About the clock\" text (WP-TIME-16).",
+   "next_step": "Delegated, conservative: approve the ban list (\"minute-by-minute\", \"real time\", \"five-minute snapshots\" banned) and the D-CLOCK sentence; \"moment by moment\" is allowed where it is true; apply through WP-TIME-16 (A35).",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-TIME-16"
+   ],
+   "delegated_decision": "A47"
+  },
+  {
+   "id": "PERF-OD-01",
+   "chapter": "05",
+   "title": "Owner decision: accept that legacy /map mobile stays about 88 to 93 lab until cutover (no Track A splitter)",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "No Lighthouse runner is committed and no Lighthouse figure for R1g exists in the repository (the lab numbers on record are ops/release-notes/perf-results.json of 2026-09-30 for trains R0 to R1c). The acceptance limits are in tools/accept/thresholds.json (\"never loosen these\").",
+   "next_step": "Delegated, conservative: no shortfall is accepted; the gate stays at its full value; a measured miss is recorded as a gap with its number in docs/perf-exceptions.md (WP-PERF-28), never as a pass. The Track A splitter (amendment trigger A1 of chapter 05) stays an open buildable option if lab or field data are red.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md",
+    "tools/accept/thresholds.json",
+    "ops/release-notes/perf-results.json"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PERF-28",
+    "WP-ARCH-34",
+    "PERF-OD-02"
+   ],
+   "delegated_decision": "A48"
+  },
+  {
+   "id": "PERF-OD-02",
+   "chapter": "05",
+   "title": "Owner decision: exception semantics: Performance A+ tolerates the recorded /map mobile lab exception when field p75 is all Good",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "docs/perf-exceptions.md does not exist; no tool or test treats a miss as a pass (tools/accept/thresholds.json).",
+   "next_step": "Delegated, conservative: not adopted. An exception is the owner's to record in writing; until then every row must be met on both device classes. Way back: the owner records an exception and its floor.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md",
+    "tools/accept/thresholds.json"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PERF-28",
+    "D-EVIDENCE",
+    "PERF-OD-01"
+   ],
+   "delegated_decision": "A48"
+  },
+  {
+   "id": "PERF-OD-03",
+   "chapter": "05",
+   "title": "Owner decision: provide a Moto G Power-class Android, an iPhone SE and a 4 GB Chromebook",
+   "status": "OWNER_ONLY",
+   "evidence": "No real-device run is archived (WP-PERF-17, WP-DEC-03).",
+   "next_step": "Owner supplies the devices.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "ARCH-OD-06",
+    "WP-PERF-17",
+    "WP-DEC-03"
+   ],
+   "owner_step": "Provide the three devices and run the 8x playback check and the first-tap input check (tools/accept/checks/c4_input.mjs scenarios) on each; send the numbers."
+  },
+  {
+   "id": "PERF-OD-04",
+   "chapter": "05",
+   "title": "Owner decision: approve the vitals event fields and privacy sentence (D-TELEMETRY) and reading CrUX",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "No collector, no vitals client and no approved privacy sentence exist (D-TELEMETRY, delegated A04: ship no telemetry). Reading CrUX needs a Google API key, which only the owner can create.",
+   "next_step": "Delegated, conservative: draft the event fields and the sentence only as an inert candidate; ship nothing that sends data. CrUX stays an owner step.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-TELEMETRY",
+    "WP-PERF-03",
+    "WP-PERF-04"
+   ],
+   "owner_step": "If CrUX field data is wanted: create a Google Cloud API key restricted to the Chrome UX Report API and give it to the session through the credential form.",
+   "delegated_decision": "A49"
+  },
+  {
+   "id": "PERF-OD-06",
+   "chapter": "05",
+   "title": "Owner decision: delete the intro from the boot path (20 s moment on a gesture) and adopt the 3 s first-timer boot rule with Text-route triggers",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Intro deletion is shipped (R0-intro-delete in every train, REG-FLAG-1). The 20-second moment is UX-OD-02 (delegated: Pickett's Charge after a gesture). The 3-second boot rule and the Text-route triggers are not built (WP-PERF-18, WP-UX-23).",
+   "next_step": "Build the poster, the intent buttons and the Text-route triggers as a candidate group (WP-PERF-18, WP-UX-23).",
+   "size": "L",
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "REG-FLAG-1",
+    "WP-PERF-18",
+    "WP-UX-23",
+    "UX-OD-02"
+   ],
+   "train": "R0+",
+   "patch_groups": [
+    "R0"
+   ]
+  },
+  {
+   "id": "UX-OD-01",
+   "chapter": "06",
+   "title": "Owner decision: remove the chooser, the onboarding modal and the fake fast-forward",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "Shipped: the intro sweep is deleted (R0-intro-delete) and there is no layout chooser from R1b (group C). The onboarding modal remains (made accessible by group AX: AX-onboarding-dialog, AX-onboarding-esc-focus).",
+   "next_step": "Delegated, conservative: the sweep and the chooser stay removed; the onboarding modal stays until the rebuilt entry exists; no fast-forward returns.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-ENTRY",
+    "WP-UX-16",
+    "WP-UX-03"
+   ],
+   "delegated_decision": "A50"
+  },
+  {
+   "id": "UX-OD-03",
+   "chapter": "06",
+   "title": "Owner decision: five-destination information architecture and labels",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "No card sort or tree test exists in the repository; chapter 06 section 5.6 says the labels are hypotheses until WP-UX-33 runs them.",
+   "next_step": "Delegated, conservative: keep today's navigation and labels; build the five-destination header as a selectable candidate and adopt it only on a real card-sort and tree-test result (the sessions with participants are owner-only, WP-UX-33).",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-UX-15",
+    "WP-UX-33"
+   ],
+   "delegated_decision": "A51"
+  },
+  {
+   "id": "UX-OD-05",
+   "chapter": "06",
+   "title": "Owner decision: fold education.html into the default theme (density option), move the PDF button out of the top bar, delete the eye toggle",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "education.html keeps its own palette (D-DESIGN). The eye toggle is the Extra Features hide switch, still in release/R1g/dist/index.html (storage key gtbg-ef-hidden, PROV R1G decision G2).",
+   "next_step": "Delegated, conservative: fold the page into the default theme and move the PDF button into the header More menu as a candidate; the eye toggle stays until the rebuilt header exists (deleting a visitor control is a scope reduction).",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md",
+    "release/R1g/dist/index.html"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-DESIGN",
+    "WP-UX-15",
+    "WP-UX-11"
+   ],
+   "delegated_decision": "A52"
+  },
+  {
+   "id": "UX-OD-06",
+   "chapter": "06",
+   "title": "Owner decision: tablets 768 to 834 px use the compact layout with side sheets",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "The layout resolver sends widths below 834 px to the phone shell (group C mob:HF-5a..5d; mobile-matrix 19/19 on R1g [C11]); deviation T0-DEV-14 records 834 instead of 820. Side sheets for tablets belong to the one responsive shell (WP-UX-14) and are not built.",
+   "next_step": "Build with WP-UX-14; the tablet check of T0-DEV-14 is owner-only.",
+   "size": "L",
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "T0-DEV-14",
+    "WP-UX-14",
+    "D-SHELL"
+   ],
+   "train": "R1b+",
+   "patch_groups": [
+    "C"
+   ]
+  },
+  {
+   "id": "UX-OD-07",
+   "chapter": "06",
+   "title": "Owner decision: classroom pilot teachers (two or three) and the sensitivity stance",
+   "status": "OWNER_ONLY",
+   "evidence": "No classroom mode exists (WP-UX-30); the plan default is a content note on by default.",
+   "next_step": "Owner names the teachers; the mode and three lessons are built here from sourced text.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-SCHOOLS",
+    "WP-UX-30"
+   ],
+   "owner_step": "Name two or three pilot teachers and say whether the content note stays on by default."
+  },
+  {
+   "id": "UX-OD-08",
+   "chapter": "06",
+   "title": "Owner decision: fund On-site/AR (20 to 30 days plus a field test) or build the Visit hub MVP only",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "On-site mode is not built (WP-UX-31); AR is hidden with a notice (PGC-ar-*). A37 keeps On-site in scope and A03 retires nothing.",
+   "next_step": "Delegated, conservative: in scope in this order: Visit hub MVP, then Near-me on the own 1863 tiles, then the AR heading engine and markers (WP-PAGEC-13/14); the field test is owner-only.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-UX-31",
+    "RM-95",
+    "WP-PAGEC-13",
+    "WP-PAGEC-14"
+   ],
+   "delegated_decision": "A53"
+  },
+  {
+   "id": "UX-OD-10",
+   "chapter": "06",
+   "title": "Owner decision: test devices and participant incentives including one paid assistive-technology session per round",
+   "status": "OWNER_ONLY",
+   "evidence": "No device log, no participant record and no paid session exist in the repository (WP-UX-33, WP-A11Y-30).",
+   "next_step": "Owner supplies devices and sets the budget.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-EVIDENCE",
+    "WP-UX-33",
+    "A11Y-OD-02"
+   ],
+   "owner_step": "Supply the test devices, set the participant incentive and the budget for one paid assistive-technology session per research round."
+  },
+  {
+   "id": "A11Y-OD-01",
+   "chapter": "07",
+   "title": "Owner decision: target WCAG 2.2 AA plus the cheap AAA items; say \"partially conforms\" until independent evidence exists",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "The shipped bridge (group AX, 91 patches; a11y suite 26/28 with both skips by design on R1g [C11]) targets WCAG 2.2 AA. No accessibility statement is published (candidates/trust-pages/accessibility.html is a candidate, WP-A11Y-31); no independent evaluation exists.",
+   "next_step": "Delegated, conservative: accept the target; the public wording is \"partially conforms\" until an independent evaluation exists (D-EVIDENCE); no A+ claim.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md",
+    "candidates/trust-pages/accessibility.html"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-A11Y-31",
+    "WP-A11Y-33",
+    "D-EVIDENCE"
+   ],
+   "delegated_decision": "A54"
+  },
+  {
+   "id": "A11Y-OD-02",
+   "chapter": "07",
+   "title": "Owner decision: budget for the independent evaluation and two or three paid assistive-technology sessions",
+   "status": "OWNER_ONLY",
+   "evidence": "No evaluation or session record exists (WP-A11Y-30, WP-A11Y-32).",
+   "next_step": "Owner commissions, or chooses the volunteer route; without it the grade stays \"self-assessed\".",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-EVIDENCE",
+    "WP-A11Y-30",
+    "WP-A11Y-32",
+    "UX-OD-10"
+   ],
+   "owner_step": "Commission an independent accessibility evaluation and two or three paid assistive-technology sessions, or recruit volunteers and say which route."
+  },
+  {
+   "id": "A11Y-OD-04",
+   "chapter": "07",
+   "title": "Owner decision: role=application with a unit cursor on fine pointers; Data View as the default on touch; battle-event announcements off by default",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "Not built: 0 hits for \"Data View\" in release/R1g/dist/assets/index-52cec836.js (WP-A11Y-13, WP-A11Y-14, WP-A11Y-11).",
+   "next_step": "Delegated, conservative: accept the plan defaults: unit cursor on fine pointers, Data View as the screen-reader default on touch, announcements off until the visitor turns them on in settings.",
+   "size": "L",
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-A11Y-11",
+    "WP-A11Y-13",
+    "WP-A11Y-14"
+   ],
+   "delegated_decision": "A55"
+  },
+  {
+   "id": "A11Y-OD-05",
+   "chapter": "07",
+   "title": "Owner decision: side colours: luminance-separated pair with hatch and letters, or today's hues with chamfer and hatch",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "Decided as delegated A30 under WP-A11Y-19; not built.",
+   "next_step": "See A30: keep today's hues, add the non-colour cue (hatch and letter) as the default, keep the luminance-separated pair as a selectable high-contrast option, add the tests.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-A11Y-19"
+   ],
+   "delegated_decision": "A30"
+  },
+  {
+   "id": "A11Y-OD-07",
+   "chapter": "07",
+   "title": "Owner decision: accessibility feedback address: contact@ with a form category, or accessibility@",
+   "status": "SUPERSEDED",
+   "evidence": "Overtaken by owner decision 2026-10-04 item 5: the only public contact is gettysburginteractivemap@gmail.com; no role alias exists. The contact page candidate is candidates/trust-pages/contact.html (RM-20).",
+   "next_step": "None; the accessibility statement names the site address.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md",
+    "docs/decisions/OWNER-DECISIONS-2026-10-04.md",
+    "candidates/trust-pages/contact.html"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-CONTACT",
+    "RM-20"
+   ]
+  },
+  {
+   "id": "A11Y-OD-08",
+   "chapter": "07",
+   "title": "Owner decision: translate=\"no\" only on canvas labels, unit names and clocks",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "translate=\"no\" occurs 0 times in release/R1g/dist/index.html (D-LANG).",
+   "next_step": "Delegated, conservative: accept the scope (canvas labels, unit names, clocks); story text and the Chronicle stay translatable.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-LANG",
+    "WP-A11Y-08",
+    "WP-TIME-17"
+   ],
+   "delegated_decision": "A56"
+  },
+  {
+   "id": "A11Y-OD-09",
+   "chapter": "07",
+   "title": "Owner decision: Labs dispositions: accessibility work only if the page is kept",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "No Labs page is retired; WP-A11Y-28 is open (delegated A03: retire nothing, so the work is in scope).",
+   "next_step": "Follows A03: Labs accessibility is built for every kept page.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-SCOPE-TIERS",
+    "WP-A11Y-28"
+   ],
+   "delegated_decision": "A03"
+  },
+  {
+   "id": "PAGE-OD-01",
+   "chapter": "08a",
+   "title": "Owner decision: unit pages: two URLs sharing unitView until S4, or one Unit page with a print view",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "/report and /regiment are two hand-edited pages (WP-PAGE-23, WP-PAGE-26); the shared unit view is not built (WP-PAGE-24 data candidates exist in data-src/build).",
+   "next_step": "Delegated, conservative: keep both URLs (no URL or identity change before the Search Console baseline); build the shared unitView behind them; the single-page option stays for train S4.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PAGE-24",
+    "WP-PAGE-25",
+    "WP-PAGE-26"
+   ],
+   "delegated_decision": "A57"
+  },
+  {
+   "id": "PAGE-OD-02",
+   "chapter": "08a",
+   "title": "Owner decision: hotfix timing: in R1, or a late R1-family page deploy",
+   "status": "SUPERSEDED",
+   "evidence": "Moot: the page packs ship in the R1 trains themselves (PG-core, PG-maps and the later page groups in R1a to R1g); only the owner deploys.",
+   "next_step": "None.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-T0-12",
+    "WP-T0-13"
+   ]
+  },
+  {
+   "id": "PAGE-OD-03",
+   "chapter": "08a",
+   "title": "Owner decision: Sandbox: retire (default) or fund 3.0 to 4.5 days",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "Sandbox is shipped with presets and contrast fixes (CLK-87..90, PGF-sandbox-*); drag is mouse-only (WP-PAGE-43).",
+   "next_step": "Follows A03: retire nothing; build touch and keyboard moves.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PAGE-43",
+    "D-SCOPE-TIERS"
+   ],
+   "delegated_decision": "A03"
+  },
+  {
+   "id": "PAGE-OD-04",
+   "chapter": "08a",
+   "title": "Owner decision: real viewshed: off (default) or fund the V2 to V6 packages after cutover",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "No DEM and no viewshed engine are in the repository (WP-PAGE-15, WP-PAGE-45); the page is titled \"High Ground\" with a caveat (D-VIEWSHED).",
+   "next_step": "Follows A33: keep in scope after the DEM exists; the page keeps the name High Ground and the \"terrain only\" label until then.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PAGE-45",
+    "WP-PAGE-15",
+    "D-VIEWSHED"
+   ],
+   "delegated_decision": "A33"
+  },
+  {
+   "id": "PAGE-OD-06",
+   "chapter": "08a",
+   "title": "Owner decision: MAP_IDLE_ACTIVATE: off until the boot-contract and engine spikes have numbers",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "No such flag exists in release/R1g/dist, src or tools (grep on 2026-11-13); the click-or-idle activation template is not built (WP-PERF-20, WP-PAGE-10).",
+   "next_step": "Delegated, conservative: the flag is added off and stays off until WP-DEC-01 and WP-DEC-02 report.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PERF-20",
+    "WP-PAGE-10",
+    "WP-DEC-01",
+    "WP-DEC-02"
+   ],
+   "delegated_decision": "A58"
+  },
+  {
+   "id": "PAGE-OD-07",
+   "chapter": "08a",
+   "title": "Owner decision: carry-forward and maxAge (a unit unseen for 24 moments drawn as a hollow ring)",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "The shipped rule keeps a unit at its last keyframe (A05); no hollow-ring display exists.",
+   "next_step": "Delegated, conservative: no maxAge; the hollow ring is built as a selectable candidate, off by default.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "O-T0-3",
+    "ARCH-OD-04",
+    "WP-ARCH-14"
+   ],
+   "delegated_decision": "A59"
+  },
+  {
+   "id": "PAGE-OD-09",
+   "chapter": "08a",
+   "title": "Owner decision: Aftermath and Students authoring: publish only sourced text; without a reviewer keep four sourced events and skip the student rewrite",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "WP-PAGE-41 and WP-PAGE-42 are not built; the Aftermath page holds the legacy text.",
+   "next_step": "Delegated, conservative: write both from sourced text only, every claim cited; the student rewrite is not skipped for lack of a reviewer (skipping would narrow the plan); no \"reviewed\" wording.",
+   "size": "L",
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PAGE-41",
+    "WP-PAGE-42",
+    "PAGE-OD-08"
+   ],
+   "delegated_decision": "A60"
+  },
+  {
+   "id": "PAGE-OD-10",
+   "chapter": "08a",
+   "title": "Owner decision: Students folds into /learn at S4",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "No /learn page exists; /education is the shipped URL.",
+   "next_step": "Delegated, conservative: /education keeps its URL (no identity change before the Search Console baseline); the fold stays a later-train option.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PAGE-40",
+    "PAGE-OD-01"
+   ],
+   "delegated_decision": "A57"
+  },
+  {
+   "id": "PAGE-OD-11",
+   "chapter": "08a",
+   "title": "Owner decision: optional packages WP-PAGE-28, 33, 37 and 39: not scheduled",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "All four are listed OPEN_BUILDABLE in this file as plan options; none is built.",
+   "next_step": "Delegated, conservative: all four stay in scope (leaving them out would be a scope reduction only the owner may take) and are built after the core packages.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PAGE-28",
+    "WP-PAGE-33",
+    "WP-PAGE-37",
+    "WP-PAGE-39",
+    "RM-94"
+   ],
+   "delegated_decision": "A61"
+  },
+  {
+   "id": "PAGE-OD-12",
+   "chapter": "08a",
+   "title": "Owner decision: brand art for per-page OG cards",
+   "status": "SUPERSEDED",
+   "evidence": "Overtaken by owner decision 2026-10-19 item 2 (only actual images of Gettysburg); every og and twitter image is a real, licensed photograph (group PG-zimg).",
+   "next_step": "None.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-DEC-09",
+    "D-MEDIA",
+    "OWNER-2026-10-19-2"
+   ]
+  },
+  {
+   "id": "PAGEC-OD-01",
+   "chapter": "08b",
+   "title": "Owner decision: Labs: AR, Watch Together, Cinematic Export, Immersive dispositions",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "No Labs page is retired (AR hidden, Watch Together contained, Immersive and Cinematic Export live); no owner disposition is recorded.",
+   "next_step": "Follows A03: retire nothing; build every keep-gate (WP-PAGEC-09..17, 24, 25); WP-PAGEC-35 is not needed while no page is retired.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-SCOPE-TIERS",
+    "RM-79",
+    "WP-PAGEC-35"
+   ],
+   "delegated_decision": "A03"
+  },
+  {
+   "id": "PAGEC-OD-02",
+   "chapter": "08b",
+   "title": "Owner decision: embed frame-ancestors * or an allow-list; oEmbed yes",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "Shipped as the plan default: /embed and /embed.html carry frame-ancestors * and no X-Frame-Options; every other page is frame-ancestors none (release/R1g/dist/_headers). oEmbed is not built (WP-PAGEC-32).",
+   "next_step": "Delegated, conservative: keep * on the two embed paths only (they exist to be framed); build oEmbed as a candidate; an allow-list stays a one-line change in tools/t0/config/gen.mjs.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md",
+    "tools/t0/config/gen.mjs"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PAGEC-31",
+    "WP-PAGEC-32",
+    "D-CSP"
+   ],
+   "delegated_decision": "A62"
+  },
+  {
+   "id": "PAGEC-OD-06",
+   "chapter": "08b",
+   "title": "Owner decision: Turning Points: a historian signs the nine anchors; reviewer and second reader; fallback badge",
+   "status": "OWNER_ONLY",
+   "evidence": "The anchors are corrected (DL-turning-points-anchor rows; WP-PAGEC-18) but no person has signed them.",
+   "next_step": "Owner names the reviewer (see TIME-OD-01); the fallback wording follows A14 and A45 (evidence class, no reviewed or unreviewed pill).",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "TIME-OD-01",
+    "WP-PAGEC-18",
+    "D-HIST-REVIEW"
+   ],
+   "owner_step": "Name the historical reviewer and second reader (the same people as TIME-OD-01)."
+  },
+  {
+   "id": "PAGEC-OD-07",
+   "chapter": "08b",
+   "title": "Owner decision: Find Ancestor stays link-out only; send the NPS Civil War Soldiers and Sailors email now; rename at S2",
+   "status": "OWNER_ONLY",
+   "evidence": "Link-out is the shipped state; the drafted permission emails are unsent (ops/owner-console-actions.md Actions 7 to 11 unticked).",
+   "next_step": "Owner sends the email; the rename waits for D-NAME.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md",
+    "ops/owner-console-actions.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-CWSS",
+    "OWNER-ACTION-08"
+   ],
+   "owner_step": "Send the drafted permission email to the NPS Civil War Soldiers and Sailors System contact."
+  },
+  {
+   "id": "PAGEC-OD-08",
+   "chapter": "08b",
+   "title": "Owner decision: casualty model (bell curve sigma 8, sigma = width/6, or linear), headline sums, Busey and Martin as facts",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "The Ledger overshoot is fixed (PGC-ledger-curve); there is no shared model module (WP-PAGEC-26). Data candidates: data-src/ledger/conflict_ledger.json (validator: 0 errors, 0 warnings on 2026-11-13). Whether Busey and Martin figures may be used is a rights question for the owner (OWNER-ACTION-10).",
+   "next_step": "Delegated, conservative: show published totals with their printed source and page; the documented model stays the default curve with the other two selectable and a visible label that the curve between records is modelled; Busey and Martin only as facts with attribution after the owner answers Action 10.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md",
+    "data-src/ledger/conflict_ledger.json"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PAGEC-26",
+    "WP-PAGE-17",
+    "OWNER-ACTION-10"
+   ],
+   "delegated_decision": "A63"
+  },
+  {
+   "id": "PAGEC-OD-09",
+   "chapter": "08b",
+   "title": "Owner decision: where \"Report a problem\" and broken-link reports go: role address or form",
+   "status": "SUPERSEDED",
+   "evidence": "Overtaken by owner decision 2026-10-04 item 5: one public address; the contact and report page exists as a candidate (candidates/trust-pages/contact.html).",
+   "next_step": "None; a report form is optional under RM-20.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md",
+    "candidates/trust-pages/contact.html"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-CONTACT",
+    "RM-20"
+   ]
+  },
+  {
+   "id": "PAGEC-OD-10",
+   "chapter": "08b",
+   "title": "Owner decision: tour links in Classroom mode",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "Tours by link (#tour=) are not built (WP-PAGEC-16); Classroom mode is not built (WP-UX-30).",
+   "next_step": "Delegated, conservative: allowed, fragment only (no query string, no personal data).",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PAGEC-16",
+    "WP-UX-30",
+    "D-SCHOOLS"
+   ],
+   "delegated_decision": "A64"
+  },
+  {
+   "id": "PAGEC-OD-11",
+   "chapter": "08b",
+   "title": "Owner decision: optional /support page",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "No /support page exists; WP-PAGEC-34 shipped only the removal of the two developer pages.",
+   "next_step": "Delegated, conservative: yes, as a candidate page (browser support, known problems, how to report; no data collection) that ships with the next page train.",
+   "size": "M",
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "WP-PAGEC-34",
+    "D-BROWSERS"
+   ],
+   "delegated_decision": "A65"
+  },
+  {
+   "id": "PAGEC-OD-12",
+   "chapter": "08b",
+   "title": "Owner decision: is Netlify Web Analytics enabled (the privacy text must say so)",
+   "status": "OWNER_ONLY",
+   "evidence": "The repository cannot show the Netlify console state; ops/RUM-hygiene.md describes the Netlify RUM script only.",
+   "next_step": "Owner answers; the privacy text (D-LEGAL, WP-PAGEC-29) is written to match.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md",
+    "ops/RUM-hygiene.md"
+   ],
+   "kind": "owner decision (chapter)",
+   "related": [
+    "D-LEGAL",
+    "WP-PAGEC-29",
+    "WP-DEC-07"
+   ],
+   "owner_step": "In Netlify open the site, then Analytics and RUM settings, and say whether Web Analytics and RUM are enabled."
   }
- ]
+ ],
+ "open_by_status_and_size": {
+  "OPEN_NEEDS_DECISION": {
+   "S": 60,
+   "M": 21,
+   "L": 14
+  },
+  "OPEN_BUILDABLE": {
+   "S": 41,
+   "M": 95,
+   "L": 94
+  },
+  "OWNER_ONLY": {
+   "S": 54,
+   "M": 13,
+   "L": 3
+  },
+  "BUILT_NOT_SHIPPED": {
+   "S": 1,
+   "M": 7,
+   "L": 6
+  }
+ },
+ "open_note": "Items overlap (a roadmap node, its work packages and an ADR can name the same work), so sizes are not additive; the de-duplicated effort is in docs/plan/FINAL/15-roadmap.json (729 to 1,236 AI-assisted person-days for the whole programme, P50 982).",
+ "continuation": {
+  "what": "Second pass of 2026-11-13 after the first pass was interrupted: re-verified the first pass against the repository, added the 52 chapter-level owner decisions it had not listed (xxx-OD-nn), re-graded six roadmap nodes it had called SHIPPED while a work package inside them is not shipped (RM-12, RM-14, RM-18, RM-43, RM-44) and completed the test runs it had left open.",
+  "verified": [
+   "every patch id and test id named in the evidence exists in release/R1g/anchors.json or in tests/ and tools/ (scripted check, tmp/r1h-cand/statusA/verify_items.py)",
+   "the counts of the C11 regression run (suites-r1g-full2.json) quoted in the evidence",
+   "the \"does not exist\" claims spot-checked: docs/BROWSERS.md, browserslist, .github, docs/perf-exceptions.md, translate=\"no\", canonical tags, sitemap lastmod, Data View, MAP_IDLE_ACTIVATE"
+  ],
+  "delegated_rows_added": "A41 to A67 in docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+ }
 }

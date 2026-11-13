@@ -1,0 +1,242 @@
+{
+ "finished": "see file mtime",
+ "seconds": 4541,
+ "portBase": "8480",
+ "totals": {
+  "suites": 10,
+  "ok": 5,
+  "notOk": 5,
+  "greenTests": 86,
+  "greenTestsTotal": 109,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "r1.clock",
+   "title": "CLOCK: one clock for the whole site (T0-CLK-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 599.9,
+   "passed": 16,
+   "total": 18,
+   "skipped": 0,
+   "failed": 2,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-CLK-12    sub-pages: Compare, Camera, Immersive, Living Ledger, Documentary, Education, Turning Points, Search, Regiment, Sandbox, Cinematic export, Ground Remembers and Watch Together print model clocks (no \"Tick n\"), with the frame as a tooltip",
+    "FAIL  T0-CLK-15    ticks stay permanent frame ids: the same units stand on the same frames as in the control tree (R1c), ?tick= lands on the same frame, playback still advances"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-CLK-16    node tools/t0/clock/build-clock.mjs --check: patches-next/CLOCK.json is exactly what the anchors generate, and the derived time modules are current",
+    "      {\"output\":[\"ok   node tools/time/build.mjs --check :: generated files current (8)\",\"ok   node tools/time/build-clock-patches.mjs :: 113 patches (3 regex) -> tools/t0/patches-next/CLOCK.json unch",
+    "clock: 16/18 passed, 2 FAILED"
+   ]
+  },
+  {
+   "id": "r1.data",
+   "title": "DATA: audited displayed data (T0-DATA-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 41.3,
+   "passed": 18,
+   "total": 18,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-DATA-X    every browser test of this run: 0 first-party console errors",
+    "      {\"browser sessions opened\":4}",
+    "data: 18/18 passed"
+   ]
+  },
+  {
+   "id": "r1.base1863",
+   "title": "BASE1863: the 1863 reconstruction as the map base (B63-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 130,
+   "seconds": 1806.2,
+   "passed": 4,
+   "total": 7,
+   "skipped": 0,
+   "failed": 3,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-B63-05    beyond coverage: neutral ground colour, no 404, no console error, also at z16 to z18 outside the detail rectangle",
+    "FAIL  T0-B63-06    tile errors: tiles that fail (offline) raise no uncaught exception, show the status text and the neutral ground; when the connection is back the tiles load and the status clears",
+    "FAIL  T0-B63-07    the product's overlays on the new base: layer order, catalogue geometry for the labels, old hand-placed lines gone, units canvas and a unit panel on top"
+   ],
+   "ok": false,
+   "tail": [
+    "FAIL  T0-B63-07    the product's overlays on the new base: layer order, catalogue geometry for the labels, old hand-placed lines gone, units canvas and a unit panel on top",
+    "      Error: road label source has Emmitsburg Road:  |     at assert (file:///home/user/cautious-chainsaw/tests/t0/lib.mjs:417:54) |     at file:///home/user/cautious-chainsaw/tests/t0/base1863.spec.m",
+    "      {\"mapbox requests\":4}"
+   ]
+  },
+  {
+   "id": "r1.images",
+   "title": "IMG: only real images of Gettysburg (T0-RIMG-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 8.9,
+   "passed": 12,
+   "total": 13,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      sources not fetched (python tools/t0/images/fetch_sources.py)",
+    "PASS  T0-RIMG-X    the Chrome pass had 0 uncaught exceptions and 0 first-party console errors",
+    "images: 12/13 passed, 1 skipped"
+   ]
+  },
+  {
+   "id": "r1.perf2",
+   "title": "PERF2: compare/precompile/roster performance (T0-P2-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 492.8,
+   "passed": 4,
+   "total": 12,
+   "skipped": 1,
+   "failed": 7,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-P2-01     compare (desktop, mouse): Dark on both maps never logs \"Unable to perform style diff\", has no long task and answers within 100 ms; the style really changes",
+    "FAIL  T0-P2-03     compare (desktop, mouse): 3D Terrain on a fresh page, and after Dark, answers within 100 ms with no long task, and the terrain is really switched on",
+    "FAIL  T0-P2-02     compare (phone, touch): Dark on both maps never logs \"Unable to perform style diff\", has no long task and answers within 100 ms; the style really changes",
+    "FAIL  T0-P2-04     compare (phone, touch): 3D Terrain on a fresh page, and after Dark, answers within 100 ms with no long task, and the terrain is really switched on",
+    "FAIL  T0-P2-05     app (desktop): Unit Roster opens with no long task and within 100 ms, and ends with every unit row in the DOM",
+    "FAIL  T0-P2-07     app (desktop): the first press of Monuments has no long task, links no Mapbox program on demand, and the monuments are drawn",
+    "FAIL  T0-P2-09     ground-remembers, immersive, viewshed and compare still draw their maps: a canvas that is not blank, no console error, the layers present"
+   ],
+   "ok": false,
+   "tail": [
+    "SKIP  T0-P2-12     the group builds with the unmodified builder after POLISH, with and without ANIM in either order, standalone on CLOCK,DATA,MON, and gives one entry bundle whichever way ANIM is orde",
+    "      pass --build (about 5 minutes)",
+    "perf2: 4/12 passed, 1 skipped, 7 FAILED"
+   ]
+  },
+  {
+   "id": "r1.acc",
+   "title": "ACC: no casualty rate above 100 percent is printed as fact (T0-ACC-*): red on R1d, green from R1e",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 8.4,
+   "passed": 6,
+   "total": 6,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-ACC-05    /report: 64.7 % for the 107th Pennsylvania, no rate row for the 6th US Cavalry",
+    "PASS  T0-ACC-06    the guard: a record that says 135.2 %, or has 140 losses over 100 men and no rate, prints no rate on either page",
+    "acc: 6/6 passed"
+   ]
+  },
+  {
+   "id": "r1.wtpeer",
+   "title": "WTP: /watch-together does not close a Live Sync connection that is still being opened (T0-WTP-*, page group PG-zwt)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 8.1,
+   "passed": 1,
+   "total": 4,
+   "skipped": 0,
+   "failed": 3,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-WTP-01    Host pressed twice while the first connection is still opening: no connecting peer is destroyed; the first one is retired when it has opened and the page shows only the newest",
+    "FAIL  T0-WTP-02    Host after the first peer has opened destroys it at once (as before); a retired peer that fails reports no error on the page",
+    "FAIL  T0-WTP-03    Join pressed twice with a code: same rule as Host (no connecting peer destroyed)"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"two joins\":{\"peers\":0,\"destroyed\":[],\"closedWhileConnecting\":0,\"status\":\"not connected\",\"code\":\"\"}}",
+    "PASS  T0-WTP-04    the page group is generated from its script and registered copies are in step",
+    "wtpeer: 1/4 passed, 3 FAILED"
+   ]
+  },
+  {
+   "id": "r1.perf6",
+   "title": "PERF6: the Unit Roster list is virtualised, 3D Terrain off on a tilted map links no program in a frame (T0-P6-*, group PERF6 + page group PG-zperf6) on the Release 1 candidate, against release/R1f/dist",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 1482.3,
+   "passed": 7,
+   "total": 7,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-P6-07     compare (desktop): the settled picture of the left map with 3D Terrain on, and again off, is the control's: 0 differing pixels (the same steps on both trees)",
+    "      {\"terrain_on\":0,\"terrain_off\":0,\"terrain_on_again\":0}",
+    "perf6: 7/7 passed"
+   ]
+  },
+  {
+   "id": "r1.ztail",
+   "title": "ZTAIL: the dark style fog of /ground-remembers is off for the first frames (T0-ZT-*, page group PG-ztail) on the Release 1 candidate, against release/R1f/dist",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 93,
+   "passed": 1,
+   "total": 7,
+   "skipped": 1,
+   "failed": 5,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-ZT-01     /ground-remembers (phone), settled: the default view is pixel-identical to the control, the style's fog and globe projection are the style's own again, the layer list is unchanged, no console error",
+    "FAIL  T0-ZT-02     /ground-remembers (phone): tilted to 60 degrees and zoomed out to 3 and to 0.8 the pictures are identical to the control (fog, atmosphere and globe are back)",
+    "FAIL  T0-ZT-03     /ground-remembers (phone): a visitor who moves the map before it is idle gets the fog back at once (the tilted picture is identical to the control)",
+    "FAIL  T0-ZT-04     /ground-remembers (phone): before the first idle the painter has built no atmosphere (the 16,000 star quads); after the idle it has, and the fog is on",
+    "FAIL  T0-ZT-07     /ground-remembers (phone): a visitor who does not move the map gets the fog back in a quiet moment about 4.5 s after the first idle (not before, not while the map moves), and never twice"
+   ],
+   "ok": false,
+   "tail": [
+    "SKIP  T0-ZT-08     blocking time of a cold /ground-remembers load (phone, CPU 4x, interleaved with the control): the median is lower, no load above 400 ms",
+    "      pass --bench N (N loads per tree, about 12 s per load)",
+    "ztail: 1/7 passed, 1 skipped, 5 FAILED"
+   ]
+  },
+  {
+   "id": "r1.seo",
+   "title": "SEO: titles, descriptions, canonicals, sitemap, JSON-LD, Open Graph, crawlable links, no build-method wording (T0-SEO-*, page group PG-zseo) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.1,
+   "passed": 17,
+   "total": 17,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS T0-SEO-14 no mention of AI, Claude, Anthropic or how the site was built in a shipped text file",
+    "PASS T0-SEO-15 no production page restricts following or snippets with a robots meta",
+    "17/17 passed (release/R1g/dist)"
+   ]
+  }
+ ]
+}

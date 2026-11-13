@@ -102,3 +102,32 @@ test('sound: off until started; started inside the theatre it is one AudioContex
   }
   assert.deepEqual(log.errors, [], 'no console errors'); assert.deepEqual(log.pageerrors, []); await ctx.close();
 });
+
+// Added layers (src/ext, docs/EXT-CONTRACT.md): the layers the list names are loaded, every switch of theirs is on and every panel of theirs has been opened; Back then leaves the page as the
+// landing page was: no context, animation frame, timer, listener, worker, audio context or added node. (Asked for by the shell's note spec-health-pack-ext-folder.md, point 3.)
+test('added layers: loaded, every switch on and every panel opened, Back leaves nothing behind', async () => {
+  const { ctx, page, log } = await open(B, S.base); await page.click('#landing-title'); await wait(page, 200);
+  await enter(page); await leave(page); await wait(page, 200); const base = await page.evaluate(() => ({ ...window.__instSnapshot(), nodes: document.querySelectorAll('*').length }));
+  let used = 0;
+  for (let i = 1; i <= 3; i++) {
+    await enter(page);
+    const during = await page.evaluate(async () => {
+      const a = window.btApp; if (!a || !a.ext) return { loader: false }; await a.ext.whenSettled(); const st = a.ext.status(), did = [];
+      for (const m of st) for (const id of m.toggles) { await a.ext.setToggle(id, true); did.push('switch ' + id); }
+      for (const m of st) for (const id of m.panels) { a.ext.openPanel(id); await a.frames(2); did.push('panel ' + id); }
+      await a.frames(3);
+      return { loader: true, index: a.ext.index.state, status: a.ext.status().map(m => ({ path: m.path, state: m.state, error: m.error })), problems: a.ext.problems(), did, snap: window.__instSnapshot() };
+    });
+    assert.equal(during.loader, true, `cycle ${i}: the shell has the loader of the added layers (btApp.ext)`);
+    assert.equal(during.index, 'read', `cycle ${i}: the list of added layers (src/ext/index.mjs) was read; a missing list is the shell's 404 line, a broken one a failure`);
+    for (const m of during.status) assert.equal(m.state, 'running', `cycle ${i}: added layer ${m.path} is ${m.state}: ${m.error || ''}`);
+    assert.deepEqual(during.problems, [], `cycle ${i}: nothing is listed as not running`); used = during.did.length;
+    await leave(page); await wait(page, 150);
+    const after = await page.evaluate(() => ({ ...window.__instSnapshot(), nodes: document.querySelectorAll('*').length, btApp: !!window.btApp }));
+    assert.equal(after.btApp, false, `cycle ${i}: btApp is gone`); assert.equal(after.gl, 0, `cycle ${i}: live canvas contexts`); assert.equal(after.rafs, 0, `cycle ${i}: pending animation frames`);
+    assert.equal(after.timers, base.timers, `cycle ${i}: pending timers`); assert.equal(after.listeners, base.listeners, `cycle ${i}: listeners registered through addEventListener`);
+    assert.equal(after.workers, 0); assert.equal(after.audio, 0); assert.equal(after.ports, 0); assert.ok(after.nodes <= base.nodes + 12, `cycle ${i}: DOM nodes ${after.nodes} vs ${base.nodes} before the first visit ended`);
+  }
+  console.log(`# added layers: ${used} switches and panels used per visit; after every Back the counts are those of the landing page`);
+  assert.deepEqual(log.errors, [], 'no console errors'); assert.deepEqual(log.pageerrors, []); await ctx.close();
+});

@@ -13,7 +13,7 @@ printed where t_iso is set and a day-part word where a period is set; the tier r
 claim: that is the reading, and the review.
 Exit status: 0 no error, 1 errors, 2 a source text is not on this machine (the quote checks that need it are listed, not passed).
 """
-import os, re, sys, json, glob, bisect, hashlib, argparse
+import os, re, sys, json, glob, bisect, hashlib, argparse, copy
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 UND = os.path.abspath(os.path.join(HERE, '..'))
@@ -39,20 +39,35 @@ ANCHORS = ['gazetteer', 'troopmap', 'monument', 'structure', 'road_crossing', 'a
 RELS = ['at', 'in', 'on', 'near', 'north_of', 'northeast_of', 'east_of', 'southeast_of', 'south_of', 'southwest_of', 'west_of', 'northwest_of',
         'left_of', 'right_of', 'front_of', 'rear_of', 'with', 'between']
 BASES = ['printed_clock', 'printed_period', 'sequence', 'day_only']
-# a period token needs one of its words in when.printed (lower case); the clock windows of the tokens are ONE table of the integrator (PLAN.md section 6)
+# a period token needs one of its words in when.printed (lower case). Noon and midnight are CLOCKS (the layer reads the words noon, midday and midnight as 12:00 and 00:00, claim-clock.mjs):
+# write them as printed_clock. The clock window of every token is ONE table of the integrator (PLAN.md section 6.3); the 14 tokens are the words an Official Records report uses for a part of a day.
 PERIODS = {
-    'midnight': ['midnight'], 'before_daylight': ['before daylight', 'before day', 'before dawn', 'before light'],
-    'daybreak': ['daybreak', 'day-break', 'dawn', 'daylight', 'day-light', 'break of day', 'light'], 'sunrise': ['sunrise', 'sun-rise', 'sunup'],
-    'early_morning': ['early'], 'morning': ['morning'], 'forenoon': ['forenoon'], 'noon': ['noon', 'midday', 'mid-day', ' m.'],
-    'early_afternoon': ['early in the afternoon', 'early afternoon'], 'afternoon': ['afternoon', 'p. m', 'p.m'], 'late_afternoon': ['late in the afternoon', 'late afternoon', 'toward evening', 'towards evening', 'late in the day'],
-    'sunset': ['sunset', 'sundown', 'sun-down', 'sun-set'], 'dusk': ['dusk', 'dark', 'nightfall', 'twilight'], 'evening': ['evening'], 'night': ['night'], 'all_day': ['all day', 'during the day', 'throughout the day', 'the whole day', 'the entire day'],
+    'before_daylight': ['before daylight', 'before day', 'before dawn', 'before light'],
+    'daybreak': ['daybreak', 'day-break', 'dawn', 'daylight', 'day-light', 'break of day', 'first light'],
+    'sunrise': ['sunrise', 'sun-rise', 'sunup', 'sun-up'],
+    'early_morning': ['early in the morning', 'early morning', 'early hour of the morning', 'early in the day'],
+    'morning': ['morning'], 'forenoon': ['forenoon'],
+    'early_afternoon': ['early in the afternoon', 'early afternoon'], 'afternoon': ['afternoon'],
+    'late_afternoon': ['late in the afternoon', 'late afternoon', 'toward evening', 'towards evening', 'late in the day'],
+    'sunset': ['sunset', 'sundown', 'sun-down', 'sun-set', 'going down of the sun'],
+    'dusk': ['dusk', 'dark', 'nightfall', 'twilight'], 'evening': ['evening'], 'night': ['night'],
+    'all_day': ['all day', 'during the day', 'throughout the day', 'the whole day', 'the entire day'],
 }
 COMPASS = {'north': 0, 'northeast': 45, 'north-east': 45, 'east': 90, 'southeast': 135, 'south-east': 135, 'south': 180, 'southwest': 225, 'south-west': 225, 'west': 270, 'northwest': 315, 'north-west': 315}
 FACING = ['printed_compass', 'toward_place', 'parallel_to_road', 'toward_unit', 'none']
 STRENGTH_WHAT = ['officers_and_men', 'men', 'enlisted', 'officers', 'muskets', 'sabers', 'aggregate_present', 'present_for_duty', 'engaged', 'carried_into_action', 'effective']
 UNIT_ACTIONS = ['add', 'absent', 'attached', 'merge', 'fix', 'status', 'rename']
+UNIT_STATUS = ['on_field', 'partly_on_field', 'never_on_field', 'never_main_field']      # the statuses of history/units.json; documented_absent is not one of them: it is what an `absent` evidence record earns
+UNIT_LEVELS = ['army', 'corps', 'division', 'brigade', 'regiment', 'battalion', 'battery', 'company', 'artillery_brigade', 'artillery_battalion', 'artillery_group', 'group', 'command', 'headquarters', 'person']
+UNIT_ARMS = ['infantry', 'cavalry', 'artillery', 'staff', 'medical', 'train', 'headquarters']
 UNITS_PER = {'yards': 0.9144, 'feet': 0.3048, 'miles': 1609.344, 'rods': 5.0292, 'm': 1.0}      # exact definitions; a pace has no fixed length here: unit 'paces' carries m null
 GAP_WHAT = ['arrival', 'positions', 'path', 'strength', 'departure', 'roster']
+COMMON_KEYS = {'claim_id', 'group', 'kind', 'unit_id', 'tier', 'render_flag', 'weak_source', 'claim_support_verified', 'fidelity_check', 'fidelity_note', 'ocr_uncertain', 'flag_single_source',
+               'conflicts_with', 'corroborates', 'conflict_key', 'timeline', 'statement', 'reasoning', 'source', 'note'}
+_PLACED = {'when', 'until', 'place', 'activity', 'activity_printed', 'formation', 'facing'}
+KIND_KEYS = {'unit': {'unit'}, 'arrival': {'when', 'until', 'place', 'arrival'}, 'arrival_road': {'when', 'until', 'road'}, 'march': {'when', 'until', 'road', 'place'}, 'position': _PLACED, 'engagement': _PLACED,
+             'night_position': _PLACED, 'movement': {'when', 'until', 'from', 'to', 'gait'}, 'departure': {'when', 'until', 'road', 'place'}, 'strength': {'strength'}, 'absent': {'absent', 'when', 'until'},
+             'line_order': {'order', 'when', 'until'}, 'road_identification': {'road_identification'}, 'source': {'source_decl'}, 'gap': {'gap'}}
 MAX_QUOTE_WORDS, MAX_PLACE_WORDS = 14, 30
 MAX_PASSAGE_CHARS = 4000                  # the passage read (source.passage) is the sentences that support the claim, not a report: longer is split into records with a passage each
 DATE_LO, DATE_HI = '1863-06-25', '1863-07-15'
@@ -241,6 +256,7 @@ class Check:
         if b == 'printed_period':
             if per not in PERIODS: self.E(at, '%s.period must be one of %s' % (name, ', '.join(PERIODS)))
             elif not any(k in (' ' + str(pr).lower() + ' ') for k in PERIODS[per]): self.E(at, '%s.period %s has none of its words (%s) in "%s"' % (name, per, ' / '.join(PERIODS[per]), pr))
+            elif printed_clocks(pr): self.E(at, '%s.printed carries a clock ("%s"): a printed clock outranks the day part, use basis printed_clock with t_iso (noon, midday and midnight are clocks)' % (name, pr))
         if b in ('sequence', 'day_only') and per is not None: self.E(at, '%s.period is set only for basis printed_period' % name)
         if b == 'sequence' and not (w.get('after') or w.get('before')): self.E(at, '%s: basis sequence needs after or before (ids of records that bound it)' % name)
         for k in ('after', 'before'):
@@ -363,6 +379,8 @@ class Check:
         if r.get('group') != gid: self.E(at, 'group must be %s (the name of the file)' % gid)
         k = r.get('kind')
         if k not in KINDS: return self.E(at, 'kind must be one of %s' % ', '.join(KINDS))
+        for key in r:
+            if key not in COMMON_KEYS and key not in KIND_KEYS[k] and not key.startswith('_'): self.W(at, 'field "%s" is not part of a %s record: the integrator ignores it' % (key, k))
         if k == 'source':
             d = r.get('source_decl') or {}
             for f in ('source_id', 'title', 'year', 'archive_identifier', 'url', 'path', 'bytes', 'sha256', 'licence_basis', 'class'):
@@ -390,6 +408,7 @@ class Check:
             if not g.get('what') or any(x not in GAP_WHAT for x in g['what']): self.E(at, 'gap.what must list what is missing: %s' % ', '.join(GAP_WHAT))
             se = g.get('searched') or []
             if len(se) < 3: self.E(at, 'gap.searched needs at least three searches (source_id, where, terms, result)')
+            elif sum(1 for x in se if isinstance(x, dict) and (x.get('source_id') in self.repo.sources or x.get('source_id') in declared)) < 2: self.E(at, 'gap.searched: at least two of the searches must be in texts that are on this machine (sources.json or a source record of the file); a text that could not be acquired is listed as NOT-ACQUIRED:<title> with the reason')
             for x in se:
                 if not isinstance(x, dict) or not all(isinstance(x.get(f), str) and x[f] for f in ('source_id', 'where', 'terms', 'result')): self.E(at, 'gap.searched entries need source_id, where, terms, result'); break
                 if x['source_id'] not in self.repo.sources and x['source_id'] not in declared and not x['source_id'].startswith('NOT-ACQUIRED:'): self.E(at, 'gap.searched source_id %s is unknown (a text that could not be acquired is written NOT-ACQUIRED:<title>)' % x['source_id'])
@@ -416,12 +435,19 @@ class Check:
         if k == 'unit':
             u = r.get('unit') or {}
             if u.get('action') not in UNIT_ACTIONS: self.E(at, 'unit.action must be one of %s' % ', '.join(UNIT_ACTIONS))
-            if u.get('action') == 'add':
+            if u.get('action') in ('add', 'absent'):
                 for f in ('parent', 'name', 'level', 'arm'):
                     if not u.get(f): self.E(at, 'unit.%s is required to add a unit' % f)
+                if u.get('level') and u['level'] not in UNIT_LEVELS: self.E(at, 'unit.level must be one of %s' % ', '.join(UNIT_LEVELS))
+                if u.get('arm') and u['arm'] not in UNIT_ARMS: self.E(at, 'unit.arm must be one of %s' % ', '.join(UNIT_ARMS))
                 if u.get('parent') and not self.unit_ok(u['parent']): self.E(at, 'unit.parent %s is not a unit' % u['parent'])
                 if uid in self.repo.units: self.E(at, '%s is already in the roster' % uid)
                 elif uid not in self.repo.gaps and not uid.startswith(str(u.get('parent')) + '-'): self.E(at, 'a new id is the parent id, a hyphen and a slug')
+                if u.get('action') == 'absent' and u.get('status') not in ('never_on_field', 'never_main_field'): self.E(at, 'unit.status must be never_on_field or never_main_field for an absent unit (the table prints it as not engaged)')
+                if u.get('action') == 'add' and u.get('status', 'on_field') not in UNIT_STATUS: self.E(at, 'unit.status must be one of %s' % ', '.join(UNIT_STATUS))
+            if u.get('action') == 'status' and u.get('status') not in UNIT_STATUS: self.E(at, 'unit.status must be one of %s (the new roster status)' % ', '.join(UNIT_STATUS))
+            if u.get('action') == 'rename' and not (isinstance(u.get('name'), str) and u['name'].strip()): self.E(at, 'unit.name (the new name, as printed) is required to rename a unit')
+            if u.get('action') == 'fix' and not (isinstance(u.get('fix'), str) and len(u['fix'].strip()) >= 40): self.E(at, 'unit.fix (what is wrong with the roster entry and what it should be, 40 characters or more) is required')
             if u.get('action') == 'merge' and (len(u.get('merge_of') or []) < 2 or any(x not in self.repo.units for x in u['merge_of'])): self.E(at, 'unit.merge_of must list two or more roster ids')
             if u.get('action') == 'attached' and not self.unit_ok(u.get('attached_to')): self.E(at, 'unit.attached_to must be a unit')
             return
@@ -518,6 +544,8 @@ class Check:
             except Exception as e: self.E('line %d' % n, 'not JSON: %s' % e)
         ids = [r.get('claim_id') for _, r in rows if isinstance(r, dict)]
         for i in sorted({i for i in ids if ids.count(i) > 1}, key=str): self.E(path, 'claim_id %s is used twice' % i)
+        if os.path.dirname(os.path.abspath(path)) == UND:
+            for i in sorted({i for i in ids if isinstance(i, str) and ID_RE.match(i) and int(ID_RE.match(i).group(2)) >= 9000}): self.E(path, 'claim_id %s: the numbers from 9000 are reserved for the fixtures and the self-test (use 0001 to 8999)' % i)
         self.known_ids |= set(i for i in ids if isinstance(i, str))
         declared = {}
         for _, r in rows:
@@ -577,14 +605,41 @@ def self_test():
     c = Check(repo); c.file(good, 'us-3c-2d')
     print(('PASS' if not c.err else 'FAIL') + ' the good fixture has no error' + ('' if not c.err else ': ' + ' | '.join(c.err)))
     ok &= not c.err
+    for w in c.warn: print('   warning kept: ' + w[:200])
     if c.nosrc: print('NOTE   %d quotes of the good fixture could not be checked: the text is not on this machine' % len(c.nosrc))
-    n_lines = sum(1 for l in open(badf, encoding='utf-8') if l.strip())
+    rows = [(n, l) for n, l in enumerate(open(badf, encoding='utf-8').read().split('\n'), 1) if l.strip()]
     c = Check(repo); c.file(badf, 'us-3c-2d')
-    failed = {int(re.match(r'line (\d+)', e).group(1)) for e in c.err if re.match(r'line (\d+)', e)}
-    miss = [n for n in range(1, n_lines + 1) if n not in failed]
-    print(('PASS' if not miss else 'FAIL') + ' every one of the %d lines of the bad fixture is refused' % n_lines + ('' if not miss else ': not refused: lines %s' % miss))
-    ok &= not miss
-    for e in c.err[:40]: print('   refused: ' + e[:230])
+    by = {}
+    for e in c.err:
+        m = re.match(r'line (\d+)', e)
+        if m: by.setdefault(int(m.group(1)), []).append(e)
+    bad_ok = True
+    for n, l in rows:
+        try: exp = json.loads(l).get('_expect')
+        except Exception: exp = 'not JSON'
+        errs = by.get(n, [])
+        if not errs: print('FAIL   bad line %d is not refused (expected: %s)' % (n, exp)); bad_ok = False
+        elif exp and not any(exp.lower() in e.lower() for e in errs): print('FAIL   bad line %d is refused for another reason than "%s": %s' % (n, exp, errs[0][:200])); bad_ok = False
+    print(('PASS' if bad_ok else 'FAIL') + ' every one of the %d lines of the bad fixture is refused, each for the defect it carries' % len(rows))
+    ok &= bad_ok
+    # a `unit` record and a `gap` record: the two kinds the fixtures do not hold (they need no passage of a text for their shape); built here from a good record and never written
+    recs = [json.loads(l) for l in open(good, encoding='utf-8') if l.strip()]
+    base = next(r for r in recs if r['claim_id'].endswith('9003'))
+    u = copy.deepcopy(base); u.update(claim_id='U-us-3c-2d-9201', kind='unit', unit_id='us-3c-2d-provost-synth', unit={'action': 'add', 'parent': 'us-3c-2d', 'name': 'synthetic unit of the self-test', 'level': 'company', 'arm': 'infantry'}); u.pop('place'); u.pop('when'); u.pop('arrival'); u.pop('conflicts_with'); u['conflicts_with'] = []
+    g = {'claim_id': 'U-us-3c-2d-9202', 'group': 'us-3c-2d', 'kind': 'gap', 'unit_id': 'us-3c-2d-brewster-74ny', 'tier': 'open gap', 'render_flag': None,
+         'gap': {'what': ['arrival'], 'register': 'docs/battle-theatre/GOVERNANCE/horde/ws-units/proposed-register/us-3c-2d-synth.md',
+                 'searched': [{'source_id': 'OR27-1', 'where': 'part 1, reports R158 to R178', 'terms': 'a synthetic search of the self-test', 'result': 'synthetic'}, {'source_id': 'OR27-2', 'where': 'part 2', 'terms': 'synthetic', 'result': 'synthetic'},
+                              {'source_id': 'NOT-ACQUIRED:a book that is not on this machine', 'where': 'none', 'terms': 'none', 'result': 'not searched: the text is not available'}]}}
+    tmp = os.path.join(fx, '_synthetic.jsonl')
+    try:
+        with open(tmp, 'w', encoding='utf-8', newline='\n') as f:
+            for r in (u, g): f.write(json.dumps(r, ensure_ascii=False) + '\n')
+        c = Check(repo); c.file(tmp, 'us-3c-2d')
+        syn = [e for e in c.err]
+        print(('PASS' if not syn else 'FAIL') + ' a unit record and a gap record that follow the contract are accepted' + ('' if not syn else ': ' + ' | '.join(syn)))
+        ok &= not syn
+    finally:
+        if os.path.exists(tmp): os.remove(tmp)
     print('self-test', 'OK' if ok else 'FAILED')
     return 0 if ok else 1
 

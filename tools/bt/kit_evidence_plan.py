@@ -47,7 +47,7 @@ def group(gid, army, title, roots, reports, tables, note=None):
 US_ORG, US_CAS, US_ABS, HUNT = 'OR27-1-R009', 'OR27-1-R013', 'OR27-1-R008', 'OR27-1-R028'
 CS_ORG, CS_CAS, CS_ABS, PEND = 'OR27-2-R424', 'OR27-2-R427', 'OR27-2-R425', 'OR27-2-R428'
 T = lambda rid, pages, what: {'report_id': rid, 'pages': pages, 'what': what}
-R = lambda a, b, what: {'from': a, 'to': b, 'what': what}
+R = lambda a, b, what, mode='read': {'from': a, 'to': b, 'what': what, 'mode': mode}
 
 group('us-1c', 'US', 'Army of the Potomac, I Corps: corps headquarters and the infantry of the three divisions (Wadsworth, Robinson, Doubleday and Rowley)',
       ['us-1c'], [R('OR27-1-R029', 'OR27-1-R031', 'corps reports'), R('OR27-1-R032', 'OR27-1-R042', '1st Division'), R('OR27-1-R043', 'OR27-1-R054', '2nd Division'), R('OR27-1-R055', 'OR27-1-R070', '3rd Division')],
@@ -90,10 +90,16 @@ group('us-cav', 'US', 'Army of the Potomac, Cavalry Corps: corps headquarters an
       [T(US_ORG, '166-167', 'organization table'), T(US_CAS, '185-186', 'return of casualties')])
 group('army-hq', 'both', 'Headquarters of both armies with their guards, escorts, engineers, signal and support troops, and the army-wide kit records and defaults',
       ['us-aop', 'us-aop-hq', 'cs-anv', 'cs-anv-hq'],
-      [R('OR27-1-R006', 'OR27-1-R028', 'army reports, itinerary, returns, signal, quartermaster, provost, ordnance, engineers, artillery'), R('OR27-2-R424', 'OR27-2-R429', 'Army of Northern Virginia: organization, returns, Lee, medical director, artillery, ordnance')],
+      [R('OR27-1-R008', 'OR27-1-R008', 'abstract from returns of the Army of the Potomac, June 10 to July 31', 'read'), R('OR27-1-R015', 'OR27-1-R015', 'general return of casualties for the campaign', 'read'),
+       R('OR27-1-R016', 'OR27-1-R016', 'Letterman, medical director: ambulance corps, hospitals', 'read'), R('OR27-1-R017', 'OR27-1-R017', 'Norton, chief signal officer', 'read'), R('OR27-1-R024', 'OR27-1-R024', 'Ingalls, chief quartermaster: trains', 'read'),
+       R('OR27-1-R025', 'OR27-1-R027', 'Patrick (provost marshal general), Edie (ordnance), Benham (engineer brigade)', 'read'),
+       R('OR27-1-R006', 'OR27-1-R006', 'Meade: search for the headquarters, escort, provost, signal and engineer units; do not read through', 'search'), R('OR27-1-R007', 'OR27-1-R007', 'itinerary: search', 'search'), R('OR27-1-R028', 'OR27-1-R028', 'Hunt: search for the artillery headquarters and the reserve', 'search'),
+       R('OR27-2-R425', 'OR27-2-R425', 'abstract from returns of the Army of Northern Virginia, July 20 and 31', 'read'), R('OR27-2-R429', 'OR27-2-R429', 'Baldwin, chief of ordnance', 'read'),
+       R('OR27-2-R426', 'OR27-2-R426', 'Lee: search for headquarters, staff, escorts, engineers and sharpshooters; do not read through', 'search'), R('OR27-2-R428', 'OR27-2-R428', 'Pendleton: search for the army artillery organization', 'search')],
       [T(US_ORG, '155', 'organization table: general headquarters'), T(US_CAS, '173, 187', 'return of casualties: general headquarters and the recapitulation'), T(US_ABS, '151-155', 'abstracts from returns'),
        T(CS_ORG, '283', 'organization table: head of the table'), T(CS_ABS, '291-293', 'abstract from returns for July 20 and 31')],
       note='This group also carries the nine army and arm defaults every other unit inherits, the support-troop records and the kit records no formation claims.')
+
 group('cs-mclaws', 'CS', "Army of Northern Virginia, First Corps headquarters and McLaws' division (Kershaw, Barksdale, Semmes, Wofford)",
       ['cs-1c'], [R('OR27-2-R430', 'OR27-2-R430', 'corps report (Longstreet)'), R('OR27-2-R431', 'OR27-2-R434', "McLaws' division")],
       [T(CS_ORG, '283', 'organization table'), T(CS_CAS, '329, 338-339', 'two casualty tables')])
@@ -235,6 +241,185 @@ def build_sources():
 
 
 # ---------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------
+# per-unit helpers: required fields, search terms, hints to the reports and state-volume sections that name the unit
+STATE_NAMES = [('west virginia', 'WV'), ('new hampshire', 'NH'), ('new jersey', 'NJ'), ('new york', 'NY'), ('rhode island', 'RI'), ('north carolina', 'NC'), ('south carolina', 'SC'), ('massachusetts', 'MA'), ('pennsylvania', 'PA'),
+               ('connecticut', 'CT'), ('mississippi', 'MS'), ('louisiana', 'LA'), ('tennessee', 'TN'), ('wisconsin', 'WI'), ('minnesota', 'MN'), ('kentucky', 'KY'), ('delaware', 'DE'), ('maryland', 'MD'), ('michigan', 'MI'),
+               ('illinois', 'IL'), ('missouri', 'MO'), ('alabama', 'AL'), ('arkansas', 'AR'), ('virginia', 'VA'), ('georgia', 'GA'), ('florida', 'FL'), ('indiana', 'IN'), ('vermont', 'VT'), ('maine', 'ME'), ('ohio', 'OH'),
+               ('iowa', 'IA'), ('texas', 'TX'), ('u s', 'US'), ('united states', 'US')]
+ABBR_NAME = {a: n.title() for n, a in STATE_NAMES}
+ABBR_NAME['US'] = 'United States'
+_ONES = {'first': 1, 'second': 2, 'third': 3, 'fourth': 4, 'fifth': 5, 'sixth': 6, 'seventh': 7, 'eighth': 8, 'ninth': 9, 'tenth': 10, 'eleventh': 11, 'twelfth': 12, 'thirteenth': 13, 'fourteenth': 14, 'fifteenth': 15,
+         'sixteenth': 16, 'seventeenth': 17, 'eighteenth': 18, 'nineteenth': 19, 'twentieth': 20, 'thirtieth': 30, 'fortieth': 40, 'fiftieth': 50, 'sixtieth': 60, 'seventieth': 70, 'eightieth': 80, 'ninetieth': 90, 'hundredth': 100}
+_CARD = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'twenty': 20, 'thirty': 30, 'forty': 40, 'fifty': 50, 'sixty': 60, 'seventy': 70, 'eighty': 80, 'ninety': 90}
+_ORD_OF = {v: k for k, v in _ONES.items()}
+_CARD_OF = {v: k for k, v in _CARD.items()}
+
+
+def ord_words_to_int(toks):
+    cur = 0
+    for t in toks:
+        if t == 'and':
+            continue
+        if t in _CARD:
+            cur += _CARD[t]
+        elif t in _ONES:
+            cur += _ONES[t]
+        elif t == 'hundred':
+            cur = max(cur, 1) * 100
+        else:
+            return None
+    return cur or None
+
+
+def int_to_ordinal_word(n):
+    if n in _ORD_OF:
+        return _ORD_OF[n].capitalize()
+    if n < 100:
+        t, o = (n // 10) * 10, n % 10
+        return ('%s-%s' % (_CARD_OF[t], _ORD_OF[o])).capitalize() if o else _ORD_OF[t].capitalize()
+    h, r = n // 100, n % 100
+    lead = 'One hundred' if h == 1 else '%s hundred' % _CARD_OF[h].capitalize()
+    return lead + (' and ' + int_to_ordinal_word(r).lower() if r else 'th')
+
+
+def parse_scope(scope):
+    """(number, state abbreviation, arm, battery letter) from the heading of a report ('Seventy-sixth New York Infantry', 'Battery C, First Rhode Island Light Artillery'), else None."""
+    t = ' '.join(re.sub(r'[^a-z ]', ' ', (scope or '').lower().replace('-', ' ')).split())
+    for name, ab in STATE_NAMES:
+        k = t.find(name)
+        if k > 0 and (name != 'virginia' or 'west virginia' not in t):
+            toks = t[:k].split()
+            for a in range(0, len(toks)):
+                n = ord_words_to_int(toks[a:])
+                if n:
+                    arm = 'cavalry' if 'cavalry' in t else 'artillery' if ('battery' in t or 'artillery' in t) else 'infantry'
+                    m = re.search(r'\bbattery ([a-m])\b', t)
+                    return n, ab, arm, (m.group(1).upper() if m else None)
+            return None
+    return None
+
+
+def parse_roster_name(name):
+    m = re.match(r'^(\d+)(?:st|nd|rd|th)\s+([A-Z]{2})\b\s*(.*)$', name or '')
+    return (int(m.group(1)), m.group(2), m.group(3)) if m else None
+
+
+def required_for(e):
+    """The fields that must be evidenced or recorded as a gap (never silently skipped) for a unit."""
+    uid, lvl, arm = e['unit_id'], e['level'], e.get('arm')
+    if lvl == 'default':
+        return ['dress'] if uid.endswith('.artillery') else ['arms', 'dress']
+    if uid.startswith(('US.SUP.', 'CS.SUP.')):
+        return ['roster', 'dress']
+    if uid in ('CS.OTHERS', 'CS.SS_GENERIC', 'CS.SCSSBN'):
+        return ['roster']
+    if e['status'] in ('never_on_field', 'never_main_field') or e['status'].startswith('kit record: absent'):
+        return ['roster', 'commander']
+    if lvl in ('army', 'headquarters', 'person'):
+        return ['roster', 'commander']
+    if lvl in ('corps', 'division', 'brigade', 'group', 'command'):
+        return ['roster', 'commander', 'strength', 'casualties']
+    if lvl in ('artillery_brigade', 'artillery_battalion', 'artillery_group'):
+        return ['roster', 'commander', 'guns', 'casualties']
+    if arm == 'artillery':
+        return ['roster', 'commander', 'guns', 'strength', 'casualties', 'horses', 'dress']
+    if arm == 'cavalry':
+        return ['roster', 'commander', 'strength', 'casualties', 'arms', 'horses', 'dress']
+    return ['roster', 'commander', 'strength', 'casualties', 'arms', 'dress']
+
+
+def surnames(cmds):
+    out = []
+    for c in cmds or []:
+        t = re.findall(r"[A-Za-z][A-Za-z'’\-]+", c)
+        t = [x for x in t if x.lower() not in ('brig', 'maj', 'gen', 'col', 'lieut', 'capt', 'surg', 'cmdg', 'wounded', 'killed', 'captured', 'died', 'jr', 'sr', 'acting', 'and')]
+        if t:
+            out.append(t[-1].replace('’', "'"))
+    return out
+
+
+def search_terms(e, h):
+    name = e['name'] or ''
+    terms = []
+    p = parse_roster_name(name)
+    if p and e['level'] in ('regiment', 'battalion', 'company', 'battery'):
+        n, st, rest = p
+        full = ABBR_NAME.get(st)
+        if full:
+            terms += ['%dth %s' % (n, full) if n % 100 in (11, 12, 13) or n % 10 > 3 or n % 10 == 0 else '%d%s %s' % (n, {1: 'st', 2: 'nd', 3: 'rd'}[n % 10], full), '%s %s' % (int_to_ordinal_word(n), full)]
+            if e['level'] == 'battery':
+                letters = re.findall(r'\b([A-M])\b', (e.get('name_printed') or name)[len(name.split()[0]) + 4:]) or re.findall(r'\b([A-M])\b', rest)
+                terms += ['Battery %s' % L for L in dict.fromkeys(letters)]
+    cm = surnames(h.get('commanders_printed') if h else None) or surnames([e['current'].get('commander')] if e.get('current', {}).get('commander') else None)
+    terms += ["%s's" % c for c in dict.fromkeys(cm)] if e['level'] in ('battery', 'artillery_battalion', 'artillery_brigade', 'brigade', 'division', 'corps') else [c for c in dict.fromkeys(cm)]
+    if not terms:
+        terms = [name]
+    return list(dict.fromkeys(terms))[:8]
+
+
+def enrich(entries, by_hist, hist_children, ix_records, sv):
+    """Add required, search_terms, report hints and state-volume section hints to every unit entry (hints only: nothing in them is evidence)."""
+    sec_by = collections.defaultdict(list)
+    vol_state = {v['key']: v.get('state') for v in sv['volumes']}
+    for sct in sv['sections']:
+        st = vol_state.get(sct['volume'])
+        if st and sct.get('number') and sct.get('arm'):
+            sec_by[(st, int(sct['number']), sct['arm'])].append(sct['id'])
+    for gid, us in entries.items():
+        g = G[gid]
+        recs = []
+        for r in g['reports']:
+            pa = int(r['from'].split('-')[1])
+            recs += [x for x in ix_records if x['part'] == pa and r['from'] <= x['id'] <= r['to']]
+        own = collections.defaultdict(list)
+        cmd_match = collections.defaultdict(list)
+        keyed = collections.defaultdict(list)
+        formations = []
+        for e in us:
+            if not e['in_roster']:
+                continue
+            p = parse_roster_name(e['name'])
+            if p and e['level'] in ('regiment', 'battalion', 'company', 'battery') and e.get('arm'):
+                keyed[(p[0], p[1], e['arm'])].append((e, set(re.findall(r'\b([A-M])\b', p[2])), set(re.findall(r'\b([A-M])\b', (e.get('name_printed') or '')[len(e['name'].split()[0]):]))))
+            if e['level'] in ('brigade', 'division', 'corps', 'artillery_brigade', 'artillery_battalion', 'army', 'group', 'command'):
+                formations.append((e, surnames(by_hist[e['unit_id']].get('commanders_printed'))))
+        for r in recs:
+            sc = r.get('unit_scope') or r.get('toc_text') or ''
+            pr = parse_scope(sc)
+            if pr and r.get('kind') == 'report':
+                n, st, arm, letter = pr
+                cands = keyed.get((n, st, arm), [])
+                if arm == 'artillery':                  # a battery letter must agree: no letter in the heading means a roster battery without one
+                    cands = ([c for c in cands if letter in c[1]] or [c for c in cands if letter in c[2]]) if letter else [c for c in cands if not c[1]]
+                if len(cands) == 1:
+                    own[cands[0][0]['unit_id']].append(r['id'])
+                    continue
+            au = re.findall(r"[A-Za-z]+", r.get('author') or '')
+            if au and re.search(r'command|brig|division|corps', sc.lower() + ' ' + (r.get('rank') or '').lower()):
+                a = au[-1].lower()
+                hit = [f for f, sn in formations if any(difflib_ratio(a, x.lower()) >= 0.86 for x in sn)]
+                if len(hit) == 1:
+                    cmd_match[hit[0]['unit_id']].append(r['id'])
+        for e in us:
+            uid = e['unit_id']
+            h = by_hist.get(uid)
+            e['required'] = required_for(e)
+            e['search_terms'] = search_terms(e, h)
+            par = e.get('parent')
+            e['reports'] = {'own': own.get(uid, []), 'commander_match': cmd_match.get(uid, []), 'parent': (own.get(par, []) + cmd_match.get(par, [])) if par else []}
+            p = parse_roster_name(e['name'])
+            secs = sec_by.get((p[1], p[0], e['arm']), []) if p and e.get('arm') and e['level'] in ('regiment', 'battalion', 'battery') else []
+            if secs:
+                e['state_sections'] = secs
+
+
+def difflib_ratio(a, b):
+    import difflib
+    return difflib.SequenceMatcher(None, a, b).ratio()
+
+
+
 def load():
     hist = J('history', 'units.json')['units']
     ks, ab, cu, wp = J('kit', 'kit_specs.json'), J('kit', 'artillery_batteries.json'), J('kit', 'cavalry_units.json'), J('kit', 'weapons.json')
@@ -449,6 +634,8 @@ def build():
         e['fields']['dress'] = [''.join('%s%d' % (c, cnt[c]) for c in 'DIPGE' if cnt[c]), 'default mix; the weights are tuning parameters with no historical basis', []]
         entries['army-hq'].append(e)
 
+    ix_records = J('library', 'or27_index.json')['records']
+    enrich(entries, by, None, ix_records, J('library', 'statevol_index.json'))
     sources = build_sources()
     groups = []
     for gid, g in G.items():

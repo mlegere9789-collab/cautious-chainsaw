@@ -11,6 +11,7 @@
 //
 //   node tools/bt/verify_staging.mjs --pack [--frames 20] [--json report.json]          snapshot the tree, pack it into deliver/, verify the result (the whole honest run)
 //   node tools/bt/verify_staging.mjs --dist deliver/bt-staging/dist [--zip file.zip] [--source docs/battle-theatre] [--frames 20] [--json report.json] [--only dist|source]
+//   add --static-only for the checks that need no browser (manifest, zip, links, copy audit); --query a=b for a development shortcut (never the official check)
 // Run it through the machine lock (tools/horde/bench.sh): a software frame takes seconds. Exit 0 only when every check passes.
 import fs from 'node:fs'; import path from 'node:path'; import http from 'node:http'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
 import { pack, trace, SECTIONS, IMPORT_RE, CSS_URL_RE } from './pack_theatre.mjs';
@@ -85,15 +86,20 @@ export function checkZip(zip, dist) {
 }
 /** Every relative import, style-sheet address and page link of the dist's own files exists in the dist (a check of the finished folder, not of the trace). */
 export function checkInternalLinks(dist) {
-  const have = new Set(walk(dist).map(f => posix(path.relative(dist, f)))), problems = []; let n = 0;
-  const exists = (from, spec) => { const s = spec.replace(/[?#].*$/, ''); if (!s) return true; const abs = s.startsWith('/') ? s.slice(1) : posix(path.normalize(path.join(path.dirname(from), s))); n++; return have.has(abs) || (abs.endsWith('/') && have.has(abs + 'index.html')) || have.has(abs.replace(/\/$/, '') + '/index.html') && /\/$|^$/.test(s); };
+  const have = new Set(walk(dist).map(f => posix(path.relative(dist, f)))), problems = [], notes = []; let n = 0;
+  const exists = (from, spec) => {
+    const s = spec.replace(/[?#].*$/, ''); if (!s) return true; n++; const abs = (s.startsWith('/') ? posix(path.normalize(s.slice(1))) : posix(path.normalize(path.join(path.dirname(from), s)))).replace(/^\.\//, '').replace(/^\.$/, '');
+    if (abs.startsWith('../') || abs === '..') { problems.push(`${from}: ${spec} leaves the dist`); return true; }
+    return have.has(abs) || have.has((abs === '' ? '' : abs.replace(/\/?$/, '/')) + 'index.html');
+  };
   for (const f of have) {
     const abs = path.join(dist, f);
-    if (/\.(mjs|js)$/.test(f)) { const src = fs.readFileSync(abs, 'utf8'); for (const m of src.matchAll(IMPORT_RE)) { const s = m[1] ?? m[2]; if ((s.startsWith('./') || s.startsWith('../')) && !exists(f, s)) problems.push(`${f}: import ${s}`); } }
+    if (/\.(mjs|js)$/.test(f)) { const src = fs.readFileSync(abs, 'utf8'); for (const m of src.matchAll(IMPORT_RE)) { const s = m[1] ?? m[2]; if ((s.startsWith('./') || s.startsWith('../')) && !exists(f, s)) (m[1] != null ? problems : notes).push(`${f}: ${m[1] != null ? 'import' : 'import() of'} ${s}${m[1] != null ? '' : ' (a guarded optional load)'}`); } }
     else if (/\.css$/.test(f)) { const src = fs.readFileSync(abs, 'utf8').replace(/\/\*[\s\S]*?\*\//g, ''); for (const m of src.matchAll(CSS_URL_RE)) { const s = (m[2] ?? m[4] ?? '').trim(); if (s && !/^(?:[a-z][a-z0-9+.-]*:|\/\/|#|data:)/i.test(s) && !exists(f, s)) problems.push(`${f}: url(${s})`); } }
-    else if (/\.html?$/.test(f)) { const src = fs.readFileSync(abs, 'utf8').replace(/<!--[\s\S]*?-->/g, ''); for (const m of src.matchAll(/<(?:script|img|source|link|audio|video)\b[^>]*?\b(?:src|href)\s*=\s*["']([^"']+)["']/gi)) { const s = m[1]; if (!/^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i.test(s) && !exists(f, s)) problems.push(`${f}: ${s}`); } }
+    else if (/\.html?$/.test(f)) { const src = fs.readFileSync(abs, 'utf8').replace(/<!--[\s\S]*?-->/g, '');
+      for (const m of src.matchAll(/<script\b[^>]*\btype\s*=\s*["']importmap["'][^>]*>([\s\S]*?)<\/script>/gi)) { let j = null; try { j = JSON.parse(m[1]); } catch { problems.push(`${f}: the import map does not parse`); } for (const v of Object.values({ ...(j && j.imports) })) if (typeof v === 'string' && (v.startsWith('./') || v.startsWith('../') || v.startsWith('/')) && !exists(f, v)) problems.push(`${f}: import map target ${v}`); } for (const m of src.matchAll(/<(?:script|img|source|link|audio|video|a)\b[^>]*?\b(?:src|href)\s*=\s*["']([^"']+)["']/gi)) { const s = m[1]; if (!/^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i.test(s) && !exists(f, s)) problems.push(`${f}: ${s}`); } }
   }
-  return { ok: problems.length === 0, checked: n, problems: [...new Set(problems)] };
+  return { ok: problems.length === 0, checked: n, problems: [...new Set(problems)], notes: [...new Set(notes)] };
 }
 
 // ---------------------------------------------------------------- 4. the comparison (pure: tested in tests/bt-pack/verify.test.mjs)
@@ -143,7 +149,7 @@ async function launch() {
 }
 /** What the page does, run inside the theatre. Every step is logged ("[verify] ...") as it ends, so that a hang shows where; a step that throws is recorded and the walk goes on. */
 async function theatreWalk({ frames }) {
-  const a = window.btApp, th = a.theatre, steps = [], out = { api: a.api, crowd: !!(th.host && th.host.crowd), fx: !!th.fxOn, steps, ext: null };
+  const a = window.btApp, th = a.theatre, steps = [], out = { api: a.api, crowd: !!(th.host && th.host.crowd), fx: !!th.fxOn, steps, ext: null }; window.__verifySteps = steps;
   const { minOf } = await import(new URL('./src/clock.mjs', document.baseURI).href);
   const step = async (name, fn) => { const t0 = performance.now(); let rec; try { const r = await fn(); rec = { name, ok: true, ms: Math.round(performance.now() - t0) }; if (r !== undefined) rec.r = r; } catch (e) { rec = { name, ok: false, ms: Math.round(performance.now() - t0), error: String((e && e.message) || e).slice(0, 240) }; } steps.push(rec); console.info('[verify] ' + JSON.stringify({ name: rec.name, ok: rec.ok, ms: rec.ms, error: rec.error })); };
   const settle = async () => { if (a.ext && a.ext.whenSettled) await a.ext.whenSettled(); };
@@ -179,7 +185,7 @@ const PAGE_GUARD = (page, tag, sink) => {
   page.on('dialog', d => d.dismiss().catch(() => { }));
 };
 /** Visits every page of each section (app/roster, ...), follows links that stay inside the section, presses a few controls, types into a search box. */
-async function crawlSections(ctx, base, sections, sink, { max = 60, pokes = 6 } = {}) {
+export async function crawlSections(ctx, base, sections, sink, { max = 60, pokes = 6 } = {}) {
   const pages = [], interactions = [], queue = sections.flatMap(s => s.pages.map(p => ({ url: base + '/' + p, prefix: '/' + s.path + '/' }))), seen = new Set();
   while (queue.length && seen.size < max) {
     const { url, prefix } = queue.shift(); const key = url.replace(/#.*$/, ''); if (seen.has(key)) continue; seen.add(key);
@@ -197,15 +203,15 @@ async function crawlSections(ctx, base, sections, sink, { max = 60, pokes = 6 } 
   return { pages, interactions };
 }
 /** One walk against a served folder. Returns { log, errors, failed, entered, info, steps, ext, crawl, seconds }. */
-export async function runWalk(root, { frames = 20, label = 'run', sections = [], limitMs = 90 * 60 * 1000, print = s => console.log(s) } = {}) {
+export async function runWalk(root, { frames = 20, label = 'run', sections = [], limitMs = 90 * 60 * 1000, query = '', print = s => console.log(s) } = {}) {
   const t0 = Date.now(), server = await serveDir(root), base = `http://127.0.0.1:${server.port}`, sink = { errors: [], failed: [], origin: base, print: s => print(`  [${label} +${Math.round((Date.now() - t0) / 1000)}s] ${s}`) };
-  const res = { label, entered: false, info: {}, steps: [], ext: null, crawl: { pages: [], interactions: [] }, errors: sink.errors, failed: sink.failed }; let br, timer;
+  const res = { label, entered: false, info: {}, steps: [], ext: null, crawl: { pages: [], interactions: [] }, errors: sink.errors, failed: sink.failed }; let br, timer, live = null;
   try {
     br = await launch(); const ctx = await br.newContext({ viewport: { width: 640, height: 360 } }); ctx.setDefaultTimeout(600000);
     const guard = new Promise((_, rej) => { timer = setTimeout(() => rej(new Error(`time limit of ${Math.round(limitMs / 60000)} min reached in the ${label}`)), limitMs); });
     const work = (async () => {
-      const page = await ctx.newPage(); PAGE_GUARD(page, '[theatre]', sink);
-      await page.goto(base + '/app/index.html', { waitUntil: 'load' }); await page.click('[data-bt-enter]');
+      const page = live = await ctx.newPage(); PAGE_GUARD(page, '[theatre]', sink);
+      await page.goto(base + '/app/index.html' + (query ? '?' + query : ''), { waitUntil: 'load' }); await page.click('[data-bt-enter]');
       try { await page.waitForFunction(() => window.btApp && window.btApp.ready, null, { timeout: 900000, polling: 1000 }); res.entered = true; } catch (e) { sink.errors.push({ kind: 'harness', text: 'the theatre did not report ready within 15 min' }); }
       if (res.entered) {
         sink.print('entered'); const info = await page.evaluate(theatreWalk, { frames }); res.info = { api: info.api, crowd: info.crowd, fx: info.fx, sound: info.sound, soundStarted: info.soundStarted, units: info.units, perf: info.perf }; res.steps = info.steps; res.ext = info.ext;
@@ -216,7 +222,8 @@ export async function runWalk(root, { frames = 20, label = 'run', sections = [],
       const present = sections.filter(s => fs.existsSync(path.join(root, s.path))); if (present.length) { sink.print('sections: ' + present.map(s => s.path).join(', ')); res.crawl = await crawlSections(ctx, base, present, sink); }
     })();
     await Promise.race([work, guard]);
-  } catch (e) { sink.errors.push({ kind: 'harness', text: String(e.message || e).slice(0, 300) }); res.aborted = String(e.message || e); }
+  } catch (e) { sink.errors.push({ kind: 'harness', text: String(e.message || e).slice(0, 300) }); res.aborted = String(e.message || e);
+    if (live && !res.steps.length) { try { res.steps = await Promise.race([live.evaluate(() => window.__verifySteps || []), new Promise(r => setTimeout(() => r([]), 20000))]); res.steps.push({ name: 'walk', ok: false, error: 'stopped: ' + res.aborted }); } catch { /* the page is gone */ } } }
   finally { clearTimeout(timer); if (br) await br.close().catch(() => { }); await server.close(); }
   res.log = logOf(server.events); res.requests = server.events.length; res.seconds = Math.round((Date.now() - t0) / 1000); return res;
 }
@@ -226,8 +233,9 @@ const NOT_RUN = ['a real GPU: no frame time, long task or input delay was measur
   'other visits: ?history=stub, ?ext=off, ?crowd=off, a phone-sized page, a second entry after Back', 'other browsers (Safari, Firefox) and real phones'];
 async function main() {
   const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : undefined; }, has = k => a.includes(k);
-  const frames = +opt('--frames') || 20, only = opt('--only'), t0 = Date.now(), print = s => console.log(s); let dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), zip = opt('--zip') && path.resolve(opt('--zip')), sourceRoot = path.resolve(opt('--source') || BT);
-  const rep = { when: new Date().toISOString(), frames, dist, mode: has('--pack') ? 'pack' : 'dist' }; const failures = [], notes = [];
+  const frames = +opt('--frames') || 20, query = opt('--query') || '', only = opt('--only'), t0 = Date.now(), print = s => console.log(s); let dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), zip = opt('--zip') && path.resolve(opt('--zip')), sourceRoot = path.resolve(opt('--source') || BT);
+  const save = () => { if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1)); };
+  const rep = { when: new Date().toISOString(), frames, query, official: !query && frames >= 10, dist, mode: has('--pack') ? 'pack' : 'dist' }; const failures = [], notes = [];
   if (has('--pack')) {
     const snap = path.resolve(opt('--snap-dir') || path.join(REPO, 'tmp/bt-spec/snap/bt')); print('snapshot of the tree: ' + snap); snapshotTree(BT, snap); sourceRoot = snap;
     const r = pack({ root: snap, out: dist, zipDir: path.resolve(opt('--zip-dir') || path.join(REPO, 'deliver')) }); zip = r.zip;
@@ -243,23 +251,26 @@ async function main() {
   print(`static: manifest ${rep.static.manifest.ok ? 'ok' : 'FAILED'} (${rep.static.manifest.files} files), zip ${zip ? (rep.static.zip.ok ? 'ok' : 'FAILED') : 'not checked'}${zip ? ' (' + path.basename(zip) + ', unzip -t: ' + rep.static.zip.unzipTest + ')' : ''}, links ${rep.static.links.ok ? 'ok' : 'FAILED'} (${rep.static.links.checked} checked)`);
   // the root page of the dist forwards to the shell
   try { const s = await serveDir(dist); const r = await fetch(`http://127.0.0.1:${s.port}/`); const body = await r.text(); await s.close(); if (!(r.status === 200 && /url=app\/index\.html/.test(body))) failures.push('the root page of the dist does not forward to app/index.html'); } catch (e) { failures.push('root page check failed: ' + e.message); }
+  if (has('--static-only')) { rep.failures = failures; rep.notes = notes; rep.ok = failures.length === 0; rep.official = false; if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1)); for (const n of notes) print('note: ' + n);
+    print(rep.ok ? 'STATIC CHECKS PASSED (no browser walk was made: this is NOT the staging verification)' : 'STATIC CHECKS FAILED:\n  ' + failures.join('\n  ')); process.exit(rep.ok ? 0 : 1); }
   const distFiles = new Set(walk(dist).map(f => '/' + posix(path.relative(dist, f)))), sections = trace({ root: sourceRoot }).sections; rep.distFiles = distFiles.size; rep.sections = sections.map(s => `${s.path} (${s.files} files, ${s.pages.length} pages)`);
-  let A = null, B = null;
-  if (only !== 'source') { print(`run 1/2: the packed dist (${frames} frames per step)`); A = await runWalk(dist, { frames, label: 'dist', sections, print }); }
-  if (only !== 'dist') { print(`run 2/2: the source tree${has('--pack') ? ' (the snapshot)' : ''}`); B = await runWalk(sourceRoot, { frames, label: 'source', sections, print }); }
-  rep.distRun = A, rep.sourceRun = B;
+  let A = null, B = null; rep.failures = failures; rep.notes = notes; save();
+  if (only !== 'source') { print(`run 1/2: the packed dist (${frames} frames per step)`); A = await runWalk(dist, { frames, label: 'dist', sections, query, print }); rep.distRun = A; save(); }
+  if (only !== 'dist') { print(`run 2/2: the source tree${has('--pack') ? ' (the snapshot)' : ''}`); B = await runWalk(sourceRoot, { frames, label: 'source', sections, query, print }); rep.sourceRun = B; save(); }
+  rep.distRun = A; rep.sourceRun = B;
   if (A) {
     const c = compareRuns(A, B, distFiles); failures.push(...c.failures); notes.push(...c.notes); rep.compare = { missingInDist: c.missingInDist, errorsOnlyInDist: c.errorsOnlyInDist, errorsInBoth: c.errorsInBoth };
     const requested = new Set([...Object.keys(A.log), ...Object.keys(B ? B.log : {})]); rep.shippedNeverRequested = [...distFiles].filter(f => !requested.has(f) && !/^\/(index\.html|_headers|netlify\.toml|MANIFEST\.json)$/.test(f)).sort();
     notes.push(`${rep.shippedNeverRequested.length} of ${distFiles.size} shipped files were not requested by this walk (they ship because the trace found a reference; the list is in the JSON report)`);
   } else failures.push('the packed dist was not walked (--only source)');
+  if (!rep.official) notes.push(`NOT THE OFFICIAL RUN: ${query ? 'the address carries ?' + query + ' (a development shortcut)' : 'fewer than 10 frames per step'}; do not quote this result as the staging verification`);
   rep.failures = failures; rep.notes = notes; rep.notRun = NOT_RUN; rep.ok = failures.length === 0 && !!A && !!B; rep.minutes = Math.round((Date.now() - t0) / 600) / 100;
   if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1));
   const brief = r => r && { requests: r.requests, distinctUrls: Object.keys(r.log).length, nonOk: Object.entries(r.log).filter(([, s]) => !okStatus(s)), entered: r.entered, info: r.info, steps: r.steps.map(s => `${s.ok ? 'ok  ' : 'FAIL'} ${s.name}${s.ok ? '' : ': ' + s.error}`), ext: r.ext && r.ext.modules.map(m => `${m.path}: ${m.state}`), crawlPages: r.crawl.pages.length, errors: r.errors.length, seconds: r.seconds, aborted: r.aborted };
   print(JSON.stringify({ dist: dist, version: rep.pack?.version ?? rep.static.manifest.version, sections: rep.sections, distRun: brief(A), sourceRun: brief(B) }, null, 1));
   print('NOT RUN here: ' + NOT_RUN.join('; '));
   for (const n of notes) print('note: ' + n);
-  print(rep.ok ? 'STAGING VERIFIED: the dist and the zip match, zero 404s, every URL the source run loaded is in the dist, sound started, no error only in the dist' : 'STAGING CHECK FAILED:\n  ' + failures.join('\n  '));
+  print(rep.ok ? 'STAGING VERIFIED' + (rep.official ? '' : ' (development run, not the official check)') + ': the dist and the zip match, zero 404s, every URL the source run loaded is in the dist, sound started, no error only in the dist' : 'STAGING CHECK FAILED:\n  ' + failures.join('\n  '));
   process.exit(rep.ok ? 0 : 1);
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch(e => { console.error(e); process.exit(2); });

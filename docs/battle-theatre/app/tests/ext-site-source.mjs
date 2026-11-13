@@ -82,15 +82,15 @@ export function buildCopies(src, also = []) {
   const P = pins(), monuments = projectMonuments(src.monuments), tour = projectTour(src.tour), stars = projectStars(src.stars);
   const from = { tree: src.tree, entry: src.entry, entrySha256: src.entrySha256, sameDataIn: also };
   const memorials = {
-    _about: 'The monuments, memorials, markers and tablets of the site\'s Monuments section, copied read-only for the Battle Theatre. They are later memorials: none is part of the 1863 scene. Positions, names and texts are the site\'s; nothing is corrected here. Rebuild and check: tests/ext-site-source.mjs.',
-    source: { ...from, monuments: { literal: '_A', count: src.monuments.length, canonSha256: src.monumentsSha256, guardPin: P.monuments, guard: GUARD }, stars: { file: 'data/monuments.json', count: src.stars.monuments.length, sha256: src.starsSha256, pin: P.stars, pinnedIn: STAR_PINS } },
+    _about: 'The monuments, memorials, markers and tablets of the site\'s Monuments section, as the site lists them. They are later memorials: none is part of the 1863 scene. Positions, names and texts are the site\'s; nothing is corrected here.',
+    source: { ...from, monuments: { literal: '_A', count: src.monuments.length, canonSha256: src.monumentsSha256, guardPin: P.monuments }, stars: { file: 'data/monuments.json', count: src.stars.monuments.length, sha256: src.starsSha256, pin: P.stars } },
     kept: { monuments: KEPT.monuments.map(k => (k === 'lon' ? 'lng' : k)), stars: KEPT.stars }, notKept: { stars: NOT_KEPT.stars }, renamed: { lon: 'lng' },
     copy: { monumentsSha256: sha256(canon(monuments)), starsSha256: sha256(canon(stars)) },
     monuments, stars,
   };
   const tourFile = {
-    _about: 'The 16 stops of the site\'s Virtual Walkthrough, copied read-only for the Battle Theatre as camera positions. They are stops of a modern tour, not 1863 features. Rebuild and check: tests/ext-site-source.mjs.',
-    source: { ...from, tour: { literal: 'd2', count: src.tour.length, canonSha256: src.tourSha256, guardPin: P.tour, guard: GUARD } },
+    _about: 'The 16 stops of the site\'s Virtual Walkthrough, as camera positions. They are stops of a modern tour, not 1863 features.',
+    source: { ...from, tour: { literal: 'd2', count: src.tour.length, canonSha256: src.tourSha256, guardPin: P.tour } },
     kept: { tour: KEPT.tour.map(k => k.replace(/^sv\./, 'view.')) }, notKept: { tour: NOT_KEPT.tour }, renamed: { sv: 'view' },
     copy: { tourSha256: sha256(canon(tour)) },
     tour,
@@ -100,10 +100,10 @@ export function buildCopies(src, also = []) {
 export const serialise = o => JSON.stringify(o) + '\n';
 
 // ---- drift: every way a copy can differ from the site's data. Returns a list of sentences; empty means current.
-export function drift(trees = siteTrees()) {
-  const out = [], P = pins(); let mem = null, tour = null;
-  try { mem = JSON.parse(fs.readFileSync(FILES.memorials, 'utf8')); } catch (e) { out.push(`app/data/site-memorials.json cannot be read: ${e.message}`); }
-  try { tour = JSON.parse(fs.readFileSync(FILES.tour, 'utf8')); } catch (e) { out.push(`app/data/site-tour-stops.json cannot be read: ${e.message}`); }
+export function drift(trees = siteTrees(), files = FILES, P = pins()) {        // files and pins can be handed in (the tests do, to show that a changed copy or a changed pin is noticed)
+  const out = []; let mem = null, tour = null;
+  try { mem = JSON.parse(fs.readFileSync(files.memorials, 'utf8')); } catch (e) { out.push(`app/data/site-memorials.json cannot be read: ${e.message}`); }
+  try { tour = JSON.parse(fs.readFileSync(files.tour, 'utf8')); } catch (e) { out.push(`app/data/site-tour-stops.json cannot be read: ${e.message}`); }
   if (!trees.length) out.push('no site tree with an entry bundle was found (baseline/dist is expected in every checkout)');
   if (!trees.includes(PRIMARY)) out.push(`the primary site tree ${PRIMARY} is not in this checkout`);
   for (const t of trees) {

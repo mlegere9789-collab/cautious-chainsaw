@@ -8,7 +8,7 @@ ROOT = '/home/user/cautious-chainsaw'
 sys.path.insert(0, os.path.join(ROOT, 'tools', 'bt')); sys.path.insert(0, HERE)
 from or27_find import get_part
 from or27_lib import norm_query, build_nview
-import spec_lib
+import spec_lib, witness
 
 OUT = os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/evidence_corrections/fence-1.jsonl')
 OR_IDX = json.load(open(os.path.join(ROOT, 'docs/battle-theatre/library/or27_index.json')))['records']
@@ -80,7 +80,7 @@ def resolve(c):
         i, a, b, ci = hits[occ or 0]
         return dict(source_id='OR-27-%d' % part, source_class=CLASS['OR'], part=part, report_id=rid, report_author=(rec.get('rank') or '') + ' ' + (rec.get('author') or ''),
                     printed_page=ci['page'], quote=q, offset=[a, b], local_path=OR_PATH[part], local_sha256=OR_SHA[part], match='exact (whitespace-normalised, case-sensitive)',
-                    role=c['role'], note=c.get('note'))
+                    second_witness=witness.check(part, q), role=c['role'], note=c.get('note'))
     if src == 'LIB':
         p, raw, nt, nm = lib_text(ref)
         idxs = []; pos = 0

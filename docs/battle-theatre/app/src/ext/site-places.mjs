@@ -1,10 +1,10 @@
 // Pure helpers of two added parts of the theatre: the marks of LATER MEMORIALS (ext/monuments.mjs) and the TOUR-STOP camera bookmarks (ext/tour.mjs).
-// No DOM, no fetch, no clock: everything here runs under node (tests/ext-monuments.test.mjs, tests/ext-tour.test.mjs) and is what the gate runner calls (docs/GATE-HOOKS.md).
+// No DOM, no fetch, no clock: everything here runs under node as well as in the page, and the checks at the end are plain functions of the data.
 //
-// What the data is: the site's own Monuments list (512 monuments, memorials, markers and tablets) and the 16 stops of its Virtual Walkthrough, copied read-only into
-// data/site-memorials.json and data/site-tour-stops.json and checked against the site's files by tests/ext-site-source.mjs.
+// What the data is: the site's own Monuments list (512 monuments, memorials, markers and tablets) and the 16 stops of its Virtual Walkthrough, held read-only in
+// data/site-memorials.json and data/site-tour-stops.json with the hashes of the site's own data recorded beside them.
 // What the theatre does with it: nothing of it is ever part of the 1863 scene. A memorial is a flat mark over the picture, off until the viewer switches the layer on and
-// labelled as a later memorial; a tour stop is a camera position. The year a memorial was put up is not in the site's data: every card says so (open gap).
+// labelled as a later memorial; a tour stop is a camera position. The year each memorial was put up is not in the site's data: every card says so (open gap).
 import { perspective, lookAt, mul } from '../../../render/prototype/src/math.mjs';
 
 // ---------------------------------------------------------------- the layer as a declaration (read by the gate hook below and by the module)
@@ -169,7 +169,7 @@ export function buildIndex(d, T, o = {}) {
 }
 /** The list of the panel: text (name, honors, location, group, number), side, group, and whether on the loaded ground ('on') or beyond it ('beyond'). List order is the site's. */
 export function filterMemorials(index, f = {}) {
-  const q = String(f.q || '').trim().toLowerCase(), side = f.side && f.side !== 'all' ? f.side : null, group = f.group && f.group !== 'all' ? f.group : null, where = f.where || 'all';
+  const q = String(f.q || '').trim().toLowerCase(), side = f.side && f.side !== 'all' ? f.side : null, group = f.group && f.group !== 'all' ? f.group : null, where = f.where === 'on' || f.where === 'beyond' ? f.where : 'all';     // a value that is none of the three narrows nothing
   return index.items.filter(it => (!side || it.side === side) && (!group || it.group === group) && (where === 'all' || (where === 'on') === it.inside) && (!q || it.hay.includes(q)));
 }
 export const memorialPose = (T, it) => (it.inside ? poseAround(T, it.x, it.z, { dist: 90, height: 30 }) : poseFromEdge(T, it.x, it.z));
@@ -367,6 +367,7 @@ export function checkLaterMemorials(mem, T = null) {
     off = marksFor(idx, { on: false, selected: -1 }).length; const all = marksFor(idx, { on: true, selected: -1 }); on = all.length;
     for (const m of all) { if (!m.postBattle || !/later memorial/.test(m.label)) unlabelled++; if (m.tier !== LAYER.tier) untiered++; if (m.scene) inScene++; }
     for (const m of mem.monuments) if ('year' in m || 'dedicated' in m || 'erected' in m) withYear++;
+    if (withYear) problems.push(`${withYear} memorials claim a year in the list; the year is an open gap and may be shown only from a documented source`);
     if (off) problems.push(`${off} memorials are marked while the layer is off`); if (on !== n) problems.push(`${on} of ${n} memorials are marked while the layer is on`);
     if (unlabelled) problems.push(`${unlabelled} marks do not say "later memorial"`); if (untiered) problems.push(`${untiered} marks do not carry the tier ${LAYER.tier}`); if (inScene) problems.push(`${inScene} marks are flagged as scene objects`);
     if (marksFor(idx, { on: false, selected: mem.monuments[0].no }).length !== 1) problems.push('picking one memorial with the layer off does not mark exactly that one');

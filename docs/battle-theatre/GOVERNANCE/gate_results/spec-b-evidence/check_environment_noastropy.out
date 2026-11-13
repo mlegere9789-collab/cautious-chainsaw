@@ -1,0 +1,11 @@
+# system python (no astropy): the functions of check_environment.py called in memory, never main() (main() writes environment/check_environment_results.json)
+  File "/home/user/cautious-chainsaw/tools/bt/ephemeris.py", line 571, in phase_time_utc
+    s, m = lonfun(jd)
+           ~~~~~~^^^^
+  File "/home/user/cautious-chainsaw/tools/bt/ephemeris.py", line 539, in _ecl_lon_a
+    from astropy.utils import iers
+ModuleNotFoundError: No module named 'astropy'
+           ~~~~~~^^^^
+  File "/home/user/cautious-chainsaw/tools/bt/ephemeris.py", line 539, in _ecl_lon_a
+    from astropy.utils import iers
+ModuleNotFoundError: No module named 'astropy'

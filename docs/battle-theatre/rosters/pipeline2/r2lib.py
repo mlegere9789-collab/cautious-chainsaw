@@ -32,9 +32,10 @@ Verification of a row against its source text (verify_rows):
   V1 name      the name tokens stand in the text at off, in order, separated only by white space; off may
                point inside a text token (after OCR noise) and the last name token may be followed by
                punctuation in the text
-  V2 remarks   the remark tokens stand in the text in order from off+rd; between two tokens at most GAP
-               characters of other text may be stepped over (running heads at a page break; other columns
-               of a table when lay is "cols"); rows that needed it are counted
+  V2 remarks   the remark tokens stand in the text in order from off+rd (the first one exactly at off+rd); lay "flow":
+               between two tokens at most GAP['flow'] characters of other text may be stepped over (running heads at
+               a page break); lay "cols" (table columns are separate text blocks): every token stands in the leaf of
+               the name, in order; rows that needed a step-over are counted
   V3 page      off lies inside a leaf of the page index and the printed page number of that leaf is the
                row's page
   V4 rank      the rank tokens occur in the same leaf (or, for a carried ^rank, anywhere before off)
@@ -43,7 +44,7 @@ A row that fails V1 or V3 is a defect: it is not locatable and must not be publi
 import gzip, io, json, os, re, hashlib, bisect
 
 FORMAT = 'roster2/1'
-GAP = {'flow': 200, 'cols': 600}
+GAP = {'flow': 200, 'cols': None}      # None: bounded by the leaf of the name instead of a character gap
 CO_CODES_NOTE = 'A-M company letter; FS field and staff; NCS non-commissioned staff; BAND; UNAS unassigned or recruits; "" not stated'
 GETTYSBURG_RE = re.compile(r'G[eo][it]{1,3}[yvj]s?[- ]?\s?b[uvn][ri][gqy]h?', re.I)   # OCR-tolerant, used for counts only
 
@@ -243,8 +244,14 @@ def verify_rows(segments, texts, pagemaps, max_report=20):
                 st['name_ok'] += 1
             else:
                 bad('name-not-at-offset', seg, r)
+            leaf = pm.leaf(off) if pm else None
             if rem:
-                m2 = _match_tokens(text, off + rd, rem.split(), gap)
+                g = gap
+                if g is None:
+                    g = (pm.span(leaf)[1] - (off + rd)) if leaf is not None else 0
+                m2 = _match_tokens(text, off + rd, rem.split(), g)
+                if m2 and gap is None and m2[0] > pm.span(leaf)[1]:
+                    m2 = None
                 if m2:
                     st['remark_ok'] += 1
                     if m2[1]:
@@ -253,7 +260,6 @@ def verify_rows(segments, texts, pagemaps, max_report=20):
                     bad('remark-not-at-offset', seg, r)
             else:
                 st['remark_empty'] += 1
-            leaf = pm.leaf(off) if pm else None
             if pm is not None and leaf is not None and pm.printed(leaf) == page:
                 st['page_ok'] += 1
                 if page is None:

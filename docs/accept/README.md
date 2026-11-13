@@ -99,6 +99,22 @@ Every scenario is built by the self-test (the proxy variables of the calling she
 `--online` adds one real request: a child started through the harness fetches the pinned Mapbox GL stylesheet with Node's `fetch()` and gets the pinned bytes, and, behind a proxy, the same child started without the harness fails (negative control).
 Not proven by it: Windows (never run there), and `run_eight.mjs` end to end (it writes the acceptance log; its passes start through the same `runCmdAsync`).
 
+## The record of the R1g regression (`R1G-SUITES.json`)
+
+`docs/accept/R1G-SUITES.json` lists **every suite id** that `node tools/t0/run_suites.mjs --r1-dist release/R1g/dist --no-red --no-network` defines (taken from the runner's own `--list`, 80 ids on 2026-11-13: the 79 of the earlier runs plus `static.runner`),
+and for each one its **last known result** (status, result text, seconds, tiles, load where recorded, the failing tests the runner printed, the last output lines of a failed row) with the **log and line** it was read from, the same suite's earlier results (newest first), and
+`never_reached` for a suite that has no row in any log (none today: the full run of 2026-11-11 has a row for all 79 suites of its table, 51 of them OK). A stopped re-run that selected a suite and ended before it is named in `newer_runs_that_stopped_before_it`:
+the last result is then older than the latest attempt. It records and does not judge: a red row stays red here, whatever the reason; diagnoses live in `R1G-STATUS.md`, and each run's `conditions` (in `sources`) say what its record shows and whose diagnosis a sentence repeats.
+
+```
+node tools/t0/r1g/suites_status.mjs            # write docs/accept/R1G-SUITES.json from the logs
+node tools/t0/r1g/suites_status.mjs --check    # exit 1 if the file differs from what the logs give now (a new suite row, a changed log); the "generated" time is ignored
+```
+
+Inputs: `tools/t0/r1g/suites_sources.json` and the run logs and summaries in `docs/accept/r1g-suite-logs/`, which are byte-identical copies (`cmp`) of files written under the git-ignored `tmp/`, so everything the generator reads is in git and `--check` works on a fresh checkout
+(a checkout has no file times, so every source entry carries the `time_utc` the runs are ordered by). To add a run: copy its console log and its `--json` summary into that folder, add an entry (`time_utc`, `conditions`: only what a record shows, naming the record), regenerate, run `--check`.
+A result belongs to the tree and the runner of its own run, not to today's; the durations are of the cloud machine (4 vCPU container, software GL), and the logs written before 2026-11-13 have no load.
+
 ## The eight checks, what each one does, and when it is a defect
 
 A pass is **CLEAN** only if all eight checks ran completely and found **zero** defects. A check, or a part of a check, that did not run is recorded as `NOT RUN` / `PARTIAL` with the reason; it is never a pass.
@@ -164,6 +180,8 @@ tools/accept/run_eight.mjs       the 8-in-a-row driver     tools/accept/copy_whi
 tools/accept/copy_audit.mjs      copy audit (+ .selftest)  tools/accept/regression_waivers.json  owner-approved regressions (check 3)
 tools/accept/pdf_probe.py        PDF metadata/text dump    tools/accept/accuracy_subset.json  check 6 subset and why
 tools/accept/checks/c1..c8_*.mjs the eight checks          tools/accept/lib/*                 server, browser, parsers, image diff, input machinery
-tools/t0/child_env.mjs           child environment behind a proxy, load average (shared with tools/t0/run_suites.mjs; part of the harness digest)
+tools/t0/child_env.mjs           child environment behind a proxy (NODE_USE_ENV_PROXY, NODE_EXTRA_CA_CERTS, the quiet flag in NODE_OPTIONS), load average (shared with tools/t0/run_suites.mjs; part of the harness digest)
 tools/t0/tests/runner_selftest.mjs  self-test of both runners (+ env_probe.cjs, its preload)
+tools/t0/r1g/suites_status.mjs   writes / checks docs/accept/R1G-SUITES.json     tools/t0/r1g/suites_sources.json   its runs, with conditions
+docs/accept/r1g-suite-logs/      archived run logs and summaries it reads (byte-identical copies of files under tmp/)
 ```

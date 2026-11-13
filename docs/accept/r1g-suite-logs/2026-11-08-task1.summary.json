@@ -1,0 +1,192 @@
+{
+ "finished": "see file mtime",
+ "seconds": 1621,
+ "portBase": "8480",
+ "totals": {
+  "suites": 8,
+  "ok": 3,
+  "notOk": 5,
+  "greenTests": 72,
+  "greenTestsTotal": 85,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "static.lib",
+   "title": "browser harness self-test",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 14.8,
+   "passed": 8,
+   "total": 10,
+   "skipped": 1,
+   "failed": 1,
+   "tiles": 68,
+   "failLines": [
+    "FAIL  LIB-08       app helpers on the R1a build: chooseLayout, mapView, real drag/wheel move the camera (and do not on R0)"
+   ],
+   "ok": false,
+   "tail": [
+    "      Error: ENOTEMPTY: directory not empty, rmdir '/home/user/cautious-chainsaw/tmp/r1g/chrome-profile/lib-map/Default' |     at Object.rmdirSync (node:fs:1193:11) |     at _rmdirSync (node:internal/",
+    "lib-selftest: 8/10 passed, 1 skipped, 1 FAILED",
+    "mapbox requests used this run: 68 of 3000"
+   ]
+  },
+  {
+   "id": "deeplinks.R1c",
+   "title": "deep links, moments.json, Turning Points (X7)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 169.6,
+   "passed": 12,
+   "total": 12,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 30,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"phone camera\":{\"center\":[-77.2359,39.7918],\"zoom\":15.5},\"?ancestor= opens the Follow panel on the phone\":true,\"junk link tick 1\":true}",
+    "deeplinks: 12/12 passed",
+    "mapbox requests used this run: 30 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "desktop.R1c",
+   "title": "desktop fixes T0-DF-01..09 (group A2) on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 109.3,
+   "passed": 10,
+   "total": 10,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 10,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"tile requests in the shared session\":10,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "desktop-fixes: 10/10 passed",
+    "mapbox requests used this run: 10 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "r1.clock",
+   "title": "CLOCK: one clock for the whole site (T0-CLK-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 535.7,
+   "passed": 18,
+   "total": 18,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-CLK-16    node tools/t0/clock/build-clock.mjs --check: patches-next/CLOCK.json is exactly what the anchors generate, and the derived time modules are current",
+    "      {\"output\":[\"ok   node tools/time/build.mjs --check :: generated files current (8)\",\"ok   node tools/time/build-clock-patches.mjs :: 113 patches (3 regex) -> tools/t0/patches-next/CLOCK.json unch",
+    "clock: 18/18 passed"
+   ]
+  },
+  {
+   "id": "r1.base1863",
+   "title": "BASE1863: the 1863 reconstruction as the map base (B63-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 177.5,
+   "passed": 11,
+   "total": 12,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": 60,
+   "failLines": [
+    "FAIL  T0-B63-11    static: the group's anchors matched once each, the Walkthrough span is byte-identical to the control, its own map still names the Mapbox style (untouched), nothing else names a satellite style, the tile set is complete"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "base1863: 11/12 passed, 1 FAILED",
+    "mapbox requests used this run: 60 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "r1.perf2",
+   "title": "PERF2: compare/precompile/roster performance (T0-P2-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 473.7,
+   "passed": 6,
+   "total": 12,
+   "skipped": 1,
+   "failed": 5,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-P2-01     compare (desktop, mouse): Dark on both maps never logs \"Unable to perform style diff\", has no long task and answers within 100 ms; the style really changes",
+    "FAIL  T0-P2-03     compare (desktop, mouse): 3D Terrain on a fresh page, and after Dark, answers within 100 ms with no long task, and the terrain is really switched on",
+    "FAIL  T0-P2-02     compare (phone, touch): Dark on both maps never logs \"Unable to perform style diff\", has no long task and answers within 100 ms; the style really changes",
+    "FAIL  T0-P2-04     compare (phone, touch): 3D Terrain on a fresh page, and after Dark, answers within 100 ms with no long task, and the terrain is really switched on",
+    "FAIL  T0-P2-07     app (desktop): the first press of Monuments has no long task, links no Mapbox program on demand, and the monuments are drawn"
+   ],
+   "ok": false,
+   "tail": [
+    "SKIP  T0-P2-12     the group builds with the unmodified builder after POLISH, with and without ANIM in either order, standalone on CLOCK,DATA,MON, and gives one entry bundle whichever way ANIM is orde",
+    "      pass --build (about 5 minutes)",
+    "perf2: 6/12 passed, 1 skipped, 5 FAILED"
+   ]
+  },
+  {
+   "id": "r1.wtpeer",
+   "title": "WTP: /watch-together does not close a Live Sync connection that is still being opened (T0-WTP-*, page group PG-zwt)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 8.8,
+   "passed": 2,
+   "total": 4,
+   "skipped": 0,
+   "failed": 2,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-WTP-01    Host pressed twice while the first connection is still opening: no connecting peer is destroyed; the first one is retired when it has opened and the page shows only the newest",
+    "FAIL  T0-WTP-03    Join pressed twice with a code: same rule as Host (no connecting peer destroyed)"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"two joins\":{\"peers\":2,\"destroyed\":[false,false],\"closedWhileConnecting\":0,\"status\":\"connecting…\",\"code\":\"\"}}",
+    "PASS  T0-WTP-04    the page group is generated from its script and registered copies are in step",
+    "wtpeer: 2/4 passed, 2 FAILED"
+   ]
+  },
+  {
+   "id": "r1.ztail",
+   "title": "ZTAIL: the dark style fog of /ground-remembers is off for the first frames (T0-ZT-*, page group PG-ztail) on the Release 1 candidate, against release/R1f/dist",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 131.9,
+   "passed": 5,
+   "total": 7,
+   "skipped": 1,
+   "failed": 1,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-ZT-01     /ground-remembers (phone), settled: the default view is pixel-identical to the control, the style's fog and globe projection are the style's own again, the layer list is unchanged, no console error"
+   ],
+   "ok": false,
+   "tail": [
+    "SKIP  T0-ZT-08     blocking time of a cold /ground-remembers load (phone, CPU 4x, interleaved with the control): the median is lower, no load above 400 ms",
+    "      pass --bench N (N loads per tree, about 12 s per load)",
+    "ztail: 5/7 passed, 1 skipped, 1 FAILED"
+   ]
+  }
+ ]
+}

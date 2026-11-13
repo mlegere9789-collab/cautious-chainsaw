@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: the site's data is found: the tracked baseline build is in this checkout, and every site tree that carries an entry bundle holds the same 512 monuments, 16 stops and 9 state memorials
+ok 1 - the site's data is found: the tracked baseline build is in this checkout, and every site tree that carries an entry bundle holds the same 512 monuments, 16 stops and 9 state memorials
+  ---
+  duration_ms: 474.59161
+  type: 'test'
+  ...
+# Subtest: no drift: the copies in app/data equal the site's data in every tree of this checkout, and the hashes recorded with them are the hashes of what they hold
+ok 2 - no drift: the copies in app/data equal the site's data in every tree of this checkout, and the hashes recorded with them are the hashes of what they hold
+  ---
+  duration_ms: 374.925609
+  type: 'test'
+  ...
+# Subtest: the copies are reproducible: rebuilt from the primary tree they are the same bytes as the files in app/data (nothing was edited by hand)
+ok 3 - the copies are reproducible: rebuilt from the primary tree they are the same bytes as the files in app/data (nothing was edited by hand)
+  ---
+  duration_ms: 27.30046
+  type: 'test'
+  ...
+# Subtest: the projection keeps exactly the fields a mark, a row and a bookmark need and stops at a field it does not know (a new field of the site is a decision, not a silent loss)
+ok 4 - the projection keeps exactly the fields a mark, a row and a bookmark need and stops at a field it does not know (a new field of the site is a decision, not a silent loss)
+  ---
+  duration_ms: 42.624547
+  type: 'test'
+  ...
+# Subtest: drift is noticed: a changed coordinate, a changed name, a changed hash, a missing file, a changed pin
+ok 5 - drift is noticed: a changed coordinate, a changed name, a changed hash, a missing file, a changed pin
+  ---
+  duration_ms: 4400.694373
+  type: 'test'
+  ...
+# Subtest: the check reads the site and writes only the two copies: no site file is opened for writing
+ok 6 - the check reads the site and writes only the two copies: no site file is opened for writing
+  ---
+  duration_ms: 0.937678
+  type: 'test'
+  ...
+# Subtest: the list of added layers carries the two modules; every path of the list is one the loader accepts; the files are there; each module exports only what the contract names
+ok 7 - the list of added layers carries the two modules; every path of the list is one the loader accepts; the files are there; each module exports only what the contract names
+  ---
+  duration_ms: 3.206502
+  type: 'test'
+  ...
+# Subtest: copy audit: no shipped file of the two modules (code, notes, data) names a tool, a maker or a process; the packer's own rules are the rules
+ok 8 - copy audit: no shipped file of the two modules (code, notes, data) names a tool, a maker or a process; the packer's own rules are the rules
+  ---
+  duration_ms: 17.527099
+  type: 'test'
+  ...
+# Subtest: what is written about the data in the shipped files points at the site, not at the way the copy was made: the tree and bundle it is read from are named, nothing else
+ok 9 - what is written about the data in the shipped files points at the site, not at the way the copy was made: the tree and bundle it is read from are named, nothing else
+  ---
+  duration_ms: 1.71244
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5494.572344

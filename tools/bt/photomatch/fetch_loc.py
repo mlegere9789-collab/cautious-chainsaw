@@ -28,6 +28,12 @@ def sha(p):
     with open(p, 'rb') as f:
         for b in iter(lambda: f.read(1 << 20), b''): h.update(b)
     return h.hexdigest()
+def complete(path):
+    """True when the JPEG decodes to the last pixel (a cut-short download keeps a readable header, so Image.open alone is not enough)."""
+    try:
+        with Image.open(path) as I: I.load()
+        return True
+    except Exception: return False
 def log(*a):
     s = ' '.join(str(x) for x in a); print(s, flush=True); open(LOG, 'a').write(s + '\n')
 def fetch(url, dst):
@@ -64,10 +70,15 @@ def main():
     log('jobs', len(jobs), time.strftime('%Y-%m-%d %H:%M:%S'))
     for n, (key, pk, i, r, der, k, url, rights) in enumerate(jobs):
         dst = os.path.join(OUT, f"{r['id']}_{k}.jpg"); cur = im.get(key)
-        if cur and cur.get('status') == 'ok' and os.path.exists(dst) and sha(dst) == cur.get('sha256'): n_skip += 1; continue
+        decl = r.get(der + '_s')
+        if cur and cur.get('status') == 'ok' and os.path.exists(dst) and sha(dst) == cur.get('sha256') and (not decl or os.path.getsize(dst) == decl) and complete(dst): n_skip += 1; continue
         res = None
-        for attempt in range(2):
+        for attempt in range(3):
             res = fetch(url, dst)
+            if res['status'] == 'ok':
+                # a transfer cut short still has a readable header: compare with the size the record declares and decode every pixel
+                if decl and os.path.getsize(dst) != decl: res = {'status': 'failed', 'http': res.get('http'), 'url_final': res.get('url_final'), 'hops': res.get('hops'), 'error': f'truncated: {os.path.getsize(dst)} bytes received, the record declares {decl}'}; os.remove(dst)
+                elif not complete(dst): res = {'status': 'failed', 'http': res.get('http'), 'url_final': res.get('url_final'), 'hops': res.get('hops'), 'error': 'JPEG does not decode completely'}; os.remove(dst)
             if res['status'] == 'ok': break
             if res.get('http') in ('403', '404', '410'): break
             time.sleep(10)
@@ -76,7 +87,7 @@ def main():
         if res['status'] == 'ok':
             b = os.path.getsize(dst)
             try:
-                with Image.open(dst) as I: W, H = I.size; mode = I.mode
+                with Image.open(dst) as I: I.load(); W, H = I.size; mode = I.mode
             except Exception as ex:
                 e.update(status='failed', error='not a readable JPEG: ' + str(ex)[:120]); im[key] = e; n_fail += 1; log('FAILED', key, e['error']); continue
             e.update(bytes=b, bytes_declared_by_record=r.get(der + '_s'), sha256=sha(dst), width=W, height=H, mode=mode, local_file=os.path.relpath(dst, ROOT),

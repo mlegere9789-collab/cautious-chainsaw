@@ -1,0 +1,29 @@
+# node --test tests/environment/<file> run one by one at 2026-11-13 19:3x UTC, no lock (each under 5 s of CPU); reporter tap; raw footer lines below
+# These suites read tools/environment/ and data-src/environment/ (the main site's sky and weather data), not docs/battle-theatre/environment/.
+# The header of each verify-*.test.mjs says it is an ADVERSARIAL VERIFIER: every test in it fails on the committed state of the main site's data or validator, by design.
+astro.test.mjs         exit 0 | # tests 30 # pass 29 # fail 0 # skipped 1 
+units.test.mjs         exit 0 | # tests 8 # pass 8 # fail 0 # skipped 0 
+verify-astro.test.mjs  exit 1 | # tests 6 # pass 3 # fail 3 # skipped 0 
+verify-docs.test.mjs   exit 1 | # tests 2 # pass 0 # fail 2 # skipped 0 
+verify-weather.test.mjs exit 1 | # tests 14 # pass 0 # fail 13 # skipped 1 
+weather.test.mjs       exit 0 | # tests 29 # pass 29 # fail 0 # skipped 0 
+
+## failing test titles (first 100 characters)
+verify-astro: not ok 1 - VERIFY-A1: a wrong weekday must be rejected (1863-07-03 was a Friday; a Saturday label is accepted today)
+verify-astro: not ok 2 - VERIFY-A2: a moon phase name that contradicts the principal phases must be rejected (July 2 is after the Full
+verify-astro: not ok 3 - VERIFY-A3: the pitch checks must be recomputed, not trusted (the EST-to-LMT shift 8.92 min changed to 9.92 mi
+verify-docs: not ok 1 - VERIFY-D1: the README's quote count for the 1885 article equals the data (README says 24; weather_by_day.json
+verify-docs: not ok 2 - VERIFY-D2: the README must not say that the later two of the three Reynolds times "are the times Howard and S
+verify-weather: not ok 1 - VERIFY-W1: the "wet from the rain" quote re-dated to July 1 (the pitch's mistake) must be rejected; the page 
+verify-weather: not ok 2 - VERIFY-W2: the observation W-1863-06-26-wet-brigade dated July 1 must be rejected (same trap, observation lev
+verify-weather: not ok 3 - VERIFY-W3: a wind direction that the quote does not contain (S.S.W. -> N.N.W., quote says "Wind S. S. W., ver
+verify-weather: not ok 4 - VERIFY-W4: the contested block must agree with the observation it describes (ECW value 12 -> 21 in contested[
+verify-weather: not ok 5 - VERIFY-W5: a temperature reading given in degrees Celsius must be rejected (the table has no unit; the file i
+verify-weather: not ok 6 - VERIFY-W6: a wrong weekday must be rejected (1863-07-03 was a Friday)
+verify-weather: not ok 7 - VERIFY-W7: an A1 source with imprint_year 1935 and rights "public domain by date" must be rejected (Jacobs 18
+verify-weather: not ok 8 - VERIFY-W8: an A1 source (Haskell reprint) whose imprint_year is set to 1948 must be rejected
+verify-weather: not ok 9 - VERIFY-W9: a rights statement that says the work is in copyright, on an A1 source, must be rejected
+verify-weather: not ok 10 - VERIFY-W10: an invented page for the 1885 article (the file says UNKNOWN, no scan was seen) must be rejected
+verify-weather: not ok 11 - VERIFY-W11: a pitch check flipped without evidence (PC1: "July 2: 74, 81 and 76" agrees=true) must be reject
+verify-weather: not ok 13 - VERIFY-W13: the 1885 article is labelled tier "A1" (primary: a public-domain published work quoted verbatim)
+verify-weather: not ok 14 - VERIFY-W14: a figure that the transcription prints as garbage ("1, - 280") must not be stored as a numeric M

@@ -34,12 +34,24 @@ export function recordingContext() {
   c.measureText = t => ({ width: String(t).length * 6.2 }); return c;
 }
 
-// ---- a small stand-in page: elements with children, ids, classes, listeners that honour an abort signal
+// ---- a small stand-in page: elements with children, ids, classes, data attributes, listeners that honour an abort signal. innerHTML is read FLAT: every tag of the string becomes a child
+// of the element (id, class, data-*, aria-*, hidden, checked, disabled, value kept), enough for querySelector by id, class, tag or attribute; nesting and combinators are not modelled.
+const camel = k => k.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+const TAG_RE = /<([a-zA-Z][a-zA-Z0-9]*)\b((?:\s+[^\s=>\/]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*\/?>/g, ATTR_RE = /([^\s=>\/]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g;
+function compound(sel) {                       // one compound selector: tag#id.class[attr][attr="v"]  ->  {tag, id, classes, attrs: [[name, value|null]]}
+  const m = /^([a-zA-Z][a-zA-Z0-9]*)?/.exec(sel), c = { tag: m[1] ? m[1].toUpperCase() : null, id: null, classes: [], attrs: [] }; let rest = sel.slice(m[0].length), k;
+  const re = /#([\w-]+)|\.([\w-]+)|\[([\w-]+)(?:="([^"]*)")?\]/y; re.lastIndex = 0; while (rest && (k = re.exec(rest))) { if (k[1]) c.id = k[1]; else if (k[2]) c.classes.push(k[2]); else c.attrs.push([k[3], k[4] ?? null]); rest = rest.slice(k[0].length); re.lastIndex = 0; }
+  return c;
+}
 export class FakeEl {
-  constructor(tag = 'div') { this.tagName = String(tag).toUpperCase(); this.children = []; this.parentNode = null; this.attrs = {}; this.dataset = {}; this.listeners = []; this.hidden = false; this.id = ''; this.className = ''; this.textContent = ''; this.width = 300; this.height = 150; this.removed = false;
+  constructor(tag = 'div') { this.tagName = String(tag).toUpperCase(); this.children = []; this.parentNode = null; this.attrs = {}; this.dataset = {}; this.listeners = []; this.hidden = false; this.id = ''; this.className = ''; this.textContent = ''; this.width = 300; this.height = 150; this.removed = false; this.value = ''; this.checked = false; this.disabled = false;
     this._html = ''; const props = {}; this.style = { cssText: '', setProperty: (k, v) => { props[k] = v; }, getPropertyValue: k => props[k], props }; this.rect = { left: 0, top: 0, width: 1280, height: 720 }; }
-  get innerHTML() { return this._html; } set innerHTML(v) { this._html = String(v); this.children = []; }
-  setAttribute(k, v) { this.attrs[k] = String(v); } getAttribute(k) { return k in this.attrs ? this.attrs[k] : null; } removeAttribute(k) { delete this.attrs[k]; }
+  get innerHTML() { return this._html; }
+  set innerHTML(v) {
+    this._html = String(v); for (const c of this.children) c.parentNode = null; this.children = [];
+    for (const m of this._html.matchAll(TAG_RE)) { const n = new FakeEl(m[1]); for (const a of m[2].matchAll(ATTR_RE)) { const k = a[1], val = a[2] ?? a[3] ?? a[4] ?? ''; if (k === 'id') n.id = val; else if (k === 'class') n.className = val; else if (k === 'hidden') n.hidden = true; else if (k === 'checked') n.checked = true; else if (k === 'disabled') n.disabled = true; else if (k === 'value') n.value = val; else if (k.startsWith('data-')) n.dataset[camel(k.slice(5))] = val; else n.attrs[k] = val; if (k.startsWith('data-') || k === 'aria-current') n.attrs[k] = val; } n.parentNode = this; this.children.push(n); }
+  }
+  setAttribute(k, v) { this.attrs[k] = String(v); if (k.startsWith('data-')) this.dataset[camel(k.slice(5))] = String(v); } getAttribute(k) { return k in this.attrs ? this.attrs[k] : null; } removeAttribute(k) { delete this.attrs[k]; if (k.startsWith('data-')) delete this.dataset[camel(k.slice(5))]; }
   addEventListener(type, fn, opts) { this.listeners.push({ type, fn, opts: opts || {} }); } removeEventListener(type, fn) { this.listeners = this.listeners.filter(l => !(l.type === type && l.fn === fn)); }
   live(type) { return this.listeners.filter(l => l.type === type && !(l.opts.signal && l.opts.signal.aborted)); }
   fire(type, ev = {}) { const e = { type, target: this, key: '', pointerId: 1, clientX: 0, clientY: 0, pointerType: 'mouse', ...ev }; for (const l of this.live(type)) l.fn(e); let p = this.parentNode; while (p) { for (const l of p.live(type)) l.fn(e); p = p.parentNode; } return e; }
@@ -49,9 +61,12 @@ export class FakeEl {
   after(...ns) { const p = this.parentNode; if (!p) return; let i = p.children.indexOf(this); for (const n of ns) { p._adopt(n); i = p.children.indexOf(this) + 1; p.children.splice(i, 0, n); } }
   remove() { if (this.parentNode) { const i = this.parentNode.children.indexOf(this); if (i >= 0) this.parentNode.children.splice(i, 1); this.parentNode = null; } this.removed = true; }
   walk(fn) { for (const c of this.children) { if (fn(c) === true) return c; const r = c.walk(fn); if (r) return r; } return null; }
-  matches(sel) { if (sel[0] === '#') return this.id === sel.slice(1); if (sel[0] === '.') return this.className.split(/\s+/).includes(sel.slice(1)); return this.tagName === sel.toUpperCase(); }
+  matches(sel) { const parts = String(sel).trim().split(/\s+/), c = compound(parts[parts.length - 1]);          // the last compound only: no combinators
+    if (c.tag && this.tagName !== c.tag) return false; if (c.id && this.id !== c.id) return false; const cls = this.className.split(/\s+/); if (!c.classes.every(x => cls.includes(x))) return false;
+    return c.attrs.every(([k, v]) => { const own = k.startsWith('data-') ? this.dataset[camel(k.slice(5))] : this.attrs[k]; return own !== undefined && (v === null || own === v); }); }
   querySelector(sel) { return this.walk(c => c.matches(sel)); }
-  closest(sel) { const m = /^\[data-([a-z-]+)\]$/.exec(sel); let n = this; while (n) { if (m ? m[1] in n.dataset : n.matches(sel)) return n; n = n.parentNode; } return null; }
+  querySelectorAll(sel) { const out = []; this.walk(c => { if (c.matches(sel)) out.push(c); return false; }); return out; }
+  closest(sel) { let n = this; while (n) { if (n.matches(sel)) return n; n = n.parentNode; } return null; }
   getBoundingClientRect() { const r = this.rect; return { left: r.left, top: r.top, width: r.width, height: r.height, x: r.left, y: r.top, right: r.left + r.width, bottom: r.top + r.height }; }
   getContext() { return this.ctx2d || (this.ctx2d = recordingContext()); }
   contains(n) { let p = n; while (p) { if (p === this) return true; p = p.parentNode; } return false; }

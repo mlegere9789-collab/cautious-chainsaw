@@ -1,0 +1,388 @@
+{
+ "finished": "PARTIAL: the run was still going (or was stopped) when this was written",
+ "seconds": 4798,
+ "portBase": "8480",
+ "totals": {
+  "suites": 14,
+  "ok": 9,
+  "notOk": 5,
+  "greenTests": 320,
+  "greenTestsTotal": 331,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "r0.R1b",
+   "title": "R0 acceptance (X1/X2) on R1b",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 46.4,
+   "passed": 12,
+   "total": 13,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": 104,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"measurements\":{\"cls\":0,\"chooser\":false,\"banner\":false,\"layout\":\"mobile\"}}",
+    "r0-acceptance: 12/13 passed, 1 skipped",
+    "mapbox requests used this run: 104 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "journeys.R1c",
+   "title": "desktop journeys J1-J8, inputs, group A, group B on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 299.3,
+   "passed": 40,
+   "total": 41,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": 17,
+   "failLines": [
+    "FAIL  T0-J7        J7 day 2/3 jump by tab and by keys 2/3: data loads within 2 s, minimap follows, dates stay July 1-3 (X6)"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"tile requests in the shared session\":7,\"ignored tile noise\":{\"tile\":30,\"telemetry\":0}}",
+    "journeys-desktop: 40/41 passed, 1 FAILED",
+    "mapbox requests used this run: 17 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "deeplinks.R1c",
+   "title": "deep links, moments.json, Turning Points (X7)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 181.4,
+   "passed": 12,
+   "total": 12,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 30,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"phone camera\":{\"center\":[-77.2359,39.7918],\"zoom\":15.5},\"?ancestor= opens the Follow panel on the phone\":true,\"junk link tick 1\":true}",
+    "deeplinks: 12/12 passed",
+    "mapbox requests used this run: 30 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "mobilefix.R1b",
+   "title": "mobile + shell fixes T0-MFIX-01..12 on R1b: three viewport slices and the desktop-shell slice",
+   "kind": "green",
+   "inverted": false,
+   "parts": [
+    {
+     "exit": 0,
+     "seconds": 434.6,
+     "passed": 8,
+     "total": 8,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 51,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 343.7,
+     "passed": 8,
+     "total": 8,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 68,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 364.4,
+     "passed": 10,
+     "total": 10,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 47,
+     "tail": []
+    },
+    {
+     "exit": 1,
+     "seconds": 126.4,
+     "passed": 2,
+     "total": 3,
+     "skipped": 0,
+     "failed": 1,
+     "tiles": 92,
+     "tail": [
+      "FAIL  T0-MFIX-11   desktop shell: the Ask the Historian / Extra Features pills sit below modal layers, hide while a modal is open (Help, Bookmarks, onboarding, Walkthrough) and never overlap panels or cards"
+     ]
+    }
+   ],
+   "exit": 1,
+   "seconds": 434.6,
+   "passed": 28,
+   "total": 29,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": 92,
+   "ok": false,
+   "failLines": [
+    "FAIL  T0-MFIX-11   desktop shell: the Ask the Historian / Extra Features pills sit below modal layers, hide while a modal is open (Help, Bookmarks, onboarding, Walkthrough) and never overlap panels or cards"
+   ]
+  },
+  {
+   "id": "mobilefix.R1c",
+   "title": "mobile + shell fixes T0-MFIX-01..12 on R1c: three viewport slices and the desktop-shell slice",
+   "kind": "green",
+   "inverted": false,
+   "parts": [
+    {
+     "exit": 1,
+     "seconds": 1026.9,
+     "passed": 7,
+     "total": 8,
+     "skipped": 0,
+     "failed": 1,
+     "tiles": 60,
+     "tail": [
+      "FAIL  T0-MFIX-02   D-02: Search-to-unit on the phone shell: popup + fly-to (last known keyframe), highlight, close deselects; ?u= deep links (with and without camera, not-yet-arrived, unknown id)"
+     ]
+    },
+    {
+     "exit": 0,
+     "seconds": 904.3,
+     "passed": 8,
+     "total": 8,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 18,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 971.8,
+     "passed": 10,
+     "total": 10,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 37,
+     "tail": []
+    },
+    {
+     "exit": 1,
+     "seconds": 135.1,
+     "passed": 2,
+     "total": 3,
+     "skipped": 0,
+     "failed": 1,
+     "tiles": 5,
+     "tail": [
+      "FAIL  T0-MFIX-11   desktop shell: the Ask the Historian / Extra Features pills sit below modal layers, hide while a modal is open (Help, Bookmarks, onboarding, Walkthrough) and never overlap panels or cards"
+     ]
+    }
+   ],
+   "exit": 1,
+   "seconds": 1026.9,
+   "passed": 27,
+   "total": 29,
+   "skipped": 0,
+   "failed": 2,
+   "tiles": 60,
+   "ok": false,
+   "failLines": [
+    "FAIL  T0-MFIX-02   D-02: Search-to-unit on the phone shell: popup + fly-to (last known keyframe), highlight, close deselects; ?u= deep links (with and without camera, not-yet-arrived, unknown id)",
+    "FAIL  T0-MFIX-11   desktop shell: the Ask the Historian / Extra Features pills sit below modal layers, hide while a modal is open (Help, Bookmarks, onboarding, Walkthrough) and never overlap panels or cards"
+   ]
+  },
+  {
+   "id": "pagesmaps.R1a",
+   "title": "map sub-pages, og card, manifest (PG-01..08) on R1a",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 91.8,
+   "passed": 34,
+   "total": 34,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 101,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"skipped\":\"pass --online to re-fetch\"}",
+    "T0-PG (map pages, og/manifest): 34/34 passed",
+    "mapbox requests used this run: 101 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "pagesmaps.R1b",
+   "title": "map sub-pages, og card, manifest (PG-01..08) on R1b",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 85,
+   "passed": 34,
+   "total": 34,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 100,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"skipped\":\"pass --online to re-fetch\"}",
+    "T0-PG (map pages, og/manifest): 34/34 passed",
+    "mapbox requests used this run: 100 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "pagesmaps.R1c",
+   "title": "map sub-pages, og card, manifest (PG-01..08) on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 95.1,
+   "passed": 34,
+   "total": 34,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 112,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"skipped\":\"pass --online to re-fetch\"}",
+    "T0-PG (map pages, og/manifest): 34/34 passed",
+    "mapbox requests used this run: 112 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "pagesfix.R1a",
+   "title": "sub-page fixes T0-PGF-01..19 on R1a (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 603.2,
+   "passed": 20,
+   "total": 21,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": 15,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"server requests for /icons/icon-192.png on one load of index.html (cache rule public, max-age=31536000, immutable; DevTools lists a second, cache-served entry for the link icon and the manifes",
+    "pages-fixes: 20/21 passed, 1 skipped",
+    "mapbox requests used this run: 15 of 3000"
+   ]
+  },
+  {
+   "id": "pagesfix.R1b",
+   "title": "sub-page fixes T0-PGF-01..19 on R1b (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 564.7,
+   "passed": 20,
+   "total": 21,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": 15,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"server requests for /icons/icon-192.png on one load of index.html (cache rule public, max-age=31536000, immutable; DevTools lists a second, cache-served entry for the link icon and the manifes",
+    "pages-fixes: 20/21 passed, 1 skipped",
+    "mapbox requests used this run: 15 of 3000"
+   ]
+  },
+  {
+   "id": "pagesfix.R1c",
+   "title": "sub-page fixes T0-PGF-01..19 on R1c (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 574.3,
+   "passed": 20,
+   "total": 21,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": 15,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"server requests for /icons/icon-192.png on one load of index.html (cache rule public, max-age=86400; DevTools lists a second, cache-served entry for the link icon and the manifest icon)\":0}",
+    "pages-fixes: 20/21 passed, 1 skipped",
+    "mapbox requests used this run: 15 of 3000"
+   ]
+  },
+  {
+   "id": "pagesfix.R1c.legal",
+   "title": "T0-PGF-14 on R1c built with the opt-in PG-legal group (the privacy table is keyboard-reachable)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 2.3,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-PGF-14    Privacy: a table that scrolls sideways can be reached with the keyboard (focusable, named region)",
+    "pages-fixes: 1/1 passed",
+    "mapbox requests used this run: 0 of 3000"
+   ]
+  },
+  {
+   "id": "r1.anim",
+   "title": "ANIM: continuous unit motion (T0-ANIM-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 620.8,
+   "passed": 27,
+   "total": 29,
+   "skipped": 1,
+   "failed": 1,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-ANIM-B11  cost: 60 fps on the densest tick (desktop), 30 fps or more at 4x CPU on a phone, the engine never makes a long task and its own frame cost stays inside its budget"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-ANIM-X    every browser test of this run: 0 uncaught exceptions and 0 first-party console.error",
+    "      {\"first-party errors of the shared session\":0}",
+    "anim: 27/29 passed, 1 skipped, 1 FAILED"
+   ]
+  },
+  {
+   "id": "r1.base1863",
+   "title": "BASE1863: the 1863 reconstruction as the map base (B63-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 172.3,
+   "passed": 11,
+   "total": 12,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": 60,
+   "failLines": [
+    "FAIL  T0-B63-11    static: the group's anchors matched once each, the Walkthrough span is byte-identical to the control, its own map still names the Mapbox style (untouched), nothing else names a satellite style, the tile set is complete"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "base1863: 11/12 passed, 1 FAILED",
+    "mapbox requests used this run: 60 of 3000 (blocked by cap: 0)"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,137 @@
+{
+ "unit": "c-nc-26th-north-carolina-infantry",
+ "rows": 1737,
+ "raw_bytes": 196951,
+ "gz_bytes": 40382,
+ "mean_line": 113.3,
+ "median_line": 106,
+ "p90_line": 150,
+ "share_over_90": 0.699,
+ "verify": {
+  "rows": 1737,
+  "name_ok": 1737,
+  "remark_ok": 1737,
+  "remark_gap_rows": 0,
+  "remark_empty": 0,
+  "page_ok": 1737,
+  "page_null": 0,
+  "rank_ok": 1304,
+  "rank_empty": 0,
+  "order_breaks": 0
+ },
+ "defect_samples": [
+  {
+   "kind": "rank-not-in-leaf",
+   "t": "NC-MOORE-1882.2",
+   "off": 1241317,
+   "name": "Ackroid, William"
+  },
+  {
+   "kind": "rank-not-in-leaf",
+   "t": "NC-MOORE-1882.2",
+   "off": 1241433,
+   "name": "Austin, Green D."
+  },
+  {
+   "kind": "rank-not-in-leaf",
+   "t": "NC-MOORE-1882.2",
+   "off": 1241528,
+   "name": "Baker, W. A."
+  },
+  {
+   "kind": "rank-not-in-leaf",
+   "t": "NC-MOORE-1882.2",
+   "off": 1241609,
+   "name": "Baker, Thomas A."
+  },
+  {
+   "kind": "rank-not-in-leaf",
+   "t": "NC-MOORE-1882.2",
+   "off": 1241669,
+   "name": "Haker, William T."
+  },
+  {
+   "kind": "rank-not-in-leaf",
+   "t": "NC-MOORE-1882.2",
+   "off": 1241730,
+   "name": "Broom, Thomas J."
+  },
+  {
+   "kind": "rank-not-in-leaf",
+   "t": "NC-MOORE-1882.2",
+   "off": 1241825,
+   "name": "Broom, William J."
+  },
+  {
+   "kind": "rank-not-in-leaf",
+   "t": "NC-MOORE-1882.2",
+   "off": 1241880,
+   "name": "Broom, A. L."
+  }
+ ],
+ "gettysburg_rows": 468,
+ "skipped_lines": 23,
+ "skipped_sample": [
+  [
+   1221874,
+   "TWENTY-SIXTH  REGIMENT\u2014 INFANTRY."
+  ],
+  [
+   1221908,
+   "e   captured."
+  ],
+  [
+   1221922,
+   "cm   commissioned."
+  ],
+  [
+   1221941,
+   "CO   county."
+  ],
+  [
+   1221954,
+   "Com   Company."
+  ],
+  [
+   1221969,
+   "e   enlisted."
+  ],
+  [
+   1221983,
+   "ABBREVIATIONS."
+  ],
+  [
+   1221998,
+   "d   died."
+  ],
+  [
+   1222008,
+   "dg   discharged."
+  ],
+  [
+   1222025,
+   "dt   detailed."
+  ],
+  [
+   1222040,
+   "k   killed."
+  ],
+  [
+   1222052,
+   "m   missing."
+  ]
+ ],
+ "by_company": {
+  "A": 175,
+  "B": 159,
+  "C": 172,
+  "D": 183,
+  "E": 180,
+  "F": 211,
+  "FS": 15,
+  "G": 176,
+  "H": 143,
+  "I": 152,
+  "K": 171
+ }
+}

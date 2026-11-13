@@ -1,7 +1,8 @@
 """Source access for the vegetation claims: one search and one verify for the three families of text the claims rest on.
 
     OR27            Official Records Ser. I vol. 27, parts 1-3 (tools/bt/or27_find.py): cited by report and printed page
-    NPS:<ID>        a National Park Service report saved under tmp/library/web/nps/<ID>/<ID>.txt (=== PAGE n === markers: PDF page index)
+    NPS:<ID>        a National Park Service report saved under tmp/library/web/nps/<ID>/<ID>.txt (=== PAGE n === markers: PDF page index);
+                    NPS:<ID>#layout reads the layout text of the same file (two-column pages stay in reading order there); NPS:<ID>#raw the pdftotext raw order (a few documents only)
     WS9:<ID>        a public-domain book or newspaper saved under tmp/library/ws9 (index: docs/battle-theatre/GOVERNANCE/library/acquired_2.json;
                     the OCR text has no page markers: the locator is the character offset in the sha256-pinned file and, when the text itself
                     shows one just before the match, the running head or page figure)
@@ -25,6 +26,7 @@ WS9_INDEX = os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'library'
 sys.path.insert(0, os.path.join(HERE, '..'))
 
 _cache = {}
+_or_sk = {}
 
 
 def sha256_file(p):
@@ -101,7 +103,8 @@ def load(key):
         return _cache[key]
     fam, _, name = key.partition(':')
     if fam == 'NPS':
-        p = os.path.join(NPS_DIR, name, name + '.txt')
+        base, _, variant = name.partition('#')       # NPS:<ID>#layout reads <ID>.layout.txt (columns kept apart where the plain text interleaves them)
+        p = os.path.join(NPS_DIR, base, base + {'layout': '.layout.txt', 'raw': '.raw.txt'}.get(variant, '.txt'))
     elif fam == 'WS9':
         p = ws9_path(name)
     else:
@@ -132,6 +135,26 @@ def verify(key, quote, report=None):
         hits = F.verify(quote, parts=(1, 2, 3))
         if report:
             hits = [h for h in hits if h.get('record') == report]
+        if not hits:                                   # the OCR keeps stray marks inside a line (} < . ) that the letter-and-digit comparison ignores
+            qs, _ = skeleton(quote)
+            for part in (1, 2, 3):
+                P = F.get_part(part)
+                if part not in _or_sk:
+                    _or_sk[part] = skeleton(P.ntext)
+                sk, idx = _or_sk[part]
+                pos = 0
+                while len(qs) >= 12:
+                    i = sk.find(qs, pos)
+                    if i < 0:
+                        break
+                    a, b = idx[i], idx[i + len(qs) - 1] + 1
+                    os_, oe = P.orig_span(a, b)
+                    c = P.cite(os_, oe)
+                    if not report or c['record'] == report:
+                        hits.append(c)
+                    pos = i + 1
+                if hits:
+                    break
         if not hits:
             return {'ok': False, 'count': 0, 'found': None}
         h = hits[0]

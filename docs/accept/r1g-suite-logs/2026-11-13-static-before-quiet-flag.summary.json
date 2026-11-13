@@ -1,0 +1,400 @@
+{
+ "finished": "see file mtime",
+ "seconds": 448,
+ "portBase": "8480",
+ "machine": {
+  "platform": "linux",
+  "cpus": 4,
+  "node": "v22.23.4"
+ },
+ "load1": {
+  "start": 5.17,
+  "end": 6.77
+ },
+ "childEnv": {
+  "httpsProxy": true,
+  "added": [
+   "NODE_USE_ENV_PROXY"
+  ]
+ },
+ "totals": {
+  "suites": 16,
+  "ok": 15,
+  "notOk": 1,
+  "greenTests": 86,
+  "greenTestsTotal": 89,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "static.gates",
+   "title": "build gates of the four trains (gate.json written by build.py)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "gates": [
+    {
+     "train": "R0",
+     "ok": true,
+     "checks": 10,
+     "failed": []
+    },
+    {
+     "train": "R1a",
+     "ok": true,
+     "checks": 10,
+     "failed": []
+    },
+    {
+     "train": "R1b",
+     "ok": true,
+     "checks": 10,
+     "failed": []
+    },
+    {
+     "train": "R1c",
+     "ok": true,
+     "checks": 10,
+     "failed": []
+    }
+   ],
+   "seconds": 0,
+   "ok": true,
+   "passed": 4,
+   "total": 4,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "load1Start": 5.17,
+   "load1End": 5.17
+  },
+  {
+   "id": "static.overlap",
+   "title": "geometric overlap audit of the patch set",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 32.7,
+   "passed": null,
+   "total": null,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "R1g    479 bundle patches,  72 consumptions of 58 earlier patches: 32 verbatim in the bundle, 19 needed by a later anchor,  1 changed and still in effect, 6 overwritten (6 declared)",
+    "declared overwrites in use: 6 of 6 (tools/t0/overlap-declared.json)",
+    "overlap audit: PASS (8 trains, 0 problems)"
+   ],
+   "load1Start": 5.17,
+   "load1End": 5.36
+  },
+  {
+   "id": "static.verify",
+   "title": "verify_release: manifest, static crawl, dev pages, names, identity vs the baseline, cumulative, legacy and baseline pinned",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 5.1,
+   "passed": 10,
+   "total": 10,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  cumulative  R0 -> R1a: +303 patches, 117->119 non-asset files; R1a -> R1b: +176 patches, 119->119 non-asset files; R1b -> R1c: +42 patches, 119->123 non-asset files; R1c -> R1d: +2777 patches, 1",
+    "PASS  names/legacy/baseline  27 distinct asset names across trains, reuse with other bytes: 0; legacy entry md5 7ef75b95f4c02700430b8aa91e3a7459; baseline tree d2b126e99a88 (2 file(s) differ from lega",
+    "verify_release: all checks passed"
+   ],
+   "load1Start": 5.36,
+   "load1End": 5.33
+  },
+  {
+   "id": "static.selftest",
+   "title": "build system self-test (10 properties incl. determinism and ledger)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 53.6,
+   "passed": 10,
+   "total": 10,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  7 ledger: reused name / archived collision fail, idempotent rebuild passes                 1.6s  reuse and (case-insensitive) collision rejected; recorded same-bytes name accepted",
+    "PASS  8 legacy/ is untouched (pinned tree digest, git clean)                                     0.0s  tree 90d819d0a948e0e0 (119 files), git status clean",
+    "build selftest: all passed"
+   ],
+   "load1Start": 5.33,
+   "load1End": 5.12
+  },
+  {
+   "id": "static.baseline",
+   "title": "baseline machinery self-test (17 cases: Netlify post-processing model, lock and build refusal, CRLF-aware patching, overlay guard, verify-live against a local Netlify fake, mirror -> reconstruct -> prove, JS/Python model parity, compare-zip of a downloaded deploy)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 12.7,
+   "passed": 16,
+   "total": 17,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": null,
+   "failLines": [
+    "FAIL 16 the JS mirror of the model (ops/sha-list.mjs forwardModel, used by verify-url --tree) gives the same bytes as the Python model on all 27 pages"
+   ],
+   "ok": false,
+   "tail": [
+    "     JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+    "PASS 17 compare-zip: a downloaded deploy zip against the locked baseline (identical, folder-prefixed zip, one changed file with a diff, a missing file, an extra _headers, a case-only name, CLI exit co",
+    "baseline selftest: 1 FAILED"
+   ],
+   "load1Start": 5.12,
+   "load1End": 5.58
+  },
+  {
+   "id": "static.baselinelock",
+   "title": "baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, no network)",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.1,
+   "passed": null,
+   "total": null,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "baseline ok: baseline/dist matches tools/t0/baseline.lock.json (119 files, tree d2b126e99a88cbd9d708c0db237d2fd1dfbe7a3bf8c8d41c473536d3f727be6d)"
+   ],
+   "load1Start": 5.58,
+   "load1End": 5.58
+  },
+  {
+   "id": "static.legal",
+   "title": "privacy/terms fact base vs the built R1c tree",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.6,
+   "passed": 13,
+   "total": 13,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  markers      no owner-review marker in any of 46 shipped text files",
+    "PASS  terms-embed  Terms invite embedding the widget and _headers frees /embed and /embed.html (frame-ancestors *, no X-Frame-Options)",
+    "/home/user/cautious-chainsaw/release/R1g/dist: no FAIL, 1 WARN"
+   ],
+   "load1Start": 5.58,
+   "load1End": 5.58
+  },
+  {
+   "id": "static.lib",
+   "title": "browser harness self-test",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 28.9,
+   "passed": 9,
+   "total": 10,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": 118,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"R1a\":{\"layout\":\"clicked\",\"dragMoved\":true,\"zoomChanged\":true},\"R0\":{\"dragMoved\":false,\"zoomChanged\":false}}",
+    "lib-selftest: 9/10 passed, 1 skipped",
+    "mapbox requests used this run: 118 of 300"
+   ],
+   "load1Start": 5.58,
+   "load1End": 6.56
+  },
+  {
+   "id": "static.runner",
+   "title": "runner self-test (no browser): behind an HTTPS proxy every child process of this runner and of the tools/accept runners gets NODE_USE_ENV_PROXY and NODE_EXTRA_CA_CERTS unless they are set, with no proxy the environment is passed on unchanged; the 1-minute load average at the start and end of every suite is in the summary, the console line, --merge and --import-log",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 22.4,
+   "passed": 17,
+   "total": 18,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      --online not given (one request to api.mapbox.com)",
+    "calling shell: HTTPS proxy set; load average (1 min) 6.16; 4 CPUs; 22.3 s",
+    "runner-selftest: 17/18 passed, 1 skipped"
+   ],
+   "load1Start": 6.56,
+   "load1End": 6.16
+  },
+  {
+   "id": "static.overlap.selftest",
+   "title": "overlap audit self-test (6 cases incl. the failing ones: an anchor that no longer matches, an undeclared overwrite, an anchor with no source)",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS overlap_selftest: 6 cases"
+   ],
+   "load1Start": 6.16,
+   "load1End": 6.16
+  },
+  {
+   "id": "static.hygiene",
+   "title": "source hygiene of tools/t0, tests/t0, tools/ship and ops: no stray control bytes (a regex escape that reached the file as BACKSPACE), every script parses, every JSON file is valid",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 11.8,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS hygiene: 409 files, no control bytes, 242 scripts parse, JSON valid"
+   ],
+   "load1Start": 6.16,
+   "load1End": 6.07
+  },
+  {
+   "id": "static.ship",
+   "title": "pack_zip self-test (tools/ship/pack_zip.py, the Netlify drag-and-drop zip: files at the zip root, byte-identical packs, a changed, extra or missing file or a wrong tree digest against manifest.json is refused, the staging variant differs in _headers only, the real R1c packs)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 1.6,
+   "passed": 11,
+   "total": 11,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  9b a dist whose build failed (BUILD-FAILED.json, or gate.json ok:false) is refused -- both refused, no zip written",
+    "PASS  10 the real R1c dist (when built) packs and equals the dist; the manifest line carries its tree digest -- 127 files, tree 29ba046d965c; the staging zip equals the sha-list stage copy",
+    "pack_zip self-test: all 11 passed"
+   ],
+   "load1Start": 6.07,
+   "load1End": 6.07
+  },
+  {
+   "id": "static.fixes",
+   "title": "release-verifier fixes self-test (11 cases: failed builds leave nothing deployable, ledger errors, gate cache beside --out, kill switch outside dist, opt-in legal group, stage guard, verify-url exit codes, stale-dist refusal, S5 asks the previous train)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 100.8,
+   "passed": 11,
+   "total": 11,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  10 staging-verify S0 refuses a stale (internally consistent but outdated) dist -- a dist built without PG-maps: S0 FAIL \"STALE dist\", exit 1; a current dist: S0 PASS \"identical to a fresh rebuil",
+    "PASS  11 staging-verify S5 asks the previous train (verify-live is the R0 gate and says DRIFTED once R0 is live) -- R1a S5: production = the previous dist PASS (exit 0); one changed file DIFF (exit 1)",
+    "release-fixes selftest: all passed"
+   ],
+   "load1Start": 6.07,
+   "load1End": 5.94
+  },
+  {
+   "id": "static.determinism",
+   "title": "determinism: every train rebuilt into release/check/<train> is byte-identical to release/<train> (dist, manifest, anchors, gate, kill-switch copy)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 160.3,
+   "passed": 8,
+   "total": 8,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS R1f identical: 2013 files, tree 31df52108407, release id 5f898a66, manifest/anchors/kill-switch copy byte-identical, same gate",
+    "PASS R1g identical: 2013 files, tree 2ecf311ac205, release id 52cec836, manifest/anchors/kill-switch copy byte-identical, same gate",
+    "determinism: all trains identical"
+   ],
+   "load1Start": 5.94,
+   "load1End": 6.95
+  },
+  {
+   "id": "static.controls",
+   "title": "control trees for the red-first proofs and the opt-in legal variant built (R1c without A2, without the Mapbox precompile, without the mobile + shell fixes, and R1c with PG-legal with its gates on; each differs from the real R1c)",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 17.4,
+   "passed": null,
+   "total": null,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "control R1c-noPrecompile   R1c  release id 1f30651e (real 2531699e)  tree ba4b81f2e2b6  Mapbox shader precompile (extension part of R0) absent",
+    "control R1c-noMobile       R1c  release id 2f6df6cd (real 2531699e)  tree 353c010837ad  mobile + shell fixes absent (SHELL empty, C.json from before 40844b8)",
+    "redtrees: 4 built, 0 failed"
+   ],
+   "load1Start": 6.95,
+   "load1End": 6.77
+  },
+  {
+   "id": "static.legal.optin",
+   "title": "privacy/terms fact base vs R1c built with PG-legal (exit 0 = no FAIL: the text matches the headers; the Street View delegation is disclosed, so the WARN of the default build is gone)",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.3,
+   "passed": 19,
+   "total": 19,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  frame-permission Street View frame: allow attribute, Permissions-Policy (self + https://www.google.com, accelerometer + gyroscope only) and the privacy text agree",
+    "PASS  referrer     privacy.html says third parties receive this site's address as the referrer and _headers sends Referrer-Policy strict-origin-when-cross-origin everywhere (origin only on cross-origi",
+    "/home/user/cautious-chainsaw/release/control/R1c-legal/dist: no FAIL, 1 WARN"
+   ],
+   "load1Start": 6.77,
+   "load1End": 6.77
+  }
+ ]
+}

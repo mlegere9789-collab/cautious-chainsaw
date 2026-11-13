@@ -1,0 +1,1181 @@
+{
+ "_doc": "Feature-matching leads: which LOC resource each NPS Then photograph is. inliers = RANSAC-consistent SIFT matches; accepted only at >= 25. A lead, to be confirmed by looking at both images.",
+ "min_inliers": 25,
+ "queries": {
+  "rose-woods#1": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_rose-woods_01_then.jpg",
+   "top": [
+    {
+     "resource": "ppmsca.32909",
+     "loc_id": "2012647823",
+     "inliers": 1469,
+     "good_matches": 1477
+    },
+    {
+     "resource": "cwpb.00853",
+     "loc_id": "2018670703",
+     "inliers": 9,
+     "good_matches": 22
+    },
+    {
+     "resource": "cwpb.00852",
+     "loc_id": "2018670703",
+     "inliers": 6,
+     "good_matches": 26
+    },
+    {
+     "resource": "IMG_LOC2018666303-L",
+     "loc_id": null,
+     "inliers": 6,
+     "good_matches": 17
+    },
+    {
+     "resource": "cwpb.00867",
+     "loc_id": "2018670757",
+     "inliers": 6,
+     "good_matches": 11
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "ppmsca.32909",
+     "loc_id": "2012647823",
+     "inliers": 1469,
+     "good_matches": 1477
+    }
+   ]
+  },
+  "rose-woods#2": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_rose-woods_02_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00850",
+     "loc_id": "2018670673",
+     "inliers": 291,
+     "good_matches": 302
+    },
+    {
+     "resource": "cwpb.00871",
+     "loc_id": "2018670776",
+     "inliers": 6,
+     "good_matches": 20
+    },
+    {
+     "resource": "cwpb.01644",
+     "loc_id": "2018670704",
+     "inliers": 6,
+     "good_matches": 17
+    },
+    {
+     "resource": "cwpb.00879",
+     "loc_id": "2018670802",
+     "inliers": 6,
+     "good_matches": 17
+    },
+    {
+     "resource": "cwp.4a40262",
+     "loc_id": "2018666313",
+     "inliers": 6,
+     "good_matches": 17
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.00850",
+     "loc_id": "2018670673",
+     "inliers": 291,
+     "good_matches": 302
+    }
+   ]
+  },
+  "rose-woods#3": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_rose-woods_03_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00881",
+     "loc_id": "2018666310",
+     "inliers": 1411,
+     "good_matches": 1414
+    },
+    {
+     "resource": "cwpb.00882",
+     "loc_id": "2018666310",
+     "inliers": 675,
+     "good_matches": 711
+    },
+    {
+     "resource": "cwpb.00883",
+     "loc_id": "2018666310",
+     "inliers": 623,
+     "good_matches": 632
+    },
+    {
+     "resource": "cwp.4a40432",
+     "loc_id": "2018666310",
+     "inliers": 439,
+     "good_matches": 460
+    },
+    {
+     "resource": "ppmsca.35051",
+     "loc_id": "2014646001",
+     "inliers": 8,
+     "good_matches": 20
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.00881",
+     "loc_id": "2018666310",
+     "inliers": 1411,
+     "good_matches": 1414
+    },
+    {
+     "resource": "cwpb.00882",
+     "loc_id": "2018666310",
+     "inliers": 675,
+     "good_matches": 711
+    },
+    {
+     "resource": "cwpb.00883",
+     "loc_id": "2018666310",
+     "inliers": 623,
+     "good_matches": 632
+    },
+    {
+     "resource": "cwp.4a40432",
+     "loc_id": "2018666310",
+     "inliers": 439,
+     "good_matches": 460
+    }
+   ]
+  },
+  "devil-s-den#1": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_devil-s-den_01_then.jpg",
+   "top": [
+    {
+     "resource": "cwp.4a39436",
+     "loc_id": "2018666306",
+     "inliers": 1037,
+     "good_matches": 1043
+    },
+    {
+     "resource": "cph.3a04462",
+     "loc_id": "2018666306",
+     "inliers": 424,
+     "good_matches": 442
+    },
+    {
+     "resource": "cwpb.00074",
+     "loc_id": "2018666306",
+     "inliers": 323,
+     "good_matches": 407
+    },
+    {
+     "resource": "cwpb.00883",
+     "loc_id": "2018666310",
+     "inliers": 6,
+     "good_matches": 17
+    },
+    {
+     "resource": "cwpb.01655",
+     "loc_id": "2018670709",
+     "inliers": 6,
+     "good_matches": 15
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwp.4a39436",
+     "loc_id": "2018666306",
+     "inliers": 1037,
+     "good_matches": 1043
+    },
+    {
+     "resource": "cph.3a04462",
+     "loc_id": "2018666306",
+     "inliers": 424,
+     "good_matches": 442
+    },
+    {
+     "resource": "cwpb.00074",
+     "loc_id": "2018666306",
+     "inliers": 323,
+     "good_matches": 407
+    }
+   ]
+  },
+  "devil-s-den#2": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_devil-s-den_02_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00901",
+     "loc_id": "2018666311",
+     "inliers": 1470,
+     "good_matches": 1476
+    },
+    {
+     "resource": "cwp.4a39438",
+     "loc_id": "2018666311",
+     "inliers": 582,
+     "good_matches": 594
+    },
+    {
+     "resource": "cwpb.00902",
+     "loc_id": "2018666311",
+     "inliers": 302,
+     "good_matches": 333
+    },
+    {
+     "resource": "cwpb.00886",
+     "loc_id": "2018670837",
+     "inliers": 18,
+     "good_matches": 32
+    },
+    {
+     "resource": "cwpb.00885",
+     "loc_id": "2018670837",
+     "inliers": 14,
+     "good_matches": 28
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.00901",
+     "loc_id": "2018666311",
+     "inliers": 1470,
+     "good_matches": 1476
+    },
+    {
+     "resource": "cwp.4a39438",
+     "loc_id": "2018666311",
+     "inliers": 582,
+     "good_matches": 594
+    },
+    {
+     "resource": "cwpb.00902",
+     "loc_id": "2018666311",
+     "inliers": 302,
+     "good_matches": 333
+    }
+   ]
+  },
+  "devil-s-den#3": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_devil-s-den_03_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00875",
+     "loc_id": "2018670788",
+     "inliers": 7,
+     "good_matches": 25
+    },
+    {
+     "resource": "cwpb.00895",
+     "loc_id": "2018670867",
+     "inliers": 7,
+     "good_matches": 21
+    },
+    {
+     "resource": "cwpb.00841",
+     "loc_id": "2018670645",
+     "inliers": 7,
+     "good_matches": 19
+    },
+    {
+     "resource": "cwpb.00859",
+     "loc_id": "2018670726",
+     "inliers": 7,
+     "good_matches": 18
+    },
+    {
+     "resource": "ppmsca.33637",
+     "loc_id": "2012650192",
+     "inliers": 7,
+     "good_matches": 15
+    }
+   ],
+   "accepted": []
+  },
+  "devil-s-den#4": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_devil-s-den_04_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00915",
+     "loc_id": "2018666314",
+     "inliers": 1667,
+     "good_matches": 1676
+    },
+    {
+     "resource": "cwpb.00916",
+     "loc_id": "2018666314",
+     "inliers": 1031,
+     "good_matches": 1068
+    },
+    {
+     "resource": "ppmsc.00172",
+     "loc_id": "2018666314",
+     "inliers": 813,
+     "good_matches": 820
+    },
+    {
+     "resource": "cwp.4a39439",
+     "loc_id": "2018666314",
+     "inliers": 521,
+     "good_matches": 527
+    },
+    {
+     "resource": "cwpb.03701",
+     "loc_id": "2018672241",
+     "inliers": 371,
+     "good_matches": 380
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.00915",
+     "loc_id": "2018666314",
+     "inliers": 1667,
+     "good_matches": 1676
+    },
+    {
+     "resource": "cwpb.00916",
+     "loc_id": "2018666314",
+     "inliers": 1031,
+     "good_matches": 1068
+    },
+    {
+     "resource": "ppmsc.00172",
+     "loc_id": "2018666314",
+     "inliers": 813,
+     "good_matches": 820
+    },
+    {
+     "resource": "cwp.4a39439",
+     "loc_id": "2018666314",
+     "inliers": 521,
+     "good_matches": 527
+    },
+    {
+     "resource": "cwpb.03701",
+     "loc_id": "2018672241",
+     "inliers": 371,
+     "good_matches": 380
+    }
+   ]
+  },
+  "devil-s-den#5": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_devil-s-den_05_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00898",
+     "loc_id": "2018670874",
+     "inliers": 1567,
+     "good_matches": 1576
+    },
+    {
+     "resource": "cwpb.00899",
+     "loc_id": "2018670874",
+     "inliers": 827,
+     "good_matches": 955
+    },
+    {
+     "resource": "ppmsc.00172",
+     "loc_id": "2018666314",
+     "inliers": 51,
+     "good_matches": 105
+    },
+    {
+     "resource": "cwpb.00916",
+     "loc_id": "2018666314",
+     "inliers": 39,
+     "good_matches": 92
+    },
+    {
+     "resource": "cwp.4a39439",
+     "loc_id": "2018666314",
+     "inliers": 39,
+     "good_matches": 70
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.00898",
+     "loc_id": "2018670874",
+     "inliers": 1567,
+     "good_matches": 1576
+    },
+    {
+     "resource": "cwpb.00899",
+     "loc_id": "2018670874",
+     "inliers": 827,
+     "good_matches": 955
+    },
+    {
+     "resource": "ppmsc.00172",
+     "loc_id": "2018666314",
+     "inliers": 51,
+     "good_matches": 105
+    },
+    {
+     "resource": "cwpb.00916",
+     "loc_id": "2018666314",
+     "inliers": 39,
+     "good_matches": 92
+    },
+    {
+     "resource": "cwp.4a39439",
+     "loc_id": "2018666314",
+     "inliers": 39,
+     "good_matches": 70
+    }
+   ]
+  },
+  "devil-s-den#6": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_devil-s-den_06_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00862",
+     "loc_id": "2018670741",
+     "inliers": 1442,
+     "good_matches": 1456
+    },
+    {
+     "resource": "cwpb.00863",
+     "loc_id": "2018670741",
+     "inliers": 695,
+     "good_matches": 751
+    },
+    {
+     "resource": "cph.3a04462",
+     "loc_id": "2018666306",
+     "inliers": 27,
+     "good_matches": 45
+    },
+    {
+     "resource": "ppmsca.31299",
+     "loc_id": "91732531",
+     "inliers": 26,
+     "good_matches": 43
+    },
+    {
+     "resource": "cwpb.01656",
+     "loc_id": "2018670709",
+     "inliers": 24,
+     "good_matches": 41
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.00862",
+     "loc_id": "2018670741",
+     "inliers": 1442,
+     "good_matches": 1456
+    },
+    {
+     "resource": "cwpb.00863",
+     "loc_id": "2018670741",
+     "inliers": 695,
+     "good_matches": 751
+    },
+    {
+     "resource": "cph.3a04462",
+     "loc_id": "2018666306",
+     "inliers": 27,
+     "good_matches": 45
+    },
+    {
+     "resource": "ppmsca.31299",
+     "loc_id": "91732531",
+     "inliers": 26,
+     "good_matches": 43
+    }
+   ]
+  },
+  "devil-s-den#7": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_devil-s-den_07_then.jpg",
+   "top": [
+    {
+     "resource": "ppmsc.00171",
+     "loc_id": "2018666313",
+     "inliers": 1144,
+     "good_matches": 1150
+    },
+    {
+     "resource": "cwpb.04337",
+     "loc_id": "2018666313",
+     "inliers": 1078,
+     "good_matches": 1082
+    },
+    {
+     "resource": "cph.3g01825",
+     "loc_id": "91732531",
+     "inliers": 927,
+     "good_matches": 929
+    },
+    {
+     "resource": "cwpb.00874",
+     "loc_id": "2018670788",
+     "inliers": 721,
+     "good_matches": 722
+    },
+    {
+     "resource": "cwpb.00876",
+     "loc_id": "2018670788",
+     "inliers": 705,
+     "good_matches": 706
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "ppmsc.00171",
+     "loc_id": "2018666313",
+     "inliers": 1144,
+     "good_matches": 1150
+    },
+    {
+     "resource": "cwpb.04337",
+     "loc_id": "2018666313",
+     "inliers": 1078,
+     "good_matches": 1082
+    },
+    {
+     "resource": "cph.3g01825",
+     "loc_id": "91732531",
+     "inliers": 927,
+     "good_matches": 929
+    },
+    {
+     "resource": "cwpb.00874",
+     "loc_id": "2018670788",
+     "inliers": 721,
+     "good_matches": 722
+    },
+    {
+     "resource": "cwpb.00876",
+     "loc_id": "2018670788",
+     "inliers": 705,
+     "good_matches": 706
+    }
+   ]
+  },
+  "devil-s-den#8": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_devil-s-den_08_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00871",
+     "loc_id": "2018670776",
+     "inliers": 9,
+     "good_matches": 23
+    },
+    {
+     "resource": "cph.3g01829",
+     "loc_id": "91732546",
+     "inliers": 9,
+     "good_matches": 21
+    },
+    {
+     "resource": "cwpb.00879",
+     "loc_id": "2018670802",
+     "inliers": 9,
+     "good_matches": 20
+    },
+    {
+     "resource": "cwpb.00076",
+     "loc_id": "2018672113",
+     "inliers": 9,
+     "good_matches": 17
+    },
+    {
+     "resource": "ppmsca.35100",
+     "loc_id": "2014646151",
+     "inliers": 9,
+     "good_matches": 14
+    }
+   ],
+   "accepted": []
+  },
+  "little-round-top#1": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_little-round-top_01_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.01656",
+     "loc_id": "2018670709",
+     "inliers": 8,
+     "good_matches": 17
+    },
+    {
+     "resource": "cwpb.00831",
+     "loc_id": "2018666309",
+     "inliers": 6,
+     "good_matches": 12
+    },
+    {
+     "resource": "cwpb.00843",
+     "loc_id": "2018670660",
+     "inliers": 6,
+     "good_matches": 9
+    },
+    {
+     "resource": "ppmsca.31299",
+     "loc_id": "91732531",
+     "inliers": 5,
+     "good_matches": 15
+    },
+    {
+     "resource": "ppmsca.33638",
+     "loc_id": "2012650193",
+     "inliers": 5,
+     "good_matches": 10
+    }
+   ],
+   "accepted": []
+  },
+  "little-round-top#2": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_little-round-top_02_then.jpg",
+   "top": [
+    {
+     "resource": "cwp.4a39686",
+     "loc_id": "2018666303",
+     "inliers": 1302,
+     "good_matches": 1308
+    },
+    {
+     "resource": "cwpb.01632",
+     "loc_id": "2018666303",
+     "inliers": 642,
+     "good_matches": 649
+    },
+    {
+     "resource": "IMG_LOC2018666303-L",
+     "loc_id": null,
+     "inliers": 563,
+     "good_matches": 575
+    },
+    {
+     "resource": "cwpb.01631",
+     "loc_id": "2018666303",
+     "inliers": 510,
+     "good_matches": 513
+    },
+    {
+     "resource": "ppmsca.32843",
+     "loc_id": "2012647709",
+     "inliers": 10,
+     "good_matches": 26
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwp.4a39686",
+     "loc_id": "2018666303",
+     "inliers": 1302,
+     "good_matches": 1308
+    },
+    {
+     "resource": "cwpb.01632",
+     "loc_id": "2018666303",
+     "inliers": 642,
+     "good_matches": 649
+    },
+    {
+     "resource": "IMG_LOC2018666303-L",
+     "loc_id": null,
+     "inliers": 563,
+     "good_matches": 575
+    },
+    {
+     "resource": "cwpb.01631",
+     "loc_id": "2018666303",
+     "inliers": 510,
+     "good_matches": 513
+    }
+   ]
+  },
+  "little-round-top#3": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_little-round-top_03_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00869",
+     "loc_id": "2018666304",
+     "inliers": 1370,
+     "good_matches": 1373
+    },
+    {
+     "resource": "IMG_LOC2018666304-L",
+     "loc_id": null,
+     "inliers": 1362,
+     "good_matches": 1367
+    },
+    {
+     "resource": "cwpb.00870",
+     "loc_id": "2018666304",
+     "inliers": 893,
+     "good_matches": 938
+    },
+    {
+     "resource": "cwp.4a39434",
+     "loc_id": "2018666304",
+     "inliers": 707,
+     "good_matches": 715
+    },
+    {
+     "resource": "ppmsca.32841",
+     "loc_id": "2012647707",
+     "inliers": 567,
+     "good_matches": 580
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.00869",
+     "loc_id": "2018666304",
+     "inliers": 1370,
+     "good_matches": 1373
+    },
+    {
+     "resource": "IMG_LOC2018666304-L",
+     "loc_id": null,
+     "inliers": 1362,
+     "good_matches": 1367
+    },
+    {
+     "resource": "cwpb.00870",
+     "loc_id": "2018666304",
+     "inliers": 893,
+     "good_matches": 938
+    },
+    {
+     "resource": "cwp.4a39434",
+     "loc_id": "2018666304",
+     "inliers": 707,
+     "good_matches": 715
+    },
+    {
+     "resource": "ppmsca.32841",
+     "loc_id": "2012647707",
+     "inliers": 567,
+     "good_matches": 580
+    }
+   ]
+  },
+  "little-round-top#4": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_little-round-top_04_then.jpg",
+   "top": [
+    {
+     "resource": "ppmsca.33638",
+     "loc_id": "2012650193",
+     "inliers": 40,
+     "good_matches": 77
+    },
+    {
+     "resource": "cwp.4a39719",
+     "loc_id": "2018666298",
+     "inliers": 35,
+     "good_matches": 71
+    },
+    {
+     "resource": "cwp.4a40432",
+     "loc_id": "2018666310",
+     "inliers": 24,
+     "good_matches": 49
+    },
+    {
+     "resource": "cwp.4a39689",
+     "loc_id": "2018666297",
+     "inliers": 20,
+     "good_matches": 48
+    },
+    {
+     "resource": "cwpb.00895",
+     "loc_id": "2018670867",
+     "inliers": 17,
+     "good_matches": 48
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "ppmsca.33638",
+     "loc_id": "2012650193",
+     "inliers": 40,
+     "good_matches": 77
+    },
+    {
+     "resource": "cwp.4a39719",
+     "loc_id": "2018666298",
+     "inliers": 35,
+     "good_matches": 71
+    }
+   ]
+  },
+  "little-round-top#5": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_little-round-top_05_then.jpg",
+   "top": [
+    {
+     "resource": "ppmsca.33638",
+     "loc_id": "2012650193",
+     "inliers": 24,
+     "good_matches": 49
+    },
+    {
+     "resource": "cwp.4a39719",
+     "loc_id": "2018666298",
+     "inliers": 23,
+     "good_matches": 51
+    },
+    {
+     "resource": "cwp.4a39439",
+     "loc_id": "2018666314",
+     "inliers": 17,
+     "good_matches": 45
+    },
+    {
+     "resource": "cwpb.00904",
+     "loc_id": "2018670894",
+     "inliers": 16,
+     "good_matches": 47
+    },
+    {
+     "resource": "cwpb.00878",
+     "loc_id": "2018666312",
+     "inliers": 16,
+     "good_matches": 35
+    }
+   ],
+   "accepted": []
+  },
+  "trostle-farm#1": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_trostle-farm_01_then.jpg",
+   "top": [
+    {
+     "resource": "ppmsca.32844",
+     "loc_id": "2013645105",
+     "inliers": 463,
+     "good_matches": 479
+    },
+    {
+     "resource": "cwpb.00877",
+     "loc_id": "2018666312",
+     "inliers": 8,
+     "good_matches": 23
+    },
+    {
+     "resource": "cph.3g01829",
+     "loc_id": "91732546",
+     "inliers": 8,
+     "good_matches": 20
+    },
+    {
+     "resource": "ppmsca.35052",
+     "loc_id": "2014646002",
+     "inliers": 8,
+     "good_matches": 17
+    },
+    {
+     "resource": "cwpb.00853",
+     "loc_id": "2018670703",
+     "inliers": 7,
+     "good_matches": 23
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "ppmsca.32844",
+     "loc_id": "2013645105",
+     "inliers": 463,
+     "good_matches": 479
+    }
+   ]
+  },
+  "trostle-farm#2": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_trostle-farm_02_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00904",
+     "loc_id": "2018670894",
+     "inliers": 1182,
+     "good_matches": 1190
+    },
+    {
+     "resource": "cwpb.00903",
+     "loc_id": "2018670894",
+     "inliers": 438,
+     "good_matches": 451
+    },
+    {
+     "resource": "cph.3g01831",
+     "loc_id": "91732551",
+     "inliers": 357,
+     "good_matches": 366
+    },
+    {
+     "resource": "cwpb.00906",
+     "loc_id": "2018670894",
+     "inliers": 309,
+     "good_matches": 324
+    },
+    {
+     "resource": "cwpb.00905",
+     "loc_id": "2018670894",
+     "inliers": 290,
+     "good_matches": 296
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.00904",
+     "loc_id": "2018670894",
+     "inliers": 1182,
+     "good_matches": 1190
+    },
+    {
+     "resource": "cwpb.00903",
+     "loc_id": "2018670894",
+     "inliers": 438,
+     "good_matches": 451
+    },
+    {
+     "resource": "cph.3g01831",
+     "loc_id": "91732551",
+     "inliers": 357,
+     "good_matches": 366
+    },
+    {
+     "resource": "cwpb.00906",
+     "loc_id": "2018670894",
+     "inliers": 309,
+     "good_matches": 324
+    },
+    {
+     "resource": "cwpb.00905",
+     "loc_id": "2018670894",
+     "inliers": 290,
+     "good_matches": 296
+    }
+   ]
+  },
+  "buildings-and-farms#1": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_buildings-and-farms_01_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00895",
+     "loc_id": "2018670867",
+     "inliers": 6,
+     "good_matches": 9
+    },
+    {
+     "resource": "cwpb.00839",
+     "loc_id": "2018670636",
+     "inliers": 5,
+     "good_matches": 10
+    },
+    {
+     "resource": "cwpb.01654",
+     "loc_id": "2018670708",
+     "inliers": 5,
+     "good_matches": 9
+    },
+    {
+     "resource": "cwpb.00887",
+     "loc_id": "2018666296",
+     "inliers": 5,
+     "good_matches": 8
+    },
+    {
+     "resource": "cwpb.00859",
+     "loc_id": "2018670726",
+     "inliers": 5,
+     "good_matches": 8
+    }
+   ],
+   "accepted": []
+  },
+  "buildings-and-farms#2": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_buildings-and-farms_02_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.01649",
+     "loc_id": "2018670707",
+     "inliers": 49,
+     "good_matches": 76
+    },
+    {
+     "resource": "cwpb.01650",
+     "loc_id": "2018670707",
+     "inliers": 31,
+     "good_matches": 49
+    },
+    {
+     "resource": "cwp.4a39689",
+     "loc_id": "2018666297",
+     "inliers": 14,
+     "good_matches": 33
+    },
+    {
+     "resource": "cwpb.01793",
+     "loc_id": "2018670772",
+     "inliers": 12,
+     "good_matches": 32
+    },
+    {
+     "resource": "ppmsca.32915",
+     "loc_id": "2012647822",
+     "inliers": 12,
+     "good_matches": 23
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.01649",
+     "loc_id": "2018670707",
+     "inliers": 49,
+     "good_matches": 76
+    },
+    {
+     "resource": "cwpb.01650",
+     "loc_id": "2018670707",
+     "inliers": 31,
+     "good_matches": 49
+    }
+   ]
+  },
+  "buildings-and-farms#3": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_buildings-and-farms_03_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.01640",
+     "loc_id": "2018666300",
+     "inliers": 59,
+     "good_matches": 73
+    },
+    {
+     "resource": "cwp.4a39688",
+     "loc_id": "2018666300",
+     "inliers": 41,
+     "good_matches": 62
+    },
+    {
+     "resource": "cwpb.01639",
+     "loc_id": "2018666300",
+     "inliers": 38,
+     "good_matches": 56
+    },
+    {
+     "resource": "cwpb.01641",
+     "loc_id": "2018670702",
+     "inliers": 12,
+     "good_matches": 30
+    },
+    {
+     "resource": "cwpb.01642",
+     "loc_id": "2018670702",
+     "inliers": 11,
+     "good_matches": 38
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.01640",
+     "loc_id": "2018666300",
+     "inliers": 59,
+     "good_matches": 73
+    },
+    {
+     "resource": "cwp.4a39688",
+     "loc_id": "2018666300",
+     "inliers": 41,
+     "good_matches": 62
+    },
+    {
+     "resource": "cwpb.01639",
+     "loc_id": "2018666300",
+     "inliers": 38,
+     "good_matches": 56
+    }
+   ]
+  },
+  "buildings-and-farms#4": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_buildings-and-farms_04_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00883",
+     "loc_id": "2018666310",
+     "inliers": 11,
+     "good_matches": 22
+    },
+    {
+     "resource": "ppmsca.32851",
+     "loc_id": "2012647717",
+     "inliers": 10,
+     "good_matches": 26
+    },
+    {
+     "resource": "cwp.4a39719",
+     "loc_id": "2018666298",
+     "inliers": 10,
+     "good_matches": 25
+    },
+    {
+     "resource": "cwp.4a39690",
+     "loc_id": "2018666316",
+     "inliers": 9,
+     "good_matches": 26
+    },
+    {
+     "resource": "cwpb.00886",
+     "loc_id": "2018670837",
+     "inliers": 9,
+     "good_matches": 23
+    }
+   ],
+   "accepted": []
+  },
+  "buildings-and-farms#5": {
+   "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_buildings-and-farms_05_then.jpg",
+   "top": [
+    {
+     "resource": "cwpb.00887",
+     "loc_id": "2018666296",
+     "inliers": 718,
+     "good_matches": 723
+    },
+    {
+     "resource": "cwp.4a39437",
+     "loc_id": "2018666296",
+     "inliers": 382,
+     "good_matches": 394
+    },
+    {
+     "resource": "ppmsca.32844",
+     "loc_id": "2013645105",
+     "inliers": 7,
+     "good_matches": 15
+    },
+    {
+     "resource": "cwpb.01653",
+     "loc_id": "2018670708",
+     "inliers": 7,
+     "good_matches": 13
+    },
+    {
+     "resource": "cwpb.00831",
+     "loc_id": "2018666309",
+     "inliers": 6,
+     "good_matches": 20
+    }
+   ],
+   "accepted": [
+    {
+     "resource": "cwpb.00887",
+     "loc_id": "2018666296",
+     "inliers": 718,
+     "good_matches": 723
+    },
+    {
+     "resource": "cwp.4a39437",
+     "loc_id": "2018666296",
+     "inliers": 382,
+     "good_matches": 394
+    }
+   ]
+  }
+ }
+}
