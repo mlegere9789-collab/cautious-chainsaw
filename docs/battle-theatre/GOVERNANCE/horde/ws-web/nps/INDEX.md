@@ -39,7 +39,7 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPS-HS-MCPHERSON | 207 (156) | 0 |
 | NPS-CLI-1STDAY | 107 (105) | 83 |
 | NPS-CEM-ENCLOSURES | 199 (127) | 0 |
-| NPS-CLR-LRT | 178 (152) | 0 |
+| NPS-CLR-LRT | 178 (152) | 21 |
 | NPS-CLI-LRT | 112 (101) | 29 |
 | NPS-CLI-ERR | 122 (107) | 66 |
 | NPS-TPG-COMMEM | 198 (187) | 18 |
@@ -90,7 +90,7 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPSGOV-WARFIELD-HOUSE | 1 (1) | 4 |
 | NPSGOV-WISLER-HOUSE | 1 (1) | 1 |
 
-Total extracts: 715 from 31 sources.
+Total extracts: 736 from 32 sources.
 
 ## NPS-DEV-POLICY
 
@@ -360,12 +360,16 @@ Total extracts: 715 from 31 sources.
 ## NPS-CLR-LRT
 
 - Title: Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettysburg National Military Park
-- Author: not stated | Date: not stated
+- Author: Einhorn Yaffee Prescott Architecture & Engineering, Rhodeside & Harwell and Hunter Research, for the National Park Service, Gettysburg National Military Park | Date: 2 March 2012 (FINAL)
 - URL: https://www.npshistory.com/publications/gett/clr-little-round-top.pdf (HTTP 200, fetched 2026-11-13T19:02:15Z)
 - File as served: 54173676 bytes, sha256 `f5b3eacec9cd6fbdea89a1bcc6528a7b046bba0193f3f14189053a43e501c8fb` (PDF deleted after text extraction to stay inside the disk budget)
 - Text: `tmp/library/web/nps/NPS-CLR-LRT/NPS-CLR-LRT.txt`, 406615 bytes, sha256 `5f7fb77301c24019e3b2943e040d52169725825eca429f8b5f24b7c5da2a726c`; 152 of 178 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: the text layer lost the ti and tt glyphs (Ge ysburg, Na onal, ba le); quoted in cleaned form with the lost groups ignored on both sides
+- Feature states: Chapter 2 gives the history to 1863 and after (PDF pp. 15-46); chapter 3 describes the conditions of 2010-11, including stone breastworks restacked since 1882: not 1863 profiles.
+- Extracts written: 21 (fences 1, fields-woodlots 9, other-landscape 11)
+- Text defect: ligature
+- Used for extracts: yes (extracts/src/72-clr-lrt.xdef)
 
 ## NPS-CLI-LRT
 

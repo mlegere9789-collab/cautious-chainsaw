@@ -13,7 +13,7 @@
    29,
    96
   ],
-  "heads": 2564,
+  "heads": 2565,
   "bare_cross_refs": 90,
   "tokens": 108300,
   "furniture_lines": 69,
@@ -153,30 +153,31 @@
   ],
   "overrides_applied": 4,
   "verify": {
-   "rows": 2654,
-   "name_ok": 2654,
-   "remark_ok": 2654,
+   "rows": 2655,
+   "name_ok": 2655,
+   "remark_ok": 2655,
    "remark_gap_rows": 1,
    "remark_empty": 0,
-   "page_ok": 2654,
+   "page_ok": 2655,
    "page_null": 0,
    "rank_ok": 0,
-   "rank_empty": 2654,
+   "rank_empty": 2655,
    "order_breaks": 0
   },
   "verify_defects": [],
   "verify_ok": true,
-  "rows": 2654,
+  "rows": 2655,
   "by_kind": {
    "head": 2526,
    "xref": 90,
    "irregular": 13,
    "comma-lost": 19,
    "reviewed": 4,
-   "bare-surname": 2
+   "bare-surname": 2,
+   "anchorless": 1
   },
   "by_company": {
-   "-": 145,
+   "-": 146,
    "A": 270,
    "B": 268,
    "BAND": 22,
@@ -200,31 +201,32 @@
   "page_last": 96,
   "file": {
    "path": "docs/battle-theatre/rosters/data2/union/nh/2nd-new-hampshire-infantry.jsonl.gz",
-   "rows": 2654,
-   "raw_bytes": 568231,
-   "gz_bytes": 118398,
-   "sha256_raw": "c23bcb65637c9e9579bcb66b657d02eae3084a1df294379bfc9e06dfc3eed6a0"
+   "rows": 2655,
+   "raw_bytes": 568256,
+   "gz_bytes": 118400,
+   "sha256_raw": "e956eaca503867bb8ea86b4ce74e9c6c650b861b349fed8ac24a83e2f37e284a"
   },
   "aux": {
    "path": "docs/battle-theatre/rosters/data2/union/nh/2nd-new-hampshire-infantry.flags.json.gz",
-   "raw_bytes": 82165,
-   "gz_bytes": 26616,
-   "sha256_raw": "ecd17f61765badcbd370d2fc268c20734a33c59a728d188e4a04a3756d9fd606",
+   "raw_bytes": 82261,
+   "gz_bytes": 26634,
+   "sha256_raw": "b4aa638d1d17ce6621db2c263e872fcca50c699b736a4f1199423de4d732451e",
    "roll_status": {
     "yes": 353,
     "no": 1124,
-    "unknown": 1177
+    "unknown": 1178
    },
-   "ocr_uncertain_rows": 758,
+   "ocr_uncertain_rows": 759,
    "ocr_uncertain_by_code": {
     "A": 30,
-    "C": 55,
+    "C": 56,
     "G": 133,
-    "H": 38,
+    "H": 39,
     "N": 126,
     "Y": 505
    },
    "head_kinds": {
+    "anchorless": 1,
     "bare-surname": 2,
     "comma-lost": 19,
     "irregular": 13,
@@ -249,7 +251,7 @@
    212,
    280
   ],
-  "heads": 2565,
+  "heads": 2566,
   "bare_cross_refs": 41,
   "tokens": 109821,
   "furniture_lines": 74,
@@ -374,51 +376,51 @@
     "name": "Benights, Prank."
    },
    {
-    "i": 1604,
+    "i": 1605,
     "off": 2215387,
     "name": "Adam."
    },
    {
-    "i": 1695,
+    "i": 1696,
     "off": 2237522,
     "name": "Naglee, John."
    },
    {
-    "i": 1891,
+    "i": 1892,
     "off": 2284954,
     "name": "II."
    },
    {
-    "i": 1893,
+    "i": 1894,
     "off": 2285279,
     "name": "Eandlett, Nathan H."
    },
    {
-    "i": 1895,
+    "i": 1896,
     "off": 2285785,
     "name": "Bansom, Milo M."
    },
    {
-    "i": 1929,
+    "i": 1930,
     "off": 2294685,
     "name": "Bichards, Freeman."
    }
   ],
   "glued_suspects": [
    {
-    "i": 1609,
+    "i": 1610,
     "off": 2216527,
     "why": "two age items",
     "second_at_token": 41
    },
    {
-    "i": 1692,
+    "i": 1693,
     "off": 2236507,
     "why": "two age items",
     "second_at_token": 51
    },
    {
-    "i": 2113,
+    "i": 2114,
     "off": 2338575,
     "why": "a head-shaped run inside the remarks, followed by entry data",
     "at": 2338864,
@@ -427,29 +429,30 @@
   ],
   "overrides_applied": 2,
   "verify": {
-   "rows": 2606,
-   "name_ok": 2606,
+   "rows": 2607,
+   "name_ok": 2607,
    "remark_ok": 2606,
    "remark_gap_rows": 2,
-   "remark_empty": 0,
-   "page_ok": 2606,
+   "remark_empty": 1,
+   "page_ok": 2607,
    "page_null": 0,
    "rank_ok": 0,
-   "rank_empty": 2606,
+   "rank_empty": 2607,
    "order_breaks": 0
   },
   "verify_defects": [],
   "verify_ok": true,
-  "rows": 2606,
+  "rows": 2607,
   "by_kind": {
    "head": 2494,
    "irregular": 42,
    "comma-lost": 27,
    "reviewed": 2,
-   "xref": 41
+   "xref": 41,
+   "anchorless": 1
   },
   "by_company": {
-   "-": 135,
+   "-": 136,
    "A": 247,
    "B": 250,
    "BAND": 23,
@@ -473,31 +476,32 @@
   "page_last": 280,
   "file": {
    "path": "docs/battle-theatre/rosters/data2/union/nh/5th-new-hampshire-infantry.jsonl.gz",
-   "rows": 2606,
-   "raw_bytes": 594025,
-   "gz_bytes": 127924,
-   "sha256_raw": "9eec7c2c46380abdf28bdbdb5cb7afeec39a3cbfa60f55a58e5368c3f3c2e057"
+   "rows": 2607,
+   "raw_bytes": 594042,
+   "gz_bytes": 127929,
+   "sha256_raw": "7731c9146d306eb853d27c33593e9bd34b751376e7dc3ab3ab2b1a09b45aea0a"
   },
   "aux": {
    "path": "docs/battle-theatre/rosters/data2/union/nh/5th-new-hampshire-infantry.flags.json.gz",
-   "raw_bytes": 84956,
-   "gz_bytes": 27800,
-   "sha256_raw": "b5c41bcd028338b1d092b91c2e3446c0b44fe01ac05c942aab07d9a051e283d4",
+   "raw_bytes": 85047,
+   "gz_bytes": 27811,
+   "sha256_raw": "26f6efba948390efcdc2962da5cc2e3355204d3db3795e6234e5bbed98899186",
    "roll_status": {
     "yes": 259,
     "no": 1422,
-    "unknown": 925
+    "unknown": 926
    },
-   "ocr_uncertain_rows": 857,
+   "ocr_uncertain_rows": 858,
    "ocr_uncertain_by_code": {
     "A": 45,
-    "C": 94,
+    "C": 95,
     "G": 214,
-    "H": 71,
+    "H": 72,
     "N": 116,
     "Y": 481
    },
    "head_kinds": {
+    "anchorless": 1,
     "comma-lost": 27,
     "irregular": 42,
     "reviewed": 2,
@@ -649,9 +653,9 @@
   },
   "aux": {
    "path": "docs/battle-theatre/rosters/data2/union/nh/12th-new-hampshire-infantry.flags.json.gz",
-   "raw_bytes": 46313,
-   "gz_bytes": 15568,
-   "sha256_raw": "a7c49196cb8d51c321f0c2b8df87ed287bf27fc8cffb9db483fa418b5962ea0b",
+   "raw_bytes": 46351,
+   "gz_bytes": 15567,
+   "sha256_raw": "7b708b366a04c573f1f7692a0b37f05871bb3fa50af127b704880b9016ee9850",
    "roll_status": {
     "yes": 292,
     "no": 420,
@@ -748,9 +752,9 @@
   },
   "aux": {
    "path": "docs/battle-theatre/rosters/data2/union/nh/1st-new-hampshire-battery.flags.json.gz",
-   "raw_bytes": 10936,
-   "gz_bytes": 4453,
-   "sha256_raw": "94bfd446b8588fa26af9684e7960bfdd76dfe04b3e0555733615fe23b09caa8f",
+   "raw_bytes": 10974,
+   "gz_bytes": 4456,
+   "sha256_raw": "830e08adcd3aab9e577a7977fcf90e9ab38c49f23a85f36041e30d4ade9199e0",
    "roll_status": {
     "yes": 63,
     "no": 91,

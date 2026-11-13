@@ -13,22 +13,36 @@
 //
 // A time is a number of minutes since 1863-06-01 00:00 local mean time (app/src/clock.mjs) or 'YYYY-MM-DDTHH:MM'.
 import fs from 'node:fs'; import path from 'node:path'; import { pathToFileURL, fileURLToPath } from 'node:url';
-import { ROOT, BT, APP, GOV, readJSON, readJSONL, exists, rel, sha256File, toMin, isoOf, round, tokens, designators, designatorHits, fold } from './lib.mjs';
+import { ROOT, BT, APP, GOV, REAL, readJSON, readJSONL, readText, exists, rel, sha256, sha256File, noteRead, trackedReads, walkFiles, toMin, isoOf, round, tokens, designators, designatorHits, fold, unpossess, wordInfo, wordKey } from './lib.mjs';
 import { Places, distM, measure } from './gazetteer.mjs';
 
 const T_ = x => (typeof x === 'number' ? x : toMin(x));
 const NEVER = { from: Infinity, to: null };          // the stage's presence of a unit with no arrival record (app/src/stage.mjs)
 const PLACE_WORDS = new Set(['hill', 'hills', 'ridge', 'run', 'creek', 'road', 'pike', 'woods', 'wood', 'farm', 'field', 'house', 'church', 'knoll', 'top', 'den', 'orchard', 'lane', 'spring', 'mill', 'bridge', 'station', 'hall', 'barn', 'town', 'street', 'grove', 'gap', 'cut', 'cuts', 'mountain', 'river']);
 
+// a person given as initials and a surname: "F. Lee" -> { text: "Lee", inits: { lee: "f" } } (the last initial before the surname); a full given name ("George G. Meade") is not a run of initials
+export function splitInitials(text) {
+  const inits = {}, t = String(text || '').replace(/((?:\p{Lu}\.\s*)+)(\p{Lu}[\p{L}’']+)/gu, (all, ini, sur) => { inits[wordKey(sur)] = ini.replace(/[^A-Za-z]/g, '').slice(-1).toLowerCase(); return sur; });
+  return { text: t, inits };
+}
+// the surnames of the commanders a layer unit lists: "MG George G. Meade" -> meade, "Chambliss (for W. H. F. Lee)" -> chambliss (the parenthesis is a remark), "F. Lee/Chambliss" -> lee (needs the initial f), chambliss, "von Steinwehr" -> steinwehr
+const NOT_NAME = new Set(['mg', 'bg', 'ltg', 'gen', 'general', 'maj', 'major', 'col', 'colonel', 'lt', 'lieutenant', 'capt', 'captain', 'brig', 'dr', 'rev', 'prof', 'sgt', 'cpl', 'pvt', 'acting', 'for', 'of', 'the', 'and', 'von', 'van', 'de', 'du']);
+export function surnamesOf(c) {
+  return String(c || '').replace(/\([^)]*\)/g, ' ').split(/[\/,;]| and /).map(part => {
+    const { text, inits } = splitInitials(part), w = (text.match(/\p{L}[\p{L}’']*/gu) || []).filter(x => x.replace(/[’']/g, '').length > 1 && !NOT_NAME.has(wordKey(x)));
+    if (!w.length) return null; const key = wordKey(w[w.length - 1]); return { key, init: inits[key] || null };
+  }).filter(Boolean);
+}
+const uniqBy = (a, f) => { const seen = new Set(); return a.filter(x => { const k = f(x); if (seen.has(k)) return false; seen.add(k); return true; }); };
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // loading: one shared load per process (the layer, world, terrain and environment are scenario independent); a scene is the stage under one scenario
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-const reads = new Map();                                // every file URL the shell's loaders fetched: path -> sha256 (the digest of the inputs of a run)
-function installFetchShim() {
+function installFetchShim() {                           // every file the shell's loaders fetch is noted (lib.mjs noteRead): the digest of the inputs of a run hashes them
   if (globalThis.__btFetchShim) return; globalThis.__btFetchShim = true; const real = globalThis.fetch;
   globalThis.fetch = async (url) => {
     const u = String(url);
-    if (u.startsWith('file:')) { const p = fileURLToPath(u); if (!fs.existsSync(p)) return new Response('nf', { status: 404 }); const b = fs.readFileSync(p); reads.set(rel(p), null); return new Response(b, { status: 200 }); }
+    if (u.startsWith('file:')) { const p = fileURLToPath(u); if (!fs.existsSync(p)) return new Response('nf', { status: 404 }); const b = fs.readFileSync(p); noteRead(p); return new Response(b, { status: 200 }); }
     return real(url);
   };
 }
@@ -56,21 +70,37 @@ export class Product {
     this.children = new Map(); for (const u of S.layer.units) if (u.parent) (this.children.get(u.parent) || this.children.set(u.parent, []).get(u.parent)).push(u.id);
     this._uidx = null; this.adapters = null;
   }
-  // ---- scenarios: 'default' (the shell's opening scenario: every conflict on its delegated default), 'pdf' (the plan's recommended values), or { choices }
+  // ---- scenarios. A scenario spec is 'default' (the shell's opening scenario: every conflict on its delegated default, every structure on the schedule's own reading), 'pdf' (the plan's recommended values) or
+  // an object { id?, label?, from?, choices?, structure? }: `choices` are conflict choices (C-nnn: option key; as the shell stores them, an absent choice is the plan's value, so a choices-only object starts
+  // from the plan's values; `from: 'default'` starts it from the opening scenario instead), `structure` are the readings of single structures the viewer picks on a card ({ 'bld-rock-creek-rr-bridge': 'jun26' },
+  // the names the state schedule gives: state engine scenariosFor). An object with `structure` only is the opening scenario plus those readings. Every scenario has an id (scenarioId) that a record, a check
+  // and RESULTS.json use.
   scenarioSpec(spec = 'default') {
-    const { conflicts, defaults } = this;
-    if (spec === 'default' || spec == null) return this.data.DEFAULT_SCENARIO(conflicts);
-    if (spec === 'pdf') return { id: 'pdf-recommended', label: 'PDF recommended, pending owner', choices: defaults.pdfChoices(conflicts) };
-    if (typeof spec === 'object') return { id: spec.id || 'custom', label: spec.label || 'custom', choices: { ...(spec.choices || {}) } };
-    throw new Error(`unknown scenario "${spec}" (use 'default', 'pdf' or { choices })`);
+    const { conflicts, defaults } = this, def = this.data.DEFAULT_SCENARIO(conflicts);
+    if (spec === 'default' || spec == null) return { ...def, key: 'default', choices: { ...def.choices }, structure: {} };
+    if (spec === 'pdf') return { id: 'pdf-recommended', key: 'pdf', label: 'PDF recommended, pending owner', choices: defaults.pdfChoices(conflicts), structure: {} };
+    if (typeof spec === 'object' && !Array.isArray(spec)) {
+      const from = spec.from || (spec.choices ? 'none' : 'default'), base = from === 'default' ? def.choices : from === 'pdf' ? defaults.pdfChoices(conflicts) : {};
+      if (!['default', 'pdf', 'none'].includes(from)) throw new Error(`scenario "from" is default, pdf or none (found ${JSON.stringify(spec.from)})`);
+      const choices = { ...base, ...(spec.choices || {}) }, structure = { ...(spec.structure || {}) };
+      for (const [k, v] of Object.entries(structure)) if (typeof k !== 'string' || typeof v !== 'string' || !k || !v) throw new Error(`scenario structure readings are { "<structure id>": "<reading name>" } (found ${JSON.stringify(spec.structure)})`);
+      return { id: 'custom', key: spec.id || this._computedId(spec, from, base), label: spec.label || spec.id || 'custom', choices, structure };
+    }
+    throw new Error(`unknown scenario "${spec}" (use 'default', 'pdf' or { choices, structure })`);
   }
+  _computedId(spec, from, base) {
+    const parts = Object.entries({ ...(spec.choices || {}) }).filter(([k, v]) => base[k] !== v).sort(([a], [b]) => (a < b ? -1 : 1)).map(([k, v]) => `${k}=${v}`), st = Object.entries(spec.structure || {}).sort(([a], [b]) => (a < b ? -1 : 1)).map(([k, v]) => `structure:${k}=${v}`);
+    const all = [...parts, ...st]; return all.length ? (from === 'pdf' ? 'pdf+' : '') + all.join('+') : from === 'pdf' ? 'pdf' : from === 'default' ? 'default' : 'none-chosen';
+  }
+  scenarioId(spec = 'default') { return this.scenarioSpec(spec).key; }
   // the scenarios of a row's conflict group (GATE-SPEC-A TL-8): the shell's default, and for every conflict a row names (C-nnn in its text) one scenario per selectable value, everything else on its default
   conflictScenarios(text) {
     const ids = [...new Set(String(text || '').match(/\bC-\d{3}\b/g) || [])], base = this.scenarioSpec('default'), out = ['default'];
     for (const id of ids) { const c = this.conflicts.find(x => x.id === id); if (!c) continue; for (const o of c.options) { if (o.key === 'range') continue; out.push({ id: `${id}:${o.key}`, label: `${id} = ${o.label}`, choices: { ...base.choices, [id]: o.key } }); } }
     return out;
   }
-  scene(spec = 'default') { const sc = this.scenarioSpec(spec), key = JSON.stringify([sc.id, sc.choices]); let s = this._scenes.get(key); if (!s) { s = new Scene(this, sc, key, spec); this._scenes.set(key, s); } return s; }
+  // a Scene is the stage under one set of conflict choices (the structure readings change nothing in the stage); scenes with the same choices are one
+  scene(spec = 'default') { const sc = this.scenarioSpec(spec), key = JSON.stringify(sc.choices); let s = this._scenes.get(key); if (!s) { s = new Scene(this, { id: sc.id, label: sc.label, choices: sc.choices }, key, spec); this._scenes.set(key, s); } return s; }
   // ---- units: static facts
   unit(id) { const u = this.byId.get(id); return u || null; }
   ancestors(id) { const out = []; let u = this.byId.get(id); while (u && u.parent) { out.push(u.parent); u = this.byId.get(u.parent); } return out; }
@@ -81,29 +111,40 @@ export class Product {
     const kids = this.children.get(id) || []; const ls = kids.length ? kids.flatMap(c => this.leaves(c, { onField: false })) : [id];
     return onField ? ls.filter(x => { const s = this.byId.get(x).status; return s === 'on_field' || s === 'partly_on_field'; }) : ls;
   }
+  // the words of the printed timeline that occur in LOWER case somewhere: ordinary words (day, stone, early, hill, iron ...). A surname or a name that is also an ordinary word names a unit only in a naming
+  // context (a possessive, a unit noun after it, a title before it); lib.mjs wordInfo.
+  lowerVocab() {
+    if (this._lv) return this._lv; const out = new Set();
+    for (const f of ['timeline_seed.jsonl', 'epilogue_seed.jsonl']) { const p = path.join(GOV, f); if (!exists(p)) continue; for (const r of readJSONL(p)) for (const m of String(r.text_raw || '').matchAll(/(?<![\p{L}’'-])[a-z][a-z’']*(?![\p{L}-])/gu)) out.add(wordKey(m[0])); }
+    return (this._lv = out);
+  }
   _unitIndex() {
     if (this._uidx) return this._uidx;
     const out = new Map();
     for (const u of this.layer.units) {
-      const own = String(u.name).replace(/\(.*$/, '').trim(), tk = tokens(own).filter(w => !PLACE_WORDS.has(w));
-      const cm = []; for (const c of u.commanders || []) { const nm = String(c).replace(/\((k|w|mw|c)\)/gi, '').replace(/\b[A-Z]\.\s*/g, ' ').trim(); for (const part of nm.split(/[\/,]/)) { const t = tokens(part).filter(w => !PLACE_WORDS.has(w) && w.length >= 3); for (const w of t) cm.push(w); } }
-      out.set(u.id, { own, tokens: tk, numbered: /^\d/.test(own), designators: designators(u.name + ' ' + (u.short || '')), commanders: [...new Set(cm)], level: u.level });
+      // a person given as initials and a surname ("F. Lee", "W. H. F. Lee/Chambliss", "J. M. Jones"): the surname names the unit only with the last initial before it ("Fitz Lee", "F. Lee"), never as a bare "Lee"
+      const own0 = String(u.name).replace(/\(.*$/, '').trim(), { text: own, inits } = splitInitials(own0);
+      // an army is named by its whole name ("Army of the Potomac"), never by the river or the region alone
+      const tk = (u.level === 'army' ? fold(unpossess(own)).replace(/[^a-z0-9]+/g, ' ').split(' ').filter(w => w && !['the', 'of', 'and'].includes(w)) : tokens(own)).filter(w => !PLACE_WORDS.has(w));
+      out.set(u.id, { own: own0, tokens: tk, inits, numbered: /^\d/.test(own), designators: designators(u.name + ' ' + (u.short || '')), commanders: uniqBy((u.commanders || []).flatMap(surnamesOf), c => c.key + '/' + (c.init || '')), level: u.level });
     }
     return (this._uidx = out);
   }
   // the units a text names, with the reason: a regiment or battery by its designator ("6th Wisconsin" = 6 WI), a formation by the words of its own name (Early, Meredith's Iron Brigade), a brigade, division or
-  // corps by its commander's surname. Place names are blanked first, so that "Cemetery Hill" never names a general Hill. -> [{ id, why, score }]
+  // corps by its commander's surname. A name is a PROPER NOUN: capitalised in the text, and where it is also an ordinary word of the timeline (lowerVocab) only in a naming context (lib.mjs wordInfo): "Day's
+  // brigade" names Day's brigade, "all day" does not; "Stone's brigade" does, "a stone wall" does not. Place names are blanked first, so that "Cemetery Hill" never names a general Hill. -> [{ id, why, score }]
   unitsNamedIn(text) {
-    const blank = this._blank(text), tk = new Set(tokens(blank)), hits = designatorHits(blank), idx = this._unitIndex(), out = [];       // tokens() strips possessives
+    const blank = this._blank(text), info = wordInfo(blank), amb = this.lowerVocab(), hits = designatorHits(blank), idx = this._unitIndex(), out = [];
+    const named = (w, init = null) => { const i = info.get(w); return !!i && i.cap && (!amb.has(w) || i.ctx) && (!init || i.prev.has(init)); };
     // a designator names a unit only if the words after it agree with the unit: "26th Pennsylvania Emergency Militia" is not the 26th PA Volunteers, "35th Va Cav Bn" is a cavalry unit, "1st Va Artillery" an artillery unit
     const agrees = (h, u) => { const a = h.after; if (/^(emergency|militia|state militia)\b/.test(a)) return /militia/i.test(u.name); if (/^(cav|cavalry|cav bn)\b/.test(a)) return u.arm === 'cavalry'; if (/^(art|artillery|battery|btty|light artillery)\b/.test(a)) return u.arm === 'artillery'; return true; };
     const des = { has: (k, u) => hits.some(h => h.key === k && agrees(h, u)) };
     for (const [id, x] of idx) {
       const u = this.byId.get(id); let why = null, score = 0;
       if (x.designators.size && [...x.designators].some(d => des.has(d, u))) { why = 'designator ' + [...x.designators].filter(d => des.has(d, u)).join(','); score = 3; }
-      else if (!x.numbered && x.tokens.length && x.tokens.every(w => tk.has(w))) { why = 'name ' + x.tokens.join(' '); score = 2 + Math.min(2, x.tokens.length) / 10; }
-      else if (!x.numbered && x.tokens.length >= 2 && ['brigade', 'division', 'corps', 'group'].includes(x.level) && x.tokens.slice(1).every(w => tk.has(w))) { why = 'nickname ' + x.tokens.slice(1).join(' ') + ' (' + x.own + ')'; score = 1.8; }       // "Iron Brigade" for "Meredith’s Iron Brigade": the commander's name first, then the nickname
-      else if (['brigade', 'division', 'corps', 'army', 'artillery_brigade', 'artillery_battalion', 'artillery_group', 'group', 'command'].includes(x.level) && x.commanders.some(w => tk.has(w))) { why = 'commander ' + x.commanders.filter(w => tk.has(w)).join(','); score = 1; }
+      else if (!x.numbered && x.tokens.length && x.tokens.every(w => named(w, x.inits[w]))) { why = 'name ' + x.tokens.join(' '); score = 2 + Math.min(2, x.tokens.length) / 10; }
+      else if (!x.numbered && x.tokens.length >= 2 && ['brigade', 'division', 'corps', 'group'].includes(x.level) && x.tokens.slice(1).every(w => named(w, x.inits[w]))) { why = 'nickname ' + x.tokens.slice(1).join(' ') + ' (' + x.own + ')'; score = 1.8; }       // "Iron Brigade" for "Meredith’s Iron Brigade": the commander's name first, then the nickname
+      else if (['brigade', 'division', 'corps', 'army', 'artillery_brigade', 'artillery_battalion', 'artillery_group', 'group', 'command'].includes(x.level) && x.commanders.some(c => named(c.key, c.init))) { why = 'commander ' + x.commanders.filter(c => named(c.key, c.init)).map(c => c.key).join(','); score = 1; }
       if (why) out.push({ id, name: u.name, level: u.level, side: u.side, why, score });
     }
     return out.sort((a, b) => b.score - a.score || (a.id < b.id ? -1 : 1));
@@ -143,7 +184,7 @@ export class Product {
   async adapters_() {
     if (this.adapters) return this.adapters;
     const A = readJSON(path.join(path.dirname(fileURLToPath(import.meta.url)), 'adapters.json')), ext = await this.extList(), out = { ext, found: {} };
-    const hooksFile = path.join(APP, 'docs/GATE-HOOKS.md'), hooks = exists(hooksFile) ? fs.readFileSync(hooksFile, 'utf8').split(/\r?\n/) : [];
+    const hooksFile = path.join(APP, 'docs/GATE-HOOKS.md'), hooks = exists(hooksFile) ? readText(hooksFile).split(/\r?\n/) : [];
     for (const [name, spec] of Object.entries(A.adapters)) {
       const r = { name, spec, module: null, fn: null, listed: false, error: null }, mods = [...spec.modules];
       for (const line of hooks) { if (spec.functions.some(f => line.includes(f))) { const m = /(src\/[A-Za-z0-9_\/.-]+\.mjs)/.exec(line); if (m && !mods.includes(m[1])) mods.unshift(m[1]); } }   // a hook listed in docs/GATE-HOOKS.md is tried first
@@ -170,7 +211,21 @@ export class Product {
     try { const r = await a.call(T_(tMin), opts); return { available: true, module: a.module, fn: a.fn, items: Array.isArray(r) ? r : (r && r.items) || [] }; }
     catch (e) { return { available: false, reason: `${a.module} ${a.fn} threw: ${String(e.message || e).slice(0, 200)}`, module: a.module, items: [] }; }
   }
-  inputDigest() { const out = {}; for (const k of [...reads.keys()].sort()) { try { out[k] = sha256File(path.join(ROOT, k)).slice(0, 16); } catch { out[k] = null; } } return out; }
+  // load everything the checks may load lazily, so that the digest of the inputs is the same whichever records asked for what
+  async warm() { await this.structures('default'); await this.weather(this.scenarioSpec('default').choices); await this.adapters_(); this.lowerVocab(); this._unitIndex(); return this; }
+  // The inputs of a run, in parts: every file the harness read or the shell's loaders fetched in this process (lib.mjs trackedReads), the files that are always inputs whichever record asked for them, and the
+  // whole source tree of the shell (the modules the checks call). Each part is the sha256 of its files' sha256 (16 hex); `files` counts them. The record files are a part of their own (check.mjs recordsDigest:
+  // the records without their written-back "result"), so that --update does not change the digest it has just written.
+  inputsParts() {
+    const h16 = p => { try { return sha256File(p).slice(0, 16); } catch { return null; } }, sub = rp => rp.startsWith(rel(REAL) + '/') || rp.startsWith('tools/bt/realize/');
+    const always = ['timeline_seed.jsonl', 'timeline_verified.jsonl', 'timeline_windows.jsonl', 'epilogue_seed.jsonl', 'register_index.json', 'requirements.json'].map(f => path.join(GOV, f))
+      .concat(walkFiles(path.join(GOV, 'timeline_corrections'), /^tl-\d\d\.jsonl$/), [path.join(BT, 'render/prototype/data/terrain.json'), path.join(APP, 'data/fx3d/params.json'), path.join(APP, 'data/figures3d/skeleton.json'), path.join(APP, 'docs/GATE-HOOKS.md'), path.join(APP, 'tools/node-terrain.mjs')]);
+    const files = new Set([...trackedReads(), ...always.map(rel), ...walkFiles(path.join(APP, 'src')).map(rel)].filter(rp => !sub(rp)));
+    const parts = { governance: {}, app_src: {}, data: {} };
+    for (const rp of [...files].sort()) { const h = h16(path.join(ROOT, rp)), part = rp.startsWith(rel(GOV) + '/') ? 'governance' : rp.startsWith(rel(APP) + '/src/') || rp === rel(path.join(APP, 'tools/node-terrain.mjs')) ? 'app_src' : 'data'; parts[part][rp] = h; }
+    const out = { digests: {}, files: {} }; for (const [k, v] of Object.entries(parts)) { out.digests[k] = sha256(Buffer.from(JSON.stringify(v))).slice(0, 16); out.files[k] = Object.keys(v).length; }
+    return out;
+  }
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -231,6 +286,13 @@ export class Scene {
     const a = T_(from), b = T_(to), out = { killed: 0, wounded: 0, missing: 0, events: 0, units: new Set(), first: null, last: null };
     for (const e of this.both.events) { if (e.type !== 'state') continue; if (id && e.unit !== id) continue; if (e.t < a || e.t > b) continue; out[e.fate]++; out.events++; out.units.add(e.unit); out.first = out.first == null ? e.t : Math.min(out.first, e.t); out.last = out.last == null ? e.t : Math.max(out.last, e.t); }
     return { ...out, units: [...out.units].sort(), first: out.first == null ? null : isoOf(out.first), last: out.last == null ? null : isoOf(out.last) };
+  }
+  // casualty events of a unit or of a FORMATION (the sum over its leaf units on the field, as the casualty check counts them); ids null = every unit. A formation id with no leaf on the field gives zeros and says so.
+  casualtiesOf(ids, from, to) {
+    const list = [].concat(ids || []).filter(Boolean); if (!list.length) return { ...this.casualties(from, to, null), leaves: null };
+    const leaves = [...new Set(list.flatMap(id => this.P.leaves(id)))], tot = { killed: 0, wounded: 0, missing: 0, events: 0, units: new Set(), first: null, last: null };
+    for (const l of leaves) { const r = this.casualties(from, to, l); tot.killed += r.killed; tot.wounded += r.wounded; tot.missing += r.missing; tot.events += r.events; for (const u of r.units) tot.units.add(u); if (r.first && (!tot.first || r.first < tot.first)) tot.first = r.first; if (r.last && (!tot.last || r.last > tot.last)) tot.last = r.last; }
+    return { ...tot, units: [...tot.units].sort(), leaves: leaves.length };
   }
   // the artillery train and the works (draw lists of the shell's Structures) at a minute
   async drawLists(tMin) { const S = (await this.P.structures()); return S.S.drawLists(T_(tMin), { pose: S.S.stagePose() }); }

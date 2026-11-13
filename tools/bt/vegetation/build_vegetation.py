@@ -17,7 +17,7 @@ area) and a tier for each attribute. The calendar, the district's crop mix, the 
 plausible-procedural or inferred; each such choice is listed in `gaps` and proposed for the Evidence-Gap Register.
 
 Field cells: the open ground is cut by the roads, lanes, railway and the confirmed fence lines, and the pieces larger than about 28 acres are divided by a seeded
-Voronoi relaxation into cells of about 14 acres. The CUT LINES INSIDE A BLOCK ARE NOT KNOWN (no source maps them): every field cell says its geometry is plausible-procedural.
+straight cuts across the long axis of each piece (recursively) into cells of about 14 acres. The CUT LINES INSIDE A BLOCK ARE NOT KNOWN (no source maps them): every field cell says its geometry is plausible-procedural.
 Which crop a cell holds is documented only where a claim names it and can be placed (the Wheatfield; a few others, role nearest, tier inferred); every other cell is a seeded
 draw from the district mix computed here from the damage-claim acreages of eight farms (tier plausible-procedural).
 """
@@ -166,38 +166,64 @@ def barrier_lines(S):
     return unary_union(corridor), fences
 
 
-def voronoi_cells(poly, k, seed):
-    """k seeded points inside poly, relaxed a few times, cells clipped to poly (list of polygons)"""
+def valid_simplified(c, tol=1.0):
+    """the cell simplified to tol metres and valid (a cell that GEOS finds crossing itself is repaired by a zero buffer)"""
+    g = c.simplify(tol)
+    return g if g.is_valid else g.buffer(0)
+
+
+def split_cells(poly, k, seed):
+    """k cells of about equal area, cut out of poly by straight cuts across the long axis of each piece's oriented bounding rectangle, recursively: lots with straight sides, as fenced fields
+    were laid out, not a honeycomb. Each cut is placed where the cells on its side need it, moved by up to 12 per cent of the area by the seed. The cuts are NOT a reading of any map."""
     rng = random.Random(seed)
-    minx, miny, maxx, maxy = poly.bounds
-    pts = []
-    tries = 0
-    while len(pts) < k and tries < k * 400:
-        tries += 1
-        p = Point(rng.uniform(minx, maxx), rng.uniform(miny, maxy))
-        if poly.contains(p):
-            pts.append(p)
-    if len(pts) < 2:
-        return [poly]
-    for _ in range(7):
-        v = shapely.voronoi_polygons(shapely.MultiPoint(pts), extend_to=poly.envelope.buffer(50))
-        cells = [c.intersection(poly) for c in v.geoms]
-        newp = []
-        for p in pts:
-            cs = [c for c in cells if not c.is_empty and c.buffer(0.01).contains(p)]
-            if cs:
-                big = max(polys(cs[0]), key=lambda q: q.area)
-                cp = big.representative_point() if not big.contains(big.centroid) else big.centroid
-                newp.append(cp)
+
+    def frame(p):
+        r = p.minimum_rotated_rectangle
+        c = list(r.exterior.coords)
+        e0 = (c[1][0] - c[0][0], c[1][1] - c[0][1])
+        e1 = (c[2][0] - c[1][0], c[2][1] - c[1][1])
+        e = e0 if math.hypot(*e0) >= math.hypot(*e1) else e1
+        n = math.hypot(*e) or 1.0
+        return e[0] / n, e[1] / n
+
+    def side(p, ux, uy, t, lo_s, wlo, whi):
+        """the part of p whose projection on the axis is at most t (a large rectangle in the frame of the axis)"""
+        vx, vy = -uy, ux
+        pts = [(s_ * ux - w_ * uy, s_ * uy + w_ * ux) for s_, w_ in ((lo_s - 10, wlo - 10), (t, wlo - 10), (t, whi + 10), (lo_s - 10, whi + 10))]
+        return p.intersection(Polygon(pts))
+
+    def rec(p, n):
+        if n <= 1 or p.area < 0.5 * ACRE:
+            return [p]
+        ux, uy = frame(p)
+        vx, vy = -uy, ux
+        xs = list(p.exterior.coords)
+        ss = [x * ux + y * uy for x, y in xs]
+        ws = [x * vx + y * vy for x, y in xs]
+        lo, hi, wlo, whi = min(ss), max(ss), min(ws), max(ws)
+        nl = n // 2
+        frac = max(0.2, min(0.8, nl / n * (1.0 + rng.uniform(-0.12, 0.12))))
+        target = frac * p.area
+        a_, b_ = lo, hi
+        for _ in range(36):
+            m = (a_ + b_) / 2
+            if side(p, ux, uy, m, lo, wlo, whi).area < target:
+                a_ = m
             else:
-                newp.append(p)
-        pts = newp
-    v = shapely.voronoi_polygons(shapely.MultiPoint(pts), extend_to=poly.envelope.buffer(50))
-    out = []
-    for c in v.geoms:
-        for q in polys(c.intersection(poly)):
-            out.append(q)
-    return out
+                b_ = m
+        t = (a_ + b_) / 2
+        left = [q for q in polys(side(p, ux, uy, t, lo, wlo, whi)) if q.area > 1.0]
+        right = [q for q in polys(p.difference(side(p, ux, uy, t, lo, wlo, whi))) if q.area > 1.0]
+        if not left or not right:
+            return [p]
+        out = []
+        for part, cells_n in ((left, nl), (right, n - nl)):
+            tot = sum(q.area for q in part)
+            for q in part:
+                out += rec(q, max(1, int(round(cells_n * q.area / tot))))
+        return out
+
+    return rec(poly, k)
 
 
 def merge_slivers(cells, min_area):
@@ -218,7 +244,11 @@ def merge_slivers(cells, min_area):
                 if sh > bl:
                     best, bl = j, sh
             if best is not None and bl > 3.0:
-                cells[best] = unary_union([cells[best], c]).buffer(0.2).buffer(-0.2)
+                u = unary_union([cells[best], c])
+                if not u.is_valid:
+                    u = u.buffer(0)
+                v = u.buffer(0.2).buffer(-0.2)                        # closes the seam; a union that GEOS cannot smooth (it can return an empty polygon) is kept as it is
+                cells[best] = v if (not v.is_empty and abs(v.area - u.area) <= 0.02 * u.area) else u
                 cells.pop(i)
                 changed = True
                 break
@@ -280,7 +310,7 @@ def build_units(args):
         ac = p.area / ACRE
         if ac > 28.0:
             k = max(2, int(round(ac / 14.0)))
-            sub = voronoi_cells(p, k, 1863 + bi)
+            sub = split_cells(p, k, 1863 + bi)
             sub = merge_slivers(sub, 0.9 * ACRE)
             cells += [(bi, c, True) for c in sub]
         else:
@@ -288,7 +318,7 @@ def build_units(args):
     for bi, c, sub in cells:
         if c.area < 0.5 * ACRE:
             continue
-        units.append({'cls': 'field', 'lc': 'OPEN-B%03d' % bi, 'lc_name': None, 'lc_conf': 'Estimated', 'geom': c.simplify(1.0), 'subdivided': sub, 'block': bi})
+        units.append({'cls': 'field', 'lc': 'OPEN-B%03d' % bi, 'lc_name': None, 'lc_conf': 'Estimated', 'geom': valid_simplified(c), 'subdivided': sub, 'block': bi})
     return units, terr, G, farms, gz, S
 
 
@@ -721,8 +751,20 @@ def witness_trees(farms, gz):
 
 # ---------------------------------------------------------------------------------------------------------------- output
 def ll_ring(poly, nd=5):
-    g = to_ll(poly)
-    return ring_flat(g.exterior, nd)
+    """the outline in longitude and latitude on a grid of nd decimals (about a metre): the polygon is snapped to the grid by GEOS, which keeps it valid (a neck narrower than the grid is closed and
+    a part cut off by that is dropped when it is small); with nd decimals losing more than a tenth of the area, one more decimal is used"""
+    g = Polygon(to_ll(poly).exterior)                      # only the outer ring is exported (holes are counted and dropped)
+    for digits in (nd, nd + 1):
+        try:
+            gp = shapely.set_precision(g if g.is_valid else shapely.make_valid(g), 10.0 ** -digits)
+        except shapely.errors.GEOSException:
+            continue
+        parts = polys(gp)
+        if parts:
+            q = max(parts, key=lambda r: r.area)
+            if q.area > 0.9 * g.area and q.is_valid:
+                return ring_flat(q.exterior, digits)
+    return ring_flat(g.exterior, nd + 1)
 
 
 def make_output(args):
@@ -781,7 +823,7 @@ def make_output(args):
             rec['holes_dropped'] = holes
         rec['geom_tier'] = 'plausible-procedural' if u['cls'] == 'field' and u.get('subdivided') else ('documented' if u.get('lc_conf') == 'Documented' else 'inferred')
         if u['cls'] == 'field':
-            rec['geom_note'] = 'cell of a block of open ground cut by a seeded relaxation: the edges inside the block are not mapped' if u.get('subdivided') else 'a block of open ground between roads, lanes, confirmed fences and the outlines of woods and orchards'
+            rec['geom_note'] = 'cell of a block of open ground cut by straight cuts across the long axis of its pieces: the edges inside the block are not mapped' if u.get('subdivided') else 'a block of open ground between roads, lanes, confirmed fences and the outlines of woods and orchards'
             if u.get('farm_guess'):
                 rec['farm_guess'] = u['farm_guess']
         for k in ('crop', 'crop_tier', 'crop_basis', 'crop_claim', 'crop_role', 'rock', 'woods', 'orchard', 'p', 'seed', 'ev'):
@@ -856,7 +898,7 @@ def write_all(args):
         'time': {'unit': 'minutes since 1863-06-01 00:00 local mean time', 'window': ['1863-06-26T00:00', '1863-07-14T24:00'], 'epilogue': '1863-11-19'},
         'ground': {'lng': [terr['lng0'], terr['lng1']], 'lat': [terr['lat0'], terr['lat1']], 'note': 'units are clipped to the ground the theatre loads'},
         'geometry': {'woods_orchards_trees': 'the land-cover layer of the 1863 base map, outlined from the Warren survey of 1868-69 and placed to 30-40 m (docs/basemap1863/SOURCES-landcover.md); woodlot extents are those of 1868-69',
-                     'fields': 'open ground cut by roads, lanes, railway and the 30 confirmed fence lines, then divided into cells of about 14 acres by a seeded relaxation: the edges inside a block are not mapped (plausible-procedural)',
+                     'fields': 'open ground cut by roads, lanes, railway and the 30 confirmed fence lines, then divided into cells of about 14 acres by straight cuts across the long axis of each piece: the edges inside a block are not mapped (plausible-procedural)',
                      'trees': 'not stored: each tree is placed at run time by a seeded scatter inside its unit (rows for orchards)'},
         'counts': {'units': len(uo), 'by_class': dict(collections.Counter(u['cls'] for u in uo)), 'claims': len(cl_out), 'claims_unplaced': len(unplaced), 'events': len(events), 'witness_trees': len(wts)},
         'source_titles': source_titles(claims_all),

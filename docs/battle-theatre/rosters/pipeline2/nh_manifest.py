@@ -107,8 +107,8 @@ def main():
     json.dump(manifest, open(os.path.join(LIB, 'MANIFEST-union-nh.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     pointer = {'format': 'roster2-sources-pointer/1', 'work_item': 'union-nh', 'generated': generated, 'sources': sources, 'derived_texts': [], 'blocked': blocked,
                'access_rules': 'archive.org metadata and /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround',
-               'note': 'The texts are kept under tmp/library/rosters/<source_id>/ (not tracked); this file says which texts they are. Fetch with pipeline2/fetch_text.py SOURCE_ID VOLUME '
-                       'IDENTIFIER, then check the sha256 above. The files made from them are listed under unit_files.', 'unit_files': products}
+               'note': 'The texts are kept under tmp/library/rosters/<source_id>/ (not tracked); this file says which texts they are. Fetch each file from its url, then check the sha256 above. '
+                       'The files made from them are listed under unit_files.', 'unit_files': products}
     os.makedirs(os.path.join(ROOT, 'docs', 'battle-theatre', 'rosters', 'sources'), exist_ok=True)
     json.dump(pointer, open(os.path.join(ROOT, 'docs', 'battle-theatre', 'rosters', 'sources', 'union-nh.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print('manifest files', len(files_all), 'sources', len(sources), 'products', len(products))

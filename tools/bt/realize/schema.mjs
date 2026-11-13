@@ -18,7 +18,9 @@
 //     "id":        "T1-004",                     the timeline row (T1-001..T3-nnn; E-001..E-014 for the epilogue rows)
 //     "harness":   "bt-realize-1",               the version of this format (lib.mjs HARNESS)
 //     "kind":      "unit_motion",                one of KINDS
-//     "scenario":  "default",                    'default' (the shell's opening scenario), 'pdf' (the plan's values), or { "choices": { "C-021": "v1" } }; a list means: must hold in every one
+//     "scenario":  "default",                    'default' (the shell's opening scenario), 'pdf' (the plan's values), 'conflicts', or an object { "id"?, "choices"?: { "C-021": "v1" }, "structure"?: { "<structure id>": "<reading>" } };
+//                                                a list means: the record is run in every one, and RESULTS.json says which were run. A check may carry "scenario": <id | list of ids> to hold in those scenarios only
+//     "scenario_excludes": [ { "scenario": <spec>, "why": "..." } ],   the values of a source conflict the record does NOT hold in, with the reason (GATE-SPEC TL-8); RESULTS.json lists them
 //     "window":    { "from": "1863-07-01T09:40", "to": "1863-07-01T10:20" },   the minutes the checks look at; inside the row's allowed window (q.mjs row <id> prints it)
 //     "claim":     { "quote": "...", "quotes": ["..."] },   a verbatim piece of the row's text (printed cells, or the corrected claim) that this record realizes; found by word, apostrophes folded
 //     "entities":  { "units": ["id" | { "id", "via" }], "structures": [...], "places": [...], "schedule": ["S-001"], "works": ["E-05"], "cards": ["row ids"] },   every entity the checks use, no more, no less
@@ -55,8 +57,8 @@ export const ASSERT = {
   unit_formation: { units: true, time: true, need: ['formation'], opt: [] },
   unit_figures:   { units: true, time: false, need: [], one: ['approx', 'min', 'max'], opt: ['tol_pct'] },
   structure_exists: { time: false, need: ['words'], opt: [] },
-  structure_state: { time: true, need: ['structure'], opt: ['state', 'present', 'visual', 'schedule_row', 'hospital', 'drawn', 'structure_scenario'] },
-  work_stage:     { time: true, need: ['work'], opt: ['stage_min', 'stage_max', 'present', 'crew', 'structure_scenario'] },
+  structure_state: { time: true, need: ['structure'], opt: ['state', 'present', 'visual', 'schedule_row', 'hospital', 'drawn'] },
+  work_stage:     { time: true, need: ['work'], opt: ['stage_min', 'stage_max', 'present', 'crew'] },
   battery_guns:   { units: true, time: true, need: [], opt: ['guns_min', 'limbers_min', 'caissons_min', 'horses_min'] },
   weather:        { time: true, need: [], one: ['precip_kind_in', 'precip_intensity_min', 'precip_intensity_max', 'cloud_min', 'cloud_max', 'temp_f', 'wetness_min', 'wetness_max', 'wind_mph_min', 'wind_mph_max', 'visibility_m_max', 'record'], opt: ['tol_f', 'value_quote'] },
   sky:            { time: true, need: [], one: ['sun_alt_min', 'sun_alt_max', 'moon_up', 'moon_illum_min', 'moon_illum_max', 'band_in', 'exposure_min'], opt: [] },
@@ -97,6 +99,13 @@ export function validateRecord(rec, ctx) {
   if (!span) add('window_missing', 'a record needs "window": { "from", "to" } in 1863-MM-DDTHH:MM');
   else if (ctx.clock && !coversInterval(ctx.clock, span.from, span.to)) add('time_outside_clock', `the window ${isoOf(span.from)}..${isoOf(span.to)} is outside the minutes the theatre can show (${ctx.clock.map(([a, b]) => isoOf(a) + '..' + isoOf(b)).join(' and ')}: app/src/clock.mjs BATTLE and EPILOGUE)`);
   if (span && !coversInterval(row.window.intervals, span.from, span.to)) add('window_outside_row', `the window ${isoOf(span.from)}..${isoOf(span.to)} is not inside the time the row allows (${describeWindow(row.window)}; basis: ${row.window.basis.join('; ')})`);
+  // ---- the scenarios: the ones the record is run in, the ones it excludes (with the reason), the checks that hold in some only
+  const specOk = x => x === 'default' || x === 'pdf' || (x && typeof x === 'object' && !Array.isArray(x) && Object.keys(x).every(k => ['id', 'label', 'from', 'choices', 'structure'].includes(k)));
+  if (rec.scenario != null && rec.scenario !== 'conflicts') { const list = Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario]; if (!list.length) add('scenario_bad', '"scenario" lists at least one scenario'); for (const x of list) if (!specOk(x)) add('scenario_bad', `a scenario is "default", "pdf", "conflicts" or an object { id, label, from, choices, structure } (found ${JSON.stringify(x).slice(0, 80)})`); }
+  if (rec.scenario_excludes != null) {
+    if (!Array.isArray(rec.scenario_excludes) || !rec.scenario_excludes.length) add('scenario_excludes_bad', '"scenario_excludes" is a non-empty list of { scenario, why }');
+    else for (const x of rec.scenario_excludes) if (!x || !specOk(x.scenario) || typeof x.why !== 'string' || x.why.trim().length < 30) add('scenario_excludes_bad', 'each "scenario_excludes" entry needs a scenario (an object or "pdf") and a "why" of at least 30 characters: the sources of the row that contradict it (GATE-SPEC TL-8)');
+  }
   // ---- the claim: a piece of the row's own words
   const quotes = [...(rec.claim && rec.claim.quote ? [rec.claim.quote] : []), ...((rec.claim && rec.claim.quotes) || [])];
   if (!quotes.length) add('quote_missing', 'claim.quote: a verbatim piece of the row\'s text this record realizes');
@@ -112,7 +121,8 @@ export function validateRecord(rec, ctx) {
     for (const f of spec.need) if (a[f] == null || (Array.isArray(a[f]) && !a[f].length)) add('assert_field', `${at} (${a.type}): "${f}" is required`);
     if (spec.one && !spec.one.some(f => a[f] != null)) add('assert_field', `${at} (${a.type}): at least one of ${spec.one.join(', ')} is required`);
     const known = new Set(['type', 'unit', 'units', 'quantifier', 'at', 'from_t', 'to_t', 't', 'quote', 'note', 'scenario', ...spec.need, ...(spec.one || []), ...spec.opt]);
-    for (const k of Object.keys(a)) if (!known.has(k)) add('assert_unknown_field', `${at} (${a.type}): unknown field "${k}"`);
+    for (const k of Object.keys(a)) if (!known.has(k)) { if (k === 'structure_scenario') add('assert_removed_field', `${at} (${a.type}): "structure_scenario" is gone: a reading of a structure is part of a SCENARIO, so that RESULTS.json can say which scenarios were run. Put { "structure": { "<structure id>": "<reading>" } } in a scenario of the record ("scenario": [...], optionally with an "id") and restrict the check to it with "scenario": "<id>"`); else add('assert_unknown_field', `${at} (${a.type}): unknown field "${k}"`); }
+    if (a.scenario != null) for (const x of [].concat(a.scenario)) if (!(typeof x === 'string' || specOk(x))) add('scenario_bad', `${at}: "scenario" of a check is the id of a scenario of the record, or a list of ids`);
     if (spec.units && !assertionUnits(a).length && a.type !== 'casualty') add('assert_field', `${at} (${a.type}): "unit" or "units" is required`);
     if (a.type === 'battery_guns' && !assertionUnits(a).length) add('assert_field', `${at}: "unit" or "units" is required`);
     if (a.type === 'casualty' && !(a.units || []).length) add('assert_field', `${at} (casualty): "units" is required: the units whose losses the row names (an army-wide row names the army: us-aop, cs-anv)`);

@@ -4,15 +4,15 @@ Scope read: CLAUDE.md; gates.json Q16; requirements.json (Q16 is linked from R12
 
 ## Result in one paragraph
 
-Gate Q16 is **not passing** and `passes` is set nowhere. The Library of Congress images are now readable and all 127 catalogued photographs were looked at; 70 camera-position statements were found in LOC records, NPS reports and the NPS Then-And-Now pages, and **not one is a coordinate, a lens or a surveyed station**, so there are 0 documented camera positions. 17 poses are registered (2 inferred, 15 assumption); after looking at the review sheets the verdicts are 0 matches, 5 roughly, 4 does not, 8 cannot judge. The other 112 photographs are cannot judge with a reason each. What would settle it is in `verdicts.json` (gate_q16) and in PHOTOMATCH.md: station coordinates from the park (an owner step), the lens, a 1863 near-field model, landmark coordinates good to a few metres, a pass criterion set in advance.
+Gate Q16 is **not passing** and `passes` is set nowhere. The Library of Congress images are now readable and all 127 catalogued photographs were looked at; 70 camera-position statements were found in LOC records, NPS reports and the NPS Then-And-Now pages, and **not one is a coordinate, a lens or a surveyed station**, so there are 0 documented camera positions. 16 poses are registered (2 inferred, 14 assumption); after looking at the review sheets the verdicts are 0 matches, 5 roughly, 4 does not, 7 cannot judge. The other 113 photographs are cannot judge with a reason each. What would settle it is in `verdicts.json` (gate_q16) and in PHOTOMATCH.md: station coordinates from the park (an owner step), the lens, a 1863 near-field model, landmark coordinates good to a few metres, a pass criterion set in advance.
 
 ## What was run (and what came of it)
 
-- `fetch_loc.py` (hardened: it now compares the received size with the size the record declares and decodes every pixel): 430 LOC JPEG derivatives, 1 request per second, no retry on a refusal; it found two files that the earlier run had saved cut short (32 KB of 138 KB, 52 KB of 185 KB) and re-fetched them. All 430 files re-verified (size, sha256, full decode).
+- `fetch_loc.py` (hardened: it now compares the received size with the size the record declares and decodes every pixel): 430 LOC JPEG derivatives, 1 request per second, no retry on a refusal; it found two files that the earlier run had saved cut short (32,768 of 138,801 bytes and 51,967 of 184,609 bytes) and re-fetched them. All 430 files re-verified (size, sha256, full decode).
 - `catalogue_additions.py`: the first catalogue run had dropped 18 July-1863-subject records whose LOC date is only "between 1861 and 1865" (among them ppmsca-32840, which the NPS cites as a July 1863 Brady photograph); added with their images; 47 other dropped search results listed with the reason each stays out. One of the 18 (2012647845) is, by image match with an NPS picture, the staged Weaver photograph of 11 November 1863 and was taken out of the July test.
 - `build_statements.py`: 70 statements, each quote found in the saved text of a LOC record, an NPS report (53 reports and 20 pages of the nps-landscape task, the Then-And-Now pages) or marked read-from-image (2); evidence lines for R12.032 to R12.035 and one timeline line (T3-064) written.
 - `match_nps_then.py`: SIFT, ratio test and RANSAC of the 23 NPS Then-And-Now images against 228 LOC images (about 9 minutes of machine time in the lock queue): 18 tied to catalogued records (291 to 1667 inliers; the Seminary 49 and the gatehouse 59 for cropped images, confirmed by looking), the rest are 1913 pictures or not in the catalogue.
-- `run.mjs` under `tools/horde/bench.sh`: 17 poses, three renders each (registered field, 30 and 50 degrees), software GL, about 0.4 s a render; `compose.py` review sheets; the sheets of the 15 new or changed poses were opened and looked at (P04 and P05 are unchanged from the first pass).
+- `run.mjs` under `tools/horde/bench.sh`: 16 poses, three renders each (registered field, 30 and 50 degrees), software GL, about 0.4 s a render; `compose.py` review sheets; the sheets of the 14 new or changed poses were opened and looked at (P04 and P05 are unchanged from the first pass).
 - `build_registry.py` and `make_doc.py`: `photograph_registry.json` (one verdict per record) and PHOTOMATCH.md are generated from the data.
 - `node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`: see the end of this report for the count.
 
@@ -30,7 +30,6 @@ Gate Q16 is **not passing** and `passes` is set nowhere. The Library of Congress
 | P09 | 2018666302 | roughly | yes | Silhouette of Big Round Top from the assumed spot on the south slope of Little Round Top (statue point, 35 m south, heading 202 deg toward the gazette... |
 | P11 | 2018670708 | roughly | yes | Same assumed spot and heading as P09, a different exposure: the photograph's Big Round Top has its summit at 0.44 of the frame width and 0.29 of its h... |
 | P12 | 2012647707 | cannot judge | yes | The title says Big Round Top is in the background, but in the photograph the hill is not visible: trees and haze fill the upper third behind a breastw... |
-| P13 | 2012647708 | cannot judge | yes | PROVISIONAL: the render of this pose has not been looked at yet; this entry is replaced after the review sheet is viewed.... |
 | P17 | 2018666297 | cannot judge | no | The Thompson house footprint (2023 outline, default one storey) is placed south-south-west of the house with its distance read from the photograph (fi... |
 | P18 | 2018666296 | roughly | no | Leister house at the end of the Taneytown Road: the footprint sits where the house is (centred by construction, distance fitted), and two items that w... |
 | P19 | 2018666298 | cannot judge | no | The Bryan house footprint (6.0 by 7.6 m, 1.5 storeys, 2023 outline) is placed east-south-east of the house with the distance read from the photograph... |
@@ -38,7 +37,7 @@ Gate Q16 is **not passing** and `passes` is set nowhere. The Library of Congress
 | P24 | 2013645105 | roughly | no | Trostle farm: the house footprint is placed south-west of the pair with its distance read from the photograph (fitted); the barn footprint, which was... |
 | P26 | 2018666300 | cannot judge | no | Same as P03 for the other gatehouse view (Brady, about two weeks after the battle): the 2023 outline is placed in front of the facade with its distanc... |
 
-Counts over all 127 records: posed 15; cannot judge without a pose 112 (near field only 28; camera place not fixed 54; staged 15; not July battlefield views 15).
+Counts over all 127 records: posed 14; cannot judge without a pose 113 (near field only 28; camera place not fixed 55; staged 15; not July battlefield views 15).
 
 ## Findings worth another workstream's attention
 
@@ -47,6 +46,12 @@ Counts over all 127 records: posed 15; cannot judge without a pose 112 (near fie
 - Big Round Top: in both photographs that show it the summit sits about 15 percent of the frame height higher than in the render from the assumed spot on the south slope of Little Round Top.
 - The first pass had flagged staged photographs by title only: 2012647849 shares a negative number with the staged sharpshooter record and 2012647845 is the Weaver photograph of 11 November 1863; both are now flagged (EG-05).
 - The old test tests/photomatch.test.mjs fails on the new ledger and schema (request note bt-web-photomatch-old-test.md).
+
+## Tests
+
+- `node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`: 10 pass, 0 fail, 1 skipped (render determinism (needs the machine lock; queued)).
+- `node --test tests/photomatch.test.mjs` (not owned by this task): 2 pass, 3 fail: it asserts archive.org-only ledger urls, gazetteer-only anchors and the first-run verdicts.json shape; see the request note bt-web-photomatch-old-test.md.
+- Full node suite: not run.
 
 ## Not run, owed
 

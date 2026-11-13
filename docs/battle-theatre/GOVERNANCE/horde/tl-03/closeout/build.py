@@ -123,7 +123,9 @@ PAGE_HEADS = {
  'ALEXANDER-1907': [re.compile(r'(?<!\d)(\d{2,3}) MILITARY MEMOIRS')],
  'FREMANTLE-1864': [re.compile(r'(?<!\d)(\d{3}) [A-Z][A-Za-z\'’.-]+(?: [A-Za-z\'’.-]+){0,5}\. (?=[A-Za-z"\'])'), re.compile(r'[A-Z]{3,}[A-Za-z\'’ .-]{3,40}\. (\d{3})(?!\d)')],
  'MEADE-LL-v2': [re.compile(r'THE BATTLE OF GETTYSBURG (\d{1,3})(?!\d)')],
- 'BL-3': [re.compile(r'CITIZENS OF GETTYSBURG IN THE UNION ARMY\. (\d{3})(?!\d)')],
+ 'BL-3': [re.compile(r'CITIZENS OF GETTYSBURG IN THE UNION ARMY\. (\d{3})(?!\d)'), re.compile(r'THE FIRST DAY AT GETTYSBURG\. (\d{3})(?!\d)'), re.compile(r'(?<!\d)(\d{3}) THE FIRST DAY AT GETTYSBURG')],
+ 'NY-GB-1900-v2': [re.compile(r'(?<!\d)(\d{3,4}) New York at Gettysburg\.'), re.compile(r'New York at Gettysburg\. (\d{3,4})(?!\d)')],
+ 'PA-GB-1914-v1': [re.compile(r'(?<!\d)(\d{3,4}) Pennsylvania at Gettys ?burg\.'), re.compile(r'Pennsylvania at Gettys ?burg\. (\d{3,4})(?!\d)')],
 }
 FIXED_PAGE = {}   # no page-image readings in this close-out
 

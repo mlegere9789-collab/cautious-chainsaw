@@ -5,6 +5,9 @@
 //        --red-cmd "node --test tests/data/embedded.test.mjs" --red-exit 1 --red-log tmp/r1h-cand/<id>/red.log [--files a,b,c]
 //   node candidates/r1h/_lib/record.mjs <id> --request-note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-<id>.md
 //        (route "release-request": the work is a change in files the release workstream owns; the note must exist and name the exact change)
+//   node candidates/r1h/_lib/record.mjs <id> --evidence candidates/r1h/<id>/evidence.json --test "<command>"
+//        (route "verification-record": evidence.json = {question, method, outcome: confirmed|refuted|not-found|blocked|mixed, points: [...]}; no red-first record is needed
+//         because the result may be a refutation or a failed lookup, which are valid outcomes; the test command re-checks every figure and quotation cited)
 //   node candidates/r1h/_lib/record.mjs <id> --check      re-run every recorded command and compare exit codes with STATUS.json; writes nothing
 //
 // Writes candidates/r1h/<id>/STATUS.json (route "source-rebuild"): every --test command is run here (through bash, from the repository root)
@@ -58,20 +61,31 @@ if (noteArg) {
   console.log(`${id}: passes=${o.passes}${pr.length ? '\n  ' + pr.join('\n  ') : ''}`);
   process.exit(o.passes ? 0 : 1);
 }
+const evidenceArg = one('--evidence');
 const testCmds = all('--test');
 const red = { cmd: one('--red-cmd'), exit: Number(one('--red-exit')), log: one('--red-log') };
 const redOk = Boolean(red.cmd) && Number.isInteger(red.exit) && red.exit !== 0 && red.log && fs.existsSync(path.join(REPO, red.log)) && fs.statSync(path.join(REPO, red.log)).size > 0;
+const evidenceProblems = [];
 const tests = testCmds.map(run);
+let evidence = null;
+if (evidenceArg) {
+  let ev = null;
+  try { ev = JSON.parse(fs.readFileSync(path.join(REPO, evidenceArg), 'utf8')); } catch { /* reported below */ }
+  const outcomes = ['confirmed', 'refuted', 'not-found', 'blocked', 'mixed'];
+  evidence = { file: evidenceArg, outcome: ev?.outcome ?? null, points: Array.isArray(ev?.points) ? ev.points.length : 0 };
+  if (!ev || !outcomes.includes(ev.outcome) || !evidence.points) problemsEv(`evidence file unreadable, outcome not one of ${outcomes.join('|')}, or no points[]`);
+}
+function problemsEv(m) { evidenceProblems.push(m); }
 const handoff = fs.existsSync(path.join(cdir, 'HANDOFF.md'));
-const problems = [];
+const problems = [...evidenceProblems];
 if (!testCmds.length) problems.push('no --test command');
 if (tests.some((t) => t.exit !== 0)) problems.push('a test command failed');
-if (!redOk) problems.push('no red-first record (need --red-cmd, a non-zero --red-exit and an existing non-empty --red-log)');
+if (!redOk && !evidenceArg) problems.push('no red-first record (need --red-cmd, a non-zero --red-exit and an existing non-empty --red-log)');
 if (!handoff) problems.push('no HANDOFF.md');
 const files = (one('--files') || '').split(',').map((s) => s.trim()).filter(Boolean);
 const missing = files.filter((f) => !fs.existsSync(path.join(REPO, f)));
 if (missing.length) problems.push(`listed files missing: ${missing.join(', ')}`);
-const out = { ...prev, id, route: 'source-rebuild', checked_at: new Date().toISOString(), files: files.length ? files : prev.files || [],
+const out = { ...prev, id, route: evidenceArg ? 'verification-record' : 'source-rebuild', evidence, checked_at: new Date().toISOString(), files: files.length ? files : prev.files || [],
   tests: tests.map(({ cmd, exit, ms, tail: tl }) => ({ cmd, exit, ms, tail: tl })), red_first: red.cmd ? { cmd: red.cmd, exit: red.exit, log: red.log } : prev.red_first || null,
   handoff_exists: handoff, passes: problems.length === 0, problems, state: problems.length === 0 ? 'tested' : 'built' };
 fs.mkdirSync(cdir, { recursive: true });

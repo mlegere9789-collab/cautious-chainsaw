@@ -55,17 +55,18 @@ Chapters 08a and 08b are the two halves of the sub-page chapter (08a Tier-1 page
 
 ## The backlog (`backlog.json`)
 
-705 entries, one per open item. 430 are build entries (a candidate patch group, source-rebuild work or a request to the release workstream); 101 are decision records (the delegated row exists, the consequence is carried by other entries); 174 are umbrellas that close with their children. Done now: 101 decision records, 0 of 430 build entries (a build entry is done only when candidates/r1h/<id>/STATUS.json verifies), 0 of 174 umbrellas.
+707 entries: one per open item plus 2 slices (an item cut into parts that can be built alone; the parent closes with its slices). 431 are build entries (a candidate patch group, source-rebuild work, a verification record or a request to the release workstream); 101 are decision records (the delegated row exists, the consequence is carried by other entries); 175 are umbrellas that close with their children. Done now: 101 decision records, 0 of 431 build entries (a build entry is done only when candidates/r1h/<id>/STATUS.json verifies), 0 of 175 umbrellas.
 
 | Route | Entries | Open |
 |---|---:|---:|
-| candidate patch group (candidates/r1h/<id>/) | 258 | 258 |
-| source-rebuild (src/, historian-src/, data-src/) | 166 | 166 |
-| request to the release workstream | 6 | 6 |
-| closes with its children | 174 | 174 |
+| candidate patch group (candidates/r1h/<id>/) | 230 | 230 |
+| source-rebuild (src/, historian-src/, data-src/) | 148 | 148 |
+| verification record (evidence, not a change) | 46 | 46 |
+| request to the release workstream | 7 | 7 |
+| closes with its children | 175 | 175 |
 | decision record | 101 | 0 |
 
-Open build entries by size: S 115, M 193, L 122 (an L entry must be sliced to M or smaller before it is dispatched; `split_hint` quotes the plan's own steps).
+Open build entries by size: S 115, M 194, L 122 (an L entry must be sliced to M or smaller before it is dispatched; `split_hint` quotes the plan's own steps).
 
 ### Wave 1: the first dispatch batch (30 entries)
 
@@ -101,7 +102,7 @@ Authored against the repository; pairwise independent (disjoint write sets, no d
 | 26 | `wp-dec-12` | candidate-group | S | No documented browser floor, no syntax gate: nothing stops a build from shipping syntax an older supported browser cannot parse. | Candidate docs/BROWSERS.md, browserslist, tools/es-check.mjs (acorn over every dist .js, seeded newer syntax = red) and a WebGL2 gate stub; floor numbers from the register only; passes on release/R1g/dist assets; nothing ships. |
 | 27 | `wp-content-01b` | candidate-group | S | The home page and the nav still describe the Historian as a "search-and-answer assistant"; one data row carries database wording; two gaps are phrased as facts about the past. | Group removing "search-and-answer assistant" (index.html, site-nav.js), the alias stub's database wording (alias_for kept) and two absence-as-fact strings; copy_lint AIPERSONA,ALIAS,ABSENCE = 0 on touched files (R1g: 4/1/2); historian.html left to wp-hist-01b; no title or meta change. |
 | 28 | `wp-time-08` | candidate-group | S | Two quotations in the chronology (t525, t530) have no matched primary wording; Law 4 forbids shipping a quote that cannot be matched. | Research + data patch: find the primary wording for the t525/t530 quotations in local OR27/ws9 (verbatim, confirmed by or27_find --verify) or record the lookup as failed and remove the quote marks; evidence.json lists every search; only those two rows change. |
-| 29 | `wp-hist-22` | source-rebuild | M | Unit pages, Ask the Historian and the SEO pages all need one export of what the corpus says per unit, with citations and rights fields. | historian-src/export/units.mjs: one units/<slug>.json per unit with <=3 excerpts of <=120 words, each verbatim from a cited corpus page with citation, scan address, licence id, reviewer null; no file for the alias stub; deterministic; schema, verbatim and tier checks in the test. |
+| 29 | `wp-hist-22-units` | source-rebuild | M | Unit pages, Ask the Historian and the SEO pages all need one export of what the corpus says per unit, with citations and rights fields. | historian-src/export/units.mjs: one units/<slug>.json per unit with <=3 excerpts of <=120 words, each verbatim from a cited corpus report with citation, scan address, licence id, reviewer null; no file for the alias stub; deterministic; schema, verbatim and tier checks. Units slice only. |
 | 30 | `wp-pagec-12` | candidate-group | S | The hidden AR page asks for the camera before motion permission and leaves the camera and position watch running after a failure. | Group on ar.html with a node:vm test and fake media/orientation/geolocation: motion permission requested first; after any denial no live track and clearWatch called; Exit stops both; distinct role=alert message per error code; page stays noindex and hidden. Red on R1g. |
 
 ### After wave 1: the next 40 build entries in order (acceptance is derived, not yet authored against the repository)
@@ -127,10 +128,10 @@ Authored against the repository; pairwise independent (disjoint write sets, no d
 | 49 | `wp-seo-11b` | candidate-group | S | legacy-a-line |  |  |
 | 50 | `wp-hist-34` | source-rebuild | S | legacy-a-line |  | owner-gated: counsel, owner's review |
 | 51 | `wp-content-20b` | candidate-group | S | legacy-a-line |  |  |
-| 52 | `hb-02` | source-rebuild | S | legacy-a-line |  | owner-gated: reviewer's |
+| 52 | `hb-02` | verification-record | S | legacy-a-line |  | owner-gated: reviewer's |
 | 53 | `owner-2026-10-04-5` | candidate-group | S | legacy-a-line |  |  |
-| 54 | `vd11-3` | candidate-group | S | legacy-a-line |  | owner-gated: counsel, owner review |
-| 55 | `vd14-5` | source-rebuild | S | legacy-a-line |  |  |
+| 54 | `vd11-3` | verification-record | S | legacy-a-line |  | owner-gated: counsel, owner review |
+| 55 | `vd14-5` | verification-record | S | legacy-a-line |  |  |
 | 56 | `wp-seo-12` | candidate-group | M | legacy-a-line |  | owner-gated: owner inputs |
 | 57 | `wp-data-01` | candidate-group | M | legacy-a-line |  |  |
 | 58 | `wp-data-02` | source-rebuild | M | legacy-a-line | `wp-data-01` |  |
@@ -155,7 +156,7 @@ Authored against the repository; pairwise independent (disjoint write sets, no d
 
 ## OWNER_ONLY: every step only the owner can take
 
-175 items need a legal act, an account, a key, a DNS change, a payment, a deployment, real hardware or a third party. The step is quoted from the item; Items under a roadmap node are listed with it.
+175 items need a legal act, an account, a key, a DNS change, a payment, a deployment, real hardware or a third party. The step is quoted from the item; a roadmap node and the items beneath it each list their own step, so some steps repeat on purpose.
 
 ### Chapter 01: Decision Register (34 ADRs) for gettysburginteractivemap.com (32)
 

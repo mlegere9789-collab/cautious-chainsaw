@@ -83,7 +83,7 @@ GARBAGE_CHARS = set('^|~{}<>•■°»«¬§¿„“”')
 def ocr_flags(name_toks, remarks, co, anchor_kind, kind, unit_kind):
     """Codes of the damage patterns that match the printed line (see the module docstring for the meaning of an empty result)."""
     codes = []
-    if kind in ('irregular', 'comma-lost', 'reviewed', 'bare-surname'):
+    if kind in ('irregular', 'comma-lost', 'reviewed', 'bare-surname', 'anchorless'):
         codes.append('head')
     if kind != 'xref':
         for t in name_toks:

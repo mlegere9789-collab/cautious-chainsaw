@@ -22,11 +22,11 @@ const asRegex = s => { const m = /^\/(.*)\/([a-z]*)$/.exec(String(s)); return m 
 const matchState = (want, got) => { const text = String(got ?? ''); return [].concat(want).some(w => { const re = asRegex(w); return re ? re.test(text) : fold(w) === fold(text); }); };
 
 // the record as GATE-SPEC-A TL-2 states a realization record: realized: [{ t_start, t_end, subjects[], probe, expected, observed_ref }]
-export function specView(rec) {
+export function specView(rec, only = []) {
   return (rec.checks || []).map((a, i) => {
     const t = a && a.t ? parseSpanSafe(a.t) : parseSpanSafe(rec.window), { type, t: _t, quote, note, ...rest } = a || {};
     const subjects = [...(assertionUnits(a || {}).map(entityId)), ...(a && a.structure ? [a.structure] : []), ...(a && a.work ? [a.work] : []), ...(a && a.place ? [a.place] : [])];
-    return { t_start: t && isoOf(t.from), t_end: t && isoOf(t.to), subjects, probe: { type, ...rest }, expected: rec.kind === 'not_realized' ? 'fail with the codes the record gives' : 'ok', observed_ref: `RESULTS.json#/rows/${rec.id}/assertions/${i}` };
+    return { t_start: t && isoOf(t.from), t_end: t && isoOf(t.to), subjects, scenarios: only[i] || null, probe: { type, ...rest }, expected: rec.kind === 'not_realized' ? 'fail with the codes the record gives' : 'ok', observed_ref: `RESULTS.json#/rows/${rec.id}/assertions/${i}` };
   });
 }
 const parseSpanSafe = o => { try { return parseSpan(o); } catch { return null; } };
@@ -41,14 +41,17 @@ export class Runner {
     if (!row || !v.span) { res.codes = uniq(res.problems.map(p => p.code)); res.why = res.problems.map(p => p.detail).slice(0, 3).join(' | '); return res; }
     res.window = { from: isoOf(v.span.from), to: isoOf(v.span.to) };
     try { await this._bindings(rec, row, res); } catch (e) { res.problems.push({ code: 'binding_error', detail: String(e && e.stack || e).slice(0, 300) }); }
-    const scs = rec.scenario === 'conflicts' ? this.P.conflictScenarios(row.text_raw || row.claim_text) : Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario ?? 'default']; res.scenarios = scs.map(s => (typeof s === 'string' ? s : s.id || JSON.stringify(s)));
-    res.spec_view = specView(rec);
+    // the scenarios the record is run in (each with its id), the ones it excludes with the reason, and the scenarios each check holds in (a check without "scenario" holds in every scenario of the record)
+    const plan = this._scenarioPlan(rec, row, res); res.scenarios = plan.list.map(x => x.id); res.excluded_scenarios = plan.excluded;
+    const only = (rec.checks || []).map(a => (a && a.scenario != null ? [].concat(a.scenario).map(x => (typeof x === 'string' ? x : this.P.scenarioId(x))) : null));
+    only.forEach((ids, i) => { for (const id of ids || []) if (!plan.seen.has(id)) res.problems.push({ code: 'check_scenario_unlisted', detail: `checks[${i}] holds in scenario "${id}", which the record does not run (it runs ${[...plan.seen].join(', ') || 'none'}); list the scenario in "scenario"` }); });
+    res.spec_view = specView(rec, only);
     const results = [];
-    for (const [si, sc] of scs.entries()) {
+    for (const { spec, id: scId } of plan.list) {
       for (const [i, a] of (rec.checks || []).entries()) {
-        if (!ASSERT[a && a.type]) continue;
-        let r; try { r = await this._assert(a, { rec, row, span: v.span, scene: this.P.scene(sc), scenario: sc }); } catch (e) { r = fail('assert_error', `${a.type} threw: ${String(e && e.message || e).slice(0, 300)}`, { stack: String(e && e.stack || '').split('\n').slice(0, 3).join(' / ') }); }
-        results.push({ i, scenario: scs.length > 1 ? res.scenarios[si] : undefined, type: a.type, ...r });
+        if (!ASSERT[a && a.type]) continue; if (only[i] && !only[i].includes(scId)) continue;
+        let r; try { r = await this._assert(a, { rec, row, span: v.span, scene: this.P.scene(spec), scenario: spec, scenSpec: this.P.scenarioSpec(spec) }); } catch (e) { r = fail('assert_error', `${a.type} threw: ${String(e && e.message || e).slice(0, 300)}`, { stack: String(e && e.stack || '').split('\n').slice(0, 3).join(' / ') }); }
+        results.push({ i, scenario: scId, type: a.type, ...r });
       }
     }
     res.assertions = results;
@@ -68,6 +71,23 @@ export class Runner {
     if (res.realized && Array.isArray(rec.not_shown) && rec.not_shown.length) res.partial = rec.not_shown;
     res.why = res.realized ? (res.partial ? 'the checks hold in the product; PARTIAL: ' + rec.not_shown.length + ' part(s) of the row are not shown' : 'every check holds in the product') : [...res.problems.slice(0, 2).map(p => `${p.code}: ${p.detail}`), ...failed.slice(0, 2).map(r => `${r.type} ${r.code}: ${r.detail}`)].join(' | ').slice(0, 600);
     return res;
+  }
+
+  // the scenarios of a record: the list it is run in, the values of source conflicts it excludes (GATE-SPEC TL-8: valid under each, or the record states which values it excludes and why)
+  _scenarioPlan(rec, row, res) {
+    const P = this.P, list = [], seen = new Set(), raw = rec.scenario === 'conflicts' ? P.conflictScenarios(row.text_raw || row.claim_text) : Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario ?? 'default'];
+    for (const spec of raw) {
+      let sc; try { sc = P.scenarioSpec(spec); } catch (e) { res.problems.push({ code: 'scenario_bad', detail: String(e.message || e) }); continue; }
+      const id = sc.key; if (seen.has(id)) { res.problems.push({ code: 'scenario_duplicate', detail: `scenario "${id}" is listed twice` }); continue; }
+      seen.add(id); list.push({ spec, id, sc });
+    }
+    const excluded = [];
+    for (const x of rec.scenario_excludes || []) {
+      let sc; try { sc = P.scenarioSpec(x && x.scenario); } catch (e) { res.problems.push({ code: 'scenario_excludes_bad', detail: String(e.message || e) }); continue; }
+      if (seen.has(sc.key)) res.problems.push({ code: 'scenario_excluded_is_run', detail: `scenario "${sc.key}" is both run and excluded` });
+      excluded.push({ id: sc.key, why: String(x.why || '') });
+    }
+    return { list, excluded, seen };
   }
 
   // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -276,7 +296,7 @@ export class Runner {
   async _structure(c) {
     const a = c.a, S = await this.P.structures('default'), id = a.structure, objs = S.byState.get(id) || [], eng = S.engine;
     if (!objs.length) { const nd = (S.inputs.data.notDrawn || []).find(x => x.id === id); if (eng.knows(id)) return fail('structure_not_drawn', `${id} has a state in the schedule but nothing is drawn for it${nd ? ': ' + nd.reason : ''}`, { schedule_only: true }); return fail('structure_unknown', `${id} is in no structure file`); }
-    const choice = a.structure_scenario ? { [id]: a.structure_scenario } : {}, mode = c.mode || 'any'; let last = null, okAt = null, n = 0;
+    const choice = { ...(c.scenSpec.structure || {}) }, mode = c.mode || 'any'; let last = null, okAt = null, n = 0;
     for (const t of c.mins) {
       const per = objs.map(o => S.model.describe(o.oid, t, choice)), bad = per.map(d => this._structureProblem(d, a)).find(Boolean);
       last = { t, per }; if (!bad) { n++; if (!okAt) okAt = t; if (mode === 'any') return ok({ at: isoOf(t), state: per[0].state && per[0].state.state, visual: per[0].visual && { A: per[0].visual.A, B: per[0].visual.B, mix: per[0].visual.mix }, objects: objs.map(o => o.id) }); }
@@ -299,18 +319,18 @@ export class Runner {
     return null;
   }
   async _work(c) {
-    const a = c.a, S = await this.P.structures('default'), eng = S.engine, id = a.work, mode = c.mode || 'any';
+    const a = c.a, S = await this.P.structures('default'), eng = S.engine, id = a.work, mode = c.mode || 'any', reading = (c.scenSpec.structure || {})[id] || 'default';
     const ws6 = await this._prepWs6(c.scene); if (!ws6 || ws6.error) return fail('adapter_missing', `the works lists are not built: ${ws6 && ws6.error}`);
     const cov = ws6.works.coverage.find(x => x.id === id); if (!cov) return fail('structure_unknown', `${id} is not a work of the works lists`);
     if (cov.decision !== 'drawn') return fail('structure_not_drawn', `${id} is ${cov.decision}: ${cov.reason}`);
     let okAt = null, last = null;
     for (const t of c.mins) {
-      const ms = Date.UTC(1863, 5, 1) + Math.round(t * 60000), res = eng.stateAt(id, ms, a.structure_scenario || 'default', 0); last = { t, res };
+      const ms = Date.UTC(1863, 5, 1) + Math.round(t * 60000), res = eng.stateAt(id, ms, reading, 0); last = { t, res };
       let bad = null; if (a.present != null && res.present !== a.present) bad = `present is ${res.present} (${res.state})`; else if (a.stage_min != null && !(res.stage != null && res.stage >= a.stage_min)) bad = `stage is ${res.stage} (${res.state}), needs >= ${a.stage_min}`; else if (a.stage_max != null && !(res.stage != null && res.stage <= a.stage_max)) bad = `stage is ${res.stage} (${res.state}), needs <= ${a.stage_max}`;
       if (!bad) { if (!okAt) okAt = t; if (mode === 'any') break; } else if (mode === 'all') return fail('work_wrong_stage', `${id} at ${isoOf(t)}: ${bad}`);
     }
     if (okAt == null) return fail('work_wrong_stage', `${id} is never in the stage the check needs in the window (last: ${last.res.state})`, { state: last.res.state });
-    const ev = { at: isoOf(okAt), state: eng.stateAt(id, Date.UTC(1863, 5, 1) + Math.round(okAt * 60000), a.structure_scenario || 'default', 0).state };
+    const ev = { at: isoOf(okAt), reading, state: eng.stateAt(id, Date.UTC(1863, 5, 1) + Math.round(okAt * 60000), reading, 0).state };
     if (a.crew) {
       const wp = (ws6.works.byId.get(id) || {}).place, place = wp && (typeof wp === 'string' ? wp : wp.name); const crewAssert = { type: 'unit_activity', units: a.crew.units, activities: ['build_works'], quantifier: a.crew.quantifier || 'any' };
       const cr = await this._units({ ...c, a: crewAssert }, (u, cc) => this._activity(u, { ...cc, a: crewAssert, mode: 'any' })); if (!cr.ok) return fail('work_no_crew', `no crew shows build_works in the window: ${cr.detail}`, { crew: cr.evidence });
@@ -365,10 +385,8 @@ export class Runner {
   }
   // ---- casualties
   _casualty(c) {
-    const a = c.a, S = c.scene, ids = (a.units || []).map(entityId); let k = 0, w = 0, m = 0, ev = 0; const units = new Set();
-    const list = ids.length ? ids.flatMap(id => this.P.leaves(id)) : [null];
-    for (const l of list) { const r = S.casualties(c.span.from, c.span.to, l); k += r.killed; w += r.wounded; m += r.missing; ev += r.events; for (const u of r.units) units.add(u); }
-    const tot = { killed: k, wounded: w, missing: m, events: ev, units: units.size };
+    const a = c.a, S = c.scene, ids = (a.units || []).map(entityId), r = S.casualtiesOf(ids, c.span.from, c.span.to), k = r.killed, w = r.wounded, m = r.missing, ev = r.events;
+    const tot = { killed: k, wounded: w, missing: m, events: ev, units: r.units.length, leaves: r.leaves };
     for (const [key, val] of [['killed_min', k], ['wounded_min', w], ['missing_min', m], ['events_min', ev]]) if (a[key] != null && val < a[key]) return fail('casualty_none', `the picture shows ${val} ${key.replace('_min', '')} (events) in ${isoOf(c.span.from)}..${isoOf(c.span.to)}, the check needs ${a[key]}`, tot);
     return ok(tot);
   }

@@ -46,6 +46,13 @@ node candidates/r1h/_lib/record.mjs <id> --check
 ```
 The red-first record is the failing run captured before the implementation (its log must exist and be non-empty).
 
+## A candidate of route "verification-record" (a question to settle, not a change to ship)
+
+For verification debts, audit corrections and exit criteria: the output is evidence. `candidates/r1h/<id>/evidence.json` = `{question, method, outcome, points: [{point, result, source}]}` with outcome one of `confirmed`, `refuted`, `not-found` (a failed lookup is recorded as failed), `blocked` (a refused host or a missing owner input is recorded, never worked around) or `mixed`; every figure and quotation it cites is re-checked by a test command. A refutation or a failed lookup is a valid, finished result; an invented source is not. Then:
+```
+node candidates/r1h/_lib/record.mjs <id> --evidence candidates/r1h/<id>/evidence.json --test "<command that re-checks the cited figures and quotations>"
+```
+
 ## A candidate of route "release-request" (the change is in files the release workstream owns)
 
 Write the request note `docs/battle-theatre/GOVERNANCE/horde/requests/main-site-<id>.md` (file, lines and exact text of the change, the red-first check the release workstream runs, its expected result, what was not run), a HANDOFF.md in this folder, then:

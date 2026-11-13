@@ -5,7 +5,7 @@ ROWS = []
 
 # ---------------------------------------------------------------------------------------------------------------- G-05
 ROWS.append(R(
-    'R13.G-05', 'corrected', 'open_gaps',
+    'R13.G-05', 'partially_supported', 'open_gaps',
     pdf_row="Smith's 4th NY (six 10-pdr Parrotts) | Devil's Den / Houck's Ridge | Arrived 09:00; four guns above Devil's Den at 14:00; one section shifted right about 18:00 | Improvised (ordered to fire west into the woods) | Two guns in the Plum Run valley fired canister at Benning's brigade; three ridge guns captured by the 1st Texas and later given to Henry's battalion | documented | SS-NY1958; GD-Smith; NPS-HB9",
     pdf_claim="Smith's 4th NY Independent Battery (six 10-pdr Parrotts) arrived at 09:00; four guns stood above Devil's Den at 14:00 and one section shifted right about 18:00; improvised (ordered to fire west into the woods); two guns in the Plum Run valley fired canister at Benning's brigade; three ridge guns were captured by the 1st Texas and later given to Henry's battalion.",
     corrected="Smith had six 10-pounder Parrotts. He rejoined the corps and division at 9 a.m. (Smith, 1888 address) and was led to Devil's Den about 1 p.m.; four guns stood on the crest (the rocky eminence was too small for more), two guns with the caissons 75 yd (address) or 150 yd (report) to the rear to cover the Plum Run gorge, because the four front guns could not be depressed to reach the gorge (address; NPS). The duel began about 2 p.m. (address) or 2:30 p.m. (report); Warren had Smith fire a shot into the woods and Hunt ordered the guns to open on Cabell's battalion (NPS, Hunt). The rear section opened with canister on the force pushing through the gorge; Benning wrote of 'the terrible fire' of two guns that swept the gorge. The OR has no 'section shifted right about 18:00': the battery stayed on the ground from 2 to 6 p.m. and the last guns were abandoned when the infantry gave way. Three guns on the hill were lost (one of the four had been withdrawn disabled). Who took them is a conflict: Benning ('the three front guns'), Waddell (20th Georgia), Robertson and Work (1st Texas, who count six guns, three brought off), and Henry's battalion journal ('captured and brought off the field this night three 10-pounder Parrott rifles'); Pendleton lists three 10-pdr Parrotts among the guns taken. Loss: 2 killed, 10 wounded, 11 horses killed and disabled; three Parrotts and carriages lost.",
@@ -22,6 +22,7 @@ ROWS.append(R(
         S('c', 'hour', "Action clocks: duel began about 2 p.m. (Smith 1888) or about 2:30 p.m. (Smith report); the battery was on the ground from 2 to 6 p.m.; four guns used against the infantry attack from about 3:30.", 'documented', 'conflict', [
             C('OR1', 'R184', "About 2.30 p. m. the enemy opened fire on my right and front from several guns, directing a portion of their fire upon my position. I was ordered by one of General Ward's aides' to return their fire"),
             C('LIB', 'NY-GB-1902-v3', "This artillery battle began about 2 p. m."),
+            C('LIB', 'NY-GB-1902-v3', "About 3:30 o'clock the enemy's infantry appeared in line of battle, moving directly upon the Round Tops"),
             C('LIB', 'NY-GB-1902-v3', "The battery was on the ground from 2 until 6 o'clock, p. m.")]),
         S('d', 'state_at_start', "State: improvised; the difficulty of getting the guns up the rocky height delayed Smith's opening; no work is named. NPS: Warren had Smith fire a shot into the woods; Smith's report: one of Ward's aides ordered him to return fire.", 'inferred', 'supported', [
             C('OR1', 'R028', "The difficulty of getting these guns up the height had caused the delay in Smith's opening his fire"),
@@ -70,7 +71,7 @@ ROWS.append(R(
     lookups=[L('OR Part 2', 'captured guns at Devil\'s Den', 8, "Benning, Waddell, Robertson, Work, Henry, Pendleton: three Parrotts (Robertson and Work count six)"),
              L('library', "Smith's Fourth New York Battery", 6, "1888 address in NY at Gettysburg vol. 3 (arrival 9 a.m., 75 yd, 2-6 p.m.) and the 1900 book")],
     structures=['G-05'],
-    changes=["G-05 supported -> corrected: arrival 09:00 and the four/two arrangement are now documented in the 1888 address; the 18:00 section shift is unsupported; capture attribution is a conflict, not a settled fact"],
+    changes=["G-05 supported -> partially_supported: arrival 09:00 and the four/two arrangement are now documented in the 1888 address; the 18:00 section shift is unsupported; capture attribution is a conflict, not a settled fact"],
 ))
 
 # ---------------------------------------------------------------------------------------------------------------- G-06
@@ -128,7 +129,7 @@ ROWS.append(R(
 
 # ---------------------------------------------------------------------------------------------------------------- G-07
 ROWS.append(R(
-    'R13.G-07', 'corrected', 'open_gaps',
+    'R13.G-07', 'partially_supported', 'open_gaps',
     pdf_row="Hart's 15th NY (four Napoleons) | Peach Orchard, on the Wheatfield Road facing south | Ordered forward 16:00; placed about 16:30; canister at about 17:30 | Improvised (open field) | Lieutenant Knox pulled a gun off by hand | documented | Wiki-15NY",
     pdf_claim="Hart's 15th NY Independent Battery (four Napoleons) in the Peach Orchard on the Wheatfield Road facing south; ordered forward 16:00, placed about 16:30, canister at about 17:30; improvised in an open field; Lieutenant Knox pulled a gun off by hand.",
     corrected="Hart had four light 12-pounders (Napoleons). The New York book of 1902 gives the timeline: ordered to the front at 4 p.m., placed by Hunt at 4:30 p.m. in the Peach Orchard with the four guns pointed south, shrapnel changed to canister as the Confederate infantry came into range, about two hours in action. Hart's report: McGilvery pointed out a position, Hunt ordered him to the left of the Peach Orchard; McGilvery says in a peach orchard on the right and a little in front of the New Jersey battery. 3 men killed, 5 wounded, 13 horses killed (report); 25 horses killed or wounded (book). About 5:45 the infantry gave way and he retired about a mile after dark. 'Wheatfield Road' is not in these texts. Knox is praised in Hart's report and wounded on 3 Jul, but nothing says he pulled a gun off by hand. On 3 Jul Hart stood in McGilvery's line (G-11); Hancock ordered him to open, McGilvery ordered him to cease.",
@@ -172,12 +173,12 @@ ROWS.append(R(
     lookups=[L('OR Part 1', 'Wheatfield road', 0, "no hit"),
              L('library NY at Gettysburg', 'Knox', 6, "praise and wound only; no gun hauled by hand")],
     structures=['G-07'],
-    changes=["G-07 partially_supported -> corrected: clocks now documented in the New York book (4 p.m., 4:30 p.m.); 'Wheatfield Road' and Knox's gun stay unsupported"],
+    changes=["G-07 partially_supported (unchanged verdict): clocks now documented in the New York book (4 p.m., 4:30 p.m.); 'Wheatfield Road' and Knox's gun stay unsupported"],
 ))
 
 # ---------------------------------------------------------------------------------------------------------------- G-08
 ROWS.append(R(
-    'R13.G-08', 'corrected', 'open_gaps',
+    'R13.G-08', 'confirmed', 'open_gaps',
     pdf_row="Huger's four batteries (Moody, Parker, Taylor, Rhett/Gilbert) of Alexander's battalion | Peach Orchard region, about 500 yd from the enemy | About 16:00 Jul 2 | No works described | Silenced Union guns in half an hour; 36 Confederate guns fired for 30 minutes at the Peach Orchard around 16:00 (Wikipedia) | documented | Alexander-OR; Wiki-D2",
     pdf_claim="Huger's four batteries (Moody, Parker, Taylor, Rhett/Gilbert) of Alexander's battalion stood in the Peach Orchard region about 500 yd from the enemy at about 16:00 on 2 Jul; no works; they silenced the Union guns in half an hour; 36 Confederate guns fired for 30 minutes at the Peach Orchard around 16:00.",
     corrected="Alexander's report names the four batteries (Moody, Parker, Taylor, Rhett under Lt Gilbert), Major Huger commanding all, placed about 4 p.m. in action against a heavy artillery and infantry force about 500 yd off in a peach orchard on the Emmitsburg pike; after a spirited half-hour engagement, assisted by Cabell's battalion, the guns were silenced (Pendleton: within an hour). Jordan's and Woolfolk's batteries came up as the infantry charged. The OR gives gun counts only for Taylor (four Napoleons) and, for Moody, four 24-pdr howitzers (Dearing, 3 Jul). Alexander's 1907 memoir gives the PDF's 36: 'about 3.45 P.M., 36 guns were in action against the Peach Orchard' = 18 of Cabell's battalion plus 18 of his own, with 8 of his guns held close behind and the Washington Artillery's 10 in reserve; ten guns of Henry's battalion were engaged across the Emmitsburg road. (The OR batteries of Cabell total 16, not 18: see G-09.) No works are described. A Mississippian detachment helped manoeuvre Moody's guns on very difficult ground; the battalion lost 139 men and 116 horses in the two days.",
@@ -192,7 +193,8 @@ ROWS.append(R(
         S('c', 'hour', "Hour and duration: about 4 p.m.; a spirited half-hour engagement (Alexander); within an hour (Pendleton); about 3:45 p.m. for the memoir's 36 guns.", 'documented', 'conflict', [
             C('OR2', 'R464', "After a spirited engagement of a half hour, assisted by Cabell's battalion from a short distance on our right, the enemy's guns were silenced"),
             C('OR2', 'R428', "Within an hour, however, his guns were silenced and his position was carried"),
-            C('OR2', 'R465', "About 4 p.m. I was ordered into position within 500 yards of the enemy's batteries")]),
+            C('OR2', 'R465', "About 4 p.m. I was ordered into position within 500 yards of the enemy's batteries"),
+            C('LIB', 'ALEXANDER-1907', "After this cannonade had continued for perhaps 30 minutes, Hood received the order to advance", page='395')]),
         S('d', 'count', "Guns: the OR gives Taylor's four Napoleons and (3 Jul) Moody's four 24-pdr howitzers; no OR text gives Parker's or Rhett's count. Alexander's memoir (1907): 18 guns of his battalion in front of Barksdale (plus 8 held close), 18 of Cabell's, 36 against the Peach Orchard at about 3:45 p.m.; 10 of Henry's across the Emmitsburg road; the Washington Artillery's 10 in reserve.", 'documented', 'conflict', [
             C('OR2', 'R465', "I opened upon the batteries with my four Napoleons, firing canister and spherical case"),
             C('OR2', 'R442', "Captain Moody's four 24-pounder howitzers"),
@@ -219,5 +221,5 @@ ROWS.append(R(
     lookups=[L('OR Part 2', 'Alexander, Huger, Moody, Parker, Taylor, Rhett', 10, "report and battery reports read; per-battery counts only for Taylor and Moody"),
              L('library', 'Alexander 1907 guns Peach Orchard', 3, "36 guns at about 3:45 p.m.: 18 + 18; 10 of Henry's; Washington Artillery's 10")],
     structures=['G-08'],
-    changes=["G-08 gap -> corrected: the 36-gun figure traces to Alexander's 1907 memoir, which is a participant source; the OR per-battery counts remain a gap"],
+    changes=["G-08 partially_supported -> confirmed: the 36-gun figure traces to Alexander's 1907 memoir, which is a participant source; the OR per-battery counts remain a gap"],
 ))

@@ -457,6 +457,36 @@ def parse_section(text, pm, leaf_a, leaf_b, kind, title_re, unit=''):
             orphans.append(k)                       # overlaps the previous head: left to the report
             continue
         heads.append((h[0], k, a[0], a[1], h[1]))
+    # an entry whose data the OCR lost: a regular head ("Young, Harrison De P.") followed at once by the head of the next entry
+    if kind == 'co':
+        starts = sorted(h[0] for h in heads)
+        extra = []
+        for q, st in enumerate(starts):
+            e = st - 1
+            steps = 0
+            while e > 0 and steps < 3 and _junk(toks[e].w) and not _ends(toks[e].w):
+                e -= 1
+                steps += 1
+            if e < 1 or not LAST_GIVEN.match(toks[e].w) or toks[e].w[-1] != '.' or (e + 1 < len(toks) and e + 1 == st and False):
+                continue
+            prev_end = max((h[1] + h[2] for h in heads if h[0] < st), default=0)
+            for s0 in range(e - 1, max(prev_end, e - 7), -1):
+                w = toks[s0].w
+                if not SURNAME_TOK.match(w) or _letters(w) < 3 or not _given_ok(toks[s0 + 1:e], toks[e]) or not _strict_boundary(toks, s0) or _address_marker(toks, s0):
+                    continue
+                if w.strip('.,') in ABBREV_STOP or w.strip('.,') in PLACE_STOP or toks[e].w.strip('.,') in PLACE_STOP or toks[e].w.strip('.,') in ABBREV_STOP \
+                        or toks[s0 - 1].w.strip('.,') in ('Ft', 'Pt', 'St', 'Mt', 'Camp', 'Fort'):
+                    continue
+                if not any(re.match(r"^" + LEAD + r"[A-Z][a-z]{2,}", t.w) and t.w.strip('.,') not in PLACE_STOP and t.w.strip('.,') not in ABBREV_STOP for t in toks[s0 + 1:e + 1]):
+                    continue                        # the given part must hold a full given name; "Monroe, Va." or "Schuyler, N. Y." is a place
+                if any(re.search(r'\b(?:with|identical|See|Service|Navy|Marine|Corps)\b', ' '.join(x.w for x in toks[max(0, s0 - 4):s0 + 1])) for _ in (0,)):
+                    continue
+                extra.append((s0, e + 1, 0, '', 'anchorless'))
+                break
+        for h in extra:
+            heads = [x for x in heads if not (x[0] < h[1] and x[1] + x[2] > h[0])]
+            heads.append(h)
+        heads.sort(key=lambda h: h[0])
     # reviewed cuts
     for off, o in ov_at:
         i0 = next(q for q, t in enumerate(toks) if t.s == off)
@@ -482,14 +512,12 @@ def build_entries(text, pm, toks, heads, bare):
     for i, (s0, k0, al, co, typ) in enumerate(allh):
         end = allh[i + 1][0] if i + 1 < len(allh) else len(toks)
         name_toks = toks[s0:k0]
-        rem_toks = toks[k0:end]
-        if not rem_toks:
-            raise AssertionError('entry without data at offset %d' % toks[s0].s)
+        rem_toks = toks[k0 + (al if typ == 'anchorless' else 0):end] if typ == 'anchorless' else toks[k0:end]
         off = toks[s0].s
         leaf = pm.leaf(off)
         if co in ('J', 'L', 'M'):
             co = ''                                   # a letter that is no company of these units (A to K without J): the OCR damaged the letter, so none is stated
-        entries.append({'kind': typ, 'co': co, 'name_toks': name_toks, 'rem_toks': rem_toks, 'off': off, 'rd': rem_toks[0].s - off,
+        entries.append({'kind': typ, 'co': co, 'name_toks': name_toks, 'rem_toks': rem_toks, 'off': off, 'rd': (rem_toks[0].s - off) if rem_toks else 0,
                         'page': pm.printed(leaf) if leaf is not None else None, 'leaf': leaf})
     return entries
 
@@ -589,12 +617,12 @@ def main(argv):
         seg = {'s': SOURCE_ID, 'v': vol, 't': '%s.%s' % (SOURCE_ID, vol), 'lay': 'flow'}
         segs = [(seg, rows)]
         stv = R.verify_rows(segs, {seg['t']: text}, {seg['t']: pm})
-        ok = len(stv['defects']) == 0 and stv['name_ok'] == len(rows) and stv['remark_ok'] == len(rows) and stv['page_ok'] == len(rows)
+        ok = len(stv['defects']) == 0 and stv['name_ok'] == len(rows) and stv['remark_ok'] + stv['remark_empty'] == len(rows) and stv['page_ok'] == len(rows)
         failures += 0 if ok else 1
         # the parser's own assertion, row by row: the printed name and the first remark token are found where the row says
         for r in rows:
             assert text[r[5]:r[5] + len(r[0].split()[0])] == r[0].split()[0], 'name not at its offset: %r' % (r,)
-            assert text[r[5] + r[6]:r[5] + r[6] + len(r[3].split()[0])] == r[3].split()[0], 'remarks not at their offset: %r' % (r,)
+            assert not r[3] or text[r[5] + r[6]:r[5] + r[6] + len(r[3].split()[0])] == r[3].split()[0], 'remarks not at their offset: %r' % (r,)
         ov = order_violations(entries)
         res = {'unit': key, 'designation': desig, 'volume': vol, 'text_id': seg['t'], 'leaves': [la, lb - 1], 'summary_leaf': lb,
                'printed_pages': [pm.printed(la), pm.printed(lb - 1)], 'heads': len(heads), 'bare_cross_refs': len(bare),
@@ -623,7 +651,7 @@ def main(argv):
 
 
 FLAG_CODES = {'N': 'name text damaged (a digit or mark inside a name token, a lower-case letter inside a token, a lower-case first letter, a period where the comma belongs)',
-              'H': 'the head of the entry (name up to the data) was cut by the irregular rule, the comma-lost rule, the surname-only rule or a reviewed cut (parse_nh_ayling.py OVERRIDES)',
+              'H': 'the head of the entry (the name, up to where the data begins) is damaged in the text layer and was cut by a fallback rule or by a reviewed cut: the printed words are kept, where the head ends is a reading',
               'C': 'the company token is damaged or cannot be read as a company letter',
               'Y': 'a year in the line is damaged (for example 04 or 05 or 6\'1 for 64 or 65 or 61)',
               'A': 'the age item is damaged',

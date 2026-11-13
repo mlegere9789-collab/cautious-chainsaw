@@ -12,6 +12,7 @@ const CROPCODE = { forest_floor: 0, wheat: 1, rye: 2, barley: 3, oats: 4, corn: 
 const STAGECODE = { being_cut: 1, cut_shocked: 2, stubble: 3, mown: 4, hay_stubble: 5, plowed: 6, winter_grain_sprouts: 7, corn_stubble: 8, dormant_grass: 9, dormant_marsh: 9, rock: 10, shaded_litter: 11, leaf_litter: 11 };
 const TIERCODE = { documented: 0, inferred: 1, 'plausible-procedural': 2, 'open gap': 3 };
 const STATE_K = 4;                                           // texels per unit
+const smooth01 = x => { const t = Math.min(1, Math.max(0, x)); return t * t * (3 - 2 * t); };
 const unpackPlain = gl => { gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false); };   // the pixel-store state is the context's, shared with every other layer
 
 const COMMON = /* glsl */`
@@ -40,9 +41,11 @@ in vec3 vWp; flat in float vU; out vec4 o;
 void main() {
   int u = int(vU + 0.5);
   vec4 s0 = stx(u, 0), s1 = stx(u, 1), s2 = stx(u, 2), s3 = stx(u, 3);
-  vec3 alb = s2l(s0.rgb); int crop = int(s0.w + 0.5);
+  int crop = int(s0.w + 0.5);
   float hgt = s1.x, tr = s1.y, cutf = s1.z, lodge = s1.w; float tier = s2.x; float rows = s2.w; float stage = s3.x;
   vec2 xz = vWp.xz; float dist = length(vWp - cam.xyz);
+  vec3 alb = s2l(s0.rgb);
+  if (crop == 0) alb = mix(alb, s2l(s3.yzw), 0.9 * smoothstep(70.0, 520.0, dist));      // seen from far off, a wood is its canopy (in winter its bare crowns), not its floor; close to, the floor
   float n1 = vn2(xz * 0.045), n2 = vn2(xz * 0.31), n3 = vn2(xz * 1.9), n4 = vn2(xz * 7.3);
   bool ground = crop >= 1 && crop <= 7;
   float vis = (uVisitOn > 0.5 && ground) ? textureLod(uVisit, (xz - uGrid.xy) * uGrid.zw, 0.0).r : 1.0e9;
@@ -128,7 +131,7 @@ void main() {
   else {
     float cover = clamp(leaf, 0.0, 1.0);
     float keep = hsh(uint(gl_FragCoord.x) * 1973u + uint(gl_FragCoord.y) * 9277u + uint(seed * 65535.0));
-    if (keep > 0.15 + 0.85 * cover) discard;
+    if (keep > 0.12 + 0.88 * smoothstep(0.0, 0.9, cover)) discard;                 // a full canopy (0.92 to 1) has no holes; a thinning one is dithered
     vec3 green = mix(uSpA[sp], uSpB[sp], fract(seed * 7.31));
     vec3 bare = s2l(vec3(0.27, 0.22, 0.17)) * (0.8 + 0.4 * fract(seed * 3.7));
     col = mix(bare, green, smoothstep(0.35, 0.8, cover));
@@ -195,6 +198,9 @@ export class VegGL {
     this.visitTex = null; this.grid = null; this.tq = null; this.choicesKey = null;
     this.spA = new Float32Array(24 * 3); this.spB = new Float32Array(24 * 3); const lin = c => c.map(v => Math.pow(Math.max(0, v), 2.2)); model.speciesList.forEach((n, i) => { const c = model.species[n].color; this.spA.set(lin(c[0]), i * 3); this.spB.set(lin(c[1]), i * 3); });
     this.tierCol = new Float32Array([0.30, 0.78, 0.38, 0.95, 0.72, 0.18, 0.62, 0.36, 0.86, 0.60, 0.60, 0.60].map(v => Math.pow(v, 2.2)));
+    // the colour of a woodlot seen from above: the mean of its species' mid colours (the data's shares), sRGB; the leaf cover mixes it with bare crowns at each time
+    this.canopy = new Float32Array((model.units.length + 1) * 3);
+    model.units.forEach((u, i) => { if (!u.woods) return; let w = 0, c = [0, 0, 0]; for (const [n, share] of Object.entries(u.woods.species)) { const sp = model.species[n]; if (!sp) continue; for (let k = 0; k < 3; k++) c[k] += share * (sp.color[0][k] + sp.color[1][k]) / 2; w += share; } for (let k = 0; k < 3; k++) this.canopy[i * 3 + k] = w ? c[k] / w : [0.2, 0.34, 0.13][k]; });
     this.vp = new Float32Array(16); this.view = new Float32Array(16); this.proj = new Float32Array(16); this.planes = new Float32Array(24);
     gl.activeTexture(gl.TEXTURE0);
   }
@@ -209,6 +215,10 @@ export class VegGL {
         b[o] = g.color[0]; b[o + 1] = g.color[1]; b[o + 2] = g.color[2]; b[o + 3] = code;
         b[o + 4] = (g.h[0] + g.h[1]) / 2; b[o + 5] = g.trample; b[o + 6] = g.cut; b[o + 7] = g.lodging; b[o + 12] = STAGECODE[g.stage] ?? 0; b[o + 13] = g.shockH ? (g.shockH[0] + g.shockH[1]) / 2 : 0;
       } else { b.fill(0, o, o + 16); }
+      if (M.units[i].woods && tr) {                                                // texel 3, y z w: the canopy as seen from above (sRGB)
+        const k = smooth01((tr.leaf - 0.35) / 0.45), bare = [0.27, 0.22, 0.17];
+        for (let c = 0; c < 3; c++) b[o + 13 + c] = bare[c] + (this.canopy[i * 3 + c] - bare[c]) * k;
+      }
       b[o + 8] = TIERCODE[s.tiers.stage || s.tiers.species || s.tier] ?? 2; b[o + 9] = tr ? tr.leaf : 1; b[o + 10] = tr ? tr.strip : 0; b[o + 11] = (M.units[i].p && M.units[i].p.rows_deg) || 0;
     }
     // the witness trees share the last pseudo-unit: full leaf

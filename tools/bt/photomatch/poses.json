@@ -451,52 +451,6 @@
    ]
   },
   {
-   "id": "P13",
-   "loc_id": "2012647708",
-   "photo": {
-    "file": "tmp/photomatch/loc/ppmsca.32842_v.jpg",
-    "resource": "ppmsca.32842",
-    "crop": [
-     0.03,
-     0.04,
-     0.97,
-     0.96
-    ],
-    "crop_basis": "print area read by eye from the image (fractions of the file)"
-   },
-   "statement_ids": [
-    "PS-TN-LRT1-DIR",
-    "PS-NPS-VISTA-10",
-    "PS-LOC-2012647708-T"
-   ],
-   "position": {
-    "anchor": "GZ-052",
-    "offset_m": [
-     -250,
-     -20
-    ],
-    "tier": "plausible-procedural",
-    "sigma_m": 200,
-    "basis": "NPS Then-And-Now: Little and Big Round Top from the Valley of Death, facing southeast (image match with this record, 1046 inliers); NPS vista-cutting report: a Brady view of Little Round Top from the northwest at a point near the present intersection of Wheatfield Road and Crawford Avenue (which of the two Brady views this record is is not stated, but the direction and content agree). The intersection is not in the model: the camera is taken on the Wheatfield Road line 250 m west of its gazetteer centre (assumption)."
-   },
-   "heading": {
-    "fixed_deg": 150,
-    "tier": "plausible-procedural",
-    "basis": "NPS: facing southeast (135 degrees plus or minus 22); 150 degrees is chosen so that both named hills, Little Round Top (bearing 138) and Big Round Top (bearing 170), lie inside a 40-degree field: it uses the title's content, not pixel positions"
-   },
-   "fov": {
-    "h_deg": 40,
-    "tier": "plausible-procedural",
-    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
-   },
-   "staged_flag": false,
-   "fitted_to_photograph": false,
-   "landmarks": [
-    "MON-101",
-    "GZ-010"
-   ]
-  },
-  {
    "id": "P17",
    "loc_id": "2018666297",
    "photo": {
@@ -745,6 +699,55 @@
    },
    "staged_flag": false,
    "fitted_to_photograph": true
+  }
+ ],
+ "deferred_poses": [
+  {
+   "id": "P13",
+   "loc_id": "2012647708",
+   "photo": {
+    "file": "tmp/photomatch/loc/ppmsca.32842_v.jpg",
+    "resource": "ppmsca.32842",
+    "crop": [
+     0.03,
+     0.04,
+     0.97,
+     0.96
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file)"
+   },
+   "statement_ids": [
+    "PS-TN-LRT1-DIR",
+    "PS-NPS-VISTA-10",
+    "PS-LOC-2012647708-T"
+   ],
+   "position": {
+    "anchor": "GZ-052",
+    "offset_m": [
+     -250,
+     -20
+    ],
+    "tier": "plausible-procedural",
+    "sigma_m": 200,
+    "basis": "NPS Then-And-Now: Little and Big Round Top from the Valley of Death, facing southeast (image match with this record, 1046 inliers); NPS vista-cutting report: a Brady view of Little Round Top from the northwest at a point near the present intersection of Wheatfield Road and Crawford Avenue (which of the two Brady views this record is is not stated, but the direction and content agree). The intersection is not in the model: the camera is taken on the Wheatfield Road line 250 m west of its gazetteer centre (assumption)."
+   },
+   "heading": {
+    "fixed_deg": 150,
+    "tier": "plausible-procedural",
+    "basis": "NPS: facing southeast (135 degrees plus or minus 22); 150 degrees is chosen so that both named hills, Little Round Top (bearing 138) and Big Round Top (bearing 170), lie inside a 40-degree field: it uses the title's content, not pixel positions"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "MON-101",
+    "GZ-010"
+   ],
+   "deferred_reason": "registered 2026-11-13 after the NPS image match identified the record; its render and review sheet were not made because the machine lock queue did not grant a slot in the session (a job is queued: node tools/bt/photomatch/run.mjs P13); to finish it, run run.mjs, compose.py P13, look at the sheet, write the verdict, and move this entry back into poses"
   }
  ]
 }

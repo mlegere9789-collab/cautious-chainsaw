@@ -1,0 +1,39 @@
+# red-first capture for ver-hist-node
+# date: 2026-11-13T21:00:18Z
+# node: /opt/node22/bin/node v22.23.4
+# tools/historian/ingest/times.mjs blob: cdc9c0a17c0b433fec6fc50092f3368e9428c50e (identical to HEAD: yes)
+# command: node --test tests/historian/atime.test.mjs
+#
+TAP version 13
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/atime.test.mjs
+not ok 1 - tests/historian/atime.test.mjs
+  ---
+  duration_ms: 92.770887
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/atime.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 100.122622
+# exit: 1

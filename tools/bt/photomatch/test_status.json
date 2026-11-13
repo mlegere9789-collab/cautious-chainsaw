@@ -1,0 +1,6 @@
+{
+ "_doc": "What was run on 2026-11-13 and what came of it (written by hand after the runs; read by make_doc.py for the report).",
+ "photomatch_q16_test": {"command": "node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs", "pass": 10, "fail": 0, "skipped": 1, "skipped_what": "render determinism (needs the machine lock; queued)"},
+ "old_test": {"command": "node --test tests/photomatch.test.mjs", "pass": 2, "fail": 3, "why": "it asserts archive.org-only ledger urls, gazetteer-only anchors and the first-run verdicts.json shape; see the request note bt-web-photomatch-old-test.md"},
+ "full_node_suite": "not run"
+}

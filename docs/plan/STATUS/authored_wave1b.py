@@ -161,7 +161,7 @@ A('wp-time-18', area='time', route='source-rebuild', size='M',
 
 A('wp-arch-09', area='rebuild', route='source-rebuild', size='M',
   value='Foundation of the whole rebuild chain (WP-ARCH-10..33): until a workspace, layout and config module exist, nothing else of the rebuild can start.',
-  files=['src/README.md', 'src/app/README.md', 'src/lib/README.md', 'src/package.json', 'src/config/mapbox.js', 'src/config/tokens.test.mjs', 'src/tsconfig.base.json', 'src/STACK.md', 'candidates/r1h/wp-arch-09/STATUS.json', 'candidates/r1h/wp-arch-09/HANDOFF.md'],
+  files=['src/README.md', 'src/app/README.md', 'src/lib/README.md', 'src/package.json', 'src/config/mapbox.js', 'src/config/tokens.test.mjs', 'src/tsconfig.base.json', 'src/STACK.md', 'docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-arch-09.md', 'candidates/r1h/wp-arch-09/STATUS.json', 'candidates/r1h/wp-arch-09/HANDOFF.md'],
   reads=['package.json', 'docs/plan/FINAL/03-source-rebuild-and-parity.md (WP-ARCH-09)', 'docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md rows A10, A11', 'src/lib/time'],
   acceptance=(
       'Layout: packages/<name> of the plan maps to src/lib/<name> (src/lib/time exists) and apps/web to src/app; tests of new areas sit beside the code (src/<area>/tests) because tests/ is shared; this mapping is recorded in src/STACK.md with the stack choices that the register fixes (React 18.3.1 exact per row A10, Mapbox GL behind a facade, strict TypeScript for new files, Node 24 for the toolchain with the container default 22.23.4 still able to run every test of this workstream) '
@@ -202,17 +202,6 @@ A('wp-time-08', area='data', route='candidate-group', size='S',
       'No quote is written that the matcher did not confirm; a quote found only on a blog, Wikipedia or from memory is not a source.'),
   short='Research + data patch: find the primary wording for the t525/t530 quotations in local OR27/ws9 (verbatim, confirmed by or27_find --verify) or record the lookup as failed and remove the quote marks; evidence.json lists every search; only those two rows change.',
   owed='A historian\'s confirmation of the wording remains owner-side.')
-
-A('wp-hist-22', area='historian', route='source-rebuild', size='M',
-  value='Unit pages, Ask the Historian and the SEO pages all need one export of what the corpus says per unit, with citations and rights fields.',
-  files=['historian-src/export/units.mjs', 'historian-src/export/schema.units.json', 'tests/historian/export-units.test.mjs', 'candidates/r1h/wp-hist-22/STATUS.json', 'candidates/r1h/wp-hist-22/HANDOFF.md'],
-  reads=['data-src/build/unit_index.json', 'data-src/build/unit_registry.json', 'historian-src/corpus/or27/manifest.json', 'historian-src/core', 'docs/plan/FINAL/14-ask-the-historian-expansion.md (WP-HIST-22)'],
-  acceptance=(
-      'Red first: tests/historian/export-units.test.mjs fails before the exporter exists. `node historian-src/export/units.mjs --out tmp/r1h-cand/wp-hist-22/export` writes one `units/<slug>.json` per unit of data-src/build/unit_index.json that has at least one Official Records passage (and none for the alias stub U-14BK), each with at most three excerpts of at most 120 words, every excerpt carrying its citation (volume, part, report id, printed page), the scan address, the licence id (from docs/historian/sources.yaml) and `reviewer: null`; '
-      'the build is deterministic (two runs byte-identical, content-hashed file names listed in an index). The test asserts: schema validity of every file, the word limits, every excerpt is a verbatim substring of the corpus page text named in its citation (no rewriting), no excerpt from a source that is not Tier A or B in the registry, the alias stub has no file, and a unit with no passage has no file and is listed in the index with `reason: "no passage"`. '
-      'Runs under node 22 and 24 (after ver-hist-node) or states which; the export is a candidate and ships nowhere (HANDOFF.md).'),
-  short='historian-src/export/units.mjs: one units/<slug>.json per unit with <=3 excerpts of <=120 words, each verbatim from a cited corpus page with citation, scan address, licence id, reviewer null; no file for the alias stub; deterministic; schema, verbatim and tier checks in the test.',
-  owed='Unit pages themselves wait for the SEO thin-content gate (WP-SEO-15).')
 
 A('wp-pagec-12', area='pages', route='candidate-group', size='S',
   value='The hidden AR page asks for the camera before motion permission and leaves the camera and position watch running after a failure.',

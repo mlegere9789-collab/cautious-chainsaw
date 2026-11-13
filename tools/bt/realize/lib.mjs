@@ -11,12 +11,22 @@ export const GOV = path.join(BT, 'GOVERNANCE');
 export const REAL = path.join(GOV, 'realizations');
 export const rel = p => path.relative(ROOT, p).split(path.sep).join('/');
 
-export const readText = p => fs.readFileSync(p, 'utf8');
+// Every file the harness reads goes through readText (or is noted with noteRead): the digest of the inputs of a run (check.mjs, query.mjs inputsDigest) hashes exactly the files read, so a change to any
+// of them changes the digest, whichever record asked for it. The shell's own loaders read through the fetch shim of query.mjs, which notes its reads too.
+const READS = new Set();
+export const noteRead = p => { READS.add(rel(p)); };
+export const trackedReads = () => [...READS].sort();
+export const readText = p => { noteRead(p); return fs.readFileSync(p, 'utf8'); };
 export const readJSON = p => JSON.parse(readText(p));
 export const readJSONL = p => readText(p).split(/\r?\n/).filter(l => l.trim()).map((l, i) => { try { return JSON.parse(l); } catch (e) { throw new Error(`${rel(p)} line ${i + 1}: ${e.message}`); } });
 export const exists = p => fs.existsSync(p);
 export const sha256 = buf => crypto.createHash('sha256').update(buf).digest('hex');
 export const sha256File = p => sha256(fs.readFileSync(p));
+// every file below a directory (sorted, forward slashes), optionally only those matching a pattern
+export function walkFiles(dir, re = null) {
+  const out = []; const go = d => { for (const e of fs.readdirSync(d, { withFileTypes: true }).sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))) { const p = path.join(d, e.name); if (e.isDirectory()) go(p); else if (!re || re.test(e.name)) out.push(p); } };
+  if (fs.existsSync(dir)) go(dir); return out;
+}
 
 // ---- the theatre clock: minutes since 1863-06-01 00:00 local mean time (the unit of app/src/clock.mjs and of GOVERNANCE/timeline_windows.jsonl)
 const MDAYS = { 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30 };
@@ -72,3 +82,24 @@ export function designatorHits(s) {
   return out;
 }
 export const round = (x, d = 1) => (x == null || !Number.isFinite(x) ? x : Math.round(x * 10 ** d) / 10 ** d);
+
+// ---- the words of a text with their case and their naming context (query.mjs unitsNamedIn). A surname names a unit only as a PROPER NOUN: capitalised in the text; and where the same word is also an
+// ordinary word of the timeline (day, stone, early, hill, iron ...: lower case somewhere in the printed rows) only in a naming context: a possessive ("Day's brigade"), a unit noun after it
+// ("Iron Brigade", "Stone division") or a title before it ("Gen. Early"). Otherwise "all day" would name Day's brigade and "stone wall" Stone's.
+export const wordKey = w => fold(unpossess(w)).replace(/[^a-z0-9]/g, '');
+export const UNIT_NOUN = new Set(['division', 'divisions', 'div', 'brigade', 'brigades', 'bde', 'bdes', 'corps', 'battalion', 'battalions', 'bn', 'battery', 'batteries', 'btty', 'btry', 'regiment', 'regiments', 'command', 'men', 'troops', 'infantry', 'cavalry', 'artillery', 'column', 'staff', 'hq', 'headquarters', 'guns', 'legion', 'rangers', 'sharpshooters', 'volunteers']);
+export const TITLE = new Set(['gen', 'general', 'col', 'colonel', 'lt', 'lieutenant', 'maj', 'major', 'capt', 'captain', 'brig', 'mg', 'bg', 'ltg', 'sgt', 'cpl', 'pvt', 'dr', 'rev', 'prof', 'gov', 'surg', 'asst']);
+export function wordInfo(text) {
+  const t = String(text ?? '').replace(/\ufffd/g, '\u2019'), re = /[A-Za-z\u00c0-\u024f][A-Za-z\u00c0-\u024f\u2019']*/g, ws = []; let m;
+  while ((m = re.exec(t))) {
+    const raw = m[0], pm = /^(.*?)(?:[\u2019']s|[\u2019'])$/i.exec(raw), base = pm ? pm[1] : raw; if (!base) continue;
+    ws.push({ key: wordKey(base), cap: /^[A-Z\u00c0-\u00de]/.test(base), poss: !!pm });
+  }
+  // -> Map key -> { cap: capitalised somewhere, ctx: capitalised in a naming context somewhere, prev: first letters of the words directly before its capitalised occurrences ("Fitz Lee", "F. Lee": f) }
+  const out = new Map();
+  ws.forEach((w, i) => {
+    if (!w.key) return; const nx = ws[i + 1], pv = ws[i - 1], ctx = w.poss || (nx && UNIT_NOUN.has(nx.key)) || (pv && TITLE.has(pv.key)), cur = out.get(w.key) || { cap: false, ctx: false, prev: new Set() };
+    if (w.cap) { cur.cap = true; if (ctx) cur.ctx = true; if (pv && pv.key) cur.prev.add(pv.key[0]); } out.set(w.key, cur);
+  });
+  return out;
+}

@@ -195,7 +195,7 @@ export function stateAt(model, unit, tMin, choices) {
   }
   if (u.cls === 'boulder') { out.ground = { crop: 'open_rock', label: 'Boulder ground', stage: 'rock', color: [0.46, 0.43, 0.38], colorRange: [[0.42, 0.40, 0.35], [0.5, 0.46, 0.4]], h: [0, 0.1], hStanding: [0, 0.1], cut: 0, shockH: null, trample: 0, lodging: 0 }; out.tiers.crop = 'inferred'; out.tiers.stage = 'inferred'; out.tiers.height = 'inferred'; out.tiers.colour = 'plausible-procedural'; }
   if (u.cls === 'woods' || u.cls === 'scatter') {          // the ground under a woodlot: leaf litter and shade, not a crop
-    out.ground = { crop: 'forest_floor', label: 'Woodlot floor', stage: season === 'window' ? 'shaded_litter' : 'leaf_litter', color: season === 'window' ? [0.2, 0.21, 0.13] : [0.34, 0.27, 0.17], colorRange: [[0.15, 0.17, 0.1], [0.26, 0.26, 0.16]], h: [0, 0.2], hStanding: [0, 0.2], cut: 0, shockH: null, trample: 0, lodging: 0 };
+    out.ground = { crop: 'forest_floor', label: 'Woodlot floor', stage: season === 'window' ? 'shaded_litter' : 'leaf_litter', color: season === 'window' ? [0.31, 0.29, 0.18] : [0.34, 0.27, 0.17], colorRange: [[0.25, 0.24, 0.15], [0.38, 0.35, 0.22]], h: [0, 0.2], hStanding: [0, 0.2], cut: 0, shockH: null, trample: 0, lodging: 0 };
     out.tiers.crop = 'plausible-procedural'; out.tiers.stage = 'plausible-procedural'; out.tiers.height = 'plausible-procedural'; out.tiers.colour = 'plausible-procedural';
   }
   out.tiers.geometry = u.geom_tier;

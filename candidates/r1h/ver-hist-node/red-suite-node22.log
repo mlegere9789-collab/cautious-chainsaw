@@ -1,0 +1,1089 @@
+# red-first capture for ver-hist-node
+# date: 2026-11-13T21:00:19Z
+# node: /opt/node22/bin/node v22.23.4
+# tools/historian/ingest/times.mjs blob: cdc9c0a17c0b433fec6fc50092f3368e9428c50e (identical to HEAD: yes)
+# command: node --test tests/historian/*.test.mjs
+#
+TAP version 13
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/atime.test.mjs
+not ok 1 - tests/historian/atime.test.mjs
+  ---
+  duration_ms: 126.552365
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/atime.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/blindspots.test.mjs
+not ok 2 - tests/historian/blindspots.test.mjs
+  ---
+  duration_ms: 264.699761
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/blindspots.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/build.test.mjs
+not ok 3 - tests/historian/build.test.mjs
+  ---
+  duration_ms: 300.545486
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/build.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/capabilities.test.mjs
+not ok 4 - tests/historian/capabilities.test.mjs
+  ---
+  duration_ms: 191.191397
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/capabilities.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/classes-semantic.test.mjs
+not ok 5 - tests/historian/classes-semantic.test.mjs
+  ---
+  duration_ms: 198.627598
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/classes-semantic.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/classes.test.mjs
+not ok 6 - tests/historian/classes.test.mjs
+  ---
+  duration_ms: 183.227949
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/classes.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/engine.test.mjs
+not ok 7 - tests/historian/engine.test.mjs
+  ---
+  duration_ms: 160.044572
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/engine.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/ingest-classes.test.mjs
+not ok 8 - tests/historian/ingest-classes.test.mjs
+  ---
+  duration_ms: 153.442447
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/ingest-classes.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/ingest.test.mjs
+not ok 9 - tests/historian/ingest.test.mjs
+  ---
+  duration_ms: 154.300755
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/ingest.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: intent ancestor: 22 positive phrasings
+ok 10 - intent ancestor: 22 positive phrasings
+  ---
+  duration_ms: 2.499354
+  type: 'test'
+  ...
+# Subtest: intent opponent: 22 positive phrasings
+ok 11 - intent opponent: 22 positive phrasings
+  ---
+  duration_ms: 0.604942
+  type: 'test'
+  ...
+# Subtest: intent presence: 22 positive phrasings
+ok 12 - intent presence: 22 positive phrasings
+  ---
+  duration_ms: 1.088868
+  type: 'test'
+  ...
+# Subtest: intent succession: 22 positive phrasings
+ok 13 - intent succession: 22 positive phrasings
+  ---
+  duration_ms: 1.322952
+  type: 'test'
+  ...
+# Subtest: intent who-commanded: 22 positive phrasings
+ok 14 - intent who-commanded: 22 positive phrasings
+  ---
+  duration_ms: 4.043185
+  type: 'test'
+  ...
+# Subtest: intent superlative: 22 positive phrasings
+ok 15 - intent superlative: 22 positive phrasings
+  ---
+  duration_ms: 3.751822
+  type: 'test'
+  ...
+# Subtest: intent count: 22 positive phrasings
+ok 16 - intent count: 22 positive phrasings
+  ---
+  duration_ms: 3.949077
+  type: 'test'
+  ...
+# Subtest: intent strength: 22 positive phrasings
+ok 17 - intent strength: 22 positive phrasings
+  ---
+  duration_ms: 3.154614
+  type: 'test'
+  ...
+# Subtest: intent casualties: 22 positive phrasings
+ok 18 - intent casualties: 22 positive phrasings
+  ---
+  duration_ms: 3.995891
+  type: 'test'
+  ...
+# Subtest: intent outcome: 22 positive phrasings
+ok 19 - intent outcome: 22 positive phrasings
+  ---
+  duration_ms: 1.110413
+  type: 'test'
+  ...
+# Subtest: intent echelons: 22 positive phrasings
+ok 20 - intent echelons: 22 positive phrasings
+  ---
+  duration_ms: 0.304545
+  type: 'test'
+  ...
+# Subtest: intent sequence: 22 positive phrasings
+ok 21 - intent sequence: 22 positive phrasings
+  ---
+  duration_ms: 0.643856
+  type: 'test'
+  ...
+# Subtest: intent overview: 22 positive phrasings
+ok 22 - intent overview: 22 positive phrasings
+  ---
+  duration_ms: 1.575496
+  type: 'test'
+  ...
+# Subtest: negative tests: nearby phrasings are NOT claimed by the wrong rule
+ok 23 - negative tests: nearby phrasings are NOT claimed by the wrong rule
+  ---
+  duration_ms: 4.178618
+  type: 'test'
+  ...
+# Subtest: "how many Georgia regiments were at Gettysburg" is a count, not presence or ancestor
+ok 24 - "how many Georgia regiments were at Gettysburg" is a count, not presence or ancestor
+  ---
+  duration_ms: 0.1812
+  type: 'test'
+  ...
+# Subtest: side hints
+ok 25 - side hints
+  ---
+  duration_ms: 0.471679
+  type: 'test'
+  ...
+# Subtest: control: the real data matches the recorded baseline exactly (no finding)
+ok 26 - control: the real data matches the recorded baseline exactly (no finding)
+  ---
+  duration_ms: 1.706603
+  type: 'test'
+  ...
+# Subtest: populated(): zero, false and non-empty values are populated; null, undefined, empty strings, arrays, objects and NaN are not
+ok 27 - populated(): zero, false and non-empty values are populated; null, undefined, empty strings, arrays, objects and NaN are not
+  ---
+  duration_ms: 0.300982
+  type: 'test'
+  ...
+# Subtest: every field of every collection that the loader emits is covered: removing it from all records is reported by name
+ok 28 - every field of every collection that the loader emits is covered: removing it from all records is reported by name
+  ---
+  duration_ms: 1034.930056
+  type: 'test'
+  ...
+# Subtest: renaming a field (the strength -> men drift) is reported both as a missing field and as a new one
+ok 29 - renaming a field (the strength -> men drift) is reported both as a missing field and as a new one
+  ---
+  duration_ms: 16.810216
+  type: 'test'
+  ...
+# Subtest: emptying a field in most records (a source that keeps the key but lost the values) is reported with the percentages
+ok 30 - emptying a field in most records (a source that keeps the key but lost the values) is reported with the percentages
+  ---
+  duration_ms: 10.955894
+  type: 'test'
+  ...
+# Subtest: a sparse field may not lose half of its records or vanish; a small collection may not lose a value
+ok 31 - a sparse field may not lose half of its records or vanish; a small collection may not lose a value
+  ---
+  duration_ms: 19.532829
+  type: 'test'
+  ...
+# Subtest: a collection that shrinks by a fifth or disappears, a new collection, and a missing baseline are all reported
+ok 32 - a collection that shrinks by a fifth or disappears, a new collection, and a missing baseline are all reported
+  ---
+  duration_ms: 9.464928
+  type: 'test'
+  ...
+# Subtest: improving coverage (a field that used to be sparse is filled in) is not an error
+ok 33 - improving coverage (a field that used to be sparse is filled in) is not an error
+  ---
+  duration_ms: 8.072018
+  type: 'test'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/or27-rebuild.test.mjs
+not ok 12 - tests/historian/or27-rebuild.test.mjs
+  ---
+  duration_ms: 307.863404
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/or27-rebuild.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/or27.test.mjs
+not ok 13 - tests/historian/or27.test.mjs
+  ---
+  duration_ms: 204.859469
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/or27.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/page.test.mjs
+not ok 14 - tests/historian/page.test.mjs
+  ---
+  duration_ms: 427.067745
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/page.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/regiment-phrasings.test.mjs
+not ok 15 - tests/historian/regiment-phrasings.test.mjs
+  ---
+  duration_ms: 252.872144
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/regiment-phrasings.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: the evaluation harness runs to completion
+ok 38 - the evaluation harness runs to completion
+  ---
+  duration_ms: 0.89286
+  type: 'test'
+  ...
+# Subtest: the live build was evaluated on the data snapshot the numbers were recorded on
+ok 39 - the live build was evaluated on the data snapshot the numbers were recorded on
+  ---
+  duration_ms: 0.12937
+  type: 'test'
+  ...
+# Subtest: batteries: no metric drops by more than 2 points against the recorded run; mean characters within +40
+ok 40 - batteries: no metric drops by more than 2 points against the recorded run; mean characters within +40
+  ---
+  duration_ms: 0.289273
+  type: 'test'
+  ...
+# Subtest: golden answerable_now: pass rate, critical-point recall, hedging, grounding, retrieval do not regress; the hard zeros stay zero
+ok 41 - golden answerable_now: pass rate, critical-point recall, hedging, grounding, retrieval do not regress; the hard zeros stay zero
+  ---
+  duration_ms: 3.385129
+  type: 'test'
+  ...
+# Subtest: golden H1+H2: the gate counts the plan's 123 items (113 answerable now + 10 that needed the time model or a source expansion), lists every one of them, and does not regress
+ok 42 - golden H1+H2: the gate counts the plan's 123 items (113 answerable now + 10 that needed the time model or a source expansion), lists every one of them, and does not regress
+  ---
+  duration_ms: 0.58179
+  type: 'test'
+  ...
+# Subtest: the reference numbers are recorded from this repository state (a plain sanity check on the file itself)
+ok 43 - the reference numbers are recorded from this repository state (a plain sanity check on the file itself)
+  ---
+  duration_ms: 0.185017
+  type: 'test'
+  ...
+# Subtest: RV-DY-1 Wilcox, "My men occupied this position till about 3.20 p. m." under "the action of the 3d instant" is a clock of July 3
+ok 44 - RV-DY-1 Wilcox, "My men occupied this position till about 3.20 p. m." under "the action of the 3d instant" is a clock of July 3
+  ---
+  duration_ms: 59.866153
+  type: 'test'
+  ...
+# Subtest: RV-DY-2 Doubleday, "About 2 p. m. a terrific artillery fire opened on us from more than 100 guns" is a clock of July 3
+ok 45 - RV-DY-2 Doubleday, "About 2 p. m. a terrific artillery fire opened on us from more than 100 guns" is a clock of July 3
+  ---
+  duration_ms: 2.350528
+  type: 'test'
+  ...
+# Subtest: RV-DY-3 Kershaw, "July i. - ... until 4 p. m. ... into camp at 12 p. m." (OCR "i" for "1") are clocks of July 1, not June 30
+ok 46 - RV-DY-3 Kershaw, "July i. - ... until 4 p. m. ... into camp at 12 p. m." (OCR "i" for "1") are clocks of July 1, not June 30
+  ---
+  duration_ms: 0.691548
+  type: 'test'
+  ...
+# Subtest: RV-DY-4 the day of a carried clock claim is the day the text gives: at least 95% of the 25 claims the re-verifier read (21 right as built, 4 wrong: Wilcox, Doubleday, the two clocks of Kershaw)
+ok 47 - RV-DY-4 the day of a carried clock claim is the day the text gives: at least 95% of the 25 claims the re-verifier read (21 right as built, 4 wrong: Wilcox, Doubleday, the two clocks of Kershaw)
+  ---
+  duration_ms: 5.007078
+  type: 'test'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/reverify-corpus-dispatch.test.mjs
+not ok 18 - tests/historian/reverify-corpus-dispatch.test.mjs
+  ---
+  duration_ms: 241.813602
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/reverify-corpus-dispatch.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/reverify-corpus-engine.test.mjs
+not ok 19 - tests/historian/reverify-corpus-engine.test.mjs
+  ---
+  duration_ms: 170.054127
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/reverify-corpus-engine.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/reverify-corpus-pages.test.mjs
+not ok 20 - tests/historian/reverify-corpus-pages.test.mjs
+  ---
+  duration_ms: 104.78593
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/reverify-corpus-pages.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/reverify-corpus-text.test.mjs
+not ok 21 - tests/historian/reverify-corpus-text.test.mjs
+  ---
+  duration_ms: 246.905591
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/reverify-corpus-text.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: R-01 a redirect from a registered archive.org identifier to an UNREGISTERED identifier is refused (every hop passes the same gate as the first request)
+ok 52 - R-01 a redirect from a registered archive.org identifier to an UNREGISTERED identifier is refused (every hop passes the same gate as the first request)
+  ---
+  duration_ms: 48.473932
+  type: 'test'
+  ...
+# Subtest: R-02 no kept OR27 passage carries a running head or signature mark once OCR variants are allowed for (report: "0 of 1,465"; found: 11)
+ok 53 - R-02 no kept OR27 passage carries a running head or signature mark once OCR variants are allowed for (report: "0 of 1,465"; found: 11) # SKIP the cached OR27 sample is absent (tmp/historian-cache; fetch it with: node tools/historian/ingest/cli.mjs segment or27-1 --sample): this test did NOT run
+  ---
+  duration_ms: 0.275514
+  type: 'test'
+  ...
+# Subtest: R-03 the table-debris drop does not discard report narrative (27 of the 48 dropped chunks hold whole paragraphs of prose, about 2,500 words, e.g. the 143rd Pennsylvania "went into action July 1 with 465 men")
+ok 54 - R-03 the table-debris drop does not discard report narrative (27 of the 48 dropped chunks hold whole paragraphs of prose, about 2,500 words, e.g. the 143rd Pennsylvania "went into action July 1 with 465 men") # SKIP the cached OR27 sample is absent (tmp/historian-cache; fetch it with: node tools/historian/ingest/cli.mjs segment or27-1 --sample): this test did NOT run
+  ---
+  duration_ms: 0.079158
+  type: 'test'
+  ...
+# Subtest: R-04 "what happened at 3 on July 2" (no am/pm) is clarified like "3:00" and "3 o'clock" are, not answered with a day summary that ignores the hour
+ok 55 - R-04 "what happened at 3 on July 2" (no am/pm) is clarified like "3:00" and "3 o'clock" are, not answered with a day summary that ignores the hour
+  ---
+  duration_ms: 154.569603
+  type: 'test'
+  ...
+# Subtest: R-05 an impossible clock ("13pm", "25:00") or a military time ("0300") is not silently answered with a day summary
+ok 56 - R-05 an impossible clock ("13pm", "25:00") or a military time ("0300") is not silently answered with a day summary
+  ---
+  duration_ms: 94.484417
+  type: 'test'
+  ...
+# Subtest: R-06 "before 4 pm" / "by 4 pm" on July 2 does not list events after 4:00 PM as if they answered it
+ok 57 - R-06 "before 4 pm" / "by 4 pm" on July 2 does not list events after 4:00 PM as if they answered it
+  ---
+  duration_ms: 9.42907
+  type: 'test'
+  ...
+# Subtest: R-07 a named event is not a clock question: "What was the noon lull?" is answered, not met with "Which day do you mean?"
+ok 58 - R-07 a named event is not a clock question: "What was the noon lull?" is answered, not met with "Which day do you mean?"
+  ---
+  duration_ms: 34.71963
+  type: 'test'
+  ...
+# Subtest: R-08 weather questions in other natural phrasings state the limitation and never answer with a person or a battery that shares a word
+ok 59 - R-08 weather questions in other natural phrasings state the limitation and never answer with a person or a battery that shares a word
+  ---
+  duration_ms: 36.177615
+  type: 'test'
+  ...
+# Subtest: R-09 individual-soldier questions in other phrasings state that the site holds regiments, not people (the rule fires only for "Was <Name> of the <unit> at Gettysburg")
+ok 60 - R-09 individual-soldier questions in other phrasings state that the site holds regiments, not people (the rule fires only for "Was <Name> of the <unit> at Gettysburg")
+  ---
+  duration_ms: 19.106795
+  type: 'test'
+  ...
+# Subtest: R-10 the page never says "Showing results for" a word the reader did not mistype: list -> last, midnight -> mid night, thunderstorm -> thunder storm
+ok 61 - R-10 the page never says "Showing results for" a word the reader did not mistype: list -> last, midnight -> mid night, thunderstorm -> thunder storm
+  ---
+  duration_ms: 19.748943
+  type: 'test'
+  ...
+# Subtest: R-11 "what are / were the <State> regiments" is the state roll-up (as "list the Wisconsin regiments" is), not one arbitrary regiment
+ok 62 - R-11 "what are / were the <State> regiments" is the state roll-up (as "list the Wisconsin regiments" is), not one arbitrary regiment
+  ---
+  duration_ms: 10.325272
+  type: 'test'
+  ...
+# Subtest: R-12 a regiment with no casualties is described in a grammatical sentence ("with no casualties are recorded for it")
+ok 63 - R-12 a regiment with no casualties is described in a grammatical sentence ("with no casualties are recorded for it")
+  ---
+  duration_ms: 22.204655
+  type: 'test'
+  ...
+# Subtest: R-13 engine.ask does not throw on a context object whose getter throws (low severity: not reachable from the page, which passes plain data)
+ok 64 - R-13 engine.ask does not throw on a context object whose getter throws (low severity: not reachable from the page, which passes plain data)
+  ---
+  duration_ms: 27.904965
+  type: 'test'
+  ...
+# Subtest: R-14 a correctly spelled ordinary word in a plain question is not "corrected" on the page (the golden set itself shows "fraction" -> "action", "percentage" -> "percent age", "newspapers" -> "news papers", "really" -> "rally")
+ok 65 - R-14 a correctly spelled ordinary word in a plain question is not "corrected" on the page (the golden set itself shows "fraction" -> "action", "percentage" -> "percent age", "newspapers" -> "news papers", "really" -> "rally")
+  ---
+  duration_ms: 1172.973488
+  type: 'test'
+  ...
+# Subtest: R-15 a question about the whole battle by its dates ("July 1 to 3", "July 1 through July 3", "July 1-3") is answered, not declined (before the day-parsing fix it was silently answered as day 1)
+ok 66 - R-15 a question about the whole battle by its dates ("July 1 to 3", "July 1 through July 3", "July 1-3") is answered, not declined (before the day-parsing fix it was silently answered as day 1)
+  ---
+  duration_ms: 51.823003
+  type: 'test'
+  ...
+# Subtest: R-16 "what happened on day 4" is about a day, not "Which 4th do you mean? The site has 6 such regiments"
+ok 67 - R-16 "what happened on day 4" is about a day, not "Which 4th do you mean? The site has 6 such regiments"
+  ---
+  duration_ms: 2.386695
+  type: 'test'
+  ...
+# Subtest: R-17 the fetch gate decodes percent-escapes twice: a refused identifier and a banned host survive double encoding (mutation: safeDecode applied once -> the committed suite still passed)
+ok 68 - R-17 the fetch gate decodes percent-escapes twice: a refused identifier and a banned host survive double encoding (mutation: safeDecode applied once -> the committed suite still passed)
+  ---
+  duration_ms: 8.219615
+  type: 'test'
+  ...
+# Subtest: R-18 invisible formatting characters inside a pasted name (zero-width space / joiner, soft hyphen, word joiner) are ignored, not read as a word break ("20th Ma<ZWSP>ine" is the 20th Massachusetts)
+ok 69 - R-18 invisible formatting characters inside a pasted name (zero-width space / joiner, soft hyphen, word joiner) are ignored, not read as a word break ("20th Ma<ZWSP>ine" is the 20th Massachusetts)
+  ---
+  duration_ms: 19.846275
+  type: 'test'
+  ...
+# Subtest: R-19 "the <N> regiment from / in <State>" is that regiment (verifier V-01 class; the fixer's 24 phrasings cover "of", "," and a suffix but not "from" / "in": 327 of 370 regiments return the state roll-up)
+ok 70 - R-19 "the <N> regiment from / in <State>" is that regiment (verifier V-01 class; the fixer's 24 phrasings cover "of", "," and a suffix but not "from" / "in": 327 of 370 regiments return the state roll-up)
+  ---
+  duration_ms: 1760.032178
+  type: 'test'
+  ...
+# Subtest: R-20 a state-scoped superlative ("which Michigan regiment lost the most men", "the largest Wisconsin regiment") answers for that state, not for the whole army
+ok 71 - R-20 a state-scoped superlative ("which Michigan regiment lost the most men", "the largest Wisconsin regiment") answers for that state, not for the whole army
+  ---
+  duration_ms: 5.649186
+  type: 'test'
+  ...
+# Subtest: yaml-lite round-trips the register subset
+ok 72 - yaml-lite round-trips the register subset
+  ---
+  duration_ms: 2.841083
+  type: 'test'
+  ...
+# Subtest: the committed register parses, has the tier system, the two site sources and the Wave 1 sources
+ok 73 - the committed register parses, has the tier system, the two site sources and the Wave 1 sources
+  ---
+  duration_ms: 0.505566
+  type: 'test'
+  ...
+# Subtest: V02 tier gate: every refusal has a test
+ok 74 - V02 tier gate: every refusal has a test
+  ---
+  duration_ms: 0.520985
+  type: 'test'
+  ...
+# Subtest: the fetch gate refuses Tier C hosts and the 1971 reprint before any network call
+ok 75 - the fetch gate refuses Tier C hosts and the 1971 reprint before any network call
+  ---
+  duration_ms: 1.145611
+  type: 'test'
+  ...
+# Subtest: every Tier C source host is on the fetch ban list; no Tier C source is indexable, redistributable or sent to a model
+ok 76 - every Tier C source host is on the fetch ban list; no Tier C source is indexable, redistributable or sent to a model
+  ---
+  duration_ms: 13.825009
+  type: 'test'
+  ...
+# Subtest: the register is deterministic: gen-sources --check passes (the committed file is generated from the head + the two catalogs)
+ok 77 - the register is deterministic: gen-sources --check passes (the committed file is generated from the head + the two catalogs)
+  ---
+  duration_ms: 0.783935
+  type: 'test'
+  ...
+# Subtest: Wave 1 sources are Tier A with original imprints and clean identifiers
+ok 78 - Wave 1 sources are Tier A with original imprints and clean identifiers
+  ---
+  duration_ms: 0.500024
+  type: 'test'
+  ...
+# Subtest: site sources are A-pending with the provenance caveat recorded, and ship nothing external
+ok 79 - site sources are A-pending with the provenance caveat recorded, and ship nothing external
+  ---
+  duration_ms: 0.228185
+  type: 'test'
+  ...
+# Subtest: the fetch gate is not fooled by a trailing dot, upper case, percent-encoding, a proxy or web-archive wrapper, userinfo, a port, or a scheme that is not http(s)
+ok 80 - the fetch gate is not fooled by a trailing dot, upper case, percent-encoding, a proxy or web-archive wrapper, userinfo, a port, or a scheme that is not http(s)
+  ---
+  duration_ms: 1.015954
+  type: 'test'
+  ...
+# Subtest: baseNorm drops possessives, quotes and punctuation; idempotent
+ok 81 - baseNorm drops possessives, quotes and punctuation; idempotent
+  ---
+  duration_ms: 3.503141
+  type: 'test'
+  ...
+# Subtest: the stray s from apostrophes never becomes a token
+ok 82 - the stray s from apostrophes never becomes a token
+  ---
+  duration_ms: 1.019105
+  type: 'test'
+  ...
+# Subtest: corps rewrite: first/1st/I/XII all become one token
+ok 83 - corps rewrite: first/1st/I/XII all become one token
+  ---
+  duration_ms: 0.315764
+  type: 'test'
+  ...
+# Subtest: ordinals: words, numerals, compounds and hundreds become \#n
+ok 84 - ordinals: words, numerals, compounds and hundreds become \#n
+  ---
+  duration_ms: 0.526573
+  type: 'test'
+  ...
+# Subtest: me / in / us / la / al stay ordinary words (state abbreviations expand only after a number)
+ok 85 - me / in / us / la / al stay ordinary words (state abbreviations expand only after a number)
+  ---
+  duration_ms: 0.830835
+  type: 'test'
+  ...
+# Subtest: "on July 3 in Pennsylvania" is not read as the 3rd Indiana
+ok 86 - "on July 3 in Pennsylvania" is not read as the 3rd Indiana
+  ---
+  duration_ms: 0.246747
+  type: 'test'
+  ...
+# Subtest: unit grammar: variants of the 1st Minnesota
+ok 87 - unit grammar: variants of the 1st Minnesota
+  ---
+  duration_ms: 0.394294
+  type: 'test'
+  ...
+# Subtest: unit grammar: ordinal lists, arms, multi-word states, US units
+ok 88 - unit grammar: ordinal lists, arms, multi-word states, US units
+  ---
+  duration_ms: 0.286451
+  type: 'test'
+  ...
+# Subtest: designations and parentheticals feed the unit keys
+ok 89 - designations and parentheticals feed the unit keys
+  ---
+  duration_ms: 0.651808
+  type: 'test'
+  ...
+# Subtest: stemmer is light and stable on names
+ok 90 - stemmer is light and stable on names
+  ---
+  duration_ms: 0.735984
+  type: 'test'
+  ...
+# Subtest: sentence splitter protects abbreviations and initials
+ok 91 - sentence splitter protects abbreviations and initials
+  ---
+  duration_ms: 3.029541
+  type: 'test'
+  ...
+# Subtest: clock detector
+ok 92 - clock detector
+  ---
+  duration_ms: 1.137215
+  type: 'test'
+  ...
+# Subtest: bounded Damerau-Levenshtein
+ok 93 - bounded Damerau-Levenshtein
+  ---
+  duration_ms: 0.355113
+  type: 'test'
+  ...
+# Subtest: hashing helpers are stable
+ok 94 - hashing helpers are stable
+  ---
+  duration_ms: 0.14923
+  type: 'test'
+  ...
+# Subtest: site strings: typographic dash, nothing lower-cased
+ok 95 - site strings: typographic dash, nothing lower-cased
+  ---
+  duration_ms: 0.207175
+  type: 'test'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/typo-repair.test.mjs
+not ok 25 - tests/historian/typo-repair.test.mjs
+  ---
+  duration_ms: 137.445348
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/typo-repair.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/unknowns.test.mjs
+not ok 26 - tests/historian/unknowns.test.mjs
+  ---
+  duration_ms: 247.31304
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/unknowns.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/verify-historian-core.test.mjs
+not ok 27 - tests/historian/verify-historian-core.test.mjs
+  ---
+  duration_ms: 176.926774
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/verify-historian-core.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/verify-ingest-clock.test.mjs
+not ok 28 - tests/historian/verify-ingest-clock.test.mjs
+  ---
+  duration_ms: 91.901148
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/verify-ingest-clock.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: VI-DS-1 a dispatch does not end with the place line of the next dispatch ("... ROBT. C. SCHENCK, Major-General. Baltimore, Md.,")
+ok 100 - VI-DS-1 a dispatch does not end with the place line of the next dispatch ("... ROBT. C. SCHENCK, Major-General. Baltimore, Md.,") # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.812129
+  type: 'test'
+  ...
+# Subtest: VI-DS-2 the circular of July 10, 1863 ("The following movements of troops are ordered for to-morrow, July 11") is one dispatch dated July 10, with its body
+ok 101 - VI-DS-2 the circular of July 10, 1863 ("The following movements of troops are ordered for to-morrow, July 11") is one dispatch dated July 10, with its body # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.156425
+  type: 'test'
+  ...
+# Subtest: VI-DS-3 no dispatch is attributed to its own addressee ("A. Pleasonton to Brig. Gen. A. Pleasonton"; "Joseph Hooker to Major-General Hooker")
+ok 102 - VI-DS-3 no dispatch is attributed to its own addressee ("A. Pleasonton to Brig. Gen. A. Pleasonton"; "Joseph Hooker to Major-General Hooker") # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.076429
+  type: 'test'
+  ...
+# Subtest: VI-DS-4 an addressee is a name, not a sentence ("Meade. to General Meade will withdraw, under the orders of General Reynolds. The point")
+ok 103 - VI-DS-4 an addressee is a name, not a sentence ("Meade. to General Meade will withdraw, under the orders of General Reynolds. The point") # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.097978
+  type: 'test'
+  ...
+# Subtest: VI-DS-5 a dispatch holds the text of ONE dispatch: Stahel's dispatch of June 9 (10.54 a. m.) is not filed under Pleasonton, and Howard's of July 2 (6.30 p. m.) is not filed under Slocum
+ok 104 - VI-DS-5 a dispatch holds the text of ONE dispatch: Stahel's dispatch of June 9 (10.54 a. m.) is not filed under Pleasonton, and Howard's of July 2 (6.30 p. m.) is not filed under Slocum # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.08162
+  type: 'test'
+  ...
+# Subtest: VI-DS-6 every row of the dispatch table is a dispatch with text: the "2,945 dispatches" include 6 table headings with zero passages and a surname as place
+ok 105 - VI-DS-6 every row of the dispatch table is a dispatch with text: the "2,945 dispatches" include 6 table headings with zero passages and a surname as place # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.076373
+  type: 'test'
+  ...
+# Subtest: VI-DOC-1 the register does not quote an Internet Archive "possible-copyright-status" for an item whose metadata has none
+ok 106 - VI-DOC-1 the register does not quote an Internet Archive "possible-copyright-status" for an item whose metadata has none
+  ---
+  duration_ms: 0.876038
+  type: 'test'
+  ...
+# Subtest: VI-DOC-2 the file counts of the size table in CORPUS.md add up (128 + 32 + 1,029 + 1 = 1,190, the table says 1,189)
+ok 107 - VI-DOC-2 the file counts of the size table in CORPUS.md add up (128 + 32 + 1,029 + 1 = 1,190, the table says 1,189)
+  ---
+  duration_ms: 5.462744
+  type: 'test'
+  ...
+# Subtest: VI-DOC-4 CORPUS.md says the dispatches are "dated June 3 to August 3, 1863"; the table holds 27 dated outside June 1 - August 3, 1863: 20 later in 1863 (the volume's addenda, pp. 839-857), 5 in 1864, one in 1862 and one in 1865 (an OCR year)
+ok 108 - VI-DOC-4 CORPUS.md says the dispatches are "dated June 3 to August 3, 1863"; the table holds 27 dated outside June 1 - August 3, 1863: 20 later in 1863 (the volume's addenda, pp. 839-857), 5 in 1864, one in 1862 and one in 1865 (an OCR year)
+  ---
+  duration_ms: 17.106368
+  type: 'test'
+  ...
+# Subtest: VI-DOC-3 CORPUS.md says "2,945 dispatches"; the dispatch table holds that many rows but only 2,939 have any text
+ok 109 - VI-DOC-3 CORPUS.md says "2,945 dispatches"; the dispatch table holds that many rows but only 2,939 have any text
+  ---
+  duration_ms: 14.083914
+  type: 'test'
+  ...
+# file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26
+#   { kind: 'range', re: new RegExp(String.raw`\\b(between|from)\\s+${HM}\\s*(?:${MER}|${OCL})?\\s+(and|to)\\s+${HM}\\s*((?:${OCL})?\\s*(?:${MER})?)`, 'gi') },
+#                        ^
+# SyntaxError: Invalid regular expression: /\\b(between|from)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?|o.{0,2}cl[oec]ck)?\\s+(and|to)\\s+(\\d{1,2})(?:\\s?[.:]\\s?(\\d{2}))?\\s*((?:o.{0,2}cl[oec]ck)?\\s*(?:(?:[ap]\\s?[.,]\\s?m|(?-i:[AP]\\.?\\s?M))\\b\\.?)?)/gi: Invalid group
+#     at new RegExp (<anonymous>)
+#     at file:///home/user/cautious-chainsaw/tools/historian/ingest/times.mjs:26:24
+#     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.23.4
+# Subtest: tests/historian/verify-ingest-engine.test.mjs
+not ok 31 - tests/historian/verify-ingest-engine.test.mjs
+  ---
+  duration_ms: 154.538985
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/historian/verify-ingest-engine.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: VI-LK-1 "the first United States quartermaster's post" is not the 1st United States Sharpshooters
+ok 111 - VI-LK-1 "the first United States quartermaster's post" is not the 1st United States Sharpshooters # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 4.388213
+  type: 'test'
+  ...
+# Subtest: VI-LK-2 "One hundred and and forty-ninth Pennsylvania" (OCR doubled the "and") is not the 49th Pennsylvania
+ok 112 - VI-LK-2 "One hundred and and forty-ninth Pennsylvania" (OCR doubled the "and") is not the 49th Pennsylvania # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.132083
+  type: 'test'
+  ...
+# Subtest: VI-LK-3 a signature "H. K. BURGWYN" on a letter of August 1, 1863 is not Col. Henry Burgwyn, who the register says was killed on July 1
+ok 113 - VI-LK-3 a signature "H. K. BURGWYN" on a letter of August 1, 1863 is not Col. Henry Burgwyn, who the register says was killed on July 1 # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 1.568684
+  type: 'test'
+  ...
+# Subtest: VI-PG-1 each hand-checked sentence start is cited on the printed page the Archive scan shows it on
+ok 114 - VI-PG-1 each hand-checked sentence start is cited on the printed page the Archive scan shows it on # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.713921
+  type: 'test'
+  ...
+# Subtest: VI-PG-2 a passage that runs over a page break carries a page entry for each page it touches (the Howard report, pp. 698-700, was cited on p. 698 throughout)
+ok 115 - VI-PG-2 a passage that runs over a page break carries a page entry for each page it touches (the Howard report, pp. 698-700, was cited on p. 698 throughout) # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.12958
+  type: 'test'
+  ...
+# Subtest: VI-TX-1 a number compound split by a line break keeps its hyphen: no passage reads "thirtyseventh", "Fiftysecond", "Fortyfifth" (the raw OCR has "thirty- seventh")
+ok 116 - VI-TX-1 a number compound split by a line break keeps its hyphen: no passage reads "thirtyseventh", "Fiftysecond", "Fortyfifth" (the raw OCR has "thirty- seventh") # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.68718
+  type: 'test'
+  ...
+# Subtest: VI-TX-2 a footnote printed at the foot of a page is not spliced into a sentence of the text it stands under ("I moved to Middleburg * Embodied in revised statement, p. 179. during the morning of Sunday")
+ok 117 - VI-TX-2 a footnote printed at the foot of a page is not spliced into a sentence of the text it stands under ("I moved to Middleburg * Embodied in revised statement, p. 179. during the morning of Sunday") # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 1.20907
+  type: 'test'
+  ...
+# Subtest: VI-TX-3 the compiler's own notes are not the author's words: no passage holds a sentence ending "- Compiler."
+ok 118 - VI-TX-3 the compiler's own notes are not the author's words: no passage holds a sentence ending "- Compiler." # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.116425
+  type: 'test'
+  ...
+# Subtest: VI-TX-4 no running head is left in the text of a passage ("CORRESPONDENCE, ETC. UNION.", "Chap. XXXIX.]", "N. C., VA., W. VA." in the middle of a sentence)
+ok 119 - VI-TX-4 no running head is left in the text of a passage ("CORRESPONDENCE, ETC. UNION.", "Chap. XXXIX.]", "N. C., VA., W. VA." in the middle of a sentence) # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.077074
+  type: 'test'
+  ...
+# Subtest: VI-TX-5 a passage does not begin with the page number and running head of the page it starts on ("610 N. C., Both officers and men behaved...")
+ok 120 - VI-TX-5 a passage does not begin with the page number and running head of the page it starts on ("610 N. C., Both officers and men behaved...") # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build
+  ---
+  duration_ms: 0.073385
+  type: 'test'
+  ...
+1..120
+# tests 120
+# suites 0
+# pass 80
+# fail 22
+# cancelled 0
+# skipped 18
+# todo 0
+# duration_ms 5790.721662
+# exit: 1

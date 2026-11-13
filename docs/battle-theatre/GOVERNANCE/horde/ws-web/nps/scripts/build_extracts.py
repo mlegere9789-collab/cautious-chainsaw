@@ -46,7 +46,7 @@ Outputs (next to this script's parent folder):
   extracts/<topic file>.md         per-topic extract sheets
 Run:  python3 -I build_extracts.py
 """
-import glob, hashlib, json, os, re, sys
+import glob, hashlib, json, os, re, sys, unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 NPS = os.path.dirname(HERE)
@@ -183,7 +183,7 @@ def split_sentences(flat):
     return out
 
 
-_LIG = re.compile(r'tt|ti|tf|ft|tl|ff')
+_LIG = re.compile(r'tti|tt|ti|tf|ft|tl|ff')
 _LIG_FI = re.compile(r'f[fil]*')
 
 
@@ -191,8 +191,10 @@ def _alnum_map(flat, lig):
     """Letters and digits of flat (lower case) with, for each, its index in flat; ligature groups removed when lig."""
     chars, idx = [], []
     for i, c in enumerate(flat):
-        if c.isalnum():
-            chars.append(c.lower()); idx.append(i)
+        # compatibility forms (the fi, fl, ff ligature code points of a PDF text layer) count as their letters
+        for d in unicodedata.normalize('NFKC', c):
+            if d.isalnum():
+                chars.append(d.lower()); idx.append(i)
     key = ''.join(chars)
     if not lig:
         return key, idx

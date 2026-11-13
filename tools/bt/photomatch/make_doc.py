@@ -6,7 +6,7 @@ import json, os
 from collections import Counter
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
 def J(n): return json.load(open(os.path.join(HERE, n)))
-poses = J('poses.json')['poses']; ver = J('verdicts.json'); reg = J('photograph_registry.json')['photographs']; st = J('position_statements.json')['statements']; led = J('images_ledger.json')['images']
+PJ = J('poses.json'); poses = PJ['poses']; deferred = PJ.get('deferred_poses', []); ver = J('verdicts.json'); reg = J('photograph_registry.json')['photographs']; st = J('position_statements.json')['statements']; led = J('images_ledger.json')['images']
 ident = J('nps_then_to_loc.json')['queries']
 pv = {v['pose']: v for v in ver['pose_verdicts']}; G = ver['gate_q16']
 n_loc = sum(1 for v in led.values() if v.get('status') == 'ok' and v.get('derivative') in ('medium', 'large')); tier = Counter(p['position']['tier'] for p in poses); vc = Counter(v['verdict'] for v in ver['pose_verdicts'])
@@ -20,6 +20,7 @@ A('## Where things stand\n')
 A(f'- **Photographs:** {len(reg)} catalogued Library of Congress records (109 from the first catalogue run and 18 added because LOC dates them only as between 1861 and 1865); {n_loc} Library of Congress JPEG derivatives saved (each checked: size equals what the record declares, decodes to the last pixel, sha256 in the ledger) plus 2 master scans, 3 archive.org scans and 6 Metropolitan Museum items of the first run. The primary image of every record was looked at on a contact sheet.')
 A(f'- **Camera positions:** 0 are documented. None of the {len(set(s["src"] for s in st))} sources read (Library of Congress catalogue records, National Park Service reports and web pages) gives a coordinate, a lens, a plate size or a surveyed station. They give {len(st)} statements in words (place, viewing direction, reference object); {nstat.get("documented", 0)} are documented statements (a source says it, quote found in the saved text), {nstat.get("inferred", 0)} were read from page images because the text layer is unusable, {nstat.get("lead", 0)} rests on a book that may not be used and is a lead only.')
 A(f'- **Poses registered:** {len(poses)} (position tier: {tier.get("inferred", 0)} inferred, {tier.get("plausible-procedural", 0)} assumption). **Verdicts on the poses:** {vc.get("matches", 0)} matches, {vc.get("roughly", 0)} roughly, {vc.get("does not", 0)} does not, {vc.get("cannot judge", 0)} cannot judge.')
+if deferred: A('- **Deferred:** ' + ', '.join(f"{q['id']} (record {q['loc_id']})" for q in deferred) + ': registered with its basis, but the render and the review sheet were not made in the session that registered it (the machine lock queue did not grant a slot), so it has no verdict yet.')
 A(f'- **The other {len(reg) - sum(1 for r in reg if r["pose_ids"])} photographs** have no pose and the verdict cannot judge, each with its reason: {cls.get("NEAR", 0)} show only near ground that the model does not contain, {cls.get("POS", 0)} have a camera place that no source fixes closely enough, {cls.get("STG", 0)} are staged or flagged, {cls.get("OUT", 0)} are not July 1863 battlefield views. {staged} records carry a staged-photograph flag; none has a pose.\n')
 A('## Why the gate cannot pass\n')
 for t in G['reason']: A(f'- {t}')
@@ -87,6 +88,12 @@ def report():
               'Big Round Top: in both photographs that show it the summit sits about 15 percent of the frame height higher than in the render from the assumed spot on the south slope of Little Round Top.',
               'The first pass had flagged staged photographs by title only: 2012647849 shares a negative number with the staged sharpshooter record and 2012647845 is the Weaver photograph of 11 November 1863; both are now flagged (EG-05).',
               'The old test tests/photomatch.test.mjs fails on the new ledger and schema (request note bt-web-photomatch-old-test.md).']: B('- ' + t)
+    ts = J('test_status.json')
+    B('\n## Tests\n')
+    t1 = ts['photomatch_q16_test']; t2 = ts['old_test']
+    B(f"- `{t1['command']}`: {t1['pass']} pass, {t1['fail']} fail, {t1['skipped']} skipped ({t1['skipped_what']}).")
+    B(f"- `{t2['command']}` (not owned by this task): {t2['pass']} pass, {t2['fail']} fail: {t2['why']}.")
+    B(f"- Full node suite: {ts['full_node_suite']}.")
     B('\n## Not run, owed\n')
     for t in ['The full node suite (`node --test docs/battle-theatre/app/tests/*.test.mjs`) was not run; only the photomatch test file was.',
               'No real-GPU rendering: every render is software GL. Nothing here is a timing or a real-GPU visual result.',

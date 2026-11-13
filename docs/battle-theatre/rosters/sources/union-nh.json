@@ -1,7 +1,7 @@
 {
  "format": "roster2-sources-pointer/1",
  "work_item": "union-nh",
- "generated": "2026-11-13T20:51:23Z",
+ "generated": "2026-11-13T20:56:28Z",
  "sources": [
   {
    "source_id": "NH-AYLING-1895",
@@ -477,19 +477,19 @@
   }
  ],
  "access_rules": "archive.org metadata and /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround",
- "note": "The texts are kept under tmp/library/rosters/<source_id>/ (not tracked); this file says which texts they are. Fetch with pipeline2/fetch_text.py SOURCE_ID VOLUME IDENTIFIER, then check the sha256 above. The files made from them are listed under unit_files.",
+ "note": "The texts are kept under tmp/library/rosters/<source_id>/ (not tracked); this file says which texts they are. Fetch each file from its url, then check the sha256 above. The files made from them are listed under unit_files.",
  "unit_files": [
   {
    "unit": "u-nh-2nd-new-hampshire-infantry",
    "designation": "2nd New Hampshire Infantry",
    "path": "docs/battle-theatre/rosters/data2/union/nh/2nd-new-hampshire-infantry.jsonl.gz",
-   "rows": 2654,
-   "file_bytes": 118398,
-   "file_sha256": "6ec4dbe559129e1bb549efee08c33f9303c7e22d1f3bf5c8bd83d63dcfb867b2",
-   "raw_lines_sha256": "c23bcb65637c9e9579bcb66b657d02eae3084a1df294379bfc9e06dfc3eed6a0",
+   "rows": 2655,
+   "file_bytes": 118400,
+   "file_sha256": "e873f0ae9bf19ef97adb7c0cec22332226a73ee279763c23ac84fa7f23b09839",
+   "raw_lines_sha256": "e956eaca503867bb8ea86b4ce74e9c6c650b861b349fed8ac24a83e2f37e284a",
    "flags_path": "docs/battle-theatre/rosters/data2/union/nh/2nd-new-hampshire-infantry.flags.json.gz",
-   "flags_bytes": 26616,
-   "flags_sha256": "898d9df24c23cae07692438aca97fb1ec8eb8bd42b88e6779d42b9bc122680a5",
+   "flags_bytes": 26634,
+   "flags_sha256": "4efaaaded1e0e5830f34b2ebe4b1627e3021fe646c4fc993764bb4ee029c0a58",
    "text_ids": [
     "NH-AYLING-1895.1"
    ]
@@ -498,13 +498,13 @@
    "unit": "u-nh-5th-new-hampshire-infantry",
    "designation": "5th New Hampshire Infantry",
    "path": "docs/battle-theatre/rosters/data2/union/nh/5th-new-hampshire-infantry.jsonl.gz",
-   "rows": 2606,
-   "file_bytes": 127924,
-   "file_sha256": "8c07e1b4c027d097d4e346ed130363ba0e88ef9a3b5e97aac2aa4b1c3e136423",
-   "raw_lines_sha256": "9eec7c2c46380abdf28bdbdb5cb7afeec39a3cbfa60f55a58e5368c3f3c2e057",
+   "rows": 2607,
+   "file_bytes": 127929,
+   "file_sha256": "6c5739e85cddbcfa8369c5a3868b27f30368ee12ac9bd01834a291bfa3a9e15a",
+   "raw_lines_sha256": "7731c9146d306eb853d27c33593e9bd34b751376e7dc3ab3ab2b1a09b45aea0a",
    "flags_path": "docs/battle-theatre/rosters/data2/union/nh/5th-new-hampshire-infantry.flags.json.gz",
-   "flags_bytes": 27800,
-   "flags_sha256": "45920dd7e03a4facdbee5f7265d8228f1db8ab9e8e660099558505f7ff6b2a67",
+   "flags_bytes": 27811,
+   "flags_sha256": "a55372fe6b58ba321724bc1647affaad83866d92c64cfefc92823fca2e22b28b",
    "text_ids": [
     "NH-AYLING-1895.1"
    ]
@@ -518,8 +518,8 @@
    "file_sha256": "dd70efa5e11879d7d08d79ca225cfdeeefbb4209d9d25ff4658d776087cbd8bc",
    "raw_lines_sha256": "83357c947c23176ce1a757c2d79e9528b2e74634482564511455487ff116577b",
    "flags_path": "docs/battle-theatre/rosters/data2/union/nh/12th-new-hampshire-infantry.flags.json.gz",
-   "flags_bytes": 15568,
-   "flags_sha256": "3bcef19833729b6c01bdfe517e2c0543add357953cd0184984e6ebc32513cd5f",
+   "flags_bytes": 15567,
+   "flags_sha256": "5ebdf5406dac8f9b5d25fd2e8909c7b22ca73f99ae131d0ee6d6e9b9d7b893f8",
    "text_ids": [
     "NH-AYLING-1895.2"
    ]
@@ -528,13 +528,13 @@
    "unit": "u-nh-1st-new-hampshire-battery",
    "designation": "1st New Hampshire Battery",
    "path": "docs/battle-theatre/rosters/data2/union/nh/1st-new-hampshire-battery.jsonl.gz",
-   "rows": 258,
-   "file_bytes": 11846,
-   "file_sha256": "f2fae240dc517c050b17a31b4d31498af4787fc66d68e194d0fac144c5a65bef",
-   "raw_lines_sha256": "6e398d5f98fdbc90768b53579ecf9596b474e1a3a71f720f5ddeac1e18964dbc",
+   "rows": 260,
+   "file_bytes": 11852,
+   "file_sha256": "5aa6fae68045bcf5a64c8dabdc04864765f0d5da5634de2f089f4862619f8b74",
+   "raw_lines_sha256": "3750570e4ebb8519d7c7046d95896f6066544301add4c39fadd7025b3520a4ce",
    "flags_path": "docs/battle-theatre/rosters/data2/union/nh/1st-new-hampshire-battery.flags.json.gz",
-   "flags_bytes": 4446,
-   "flags_sha256": "fdd80449d9e1d332fa4b42aa8c5f7b055a6df9bba9b9141194ffbb0ba70c7867",
+   "flags_bytes": 4456,
+   "flags_sha256": "30a7f3f6913dd2b1079a5da2e28a72a638a70065cf540dcf70d9b9e3a192dfd3",
    "text_ids": [
     "NH-AYLING-1895.2"
    ]

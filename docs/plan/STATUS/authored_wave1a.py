@@ -143,7 +143,7 @@ A('wp-page-18', area='pages', route='candidate-group', size='S',
 
 A('wp-infra-21b', area='infra', route='candidate-group', size='S',
   value='No security.txt is published; a reporter has no documented way to reach the owner about a vulnerability.',
-  files=cand_files('wp-infra-21b', ['candidates/r1h/wp-infra-21b/overlay/well-known/security.txt']), touches=['well-known/security.txt (new overlay file)'],
+  files=cand_files('wp-infra-21b', ['candidates/r1h/wp-infra-21b/overlay/well-known/security.txt', 'docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-infra-21b.md']), touches=['well-known/security.txt (new overlay file)'],
   reads=['ops/legal-drafts/contact-architecture.md section 7', 'release/R1g/dist/privacy.html', 'docs/plan/FINAL/09-infra-security-privacy-pwa.md (WP-INFRA-21 step 5)'],
   acceptance=(
       'Overlay file well-known/security.txt and a test, red on R1g (no such file) and green with the overlay: RFC 9116 fields: `Contact: mailto:security@gettysburginteractivemap.com` exactly as drafted in ops/legal-drafts/contact-architecture.md section 7 (the test reads that draft and requires the same value; no personal mailbox: `grep -ri "@gmail.com"` on the file is empty), '

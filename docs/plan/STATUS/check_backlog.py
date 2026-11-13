@@ -21,7 +21,7 @@ import merge_status as ms  # noqa: E402
 
 REPO = ms.REPO
 ID_RE = re.compile(r'^[a-z0-9]+(-[a-z0-9]+)*$')
-ROUTES = {'candidate-group', 'source-rebuild', 'release-request', 'decision-record', 'umbrella'}
+ROUTES = {'candidate-group', 'source-rebuild', 'verification-record', 'release-request', 'decision-record', 'umbrella'}
 WRITE_OK = ('docs/plan/STATUS/', 'docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md', 'candidates/r1h/', 'src/', 'historian-src/', 'data-src/', 'tools/data/', 'tools/time/',
             'tools/historian/', 'tests/data/', 'tests/time/', 'tests/historian/', 'tmp/r1h-cand/', 'docs/battle-theatre/GOVERNANCE/horde/requests/main-site-')
 
@@ -61,7 +61,7 @@ def main(argv):
                 bad('%s: missing %s' % (e['id'], k))
         if not e.get('acceptance', '').strip():
             bad('%s: empty acceptance' % e['id'])
-        if e['route']['type'] in ('candidate-group', 'source-rebuild', 'release-request') and not e.get('files'):
+        if e['route']['type'] in ('candidate-group', 'source-rebuild', 'verification-record', 'release-request') and not e.get('files'):
             bad('%s: a build entry needs files' % e['id'])
         for f in e.get('files', []):
             nf = norm(f)
@@ -74,7 +74,7 @@ def main(argv):
         bad('order is not 1..N without gaps')
     # coverage of the surveys
     A, B, src, order, *_ = ms.load_items()
-    want = {ms.slug(i) for i in order if src[i]['status'] in ms.OPEN}
+    want = {ms.slug(i) for i in order if src[i]['status'] in ms.OPEN} | {sp['id'] for spec in ms.SLICES.values() for sp in spec['slices']}
     if want != set(ids):
         bad('coverage: missing %s; extra %s' % (sorted(want - set(ids))[:10], sorted(set(ids) - want)[:10]))
     # dependencies
@@ -166,7 +166,7 @@ def main(argv):
             print(r.stdout.strip())
             if r.returncode != 0:
                 bad('%s: re-run of the red/green proof failed (exit %d)' % (rid, r.returncode))
-        elif e['route']['type'] == 'source-rebuild':
+        elif e['route']['type'] in ('source-rebuild', 'verification-record', 'release-request'):
             r = subprocess.run(['node', 'candidates/r1h/_lib/record.mjs', rid, '--check'], cwd=REPO, capture_output=True, text=True)
             print(r.stdout.strip())
             if r.returncode != 0:

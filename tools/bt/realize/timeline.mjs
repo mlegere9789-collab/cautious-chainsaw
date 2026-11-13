@@ -176,11 +176,22 @@ export function mergeIntervals(list) {
 export const inIntervals = (intervals, t) => intervals.some(([a, b]) => t >= a && t <= b);
 export const coversInterval = (intervals, a, b) => intervals.some(([x, y]) => a >= x && b <= y);
 
-// ---- corrected claims (GOVERNANCE/timeline_corrections/<shard>.jsonl, written by another workstream). The line of a row is read as data: its text is every string in `corrected_claim`
-// (or the whole line when that field is absent); a machine-readable window is taken only from fields that state one in ISO form (1863-MM-DDTHH:MM) or in minutes under an explicit key.
+// ---- corrected claims (GOVERNANCE/timeline_corrections/<shard>.jsonl, written by another workstream). The line of a row is read as data. The words a record may quote and bind its units, places and
+// structures to are the words that CLAIM something: the event, the unit, the place, the printed time text and the full text of `corrected_claim` (claimFields). The basis of the time window (a source
+// citation with its authors), the marking, the tier, the sub-claims and the citations are evidence ABOUT the claim, not the claim: their words (a report author is not a unit on the field, "day" is
+// not Day's brigade) never bind anything. A machine-readable window is taken only from fields that state one in ISO form (1863-MM-DDTHH:MM) or in minutes under an explicit key.
 const ISO = /^1863-(\d\d)-(\d\d)T(\d\d):(\d\d)$/;
 function isoMin(s) { const r = ISO.exec(String(s || '').slice(0, 16)); return r ? minOf(+r[1], +r[2], +r[3], +r[4]) : null; }
-function strings(o, out = []) { if (o == null) return out; if (typeof o === 'string') out.push(o); else if (Array.isArray(o)) for (const x of o) strings(x, out); else if (typeof o === 'object') for (const v of Object.values(o)) strings(v, out); return out; }
+export const CLAIM_FIELDS = ['event', 'unit', 'place', 'time_text', 'text'];
+export function claimFields(corrected) {
+  if (corrected == null) return null;
+  if (typeof corrected === 'string') return corrected.trim() ? { text: corrected } : null;
+  if (typeof corrected !== 'object' || Array.isArray(corrected)) return null;
+  const out = {}; for (const k of ['event', 'unit', 'place']) if (typeof corrected[k] === 'string' && corrected[k].trim()) out[k] = corrected[k];
+  const tw = corrected.time_window; if (tw && typeof tw === 'object' && typeof tw.text === 'string' && tw.text.trim()) out.time_text = tw.text; else if (typeof tw === 'string' && tw.trim()) out.time_text = tw;
+  if (typeof corrected.text === 'string' && corrected.text.trim()) out.text = corrected.text;
+  return Object.keys(out).length ? Object.fromEntries(CLAIM_FIELDS.filter(k => out[k] != null).map(k => [k, out[k]])) : null;
+}
 export function correctionWindow(c) {
   const cc = c && (c.corrected_claim ?? c.corrected ?? null); if (!cc || typeof cc !== 'object') return null;
   const cand = [cc.time_window, cc.window, cc.time, cc.when].filter(x => x && typeof x === 'object' && !Array.isArray(x));
@@ -217,17 +228,18 @@ export function loadTimeline({ gov = GOV, tolerances } = {}) {
     else if (c) window.flags.push('correction_without_machine_readable_window');
     if (w.earliest != null && w.latest != null && !coversInterval(window.intervals, w.earliest, w.latest)) { window.flags.push('differs_from_windows_file'); window.intervals = mergeIntervals([...window.intervals, [w.earliest, w.latest]]); window.basis.push(`the windows file (timeline_windows.jsonl: ${isoOf(w.earliest)} to ${isoOf(w.latest)}, parsed from the first fragment of the cell) reads the cell differently; both readings are allowed (DD-RZ-02)`); }
     window.in_clock = window.intervals.some(([a, b]) => clock.some(([x, y]) => Math.min(b, y) - Math.max(a, x) >= 1));       // at least one minute inside the clock: a window that only touches its first minute is outside it
-    const what_text = cells.what.join(' '), corrText = c ? strings(c.line.corrected_claim ?? c.line.corrected ?? c.line).join(' ') : null;
+    const what_text = cells.what.join(' '), cf = c ? claimFields(c.line.corrected_claim ?? c.line.corrected ?? null) : null, corrText = cf ? Object.values(cf).join(' ') : null;
     return { id: s.id, n, shard: v.shard || null, page: s.page, tier_seed: s.tier, tier: v.tier || s.tier, status_effective: v.status_effective || s.status, verdict: v.verdict || null, weak: !!s.weak_source_flag,
-      text_raw: s.text_raw, time_cell: cells.time_cell, what: cells.what, what_text, notes_text: cells.after.join(' '), tier_cell_found: cells.tier_found,
+      text_raw: s.text_raw, time_cell: cells.time_cell, what: cells.what, what_text, after: cells.after, notes_text: cells.after.join(' '), tier_cell_found: cells.tier_found,
       seed_window: { parse_status: w.parse_status || null, earliest: w.earliest ?? null, latest: w.latest ?? null, default: w.default ?? null, phrase: w.phrase || null, band: w.band || null, raw: w.raw || null },
-      window, correction: c ? { file: c.file, verdict: c.line.verdict || null, text: corrText, line: c.line } : null,
-      // the text a quote of a record must be found in: the printed time, place, unit and action cells, and the corrected claim when there is one (never the note or source cells)
+      window, correction: c ? { file: c.file, verdict: c.line.verdict || null, text: corrText, fields: cf, line: c.line } : null,
+      // the text a quote of a record must be found in, and every unit, place and structure of a record must be named in: the printed time, place, unit and action cells, and the claim fields of the
+      // corrected claim when there is one (never the note or source cells, never the basis, marking, tier, sub-claims or citations of a correction)
       claim_text: cells.time_cell + ' ' + what_text + (corrText ? ' ' + corrText : '') };
   });
   const byId = new Map(rows.map(r => [r.id, r])), shards = {};
   for (const r of rows) (shards[r.shard] || (shards[r.shard] = [])).push(r.id);
-  return { rows, byId, shards, corrections: { files: corr.files, problems: corr.problems, rows: corr.byId.size }, tolerances: tol, clock };
+  return { rows, byId, shards, corrections: { files: corr.files, problems: corr.problems, rows: corr.byId.size }, tolerances: tol, clock, outside_clock: rows.filter(r => !r.window.in_clock).map(r => r.id) };
 }
 export const describeWindow = w => w.intervals.map(([a, b]) => `${isoOf(a)}..${isoOf(b)}`).join(' or ') || '(none)';
 export { fold };

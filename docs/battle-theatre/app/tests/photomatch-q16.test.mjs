@@ -52,6 +52,10 @@ test('poses: schema 2, every position is inferred or an assumption (never a docu
   }
   assert.equal(res.resolved.length, poses.poses.length); assert.deepEqual(res.resolved.map(r => r.id), poses.poses.map(p => p.id));
 });
+test('deferred poses are registered with their basis and the reason they have no render yet', () => {
+  const sid = new Set(st.statements.map(s => s.id));
+  for (const p of poses.deferred_poses || []) { assert.ok(p.deferred_reason && p.deferred_reason.length > 40, p.id); assert.ok(ids.has(p.loc_id), p.id); for (const s of p.statement_ids) assert.ok(sid.has(s), p.id + ' ' + s); assert.ok(!poses.poses.some(q => q.id === p.id), p.id + ' is both registered and deferred'); }
+});
 test('verdicts: allowed vocabulary; a positive verdict needs a viewed image; a fitted pose is never called a match; every pose has one', () => {
   const left = new Set(poses.poses.map(p => p.id)), byId = Object.fromEntries(poses.poses.map(p => [p.id, p]));
   for (const v of ver.pose_verdicts) {

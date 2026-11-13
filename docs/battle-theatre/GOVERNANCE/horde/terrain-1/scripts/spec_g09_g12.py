@@ -5,10 +5,10 @@ ROWS = []
 
 # ---------------------------------------------------------------------------------------------------------------- G-09
 ROWS.append(R(
-    'R13.G-09', 'corrected', 'open_gaps',
+    'R13.G-09', 'confirmed', 'open_gaps',
     pdf_row="Cabell's battalion | Edge of woods by the Emmitsburg Road | First to open Jul 2 | No works described | July 3 guns several hundred yd in front of the infantry near a small brick house, firing about 13:00 for over two hours | documented | Cabell-OR",
     pdf_claim="Cabell's battalion stood at the edge of the woods by the Emmitsburg Road and was first to open on 2 Jul; no works described; on 3 Jul its guns stood several hundred yd in front of the infantry near a small brick house and fired from about 13:00 for over two hours.",
-    corrected="Cabell's report: on 2 Jul the battalion went into position on the edge of the wood, its right near the road from Gettysburg to Emmitsburg, 600 or 700 yd from a large number of batteries in a peach orchard, and 'being first to open fire' took a concentrated fire; it lost heavily (Capt. Fraser mortally wounded). The battery reports add a pre-existing feature the PDF omits: Fraser's battery stood 'behind a loose rock fence' and Carlton's Parrott section 'behind the stone fence between Manly's and McCarthy's batteries'. Four batteries with four guns each give 16 guns (Manly four, McCarthy two 3-inch rifles + two Napoleons, Fraser two Parrotts + two 3-inch, Carlton two Parrotts + two 12-pdr howitzers); Pendleton records 'lost 1 3-inch rifle' for 15 after the battle; Alexander's 1907 memoir counts 18. On 3 Jul six guns (Payne's two of Manly's, Anderson's two of McCarthy's, Furlong's two Parrotts of Fraser's) stood several hundred yd in front of the infantry near a small brick house, fronting the road, with Carlton's battery and two of McCarthy's Napoleons to the left in front of Pickett; the fire opened about 1 p.m. and the cannonade was almost continuous for over two hours; about 4 p.m. the guns advanced to a line about 700 yd from Cemetery Hill and held to dark. Which house is the 'small brick house' is not stated by any source read (the NPS 'small brick house' hits are the Dustman/Riggs house on the First Day field).",
+    corrected="Cabell's report: on 2 Jul the battalion went into position on the edge of the wood, its right near the road from Gettysburg to Emmitsburg, 600 or 700 yd from a large number of batteries in a peach orchard, and 'being first to open fire' took a concentrated fire; it lost heavily (Capt. Fraser 'dangerously wounded', and Pendleton says he later died). The battery reports add a pre-existing feature the PDF omits: Fraser's battery stood 'behind a loose rock fence' and Carlton's Parrott section 'behind the stone fence between Manly's and McCarthy's batteries'. Four batteries with four guns each give 16 guns (Manly four, McCarthy two 3-inch rifles + two Napoleons, Fraser two Parrotts + two 3-inch, Carlton two Parrotts + two 12-pdr howitzers); Pendleton records 'lost 1 3-inch rifle' for 15 after the battle; Alexander's 1907 memoir counts 18. On 3 Jul six guns (Payne's two of Manly's, Anderson's two of McCarthy's, Furlong's two Parrotts of Fraser's) stood several hundred yd in front of the infantry near a small brick house, fronting the road, with Carlton's battery and two of McCarthy's Napoleons to the left in front of Pickett; the fire opened about 1 p.m. and the cannonade was almost continuous for over two hours; about 4 p.m. the guns advanced to a line about 700 yd from Cemetery Hill and held to dark. Which house is the 'small brick house' is not stated by any source read (the NPS 'small brick house' hits are the Dustman/Riggs house on the First Day field).",
     sub=[
         S('a', 'unit', "Battalion and batteries: Col. H. C. Cabell's battalion: Manly's (Co. A, 1st NC Artillery), McCarthy's (1st Richmond Howitzers), Fraser's (Pulaski, Georgia) and Carlton's (Troup, Georgia) batteries.", 'documented', 'supported', [
             C('OR2', 'R435', "Captain [H. H.J Carlton's battery and a section of Captain McCarthy's battery (two Napoleons) were ordered to the left of the line, in front of Pickett's division"),
@@ -56,7 +56,7 @@ ROWS.append(R(
     lookups=[L('OR Part 2', 'Cabell battery reports R436-R440', 5, "per-battery gun counts and the stone/rock fences"),
              L('NPS texts', 'small brick house', 3, "only the Dustman/Riggs house on the First Day field")],
     structures=['G-09'],
-    changes=["G-09 supported -> corrected: per-battery gun counts (16 total) and the pre-existing fences found in the battery reports; the 'no works' wording is true for earth only; the house stays an open gap"],
+    changes=["G-09 supported -> confirmed (with additions): per-battery gun counts (16 total) and the pre-existing fences found in the battery reports; the 'no works' wording is true for earth only; the house stays an open gap"],
 ))
 
 # ---------------------------------------------------------------------------------------------------------------- G-10
@@ -83,7 +83,7 @@ ROWS.append(R(
             C('NPS', 'NPS-CLI-ERR', "Field Stone Wall, Abraham Trostle Farm. (pre-1863, Contributing)"),
             C('NPS', 'NPS-CLI-ERR', "The north portion of the wall is Bigelow’s Battery Wall"),
             C('LIB', 'BL-3', "Bigelow's 9th Massachusetts made a stand close bv the Trostle house in the corner of the field through which he had retired fighting with prolonges fixed", page='310', note="Henry J. Hunt, 'The Second Day at Gettysburg' (byline in the text layer); OCR 'bv'"),
-            C('LIB', 'MEADE-LL-v2', "Bigelow's Ninth Massachusetts Battery makes a final stand near the Trostle house"),
+            C('LIB', 'MEADE-LL-v2', "Bigelow's Ninth Massachusetts Battery makes a final stand near the Trostle house", page='85'),
             C('LIB', 'NJ-TOOMBS-1888', "Bigelow's battery, which took position near the Trostle house")],
           note="The wall pre-existed (NPS: pre-1863): no construction animation (PDF B.7.3 rule). The PDF's 'stone wall near Trostle's house' is thus documented in NPS and three books; the OR says 'two stone walls met at an obtuse angle'."),
         S('e', 'damage', "Loss and capture: the infantry closed in on both flanks and silenced the four pieces on the right; they could not be withdrawn for want of officers, men and horses; the NPS: the narrow gate was blocked by an overturned limber and four guns were trapped and captured by the 21st Mississippi; the four guns were hauled off at 8 p.m. by a detail of the 6th Maine and Seeley's battery; Milton parked at 9 p.m.", 'documented', 'supported', [
@@ -99,7 +99,7 @@ ROWS.append(R(
             C('OR1', 'R320', "45 horses were killed and 15 wounded"),
             C('LIB', 'FOX-1889', "Bigelow lost, at Gettysburg, 50 horses killed and 15 wounded, according to the official report of Lieutenant Milton"),
             C('LIB', 'FOX-1889', "states that Bigelow lost 80 horses killed or wounded, out of 88 horses"),
-            C('LIB', 'MEADE-LL-v2', "the whole loss of the battery from the beginning to the end of the afternoon being twentyeight men and eighty horses")],
+            C('LIB', 'MEADE-LL-v2', "the whole loss of the battery from the beginning to the end of the afternoon being twentyeight men and eighty horses", page='85')],
           note="The PDF's '65' is Fox's reading of Milton, which the OR text does not bear out (45 + 15 = 60)."),
         S('h', 'place', "3 Jul: Milton with two pieces of Battery K, 3rd US (Turnbull) was placed on the right centre, on the left of Cemetery Hill, under Baxter, and was under fire of two Whitworth guns about two miles off; the OR does not say 'Ziegler's Grove'.", 'documented', 'partial', [
             C('OR1', 'R320', "was placed in position on right center, on left of Cemetery Hill, under immediate command of General Baxter, First Corps")]),

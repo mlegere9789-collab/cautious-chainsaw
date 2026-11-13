@@ -28,6 +28,7 @@ sys.path.insert(0, HERE)
 import plan_text as pt  # noqa: E402
 from authored_wave1a import WAVE1A  # noqa: E402
 from authored_wave1b import WAVE1B  # noqa: E402
+from authored_slices import SLICES  # noqa: E402
 
 REPO = pt.REPO
 GENERATED = '2026-11-13'
@@ -47,10 +48,13 @@ CHAPTER_TIER = {'01': 'legacy-a-line', '02': 'survival', '03': 'grade-a', '04': 
 # value order of the first dispatch batch (the 30 entries of authored_wave1a/1b), most valuable first
 WAVE1_ORDER = ['ver-hist-node', 'wp-arch-09', 'wp-infra-28b', 'wp-content-09b', 'wp-time-05', 'wp-infra-23b', 'wp-hist-01b', 'wp-data-23a', 'wp-pagec-30', 'audit-h5',
                'wp-pagec-24', 'wp-pagec-33', 'wp-seo-04b', 'wp-page-18', 'wp-time-06', 'wp-data-05b', 'wp-infra-21b', 'wp-data-16', 'wp-data-15a', 'wp-data-14a',
-               'wp-data-08d', 'wp-time-18', 'wp-arch-06', 'wp-hist-36', 'wp-data-04a', 'wp-dec-12', 'wp-content-01b', 'wp-time-08', 'wp-hist-22', 'wp-pagec-12']
+               'wp-data-08d', 'wp-time-18', 'wp-arch-06', 'wp-hist-36', 'wp-data-04a', 'wp-dec-12', 'wp-content-01b', 'wp-time-08', 'wp-hist-22-units', 'wp-pagec-12']
 AUTHORED = {}
 AUTHORED.update(WAVE1A)
 AUTHORED.update(WAVE1B)
+for _spec in SLICES.values():
+    for _sp in _spec['slices']:
+        AUTHORED[_sp['id']] = _sp
 # files that two wave-1 entries may both touch; each is changed by small Edit operations only
 SHARED_FILES = {'wp-data-23a': ['tools/data/baseline.json', 'tools/data/rules/v2_rules.mjs'], 'wp-data-08d': ['tools/data/baseline.json', 'tools/data/rules/numbers_rules.mjs'],
                 'wp-time-06': ['tools/time/relabel-data.mjs'], 'wp-time-18': ['src/lib/time/index.d.ts']}
@@ -85,7 +89,7 @@ DECISION_ONLY_NODES = {'RM-03': ['A41'], 'RM-98': ['A42']}   # nodes whose own t
 SAME_WORK = {'WP-PAGEC-03': 'WP-PAGE-03'}                      # the survey says "Same work."
 OWNER_GATE = re.compile(r"(owner's review|owner reads|owner reviews|owner review|owner decides|owner and counsel|owner inputs|owner machine|the owner answers|a person's sign-off|named reviewer|by the reviewer|reviewer's|historian decides|human review|second labeller|someone who did not build|real[- ]browser pass|real[- ]phone|real iphone|real device|counsel|account step|owner step|waits for the owner|owner exports|owner-only|owner enables|owner upload)", re.I)
 CLASS_LABEL = {'candidate-group': 'candidate patch group (candidates/r1h/<id>/)', 'source-rebuild': 'source-rebuild (src/, historian-src/, data-src/)',
-               'release-request': 'request to the release workstream', 'decision-record': 'decision record', 'umbrella': 'closes with its children'}
+               'release-request': 'request to the release workstream', 'verification-record': 'verification record (evidence, not a change)', 'decision-record': 'decision record', 'umbrella': 'closes with its children'}
 
 
 # ------------------------------------------------------------------ loading
@@ -239,8 +243,10 @@ CAND_HINT = re.compile(r'candidate (page|bundle|data|bridge|group|overlay|css|ro
 def route_type(it, area):
     ns = it['next_step']
     low = ns.lower()
-    if re.search(r'request to the release workstream|^release workstream:', low):
+    if re.search(r'request to the release workstream|^release workstream:|requests/main-site-[a-z0-9-]+\.md', low):
         return 'release-request'
+    if it['kind'] in ('verification-debt', 'verification debt', 'exit-criterion', 'audit-correction'):
+        return 'verification-record'
     if CAND_HINT.search(ns):
         return 'candidate-group'
     if area in ('historian',):
@@ -354,6 +360,27 @@ def build():
         e['_area'] = area
         entries[sid] = e
 
+    # ---- slices: the parent becomes an umbrella over entries that can be built and checked alone
+    for parent_id, spec in SLICES.items():
+        psid = slug(parent_id)
+        if psid not in entries:
+            raise SystemExit('slice parent is not an open item: %s' % parent_id)
+        pe = entries[psid]
+        kids = []
+        for sp in spec['slices']:
+            sid = sp['id']
+            entries[sid] = {'id': sid, 'source': {'part': pe['source']['part'], 'id': pe['source']['id'], 'kind': 'slice of ' + pe['source']['kind'], 'status': pe['source']['status'],
+                                                  'chapter': pe['chapter'], 'size': sp['size']},
+                            'title': sp.get('title') or '%s: %s' % (pe['title'], sid[len(psid) + 1:]), 'size': sp['size'], 'chapter': pe['chapter'], 'area': sp['area'], '_klass': 'leaf',
+                            '_it': pe['_it'], '_area': sp['area'], 'slice_of': psid}
+            if 'decision' in pe:
+                entries[sid]['decision'] = pe['decision']
+            kids.append(sid)
+        pe['_klass'] = 'umbrella'
+        pe['_children'] = kids
+        pe['slices'] = kids
+        pe['slice_note'] = spec['note']
+
     # ---- umbrellas: children
     for sid, e in entries.items():
         it = e['_it']
@@ -423,8 +450,12 @@ def build():
         elif rt == 'source-rebuild':
             e['route'].update({'dirs': source_dirs(area), 'record': 'candidates/r1h/%s/' % sid})
             e['files'] = auth['files'] if auth else source_dirs(area) + ['candidates/r1h/%s/STATUS.json' % sid, 'candidates/r1h/%s/HANDOFF.md' % sid]
+        elif rt == 'verification-record':
+            e['route'].update({'dir': 'candidates/r1h/%s/' % sid, 'record': 'evidence file plus STATUS.json and HANDOFF.md'})
+            e['files'] = auth['files'] if auth else ['candidates/r1h/%s/%s' % (sid, f) for f in ('evidence.json', 'STATUS.json', 'HANDOFF.md')]
         elif rt == 'release-request':
-            note = 'docs/battle-theatre/GOVERNANCE/horde/requests/main-site-%s.md' % sid
+            mnote = re.search(r'requests/(main-site-[a-z0-9-]+\.md)', it['next_step'])
+            note = 'docs/battle-theatre/GOVERNANCE/horde/requests/' + (mnote.group(1) if mnote else 'main-site-%s.md' % sid)
             e['route'].update({'owner': 'release workstream (tools/t0, tests/t0, tools/accept, tools/ship)', 'record': 'candidates/r1h/%s/' % sid, 'request_note': note})
             e['files'] = [note, 'candidates/r1h/%s/STATUS.json' % sid, 'candidates/r1h/%s/HANDOFF.md' % sid]
         else:
@@ -445,7 +476,7 @@ def build():
         else:
             e['acceptance'], e['acceptance_basis'] = gen_acceptance(e, it, rt, area, accept_plan, rows)
         gate = OWNER_GATE.findall(it['next_step'])
-        if gate and rt in ('candidate-group', 'source-rebuild', 'release-request') and not auth:
+        if gate and rt in ('candidate-group', 'source-rebuild', 'release-request', 'verification-record') and not auth:
             e['owner_gated'] = sorted({g.lower() for g in gate})
         if rt in ('candidate-group', 'source-rebuild') and it['size'] == 'L' and not auth:
             e['needs_split'] = True
@@ -478,9 +509,7 @@ def build():
             if (m and int(m.group(1)) >= 10) or i.startswith(('WP-UX', 'WP-A11Y')):   # the spikes (WP-DEC-*) and WP-ARCH-01..08 need no workspace
                 deps.append('wp-arch-09')
         if sid in AUTHORED:
-            deps = [d for d in deps if d in ('wp-arch-09',)] if sid != 'wp-arch-09' else []
-            if sid in ('wp-arch-09', 'wp-arch-06') or True:
-                deps = [d for d in deps if d in entries]
+            deps = list(AUTHORED[sid].get('depends_on', []))     # an authored entry names its own prerequisites (wave-1 entries have none)
         e['depends_on'] = [d for d in dict.fromkeys(deps) if d in entries and d != sid]
 
     # ---- two entries that name each other as a prerequisite are one piece of work: the later chapter keeps the edge
@@ -574,6 +603,8 @@ def gen_acceptance(e, it, rt, area, accept_plan, rows):
         parts.append('Proof: candidates/r1h/%s/ holds group.json and/or overlay/ with every anchor asserted on release/R1g/dist, test.mjs that FAILS on the untouched tree and PASSES on the scratch tree of the group, HANDOFF.md, and `node candidates/r1h/_lib/prove.mjs %s` exits 0 and writes STATUS.json with passes true (anchors ok, red exit non-zero, green exit 0).' % (sid, sid))
     elif rt == 'source-rebuild':
         parts.append('Proof: a red-first test under %s (it fails before the change; the failing log is kept), the work in %s, and `node candidates/r1h/_lib/record.mjs %s --test "<command>" --red-cmd "<command>" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened.' % (tests_dir(area), ', '.join(source_dirs(area)), sid))
+    elif rt == 'verification-record':
+        parts.append('Proof: candidates/r1h/%s/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs %s --evidence candidates/r1h/%s/evidence.json --test "<command>"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named.' % (sid, sid, sid))
     elif rt == 'release-request':
         parts.append('Proof: the request note %s names the exact change (file, lines, text), the red-first check the release workstream runs and its expected result, and candidates/r1h/%s/STATUS.json records passes true once the note exists; the change itself is the release workstream\'s.' % (e['route']['request_note'], sid))
     elif rt == 'decision-record':
@@ -642,6 +673,13 @@ def verify_status(sid, s, rt):
         rf = s.get('red_first') or {}
         if rf.get('exit') in (0, None) or not rf.get('log') or not os.path.isfile(os.path.join(REPO, rf['log'])):
             return False, 'red-first record missing'
+    elif rt == 'verification-record':
+        ev = s.get('evidence') or {}
+        if not ev.get('file') or not os.path.isfile(os.path.join(REPO, ev['file'])) or ev.get('outcome') not in ('confirmed', 'refuted', 'not-found', 'blocked', 'mixed'):
+            return False, 'evidence file or outcome missing'
+        tests = s.get('tests') or []
+        if not tests or any(t.get('exit') != 0 for t in tests):
+            return False, 'test commands missing or failing'
     elif rt == 'release-request':
         note = s.get('request_note')
         if not note or not os.path.isfile(os.path.join(REPO, note)):
@@ -677,7 +715,7 @@ def backlog_json(A, B, items, order, entries, result, rows):
         # a stable field order
         keys = ['id', 'order', 'wave', 'done', 'title', 'source', 'chapter', 'area', 'tier', 'tranche', 'roadmap_nodes', 'size', 'route', 'files', 'shared_files', 'touches', 'reads',
                 'context_files', 'depends_on', 'children', 'implemented_by', 'decision', 'value', 'acceptance', 'acceptance_basis', 'short', 'owed', 'needs_split', 'split_hint',
-                'consequence_note', 'owner_gated', 'together_with', 'same_work_as', 'umbrella_without_open_children', 'warnings', 'done_evidence']
+                'consequence_note', 'owner_gated', 'together_with', 'same_work_as', 'slice_of', 'slices', 'slice_note', 'umbrella_without_open_children', 'warnings', 'done_evidence']
         o = {k: o[k] for k in keys if k in o}
         out_items.append(o)
     counts = collections.Counter()
@@ -687,9 +725,9 @@ def backlog_json(A, B, items, order, entries, result, rows):
     doc = {
         'schema': 1, 'file': 'docs/plan/STATUS/backlog.json', 'generated': GENERATED,
         'generator': 'python3 docs/plan/STATUS/merge_status.py (validate: python3 docs/plan/STATUS/check_backlog.py)',
-        'sources': ['docs/plan/STATUS/items-A.json', 'docs/plan/STATUS/items-B.json', 'docs/plan/STATUS/authored_wave1a.py', 'docs/plan/STATUS/authored_wave1b.py',
+        'sources': ['docs/plan/STATUS/items-A.json', 'docs/plan/STATUS/items-B.json', 'docs/plan/STATUS/authored_wave1a.py', 'docs/plan/STATUS/authored_wave1b.py', 'docs/plan/STATUS/authored_slices.py',
                     'docs/plan/FINAL/15-roadmap.json', 'docs/plan/FINAL (WP dependency tables and acceptance text)', 'docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md'],
-        'scope': 'One entry per OPEN_BUILDABLE, BUILT_NOT_SHIPPED and OPEN_NEEDS_DECISION item of items-A.json (340) and items-B.json (365): %d entries. SHIPPED, OWNER_ONLY and SUPERSEDED items are not here (see STATUS.md).' % len(out_items),
+        'scope': 'One entry per OPEN_BUILDABLE, BUILT_NOT_SHIPPED and OPEN_NEEDS_DECISION item of items-A.json (340) and items-B.json (365), plus the slices of items cut into parts (slice_of / slices): %d entries in all. SHIPPED, OWNER_ONLY and SUPERSEDED items are not here (see STATUS.md).' % len(out_items),
         'definitions': {
             'id': 'lowercase letters, digits and hyphens: the source id lowercased (WP-INFRA-23b -> wp-infra-23b); also the folder name candidates/r1h/<id>/',
             'route.type': {k: CLASS_LABEL[k] for k in CLASS_LABEL},
@@ -774,11 +812,11 @@ def status_md(A, B, items, order, entries, result, rows):
     n_dec = sum(1 for s_ in result if entries[s_]['_klass'] == 'decision')
     n_umb = sum(1 for s_ in result if entries[s_]['_klass'] == 'umbrella')
     n_umb_done = sum(1 for s_ in result if entries[s_]['_klass'] == 'umbrella' and entries[s_]['done'])
-    L.append('%d entries, one per open item. %d are build entries (a candidate patch group, source-rebuild work or a request to the release workstream); %d are decision records (the delegated row exists, the consequence is carried by other entries); %d are umbrellas that close with their children. Done now: %d decision records, %d of %d build entries (a build entry is done only when candidates/r1h/<id>/STATUS.json verifies), %d of %d umbrellas.' % (len(entries), n_leaf, n_dec, n_umb, sum(1 for s_ in result if entries[s_]['_klass'] == 'decision' and entries[s_]['done']), n_leaf_done, n_leaf, n_umb_done, n_umb))
+    L.append('%d entries: one per open item plus %d slices (an item cut into parts that can be built alone; the parent closes with its slices). %d are build entries (a candidate patch group, source-rebuild work, a verification record or a request to the release workstream); %d are decision records (the delegated row exists, the consequence is carried by other entries); %d are umbrellas that close with their children. Done now: %d decision records, %d of %d build entries (a build entry is done only when candidates/r1h/<id>/STATUS.json verifies), %d of %d umbrellas.' % (len(entries), sum(1 for e_ in entries.values() if e_.get('slice_of')), n_leaf, n_dec, n_umb, sum(1 for s_ in result if entries[s_]['_klass'] == 'decision' and entries[s_]['done']), n_leaf_done, n_leaf, n_umb_done, n_umb))
     L.append('')
     L.append('| Route | Entries | Open |')
     L.append('|---|---:|---:|')
-    for k in ('candidate-group', 'source-rebuild', 'release-request', 'umbrella', 'decision-record'):
+    for k in ('candidate-group', 'source-rebuild', 'verification-record', 'release-request', 'umbrella', 'decision-record'):
         L.append('| %s | %d | %d |' % (CLASS_LABEL[k], rt[k], rt_open[k]))
     L.append('')
     sz = collections.Counter(entries[s]['size'] for s in open_leaf)
@@ -815,7 +853,7 @@ def status_md(A, B, items, order, entries, result, rows):
     L.append('## OWNER_ONLY: every step only the owner can take')
     L.append('')
     oo = [items[i] for i in order if items[i]['status'] == 'OWNER_ONLY']
-    L.append('%d items need a legal act, an account, a key, a DNS change, a payment, a deployment, real hardware or a third party. The step is quoted from the item; Items under a roadmap node are listed with it.' % len(oo))
+    L.append('%d items need a legal act, an account, a key, a DNS change, a payment, a deployment, real hardware or a third party. The step is quoted from the item; a roadmap node and the items beneath it each list their own step, so some steps repeat on purpose.' % len(oo))
     L.append('')
     for ch in CHAPTERS:
         lst = [it for it in oo if it['chapter'] == ch]
