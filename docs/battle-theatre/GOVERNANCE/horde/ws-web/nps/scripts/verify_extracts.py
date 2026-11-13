@@ -6,12 +6,18 @@ For every extract:
     in the extract and the one in sources.json (and, for the standard text, in GOVERNANCE/library/acquired_3.json);
   - the quote is found on that page: exact (whitespace-normalised) for quote_mode sentences/anchors; for quote_mode
     cleaned the letters and digits of the quote occur exactly once on the page and the recorded raw excerpt occurs
-    verbatim on the page;
+    verbatim on the page; the same holds for the optional context quote (a second passage of the same page that
+    carries a date, name or number the claim needs);
+  - every number written in the claim (digits, thousands commas ignored, 1/2 for the half sign) occurs in the quote
+    or in the context quote, except the year of the source's own date (a claim may say 'the 1940 report') and 1863
+    when the state date itself says 1863;
   - use_for_1863 follows from state_date by the same rule the builder uses; tier_proposed follows from source_certainty;
   - repo_keys are ids of this repository (checked against structures.json, state_schedule.json, gazetteer, structures3d).
 Also checks that every xid is unique and that every source named exists in sources.json with a rights basis.
+Warnings (not failures, listed in the report): a four-digit year of the state date that appears neither on the quoted
+page nor on the pages next to it.
 
-Writes extracts/verify_report.json (counts, problems) and exits 1 when a problem is found.
+Writes extracts/verify_report.json (counts, problems, warnings) and exits 1 when a problem is found.
 Run with python3 -I.
 """
 import importlib.util, json, os, re, sys
@@ -36,14 +42,40 @@ def repo_ids():
     return ids | base
 
 
+def numbers(s):
+    """The numbers written in a text: digit groups with decimals; thousands commas dropped; the half sign read as 1/2."""
+    s = (s or '').replace('½', '1/2')
+    s = re.sub(r'(?<=\d),(?=\d{3}(?!\d))', '', s)
+    return set(re.findall(r'\d+(?:\.\d+)?', s))
+
+
+def check_quote(problems, x, label, flat, q, mode, tmpl, excerpt, lig):
+    """Verify one quote (the main one or the context) against the flattened page text; returns True when it is of cleaned mode."""
+    if mode == 'cleaned':
+        key, _ = be._alnum_map(flat, lig)
+        tmpl = tmpl or q
+        match_form = be._CORR.sub(lambda m: m.group(1), tmpl)
+        if be.norm(be._CORR.sub(lambda m: m.group(2), tmpl)) != q:
+            problems.append('%s: %s differs from its template with the OCR corrections applied' % (x, label))
+        qk, _ = be._alnum_map(be.norm(match_form), lig)
+        if key.count(qk) != 1:
+            problems.append('%s: %s cleaned letters found %d times on the page' % (x, label, key.count(qk)))
+        if not excerpt or excerpt not in flat:
+            problems.append('%s: %s raw excerpt missing from the page' % (x, label))
+        return True
+    if q not in flat:
+        problems.append('%s: %s not found verbatim on the page' % (x, label))
+    return False
+
+
 def main():
     sources = {s['id']: s for s in json.load(open(os.path.join(NPS, 'sources.json')))['sources']}
     acq = {i['id']: i for i in json.load(open(os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'library', 'acquired_3.json')))['items']}
     known = repo_ids()
     rows = [json.loads(l) for l in open(os.path.join(NPS, 'extracts', 'extracts.jsonl'), encoding='utf-8') if l.strip()]
-    problems, seen = [], set()
+    problems, warnings, seen = [], [], set()
     unknown_keys = {}
-    counts = {'extracts': len(rows), 'exact': 0, 'cleaned': 0}
+    counts = {'extracts': len(rows), 'exact': 0, 'cleaned': 0, 'with_context': 0}
     for r in rows:
         x = r['xid']
         if x in seen:
@@ -70,43 +102,48 @@ def main():
             problems.append('%s: page %d missing' % (x, p)); continue
         flat = be.norm(pgs[p])
         q = r['quote']
-        mode = r.get('quote_mode', 'anchors')
-        if mode == 'cleaned':
-            lig = 'fi' if s.get('text_defect') == 'fi-ligature' else (s.get('text_defect') == 'ligature')
-            key, _ = be._alnum_map(flat, lig)
-            tmpl = r.get('quote_template') or q
-            match_form = be._CORR.sub(lambda m: m.group(1), tmpl)
-            if be.norm(be._CORR.sub(lambda m: m.group(2), tmpl)) != q:
-                problems.append('%s: quote differs from its template with the OCR corrections applied' % x)
-            qk, _ = be._alnum_map(be.norm(match_form), lig)
-            if key.count(qk) != 1:
-                problems.append('%s: cleaned quote letters found %d times on p.%d' % (x, key.count(qk), p))
-            if not r.get('source_text_excerpt') or r['source_text_excerpt'] not in flat:
-                problems.append('%s: raw excerpt missing from p.%d' % (x, p))
-            counts['cleaned'] += 1
-        else:
-            if q not in flat:
-                problems.append('%s: quote not found verbatim on p.%d' % (x, p))
-            counts['exact'] += 1
-        use, _ = be.use_for_1863(r['state_date'] if not r['state_date'][:1] in '!~' else r['state_date'])
-        # the builder stripped the '!'/'~' marker from state_date; recompute only the plain rule here
+        lig = 'fi' if s.get('text_defect') == 'fi-ligature' else (s.get('text_defect') == 'ligature')
+        cleaned = check_quote(problems, x, 'quote', flat, q, r.get('quote_mode', 'anchors'), r.get('quote_template'), r.get('source_text_excerpt'), lig)
+        counts['cleaned' if cleaned else 'exact'] += 1
+        cq = r.get('context_quote')
+        if cq:
+            counts['with_context'] += 1
+            check_quote(problems, x, 'context quote', flat, cq, r.get('context_mode', 'anchors'), r.get('context_template'), r.get('context_excerpt'), lig)
+        # every number of the claim stands in the quote or in the context quote
+        allowed = numbers(q) | numbers(cq)
+        m = re.search(r'(\d{4})', str(s.get('date') or ''))
+        if m:
+            allowed.add(m.group(1))
+        if '1863' in r['state_date']:
+            allowed.add('1863')
+        missing = sorted(n for n in numbers(r['claim']) if n not in allowed)
+        if missing:
+            problems.append('%s: number(s) %s of the claim are in neither the quote nor the context quote' % (x, ', '.join(missing)))
+        use, _ = be.use_for_1863(r['state_date'])
         if r['use_for_1863'] not in ('direct', 'indirect', 'none'):
             problems.append('%s: bad use_for_1863 %r' % (x, r['use_for_1863']))
         if r['tier_proposed'] != {'stated': 'documented', 'hedged': 'inferred', 'conflict': 'inferred'}[r['source_certainty']]:
             problems.append('%s: tier does not follow the source wording' % x)
         if r['use_for_1863'] == 'direct' and re.search(r'modern|reconstruct|replant|rebuilt|20[0-2]\d', r['state_date']) and not re.match(r'1[0-8]\d\d', r['state_date']):
             problems.append('%s: a modern state date marked direct: %r' % (x, r['state_date']))
+        # state-date years should be found on the quoted page or the pages next to it (warning only)
+        near = ' '.join(be.norm(pgs[k]) for k in (p - 1, p, p + 1) if k in pgs)
+        for y in sorted(set(re.findall(r'\b(1[6-9]\d\d|20[0-2]\d)\b', r['state_date']))):
+            if y != '1863' and y not in near:
+                warnings.append('%s: state-date year %s is on neither page %d nor the pages next to it' % (x, y, p))
         for k in r.get('repo_keys', []):
             if k not in known and not re.fullmatch(r'R\d\d\.[A-Za-z0-9-]+', k):
                 unknown_keys[k] = unknown_keys.get(k, 0) + 1
     for k, n in sorted(unknown_keys.items()):
         problems.append('repo key %r used %d time(s) is not an id found in the repository data' % (k, n))
-    rep = {'checked': counts, 'problems': problems, 'sources_with_extracts': sorted({r['source_id'] for r in rows})}
+    rep = {'checked': counts, 'problems': problems, 'warnings': warnings, 'sources_with_extracts': sorted({r['source_id'] for r in rows})}
     with open(os.path.join(NPS, 'extracts', 'verify_report.json'), 'w', encoding='utf-8') as f:
         json.dump(rep, f, indent=1, ensure_ascii=False)
-    print('%d extracts checked (%d exact, %d cleaned); %d problem(s)' % (len(rows), counts['exact'], counts['cleaned'], len(problems)))
-    for pr in problems[:60]:
+    print('%d extracts checked (%d exact, %d cleaned, %d with a context quote); %d problem(s), %d warning(s)' % (len(rows), counts['exact'], counts['cleaned'], counts['with_context'], len(problems), len(warnings)))
+    for pr in problems[:200]:
         print(' -', pr)
+    for w in warnings[:40]:
+        print(' ?', w)
     sys.exit(1 if problems else 0)
 
 

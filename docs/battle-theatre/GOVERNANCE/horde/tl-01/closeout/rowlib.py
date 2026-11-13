@@ -23,3 +23,8 @@ def sc(id, value, basis, tier, cites=()):
 
 def reg(title, why, recon, tier, competing='-', impact='-', ask='-', subst='-', rids='R11'):
     return dict(title=title, why=why, recon=recon, tier=tier, competing=competing, impact=impact, ask=ask, subst=subst, rids=rids)
+
+def HALF(t):
+    """Note for a Jacobs 1864 time whose OCR text layer prints the fraction one half as J (once |)."""
+    return ('The OCR text layer prints the fraction one half as J (once as |); the quote is verbatim from that layer and is read as %s. '
+            'The reading rests on the glyph pattern of the text (the same layer prints 4J to 10| A. m. and 8J A. m.) and is not confirmed on a page image.' % t)

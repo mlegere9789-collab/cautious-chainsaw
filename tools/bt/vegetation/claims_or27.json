@@ -1,24 +1,514 @@
 [
-{"id":"VC-OR-001","src":"OR27","report":"OR27-1-R077","quote":"advance in line of battle through a wheat-field, his left resting on the woods which skirted the field","tier":"documented","kind":"crop","says":"On the afternoon of 2 July the Wheatfield was in wheat and Cross's brigade advanced through it in line with its left on the woods.","feature":"Rose Wheatfield","when":"1863-07-02","about":{"crop":"wheat"},"anchor":{"poly":"LC-FIELD-0001"},"note":"Caldwell's own report (Second Corps, First Division)."},
-{"id":"VC-OR-002","src":"OR27","report":"OR27-1-R078","quote":"The brigade steadily drove the enemy back to the far end of the wheat-field, a distance of over 400 yards","tier":"documented","kind":"geometry","says":"The wheat-field the Third Brigade crossed was more than 400 yards (366 m) long on the line of advance.","feature":"Rose Wheatfield","when":"1863-07-02","about":{"length_m_min":366},"anchor":{"poly":"LC-FIELD-0001"},"note":"Used as a size check on the outline of the field (about 20 acres), not to move the outline."},
-{"id":"VC-OR-003","src":"OR27","report":"OR27-1-R082","quote":"Both brigades advanced in line of battle through a wheat-field into a wood","tier":"documented","kind":"crop","says":"The brigades of Kelly and Zook advanced through a wheat-field into a wood in the evening of 2 July.","feature":"Rose Wheatfield","when":"1863-07-02","about":{"crop":"wheat"},"anchor":{"poly":"LC-FIELD-0001"}},
-{"id":"VC-OR-004","src":"OR27","report":"OR27-1-R095","quote":"moved forward in order of battle through a wheat-field, about the center of which we commenced firing, continuing for fifteen minutes or more","tier":"documented","kind":"crop","says":"A regiment of Brooke's brigade fought for fifteen minutes or more in the middle of the wheat-field.","feature":"Rose Wheatfield","when":"1863-07-02","about":{"crop":"wheat"},"anchor":{"poly":"LC-FIELD-0001"}},
-{"id":"VC-OR-005","src":"OR27","report":"OR27-1-R092","quote":"In passing back over the wheat-field, I found the enemy had nearly closed in my rear","tier":"documented","kind":"crop","says":"Brooke's brigade crossed the wheat-field twice in the fight of 2 July.","feature":"Rose Wheatfield","when":"1863-07-02","about":{"crop":"wheat"},"anchor":{"poly":"LC-FIELD-0001"}},
-{"id":"VC-OR-006","src":"OR27","report":"OR27-1-R218","quote":"crossed a low marshy ground in front to a wheat-field lying between two thick belts of woods beyond","tier":"documented","kind":"ground","says":"Between the Fifth Corps' line and the wheat-field lay low marshy ground (the Plum Run bottom), and the wheat-field lay between two thick belts of woods.","feature":"Plum Run bottom and Rose Wheatfield","when":"1863-07-02","about":{"landcover":"marsh","adjacent":"wheat_field"},"anchor":{"poly":"LC-WET-0001"},"note":"Crawford's report of the evening of 2 July."},
-{"id":"VC-OR-007","src":"OR27","report":"OR27-1-R218","quote":"Beyond this lay two thick masses of timber, separated by a large wheat-field","tier":"documented","kind":"woodlot","says":"Two thick masses of timber stood on either side of the large wheat-field.","feature":"woods around the Rose Wheatfield","when":"1863-07-02","about":{"canopy":"thick"},"anchor":{"poly":"LC-FIELD-0001","class":"woods","r_m":260}},
-{"id":"VC-OR-008","src":"OR27","report":"OR27-1-R183","quote":"in a small wheat-field near the base of Round Top hill","tier":"documented","kind":"crop","says":"Winslow's battery stood in a small wheat-field near the foot of Round Top on the afternoon of 2 July.","feature":"small wheat-field near Round Top","when":"1863-07-02","about":{"crop":"wheat"},"note":"Not placed: the report gives no distance or bearing."},
-{"id":"VC-OR-009","src":"OR27","report":"OR27-1-R174","quote":"form a line across a small wheat-field on my left, to connect two brigades","tier":"documented","kind":"crop","says":"Burling's brigade was ordered to form across a small wheat-field on the afternoon of 2 July.","feature":"small wheat-field of the Third Corps' left","when":"1863-07-02","about":{"crop":"wheat"},"note":"Not placed."},
-{"id":"VC-OR-010","src":"OR27","report":"OR27-1-R028","quote":"established a battery of ten guns (four 20-pounders and six 10-pounder Parrotts) in a wheat-field to the north and a little to the east of the Cemetery Hill","tier":"documented","kind":"crop","says":"A Confederate battery stood in a wheat-field north and a little east of Cemetery Hill at about 15:30 on 2 July (Benner's Hill).","feature":"wheat-field on Benner's Hill","when":"1863-07-02","about":{"crop":"wheat"},"note":"Hunt's report; the field is east of the town, 1,200 to 1,300 yards from Cemetery Hill. Not placed: the repository holds no coordinates for Benner's Hill."},
-{"id":"VC-OR-011","src":"OR27","report":"OR27-1-R071","quote":"they planted a battery of four 20-pounders and six 10-pounder Parrotts in a wheat-field on our immediate front, at about 1,300 yards","tier":"documented","kind":"crop","says":"The same Confederate battery stood in a wheat-field about 1,300 yards in front of Wainwright's guns.","feature":"wheat-field on Benner's Hill","when":"1863-07-02","about":{"crop":"wheat"}},
-{"id":"VC-OR-012","src":"OR27","report":"OR27-1-R222","quote":"to the right of the Baltimore pike, in a field of wheat","tier":"documented","kind":"crop","says":"On the morning of 2 July a battery of the Sixth Corps stood in a field of wheat to the right of the Baltimore Pike.","feature":"wheat-field east of Rock Creek","when":"1863-07-02","about":{"crop":"wheat"},"note":"Not placed."},
-{"id":"VC-OR-013","src":"OR27","report":"OR27-1-R028","quote":"which took post in an oat-field, about 380 yards south of the Cashtown road","tier":"documented","kind":"crop","says":"On 1 July Cooper's battery took post in an oat-field on Seminary Ridge about 380 yards south of the Cashtown (Chambersburg) road.","feature":"oat-field on Seminary Ridge","when":"1863-07-01","about":{"crop":"oats"},"anchor":{"gz":"Schmucker Hall","bearing":180,"dist_m":347,"r_m":220,"class":"field"},"note":"Anchor: 380 yards (347 m) south of the road at the Seminary. The position of the road line at that point is taken from the repository's road layer; the anchor radius covers that and the 30-40 m error of the outlines."},
-{"id":"VC-OR-014","src":"OR27","report":"OR27-1-R071","quote":"the battery being posted in an oat-field some 350 yards south of the Cashtown road","tier":"documented","kind":"crop","says":"Wainwright confirms the oat-field on Seminary Ridge, about 350 yards south of the Cashtown road, on 1 July.","feature":"oat-field on Seminary Ridge","when":"1863-07-01","about":{"crop":"oats"},"anchor":{"gz":"Schmucker Hall","bearing":180,"dist_m":320,"r_m":220,"class":"field"}},
-{"id":"VC-OR-015","src":"OR27","report":"OR27-1-R141","quote":"our line advanced up the slope and deployed in the oat-field, some 15 rods from the pike","tier":"documented","kind":"crop","says":"On 2 July a regiment of Graham's brigade deployed in an oat-field about 15 rods (75 m) from the Emmitsburg pike, beside the Peach Orchard.","feature":"oat-field by the Peach Orchard","when":"1863-07-02","about":{"crop":"oats"},"anchor":{"farm":"sherfy","bearing":90,"dist_m":170,"r_m":230,"class":"field"},"note":"The anchor is the Sherfy farmstead (the Peach Orchard); the NPS inventory puts the Sherfy oats in the eastern field (see VC-NPSX-CLI-PCB-p082-04)."},
-{"id":"VC-OR-016","src":"OR27","report":"OR27-1-R208","quote":"While lying down in a clover-field","tier":"documented","kind":"crop","says":"On the evening of 2 July the Regulars of the Fifth Corps lay down in a clover-field where the enemy opened with artillery.","feature":"clover-field of the Fifth Corps' left","when":"1863-07-02","about":{"crop":"hay_clover"},"note":"Not placed: the report names no landmark."},
-{"id":"VC-OR-017","src":"OR27","report":"OR27-1-R085","quote":"on each side of which was an open corn-field","tier":"documented","kind":"crop","says":"On 2 July a wood stood between two open corn-fields on the Union left.","feature":"corn-fields beside a wood, Union left","when":"1863-07-02","about":{"crop":"corn"},"note":"Not placed."},
-{"id":"VC-OR-018","src":"OR27","report":"OR27-1-R089","quote":"the regiment finally arrived at a corn-field, where the battle had been already raging for several hours","tier":"documented","kind":"crop","says":"A Fifth Corps regiment arrived at a corn-field where the battle had raged for several hours (2 July).","feature":"corn-field of the Union left","when":"1863-07-02","about":{"crop":"corn"},"note":"Not placed."},
-{"id":"VC-OR-019","src":"OR27","report":"OR27-1-R055","quote":"undulating, here arid there covered with grain, and a small woods extended across it","tier":"documented","kind":"crop","says":"On 1 July the ground north of the town where Schurz's division fought was undulating, in places in grain, with a small wood across it.","feature":"fields north of the town (Barlow's Knoll side)","when":"1863-07-01","about":{"crop":"grain"},"note":"Not placed."},
-{"id":"VC-OR-020","src":"OR27","report":"OR27-1-R159","quote":"The bivouac was necessarily in a wheat-field, the stacks of which the men slept on, which were thus trampled considerably","tier":"documented","kind":"regional","says":"On the night of 9 to 10 July wheat in the field at the Boonsborough and Williamsport turnpike (Maryland) was already cut and stacked, and the stacks were trampled by a division.","feature":"wheat harvest in Washington County, Maryland","when":"1863-07-10","about":{"crop":"wheat","stage":"cut_stacked","region":"Washington County, Maryland, about 35 miles south-west"},"note":"Prince's own report. The field is not near Gettysburg; it dates a harvest in the same agricultural region and the same season."},
-{"id":"VC-OR-021","src":"OR27","report":"OR27-2-R442","quote":"subsisted entirely on wheat and grass, or new hay","tier":"documented","kind":"regional","says":"From 10 to 25 July horses at Downsville, Maryland, were fed cut wheat, grass and new hay.","feature":"hay and wheat harvest in Maryland","when":{"from":"1863-07-10","to":"1863-07-25"},"about":{"crop":"hay","stage":"new_hay","region":"Washington County, Maryland"},"note":"Report of a Confederate artillery officer."},
-{"id":"VC-OR-022","src":"OR27","report":"OR27-1-R152","quote":"I extended my right by moving the Seventeenth Maine Volunteers, Lieutenant-Colonel Merrill commanding, across a wheat","tier":"documented","kind":"crop","says":"De Trobriand sent the 17th Maine across a wheat field on 2 July.","feature":"Rose Wheatfield","when":"1863-07-02","about":{"crop":"wheat"},"anchor":{"poly":"LC-FIELD-0001"}}
+{
+"id": "VC-OR-001",
+"src": "OR27",
+"report": "OR27-1-R077",
+"quote": "advance in line of battle through a wheat-field, his left resting on the woods which skirted the field",
+"tier": "documented",
+"kind": "crop",
+"says": "On the afternoon of 2 July the Wheatfield was in wheat and Cross's brigade advanced through it in line with its left on the woods.",
+"feature": "Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+},
+"note": "Caldwell's own report (Second Corps, First Division)."
+},
+{
+"id": "VC-OR-002",
+"src": "OR27",
+"report": "OR27-1-R078",
+"quote": "The brigade steadily drove the enemy back to the far end of the wheat-field, a distance of over 400 yards",
+"tier": "documented",
+"kind": "geometry",
+"says": "The wheat-field the Third Brigade crossed was more than 400 yards (366 m) long on the line of advance.",
+"feature": "Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"length_m_min": 366
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+},
+"note": "Used as a size check on the outline of the field (about 20 acres), not to move the outline."
+},
+{
+"id": "VC-OR-003",
+"src": "OR27",
+"report": "OR27-1-R082",
+"quote": "Both brigades advanced in line of battle through a wheat-field into a wood",
+"tier": "documented",
+"kind": "crop",
+"says": "The brigades of Kelly and Zook advanced through a wheat-field into a wood in the evening of 2 July.",
+"feature": "Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+}
+},
+{
+"id": "VC-OR-004",
+"src": "OR27",
+"report": "OR27-1-R095",
+"quote": "moved forward in order of battle through a wheat-field, about the center of which we commenced firing, continuing for fifteen minutes or more",
+"tier": "documented",
+"kind": "crop",
+"says": "A regiment of Brooke's brigade fought for fifteen minutes or more in the middle of the wheat-field.",
+"feature": "Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+}
+},
+{
+"id": "VC-OR-005",
+"src": "OR27",
+"report": "OR27-1-R092",
+"quote": "In passing back over the wheat-field, I found the enemy had nearly closed in my rear",
+"tier": "documented",
+"kind": "crop",
+"says": "Brooke's brigade crossed the wheat-field twice in the fight of 2 July.",
+"feature": "Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+}
+},
+{
+"id": "VC-OR-006",
+"src": "OR27",
+"report": "OR27-1-R218",
+"quote": "crossed a low marshy ground in front to a wheat-field lying between two thick belts of woods beyond",
+"tier": "documented",
+"kind": "ground",
+"says": "Between the Fifth Corps' line and the wheat-field lay low marshy ground (the Plum Run bottom), and the wheat-field lay between two thick belts of woods.",
+"feature": "Plum Run bottom and Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"landcover": "marsh",
+"adjacent": "wheat_field"
+},
+"anchor": {
+"poly": "LC-WET-0001"
+},
+"note": "Crawford's report of the evening of 2 July."
+},
+{
+"id": "VC-OR-007",
+"src": "OR27",
+"report": "OR27-1-R218",
+"quote": "Beyond this lay two thick masses of timber, separated by a large wheat-field",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Two thick masses of timber stood on either side of the large wheat-field.",
+"feature": "woods around the Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"canopy": "thick"
+},
+"anchor": {
+"poly": "LC-FIELD-0001",
+"class": "woods",
+"r_m": 260
+}
+},
+{
+"id": "VC-OR-008",
+"src": "OR27",
+"report": "OR27-1-R183",
+"quote": "in a small wheat-field near the base of Round Top hill",
+"tier": "documented",
+"kind": "crop",
+"says": "Winslow's battery stood in a small wheat-field near the foot of Round Top on the afternoon of 2 July.",
+"feature": "small wheat-field near Round Top",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"note": "Not placed: the report gives no distance or bearing."
+},
+{
+"id": "VC-OR-009",
+"src": "OR27",
+"report": "OR27-1-R174",
+"quote": "form a line across a small wheat-field on my left, to connect two brigades",
+"tier": "documented",
+"kind": "crop",
+"says": "Burling's brigade was ordered to form across a small wheat-field on the afternoon of 2 July.",
+"feature": "small wheat-field of the Third Corps' left",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"note": "Not placed."
+},
+{
+"id": "VC-OR-010",
+"src": "OR27",
+"report": "OR27-1-R028",
+"quote": "established a battery of ten guns (four 20-pounders and six 10-pounder Parrotts) in a wheat-field to the north and a little to the east of the Cemetery Hill",
+"tier": "documented",
+"kind": "crop",
+"says": "A Confederate battery stood in a wheat-field north and a little east of Cemetery Hill at about 15:30 on 2 July (Benner's Hill).",
+"feature": "wheat-field on Benner's Hill",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"note": "Hunt's report; the field is east of the town, 1,200 to 1,300 yards from Cemetery Hill. Not placed: the repository holds no coordinates for Benner's Hill."
+},
+{
+"id": "VC-OR-011",
+"src": "OR27",
+"report": "OR27-1-R071",
+"quote": "they planted a battery of four 20-pounders and six 10-pounder Parrotts in a wheat-field on our immediate front, at about 1,300 yards",
+"tier": "documented",
+"kind": "crop",
+"says": "The same Confederate battery stood in a wheat-field about 1,300 yards in front of Wainwright's guns.",
+"feature": "wheat-field on Benner's Hill",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+}
+},
+{
+"id": "VC-OR-012",
+"src": "OR27",
+"report": "OR27-1-R222",
+"quote": "to the right of the Baltimore pike, in a field of wheat",
+"tier": "documented",
+"kind": "crop",
+"says": "On the morning of 2 July a battery of the Sixth Corps stood in a field of wheat to the right of the Baltimore Pike.",
+"feature": "wheat-field east of Rock Creek",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"note": "Not placed."
+},
+{
+"id": "VC-OR-013",
+"src": "OR27",
+"report": "OR27-1-R028",
+"quote": "which took post in an oat-field, about 380 yards south of the Cashtown road",
+"tier": "documented",
+"kind": "crop",
+"says": "On 1 July Cooper's battery took post in an oat-field on Seminary Ridge about 380 yards south of the Cashtown (Chambersburg) road.",
+"feature": "oat-field on Seminary Ridge",
+"when": "1863-07-01",
+"about": {
+"crop": "oats"
+},
+"anchor": {
+"gz": "Schmucker Hall",
+"bearing": 180,
+"dist_m": 347,
+"r_m": 220,
+"class": "field"
+},
+"note": "Anchor: 380 yards (347 m) south of the road at the Seminary. The position of the road line at that point is taken from the repository's road layer; the anchor radius covers that and the 30-40 m error of the outlines."
+},
+{
+"id": "VC-OR-014",
+"src": "OR27",
+"report": "OR27-1-R071",
+"quote": "the battery being posted in an oat-field some 350 yards south of the Cashtown road",
+"tier": "documented",
+"kind": "crop",
+"says": "Wainwright confirms the oat-field on Seminary Ridge, about 350 yards south of the Cashtown road, on 1 July.",
+"feature": "oat-field on Seminary Ridge",
+"when": "1863-07-01",
+"about": {
+"crop": "oats"
+},
+"anchor": {
+"gz": "Schmucker Hall",
+"bearing": 180,
+"dist_m": 320,
+"r_m": 220,
+"class": "field"
+}
+},
+{
+"id": "VC-OR-015",
+"src": "OR27",
+"report": "OR27-1-R141",
+"quote": "our line advanced up the slope and deployed in the oat-field, some 15 rods from the pike",
+"tier": "documented",
+"kind": "crop",
+"says": "On 2 July a regiment of Graham's brigade deployed in an oat-field about 15 rods (75 m) from the Emmitsburg pike, beside the Peach Orchard.",
+"feature": "oat-field by the Peach Orchard",
+"when": "1863-07-02",
+"about": {
+"crop": "oats"
+},
+"anchor": {
+"farm": "sherfy",
+"bearing": 90,
+"dist_m": 170,
+"r_m": 230,
+"class": "field"
+},
+"note": "The anchor is the Sherfy farmstead (the Peach Orchard); the NPS inventory puts the Sherfy oats in the eastern field (see VC-NPSX-CLI-PCB-p082-04)."
+},
+{
+"id": "VC-OR-016",
+"src": "OR27",
+"report": "OR27-1-R208",
+"quote": "While lying down in a clover-field",
+"tier": "documented",
+"kind": "crop",
+"says": "On the evening of 2 July the Regulars of the Fifth Corps lay down in a clover-field where the enemy opened with artillery.",
+"feature": "clover-field of the Fifth Corps' left",
+"when": "1863-07-02",
+"about": {
+"crop": "hay_clover"
+},
+"note": "Not placed: the report names no landmark."
+},
+{
+"id": "VC-OR-017",
+"src": "OR27",
+"report": "OR27-1-R085",
+"quote": "on each side of which was an open corn-field",
+"tier": "documented",
+"kind": "crop",
+"says": "On 2 July a wood stood between two open corn-fields on the Union left.",
+"feature": "corn-fields beside a wood, Union left",
+"when": "1863-07-02",
+"about": {
+"crop": "corn"
+},
+"note": "Not placed."
+},
+{
+"id": "VC-OR-018",
+"src": "OR27",
+"report": "OR27-1-R089",
+"quote": "the regiment finally arrived at a corn-field, where the battle had been already raging for several hours",
+"tier": "documented",
+"kind": "crop",
+"says": "A Fifth Corps regiment arrived at a corn-field where the battle had raged for several hours (2 July).",
+"feature": "corn-field of the Union left",
+"when": "1863-07-02",
+"about": {
+"crop": "corn"
+},
+"note": "Not placed."
+},
+{
+"id": "VC-OR-019",
+"src": "OR27",
+"report": "OR27-1-R055",
+"quote": "undulating, here arid there covered with grain, and a small woods extended across it",
+"tier": "documented",
+"kind": "crop",
+"says": "On 1 July the ground north of the town where Schurz's division fought was undulating, in places in grain, with a small wood across it.",
+"feature": "fields north of the town (Barlow's Knoll side)",
+"when": "1863-07-01",
+"about": {
+"crop": "grain"
+},
+"note": "Not placed."
+},
+{
+"id": "VC-OR-020",
+"src": "OR27",
+"report": "OR27-1-R159",
+"quote": "The bivouac was necessarily in a wheat-field, the stacks of which the men slept on, which were thus trampled considerably",
+"tier": "documented",
+"kind": "regional",
+"says": "On the night of 9 to 10 July wheat in the field at the Boonsborough and Williamsport turnpike (Maryland) was already cut and stacked, and the stacks were trampled by a division.",
+"feature": "wheat harvest in Washington County, Maryland",
+"when": "1863-07-10",
+"about": {
+"crop": "wheat",
+"stage": "cut_stacked",
+"region": "Washington County, Maryland, about 35 miles south-west"
+},
+"note": "Prince's own report. The field is not near Gettysburg; it dates a harvest in the same agricultural region and the same season."
+},
+{
+"id": "VC-OR-021",
+"src": "OR27",
+"report": "OR27-2-R442",
+"quote": "subsisted entirely on wheat and grass, or new hay",
+"tier": "documented",
+"kind": "regional",
+"says": "From 10 to 25 July horses at Downsville, Maryland, were fed cut wheat, grass and new hay.",
+"feature": "hay and wheat harvest in Maryland",
+"when": {
+"from": "1863-07-10",
+"to": "1863-07-25"
+},
+"about": {
+"crop": "hay",
+"stage": "new_hay",
+"region": "Washington County, Maryland"
+},
+"note": "Report of a Confederate artillery officer."
+},
+{
+"id": "VC-OR-022",
+"src": "OR27",
+"report": "OR27-1-R152",
+"quote": "I extended my right by moving the Seventeenth Maine Volunteers, Lieutenant-Colonel Merrill commanding, across a wheat",
+"tier": "documented",
+"kind": "crop",
+"says": "De Trobriand sent the 17th Maine across a wheat field on 2 July.",
+"feature": "Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+}
+},
+{
+"id": "VC-OR-023",
+"src": "OR27",
+"report": "OR27-2-R432",
+"quote": "Beyond the morass some 200 yards was a stony hill, covered with heavy timber and thick undeigrowth",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Kershaw, 2 July: beyond the morass behind the Rose house lay a stony hill covered with heavy timber and thick undergrowth (the OCR prints 'undeigrowth').",
+"feature": "Stony Hill woods, west of the Wheatfield",
+"when": "1863-07-02",
+"about": {
+"understory": "thick",
+"canopy": "heavy_timber"
+},
+"anchor": {
+"poly": "LC-FIELD-0001",
+"bearing": 295,
+"dist_m": 300,
+"r_m": 260,
+"class": "woods",
+"k": 1
+},
+"note": "Placed by a rule (the NPS names Stony Hill Woods at the west end of the Wheatfield): the nearest woodlot, tier inferred."
+},
+{
+"id": "VC-OR-024",
+"src": "OR27",
+"report": "OR27-2-R432",
+"quote": "was a heavy forest, extending far to our right",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Kershaw, 2 July: in line with the stony hill and beyond the stone wall was a heavy forest extending far to the right (Rose Woods and the forest toward Round Top).",
+"feature": "Rose Woods",
+"when": "1863-07-02",
+"about": {
+"canopy": "heavy_forest"
+},
+"anchor": {
+"poly": "LC-FIELD-0001",
+"bearing": 205,
+"dist_m": 300,
+"r_m": 260,
+"class": "woods",
+"k": 1
+},
+"note": "Placed by a rule: the woodlot nearest south-west of the Wheatfield (the NPS puts Rose Woods on its south side)."
+},
+{
+"id": "VC-OR-025",
+"src": "OR27",
+"report": "OR27-2-R432",
+"quote": "which was only sparsely covered with scrubby undergrowth, through which a small road ran in the direction of tjie mountain",
+"tier": "documented",
+"kind": "thicket",
+"says": "Kershaw, 2 July: between the stony hill and the forest an interval of about 100 yards was only sparsely covered with scrubby undergrowth, with a small road through it toward Round Top.",
+"feature": "the gap between Stony Hill and Rose Woods (Rose Lane Gap)",
+"when": "1863-07-02",
+"about": {
+"understory": "scrub"
+},
+"note": "Not placed: no outline of the gap is held."
+},
+{
+"id": "VC-OR-026",
+"src": "OR27",
+"report": "OR27-2-R432",
+"quote": "Looking down this road from the stone house, a large wheat-field was seen",
+"tier": "documented",
+"kind": "crop",
+"says": "Kershaw, 2 July: looking down the road from the stone house (the Rose house), a large wheat-field was seen.",
+"feature": "Rose Wheatfield",
+"when": "1863-07-02",
+"about": {
+"crop": "wheat"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+}
+},
+{
+"id": "VC-OR-027",
+"src": "OR27",
+"report": "OR27-2-R432",
+"quote": "Behind the stone house, on the left, was a morass",
+"tier": "documented",
+"kind": "ground",
+"says": "Kershaw, 2 July: behind the stone house (the Rose house), on the left, lay a morass.",
+"feature": "morass behind the Rose house",
+"when": "1863-07-02",
+"about": {
+"landcover": "marsh"
+},
+"note": "Not placed: the morass is the head of Plum Run near the Rose farm; the marsh outline held (Plum Run bottom) is farther south."
+},
+{
+"id": "VC-OR-028",
+"src": "OR27",
+"report": "OR27-1-R273",
+"quote": "along the crest of a rocky, wooded ridge, called Gulp's Hill",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Greene's brigade stood along the crest of a rocky, wooded ridge called Culp's Hill (the OCR prints Gulp's), about 700 yards from the turnpike.",
+"feature": "Culp's Hill",
+"when": "1863-07-02",
+"about": {
+"canopy": "woods",
+"ground": "rocky"
+},
+"anchor": {
+"poly": "LC-WOOD-0001"
+}
+},
+{
+"id": "VC-OR-029",
+"src": "OR27",
+"report": "OR27-2-R495",
+"quote": "The hill was steep, heavily timbered, rocky, and difficult of ascent",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Jones's brigade, attacking on the evening of 2 July across Rock Creek: the hill held by the enemy was steep, heavily timbered, rocky and hard to climb.",
+"feature": "Culp's Hill, east face",
+"when": "1863-07-02",
+"about": {
+"canopy": "heavy_timber",
+"ground": "rocky"
+},
+"anchor": {
+"gz": "Culp's Hill",
+"r_m": 700,
+"class": "woods",
+"k": 1
+},
+"note": "The sentence does not name the hill; the context is the attack of Johnson's division on Culp's Hill. The unit is the woodlot nearest the gazetteer point of Culp's Hill."
+}
 ]

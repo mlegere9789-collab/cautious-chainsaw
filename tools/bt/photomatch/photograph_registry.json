@@ -488,13 +488,7 @@
     "LOC2012650193_ppmsca.33638_v"
    ],
    "statement_ids": [],
-   "nps_then_now_identity": [
-    {
-     "nps_then_now": "little-round-top#4",
-     "resource": "ppmsca.33638",
-     "inliers": 40
-    }
-   ],
+   "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "OUT",
    "verdict": "cannot judge",
@@ -750,13 +744,7 @@
     "PS-LOC-2018666298-T",
     "PS-NPS-BRIEN-9"
    ],
-   "nps_then_now_identity": [
-    {
-     "nps_then_now": "little-round-top#5",
-     "resource": "cwp.4a39719",
-     "inliers": 30
-    }
-   ],
+   "nps_then_now_identity": [],
    "pose_ids": [
     "P19"
    ],
@@ -808,6 +796,7 @@
     "LOC2018666300_cwpb.01640_v"
    ],
    "statement_ids": [
+    "PS-LOC-2018666300-T",
     "PS-TN-BF3",
     "PS-TN-BF3-JUL2",
     "PS-TN-BF3-MOD"
@@ -817,16 +806,6 @@
      "nps_then_now": "buildings-and-farms#3",
      "resource": "cwpb.01640",
      "inliers": 59
-    },
-    {
-     "nps_then_now": "buildings-and-farms#3",
-     "resource": "cwp.4a39688",
-     "inliers": 41
-    },
-    {
-     "nps_then_now": "buildings-and-farms#3",
-     "resource": "cwpb.01639",
-     "inliers": 38
     }
    ],
    "pose_ids": [
@@ -1048,11 +1027,6 @@
      "nps_then_now": "devil-s-den#1",
      "resource": "cwpb.00074",
      "inliers": 323
-    },
-    {
-     "nps_then_now": "devil-s-den#6",
-     "resource": "cph.3a04462",
-     "inliers": 27
     }
    ],
    "pose_ids": [],
@@ -1348,21 +1322,6 @@
      "nps_then_now": "devil-s-den#4",
      "resource": "cwp.4a39439",
      "inliers": 521
-    },
-    {
-     "nps_then_now": "devil-s-den#5",
-     "resource": "ppmsc.00172",
-     "inliers": 51
-    },
-    {
-     "nps_then_now": "devil-s-den#5",
-     "resource": "cwpb.00916",
-     "inliers": 39
-    },
-    {
-     "nps_then_now": "devil-s-den#5",
-     "resource": "cwp.4a39439",
-     "inliers": 39
     }
    ],
    "pose_ids": [],
@@ -1736,7 +1695,9 @@
     "LOC2018670702_cwpb.01642_r",
     "LOC2018670702_cwpb.01642_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOC-2018670702-T"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [
     "P03"
@@ -1852,11 +1813,6 @@
      "nps_then_now": "buildings-and-farms#2",
      "resource": "cwpb.01649",
      "inliers": 49
-    },
-    {
-     "nps_then_now": "buildings-and-farms#2",
-     "resource": "cwpb.01650",
-     "inliers": 31
     }
    ],
    "pose_ids": [
@@ -2957,11 +2913,6 @@
    "statement_ids": [],
    "nps_then_now_identity": [
     {
-     "nps_then_now": "devil-s-den#6",
-     "resource": "ppmsca.31299",
-     "inliers": 26
-    },
-    {
      "nps_then_now": "devil-s-den#7",
      "resource": "cph.3g01825",
      "inliers": 927
@@ -3311,7 +3262,7 @@
    "scope_july_1863_terrain": false,
    "scope_note": "matches the NPS Then-And-Now Devil's Den no. 8: the staged Weaver photograph of 11 November 1863 (LOC ppmsca 32931), not July",
    "staged_flag": true,
-   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (PDF plan, staged Devil's Den photograph); terrain and rocks only, never body or prop positions",
+   "staged_basis": "NPS Then-And-Now, Devil's Den no. 8: the NPS calls this photograph staged and more than four months after the battle; matches the NPS Then-And-Now Devil's Den no. 8: the staged Weaver photograph of 11 November 1863 (LOC ppmsca 32931), not July",
    "image_keys": [
     "LOC2012647845_ppmsca.32931_r",
     "LOC2012647845_ppmsca.32931_v"
@@ -3330,7 +3281,7 @@
    "class": "STG",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (PDF plan, staged Devil's Den photograph); terrain and rocks only, never body or prop positions). Men posed among Devil's Den boulders: the NPS image match shows it is the Weaver photograph of 11 November 1863 (LOC ppmsca 32931), which the NPS calls staged and taken more than four months after the battle; not July, so outside the July terrain test. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+   "why": "Staged-photograph flag respected (NPS Then-And-Now, Devil's Den no. 8: the NPS calls this photograph staged and more than four months after the battle; matches the NPS Then-And-Now Devil's Den no. 8: the staged Weaver photograph of 11 November 1863 (LOC ppmsca 32931), not July). Men posed among Devil's Den boulders: the NPS image match shows it is the Weaver photograph of 11 November 1863 (LOC ppmsca 32931), which the NPS calls staged and taken more than four months after the battle; not July, so outside the July terrain test. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
   },
   {
    "loc_id": "2012647846",

@@ -86,6 +86,18 @@ test('module: choosing a stop sends the camera there and shows the pin once the 
   assert.equal(log.timeCalls.length, 0); assert.equal(th.state.t, 12345, 'the clock stands where it stood'); assert.equal(th.state.playing, false); assert.equal(th.state.speed, 1);
   tr.clear(); assert.equal(tr.active(), -1); assert.equal(pin.hidden, true); Tour.update(frameOf(th.cam)); assert.equal(pin.hidden, true); Tour.dispose();
 }));
+test('module: the label of the pin goes to the other side of the place when it would run under the drawer; it comes back when the drawer closes; the pin is moved to the place at once', () => visit(async ({ th, ctx, stage, root }) => {
+  await Tour.init(ctx); const tr = th.sitePlaces.tour, pin = stage.querySelector('#xt-pin'), lab = pin.querySelector('#xt-pin-lab'), B = P.tourBookmarks(tour, T); assert.ok(lab, 'the label is its own element');
+  const drawer = new FakeEl('aside'); drawer.id = 'bt-drawer'; drawer.rect = { left: 868, top: 66, width: 400, height: 500 }; root.append(drawer); lab.rect = { left: 0, top: 0, width: 320, height: 24 };
+  tr.flyTo(8); Object.assign(th.cam, camAt(B[7].pose)); th.state.panel = 'tour-stops'; th.bus.emit('panel-open', 'tour-stops'); Tour.update(frameOf(th.cam));
+  assert.equal(tr.pinShown(), true); assert.equal(lab.style.left, 'auto', 'the place is at the middle of the picture, a label of 320 px to its right would run under the drawer: it goes to the left'); assert.equal(lab.style.right, '12px');
+  th.state.panel = null; th.bus.emit('panel-close'); Tour.update(frameOf(th.cam)); assert.equal(lab.style.left, '12px', 'no drawer: the label is on the right again'); assert.equal(lab.style.right, 'auto');
+  // a drawer that is a sheet over the foot of the picture (a phone) does not push the label sideways
+  drawer.rect = { left: 0, top: 300, width: 1280, height: 400 }; th.state.panel = 'tour-stops'; th.bus.emit('panel-open', 'tour-stops'); Tour.update(frameOf(th.cam)); assert.equal(lab.style.left, '12px');
+  // a label that fits on neither side stays on the right
+  drawer.rect = { left: 868, top: 66, width: 400, height: 500 }; lab.rect = { left: 0, top: 0, width: 900, height: 24 }; th.bus.emit('panel-open', 'tour-stops'); Tour.update(frameOf(th.cam)); assert.equal(lab.style.left, '12px');
+  assert.equal((th.bus.m.get('panel-open') || new Set()).size, 1, 'one subscription while running'); Tour.dispose(); for (const n of ['panel-open', 'panel-close', 'resize']) assert.equal((th.bus.m.get(n) || new Set()).size, 0, `no subscription to ${n} after dispose`);
+}));
 test('module: a stop beyond the ground is flown to from the edge, the pin and the words say how far beyond; the camera stays over the ground', () => visit(async ({ th, ctx, log, stage }) => {
   await Tour.init(ctx); const tr = th.sitePlaces.tour, pin = stage.querySelector('#xt-pin');
   for (const id of [2, 3]) { assert.equal(tr.flyTo(id), true); const f = log.flights.at(-1).pose; assert.ok(Math.abs(f.x) < T.W / 2 && Math.abs(f.z) < T.H / 2); assert.match(log.said.at(-1), /lies [\d,]+ m beyond the north edge of the loaded ground/); Object.assign(th.cam, camAt(f)); Tour.update(frameOf(th.cam)); assert.equal(pin.hidden, false, `stop ${id} is in view from the edge`); assert.match(pin.querySelector('#xt-pin-text').textContent, /modern tour stop · [\d,]+ m beyond the loaded ground$/); }

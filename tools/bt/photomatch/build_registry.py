@@ -33,7 +33,7 @@ def main():
     for c in cat + add:
         pk = c['loc_id']; code, what = RD.R[pk]; poseids = by_loc.get(pk, [])
         staged = bool(c.get('staged_flag')) or code == 'STG'
-        basis = c.get('staged_basis') or ("same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged" if code == 'STG' else None)
+        basis = (("NPS Then-And-Now, Devil's Den no. 8: the NPS calls this photograph staged and more than four months after the battle; " + RD.SCOPE_OUT[pk]) if pk in RD.SCOPE_OUT else None) or c.get('staged_basis') or ("same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged" if code == 'STG' else None)
         e = {'loc_id': pk, 'title': c['title'], 'creator': c.get('creator'), 'date_as_catalogued': c.get('date_as_catalogued'), 'loc_url': c.get('loc_url'),
              'catalogue': 'added by catalogue_additions.py' if c in add else 'catalogue.json', 'scope_july_1863_terrain': (pk not in RD.SCOPE_OUT) and ((pk in RD.SCOPE_IN) or bool(c.get('in_scope_july_1863_terrain') and code != 'OUT')),
              'scope_note': RD.SCOPE_OUT.get(pk) or RD.SCOPE_IN.get(pk) or (what if code == 'OUT' else None), 'staged_flag': staged, 'staged_basis': basis if staged else None,

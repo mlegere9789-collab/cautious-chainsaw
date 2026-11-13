@@ -21,7 +21,7 @@ export const LAYER = Object.freeze({
 export const TOUR = Object.freeze({ id: 'tour-stops', title: 'Tour stops (camera positions)', tier: 'inferred', inScene: false });
 export const COPY = Object.freeze({
   short: 'later memorial',
-  what: 'A memorial of the battlefield park, as the site\'s Monuments section lists it. It was put up after the battle and is not part of the 1863 scene: the theatre shows it only as a flat mark over the picture, never as an object on the ground.',
+  what: 'Put up after the battle, and not part of the 1863 scene: the theatre shows it only as a flat mark over the picture, never as an object on the ground.',
   layer: 'These are later memorials: the monuments, memorials, markers and tablets of the site\'s Monuments section. Every one of them remembers the battle, its soldiers or a later event, so none can have stood here before the fighting it marks, and none is part of the 1863 scene. The marks are off until you switch them on; they are flat marks over the picture, never objects on the ground, at any time on the scrubber.',
   basis: 'That the memorials came later rests on what they are and on John B. Bachelder\'s guide to the field in its edition of 1889: when the first edition was compiled "no material changes had been made on the field", and in 1889 the position of each command was "being marked by monuments" along avenues built since (Gettysburg: What to See, and How to See It, 1889, pages 21 and 22).',
   year: 'The year each memorial was put up is not in the site\'s data. It is an open gap, so no memorial is ever shown as standing at a time on the scrubber.',
@@ -309,11 +309,11 @@ export function memorialCardHTML(it, tierMark) {
         <div class="row"><dt>Put up</dt><dd>${yearCell(it, tierMark)}</dd></div>
         <div class="row"><dt>Ground</dt><dd>${esc(groundLine(it))}</dd></div>
       </dl>
-      <h3>Evidence</h3>
-      <table class="table"><tr><th>Tier</th><td>${tierMark(LAYER.tier)} <span class="mini">of the name, the text and the position: the site's list as it stands. It says nothing about July 1863.</span></td></tr>
+      <details style="margin-top:12px"><summary class="mini" style="cursor:pointer">Evidence: the tier, the position, what \"after the battle\" rests on, the open gaps</summary>
+      <table class="table" style="margin-top:6px"><tr><th>Tier</th><td>${tierMark(LAYER.tier)} <span class="mini">of the name, the text and the position: the site's list as it stands. It says nothing about July 1863.</span></td></tr>
         <tr><th>Position</th><td>${pos}</td></tr>${second}
         <tr><th>After the battle</th><td><span class="mini">${esc(COPY.basis)}</span></td></tr>
-        <tr><th>Open gap</th><td><span class="mini">${gapCell}</span></td></tr></table>
+        <tr><th>Open gap</th><td><span class="mini">${gapCell}</span></td></tr></table></details>
       <div class="actions"><button type="button" class="btn-s" data-act="fly"><svg class="ic"><use href="#i-focus"/></svg>Fly to</button></div>
     </div>`;
 }
@@ -324,7 +324,7 @@ export function memorialRowsHTML(list, from, to, selected) {
 }
 /** The notice that stays on the picture for as long as the layer is on (the two buttons are handled by the module: data-act "about" and "hide"). */
 export function noticeHTML(counts, tm) {
-  return `<span>${tm(LAYER.tier)}</span><span><b style="color:var(--text)">Later memorials shown</b></span><span>${counts.total} marks, ${counts.beyond} of them ${COPY.beyond}. Put up after the battle: not part of the 1863 scene.</span><span><button type="button" class="btn-s" data-act="about" style="min-height:28px">About them</button> <button type="button" class="btn-s" data-act="hide" style="min-height:28px">Hide</button></span>`;
+  return `<span>${tm(LAYER.tier)}</span><span><b style="color:var(--text)">Later memorials shown</b></span><span class="xm-chip-text">${counts.total} marks, ${counts.beyond} of them ${COPY.beyond}. Put up after the battle: not part of the 1863 scene.</span><span><button type="button" class="btn-s" data-act="about" style="min-height:28px">About them</button> <button type="button" class="btn-s" data-act="hide" style="min-height:28px">Hide</button></span>`;
 }
 /** The memorial panel above its list. o: {on, positions, integrity: {checked}, list: {q, side, group, where}}. The list itself is memorialRowsHTML under #xm-list. */
 export function memorialPanelHTML(index, o, tm) {

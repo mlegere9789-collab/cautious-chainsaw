@@ -18,41 +18,44 @@
   "partially_supported": 2
  },
  "rows_not_verified_before": 19,
- "sub_claims": 282,
+ "sub_claims": 290,
  "sub_claims_by_tier": {
-  "documented": 213,
+  "documented": 221,
   "open gap": 37,
   "inferred": 29,
   "plausible-procedural": 3
  },
  "sub_claims_by_support": {
-  "supported": 188,
+  "supported": 191,
   "unsupported": 54,
-  "conflict": 29,
+  "conflict": 34,
   "computed": 9,
   "procedural": 2
  },
- "citations": 292,
+ "citations": 313,
  "citations_by_source": {
-  "OR27": 176,
+  "OR27": 185,
   "SHSP-04": 4,
   "MEADE-LL-v2": 3,
-  "IL-MON-1892": 25,
+  "IL-MON-1892": 26,
   "JACOBS-1864": 5,
   "ALEXANDER-1907": 4,
   "COMPUTED": 9,
   "CHENEY-1901": 2,
   "TPIERCE-1889": 5,
-  "WELD-1912": 18,
+  "WELD-1912": 20,
   "HALL-6NYCAV-1908": 3,
   "NY-GB-1900": 7,
   "CAVTACT-1841c": 2,
   "NY-GB-1900-v2": 4,
-  "BACH-WHATTOSEE-1873": 4,
+  "BACH-WHATTOSEE-1873": 6,
   "BL-3": 5,
+  "PA-GB-1914-v2": 5,
   "BROWN-SIGNAL-1896": 3,
   "NJ-TOOMBS-1888": 1,
   "BATES-1875": 2,
+  "MI-GB-1889": 1,
+  "IN-1913": 1,
   "HASKELL-1908": 1,
   "BIDDLE-1880": 3,
   "FOX-1889": 1,
@@ -90,7 +93,7 @@
  "rows_with_default": [
   "T1-099"
  ],
- "proposed_register_entries": 45,
+ "proposed_register_entries": 47,
  "results_tier": {
   "documented": 45,
   "inferred": 11,
@@ -98,8 +101,8 @@
   "plausible-procedural": 1
  },
  "results_status": {
-  "verified": 41,
-  "inferred": 16,
+  "verified": 38,
+  "inferred": 19,
   "gap": 1
  },
  "rows_by_verdict": {
@@ -237,6 +240,7 @@
    "T1-115"
   ]
  },
- "searches_run": 109,
- "searches_with_zero_hits": 109
+ "searches_run": 112,
+ "searches_with_zero_hits": 0,
+ "searches_not_run": 112
 }

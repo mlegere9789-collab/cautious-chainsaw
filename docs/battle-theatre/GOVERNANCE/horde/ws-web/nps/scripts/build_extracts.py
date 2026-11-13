@@ -11,7 +11,7 @@ Definition file format (UTF-8):
   %basis <text>                    the records the report itself names as the basis of the following passages
                                    (e.g. '1860 census; NARA Damage Claims, RG 92'); '%basis -' clears it
   # comment
-  <pdf page> | <topic> | <feature> | <keys> | <state date> | <certainty> | <claim> | <anchor>
+  <pdf page> | <topic> | <feature> | <keys> | <state date> | <certainty> | <claim> | <anchor> [| <context anchor>]
     topic      one of TOPICS below
     keys       ids of this repository the feature concerns (comma separated) or '-'
     state date the date the described feature state refers to (e.g. 1863-07, pre-1863,
@@ -35,6 +35,10 @@ Definition file format (UTF-8):
                A trailing ' ~L' uses the layout text of the page, ' ~R' the content-stream-order text (line-end
                hyphenation repaired), ' ~S' the standard reading-order text, instead of the source's default variant.
                A trailing ' ~#k' takes the k-th occurrence of a passage that repeats on the page.
+    context    optional 9th field, an anchor of the same kinds (no trailing flags) that is cut from the SAME page and
+               kept next to the quote as `context_quote`: it carries a date, a name or a number that the claim
+               needs but that stands in another sentence of the page (a list heading, the entry heading). The claim
+               is supported by the quote and the context quote together; both are verbatim page text.
 
 Outputs (next to this script's parent folder):
   extracts/extracts.jsonl          one record per extract
@@ -258,6 +262,20 @@ def cut(page_text, anchor):
     return a, None
 
 
+def resolve(page_text, anchor, td):
+    """Cut one anchor from a page: returns (record-part dict, error). Used for the quote and for the optional context."""
+    if anchor.startswith('='):
+        q, err, excerpt = cut_cleaned(page_text, anchor[1:], 'fi' if td == 'fi-ligature' else (td == 'ligature'))
+        if err:
+            return None, err
+        q, corrections, template = q
+        return {'quote': q, 'mode': 'cleaned', 'excerpt': excerpt, 'template': template, 'corrections': corrections}, None
+    q, err = cut(page_text, anchor)
+    if err:
+        return None, err
+    return {'quote': q, 'mode': 'sentences' if anchor.startswith('#s') else 'anchors', 'excerpt': None, 'template': None, 'corrections': None}, None
+
+
 def use_for_1863(sdate):
     """How a consumer may use the passage for the July 1863 scene.
     direct   the passage states a condition of 1863 or earlier that held in July 1863
@@ -304,10 +322,11 @@ def main():
                     errors.append('%s:%d unknown source %s' % (os.path.basename(f), ln, sid))
                 continue
             parts = [x.strip() for x in line.split(' | ')]
-            if len(parts) != 8:
-                errors.append('%s:%d expected 8 fields, got %d' % (os.path.basename(f), ln, len(parts)))
+            if len(parts) not in (8, 9):
+                errors.append('%s:%d expected 8 or 9 fields, got %d' % (os.path.basename(f), ln, len(parts)))
                 continue
-            pg, topic, feature, keys, sdate, cert, claim, anchor = parts
+            pg, topic, feature, keys, sdate, cert, claim, anchor = parts[:8]
+            ctx_anchor = parts[8] if len(parts) == 9 else None
             variant = sources.get(sid, {}).get('default_variant')
             occ = ''
             while True:
@@ -334,19 +353,16 @@ def main():
             p, printed_given = int(mp.group(1)), mp.group(2)
             if p not in pgs:
                 errors.append('%s:%d page %d not in %s' % (os.path.basename(f), ln, p, sid)); continue
-            excerpt, mode = None, 'sentences' if anchor.startswith('#s') else 'anchors'
-            if anchor.startswith('='):
-                mode = 'cleaned'
-                td = sources.get(sid, {}).get('text_defect')
-                q, err, excerpt = cut_cleaned(pgs[p], anchor[1:], 'fi' if td == 'fi-ligature' else (td == 'ligature'))
-                template = corrections = None
-                if not err:
-                    q, corrections, template = q
-            else:
-                q, err = cut(pgs[p], anchor)
-                template = corrections = None
+            td = sources.get(sid, {}).get('text_defect')
+            got, err = resolve(pgs[p], anchor, td)
             if err:
                 errors.append('%s:%d p.%d %s' % (os.path.basename(f), ln, p, err)); continue
+            q, mode, excerpt, template, corrections = got['quote'], got['mode'], got['excerpt'], got['template'], got['corrections']
+            ctx = None
+            if ctx_anchor:
+                ctx, err = resolve(pgs[p], ctx_anchor, td)
+                if err:
+                    errors.append('%s:%d p.%d context: %s' % (os.path.basename(f), ln, p, err)); continue
             seq[(sid, p)] = seq.get((sid, p), 0) + 1
             s = sources.get(sid, {})
             use, sdate = use_for_1863(sdate)
@@ -366,6 +382,9 @@ def main():
                 'pdf_page': p, 'printed_page': printed_given or printed_page(pgs[p], variant),
                 'quote_mode': mode, 'source_text_excerpt': excerpt,
                 'quote_template': template, 'ocr_corrections': [list(c) for c in corrections] if corrections else None,
+                'context_quote': ctx['quote'] if ctx else None, 'context_mode': ctx['mode'] if ctx else None,
+                'context_excerpt': ctx['excerpt'] if ctx else None, 'context_template': ctx['template'] if ctx else None,
+                'context_corrections': [list(c) for c in ctx['corrections']] if ctx and ctx['corrections'] else None,
                 'basis_named': basis,
                 'text_defect': s.get('text_defect'),
                 'text_variant': variant or 'reading-order',
@@ -414,6 +433,8 @@ def main():
                     f.write('  - Repository ids: %s\n' % ', '.join('`%s`' % k for k in r['repo_keys']))
                 f.write('  - Claim: %s\n' % r['claim'])
                 f.write('  - Quote: "%s"\n' % r['quote'])
+                if r.get('context_quote'):
+                    f.write('  - Context on the same page: "%s"\n' % r['context_quote'])
     print('%d extracts written; by topic: %s' % (len(recs), {t: len(v) for t, v in sorted(by.items())}))
 
 

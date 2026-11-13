@@ -44,7 +44,7 @@ def main(argv):
         flat = be.norm(pgs[r['pdf_page']])
         sents = be.split_sentences(flat)
         q = be.norm(r['quote'])
-        hit = [i for i, s in enumerate(sents, 1) if s in q or (len(q) > 25 and q[:25] in s) or (len(q) > 25 and q[-25:] in s)]
+        hit = [i for i, s in enumerate(sents, 1) if (len(s) > 30 and s in q) or (len(q) > 25 and q[:25] in s) or (len(q) > 25 and q[-25:] in s)]
         lo, hi = (min(hit), max(hit)) if hit else (1, 1)
         nums = [n for n in re.findall(r'\d[\d.,]*\d|\d', r['claim']) if n.replace(',', '') not in q.replace(',', '')]
         for i, s in enumerate(sents, 1):

@@ -60,7 +60,7 @@ ROWS.append(dict(
                 'Stuart, OR27-2-R565 p.692: "At 1 o\'clock at night, the brigades with noiseless march moved out"',
                 'About 01:00 on Jun 25 Stuart\'s three brigades (Hampton, Fitz. Lee, W. H. F. Lee) moved out from their secret rendezvous near Salem Depot; Hancock\'s infantry corps was in Thoroughfare Gap and then marching through Haymarket and had the right of way on his road, so the planned route was blocked. '
                 'Robertson\'s and Jones\' brigades stayed in Virginia. Lee\'s army had no main cavalry on the approach to Gettysburg (Lee: its movements were "much embarrassed" by the absence), and Stuart\'s advance reached Gettysburg on Jul 2. Jenkins\' brigade (with Ewell\'s corps) and Imboden (on Ewell\'s left in the Valley) operated separately.',
-                'documented', '1863-06-25T00:30', '1863-06-25T23:59'),
+                'documented', '1863-06-25T01:00', '1863-06-25T23:59'),
     subs=[
         ('On the night of the 24th Hampton\'s, Fitz. Lee\'s and W. H. F. Lee\'s brigades rendezvoused secretly near Salem Depot and at 1 o\'clock at night moved out (about 01:00 on Jun 25)', 'documented', 'supported', ['rend', 'move']),
         ('Federal infantry blocked the planned route: Hancock\'s corps occupied Thoroughfare Gap and was marching through Haymarket; Hancock had the right of way on Stuart\'s road', 'documented', 'supported', ['hanc', 'hanc2', 'hanc3']),
@@ -174,7 +174,7 @@ ROWS.append(dict(
                 'Adams Sentinel Jul 21 1863 p.3 and Sep 8 1863 p.2 (Thursday); Gettysburg Compiler Jun 29 1863 p.2 (Friday)',
                 'The works were burned by the rebels: the Gettysburg Compiler of Jun 29 says on Friday (Jun 26) on their route hitherward; the Adams Sentinel (Jul 21 and Sep 8 1863) puts General Early at the works on Thursday Jun 25 and has Col. French\'s cavalry apply the torch, the works reduced to ashes. '
                 'Both dates are carried as scenarios, no default. NOT documented: the hour, the place "about 2 miles out from camp", and any construction-schedule detail.',
-                'documented', '1863-06-25T06:00', '1863-06-26T23:59',
+                'documented', '1863-06-25T00:00', '1863-06-26T23:59',
                 marking='event: documented from newspapers of the time; date: two scenarios; hour and distance from camp: gap'),
     subs=[
         ('The works of Thaddeus Stevens at Caledonia were burnt by the rebels', 'documented', 'supported', ['cmp_stevens', 'sen_where']),
@@ -301,7 +301,7 @@ ROWS.append(dict(
         ('The order was given in order to delay the Confederates', 'inferred', 'unsupported', []),
     ],
     cites={
-        'jac_hall': L('JACOBS-1864', 'by order of Major Haller, although contrary to the earnest remonstrances of Jennings, Colonel of the regiment, was sent forward, at 10 J a. m., on the Chambersburg turnpike'),
+        'jac_hall': L('JACOBS-1864', 'by order of Major Haller, although contrary to the earnest remonstrances of Jennings, Colonel of the regiment, was sent forward, at 10 J a. m., on the Chambersburg turnpike', note=HALF('10:30 a.m.')),
         'jac_3mi': L('JACOBS-1864', 'But advancing to the distance of about three miles westward, our little band encamped, and threw out their pickets.'),
         'rich_10': L('BL-3', 'we were marched out on the Chambersburg pike at 10 A. M., June 26th'),
         'rich_bell': L('BL-3', 'Major Robert Bell, who commanded a troop of horse'),
@@ -326,7 +326,7 @@ ROWS.append(dict(
     id='T1-009', verdict='partially_supported',
     claim=claim('The militia camp about three miles out the pike; the regiment withdraws when White\'s cavalry is sighted',
                 '26th Pennsylvania Militia (Jennings) with Bell\'s cavalry vs White\'s cavalry battalion', 'Chambersburg pike about 3 to 3.5 miles west of Gettysburg (Marsh Creek area); the retreat ran across the fields toward Hunterstown',
-                'Jun 26, from the arrival at about 10:30-11:00 to about 15:00 (Jacobs: at about 3 p.m. the Rebels in force appeared)', 'Early OR27-2-R470 p.465; Jacobs 1864 p.14; Richards (BL-3); Pennypacker (PA-GB-1914-v2)',
+                'Jun 26, from the march out on the pike at 10:00-10:30 (row T1-008) to about 15:00 (Jacobs: at about 3 p.m. the Rebels in force appeared)', 'Early OR27-2-R470 p.465; Jacobs 1864 p.14; Richards (BL-3); Pennypacker (PA-GB-1914-v2)',
                 'The regiment went three to three and a half miles out the pike, halted, threw out pickets and encamped; at about 3 p.m. the Rebels in force appeared and captured nearly all the pickets (40); Colonel Jennings divided the regiment into three squads to look like a large body, the Rebels did not press it at first, and the regiment withdrew. Early: it fled at the first approach of White\'s cavalry, taking across the fields between Mummasburg and Gettysburg toward Hunterstown. '
                 'Marsh Creek is named by the regimental account; NOT documented: the clover-field camp, Knoxlyn/Wisler Ridge, the "about 2 miles off" sighting distance and the hour "midday".',
                 'documented', '1863-06-26T10:00', '1863-06-26T16:00', marking='withdrawal and place: documented; clover field, Knoxlyn/Wisler Ridge, 2-mile sighting: gap'),
@@ -408,10 +408,12 @@ ROWS.append(dict(
         ('Rebel cavalry captured a number near Mr. Leer\'s on the Mummasburg road and some more lower down; about 100 were paroled at Hunterstown on Saturday', 'documented', 'supported', ['cmp_leer', 'cmp_hunters']),
         ('Bell\'s cavalry and the City Troop retired from town a short time before the rebels entered', 'documented', 'supported', ['cmp_retired']),
         ('The destination of the fleeing militia was the rail station (seed); the sources say Hunterstown, York Springs and Harrisburg', 'documented', 'contradicted', ['early_fields', 'cmp_york_springs']),
+        ('Jacobs: at about 3 p.m. the Rebels in force made their appearance and captured nearly all the pickets, 40 in number', 'documented', 'supported', ['jac_3pm']),
         ('The flight went by the Belmont Road and then the Mummasburg Road', 'open gap', 'unsupported', []),
         ('Bell\'s cavalry galloped through town and disbanded near Rock Creek on the Hanover Road', 'open gap', 'unsupported', []),
     ],
     cites={
+        'jac_3pm': L('JACOBS-1864', 'At about 3 p. m., the Rebels in force made their appearance, and captured nearly all their pickets, 40 in number.'),
         'early_fields': OR('taking across the fields between Mummasburg and Gettysburg, and going toward Hunterstown', R470, '465'),
         'jac_retreat': L('JACOBS-1864', 'Jennings\' band however, hastily retreated eastward over the fields, and by country roads, occasionally skirmishing with the enemy\'s cavalry'),
         'jac_120': L('JACOBS-1864', 'and after losing 120 more of their number near Tlunterstown'),
@@ -442,10 +444,10 @@ ROWS.append(dict(
     claim=claim('The militia rear company is overtaken and captured on the road toward Hunterstown, about four miles from Gettysburg; 175 prisoners in all',
                 'Militia rear guard (Company B, Capt. Carnaghan, of the 26th Pennsylvania) against Confederate cavalry: Col. French\'s 17th Virginia Cavalry (Early) or White\'s battalion (Pennypacker)',
                 'Witmer\'s (Whitmer\'s) farmhouse on the Hunterstown/Carlisle road, 4 to 4.5 miles from Gettysburg',
-                'Jun 26 afternoon (after about 15:00)', 'Early OR27-2-R470 p.465; Pennypacker (PA-GB-1914-v2 p.786); Richards (BL-3)',
+                'Jun 26 afternoon (Richards: overtaken in the afternoon; no hour is given in the sources of this row)', 'Early OR27-2-R470 p.465; Pennypacker (PA-GB-1914-v2 p.786); Richards (BL-3)',
                 'In the afternoon of Jun 26 the cavalry overtook the militia regiment at Witmer\'s house; the rear company (Co. B, Capt. Carnaghan) was almost all captured. Early reports 175 prisoners in all and sends Col. French\'s 17th Virginia Cavalry in pursuit with two regiments of Hays\' brigade following; Ewell reports 170; Pennypacker counts 176 captured. '
                 'The regimental account names White\'s cavalry as the attacker; Early names French. Both are carried. NOT documented: the wooden bridge and Bayly\'s Hill.',
-                'documented', '1863-06-26T15:00', '1863-06-26T20:04', marking='capture, place and counts: documented; wooden bridge and Bayly\'s Hill: gap'),
+                'documented', '1863-06-26T12:00', '1863-06-26T20:04', marking='capture, place and counts: documented; wooden bridge and Bayly\'s Hill: gap'),
     subs=[
         ('Early sent Col. French with his cavalry to pursue the militia, capturing a number of prisoners; two regiments of Hays\' brigade went to aid French and could not get up with the fugitives', 'documented', 'supported', ['early_french', 'early_hays']),
         ('Pennypacker: the regiment was overtaken by White\'s cavalry on the Hunterstown road at the farmhouse of Henry Whitmer, four miles from the town; the attack was repulsed after twenty to thirty minutes, but the rear company, Co. B under Capt. Carnaghan, was almost all taken prisoner', 'documented', 'conflict', ['penny_witmer', 'penny_time', 'penny_miles', 'penny_carn']),
@@ -505,7 +507,7 @@ ROWS.append(dict(
         'cmp_body': CMP('The body was removed to bis home the same evening', CMP_SANDOE),
         'mon_sandoe': L('PA-GB-1914-v2', 'Near this spot on June 26 1863 fell Private George W. Sandoe', witness='inscription on the 21st Pennsylvania Cavalry monument, text as printed in Pennsylvania at Gettysburg'),
         'cmp_entry3': CMP('sere enough, the+tbel aiivance (cavalry) entered charging up Chambersburg street', CMP_ENTRY),
-        'jac_cav': L('JACOBS-1864', 'The advance guard of the enemy, consisting of 180 to 200 cavalry, rode into Gettysburg at 3J p. m.'),
+        'jac_cav': L('JACOBS-1864', 'The advance guard of the enemy, consisting of 180 to 200 cavalry, rode into Gettysburg at 3J p. m.', note=HALF('3:30 p.m.')),
     },
     scenarios=[],
     remains=['the hour 16:00 (the sources give only after the entry at 3-3.30 p.m. and the same evening)', 'a second named trooper "Lightner" who escaped, and the attribution to White\'s men'],
@@ -543,7 +545,7 @@ ROWS.append(dict(
     cites={
         'cmp_entry3': CMP('sere enough, the+tbel aiivance (cavalry) entered charging up Chambersburg street', CMP_ENTRY),
         'cmp_est': CMP('variously estimated at from 2500 to 4000', CMP_ENTRY),
-        'jac_cav': L('JACOBS-1864', 'The advance guard of the enemy, consisting of 180 to 200 cavalry, rode into Gettysburg at 3J p. m.'),
+        'jac_cav': L('JACOBS-1864', 'The advance guard of the enemy, consisting of 180 to 200 cavalry, rode into Gettysburg at 3J p. m.', note=HALF('3:30 p.m.')),
         'jac_inf': L('JACOBS-1864', 'This advance party was soon followed by 5,000 infantry, being General Gordon\'s brigade of Early\'s division of Ewell\'s corps.'),
         'early_late': OR('and as it was late when I reached the place', R470, '465'),
         'early_demands': OR('I had no opportunity of coTupelling a, compliance with my demands in this town', R470, '465'),
@@ -734,7 +736,7 @@ ROWS.append(dict(
     id='T1-020', verdict='corrected',
     claim=claim('Jun 27 at daylight Gordon\'s brigade, with Tanner\'s battery and a company of cavalry, leaves Gettysburg on the York turnpike; the rest of Early\'s division moves by Hunterstown toward Dover',
                 'Gordon\'s brigade with Tanner\'s battery of Jones\' battalion and a company of French\'s cavalry (York turnpike); the rest of Early\'s division (Hays, Hoke, Smith, artillery) from Mummasburg', 'York turnpike east from Gettysburg; the rest by Hunterstown, New Chester, Hampton and East Berlin toward Dover',
-                'Jun 27 from daylight (about 04:00) to 08:00 (Compiler: no Confederate left in town by 8 o\'clock); the rest of the division marched during the day', 'Early OR27-2-R470 p.466; Gettysburg Compiler Jun 29 1863 p.2; Gordon OR27-2-R477 p.491',
+                'Jun 27 from daylight (civil dawn 04:03) to 08:00 (Compiler: no Confederate left in town by 8 o\'clock); the rest of the division marched during the day', 'Early OR27-2-R470 p.466; Gettysburg Compiler Jun 29 1863 p.2; Gordon OR27-2-R477 p.491',
                 'At light on Jun 27 Gordon\'s brigade with Tanner\'s battery and a company of French\'s cavalry marched on the turnpike toward York (Early); the Compiler says the division moved off down the York turnpike and by 8 o\'clock there was not a rebel in the town; the rest of the division moved from Mummasburg that morning through Hunterstown, New Chester, Hampton and East Berlin toward Dover (Early; the Compiler gives the same route). '
                 'The whole division did not leave Gettysburg by the York Pike. The flag was taken down at York by Gordon\'s provost guard (Gordon); the cutting down of a flagpole at Gettysburg is not documented.',
                 'documented', '1863-06-27T04:03', '1863-06-27T23:59', marking='Gordon\'s departure and the Dover route: documented; flagpole at Gettysburg: gap'),

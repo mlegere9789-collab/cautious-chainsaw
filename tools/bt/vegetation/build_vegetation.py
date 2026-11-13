@@ -19,7 +19,7 @@ plausible-procedural or inferred; each such choice is listed in `gaps` and propo
 Field cells: the open ground is cut by the roads, lanes, railway and the confirmed fence lines, and the pieces larger than about 28 acres are divided by a seeded
 Voronoi relaxation into cells of about 14 acres. The CUT LINES INSIDE A BLOCK ARE NOT KNOWN (no source maps them): every field cell says its geometry is plausible-procedural.
 Which crop a cell holds is documented only where a claim names it and can be placed (the Wheatfield; a few others, role nearest, tier inferred); every other cell is a seeded
-draw from the district mix computed here from the damage-claim acreages of nine farms (tier plausible-procedural).
+draw from the district mix computed here from the damage-claim acreages of eight farms (tier plausible-procedural).
 """
 import os, sys, json, math, random, hashlib, argparse, collections
 import numpy as np
@@ -588,6 +588,10 @@ def class_attributes(units, claims, gz, farms):
             k = woods_class(u, gz, farms)
             W = TB.WOODS[k]
             u['woods'] = {'class': k, 'species': jitter_weights(uid, W['species'], 'sp'), 'per_ha': round(pick(None, (uid, 'dens'), W['per_ha']), 1), 'understory': W['understory'], 'tier': W['tier']}
+            for cid, role in u['claims']:                      # an account of the undergrowth sets it, where it is placed on this woodlot
+                ab = claims[cid].get('about') or {}
+                if role in ('exact', 'nearest') and ab.get('understory') in ('open', 'moderate', 'thick'):
+                    u['woods'].update({'understory': ab['understory'], 'understory_claim': cid, 'understory_tier': 'documented' if role == 'exact' else 'inferred'})
             if lrt is not None and u['geom'].centroid.distance(lrt) < 520:
                 lrt_units.append(uid)
         elif u['cls'] == 'scatter':

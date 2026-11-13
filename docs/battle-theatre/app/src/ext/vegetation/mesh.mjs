@@ -21,19 +21,53 @@ export function splitTriangle(ax, az, bx, bz, cx, cz, maxEdge, out) {
   }
 }
 
-/** the ground-cover mesh: vertices (x, z, unit index, layer) in triples, non-indexed. `project(lng, lat) -> [x, z]`. */
+const clipPlane = (pts, axis, val, keepGreater) => {                                     // Sutherland-Hodgman against one half-plane: pts is a flat [x, z, x, z ...] list
+  const out = []; const n = pts.length / 2; if (!n) return out;
+  const inside = (x, z) => ((axis === 0 ? x : z) >= val) === keepGreater || (axis === 0 ? x : z) === val;
+  let px = pts[2 * n - 2], pz = pts[2 * n - 1], pin = inside(px, pz);
+  for (let i = 0; i < n; i++) {
+    const x = pts[2 * i], z = pts[2 * i + 1], cin = inside(x, z);
+    if (cin !== pin) { const d = axis === 0 ? x - px : z - pz, f = d === 0 ? 0 : (val - (axis === 0 ? px : pz)) / d; out.push(px + (x - px) * f, pz + (z - pz) * f); }
+    if (cin) out.push(x, z); px = x; pz = z; pin = cin;
+  }
+  return out;
+};
+/** the part of a polygon (flat x, z list) inside the rectangle, as a flat list (possibly with zero-width bridges where the polygon leaves and re-enters) */
+export const clipRect = (pts, x0, z0, x1, z1) => clipPlane(clipPlane(clipPlane(clipPlane(pts, 0, x0, true), 0, x1, false), 1, z0, true), 1, z1, false);
+const area2 = pts => { let a = 0; const n = pts.length / 2; for (let i = 0; i < n; i++) { const j = (i + 1) % n; a += pts[2 * i] * pts[2 * j + 1] - pts[2 * j] * pts[2 * i + 1]; } return a / 2; };
+
+/**
+ * The ground-cover mesh: vertices (x, z, unit index, layer) in triples, non-indexed. Every outline is laid over a lattice of squares fixed to the ground (opts.cell metres, default 40):
+ * a square wholly inside the outline is two triangles, a square the outline cuts is cut along it and fanned. So no triangle is longer than a square and the pieces are of even size;
+ * the shader lays each vertex on the terrain. `project(lng, lat) -> [x, z]`.
+ */
 export function buildDecals(model, project, opts = {}) {
-  const maxEdge = opts.maxEdge || 34, tri = [], units = model.units, per = new Int32Array(units.length); let bad = 0;
-  const chunks = []; let n = 0;
-  for (let i = 0; i < units.length; i++) {
-    const u = units[i], r = u.rings[0], ring = []; for (let k = 0; k < r.length; k += 2) ring.push(project(r[k], r[k + 1]));
-    const t = triangulate(ring); if (!t.ok) bad++;
-    const before = tri.length;
-    for (let k = 0; k < t.tris.length; k += 3) { const a = ring[t.tris[k]], b = ring[t.tris[k + 1]], c = ring[t.tris[k + 2]]; splitTriangle(a[0], a[1], b[0], b[1], c[0], c[1], maxEdge, tri); }
-    per[i] = (tri.length - before) / 6; n += per[i];
+  const C = opts.cell || 40, tri = [], units = model.units, per = new Int32Array(units.length); let bad = 0, n = 0;
+  for (let u = 0; u < units.length; u++) {
+    const r = units[u].rings[0], pts = new Float64Array(r.length); let a = 1e9, b = 1e9, c = -1e9, d = -1e9;
+    for (let k = 0; k < r.length; k += 2) { const p = project(r[k], r[k + 1]); pts[k] = p[0]; pts[k + 1] = p[1]; if (p[0] < a) a = p[0]; if (p[0] > c) c = p[0]; if (p[1] < b) b = p[1]; if (p[1] > d) d = p[1]; }
+    const ring = Array.from(pts), i0 = Math.floor(a / C), i1 = Math.floor(c / C), j0 = Math.floor(b / C), j1 = Math.floor(d / C), before = tri.length;
+    // the cells an edge passes through (a superset: the cells of its bounding box); a cell with no edge is wholly inside or wholly outside
+    const nx = i1 - i0 + 1, ny = j1 - j0 + 1, edge = new Uint8Array(nx * ny), np = pts.length / 2;
+    for (let k = 0; k < np; k++) { const k2 = (k + 1) % np, ex0 = Math.min(pts[2 * k], pts[2 * k2]), ex1 = Math.max(pts[2 * k], pts[2 * k2]), ez0 = Math.min(pts[2 * k + 1], pts[2 * k2 + 1]), ez1 = Math.max(pts[2 * k + 1], pts[2 * k2 + 1]);
+      for (let j = Math.floor(ez0 / C); j <= Math.floor(ez1 / C); j++) for (let i = Math.floor(ex0 / C); i <= Math.floor(ex1 / C); i++) edge[(j - j0) * nx + (i - i0)] = 1; }
+    for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) {
+      const X0 = i * C, Z0 = j * C, X1 = X0 + C, Z1 = Z0 + C;
+      if (!edge[(j - j0) * nx + (i - i0)]) {
+        const cx = X0 + C / 2, cz = Z0 + C / 2; let inside = false; for (let p = 0, q = np - 1; p < np; q = p++) if ((pts[2 * p + 1] > cz) !== (pts[2 * q + 1] > cz) && cx < (pts[2 * q] - pts[2 * p]) * (cz - pts[2 * p + 1]) / (pts[2 * q + 1] - pts[2 * p + 1]) + pts[2 * p]) inside = !inside;
+        if (inside) tri.push(X0, Z0, X1, Z0, X1, Z1, X0, Z0, X1, Z1, X0, Z1);
+        continue;
+      }
+      const q = clipRect(ring, X0, Z0, X1, Z1); if (q.length < 6) continue; const A = Math.abs(area2(q)); if (A < 0.25) continue;
+      if (A > C * C * 0.9999) { tri.push(X0, Z0, X1, Z0, X1, Z1, X0, Z0, X1, Z1, X0, Z1); continue; }
+      const pr = []; for (let k = 0; k < q.length; k += 2) pr.push([q[k], q[k + 1]]);
+      const t = triangulate(pr); if (!t.ok) bad++;
+      for (let k = 0; k < t.tris.length; k += 3) { const A1 = pr[t.tris[k]], B1 = pr[t.tris[k + 1]], C1 = pr[t.tris[k + 2]]; tri.push(A1[0], A1[1], B1[0], B1[1], C1[0], C1[1]); }
+    }
+    per[u] = (tri.length - before) / 6; n += per[u];
   }
   const verts = new Float32Array(n * 3 * 4); let o = 0, k = 0;
-  for (let i = 0; i < units.length; i++) { const layer = LAYER[units[i].cls] ?? 0; for (let j = 0; j < per[i] * 3; j++) { verts[o++] = tri[k++]; verts[o++] = tri[k++]; verts[o++] = i; verts[o++] = layer; } }
+  for (let u = 0; u < units.length; u++) { const layer = LAYER[units[u].cls] ?? 0; for (let j = 0; j < per[u] * 3; j++) { verts[o++] = tri[k++]; verts[o++] = tri[k++]; verts[o++] = u; verts[o++] = layer; } }
   return { verts, triangles: n, perUnit: per, notClean: bad };
 }
 

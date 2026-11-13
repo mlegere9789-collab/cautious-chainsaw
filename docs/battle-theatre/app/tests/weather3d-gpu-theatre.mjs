@@ -1,7 +1,8 @@
 // Harness (not a gate): the real shell (index.html, placeholder history layer) on one renderer API, entered like a visitor enters it, with the weather and effects layers installed by the shell itself and then given the
 // stand-in event plan of tests/weather3d-gpu-plan.mjs. Reads the picture back from the canvas in the frame's own task, and records the console, every WebGPU error and compiler message, the ribbon text and the layer's counters.
 // Software rendering only (SwiftShader). Nothing here is a real-GPU result.
-//   tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu-theatre.mjs <outDir> [webgpu|webgl2] [case,case,...] [--w=640] [--h=360] [--real] [--real-canvas]
+//   tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu-theatre.mjs <outDir> [webgpu|webgl2] [case,case,...] [--w=640] [--h=360] [--real] [--real-canvas] [--trace] [--q=fx=off] [--entry-timeout=1200]
+// --trace: print the console live and, in the progress line, the GPU promises that have not settled; --q: more address parameters (for example fx=off or structures=off, to find what a stalled entry waits for); --entry-timeout: seconds to wait for the entry.
 // --real: the real history layer (the crowd of figures, the structures, the crowd's own fire plan) instead of the placeholder layer and the stand-in plan; three views of the real field.
 // Output: <outDir>/theatre-<api>/<case>.png, <case>.rgba, <case>.json, summary.json, console.log (theatre-real-<api> with --real).
 import fs from 'node:fs'; import path from 'node:path';
@@ -13,22 +14,22 @@ import { encodePng, stats, CHROME_ARGS, HOOKS } from './weather3d-gpu-lib.mjs';
 
 const args = process.argv.slice(2), flag = (k, d) => { const a = args.find(x => x.startsWith('--' + k + '=')); return a ? a.split('=')[1] : d; };
 const pos = args.filter(a => !a.startsWith('--')), outRoot = path.resolve(pos[0] || '.'), api = pos[1] === 'webgl2' ? 'webgl2' : 'webgpu', only = (pos[2] || '').split(',').filter(Boolean);
-const W = +flag('w', 640), H = +flag('h', 360), REAL = args.includes('--real'), out = path.join(outRoot, (REAL ? 'theatre-real-' : 'theatre-') + api); fs.mkdirSync(out, { recursive: true });
+const W = +flag('w', 640), H = +flag('h', 360), TRACE = args.includes('--trace'), EXTRA = flag('q', ''), ENTRY_MS = +flag('entry-timeout', 1200) * 1000, REAL = args.includes('--real'), out = path.join(outRoot, (REAL ? 'theatre-real-' : 'theatre-') + api); fs.mkdirSync(out, { recursive: true });
 const REAL_CASES = [{ name: 'real-overview-jul3-1330', m: [7, 3, 13, 30], view: 'overview', what: 'the whole field at the cannonade, the real layer' }, { name: 'real-ground-jul3-1330', m: [7, 3, 13, 30], view: 'ground', what: 'ground view at the cannonade, the real layer' }, { name: 'real-ground-jul2-2330', m: [7, 2, 23, 30], view: 'ground', what: 'ground view at night, the real layer' }];
 const DEFAULT = ['stars-jun28-0200', 'moon-jul3-2330', 'day-clouds-jul3-1400', 'wet-ground-jul4-1400', 'smoke-jul3-1400', 'smoke-night-jul2-2200', 'fire-sherfy-jul3-1500', 'dust-march-jul2-1100'];
 const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).toFixed(0).padStart(5) + 's', ...a);
-const srv = await serve(0), port = srv.address().port, url = `http://127.0.0.1:${port}/app/index.html?history=${REAL ? 'real' : 'stub'}&api=${api}&nearR=12&midR=60`;
+const srv = await serve(0), port = srv.address().port, url = `http://127.0.0.1:${port}/app/index.html?history=${REAL ? 'real' : 'stub'}&api=${api}&nearR=12&midR=60${EXTRA ? '&' + EXTRA : ''}`;
 const summary = { api, url, w: W, h: H, started: new Date().toISOString(), cases: {}, errors: [] }, save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
 const logs = []; let browser;
 try {
   browser = await chromium.launch({ channel: 'chrome', headless: true, args: CHROME_ARGS });
-  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas') }); ctx.setDefaultTimeout(0);
-  const page = await ctx.newPage(); page.on('console', m => logs.push(m.type() + ': ' + m.text())); page.on('pageerror', e => logs.push('pageerror: ' + e.message)); page.on('crash', () => logs.push('PAGE CRASH')); page.on('response', r => { if (r.status() >= 400) logs.push('http ' + r.status() + ' ' + r.url()); });
+  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas'), trace: TRACE }); ctx.setDefaultTimeout(0);
+  const page = await ctx.newPage(); page.on('console', m => { logs.push(m.type() + ': ' + m.text()); if (TRACE) say('  console', m.type(), m.text().slice(0, 200)); }); page.on('pageerror', e => logs.push('pageerror: ' + e.message)); page.on('crash', () => logs.push('PAGE CRASH')); page.on('response', r => { if (r.status() >= 400) logs.push('http ' + r.status() + ' ' + r.url()); });
   say('open', url); await page.goto(url, { waitUntil: 'load', timeout: 300000 });
   // a script click (no actionability wait: a visitor's click would be the same event), a progress line every 30 s, and a limit of 20 minutes for the entry
   await page.evaluate(() => document.querySelector('[data-bt-enter]').click());
-  const hb = setInterval(async () => { try { say('  entering:', await page.evaluate(() => { const l = document.querySelector('.loading-card'); return (l ? l.innerText.replace(/\s+/g, ' ').slice(0, 160) : 'no loading card') + ' | btApp ' + !!window.btApp; })); } catch (e) { say('  entering: page busy'); } }, 30000);
-  try { await page.waitForFunction(() => window.btApp && (window.btApp.ready || (document.querySelector('.loading-card .fail'))), null, { timeout: 1200000, polling: 1000 }); } finally { clearInterval(hb); }
+  const hb = setInterval(async () => { try { say('  entering:', await page.evaluate(() => { const l = document.querySelector('.loading-card'); const pend = window.__pending ? [...window.__pending.values()].map(v => v.name + ' ' + Math.round((performance.now() - v.t) / 1000) + 's').slice(0, 6).join('; ') : ''; return (l ? l.innerText.replace(/\s+/g, ' ').slice(0, 160) : 'no loading card') + ' | btApp ' + !!window.btApp + (pend ? ' | pending GPU promises: ' + pend : ''); })); } catch (e) { say('  entering: page busy'); } }, 30000);
+  try { await page.waitForFunction(() => window.btApp && (window.btApp.ready || (document.querySelector('.loading-card .fail'))), null, { timeout: ENTRY_MS, polling: 1000 }); } finally { clearInterval(hb); }
   const entered = await page.evaluate(() => { const a = window.btApp; if (!a || !a.ready) return { ready: false, fail: (document.querySelector('.loading-card') || {}).textContent }; const th = a.theatre, fx = th.fxOn;
     return { ready: true, api: a.api, entryMs: th.perf.entryMs, ribbon: (th.root.querySelector('#bt-ribbon') || {}).textContent || null, fx: !!fx, status: fx && fx.status ? fx.status() : null, fxLog: fx ? fx.log : null, gpu: fx && fx.gpu ? { ok: fx.gpu.ok, weatherOk: fx.gpu.weatherOk, fxOk: fx.gpu.fxOk, failed: fx.gpu.failed, log: fx.gpu.log } : null, gl: fx && fx.gl ? { ok: fx.gl.ok, log: fx.gl.log } : null, flags: { ...th.host.R.o.flags }, hostLog: th.host.log }; });
   summary.entered = entered; say('entered', JSON.stringify(entered).slice(0, 700)); save(); if (!entered.ready) throw new Error('the theatre did not start: ' + entered.fail);

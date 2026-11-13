@@ -14,6 +14,7 @@ const el = (tag, props = {}, html = null) => { const n = doc().createElement(tag
 const CSS = `#xm-chip{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:9px 14px;border-radius:12px;background:var(--panel);border:1px solid rgba(58,58,86,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:12px;line-height:1.4;color:var(--text-2);box-shadow:0 12px 40px rgba(0,0,0,.3)}
 #xm-chip[hidden]{display:none}
 #xm-chip>span{display:inline-flex;align-items:center;gap:7px}
+.theatre[data-card="on"] #xm-chip .xm-chip-text{display:none}
 @media (max-width:760px){#xm-chip{position:absolute;z-index:12;left:var(--gut);right:var(--gut);top:calc(var(--top-h) + var(--safe-t) + var(--xm-clock-h,92px) + 18px);padding:7px 11px;gap:4px 10px;font-size:11.5px}#xm-chip .btn-s{min-height:30px}}`;
 
 export async function init(ctx) {
@@ -80,12 +81,18 @@ function paintChip(s) {
   s.chip.hidden = !s.on;
   s.chip.innerHTML = s.on ? P.noticeHTML(s.index.counts, s.ctx.tierMark) : '';
 }
+// the shell shrinks the clock face to make room for a card while its root says data-card="on" (ui/card.mjs, ui/object-card.mjs); a memorial's card is a card too. The shell's own card, when it is
+// open, keeps the mark: a memorial that gives way to a unit or a structure must not take it away.
+function cardMark(s) {
+  const th = s.th, root = th && th.root; if (!root || !root.dataset) return;
+  if (s.card && !s.card.hidden) root.dataset.card = 'on'; else if (!(th.state.selected >= 0 || th.state.selectedObj >= 0)) root.dataset.card = 'off';
+}
 function select(no, o = {}) {
   const s = S; if (!s) return false; const it = no >= 0 ? s.index.byNo.get(no) : null; if (no >= 0 && !it) return false;
   const th = s.th; s.selected = it ? it.no : -1; s.fresh = true;
   if (it) { if (th.state.selected >= 0) th.select(-1); if (th.state.selectedObj >= 0) th.selectObject(-1); s.card.innerHTML = P.memorialCardHTML(it, s.ctx.tierMark); s.card.hidden = false; if (o.say) th.announce(`Selected ${it.name}, a later memorial.`); }
   else { s.card.hidden = true; s.card.innerHTML = ''; if (!s.on) dropCanvas(s); }
-  if (s.panel.isOpen()) markCurrent(s);
+  cardMark(s); if (s.panel.isOpen()) markCurrent(s);
   return !!it;
 }
 function flyTo(no) {
@@ -160,7 +167,7 @@ export function dispose() {
   for (const off of s.offs || []) { try { off(); } catch { /* the bus is gone */ } }
   if (s.ro) { try { s.ro.disconnect(); } catch { /* already gone */ } }
   if (s.canvas) { s.canvas.width = 0; s.canvas.height = 0; s.canvas.remove(); }
-  if (s.chip) s.chip.remove(); if (s.card) s.card.remove(); if (s.style) s.style.remove();
-  const th = s.th; if (th && th.sitePlaces) { delete th.sitePlaces.memorials; if (!Object.keys(th.sitePlaces).length) delete th.sitePlaces; }
+  const wasOpen = s.card && !s.card.hidden; if (s.chip) s.chip.remove(); if (s.card) s.card.remove(); if (s.style) s.style.remove();
+  const th = s.th; if (wasOpen && th && th.root && th.root.dataset && !(th.state.selected >= 0 || th.state.selectedObj >= 0)) th.root.dataset.card = 'off'; if (th && th.sitePlaces) { delete th.sitePlaces.memorials; if (!Object.keys(th.sitePlaces).length) delete th.sitePlaces; }
   s.canvas = s.c2d = s.chip = s.card = s.style = s.ro = s.box = s.ctx = s.th = s.T = s.data = s.years = s.index = s.L = s.toggle = s.panel = s.offs = null;
 }

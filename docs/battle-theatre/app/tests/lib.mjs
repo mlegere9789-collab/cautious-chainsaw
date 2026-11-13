@@ -6,6 +6,7 @@
 //   BT_API=webgpu|webgl2|auto   the renderer the address asks for (the shell's default is WebGL2: delegated decision DD-27)
 //   BT_EXTRA=a=b&c=d            more address parameters for every page a spec opens
 //   BT_DIST=<folder>            serve this folder (a packed staging dist: tools/bt/pack_theatre.mjs) instead of the source tree
+//   BT_SNAPSHOT=<folder>        serve this FROZEN COPY of docs/battle-theatre (a `git archive` of one commit) instead of the live tree: a software run takes hours and the other workstreams edit the live tree meanwhile
 //   BT_GL=auto|gpu|software     auto (default): the hardware flags first, SwiftShader when the browser gets no WebGL2 context from them; gpu: never fall back; software: SwiftShader at once
 //   BT_WAIT_K=<number>          fixes the wait scale (debugging only; unset = measured, see SLOW)
 //   BT_OUT=<name>               the numbers and pictures a spec writes go to tests/results/<name>/ (default: the tests folder on a hardware renderer, tests/results/sw-latest/ on a software one)
@@ -28,13 +29,14 @@ function serveDir(root, port) {
 }
 const portFree = port => new Promise(res => { const s = net.createServer(); s.once('error', () => res(false)); s.listen(port, '127.0.0.1', () => s.close(() => res(true))); });
 export const DIST = process.env.BT_DIST ? path.resolve(process.env.BT_DIST) : null;
+export const SNAPSHOT = !DIST && process.env.BT_SNAPSHOT ? path.resolve(process.env.BT_SNAPSHOT) : null;      // a frozen source shell: the source tree as the page sees it, not a dist (the register entries are there)
 // The packed staging dist withholds the working copies of the register entries by design (tools/bt/pack_theatre.mjs WITHHELD 'register-entries'; app/docs/NETLIFY-STAGING.md, "Dead links": the
 // "Open register entry" links answer 404 in that build; the request to the shell's owner is renderer-register-links-in-staging.md). A spec that opens such a link expects what the build documents:
 // 200 from the source shell, 404 from a packed dist. When the shell stops showing the link in the dist, the spec for that build changes with it.
 export const REGISTER_ENTRY_STATUS = DIST ? 404 : 200;
 let PROBE_URL = 'about:blank';                                      // the capability probe needs a secure context for navigator.gpu: a small file of the last server started (127.0.0.1 is one)
 export async function startServer(port = 10771) {
-  const p = (await portFree(port)) ? port : 0, srv = DIST ? await serveDir(DIST, p) : await serve(p), real = srv.address().port; PROBE_URL = `http://127.0.0.1:${real}/app/styles.css`;
+  const p = (await portFree(port)) ? port : 0, srv = DIST || SNAPSHOT ? await serveDir(DIST || SNAPSHOT, p) : await serve(p), real = srv.address().port; PROBE_URL = `http://127.0.0.1:${real}/app/styles.css`;
   return { srv, port: real, dist: DIST, base: `http://127.0.0.1:${real}/app/index.html`, close: () => new Promise(r => { srv.closeAllConnections?.(); srv.close(r); }) };
 }
 
@@ -53,7 +55,7 @@ export async function launch(extra = []) {
   if (!r.webgl2 && mode === 'auto' && !sw) { await b.close(); sw = true; b = await go(true); r = await probe(b); }
   RENDER.renderer = r.webgl2; RENDER.webgpu = r.webgpu; RENDER.args = sw ? 'software GL flags' : 'hardware flags'; RENDER.software = !r.webgl2 || /swiftshader|llvmpipe|softpipe|software/i.test(r.webgl2);
   if (RENDER.software && !SLOW.frameMs) { SLOW.k = +process.env.BT_WAIT_K || SLOW.startK; SLOW.from = process.env.BT_WAIT_K ? 'BT_WAIT_K' : 'start value of a software renderer, until the first frame is measured'; }
-  if (!launch.said) { launch.said = true; console.log(`# renderer: ${RENDER.renderer || 'no WebGL2 context'} (${RENDER.software ? 'SOFTWARE' : 'hardware'}; ${RENDER.args}); WebGPU adapter: ${RENDER.webgpu || 'none'}${DIST ? '; serving the packed dist ' + DIST : ''}`); }
+  if (!launch.said) { launch.said = true; console.log(`# renderer: ${RENDER.renderer || 'no WebGL2 context'} (${RENDER.software ? 'SOFTWARE' : 'hardware'}; ${RENDER.args}); WebGPU adapter: ${RENDER.webgpu || 'none'}${DIST ? '; serving the packed dist ' + DIST : SNAPSHOT ? '; serving the frozen source snapshot ' + SNAPSHOT : ''}`); }
   return b;
 }
 

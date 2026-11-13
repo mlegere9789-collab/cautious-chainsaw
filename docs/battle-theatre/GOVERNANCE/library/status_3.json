@@ -1,0 +1,41 @@
+{
+ "_doc": "library/status_3.json (workstream bt-web, 2026-11-13). Status per source acquired from the hosts that became reachable on 2026-11-13; status.json and status_2.json are not edited. Statuses: ingested, partial, blocked, unusable. Each task merges its own entries (task field); ingested here means the file or text is acquired and hash-recorded, not that every claim was mined.",
+ "sources": [
+  {
+   "id": "PM-LOC-DERIVATIVES",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "430 files, sha256 in images_ledger.json, every file decoded"
+  },
+  {
+   "id": "PM-LOC-RECORDS",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "127 records, caption and notes read for camera-position statements"
+  },
+  {
+   "id": "PM-LOC-MASTERS",
+   "task": "photomatch",
+   "status": "partial",
+   "reason": "2 of 430 resources fetched as masters (25 to 130 MB each)"
+  },
+  {
+   "id": "PM-NPS-THEN-AND-NOW",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "23 comparisons parsed verbatim; images identified against LOC records by feature matching"
+  },
+  {
+   "id": "PM-NPS-SLAUGHTER-PEN-PDF",
+   "task": "photomatch",
+   "status": "partial",
+   "reason": "captions of plates 3 to 8 read; plates are photocopies and were not matched"
+  },
+  {
+   "id": "PM-GARDNER-SKETCHBOOK-TEXT",
+   "task": "photomatch",
+   "status": "unusable",
+   "reason": "OCR holds no plate descriptions"
+  }
+ ]
+}

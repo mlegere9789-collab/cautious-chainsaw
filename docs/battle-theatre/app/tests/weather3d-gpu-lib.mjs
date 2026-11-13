@@ -23,14 +23,20 @@ export const CHROME_ARGS = ['--enable-unsafe-webgpu', '--enable-features=Vulkan,
 // The commands the renderer records are the same; only the target of its last pass is not the canvas. { realCanvas: true } uses the real canvas and only adds COPY_SRC to its configuration (untested here). Self-contained: it is sent to the page as source text.
 export function HOOKS(opts) {
   window.__gpuErrors = []; window.__wgslMessages = []; window.__gpuLabels = []; window.__swap = { standIn: !(opts && opts.realCanvas), configured: 0, calls: 0 };
+  window.__pending = new Map(); let pid = 0;
+  const track = (name, pr) => { if (!opts || !opts.trace) return pr; const id = ++pid; window.__pending.set(id, { name, t: performance.now() }); const done = () => window.__pending.delete(id); pr.then(done, done); return pr; };
   if (typeof GPUAdapter !== 'undefined') {
     const rd = GPUAdapter.prototype.requestDevice;
     GPUAdapter.prototype.requestDevice = async function (...a) {
       const d = await rd.apply(this, a);
       d.addEventListener('uncapturederror', e => window.__gpuErrors.push(String((e.error && e.error.message) || e).slice(0, 900)));
       d.lost.then(i => window.__gpuErrors.push('DEVICE LOST ' + i.reason + ': ' + i.message));
+      if (opts && opts.trace) {            // which promise of the device never settles: the page's heartbeat reads window.__pending
+        for (const k of ['createRenderPipelineAsync', 'createComputePipelineAsync', 'popErrorScope']) { const f = d[k].bind(d); d[k] = (...x) => track(k + (x[0] && x[0].label ? ' ' + x[0].label : ''), f(...x)); }
+        const osw = d.queue.onSubmittedWorkDone.bind(d.queue); d.queue.onSubmittedWorkDone = () => track('queue.onSubmittedWorkDone', osw());
+      }
       const csm = d.createShaderModule.bind(d);
-      d.createShaderModule = desc => { const m = csm(desc), label = (desc && desc.label) || '(no label)'; m.getCompilationInfo().then(info => { window.__gpuLabels.push(label + ' messages=' + info.messages.length); for (const x of info.messages) window.__wgslMessages.push({ label, type: x.type, line: x.lineNum, col: x.linePos, msg: String(x.message).slice(0, 400) }); }, e => window.__gpuErrors.push('getCompilationInfo ' + label + ': ' + e)); return m; };
+      d.createShaderModule = desc => { const m = csm(desc), label = (desc && desc.label) || '(no label)'; track('getCompilationInfo ' + label, m.getCompilationInfo()).then(info => { window.__gpuLabels.push(label + ' messages=' + info.messages.length); for (const x of info.messages) window.__wgslMessages.push({ label, type: x.type, line: x.lineNum, col: x.linePos, msg: String(x.message).slice(0, 400) }); }, e => window.__gpuErrors.push('getCompilationInfo ' + label + ': ' + e)); return m; };
       return d;
     };
   }

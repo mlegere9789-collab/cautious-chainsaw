@@ -1460,7 +1460,116 @@
    "rights_basis": "United States government work",
    "rights_note": null,
    "text_quality": "web page text (tags stripped)"
+  },
+  {
+   "id": "PM-LOC-DERIVATIVES",
+   "task": "photomatch",
+   "title": "Library of Congress Civil War photographs: medium and large JPEG derivatives of the 127 catalogued records (109 first run + 18 added)",
+   "creator": "Library of Congress, Prints and Photographs Division",
+   "date": "1863 photographs",
+   "url": "https://www.loc.gov/pictures/collection/cwp/ (files from cdn.loc.gov, which redirects to tile.loc.gov)",
+   "fetched_at": "2026-11-13",
+   "files": 430,
+   "bytes": 63979423,
+   "local_path": "tmp/photomatch/loc/",
+   "pointer": "tools/bt/photomatch/images_ledger.json (sha256, size, pixel size and licence basis per file)",
+   "pointer_sha256": "774cc22e288b46a8bd49983297990ef3bb660512445a868af2036261696f6a24",
+   "file_kept": true,
+   "rights_basis": "LOC record rights statement: \"No known restrictions on publication.\"; 1863 photographs",
+   "rights_note": "two truncated transfers were found by comparing the declared size with the received size and re-fetched; every kept file now decodes completely",
+   "text_quality": "images, not text"
+  },
+  {
+   "id": "PM-LOC-RECORDS",
+   "task": "photomatch",
+   "title": "Library of Congress catalogue records (open JSON) of the 127 photographs",
+   "creator": "Library of Congress",
+   "url": "https://www.loc.gov/pictures/item/<id>/?fo=json",
+   "fetched_at": "2026-11-11 (109 records) and 2026-11-13 (18 records)",
+   "local_path": "tmp/photomatch/raw/",
+   "pointer": "tools/bt/photomatch/catalogue.json and catalogue_additions.json",
+   "pointer_sha256": {
+    "catalogue.json": "9e151d843f0c53e495798ccf92342ca69f7a9d8008fc90e399b4fef3f2e7acfb",
+    "catalogue_additions.json": "7f524de0d286ee8fc8d48b2346303e90901346b7b8c5284933a91254a3b032b9"
+   },
+   "file_kept": true,
+   "rights_basis": "LOC: no known restrictions on publication"
+  },
+  {
+   "id": "PM-LOC-MASTERS",
+   "task": "photomatch",
+   "title": "Library of Congress master TIFFs fetched for the Cemetery Hill views",
+   "url": "cdn.loc.gov/master/pnp/ (resources cwpb.00084 and ppmsca.35051)",
+   "fetched_at": "2026-11-13",
+   "files": 2,
+   "bytes": 156571618,
+   "sha256": {
+    "cwpb.00084": "4dadd053f51ef104fc2055e66a4754ca9e733ae5c5818027358efd05f960f11f",
+    "ppmsca.35051": "b817606174b1fb6e4295191574c14326252c7ec15f217e1859ebad13d97a858a"
+   },
+   "local_path": "tmp/photomatch/loc/*_u4096.jpg (working copies, 4096 px; the TIFFs were deleted after the hash was recorded)",
+   "file_kept": false,
+   "rights_basis": "LOC: no known restrictions on publication"
+  },
+  {
+   "id": "PM-NPS-THEN-AND-NOW",
+   "task": "photomatch",
+   "title": "National Park Service Then-And-Now pages of Gettysburg NMP (index and five series; 23 comparisons) with their 46 images",
+   "creator": "National Park Service, Gettysburg National Military Park",
+   "date": "pages last updated 2022 to 2025",
+   "url": "https://www.nps.gov/gett/learn/photosmultimedia/then-and-now.htm and the five series pages; https://www.nps.gov/places/gettysburg-then-now-first-rose-woods.htm",
+   "fetched_at": "2026-11-13",
+   "local_path": "tmp/library/web/photomatch/www.nps.gov/",
+   "pointer": "tools/bt/photomatch/nps_then_now.json (captions verbatim with the sha256 of each saved page text and image)",
+   "pointer_sha256": "6070479d5fe7b63c879505022eb01190b485ec8aff638a3217688da07c46863f",
+   "file_kept": true,
+   "rights_basis": "United States government work (images credited to the Library of Congress or NPS Photo)",
+   "text_quality": "HTML stripped to text by webget.py"
+  },
+  {
+   "id": "PM-NPS-SLAUGHTER-PEN-PDF",
+   "task": "photomatch",
+   "title": "\"Our principal loss was in this place\": Action at the Slaughter Pen and at the south end of Houck's Ridge, 2 July 1863 (Kathleen R. Georg, Gettysburg NMP, 18 March 1984)",
+   "url": "https://www.npshistory.com/publications/gett/slaughter-pen.pdf",
+   "bytes": 47536739,
+   "sha256": "f7a98c4b934fdcceddf85a3397a4048f598026404760d74fce3c7fd4983c9668",
+   "fetched_at": "2026-11-13",
+   "pages": 60,
+   "local_path": "tmp/library/web/photomatch/www.npshistory.com/slaughter-pen.pdf",
+   "file_kept": true,
+   "rights_basis": "United States government work",
+   "rights_note": "kept to view the report plates (photocopies); the text of the same report is NPS-SLAUGHTER-PEN of the nps-landscape task",
+   "text_quality": "poor OCR with a clean caption for plates 3 to 8 read from the page images"
   }
  ],
- "blocked_or_failed": []
+ "blocked_or_failed": [
+  {
+   "id": "PM-GARDNER-SKETCHBOOK-TEXT",
+   "task": "photomatch",
+   "url": "https://archive.org/cors/GardnersPhotographicSketchBookOfTheWar/ (volume I and II _djvu.txt)",
+   "status": "fetched, unusable",
+   "reason": "the OCR text layer holds plate decoration only (0 occurrences of Gettysburg in 60 KB); the plate descriptions would have to be read from the page images (the jp2 zips are 150 MB each, not fetched)"
+  },
+  {
+   "id": "PM-NPS-VISTA-CUTTING-PLATES",
+   "task": "photomatch",
+   "url": "tmp/library/web/nps/NPS-VISTA-CUTTING",
+   "status": "captions read, plates unreadable",
+   "reason": "the two Brady plates of Little Round Top (pdf pages 19 and 21) are reproduced as brown stains in the saved PDF; only the captions are usable"
+  },
+  {
+   "id": "PM-NPS-SLAUGHTER-PEN-PLATES",
+   "task": "photomatch",
+   "url": "tmp/library/web/photomatch/www.npshistory.com/slaughter-pen.pdf",
+   "status": "captions read, plates not matchable",
+   "reason": "the plates are photocopies; feature matching against the LOC images was not attempted for them (the Gardner and Gibson numbers in the captions are LOC negative numbers and tie plates 4, 6, 7, 8 to records 2018670625, 2018666311, 2018666312, 2018666314)"
+  },
+  {
+   "id": "PM-LC-B815-273",
+   "task": "photomatch",
+   "url": "LOC negative LC-B815-273 (NPS CLR Cemetery Fig. 1.26)",
+   "status": "not found",
+   "reason": "not among the 127 catalogued records; the search outside the cwp collection was not made"
+  }
+ ]
 }

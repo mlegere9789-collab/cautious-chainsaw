@@ -119,7 +119,7 @@ ROWS.append(dict(
                 'General Sykes took command of the V Corps. The hour of the formal assumption is a window, 03:00 to 07:00.',
                 'documented', '1863-06-28T03:00', '1863-06-28T07:00'),
     subs=[
-        ('Meade\'s dispatch of June 28, 7 a.m., from Frederick: the order placing him in command is received', 'documented', 'supported', ['meade7']),
+        ('Meade\'s dispatch of June 28, 7 a.m., from Frederick: the order placing him in command is received', 'documented', 'supported', ['meade7', 'meade7h']),
         ('The order was delivered to Meade at about 03:00 and he reached Hooker\'s headquarters just after daylight', 'documented', 'supported', ['hardie3', 'hq_day']),
         ('Meade was in camp at Ballinger\'s Creek, just outside Frederick, on the afternoon of Jun 27', 'documented', 'supported', ['ll_camp']),
         ('Meade "had that day assumed command of the army" (Hancock, Jun 28)', 'documented', 'supported', ['hancock_assumed']),
@@ -127,6 +127,7 @@ ROWS.append(dict(
     ],
     cites={
         'meade7': OR('The order placing me in command of this army is received.', 'OR27-1-R006', '61'),
+        'meade7h': OR('Jime 28, 1863—7 a. m.', 'OR27-1-R006', '61', note='The OCR prints the month of the dispatch heading as Jime; the heading reads Frederick, June 28, 1863, 7 a.m., received 10 a.m. (the same line)'),
         'hardie3': L('MEADE-LL-v2', 'General Meade lay quietly asleep in his tent at three o\'clock of the morning of June 28', page='1', page_basis='first page of Part V of the volume (opening narrative of the Gettysburg campaign); no running head is printed on it', witness='narrative by G. Meade, aide-de-camp and son of the general (1913)'),
         'll_camp': L('MEADE-LL-v2', 'arrived toward afternoon at Ballinger\'s Creek, just outside of Frederick City', page='1', page_basis='first page of Part V of the volume (opening narrative of the Gettysburg campaign); no running head is printed on it', witness='narrative by G. Meade, aide-de-camp and son of the general (1913)'),
         'hq_day': L('MEADE-LL-v2', 'head-quarters being reached just after daylight', page='2', page_basis='second page of Part V, the running head "2 LIFE AND LETTERS OF GENERAL MEADE" precedes it', witness='narrative by G. Meade, aide-de-camp and son of the general (1913)'),
@@ -449,12 +450,14 @@ ROWS.append(dict(
     subs=[
         ('The head of Stuart\'s column reached Westminster about 5 p.m.', 'documented', 'supported', ['stuart5']),
         ('A squadron of the First Delaware Cavalry obstinately disputed the advance for a short time; those not killed were captured or fled', 'documented', 'supported', ['stuart_routed']),
-        ('Knight: two companies, 95 men in all; about 3.30 p.m. word came that the enemy advanced in force', 'documented', 'supported', ['knight95']),
+        ('Knight: two companies, 95 men in all; about 3.30 p.m. word came that the enemy advanced in force', 'documented', 'supported', ['knight95', 'knight_330', 'knight_force']),
     ],
     cites={
         'stuart5': OR('reached Westminster about 5 p. m.', R565, '695'),
         'stuart_routed': OR('At this place, our advance was obstinately disputed for a short time by a squadron of the First Delaware Cavalry, but what were not killed were either captured or saved themselves by precipitate flight.', R565, '695'),
         'knight95': OR('with two companies of my command, numbering in all 95 men', 'OR27-2-R401', '201'),
+        'knight_330': OR('About 3. 30 o\'clock on the afternoon of the 29th', 'OR27-2-R401', '202'),
+        'knight_force': OR('the enemy were advancing in force on the Washington road', 'OR27-2-R401', '202'),
     },
     scenarios=[], remains=[], searched=['Stuart pp.694-696 and Knight p.201 read'],
     recheck='OR-RECHECK: both stored quotes found (p.695, p.201). Shard note "routed not tested" answered by Stuart\'s sentence on the squadron\'s loss and flight; the Jenkins note is withdrawn from this row (different event).'))
@@ -484,7 +487,7 @@ ROWS.append(dict(
                 'Night of Jun 29: Emmitsburg heights; night of Jun 30: Marsh Creek', 'Doubleday OR27-1-R029 p.243; Itinerary OR27-1-R007 p.144; Reynolds OR27-3-D0921 p.418; Howard OR27-1-R243 p.701',
                 'Doubleday reports that on Jun 29 the corps bivouacked for the night on the heights north of Emmitsburg and that on the 30th it made a short march of 3 or 4 miles to Marsh Creek and took up a defensive position; the Itinerary has the First Corps at Emmitsburg on Jun 29 and at Marsh Run on Jun 30; Reynolds\' headquarters were at Moritz Tavern on Jun 30. '
                 'The seed has the Marsh Creek bivouac on the night of Jun 29-30; in the OR it is the night of Jun 30. Scenarios carried, no default.',
-                'documented', '1863-06-29T20:04', '1863-07-01T04:00'),
+                'documented', '1863-06-29T20:04', '1863-07-01T04:03'),
     subs=[
         ('Jun 29: the First Corps left Frederick, arrived at Emmitsburg, passed through and bivouacked for the night on the heights to the north', 'documented', 'supported', ['dbl29']),
         ('Jun 30: a short march of 3 or 4 miles to Marsh Creek, where the corps took up a defensive position; Itinerary: First Corps from Emmitsburg to Marsh Run', 'documented', 'supported', ['dbl30', 'it30']),

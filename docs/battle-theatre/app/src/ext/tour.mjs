@@ -17,12 +17,14 @@ export async function init(ctx) {
   if (integrity.checked && !integrity.ok) throw new Error('the tour stops no longer match the hash recorded with them; they are not offered');
   if (th.dead || !th.root) return;                                                // the visit ended while the list was being read
   const T = th.T, B = P.tourBookmarks(data, T);
-  const s = S = { ctx, th, T, B, integrity, active: -1, pin: null, label: null, vp: new Float32Array(16), p: [0, 0, 0], px: NaN, py: NaN, shown: false, ac: new AbortController(), panel: null, box: null, tier: ctx.tierMark.style(P.TOUR.tier) };
+  const s = S = { ctx, th, T, B, integrity, active: -1, pin: null, label: null, lab: null, labW: 0, edge: null, flip: false, offs: [], vp: new Float32Array(16), p: [0, 0, 0], px: NaN, py: NaN, shown: false, ac: new AbortController(), panel: null, box: null, tier: ctx.tierMark.style(P.TOUR.tier) };
   // the one pin: an element over the picture, moved every frame to where the stop is seen
   const pin = s.pin = doc().createElement('div'); pin.id = 'xt-pin'; pin.hidden = true; pin.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none;will-change:transform';
   pin.innerHTML = `<span aria-hidden="true" style="position:absolute;left:-8px;top:-8px;width:12px;height:12px;border-radius:50%;border:2px ${s.tier.dash && s.tier.dash.length ? 'dashed' : 'solid'} ${s.tier.color};background:rgba(14,14,25,.55)"></span>
-    <span style="position:absolute;left:12px;top:-30px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:3px 4px 3px 8px;border-radius:8px;background:rgba(14,14,25,.86);border:1px solid rgba(58,58,86,.8);color:#e8d5a3;font:600 12px/1.3 system-ui,sans-serif"><span id="xt-pin-text"></span><button type="button" id="xt-pin-x" aria-label="Remove the tour stop pin" style="pointer-events:auto;width:24px;height:24px;border:0;border-radius:6px;background:transparent;color:#c3c4d0;font:600 14px/1 system-ui,sans-serif;cursor:pointer">×</button></span>`;
-  s.label = pin.querySelector('#xt-pin-text'); th.els.stage.append(pin);
+    <span id="xt-pin-lab" style="position:absolute;left:12px;top:-30px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:3px 4px 3px 8px;border-radius:8px;background:rgba(14,14,25,.86);border:1px solid rgba(58,58,86,.8);color:#e8d5a3;font:600 12px/1.3 system-ui,sans-serif"><span id="xt-pin-text"></span><button type="button" id="xt-pin-x" aria-label="Remove the tour stop pin" style="pointer-events:auto;width:24px;height:24px;border:0;border-radius:6px;background:transparent;color:#c3c4d0;font:600 14px/1 system-ui,sans-serif;cursor:pointer">×</button></span>`;
+  s.label = pin.querySelector('#xt-pin-text'); s.lab = pin.querySelector('#xt-pin-lab'); th.els.stage.append(pin);
+  // where the label may reach changes with the drawer and the size of the picture: measured again when either changes, never in the frame loop
+  const forget = () => { if (S) { S.edge = null; S.labW = 0; } }; s.offs = [th.bus.on('panel-open', forget), th.bus.on('panel-close', forget), th.bus.on('resize', forget)];
   pin.addEventListener('click', e => { if (S && e.target && e.target.id === 'xt-pin-x') clear(); }, { signal: s.ac.signal });
   s.panel = ctx.registerPanel(P.TOUR.id, 'Tour stops', renderPanel);
   th.sitePlaces = th.sitePlaces || {};
@@ -33,7 +35,7 @@ export async function init(ctx) {
 function go(id) {
   const s = S; if (!s) return false; const b = s.B.find(x => x.id === id); if (!b) return false;
   s.th.controls.flyTo({ ...b.pose }); s.th.announce(P.tourSay(b));
-  s.active = b.id; s.label.textContent = P.tourPinText(b); s.px = s.py = NaN; if (s.box) markCurrent(s);
+  s.active = b.id; s.label.textContent = P.tourPinText(b); s.px = s.py = NaN; s.labW = 0; if (s.box) markCurrent(s);
   return true;
 }
 function clear() { const s = S; if (!s) return; s.active = -1; s.shown = false; s.pin.hidden = true; if (s.box) markCurrent(s); }
@@ -45,9 +47,19 @@ export function update(frame) {
   P.viewProj(cam, R && R.W > 0 && R.H > 0 ? R.W / R.H : w / h, s.vp);
   const vis = P.project(s.vp, b.x, b.y, b.z, w, h, s.p) && s.p[0] > -20 && s.p[0] < w + 20 && s.p[1] > -20 && s.p[1] < h + 20;
   if (vis !== s.shown) { s.shown = vis; s.pin.hidden = !vis; }
+  if (vis) {                                                                       // the label goes to the other side of the place when it would run under the drawer or off the picture
+    if (!s.labW) s.labW = s.lab.getBoundingClientRect().width || 0; if (s.edge == null) s.edge = edgeOf(s, w);
+    const flip = s.labW > 0 && s.p[0] + 12 + s.labW > s.edge && s.p[0] - 12 - s.labW > 8; if (flip !== s.flip) { s.flip = flip; s.lab.style.left = flip ? 'auto' : '12px'; s.lab.style.right = flip ? '12px' : 'auto'; }
+  }
   if (vis && !(Math.abs(s.p[0] - s.px) <= .2 && Math.abs(s.p[1] - s.py) <= .2)) { s.px = s.p[0]; s.py = s.p[1]; s.pin.style.transform = `translate(${s.px.toFixed(1)}px,${s.py.toFixed(1)}px)`; }       // not "<= .2 on both" also when the place is not known yet (NaN after a new stop is chosen)
 }
 
+// the right edge of the picture as far as the label may go: the left edge of the drawer when one is open beside the picture (not a sheet over its foot), less a margin
+function edgeOf(s, w) {
+  const th = s.th; let e = w - 8; if (!th.state.panel) return e; const d = th.root && th.root.querySelector ? th.root.querySelector('#bt-drawer') : null;
+  if (d && !d.hidden) { const r = d.getBoundingClientRect(), st = th.els.stage.getBoundingClientRect(); if (r.width > 0 && r.width < w * .8) e = Math.min(e, r.left - st.left - 16); }
+  return e;
+}
 function markCurrent(s) { const ul = s.box.querySelector('#xt-list'); if (!ul) return; for (const n of ul.querySelectorAll('[aria-current]')) n.removeAttribute('aria-current'); if (s.active >= 0) { const n = ul.querySelector(`[data-stop="${s.active}"]`); if (n) n.setAttribute('aria-current', 'true'); } const c = s.box.querySelector('#xt-clear'); if (c) c.disabled = s.active < 0; }
 function renderPanel(box, th, sc) {
   const s = S; if (!s) return; s.box = box; sc.add(() => { if (S && S.box === box) S.box = null; });
@@ -61,7 +73,8 @@ function renderPanel(box, th, sc) {
 export function dispose() {
   const s = S; S = null; if (!s) return;
   try { s.ac.abort(); } catch { /* already gone */ }
+  for (const off of s.offs || []) { try { off(); } catch { /* the bus is gone */ } }
   if (s.pin) s.pin.remove();
   const th = s.th; if (th && th.sitePlaces) { delete th.sitePlaces.tour; if (!Object.keys(th.sitePlaces).length) delete th.sitePlaces; }
-  s.pin = s.label = s.box = s.ctx = s.th = s.T = s.B = s.panel = null;
+  s.pin = s.label = s.lab = s.offs = s.box = s.ctx = s.th = s.T = s.B = s.panel = null;
 }

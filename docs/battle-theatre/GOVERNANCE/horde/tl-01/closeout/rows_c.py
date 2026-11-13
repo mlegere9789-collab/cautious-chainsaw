@@ -14,7 +14,7 @@ ROWS.append(dict(
                 'Jun 30 about 11:30 (skirmish half an hour before the division encamped near the town at noon)', 'Geary OR27-1-R293 p.825; Candy OR27-1-R294 p.836; Rogers OR27-1-R279 p.798',
                 'The skirmish at Littlestown was fought by the Union cavalry with that of the rebels about half an hour before the Twelfth Corps\' Second Division reached the town and encamped at noon on Jun 30 (Geary); the enemy retired in the direction of Hanover as the infantry was hurried forward (Geary, Rogers). Candy\'s brigade was ordered to the woods on the right of the town toward Hanover, threw forward skirmishers and picketed there overnight. '
                 'The seed time ("before dawn or morning") and the attribution of the skirmish to Candy\'s skirmishers driving off a Stuart detachment are not supported: the Confederate unit is not named in the OR, and the Union action was the cavalry\'s.',
-                'documented', '1863-06-30T10:30', '1863-06-30T12:30', marking='skirmish and retreat toward Hanover: documented; Confederate unit and "before dawn": gap'),
+                'documented', '1863-06-30T11:30', '1863-06-30T12:00', marking='skirmish and retreat toward Hanover: documented; Confederate unit and "before dawn": gap'),
     subs=[
         ('Kilpatrick\'s cavalry division moved from Littlestown to Hanover on Jun 30 (Itinerary)', 'documented', 'supported', ['it_kil']),
         ('A half hour before the division reached Littlestown (it encamped near the town at noon) our cavalry had there a skirmish with that of the rebels', 'documented', 'supported', ['geary_skirm', 'geary_noon']),
@@ -47,7 +47,7 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-043', verdict='partially_supported',
     claim=claim('Pettigrew\'s brigade goes from Cashtown toward Gettysburg on the morning of Jun 30 for army supplies, shoes especially, to return the same day (supply search with 15 wagons)',
-                'Pettigrew\'s brigade (Heth\'s division, Hill\'s corps) with 15 wagons', 'Cashtown to the outskirts of Gettysburg on the Chambersburg Pike (8 or 9 miles)', 'Morning of Jun 30 (no hour in the OR; Jacobs has a Confederate advance at 9:30 a.m.); returned the same day',
+                'Pettigrew\'s brigade (Heth\'s division, Hill\'s corps) with 15 wagons', 'Cashtown to the outskirts of Gettysburg on the Chambersburg Pike (8 or 9 miles)', 'Morning of Jun 30 (no hour in the OR; Jacobs\'s hours for a Confederate advance are in row T1-047); returned the same day',
                 'Heth OR27-2-R549 p.637 (report dated Sept 13, 1863) and the same report in SHSP vol.6; Heth, SHSP vol.4 (1877); Jacobs 1864 p.21',
                 'On the morning of Jun 30 General Heth ordered Brigadier-General Pettigrew to take his brigade to Gettysburg, search the town for army supplies, shoes especially, and return the same day (Heth\'s report of Sept 13, 1863, and his 1877 letter); Jacobs saw a Confederate advance with 15 wagons. '
                 'The shoe motive is therefore in the contemporary report and the PDF "reconnaissance without shoe" reading is the alternative; the delegated default (DD-07) shows the supply search with shoes first, the PDF reading selectable. NOT documented: "first light", the strength about 1,800, the order to withdraw if resisted.',
@@ -89,7 +89,7 @@ ROWS.append(dict(
                 'Jun 30: about 10 a.m. (Stuart) or about noon (Richmond, Hammond)', 'Stuart OR27-2-R565 p.695; Richmond OR27-1-R362 p.1005; Hammond OR27-1-R363 pp.1007-1008; Kilpatrick OR27-1-R359 pp.986-987',
                 'Stuart: about 10 a.m. the head of his column reached Hanover and found a large column of cavalry passing through; Union reports: about noon the advance of the column arrived (Richmond) and the column entered and halted in the main street (Hammond) when the rear, the 18th Pennsylvania, was attacked. '
                 'Kilpatrick says five minutes after a dispatch that Stuart was making for Littlestown his rear guard was attacked in Hanover; he names Stuart\'s three brigades. The seed time (before 10:00) is earlier than every value in the OR. Scenarios carried, no default.',
-                'documented', '1863-06-30T09:40', '1863-06-30T12:20'),
+                'documented', '1863-06-30T10:00', '1863-06-30T12:00'),
     subs=[
         ('Stuart: about 10 a.m. the head of the column reached Hanover, found a large column of cavalry passing through, and the enemy\'s demonstration was met by a charge of Chambliss\' leading regiment', 'documented', 'conflict', ['stuart10', 'stuart_chambliss']),
         ('Richmond: the advance of the column arrived about noon without meeting the enemy; as the 18th Pennsylvania, in the rear, entered the town the enemy\'s cavalry made a dash on it', 'documented', 'conflict', ['rich_noon', 'rich_18']),
@@ -123,7 +123,7 @@ ROWS.append(dict(
                 'Jun 30 at 11 a.m. (Buford), 11.30 a.m. (Jacobs), a little before noon (Pierce)', 'Buford OR27-1-R337 p.923; Devin OR27-1-R339 p.938; Jacobs 1864 p.22; Pierce 1889; Itinerary OR27-1-R007 p.144',
                 'Buford: "I entered this place to-day at 11 a. m."; the enemy had approached to within half a mile of the town when the head of the column entered; Buford pushed him back toward Cashtown and sent parties to Mummasburg and Hunterstown, toward Cashtown and a strong force toward Littlestown; Devin sent scouting parties to observe the approaches from Carlisle, Harrisburg and York. '
                 'Jacobs: 11.30 a.m., passing through Washington Street to the Chambersburg turnpike, encamping at the McPherson farm; Pierce: a little before noon. The strength of the division is not in the OR text read: civilian estimates are 6,000 (Jacobs, Pierce); the seed values 2,748 / 2,900 / 3,000 / 3,200 are leads. Scenarios carried, no default.',
-                'documented', '1863-06-30T10:40', '1863-06-30T12:00', marking='arrival, movements and scouting: documented; strength: range of scenarios, none documented from a return'),
+                'documented', '1863-06-30T11:00', '1863-06-30T12:00', marking='arrival, movements and scouting: documented; strength: range of scenarios, none documented from a return'),
     subs=[
         ('Buford entered Gettysburg at 11 a.m.; found the town in a terrible state of excitement; the enemy had approached to within half a mile of the town when the head of his column entered', 'documented', 'supported', ['bu_11', 'bu_half']),
         ('He pushed the enemy back toward Cashtown and sent parties to Mummasburg and Hunterstown, toward Cashtown, and a strong force toward Littlestown', 'documented', 'supported', ['bu_parties']),
@@ -138,7 +138,7 @@ ROWS.append(dict(
         'bu_parties': OR('I have sent parties to the two first-named places, toward Cashtown, and a strong force toward Littlestown', R337, '923'),
         'dev_scouts': OR('Scouting parties were immediately sent out to observe the approaches from Carlisle, Harrisburg, and York', 'OR27-1-R339', '938'),
         'it_buford': OR('Gamble\'s and Devin\'s brigades, of Buford\'s cavalry division, from near Fairfield, via Emmitsburg, to Gettysburg', R007, '144'),
-        'jac_1130': L('JACOBS-1864', 'At 11J A. M., 6,000 Federal cavalry, under General Buford, arrived, passing through Washington street to the Chambersburg turnpike'),
+        'jac_1130': L('JACOBS-1864', 'At 11J A. M., 6,000 Federal cavalry, under General Buford, arrived, passing through Washington street to the Chambersburg turnpike', note=HALF('11:30 a.m.')),
         'pierce_noon': L('TPIERCE-1889', 'A little before noon on Tuesday, June 30th, a great number of Union cavalry began to arrive in the town.', witness='eyewitness narrative of 1889 (T. Pierce, then 15)'),
         'pierce_6000': L('TPIERCE-1889', 'numbering about six thousand men', witness='eyewitness narrative of 1889 (T. Pierce, then 15); an estimate learned afterwards'),
     },
@@ -164,7 +164,7 @@ ROWS.append(dict(
                 'Jun 30: the fight lasted about two hours; its end is about 12:00 if it began about 10 a.m. (Stuart), about 14:00 if it began about noon (Richmond, Hammond)', 'Kilpatrick OR27-1-R359 p.986; Richmond OR27-1-R362 p.1005; Hammond OR27-1-R363 p.1008; Custer OR27-1-R361 p.998',
                 'Kilpatrick: a fight of about two hours in which the whole command was engaged at different times; with the starts of about 10 a.m. (Stuart) and about noon (Richmond, Hammond) the end falls between about noon and about 14:00. Custer: the 6th Michigan, with the 5th, was at Littlestown, then went to Hanover, met the enemy\'s skirmishers, drove them to their guns and fought a sharp engagement against odds; the 7th Michigan was engaged at Hanover and the 1st Michigan supported Battery M without loss. '
                 'The seed "ends just before noon" matches only the 10 a.m. start; it is carried as one scenario, no default.',
-                'documented', '1863-06-30T11:40', '1863-06-30T14:20'),
+                'documented', '1863-06-30T12:00', '1863-06-30T14:00'),
     subs=[
         ('A fight of about two hours, in which the whole command was engaged at different times', 'documented', 'supported', ['kil_two']),
         ('Start of the fight about 10 a.m. (Stuart) or about noon (Richmond, Hammond)', 'documented', 'conflict', ['stuart10', 'rich_noon', 'ham_noon']),
@@ -203,7 +203,7 @@ ROWS.append(dict(
         ('Pettigrew found a large force of cavalry near the town, supported by an infantry force, did not deem it advisable to enter, and returned to Cashtown', 'documented', 'supported', ['heth_cav']),
         ('Hill: Heth reported Pettigrew had encountered the enemy at Gettysburg (principally cavalry), force undetermined; Hill: the only force at Gettysburg was cavalry, probably a detachment of observation', 'documented', 'supported', ['hill_cav', 'heth77_obs']),
         ('Jacobs: at 9.30 a.m. a portion of Hill\'s corps advanced on the Chambersburg turnpike as far as the Seminary hill crest; at 10.30 a.m. it withdrew toward Cashtown (unit not named)', 'documented', 'conflict', ['jac_930', 'jac_1030']),
-        ('Buford: the enemy had approached to within half a mile of the town when the head of his column entered at 11 a.m.', 'documented', 'conflict', ['bu_half']),
+        ('Buford: the enemy had approached to within half a mile of the town when the head of his column entered at 11 a.m.', 'documented', 'conflict', ['bu_half', 'bu_11']),
         ('That night the brigade was on picket on the turnpike half way between Cashtown and Gettysburg', 'documented', 'conflict', ['jones_picket']),
         ('Pettigrew took the force for militia', 'open gap', 'unsupported', []),
     ],
@@ -211,9 +211,10 @@ ROWS.append(dict(
         'heth_cav': OR('found a large force of cavalry near the town, sujjported by an infantry force', R549, '637'),
         'hill_cav': OR('Pettigrew had encountered the enemy at Gettysburg (principally cavalry)', R534, '607'),
         'heth77_obs': L('SHSP-04', 'the only force at Gettysburg is cavalry, probably a detachment of observation'),
-        'jac_930': L('JACOBS-1864', 'At 9J a. m., a portion of Hill\'s corps advanced on the Chambersburg turnpike, as far as the crest of the Seminary hill'),
-        'jac_1030': L('JACOBS-1864', 'At 10| a. m., they again withdrew towards Cashtown'),
+        'jac_930': L('JACOBS-1864', 'At 9J a. m., a portion of Hill\'s corps advanced on the Chambersburg turnpike, as far as the crest of the Seminary hill', note=HALF('9:30 a.m.')),
+        'jac_1030': L('JACOBS-1864', 'At 10| a. m., they again withdrew towards Cashtown', note=HALF('10:30 a.m.')),
         'bu_half': OR('He had approached to within half a mile of the town when the head of my column entered', R337, '923'),
+        'bu_11': OR('I entered this place to-day at 11 a. m.', R337, '923'),
         'jones_picket': OR('ultimo, the brigade was on picket on the turiij)ike road leading from Chambersburg to Gettysburg, about half way between Cashtown and the latter place', 'OR27-2-R550', '642'),
     },
     scenarios=[
@@ -273,7 +274,7 @@ ROWS.append(dict(
     cites={
         'norton_steeple': OR('took position in the steeple of the college', 'OR27-1-R017', '201'),
         'norton_jul1': OR('A station of observation was established, first on the college and subsequently on the court-house in Gettysburg', 'OR27-1-R017', '201'),
-        'jac_cupola': L('JACOBS-1864', 'one of these officers was on the College cupola making observations'),
+        'jac_cupola': L('JACOBS-1864', 'At 8J A. m., one of these officers was on the College cupola', note=HALF('8:30 a.m.')),
     },
     scenarios=[],
     remains=['that the "steeple of the college" is the cupola of Pennsylvania Hall (inferred; no text names the building)'],
@@ -291,7 +292,7 @@ ROWS.append(dict(
                 'Night of Jun 30 (Tuesday night)', 'NPS Edward McPherson Farm Historical Study (NPS-HS-MCPHERSON pp.26-27), citing the Slentz damage claim and Hall\'s history of the 6th New York Cavalry',
                 'According to the National Park Service Historical Study of the Edward McPherson farm, on Tuesday night (Jun 30) the tenant John Slentz watched Buford\'s troopers cut and throw down about a quarter mile of post-and-rail fence "to make way for the battle" and use another cord of rails for firewood, and men tearing down his fencing for firewood and possible breastworks; the study cites the Slentz claims file and a regimental history of 1908, not a wartime record. '
                 'The OR has no fence statement for Jun 30 (Gamble\'s "trees and fences" and Buford\'s stone fence are Jul 1). The location along the railroad grade and the restoration by the farmer are not in the source. Shown only as an alleged event with its basis stated.',
-                'inferred', '1863-06-30T11:00', '1863-07-01T05:00', marking='alleged (tenant\'s claim relayed by an NPS study, no wartime account): inferred; location along the railroad grade and restoration: gap'),
+                'inferred', '1863-06-30T11:00', '1863-07-01T04:03', marking='alleged (tenant\'s claim relayed by an NPS study, no wartime account): inferred; location along the railroad grade and restoration: gap'),
     subs=[
         ('Buford\'s troopers cut and threw down about a quarter mile of post-and-rail fence "to make way for the battle" and another cord of rails was used for firewood (Tuesday night, Jun 30)', 'inferred', 'supported', ['nps_fence']),
         ('Men and horses trampled oats and wheat and tore down the tenant\'s fencing for firewood and for possible use as breastworks on the morrow', 'inferred', 'supported', ['nps_tore']),
@@ -360,7 +361,7 @@ ROWS.append(dict(
     ],
     cites={
         'it_vi': OR('the Sixth Corps from New Windsor to Manchester', R007, '144'),
-        'wright_man': OR('encamped about 2 miles from Manchester', 'OR27-1-R224', '666'),
+        'wright_man': OR('Marched at 4 a. m. through Westminster; encamped about 2 miles from Manchester, a distance of 23 miles', 'OR27-1-R224', '666'),
         'circ': OR('form the right', 'OR27-3-D0962', '458'),
         'torbert35': OR('Made a forced march from Manchester to Gettysburg, Pa. ; distance, about 35 miles', 'OR27-1-R225', '669'),
         'wright35': OR('a march variously estimated at from 33\' to 35 miles', 'OR27-1-R224', '665'),
@@ -401,7 +402,7 @@ ROWS.append(dict(
                 'XII Corps, 1st Division (Williams); 123rd New York (Rogers)', 'Taneytown to Littlestown, Pa. (the 123rd New York a mile outside Littlestown on the Hanover road; the division at Two Taverns only on Jul 1)', 'Jun 30', 'Williams OR27-1-R272 p.771; Rogers OR27-1-R279 p.798; Itinerary OR27-1-R007 p.144',
                 'On Jun 30 the division marched from Taneytown to Littlestown, was hastened through on a report that the enemy\'s cavalry with artillery were near, took post to the north of the town and encamped (Williams); the 123rd New York passed through Taneytown and halted for the night a mile outside Littlestown on the Hanover road, marching through the town at the double-quick (Rogers). '
                 'The seed places the 123rd New York at Two Taverns on Jun 30; the regiment went to Two Taverns on the morning of Jul 1.',
-                'documented', '1863-06-30T05:00', '1863-06-30T23:59'),
+                'documented', '1863-06-30T00:00', '1863-06-30T23:59'),
     subs=[
         ('Williams: on the 30th the division marched from Taneytown to Littlestown; on approaching it, a report that the enemy\'s cavalry with artillery were near; the division was hastened through and took post to the north of it', 'documented', 'supported', ['williams_30', 'williams_post']),
         ('Itinerary, Jun 30: the Twelfth Corps from Taneytown and Bruceville to Littlestown', 'documented', 'supported', ['it_xii']),

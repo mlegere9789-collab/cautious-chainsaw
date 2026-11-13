@@ -183,7 +183,7 @@ export function stateAt(model, unit, tMin, choices) {
     const lf = leafAt(model, u, tMin);
     let density = u.woods ? u.woods.per_ha : 0, lrt = scenarioOption(model, choices, 'CF-VEG-LRT');
     if (model.lrtUnits.has(u.id)) { if (lrt === 'wiki_unwooded') { density = 0; lrtNote = 'Little Round Top read as unwooded'; } else if (lrt === 'wiki_light_summit') { density *= 0.5; lrtNote = 'Little Round Top read as lightly wooded'; } }
-    out.trees = { leaf: lf.leaf * (1 - 0.9 * dm.strip), leafFull: lf.leaf, leafRange: lf.range, strip: dm.strip, perHa: density, class: u.woods && u.woods.class, understory: u.woods && u.woods.understory, species: u.woods && u.woods.species };
+    out.trees = { leaf: lf.leaf * (1 - 0.9 * dm.strip), leafFull: lf.leaf, leafRange: lf.range, strip: dm.strip, perHa: density, class: u.woods && u.woods.class, understory: u.woods && u.woods.understory, understoryTier: u.woods && (u.woods.understory_tier || 'plausible-procedural'), species: u.woods && u.woods.species };
     out.tiers.leaf = lf.tier; out.tiers.density = 'plausible-procedural'; out.tiers.species = (u.woods && u.woods.class === 'big_round_top') ? 'inferred' : 'plausible-procedural';
     if (lrtNote) { out.tiers.cover = model.scenarios['CF-VEG-LRT'].options[lrt].tier; out.scenario = { 'CF-VEG-LRT': lrt, note: lrtNote }; }
   }
@@ -225,6 +225,7 @@ export function placeTrees(model, u, project, opts = {}) {
     out.push(x, z, h, r, model.speciesList.indexOf(sp), rnd(), rnd(), SHAPES.indexOf(S.shape));
   };
   const thin = opts.thin == null ? 1 : opts.thin;
+  const shrubPerHa = u.woods && thin > 0 ? ({ moderate: 30, thick: 140 }[u.woods.understory] || 0) : 0, shrubIdx = model.speciesList.indexOf('shrub');
   if (u.orchard) {
     const s = u.orchard.spacing_m, ang = (u.p.rows_deg || 0) * Math.PI / 180, ca = Math.cos(ang), sa = Math.sin(ang), young = u.orchard.class === 'young';
     const cx = (minx + maxx) / 2, cz = (minz + maxz) / 2, R = Math.hypot(maxx - minx, maxz - minz) / 2 + s;
@@ -240,6 +241,14 @@ export function placeTrees(model, u, project, opts = {}) {
       const x = a + rnd() * cell, z = b + rnd() * cell;
       if (!inside(x, z)) { rnd(); rnd(); rnd(); rnd(); rnd(); rnd(); continue; }
       push(x, z, false);
+    }
+    if (shrubPerHa > 0 && shrubIdx >= 0) {                      // the understory the record describes: shrubs and saplings among the trees (moderate: a range between open and heavy; thick: where an account says so)
+      const sc = Math.sqrt(1e4 / (shrubPerHa * thin)), S = model.species.shrub;
+      for (let a = minx; a < maxx; a += sc) for (let b = minz; b < maxz; b += sc) {
+        const x = a + rnd() * sc, z = b + rnd() * sc, g1 = rnd(), g2 = rnd(), g3 = rnd(), g4 = rnd();
+        if (!inside(x, z)) continue;
+        out.push(x, z, lerp(S.h[0], S.h[1], g1 * g1) * (0.8 + 0.4 * g2), lerp(S.r[0], S.r[1], g3), shrubIdx, g4, rnd(), 4);
+      }
     }
   }
   return Float32Array.from(out);

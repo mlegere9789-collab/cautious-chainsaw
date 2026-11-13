@@ -138,6 +138,13 @@ test('hashes and seeds: stable numbers', () => {
   for (let i = 0; i < 50; i++) { const x = u01(i * 977, 'tag'); assert.ok(x >= 0 && x < 1); }
 });
 
+test('the data lies inside the ground the theatre loads: every outline, every witness tree and every event disc', () => {
+  for (const u of M.units) { const r = u.rings[0]; for (let i = 0; i < r.length; i += 2) { const [x, z] = TER.xz(r[i], r[i + 1]); assert.ok(Math.abs(x) <= TER.W / 2 + 6 && Math.abs(z) <= TER.H / 2 + 6, `${u.id} vertex outside the ground: ${x.toFixed(0)}, ${z.toFixed(0)}`); } }
+  for (const w of DATA.witness_trees) { const [x, z] = TER.xz(...w.lnglat); assert.ok(Math.abs(x) < TER.W / 2 && Math.abs(z) < TER.H / 2); }
+  const dem = u => { const r = u.rings[0]; let x = 0, z = 0; for (let i = 0; i < r.length; i += 2) { const p = TER.xz(r[i], r[i + 1]); x += p[0]; z += p[1]; } return [x / (r.length / 2), z / (r.length / 2)]; };
+  const wf = dem(wheatfield); assert.ok(Math.hypot(wf[0] - (-480), wf[1] - 1430) < 2500, 'the Wheatfield lies in the south of the ground: ' + wf.map(Math.round));
+});
+
 test('the shipped data says nothing of how it was made, and names no later tree as a tree of 1863', () => {
   const txt = fs.readFileSync(path.join(APP, 'data', 'vegetation.json'), 'utf8');
   assert.ok(!/\b(AI|A\.I\.|Claude|Anthropic|LLM|language model|generated|automated|subagent|agent|prompt|workstream|horde|shard)\b/i.test(txt), 'copy audit words');
@@ -154,4 +161,104 @@ test('the module is listed, and the gate hook is stated', () => {
   for (const f of ['index.mjs', 'model.mjs', 'mesh.mjs', 'gl.mjs', 'plan.mjs']) assert.ok(fs.existsSync(path.join(APP, 'src', 'ext', 'vegetation', f)), f);
   assert.equal(GATE_HOOKS[0].gate, 'Q21'); assert.match(GATE_HOOKS[0].fn, /checkVegetation/);
   const hooks = fs.existsSync(path.join(APP, 'docs', 'GATE-HOOKS.md')) ? fs.readFileSync(path.join(APP, 'docs', 'GATE-HOOKS.md'), 'utf8') : ''; assert.match(hooks, /vegetation\/model\.mjs/);
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------------- meshes and the trample plan
+import { splitTriangle, buildDecals, buildTrees, selectChunks, CHUNK_M, TREE_STRIDE, LAYER } from '../src/ext/vegetation/mesh.mjs';
+import { makeGrid, rasterMask, stepVisits, VisitPlanner, stageProvider, NEVER } from '../src/ext/vegetation/plan.mjs';
+import { nodeWorld } from './node-world.mjs';
+const { T: TER } = await nodeWorld();                                                  // the real terrain projection the theatre uses
+const FLAT = (lng, lat) => TER.xz(lng, lat), GROUND = { W: TER.W, H: TER.H };
+const triArea = (a, b, c, d, e, f) => Math.abs((c - a) * (f - b) - (e - a) * (d - b)) / 2;
+
+test('splitTriangle: every piece is short, the pieces cover the triangle', () => {
+  for (const [tri, max] of [[[0, 0, 300, 0, 0, 5], 30], [[0, 0, 200, 10, 90, 160], 34], [[0, 0, 10, 0, 0, 10], 34]]) {
+    const out = []; splitTriangle(...tri, max, out); assert.equal(out.length % 6, 0); let area = 0;
+    for (let i = 0; i < out.length; i += 6) { const t = out.slice(i, i + 6); area += triArea(...t); for (const [a, b] of [[0, 2], [2, 4], [4, 0]]) assert.ok(Math.hypot(t[a] - t[b], t[a + 1] - t[b + 1]) <= max + 1e-6, 'edge ' + max); }
+    assert.ok(Math.abs(area - triArea(...tri)) < 1e-6 * Math.max(1, triArea(...tri)) + 1e-6, 'area kept');
+  }
+});
+
+test('the ground-cover mesh covers every unit, in short triangles, and stays on its unit', () => {
+  const D = buildDecals(M, FLAT, { maxEdge: 34 });
+  assert.equal(D.perUnit.length, M.units.length); assert.ok(D.perUnit.every(n => n > 0), 'every unit has triangles'); assert.equal(D.verts.length, D.triangles * 3 * 4);
+  
+  assert.ok(D.triangles > 20000 && D.triangles < 400000, 'triangles: ' + D.triangles);
+  for (let k = 0; k < D.verts.length; k += 12) for (const [a, b] of [[0, 4], [4, 8], [8, 0]]) assert.ok(Math.hypot(D.verts[k + a] - D.verts[k + b], D.verts[k + a + 1] - D.verts[k + b + 1]) <= 40 * Math.SQRT2 + 1e-3, 'no triangle longer than the diagonal of a lattice square');
+  // the triangles of a unit add up to its area (for outlines that clipped cleanly)
+  let o = 0; const off = []; for (let i = 0; i < M.units.length; i++) { off.push(o); o += D.perUnit[i] * 12; }
+  for (const i of [0, 1, 5, 400, 600, 700, 800].filter(i => i < M.units.length)) {
+    let a = 0; for (let k = off[i]; k < off[i] + D.perUnit[i] * 12; k += 12) { assert.equal(D.verts[k + 2], i); a += triArea(D.verts[k], D.verts[k + 1], D.verts[k + 4], D.verts[k + 5], D.verts[k + 8], D.verts[k + 9]); assert.equal(D.verts[k + 3], LAYER[M.units[i].cls]); }
+    const exp = M.units[i].area_ac * 4046.86; assert.ok(Math.abs(a - exp) / exp < 0.08, `${M.units[i].id}: ${Math.round(a)} m2 of triangles against ${Math.round(exp)}`);
+  }
+});
+
+test('trees: chunked, sorted, counted, all inside the ground', () => {
+  const Tr = buildTrees(M, FLAT, GROUND); assert.ok(Tr.n > 60000 && Tr.n < 220000, 'trees: ' + Tr.n); assert.equal(Tr.data.length, Tr.n * TREE_STRIDE);
+  assert.equal(Tr.chunks.reduce((a, c) => a + c.n, 0), Tr.n); let last = -1; for (const c of Tr.chunks) { assert.ok(c.off > last); last = c.off + c.n - 1; }
+  for (const c of Tr.chunks.slice(0, 40)) for (let k = c.off; k < c.off + c.n; k += Math.max(1, c.n >> 3)) { const x = Tr.data[k * TREE_STRIDE], z = Tr.data[k * TREE_STRIDE + 1]; assert.ok(Math.abs(x - c.cx) <= CHUNK_M / 2 + 1 && Math.abs(z - c.cz) <= CHUNK_M / 2 + 1, 'tree inside its chunk'); assert.ok(Math.abs(x) < GROUND.W / 2 + 8 && Math.abs(z) < GROUND.H / 2 + 8, 'a tree at the edge of the ground stays within a few metres of it'); const u = Tr.data[k * TREE_STRIDE + 8]; assert.ok(u >= 0 && u < M.units.length && (M.units[u].woods || M.units[u].orchard)); }
+  const Tr2 = buildTrees(M, FLAT, GROUND); assert.equal(Buffer.compare(Buffer.from(Tr.data.buffer), Buffer.from(Tr2.data.buffer)), 0, 'the same trees twice');
+  const near = selectChunks(Tr, 0, 0, 190, 2300, null), few = selectChunks(Tr, 0, 0, 190, 600, null); assert.ok(near.near.length + near.far.length > few.near.length + few.far.length); assert.ok(near.near.every(i => Math.hypot(Tr.chunks[i].cx, Tr.chunks[i].cz) < 190 + CHUNK_M));
+});
+
+test('the trample plan: a formation marks the ground it covered at the minute it first stood there, nothing else, and nothing twice', () => {
+  const g = makeGrid(400, 400, 8); const unit = { cls: 'field', rings: [[0, 0, 0.0035, 0, 0.0035, 0.0018, 0, 0.0018]] };
+  const fm0 = { units: [unit] }, proj = (lng, lat) => [(lng - 0.0017) * 85400 * 0.5, -(lat - 0.0009) * 111200 * 0.5];   // a rectangle about 150 x 100 m around the origin
+  const n = rasterMask(fm0, proj, g); assert.ok(n > 150 && n < 400, 'cells inside the field: ' + n);
+  // a column 40 m wide and 20 m deep marches east along z = 0 at 1 m/s from x = -150 to +150, heading east (c = 0, s = 1: its depth axis points east)
+  const prov = { at(t, out) { const x = -150 + (t - 600) * 60 / 60; if (x > 160) return 0; const e = out[0] || (out[0] = {}); e.x = x; e.z = 0; e.c = 0; e.s = 1; e.b0 = -20; e.b1 = 20; e.b2 = -10; e.b3 = 10; return 1; } };
+  const P = new VisitPlanner(g, prov, 600, 1000, 1); let calls = 0; while (P.run(1, () => (calls++, calls))) { /* budget of one step per call */ } assert.ok(P.done && P.steps > 300 && calls > 100);
+  const at = x => P.visitAt(x, 0); assert.ok(at(-50) < at(0) && at(0) < at(50) && at(50) < NEVER, 'first visits ascend along the march');
+  assert.ok(Math.abs(at(0) - (600 + 140)) <= 12, 'the column\'s front edge (10 m ahead of its centre) reaches the middle 140 minutes in: ' + at(0)); assert.equal(P.visitAt(0, 140), NEVER, 'ground the column never covered'); assert.equal(P.visitAt(900, 0), NEVER, 'outside the grid');
+  const before = Float32Array.from(g.visit); const prov2 = { at: (t, o) => prov.at(t, o) }; const P2 = new VisitPlanner(g, prov2, 600, 1000, 1); P2.run(1e9, () => 0); assert.deepEqual(Array.from(g.visit), Array.from(before), 'running the plan again changes nothing: first visits stay first');
+  P2.reset(); assert.ok(g.visit.every(v => v === NEVER), 'reset forgets'); P2.run(1e9, () => 0); assert.deepEqual(Array.from(g.visit), Array.from(before), 'the same plan twice is the same table');
+  let masked = 0; for (let k = 0; k < g.visit.length; k++) if (g.visit[k] < NEVER) { assert.equal(g.mask[k], 1, 'only masked cells are marked'); masked++; } assert.ok(masked > 20);
+});
+
+test('the stage as a provider: reads the cache and the presence windows as the stage does, and gives nothing for a unit that is not there', () => {
+  const stage = { nL: 3, layer: { units: [{ id: 'a' }, { id: 'b' }, { id: 'c' }] }, presence: { a: { from: 0, to: null }, b: { from: 1e9, to: null }, c: { from: 0, to: 100 } },
+    bbox: [[-20, 20, -5, 5], null, [-1, 1, -1, 1]], cache: { at: t => ({ u: [{ x: 10, z: 20 }, { x: 0, z: 0 }, null] }) }, _pos: (rec, t, o) => { o[0] = rec.x; o[1] = rec.z; o[2] = 5; return o; }, _heading: () => 0 };
+  const out = [], n = stageProvider(stage).at(30, out); assert.equal(n, 1); assert.deepEqual([out[0].x, out[0].z, out[0].c, out[0].s, out[0].b0, out[0].b3], [10, 20, 1, 0, -20, 5]);
+});
+
+test('the module reads the real stage the way the provider expects', async () => {
+  const src = fs.readFileSync(path.join(APP, 'src', 'stage.mjs'), 'utf8');
+  for (const w of ['this.cache', 'this.presence', 'this.bbox', '_pos(rec, t, out)', '_heading(rec, t)', 'this.nL', 'this.layer']) assert.ok(src.includes(w), 'Stage still has ' + w);
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------------- the module with a stand-in theatre
+import * as VEG from '../src/ext/vegetation/index.mjs';
+import { tierMark } from '../src/ui/extensions.mjs';
+import { Bus } from '../src/scope.mjs';
+import { pathToFileURL } from 'node:url';
+
+function standIn(api = 'webgpu') {
+  const reg = { panels: new Map(), toggles: new Map() }, said = [], bus = new Bus();
+  const th = { dead: false, T: TER, state: { t: 45000 }, bus, root: null, announce: m => said.push(m), stage: null, flyToLngLat: (...a) => said.push(['fly', ...a]) };
+  const ctx = { theatre: th, host: { api, addSceneHook: h => () => {} }, urls: { data: pathToFileURL(path.join(APP, 'data') + path.sep).href }, choices: Object.assign(() => ({}), {}), tierMark,
+    registerPanel: (id, title, fn) => { const h = { id, title, fn, open: false, isOpen: () => h.open, refresh() {}, open_() {} }; reg.panels.set(id, h); return Object.assign(h, { open() { h.open = true; }, close() { h.open = false; } }); },
+    registerLayerToggle: (id, title, get, set) => { const h = { id, title, get, set: v => { set(v); return Promise.resolve(); } }; reg.toggles.set(id, h); return h; } };
+  return { ctx, th, reg, said };
+}
+test('the module starts on a stand-in theatre: switches, panel, a card for the ground, the choices, and Back', async () => {
+  const { ctx, th, reg, said } = standIn('webgpu'); await VEG.init(ctx);
+  assert.ok(reg.panels.has('vegetation') && reg.toggles.has('vegetation') && reg.toggles.has('vegetation-tiers'));
+  const v = th.vegetation; assert.ok(v && v.model); const s0 = v.status(); assert.equal(s0.api, 'webgpu'); assert.match(s0.status, /WebGL2 only/); assert.equal(s0.units, DATA.units.length);
+  assert.equal(reg.toggles.get('vegetation').get(), true); reg.toggles.get('vegetation').set(false); assert.equal(v.status().on, false); reg.toggles.get('vegetation').set(true);
+  assert.equal(v.stateAt('V-0001', T('1863-07-02T12:00')).ground.stage, 'nearly_ripe'); assert.equal(v.choose('CF-VEG-LRT', 'wiki_light_summit'), true); assert.equal(v.choose('CF-VEG-LRT', 'no'), false); assert.equal(v.effChoices()['CF-VEG-LRT'], 'wiki_light_summit');
+  const fake = { innerHTML: '', querySelector: sel => (sel === '#veg-card' ? card : null), addEventListener() {} }, card = { innerHTML: '' }, scope = { on() {}, add() {} };
+  reg.panels.get('vegetation').fn(fake, th, scope);
+  assert.match(fake.innerHTML, /Show the vegetation of 1863/); assert.match(fake.innerHTML, /data-sce="CF-VEG-LRT"/); assert.match(fake.innerHTML, /pill/); assert.ok(!/\b(AI|generated|automated|agent|prompt)\b/i.test(fake.innerHTML), 'no audit word in the panel');
+  assert.match(fake.innerHTML, /What is not known \(15 gaps\)/); assert.match(fake.innerHTML, /default under delegated authority/);
+  // the card of the ground: pick the Wheatfield by its own point and write the card for it
+  const [x, z] = (() => { const r = wheatfield.rings[0]; let a = 0, b = 0, n = 0; for (let i = 0; i < r.length; i += 2) { a += r[i]; b += r[i + 1]; n++; } return TER.xz(a / n, b / n); })();
+  const u = v.pick(x, z); assert.ok(u && u.cls === 'wheatfield', 'the point at the middle of the Wheatfield is the Wheatfield'); assert.equal(v.pick(1e6, 1e6), null);
+  th.state.t = T('1863-07-02T18:00'); const S_ = th.vegetation; const html = (() => { let out = ''; const f = { innerHTML: '', querySelector: sel => (sel === '#veg-card' ? { set innerHTML(h) { out = h; } } : null), addEventListener() {} }; reg.panels.get('vegetation').fn(f, th, scope); return out; })();
+  assert.equal(typeof html, 'string');
+  VEG.dispose(); assert.equal(th.vegetation, undefined); assert.equal(v.status(), null);
+});
+test('?veg=off keeps the module out of a visit; a missing data file is an error the loader can show', async () => {
+  globalThis.location = { search: '?veg=off&x=1' }; try { const { ctx, th, reg } = standIn(); await VEG.init(ctx); assert.equal(reg.panels.size, 0); assert.equal(th.vegetation, undefined); } finally { delete globalThis.location; }
+  const { ctx } = standIn(); ctx.urls = { data: pathToFileURL(path.join(APP, 'nothing-here') + path.sep).href }; await assert.rejects(() => VEG.init(ctx), /could not be read/);
+  VEG.dispose();
 });

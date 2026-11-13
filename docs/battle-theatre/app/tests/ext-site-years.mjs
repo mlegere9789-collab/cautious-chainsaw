@@ -85,12 +85,16 @@ export function validateYearsFile(yf, mem) {
   const p = P.validateYears(yf, mem); if (!yf || !Array.isArray(yf.years)) return p;
   if (!yf.copy || yf.copy.yearsSha256 !== sha256(canon(yf.years))) p.push('the years in the file do not match the hash the file records for them'); return p;
 }
-/** Re-reads the saved reports and compares: sentences. {skipped} when the library is not here. */
+/** Re-reads the saved reports and compares. problems: the years differ from what the texts give, a text is not the one the file was read from, an address differs (the file is wrong).
+ *  notes: the description of a report (title, publisher, date) differs from the web list it was copied from (the file is out of date; --write brings it up). {skipped} when the texts are not here. */
 export function driftYears(yf, mem, curation, lib = LIB) {
-  const reports = REPORTS.map(id => readReport(id, lib)); if (reports.some(r => !r)) return { skipped: true, problems: [] };
-  const { file } = buildFile(mem, reports, JSON.parse(fs.readFileSync(SOURCES_META, 'utf8')), curation), out = [];
-  if (canon(file.years) !== canon(yf.years)) out.push('the years in the file differ from what the saved report texts give'); for (const [id, s] of Object.entries(yf.sources)) { const r = reports.find(x => x.id === id); if (r && s.textSha256 !== r.sha256) out.push(`the saved text of ${id} is not the one the file was read from`); }
-  return { skipped: false, problems: out };
+  const reports = REPORTS.map(id => readReport(id, lib)); if (reports.some(r => !r)) return { skipped: true, problems: [], notes: [] };
+  const { file } = buildFile(mem, reports, JSON.parse(fs.readFileSync(SOURCES_META, 'utf8')), curation), problems = [], notes = [];
+  if (canon(file.years) !== canon(yf.years)) problems.push('the years in the file differ from what the saved report texts give');
+  for (const [id, s] of Object.entries(yf.sources)) { const r = reports.find(x => x.id === id), b = file.sources[id]; if (r && s.textSha256 !== r.sha256) problems.push(`the saved text of ${id} is not the one the file was read from`); if (b && s.url !== b.url) problems.push(`${id}: the address differs from the web list's`);
+    if (b) for (const k of ['title', 'publisher', 'date']) if (s[k] !== b[k]) notes.push(`${id}: ${k} is ${JSON.stringify(s[k])} in the file and ${JSON.stringify(b[k])} in the web list`); }
+  for (const id of Object.keys(file.sources)) if (!yf.sources[id]) problems.push(`${id}: a report that now names a memorial is not described in the file`);
+  return { skipped: false, problems, notes };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
@@ -104,7 +108,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   }
   let cur = null; try { cur = JSON.parse(fs.readFileSync(FILE, 'utf8')); } catch (e) { console.log('the years file cannot be read: ' + e.message); process.exit(process.argv.includes('--check') ? 1 : 0); }
   const bad = validateYearsFile(cur, mem), dr = driftYears(cur, mem, curation); const all = [...bad, ...dr.problems];
-  if (dr.skipped) console.log('NOT RUN: the saved report texts are not here, so the file was checked for fitness only');
+  if (dr.skipped) console.log('NOT RUN: the saved report texts are not here, so the file was checked for fitness only'); for (const n of dr.notes || []) console.log('note (does not fail the check; --write brings it up to date): ' + n);
   if (all.length) { console.log('DRIFT or defects:'); for (const l of all) console.log('  ' + l); } else console.log('the years file is fit' + (dr.skipped ? '' : ' and equals what the saved report texts give'));
   if (process.argv.includes('--check') && all.length) process.exit(1);
 }

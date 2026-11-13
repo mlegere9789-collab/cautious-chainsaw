@@ -6,7 +6,8 @@ import { LAYER, CHUNK_M, TREE_STRIDE, selectChunks } from './mesh.mjs';
 import { stateAt } from './model.mjs';
 import { perspective, lookAt, mul, frustumPlanes, sphereInFrustum } from '../../../../render/prototype/src/math.mjs';
 
-export const STATE_TEX_W = 1024, TEX_STATE = 20, TEX_VISIT = 21;
+export const STATE_TEX_W = 1024;
+let TEX_STATE = 20, TEX_VISIT = 21;               // texture units: far above the renderer's own (0 to 15); lowered to the last two a small driver offers
 const CROPCODE = { forest_floor: 0, wheat: 1, rye: 2, barley: 3, oats: 4, corn: 5, hay: 6, pasture: 7, open_rock: 8, marsh: 9, rock: 10 };
 const STAGECODE = { being_cut: 1, cut_shocked: 2, stubble: 3, mown: 4, hay_stubble: 5, plowed: 6, winter_grain_sprouts: 7, corn_stubble: 8, dormant_grass: 9, dormant_marsh: 9, rock: 10, shaded_litter: 11, leaf_litter: 11 };
 const TIERCODE = { documented: 0, inferred: 1, 'plausible-procedural': 2, 'open gap': 3 };
@@ -43,10 +44,10 @@ void main() {
   bool ground = crop >= 1 && crop <= 7;
   float vis = (uVisitOn > 0.5 && ground) ? textureLod(uVisit, (xz - uGrid.xy) * uGrid.zw, 0.0).r : 1.0e9;
   float trV = vis < 1.0e8 ? smoothstep(vis, vis + 25.0, uT) : 0.0;
-  float patch = n1 * 0.55 + n2 * 0.45;
-  float trU = ground ? smoothstep(patch - 0.12, patch + 0.12, tr * 1.25) : 0.0;
+  float pch = n1 * 0.55 + n2 * 0.45;
+  float trU = ground ? smoothstep(pch - 0.12, pch + 0.12, tr * 1.25) : 0.0;
   float trampled = max(trU, trV);
-  float lodged = ground ? smoothstep(patch - 0.2, patch + 0.2, lodge * 1.4) : 0.0;
+  float lodged = ground ? smoothstep(pch - 0.2, pch + 0.2, lodge * 1.4) : 0.0;
   vec3 col = alb * (0.88 + 0.24 * n1) * (0.93 + 0.14 * n2) * (0.95 + 0.1 * n3);
   float fine = 1.0 - smoothstep(30.0, 130.0, dist);
   float th = rows * 0.0174533;
@@ -92,7 +93,7 @@ void treeGeom(out vec3 wp, out vec3 nrm, out float leaf, out float stripT, out f
   int shape = int(ib.w + 0.5);
   if (m.z < 0.5) { float trh = 0.42 * h; float tr = (0.5 - 0.28 * m.y) * min(0.55, 0.011 * h + 0.14); p = vec3(ca * tr, m.y * trh, sa * tr); nrm = vec3(ca, 0.0, sa); }
   else {
-    float v = m.y; float ell = sqrt(max(0.0, 1.0 - pow(2.0 * v - 1.0, 2.0))); float cone = 1.0 - v; float rad;
+    float v = m.y; float q2 = 2.0 * v - 1.0; float ell = sqrt(max(0.0, 1.0 - q2 * q2)); float cone = 1.0 - v; float rad;
     float y0 = 0.34;
     if (shape == 0) rad = pow(ell, 0.8); else if (shape == 1) rad = ell * 0.8; else if (shape == 2) { rad = ell * 0.62; y0 = 0.3; } else if (shape == 3) { rad = cone * 0.92; y0 = 0.08; } else { rad = ell * 0.96; y0 = 0.36; }
     rad *= 0.86 + 0.28 * hash1(floor(m.x * 12.0 + 0.5) * 7.0 + v * 13.0 + seed * 31.0);
@@ -153,6 +154,7 @@ export class VegGL {
   constructor(host, model, decals, trees, opts = {}) {
     this.host = host; this.R = host.R; this.gl = host.R.gl; this.model = model; this.decals = decals; this.trees = trees; this.dead = false; this.stats = { decalTris: decals.triangles, trees: trees.n, treesDrawn: 0, chunksNear: 0, chunksFar: 0, stateWrites: 0 };
     const gl = this.gl, R = this.R; this.on = { ground: true, trees: true, overlay: false, visit: true };
+    const units = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS); if (units < 22) { TEX_STATE = units - 2; TEX_VISIT = units - 1; } else { TEX_STATE = 20; TEX_VISIT = 21; }
     const H = COMMON;
     this.P = { decal: R.prog('veg-decal', H + DECAL_VS, H + DECAL_FS), tree: R.prog('veg-tree', H + TREE_VS, H + TREE_FS), shadow: R.prog('veg-tree-shadow', H + TREE_SHADOW_VS, '#version 300 es\nprecision highp float; out vec4 o; void main() { o = vec4(0.0); }') };
     R.finishProgs();

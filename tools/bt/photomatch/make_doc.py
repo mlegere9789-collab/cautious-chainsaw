@@ -58,3 +58,44 @@ A('- Positions named in words but not in the model (the McPherson quarry, De Tro
 A('- The NPS plate that labels the landmarks of the view north from Little Round Top is a photocopy and could not be mapped to the photograph (EG-11); the Trostle summer-kitchen footprint lies on the other side of the house from the photograph (EG-12).\n')
 open(os.path.join(ROOT, 'docs', 'battle-theatre', 'app', 'docs', 'PHOTOMATCH.md'), 'w').write('\n'.join(L) + '\n')
 print('written', len(L), 'lines')
+
+# ---------------------------------------------------------------------------------------------------------------- the workstream report (not shipped: GOVERNANCE/horde/ws10-photomatch/REPORT.md)
+def report():
+    R = []
+    B = R.append
+    posed = [r for r in reg if r['pose_ids']]
+    B('# ws10 photo-match (Q16) report, second pass 2026-11-13 (first pass 2026-11-11)\n')
+    B('Scope read: CLAUDE.md; gates.json Q16; requirements.json (Q16 is linked from R12.001 to R12.045 and the R12 top-level item; every one has passes false); the PDF plan B.9.2 step 7 (photo-match tests: a known or recoverable camera position, a matching lens, ridgelines, rock positions, wall lines and tree trunks compared, pass criterion and failures recorded per photograph; staged photographs for terrain and rocks only) and Table 4 rows 32 to 38; register EG-0144; the first-pass report; the saved National Park Service texts of the nps-landscape task. Nothing was committed, pushed or deployed.\n')
+    B('## Result in one paragraph\n')
+    B(f'Gate Q16 is **not passing** and `passes` is set nowhere. The Library of Congress images are now readable and all {len(reg)} catalogued photographs were looked at; {len(st)} camera-position statements were found in LOC records, NPS reports and the NPS Then-And-Now pages, and **not one is a coordinate, a lens or a surveyed station**, so there are 0 documented camera positions. {len(poses)} poses are registered ({tier.get("inferred", 0)} inferred, {tier.get("plausible-procedural", 0)} assumption); after looking at the review sheets the verdicts are {vc.get("matches", 0)} matches, {vc.get("roughly", 0)} roughly, {vc.get("does not", 0)} does not, {vc.get("cannot judge", 0)} cannot judge. The other {len(reg) - len(posed)} photographs are cannot judge with a reason each. What would settle it is in `verdicts.json` (gate_q16) and in PHOTOMATCH.md: station coordinates from the park (an owner step), the lens, a 1863 near-field model, landmark coordinates good to a few metres, a pass criterion set in advance.\n')
+    B('## What was run (and what came of it)\n')
+    for t in ['`fetch_loc.py` (hardened: it now compares the received size with the size the record declares and decodes every pixel): 430 LOC JPEG derivatives, 1 request per second, no retry on a refusal; it found two files that the earlier run had saved cut short (32,768 of 138,801 bytes and 51,967 of 184,609 bytes) and re-fetched them. All 430 files re-verified (size, sha256, full decode).',
+              '`catalogue_additions.py`: the first catalogue run had dropped 18 July-1863-subject records whose LOC date is only "between 1861 and 1865" (among them ppmsca-32840, which the NPS cites as a July 1863 Brady photograph); added with their images; 47 other dropped search results listed with the reason each stays out. One of the 18 (2012647845) is, by image match with an NPS picture, the staged Weaver photograph of 11 November 1863 and was taken out of the July test.',
+              f'`build_statements.py`: {len(st)} statements, each quote found in the saved text of a LOC record, an NPS report (53 reports and 20 pages of the nps-landscape task, the Then-And-Now pages) or marked read-from-image (2); evidence lines for R12.032 to R12.035 and one timeline line (T3-064) written.',
+              f'`match_nps_then.py`: SIFT, ratio test and RANSAC of the 23 NPS Then-And-Now images against 228 LOC images (about 9 minutes of machine time in the lock queue): {acc} tied to catalogued records (291 to 1667 inliers; the Seminary 49 and the gatehouse 59 for cropped images, confirmed by looking), the rest are 1913 pictures or not in the catalogue.',
+              f'`run.mjs` under `tools/horde/bench.sh`: {len(poses)} poses, three renders each (registered field, 30 and 50 degrees), software GL, about 0.4 s a render; `compose.py` review sheets; the sheets of the {len([p for p in poses if p["id"] not in ("P04", "P05")])} new or changed poses were opened and looked at (P04 and P05 are unchanged from the first pass).',
+              '`build_registry.py` and `make_doc.py`: `photograph_registry.json` (one verdict per record) and PHOTOMATCH.md are generated from the data.',
+              '`node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`: see the end of this report for the count.']: B('- ' + t)
+    B('\n## Verdicts\n')
+    B('| Pose | Record | Verdict | Independent | Short reason |\n|---|---|---|---|---|')
+    for p in poses:
+        v = pv[p['id']]; B(f"| {p['id']} | {p.get('loc_id') or 'Met item'} | {v['verdict']} | {'yes' if v.get('independent_test') else 'no'} | {v['why'][:150].rstrip()}... |")
+    B(f'\nCounts over all {len(reg)} records: posed {len(posed)}; cannot judge without a pose {len(reg) - len(posed)} (near field only {cls.get("NEAR", 0)}; camera place not fixed {cls.get("POS", 0)}; staged {cls.get("STG", 0)}; not July battlefield views {cls.get("OUT", 0)}).\n')
+    B('## Findings worth another workstream\'s attention\n')
+    for t in ['Little Round Top from the summit: the NPS plate of landmark labels (Common Pride vol. 3, printed p. 453) cannot be mapped to the photograph, and the repository stand-ins disagree with it in spacing (EG-11); at a 40-degree field the model spreads Ziegler\'s Grove to Cemetery Hill about 1.8 times too narrow.',
+              'The Trostle summer-kitchen footprint lies on the other side of the house from the photograph (EG-12).',
+              'Big Round Top: in both photographs that show it the summit sits about 15 percent of the frame height higher than in the render from the assumed spot on the south slope of Little Round Top.',
+              'The first pass had flagged staged photographs by title only: 2012647849 shares a negative number with the staged sharpshooter record and 2012647845 is the Weaver photograph of 11 November 1863; both are now flagged (EG-05).',
+              'The old test tests/photomatch.test.mjs fails on the new ledger and schema (request note bt-web-photomatch-old-test.md).']: B('- ' + t)
+    B('\n## Not run, owed\n')
+    for t in ['The full node suite (`node --test docs/battle-theatre/app/tests/*.test.mjs`) was not run; only the photomatch test file was.',
+              'No real-GPU rendering: every render is software GL. Nothing here is a timing or a real-GPU visual result.',
+              'No master TIFF beyond the two Cemetery Hill views; no full-resolution matching.',
+              'The NARA Prologue blog on the Devil\'s Den sharpshooter (the PDF\'s source for the staged flag) and any LOC record outside the cwp collection (LC-DIG-ppmsca-18947, negative LC-B815-273) were not read.',
+              'Gardner\'s Sketch Book plate descriptions: the archive.org text layer holds none (0 occurrences of Gettysburg); the plate images were not fetched (150 MB each).']: B('- ' + t)
+    B('\n## Owner steps (acts only the owner may do)\n')
+    for t in G['owner_steps']: B('- ' + t)
+    B('\n## Governance note\n')
+    B('Nothing was added to requirements.json, gates.json or register/ (proposals ws10-EG-01 to ws10-EG-12 only). `check_governance.py` was not run for a milestone claim: no milestone is claimed. Delegated decisions DD-PM-01 to DD-PM-05 were appended to decisions/DELEGATED-DECISIONS-2026-11-11.md (section H).')
+    open(os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws10-photomatch', 'REPORT.md'), 'w').write('\n'.join(R) + '\n')
+report()

@@ -168,6 +168,74 @@ def resolve(cid, c):
         if c.get(k): out[k] = c[k]
     return out
 
+# ---------------------------------------------------------------- window limits
+# What every limit of a corrected window is. tools/bt/realize/timeline.mjs reads start and end as the allowed window of the row and adds its
+# own clock tolerance (tolerances.json time.clock_tolerance_min, 20 minutes) at a limit that is a clock time, none at the edge of a date.
+# A limit is therefore the plain source time, not a time with a margin. Date edges, the single sun table of tolerances.json and the day-part
+# edges of tolerances.json are explained by rule; every other limit needs an entry here and the build stops if one is missing.
+SUN_TABLE = {'04:03': 'civil dawn', '04:35': 'sunrise', '19:32': 'sunset', '20:04': 'civil dusk'}
+DAY_PART_EDGE = {'18:00': 'the start of evening', '12:00': 'noon, the end of morning and the start of afternoon'}
+LIMIT_NOTES = {
+    ('T1-002', 'start'): 'the hour of departure: Stuart has the brigades move out at 1 o\'clock at night on Jun 25 (OR27-2-R565 p.692)',
+    ('T1-007', 'end'): 'the latest hour given for the regiment\'s march out on Jun 26 (Jacobs 10:30, row T1-008); the arrival is before it',
+    ('T1-008', 'start'): 'Richards gives 10:00 for the march out on the Cashtown road',
+    ('T1-008', 'end'): 'Jacobs gives 10:30 for the march out on the Cashtown road',
+    ('T1-009', 'start'): 'the earliest hour given for the march out on the pike (Richards 10:00, row T1-008)',
+    ('T1-009', 'end'): 'an allowance of the close-out, one hour after the 3 p.m. appearance of the Rebels (Jacobs) for the withdrawal; no text read gives an hour for the withdrawal',
+    ('T1-010', 'start'): 'the latest hour given for the march out on the pike (Jacobs 10:30, row T1-008); the rout is later',
+    ('T1-010', 'end'): 'an allowance of the close-out, one and a half hours after the 15:00 of Jacobs and the Compiler for the rout and the paroling; no text read gives an hour for their end',
+    ('T1-011', 'start'): 'about 3 p.m., when the Rebels in force appeared (Jacobs p.14, row T1-009)',
+    ('T1-013', 'start'): 'about 3 p.m., when the Confederate cavalry entered the town (Gettysburg Compiler; Jacobs has 15:30)',
+    ('T1-014', 'start'): 'about 3 p.m., when the Confederate cavalry entered the town (Gettysburg Compiler; Jacobs has 15:30)',
+    ('T1-021', 'end'): 'the order was delivered to Meade at about 03:00 on Jun 28 (Life and Letters of G. G. Meade vol.2 p.1)',
+    ('T1-025', 'start'): 'the order was delivered to Meade at about 03:00 (Life and Letters of G. G. Meade vol.2 p.1)',
+    ('T1-025', 'end'): 'Meade\'s dispatch of 7 a.m. acknowledging the order (OR27-1-R006 p.61)',
+    ('T1-037', 'start'): 'word reached Stuart at about 3.30 p.m. (OR27-2-R565 p.695)',
+    ('T1-042', 'start'): 'the skirmish was a half hour before the division reached the town at noon (Geary OR27-1-R293 p.825): 12:00 less 30 minutes',
+    ('T1-042', 'end'): 'the division encamped near the town at noon (Geary OR27-1-R293 p.825)',
+    ('T1-044', 'start'): 'Stuart: the head of the column reached Hanover about 10 a.m.',
+    ('T1-044', 'end'): 'Richmond and Hammond: the column arrived about noon',
+    ('T1-045', 'start'): 'Buford: entered Gettysburg at 11 a.m. (OR27-1-R337 p.923)',
+    ('T1-045', 'end'): 'Pierce: a little before noon',
+    ('T1-046', 'start'): 'the fight lasted about two hours (Kilpatrick), so it ends about 12:00 if it began about 10 a.m. (Stuart)',
+    ('T1-046', 'end'): 'it ends about 14:00 if it began about noon (Richmond, Hammond)',
+    ('T1-047', 'start'): 'Jacobs: a Confederate advance at 9.30 a.m.',
+    ('T1-047', 'end'): 'an allowance of the close-out for the return to Cashtown after the meeting; no text read gives an hour for it',
+    ('T1-049', 'start'): 'Buford entered Gettysburg at 11 a.m. (OR27-1-R337 p.923, row T1-045) and the signal officer was with him',
+    ('T1-050', 'start'): 'the seed gives no hour; Buford\'s troopers entered Gettysburg at 11 a.m. (OR27-1-R337 p.923, row T1-045), so the event cannot begin earlier',
+    ('T1-051', 'start'): 'Stuart: the head of the column reached Hanover about 10 a.m.',
+    ('T1-051', 'end'): 'two hours after the seed\'s 14:00 anchor, which no text read supports; kept so that the seed value stays displayable as a marked gap',
+    ('T1-053', 'start'): 'Howard\'s order at 8.30 a.m. (OR27-1-R243 p.701)',
+    ('T1-055', 'end'): 'Hancock\'s bivouac at Taneytown about 11 a.m. on Jul 1 (OR27-1-R076 p.367)',
+}
+
+def window_limits_note(rid, start, end, errs=None):
+    """One sentence saying what each limit of a corrected window is, so that no limit stands unexplained."""
+    parts = []
+    sun_used = False
+    for name, v in (('start', (start or '')[11:]), ('end', (end or '')[11:])):
+        if not v:
+            continue
+        if (name == 'start' and v == '00:00') or (name == 'end' and v == '23:59'):
+            parts.append('the %s %s is the edge of the calendar date' % (name, v))
+        elif v in SUN_TABLE:
+            sun_used = True
+            parts.append('the %s %s is %s of the sun table of tolerances.json' % (name, v, SUN_TABLE[v]))
+        elif v in DAY_PART_EDGE:
+            parts.append('the %s %s is %s (tolerances.json time.day_parts)' % (name, v, DAY_PART_EDGE[v]))
+        elif (rid, name) in LIMIT_NOTES:
+            parts.append('the %s %s is %s' % (name, v, LIMIT_NOTES[(rid, name)]))
+        else:
+            if errs is not None:
+                errs.append('%s window %s %s has no stated origin (add it to LIMIT_NOTES)' % (rid, name, v))
+    if not parts:
+        return ''
+    note = ' Window limits: ' + '; '.join(parts) + '.'
+    if sun_used:
+        note += ' The sun table has one value for every date (the seed prints the same dawn, sunrise and dusk for 2-3 July); closeout/tools/twilight.py computes 04:00 to 04:02, 04:33 to 04:34 and 20:05 for 26-30 June, inside the clock tolerance.'
+    note += ' A limit is an allowed bound, not a claim of when the event happened; the reader adds its own clock tolerance at a clock-time limit.'
+    return note
+
 # ---------------------------------------------------------------- build
 def main():
     check_only = '--check-only' in sys.argv
@@ -180,10 +248,24 @@ def main():
             if '--partial' not in sys.argv: raise
     seed = [json.loads(l) for l in open(os.path.join(G, 'timeline_seed.jsonl'), encoding='utf-8')][:57]
     seed_by = {r['id']: r for r in seed}
-    ver = {json.loads(l)['id']: json.loads(l) for l in open(os.path.join(G, 'timeline_verified.jsonl'), encoding='utf-8')}
+    # The "before" values must be those of the shard as it was BEFORE the close-out, whatever the number of times this builder runs:
+    # results.pre-closeout.jsonl is the shard's own results.jsonl of 2026-11-04 (git 9cd6e3b3), status_effective.pre-closeout.json the
+    # status_effective of timeline_verified.jsonl before the close-out. results.jsonl itself is only written, never read as input.
     res_path = os.path.join(G, 'horde', SHARD, 'results.jsonl')
-    old = [json.loads(l) for l in open(res_path, encoding='utf-8') if l.strip()]
+    base_path = os.path.join(HERE, 'results.pre-closeout.jsonl')
+    if not os.path.exists(base_path):
+        raise SystemExit('missing %s: it is the shard results.jsonl as it was before the close-out (git 9cd6e3b3)' % base_path)
+    old = [json.loads(l) for l in open(base_path, encoding='utf-8') if l.strip()]
+    if any('verdict_before' in r or 'Close-out 2026-11-13' in json.dumps(r, ensure_ascii=False) for r in old):
+        raise SystemExit('%s already carries close-out fields: it must be the shard result as it was before the close-out' % base_path)
     old_by = {r['id']: r for r in old}
+    se_path = os.path.join(HERE, 'status_effective.pre-closeout.json')
+    if os.path.exists(se_path):
+        ver = {k: {'status_effective': v} for k, v in json.load(open(se_path, encoding='utf-8')).items()}
+    else:
+        ver = {json.loads(l)['id']: json.loads(l) for l in open(os.path.join(G, 'timeline_verified.jsonl'), encoding='utf-8')}
+        if not check_only:
+            json.dump({k: v.get('status_effective') for k, v in ver.items() if k.startswith('T1-')}, open(se_path, 'w', encoding='utf-8', newline='\n'), indent=1)
     rc1 = collections.defaultdict(list)
     for l in open(os.path.join(G, 'horde', 'OR-RECHECK', 'results.jsonl'), encoding='utf-8'):
         r = json.loads(l)
@@ -243,7 +325,7 @@ def main():
         line['before'] = {'status_effective': v.get('status_effective'), 'shard_verdict': o.get('verdict'), 'shard_tier': o.get('tier'), 'shard_status': o.get('status')}
         line['verdict'] = r['verdict']
         line['corrected_claim'] = collections.OrderedDict(event=cc['event'], unit=cc['unit'], place=cc['place'],
-                time_window=collections.OrderedDict(text=cc['when'], start=cc.get('start'), end=cc.get('end'), basis=cc['basis']),
+                time_window=collections.OrderedDict(text=cc['when'], start=cc.get('start'), end=cc.get('end'), basis=cc['basis'].rstrip(' .') + '.' + window_limits_note(rid, cc.get('start'), cc.get('end'), errs)),
                 text=cc['text'], tier=cc['tier'], marking=cc.get('marking') or 'tier glyph on every sub-claim that is not documented')
         line['sub_claims'] = subs
         line['citations'] = list(cites.values())

@@ -1,0 +1,62 @@
+# Vegetation of July 1863: notes (requirement R20, gate Q21)
+
+What grew where on the field, and how it looked on each day of 26 June to 14 July 1863 and on 19 November, as far as the record allows; drawn in the theatre as an added layer. Everything the picture shows that no source names is marked with its tier and listed as a gap. Code: `app/src/ext/vegetation/`. Data: `app/data/vegetation.json`. Build and sources: `tools/bt/vegetation/`. Tests: `app/tests/vegetation.test.mjs` (node), `app/tests/vegetation-browser.mjs` (browser harness). Register proposals: `GOVERNANCE/horde/ws-world/proposed-register/ws-world-veg-G01..G15.md`. Decisions taken under the delegation of 2026-11-11: `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md`, DD-VEG-01 to DD-VEG-07.
+
+## 1. What is in the data
+
+`data/vegetation.json` (schema `bt-vegetation/1`, 1.6 MB):
+
+| Part | What |
+|---|---|
+| `units` (883) | 507 field cells, the Rose Wheatfield, 183 woodlots, 103 tree clusters, 85 orchards, 2 marsh patches, the boulder ground of Devil's Den, the cleared west slope of Little Round Top. Each has an outline (lng/lat), a land cover, its crop or its canopy and species, seeded parameters, the claims that bear on it (role `exact`, `nearest` or `area`) and the damage events that reach it. Trees are not stored: they are placed at run time by a seeded scatter inside the outline (rows for orchards). |
+| `calendar` | crop calendars as keyframes of RANGES (colour min/max, stalk height min/max, tier, the reason), harvest ranges with their bounds, the leaf cover of the window and of the epilogue, orchard fruit by species, the epilogue stages of 19 November, the rain-lodging window. |
+| `claims` (348) | every passage the data rests on: the words (verbatim from the saved text), the source and the place in it (printed page of the Official Records, PDF page of a National Park Service report, offset in the sha256-pinned text of a book or paper), the tier (`documented` 321, `inferred` 27) and what it says. |
+| `events` (10) | trampling and tree-stripping with their windows and a ranged final share, each with its basis, its tier and the units it reaches (area-weighted). |
+| `scenarios` (3) | `CF-VEG-LRT` (Little Round Top cover), `CF-VEG-RAIN` (rain flattening), `CF-VEG-HARVEST` (pin the cut dates to the early or late end). Every option stays selectable; the default is marked "default under delegated authority". |
+| `witness_trees` (2), `farms` (22), `gaps` (15), `meta` | the large oak at the Trostle lane and the tree at the Codori lane (positions inferred to 50 to 60 m); the farmsteads used as anchors; the fifteen gaps with their register ids; counts, source titles and hashes, the crop mix and the farms it is computed from. |
+
+### Sources read (all local; nothing is fetched at run time)
+
+Official Records Series I vol. 27 (22 claims: the wheat-fields, oat-fields, clover and corn-fields of 1 to 3 July, wheat stacked in Maryland on 10 July, new hay there by 10 to 25 July); 73 National Park Service reports saved by the web task (303 claims: the Cultural Landscapes Inventories of the First Day, Emmitsburg Road Ridge, Pickett's Charge and Little Round Top, the Cultural Landscape Reports of the First Day and Little Round Top, Record of Treatment volumes I and II, the Gettysburg Landscape inventory, the Development Concept Plan, the General Management Plan, the administrative history); the public-domain library (Haskell 1908 on the fields in front of the Second and Third Corps, Bachelder 1870/1904 and 1889, the New Jersey reports, Toombs 1888, Fremantle 1864 on cherries, Everett's address on the foliage, the Gettysburg Compiler of 22 June and 27 July 1863); one National Park Service page (the Trostle petition). The Official Records and the library were searched for wheat, oats, rye, corn, clover, hay, grass, orchards, fruit, woods, thickets and tree damage; what a search found and the curation kept is in `tools/bt/vegetation/claims_*.json`. Every quote is looked up again in the saved text by `tools/bt/vegetation/verify_claims.py`; a claim whose quote is not found is dropped, never cited.
+
+Not read, and said so in the register: the 1860 census schedules, the 1868 damage-claim files other than the nine farms the National Park Service quotes, the NPS Historic Vegetation Study (not located), the vegetation inventory layer (blocked by the allowed route), and any 1863 photograph (the photo-match catalogue exists; no vegetation state is read from a photograph here).
+
+## 2. What is documented, inferred and procedural (counts)
+
+* Field cells: 1 documented crop (the Wheatfield: standing wheat when the battle began, chin-high; VC-LIB-007, -008, -001), 10 inferred (a passage names the crop and a rule places it at the nearest field cell of the farm or landmark: the Russell, Barrett and Culp corn fields, the McMillan corn, the oats by the Peach Orchard and on Seminary Ridge, the Rogers meadow, the Wentz field and others), 497 plausible-procedural (a seeded draw from the district mix).
+* The district mix (wheat 36%, hay 21%, oats 15%, corn 15%, pasture 9%, barley 2%, rye 1%) is computed from the crop acreages of eight farms' damage claims (McPherson, Wills, Harman, Forney, Slyder, Josiah Benner, Abraham Spangler, Trostle), pasture raised to a floor of 9%. A draw from it is never presented as the crop of that field.
+* Outlines: 252 documented (dense Warren tree symbols), 169 inferred, 462 plausible-procedural (field cells cut inside a block of open ground: the cut lines are not mapped).
+* Trees: 108,000 drawn at the real projection; every position is seeded and plausible-procedural; the species family (oak-hickory) is inferred from two woodlots, chestnut and black locust are shown present by the fence timber, every share and every height is a range.
+
+## 3. The state function (gate Q21)
+
+`src/ext/vegetation/model.mjs` is pure (no DOM, no GPU, no wall clock, no unseeded random numbers).
+
+* `stateAt(model, unit, tMin, choices)`: crop and stage; colour and height as the calendar's range with the unit's own seeded place inside it; cut share and the cut date; trampled share (events, area-weighted, each ramped over its window); flattened share (the rain scenario); leaf cover; stripped share; fruit by species; the tier of every part; the claims and events that bear on it. The overall tier is the weakest of the parts.
+* `checkVegetation(model, opts)`: the check of Q21. Every unit at every sampled date (every day of the window at 06:00, 12:00, 18:00, every event boundary, 19 November noon) under six scenario sets lies inside the documented-or-ranged schedule (colour and height inside the keyframe ranges that bracket the unit's own time; cut date inside its harvest range; leaf cover inside its range); damage never precedes its event; trampling never falls with time inside the window; two asks give the same answer; a documented crop needs an exact documented claim; every claim has a quote of at least 12 characters, one of the two allowed tiers and a place in its source. Returns `{gate, ok, checked, failures, notRun, summary}`; `notRun` names what the check does not look at. The hook is listed in `docs/GATE-HOOKS.md`. Run on the data: 529,800 states, 0 failures. Whether `passes` may be set to true is for the gate runner and the owner: nothing here sets it, and Q21 as the plan words it also asks for pictures that this check does not judge.
+
+## 4. How it is drawn
+
+WebGL2 only (the default renderer). On WebGPU the module registers its panel and says "not drawn" (the hook has no WebGPU path; this is the same position as the weather layer, EG-W3D-G08).
+
+* Ground cover: every outline is laid over a lattice of 40 m squares fixed to the ground (a square inside is two triangles, a square the outline cuts is cut along it); 127,000 triangles. The vertex shader lays each vertex on the terrain with a lift that grows with distance. One state texture (4 texels per unit) is rewritten from `stateAt` at a quantised clock (0.5 min) and when a choice changes, so the same minute always gives the same picture. The fragment shader draws: crop rows (corn), drilled grain, shocks of cut grain, stubble, windrows, plough furrows, trampling as patches that grow with the share and as the table of first visits, lodging, forest floor, boulder ground, marsh; the tier overlay (tint and hatching: none for documented, diagonal lines for inferred, cross-hatch for plausible-procedural, dashes for an open gap).
+* Trees: instanced, one parametrised crown-and-trunk mesh at two levels (full tree under 190 m, a blob under 2,300 m, thinned with distance and enlarged to keep the cover), chunks of 250 m culled by the camera. Colour from the species range; leaf cover from the state (leaf-off on 19 November, stripped trees where the events strip them); shadows from trees within 420 m.
+* Trampling that follows the troops: `plan.mjs` asks the stage (the event cache, the presence windows, the formation extents: the same figures `Stage.apply` uses) where every drawn unit stands at every 8 minutes from 30 June to 8 July and records for each 8 m cell of every field, meadow and orchard the first minute any formation stood on it. The shader treats a cell as trampled from that minute (a 25 minute ramp); backward scrubbing un-tramples exactly. A scenario change restarts the plan. The documented events (the Wheatfield 16:30 to 19:30 on 2 July, the Trostle, Peach Orchard, Codori and McPherson fields, the advance of 3 July) trample their fields by their own windows whether or not a drawn unit walked there.
+* The panel (More, then Vegetation of July 1863): the switches, the three conflicts as choices with the tier of each option, a card for the ground under the centre of the picture (state, tiers, the quotes with their sources, the events), places to look at, how sure each part is, the fifteen gaps. A notice on the picture says the layer is shown and what it rests on.
+
+## 5. What is not done, or not right (nothing hidden)
+
+* No real GPU: the pictures were seen on a software renderer only (see section 6). No frame time is claimed.
+* The 2022 ground photograph under the picture still shows modern trees on road verges, fence lines and in the town; field cells cover it where they are drawn.
+* Single plants are not drawn: crops are colour, rows and shading. Grass and crop height are not geometry.
+* No fruit on the trees (the state says which stage the fruit is in; the card shows it).
+* Hedgerows, gardens, potato patches, flax and buckwheat are named in claims and have no place: not drawn (G14).
+* The First Day farms (Forney, Wills, Herbst, Gilbert, Harman) have no farmstead outline in the repository: their field-by-field crops (wheat, timothy, corn) are claims with no placement, listed as "documented but not placed".
+* 234 of 348 claims are not placed on a polygon; they are listed in the data (`placed: false`) and counted in the panel.
+* WebGPU draws nothing. The visit table uses the stage as it is when the visit starts: units a later workstream places will be walked from then on without a rebuild of this file.
+
+## 6. What was run
+
+* `node --test docs/battle-theatre/app/tests/vegetation.test.mjs`: see `GOVERNANCE/horde/ws-world/veg-status.md` for the dated result.
+* `python -I tools/bt/vegetation/verify_claims.py` (every quote looked up again), `python -I tools/bt/vegetation/build_vegetation.py` (rebuild; `--check` compares with the committed file).
+* Browser harness `tests/vegetation-browser.mjs` through the machine lock on SwiftShader: see the status file for the date, the checks and the pictures that were looked at.

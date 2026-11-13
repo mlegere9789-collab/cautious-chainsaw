@@ -1,7 +1,8 @@
 // Node tests of the loader of the added layers and panels (src/ui/extensions.mjs, src/ui/ext-panel.mjs, the wiring in src/theatre.mjs and src/render-host.mjs; docs/EXT-CONTRACT.md).
 // A stand-in theatre and stand-in modules: real module files in a temporary folder, imported the way theatre.mjs imports them, and plain objects handed out by a stand-in importer.
 // Checked: no list means nothing happens; init is awaited in list order with the eleven ctx keys; update gets {tMin, dtMs, cam, paused, speed} before the renderer's frame;
-// dispose on Back; a failing module is logged and skipped and never stops the others; a slow start; Back during a start; both registries; the tier mark; the live choices.
+// dispose on Back; a failing module is logged and skipped and never stops the others; a slow start; Back during a start; a list that does not answer; both registries; one drawing of an
+// added panel in every form a panel function may return (late results included); the drawer as HTML; the tier mark; the live choices; the wiring order in theatre.mjs and render-host.mjs.
 // Nothing here opens a browser: the drawer in the page is tests/ext-loader-browser.mjs.
 //   node --test docs/battle-theatre/app/tests/ext-loader.test.mjs
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath, pathToFileURL } from 'node:url';
