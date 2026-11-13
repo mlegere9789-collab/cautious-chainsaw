@@ -1,0 +1,7 @@
+2026-11-13T19:21:00Z	check_governance	exit 0	0.3 s	python tools/bt/check_governance.py
+2026-11-13T19:21:00Z	check_coverage	exit 1	0.1 s	python tools/bt/check_coverage.py
+2026-11-13T19:21:00Z	test_coverage_py	exit 1	0.1 s	python tests/governance/test_coverage.py
+2026-11-13T19:21:00Z	coverage_test_mjs	exit 1	0.1 s	node --test tests/governance/coverage.test.mjs
+2026-11-13T19:21:00Z	check_arrivals	exit 0	0.1 s	python tools/bt/check_arrivals.py
+2026-11-13T19:21:01Z	check_kit_quiet	exit 0	5.0 s	python tools/bt/check_kit.py --quiet
+2026-11-13T19:21:05Z	check_structures	exit 0	3.2 s	python tools/bt/check_structures.py
