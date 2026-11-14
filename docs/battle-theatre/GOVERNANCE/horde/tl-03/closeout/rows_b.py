@@ -71,13 +71,14 @@ ROWS.append(dict(
                 'NOT documented by a non-lead source read: the division hospitals of the First Corps in Schmucker Hall, Pennsylvania College, the courthouse and churches on the afternoon of Jul 1; the name A. J. Ward; the marker text HMDB 17936 (host refused, not retried). The Letterman 1866 text read has the First Corps medical table of Fredericksburg, not Gettysburg.',
                 'inferred', '1863-07-01T12:00', '1863-07-01T23:59', marking='Heard and Bache remained: documented; Schmucker farm use: inferred (National Park Service); other sites and A. J. Ward: gap'),
     subs=[
-        ('Surgeon J. Theodore Heard (medical director) and Surgeon T. H. Bache (medical inspector) of the First Corps remained in the town of Gettysburg during its occupation by the enemy to attend the wounded', 'documented', 'supported', ['newton']),
+        ('Surgeon J. Theodore Heard (medical director) and Surgeon T. H. Bache (medical inspector) of the First Corps remained in the town of Gettysburg during its occupation by the enemy to attend the wounded', 'documented', 'supported', ['newton', 'dbl_hb']),
         ('The Schmucker farm buildings near the Seminary were used by the First Corps to shelter the wounded on Jul 1 and stayed filled with Union wounded under Confederate control', 'inferred', 'supported', ['nps_sch']),
         ('The main building of the Seminary served as a hospital until the late summer or fall of 1863', 'inferred', 'supported', ['nps_sem']),
         ('First Corps division hospitals in the Seminary (Schmucker Hall), Pennsylvania College, the courthouse and churches on the afternoon of Jul 1; the corps hospital officer A. J. Ward', 'open gap', 'unsupported', []),
     ],
     cites={
         'newton': OR('Surg. J. Theodore Heard, medical director, and Surg. T. H. Bache, medical inspector, remained in the town of Gettysburg during its occupation by the enemy, and deserve the highest praise for their zealous and unremitting attention to the wounded', R030, '263'),
+        'dbl_hb': OR('Surgeons Heard and [Thomas H.] Bache refused to leave our wounded, and remained with them as prisoners at Gettysburg until the retreat of the enemy released and restored them to duty', 'OR27-1-R029', '256'),
         'nps_sch': L('NPS-CLR-1STDAY', 'ter the wounded on July 1, and remained filled with', reading='the text layer interleaves two columns: "They were used by the 1st Corps to shel-" continues "ter the wounded on July 1, and remained filled with the Union wounded while the area was under Confederate control"; the buildings are the Schmucker farm buildings of the paragraph'),
         'nps_sem': L('NPS-CLR-1STDAY', 'After the military relinquished use of the main building as a hospital in the late summer or fall of 1863'),
     },
@@ -384,7 +385,7 @@ ROWS.append(dict(
                 'Maj. Gen. W. S. Hancock (Second Corps) with Lt. Col. Morgan and the signal party; Maj. Gen. O. O. Howard; Maj. Gen. H. W. Slocum',
                 'Cemetery Hill / Gettysburg (Hancock: arrived at Gettysburg; the First and Eleventh Corps retiring through the town)',
                 'Jul 1, 15:00 to about 16:30 (four primary values; the delegated default is about 15:00-16:00)',
-                'Hancock OR27-1-R076 pp.366-368; Howard R243 p.696; Slocum R271 p.768; Meade R006 p.115; Buford R337 p.927; Organization R009 p.167',
+                'Hancock OR27-1-R076 pp.366-368; Howard R243 p.696; Slocum R271 p.768; Meade R006 p.115; Buford R337 p.927; Organization R009 p.164',
                 'Hancock: "At 3 p. m. I arrived at Gettysburg and assumed the command"; his dispatch to Meade at 5.25 p. m.: "When I arrived here an hour since" (about 4.25); Howard\'s 10 p. m. dispatch: "General Hancock arrived at 4 p. m., and communicated his instructions"; Slocum: Howard commanded the field until 4 p. m., "when General Howard was relieved by the arrival of General Hancock"; Meade: "About the time of this withdrawal, Major-General Hancock arrived"; the Organization note: Howard commanded all troops on the field until the arrival of Hancock on the afternoon of Jul 1. '
                 'The values conflict (15:00 / 16:00 / about 16:25) and are carried as scenarios; the delegated default is about 15:00-16:00 (C-039). The seed\'s secondary values (before 16:00, about 16:30) are not in the Official Records. The clock offset of about 20 minutes is not applied.',
                 'documented', '1863-07-01T15:00', '1863-07-01T16:30', marking='four primary hours as scenarios; delegated default about 15:00-16:00'),
@@ -474,7 +475,7 @@ ROWS.append(dict(
                 'Barlow\'s First Division (von Gilsa\'s First Brigade: 41st, 54th, 68th New York, 153rd Pennsylvania; Ames\' Second Brigade) and Early\'s division (Gordon\'s, Hays\', Avery\'s brigades; Jones\' artillery battalion)',
                 'The hill west of Rock Creek on the Heidlersburg road north-east of the town; the First Division\'s line east of the Mummasburg road',
                 'Jul 1, about 14:45 to after 15:00 (no end hour; the fight lasted less than an hour by no text read)',
-                'Early OR27-2-R470 pp.468-469; Ewell R467 p.445; Gordon R477 p.492; Jones R478 p.495; Schurz R253 pp.728-729; Ames R244 p.712; Organization R009 p.167',
+                'Early OR27-2-R470 pp.468-469; Ewell R467 p.445; Gordon R477 p.492; Jones R478 p.495; Schurz R253 pp.728-729; Ames R244 p.712; Organization R009 p.164',
                 'Early: Jones\' battalion opened with considerable effect; Gordon was ordered forward in support of Doles, then Hays\' and Hoke\'s brigades in line; "After a short but hot contest, Gordon succeeded in routing the force opposed to him, consisting of a division of the Eleventh Corps, commanded by Brigadier-General Barlow", captured Barlow, "who was severely wounded", and drove the division back with great slaughter; Ewell: Gordon\'s brigade "after an obstinate contest, broke Barlow\'s division, captured General Barlow". '
                 'Schurz: about 3 o\'clock the enemy appeared in front with heavy masses of infantry, the Second Brigade, First Division fell back in considerable disorder, Barlow was severely wounded and carried off, the First Brigade, forced back, contested every inch; Ames took the First Division; the orders to withdraw to Cemetery Hill followed. Jones placed twelve guns in position and opened. '
                 'The First Brigade of Barlow\'s division is von Gilsa\'s: the 41st New York (nine companies), 54th and 68th New York and 153rd Pennsylvania. NOT documented: the length of the fight (about 20 minutes or less than an hour: no text read); that Barlow was "shot" (the reports say severely wounded); Ames\'s "retreat" is his own division\'s falling back (R244).',
@@ -508,7 +509,7 @@ ROWS.append(dict(
     ],
     default=None,
     remains=['the length of the fight (about 20 minutes or under an hour)', 'that Barlow was shot'],
-    searched=['OR27-2-R470 pp.468-469, R467 p.445, R477 p.492, R478 p.495, R472; OR27-1-R253 pp.727-731, R244, R245, R009 p.167 read',
+    searched=['OR27-2-R470 pp.468-469, R467 p.445, R477 p.492, R478 p.495, R472; OR27-1-R253 pp.727-731, R244, R245, R009 p.164 read',
               LIB182 + ' regex Barlow near the length of the fight: not found',
               LOGNOTE],
     recheck='OR-RECHECK-2 (supported_partial): Gordon breaks Barlow, captured; Schurz about 3 o\'clock; Ewell says captured not shot; Ames, von Gilsa\'s regiments, Jones\' artillery and the duration not in the passages. Applied: all are cited from Early, Schurz, Jones and the organization list; the duration and "shot" are marked unsupported.',
@@ -524,14 +525,14 @@ ROWS.append(dict(
                 '17th Connecticut (Lieut. Col. D. Fowler, Maj. A. G. Brady); Battery G, 4th U.S. Artillery (Lieut. B. Wilkeson, then Lieut. E. A. Bancroft)',
                 'North of Gettysburg, left and front of the town, Ames\' brigade; the battery on the north side of the York road east of the poor-house, Barlow\'s division',
                 'Jul 1, between about 11:00 (the battery in action) and the retreat (no hour of either death)',
-                'Casualty return OR27-1-R013 pp.186-193; Brady R247 p.717; Bancroft R269 p.756; Hunt R028 p.230; Howard R243 p.705',
+                'Casualty return OR27-1-R013 pp.186-193 (the Connecticut officers killed on p.188); Brady R247 p.717; Bancroft R269 p.756; Hunt R028 p.230; Howard R243 p.705',
                 'The casualty return lists among the officers killed, Connecticut, "Lieut. Colonel Douglas Fowler, 17th Infantry"; Brady: the regiment (six companies under Lieutenant-Colonel Fowler) advanced with the other regiments of the brigade to the left and front of the town, behind the 107th Ohio, deployed at the double-quick, and "Lieutenant-Colonel Fowler was killed when the regiment advanced and deployed". '
                 'Wilkeson: Hunt says "About 11 a. m. Wilkeson\'s battery ... came up, and reported to General Barlow, who posted it close to the enemy\'s line of infantry ... In the commencement of this unequal contest, Lieut. Bayard Wilkeson ... fell, mortally wounded, and was carried from the field"; Bancroft: the battery reached the town at 11 a. m., engaged on the north side of the York road eastward of the poor-house, and "Lieutenant Wilkeson was struck in the right leg by a shot from the enemy\'s artillery, and mortally wounded" before the sections retired after half an hour; Howard also records him mortally wounded. '
                 'The seed\'s "Col. Douglas Fowler" is Lieutenant-Colonel and "Lt. Col. Baynard Wilkeson" is First Lieutenant Bayard Wilkeson. NOT documented: the hour of either death; that either was in a "counterattack on the knoll".',
                 'documented', '1863-07-01T13:00', '1863-07-01T15:30', marking='names, ranks, deaths: documented; hours: gap; place of Wilkeson: documented (York road); Fowler: north of the town'),
     subs=[
         ('Lieut. Colonel Douglas Fowler, 17th Connecticut, is listed among the officers killed (casualty return, Connecticut)', 'documented', 'supported', ['f_ret']),
-        ('Lieutenant-Colonel Fowler was killed when the six companies of the regiment advanced and deployed to the left and front of the town', 'documented', 'supported', ['f_brady', 'f_adv']),
+        ('Lieutenant-Colonel Fowler was killed when the six companies of the regiment advanced and deployed to the left and front of the town', 'documented', 'supported', ['f_brady', 'f_adv', 'f_brady13']),
         ('Wilkeson\'s battery (G, 4th U.S.) came up about 11 a. m., was posted by Barlow close to the enemy\'s infantry and in the commencement of the unequal contest Lieut. Bayard Wilkeson fell mortally wounded', 'documented', 'supported', ['w_hunt', 'w_11']),
         ('Bancroft: the battery reached the town at 11 a. m.; Lieutenant Wilkeson was struck in the right leg by a shot from the enemy\'s artillery and mortally wounded on the north side of the York road', 'documented', 'supported', ['w_ban11', 'w_ban']),
         ('The rank and name in the seed: Col. Douglas Fowler and Lt. Col. Baynard Wilkeson', 'documented', 'contradicted', ['f_ret', 'w_ban'], 'Fowler was a lieutenant-colonel; Wilkeson a first lieutenant named Bayard'),
@@ -540,6 +541,7 @@ ROWS.append(dict(
     cites={
         'f_ret': OR('Lieut. Colonel Douglas Fowler, 17th Infantry', R013, '188', note='the OCR of the return loses the running head; the Connecticut list is on the pages 186-193'),
         'f_brady': OR('The remainder of the regiment (six companies), under Lieutenant- Colonel Fowler, advanced with the other regiments of the brigade to the left and front of the town', R247, '717'),
+        'f_brady13': OR('The regiment arrived in Gettysburg between 1 and 2 p. m. of the 1st instant', 'OR27-1-R247', '716'),
         'f_adv': OR('Lieutenant-Colonel Fowler was killed when the regiment advanced and deployed', R247, '717'),
         'w_hunt': OR('the commencement of this unequal contest', R028, '230', note='the sentence continues: Lieut. Bayard Wilkeson (Fourth U. S. Artillery), commanding the battery, a young officer of great gallantry, fell, mortally wounded'),
         'w_11': OR('About 11 a. m. Wilkeson\'s battery (G, Fourth United States, four 12-pounders) came up, and reported to General Barlow, who posted it close to the enemy\'s line of infantry', 'OR27-1-R028', '230'),
@@ -616,7 +618,7 @@ ROWS.append(dict(
     subs=[
         ('Doubleday: Stone himself was shot down, battling to the last; Wister, who succeeded him, was also wounded and the command devolved upon Dana', 'documented', 'supported', ['d_down']),
         ('Doubleday: in the fight at the railroad cut Colonel Stone was severely wounded and Colonel Wister assumed command of the brigade', 'documented', 'supported', ['d_aff']),
-        ('Stone: being wounded he was carried from the field; Wister assumed command', 'documented', 'supported', ['s_own']),
+        ('Stone: being wounded he was carried from the field; Wister assumed command', 'documented', 'supported', ['s_own', 's11']),
         ('Stone was carried into the stable area of the McPherson barn for first aid until he could be evacuated (National Park Service, citing participants)', 'inferred', 'supported', ['nps_stone']),
         ('Stone was captured (Stone Sentinels); the opponent was Daniel; the hour 15:00-16:00', 'open gap', 'unsupported', []),
     ],
@@ -624,6 +626,7 @@ ROWS.append(dict(
         'd_down': OR('Stone himself was shot down, battling to the last. The gallant Colonel Wister, who succeeded iiiiii in command, was also wounded, and the command devolved upon Colonel Dana, of the One hundred and forty-third Pennsylvania Volunteers', R029, '247', note='the OCR prints iiiiii for him'),
         'd_aff': OR('It was in this affair that Colonel Stone was severely wounded, and Colonel Wister assumed command of the brigade', R029, '249'),
         's_own': OR('Being wounded about this time and carried from the field, I cannot speak so definitely of the remainder of the action', R061, '330'),
+        's11': OR('at 11 o\'clock a. m., July 1, I posted my brigade', 'OR27-1-R061', '329'),
         'nps_stone': L('NPS-HS-MCPHERSON', 'Stone was carried in to the stable area o f the McPherson barn to receive " f i r s t aid " treatment u n t il he could be evacuated', note='the text layer of this study spaces its letters; the quote is the layer as printed'),
     },
     scenarios=[

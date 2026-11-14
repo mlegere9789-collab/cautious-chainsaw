@@ -61,6 +61,8 @@ def ident_text_id():
         if p.endswith('ia_catalogue.json'):
             continue
         for tid, ent in Q.jload(p).get('texts', {}).items():
+            if 'pageindex' not in ent.get('files', {}):        # derived page reads (QA-PAGEREAD) have no page index
+                continue
             m.setdefault(ent['ia_identifier'], tid)
     return m
 
@@ -70,7 +72,7 @@ def page_stem(pid):
     return '%s-%04d' % (ident, int(leaf))
 
 
-def render(pids, dpi=300, psm=6):
+def render(pids, dpi=300, psm=6, tsv=False):
     os.makedirs(IMG, exist_ok=True)
     os.makedirs(OCR, exist_ok=True)
     os.makedirs(READ, exist_ok=True)
@@ -103,7 +105,7 @@ def render(pids, dpi=300, psm=6):
             env = dict(os.environ, OMP_THREAD_LIMIT='1')
             remove_rules(stem + '-300.png', stem + '-300c.png')
             c0 = resource.getrusage(resource.RUSAGE_CHILDREN)
-            subprocess.run(['nice', '-n', '10', 'tesseract', stem + '-300c.png', os.path.join(OCR, page_stem(pid)), '-l', 'eng', '--psm', str(psm)],
+            subprocess.run(['nice', '-n', '10', 'tesseract', stem + '-300c.png', os.path.join(OCR, page_stem(pid)), '-l', 'eng', '--psm', str(psm)] + (['txt', 'tsv'] if tsv else []),
                            check=True, capture_output=True, env=env)
             c1 = resource.getrusage(resource.RUSAGE_CHILDREN)
             tess = open(os.path.join(OCR, page_stem(pid) + '.txt'), encoding='utf-8', errors='replace').read()

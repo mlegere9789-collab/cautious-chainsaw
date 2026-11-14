@@ -684,8 +684,8 @@ def region_geom(r, farms, gz):
 
 
 EVENTS = [
-    {'id': 'EV-VEG-01', 'kind': 'trample', 'label': 'The Wheatfield fought through, 2 July', 'unit_lc': 'LC-FIELD-0001', 'from': '1863-07-02T16:30', 'to': '1863-07-02T19:30', 'final': [0.7, 0.95], 'tier': 'documented', 'magnitude_tier': 'plausible-procedural',
-     'claims': ['VC-OR-001', 'VC-OR-003', 'VC-OR-004', 'VC-OR-005', 'VC-OR-022', 'VC-LIB-006', 'VC-LIB-018'], 'basis': 'Cross, Kelly, Zook, Brooke and Sweitzer advanced through the wheat-field and Brooke fell back across it; the Southern brigades attacked into it (the OR reports quoted); the window is the span of the engagement rows EN-014 to EN-021 of the theatre clock (16:30 to 19:30); the share trampled is a range'},
+    {'id': 'EV-VEG-01', 'kind': 'trample', 'label': 'The Wheatfield fought through, 2 July', 'unit_lc': 'LC-FIELD-0001', 'from': '1863-07-02T16:30', 'to': '1863-07-02T19:30', 'final': [0.7, 0.95], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-OR-001', 'VC-OR-003', 'VC-OR-004', 'VC-OR-005', 'VC-OR-022', 'VC-LIB-006', 'VC-LIB-018'], 'basis': 'Cross, Kelly, Zook and Brooke advanced through the wheat-field, a regiment of Brooke\'s fought in the middle of it and the brigade crossed it twice, and De Trobriand sent the 17th Maine across it (the OR reports quoted: they name the crop and the movement, not the trampling); Haskell says the fields in front of the Second and Third Corps were trampled by the evening of 2 July; the trampling of this field is therefore inferred from the documented movement; the window is the span of the engagement rows EN-014 to EN-021 of the theatre clock (16:30 to 19:30); the share trampled is a range'},
     {'id': 'EV-VEG-02', 'kind': 'trample', 'label': 'The fields of the Trostle farm, 2 July', 'region': {'disc': {'farm': 'trostle', 'r_m': 450}}, 'from': '1863-07-02T17:00', 'to': '1863-07-02T20:00', 'final': [0.35, 0.8], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
      'claims': ['VC-WEB-002', 'VC-WEB-003', 'VC-LIB-006'], 'basis': 'the petition says the farm lay between the armies, was fought over two days and its crops were totally destroyed; the disc of 450 m around the farmstead is the reach assumed'},
     {'id': 'EV-VEG-03', 'kind': 'trample', 'label': 'The Peach Orchard and the Emmitsburg Road fields, 2 July', 'region': {'disc': {'farm': 'sherfy', 'r_m': 520}}, 'from': '1863-07-02T15:30', 'to': '1863-07-02T19:00', 'final': [0.3, 0.75], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
@@ -711,6 +711,7 @@ def build_events(units, farms, gz, claims):
     out = []
     for e in EVENTS:
         d = {k: v for k, v in e.items() if k not in ('region', 'unit_lc', 'from', 'to')}
+        d['when_tier'] = e.get('when_tier', 'inferred')  # the hours follow the engagement rows of the theatre clock, not a source that dates the damage
         d['from_min'], d['to_min'] = iso_min(e['from']), iso_min(e['to'])
         d['from'], d['to'] = e['from'], e['to']
         for cid in e['claims']:

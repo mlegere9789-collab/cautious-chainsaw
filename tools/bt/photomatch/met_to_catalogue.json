@@ -1,0 +1,348 @@
+{
+ "_doc": "Feature-matching leads (met). inliers = RANSAC-consistent SIFT matches; accepted at >= 45 inliers and (>= 100 or 1.3 times the best candidate of another record). A lead, to be confirmed by looking at both images.",
+ "min_inliers": 45,
+ "results": {
+  "MMET268204": {
+   "file": "tmp/photomatch/img/MET268204_1600.jpg",
+   "top": [
+    {
+     "candidate": "ppmsca.35052",
+     "loc_id": "2014646002",
+     "inliers": 209,
+     "good_matches": 232
+    },
+    {
+     "candidate": "cwpb.00895",
+     "loc_id": "2018670867",
+     "inliers": 85,
+     "good_matches": 105
+    },
+    {
+     "candidate": "cwpb.01631",
+     "loc_id": "2018666303",
+     "inliers": 77,
+     "good_matches": 107
+    },
+    {
+     "candidate": "ppmsca.32915",
+     "loc_id": "2012647822",
+     "inliers": 74,
+     "good_matches": 91
+    },
+    {
+     "candidate": "cwpb.00086",
+     "loc_id": "2018671578",
+     "inliers": 74,
+     "good_matches": 85
+    },
+    {
+     "candidate": "WIDE2025162158",
+     "loc_id": "2025162158",
+     "inliers": 72,
+     "good_matches": 118
+    }
+   ],
+   "accepted": [
+    {
+     "candidate": "ppmsca.35052",
+     "loc_id": "2014646002",
+     "inliers": 209,
+     "good_matches": 232
+    }
+   ]
+  },
+  "MMET268205": {
+   "file": "tmp/photomatch/img/MET268205_1600.jpg",
+   "top": [
+    {
+     "candidate": "ppmsca.35052",
+     "loc_id": "2014646002",
+     "inliers": 213,
+     "good_matches": 234
+    },
+    {
+     "candidate": "cwp.4a39689",
+     "loc_id": "2018666297",
+     "inliers": 14,
+     "good_matches": 41
+    },
+    {
+     "candidate": "cwpb.00895",
+     "loc_id": "2018670867",
+     "inliers": 13,
+     "good_matches": 37
+    },
+    {
+     "candidate": "cwpb.00864",
+     "loc_id": "2018666308",
+     "inliers": 13,
+     "good_matches": 30
+    },
+    {
+     "candidate": "cwpb.01637",
+     "loc_id": "2018666305",
+     "inliers": 11,
+     "good_matches": 32
+    },
+    {
+     "candidate": "cwpb.01631",
+     "loc_id": "2018666303",
+     "inliers": 11,
+     "good_matches": 29
+    }
+   ],
+   "accepted": [
+    {
+     "candidate": "ppmsca.35052",
+     "loc_id": "2014646002",
+     "inliers": 213,
+     "good_matches": 234
+    }
+   ]
+  },
+  "MMET268201": {
+   "file": "tmp/photomatch/img/MET268201_1600.jpg",
+   "top": [
+    {
+     "candidate": "cwpb.01662",
+     "loc_id": "2018670711",
+     "inliers": 352,
+     "good_matches": 551
+    },
+    {
+     "candidate": "cwpb.01661",
+     "loc_id": "2018670711",
+     "inliers": 324,
+     "good_matches": 515
+    },
+    {
+     "candidate": "cwp.4a39719",
+     "loc_id": "2018666298",
+     "inliers": 31,
+     "good_matches": 67
+    },
+    {
+     "candidate": "ppmsca.32915",
+     "loc_id": "2012647822",
+     "inliers": 25,
+     "good_matches": 61
+    },
+    {
+     "candidate": "cwpb.00895",
+     "loc_id": "2018670867",
+     "inliers": 23,
+     "good_matches": 46
+    },
+    {
+     "candidate": "cwpb.01631",
+     "loc_id": "2018666303",
+     "inliers": 21,
+     "good_matches": 51
+    }
+   ],
+   "accepted": [
+    {
+     "candidate": "cwpb.01662",
+     "loc_id": "2018670711",
+     "inliers": 352,
+     "good_matches": 551
+    },
+    {
+     "candidate": "cwpb.01661",
+     "loc_id": "2018670711",
+     "inliers": 324,
+     "good_matches": 515
+    }
+   ]
+  },
+  "MMET268202": {
+   "file": "tmp/photomatch/img/MET268202_1600.jpg",
+   "top": [
+    {
+     "candidate": "ppmsca.32833",
+     "loc_id": "2012646949",
+     "inliers": 620,
+     "good_matches": 643
+    },
+    {
+     "candidate": "ppmsca.32852",
+     "loc_id": "2012647718",
+     "inliers": 577,
+     "good_matches": 607
+    },
+    {
+     "candidate": "ppmsca.33638",
+     "loc_id": "2012650193",
+     "inliers": 46,
+     "good_matches": 77
+    },
+    {
+     "candidate": "ppmsca.32915",
+     "loc_id": "2012647822",
+     "inliers": 44,
+     "good_matches": 68
+    },
+    {
+     "candidate": "cwpb.01647",
+     "loc_id": "2018670706",
+     "inliers": 37,
+     "good_matches": 76
+    },
+    {
+     "candidate": "cwpb.01648",
+     "loc_id": "2018670706",
+     "inliers": 33,
+     "good_matches": 65
+    }
+   ],
+   "accepted": [
+    {
+     "candidate": "ppmsca.32833",
+     "loc_id": "2012646949",
+     "inliers": 620,
+     "good_matches": 643
+    },
+    {
+     "candidate": "ppmsca.32852",
+     "loc_id": "2012647718",
+     "inliers": 577,
+     "good_matches": 607
+    }
+   ]
+  },
+  "MMET268203": {
+   "file": "tmp/photomatch/img/MET268203_1600.jpg",
+   "top": [
+    {
+     "candidate": "ppmsca.32840",
+     "loc_id": "2012647706",
+     "inliers": 1154,
+     "good_matches": 1159
+    },
+    {
+     "candidate": "ppmsca.32853",
+     "loc_id": "2012647719",
+     "inliers": 725,
+     "good_matches": 730
+    },
+    {
+     "candidate": "ppmsca.32915",
+     "loc_id": "2012647822",
+     "inliers": 12,
+     "good_matches": 24
+    },
+    {
+     "candidate": "cwpb.00895",
+     "loc_id": "2018670867",
+     "inliers": 10,
+     "good_matches": 29
+    },
+    {
+     "candidate": "cwp.4a39439",
+     "loc_id": "2018666314",
+     "inliers": 9,
+     "good_matches": 27
+    },
+    {
+     "candidate": "cwpb.01631",
+     "loc_id": "2018666303",
+     "inliers": 8,
+     "good_matches": 21
+    }
+   ],
+   "accepted": [
+    {
+     "candidate": "ppmsca.32840",
+     "loc_id": "2012647706",
+     "inliers": 1154,
+     "good_matches": 1159
+    },
+    {
+     "candidate": "ppmsca.32853",
+     "loc_id": "2012647719",
+     "inliers": 725,
+     "good_matches": 730
+    }
+   ]
+  },
+  "MMET286882": {
+   "file": "tmp/photomatch/img/MET286882_1600.jpg",
+   "top": [
+    {
+     "candidate": "ppmsca.32922",
+     "loc_id": "2012647835",
+     "inliers": 886,
+     "good_matches": 904
+    },
+    {
+     "candidate": "cwpb.00849",
+     "loc_id": "2018666307",
+     "inliers": 270,
+     "good_matches": 287
+    },
+    {
+     "candidate": "cwpb.00848",
+     "loc_id": "2018666307",
+     "inliers": 270,
+     "good_matches": 286
+    },
+    {
+     "candidate": "cwp.4a39432",
+     "loc_id": "2018666307",
+     "inliers": 223,
+     "good_matches": 242
+    },
+    {
+     "candidate": "cph.3g01828",
+     "loc_id": "91732542",
+     "inliers": 159,
+     "good_matches": 165
+    },
+    {
+     "candidate": "WIDE2006685385",
+     "loc_id": "2006685385",
+     "inliers": 145,
+     "good_matches": 160
+    }
+   ],
+   "accepted": [
+    {
+     "candidate": "ppmsca.32922",
+     "loc_id": "2012647835",
+     "inliers": 886,
+     "good_matches": 904
+    },
+    {
+     "candidate": "cwpb.00849",
+     "loc_id": "2018666307",
+     "inliers": 270,
+     "good_matches": 287
+    },
+    {
+     "candidate": "cwpb.00848",
+     "loc_id": "2018666307",
+     "inliers": 270,
+     "good_matches": 286
+    },
+    {
+     "candidate": "cwp.4a39432",
+     "loc_id": "2018666307",
+     "inliers": 223,
+     "good_matches": 242
+    },
+    {
+     "candidate": "cph.3g01828",
+     "loc_id": "91732542",
+     "inliers": 159,
+     "good_matches": 165
+    },
+    {
+     "candidate": "WIDE2006685385",
+     "loc_id": "2006685385",
+     "inliers": 145,
+     "good_matches": 160
+    }
+   ]
+  }
+ }
+}

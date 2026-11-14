@@ -1,0 +1,3273 @@
+{
+ "_doc": "Same plate or another exposure? Geometry of the accepted feature ties; thresholds fixed before the run (see tie_geometry.py). A lead, never a tie.",
+ "thresholds": {
+  "inlier_fraction": 0.8,
+  "anisotropy": 1.06,
+  "rotation_deg": 4.0,
+  "perspective": 0.2,
+  "median_residual_px": 3.0
+ },
+ "ran_utc": "2026-11-14T01:16:06Z",
+ "last_run_wall_seconds": 10.1,
+ "pairs": {
+  "NF-V1-p058-000|cwpb.00846": {
+   "status": "ok",
+   "good": 775,
+   "inliers": 763,
+   "inlier_fraction": 0.985,
+   "scale": 0.779,
+   "rotation_deg": -0.64,
+   "anisotropy": 1.008,
+   "perspective": 0.011,
+   "median_residual_px": 0.35,
+   "p90_residual_px": 0.75,
+   "footprint_share_of_candidate": 0.54,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     128.7,
+     139.9
+    ],
+    [
+     927.3,
+     131.6
+    ],
+    [
+     929.6,
+     779.8
+    ],
+    [
+     136.3,
+     785.0
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    945
+   ],
+   "query_frame_px": [
+    1024,
+    832
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p058-000",
+   "candidate": "cwpb.00846",
+   "loc_id": "2018670660",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p058-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00846_v.jpg"
+  },
+  "NF-V1-p058-000|cwpb.00847": {
+   "status": "ok",
+   "good": 752,
+   "inliers": 741,
+   "inlier_fraction": 0.985,
+   "scale": 0.778,
+   "rotation_deg": -0.66,
+   "anisotropy": 1.008,
+   "perspective": 0.01,
+   "median_residual_px": 0.35,
+   "p90_residual_px": 0.73,
+   "footprint_share_of_candidate": 0.553,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     133.2,
+     123.1
+    ],
+    [
+     931.4,
+     114.5
+    ],
+    [
+     934.4,
+     763.3
+    ],
+    [
+     140.5,
+     768.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    930
+   ],
+   "query_frame_px": [
+    1024,
+    832
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p058-000",
+   "candidate": "cwpb.00847",
+   "loc_id": "2018670660",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p058-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00847_v.jpg"
+  },
+  "NF-V1-p058-000|cwpb.00845": {
+   "status": "ok",
+   "good": 558,
+   "inliers": 547,
+   "inlier_fraction": 0.98,
+   "scale": 0.748,
+   "rotation_deg": 0.31,
+   "anisotropy": 1.004,
+   "perspective": 0.008,
+   "median_residual_px": 0.32,
+   "p90_residual_px": 0.73,
+   "footprint_share_of_candidate": 0.579,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     131.9,
+     79.5
+    ],
+    [
+     895.5,
+     83.5
+    ],
+    [
+     890.2,
+     701.4
+    ],
+    [
+     130.5,
+     699.0
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    814
+   ],
+   "query_frame_px": [
+    1024,
+    832
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p058-000",
+   "candidate": "cwpb.00845",
+   "loc_id": "2018670660",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p058-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00845_v.jpg"
+  },
+  "NF-V1-p125-000|ppmsca.32853": {
+   "status": "ok",
+   "good": 506,
+   "inliers": 501,
+   "inlier_fraction": 0.99,
+   "scale": 0.83,
+   "rotation_deg": 4.2,
+   "anisotropy": 1.044,
+   "perspective": 0.021,
+   "median_residual_px": 0.43,
+   "p90_residual_px": 0.95,
+   "footprint_share_of_candidate": 0.585,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     184.9,
+     14.3
+    ],
+    [
+     1028.2,
+     76.2
+    ],
+    [
+     995.9,
+     590.0
+    ],
+    [
+     152.0,
+     538.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    743
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "rotation"
+   ],
+   "query": "NF-V1-p125-000",
+   "candidate": "ppmsca.32853",
+   "loc_id": "2012647719",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p125-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32853_v.jpg"
+  },
+  "NF-V1-p125-000|ppmsca.32840": {
+   "status": "ok",
+   "good": 423,
+   "inliers": 417,
+   "inlier_fraction": 0.986,
+   "scale": 0.831,
+   "rotation_deg": 4.14,
+   "anisotropy": 1.038,
+   "perspective": 0.026,
+   "median_residual_px": 0.41,
+   "p90_residual_px": 0.79,
+   "footprint_share_of_candidate": 0.565,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     178.6,
+     46.1
+    ],
+    [
+     1026.5,
+     107.0
+    ],
+    [
+     986.6,
+     620.4
+    ],
+    [
+     148.4,
+     567.3
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    770
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "rotation"
+   ],
+   "query": "NF-V1-p125-000",
+   "candidate": "ppmsca.32840",
+   "loc_id": "2012647706",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p125-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32840_v.jpg"
+  },
+  "NF-V1-p159-000|ppmsca.35051": {
+   "status": "ok",
+   "good": 81,
+   "inliers": 50,
+   "inlier_fraction": 0.617,
+   "scale": 0.308,
+   "rotation_deg": -0.0,
+   "anisotropy": 1.013,
+   "perspective": 0.004,
+   "median_residual_px": 0.12,
+   "p90_residual_px": 0.35,
+   "footprint_share_of_candidate": 0.056,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     125.4,
+     320.4
+    ],
+    [
+     439.9,
+     320.5
+    ],
+    [
+     439.7,
+     459.9
+    ],
+    [
+     126.2,
+     459.8
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    801
+   ],
+   "query_frame_px": [
+    1024,
+    455
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "inlier_fraction"
+   ],
+   "query": "NF-V1-p159-000",
+   "candidate": "ppmsca.35051",
+   "loc_id": "2014646001",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p159-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.35051_v.jpg"
+  },
+  "NF-V1-p243-000|cwpb.01631": {
+   "status": "ok",
+   "good": 98,
+   "inliers": 89,
+   "inlier_fraction": 0.908,
+   "scale": 0.391,
+   "rotation_deg": 0.1,
+   "anisotropy": 1.013,
+   "perspective": 0.004,
+   "median_residual_px": 0.12,
+   "p90_residual_px": 0.37,
+   "footprint_share_of_candidate": 0.1,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     481.5,
+     372.4
+    ],
+    [
+     880.2,
+     372.8
+    ],
+    [
+     880.1,
+     624.4
+    ],
+    [
+     482.6,
+     624.2
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    1012
+   ],
+   "query_frame_px": [
+    1024,
+    648
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p243-000",
+   "candidate": "cwpb.01631",
+   "loc_id": "2018666303",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p243-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.01631_v.jpg"
+  },
+  "NF-V1-p243-000|LOC2018666303-L": {
+   "status": "ok",
+   "good": 88,
+   "inliers": 83,
+   "inlier_fraction": 0.943,
+   "scale": 0.394,
+   "rotation_deg": 0.29,
+   "anisotropy": 1.02,
+   "perspective": 0.008,
+   "median_residual_px": 0.11,
+   "p90_residual_px": 0.35,
+   "footprint_share_of_candidate": 0.1,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     479.9,
+     372.5
+    ],
+    [
+     880.0,
+     373.1
+    ],
+    [
+     879.9,
+     624.5
+    ],
+    [
+     481.5,
+     624.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    1012
+   ],
+   "query_frame_px": [
+    1024,
+    648
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p243-000",
+   "candidate": "LOC2018666303-L",
+   "loc_id": "2018666303",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p243-000_pos.png",
+   "candidate_file": "tmp/photomatch/img/LOC2018666303-L_3200.jpg"
+  },
+  "NF-V1-p243-000|cwp.4a39686": {
+   "status": "ok",
+   "good": 88,
+   "inliers": 83,
+   "inlier_fraction": 0.943,
+   "scale": 0.29,
+   "rotation_deg": 0.53,
+   "anisotropy": 1.157,
+   "perspective": 0.059,
+   "median_residual_px": 0.61,
+   "p90_residual_px": 1.97,
+   "footprint_share_of_candidate": 0.12,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     277.9,
+     225.8
+    ],
+    [
+     578.8,
+     225.5
+    ],
+    [
+     579.8,
+     422.1
+    ],
+    [
+     264.9,
+     425.5
+    ]
+   ],
+   "candidate_frame_px": [
+    776,
+    686
+   ],
+   "query_frame_px": [
+    1024,
+    648
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "anisotropy"
+   ],
+   "query": "NF-V1-p243-000",
+   "candidate": "cwp.4a39686",
+   "loc_id": "2018666303",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p243-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a39686_r.jpg"
+  },
+  "NF-V1-p251-000|cwpb.01631": {
+   "status": "ok",
+   "good": 98,
+   "inliers": 87,
+   "inlier_fraction": 0.888,
+   "scale": 0.391,
+   "rotation_deg": 0.11,
+   "anisotropy": 1.012,
+   "perspective": 0.004,
+   "median_residual_px": 0.12,
+   "p90_residual_px": 0.37,
+   "footprint_share_of_candidate": 0.1,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     481.5,
+     372.4
+    ],
+    [
+     880.2,
+     372.8
+    ],
+    [
+     880.1,
+     624.4
+    ],
+    [
+     482.6,
+     624.2
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    1012
+   ],
+   "query_frame_px": [
+    1024,
+    648
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p251-000",
+   "candidate": "cwpb.01631",
+   "loc_id": "2018666303",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p251-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.01631_v.jpg"
+  },
+  "NF-V1-p251-000|LOC2018666303-L": {
+   "status": "ok",
+   "good": 89,
+   "inliers": 84,
+   "inlier_fraction": 0.944,
+   "scale": 0.39,
+   "rotation_deg": 0.0,
+   "anisotropy": 1.011,
+   "perspective": 0.003,
+   "median_residual_px": 0.1,
+   "p90_residual_px": 0.35,
+   "footprint_share_of_candidate": 0.1,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     481.3,
+     373.2
+    ],
+    [
+     880.0,
+     373.1
+    ],
+    [
+     879.9,
+     624.6
+    ],
+    [
+     482.4,
+     624.7
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    1012
+   ],
+   "query_frame_px": [
+    1024,
+    648
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p251-000",
+   "candidate": "LOC2018666303-L",
+   "loc_id": "2018666303",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p251-000_pos.png",
+   "candidate_file": "tmp/photomatch/img/LOC2018666303-L_3200.jpg"
+  },
+  "NF-V1-p251-000|cwp.4a39686": {
+   "status": "ok",
+   "good": 92,
+   "inliers": 83,
+   "inlier_fraction": 0.902,
+   "scale": 0.291,
+   "rotation_deg": 0.47,
+   "anisotropy": 1.153,
+   "perspective": 0.057,
+   "median_residual_px": 0.63,
+   "p90_residual_px": 1.97,
+   "footprint_share_of_candidate": 0.12,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     277.8,
+     225.8
+    ],
+    [
+     578.9,
+     225.3
+    ],
+    [
+     579.8,
+     422.1
+    ],
+    [
+     265.1,
+     425.5
+    ]
+   ],
+   "candidate_frame_px": [
+    776,
+    686
+   ],
+   "query_frame_px": [
+    1024,
+    648
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "anisotropy"
+   ],
+   "query": "NF-V1-p251-000",
+   "candidate": "cwp.4a39686",
+   "loc_id": "2018666303",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p251-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a39686_r.jpg"
+  },
+  "NF-V1-p253-000|cwp.4a39437": {
+   "status": "ok",
+   "good": 299,
+   "inliers": 291,
+   "inlier_fraction": 0.973,
+   "scale": 0.821,
+   "rotation_deg": 2.34,
+   "anisotropy": 1.023,
+   "perspective": 0.065,
+   "median_residual_px": 0.92,
+   "p90_residual_px": 2.09,
+   "footprint_share_of_candidate": 0.717,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -259.0,
+     107.1
+    ],
+    [
+     581.3,
+     139.5
+    ],
+    [
+     585.7,
+     689.8
+    ],
+    [
+     -298.1,
+     664.7
+    ]
+   ],
+   "candidate_frame_px": [
+    664,
+    680
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p253-000",
+   "candidate": "cwp.4a39437",
+   "loc_id": "2018666296",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p253-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a39437_r.jpg"
+  },
+  "NF-V1-p253-000|cwpb.00887": {
+   "status": "ok",
+   "good": 238,
+   "inliers": 225,
+   "inlier_fraction": 0.945,
+   "scale": 1.1,
+   "rotation_deg": 1.94,
+   "anisotropy": 1.028,
+   "perspective": 0.059,
+   "median_residual_px": 0.65,
+   "p90_residual_px": 1.6,
+   "footprint_share_of_candidate": 0.627,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -327.5,
+     187.2
+    ],
+    [
+     800.7,
+     222.2
+    ],
+    [
+     807.0,
+     953.1
+    ],
+    [
+     -371.7,
+     928.8
+    ]
+   ],
+   "candidate_frame_px": [
+    932,
+    1024
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p253-000",
+   "candidate": "cwpb.00887",
+   "loc_id": "2018666296",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p253-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00887_v.jpg"
+  },
+  "NF-V1-p265-000|cwpb.01655": {
+   "status": "ok",
+   "good": 573,
+   "inliers": 571,
+   "inlier_fraction": 0.997,
+   "scale": 0.897,
+   "rotation_deg": 0.32,
+   "anisotropy": 1.032,
+   "perspective": 0.046,
+   "median_residual_px": 0.6,
+   "p90_residual_px": 1.35,
+   "footprint_share_of_candidate": 0.69,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     48.1,
+     74.6
+    ],
+    [
+     938.8,
+     78.0
+    ],
+    [
+     934.8,
+     883.1
+    ],
+    [
+     64.8,
+     897.0
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    1024
+   ],
+   "query_frame_px": [
+    1024,
+    933
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p265-000",
+   "candidate": "cwpb.01655",
+   "loc_id": "2018670709",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p265-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.01655_v.jpg"
+  },
+  "NF-V1-p265-000|cwpb.01656": {
+   "status": "ok",
+   "good": 288,
+   "inliers": 273,
+   "inlier_fraction": 0.948,
+   "scale": 0.9,
+   "rotation_deg": 0.54,
+   "anisotropy": 1.123,
+   "perspective": 0.053,
+   "median_residual_px": 0.78,
+   "p90_residual_px": 1.95,
+   "footprint_share_of_candidate": 0.649,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     149.4,
+     66.7
+    ],
+    [
+     1038.6,
+     73.5
+    ],
+    [
+     1092.4,
+     877.0
+    ],
+    [
+     230.9,
+     888.2
+    ]
+   ],
+   "candidate_frame_px": [
+    1015,
+    1024
+   ],
+   "query_frame_px": [
+    1024,
+    933
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "anisotropy"
+   ],
+   "query": "NF-V1-p265-000",
+   "candidate": "cwpb.01656",
+   "loc_id": "2018670709",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p265-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.01656_v.jpg"
+  },
+  "NF-V1-p277-000|cwpb.00887": {
+   "status": "ok",
+   "good": 402,
+   "inliers": 394,
+   "inlier_fraction": 0.98,
+   "scale": 0.507,
+   "rotation_deg": -0.0,
+   "anisotropy": 1.0,
+   "perspective": 0.0,
+   "median_residual_px": 0.14,
+   "p90_residual_px": 0.35,
+   "footprint_share_of_candidate": 0.182,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     325.6,
+     438.0
+    ],
+    [
+     845.4,
+     437.9
+    ],
+    [
+     845.5,
+     766.3
+    ],
+    [
+     325.6,
+     766.4
+    ]
+   ],
+   "candidate_frame_px": [
+    932,
+    1024
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p277-000",
+   "candidate": "cwpb.00887",
+   "loc_id": "2018666296",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p277-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00887_v.jpg"
+  },
+  "NF-V1-p277-000|cwp.4a39437": {
+   "status": "ok",
+   "good": 192,
+   "inliers": 181,
+   "inlier_fraction": 0.943,
+   "scale": 0.38,
+   "rotation_deg": 1.02,
+   "anisotropy": 1.013,
+   "perspective": 0.015,
+   "median_residual_px": 0.41,
+   "p90_residual_px": 0.87,
+   "footprint_share_of_candidate": 0.216,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     226.8,
+     298.3
+    ],
+    [
+     612.8,
+     302.4
+    ],
+    [
+     613.2,
+     547.9
+    ],
+    [
+     224.9,
+     546.1
+    ]
+   ],
+   "candidate_frame_px": [
+    664,
+    680
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p277-000",
+   "candidate": "cwp.4a39437",
+   "loc_id": "2018666296",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p277-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a39437_r.jpg"
+  },
+  "NF-V1-p282-000|cwpb.00887": {
+   "status": "ok",
+   "good": 204,
+   "inliers": 185,
+   "inlier_fraction": 0.907,
+   "scale": 0.411,
+   "rotation_deg": -0.05,
+   "anisotropy": 1.002,
+   "perspective": 0.001,
+   "median_residual_px": 0.14,
+   "p90_residual_px": 0.39,
+   "footprint_share_of_candidate": 0.12,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     401.5,
+     438.0
+    ],
+    [
+     822.6,
+     437.9
+    ],
+    [
+     822.6,
+     703.4
+    ],
+    [
+     401.7,
+     703.3
+    ]
+   ],
+   "candidate_frame_px": [
+    932,
+    1024
+   ],
+   "query_frame_px": [
+    1024,
+    646
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p282-000",
+   "candidate": "cwpb.00887",
+   "loc_id": "2018666296",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p282-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00887_v.jpg"
+  },
+  "NF-V1-p282-000|cwp.4a39437": {
+   "status": "ok",
+   "good": 85,
+   "inliers": 68,
+   "inlier_fraction": 0.8,
+   "scale": 0.307,
+   "rotation_deg": 0.98,
+   "anisotropy": 1.014,
+   "perspective": 0.011,
+   "median_residual_px": 0.41,
+   "p90_residual_px": 0.88,
+   "footprint_share_of_candidate": 0.142,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     283.5,
+     299.1
+    ],
+    [
+     596.0,
+     302.5
+    ],
+    [
+     596.2,
+     500.5
+    ],
+    [
+     282.5,
+     498.4
+    ]
+   ],
+   "candidate_frame_px": [
+    664,
+    680
+   ],
+   "query_frame_px": [
+    1024,
+    646
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p282-000",
+   "candidate": "cwp.4a39437",
+   "loc_id": "2018666296",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p282-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a39437_r.jpg"
+  },
+  "NF-V1-p283-000|cwpb.00887": {
+   "status": "ok",
+   "good": 1053,
+   "inliers": 1045,
+   "inlier_fraction": 0.992,
+   "scale": 0.818,
+   "rotation_deg": -0.01,
+   "anisotropy": 1.0,
+   "perspective": 0.0,
+   "median_residual_px": 0.16,
+   "p90_residual_px": 0.38,
+   "footprint_share_of_candidate": 0.476,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     36.9,
+     370.9
+    ],
+    [
+     874.6,
+     370.9
+    ],
+    [
+     874.6,
+     902.7
+    ],
+    [
+     36.9,
+     902.6
+    ]
+   ],
+   "candidate_frame_px": [
+    932,
+    1024
+   ],
+   "query_frame_px": [
+    1024,
+    650
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p283-000",
+   "candidate": "cwpb.00887",
+   "loc_id": "2018666296",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p283-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00887_v.jpg"
+  },
+  "NF-V1-p283-000|cwp.4a39437": {
+   "status": "ok",
+   "good": 465,
+   "inliers": 456,
+   "inlier_fraction": 0.981,
+   "scale": 0.609,
+   "rotation_deg": 0.57,
+   "anisotropy": 1.006,
+   "perspective": 0.015,
+   "median_residual_px": 0.49,
+   "p90_residual_px": 1.19,
+   "footprint_share_of_candidate": 0.565,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     12.2,
+     247.1
+    ],
+    [
+     634.6,
+     252.1
+    ],
+    [
+     635.8,
+     651.6
+    ],
+    [
+     7.1,
+     648.4
+    ]
+   ],
+   "candidate_frame_px": [
+    664,
+    680
+   ],
+   "query_frame_px": [
+    1024,
+    650
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p283-000",
+   "candidate": "cwp.4a39437",
+   "loc_id": "2018666296",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p283-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a39437_r.jpg"
+  },
+  "NF-V1-p307-000|ppmsca.32838": {
+   "status": "ok",
+   "good": 674,
+   "inliers": 661,
+   "inlier_fraction": 0.981,
+   "scale": 0.816,
+   "rotation_deg": 0.13,
+   "anisotropy": 1.029,
+   "perspective": 0.029,
+   "median_residual_px": 0.65,
+   "p90_residual_px": 1.28,
+   "footprint_share_of_candidate": 0.628,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     40.7,
+     101.7
+    ],
+    [
+     907.9,
+     105.9
+    ],
+    [
+     897.3,
+     602.1
+    ],
+    [
+     36.2,
+     587.1
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    673
+   ],
+   "query_frame_px": [
+    1024,
+    608
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p307-000",
+   "candidate": "ppmsca.32838",
+   "loc_id": "2012647704",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p307-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32838_v.jpg"
+  },
+  "NF-V1-p317-000|cwpb.01644": {
+   "status": "ok",
+   "good": 333,
+   "inliers": 282,
+   "inlier_fraction": 0.847,
+   "scale": 0.726,
+   "rotation_deg": 2.31,
+   "anisotropy": 1.05,
+   "perspective": 0.015,
+   "median_residual_px": 2.4,
+   "p90_residual_px": 4.01,
+   "footprint_share_of_candidate": 0.533,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     173.8,
+     95.8
+    ],
+    [
+     903.6,
+     124.4
+    ],
+    [
+     877.5,
+     839.1
+    ],
+    [
+     149.9,
+     818.8
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    974
+   ],
+   "query_frame_px": [
+    995,
+    1024
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p317-000",
+   "candidate": "cwpb.01644",
+   "loc_id": "2018670704",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p317-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.01644_v.jpg"
+  },
+  "NF-V1-p317-000|cwpb.01643": {
+   "status": "ok",
+   "good": 254,
+   "inliers": 193,
+   "inlier_fraction": 0.76,
+   "scale": 0.694,
+   "rotation_deg": 1.34,
+   "anisotropy": 1.035,
+   "perspective": 0.014,
+   "median_residual_px": 1.86,
+   "p90_residual_px": 3.85,
+   "footprint_share_of_candidate": 0.526,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     243.2,
+     136.7
+    ],
+    [
+     950.6,
+     154.1
+    ],
+    [
+     930.1,
+     865.0
+    ],
+    [
+     217.2,
+     842.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    955
+   ],
+   "query_frame_px": [
+    995,
+    1024
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "inlier_fraction"
+   ],
+   "query": "NF-V1-p317-000",
+   "candidate": "cwpb.01643",
+   "loc_id": "2018670704",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p317-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.01643_v.jpg"
+  },
+  "NF-V1-p432-000|cph.3g01831": {
+   "status": "ok",
+   "good": 794,
+   "inliers": 781,
+   "inlier_fraction": 0.984,
+   "scale": 0.786,
+   "rotation_deg": 2.94,
+   "anisotropy": 1.045,
+   "perspective": 0.017,
+   "median_residual_px": 0.3,
+   "p90_residual_px": 0.84,
+   "footprint_share_of_candidate": 0.478,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     132.5,
+     145.7
+    ],
+    [
+     939.6,
+     185.1
+    ],
+    [
+     915.7,
+     673.3
+    ],
+    [
+     110.2,
+     641.3
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    829
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p432-000",
+   "candidate": "cph.3g01831",
+   "loc_id": "91732551",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p432-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cph.3g01831_v.jpg"
+  },
+  "NF-V1-p432-000|cwpb.00903": {
+   "status": "ok",
+   "good": 659,
+   "inliers": 636,
+   "inlier_fraction": 0.965,
+   "scale": 1.023,
+   "rotation_deg": 1.93,
+   "anisotropy": 1.034,
+   "perspective": 0.03,
+   "median_residual_px": 1.9,
+   "p90_residual_px": 3.48,
+   "footprint_share_of_candidate": 0.628,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     51.0,
+     166.9
+    ],
+    [
+     1081.6,
+     199.1
+    ],
+    [
+     1066.8,
+     839.0
+    ],
+    [
+     50.2,
+     817.0
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    984
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p432-000",
+   "candidate": "cwpb.00903",
+   "loc_id": "2018670894",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p432-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00903_v.jpg"
+  },
+  "NF-V1-p432-000|cwpb.00905": {
+   "status": "ok",
+   "good": 608,
+   "inliers": 585,
+   "inlier_fraction": 0.962,
+   "scale": 0.913,
+   "rotation_deg": 1.65,
+   "anisotropy": 1.056,
+   "perspective": 0.027,
+   "median_residual_px": 1.25,
+   "p90_residual_px": 3.2,
+   "footprint_share_of_candidate": 0.512,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -62.7,
+     261.0
+    ],
+    [
+     880.9,
+     283.8
+    ],
+    [
+     886.0,
+     859.5
+    ],
+    [
+     -67.4,
+     846.1
+    ]
+   ],
+   "candidate_frame_px": [
+    994,
+    1024
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p432-000",
+   "candidate": "cwpb.00905",
+   "loc_id": "2018670894",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p432-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00905_v.jpg"
+  },
+  "NF-V1-p433-000|ppmsca.32834": {
+   "status": "ok",
+   "good": 224,
+   "inliers": 198,
+   "inlier_fraction": 0.884,
+   "scale": 0.333,
+   "rotation_deg": -0.0,
+   "anisotropy": 1.003,
+   "perspective": 0.003,
+   "median_residual_px": 0.26,
+   "p90_residual_px": 0.72,
+   "footprint_share_of_candidate": 0.116,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     607.8,
+     337.8
+    ],
+    [
+     949.9,
+     338.3
+    ],
+    [
+     949.0,
+     553.3
+    ],
+    [
+     607.4,
+     552.5
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    643
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V1-p433-000",
+   "candidate": "ppmsca.32834",
+   "loc_id": "2012647700",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v1_p433-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32834_v.jpg"
+  },
+  "NF-V2-p114-000|cwpb.00865": {
+   "status": "ok",
+   "good": 897,
+   "inliers": 882,
+   "inlier_fraction": 0.983,
+   "scale": 0.896,
+   "rotation_deg": -0.27,
+   "anisotropy": 1.003,
+   "perspective": 0.01,
+   "median_residual_px": 0.46,
+   "p90_residual_px": 0.92,
+   "footprint_share_of_candidate": 0.757,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     59.1,
+     80.3
+    ],
+    [
+     981.8,
+     76.3
+    ],
+    [
+     988.0,
+     908.9
+    ],
+    [
+     60.6,
+     909.0
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    1007
+   ],
+   "query_frame_px": [
+    1024,
+    920
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p114-000",
+   "candidate": "cwpb.00865",
+   "loc_id": "2018666308",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p114-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00865_v.jpg"
+  },
+  "NF-V2-p114-000|cwpb.00864": {
+   "status": "ok",
+   "good": 573,
+   "inliers": 402,
+   "inlier_fraction": 0.702,
+   "scale": 0.867,
+   "rotation_deg": -1.28,
+   "anisotropy": 1.082,
+   "perspective": 0.051,
+   "median_residual_px": 2.67,
+   "p90_residual_px": 5.01,
+   "footprint_share_of_candidate": 0.765,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     25.9,
+     108.1
+    ],
+    [
+     939.9,
+     91.4
+    ],
+    [
+     911.2,
+     938.8
+    ],
+    [
+     -18.7,
+     927.8
+    ]
+   ],
+   "candidate_frame_px": [
+    990,
+    1024
+   ],
+   "query_frame_px": [
+    1024,
+    920
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "inlier_fraction",
+    "anisotropy"
+   ],
+   "query": "NF-V2-p114-000",
+   "candidate": "cwpb.00864",
+   "loc_id": "2018666308",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p114-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00864_v.jpg"
+  },
+  "NF-V2-p114-000|cwp.4a39433": {
+   "status": "ok",
+   "good": 343,
+   "inliers": 279,
+   "inlier_fraction": 0.813,
+   "scale": 0.64,
+   "rotation_deg": 0.08,
+   "anisotropy": 1.052,
+   "perspective": 0.013,
+   "median_residual_px": 4.15,
+   "p90_residual_px": 7.09,
+   "footprint_share_of_candidate": 0.843,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -9.1,
+     42.9
+    ],
+    [
+     638.1,
+     43.5
+    ],
+    [
+     611.8,
+     635.4
+    ],
+    [
+     -39.4,
+     639.0
+    ]
+   ],
+   "candidate_frame_px": [
+    654,
+    681
+   ],
+   "query_frame_px": [
+    1024,
+    920
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "residual"
+   ],
+   "query": "NF-V2-p114-000",
+   "candidate": "cwp.4a39433",
+   "loc_id": "2018666308",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p114-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a39433_r.jpg"
+  },
+  "NF-V2-p120-000|cwpb.00882": {
+   "status": "ok",
+   "good": 272,
+   "inliers": 268,
+   "inlier_fraction": 0.985,
+   "scale": 0.612,
+   "rotation_deg": -0.76,
+   "anisotropy": 1.025,
+   "perspective": 0.006,
+   "median_residual_px": 0.19,
+   "p90_residual_px": 0.45,
+   "footprint_share_of_candidate": 0.18,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     37.9,
+     220.5
+    ],
+    [
+     575.3,
+     214.6
+    ],
+    [
+     577.9,
+     545.9
+    ],
+    [
+     40.4,
+     549.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    989
+   ],
+   "query_frame_px": [
+    863,
+    545
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p120-000",
+   "candidate": "cwpb.00882",
+   "loc_id": "2018666310",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p120-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00882_v.jpg"
+  },
+  "NF-V2-p120-000|cwpb.00881": {
+   "status": "ok",
+   "good": 163,
+   "inliers": 148,
+   "inlier_fraction": 0.908,
+   "scale": 0.616,
+   "rotation_deg": -1.13,
+   "anisotropy": 1.066,
+   "perspective": 0.03,
+   "median_residual_px": 0.6,
+   "p90_residual_px": 1.6,
+   "footprint_share_of_candidate": 0.181,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     32.5,
+     217.9
+    ],
+    [
+     579.3,
+     212.0
+    ],
+    [
+     602.4,
+     548.2
+    ],
+    [
+     59.9,
+     546.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    1008
+   ],
+   "query_frame_px": [
+    863,
+    545
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "anisotropy"
+   ],
+   "query": "NF-V2-p120-000",
+   "candidate": "cwpb.00881",
+   "loc_id": "2018666310",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p120-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00881_v.jpg"
+  },
+  "NF-V2-p120-000|cwp.4a40432": {
+   "status": "ok",
+   "good": 150,
+   "inliers": 138,
+   "inlier_fraction": 0.92,
+   "scale": 0.446,
+   "rotation_deg": -0.6,
+   "anisotropy": 1.026,
+   "perspective": 0.01,
+   "median_residual_px": 0.52,
+   "p90_residual_px": 1.16,
+   "footprint_share_of_candidate": 0.199,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     5.8,
+     143.6
+    ],
+    [
+     397.6,
+     140.4
+    ],
+    [
+     395.6,
+     380.4
+    ],
+    [
+     5.7,
+     382.3
+    ]
+   ],
+   "candidate_frame_px": [
+    702,
+    682
+   ],
+   "query_frame_px": [
+    863,
+    545
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p120-000",
+   "candidate": "cwp.4a40432",
+   "loc_id": "2018666310",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p120-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a40432_r.jpg"
+  },
+  "NF-V2-p121-000|cwpb.00846": {
+   "status": "ok",
+   "good": 775,
+   "inliers": 766,
+   "inlier_fraction": 0.988,
+   "scale": 0.779,
+   "rotation_deg": -0.7,
+   "anisotropy": 1.01,
+   "perspective": 0.014,
+   "median_residual_px": 0.35,
+   "p90_residual_px": 0.78,
+   "footprint_share_of_candidate": 0.54,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     128.6,
+     139.9
+    ],
+    [
+     928.1,
+     130.9
+    ],
+    [
+     929.7,
+     779.9
+    ],
+    [
+     136.5,
+     784.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    945
+   ],
+   "query_frame_px": [
+    1024,
+    832
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p121-000",
+   "candidate": "cwpb.00846",
+   "loc_id": "2018670660",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p121-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00846_v.jpg"
+  },
+  "NF-V2-p121-000|cwpb.00847": {
+   "status": "ok",
+   "good": 744,
+   "inliers": 736,
+   "inlier_fraction": 0.989,
+   "scale": 0.778,
+   "rotation_deg": -0.74,
+   "anisotropy": 1.01,
+   "perspective": 0.013,
+   "median_residual_px": 0.35,
+   "p90_residual_px": 0.75,
+   "footprint_share_of_candidate": 0.551,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     133.2,
+     123.2
+    ],
+    [
+     932.4,
+     113.6
+    ],
+    [
+     934.7,
+     763.4
+    ],
+    [
+     140.8,
+     768.6
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    930
+   ],
+   "query_frame_px": [
+    1024,
+    832
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p121-000",
+   "candidate": "cwpb.00847",
+   "loc_id": "2018670660",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p121-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00847_v.jpg"
+  },
+  "NF-V2-p121-000|cwpb.00845": {
+   "status": "ok",
+   "good": 552,
+   "inliers": 541,
+   "inlier_fraction": 0.98,
+   "scale": 0.748,
+   "rotation_deg": 0.33,
+   "anisotropy": 1.004,
+   "perspective": 0.008,
+   "median_residual_px": 0.32,
+   "p90_residual_px": 0.73,
+   "footprint_share_of_candidate": 0.579,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     131.9,
+     79.5
+    ],
+    [
+     895.3,
+     83.7
+    ],
+    [
+     890.1,
+     701.3
+    ],
+    [
+     130.4,
+     699.0
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    814
+   ],
+   "query_frame_px": [
+    1024,
+    832
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p121-000",
+   "candidate": "cwpb.00845",
+   "loc_id": "2018670660",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p121-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00845_v.jpg"
+  },
+  "NF-V2-p122-000|cwpb.00068": {
+   "status": "ok",
+   "good": 264,
+   "inliers": 231,
+   "inlier_fraction": 0.875,
+   "scale": 0.384,
+   "rotation_deg": -0.13,
+   "anisotropy": 1.018,
+   "perspective": 0.008,
+   "median_residual_px": 0.24,
+   "p90_residual_px": 0.47,
+   "footprint_share_of_candidate": 0.297,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     532.3,
+     48.4
+    ],
+    [
+     928.6,
+     47.8
+    ],
+    [
+     929.6,
+     360.6
+    ],
+    [
+     532.5,
+     359.1
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    422
+   ],
+   "query_frame_px": [
+    1024,
+    800
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p122-000",
+   "candidate": "cwpb.00068",
+   "loc_id": "2018672106",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p122-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00068_v.jpg"
+  },
+  "NF-V2-p123-000|cwpb.00854": {
+   "status": "ok",
+   "good": 698,
+   "inliers": 692,
+   "inlier_fraction": 0.991,
+   "scale": 0.794,
+   "rotation_deg": -0.49,
+   "anisotropy": 1.011,
+   "perspective": 0.011,
+   "median_residual_px": 0.32,
+   "p90_residual_px": 0.75,
+   "footprint_share_of_candidate": 0.51,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     110.1,
+     175.6
+    ],
+    [
+     928.1,
+     170.3
+    ],
+    [
+     931.5,
+     698.3
+    ],
+    [
+     112.0,
+     698.7
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    835
+   ],
+   "query_frame_px": [
+    1024,
+    654
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p123-000",
+   "candidate": "cwpb.00854",
+   "loc_id": "2018670703",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p123-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00854_v.jpg"
+  },
+  "NF-V2-p123-000|cwpb.00852": {
+   "status": "ok",
+   "good": 411,
+   "inliers": 396,
+   "inlier_fraction": 0.964,
+   "scale": 0.751,
+   "rotation_deg": 0.14,
+   "anisotropy": 1.099,
+   "perspective": 0.007,
+   "median_residual_px": 1.33,
+   "p90_residual_px": 3.06,
+   "footprint_share_of_candidate": 0.476,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     192.5,
+     166.0
+    ],
+    [
+     960.1,
+     168.2
+    ],
+    [
+     917.7,
+     665.4
+    ],
+    [
+     145.8,
+     662.4
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    800
+   ],
+   "query_frame_px": [
+    1024,
+    654
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "anisotropy"
+   ],
+   "query": "NF-V2-p123-000",
+   "candidate": "cwpb.00852",
+   "loc_id": "2018670703",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p123-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00852_v.jpg"
+  },
+  "NF-V2-p123-000|cwpb.00853": {
+   "status": "ok",
+   "good": 298,
+   "inliers": 289,
+   "inlier_fraction": 0.97,
+   "scale": 0.716,
+   "rotation_deg": 0.95,
+   "anisotropy": 1.097,
+   "perspective": 0.003,
+   "median_residual_px": 1.26,
+   "p90_residual_px": 3.32,
+   "footprint_share_of_candidate": 0.394,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     208.2,
+     189.5
+    ],
+    [
+     936.3,
+     201.3
+    ],
+    [
+     884.0,
+     668.8
+    ],
+    [
+     157.2,
+     657.8
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    863
+   ],
+   "query_frame_px": [
+    1024,
+    654
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "anisotropy"
+   ],
+   "query": "NF-V2-p123-000",
+   "candidate": "cwpb.00853",
+   "loc_id": "2018670703",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p123-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00853_v.jpg"
+  },
+  "NF-V2-p152-000|cwpb.03971": {
+   "status": "ok",
+   "good": 809,
+   "inliers": 804,
+   "inlier_fraction": 0.994,
+   "scale": 0.891,
+   "rotation_deg": -0.56,
+   "anisotropy": 1.032,
+   "perspective": 0.011,
+   "median_residual_px": 0.36,
+   "p90_residual_px": 0.7,
+   "footprint_share_of_candidate": 0.633,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     28.3,
+     215.9
+    ],
+    [
+     962.7,
+     208.4
+    ],
+    [
+     966.4,
+     780.7
+    ],
+    [
+     35.7,
+     783.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    830
+   ],
+   "query_frame_px": [
+    1024,
+    651
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p152-000",
+   "candidate": "cwpb.03971",
+   "loc_id": "2018672207",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p152-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.03971_v.jpg"
+  },
+  "NF-V2-p329-002|ppmsca.35051": {
+   "status": "ok",
+   "good": 321,
+   "inliers": 311,
+   "inlier_fraction": 0.969,
+   "scale": 0.466,
+   "rotation_deg": -0.04,
+   "anisotropy": 1.002,
+   "perspective": 0.001,
+   "median_residual_px": 0.14,
+   "p90_residual_px": 0.37,
+   "footprint_share_of_candidate": 0.181,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     265.5,
+     324.2
+    ],
+    [
+     743.0,
+     324.0
+    ],
+    [
+     743.2,
+     625.9
+    ],
+    [
+     265.4,
+     625.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    801
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p329-002",
+   "candidate": "ppmsca.35051",
+   "loc_id": "2014646001",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p329-002_pos.png",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.35051_v.jpg"
+  },
+  "NF-V2-p344-000|cwpb.00887": {
+   "status": "ok",
+   "good": 361,
+   "inliers": 350,
+   "inlier_fraction": 0.97,
+   "scale": 0.441,
+   "rotation_deg": 0.01,
+   "anisotropy": 1.002,
+   "perspective": 0.001,
+   "median_residual_px": 0.14,
+   "p90_residual_px": 0.33,
+   "footprint_share_of_candidate": 0.139,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     45.4,
+     626.2
+    ],
+    [
+     496.7,
+     626.3
+    ],
+    [
+     496.7,
+     911.3
+    ],
+    [
+     45.6,
+     911.3
+    ]
+   ],
+   "candidate_frame_px": [
+    932,
+    1024
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p344-000",
+   "candidate": "cwpb.00887",
+   "loc_id": "2018666296",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p344-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00887_v.jpg"
+  },
+  "NF-V2-p344-000|cwp.4a39437": {
+   "status": "ok",
+   "good": 205,
+   "inliers": 199,
+   "inlier_fraction": 0.971,
+   "scale": 0.331,
+   "rotation_deg": 0.1,
+   "anisotropy": 1.016,
+   "perspective": 0.004,
+   "median_residual_px": 0.39,
+   "p90_residual_px": 0.84,
+   "footprint_share_of_candidate": 0.165,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     16.4,
+     438.8
+    ],
+    [
+     354.3,
+     440.8
+    ],
+    [
+     352.5,
+     656.9
+    ],
+    [
+     14.9,
+     654.2
+    ]
+   ],
+   "candidate_frame_px": [
+    664,
+    680
+   ],
+   "query_frame_px": [
+    1024,
+    647
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "NF-V2-p344-000",
+   "candidate": "cwp.4a39437",
+   "loc_id": "2018666296",
+   "kind": "figures",
+   "query_file": "tmp/photomatch/nps_pdf/pos/v2_p344-000_pos.png",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a39437_r.jpg"
+  },
+  "MMET268204|ppmsca.35052": {
+   "status": "ok",
+   "good": 230,
+   "inliers": 209,
+   "inlier_fraction": 0.909,
+   "scale": 0.518,
+   "rotation_deg": 1.43,
+   "anisotropy": 1.051,
+   "perspective": 0.022,
+   "median_residual_px": 0.27,
+   "p90_residual_px": 0.85,
+   "footprint_share_of_candidate": 0.387,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     7.8,
+     126.2
+    ],
+    [
+     540.6,
+     137.2
+    ],
+    [
+     533.4,
+     526.6
+    ],
+    [
+     1.9,
+     523.1
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    511
+   ],
+   "query_frame_px": [
+    1024,
+    788
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "MMET268204",
+   "candidate": "ppmsca.35052",
+   "loc_id": "2014646002",
+   "kind": "met",
+   "query_file": "tmp/photomatch/img/MET268204_1600.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.35052_v.jpg"
+  },
+  "MMET268205|ppmsca.35052": {
+   "status": "ok",
+   "good": 230,
+   "inliers": 209,
+   "inlier_fraction": 0.909,
+   "scale": 0.52,
+   "rotation_deg": 0.74,
+   "anisotropy": 1.042,
+   "perspective": 0.021,
+   "median_residual_px": 0.21,
+   "p90_residual_px": 0.58,
+   "footprint_share_of_candidate": 0.386,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     456.2,
+     128.9
+    ],
+    [
+     984.6,
+     134.1
+    ],
+    [
+     981.6,
+     518.0
+    ],
+    [
+     457.4,
+     517.8
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    511
+   ],
+   "query_frame_px": [
+    1024,
+    768
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "MMET268205",
+   "candidate": "ppmsca.35052",
+   "loc_id": "2014646002",
+   "kind": "met",
+   "query_file": "tmp/photomatch/img/MET268205_1600.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.35052_v.jpg"
+  },
+  "MMET268201|cwpb.01662": {
+   "status": "ok",
+   "good": 555,
+   "inliers": 320,
+   "inlier_fraction": 0.577,
+   "scale": 1.135,
+   "rotation_deg": 1.78,
+   "anisotropy": 1.138,
+   "perspective": 0.136,
+   "median_residual_px": 2.13,
+   "p90_residual_px": 3.6,
+   "footprint_share_of_candidate": 0.822,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -53.0,
+     -16.3
+    ],
+    [
+     1063.7,
+     18.8
+    ],
+    [
+     1036.3,
+     840.0
+    ],
+    [
+     30.1,
+     827.1
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    1013
+   ],
+   "query_frame_px": [
+    1024,
+    808
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "inlier_fraction",
+    "anisotropy"
+   ],
+   "query": "MMET268201",
+   "candidate": "cwpb.01662",
+   "loc_id": "2018670711",
+   "kind": "met",
+   "query_file": "tmp/photomatch/img/MET268201_1600.jpg",
+   "candidate_file": "tmp/photomatch/loc/cwpb.01662_v.jpg"
+  },
+  "MMET268201|cwpb.01661": {
+   "status": "ok",
+   "good": 515,
+   "inliers": 342,
+   "inlier_fraction": 0.664,
+   "scale": 1.097,
+   "rotation_deg": 2.1,
+   "anisotropy": 1.058,
+   "perspective": 0.079,
+   "median_residual_px": 2.03,
+   "p90_residual_px": 4.03,
+   "footprint_share_of_candidate": 0.733,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -178.6,
+     -4.4
+    ],
+    [
+     916.1,
+     35.7
+    ],
+    [
+     896.1,
+     852.4
+    ],
+    [
+     -155.8,
+     843.6
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    1016
+   ],
+   "query_frame_px": [
+    1024,
+    808
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "inlier_fraction"
+   ],
+   "query": "MMET268201",
+   "candidate": "cwpb.01661",
+   "loc_id": "2018670711",
+   "kind": "met",
+   "query_file": "tmp/photomatch/img/MET268201_1600.jpg",
+   "candidate_file": "tmp/photomatch/loc/cwpb.01661_v.jpg"
+  },
+  "MMET268202|ppmsca.32833": {
+   "status": "ok",
+   "good": 644,
+   "inliers": 619,
+   "inlier_fraction": 0.961,
+   "scale": 1.098,
+   "rotation_deg": 0.54,
+   "anisotropy": 1.036,
+   "perspective": 0.025,
+   "median_residual_px": 0.68,
+   "p90_residual_px": 1.37,
+   "footprint_share_of_candidate": 0.817,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -37.7,
+     97.7
+    ],
+    [
+     1080.2,
+     105.9
+    ],
+    [
+     1078.9,
+     561.6
+    ],
+    [
+     -37.3,
+     564.3
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    560
+   ],
+   "query_frame_px": [
+    1024,
+    433
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "MMET268202",
+   "candidate": "ppmsca.32833",
+   "loc_id": "2012646949",
+   "kind": "met",
+   "query_file": "tmp/photomatch/img/MET268202_1600.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32833_v.jpg"
+  },
+  "MMET268202|ppmsca.32852": {
+   "status": "ok",
+   "good": 610,
+   "inliers": 586,
+   "inlier_fraction": 0.961,
+   "scale": 0.987,
+   "rotation_deg": 0.69,
+   "anisotropy": 1.007,
+   "perspective": 0.02,
+   "median_residual_px": 0.78,
+   "p90_residual_px": 1.46,
+   "footprint_share_of_candidate": 0.786,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     30.3,
+     98.9
+    ],
+    [
+     1023.2,
+     108.9
+    ],
+    [
+     1020.0,
+     526.7
+    ],
+    [
+     26.6,
+     525.0
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    535
+   ],
+   "query_frame_px": [
+    1024,
+    433
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "MMET268202",
+   "candidate": "ppmsca.32852",
+   "loc_id": "2012647718",
+   "kind": "met",
+   "query_file": "tmp/photomatch/img/MET268202_1600.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32852_v.jpg"
+  },
+  "MMET268203|ppmsca.32840": {
+   "status": "ok",
+   "good": 1173,
+   "inliers": 1167,
+   "inlier_fraction": 0.995,
+   "scale": 1.029,
+   "rotation_deg": -0.56,
+   "anisotropy": 1.035,
+   "perspective": 0.006,
+   "median_residual_px": 0.43,
+   "p90_residual_px": 1.06,
+   "footprint_share_of_candidate": 0.993,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -22.0,
+     10.1
+    ],
+    [
+     1052.2,
+     -0.4
+    ],
+    [
+     1059.7,
+     771.0
+    ],
+    [
+     -18.0,
+     779.7
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    770
+   ],
+   "query_frame_px": [
+    1024,
+    758
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "MMET268203",
+   "candidate": "ppmsca.32840",
+   "loc_id": "2012647706",
+   "kind": "met",
+   "query_file": "tmp/photomatch/img/MET268203_1600.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32840_v.jpg"
+  },
+  "MMET268203|ppmsca.32853": {
+   "status": "ok",
+   "good": 729,
+   "inliers": 726,
+   "inlier_fraction": 0.996,
+   "scale": 1.027,
+   "rotation_deg": -0.3,
+   "anisotropy": 1.053,
+   "perspective": 0.037,
+   "median_residual_px": 0.55,
+   "p90_residual_px": 1.46,
+   "footprint_share_of_candidate": 1.0,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -15.6,
+     -21.4
+    ],
+    [
+     1050.3,
+     -26.7
+    ],
+    [
+     1071.7,
+     742.5
+    ],
+    [
+     -22.1,
+     757.1
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    743
+   ],
+   "query_frame_px": [
+    1024,
+    758
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "MMET268203",
+   "candidate": "ppmsca.32853",
+   "loc_id": "2012647719",
+   "kind": "met",
+   "query_file": "tmp/photomatch/img/MET268203_1600.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32853_v.jpg"
+  },
+  "MMET286882|ppmsca.32922": {
+   "status": "ok",
+   "good": 911,
+   "inliers": 894,
+   "inlier_fraction": 0.981,
+   "scale": 1.331,
+   "rotation_deg": -0.21,
+   "anisotropy": 1.043,
+   "perspective": 0.022,
+   "median_residual_px": 0.47,
+   "p90_residual_px": 1.08,
+   "footprint_share_of_candidate": 1.0,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -176.4,
+     -87.9
+    ],
+    [
+     1219.5,
+     -93.5
+    ],
+    [
+     1229.4,
+     1062.3
+    ],
+    [
+     -192.2,
+     1062.8
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    785
+   ],
+   "query_frame_px": [
+    1024,
+    867
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "MMET286882",
+   "candidate": "ppmsca.32922",
+   "loc_id": "2012647835",
+   "kind": "met",
+   "query_file": "tmp/photomatch/img/MET286882_1600.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32922_v.jpg"
+  },
+  "MMET286882|cwpb.00849": {
+   "status": "ok",
+   "good": 288,
+   "inliers": 274,
+   "inlier_fraction": 0.951,
+   "scale": 0.988,
+   "rotation_deg": -1.29,
+   "anisotropy": 1.052,
+   "perspective": 0.043,
+   "median_residual_px": 0.52,
+   "p90_residual_px": 1.4,
+   "footprint_share_of_candidate": 0.887,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -33.9,
+     78.3
+    ],
+    [
+     974.5,
+     56.3
+    ],
+    [
+     999.2,
+     902.9
+    ],
+    [
+     22.2,
+     915.7
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    821
+   ],
+   "query_frame_px": [
+    1024,
+    867
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "MMET286882",
+   "candidate": "cwpb.00849",
+   "loc_id": "2018666307",
+   "kind": "met",
+   "query_file": "tmp/photomatch/img/MET286882_1600.jpg",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00849_v.jpg"
+  },
+  "W2025167167|ppmsca.32931": {
+   "status": "ok",
+   "good": 187,
+   "inliers": 91,
+   "inlier_fraction": 0.487,
+   "scale": 2.413,
+   "rotation_deg": 0.24,
+   "anisotropy": 1.053,
+   "perspective": 0.039,
+   "median_residual_px": 0.65,
+   "p90_residual_px": 1.41,
+   "footprint_share_of_candidate": 0.853,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -596.7,
+     46.8
+    ],
+    [
+     926.9,
+     54.1
+    ],
+    [
+     928.6,
+     903.7
+    ],
+    [
+     -628.1,
+     881.1
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    820
+   ],
+   "query_frame_px": [
+    640,
+    330
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "inlier_fraction"
+   ],
+   "query": "W2025167167",
+   "candidate": "ppmsca.32931",
+   "loc_id": "2012647845",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2025167167_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32931_v.jpg"
+  },
+  "W2011646177|cwpb.00855": {
+   "status": "ok",
+   "good": 244,
+   "inliers": 131,
+   "inlier_fraction": 0.537,
+   "scale": 2.016,
+   "rotation_deg": -1.2,
+   "anisotropy": 1.023,
+   "perspective": 0.021,
+   "median_residual_px": 0.38,
+   "p90_residual_px": 0.81,
+   "footprint_share_of_candidate": 0.711,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -438.5,
+     61.5
+    ],
+    [
+     849.0,
+     35.2
+    ],
+    [
+     864.7,
+     682.6
+    ],
+    [
+     -433.5,
+     700.8
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    770
+   ],
+   "query_frame_px": [
+    640,
+    311
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "inlier_fraction"
+   ],
+   "query": "W2011646177",
+   "candidate": "cwpb.00855",
+   "loc_id": "2018670717",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2011646177_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00855_v.jpg"
+  },
+  "W2025167163|cwp.4a39687": {
+   "status": "ok",
+   "good": 262,
+   "inliers": 140,
+   "inlier_fraction": 0.534,
+   "scale": 2.198,
+   "rotation_deg": 1.03,
+   "anisotropy": 1.017,
+   "perspective": 0.011,
+   "median_residual_px": 0.78,
+   "p90_residual_px": 1.45,
+   "footprint_share_of_candidate": 0.984,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     2.6,
+     5.1
+    ],
+    [
+     1435.3,
+     30.9
+    ],
+    [
+     1419.0,
+     757.9
+    ],
+    [
+     -14.3,
+     724.6
+    ]
+   ],
+   "candidate_frame_px": [
+    713,
+    686
+   ],
+   "query_frame_px": [
+    640,
+    330
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "inlier_fraction"
+   ],
+   "query": "W2025167163",
+   "candidate": "cwp.4a39687",
+   "loc_id": "2018666305",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2025167163_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a39687_r.jpg"
+  },
+  "W2013645925|cwpb.00850": {
+   "status": "ok",
+   "good": 265,
+   "inliers": 260,
+   "inlier_fraction": 0.981,
+   "scale": 1.218,
+   "rotation_deg": -0.25,
+   "anisotropy": 1.096,
+   "perspective": 0.01,
+   "median_residual_px": 1.14,
+   "p90_residual_px": 2.75,
+   "footprint_share_of_candidate": 0.627,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     97.8,
+     69.1
+    ],
+    [
+     859.3,
+     65.4
+    ],
+    [
+     923.4,
+     747.0
+    ],
+    [
+     159.0,
+     754.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    827
+   ],
+   "query_frame_px": [
+    640,
+    551
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "anisotropy"
+   ],
+   "query": "W2013645925",
+   "candidate": "cwpb.00850",
+   "loc_id": "2018670673",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2013645925_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00850_v.jpg"
+  },
+  "W2011648011|ppmsca.32834": {
+   "status": "ok",
+   "good": 469,
+   "inliers": 263,
+   "inlier_fraction": 0.561,
+   "scale": 1.263,
+   "rotation_deg": -4.34,
+   "anisotropy": 1.044,
+   "perspective": 0.05,
+   "median_residual_px": 0.45,
+   "p90_residual_px": 0.95,
+   "footprint_share_of_candidate": 0.277,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -382.6,
+     285.6
+    ],
+    [
+     448.8,
+     233.1
+    ],
+    [
+     468.9,
+     653.9
+    ],
+    [
+     -371.6,
+     690.2
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    643
+   ],
+   "query_frame_px": [
+    640,
+    318
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "inlier_fraction",
+    "rotation"
+   ],
+   "query": "W2011648011",
+   "candidate": "ppmsca.32834",
+   "loc_id": "2012647700",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2011648011_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32834_v.jpg"
+  },
+  "W2006692501|cwp.4a39439": {
+   "status": "ok",
+   "good": 198,
+   "inliers": 161,
+   "inlier_fraction": 0.813,
+   "scale": 1.925,
+   "rotation_deg": 1.62,
+   "anisotropy": 1.046,
+   "perspective": 0.058,
+   "median_residual_px": 1.47,
+   "p90_residual_px": 2.72,
+   "footprint_share_of_candidate": 1.0,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -168.9,
+     -28.6
+    ],
+    [
+     1024.7,
+     6.1
+    ],
+    [
+     977.8,
+     909.6
+    ],
+    [
+     -240.6,
+     910.6
+    ]
+   ],
+   "candidate_frame_px": [
+    859,
+    682
+   ],
+   "query_frame_px": [
+    640,
+    481
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "W2006692501",
+   "candidate": "cwp.4a39439",
+   "loc_id": "2018666314",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2006692501_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/cwp.4a39439_r.jpg"
+  },
+  "W2013645929|cwpb.00875": {
+   "status": "ok",
+   "good": 514,
+   "inliers": 501,
+   "inlier_fraction": 0.975,
+   "scale": 1.134,
+   "rotation_deg": -0.36,
+   "anisotropy": 1.017,
+   "perspective": 0.014,
+   "median_residual_px": 0.28,
+   "p90_residual_px": 0.66,
+   "footprint_share_of_candidate": 0.374,
+   "footprint_corners_inside": true,
+   "footprint_polygon_candidate_px": [
+    [
+     44.4,
+     268.3
+    ],
+    [
+     773.5,
+     267.0
+    ],
+    [
+     772.8,
+     720.3
+    ],
+    [
+     45.2,
+     716.1
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    877
+   ],
+   "query_frame_px": [
+    640,
+    393
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "W2013645929",
+   "candidate": "cwpb.00875",
+   "loc_id": "2018670788",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2013645929_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/cwpb.00875_v.jpg"
+  },
+  "W2006692500|ppmsca.32839": {
+   "status": "ok",
+   "good": 153,
+   "inliers": 120,
+   "inlier_fraction": 0.784,
+   "scale": 2.91,
+   "rotation_deg": 1.2,
+   "anisotropy": 1.034,
+   "perspective": 0.041,
+   "median_residual_px": 0.84,
+   "p90_residual_px": 2.08,
+   "footprint_share_of_candidate": 1.0,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -333.1,
+     -233.1
+    ],
+    [
+     1537.1,
+     -190.6
+    ],
+    [
+     1540.2,
+     1203.2
+    ],
+    [
+     -380.6,
+     1180.2
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    787
+   ],
+   "query_frame_px": [
+    640,
+    483
+   ],
+   "class": "SAME_SCENE",
+   "failed_tests": [
+    "inlier_fraction"
+   ],
+   "query": "W2006692500",
+   "candidate": "ppmsca.32839",
+   "loc_id": "2012647705",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2006692500_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32839_v.jpg"
+  },
+  "W2006685383|ppmsca.35051": {
+   "status": "ok",
+   "good": 117,
+   "inliers": 101,
+   "inlier_fraction": 0.863,
+   "scale": 2.921,
+   "rotation_deg": 0.31,
+   "anisotropy": 1.018,
+   "perspective": 0.019,
+   "median_residual_px": 0.9,
+   "p90_residual_px": 2.09,
+   "footprint_share_of_candidate": 1.0,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -329.0,
+     -246.0
+    ],
+    [
+     1529.6,
+     -235.3
+    ],
+    [
+     1524.0,
+     1205.0
+    ],
+    [
+     -364.9,
+     1198.0
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    801
+   ],
+   "query_frame_px": [
+    640,
+    486
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "W2006685383",
+   "candidate": "ppmsca.35051",
+   "loc_id": "2014646001",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2006685383_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.35051_v.jpg"
+  },
+  "W2012647715|ppmsca.32851": {
+   "status": "ok",
+   "good": 577,
+   "inliers": 546,
+   "inlier_fraction": 0.946,
+   "scale": 1.662,
+   "rotation_deg": 0.1,
+   "anisotropy": 1.038,
+   "perspective": 0.052,
+   "median_residual_px": 0.44,
+   "p90_residual_px": 1.05,
+   "footprint_share_of_candidate": 0.873,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     10.6,
+     -123.0
+    ],
+    [
+     1066.1,
+     -121.7
+    ],
+    [
+     1038.5,
+     708.6
+    ],
+    [
+     31.7,
+     704.1
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    801
+   ],
+   "query_frame_px": [
+    640,
+    512
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "W2012647715",
+   "candidate": "ppmsca.32851",
+   "loc_id": "2012647717",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2012647715_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.32851_v.jpg"
+  },
+  "W2006692502|ppmsca.31299": {
+   "status": "ok",
+   "good": 214,
+   "inliers": 203,
+   "inlier_fraction": 0.949,
+   "scale": 1.962,
+   "rotation_deg": 0.01,
+   "anisotropy": 1.028,
+   "perspective": 0.004,
+   "median_residual_px": 0.41,
+   "p90_residual_px": 0.94,
+   "footprint_share_of_candidate": 1.0,
+   "footprint_corners_inside": false,
+   "footprint_polygon_candidate_px": [
+    [
+     -64.1,
+     -16.7
+    ],
+    [
+     1210.9,
+     -16.4
+    ],
+    [
+     1207.3,
+     923.8
+    ],
+    [
+     -70.3,
+     921.9
+    ]
+   ],
+   "candidate_frame_px": [
+    1024,
+    816
+   ],
+   "query_frame_px": [
+    640,
+    484
+   ],
+   "class": "SAME_PLATE",
+   "failed_tests": [],
+   "query": "W2006692502",
+   "candidate": "ppmsca.31299",
+   "loc_id": "91732531",
+   "kind": "wide",
+   "query_file": "tmp/photomatch/wide/2006692502_r.jpg",
+   "candidate_file": "tmp/photomatch/loc/ppmsca.31299_v.jpg"
+  }
+ }
+}

@@ -48,13 +48,14 @@ A('wp-data-05b', area='data', route='candidate-group', size='S',
   owed='Counsel and owner decisions on rights actions (WP-DATA-05a) stay owner-only; this item does not apply them.')
 
 A('wp-data-23a', area='data', route='source-rebuild', size='S',
+  closes_in_part='Review mechanics only (decisions file and schema, rule H001, coverage tool). Adding the `rev` field to the records is carried by wp-data-04b (provenance blocks with rev: none for tracks, casualty and monument rows) and wp-data-24 (provenance backfill of the other record types); until then this entry\'s coverage tool counts a record without `rev` as none and reports how many records lack the field per dataset. The Unreviewed reconstruction pill on pages is TIME-OD-04 and the trust-page entries.',
   value='No claim of "Reviewed" is checkable today: no decisions file, no rule H001, no coverage figure.',
   files=['data-src/review/decisions.jsonl', 'data-src/review/decisions.schema.json', 'data-src/review/README.md', 'tools/data/rules/v2_rules.mjs (H001: deferred -> implemented, small Edit)', 'tools/data/review_coverage.mjs', 'tests/data/review.test.mjs', 'candidates/r1h/wp-data-23a/STATUS.json', 'candidates/r1h/wp-data-23a/HANDOFF.md'],
   reads=['docs/editorial/sign-off-states.md', 'docs/editorial/reviewer-charter.md', 'tools/time/rules.mjs (TM-V18)', 'tools/data/rules/define.mjs', 'tools/data/rules/v2_rules.mjs (existing deferred H001 stub)'],
   acceptance=(
       'Red first: tests/data/review.test.mjs fails before the code exists. Done when: (1) data-src/review/decisions.jsonl exists (empty: no decision is invented) with decisions.schema.json (id, subject, value, basis, citation, reviewer, date, state in open|proposed|reviewed|confirmed|signed|contested|deferred|withdrawn, as in sign-off-states.md; the toolchain may write only open and proposed); '
       '(2) rule H001, which already exists in tools/data/rules/v2_rules.mjs as a deferred stub (status deferred, blocked_by decisions.jsonl), is implemented there by a small Edit (status implemented, a real run()) and fails on a seeded string "Reviewed by ..." / "accurate to the minute" in a candidate dataset or page text when no signed decision with that subject exists, passes when one exists, and a decision whose reviewer is empty never counts; the test has the seeded red case and the green case; '
-      '(3) tools/data/review_coverage.mjs prints and writes data-src/review/coverage.json: per dataset the share of records whose rev is owner or historian (0 today for every dataset, stated, not rounded up) and exits non-zero if any record claims rev owner|historian without a signed decision; '
+      '(3) tools/data/review_coverage.mjs prints and writes data-src/review/coverage.json: per dataset the share of records whose rev is owner or historian (0 today for every dataset, stated, not rounded up; a record without a rev field counts as none and the report states how many records lack the field per dataset: adding the field is wp-data-04b and wp-data-24) and exits non-zero if any record claims rev owner|historian without a signed decision; '
       '(4) the validator ratchet is not loosened: `node tools/data/validate.mjs`, `npm run data:check` and `node --test tests/data/*.test.mjs` are green and tools/data/baseline.json only gains the new rule\'s true count (0 if none). No reviewer is named; no file says anything was reviewed.'),
   short='Empty data-src/review/decisions.jsonl with schema; implement the deferred rule H001 (no "Reviewed"/"accurate to the minute" without a signed decision; seeded red, green with a row); coverage report 0% stated; baseline not loosened; data:check and tests/data green.',
   owed='A named reviewer and the reviewed-coverage KPI going live are owner steps (charter).')
@@ -116,6 +117,7 @@ A('wp-data-15a', area='data', route='source-rebuild', size='M',
   owed='OSM and NPS location validation (WP-DATA-15b) and rights decisions are separate items.')
 
 A('wp-data-14a', area='data', route='source-rebuild', size='M',
+  closes_in_part='Data files only (map_extent.json, places.json, the separation proposal). The survey names a second part, the minimap constant of the bundle, which is a bundle patch outside the data: entry wp-data-14a-minimap.',
   value='The 49 off-map approach rows and the stacked units break geometry rules; place coordinates disagree by up to 2.1 km between six lists.',
   files=['data-src/geo/map_extent.json', 'data-src/geo/places.json', 'tools/data/geo_build.mjs', 'tests/data/geo_build.test.mjs', 'candidates/r1h/wp-data-14a/STATUS.json', 'candidates/r1h/wp-data-14a/HANDOFF.md'],
   reads=['tools/data/rules/geometry_rules.mjs', 'data-src/schemas/terrain.schema.json', 'release/R1g/dist/data', 'release/R1g/dist/assets/index-52cec836.js', 'docs/plan/FINAL/13-data-quality-and-accuracy.md (WP-DATA-14)'],
@@ -149,6 +151,7 @@ A('wp-time-05', area='time', route='source-rebuild', size='M',
   owed='Owner confirmation of the id scheme before any train consumes it.')
 
 A('wp-time-18', area='time', route='source-rebuild', size='M',
+  closes_in_part='The module function and its test only. The survey names the page rows too (Ledger and Dashboard show the rate): entry wp-time-18-pages. The audio cadence of the plan Fix is Immersive\'s (the main-app sound was removed by D-SOUND, row A41): entry wp-pagec-10 (conditional) carries it.',
   value='Per-minute intensity is the number every "how fierce" claim and Ledger curve should come from; today there is none.',
   files=['src/lib/time/intensity.js', 'src/lib/time/index.d.ts (add the types by small Edit)', 'tests/time/intensity.test.mjs', 'candidates/r1h/wp-time-18/STATUS.json', 'candidates/r1h/wp-time-18/HANDOFF.md'],
   reads=['src/lib/time/model.js', 'src/lib/time/index.js', 'data-src/build/candidates/notable_intensity.json', 'release/R1g/dist/data/casualty_apportionment.json', 'docs/plan/FINAL/04-time-model-and-historical-accuracy.md (WP-TIME-18)'],

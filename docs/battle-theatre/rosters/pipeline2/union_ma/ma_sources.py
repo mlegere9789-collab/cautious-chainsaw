@@ -31,9 +31,9 @@ COVERS = {
     '1': 'volume I: 1st, 2nd, 3rd, 4th, 5th, 6th, 7th, 8th (militia), 9th, 10th, 11th Infantry (contents list of the volume)',
     '2': 'volume II: 12th to 24th Infantry with the 1st and 2nd Company Sharpshooters (contents list)',
     '3': 'volume III: 25th to 37th Infantry (contents list)',
-    '4': 'volume IV: 38th to 5xth Infantry (contents list); no unit of this item',
-    '5': 'volume V: 58th Infantry onward, unattached companies, the Light Artillery batteries (contents list)',
-    '6': 'volume VI: the Cavalry regiments and the later units (contents list; the 1st Cavalry roster is on printed pp. 129-227)',
+    '4': 'volume IV: 38th to 57th Infantry (contents list); no unit of this item',
+    '5': 'volume V: 58th to 62nd Infantry, unattached companies and battalions, the Light Artillery batteries (the 1st Battery on printed p. 343, the 3rd on 371, the 5th on 397, the 9th on 452) and the Heavy Artillery regiments (contents list)',
+    '6': 'volume VI: the cavalry regiments (the contents leaf has no text layer; the 1st Cavalry roster is on printed pp. 129-227)',
     '7': 'volume VII: Massachusetts soldiers in the Regular Army and the U.S. Volunteers (M to Z), Veteran Reserve Corps, Colored Troops, Navy officers and enlisted men A to E (contents list); no unit of this item',
     '8': 'volume VIII: Navy enlisted men F to Z and the Marine Corps (contents list); no unit of this item',
     '1937': 'Index to Army Records (Wright & Potter, Boston, 1937): an alphabetical list of every name with the volume and page of the record, for Volumes I to VI and part of VII; its foreword says so',
@@ -168,13 +168,23 @@ def main():
                 for s in sources:
                     if s['text_id'] == seg['t']:
                         s['used_for'].append(head['u'])
+    unit_files = []
+    for p in sorted(os.listdir(os.path.join(D2, 'union', 'ma'))):
+        if p.endswith('.jsonl.gz') and not p.endswith('.lists.jsonl.gz'):
+            fp = os.path.join(D2, 'union', 'ma', p)
+            head, segs, meta = R.read_unit(fp)
+            flp = fp[:-len('.jsonl.gz')] + '.flags.json.gz'
+            fsha, _, _ = digests(fp)
+            gsha, _, _ = digests(flp)
+            unit_files.append({'unit': head['u'], 'file': 'data2/union/ma/' + p, 'rows': head['n'], 'file_bytes': os.path.getsize(fp), 'file_sha256': fsha, 'raw_lines_sha256': meta['sha256'],
+                               'text_ids': [seg['t'] for seg, rows in segs], 'flags_file': 'data2/union/ma/' + os.path.basename(flp), 'flags_bytes': os.path.getsize(flp), 'flags_sha256': gsha})
     pointer = {
         'format': 'roster2-sources-pointer/1', 'work_item': 'union-ma', 'generated': utc(datetime.datetime.now(datetime.timezone.utc).timestamp()),
         'access_rules': 'archive.org metadata and /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround',
         'rights_note': ('No text of this item can carry the basis of a United States publication before 1929: the volumes were printed 1931 to 1935 and the index in 1937. '
                         'Each text carries what the files show (the item flag, the printed imprint, the search for a copyright notice, the leaves around the title page) and the open question; '
                         'the decision is the owner step 4 of PRODUCTION-PLAN section 8, and under DEC-019 no permission request is made.'),
-        'sources': sources, 'derived_texts': [],
+        'sources': sources, 'unit_files': unit_files, 'derived_texts': [],
         'not_used': [
             {'source_id': 'MA-RECORD-1868', 'identifier': 'adjutantmassrec01courrich, adjutantmassrec02courrich, recordofmassachu00mass', 'title': 'Record of the Massachusetts Volunteers, 1861-1865 (Adjutant General, 1868-1870)',
              'status': 'lead, not fetched: regimental narratives and officers by the Adjutant General of 1868-70, printed before 1929; a second reading of the officers and a source of casualty statements (gap EG-ROS-MA-06)'},

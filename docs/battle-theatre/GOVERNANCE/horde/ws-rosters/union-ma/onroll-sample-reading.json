@@ -1,0 +1,406 @@
+{
+ "format": "ma-onroll-sample/1",
+ "about": "Rows of the final unit files drawn at random (Python random.Random(18) over the rows of each answer in file order) and read by the engineer against the printed remarks and the rule in the flag files; a \"yes\" is an error if a printed separation dated before 1 July 1863 stands in the remarks, a \"no\" is an error if no printed date supports it; an \"unknown\" is read as justified if a damaged word or date, a missing date or an ambiguous clause stands in the remarks.",
+ "drawn": {
+  "yes": 50,
+  "no": 24,
+  "unknown": 16
+ },
+ "verdicts": {
+  "yes": {
+   "read": 50,
+   "contradicted_by_a_printed_separation_before_1_July_1863": 0
+  },
+  "no": {
+   "read": 24,
+   "not_supported_by_a_printed_date": 0
+  },
+  "unknown": {
+   "read": 16,
+   "justified": 16,
+   "of_which_more_cautious_than_needed": 6,
+   "note": "6 of the 16 could be answered by a reader (a damaged word beside a readable date, a semicolon lost after a place); the rule keeps them unknown on purpose"
+  }
+ },
+ "earlier_samples_before_the_rule_was_corrected": [
+  {
+   "drawn": 14,
+   "wrong_yes": 1,
+   "note": "enl. and must. Sept. 9, 1861 disch. Dec. 31, 1861 (the semicolon lost)"
+  },
+  {
+   "drawn": 40,
+   "wrong_yes": 1,
+   "note": "disch. read as diaoh. (a damaged event word)"
+  }
+ ],
+ "audit": "before the correction a search of the yes rows for a separation word followed by a date before July 1863 found 105 rows; after it 12, all of them transfers inside the regiment or into it",
+ "rows": {
+  "yes": [
+   {
+    "unit_file": "16th-infantry",
+    "row": 387
+   },
+   {
+    "unit_file": "13th-infantry",
+    "row": 548
+   },
+   {
+    "unit_file": "7th-infantry",
+    "row": 491
+   },
+   {
+    "unit_file": "28th-infantry",
+    "row": 1382
+   },
+   {
+    "unit_file": "1st-infantry",
+    "row": 290
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 668
+   },
+   {
+    "unit_file": "16th-infantry",
+    "row": 1078
+   },
+   {
+    "unit_file": "2nd-infantry",
+    "row": 1499
+   },
+   {
+    "unit_file": "37th-infantry",
+    "row": 1128
+   },
+   {
+    "unit_file": "2nd-infantry",
+    "row": 1744
+   },
+   {
+    "unit_file": "16th-infantry",
+    "row": 456
+   },
+   {
+    "unit_file": "2nd-infantry",
+    "row": 1032
+   },
+   {
+    "unit_file": "1st-cavalry",
+    "row": 1005
+   },
+   {
+    "unit_file": "2nd-infantry",
+    "row": 97
+   },
+   {
+    "unit_file": "1st-battery-a",
+    "row": 243
+   },
+   {
+    "unit_file": "16th-infantry",
+    "row": 1013
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 1788
+   },
+   {
+    "unit_file": "9th-infantry",
+    "row": 97
+   },
+   {
+    "unit_file": "13th-infantry",
+    "row": 356
+   },
+   {
+    "unit_file": "1st-cavalry",
+    "row": 2147
+   },
+   {
+    "unit_file": "32nd-infantry",
+    "row": 1463
+   },
+   {
+    "unit_file": "7th-infantry",
+    "row": 929
+   },
+   {
+    "unit_file": "16th-infantry",
+    "row": 64
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 223
+   },
+   {
+    "unit_file": "15th-infantry",
+    "row": 1482
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 513
+   },
+   {
+    "unit_file": "16th-infantry",
+    "row": 1180
+   },
+   {
+    "unit_file": "1st-infantry",
+    "row": 1505
+   },
+   {
+    "unit_file": "33rd-infantry",
+    "row": 1047
+   },
+   {
+    "unit_file": "32nd-infantry",
+    "row": 672
+   },
+   {
+    "unit_file": "16th-infantry",
+    "row": 1242
+   },
+   {
+    "unit_file": "7th-infantry",
+    "row": 1017
+   },
+   {
+    "unit_file": "2nd-infantry",
+    "row": 1726
+   },
+   {
+    "unit_file": "18th-infantry",
+    "row": 724
+   },
+   {
+    "unit_file": "9th-infantry",
+    "row": 1158
+   },
+   {
+    "unit_file": "1st-cavalry",
+    "row": 1101
+   },
+   {
+    "unit_file": "1st-cavalry",
+    "row": 2
+   },
+   {
+    "unit_file": "10th-infantry",
+    "row": 214
+   },
+   {
+    "unit_file": "1st-infantry",
+    "row": 629
+   },
+   {
+    "unit_file": "22nd-infantry",
+    "row": 263
+   },
+   {
+    "unit_file": "18th-infantry",
+    "row": 883
+   },
+   {
+    "unit_file": "9th-infantry",
+    "row": 1602
+   },
+   {
+    "unit_file": "22nd-infantry",
+    "row": 298
+   },
+   {
+    "unit_file": "33rd-infantry",
+    "row": 123
+   },
+   {
+    "unit_file": "1st-infantry",
+    "row": 726
+   },
+   {
+    "unit_file": "37th-infantry",
+    "row": 251
+   },
+   {
+    "unit_file": "33rd-infantry",
+    "row": 989
+   },
+   {
+    "unit_file": "32nd-infantry",
+    "row": 1659
+   },
+   {
+    "unit_file": "1st-cavalry",
+    "row": 278
+   },
+   {
+    "unit_file": "1st-cavalry",
+    "row": 190
+   }
+  ],
+  "no": [
+   {
+    "unit_file": "9th-infantry",
+    "row": 1325
+   },
+   {
+    "unit_file": "20th-infantry",
+    "row": 14
+   },
+   {
+    "unit_file": "5th-battery-e",
+    "row": 85
+   },
+   {
+    "unit_file": "15th-infantry",
+    "row": 232
+   },
+   {
+    "unit_file": "1st-infantry",
+    "row": 348
+   },
+   {
+    "unit_file": "32nd-infantry",
+    "row": 160
+   },
+   {
+    "unit_file": "7th-infantry",
+    "row": 914
+   },
+   {
+    "unit_file": "32nd-infantry",
+    "row": 1308
+   },
+   {
+    "unit_file": "16th-infantry",
+    "row": 105
+   },
+   {
+    "unit_file": "32nd-infantry",
+    "row": 1063
+   },
+   {
+    "unit_file": "16th-infantry",
+    "row": 1072
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 141
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 907
+   },
+   {
+    "unit_file": "2nd-infantry",
+    "row": 77
+   },
+   {
+    "unit_file": "15th-infantry",
+    "row": 1103
+   },
+   {
+    "unit_file": "28th-infantry",
+    "row": 790
+   },
+   {
+    "unit_file": "32nd-infantry",
+    "row": 1969
+   },
+   {
+    "unit_file": "32nd-infantry",
+    "row": 291
+   },
+   {
+    "unit_file": "9th-battery",
+    "row": 136
+   },
+   {
+    "unit_file": "13th-infantry",
+    "row": 870
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 655
+   },
+   {
+    "unit_file": "9th-infantry",
+    "row": 624
+   },
+   {
+    "unit_file": "1st-cavalry",
+    "row": 1551
+   },
+   {
+    "unit_file": "37th-infantry",
+    "row": 140
+   }
+  ],
+  "unknown": [
+   {
+    "unit_file": "5th-battery-e",
+    "row": 72
+   },
+   {
+    "unit_file": "18th-infantry",
+    "row": 218
+   },
+   {
+    "unit_file": "32nd-infantry",
+    "row": 1001
+   },
+   {
+    "unit_file": "33rd-infantry",
+    "row": 791
+   },
+   {
+    "unit_file": "3rd-battery-c",
+    "row": 37
+   },
+   {
+    "unit_file": "37th-infantry",
+    "row": 530
+   },
+   {
+    "unit_file": "20th-infantry",
+    "row": 2044
+   },
+   {
+    "unit_file": "1st-cavalry",
+    "row": 854
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 787
+   },
+   {
+    "unit_file": "12th-infantry",
+    "row": 972
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 1504
+   },
+   {
+    "unit_file": "13th-infantry",
+    "row": 639
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 1117
+   },
+   {
+    "unit_file": "13th-infantry",
+    "row": 649
+   },
+   {
+    "unit_file": "19th-infantry",
+    "row": 1499
+   },
+   {
+    "unit_file": "12th-infantry",
+    "row": 520
+   }
+  ]
+ }
+}

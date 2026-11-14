@@ -36,7 +36,7 @@ A('ver-hist-node', area='historian', route='source-rebuild', size='S',
 
 A('wp-infra-28b', area='pages', route='candidate-group', size='S',
   value='Closes the last open security items of Live Sync (guessable room codes, unbounded host connections, unvalidated guest messages).',
-  files=cand_files('wp-infra-28b'), touches=['watch-together.html'],
+  files=cand_files('wp-infra-28b', ['docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-infra-28b.md']), touches=['watch-together.html'],
   reads=['release/R1g/dist/watch-together.html', 'tests/t0/wtpeer.spec.mjs', 'docs/plan/FINAL/09-infra-security-privacy-pwa.md (WP-INFRA-28)'],
   acceptance=(
       'candidates/r1h/wp-infra-28b/group.json (PG-r1h-wp-infra-28b, target watch-together.html only, every anchor asserted once) plus test.mjs that runs the patched page script in node:vm with a fake PeerJS and fake DOM. Assertions: '
@@ -44,7 +44,8 @@ A('wp-infra-28b', area='pages', route='candidate-group', size='S',
       '(2) host cap: of 25 incoming connections the first 20 are kept and connections 21..25 are closed (conn.close called, not added to the list); '
       '(3) the guest handler (conn.on("data")) passes to goToTick only an object {type:"goto", tick: integer 1..675, note: string <= 280 characters with control characters stripped}; 20 fuzz payloads (null, array, string, number, extra keys including __proto__, tick 0, 676, 1.5, "5", NaN, Infinity, a note of 281 characters, a note with <img onerror>, a nested object, a 10 MB string) never reach goToTick, and a valid payload does, its note shown as text only; '
       '(4) the visible sentence that says "5-letter code" says 6 characters, and the page makes no claim of "real time". Red on release/R1g/dist (Math.random, no cap, unvalidated data), green on the scratch tree. '
-      'Coordination: wp-content-09b owns every other REALTIME and TICK hit of watch-together.html; this group owns only the Live Sync sentence and the code, cap and validation lines; anchors must not overlap.'),
+      'Coordination: wp-content-09b owns every other REALTIME and TICK hit of watch-together.html; this group owns only the Live Sync sentence and the code, cap and validation lines; anchors must not overlap. '
+      'The survey also asks to extend tests/t0/wtpeer.spec.mjs with the fuzz payloads and the cap: that file is the release workstream\'s, so the request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-infra-28b.md names the exact cases (the 20 payloads of this test and the 25-connection cap case) and the expected results; the group is not registered before that spec runs.'),
   short='Group on watch-together.html with a node:vm test: 6-char codes from crypto.getRandomValues (28-char alphabet, no Math.random), host closes connections 21+, guest accepts only {goto, tick int 1..675, note<=280}; 20 fuzz payloads rejected. Red on R1g, green with the group.',
   owed='Two real browsers hosting and joining over PeerJS (tests/t0/wtpeer.spec.mjs T0-WTP-01..04 on the full train, through the machine lock) is for the release workstream.')
 

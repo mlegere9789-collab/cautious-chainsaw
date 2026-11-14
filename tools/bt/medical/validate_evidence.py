@@ -7,6 +7,7 @@
     python3 -I tools/bt/medical/validate_evidence.py --self-test    the built-in tests (synthetic texts in a temporary folder)
     python3 -I tools/bt/medical/validate_evidence.py --locate SOURCE-ID "quote" [--file KEY] [--near OFFSET]
                                                      where the quote stands in the local text (offset, page hint) for filling a row
+    python3 -I tools/bt/medical/validate_evidence.py --template KIND GROUP   a skeleton row of a kind for a group
     python3 -I tools/bt/medical/validate_evidence.py --check-sources   every local file of the source registry and ledger against its sha256
     python3 -I tools/bt/medical/validate_evidence.py --list-groups     the group ids, one per line
     options: --json PATH (machine report: every row with its issues; the integration step applies only rows with ok true),
@@ -627,7 +628,7 @@ class Sources:
                     s.lead = True
                 s.edition = s.edition or r['edition']
                 key = 'main'
-                f = s.files.setdefault(key, {'path': None, 'sha256': None, 'page_model': 'none', 'page_marker': None})
+                f = s.files.setdefault(key, {'path': None, 'sha256': None, 'page_model': 'none' if s.registry else 'heads', 'page_marker': None})  # a ledger-only file is OCR text of a book
                 if f['path'] and f['path'] != r['local path'] and s.registry:
                     self.problems.append('ledger path of %s differs from the registry path (%s vs %s)' % (sid, r['local path'], f['path']))
                 f['path'] = f['path'] or r['local path']
@@ -667,9 +668,9 @@ class Sources:
 
 
 class TextStore:
-    """Keeps at most three texts in memory (the surgical volumes are 4 to 9 MB each)."""
+    """Keeps at most six texts in memory (the surgical volumes are 4 to 9 MB each; a view costs about five times the text)."""
 
-    def __init__(self, keep=3):
+    def __init__(self, keep=6):
         self.keep, self.items, self.order, self.hashes = keep, {}, [], {}
 
     def get(self, path, f):
@@ -1344,6 +1345,41 @@ def check_sources(cfg):
     return 1 if bad else 0
 
 
+def cmd_template(cfg, kind, gid):
+    """A skeleton row of a kind, one JSON object on one line, for a group: fill every <...>, delete what does not apply."""
+    if kind not in KINDS:
+        print('FAIL kind must be one of %s' % ', '.join(KINDS))
+        return 1
+    groups = load_groups(cfg)
+    if gid not in groups:
+        print('FAIL unknown group %r' % gid)
+        return 1
+    spec = KINDS[kind]
+    data = {k: '<%s>' % k for k in spec['req']}
+    for k, allowed in (spec.get('enums') or {}).items():
+        if k in data:
+            data[k] = '<one of: %s>' % ' | '.join(allowed)
+    row = {'id': 'med.%s.<nnn>' % gid, 'group': gid, 'topic': '<%s>.<subtopic>' % groups[gid]['topics'][0], 'kind': kind,
+           'claim': '<one sentence that the quote supports exactly, in the words of the source; no number the quote does not state>',
+           'tier': 'documented', 'source': {'id': '<source id of sources.json or the ledger>', 'edition': '<edition statement of the printing>', 'file': '<only for a source with several files>', 'part': '<report, chapter or section that gives "that battle", "the corps"... their meaning>'},
+           'page': '<printed page | pdf:N | n/a>', 'quote': '<verbatim; use " ... " between pieces; run --locate first>', 'offset': {'start': 0, 'end': 0}}
+    if data:
+        row['data'] = data
+    if spec.get('value'):
+        row['value'] = {'kind': 'count | number | range | text', 'value': 0, 'unit': '<unit>'}
+        row['value_basis'] = 'stated'
+    if spec.get('date'):
+        row['date_scope'] = {'from': 'yyyy-mm-dd[Thh:mm]', 'to': None, 'granularity': 'date | clock | period'}
+    row['scene'] = {'use': 'show | context | none', 'may_show': '<what a scene may show because of this row; nothing the claim does not state>', 'min_setting': 'reduced | documentary', 'reduced_form': '<what the Reduced setting shows instead, or omit>'}
+    row['_optional'] = {'value': 'when the quote states a number or range', 'date_scope': 'when the claim is bound to a time', 'site': ['H-06', 'bld-spangler-farm'], 'basis_rows': ['med.<group>.<nnn>', '(tier inferred: required)'],
+                        'inference': '(tier inferred: required, 30 characters or more)', 'basis': '(tier plausible-procedural: required)', 'gap': {'needed': '(tier open gap: required)', 'acquire': ['<source id>'], 'proposed_register': '<path>'},
+                        'conflicts': [{'with': 'med.<group>.<nnn>', 'kind': 'number', 'note': '...'}], 'conflict_set': 'cs.<name> (two or more rows)',
+                        'ocr': {'corrections': [{'from': '<as in the quote>', 'to': '<reading>', 'basis': 'page-image | internal-consistency | other-copy', 'image': '<path, for page-image>'}]},
+                        'notes': 'internal; never shipped'}
+    print(json.dumps(row, indent=1, ensure_ascii=False))
+    return 0
+
+
 def cmd_locate(cfg, sid, quote, key, near, rate):
     src = Sources(cfg)
     try:
@@ -1690,6 +1726,7 @@ def build_parser():
     p.add_argument('--list-groups', action='store_true')
     p.add_argument('--check-sources', action='store_true')
     p.add_argument('--locate', nargs=2, metavar=('SOURCE_ID', 'QUOTE'))
+    p.add_argument('--template', nargs=2, metavar=('KIND', 'GROUP'), help='print a skeleton row of a kind for a group')
     p.add_argument('--file', default=None, help='file key of a source with several files (with --locate)')
     p.add_argument('--near', type=int, default=None, help='prefer the occurrence nearest to this offset (with --locate)')
     p.add_argument('--json', metavar='PATH', default=None)
@@ -1710,6 +1747,8 @@ def main(argv=None):
         return 0
     if a.check_sources:
         return check_sources(cfg)
+    if a.template:
+        return cmd_template(cfg, a.template[0], a.template[1])
     if a.locate:
         return cmd_locate(cfg, a.locate[0], a.locate[1], a.file, a.near, a.rate)
     if not a.all and not a.group:

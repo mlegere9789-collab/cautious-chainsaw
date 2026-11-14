@@ -64,10 +64,10 @@ Full hashes are in `sources.json`. "files" is the number of files of the source;
 | `NPS-ADHI` | nps-report | Administrative History: Gettysburg National Military Park and National Cemetery, Pennsylvania (July 1991) | 1 | 1,116,527 | 50d7010ae8e84188 | US government work |
 | `NPS-BOUNDARY-1988` | nps-report | Boundary Study, Gettysburg National Military Park: Draft Report to Congress / Environmental Assessment (1988 (the cover letter date is illegible in th | 1 | 134,213 | 21aa35c30b89335e | US government work |
 | `NPS-BRIEN-FARM` | nps-report | The Brien Farm and Family (June 1972) | 1 | 49,719 | 0d49364b257d49b7 | US government work |
-| `NPS-BRT-ECOLOGY` | nps-report | The Ecology of Big Round Top | 1 | 27,792 | 92d7c6df35e79e49 | US government work |
-| `NPS-BRYAN-HOUSE` | nps-report | Report on the Proposed Restoration of the Bryan House | 1 | 4,169 | c1c62add591807d4 | US government work |
+| `NPS-BRT-ECOLOGY` | nps-report | The Ecology of Big Round Top | 2 | 55,471 | per file | US government work |
+| `NPS-BRYAN-HOUSE` | nps-report | Report on the Proposed Restoration of the Bryan House | 2 | 8,030 | per file | US government work |
 | `NPS-CARE-WOUNDED-GUIDE` | nps-report | Care of the Wounded Student Program: Teachers' Guide (not stated) | 1 | 89,976 | aa5aa911c963a852 | US government work |
-| `NPS-CEM-DEDICATION` | nps-report | Circumstances Surrounding the Dedication of the Soldiers' National Cemetery and of the Delivery by Abraham Lincoln of his Gettysburg Address, November | 1 | 82,052 | 14662b880c877043 | US government work |
+| `NPS-CEM-DEDICATION` | nps-report | Circumstances Surrounding the Dedication of the Soldiers' National Cemetery and of the Delivery by Abraham Lincoln of his Gettysburg Address, November | 2 | 159,445 | per file | US government work |
 | `NPS-CEM-ENCLOSURES` | nps-report | The Development and Care of the Soldiers' National Cemetery Enclosures at Gettysburg | 1 | 234,811 | 822df6fc481a2360 | US government work |
 | `NPS-CLI-1STDAY` | nps-report | Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (2021) | 1 | 271,164 | 350b95a26393c343 | US government work |
 | `NPS-CLI-CEMETERY` | nps-report | Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg National Military Park (2019) | 1 | 112,641 | 57a1ba99644bb18c | US government work |
@@ -75,44 +75,44 @@ Full hashes are in `sources.json`. "files" is the number of files of the source;
 | `NPS-CLI-LANDSCAPE` | nps-report | Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg National Military Park (2000 (revised 2004)) | 1 | 203,460 | c54f0cec804d222a | US government work |
 | `NPS-CLI-LRT` | nps-report | Cultural Landscapes Inventory: Little Round Top, Gettysburg National Military Park (2020) | 1 | 235,077 | 531850bc7d6616be | US government work |
 | `NPS-CLI-PCB` | nps-report | Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National Military Park (2024) | 1 | 280,820 | 9e933e0a73ebc617 | US government work |
-| `NPS-CLR-1STDAY` | nps-report | Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (2021) | 1 | 1,900,019 | d3567cdb16b15202 | US government work |
-| `NPS-CLR-CEMETERY` | nps-report | Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park | 1 | 1,516,799 | aaf37fde962d2afb | US government work |
+| `NPS-CLR-1STDAY` | nps-report | Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (2021) | 2 | 3,784,116 | per file | US government work |
+| `NPS-CLR-CEMETERY` | nps-report | Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park: Site History, Existing Conditions, Analysis and Evaluat | 2 | 3,019,699 | per file | US government work |
 | `NPS-CLR-LRT` | nps-report | Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettysburg National Military Park (2 March 2012 (FINAL)) | 1 | 406,615 | 5f7fb77301c24019 | US government work |
-| `NPS-CLR-ROT-V1` | nps-report | Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume I (Areas 1-10) (2018) | 1 | 770,063 | 5dab05304098dae4 | US government work |
-| `NPS-CLR-ROT-V2` | nps-report | Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume II (the remaining areas) (2018) | 1 | 572,783 | 612ab5db78c86cd7 | US government work |
+| `NPS-CLR-ROT-V1` | nps-report | Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume I (Areas 1-10) (2018) | 2 | 1,534,380 | per file | US government work |
+| `NPS-CLR-ROT-V2` | nps-report | Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume II (the remaining areas) (2018) | 2 | 1,140,561 | per file | US government work |
 | `NPS-COMMON-PRIDE-1` | nps-report | "A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863, Part I (January 1981 (as printed: 1/81)) | 1 | 443,672 | fcc1c87159129c0b | US government work |
 | `NPS-COMMON-PRIDE-2` | nps-report | "A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863, Part II (1981) | 1 | 409,504 | ac2c120ca7436e30 | US government work |
-| `NPS-COMMON-PRIDE-3` | nps-report | "A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863 — Part III | 1 | 210,725 | 4d46614257fff45b | US government work |
-| `NPS-DCP-GUINN` | nps-report | Development Concept Plan: Guinn Woods Administrative Site Gettysburg National Military Park, Pennsylvania | 1 | 57,462 | f8e6c8cfdd9bbbd7 | US government work |
-| `NPS-DCP-LRT` | nps-report | Draft Development Concept Plan/Environmental Assessment: Little Round Top/Devil's Den, Gettysburg National Military Park, Pennsylvania | 1 | 141,427 | 266343bec0f7f491 | US government work |
+| `NPS-COMMON-PRIDE-3` | nps-report | "A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863, Part III (appendices) (January 1981 (as printed: 1/81)) | 1 | 210,725 | 4d46614257fff45b | US government work |
+| `NPS-DCP-GUINN` | nps-report | Development Concept Plan: Guinn Woods Administrative Site, Gettysburg National Military Park, Pennsylvania (1989 (recommended March 8, 1989; concurred | 1 | 57,462 | f8e6c8cfdd9bbbd7 | US government work |
+| `NPS-DCP-LRT` | nps-report | Draft Development Concept Plan / Environmental Assessment: Gettysburg Little Round Top / Devil's Den, Gettysburg National Military Park, Pennsylvania  | 1 | 141,427 | 266343bec0f7f491 | US government work |
 | `NPS-DESIGN-GUIDE` | nps-report | Gettysburg Design Guide: A Guide for Maintaining and Rehabilitating Buildings in the Gettysburg Historic District | 1 | 316,759 | c88d5ff112c98074 | US government work |
-| `NPS-DEV-POLICY` | nps-report | Development Policy for Gettysburg National Military Park (Farm Lands and Farm Structures) | 1 | 8,453 | 048b13252d8d6090 | US government work |
-| `NPS-EISE-CLI-LANDSCAPE` | nps-report | Cultural Landscapes Inventory: Eisenhower NHS Landscape, Eisenhower National Historic Site | 1 | 147,761 | fc27e3e10a71bfba | US government work |
-| `NPS-EISE-CLI-REDDING-2004` | nps-report | Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2004) | 1 | 70,078 | 5b6d81252b3cf755 | US government work |
-| `NPS-EISE-CLR1` | nps-report | Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, and Analysis | 1 | 845,892 | b9b792ec6847052b | US government work |
+| `NPS-DEV-POLICY` | nps-report | Development Policy for Gettysburg National Military Park (Farm Lands and Farm Structures) | 2 | 16,681 | per file | US government work |
+| `NPS-EISE-CLI-LANDSCAPE` | nps-report | Cultural Landscapes Inventory: Eisenhower National Historic Site Landscape (Farms #1, #2 and #3) (not stated on the cover; park superintendent's concu | 1 | 147,761 | fc27e3e10a71bfba | US government work |
+| `NPS-EISE-CLI-REDDING-2004` | nps-report | Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (revised 07/12/2004 (PDF p. 12); park superintendent's concurre | 1 | 70,078 | 5b6d81252b3cf755 | US government work |
+| `NPS-EISE-CLR1` | nps-report | Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, Analysis (2005) | 1 | 845,892 | b9b792ec6847052b | US government work |
 | `NPS-EISE-HRS` | nps-report | Historic Resource Study and Historical Base Map: Eisenhower Farm, 1762-1967, Eisenhower National Historic Site | 1 | 416,340 | 393a9021ea6dbe24 | US government work |
-| `NPS-EXTENSION-1940` | nps-report | Report on Proposed Extension of Gettysburg Borough Line Southward Along Emmitsburg Road and a Historical Statement Relating to the Significance of Thi | 1 | 13,079 | 45c52e6bc84b9be5 | US government work |
-| `NPS-FD-2016` | nps-report | Foundation Document, Gettysburg National Military Park, Pennsylvania | 1 | 163,112 | dae05c7ee9b957c3 | US government work |
-| `NPS-GMP-1999-V1` | nps-report | Final General Management Plan and Environmental Impact Statement: Volume 1, Gettysburg National Military Park | 1 | 1,206,814 | 02fe5ad082de880d | US government work |
+| `NPS-EXTENSION-1940` | nps-report | Report on Proposed Extension of Gettysburg Borough Line Southward Along Emmitsburg Road and a Historical Statement Relating to the Significance of Thi | 2 | 26,119 | per file | US government work |
+| `NPS-FD-2016` | nps-report | Foundation Document, Gettysburg National Military Park, Pennsylvania | 2 | 325,421 | per file | US government work |
+| `NPS-GMP-1999-V1` | nps-report | Final General Management Plan and Environmental Impact Statement, Volume 1: Gettysburg National Military Park (June 1999) | 1 | 1,206,814 | 02fe5ad082de880d | US government work |
 | `NPS-HARMON-FARM` | nps-report | The Significance of the Harmon Farm and the Springs Hotel Woods (1 March 1991) | 1 | 168,753 | b74a832f34e11766 | US government work |
-| `NPS-HB9-1954` | nps-report | Gettysburg National Military Park: Historic Handbook #9 (1954) | 1 | 89,906 | 26b54688d158c49a | US government work |
-| `NPS-HB9-1962` | nps-report | Gettysburg National Military Park: Historic Handbook #9 (1962) | 1 | 78,195 | cc2992ea30d5972b | US government work |
-| `NPS-HCSR` | nps-report | Historic Cemetery Survey Report: Gettysburg National Military Park | 1 | 53,011 | d098184559cd7e97 | US government work |
-| `NPS-HS-MCPHERSON` | nps-report | Edward McPherson Farm: Historical Study | 1 | 262,541 | 24860abb930b44ff | US government work |
-| `NPS-HS-SPANGLER-HENRY` | nps-report | Historical Statement: Henry Spangler Farm Buildings | 1 | 14,790 | cfe9685a810192c9 | US government work |
+| `NPS-HB9-1954` | nps-report | Gettysburg National Military Park, Pennsylvania (National Park Service Historical Handbook Series No. 9) (1954) | 1 | 89,906 | 26b54688d158c49a | US government work |
+| `NPS-HB9-1962` | nps-report | Gettysburg National Military Park: Historic Handbook #9 (1962) | 2 | 156,215 | per file | US government work |
+| `NPS-HCSR` | nps-report | Historic Cemetery Survey Report: Gettysburg National Military Park | 2 | 102,052 | per file | US government work |
+| `NPS-HS-MCPHERSON` | nps-report | Edward McPherson Farm: Historical Study (October 1977 (title page; the day is garbled in the text layer)) | 1 | 262,541 | 24860abb930b44ff | US government work |
+| `NPS-HS-SPANGLER-HENRY` | nps-report | Historical Statement: Henry Spangler Farm Buildings | 2 | 29,246 | per file | US government work |
 | `NPS-HSR-LEISTER-BARN` | nps-report | Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park (not stated in the text layer) | 1 | 109,668 | 133b64b9e132c558 | US government work |
-| `NPS-HSR-MCCLEAN-BARN` | nps-report | Historic Structure Report: The McClean Barn, Gettysburg National Military Park | 1 | 86,630 | 926b6b9168afe47d | US government work |
+| `NPS-HSR-MCCLEAN-BARN` | nps-report | Historic Structure Report: The McClean Barn, Gettysburg National Military Park (CX 4000-5-0011) (July 1985) | 2 | 168,161 | per file | US government work |
 | `NPS-HSR-SLYDER` | nps-report | Historic Structure Report: J. Slyder Farm Buildings (Part I), Gettysburg National Military Park (April-May 1959 (review memoranda of April 30 and May  | 1 | 10,461 | 6f643ecdd335595e | US government work |
 | `NPS-MCCLEAN-HOUSE-BARN` | nps-report | McClean House and Barn, Gettysburg National Military Park, Pa. (1 October 1968) | 1 | 50,559 | 8224d20c22530603 | US government work |
-| `NPS-MCMILLAN-HOUSE` | nps-report | Report on McMillan House: Architectural section, Gettysburg National Military Park | 1 | 5,563 | a9cb533ecfa1b658 | US government work |
+| `NPS-MCMILLAN-HOUSE` | nps-report | Report on McMillan House: Architectural section, Gettysburg National Military Park | 2 | 10,421 | per file | US government work |
 | `NPS-MON-LOC-1932` | nps-report | The Locations of the Monuments, Markers and Tablets on the Battlefield of Gettysburg (1932) | 1 | 63,295 | 30c6cfae70cdf9c7 | US government work |
 | `NPS-MON-LOC-1993` | nps-report | The Location of the Monuments Markers, and Tablets on Gettysburg Battlefield (1993) | 1 | 84,758 | b86dd696be176eda | US government work |
-| `NPS-NRCA-2017` | nps-report | Natural Resource Condition Assessment, Gettysburg National Military Park and Eisenhower National Historic Site | 1 | 577,480 | c92462ce84ce9aed | US government work |
-| `NPS-ROCK-CREEK` | nps-report | Historical Importance of Rock Creek, Gettysburg National Military Park | 1 | 31,736 | 606171ea31db5504 | US government work |
+| `NPS-NRCA-2017` | nps-report | Gettysburg National Military Park and Eisenhower National Historic Site Natural Resource Condition Assessment (Natural Resource Report NPS/NER/NRR-201 | 1 | 577,480 | c92462ce84ce9aed | US government work |
+| `NPS-ROCK-CREEK` | nps-report | Historical Importance of Rock Creek, Gettysburg National Military Park | 2 | 63,452 | per file | US government work |
 | `NPS-SLAUGHTER-PEN` | nps-report | "Our Principal Loss Was in This Place": Action at the Slaughter Pen and at the South End of Houck's Ridge, July 2, 1863 | 1 | 98,691 | 211e2cfa8a0483cd | US government work |
-| `NPS-SLYDER-GUIDE` | nps-report | Impact of War: The Slyder Family Farm Teachers' Guide | 1 | 100,154 | 71a7cfdf8eeceddf | US government work |
+| `NPS-SLYDER-GUIDE` | nps-report | Impact of War: The Slyder Family Farm Teachers' Guide | 2 | 199,566 | per file | US government work |
 | `NPS-SPANGLERS-SPRING` | nps-report | Proposed Restoration of the Spangler's Spring-Culp's Hill Area and the Re-Location of Avenues in the Area of the Spring (20 July 1940) | 1 | 50,669 | 776affabeafbff1d | US government work |
-| `NPS-TPG-COMMEM` | nps-report | Treatment Philosophy and Guidelines for the Battlefield Commemorative Area, Gettysburg National Military Park (2025) | 1 | 486,113 | 760b40bce3c67226 | US government work |
+| `NPS-TPG-COMMEM` | nps-report | Treatment Philosophy and Guidelines for the Battlefield Commemorative Area, Gettysburg National Military Park (2025) | 2 | 969,654 | per file | US government work |
 | `NPS-VISTA-CUTTING` | nps-report | Vista Cutting Project: Area of Little Round Top, Devil's Den, the Wheatfield, and Peach Orchard (not stated; the text refers to photographs taken in D | 1 | 31,383 | 06db83351d62c22f | US government work |
 | `NPSGOV-BATTLEFIELD-REHAB` | nps-report | Battlefield Rehabilitation at Gettysburg - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2 | 1 | 10,070 | 839d38264b099365 | US government work |
 | `NPSGOV-CEMETERY` | nps-report | Gettysburg National Cemetery - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13) | 1 | 4,927 | 002dcec5502a1c0a | US government work |

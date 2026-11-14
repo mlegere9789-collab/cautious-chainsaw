@@ -416,6 +416,13 @@ def build():
             if 'decision' in pe:
                 entries[sid]['decision'] = pe['decision']
             kids.append(sid)
+        if spec.get('keep_parent'):
+            # the parent stays a build entry with its own record; the slices are further entries that carry the rest of the plan item (listed in `slices`,
+            # and the parent says so in closes_in_part), so closing the parent never drops the remainder
+            pe['_remainder'] = kids
+            pe['slices'] = kids
+            pe['slice_note'] = spec['note']
+            continue
         pe['_klass'] = 'umbrella'
         pe['_children'] = kids
         pe['slices'] = kids
@@ -517,6 +524,8 @@ def build():
                 e['title'] = auth['title']          # an authored entry may name its own scope when it covers only part of the item's title
             if auth.get('closes_in_part'):
                 e['closes_in_part'] = auth['closes_in_part']
+            elif e.get('_remainder'):
+                e['closes_in_part'] = 'Part of the plan item only; the rest is carried by ' + ', '.join(e['_remainder']) + '.'
             if auth.get('needs_split'):
                 e['needs_split'] = True
                 e['split_hint'] = auth['split_hint']
@@ -898,7 +907,7 @@ def status_md(A, B, items, order, entries, result, rows):
     n_dec = sum(1 for s_ in result if entries[s_]['_klass'] == 'decision')
     n_umb = sum(1 for s_ in result if entries[s_]['_klass'] == 'umbrella')
     n_umb_done = sum(1 for s_ in result if entries[s_]['_klass'] == 'umbrella' and entries[s_]['done'])
-    L.append('%d entries: one per open item plus %d slices (an item cut into parts that can be built alone; the parent closes with its slices). %d are build entries (a candidate patch group, source-rebuild work, a verification record or a request to the release workstream); %d are decision records (the delegated row exists, the consequence is carried by other entries); %d are umbrellas that close with their children. Done now: %d decision records, %d of %d build entries (a build entry is done only when candidates/r1h/<id>/STATUS.json verifies), %d of %d umbrellas.' % (len(entries), sum(1 for e_ in entries.values() if e_.get('slice_of')), n_leaf, n_dec, n_umb, sum(1 for s_ in result if entries[s_]['_klass'] == 'decision' and entries[s_]['done']), n_leaf_done, n_leaf, n_umb_done, n_umb))
+    L.append('%d entries: one per open item plus %d slices (an item cut into parts that can be built alone; an umbrella parent closes with its slices, a parent marked closes_in_part closes with its own record and the slice carries the rest of the plan item). %d are build entries (a candidate patch group, source-rebuild work, a verification record or a request to the release workstream); %d are decision records (the delegated row exists, the consequence is carried by other entries); %d are umbrellas that close with their children. Done now: %d decision records, %d of %d build entries (a build entry is done only when candidates/r1h/<id>/STATUS.json verifies), %d of %d umbrellas.' % (len(entries), sum(1 for e_ in entries.values() if e_.get('slice_of')), n_leaf, n_dec, n_umb, sum(1 for s_ in result if entries[s_]['_klass'] == 'decision' and entries[s_]['done']), n_leaf_done, n_leaf, n_umb_done, n_umb))
     L.append('')
     L.append('| Route | Entries | Open |')
     L.append('|---|---:|---:|')

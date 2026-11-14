@@ -170,6 +170,31 @@ def _libpages():
         _LP = json.load(open(LIBPAGES_P, encoding='utf-8'))['entries'] if os.path.exists(LIBPAGES_P) else {}
     return _LP
 
+_SLOG = None
+def logged_searches(rid):
+    """One exact line per logged search (closeout/search_log.jsonl) that names this row: scope, regular expression, hits per source, purpose."""
+    global _SLOG
+    if _SLOG is None:
+        _SLOG = collections.defaultdict(list)
+        p = os.path.join(HERE, 'search_log.jsonl')
+        if os.path.exists(p):
+            for l in open(p, encoding='utf-8'):
+                if l.strip():
+                    e = json.loads(l)
+                    for r_ in e.get('rows') or []:
+                        _SLOG[r_].append(e)
+    out = []
+    for e in _SLOG.get(rid, []):
+        h = e.get('hits') or {}
+        files = h.get('_library_files_searched')
+        tot = sum(v for k, v in h.items() if not k.startswith('_'))
+        by = ', '.join('%s %d' % (k.replace('OR27 ', ''), v) for k, v in h.items() if not k.startswith('_') and v)
+        scope = {'or': 'Official Records vol.27 parts 1-3', 'or1': 'Official Records vol.27 part 1', 'or2': 'Official Records vol.27 part 2', 'or3': 'Official Records vol.27 part 3',
+                 'lib': 'local library texts' + (' (%d searched%s)' % (files, '; ids ' + e['ids'] if e.get('ids') else '') if files else ''), 'both': 'Official Records and local library'}.get(e.get('scope'), e.get('scope'))
+        out.append('logged search (%s%s): regex `%s` -> %d hits%s%s' % (scope, ', ' + e['ts'][:10] if e.get('ts') else '', e['pattern'], tot, (' (' + by + ')') if by else '',
+                                                                          (' [' + e['note'] + ']') if e.get('note') else ''))
+    return out
+
 def sha_file(p):
     h = hashlib.sha256(); h.update(open(p, 'rb').read()); return h.hexdigest()
 
@@ -435,12 +460,18 @@ def main():
         line['corrected_claim'] = collections.OrderedDict(event=cc['event'], unit=cc['unit'], place=cc['place'],
                 time_window=collections.OrderedDict(text=cc['when'], start=cc.get('start'), end=cc.get('end'), basis=cc['basis'].rstrip(' .') + '.' + window_limits_note(rid, cc.get('start'), cc.get('end'), errs, r.get('limits'))),
                 text=cc['text'], tier=cc['tier'], marking=cc.get('marking') or 'tier glyph on every sub-claim that is not documented')
+        T_RANK = {'documented': 0, 'inferred': 1, 'plausible-procedural': 2, 'open gap': 3}
+        sd_t = seed_by[rid]['tier']; o_t = o.get('tier')
+        line['tier_change'] = collections.OrderedDict(seed=sd_t, shard_effective=o_t, corrected=cc['tier'],
+            note=('promotion proposed relative to the seed (owner or integrator decision; see delegated-decision block DD-TL03-01)' if T_RANK[cc['tier']] < T_RANK[sd_t] else
+                  ('demotion relative to the seed' if T_RANK[cc['tier']] > T_RANK[sd_t] else 'tier unchanged against the seed'))
+            + ('; higher than the tier the shard audit had set (' + str(o_t) + '): evidence added in this close-out' if o_t in T_RANK and T_RANK[cc['tier']] < T_RANK[o_t] else ''))
         line['sub_claims'] = subs
         line['citations'] = list(cites.values())
         line['scenarios'] = [collections.OrderedDict(id=sc['id'], value=sc['value'], basis=sc['basis'], tier=sc['tier'], citations=list(sc.get('cites', []))) for sc in r.get('scenarios', [])]
         line['default'] = r.get('default')
         line['remains_unsupported'] = r.get('remains', [])
-        line['searched'] = r.get('searched', [])
+        line['searched'] = list(r.get('searched', [])) + logged_searches(rid)
         line['recheck_applied'] = r.get('recheck') or 'none needed: every stored quote of this row was found at the stated report and page (OR-RECHECK)'
         line['register_proposed'] = ('tl-03-CO-' + rid) if r.get('register') else None
         line['register_related'] = r.get('related', [])

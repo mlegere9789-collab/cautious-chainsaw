@@ -1,0 +1,152 @@
+{
+ "f": "roster-qa-recovered/1",
+ "item": "union-vt",
+ "about": "Lines that the first text layer lost, recovered by a second reading of the page image. Each row has its own locator (text_id in data2/sources/QA-PAGEREAD.json and offset); none is written into a unit file; the unit file of the item does not hold them.",
+ "generated_utc": "2026-11-14T01:13:14Z",
+ "rows": [
+  {
+   "unit": "u-vt-2nd-vermont-infantry",
+   "status": "recovered by a second reading (not merged into the unit file)",
+   "ia_identifier": "cu31924080774148",
+   "leaf": 79,
+   "printed_page": 64,
+   "text_id": "QA-PAGEREAD.cu31924080774148-0079",
+   "off": 4960,
+   "name": "Higgins, William",
+   "rank": "",
+   "co": "K",
+   "rk": "Privates.",
+   "remarks": "Shoreham, May 17.61 June 20.°61/Taken pris.. July 2, \"62: Par Aug: 5- 62; Prom. Corp. Dec. 31, *62: : killed in action May 4. “63.",
+   "rd": 17,
+   "context_of_co_and_rk": "between the stored rows Hatch, Isaac and Hunter, Truman M. of the same table (company K, Privates)",
+   "first_layer_text_of_the_line": "Shoreham, May '61 June 20/61 |Taken pris.. July 2, '62: Par. Aug. 5. \"62; Prom. Corp. Dec. 31, '62: / killed in action May 4. '63.",
+   "line_similarity_first_layer_vs_second": 0.99,
+   "checks": {
+    "V1_name_tokens_at_offset": true,
+    "V2_remark_tokens_follow": true,
+    "derived_text_sha256_matches_ledger": true
+   },
+   "looked_at_image": "yes: the line was cropped at 300 dpi and looked at with the Read tool; the printed name is the one stored here (OCR tokens of the derived text, never corrected)"
+  },
+  {
+   "unit": "u-vt-6th-vermont-infantry",
+   "status": "recovered by a second reading (not merged into the unit file)",
+   "ia_identifier": "cu31924080774148",
+   "leaf": 202,
+   "printed_page": 187,
+   "text_id": "QA-PAGEREAD.cu31924080774148-0202",
+   "off": 3826,
+   "name": "Daggett, Charles R.",
+   "rank": "",
+   "co": "B",
+   "rk": "Privates.",
+   "remarks": "Putney. July 13,’63 July 13,63, Drafted; joined ambulance train May 17, °64; died ——, in Hanover | county Va., buried July 29. 64.",
+   "rd": 20,
+   "context_of_co_and_rk": "between the stored rows Corev. William H. and Dickinson, Atwood A of the same table (company B, Privates)",
+   "first_layer_text_of_the_line": "Putney. July '3/63 July '3/63 Drafted; joined ambulance train May 17, '64; died , in Hanover / county Va., buried July 29. '64.",
+   "line_similarity_first_layer_vs_second": 0.99,
+   "checks": {
+    "V1_name_tokens_at_offset": true,
+    "V2_remark_tokens_follow": true,
+    "derived_text_sha256_matches_ledger": true
+   },
+   "looked_at_image": "yes: the line was cropped at 300 dpi and looked at with the Read tool; the printed name is the one stored here (OCR tokens of the derived text, never corrected)"
+  },
+  {
+   "unit": "u-vt-13th-vermont-infantry",
+   "status": "recovered by a second reading (not merged into the unit file)",
+   "ia_identifier": "cu31924080774148",
+   "leaf": 514,
+   "printed_page": 497,
+   "text_id": "QA-PAGEREAD.cu31924080774148-0514",
+   "off": 872,
+   "name": "Drugg, Cliffus",
+   "rank": "",
+   "co": "H",
+   "rk": "Privates.",
+   "remarks": "; Stowe, Aug. 25,°62lOct. To, 62 Must. out July 21, °63.",
+   "rd": 15,
+   "context_of_co_and_rk": "between the stored rows Dow, John R and Emerson, William of the same table (company H, Privates)",
+   "first_layer_text_of_the_line": "Stowe, Aug. 2s,,62lOct. 10/62 Must, out July 21, '63.",
+   "line_similarity_first_layer_vs_second": 0.936,
+   "checks": {
+    "V1_name_tokens_at_offset": true,
+    "V2_remark_tokens_follow": true,
+    "derived_text_sha256_matches_ledger": true
+   },
+   "looked_at_image": "yes: the line was cropped at 300 dpi and looked at with the Read tool; the printed name is the one stored here (OCR tokens of the derived text, never corrected)"
+  },
+  {
+   "unit": "u-vt-15th-vermont-infantry",
+   "status": "recovered by a second reading (not merged into the unit file)",
+   "ia_identifier": "cu31924080774148",
+   "leaf": 543,
+   "printed_page": 526,
+   "text_id": "QA-PAGEREAD.cu31924080774148-0543",
+   "off": 1310,
+   "name": "Dennis Duhigg,",
+   "rank": "",
+   "co": "NCS",
+   "rk": "Sergeant-Majors.",
+   "remarks": "Lyndon, Sept. 17,\"62 Oct. 22,°62 Priv. Co. G.; Prom. Sergt.-Maj. Nov. 14, 62; Must out Aug. 5, °63.",
+   "rd": 15,
+   "context_of_co_and_rk": "directly under the stored row Edwin L. Hovey, of the heading Sergeant-Majors (Non-Commissioned Staff)",
+   "first_layer_text_of_the_line": "Lyndon, Sept 17/62 Oct 22/62 Priv. Co. G. ; Prom. Sergt.-Maj. Nov. 14, \"62; Must out Aug. 5, '63.",
+   "line_similarity_first_layer_vs_second": 1.0,
+   "checks": {
+    "V1_name_tokens_at_offset": true,
+    "V2_remark_tokens_follow": true,
+    "derived_text_sha256_matches_ledger": true
+   },
+   "looked_at_image": "yes: the line was cropped at 300 dpi and looked at with the Read tool; the printed name is the one stored here (OCR tokens of the derived text, never corrected)"
+  },
+  {
+   "unit": "u-vt-15th-vermont-infantry",
+   "status": "recovered by a second reading (not merged into the unit file)",
+   "ia_identifier": "cu31924080774148",
+   "leaf": 559,
+   "printed_page": 542,
+   "text_id": "QA-PAGEREAD.cu31924080774148-0559",
+   "off": 2351,
+   "name": "Samuel H. Kellogg,",
+   "rank": "",
+   "co": "K",
+   "rk": "Corporals.",
+   "remarks": "Concord, Aug. 28,°62, Oct. 22,’62/Red. May 3. °63; Must. out Aug. 5. °63.",
+   "rd": 19,
+   "context_of_co_and_rk": "directly under the stored row Albert F. Felch, (company K, Corporals), above the heading Musicians",
+   "first_layer_text_of_the_line": "Concord, Aug. 28/62 Oct. 22/6: Red. May 3. '63 ; Must, out Aug. 5. '63.",
+   "line_similarity_first_layer_vs_second": 0.991,
+   "checks": {
+    "V1_name_tokens_at_offset": true,
+    "V2_remark_tokens_follow": true,
+    "derived_text_sha256_matches_ledger": true
+   },
+   "looked_at_image": "yes: the line was cropped at 300 dpi and looked at with the Read tool; the printed name is the one stored here (OCR tokens of the derived text, never corrected)"
+  },
+  {
+   "unit": "u-vt-1st-vermont-cavalry",
+   "status": "recovered by a second reading (not merged into the unit file)",
+   "ia_identifier": "cu31924080774148",
+   "leaf": 246,
+   "printed_page": 231,
+   "text_id": "QA-PAGEREAD.cu31924080774148-0246",
+   "off": 1401,
+   "name": "Langdon H. Nichols,",
+   "rank": "",
+   "co": "C",
+   "rk": "Corporals.",
+   "remarks": "Roxbury, Oct. 3.761 Nov. 19,61 Taken pris. May 24, 62, and died at Lynchburg, Va., July 27, *62.",
+   "rd": 20,
+   "context_of_co_and_rk": "directly under the stored row Edmund Pope, Jr., (company C, Corporals), above the heading Musicians",
+   "first_layer_text_of_the_line": "Roxbury, Oct. 3,-61 Nov. i9,'6i Taken pris. May 24, '62, and died at Lynchburg, Va., July 27, '62.",
+   "line_similarity_first_layer_vs_second": 0.969,
+   "checks": {
+    "V1_name_tokens_at_offset": true,
+    "V2_remark_tokens_follow": true,
+    "derived_text_sha256_matches_ledger": true
+   },
+   "looked_at_image": "yes: the line was cropped at 300 dpi and looked at with the Read tool; the printed name is the one stored here (OCR tokens of the derived text, never corrected)"
+  }
+ ]
+}

@@ -42,5 +42,14 @@ L += ['', '## Not yet read for extracts, or read and not usable (reason)', '']
 for sid, s in sources.items():
     if not any(r['source_id'] == sid for r in rows):
         L.append('- `%s` (%s pages, %s with text): %s' % (sid, s['pages'], s['pages_with_text'], NOTREAD.get(sid, 'not yet read for extracts')))
+L += ['', '## Read in part: what is still owed for sources that have extracts', '']
+have = {r['source_id'] for r in rows}
+for sid, s in sources.items():
+    if sid in have and meta.get(sid, {}).get('owed'):
+        L.append('- `%s`: %s' % (sid, meta[sid]['owed']))
+L += ['', '## Rights notes (sources not authored by Service staff, or whose status is not established)', '']
+for sid, s in sources.items():
+    if s.get('rights_note'):
+        L.append('- `%s`: %s. %s' % (sid, s['rights_basis'], s['rights_note']))
 open(os.path.join(NPS, 'SUMMARY.md'), 'w', encoding='utf-8').write('\n'.join(L) + '\n')
 print('SUMMARY.md written')

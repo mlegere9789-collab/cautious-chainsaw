@@ -150,7 +150,8 @@ def add(pid, text, keep=False):
            'errors': v['errors'], 'form_only': v['form_only'], 'unverifiable': v['unverifiable'], 'missed_lines': v['missed'], 'notes': v['notes'],
            'reader': v['looked'], 'tesseract_prescreen': {'agree': cnt['AGREE'], 'near': cnt['NEAR'], 'suspect': cnt['SUSPECT'], 'unstored_lines': len(unstored)},
            'read': {k: read[k] for k in ('pdf_sha256', 'pdf_page', 'view_png_sha256', 'render300_sha256', 'tess_sha256', 'right_page', 'share_in_pinned_leaf')},
-           'rows_listed': [{'i': i, 'rid': r['rid'], 'name': r['name'], 'off': r['off'], 'text_id': r['text_id'], 'flag_codes': r['codes']} for i, r in enumerate(rows)],
+           'rows_listed': [{'i': i, 'rid': r['rid'], 'name': r['name'], 'rank': r['rank'], 'co': r['co'], 'remarks_sha256': Q.sha256_bytes(r['remarks'].encode('utf-8')), 'off': r['off'],
+                            'text_id': r['text_id'], 'flag_codes': r['codes']} for i, r in enumerate(rows)],
            'verdict_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}
     # tesseract status of every row (agree / near / suspect) kept for the second-reading analysis
     rec['tesseract_status'] = {str(c['i']): c['status'] for c in res}

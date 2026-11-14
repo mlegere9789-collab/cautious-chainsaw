@@ -3,7 +3,7 @@
 //   node --test tests/bt-pack/verify.test.mjs            (the last test starts a browser for a few seconds: run it through tools/horde/bench.sh, or set BT_PACK_NO_BROWSER=1 to skip it)
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { pack, trace, BT } from '../../tools/bt/pack_theatre.mjs';
-import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections, checkPortableNames, makeShooter } from '../../tools/bt/verify_staging.mjs';
+import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections, checkPortableNames, makeShooter, renderStagingBlock, writeStagingBlock, findRequestNotes, BLOCK_START, BLOCK_END } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btverify-')); test.after(() => fs.rmSync(tmp, { recursive: true, force: true }));
@@ -146,6 +146,49 @@ test('the walk keeps its pictures and its sound: a picture at each step that sho
 });
 
 // ---- the walk of a static section, in a real browser (skipped when no browser starts)
+// ---- the "Current build" block of NETLIFY-STAGING.md: written from files, every number checked against the pack, flagged builds say so, the markers are the only part of the document that changes
+const flaggedBuild = name => { const root = makeFixture(path.join(tmp, name + '-src')); fs.writeFileSync(path.join(root, 'app/data/doc-relative.json'), '{"a":1,"note":"built by Claude"}\n'); return { root, ...pack({ root, cfg: FIXTURE_CFG, out: path.join(tmp, name, 'dist'), zipDir: path.join(tmp, name) }) }; };
+const fakeRun = () => { const r = base(); r.requests = 12; r.seconds = 61; r.info = { sound: true, soundVia: 'the Start sound button in Settings' }; r.shots = [{ name: 'a', file: 'a.png' }, { name: 'b', file: null, error: 'x' }]; r.steps = [{ name: 'a', ok: true }, { name: 'Back', ok: true }]; return r; };
+const fakeReport = (version, dist, over = {}) => ({ when: '2026-11-14T00:08:53.631Z', minutes: 36.47, frames: 20, viewport: { width: 640, height: 360 }, official: true, dist, static: { manifest: { version } }, distRun: fakeRun(), sourceRun: fakeRun(), compare: { missingInDist: [], errorsOnlyInDist: [], errorsInBoth: [] }, walkOk: true, ok: true, auditHits: 0, distFiles: 5, shippedNeverRequested: ['/app/src/x.mjs'], failures: [], ...over });
+test('the Current build block: a clean pack names its plain zip, size and SHA-256 as they are on disk, and says no real run has happened', () => {
+  const p = build('blk-a'), b = renderStagingBlock({ dist: p.out, zip: p.zip, now: new Date('2026-11-14T01:02:03Z') }), size = fs.statSync(p.zip).size.toLocaleString('en-US');
+  assert.match(b, /^Written 2026-11-14 01:02 UTC\./); assert.ok(b.includes(`**Newest pack: build \`${p.version}\`**`)); assert.ok(b.includes('| Zip | `deliver/' + path.basename(p.zip) + '` |'), 'a clean zip is named without a warning'); assert.ok(!/flagged|do not upload/.test(b));
+  assert.ok(b.includes(`| Size | ${size} bytes`)); assert.ok(b.includes('`' + p.zipSha256 + '`')); assert.ok(b.includes(`certutil -hashfile ${path.basename(p.zip)} SHA256`)); assert.match(b, /\| Copy audit \| \*\*0 hits\*\*/); assert.match(b, /\*\*none has run for this build\*\*/); assert.match(b, /\*\*No real-browser verification has run\.\*\*/);
+  assert.match(b, /manifest ok \(\d+ files\); zip against dist ok/); assert.ok(b.includes('`unzip -t`: ok'));
+  assert.throws(() => renderStagingBlock({ dist: p.out, zip: path.join(path.dirname(p.zip), 'gettysburg-BT-staging-deadbeef.zip') }), /ENOENT|does not carry the build/, 'a zip of another build is refused');
+});
+test('the Current build block: a build with audit hits is flagged "do not upload" and the hit lines and their requests are listed', () => {
+  const p = flaggedBuild('blk-b'); assert.ok(p.audit.length >= 1 && /AUDIT-HITS-\d+/.test(p.zip)); const rd = path.join(tmp, 'blk-b-req'); fs.mkdirSync(rd, { recursive: true });
+  fs.writeFileSync(path.join(rd, 'owner-note.md'), '# copy audit: app/data/doc-relative.json line 1 says how it was made\n'); fs.writeFileSync(path.join(rd, 'unrelated.md'), '# copy audit of another file: app/data/other.json\n'); fs.writeFileSync(path.join(rd, 'no-audit-words.md'), 'app/data/doc-relative.json is large\n');
+  const b = renderStagingBlock({ dist: p.out, zip: p.zip, requestsDir: rd }); assert.match(b, /\(\*\*flagged: the copy audit found hits, so this is not an acceptable build; do not upload it\*\*\)/); assert.ok(b.includes('`app/data/doc-relative.json:')); assert.match(b, /\*\*\d+ hits?\*\* in 1 file/);
+  assert.ok(b.includes('`owner-note.md`') && !b.includes('unrelated.md') && !b.includes('no-audit-words.md'), 'only a note that names the file and speaks of the audit is listed');
+  assert.deepEqual(findRequestNotes('app/data/doc-relative.json', rd), ['owner-note.md']); assert.deepEqual(findRequestNotes('app/data/none.json', rd), []); assert.deepEqual(findRequestNotes('x', path.join(tmp, 'no-such-folder')), []);
+});
+test('the Current build block: the numbers of a real run come from its report; a report of another build is called that, with the files that differ', () => {
+  const p = build('blk-c'), same = renderStagingBlock({ dist: p.out, zip: p.zip, report: { ...fakeReport(p.version, p.out), reportFile: path.join(tmp, 'rep.json') } });
+  assert.match(same, /\| Real-browser run \| this very build was walked \(below\) \|/); assert.match(same, /\*\*Newest real-browser verification: build `/); assert.ok(same.includes('| Requests | 12 (3 different URLs) | 12 (3 different URLs) |')); assert.ok(same.includes('| Not answered 2xx (404s) | 0 | 0 |')); assert.ok(same.includes('| Steps passed | 2 of 2 | 2 of 2 |'));
+  assert.ok(same.includes('true, started: true (the Start sound button in Settings)')); assert.ok(same.includes('| Added layers | monuments.mjs running | monuments.mjs running |')); assert.ok(same.includes('| Pictures | 1 | 1 |'), 'a picture that could not be taken is not counted');
+  assert.match(same, /\*\*Walk and comparison: passed\*\*/); assert.match(same, /36\.47 minutes/); assert.ok(!/is not the verified build/.test(same), 'the same build: nothing differs');
+  // a report with an official=false run and a failing walk says so
+  const bad = fakeReport(p.version, p.out, { official: false, query: 'history=stub', walkOk: false, failures: ['1 request(s) to the packed site did not answer 2xx: 404 /app/x.json', 'copy audit: 2 hit(s)'] }); bad.distRun.log['/app/x.json'] = 404; bad.distRun.steps.push({ name: 'play at 2x', ok: false, error: 'boom' }); bad.distRun.failed = [{ url: '/app/src/ext/index.mjs', failure: 'net::ERR_ABORTED' }];
+  const t = renderStagingBlock({ dist: p.out, zip: p.zip, report: bad }); assert.match(t, /NOT the official run: the address carried \?history=stub/); assert.match(t, /\*\*Walk and comparison: FAILED\*\*: 1 request\(s\) to the packed site did not answer 2xx: 404 \/app\/x\.json\./); assert.ok(!/copy audit: 2 hit/.test(t), 'the audit line is the audit row, not a walk failure');
+  assert.ok(t.includes('| Not answered 2xx (404s) | 1 | 0 |')); assert.match(t, /Steps that failed in a walk: play at 2x \(packed\): boom\./); assert.match(t, /requestfailed.*net::ERR_ABORTED \/app\/src\/ext\/index\.mjs.*The two walks differ: look at it\./);
+  // another build was walked: the block says which files differ (a build that differs by one data file)
+  const q = flaggedBuild('blk-d'), old = fakeReport(q.version, q.out); assert.notEqual(q.version, p.version);
+  const diff = renderStagingBlock({ dist: p.out, zip: p.zip, report: old });
+  assert.ok(diff.includes('| Real-browser run | **not this build**: the last one that ran walked build `' + q.version + '`'));
+  assert.match(diff, /\*\*The newest pack is not the verified build\.\*\* Against build `\w+` it differs in 1 files? .*1 changed \(app\/data\/doc-relative\.json\)/);
+  const gone = renderStagingBlock({ dist: p.out, zip: p.zip, report: fakeReport(q.version, path.join(tmp, 'no-such-dist')) }); assert.match(gone, /is not on disk any more/);
+});
+test('the Current build block: only the text between the two markers of the document changes, and a document without them is refused', () => {
+  const p = build('blk-e'), doc = path.join(tmp, 'blk-e-doc.md'), before = `# Title\n\nintro line\n\n${BLOCK_START}\nold block\n${BLOCK_END}\n\n## Build\nthe rest of the document\n`; fs.writeFileSync(doc, before);
+  const b = renderStagingBlock({ dist: p.out, zip: p.zip, now: new Date('2026-11-14T00:00:00Z') }); assert.equal(writeStagingBlock(b, doc), doc); const after = fs.readFileSync(doc, 'utf8');
+  assert.ok(after.startsWith('# Title\n\nintro line\n\n' + BLOCK_START + '\n' + b + '\n' + BLOCK_END + '\n\n## Build\nthe rest of the document\n')); assert.ok(!after.includes('old block')); assert.ok(!fs.existsSync(doc + '.new'), 'no half-written copy is left');
+  writeStagingBlock(b, doc); assert.equal(fs.readFileSync(doc, 'utf8'), after, 'writing twice gives the same document');
+  fs.writeFileSync(doc, '# no markers here\n'); assert.throws(() => writeStagingBlock(b, doc), /markers/); assert.equal(fs.readFileSync(doc, 'utf8'), '# no markers here\n', 'a refused write leaves the document as it was');
+  // the real document keeps its markers (the tool is the way the block is updated)
+  const real = fs.readFileSync(path.join(BT, 'app/docs/NETLIFY-STAGING.md'), 'utf8'); assert.ok(real.includes(BLOCK_START) && real.includes(BLOCK_END) && real.indexOf(BLOCK_START) < real.indexOf(BLOCK_END));
+});
 test('section walk: every page is visited, links inside the section are followed, a dead link is reported, other sites are left alone', async t => {
   if (process.env.BT_PACK_NO_BROWSER) return t.skip('BT_PACK_NO_BROWSER is set: no browser is started (run it through tools/horde/bench.sh to include this test)');
   let br; try { const { chromium } = await import('../../node_modules/playwright-core/index.mjs'); try { br = await chromium.launch({ channel: 'chrome', headless: true }); } catch { br = await chromium.launch({ headless: true }); } } catch (e) { return t.skip('no browser starts here: ' + e.message.split('\n')[0]); }

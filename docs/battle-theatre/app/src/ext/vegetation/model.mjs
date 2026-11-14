@@ -13,6 +13,8 @@
 export const SCHEMA = 'bt-vegetation/1';
 export const TIERS = ['documented', 'inferred', 'plausible-procedural', 'open gap'];
 const RANK = Object.fromEntries(TIERS.map((t, i) => [t, i]));
+/** Words by which a passage speaks of damage; a documented event must cite at least one documented passage that uses them (a lexical guard: whether the passage supports the claim is a reading, set down in the event's basis). */
+export const DAMAGE_RE = /trampl|trodden|trod\b|scarred|stripped|splinter|damag|destroy|batter|bullet|shell|shot\b|lopped|cut off|ruin/i;
 export const weakest = (...ts) => ts.filter(Boolean).reduce((a, b) => (RANK[b] > RANK[a] ? b : a), 'documented');
 
 // ---------------------------------------------------------------------------------------------------------------------------------- time
@@ -290,6 +292,11 @@ export function checkVegetation(model, opts = {}) {
     if (!c.quote || c.quote.length < 12) fail({ id: c.id }, 0, 'claim without a quote of at least 12 characters');
     if (c.tier !== 'documented' && c.tier !== 'inferred') fail({ id: c.id }, 0, 'claim tier is ' + c.tier);
     if (!c.loc || !(c.loc.pdf_page || c.loc.page || c.loc.char_start != null)) fail({ id: c.id }, 0, 'claim without a place in its source');
+  }
+  for (const e of model.data.events) {                           // an event carries a tier for the fact, the hours and the share; a documented fact needs a documented claim behind it
+    for (const k of ['tier', 'when_tier', 'magnitude_tier']) if (RANK[e[k]] === undefined) fail({ id: e.id }, e.from_min, `event ${k} is ${e[k]}`);
+    for (const cid of e.claims || []) if (!model.claims.has(cid)) fail({ id: e.id }, e.from_min, 'event cites unknown claim ' + cid);
+    if (e.tier === 'documented' && !(e.claims || []).some(cid => model.claims.get(cid) && model.claims.get(cid).tier === 'documented' && DAMAGE_RE.test(model.claims.get(cid).says))) fail({ id: e.id }, e.from_min, 'documented event without a documented passage that speaks of damage');
   }
   for (const u of model.units) {
     for (const [cid] of u.claims || []) if (!model.claims.has(cid)) fail(u, 0, 'cites unknown claim ' + cid);

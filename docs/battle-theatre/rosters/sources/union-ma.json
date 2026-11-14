@@ -1,7 +1,7 @@
 {
  "format": "roster2-sources-pointer/1",
  "work_item": "union-ma",
- "generated": "2026-11-14T00:52:55Z",
+ "generated": "2026-11-14T01:13:19Z",
  "access_rules": "archive.org metadata and /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround",
  "rights_note": "No text of this item can carry the basis of a United States publication before 1929: the volumes were printed 1931 to 1935 and the index in 1937. Each text carries what the files show (the item flag, the printed imprint, the search for a copyright notice, the leaves around the title page) and the open question; the decision is the owner step 4 of PRODUCTION-PLAN section 8, and under DEC-019 no permission request is made.",
  "sources": [
@@ -632,7 +632,7 @@
     }
    },
    "role": "roll",
-   "covers": "volume IV: 38th to 5xth Infantry (contents list); no unit of this item",
+   "covers": "volume IV: 38th to 57th Infantry (contents list); no unit of this item",
    "status": "pinned and hashed, not parsed (no unit of this item stands in it; kept as the volume map and for the rights record)",
    "used_for": []
   },
@@ -788,7 +788,7 @@
     }
    },
    "role": "roll",
-   "covers": "volume V: 58th Infantry onward, unattached companies, the Light Artillery batteries (contents list)",
+   "covers": "volume V: 58th to 62nd Infantry, unattached companies and battalions, the Light Artillery batteries (the 1st Battery on printed p. 343, the 3rd on 371, the 5th on 397, the 9th on 452) and the Heavy Artillery regiments (contents list)",
    "status": "parsed: the unit files of this item read their rosters from this volume",
    "used_for": [
     "u-ma-1st-massachusetts-battery-a",
@@ -949,7 +949,7 @@
     }
    },
    "role": "roll",
-   "covers": "volume VI: the Cavalry regiments and the later units (contents list; the 1st Cavalry roster is on printed pp. 129-227)",
+   "covers": "volume VI: the cavalry regiments (the contents leaf has no text layer; the 1st Cavalry roster is on printed pp. 129-227)",
    "status": "parsed: the unit files of this item read their rosters from this volume",
    "used_for": [
     "u-ma-1st-massachusetts-cavalry"
@@ -1381,6 +1381,344 @@
    "covers": "Index to Army Records (Wright & Potter, Boston, 1937): an alphabetical list of every name with the volume and page of the record, for Volumes I to VI and part of VII; its foreword says so",
    "status": "pinned and hashed, not parsed: a name index with volume and page references; a second reading of the names is open work (EG-ROS-MA-05)",
    "used_for": []
+  }
+ ],
+ "unit_files": [
+  {
+   "unit": "u-ma-10th-massachusetts-infantry",
+   "file": "data2/union/ma/10th-massachusetts-infantry.jsonl.gz",
+   "rows": 1258,
+   "file_bytes": 42832,
+   "file_sha256": "49a77f9a6fcae2422d18615cd36025f374b4ec35335634d244f190801322af1d",
+   "raw_lines_sha256": "2a2df12c915328d6d35bba81ae2c7e0e9d7d0e62cf19c79c4cad54df5136bd64",
+   "text_ids": [
+    "MA-SSM-1931.1"
+   ],
+   "flags_file": "data2/union/ma/10th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 16318,
+   "flags_sha256": "d4f2cc78e266111036e032a26c1a4d775f20fdddbb6b7d689ff633dbaec2b6f0"
+  },
+  {
+   "unit": "u-ma-11th-massachusetts-infantry",
+   "file": "data2/union/ma/11th-massachusetts-infantry.jsonl.gz",
+   "rows": 2039,
+   "file_bytes": 70658,
+   "file_sha256": "a5e1143e708e0172da34fec58fed46cd0989e40d13c723761de66a223a1aa2b2",
+   "raw_lines_sha256": "f477331d8d676a6e45593512d81774afdb007c307e8b50f55d1cf73ac28c26d1",
+   "text_ids": [
+    "MA-SSM-1931.1"
+   ],
+   "flags_file": "data2/union/ma/11th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 24109,
+   "flags_sha256": "bc9760477a5b030b0fd953a7ce52e23e82e9cc5c1ba277bd3dcc47a922700265"
+  },
+  {
+   "unit": "u-ma-12th-massachusetts-infantry",
+   "file": "data2/union/ma/12th-massachusetts-infantry.jsonl.gz",
+   "rows": 1592,
+   "file_bytes": 57883,
+   "file_sha256": "4ef8950c3dd6136e09ddcf0ba75ef261e0d6625f30e84c2a52a27a473445b73d",
+   "raw_lines_sha256": "ca0c25eae2f5d7e9b5e53ba50f53da8c3c292ce85aa40ea26c1a21a4b1795650",
+   "text_ids": [
+    "MA-SSM-1931.2"
+   ],
+   "flags_file": "data2/union/ma/12th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 19626,
+   "flags_sha256": "e00e91732b4147ad06c07699311119ab3089af5eedc1a58a9c0a576673070158"
+  },
+  {
+   "unit": "u-ma-13th-massachusetts-infantry",
+   "file": "data2/union/ma/13th-massachusetts-infantry.jsonl.gz",
+   "rows": 1448,
+   "file_bytes": 53755,
+   "file_sha256": "165698a4d15c14b477064c6a24d5e2610d03da9750081055017b29b17f2cee49",
+   "raw_lines_sha256": "03ddb8ebd23913e4ec8c1f26fc982bb08c2ab8bb7e746d3f568ee372069c6ff3",
+   "text_ids": [
+    "MA-SSM-1931.2"
+   ],
+   "flags_file": "data2/union/ma/13th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 18761,
+   "flags_sha256": "12bdc238f7737982bea8e09f3122e937d47e19445e5c9d3e5f2d7a9f4c81adaf"
+  },
+  {
+   "unit": "u-ma-15th-massachusetts-infantry",
+   "file": "data2/union/ma/15th-massachusetts-infantry.jsonl.gz",
+   "rows": 1726,
+   "file_bytes": 63105,
+   "file_sha256": "c4feef56129c20c2f0932ee5a85fb025525eb20c4c5d4a9053ab4a018f45a67a",
+   "raw_lines_sha256": "64cfaa160455589b9e0442e8e6e945a47269d7d34bdde8febd6f709f5e63e6a8",
+   "text_ids": [
+    "MA-SSM-1931.2"
+   ],
+   "flags_file": "data2/union/ma/15th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 21837,
+   "flags_sha256": "47e24885d79b903588053afeccc18ce57971996c48dc97f5ae5a1852ce8d0b40"
+  },
+  {
+   "unit": "u-ma-16th-massachusetts-infantry",
+   "file": "data2/union/ma/16th-massachusetts-infantry.jsonl.gz",
+   "rows": 1369,
+   "file_bytes": 47924,
+   "file_sha256": "5dbe46663cb1f817536865beaa5fd2940a4acb8d70cf9dc7edc42500c2f447ee",
+   "raw_lines_sha256": "82227abffd44ecd30ad6999c83216bb0621afc718388e052df815dce6d1dc345",
+   "text_ids": [
+    "MA-SSM-1931.2"
+   ],
+   "flags_file": "data2/union/ma/16th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 16912,
+   "flags_sha256": "79b40a44e470680a87afb3d8f3078952f43db8e46a4aff15e112e1fe52976fc8"
+  },
+  {
+   "unit": "u-ma-18th-massachusetts-infantry",
+   "file": "data2/union/ma/18th-massachusetts-infantry.jsonl.gz",
+   "rows": 1371,
+   "file_bytes": 55000,
+   "file_sha256": "97b06a07e3fa16ef30ef6d79f95227ea04f77b8939e4710cf4849f5e9aa5502c",
+   "raw_lines_sha256": "32b9d8c1515deca89a29fec88c61ead07548582c70bca6bac9a7194fb838f674",
+   "text_ids": [
+    "MA-SSM-1931.2"
+   ],
+   "flags_file": "data2/union/ma/18th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 17930,
+   "flags_sha256": "6dc165dea132985dcb49a1fc9ae9a98a05a660528f9277b82e9cac3b03175784"
+  },
+  {
+   "unit": "u-ma-19th-massachusetts-infantry",
+   "file": "data2/union/ma/19th-massachusetts-infantry.jsonl.gz",
+   "rows": 1938,
+   "file_bytes": 76095,
+   "file_sha256": "a3d6044badb7c65c617335e686aa18460a0694aee6e3b9286c34172a67dd1c6f",
+   "raw_lines_sha256": "87cb96e18e28b7b1036edccccfb3e56a0ed53063481942ff7699e20744e442dc",
+   "text_ids": [
+    "MA-SSM-1931.2"
+   ],
+   "flags_file": "data2/union/ma/19th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 24269,
+   "flags_sha256": "ca07ea0630eca9602b96d9da7f56cdd171fb065ba5b4c0331f9d667965621387"
+  },
+  {
+   "unit": "u-ma-1st-company-massachusetts-sharpshooters",
+   "file": "data2/union/ma/1st-company-massachusetts-sharpshooters.jsonl.gz",
+   "rows": 186,
+   "file_bytes": 8458,
+   "file_sha256": "ca4311861426fca20eb8f2952c0503788033a0f62288e14b27e8ea57d415190b",
+   "raw_lines_sha256": "040d2c9c75ca8d0392bb0bcf49f0786ac8d72013051bbd4722d06a1adecfbfef",
+   "text_ids": [
+    "MA-SSM-1931.2"
+   ],
+   "flags_file": "data2/union/ma/1st-company-massachusetts-sharpshooters.flags.json.gz",
+   "flags_bytes": 4310,
+   "flags_sha256": "6fdc0ae928c884e260d75072598ff5438d5fdb37a8c19c8d2aa8e19f9b56e557"
+  },
+  {
+   "unit": "u-ma-1st-massachusetts-battery-a",
+   "file": "data2/union/ma/1st-massachusetts-battery-a.jsonl.gz",
+   "rows": 265,
+   "file_bytes": 9549,
+   "file_sha256": "49d811b98d130ab413548e2ffcf2b3023baf4872e653306c071f966fdce0319f",
+   "raw_lines_sha256": "ca8207fe88fe29990242b126aad2b8d02797901cdb258cb941915dfaed3fe762",
+   "text_ids": [
+    "MA-SSM-1931.5"
+   ],
+   "flags_file": "data2/union/ma/1st-massachusetts-battery-a.flags.json.gz",
+   "flags_bytes": 4927,
+   "flags_sha256": "26b57b108c9e2e99a8a6672a9bca4acddfc4f4ba2e639f1ab93b6b1c90958b2f"
+  },
+  {
+   "unit": "u-ma-1st-massachusetts-cavalry",
+   "file": "data2/union/ma/1st-massachusetts-cavalry.jsonl.gz",
+   "rows": 2341,
+   "file_bytes": 84865,
+   "file_sha256": "619c9edd44f0aec78fcbbd30634f962f9639563bfae6f54329b1b546bc416cc0",
+   "raw_lines_sha256": "731b4b5e0d04736a76118ca16cc6b9955676f52f37e70d77a8d46ef08a40d322",
+   "text_ids": [
+    "MA-SSM-1931.6"
+   ],
+   "flags_file": "data2/union/ma/1st-massachusetts-cavalry.flags.json.gz",
+   "flags_bytes": 29381,
+   "flags_sha256": "3eaf8d6287c3ebec7f83a67c3771d9760f8f98fc6de4573869f0135d0e92c503"
+  },
+  {
+   "unit": "u-ma-1st-massachusetts-infantry",
+   "file": "data2/union/ma/1st-massachusetts-infantry.jsonl.gz",
+   "rows": 1699,
+   "file_bytes": 58428,
+   "file_sha256": "2e8bd815116518496f79b0d52dfc75cf94e14f08c58e1a935361de62fd37c544",
+   "raw_lines_sha256": "f0dbc7ad6ff4a96dab111202b69ac36dda5c5c382e11b94d69de80fbd7cb18fa",
+   "text_ids": [
+    "MA-SSM-1931.1"
+   ],
+   "flags_file": "data2/union/ma/1st-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 21243,
+   "flags_sha256": "76c5ac54553e47577fe1071615bd063ea76ee25b991ee094d2a79a527a0aaa20"
+  },
+  {
+   "unit": "u-ma-20th-massachusetts-infantry",
+   "file": "data2/union/ma/20th-massachusetts-infantry.jsonl.gz",
+   "rows": 2484,
+   "file_bytes": 93122,
+   "file_sha256": "ec92da9b7a1cddcec8bb787a3fa5f2d247d40df99eb661450ebcc641d21e0b5f",
+   "raw_lines_sha256": "94cdfd53e262a0e83a8b0d4f1e32177bed48586d77dc7f3f13ea3ecbf27065a8",
+   "text_ids": [
+    "MA-SSM-1931.2"
+   ],
+   "flags_file": "data2/union/ma/20th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 29377,
+   "flags_sha256": "ea9ee0239ac3ded38c0bf2799c08d4642f36b024dc72d3e11e257c1b8acb61ef"
+  },
+  {
+   "unit": "u-ma-22nd-massachusetts-infantry",
+   "file": "data2/union/ma/22nd-massachusetts-infantry.jsonl.gz",
+   "rows": 1452,
+   "file_bytes": 53374,
+   "file_sha256": "3c1fc7c184773ba1d9bf2132a31b7ae4a034bde5c61c5e3213803258e642cb55",
+   "raw_lines_sha256": "ee33887410a886655e52398efde87fa74dc96eacafe2ca943a8bcf29e67d2ee5",
+   "text_ids": [
+    "MA-SSM-1931.2"
+   ],
+   "flags_file": "data2/union/ma/22nd-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 18809,
+   "flags_sha256": "2f25849a3f26452e84dc6aa30b8bb336af4d480b5bb6be766bd1ee032d3cec8e"
+  },
+  {
+   "unit": "u-ma-28th-massachusetts-infantry",
+   "file": "data2/union/ma/28th-massachusetts-infantry.jsonl.gz",
+   "rows": 2065,
+   "file_bytes": 75560,
+   "file_sha256": "7d20c2dddcc1c69be2d3eb22822ec3914f385770864575a778b504cd4e2050cd",
+   "raw_lines_sha256": "dcb1cf37dd542823d0a0b41017884970613959e31f8e5f94bdd99c520132749b",
+   "text_ids": [
+    "MA-SSM-1931.3"
+   ],
+   "flags_file": "data2/union/ma/28th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 23426,
+   "flags_sha256": "30d38f86831bec349899de64990a77728e46b9754e592ec92f903e1fb823922f"
+  },
+  {
+   "unit": "u-ma-2nd-massachusetts-infantry",
+   "file": "data2/union/ma/2nd-massachusetts-infantry.jsonl.gz",
+   "rows": 2013,
+   "file_bytes": 68350,
+   "file_sha256": "8d0427a8410670057484ddb70b0fe4bbd2a4f3aa2efe2f3375a49b08c9fcdad2",
+   "raw_lines_sha256": "c4f05ac5afa526bce8d2f6418c0546d047f34bc0c07413172a6dc87e4e159486",
+   "text_ids": [
+    "MA-SSM-1931.1"
+   ],
+   "flags_file": "data2/union/ma/2nd-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 24717,
+   "flags_sha256": "933d7ca3ec4460f618c55f72a5f4f8a17199d5b6917ac4cadab0556a833cbda7"
+  },
+  {
+   "unit": "u-ma-32nd-massachusetts-infantry",
+   "file": "data2/union/ma/32nd-massachusetts-infantry.jsonl.gz",
+   "rows": 2168,
+   "file_bytes": 75567,
+   "file_sha256": "47dd78fa6728b869be5917c9a8e6edf610182abc146686f8c04fbc99dc6cf98f",
+   "raw_lines_sha256": "033f9181a20cf26dd4d3358bb2196586f3dd89606ee61d469e4ab90f68cbcdc5",
+   "text_ids": [
+    "MA-SSM-1931.3"
+   ],
+   "flags_file": "data2/union/ma/32nd-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 25893,
+   "flags_sha256": "f3ef57f556d597a49597150c5cb8c5bd4e2cafc359054490efe39e48f01b4e17"
+  },
+  {
+   "unit": "u-ma-33rd-massachusetts-infantry",
+   "file": "data2/union/ma/33rd-massachusetts-infantry.jsonl.gz",
+   "rows": 1282,
+   "file_bytes": 44037,
+   "file_sha256": "156927243b723d16b11c3ccabb25f4873edbbede467b7b8bfb9bcddef024d039",
+   "raw_lines_sha256": "09b170f5c118a41bbf2a76f6f1515e811ce88594ce0f90078ddd1a1bd506dfa9",
+   "text_ids": [
+    "MA-SSM-1931.3"
+   ],
+   "flags_file": "data2/union/ma/33rd-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 15815,
+   "flags_sha256": "0810db2f8a06966533b2e57ffd1b32323b58590da9cb343a81989e1a3863b35f"
+  },
+  {
+   "unit": "u-ma-37th-massachusetts-infantry",
+   "file": "data2/union/ma/37th-massachusetts-infantry.jsonl.gz",
+   "rows": 1310,
+   "file_bytes": 44273,
+   "file_sha256": "5b8171c2d7b7830252231f15387df479a73aea2daa3d7eaeae25630413016711",
+   "raw_lines_sha256": "a593a657a15ee21dbacc038f3eae511425592a9f9673cf4a02e95781a8ecfb16",
+   "text_ids": [
+    "MA-SSM-1931.3"
+   ],
+   "flags_file": "data2/union/ma/37th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 15568,
+   "flags_sha256": "8a66a34c3693562f867044c46ca96271fe08c0718ddb8a398424dc1cd4a4edb1"
+  },
+  {
+   "unit": "u-ma-3rd-massachusetts-battery-c",
+   "file": "data2/union/ma/3rd-massachusetts-battery-c.jsonl.gz",
+   "rows": 258,
+   "file_bytes": 9552,
+   "file_sha256": "0319f496d8a9f97cb6ebf5275289f70ceb56a8330d5482b5e13af389e0bcdfe3",
+   "raw_lines_sha256": "d11b76c429f126e613ec4f8d82daf32ce892d1aae0589e34b6735b491055ce5a",
+   "text_ids": [
+    "MA-SSM-1931.5"
+   ],
+   "flags_file": "data2/union/ma/3rd-massachusetts-battery-c.flags.json.gz",
+   "flags_bytes": 4952,
+   "flags_sha256": "1acfc95b16c6fc4c20e3db757c3933d2b2faa54d6d61714f3f087833ce21c051"
+  },
+  {
+   "unit": "u-ma-5th-massachusetts-battery-e",
+   "file": "data2/union/ma/5th-massachusetts-battery-e.jsonl.gz",
+   "rows": 331,
+   "file_bytes": 12363,
+   "file_sha256": "de9117799f0a358174ff05f826a40ae91a3c8aab2cde17aeff06cad8ec963db7",
+   "raw_lines_sha256": "d18d5e9dd91bba05a74f98234c3d714f6c0f85dd8431535a06eb74485d41bf8e",
+   "text_ids": [
+    "MA-SSM-1931.5"
+   ],
+   "flags_file": "data2/union/ma/5th-massachusetts-battery-e.flags.json.gz",
+   "flags_bytes": 5665,
+   "flags_sha256": "768deef58ea35344cd51d19cddc79e73674eb5f804a905c1f019fdc1e9c340fc"
+  },
+  {
+   "unit": "u-ma-7th-massachusetts-infantry",
+   "file": "data2/union/ma/7th-massachusetts-infantry.jsonl.gz",
+   "rows": 1171,
+   "file_bytes": 38193,
+   "file_sha256": "35c8ae661e5ca5920a4cd900f9679d322ff48e83e0c3b23736446f8194d1cc95",
+   "raw_lines_sha256": "de0cbf7787e2d77e4fe0c0ef945a211a03178831e796d1601799e2cac3e9d81c",
+   "text_ids": [
+    "MA-SSM-1931.1"
+   ],
+   "flags_file": "data2/union/ma/7th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 14769,
+   "flags_sha256": "69074c69eea6122e141544387d00542b1892d0e6ecdaa87dbb5f08b897ef34e0"
+  },
+  {
+   "unit": "u-ma-9th-massachusetts-battery",
+   "file": "data2/union/ma/9th-massachusetts-battery.jsonl.gz",
+   "rows": 329,
+   "file_bytes": 11056,
+   "file_sha256": "2bc28c0c57cedb2c14b486fd5cb8b6a2895bdd85b3610f24f422eefd7431b23f",
+   "raw_lines_sha256": "98d94795e26f34f06e97d040d8b774146ad7a2043ff2580c28d4d636a24f7930",
+   "text_ids": [
+    "MA-SSM-1931.5"
+   ],
+   "flags_file": "data2/union/ma/9th-massachusetts-battery.flags.json.gz",
+   "flags_bytes": 5583,
+   "flags_sha256": "3e750e5ae92c5113e79d3098e337d83a4f4b75e168759929ac2e59490ff9b8e5"
+  },
+  {
+   "unit": "u-ma-9th-massachusetts-infantry",
+   "file": "data2/union/ma/9th-massachusetts-infantry.jsonl.gz",
+   "rows": 1692,
+   "file_bytes": 53890,
+   "file_sha256": "61163b0feebc6fea50f3fed21092062ab484dc770e4a26273d6dee1277b856e7",
+   "raw_lines_sha256": "b2de81e282a7fc04ca6f8c7013e3701c7ef1dbc002eda71caa253f3b770a02a2",
+   "text_ids": [
+    "MA-SSM-1931.1"
+   ],
+   "flags_file": "data2/union/ma/9th-massachusetts-infantry.flags.json.gz",
+   "flags_bytes": 18757,
+   "flags_sha256": "7beb27b9be58b1c4d380e2d2339d02f699b9cdc5509cf1818a1b50b0c6dbbdd2"
   }
  ],
  "derived_texts": [],

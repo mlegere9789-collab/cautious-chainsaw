@@ -71,6 +71,29 @@ def baseline_entry(oob_ids):
     return found
 
 
+def embedded_heads(rows_by_unit, vocab):
+    """Search the remarks of every line for what a second entry head would leave: (a) a second 'Res.' token; (b) a rank (or something close to one) between two dashes.
+    Independent of the head rules of ma_parse.py.  Returns the lists of hits."""
+    import difflib
+    dash = r'[\u2014\u2013]|(?<=\s)-{1,2}(?=\s)'
+    pat = re.compile(r'(?:' + dash + r')\s*([^\u2014\u2013;]{1,26}?)\s*(?:' + dash + r')\s*(\S{0,16})')
+    second_res, rank_dash = [], []
+    for u, rows in rows_by_unit.items():
+        for i, r in enumerate(rows):
+            rem = r[3]
+            body = rem[3:]
+            for m in re.finditer(r'\b(?:Res\.|Res,|Res:|Res;)', body):
+                second_res.append((u, i, r[0], body[max(0, m.start() - 30):m.end() + 20]))
+            for m in pat.finditer(rem):
+                g = m.group(1).strip()
+                if re.search(r'\d{3,}', g) or len(g.split()) > 5 or re.match(r'^(occu|age|enl|must|comm|resi)', g, re.I):
+                    continue
+                best = max(difflib.SequenceMatcher(None, g, v, autojunk=False).ratio() for v in vocab)
+                if best >= 0.4:
+                    rank_dash.append((u, i, r[0], g, round(best, 2), rem[max(0, m.start() - 30):m.end() + 20]))
+    return second_res, rank_dash
+
+
 def main():
     units = {u['key']: u for u in json.load(open(os.path.join(D2, 'units.json'), encoding='utf-8'))['units'] if u['army'] == 'union' and u['st'] == 'ma'}
     diag = json.load(open(os.path.join(GOV, 'parse-diagnostics.json'), encoding='utf-8'))
@@ -152,6 +175,14 @@ def main():
             tot['code_' + kk] += v
         for kk in ('yes', 'no', 'unknown'):
             tot['on_rolls_' + kk] += ent['on_rolls'][kk]
+    rows_by_unit = {}
+    for spec in ordered:
+        h_, s_, _ = R.read_unit(os.path.join(OUT, spec['file'] + '.jsonl.gz'))
+        rows_by_unit[spec['key']] = [r for _, rr in s_ for r in rr]
+    second_res, rank_dash = embedded_heads(rows_by_unit, diag['rank_vocabulary'])
+    S['embedded_heads'] = {'second_res_tokens': len(second_res), 'rank_between_dashes': len(rank_dash), 'rank_between_dashes_rows': [list(x) for x in rank_dash],
+                           'second_res_rows': [list(x) for x in second_res]}
+    S['or_check_counts'] = dict(collections.Counter(units[k]['or_check'] for k in units))
     S['totals'] = dict(tot)
     S['or_joint'] = [{'unit': kk, 'quote': q, 'what': what, **(cites[q] or {})} for kk, q, what in OR_JOINT]
     S['reconciliation_totals'] = rec['totals']

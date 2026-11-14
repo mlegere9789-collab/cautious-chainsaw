@@ -12,12 +12,14 @@
 //   node tools/bt/verify_staging.mjs --pack [--frames 20] [--json report.json]          snapshot the tree, pack it (zip into deliver/, dist in tmp/bt-spec/verify/work), verify the result; a build that
 //                                                                                        passes everything also refreshes deliver/bt-staging/dist; deliver/bt-staging/LAST-VERIFY.txt says what happened
 //   node tools/bt/verify_staging.mjs --dist deliver/bt-staging/dist [--zip file.zip] [--source docs/battle-theatre] [--frames 20] [--json report.json] [--only dist|source]
+//   node tools/bt/verify_staging.mjs --doc --dist <dist> --zip <zip> [--selftest <tap.log>] [--verify <report.json>] [--queued "<text>"] [--write]     the "Current build" block of app/docs/NETLIFY-STAGING.md, written from FILES only (the pack, the static checks run on it, the
+//                                                                                        TAP log of tests/bt-pack, the report of a real run); without --write it is printed
 //   add --static-only for the checks that need no browser (manifest, zip, links, names, copy audit); --query a=b for a development shortcut (never the official check)
 //   pictures: every walk saves screenshots (the landing page, the soldiers close up, dawn, dusk, night, rain, a selected unit, the added layers on, and the first pages of a static section) to
 //   tmp/bt-spec/verify/shots/<time>/<dist|source>-<nn>-<name>.png (--shots <dir>, --no-shots, --viewport 1280x720; default 640x360). They are for a person to look at: the check does not judge them.
 // Run it through the machine lock (tools/horde/bench.sh): a software frame takes seconds. Exit 0 only when every check passes.
 import fs from 'node:fs'; import path from 'node:path'; import http from 'node:http'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
-import { pack, trace, SECTIONS, IMPORT_RE, CSS_URL_RE } from './pack_theatre.mjs';
+import { pack, trace, audit, SECTIONS, IMPORT_RE, CSS_URL_RE } from './pack_theatre.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), REPO = path.resolve(here, '../..'), BT = path.join(REPO, 'docs/battle-theatre');
 const posix = p => p.split(path.sep).join('/');
@@ -324,12 +326,88 @@ export function recordVerdict({ home, dist, zip, rep, failures = [], publish = t
   return { published };
 }
 
+// ---------------------------------------------------------------- 4. the "Current build" block of app/docs/NETLIFY-STAGING.md, written from FILES and never from memory
+export const STAGING_DOC = path.join(BT, 'app/docs/NETLIFY-STAGING.md'), BLOCK_START = '<!-- CURRENT-BUILD:start -->', BLOCK_END = '<!-- CURRENT-BUILD:end -->';
+/** The request notes (GOVERNANCE/horde/requests/*.md) that name a file with a copy-audit hit and speak of the audit: where the exact change is written down. Newest first, at most 3 per file. */
+export function findRequestNotes(hitFiles, requestsDir = path.join(BT, 'GOVERNANCE/horde/requests'), max = 5) {
+  if (!fs.existsSync(requestsDir)) return [];
+  const files = [].concat(hitFiles), out = []; for (const f of fs.readdirSync(requestsDir).filter(n => n.endsWith('.md'))) { let t = ''; try { t = fs.readFileSync(path.join(requestsDir, f), 'utf8'); } catch { continue; } if (files.some(h => t.includes(h)) && /copy audit|AUDIT/i.test(t)) out.push({ f, m: fs.statSync(path.join(requestsDir, f)).mtimeMs }); }
+  return out.sort((x, y) => y.m - x.m).slice(0, max).map(x => x.f);
+}
+/** The markdown between the two markers of NETLIFY-STAGING.md. dist and zip are the newest pack; the trace report sits beside the dist (the pack wrote it). selftestLog: the TAP output of tests/bt-pack;
+ *  report: the JSON of a real run (--json); queued: a sentence for a run that has not finished. Every number comes from a file; `now` is only the time stamp. */
+export function renderStagingBlock({ dist, zip, selftestLog = null, report = null, queued = null, now = new Date(), requestsDir = undefined, repoRoot = REPO }) {
+  dist = path.resolve(dist);
+  const J = f => JSON.parse(fs.readFileSync(f, 'utf8')), man = J(path.join(dist, 'MANIFEST.json'));
+  if (!zip) { const dd = path.join(repoRoot, 'deliver'), cand = fs.existsSync(dd) ? fs.readdirSync(dd).filter(f => f.startsWith(`gettysburg-BT-staging-${man.version}`) && f.endsWith('.zip')) : []; if (!cand.length) throw new Error(`no zip of build ${man.version} in deliver/: give --zip`); zip = path.join(dd, cand[0]); }
+  zip = path.resolve(zip);
+  const trf = path.join(path.dirname(dist), 'trace-report.json'), tr = isFile(trf) ? J(trf) : { built: {}, audit: [], counts: {}, modules: {}, bytesByFolder: {} };
+  const st = { manifest: checkManifest(dist), zip: checkZip(zip, dist), links: checkInternalLinks(dist), notes: checkNoNotes(dist), names: checkPortableNames(dist), pipeline: checkDataPipeline(dist) };
+  const zbuf = fs.readFileSync(zip), zsha = sha256(zbuf), zname = path.basename(zip), flagged = /AUDIT-HITS/.test(zname);
+  if (!zname.includes(man.version)) throw new Error(`the zip ${zname} does not carry the build ${man.version} of the dist`);
+  if (isFile(zip + '.sha256') && !fs.readFileSync(zip + '.sha256', 'utf8').startsWith(zsha)) throw new Error('the .sha256 file beside the zip is not the hash of the zip');
+  const comma = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','), mb = n => (n / 1e6).toFixed(1), utc = x => String(x).slice(0, 16).replace('T', ' ') + ' UTC', plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
+  const unz = man.files.reduce((n, f) => n + f.bytes, 0) + Buffer.byteLength(JSON.stringify(man, null, 1) + '\n'), L = [];
+  L.push(`Written ${utc(now.toISOString())}. It states only what was measured; every number comes from a file named here (\`tmp/bt-spec/\`, \`deliver/\`).`, '');
+  L.push(`**Newest pack: build \`${man.version}\`**, packed ${tr.built && tr.built.at ? utc(tr.built.at) : 'at an unknown time'} from the working tree of that moment${tr.built && tr.built.gitHead ? ` (git ${tr.built.gitHead} plus the uncommitted work of the other workstreams)` : ''}. The tree keeps changing under it: a later pack has another id.`, '');
+  L.push('| | |', '|---|---|');
+  L.push(`| Zip | \`deliver/${zname}\`${flagged ? ' (**flagged: the copy audit found hits, so this is not an acceptable build; do not upload it**)' : ''} |`);
+  L.push(`| Size | ${comma(zbuf.length)} bytes (${mb(zbuf.length)} MB) |`);
+  L.push(`| SHA-256 | \`${zsha}\` (the same line is in \`${zname}.sha256\`) |`);
+  const vm = report && report.static && report.static.manifest && report.static.manifest.version;
+  L.push(`| Real-browser run | ${vm === man.version ? 'this very build was walked (below)' : vm ? `**not this build**: the last one that ran walked build \`${vm}\` (below, with the files that differ)` : '**none has run for this build**'} |`);
+  const folders = Object.entries(tr.bytesByFolder || {}).slice(0, 6).map(([k, v]) => `${k} ${mb(v)} MB`).join(', '), mods = tr.modules || {}, c = tr.counts || {};
+  L.push(`| Contents | ${man.files.length + 1} files, ${mb(unz)} MB unzipped. Largest folders: ${folders}. ${c.modules} modules of \`app/src\` (${(mods.loaded || []).filter(f => f.startsWith('app/src/')).length} reached from the page by imports, ${(mods.shippedOnly || []).filter(f => f.startsWith('app/src/')).length} shipped with their folder and imported by no page), ${c.appData} data files of \`app/data\`, ${c.renderer} renderer files; ${(tr.sections || []).length ? 'static sections: ' + tr.sections.map(x => `\`${x.path}\` (${x.files} files, ${x.pages.length} pages)`).join(', ') : 'no roster section (`app/roster` does not exist yet)'}. |`);
+  const ok = x => x && x.ok ? 'ok' : 'FAILED';
+  L.push(`| Static checks | manifest ${ok(st.manifest)} (${st.manifest.files} files); zip against dist ${ok(st.zip)} (\`unzip -t\`: ${st.zip.unzipTest}); links inside the dist ${ok(st.links)} (${st.links.checked} checked); names the owner's Windows can unpack ${ok(st.names)} (${st.names.checked} paths); no notes or leftovers ${ok(st.notes)}; the data loaders of the shell run from the dist alone in node ${ok(st.pipeline)} (${st.pipeline.requests} requests, ${st.pipeline.distinct} files). |`);
+  const hits = tr.audit || [], hitFiles = [...new Set(hits.map(h => h.file))];
+  if (hits.length) { const notes = findRequestNotes(hitFiles, requestsDir); L.push(`| Copy audit | **${plural(hits.length, 'hit')}** in ${plural(hitFiles.length, 'file')} that belong to other workstreams: ${hits.map(h => `\`${h.file}:${h.line}\``).join(', ')}. The newest requests that name these files, with the exact change, are in \`GOVERNANCE/horde/requests/\`: ${notes.length ? notes.map(n => '`' + n + '`').join(', ') : 'none found'}. The rules are described under "Copy audit" below. |`); }
+  else L.push('| Copy audit | **0 hits** (rules: see "Copy audit" below) |');
+  const sc = tr.scrubbed || [], nm = sc.reduce((n, x) => n + x.removed.length, 0); if (sc.length) L.push(`| Publication filter | ${sc.length} data files ship without ${plural(nm, 'member')} that name the program that made the file (delegated decision DD-STG-01; the working files keep them; the list is in \`MANIFEST.json\`, "scrubbed"). |`);
+  if (selftestLog) { const t = fs.readFileSync(selftestLog, 'utf8'), n = k => +((new RegExp(`^# ${k} (\\d+)`, 'm').exec(t) || [0, 0])[1]), red = [...t.matchAll(/^not ok \d+ - (.+)$/gm)].map(m => m[1]);
+    L.push(`| Self-tests | \`tests/bt-pack\` (the packer on the real tree and on a made-up one; the checks of the verification on made-up folders): ${n('tests')} tests, ${n('pass')} pass, ${n('fail')} fail, ${n('skipped')} not run (the one that starts a browser).${red.length ? ` The ${red.length} red: ${red.map(x => '"' + x.replace(/ \(.*$/, '').slice(0, 90) + '"').join(', ')}. Each of them reads the real tree for a sentence that says how a file was made (the shipping gate, the kit and data check, the roster data); none is loosened.` : ''} |`); }
+  L.push('');
+  if (queued) L.push(queued, '');
+  if (report && report.distRun && report.sourceRun) {
+    const V = report, A = V.distRun, B = V.sourceRun, steps = r => r.steps.filter(x => x.ok).length + ' of ' + r.steps.length, non2xx = r => Object.values(r.log).filter(x => x < 200 || x >= 400).length, lay = r => r.ext ? r.ext.modules.map(m => m.path.replace(/\/index\.mjs$/, '') + ' ' + m.state).join(', ') : 'none', snd = r => `${r.entered}, started: ${r.info.sound}${r.info.soundVia ? ' (' + r.info.soundVia + ')' : ''}`, pics = r => r.shots ? r.shots.filter(x => x.file).length : 'none';
+    L.push(`**Newest real-browser verification: build \`${V.static.manifest.version}\`**, ${utc(V.when)}, ${V.minutes} minutes, software WebGL2 (ANGLE / SwiftShader), ${V.frames} frames per step, window ${V.viewport ? V.viewport.width + 'x' + V.viewport.height : '640x360'}${V.official ? '' : ' (NOT the official run: ' + (V.query ? 'the address carried ?' + V.query : 'fewer than 10 frames per step') + ')'}. The packed site was served the way Netlify serves it (its \`_headers\` applied) and walked, then the snapshot of the source tree was walked the same way and the two request logs were compared.`, '');
+    L.push('| | packed site | source snapshot |', '|---|---|---|');
+    L.push(`| Requests | ${A.requests} (${Object.keys(A.log).length} different URLs) | ${B.requests} (${Object.keys(B.log).length} different URLs) |`);
+    L.push(`| Not answered 2xx (404s) | ${non2xx(A)} | ${non2xx(B)} |`, `| Console or page errors | ${A.errors.length} | ${B.errors.length} |`, `| Theatre entered, sound | ${snd(A)} | ${snd(B)} |`, `| Steps passed | ${steps(A)} | ${steps(B)} |`, `| Added layers | ${lay(A)} | ${lay(B)} |`, `| Pictures | ${pics(A)} | ${pics(B)} |`, '');
+    const rf = path.relative(repoRoot, path.resolve(V.reportFile || '')), cmp = V.compare;
+    L.push(`Compared: URLs the source run loaded that the dist lacks: ${cmp ? cmp.missingInDist.length : 'not compared'}; console or page errors only in the packed site: ${cmp ? cmp.errorsOnlyInDist.length : 'not compared'}; shipped files this walk never requested: ${V.shippedNeverRequested ? V.shippedNeverRequested.length : '?'} of ${V.distFiles} (they ship because the trace found a reference; the list is in the report). **Walk and comparison: ${V.walkOk ? 'passed' : 'FAILED'}**${V.walkOk ? '' : ': ' + (V.failures || []).filter(f => !/^copy audit:/.test(f)).map(f => f.slice(0, 220)).join(' / ')}.${V.reportFile ? ` Report: \`${rf}\`` : ''}${V.shotsDir ? `; pictures: \`${path.relative(repoRoot, V.shotsDir)}\`` : ''}.`, '');
+    if (V.dist && isFile(path.join(V.dist, 'MANIFEST.json'))) { const now2 = audit(V.dist).length; if (V.auditHits != null && V.auditHits !== now2) L.push(`Copy audit of the verified build: ${V.auditHits} hit(s) under the rules of the run, ${now2} under the rules of today (see "Copy audit" below); the walk does not depend on it.`, ''); }
+    { const fa = (A.failed || []).map(f => `${f.failure} ${f.url}`), fb = (B.failed || []).map(f => `${f.failure} ${f.url}`), q = l => l.length ? l.map(x => '`' + x + '`').join(', ') : 'none';
+      if (fa.length || fb.length) L.push(`Requests the browser reports as failed although the server answered them (\`requestfailed\`): packed site ${q(fa)}; source snapshot ${q(fb)}. The check does not count an aborted request as a failure of its own: every path the server saw is judged by its status, and a missing file would be a 404 there. ${JSON.stringify(fa) === JSON.stringify(fb) ? 'The two walks show the same, so it is a matter of the product, not of the packaging.' : 'The two walks differ: look at it.'}`, ''); }
+    if (cmp && cmp.errorsInBoth.length) L.push(`Console or page errors that the source walk shows too (a product matter, not a packaging one): ${cmp.errorsInBoth.map(e => '`' + e.slice(0, 160) + '`').join('; ')}.`, '');
+    const sf = [...A.steps.filter(x => !x.ok).map(x => `${x.name} (packed): ${x.error}`), ...B.steps.filter(x => !x.ok).map(x => `${x.name} (source): ${x.error}`)]; if (sf.length) L.push('Steps that failed in a walk: ' + sf.join('; ') + '.', '');
+    if (V.static.manifest.version !== man.version) {
+      if (!V.dist || !isFile(path.join(V.dist, 'MANIFEST.json'))) L.push(`The dist of the verified build (\`${V.dist}\`) is not on disk any more, so the files that differ from the newest pack cannot be listed.`, '');
+      else { const vman = J(path.join(V.dist, 'MANIFEST.json')), P = new Map(vman.files.map(f => [f.path, f.sha256])), Q = new Map(man.files.map(f => [f.path, f.sha256])), stamp = new Set(['index.html', 'app/index.html']);
+        const gone = [...P.keys()].filter(k => !Q.has(k)), added = [...Q.keys()].filter(k => !P.has(k)), code = [...Q.keys()].filter(k => P.has(k) && P.get(k) !== Q.get(k) && !stamp.has(k));
+        L.push(`**The newest pack is not the verified build.** Against build \`${V.static.manifest.version}\` it differs in ${gone.length + added.length + code.length} files (the two pages that carry the build number differ only by it): ${gone.length} left out${gone.length ? ' (' + gone.join(', ') + ')' : ''}, ${added.length} added (${added.join(', ') || 'none'}), ${code.length} changed (${code.join(', ') || 'none'}). Those are covered by the trace and the static checks above, not by the real run.`, ''); }
+    }
+  } else if (!queued) L.push('**No real-browser verification has run.**', '');
+  L.push(`To check the zip you hold against the line above on Windows: open a command window in the folder of the zip and run \`certutil -hashfile ${zname} SHA256\`; the long hexadecimal line must be the same.`);
+  return L.join('\n');
+}
+/** Replaces the text between the two markers of the document with `block` (written beside the document and renamed, so that a reader never sees half of it). Refuses a document without the markers. */
+export function writeStagingBlock(block, docFile = STAGING_DOC) {
+  const doc = fs.readFileSync(docFile, 'utf8'), i = doc.indexOf(BLOCK_START), j = doc.indexOf(BLOCK_END); if (i < 0 || j < 0 || j < i) throw new Error('the markers ' + BLOCK_START + ' and ' + BLOCK_END + ' are not in ' + docFile);
+  fs.writeFileSync(docFile + '.new', doc.slice(0, i + BLOCK_START.length) + '\n' + block + '\n' + doc.slice(j)); fs.renameSync(docFile + '.new', docFile); return docFile;
+}
+
 // ---------------------------------------------------------------- the CLI
 const NOT_RUN = ['a real GPU: no frame time, long task or input delay was measured (software rendering only)', 'the WebGPU picture (?api=webgpu): the default renderer is WebGL2; the WebGPU modules are in the dist (static check) but were not run', 'listening to the sound: the audio started and its graph ran, nobody heard it',
   'other visits: ?history=stub, ?ext=off, ?crowd=off, a phone-sized page, a second entry after Back', 'other browsers (Safari, Firefox) and real phones'];
 async function main() {
   const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : undefined; }, has = k => a.includes(k);
   if (has('--help') || has('-h')) { const head = []; for (const l of fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n')) { if (!l.startsWith('//')) break; head.push(l.slice(3)); } console.log(head.join('\n')); return; }
+  if (has('--doc')) {
+    const rf = opt('--verify'), report = rf ? { ...JSON.parse(fs.readFileSync(path.resolve(rf), 'utf8')), reportFile: path.resolve(rf) } : null;
+    const block = renderStagingBlock({ dist: opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist'), zip: opt('--zip'), selftestLog: opt('--selftest') || null, report, queued: opt('--queued') || null });
+    if (has('--write')) console.log('written to ' + writeStagingBlock(block, opt('--doc-file') ? path.resolve(opt('--doc-file')) : STAGING_DOC)); else console.log(block); return;
+  }
   const frames = +opt('--frames') || 20, crawlMax = +opt('--crawl-max') || 150, query = opt('--query') || '', only = opt('--only'), t0 = Date.now(), print = s => console.log(s);
   const vp = /^(\d{3,4})x(\d{3,4})$/.exec(opt('--viewport') || ''), viewport = vp ? { width: +vp[1], height: +vp[2] } : { width: 640, height: 360 };
   const shotsDir = has('--no-shots') ? null : path.resolve(opt('--shots') || path.join(REPO, 'tmp/bt-spec/verify/shots', new Date().toISOString().replace(/[-:]/g, '').slice(0, 13) + 'Z')); let dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), zip = opt('--zip') && path.resolve(opt('--zip')), sourceRoot = path.resolve(opt('--source') || BT);

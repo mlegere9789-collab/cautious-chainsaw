@@ -4,7 +4,7 @@
 // plan follows the troops it is given; the copy audit words are absent; the module file lists and the gate hook are in place.
 //   node --test docs/battle-theatre/app/tests/vegetation.test.mjs
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
-import { VegModel, validateData, stateAt, cropState, cutMinute, damageAt, leafAt, fruitAt, placeTrees, checkVegetation, sampleTimes, isoMin, minToIso, weakest, TIERS, scenarioOption, u01, hash32, mulberry32, GATE_HOOKS, SEASON_SPLIT } from '../src/ext/vegetation/model.mjs';
+import { VegModel, DAMAGE_RE, validateData, stateAt, cropState, cutMinute, damageAt, leafAt, fruitAt, placeTrees, checkVegetation, sampleTimes, isoMin, minToIso, weakest, TIERS, scenarioOption, u01, hash32, mulberry32, GATE_HOOKS, SEASON_SPLIT } from '../src/ext/vegetation/model.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), APP = path.resolve(here, '..');
 const DATA = JSON.parse(fs.readFileSync(path.join(APP, 'data', 'vegetation.json'), 'utf8'));
@@ -19,7 +19,7 @@ test('the data is whole: schema, units with outlines and tiers, claims with quot
   const ids = new Set(DATA.claims.map(c => c.id)); assert.equal(ids.size, DATA.claims.length, 'claim ids are unique');
   for (const c of DATA.claims) { assert.ok(c.quote && c.quote.length >= 12, c.id); assert.ok(['documented', 'inferred'].includes(c.tier), c.id); assert.ok(c.loc && (c.loc.pdf_page || c.loc.page || c.loc.char_start != null), c.id + ' has a place in its source'); assert.ok(c.src && c.says, c.id); }
   for (const u of DATA.units) { for (const [cid, role] of u.claims) { assert.ok(ids.has(cid), `${u.id} cites ${cid}`); assert.ok(['exact', 'nearest', 'area'].includes(role)); } for (const [eid] of u.ev || []) assert.ok(M.events.has(eid)); assert.ok(TIERS.includes(u.geom_tier)); }
-  for (const e of DATA.events) { for (const cid of e.claims) assert.ok(ids.has(cid), `${e.id} cites ${cid}`); assert.ok(e.from_min < e.to_min && e.final[0] <= e.final[1]); assert.ok(TIERS.includes(e.tier) && TIERS.includes(e.magnitude_tier)); }
+  for (const e of DATA.events) { for (const cid of e.claims) assert.ok(ids.has(cid), `${e.id} cites ${cid}`); assert.ok(e.from_min < e.to_min && e.final[0] <= e.final[1]); assert.ok(TIERS.includes(e.tier) && TIERS.includes(e.magnitude_tier) && TIERS.includes(e.when_tier), e.id + ' has a tier for the fact, the hours and the share'); if (e.tier === 'documented') assert.ok(e.claims.some(cid => { const c = DATA.claims.find(x => x.id === cid); return c.tier === 'documented' && DAMAGE_RE.test(c.says); }), e.id + ' is documented only with a documented passage that speaks of damage'); }
   for (const g of DATA.gaps) { assert.ok(g.id && g.title && g.what && g.why && TIERS.concat(['open gap']).includes(g.tier) && g.register); }
   for (const w of DATA.witness_trees) for (const cid of w.claims) assert.ok(ids.has(cid));
   const counts = {}; for (const u of DATA.units) counts[u.cls] = (counts[u.cls] || 0) + 1;
@@ -32,7 +32,7 @@ test('time: the minutes of the theatre clock, both ways', () => {
   assert.throws(() => T('1864-01-01')); assert.throws(() => T('1863-13-01'));
 });
 
-test('the Wheatfield: documented standing wheat on 2 July, trampled by its documented window, never before it', () => {
+test('the Wheatfield: documented standing wheat on 2 July, trampled in the engagement window (an inference from the documented movement, marked so), never before it', () => {
   const at = (s, c) => stateAt(M, wheatfield, T(s), c);
   assert.equal(wheatfield.crop, 'wheat'); assert.equal(wheatfield.crop_tier, 'documented');
   const s0 = at('1863-07-02T12:00'); assert.equal(s0.ground.stage, 'nearly_ripe'); assert.equal(s0.tiers.crop, 'documented'); assert.equal(s0.tiers.stage, 'documented', 'the stage of 1-3 July is documented');
@@ -41,6 +41,7 @@ test('the Wheatfield: documented standing wheat on 2 July, trampled by its docum
   assert.equal(sA.ground.trample, 0, 'nothing before the window opens'); assert.ok(sB.ground.trample > 0 && sB.ground.trample < sC.ground.trample); assert.ok(sC.ground.trample >= 0.7 * 0.97 && sC.ground.trample <= 0.95 + 0.08 * 0.95 + 1e-9, 'inside the ranged final share (and the 8 per cent of the field the Trostle event reaches)');
   assert.equal(sD.ground.trample, sC.ground.trample, 'the trample stays'); assert.ok(sD.ground.h[1] < sA.ground.h[0], 'trampled wheat is lower than standing wheat');
   assert.deepEqual(sC.events, ['EV-VEG-01', 'EV-VEG-02']);
+  assert.equal(M.events.get('EV-VEG-01').tier, 'inferred', 'the OR reports name the crop and the movement, not the trampling'); assert.equal(sC.tiers.damage, 'plausible-procedural', 'the share trampled is a range');
   assert.ok(at('1863-06-26T12:00').ground.h[1] <= s0.ground.h[1] + 0.2);
   assert.equal(at('1863-11-19T12:00').season, 'epilogue'); assert.equal(at('1863-11-19T12:00').ground.trample, 0, 'the crop of 1863 is gone in November');
   assert.ok(wheatfield.claims.some(([c, r]) => r === 'exact' && DATA.claims.find(x => x.id === c).about.crop === 'wheat'));
@@ -174,6 +175,15 @@ test('the park landscape evidence: every vegetation row of the corrections is a 
   // the Little Round Top conflict cites the new statements, and the Warren-map growth is marked as later
   const lrt = DATA.scenarios['CF-VEG-LRT']; for (const id of ['VC-NPSC-VISTA-CUTTING-p010-01', 'VC-NPSC-VISTA-CUTTING-p011-01c']) assert.ok(lrt.options.nps_clr.by.includes(id) && byId.has(id), id);
   assert.match(lrt.why, /growth after the battle, not the state of 1863/);
+});
+
+test('claims and places agree: a claim is marked placed exactly when a unit cites it, the evidence from the library names its source edition, and a quote is never a paraphrase of fewer than 12 letters', () => {
+  const cited = new Set(); for (const u of DATA.units) for (const [cid] of u.claims) cited.add(cid);
+  for (const c of DATA.claims) { assert.equal(c.placed !== false, cited.has(c.id), c.id + (c.placed === false ? ' is marked not placed but a unit cites it' : ' is marked placed but no unit cites it')); }
+  const lib = DATA.claims.filter(c => /^WS9:/.test(c.src)); assert.ok(lib.length >= 50, 'claims from the library: ' + lib.length);
+  for (const c of lib) { assert.ok(DATA.meta.source_titles[c.src.split('#')[0]], c.id + ' has the title of its source'); assert.ok(c.loc && c.loc.char_start != null && c.src_sha256, c.id + ' has its place and the hash of its text'); }
+  for (const c of DATA.claims) assert.ok(c.quote.replace(/[^A-Za-z0-9]/g, '').length >= 12, c.id);
+  const or27 = DATA.claims.filter(c => c.src === 'OR27'); assert.ok(or27.length >= 39); for (const c of or27) assert.ok(c.loc && c.loc.report && c.loc.page, c.id + ' names its report and its page');
 });
 
 test('the shipped data says nothing of how it was made, and names no later tree as a tree of 1863', () => {

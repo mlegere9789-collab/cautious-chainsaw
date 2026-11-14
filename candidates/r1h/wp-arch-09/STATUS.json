@@ -8,5 +8,51 @@
   "the root package.json and package-lock.json are not edited (not this workstream's): the two-line workspace wiring, the lock refresh and one tests/README.md row are the request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-arch-09.md",
   "owner-only: enabling CI, creating and rotating Mapbox tokens (register owner action 3), reading the Mapbox Product Terms of 2026-07-21",
   "no patch group: nothing in release/R1g/dist changes, so there is no group.json and nothing for the release workstream to register in a train"
- ]
+ ],
+ "evidence": null,
+ "checked_at": "2026-11-14T01:16:54.971Z",
+ "files": [
+  "src/README.md",
+  "src/app/README.md",
+  "src/lib/README.md",
+  "src/package.json",
+  "src/config/mapbox.js",
+  "src/config/mapbox.d.ts",
+  "src/config/tokens.test.mjs",
+  "src/foundation.test.mjs",
+  "src/tsconfig.base.json",
+  "src/.nvmrc",
+  "src/STACK.md",
+  "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-arch-09.md",
+  "candidates/r1h/wp-arch-09/HANDOFF.md"
+ ],
+ "tests": [
+  {
+   "cmd": "node --test src/config/tokens.test.mjs src/foundation.test.mjs",
+   "exit": 0,
+   "ms": 416,
+   "tail": "...of the layout exist and say what belongs where\n  ---\n  duration_ms: 0.216133\n  type: 'test'\n  ...\n# Subtest: mapbox-gl is imported only inside the map facade folder (the lint rule of the plan, until ESLint is installed)\nok 22 - mapbox-gl is imported only inside the map facade folder (the lint rule of the plan, until ESLint is installed)\n  ---\n  duration_ms: 23.728366\n  type: 'test'\n  ...\n# Subtest: the request note asks the release workstream for the two root package.json lines and nothing else of the root files\nok 23 - the request note asks the release workstream for the two root package.json lines and nothing else of the root files\n  ---\n  duration_ms: 0.427596\n  type: 'test'\n  ...\n1..23\n# tests 23\n# suites 0\n# pass 23\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 304.620248\n"
+  },
+  {
+   "cmd": "/opt/node24/bin/node --test src/config/tokens.test.mjs src/foundation.test.mjs",
+   "exit": 0,
+   "ms": 324,
+   "tail": "...4ms)\n✔ src/tsconfig.base.json is strict, with the extra flags the plan names (0.2317ms)\n✔ STACK.md maps the plan layout to the repository layout (0.717712ms)\n✔ STACK.md records the choices the register and the delegated rows fix (0.367087ms)\n✔ STACK.md writes every open choice as \"not decided: owner\" with a conservative default and a way back (0.842537ms)\n✔ the three README files of the layout exist and say what belongs where (0.281432ms)\n✔ mapbox-gl is imported only inside the map facade folder (the lint rule of the plan, until ESLint is installed) (2.629219ms)\n✔ the request note asks the release workstream for the two root package.json lines and nothing else of the root files (0.49423ms)\nℹ tests 23\nℹ suites 0\nℹ pass 23\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 219.142921\n"
+  },
+  {
+   "cmd": "node --test tests/time/*.test.mjs",
+   "exit": 0,
+   "ms": 495044,
+   "tail": "...puted as 5 + (tick - 1) / 12 makes at least one TM rule worse\n    ok 3 - an hour computed as 5 + (tick - 1) / 12 makes at least one TM rule worse\n      ---\n      duration_ms: 5267.796773\n      type: 'test'\n      ...\n    # Subtest: a millisecond clock: Date.UTC(...) + tick * 300000 makes at least one TM rule worse\n    ok 4 - a millisecond clock: Date.UTC(...) + tick * 300000 makes at least one TM rule worse\n      ---\n      duration_ms: 5654.030595\n      type: 'test'\n      ...\n    1..4\nok 118 - VERIFY-06 TM-V9 / TM-V17 mutation resilience: the rules only catch the exact legacy spellings (TX-15 \"mutation test turns CI red\")\n  ---\n  duration_ms: 19141.256891\n  type: 'suite'\n  ...\n1..118\n# tests 638\n# suites 114\n# pass 638\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 494912.225101\n"
+  }
+ ],
+ "red_first": {
+  "cmd": "node --test src/config/tokens.test.mjs",
+  "exit": 1,
+  "log": "candidates/r1h/wp-arch-09/red-first.log"
+ },
+ "handoff_exists": true,
+ "passes": true,
+ "problems": [],
+ "state": "tested"
 }

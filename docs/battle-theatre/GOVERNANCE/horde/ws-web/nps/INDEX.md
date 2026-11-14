@@ -47,7 +47,7 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPS-CLR-1STDAY | 580 (545) | 163 |
 | NPS-CLR-ROT-V2 | 378 (342) | 20 |
 | NPS-CLR-ROT-V1 | 474 (448) | 66 |
-| NPS-CLR-CEMETERY | 466 (440) | 0 |
+| NPS-CLR-CEMETERY | 466 (440) | 55 |
 | NPS-GMP-1999-V1 | 447 (439) | 52 |
 | NPS-ADHI | 451 (445) | 21 |
 | NPS-SLAUGHTER-PEN | 60 (49) | 0 |
@@ -64,7 +64,7 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPS-DESIGN-GUIDE | 161 (138) | 0 |
 | NPS-HB9-1954 | 57 (49) | 8 |
 | NPS-HB9-1962 | 69 (47) | 0 |
-| NPS-FD-2016 | 78 (61) | 0 |
+| NPS-FD-2016 | 78 (61) | 4 |
 | NPS-EISE-HRS | 268 (228) | 0 |
 | NPS-EISE-CLI-REDDING-2004 | 59 (52) | 6 |
 | NPS-EISE-CLI-LANDSCAPE | 102 (95) | 2 |
@@ -76,7 +76,7 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPSGOV-CONFED-LINE | 1 (1) | 0 |
 | NPSGOV-CS-MONUMENTS | 1 (1) | 2 |
 | NPSGOV-CULPS-HILL-REHAB | 1 (1) | 1 |
-| NPSGOV-DEVILS-DEN-REHAB | 1 (1) | 0 |
+| NPSGOV-DEVILS-DEN-REHAB | 1 (1) | 1 |
 | NPSGOV-EAST-CAVALRY | 1 (1) | 0 |
 | NPSGOV-FIRST-DAY | 1 (1) | 0 |
 | NPSGOV-GRASSLANDS | 1 (1) | 1 |
@@ -85,12 +85,12 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPSGOV-PLANNING | 1 (1) | 0 |
 | NPSGOV-PLANTS | 1 (1) | 4 |
 | NPSGOV-TOWN | 1 (1) | 0 |
-| NPSGOV-US-LINE | 1 (1) | 0 |
+| NPSGOV-US-LINE | 1 (1) | 1 |
 | NPSGOV-US-MONUMENTS | 1 (1) | 0 |
 | NPSGOV-WARFIELD-HOUSE | 1 (1) | 4 |
 | NPSGOV-WISLER-HOUSE | 1 (1) | 1 |
 
-Total extracts: 991 from 43 sources.
+Total extracts: 1052 from 47 sources.
 
 ## NPS-DEV-POLICY
 
@@ -166,7 +166,7 @@ Total extracts: 991 from 43 sources.
 - URL: https://www.npshistory.com/publications/gett/mon-locations-1993.pdf (HTTP 200, fetched 2026-11-13T18:59:41Z)
 - File as served: 7014723 bytes, sha256 `f3fb60176cf7566ba4232f4426d730fbd0d770c70436bfbe6c13d022aba6791e`
 - Text: `tmp/library/web/nps/NPS-MON-LOC-1993/NPS-MON-LOC-1993.txt`, 84758 bytes, sha256 `b86dd696be176eda8372ad4780e3a69e2f1051615799d8480f9d0f43484e352c`; 56 of 59 pages carry text
-- Rights basis: United States government work
+- Rights basis: Compiled by a park historian with a cooperating association; openly readable. Compiled by Kathy Georg Harrison (Gettysburg National Military Park) with the Eastern National Park and Monument Association; whether the compilation is a United States government work is not established by the document itself; no text of it is quoted
 - Text quality: tables scrambled in the text layer; no dates of erection
 - Extracts written: 0 (not yet read for extracts)
 - Used for extracts: no: location tables only, the text layer cannot be quoted reliably and gives no dates (page images owed)
@@ -211,7 +211,7 @@ Total extracts: 991 from 43 sources.
 - URL: https://www.npshistory.com/publications/gett/hsr-mcclean-barn.pdf (HTTP 200, fetched 2026-11-13T18:59:53Z)
 - File as served: 10679256 bytes, sha256 `a57e455d7ebec78214a06cd83cd2907b803e89c69cdb12558eeae1126b11c9f8`
 - Text: `tmp/library/web/nps/NPS-HSR-MCCLEAN-BARN/NPS-HSR-MCCLEAN-BARN.txt`, 86630 bytes, sha256 `926b6b9168afe47db2ba09a9f7aae93ff481a37c5c1d9ef9d0dd3da59d3d7281`; 87 of 116 pages carry text
-- Rights basis: United States government work
+- Rights basis: Prepared for the National Park Service by consultants and published by it; openly readable. The authors are consulting engineers and architects (Holt, Dickey), not Service employees: whether the work is a United States government work (public domain) is not established by the document itself; short verbatim quotations with citation are used; the owner confirms before any wider reuse
 - Text quality: the standard text interleaves the lines of the report's wide text frames and mixes the order of words; the content-stream-order text (pdftotext -raw, scripts/rawtext.py) reads cleanly and is the default for quotes
 - Feature states: A structural report of 1985 on the existing barn: its history and fabric sections (PDF pp. 13-40) state which parts of the barn date from about 1854 (the frame barn that stood in 1863) and which are additions of c. 1869, c. 1880 and c. 1890 demolished in 1944; the recommendations (pp. 44-56) say what of 1863 the barn keeps.
 - Extracts written: 13 (farm-buildings 11, hospitals 1, other-landscape 1)
@@ -339,7 +339,7 @@ Total extracts: 991 from 43 sources.
 - Text quality: photocopied typescript; the OCR text layer has letter-spacing noise and some wrong letters (bam for barn) and digits (190U for 1904, 1903 for 1905); quoted in the cleaned form with {{saved|fixed}} marks and checked against page images
 - Feature states: Chapters I-IV give the farm's ownership and the Slentz tenancy to 1863; chapter V the fighting of July 1 on the farm; chapter VI the hospital use and the losses; chapters VII-VIII the later owners, the fire of 1895 and the repairs of the barn in 1905 and 1917 (a later state of the barn, never an 1863 profile); appendices hold the damage claims and the Brady photographs.
 - Extracts written: 43 (farm-buildings 13, fences 9, fields-woodlots 9, hospitals 7, other-landscape 5)
-- Used for extracts: yes (extracts/src/99-mcpherson-hs.xdef: PDF pp. 20-90 in part; page images viewed 23, 28, 43, 48, 53, 73, 80, 83, 84, 85, 89, 90; the appendices (claims, photographs, chain of title) and the rest of chapter V are owed)
+- Used for extracts: yes (extracts/src/99-mcpherson-hs.xdef: PDF pp. 20-90 in part and appendices A and B, pp. 99-107; page images viewed 23, 28, 43, 48, 53, 73, 80, 83, 84, 85, 89, 90, 99, 101, 106, 107)
 
 ## NPS-CLI-1STDAY
 
@@ -492,9 +492,9 @@ Total extracts: 991 from 43 sources.
 - Rights basis: United States government work
 - Text quality: two-column report: the standard text interleaves the columns and the picture captions; the content-stream-order text (pdftotext -raw, scripts/rawtext.py) reads cleanly and is the default for quotes
 - Feature states: Site history chapter 'Before the National Cemetery, to July 1863' (PDF pp. 30-56, printed pp. 11-37) describes the site as it stood in July 1863 with Drawing 1.1 (PDF p. 54, looked at as an image); the chapters on 1863-1872, 1872-1933 and 1933 onward (pp. 57-200) describe the national cemetery built after the battle (later features); the existing-conditions and treatment chapters describe 2013.
-- Extracts written: 0 (not yet read for extracts)
+- Extracts written: 55 (farm-buildings 4, fences 12, fields-woodlots 11, hospitals 1, monuments-later 10, other-landscape 17)
 - Quotes are cut from the raw text variant (tmp/library/web/nps/<ID>/<ID>.raw.txt)
-- Used for extracts: yes (extracts/src/a2-clr-cemetery.xdef; raw text variant; PDF pp. 42-49 and 54 only; the later chapters are owed)
+- Used for extracts: yes (extracts/src/a2-clr-cemetery.xdef; raw text variant; PDF pp. 34-49 and 54 for the site before the battle, pp. 66-82 for what was built after it; Drawing 1.1 on PDF p. 54 looked at as an image)
 
 ## NPS-GMP-1999-V1
 
@@ -550,7 +550,7 @@ Total extracts: 991 from 43 sources.
 - URL: https://www.npshistory.com/publications/gett/nrr-2017-1369.pdf (HTTP 200, fetched 2026-11-13T19:05:24Z)
 - File as served: 8762758 bytes, sha256 `29cc3b89d3f4a9fce76a45a2e0dba19a46cb5b43a8dbaede063327ec09e65592`
 - Text: `tmp/library/web/nps/NPS-NRCA-2017/NPS-NRCA-2017.txt`, 577480 bytes, sha256 `c92462ce84ce9aedd57f7c0e1b773b13394d5b9079da87dad83ce27099f71fc0`; 273 of 286 pages carry text
-- Rights basis: United States government work
+- Rights basis: Prepared for the National Park Service by a university author (University of Rhode Island) and published by it as a Natural Resource Report; openly readable. The author is not a Service employee: whether the report is a United States government work is not established by the document itself; short verbatim quotations with citation are used; the owner confirms before any wider reuse
 - Text quality: born-digital text, clean
 - Covers: vegetation, woodlots, grasslands and deer management of the park; 1863 woodlot structure
 - Feature states: A natural-resource assessment of the 2010s; its statements about the 1863 woodlots rest on Bowersox et al. 2004 and on park management objectives (PDF pp. 129 and 198-199) and are carried as a conflict.
@@ -663,7 +663,7 @@ Total extracts: 991 from 43 sources.
 - URL: https://www.npshistory.com/publications/gett/design-guide.pdf (HTTP 200, fetched 2026-11-13T19:05:58Z)
 - File as served: 36589275 bytes, sha256 `ebd6bde0f59c5dd8f968d7bfcdf731bff88d995474459f50cffd750e88ea9059` (PDF deleted after text extraction to stay inside the disk budget)
 - Text: `tmp/library/web/nps/NPS-DESIGN-GUIDE/NPS-DESIGN-GUIDE.txt`, 316759 bytes, sha256 `c88d5ff112c980741c189fcdad64e6100604758ca0982fca52b54e4ce155a10b`; 138 of 161 pages carry text
-- Rights basis: United States government work
+- Rights basis: Not established as a United States government work. Prepared in 1997 for the Gettysburg Historic Architectural Review Board (Borough of Gettysburg) by Margaret M. M. Pickart and Richard C. Sutter & Associates, financed in part with federal funds from the National Park Service (PDF p. 6): a borough design guide hosted on npshistory.com; no text of it is quoted in any extract; a lead only
 - Extracts written: 0 (not yet read for extracts)
 
 ## NPS-HB9-1954
@@ -697,7 +697,7 @@ Total extracts: 991 from 43 sources.
 - File as served: 8304315 bytes, sha256 `dd8f106480b11168c77ee7fc6b7ace0cda1dd762ec6298c8da1e5f9b62c06734`
 - Text: `tmp/library/web/nps/NPS-FD-2016/NPS-FD-2016.txt`, 163112 bytes, sha256 `dae05c7ee9b957c36e2773a1ae03a7c75f772590361951e273f9e7954808b914`; 61 of 78 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Extracts written: 4 (farm-buildings 1, fields-woodlots 1, monuments-later 1, other-landscape 1)
 
 ## NPS-EISE-HRS
 
@@ -834,7 +834,7 @@ Total extracts: 991 from 43 sources.
 - Text: `tmp/library/web/nps/pages/NPSGOV-DEVILS-DEN-REHAB/NPSGOV-DEVILS-DEN-REHAB.txt`, 4580 bytes, sha256 `6e78f6d00de8dcc70e96cda62fb8de1c0b3a024208a9211fa5d1218ce7b03e63`; 1 of 1 pages carry text
 - Rights basis: United States government work
 - Text quality: web page text (tags stripped)
-- Extracts written: 0 (not yet read for extracts)
+- Extracts written: 1 (fields-woodlots 1)
 
 ## NPSGOV-EAST-CAVALRY
 
@@ -933,7 +933,7 @@ Total extracts: 991 from 43 sources.
 - Text: `tmp/library/web/nps/pages/NPSGOV-US-LINE/NPSGOV-US-LINE.txt`, 2318 bytes, sha256 `8a7558c9dec47f44a7336179dfb2c6f7f12fc0164ec80cc1215b462c4c0f5b52`; 1 of 1 pages carry text
 - Rights basis: United States government work
 - Text quality: web page text (tags stripped)
-- Extracts written: 0 (not yet read for extracts)
+- Extracts written: 1 (other-landscape 1)
 
 ## NPSGOV-US-MONUMENTS
 

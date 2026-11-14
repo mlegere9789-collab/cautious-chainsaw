@@ -513,7 +513,7 @@ group(
         'For every conflict: the options, the sources, no default chosen; the scenario key a viewer selects.',
     ],
     topics=['wounded', 'medical-officers', 'transport', 'evacuation', 'rations', 'deaths', 'operations', 'hospital-population', 'conflict', 'crosscheck'],
-    kinds=['site-count', 'wound-stat', 'org', 'fact'],
+    kinds=['site-count', 'wound-stat', 'org', 'supply', 'fact', 'case'],
     local=['OR27', 'LETTERMAN-1866', 'NPS-CARE-WOUNDED-GUIDE', 'MSHWR-P1V2-1870', 'MSHWR-P2V2-1876', 'MSHWR-P3V2-1883', 'FOX-1889', 'MEADE-LL-v2', 'ADAMS-SENTINEL-1863', 'GBG-COMPILER-1863'],
     acquire=['NPS-SEM13-ESSAY5', 'BRINTON-MEMOIRS-1914', 'MSHWR-P1V1-1870', 'AMM-CATALOGUE-1866', 'USSC-BULLETIN-V1-1863'],
     scene='The numbers a hospital card shows and the populations of the scenes (a scene never draws more patients than its row gives or fewer without the sampling note); the scenario selector for each conflict; the daily train flow.',

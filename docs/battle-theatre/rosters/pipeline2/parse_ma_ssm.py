@@ -45,8 +45,11 @@ ABOUT = ('row numbers count the rows of the unit file in file order from 0; "ocr
          'remarks name Gettysburg (an OCR-tolerant match, a lower bound) and "gettysburg_dated" those whose clause also prints 1, 2 or 3 July 1863; '
          '"printed_page_from_running_head" gives, for rows on a leaf whose printed page the page-number file does not give, the number the running head prints')
 RULE = ('yes: a printed muster-in, enlistment, draft or commission date on or before 30 June 1863, no separation (discharge, muster out, death, desertion, transfer out) '
-        'dated before 1 July 1863, no undated or unreadable separation, no return after a separation, no damaged date; no: the first printed start date is after 3 July 1863, '
-        'or a separation is printed with a date before 1 July 1863 and nothing returns the man afterwards; every other row is unknown')
+        'dated before 1 July 1863, no undated or unreadable separation, no return after a separation, no damaged date, and no clause that holds a separation word or a date '
+        'the reader cannot place (the semicolon between two events is often lost in the text layer: a clause is also cut before an event word that follows a year or a period, '
+        'a colon or a bar counts as a semicolon, a leading stray mark or letter is dropped); no: the first printed start date is after 3 July 1863, or a separation is printed '
+        'with a date before 1 July 1863 and nothing returns the man afterwards; every other row is unknown; what follows the first "See" (a cross-reference to the man\'s record '
+        'in another organization) is not read')
 
 
 def sha_bytes(b):
