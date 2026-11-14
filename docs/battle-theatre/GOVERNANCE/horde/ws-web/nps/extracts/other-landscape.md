@@ -413,11 +413,13 @@ Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettys
   - Repository ids: `E-14`
   - Claim: The report quotes a smaller tablet standing at the edge of a breastworks just east of Sykes Avenue which reads that the wall was built for defense on July 3 P.M. 1863; the report elsewhere says the breastworks were hastily constructed on the night of July 2
   - Quote: "Additionally, a smaller tablet stands at the edge of a breastworks just to the east of Sykes Avenue and reads: “This wall was built for defense, July 3rd P.M., 1863.”"
+  - Context (PDF p. 84): "Stone Breastworks: Hastily constructed on the night of July 2, 1863, in preparation for the next day’s battle, these low fieldstone barricades provided a modest amount of cover for Union troops defending Little Round Top when battle resumed on the morning of July 3"
 - **146th New York erected stone wall breastworks on the afternoon of July 2 (monument entry)** (`NPSX-CLR-LRT-p073-01`)
   - State date: **1863-07-02 (afternoon; the report's own entry for the 146th New York monument)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: conflict) | PDF p. 73
   - Repository ids: `E-14`
-  - Claim: The report's entry for the 146th New York monument says the regiment deployed there and erected stone wall breastworks on the afternoon of July 2, 1863 and remained until the end of the battle; Colonel Garrand's report quoted in chapter 4 says the stone wall was built at night
+  - Claim: The report's entry for the 146th New York monument says the regiment deployed there and erected stone wall breastworks on the afternoon of July 2, 1863 and remained until the end of the battle; a regimental commander's report quoted elsewhere in the same report says the stone wall was built at night
   - Quote: "The 146th New York Infantry deployed here and erected stone wall breastworks on the afternoon of July 2, 1863 and remained here until the end of the battle."
+  - Context (PDF p. 125): "At night this ridge, naturally strong, was strengthened by building a stone wall about half way down the slope, wherever the rocks offered no protection to the men."
 - **Stone breastworks hastily built on the night of July 2 and refined until July 5** (`NPSX-CLR-LRT-p084-01`)
   - State date: **1863-07-02 to 1863-07-05** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 84
   - Repository ids: `E-14`, `E-13`

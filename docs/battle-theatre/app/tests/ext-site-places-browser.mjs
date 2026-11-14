@@ -25,6 +25,7 @@ const srv = await serve(port), base = `http://127.0.0.1:${port}/app/index.html`;
 const br = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
 async function session(query, o = {}) {
   const ctx = await br.newContext({ viewport: { width: o.w || 1280, height: o.h || 720 }, deviceScaleFactor: 1, isMobile: !!o.touch, hasTouch: !!o.touch }), page = await ctx.newPage(), log = { errors: [], warnings: [], pageerrors: [], failed: [] };
+  page.setDefaultTimeout(600000);       // a frame of the scene takes seconds on software GL and the machine is shared: an action waits for the page as long as a screenshot does (this is a wait ceiling, not a check of speed)
   page.on('console', m => { const t = m.type(), x = m.text(); if (DRIVER_NOISE.test(x)) return; if (t === 'error') log.errors.push(x.slice(0, 300)); else if (t === 'warning') log.warnings.push(x.slice(0, 300)); });
   page.on('pageerror', e => log.pageerrors.push(String(e.stack || e).slice(0, 400))); page.on('response', r => { if (r.status() >= 400) log.failed.push(r.url().replace(/^.*\/app\//, 'app/') + ' HTTP ' + r.status()); });
   await page.goto(base + '?' + query, { waitUntil: 'load' });
@@ -32,7 +33,7 @@ async function session(query, o = {}) {
   const leave = async () => { await page.click('#bt-back', { timeout: 600000 }); await page.waitForSelector('#landing:not([hidden])', { timeout: 600000 }); await page.waitForFunction(() => !window.btApp, null, { timeout: 600000 }); };
   const shot = async name => { const f = path.join(out, name + '.png'); await page.screenshot({ path: f, timeout: 600000 }); results.shots.push(f); };       // on software GL a frame of the whole scene takes seconds: a screenshot waits for one
   // a flight of the camera ends: the shell clears th.controls.flight when it arrives
-  const drawerShown = async () => { await page.waitForFunction(() => { const d = document.querySelector('#bt-drawer'); return d && !d.hidden && getComputedStyle(d).opacity === '1'; }, null, { timeout: 60000 }); await page.waitForTimeout(150); };
+  const drawerShown = async () => { await page.waitForFunction(() => { const d = document.querySelector('#bt-drawer'); return d && !d.hidden && getComputedStyle(d).opacity === '1'; }, null, { timeout: 300000 }); await page.waitForTimeout(150); };
   const settle = async () => { await page.waitForFunction(() => !window.btApp.theatre.controls.flight, null, { timeout: 600000 }); await page.evaluate(() => window.btApp.frames(3)); };
   return { ctx, page, log, enter, leave, shot, settle, drawerShown, frames: n => page.evaluate(k => window.btApp.frames(k), n) };
 }
@@ -111,7 +112,7 @@ try {
   await s.shot('02-memorial-panel-off');
 
   // the switch on, in the panel
-  await P.check('#xm-on'); await P.waitForFunction(() => document.querySelector('#xm-marks'), null, { timeout: 60000 });
+  await P.check('#xm-on'); await P.waitForFunction(() => document.querySelector('#xm-marks'), null, { timeout: 300000 });
   // a view over the Cemetery Ridge monuments, near enough for names
   await P.evaluate(async url => { const Pm = await import(url), th = window.btApp.theatre, [x, z] = th.T.xz(-77.2352, 39.8081); const pose = Pm.poseAround(th.T, x, z, { dist: 240, height: 95 }); th.controls.flyTo(pose, 0); }, P_URL); await s.frames(4);
   const on1 = await P.evaluate(() => { const th = window.btApp.theatre, m = th.sitePlaces.memorials, chip = document.querySelector('#xm-chip'), cv = document.querySelector('#xm-marks'); return { on: m.isOn(), drawn: m.drawn(), inView: m.marksInView(), chipHidden: chip.hidden, chipText: chip.textContent.replace(/\s+/g, ' ').trim(), cv: cv ? { w: cv.width, h: cv.height, cssW: cv.getBoundingClientRect().width, cssH: cv.getBoundingClientRect().height, next: cv.nextElementSibling && cv.nextElementSibling.id, parent: cv.parentNode.id } : null, stage: (() => { const r = document.querySelector('#bt-stage').getBoundingClientRect(); return { w: r.width, h: r.height }; })(), hooks: th.host._hooks.length, live: document.querySelector('#bt-live').textContent, layerCheck: document.querySelector('input[data-xlayer="later-memorials"]')?.checked }; });
@@ -123,7 +124,7 @@ try {
   await s.shot('03-layer-on-cemetery-ridge');
 
   // a memorial from the list: search, pick, card, flight
-  await P.fill('#xm-q', 'Pennsylvania State Memorial'); await P.waitForFunction(() => /^[1-9]\d* of 512/.test(document.querySelector('#xm-count')?.textContent || '') && document.querySelector('#xm-list .item[data-no="46"]') && document.querySelectorAll('#xm-list .item').length < 60, null, { timeout: 30000 });
+  await P.fill('#xm-q', 'Pennsylvania State Memorial'); await P.waitForFunction(() => /^[1-9]\d* of 512/.test(document.querySelector('#xm-count')?.textContent || '') && document.querySelector('#xm-list .item[data-no="46"]') && document.querySelectorAll('#xm-list .item').length < 60, null, { timeout: 300000 });
   const q1 = await P.evaluate(() => [...document.querySelectorAll('#xm-list .item')].map(b => b.dataset.no + ':' + b.querySelector('.what').textContent)); check('search finds the Pennsylvania State Memorial (no. 46)', q1.some(x => /^46:Pennsylvania State Memorial/.test(x)), q1);
   await P.click('#xm-list .item[data-no="46"]'); await P.waitForSelector('#xm-card:not([hidden])'); await s.settle();
   const c1 = await P.evaluate(() => { const th = window.btApp.theatre, card = document.querySelector('#xm-card'), it = th.sitePlaces.memorials, cam = th.cam; return { selected: it.selected(), title: card.querySelector('h2')?.textContent, text: card.textContent.replace(/\s+/g, ' '), pills: [...card.querySelectorAll('.pill')].map(p => (p.dataset.tier || p.dataset.xm || '') + ':' + p.textContent.trim()), live: document.querySelector('#bt-live').textContent, cam: [cam.x, cam.y, cam.z], shellCardHidden: document.querySelector('#bt-card').hidden, state: { sel: th.state.selected, obj: th.state.selectedObj } }; });
@@ -133,11 +134,11 @@ try {
   check('picked memorial: the card has room (the root says data-card on, the clock face shrinks, the notice gives way to the card), at least 220 px high, inside the screen, the evidence closed, the button that puts the marks away is on it', room.rootCard === 'on' && room.notice === 'none' && room.cardH >= 220 && room.cardBottom <= room.vh && room.evidenceOpen === false && room.hideBtn === true && room.clockH < 160, room);
   await s.shot('04-card-pennsylvania');
   // a memorial whose year a National Park Service report prints: the year, the report, the page and the quotation are on its card; no open gap for the year
-  await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.select(8)); await P.waitForFunction(() => /1929/.test(document.querySelector('#xm-card')?.textContent || ''), null, { timeout: 20000 });
+  await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.select(8)); await P.waitForFunction(() => /1929/.test(document.querySelector('#xm-card')?.textContent || ''), null, { timeout: 300000 });
   const c8 = await P.evaluate(() => { const card = document.querySelector('#xm-card'), pills = [...card.querySelectorAll('.pill')].map(p => (p.dataset.tier || p.dataset.xm || '') + ':' + p.textContent.trim()); return { text: card.textContent.replace(/\s+/g, ' '), pills, counts: window.btApp.theatre.sitePlaces.memorials.counts().years }; });
   check('a memorial with a documented year: the card says 1929, names the report, the page and the quotation, and has no open gap for the year', /Put up/.test(c8.text) && /1929/.test(c8.text) && /National Park Service, Cultural Landscapes Inventory: Pickett's Charge Battlefield/.test(c8.text) && /PDF page 44 \(Page 39 of 131\)/.test(c8.text) && /CE 1929 Memorialized Monument\/marker is erected: North Carolina State Monument/.test(c8.text) && c8.pills.some(x => /^documented:/.test(x)) && !/ws-world-EG-MON-01/.test(c8.text) && c8.counts.documented === 32 && c8.counts.inferred === 1 && c8.counts.openGap === 479, c8);
   await s.shot('04b-card-year-documented');
-  await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.select(46)); await P.waitForFunction(() => /Pennsylvania State Memorial/.test(document.querySelector('#xm-card h2')?.textContent || ''), null, { timeout: 20000 });
+  await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.select(46)); await P.waitForFunction(() => /Pennsylvania State Memorial/.test(document.querySelector('#xm-card h2')?.textContent || ''), null, { timeout: 300000 });
   const fly1 = await P.evaluate(async url => { const Pm = await import(url), th = window.btApp.theatre, mem = th.sitePlaces.memorials; const items = mem.find({ q: 'Pennsylvania State' }); return { items }; }, P_URL); check('the programmatic find agrees with the panel', fly1.items.includes(46), fly1);
 
   // a tap on a mark picks it
@@ -167,7 +168,7 @@ try {
   await P.selectOption('#xm-pos', 'list'); await s.frames(1);
 
   // switch off from the panel
-  await P.uncheck('#xm-on'); await P.waitForFunction(() => !document.querySelector('#xm-marks'), null, { timeout: 30000 }); await P.waitForFunction(() => /hidden/.test(document.querySelector('#bt-live').textContent), null, { timeout: 10000 });       // the screen reader line is written 30 ms after it is cleared
+  await P.uncheck('#xm-on'); await P.waitForFunction(() => !document.querySelector('#xm-marks'), null, { timeout: 300000 }); await P.waitForFunction(() => /hidden/.test(document.querySelector('#bt-live').textContent), null, { timeout: 300000 });       // the screen reader line is written 30 ms after it is cleared
   const off1 = await P.evaluate(() => { const m = window.btApp.theatre.sitePlaces.memorials; return { on: m.isOn(), sel: m.selected(), drawn: m.drawn(), chipHidden: document.querySelector('#xm-chip').hidden, cardHidden: document.querySelector('#xm-card').hidden, marks: !!document.querySelector('#xm-marks'), live: document.querySelector('#bt-live').textContent }; });
   check('layer OFF again: nothing of the memorials is on the picture, nothing is picked, the switch is announced', off1.on === false && off1.sel === -1 && off1.drawn === 0 && off1.chipHidden && off1.cardHidden && !off1.marks && /hidden/.test(off1.live), off1);
 

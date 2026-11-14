@@ -226,6 +226,7 @@ class Out:
 
     def __init__(self, group):
         self.group, self.ops, self.unapplied, self.tables_used = group, [], [], set()
+        self.created = {}                   # (table, kit id) -> the create operation of a record this group makes: a later field of the same record joins it (one create per record)
 
     def op(self, kind, table, path=None, ids=(), why='', **kw):
         d = {'id': '%s:op%04d' % (self.group, len(self.ops) + 1), 'op': kind, 'table': table}
@@ -334,6 +335,14 @@ def c_commander(ctx, out, uid, lines):
     return None
 
 
+def support_text(o, n=90):
+    """The words that support a line, for the note of a field: its quote, or, for a derived line (which has no quote by contract), the ids it is derived from and its own note."""
+    q = o.get('quote')
+    if q:
+        return q[:n]
+    return ('derived from %s: %s' % (', '.join(o.get('derived_from') or ['?']), o.get('note') or ''))[:n + 60]
+
+
 def new_field(ctx, entry_lines, kf, ids, old, ua=None):
     A = lambda item, share, detail=None: {'item': item, 'share': share, 'weight': {'value': SHARE_TUNING[share], 'kind': 'tuning_parameter', 'historical_basis': False}, 'detail': detail}
     allowed = []
@@ -349,7 +358,7 @@ def new_field(ctx, entry_lines, kf, ids, old, ua=None):
                 allowed.append(A(iid, share, w['printed'] + ('' if w.get('share') or len(lst) == 1 else ' (share not stated)')))
     tier = worst_tier(entry_lines)
     f = {'allowed': allowed, 'tier_printed': tier, 'tier': tier, 'weak_source': False, 'source_keys': line_keys(entry_lines), 'source_basis': 'printed_per_row', 'evidence_ids': sorted(ids), 'tier_declared': tier,
-         'note': 'from the record: ' + '; '.join(sorted({o['quote'][:90] for o in entry_lines}))[:300]}
+         'note': 'from the record: ' + '; '.join(sorted({support_text(o) for o in entry_lines}))[:300]}
     if ua:
         f['assignment_id'] = ua
     if old:
@@ -438,7 +447,17 @@ def c_fields(ctx, out, uid, field, lines):
                     out.op('append', table, ['units', kid, 'fields', kf, 'evidence_ids'], ids, 'line that states it', value=i, unique=True)
                 continue
         fld = new_field(ctx, ls, kf, ids, old, ua)
-        if create and template is not None:
+        prior = out.created.get((table, kid)) if create else None
+        if prior is not None:
+            # a second kit field of a record this group already creates: it joins that create operation (a second create of the same key would fail the build)
+            pu = prior['value']
+            pu['fields'][kf] = fld
+            if ua:
+                pu['weapon_assignment_ids'] = sorted(set(pu.get('weapon_assignment_ids', [])) | {ua})
+            pu['evidence_ids'] = sorted(set(pu.get('evidence_ids', [])) | set(ids))
+            prior['evidence_ids'] = sorted(set(prior['evidence_ids']) | set(ids))
+            prior['why'] += '; also %s as the record states it' % kf
+        elif create and template is not None:
             _t, tkid, tu = template
             unit = copy.deepcopy(tu)
             unit.update({'id': kid, 'name': entry['name'], 'scope': 'regiment', 'hierarchy_printed': entry.get('parent'), 'evidence_ids': sorted(ids),
@@ -448,6 +467,7 @@ def c_fields(ctx, out, uid, field, lines):
             unit['fields'][kf] = fld
             unit['weapon_assignment_ids'] = sorted(set(tu.get('weapon_assignment_ids', [])) | ({ua} if ua else set()))
             out.op('create', table, ['units'], ids, 'a kit record for %s: its brigade record with %s as the record states it' % (uid, kf), key=kid, value=unit)
+            out.created[(table, kid)] = out.ops[-1]
         elif create:
             side = 'union' if entry['army'] == 'US' else 'confederate'
             arm = 'cavalry' if table == 'cavalry' else 'infantry'
@@ -456,6 +476,7 @@ def c_fields(ctx, out, uid, field, lines):
                     'fields': {kf: fld}, 'zouave_policy': 'none', 'forbidden_tags': [], 'allowed_tags': [], 'open': [], 'dispute_ids': [], 'parse_status': 'parsed', 'weapon_assignment_ids': [ua] if ua else [],
                     'evidence_ids': sorted(ids)}
             out.op('create', table, ['units'], ids, 'a kit record for %s so that its %s follows the record' % (uid, kf), key=kid, value=unit)
+            out.created[(table, kid)] = out.ops[-1]
         elif old is None and kid in units:
             out.set(table, ['units', kid, 'fields', kf], fld, units[kid]['fields'], ids, '%s of %s as the record states it' % (kf, kid))
             if ua:

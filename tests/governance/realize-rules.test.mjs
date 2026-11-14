@@ -3,9 +3,9 @@
 // tools/bt/realize/mutate.mjs removes or changes each rule in a scratch copy of the harness and runs these tests (and realize.test.mjs): a rule whose removal leaves every test green is not tested.
 import test from 'node:test'; import assert from 'node:assert/strict';
 import { P, TL, R, rec, addRow, run, ex, clone, codesOf, mustFail, mustPass } from './realize-lib.mjs';
-import { validateRecord, KINDS, KIND_NEEDS, ASSERT } from '../../tools/bt/realize/schema.mjs';
+import { validateRecord, KINDS, KIND_NEEDS, ASSERT, STAGE_ACTIVITIES } from '../../tools/bt/realize/schema.mjs';
 import { hasQuote, fold, toMin, isoOf, designators, wordInfo } from '../../tools/bt/realize/lib.mjs';
-import { coverageOf, summarize, q17Of } from '../../tools/bt/realize/check.mjs';
+import { coverageOf, summarize, q17Of, runAll, declaredDetail } from '../../tools/bt/realize/check.mjs';
 
 const A = (id, text, from, to, timeCell) => addRow(id, text, from, to, timeCell);
 const whole = (from, to) => ({ from, to, mode: 'all' });
@@ -27,7 +27,7 @@ test('rule: a quote is found only by whole words, apostrophes and quotation mark
 });
 test('rule: a record\'s quote must be found in the row, by words (schema.mjs quote_not_in_row)', async () => {
   A('Q-001', 'Meade holds a council on the Hanover Road', '1863-07-02T22:30', '1863-07-02T23:30', 'Jul 2 evening');
-  const base = () => rec('Q-001', 'weather_sky', '1863-07-02T22:30', '1863-07-02T23:30', 'Meade holds a council', {}, [{ type: 'sky', t: { at: '1863-07-02T23:00' }, band_in: ['Night'], exposure_min: 0.3 }], { place_unspecified: 'x' });
+  const base = () => rec('Q-001', 'weather_sky', '1863-07-02T22:30', '1863-07-02T23:30', 'Meade holds a council', {}, [{ type: 'sky', t: { at: '1863-07-02T23:00' }, band_in: ['Night'], exposure_min: 0.3 }]);
   await mustPass(base());
   const q = base(); q.claim = { quote: 'over Road' }; await mustFail(q, 'quote_not_in_row', 'a quote that starts inside a word');
   const q2 = base(); q2.claim = { quote: 'council on the Hanover Roa' }; await mustFail(q2, 'quote_not_in_row', 'a quote that ends inside a word');
@@ -37,7 +37,7 @@ test('rule: a record\'s quote must be found in the row, by words (schema.mjs quo
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 test('rule: a NIGHT row needs a sky assertion with exposure_min (gate Q10: night is night, never black; schema.mjs)', async () => {
   A('N-001', 'Early’s division bivouacs in the rain on the night of Jun 26', '1863-06-26T21:00', '1863-06-26T23:00', 'Jun 26 NIGHT');
-  const sky = { type: 'sky', t: { at: '1863-06-26T22:00' }, band_in: ['Night'], exposure_min: 0.34 }, wx = { type: 'weather', t: { at: '1863-06-26T22:00' }, record: true, quote: 'in the rain' };
+  const sky = { type: 'sky', t: { at: '1863-06-26T22:00' }, band_in: ['Night'], exposure_min: 0.34 }, wx = { type: 'weather', t: { at: '1863-06-26T22:00' }, precip_kind_in: ['rain'], quote: 'in the rain' };
   const night = checks => rec('N-001', 'weather_sky', '1863-06-26T21:00', '1863-06-26T23:00', 'bivouacs in the rain on the night of Jun 26', {}, checks);
   await mustPass(night([wx, sky]), 'a NIGHT row with its exposure assertion');
   await mustFail(night([wx]), 'kind_needs', 'a NIGHT row with a weather assertion and no sky assertion');
@@ -53,7 +53,7 @@ test('rule: every kind needs the assertion that can prove it (schema.mjs KIND_NE
   A('K-001', 'Cutler’s brigade stands at McPherson Ridge; Greene’s brigade builds the Culp’s Hill main line; 2nd Maine Battery fires; Iron Brigade 19th IN arrives; the Wade house is struck; the cards show it', '1863-07-01T12:00', '1863-07-01T12:30');
   const irrelevant = [{ type: 'place_known', place: 'McPherson Ridge' }], ents = { places: ['McPherson Ridge'] };
   for (const k of KINDS.filter(k => k !== 'not_realized')) {
-    const r = rec('K-001', k, '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands', ents, clone(irrelevant), { place_unspecified: 'x' });
+    const r = rec('K-001', k, '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands', ents, clone(irrelevant), { place_unspecified: 'the row names no place' });
     const res = await run(r); assert.equal(res.realized, false, k); assert.ok(codesOf(res).has('kind_needs'), `${k}: a record whose only assertion cannot prove the kind must say kind_needs (got ${[...codesOf(res)].join(', ')})`);
   }
   const mot = rec('K-001', 'unit_motion', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands', { units: ['us-1c-1d-cutler'] }, [{ type: 'unit_moves', unit: 'us-1c-1d-cutler', min_minutes: 0 }]); await mustFail(mot, 'assert_field', 'unit_moves with no place relation');
@@ -62,15 +62,16 @@ test('rule: every kind needs the assertion that can prove it (schema.mjs KIND_NE
   await mustFail(walk(), 'assert_field', 'a motion that names no place must say so'); await mustFail(walk(), 'kind_needs', 'and a motion record needs a place relation or place_unspecified (kind_needs)');
   const walked = walk(); walked.place_unspecified = 'the row names no place'; await mustPass(walked, 'a motion row that names no place says why, and is checked for its marching and displacement only');
   walked.checks[0].min_displacement_m = 100000; await mustFail(walked, 'unit_not_moving', 'and still has to move');
-  const act = rec('K-001', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands', { units: ['us-1c-1d-cutler'] }, [{ type: 'unit_activity', unit: 'us-1c-1d-cutler', activities: ['stand'] }]); await mustFail(act, 'kind_needs', 'an activity with no place and no place_unspecified');
+  A('K-003', 'Cutler’s brigade stands in line', '1863-07-01T12:00', '1863-07-01T12:30');
+  const act = rec('K-003', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands', { units: ['us-1c-1d-cutler'] }, [{ type: 'unit_activity', unit: 'us-1c-1d-cutler', activities: ['stand'] }]); await mustFail(act, 'kind_needs', 'an activity with no place and no place_unspecified');
   act.place_unspecified = 'the row names no place'; await mustPass(act, 'an activity that says why it has no place');
 });
 test('rule: a theatre-clock window, a window inside the row, an assertion time inside the record window (schema.mjs)', async () => {
   A('W-001', 'Early’s division is encamped', '1863-06-24T00:00', '1863-06-24T12:00');
-  const base = (from, to) => rec('W-001', 'unit_activity', from, to, 'Early’s division is encamped', { units: ['cs-2c-early'] }, [{ type: 'unit_present', unit: 'cs-2c-early' }], { place_unspecified: 'x' });
+  const base = (from, to) => rec('W-001', 'unit_activity', from, to, 'Early’s division is encamped', { units: ['cs-2c-early'] }, [{ type: 'unit_present', unit: 'cs-2c-early' }], { place_unspecified: 'the row names no place' });
   await mustFail(base('1863-06-24T01:00', '1863-06-24T02:00'), 'time_outside_clock', 'a window before the theatre clock starts (26 Jun)');
   A('W-002', 'Cutler’s brigade stands', '1863-07-01T12:00', '1863-07-01T12:30');
-  const b2 = () => rec('W-002', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands', { units: ['us-1c-1d-cutler'] }, [{ type: 'unit_present', unit: 'us-1c-1d-cutler', t: { at: '1863-07-01T12:10' } }], { place_unspecified: 'x' });
+  const b2 = () => rec('W-002', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands', { units: ['us-1c-1d-cutler'] }, [{ type: 'unit_present', unit: 'us-1c-1d-cutler', t: { at: '1863-07-01T12:10' } }], { place_unspecified: 'the row names no place' });
   await mustPass(b2());
   const w1 = b2(); w1.window = { from: '1863-07-01T11:59', to: '1863-07-01T12:30' }; w1.checks[0].t = { at: '1863-07-01T12:10' }; await mustFail(w1, 'window_outside_row', 'one minute before the row\'s window');
   const w2 = b2(); w2.window = { from: '1863-07-01T12:00', to: '1863-07-01T12:31' }; await mustFail(w2, 'window_outside_row', 'one minute after the row\'s window');
@@ -80,7 +81,7 @@ test('rule: a theatre-clock window, a window inside the row, an assertion time i
 });
 test('rule: the numbers of an assertion are the row\'s own (number_not_in_quote), and a record lists the entities it uses, no more and no less', async () => {
   A('F-001', 'Gordon’s brigade (about 1,900) on the field', '1863-07-01T16:00', '1863-07-01T22:00');
-  const f = (approx, quote) => rec('F-001', 'unit_activity', '1863-07-01T16:00', '1863-07-01T22:00', 'Gordon’s brigade', { units: ['cs-2c-early-gordon'] }, [{ type: 'unit_figures', unit: 'cs-2c-early-gordon', approx, tol_pct: 10, ...(quote ? { quote } : {}) }], { place_unspecified: 'x' });
+  const f = (approx, quote) => rec('F-001', 'unit_activity', '1863-07-01T16:00', '1863-07-01T22:00', 'Gordon’s brigade', { units: ['cs-2c-early-gordon'] }, [{ type: 'unit_figures', unit: 'cs-2c-early-gordon', approx, tol_pct: 10, ...(quote ? { quote } : {}) }], { place_unspecified: 'the row names no place' });
   await mustPass(f(1900, 'about 1,900'));
   await mustFail(f(1900, 'Gordon’s brigade'), 'number_not_in_quote', 'a strength that is not in the quote');
   await mustFail(f(1900), 'number_not_in_quote', 'a strength with no quote at all');
@@ -116,7 +117,8 @@ test('rule: position (unit_at), activity minutes, arrival place, absence (checks
   await mustPass(road(whole('1863-07-01T10:20', '1863-07-01T10:25')), 'on the road at every minute from its arrival');
   await mustFail(road(whole('1863-07-01T10:15', '1863-07-01T10:25')), 'unit_not_on_field', 'mode all: the brigade is not on the field before its arrival, which is not "at the road"');
   await mustPass(road({ from: '1863-07-01T10:15', to: '1863-07-01T10:25' }), 'mode any: at some minute');
-  const act = (extra) => rec('P-001', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands in line', { units: [C] }, [{ type: 'unit_activity', unit: C, activities: ['stand'], ...extra }], { place_unspecified: 'x' });
+  A('P-002', 'Cutler’s brigade stands in line', '1863-07-01T12:00', '1863-07-01T12:30');
+  const act = (extra) => rec('P-002', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands in line', { units: [C] }, [{ type: 'unit_activity', unit: C, activities: ['stand'], ...extra }], { place_unspecified: 'the row names no place' });
   await mustPass(act({ min_minutes: 30 }));
   await mustFail(act({ min_minutes: 400 }), 'unit_wrong_activity', 'more minutes of an activity than the window has');
   const arr = (extra) => rec('P-001', 'arrival', '1863-07-01T10:00', '1863-07-01T10:50', '19th IN arrives', { units: ['us-1c-1d-meredith-19in'], ...(extra.at_place ? { places: [extra.at_place] } : {}) }, [{ type: 'unit_arrives', unit: 'us-1c-1d-meredith-19in', ...extra }]);
@@ -151,7 +153,7 @@ test('rule: the weather and the sky are what the weather pass draws (checks.mjs 
   await mustFail(wx({ temp_f: 64, quote: 'temperature 64 F' }), 'quote_not_in_row', 'a number not in the row');
   A('E-001', 'Rain on Jun 26: cloudy, roads wet and muddy, temperature 70 F at noon', '1863-06-26T06:00', '1863-06-26T23:00');
   await mustFail(wx({ temp_f: 70, quote: 'temperature 70 F at noon' }), 'weather_mismatch', 'a temperature 8 F off');
-  await mustPass(wx({ temp_f: 70, tol_f: 9, quote: 'temperature 70 F at noon' }), 'a tolerance given by the record');
+  await mustFail(wx({ temp_f: 70, tol_f: 9, quote: 'temperature 70 F at noon' }), 'tolerance_wider_than_stated', 'a record may tighten the temperature tolerance (1 F), never widen it: 9 F would let 62 F pass for 70 F');
   await mustFail(wx({ precip_intensity_min: 5 }), 'weather_mismatch', 'heavier rain than drawn');
   await mustFail(wx({ precip_intensity_max: 0.01 }), 'weather_mismatch', 'lighter rain than drawn');
   await mustFail(wx({ cloud_max: 0.1 }), 'weather_mismatch', 'a clear sky on a cloudy day');
@@ -318,4 +320,168 @@ test('rule: dates and minutes are strict (lib.mjs toMin, isoOf)', () => {
 test('rule: the schema is static: a record that is not an object, an unknown row (validateRecord)', () => {
   assert.deepEqual(validateRecord([], { row: null }).problems.map(p => p.code), ['schema_not_object']);
   assert.ok(validateRecord({ id: 'T9-999', harness: 'bt-realize-1', kind: 'event_card' }, { row: null }).problems.some(p => p.code === 'row_unknown'));
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// an assertion that no product could fail confirms nothing: a record made of such assertions would "realize" a row by confirming nothing (the review that found it: casualty minimum 0, a battery with no count ...)
+const vacuous = async (r, why) => { const res = await mustFail(r, 'assert_vacuous', why); assert.ok(res.problems.some(p => p.code === 'assert_vacuous'), `${why}: a problem of the record, found before any product is asked`); return res; };
+test('rule: casualty, gun, figure and activity assertions that every product satisfies are refused (schema.mjs vacuityProblems: assert_vacuous)', async () => {
+  A('V-001', 'Iron Brigade suffers heavy losses; 2nd Maine Battery six guns', '1863-07-01T10:30', '1863-07-01T12:00');
+  const cas = extra => rec('V-001', 'casualty_flow', '1863-07-01T10:30', '1863-07-01T12:00', 'Iron Brigade suffers heavy losses', { units: ['us-1c-1d-meredith'] }, [{ type: 'casualty', units: ['us-1c-1d-meredith'], ...extra }]);
+  await mustPass(cas({ killed_min: 1 }), 'the least a casualty check may ask is one man');
+  for (const k of ['killed_min', 'wounded_min', 'missing_min', 'events_min']) await vacuous(cas({ [k]: 0 }), `${k} 0 is satisfied by a line that loses no man`);
+  await vacuous(cas({ killed_min: 1, wounded_min: 0 }), 'one vacuous bound among real ones');
+  const gun = extra => rec('V-001', 'artillery', '1863-07-01T10:30', '1863-07-01T12:00', '2nd Maine Battery six guns', { units: ['us-1c-art-2me'] }, [{ type: 'battery_guns', unit: 'us-1c-art-2me', ...extra }]);
+  await mustPass(gun({ guns_min: 1 }), 'one gun is the least that proves a battery');
+  await vacuous(gun({}), 'a battery check that names no count is satisfied by every battery on the field');
+  for (const k of ['guns_min', 'limbers_min', 'caissons_min', 'horses_min']) await vacuous(gun({ [k]: 0 }), `${k} 0 is satisfied by a battery with none`);
+  A('V-002', 'Gordon’s brigade (about 1,900) stands in line', '1863-07-01T16:00', '1863-07-01T22:00');
+  const fig = extra => rec('V-002', 'unit_activity', '1863-07-01T16:00', '1863-07-01T22:00', 'Gordon’s brigade (about 1,900)', { units: ['cs-2c-early-gordon'] }, [{ type: 'unit_figures', unit: 'cs-2c-early-gordon', quote: 'about 1,900', ...extra }], { place_unspecified: 'the row names no place' });
+  await mustPass(fig({ approx: 1900 }), 'the strength the row prints, within the stated 10 per cent');
+  await vacuous(fig({ max: 100000 }), 'a bare maximum is satisfied by a unit that is drawn with no figures');
+  await vacuous(fig({ min: 0 }), 'a minimum of 0');
+  await vacuous(fig({ approx: 0 }), 'an approximate strength of 0'); await vacuous(fig({ approx: 1900, min: 0 }), 'a minimum of 0 beside a real strength is a bound that proves nothing');
+  A('V-003', 'Cutler’s brigade stands in line', '1863-07-01T12:00', '1863-07-01T12:30');
+  const act = extra => rec('V-003', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands in line', { units: ['us-1c-1d-cutler'] }, [{ type: 'unit_activity', unit: 'us-1c-1d-cutler', ...extra }], { place_unspecified: 'the row names no place' });
+  await mustPass(act({ activities: ['stand'], min_minutes: 30 }));
+  await vacuous(act({ activities: STAGE_ACTIVITIES }), 'every activity the stage gives a unit: any unit on the field does one of them');
+  await mustPass(act({ activities: [...STAGE_ACTIVITIES].reverse().slice(1) }), 'all but one activity can still fail (a unit that does the one left out), so it is not refused');
+});
+test('rule: structure, work, weather and sky assertions that every product satisfies are refused (schema.mjs vacuityProblems, checks.mjs _falsifiable)', async () => {
+  const t = TL.byId.get('T3-049'), [a, b] = t.window.intervals[0], to = isoOf(b), from = isoOf(Math.max(a, b - 30));
+  const wade = extra => rec('T3-049', 'structure_state', from, to, 'the house takes 150+ bullet strikes', { structures: ['bld-wade-house'] }, [{ type: 'structure_state', structure: 'bld-wade-house', t: { at: to }, ...extra }]);
+  await mustPass(wade({ state: '/bullet strikes/' }));
+  await vacuous(wade({}), 'a structure check that names no state, presence, schedule row, hospital or visual bound is satisfied by any drawn object');
+  await vacuous(wade({ state: '/.*/' }), 'a pattern every state matches');
+  await vacuous(wade({ state: ['Intact', '/(?:)/'] }), 'one pattern that matches every state, in a list that matches when any item does');
+  await vacuous(wade({ visual: { dmg_min: 0 } }), 'a minimum of 0 of a drawn value that lies between 0 and 1');
+  await vacuous(wade({ visual: { dmg_max: 1 } }), 'a maximum of 1');
+  const present = await run(wade({ present: true })); assert.ok(!codesOf(present).has('assert_vacuous'), 'presence is a statement a product that draws nothing there fails');
+  const anch = await run(wade({ state: '/^$/' })); assert.ok(!codesOf(anch).has('assert_vacuous'), 'an anchored pattern is a statement (no state is called the empty string, so it fails; it is not vacuous)');
+  A('V-005', 'Greene’s brigade builds the Culp’s Hill main line (breastworks) on the morning of Jul 2', '1863-07-02T06:00', '1863-07-02T10:00');
+  const wk = extra => rec('V-005', 'earthwork_build', '1863-07-02T06:00', '1863-07-02T10:00', 'Greene’s brigade builds the Culp’s Hill main line', { works: ['E-05'], units: ['us-12c-2d-greene'] }, [{ type: 'work_stage', work: 'E-05', t: { at: '1863-07-02T08:00' }, crew: { units: ['us-12c-2d-greene'] }, ...extra }]);
+  await mustPass(wk({ stage_min: 3 }));
+  await vacuous(wk({}), 'a crew alone says nothing about the work');
+  await vacuous(wk({ stage_min: 0 }), 'stage 0 or more holds at every stage');
+  await vacuous(wk({ stage_max: 6 }), 'stage 6 or less holds at every stage');
+  A('V-006', 'Rain on Jun 26: cloudy, roads wet and muddy', '1863-06-26T06:00', '1863-06-26T23:00');
+  const wx = extra => rec('V-006', 'weather_sky', '1863-06-26T06:00', '1863-06-26T23:00', 'roads wet and muddy', {}, [{ type: 'weather', t: { at: '1863-06-26T12:00' }, ...extra }]);
+  const sky = extra => rec('V-006', 'weather_sky', '1863-06-26T06:00', '1863-06-26T23:00', 'cloudy', {}, [{ type: 'sky', t: { at: '1863-06-26T12:00' }, ...extra }]);
+  await mustPass(wx({ record: true, precip_kind_in: ['rain'] }));
+  await vacuous(wx({ record: true }), 'an environment record exists: that is not what the weather is');
+  const kinds = new Set(), bands = new Set(); for (const m of R._control()) { const W = await P.weatherAt(m); kinds.add(W.drawn.precip.kind); bands.add(W.drawn.sky.band); }
+  assert.ok(kinds.size >= 2 && bands.size >= 3, 'the control minutes of the theatre clock see rain and no rain, day and night');
+  await vacuous(wx({ precip_kind_in: [...kinds] }), 'every kind of precipitation the product draws at any minute');
+  await vacuous(wx({ cloud_min: 0 }), 'a cloud cover of 0 or more holds at every minute'); await vacuous(wx({ cloud_max: 1 }), 'and 1 or less');
+  await vacuous(wx({ wetness_max: 1 }), 'ground wetness of 1 or less'); await vacuous(wx({ precip_intensity_min: 0 }), 'intensity of 0 or more');
+  await mustPass(wx({ cloud_min: 0.5 }), 'a bound some minute violates is a statement');
+  await vacuous(sky({ exposure_min: 0 }), 'an exposure floor of 0 is satisfied by black (the night floor of gate Q10 is above 0)');
+  await mustPass(sky({ exposure_min: 0.3 }), 'the night floor alone holds at every minute by design (gate Q10), and is the one exempt assertion');
+  await vacuous(sky({ sun_alt_min: -90 }), 'a sun above -90 degrees at every minute'); await vacuous(sky({ moon_illum_min: 0 }), 'a moon of 0 per cent or more');
+  await vacuous(sky({ band_in: [...bands] }), 'every band of the sky the product draws at any minute');
+  await mustPass(sky({ band_in: ['Day'], exposure_min: 0.5 }), 'a band some minute is not in');
+});
+test('rule: a record may ask for more than a floor of the harness, never for less (schema.mjs vacuityProblems, tolerances.json units: tolerance_wider_than_stated)', async () => {
+  const F = P.tolerances.units; assert.deepEqual(F.moves_floor, { min_minutes: 1, min_displacement_m: 10, min_closing_m: 50 }); assert.equal(F.activity_floor.min_minutes, 1); assert.equal(F.figures.tol_pct, 10); assert.equal(P.tolerances.weather.temp_f_tolerance, 1);
+  A('V-004', 'Iron Brigade 19th Indiana advances toward McPherson Ridge', '1863-07-01T10:20', '1863-07-01T10:50');
+  const U = 'us-1c-1d-meredith-19in', mv = extra => rec('V-004', 'unit_motion', '1863-07-01T10:20', '1863-07-01T10:50', '19th Indiana advances toward McPherson Ridge', { units: [U], places: ['McPherson Ridge'] }, [{ type: 'unit_moves', unit: U, toward: 'McPherson Ridge', ...extra }]);
+  await mustPass(mv({}), 'the baseline'); await mustPass(mv({ min_minutes: 2, min_displacement_m: 100, min_closing_m: 100 }), 'more than every floor');
+  for (const [k, floor] of Object.entries(F.moves_floor)) { await mustFail(mv({ [k]: floor - 1 }), 'tolerance_wider_than_stated', `${k} ${floor - 1} is below the floor ${floor}`); await mustFail(mv({ [k]: 0 }), 'tolerance_wider_than_stated', `${k} 0`); await mustPass(mv({ [k]: floor }), `${k} at the floor is allowed`); }
+  A('V-007', 'Cutler’s brigade stands in line', '1863-07-01T12:00', '1863-07-01T12:30');
+  const act = extra => rec('V-007', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands in line', { units: ['us-1c-1d-cutler'] }, [{ type: 'unit_activity', unit: 'us-1c-1d-cutler', activities: ['stand'], ...extra }], { place_unspecified: 'the row names no place' });
+  await mustFail(act({ min_minutes: 0 }), 'tolerance_wider_than_stated', 'an activity for 0 minutes'); await mustPass(act({ min_minutes: 1 }), 'at the floor');
+  A('V-008', 'Gordon’s brigade (about 1,900) stands in line', '1863-07-01T16:00', '1863-07-01T22:00');
+  const fig = extra => rec('V-008', 'unit_activity', '1863-07-01T16:00', '1863-07-01T22:00', 'Gordon’s brigade (about 1,900)', { units: ['cs-2c-early-gordon'] }, [{ type: 'unit_figures', unit: 'cs-2c-early-gordon', approx: 1900, quote: 'about 1,900', ...extra }], { place_unspecified: 'the row names no place' });
+  await mustFail(fig({ tol_pct: 11 }), 'tolerance_wider_than_stated', 'a share wider than the stated 10 per cent'); await mustFail(fig({ tol_pct: 1000 }), 'tolerance_wider_than_stated', 'a share of 1000 per cent is satisfied by a unit with one figure'); await mustPass(fig({ tol_pct: 10 })); await mustPass(fig({ tol_pct: 5 }), 'a smaller share is allowed if the picture draws it');
+});
+test('rule: "any" leaf of a formation needs the row\'s own words, and "place_unspecified" is a reason that is true (checks.mjs _bindings, schema.mjs; GATE-SPEC 6.4 V2, V7)', async () => {
+  A('Q-101', 'Part of Early’s division is on the field', '1863-07-01T16:00', '1863-07-01T22:00');
+  const part = extra => rec('Q-101', 'unit_activity', '1863-07-01T16:00', '1863-07-01T22:00', 'Part of Early’s division is on the field', { units: ['cs-2c-early'] }, [{ type: 'unit_present', unit: 'cs-2c-early', quantifier: 'any', ...extra }], { place_unspecified: 'the row names no place' });
+  await mustFail(part({}), 'quantifier_any_unsupported', 'a formation taken as any one leaf with no words of the row that say only part of it is meant');
+  const ok = await mustPass(part({ quantifier_quote: 'Part of Early’s division' }), 'with the row\'s own words'); assert.equal(ok.bindings.declared, 1, 'and the record is listed as declaring it'); assert.deepEqual(ok.bindings.quantifiers.map(q => q.units), [['cs-2c-early']]);
+  const wrong = await mustFail(part({ quantifier_quote: 'the whole division' }), 'quote_not_in_row', 'words that are not the row\'s'); assert.ok(codesOf(wrong).has('quantifier_any_unsupported'), 'and the binding does not accept them either');
+  const all = part({ quantifier_quote: 'Part of Early’s division' }); all.checks[0].quantifier = 'all'; await mustFail(all, 'assert_field', 'a quote for "any" belongs to a check that says any');
+  A('Q-102', '19th Indiana is on the field', '1863-07-01T10:20', '1863-07-01T10:50');
+  const one = rec('Q-102', 'unit_activity', '1863-07-01T10:20', '1863-07-01T10:50', '19th Indiana is on the field', { units: ['us-1c-1d-meredith-19in'] }, [{ type: 'unit_present', unit: 'us-1c-1d-meredith-19in', quantifier: 'any' }], { place_unspecified: 'the row names no place' });
+  await mustPass(one, 'a regiment has one leaf: any and all are the same, so no words are needed');
+  // place_unspecified
+  const bad = part({ quantifier_quote: 'Part of Early’s division' }); bad.place_unspecified = 'x'; await mustFail(bad, 'place_unspecified_bad', 'a reason of one letter'); bad.place_unspecified = 5; await mustFail(bad, 'place_unspecified_bad', 'a reason that is not text');
+  A('Q-103', 'Cutler’s brigade stands at McPherson Ridge', '1863-07-01T12:00', '1863-07-01T12:30');
+  const named = rec('Q-103', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands at McPherson Ridge', { units: ['us-1c-1d-cutler'] }, [{ type: 'unit_activity', unit: 'us-1c-1d-cutler', activities: ['stand'] }], { place_unspecified: 'the row names no place' });
+  const r = await mustFail(named, 'place_unspecified_but_named', 'a row that names McPherson Ridge cannot say that it names no place'); assert.match(r.problems.find(p => p.code === 'place_unspecified_but_named').detail, /McPherson Ridge/, 'the message names the place');
+  const related = rec('Q-103', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands at McPherson Ridge', { units: ['us-1c-1d-cutler'], places: ['McPherson Ridge'] }, [{ type: 'unit_activity', unit: 'us-1c-1d-cutler', activities: ['stand'] }, { type: 'unit_at', unit: 'us-1c-1d-cutler', place: 'McPherson Ridge' }]);
+  await mustPass(related, 'the same row, with the unit related to its place');
+});
+test('rule: what a record declared instead of letting the row bind it is listed for the reviewer (check.mjs declaredDetail; RESULTS declared_detail)', async () => {
+  const B = { units: [{ id: 'u1', how: 'declared', via: 'w1' }, { id: 'u2', how: 'matched', by: 'x' }], places: [{ id: 'p1', how: 'declared', via: 'w2' }, { id: 'p2', how: 'matched' }], structures: [{ id: 's1', how: 'declared', via: 'w3' }], quantifiers: [{ i: 0, units: ['u3'], via: 'w4' }], declared: 4 };
+  assert.deepEqual(declaredDetail(B), [{ kind: 'unit', id: 'u1', via: 'w1' }, { kind: 'place', id: 'p1', via: 'w2' }, { kind: 'structure', id: 's1', via: 'w3' }, { kind: 'quantifier_any', units: ['u3'], via: 'w4' }]);
+  assert.deepEqual(declaredDetail({ units: [], places: [], structures: [] }), [], 'nothing declared, nothing listed');
+  const run1 = await runAll({ rows: ['T1-009', 'T1-003'], product: P }); const d = run1.out['T1-009'].declared_detail;
+  assert.deepEqual(d.map(x => `${x.kind}:${x.id}`), ['unit:cs-2c-early-35vacavalrybn']); assert.ok(d[0].via && /cavalry battalion/i.test(d[0].via), 'with the words of the row'); assert.equal(run1.out['T1-009'].declared_bindings, 1);
+  assert.equal(run1.out['T1-003'].declared_detail, undefined, 'a record that declares nothing has no list');
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// GATE-SPEC TL-8 and 6.4 V6: "every value of every conflict the row names and every conflict of the group reaching the row's units is a selectable scenario and the realization is valid under each, or the
+// record states which values it excludes and why". The harness computes the group and says whether a record runs or excludes every scenario of it (RESULTS scenario_group.complete).
+test('rule: a scenario names one conflict on one value ("C-004:v1"), and its identity is what it chooses (query.mjs scenarioSpec, scenarioKey)', () => {
+  const sc = P.scenarioSpec('C-004:v1'), def = P.scenarioSpec('default'); assert.deepEqual(sc.choices, { ...def.choices, 'C-004': 'v1' }); assert.equal(sc.key, 'C-004:v1'); assert.deepEqual(sc.structure, {});
+  assert.equal(P.scenarioSpec('CF-WIND-SPEED:opt0').choices['CF-WIND-SPEED'], 'opt0', 'an environment conflict too');
+  assert.throws(() => P.scenarioSpec('C-004:v99'), /no value "v99"/, 'a value the conflict does not have'); assert.throws(() => P.scenarioSpec('C-099:v1'), /unknown conflict "C-099"/, 'a conflict the register does not have');
+  assert.equal(P.scenarioKey('C-004:delegated'), P.scenarioKey('default'), 'the delegated value is the opening scenario itself');
+  assert.notEqual(P.scenarioKey('C-004:v1'), P.scenarioKey('default'));
+  assert.equal(P.scenarioKey({ id: 'a-name', structure: { X: 'r' } }), P.scenarioKey({ structure: { X: 'r' } }), 'what a scenario is called is not what it is');
+  assert.equal(P.scenarioKey('C-004:v1'), P.scenarioKey({ id: 'mine', choices: { ...def.choices, 'C-004': 'v1' } }));
+  assert.notEqual(P.scenarioKey({ structure: { X: 'r' } }), P.scenarioKey({ structure: { X: 's' } }));
+});
+test('rule: the conflicts that reach units, weather and structures (query.mjs unitConflicts, weatherConflicts, structureReadings, scenarioGroup)', async () => {
+  const reach = P.unitConflicts(['us-2c', 'us-1c-1d-meredith-19in', 'cs-2c-early-gordon']);
+  assert.deepEqual(Object.keys(reach), ['C-004', 'C-043'], 'the II Corps gate (C-004) and a path stop of the 19th Indiana (C-043); Gordon is reached by none');
+  assert.deepEqual(reach['C-004'], [{ unit: 'us-2c', via: ['gate'] }]); assert.deepEqual(reach['C-043'], [{ unit: 'us-1c-1d-meredith-19in', via: ['path'] }]);
+  assert.deepEqual(Object.keys(P.unitConflicts(['us-2c-1d'])), ['C-004'], 'a division inherits the gate of its corps'); assert.deepEqual(P.unitConflicts([]), {}); assert.deepEqual(P.unitConflicts(['no-such-unit']), {});
+  assert.deepEqual(await P.weatherConflicts('1863-07-02T13:00', '1863-07-02T15:00'), ['CF-JUL2-CLOUD-2PM', 'CF-JUL2-SKY', 'CF-WIND-SPEED'], 'the conflicts the environment lists for the minutes of the span');
+  assert.deepEqual(await P.weatherConflicts('1863-07-03T13:00', '1863-07-03T15:00'), ['CF-WIND-SPEED']); assert.ok((await P.weatherConflicts('1863-07-04T04:00', '1863-07-04T06:00')).includes('CF-JUL4-RAIN-TIMING'));
+  const RB = 'bld-rock-creek-rr-bridge', r = await P.structureReadings([RB, 'bld-wade-house', 'E-05']);
+  assert.deepEqual(r[RB], ['jun26', 'jun27'], 'the readings other than the default'); assert.equal(r['bld-wade-house'], undefined, 'a structure with one reading has none to add'); assert.ok(r['E-05'].length >= 1 && !r['E-05'].includes('default'), 'a work too');
+  const g = await P.scenarioGroup({ text: 'see C-004 and C-099', units: ['us-1c-1d-meredith-19in'], structures: [RB], span: { from: '1863-07-02T13:00', to: '1863-07-02T15:00' } });
+  assert.deepEqual(g.conflicts.map(c => c.id), ['C-004', 'C-043', 'CF-JUL2-CLOUD-2PM', 'CF-JUL2-SKY', 'CF-WIND-SPEED'], 'named (C-099 is no conflict), reaching a unit, reaching the weather');
+  assert.deepEqual(g.conflicts.map(c => [!!c.named, c.units.length, !!c.weather]), [[true, 0, false], [false, 1, false], [false, 0, true], [false, 0, true], [false, 0, true]]);
+  assert.equal(g.ids[0], 'default'); assert.equal(new Set(g.ids).size, g.ids.length, 'no scenario twice'); assert.equal(new Set(g.specs.map(x => P.scenarioKey(x))).size, g.specs.length, 'and none that is another under another name');
+  assert.ok(!g.ids.includes('C-004:delegated'), 'the delegated value is the opening scenario'); assert.ok(!g.ids.some(id => /:range$/.test(id)), '"range" shows every value and is no scenario');
+  for (const id of ['C-004:v1', 'C-043:v3', 'CF-WIND-SPEED:opt1', 'CF-JUL2-CLOUD-2PM:opt0', `structure:${RB}=jun26`, `structure:${RB}=jun27`]) assert.ok(g.ids.includes(id), id);
+  const none = await P.scenarioGroup({ text: 'no conflict named', units: ['cs-2c-early-gordon'] }); assert.deepEqual(none.ids, ['default'], 'a row that no conflict reaches has the opening scenario only'); assert.deepEqual(none.conflicts, []);
+});
+test('rule: a record is valid under every scenario of its row\'s group, or says which it excludes and why (checks.mjs _group, _groupReport; RESULTS scenario_group)', async () => {
+  A('G-101', 'Jul 2 afternoon: dry and the sky is cloudy', '1863-07-02T12:00', '1863-07-02T16:00');
+  const wx = (scenario, extra = {}) => rec('G-101', 'weather_sky', '1863-07-02T12:00', '1863-07-02T16:00', 'dry and the sky is cloudy', {}, [{ type: 'weather', t: { at: '1863-07-02T14:00' }, precip_kind_in: ['none'], ...extra }], { scenario });
+  const d = await mustPass(wx('default')); const gd = d.scenario_group;
+  assert.deepEqual(gd.conflicts.map(c => c.id), ['CF-JUL2-CLOUD-2PM', 'CF-JUL2-SKY', 'CF-WIND-SPEED']); assert.equal(gd.complete, false, 'a record that holds in the opening scenario is not yet valid under the group'); assert.equal(gd.run.join(), 'default');
+  assert.ok(gd.missing.includes('CF-JUL2-CLOUD-2PM:opt0') && gd.missing.includes('CF-WIND-SPEED:opt1') && !gd.missing.includes('default'), 'and the report names what is missing'); assert.equal(gd.excluded.length, 0); assert.deepEqual(gd.scenarios, [...gd.run, ...gd.excluded, ...gd.missing].sort((a, b) => gd.scenarios.indexOf(a) - gd.scenarios.indexOf(b)));
+  const g = await mustPass(wx('group')); assert.equal(g.scenario_group.complete, true); assert.deepEqual(g.scenario_group.missing, []); assert.deepEqual(g.scenarios, g.scenario_group.scenarios, '"group" runs every scenario of the group'); assert.equal(g.assertions.length, g.scenarios.length, 'one result per scenario');
+  const some = await mustPass(wx(['default', 'CF-WIND-SPEED:recommended', 'CF-WIND-SPEED:opt0'])); assert.equal(some.scenario_group.complete, false, 'some of the group is not all of it'); assert.ok(some.scenario_group.run.includes('CF-WIND-SPEED:opt0') && some.scenario_group.missing.includes('CF-WIND-SPEED:opt1'));
+  const under = await mustPass(wx(['default', { id: 'my-own-name', choices: { 'CF-WIND-SPEED': 'opt1' }, from: 'default' }])); assert.ok(under.scenario_group.run.includes('CF-WIND-SPEED:opt1'), 'a scenario counts by what it chooses, not by its name');
+  const inList = await mustPass(wx(['group'])); assert.equal(inList.scenario_group.complete, true, '"group" may stand in a list'); assert.deepEqual(inList.scenarios, g.scenarios);
+  await mustFail(wx(['group', 'default']), 'scenario_duplicate', '"group" holds the opening scenario: listing it again is a scenario listed twice');
+  // the exclusion with the reason: the values the record does not hold in
+  const rest = gd.missing.map(id => ({ scenario: id, why: `the row says nothing that depends on ${id}; the check reads precipitation only (a reason of at least thirty characters)` })), ex1 = wx('default'); ex1.scenario_excludes = rest;
+  const excl = await mustPass(ex1); assert.equal(excl.scenario_group.complete, true, 'every scenario of the group run or excluded with a reason'); assert.equal(excl.scenario_group.missing.length, 0); assert.deepEqual(excl.scenario_group.excluded.sort(), [...gd.missing].sort()); assert.equal(excl.excluded_scenarios.length, rest.length);
+  // a check that depends on the conflict: the 2 pm cloud reading is 0.3, 0.5 or 0.7; the record that says cloud at most 0.6 is valid in two of them
+  await mustPass(wx('default', { cloud_max: 0.6 }), 'in the opening scenario (0.5)'); const bad = await mustFail(wx('group', { cloud_max: 0.6 }), 'weather_mismatch', 'in the reading that puts the cloud at 0.7 (CF-JUL2-CLOUD-2PM = opt1)'); assert.ok(bad.assertions.some(a => !a.ok && a.scenario === 'CF-JUL2-CLOUD-2PM:opt1'), 'and the failure is tied to its scenario');
+  assert.ok(bad.assertions.some(a => a.ok && a.scenario === 'default'));
+  // a probe is not a claim: a not_realized record has no group to complete
+  const probe = rec('G-101', 'not_realized', '1863-07-02T12:00', '1863-07-02T16:00', 'dry and the sky is cloudy', {}, [{ type: 'weather', t: { at: '1863-07-02T14:00' }, precip_kind_in: ['snow'] }], { intended_kind: 'weather_sky', missing: [{ code: 'weather_mismatch', detail: 'snow is not drawn' }] });
+  const pr = await run(probe); assert.equal(pr.scenario_group, undefined);
+  // units: the 19th Indiana's path stop is a conflict (C-043)
+  A('G-102', '19th Indiana is on the field', '1863-07-01T10:20', '1863-07-01T10:50');
+  const un = scenario => rec('G-102', 'unit_activity', '1863-07-01T10:20', '1863-07-01T10:50', '19th Indiana is on the field', { units: ['us-1c-1d-meredith-19in'] }, [{ type: 'unit_present', unit: 'us-1c-1d-meredith-19in' }], { scenario, place_unspecified: 'the row names no place' });
+  const u1 = await mustPass(un('default')); assert.deepEqual(u1.scenario_group.conflicts.map(c => c.id), ['C-043']); assert.ok(u1.scenario_group.conflicts[0].units[0].startsWith('us-1c-1d-meredith-19in (path)')); assert.equal(u1.scenario_group.complete, false); assert.ok(u1.scenario_group.missing.includes('C-043:v0'));
+  const u2 = await mustPass(un('group')); assert.equal(u2.scenario_group.complete, true);
+  // structures: the readings of the structure are part of the group (the T1-015 exclusion is its reason)
+  const t15 = await mustPass(ex('T1-015')); assert.equal(t15.scenario_group.complete, true); assert.deepEqual(t15.scenario_group.excluded, ['structure:bld-rock-creek-rr-bridge=jun27']); assert.deepEqual(t15.scenario_group.readings, { 'bld-rock-creek-rr-bridge': ['jun26', 'jun27'] });
+  const no15 = ex('T1-015'); delete no15.scenario_excludes; const n15 = await mustPass(no15); assert.equal(n15.scenario_group.complete, false, 'without its exclusion the record leaves the reading jun27 open'); assert.deepEqual(n15.scenario_group.missing, ['structure:bld-rock-creek-rr-bridge=jun27']);
+});
+test('rule: the totals count the realized rows whose group is not complete (check.mjs summarize, q17Of)', () => {
+  const row = (o = {}) => coverageOf({ realized: false, kind: 'weather_sky', codes: [], record: 'x:1', in_clock: true, ...o }, []);
+  const rows = { a: row({ realized: true, scenario_group: { complete: true } }), b: row({ realized: true, scenario_group: { complete: false } }), c: row({ realized: true }), d: row({ scenario_group: { complete: false } }) };
+  const S = summarize(rows, {}); assert.equal(S.timeline.realized_group_incomplete, 1, 'a realized row whose group is open; a row not realized is counted elsewhere'); assert.equal(q17Of(S, { timelineRows: 4, epilogueRows: 0 }).realized_group_incomplete, 1);
 });

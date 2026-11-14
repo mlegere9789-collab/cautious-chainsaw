@@ -84,6 +84,11 @@ export class Product {
     const { conflicts, defaults } = this, def = this.data.DEFAULT_SCENARIO(conflicts);
     if (spec === 'default' || spec == null) return { ...def, key: 'default', choices: { ...def.choices }, structure: {} };
     if (spec === 'pdf') return { id: 'pdf-recommended', key: 'pdf', label: 'PDF recommended, pending owner', choices: defaults.pdfChoices(conflicts), structure: {} };
+    if (typeof spec === 'string') {                  // "C-004:v1": the opening scenario with that one conflict on that value (the scenarios of a row's group, scenarioGroup)
+      const m = /^(C-\d{3}|CF-[A-Z0-9-]+):(\S+)$/.exec(spec), c = m && conflicts.find(x => x.id === m[1]), o = c && c.options.find(x => x.key === m[2]);
+      if (m && !c) throw new Error(`unknown conflict "${m[1]}" in scenario "${spec}"`); if (c && !o) throw new Error(`conflict ${m[1]} has no value "${m[2]}" (${c.options.map(x => x.key).join(', ')})`);
+      if (o) return { id: spec, key: spec, label: `${m[1]} = ${o.label}`, choices: { ...def.choices, [m[1]]: m[2] }, structure: {} };
+    }
     if (typeof spec === 'object' && !Array.isArray(spec)) {
       const from = spec.from || (spec.choices ? 'none' : 'default'), base = from === 'default' ? def.choices : from === 'pdf' ? defaults.pdfChoices(conflicts) : {};
       if (!['default', 'pdf', 'none'].includes(from)) throw new Error(`scenario "from" is default, pdf or none (found ${JSON.stringify(spec.from)})`);
@@ -104,6 +109,43 @@ export class Product {
     for (const id of ids) { const c = this.conflicts.find(x => x.id === id); if (!c) continue; for (const o of c.options) { if (o.key === 'range') continue; out.push({ id: `${id}:${o.key}`, label: `${id} = ${o.label}`, choices: { ...base.choices, [id]: o.key } }); } }
     return out;
   }
+  // ---- the scenario group of a row (GATE-SPEC TL-8, 6.4 V6): "every value of every conflict the row names and every conflict of the group reaching the row's units is a selectable scenario and the
+  // realization is valid under each". A conflict REACHES a unit when it is on the ledger gate chain of the unit or of one of its leaves (arrivals.mjs ArrivalModel.effective: its own gate or the one it inherits)
+  // or a path stop of its plan names it (history/real.mjs plans, stop.conflict: C-043); it reaches the weather and sky of a minute when the environment's record for that minute lists it (environment.mjs weatherAt
+  // .conflicts); it reaches a structure or a work as the readings the state engine offers for it (scenariosFor: jun26, jun27 ...). One scenario per value, every other conflict on its delegated default.
+  unitConflicts(ids) {
+    const out = {}, add = (cid, id, how) => { const m = out[cid] || (out[cid] = {}); (m[id] || (m[id] = new Set())).add(how); };
+    for (const id of ids) for (const x of new Set([id, ...this.leaves(id, { onField: false })])) {
+      const e = this.layer.model.effective(x, {}, {}); for (const c of (e && e.conflicts) || []) add(c, id, 'gate');
+      const plan = this.layer.plans.get(x); for (const st of (plan && plan.stops) || []) if (st && st.conflict) add(st.conflict, id, 'path');
+    }
+    return Object.fromEntries(Object.entries(out).sort(([a], [b]) => (a < b ? -1 : 1)).map(([c, m]) => [c, Object.entries(m).map(([unit, how]) => ({ unit, via: [...how].sort() }))]));
+  }
+  async weatherConflicts(fromMin, toMin) {      // the conflicts the environment lists at any whole minute of a span
+    const ids = new Set(); for (let t = Math.ceil(T_(fromMin) - 1e-9); t <= Math.floor(T_(toMin) + 1e-9); t++) for (const c of (this.env.weatherAt(t, this.scenarioSpec('default').choices) || {}).conflicts || []) ids.add(c);
+    return [...ids].sort();
+  }
+  async structureReadings(ids) {                // { id: ['jun26', 'jun27'] }: the readings other than the default that the state engine offers for a structure or a work (E-nn)
+    const S = await this.structures('default'), out = {};
+    for (const id of ids) {
+      const names = new Set(); for (const o of S.byState.get(id) || []) if (o.state_id && S.engine.knows(o.state_id)) for (const r of S.engine.scenariosFor(o.state_id)) names.add(r);
+      if (!names.size && S.engine.knows(id)) for (const r of S.engine.scenariosFor(id)) names.add(r);
+      const list = [...names].filter(r => r !== 'default').sort(); if (list.length) out[id] = list;
+    }
+    return out;
+  }
+  // -> { conflicts: [{ id, named, units: [{ unit, via }], weather }], readings: { id: [name] }, specs: [spec], ids: [scenario id] }; specs[0] is the opening scenario
+  async scenarioGroup({ text = '', units = [], structures = [], span = null } = {}) {
+    const named = [...new Set(String(text || '').match(/\bC-\d{3}\b/g) || [])].filter(id => this.conflicts.some(c => c.id === id)), reach = this.unitConflicts(units), wx = span ? await this.weatherConflicts(span.from, span.to) : [];
+    const ids = [...new Set([...named, ...Object.keys(reach), ...wx])].sort(), conflicts = ids.map(id => ({ id, named: named.includes(id), units: reach[id] || [], weather: wx.includes(id) }));
+    const readings = await this.structureReadings(structures), specs = ['default'];
+    for (const id of ids) { const c = this.conflicts.find(x => x.id === id); if (!c) continue; for (const o of c.options) if (o.key !== 'range') specs.push(`${id}:${o.key}`); }
+    for (const [id, rs] of Object.entries(readings)) for (const r of rs) specs.push({ structure: { [id]: r } });
+    const seen = new Set(), uniq = specs.filter(x => { const k = this.scenarioKey(x); if (seen.has(k)) return false; seen.add(k); return true; });       // "C-004:delegated" is the opening scenario itself
+    return { conflicts, readings, specs: uniq, ids: uniq.map(x => this.scenarioId(x)) };
+  }
+  // the identity of a scenario for comparison: the conflict choices and the structure readings, whatever the scenario is called
+  scenarioKey(spec) { const sc = this.scenarioSpec(spec); return JSON.stringify([sc.choices, Object.entries(sc.structure || {}).sort(([a], [b]) => (a < b ? -1 : 1))]); }
   // a Scene is the stage under one set of conflict choices (the structure readings change nothing in the stage); scenes with the same choices are one
   scene(spec = 'default') { const sc = this.scenarioSpec(spec), key = JSON.stringify(sc.choices); let s = this._scenes.get(key); if (!s) { s = new Scene(this, { id: sc.id, label: sc.label, choices: sc.choices }, key, spec); this._scenes.set(key, s); } return s; }
   // ---- units: static facts

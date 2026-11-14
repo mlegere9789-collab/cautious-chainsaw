@@ -1,0 +1,148 @@
+TAP version 13
+# Subtest: 2nd-new-hampshire-infantry: header, segment and row count
+ok 1 - 2nd-new-hampshire-infantry: header, segment and row count
+  ---
+  duration_ms: 3.472736
+  type: 'test'
+  ...
+# Subtest: 2nd-new-hampshire-infantry: every line has the shape of roster2/2, offsets only grow, pages stay inside the register
+ok 2 - 2nd-new-hampshire-infantry: every line has the shape of roster2/2, offsets only grow, pages stay inside the register
+  ---
+  duration_ms: 12.830467
+  type: 'test'
+  ...
+# Subtest: 2nd-new-hampshire-infantry: flag file is joined to the unit file and its indexes are in range
+ok 3 - 2nd-new-hampshire-infantry: flag file is joined to the unit file and its indexes are in range
+  ---
+  duration_ms: 15.7771
+  type: 'test'
+  ...
+# Subtest: 2nd-new-hampshire-infantry: pointer file records this file's size and sha256
+ok 4 - 2nd-new-hampshire-infantry: pointer file records this file's size and sha256
+  ---
+  duration_ms: 2.356101
+  type: 'test'
+  ...
+# Subtest: 2nd-new-hampshire-infantry: nothing in a printed name or remark says how the data was made
+ok 5 - 2nd-new-hampshire-infantry: nothing in a printed name or remark says how the data was made
+  ---
+  duration_ms: 4.871018
+  type: 'test'
+  ...
+# Subtest: 5th-new-hampshire-infantry: header, segment and row count
+ok 6 - 5th-new-hampshire-infantry: header, segment and row count
+  ---
+  duration_ms: 1.055542
+  type: 'test'
+  ...
+# Subtest: 5th-new-hampshire-infantry: every line has the shape of roster2/2, offsets only grow, pages stay inside the register
+ok 7 - 5th-new-hampshire-infantry: every line has the shape of roster2/2, offsets only grow, pages stay inside the register
+  ---
+  duration_ms: 2.087214
+  type: 'test'
+  ...
+# Subtest: 5th-new-hampshire-infantry: flag file is joined to the unit file and its indexes are in range
+ok 8 - 5th-new-hampshire-infantry: flag file is joined to the unit file and its indexes are in range
+  ---
+  duration_ms: 11.407065
+  type: 'test'
+  ...
+# Subtest: 5th-new-hampshire-infantry: pointer file records this file's size and sha256
+ok 9 - 5th-new-hampshire-infantry: pointer file records this file's size and sha256
+  ---
+  duration_ms: 2.678915
+  type: 'test'
+  ...
+# Subtest: 5th-new-hampshire-infantry: nothing in a printed name or remark says how the data was made
+ok 10 - 5th-new-hampshire-infantry: nothing in a printed name or remark says how the data was made
+  ---
+  duration_ms: 4.362017
+  type: 'test'
+  ...
+# Subtest: 12th-new-hampshire-infantry: header, segment and row count
+ok 11 - 12th-new-hampshire-infantry: header, segment and row count
+  ---
+  duration_ms: 0.283382
+  type: 'test'
+  ...
+# Subtest: 12th-new-hampshire-infantry: every line has the shape of roster2/2, offsets only grow, pages stay inside the register
+ok 12 - 12th-new-hampshire-infantry: every line has the shape of roster2/2, offsets only grow, pages stay inside the register
+  ---
+  duration_ms: 0.693852
+  type: 'test'
+  ...
+# Subtest: 12th-new-hampshire-infantry: flag file is joined to the unit file and its indexes are in range
+ok 13 - 12th-new-hampshire-infantry: flag file is joined to the unit file and its indexes are in range
+  ---
+  duration_ms: 1.930873
+  type: 'test'
+  ...
+# Subtest: 12th-new-hampshire-infantry: pointer file records this file's size and sha256
+ok 14 - 12th-new-hampshire-infantry: pointer file records this file's size and sha256
+  ---
+  duration_ms: 1.430103
+  type: 'test'
+  ...
+# Subtest: 12th-new-hampshire-infantry: nothing in a printed name or remark says how the data was made
+ok 15 - 12th-new-hampshire-infantry: nothing in a printed name or remark says how the data was made
+  ---
+  duration_ms: 2.585307
+  type: 'test'
+  ...
+# Subtest: 1st-new-hampshire-battery: header, segment and row count
+ok 16 - 1st-new-hampshire-battery: header, segment and row count
+  ---
+  duration_ms: 0.110102
+  type: 'test'
+  ...
+# Subtest: 1st-new-hampshire-battery: every line has the shape of roster2/2, offsets only grow, pages stay inside the register
+ok 17 - 1st-new-hampshire-battery: every line has the shape of roster2/2, offsets only grow, pages stay inside the register
+  ---
+  duration_ms: 0.203102
+  type: 'test'
+  ...
+# Subtest: 1st-new-hampshire-battery: flag file is joined to the unit file and its indexes are in range
+ok 18 - 1st-new-hampshire-battery: flag file is joined to the unit file and its indexes are in range
+  ---
+  duration_ms: 1.136234
+  type: 'test'
+  ...
+# Subtest: 1st-new-hampshire-battery: pointer file records this file's size and sha256
+ok 19 - 1st-new-hampshire-battery: pointer file records this file's size and sha256
+  ---
+  duration_ms: 0.259788
+  type: 'test'
+  ...
+# Subtest: 1st-new-hampshire-battery: nothing in a printed name or remark says how the data was made
+ok 20 - 1st-new-hampshire-battery: nothing in a printed name or remark says how the data was made
+  ---
+  duration_ms: 0.39802
+  type: 'test'
+  ...
+# Subtest: union-nh: the four units, the flagged heads and the printed errata are as the report says
+ok 21 - union-nh: the four units, the flagged heads and the printed errata are as the report says
+  ---
+  duration_ms: 73.121399
+  type: 'test'
+  ...
+# Subtest: union-nh: rights basis "public domain (United States publication before 1929)" only for sources printed before 1929 in the United States, and every file has a hash
+ok 22 - union-nh: rights basis "public domain (United States publication before 1929)" only for sources printed before 1929 in the United States, and every file has a hash
+  ---
+  duration_ms: 0.347128
+  type: 'test'
+  ...
+# Subtest: union-nh: the comparison with the printed Summary totals adds up and agrees with the unit files
+ok 23 - union-nh: the comparison with the printed Summary totals adds up and agrees with the unit files
+  ---
+  duration_ms: 68.28025
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 440.777839

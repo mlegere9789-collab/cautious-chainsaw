@@ -123,7 +123,11 @@
   },
   "units": {
     "aggregate_rule": "A formation above the regiments (corps, division, brigade, battalion of artillery) is realized by its leaf units. Every leaf unit the layer lists on the field under it must be drawn and must satisfy the check; a leaf unit that is not drawn fails the check and is named in the result.",
-    "moves_rule": "A unit moves in a window when the picture shows it marching (the activity timeline the figures are animated from: march, double_quick or gallop) at some minute of the window and its centre is in a different place at the end of the window than at its start. No distance threshold is set here: where the move goes is proven by the place relations of the check (from, to, toward, along), each with the tolerance of its place."
+    "moves_rule": "A unit moves in a window when the picture shows it marching (the activity timeline the figures are animated from: march, double_quick or gallop) at some minute of the window and its centre is in a different place at the end of the window than at its start. Where the move goes is proven by the place relations of the check (from, to, toward, along), each with the tolerance of its place; the floors below are the least a check may ask for.",
+    "floors_rule": "A record may ask for MORE than a floor and never for less (the same rule as the distance tolerance: a record may tighten, never loosen). A value below a floor is refused with the code tolerance_wider_than_stated: a march of 0 minutes, a displacement of 0 m, a closing of 0 m, an activity for 0 minutes or a count of figures within 1000 per cent would be satisfied by a product that shows nothing of it.",
+    "moves_floor": { "min_minutes": 1, "min_displacement_m": 10, "min_closing_m": 50 },
+    "activity_floor": { "min_minutes": 1 },
+    "figures": { "tol_pct": 10, "_doc": "the figures a unit is drawn with are within this share of the strength a row prints (the layer draws one figure per man up to the strength figure, so a larger share would make the number of the row mean nothing); a record may ask for a smaller share" }
   },
   "weather": {
     "_doc": "How far the picture's weather may be from a number a row prints. These are rules of the CHECK, not historical claims. A record may ask for a tighter tolerance, never a wider one.",

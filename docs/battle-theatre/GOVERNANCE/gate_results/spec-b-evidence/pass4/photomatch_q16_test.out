@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: catalogue: first-run records plus the added records, each with its licence basis; added records carry their reason and date status
+not ok 1 - catalogue: first-run records plus the added records, each with its licence basis; added records carry their reason and date status
+  ---
+  duration_ms: 1.608159
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:12:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    129 !== 127
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 127
+  actual: 129
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:13:108)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: images ledger: hashes, declared sizes, hosts and licence basis; files on disk match
+ok 2 - images ledger: hashes, declared sizes, hosts and licence basis; files on disk match
+  ---
+  duration_ms: 234.067399
+  type: 'test'
+  ...
+# Subtest: every catalogued record has at least one saved image in the ledger
+ok 3 - every catalogued record has at least one saved image in the ledger
+  ---
+  duration_ms: 0.492859
+  type: 'test'
+  ...
+# Subtest: statements: every quote came from a saved text with its hash; none is a coordinate; documented ones carry a page and offset
+ok 4 - statements: every quote came from a saved text with its hash; none is a coordinate; documented ones carry a page and offset
+  ---
+  duration_ms: 0.610815
+  type: 'test'
+  ...
+# Subtest: poses: schema 2, every position is inferred or an assumption (never a documented position), every statement id exists, fitted poses are flagged
+not ok 5 - poses: schema 2, every position is inferred or an assumption (never a documented position), every statement id exists, fitted poses are flagged
+  ---
+  duration_ms: 0.622648
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:42:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    17 !== 19
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 19
+  actual: 17
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:53:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: deferred poses are registered with their basis and the reason they have no render yet
+ok 6 - deferred poses are registered with their basis and the reason they have no render yet
+  ---
+  duration_ms: 0.21203
+  type: 'test'
+  ...
+# Subtest: verdicts: allowed vocabulary; a positive verdict needs a viewed image; a fitted pose is never called a match; every pose has one
+not ok 7 - verdicts: allowed vocabulary; a positive verdict needs a viewed image; a fitted pose is never called a match; every pose has one
+  ---
+  duration_ms: 8.584175
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:59:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    P13 P27 P28
+    
+    3 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 3
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:66:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: registry: one entry per catalogued record with a candid verdict and, where there is no pose, the reason
+not ok 8 - registry: one entry per catalogued record with a candid verdict and, where there is no pose, the reason
+  ---
+  duration_ms: 0.268928
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:68:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    129 !== 127
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 127
+  actual: 129
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:69:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: gate Q16 stays not passing and says what would be needed; no linked sub-requirement is marked passed
+ok 9 - gate Q16 stays not passing and says what would be needed; no linked sub-requirement is marked passed
+  ---
+  duration_ms: 2.201568
+  type: 'test'
+  ...
+# Subtest: the photo-match document shipped with the app carries no copy that the audit forbids
+ok 10 - the photo-match document shipped with the app carries no copy that the audit forbids
+  ---
+  duration_ms: 0.733317
+  type: 'test'
+  ...
+# Subtest: render is deterministic (SwiftShader), optional
+ok 11 - render is deterministic (SwiftShader), optional # SKIP
+  ---
+  duration_ms: 12.292143
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 6
+# fail 4
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 746.245172

@@ -3,7 +3,7 @@
  "file": "docs/plan/STATUS/items-B.json",
  "part": "B",
  "generated": "2026-11-13",
- "scope": "Chapters 09 to 16 of docs/plan/FINAL (infrastructure, security, privacy and PWA; SEO and growth; copy, docs and content; QA, CI and release; data quality and accuracy; Ask the Historian; the integrated roadmap; the audit annex), the 21 nodes of 15-roadmap.json that only these chapters touch (the 41 nodes shared with chapters 01 to 08b are decided in items-A.json and listed under shared_roadmap_nodes with the items of this file beneath them), the milestones, owner decisions OD-1..19 and the verification-debt register V1..V20 of chapter 15, the owner decisions of chapters 09 to 14 and 16, and the release reports as far as those chapters need them. Work packages that mix shipped and open parts are split into parts a, b, c with their own status; every part keeps the id of its work package plus the letter.",
+ "scope": "Chapters 09 to 16 of docs/plan/FINAL (infrastructure, security, privacy and PWA; SEO and growth; copy, docs and content; QA, CI and release; data quality and accuracy; Ask the Historian; the integrated roadmap; the audit annex), the 21 nodes of 15-roadmap.json that only these chapters touch (the 41 nodes shared with chapters 01 to 08b are decided in items-A.json and listed under shared_roadmap_nodes with the items of this file beneath them), the milestones, the decision gates DG-0..DG-5, owner decisions OD-1..19 and the verification-debt register V1..V20 of chapter 15, the owner decisions of chapters 09 to 14 and 16, and the release reports as far as those chapters need them. Work packages that mix shipped and open parts are split into parts a, b, c with their own status; every part keeps the id of its work package plus the letter.",
  "status_definitions": {
   "SHIPPED": "Present in the release candidate, train R1g (and the trains named), with the patch group and the test that prove it. No train has been deployed: ops/RELEASE-LOG.md has no row and production still serves deploy 6abd6d62.",
   "BUILT_NOT_SHIPPED": "Exists in src/, historian-src/, data-src/, candidates/ or as an opt-in patch group, but is in no train; the evidence says what is missing.",
@@ -22,32 +22,35 @@
   "new-finding": "NF-01..NF-54 of chapter 16 section 2 (and NF-GAP-1).",
   "audit-correction": "One of the 28 corrections of chapter 16 section 1.2 (CORR-nn).",
   "exit-criterion": "An exit criterion of the audit annex (EXIT-16-n).",
-  "verification-debt": "V1..V20 of chapter 15 section 9, the annex verifications VER16-n, and two debts found by this survey.",
-  "chapter-decision": "An owner decision of chapter 15 (OD-n) or of the chapter tables (INFRA-OD, OD-SEO, CD, QA-OD, Q-DATA, HIST-OD, O-16); the register ADRs are in items-A.json."
+  "verification-debt": "V1..V20 of chapter 15 section 9, the annex verifications VER16-n, and three debts found by this survey (VER-COPY-SUITE, VER-HIST-NODE, VER-HIST-CORPUS).",
+  "chapter-decision": "An owner decision of chapter 15 (OD-n) or of the chapter tables (INFRA-OD, OD-SEO, CD, QA-OD, Q-DATA, HIST-OD, O-16); the register ADRs are in items-A.json.",
+  "decision-gate": "A decision gate DG-0..DG-5 of 15-roadmap.json: a date by which the owner decisions of the chapter tables were due; carried here so that no decision date of the plan goes unrecorded."
  },
  "evidence_legend": {
   "R1g": "Train R1g, release id 52cec836, cumulative on R0..R1f (see items-A.json evidence_legend). No train has been deployed.",
   "release/R1g/dist": "The built candidate tree; \"checked 2026-11-13\" means read or grepped in that tree by this workstream.",
   "patch ids": "As in items-A.json: ids of release/R1g/anchors.json; group files tools/t0/patches/<group>.json.",
-  "delegated_row": "The row of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md that governs an OPEN_NEEDS_DECISION item: A01..A40 were recorded by part A, B01..B20 are appended by this survey.",
+  "delegated_row": "The row of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md that governs an OPEN_NEEDS_DECISION item: A01..A69 were recorded by part A, B01..B20 by this survey, C01..C10 by the backlog merge and W09-1..5 by candidate wp-arch-09.",
   "runs": "Results of runs made in this container on 2026-11-13 are quoted with their command; tmp/r1h-cand/status-B/runs.json keeps the text."
  },
  "ground_facts": [
   "Nothing is deployed: ops/RELEASE-LOG.md has no deploy row; every item marked SHIPPED is in the candidate zip only (deliver/gettysburg-R1g-52cec836-PRODUCTION.zip), and deployment is an owner act.",
-  "Run by this workstream on 2026-11-13: node tools/data/manifest.mjs verify (71 of 71 files, 0 changed); node tools/data/emit_legacy.mjs --verify (0 patch files, 0 changed); node tools/data/validate.mjs --data-dir release/R1g/dist/data --no-site (exit 1: the ratchet baseline describes the legacy tree; R001 10 found against 102, R002 0 against 10, R003 44 and R004 36 unchanged, X001 915 against 1,724, D001 1 and D002 70 new); node ops/legal-drafts/verify-facts.mjs on a scratch build of R1g with PG-legal (no FAIL, 0 WARN); node --test tests/historian/atime.test.mjs under Node v22.23.4 (SyntaxError at tools/historian/ingest/times.mjs:26); curl to epqs.nationalmap.gov (HTTP 000: blocked, not worked around).",
-  "Recorded earlier the same day by the interrupted run of this workstream in this container (tmp/r1h-cand/status-B/runs.json): tests/t0/headers.spec.mjs --no-browser on R1g (13 pass, 4 skipped, 1 failed: HDR-11, the stand-in tile folder); tests/t0/seo.spec.mjs 17 of 17; tests/data 207 tests, 206 pass; tests/time 638 of 638; tests/copy 17 failures (stale anchor-state assertions); tests/historian under Node 24: 474 tests, 387 pass, 0 fail, 87 skipped.",
-  "Source rebuild: src/ holds the time module only (10 files); data-src/ (63 files), historian-src/ (299 files), tools/data, tools/historian and the candidates under candidates/ are built and tested but served by no train; the data in the trains comes from baseline/dist plus the DATA patch group.",
-  "Not run by this survey: any browser suite, Lighthouse (no runner in the repository), any real device or assistive technology, the eight acceptance passes, any live-site check, Firefox or WebKit."
+  "Run by this workstream on 2026-11-13: node tools/data/manifest.mjs verify (71 of 71 files, 0 changed); node tools/data/emit_legacy.mjs --verify (0 patch files, 0 changed); node tools/data/validate.mjs --data-dir release/R1g/dist/data --no-site (exit 1: the ratchet baseline describes the legacy tree; R001 10 found against 102, R002 0 against 10, R003 44 and R004 36 unchanged, X001 915 against 1,724, D001 1 and D002 70 new); node ops/legal-drafts/verify-facts.mjs on a scratch build of R1g with PG-legal (no FAIL, 0 WARN); node --test tests/historian/atime.test.mjs under Node v22.23.4 first stopped with a SyntaxError at tools/historian/ingest/times.mjs:26 and passes (23 of 23) after the fix of candidate ver-hist-node (see VER-HIST-NODE); curl to epqs.nationalmap.gov (HTTP 000: blocked, not worked around).",
+  "Recorded earlier the same day by the interrupted run of this workstream in this container (tmp/r1h-cand/status-B/runs.json): tests/t0/headers.spec.mjs --no-browser on R1g (13 pass, 4 skipped, 1 failed: HDR-11, the stand-in tile folder); tests/t0/seo.spec.mjs 17 of 17; tests/data 207 tests, 206 pass; tests/time 638 of 638; tests/copy 17 failures (stale anchor-state assertions); tests/historian under Node 24 before the ver-hist-node fix: 474 tests, 387 pass, 0 fail, 87 skipped.",
+  "Source rebuild: src/ holds the time module (src/lib/time, 10 files) and the foundation added on 2026-11-13 (src/package.json, STACK.md, tsconfig.base.json and the Mapbox token reader config/mapbox.js with its tests, 23 of 23 passing: src/config/tokens.test.mjs 13, src/foundation.test.mjs 10; candidate wp-arch-09); there is no rebuilt app, no parity harness and no site generator. data-src/ (63 files), historian-src/ (299 files), tools/data, tools/historian and the candidates under candidates/ are built and tested but served by no train; the data in the trains comes from baseline/dist plus the DATA patch group.",
+  "Not run by this survey: any browser suite, Lighthouse (no runner in the repository), any real device or assistive technology, the eight acceptance passes, any live-site check, Firefox or WebKit.",
+  "Re-checked in this container on 2026-11-13 23:30 to 23:40 UTC (tmp/r1h-cand/status-B2/runs): tools/data/manifest.mjs verify (71 of 71, 0 changed) and emit_legacy.mjs --verify (0 changed); ops/legal-drafts/verify-facts.mjs on release/R1g/dist (no FAIL, 1 WARN); tests/t0/seo.spec.mjs 17 of 17; tests/t0/headers.spec.mjs --no-browser 13 pass, 4 skipped, 1 FAILED (HDR-11, the stand-in tile folder); node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline 1,764 error-severity findings (4,217 with the warnings; NAME 186, COUNT 8, WE 8, DEVLOG 0, PERSONAL_EMAIL 0); tests/historian/times-node22.test.mjs 4 of 4 under Node 22.23.4; src/config/tokens.test.mjs and src/foundation.test.mjs 23 of 23. Not re-run after the container restart at 23:23 UTC unless listed here: the long suites of the first pass; their inputs did not change since (git log of tests/time, tools/time, src/lib/time, tests/data, tools/data, data-src, tests/copy, tools/copy and tests/historian shows only the ver-hist-node change to tools/historian/ingest/times.mjs and the new test tests/historian/times-node22.test.mjs).",
+  "Probed by this survey on 2026-11-13 23:56 to 23:58 UTC (one request per probe, no retry, nothing worked around): https://archive.org/download/warofrebellion271unit/warofrebellion271unit_hocr_pageindex.json.gz answers 302 to dn760100.eu.archive.org, which the proxy refuses (CONNECT tunnel failed, response 403); the same item through https://archive.org/cors/ answers 200 to HEAD; the project fetcher refuses the /cors/ form (RightsRefusal); see VER-HIST-CORPUS. Not run: the Historian corpus build and the 87 tests that need it."
  ],
  "counts": {
   "SHIPPED": 99,
-  "BUILT_NOT_SHIPPED": 57,
+  "BUILT_NOT_SHIPPED": 58,
   "OPEN_BUILDABLE": 218,
   "OPEN_NEEDS_DECISION": 90,
   "OWNER_ONLY": 103,
-  "SUPERSEDED": 12
+  "SUPERSEDED": 18
  },
- "total": 579,
+ "total": 586,
  "counts_by_kind": {
   "audit-correction": {
    "OWNER_ONLY": 4,
@@ -67,6 +70,9 @@
    "OPEN_NEEDS_DECISION": 44,
    "SHIPPED": 4,
    "SUPERSEDED": 7
+  },
+  "decision-gate": {
+   "SUPERSEDED": 6
   },
   "exit-criterion": {
    "OPEN_BUILDABLE": 4,
@@ -93,7 +99,7 @@
   "verification-debt": {
    "OWNER_ONLY": 35,
    "OPEN_BUILDABLE": 38,
-   "BUILT_NOT_SHIPPED": 6,
+   "BUILT_NOT_SHIPPED": 7,
    "SHIPPED": 1,
    "OPEN_NEEDS_DECISION": 4
   },
@@ -154,7 +160,7 @@
    "SUPERSEDED": 1
   },
   "14": {
-   "BUILT_NOT_SHIPPED": 21,
+   "BUILT_NOT_SHIPPED": 22,
    "OPEN_BUILDABLE": 16,
    "OPEN_NEEDS_DECISION": 17,
    "OWNER_ONLY": 11,
@@ -164,7 +170,7 @@
    "OWNER_ONLY": 25,
    "OPEN_BUILDABLE": 9,
    "OPEN_NEEDS_DECISION": 13,
-   "SUPERSEDED": 4
+   "SUPERSEDED": 10
   },
   "16": {
    "SHIPPED": 50,
@@ -1625,7 +1631,7 @@
    "kind": "work-package",
    "title": "CSP end state, Trusted Types, source maps (after the static-site rebuild)",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built and not buildable on the patched pages as specified: it needs page code in external hashed files and no inline style attributes, which is the static-site layer of the rebuild (RM-62); src/ holds only src/lib/time today.",
+   "evidence": "Not built and not buildable on the patched pages as specified: it needs page code in external hashed files and no inline style attributes, which is the static-site layer of the rebuild (RM-62); src/ holds the time module (src/lib/time, 10 files) and, since checkpoint 29e119a5 (2026-11-13 21:23), the foundation of the rebuild: src/package.json, src/STACK.md, src/tsconfig.base.json, the Mapbox token reader src/config/mapbox.js with its tests (candidate wp-arch-09; node --test src/config/tokens.test.mjs src/foundation.test.mjs: 23 tests, all pass, re-run 2026-11-13 23:35); src/app holds a README only.",
    "next_step": "Build with the static-site layer: script-src 'self' and style-src 'self' without hashes, Trusted Types report-only then enforced on static pages, first-party source maps with noindex.",
    "size": "L",
    "files": [
@@ -1695,7 +1701,7 @@
    "kind": "work-package",
    "title": "Cutover infrastructure (/next, /classic, flags, service-worker scope at S3)",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: no /flags.json, no /next or /classic rule, version.json has no sha, dataVersion or timeModel field (release/R1g/dist/version.json). It serves the rebuilt app and the landing split, neither of which exists (src/ holds only src/lib/time; no landing page).",
+   "evidence": "Not built: no /flags.json, no /next or /classic rule, version.json has no sha, dataVersion or timeModel field (release/R1g/dist/version.json). It serves the rebuilt app and the landing split, neither of which exists (src/ holds the time module (src/lib/time, 10 files) and, since checkpoint 29e119a5 (2026-11-13 21:23), the foundation of the rebuild: src/package.json, src/STACK.md, src/tsconfig.base.json, the Mapbox token reader src/config/mapbox.js with its tests (candidate wp-arch-09; node --test src/config/tokens.test.mjs src/foundation.test.mjs: 23 tests, all pass, re-run 2026-11-13 23:35); src/app holds a README only; no landing page).",
    "next_step": "Build with train S3 and the rebuild beta: header classes for /next and /classic, /flags.json with a 1 s client timeout, service-worker scope move with the unregister test. Not useful before those exist.",
    "size": "M",
    "files": [
@@ -1807,7 +1813,7 @@
    "kind": "work-package-part",
    "title": "Mapbox token programme: one config module for the token literals",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not done: grep -rlE \"pk\\.eyJ\" release/R1g/dist finds 9 files (assets/index-52cec836.js and the 8 map pages camera, cinematic-export, compare, ground-remembers, immersive, sandbox, viewshed, watch-together); the WP accepts 1 file. No patch group in tools/t0/patches or patches-next moves the literals.",
+   "evidence": "Not done: grep -rlE \"pk\\.eyJ\" release/R1g/dist finds 9 files (assets/index-52cec836.js and the 8 map pages camera, cinematic-export, compare, ground-remembers, immersive, sandbox, viewshed, watch-together); the WP accepts 1 file. No patch group in tools/t0/patches or patches-next moves the literals. Partly prepared for the rebuild only: src/config/mapbox.js (candidate wp-arch-09, checkpoint 9db1d99b, 2026-11-13) is the one reader of PUBLIC_MAPBOX_TOKEN for the rebuilt app (getMapboxToken, isProductionBuild, MapboxTokenError with codes MAPBOX_TOKEN_MISSING, MAPBOX_TOKEN_SECRET, MAPBOX_TOKEN_MALFORMED; a secret sk. token is refused in every mode; no literal under src/), with 13 tests in src/config/tokens.test.mjs (all pass, re-run 2026-11-13 23:35). Nothing serves it: the 9 shipped files still carry the literal, so this part stays open for the frozen trains (the interim assets/config.<hash>.js and the two bundle literals).",
    "next_step": "Candidate page group: one hashed assets/config.<hash>.js (or one inline config block) read by the 8 pages, plus a bundle patch for the two entry literals; red-first test \"the token literal occurs in exactly one shipped file\" and the 8 map pages still load their map (pages-maps PG-01).",
    "size": "M",
    "files": [
@@ -2294,7 +2300,7 @@
    "kind": "work-package-part",
    "title": "Watch Together hotfix: stored XSS, import validation, PeerJS on demand with SRI",
    "status": "SHIPPED",
-   "evidence": "Train R1a onwards, page groups PG-core (rows built with textContent, stored and imported tours validated) and PG-maps (PeerJS on demand with SRI); train R1f adds PG-zfix (a connection that is still opening is never closed). Tests: pages-core T0-PGC-19, 20, 21 and PGC-28 (real Mapbox), pages-maps PG-05a/b/c, tests/t0/wtpeer.spec.mjs T0-WTP-01..04. Live Sync stays on (the plan's default was to pause it; the fallback Part A was built instead).",
+   "evidence": "Train R1a onwards, page groups PG-core (rows built with textContent, stored and imported tours validated) and PG-maps (PeerJS on demand with SRI); train R1f adds PG-zfix (a connection that is still opening is never closed). Tests: pages-core T0-PGC-19, 20, 21 and PGC-28 (real Mapbox), pages-maps PG-05a/b/c, tests/t0/wtpeer.spec.mjs T0-WTP-01..04. Live Sync stays on (the plan's default was to pause it; the fallback Part A was built instead). Container result (docs/accept/R1G-SUITES.json): r1.wtpeer 2 of 4 (T0-WTP-01 and 03 fail); the functional values are right (closedWhileConnecting 0, no connecting peer destroyed) and the only failing assertion is Chrome's software-GL console warning \"GPU stall due to ReadPixels\", identical on R1f (docs/accept/R1G-STATUS.md, 2026-11-08); the suite was 4 of 4 on R1f after PG-zfix on the Windows machine (R1F-FINAL-REPORT). Not acceptance evidence either way (items-A.json VER-LAYOUT-TIMING).",
    "next_step": "None; remaining hardening is WP-INFRA-28b.",
    "size": "S",
    "files": [
@@ -2400,7 +2406,7 @@
     "ops/STAGING-SETUP.md",
     "ops/header-decisions.md"
    ],
-   "owner_step": "Do Action 5 of ops/owner-console-actions.md and the staging routine of ops/STAGING-SETUP.md; write down what Netlify shows for pretty URLs, preview metering and the primary domain."
+   "owner_step": "Do Action 5 of ops/owner-console-actions.md (Action 5: Netlify plan and credits, 15 min) and the staging routine of ops/STAGING-SETUP.md; write down what Netlify shows for pretty URLs, preview metering and the primary domain."
   },
   {
    "id": "VD09-2",
@@ -2414,7 +2420,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "Do Actions 3 and 4 of ops/owner-console-actions.md and read the Mapbox Product Terms on caching, self-hosting and recordings."
+   "owner_step": "Do Actions 3 and 4 of ops/owner-console-actions.md (Action 3: Mapbox token review and dev and preview tokens, 30 min; Action 4: Google Cloud key restriction, 20 min) and read the Mapbox Product Terms on caching, self-hosting and recordings."
   },
   {
    "id": "VD09-3",
@@ -2428,7 +2434,7 @@
    "files": [
     "ops/legal-drafts/contact-architecture.md"
    ],
-   "owner_step": "See WP-INFRA-20 and WP-INFRA-27a."
+   "owner_step": "The same acts as WP-INFRA-20 and WP-INFRA-27a. WP-INFRA-20 (DNS records, search-console verification, CAA, HSTS preload): Netlify DNS: add the Google Search Console TXT record for a Domain property and verify; import the site into Bing Webmaster Tools; after the certificate has renewed add the account-bound CAA record described in ops/legal-drafts/contact-architecture.md section 6 and force one renewal; submit the domain to hstspreload.org only after the URL form is final (train S1) and you accept that removal takes months. WP-INFRA-27a (Legal pack: merged Privacy and Terms drafts and the counsel packet): Send counsel the merged drafts and ops/legal-drafts/data-inventory.md with the questions of chapter 09 WP-INFRA-27 step 2; state the operator identity and governing law; confirm or correct the non-affiliation sentence and the licence wording in tools/copy/trust-config.json; publish age or licence wording only after counsel has signed."
   },
   {
    "id": "VD09-4",
@@ -2443,7 +2449,7 @@
     "tests/t0/headers.spec.mjs",
     "tests/t0/images.spec.mjs"
    ],
-   "owner_step": "See V18 and WP-QA-21a."
+   "owner_step": "The same acts as V18 and WP-QA-21a. V18 (New patch code with no prior run; Bookmarks in the upgrade drill; Safari service-worker upgrade; Firefox and WebKit): Run node tests/t0/r0.mjs on a machine with Firefox and WebKit installed, and the upgrade drill on an iPhone. WP-QA-21a (Real-device and assistive-technology programme): On an iPhone SE-class phone, a 4 GB Android (Chrome and Samsung Internet), an iPad and a 4 GB Chromebook: open the staging site, follow tests/t0/journeys-manual.md (pan, zoom, tap a unit, every Tools row, rotate, background and return ten times) and write the result with date and device into the file."
   },
   {
    "id": "VD09-5",
@@ -2457,7 +2463,7 @@
    "files": [
     "ops/RUM-hygiene.md"
    ],
-   "owner_step": "See WP-INFRA-29, 30b and 01."
+   "owner_step": "The same acts as WP-INFRA-29, WP-INFRA-30b and WP-INFRA-01. WP-INFRA-29 (Bot and traffic-quality strategy): Do ops/owner-console-actions.md Action 12b (block /.netlify/scripts/rum in your own test profile), run the E1 probe of ops/RUM-hygiene.md section 6 once, and record what Netlify Analytics counted so the human share of traffic can be estimated. WP-INFRA-30b (Web-filter vendor categorisation requests): When the student and teacher pages are live, submit gettysburginteractivemap.com to the categorisation forms of the school filter vendors you care about (category Education or Reference) and log each submission with its date in ops/filters.tsv. WP-INFRA-01 (Accounts, recovery, domain hardening (owner-executed)): In ops/owner-console-actions.md Action 6: turn on passkeys or TOTP with offline recovery codes for the mailbox, Netlify, Name.com, Mapbox, Google Cloud, GitHub, Search Console and Bing; move account recovery to a private mailbox that is never published; set Name.com auto-renew and renew the domain to 2031-06-13 or later; confirm the TLS certificate renewed; name a delegate with emergency access; tick the box and write the date."
   },
   {
    "id": "INFRA-OD-1",
@@ -2471,7 +2477,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "Do Action 5 of ops/owner-console-actions.md."
+   "owner_step": "Do Action 5 of ops/owner-console-actions.md (Action 5: Netlify plan and credits, 15 min)."
   },
   {
    "id": "INFRA-OD-2",
@@ -2485,7 +2491,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "Do Action 3 of ops/owner-console-actions.md."
+   "owner_step": "Do Action 3 of ops/owner-console-actions.md (Action 3: Mapbox token review and dev and preview tokens, 30 min)."
   },
   {
    "id": "INFRA-OD-3",
@@ -2530,7 +2536,7 @@
    "files": [
     "ops/legal-drafts/README.md"
    ],
-   "owner_step": "See WP-INFRA-27a."
+   "owner_step": "The same act as WP-INFRA-27a. WP-INFRA-27a (Legal pack: merged Privacy and Terms drafts and the counsel packet): Send counsel the merged drafts and ops/legal-drafts/data-inventory.md with the questions of chapter 09 WP-INFRA-27 step 2; state the operator identity and governing law; confirm or correct the non-affiliation sentence and the licence wording in tools/copy/trust-config.json; publish age or licence wording only after counsel has signed."
   },
   {
    "id": "INFRA-OD-6",
@@ -3298,7 +3304,7 @@
    "files": [
     "docs/seo/OWNER-ACTIONS.md"
    ],
-   "owner_step": "See WP-SEO-01."
+   "owner_step": "The same act as WP-SEO-01. WP-SEO-01 (Search Console, Bing and IndexNow verification, baseline of record): Search Console: add the Domain property with the DNS TXT record (or use the published HTML file for a URL-prefix property), submit https://gettysburginteractivemap.com/sitemap.xml, run URL Inspection on / and one sub-page; Bing Webmaster Tools: import from Search Console and create an IndexNow key; export the Performance, Pages and Links reports and note the date as day 0 of the 28-day baseline."
   },
   {
    "id": "VD10-2",
@@ -3326,7 +3332,7 @@
    "files": [
     "ops/RUM-hygiene.md"
    ],
-   "owner_step": "See WP-INFRA-29."
+   "owner_step": "The same act as WP-INFRA-29. WP-INFRA-29 (Bot and traffic-quality strategy): Do ops/owner-console-actions.md Action 12b (block /.netlify/scripts/rum in your own test profile), run the E1 probe of ops/RUM-hygiene.md section 6 once, and record what Netlify Analytics counted so the human share of traffic can be estimated."
   },
   {
    "id": "VD10-4",
@@ -3366,7 +3372,7 @@
    "files": [
     "docs/seo/OWNER-ACTIONS.md"
    ],
-   "owner_step": "See WP-SEO-28."
+   "owner_step": "The same act as WP-SEO-28. WP-SEO-28 (Outreach programme): Send one personal message and at most one follow-up per target (teachers, libraries, round tables, genealogy societies), disclose that you built the site, never pay for or trade links, and log every send with its date and reply."
   },
   {
    "id": "VD10-7",
@@ -3375,7 +3381,7 @@
    "title": "Mapbox free-tier numbers, Census TIGER terms, the unit-page export schema, Historian phase dates",
    "status": "OPEN_BUILDABLE",
    "evidence": "The free-tier figures are read from the Mapbox pages (api.mapbox.com is reachable; the documentation host is not in the list); the export schema is WP-HIST-22 (unbuilt).",
-   "next_step": "Verify when each is needed.",
+   "next_step": "Verify each at the work package that needs it: the Mapbox free-tier numbers when capacity text is written (the documentation host is not reachable here), the Census TIGER terms when boundary data is chosen, the unit-page export schema in WP-HIST-22, the Historian phase dates when its calendar is set.",
    "size": "S",
    "files": [
     "docs/plan/FINAL/10-seo-growth.md"
@@ -3436,7 +3442,7 @@
    "kind": "chapter-decision",
    "title": "Interim OG image in R1a, tag parity in S1",
    "status": "SHIPPED",
-   "evidence": "The card ships since R1a and is a real photograph since R1d (WP-SEO-04a); parity is WP-SEO-04b for S1.",
+   "evidence": "The card ships since R1a and is a real photograph since R1d (WP-SEO-04a); parity is WP-SEO-04b for S1. Proof: train R1a (PG-maps, interim card), train R1d (PG-zimg, 1200x630 og/gettysburg-card.jpg); tests pages-maps PG-06, PG-07, images T0-RIMG-05, 06; 21 of 21 pages that carry og:image reference it (checked 2026-11-13 in release/R1g/dist).",
    "next_step": "WP-SEO-04b.",
    "size": "S",
    "files": [
@@ -3550,7 +3556,7 @@
    "files": [
     "docs/seo/OWNER-ACTIONS.md"
    ],
-   "owner_step": "See WP-SEO-28."
+   "owner_step": "The same act as WP-SEO-28. WP-SEO-28 (Outreach programme): Send one personal message and at most one follow-up per target (teachers, libraries, round tables, genealogy societies), disclose that you built the site, never pay for or trade links, and log every send with its date and reply."
   },
   {
    "id": "OD-SEO-11",
@@ -3972,7 +3978,7 @@
    "kind": "work-package-part",
    "title": "Phase 0: truthful static-page copy and the Historian chronology fix",
    "status": "SHIPPED",
-   "evidence": "Train R1a onwards, page group PG-core (119 patches): dashboard cards from titled data, alias stubs out of the loaders, developer notes out of viewshed and AR, Historian chronology answers print the event. Tests: pages-core T0-PGC-11, 11b, 14, 15, 17, 25, 26 (no \"undefined\" on 12 pages); red proof suite red.pagescore on legacy/dist. node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline (run 2026-11-13): rule DEVLOG 0 findings.",
+   "evidence": "Train R1a onwards, page group PG-core (121 records in release/R1g/anchors.json: 119 page patches and the 2 file deletions of the developer pages): dashboard cards from titled data, alias stubs out of the loaders, developer notes out of viewshed and AR, Historian chronology answers print the event. Tests: pages-core T0-PGC-11, 11b, 14, 15, 17, 25, 26 (no \"undefined\" on 12 pages); red proof suite red.pagescore on legacy/dist. node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline (run 2026-11-13): rule DEVLOG 0 findings.",
    "next_step": "None; leftover strings are WP-CONTENT-01b.",
    "size": "S",
    "files": [
@@ -4003,7 +4009,7 @@
    "kind": "work-package-part",
    "title": "In-app and Help copy patch table: R1 rows",
    "status": "SHIPPED",
-   "evidence": "Train R1c (group CP: 21 bundle and Help rows plus CP+walkthrough-sensors) and train R1d (groups POLISH and PG-polish: one name per feature, retired words out of the app, Help and static copy; group CLOCK: clock in words instead of \"tick n of 675\"). Tests: copy.spec T0-CP-01..04 (each shipped row present once before and gone after; rendered Help), tests/t0/polish.spec.mjs, clock.spec T0-CLK-10 and T0-CLK-14; red proof suite red.copy.",
+   "evidence": "Train R1c (group CP: 21 bundle and Help rows plus CP+walkthrough-sensors) and train R1d (groups POLISH and PG-polish: one name per feature, retired words out of the app, Help and static copy; group CLOCK: clock in words instead of \"tick n of 675\"). Tests: copy.spec T0-CP-01..04 (each shipped row present once before and gone after; rendered Help), tests/t0/polish.spec.mjs, clock.spec T0-CLK-10 and T0-CLK-14; red proof suite red.copy. Container result on the R1g tree (docs/accept/R1G-SUITES.json, from the full run of 2026-11-11, not repeated since the proxy-aware harness): r1.polish 4 of 13 pass, 4 skipped (the rows that need a control tree), 5 fail: T0-POL-02, 04, 05, 06 and 13 (layout overlap and 32 and 44 px target checks, for example the toolbar User Guide link 130 by 27 px at 1024 by 768 with a mouse); T0-POL-01, 03, 07 and 08 pass. On R1f the same suite was 9 of 13 (+4 skips) on the Windows acceptance machine (docs/accept/R1F-FINAL-REPORT.md); the container's software GL, 4 vCPU and Linux fonts make its result no acceptance evidence either way (items-A.json VER-LAYOUT-TIMING, OWNER_ONLY).",
    "next_step": "None; leftovers are WP-CONTENT-02b, the name rows wait for train S2 (WP-CONTENT-07).",
    "size": "S",
    "files": [
@@ -4327,7 +4333,7 @@
    "kind": "chapter-decision",
    "title": "Feature and menu names (Appendix D)",
    "status": "SHIPPED",
-   "evidence": "One name per feature ships since train R1d (groups POLISH and PG-polish; tools/t0/POLISH-README.md; tests/t0/polish.spec.mjs). The manifest and title names wait for S2 (D-NAME).",
+   "evidence": "One name per feature ships since train R1d (groups POLISH and PG-polish; tools/t0/POLISH-README.md; tests/t0/polish.spec.mjs). The manifest and title names wait for S2 (D-NAME). The naming check T0-POL-01 (no retired name or jargon word on any page, menu, Help, onboarding or phone sheet) passes in the container; the other suite rows that are red there are layout and target-size checks (r1.polish 4 of 13, items-A.json VER-LAYOUT-TIMING).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -4509,7 +4515,7 @@
    "kind": "work-package",
    "title": "Geometry, tappability and input-reachability detectors",
    "status": "SHIPPED",
-   "evidence": "Repository tooling used by the release routine (no site bytes of its own): mobile-matrix T0-MOB-02/03 (elementFromPoint, 44 px, on screen, all viewports), T0-MOB-05 (no desktop overlay on phones, exactly one map), journeys T0-IN-01..05 (real drag, wheel and pinch change the camera; no full-size overlay canvas with pointer-events:auto; a phone tap selects a unit), polish T0-POL-02/04 (nothing lands on anything else), acceptance checks tools/accept/checks/c4_input.mjs and c7_visual.mjs (targets, overflow, text size at six widths). Red proofs: suites red.mobile and red.journeys on legacy/dist.",
+   "evidence": "Repository tooling used by the release routine (no site bytes of its own): mobile-matrix T0-MOB-02/03 (elementFromPoint, 44 px, on screen, all viewports), T0-MOB-05 (no desktop overlay on phones, exactly one map), journeys T0-IN-01..05 (real drag, wheel and pinch change the camera; no full-size overlay canvas with pointer-events:auto; a phone tap selects a unit), polish T0-POL-02/04 (nothing lands on anything else), acceptance checks tools/accept/checks/c4_input.mjs and c7_visual.mjs (targets, overflow, text size at six widths). Red proofs: suites red.mobile and red.journeys on legacy/dist. Container result on the R1g tree (docs/accept/R1G-SUITES.json, from the full run of 2026-11-11, not repeated since the proxy-aware harness): r1.polish 4 of 13 pass, 4 skipped (the rows that need a control tree), 5 fail: T0-POL-02, 04, 05, 06 and 13 (layout overlap and 32 and 44 px target checks, for example the toolbar User Guide link 130 by 27 px at 1024 by 768 with a mouse); the detectors T0-POL-02 and 04 named above are among the five that report problems in the container. On R1f the same suite was 9 of 13 (+4 skips) on the Windows acceptance machine (docs/accept/R1F-FINAL-REPORT.md); the container's software GL, 4 vCPU and Linux fonts make its result no acceptance evidence either way (items-A.json VER-LAYOUT-TIMING, OWNER_ONLY). Trains: the detectors gate every train from R1b; last results in the container on R1g (docs/accept/R1G-SUITES.json): mobile.R1b and mobile.R1c 19 of 19, desktop.R1c 10 of 10, journeys.R1c 40 of 41 (only T0-J7 red).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -4631,7 +4637,7 @@
    "kind": "work-package",
    "title": "Parity QA layer and cut-over computation",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: there is no rebuilt app to compare (src/ holds only src/lib/time). A guard of the same kind exists for one area: tests/t0/walkthrough-guard.spec.mjs fingerprints the Virtual Walkthrough against baseline/dist on every train, with a mutant self-test.",
+   "evidence": "Not built: there is no rebuilt app to compare (src/ holds the time module (src/lib/time, 10 files) and, since checkpoint 29e119a5 (2026-11-13 21:23), the foundation of the rebuild: src/package.json, src/STACK.md, src/tsconfig.base.json, the Mapbox token reader src/config/mapbox.js with its tests (candidate wp-arch-09; node --test src/config/tokens.test.mjs src/foundation.test.mjs: 23 tests, all pass, re-run 2026-11-13 23:35); src/app holds a README only). A guard of the same kind exists for one area: tests/t0/walkthrough-guard.spec.mjs fingerprints the Virtual Walkthrough against baseline/dist on every train, with a mutant self-test.",
    "next_step": "Build with the parity harness of the rebuild (RM-51): the frozen bytes as reference, Tranche-0 fixes as registered intended differences, the 16-criteria cut-over gate.",
    "size": "M",
    "files": [
@@ -4646,8 +4652,8 @@
    "kind": "work-package",
    "title": "Ask-the-Historian evaluation gates in CI",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built for the candidate engine: tests/historian/eval.mjs with gates.json (H1 and H2 batteries, 2-point regression tolerance), baseline.json (the deployed page recorded as B0: 14.0 percent pass on the 150-question golden set), golden fixtures and scorer (tests/historian/lib/score-golden.mjs, fixtures/golden-gates.json, golden-or27*.json). node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here). Missing: CI, the real-page leg in a browser, and a shipped engine to gate (the published historian.html is the patched legacy page).",
-   "next_step": "Run the suite in CI under the Node version it needs, add the browser leg on the candidate page (historian-src/page) and make the gates a row of the release routine when the engine ships.",
+   "evidence": "Built for the candidate engine: tests/historian/eval.mjs with gates.json (H1 and H2 batteries, 2-point regression tolerance), baseline.json (the deployed page recorded as B0: 14.0 percent pass on the 150-question golden set), golden fixtures and scorer (tests/historian/lib/score-golden.mjs, fixtures/golden-gates.json, golden-or27*.json). node --test tests/historian/*.test.mjs, 2026-11-13: first run, before the fix of candidate ver-hist-node (an inline regex modifier in tools/historian/ingest/times.mjs that Node 22 cannot parse): 22 of 34 test files did not load under the default Node 22.23.4, and under /opt/node24 (24.22.1) 474 tests, 387 pass, 0 fail, 87 skipped. After the fix (checkpoint 6bb4d1d7) the candidate's own run under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped, no file failed to load (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log); this survey re-ran only tests/historian/times-node22.test.mjs (4 of 4 under Node 22.23.4); the paired Node 22 and Node 24 run of the whole suite was not repeated here. All 87 skips need the corpus build, which has not run in this container (79 need historian-src/raw/or27, 8 need tmp/historian-cache; VER-HIST-CORPUS), so whatever in this item depends on the built corpus is proven here only by the tests that do not need it. Missing: CI, the real-page leg in a browser, and a shipped engine to gate (the published historian.html is the patched legacy page).",
+   "next_step": "Run the suite in CI (it now loads under Node 22 and Node 24), add the browser leg on the candidate page (historian-src/page) and make the gates a row of the release routine when the engine ships.",
    "size": "M",
    "files": [
     "tests/historian/eval.mjs",
@@ -4663,7 +4669,7 @@
    "kind": "work-package",
    "title": "Soak and long-session job",
    "status": "SHIPPED",
-   "evidence": "Repository tooling used by the release routine (no site bytes of its own): the soak of acceptance check 5 (tools/accept/checks/c5_perf.mjs: 600 s for acceptance runs, heap growth limit 10 percent after forced GC, desktop and phone shells). docs/accept/R1-FINAL-REPORT.md measured +6.47 percent on R1d; docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md). A weekly 60-minute run and DOM-node and listener counts are not part of it.",
+   "evidence": "Repository tooling used by the release routine (no site bytes of its own): the soak of acceptance check 5 (tools/accept/checks/c5_perf.mjs: 600 s for acceptance runs, heap growth limit 10 percent after forced GC, desktop and phone shells). docs/accept/R1-FINAL-REPORT.md measured +6.47 percent on R1d; docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md). A weekly 60-minute run and DOM-node and listener counts are not part of it. Trains: acceptance check 5 (the soak) gates every train; it was measured on R1d (+6.47 percent heap growth, docs/accept/R1-FINAL-REPORT.md) and in the complete run of R1f, and has not run on R1g (only checks 1 and 8 have, docs/accept/R1G-STATUS.md); no suite row of docs/accept/R1G-SUITES.json covers it.",
    "next_step": "None for the acceptance soak; add node and listener counts if a leak is suspected.",
    "size": "S",
    "files": [
@@ -4744,7 +4750,7 @@
    "kind": "work-package-part",
    "title": "Browser test foundation: harness, viewport matrix, driver",
    "status": "SHIPPED",
-   "evidence": "Repository tooling used by the release routine (no site bytes of its own): tests/t0/lib.mjs (system Chrome through playwright-core plus a CDP side channel, production Referer injected on Mapbox requests with a per-run cap, error collection, real mouse and touch input), tests/t0/viewports.json, self-test tests/t0/lib_selftest.mjs LIB-01..09 (suite static.lib). R1G-STATUS 2026-11-08: LIB-02 passes with Mapbox reachable; LIB-08 flaky on Linux from a profile-directory cleanup race.",
+   "evidence": "Repository tooling used by the release routine (no site bytes of its own): tests/t0/lib.mjs (system Chrome through playwright-core plus a CDP side channel, production Referer injected on Mapbox requests with a per-run cap, error collection, real mouse and touch input), tests/t0/viewports.json, self-test tests/t0/lib_selftest.mjs LIB-01..09 (suite static.lib). R1G-STATUS 2026-11-08: LIB-02 passes with Mapbox reachable; LIB-08 flaky on Linux from a profile-directory cleanup race. Trains: this harness runs every browser suite of trains R1a to R1g; its self-test is suite static.lib, 9 of 10 pass and 1 is skipped on R1g (docs/accept/R1G-SUITES.json, run of 2026-11-13 after the quiet-flag fix).",
    "next_step": "None; the hooks contract for the rebuilt app is WP-QA-04b.",
    "size": "S",
    "files": [
@@ -4761,7 +4767,7 @@
    "kind": "work-package-part",
    "title": "Hooks contract for the rebuilt app (?test=1, window.__gtbg, data-shell)",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: there is no rebuilt app to carry the hooks (src/ holds only src/lib/time).",
+   "evidence": "Not built: there is no rebuilt app to carry the hooks (src/ holds the time module (src/lib/time, 10 files) and, since checkpoint 29e119a5 (2026-11-13 21:23), the foundation of the rebuild: src/package.json, src/STACK.md, src/tsconfig.base.json, the Mapbox token reader src/config/mapbox.js with its tests (candidate wp-arch-09; node --test src/config/tokens.test.mjs src/foundation.test.mjs: 23 tests, all pass, re-run 2026-11-13 23:35); src/app holds a README only).",
    "next_step": "Define and test the hooks with the first rebuilt shell (RM-58); nothing to do on the patched bundle.",
    "size": "M",
    "files": [
@@ -4778,7 +4784,7 @@
    "kind": "work-package-part",
    "title": "Lab performance gate: vitals, frames, interaction and heap limits",
    "status": "SHIPPED",
-   "evidence": "Repository tooling used by the release routine (no site bytes of its own): tools/accept/checks/c5_perf.mjs with tools/accept/thresholds.json (LCP 2,500 ms, CLS 0.1, INP 200 ms, TBT 200 ms at 4x CPU on the phone profile, long task 50 ms per interaction, heap growth 10 percent; \"Never loosen these to make a pass clean\") and the perf specs tests/t0/perf-fixes, perf2..perf6. docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md). No timing from this container counts: rendering here is software GL.",
+   "evidence": "Repository tooling used by the release routine (no site bytes of its own): tools/accept/checks/c5_perf.mjs with tools/accept/thresholds.json (LCP 2,500 ms, CLS 0.1, INP 200 ms, TBT 200 ms at 4x CPU on the phone profile, long task 50 ms per interaction, heap growth 10 percent; \"Never loosen these to make a pass clean\") and the perf specs tests/t0/perf-fixes, perf2..perf6. docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md). No timing from this container counts: rendering here is software GL. Container results on R1g (docs/accept/R1G-SUITES.json): r1.perf2 5 of 12, r1.perf4 8 of 13, r1.perf5 0 of 9, r1.perf6 6 of 7, r1.ztail 5 of 7 (software-GL timing on 4 vCPU; none of these is acceptance evidence, items-A.json VER-LAYOUT-TIMING); on R1f on the Windows machine perf2 was 11 of 12, perf4 12 of 13, perf5 8 of 9.",
    "next_step": "None for the gate; Lighthouse and the ratchet are WP-QA-06b.",
    "size": "S",
    "files": [
@@ -4847,7 +4853,7 @@
    "kind": "work-package-part",
    "title": "Function and interaction specs for what Tranche 0 fixed",
    "status": "SHIPPED",
-   "evidence": "Repository tooling used by the release routine (no site bytes of its own): journeys T0-J1..J8, T0-KEY-01..08 (Esc order, modifiers inert), T0-DATA-01..03 (day data on a jump, per-tick merge, stateless carry-forward), T0-C5-01/02, T0-TOUR-01; deeplinks T0-DL-01..10 (every link shape the site emits is read); mobile T0-MOB-01..13 and T0-MFIX-01..12; desktop-fixes T0-DF-01..09; sub-pages pages-core, pages-maps, pages-fixes. Each has a red-first suite on legacy/dist or a control tree (tools/t0/run_suites.mjs rows red.*). R1G-STATUS 2026-11-08: deeplinks 12/12, desktop-fixes 10/10 on the R1g tree.",
+   "evidence": "Repository tooling used by the release routine (no site bytes of its own): journeys T0-J1..J8, T0-KEY-01..08 (Esc order, modifiers inert), T0-DATA-01..03 (day data on a jump, per-tick merge, stateless carry-forward), T0-C5-01/02, T0-TOUR-01; deeplinks T0-DL-01..10 (every link shape the site emits is read); mobile T0-MOB-01..13 and T0-MFIX-01..12; desktop-fixes T0-DF-01..09; sub-pages pages-core, pages-maps, pages-fixes. Each has a red-first suite on legacy/dist or a control tree (tools/t0/run_suites.mjs rows red.*). R1G-STATUS 2026-11-08: deeplinks 12/12, desktop-fixes 10/10 on the R1g tree. Container result (docs/accept/R1G-SUITES.json): mobilefix.R1b 28 of 29 and mobilefix.R1c 27 of 29, with T0-MFIX-02 and -11 red (tracked as VER-MFIX in items-A.json); mobile-matrix 19 of 19; mobilefix was 29 of 29 on R1f on the Windows machine. journeys.R1c is 40 of 41: only T0-J7 is red (VER-J7 in items-A.json), deeplinks 12 of 12, desktop-fixes 10 of 10.",
    "next_step": "None; rows the plan leaves to the rebuild are WP-QA-10b.",
    "size": "S",
    "files": [
@@ -4913,7 +4919,7 @@
    "kind": "work-package-part",
    "title": "Visual regression against the published build and layout checks at six widths",
    "status": "SHIPPED",
-   "evidence": "Repository tooling used by the release routine (no site bytes of its own): tools/accept/checks/c3_regression.mjs (text, controls and screenshots of every route against baseline/dist; each intended difference is a reasoned row of tools/accept/regression_waivers.json) and c7_visual.mjs (six widths: overflow, targets, text size, layout shift). docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md).",
+   "evidence": "Repository tooling used by the release routine (no site bytes of its own): tools/accept/checks/c3_regression.mjs (text, controls and screenshots of every route against baseline/dist; each intended difference is a reasoned row of tools/accept/regression_waivers.json) and c7_visual.mjs (six widths: overflow, targets, text size, layout shift). docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md). Trains: acceptance checks 3 and 7 gate every train; they ran in the complete acceptance run of R1f, and on R1g only checks 1 and 8 of the eight have run (a real run_pass.mjs --only 1,8 on the R1g production zip, docs/accept/R1G-STATUS.md, review-fix line of 2026-11-13), so checks 3 and 7 have not run on R1g.",
    "next_step": "None; per-state goldens are WP-QA-14b.",
    "size": "S",
    "files": [
@@ -5077,7 +5083,7 @@
    "kind": "verification-debt",
    "title": "Playwright specs and detector first-run protocol (coarse pointer emulation, localhost restriction, page.clock, weberror, uBlock in headless, CDP scroll and pinch)",
    "status": "SHIPPED",
-   "evidence": "Closed by the harness that exists: tests/t0/lib.mjs with self-test LIB-01..09, 38 spec files and 79 suite rows run on the acceptance machine (R1f: 43 of 47 suites ok) and in this container (R1g: 51 of 79, reds attributed to the environment in docs/accept/R1G-STATUS.md).",
+   "evidence": "Closed by the harness that exists: tests/t0/lib.mjs with self-test LIB-01..09, 38 spec files and 80 suite rows (tools/t0/run_suites.mjs --list on the R1g command) run on the acceptance machine (R1f: 43 of 47 suites ok) and in this container (R1g, docs/accept/R1G-SUITES.json generated 2026-11-13: 80 of 80 suites reached, last result ok for 61 and not ok for 19; the 16 static rows and the sampled suites were re-run with the final proxy-aware harness on 2026-11-13 and are green, the other 19 are results of the full run of 2026-11-11 and were not re-run; each red row is either attributed to the environment in docs/accept/R1G-STATUS.md or open as VER-LAYOUT-TIMING, VER-J7, VER-MFIX, VER-HDR-11 in items-A.json).",
    "next_step": "None for the protocol; uBlock-in-headless is not covered (WP-QA-08b).",
    "size": "S",
    "files": [
@@ -5112,7 +5118,7 @@
    "files": [
     "ops/STAGING-SETUP.md"
    ],
-   "owner_step": "See VD09-1 and QA-OD-1."
+   "owner_step": "The same acts as VD09-1 and QA-OD-1. VD09-1 (Netlify facts: plan, credits, preview metering, pretty_urls, header precedence, Forms, Functions, Blobs, rate limits, rollback API, primary-domain rule): Do Action 5 of ops/owner-console-actions.md (Action 5: Netlify plan and credits, 15 min) and the staging routine of ops/STAGING-SETUP.md; write down what Netlify shows for pretty URLs, preview metering and the primary domain. QA-OD-1 (GitHub plan (Pro, public after a clean secret scan, or Free with convention)): Choose the GitHub plan (a payment) or confirm the free plan with convention-only checks; if public, run the secret scan on history first (WP-INFRA-05)."
   },
   {
    "id": "VD12-4",
@@ -5183,7 +5189,7 @@
    "files": [
     "tests/t0/journeys-manual.md"
    ],
-   "owner_step": "See WP-QA-21a."
+   "owner_step": "The same act as WP-QA-21a. WP-QA-21a (Real-device and assistive-technology programme): On an iPhone SE-class phone, a 4 GB Android (Chrome and Samsung Internet), an iPad and a 4 GB Chromebook: open the staging site, follow tests/t0/journeys-manual.md (pan, zoom, tap a unit, every Tools row, rotate, background and return ten times) and write the result with date and device into the file."
   },
   {
    "id": "QA-OD-3",
@@ -5214,7 +5220,7 @@
    "files": [
     "docs/content/OWNER-INPUTS.md"
    ],
-   "owner_step": "See WP-QA-24b."
+   "owner_step": "The same act as WP-QA-24b. WP-QA-24b (Manual programmes and the verification dossier): Commission an independent accessibility evaluation of six flows, one outside review of the headers and CSP, a one-hour UX critique, and 8 to 10 user sessions; name the historical reviewer; link each dated result from docs/evidence/index.md before any public \"A+\" wording."
   },
   {
    "id": "QA-OD-5",
@@ -5239,7 +5245,7 @@
    "kind": "chapter-decision",
    "title": "Preview protection, promotion cadence, soak cadence",
    "status": "SHIPPED",
-   "evidence": "Previews are noindex only: the staging zip differs from the production zip in _headers only (X-Robots-Tag: noindex, docs/accept/R1G-STATUS.md 2026-11-04). Cadence is the owner's deploy rhythm (zip publishing).",
+   "evidence": "Previews are noindex only: the staging zip differs from the production zip in _headers only (X-Robots-Tag: noindex, docs/accept/R1G-STATUS.md 2026-11-04). Cadence is the owner's deploy rhythm (zip publishing). Proof: train R1g, tools/ship/pack_zip.py (suite static.ship 11 of 11, docs/accept/R1G-SUITES.json): the staging zip differs from the production zip in _headers only; R1G-STATUS 2026-11-04 21:05.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -5275,7 +5281,7 @@
    "files": [
     "docs/editorial/reviewer-charter.md"
    ],
-   "owner_step": "See WP-DATA-23b."
+   "owner_step": "The same act as WP-DATA-23b. WP-DATA-23b (A named reviewer and second reader; backlog burn-down): Ask a historian (or two) to accept the one-page charter in docs/editorial/reviewer-charter.md, record the name and the credit wording in docs/content/OWNER-INPUTS.md, and give them docs/editorial/anchor-review-packet.md; or write that the labelled fallback stands."
   },
   {
    "id": "RM-32",
@@ -5453,7 +5459,7 @@
    "title": "Embedded content (tour stops, tutorial steps, timeline markers) moved into data",
    "status": "OPEN_BUILDABLE",
    "evidence": "Not built: the 16 tour stops, tutorial steps and timeline markers are still literals in the entry bundle; group MON corrected 12 values of the 20 story markers in the bundle (tools/t0/MON-README.md) but did not move them. The plan ships this with the rebuild.",
-   "next_step": "Define tour, tutorial and markers schemas and generate the files with ticks derived from moments.json; the bundle can only read them after the rebuild (src/ holds the time module only) or an amendment.",
+   "next_step": "Define tour, tutorial and markers schemas and generate the files with ticks derived from moments.json; the bundle can only read them after the rebuild (src/ holds the time module and the rebuild foundation, no app (see MS-M4)) or an amendment.",
    "size": "M",
    "files": [
     "tools/t0/MON-README.md",
@@ -6002,7 +6008,7 @@
    "files": [
     "docs/data/rights-audit.md"
    ],
-   "owner_step": "See WP-DATA-05a."
+   "owner_step": "The same act as WP-DATA-05a. WP-DATA-05a (Rights dispositions: Busey and Martin figures, open-dataset policy, the paid-app and video derivation question): Answer in writing (docs/content/OWNER-INPUTS.md or a decision file): did any keyframe, note or text of the map data come from the paid animated-map application or from the video channel named in the four data strings, and where did the 512 monument list come from; then send counsel the rights audit (docs/data/rights-audit.md) with the Busey and Martin and imagery questions of chapter 13 WP-DATA-05."
   },
   {
    "id": "VD13-4",
@@ -6056,7 +6062,7 @@
    "files": [
     "docs/plan/FINAL/13-data-quality-and-accuracy.md"
    ],
-   "owner_step": "See WP-DATA-05a and WP-DEC-03."
+   "owner_step": "The same acts as WP-DATA-05a and WP-DEC-03. WP-DATA-05a (Rights dispositions: Busey and Martin figures, open-dataset policy, the paid-app and video derivation question): Answer in writing (docs/content/OWNER-INPUTS.md or a decision file): did any keyframe, note or text of the map data come from the paid animated-map application or from the video channel named in the four data strings, and where did the 512 monument list come from; then send counsel the rights audit (docs/data/rights-audit.md) with the Busey and Martin and imagery questions of chapter 13 WP-DATA-05. WP-DEC-03 (Unit-render benchmark on a real Android): Open the staging build on a mid-range Android phone, play at 8x for one minute, report smoothness."
   },
   {
    "id": "HB-01",
@@ -6318,7 +6324,7 @@
    "files": [
     "docs/data/rights-audit.md"
    ],
-   "owner_step": "See WP-DATA-05a."
+   "owner_step": "The same act as WP-DATA-05a. WP-DATA-05a (Rights dispositions: Busey and Martin figures, open-dataset policy, the paid-app and video derivation question): Answer in writing (docs/content/OWNER-INPUTS.md or a decision file): did any keyframe, note or text of the map data come from the paid animated-map application or from the video channel named in the four data strings, and where did the 512 monument list come from; then send counsel the rights audit (docs/data/rights-audit.md) with the Busey and Martin and imagery questions of chapter 13 WP-DATA-05."
   },
   {
    "id": "Q-DATA-8",
@@ -6356,8 +6362,8 @@
    "kind": "roadmap-node",
    "title": "Historian P0: /hx/ platform, fetch and OCR normaliser, entity registry, build and CI, eval harness, governance",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built and tested: WP-HIST-02, 04, 05, 06, 07 (registry and tier gate, fetch and normaliser with a measured page-citation error of 0.011 percent, entity registry, deterministic build with validators V01..V12, evaluation harness); node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here). Open: the /hx/ headers and robots rules (WP-HIST-03, WP-INFRA-34b), CI (none), the governance items (WP-HIST-33..36).",
-   "next_step": "Add the header rows and CI, rebuild the knowledge base from the shipped data tree, and fix the Node 22 incompatibility (VER-HIST-NODE).",
+   "evidence": "Built and tested: WP-HIST-02, 04, 05, 06, 07 (registry and tier gate, fetch and normaliser with a measured page-citation error of 0.011 percent, entity registry, deterministic build with validators V01..V12, evaluation harness); node --test tests/historian/*.test.mjs, 2026-11-13: first run, before the fix of candidate ver-hist-node (an inline regex modifier in tools/historian/ingest/times.mjs that Node 22 cannot parse): 22 of 34 test files did not load under the default Node 22.23.4, and under /opt/node24 (24.22.1) 474 tests, 387 pass, 0 fail, 87 skipped. After the fix (checkpoint 6bb4d1d7) the candidate's own run under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped, no file failed to load (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log); this survey re-ran only tests/historian/times-node22.test.mjs (4 of 4 under Node 22.23.4); the paired Node 22 and Node 24 run of the whole suite was not repeated here. All 87 skips need the corpus build, which has not run in this container (79 need historian-src/raw/or27, 8 need tmp/historian-cache; VER-HIST-CORPUS), so whatever in this item depends on the built corpus is proven here only by the tests that do not need it. Open: the /hx/ headers and robots rules (WP-HIST-03, WP-INFRA-34b), CI (none), the governance items (WP-HIST-33..36).",
+   "next_step": "Add the header rows and CI, rebuild the knowledge base from the shipped data tree, and record the paired Node 22 and Node 24 run of the whole suite that closes VER-HIST-NODE (the incompatibility itself is fixed in the tree).",
    "size": "L",
    "files": [
     "tools/historian/build.mjs",
@@ -6433,7 +6439,7 @@
    "kind": "work-package",
    "title": "Source registry, tier gate, rights retro-audit",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built: docs/historian/sources.yaml (85 entries with licence id, imprint, tier, may_index, may_redistribute, may_send_to_llm; generated by tools/historian/gen-sources.mjs), the fetch gate in tools/historian/ingest/fetch.mjs (banned hosts, refused identifiers such as the 1971 reprint warrebellionaco00cowlgoog, registered Tier A or B only, every redirect hop gated, one request per second per host), validator V02 (licence and tier gate; Tier C never ships), the larger quality-checked registry data-src/sources-v2/registry.json (1,714 entries), and the rights retro-audit of WP-DATA-04a. Tests: tests/historian/sources.test.mjs, tests/sources-qc/registry.test.mjs; node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
+   "evidence": "Built: docs/historian/sources.yaml (85 entries with licence id, imprint, tier, may_index, may_redistribute, may_send_to_llm; generated by tools/historian/gen-sources.mjs), the fetch gate in tools/historian/ingest/fetch.mjs (banned hosts, refused identifiers such as the 1971 reprint warrebellionaco00cowlgoog, registered Tier A or B only, every redirect hop gated, one request per second per host), validator V02 (licence and tier gate; Tier C never ships), the larger quality-checked registry data-src/sources-v2/registry.json (1,714 entries), and the rights retro-audit of WP-DATA-04a. Tests: tests/historian/sources.test.mjs, tests/sources-qc/registry.test.mjs; node --test tests/historian/*.test.mjs, 2026-11-13: first run, before the fix of candidate ver-hist-node (an inline regex modifier in tools/historian/ingest/times.mjs that Node 22 cannot parse): 22 of 34 test files did not load under the default Node 22.23.4, and under /opt/node24 (24.22.1) 474 tests, 387 pass, 0 fail, 87 skipped. After the fix (checkpoint 6bb4d1d7) the candidate's own run under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped, no file failed to load (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log); this survey re-ran only tests/historian/times-node22.test.mjs (4 of 4 under Node 22.23.4); the paired Node 22 and Node 24 run of the whole suite was not repeated here. All 87 skips need the corpus build, which has not run in this container (79 need historian-src/raw/or27, 8 need tmp/historian-cache; VER-HIST-CORPUS), so whatever in this item depends on the built corpus is proven here only by the tests that do not need it.",
    "next_step": "Remaining work: a person's sign-off of the rights entries (verified_at and reviewer are null for or27-2 and or27-3; the HathiTrust catalogue records could not be read, the host answers with a bot block and was not circumvented), and the /sources page (candidate only, WP-CONTENT-14).",
    "size": "M",
    "files": [
@@ -6468,8 +6474,8 @@
    "kind": "work-package",
    "title": "Fetch, OCR normaliser, page map",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built: tools/historian/ingest/fetch.mjs, notes.mjs (footnotes, compilers' notes, head fragments taken out and listed), leaves.mjs (the printed page of each scan leaf rides through normalisation), pagemap.mjs, with the three Official Records items fetched on 2026-10-01 and hashed in historian-src/corpus/or27/manifest.json. Measured (docs/historian/CORPUS.md 3b): printed page wrong for 7 of 61,851 checked sentence starts (0.011 percent) against 1,236 of 62,628 (1.97 percent) in the first build; 20,973 logged edits. Tests: tests/historian/or27.test.mjs, or27-rebuild.test.mjs, ingest*.test.mjs; node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
-   "next_step": "Remaining work: the OCR-quality proxy re-derived on the first three sources; 7 page citations known wrong; citations checked for 93 percent of sentence starts only; the raw downloads are git-ignored (historian-src/raw/or27, tmp/historian-cache), so 19 tests skip loudly in this container until the corpus is rebuilt; no browser check of scan links.",
+   "evidence": "Built: tools/historian/ingest/fetch.mjs, notes.mjs (footnotes, compilers' notes, head fragments taken out and listed), leaves.mjs (the printed page of each scan leaf rides through normalisation), pagemap.mjs, with the three Official Records items fetched on 2026-10-01 and hashed in historian-src/corpus/or27/manifest.json. Measured (docs/historian/CORPUS.md 3b): printed page wrong for 7 of 61,851 checked sentence starts (0.011 percent) against 1,236 of 62,628 (1.97 percent) in the first build; 20,973 logged edits. Tests: tests/historian/or27.test.mjs, or27-rebuild.test.mjs, ingest*.test.mjs; node --test tests/historian/*.test.mjs, 2026-11-13: first run, before the fix of candidate ver-hist-node (an inline regex modifier in tools/historian/ingest/times.mjs that Node 22 cannot parse): 22 of 34 test files did not load under the default Node 22.23.4, and under /opt/node24 (24.22.1) 474 tests, 387 pass, 0 fail, 87 skipped. After the fix (checkpoint 6bb4d1d7) the candidate's own run under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped, no file failed to load (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log); this survey re-ran only tests/historian/times-node22.test.mjs (4 of 4 under Node 22.23.4); the paired Node 22 and Node 24 run of the whole suite was not repeated here. All 87 skips need the corpus build, which has not run in this container (79 need historian-src/raw/or27, 8 need tmp/historian-cache; VER-HIST-CORPUS), so whatever in this item depends on the built corpus is proven here only by the tests that do not need it.",
+   "next_step": "Remaining work: the OCR-quality proxy re-derived on the first three sources; 7 page citations known wrong; citations checked for 93 percent of sentence starts only; the raw downloads are git-ignored (historian-src/raw/or27, tmp/historian-cache), so 87 tests skip in this container (19 of them \"loudly\") until the corpus is rebuilt (VER-HIST-CORPUS); no browser check of scan links.",
    "size": "M",
    "files": [
     "tools/historian/ingest/fetch.mjs",
@@ -6486,7 +6492,7 @@
    "kind": "work-package",
    "title": "Entity registry, unit crosswalk, aliases",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built: the registry in tools/historian/lib/registry.mjs and names.mjs (1,694 entity records: units, formations, 706 persons; the site's own ids kept; alias stub U-14BK folded into U-84NY; derived aliases plus 47 curated ones in tools/historian/data/aliases.v1.json), the linker historian-src/core/linker.js and units.js. Tests: tests/historian/classes.test.mjs, regiment-phrasings.test.mjs (every regiment in 24 phrasings), typo-repair.test.mjs; node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
+   "evidence": "Built: the registry in tools/historian/lib/registry.mjs and names.mjs (1,694 entity records: units, formations, 706 persons; the site's own ids kept; alias stub U-14BK folded into U-84NY; derived aliases plus 47 curated ones in tools/historian/data/aliases.v1.json), the linker historian-src/core/linker.js and units.js. Tests: tests/historian/classes.test.mjs, regiment-phrasings.test.mjs (every regiment in 24 phrasings), typo-repair.test.mjs; node --test tests/historian/*.test.mjs, 2026-11-13: first run, before the fix of candidate ver-hist-node (an inline regex modifier in tools/historian/ingest/times.mjs that Node 22 cannot parse): 22 of 34 test files did not load under the default Node 22.23.4, and under /opt/node24 (24.22.1) 474 tests, 387 pass, 0 fail, 87 skipped. After the fix (checkpoint 6bb4d1d7) the candidate's own run under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped, no file failed to load (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log); this survey re-ran only tests/historian/times-node22.test.mjs (4 of 4 under Node 22.23.4); the paired Node 22 and Node 24 run of the whole suite was not repeated here. All 87 skips need the corpus build, which has not run in this container (79 need historian-src/raw/or27, 8 need tmp/historian-cache; VER-HIST-CORPUS), so whatever in this item depends on the built corpus is proven here only by the tests that do not need it.",
    "next_step": "Remaining work: the shipped data still lists the alias stub as a row and 10 placement rows have unresolved ids (WP-DATA-06b); the 570 to 570 crosswalk table with unmatched.csv and expiry; the CWSS id mapping (blocked, WP-HIST-30).",
    "size": "M",
    "files": [
@@ -6506,7 +6512,7 @@
    "kind": "work-package",
    "title": "Build, emit, validate (deterministic, content-hashed, two versions kept)",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built: node tools/historian/build.mjs (about 4 s; 266 files and 2,476,744 bytes under historian-src/dist including two kept previous manifests; every artifact named <name>.<8 hex>.json; a rebuild of unchanged input reproduces every hash, validator V12), validators V01..V12 and K001 with validation-report.json, emitted by tools/historian/lib/emit.mjs. Tests: tests/historian/build.test.mjs, verify-historian-core.test.mjs, reverify-historian-core.test.mjs; node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
+   "evidence": "Built: node tools/historian/build.mjs (about 4 s; 266 files and 2,476,744 bytes under historian-src/dist including two kept previous manifests; every artifact named <name>.<8 hex>.json; a rebuild of unchanged input reproduces every hash, validator V12), validators V01..V12 and K001 with validation-report.json, emitted by tools/historian/lib/emit.mjs. Tests: tests/historian/build.test.mjs, verify-historian-core.test.mjs, reverify-historian-core.test.mjs; node --test tests/historian/*.test.mjs, 2026-11-13: first run, before the fix of candidate ver-hist-node (an inline regex modifier in tools/historian/ingest/times.mjs that Node 22 cannot parse): 22 of 34 test files did not load under the default Node 22.23.4, and under /opt/node24 (24.22.1) 474 tests, 387 pass, 0 fail, 87 skipped. After the fix (checkpoint 6bb4d1d7) the candidate's own run under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped, no file failed to load (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log); this survey re-ran only tests/historian/times-node22.test.mjs (4 of 4 under Node 22.23.4); the paired Node 22 and Node 24 run of the whole suite was not repeated here. All 87 skips need the corpus build, which has not run in this container (79 need historian-src/raw/or27, 8 need tmp/historian-cache; VER-HIST-CORPUS), so whatever in this item depends on the built corpus is proven here only by the tests that do not need it.",
    "next_step": "Remaining work: it is not wired into any CI or release routine (no .github directory), a seeded violation does not turn a CI job red because there is none, and it reads legacy/dist/data, not the shipped (corrected) data tree: rebuild from release data. The suite needs Node 24: under the container's default Node 22 tools/historian/ingest/times.mjs fails to parse (inline regex modifier), see VER-HIST-NODE.",
    "size": "M",
    "files": [
@@ -6542,7 +6548,7 @@
    "kind": "work-package",
    "title": "search-core: normalisation, repair, linking, intent, ranking, no-answer gate",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built: historian-src/core (engine.js, text.js, english.js, intent.js, entities.js, linker.js, select.js, unknowns.js, guard.js; scope gate, join, split and Damerau-Levenshtein repair, BM25F cards, BM25 impact8 passages). docs/historian/PIPELINE.md section 4 (gates at H2): 28 of 30 gates pass, two fail and were not loosened: canonical@1 on the primary battery 91 percent against 92, and student-level answers readable and substantive 80 percent against 85; 6 of the 123 golden items do not pass; \"Nothing here was exercised in a real browser\". Tests: tests/historian/engine.test.mjs, classes.test.mjs, classes-semantic.test.mjs, intent.test.mjs, blindspots.test.mjs. node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
+   "evidence": "Built: historian-src/core (engine.js, text.js, english.js, intent.js, entities.js, linker.js, select.js, unknowns.js, guard.js; scope gate, join, split and Damerau-Levenshtein repair, BM25F cards, BM25 impact8 passages). docs/historian/PIPELINE.md section 4 (gates at H2): 28 of 30 gates pass, two fail and were not loosened: canonical@1 on the primary battery 91 percent against 92, and student-level answers readable and substantive 80 percent against 85; 6 of the 123 golden items do not pass; \"Nothing here was exercised in a real browser\". Tests: tests/historian/engine.test.mjs, classes.test.mjs, classes-semantic.test.mjs, intent.test.mjs, blindspots.test.mjs. node --test tests/historian/*.test.mjs, 2026-11-13: first run, before the fix of candidate ver-hist-node (an inline regex modifier in tools/historian/ingest/times.mjs that Node 22 cannot parse): 22 of 34 test files did not load under the default Node 22.23.4, and under /opt/node24 (24.22.1) 474 tests, 387 pass, 0 fail, 87 skipped. After the fix (checkpoint 6bb4d1d7) the candidate's own run under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped, no file failed to load (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log); this survey re-ran only tests/historian/times-node22.test.mjs (4 of 4 under Node 22.23.4); the paired Node 22 and Node 24 run of the whole suite was not repeated here. All 87 skips need the corpus build, which has not run in this container (79 need historian-src/raw/or27, 8 need tmp/historian-cache; VER-HIST-CORPUS), so whatever in this item depends on the built corpus is proven here only by the tests that do not need it.",
    "next_step": "Remaining work: the two failing gates (five brigade nicknames answer with the wrong card first; one student-level item), a held-out set that nobody tuned on, and the migration of search.html (it keeps its own scorer) and of the in-app Search Units list.",
    "size": "L",
    "files": [
@@ -6614,7 +6620,7 @@
    "kind": "work-package",
    "title": "Official Records segmenters and page map",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built: tools/historian/ingest/or27.mjs, or27-headers.mjs, or27-dispatch.mjs, corpus.mjs: 3,810 documents (588 of the 589 numbered reports; No. 161 is a damaged scan and is named as missing) and 3,222 dispatches cut at their datelines, 8,414 passages, 1,321,161 words; committed tables in historian-src/corpus/or27. Dispatch segmentation measured on four samples (first scores 83.0, 87.8 and 87.8 percent on unseen draws). Tests: tests/historian/or27.test.mjs, or27-rebuild.test.mjs, verify-ingest-*.test.mjs; node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
+   "evidence": "Built: tools/historian/ingest/or27.mjs, or27-headers.mjs, or27-dispatch.mjs, corpus.mjs: 3,810 documents (588 of the 589 numbered reports; No. 161 is a damaged scan and is named as missing) and 3,222 dispatches cut at their datelines, 8,414 passages, 1,321,161 words; committed tables in historian-src/corpus/or27. Dispatch segmentation measured on four samples (first scores 83.0, 87.8 and 87.8 percent on unseen draws). Tests: tests/historian/or27.test.mjs, or27-rebuild.test.mjs, verify-ingest-*.test.mjs; node --test tests/historian/*.test.mjs, 2026-11-13: first run, before the fix of candidate ver-hist-node (an inline regex modifier in tools/historian/ingest/times.mjs that Node 22 cannot parse): 22 of 34 test files did not load under the default Node 22.23.4, and under /opt/node24 (24.22.1) 474 tests, 387 pass, 0 fail, 87 skipped. After the fix (checkpoint 6bb4d1d7) the candidate's own run under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped, no file failed to load (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log); this survey re-ran only tests/historian/times-node22.test.mjs (4 of 4 under Node 22.23.4); the paired Node 22 and Node 24 run of the whole suite was not repeated here. All 87 skips need the corpus build, which has not run in this container (79 need historian-src/raw/or27, 8 need tmp/historian-cache; VER-HIST-CORPUS), so whatever in this item depends on the built corpus is proven here only by the tests that do not need it.",
    "next_step": "Remaining work: the Guild casualty return from word boxes (tables are not read), a complete count of lost dispatches, a second reader of the labels, and the shipping decision (WP-HIST-12 delivers a corpus the owner has not yet chosen to serve, docs/historian/CORPUS.md section 9).",
    "size": "L",
    "files": [
@@ -6716,7 +6722,7 @@
    "kind": "work-package",
    "title": "Build-time model grafts (link proposals, query expansion) and the AI disclosure",
    "status": "OPEN_NEEDS_DECISION",
-   "evidence": "Not built, and not buildable as written: the WP needs a hosted-model batch account and key (owner-only; CLAUDE.md: no credentials or keys by Claude, and api.anthropic.com is not among the reachable hosts), and its AI disclosure line collides with the owner rule that no shipped file mention AI or how the site was made (FINAL-ACCEPTANCE copy audit). The engine is Design A (no model, quote-only; D-HIST-ARCH keeps B and C off). The shipped Historian page already says it is not an AI model (PG-zcopy2).",
+   "evidence": "Not built, and not buildable as written: the WP needs a hosted-model batch account and key (owner-only; CLAUDE.md: no credentials or keys by Claude, and api.anthropic.com is not among the reachable hosts), and its AI disclosure line collides with the owner rule that no shipped file mention AI or how the site was made (FINAL-ACCEPTANCE copy audit). The engine is Design A (no model, quote-only; D-HIST-ARCH keeps B and C off). The shipped Historian page says it is a search of the site's records and, since PG-zcopy2 (R1d), says nothing about AI at all (the words \"not an AI\" were removed under the copy rule).",
    "next_step": "Proposed delegated choice: build no model grafts and ship no generated expansion or link proposals; ambiguous mentions go to the labelled review queue (WP-HIST-16) and curated aliases (tools/historian/data/aliases.v1.json) carry the vocabulary gap. The alternative stays selectable: an owner-funded batch run with a disclosure line, if the owner lifts the copy rule for that line.",
    "size": "M",
    "files": [
@@ -6988,7 +6994,7 @@
    "kind": "work-package",
    "title": "Legal and privacy alignment for the Historian",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built in the opt-in privacy group (ops/legal-drafts/data-inventory.json lists historian.html as an on-device page that fetches only same-origin /data/*; verify-facts.mjs checks it: \"local-only historian.html ... PASS\"); the Historian says it is not an AI model, so no AI-disclosure line is needed while Design A holds. A scratch build of the R1g tree with the opt-in group (python tools/t0/build.py --train R1g --with PG-legal, scratch tree tmp/r1h-cand/status-B/legal-check-R1g, deleted after the check to save disk: 3,396 patch records = 3,386 + the 10 legal rows, 0 anchor failures, gates ok, 2,013 files) passes node ops/legal-drafts/verify-facts.mjs --dist <that tree>/dist run 2026-11-13: no FAIL, 0 WARN (dates, Street View sensor sentence, referrer sentence, every host, key, cache and permission named).",
+   "evidence": "Built in the opt-in privacy group (ops/legal-drafts/data-inventory.json lists historian.html as an on-device page that fetches only same-origin /data/*; verify-facts.mjs checks it: \"local-only historian.html ... PASS\"); the Historian is a search of the site's own records (Design A: no model, no generated text), so no AI-disclosure line is needed while Design A holds; the shipped page names no AI (PG-zcopy2). A scratch build of the R1g tree with the opt-in group (python tools/t0/build.py --train R1g --with PG-legal, scratch tree tmp/r1h-cand/status-B/legal-check-R1g, deleted after the check to save disk: 3,396 patch records = 3,386 + the 10 legal rows, 0 anchor failures, gates ok, 2,013 files) passes node ops/legal-drafts/verify-facts.mjs --dist <that tree>/dist run 2026-11-13: no FAIL, 0 WARN (dates, Street View sensor sentence, referrer sentence, every host, key, cache and permission named).",
    "next_step": "Remaining work: the owner's review of the opt-in group (WP-INFRA-26), the Terms line on quotation and credit, the counsel packet items (public-domain arithmetic for pre-1931 imprints, share-alike embeddings, minors policy: WP-INFRA-27a).",
    "size": "S",
    "files": [
@@ -7042,7 +7048,7 @@
    "kind": "work-package-part",
    "title": "H0 hotfix: Historian chronology answers print the event, no raw ids, counts computed, scroll to the answer",
    "status": "SHIPPED",
-   "evidence": "Train R1a onwards, page group PG-core (patches PGC-hist-chron, PGC-hist-no-ids, PGC-hist-skip-alias, PGC-hist-counts, PGC-hist-src-note, PGC-hist-esc, PGC-hist-css-scroll, PGC-hist-how), train R1d (PG-polish POL-H01..H06: the Historian scrolls to the question and the answer, focus after submit; PG-zcopy2 COPY2-historian-not-an-ai: the page says it searches the site's records and is not an AI model). Checked 2026-11-13 in release/R1g/dist/historian.html: no e.title, the event field is read, scrollIntoView present. Tests: tests/t0/pages-core.spec.mjs T0-PGC-17 (chronology answers print the event, not \"undefined\", no raw formation ids, counts computed), tests/t0/polish.spec.mjs T0-POL-08 (after an answer the question sits at the top of the view, focus returns to the input), tests/t0/copy.spec.mjs.",
+   "evidence": "Train R1a onwards, page group PG-core (patches PGC-hist-chron, PGC-hist-no-ids, PGC-hist-skip-alias, PGC-hist-counts, PGC-hist-src-note, PGC-hist-esc, PGC-hist-css-scroll, PGC-hist-how), train R1d (PG-polish POL-H01..H06: the Historian scrolls to the question and the answer, focus after submit; PG-zcopy2 COPY2-historian-not-an-ai removes the words \", not an AI.\" from the page in 2 places, because no shipped file may mention AI: the shipped page says only \"This is a search of those records.\" and has 0 occurrences of \"not an AI\", checked 2026-11-13 in release/R1g/dist/historian.html). Checked 2026-11-13 in release/R1g/dist/historian.html: no e.title, the event field is read, scrollIntoView present. Tests: tests/t0/pages-core.spec.mjs T0-PGC-17 (chronology answers print the event, not \"undefined\", no raw formation ids, counts computed), tests/t0/polish.spec.mjs T0-POL-08 (after an answer the question sits at the top of the view, focus returns to the input), tests/t0/copy.spec.mjs. T0-POL-08 (the Historian scroll and focus) is one of the 4 rows that pass in the container run on R1g; the five red rows of r1.polish are layout and target checks (items-A.json VER-LAYOUT-TIMING).",
    "next_step": "None for these rows; the remaining H0 items are WP-HIST-01b.",
    "size": "S",
    "files": [
@@ -7074,15 +7080,32 @@
    "id": "VER-HIST-NODE",
    "chapter": "14",
    "kind": "verification-debt",
-   "title": "Historian tooling needs Node 24; the container default Node 22 cannot load it",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "Confirmed 2026-11-13: node --test tests/historian/atime.test.mjs under the container default Node v22.23.4 stops with \"SyntaxError: Invalid regular expression ... (?-i:\" at tools/historian/ingest/times.mjs:26 (an inline regex modifier that Node 22 does not parse). node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here). package.json has no engines field.",
-   "next_step": "Rewrite the one pattern without the inline modifier (match the meridiem case-insensitively and test the capital form in code), prove the same tokens on the clock tests (tests/historian/verify-ingest-clock.test.mjs) under Node 22 and 24, or pin and document Node 24 in package.json engines and the runbooks. The file is in this workstream's area (tools/historian).",
+   "title": "Historian tooling did not load under the container default Node 22 (inline regex modifier): fixed in the tree",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "Built by candidate candidates/r1h/ver-hist-node (checkpoint 6bb4d1d7, 2026-11-13 21:13; route source-rebuild, no train and no patch group involved): tools/historian/ingest/times.mjs no longer holds the inline modifier group (the meridiem is spelled out in both cases by the helpers both() and ci; the capitals-only branch is kept) and the new test tests/historian/times-node22.test.mjs pins it: no modifier group under tools/historian, tests/historian, historian-src/core, historian-src/page and src/lib/time; the meridiem cases (\"a. m.\", \"A. M.\", \"P.M.\", \"AM\", \"10 p.m.\" are read; a bare \"am\" or \"pm\" and \"Am\" are not); 263 pinned readings taken from the old text; every spelling of the meridiem. Red first: candidates/r1h/ver-hist-node/red-atime-node22.log and red-suite-node22.log (22 of 34 files do not load). The candidate's differential run reads 625,025 corpus inputs, 5,572 claims, 2,480,184 exhaustive, 400,000 fuzz and 400,000 grammar inputs with 0 mismatches against the old text (candidates/r1h/ver-hist-node/differential-node24.json, tmp/r1h-cand/ver-hist-node/differential-node24.log). Re-run by this survey 2026-11-13 23:35: node --test tests/historian/times-node22.test.mjs under Node 22.23.4: 4 tests, 4 pass, 0 fail, 0 skipped (exit 0). The candidate's own whole-suite run under Node 22.23.4 gave 478 tests, 391 pass, 0 fail, 87 skipped with no file failing to load. The candidate's STATUS.json still says passes false: the formal paired run (candidates/r1h/ver-hist-node/run-suites.sh, then check-totals.mjs) had not finished, so no suite log is registered there yet.",
+   "next_step": "Run candidates/r1h/ver-hist-node/run-suites.sh through tools/horde/bench.sh --timing, then node candidates/r1h/_lib/record.mjs ver-hist-node --check so that passes becomes true. Nothing else: no train, no engines field (the pattern was rewritten instead of pinning Node 24).",
    "size": "S",
    "files": [
     "tools/historian/ingest/times.mjs",
-    "package.json",
-    "tests/historian/verify-ingest-clock.test.mjs"
+    "tests/historian/times-node22.test.mjs",
+    "candidates/r1h/ver-hist-node/STATUS.json",
+    "candidates/r1h/ver-hist-node/HANDOFF.md"
+   ]
+  },
+  {
+   "id": "VER-HIST-CORPUS",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "The Historian corpus build and the 87 tests that need it have never run in this container (the archive.org download path is blocked here)",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Found by this survey, 2026-11-13. The whole Historian suite (candidates/r1h/ver-hist-node log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log: 478 tests, 391 pass, 0 fail, 87 skipped under Node 22.23.4) skips 87 tests, all for one reason: 79 need historian-src/raw/or27 (git-ignored; written by node tools/historian/ingest/corpus.mjs build) and 8 need tmp/historian-cache. So the corpus-level claims of the BUILT items (report and dispatch segmentation, the linkers and their labelled set, the time-claim extraction, the passage checks VI-TX-1..5 and VI-CK-3) are proven here only by the tests that do not need the corpus, and the committed tables historian-src/corpus/or27/*.json have not been reproduced here. The build reads 15 files of the Internet Archive items warofrebellion271unit, 272unit and 273unit (djvu.txt, page_numbers.json, scandata.xml, hocr_pageindex.json.gz, hocr_searchtext.txt.gz; about 20 MB; the sha256 of each is in historian-src/corpus/or27/manifest.json). The 3 local copies in tmp/library/or27 (cu31924077699761, cu31924077700262, cu31924077728255) are other scans and cannot stand in for them. Probed on 2026-11-13 with one 15 KB file (warofrebellion271unit_hocr_pageindex.json.gz): the build's URL form https://archive.org/download/... answers 302 to dn760100.eu.archive.org and the proxy refuses that host (curl: CONNECT tunnel failed, response 403; the project fetcher: fetch failed), recorded as blocked and not worked around; the form this environment permits, https://archive.org/cors/<identifier>/<file>, answers 200 to a HEAD request, but tools/historian/ingest/fetch.mjs refuses it (RightsRefusal: identifier or host not registered), because sourceForUrl reads the identifier only from /details/, /download/, /stream/, /metadata/ and /items/ paths.",
+   "next_step": "Teach sourceForUrl (tools/historian/ingest/fetch.mjs) to read the identifier from /cors/<identifier>/ URLs and give the corpus build one switch that requests the /cors/ form while the provenance rows and the cache key keep the canonical /download/ URL; fetch the 15 files at no more than 1 request per second and compare each sha256 with historian-src/corpus/or27/manifest.json (a difference is a finding, not something to fix); run node tools/historian/ingest/corpus.mjs build with --out set to a scratch folder through tools/horde/bench.sh and diff its tables against the committed ones; then run node --test tests/historian/*.test.mjs under Node 22 and Node 24 (the 87 skips become passes or named failures) and record the totals. No test is loosened and no committed table is overwritten by this item.",
+   "size": "M",
+   "files": [
+    "tools/historian/ingest/fetch.mjs",
+    "tools/historian/ingest/corpus.mjs",
+    "historian-src/corpus/or27/manifest.json",
+    "tests/historian/"
    ]
   },
   {
@@ -7097,7 +7120,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "See VD09-1."
+   "owner_step": "The same act as VD09-1. VD09-1 (Netlify facts: plan, credits, preview metering, pretty_urls, header precedence, Forms, Functions, Blobs, rate limits, rollback API, primary-domain rule): Do Action 5 of ops/owner-console-actions.md (Action 5: Netlify plan and credits, 15 min) and the staging routine of ops/STAGING-SETUP.md; write down what Netlify shows for pretty URLs, preview metering and the primary domain."
   },
   {
    "id": "VD14-2",
@@ -7125,7 +7148,7 @@
    "files": [
     "tests/t0/journeys-manual.md"
    ],
-   "owner_step": "See WP-QA-21a."
+   "owner_step": "The same act as WP-QA-21a. WP-QA-21a (Real-device and assistive-technology programme): On an iPhone SE-class phone, a 4 GB Android (Chrome and Samsung Internet), an iPad and a 4 GB Chromebook: open the staging site, follow tests/t0/journeys-manual.md (pan, zoom, tap a unit, every Tools row, rotate, background and return ten times) and write the result with date and device into the file."
   },
   {
    "id": "VD14-4",
@@ -7134,7 +7157,7 @@
    "title": "Feedback and query logging (hc-27)",
    "status": "OPEN_NEEDS_DECISION",
    "evidence": "Settled by the decision of no telemetry in Stage A (HIST-OD-14, row A04); the privacy text states the Historian is local (WP-HIST-34).",
-   "next_step": "None.",
+   "next_step": "None: settled by the delegated decision of no telemetry in Stage A (HIST-OD-14, row A04); the alternative, an enumerated outcome event through D-TELEMETRY, stays selectable.",
    "size": "S",
    "files": [
     "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
@@ -7196,7 +7219,7 @@
    "files": [
     "ops/legal-drafts/README.md"
    ],
-   "owner_step": "See WP-INFRA-27a."
+   "owner_step": "The same act as WP-INFRA-27a. WP-INFRA-27a (Legal pack: merged Privacy and Terms drafts and the counsel packet): Send counsel the merged drafts and ops/legal-drafts/data-inventory.md with the questions of chapter 09 WP-INFRA-27 step 2; state the operator identity and governing law; confirm or correct the non-affiliation sentence and the licence wording in tools/copy/trust-config.json; publish age or licence wording only after counsel has signed."
   },
   {
    "id": "VD14-9",
@@ -7210,7 +7233,7 @@
    "files": [
     "docs/plan/FINAL/01-decision-register.md"
    ],
-   "owner_step": "See WP-HIST-30."
+   "owner_step": "The same act as WP-HIST-30. WP-HIST-30 (Soldier rosters (CWSS), blocked on the Park Service reply): Send the permission emails of register action 8 (including the National Park Service about the soldier-roster data) from your own address, and save any reply in docs/legal/; no roster data is fetched or stored before a written confirmation."
   },
   {
    "id": "VD14-10",
@@ -7241,7 +7264,7 @@
    "files": [
     "docs/editorial/reviewer-charter.md"
    ],
-   "owner_step": "See WP-DATA-23b."
+   "owner_step": "The same act as WP-DATA-23b. WP-DATA-23b (A named reviewer and second reader; backlog burn-down): Ask a historian (or two) to accept the one-page charter in docs/editorial/reviewer-charter.md, record the name and the credit wording in docs/content/OWNER-INPUTS.md, and give them docs/editorial/anchor-review-packet.md; or write that the labelled fallback stands."
   },
   {
    "id": "HIST-OD-3",
@@ -7272,7 +7295,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "See INFRA-OD-1."
+   "owner_step": "The same act as INFRA-OD-1. INFRA-OD-1 (Netlify plan, credits, this month's deploys (action 5)): Do Action 5 of ops/owner-console-actions.md (Action 5: Netlify plan and credits, 15 min)."
   },
   {
    "id": "HIST-OD-5",
@@ -7286,7 +7309,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "See WP-HIST-30."
+   "owner_step": "The same act as WP-HIST-30. WP-HIST-30 (Soldier rosters (CWSS), blocked on the Park Service reply): Send the permission emails of register action 8 (including the National Park Service about the soldier-roster data) from your own address, and save any reply in docs/legal/; no roster data is fetched or stored before a written confirmation."
   },
   {
    "id": "HIST-OD-6",
@@ -7351,7 +7374,7 @@
    "files": [
     "tests/t0/journeys-manual.md"
    ],
-   "owner_step": "See WP-QA-21a."
+   "owner_step": "The same act as WP-QA-21a. WP-QA-21a (Real-device and assistive-technology programme): On an iPhone SE-class phone, a 4 GB Android (Chrome and Samsung Internet), an iPad and a 4 GB Chromebook: open the staging site, follow tests/t0/journeys-manual.md (pan, zoom, tap a unit, every Tools row, rotate, background and return ten times) and write the result with date and device into the file."
   },
   {
    "id": "HIST-OD-11",
@@ -7433,7 +7456,7 @@
    "files": [
     "docs/data/rights-audit.md"
    ],
-   "owner_step": "See WP-DATA-05a."
+   "owner_step": "The same act as WP-DATA-05a. WP-DATA-05a (Rights dispositions: Busey and Martin figures, open-dataset policy, the paid-app and video derivation question): Answer in writing (docs/content/OWNER-INPUTS.md or a decision file): did any keyframe, note or text of the map data come from the paid animated-map application or from the video channel named in the four data strings, and where did the 512 monument list come from; then send counsel the rights audit (docs/data/rights-audit.md) with the Busey and Martin and imagery questions of chapter 13 WP-DATA-05."
   },
   {
    "id": "MS-R0",
@@ -7580,7 +7603,7 @@
    "kind": "milestone",
    "title": "Milestone M4: rebuild cut over at /map",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not started beyond the time module: src/ holds src/lib/time only (10 files); there is no rebuilt app, parity harness or site generator (items-A.json ground facts).",
+   "evidence": "Not started beyond the time module: src/ holds the time module (src/lib/time, 10 files) and, since checkpoint 29e119a5 (2026-11-13 21:23), the foundation of the rebuild: src/package.json, src/STACK.md, src/tsconfig.base.json, the Mapbox token reader src/config/mapbox.js with its tests (candidate wp-arch-09; node --test src/config/tokens.test.mjs src/foundation.test.mjs: 23 tests, all pass, re-run 2026-11-13 23:35); src/app holds a README only; there is no rebuilt app, parity harness or site generator (items-A.json ground facts).",
    "next_step": "Build the rebuild in the order of chapter 03.",
    "size": "L",
    "files": [
@@ -7594,7 +7617,7 @@
    "title": "Milestone M4b: grade-A path complete",
    "status": "OPEN_BUILDABLE",
    "evidence": "Depends on M4 and the proof items (RM-89, owner evidence).",
-   "next_step": "After M4.",
+   "next_step": "Nothing can start before M4 (MS-M4); then the proof items RM-89 and the owner evidence (WP-QA-24b) close it.",
    "size": "L",
    "files": [
     "docs/plan/FINAL/15-roadmap.json"
@@ -7627,7 +7650,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "Do Action 12a of ops/owner-console-actions.md: drag and wheel on the live map in a headed browser with a real mouse and write the verdict."
+   "owner_step": "Do Action 12a of ops/owner-console-actions.md (Action 12a: headed real-mouse test on the live site, 20 min): drag and wheel on the live map in a headed browser with a real mouse and write the verdict."
   },
   {
    "id": "V2",
@@ -7656,7 +7679,7 @@
     "ops/owner-console-actions.md",
     "ops/STAGING-SETUP.md"
    ],
-   "owner_step": "Do Action 5 of ops/owner-console-actions.md and run the staging verifier (ops/STAGING-SETUP.md)."
+   "owner_step": "Do Action 5 of ops/owner-console-actions.md (Action 5: Netlify plan and credits, 15 min) and run the staging verifier (ops/STAGING-SETUP.md)."
   },
   {
    "id": "V4",
@@ -7670,7 +7693,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "Do Action 3 of ops/owner-console-actions.md and read the Mapbox Product Terms of 2026-07-21 on map tile caching and self-hosting."
+   "owner_step": "Do Action 3 of ops/owner-console-actions.md (Action 3: Mapbox token review and dev and preview tokens, 30 min) and read the Mapbox Product Terms of 2026-07-21 on map tile caching and self-hosting."
   },
   {
    "id": "V5",
@@ -7684,7 +7707,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "Do Actions 4 and 6 of ops/owner-console-actions.md."
+   "owner_step": "Do Actions 4 and 6 of ops/owner-console-actions.md (Action 4: Google Cloud key restriction, 20 min; Action 6: accounts, recovery, domain renewal, TLS, 60 min)."
   },
   {
    "id": "V6",
@@ -7698,7 +7721,7 @@
    "files": [
     "ops/RUM-hygiene.md"
    ],
-   "owner_step": "See WP-INFRA-29."
+   "owner_step": "The same act as WP-INFRA-29. WP-INFRA-29 (Bot and traffic-quality strategy): Do ops/owner-console-actions.md Action 12b (block /.netlify/scripts/rum in your own test profile), run the E1 probe of ops/RUM-hygiene.md section 6 once, and record what Netlify Analytics counted so the human share of traffic can be estimated."
   },
   {
    "id": "V7",
@@ -7712,7 +7735,7 @@
    "files": [
     "tests/t0/journeys-manual.md"
    ],
-   "owner_step": "See WP-QA-21a."
+   "owner_step": "The same act as WP-QA-21a. WP-QA-21a (Real-device and assistive-technology programme): On an iPhone SE-class phone, a 4 GB Android (Chrome and Samsung Internet), an iPad and a 4 GB Chromebook: open the staging site, follow tests/t0/journeys-manual.md (pan, zoom, tap a unit, every Tools row, rotate, background and return ten times) and write the result with date and device into the file."
   },
   {
    "id": "V8",
@@ -7754,7 +7777,7 @@
    "files": [
     "docs/editorial/reviewer-charter.md"
    ],
-   "owner_step": "See WP-DATA-23b."
+   "owner_step": "The same act as WP-DATA-23b. WP-DATA-23b (A named reviewer and second reader; backlog burn-down): Ask a historian (or two) to accept the one-page charter in docs/editorial/reviewer-charter.md, record the name and the credit wording in docs/content/OWNER-INPUTS.md, and give them docs/editorial/anchor-review-packet.md; or write that the labelled fallback stands."
   },
   {
    "id": "V11",
@@ -7768,7 +7791,7 @@
    "files": [
     "docs/data/rights-audit.md"
    ],
-   "owner_step": "See WP-DATA-05a."
+   "owner_step": "The same act as WP-DATA-05a. WP-DATA-05a (Rights dispositions: Busey and Martin figures, open-dataset policy, the paid-app and video derivation question): Answer in writing (docs/content/OWNER-INPUTS.md or a decision file): did any keyframe, note or text of the map data come from the paid animated-map application or from the video channel named in the four data strings, and where did the 512 monument list come from; then send counsel the rights audit (docs/data/rights-audit.md) with the Busey and Martin and imagery questions of chapter 13 WP-DATA-05."
   },
   {
    "id": "V12",
@@ -7776,8 +7799,8 @@
    "kind": "verification-debt",
    "title": "Toolchain: build tool and static generator versions, private-repo Actions minutes, Forms limits",
    "status": "OPEN_BUILDABLE",
-   "evidence": "The spikes are not run (items-A.json WP-DEC-04 Astro spike, WP-ARCH-09); the forwarder and Actions-minutes parts are overtaken (one public mailbox, owner decision 2026-10-04 item 5; zip deploys, D-CI-HOST SUPERSEDED); the Forms limits remain an account page.",
-   "next_step": "Run the build-tool and Astro spike in the container.",
+   "evidence": "The spikes are not run (items-A.json WP-DEC-04 Astro spike, WP-ARCH-09); the forwarder and Actions-minutes parts are overtaken (one public mailbox, owner decision 2026-10-04 item 5; zip deploys, D-CI-HOST SUPERSEDED); the Forms limits remain an account page. Partly run by candidate wp-arch-09 (2026-11-13), scratch checks recorded in candidates/r1h/wp-arch-09/evidence and tmp/r1h-cand/wp-arch-09: npm workspaces on npm 10.9.9 and 11.19.1, the token module bundled by Vite 8.3.8, a strict consumer compiled by TypeScript 5.9.3 and 7.0.2, and the registry readings behind src/STACK.md section 5. Not run: Astro, ESLint, stylelint, knip, size-limit, es-check, the one-day toolchain smoke, and any browser. The Astro spike (WP-DEC-04) and the private-repo Actions minutes remain open.",
+   "next_step": "Run the Astro spike and the remaining toolchain smoke in the container (WP-ARCH-10 installs the tools); the Vite, npm workspace and TypeScript readings are done (candidates/r1h/wp-arch-09).",
    "size": "M",
    "files": [
     "package.json"
@@ -7809,7 +7832,7 @@
    "files": [
     "docs/seo/OWNER-ACTIONS.md"
    ],
-   "owner_step": "See WP-SEO-01 and WP-SEO-27."
+   "owner_step": "The same acts as WP-SEO-01 and WP-SEO-27. WP-SEO-01 (Search Console, Bing and IndexNow verification, baseline of record): Search Console: add the Domain property with the DNS TXT record (or use the published HTML file for a URL-prefix property), submit https://gettysburginteractivemap.com/sitemap.xml, run URL Inspection on / and one sub-page; Bing Webmaster Tools: import from Search Console and create an IndexNow key; export the Performance, Pages and Links reports and note the date as day 0 of the 28-day baseline. WP-SEO-27 (Search intelligence: keyword map, competitor and assistant logs): After 30 days of Search Console data: approve the keyword map (at least 60 rows from chapter 10 Appendix C, re-scored with the real queries) and keep a monthly log of 30 searches and 10 assistant prompts."
   },
   {
    "id": "V15",
@@ -7845,7 +7868,7 @@
    "title": "Pages-C and other findings not verified: Historian conversation, Immersive, Turning Points, Find Ancestor, Ledger, Terms clauses",
    "status": "OPEN_BUILDABLE",
    "evidence": "One verification pass at the start of each work package (items-A.json WP-PAGEC-*); the Terms clauses need counsel (WP-INFRA-27a).",
-   "next_step": "Verify during each page work package.",
+   "next_step": "At the start of each page work package of items-A.json (WP-PAGEC-*) run one verification pass on its findings (Historian conversation, Immersive, Turning Points, Find Ancestor and the others in the title) and write the result into that item; the Terms clauses wait for counsel (WP-INFRA-27a).",
    "size": "M",
    "files": [
     "tests/t0/pages-core.spec.mjs"
@@ -7857,7 +7880,7 @@
    "kind": "verification-debt",
    "title": "New patch code with no prior run; Bookmarks in the upgrade drill; Safari service-worker upgrade; Firefox and WebKit",
    "status": "OWNER_ONLY",
-   "evidence": "The patch code has run on Chromium in the acceptance machine and in this container (R1f: 43 of 47 suites ok; R1g 51 of 79 suites ok in the container, the reds attributed to the environment in docs/accept/R1G-STATUS.md). Firefox and WebKit are not installed here and devices are the owner's.",
+   "evidence": "The patch code has run on Chromium in the acceptance machine and in this container (R1f: 43 of 47 suites ok; R1g in the container, docs/accept/R1G-SUITES.json generated 2026-11-13: 80 suites, last result ok for 61 and not ok for 19; the 19 are results of the full run of 2026-11-11, not repeated with the final harness; the reds are attributed to the environment where docs/accept/R1G-STATUS.md says so and are otherwise open as VER-LAYOUT-TIMING, VER-J7, VER-MFIX and VER-HDR-11 in items-A.json). Firefox and WebKit are not installed here and devices are the owner's.",
    "next_step": "Owner runs Firefox, Safari and the devices.",
    "size": "M",
    "files": [
@@ -7895,7 +7918,7 @@
    "files": [
     "docs/editorial/reviewer-charter.md"
    ],
-   "owner_step": "See WP-DATA-23b."
+   "owner_step": "The same act as WP-DATA-23b. WP-DATA-23b (A named reviewer and second reader; backlog burn-down): Ask a historian (or two) to accept the one-page charter in docs/editorial/reviewer-charter.md, record the name and the credit wording in docs/content/OWNER-INPUTS.md, and give them docs/editorial/anchor-review-packet.md; or write that the labelled fallback stands."
   },
   {
    "id": "OD-1",
@@ -7941,7 +7964,7 @@
    "files": [
     "docs/editorial/reviewer-charter.md"
    ],
-   "owner_step": "See WP-DATA-23b."
+   "owner_step": "The same act as WP-DATA-23b. WP-DATA-23b (A named reviewer and second reader; backlog burn-down): Ask a historian (or two) to accept the one-page charter in docs/editorial/reviewer-charter.md, record the name and the credit wording in docs/content/OWNER-INPUTS.md, and give them docs/editorial/anchor-review-packet.md; or write that the labelled fallback stands."
   },
   {
    "id": "OD-4",
@@ -7985,7 +8008,7 @@
     "ops/legal-drafts/OWNER-SIGNOFF.md",
     "tools/t0/patches/PG-legal.json"
    ],
-   "owner_step": "See WP-INFRA-26 and WP-INFRA-27a."
+   "owner_step": "The same acts as WP-INFRA-26 and WP-INFRA-27a. WP-INFRA-26 (Interim privacy correction and data-flow inventory): Owner reads ops/legal-drafts/OWNER-SIGNOFF.md and the two previews, sets legal.effective_date in tools/t0/trains.json to the publication day, and the release workstream builds the train with --with PG-legal (with the companion tools/t0/patches-next/PG-polish-legal.json registered so the R1d names apply to the new text). WP-INFRA-27a (Legal pack: merged Privacy and Terms drafts and the counsel packet): Send counsel the merged drafts and ops/legal-drafts/data-inventory.md with the questions of chapter 09 WP-INFRA-27 step 2; state the operator identity and governing law; confirm or correct the non-affiliation sentence and the licence wording in tools/copy/trust-config.json; publish age or licence wording only after counsel has signed."
   },
   {
    "id": "OD-7",
@@ -7999,7 +8022,7 @@
    "files": [
     "docs/data/rights-audit.md"
    ],
-   "owner_step": "See WP-DATA-05a and WP-HIST-30."
+   "owner_step": "The same acts as WP-DATA-05a and WP-HIST-30. WP-DATA-05a (Rights dispositions: Busey and Martin figures, open-dataset policy, the paid-app and video derivation question): Answer in writing (docs/content/OWNER-INPUTS.md or a decision file): did any keyframe, note or text of the map data come from the paid animated-map application or from the video channel named in the four data strings, and where did the 512 monument list come from; then send counsel the rights audit (docs/data/rights-audit.md) with the Busey and Martin and imagery questions of chapter 13 WP-DATA-05. WP-HIST-30 (Soldier rosters (CWSS), blocked on the Park Service reply): Send the permission emails of register action 8 (including the National Park Service about the soldier-roster data) from your own address, and save any reply in docs/legal/; no roster data is fetched or stored before a written confirmation."
   },
   {
    "id": "OD-8",
@@ -8013,7 +8036,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "See WP-INFRA-06a."
+   "owner_step": "The same act as WP-INFRA-06a. WP-INFRA-06a (Backup, restore, continuity: second remote, encrypted bundles, delegate letter, drills): Create a second private remote (another git host or a bare repository on an external disk) and push a mirror; store a monthly encrypted git bundle in cloud storage you control; write the continuity letter (where everything is, who may do what, how to renew the domain) and give your delegate emergency access; run the restore drill once on an empty machine and log it in ops/drills.md."
   },
   {
    "id": "OD-9",
@@ -8110,7 +8133,7 @@
    "files": [
     "tests/t0/journeys-manual.md"
    ],
-   "owner_step": "See WP-QA-21a."
+   "owner_step": "The same act as WP-QA-21a. WP-QA-21a (Real-device and assistive-technology programme): On an iPhone SE-class phone, a 4 GB Android (Chrome and Samsung Internet), an iPad and a 4 GB Chromebook: open the staging site, follow tests/t0/journeys-manual.md (pan, zoom, tap a unit, every Tools row, rotate, background and return ten times) and write the result with date and device into the file."
   },
   {
    "id": "OD-15",
@@ -8195,6 +8218,96 @@
    ]
   },
   {
+   "id": "DG-0",
+   "chapter": "15",
+   "kind": "decision-gate",
+   "title": "Decision gate DG-0 (2026-10-07): the date by which the owner decisions listed under it were due",
+   "status": "SUPERSEDED",
+   "evidence": "Decision gate DG-0, 2026-10-07 (15-roadmap.json decision_gates; chapter 15 section 10: \"Dates are decision dates, not delivery dates\"). Decisions whose \"By\" column names it, in the tables of chapters 11 to 16: OD-1 (superseded); OD-2 (delegated, open); OD-7 (owner only); OD-10 (superseded); OD-16 (delegated, open); Q-DATA-7 (owner only); QA-OD-1 (owner only); O-16-1 (delegated, open); O-16-2 (delegated, open); O-16-4 (shipped). The gate is a date by which the owner was to answer the pending decisions. The owner delegated the pending owner decisions on 2026-11-11 (introduction of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md): each is decided conservatively there with the alternative kept selectable, and the owner may override any row in writing at any time (CLAUDE.md, The Law, clause 6); decisions already recorded in docs/decisions/OWNER-DECISIONS-2026-10-04.md, -05 and -19 stand; the delegation does not cover owner-only acts (accounts, legal text, payments, third parties, deployment, real hardware). The gate therefore no longer schedules anything: every decision it listed is still an item with its own state, and the acts only the owner can do are OWNER_ONLY items.",
+   "next_step": "None. Decisions that stay open are tracked on their own items; a gate meeting is not needed while the delegation of 2026-11-11 stands.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json",
+    "docs/plan/FINAL/15-integrated-roadmap.md",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ]
+  },
+  {
+   "id": "DG-1",
+   "chapter": "15",
+   "kind": "decision-gate",
+   "title": "Decision gate DG-1 (2026-10-21): the date by which the owner decisions listed under it were due",
+   "status": "SUPERSEDED",
+   "evidence": "Decision gate DG-1, 2026-10-21 (15-roadmap.json decision_gates; chapter 15 section 10: \"Dates are decision dates, not delivery dates\"). Decisions whose \"By\" column names it, in the tables of chapters 11 to 16: OD-5 (superseded); OD-6 (owner only); OD-13 (delegated, open); OD-17 (delegated, open); CD-1 (shipped); CD-4 (delegated, open); CD-8 (delegated, open); Q-DATA-2 (delegated, open); Q-DATA-3 (delegated, open); Q-DATA-6 (delegated, open); Q-DATA-9 (superseded); QA-OD-6 (shipped); HIST-OD-16 (owner only). The gate is a date by which the owner was to answer the pending decisions. The owner delegated the pending owner decisions on 2026-11-11 (introduction of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md): each is decided conservatively there with the alternative kept selectable, and the owner may override any row in writing at any time (CLAUDE.md, The Law, clause 6); decisions already recorded in docs/decisions/OWNER-DECISIONS-2026-10-04.md, -05 and -19 stand; the delegation does not cover owner-only acts (accounts, legal text, payments, third parties, deployment, real hardware). The gate therefore no longer schedules anything: every decision it listed is still an item with its own state, and the acts only the owner can do are OWNER_ONLY items.",
+   "next_step": "None. Decisions that stay open are tracked on their own items; a gate meeting is not needed while the delegation of 2026-11-11 stands.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json",
+    "docs/plan/FINAL/15-integrated-roadmap.md",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ]
+  },
+  {
+   "id": "DG-2",
+   "chapter": "15",
+   "kind": "decision-gate",
+   "title": "Decision gate DG-2 (2026-11-30): the date by which the owner decisions listed under it were due",
+   "status": "SUPERSEDED",
+   "evidence": "Decision gate DG-2, 2026-11-30 (15-roadmap.json decision_gates; chapter 15 section 10: \"Dates are decision dates, not delivery dates\"). Decisions whose \"By\" column names it, in the tables of chapters 11 to 16: OD-3 (owner only); OD-4 (owner only); OD-8 (owner only); OD-9 (delegated, open); OD-15 (superseded); OD-17 (delegated, open); OD-18 (delegated, open); OD-19 (delegated, open); CD-2 (delegated, open); CD-3 (delegated, open); CD-7 (delegated, open); Q-DATA-8 (delegated, open); QA-OD-5 (delegated, open); QA-OD-7 (delegated, open); QA-OD-8 (owner only); HIST-OD-1 (owner only). The gate is a date by which the owner was to answer the pending decisions. The owner delegated the pending owner decisions on 2026-11-11 (introduction of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md): each is decided conservatively there with the alternative kept selectable, and the owner may override any row in writing at any time (CLAUDE.md, The Law, clause 6); decisions already recorded in docs/decisions/OWNER-DECISIONS-2026-10-04.md, -05 and -19 stand; the delegation does not cover owner-only acts (accounts, legal text, payments, third parties, deployment, real hardware). The gate therefore no longer schedules anything: every decision it listed is still an item with its own state, and the acts only the owner can do are OWNER_ONLY items.",
+   "next_step": "None. Decisions that stay open are tracked on their own items; a gate meeting is not needed while the delegation of 2026-11-11 stands.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json",
+    "docs/plan/FINAL/15-integrated-roadmap.md",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ]
+  },
+  {
+   "id": "DG-3",
+   "chapter": "15",
+   "kind": "decision-gate",
+   "title": "Decision gate DG-3 (2027-01-31): the date by which the owner decisions listed under it were due",
+   "status": "SUPERSEDED",
+   "evidence": "Decision gate DG-3, 2027-01-31 (15-roadmap.json decision_gates; chapter 15 section 10: \"Dates are decision dates, not delivery dates\"). Decisions whose \"By\" column names it, in the tables of chapters 11 to 16: OD-1 (superseded); OD-4 (owner only); OD-6 (owner only); OD-7 (owner only); OD-12 (delegated, open); OD-17 (delegated, open); OD-18 (delegated, open); OD-19 (delegated, open); CD-6 (delegated, open); Q-DATA-1 (delegated, open); Q-DATA-4 (delegated, open); Q-DATA-5 (delegated, open); HIST-OD-14 (delegated, open). The gate is a date by which the owner was to answer the pending decisions. The owner delegated the pending owner decisions on 2026-11-11 (introduction of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md): each is decided conservatively there with the alternative kept selectable, and the owner may override any row in writing at any time (CLAUDE.md, The Law, clause 6); decisions already recorded in docs/decisions/OWNER-DECISIONS-2026-10-04.md, -05 and -19 stand; the delegation does not cover owner-only acts (accounts, legal text, payments, third parties, deployment, real hardware). The gate therefore no longer schedules anything: every decision it listed is still an item with its own state, and the acts only the owner can do are OWNER_ONLY items.",
+   "next_step": "None. Decisions that stay open are tracked on their own items; a gate meeting is not needed while the delegation of 2026-11-11 stands.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json",
+    "docs/plan/FINAL/15-integrated-roadmap.md",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ]
+  },
+  {
+   "id": "DG-4",
+   "chapter": "15",
+   "kind": "decision-gate",
+   "title": "Decision gate DG-4 (2027-04-30): the date by which the owner decisions listed under it were due",
+   "status": "SUPERSEDED",
+   "evidence": "Decision gate DG-4, 2027-04-30 (15-roadmap.json decision_gates; chapter 15 section 10: \"Dates are decision dates, not delivery dates\"). Decisions whose \"By\" column names it, in the tables of chapters 11 to 16: OD-15 (superseded); QA-OD-4 (owner only). The gate is a date by which the owner was to answer the pending decisions. The owner delegated the pending owner decisions on 2026-11-11 (introduction of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md): each is decided conservatively there with the alternative kept selectable, and the owner may override any row in writing at any time (CLAUDE.md, The Law, clause 6); decisions already recorded in docs/decisions/OWNER-DECISIONS-2026-10-04.md, -05 and -19 stand; the delegation does not cover owner-only acts (accounts, legal text, payments, third parties, deployment, real hardware). The gate therefore no longer schedules anything: every decision it listed is still an item with its own state, and the acts only the owner can do are OWNER_ONLY items.",
+   "next_step": "None. Decisions that stay open are tracked on their own items; a gate meeting is not needed while the delegation of 2026-11-11 stands.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json",
+    "docs/plan/FINAL/15-integrated-roadmap.md",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ]
+  },
+  {
+   "id": "DG-5",
+   "chapter": "15",
+   "kind": "decision-gate",
+   "title": "Decision gate DG-5 (after 2027-07-06): the date by which the owner decisions listed under it were due",
+   "status": "SUPERSEDED",
+   "evidence": "Decision gate DG-5, after 2027-07-06 (15-roadmap.json decision_gates; chapter 15 section 10: \"Dates are decision dates, not delivery dates\"). Decisions whose \"By\" column names it, in the tables of chapters 11 to 16: OD-7 (owner only). The gate is a date by which the owner was to answer the pending decisions. The owner delegated the pending owner decisions on 2026-11-11 (introduction of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md): each is decided conservatively there with the alternative kept selectable, and the owner may override any row in writing at any time (CLAUDE.md, The Law, clause 6); decisions already recorded in docs/decisions/OWNER-DECISIONS-2026-10-04.md, -05 and -19 stand; the delegation does not cover owner-only acts (accounts, legal text, payments, third parties, deployment, real hardware). The gate therefore no longer schedules anything: every decision it listed is still an item with its own state, and the acts only the owner can do are OWNER_ONLY items.",
+   "next_step": "None. Decisions that stay open are tracked on their own items; a gate meeting is not needed while the delegation of 2026-11-11 stands.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json",
+    "docs/plan/FINAL/15-integrated-roadmap.md",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ]
+  },
+  {
    "id": "AUDIT-C1",
    "chapter": "16",
    "kind": "audit-id",
@@ -8261,7 +8374,7 @@
    "kind": "audit-id",
    "title": "setGoldUnit ReferenceError in production",
    "status": "SHIPPED",
-   "evidence": "Closed in train R1a (group A: bug:A1-C5-selectHandler, A2, A3, A4-honest-copy and the error boundary A-error-boundary). Tests: journeys T0-C5-01, T0-C5-02, T0-EB-01 (items-A.json WP-T0-06). The gold trail itself is delegated (row A06): caption kept, line layer as a candidate. Closing work packages: WP-T0-06 (SHIPPED), WP-ARCH-24, WP-QA-02a (SHIPPED).",
+   "evidence": "Closed in train R1a (group A: bug:A1-C5-selectHandler, A2, A3, bug:A4-honest-copy and the error boundary A-error-boundary). Tests: journeys T0-C5-01, T0-C5-02, T0-EB-01 (items-A.json WP-T0-06). The gold trail itself is delegated (row A06): caption kept, line layer as a candidate. Closing work packages: WP-T0-06 (SHIPPED), WP-ARCH-24, WP-QA-02a (SHIPPED).",
    "next_step": "None for the defect; AMD-T0-2 candidate per row A06.",
    "size": "S",
    "files": [
@@ -8423,7 +8536,7 @@
    "kind": "audit-id",
    "title": "Overpromising names (the Historian is a search)",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Partial: the page says it is a search of the site's records and not an AI model (COPY2-historian-not-an-ai, R1d) and chronology answers print the event (PG-core); the persona strings \"I couldn't find ...\" and \"I'm ready\" remain (WP-HIST-01b); the expansion engine is built and not shipped (WP-HIST-08 to 11). Closing work packages: WP-T0-12 (SHIPPED), WP-CONTENT-01 (SHIPPED part), WP-HIST-01 (parts), WP-HIST-08 (BUILT_NOT_SHIPPED), WP-PAGEC-06.",
+   "evidence": "Partial: the page says \"This is a search of those records.\" (COPY2-historian-not-an-ai, R1d, removed the words \"not an AI\" from it, because no shipped file may mention AI) and chronology answers print the event (PG-core); the persona strings \"I couldn't find ...\" and \"I'm ready\" remain (WP-HIST-01b); the expansion engine is built and not shipped (WP-HIST-08 to 11). Closing work packages: WP-T0-12 (SHIPPED), WP-CONTENT-01 (SHIPPED part), WP-HIST-01 (parts), WP-HIST-08 (BUILT_NOT_SHIPPED), WP-PAGEC-06.",
    "next_step": "WP-HIST-01b, then the candidate page.",
    "size": "M",
    "files": [
@@ -8438,7 +8551,7 @@
    "title": "\"1x (real time)\" label wrong",
    "status": "OPEN_BUILDABLE",
    "evidence": "The clock label is held and the speed label corrected (group CLOCK, CP row); remaining \"real time\" claims on pages and the manifest: copy_lint rule REALTIME 12 findings (living-ledger 4, index 2, manifest 2, watch-together 2, site-nav 1, immersive 1; WP-CONTENT-09b). Closing work packages: WP-TIME-11 (BUILT_NOT_SHIPPED), WP-TIME-16, WP-CONTENT-09 (09a SHIPPED, 09b OPEN_BUILDABLE).",
-   "next_step": "Patch the leftover claims.",
+   "next_step": "Remove the remaining \"real time\" claims on the pages and in the manifest: copy_lint rule REALTIME reports 12 findings (living-ledger 4, index 2, manifest 2, watch-together 2, site-nav 1, immersive 1); WP-CONTENT-09b does the pages and WP-INFRA-23b the manifest.",
    "size": "S",
    "files": [
     "tools/copy/copy_lint.mjs",
@@ -8610,7 +8723,7 @@
    "title": "Mobile sub-pages: Dashboard chart, Compare tabs, targets",
    "status": "OPEN_BUILDABLE",
    "evidence": "Partial: R1a fixes (sprite ids, button reset) and pages-fixes T0-PGF-01..19 (axe on 25 pages); Dashboard and Compare widths remain page work (NF-46). Closing work packages: WP-T0-11, WP-T0-12 (SHIPPED), WP-PAGE-02, 16, 18, 30.",
-   "next_step": "Page work packages.",
+   "next_step": "Build the page work packages WP-PAGE-02, 16, 18 and 30 (items-A.json) as candidate page groups; the Dashboard and Compare widths close with NF-46.",
    "size": "M",
    "files": [
     "tests/t0/pages-fixes.spec.mjs",
@@ -8654,7 +8767,7 @@
    "title": "About 30 JSON fetches on load",
    "status": "OPEN_BUILDABLE",
    "evidence": "Open: stage 1 (R1) removed the mobile double fetch and loads days on demand; per-day hashed packs are not built (WP-DATA-21, WP-INFRA-11b). Closing work packages: WP-PERF-09, WP-PERF-08 (SHIPPED), WP-ARCH-11 (BUILT_NOT_SHIPPED).",
-   "next_step": "Data packs.",
+   "next_step": "Build the per-day hashed data packs (WP-DATA-21) and serve them under hashed paths (WP-INFRA-11b), then count the JSON fetches on load again (about 30 before R1).",
    "size": "M",
    "files": [
     "tools/data/manifest.mjs",
@@ -8735,7 +8848,7 @@
     "docs/seo/OWNER-ACTIONS.md",
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See WP-SEO-01 and WP-SEO-02b."
+   "owner_step": "The same acts as WP-SEO-01 and WP-SEO-02b. WP-SEO-01 (Search Console, Bing and IndexNow verification, baseline of record): Search Console: add the Domain property with the DNS TXT record (or use the published HTML file for a URL-prefix property), submit https://gettysburginteractivemap.com/sitemap.xml, run URL Inspection on / and one sub-page; Bing Webmaster Tools: import from Search Console and create an IndexNow key; export the Performance, Pages and Links reports and note the date as day 0 of the 28-day baseline. WP-SEO-02b (Weekly KPI rows, bot probe and before/after exports per train): Every Monday enter one row in the KPI ledger (search referrals by engine, clicks and impressions for the brand queries, indexed versus submitted URLs, 404 rate, the field vitals) and save a Search Console export before and after each published train."
   },
   {
    "id": "AUDIT-T2",
@@ -8750,7 +8863,7 @@
     "ops/RUM-hygiene.md",
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See WP-INFRA-29."
+   "owner_step": "The same act as WP-INFRA-29. WP-INFRA-29 (Bot and traffic-quality strategy): Do ops/owner-console-actions.md Action 12b (block /.netlify/scripts/rum in your own test profile), run the E1 probe of ops/RUM-hygiene.md section 6 once, and record what Netlify Analytics counted so the human share of traffic can be estimated."
   },
   {
    "id": "AUDIT-T3",
@@ -8872,7 +8985,7 @@
     "ops/owner-console-actions.md",
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "Do Action 4 of ops/owner-console-actions.md."
+   "owner_step": "Do Action 4 of ops/owner-console-actions.md (Action 4: Google Cloud key restriction, 20 min)."
   },
   {
    "id": "AUDIT-X3",
@@ -9029,7 +9142,7 @@
    "kind": "audit-id",
    "title": "No editable source; case-mangled deploy zip",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Partial: the safety net exists (baseline of record byte-proved, patch runner with asserted anchors, eight deterministic trains) but there is no editable app source: src/ holds the time module only (10 files); the strangler rebuild has not started. Closing work packages: WP-T0-01 (OWNER_ONLY), WP-T0-03 (SHIPPED), WP-ARCH-01 (OWNER_ONLY), WP-ARCH-02 (SHIPPED), WP-ARCH-30, WP-ARCH-32.",
+   "evidence": "Partial: the safety net exists (baseline of record byte-proved, patch runner with asserted anchors, eight deterministic trains) but there is no editable app source: src/ holds the time module (src/lib/time, 10 files) and, since checkpoint 29e119a5 (2026-11-13 21:23), the foundation of the rebuild: src/package.json, src/STACK.md, src/tsconfig.base.json, the Mapbox token reader src/config/mapbox.js with its tests (candidate wp-arch-09; node --test src/config/tokens.test.mjs src/foundation.test.mjs: 23 tests, all pass, re-run 2026-11-13 23:35); src/app holds a README only; the strangler rebuild has not started. Closing work packages: WP-T0-01 (OWNER_ONLY), WP-T0-03 (SHIPPED), WP-ARCH-01 (OWNER_ONLY), WP-ARCH-02 (SHIPPED), WP-ARCH-30, WP-ARCH-32.",
    "next_step": "Start the rebuild (RM-50..58).",
    "size": "L",
    "files": [
@@ -9089,7 +9202,7 @@
    "kind": "new-finding",
    "title": "Five of 14 mobile Tools tiles dead",
    "status": "SHIPPED",
-   "evidence": "Closed in train R1b (group C: 14 Tools tiles that work; the Monuments tile is restored by group MON in R1d). Tests: mobile-matrix, mobile-fixes. Closing work packages: WP-T0-08 (SHIPPED), WP-UX-02 (SHIPPED), WP-ARCH-25, WP-ARCH-27.",
+   "evidence": "Closed in train R1b (group C: 14 Tools tiles that work; the Monuments tile is restored by group MON in R1d). Tests: mobile-matrix, mobile-fixes. Closing work packages: WP-T0-08 (SHIPPED), WP-UX-02 (SHIPPED), WP-ARCH-25, WP-ARCH-27. Container result (docs/accept/R1G-SUITES.json): mobilefix.R1b 28 of 29 and mobilefix.R1c 27 of 29, with T0-MFIX-02 and -11 red (tracked as VER-MFIX in items-A.json); mobile-matrix 19 of 19; mobilefix was 29 of 29 on R1f on the Windows machine.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -9104,7 +9217,7 @@
    "kind": "new-finding",
    "title": "CanvasRenderer undefined: sound freezes playback",
    "status": "SHIPPED",
-   "evidence": "Closed in train R1a (sound removed, D-SOUND; patch B-sound-ReferenceError). Test: journeys T0-SND-01. Closing work packages: WP-T0-06 (SHIPPED), WP-ARCH-33.",
+   "evidence": "Closed in train R1a (sound removed, D-SOUND; patch bug:B-sound-ReferenceError). Test: journeys T0-SND-01. Closing work packages: WP-T0-06 (SHIPPED), WP-ARCH-33.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -9236,7 +9349,7 @@
    "kind": "new-finding",
    "title": "Watch Together stored XSS and guessable codes",
    "status": "SHIPPED",
-   "evidence": "The XSS is closed in train R1a (PG-core: textContent rows, imports validated; PeerJS on demand with SRI) and a connection that is still opening is never closed (R1f PG-zfix). Tests: pages-core T0-PGC-19..21, wtpeer T0-WTP-01..04. Open: unguessable codes, connection cap, guest validation (WP-INFRA-28b). Closing work packages: WP-T0-12 (SHIPPED), WP-PAGEC-15, 16, 35, WP-INFRA-28 (28a SHIPPED, 28b OPEN_BUILDABLE).",
+   "evidence": "The XSS is closed in train R1a (PG-core: textContent rows, imports validated; PeerJS on demand with SRI) and a connection that is still opening is never closed (R1f PG-zfix). Tests: pages-core T0-PGC-19..21, wtpeer T0-WTP-01..04. Open: unguessable codes, connection cap, guest validation (WP-INFRA-28b). Closing work packages: WP-T0-12 (SHIPPED), WP-PAGEC-15, 16, 35, WP-INFRA-28 (28a SHIPPED, 28b OPEN_BUILDABLE). Container result (docs/accept/R1G-SUITES.json): r1.wtpeer 2 of 4 (T0-WTP-01 and 03 fail); the functional values are right (closedWhileConnecting 0, no connecting peer destroyed) and the only failing assertion is Chrome's software-GL console warning \"GPU stall due to ReadPixels\", identical on R1f (docs/accept/R1G-STATUS.md, 2026-11-08); the suite was 4 of 4 on R1f after PG-zfix on the Windows machine (R1F-FINAL-REPORT). Not acceptance evidence either way (items-A.json VER-LAYOUT-TIMING).",
    "next_step": "WP-INFRA-28b.",
    "size": "S",
    "files": [
@@ -9273,7 +9386,7 @@
     "docs/seo/OWNER-ACTIONS.md",
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See WP-SEO-01."
+   "owner_step": "The same act as WP-SEO-01. WP-SEO-01 (Search Console, Bing and IndexNow verification, baseline of record): Search Console: add the Domain property with the DNS TXT record (or use the published HTML file for a URL-prefix property), submit https://gettysburginteractivemap.com/sitemap.xml, run URL Inspection on / and one sub-page; Bing Webmaster Tools: import from Search Console and create an IndexNow key; export the Performance, Pages and Links reports and note the date as day 0 of the 28-day baseline."
   },
   {
    "id": "NF-17",
@@ -9302,7 +9415,7 @@
     "ops/ARCHIVE_MANIFEST.tsv",
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See WP-INFRA-01 and WP-INFRA-06a."
+   "owner_step": "The same acts as WP-INFRA-01 and WP-INFRA-06a. WP-INFRA-01 (Accounts, recovery, domain hardening (owner-executed)): In ops/owner-console-actions.md Action 6: turn on passkeys or TOTP with offline recovery codes for the mailbox, Netlify, Name.com, Mapbox, Google Cloud, GitHub, Search Console and Bing; move account recovery to a private mailbox that is never published; set Name.com auto-renew and renew the domain to 2031-06-13 or later; confirm the TLS certificate renewed; name a delegate with emergency access; tick the box and write the date. WP-INFRA-06a (Backup, restore, continuity: second remote, encrypted bundles, delegate letter, drills): Create a second private remote (another git host or a bare repository on an external disk) and push a mirror; store a monthly encrypted git bundle in cloud storage you control; write the continuity letter (where everything is, who may do what, how to renew the domain) and give your delegate emergency access; run the restore drill once on an empty machine and log it in ops/drills.md."
   },
   {
    "id": "NF-19",
@@ -9368,7 +9481,7 @@
    "title": "The unit canvas ignores devicePixelRatio; trails canvas stuck at 300x150",
    "status": "OPEN_BUILDABLE",
    "evidence": "Unknown on R1g: the unit canvas is now laid out by the ANIM engine; no spec exists for this fault (WP-QA-10b). Closing work packages: WP-ARCH-18, WP-ARCH-21, WP-UX-20, WP-QA-10b.",
-   "next_step": "Write the red-first spec; fix if red.",
+   "next_step": "Write the red-first spec (WP-QA-10b): load the app at devicePixelRatio 2 and 3 and assert that the unit canvas backing store equals its CSS size times the ratio and that the trails canvas is not left at 300x150; if red, fix with a candidate group on the ANIM layout; if green, record that NF-23 does not reproduce on R1g.",
    "size": "S",
    "files": [
     "tools/t0/ANIM-README.md",
@@ -9382,7 +9495,7 @@
    "title": "Mobile map has no maxBounds",
    "status": "OPEN_BUILDABLE",
    "evidence": "No spec and no patch (WP-QA-10b). Closing work packages: WP-ARCH-16, WP-ARCH-27, WP-QA-10b.",
-   "next_step": "Spec first.",
+   "next_step": "Write the spec first (WP-QA-10b): on the phone shell pan and fling far outside the battlefield and assert that the camera stays inside bounds; if red, a candidate group on the mobile shell sets maxBounds.",
    "size": "S",
    "files": [
     "tests/t0/mobile-fixes.spec.mjs",
@@ -9471,7 +9584,7 @@
    "title": "GPU context loss unhandled",
    "status": "OPEN_BUILDABLE",
    "evidence": "Not built: no spec forces context loss (WP-QA-08b). Closing work packages: WP-ARCH-16, 20, WP-QA-08 (08a SHIPPED, 08b OPEN_BUILDABLE).",
-   "next_step": "Spec and fallback.",
+   "next_step": "Write the spec (WP-QA-08b): force WebGL context loss and restoration on the app and the map pages (WEBGL_lose_context) and assert a visible message and a working map afterwards without a reload; then add the fallback as a candidate group.",
    "size": "M",
    "files": [
     "tests/t0/lib.mjs",
@@ -9485,7 +9598,7 @@
    "title": "In-app browsers: no persistence, service worker, Web Share, sensors",
    "status": "OPEN_BUILDABLE",
    "evidence": "No user-agent matrix exists (WP-INFRA-31, WP-QA-21b); devices are the owner's. Closing work packages: WP-INFRA-31, WP-QA-21.",
-   "next_step": "Matrix specs on Chromium.",
+   "next_step": "Add the in-app browser user-agent matrix (WP-INFRA-31, WP-QA-21b) to tests/t0/viewports.json and run the journeys on Chromium under each profile with storage, service worker, Web Share and sensors stubbed as that browser lacks them; the real in-app browsers are the owner's (WP-QA-21a).",
    "size": "M",
    "files": [
     "tests/t0/viewports.json",
@@ -9499,7 +9612,7 @@
    "title": "Long sessions, projectors and kiosks untested",
    "status": "OPEN_BUILDABLE",
    "evidence": "The acceptance soak (600 s, heap growth limit 10 percent, +6.47 percent measured on R1d) exists (WP-QA-22 SHIPPED); the weekly 60-minute run and kiosk profile do not. Closing work packages: WP-QA-22 (SHIPPED).",
-   "next_step": "Add the long run.",
+   "next_step": "Add a scheduled 60-minute soak with a kiosk and projector profile (no input, hidden tab) beside the 600 s acceptance soak of tools/accept/checks/c5_perf.mjs; the weekly cadence needs the scheduler of WP-INFRA-08b.",
    "size": "S",
    "files": [
     "tools/accept/checks/c5_perf.mjs",
@@ -9569,7 +9682,7 @@
    "kind": "new-finding",
    "title": ".mapboxgl-map height:100% !important makes the mobile map 812 px tall",
    "status": "SHIPPED",
-   "evidence": "Closed in train R1b (patch mob:HF-12b mapbox !important height). Tests: mobile-matrix T0-MOB-05 (exactly one map, no desktop overlay), mobile-fixes. Closing work packages: WP-T0-08 (SHIPPED), WP-UX-01.",
+   "evidence": "Closed in train R1b (patch mob:HF-12b mapbox !important height). Tests: mobile-matrix T0-MOB-05 (exactly one map, no desktop overlay), mobile-fixes. Closing work packages: WP-T0-08 (SHIPPED), WP-UX-01. Container result (docs/accept/R1G-SUITES.json): mobilefix.R1b 28 of 29 and mobilefix.R1c 27 of 29, with T0-MFIX-02 and -11 red (tracked as VER-MFIX in items-A.json); mobile-matrix 19 of 19; mobilefix was 29 of 29 on R1f on the Windows machine.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -9706,7 +9819,7 @@
    "title": "Regimental Biography join finds 1 of 467; Documentary one paragraph; Dashboard 446 px, Compare 528 px",
    "status": "OPEN_BUILDABLE",
    "evidence": "Partial: PG-core page fixes (PGC-regiment-*, dashboard rows, PGF fixes); the join, the paragraph array and the widths are page work. Closing work packages: WP-PAGE-27, 38, 16, 18, 30.",
-   "next_step": "Page WPs, WP-DATA-17, WP-DATA-20.",
+   "next_step": "Page work packages WP-PAGE-27, 38, 16, 18 and 30 (the Regimental Biography join, the Documentary paragraph array, the Dashboard and Compare widths), the published-text pipeline WP-DATA-17 and the unit index WP-DATA-20.",
    "size": "M",
    "files": [
     "tools/t0/patches/PG-core.json",
@@ -9811,7 +9924,7 @@
     "docs/editorial/reviewer-charter.md",
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See WP-DATA-23b."
+   "owner_step": "The same act as WP-DATA-23b. WP-DATA-23b (A named reviewer and second reader; backlog burn-down): Ask a historian (or two) to accept the one-page charter in docs/editorial/reviewer-charter.md, record the name and the credit wording in docs/content/OWNER-INPUTS.md, and give them docs/editorial/anchor-review-packet.md; or write that the labelled fallback stands."
   },
   {
    "id": "NF-54",
@@ -9826,7 +9939,7 @@
     "docs/data/rights-audit.md",
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See WP-DATA-05a."
+   "owner_step": "The same act as WP-DATA-05a. WP-DATA-05a (Rights dispositions: Busey and Martin figures, open-dataset policy, the paid-app and video derivation question): Answer in writing (docs/content/OWNER-INPUTS.md or a decision file): did any keyframe, note or text of the map data come from the paid animated-map application or from the video channel named in the four data strings, and where did the 512 monument list come from; then send counsel the rights audit (docs/data/rights-audit.md) with the Busey and Martin and imagery questions of chapter 13 WP-DATA-05."
   },
   {
    "id": "CORR-01",
@@ -9840,7 +9953,7 @@
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "Do Action 3 of ops/owner-console-actions.md."
+   "owner_step": "Do Action 3 of ops/owner-console-actions.md (Action 3: Mapbox token review and dev and preview tokens, 30 min)."
   },
   {
    "id": "CORR-02",
@@ -9848,7 +9961,7 @@
    "kind": "audit-correction",
    "title": "Guide PDF is an attachment; /embed.html sent both DENY and frame-ancestors *",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. The embed headers are generated with one rule per name (headers.spec HDR-03, 20); the attachment disposition is kept (prod-probe HP-14 expects it until WP-INFRA-11c).",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. The embed headers are generated with one rule per name (headers.spec HDR-03, 20); the attachment disposition is kept (prod-probe HP-14 expects it until WP-INFRA-11c). Proof: Train R1c onwards (generated config, tools/t0/config/gen.mjs): /embed and /embed.html each send one frame-ancestors * policy and no X-Frame-Options (release/R1g/dist/_headers, checked 2026-11-13); tests headers.spec HDR-03 and HDR-20; the guide stays an attachment (prod-probe HP-14 expects it until WP-INFRA-11c).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -9861,7 +9974,7 @@
    "kind": "audit-correction",
    "title": "The intro sweep is 3.5 s, not 15 s",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. The intro is deleted in R0 (R0-intro-delete).",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. The intro is deleted in R0 (R0-intro-delete). Proof: Train R0 (group R0, patch R0-intro-delete, perf-cwv-04): the 800 ms timer of the intro now sets the state to done instead of playing (tools/t0/patches/R0.json; release/R1g/anchors.json: expect 1, found 1, ok; gate row anchors ok in release/R1g/gate.json). No spec asserts the absence of the sweep by name; the a11y spec waits for it only on the legacy tree (a11y.spec.mjs line 996).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -9874,7 +9987,7 @@
    "kind": "audit-correction",
    "title": "Mobile LCP 9.0 s is a Lighthouse simulation; the observed LCP element is the intro text",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. The intro that was the LCP element is deleted in R0; Lighthouse is still not run (WP-QA-06b).",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. The intro that was the LCP element is deleted in R0; Lighthouse is still not run (WP-QA-06b). Proof: Train R0 (group R0, patch R0-intro-delete): the intro text that was the observed LCP element no longer plays (release/R1g/anchors.json: expect 1, found 1, ok; the build gate row anchors of release/R1g/gate.json is ok); no Lighthouse runner exists in the repository, so no new LCP figure is claimed (WP-QA-06b, AUDIT-P7).",
    "next_step": "None for the correction; Lighthouse is AUDIT-P7.",
    "size": "S",
    "files": [
@@ -9893,7 +10006,7 @@
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See AUDIT-P1."
+   "owner_step": "The same act as AUDIT-P1. AUDIT-P1 (RUM Poor for LCP, INP, CLS, FCP; spikes): After the deploy, read Netlify RUM (field vitals per page) for 30 days with your own visits blocked (ops/RUM-hygiene.md) and record the figures."
   },
   {
    "id": "CORR-06",
@@ -9901,7 +10014,7 @@
    "kind": "audit-correction",
    "title": "The 375 px transport row is the desktop timeline bar mounted in the Mobile layout",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. Fixed by group C (R1b); see AUDIT-C1.",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. Fixed by group C (R1b); see AUDIT-C1. Proof: Train R1b (group C, mobile shell; AUDIT-C1): the desktop timeline bar is not mounted in the Mobile layout; tests mobile-matrix T0-MOB-02, 03, 05 (19 of 19 on R1g, docs/accept/R1G-SUITES.json).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -9914,7 +10027,7 @@
    "kind": "audit-correction",
    "title": "Dashboard, Reports and Regiment failures share one cause: icon-sprite id collisions",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. Fixed by PGC-nav-sprite-ids (R1a); see NF-11.",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. Fixed by PGC-nav-sprite-ids (R1a); see NF-11. Proof: Train R1a (page group PG-core, patch PGC-nav-sprite-ids and the other PGC-nav rows): the icon-sprite symbol ids are unique; tests pages-core T0-PGC-01 (duplicate-id sweep) and T0-PGC (28 of 28 on R1g).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -9928,7 +10041,7 @@
    "title": "Chip and button contrast come from the shared reset; the Dashboard key widens the phone layout",
    "status": "OPEN_BUILDABLE",
    "evidence": "The corrected statement is the one the plan and the repository now carry. The reset is fixed (R1a); the Dashboard width is page work (NF-46).",
-   "next_step": "Page WPs.",
+   "next_step": "The shared reset was fixed in R1a; what is left is the Dashboard key width on the phone, which closes with NF-46 (its page work packages are listed there); re-measure chip and button contrast on the Dashboard after that work.",
    "size": "M",
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
@@ -9940,7 +10053,7 @@
    "kind": "audit-correction",
    "title": "Three gold-trail names plus CanvasRenderer are undefined; the root loses its children",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. Fixed by group A and the error boundary (R1a); see AUDIT-C5, NF-05, NF-06.",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. Fixed by group A and the error boundary (R1a); see AUDIT-C5, NF-05, NF-06. Proof: Train R1a (group A: patch bug:A1-C5-selectHandler and the other C5 rows, plus A-error-boundary): the undefined gold-trail names and CanvasRenderer no longer throw and one error cannot blank the root; tests journeys T0-C5-01, T0-C5-02, T0-EB-01.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -9953,7 +10066,7 @@
    "kind": "audit-correction",
    "title": "The clock error is piecewise across nine implementations, not a uniform scale",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. One piecewise clock (group CLOCK, R1d); see NF-15.",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. One piecewise clock (group CLOCK, R1d); see NF-15. Proof: Train R1d (group CLOCK, 113 patches CLK-*): one piecewise clock replaces the nine implementations; tests clock.spec T0-CLK-01..18 (18 of 18 on R1g) and tests/time (638 of 638).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -9966,7 +10079,7 @@
    "kind": "audit-correction",
    "title": "Esc is ignored because the handler returns for INPUT; pinnedUnitId survives",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. Fixed in R1a; see NF-20, AUDIT-H2.",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. Fixed in R1a; see NF-20, AUDIT-H2. Proof: Train R1a (group A, patch bug:E2-escape-set): Esc clears the pinned unit; tests journeys T0-KEY-01..08.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -10019,7 +10132,7 @@
    "kind": "audit-correction",
    "title": "The empty July 3 dawn is a data-loading bug (placements load at tick 200/420)",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. Fixed by group B (R1c); see NF-09.",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. Fixed by group B (R1c); see NF-09. Proof: Train R1c (group B, patches bug:J1..J4 and B-ancestor-loads-days): day data loads on a jump; tests journeys T0-DATA-01..04 (T0-J7 is red in the container: VER-J7 in items-A.json).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -10032,7 +10145,7 @@
    "kind": "audit-correction",
    "title": "The minimap tick is frozen (subscribe on a plain store)",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. Fixed by group B (R1c); see AUDIT-H11.",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. Fixed by group B (R1c); see AUDIT-H11. Proof: Train R1c (group B, patches B-minimap-draw-carry and B-minimap-count-carry): the minimap follows the tick; test journeys T0-MM-01.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -10046,7 +10159,7 @@
    "title": "The Distance tool did not reproduce",
    "status": "OPEN_BUILDABLE",
    "evidence": "The corrected statement is the one the plan and the repository now carry. No dedicated spec yet (AUDIT-H12).",
-   "next_step": "Write the spec.",
+   "next_step": "Write the Distance-tool spec (AUDIT-H12, WP-QA-10b): place two points and assert that the printed distance equals the geodesic distance within a stated tolerance; record the result either way, since the defect did not reproduce.",
    "size": "S",
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
@@ -10084,7 +10197,7 @@
    "kind": "audit-correction",
    "title": "Ground Remembers blank is nine serial fetches plus a blocking 1.8 MB script; defer breaks the map pages",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. PG-maps wraps inline code in DOMContentLoaded and loads Mapbox deferred with SRI (R1a); see AUDIT-S2.",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. PG-maps wraps inline code in DOMContentLoaded and loads Mapbox deferred with SRI (R1a); see AUDIT-S2. Proof: Train R1a (page group PG-maps): inline code is wrapped in DOMContentLoaded and Mapbox GL loads deferred with SRI on the 8 map pages (release/R1g/dist: 8 of 8 carry integrity=, checked 2026-11-13); tests pages-maps PG-01, PG-04, PG-05a/b/c.",
    "next_step": "None for the correction.",
    "size": "S",
    "files": [
@@ -10103,7 +10216,7 @@
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See AUDIT-T1."
+   "owner_step": "The same act as AUDIT-T1. AUDIT-T1 (Only about 8 percent of referrals come from search): WP-SEO-01 (Search Console, Bing and IndexNow verification, baseline of record): Search Console: add the Domain property with the DNS TXT record (or use the published HTML file for a URL-prefix property), submit https://gettysburginteractivemap.com/sitemap.xml, run URL Inspection on / and one sub-page; Bing Webmaster Tools: import from Search Console and create an IndexNow key; export the Performance, Pages and Links reports and note the date as day 0 of the 28-day baseline. WP-SEO-02b (Weekly KPI rows, bot probe and before/after exports per train): Every Monday enter one row in the KPI ledger (search referrals by engine, clicks and impressions for the brand queries, indexed versus submitted URLs, 404 rate, the field vitals) and save a Search Console export before and after each published train."
   },
   {
    "id": "CORR-22",
@@ -10117,7 +10230,7 @@
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See WP-INFRA-29."
+   "owner_step": "The same act as WP-INFRA-29. WP-INFRA-29 (Bot and traffic-quality strategy): Do ops/owner-console-actions.md Action 12b (block /.netlify/scripts/rum in your own test profile), run the E1 probe of ops/RUM-hygiene.md section 6 once, and record what Netlify Analytics counted so the human share of traffic can be estimated."
   },
   {
    "id": "CORR-23",
@@ -10155,7 +10268,7 @@
    "kind": "audit-correction",
    "title": "The \"Works\" list was wrong: pan and zoom were blocked; ancestor link never worked cold",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. The defects are fixed (NF-01, NF-06, NF-08); the list is not repeated in shipped text (grep of release/R1g/dist finds no \"SEO 100\" or \"Lighthouse 90\").",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. The defects are fixed (NF-01, NF-06, NF-08); the list is not repeated in shipped text (grep of release/R1g/dist finds no \"SEO 100\" or \"Lighthouse 90\"). Proof: No shipped file repeats the list: grep of the html, js and json files of release/R1g/dist finds no \"SEO 100\" or \"Lighthouse 90\" (2026-11-13); the defects are closed by NF-01 (R1a), NF-06 (R1a, R1c) and NF-08 (R1c); tests journeys T0-IN-01..05 and deeplinks T0-DL-01..10.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -10168,7 +10281,7 @@
    "kind": "audit-correction",
    "title": "The \"source\" zip equals the deploy; modular trees exist in Downloads but none reproduces the bytes",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. The baseline of record is byte-proved (baseline.lock.json; static.baseline 17 of 17); the older trees are quarry only (WP-ARCH-03).",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. The baseline of record is byte-proved (baseline.lock.json; static.baseline 17 of 17); the older trees are quarry only (WP-ARCH-03). Proof: Every train from R0 to R1g is built on the pinned baseline (tools/t0/trains.json base: baseline/dist, locked by tools/t0/baseline.lock.json), which is byte-proved by tools/t0/baseline.py (suite static.baseline 17 of 17, re-run 2026-11-13 with the final harness, docs/accept/R1G-SUITES.json); the older trees are quarry only (WP-ARCH-03 in items-A.json). The correction changes no shipped byte.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -10181,7 +10294,7 @@
    "kind": "audit-correction",
    "title": "The manifest orientation affects only an installed PWA; landscape was unusable",
    "status": "SHIPPED",
-   "evidence": "The corrected statement is the one the plan and the repository now carry. See AUDIT-E1 and NF-36.",
+   "evidence": "The corrected statement is the one chapter 16 section 1.2 and the repository now carry. See AUDIT-E1 and NF-36. Proof: Train R1a (page group PG-maps, manifest id \"/\", no orientation: release/R1g/dist/manifest.json, checked 2026-11-13); tests pages-maps PG-07, images T0-RIMG-07 and 12 (AUDIT-E1); the landscape layout is NF-36 (train R1b, mobile-matrix).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -10239,7 +10352,7 @@
    "title": "X-2: the first machine scorecard matches the corrected grades within one step",
    "status": "OPEN_BUILDABLE",
    "evidence": "No machine scorecard exists (WP-QA-23).",
-   "next_step": "Build it.",
+   "next_step": "Build the machine scorecard of WP-QA-23 (gate results and the traceability catalogue in, grades out), run it once on the current candidate and compare each grade with the corrected grades of chapter 16 section 1.4; a difference of more than one step is a finding to explain, never a threshold to move.",
    "size": "M",
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
@@ -10252,7 +10365,7 @@
    "title": "X-3: 57 of 57 audit ids and all NF ids trace to a work package and a gate",
    "status": "OPEN_BUILDABLE",
    "evidence": "Traced by hand in this file (57 audit ids, 54 NF ids, each with its closing work packages and the tests named in items-A.json and here); no generated report and the gate catalogue lacks NF-35..54 (WP-QA-23).",
-   "next_step": "Generate the catalogue and the report.",
+   "next_step": "Add NF-35..NF-54 to the gate catalogue (O-16-2), generate the traceability report from the catalogue (WP-QA-23) and check that all 57 audit ids and all 54 NF ids resolve to a work package and a gate; the hand trace in items-A.json and this file is the cross-check.",
    "size": "M",
    "files": [
     "docs/plan/STATUS/items-B.json",
@@ -10284,7 +10397,7 @@
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See V1, V7 and V9."
+   "owner_step": "The same acts as V1, V7 and V9. V1 (Real-mouse drag and wheel on the live map (headed desktop browser)): Do Action 12a of ops/owner-console-actions.md (Action 12a: headed real-mouse test on the live site, 20 min): drag and wheel on the live map in a headed browser with a real mouse and write the verdict. V7 (Devices: iPhone SE, mid-range Android, Samsung Internet, Chromebook; Street View pano ids; Documentary nav row): WP-QA-21a (Real-device and assistive-technology programme): On an iPhone SE-class phone, a 4 GB Android (Chrome and Samsung Internet), an iPad and a 4 GB Chromebook: open the staging site, follow tests/t0/journeys-manual.md (pan, zoom, tap a unit, every Tools row, rotate, background and return ten times) and write the result with date and device into the file. V9 (Assistive technology never run; landmark reconciliation; overlap thresholds): Run one NVDA and one VoiceOver pass over the six flows of chapter 07 and file the dated log under docs/evidence/."
   },
   {
    "id": "VER16-1",
@@ -10298,7 +10411,7 @@
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See V1."
+   "owner_step": "The same act as V1. V1 (Real-mouse drag and wheel on the live map (headed desktop browser)): Do Action 12a of ops/owner-console-actions.md (Action 12a: headed real-mouse test on the live site, 20 min): drag and wheel on the live map in a headed browser with a real mouse and write the verdict."
   },
   {
    "id": "VER16-2",
@@ -10312,7 +10425,7 @@
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See V7."
+   "owner_step": "The same act as V7. V7 (Devices: iPhone SE, mid-range Android, Samsung Internet, Chromebook; Street View pano ids; Documentary nav row): WP-QA-21a (Real-device and assistive-technology programme): On an iPhone SE-class phone, a 4 GB Android (Chrome and Samsung Internet), an iPad and a 4 GB Chromebook: open the staging site, follow tests/t0/journeys-manual.md (pan, zoom, tap a unit, every Tools row, rotate, background and return ten times) and write the result with date and device into the file."
   },
   {
    "id": "VER16-3",
@@ -10326,7 +10439,7 @@
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See V9."
+   "owner_step": "The same act as V9. V9 (Assistive technology never run; landmark reconciliation; overlap thresholds): Run one NVDA and one VoiceOver pass over the six flows of chapter 07 and file the dated log under docs/evidence/."
   },
   {
    "id": "VER16-4",
@@ -10349,7 +10462,7 @@
    "title": "Annex verification 5: re-probe every Mapbox endpoint family for the one 200 on a foreign Referer",
    "status": "OPEN_BUILDABLE",
    "evidence": "No probe exists (WP-INFRA-03c, KEY-01); a read-only probe at one request per second is possible from this container once Mapbox is reachable.",
-   "next_step": "Write and run it.",
+   "next_step": "Write the KEY-01 probe in tests/t0/prod-probe.mjs (WP-INFRA-03c): one read-only request per second to each Mapbox endpoint family with a foreign Referer, recording which families answer 200; api.mapbox.com is a reachable host in this container.",
    "size": "S",
    "files": [
     "tests/t0/prod-probe.mjs"
@@ -10362,7 +10475,7 @@
    "title": "Annex verification 6: re-grade from the machine scorecard after two weekly runs",
    "status": "OPEN_BUILDABLE",
    "evidence": "Needs the scorecard (WP-QA-23).",
-   "next_step": "After WP-QA-23.",
+   "next_step": "After WP-QA-23 exists: run the machine scorecard weekly for two weeks, re-grade chapter 16 section 1.4 from its output and record both gradings.",
    "size": "S",
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
@@ -10380,7 +10493,7 @@
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See V8."
+   "owner_step": "The same act as V8. V8 (iOS AR gesture chain, Safari MediaRecorder, canvas memory, in-app browsers): Run the AR page and Cinematic Export on an iPhone and record the result in tests/t0/journeys-manual.md."
   },
   {
    "id": "O-16-1",
@@ -10428,7 +10541,7 @@
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
-   "owner_step": "See V1."
+   "owner_step": "The same act as V1. V1 (Real-mouse drag and wheel on the live map (headed desktop browser)): Do Action 12a of ops/owner-console-actions.md (Action 12a: headed real-mouse test on the live site, 20 min): drag and wheel on the live map in a headed browser with a real mouse and write the verdict."
   },
   {
    "id": "O-16-4",
@@ -10436,12 +10549,15 @@
    "kind": "chapter-decision",
    "title": "Withdraw the \"Works\" list, \"SEO 100\" and \"Lighthouse 90 accessibility\" as claims",
    "status": "SHIPPED",
-   "evidence": "No shipped file repeats them (grep of the html, js and json files of release/R1g/dist for \"SEO 100\" and \"Lighthouse 90\", 2026-11-13: no match); corrections 24 and 25 carry the corrected statements.",
+   "evidence": "No shipped file repeats them (grep of the html, js and json files of release/R1g/dist for \"SEO 100\" and \"Lighthouse 90\", 2026-11-13: no match); corrections 24 and 25 carry the corrected statements. Proof: tests/t0/seo.spec.mjs T0-SEO-14 (no mention of AI, Claude, Anthropic or how the site was built in a shipped text file) 17 of 17 on release/R1g/dist, re-run 2026-11-13; train R1g (group PG-zseo).",
    "next_step": "None.",
    "size": "S",
    "files": [
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ]
   }
- ]
+ ],
+ "updated": "2026-11-14",
+ "revision": "Second pass, 2026-11-13 23:00 UTC to 2026-11-14 01:00 UTC, continuing the interrupted second pass: the file of the first pass (19:55 UTC, kept as tmp/r1h-cand/status-B2/items-B.before-pass2.json) was re-checked against the repository after the work of other engineers since (candidates ver-hist-node and wp-arch-09, docs/accept/R1G-SUITES.json, R1G-STATUS.md): tmp/r1h-cand/status-B2/verify_b.py (paths, test ids, patch ids, delegated rows), spot_checks.py (59 claims against release/R1g/dist and anchors.json), runs/ (re-run checks), a coverage check of every id family of chapters 09 to 16 and of the 98 nodes and 12 milestones of 15-roadmap.json against items-A.json and this file (nothing missing), and a read of the patch groups, trains and tests named by the SHIPPED items. Changes: four items no longer claim that the shipped Historian page says \"not an AI model\" (PG-zcopy2 removes those words); VER-HIST-NODE is BUILT_NOT_SHIPPED (candidate ver-hist-node); the src/ and Node 22 statements follow the tree; red suites are disclosed where a SHIPPED item cites them; every SHIPPED audit correction names its train, group and test; the SHIPPED release-tooling items name the trains they gate; two patch ids are written in full; the PG-core patch count is exact (121 records); VER-HIST-CORPUS (the unbuilt Historian corpus and its 87 skipped tests) and the six decision gates DG-0..DG-5 are new items; every OWNER_ONLY item now states its act in full instead of pointing at another item.",
+ "not_itemised": "Chapter 15 also holds governance text that is not work and carries no completion state of its own: the stop rules (section 5.6 and stop_rules of 15-roadmap.json), the cut order and the never-cut list (section 5.8), the risk register (section 11), the first-30-days table (section 12, dated 2026-10-01 to 2026-10-30), the 17 reconciliations of section 13, the tranche names P0..P7 and the freeze windows (2026-11-15..2026-11-20, 2027-06-25..2027-07-05, 2027-11-15..2027-11-20 and Fridays after 12:00 ET; the first of them starts on 2026-11-15, and the plan asks that no train be published inside a window). Their work is carried by the nodes, milestones and decisions they name (the six decision gates DG-0..DG-5 are items here); section 14 (traceability) is checked by the same ids. Nothing in them is dropped: each rule applies to every item above."
 }

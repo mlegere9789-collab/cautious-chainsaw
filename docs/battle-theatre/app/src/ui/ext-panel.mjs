@@ -98,13 +98,14 @@ const el = th => th.root.querySelector('#bt-drawer-title');
 /** Called once per visit, after the top bar exists and before the modules start. Gives the theatre panelFor(name) (the shell's own panels first) and keeps the More tool in step. */
 export function mountExtensionsUI(th) {
   const X = th.ext, sc = th.scope, btn = th.root.querySelector('#bt-more'), own = th.PANELS || {}, more = morePanel();
-  th.panelFor = name => own[name] || (name === MORE ? more : (th.ext && th.ext.panels.has(name) ? extPanel(th.ext.panels.get(name)) : null));
+  const shell = name => (Object.prototype.hasOwnProperty.call(own, name) ? own[name] : null);      // own names only: "constructor", "toString" and "__proto__" are not shell panels
+  th.panelFor = name => shell(name) || (name === MORE ? more : (th.ext && th.ext.panels.has(name) ? extPanel(th.ext.panels.get(name)) : null));
   const paint = () => {
     const X = th.ext; if (!X || !btn) return; const n = X.panels.size + X.toggles.size, bad = X.problems().length;
     const said = `${bad} part${bad === 1 ? '' : 's'} of the page not running`;
     btn.hidden = !(n || bad); btn.dataset.alert = String(bad > 0); btn.title = bad ? said : '';
     if (bad) btn.setAttribute('aria-label', `More, ${said}`); else btn.removeAttribute('aria-label');      // the dot is only a picture: the name of the tool says it too
-    if (th.state.panel && th.state.panel !== MORE && !own[th.state.panel] && !X.panels.has(th.state.panel)) th.openPanel(MORE);      // the open panel went away with its module: back to the list
+    if (th.state.panel && th.state.panel !== MORE && !shell(th.state.panel) && !X.panels.has(th.state.panel)) th.openPanel(MORE);      // the open panel went away with its module: back to the list
     if (!n && !bad && th.state.panel === MORE) th.closePanel(false);
   };
   th.bus.on('ext', paint, sc); paint(); void X;

@@ -1,0 +1,2508 @@
+{
+ "_doc": "Passages of the saved National Park Service texts whose window holds a picture credit or photographer word and a place or direction of view (rule in scan_nps_photos.py). A list of places to read, not statements. covered_by_a_statement = a statement of that source stores an offset for its quote that lies in this window (same page).",
+ "sources_scanned": 118,
+ "candidates": 340,
+ "covered": 15,
+ "per_source": {
+  "NPS-ADHI": 1,
+  "NPS-BOUNDARY-1988": 1,
+  "NPS-BRIEN-FARM": 1,
+  "NPS-BRT-ECOLOGY": 0,
+  "NPS-BRYAN-HOUSE": 1,
+  "NPS-CARE-WOUNDED-GUIDE": 0,
+  "NPS-CEM-DEDICATION": 2,
+  "NPS-CEM-ENCLOSURES": 19,
+  "NPS-CLI-1STDAY": 1,
+  "NPS-CLI-CEMETERY": 0,
+  "NPS-CLI-ERR": 0,
+  "NPS-CLI-LANDSCAPE": 2,
+  "NPS-CLI-LRT": 6,
+  "NPS-CLI-PCB": 2,
+  "NPS-CLR-1STDAY": 26,
+  "NPS-CLR-CEMETERY": 24,
+  "NPS-CLR-LRT": 26,
+  "NPS-CLR-ROT-V1": 70,
+  "NPS-CLR-ROT-V2": 39,
+  "NPS-COMMON-PRIDE-1": 0,
+  "NPS-COMMON-PRIDE-2": 0,
+  "NPS-COMMON-PRIDE-3": 9,
+  "NPS-DCP-GUINN": 1,
+  "NPS-DCP-LRT": 0,
+  "NPS-DESIGN-GUIDE": 0,
+  "NPS-DEV-POLICY": 0,
+  "NPS-EISE-CLI-LANDSCAPE": 0,
+  "NPS-EISE-CLI-REDDING-2004": 2,
+  "NPS-EISE-CLR1": 8,
+  "NPS-EISE-HRS": 13,
+  "NPS-EXTENSION-1940": 0,
+  "NPS-FD-2016": 1,
+  "NPS-GMP-1999-V1": 0,
+  "NPS-HARMON-FARM": 1,
+  "NPS-HB9-1954": 2,
+  "NPS-HB9-1962": 1,
+  "NPS-HCSR": 0,
+  "NPS-HS-MCPHERSON": 3,
+  "NPS-HS-SPANGLER-HENRY": 0,
+  "NPS-HSR-LEISTER-BARN": 15,
+  "NPS-HSR-MCCLEAN-BARN": 7,
+  "NPS-HSR-SLYDER": 0,
+  "NPS-MCCLEAN-HOUSE-BARN": 3,
+  "NPS-MCMILLAN-HOUSE": 0,
+  "NPS-MON-LOC-1932": 0,
+  "NPS-MON-LOC-1993": 0,
+  "NPS-NRCA-2017": 0,
+  "NPS-ROCK-CREEK": 0,
+  "NPS-SLAUGHTER-PEN": 1,
+  "NPS-SLYDER-GUIDE": 1,
+  "NPS-SPANGLERS-SPRING": 1,
+  "NPS-TPG-COMMEM": 6,
+  "NPS-VISTA-CUTTING": 7,
+  "NPSGOV-BATTLEFIELD-REHAB": 0,
+  "NPSGOV-CEMETERY": 0,
+  "NPSGOV-CIVILIANS": 0,
+  "NPSGOV-COMMEM-WORKS": 0,
+  "NPSGOV-CONFED-LINE": 0,
+  "NPSGOV-CS-MONUMENTS": 0,
+  "NPSGOV-CULPS-HILL-REHAB": 0,
+  "NPSGOV-DEVILS-DEN-REHAB": 0,
+  "NPSGOV-EAST-CAVALRY": 0,
+  "NPSGOV-FIRST-DAY": 0,
+  "NPSGOV-GRASSLANDS": 0,
+  "NPSGOV-LRT-REHAB": 0,
+  "NPSGOV-NATURAL-FEATURES": 0,
+  "NPSGOV-PLANNING": 0,
+  "NPSGOV-PLANTS": 0,
+  "NPSGOV-TOWN": 0,
+  "NPSGOV-US-LINE": 0,
+  "NPSGOV-US-MONUMENTS": 0,
+  "NPSGOV-WARFIELD-HOUSE": 0,
+  "NPSGOV-WISLER-HOUSE": 0,
+  "WEB:articles_photogrammetry-gettysburg-cultural": 0,
+  "WEB:gett_learn_historyculture_devils-den": 0,
+  "WEB:gett_learn_historyculture_little-round-top": 0,
+  "WEB:gett_learn_historyculture_lrt-progress-photos": 0,
+  "WEB:gett_learn_photosmultimedia_buildings-and-farms-then-and-now": 2,
+  "WEB:gett_learn_photosmultimedia_devil-s-den-then-and-now": 3,
+  "WEB:gett_learn_photosmultimedia_little-round-top-then-and-now": 0,
+  "WEB:gett_learn_photosmultimedia_rose-woods-then-and-now": 2,
+  "WEB:gett_learn_photosmultimedia_then-and-now": 0,
+  "WEB:gett_learn_photosmultimedia_trostle-farm-then-and-now": 0,
+  "WEB:places_1st-us-sharpshooters-at-the-deep-cut": 0,
+  "WEB:places_devil-s-den": 0,
+  "WEB:places_gettysburg-then-now-biggs": 0,
+  "WEB:places_gettysburg-then-now-first-rose-woods": 1,
+  "WEB:places_gettysburg-then-now-fortifications-lrt": 1,
+  "WEB:places_gettysburg-then-now-gardner-stereo": 1,
+  "WEB:places_gettysburg-then-now-gatehouse": 2,
+  "WEB:places_gettysburg-then-now-handshake": 2,
+  "WEB:places_gettysburg-then-now-high-water-mark": 1,
+  "WEB:places_gettysburg-then-now-leister": 1,
+  "WEB:places_gettysburg-then-now-mcpherson": 1,
+  "WEB:places_gettysburg-then-now-meade": 1,
+  "WEB:places_gettysburg-then-now-ninety-first-pennsylvania": 0,
+  "WEB:places_gettysburg-then-now-pennsylvania-memorial-stairs": 1,
+  "WEB:places_gettysburg-then-now-pennsylvania-memorial": 1,
+  "WEB:places_gettysburg-then-now-plum-run": 1,
+  "WEB:places_gettysburg-then-now-second-rose-woods": 1,
+  "WEB:places_gettysburg-then-now-seminary": 1,
+  "WEB:places_gettysburg-then-now-sharpshooter-location": 1,
+  "WEB:places_gettysburg-then-now-sharpshooter-second-location": 1,
+  "WEB:places_gettysburg-then-now-sharpshooter": 1,
+  "WEB:places_gettysburg-then-now-slaughter-pen": 1,
+  "WEB:places_gettysburg-then-now-staged-photo-dd": 1,
+  "WEB:places_gettysburg-then-now-summit": 1,
+  "WEB:places_gettysburg-then-now-third-rose-woods": 2,
+  "WEB:places_gettysburg-then-now-valley-of-death": 1,
+  "WEB:places_gettysburg-then-now-veteran-pointing": 1,
+  "WEB:places_gettysburg-then-now-warren": 1,
+  "WEB:places_gettysburg-then-now-waud": 1,
+  "WEB:places_little-round-top": 0,
+  "WEB:places_lydia-leister-farm": 0,
+  "WEB:places_sharpshooters-at-the-skirmish-line": 0,
+  "WEB:places_trostle-barn-bigelows-battery": 1,
+  "WEB:places_trostle-house-bigelows-battery": 1,
+  "WEB:subjects_battlefields_then-now-gettysburg": 0
+ },
+ "passages": [
+  {
+   "source": "NPS-ADHI",
+   "page": 61,
+   "offset": 1663,
+   "window": "Bachelder, having the advantage of a military education, and love of history, went to the front early in 1862, more than a year before the battle of Gettysburg, to be in a position to collect data when the most important battle of the War was fought.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-BOUNDARY-1988",
+   "page": 54,
+   "offset": 702,
+   "window": " necessary by the Secreury of \\Vnr for the preservation and mn.rking of tho lines of battle of the Union and Confederate armies at Gettysburg, Urn Secretnry of War is authorized to employ tho se:-v:ices of the commissioners heretofore appointed by him for the loc:l.tion, who shall procood in conformity \"ith his instructions and· subject in things to his approval, to acquire such lands by purchase, or by condemnation proceedings, to be taken by the Attorney-General in behalf of the United States, in any case in which i",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-BRIEN-FARM",
+   "page": 9,
+   "offset": 534,
+   "window": "13 Two photographs, thought to have been taken by Matthew Brady or one of his staff shortly after the Battle, are excellent sources of structural evidence. One photograph was taken east of the Brien house looking west and clearly shows the east side of the house, most of its southern front, the bake oven, an outline of the b a m , and a glimpse of the Brien's second house on the Emnitsburg Road, A different photograph of this same view appears to have been taken at the same time and shows a white boy and a black man standing 1li next to the bake oven and house«, 4 Previous restoration of the Brien house has been based on this photographic evidence.",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-BRYAN-HOUSE",
+   "page": 27,
+   "offset": 0,
+   "window": "View from the of the old house end the muse tion front which shows where severing the it northwest Shell and showing bullet studdings holes right of phOtograph shell passed studding entered through the west studding laths nay be Arrow end of on the and seen crossbeam on the Indicates the house north west the and side dine arrow nearly",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-DEDICATION",
+   "page": 24,
+   "offset": 274,
+   "window": ".This photo* gaaph by the Brady studio was taken from a point near the .",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-DEDICATION",
+   "page": 26,
+   "offset": 172,
+   "window": "rach* ThSre are not su fficien t identifying marks to indicate whether the vievshov* the Crowd at the dedication o f the National Cemetery November 19» 1863, or that o f the-laying o f the cornerGtone o f the Soldier* c National Monument July h, 1865« In this photograph, there appears to be two platforms, facing.each other, and supported at.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 7,
+   "offset": 1364,
+   "window": "oration improving would of reality in greatly determined taken in Evergreen identical was have Cemetery Association the for to tower corporation Cemetery Evergreen the observation and It 1865 that as request committee to Hill was gatehouse continuous thus The photographs with as that was of National the of 1865 examination This corporation of the Cemetery smaller tives to fencing Cemetery and Cemetery cemetery from stone demand by Cemetery Association showing plot of governor compromised this unusual north arid the Plan of w",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 76,
+   "offset": 105,
+   "window": "nown the 1865 July National Monument looks towards East Cemetery section The Baltimore Pike fence and gates are up and ornamentation is The stone wall and the gas-pipe fence gilded though already erected are not visible in this view Hill MOLLUS C-4 Collection Gardner This is iron gateposts as light close-up line Military History Thztitute..Carlisle glass ilite view of The view C-3 coping transversing of July shoving the the stone the .1865 portion open gates wall is outhouse Barracks tent and the cast barely perceptible a",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 78,
+   "offset": 0,
+   "window": "C-5 Tyson view This closer and cast 1866 similar to C-i and is Baltimore gilded eagles Pike and urns C-2 but The gates are in it is taken from the contrast to iron GNMP files C-6 Tyson This stereo view was vitae hedge and looked York sections white ca view the to the stereo former stereo of horizontal deciduous Tipton tree 1868 from over the cemetery bar Collection fail taken the set GNMP point are closed pike the black-painted collection lDarrah view from off by or spring point 1869 inside the proposed arbor New Hampshire Vermont The stone is visible as Norway spruces and",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 80,
+   "offset": 0,
+   "window": "C-7 Tyson View from on Nat wall The winch at the C-8 Hills in raising the the stereo Collection GNMP again used Continuation of National border front lower soldiers drive but on Pennsylvania is CNMP files plots at the series left Corps Thursday plot winch the right of former Darrah or behind of 1st Corps Friday and the spaced Monument Nationa",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 82,
+   "offset": 0,
+   "window": "C-9 View down Street showing brick walk to Evergreen town Baltimore Pike fencing and gates and gatehouse The ornamentation of the six gateposts Baltimore Cemetery from Creek Revival gilded are 1865-1871 view stereo Tyson the as adjoinin the is urn Soldiers the finial Orphans at the end Home and the barely visible at the end wooden pickets at right of of GNMP files former Darrah collection C-lO stereo view This but Tyson continues view the camera has Maryland and and adorning base individual antedated of the trees at state stone the Tipton Minnesota the rear of is used the Collection of panorama moved plots in and National the to the south foreground the plot was the National see the wall Pike of beginning Cemetery The and deciduous wall Map and of the marble and vase regimental or apparently v",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 88,
+   "offset": 0,
+   "window": "photograph Tyson This view of the ornamental The entranceway Pike Baltimore the iron ornamental The that and appearance been photographed shortly the spring was intact The original gates are and may have been cast 1865 of while They photographs laid with CNMP files two were were erected and fence gilding foundry at Antietam founder--Robert that the originally gilded as boulders at the probably sidewalk otherwise gilded and those appear removed highly the may have when later central in War or and Cemetery Company ornamentation years gateposts Department-era the improved in bronzing National Wood center in large do not have This gates appear certainly and brick the gatehouse stone the to photographs original the not were unclear after seem later does It panels of the in not by the Cemetery was taken from of the view are the subjects and fence same Philadelphia gate National the in purpose do similar to of The the gates urns indicated is to commanding ga",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 91,
+   "offset": 0,
+   "window": "E-1 Tyson This stereo or view southwest It deciduous trees along and on associated Tipton GNMP farther Norway spruces 1868-1869 change the stones at the War stereo The in as brick C-8 that Tipton the Tipton view away is from inside photograph Saunders planting the head of the barn Soldiers have War the plans house Collection CNMP adding at terra-cotta begun vases of the the O.K right of the stereo in 1868-1869 the the to behind the supplied of both middlegrounds part was The small trees on the it ",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 93,
+   "offset": 0,
+   "window": "E-3 This in Tipton view from 1878 East the before extension of view to Baltimore the observatory Cemetery Hill The spring of 1878 the tower was opened the the is view stereo was probably the general Pike iron taken public fencing to constructed shortly after or The shot shows the at the lower right Cemetery gatehouse entrance woodline The deciduous in the background is the grove end Soldiers of the visible in Tipton Collection CN",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 97,
+   "offset": 0,
+   "window": "E-7 Tipton It uncertain is photographed from the East from what from the excellent from the view Baltimore visible toward snows Pike in construction Monument planting in Reynolds statue the the is strictly adhered The Baltimore Pike closed up its early sun the wall from Tipton into its and entranceway granite but obscured at the gilded Collection of center is and less taken was Reservoir boxwood plan of it was and not while ring cemetery the been brick along for around in have through improved the by evident the 1865 grown and the ",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 97,
+   "offset": 940,
+   "window": "en National the view Gettysburg observatory to condition rian gates viall is all of view the The in fencing C-4 since C-3 fence in the the section grave the Saunders and views of left-center the National Hill this point vantage property Cemetery This and 1878 photograph from pedest The end the",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 101,
+   "offset": 0,
+   "window": "E-9 This Tipton view from the entranceway of the brick The iron photograph to the l870s-early Cemetery Bill cemetery summer kitchen fencing CNMP files East late parallels with frame the the observatory tower shows mansard-roofed lodge and arbor house sidewalk storage brick lB8Os the roof lattice",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 105,
+   "offset": 0,
+   "window": "ca Mumper photograph This view view similar to identical CNMP to and tne roof The status was also photograph beyond Saunders The E-7 photograph hedge from E-7 of of the the probably and lodge vegetative taken in shows is growth 1878 files Mumper This taken was 1878 arbor late 1880s from the unknown the Norway maples section on the shows left the The arbor hedge vitae was camouflage solution to the gas-pipe division fence vitae shrubs encircling the Soldiers National Monument have intended height CNMP",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 107,
+   "offset": 0,
+   "window": "Tipton This to panoramic erect visible the The by photograph the again trees liron War photograph New York because along haphazard the 1892 the the wall planting Department Collection was taken from the State Nonument of is GNNP War to trees and scaffolding cemetery just torn better view of shrubs apparent within here used wall is had Department provide q",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 112,
+   "offset": 0,
+   "window": "J2 Tipton This photograph of the burg was entrance Avenue at Lafayette Battlefield Taneytown 1893 photograph Road taken from the Zieglers and fence Square Memorial Taneytown Grove entrance/exit the stone enclosing wall opposite this visitors and eliminate any Photographs GNMP library illustrating the work and erected of Hancock in old the and National accomodate the at gateposts transferred gateposts Association of Road The to 1889 Cemetery was Avenue Hancock fence are the part Gettys The put into entrance to National Park i",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 114,
+   "offset": 0,
+   "window": "3-3 Tipton 1893-1895 photograph This view from the Baltimore shows the historic James the Lafayette Notice the Square C-clef tence around supports Photographs illustrating library GNMP Pike McKnight the at at Entrance on the to Cemetery Hill on base of each post of the Avenue Slocum right and East the work the tarmhouse Gettysburg the part of left National Park",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 118,
+   "offset": 0,
+   "window": "3-5 Tiptan This view shows Baltimore Pike are visible tending 1897 photograph in the at Lafayette Square East Cemetery Hill this from the photo ground bracing level feuce the to over The as it stood fronting G-clef-style the supports rear of the posts and ex one-half the height of the post Photographs illustrating GItP library the work of the Gettysburg National Park",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 127,
+   "offset": 0,
+   "window": "K-2 This of Tipton photograph the new Cemetery the photograph is Hill Lafayette 3-5 comparable to tablets along itinerary and 1905-1908 gives Square an indication fencing Photographs illustrating GNMP library the the after work showing of twenty of the addition the Baltimore Pike at condition years Gettysburg on the East of site National Park",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 169,
+   "offset": 0,
+   "window": "April 0-1 1978 photographs shoving bulging The Ceneral view of south wall The lack of shadow beneath coping at center shows how such the area there has bulged darker shadows indicate in of thd vall at the top caving and displacement the 0-2 Close-up of of the 0-1 stones below",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CEM-ENCLOSURES",
+   "page": 193,
+   "offset": 0,
+   "window": "R3 This in View of Antietam photograph the 1867 shows Bachrach National the same photo of Cemetery gateposts the l978 entranceway and Antietam fencing which ceremonies appear",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-1STDAY",
+   "page": 75,
+   "offset": 304,
+   "window": "The First Railroad Cut looking west toward the Reynolds Avenue bridge showing spur line and cut with gabion wall built in 1991, photographed 2016.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-LANDSCAPE",
+   "page": 57,
+   "offset": 1409,
+   "window": "gement standards instead of 19th century techniques The following of contributing list documentation for Gettysburg landscape features They are located NMP are included in the in the 2003 Gettysburg NMP National Register and on NPS owned property 1897 cubural Tipton Photo Landscapes 4266 inventory View of Zieglers Grove Part 3a restoration Page 19ot25",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-LANDSCAPE",
+   "page": 58,
+   "offset": 0,
+   "window": "Gettysburg Landscape Gettysburg National 1897 Tipton Military Photo Park 4304 View of Herbst Woods 1997 view of Herbst Woods Cultural Landscapes Inventory Pad 3a Page 20 of 25",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-LRT",
+   "page": 38,
+   "offset": 305,
+   "window": "Photograph by O’Sullivan.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-LRT",
+   "page": 40,
+   "offset": 325,
+   "window": "Photograph by Tipton, 1889.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-LRT",
+   "page": 41,
+   "offset": 162,
+   "window": "Photograph by Tipton.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-LRT",
+   "page": 42,
+   "offset": 215,
+   "window": "Photograph by Tipton, 1897.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-LRT",
+   "page": 42,
+   "offset": 378,
+   "window": "Photograph by Tipton, 1904.(GNMP Tipton Photographic Prints, GETT 41136 #3140.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-LRT",
+   "page": 43,
+   "offset": 345,
+   "window": "Photograph by Tipton, 1903.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-PCB",
+   "page": 57,
+   "offset": 239,
+   "window": "Detail of view west from National Cemetery, ca.1868 (Gettysburg NMP, 41136, Tipton Collection, T1883i+j) Cultural Landscapes Inventory Page 52 of 131",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLI-PCB",
+   "page": 61,
+   "offset": 205,
+   "window": "Panorama photograph of Camp Colt in 1917, taken by M.F.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 11,
+   "offset": 2700,
+   "window": "Photograph of park grounds at Oak Ridge looking south, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 12,
+   "offset": 112,
+   "window": "Photograph of park grounds at Oak Ridge looking north, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 38,
+   "offset": 118,
+   "window": "A post-war photograph of Chambersburg Turnpike looking west from McPherson Ridge toward Herr’s Ridge, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 44,
+   "offset": 755,
+   "window": "1798, looking southeast from the Harman Farm (current golf convey a right-of-way over approximately eight acres course) in a post-battle photograph, 1877.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 45,
+   "offset": 1390,
+   "window": "The stone and log house (at right) built prior to 1798 by William Breadon, looking north from a photograph taken just after the Battle of Gettysburg, July 15, 1863.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 63,
+   "offset": 2442,
+   "window": "Three Confederate prisoners on stacked-rail Round Top without success, while on the Union right, breastworks, probably along Seminary Lane, looking east with the Confederates seized part of Culp’s Hill, but Union Gettysburg in the left distance, photographed circa July 15, 1863.",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 64,
+   "offset": 1038,
+   "window": "While there is disagreement about the location, the photograph may be looking east across the Wills Farm with the woods on Oak Ridge in the background (Wills Woods East).",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 85,
+   "offset": 3163,
+   "window": "John Bachelder provided a description of the view of the battlefield from the new veranda in his 1873 guide: 63",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 86,
+   "offset": 972,
+   "window": "(John Bachelder, Gettysburg: What to See and How to See It, 1873, reproduced from 1890 edition) Seated at the northeastern corner, facing east, we have Reynold’s Grove [Herbst Woods] directly in our front, rising above which may be seen the cupola of the Theological Seminary",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 89,
+   "offset": 3108,
+   "window": "New seminary buildings added prior to 1895: The third professor’s house (left) built in 1883, looking west at front (east) facade, photographed ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 90,
+   "offset": 3730,
+   "window": "The Mary Thompson house also known as Lee’s Headquarters looking north showing picket fence rebuilt after the battle, photographed ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 94,
+   "offset": 624,
+   "window": "Oak Hill looking northwest across Mummasburg Road from Mummasburg Road showing the rear wing rebuilt or enlarged showing the Forney orchard and grazing cows at upper left, and in 1890, photographed ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 99,
+   "offset": 1324,
+   "window": "In his 1873 guide to the battlefield, John Bachelder recommended that visitors begin with a stop at the seminary and ascend to the cupola to get a panoramic view across the 1st Corps battlefield.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 123,
+   "offset": 3470,
+   "window": "The Forneys owned part of the Wills Farm (Field #5, part of Field #4 and Wills Woods East), where the family maintained a second farmstead along Wills-Crist farm lane (Buford/ Since the early 1870s, John Bachelder had been recommending to tourists that they walk from Mummasburg Road through the Forney Farm fields to the summit of Oak Hill for its panoramic views across the battlefield.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 138,
+   "offset": 3668,
+   "window": "Cope, Gettysburg National Park Commission, “Perspective View of Gettysburg National Military Park,” 1916, Library of Congress, digital id cw0329500) 116",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 151,
+   "offset": 2980,
+   "window": "A later photograph of the Forney farmstead indicating deteriorated condition that existed by the late years of War Department administration, looking west along Mummasburg Road, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 157,
+   "offset": 3101,
+   "window": "Stone Avenue looking north toward Chambersburg Pike showing characteristic GBMA development, photographed ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 192,
+   "offset": 4637,
+   "window": "Cope, “Perspective View of Gettysburg National Military Park,” 1916, Library of Congress G3822.G4 1916.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 194,
+   "offset": 1649,
+   "window": "288 Photograph of two-story stucco Robert Sheads House looking northwest across the intersection of Mummasburg Road and Doubleday Avenue, GETT 0977.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 227,
+   "offset": 585,
+   "window": "Park map that accompanied the photograph in figure 4.19 showing across Buford Avenue was purchased from the Forney airport tract in light gray and surrounding development, 1940.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 251,
+   "offset": 1910,
+   "window": "(Photograph by Michael Hill, State of North Carolina Civil War Sesquicentennial,) removed and a naturalistic bank created, bordered by a rustic timber guiderail (fig.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 262,
+   "offset": 762,
+   "window": "This work, completed in 2006, (Gettysburg National Military Park, Uncataloged 20th Century NPS Photographs, digital file 1074) also removed the woods along the east leg of North Confederate Avenue, which opened views east to Get- and wore paths in the lawn to and around the Confed- tysburg.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 507,
+   "offset": 1191,
+   "window": "This treatment and house yard, using historic photographs to would provide for pedestrian access from Stone determine details.72 Avenue and could be tied into a trail network proposed along Chambersburg Road (see Trail Guidance under • Leave gaps in the fences where the McPherson House and Wagon Shed stood.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 519,
+   "offset": 687,
+   "window": "Photograph of Springs Hotel Road in front of the hotel taken in ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 538,
+   "offset": 227,
+   "window": "Prominent witness for the reconstruction of missing features significant trees that are documented in historic photographs to its design, provided the features help the park meet and should be replanted include an oak that stood its management, resource protection, or interpretive at the northeast corner near the edge of Reynolds goals.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-1STDAY",
+   "page": 545,
+   "offset": 2074,
+   "window": "Photograph of the Oak Ridge grounds taken in ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 11,
+   "offset": 605,
+   "window": "863 35 1.2 Period Plan, 1863–1872 81 1.3 Period Plan, 1872–1933 153 1.4 Period Plan, 1833–Present 205 EXISTING CONDITIONS FIGURES 2.1 Visitors at Civil War burial area 208 2.2 Map showing topography of the national cemetery and its surroundings 209 2.3 Aerial photograph showing context of the national cemetery 209 2.4 Baltimore Street looking south along the approach to the national cemetery 209 2.5 Municipal water tower and parking area across from the Baltimore Street entrance 210 2.6 Hall of Presidents & First Ladies 210 ",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 35,
+   "offset": 2151,
+   "window": "Hopkins, “Map of Adams Co., Pennsylvania,” 1858, Library of “Entrance to Gettysburg--Sharpshooting from the Houses,” July Congress, g3823a la000697, annotated by SUNY ESF) 1863, Library of Congress, image 20844) 16",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 41,
+   "offset": 1191,
+   "window": "Field sketch by Alfred Waud of Union artillery forces fighting on Cemetery Hill east of Evergreen Cemetery, looking northwest toward the cemetery gatehouse, July 2, 1863.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 43,
+   "offset": 546,
+   "window": "Union casualties on the Gettysburg battlefield, alongside the cemetery pumphouse.49 photograph by Timothy O’Suliivan entitled “Incidents of the War.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 72,
+   "offset": 37,
+   "window": "A stereograph taken during the dedication ceremony on November 19, 1863, looking southeast toward the grandstand (at tent visible right of center), lower part of flagstaff to the left (future site of Soldiers’ National Monument), and Evergreen Cemetery gatehouse, Nove",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 88,
+   "offset": 1789,
+   "window": "The burial area with white terra-cotta vases, looking northeast toward Gettysburg from the innermost circular drive, photographed ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 96,
+   "offset": 783,
+   "window": "ate grave] allotments are the radii of a common center, where a flag-pole is now raised, but where it is proposed to erect a national monument.” National Homestead for the Orphans of our Soldiers and Sailors,” Adams County land records, deed book Z, page 482; Photograph looking from the national cemetery across the Pierce/orphanage field planted with corn, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 97,
+   "offset": 3372,
+   "window": "The documentation on trees and shrubs is taken from historic photographs, specimens of 30” dbh documented on a 1964 survey of the cemetery, species that existed by 1874 as documented in Engle, 76-80; and superintendent’s monthly reports, 1873-1878.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 98,
+   "offset": 3900,
+   "window": "126 Photograph looking east at lodge and entrance gates, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 109,
+   "offset": 409,
+   "window": "The observation tower on East Cemetery Hill built in 1878, looking northeast along Baltimore Street across from Evergreen Cemetery, photographed ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 113,
+   "offset": 2003,
+   "window": "Looking northwest across the Pennsylvania plot showing one of the single rose bushes planted in 1873 at each of the plot markers, photographed ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 121,
+   "offset": 72,
+   "window": "The shrub belt around Soldiers’ National Monument, looking southwest across one of the unknown plots showing winter character following work done according to a plan by Chief Engineer James Gall in 1880, photographed ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 122,
+   "offset": 37,
+   "window": "The national cemetery looking west from the East Cemetery Hill observation tower showing shrubs planted in the burial area between 1880 and 1883, photographed ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 122,
+   "offset": 945,
+   "window": "The burial area looking southwest along a radial drive showing the evergreen reopen views to the south.71 shrubs planted between 1880 and 1883, photographed ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 148,
+   "offset": 645,
+   "window": "Looking west from the outer circular drive (walk) showing large trees stand...”149 The Depot Quartermaster growth of evergreen shrubs planted in the burial grounds in the early 1880s, agreed with Hamilton, but the hedge was not photographed 1913.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 165,
+   "offset": 2617,
+   "window": "146 68 Star and Sentinel, April 22, 1880; Photograph looking toward the inner edge of the shrub belt showing pampas grass and possibly canna, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 187,
+   "offset": 1244,
+   "window": "Top: original government Soldiers’ National Monument, where the ornate iron headstones and blocks in concentric circles, 1932; bottom: fence had stood up until 1935, to keep visitors from landscape showing conversion to flat markers in winter 1934, photographed 2005.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 195,
+   "offset": 2059,
+   "window": "Weaver, a TV and radio development between Taneytown Road (left) and Emmitsburg Road (right) by the time of the battle star played by Cliff Arquette, centennial, looking south, 1963.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 336,
+   "offset": 2859,
+   "window": "1 Photograph looking southwest from Baltimore Street showing narrow brick sidewalk, turf strip along road, and granite curbing to cemetery entrance, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 380,
+   "offset": 1947,
+   "window": "Visitors during the late nineteenth century generally toured East Cemetery Hill along with the national cemetery, and most early photographs of the cemetery were taken from the observation tower This retention basin could also be used to address at East Cemetery Hill.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 403,
+   "offset": 2475,
+   "window": "Historic photograph of newly-installed standard shot pyramids at Bancroft’s Battery showing form for restoration under task OCG-6, looking northwest toward the upper drive, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 405,
+   "offset": 3057,
+   "window": "The lodge, looking north showing louvered shutters and shutters: bronze green (Pantone Bronze Green and the standard white-dark (green) paint scheme used during the 18-0317 TPX); porch ceiling: light blue; steps: sides treatment period of the 1920s, photographed 1938.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 415,
+   "offset": 716,
+   "window": "A photograph from ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-CEMETERY",
+   "page": 417,
+   "offset": 351,
+   "window": "Most of the current posts are larger • Fabricate a replica of the historic fence based on historic photographs and specifications from the 1942 scrap drive documentation: 36 panels (slightly curved), each panel 5’ 9” long, 57” high, with rods ¾” thick with spear-shaped tops and horizontal bars ½” x 2”.Molds could also be taken from the 1886 fence around the Copse of ",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 11,
+   "offset": 2979,
+   "window": "To this end, the work eﬀort was directed toward photographs, maps and drawings, supplemented by a review of published and unpublished wri en sources.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 21,
+   "offset": 113,
+   "window": "Photograph by Tipton, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 21,
+   "offset": 277,
+   "window": "Photograph by O’Sullivan (GNMP General Historic Photographic Prints GETT 41135 #SF-2B-2095).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 27,
+   "offset": 1105,
+   "window": "Photograph by Tipton, 1889 (GNMP Tipton Photographic Prints GETT 41136 #OS-5036).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 27,
+   "offset": 3153,
+   "window": "Photograph by Tipton (GNMP General Historic Photographic Prints GETT 41135 #OS-2B-2175).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 31,
+   "offset": 1704,
+   "window": "Photograph by Tipton, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 32,
+   "offset": 1187,
+   "window": "hrough the Li le Round Top study area can s ll be iden ﬁed by contour lines and the large rocks that were used to ﬁll por ons of the grade along the north slope (Figure 2.22).27 In 1902, the last remaining structure in the compound of buildings that comprised Tipton Park was removed in order to restore the Ba le Era view from Li le Round Top to the 27.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 34,
+   "offset": 1593,
+   "window": "Photograph by Tipton, 1897 (GNMP Tipton Photographic Prints GETT 41136 #3098).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 35,
+   "offset": 167,
+   "window": "Photograph by Tipton, 1897 (GNMP Tipton Photographic Prints GETT 41136 #3106).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 35,
+   "offset": 2094,
+   "window": "Photograph by Tipton, 1904 (GNMP Tipton Photographic Prints GETT 41136 #3140).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 36,
+   "offset": 2141,
+   "window": "Photograph by Tipton, 1903.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 37,
+   "offset": 169,
+   "window": "Photograph by Tipton, 1896 (GNMP Tipton Photographic Prints GETT 41136 #4239).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 37,
+   "offset": 493,
+   "window": "Photograph by Tipton, circa 1890-1893 (GNMP Tipton Photographic Prints GETT 41136 #2436).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 38,
+   "offset": 3278,
+   "window": "Photograph by Tipton, 1897 (GNMP Tipton Photographic Prints GETT 41136 #4728).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 39,
+   "offset": 176,
+   "window": "Photograph by Tipton, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 39,
+   "offset": 1857,
+   "window": "Little Round Top Cultural Landscape Report Relying on the Warren map and Brady/Tipton photographs, Tilberg recommended opening the view from the summit of Li le Round Top by thinning out the brush of the western slope and leaving a sca ered growth of medium-height pine and oak.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 117,
+   "offset": 1229,
+   "window": "Through a careful analysis of the descriptions of terrain by battle participants and photographs taken in the days immediately following the battle, a clear sense emerges of how the landscape of Little Round Top affected the events that occurred there between July 1 and July 3, 1863.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 119,
+   "offset": 1549,
+   "window": "Several of the photographs included in this sec on were taken just days a er the close of ba le, providing an accurate record of the condi on of Li le Round Top before it could be altered by any natural processes or human interven ons (Figures 4.044.05 and 4.09-4.11).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 120,
+   "offset": 209,
+   "window": "View looking north from the summit of Little Round Top, July 1863 (Library of Congress Civil War Photos #01632u).",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 134,
+   "offset": 148,
+   "window": "Photograph by Tipton, ca.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 134,
+   "offset": 245,
+   "window": "View from Little Round Top at the same location as Tipton’s 1890 photograph.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 136,
+   "offset": 1805,
+   "window": "Photograph by O’Sullivan (GNMP General Historic Photographic Prints GETT 41135 #SF-2B-2095).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 136,
+   "offset": 2166,
+   "window": "Photograph by Tipton, 1889 (GNMP Tipton Photographic Prints GETT 41136 #5036).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 136,
+   "offset": 2545,
+   "window": "Photograph by Tipton, 1896 (GNMP Tipton Photographic Prints GETT 41136, #4239).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 175,
+   "offset": 3268,
+   "window": "Tipton took numerous views of the memorials and the landscape.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-LRT",
+   "page": 175,
+   "offset": 3410,
+   "window": "Tipton’s collec on included photos taken by other photographers as well, including copies from original plates by O’Sullivan and Brady.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 4,
+   "offset": 2211,
+   "window": "Classifcation: LCC E475.56 .L59 2018 | DDC 974.8/42--dc23 LC record available at https://lccn.loc.gov/2018039076 Cover Photo: View southwest from The Angle toward the 72nd Pennsylvania Infantry monument and Codori Barn, Olmsted Center for Landscape Preservation, 2013.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 58,
+   "offset": 105,
+   "window": "View southwest from Rose Barn, 1863 (GETT 41135, Historic Photograph Collection, 2B-2063). Figure 7. Gettysburg National Cemetery and Baltimore Pike, view southwest from observation tower on East Cemetery Hill with reconstructed lunettes in foreground, 1878 (GETT 41136, Tipton Collection, T1838A).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 101,
+   "offset": 2109,
+   "window": "Sources of information that guided rehabilitation included the 1868 Warren Map and a circa 1880s photograph from the Seminary cupola (Figure 21).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 111,
+   "offset": 1689,
+   "window": "The eastern fence [ID 1414] is partially visible in an 1863 photograph looking northeast from the McPherson Barn.",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 121,
+   "offset": 101,
+   "window": "View northwest from Seminary Cupola, circa 1880 (GETT 41135, Historic Photograph Collection, 2B-2006b).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 122,
+   "offset": 200,
+   "window": "View west from Seminary Cupola, circa 1880s (GETT 41135, Historic Photograph Collection, 2B-2006aa and 2B-2006ab).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 123,
+   "offset": 79,
+   "window": "Forney Barn View northwest from Oak Ridge Observation Tower, circa 1896 (GETT 41136, Tipton Collection, T4310b).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 124,
+   "offset": 216,
+   "window": "View southwest from Seminary Cupola, circa 1880s (GETT 41135, Historic Photograph Collection, 2B2006).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 125,
+   "offset": 80,
+   "window": "View southeast from McPherson Farm, 1863 (GETT 41135, Historic Photograph Collection, 2B2001).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 129,
+   "offset": 245,
+   "window": "View northwest, circa 1896 (GETT 41136, Tipton Collection, T4310).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 130,
+   "offset": 158,
+   "window": "View southeast, 1863 (GETT 41135, Historic Photograph Collection, 23S0340).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 131,
+   "offset": 55,
+   "window": "View southwest from Seminary Cupola, circa 1880s (GETT 41135, Historic Photograph Collection, 2B2006).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 132,
+   "offset": 160,
+   "window": "View northwest from Seminary Cupola, circa 1882 (GETT 41136, Tipton Collection, T2039).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 139,
+   "offset": 132,
+   "window": "View east, circa 1890 (GETT 41136, Tipton Collection, T2731).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 147,
+   "offset": 2182,
+   "window": "The orchard served as an avenue of approach and provided cover for Union troops advancing from the seminary toward Confederate positions at Oak Hill.12 The feature is documented in photographs from the Tipton Collection, the Adams County Historical Society Collection, and the park’s historical collection and includes a photograph from 1863 (Figure 79).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 154,
+   "offset": 191,
+   "window": "View northwest from Mummasburg Road, 1870s (GETT 41136, Tipton Collection, T1801a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 157,
+   "offset": 73,
+   "window": "Detail of view northwest from Cemetery Hill, 1863 (Library of Congress, Digital ID ppmsca 35051).",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 159,
+   "offset": 208,
+   "window": "Detail of view northwest from Cemetery Hill, 1863 (Library of Congress, Digital ID ppmsca 35051).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 160,
+   "offset": 198,
+   "window": "View southeast from McClean Fields, circa 1882 (GETT 41135, Historic Photograph Collection, 8G-8017b).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 189,
+   "offset": 62,
+   "window": "Detail of view northwest from the Angle, 1882 (GETT 41135, Historic Photograph Collection, 3C-3011x).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 190,
+   "offset": 173,
+   "window": "View southeast from Seminary Ridge, 1890s (GETT 41136, Tipton Collection, T2045a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 191,
+   "offset": 236,
+   "window": "Detail McMillan Orchard & Nursery Smith Field 1 of view northwest from Cemetery Hill Observatory, 1878 (GETT 41136, Tipton Collection, T1992e+f).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 192,
+   "offset": 267,
+   "window": "Detail of Smith Field 1 McMillan Orchard 2 view northwest from Cemetery Hill Observatory, 1878 (GETT 41136, Tipton Collection, T1992e+f).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 193,
+   "offset": 114,
+   "window": "View northwest from the Angle, 1882 (GETT 41135, Historic Photograph Collection, 3C-3011a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 195,
+   "offset": 77,
+   "window": "Detail of view northwest from the Angle, 1882 (GETT 41135, Historic Photograph Collection, 3C-3011j).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 197,
+   "offset": 105,
+   "window": "Detail of view west from National Cemetery, circa 1868 (GETT 41136, Tipton Collection, T1883i+j).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 198,
+   "offset": 136,
+   "window": "Detail of view southwest from National Cemetery, circa 1869 (GETT 41136, Tipton Collection, T2012a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 200,
+   "offset": 218,
+   "window": "Detail of view northwest from Cemetery Hill Observatory, circa 1880 (GETT 41135, Historic Photograph Collection, 18N-0021a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 201,
+   "offset": 248,
+   "window": "Detail of view northwest from The Angle, 1882 (GETT 41135, Historic 1350 and 1352 (Long Lane) Photograph Collection, 3C-3011q).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 207,
+   "offset": 100,
+   "window": "View west from The Angle, 1882 (GETT 41135, Historic Photograph Collection, 3C-3010a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 223,
+   "offset": 2352,
+   "window": "A historic photograph from 1863 that focuses on the Leister House shows that for Frey Field 5, the east boundary fence was post and stone and not stone and rider.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 231,
+   "offset": 1278,
+   "window": "The meadow and feld likely provided an avenue of approach for Union troops headed to battle in the Wheatfeld and would have provided cover to the troop movements.49 An 1863 photograph from the park’s historical collection shows random-sized boulders rolled into place along the south boundary of John Weikert Field 1 (Figure 193).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 237,
+   "offset": 93,
+   "window": "Detail of view southwest from Cemetery Ridge, 1882 (GETT 41135, Historic Photograph Collection, 3C3005).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 243,
+   "offset": 81,
+   "window": "Detail of view northeast from Little Round Top, 1863 (Library of Congress, Digital ID cwpb-01631).",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 245,
+   "offset": 190,
+   "window": "View northwest from Little Round Top, circa 1886 (GETT 41136, Tipton Collection, T1894).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 247,
+   "offset": 92,
+   "window": "Detail of view northeast, 1882 (GETT 41135, Historic Photograph Collection, 3C-3004).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 248,
+   "offset": 149,
+   "window": "Detail of view southwest from Cemetery Ridge, 1882 (GETT 41135, Historic Photograph Collection, 3C-3005).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 251,
+   "offset": 100,
+   "window": "Detail of view northeast from Little Round Top, 1863 (Library of Congress, Digital ID cwpb-01631).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 252,
+   "offset": 256,
+   "window": "View northwest, 1882 (GETT 41135, Historic Photograph Collection, 3C-3001c).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 253,
+   "offset": 240,
+   "window": "View northwest, 1863 (GETT 41135, 163 Historic Photograph Collection, 23S0251).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 254,
+   "offset": 176,
+   "window": "Detail of view southwest, 1882 (GETT 41135, Historic Photograph Collection, 3C-3006).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 255,
+   "offset": 111,
+   "window": "Detail of view southeast, 1882 (GETT 41135, Historic Photograph Collection, 3C-3005).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 257,
+   "offset": 127,
+   "window": "Detail of view southwest from Cemetery Ridge, 1882 (GETT 41135, Historic Photograph Collection, 3C3005).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 257,
+   "offset": 326,
+   "window": "Detail of view southwest, 1882 (GETT 41135, Historic Photograph Collection, 3C-3006).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 259,
+   "offset": 98,
+   "window": "View southwest from Taneytown Road, 1870s (GETT 41136, Tipton Collection, 1878a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 263,
+   "offset": 112,
+   "window": "Detail of view north from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2100h).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 265,
+   "offset": 126,
+   "window": "View south, 1863 (GETT 41135, Historic Photograph Collection, 2B2086).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 277,
+   "offset": 71,
+   "window": "Detail of view northwest, 1863 (Library of Congress, Digital ID cwpb 00887).",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 280,
+   "offset": 178,
+   "window": "View southwest, circa 1880s (GETT 41136, Tipton Collection, T1981a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 282,
+   "offset": 283,
+   "window": "Detail of view northwest, 1863 (Library of Congress, Digital ID cwpb 00887).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 282,
+   "offset": 438,
+   "window": "View northwest, circa 1880s (GETT 41136, Tipton Collection, T2403).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 283,
+   "offset": 128,
+   "window": "Detail of view northwest, 1863 (Library of Congress, Digital ID cwpb 00887).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 307,
+   "offset": 150,
+   "window": "View east from Evergreen Cemetery Gatehouse, 1863 (GETT 41135, Historic Photograph Collection, OS2B-2037).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 316,
+   "offset": 170,
+   "window": "Detail of view east from East Cemetery Hill, 1863 (GETT 41135, Historic Photograph Collection, 2B-2038a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 317,
+   "offset": 71,
+   "window": "View north along Greene’s Brigade breastworks, 1863 (GETT 41136, Tipton Collection, T3452a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 318,
+   "offset": 173,
+   "window": "View southeast, circa 1905–10 (GETT 41136, Tipton Collection, T2311 B-3).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 321,
+   "offset": 110,
+   "window": "View northwest, circa 1880 (GETT 41136, Tipton Collection, T2311 B-7).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 322,
+   "offset": 181,
+   "window": "View south from Abraham Spangler Meadow, 1870s (GETT 41136, Tipton Collection, T1851a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 323,
+   "offset": 57,
+   "window": "Henry Culp Fruit Garden View northeast from Cemetery Hill, 1878 (GETT 41135, Historic Photograph Collection, 2B-2024a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 337,
+   "offset": 87,
+   "window": "View southwest from Spangler Meadow, circa 1880 (GETT 41135, Historic Photograph Collection, 2B-2044a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 375,
+   "offset": 61,
+   "window": "View northeast from Confederate Avenue Observation Tower, circa 1900 (GETT 41135, Historic Photograph Collection, OS2B-2188c).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 377,
+   "offset": 144,
+   "window": "Detail of view west from The 633 Angle, 1882 (GETT 41135, Historic Photograph Collection, 3C-3010).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 378,
+   "offset": 213,
+   "window": "Detail of view southwest from The Angle, 1882 (GETT 41135, Historic Photograph Collection, 3C-3009j).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 379,
+   "offset": 92,
+   "window": "View southwest along Emmitsburg Road Emmitsburg Road, 1880s (GETT 41136, Tipton Collection, T1886a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 387,
+   "offset": 89,
+   "window": "View northwest, circa 1890 (GETT 41136, Tipton Collection, T2499).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 414,
+   "offset": 140,
+   "window": "View north from Trostle Field 1, circa 1896 (GETT 41136, Tipton Collection, T2849).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 416,
+   "offset": 159,
+   "window": "Detail of view southwest, 1882 (GETT 41135, Historic Photograph Collection, 23S-0140).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 418,
+   "offset": 161,
+   "window": "Detail of view southeast from Codori House, circa 1910 (GETT 41136, Tipton Collection, T2404).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 422,
+   "offset": 265,
+   "window": "View north from Trostle Field 1, circa 1896 (GETT 41136, Tipton Collection, T2849).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V1",
+   "page": 431,
+   "offset": 87,
+   "window": "View southeast, circa 1889 (GETT 41136, Tipton Collection, T2455).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 4,
+   "offset": 2212,
+   "window": "Classifcation: LCC E475.56 .L59 2018 | DDC 974.8/42--dc23 LC record available at https://lccn.loc.gov/2018039076 Cover Photo: View southwest from Devil’s Den toward the Slyder Farmstead, Olmsted Center for Landscape Preservation, 2014.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 50,
+   "offset": 106,
+   "window": "View southwest from Rose Barn, 1863 (GETT 41135, Historic Photograph Collection, 2B-2063). Figure 7. Gettysburg National Cemetery and Baltimore Pike, view southwest from observation tower on East Cemetery Hill with reconstructed lunettes in foreground, 1878 (GETT 41136, Tipton Collection, T1838A).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 114,
+   "offset": 133,
+   "window": "View east, 1863 (GETT 41135, Historic Photograph Collection, 2B-2059).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 115,
+   "offset": 155,
+   "window": "Detail of view west from Little Round Top, 1886–88 (GETT 41136, Tipton Collection, T2450j).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 116,
+   "offset": 201,
+   "window": "Detail of view west from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2090).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 118,
+   "offset": 205,
+   "window": "Detail of view west from Little Round Top, 1886–88 (GETT 41136, Tipton Collection, T2450j).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 120,
+   "offset": 167,
+   "window": "Detail of view northwest from Rose Field 10, 1863 (GETT 41135, Historic Photograph Collection, 2B-2056a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 121,
+   "offset": 83,
+   "window": "View southwest from Rose Barn, 1863 (GETT 41135, Historic Photograph Collection, 2B-2063).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 122,
+   "offset": 151,
+   "window": "View southwest from Rose Field 10, 1863 (GETT 41135, Historic Photograph Collection, 2B-2062).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 123,
+   "offset": 66,
+   "window": "View southwest from Rose Field 10, 1863 (GETT 41135, Historic Photograph Collection, 2B-2060).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 124,
+   "offset": 164,
+   "window": "View west from Little Round Top, circa 1895–1900 (GETT 41136, Tipton Collection, T2429d).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 125,
+   "offset": 47,
+   "window": "View north from Emmitsburg Road, circa 1894 (GETT 41135, Historic Photograph Collection, 23S-0575a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 126,
+   "offset": 217,
+   "window": "View southeast from Wheatfeld Road, circa 1890 (GETT 41136, Tipton Collection, T2751).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 127,
+   "offset": 104,
+   "window": "Detail of view southeast from Trostle Field 1, circa 1889 (GETT 41136, Tipton Collection, T2455b).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 128,
+   "offset": 174,
+   "window": "View northwest from Little Round Top, 1890 (GETT 41136, Tipton Collection, T2444b).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 133,
+   "offset": 75,
+   "window": "Detail of view east from Rose Lane Orchard, 1870s (GETT 41136, Tipton Collection, T1702a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 134,
+   "offset": 179,
+   "window": "Detail of view west from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2090).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 149,
+   "offset": 87,
+   "window": "Detail of view northwest from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2090).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 150,
+   "offset": 120,
+   "window": "View west, 1863 (Civil War Photographs Collection, United States Army Heritage and Education Center, Carlisle, PA).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 151,
+   "offset": 109,
+   "window": "View southeast, 1863 (Library of Congress, Digital ID LCDIG-ppmsca-12565).",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 152,
+   "offset": 178,
+   "window": "View southeast, 1863 (GETT 41135, Historic Photograph Collection, 2B-2083a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 176,
+   "offset": 185,
+   "window": "View southwest, 1880s (GETT 41135, Historic Photograph Collection, OS2B-2190a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 178,
+   "offset": 185,
+   "window": "Detail of view southwest from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2090).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 180,
+   "offset": 136,
+   "window": "View south, circa 1900 (GETT 41140, Records of the GNPC, Monument, Markers, and Tablets Photograph Albums, 1898-1911, pg.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 181,
+   "offset": 87,
+   "window": "Detail of view southwest from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2090).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 182,
+   "offset": 154,
+   "window": "View southwest from Little Round Top, circa 1895–1900 (GETT 41136, Tipton Collection, T2429c).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 191,
+   "offset": 417,
+   "window": "It was from these positions the brigade made its dramatic mounted charges across the felds of the Spangler, Lott, and Howard farms during the afternoon hours.8 The 1880 Bachelder/Maxson Map shows a long fence line extending from the southwest corner of the barn but does not show any fences forming pens or enclosures of of the building (Drawing 25A).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 197,
+   "offset": 54,
+   "window": "View southwest from First Brigade tablet, circa 1912 (GETT 41136, Tipton Collection, T2255).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 329,
+   "offset": 87,
+   "window": "Detail of view southeast from East Cemetery Hill, 1863 (GETT 41135, Historic Photograph Collection, 2B2B-2038u).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 329,
+   "offset": 260,
+   "window": "Detail of view north from near McKnight’s Hill, 1863 (GETT 41135, Historic Photograph Collection, 2B-2019e).",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 329,
+   "offset": 487,
+   "window": "Detail of view northwest from Cemetery Hill, 1863 (Library of Congress, Digital ID ppmsca 35051).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 336,
+   "offset": 195,
+   "window": "Detail of view southeast from East Cemetery Hill, 1863 (GETT 41135, Historic Photograph Collection, 2B-2038b).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 336,
+   "offset": 398,
+   "window": "Detail of view northeast from Cemetery Fisher Field Ridge, 1882 (GETT 41135, Historic Photograph Collection, 3C-3004i) Figure 134.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 337,
+   "offset": 124,
+   "window": "Detail of view west, 1882 (GETT 41135, Historic Photograph Collection, 3C-3010c).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 344,
+   "offset": 290,
+   "window": "Detail of view northwest, 1863 (Library of Congress, Digital ID cwpb 00887).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 349,
+   "offset": 122,
+   "window": "Detail of view northwest, 1863 (GETT 41136, Tipton Collection, T2403).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 349,
+   "offset": 308,
+   "window": "Detail of view northwest, 1863 (GETT 41136, Tipton Collection, T2403).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 349,
+   "offset": 452,
+   "window": "Detail of view northwest from Mummasburg Road, 1870s (GETT 41136, Tipton Collection, T1801a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-CLR-ROT-V2",
+   "page": 350,
+   "offset": 166,
+   "window": "Detail of view southwest, circa 1875 (GETT 41135, Historic Photograph Collection, 2B-2049a).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-COMMON-PRIDE-3",
+   "page": 23,
+   "offset": 0,
+   "window": "9*77 Tipton Photo \"Hie Walk Through Ziegler's Grove, looking north\" (1897) Contrary to the title of this photograph, the view is really towards the northeast, with the Taney town Road And the entrance to the National Cemetery in the center background.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-COMMON-PRIDE-3",
+   "page": 29,
+   "offset": 0,
+   "window": "452 Brady Photo \"Scene looking northward toward Cemetery Hill from the crest of Little Round Top\" (July 1863) This view, while concentrating on the foreground and the fields of the George Weikert Farm, is the only 1863 photograph extant showing the field of Longstreet's Assault of July 3, 1863.",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-COMMON-PRIDE-3",
+   "page": 29,
+   "offset": 522,
+   "window": "The comparable heights of Ziegler's Grove and the copse of.trees may not be apparent, but a measurement of the images on the photograph reveals that the average height of Ziegler's Grove trees is 4 - 5 mm, while those in the copse of trees range from 2 - 3 mm (almost half the height, even though the image of the copse of trees is closer to the camera, and should be that much larger).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-COMMON-PRIDE-3",
+   "page": 31,
+   "offset": 27,
+   "window": "526 \"Showing part of ground occupied by Hancock at time of Longstreet's charge'.' (enlarged) (1870s, before fall of 1877) This view is southeast from the Emmitsburg Road, and is part of a series of three taken by the photographer, which swept from the Angle to the Codori buildings .",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-COMMON-PRIDE-3",
+   "page": 33,
+   "offset": 0,
+   "window": "456 Tipton Photo Panorama for Cyclorama painting, clump of trees (enlarged section) (1881) This view of southwestward toward the clump of trees and the position' occupied by Webb's Brigade.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-COMMON-PRIDE-3",
+   "page": 41,
+   "offset": 0,
+   "window": "•4 64 Tipton Photo -View south over Hancock Avenue from Ziegler's Grove tower .(enlarged section) (after 1911) This view is comparable to the previous photo, but shows a'much-changed area between the copse of trees and the stone wall to the west, along the position of the",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-COMMON-PRIDE-3",
+   "page": 82,
+   "offset": 0,
+   "window": "♦ 505 Unknown photographer, Clump of Trees and early monuments' * _ (Fall 1885-Summer 1887) This view across Hancock Avenue and through the Brlnkerhoff barbed-wire fence erected along GBMA boundaries looks westward • to the clump of trees about twenty-five years after the battle.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-COMMON-PRIDE-3",
+   "page": 124,
+   "offset": 103,
+   "window": "stereo view to by field Kemper's movement by buildings scene the of two regiments GBMA the s o u t h w e s t indicates the s i t e w h e r e Hancock was G B M A as in the b a c k g r o u n d w a s the left flank toward of S t a n n a r d ' s such and of the front by",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-COMMON-PRIDE-3",
+   "page": 132,
+   "offset": 0,
+   "window": "555 Appendix H--Modern Photographs and Commentary (Each map preceding the photographs indicates thereon the position of the camera when the picture was taken.)",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-DCP-GUINN",
+   "page": 30,
+   "offset": 331,
+   "window": "ark supply room (400 sq ft) Interpretation and Visitor Services - 940 sq ft Chief* Assistant Chief* Interpretive specialist* ENP&MA* (2) Workroom (200 sq ft with work counter and sink) Secure storeroom (with shelving for cameras and other sensitive equipment) Photographic darkroom (65 sq ft) Resource Management and Visitor Protection - 2,725 sq ft Division chief* Resource Management Chief* Resource ranger* Resource technician* Visitor Protection Visitor protection specialist* Supervisory park ranger* Lead park ranger* Patrol",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-CLI-REDDING-2004",
+   "page": 4,
+   "offset": 2643,
+   "window": "A review of aerial photographs from 1946, maps dating from 1901, and on-site inventory reveals that many of the landscape patterns have remained intact.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-CLI-REDDING-2004",
+   "page": 40,
+   "offset": 638,
+   "window": "A review of historic maps and aerial photographs indicates that the building clusters changed over time - new structures were added and some disappeared.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-CLR1",
+   "page": 13,
+   "offset": 3859,
+   "window": "Semicircular ﬂower bed around old well with “L” shaped lilac hedge, south of home, aerial view from east, original photograph out of focus, 12 September 1956.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-CLR1",
+   "page": 23,
+   "offset": 440,
+   "window": "He also incorporated historical maps and photographs, and took many contemporary photographs from the same vantage points for comparison.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-CLR1",
+   "page": 28,
+   "offset": 3815,
+   "window": "These images were rephotographed in May 1999 by the primary author from the same locations to document the landscape changes that had occurred over the previous three decades.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-CLR1",
+   "page": 40,
+   "offset": 1470,
+   "window": "Jacob Hereter (1845) Daniel Baumgardner (1845) In the mid-1800s, the Quintain Armstrong log house was updated with a brick addition and brick facing, a detached kitchen, and bake oven.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-CLR1",
+   "page": 81,
+   "offset": 542,
+   "window": "The information provided in this section was taken from several sources including oral histories, correspondence, farm records, and historic photographs.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-CLR1",
+   "page": 108,
+   "offset": 425,
+   "window": "Semicircular ﬂower bed around old well with “L” shaped lilac hedge, south of home, aerial view from east, original photograph out of focus, 12 September 1956.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-CLR1",
+   "page": 160,
+   "offset": 810,
+   "window": "The earliest photograph showing a view of the new porch is in March 1958 (Eisenhower Library photo #1472) Historic Resource Study, p.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-CLR1",
+   "page": 258,
+   "offset": 3168,
+   "window": "A review of historic maps and aerial photographs indicates that the building clusters changed over time - new structures were added and some disappeared - reinforcing the idea of a dynamic farmstead that responded to changes in the farming technology and economy.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 174,
+   "offset": 1066,
+   "window": "croscope s l ides (5), cover glasses .e Regi stration app,lications, American Angus Aesociation 1 Recording book 'Slim Line Recorder Book.\" Used t o re cord animals in heat 1960 •' East Wall 2 .Banners, Pennsylvania Fann Show Grand Ch11111pi on,, 1960, 1961 l Photograph, framed, \"Get of Sire Ankonian 3551' taken by Show barn Identified in photo Clarence Kekler , left to right, --Moth, Dale Newman, John Sponseller l Photograph, framed \"Ankonian 2551\", taken outside of Show barn .",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 221,
+   "offset": 0,
+   "window": "•• I I I i 1 1 I !I PLATE VI Eisenhower Farms, Aerial Photograph of looking north, November 4, 1966 , courtesy u.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 225,
+   "offset": 0,
+   "window": "• • • Plate VIII West Elevation of the Eisenhowers' Home , 1969, photograph by w.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 227,
+   "offset": 122,
+   "window": "This photograph was taken by w.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 229,
+   "offset": 122,
+   "window": "Photograph taken in May 1969 by W, E.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 231,
+   "offset": 96,
+   "window": "Photograph taken by w.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 233,
+   "offset": 0,
+   "window": "--------------• • • Plate XII North and East Elevations of Show Barn, Farm No, 2, with Corra l s in Foreground, Photograph taken by w.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 235,
+   "offset": 87,
+   "window": "Photograph taken in Hay 1969 by w.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 237,
+   "offset": 99,
+   "window": "Photograph taken in May 1969 by w.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 239,
+   "offset": 122,
+   "window": "Photograph by w.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 241,
+   "offset": 107,
+   "window": "Photograph taken in May 1969 by w.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 245,
+   "offset": 154,
+   "window": "Photograph taken from observation tower on South Confederate Avenue by w.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-EISE-HRS",
+   "page": 247,
+   "offset": 182,
+   "window": "Photograph from files of Charles H.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-FD-2016",
+   "page": 38,
+   "offset": 1776,
+   "window": "Threats • While there have been many attempts to determine the exact location of the rostrum where Lincoln stood to deliver the Gettysburg Address, we can only make assumptions based on photographic and written evidence.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HARMON-FARM",
+   "page": 35,
+   "offset": 604,
+   "window": "A photograph taken in the 1870s shows a two-story brick house at the same site as that indicated by a house on the 1868-1869 G.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HB9-1954",
+   "page": 18,
+   "offset": 1879,
+   "window": "(Tipton photograph.) View of Culp's Hill, taken about 1890, showing earthworks on the crest of the hill.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HB9-1954",
+   "page": 43,
+   "offset": 0,
+   "window": "This photograph is the only known close-up view of the rostrum (upper left) at the dedication of the national cemetery.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HB9-1962",
+   "page": 45,
+   "offset": 0,
+   "window": "This is the only known close-up photographic view of the rostrum (upper left) at the dedication of the National Cemetery.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HS-MCPHERSON",
+   "page": 87,
+   "offset": 1202,
+   "window": "The photograph in Appendix F (no.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HS-MCPHERSON",
+   "page": 139,
+   "offset": 0,
+   "window": "137 #5> Matthew Brady photograph o f McPherson Farm and Herbst Woods, looking east-so u th east (on or about July 15, 1863). This photograph was taken from a point ju s t east o f the quarry and looks toward the Herbst wood- lo t .",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-HS-MCPHERSON",
+   "page": 201,
+   "offset": 252,
+   "window": "These were the o f f i c i a l reports submitted by the Commission to the Secretary o f War; they included a general overview of work done by the Commission and i t s employees during the year, and included blue­ prints (separate bound volumes) and photographs to illu s t r a t e said work.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 6,
+   "offset": 189,
+   "window": "85 # ♦Unless otherwise identified, all photographs were taken by the author.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 11,
+   "offset": 0,
+   "window": "Leister farmstead from the southeast taken by Alexander Gardner shortly after the Battle.",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 12,
+   "offset": 62,
+   "window": "The photograph is taken from the same position as Alexander Gardner's in 1863.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 17,
+   "offset": 245,
+   "window": "fabric has been aided by several of the photographs: mainly, the Alexander Gardner (Photographs 1 3), the Stereoview and Study of Tyson views of of 1863 1866-68 (Photograph 4), and the Tipton photographs of the farmstead of 1882 (south and west elevation), and c.1900 (east elevation).",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 17,
+   "offset": 879,
+   "window": "Tyson's view of several reclad building, years later reveals a reroofed and but the configuration is the same as that recorded by Gardner: two bays to the north with a south lean-to shed.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 20,
+   "offset": 0,
+   "window": "PHOTOGRAPH 3 Leister B a m viewed from the south and east shortly after the Battle, July, 1863. Photographed by Alexander Gardner, * • t",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 22,
+   "offset": 129,
+   "window": "Photograph by Tyson c.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 26,
+   "offset": 38,
+   "window": "Photograph by Tipton c.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 27,
+   "offset": 0,
+   "window": "I • • • # • • • I PHOTOGRAPH _6 Leister Farm from the west.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 33,
+   "offset": 363,
+   "window": "ILLUSTRATION 1 DETAIL SKETCH OF PHOTOGRAPH AT LEFT.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 54,
+   "offset": 432,
+   "window": "• PHOTOGRAPH 25 (FOLLOWING) THE WILLIAM PATTERSON BARN AS PHOTOGRAPHED BY TIPTON, c.1830.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 56,
+   "offset": 12,
+   "window": "A sim ilar treatment of log hay lo f t s and the sided and chinked w alls below is seen in Photograph 25, a view of the William Patterson Bam at Gettysburg taken by Tipton a fte r 1880.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 59,
+   "offset": 0,
+   "window": "PHOTOGRAPH 26 INTERIOR OF OVERSHOOT LOOKING NORTH.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 60,
+   "offset": 169,
+   "window": "DETAIL SKETCH OF PHOTOGRAPH AT LEFT SHOWING THE MORTISES AND TENONS OF THE ORIGINAL FRAMING.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-LEISTER-BARN",
+   "page": 61,
+   "offset": 0,
+   "window": "PHOTOGRAPH 28 DETAIL VIEW OF INTERIOR ELEVATION OF OVERSHOOT, NORTH CORNER POST, GIRTS, AND BRACES.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-MCCLEAN-BARN",
+   "page": 3,
+   "offset": 0,
+   "window": "LIST OF PHOTOGRAPHS PHOTOGRAPH NUMBER 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 DESCRIPTION PAGE Stereoscopic View of McClean Barn Enlargement of Photograph 1 Rear Column of Transverse Frame Logs and Girders Supporting Barn Floor Transverse Frame Southern Transverse Frame McClean Barn, 1885 Test Trench Z - Exterior Test Trench Z - Water Trail Test Trench Z - Interior Scarf Joint in Girder First Floor Girder Inter",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-MCCLEAN-BARN",
+   "page": 9,
+   "offset": 0,
+   "window": "Photograph 1 Stereoscopic view from the Mummasburg Road from the 1870s.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-MCCLEAN-BARN",
+   "page": 34,
+   "offset": 74,
+   "window": "Photograph 8 Exterior View of Test Trench Z Photograph 10 Interior View of Test Trench Z - 30 -",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-MCCLEAN-BARN",
+   "page": 42,
+   "offset": 0,
+   "window": "Photograph 18 McClean Barn from the Southwest Included in Brown's 1968 Report as Plate VII and erroneously dated 1965.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-MCCLEAN-BARN",
+   "page": 42,
+   "offset": 257,
+   "window": "Photograph from the collection of the Gettysburg National Military Park.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-MCCLEAN-BARN",
+   "page": 47,
+   "offset": 0,
+   "window": "Photograph 19 McClean Barn Looking East The McClean Farm is certainly the most visible and least obscured of those in the Park.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HSR-MCCLEAN-BARN",
+   "page": 55,
+   "offset": 492,
+   "window": "The Tipton photograph from the 1870s that the two doors in the shows upper level of the east wall painted white arch trim over of this decorative (Photograph 2) them.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-MCCLEAN-HOUSE-BARN",
+   "page": 4,
+   "offset": 403,
+   "window": "The McClean house from the west in a recent photograph. PLATE IX. The Barn from the southeast in a recent photograph.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-MCCLEAN-HOUSE-BARN",
+   "page": 45,
+   "offset": 0,
+   "window": "PLATE VII Photograph of the McClean Farm structures taken in 1965 showing the barn, house and three outbuildings.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-MCCLEAN-HOUSE-BARN",
+   "page": 47,
+   "offset": 0,
+   "window": "PLATE VIII The McClean house from the west in a recent photograph. PLATE IX The Barn from the southeast in a recent photograph.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-SLAUGHTER-PEN",
+   "page": 2,
+   "offset": 590,
+   "window": "The Round Tops and Slaughter Pen were photographed by those early chroniclers of the battlefield before the month of July 1863 dissipated-~-0 Sullivan, Gibson, Gardner, and Brady.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-SLYDER-GUIDE",
+   "page": 15,
+   "offset": 1226,
+   "window": "battle on the large town map, and attach their photograph near it.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-SPANGLERS-SPRING",
+   "page": 21,
+   "offset": 0,
+   "window": "Recent view of the Spangler's Spring canopy from the same position as that of the preceding Tipton photo­ graph.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-TPG-COMMEM",
+   "page": 56,
+   "offset": 872,
+   "window": "Before and after photographs of fences along West Confederate the carefully-laid stone walls rebuilt by the Avenue, looking southwest, 1935.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-TPG-COMMEM",
+   "page": 58,
+   "offset": 836,
+   "window": "at the avenues looking north showing changes system “has caused signifcant changes in the battlefeld’s appearance compared to made after 1933, notably removal the way it looked in 1863.”42 of avenue fencing along the west (left) side and paving of the avenue, photographed 1958.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-TPG-COMMEM",
+   "page": 84,
+   "offset": 98,
+   "window": "Recent views of traffc-control devices that refect contrasting Park Commission and National Park Service design philosophies within the Battlefeld Commemorative Area, photographed 2019.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-TPG-COMMEM",
+   "page": 95,
+   "offset": 1869,
+   "window": "(GETT 41136– photograph T3082, Gettysburg Notice is hereby given to all persons, That they are forbidden to enter or go upon [the national military park lands]..in such way and manner as may disfgure the natural features of the ground, or with a view to exercise thereon any special ",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-TPG-COMMEM",
+   "page": 111,
+   "offset": 895,
+   "window": "The observation tower WALKS AND TRAILS 38 stood in the background of the While the military avenues were the primary circulation through the battlefeld, 2019 photograph.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-TPG-COMMEM",
+   "page": 154,
+   "offset": 2248,
+   "window": "(Detail of map g3822qcw0351550, Library of Congress; of avenue fences could be undertaken in a discrete area to enhance the historic SUNY ESF) character of the commemorative area and its feeling as sacred space within 138",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-VISTA-CUTTING",
+   "page": 10,
+   "offset": 551,
+   "window": "Two Brady photographs of Little Round Top, one view from the southwest near Devil's Den and a second view from the northwest at a point near the intersection of the present Wheatfield Road and Crawfor Avenue, show clearly the condition of the slopes of Little Round Top and Plum R",
+   "covered_by_a_statement": true
+  },
+  {
+   "source": "NPS-VISTA-CUTTING",
+   "page": 10,
+   "offset": 892,
+   "window": "' Brady photographs of the terrain west and northwest from the crest of Little Round Top, if such exist in other Brady collections, are not available at this time.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-VISTA-CUTTING",
+   "page": 13,
+   "offset": 1375,
+   "window": "Attached to the report, also, is a panoramic view from Little Round Top of the area west and northwest thereof, based upon Tipton photographs made, it is thought, about 1890, and a panoramic view of",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-VISTA-CUTTING",
+   "page": 14,
+   "offset": 592,
+   "window": "Two Brady views of Little Round Top, and two corresponding views taken in December, 1939, have been included to show the appearance of Little Round Top after the battle at that point, and views at the present time to show the growth of trees and underbrush.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-VISTA-CUTTING",
+   "page": 17,
+   "offset": 0,
+   "window": "Set of photographs taken during the Summer of 193», showing panoramic view from Little Round Top southwestward, westward and northwestward* x notograpns show the heavy growth of trees which obliterate the view to- ward Devil*s Den, the Wheatfield and tue area northwestward*",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-VISTA-CUTTING",
+   "page": 19,
+   "offset": 0,
+   "window": "View of tne Round Tors from the northwest at a point near the intersection of the present Wheatfield Road and Crawford Avenue* At the left is a copy of a Brady photograph showing Little Round Top soon after ohe battle j at tne rignt is a view from approximately the same position, December, ly39.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-VISTA-CUTTING",
+   "page": 21,
+   "offset": 0,
+   "window": "View of Little Round Top from the southwest at a point near Devil*s Den# At the left is a copy of a Brady photograph} at the right, a view from approximately the same position, December, 19i5y «",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:gett_learn_photosmultimedia_buildings-and-farms-then-and-now",
+   "page": 0,
+   "offset": 1817,
+   "window": "Lutheran Theological Seminary Then & Now Left image A photographer’s assistant sits on a fence, looking up at the Lutheran Theological Seminary building.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:gett_learn_photosmultimedia_buildings-and-farms-then-and-now",
+   "page": 0,
+   "offset": 3351,
+   "window": "Photographer Matthew Brady photographed the gate house approximately two weeks after the battle.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:gett_learn_photosmultimedia_devil-s-den-then-and-now",
+   "page": 0,
+   "offset": 2927,
+   "window": "This photograph, taken by Peter Weaver on November 11, 1863, depicts a group of men posing as dead soldiers among rocks in the Slaughter Pen.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:gett_learn_photosmultimedia_devil-s-den-then-and-now",
+   "page": 0,
+   "offset": 4558,
+   "window": "This photograph, taken by Alexander Gardner's assistant Timothy O'Sullivan, depicts a dead Confederate soldier at the likely location of his death on the western side of Devil’s Den.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:gett_learn_photosmultimedia_devil-s-den-then-and-now",
+   "page": 0,
+   "offset": 5413,
+   "window": "Credit: NPS image This photograph, taken by Alexander Gardner's assistant Timothy O'Sullivan, depicts a dead Confederate soldier at the likely location of his death on the western side of Devil’s Den.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:gett_learn_photosmultimedia_rose-woods-then-and-now",
+   "page": 0,
+   "offset": 1219,
+   "window": "This photo was one of a series of well-known photographs taken by Timothy O’Sullivan and Alexander Gardner on July 5 or 6, 1863, near the edge of the Rose Woods.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:gett_learn_photosmultimedia_rose-woods-then-and-now",
+   "page": 0,
+   "offset": 2583,
+   "window": "By comparing the bodies, one can see that the first Then & Now photograph of the same group was taken just a few steps northeast of this photo, facing west.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-first-rose-woods",
+   "page": 0,
+   "offset": 524,
+   "window": "he main content Skip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Confederate Dead near the Edge of the Rose Woods, Gardner Stereo #257 Then & Now Quick Facts Location: This photo was taken near DeTrobriand Avenue. This photo was one of a series of well-known photographs taken by Timothy O’Sullivan and Alexander Gardner on July 5 or 6, 1863, near the edge of the Rose Woods.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-fortifications-lrt",
+   "page": 0,
+   "offset": 512,
+   "window": " the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Fortifications on Little Round Top Then & Now Quick Facts Location: This photograph was taken in Little Round Top.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-gardner-stereo",
+   "page": 0,
+   "offset": 514,
+   "window": " to the main content Skip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Confederate “Sharpshooter” near Devil’s Den, Gardner Stereo #263 Then & Now Quick Facts Location: This photograph was taken near Devil's Den.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-gatehouse",
+   "page": 0,
+   "offset": 499,
+   "window": "Skip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place EVERGREEN CEMETERY GATEHOUSE Then & Now Quick Facts Location: The photograph was taken near the Baltimore Pike.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-gatehouse",
+   "page": 0,
+   "offset": 1183,
+   "window": "Photographer Matthew Brady photographed the gate house approximately two weeks after the battle.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-handshake",
+   "page": 0,
+   "offset": 564,
+   "window": "al Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Veterans Shake Hands Across the Stone Wall on Cemetery Ridge Then & Now Quick Facts Location: This photograph was taken near Hancock Avenue.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-handshake",
+   "page": 0,
+   "offset": 1127,
+   "window": "In this photograph taken at the stone wall on Cemetery Ridge, a Confederate veteran can be seen greeting a Union veteran.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-high-water-mark",
+   "page": 0,
+   "offset": 526,
+   "window": "oter section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place High Water Mark of the Rebellion Monument Then & Now Quick Facts Location: This photograph was taken near Hancock Avenue.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-leister",
+   "page": 0,
+   "offset": 526,
+   "window": "oter section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Meade's Headquarters: Lydia Leister House Then & Now Quick Facts Location: This photograph was taken near Taneytown Road.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-mcpherson",
+   "page": 0,
+   "offset": 472,
+   "window": "main content Skip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place McPherson Farm Then & Now Quick Facts Location: This photograph was taken near Stone-Meredith Avenue.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-meade",
+   "page": 0,
+   "offset": 560,
+   "window": "onal Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Veterans Visit the Monument to General George Gordon Meade Then & Now Quick Facts Location: This photograph was taken near Hancock Avenue.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-pennsylvania-memorial-stairs",
+   "page": 0,
+   "offset": 572,
+   "window": "ark Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place ANNIVERSARY ATTENDEES LOUNGE ON THE PENNSYLVANIA MEMORIAL STAIRS Then & Now Quick Facts Location: This photograph was taken at the State of Pennsylvania Monument.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-pennsylvania-memorial",
+   "page": 0,
+   "offset": 934,
+   "window": "This photograph from the 50th Anniversary in 1913 provides a closer look at the bronze tablets lining the base of the Pennsylvania Memorial.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-plum-run",
+   "page": 0,
+   "offset": 546,
+   "window": "on National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Confederate Dead near Plum Run in the Slaughter Pen Then & Now Quick Facts Location: This photograph was taken near Sickles Avenue.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-second-rose-woods",
+   "page": 0,
+   "offset": 524,
+   "window": "he main content Skip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Confederate Dead near the Edge of the Rose Woods, Gardner Stereo #235 Then & Now Quick Facts Location: This photograph was taken near DeTrobriand Avenue.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-seminary",
+   "page": 0,
+   "offset": 502,
+   "window": "ip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Lutheran Theological Seminary Then & Now Quick Facts Location: This photograph was taken near North Hay Street.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-sharpshooter-location",
+   "page": 0,
+   "offset": 572,
+   "window": "ark Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place CONFEDERATE “SHARPSHOOTER” IN ORIGINAL LOCATION NEAR DEVIL’S DEN Then & Now Quick Facts Location: This photograph was taken near Devil's Den. This photograph, taken by Alexander Gardner's assistant Timothy O'Sullivan, depicts a dead Confederate soldier at the likely location of his death on the western side of Devil’s Den.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-sharpshooter-second-location",
+   "page": 0,
+   "offset": 501,
+   "window": " Skip to global NPS navigation Skip to the main content Skip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Gardner & O'Sullivan: Confederate “Sharpshooter” in Original Location near Devil’s Den Then & Now Quick Facts Location: This photograph was taken near Devil's Den. This photograph, taken by Alexander Gardner's assistant Timothy O'Sullivan, depicts a dead Confederate soldier at the likely location of his death on the western side of Devil’s Den.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-sharpshooter",
+   "page": 0,
+   "offset": 482,
+   "window": "o the main content Skip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place “Home of a Rebel Sharpshooter” Then & Now This photograph was taken in Devil's Den.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-slaughter-pen",
+   "page": 0,
+   "offset": 508,
+   "window": "to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Posed Scene in the Slaughter Pen Then & Now Quick Facts Location: This photograph was taken near Sickles Avenue. This photograph, taken by Peter Weaver on November 11, 1863, depicts a group of men posing as dead soldiers among rocks in the Slaughter Pen.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-staged-photo-dd",
+   "page": 0,
+   "offset": 498,
+   "window": "Skip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Staged Photo at Devil's Den Then & Now Quick Facts Location: This photograph was taken in Devil's Den.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-summit",
+   "page": 0,
+   "offset": 500,
+   "window": "p to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Summit of Little Round Top Then & Now Quick Facts Significance: This photograph was taken in Little Round Top.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-third-rose-woods",
+   "page": 0,
+   "offset": 524,
+   "window": "he main content Skip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Confederate Dead Near the Edge of the Rose Woods, Gardner Stereo #256 Then & Now Quick Facts Location: This photograph was taken near DeTrobriand Avenue.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-third-rose-woods",
+   "page": 0,
+   "offset": 951,
+   "window": "By comparing the bodies, one can see that the first Then & Now photograph of the same group was taken just a few steps northeast of this photo, facing west.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-valley-of-death",
+   "page": 0,
+   "offset": 720,
+   "window": "Little and Big Round Top from the Valley of Death Then & Now Quick Facts Location: This photograph was taken near Wheatfield Road.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-veteran-pointing",
+   "page": 0,
+   "offset": 608,
+   "window": " Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Veteran Points to Scene of Pickett's Charge from the Position of Cushing's Battery Then & Now Quick Facts Location: This photograph was taken near Hancock Avenue.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-warren",
+   "page": 0,
+   "offset": 755,
+   "window": "Warren Monument – 50th Anniversary of the Battle of Gettysburg Then & Now Quick Facts Location: This photograph was taken in Little Round Top.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_gettysburg-then-now-waud",
+   "page": 0,
+   "offset": 466,
+   "window": "obal NPS navigation Skip to the main content Skip to the footer section National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Sketch Artist Alfred Waud in Devil's Den Then & Now Quick Facts Significance: This photograph was taken in Devil's Den.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_trostle-barn-bigelows-battery",
+   "page": 0,
+   "offset": 548,
+   "window": "n National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Trostle Barn with Dead Horses from Bigelow’s Battery Then & Now Quick Facts Location: This photograph was taken near United States Avenue.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "WEB:places_trostle-house-bigelows-battery",
+   "page": 0,
+   "offset": 550,
+   "window": " National Park Service Search Search This Site All NPS Open Menu Close Menu Explore This Park Explore the National Park Service Exiting nps.gov Cancel Contact Us Place Trostle House with Dead Horses from Bigelow's Battery Then & Now Quick Facts Location: This photograph was taken near United States Avenue.",
+   "covered_by_a_statement": false
+  }
+ ]
+}

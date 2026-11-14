@@ -1,0 +1,18 @@
+OK   /Loss share\s+130 \(range 130-131/
+OK   /Killed\s+17-18/
+OK   /Wounded\s+80-83/
+OK   /Missing\s+30-31/
+OK   /On the map now\s+strength \d+-\d+ of 308 . down \d+/
+OK   /all 130 of its losses fall where it stands on the map/
+OK   /plausible-procedural: the nearest printed loss figure/
+OK   /Busey and Martin not available/
+OK   /the middle of each range \(DEC-008/
+OK   /EN-009\s+1 Jul 15:00 to 15:30 . timeline row T1-147 \(seeded unverified\) . OR27 audit: SUPPORTED BY OR/
+   text: Losses (procedural share of a printed figure) Plausible-proceduralweak source Loss share 130 (range 130-131 across the source spread) Killed 17-18 Wounded 80-83 Missing 30-31 On the map now — Basis: plausible-procedural: the nearest printed loss figure shared by the same leaf units as the strength; no regimental casualty number is in the record (Busey and Martin not available). Share 130 = 2,864 (I Corps printed loss less 3,180 printed for its sub-units) / 22 leaf units on the field. killed, wounded and missing: the lowest and highest fraction any source gives for the army (PDF B.1, OR27 Letterman) applied to the unit’s total; the picture uses the middle of each range (DEC-008, provisional builder choice). A man who lies down is a killed or a wounded man; a missing man is counted, not animated (the renderer cannot show a man leaving the line). Engagement windows EN-009 1 Jul 15:00 to 15:30 · timeline row T1-147 (seeded unverified) · OR27 audit: SUPPORTED BY OR Pettigrew’s assault on the McPherson Ridge line; the regimental figures printed in the row are NOT used  On the map now strength 225-226 of 308 · down 63 (killed 13-14, wounded 47-50) · missing 19-20 all 130 of its losses fall where it stands on the map
+   casualties object: {"kind":"procedural","total":{"printed":130,"min":130,"max":131},"fates":{"killed":{"point":18,"min":17,"max":18},"wounded":{"point":82,"min":80,"max":83},"missing":{"point":30,"min":30,"max":31}},"tier":"plausible-procedural","clauses":["EN-009"]} drawn strength 308
+   2me guns rows: Guns not drawn: no stated gun count (PDF B.6.14 gap: gun types are stated for 29 of 125 batteries); no default count is applied  | lossSection: Losses (procedural share of a printed figure) Plausible-proceduralweak source Loss share 130 (range 130-131 across the source spread) Killed 17-18 Wounded 80-83 Missing 30-31 On the map now — Basis: p
+   pickett-garnett lossSection: Losses (procedural share of a printed figure) Plausible-proceduralweak source Printed loss 950 (range 950-1,174 across the source spread) Killed 132-238 Wounded 519-784 Missing 183-295 On the map now — Basis: single loss figure printed in the PDF B.3 table (St | live: not drawn: no per-man fall (the losses stay a total)
+
+real	0m2.488s
+user	0m1.516s
+sys	0m0.200s

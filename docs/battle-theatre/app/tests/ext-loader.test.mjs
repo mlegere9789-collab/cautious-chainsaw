@@ -9,6 +9,7 @@
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath, pathToFileURL } from 'node:url';
 import { Extensions, INDEX, INIT_WAIT_MS, tierMark, tierName, readTierWords, TIER_WORDS, tierReading, plain, liveChoices, badPath, looksAbsent } from '../src/ui/extensions.mjs';
 import { moreHTML, togglesHTML, drawAdded, mountExtensionsUI, failedHTML, MORE } from '../src/ui/ext-panel.mjs';
+import { PANELS } from '../src/ui/panels.mjs';
 import { Bus, Scope } from '../src/scope.mjs';
 import { TIERS, TIER_STYLE, URLS } from '../src/config.mjs';
 import { RenderHost } from '../src/render-host.mjs';
@@ -319,6 +320,26 @@ test('the More tool: hidden until something is registered or has failed; the dot
   w.th.state.panel = 'up'; boom = true; w.X.update(1, 16, CAM, false, 1); assert.deepEqual(w.th.opened, [MORE], 'the panel of the stopped module is replaced by the list'); assert.equal(w.btn.getAttribute('aria-label'), 'More, 1 part of the page not running');
   let h2; const x2 = wire({ [INDEX]: { default: ['q.mjs'] }, 'q.mjs': { init(c) { h2 = c.registerPanel('only', 'Only panel', () => {}); } } }); await x2.X.load(); assert.equal(x2.btn.hidden, false);
   x2.th.state.panel = MORE; x2.th.closed = 0; x2.th.closePanel = () => { x2.th.closed++; x2.th.state.panel = null; }; h2.remove(); assert.equal(x2.btn.hidden, true, 'nothing left: the tool is hidden again'); assert.equal(x2.th.closed, 1, 'and the open list is closed');
+});
+
+// ---------------------------------------------------------------- ids that Object.prototype also has are only names
+test('panel and switch ids are only names: "constructor", "toString", "__proto__" register, list and open as added panels; a name nobody registered is no panel; the shell\'s own registry inherits nothing', async () => {
+  assert.equal(Object.getPrototypeOf(PANELS), null, 'src/ui/panels.mjs: the registry of the shell\'s own panels inherits no names'); for (const k of ['events', 'views', 'scenario', 'info', 'settings', 'sound']) assert.ok(Object.prototype.hasOwnProperty.call(PANELS, k), 'the shell panel ' + k + ' the contract names is there');
+  for (const k of ['constructor', 'toString', 'valueOf', 'hasOwnProperty', '__proto__']) assert.equal(PANELS[k], undefined, k + ' is no shell panel');
+  const ids = ['constructor', 'toString', '__proto__', 'hasOwnProperty'], th = fakeTheatre({ PANELS }), handles = {}; let ctx = null;
+  const btn = { hidden: true, dataset: {}, attrs: {}, setAttribute(k, v) { this.attrs[k] = String(v); }, removeAttribute(k) { delete this.attrs[k]; } }; th.scope = new Scope('visit'); th.root = { querySelector: s => (s === '#bt-more' ? btn : null) };
+  const { X, log } = mk({ [INDEX]: { default: ['a.mjs'] }, 'a.mjs': { init(c) { ctx = c; for (const id of ids) { handles[id] = c.registerPanel(id, 'Panel ' + id, () => {}); c.registerLayerToggle(id, 'Switch ' + id, () => true, () => {}); } } } }, { th }); th.ext = X; mountExtensionsUI(th); await X.load();
+  assert.deepEqual([log.errors, log.warns], [[], []]); assert.deepEqual([...X.panels.keys()], ids); assert.equal(btn.hidden, false, 'the More tool shows');
+  for (const id of ids) {
+    const found = PANELS[id] || th.panelFor(id);                                                  // the lookup of ui/chrome.mjs: the shell's panels, then the added ones
+    assert.equal(found.title, 'Panel ' + id, id + ' is found as the added panel it is'); assert.equal(typeof found.render, 'function');
+    assert.equal(handles[id].open(), true); assert.equal(th.state.panel, id); handles[id].close(); assert.equal(th.state.panel, null);
+  }
+  for (const id of ['valueOf', 'isPrototypeOf', 'nobody']) assert.equal(PANELS[id] || th.panelFor(id), null, id + ' was registered by nobody: it is no panel');
+  const html = moreHTML(X); for (const id of ids) { assert.ok(html.includes(`data-xpanel="${id}"`), 'the list names ' + id); assert.ok(html.includes(`data-xlayer="${id}" checked`), 'the switch ' + id + ' shows its state'); }
+  assert.throws(() => ctx.registerPanel('events', 'Mine', () => {}), /belongs to the shell/, 'the shell\'s own names are still refused'); assert.throws(() => ctx.registerPanel('more', 'Mine', () => {}), /belongs to the shell/);
+  assert.equal(ctx.registerPanel('constructor', 'Again', () => {}), handles.constructor, 'the same module registering its own id again replaces the panel and gets the same handle'); assert.equal(th.panelFor('constructor').title, 'Again');
+  X.dispose();
 });
 
 // ---------------------------------------------------------------- one drawing of an added panel (drawAdded of ui/ext-panel.mjs, with a stand-in box: no page needed)

@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: tolerances: the floors of the distance rule are the product gazetteer builder's own table
+ok 1 - tolerances: the floors of the distance rule are the product gazetteer builder's own table
+  ---
+  duration_ms: 9.416513
+  type: 'test'
+  ...
+# Subtest: time cells: the allowed window follows the printed cell and the stated conventions (the parser, on literal cells)
+ok 2 - time cells: the allowed window follows the printed cell and the stated conventions (the parser, on literal cells)
+  ---
+  duration_ms: 1.601197
+  type: 'test'
+  ...
+# Subtest: gazetteer: names resolve to the repository's places with the stated tolerance; unknown and ambiguous names are never guessed
+ok 3 - gazetteer: names resolve to the repository's places with the stated tolerance; unknown and ambiguous names are never guessed
+  ---
+  duration_ms: 52.455176
+  type: 'test'
+  ...
+# Subtest: naming units: designators carry their qualifiers, place names are not generals, a nickname names its brigade
+ok 4 - naming units: designators carry their qualifiers, place names are not generals, a nickname names its brigade
+  ---
+  duration_ms: 159.905447
+  type: 'test'
+  ...
+# Subtest: the product answers for a minute: arrival rule, position, activity, structure, weather, sky
+ok 5 - the product answers for a minute: arrival rule, position, activity, structure, weather, sky
+  ---
+  duration_ms: 1120.746597
+  type: 'test'
+  ...
+# Subtest: worked examples: 20 rows of shard tl-01, valid, with the results the product gives
+ok 6 - worked examples: 20 rows of shard tl-01, valid, with the results the product gives
+  ---
+  duration_ms: 2299.11394
+  type: 'test'
+  ...
+# Subtest: every kind has an assertion type that can prove it, and KIND_NEEDS names only known assertion types
+ok 7 - every kind has an assertion type that can prove it, and KIND_NEEDS names only known assertion types
+  ---
+  duration_ms: 0.316345
+  type: 'test'
+  ...
+# Subtest: realized: units at a place, moving toward it, arriving, absent before arrival, on the field with their casualties, guns, and a work with its crew
+ok 8 - realized: units at a place, moving toward it, arriving, absent before arrival, on the field with their casualties, guns, and a work with its crew
+  ---
+  duration_ms: 59.57287
+  type: 'test'
+  ...
+# Subtest: realized: a real row (T3-049, the Wade house at about 08:00 on 3 July) by its structure state
+ok 9 - realized: a real row (T3-049, the Wade house at about 08:00 on 3 July) by its structure state
+  ---
+  duration_ms: 1.780676
+  type: 'test'
+  ...
+# Subtest: not realized: a real row (T3-055, the Bliss buildings burned before noon) is shown only as a date-indeterminate blend
+ok 10 - not realized: a real row (T3-055, the Bliss buildings burned before noon) is shown only as a date-indeterminate blend
+  ---
+  duration_ms: 1.934665
+  type: 'test'
+  ...
+# Subtest: wrong: the record's words are not the row's, the window is not the row's, the version is not this one
+ok 11 - wrong: the record's words are not the row's, the window is not the row's, the version is not this one
+  ---
+  duration_ms: 1972.192216
+  type: 'test'
+  ...
+# Subtest: wrong: the product does not show what the record says (weather, sky, structure)
+ok 12 - wrong: the product does not show what the record says (weather, sky, structure)
+  ---
+  duration_ms: 957.81895
+  type: 'test'
+  ...
+# Subtest: wrong: the units are not the row's, are not on the field, are in the wrong place, do the wrong thing
+ok 13 - wrong: the units are not the row's, are not on the field, are in the wrong place, do the wrong thing
+  ---
+  duration_ms: 70.277305
+  type: 'test'
+  ...
+# Subtest: wrong: arrival, presence and motion that the arrival rule and the paths do not allow
+ok 14 - wrong: arrival, presence and motion that the arrival rule and the paths do not allow
+  ---
+  duration_ms: 55.748237
+  type: 'test'
+  ...
+# Subtest: wrong: units the formation lists but the picture does not draw fail the formation, and are named
+ok 15 - wrong: units the formation lists but the picture does not draw fail the formation, and are named
+  ---
+  duration_ms: 79.127477
+  type: 'test'
+  ...
+# Subtest: wrong: figures, casualties, guns, absent units and a unit absent for the wrong reason
+ok 16 - wrong: figures, casualties, guns, absent units and a unit absent for the wrong reason
+  ---
+  duration_ms: 68.157283
+  type: 'test'
+  ...
+# Subtest: wrong: a record of kind not_realized must fail with the reasons it gives; one whose probe passes is stale
+ok 17 - wrong: a record of kind not_realized must fail with the reasons it gives; one whose probe passes is stale
+  ---
+  duration_ms: 401.608567
+  type: 'test'
+  ...
+# Subtest: event cards and the epilogue: no module, no realization; a module that is listed and shows the row realizes it
+ok 18 - event cards and the epilogue: no module, no realization; a module that is listed and shows the row realizes it
+  ---
+  duration_ms: 4.724865
+  type: 'test'
+  ...
+# Subtest: scenarios: a record can name the scenario it holds in, or a list of them, and every one must hold
+ok 19 - scenarios: a record can name the scenario it holds in, or a list of them, and every one must hold
+  ---
+  duration_ms: 1170.21426
+  type: 'test'
+  ...
+# Subtest: the checker: deterministic, reports the record files' problems, never writes RESULTS.json for a record file given by --file
+ok 20 - the checker: deterministic, reports the record files' problems, never writes RESULTS.json for a record file given by --file
+  ---
+  duration_ms: 12133.13933
+  type: 'test'
+  ...
+# Subtest: RESULTS.json: written by the full run, one entry per timeline row, coverage = realization or an open register entry (the register half is compared with tools/bt/check_coverage.py in realize-inputs.test.mjs, which runs that script)
+ok 21 - RESULTS.json: written by the full run, one entry per timeline row, coverage = realization or an open register entry (the register half is compared with tools/bt/check_coverage.py in realize-inputs.test.mjs, which runs that script)
+  ---
+  duration_ms: 30.56196
+  type: 'test'
+  ...
+# Subtest: formation, the picture's own activity, a unit searched by the row's words, a place known, conflict scenarios
+ok 22 - formation, the picture's own activity, a unit searched by the row's words, a place known, conflict scenarios
+  ---
+  duration_ms: 2847.913052
+  type: 'test'
+  ...
+# Subtest: the author tools print what the harness knows: row, suggest, place
+ok 23 - the author tools print what the harness knows: row, suggest, place
+  ---
+  duration_ms: 15441.893396
+  type: 'test'
+  ...
+# Subtest: gazetteer.json: the places the timeline names, unknown names listed and never given coordinates
+ok 24 - gazetteer.json: the places the timeline names, unknown names listed and never given coordinates
+  ---
+  duration_ms: 2.289933
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 42582.44085

@@ -1,0 +1,36 @@
+test_q17_every_timeline_row_has_realization_or_open_register_entry (__main__.Coverage.test_q17_every_timeline_row_has_realization_or_open_register_entry) ... FAIL
+test_q18_every_requirement_has_subrequirements (__main__.Coverage.test_q18_every_requirement_has_subrequirements) ... ok
+test_q18_every_subrequirement_passing_or_linked (__main__.Coverage.test_q18_every_subrequirement_passing_or_linked) ... FAIL
+test_q23_tier_marking_on_non_documented_content (__main__.Coverage.test_q23_tier_marking_on_non_documented_content) ... FAIL
+
+======================================================================
+FAIL: test_q17_every_timeline_row_has_realization_or_open_register_entry (__main__.Coverage.test_q17_every_timeline_row_has_realization_or_open_register_entry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/test_coverage.py", line 10, in test_q17_every_timeline_row_has_realization_or_open_register_entry
+    self.assertTrue(C['Q17']['ok'], C['Q17'])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : {'ok': False, 'rows': 691, 'covered_by_open_register_entry': 315, 'covered_by_visual_realization': 0, 'uncovered': 376, 'uncovered_sample': ['T1-001', 'T1-002', 'T1-003', 'T1-004', 'T1-005', 'T1-006', 'T1-007', 'T1-008']}
+
+======================================================================
+FAIL: test_q18_every_subrequirement_passing_or_linked (__main__.Coverage.test_q18_every_subrequirement_passing_or_linked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/test_coverage.py", line 14, in test_q18_every_subrequirement_passing_or_linked
+    self.assertEqual(C['Q18']['unlinked_and_not_passing'], 0, C['Q18'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 461 != 0 : {'ok': False, 'requirements_without_subrequirements': [], 'requirements': 22, 'subrequirements': 969, 'unlinked_and_not_passing': 461, 'structure_ok': True}
+
+======================================================================
+FAIL: test_q23_tier_marking_on_non_documented_content (__main__.Coverage.test_q23_tier_marking_on_non_documented_content)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/test_coverage.py", line 16, in test_q23_tier_marking_on_non_documented_content
+    self.assertTrue(C['Q23']['ok'], C['Q23'])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : {'ok': False, 'non_documented_register_entries': 385, 'unmarked_register_entries': 10, 'unmarked_sample': ['EG-0137', 'EG-0139', 'EG-0292', 'EG-0293', 'EG-0294', 'EG-0295', 'EG-0296', 'EG-0297'], 'timeline_rows_without_tier': 0}
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (failures=3)

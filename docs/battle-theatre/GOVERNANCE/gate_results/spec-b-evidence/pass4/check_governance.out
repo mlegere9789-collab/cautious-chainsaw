@@ -1,0 +1,27 @@
+{
+ "ok": true,
+ "fails": [],
+ "notes": [
+  "sub-requirements 969: passing 0, linked to open register entry 508, UNLINKED (unfinished work) 461",
+  "horde evidence links (subreq_links.json, informational, not passes): 950 sub-requirements have a shard evidence row; still without register link or evidence row: 19",
+  "links: 508 sub-requirements linked to an OPEN register entry (links are not passes); 375 more have only a verified evidence row and no register entry (not counted as linked); 461 not passing and without an open register link",
+  "coverage Q17: FAIL (unfinished work, reported not hidden) {\"rows\": 691, \"covered_by_open_register_entry\": 315, \"covered_by_visual_realization\": 0, \"uncovered\": 376}",
+  "coverage Q18: FAIL (unfinished work, reported not hidden) {\"requirements_without_subrequirements\": [], \"requirements\": 22, \"subrequirements\": 969, \"unlinked_and_not_passing\": 461, \"structure_ok\": true}",
+  "coverage Q23: FAIL (unfinished work, reported not hidden) {\"non_documented_register_entries\": 385, \"unmarked_register_entries\": 10, \"timeline_rows_without_tier\": 0}"
+ ],
+ "counts": {
+  "requirements": 22,
+  "sub_requirements": 969,
+  "register_entries": 487,
+  "timeline_rows": 691,
+  "conflicts": 47,
+  "gates": 28,
+  "linked_open_register": 508,
+  "passing": 0
+ },
+ "coverage": {
+  "Q17": false,
+  "Q18": false,
+  "Q23": false
+ }
+}

@@ -352,17 +352,6 @@
   ]
  },
  {
-  "id": "checks-min-displacement",
-  "file": "tools/bt/realize/checks.mjs",
-  "find": "minDisp = a.min_displacement_m ?? 10",
-  "replace": "minDisp = a.min_displacement_m ?? 0",
-  "rule": "a march moves at least 10 m by default",
-  "tests": [
-   "rules",
-   "main"
-  ]
- },
- {
   "id": "checks-displacement-test",
   "file": "tools/bt/realize/checks.mjs",
   "find": "if (disp < minDisp) return fail('unit_not_moving'",
@@ -1585,6 +1574,402 @@
   "find": "const p = r.place; if (!p.on_ground) {",
   "replace": "const p = r.place; if (false) {",
   "rule": "a place off the loaded ground cannot be used for a position",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-casualty",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "atLeast(k, 1, 'no man leaving the line')",
+  "replace": "atLeast(k, 0, 'no man leaving the line')",
+  "rule": "assert_vacuous: a casualty minimum of 0 is satisfied by a line that loses no man",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-battery-count",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!ks.some(k => a[k] != null)) vac(",
+  "replace": "if (false) vac(",
+  "rule": "assert_vacuous: a battery check that names no count is satisfied by every battery",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-battery-zero",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "for (const k of ks) atLeast(k, 1, 'a battery with none');",
+  "replace": "for (const k of []) atLeast(k, 1, 'a battery with none');",
+  "rule": "assert_vacuous: a gun, limber, caisson or horse count of 0",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-figures-bare",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!(isNum(a.approx) && a.approx > 0) && !(isNum(a.min) && a.min >= 1)) vac(",
+  "replace": "if (false) vac(",
+  "rule": "assert_vacuous: a figures check with neither an approximate strength nor a minimum above 0",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-figures-min-zero",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "atLeast('min', 1, 'no figures');",
+  "replace": ";",
+  "rule": "assert_vacuous: a figures minimum of 0 beside a real strength",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-activity-all",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (STAGE_ACTIVITIES.every(x => [].concat(a.activities || []).includes(x))) vac(",
+  "replace": "if (false) vac(",
+  "rule": "assert_vacuous: an activity check that lists every activity the stage gives",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-floor-activity",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "floor('min_minutes', (U.activity_floor || {}).min_minutes);",
+  "replace": ";",
+  "rule": "tolerance_wider_than_stated: an activity for fewer minutes than the stated floor",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-floor-moves",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "for (const k of ['min_minutes', 'min_displacement_m', 'min_closing_m']) floor(",
+  "replace": "for (const k of []) floor(",
+  "rule": "tolerance_wider_than_stated: a march, a displacement or a closing below the stated floors",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-floor-figures-tol",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.tol_pct != null && U.figures && U.figures.tol_pct != null && !(isNum(a.tol_pct) && a.tol_pct <= U.figures.tol_pct)) wide(",
+  "replace": "if (false) wide(",
+  "rule": "tolerance_wider_than_stated: a share of the strength wider than the stated one",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-floor-tolf",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.tol_f != null && stated != null && !(isNum(a.tol_f) && a.tol_f <= stated)) wide(",
+  "replace": "if (false) wide(",
+  "rule": "tolerance_wider_than_stated: a temperature tolerance wider than the stated one",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-structure-bare",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!stateReal && a.present == null && a.schedule_row == null && !(a.hospital && a.hospital.id) && !visualReal) vac(",
+  "replace": "if (false) vac(",
+  "rule": "assert_vacuous: a structure check that names no state, presence, schedule row, hospital or visual bound",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-structure-anystate",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "return re.test('') && re.test('\\u0001 no state is called this \\u0001');",
+  "replace": "return false;",
+  "rule": "assert_vacuous: a state pattern that every state matches",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-structure-visual",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "(m[2] === 'min' ? !(isNum(x) && x <= 0) : !(isNum(x) && x >= 1))",
+  "replace": "true",
+  "rule": "assert_vacuous: a drawn-value minimum of 0 or maximum of 1",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-work",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.present == null && !(isNum(a.stage_min) && a.stage_min > 0) && !(isNum(a.stage_max) && a.stage_max < 6)) vac(",
+  "replace": "if (false) vac(",
+  "rule": "assert_vacuous: a work check that names no presence and no stage bound that a stage could fail",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-exposure",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.exposure_min != null && !(isNum(a.exposure_min) && a.exposure_min > 0)) vac(",
+  "replace": "if (false) vac(",
+  "rule": "assert_vacuous: a night floor of 0 is satisfied by black",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-weather-record",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.record === true && !WEATHER_CONTENT.some(k => a[k] != null)) vac(",
+  "replace": "if (false) vac(",
+  "rule": "assert_vacuous: a weather check that says only that a record exists",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-falsifiable",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!can) res.problems.push({ code: 'assert_vacuous'",
+  "replace": "if (false) res.problems.push({ code: 'assert_vacuous'",
+  "rule": "assert_vacuous: a weather or sky bound that no minute of the theatre clock violates",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-falsifiable-night-floor",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.type === 'sky' && Object.keys(a).filter(k => SKY_FIELDS.has(k)).every(k => k === 'exposure_min')) return true;",
+  "replace": "",
+  "rule": "the night floor of gate Q10 alone is the one exempt assertion (it holds at every minute by design)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-falsifiable-step",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "const CONTROL_STEP = 30;",
+  "replace": "const CONTROL_STEP = 300000;",
+  "rule": "the control minutes of the falsifiability test cover the whole theatre clock",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-place-unspecified-named",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (typeof rec.place_unspecified === 'string' && found.size) {",
+  "replace": "if (false) {",
+  "rule": "place_unspecified_but_named: a row that names a place cannot say it names none",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-place-unspecified-bad",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (rec.place_unspecified != null && (typeof rec.place_unspecified !== 'string' || rec.place_unspecified.trim().length < 8)) add(",
+  "replace": "if (false) add(",
+  "rule": "place_unspecified_bad: a reason that is not a sentence",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-quantifier-any-multi",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "P.leaves(id).length > 1)",
+  "replace": "P.leaves(id).length > 1000)",
+  "rule": "quantifier_any_unsupported: any leaf of a formation needs the row's words",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-quantifier-any-single",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "P.leaves(id).length > 1)",
+  "replace": "P.leaves(id).length > 0)",
+  "rule": "a regiment (one leaf) needs no words for any",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-quantifier-quote-row",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.quantifier_quote != null && hasQuote(text, a.quantifier_quote)) {",
+  "replace": "if (a.quantifier_quote != null) {",
+  "rule": "the words that support any are the row's own",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-quantifier-quote-row",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.quantifier_quote != null && !hasQuote(row.claim_text, a.quantifier_quote)) add('quote_not_in_row'",
+  "replace": "if (false) add('quote_not_in_row'",
+  "rule": "quote_not_in_row: the quantifier quote is a quote of the row",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-quantifier-quote-needs-any",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.quantifier_quote != null && a.quantifier !== 'any') add('assert_field'",
+  "replace": "if (false) add('assert_field'",
+  "rule": "assert_field: a quantifier quote belongs to a check that says any",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-declared-units",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "B.units.filter(x => x.how === 'declared')",
+  "replace": "B.units.filter(x => true)",
+  "rule": "declared_detail lists the declared units only",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-declared-places",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "B.places.filter(x => x.how === 'declared')",
+  "replace": "B.places.filter(x => true)",
+  "rule": "declared_detail lists the declared places only",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-declared-structures",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "B.structures.filter(x => x.how === 'declared')",
+  "replace": "B.structures.filter(x => true)",
+  "rule": "declared_detail lists the declared structures only",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-declared-quantifiers",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "...(B.quantifiers || []).map(x =>",
+  "replace": "...[].map(x =>",
+  "rule": "declared_detail lists the formations taken as any leaf",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-moves-minutes",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"moves_floor\": { \"min_minutes\": 1,",
+  "replace": "\"moves_floor\": { \"min_minutes\": 0,",
+  "rule": "the floor of marching minutes is 1",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-moves-displacement",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"min_displacement_m\": 10, \"min_closing_m\": 50",
+  "replace": "\"min_displacement_m\": 0, \"min_closing_m\": 50",
+  "rule": "the floor of displacement is 10 m",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-moves-closing",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"min_displacement_m\": 10, \"min_closing_m\": 50",
+  "replace": "\"min_displacement_m\": 10, \"min_closing_m\": 0",
+  "rule": "the floor of closing on a place is 50 m",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-activity-minutes",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"activity_floor\": { \"min_minutes\": 1 }",
+  "replace": "\"activity_floor\": { \"min_minutes\": 0 }",
+  "rule": "the floor of an activity is 1 minute",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-figures-share",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"figures\": { \"tol_pct\": 10,",
+  "replace": "\"figures\": { \"tol_pct\": 100,",
+  "rule": "the share of the strength a unit's figures may differ by is 10 per cent",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-temp-f",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"temp_f_tolerance\": 1.0,",
+  "replace": "\"temp_f_tolerance\": 9.0,",
+  "rule": "the temperature tolerance is 1 F",
   "tests": [
    "rules",
    "main"

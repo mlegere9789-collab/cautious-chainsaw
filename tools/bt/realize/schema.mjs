@@ -18,7 +18,7 @@
 //     "id":        "T1-004",                     the timeline row (T1-001..T3-nnn; E-001..E-014 for the epilogue rows)
 //     "harness":   "bt-realize-1",               the version of this format (lib.mjs HARNESS)
 //     "kind":      "unit_motion",                one of KINDS
-//     "scenario":  "default",                    'default' (the shell's opening scenario), 'pdf' (the plan's values), 'conflicts', or an object { "id"?, "choices"?: { "C-021": "v1" }, "structure"?: { "<structure id>": "<reading>" } };
+//     "scenario":  "default",                    'default' (the shell's opening scenario), 'pdf' (the plan's values), 'conflicts' (the conflicts the row's text names), 'group' (the row's whole scenario group: GATE-SPEC TL-8, V6), "C-004:v1" (that conflict on that value, the rest on the opening scenario), or an object { "id"?, "choices"?: { "C-021": "v1" }, "structure"?: { "<structure id>": "<reading>" } };
 //                                                a list means: the record is run in every one, and RESULTS.json says which were run. A check may carry "scenario": <id | list of ids> to hold in those scenarios only
 //     "scenario_excludes": [ { "scenario": <spec>, "why": "..." } ],   the values of a source conflict the record does NOT hold in, with the reason (GATE-SPEC TL-8); RESULTS.json lists them
 //     "window":    { "from": "1863-07-01T09:40", "to": "1863-07-01T10:20" },   the minutes the checks look at; inside the row's allowed window (q.mjs row <id> prints it)
@@ -39,6 +39,7 @@
 import { HARNESS, toMin, isoOf, hasQuote, fold } from './lib.mjs';
 import { coversInterval, describeWindow } from './timeline.mjs';
 
+export const SCENARIO_KEYWORDS = ['conflicts', 'group'];     // 'conflicts': the opening scenario and one scenario per value of every conflict the row's text names; 'group': the whole scenario group of the row (query.mjs scenarioGroup)
 export const KINDS = ['unit_motion', 'unit_activity', 'arrival', 'structure_state', 'earthwork_build', 'artillery', 'weather_sky', 'casualty_flow', 'event_card', 'epilogue', 'not_realized'];
 // what each kind needs at least: one assertion from each inner list (and the extra rules in validateRecord)
 export const KIND_NEEDS = {
@@ -83,6 +84,57 @@ export const entityVia = e => (e && typeof e === 'object' ? e.via : null);
 // the units an assertion names (before leaf expansion), as ids
 export function assertionUnits(a) { const u = [...(a.unit ? [a.unit] : []), ...(a.units || [])]; if (a.type === 'casualty') return (a.units || []); return u; }
 
+// ---- an assertion that cannot fail realizes nothing. A row is "realized" only by checks that a product which does NOT show it would fail; a casualty minimum of 0, a battery with no gun count, a structure with no state
+// named, a march of 0 minutes, an exposure floor of 0 are satisfied by every product, so a record made of them would confirm a row by confirming nothing (assert_vacuous). And a record may tighten a floor the harness
+// states (tolerances.json units.moves_floor, activity_floor, figures; weather.temp_f_tolerance) and never loosen it (tolerance_wider_than_stated), the same rule as the distance tolerance. The checks that depend on
+// the product's own values over time (weather, sky) are tested for falsifiability against the whole theatre clock in checks.mjs (_falsifiable); everything here is static. Returns [{ code, detail }].
+export const STAGE_ACTIVITIES = ['march', 'double_quick', 'halt', 'stand', 'rest', 'fire', 'serve_guns', 'gallop', 'build_works', 'camp'];     // every activity the stage gives a unit that is on the field
+const VISUAL_KEY = /^(burn|dmg|down|gone|mix|vis)_(min|max)$/;
+const WEATHER_CONTENT = ['precip_kind_in', 'precip_intensity_min', 'precip_intensity_max', 'cloud_min', 'cloud_max', 'temp_f', 'wetness_min', 'wetness_max', 'wind_mph_min', 'wind_mph_max', 'visibility_m_max'];
+export function vacuityProblems(a, T = {}) {
+  const out = [], vac = d => out.push({ code: 'assert_vacuous', detail: d }), wide = d => out.push({ code: 'tolerance_wider_than_stated', detail: d }), isNum = x => typeof x === 'number' && Number.isFinite(x);
+  const atLeast = (k, n, why) => { if (a[k] != null && !(isNum(a[k]) && a[k] >= n)) vac(`${k} ${JSON.stringify(a[k])} is satisfied by a product that shows ${why}: it proves nothing (the least that proves anything is ${n})`); };
+  const floor = (k, stated) => { if (a[k] != null && stated != null && !(isNum(a[k]) && a[k] >= stated)) wide(`${k} ${JSON.stringify(a[k])} is below the stated floor of ${stated} (tolerances.json units): a record may ask for more, never for less`); };
+  const U = T.units || {};
+  switch (a.type) {
+    case 'casualty': for (const k of ['killed_min', 'wounded_min', 'missing_min', 'events_min']) atLeast(k, 1, 'no man leaving the line'); break;
+    case 'battery_guns': {
+      const ks = ['guns_min', 'limbers_min', 'caissons_min', 'horses_min'];
+      if (!ks.some(k => a[k] != null)) vac('names no guns_min, limbers_min, caissons_min or horses_min: every battery that is on the field satisfies it');
+      for (const k of ks) atLeast(k, 1, 'a battery with none');
+      break;
+    }
+    case 'unit_figures':
+      if (!(isNum(a.approx) && a.approx > 0) && !(isNum(a.min) && a.min >= 1)) vac('needs approx (above 0) or min (at least 1): a unit that is drawn with no figures satisfies a bare max');
+      atLeast('min', 1, 'no figures');
+      if (a.tol_pct != null && U.figures && U.figures.tol_pct != null && !(isNum(a.tol_pct) && a.tol_pct <= U.figures.tol_pct)) wide(`tol_pct ${JSON.stringify(a.tol_pct)} is wider than the stated ${U.figures.tol_pct} per cent (tolerances.json units.figures): a record may ask for a smaller share, never a larger`);
+      break;
+    case 'unit_activity':
+      if (STAGE_ACTIVITIES.every(x => [].concat(a.activities || []).includes(x))) vac('lists every activity the stage gives a unit: any unit on the field satisfies it');
+      floor('min_minutes', (U.activity_floor || {}).min_minutes);
+      break;
+    case 'unit_moves': for (const k of ['min_minutes', 'min_displacement_m', 'min_closing_m']) floor(k, (U.moves_floor || {})[k]); break;
+    case 'structure_state': {
+      // a pattern that matches the empty string AND a string no state is called matches every state (.*, (?:), |x); an anchored pattern such as ^$ does not
+      const anyState = x => { const m = /^\/(.*)\/([a-z]*)$/.exec(String(x)); if (!m) return false; try { const re = new RegExp(m[1], m[2]); return re.test('') && re.test('\u0001 no state is called this \u0001'); } catch { return false; } };
+      const stateReal = a.state != null && ![].concat(a.state).some(anyState);
+      const visualReal = a.visual && typeof a.visual === 'object' && Object.entries(a.visual).some(([k, x]) => { const m = VISUAL_KEY.exec(k); return !m || (m[2] === 'min' ? !(isNum(x) && x <= 0) : !(isNum(x) && x >= 1)); });      // every drawn value lies between 0 and 1: a minimum of 0 or a maximum of 1 holds for every state
+      if (!stateReal && a.present == null && a.schedule_row == null && !(a.hospital && a.hospital.id) && !visualReal) vac('names no state, presence, schedule row, hospital or visual bound that a drawn object could fail: any drawn structure satisfies it');
+      break;
+    }
+    case 'work_stage':
+      if (a.present == null && !(isNum(a.stage_min) && a.stage_min > 0) && !(isNum(a.stage_max) && a.stage_max < 6)) vac('names no presence, no stage_min above 0 and no stage_max below 6 (the stages run 0 to 6): the crew alone says nothing about the work');
+      break;
+    case 'sky': if (a.exposure_min != null && !(isNum(a.exposure_min) && a.exposure_min > 0)) vac(`exposure_min ${JSON.stringify(a.exposure_min)} is satisfied by black: the night floor of gate Q10 is above 0`); break;
+    case 'weather': {
+      // "an environment record exists for this minute" is not a statement about the weather; the row's own weather (precipitation, cloud, temperature, wetness, wind, visibility) has to be named beside it. record: false alone is a statement: the product shows no record where the row says there is none
+      if (a.record === true && !WEATHER_CONTENT.some(k => a[k] != null)) vac('record: true alone says that an environment record exists, not what the weather is: name what the row states (precipitation, cloud, temperature, wetness, wind or visibility)');
+      const stated = T.weather && T.weather.temp_f_tolerance; if (a.tol_f != null && stated != null && !(isNum(a.tol_f) && a.tol_f <= stated)) wide(`tol_f ${JSON.stringify(a.tol_f)} is wider than the stated ${stated} F (tolerances.json weather): a record may ask for a tighter tolerance, never a wider one`); break; }
+    default: break;
+  }
+  return out;
+}
+
 // ---- static validation: everything that needs no product. Returns { problems: [{ code, detail }], span }.
 // ctx: { row (from timeline.mjs), tolerances }
 export function validateRecord(rec, ctx) {
@@ -100,8 +152,8 @@ export function validateRecord(rec, ctx) {
   else if (ctx.clock && !coversInterval(ctx.clock, span.from, span.to)) add('time_outside_clock', `the window ${isoOf(span.from)}..${isoOf(span.to)} is outside the minutes the theatre can show (${ctx.clock.map(([a, b]) => isoOf(a) + '..' + isoOf(b)).join(' and ')}: app/src/clock.mjs BATTLE and EPILOGUE)`);
   if (span && !coversInterval(row.window.intervals, span.from, span.to)) add('window_outside_row', `the window ${isoOf(span.from)}..${isoOf(span.to)} is not inside the time the row allows (${describeWindow(row.window)}; basis: ${row.window.basis.join('; ')})`);
   // ---- the scenarios: the ones the record is run in, the ones it excludes (with the reason), the checks that hold in some only
-  const specOk = x => x === 'default' || x === 'pdf' || (x && typeof x === 'object' && !Array.isArray(x) && Object.keys(x).every(k => ['id', 'label', 'from', 'choices', 'structure'].includes(k)));
-  if (rec.scenario != null && rec.scenario !== 'conflicts') { const list = Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario]; if (!list.length) add('scenario_bad', '"scenario" lists at least one scenario'); for (const x of list) if (!specOk(x)) add('scenario_bad', `a scenario is "default", "pdf", "conflicts" or an object { id, label, from, choices, structure } (found ${JSON.stringify(x).slice(0, 80)})`); }
+  const specOk = x => x === 'default' || x === 'pdf' || (typeof x === 'string' && /^(C-\d{3}|CF-[A-Z0-9-]+):\S+$/.test(x)) || (x && typeof x === 'object' && !Array.isArray(x) && Object.keys(x).every(k => ['id', 'label', 'from', 'choices', 'structure'].includes(k)));
+  if (rec.scenario != null) { const list = Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario]; if (!list.length) add('scenario_bad', '"scenario" lists at least one scenario'); for (const x of list) if (!SCENARIO_KEYWORDS.includes(x) && !specOk(x)) add('scenario_bad', `a scenario is "default", "pdf", "conflicts", "group", a value of one conflict ("C-004:v1") or an object { id, label, from, choices, structure } (found ${JSON.stringify(x).slice(0, 80)})`); }
   if (rec.scenario_excludes != null) {
     if (!Array.isArray(rec.scenario_excludes) || !rec.scenario_excludes.length) add('scenario_excludes_bad', '"scenario_excludes" is a non-empty list of { scenario, why }');
     else for (const x of rec.scenario_excludes) if (!x || !specOk(x.scenario) || typeof x.why !== 'string' || x.why.trim().length < 30) add('scenario_excludes_bad', 'each "scenario_excludes" entry needs a scenario (an object or "pdf") and a "why" of at least 30 characters: the sources of the row that contradict it (GATE-SPEC TL-8)');
@@ -120,13 +172,16 @@ export function validateRecord(rec, ctx) {
     const spec = ASSERT[a.type]; if (!spec) { add('assert_type', `${at}: unknown type "${a.type}" (use ${Object.keys(ASSERT).join(', ')})`); continue; }
     for (const f of spec.need) if (a[f] == null || (Array.isArray(a[f]) && !a[f].length)) add('assert_field', `${at} (${a.type}): "${f}" is required`);
     if (spec.one && !spec.one.some(f => a[f] != null) && !(a.type === 'unit_moves' && rec.place_unspecified)) add('assert_field', `${at} (${a.type}): at least one of ${spec.one.join(', ')} is required${a.type === 'unit_moves' ? ' (or "place_unspecified": "why" on the record, for a motion row that names no place)' : ''}`);
-    const known = new Set(['type', 'unit', 'units', 'quantifier', 'at', 'from_t', 'to_t', 't', 'quote', 'note', 'scenario', ...spec.need, ...(spec.one || []), ...spec.opt]);
+    const known = new Set(['type', 'unit', 'units', 'quantifier', 'quantifier_quote', 'at', 'from_t', 'to_t', 't', 'quote', 'note', 'scenario', ...spec.need, ...(spec.one || []), ...spec.opt]);
     for (const k of Object.keys(a)) if (!known.has(k)) { if (k === 'structure_scenario') add('assert_removed_field', `${at} (${a.type}): "structure_scenario" is gone: a reading of a structure is part of a SCENARIO, so that RESULTS.json can say which scenarios were run. Put { "structure": { "<structure id>": "<reading>" } } in a scenario of the record ("scenario": [...], optionally with an "id") and restrict the check to it with "scenario": "<id>"`); else add('assert_unknown_field', `${at} (${a.type}): unknown field "${k}"`); }
     if (a.scenario != null) for (const x of [].concat(a.scenario)) if (!(typeof x === 'string' || specOk(x))) add('scenario_bad', `${at}: "scenario" of a check is the id of a scenario of the record, or a list of ids`);
     if (spec.units && !assertionUnits(a).length && a.type !== 'casualty') add('assert_field', `${at} (${a.type}): "unit" or "units" is required`);
     if (a.type === 'battery_guns' && !assertionUnits(a).length) add('assert_field', `${at}: "unit" or "units" is required`);
     if (a.type === 'casualty' && !(a.units || []).length) add('assert_field', `${at} (casualty): "units" is required: the units whose losses the row names (an army-wide row names the army: us-aop, cs-anv)`);
     if (a.quantifier != null && !['all', 'any'].includes(a.quantifier)) add('assert_quantifier', `${at}: quantifier is "all" or "any"`);
+    if (a.quantifier_quote != null && !hasQuote(row.claim_text, a.quantifier_quote)) add('quote_not_in_row', `${at}: quantifier_quote "${String(a.quantifier_quote).slice(0, 80)}" is not in the row text`);
+    if (a.quantifier_quote != null && a.quantifier !== 'any') add('assert_field', `${at} (${a.type}): quantifier_quote belongs to a check with "quantifier": "any"`);
+    for (const p of vacuityProblems(a, ctx.tolerances || {})) add(p.code, `${at} (${a.type}): ${p.detail}`);
     if (spec.time) {
       let s = null; try { s = parseSpan(a.t, null); } catch (e) { add('assert_time', `${at}: ${e.message}`); }
       if (s && span && (s.from < span.from || s.to > span.to)) add('assert_time_outside_window', `${at} (${a.type}): its time ${isoOf(s.from)}..${isoOf(s.to)} is outside the record window`);
@@ -151,6 +206,7 @@ export function validateRecord(rec, ctx) {
     if (rec.kind === 'earthwork_build' && !checks.some(a => a.type === 'work_stage' && a.crew)) add('kind_needs', 'earthwork_build needs a work_stage assertion with "crew": { "units": [...] } (PDF Q08: a work crew in the construction interval)');
   }
   if (rec.kind !== 'not_realized' && KINDS.includes(rec.kind) && checks && /\bNIGHT\b/.test(row.time_cell || '') && !checks.some(a => a.type === 'sky' && a.exposure_min != null)) add('kind_needs', 'a NIGHT row needs a sky assertion with exposure_min (gate Q10: night is night, never black; GATE-SPEC-A K6)');
+  if (rec.place_unspecified != null && (typeof rec.place_unspecified !== 'string' || rec.place_unspecified.trim().length < 8)) add('place_unspecified_bad', `"place_unspecified" is the reason a motion or activity row names no place: a sentence of at least 8 characters (found ${JSON.stringify(rec.place_unspecified)})`);
   if (rec.not_shown != null) {
     if (!Array.isArray(rec.not_shown) || !rec.not_shown.length) add('not_shown_bad', '"not_shown" is a non-empty list of { words, why }');
     else for (const n of rec.not_shown) { if (!n || !n.words || !n.why) add('not_shown_bad', 'each "not_shown" entry needs words (the row\'s own) and why'); else if (!hasQuote(row.claim_text, n.words)) add('quote_not_in_row', `not_shown words "${String(n.words).slice(0, 80)}" are not in the row text`); }

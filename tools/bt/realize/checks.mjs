@@ -6,11 +6,13 @@
 // unit_not_moving, unit_wrong_activity, place_unknown, place_ambiguous, place_off_ground, structure_unknown, structure_not_drawn, structure_wrong_state, work_wrong_stage, weather_mismatch, sky_mismatch,
 // casualty_none, adapter_missing, card_not_shown, ...  A record is realized only when it is statically valid, every binding holds, and every assertion is ok in every scenario it lists.
 import { HARNESS, toMin, isoOf, round, hasQuote, fold, tokens } from './lib.mjs';
-import { parseSpan, validateRecord, ASSERT, entityId, entityVia, assertionUnits } from './schema.mjs';
+import { parseSpan, validateRecord, ASSERT, entityId, entityVia, assertionUnits, SCENARIO_KEYWORDS } from './schema.mjs';
 import { coversInterval } from './timeline.mjs';
 import { measure, distM, outsideGround } from './gazetteer.mjs';
 
 const MOVING = new Set(['march', 'double_quick', 'gallop']);
+const CONTROL_STEP = 30;                                       // minutes between the control minutes of the falsifiability test (weather and sky assertions)
+const SKY_FIELDS = new Set(['sun_alt_min', 'sun_alt_max', 'moon_up', 'moon_illum_min', 'moon_illum_max', 'band_in', 'exposure_min']);
 // words too common to tie a structure to a row (a structure is bound by a distinctive word of its name, its schedule row or its record: trestle, Wade, Bliss ...)
 const STRUCT_STOP = new Set(['town', 'farm', 'house', 'barn', 'street', 'road', 'building', 'buildings', 'church', 'hospital', 'burned', 'bridge', 'creek', 'rail', 'railroad', 'east', 'west', 'north', 'south', 'near', 'from', 'with', 'that', 'this', 'were', 'when', 'ridge', 'hill', 'gettysburg', 'station', 'farmhouse', 'stone', 'brick', 'wall', 'fence', 'works', 'earth']);
 const minutesOf = span => { const a = Math.ceil(span.from - 1e-9), b = Math.floor(span.to + 1e-9); if (b < a) return [span.from]; const out = []; for (let t = a; t <= b; t++) out.push(t); return out; };
@@ -36,16 +38,22 @@ export class Runner {
   // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   // a record -> result
   async runRecord(rec, { source = null } = {}) {
-    const row = this.TL.byId.get(rec && rec.id), res = { id: rec && rec.id, kind: rec && rec.kind, source, realized: false, codes: [], problems: [], assertions: [], bindings: { units: [], places: [], structures: [], declared: 0 }, scenarios: [], why: null };
+    const row = this.TL.byId.get(rec && rec.id), res = { id: rec && rec.id, kind: rec && rec.kind, source, realized: false, codes: [], problems: [], assertions: [], bindings: { units: [], places: [], structures: [], quantifiers: [], declared: 0 }, scenarios: [], why: null };
     const v = validateRecord(rec, { row, tolerances: this.tol, clock: this.TL.clock }); res.problems.push(...v.problems);
     if (!row || !v.span) { res.codes = uniq(res.problems.map(p => p.code)); res.why = res.problems.map(p => p.detail).slice(0, 3).join(' | '); return res; }
     res.window = { from: isoOf(v.span.from), to: isoOf(v.span.to) };
     try { await this._bindings(rec, row, res); } catch (e) { res.problems.push({ code: 'binding_error', detail: String(e && e.stack || e).slice(0, 300) }); }
     // the scenarios the record is run in (each with its id), the ones it excludes with the reason, and the scenarios each check holds in (a check without "scenario" holds in every scenario of the record)
-    const plan = this._scenarioPlan(rec, row, res); res.scenarios = plan.list.map(x => x.id); res.excluded_scenarios = plan.excluded;
+    const grp = rec.kind === 'not_realized' ? null : await this._group(rec, row, v.span, res), plan = this._scenarioPlan(rec, row, res, grp); res.scenarios = plan.list.map(x => x.id); res.excluded_scenarios = plan.excluded; if (grp) res.scenario_group = this._groupReport(grp, plan);
     const idOf = x => { if (typeof x === 'string') return x; try { return this.P.scenarioId(x); } catch (e) { return `(invalid scenario: ${String(e.message || e).slice(0, 80)})`; } }, only = (rec.checks || []).map(a => (a && a.scenario != null ? [].concat(a.scenario).map(idOf) : null));
     only.forEach((ids, i) => { for (const id of ids || []) if (!plan.seen.has(id)) res.problems.push({ code: 'check_scenario_unlisted', detail: `checks[${i}] holds in scenario "${id}", which the record does not run (it runs ${[...plan.seen].join(', ') || 'none'}); list the scenario in "scenario"` }); });
     res.spec_view = specView(rec, only);
+    // a weather or sky assertion is a function of the minute only: one that no minute of the theatre clock violates cannot tell the minute the row is about from any other (the night floor is the exception: it holds at every minute by design)
+    for (const [i, a] of (rec.checks || []).entries()) {
+      if (!a || (a.type !== 'weather' && a.type !== 'sky')) continue; const scs = plan.list.filter(x => !only[i] || only[i].includes(x.id)); if (!scs.length) continue;
+      let can = false; for (const { spec } of scs) if (await this._falsifiable(a, spec)) { can = true; break; }
+      if (!can) res.problems.push({ code: 'assert_vacuous', detail: `checks[${i}] (${a.type}) holds at every one of the ${this._control().length} minutes of the theatre clock tried (every ${CONTROL_STEP} minutes from ${isoOf(this.TL.clock[0][0])}): it cannot tell the minute the row is about from any other, so it proves nothing about the row` });
+    }
     const results = [];
     for (const { spec, id: scId } of plan.list) {
       for (const [i, a] of (rec.checks || []).entries()) {
@@ -74,8 +82,23 @@ export class Runner {
   }
 
   // the scenarios of a record: the list it is run in, the values of source conflicts it excludes (GATE-SPEC TL-8: valid under each, or the record states which values it excludes and why)
-  _scenarioPlan(rec, row, res) {
-    const P = this.P, list = [], seen = new Set(), raw = rec.scenario === 'conflicts' ? P.conflictScenarios(row.text_raw || row.claim_text) : Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario ?? 'default'];
+  // the scenario group of the row for this record (GATE-SPEC TL-8, 6.4 V6): the conflicts its text names, the conflicts that reach the units it uses and the weather and sky it asserts, the readings of its structures
+  async _group(rec, row, span, res) {
+    const E = rec.entities || {}, ids = k => (Array.isArray(E[k]) ? E[k] : []).map(entityId).filter(x => typeof x === 'string'), spans = [];
+    for (const a of rec.checks || []) if (a && (a.type === 'weather' || a.type === 'sky')) { const s = (a.t && parseSpanSafe(a.t)) || span; if (s) spans.push(s); }
+    const wx = spans.length ? { from: Math.min(...spans.map(s => s.from)), to: Math.max(...spans.map(s => s.to)) } : null;
+    try { return await this.P.scenarioGroup({ text: `${row.text_raw || ''} ${row.claim_text || ''}`, units: ids('units').filter(id => this.P.unit(id)), structures: [...ids('structures'), ...ids('works')], span: wx }); }
+    catch (e) { res.problems.push({ code: 'scenario_group_error', detail: String(e && e.message || e).slice(0, 300) }); return null; }
+  }
+  // what the group needs and what the record runs or excludes (by the conflict choices and structure readings, whatever the scenarios are called): `complete` when every scenario of the group is run or excluded
+  _groupReport(grp, plan) {
+    const P = this.P, runKeys = new Set(plan.list.map(x => P.scenarioKey(x.spec))), exKeys = new Set(plan.excluded.map(x => x.key)), items = grp.specs.map((spec, i) => ({ id: grp.ids[i], key: P.scenarioKey(spec) }));
+    const run = items.filter(x => runKeys.has(x.key)).map(x => x.id), excluded = items.filter(x => !runKeys.has(x.key) && exKeys.has(x.key)).map(x => x.id), missing = items.filter(x => !runKeys.has(x.key) && !exKeys.has(x.key)).map(x => x.id);
+    return { conflicts: grp.conflicts.map(c => ({ id: c.id, ...(c.named ? { named: true } : {}), ...(c.weather ? { weather: true } : {}), ...(c.units.length ? { units: c.units.map(u => `${u.unit} (${u.via.join('+')})`) } : {}) })), ...(Object.keys(grp.readings).length ? { readings: grp.readings } : {}), scenarios: items.map(x => x.id), run, excluded, missing, complete: missing.length === 0 };
+  }
+  _scenarioPlan(rec, row, res, grp = null) {
+    const P = this.P, list = [], seen = new Set(), items = Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario ?? 'default'], text = row.text_raw || row.claim_text;
+    const raw = items.flatMap(x => (x === 'conflicts' ? P.conflictScenarios(text) : x === 'group' ? (grp ? grp.specs : P.conflictScenarios(text)) : [x]));
     for (const spec of raw) {
       let sc; try { sc = P.scenarioSpec(spec); } catch (e) { res.problems.push({ code: 'scenario_bad', detail: String(e.message || e) }); continue; }
       const id = sc.key; if (seen.has(id)) { res.problems.push({ code: 'scenario_duplicate', detail: `scenario "${id}" is listed twice` }); continue; }
@@ -85,9 +108,18 @@ export class Runner {
     for (const x of rec.scenario_excludes || []) {
       let sc; try { sc = P.scenarioSpec(x && x.scenario); } catch (e) { res.problems.push({ code: 'scenario_excludes_bad', detail: String(e.message || e) }); continue; }
       if (seen.has(sc.key)) res.problems.push({ code: 'scenario_excluded_is_run', detail: `scenario "${sc.key}" is both run and excluded` });
-      excluded.push({ id: sc.key, why: String(x.why || '') });
+      excluded.push({ id: sc.key, key: P.scenarioKey(x.scenario), why: String(x.why || '') });
     }
     return { list, excluded, seen };
+  }
+
+  // the minutes of the theatre clock a weather or sky assertion is tried at (every CONTROL_STEP minutes of the battle chapter and of the epilogue), and whether some minute violates it. A floor (exposure_min alone) is exempt: gate Q10 asks
+  // for it to hold at every minute; its own rule is exposure_min above 0 (schema.mjs vacuityProblems).
+  _control() { if (!this._ctl) { const out = []; for (const [x, y] of this.TL.clock) for (let t = x; t <= y; t += CONTROL_STEP) out.push(t); this._ctl = out; } return this._ctl; }
+  async _falsifiable(a, spec) {
+    if (a.type === 'sky' && Object.keys(a).filter(k => SKY_FIELDS.has(k)).every(k => k === 'exposure_min')) return true;
+    for (const t of this._control()) { const W = await this.P.weatherAt(t, spec); if (a.type === 'weather' ? this._weatherProblem(a, W.drawn, W.record) : this._skyProblem(a, W.drawn.sky)) return true; }
+    return false;
   }
 
   // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -123,6 +155,16 @@ export class Runner {
         else if (via && hasQuote(text, via)) { B.structures.push({ id, how: 'declared', via }); B.declared++; }
         else res.problems.push({ code: 'structure_not_bound', detail: `structure ${id} (${names.slice(0, 120)}) shares no word of 4 letters or more with the row's text; if the row names it in other words, give { "id": "${id}", "via": "<verbatim words of the row>" }` });
       }
+    }
+    // a motion or activity row that "names no place" must name none: a place of the gazetteer in the row's words is a place the record has to relate the unit to (otherwise the reason would dodge the place check)
+    if (typeof rec.place_unspecified === 'string' && found.size) { const named = [...found.values()].map(h => h.place); res.problems.push({ code: 'place_unspecified_but_named', detail: `the record says the row names no place ("${rec.place_unspecified.slice(0, 60)}"), but its words name ${named.slice(0, 4).map(p => p.id + ' ' + p.name).join('; ')}: relate the unit to the place (unit_at, from, to, toward, along) or leave the row not realized` }); }
+    // "any" for a formation: the row must say, in its own words, that only part of it is meant (GATE-SPEC 6.4 V7, DD-RZ-03); otherwise one drawn leaf would stand for a whole division
+    for (const [i, a] of (rec.checks || []).entries()) {
+      if (!a || a.quantifier !== 'any' || !ASSERT[a.type] || !ASSERT[a.type].units) continue;
+      const multi = assertionUnits(a).map(entityId).filter(id => P.unit(id) && P.leaves(id).length > 1);
+      if (!multi.length) continue;
+      if (a.quantifier_quote != null && hasQuote(text, a.quantifier_quote)) { B.quantifiers.push({ i, units: multi, via: a.quantifier_quote }); B.declared++; }
+      else res.problems.push({ code: 'quantifier_any_unsupported', detail: `checks[${i}] (${a.type}) accepts any one leaf of ${multi.join(', ')} (${multi.map(id => P.leaves(id).length).join(', ')} leaves on the field): the row must say that only part of it is meant; give "quantifier_quote": "<verbatim words of the row>" (for example "part of the brigade")` });
     }
   }
 
@@ -218,18 +260,18 @@ export class Runner {
       if (MOVING.has(s.activity)) { nMoving++; if (rels.along && !onRoadFail) { const d = measure(rels.along.p, s); if (d > rels.along.tol) onRoadFail = { t, d }; } }
     }
     if (!nPresent) return fail(this._whyCode(lastWhy), this._whyText(lastWhy, id));
-    const minMoving = a.min_minutes ?? 1; if (nMoving < minMoving) return fail('unit_not_moving', `${id} is marching in ${nMoving} minute(s) of the window (${nPresent} on the field), the check needs ${minMoving}`, { moving_minutes: nMoving, present_minutes: nPresent });
-    const disp = distM(first.s, last.s), minDisp = a.min_displacement_m ?? 10; if (disp < minDisp) return fail('unit_not_moving', `${id} is ${round(disp, 0)} m from where it started at the end of the window (needs ${minDisp} m)`, { displacement_m: round(disp, 1) });
+    const F = this.tol.units.moves_floor, minMoving = a.min_minutes ?? F.min_minutes; if (nMoving < minMoving) return fail('unit_not_moving', `${id} is marching in ${nMoving} minute(s) of the window (${nPresent} on the field), the check needs ${minMoving}`, { moving_minutes: nMoving, present_minutes: nPresent });
+    const disp = distM(first.s, last.s), minDisp = a.min_displacement_m ?? F.min_displacement_m; if (disp < minDisp) return fail('unit_not_moving', `${id} is ${round(disp, 0)} m from where it started at the end of the window (needs ${minDisp} m)`, { displacement_m: round(disp, 1) });
     const ev = { moving_minutes: nMoving, present_minutes: nPresent, displacement_m: round(disp, 0), from_t: isoOf(first.t), to_t: isoOf(last.t) };
     if (rels.from) { const d = measure(rels.from.p, first.s); ev.from_d_m = round(d, 0); if (d > rels.from.tol) return fail('unit_wrong_place', `${id} starts ${round(d, 0)} m from ${rels.from.p.name} (tolerance ${rels.from.tol} m) at ${isoOf(first.t)}`, ev); }
     if (rels.to) { const d = measure(rels.to.p, last.s); ev.to_d_m = round(d, 0); if (d > rels.to.tol) return fail('unit_wrong_place', `${id} ends ${round(d, 0)} m from ${rels.to.p.name} (tolerance ${rels.to.tol} m) at ${isoOf(last.t)}`, ev); }
-    if (rels.toward) { const d0 = measure(rels.toward.p, first.s), d1 = measure(rels.toward.p, last.s), need = a.min_closing_m ?? 50; ev.toward_d0_m = round(d0, 0); ev.toward_d1_m = round(d1, 0); if (d0 - d1 < need) return fail('unit_wrong_direction', `${id} moves from ${round(d0, 0)} m to ${round(d1, 0)} m from ${rels.toward.p.name}: it does not close by ${need} m`, ev); }
-    if (rels.away_from) { const d0 = measure(rels.away_from.p, first.s), d1 = measure(rels.away_from.p, last.s), need = a.min_closing_m ?? 50; ev.away_d0_m = round(d0, 0); ev.away_d1_m = round(d1, 0); if (d1 - d0 < need) return fail('unit_wrong_direction', `${id} moves from ${round(d0, 0)} m to ${round(d1, 0)} m from ${rels.away_from.p.name}: it does not draw away by ${need} m`, ev); }
+    if (rels.toward) { const d0 = measure(rels.toward.p, first.s), d1 = measure(rels.toward.p, last.s), need = a.min_closing_m ?? F.min_closing_m; ev.toward_d0_m = round(d0, 0); ev.toward_d1_m = round(d1, 0); if (d0 - d1 < need) return fail('unit_wrong_direction', `${id} moves from ${round(d0, 0)} m to ${round(d1, 0)} m from ${rels.toward.p.name}: it does not close by ${need} m`, ev); }
+    if (rels.away_from) { const d0 = measure(rels.away_from.p, first.s), d1 = measure(rels.away_from.p, last.s), need = a.min_closing_m ?? F.min_closing_m; ev.away_d0_m = round(d0, 0); ev.away_d1_m = round(d1, 0); if (d1 - d0 < need) return fail('unit_wrong_direction', `${id} moves from ${round(d0, 0)} m to ${round(d1, 0)} m from ${rels.away_from.p.name}: it does not draw away by ${need} m`, ev); }
     if (rels.along) { if (onRoadFail) return fail('unit_off_road', `${id} is ${round(onRoadFail.d, 0)} m from ${rels.along.p.name} (tolerance ${rels.along.tol} m) while marching at ${isoOf(onRoadFail.t)}`, ev); ev.along = rels.along.p.id; }
     return ok(ev);
   }
   _activity(id, c) {
-    const want = new Set([].concat(c.a.activities)), mode = c.mode || 'any', need = c.a.min_minutes ?? 1, S = c.scene; let n = 0, lastWhy = null, other = null;
+    const want = new Set([].concat(c.a.activities)), mode = c.mode || 'any', need = c.a.min_minutes ?? this.tol.units.activity_floor.min_minutes, S = c.scene; let n = 0, lastWhy = null, other = null;
     const pic = !!c.a.picture, ii = S.stage.index.get(id);
     for (const t of c.mins) { const s0 = S.unitAt(id, t); if (!s0.present) { lastWhy = s0; if (mode === 'all') return fail(this._whyCode(s0), this._whyText(s0, id)); continue; } const s = pic ? { ...s0, activity: S.pictureActivityAt(ii, t * 60).activity } : s0; if (want.has(s.activity)) n++; else { other = s; if (mode === 'all') return fail('unit_wrong_activity', `${id} is "${s.activity}" at ${isoOf(t)}, the check needs ${[...want].join(' or ')}`); } }
     if (n >= (mode === 'all' ? c.mins.length : need)) return ok({ minutes: n, activities: [...want] });
@@ -259,7 +301,7 @@ export class Runner {
     const a = c.a, ids = assertionUnits(a).map(entityId); let n = 0, bad = [];
     for (const id of ids) { const u = this.P.unit(id); if (!u) { bad.push(id); continue; } for (const l of this.P.leaves(id)) n += this.P.unit(l).drawn ? this.P.unit(l).strength.drawn : 0; }
     if (bad.length) return fail('unit_not_in_layer', `unknown unit(s) ${bad.join(', ')}`);
-    const tol = (a.tol_pct ?? 10) / 100; let lo = a.min ?? -Infinity, hi = a.max ?? Infinity; if (a.approx != null) { lo = Math.max(lo, a.approx * (1 - tol)); hi = Math.min(hi, a.approx * (1 + tol)); }
+    const tol = (a.tol_pct ?? this.tol.units.figures.tol_pct) / 100; let lo = a.min ?? -Infinity, hi = a.max ?? Infinity; if (a.approx != null) { lo = Math.max(lo, a.approx * (1 - tol)); hi = Math.min(hi, a.approx * (1 + tol)); }
     return n >= lo && n <= hi ? ok({ figures: n, lo, hi }) : fail('figures_mismatch', `the picture draws ${n} figures for ${ids.join(', ')}; the row needs ${num(lo, 0)}..${num(hi, 0)}`, { figures: n });
   }
   _guns(id, c) {

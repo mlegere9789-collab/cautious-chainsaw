@@ -116,6 +116,20 @@ Ledger E (`history/positions/positions_E.jsonl`, 200 claims from the state regim
 | not on the field (13 listed by the PDF ledger, 1 documented absence) | 13 | 14 |
 | approach records | 49 | 51 |
 
+## Units the layer does not draw (research plan, `history/undrawn/`)
+
+What the layer draws of each of the 726 units, what is missing of each and why, the 24 research groups (by formation) with their Official Records reports and state volumes, and the data contract of the group files that one merge reads into the layer build: [`../history/undrawn/PLAN.md`](../history/undrawn/PLAN.md). Derived data: `groups.json`, `status.json`, `roster-gaps.json`; check of the group files: `python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py --all`. No group file is merged yet: the layer is the v8 layer above.
+
+| v8 | Units |
+|---|---:|
+| units of the roster | 726 |
+| drawn: placed / at the edge of the ground (a road, no place yet) | 418 / 21 |
+| not drawn: no road of approach (108 leaf units, and the 32d Massachusetts, which the roster holds as a formation) | 109 |
+| formations above the regiments (nothing is drawn of them; their leaf units carry the figures) | 164 |
+| not on the field (13 listed by the PDF ledger, 1 documented absence) | 14 |
+| of the 547 leaf units on the field, still missing: an arrival of their own / a place on a day / a road of their own / a strength of their own | 540 / 336 / 334 / 547 |
+| cavalry regiments and battalions (52): drawn / not drawn (Gamble, Devin, Farnsworth, Custer, Fitz. Lee, Chambliss, Jenkins) | 21 / 31 |
+
 ## How it reuses the prototype
 
 Imported unchanged (but for two null-guarded hook points in each renderer, `ext.shadow` and `ext.scene`, called at the end of the shadow and scene passes; `src/structures/gpu.mjs` is their only user): `world.mjs` (`loadTerrain`, `buildWorld`), `camera.mjs` (`Camera`), `math.mjs`, `webgpu.mjs` and `webgl2.mjs` (and through them `characters`, `lod`, `fx`, `shaders`). Wrapped, with the reason:

@@ -12,7 +12,7 @@ import { mountLayersBlock, mountStructScenarios } from './structures-ui.mjs';
 import { soundPanel, mountSoundBlock } from './sound-panel.mjs';
 import { mountExtToggles } from './ext-panel.mjs';
 
-export const PANELS = {};
+export const PANELS = Object.create(null);      // no inherited names: an added panel called "constructor" or "valueOf" is only a name (ui/ext-panel.mjs, chrome.mjs look panels up by name)
 const own = (name, th, fn) => { const ps = new Scope(name); PANELS[name].dispose = () => { ps.dispose(); PANELS[name].dispose = null; }; fn(ps); };
 const SIDE_ORDER = { Union: 0, Confederate: 1, Other: 2 };
 

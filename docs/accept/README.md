@@ -77,6 +77,8 @@ Limits, so nobody reads more into it:
   Set `NODE_OPTIONS=--disable-warning=UNDICI-EHPA` as well when the output of such a run is read by a program.
 - The CA bundle path is the cloud container's. On another machine with a TLS-intercepting proxy set `NODE_EXTRA_CA_CERTS` yourself (it is then kept).
 - Requests of a suite to its own local servers (`127.0.0.1`) stay direct as long as `HTTP_PROXY` is not set or `NO_PROXY` lists them (true on every machine used so far).
+- **The runners do not choose a browser.** `tests/t0/lib.mjs` starts the Chrome that `T0_CHROME` names and, when it is not set, the Windows path `C:/Program Files/Google/Chrome/Application/chrome.exe`; the cloud machine needs `T0_CHROME=/usr/bin/google-chrome` in the shell
+  (the runners hand it on, they never set it). With it unset, the first suite that opens a browser dies with an unhandled `Error: spawn C:/Program Files/Google/Chrome/Application/chrome.exe ENOENT` and the runner row is `FAIL` (`n/n` counts only the tests that printed PASS before the crash; `exit 1` when there was none), its summary `tail` being the last three output lines `  ]`, `}` and `Node.js v22.x`. That is what the first cold-cache run of `pagesmaps.R1a` (2026-11-14 00:04) showed; its entry in `tools/t0/r1g/suites_sources.json` carries the diagnosis and the reproduction logs (`docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-no-chrome-repro.log`).
 
 **Load.** A timing result is only evidence together with the load it was measured at, so every runner writes down the machine's 1-minute load average (`os.loadavg()[0]`, two decimals) at the start and at the end of what it runs:
 

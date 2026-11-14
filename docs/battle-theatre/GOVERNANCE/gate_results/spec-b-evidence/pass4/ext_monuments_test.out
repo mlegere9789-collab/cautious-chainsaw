@@ -1,0 +1,238 @@
+TAP version 13
+# Subtest: the memorial file is fit: 512 numbered memorials, every one a memorial by its name, nine state memorials matched to the Monuments list
+ok 1 - the memorial file is fit: 512 numbered memorials, every one a memorial by its name, nine state memorials matched to the Monuments list
+  ---
+  duration_ms: 8.263944
+  type: 'test'
+  ...
+# Subtest: the layer is declared off at entry, never part of the scene, tier inferred, the year an open gap with a register entry
+ok 2 - the layer is declared off at entry, never part of the scene, tier inferred, the year an open gap with a register entry
+  ---
+  duration_ms: 0.701524
+  type: 'test'
+  ...
+# Subtest: data that is not fit is refused with the reason: a count that disagrees, a name that is no memorial, a place that is not Gettysburg, an unmatched state memorial
+ok 3 - data that is not fit is refused with the reason: a count that disagrees, a name that is no memorial, a place that is not Gettysburg, an unmatched state memorial
+  ---
+  duration_ms: 38.428758
+  type: 'test'
+  ...
+# Subtest: gate hook checkLaterMemorials: ok on the real data and terrain, with the facts a gate report prints
+ok 4 - gate hook checkLaterMemorials: ok on the real data and terrain, with the facts a gate report prints
+  ---
+  duration_ms: 38.391336
+  type: 'test'
+  ...
+# Subtest: gate hook checkLaterMemorials: negative controls (a missing memorial, a name that is no memorial, a year claimed without a source)
+ok 5 - gate hook checkLaterMemorials: negative controls (a missing memorial, a name that is no memorial, a year claimed without a source)
+  ---
+  duration_ms: 25.576218
+  type: 'test'
+  ...
+# Subtest: 435 memorials stand on the loaded ground and 77 beyond it; the sides and the sources add up
+ok 6 - 435 memorials stand on the loaded ground and 77 beyond it; the sides and the sources add up
+  ---
+  duration_ms: 2.979511
+  type: 'test'
+  ...
+# Subtest: the nine state memorials hold two positions; the choice moves exactly those nine, by the distance the two lists differ; nothing else moves
+ok 7 - the nine state memorials hold two positions; the choice moves exactly those nine, by the distance the two lists differ; nothing else moves
+  ---
+  duration_ms: 3.133584
+  type: 'test'
+  ...
+# Subtest: the list: text, side, group and ground filters; the order is the site's
+ok 8 - the list: text, side, group and ground filters; the order is the site's
+  ---
+  duration_ms: 7.238509
+  type: 'test'
+  ...
+# Subtest: with the layer off nothing is marked; on, all 512; with one picked while off, just that one; every mark says later memorial and carries the tier
+ok 9 - with the layer off nothing is marked; on, all 512; with one picked while off, just that one; every mark says later memorial and carries the tier
+  ---
+  duration_ms: 6.592896
+  type: 'test'
+  ...
+# Subtest: every memorial has a camera position over the loaded ground, above the ground, looking at it (from the edge, toward it, when it is beyond the ground)
+ok 10 - every memorial has a camera position over the loaded ground, above the ground, looking at it (from the edge, toward it, when it is beyond the ground)
+  ---
+  duration_ms: 13.169767
+  type: 'test'
+  ...
+# Subtest: the words that say a memorial is beyond the ground name the distance and the edge; one on the ground does not
+ok 11 - the words that say a memorial is beyond the ground name the distance and the edge; one on the ground does not
+  ---
+  duration_ms: 1.678808
+  type: 'test'
+  ...
+# Subtest: the projection is the renderer's own: the same matrix as the camera of the prototype, the same pixel as the shell's overlay, for any pose and any aspect
+ok 12 - the projection is the renderer's own: the same matrix as the camera of the prototype, the same pixel as the shell's overlay, for any pose and any aspect
+  ---
+  duration_ms: 8.065473
+  type: 'test'
+  ...
+# Subtest: the layout of the marks: the nearest are named, the names do not sit on one another, a tap finds the mark it is on and nothing else
+ok 13 - the layout of the marks: the nearest are named, the names do not sit on one another, a tap finds the mark it is on and nothing else
+  ---
+  duration_ms: 12.463779
+  type: 'test'
+  ...
+# Subtest: what the ground hides: a mark behind a ridge is left out of the layout and counted, one in the open or near the camera is not, the picked one never is; the memorials marked do not change
+ok 14 - what the ground hides: a mark behind a ridge is left out of the layout and counted, one in the open or near the camera is not, the picked one never is; the memorials marked do not change
+  ---
+  duration_ms: 17.33834
+  type: 'test'
+  ...
+# Subtest: names and panels: a name is not put under a panel, a mark may be; the rectangles are those the shell's top bar, dock, drawer and left column give
+ok 15 - names and panels: a name is not put under a panel, a mark may be; the rectangles are those the shell's top bar, dock, drawer and left column give
+  ---
+  duration_ms: 11.074549
+  type: 'test'
+  ...
+# Subtest: drawing: the tier shows as the outline pattern and the shape beside every name; a few canvas calls however many marks; hollow when beyond the ground
+ok 16 - drawing: the tier shows as the outline pattern and the shape beside every name; a few canvas calls however many marks; hollow when beyond the ground
+  ---
+  duration_ms: 7.609128
+  type: 'test'
+  ...
+# Subtest: the card of every memorial: well-formed, says later memorial and post-battle, the tier, the open gap of the year, where the position comes from
+ok 17 - the card of every memorial: well-formed, says later memorial and post-battle, the tier, the open gap of the year, where the position comes from
+  ---
+  duration_ms: 44.749339
+  type: 'test'
+  ...
+# Subtest: everything from the list is escaped: markup in a name, a place line or a source note never reaches the page as markup
+ok 18 - everything from the list is escaped: markup in a name, a place line or a source note never reaches the page as markup
+  ---
+  duration_ms: 3.531303
+  type: 'test'
+  ...
+# Subtest: the panel and the notice: the words, well-formed, with the layer's state and the choice of the nine positions
+ok 19 - the panel and the notice: the words, well-formed, with the layer's state and the choice of the nine positions
+  ---
+  duration_ms: 2.953744
+  type: 'test'
+  ...
+# Subtest: the card and the notice stay short where the left column is crowded: the year (or its gap) and the ground come before the group and the park number, the pills are one row, the notice has two rows with its button in the first
+ok 20 - the card and the notice stay short where the left column is crowded: the year (or its gap) and the ground come before the group and the park number, the pills are one row, the notice has two rows with its button in the first
+  ---
+  duration_ms: 1.661849
+  type: 'test'
+  ...
+# Subtest: what the "later" label rests on is in the library text of Bachelder's guide of 1889, word for word, on the printed pages named
+ok 21 - what the "later" label rests on is in the library text of Bachelder's guide of 1889, word for word, on the printed pages named
+  ---
+  duration_ms: 7.611191
+  type: 'test'
+  ...
+# Subtest: the years file is fit against the list: 33 memorials, each named exactly as the list names it, with the report, the page and the quotation; one hedged year is inferred, the rest documented
+ok 22 - the years file is fit against the list: 33 memorials, each named exactly as the list names it, with the report, the page and the quotation; one hedged year is inferred, the rest documented
+  ---
+  duration_ms: 1.383117
+  type: 'test'
+  ...
+# Subtest: a years file that is not fit is refused with the reason: another name, a memorial twice, a year before the battle, a quotation without the name, a hedged year called documented, an unknown report
+ok 23 - a years file that is not fit is refused with the reason: another name, a memorial twice, a year before the battle, a quotation without the name, a hedged year called documented, an unknown report
+  ---
+  duration_ms: 7.063527
+  type: 'test'
+  ...
+# Subtest: a memorial with a year says so on its card with the report, the page and the quotation, and has no gap for it; one without keeps the open gap; the rows and the panel say how many
+ok 24 - a memorial with a year says so on its card with the report, the page and the quotation, and has no gap for it; one without keeps the open gap; the rows and the panel say how many
+  ---
+  duration_ms: 28.393633
+  type: 'test'
+  ...
+# Subtest: the words a visitor reads (every card, row, panel, notice, label and announcement, and the tour's) hold none of the words the page copy checks of the browser specs forbid
+ok 25 - the words a visitor reads (every card, row, panel, notice, label and announcement, and the tour's) hold none of the words the page copy checks of the browser specs forbid
+  ---
+  duration_ms: 49.0125
+  type: 'test'
+  ...
+# Subtest: module: at entry the layer is OFF, nothing is drawn, no canvas exists, no scene hook is asked for; the switch, the panel and the notice carry the post-battle label
+ok 26 - module: at entry the layer is OFF, nothing is drawn, no canvas exists, no scene hook is asked for; the switch, the panel and the notice carry the post-battle label
+  ---
+  duration_ms: 41.485127
+  type: 'test'
+  ...
+# Subtest: module: switched on it draws the marks on its own canvas under the shell's overlay, the notice appears; the same camera draws nothing again; a moved camera draws again; off removes it all
+ok 27 - module: switched on it draws the marks on its own canvas under the shell's overlay, the notice appears; the same camera draws nothing again; a moved camera draws again; off removes it all
+  ---
+  duration_ms: 35.039562
+  type: 'test'
+  ...
+# Subtest: module: a memorial picked from the list opens its card, flies the camera, marks just that one while the layer is off, and putting it away takes the canvas down
+ok 28 - module: a memorial picked from the list opens its card, flies the camera, marks just that one while the layer is off, and putting it away takes the canvas down
+  ---
+  duration_ms: 14.562
+  type: 'test'
+  ...
+# Subtest: module: a memorial card makes room as the shell's own cards do (the root says data-card on), the notice gives way to it, the card carries the button that puts the marks away, and none of it is taken from a unit or structure card
+ok 29 - module: a memorial card makes room as the shell's own cards do (the root says data-card on), the notice gives way to it, the card carries the button that puts the marks away, and none of it is taken from a unit or structure card
+  ---
+  duration_ms: 18.858861
+  type: 'test'
+  ...
+# Subtest: module: a memorial beyond the loaded ground is flown to from the edge and says so; the camera never leaves the loaded ground
+ok 30 - module: a memorial beyond the loaded ground is flown to from the edge and says so; the camera never leaves the loaded ground
+  ---
+  duration_ms: 39.110682
+  type: 'test'
+  ...
+# Subtest: module: the choice of the nine state memorials' position is announced, rebuilds the marks and survives a picked card
+ok 31 - module: the choice of the nine state memorials' position is announced, rebuilds the marks and survives a picked card
+  ---
+  duration_ms: 24.832311
+  type: 'test'
+  ...
+# Subtest: module: the panel draws all 512 rows, searches, filters by side, group and ground, shows more, switches the layer, picks a row and flies to it
+ok 32 - module: the panel draws all 512 rows, searches, filters by side, group and ground, shows more, switches the layer, picks a row and flies to it
+  ---
+  duration_ms: 1415.856337
+  type: 'test'
+  ...
+# Subtest: module: the notice has the two buttons: About opens the panel, Hide switches the layer off
+ok 33 - module: the notice has the two buttons: About opens the panel, Hide switches the layer off
+  ---
+  duration_ms: 41.007199
+  type: 'test'
+  ...
+# Subtest: module: a tap on a mark picks it, a tap on empty picture puts the pick away, a drag or a long press is not a tap, a tap on a control over the picture is ignored
+ok 34 - module: a tap on a mark picks it, a tap on empty picture puts the pick away, a drag or a long press is not a tap, a tap on a control over the picture is ignored
+  ---
+  duration_ms: 80.161185
+  type: 'test'
+  ...
+# Subtest: module: Escape puts the card away when no drawer is open; the layer's keyboard has no listener on the document
+ok 35 - module: Escape puts the card away when no drawer is open; the layer's keyboard has no listener on the document
+  ---
+  duration_ms: 198.161548
+  type: 'test'
+  ...
+# Subtest: module: Back leaves nothing: every element, listener and registration of the visit is gone, and a second visit starts fresh with the layer off
+ok 36 - module: Back leaves nothing: every element, listener and registration of the visit is gone, and a second visit starts fresh with the layer off
+  ---
+  duration_ms: 38.776294
+  type: 'test'
+  ...
+# Subtest: module: data that fails its checks is not shown and says why; a visit that ended while the list was read starts nothing
+ok 37 - module: data that fails its checks is not shown and says why; a visit that ended while the list was read starts nothing
+  ---
+  duration_ms: 38.865964
+  type: 'test'
+  ...
+# Subtest: module: the module file asks for nothing it must not: no scene hook, no clock, no document or window listener, no random numbers, no wall clock in what is drawn
+ok 38 - module: the module file asks for nothing it must not: no scene hook, no clock, no document or window listener, no random numbers, no wall clock in what is drawn
+  ---
+  duration_ms: 2.732475
+  type: 'test'
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2685.415618

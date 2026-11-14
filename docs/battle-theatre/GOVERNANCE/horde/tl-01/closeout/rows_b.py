@@ -94,7 +94,7 @@ ROWS.append(dict(
     ],
     cites={
         'stuart_mid': OR('before 12 o\'clock that night, in spite of the difficulties, to all', R565, '693'),
-        'stuart_resume': OR('resumed the march northward early on the', R565, '694'),
+        'stuart_resume': OR('resumed the march northward early on the 2sth', R565, '694', reading='resumed the march northward early on the 28th', note='The OCR text layer prints the date as "2sth"; the two other archive.org scans of part 2 (warofrebellion272unit, warofrebellionco272unit) read "28th" (closeout/second_scan.jsonl).'),
         'stuart_ford': OR('and was ordered to move directly for Rowser\'s Ford, on the Potomac', R565, '693'),
         'alex_mid': L('ALEXANDER-1907', 'he crossed the Potomac at Rowser\'s Ford at midnight of the 27th'),
     },
@@ -236,7 +236,7 @@ ROWS.append(dict(
         ('Crawford\'s Pennsylvania Reserves joined the Fifth Corps at Ballinger\'s Creek (the Fifth Corps was there)', 'documented', 'supported', ['it28b']),
         ('The Second Corps was ordered into camp near Monocacy Junction by Meade on Jun 28', 'documented', 'supported', ['hancock_assumed']),
         ('Longstreet\'s corps: McLaws\' artillery encamped a mile beyond Chambersburg on the 28th; Longstreet\'s headquarters at Chambersburg (Fremantle, Jun 28 and 29)', 'documented', 'supported', ['cabell', 'frem_28']),
-        ('Anderson\'s division remained at Fayetteville until Jul 1; Rodes at Carlisle (reached on the 27th, there until the 30th)', 'documented', 'supported', ['anderson', 'rodes27']),
+        ('Anderson\'s division remained at Fayetteville until Jul 1; Rodes at Carlisle (reached on the 27th, there until the 30th)', 'documented', 'supported', ['anderson', 'rodes27', 'rodes30']),
         ('Early: Hays\' and Smith\'s brigades camped at Lauck\'s Mills near York; Avery in York; Gordon at Wrightsville in the evening', 'documented', 'supported', ['early_york', 'early_smoke']),
         ('The exact bivouac sites of every corps on the night of Jun 28', 'open gap', 'unsupported', []),
     ],
@@ -248,6 +248,7 @@ ROWS.append(dict(
         'frem_28': L('FREMANTLE-1864', '29^A June (Monday). — We are still at Chambersburg.'),
         'anderson': OR('and on the 27th, through Chambersburg to Fayetteville, at which place it halted until July 1', 'OR27-2-R536', '613'),
         'rodes27': OR('the two, moving on slowly without noteworthyincident, reached Carlisle on the 27th', R506, '551'),
+        'rodes30': OR('but on the 30th, having received orders to move toward the balance of the army, then supposed to be at or near Cashtown, we set out for that place', R506, '552'),
         'early_york': OR('sending Hays" and Smith\'s brigades into camp at Lauck\'s Mills, near the railroad, some 2 miles north of the town', R470, '466'),
         'early_smoke': OR('A short time before night, I rode out in the direction of Columbia', R470, '466'),
     },
@@ -361,14 +362,26 @@ ROWS.append(dict(
                 'Rodes reached Carlisle on Jun 27; Daniel\'s, Iverson\'s and Ramseur\'s brigades occupied the United States barracks, Doles bivouacked on the Dickinson College campus, the Alabama brigade bivouacked and picketed the Baltimore turnpike 1.5 miles out; Jenkins\' cavalry advanced toward Harrisburg and made a thorough reconnaissance of its defenses on the 29th.',
                 'documented', '1863-06-29T00:00', '1863-06-29T23:59'),
     subs=[
-        ('The brigades of Daniel, Iverson and Ramseur occupied the United States barracks; Doles bivouacked on the Dickinson College campus; the Alabama brigade picketed the Baltimore turnpike about 1.5 miles out', 'documented', 'supported', ['rodes_barracks']),
-        ('Jenkins\' cavalry advanced toward Harrisburg and on the 29th made a thorough reconnaissance of the defenses', 'documented', 'supported', ['rodes_jenkins']),
+        ('Rodes\' division reached Carlisle on the 27th; the advance on Harrisburg planned for the 30th was not made, because on the 30th it received orders to move toward the army and set out for Cashtown: the division was therefore at Carlisle on the 29th', 'documented', 'supported', ['rodes27', 'rodes_plan', 'rodes30']),
+        ('The brigades of Daniel, Iverson and Ramseur occupied the United States barracks at Carlisle; Doles bivouacked on the campus of Dickinson College, a part of his force acting as guard for the town; the Alabama brigade (Rodes\' old brigade, Col. O\'Neal) bivouacked on and picketed the Baltimore turnpike 1 1/2 miles from town', 'documented', 'supported', ['rodes_barracks', 'rodes_doles', 'rodes_alabama', 'rodes_oneal'],
+         'The OCR text layer prints the distance as "H miles"; the page image of printed page 551 reads "1 1/2 miles from town".'),
+        ('On arrival at Carlisle Jenkins\' cavalry advanced toward Harrisburg and on the 29th made a thorough reconnaissance of the defenses of the place', 'documented', 'supported', ['rodes_adv', 'rodes_jenkins']),
     ],
     cites={
+        'rodes27': OR('the two, moving on slowly without noteworthyincident, reached Carlisle on the 27th', R506, '551'),
+        'rodes_plan': OR('a step which every man in the division contemplated with eagerness, and which was to have been executed on the 3()th', R506, '552', reading='a step which every man in the division contemplated with eagerness, and which was to have been executed on the 30th',
+                         note='The OCR text layer prints the date as "3()th"; the next clause ("but on the 30th") and the two other archive.org scans of part 2 read the 30th (closeout/second_scan.jsonl).'),
+        'rodes30': OR('but on the 30th, having received orders to move toward the balance of the army, then supposed to be at or near Cashtown, we set out for that place', R506, '552'),
         'rodes_barracks': OR('The brigades of Daniel, Iverson, and Ramseur occupied the United States barracks', R506, '551'),
+        'rodes_doles': OR('that of General Doles bivouacked on the camxius of Dickinson College', R506, '551', reading='that of General Doles bivouacked on the campus of Dickinson College',
+                          image_check=ORIMG(2, 551, 'that of General Doles bivouacked on the campus of Dickinson College, a portion of his force acting as guard for the town')),
+        'rodes_alabama': OR('while the Alabama brigade bivouacked on and picketed the Baltimore turnpike, H miles from town', R506, '551', reading='while the Alabama brigade bivouacked on and picketed the Baltimore turnpike, 1 1/2 miles from town',
+                          image_check=ORIMG(2, 551, 'while the Alabama brigade bivouacked on and picketed the Baltimore turnpike, 1 1/2 miles from town')),
+        'rodes_oneal': OR("Rodes' (Alabama) brigade, commanded by Col.' E. A. O'Neal, composed of Third Alabama", R506, '545'),
+        'rodes_adv': OR("On our arrival at Carlisle, Jenkins'", R506, '551', reading="On our arrival at Carlisle, Jenkins' cavalry advanced toward Harrisburg, and had on the 29th made a thorough reconnaissance of the defenses of the place (the sentence runs over the page break of printed pages 551 and 552)"),
         'rodes_jenkins': OR('had on the 29tli made a tliorough reconnaissance of the defenses', R506, '552'),
     },
-    scenarios=[], remains=[], searched=['Rodes pp.551-552 read'], recheck='none needed: both stored quotes found (OR-RECHECK).'))
+    scenarios=[], remains=[], searched=['Rodes pp.545 and 551-552 read; printed page 551 read on the page image (archive.org PDF warofrebellion272unit, PDF page 557) for the distance "1 1/2 miles" that the OCR text layer prints as "H miles"'], recheck='none needed: both stored quotes were found at the stated report and page (OR-RECHECK). Second pass of 2026-11-13: the Doles, Alabama-brigade and distance clauses were not inside the first quotes and now have their own; the stay at Carlisle on the 29th is shown by the dates of arrival and departure.'))
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------ T1-034
 ROWS.append(dict(
@@ -437,7 +450,7 @@ ROWS.append(dict(
         'lee_orders': OR('Hill\'s corps was accordingly ordered to move toward Cashtown on the •^9th, and Longstreet to follow the next day', R426, '317',
                     reading='Hill\'s corps was accordingly ordered to move toward Cashtown on the 29th, and Longstreet to follow the next day',
                     image_check='the two other archive.org scans of part 2 print the date as 29th (closeout/second_scan.jsonl); the base OCR prints a stray mark before 9th'),
-        'ewell_order': OR('the general commanding to join the main body of the army at Cashtown', R467, '443'),
+        'ewell_order': OR('the general commanding to join the main body of the army at Cashtown', R467, '443', page_fix=PGFIX(2, 443)),
     },
     scenarios=[
         sc('A', 'Order received or issued on Jun 29', 'seed source W-BG; Lee p.317 (Hill ordered toward Cashtown on the 29th)', 'documented', ['lee_orders']),

@@ -68,6 +68,7 @@ def main():
         for c in new:
             pk = c['loc_id']; url = c.get('image_url'); dst = os.path.join(OUT, pk + '_r.jpg')
             if not url: led[pk] = {'status': 'not_offered', 'loc_id': pk, 'reason': 'the search result carries no image URL'}; continue
+            if 'notdigitized' in url or 'notdig' in url: led[pk] = {'status': 'not_offered', 'loc_id': pk, 'url': url, 'reason': 'the Library of Congress has not digitized this record: its search result carries the placeholder image 500x500_notdigitized.png instead of a photograph'}; continue
             cur = led.get(pk)
             if cur and cur.get('status') == 'ok' and os.path.exists(dst) and sha(dst) == cur.get('sha256'): continue
             res = fetch(url, dst)

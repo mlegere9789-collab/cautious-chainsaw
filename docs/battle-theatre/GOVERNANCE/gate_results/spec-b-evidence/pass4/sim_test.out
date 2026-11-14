@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: rng deterministic and well spread
+ok 1 - rng deterministic and well spread
+  ---
+  duration_ms: 24.494615
+  type: 'test'
+  ...
+# Subtest: formation: size, facing, reproducible, frontage
+ok 2 - formation: size, facing, reproducible, frontage
+  ---
+  duration_ms: 4.619017
+  type: 'test'
+  ...
+# Subtest: loss solver: exact totals, pinned honored, deterministic, windows respected
+ok 3 - loss solver: exact totals, pinned honored, deterministic, windows respected
+  ---
+  duration_ms: 2.70684
+  type: 'test'
+  ...
+# Subtest: Q04 presence gating rejects early entities
+ok 4 - Q04 presence gating rejects early entities
+  ---
+  duration_ms: 1.293747
+  type: 'test'
+  ...
+# Subtest: Q12 scrub: random seeks, backward and forward identical
+ok 5 - Q12 scrub: random seeks, backward and forward identical
+  ---
+  duration_ms: 80.670876
+  type: 'test'
+  ...
+# Subtest: late insertion invalidates only later snapshots
+ok 6 - late insertion invalidates only later snapshots
+  ---
+  duration_ms: 3.557238
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 299.789254

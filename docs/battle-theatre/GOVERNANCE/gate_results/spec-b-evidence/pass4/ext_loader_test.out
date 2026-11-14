@@ -1,0 +1,178 @@
+TAP version 13
+# Subtest: no list: nothing is imported, nothing is logged, nothing runs (with the existence check and without it)
+ok 1 - no list: nothing is imported, nothing is logged, nothing runs (with the existence check and without it)
+  ---
+  duration_ms: 4.148979
+  type: 'test'
+  ...
+# Subtest: a list that is there but cannot be read is logged and shown, never passed over in silence
+ok 2 - a list that is there but cannot be read is logged and shown, never passed over in silence
+  ---
+  duration_ms: 12.989375
+  type: 'test'
+  ...
+# Subtest: a list that does not answer does not hold the theatre: the check is passed over, the list itself counts as failed after the wait, a late answer starts nothing
+ok 3 - a list that does not answer does not hold the theatre: the check is passed over, the list itself counts as failed after the wait, a late answer starts nothing
+  ---
+  duration_ms: 218.160537
+  type: 'test'
+  ...
+# Subtest: the list step holds the theatre for one wait in all, not two: the check has a third of it, the import the rest, whatever stalls; answers that come in time are used
+ok 4 - the list step holds the theatre for one wait in all, not two: the check has a third of it, the import the rest, whatever stalls; answers that come in time are used
+  ---
+  duration_ms: 15.296896
+  type: 'test'
+  ...
+# Subtest: Back while the list or a module is stalled: the waits end at once, no timer is left, and nothing is logged after the visit
+ok 5 - Back while the list or a module is stalled: the waits end at once, no timer is left, and nothing is logged after the visit
+  ---
+  duration_ms: 10.417123
+  type: 'test'
+  ...
+# Subtest: list entries: refused ones are reported and the rest runs; a path listed twice is started once; ./ is dropped
+ok 6 - list entries: refused ones are reported and the rest runs; a path listed twice is started once; ./ is dropped
+  ---
+  duration_ms: 1.043195
+  type: 'test'
+  ...
+# Subtest: real files: import(base + path), init(ctx) awaited with exactly the eleven keys, update(frame) with exactly the five fields, dispose on Back
+ok 7 - real files: import(base + path), init(ctx) awaited with exactly the eleven keys, update(frame) with exactly the five fields, dispose on Back
+  ---
+  duration_ms: 40.915909
+  type: 'test'
+  ...
+# Subtest: a real folder without a list: the same importer, nothing happens
+ok 8 - a real folder without a list: the same importer, nothing happens
+  ---
+  duration_ms: 1.904927
+  type: 'test'
+  ...
+# Subtest: order: init in list order one after another, update in list order every frame, dispose in reverse
+ok 9 - order: init in list order one after another, update in list order every frame, dispose in reverse
+  ---
+  duration_ms: 22.633078
+  type: 'test'
+  ...
+# Subtest: a failing module is logged and skipped, never fatal: import, init (thrown and rejected), update (thrown and rejected); the others go on
+ok 10 - a failing module is logged and skipped, never fatal: import, init (thrown and rejected), update (thrown and rejected); the others go on
+  ---
+  duration_ms: 10.055102
+  type: 'test'
+  ...
+# Subtest: hostile values do not stop the theatre: list entries and thrown values that have no text form are refused or logged, and the other modules start
+ok 11 - hostile values do not stop the theatre: list entries and thrown values that have no text form are refused or logged, and the other modules start
+  ---
+  duration_ms: 1.727482
+  type: 'test'
+  ...
+# Subtest: one module cannot change the frame the next one is given
+ok 12 - one module cannot change the frame the next one is given
+  ---
+  duration_ms: 0.427544
+  type: 'test'
+  ...
+# Subtest: a module with nothing to run is said so; a module without update costs nothing per frame
+ok 13 - a module with nothing to run is said so; a module without update costs nothing per frame
+  ---
+  duration_ms: 4.41938
+  type: 'test'
+  ...
+# Subtest: a slow start does not hold the theatre: it goes on after the wait and the module joins when it is ready
+ok 14 - a slow start does not hold the theatre: it goes on after the wait and the module joins when it is ready
+  ---
+  duration_ms: 30.701053
+  type: 'test'
+  ...
+# Subtest: Back while a module is starting: no update ever, dispose exactly once as soon as its init settles; the rest of the list is not started
+ok 15 - Back while a module is starting: no update ever, dispose exactly once as soon as its init settles; the rest of the list is not started
+  ---
+  duration_ms: 16.245908
+  type: 'test'
+  ...
+# Subtest: registerPanel: listed in order, reserved and foreign ids refused, own id replaced, the handle opens and closes through the theatre
+ok 16 - registerPanel: listed in order, reserved and foreign ids refused, own id replaced, the handle opens and closes through the theatre
+  ---
+  duration_ms: 1.009317
+  type: 'test'
+  ...
+# Subtest: registerLayerToggle: the switch shows what getFn reports; setFn gets true or false, may be async, may refuse, may throw; the viewer is told
+ok 17 - registerLayerToggle: the switch shows what getFn reports; setFn gets true or false, may be async, may refuse, may throw; the viewer is told
+  ---
+  duration_ms: 4.531597
+  type: 'test'
+  ...
+# Subtest: the More drawer: switches with their state, panels, what is not running; titles are escaped; no forbidden wording
+ok 18 - the More drawer: switches with their state, panels, what is not running; titles are escaped; no forbidden wording
+  ---
+  duration_ms: 0.748913
+  type: 'test'
+  ...
+# Subtest: the More tool: hidden until something is registered or has failed; the dot and the accessible name say how many parts are not running; panelFor reaches the added panels
+ok 19 - the More tool: hidden until something is registered or has failed; the dot and the accessible name say how many parts are not running; panelFor reaches the added panels
+  ---
+  duration_ms: 1.663601
+  type: 'test'
+  ...
+# Subtest: drawAdded: every form a renderFn may return; the scope ends the cleanup; a throw or a rejection goes to fail; a late result is not drawn but its cleanup is called
+ok 20 - drawAdded: every form a renderFn may return; the scope ends the cleanup; a throw or a rejection goes to fail; a late result is not drawn but its cleanup is called
+  ---
+  duration_ms: 116.7595
+  type: 'test'
+  ...
+# Subtest: tierMark: the four tiers and their short spellings give the card pill; a longer statement is marked by the weakest tier it names and stays visible; unknown is said, never guessed
+ok 21 - tierMark: the four tiers and their short spellings give the card pill; a longer statement is marked by the weakest tier it names and stays visible; unknown is said, never guessed
+  ---
+  duration_ms: 2.684674
+  type: 'test'
+  ...
+# Subtest: tierMark: a negated or hedged tier word is not a tier: the three examples of the review, the whole probe list, and the statements that stay plain
+ok 22 - tierMark: a negated or hedged tier word is not a tier: the three examples of the review, the whole probe list, and the statements that stay plain
+  ---
+  duration_ms: 0.822794
+  type: 'test'
+  ...
+# Subtest: tierMark: what a hedge or a negation does is the same for every word of its list; it can lower a mark and never raise it
+ok 23 - tierMark: what a hedge or a negation does is the same for every word of its list; it can lower a mark and never raise it
+  ---
+  duration_ms: 199.999934
+  type: 'test'
+  ...
+# Subtest: tierMark and the loader never throw, whatever they are given: an object without a prototype, a toString that throws, a revoked proxy, symbols, a huge text; words that Object.prototype also has are only words
+ok 24 - tierMark and the loader never throw, whatever they are given: an object without a prototype, a toString that throws, a revoked proxy, symbols, a huge text; words that Object.prototype also has are only words
+  ---
+  duration_ms: 414.122462
+  type: 'test'
+  ...
+# Subtest: choices: callable and readable, always the choices in effect now, never writable
+ok 25 - choices: callable and readable, always the choices in effect now, never writable
+  ---
+  duration_ms: 0.874379
+  type: 'test'
+  ...
+# Subtest: theatre.mjs: the loader starts after the renderer, the effects and the sound exist; update comes before host.frame; Back ends the modules before anything is torn down
+ok 26 - theatre.mjs: the loader starts after the renderer, the effects and the sound exist; update comes before host.frame; Back ends the modules before anything is torn down
+  ---
+  duration_ms: 0.918328
+  type: 'test'
+  ...
+# Subtest: render-host: addSceneHook draws after the figures and the structures without taking the one slot; a throwing hook is removed and the frame goes on
+ok 27 - render-host: addSceneHook draws after the figures and the structures without taking the one slot; a throwing hook is removed and the frame goes on
+  ---
+  duration_ms: 1.275121
+  type: 'test'
+  ...
+# Subtest: the order a hook relies on, with the real RenderHost and the real chain of the effects host: figures, structures, the hooks, then the weather and the effects; on WebGPU the effects come in the pass after the scene pass
+ok 28 - the order a hook relies on, with the real RenderHost and the real chain of the effects host: figures, structures, the hooks, then the weather and the effects; on WebGPU the effects come in the pass after the scene pass
+  ---
+  duration_ms: 1.162445
+  type: 'test'
+  ...
+1..28
+# tests 28
+# suites 0
+# pass 28
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1406.416873

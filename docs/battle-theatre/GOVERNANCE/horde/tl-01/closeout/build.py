@@ -218,6 +218,9 @@ def resolve(cid, c):
         if c.get('page') and str(c['page']) not in str(h['page']):
             raise QuoteError('%s: page stated %s, found %s (%s)' % (cid, c['page'], h['page'], h['record']))
         part = h['part']
+        pfix = c.get('page_fix')
+        if pfix and str(pfix[0]) not in str(h['page']):
+            raise QuoteError('%s: page_fix %s is not inside the page recovered from the running heads (%s)' % (cid, pfix[0], h['page']))
         if OR_SHA[part] is None: OR_SHA[part] = sha_file(raw_path(part))
         rec = OR_INDEX.get(h['record'] or '', {})
         author = c.get('author') or ((rec.get('rank') or '') + ' ' + (rec.get('author') or '')).strip() or (rec.get('header_raw') or '')[:60]
@@ -225,6 +228,10 @@ def resolve(cid, c):
               author=author, printed_page=h['page'], page_basis='running heads of the OCR text (tools/bt/or27_pages.py)',
               quote=q, text_offset=h['start'], text_offset_end=h['end'],
               source_file=os.path.relpath(raw_path(part), ROOT).replace(os.sep, '/'), sha256=OR_SHA[part])
+        if pfix:
+            out['page_model'] = h['page']
+            out['printed_page'] = str(pfix[0])
+            out['page_basis'] = pfix[1] + ' (the running-head model of the OCR text had given "%s", a page inside a run of lost heads)' % h['page']
         if len(hs) > 1: out['occurrences_in_report'] = len(hs)
     else:
         sid = c['src']

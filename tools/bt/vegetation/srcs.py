@@ -3,6 +3,7 @@
     OR27            Official Records Ser. I vol. 27, parts 1-3 (tools/bt/or27_find.py): cited by report and printed page
     NPS:<ID>        a National Park Service report saved under tmp/library/web/nps/<ID>/<ID>.txt (=== PAGE n === markers: PDF page index);
                     NPS:<ID>#layout reads the layout text of the same file (two-column pages stay in reading order there); NPS:<ID>#raw the pdftotext raw order (a few documents only)
+    NPSWEB:<ID>     a National Park Service web page saved by the web task (tmp/library/web/nps/pages/<ID>/<ID>.txt; one page, no page markers)
     WEB:<ID>        a government web page saved by this lane (tmp/library/web/veg/<ID>.txt and .meta.json)
     WS9:<ID>        a public-domain book or newspaper saved under tmp/library/ws9 (index: docs/battle-theatre/GOVERNANCE/library/acquired_2.json;
                     the OCR text has no page markers: the locator is the character offset in the sha256-pinned file and, when the text itself
@@ -139,6 +140,8 @@ def load(key):
         p = os.path.join(NPS_DIR, base, base + {'layout': '.layout.txt', 'raw': '.raw.txt'}.get(variant, '.txt'))
     elif fam == 'WS9':
         p = ws9_path(name)
+    elif fam == 'NPSWEB':                    # a National Park Service web page saved by the web task: tmp/library/web/nps/pages/<ID>/<ID>.txt
+        p = os.path.join(NPS_DIR, 'pages', name, name + '.txt')
     elif fam == 'WEB':                       # a page saved by this lane under tmp/library/web/veg/<ID>.txt (tags removed; <ID>.meta.json holds the address and the hash of the served file)
         p = os.path.join(ROOT, 'tmp', 'library', 'web', 'veg', name + '.txt')
     else:

@@ -35,3 +35,9 @@ def ORIMG(part, page, shown):
     part (item warofrebellion271unit for part 1, warofrebellion272unit for part 2; PDF page = printed page + 18 for part 1, + 6 for part 2)"""
     item, off = {1: ('warofrebellion271unit', 18), 2: ('warofrebellion272unit', 6)}[part]
     return ('page image of printed page %s of part %d (archive.org item %s, PDF page %d; closeout/acquired_tl01.json) reads: "%s"' % (page, part, item, int(page) + off, shown))
+
+def PGFIX(part, page):
+    """(page, basis) for an OR citation whose page the running-head model of the OCR text gave only as a range (a run of lost heads): the passage
+    was located in the text layer of the independent archive.org scan of the same part and the page image of that PDF page shows the printed number"""
+    item, off = {1: ('warofrebellion271unit', 18), 2: ('warofrebellion272unit', 6)}[part]
+    return (str(page), 'the passage lies on printed page %s: located in the text layer of the independent archive.org scan %s, PDF page %d, whose page image shows the printed page number %s (closeout/acquired_tl01.json)' % (page, item, int(page) + off, page))

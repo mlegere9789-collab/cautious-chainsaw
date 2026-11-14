@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: the chunks hold exactly the triangles of the crop-bearing units, each once, in order, in the square it belongs to
+ok 1 - the chunks hold exactly the triangles of the crop-bearing units, each once, in order, in the square it belongs to
+  ---
+  duration_ms: 70.547633
+  type: 'test'
+  ...
+# Subtest: a chunk cut down: short edges, the same ground, the unit and the layer of every triangle kept
+ok 2 - a chunk cut down: short edges, the same ground, the unit and the layer of every triangle kept
+  ---
+  duration_ms: 54.630307
+  type: 'test'
+  ...
+# Subtest: the chunks near the camera are chosen by distance and by view; nothing far is chosen
+ok 3 - the chunks near the camera are chosen by distance and by view; nothing far is chosen
+  ---
+  duration_ms: 6.473377
+  type: 'test'
+  ...
+# Subtest: the cache of cut-down chunks: a limit, the least recently used leaves first, the ones in use stay, a build allowance per frame
+ok 4 - the cache of cut-down chunks: a limit, the least recently used leaves first, the ones in use stay, a build allowance per frame
+  ---
+  duration_ms: 23.606755
+  type: 'test'
+  ...
+# Subtest: the state texture the shaders read: texel 3 holds the stage, the shock height and the standing height of a crop; texel 0 the colour and the crop code
+ok 5 - the state texture the shaders read: texel 3 holds the stage, the shock height and the standing height of a crop; texel 0 the colour and the crop code
+  ---
+  duration_ms: 7.415324
+  type: 'test'
+  ...
+# Subtest: the two shaders: the parts a driver would refuse that can be seen without one
+ok 6 - the two shaders: the parts a driver would refuse that can be seen without one
+  ---
+  duration_ms: 8.912589
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2593.230019

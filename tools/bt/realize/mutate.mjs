@@ -8,6 +8,7 @@
 //   node tools/bt/realize/mutate.mjs                       all mutations; the report is GOVERNANCE/realizations/MUTATION-CHECK.json (written after every mutation, so an interrupted run keeps what it did)
 //   node tools/bt/realize/mutate.mjs --only id1,id2        some mutations (the report keeps the results of the others); --resume runs only those with no result yet
 //   node tools/bt/realize/mutate.mjs --survivors           only those that survived in the report
+//   node tools/bt/realize/mutate.mjs --out x.json          write (and read the earlier results from) x.json instead of GOVERNANCE/realizations/MUTATION-CHECK.json
 //   (before the first mutation the unmutated copy must pass the tests it is judged by; --no-baseline skips that)
 // Each mutation runs realize-rules.test.mjs first, then realize.test.mjs, and the tests of realize-inputs.test.mjs only for the mutations marked "inputs" (they make scratch trees of their own); it stops at
 // the first failing file. It is a heavy job (a few minutes per ten mutations on a quiet machine): run it through tools/horde/bench.sh.
@@ -15,8 +16,9 @@ import fs from 'node:fs'; import path from 'node:path'; import { spawnSync } fro
 import { ROOT, REAL, readJSON, rel, sha256File } from './lib.mjs';
 import { makeTree, removeTree } from './tree.mjs';
 
-const here = path.dirname(new URL(import.meta.url).pathname), MUT = readJSON(path.join(here, 'mutations.json')), OUT = path.join(REAL, 'MUTATION-CHECK.json');
+const here = path.dirname(new URL(import.meta.url).pathname), MUT = readJSON(path.join(here, 'mutations.json'));
 const argv = process.argv.slice(2), opt = n => { const i = argv.indexOf(n); return i < 0 ? null : (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true); };
+const OUT = typeof opt('--out') === 'string' ? path.resolve(opt('--out')) : path.join(REAL, 'MUTATION-CHECK.json');       // --out: write the report elsewhere (a development run must not replace the report of the tree)
 const FILES = { rules: 'tests/governance/realize-rules.test.mjs', main: 'tests/governance/realize.test.mjs', inputs: 'tests/governance/realize-inputs.test.mjs' };
 
 export function applyMutation(text, m) {

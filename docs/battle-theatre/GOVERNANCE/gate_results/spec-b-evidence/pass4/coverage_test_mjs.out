@@ -1,0 +1,94 @@
+TAP version 13
+# Subtest: Q18 every requirement has sub-requirements
+ok 1 - Q18 every requirement has sub-requirements
+  ---
+  duration_ms: 1.65994
+  type: 'test'
+  ...
+# Subtest: Q18 every sub-requirement passing or linked to an open register entry
+not ok 2 - Q18 every sub-requirement passing or linked to an open register entry
+  ---
+  duration_ms: 0.980524
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/governance/coverage.test.mjs:14:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    461 unlinked sub-requirements
+    
+    461 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 461
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/tests/governance/coverage.test.mjs:16:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: Q17 every timeline row has an open register entry (no visual realization records exist yet)
+not ok 3 - Q17 every timeline row has an open register entry (no visual realization records exist yet)
+  ---
+  duration_ms: 2.341755
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/governance/coverage.test.mjs:18:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    376 timeline rows uncovered
+    
+    376 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 376
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/tests/governance/coverage.test.mjs:22:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Q23 non-documented register entries carry a product marking
+not ok 4 - Q23 non-documented register entries carry a product marking
+  ---
+  duration_ms: 0.665604
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/tests/governance/coverage.test.mjs:24:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    10 unmarked: EG-0137,EG-0139,EG-0292,EG-0293,EG-0294
+    
+    10 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 10
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/tests/governance/coverage.test.mjs:26:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 1
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 87.812874

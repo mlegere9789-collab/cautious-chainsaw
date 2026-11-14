@@ -713,6 +713,7 @@ Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettys
   - State date: **2010-11 (existing fences along Wright Avenue; fieldstone fences of the park are mostly rebuilt)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 57
   - Claim: The report says that toward the southern tip of the project area Wright Avenue is aligned between two fieldstone fences used to delineate property lines and enclose the farm-woodlot lane
   - Quote: "Toward the southern tip of the project area, the roadway begins to straighten out as it is aligned between two fieldstone fences used to delineate property lines and enclose the farm-woodlot lane."
+  - Context (PDF p. 57): "Wright Avenue GETT #RD319, IDLCS 080987 Initially surveyed in 1887, Wright Avenue remained an unimproved avenue until 1903."
 - **Wall north of Wheatfield Road: the whole wall documented in its 1863 configuration** (`NPSX-CLR-LRT-p078-01`)
   - State date: **1863-07 (wall along Wheatfield Road in its 1863 configuration; part reconfigured for the 95th Pennsylvania monument)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 78
   - Claim: The report says the entire fieldstone wall along Wheatfield Road, in its 1863 configuration and in the portion reconfigured for the 95th Pennsylvania monument, is documented on the National Register Cultural Resource Inventory for both the Battle Era and the Commemorative Era (after 1888)
@@ -722,7 +723,7 @@ Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettys
   - State date: **2010-11 (existing wall; a section was replaced by the 96th Pennsylvania monument dedicated 1888)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 79
   - Claim: The report says the 96th Pennsylvania monument replaces a section of the fieldstone wall that lines the north side of Wheatfield Road and denotes the Weikert Farm property line
   - Quote: "This monument replaces a section of the fieldstone wall that lines the north side of Wheatfield Road and denotes the Weikert Farm property line."
-  - Context (PDF p. 79): "Dedicated June 21, 1888"
+  - Context (PDF p. 79): "31C 96th Pennsylvania Infantry 31L 96th Pennsylvania Infantry, Left Flank 31R 96th Pennsylvania Infantry, Right Flank GETT #MN116-B, IDLCS 009732 Dedicated June 21, 1888"
 - **Fieldstone fence in front of the Nevin's Brigade tablet existed before the battle** (`NPSX-CLR-LRT-p080-01`)
   - State date: **1863-07 (fence existing before the battle; listed as a contributing feature of the National Register inventory)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 80
   - Claim: The report says the fieldstone fence in front of the Nevin's Brigade tablet existed prior to the time of battle and is documented on the National Register Cultural Resource Inventory as a contributing feature
@@ -739,7 +740,7 @@ Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettys
   - Quote: "Fieldstone Fence with Rider: A portion of the fieldstone fence north of Wheatfield Road is topped with a wood split rail fence (Figure 3.71). The field enclosed by this fence was likely grazing land for livestock, as the additional height created by the wood rails would have kept animals from escaping from or intruding on a private field."
 - **Stacked rail barricades of the NPS era are not worm fences; real worm fences are much taller** (`NPSX-CLR-LRT-p085-01`)
   - State date: **NPS era (stacked rail barricades, built to keep visitors on the paths)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 85
-  - Claim: The report says the stacked rail barricades were built to resemble historic worm fences, which it says would have been found surrounding farm fields at the time of battle, but are NPS-era introductions, and that actual worm fences are typically much taller than they are
+  - Claim: The report says the stacked rail barricades were built to resemble historic worm fences, which it says would have been found surrounding farm fields at the time of battle, but are NPS Era introductions, and that actual worm fences are typically much taller than they are
   - Quote: "Although constructed to resemble historic worm fences that would have been found surrounding farm fields at the time of battle, these stacked rail barricades are actually NPS Era introductions to the site, used to keep visitors on the paved trails as they walk from the Sykes Avenue parking area to the summit (Figure 3.76). Actual worm fences are typically much taller than the stacked rail barricades."
 - **Fenced field east of Little Round Top with a lane bordered by worm fences** (`NPSX-CLR-LRT-p122-02`)
   - State date: **1863-07-02 (recollection written after the war)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 122

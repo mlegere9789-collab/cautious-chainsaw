@@ -1,0 +1,24 @@
+   linkedConflicts: C-001,C-002,C-003,C-004,C-005,C-007,C-021,C-022,C-023,C-039,C-042,C-043
+OK   real layer, 726 units (spec: 726)
+OK   counts moving 418, edge_only 21, not_drawn 108 (spec: all >0, not_drawn >100); rejected 0 (spec: 0)
+OK   II Corps: 65 units, defaults 45030 (spec: all 45030 = 06:30 Jul 2), conflicts C-004
+   C-004 options: delegated=window 06:30-07:00 Jul 2 | recommended=PDF recommended, pending owner | v0=22:30 Jul 1 | v1=at dawn | v2=06:00 | v3=07:00 Jul 2 | x:C-004-S6=06:30 (OR, added) | range=Show every value (no single value chosen)
+   option "22:30 Jul 1" key: v0
+OK   with 22:30 Jul 1: min 44550 (spec: 44550)
+OK   a division whose own gate is the date Jul 2 stays at 44640 with no conflict: 40 such units
+OK   reset restores the delegated defaults
+OK   PDF values: II Corps defaults 45000 (spec: 45000 = 06:00 Jul 2)
+OK   PDF choices carry 47 'recommended' keys (spec: 47; PDF_KEY=recommended)
+OK   20th Maine default 45060 (spec: 45060 = 07:00 Jul 2)
+   C-003 options: delegated=window 07:00-08:00 Jul 2 (head of column); 05:00 kept flagged | recommended=PDF recommended, pending owner | v0=05:00 | v1=08:00 (head of column) | x:C-003-S4=07:00 (OR, added) | range=Show every value (no single value chosen)
+OK   C-003 has an option with key v0: 05:00
+OK   20th Maine with v0: 44940 (spec: 44940 = 05:00)
+OK   weather conflicts 5: CF-WIND-SPEED, CF-JUL4-RAIN-TIMING, CF-JUL2-SKY, CF-JUL3-87F, CF-JUL2-CLOUD-2PM (spec: >= 5)
+OK   CF-JUL4-RAIN-TIMING options 3 (spec picks index 2)
+OK   register conflicts 47 (spec: 47)
+   C-004 printed: {"values":"22:30 Jul 1; at dawn; 06:00; 07:00 Jul 2","recommended":"06:00 Jul 2 (head), tails later","others":"all four"}
+   focus unit us-1c-1d-meredith-19in (19th IN (Meredith’s Iron Brigade)) tier plausible-procedural; earliest 43820 default 43820
+
+real	0m5.549s
+user	0m2.584s
+sys	0m0.184s
