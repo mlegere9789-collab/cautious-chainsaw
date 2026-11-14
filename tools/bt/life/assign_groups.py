@@ -236,6 +236,9 @@ def main():
         rules = US_CORPS if r['part'] == 1 else CS_CORPS
         g = None
         how = None
+        if r['part'] == 1 and re.search(r'Engineer\s+Bri|Pioneer\s+Corps|Military\s+Rail|Pontoon', hdr, re.I):
+            out[rid] = {'group': 'bridges-roads', 'how': 'header:engineers_pioneers_railroads', 'author': (r.get('author') or '')[:40], 'unit': (r.get('unit_scope') or '')[:70]}
+            continue
         for rx, gid in rules:
             if re.search(rx, hdr, re.I):
                 g, how = gid, 'header'

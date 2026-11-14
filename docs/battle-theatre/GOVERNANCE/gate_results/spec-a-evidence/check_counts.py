@@ -146,6 +146,38 @@ if tc and ec:
 else:
     check('corrections census ran', False, cen.stderr[:200])
 
+# ---------------------------------------------------------------- row-level records by class (the paragraph of 1.3)
+ROWK = ('sub_claims', 'subclaims', 'citations', 'seed', 'before', 'schedule_id', 'lookups')
+kind_ = lambda r: 'sup' if 'xid' in r else ('row' if any(k in r for k in ROWK) else 'other')
+evr = collections.defaultdict(list)
+for f in glob.glob(os.path.join(GOV, 'evidence_corrections', '*.jsonl')):
+    for l in open(f, encoding='utf-8'):
+        if l.strip(): r = json.loads(l); evr[r['id']].append(r)
+tlr = collections.defaultdict(list)
+for f in glob.glob(os.path.join(GOV, 'timeline_corrections', '*.jsonl')):
+    for l in open(f, encoding='utf-8'):
+        if l.strip(): r = json.loads(l); tlr[r['id']].append(r)
+clean_ = lambda rs: any(kind_(r) == 'row' and r['verdict'] in ('confirmed', 'corrected') and not r.get('remains_unsupported') for r in rs)
+cls_rows = {'R14.S': r'R14\.S-', 'R14.E': r'R14\.E-', 'R13.G': r'R13\.G-', 'R13.P': r'R13\.P-', 'R12': r'R12\.\d{3}$', 'R03.C': r'R03\.C-', 'R22': r'R22\.0\d{3}$'}
+want = {}
+for name, pat in cls_rows.items():
+    rows_ = [s_['id'] for s_ in subs if re.match(pat, s_['id']) and not s_['id'].endswith('0000')]
+    rl_ = [i for i in rows_ if any(kind_(r) == 'row' for r in evr.get(i, []))]
+    so_ = [i for i in rows_ if evr.get(i) and not any(kind_(r) == 'row' for r in evr[i])]
+    nr_ = [i for i in rows_ if not evr.get(i)]
+    cl_ = [i for i in rows_ if clean_(evr.get(i, []))]
+    want[name] = (len(rows_), len(rl_), len(cl_), len(so_), len(nr_))
+tl_rl = [i for i, v in tlr.items() if any(kind_(r) == 'row' for r in v)]; tl_cl = [i for i, v in tlr.items() if clean_(v)]
+okp = has(r'timeline %d of 691 rows \(%d clean\)' % (len(tl_rl), len(tl_cl)))
+for name, (n, rl_, cl_, so_, nr_) in want.items():
+    label = {'R12': 'R12 catalogue', 'R22': 'R22 epilogue'}.get(name, name)
+    pat = r'%s %d of %d(?: \(%d clean\))?' % (re.escape(label), rl_, n, cl_) if cl_ else r'%s %d of %d' % (re.escape(label), rl_, n)
+    okp = okp and has(pat)
+sup_txt = 'Supplementary records only: R13.P %d, R12 %d, R03.C %d, R22 %d' % (want['R13.P'][3], want['R12'][3], want['R03.C'][3], want['R22'][3])
+none_txt = 'No record at all: R13.G %d, R13.P %d, R12 %d, R03.C %d' % (want['R13.G'][4], want['R13.P'][4], want['R12'][4], want['R03.C'][4])
+check('1.3 row-level records by class', okp and sup_txt in spec and none_txt in spec, str(want))
+check('1.3 / SS-2: all 88 S rows have a row-level record, 42 clean', want['R14.S'][:3] == (88, 88, 42) and has(r'all 88 have a row-level record, 42 of them confirmed or corrected'))
+
 # ---------------------------------------------------------------- library status words
 lw = subprocess.run([sys.executable, '-I', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'library_words.py'), doc], capture_output=True, text=True)
 lj = json.loads(lw.stdout) if lw.returncode == 0 else {}

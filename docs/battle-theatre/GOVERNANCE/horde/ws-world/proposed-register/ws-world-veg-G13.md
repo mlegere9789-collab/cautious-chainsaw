@@ -5,7 +5,7 @@
 | ID | ws-world-veg-G13 |
 | Requirement IDs | R20, Q21 |
 | Category | evidence missing |
-| Description | No photograph is used for any vegetation state here. |
+| Description | No photograph is used for any vegetation state here. A National Park Service report says the Brady photographs of the post-battle period show the west slope of Little Round Top nearly devoid of trees, and cites photographs for the open character of Devil's Den; the photographs themselves were not read. |
 | Why literal 100% is not possible or blocked | The photo-match catalogue exists (109 records); a field-by-field reading of stubble and trample is owed. |
 | Evidence searched / action | Official Records vol. 27 (tools/bt/or27_find.py), the National Park Service landscape reports saved by the web task (73 texts), the public-domain books and 1863 newspapers of the library; every quote of the claims is looked up again in the saved text (tools/bt/vegetation/verify_claims.py). The claims are in app/data/vegetation.json. |
 | Autonomous substitute applied | A calendar of ranges and seeded draws, drawn in the theatre and marked with the tier in the Vegetation panel (More). |

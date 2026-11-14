@@ -46,8 +46,12 @@ pats = [r'\bA-\d\d\b', r'\bU-\d\d\b', r'\bX-\d\d\b', r'\bT-Q\d\d-\d+\b', r'\bT-S
         r'\b(?:TL|SS|WK|GE|PE|CT|CF|EP|TOP)-\d+\b', r'\bQ\d\d\.\d+\b']
 for p in pats:
     for m in re.finditer(p, body): used.setdefault(m.group(0), 0); used[m.group(0)] += 1
-undefined = sorted(k for k in used if k not in defined)
+# X-nn are ids of the log of GATE-SPEC.md (another file): allowed in section 11, which names that file's entries, and nowhere else
+head_part = body.split('## 11. Revisions', 1)[0]
+external = sorted({m.group(0) for m in re.finditer(r'\bX-\d\d\b', body) if m.group(0) not in re.findall(r'\bX-\d\d\b', head_part)})
+undefined = sorted(k for k in used if k not in defined and not (k.startswith('X-') and k in external))
 res['cross_refs_used'] = len(used); res['cross_refs_not_defined_by_a_heading_or_row'] = undefined
+res['external_cross_refs_only_in_section_11'] = external
 
 # 3. gate texts
 gates = json.load(open(os.path.join(GOV, 'gates.json'), encoding='utf-8'))

@@ -181,9 +181,9 @@ export function stateAt(model, unit, tMin, choices) {
   }
   if (u.woods || u.cls === 'woods' || u.cls === 'scatter') {
     const lf = leafAt(model, u, tMin);
-    let density = u.woods ? u.woods.per_ha : 0, lrt = scenarioOption(model, choices, 'CF-VEG-LRT');
-    if (model.lrtUnits.has(u.id)) { if (lrt === 'wiki_unwooded') { density = 0; lrtNote = 'Little Round Top read as unwooded'; } else if (lrt === 'wiki_light_summit') { density *= 0.5; lrtNote = 'Little Round Top read as lightly wooded'; } }
-    out.trees = { leaf: lf.leaf * (1 - 0.9 * dm.strip), leafFull: lf.leaf, leafRange: lf.range, strip: dm.strip, perHa: density, class: u.woods && u.woods.class, understory: u.woods && u.woods.understory, understoryTier: u.woods && (u.woods.understory_tier || 'plausible-procedural'), species: u.woods && u.woods.species };
+    let density = u.woods ? u.woods.per_ha : 0, keep = 1, lrt = scenarioOption(model, choices, 'CF-VEG-LRT');
+    if (model.lrtUnits.has(u.id)) { if (lrt === 'wiki_unwooded') { density = 0; keep = 0; lrtNote = 'Little Round Top read as unwooded'; } else if (lrt === 'wiki_light_summit') { density *= 0.5; keep = 0.5; lrtNote = 'Little Round Top read as lightly wooded'; } }
+    out.trees = { leaf: lf.leaf * (1 - 0.9 * dm.strip), leafFull: lf.leaf, leafRange: lf.range, strip: dm.strip, perHa: density, keep, class: u.woods && u.woods.class, understory: u.woods && u.woods.understory, understoryTier: u.woods && (u.woods.understory_tier || 'plausible-procedural'), species: u.woods && u.woods.species };
     out.tiers.leaf = lf.tier; out.tiers.density = 'plausible-procedural'; out.tiers.species = (u.woods && u.woods.class === 'big_round_top') ? 'inferred' : 'plausible-procedural';
     if (lrtNote) { out.tiers.cover = model.scenarios['CF-VEG-LRT'].options[lrt].tier; out.scenario = { 'CF-VEG-LRT': lrt, note: lrtNote }; }
   }
@@ -194,7 +194,11 @@ export function stateAt(model, unit, tMin, choices) {
     if (!out.ground) { out.ground = { crop: 'pasture', ...(() => { const cs = cropState(model, { crop: 'pasture', p: u.p, seed: u.seed }, tMin, choices); return { label: 'Grass under the trees', stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h, hStanding: cs.h, cut: 0, shockH: null, trample: clamp(dm.trample, 0, 1), lodging: 0 }; })() }; out.tiers.crop = 'plausible-procedural'; out.tiers.stage = 'plausible-procedural'; out.tiers.height = 'plausible-procedural'; out.tiers.colour = 'plausible-procedural'; }
   }
   if (u.cls === 'boulder') { out.ground = { crop: 'open_rock', label: 'Boulder ground', stage: 'rock', color: [0.46, 0.43, 0.38], colorRange: [[0.42, 0.40, 0.35], [0.5, 0.46, 0.4]], h: [0, 0.1], hStanding: [0, 0.1], cut: 0, shockH: null, trample: 0, lodging: 0 }; out.tiers.crop = 'inferred'; out.tiers.stage = 'inferred'; out.tiers.height = 'inferred'; out.tiers.colour = 'plausible-procedural'; }
-  if (u.cls === 'woods' || u.cls === 'scatter') {          // the ground under a woodlot: leaf litter and shade, not a crop
+  if ((u.cls === 'woods' || u.cls === 'scatter') && out.trees && out.trees.keep === 0) {       // a wood of Little Round Top read as unwooded: open, rocky ground (the same cover as the cleared west slope)
+    const cs = cropState(model, { crop: 'open_rock', p: u.p, seed: u.seed }, tMin, choices);
+    out.ground = { crop: 'open_rock', label: 'Open rocky ground (read as unwooded)', stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h, hStanding: cs.h, cut: 0, shockH: null, trample: 0, lodging: 0 };
+    out.tiers.crop = 'plausible-procedural'; out.tiers.stage = 'plausible-procedural'; out.tiers.height = 'plausible-procedural'; out.tiers.colour = 'plausible-procedural';
+  } else if (u.cls === 'woods' || u.cls === 'scatter') {          // the ground under a woodlot: leaf litter and shade, not a crop
     out.ground = { crop: 'forest_floor', label: 'Woodlot floor', stage: season === 'window' ? 'shaded_litter' : 'leaf_litter', color: season === 'window' ? [0.31, 0.29, 0.18] : [0.34, 0.27, 0.17], colorRange: [[0.25, 0.24, 0.15], [0.38, 0.35, 0.22]], h: [0, 0.2], hStanding: [0, 0.2], cut: 0, shockH: null, trample: 0, lodging: 0 };
     out.tiers.crop = 'plausible-procedural'; out.tiers.stage = 'plausible-procedural'; out.tiers.height = 'plausible-procedural'; out.tiers.colour = 'plausible-procedural';
   }

@@ -1,0 +1,6 @@
+PASS  PG-01        static markup of the 8 map pages: deferred SRI-pinned Mapbox GL, DOMContentLoaded wrapper, preconnect, valid inline JS
+      {"pages":8}
+FAIL  PG-02-camera camera: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)
+      TypeError: fetch failed |     at node:internal/deps/undici/undici:15456:13 |     at process.processTicksAndRejections (node:internal/process/task_queues:103:5) |     at async ensureVendor (file:///home/user/cautious-chainsaw/tests/t0/pages-maps.spec.mjs:61:19)
+T0-PG (map pages, og/manifest): 1/2 passed, 1 FAILED
+mapbox requests used this run: 0 of 300 (blocked by cap: 0)

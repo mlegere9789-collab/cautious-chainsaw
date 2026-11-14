@@ -357,6 +357,8 @@ def run_verified(ok):
        cas({'killed': {'total': 6}, 'wounded': {'total': 48}, 'missing': {}, 'total': None}) is None and cas({'killed': {}, 'wounded': {}, 'missing': {}, 'total': None}) is None)
     ok('verified casualties: a kind with officers but no enlisted figure is half stated, so the aggregate is unknown',
        cas({'killed': {'officers': 7}, 'wounded': {'total': 20}, 'missing': {'total': 3}, 'total': None}) is None)
+    ok('verified casualties: a combined statement of all three kinds (officers and men lost) is the aggregate', cas({'killed': {}, 'wounded': {}, 'missing': {}, 'total': None, 'combined': [{'kinds': ['killed', 'wounded', 'missing'], 'total': 241, 'officers': 14, 'enlisted': 227}]}) == 241)
+    ok('verified casualties: a combined statement of two kinds (killed and wounded) is no aggregate, so the aggregate stays unknown', cas({'killed': {}, 'wounded': {}, 'missing': {}, 'total': None, 'combined': [{'kinds': ['killed', 'wounded'], 'total': 37}]}) is None)
     ok('verified: every unit of groups.json has an entry, counted by status', oob['totals']['units'] == 825 and oob['totals']['verified'] + oob['totals']['partly'] + oob['totals']['unverified'] == 825, oob['totals'])
     ok('verified: a line the validator rejected is counted and absent', oob['totals']['rejected_lines'] >= 1 and 'us-1c:0007' not in json.dumps(oob))
     u = U['us-1c-1d-meredith-19in']

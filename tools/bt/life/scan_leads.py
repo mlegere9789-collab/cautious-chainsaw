@@ -34,8 +34,9 @@ DATE_HINT = re.compile(r'\b(June|July)\s+(\d{1,2})', re.I)
 
 # non-OR texts: one owner group each (the register of ownership; the unindexed state volumes and narratives go to the narratives groups)
 SOURCE_GROUP = {}
-for sid in ('REGS-US-1861', 'REGS-CS-1863', 'BUTTERFIELD-1863', 'MAHAN-1862', 'DUANE-1862', 'BILLINGS-1887'):
+for sid in ('REGS-US-1861', 'REGS-CS-1863', 'BUTTERFIELD-1863', 'MAHAN-1862', 'BILLINGS-1887'):
     SOURCE_GROUP[sid] = 'period-manuals'
+SOURCE_GROUP['DUANE-1862'] = 'bridges-roads'
 for sid in ('HASKELL-1908', 'MEADE-LL-v1', 'MEADE-LL-v2', 'PIERCE-F-1914', 'BL-3', 'BACH-KEY-1864', 'BACH-REPULSE-1870', 'BACH-WHATTOSEE-1873',
             'BACH-WHATTOSEE-1889', 'BACH-STORY-1904', 'LONG-GBV-1891', 'NJ-TOOMBS-1888', 'NJ-FINAL-1891', 'VT-MON-1890', 'VT-GB-1914', 'MN-1ST-1916',
             'IN-1913', 'OH-DED-1887', 'OH-8TH-1889'):

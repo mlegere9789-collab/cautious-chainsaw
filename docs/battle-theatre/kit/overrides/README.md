@@ -6,4 +6,4 @@ The kit tables (`../kit_specs.json`, `../weapons.json`, `../artillery_batteries.
 - `manual.json` (may be absent): the one hand-written file. Every operation needs a `why` and either `evidence_ids` or a `decision` id.
 - A guard in an operation that no longer holds makes the build fail and name the operation.
 
-Checks: `python -I tools/bt/kit_overrides.py check` (kit data checks on base plus overrides) and `... status` (does each committed table equal what the build makes?). The rules are in `../evidence/PLAN.md`, section 8. With no `*.json` file here the build output is unchanged.
+Checks: `python -I tools/bt/kit_overrides.py check` (kit data checks on base plus overrides, then the packer's copy audit over every string of the four tables) and `... status` (does each committed table equal what the build makes?). `... compile --dry-run [--group G]` shows what a compile would produce and writes nothing. The rules are in `../evidence/PLAN.md`, section 8. With no `*.json` file here the build output is unchanged.

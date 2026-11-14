@@ -2,7 +2,7 @@
 squashed form (case, punctuation, whitespace, hyphen line-joins ignored) equals the squashed quote. Run: python3 -I verify_corrections.py"""
 import os, re, json, unicodedata, sys, hashlib
 ROOT = '/home/user/cautious-chainsaw'
-OUT = os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/evidence_corrections/fence-1.jsonl')
+OUT = os.environ.get('FENCE1_OUT') or os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/evidence_corrections/fence-1.jsonl')
 def squash(s):
     s = re.sub(r'-\s*\n\s*(?=[a-z])', '', s)
     return ''.join(d.lower() for ch in s for d in unicodedata.normalize('NFKD', ch) if d.isalnum())

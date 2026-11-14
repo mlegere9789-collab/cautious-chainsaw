@@ -40,6 +40,7 @@ SCHEMA = 'bt-vegetation/1'
 TO_M = Transformer.from_crs(4326, 32618, always_xy=True)
 TO_LL = Transformer.from_crs(32618, 4326, always_xy=True)
 ACRE = 4046.8564224
+LRT_R = 230.0          # radius (m) of the hill of Little Round Top as the scenario CF-VEG-LRT sees it: the report gives the summit and slopes as about 40 acres (a disc of 227 m)
 
 FARMS = {
     'trostle': 'Abraham (Catherine) Trostle farmstead', 'brien': 'Abraham Brien (Bryan) farmstead', 'klingel': 'Daniel Klingel farmstead', 'mcmillan': 'David McMillan farmstead',
@@ -293,6 +294,17 @@ def build_units(args):
             add(cls, pr, g)
             claimed.append(g)
     town = unary_union([g for _, g in layers['excluded_town_zone']])
+    # Little Round Top, east slope. The Warren land cover draws no wood on it (the hill is open ground there), but the National Park Service says the Bushman and Weikert tracts on the east
+    # slopes were wooded in July 1863 and that a tree line at the summit divided them from the cleared west slope (VC-NPS-026 to -028). The reports name the tracts, not their outlines: the wood
+    # is the half of a disc of LRT_R metres round the summit that lies east of the crest, less every outline already drawn and the lanes. The cover is documented; the extent is a rule.
+    lrt_pt = gz['Little Round Top']
+    hill = lrt_pt.buffer(LRT_R, 32).intersection(box(lrt_pt.x - 10.0, lrt_pt.y - LRT_R, lrt_pt.x + LRT_R, lrt_pt.y + LRT_R)).intersection(G)
+    hill = hill.difference(unary_union(claimed + [town])).difference(corridor).buffer(0)
+    for k, p in enumerate(q for q in polys(hill) if q.area >= 400):
+        units.append({'cls': 'woods', 'lc': 'LC-WOOD-LRT-E' + ('' if k == 0 else '#%d' % k), 'lc_name': 'Little Round Top, east slope (the Bushman and Weikert tracts)', 'lc_conf': 'Estimated', 'geom': p,
+                      'geom_tier': 'plausible-procedural', 'lrt_east': True,
+                      'geom_note': 'the east half of a disc of %d m round the summit, less the outlines already drawn and the lanes: the reports name the tracts that were wooded, not their outlines' % LRT_R})
+        claimed.append(p)
     covered = unary_union(claimed + [town]).buffer(0)
     # the open remainder: open ground not covered by anything else, with the road, lane and railway corridors cut out
     openg = unary_union([g for _, g in layers['open_ground_1863']]).intersection(G).difference(covered).difference(corridor)
@@ -361,6 +373,10 @@ ANCHOR_OVERRIDES = {
     'VC-NPSX-CLI-ERR-p095-07': ({'farm': 'trostle', 'bearing': 180, 'dist_m': 120, 'r_m': 300, 'class': 'orchard', 'k': 1}, {'age': 'young'}),
     'VC-NPSX-CLI-PCB-p082-04': ({'farm': 'sherfy', 'r_m': 520, 'class': 'orchard', 'area': True}, {'age': 'young_and_declining'}),
     'VC-NPSX-CLI-PCB-p051-03': ({'farm': 'bliss', 'r_m': 420, 'class': 'orchard', 'k': 1}, {'orchard': 'cover_for_skirmishers'}),
+    # Little Round Top: the claims that name the wooded east slope name the polygon the build draws for it (LC-WOOD-LRT-E)
+    'VC-NPS-026': ({'poly': 'LC-WOOD-LRT-E'}, {}),
+    'VC-NPSX-CLR-LRT-p019-06': ({'poly': 'LC-WOOD-LRT-E'}, {'lrt': 'east_wooded'}),
+    'VC-NPSX-CLR-LRT-p021-02': ({'poly': 'LC-WOOD-LRT-E'}, {}),
 }
 FARM_CONSTRAINTS = {   # farm key -> [(crop, claim id)]: fields the inventory names on a farm whose own fields cannot be placed one by one
     'mcpherson': [('corn', 'VC-NPSX-CLI-1STDAY-p058-10'), ('wheat', 'VC-NPSX-CLI-1STDAY-p059-01'), ('hay', 'VC-NPSX-CLI-1STDAY-p058-07')],
@@ -616,19 +632,19 @@ def class_attributes(units, claims, gz, farms):
         cl = {cid: role for cid, role in u['claims']}
         young = any((claims[c].get('about') or {}).get('age') in ('young', 'young_and_declining') and r in ('nearest', 'exact') for c, r in cl.items())
         if u['cls'] == 'woods':
-            k = woods_class(u, gz, farms)
+            k = 'ridge_forest' if u.get('lrt_east') else woods_class(u, gz, farms)
             W = TB.WOODS[k]
             u['woods'] = {'class': k, 'species': jitter_weights(uid, W['species'], 'sp'), 'per_ha': round(pick(None, (uid, 'dens'), W['per_ha']), 1), 'understory': W['understory'], 'tier': W['tier']}
             for cid, role in u['claims']:                      # an account of the undergrowth sets it, where it is placed on this woodlot
                 ab = claims[cid].get('about') or {}
                 if role in ('exact', 'nearest') and ab.get('understory') in ('open', 'moderate', 'thick'):
                     u['woods'].update({'understory': ab['understory'], 'understory_claim': cid, 'understory_tier': 'documented' if role == 'exact' else 'inferred'})
-            if lrt is not None and u['geom'].centroid.distance(lrt) < 520:
+            if lrt is not None and (u.get('lrt_east') or u['geom'].centroid.distance(lrt) < LRT_R + 30):
                 lrt_units.append(uid)
         elif u['cls'] == 'scatter':
             W = TB.WOODS['scatter']
             u['woods'] = {'class': 'scatter', 'species': jitter_weights(uid, W['species'], 'sp'), 'per_ha': round(pick(None, (uid, 'dens'), W['per_ha']), 1), 'understory': 'none', 'tier': W['tier']}
-            if lrt is not None and u['geom'].centroid.distance(lrt) < 520:
+            if lrt is not None and u['geom'].centroid.distance(lrt) < LRT_R + 30:
                 lrt_units.append(uid)
         elif u['cls'] == 'orchard':
             k = 'peach_orchard' if u['lc'] == 'LC-ORCH-0206' else ('young' if young else 'mature')
@@ -825,7 +841,11 @@ def make_output(args):
         rec['name'] = u['lc_name']
         if holes:
             rec['holes_dropped'] = holes
-        rec['geom_tier'] = 'plausible-procedural' if u['cls'] == 'field' and u.get('subdivided') else ('documented' if u.get('lc_conf') == 'Documented' else 'inferred')
+        rec['geom_tier'] = u['geom_tier'] if u.get('geom_tier') else ('plausible-procedural' if u['cls'] == 'field' and u.get('subdivided') else ('documented' if u.get('lc_conf') == 'Documented' else 'inferred'))
+        if u.get('geom_note'):
+            rec['geom_note'] = u['geom_note']
+        if u.get('lrt_east'):
+            rec['lrt'] = 'east'
         if u['cls'] == 'field':
             rec['geom_note'] = 'cell of a block of open ground cut by straight cuts across the long axis of its pieces: the edges inside the block are not mapped' if u.get('subdivided') else 'a block of open ground between roads, lanes, confirmed fences and the outlines of woods and orchards'
             if u.get('farm_guess'):
@@ -956,8 +976,10 @@ if __name__ == '__main__':
         old = open(OUT, encoding='utf-8').read() if os.path.exists(OUT) else ''
         print('check:', 'same' if old == text else 'DIFFERENT')
         sys.exit(0 if old == text else 1)
-    with open(OUT, 'w', encoding='utf-8') as f:
+    tmp = OUT + '.tmp'                      # written beside the file and renamed: a page that reads the data while a build runs never sees half of it
+    with open(tmp, 'w', encoding='utf-8') as f:
         f.write(text)
+    os.replace(tmp, OUT)
     if not a.no_register:
         write_register(doc)
     print('wrote', OUT)

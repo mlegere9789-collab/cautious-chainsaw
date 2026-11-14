@@ -30,7 +30,47 @@
    ],
    "verdict_rule": "matches = T1, T2 and T3 all pass at the registered heading and the 40 degree field; roughly = T2 passes and one of T1 or T3 passes; does not = T1 fails and T2 fails, or the pike is on the wrong side at both NPS headings; cannot judge = the render does not contain a road or buildings in the frame at all. The 30 and 50 degree renders and the two NPS headings are reported beside the main result; a pass only at a variant is not a pass.",
    "independence": "the position, the heading and the height are fixed from the sources and the building footprint; no number is taken from the photograph. The sensitivity to the assumed roof height (8 m) and to the heading (45 degrees between the two NPS words) is reported.",
-   "gate_note": "bt-gates Q16.1 asks for a documented position with its uncertainty: here horizontal about 20 m (the footprint of the building), height of the camera above the ground an assumption of 8 m with at least 3 m of doubt. Whether that is 'documented' enough for the gate is the owner's decision (DEC log)."
+   "gate_note": "bt-gates Q16.1 asks for a documented position with its uncertainty: here horizontal about 20 m (the footprint of the building), height of the camera above the ground an assumption of 8 m with at least 3 m of doubt. Whether that is 'documented' enough for the gate is the owner's decision (DEC log).",
+   "measurement_definition": {
+    "written_utc": "2026-11-14T00:31:42Z",
+    "script": "tools/bt/photomatch/measure_c1.py",
+    "script_sha256_when_recorded": "32f27cc1ee7c88ae863c254cb70a91ee999fb3f411957b7f3ee25fe0203c8cfb",
+    "note": "The definitions that make T1, T2 and T3 computable (road vertices of RD-001 tested against the road-coloured pixels of the render, horizon row as in compose.py, building-pixel extent and the projected centre of GZ-072) were written into measure_c1.py after the criterion and before any render of P27 or P28 existed (listing of tmp/photomatch/renders at that time: no file P27_* or P28_*). The script was tested on the existing renders of P06 and P07, which are other poses; that test showed that T1 to T3 are passed by any render that is centred on the town (P06 and P07 pass all three although their verdict is does not): T1 to T3 are therefore necessary conditions, not a sufficient test of a match."
+   }
+  },
+  {
+   "id": "C-P27-P28-2",
+   "poses": [
+    "P27",
+    "P28"
+   ],
+   "written_utc": "2026-11-14T00:31:42Z",
+   "render_existed_when_written": false,
+   "model_skyline_computed_when_written": false,
+   "photograph_skyline_viewed_on_the_photograph_only": true,
+   "basis": "Same documented place as C-P27-P28-1 (roof of the Evergreen Cemetery lodge; the NPS words north for P27, northwest for P28; the two LOC records are one exposure). A second test that does not depend on the near field (trees, rocks, fences are not in the model) and does not depend on the heading word being exact: the shape of the far skyline.",
+   "method": {
+    "photograph_skyline": "Frozen before any model skyline was computed. Print: tmp/photomatch/loc/ppmsca.35051_u4096.jpg (LOC record 2014646001, the sharper single print of the exposure) cropped to the registered print area [0.02, 0.03, 0.985, 0.97], resized to 1024 px width (Lanczos), grey; 5-row vertical box mean; for each column x the sky level is the median of rows 0.20H to 0.30H over columns x-3..x+3, and the skyline row is the first row between 0.30H and 0.60H where the column mean over x-3..x+3 of the smoothed image falls below the sky level minus 15; a column is kept when its row lies within 10 px of the running median over 15 columns and x lies between 0.02W and 0.76W (the tree at the right edge is excluded). One run of this rule on the photograph gave 759 kept columns of 1024; its overlay was looked at on the photograph and follows the far ridge.",
+    "model_skyline": "Eye = station x,z with y = DEM ground + agl (8 m; 5 m and 11 m reported as a sensitivity); for each azimuth from 292.5 to 22.5 degrees in 0.1-degree steps a ray is marched in 8 m steps to 8000 m over the DEM (bilinear, the terrain of render.html); elevation = max over the ray of atan((ground - eye) / distance); no curvature, no refraction, no trees.",
+    "projection_and_fit": "Level camera. Column x of the 1024-px print has the angle phi = atan((x - W/2) / f) with f = (W/2) / tan(F/2); azimuth = heading + phi; model row = H/2 - f * tan(elevation) / cos(phi) + v. Free parameters: heading h (0.25-degree steps over the sector), horizontal field F (25 to 70 degrees in 1-degree steps) and the vertical shift v (solved in closed form as the mean residual, which also absorbs a camera tilt or a rising front). Result per station: the minimum over (h, F) of the root-mean-square vertical residual, converted to degrees (rms_px / f in radians).",
+    "sector": "north = 337.5 to 22.5 degrees (P27), northwest = 292.5 to 337.5 degrees (P28): the cardinal words of the NPS (about 22.5 degrees either way); both are reported, the best heading must lie inside the sector of the word of the pose.",
+    "controls": "24 control stations: 8 bearings (0, 45, ..., 315) times 3 distances (100, 200 and 300 m) from the station, each at its local ground + 8 m, each given the same fit freedom. The station is said to be discriminated when its minimum RMS is not above the first quartile of the 24 controls."
+   },
+   "tests": [
+    {
+     "id": "S1",
+     "what": "RMS of the best fit at the station: match-level if <= 0.5 degrees, partial if <= 1.0 degree, mismatch above. 0.5 degrees is 15 m of tree height at 1.7 km, the canopy the bare-earth model lacks; a fit counts only with the heading inside the sector of the pose and F between 25 and 70 degrees.",
+     "binary": false
+    },
+    {
+     "id": "S2",
+     "what": "Discrimination: the station RMS is at or below the first quartile of the 24 controls. If it is not, the skyline does not tell this station from its neighbours and S1 supports nothing.",
+     "binary": true
+    }
+   ],
+   "verdict_rule": "The skyline test fits three parameters to the photograph (heading, lens, vertical shift) and therefore can never make a verdict matches (verdicts.json: a fitted test is not a match). It is reported beside C-P27-P28-1: (S1 match-level and S2 true) = the documented place reproduces the far skyline and is better than its neighbours (supporting evidence for the pose); (S1 partial or S2 false) = the far skyline neither supports nor contradicts the place; (S1 mismatch with S2 true or false) = the far skyline contradicts the place or the model. The 30 and 50 degree renders and the sensitivity to the camera height are reported, not used to choose.",
+   "independence": "The position is the NPS place, the heading is a free parameter inside the NPS sector, the lens is free: nothing about the position is taken from the photograph, but three other parameters are. The controls say how much the fit would give anywhere near the station.",
+   "gate_note": "This is evidence for the owner decision on whether a named building roof counts as a documented camera position (DD-PM-01 says no: only a coordinate, a lens and a plate); it is not the registration of Q16.3 and is not a result of T-Q16-1, which stays UNSET."
   }
  ]
 }

@@ -240,7 +240,7 @@ ROWS.append(dict(
         'route': OR('moved with the rest of the command to the left, through Hill town to Mummasburg', R470, '465'),
         'heard': OR('I had heard on the road that there was probably a force at Gettysburg', R470, '465'),
         'object': OR('the object of this movement was for Gordon to amuse and skirmish with ihe enemy while I should get on his flank and rear', R470, '465'),
-        'gord': OR('ordered on a different road, with a battalion of cavalry', R477, '491'),
+        'gord': OR('ordered on a different road, with a battalion of cavalry, iinder the command of Lieutenant-Colonel [E. V.] White', R477, '491', reading='ordered on a different road, with a battalion of cavalry, under the command of Lieutenant-Colonel [E. V.] White'),
     },
     remains=['that Early learned the force was militia before the split (his report says only "probably a force")', 'Gordon\'s strength about 1,900', 'the nickname "Comanches"'],
     searched=['OR27-2-R470 pp.465-466 and OR27-2-R477 pp.491-493 read in full',

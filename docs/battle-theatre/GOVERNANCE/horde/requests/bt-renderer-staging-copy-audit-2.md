@@ -17,6 +17,8 @@ Items 1 to 4 are the figures lane (OWN1: `src/figures3d/**`, `src/anim3d/**`); i
 ## Not hits, only for your information (counted for the acceptance review, nothing to do for the audit)
 `app/src/figures3d/evidence.mjs` line 1 carries `(2026-11-04, shard vis-figures)` and `hairtex.mjs` / `shader.mjs` line 1 carry `round 3, 2026-10-31`: words of the working process. The audit counts the word shard (16 mentions in the shipped files of all workstreams) and lists it as "internalWordsForReview"; the acceptance copy audit may rule on them, and a reword would save that step.
 
+Also in your lane (figures): `app/src/history/cavalry.mjs` line 1 starts `// CAVALRY HORSES AND DISMOUNTED CAVALRY (workstream ws10: ...)`; `crowd/gpu.mjs`, `crowd/shaders-wgsl.mjs` and `weather3d/shaders-wgsl.mjs` say `this pass` where they mean a render pass (the review counter cannot tell, nothing to do).
+
 ## Check
 ```
 node tools/bt/pack_theatre.mjs --no-zip --out tmp/x/dist     # "auditHits" counts what is left (the five lines above are among them)
@@ -24,3 +26,5 @@ node --test tests/bt-pack/pack.test.mjs                        # the shipping ga
 ```
 
 When done, append `-- handled: <what was done>` to this note with a shell `>>`.
+
+-- handled (item 5 only; items 1 to 4 are the figures lane) 2026-11-14 00:27 UTC by bt-renderer (weather, effects and sound lane): the `_doc` of app/data/audio3d/woods-mask.json now reads "Derived from the 1863 woods layer, docs/basemap1863/features/landcover/woods_1863.geojson. Rings are [lon, lat] ..." (nothing else in the file changed; node --test audio3d 38 of 38 and audio3d-round2 8 of 8; the packer now reports 9 hits, none in a file of this lane). The generator line (app/tools/build-audio3d-woods.mjs line 31) is outside this lane's ownership: request note bt-renderer-audio-woods-generator-text.md carries the exact string, so a regeneration does not bring the hit back.

@@ -26,11 +26,11 @@
   "The zips packed in this container carry a stand-in 1863 tile pyramid (96 of 1,885 files equal the original); the final zip must be packed where the original pyramid is.",
   "Source rebuild: src/ holds the time module (src/lib/time, 10 files) and, since 2026-11-13 21:27 UTC, the foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js and two test files: 23 tests pass on Node 22.23.4); there is no rebuilt app, no parity harness, no site generator. data-src/ (63 files) and historian-src/ (299 files) are built and tested but served by no train.",
   "Run by this survey on 2026-11-13, long suites through the machine lock: T0-J7 on R1g and on frozen R1f (red on both, tmp/r1h-cand/statusA/j7.log); node --test tests/time/*.test.mjs: 638 tests, 638 pass, 0 fail; npm run time:check: exit 0; node --test tests/data/*.test.mjs: 207 tests, 206 pass, 0 fail, 1 skipped; npm run data:check: exit 0. Run directly (under 5 s CPU, no browser): node tools/environment/validate.mjs and node tools/ledger/validate.mjs: 0 errors, 0 warnings each; HDR-11 alone (see VER-HDR-11). node --test tests/historian/*.test.mjs under Node 24.22.1 (/opt/node24), run through the machine lock on 2026-11-13 (log tmp/r1h-cand/statusA/historian-test3.log; started 19:31 UTC, finished 20:54 UTC): 474 tests, 386 pass, 1 fail, 87 skipped (19 of the skips are \"skipped loudly\": historian-src/raw/or27 and tmp/historian-cache are not built here). The one failure is tests/historian/engine.test.mjs:193 \"latency: p95 of a 300-query session ... far below the 30 ms budget\" with p95 39.5 ms; that job shared the CPU with other jobs, so it is not a timing result, and no run alone under the timing lock is recorded yet. Under the default Node 22.23.4 the suite could not load before 21:13 UTC (tools/historian/ingest/times.mjs held a regular-expression modifier group, which V8 before 12.5 rejects); candidate ver-hist-node rewrote that pattern (tools/historian/ingest/times.mjs has no modifier group now; new test tests/historian/times-node22.test.mjs). Its own shared-mode run of the whole suite under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log). Its STATUS.json still says passes false: the paired run of both Node versions under the timing lock has not produced its logs.",
-  "Result files of the release workstream used in passes 3 and 4: docs/accept/R1G-SUITES.json, generated 2026-11-14 00:04 UTC from 13 logs, lists 80 suites, last result OK 60 and not OK 20 (journeys.R1c, mobilefix.R1b, mobilefix.R1c, pagesmaps.R1a, r1.anim, r1.base1863, r1.polish, r1.polish.pair, r1.perf2, r1.perf4, r1.perf5, r1.perf6, r1.wtpeer, r1.ztail, baseline.walkguard, walkguard.R0 to walkguard.R1c, headers.R1c); pass 3 read the version generated 2026-11-13 21:39 UTC (OK 61, not OK 19), and the one new red row is pagesmaps.R1a (a cold-cache run of 2026-11-14 00:04 UTC, exit 1, cause not recorded: VER-PAGESMAPS). The last result of 58 suites is from the 2026-11-11 run, not from the final harness. A SHIPPED item whose proof suite is in that red list says so in its evidence; none of those results is acceptance evidence (container: 4 vCPU, software GL, Linux fonts).",
+  "Result files of the release workstream used in passes 3 and 4: docs/accept/R1G-SUITES.json, generated 2026-11-14 00:27 UTC from 13 logs, lists 80 suites, last result OK 60 and not OK 20 (journeys.R1c, mobilefix.R1b, mobilefix.R1c, pagesmaps.R1a, r1.anim, r1.base1863, r1.polish, r1.polish.pair, r1.perf2, r1.perf4, r1.perf5, r1.perf6, r1.wtpeer, r1.ztail, baseline.walkguard, walkguard.R0 to walkguard.R1c, headers.R1c); pass 3 read the version generated 2026-11-13 21:39 UTC (OK 61, not OK 19), and the one new red row is pagesmaps.R1a (a cold-cache run of 2026-11-14 00:04 UTC, exit 1; the release workstream diagnoses it, at 00:27 UTC, as a run without T0_CHROME and has queued the repeat: VER-PAGESMAPS). The file changes while the release workstream works: read its generated time before quoting a total. The last result of 58 suites is from the 2026-11-11 run, not from the final harness. A SHIPPED item whose proof suite is in that red list says so in its evidence; none of those results is acceptance evidence (container: 4 vCPU, software GL, Linux fonts).",
   "Run by pass 3 from 2026-11-13 23:45 UTC to 2026-11-14 (nothing through the machine lock): node --test src/config/tokens.test.mjs src/foundation.test.mjs (23 of 23, Node 22.23.4); node tests/copy/trust-pages.test.mjs (fails: the anchor-state assertion, see OWNER-2026-10-04-6); node tools/t0/run_suites.mjs --list (80 suite rows); python3 docs/plan/STATUS/merge_status.py --check and check_backlog.py before the change (both exit 0); scripted checks in tmp/r1h-cand/statusA3: ids of the plan against the items (253 work packages, 34 decisions, 17 packages, 12 owner actions, 81 chapter owner decisions, 98 roadmap nodes: nothing missing), every \"N/M\" figure of the evidence against the recorded suite rows, every patch id and path named, and direct reads of release/R1g/dist (pages without main, token literals, inline scripts, headers, sitemap, dev-page redirects, service worker).",
   "Not run by pass 3: any browser suite, the eight acceptance passes, Lighthouse, any real device, the paired Node 22 and Node 24 historian run under the timing lock (queued by candidate ver-hist-node, not yet run), and the whole node suites of tests/time and tests/data (nothing under src/lib/time, tools/time, tests/time, data-src, tools/data or tests/data changed since the pass 2 run).",
   "Not run by this survey (passes 1 to 3): any other browser suite, the eight acceptance passes, Lighthouse (no runner in the repository), any real device. The default node of this container is 22.23.4; /opt/node24/bin/node is 24.22.1.",
-  "Run by pass 4 on 2026-11-14 from 00:10 UTC (read-only scripts of a few seconds of CPU each, nothing through the machine lock, no browser; scripts and outputs in tmp/r1h-cand/statusA4): (1) the pass-3 checks again on the tree as it is: ids of the plan against the items (253 work packages and the rest: none missing), every tests entry resolves (0 unresolved), every N/M figure matches a recorded suite row except the three that quote the Windows run of R1f, python3 docs/plan/STATUS/merge_status.py --check and check_backlog.py (both exit 0 before the change); (2) every patch_groups name is a group of release/R1g/anchors.json and no train text of a SHIPPED item names a train earlier than its earliest group (release/R0 to R1g anchors.json); (3) the 77 roadmap nodes of this part against the member work packages of their source_wps in both parts: five nodes graded SHIPPED for a named subset (RM-06, RM-07, RM-15, RM-16, RM-17) now say what their other members are; (4) the 22 SHIPPED and BUILT_NOT_SHIPPED items whose proof test ids belong to a suite with a not-OK last row: the cited ids were compared with the failing ids of the row and the evidence was read; WP-UX-02, WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 were completed; (5) direct reads of release/R1g/dist: 26 html files, 13 without main (12 pages and the Search Console file), skip link and color-scheme meta on index.html only, no translate=\"no\", no viewport zoom lock, manifest.json description still carries \"in real time\", \"467\" and \"five-minute\"; (6) the sha384 of the Mapbox GL files downloaded by the 2026-11-14 00:04 UTC pagesmaps run equals the pins of tools/t0/assets-src/sri.json; (7) git: nothing under src/lib/time, tools/time, tests/time, data-src, tools/data, tests/data, historian-src, tools/historian or tests/historian changed after the checkpoint of 2026-11-13 21:23 UTC, so the test results quoted from passes 2 and 3 stand; ops/RELEASE-LOG.md still has no deploy row.",
+  "Run by pass 4 on 2026-11-14 from 00:10 UTC (read-only scripts of a few seconds of CPU each, nothing through the machine lock, no browser; scripts and outputs in tmp/r1h-cand/statusA4): (1) the pass-3 checks again on the tree as it is: ids of the plan against the items (253 work packages and the rest: none missing), every tests entry resolves (0 unresolved), every N/M figure matches a recorded suite row except the three that quote the Windows run of R1f, python3 docs/plan/STATUS/merge_status.py --check and check_backlog.py (both exit 0 before the change); (2) every patch_groups name is a group of release/R1g/anchors.json and no train text of a SHIPPED item names a train earlier than its earliest group (release/R0 to R1g anchors.json); (3) the 77 roadmap nodes of this part against the member work packages of their source_wps in both parts: five nodes graded SHIPPED for a named subset (RM-06, RM-07, RM-15, RM-16, RM-17) now say what their other members are; (4) the 22 SHIPPED and BUILT_NOT_SHIPPED items whose proof test ids belong to a suite with a not-OK last row: the cited ids were compared with the failing ids of the row and the evidence was read; WP-UX-02, WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 were completed; (5) direct reads of release/R1g/dist: 26 html files, 13 without main (12 pages and the Search Console file), skip link and color-scheme meta on index.html only, no translate=\"no\", no viewport zoom lock, manifest.json description still carries \"in real time\", \"467\" and \"five-minute\"; (6) the sha384 of the Mapbox GL files downloaded by the 2026-11-14 00:04 UTC pagesmaps run equals the pins of tools/t0/assets-src/sri.json; the diagnosis of that red row, added by the release workstream at 00:27 UTC, was read and quoted (not re-run); (7) git: nothing under src/lib/time, tools/time, tests/time, data-src, tools/data, tests/data, historian-src, tools/historian or tests/historian changed after the checkpoint of 2026-11-13 21:23 UTC, so the test results quoted from passes 2 and 3 stand; ops/RELEASE-LOG.md still has no deploy row.",
   "Not run by pass 4: any browser suite, the eight acceptance passes, Lighthouse, any real device or assistive technology, the paired Node 22 and Node 24 historian run under the timing lock, and the whole node suites of tests/time, tests/data and tests/historian (nothing under their code changed since the runs quoted)."
  ],
  "counts": {
@@ -238,7 +238,7 @@
    "files": [
     "ops/"
    ],
-   "owner_step": "Name a delegate; add a second remote; keep credentials in a password manager; run the restore drill once.",
+   "owner_step": "Name a delegate who can renew the domain and redeploy, and write and sign the delegate letter; add a second git remote and push the repository to it; keep the credentials in a password manager the delegate can reach; run the restore drill once (empty machine to a fresh Netlify site, the plan's target is at most 2 hours) and keep its log (the plan wants a log at most 90 days old). The secret-free inventory file, the restore script and the vendor register can be built here and are tracked as WP-INFRA-06b and WP-INFRA-07a in items-B.json.",
    "kind": "decision (ADR)"
   },
   {
@@ -504,7 +504,7 @@
    "files": [
     "docs/editorial/"
    ],
-   "owner_step": "Name the reviewer and second reader; send the charter.",
+   "owner_step": "Choose a named historical reviewer and a second reader; send them docs/editorial/reviewer-charter.md and sign-off-states.md; agree the hours (the charter proposes 5 to 6 hours a week for 8 to 10 weeks, then 3 to 4) and tell the release workstream the two names. A reviewer is credited publicly only with their consent (delegated row B17).",
    "kind": "decision (ADR)"
   },
   {
@@ -534,7 +534,7 @@
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "Send the drafted permission email to the NPS Civil War Soldiers and Sailors contact.",
+   "owner_step": "Send the NPS Soldiers and Sailors System request from the project address: the draft is section 2 of docs/battle-theatre/rosters/PERMISSION-REQUESTS-DRAFT.md (not sent); note the date of the reply, because nothing that needs the roster data starts before the Park Service answers in writing.",
    "kind": "decision (ADR)"
   },
   {
@@ -649,7 +649,7 @@
     "ops/legal-drafts/",
     "tools/t0/patches/PG-legal.json"
    ],
-   "owner_step": "Read and approve the interim privacy and terms text (legal act).",
+   "owner_step": "Read ops/legal-drafts/preview/privacy.interim-R1c.html and terms.interim-R1c.html together with ops/legal-drafts/OWNER-SIGNOFF.md, then approve or edit the text in writing (a legal act). OWNER-SIGNOFF.md asks for: legal.effective_date in tools/t0/trains.json set to the production deploy day; whether Netlify Web Analytics and Real User Monitoring are switched on (Netlify dashboard, Project > Web Analytics); a check of the Street View motion-sensor sentence on a real phone; and a decision on the Terms sentence about the vignette scripts, which the repository cannot confirm (OWNER-ACTION-10). After your approval a build takes --with PG-legal (and its companion group PG-polish-legal, see D-LEGAL).",
    "kind": "decision (ADR)"
   },
   {
@@ -778,7 +778,7 @@
    "files": [
     "ops/legal-drafts/"
    ],
-   "owner_step": "Approve the interim text.",
+   "owner_step": "Read ops/legal-drafts/preview/privacy.interim-R1c.html and terms.interim-R1c.html together with ops/legal-drafts/OWNER-SIGNOFF.md, then approve or edit the text in writing (a legal act). OWNER-SIGNOFF.md asks for: legal.effective_date in tools/t0/trains.json set to the production deploy day; whether Netlify Web Analytics and Real User Monitoring are switched on (Netlify dashboard, Project > Web Analytics); a check of the Street View motion-sensor sentence on a real phone; and a decision on the Terms sentence about the vignette scripts, which the repository cannot confirm (OWNER-ACTION-10). After your approval a build takes --with PG-legal (and its companion group PG-polish-legal, see D-LEGAL).",
    "kind": "decision-support package"
   },
   {
@@ -792,7 +792,7 @@
    "files": [
     "ops/legal-drafts/"
    ],
-   "owner_step": "One-time attorney review of the merged privacy and terms drafts.",
+   "owner_step": "Engage an attorney for the one-time review (the plan leaves the cost unverified) and give them ops/legal-drafts/privacy.merged-draft.html, terms.merged-draft.html and data-inventory.md (D-LEGAL steps 2 and 3). The review has to come before the open data licence, any LLM tier, Classroom student statements, user content if Watch Together stays, age wording, the ePrivacy view on the Mapbox ID and Cache Storage, trademark and naming confusion, embeddings of share-alike text and the Busey and Martin-derived figures. Record the attorney's sign-off as a dated decision under docs/decisions/ so that the plan's acceptance, counsel sign-off recorded, can be checked.",
    "kind": "decision-support package"
   },
   {
@@ -826,7 +826,7 @@
    "files": [
     "docs/editorial/reviewer-charter.md"
    ],
-   "owner_step": "Name and invite the reviewer.",
+   "owner_step": "Choose a named historical reviewer and a second reader; send them docs/editorial/reviewer-charter.md and sign-off-states.md; agree the hours (the charter proposes 5 to 6 hours a week for 8 to 10 weeks, then 3 to 4) and tell the release workstream the two names. A reviewer is credited publicly only with their consent (delegated row B17).",
    "kind": "decision-support package"
   },
   {
@@ -841,7 +841,7 @@
     "docs/editorial/anchor-review-packet.md",
     "docs/time/ANCHORS-FINAL.md"
    ],
-   "owner_step": "Give the packet to the named reviewer.",
+   "owner_step": "After WP-DEC-10: give the named reviewer docs/editorial/anchor-review-packet.md (33 anchors; the five that need a historian are t75, t90, t248, t275 and t538). Their decisions are committed by you as lines of a decisions.jsonl record (shape in docs/editorial/sign-off-states.md, section 4); the three design anchors and the circular t5 are yours to sign (section 5 of the packet), not the reviewer's.",
    "kind": "decision-support package"
   },
   {
@@ -863,12 +863,12 @@
    "title": "Continuity pack",
    "status": "OWNER_ONLY",
    "evidence": "Nothing in the repository beyond ops/ runbooks.",
-   "next_step": "See D-CONTINUITY.",
+   "next_step": "See D-CONTINUITY. The buildable parts (inventory file, restore script, vendor register) are WP-INFRA-06b and WP-INFRA-07a (items-B.json, OPEN_BUILDABLE).",
    "size": "M",
    "files": [
     "ops/"
    ],
-   "owner_step": "Delegate, second remote, restore drill.",
+   "owner_step": "Name a delegate who can renew the domain and redeploy, and write and sign the delegate letter; add a second git remote and push the repository to it; keep the credentials in a password manager the delegate can reach; run the restore drill once (empty machine to a fresh Netlify site, the plan's target is at most 2 hours) and keep its log (the plan wants a log at most 90 days old). The secret-free inventory file, the restore script and the vendor register can be built here and are tracked as WP-INFRA-06b and WP-INFRA-07a in items-B.json.",
    "kind": "decision-support package"
   },
   {
@@ -1027,13 +1027,13 @@
    "chapter": "01",
    "title": "Name a reviewer; send the three permission emails",
    "status": "OWNER_ONLY",
-   "evidence": "ops/owner-console-actions.md: the box of this action is unticked.",
+   "evidence": "ops/owner-console-actions.md: the box of this action is unticked, and its row 8 says the location of the three drafts is not recorded in the repository. Pass 4 searched docs, ops, candidates and the Battle Theatre tree: the only drafted requests are docs/battle-theatre/rosters/PERMISSION-REQUESTS-DRAFT.md (FamilySearch; NPS Soldiers and Sailors System), unsent; none exists for the Gettysburg NMP Research Center or for ACHS and Musselman Library.",
    "next_step": "Owner contacts third parties.",
    "size": "S",
    "files": [
     "ops/owner-console-actions.md"
    ],
-   "owner_step": "Send the three drafted permission emails (NPS CWSS, Gettysburg NMP Research Center, ACHS).",
+   "owner_step": "Send the permission requests from the project address. The repository holds a draft of the NPS Soldiers and Sailors System request (docs/battle-theatre/rosters/PERMISSION-REQUESTS-DRAFT.md, section 2; section 1 there is a FamilySearch request for the Battle Theatre). It holds no draft for the Gettysburg NMP Research Center or for ACHS (Gettysburg History) and Musselman Library: tell the release workstream what you want to ask each, or write them yourself. Also name the reviewer and second reader (WP-DEC-10).",
    "kind": "owner action"
   },
   {
@@ -1470,7 +1470,7 @@
    "chapter": "02",
    "title": "Map sub-pages: non-blocking Mapbox with SRI, PeerJS on demand",
    "status": "SHIPPED",
-   "evidence": "Train R1a onward, PG-maps (131 patches); pages-maps suite 34/34 on R1g [C11 rerun]. Rows of the suite family (docs/accept/R1G-SUITES.json, generated 2026-11-14 00:04 UTC): pagesmaps.R1c (the R1g tree) and pagesmaps.R1b 34/34 on 2026-11-11 (proxy rerun); pagesmaps.R1a 34/34 on 2026-11-11 and on 2026-11-13 20:33 UTC, then FAIL on 2026-11-14 00:04 UTC (exit 1, 1 of 1 counted, 2.5 s, cold vendor cache, load average 13; cause not recorded: VER-PAGESMAPS). The two Mapbox GL files that last run downloaded have the sha384 values pinned in tools/t0/assets-src/sri.json (compared in pass 4), so the pins still match the library bytes served on 2026-11-14 00:04 UTC and the failure is not an integrity mismatch.",
+   "evidence": "Train R1a onward, PG-maps (131 patches); pages-maps suite 34/34 on R1g [C11 rerun]. Rows of the suite family (docs/accept/R1G-SUITES.json, generated 2026-11-14 00:27 UTC): pagesmaps.R1c (the R1g tree) and pagesmaps.R1b 34/34 on 2026-11-11 (proxy rerun); pagesmaps.R1a 34/34 on 2026-11-11 and on 2026-11-13 20:33 UTC, then FAIL on 2026-11-14 00:04 UTC (exit 1, 1 of 1 counted, 2.5 s, cold vendor cache, load average 13). The release workstream's diagnosis of that row, added 2026-11-14 00:27 UTC and reproduced without a browser (docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-no-chrome-repro.log): the shell of that run did not set T0_CHROME, so tests/t0/lib.mjs used its Windows Chrome path and the spawn failed with ENOENT after PG-01 had passed; the repeat with T0_CHROME set is queued behind the machine lock and had not run when this was written (VER-PAGESMAPS). The two Mapbox GL files that run downloaded have the sha384 values pinned in tools/t0/assets-src/sri.json (compared in pass 4), so the pins still match the library bytes served on 2026-11-14 00:04 UTC.",
    "next_step": "None. Lighthouse per page is owed.",
    "size": "S",
    "files": [
@@ -1491,7 +1491,7 @@
    "chapter": "02",
    "title": "OG card, manifest, Search Console file",
    "status": "SHIPPED",
-   "evidence": "Train R1a onward (PG-maps og rows, manifest id \"/\", orientation removed, google0dca4879c9657741.html in the dist); images replaced by real photographs at R1d (PG-zimg). pages-maps 34/34 (row pagesmaps.R1c), images 12/13 (+1 skip) on R1g; the newest pagesmaps.R1a row (2026-11-14) is a FAIL of unrecorded cause (WP-T0-13, VER-PAGESMAPS).",
+   "evidence": "Train R1a onward (PG-maps og rows, manifest id \"/\", orientation removed, google0dca4879c9657741.html in the dist); images replaced by real photographs at R1d (PG-zimg). pages-maps 34/34 (row pagesmaps.R1c), images 12/13 (+1 skip) on R1g; the newest pagesmaps.R1a row (2026-11-14) is a FAIL that the release workstream diagnoses as a run without T0_CHROME, repeat pending (WP-T0-13, VER-PAGESMAPS).",
    "next_step": "None. DNS TXT is owner Action 2.",
    "size": "S",
    "files": [
@@ -1593,7 +1593,7 @@
     "ops/RELEASE-RUNBOOK.md",
     "ops/RELEASE-LOG.md"
    ],
-   "owner_step": "Dry-run the runbook on the staging site; run the probe after each deploy.",
+   "owner_step": "Dry-run ops/RELEASE-RUNBOOK.md and ops/DEPLOY-CHECKLIST.md on the staging site (ops/STAGING-SETUP.md); after each deploy run node tests/t0/prod-probe.mjs --base <site url>; schedule the probe and choose the alert channel (none exists; the delegated default is GitHub issues, row B13).",
    "kind": "work package (finding group)"
   },
   {
@@ -1974,7 +1974,7 @@
    "files": [
     "tools/t0/base1863/"
    ],
-   "owner_step": "Read the Mapbox terms on attribution when only glyphs are used, or ask Mapbox.",
+   "owner_step": "Read the Mapbox terms on attribution for a map whose tiles are the site's own 1863 pyramid and whose only Mapbox part is the glyph service (tools/t0/base1863/), or ask Mapbox, and record in writing whether an attribution text must be shown on the base map (a legal act); the R1D provisional file lists the question as open.",
    "kind": "decision"
   },
   {
@@ -1989,7 +1989,7 @@
     "tools/accept/regression_waivers.json",
     "docs/accept/R1E-WAIVERS.md"
    ],
-   "owner_step": "Say yes or no to the documented visible changes against the published build.",
+   "owner_step": "Read docs/accept/triage/REGRESSION-TRIAGE.md section 6 (the differences from the published build that are documented but have no explicit owner yes: the 56 basis-B rows that docs/accept/R1E-WAIVERS.md re-justifies, of the 65 entries of tools/accept/regression_waivers.json) and answer yes or no in writing; one yes covers all of them, and a no names the rows to revert.",
    "kind": "decision"
   },
   {
@@ -2017,7 +2017,7 @@
    "files": [
     "docs/decisions/R1G-PROVISIONAL-DECISIONS-2026-11-01.md"
    ],
-   "owner_step": "Ask Mapbox whether the GL JS files may be served from the site origin.",
+   "owner_step": "Read the Mapbox terms or ask Mapbox in writing whether mapbox-gl.js and mapbox-gl.css (the pinned 3.24.1 files) may be served from the site's own origin, and record the answer; a yes releases the self-hosting candidate WP-INFRA-19b (delegated row B02), which would remove the cross-origin stall on the eight map pages.",
    "kind": "decision"
   },
   {
@@ -2092,10 +2092,10 @@
   {
    "id": "VER-PAGESMAPS",
    "chapter": "02",
-   "title": "pagesmaps.R1a red in its newest row (cold vendor cache, 2026-11-14 00:04 UTC); cause not recorded",
+   "title": "pagesmaps.R1a red in its newest row (2026-11-14 00:04 UTC): diagnosed as a run without T0_CHROME, the repeat is pending",
    "status": "OPEN_BUILDABLE",
-   "evidence": "docs/accept/R1G-SUITES.json (generated 2026-11-14 00:04:26 UTC): pagesmaps.R1a last row FAIL, exit 1, 1 of 1 counted, 2.5 s, log docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log. The run: node tools/t0/run_suites.mjs --r1-dist release/R1g/dist --no-red --no-network --only pagesmaps.R1a --port-base 19040 through the machine lock, HTTPS_PROXY set and NODE_USE_ENV_PROXY unset in the shell, vendor cache absent before the run, load average 13.24 to 13.62. The summary keeps only the last three output lines (a closing bracket, a closing brace, \"Node.js v22.23.4\"), so the error text is not recorded, and the R1G-STATUS line says the record makes no diagnosis. Earlier rows of the suite family: pagesmaps.R1a 34/34 on 2026-11-11 (proxy rerun) and 2026-11-13 20:33 UTC; pagesmaps.R1b and pagesmaps.R1c (the R1g tree) 34/34 on 2026-11-11; the first full run of 2026-11-11, in which Node did not get the proxy variables, was 14/34. Pass 4 compared the two Mapbox GL files that run downloaded (tmp/r1g-verify2-maps/vendor, 1,796,551 and 40,806 bytes) with tools/t0/assets-src/sri.json: both sha384 values equal the pins, so the integrity assertion of ensureVendor() in tests/t0/pages-maps.spec.mjs cannot be what failed. The suite is cited as proof by WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 here and by WP-INFRA-23a, WP-SEO-04a and others in items-B.json.",
-   "next_step": "Release workstream: run the suite alone through tools/horde/bench.sh with the vendor cache present and again with it absent, keep the whole output (the summary stores only the last three lines), classify the failure as harness, environment or tree, and record it in docs/accept/R1G-STATUS.md. No SHIPPED item changes status unless the R1g rows (pagesmaps.R1c) turn red.",
+   "evidence": "docs/accept/R1G-SUITES.json (generated 2026-11-14 00:27 UTC): pagesmaps.R1a last row FAIL, exit 1, 1 of 1 counted, 2.5 s, log docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log. The run: node tools/t0/run_suites.mjs --r1-dist release/R1g/dist --no-red --no-network --only pagesmaps.R1a --port-base 19040 through the machine lock, HTTPS_PROXY set and NODE_USE_ENV_PROXY unset in the shell, vendor cache absent, load average 13.24 to 13.62; the summary keeps only the last three output lines. The release workstream's diagnosis (added 2026-11-14 00:27 UTC to the source conditions of that log, labelled a diagnosis and not a fact the run recorded, because the run header does not list T0_CHROME): T0_CHROME was unset, tests/t0/lib.mjs then uses the Windows Chrome path, and the Chrome spawn, which has no error handler, died with ENOENT after PG-01 passed; the same tail (a closing bracket, a closing brace, \"Node.js v22.23.4\") and exit 1 were reproduced without a browser (docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-no-chrome-repro.log), and a control in the shell as the container gives it with T0_CHROME set but without the proxy variable failed in ensureVendor with \"fetch failed\" (...-no-proxy-env-control.log), the failure of the first full run. The repeat with T0_CHROME set is queued behind the machine lock (planned log docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-cold-cache-chrome-set.log) and had not run when pass 4 wrote this. Earlier rows of the family: pagesmaps.R1a 34/34 on 2026-11-11 (proxy rerun) and 2026-11-13 20:33 UTC; pagesmaps.R1b and pagesmaps.R1c (the R1g tree) 34/34 on 2026-11-11; the first full run of 2026-11-11, in which Node did not get the proxy variables, was 14/34. Pass 4 compared the two Mapbox GL files that run downloaded (tmp/r1g-verify2-maps/vendor, 1,796,551 and 40,806 bytes) with tools/t0/assets-src/sri.json: both sha384 values equal the pins, so the integrity assertion of ensureVendor() cannot be what failed. The suite is cited as proof by WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 here and by WP-INFRA-23a, WP-SEO-04a and others in items-B.json.",
+   "next_step": "Release workstream: when the queued repeat with T0_CHROME set has run, add its row to docs/accept/R1G-SUITES.json and one line to docs/accept/R1G-STATUS.md; if it passes the row is closed and this item with it. The diagnosis also names a harness weakness (the Chrome spawn has no error handler, so a wrong path ends the suite as an unhandled error without a message): a clear failure line in tests/t0/lib.mjs is the release workstream's to add. No SHIPPED item changes status unless the R1g rows (pagesmaps.R1c) turn red.",
    "size": "S",
    "files": [
     "tests/t0/pages-maps.spec.mjs",
@@ -2788,7 +2788,7 @@
    "files": [
     "docs/editorial/"
    ],
-   "owner_step": "Name the reviewer and second reader.",
+   "owner_step": "Choose a named historical reviewer and a second reader; send them docs/editorial/reviewer-charter.md and sign-off-states.md; agree the hours (the charter proposes 5 to 6 hours a week for 8 to 10 weeks, then 3 to 4) and tell the release workstream the two names. A reviewer is credited publicly only with their consent (delegated row B17).",
    "kind": "work package (finding group)"
   },
   {
@@ -3439,7 +3439,7 @@
    "chapter": "05",
    "title": "Map sub-pages: interim performance fix",
    "status": "SHIPPED",
-   "evidence": "PG-maps (R1a), PG-perf2, PG-perf3 with the 250 ms first-paint hold (R1d), PG-zperf5, PG-ztail (R1f, R1g); pages-maps 34/34 on R1g (row pagesmaps.R1c; the newest pagesmaps.R1a row of 2026-11-14 is a FAIL of unrecorded cause, VER-PAGESMAPS). Timing on this machine is software GL and is not evidence; green on the Windows machine for R1f (docs/accept/R1F-STATUS.md).",
+   "evidence": "PG-maps (R1a), PG-perf2, PG-perf3 with the 250 ms first-paint hold (R1d), PG-zperf5, PG-ztail (R1f, R1g); pages-maps 34/34 on R1g (row pagesmaps.R1c; the newest pagesmaps.R1a row of 2026-11-14 is a FAIL that the release workstream diagnoses as a run without T0_CHROME, repeat pending: VER-PAGESMAPS). Timing on this machine is software GL and is not evidence; green on the Windows machine for R1f (docs/accept/R1F-STATUS.md).",
    "next_step": "None for the patches; Lighthouse per page is owed.",
    "size": "S",
    "files": [
@@ -4093,7 +4093,7 @@
    "files": [
     "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
    ],
-   "owner_step": "Recruit participants for the card sort, tree test and the moderated rounds.",
+   "owner_step": "Recruit participants for the studies of chapter 06 section 8.1, hosted outside production (a throw-away static host or a research tool, no personal data): a closed card sort of the 20 features into 5 destinations and More (15 to 20 people), a tree test (20 people, 10 tasks) and a first-click test on the wireframes (20 people, 5 tasks), then the moderated rounds; set the incentive and the budget (UX-OD-10).",
    "kind": "work package (finding group)"
   },
   {
@@ -4837,7 +4837,7 @@
    "chapter": "08a",
    "title": "Test harness and page specs",
    "status": "SHIPPED",
-   "evidence": "tests/t0/pages-core.spec.mjs, pages-maps.spec.mjs, pages-fixes.spec.mjs: 28/28, 34/34, 20/21 (+1 skip by design) on R1g (rows pagescore.R1c, pagesmaps.R1c, pagesfix.R1c); the newest pagesmaps.R1a row (2026-11-14) is a FAIL of unrecorded cause (WP-T0-13, VER-PAGESMAPS).",
+   "evidence": "tests/t0/pages-core.spec.mjs, pages-maps.spec.mjs, pages-fixes.spec.mjs: 28/28, 34/34, 20/21 (+1 skip by design) on R1g (rows pagescore.R1c, pagesmaps.R1c, pagesfix.R1c); the newest pagesmaps.R1a row (2026-11-14) is a FAIL that the release workstream diagnoses as a run without T0_CHROME, repeat pending (WP-T0-13, VER-PAGESMAPS).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -4911,7 +4911,7 @@
    "files": [
     "tools/t0/patches/DATA.json"
    ],
-   "owner_step": "Name the reviewer who signs the casualty figures.",
+   "owner_step": "Name the reviewer who signs the casualty figures (the same person as the historical reviewer of WP-DEC-10). What is to be signed is the casualty half of the DATA group: 19 casualty patches and 3 dashboard rows reconciled against the printed returns (sources in docs/data-audit/fixes.json).",
    "kind": "work package (finding group)"
   },
   {
@@ -5811,7 +5811,7 @@
    "files": [
     "ops/legal-drafts/"
    ],
-   "owner_step": "Approve the interim text.",
+   "owner_step": "Read ops/legal-drafts/preview/privacy.interim-R1c.html and terms.interim-R1c.html together with ops/legal-drafts/OWNER-SIGNOFF.md, then approve or edit the text in writing (a legal act). OWNER-SIGNOFF.md asks for: legal.effective_date in tools/t0/trains.json set to the production deploy day; whether Netlify Web Analytics and Real User Monitoring are switched on (Netlify dashboard, Project > Web Analytics); a check of the Street View motion-sensor sentence on a real phone; and a decision on the Terms sentence about the vignette scripts, which the repository cannot confirm (OWNER-ACTION-10). After your approval a build takes --with PG-legal (and its companion group PG-polish-legal, see D-LEGAL).",
    "kind": "work package (finding group)"
   },
   {
@@ -6004,7 +6004,7 @@
     "T1"
    ],
    "shared_with_part_B": true,
-   "owner_step": "See OWNER-ACTION-01..12."
+   "owner_step": "Work through ops/owner-console-actions.md in order: Actions 1 to 6 and 12 are console or machine steps, Actions 7 to 11 are decisions and outreach answered in writing; OWNER-ACTION-01 to OWNER-ACTION-12 of this file give the one-line step of each."
   },
   {
    "id": "RM-02",
@@ -6080,7 +6080,7 @@
     "H10"
    ],
    "shared_with_part_B": true,
-   "owner_step": "Name the reviewer; send the three permission emails."
+   "owner_step": "Name the historical reviewer and second reader (exact step: WP-DEC-10) and send the permission requests (what exists in the repository: OWNER-ACTION-08)."
   },
   {
    "id": "RM-05",
@@ -6570,7 +6570,7 @@
     "X5"
    ],
    "shared_with_part_B": true,
-   "owner_step": "Approve the interim privacy text."
+   "owner_step": "Read ops/legal-drafts/preview/privacy.interim-R1c.html and terms.interim-R1c.html together with ops/legal-drafts/OWNER-SIGNOFF.md, then approve or edit the text in writing (a legal act). OWNER-SIGNOFF.md asks for: legal.effective_date in tools/t0/trains.json set to the production deploy day; whether Netlify Web Analytics and Real User Monitoring are switched on (Netlify dashboard, Project > Web Analytics); a check of the Street View motion-sensor sentence on a real phone; and a decision on the Terms sentence about the vignette scripts, which the repository cannot confirm (OWNER-ACTION-10). After your approval a build takes --with PG-legal (and its companion group PG-polish-legal, see D-LEGAL)."
   },
   {
    "id": "RM-20",
@@ -6620,7 +6620,7 @@
     "N1"
    ],
    "shared_with_part_B": true,
-   "owner_step": "Deploy to staging, rehearse rollback, then production."
+   "owner_step": "Follow ops/STAGING-SETUP.md and ops/RELEASE-RUNBOOK.md: create the throw-away staging Netlify site and upload the STAGING zip of the release you mean to publish (for R1g deliver/gettysburg-R1g-52cec836-STAGING-noindex.zip, packed on the machine that holds the original tile pyramid, VER-TILES); run node ops/staging-verify.mjs and node tests/t0/prod-probe.mjs --base <staging url> --staging; rehearse the rollback once (Publish deploy on the previous deploy); then drag and drop the PRODUCTION zip on the live site and add the row to ops/RELEASE-LOG.md (the rollback target before R0 is deploy 6abd6d62)."
   },
   {
    "id": "RM-22",
@@ -6726,7 +6726,7 @@
     "N1"
    ],
    "shared_with_part_B": true,
-   "owner_step": "Delegate, second remote, restore drill."
+   "owner_step": "Name a delegate who can renew the domain and redeploy, and write and sign the delegate letter; add a second git remote and push the repository to it; keep the credentials in a password manager the delegate can reach; run the restore drill once (empty machine to a fresh Netlify site, the plan's target is at most 2 hours) and keep its log (the plan wants a log at most 90 days old). The secret-free inventory file, the restore script and the vendor register can be built here and are tracked as WP-INFRA-06b and WP-INFRA-07a in items-B.json."
   },
   {
    "id": "RM-30",
@@ -6831,7 +6831,7 @@
     "X5"
    ],
    "shared_with_part_B": true,
-   "owner_step": "Attorney review."
+   "owner_step": "Engage an attorney for the one-time review (the plan leaves the cost unverified) and give them ops/legal-drafts/privacy.merged-draft.html, terms.merged-draft.html and data-inventory.md (D-LEGAL steps 2 and 3). The review has to come before the open data licence, any LLM tier, Classroom student statements, user content if Watch Together stays, age wording, the ePrivacy view on the Mapbox ID and Cache Storage, trademark and naming confusion, embeddings of share-alike text and the Busey and Martin-derived figures. Record the attorney's sign-off as a dated decision under docs/decisions/ so that the plan's acceptance, counsel sign-off recorded, can be checked."
   },
   {
    "id": "RM-39",
@@ -6911,7 +6911,7 @@
     "H10"
    ],
    "shared_with_part_B": true,
-   "owner_step": "Name the reviewer."
+   "owner_step": "Choose a named historical reviewer and a second reader; send them docs/editorial/reviewer-charter.md and sign-off-states.md; agree the hours (the charter proposes 5 to 6 hours a week for 8 to 10 weeks, then 3 to 4) and tell the release workstream the two names. A reviewer is credited publicly only with their consent (delegated row B17)."
   },
   {
    "id": "RM-43",
@@ -7580,14 +7580,14 @@
    "audit_ids": [
     "-"
    ],
-   "owner_step": "Recruit participants."
+   "owner_step": "Recruit participants for the studies of chapter 06 section 8.1, hosted outside production (a throw-away static host or a research tool, no personal data): a closed card sort of the 20 features into 5 destinations and More (15 to 20 people), a tree test (20 people, 10 tasks) and a first-click test on the wireframes (20 people, 5 tasks), then the moderated rounds; set the incentive and the budget (UX-OD-10)."
   },
   {
    "id": "RM-72",
    "chapter": "07",
    "title": "Regression suites: function, console/fault/GPU, visual, accessibility automation, Historian gates, soak",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Exists: 80 suite rows (docs/accept/R1G-SUITES.json: last result OK 60, not OK 20 in the file generated 2026-11-14 00:04 UTC) in tools/t0/run_suites.mjs, eight acceptance checks in tools/accept, tests/historian gates. Missing: the 24-viewport by three-engine matrix and the fault and context-loss cases.",
+   "evidence": "Exists: 80 suite rows (docs/accept/R1G-SUITES.json: last result OK 60, not OK 20 in the file generated 2026-11-14 00:27 UTC) in tools/t0/run_suites.mjs, eight acceptance checks in tools/accept, tests/historian gates. Missing: the 24-viewport by three-engine matrix and the fault and context-loss cases.",
    "next_step": "Extend (release workstream).",
    "size": "M",
    "files": [
@@ -7839,7 +7839,7 @@
     "A1-A6"
    ],
    "shared_with_part_B": true,
-   "owner_step": "Manual assistive-technology rounds, independent evaluation, real devices, user sessions."
+   "owner_step": "Run or commission the proofs that D-EVIDENCE requires before any public A+ claim: the 22 assistive-technology tasks with NVDA, JAWS, VoiceOver and TalkBack (WP-A11Y-30); an independent WCAG 2.2 AA evaluation and two or three assistive-technology user sessions (WP-A11Y-32); runs on a mid-range Android phone, an iPhone SE and a 4 GB Chromebook (WP-PERF-17, PERF-OD-03); and the user sessions of WP-UX-33. Send the written results."
   },
   {
    "id": "RM-90",
@@ -8923,7 +8923,7 @@
     "D-CWSS",
     "OWNER-ACTION-08"
    ],
-   "owner_step": "Send the drafted permission email to the NPS Civil War Soldiers and Sailors System contact."
+   "owner_step": "Send the NPS Soldiers and Sailors System request from the project address: the draft is section 2 of docs/battle-theatre/rosters/PERMISSION-REQUESTS-DRAFT.md (not sent); note the date of the reply, because nothing that needs the roster data starts before the Park Service answers in writing."
   },
   {
    "id": "PAGEC-OD-08",
@@ -9336,15 +9336,16 @@
   ],
   "not_changed_and_why": "No status other than WP-ARCH-09 was re-graded: every other status was re-read against its evidence and held; the classes OWNER_ONLY (72) and OPEN_NEEDS_DECISION (96) were read in full and each has its owner step or its conservative proposal with the alternative kept."
  },
- "updated": "2026-11-14T00:40Z (pass 4)",
+ "updated": "2026-11-14T00:31Z (pass 4)",
  "continuation_4": {
   "what": "Fourth pass of 2026-11-14 (main-site workstream, started after the container restart of about 00:04 UTC that ended the run before it). It continued from pass 3 and did not redo it: it re-ran the pass-3 checks on the tree as it is, looked for drift since the last checkpoint, and cross-checked the statuses by routes the earlier passes had not used (roadmap nodes against their member work packages, proof suites against the failing test ids, patch groups and trains against anchors.json, direct reads of the dist).",
   "changes": [
-   "drift: docs/accept/R1G-SUITES.json was regenerated at 2026-11-14 00:04 UTC with a new red row (pagesmaps.R1a, cold-cache run, cause not recorded); new item VER-PAGESMAPS (OPEN_BUILDABLE, release workstream); WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 now name the row; the totals in RM-72 and in the ground facts read OK 60 and not OK 20",
+   "drift: docs/accept/R1G-SUITES.json was regenerated at 2026-11-14 00:04 UTC with a new red row (pagesmaps.R1a, cold-cache run) and again at 00:27 UTC with the release workstream's diagnosis of it (a run without T0_CHROME; the repeat is queued); new item VER-PAGESMAPS (OPEN_BUILDABLE, release workstream); WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 now name the row; the totals in RM-72 and in the ground facts read OK 60 and not OK 20",
    "WP-UX-02: the proof suite mobilefix is named with its failing ids instead of a pointer to VER-MFIX",
    "RM-06, RM-07, RM-15, RM-16, RM-17: each says which members of its source_wps lie outside the subset the node names and what their status is (no status changed: the named subset is what the trains carry; WP-DEC-05, the owner-only Netlify spike, is named under RM-16)",
    "files: 221 items had an empty list; each now names the existing files its evidence points at, the patch group files it names, the delegated-decisions file for a decision, and the plan chapter or roadmap file that specifies it (no path under tmp/, release/ or deliver/, which are not in git); the field is defined in status_definitions",
-   "counts: 518 to 519 items (VER-PAGESMAPS); counts, counts_by_kind, counts_by_chapter and open_by_status_and_size recomputed from the items"
+   "counts: 518 to 519 items (VER-PAGESMAPS); counts, counts_by_kind, counts_by_chapter and open_by_status_and_size recomputed from the items",
+   "owner steps made exact for 28 OWNER_ONLY items that read as one line (\"Approve the interim text.\", \"Attorney review.\", \"Name the reviewer.\", \"Recruit participants.\", \"Delegate, second remote, restore drill.\", \"Deploy to staging, rehearse rollback, then production.\", \"Say yes or no ...\", ...): each now names the files and the numbers it rests on; OWNER-ACTION-08 records that the repository holds a draft of only one of the three permission requests (docs/battle-theatre/rosters/PERMISSION-REQUESTS-DRAFT.md, the NPS Soldiers and Sailors System request) and none for the Gettysburg NMP Research Center or for ACHS and Musselman Library"
   ],
   "verified_in_pass_4": [
    "the file is valid JSON in the layout the merge reads (indent 1, ids unique, every item has id, chapter, title, status, evidence, next_step, size S/M/L, files, kind)",

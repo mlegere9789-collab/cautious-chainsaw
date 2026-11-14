@@ -295,6 +295,48 @@ def tests():
     ok('copy audit: the contract tables carry the codes', 'AUDIT' in K.ERRORS and 'AUDIT_QUOTE' in K.WARNINGS and 'AUDIT_SKIPPED' in K.WARNINGS)
 
 
+    # --- casualties: a statement of the aggregate only, and statements that give two kinds together ---------------------------
+    ptxt = os.path.join(TMP, 'cas_source.txt')
+    ctext = ('Our loss in this action was 100 in killed, wounded, and missing, out of 224 taken into the engagement.\n'
+             'The regiment lost thirty-seven killed and wounded on the second day.\n'
+             'The adjutant reports a loss of 14 officers and 227 men by the official records.\n'
+             'Of the regiment 8 were killed, 57 wounded and 35 missing.\n')
+    with open(ptxt, 'w', encoding='utf-8', newline='') as f:
+        f.write(ctext)
+    csrc = {'type': 'source', 'id': 'examples:0900', 'title': 'a regimental history', 'class': 'regimental_or_state_history', 'local_path': os.path.relpath(ptxt, K.ROOT)}     # its own id: a process keeps one text per source id
+
+    def cas(i, quote, value, **kw):
+        o = {'type': 'evidence', 'id': 'examples:%04d' % (900 + i), 'unit_id': 'us-1c-1d-meredith-19in', 'field': 'casualties', 'value': value, 'basis': 'state_volume', 'tier': 'documented', 'as_of': '1863-07-02',
+             'source_id': 'examples:0900', 'part': None, 'report_id': None, 'printed_page': None, 'offset': ctext.index(quote), 'quote': quote, 'quote_mode': 'exact'}
+        o.update(kw)
+        return o
+    qa = 'Our loss in this action was 100 in killed, wounded, and missing'
+    qk = 'The regiment lost thirty-seven killed and wounded on the second day.'
+    qr = 'The adjutant reports a loss of 14 officers and 227 men by the official records.'
+    qs = 'Of the regiment 8 were killed, 57 wounded and 35 missing.'
+    none3 = {'killed': {}, 'wounded': {}, 'missing': {}, 'period': '1863-07-02'}
+    R = run([csrc, cas(2, qa, dict(none3, total=100))], name='cs1')
+    ok('casualties: a statement that gives only the aggregate is accepted in exact mode with no waiver (nothing to add up)', not R.errors and len(R.accepted) == 1 and not [w for w in R.warnings if w['code'] == 'NUMBERS_WAIVED'], (R.errors, R.warnings))
+    R = run([csrc, cas(2, qa, dict(none3, total=101))], name='cs2')
+    ok('casualties: an aggregate-only statement whose figure the quote does not state is rejected (NUMBERS)', codes(R) == ['NUMBERS'], R.errors)
+    R = run([csrc, cas(2, qs, dict(none3, killed={'total': 8}, wounded={'total': 57}, missing={'total': 35}, total=100))], name='cs3')
+    ok('casualties: kinds that are stated and add up to the total are accepted', not R.errors, R.errors)
+    R = run([csrc, cas(2, qs, dict(none3, killed={'total': 8}, wounded={'total': 57}, missing={'total': 35}, total=99))], name='cs4')
+    ok('casualties: kinds that are stated and do not add up to the total are still rejected (CHECK)', codes(R) == ['CHECK'], R.errors)
+    R = run([csrc, cas(2, qk, dict(none3, total=None, combined=[{'kinds': ['killed', 'wounded'], 'total': 37}]))], name='cs5')
+    ok('casualties: "thirty-seven killed and wounded" is a combined statement of two kinds (no aggregate is made up)', not R.errors and len(R.accepted) == 1, R.errors)
+    R = run([csrc, cas(2, qk, dict(none3, total=None, combined=[{'kinds': ['killed', 'wounded'], 'total': 38}]))], name='cs6')
+    ok('casualties: a combined figure that the quote does not state is rejected (NUMBERS)', codes(R) == ['NUMBERS'], R.errors)
+    R = run([csrc, cas(2, qk, dict(none3, total=None, combined=[{'kinds': ['killed', 'killed'], 'total': 37}]))], name='cs7')
+    ok('casualties: a combined statement may not repeat a kind', codes(R) == ['VALUE'], R.errors)
+    R = run([csrc, cas(2, qk, dict(none3, total=None, combined=[{'kinds': ['killed'], 'total': 37}]))], name='cs8')
+    ok('casualties: a combined statement names at least two kinds (one kind is the kind itself)', codes(R) == ['VALUE'], R.errors)
+    R = run([csrc, cas(2, qr, dict(none3, total=241, combined=[{'kinds': ['killed', 'wounded', 'missing'], 'total': 241, 'officers': 14, 'enlisted': 227}]))], name='cs9')
+    ok('casualties: 14 officers and 227 men lost is an aggregate with its rank split; the sum 241 is derived and needs no waiver', not R.errors and not [w for w in R.warnings if w['code'] == 'NUMBERS_WAIVED'], (R.errors, R.warnings))
+    R = run([csrc, cas(2, qr, dict(none3, total=None, combined=[{'kinds': ['killed', 'wounded', 'missing'], 'total': 240, 'officers': 14, 'enlisted': 227}]))], name='cs10')
+    ok('casualties: a rank split that does not add to its combined total is rejected (VALUE; the figure is no derived sum either, so NUMBERS also fires)', 'VALUE' in codes(R) and not R.accepted and any('add to 241' in e['msg'] for e in R.errors), R.errors)
+    ok('casualties: the contract table shows the combined member', 'combined' in C.contract_markdown())
+
     # --- robustness: no malformed line may crash the checker ----------------------------------------------------------
     junk = [None, 0, -1, 1.5, True, '', 'x', [], {}, [1], {'a': 1}, 10 ** 12]
     lines, n = [], 0

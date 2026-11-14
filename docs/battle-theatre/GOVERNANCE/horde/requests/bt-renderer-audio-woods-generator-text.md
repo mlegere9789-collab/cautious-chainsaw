@@ -1,0 +1,7 @@
+# To the owner of app/tools (the generators), from bt-renderer (weather and effects lane): one string in build-audio3d-woods.mjs must match the data file I reworded
+
+Date: 2026-11-14. Copy audit (tools/bt/pack_theatre.mjs, the staging packer): `app/data/audio3d/woods-mask.json` line 1 was a hit ("Derived from ... by app/tools/build-audio3d-woods.mjs": a shipped data file naming the program that made it). I reworded the `_doc` member of the data file (my path, `app/data/audio3d`) to "Derived from the 1863 woods layer, docs/basemap1863/features/landcover/woods_1863.geojson. Rings are ..." (nothing else in the file changed; `tests/audio3d.test.mjs` 38 of 38 and `tests/audio3d-round2.test.mjs` 8 of 8 pass; the packer now reports 9 hits, none in a file of this lane).
+
+The generator is not in my ownership, so it still writes the old wording. **Exact change asked** in `docs/battle-theatre/app/tools/build-audio3d-woods.mjs` line 31 (the `_doc:` string): replace `Derived from docs/basemap1863/features/landcover/woods_1863.geojson by app/tools/build-audio3d-woods.mjs. Rings are` with `Derived from the 1863 woods layer, docs/basemap1863/features/landcover/woods_1863.geojson. Rings are`. Until that is done a regeneration of the data file brings the audit hit back (check: `node tools/bt/pack_theatre.mjs --no-zip --out tmp/x/dist`, "auditHits").
+
+When done, append `-- handled: <what was done>` to this note with a shell `>>`.

@@ -395,8 +395,8 @@ ROWS.append(dict(
         ('Hill was directed to move on this road in the direction of York and to cross the Susquehanna', 'documented', 'supported', ['hill_york']),
     ],
     cites={
-        'hill_camp': OR('was encamped on the road from Chambersburg to Gettysburg, near the village of Fayetteville', R534, '606'),
-        'hill_york': OR('I was directed to move on this road in the direction of York', R534, '606'),
+        'hill_camp': OR('On the morning of June 29, the Third Corps, composed of the divisions of Major-Generals Anderson, Heth, and Pender, and five battalions of artillery, under command of Col. R. L. Walker, was encamped on the road from Chambersburg to Gettysburg, near the village of Fayetteville', R534, '606'),
+        'hill_york': OR('I was directed to move on this road in the direction of York, and to cross the Susquehanna', R534, '606'),
     },
     scenarios=[], remains=[], searched=['Hill p.606 read'], recheck='none needed: the stored quote was found at p.606 (OR-RECHECK).'))
 
@@ -446,11 +446,11 @@ ROWS.append(dict(
         ('A further order reached Ewell at Heidlersburg on the night of Jun 30 (the seed alternative "Jun 30 evening")', 'documented', 'conflict', ['ewell_order']),
     ],
     cites={
-        'lee_scout': OR('on the night of the 28th, information was received from a scout', R426, '307'),
-        'lee_orders': OR('Hill\'s corps was accordingly ordered to move toward Cashtown on the •^9th, and Longstreet to follow the next day', R426, '317',
+        'lee_scout': OR('on the night of the 28th, information was received from a scout that the Federal Army, having crossed the Potomac, was advancing northward', R426, '307'),
+        'lee_orders': OR('Hill\'s corps was accordingly ordered to move toward Cashtown on the •^9th, and Longstreet to follow the next day, leaving Pickett\'s division at Chambersburgto guard the rear', R426, '317',
                     reading='Hill\'s corps was accordingly ordered to move toward Cashtown on the 29th, and Longstreet to follow the next day',
                     image_check='the two other archive.org scans of part 2 print the date as 29th (closeout/second_scan.jsonl); the base OCR prints a stray mark before 9th'),
-        'ewell_order': OR('the general commanding to join the main body of the army at Cashtown', R467, '443', page_fix=PGFIX(2, 443)),
+        'ewell_order': OR('to reconnoitre the defenses of Harrisburg, and was starting on the 29th for that place when oi\'dered by the general commanding to join the main body of the army at Cashtown', R467, '443', page_fix=PGFIX(2, 443), reading='to reconnoitre the defenses of Harrisburg, and was starting on the 29th for that place when ordered by the general commanding to join the main body of the army at Cashtown'),
     },
     scenarios=[
         sc('A', 'Order received or issued on Jun 29', 'seed source W-BG; Lee p.317 (Hill ordered toward Cashtown on the 29th)', 'documented', ['lee_orders']),
@@ -472,6 +472,8 @@ ROWS.append(dict(
         ('The head of Stuart\'s column reached Westminster about 5 p.m.', 'documented', 'supported', ['stuart5']),
         ('A squadron of the First Delaware Cavalry obstinately disputed the advance for a short time; those not killed were captured or fled', 'documented', 'supported', ['stuart_routed']),
         ('Knight: two companies, 95 men in all; about 3.30 p.m. word came that the enemy advanced in force', 'documented', 'supported', ['knight95', 'knight_330', 'knight_force']),
+        ('General Return of Casualties: at Westminster, Md., June 29 the Union forces lost 2 men killed, 8 men wounded, 3 officers and 36 men captured or missing, 49 in all', 'documented', 'supported', ['gr_westminster'],
+         'Read on the page image of printed page 193 (archive.org PDF of part 1, PDF page 211): the base OCR text holds only the list of the places, the figures stand in separate columns; 2 + 8 + 3 + 36 = 49.'),
     ],
     cites={
         'stuart5': OR('reached Westminster about 5 p. m.', R565, '695'),
@@ -479,8 +481,11 @@ ROWS.append(dict(
         'knight95': OR('with two companies of my command, numbering in all 95 men', 'OR27-2-R401', '201'),
         'knight_330': OR('About 3. 30 o\'clock on the afternoon of the 29th', 'OR27-2-R401', '202'),
         'knight_force': OR('the enemy were advancing in force on the Washington road', 'OR27-2-R401', '202'),
+        'gr_westminster': OR('Westminster, Md., June 29 Hanover, Pa., June 30', 'OR27-1-R015', '193', page_fix=PGFIX(1, 193),
+                             reading='Westminster, Md., June 29: killed, officers none, enlisted men 2; wounded, officers none, enlisted men 8; captured or missing, officers 3, enlisted men 36; aggregate 49',
+                             image_check=ORIMG(1, 193, 'Westminster, Md., June 29 ... 2 | 8 | 3 | 36 | 49 (General Return of Casualties in the Union forces during the Gettysburg Campaign, June 3-August 1, 1863)')),
     },
-    scenarios=[], remains=[], searched=['Stuart pp.694-696 and Knight p.201 read'],
+    scenarios=[], remains=[], searched=['Stuart pp.694-696 and Knight p.201 read; second pass of 2026-11-13: the General Return of Casualties (OR27-1 p.193) read on the page image for the Westminster line'],
     recheck='OR-RECHECK: both stored quotes found (p.695, p.201). Shard note "routed not tested" answered by Stuart\'s sentence on the squadron\'s loss and flight; the Jenkins note is withdrawn from this row (different event).'))
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------ T1-038
@@ -495,7 +500,7 @@ ROWS.append(dict(
         ('Itinerary, Jun 29: the Twelfth Corps from Frederick to Taneytown and Bruceville', 'documented', 'supported', ['it29']),
     ],
     cites={
-        'williams': OR('June 29, through Frederick to Taney town, Md., and, on the 30th', 'OR27-1-R272', '771'),
+        'williams': OR('June 29, through Frederick to Taney town, Md., and, on the 30th, from Taneytown to Littlestown', 'OR27-1-R272', '771'),
         'it29': OR('the Twelfth Corps from Frederick to Taneytown and Bruceville', R007, '144'),
     },
     scenarios=[], remains=[], searched=['Williams p.771 and Itinerary p.144 read'], recheck='none needed: the stored quote was found at p.771 (OR-RECHECK); the Itinerary adds the corps-level entry.'))
@@ -563,18 +568,18 @@ ROWS.append(dict(
                     reading='Gamble\'s (First) and Devin\'s (Second) brigades, of Buford\'s (First) cavalry division, from Middletown, via Boonsborough, Cavetown, and Monterey Springs, to near Fairfield'),
         'it29d': OR('Merritt\'s reserve cavalry brigade, of the same division, from Middletown to Mechanicstown; Gregg\'s (Second) cavalry division from New Market and Ridgeville to New Windsor ; Kilpatrick\'s (Third) cavalry division from Frederick to Littlestown ; and the Artillery Reserve from Frederick to Bruceville', R007, '144'),
         'meade_mid': L('MEADE-LL-v2', 'General Meade established his head-quarters at Middleburg, where he passed the night of the 29th of June', page='12', page_check=True, page_basis='the head "12 LIFE AND LETTERS OF GENERAL MEADE" of p.12 precedes the passage and the head "THE BATTLE OF GETTYSBURG 13" of p.13 (text offset 39648) follows it'),
-        'meade_letter': L('MEADE-LL-v2', 'Headquarters, Middleburg, Md., June 29, 1863', note='the letter to Mrs. Meade written from Middleburg in the evening of Jun 29 (the narrative: "From Middleburg, in the evening, General Meade again wrote home")'),
+        'meade_letter': L('MEADE-LL-v2', 'Headquarters, Middleburg, Md., June 29, 1863', page='13', page_basis='the head "THE BATTLE OF GETTYSBURG 13" of p.13 (text offset 39648) precedes the passage and the head "14 LIFE AND LETTERS OF GENERAL MEADE" (text offset 42378) follows it', note='the letter to Mrs. Meade written from Middleburg in the evening of Jun 29 (the narrative: "From Middleburg, in the evening, General Meade again wrote home")'),
         'meade_spirits': L('MEADE-LL-v2', 'The men are in good spirits', page='14', page_check=True, page_basis='the head "14 LIFE AND LETTERS OF GENERAL MEADE" of p.14 precedes the passage (the letter of Jun 29 begins on p.13 and runs over the page break)'),
-        'meade_buford': L('MEADE-LL-v2', 'had encamped on the night of the 29th of June a few miles short of Fairfield'),
+        'meade_buford': L('MEADE-LL-v2', 'had encamped on the night of the 29th of June a few miles short of Fairfield', page='17', page_basis='the head "THE BATTLE OF GETTYSBURG 17" of p.17 (text offset 50355) precedes the passage and the head "18 LIFE AND LETTERS OF GENERAL MEADE" (text offset 53040) follows it'),
         'pa_buford': L('PA-GB-1914-v2', 'it went into camp near Fairfield for the night, in a region abounding in forage and water for our jaded horses', witness='oration at the dedication of the monument of the 17th Pennsylvania Cavalry, printed in Pennsylvania at Gettysburg'),
         'pa_first': L('PA-GB-1914-v2', 'On the evening of the 29th, the First Corps passed through Emmitsburg with beating drums and flying colors, and in the twilight encamped on high ground north and a little to the west of the town'),
-        'me_16th': L('ME-GB-1898', 'Encamping at Emmitsburg during the night of June 29th'),
+        'me_16th': L('ME-GB-1898', 'the Sixteenth was allowed a breathing space before plunging into battle. Encamping at Emmitsburg during the night of June 29th'),
         'meade_stuart': L('MEADE-LL-v2', 'The head of the column was halted that night (the 29th) at Union Mills, while the column remained strung out between that place and Westminster'),
     },
     scenarios=[],
     remains=['campfires, pickets, lights, sounds and civilians\' contact with the troops of both armies on the night of Jun 29 (positions and marches are documented, the life of the camps is not)'],
     searched=['Fremantle 1864 pp.244-247 (Jun 29) and Jacobs pp.20-21 read',
-              'second pass of 2026-11-13: the whole library (108 texts) searched for a date marker of Jun 29 (June 29, 29th, Monday) within 220 characters of a night or camp word (night, evening, bivouac, encamp, camp-fire, picket, supper, dusk): 193 windows in 107 texts (closeout/search_log.jsonl); the Pennsylvania, New York, Maine, Michigan, New Jersey, Vermont, Minnesota, Indiana and Ohio volumes, Meade\'s Life and Letters, Alexander, Longstreet, Battles and Leaders and the Southern Historical Society Papers read where a window was a campaign passage; most windows are other years or other dates; the usable passages are positions of camps (Meade, Buford, the First Corps, the 16th Maine, Stuart) and none describes fires, pickets, lights or civilians on the night of Jun 29',
+              'second pass of 2026-11-13: the whole local library (178 texts: the 108 texts of the library and 70 National Park Service texts of library/acquired_3.json) searched for a date marker of Jun 29 (June 29, 29th, Monday) within 220 characters of a night or camp word (night, evening, bivouac, encamp, camp-fire, picket, supper, dusk): 193 windows in 50 texts (closeout/search_log.jsonl; the 193 windows are kept in closeout/lib_search_t1040.txt, the script is closeout/tools/libsearch.py); the Pennsylvania, New York, Maine, Michigan, New Jersey, Vermont, Minnesota, Indiana and Ohio volumes, Meade\'s Life and Letters, Alexander, Longstreet, Battles and Leaders and the Southern Historical Society Papers read where a window was a campaign passage; most windows are other years or other dates; the usable passages are positions of camps (Meade, Buford, the First Corps, the 16th Maine, Stuart) and none describes fires, pickets, lights or civilians on the night of Jun 29',
               'OR vol.27 part 1 Itinerary (p.144, Jun 29 entry) read for the places the Union columns marched to; the OR reports give marches and positions, not camp life',
               'not found in the library: any diary entry or letter for the night of Jun 29 that describes the camp itself; the soldiers\' diaries named by the seed (Broadhead, Myers, McCreary) are civilian diaries of Gettysburg and are not in the library (blocked: Broadhead scan, HTTP 403 for automated access)'],
     recheck='OR-RECHECK-2 (not_found: open gap) applied: three documented fragments were added in the first close-out; the second pass added the Union night camps of the Itinerary and four fragments from the library; the army-wide camp life stays the open gap named in the seed.',

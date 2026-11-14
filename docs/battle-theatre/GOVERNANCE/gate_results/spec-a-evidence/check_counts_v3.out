@@ -1,0 +1,52 @@
+OK       no sub-requirement outside the ten classes
+OK       2.2 class TL count 691 equals requirements.json 691
+OK       2.2 class EP count 14 equals requirements.json 14
+OK       2.2 class SS count 88 equals requirements.json 88
+OK       2.2 class WK count 18 equals requirements.json 18
+OK       2.2 class GE count 18 equals requirements.json 18
+OK       2.2 class PE count 14 equals requirements.json 14
+OK       2.2 class CT count 45 equals requirements.json 45
+OK       2.2 class CF count 47 equals requirements.json 47
+OK       2.2 class TOP count 22 equals requirements.json 22
+OK       2.2 class OA count 12 equals requirements.json 12
+OK       2.2 total equals the number of rows
+OK       1.1 origin counts
+OK       1.3 "on all N rows" equals the total
+OK       OA rows are OA01..OAnn without a gap
+OK       3.10 defines one derived gate per OA row
+OK       3.10 says "twelve rows" and OA-G01 to OA-G12 for 12 rows
+OK       3.9 sixteen requirements have a single row
+OK       5 RC items: 71
+OK       5 every requirement R01..R22 has its RC items numbered from 1 without a gap
+OK       2.3 and 3.9: 39 of the 71 are the children of the 12 single-row requirements
+OK       5 each top row of requirements.json appears in section 5
+OK       U-01..U-28 contiguous
+OK       Contents names U-01..U-28
+OK       A-01..A-57 contiguous
+OK       Contents names A-01..A-57
+OK       DD-G01..DD-G15 contiguous in section 7
+OK       header names DD-G01 to DD-G15
+OK       every DD-G of section 7 is a row of the decisions file
+OK       sections 1..11 present in order
+OK       28 gate sections Q01..Q28
+OK       no cited page outside 1..144
+OK       1.5 register counts
+OK       1.5 register folder: 496 files, 9 not in the index
+OK       3.8 / 9: 47 conflicts and check_governance fixes 691 and 47
+OK       TL-1 seed tiers
+OK       TL-1 overlay tiers
+OK       TL-1 status_effective counts
+OK       1.4 the five unclassified rows are named
+OK       1.3 timeline correction counts
+OK       1.3 evidence correction counts
+OK       1.3 records on top rows
+OK       1.3 confirmed or corrected with nothing left: 39 and 70
+OK       1.3 no verdict word outside the list of the derivation
+OK       1.3 alias spelling count 77
+OK       1.3 row-level records by class
+OK       1.3 / SS-2: all 88 S rows have a row-level record, 42 clean
+OK       Q25 the status-word table reproduces the three files
+OK       Q10.1 night minutes 10,380 + 1,694 = 12,074 at the integer minute
+OK       Q10.1 at mid-minute 10,381 + 1,693 = 12,074
+OK       Q10.1 grid 27,360 + 2,880 minutes
+{"checks": 51, "ok": 51, "mismatches": 0, "mismatched": []}

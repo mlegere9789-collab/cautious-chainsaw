@@ -1,0 +1,1294 @@
+{
+ "_doc": "Inventory scan, not evidence. A pattern co-mention of a site name with hospital, surgeon, amputat or wounded inside 250 characters of a local text. Counts include OCR noise and unrelated uses of a common word (taverns, school, rose). Written by tools/bt/medical/site_scan.py.",
+ "window_chars": 250,
+ "scanned_texts": 165,
+ "sites": [
+  {
+   "id": "courthouse",
+   "name": "Adams County Court House",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "court[- ]?house",
+   "local_sources_with_hospital_co_mention": {
+    "PA-GB-1914-v2": 22,
+    "ME-GB-1898": 14,
+    "NY-GB-1902-v3": 13,
+    "OR27-PT2": 13,
+    "PDF-PLAN-V2": 8,
+    "FOX-1889": 7,
+    "NY-GB-1900-v2": 6,
+    "PA-GB-1904": 5,
+    "OR-25-1": 4,
+    "MN-1ST-1916": 3,
+    "OR-29-1": 3,
+    "SHSP-06": 3,
+    "LETTERMAN-1866": 2,
+    "MEADE-LL-v2": 2,
+    "SHSP-12": 2,
+    "NY-GB-1900": 2,
+    "NPS-SLYDER-GUIDE": 2,
+    "OR27-PT1": 2,
+    "OR27-PT3": 2,
+    "HOSPSCENES-1864": 1,
+    "MEADE-LL-v1": 1,
+    "NJ-TOOMBS-1888": 1,
+    "PIERCE-F-1914": 1,
+    "SHSP-04": 1,
+    "SHSP-11": 1,
+    "TPIERCE-1889": 1,
+    "VT-MON-1890": 1,
+    "BL-3": 1
+   },
+   "n_sources": 28
+  },
+  {
+   "id": "christ-lutheran",
+   "name": "Christ (Lutheran) Church, Chambersburg Street",
+   "area_group": "sites-town",
+   "side": "union",
+   "pattern": "(christ (lutheran )?church|college church|lutheran church)",
+   "local_sources_with_hospital_co_mention": {
+    "NY-GB-1900": 3,
+    "HOSPSCENES-1864": 2,
+    "BACH-WHATTOSEE-1873": 1,
+    "TPIERCE-1889": 1,
+    "BL-3": 1,
+    "NPS-BOUNDARY-1988": 1,
+    "NPS-CLR-1STDAY": 1,
+    "PDF-PLAN-V2": 1
+   },
+   "n_sources": 8
+  },
+  {
+   "id": "presbyterian",
+   "name": "Presbyterian Church, Baltimore Street (PDF H-01)",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "presbyterian",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 7,
+    "NJ-TOOMBS-1888": 1,
+    "SHSP-11": 1,
+    "NPS-BOUNDARY-1988": 1,
+    "NPS-MON-LOC-1932": 1,
+    "NPS-MON-LOC-1993": 1,
+    "NPS-SLYDER-GUIDE": 1,
+    "NPS-TPG-COMMEM": 1
+   },
+   "n_sources": 8
+  },
+  {
+   "id": "st-francis",
+   "name": "St. Francis Xavier Catholic church (PDF H-02)",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "(st\\.? francis|catholic church|roman catholic)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 13,
+    "NPS-EISE-HRS": 2,
+    "NPS-DESIGN-GUIDE": 1,
+    "OR27-PT2": 1
+   },
+   "n_sources": 4
+  },
+  {
+   "id": "german-reformed",
+   "name": "German Reformed Church, Baltimore Street",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "german reformed",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 2
+   },
+   "n_sources": 1
+  },
+  {
+   "id": "methodist",
+   "name": "Methodist church(es)",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "methodist",
+   "local_sources_with_hospital_co_mention": {
+    "PA-GB-1904": 1
+   },
+   "n_sources": 1
+  },
+  {
+   "id": "pennsylvania-hall",
+   "name": "Pennsylvania College (PDF H-03)",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "(pennsylvania hall|pennsylvania college|college building)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 10,
+    "NPS-BOUNDARY-1988": 2,
+    "BACH-STORY-1904": 1,
+    "BACH-WHATTOSEE-1873": 1
+   },
+   "n_sources": 4
+  },
+  {
+   "id": "depot",
+   "name": "railroad depot, Carlisle Street",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "(railroad depot|rail ?road station|\\bdepot\\b)",
+   "local_sources_with_hospital_co_mention": {
+    "LETTERMAN-1866": 18,
+    "OR27-PT3": 9,
+    "ORSER3-v2": 8,
+    "PDF-PLAN-V2": 8,
+    "OR27-PT1": 6,
+    "OR-25-1": 4,
+    "OR27-PT2": 3,
+    "MN-1ST-1916": 2,
+    "OR-29-1": 2,
+    "BL-3": 2,
+    "NY-GB-1900-v2": 2,
+    "ALEXANDER-1907": 1,
+    "CEM-REPORT-1867": 1,
+    "HOSPSCENES-1864": 1,
+    "LONGSTREET-1896": 1,
+    "MEADE-LL-v1": 1,
+    "SHSP-11": 1,
+    "SHSP-12": 1,
+    "NY-GB-1902-v3": 1
+   },
+   "n_sources": 19
+  },
+  {
+   "id": "almshouse",
+   "name": "Adams County Almshouse",
+   "area_group": "sites-west-north",
+   "side": "both",
+   "pattern": "(alms[- ]?house|poor[- ]?house)",
+   "local_sources_with_hospital_co_mention": {
+    "OR27-PT1": 3,
+    "BACH-WHATTOSEE-1873": 2,
+    "BACH-WHATTOSEE-1889": 2,
+    "PDF-PLAN-V2": 2,
+    "SHSP-04": 1,
+    "SHSP-11": 1,
+    "BL-3": 1,
+    "NY-GB-1900": 1
+   },
+   "n_sources": 8
+  },
+  {
+   "id": "town-houses",
+   "name": "houses in town",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "(red flag|every house was a hospital|private houses)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 3,
+    "HOSPSCENES-1864": 2,
+    "OR27-PT1": 2,
+    "HASKELL-1908": 1,
+    "OH-8TH-1889": 1,
+    "ORSER3-v2": 1,
+    "ME-GB-1898": 1,
+    "NY-GB-1900": 1,
+    "OR27-PT2": 1
+   },
+   "n_sources": 9
+  },
+  {
+   "id": "school-town",
+   "name": "school buildings in town",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "(school[- ]?house|public school|academy)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 15,
+    "NPS-BOUNDARY-1988": 2,
+    "NPS-MON-LOC-1993": 2,
+    "ADAMS-SENTINEL-1863-08-04": 1,
+    "ADAMS-SENTINEL-1863-08-18": 1,
+    "OR-29-1": 1,
+    "BL-3": 1,
+    "NY-GB-1900-v2": 1,
+    "NY-GB-1900": 1,
+    "PA-GB-1904": 1,
+    "PA-GB-1914-v2": 1,
+    "NPS-GMP-1999-V1": 1,
+    "OR27-PT1": 1
+   },
+   "n_sources": 13
+  },
+  {
+   "id": "hotel",
+   "name": "hotels and taverns",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "(\\bhotel\\b|\\btavern\\b|\\binn\\b)",
+   "local_sources_with_hospital_co_mention": {
+    "FOX-1889": 9,
+    "BACH-WHATTOSEE-1873": 6,
+    "NY-GB-1900-v2": 6,
+    "NPS-BOUNDARY-1988": 4,
+    "NY-GB-1900": 3,
+    "NPS-CLR-1STDAY": 3,
+    "ADAMS-SENTINEL-1863-09-15": 2,
+    "BL-3": 2,
+    "ME-GB-1898": 2,
+    "PA-GB-1914-v2": 2,
+    "OR27-PT2": 2,
+    "OR27-PT3": 2,
+    "ADAMS-SENTINEL-1863-06-09": 1,
+    "ADAMS-SENTINEL-1863-09-01": 1,
+    "ADAMS-SENTINEL-1863-09-22": 1,
+    "ALEXANDER-1907": 1,
+    "BACH-WHATTOSEE-1889": 1,
+    "LONGSTREET-1896": 1,
+    "MEADE-LL-v2": 1,
+    "MN-1ST-1916": 1,
+    "OR-25-1": 1,
+    "OR-29-1": 1,
+    "SHSP-11": 1,
+    "VT-MON-1890": 1,
+    "NY-GB-1902-v3": 1,
+    "PA-GB-1904": 1,
+    "NPS-CLI-ERR": 1,
+    "NPS-COMMON-PRIDE-1": 1,
+    "NPS-GMP-1999-V1": 1,
+    "PDF-PLAN-V2": 1
+   },
+   "n_sources": 30
+  },
+  {
+   "id": "warehouse",
+   "name": "warehouses and shops",
+   "area_group": "sites-town",
+   "side": "both",
+   "pattern": "(warehouse|foundry|\\bshop\\b)",
+   "local_sources_with_hospital_co_mention": {
+    "FOX-1889": 3,
+    "PDF-PLAN-V2": 3,
+    "ALEXANDER-1907": 2,
+    "NY-GB-1902-v3": 2,
+    "ADAMS-SENTINEL-1863-12-08": 1,
+    "OR-25-1": 1,
+    "TPIERCE-1889": 1,
+    "PA-GB-1914-v2": 1,
+    "NPS-BOUNDARY-1988": 1,
+    "NPS-SLYDER-GUIDE": 1,
+    "OR27-PT2": 1
+   },
+   "n_sources": 11
+  },
+  {
+   "id": "seminary",
+   "name": "Lutheran Theological Seminary (PDF H-03, H-20)",
+   "area_group": "sites-west-north",
+   "side": "both",
+   "pattern": "(seminary|schmucker)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 65,
+    "NPS-CLR-1STDAY": 20,
+    "OR27-PT1": 14,
+    "PA-GB-1914-v2": 9,
+    "NPS-SLYDER-GUIDE": 6,
+    "NY-GB-1900": 5,
+    "BACH-WHATTOSEE-1873": 4,
+    "BACH-WHATTOSEE-1889": 4,
+    "MN-1ST-1916": 4,
+    "NY-GB-1900-v2": 4,
+    "NPS-HS-MCPHERSON": 4,
+    "BACH-REPULSE-1870": 3,
+    "BACH-STORY-1904": 3,
+    "BL-3": 3,
+    "NY-GB-1902-v3": 3,
+    "NPS-COMMON-PRIDE-2": 3,
+    "BACH-KEY-1864": 2,
+    "HOSPSCENES-1864": 2,
+    "MEADE-LL-v2": 2,
+    "NJ-TOOMBS-1888": 2,
+    "PIERCE-F-1914": 2,
+    "ME-GB-1898": 2,
+    "PA-GB-1904": 2,
+    "NPS-BOUNDARY-1988": 2,
+    "NPS-CLI-1STDAY": 2,
+    "NPS-HARMON-FARM": 2,
+    "ADAMS-SENTINEL-1863-07-07": 1,
+    "ADAMS-SENTINEL-1863-07-21": 1,
+    "ADAMS-SENTINEL-1863-08-04": 1,
+    "ADAMS-SENTINEL-1863-08-18": 1,
+    "ADAMS-SENTINEL-1863-08-25": 1,
+    "SHSP-05": 1,
+    "TPIERCE-1889": 1,
+    "NPS-CLR-ROT-V2": 1,
+    "NPS-COMMON-PRIDE-1": 1,
+    "NPS-FD-2016": 1,
+    "NPS-HB9-1954": 1,
+    "OR27-PT2": 1
+   },
+   "n_sources": 38
+  },
+  {
+   "id": "mcpherson",
+   "name": "McPherson farm (PDF H-05)",
+   "area_group": "sites-west-north",
+   "side": "both",
+   "pattern": "mcpherson",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 33,
+    "NPS-HS-MCPHERSON": 21,
+    "NPS-CLR-1STDAY": 12,
+    "BL-3": 4,
+    "OR27-PT1": 4,
+    "NPS-CLI-1STDAY": 3,
+    "FOX-1889": 2,
+    "PA-GB-1914-v2": 2,
+    "NPS-MON-LOC-1932": 2,
+    "ALEXANDER-1907": 1,
+    "BACH-WHATTOSEE-1873": 1,
+    "ORSER3-v2": 1,
+    "ME-GB-1898": 1,
+    "MI-GB-1889": 1,
+    "NY-GB-1902-v3": 1,
+    "NPS-CLR-CEMETERY": 1,
+    "NPS-HARMON-FARM": 1,
+    "NPS-MON-LOC-1993": 1
+   },
+   "n_sources": 18
+  },
+  {
+   "id": "dustman",
+   "name": "Dustman house",
+   "area_group": "sites-west-north",
+   "side": "union",
+   "pattern": "dustman",
+   "local_sources_with_hospital_co_mention": {
+    "ADAMS-SENTINEL-1863-08-04": 1,
+    "NPS-CLR-1STDAY": 1
+   },
+   "n_sources": 2
+  },
+  {
+   "id": "schultz",
+   "name": "Schultz house",
+   "area_group": "sites-west-north",
+   "side": "both",
+   "pattern": "(schultz|shultz)",
+   "local_sources_with_hospital_co_mention": {
+    "PA-GB-1904": 1
+   },
+   "n_sources": 1
+  },
+  {
+   "id": "crist",
+   "name": "Crist farm, Herr Ridge",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "\\bcrist\\b",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-CLR-1STDAY": 9,
+    "NY-GB-1900-v2": 1,
+    "NPS-CLI-LANDSCAPE": 1
+   },
+   "n_sources": 3
+  },
+  {
+   "id": "herr-wible",
+   "name": "Wible / Herr farm",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "(\\bwible\\b|herr\\'?s? (tavern|ridge|farm))",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 7,
+    "BACH-WHATTOSEE-1873": 3,
+    "NPS-BOUNDARY-1988": 3,
+    "NPS-HARMON-FARM": 3
+   },
+   "n_sources": 4
+  },
+  {
+   "id": "leaper",
+   "name": "Isaac Leaper property",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "leaper",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-CLR-1STDAY": 2
+   },
+   "n_sources": 1
+  },
+  {
+   "id": "a-spangler",
+   "name": "Abraham Spangler property",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "abraham spangler",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-CLR-1STDAY": 2,
+    "NPS-CLR-ROT-V1": 1
+   },
+   "n_sources": 2
+  },
+  {
+   "id": "black-horse",
+   "name": "Black Horse Tavern (McClellan homestead)",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "black horse",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-BOUNDARY-1988": 3,
+    "OR-25-1": 1,
+    "NY-GB-1900-v2": 1,
+    "NPS-COMMON-PRIDE-1": 1,
+    "PDF-PLAN-V2": 1
+   },
+   "n_sources": 5
+  },
+  {
+   "id": "benner",
+   "name": "Josiah Benner house and barn",
+   "area_group": "sites-west-north",
+   "side": "both",
+   "pattern": "benner",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-CLR-CEMETERY": 7,
+    "PDF-PLAN-V2": 6,
+    "BACH-WHATTOSEE-1873": 4,
+    "BACH-WHATTOSEE-1889": 3,
+    "PA-GB-1914-v2": 3,
+    "NPS-SLYDER-GUIDE": 3,
+    "BACH-KEY-1864": 1,
+    "ME-GB-1898": 1,
+    "NY-GB-1900": 1,
+    "NPS-BOUNDARY-1988": 1,
+    "NPS-CLR-ROT-V1": 1,
+    "NPS-CLR-ROT-V2": 1
+   },
+   "n_sources": 12
+  },
+  {
+   "id": "hankey",
+   "name": "Hankey (Mummasburg Road)",
+   "area_group": "sites-west-north",
+   "side": "union",
+   "pattern": "hankey",
+   "local_sources_with_hospital_co_mention": {},
+   "n_sources": 0
+  },
+  {
+   "id": "forney",
+   "name": "Forney farm",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "forney",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-CLR-1STDAY": 3,
+    "SHSP-06": 2,
+    "OR27-PT2": 2,
+    "OH-8TH-1889": 1,
+    "BL-3": 1,
+    "FOX-1889": 1,
+    "NPS-CLI-1STDAY": 1,
+    "NPS-GMP-1999-V1": 1
+   },
+   "n_sources": 8
+  },
+  {
+   "id": "pitzer",
+   "name": "Pitzer farm and woods",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "pitzer",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 3,
+    "NPS-BOUNDARY-1988": 2,
+    "NPS-CLI-PCB": 2,
+    "MI-GB-1889": 1,
+    "NPS-CLR-ROT-V1": 1,
+    "NPS-CLR-ROT-V2": 1
+   },
+   "n_sources": 6
+  },
+  {
+   "id": "bream",
+   "name": "Bream's mill",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "bream",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-COMMON-PRIDE-1": 3,
+    "BACH-WHATTOSEE-1873": 2,
+    "GBG-COMPILER-1863-11-23": 2,
+    "NPS-COMMON-PRIDE-2": 2,
+    "ADAMS-SENTINEL-1863-07-21": 1,
+    "OR27-PT2": 1
+   },
+   "n_sources": 6
+  },
+  {
+   "id": "lady",
+   "name": "Daniel Lady farm (PDF H-19)",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "daniel lady",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 4
+   },
+   "n_sources": 1
+  },
+  {
+   "id": "cashtown",
+   "name": "Cashtown",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "cashtown",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 9,
+    "ALEXANDER-1907": 4,
+    "OR27-PT2": 3,
+    "OR27-PT1": 2,
+    "BL-3": 1,
+    "FOX-1889": 1,
+    "ME-GB-1898": 1,
+    "NY-GB-1900": 1,
+    "OR27-PT3": 1
+   },
+   "n_sources": 9
+  },
+  {
+   "id": "marsh-creek",
+   "name": "Marsh Creek and Willoughby Run hospitals",
+   "area_group": "sites-west-north",
+   "side": "confederate",
+   "pattern": "(marsh creek|willoughby)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 4,
+    "NPS-CLR-1STDAY": 3,
+    "BL-3": 2,
+    "MI-GB-1889": 2,
+    "NPS-CLI-LANDSCAPE": 2,
+    "NPS-CLR-ROT-V1": 2,
+    "NPS-CLR-ROT-V2": 2,
+    "NPS-HARMON-FARM": 2,
+    "OR27-PT1": 2,
+    "BACH-WHATTOSEE-1873": 1,
+    "FOX-1889": 1,
+    "ME-GB-1898": 1,
+    "NY-GB-1902-v3": 1,
+    "NPS-CLI-1STDAY": 1,
+    "NPS-COMMON-PRIDE-1": 1,
+    "NPS-COMMON-PRIDE-2": 1,
+    "OR27-PT3": 1
+   },
+   "n_sources": 17
+  },
+  {
+   "id": "wolf-field",
+   "name": "Wolf's field (PDF H-18)",
+   "area_group": "sites-west-north",
+   "side": "union",
+   "pattern": "wolf\\'?s? (field|farm)",
+   "local_sources_with_hospital_co_mention": {},
+   "n_sources": 0
+  },
+  {
+   "id": "culp",
+   "name": "Culp / Taney farm (PDF B.8.2)",
+   "area_group": "sites-east-southeast",
+   "side": "both",
+   "pattern": "(culp|taney)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 63,
+    "NY-GB-1902-v3": 9,
+    "NPS-SLYDER-GUIDE": 9,
+    "ME-GB-1898": 8,
+    "NY-GB-1900": 8,
+    "OR27-PT2": 8,
+    "NPS-CLR-ROT-V1": 7,
+    "OR27-PT1": 7,
+    "MEADE-LL-v2": 5,
+    "NPS-CLR-CEMETERY": 5,
+    "FOX-1889": 4,
+    "NPS-BOUNDARY-1988": 4,
+    "NPS-HB9-1954": 4,
+    "NPS-HB9-1962": 4,
+    "OR27-PT3": 4,
+    "ALEXANDER-1907": 3,
+    "BACH-KEY-1864": 3,
+    "OR-29-1": 3,
+    "NY-GB-1900-v2": 3,
+    "PA-GB-1904": 3,
+    "HASKELL-1908": 2,
+    "MN-1ST-1916": 2,
+    "NJ-TOOMBS-1888": 2,
+    "OR-25-1": 2,
+    "NPS-CLI-ERR": 2,
+    "NPS-MON-LOC-1932": 2,
+    "ADAMS-SENTINEL-1863-09-15": 1,
+    "BACH-STORY-1904": 1,
+    "BACH-WHATTOSEE-1873": 1,
+    "BACH-WHATTOSEE-1889": 1,
+    "JACOBS-1864": 1,
+    "LETTERMAN-1866": 1,
+    "LONGSTREET-1896": 1,
+    "OH-8TH-1889": 1,
+    "TPIERCE-1889": 1,
+    "BL-3": 1,
+    "MI-GB-1889": 1,
+    "PA-GB-1914-v2": 1,
+    "NPS-CLR-LRT": 1,
+    "NPS-DCP-GUINN": 1,
+    "NPS-FD-2016": 1,
+    "NPS-MON-LOC-1993": 1,
+    "NPS-ROCK-CREEK": 1,
+    "NPS-SPANGLERS-SPRING": 1
+   },
+   "n_sources": 44
+  },
+  {
+   "id": "g-spangler",
+   "name": "George Spangler farm (PDF H-06)",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "(george spangler|spangler farm|spangler\\'?s)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 20,
+    "NPS-BOUNDARY-1988": 5,
+    "NPS-COMMON-PRIDE-2": 3,
+    "NPS-SLYDER-GUIDE": 3,
+    "NPS-CLR-1STDAY": 2,
+    "NPS-CLR-ROT-V1": 2,
+    "SHSP-05": 1,
+    "NY-GB-1902-v3": 1,
+    "NPS-ADHI": 1,
+    "NPS-CLI-PCB": 1,
+    "NPS-COMMON-PRIDE-1": 1,
+    "NPS-MON-LOC-1932": 1,
+    "OR27-PT2": 1
+   },
+   "n_sources": 13
+  },
+  {
+   "id": "granite-school",
+   "name": "Granite Schoolhouse (PDF H-07)",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "granite (school|schoolhouse)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 12,
+    "NPS-BOUNDARY-1988": 2,
+    "NPS-GMP-1999-V1": 1,
+    "NPS-MON-LOC-1993": 1
+   },
+   "n_sources": 4
+  },
+  {
+   "id": "bushman",
+   "name": "Bushman farms (PDF H-15, H-21)",
+   "area_group": "sites-east-southeast",
+   "side": "both",
+   "pattern": "bushman",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 18,
+    "NPS-MON-LOC-1932": 2,
+    "NPS-MON-LOC-1993": 2,
+    "NJ-TOOMBS-1888": 1,
+    "NY-GB-1902-v3": 1,
+    "NPS-CLR-ROT-V2": 1
+   },
+   "n_sources": 6
+  },
+  {
+   "id": "lightner",
+   "name": "Lightner farm (XII Corps)",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "lightner",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-CLR-ROT-V1": 1
+   },
+   "n_sources": 1
+  },
+  {
+   "id": "diener",
+   "name": "Diener farm",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "diener",
+   "local_sources_with_hospital_co_mention": {},
+   "n_sources": 0
+  },
+  {
+   "id": "conover",
+   "name": "Conover farm",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "conover",
+   "local_sources_with_hospital_co_mention": {},
+   "n_sources": 0
+  },
+  {
+   "id": "beitler",
+   "name": "Beitler farm",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "beitler",
+   "local_sources_with_hospital_co_mention": {},
+   "n_sources": 0
+  },
+  {
+   "id": "schwartz",
+   "name": "Schwartz farm",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "schwartz",
+   "local_sources_with_hospital_co_mention": {
+    "OR27-PT1": 2,
+    "NY-GB-1900": 1
+   },
+   "n_sources": 2
+  },
+  {
+   "id": "shaeffer",
+   "name": "Shaeffer farm",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "(shaeffer|schaeffer|shaffer)",
+   "local_sources_with_hospital_co_mention": {
+    "OR27-PT1": 2,
+    "CEM-REPORT-1867": 1,
+    "NY-GB-1900": 1,
+    "PA-GB-1914-v2": 1
+   },
+   "n_sources": 4
+  },
+  {
+   "id": "white-church",
+   "name": "White Church (PDF H-04, H-17)",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "(white church|marks german reformed|white\\'?s church)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 3,
+    "NPS-MON-LOC-1932": 2,
+    "NPS-BOUNDARY-1988": 1
+   },
+   "n_sources": 3
+  },
+  {
+   "id": "white-run",
+   "name": "White Run (III and V Corps hospitals, PDF H-09, H-10)",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "white run",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 12,
+    "PA-GB-1914-v2": 1,
+    "NPS-MON-LOC-1932": 1,
+    "NPS-MON-LOC-1993": 1
+   },
+   "n_sources": 4
+  },
+  {
+   "id": "rock-creek",
+   "name": "Rock Creek hospitals (PDF H-11, H-17)",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "rock creek",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 26,
+    "BACH-WHATTOSEE-1873": 4,
+    "NY-GB-1900": 4,
+    "BACH-WHATTOSEE-1889": 3,
+    "MN-1ST-1916": 2,
+    "NJ-TOOMBS-1888": 2,
+    "NY-GB-1900-v2": 2,
+    "NPS-BOUNDARY-1988": 2,
+    "NPS-CLR-ROT-V1": 2,
+    "OR27-PT2": 2,
+    "JACOBS-1864": 1,
+    "MEADE-LL-v2": 1,
+    "PIERCE-F-1914": 1,
+    "PA-GB-1914-v2": 1,
+    "NPS-CLI-LANDSCAPE": 1,
+    "NPS-CLR-ROT-V2": 1,
+    "NPS-HB9-1954": 1,
+    "NPS-HB9-1962": 1,
+    "NPS-MON-LOC-1932": 1,
+    "NPS-MON-LOC-1993": 1,
+    "NPS-SLYDER-GUIDE": 1
+   },
+   "n_sources": 21
+  },
+  {
+   "id": "fiscel",
+   "name": "Fiscel farm (V Corps 1st Division, PDF H-09)",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "fiscel",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 5,
+    "NPS-MON-LOC-1932": 1
+   },
+   "n_sources": 2
+  },
+  {
+   "id": "clapsaddle",
+   "name": "Clapsaddle house (PDF H-09)",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "clapsaddle",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 4
+   },
+   "n_sources": 1
+  },
+  {
+   "id": "two-taverns",
+   "name": "Two Taverns (V Corps 3rd Division, PDF H-09)",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "two taverns",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 7,
+    "OR27-PT1": 3,
+    "NPS-BOUNDARY-1988": 2
+   },
+   "n_sources": 3
+  },
+  {
+   "id": "baltimore-pike",
+   "name": "Baltimore Pike corridor",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "baltimore (pike|turnpike)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 16,
+    "NPS-BOUNDARY-1988": 5,
+    "NPS-CLR-CEMETERY": 4,
+    "NY-GB-1902-v3": 3,
+    "NPS-MON-LOC-1932": 3,
+    "PA-GB-1914-v2": 2,
+    "BACH-WHATTOSEE-1873": 1,
+    "MN-1ST-1916": 1,
+    "NJ-TOOMBS-1888": 1,
+    "NY-GB-1900": 1,
+    "PA-GB-1904": 1,
+    "NPS-ADHI": 1,
+    "NPS-CLR-ROT-V1": 1,
+    "NPS-MON-LOC-1993": 1,
+    "NPS-SLYDER-GUIDE": 1,
+    "NPS-TPG-COMMEM": 1,
+    "OR27-PT1": 1
+   },
+   "n_sources": 17
+  },
+  {
+   "id": "hanover-road",
+   "name": "Hanover Road (cavalry)",
+   "area_group": "sites-east-southeast",
+   "side": "union",
+   "pattern": "hanover (road|pike)",
+   "local_sources_with_hospital_co_mention": {
+    "PA-GB-1914-v2": 2,
+    "BACH-KEY-1864": 1,
+    "BACH-WHATTOSEE-1873": 1,
+    "NJ-TOOMBS-1888": 1,
+    "BL-3": 1,
+    "ME-GB-1898": 1,
+    "NY-GB-1902-v3": 1,
+    "PA-GB-1904": 1,
+    "NPS-HB9-1954": 1,
+    "OR27-PT2": 1,
+    "PDF-PLAN-V2": 1
+   },
+   "n_sources": 11
+  },
+  {
+   "id": "camp-letterman",
+   "name": "Camp Letterman (PDF H-23)",
+   "area_group": "camp-letterman",
+   "side": "general",
+   "pattern": "camp letterman",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 16,
+    "NPS-BOUNDARY-1988": 7,
+    "NPS-CARE-WOUNDED-GUIDE": 2,
+    "NPS-GMP-1999-V1": 2,
+    "GBG-COMPILER-1863-10-05": 1,
+    "NPS-CLI-CEMETERY": 1,
+    "NPS-COMMON-PRIDE-2": 1,
+    "NPS-MON-LOC-1932": 1,
+    "NPS-TPG-COMMEM": 1
+   },
+   "n_sources": 9
+  },
+  {
+   "id": "weikert",
+   "name": "George Weikert farm (PDF H-08)",
+   "area_group": "sites-south-southwest",
+   "side": "union",
+   "pattern": "weikert",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 40,
+    "TPIERCE-1889": 3,
+    "NPS-CLR-LRT": 2,
+    "NPS-SLYDER-GUIDE": 2,
+    "PA-GB-1914-v2": 1,
+    "NPS-BOUNDARY-1988": 1,
+    "NPS-CLI-LRT": 1,
+    "NPS-GMP-1999-V1": 1,
+    "NPS-MON-LOC-1932": 1
+   },
+   "n_sources": 9
+  },
+  {
+   "id": "trostle",
+   "name": "Trostle farm (PDF H-13)",
+   "area_group": "sites-south-southwest",
+   "side": "union",
+   "pattern": "trostle",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 26,
+    "NPS-CLI-ERR": 16,
+    "NPS-SLYDER-GUIDE": 4,
+    "NJ-TOOMBS-1888": 3,
+    "NPS-MON-LOC-1932": 3,
+    "NY-GB-1900": 2,
+    "NPS-CLR-ROT-V1": 2,
+    "NPS-MON-LOC-1993": 2,
+    "ADAMS-SENTINEL-1863-06-09": 1,
+    "BACH-WHATTOSEE-1889": 1,
+    "NJ-FINAL-1891": 1,
+    "BL-3": 1,
+    "ME-GB-1898": 1,
+    "NY-GB-1900-v2": 1,
+    "NPS-CLI-LANDSCAPE": 1,
+    "NPS-TPG-COMMEM": 1,
+    "NPS-VISTA-CUTTING": 1
+   },
+   "n_sources": 17
+  },
+  {
+   "id": "hummelbaugh",
+   "name": "Hummelbaugh farm (PDF H-12)",
+   "area_group": "sites-south-southwest",
+   "side": "union",
+   "pattern": "hummelbaugh",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 10,
+    "NPS-CLR-ROT-V1": 1,
+    "NPS-COMMON-PRIDE-1": 1
+   },
+   "n_sources": 3
+  },
+  {
+   "id": "leister",
+   "name": "Leister house and barn (PDF H-16)",
+   "area_group": "sites-south-southwest",
+   "side": "union",
+   "pattern": "leister",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 17,
+    "NPS-HSR-LEISTER-BARN": 5,
+    "NPS-CLR-ROT-V1": 3,
+    "NPS-MON-LOC-1993": 1
+   },
+   "n_sources": 4
+  },
+  {
+   "id": "frey",
+   "name": "Frey property orchard",
+   "area_group": "sites-south-southwest",
+   "side": "union",
+   "pattern": "\\bfrey\\b",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-CLR-ROT-V1": 7,
+    "ADAMS-SENTINEL-1863-12-15": 1
+   },
+   "n_sources": 2
+  },
+  {
+   "id": "patterson",
+   "name": "Patterson house, Taneytown Road",
+   "area_group": "sites-south-southwest",
+   "side": "union",
+   "pattern": "patterson",
+   "local_sources_with_hospital_co_mention": {
+    "OR27-PT2": 6,
+    "ME-GB-1898": 4,
+    "NPS-CLR-ROT-V1": 2,
+    "OR27-PT1": 2,
+    "ALEXANDER-1907": 1,
+    "IN-1913": 1,
+    "MEADE-LL-v1": 1,
+    "SHSP-06": 1,
+    "BL-3": 1,
+    "FOX-1889": 1
+   },
+   "n_sources": 10
+  },
+  {
+   "id": "taneytown-road",
+   "name": "Taneytown Road corridor (III Corps, PDF H-10)",
+   "area_group": "sites-south-southwest",
+   "side": "union",
+   "pattern": "taneytown (road|pike)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 15,
+    "NPS-CLR-ROT-V1": 4,
+    "ME-GB-1898": 2,
+    "NY-GB-1902-v3": 2,
+    "OR27-PT1": 2,
+    "BACH-KEY-1864": 1,
+    "MEADE-LL-v2": 1,
+    "MN-1ST-1916": 1,
+    "NJ-TOOMBS-1888": 1,
+    "TPIERCE-1889": 1,
+    "NY-GB-1900-v2": 1,
+    "NY-GB-1900": 1,
+    "PA-GB-1904": 1,
+    "NPS-BOUNDARY-1988": 1,
+    "NPS-CLI-ERR": 1,
+    "NPS-CLR-CEMETERY": 1,
+    "NPS-CLR-LRT": 1,
+    "NPS-DCP-GUINN": 1
+   },
+   "n_sources": 18
+  },
+  {
+   "id": "sherfy",
+   "name": "Sherfy barn (shelter for wounded)",
+   "area_group": "sites-south-southwest",
+   "side": "union",
+   "pattern": "sherfy",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 19,
+    "NY-GB-1900-v2": 1,
+    "NY-GB-1900": 1,
+    "PA-GB-1914-v2": 1,
+    "NPS-CLI-LANDSCAPE": 1
+   },
+   "n_sources": 5
+  },
+  {
+   "id": "codori",
+   "name": "Codori house",
+   "area_group": "sites-south-southwest",
+   "side": "both",
+   "pattern": "codori",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-CLI-ERR": 8,
+    "NPS-SLYDER-GUIDE": 3,
+    "NPS-CLR-ROT-V1": 2,
+    "NPS-COMMON-PRIDE-2": 2,
+    "NPS-MON-LOC-1932": 2,
+    "NPS-MON-LOC-1993": 2,
+    "PDF-PLAN-V2": 2,
+    "VT-GB-1914": 1,
+    "BL-3": 1,
+    "NY-GB-1900": 1,
+    "PA-GB-1914-v2": 1,
+    "NPS-CLI-LANDSCAPE": 1,
+    "NPS-COMMON-PRIDE-1": 1
+   },
+   "n_sources": 13
+  },
+  {
+   "id": "rose",
+   "name": "Rose farm (PDF H-21)",
+   "area_group": "sites-south-southwest",
+   "side": "confederate",
+   "pattern": "(george rose|rose farm|rose\\'?s)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 6,
+    "FOX-1889": 5,
+    "NPS-SLYDER-GUIDE": 3,
+    "PA-GB-1904": 2,
+    "NY-GB-1900": 1,
+    "PA-GB-1914-v2": 1
+   },
+   "n_sources": 6
+  },
+  {
+   "id": "slyder",
+   "name": "Slyder farm (PDF H-21)",
+   "area_group": "sites-south-southwest",
+   "side": "confederate",
+   "pattern": "slyder",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 13,
+    "NPS-SLYDER-GUIDE": 2,
+    "VT-MON-1890": 1,
+    "MI-GB-1889": 1,
+    "PA-GB-1904": 1
+   },
+   "n_sources": 5
+  },
+  {
+   "id": "rummel",
+   "name": "Rummel barn",
+   "area_group": "sites-south-southwest",
+   "side": "confederate",
+   "pattern": "rummel",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 4,
+    "BL-3": 2,
+    "PA-GB-1914-v2": 2,
+    "NPS-BOUNDARY-1988": 2,
+    "NPS-MON-LOC-1932": 2,
+    "PIERCE-F-1914": 1,
+    "NPS-CLI-LANDSCAPE": 1
+   },
+   "n_sources": 7
+  },
+  {
+   "id": "peach-orchard-houses",
+   "name": "Wentz / Peach Orchard area",
+   "area_group": "sites-south-southwest",
+   "side": "both",
+   "pattern": "(wentz|peach orchard)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 20,
+    "PA-GB-1914-v2": 12,
+    "FOX-1889": 8,
+    "ME-GB-1898": 6,
+    "NY-GB-1900-v2": 6,
+    "PA-GB-1904": 6,
+    "OR27-PT1": 6,
+    "NY-GB-1900": 5,
+    "MEADE-LL-v2": 4,
+    "BL-3": 4,
+    "NY-GB-1902-v3": 4,
+    "NPS-VISTA-CUTTING": 4,
+    "ALEXANDER-1907": 3,
+    "BACH-WHATTOSEE-1873": 3,
+    "MN-1ST-1916": 3,
+    "NJ-TOOMBS-1888": 3,
+    "SHSP-05": 3,
+    "MI-GB-1889": 3,
+    "NPS-HB9-1954": 3,
+    "NPS-HB9-1962": 3,
+    "BACH-STORY-1904": 2,
+    "BACH-WHATTOSEE-1889": 2,
+    "HASKELL-1908": 2,
+    "PIERCE-F-1914": 2,
+    "NPS-CLR-1STDAY": 2,
+    "NPS-COMMON-PRIDE-2": 2,
+    "OR27-PT2": 2,
+    "LONGSTREET-1896": 1,
+    "SHSP-04": 1,
+    "VT-MON-1890": 1,
+    "NPS-BOUNDARY-1988": 1,
+    "NPS-CLI-ERR": 1,
+    "NPS-GMP-1999-V1": 1,
+    "NPS-SLYDER-GUIDE": 1
+   },
+   "n_sources": 34
+  },
+  {
+   "id": "henry-spangler",
+   "name": "Henry Spangler farm (Emmitsburg Road)",
+   "area_group": "sites-south-southwest",
+   "side": "both",
+   "pattern": "henry spangler",
+   "local_sources_with_hospital_co_mention": {},
+   "n_sources": 0
+  },
+  {
+   "id": "klingel",
+   "name": "Klingel",
+   "area_group": "sites-south-southwest",
+   "side": "both",
+   "pattern": "klingel",
+   "local_sources_with_hospital_co_mention": {
+    "NPS-CLI-ERR": 2,
+    "PDF-PLAN-V2": 2,
+    "NPS-CLR-ROT-V1": 1
+   },
+   "n_sources": 3
+  },
+  {
+   "id": "warfield",
+   "name": "Warfield house",
+   "area_group": "sites-south-southwest",
+   "side": "confederate",
+   "pattern": "warfield",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 3,
+    "NPS-FD-2016": 1
+   },
+   "n_sources": 2
+  },
+  {
+   "id": "little-round-top",
+   "name": "Round Tops area",
+   "area_group": "sites-south-southwest",
+   "side": "both",
+   "pattern": "(round top|devil\\'?s den)",
+   "local_sources_with_hospital_co_mention": {
+    "PDF-PLAN-V2": 25,
+    "PA-GB-1904": 23,
+    "LONGSTREET-1896": 13,
+    "BL-3": 13,
+    "ME-GB-1898": 13,
+    "PIERCE-F-1914": 12,
+    "NY-GB-1900": 11,
+    "PA-GB-1914-v2": 9,
+    "BACH-WHATTOSEE-1873": 8,
+    "MEADE-LL-v2": 8,
+    "NY-GB-1900-v2": 8,
+    "OR27-PT1": 8,
+    "TPIERCE-1889": 7,
+    "FOX-1889": 7,
+    "NY-GB-1902-v3": 6,
+    "NPS-CLI-LRT": 6,
+    "NPS-HB9-1954": 6,
+    "NPS-HB9-1962": 5,
+    "NPS-VISTA-CUTTING": 5,
+    "ALEXANDER-1907": 4,
+    "BACH-WHATTOSEE-1889": 4,
+    "NJ-TOOMBS-1888": 3,
+    "SHSP-06": 3,
+    "MI-GB-1889": 3,
+    "NPS-BOUNDARY-1988": 3,
+    "NPS-CLR-LRT": 3,
+    "NPS-DCP-LRT": 3,
+    "BACH-KEY-1864": 2,
+    "BACH-REPULSE-1870": 2,
+    "BACH-STORY-1904": 2,
+    "MN-1ST-1916": 2,
+    "NPS-MON-LOC-1932": 2,
+    "NPS-SLYDER-GUIDE": 2,
+    "ADAMS-SENTINEL-1863-11-03": 1,
+    "CEM-BARTLETT-1874": 1,
+    "EVERETT-1864": 1,
+    "JACOBS-1864": 1,
+    "NJ-FINAL-1891": 1,
+    "SHSP-04": 1,
+    "SHSP-05": 1,
+    "VT-GB-1914": 1,
+    "VT-MON-1890": 1,
+    "NPS-ADHI": 1,
+    "NPS-CLI-ERR": 1,
+    "NPS-CLI-LANDSCAPE": 1,
+    "NPS-CLR-ROT-V2": 1,
+    "NPS-MON-LOC-1993": 1,
+    "NPS-SLAUGHTER-PEN": 1,
+    "NPS-TPG-COMMEM": 1
+   },
+   "n_sources": 49
+  },
+  {
+   "id": "sheads",
+   "name": "Sheads",
+   "area_group": "sites-south-southwest",
+   "side": "both",
+   "pattern": "sheads",
+   "local_sources_with_hospital_co_mention": {
+    "ADAMS-SENTINEL-1863-08-04": 1,
+    "ADAMS-SENTINEL-1863-08-18": 1,
+    "NPS-CLR-1STDAY": 1,
+    "PDF-PLAN-V2": 1
+   },
+   "n_sources": 4
+  }
+ ]
+}

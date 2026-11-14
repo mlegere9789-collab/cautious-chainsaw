@@ -1,4 +1,4 @@
-# Request from bt-timeline (shard tl-02 close-out), 2026-11-13
+# Request from bt-timeline (shard tl-02 close-out), 2026-11-13, updated 2026-11-14 after the page audit and the review pass
 
 Files I do not own and what I would like changed in them. Nothing below was edited by me.
 
@@ -14,7 +14,7 @@ Proposed updates are in horde/tl-02/proposed-register/ (titles start with "propo
 - EG-TL-T1-071: picket posts documented at unit and post level (Beveridge 1891; Cheney 1901); coordinates and the advance-post holder stay open (tl-02-CO-T1-071).
 - EG-TL-T1-073: morning civilian activity documented from about breakfast; dawn stays open (tl-02-CO-T1-073).
 - EG-TL-T1-104: unchanged, still no location of aid posts (tl-02-CO-T1-104).
-The older proposed entries tl-02-EG-007, -008 and -012 are marked "proposed closed" by the close-out evidence (Biddle 1880; New York vol. 2; U.S. Cavalry Tactics 1841/1855); the integrator decides.
+The older proposed entries tl-02-EG-007, -008 and -012 are marked "proposed closed" by the close-out evidence (Biddle 1880; the 76th New York address in New York vol. 2; U.S. Cavalry Tactics 1841/1855; the carbine statement of EG-012 is from a 1910 study of the Chancellorsville campaign that is bound into the New York vol. 2 item, not from that volume); the integrator decides.
 
 ## 3. GOVERNANCE/conflict_register.json and conflicts_structured.json (new conflicts found, no default recorded)
 Carry as selectable scenarios, none has a recorded delegated default:
@@ -30,6 +30,9 @@ Carry as selectable scenarios, none has a recorded delegated default:
 10. Hour at which Howard took command of the field (T1-112): about 11:30 (Howard OR p.702; Biddle 1880) against 10:30 (Slocum's communication in the OR, p.768).
 11. Arrival of Rodes's division and Carter's battalion on Oak Hill (T1-115): about noon to 1 p.m. (Daniel, Doles, Owens) against about 2:30 p.m. engaged (Lee, OR vol. 27 pt. 2, p.317).
 12. Head of the Eleventh Corps through the town (T1-102): about 12:30 (Howard OR p.702) / 12:45 (Pierce 1914) against the before-noon window of the row.
+13. Position of the XI Corps on the night of Jun 30 (T1-067): Emmitsburg (Howard, OR vol. 27 pt. 1 p.701, and the Army itinerary p.144; Beveridge 1891) against the right bank of Marsh Creek, 4 miles south-west of Gettysburg (Jacobs 1864). The I Corps is near Marsh Run in both.
+14. Hour at which Reynolds' attack began (T1-098): about 10.15 (Doubleday p.245, Wadsworth p.266) against about 10.45 (Howard's dispatch of 5 p.m., p.696); neither is the hour of the Iron Brigade's charge.
+Existing conflict C-041 (Rodes' attack start, default 14:00 inside 13:30-14:30) is for the infantry attack and was not applied to T1-115 (arrival and first fire of Carter's battalion, noon to 14:30 scenarios).
 Existing conflict C-040 (Reynolds' death) was applied unchanged; new scenario values were added for the hour (about 10:00 Beveridge; the 10:15 of the New York narrative), the cause (rifle volley, sharp-shooter, shell) and the regiment (item 9).
 
 ## 4. Product notes (app data owners)
@@ -41,3 +44,8 @@ Existing conflict C-040 (Reynolds' death) was applied unchanged; new scenario va
 - T1-098: the Iron Brigade enveloping Archer's right is carried by Bachelder (1873), Meade (1913), Beveridge (1891) and Morrow (OR p.267); no report uses the word outflank.
 - T1-063: Devin's brigade lay north of the railroad and Gamble's south of it (Maine 1898); Devin's exact camp site stays open.
 - "Grey Eagle", "Herbst Woods", the 7-mile cavalry front and the 15-foot cut depth are in no text read; do not show them as documented.
+
+## 5. tools/bt/or27_pages.py and or27_find.py (page model of the Official Records), found in the audit of 2026-11-13/14
+- The printed page that `or27_find.verify()` and the search hits report comes from the running heads of the OCR text and is interpolated ("~") where the heads are lost. For the 222 Official Records citations of tl-02 it differs from the printed page of the scan leaf for 30 citations, by up to 5 pages on tabular pages (Heth's division in the organization of the Army of Northern Virginia: model "~284-285", scan leaf and page image 289; Pegram's battalion 290 not "~285"; Cutler's report 281-282 not 280; the Cavalry Corps organization 166 not "~168"; Ewell p.444, Devin p.938, Pleasonton p.914 and Buford p.930 lose their "~"). Pages were read on the page image for every leaf cited (PDF page = leaf + 1 of tmp/kit-plan/or27-pdf/<identifier>.pdf; the list is in tmp/tl-02/audit/viewed_leaves.json).
+- Request: let or27_find report the page of tools/bt/kit_or27_leafmap.py (docs/battle-theatre/kit/evidence/or27_leaf_pages.json) where that map has the leaf and a printed page, and keep the running-head page only as a fallback, so that every shard's citations carry the printed page of the scan. Other shards that cite pages from or27_find should be re-checked against the map (tl-02 stores both values: `printed_page` and, when they differ, `page_running_head_model`; citations also carry `scan` with the archive.org identifier, leaf and PDF page).
+- The same audit found that the page index of three archive.org items is out of step by one leaf (Alexander 1907, Pennsylvania at Gettysburg 1914 vol. 2, Fox 1889) and that the index of New York at Gettysburg vol. 2 counts plate leaves; any shard that takes library pages from an item's page index should check the printed head at the top of the leaf (method and decisions: horde/tl-02/library_pages.json and tmp/tl-02/audit/libpages_final.py).

@@ -25,33 +25,65 @@ def pool():
     for pk, v in wl.items():
         if v.get('status') == 'ok': best['WIDE' + pk] = (os.path.join(ROOT, v['local_file']), pk, 'WIDE|' + pk)
     return {k: v for k, v in best.items() if os.path.exists(v[0])}
-def run(name, queries, P, F, out_path, exclude_same_record):
-    out = {}
-    for qid, qpath, qloc in queries:
-        q = M.feats(qpath, side=1024)
-        if not q: out[qid] = {'status': 'no features', 'file': os.path.relpath(qpath, ROOT)}; continue
-        res = []
-        for key, f in F.items():
-            if exclude_same_record and P[key][1] == qloc: continue
-            n, inl = M.match(q, f); res.append((inl, n, key))
-        res.sort(reverse=True)
-        top = [{'candidate': k, 'loc_id': P[k][1], 'inliers': i, 'good_matches': n} for i, n, k in res[:6]]
-        out[qid] = {'file': os.path.relpath(qpath, ROOT), 'top': top, 'accepted': M.accept(top)}
-        print(name, qid, [(t['loc_id'], t['inliers']) for t in top[:3]], flush=True)
-    json.dump({'_doc': 'Feature-matching leads (%s). inliers = RANSAC-consistent SIFT matches; accepted at >= %d inliers and (>= %d or %.1f times the best candidate of another record). A lead, to be confirmed by looking at both images.' % (name, M.MIN_INLIERS, M.SURE, M.MARGIN),
-               'min_inliers': M.MIN_INLIERS, 'results': out}, open(out_path, 'w'), indent=1)
+def knn_pair(fl_for_candidate, q, c):
+    """Same test as match_nps_then.match (ratio 0.75, RANSAC homography at 6 px), with the FLANN index of the candidate built once for all queries."""
+    pa, da = q[0], q[1]; pb, db = c[0], c[1]
+    m = fl_for_candidate.knnMatch(da, k=2); good = [x[0] for x in m if len(x) == 2 and x[0].distance < 0.75 * x[1].distance]
+    if len(good) < 8: return len(good), 0
+    src = pa[[g.queryIdx for g in good]].reshape(-1, 1, 2); dst = pb[[g.trainIdx for g in good]].reshape(-1, 1, 2)
+    H, mask = cv2.findHomography(src, dst, cv2.RANSAC, 6.0)
+    return len(good), int(mask.sum()) if mask is not None else 0
+def run_all(sets, P, F, qfeat):
+    """sets: {name: (queries [(qid, qloc)], exclude_same_record, out_path)}. Candidate-major loop: one FLANN index per candidate image, every query of every set against it."""
+    res = {name: {qid: [] for qid, _ in qs} for name, (qs, _ex, _o) in sets.items()}
+    t0 = time.time()
+    for n, (key, f) in enumerate(F.items()):
+        fl = cv2.FlannBasedMatcher(dict(algorithm=1, trees=4), dict(checks=40)); fl.add([f[1]]); fl.train()
+        for name, (qs, ex, _o) in sets.items():
+            for qid, qloc in qs:
+                if qid not in qfeat: continue
+                if ex and P[key][1] == qloc: continue
+                ng, inl = knn_pair(fl, qfeat[qid], f); res[name][qid].append((inl, ng, key))
+        if n % 40 == 0: print('candidate', n, 'of', len(F), round(time.time() - t0), 's', flush=True)
+    for name, (qs, ex, out_path) in sets.items():
+        out = {}
+        for qid, qloc in qs:
+            if qid not in qfeat: out[qid] = {'status': 'no features'}; continue
+            r = sorted(res[name][qid], reverse=True); top = [{'candidate': k, 'loc_id': P[k][1], 'inliers': i, 'good_matches': n} for i, n, k in r[:6]]
+            out[qid] = {'file': qfeat[qid][2], 'top': top, 'accepted': M.accept(top)}; print(name, qid, [(t['loc_id'], t['inliers']) for t in top[:3]], flush=True)
+        json.dump({'_doc': 'Feature-matching leads (%s). inliers = RANSAC-consistent SIFT matches; accepted at >= %d inliers and (>= %d or %.1f times the best candidate of another record). A lead, to be confirmed by looking at both images.' % (name, M.MIN_INLIERS, M.SURE, M.MARGIN),
+                   'min_inliers': M.MIN_INLIERS, 'results': out}, open(out_path, 'w'), indent=1)
 def main():
-    what = [a for a in sys.argv[1:] if not a.startswith('-')] or ['figures', 'wide']
+    what = [a for a in sys.argv[1:] if not a.startswith('-')] or ['figures', 'wide', 'met']
     P = pool(); t0 = time.time(); F = {}
     for k, (p, loc, _) in P.items():
         r = M.feats(p)
         if r: F[k] = r
     print('pool', len(P), 'images;', len(F), 'with features', round(time.time() - t0), 's', flush=True)
+    sets = {}; qfeat = {}
     if 'figures' in what:
-        nf = json.load(open(os.path.join(HERE, 'nps_figures.json')))['figures']
-        run('nps_figures', [(f['id'], os.path.join(ROOT, f['image']), None) for f in nf], P, F, os.path.join(HERE, 'nps_figures_to_loc.json'), False)
+        nf = json.load(open(os.path.join(HERE, 'nps_figures.json')))['figures']; qs = []
+        for f in nf:
+            qp = os.path.join(ROOT, f['image']); q = M.feats(qp, side=1024)
+            if q: qfeat[f['id']] = (q[0], q[1], f['image'])
+            qs.append((f['id'], None))
+        sets['nps_figures'] = (qs, False, os.path.join(HERE, 'nps_figures_to_loc.json'))
     if 'wide' in what:
-        wl = json.load(open(os.path.join(HERE, 'wide_images_ledger.json')))['images']
-        run('wide', [(pk, os.path.join(ROOT, v['local_file']), pk) for pk, v in wl.items() if v.get('status') == 'ok'], P, F, os.path.join(HERE, 'wide_to_catalogue.json'), True)
+        wl = json.load(open(os.path.join(HERE, 'wide_images_ledger.json')))['images']; qs = []
+        for pk, v in wl.items():
+            if v.get('status') != 'ok': continue
+            qp = os.path.join(ROOT, v['local_file']); q = M.feats(qp, side=1024)
+            if q: qfeat['W' + pk] = (q[0], q[1], v['local_file'])
+            qs.append(('W' + pk, pk))
+        sets['wide'] = (qs, True, os.path.join(HERE, 'wide_to_catalogue.json'))
+    if 'met' in what:   # the six Metropolitan Museum items of the first run (P04, P05 and their siblings): are they copies of a Library of Congress exposure?
+        led = json.load(open(os.path.join(HERE, 'images_ledger.json')))['images']; qs = []
+        for k, v in led.items():
+            if v.get('status') == 'ok' and not v.get('loc_id') and v.get('local_working_1600'):
+                qp = os.path.join(ROOT, v['local_working_1600']); q = M.feats(qp, side=1024)
+                if q: qfeat['M' + k] = (q[0], q[1], v['local_working_1600'])
+                qs.append(('M' + k, None))
+        sets['met'] = (qs, False, os.path.join(HERE, 'met_to_catalogue.json'))
+    run_all(sets, P, F, {k: v for k, v in qfeat.items()})
     print('done', round(time.time() - t0), 's')
 if __name__ == '__main__': main()

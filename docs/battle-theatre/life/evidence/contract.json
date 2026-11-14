@@ -1,0 +1,408 @@
+{
+ "schema": "life-evidence-1",
+ "purpose": "One row of docs/battle-theatre/life/evidence/<group>.jsonl says: this unit (or this work) did this activity, at this place, in this window, with these tools and this many men, and here is the verbatim passage of a local non-lead text that says so (or the registered gap).",
+ "file": "docs/battle-theatre/life/evidence/<group>.jsonl: UTF-8, one JSON object per line, no blank lines; <group> is an id of groups.json; rows are ordered by id",
+ "validator": "python3 -I tools/bt/life/validate_evidence.py <group> | --all | --self-test   (exit 1 on any failure)",
+ "tiers": [
+  "documented",
+  "inferred",
+  "plausible-procedural",
+  "open gap"
+ ],
+ "tier_rules": {
+  "documented": "a non-lead source of a class that allows it states exactly this (unit or work, activity, place, time as the window says); quote matched in the named local text; generic false",
+  "inferred": "reasoned from documented facts, reasoning shown in tier_basis (at least 20 characters naming the step); the quote is the fact reasoned from; never a manual",
+  "plausible-procedural": "generic: true; the practice of the period from a manual or a general statement; the scene says so; never evidence that the unit did it",
+  "open gap": "quote null and source_id null; searched lists what was looked for and found nothing (a failed lookup is recorded as failed); register_ref names the registered gap EG-LIFE-nnnn; shown as a visible gap"
+ },
+ "fields": {
+  "id": "string ^<group>-[LR]\\d{3,5}$ (L labour, R routine); unique across all files",
+  "group": "string, the group id, equal to the file name",
+  "kind": "labour | routine",
+  "subkind": "one of subkinds[kind]",
+  "unit_id": "id of docs/battle-theatre/history/units.json, or null (then work_id or generic)",
+  "unit_text": "the unit as the source names it (verbatim fragment) or null",
+  "work_id": "E-nn of structures/works_stages.json or W-... of life/inventory/works.json, or null (labour: required unless unit_id given)",
+  "builder_unknown": "true only for a work whose builder the sources do not name (PDF B.7.1: built by a labelled stand-in crew)",
+  "window": "{start_min, end_min, basis, note, derived_from}: minutes on the page clock (since 1863-06-01 00:00 local mean time); start <= end; inside the theatre clock; basis from window_bases",
+  "place": "{text, ref, map_scope, preexisting_ref}: the place as the source words it; ref a gazetteer or structures id or null; map_scope from map_scopes; preexisting_ref a P-nn of PDF B.7.3 when the work touches a pre-existing wall or fence",
+  "activity": "a clip id of app/data/anim3d/clips.json, or null",
+  "pose_needed": "a pose id of life/evidence/poses.json (a pose no clip shows), or null; at least one of activity and pose_needed unless tier is open gap",
+  "activity_basis": "stated | inferred | procedural: whether the passage names the act the clip shows (stated), it follows from the passage (inferred), or the clip is a stand-in chosen by the scene (procedural); required when activity or pose_needed is given",
+  "tools_props": "[{item, role, count [lo,hi] or null, basis}] roles from tool_roles, basis from item_bases",
+  "men": "{lo, hi, basis}: a range with its basis (men_bases); integers; lo/hi null only with basis unknown",
+  "tier": "one of tiers",
+  "tier_basis": "string: required for inferred, plausible-procedural and open gap",
+  "generic": "bool: true for a manual-based or general-practice row",
+  "source_id": "id of life/evidence/sources.json (a local text) or null for open gap",
+  "part": "Official Records part 1|2|3 or null",
+  "report_id": "Official Records record id (OR27-1-R062) or a state-volume section id (NY3-S006) or null",
+  "printed_page": "the printed page as a string, or null; Official Records pages are checked against the running-head page model",
+  "page_basis": "one of page_bases",
+  "pdf_page": "for park reports: the \"=== PAGE n ===\" marker before the passage (int)",
+  "quote": "verbatim passage, 20 to 600 characters, whitespace and hyphenation tolerant, OCR errors kept as printed",
+  "offset_start": "character offset of the quote in the raw local text (UTF-8, newline untouched)",
+  "offset_end": "end offset (exclusive)",
+  "context_quote": "optional second verbatim passage of the same text (a heading, a date, a number the claim needs); same checks, offsets in context_offset_start / context_offset_end",
+  "ocr_repairs": "[{ocr, reads, basis}] only where the quote differs from the text by an OCR confusion; basis second_witness | page_image | context",
+  "text_sha256": "optional: sha256 of the local text the offsets refer to (checked against sources.json)",
+  "conflicts": "[{id, kind, other_rows, note, scenario_key}]: a conflict of sources is carried, never resolved here (Law cl.6); scenario_key names the selectable scenario",
+  "searched": "[{source_id, pattern, result}] for open gap rows",
+  "register_ref": "EG-LIFE-nnnn for open gap rows (and for any row whose gap is registered)",
+  "work_stage": "optional {from, to}: stages 0-6 of structures/works_stages.json stage_model that the row documents",
+  "notes": "free text or null"
+ },
+ "required": [
+  "id",
+  "group",
+  "kind",
+  "subkind",
+  "window",
+  "place",
+  "men",
+  "tier",
+  "source_id",
+  "quote",
+  "offset_start",
+  "offset_end",
+  "page_basis",
+  "tools_props"
+ ],
+ "optional": [
+  "unit_id",
+  "unit_text",
+  "work_id",
+  "builder_unknown",
+  "activity",
+  "pose_needed",
+  "activity_basis",
+  "tier_basis",
+  "generic",
+  "part",
+  "report_id",
+  "printed_page",
+  "pdf_page",
+  "context_quote",
+  "context_offset_start",
+  "context_offset_end",
+  "ocr_repairs",
+  "text_sha256",
+  "conflicts",
+  "searched",
+  "register_ref",
+  "work_stage",
+  "notes"
+ ],
+ "subkinds": {
+  "labour": {
+   "breastwork_infantry": "infantry breastwork of mixed or unstated material",
+   "rail_barricade": "fence rails piled or stacked as cover",
+   "log_works": "felled timber, logs or head logs laid as works",
+   "stone_works": "stones gathered and laid as works",
+   "earth_parapet": "earth thrown up (parapet, ditch, rifle trench)",
+   "rifle_pits": "rifle pits or skirmish pits",
+   "gun_pit_or_epaulement": "gun pit, epaulement or battery works for artillery",
+   "battery_platform": "platform, embrasure or prepared ground for guns",
+   "abatis_or_slashing": "abatis, slashing or felled trees as obstacle",
+   "barricade_street": "barricade across a street or road, town or village",
+   "loopholing": "loopholes cut or made in a wall, barn or building",
+   "fence_taken_down": "fences or walls taken down, opened or cut (cover, firewood, passage for guns)",
+   "wall_improved": "a pre-existing wall or fence strengthened (never a construction of the wall itself)",
+   "road_cut_or_improved": "road cut through woods, fences or hills, repaired or corduroyed",
+   "bridge_laid": "pontoon, trestle or other bridge laid",
+   "bridge_repaired": "bridge repaired or rebuilt",
+   "bridge_destroyed": "bridge burned or broken",
+   "ford_improved": "ford marked, improved or crossed by work",
+   "tools_issue_or_carry": "tools drawn, issued, carried or brought up for the work",
+   "works_layout": "the line staked, paced or told off before the work",
+   "fire_fighting": "soldiers putting out a fire (buckets, beating flames, pulling down a burning part)",
+   "other_labour": "any other work with tools (state it in notes)"
+  },
+  "routine": {
+   "ration_issue": "rations drawn, issued, carried or distributed",
+   "cooking": "cooking (fires, kettles, frying, boiling coffee)",
+   "meal": "a meal eaten (breakfast, dinner, supper, coffee, hardtack)",
+   "rest_halt": "rest at a halt, on the road or in the line",
+   "sleep_bivouac": "sleeping, lying down, bivouac or night camp",
+   "camp_made": "a camp made, tents pitched or a bivouac laid out",
+   "picket_duty": "picket, outpost, vedette or skirmish line posted and relieved",
+   "guard_duty": "camp guard, provost guard, train guard, sentry",
+   "water_carrying": "water drawn, canteens filled, men or animals watered",
+   "washing_bathing": "washing, bathing, laundry",
+   "burial_party": "burial of the dead by soldiers",
+   "forage_requisition": "foraging, requisitions, cattle driven in, fires or fences used for fuel",
+   "ammunition_issue": "cartridges issued, ammunition carried up or counted",
+   "horse_care": "feeding, watering, grooming, harnessing, saddling",
+   "religious_service": "service, prayer, burial service, reading orders",
+   "music_calls": "drum, bugle, fife calls and bands in camp",
+   "roll_call": "roll call, inspection, issue of orders",
+   "foot_care_shoes": "shoes, feet, marching condition, straggling at the halt",
+   "idle_camp_life": "writing letters, reading, smoking, talking, games",
+   "other_routine": "any other routine (state it in notes)"
+  }
+ },
+ "construction_subkinds": [
+  "breastwork_infantry",
+  "rail_barricade",
+  "log_works",
+  "stone_works",
+  "earth_parapet",
+  "rifle_pits",
+  "gun_pit_or_epaulement",
+  "battery_platform",
+  "abatis_or_slashing",
+  "barricade_street"
+ ],
+ "preexisting": {
+  "P-01": "Angle wall and the Copse",
+  "P-02": "low stone wall at the north end of Cemetery Hill and the Brickyard Lane walls",
+  "P-03": "stone wall east of the Baltimore Pike",
+  "P-04": "wall between Rose's Woods and the Wheatfield",
+  "P-05": "low stone fence on Houck's Ridge",
+  "P-06": "wall near the Trostle house",
+  "P-07": "wall on Oak Ridge",
+  "P-08": "wall in Pardee Field",
+  "P-09": "heavy stone wall behind the 123rd NY works",
+  "P-10": "Peach Orchard, Wheatfield and Emmitsburg Road fences and walls",
+  "P-11": "Warfield's stone walls",
+  "P-12": "unfinished railroad grade and cut",
+  "P-13": "Leister farm wall",
+  "P-14": "walls used at Little Round Top"
+ },
+ "preexisting_note": "PDF B.7.3: these existed before the battle and are never given a construction animation; a row that strengthens one uses subkind wall_improved and names it in place.preexisting_ref",
+ "window_bases": {
+  "stated_clock": "the passage states a clock time or an hour (6 a. m., about noon, at 4 o'clock)",
+  "stated_period": "the passage states a part of the day or a relation to the light (morning, at daybreak, before dark, that night)",
+  "stated_date": "the passage states the date only: the window is that day (00:00 to 23:59)",
+  "report_span": "the window is the span the report or section covers, no finer statement",
+  "other_row": "derived from another documented row (derived_from lists its ids)",
+  "sun_event": "bounded by sunrise or sunset computed from the project ephemeris (derived_from names the call)",
+  "procedural": "plausible-procedural placement inside a documented span (generic rows only)"
+ },
+ "men_bases": {
+  "stated_number": "the passage states a number or range of men (the numbers must stand in the quote)",
+  "detail_stated": "the passage states a detail, party or fatigue of a stated size",
+  "unit_strength": "all of the unit: lo/hi from the unit's declared strength range (units.json / casualties files), the basis named in tier_basis",
+  "stated_fraction": "a stated share of a unit (half the regiment, every fourth man): lo/hi computed from the unit strength range, the arithmetic in tier_basis",
+  "procedural": "plausible-procedural parameter, never shown as a count of the record",
+  "unknown": "the record does not say: lo and hi null"
+ },
+ "tool_roles": [
+  "tool",
+  "material",
+  "prop",
+  "vehicle",
+  "animal",
+  "weapon",
+  "food",
+  "vessel"
+ ],
+ "item_bases": [
+  "stated",
+  "inferred",
+  "regulation",
+  "procedural"
+ ],
+ "activity_bases": [
+  "stated",
+  "inferred",
+  "procedural"
+ ],
+ "map_scopes": {
+  "battlefield": "inside the loaded battlefield terrain",
+  "town": "inside the borough of Gettysburg",
+  "approach": "on the roads and farms of the approach, outside the borough",
+  "outside_map": "elsewhere (Harrisburg, the Potomac, Maryland Heights): kept as evidence, not drawn on the Gettysburg map",
+  "unknown": "the place is not named"
+ },
+ "page_bases": [
+  "running_head",
+  "interpolated",
+  "section_anchor",
+  "pdf_marker",
+  "none"
+ ],
+ "conflict_kinds": [
+  "time",
+  "number",
+  "builder",
+  "place",
+  "existence",
+  "tool",
+  "other"
+ ],
+ "searched_results": [
+  "no_hit",
+  "hit_not_applicable",
+  "hit_ambiguous",
+  "blocked",
+  "not_local"
+ ],
+ "source_classes": {
+  "official_report": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "a commander's own report: primary for his unit, retrospective by weeks to months"
+  },
+  "official_correspondence": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "dispatches and orders of the day: contemporary, dated by the document"
+  },
+  "official_other": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "other Official Records volumes"
+  },
+  "regimental_volume": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "state or regimental volume, a participant narrative or dedication address written decades later: name the author and year in tier_basis"
+  },
+  "memoir_narrative": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "a participant's or early historian's narrative: retrospective"
+  },
+  "civilian_account": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "a civilian's account written in 1863 or soon after"
+  },
+  "newspaper_1863": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "local newspaper of June to December 1863"
+  },
+  "secondary_early": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "early secondary account (Bachelder, Long): say whose testimony it repeats"
+  },
+  "medical_account": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "medical or hospital account"
+  },
+  "burial_record": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "burial committee and cemetery record"
+  },
+  "reference_table": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "regimental loss tables"
+  },
+  "park_report": {
+   "tiers": [
+    "documented",
+    "inferred"
+   ],
+   "note": "National Park Service report or page (modern, institutional): where it restates an 1863 account, name that account in tier_basis; never use a modern description of a rebuilt feature as the 1863 state"
+  },
+  "period_manual": {
+   "tiers": [
+    "plausible-procedural"
+   ],
+   "note": "a manual or regulation of the time: generic practice only, never evidence that a named unit did something on a day (row must say generic: true)"
+  }
+ },
+ "match_modes": {
+  "exact": "verbatim after whitespace collapse and hyphenation joining",
+  "typo": "same after curly quotes, dashes, ligatures and case",
+  "ocr": "only after folding OCR confusions (l/1/I, o/0, s/5, g/6, b/8 and punctuation): needs ocr_repairs",
+  "edit": "only within a small edit distance (at most 2.5 percent, quote of at least 40 characters): needs ocr_repairs"
+ },
+ "quote_chars": [
+  20,
+  600
+ ],
+ "window_max_days": 14,
+ "theatre_clock": {
+  "unit": "minutes since 1863-06-01 00:00 local mean time (app/src/clock.mjs)",
+  "battle": [
+   36000,
+   63360
+  ],
+  "epilogue": [
+   244800,
+   247680
+  ]
+ },
+ "subkind_activity_hint": {
+  "earth_parapet": [
+   "dig_shovel",
+   "lay_stone"
+  ],
+  "rifle_pits": [
+   "dig_shovel"
+  ],
+  "gun_pit_or_epaulement": [
+   "dig_shovel"
+  ],
+  "log_works": [
+   "chop_axe",
+   "march_carry_rail"
+  ],
+  "rail_barricade": [
+   "march_carry_rail"
+  ],
+  "stone_works": [
+   "lay_stone"
+  ],
+  "abatis_or_slashing": [
+   "chop_axe"
+  ],
+  "cooking": [
+   "cook_stir",
+   "sit_fire"
+  ],
+  "meal": [
+   "eat_hardtack",
+   "drink_cup",
+   "sit_fire"
+  ],
+  "sleep_bivouac": [
+   "sleep_side",
+   "sit_fire"
+  ],
+  "picket_duty": [
+   "stand_picket"
+  ],
+  "rest_halt": [
+   "stand_rest",
+   "sit_fire"
+  ],
+  "water_carrying": [
+   "drink_cup",
+   "orderly_water"
+  ],
+  "burial_party": [
+   "dig_shovel"
+  ]
+ },
+ "dedupe_rule": "two rows with the same source passage (overlap of 50 percent or more), kind and unit or work are duplicates: the group that owns the text keeps the row (ownership: report_assignments.json, leads/SUMMARY.json, groups.json)"
+}

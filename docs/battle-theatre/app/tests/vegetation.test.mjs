@@ -145,6 +145,37 @@ test('the data lies inside the ground the theatre loads: every outline, every wi
   const wf = dem(wheatfield); assert.ok(Math.hypot(wf[0] - (-480), wf[1] - 1430) < 2500, 'the Wheatfield lies in the south of the ground: ' + wf.map(Math.round));
 });
 
+test('the park landscape evidence: every vegetation row of the corrections is a claim, a row left out with its reason, or a passage already held; later growth never sets a crop or a species', () => {
+  const REPO = path.resolve(APP, '..', '..', '..'), f = path.join(REPO, 'docs', 'battle-theatre', 'GOVERNANCE', 'evidence_corrections', 'web-nps-landscape.jsonl');
+  const sk = t => String(t).toLowerCase().replace(/[^a-z0-9]+/g, '');
+  const ids = new Set(DATA.claims.map(c => c.id)), held = DATA.claims.map(c => sk(c.quote));
+  const py = n => fs.readFileSync(path.join(REPO, 'tools', 'bt', 'vegetation', n), 'utf8');
+  const leftOut = new Set([...(py('gen_nps_corrections.py') + py('gen_nps_claims.py')).matchAll(/NPSX-[A-Z0-9-]+-p\d+-\d+/g)].map(m => m[0]));
+  if (fs.existsSync(f)) {
+    const rows = fs.readFileSync(f, 'utf8').split('\n').filter(Boolean).map(l => JSON.parse(l)).filter(r => /^R20/.test(r.id)); assert.ok(rows.length > 200, 'the vegetation rows of the corrections: ' + rows.length);
+    const missing = [];
+    for (const r of rows) {
+      const x = r.xid, q = sk(r.citation.quote);
+      const there = ids.has('VC-' + x) || [...ids].some(i => i.startsWith('VC-NPSC-' + x.replace('NPSX-', ''))) || leftOut.has(x) || held.some(h => h.includes(q.slice(0, 60)) || q.includes(h.slice(0, 60)));
+      if (!there) missing.push(x);
+    }
+    assert.deepEqual(missing, [], 'rows of the corrections that are in no claim, no left-out list and no held passage');
+  }
+  // the claims added from the corrections carry a place in the saved report and a tier
+  const C = DATA.claims.filter(c => c.id.startsWith('VC-NPSC-')); assert.ok(C.length >= 50, 'claims from the corrections: ' + C.length);
+  for (const c of C) { assert.ok(['documented', 'inferred'].includes(c.tier), c.id); assert.ok(c.loc && (c.loc.pdf_page || c.loc.char_start != null), c.id + ' has a place'); }
+  const byId = new Map(DATA.claims.map(c => [c.id, c])), unit = lc => DATA.units.find(u => u.lc === lc);
+  // placements by rule, and what they set
+  const wset = unit('LC-OPEN-0001'); assert.ok(wset.claims.some(([c, r]) => c === 'VC-NPSC-VISTA-CUTTING-p010-01' && r === 'exact'), 'the west slope of Little Round Top names the cut-clear statement');
+  const den = unit('LC-BOULD-0001'); assert.ok(den.claims.some(([c]) => c === 'VC-NPSC-CLR-ROT-V2-p140-01'), "Devil's Den carries the open-character statement"); assert.ok(den.claims.some(([c]) => c === 'VC-NPSC-CLR-ROT-V2-p140-01b'), "and the note that the woody growth of 1999 is later");
+  const brien = DATA.units.filter(u => u.crop_claim === 'VC-NPSC-BRIEN-FARM-p008-01a'); assert.equal(brien.length, 1, 'the wheat in front of the Brien house is placed on one field cell'); assert.equal(brien[0].crop, 'wheat'); assert.equal(brien[0].crop_tier, 'inferred', 'placed by a rule, not documented for the cell');
+  assert.ok(DATA.units.some(u => u.crop_claim === 'VC-NPSC-BRIEN-FARM-p007-01' && u.crop_tier === 'plausible-procedural'), 'the other crops of the Brien inventory are a seeded choice, said to be');
+  for (const c of C.filter(c => c.kind === 'ground')) { for (const u of DATA.units) for (const [cid, role] of u.claims) if (cid === c.id) assert.notEqual(u.crop_claim, c.id, c.id + ' says what is not 1863: it sets no crop'); }
+  // the Little Round Top conflict cites the new statements, and the Warren-map growth is marked as later
+  const lrt = DATA.scenarios['CF-VEG-LRT']; for (const id of ['VC-NPSC-VISTA-CUTTING-p010-01', 'VC-NPSC-VISTA-CUTTING-p011-01c']) assert.ok(lrt.options.nps_clr.by.includes(id) && byId.has(id), id);
+  assert.match(lrt.why, /growth after the battle, not the state of 1863/);
+});
+
 test('the shipped data says nothing of how it was made, and names no later tree as a tree of 1863', () => {
   const txt = fs.readFileSync(path.join(APP, 'data', 'vegetation.json'), 'utf8');
   assert.ok(!/\b(AI|A\.I\.|Claude|Anthropic|LLM|language model|generated|automated|subagent|agent|prompt|workstream|horde|shard)\b/i.test(txt), 'copy audit words');
@@ -253,7 +284,7 @@ test('the module starts on a stand-in theatre: switches, panel, a card for the g
   const fake = { innerHTML: '', querySelector: sel => (sel === '#veg-card' ? card : null), addEventListener() {} }, card = { innerHTML: '' }, scope = { on() {}, add() {} };
   reg.panels.get('vegetation').fn(fake, th, scope);
   assert.match(fake.innerHTML, /Show the vegetation of 1863/); assert.match(fake.innerHTML, /data-sce="CF-VEG-LRT"/); assert.match(fake.innerHTML, /pill/); assert.ok(!/\b(AI|generated|automated|agent|prompt)\b/i.test(fake.innerHTML), 'no audit word in the panel');
-  assert.match(fake.innerHTML, /What is not known \(15 gaps\)/); assert.match(fake.innerHTML, /default under delegated authority/);
+  assert.match(fake.innerHTML, new RegExp('What is not known \\(' + DATA.gaps.length + ' gaps\\)')); assert.match(fake.innerHTML, /default under delegated authority/);
   // the card of the ground: pick the Wheatfield by its own point and write the card for it
   const [x, z] = (() => { const r = wheatfield.rings[0]; let a = 0, b = 0, n = 0; for (let i = 0; i < r.length; i += 2) { a += r[i]; b += r[i + 1]; n++; } return TER.xz(a / n, b / n); })();
   const u = v.pick(x, z); assert.ok(u && u.cls === 'wheatfield', 'the point at the middle of the Wheatfield is the Wheatfield'); assert.equal(v.pick(1e6, 1e6), null);

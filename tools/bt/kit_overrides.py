@@ -245,8 +245,12 @@ class Out:
         else:
             self.op('set', table, path, ids, why, value=copy.deepcopy(value), before_absent=True)
 
-    def skip(self, lines, reason):
-        self.unapplied.append({'evidence_ids': sorted(o['id'] for o in lines), 'reason': reason})
+    def skip(self, lines, reason, routed=False):
+        """Lines the compile leaves out of the kit tables. routed=True: by design (the verified tables carry them), not an exception for the integration to review."""
+        d = {'evidence_ids': sorted(o['id'] for o in lines), 'reason': reason}
+        if routed:
+            d['routed'] = True
+        self.unapplied.append(d)
 
 
 def line_keys(lines):
@@ -263,7 +267,7 @@ def c_guns(ctx, out, uid, lines):
     if not cards and uid in ctx.cards and ctx.cards[uid][0] == 'artillery':
         cards = [uid]
     if not cards:
-        return out.skip(lines, '%s has no battery card in the kit: its guns go to the verified battery table only' % uid)
+        return out.skip(lines, '%s has no battery card in the kit: its guns go to the verified battery table only' % uid, routed=True)
     cid = cards[0]
     if len(ctx.card_users[cid]) > 1 and uid not in ctx.cards:
         return out.skip(lines, 'card %s joins several roster batteries (%s): its count is not split' % (cid, ', '.join(ctx.card_users[cid])))
@@ -316,7 +320,7 @@ def c_commander(ctx, out, uid, lines):
     entry = ctx.units[uid]
     cid = next((k['id'] for k in entry.get('kit', []) if k['id'] in ctx.cards), None) or (uid if uid in ctx.cards else None)
     if cid is None:
-        return out.skip(lines, 'no battery or cavalry card for %s: the commanders go to the verified order-of-battle table only' % uid)
+        return out.skip(lines, 'no battery or cavalry card for %s: the commanders go to the verified order-of-battle table only' % uid, routed=True)
     table, key = ctx.cards[cid]
     card = ctx.base[table][key][cid]
     if len(ctx.card_users[cid]) > 1 and uid not in ctx.cards:
@@ -597,7 +601,7 @@ def compile_all(only=None, ev_dir=EV, ov_dir=OV, write=True, base=None):
                 ctx.source_meta(o['source_id'], R.declared)
         out = compile_lines(ctx, g['id'], accepted, R.declared)
         summary[g['id']] = {'lines': sum(R.counts.values()), 'accepted': len(R.accepted), 'rejected': len(R.rejected), 'ops': len(out.ops), 'unapplied': len(out.unapplied), 'errors': len(R.errors),
-                            'copy_audit_blocked': len(out.blocked), 'copy_audit_ran': out.audit_ran}
+                            'routed': sum(1 for u in out.unapplied if u.get('routed')), 'copy_audit_blocked': len(out.blocked), 'copy_audit_ran': out.audit_ran}
         docs[g['id']] = {'schema': SCHEMA, 'group': g['id'], 'compiled_from': {'evidence_sha256_16': sha16(p), 'groups_sha256_16': sha16(os.path.join(EV, 'groups.json'))}, 'ops': out.ops, 'unapplied': out.unapplied}
     clash = collisions(docs)
     if clash:
@@ -718,15 +722,19 @@ def cmd_compile(argv):
     a = ap.parse_args(argv)
     docs, summary, index = compile_all(a.group, write=not a.dry_run)
     for gid, s in summary.items():
-        print('%-22s lines %4d accepted %4d rejected %3d (errors %d) -> %d operations, %d unapplied' % (gid, s['lines'], s['accepted'], s['rejected'], s['errors'], s['ops'], s['unapplied']))
+        print('%-22s lines %4d accepted %4d rejected %3d (errors %d) -> %d operations, %d unapplied (%d of them routed to the verified tables by design, %d to review)'
+              % (gid, s['lines'], s['accepted'], s['rejected'], s['errors'], s['ops'], s['unapplied'], s['routed'], s['unapplied'] - s['routed']))
         if not s['copy_audit_ran']:
             print('  AUDIT_SKIPPED: the copy audit could not run (no node, or tools/bt/pack_theatre.mjs cannot be loaded): the words of the lines were not checked')
         if s['copy_audit_blocked']:
             print('  COPY AUDIT: %d line(s) not compiled because their wording would ship a word the packer rejects (see unapplied)' % s['copy_audit_blocked'])
     print('%d groups with evidence files, %d evidence lines indexed%s' % (len(summary), len(index), ' (dry run: nothing written)' if a.dry_run else ''))
     for gid, d in docs.items():
-        for u in d['unapplied'][:5]:
-            print('  unapplied %s: %s (%s)' % (gid, u['reason'][:140], ', '.join(u['evidence_ids'][:3])))
+        review = [u for u in d['unapplied'] if not u.get('routed')]
+        for u in review[:8]:
+            print('  to review %s: %s (%s)' % (gid, u['reason'][:140], ', '.join(u['evidence_ids'][:3])))
+        if len(review) > 8:
+            print('  to review %s: ... and %d more (kit/overrides/%s.json, member unapplied)' % (gid, len(review) - 8, gid))
     return 0
 
 

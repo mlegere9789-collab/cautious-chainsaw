@@ -12,7 +12,7 @@ let TEX_STATE = 28, TEX_VISIT = 29;               // texture units: above the re
 const CROPCODE = { forest_floor: 0, wheat: 1, rye: 2, barley: 3, oats: 4, corn: 5, hay: 6, pasture: 7, open_rock: 8, marsh: 9, rock: 10 };
 const STAGECODE = { being_cut: 1, cut_shocked: 2, stubble: 3, mown: 4, hay_stubble: 5, plowed: 6, winter_grain_sprouts: 7, corn_stubble: 8, dormant_grass: 9, dormant_marsh: 9, rock: 10, shaded_litter: 11, leaf_litter: 11 };
 const TIERCODE = { documented: 0, inferred: 1, 'plausible-procedural': 2, 'open gap': 3 };
-export const STATE_K = 4;                                    // texels per unit
+export const STATE_K = 5;                                    // texels per unit
 const smooth01 = x => { const t = Math.min(1, Math.max(0, x)); return t * t * (3 - 2 * t); };
 
 /**
@@ -20,6 +20,7 @@ const smooth01 = x => { const t = Math.min(1, Math.max(0, x)); return t * t * (3
  *   texel 0  colour (sRGB), crop code             texel 1  height now (m, after trampling and laying flat), trampled share, cut share, laid-flat share
  *   texel 2  tier code, leaf cover, stripped share, row direction (degrees)
  *   texel 3  stage code, then for a crop: shock height, standing height before any trampling (m); for a wood: its canopy as seen from above (sRGB)
+ *   texel 4  the share of the unit's trees that is drawn (1 unless a reading of Little Round Top leaves it lightly wooded or unwooded), then three zeros
  * Pure: the same (model, unit, minute, choices) always writes the same numbers.
  */
 export function packUnitState(M, u, tq, choices, canopy, out, o, co = 0) {
@@ -29,18 +30,19 @@ export function packUnitState(M, u, tq, choices, canopy, out, o, co = 0) {
     out[o] = g.color[0]; out[o + 1] = g.color[1]; out[o + 2] = g.color[2]; out[o + 3] = code;
     out[o + 4] = (g.h[0] + g.h[1]) / 2; out[o + 5] = g.trample; out[o + 6] = g.cut; out[o + 7] = g.lodging; out[o + 12] = STAGECODE[g.stage] ?? 0; out[o + 13] = g.shockH ? (g.shockH[0] + g.shockH[1]) / 2 : 0;
     out[o + 14] = g.hStanding ? (g.hStanding[0] + g.hStanding[1]) / 2 : 0; out[o + 15] = 0;
-  } else { out.fill(0, o, o + 16); }
+  } else { out.fill(0, o, o + STATE_K * 4); }
   if (u.woods && tr) {                                                // texel 3, y z w: the canopy as seen from above (sRGB)
     const k = smooth01((tr.leaf - 0.35) / 0.45), bare = [0.27, 0.22, 0.17];
     for (let c = 0; c < 3; c++) out[o + 13 + c] = bare[c] + (canopy[co + c] - bare[c]) * k;
   }
   out[o + 8] = TIERCODE[s.tiers.stage || s.tiers.species || s.tier] ?? 2; out[o + 9] = tr ? tr.leaf : 1; out[o + 10] = tr ? tr.strip : 0; out[o + 11] = (u.p && u.p.rows_deg) || 0;
+  out[o + 16] = tr && tr.keep != null ? tr.keep : 1; out[o + 17] = out[o + 18] = out[o + 19] = 0;
 }
 const unpackPlain = gl => { gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false); };   // the pixel-store state is the context's, shared with every other layer
 
 const COMMON = /* glsl */`
 uniform sampler2D uVegState;
-vec4 stx(int u, int k) { int i = u * 4 + k; return texelFetch(uVegState, ivec2(i & 1023, i >> 10), 0); }
+vec4 stx(int u, int k) { int i = u * ${STATE_K} + k; return texelFetch(uVegState, ivec2(i & 1023, i >> 10), 0); }
 float hv2(vec2 p) { ivec2 q = ivec2(floor(p)); return hsh((uint(q.x + 8192) * 73856093u) ^ (uint(q.y + 8192) * 19349663u)); }
 float vn2(vec2 p) { vec2 i = floor(p); vec2 f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f); return mix(mix(hv2(i), hv2(i + vec2(1.0, 0.0)), u.x), mix(hv2(i + vec2(0.0, 1.0)), hv2(i + vec2(1.0, 1.0)), u.x), u.y); }
 vec3 terrN(vec3 p) { float e = 3.0; float hx = hAt(p.x + e, p.z) - hAt(p.x - e, p.z); float hz = hAt(p.x, p.z + e) - hAt(p.x, p.z - e); return normalize(vec3(-hx, 2.0 * e, -hz)); }
@@ -120,7 +122,7 @@ void treeGeom(out vec3 wp, out vec3 nrm, out float leaf, out float stripT, out f
   int u = int(iu + 0.5); vec4 s2 = stx(u, 2); leaf = s2.y; float stripU = s2.z; float seed = ib.y;
   stripT = step(ib.z, stripU);
   float dist = length(vec2(ia.x, ia.y) - cam.xz);
-  float keep = uFar > 0.5 ? clamp(2.3 - dist * 0.00105, 0.32, 1.0) : 1.0; keepOut = keep;
+  float keep = uFar > 0.5 ? clamp(2.3 - dist * 0.00105, 0.32, 1.0) : 1.0; keepOut = min(keep, stx(u, 4).x);          // trees are thinned with distance (and enlarged to keep the cover) and by the share the reading of the unit keeps
   float h = ia.z, r = ia.w * (uFar > 0.5 ? inversesqrt(keep) : 1.0);
   r *= 1.0 - 0.25 * stripT; h *= 1.0 - 0.04 * stripT;
   float g = hAt(ia.x, ia.y); float ang = m.x * 6.2831853; float ca = cos(ang), sa = sin(ang); vec3 p;
@@ -239,7 +241,7 @@ export class VegGL {
     if (tq === this.tq && key === this.choicesKey) return false; this.tq = tq; this.choicesKey = key; const gl = this.gl, b = this.stateBuf, M = this.model;
     for (let i = 0; i < M.units.length; i++) packUnitState(M, M.units[i], tq, choices, this.canopy, b, i * STATE_K * 4, i * 3);
     // the witness trees share the last pseudo-unit: full leaf
-    const w = M.units.length * STATE_K * 4; if (w + 16 <= b.length) { b.fill(0, w, w + 16); b[w + 9] = 1; }
+    const w = M.units.length * STATE_K * 4; if (w + STATE_K * 4 <= b.length) { b.fill(0, w, w + STATE_K * 4); b[w + 9] = 1; b[w + 16] = 1; }
     gl.activeTexture(gl.TEXTURE0 + TEX_STATE); gl.bindTexture(gl.TEXTURE_2D, this.tex); unpackPlain(gl); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, STATE_TEX_W, this.rows, gl.RGBA, gl.FLOAT, b); gl.activeTexture(gl.TEXTURE0); this.stats.stateWrites++; return true;
   }
 

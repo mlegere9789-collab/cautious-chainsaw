@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "file": "docs/plan/STATUS/backlog.json",
- "generated": "2026-11-13",
+ "generated": "2026-11-14",
  "generator": "python3 docs/plan/STATUS/merge_status.py (validate: python3 docs/plan/STATUS/check_backlog.py)",
  "sources": [
   "docs/plan/STATUS/items-A.json",
@@ -13,7 +13,7 @@
   "docs/plan/FINAL (WP dependency tables and acceptance text)",
   "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
  ],
- "scope": "One entry per OPEN_BUILDABLE, BUILT_NOT_SHIPPED and OPEN_NEEDS_DECISION item of items-A.json (340) and items-B.json (365), plus the slices of items cut into parts (slice_of / slices): 709 entries in all. SHIPPED, OWNER_ONLY and SUPERSEDED items are not here (see STATUS.md).",
+ "scope": "One entry per OPEN_BUILDABLE, BUILT_NOT_SHIPPED and OPEN_NEEDS_DECISION item of items-A.json (340) and items-B.json (365), plus the slices of items cut into parts (slice_of / slices): 711 entries in all. SHIPPED, OWNER_ONLY and SUPERSEDED items are not here (see STATUS.md).",
  "definitions": {
   "id": "lowercase letters, digits and hyphens: the source id lowercased (WP-INFRA-23b -> wp-infra-23b); also the folder name candidates/r1h/<id>/",
   "route.type": {
@@ -33,21 +33,21 @@
   "acceptance_basis": "authored = written against the repository; otherwise the machine proof clause plus the survey next step and the plan acceptance, quoted"
  },
  "counts": {
-  "entries": 709,
+  "entries": 711,
   "open_build": 425,
   "by_route_and_state": {
    "done/decision-record": 101,
    "open/candidate-group": 228,
    "open/release-request": 8,
    "open/source-rebuild": 148,
-   "open/umbrella": 183,
+   "open/umbrella": 185,
    "open/verification-record": 41
   },
   "wave_1": 30,
   "done": 101,
   "by_source_status": {
    "OPEN_NEEDS_DECISION": 186,
-   "OPEN_BUILDABLE": 448,
+   "OPEN_BUILDABLE": 450,
    "BUILT_NOT_SHIPPED": 75
   },
   "by_size_open_build": {
@@ -2204,7 +2204,7 @@
    "order": 39,
    "wave": null,
    "done": false,
-   "title": "pagesmaps.R1a red in its newest row (cold vendor cache, 2026-11-14 00:04 UTC); cause not recorded",
+   "title": "pagesmaps.R1a red in its newest row (2026-11-14 00:04 UTC): diagnosed as a run without T0_CHROME, the repeat is pending",
    "source": {
     "part": "A",
     "id": "VER-PAGESMAPS",
@@ -2238,7 +2238,7 @@
     "docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log"
    ],
    "depends_on": [],
-   "acceptance": "Proof: the request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-ver-pagesmaps.md names the exact change (file, lines, text), the red-first check the release workstream runs and its expected result, and candidates/r1h/ver-pagesmaps/STATUS.json records passes true once the note exists; the change itself is the release workstream's. Specific check (survey next step, 2026-11-13): Release workstream: run the suite alone through tools/horde/bench.sh with the vendor cache present and again with it absent, keep the whole output (the summary stores only the last three lines), classify the failure as harness, environment or tree, and record it in docs/accept/R1G-STATUS.md. No SHIPPED item changes status unless the R1g rows (pagesmaps.R1c) turn red.",
+   "acceptance": "Proof: the request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-ver-pagesmaps.md names the exact change (file, lines, text), the red-first check the release workstream runs and its expected result, and candidates/r1h/ver-pagesmaps/STATUS.json records passes true once the note exists; the change itself is the release workstream's. Specific check (survey next step, 2026-11-13): Release workstream: when the queued repeat with T0_CHROME set has run, add its row to docs/accept/R1G-SUITES.json and one line to docs/accept/R1G-STATUS.md; if it passes the row is closed and this item with it. The diagnosis also names a harness weakness (the Chrome spawn has no error handler, so a wrong path ends the suite as an unhandled error without a message): a clear failure line in tests/t0/lib.mjs is the release workstream's to add. No SHIPPED item changes status unless the R1g rows (pagesmaps.R1c) turn red.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -5078,48 +5078,8 @@
    "done_evidence": null
   },
   {
-   "id": "corr-19",
-   "order": 99,
-   "wave": null,
-   "done": false,
-   "title": "Camera and Viewshed canvas incomplete paint did not reproduce",
-   "source": {
-    "part": "B",
-    "id": "CORR-19",
-    "kind": "audit-correction",
-    "status": "OPEN_BUILDABLE",
-    "chapter": "16",
-    "size": "S"
-   },
-   "chapter": "16",
-   "area": "audit",
-   "tier": "legacy-a-line",
-   "tranche": null,
-   "roadmap_nodes": [],
-   "size": "S",
-   "route": {
-    "type": "verification-record",
-    "dir": "candidates/r1h/corr-19/",
-    "record": "evidence file plus STATUS.json and HANDOFF.md"
-   },
-   "files": [
-    "candidates/r1h/corr-19/evidence.json",
-    "candidates/r1h/corr-19/STATUS.json",
-    "candidates/r1h/corr-19/HANDOFF.md"
-   ],
-   "reads": [],
-   "context_files": [
-    "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
-   ],
-   "depends_on": [],
-   "acceptance": "Proof: candidates/r1h/corr-19/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs corr-19 --evidence candidates/r1h/corr-19/evidence.json --test \"<command>\"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named. Specific check (survey next step, 2026-11-13): Device run.",
-   "acceptance_basis": "machine proof clause + next-step",
-   "umbrella_without_open_children": true,
-   "done_evidence": null
-  },
-  {
    "id": "hb-01",
-   "order": 100,
+   "order": 99,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-01: Confederate casualty authority and the Busey and Martin edition and pages",
@@ -5149,7 +5109,10 @@
    ],
    "reads": [],
    "context_files": [
-    "data-src/authorities/authorities.json"
+    "data-src/authorities/authorities.json",
+    "data-src/ledger/conflict_ledger.json",
+    "tools/ledger/build-ledger.mjs",
+    "docs/facts/README.md"
    ],
    "depends_on": [],
    "acceptance": "Proof: candidates/r1h/hb-01/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs hb-01 --evidence candidates/r1h/hb-01/evidence.json --test \"<command>\"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named. Specific check (survey next step, 2026-11-13): Prepare the cited evidence from the Official Records. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
@@ -5161,7 +5124,7 @@
   },
   {
    "id": "hb-04",
-   "order": 101,
+   "order": 100,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-04: The detachment U-11PA-R-F, the commander of C-61VA, artillery completeness (306 versus about 370 batteries, 194 versus about 283 guns)",
@@ -5203,7 +5166,7 @@
   },
   {
    "id": "hb-08",
-   "order": 102,
+   "order": 101,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-08: Successions: 15 of 42 not reflected; sample ten page-level citations",
@@ -5245,7 +5208,7 @@
   },
   {
    "id": "hb-10",
-   "order": 103,
+   "order": 102,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-10: Speeds, frontage, timing default and cap sign-off (Casey 1862, Hardee 1855)",
@@ -5287,7 +5250,7 @@
   },
   {
    "id": "nf-gap-1",
-   "order": 104,
+   "order": 103,
    "wave": null,
    "done": false,
    "title": "Gap: 48 value-and-JSX zero-render sites (app-latent-41) have only the generic ESLint criterion",
@@ -5327,7 +5290,7 @@
   },
   {
    "id": "reg-flag-6",
-   "order": 105,
+   "order": 104,
    "wave": null,
    "done": false,
    "title": "MapLibre version to re-measure",
@@ -5368,7 +5331,7 @@
   },
   {
    "id": "v13",
-   "order": 106,
+   "order": 105,
    "wave": null,
    "done": false,
    "title": "Historian: budgets, OCR gates, QA harness, feedback logging, reader-index offsets, phone latency",
@@ -5408,7 +5371,7 @@
   },
   {
    "id": "vd10-4",
-   "order": 107,
+   "order": 106,
    "wave": null,
    "done": false,
    "title": "Vendor crawler token spellings, any consumer of llms.txt, Google sitemap ping retirement",
@@ -5447,7 +5410,7 @@
   },
   {
    "id": "vd10-5",
-   "order": 108,
+   "order": 107,
    "wave": null,
    "done": false,
    "title": "Rich-result gallery at build time; WebPage.reviewedBy acceptance",
@@ -5486,7 +5449,7 @@
   },
   {
    "id": "vd10-8",
-   "order": 109,
+   "order": 108,
    "wave": null,
    "done": false,
    "title": "20th Maine strength (386 in the data against 358 elsewhere), whether landing.html was ever indexed, search-assistant reliance on Bing",
@@ -5526,7 +5489,7 @@
   },
   {
    "id": "vd11-5",
-   "order": 110,
+   "order": 109,
    "wave": null,
    "done": false,
    "title": "Standards codes for the lessons (V7), D-CLOCK numbers waiting for the signed anchor file (V8)",
@@ -5565,7 +5528,7 @@
   },
   {
    "id": "vd11-7",
-   "order": 111,
+   "order": 110,
    "wave": null,
    "done": false,
    "title": "One definition of the dash baseline (V16): raw 1,938, non-metadata 1,799, rendered 1,639, subset 1,591",
@@ -5605,7 +5568,7 @@
   },
   {
    "id": "vd11-8",
-   "order": 112,
+   "order": 111,
    "wave": null,
    "done": false,
    "title": "Bibliographic data of the inclusive-history candidate sources (V18) and the carried unverified findings (pagesB-23, ux-flows-22, pages-C-40, -79, -84, hist-current-27)",
@@ -5647,7 +5610,7 @@
   },
   {
    "id": "vd12-2",
-   "order": 113,
+   "order": 112,
    "wave": null,
    "done": false,
    "title": "Referer injection honoured for api.mapbox.com; RUM blocking without console error; WEBGL_lose_context recovery on mapbox-gl 3.24.1",
@@ -5687,7 +5650,7 @@
   },
   {
    "id": "vd12-5",
-   "order": 114,
+   "order": 113,
    "wave": null,
    "done": false,
    "title": "Observatory CLI, PDF/UA checker, iOS 16 coverage and device-cloud price",
@@ -5726,7 +5689,7 @@
   },
   {
    "id": "vd13-4",
-   "order": 115,
+   "order": 114,
    "wave": null,
    "done": false,
    "title": "Whether the 28 hourly Bachelder maps exist digitally",
@@ -5765,7 +5728,7 @@
   },
   {
    "id": "vd13-5",
-   "order": 116,
+   "order": 115,
    "wave": null,
    "done": false,
    "title": "East Cavalry Field truth; C-McClanahan-ART versus the horse-artillery batteries",
@@ -5804,7 +5767,7 @@
   },
   {
    "id": "vd14-2",
-   "order": 117,
+   "order": 116,
    "wave": null,
    "done": false,
    "title": "Internet Archive reader index offsets on all Official Records parts and the state books",
@@ -5835,10 +5798,59 @@
    "reads": [],
    "context_files": [
     "tests/historian/lib/leaf-check.mjs",
-    "docs/historian/CORPUS.md"
+    "docs/historian/CORPUS.md",
+    "data-src/sources-v2/registry.json"
    ],
    "depends_on": [],
    "acceptance": "Proof: candidates/r1h/vd14-2/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs vd14-2 --evidence candidates/r1h/vd14-2/evidence.json --test \"<command>\"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named. Specific check (survey next step, 2026-11-13): Repeat the leaf check for each new book.",
+   "acceptance_basis": "machine proof clause + next-step",
+   "done_evidence": null
+  },
+  {
+   "id": "vd14-9",
+   "order": 117,
+   "wave": null,
+   "done": false,
+   "title": "NPS on the soldier roster data; contractor authorship of NPS reports; Bachelder maps; the weather primary",
+   "source": {
+    "part": "B",
+    "id": "VD14-9",
+    "kind": "verification-debt",
+    "status": "OPEN_BUILDABLE",
+    "chapter": "14",
+    "size": "S"
+   },
+   "chapter": "14",
+   "area": "historian",
+   "tier": "legacy-a-line",
+   "tranche": null,
+   "roadmap_nodes": [],
+   "size": "S",
+   "route": {
+    "type": "verification-record",
+    "dir": "candidates/r1h/vd14-9/",
+    "record": "evidence file plus STATUS.json and HANDOFF.md"
+   },
+   "files": [
+    "candidates/r1h/vd14-9/evidence.json",
+    "candidates/r1h/vd14-9/STATUS.json",
+    "candidates/r1h/vd14-9/HANDOFF.md"
+   ],
+   "reads": [],
+   "context_files": [
+    "docs/facts/README.md",
+    "data-src/environment/weather_by_day.json",
+    "docs/basemap1863/SOURCES-roads.md"
+   ],
+   "depends_on": [],
+   "decision": {
+    "rows": [
+     "B21"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: the built candidate data-src/environment/weather_by_day.json may be shown, only with its badges (Measured relayed second-hand, Observed, Reported, Contested), the verification level of each value and the statement t"
+   },
+   "acceptance": "Proof: candidates/r1h/vd14-9/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs vd14-9 --evidence candidates/r1h/vd14-9/evidence.json --test \"<command>\"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named. Specific check (survey next step, 2026-11-13): Do lookups (2) and (3) at one request per second and record each as found or failed with the date; record (4) as open with the two holdings named; the emails of (1) stay with WP-HIST-30.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -7251,7 +7263,10 @@
    "reads": [],
    "context_files": [
     "data-src/build/candidates/adjudication_register.json",
-    "data-src/build/candidates/notable_intensity.json"
+    "data-src/build/candidates/notable_intensity.json",
+    "data-src/ledger/conflict_ledger.json",
+    "tools/ledger/build-ledger.mjs",
+    "docs/facts/README.md"
    ],
    "depends_on": [],
    "acceptance": "Proof: candidates/r1h/hb-05/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs hb-05 --evidence candidates/r1h/hb-05/evidence.json --test \"<command>\"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named. Specific check (survey next step, 2026-11-13): Cite the Official Records and memoirs; publish ranges. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
@@ -7662,10 +7677,13 @@
    "reads": [],
    "context_files": [
     "tools/t0/data/sources/or27_confed_losses.json",
-    "data-src/authorities/authorities.json"
+    "data-src/authorities/authorities.json",
+    "data-src/ledger/conflict_ledger.json",
+    "tools/ledger/build-ledger.mjs",
+    "docs/facts/README.md"
    ],
    "depends_on": [],
-   "acceptance": "Proof: candidates/r1h/vd13-1/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs vd13-1 --evidence candidates/r1h/vd13-1/evidence.json --test \"<command>\"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named. Specific check (survey next step, 2026-11-13): Parse the return from the page images or word boxes; the edition question is the owner's.",
+   "acceptance": "Proof: candidates/r1h/vd13-1/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs vd13-1 --evidence candidates/r1h/vd13-1/evidence.json --test \"<command>\"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named. Specific check (survey next step, 2026-11-13): Parse Surgeon Guild's unit detail from the page images or word boxes and compare its sum with the p. 346 recapitulation; the Busey and Martin figures stay unverified in the ledger (row WSD-09, 10: pages 125 and 260 not read); the edition question is the owner's.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -9763,7 +9781,10 @@
    "context_files": [
     "data-src/authorities/authorities.json",
     "data-src/build/candidates/adjudication_register.json",
-    "docs/data-audit/AUDIT.md"
+    "docs/data-audit/AUDIT.md",
+    "data-src/ledger/conflict_ledger.json",
+    "tools/ledger/build-ledger.mjs",
+    "docs/facts/README.md"
    ],
    "depends_on": [
     "wp-content-04"
@@ -17040,10 +17061,13 @@
    "reads": [],
    "context_files": [
     "docs/battle-theatre/GOVERNANCE/library/acquired_2.json",
-    "tools/historian/ingest/corpus.mjs"
+    "tools/historian/ingest/corpus.mjs",
+    "data-src/sources-v2/ingest-queue.json",
+    "data-src/sources-v2/registry.json",
+    "docs/historian/sources-v2/QC-REPORT.md"
    ],
    "depends_on": [],
-   "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-20 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Locate each registered book on archive.org (the host is reachable, one request per second), record its identifier and imprint year in the registry entry before any download, then run the existing ingestion; each book needs its numbering table. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
+   "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-20 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Ingest the three distinct ready volumes (entries 653, 655 and 656; 654 is the second scan of 653 and its verbatim check) through the archive-fulltext adapter of the existing pipeline once VER-HIST-CORPUS has fixed the download path; locate the Maine, New Jersey, Michigan and Minnesota volumes on archive.org (the host is reachable, one request per second) and record identifier and imprint year in the registry before any download; each book needs its page-numbering table (VD14-2). Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
    "acceptance_basis": "machine proof clause + next-step",
    "needs_split": true,
    "split_hint": [
@@ -17093,10 +17117,13 @@
    "context_files": [
     "tools/t0/data/sources/or27_union_losses.json",
     "tools/t0/data/sources/or27_confed_losses.json",
-    "tools/t0/data/ortable.mjs"
+    "tools/t0/data/ortable.mjs",
+    "data-src/ledger/conflict_ledger.json",
+    "tools/ledger/build-ledger.mjs",
+    "docs/facts/README.md"
    ],
    "depends_on": [],
-   "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-21 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Read the returns from word boxes (never auto-edit digits), keep K+W+M checksum failures in a manual queue, add Fox when a Tier A copy is registered, and publish the reconciliation with the rule OR returns before Fox before Dyer; Busey and Martin stay \"see also\" with edition and page. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
+   "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-21 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Extend the ledger's readings (corps table, two regiments) to the unit returns: read the returns from word boxes (never auto-edit digits), keep K+W+M checksum failures in a manual queue, add Fox when a Tier A copy is registered, and publish the reconciliation with the rule OR returns before Fox before Dyer; Busey and Martin stay \"see also\" with edition and page. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
    "acceptance_basis": "machine proof clause + next-step",
    "needs_split": true,
    "split_hint": [
@@ -17263,14 +17290,17 @@
    "context_files": [
     "data-src/build/candidates/adjudication_register.json",
     "tools/t0/data/ortable.mjs",
-    "docs/data-audit/AUDIT.md"
+    "docs/data-audit/AUDIT.md",
+    "data-src/ledger/conflict_ledger.json",
+    "tools/ledger/build-ledger.mjs",
+    "docs/facts/README.md"
    ],
    "depends_on": [
     "wp-hist-21",
     "wp-data-06b",
     "wp-data-07b"
    ],
-   "acceptance": "Proof: a red-first test under tests/data/ (it fails before the change; the failing log is kept), the work in data-src/, tools/data/, tests/data/, and `node candidates/r1h/_lib/record.mjs wp-data-08b --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Read the casualty returns (the Historian corpus does not read tables, so use the transcriptions under tools/t0/data/sources: or27_union_losses.json, or27_confed_losses.json, and tools/t0/data/ortable.mjs), publish each open item as a range with both sources and the label \"Unreviewed\", and record each as a decision row; never pick a single figure. Plan acceptance (docs/plan/FINAL, WP-DATA-08): N004-N009 pass; grep '51,000' = 0; E2E identical totals across six surfaces; Ledger starts at 0; unit final strength within 1 % of strength - casualties. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
+   "acceptance": "Proof: a red-first test under tests/data/ (it fails before the change; the failing log is kept), the work in data-src/, tools/data/, tests/data/, and `node candidates/r1h/_lib/record.mjs wp-data-08b --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Start from the ledger rows and extend them to the units: read the casualty returns (the Historian corpus does not read tables, so use the transcriptions under tools/t0/data/sources: or27_union_losses.json, or27_confed_losses.json, and tools/t0/data/ortable.mjs), publish each open item as a range with both sources and the label \"Unreviewed\", and record each as a decision row; never pick a single figure. Plan acceptance (docs/plan/FINAL, WP-DATA-08): N004-N009 pass; grep '51,000' = 0; E2E identical totals across six surfaces; Ledger starts at 0; unit final strength within 1 % of strength - casualties. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
    "acceptance_basis": "machine proof clause + next-step + plan-accept",
    "needs_split": true,
    "split_hint": [
@@ -18913,7 +18943,10 @@
    ],
    "reads": [],
    "context_files": [
-    "docs/battle-theatre/GOVERNANCE/library/acquired_2.json"
+    "docs/battle-theatre/GOVERNANCE/library/acquired_2.json",
+    "data-src/sources-v2/ingest-queue.json",
+    "data-src/sources-v2/registry.json",
+    "docs/historian/sources-v2/QC-REPORT.md"
    ],
    "depends_on": [],
    "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-27 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Ingest the acquired history as the first pilot through the registered Tier A pipeline, measure link precision on it, then decide whether to continue. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
@@ -19053,10 +19086,13 @@
    "reads": [],
    "context_files": [
     "docs/battle-theatre/GOVERNANCE/library/acquired_2.json",
-    "tools/historian/ingest/corpus.mjs"
+    "tools/historian/ingest/corpus.mjs",
+    "data-src/sources-v2/ingest-queue.json",
+    "data-src/sources-v2/registry.json",
+    "docs/historian/sources-v2/QC-REPORT.md"
    ],
    "depends_on": [],
-   "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-23 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Locate public-domain copies (1880s to 1890s imprints) on archive.org or the Library of Congress, complete the registry entries (add the Joint Committee report), ingest through the existing pipeline with a perspective tag on every narrative passage (\"written 1863\" versus \"written 1889\"). Plan acceptance (docs/plan/FINAL, WP-HIST-23): perspective + lag on every narrative passage; GQ-020/021/056/074; contested GP items return >= 2 sides or the disclosure; 0 unsupported claims in audit #2. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
+   "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-23 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Ingest the ready accounts first (the order is the queue's rank), then locate public-domain copies (1880s to 1890s imprints) of Battles and Leaders and the Joint Committee report on archive.org or the Library of Congress, complete the registry entries (add the Joint Committee report), ingest through the existing pipeline with a perspective tag on every narrative passage (\"written 1863\" versus \"written 1889\"). Plan acceptance (docs/plan/FINAL, WP-HIST-23): perspective + lag on every narrative passage; GQ-020/021/056/074; contested GP items return >= 2 sides or the disclosure; 0 unsupported claims in audit #2. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
    "acceptance_basis": "machine proof clause + next-step + plan-accept",
    "needs_split": true,
    "split_hint": [
@@ -19105,7 +19141,9 @@
    "reads": [],
    "context_files": [
     "docs/editorial/sign-off-states.md",
-    "historian-src/core/lint.js"
+    "historian-src/core/lint.js",
+    "data-src/ledger/conflict_ledger.json",
+    "docs/facts/README.md"
    ],
    "depends_on": [],
    "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-25 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Seed contested.yaml from the chronology narrative fields and the plan's list (Longstreet and Early delay, Sickles and Meade, the Eleventh Corps collapse, Reynolds's death time, the first shot), add the balance rule and the evidence table; every entry carries both sides with sources and no reviewer wording. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
@@ -19262,7 +19300,10 @@
    ],
    "reads": [],
    "context_files": [
-    "docs/battle-theatre/GOVERNANCE/library/acquired_2.json"
+    "docs/battle-theatre/GOVERNANCE/library/acquired_2.json",
+    "data-src/sources-v2/ingest-queue.json",
+    "data-src/sources-v2/registry.json",
+    "docs/historian/sources-v2/QC-REPORT.md"
    ],
    "depends_on": [],
    "decision": {
@@ -19853,10 +19894,21 @@
    "reads": [],
    "context_files": [
     "data-src/environment/source_windows.json",
-    "tools/historian/ingest/fetch.mjs"
+    "tools/historian/ingest/fetch.mjs",
+    "data-src/environment/weather_by_day.json",
+    "data-src/sources-v2/ingest-queue.json",
+    "data-src/sources-v2/registry.json",
+    "docs/historian/sources-v2/QC-REPORT.md"
    ],
    "depends_on": [],
-   "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-28 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Curate a small set of dated newspaper pages and guide texts with registered licences, fetch within the rate limit, keep weather \"unknown\" until a primary source is found; the offline pack belongs to WP-INFRA-24. Plan acceptance (docs/plan/FINAL, WP-HIST-28): per-item licence checks; `may_send_to_llm=false` enforced; attribution on every excerpt and the OSM layer; GQ-057/075/098/124. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
+   "decision": {
+    "rows": [
+     "B21"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: the built candidate data-src/environment/weather_by_day.json may be shown, only with its badges (Measured relayed second-hand, Observed, Reported, Contested), the verification level of each value and the statement t"
+   },
+   "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-28 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Ingest the ready civilian and press items in the queue's order through the archive-fulltext, gutenberg and loc-ocr adapters; curate further dated newspaper pages and guide texts with registered licences at one request per second; wire the approved weather candidate as a table labelled second-hand with its badges and the contested wind, and keep \"unknown\" only for days and elements without a reading (delegated row B21); the offline pack belongs to WP-INFRA-24. Plan acceptance (docs/plan/FINAL, WP-HIST-28): per-item licence checks; `may_send_to_llm=false` enforced; attribution on every excerpt and the OSM layer; GQ-057/075/098/124. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
    "acceptance_basis": "machine proof clause + next-step + plan-accept",
    "needs_split": true,
    "split_hint": [
@@ -22195,8 +22247,52 @@
    "done_evidence": null
   },
   {
-   "id": "nf-23",
+   "id": "nf-14",
    "order": 453,
+   "wave": null,
+   "done": false,
+   "title": "Watch Together stored XSS and guessable codes",
+   "source": {
+    "part": "B",
+    "id": "NF-14",
+    "kind": "new-finding",
+    "status": "OPEN_BUILDABLE",
+    "chapter": "16",
+    "size": "S"
+   },
+   "chapter": "16",
+   "area": "audit",
+   "tier": "legacy-a-line",
+   "tranche": null,
+   "roadmap_nodes": [],
+   "size": "S",
+   "route": {
+    "type": "umbrella"
+   },
+   "files": [],
+   "reads": [],
+   "context_files": [
+    "tools/t0/patches/PG-core.json",
+    "tests/t0/wtpeer.spec.mjs",
+    "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
+   ],
+   "depends_on": [
+    "wp-pagec-16",
+    "wp-pagec-35",
+    "wp-infra-28b"
+   ],
+   "children": [
+    "wp-pagec-16",
+    "wp-pagec-35",
+    "wp-infra-28b"
+   ],
+   "acceptance": "Proof: every child is done (wp-pagec-16, wp-pagec-35, wp-infra-28b); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): WP-INFRA-28b: codes from crypto.getRandomValues, close the 21st connection, accept only {goto, tick 1..675, note up to 280} from a guest; the finding closes with it.",
+   "acceptance_basis": "machine proof clause + next-step",
+   "done_evidence": null
+  },
+  {
+   "id": "nf-23",
+   "order": 454,
    "wave": null,
    "done": false,
    "title": "The unit canvas ignores devicePixelRatio; trails canvas stuck at 300x150",
@@ -22241,7 +22337,7 @@
   },
   {
    "id": "nf-24",
-   "order": 454,
+   "order": 455,
    "wave": null,
    "done": false,
    "title": "Mobile map has no maxBounds",
@@ -22284,7 +22380,7 @@
   },
   {
    "id": "nf-32",
-   "order": 455,
+   "order": 456,
    "wave": null,
    "done": false,
    "title": "Long sessions, projectors and kiosks untested",
@@ -22323,7 +22419,7 @@
   },
   {
    "id": "nf-33",
-   "order": 456,
+   "order": 457,
    "wave": null,
    "done": false,
    "title": "The key handler switches on key, not code",
@@ -22362,7 +22458,7 @@
   },
   {
    "id": "nf-48",
-   "order": 457,
+   "order": 458,
    "wave": null,
    "done": false,
    "title": "Stale toasts replay after a paused seek; commander toasts dead; date printed twice",
@@ -22405,7 +22501,7 @@
   },
   {
    "id": "nf-49",
-   "order": 458,
+   "order": 459,
    "wave": null,
    "done": false,
    "title": "Help renders behind OOB and Roster; 27 z-index levels",
@@ -22446,7 +22542,7 @@
   },
   {
    "id": "vd11-1",
-   "order": 459,
+   "order": 460,
    "wave": null,
    "done": false,
    "title": "PDF engines: flags, tagged output, PDF/UA checkers (V1); reading-level tool (V11); Vale semantics and inventory recall (V13)",
@@ -22485,7 +22581,7 @@
   },
   {
    "id": "vd14-7",
-   "order": 460,
+   "order": 461,
    "wave": null,
    "done": false,
    "title": "Wayback capture of archive.org URLs",
@@ -22523,7 +22619,7 @@
   },
   {
    "id": "ver16-5",
-   "order": 461,
+   "order": 462,
    "wave": null,
    "done": false,
    "title": "Annex verification 5: re-probe every Mapbox endpoint family for the one 200 on a foreign Referer",
@@ -22561,7 +22657,7 @@
   },
   {
    "id": "ver16-6",
-   "order": 462,
+   "order": 463,
    "wave": null,
    "done": false,
    "title": "Annex verification 6: re-grade from the machine scorecard after two weekly runs",
@@ -22599,7 +22695,7 @@
   },
   {
    "id": "rm-08",
-   "order": 463,
+   "order": 464,
    "wave": null,
    "done": false,
    "title": "Safety-net remainder: static gates, probe cron, tap/layout detectors, LH assert, clock lint, scorecard skeleton, journeys",
@@ -22643,7 +22739,7 @@
   },
   {
    "id": "rm-22",
-   "order": 464,
+   "order": 465,
    "wave": null,
    "done": false,
    "title": "Page hotfix extended: Dashboard, Search, Report/Regiment, Compare, Camera, Documentary, High Ground, Ground",
@@ -22689,7 +22785,7 @@
   },
   {
    "id": "rm-23",
-   "order": 465,
+   "order": 466,
    "wave": null,
    "done": false,
    "title": "Header and redirect generator for both URL spellings; caching classes; hashed data paths",
@@ -22737,7 +22833,7 @@
   },
   {
    "id": "rm-32",
-   "order": 466,
+   "order": 467,
    "wave": null,
    "done": false,
    "title": "Data compat drop 1.0.1 (value-only, after R0)",
@@ -22779,7 +22875,7 @@
   },
   {
    "id": "rm-43",
-   "order": 467,
+   "order": 468,
    "wave": null,
    "done": false,
    "title": "Time module: 33-anchor piecewise clock, schemas, golden tick-clock, validators TM-V1..V21",
@@ -22822,7 +22918,7 @@
   },
   {
    "id": "rm-45",
-   "order": 468,
+   "order": 469,
    "wave": null,
    "done": false,
    "title": "Content triage: wrong-day, misordered, composite events, quotations, arrival audit and kinematics",
@@ -22866,7 +22962,7 @@
   },
   {
    "id": "rm-46",
-   "order": 469,
+   "order": 470,
    "wave": null,
    "done": false,
    "title": "Performance budgets, ratchet, lab gates, INP harness and real-device runs",
@@ -22910,7 +23006,7 @@
   },
   {
    "id": "rm-48",
-   "order": 470,
+   "order": 471,
    "wave": null,
    "done": false,
    "title": "Geometry, extents, places, terrain vs 3DEP, monuments extraction and rights (A part)",
@@ -22956,7 +23052,7 @@
   },
   {
    "id": "rm-49",
-   "order": 471,
+   "order": 472,
    "wave": null,
    "done": false,
    "title": "SEO operations: KPI ledger, traffic-quality protocol, SEO CI suite and runbook",
@@ -23000,7 +23096,7 @@
   },
   {
    "id": "audit-d3",
-   "order": 472,
+   "order": 473,
    "wave": null,
    "done": false,
    "title": "Label collisions; no auto-fly after a day jump",
@@ -23043,7 +23139,7 @@
   },
   {
    "id": "audit-d4",
-   "order": 473,
+   "order": 474,
    "wave": null,
    "done": false,
    "title": "No discoverable Order of Battle on desktop",
@@ -23084,7 +23180,7 @@
   },
   {
    "id": "audit-g1",
-   "order": 474,
+   "order": 475,
    "wave": null,
    "done": false,
    "title": "User-guide PDF defects",
@@ -23124,7 +23220,7 @@
   },
   {
    "id": "audit-h10",
-   "order": 475,
+   "order": 476,
    "wave": null,
    "done": false,
    "title": "Count inconsistency 467 versus 445+",
@@ -23168,7 +23264,7 @@
   },
   {
    "id": "audit-h13",
-   "order": 476,
+   "order": 477,
    "wave": null,
    "done": false,
    "title": "Soldier's Eye hands off to Google Maps; Street View caption",
@@ -23218,7 +23314,7 @@
   },
   {
    "id": "corr-18",
-   "order": 477,
+   "order": 478,
    "wave": null,
    "done": false,
    "title": "Soldier's Eye hand-off confirmed; caption theory unproven; Walkthrough cannot open in Mobile layout",
@@ -23245,18 +23341,20 @@
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
    "depends_on": [
+    "wp-qa-10b",
     "audit-h13"
    ],
    "children": [
+    "wp-qa-10b",
     "audit-h13"
    ],
-   "acceptance": "Proof: every child is done (audit-h13); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): AUDIT-H13.",
+   "acceptance": "Proof: every child is done (wp-qa-10b, audit-h13); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Closes with AUDIT-H13 (the Soldier's Eye hand-off spec, WP-QA-10b): record the hand-off as confirmed and the caption theory as unproven; the Walkthrough's own inability to open in the Mobile layout is reported, not patched (owner decision 2026-10-05 item 6).",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
   {
    "id": "audit-h2",
-   "order": 478,
+   "order": 479,
    "wave": null,
    "done": false,
    "title": "Esc ignored in search; does not close panels",
@@ -23299,7 +23397,7 @@
   },
   {
    "id": "audit-h3",
-   "order": 479,
+   "order": 480,
    "wave": null,
    "done": false,
    "title": "Layout choice not persisted, long splash, no mobile auto-detect",
@@ -23339,7 +23437,7 @@
   },
   {
    "id": "audit-h4",
-   "order": 480,
+   "order": 481,
    "wave": null,
    "done": false,
    "title": "Load and jump clutter; toasts",
@@ -23382,7 +23480,7 @@
   },
   {
    "id": "audit-h7",
-   "order": 481,
+   "order": 482,
    "wave": null,
    "done": false,
    "title": "Developer-log copy in user-facing text",
@@ -23425,7 +23523,7 @@
   },
   {
    "id": "audit-h8",
-   "order": 482,
+   "order": 483,
    "wave": null,
    "done": false,
    "title": "Overpromising names (the Historian is a search)",
@@ -23468,7 +23566,7 @@
   },
   {
    "id": "audit-p3",
-   "order": 483,
+   "order": 484,
    "wave": null,
    "done": false,
    "title": "About 30 JSON fetches on load",
@@ -23513,7 +23611,7 @@
   },
   {
    "id": "audit-p7",
-   "order": 484,
+   "order": 485,
    "wave": null,
    "done": false,
    "title": "Lighthouse failing audits",
@@ -23556,7 +23654,7 @@
   },
   {
    "id": "audit-s1",
-   "order": 485,
+   "order": 486,
    "wave": null,
    "done": false,
    "title": "Battle Reports and Regimental Biography: a lone search box",
@@ -23595,7 +23693,7 @@
   },
   {
    "id": "audit-s2",
-   "order": 486,
+   "order": 487,
    "wave": null,
    "done": false,
    "title": "Ground Remembers map blank for about 3 s",
@@ -23639,7 +23737,7 @@
   },
   {
    "id": "audit-s3",
-   "order": 487,
+   "order": 488,
    "wave": null,
    "done": false,
    "title": "Camera and Viewshed canvas painted incompletely",
@@ -23679,8 +23777,48 @@
    "done_evidence": null
   },
   {
+   "id": "corr-19",
+   "order": 489,
+   "wave": null,
+   "done": false,
+   "title": "Camera and Viewshed canvas incomplete paint did not reproduce",
+   "source": {
+    "part": "B",
+    "id": "CORR-19",
+    "kind": "audit-correction",
+    "status": "OPEN_BUILDABLE",
+    "chapter": "16",
+    "size": "S"
+   },
+   "chapter": "16",
+   "area": "audit",
+   "tier": "legacy-a-line",
+   "tranche": null,
+   "roadmap_nodes": [],
+   "size": "S",
+   "route": {
+    "type": "umbrella"
+   },
+   "files": [],
+   "reads": [],
+   "context_files": [
+    "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
+   ],
+   "depends_on": [
+    "wp-page-36",
+    "audit-s3"
+   ],
+   "children": [
+    "wp-page-36",
+    "audit-s3"
+   ],
+   "acceptance": "Proof: every child is done (wp-page-36, audit-s3); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Closes with AUDIT-S3: write the paint gate of WP-PAGE-36 in the container (a canvas reports when its last tile has painted); the real-device paint check is the owner's step under WP-QA-21a, and until it exists the finding stays unreproduced, neither confirmed nor closed.",
+   "acceptance_basis": "machine proof clause + next-step",
+   "done_evidence": null
+  },
+  {
    "id": "corr-12",
-   "order": 488,
+   "order": 490,
    "wave": null,
    "done": false,
    "title": "Toasts do auto-dismiss; the defects are live regions and stale replays",
@@ -23720,7 +23858,7 @@
   },
   {
    "id": "corr-13",
-   "order": 489,
+   "order": 491,
    "wave": null,
    "done": false,
    "title": "467 records plus 103 batteries = 570 records; 569 distinct units",
@@ -23759,7 +23897,7 @@
   },
   {
    "id": "corr-14",
-   "order": 490,
+   "order": 492,
    "wave": null,
    "done": false,
    "title": "38 boot fetches on desktop, 72 on mobile; the bundle is 79 percent Mapbox",
@@ -23797,7 +23935,7 @@
   },
   {
    "id": "corr-24",
-   "order": 491,
+   "order": 493,
    "wave": null,
    "done": false,
    "title": "Accessibility is D/D by code, not C+/C",
@@ -23835,7 +23973,7 @@
   },
   {
    "id": "d-browsers",
-   "order": 492,
+   "order": 494,
    "wave": null,
    "done": false,
    "title": "Support floor, GPU resilience, in-app browsers",
@@ -23873,7 +24011,7 @@
   },
   {
    "id": "d-design",
-   "order": 493,
+   "order": 495,
    "wave": null,
    "done": false,
    "title": "Dark-only theme, Spectral, education palette",
@@ -23917,7 +24055,7 @@
   },
   {
    "id": "d-urlstate",
-   "order": 494,
+   "order": 496,
    "wave": null,
    "done": false,
    "title": "One deep-link contract",
@@ -23960,7 +24098,7 @@
   },
   {
    "id": "exit-16-2",
-   "order": 495,
+   "order": 497,
    "wave": null,
    "done": false,
    "title": "X-2: the first machine scorecard matches the corrected grades within one step",
@@ -23998,7 +24136,7 @@
   },
   {
    "id": "exit-16-3",
-   "order": 496,
+   "order": 498,
    "wave": null,
    "done": false,
    "title": "X-3: 57 of 57 audit ids and all NF ids trace to a work package and a gate",
@@ -24037,7 +24175,7 @@
   },
   {
    "id": "nf-21",
-   "order": 497,
+   "order": 499,
    "wave": null,
    "done": false,
    "title": "No error boundary; unguarded boot fetches and storage read",
@@ -24080,7 +24218,7 @@
   },
   {
    "id": "nf-25",
-   "order": 498,
+   "order": 500,
    "wave": null,
    "done": false,
    "title": "Ten Confederate regiments keyed U- render as Union; unresolved ids; dual-meaning ids",
@@ -24121,7 +24259,7 @@
   },
   {
    "id": "nf-30",
-   "order": 499,
+   "order": 501,
    "wave": null,
    "done": false,
    "title": "GPU context loss unhandled",
@@ -24164,7 +24302,7 @@
   },
   {
    "id": "nf-31",
-   "order": 500,
+   "order": 502,
    "wave": null,
    "done": false,
    "title": "In-app browsers: no persistence, service worker, Web Share, sensors",
@@ -24205,7 +24343,7 @@
   },
   {
    "id": "nf-34",
-   "order": 501,
+   "order": 503,
    "wave": null,
    "done": false,
    "title": "Browser-injected transformations: translate, forced dark, blockers",
@@ -24246,7 +24384,7 @@
   },
   {
    "id": "nf-38",
-   "order": 502,
+   "order": 504,
    "wave": null,
    "done": false,
    "title": "Phones build two maps, fetch all days, open two billable sessions",
@@ -24291,7 +24429,7 @@
   },
   {
    "id": "nf-39",
-   "order": 503,
+   "order": 505,
    "wave": null,
    "done": false,
    "title": "Six divergent moment lists; Turning Points anchors land on other events",
@@ -24336,7 +24474,7 @@
   },
   {
    "id": "nf-42",
-   "order": 504,
+   "order": 506,
    "wave": null,
    "done": false,
    "title": "terrain.json disagrees with 3DEP; place coordinates differ by up to 2.1 km",
@@ -24377,7 +24515,7 @@
   },
   {
    "id": "nf-43",
-   "order": 505,
+   "order": 507,
    "wave": null,
    "done": false,
    "title": "Immersive: Pause leaves the drone running; no mute or limiter",
@@ -24416,7 +24554,7 @@
   },
   {
    "id": "nf-46",
-   "order": 506,
+   "order": 508,
    "wave": null,
    "done": false,
    "title": "Regimental Biography join finds 1 of 467; Documentary one paragraph; Dashboard 446 px, Compare 528 px",
@@ -24465,7 +24603,7 @@
   },
   {
    "id": "audit-s4",
-   "order": 507,
+   "order": 509,
    "wave": null,
    "done": false,
    "title": "Mobile sub-pages: Dashboard chart, Compare tabs, targets",
@@ -24508,7 +24646,7 @@
   },
   {
    "id": "corr-08",
-   "order": 508,
+   "order": 510,
    "wave": null,
    "done": false,
    "title": "Chip and button contrast come from the shared reset; the Dashboard key widens the phone layout",
@@ -24546,7 +24684,7 @@
   },
   {
    "id": "nf-47",
-   "order": 509,
+   "order": 511,
    "wave": null,
    "done": false,
    "title": "The unit panel reads exact-tick rows only",
@@ -24589,7 +24727,7 @@
   },
   {
    "id": "nf-52",
-   "order": 510,
+   "order": 512,
    "wave": null,
    "done": false,
    "title": "Interaction hot spots: Roster +4,989 nodes, Select Mobile INP, Skip intro",
@@ -24628,7 +24766,7 @@
   },
   {
    "id": "v12",
-   "order": 511,
+   "order": 513,
    "wave": null,
    "done": false,
    "title": "Toolchain: build tool and static generator versions, private-repo Actions minutes, Forms limits",
@@ -24666,7 +24804,7 @@
   },
   {
    "id": "vd11-4",
-   "order": 512,
+   "order": 514,
    "wave": null,
    "done": false,
    "title": "History checks: 26th NC, Iverson, Avery, Lincoln, Alexander, NPS 23,049 and 28,063, Gottfried 2007, monuments 1,328 (V6)",
@@ -24704,7 +24842,7 @@
   },
   {
    "id": "rm-24",
-   "order": 513,
+   "order": 515,
    "wave": null,
    "done": false,
    "title": "Train S1: extensionless canonical form, sitemap index, robots and crawler policy, IndexNow, social tag parity",
@@ -24755,7 +24893,7 @@
   },
   {
    "id": "rm-28",
-   "order": 514,
+   "order": 516,
    "wave": null,
    "done": false,
    "title": "Operations: monitoring, alerts, synthetic monitors, scheduled drills, test health",
@@ -24801,7 +24939,7 @@
   },
   {
    "id": "rm-34",
-   "order": 515,
+   "order": 517,
    "wave": null,
    "done": false,
    "title": "Numbers and casualty authority (A-line part), retire 467, 445+, 51,000",
@@ -24849,7 +24987,7 @@
   },
   {
    "id": "rm-35",
-   "order": 516,
+   "order": 518,
    "wave": null,
    "done": false,
    "title": "Rights: source registry, tier gate, provenance retro-audit, dispositions, counsel questions",
@@ -24897,7 +25035,7 @@
   },
   {
    "id": "rm-38",
-   "order": 517,
+   "order": 519,
    "wave": null,
    "done": false,
    "title": "Data text hygiene, unit census, headline-figure and quotation adjudication",
@@ -24946,7 +25084,7 @@
   },
   {
    "id": "rm-47",
-   "order": 518,
+   "order": 520,
    "wave": null,
    "done": false,
    "title": "Motion data: densification tooling, keyframe campaign wave 1, hold and interpolation policy",
@@ -24992,7 +25130,7 @@
   },
   {
    "id": "audit-a1",
-   "order": 519,
+   "order": 521,
    "wave": null,
    "done": false,
    "title": "Colour-contrast failures",
@@ -25036,7 +25174,7 @@
   },
   {
    "id": "audit-a2",
-   "order": 520,
+   "order": 522,
    "wave": null,
    "done": false,
    "title": "Unlabeled slider",
@@ -25078,7 +25216,7 @@
   },
   {
    "id": "audit-a3",
-   "order": 521,
+   "order": 523,
    "wave": null,
    "done": false,
    "title": "Tiny targets",
@@ -25118,7 +25256,7 @@
   },
   {
    "id": "audit-a4",
-   "order": 522,
+   "order": 524,
    "wave": null,
    "done": false,
    "title": "9 to 11 px fonts",
@@ -25160,7 +25298,7 @@
   },
   {
    "id": "audit-a5",
-   "order": 523,
+   "order": 525,
    "wave": null,
    "done": false,
    "title": "Unlabeled close buttons",
@@ -25202,7 +25340,7 @@
   },
   {
    "id": "audit-a6",
-   "order": 524,
+   "order": 526,
    "wave": null,
    "done": false,
    "title": "Modal focus, landmarks, reduced motion",
@@ -25246,7 +25384,7 @@
   },
   {
    "id": "audit-c4",
-   "order": 525,
+   "order": 527,
    "wave": null,
    "done": false,
    "title": "Clock versus history versus the app's own narrative",
@@ -25288,7 +25426,7 @@
   },
   {
    "id": "audit-d2",
-   "order": 526,
+   "order": 528,
    "wave": null,
    "done": false,
    "title": "9-11 px type, tiny targets, unlabeled slider, no landmarks",
@@ -25334,7 +25472,7 @@
   },
   {
    "id": "audit-h6",
-   "order": 527,
+   "order": 529,
    "wave": null,
    "done": false,
    "title": "Toolbar iconography inconsistent and small",
@@ -25375,7 +25513,7 @@
   },
   {
    "id": "audit-n1",
-   "order": 528,
+   "order": 530,
    "wave": null,
    "done": false,
    "title": "No editable source; case-mangled deploy zip",
@@ -25418,7 +25556,7 @@
   },
   {
    "id": "audit-p2",
-   "order": 529,
+   "order": 531,
    "wave": null,
    "done": false,
    "title": "2.28 MB bundle, 52 percent unused, boot time",
@@ -25463,7 +25601,7 @@
   },
   {
    "id": "audit-t3",
-   "order": 530,
+   "order": 532,
    "wave": null,
    "done": false,
    "title": "Duplicate URL forms",
@@ -25504,7 +25642,7 @@
   },
   {
    "id": "audit-x3",
-   "order": 531,
+   "order": 533,
    "wave": null,
    "done": false,
    "title": "CSP Report-Only with unsafe-inline and the RUM host missing",
@@ -25552,7 +25690,7 @@
   },
   {
    "id": "d-entry",
-   "order": 532,
+   "order": 534,
    "wave": null,
    "done": false,
    "title": "Boot contract: no gates, intent poster, boot after first paint",
@@ -25594,7 +25732,7 @@
   },
   {
    "id": "d-map-engine",
-   "order": 533,
+   "order": 535,
    "wave": null,
    "done": false,
    "title": "Map engine: Mapbox GL lazy behind a facade; spike",
@@ -25634,7 +25772,7 @@
   },
   {
    "id": "d-schools",
-   "order": 534,
+   "order": 536,
    "wave": null,
    "done": false,
    "title": "Classroom readiness",
@@ -25672,7 +25810,7 @@
   },
   {
    "id": "d-shell",
-   "order": 535,
+   "order": 537,
    "wave": null,
    "done": false,
    "title": "One responsive shell",
@@ -25714,7 +25852,7 @@
   },
   {
    "id": "d-sitegen",
-   "order": 536,
+   "order": 538,
    "wave": null,
    "done": false,
    "title": "Static-page generator: Astro",
@@ -25754,7 +25892,7 @@
   },
   {
    "id": "d-source",
-   "order": 537,
+   "order": 539,
    "wave": null,
    "done": false,
    "title": "Source of truth: closed Tranche 0 plus strangler rebuild",
@@ -25851,7 +25989,7 @@
   },
   {
    "id": "ms-m3",
-   "order": 538,
+   "order": 540,
    "wave": null,
    "done": false,
    "title": "Milestone M3: legacy A-line complete",
@@ -25889,7 +26027,7 @@
   },
   {
    "id": "ms-s1",
-   "order": 539,
+   "order": 541,
    "wave": null,
    "done": false,
    "title": "Milestone S1: train S1 shipped (canonical URLs, sitemap index, robots, tag parity)",
@@ -25927,7 +26065,7 @@
   },
   {
    "id": "nf-10",
-   "order": 540,
+   "order": 542,
    "wave": null,
    "done": false,
    "title": "History-dependent data and renderer: 1,804 keyframes on 188 ticks, module-global carry-forward cache",
@@ -25973,7 +26111,7 @@
   },
   {
    "id": "nf-41",
-   "order": 541,
+   "order": 543,
    "wave": null,
    "done": false,
    "title": "Casualty numbers have no authority; divisions do not sum; VI Corps has no brigades",
@@ -26021,7 +26159,7 @@
   },
   {
    "id": "nf-50",
-   "order": 542,
+   "order": 544,
    "wave": null,
    "done": false,
    "title": "Schools: web filters, WebRTC, Classroom default of period language",
@@ -26062,7 +26200,7 @@
   },
   {
    "id": "perf-od-06",
-   "order": 543,
+   "order": 545,
    "wave": null,
    "done": false,
    "title": "Owner decision: delete the intro from the boot path (20 s moment on a gesture) and adopt the 3 s first-timer boot rule with Text-route triggers",
@@ -26102,7 +26240,7 @@
   },
   {
    "id": "rm-44",
-   "order": 544,
+   "order": 546,
    "wave": null,
    "done": false,
    "title": "Clock on the legacy app (bridge patch on all surfaces) plus truthful clock copy",
@@ -26153,7 +26291,7 @@
   },
   {
    "id": "audit-h1",
-   "order": 545,
+   "order": 547,
    "wave": null,
    "done": false,
    "title": "Floating Ask / Extra Features overlay collides",
@@ -26201,7 +26339,7 @@
   },
   {
    "id": "audit-p6",
-   "order": 546,
+   "order": 548,
    "wave": null,
    "done": false,
    "title": "No source maps",
@@ -26253,7 +26391,7 @@
   },
   {
    "id": "rm-25",
-   "order": 547,
+   "order": 549,
    "wave": null,
    "done": false,
    "title": "Train S2: product name, titles, descriptions, home JSON-LD, trust-pack links, in-app names",
@@ -26315,7 +26453,7 @@
   },
   {
    "id": "rm-26",
-   "order": 548,
+   "order": 550,
    "wave": null,
    "done": false,
    "title": "First-party collector /api/ingest, vitals client, RUM operations, bot policy, SEO events",
@@ -26371,7 +26509,7 @@
   },
   {
    "id": "audit-e2",
-   "order": 549,
+   "order": 551,
    "wave": null,
    "done": false,
    "title": "Name mismatch (Animated Battlefield Map / Interactive Map)",
@@ -26419,7 +26557,7 @@
   },
   {
    "id": "audit-e4",
-   "order": 550,
+   "order": 552,
    "wave": null,
    "done": false,
    "title": "Crawler-only #seo-content block",
@@ -26469,7 +26607,7 @@
   },
   {
    "id": "corr-28",
-   "order": 551,
+   "order": 553,
    "wave": null,
    "done": false,
    "title": "The extra h1s and the monuments hack came with the Sep 9 deploy; #seo-content is fragile, not cloaking",
@@ -26514,7 +26652,7 @@
   },
   {
    "id": "rm-27",
-   "order": 552,
+   "order": 554,
    "wave": null,
    "done": false,
    "title": "CSP stages 0-2 in report-only with a working collector; third-party script origins",
@@ -26571,7 +26709,7 @@
   },
   {
    "id": "rm-30",
-   "order": 553,
+   "order": 555,
    "wave": null,
    "done": false,
    "title": "Train S3: static landing at /, app moved to /map, forwarder, keep/revert measurement, landing performance",
@@ -26623,7 +26761,7 @@
   },
   {
    "id": "ms-s2",
-   "order": 554,
+   "order": 556,
    "wave": null,
    "done": false,
    "title": "Milestone S2: train S2 shipped (name, titles, descriptions, trust links)",
@@ -26668,7 +26806,7 @@
   },
   {
    "id": "nf-29",
-   "order": 555,
+   "order": 557,
    "wave": null,
    "done": false,
    "title": "Report-Only CSP reports nowhere; previews inject scripts",
@@ -26718,7 +26856,7 @@
   },
   {
    "id": "corr-23",
-   "order": 556,
+   "order": 558,
    "wave": null,
    "done": false,
    "title": "CSP has no report endpoint; privacy text puts Street View in the wrong place",
@@ -26765,7 +26903,7 @@
   },
   {
    "id": "nf-44",
-   "order": 557,
+   "order": 559,
    "wave": null,
    "done": false,
    "title": "AR: gesture loss, compass use, declination, leaks, stacked labels",
@@ -26815,7 +26953,7 @@
   },
   {
    "id": "nf-45",
-   "order": 558,
+   "order": 560,
    "wave": null,
    "done": false,
    "title": "Cinematic Export: Safari throw, captions not in the video, rights decision",
@@ -26863,7 +27001,7 @@
   },
   {
    "id": "rm-74",
-   "order": 559,
+   "order": 561,
    "wave": null,
    "done": false,
    "title": "Historian P2: Official Records ingestion, linkers, time evidence, passage engine, golden-passage set, audit",
@@ -26919,7 +27057,7 @@
   },
   {
    "id": "rm-87",
-   "order": 560,
+   "order": 562,
    "wave": null,
    "done": false,
    "title": "Performance exception register, nav speed, static stability",
@@ -26963,7 +27101,7 @@
   },
   {
    "id": "rm-50",
-   "order": 561,
+   "order": 563,
    "wave": null,
    "done": false,
    "title": "Spikes: map-engine facade (O1/O2/O3), unit-render benchmark on a real Android, verification-debt burn-down",
@@ -27005,7 +27143,7 @@
   },
   {
    "id": "rm-60",
-   "order": 562,
+   "order": 564,
    "wave": null,
    "done": false,
    "title": "Time extended: sub-pages and exports adopt the module, solar lighting, per-minute intensity, Historian time tier",
@@ -27049,7 +27187,7 @@
   },
   {
    "id": "rm-69",
-   "order": 563,
+   "order": 565,
    "wave": null,
    "done": false,
    "title": "Map-page loader facade and map-page template (Ground load path)",
@@ -27093,7 +27231,7 @@
   },
   {
    "id": "rm-70",
-   "order": 564,
+   "order": 566,
    "wave": null,
    "done": false,
    "title": "Cutover mechanics: /next beta, flags, go/no-go automation, rollback drills, decommission legacy",
@@ -27139,7 +27277,7 @@
   },
   {
    "id": "rm-72",
-   "order": 565,
+   "order": 567,
    "wave": null,
    "done": false,
    "title": "Regression suites: function, console/fault/GPU, visual, accessibility automation, Historian gates, soak",
@@ -27190,7 +27328,7 @@
   },
   {
    "id": "wp-hist-22",
-   "order": 566,
+   "order": 568,
    "wave": null,
    "done": false,
    "title": "Unit and place page-data export",
@@ -27238,7 +27376,7 @@
   },
   {
    "id": "vd10-7",
-   "order": 567,
+   "order": 569,
    "wave": null,
    "done": false,
    "title": "Mapbox free-tier numbers, Census TIGER terms, the unit-page export schema, Historian phase dates",
@@ -27276,7 +27414,7 @@
   },
   {
    "id": "rm-82",
-   "order": 568,
+   "order": 570,
    "wave": null,
    "done": false,
    "title": "User guide v2: truth audit, generator, PDF/UA or accessible HTML",
@@ -27318,7 +27456,7 @@
   },
   {
    "id": "rm-84",
-   "order": 569,
+   "order": 571,
    "wave": null,
    "done": false,
    "title": "Repository docs and shipped-comment strip",
@@ -27360,7 +27498,7 @@
   },
   {
    "id": "rm-51",
-   "order": 570,
+   "order": 572,
    "wave": null,
    "done": false,
    "title": "Spec extraction, parity harness (T1/T2), hermetic legacy rig, quarry salvage, intended-diff registry",
@@ -27414,7 +27552,7 @@
   },
   {
    "id": "rm-52",
-   "order": 571,
+   "order": 573,
    "wave": null,
    "done": false,
    "title": "Toolchain, build, chunk map and hash scheme, app CI gates, Astro spike",
@@ -27464,7 +27602,7 @@
   },
   {
    "id": "rm-53",
-   "order": 572,
+   "order": 574,
    "wave": null,
    "done": false,
    "title": "Runtime data layer, storage layer and migration, hashed data delivery",
@@ -27510,7 +27648,7 @@
   },
   {
    "id": "rm-54",
-   "order": 573,
+   "order": 575,
    "wave": null,
    "done": false,
    "title": "Pure keyframe engine (stateAt) with the signed carry-forward rule",
@@ -27552,7 +27690,7 @@
   },
   {
    "id": "rm-55",
-   "order": 574,
+   "order": 576,
    "wave": null,
    "done": false,
    "title": "Store slices, playback clock, one lazy map behind a facade, GPU resilience, failure containment",
@@ -27602,7 +27740,7 @@
   },
   {
    "id": "rm-56",
-   "order": 575,
+   "order": 577,
    "wave": null,
    "done": false,
    "title": "Unit renderer R1 (owned canvas, symbol-layer gate R2) and compositing budget",
@@ -27646,7 +27784,7 @@
   },
   {
    "id": "rm-57",
-   "order": 576,
+   "order": 578,
    "wave": null,
    "done": false,
    "title": "Design system: tokens, type scale, icons, motion, theming, component library, accessibility primitives",
@@ -27710,7 +27848,7 @@
   },
   {
    "id": "rm-58",
-   "order": 577,
+   "order": 579,
    "wave": null,
    "done": false,
    "title": "One responsive shell, entry and boot UI, static /map shell, Text/Chronicle route",
@@ -27764,7 +27902,7 @@
   },
   {
    "id": "rm-59",
-   "order": 578,
+   "order": 580,
    "wave": null,
    "done": false,
    "title": "Clock surfaces rebuild-native: playback semantics, hour steps, seek-safe state, ensureDay, accessible time",
@@ -27813,7 +27951,7 @@
   },
   {
    "id": "rm-61",
-   "order": 579,
+   "order": 581,
    "wave": null,
    "done": false,
    "title": "Permanent URL-state contract, moments registry, dv migration, bookmarks",
@@ -27861,7 +27999,7 @@
   },
   {
    "id": "rm-62",
-   "order": 580,
+   "order": 582,
    "wave": null,
    "done": false,
    "title": "Static-site layer: Astro layouts, shared chrome, tokens for 27 pages, head/SEO/share template, CSP-clean templates",
@@ -27927,7 +28065,7 @@
   },
   {
    "id": "rm-63",
-   "order": 581,
+   "order": 583,
    "wave": null,
    "done": false,
    "title": "Ports A: map surface, transport/HUD/timeline, bookmarks, share, unit/story/event panels, notifications",
@@ -27975,7 +28113,7 @@
   },
   {
    "id": "rm-64",
-   "order": 582,
+   "order": 584,
    "wave": null,
    "done": false,
    "title": "Ports B: search, filter, legend, roster, OOB, Follow Ancestor, tools, walkthrough, command palette, header IA",
@@ -28023,7 +28161,7 @@
   },
   {
    "id": "rm-65",
-   "order": 583,
+   "order": 585,
    "wave": null,
    "done": false,
    "title": "Compact presets and mobile-only parity",
@@ -28063,7 +28201,7 @@
   },
   {
    "id": "rm-66",
-   "order": 584,
+   "order": 586,
    "wave": null,
    "done": false,
    "title": "States, share/cite/embed UI, Ask drawer, Help and trust layer",
@@ -28113,7 +28251,7 @@
   },
   {
    "id": "rm-67",
-   "order": 585,
+   "order": 587,
    "wave": null,
    "done": false,
    "title": "Cartography, symbology, legend, overlays, day/night",
@@ -28159,7 +28297,7 @@
   },
   {
    "id": "rm-68",
-   "order": 586,
+   "order": 588,
    "wave": null,
    "done": false,
    "title": "Accessibility structural layer: Data View, unit cursor, pointer alternatives, live regions, forms, settings, reflow",
@@ -28207,7 +28345,7 @@
   },
   {
    "id": "rm-73",
-   "order": 587,
+   "order": 589,
    "wave": null,
    "done": false,
    "title": "Scorecard and traceability generator (rest)",
@@ -28248,7 +28386,7 @@
   },
   {
    "id": "rm-75",
-   "order": 588,
+   "order": 590,
    "wave": null,
    "done": false,
    "title": "Historian P3: state books, casualty facts, unit and place page data",
@@ -28294,7 +28432,7 @@
   },
   {
    "id": "rm-77",
-   "order": 589,
+   "order": 591,
    "wave": null,
    "done": false,
    "title": "Tier-1 page A+: Dashboard chart and content, Search engine and UX, Report and Regiment unit model",
@@ -28338,7 +28476,7 @@
   },
   {
    "id": "rm-78",
-   "order": 590,
+   "order": 592,
    "wave": null,
    "done": false,
    "title": "Tier-2 page A+: Compare, Camera, Documentary, Aftermath, Ground, Students, Turning Points, Find Ancestor, Ledger",
@@ -28390,7 +28528,7 @@
   },
   {
    "id": "rm-81",
-   "order": 591,
+   "order": 593,
    "wave": null,
    "done": false,
    "title": "Train S4: programmatic content in gated batches (moments, ancestors, corps, embeds, cite, OG build, classroom kit v1)",
@@ -28448,7 +28586,7 @@
   },
   {
    "id": "rm-85",
-   "order": 592,
+   "order": 594,
    "wave": null,
    "done": false,
    "title": "Classroom mode, school-network readiness, in-app browser and hostile-environment matrix",
@@ -28494,7 +28632,7 @@
   },
   {
    "id": "rm-86",
-   "order": 593,
+   "order": 595,
    "wave": null,
    "done": false,
    "title": "A+ data depth: keyframe waves 2-3, roads, DEM and OSM, formation model, tenures, provenance backfill",
@@ -28561,7 +28699,7 @@
   },
   {
    "id": "rm-88",
-   "order": 594,
+   "order": 596,
    "wave": null,
    "done": false,
    "title": "CSP enforcement by class, end state, security evidence dossier",
@@ -28608,7 +28746,7 @@
   },
   {
    "id": "ms-m4b",
-   "order": 595,
+   "order": 597,
    "wave": null,
    "done": false,
    "title": "Milestone M4b: grade-A path complete",
@@ -28652,7 +28790,7 @@
   },
   {
    "id": "ux-od-06",
-   "order": 596,
+   "order": 598,
    "wave": null,
    "done": false,
    "title": "Owner decision: tablets 768 to 834 px use the compact layout with side sheets",
@@ -28690,7 +28828,7 @@
   },
   {
    "id": "rm-79",
-   "order": 597,
+   "order": 599,
    "wave": null,
    "done": false,
    "title": "Labs dispositions and retirement mechanics; Immersive keep-gate; tours by link",
@@ -28744,7 +28882,7 @@
   },
   {
    "id": "rm-76",
-   "order": 598,
+   "order": 600,
    "wave": null,
    "done": false,
    "title": "Historian P4: voices, contested-topic registry, reviewed answers, regimental histories",
@@ -28795,7 +28933,7 @@
   },
   {
    "id": "rm-80",
-   "order": 599,
+   "order": 601,
    "wave": null,
    "done": false,
    "title": "Event-less stretches and night moments (sourced)",
@@ -28835,7 +28973,7 @@
   },
   {
    "id": "rm-83",
-   "order": 600,
+   "order": 602,
    "wave": null,
    "done": false,
    "title": "Teach hub, Students edition, press and embed kit, inclusive-history content",
@@ -28887,7 +29025,7 @@
   },
   {
    "id": "rm-90",
-   "order": 601,
+   "order": 603,
    "wave": null,
    "done": false,
    "title": "Immersive A+ (only if kept)",
@@ -28937,7 +29075,7 @@
   },
   {
    "id": "rm-92",
-   "order": 602,
+   "order": 604,
    "wave": null,
    "done": false,
    "title": "Watch Together live relay (only if funded)",
@@ -28985,7 +29123,7 @@
   },
   {
    "id": "rm-91",
-   "order": 603,
+   "order": 605,
    "wave": null,
    "done": false,
    "title": "AR keep: heading engine, markers, on-site test (only if funded)",
@@ -29035,7 +29173,7 @@
   },
   {
    "id": "rm-93",
-   "order": 604,
+   "order": 606,
    "wave": null,
    "done": false,
    "title": "Cinematic Export v2 on an owned basemap (only if funded)",
@@ -29083,7 +29221,7 @@
   },
   {
    "id": "rm-94",
-   "order": 605,
+   "order": 607,
    "wave": null,
    "done": false,
    "title": "Sandbox kept, real viewshed, Ground heat v2, page optional features, Turning Points stretch",
@@ -29143,7 +29281,7 @@
   },
   {
    "id": "rm-95",
-   "order": 606,
+   "order": 608,
    "wave": null,
    "done": false,
    "title": "On-site mode, map-mode convergence, offline pack",
@@ -29195,7 +29333,7 @@
   },
   {
    "id": "rm-96",
-   "order": 607,
+   "order": 609,
    "wave": null,
    "done": false,
    "title": "Historian P5 base, optional semantic reranker, model explanation (C-lite)",
@@ -29249,7 +29387,7 @@
   },
   {
    "id": "rm-97",
-   "order": 608,
+   "order": 610,
    "wave": null,
    "done": false,
    "title": "SEO tier 3: places, commanders, day pages, open dataset and DOI, video channel",
@@ -29303,7 +29441,7 @@
   },
   {
    "id": "rm-03",
-   "order": 609,
+   "order": 611,
    "wave": null,
    "done": true,
    "title": "Decision ratification: 11 class-B ADRs, capacity contract, WBS upkeep",
@@ -29355,7 +29493,7 @@
   },
   {
    "id": "o-t0-3",
-   "order": 610,
+   "order": 612,
    "wave": null,
    "done": true,
    "title": "Sign the carry-forward rule (played-through state; 71 units at tick 1)",
@@ -29407,7 +29545,7 @@
   },
   {
    "id": "o-t0-5",
-   "order": 611,
+   "order": 613,
    "wave": null,
    "done": true,
    "title": "Gold trail: delete with a true caption, or draw it as a map line",
@@ -29459,7 +29597,7 @@
   },
   {
    "id": "owner-2026-10-04-3",
-   "order": 612,
+   "order": 614,
    "wave": null,
    "done": true,
    "title": "Owner decision: do not break the Virtual Walkthrough or the Monuments section (guard passes on baseline and every train; Walkthrough code byte-identical, defects reported not patched)",
@@ -29513,7 +29651,7 @@
   },
   {
    "id": "t0-dev-22",
-   "order": 613,
+   "order": 615,
    "wave": null,
    "done": true,
    "title": "Deviation: shader precompile inside R0",
@@ -29561,7 +29699,7 @@
   },
   {
    "id": "a11y-od-01",
-   "order": 614,
+   "order": 616,
    "wave": null,
    "done": true,
    "title": "Owner decision: target WCAG 2.2 AA plus the cheap AAA items; say \"partially conforms\" until independent evidence exists",
@@ -29616,7 +29754,7 @@
   },
   {
    "id": "a11y-od-03",
-   "order": 615,
+   "order": 617,
    "wave": null,
    "done": true,
    "title": "Owner decision: delete the reveal and collision-mover scripts of index.html in T0",
@@ -29666,7 +29804,7 @@
   },
   {
    "id": "a11y-od-05",
-   "order": 616,
+   "order": 618,
    "wave": null,
    "done": true,
    "title": "Owner decision: side colours: luminance-separated pair with hatch and letters, or today's hues with chamfer and hatch",
@@ -29720,7 +29858,7 @@
   },
   {
    "id": "a11y-od-06",
-   "order": 617,
+   "order": 619,
    "wave": null,
    "done": true,
    "title": "Owner decision: desktop toolbar 32 px or 44 px targets",
@@ -29769,7 +29907,7 @@
   },
   {
    "id": "a11y-od-08",
-   "order": 618,
+   "order": 620,
    "wave": null,
    "done": true,
    "title": "Owner decision: translate=\"no\" only on canvas labels, unit names and clocks",
@@ -29827,7 +29965,7 @@
   },
   {
    "id": "a11y-od-09",
-   "order": 619,
+   "order": 621,
    "wave": null,
    "done": true,
    "title": "Owner decision: Labs dispositions: accessibility work only if the page is kept",
@@ -29883,7 +30021,7 @@
   },
   {
    "id": "cd-3",
-   "order": 620,
+   "order": 622,
    "wave": null,
    "done": true,
    "title": "Guide engine and edition (Letter and A4, light print edition)",
@@ -29935,7 +30073,7 @@
   },
   {
    "id": "cd-4",
-   "order": 621,
+   "order": 623,
    "wave": null,
    "done": true,
    "title": "Response promises (acknowledge within 3 days, fix or explain within 30)",
@@ -29983,7 +30121,7 @@
   },
   {
    "id": "cd-6",
-   "order": 622,
+   "order": 624,
    "wave": null,
    "done": true,
    "title": "Standards alignment on Teach only after teacher review",
@@ -30031,7 +30169,7 @@
   },
   {
    "id": "cd-7",
-   "order": 623,
+   "order": 625,
    "wave": null,
    "done": true,
    "title": "Hub URLs /teach for teachers and /learn for students",
@@ -30079,7 +30217,7 @@
   },
   {
    "id": "cd-8",
-   "order": 624,
+   "order": 626,
    "wave": null,
    "done": true,
    "title": "Reading level: UI at most 8.0, Students at most 8.0, stories 10 to 12",
@@ -30131,7 +30269,7 @@
   },
   {
    "id": "d-name",
-   "order": 625,
+   "order": 627,
    "wave": null,
    "done": true,
    "title": "Product name \"Gettysburg Interactive Map\" (train S2)",
@@ -30189,7 +30327,7 @@
   },
   {
    "id": "hist-od-11",
-   "order": 626,
+   "order": 628,
    "wave": null,
    "done": true,
    "title": "Who authors and reviews the about 60 reviewed answers",
@@ -30237,7 +30375,7 @@
   },
   {
    "id": "hist-od-13",
-   "order": 627,
+   "order": 629,
    "wave": null,
    "done": true,
    "title": "Southern Historical Society Papers without a reviewer",
@@ -30285,7 +30423,7 @@
   },
   {
    "id": "hist-od-14",
-   "order": 628,
+   "order": 630,
    "wave": null,
    "done": true,
    "title": "Optional enumerated outcome event via the telemetry decision",
@@ -30333,7 +30471,7 @@
   },
   {
    "id": "hist-od-15",
-   "order": 629,
+   "order": 631,
    "wave": null,
    "done": true,
    "title": "Publish public-domain page-text permalinks for cited pages",
@@ -30381,7 +30519,7 @@
   },
   {
    "id": "hist-od-3",
-   "order": 630,
+   "order": 632,
    "wave": null,
    "done": true,
    "title": "Numbers policy: Official Records, then Fox, then Dyer; Busey and Martin as see-also with edition and page",
@@ -30429,7 +30567,7 @@
   },
   {
    "id": "hist-od-6",
-   "order": 631,
+   "order": 633,
    "wave": null,
    "done": true,
    "title": "Confederate depth: accept regimental depth from the Official Records part 2 and listed sources with a coverage note",
@@ -30477,7 +30615,7 @@
   },
   {
    "id": "hist-od-7",
-   "order": 632,
+   "order": 634,
    "wave": null,
    "done": true,
    "title": "Stage B and C posture: off; decide at gate G-X with numbers",
@@ -30525,7 +30663,7 @@
   },
   {
    "id": "hist-od-8",
-   "order": 633,
+   "order": 635,
    "wave": null,
    "done": true,
    "title": "Adjacent topics decline with a pointer; sensitive content quoted with a note, hidden toggle, collapsed in Classroom",
@@ -30573,7 +30711,7 @@
   },
   {
    "id": "infra-od-7",
-   "order": 634,
+   "order": 636,
    "wave": null,
    "done": true,
    "title": "HSTS preload go or no-go; widget subdomain; source maps; outside CSP reviewer; hosted versus own collector in the interim",
@@ -30623,7 +30761,7 @@
   },
   {
    "id": "o-16-1",
-   "order": 635,
+   "order": 637,
    "wave": null,
    "done": true,
    "title": "Adopt the section 1.4 grades as the baseline of record for scoring",
@@ -30671,7 +30809,7 @@
   },
   {
    "id": "o-16-2",
-   "order": 636,
+   "order": 638,
    "wave": null,
    "done": true,
    "title": "Add NF-35..NF-54 to the gate catalogue and the traceability generator",
@@ -30723,7 +30861,7 @@
   },
   {
    "id": "od-16",
-   "order": 637,
+   "order": 639,
    "wave": null,
    "done": true,
    "title": "Public claim policy: quote milestones, never \"A+\" before the evidence; S1 and S2 as separate trains",
@@ -30771,7 +30909,7 @@
   },
   {
    "id": "od-18",
-   "order": 638,
+   "order": 640,
    "wave": null,
    "done": true,
    "title": "Time programme: night density, \"about\" sigma, night tint toggle, bridge or wait",
@@ -30825,7 +30963,7 @@
   },
   {
    "id": "od-seo-1",
-   "order": 639,
+   "order": 641,
    "wave": null,
    "done": true,
    "title": "Named authorship, bio and reviewer credit",
@@ -30874,7 +31012,7 @@
   },
   {
    "id": "od-seo-2",
-   "order": 640,
+   "order": 642,
    "wave": null,
    "done": true,
    "title": "Keep trains S1 and S2 separate or combine them",
@@ -30922,7 +31060,7 @@
   },
   {
    "id": "od-seo-4",
-   "order": 641,
+   "order": 643,
    "wave": null,
    "done": true,
    "title": "Landing hero: static SVG poster, live-map preview only if the 45 percent rule fails",
@@ -30970,7 +31108,7 @@
   },
   {
    "id": "od-seo-5",
-   "order": 642,
+   "order": 644,
    "wave": null,
    "done": true,
    "title": "Approve the WP-SEO-13 event list; only client-fired events count",
@@ -31018,7 +31156,7 @@
   },
   {
    "id": "od-seo-6",
-   "order": 643,
+   "order": 645,
    "wave": null,
    "done": true,
    "title": "Crawler policy per D-LICENSE plus Disallow /hx/f/ for all bots",
@@ -31066,7 +31204,7 @@
   },
   {
    "id": "owner-action-09",
-   "order": 644,
+   "order": 646,
    "wave": null,
    "done": true,
    "title": "Four quick calls: sound, heat map, High Ground, Labs list",
@@ -31118,7 +31256,7 @@
   },
   {
    "id": "owner-action-11",
-   "order": 645,
+   "order": 647,
    "wave": null,
    "done": true,
    "title": "Approve the name and the contact plan",
@@ -31170,7 +31308,7 @@
   },
   {
    "id": "page-od-01",
-   "order": 646,
+   "order": 648,
    "wave": null,
    "done": true,
    "title": "Owner decision: unit pages: two URLs sharing unitView until S4, or one Unit page with a print view",
@@ -31226,7 +31364,7 @@
   },
   {
    "id": "page-od-03",
-   "order": 647,
+   "order": 649,
    "wave": null,
    "done": true,
    "title": "Owner decision: Sandbox: retire (default) or fund 3.0 to 4.5 days",
@@ -31282,7 +31420,7 @@
   },
   {
    "id": "page-od-04",
-   "order": 648,
+   "order": 650,
    "wave": null,
    "done": true,
    "title": "Owner decision: real viewshed: off (default) or fund the V2 to V6 packages after cutover",
@@ -31336,7 +31474,7 @@
   },
   {
    "id": "page-od-05",
-   "order": 649,
+   "order": 651,
    "wave": null,
    "done": true,
    "title": "Owner decision: map-page mobile budget (poster 95, activated ceiling 85, or 95 activated)",
@@ -31385,7 +31523,7 @@
   },
   {
    "id": "page-od-06",
-   "order": 650,
+   "order": 652,
    "wave": null,
    "done": true,
    "title": "Owner decision: MAP_IDLE_ACTIVATE: off until the boot-contract and engine spikes have numbers",
@@ -31443,7 +31581,7 @@
   },
   {
    "id": "page-od-08",
-   "order": 651,
+   "order": 653,
    "wave": null,
    "done": true,
    "title": "Owner decision: casualty wording until a reviewer rules",
@@ -31493,7 +31631,7 @@
   },
   {
    "id": "page-od-10",
-   "order": 652,
+   "order": 654,
    "wave": null,
    "done": true,
    "title": "Owner decision: Students folds into /learn at S4",
@@ -31547,7 +31685,7 @@
   },
   {
    "id": "page-od-11",
-   "order": 653,
+   "order": 655,
    "wave": null,
    "done": true,
    "title": "Owner decision: optional packages WP-PAGE-28, 33, 37 and 39: not scheduled",
@@ -31607,7 +31745,7 @@
   },
   {
    "id": "pagec-od-01",
-   "order": 654,
+   "order": 656,
    "wave": null,
    "done": true,
    "title": "Owner decision: Labs: AR, Watch Together, Cinematic Export, Immersive dispositions",
@@ -31681,7 +31819,7 @@
   },
   {
    "id": "pagec-od-02",
-   "order": 655,
+   "order": 657,
    "wave": null,
    "done": true,
    "title": "Owner decision: embed frame-ancestors * or an allow-list; oEmbed yes",
@@ -31736,7 +31874,7 @@
   },
   {
    "id": "pagec-od-03",
-   "order": 656,
+   "order": 658,
    "wave": null,
    "done": true,
    "title": "Owner decision: pause Record on Cinematic Export until its disposition",
@@ -31789,7 +31927,7 @@
   },
   {
    "id": "pagec-od-04",
-   "order": 657,
+   "order": 659,
    "wave": null,
    "done": true,
    "title": "Owner decision: Watch Together Live Sync paused or live",
@@ -31838,7 +31976,7 @@
   },
   {
    "id": "pagec-od-08",
-   "order": 658,
+   "order": 660,
    "wave": null,
    "done": true,
    "title": "Owner decision: casualty model (bell curve sigma 8, sigma = width/6, or linear), headline sums, Busey and Martin as facts",
@@ -31891,7 +32029,7 @@
   },
   {
    "id": "pagec-od-10",
-   "order": 659,
+   "order": 661,
    "wave": null,
    "done": true,
    "title": "Owner decision: tour links in Classroom mode",
@@ -31947,7 +32085,7 @@
   },
   {
    "id": "perf-od-01",
-   "order": 660,
+   "order": 662,
    "wave": null,
    "done": true,
    "title": "Owner decision: accept that legacy /map mobile stays about 88 to 93 lab until cutover (no Track A splitter)",
@@ -32005,7 +32143,7 @@
   },
   {
    "id": "perf-od-02",
-   "order": 661,
+   "order": 663,
    "wave": null,
    "done": true,
    "title": "Owner decision: exception semantics: Performance A+ tolerates the recorded /map mobile lab exception when field p75 is all Good",
@@ -32060,7 +32198,7 @@
   },
   {
    "id": "perf-od-04",
-   "order": 662,
+   "order": 664,
    "wave": null,
    "done": true,
    "title": "Owner decision: approve the vitals event fields and privacy sentence (D-TELEMETRY) and reading CrUX",
@@ -32116,7 +32254,7 @@
   },
   {
    "id": "perf-od-05",
-   "order": 663,
+   "order": 665,
    "wave": null,
    "done": true,
    "title": "Owner decision: visual sign-off for performance side effects",
@@ -32167,7 +32305,7 @@
   },
   {
    "id": "q-data-2",
-   "order": 664,
+   "order": 666,
    "wave": null,
    "done": true,
    "title": "Casualty headline wording",
@@ -32220,7 +32358,7 @@
   },
   {
    "id": "q-data-3",
-   "order": 665,
+   "order": 667,
    "wave": null,
    "done": true,
    "title": "Busey and Martin as facts-only with attribution; open dataset excludes B and M numbers and positions until counsel",
@@ -32268,7 +32406,7 @@
   },
   {
    "id": "q-data-4",
-   "order": 666,
+   "order": 668,
    "wave": null,
    "done": true,
    "title": "Widen map_extent east and relocate East Cavalry Field anchors",
@@ -32320,7 +32458,7 @@
   },
   {
    "id": "q-data-5",
-   "order": 667,
+   "order": 669,
    "wave": null,
    "done": true,
    "title": "Formation-derived regiment positions labelled approximate",
@@ -32372,7 +32510,7 @@
   },
   {
    "id": "q-data-6",
-   "order": 668,
+   "order": 670,
    "wave": null,
    "done": true,
    "title": "Count wording \"569 units (465 regiments, 104 batteries)\"; retire 467 and 445+",
@@ -32424,7 +32562,7 @@
   },
   {
    "id": "q-data-8",
-   "order": 669,
+   "order": 671,
    "wave": null,
    "done": true,
    "title": "U-14BK becomes a search synonym, not a row",
@@ -32472,7 +32610,7 @@
   },
   {
    "id": "qa-od-3",
-   "order": 670,
+   "order": 672,
    "wave": null,
    "done": true,
    "title": "Alert channel and quiet hours",
@@ -32526,7 +32664,7 @@
   },
   {
    "id": "qa-od-5",
-   "order": 671,
+   "order": 673,
    "wave": null,
    "done": true,
    "title": "Scorecard policy (Tier 2 graded A, Labs non-blocking) and the operations ceiling",
@@ -32574,7 +32712,7 @@
   },
   {
    "id": "qa-od-7",
-   "order": 672,
+   "order": 674,
    "wave": null,
    "done": true,
    "title": "Visual-diff and changelog tools",
@@ -32626,7 +32764,7 @@
   },
   {
    "id": "reg-flag-2",
-   "order": 673,
+   "order": 675,
    "wave": null,
    "done": true,
    "title": "Home title \"Five-Minute Steps\" contradicts the time-warp",
@@ -32678,7 +32816,7 @@
   },
   {
    "id": "time-od-04",
-   "order": 674,
+   "order": 676,
    "wave": null,
    "done": true,
    "title": "Owner decision: provisional launch when no reviewer is named (proposed rows, pill, \"about\")",
@@ -32732,7 +32870,7 @@
   },
   {
    "id": "time-od-05",
-   "order": 675,
+   "order": 677,
    "wave": null,
    "done": true,
    "title": "Owner decision: \"about\" threshold 10 or 20 minutes",
@@ -32780,7 +32918,7 @@
   },
   {
    "id": "time-od-06",
-   "order": 676,
+   "order": 678,
    "wave": null,
    "done": true,
    "title": "Owner decision: night stretches keep tick density or become a time-lapse",
@@ -32829,7 +32967,7 @@
   },
   {
    "id": "time-od-07",
-   "order": 677,
+   "order": 679,
    "wave": null,
    "done": true,
    "title": "Owner decision: triage scope: t8 as a context card or delete; July 4 as epilogue cards or ticks 676+",
@@ -32883,7 +33021,7 @@
   },
   {
    "id": "time-od-08",
-   "order": 678,
+   "order": 680,
    "wave": null,
    "done": true,
    "title": "Owner decision: Battle-time as a visible control",
@@ -32936,7 +33074,7 @@
   },
   {
    "id": "time-od-09",
-   "order": 679,
+   "order": 681,
    "wave": null,
    "done": true,
    "title": "Owner decision: night tint default and Daylight toggle",
@@ -32989,7 +33127,7 @@
   },
   {
    "id": "time-od-11",
-   "order": 680,
+   "order": 682,
    "wave": null,
    "done": true,
    "title": "Owner decision: wording: approve \"moment by moment\", the ban list and the D-CLOCK sentence",
@@ -33041,7 +33179,7 @@
   },
   {
    "id": "time-od-12",
-   "order": 681,
+   "order": 683,
    "wave": null,
    "done": true,
    "title": "Owner decision: publishing evidence (Sources and Times credit line, low-authority labels)",
@@ -33093,7 +33231,7 @@
   },
   {
    "id": "cd-2",
-   "order": 682,
+   "order": 684,
    "wave": null,
    "done": true,
    "title": "Publish inclusive-history content and the sensitivity stance",
@@ -33145,7 +33283,7 @@
   },
   {
    "id": "d-scope-tiers",
-   "order": 683,
+   "order": 685,
    "wave": null,
    "done": true,
    "title": "Tiers, Labs ship-or-retire, capacity contract",
@@ -33218,7 +33356,7 @@
   },
   {
    "id": "d-telemetry",
-   "order": 684,
+   "order": 686,
    "wave": null,
    "done": true,
    "title": "One first-party collector",
@@ -33275,7 +33413,7 @@
   },
   {
    "id": "infra-od-3",
-   "order": 685,
+   "order": 687,
    "wave": null,
    "done": true,
    "title": "Google key restriction; NPS video frame versus link-out; ADR amendment for Street View click-to-load and the token literals",
@@ -33329,7 +33467,7 @@
   },
   {
    "id": "infra-od-6",
-   "order": 686,
+   "order": 688,
    "wave": null,
    "done": true,
    "title": "Watch Together: hotfix, earlier retirement or a funded relay; alert channel; GitHub plan; the 10 h per month ceiling; fund On-site mode or not",
@@ -33383,7 +33521,7 @@
   },
   {
    "id": "od-11",
-   "order": 687,
+   "order": 689,
    "wave": null,
    "done": true,
    "title": "Closed-list amendments: error boundary, gold-trail line layer, overlay scripts, Street View click-to-load, token literals",
@@ -33438,7 +33576,7 @@
   },
   {
    "id": "od-12",
-   "order": 688,
+   "order": 690,
    "wave": null,
    "done": true,
    "title": "Carry-forward rule for units after their last keyframe",
@@ -33490,7 +33628,7 @@
   },
   {
    "id": "od-13",
-   "order": 689,
+   "order": 691,
    "wave": null,
    "done": true,
    "title": "Small closed-list additions for natural sort (H5), Order of Battle on desktop (D4), Distance tool (H12)",
@@ -33542,7 +33680,7 @@
   },
   {
    "id": "od-17",
-   "order": 690,
+   "order": 692,
    "wave": null,
    "done": true,
    "title": "Casualty headline wording, count wording \"569 units\", Busey and Martin as facts-only, Historian numbers policy, sensitive-content stance",
@@ -33591,7 +33729,7 @@
   },
   {
    "id": "od-19",
-   "order": 691,
+   "order": 693,
    "wave": null,
    "done": true,
    "title": "Design, engine, renderer and generator after the spikes; Classroom pilot teachers; embed frame-ancestors only on /embed; Cinematic Export and Watch Together",
@@ -33645,7 +33783,7 @@
   },
   {
    "id": "od-2",
-   "order": 692,
+   "order": 694,
    "wave": null,
    "done": true,
    "title": "Name \"Gettysburg Interactive Map\", remove in-app sound, delete the dead heat map",
@@ -33698,7 +33836,7 @@
   },
   {
    "id": "od-seo-9",
-   "order": 693,
+   "order": 695,
    "wave": null,
    "done": true,
    "title": "Kit at /teach and /learn: 3 lessons in v1, 6 by 2027-06-01; two or three pilot teachers",
@@ -33752,7 +33890,7 @@
   },
   {
    "id": "q-data-1",
-   "order": 694,
+   "order": 696,
    "wave": null,
    "done": true,
    "title": "Honest hold versus forever carry-forward of units after their last anchor",
@@ -33804,7 +33942,7 @@
   },
   {
    "id": "a11y-od-04",
-   "order": 695,
+   "order": 697,
    "wave": null,
    "done": true,
    "title": "Owner decision: role=application with a unit cursor on fine pointers; Data View as the default on touch; battle-event announcements off by default",
@@ -33860,7 +33998,7 @@
   },
   {
    "id": "d-root",
-   "order": 696,
+   "order": 698,
    "wave": null,
    "done": true,
    "title": "Landing at / and the app at /map (train S3)",
@@ -33914,7 +34052,7 @@
   },
   {
    "id": "od-9",
-   "order": 697,
+   "order": 699,
    "wave": null,
    "done": true,
    "title": "Root: landing at / and app at /map; entry without chooser or fake fast-forward",
@@ -33966,7 +34104,7 @@
   },
   {
    "id": "page-od-09",
-   "order": 698,
+   "order": 700,
    "wave": null,
    "done": true,
    "title": "Owner decision: Aftermath and Students authoring: publish only sourced text; without a reviewer keep four sourced events and skip the student rewrite",
@@ -34022,7 +34160,7 @@
   },
   {
    "id": "arch-od-05",
-   "order": 699,
+   "order": 701,
    "wave": null,
    "done": true,
    "title": "Owner decision: React 18.3.1 through cutover, Preact behind a gate",
@@ -34075,7 +34213,7 @@
   },
   {
    "id": "arch-od-07",
-   "order": 700,
+   "order": 702,
    "wave": null,
    "done": true,
    "title": "Owner decision: the cutover changes the look; contact-sheet review instead of pixel parity",
@@ -34128,7 +34266,7 @@
   },
   {
    "id": "arch-od-08",
-   "order": 701,
+   "order": 703,
    "wave": null,
    "done": true,
    "title": "Owner decision: which of Walkthrough, NPS Tour, Soldier's Eye may slip",
@@ -34181,7 +34319,7 @@
   },
   {
    "id": "arch-od-09",
-   "order": 702,
+   "order": 704,
    "wave": null,
    "done": true,
    "title": "Owner decision: beta promotion banner and its copy",
@@ -34235,7 +34373,7 @@
   },
   {
    "id": "prov-r1f-a6",
-   "order": 703,
+   "order": 705,
    "wave": null,
    "done": true,
    "title": "Entry of about 30 units at one tick stays one solve task",
@@ -34283,7 +34421,7 @@
   },
   {
    "id": "prov-wg-17",
-   "order": 704,
+   "order": 706,
    "wave": null,
    "done": true,
    "title": "Virtual Walkthrough map dies when the window crosses 860 px while open",
@@ -34331,7 +34469,7 @@
   },
   {
    "id": "ux-od-01",
-   "order": 705,
+   "order": 707,
    "wave": null,
    "done": true,
    "title": "Owner decision: remove the chooser, the onboarding modal and the fake fast-forward",
@@ -34385,7 +34523,7 @@
   },
   {
    "id": "ux-od-02",
-   "order": 706,
+   "order": 708,
    "wave": null,
    "done": true,
    "title": "Owner decision: default 20-second moment",
@@ -34438,7 +34576,7 @@
   },
   {
    "id": "ux-od-04",
-   "order": 707,
+   "order": 709,
    "wave": null,
    "done": true,
    "title": "Owner decision: Spectral or system fonts; light theme",
@@ -34491,7 +34629,7 @@
   },
   {
    "id": "ux-od-08",
-   "order": 708,
+   "order": 710,
    "wave": null,
    "done": true,
    "title": "Owner decision: fund On-site/AR (20 to 30 days plus a field test) or build the Visit hub MVP only",
@@ -34549,7 +34687,7 @@
   },
   {
    "id": "rm-98",
-   "order": 709,
+   "order": 711,
    "wave": null,
    "done": true,
    "title": "Contingent: AST-split bridge, July 4 epilogue ticks, Labs accessibility if kept, CWSS rosters if permitted (rosters not sized)",

@@ -465,7 +465,7 @@ def match_quote(st, quote, max_edit_ratio=0.025):
     """Find `quote` in SourceText st.  Returns dict(mode, spans=[(raw_start, raw_end, dist)], ...) or mode 'none'.
     Modes in order: exact (whitespace-collapsed, hyphenation joined), typo (case and typography), ocr (confusable fold, punctuation
     ignored), edit (bounded edit distance on the fold)."""
-    q = squash(quote)
+    q = squash(re.sub(r'(?<=[A-Za-z])-[ \t]*\r?\n[ \t]*(?=[a-z])', '', quote))
     if not q:
         return {'mode': 'none', 'spans': []}
     spans = []

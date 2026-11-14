@@ -9,6 +9,7 @@
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
 import { serve } from '../tools/serve.mjs';
+import { spawnSync } from 'node:child_process';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), REPO = path.resolve(here, '../../../..');
 const out = path.resolve(process.argv[2] || path.join(REPO, 'tmp/ext-site-places-browser')), mode = process.argv[3] === 'full' ? 'full' : process.argv[3] === 'look' ? 'look' : process.argv[3] === 'units' ? 'units' : 'light', port = +process.env.BT_PLACES_PORT || 10827; fs.mkdirSync(out, { recursive: true });
@@ -235,4 +236,15 @@ try {
 } catch (e) { check('the harness ran to the end', false, String(e.stack || e).slice(0, 1200)); }
 finally { save(); await br.close().catch(() => {}); await new Promise(r => srv.close(r)); }
 console.log(`${results.checks.length - failed} of ${results.checks.length} checks passed (${mode}); results: ${path.join(out, 'results.json')}`);
+// Follow-on modes in the same process tree, so that a machine-lock turn is waited for once: the light mode reads the file `then` that stands beside its output folder (for example "look units")
+// and runs each listed mode here, one after the other, each with its own output folder and log beside it. Without that file nothing of this happens.
+const thenFile = path.join(path.dirname(out), 'then');
+if (mode === 'light' && fs.existsSync(thenFile)) {
+  for (const m of fs.readFileSync(thenFile, 'utf8').split(/\s+/).filter(x => ['look', 'units', 'full'].includes(x))) {
+    const log = fs.openSync(path.join(path.dirname(out), m + '.log'), 'w');
+    const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), path.join(path.dirname(out), m), m], { stdio: ['ignore', log, log], env: process.env });
+    fs.closeSync(log); fs.appendFileSync(path.join(path.dirname(out), 'driver.out'), `${m} exit ${r.status}\n`);
+  }
+  fs.appendFileSync(path.join(path.dirname(out), 'driver.out'), 'done\n');
+}
 process.exit(failed ? 1 : 0);

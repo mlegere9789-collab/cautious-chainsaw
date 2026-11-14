@@ -1,0 +1,1553 @@
+{
+ "_doc": "Clips that show soldier work and routine, and the poses no clip shows (tools/bt/life/build_poses.py). Listing a pose claims nothing about 1863: the evidence rows say what was done, where and by whom. P1 = an activity the plan or the record already names or that every camp scene needs; P2 = needed when a row names it. A pose is authored only when at least one evidence row names it in pose_needed (demand counted by build_poses.py --demand).",
+ "schema": "life-poses-1",
+ "clips_file": "docs/battle-theatre/app/data/anim3d/clips.json",
+ "rig_props": [
+  "prop_long",
+  "prop_sword",
+  "prop_pole",
+  "prop_instr"
+ ],
+ "clip_count": 397,
+ "activity_clips": [
+  {
+   "id": "dig_shovel",
+   "family": "activity",
+   "label": "Digging with a spade / shovel (earthworks are built on screen, plan B.7)",
+   "loop": true,
+   "durS": 2.6,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "worker",
+   "props": {
+    "prop_pole": "shovel"
+   },
+   "variants": 5,
+   "covers": [
+    "burial_party",
+    "earth_parapet",
+    "gun_pit_or_epaulement",
+    "rifle_pits"
+   ],
+   "limits": "spade only; one digging motion for earth work, burial and gun pits (no pick, no throwing up, no tamping)"
+  },
+  {
+   "id": "chop_axe",
+   "family": "activity",
+   "label": "Chopping with an axe (felling timber for log works)",
+   "loop": true,
+   "durS": 1.38,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "worker",
+   "props": {
+    "prop_pole": "axe"
+   },
+   "variants": 5,
+   "covers": [
+    "abatis_or_slashing",
+    "log_works"
+   ],
+   "limits": "axe only, one chopping motion (no saw, no trimming limbs, no splitting)"
+  },
+  {
+   "id": "march_carry_rail",
+   "family": "locomotion",
+   "label": "carrying a rail on the shoulder",
+   "loop": true,
+   "durS": 1.6667,
+   "tier": "plausible-procedural",
+   "gap": null,
+   "role": null,
+   "props": null,
+   "variants": 0,
+   "covers": [
+    "log_works",
+    "rail_barricade"
+   ],
+   "limits": "a single man with a rail on the shoulder; walks at 0.85 m/s (no two-man carry, no throwing down)"
+  },
+  {
+   "id": "lay_stone",
+   "family": "activity",
+   "label": "Lifting a stone and setting it in a wall (lay stone breastworks)",
+   "loop": true,
+   "durS": 2.2,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "worker",
+   "props": null,
+   "variants": 5,
+   "covers": [
+    "earth_parapet",
+    "stone_works"
+   ],
+   "limits": "lift and set one stone; no carrying, no prying; also the nearest clip for stacking rails and logs"
+  },
+  {
+   "id": "sit_fire",
+   "family": "activity",
+   "label": "Sitting on the ground at a fire (hands to the warmth, head turning)",
+   "loop": true,
+   "durS": 9,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "camp",
+   "props": null,
+   "variants": 5,
+   "covers": [
+    "cooking",
+    "meal",
+    "rest_halt",
+    "sleep_bivouac"
+   ],
+   "limits": "seated at a fire, hands to the warmth, head turning (no tending, no eating, no writing)"
+  },
+  {
+   "id": "cook_stir",
+   "family": "activity",
+   "label": "Cooking: stirring a pot over a fire",
+   "loop": true,
+   "durS": 2.4,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "camp",
+   "props": {
+    "prop_pole": "ladle"
+   },
+   "variants": 5,
+   "covers": [
+    "cooking"
+   ],
+   "limits": "standing or crouched stirring one pot with a ladle (no frying, no coffee, no kettle carry)"
+  },
+  {
+   "id": "drink_cup",
+   "family": "activity",
+   "label": "Drinking (cup / canteen to the mouth)",
+   "loop": false,
+   "durS": 3.6,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "camp",
+   "props": {
+    "prop_instr": "cup"
+   },
+   "variants": 0,
+   "covers": [
+    "meal",
+    "water_carrying"
+   ],
+   "limits": "cup or canteen to the mouth, one shot, not looped (no filling a vessel)"
+  },
+  {
+   "id": "eat_hardtack",
+   "family": "activity",
+   "label": "Eating (right hand to the mouth, chewing)",
+   "loop": true,
+   "durS": 2.1,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "camp",
+   "props": null,
+   "variants": 5,
+   "covers": [
+    "meal"
+   ],
+   "limits": "hand to mouth and chewing (posture not stated by the clip name: check before use for a seated meal)"
+  },
+  {
+   "id": "sleep_side",
+   "family": "activity",
+   "label": "Sleeping on the side (breathing)",
+   "loop": true,
+   "durS": 5,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "camp",
+   "props": null,
+   "variants": 5,
+   "covers": [
+    "sleep_bivouac"
+   ],
+   "limits": "sleeping on the side, breathing (no supine, no sitting asleep, no pairs)"
+  },
+  {
+   "id": "stand_picket",
+   "family": "activity",
+   "label": "Standing picket (alert, head scanning, rifle at order arms)",
+   "loop": true,
+   "durS": 7.5,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "sentinel",
+   "props": null,
+   "variants": 5,
+   "covers": [
+    "picket_duty"
+   ],
+   "limits": "standing alert, head scanning, rifle at order arms (no pacing, no challenge, no kneeling)"
+  },
+  {
+   "id": "stand_rest",
+   "family": "stand",
+   "label": "rest / at ease (no silence or steadiness required)",
+   "loop": true,
+   "durS": 8,
+   "tier": "documented",
+   "gap": null,
+   "role": null,
+   "props": null,
+   "variants": 5,
+   "covers": [
+    "rest_halt"
+   ],
+   "limits": "rest or at ease; documented in the drill manual (the standing rest, not a seated rest)"
+  },
+  {
+   "id": "orderly_water",
+   "family": "activity",
+   "label": "Orderly carrying a bucket (loop)",
+   "loop": true,
+   "durS": 3,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "orderly",
+   "props": {
+    "prop_instr": "bucket"
+   },
+   "variants": 0,
+   "covers": [
+    "water_carrying"
+   ],
+   "limits": "orderly carrying a bucket (hospital role); usable as a stand-in for a water carry until a canteen carry exists"
+  },
+  {
+   "id": "drummer_beat",
+   "family": "activity",
+   "label": "Drummer beating (alternate sticks; the beat names are Casey HCS-L04)",
+   "loop": true,
+   "durS": 0.75,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "musician",
+   "props": {
+    "prop_instr": "drum"
+   },
+   "variants": 0,
+   "covers": [],
+   "limits": "drummer beating"
+  },
+  {
+   "id": "bugler_call",
+   "family": "activity",
+   "label": "Bugler sounds a call (bugle to the lips)",
+   "loop": false,
+   "durS": 4.2,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "musician",
+   "props": {
+    "prop_instr": "bugle"
+   },
+   "variants": 0,
+   "covers": [],
+   "limits": "bugle call"
+  },
+  {
+   "id": "horse_holder",
+   "family": "cavalry",
+   "label": "Horse-holder (dismounted, holds the reins of the horses)",
+   "loop": true,
+   "durS": 6,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-08",
+   "role": null,
+   "props": null,
+   "variants": 0,
+   "covers": [],
+   "limits": ""
+  },
+  {
+   "id": "officer_point",
+   "family": "activity",
+   "label": "Officer points (left arm extended, the sword stays in the right hand)",
+   "loop": false,
+   "durS": 2.5,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "officer",
+   "props": {
+    "prop_sword": "sword"
+   },
+   "variants": 0,
+   "covers": [],
+   "limits": ""
+  },
+  {
+   "id": "officer_speak",
+   "family": "activity",
+   "label": "Officer speaks to the men (head turns, left hand gestures)",
+   "loop": true,
+   "durS": 3.4,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "officer",
+   "props": {
+    "prop_sword": "sword"
+   },
+   "variants": 0,
+   "covers": [],
+   "limits": ""
+  },
+  {
+   "id": "color_stand",
+   "family": "activity",
+   "label": "Colour-bearer standing with the colours (breeze: small sway)",
+   "loop": true,
+   "durS": 4,
+   "tier": "plausible-procedural",
+   "gap": "G-ANIM-09",
+   "role": "colour_bearer",
+   "props": {
+    "prop_pole": "colours"
+   },
+   "variants": 0,
+   "covers": [],
+   "limits": ""
+  }
+ ],
+ "missing_poses": [
+  {
+   "id": "POSE-L01",
+   "name": "pick_swing",
+   "serves": [
+    "earth_parapet",
+    "rifle_pits",
+    "gun_pit_or_epaulement",
+    "road_cut_or_improved",
+    "burial_party"
+   ],
+   "kind": "labour",
+   "nearest_clip": "dig_shovel",
+   "prop": "prop_pole: pick",
+   "pose": "both hands on the pick helve, overhead swing and strike, stooped recovery; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L02",
+   "name": "shovel_throw_up",
+   "serves": [
+    "earth_parapet",
+    "gun_pit_or_epaulement",
+    "rifle_pits"
+   ],
+   "kind": "labour",
+   "nearest_clip": "dig_shovel",
+   "prop": "prop_pole: shovel",
+   "pose": "standing in the ditch, load the shovel and throw the earth up and forward onto the parapet; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L03",
+   "name": "earth_tamp",
+   "serves": [
+    "earth_parapet",
+    "gun_pit_or_epaulement"
+   ],
+   "kind": "labour",
+   "nearest_clip": "dig_shovel",
+   "prop": "prop_pole: spade or rammer",
+   "pose": "stand on the parapet and tamp or beat the earth with the flat of the spade or a rammer; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L04",
+   "name": "sod_cut_lay",
+   "serves": [
+    "gun_pit_or_epaulement",
+    "earth_parapet"
+   ],
+   "kind": "labour",
+   "nearest_clip": "dig_shovel",
+   "prop": "prop_pole: spade",
+   "pose": "cut a sod with the spade, lift it, lay it grass down on the face of the work; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L05",
+   "name": "log_carry_two",
+   "serves": [
+    "log_works",
+    "barricade_street",
+    "bridge_repaired"
+   ],
+   "kind": "labour",
+   "nearest_clip": "march_carry_rail",
+   "prop": "prop_long: log (two men)",
+   "pose": "two men carry a log or stringer on the shoulders or between them on handspikes, in step; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L06",
+   "name": "log_roll_handspike",
+   "serves": [
+    "log_works",
+    "gun_pit_or_epaulement"
+   ],
+   "kind": "labour",
+   "nearest_clip": "lay_stone",
+   "prop": "prop_long: handspike",
+   "pose": "heave a log along the ground with a handspike, step and re-seat the bar; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L07",
+   "name": "head_log_set",
+   "serves": [
+    "log_works",
+    "breastwork_infantry"
+   ],
+   "kind": "labour",
+   "nearest_clip": "lay_stone",
+   "prop": "prop_long: log",
+   "pose": "lift a log from the ground to chest height and set it on top of the work; one shot and loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L08",
+   "name": "rail_pull_fence",
+   "serves": [
+    "fence_taken_down",
+    "rail_barricade"
+   ],
+   "kind": "labour",
+   "nearest_clip": "march_carry_rail",
+   "prop": "prop_long: rail",
+   "pose": "lift a rail out of a zigzag fence, throw it down, take the next; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L09",
+   "name": "rail_stack",
+   "serves": [
+    "rail_barricade",
+    "breastwork_infantry"
+   ],
+   "kind": "labour",
+   "nearest_clip": "lay_stone",
+   "prop": "prop_long: rail",
+   "pose": "lay rails crosswise in a pile, stooped placing, step back; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L10",
+   "name": "stone_carry",
+   "serves": [
+    "stone_works",
+    "wall_improved"
+   ],
+   "kind": "labour",
+   "nearest_clip": "lay_stone",
+   "prop": "prop_pole: stone",
+   "pose": "carry a stone in both hands at the waist or chest over rough ground; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L11",
+   "name": "stone_roll_pry",
+   "serves": [
+    "stone_works"
+   ],
+   "kind": "labour",
+   "nearest_clip": "lay_stone",
+   "prop": "prop_long: bar",
+   "pose": "pry or roll a boulder with a bar or handspike, lean and release; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L12",
+   "name": "saw_crosscut_pair",
+   "serves": [
+    "log_works",
+    "abatis_or_slashing"
+   ],
+   "kind": "labour",
+   "nearest_clip": "chop_axe",
+   "prop": "prop_long: crosscut saw (two men)",
+   "pose": "two men draw a crosscut saw alternately through a trunk, kneeling or stooped; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L13",
+   "name": "trunk_trim_limbs",
+   "serves": [
+    "abatis_or_slashing",
+    "log_works"
+   ],
+   "kind": "labour",
+   "nearest_clip": "chop_axe",
+   "prop": "prop_pole: axe",
+   "pose": "stooped over a felled trunk, trim the limbs with short axe strokes, step along; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L14",
+   "name": "abatis_drag_place",
+   "serves": [
+    "abatis_or_slashing"
+   ],
+   "kind": "labour",
+   "nearest_clip": "march_carry_rail",
+   "prop": "prop_long: tree top",
+   "pose": "drag a tree top or branch by the butt, set it with the points outward; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L15",
+   "name": "stake_drive_maul",
+   "serves": [
+    "works_layout",
+    "gun_pit_or_epaulement"
+   ],
+   "kind": "labour",
+   "nearest_clip": "chop_axe",
+   "prop": "prop_pole: maul and stake",
+   "pose": "hold a stake upright, strike it with the maul; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L16",
+   "name": "line_pace_officer",
+   "serves": [
+    "works_layout"
+   ],
+   "kind": "labour",
+   "nearest_clip": "officer_point",
+   "prop": "prop_sword: sword at the side",
+   "pose": "an officer walks the line with measured steps and points out the trace to the men told off; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L17",
+   "name": "plank_pry_loophole",
+   "serves": [
+    "loopholing"
+   ],
+   "kind": "labour",
+   "nearest_clip": "chop_axe",
+   "prop": "prop_pole: bar or axe",
+   "pose": "pry a board off a wall or cut through it at head height; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L18",
+   "name": "carry_bulky_pair",
+   "serves": [
+    "barricade_street"
+   ],
+   "kind": "labour",
+   "nearest_clip": "carry_litter_front",
+   "prop": "prop_long: bulky object (two men)",
+   "pose": "two men carry a bulky object (barrel, box, wagon box) between them; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L19",
+   "name": "pontoon_chess_lay",
+   "serves": [
+    "bridge_laid",
+    "bridge_repaired",
+    "battery_platform"
+   ],
+   "kind": "labour",
+   "nearest_clip": "lay_stone",
+   "prop": "prop_long: plank",
+   "pose": "stoop on a bridge or platform and lay a plank across the stringers, step forward; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L20",
+   "name": "pontoon_pole_boat",
+   "serves": [
+    "bridge_laid",
+    "ford_improved"
+   ],
+   "kind": "labour",
+   "nearest_clip": "march_carry_rail",
+   "prop": "prop_long: pole or oar",
+   "pose": "stand in a boat and set a pole or pull an oar; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L21",
+   "name": "torch_set_fire",
+   "serves": [
+    "bridge_destroyed"
+   ],
+   "kind": "labour",
+   "nearest_clip": "stand_picket",
+   "prop": "prop_pole: torch or straw bundle",
+   "pose": "stoop, set a bundle of straw alight and push it under a structure, step back; one shot",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L24",
+   "name": "fire_beat_bucket_line",
+   "serves": [
+    "fire_fighting"
+   ],
+   "kind": "labour",
+   "nearest_clip": "orderly_water",
+   "prop": "prop_instr: bucket; prop_pole: wet blanket or branch",
+   "pose": "pass buckets hand to hand along a line, or beat flames with a wet blanket or a branch; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L22",
+   "name": "tool_bundle_carry",
+   "serves": [
+    "tools_issue_or_carry"
+   ],
+   "kind": "labour",
+   "nearest_clip": "march_carry_rail",
+   "prop": "prop_long: bundle of spades and axes",
+   "pose": "carry a bundle of tools on the shoulder; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-L23",
+   "name": "tool_wagon_hand_out",
+   "serves": [
+    "tools_issue_or_carry"
+   ],
+   "kind": "labour",
+   "nearest_clip": "stand_rest",
+   "prop": "prop_pole: spade handed over",
+   "pose": "at a wagon, take tools from the bed and hand them down the line; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R01",
+   "name": "sit_ground_eat",
+   "serves": [
+    "meal",
+    "ration_issue"
+   ],
+   "kind": "routine",
+   "nearest_clip": "eat_hardtack",
+   "prop": "prop_instr: cup; food in hand",
+   "pose": "seated on the ground, knees up, hand to mouth, cup beside; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R02",
+   "name": "boil_coffee_kneel",
+   "serves": [
+    "cooking",
+    "meal"
+   ],
+   "kind": "routine",
+   "nearest_clip": "cook_stir",
+   "prop": "prop_instr: tin cup on a stick",
+   "pose": "kneel at a small fire and hold a tin cup over the flame, watch it, lift it; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R03",
+   "name": "fry_pan_hold",
+   "serves": [
+    "cooking"
+   ],
+   "kind": "routine",
+   "nearest_clip": "cook_stir",
+   "prop": "prop_pole: frying pan or stick",
+   "pose": "crouch at a fire holding a pan over the coals, turn the food; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R04",
+   "name": "kettle_carry_pole",
+   "serves": [
+    "cooking",
+    "water_carrying"
+   ],
+   "kind": "routine",
+   "nearest_clip": "orderly_water",
+   "prop": "prop_long: pole with kettles",
+   "pose": "carry a camp kettle by the bail, or two kettles on a pole between two men; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R05",
+   "name": "canteen_bundle_carry",
+   "serves": [
+    "water_carrying"
+   ],
+   "kind": "routine",
+   "nearest_clip": "orderly_water",
+   "prop": "prop_instr: canteens by their slings",
+   "pose": "walk with a bundle of canteens hanging from both hands and shoulders; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R06",
+   "name": "spring_draw_kneel",
+   "serves": [
+    "water_carrying",
+    "washing_bathing"
+   ],
+   "kind": "routine",
+   "nearest_clip": "drink_cup",
+   "prop": "prop_instr: canteen or bucket",
+   "pose": "kneel or stoop at a spring or stream, fill the vessel, rise; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R07",
+   "name": "well_pump_work",
+   "serves": [
+    "water_carrying"
+   ],
+   "kind": "routine",
+   "nearest_clip": "orderly_water",
+   "prop": "prop_pole: pump handle or well bucket",
+   "pose": "work a pump handle or draw a bucket at a well; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R08",
+   "name": "ration_sack_carry",
+   "serves": [
+    "ration_issue"
+   ],
+   "kind": "routine",
+   "nearest_clip": "march_carry_rail",
+   "prop": "prop_long: sack or box",
+   "pose": "carry a sack or box of bread on the shoulder or back; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R09",
+   "name": "ration_hand_out",
+   "serves": [
+    "ration_issue"
+   ],
+   "kind": "routine",
+   "nearest_clip": "stand_rest",
+   "prop": "prop_pole: box lid",
+   "pose": "stand at a box or barrel and hand out issue to men in line; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R10",
+   "name": "beef_cut_cleaver",
+   "serves": [
+    "ration_issue",
+    "forage_requisition"
+   ],
+   "kind": "routine",
+   "nearest_clip": "chop_axe",
+   "prop": "prop_pole: cleaver or axe",
+   "pose": "cut meat on a block or a log with a cleaver; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R11",
+   "name": "cattle_drive_walk",
+   "serves": [
+    "forage_requisition",
+    "ration_issue"
+   ],
+   "kind": "routine",
+   "nearest_clip": "march_quick_time_atwill",
+   "prop": "prop_pole: switch",
+   "pose": "walk beside driven cattle with a switch; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R12",
+   "name": "sleep_back",
+   "serves": [
+    "sleep_bivouac"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sleep_side",
+   "prop": "prop_pole: hat or rifle by the side",
+   "pose": "lie on the back under a blanket, hat over the face, breathing; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R13",
+   "name": "sleep_pair_blanket",
+   "serves": [
+    "sleep_bivouac"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sleep_side",
+   "prop": "prop_pole: shared blanket",
+   "pose": "two men lie close under one blanket, back to back; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R14",
+   "name": "doze_sit_tree",
+   "serves": [
+    "sleep_bivouac",
+    "rest_halt"
+   ],
+   "kind": "routine",
+   "nearest_clip": "stand_rest",
+   "prop": "prop_long: musket across the knees",
+   "pose": "sit with the back against a tree or a knapsack, head dropped, doze; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R15",
+   "name": "lie_prop_elbow",
+   "serves": [
+    "rest_halt",
+    "idle_camp_life"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sleep_side",
+   "prop": "none",
+   "pose": "lie propped on one elbow, head turning as if talking; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R16",
+   "name": "sit_ground_idle",
+   "serves": [
+    "rest_halt",
+    "idle_camp_life"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sit_fire",
+   "prop": "none",
+   "pose": "sit on the ground, arms on the knees, shift weight and look about; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R17",
+   "name": "fall_out_roadside_rest",
+   "serves": [
+    "rest_halt",
+    "foot_care_shoes"
+   ],
+   "kind": "routine",
+   "nearest_clip": "stand_rest",
+   "prop": "prop_long: musket on the ground",
+   "pose": "sit or lie against a fence or bank at the roadside after a halt; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R18",
+   "name": "stack_arms",
+   "serves": [
+    "camp_made",
+    "rest_halt"
+   ],
+   "kind": "routine",
+   "nearest_clip": "arms_order_from_shoulder",
+   "prop": "prop_long: musket, stack of three",
+   "pose": "set three muskets upright, lock the bayonets or swivels together, step back; one shot",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R19",
+   "name": "pitch_tent_pair",
+   "serves": [
+    "camp_made"
+   ],
+   "kind": "routine",
+   "nearest_clip": "lay_stone",
+   "prop": "prop_pole: tent poles and canvas",
+   "pose": "two men raise a small tent: spread the cloth, set the poles, tie down; one shot",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R20",
+   "name": "blanket_roll_wrap",
+   "serves": [
+    "sleep_bivouac",
+    "camp_made"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sleep_side",
+   "prop": "prop_pole: blanket roll",
+   "pose": "unroll a blanket roll or roll it up and sling it; one shot",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R21",
+   "name": "firewood_armful_carry",
+   "serves": [
+    "cooking",
+    "camp_made"
+   ],
+   "kind": "routine",
+   "nearest_clip": "march_carry_rail",
+   "prop": "prop_long: wood or rails",
+   "pose": "carry an armful of wood or rails to the fire; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R22",
+   "name": "fire_tend_poke",
+   "serves": [
+    "cooking",
+    "idle_camp_life"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sit_fire",
+   "prop": "prop_pole: stick",
+   "pose": "squat at a camp fire, push a stick into it and feed wood; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R23",
+   "name": "letter_write_sit",
+   "serves": [
+    "idle_camp_life"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sit_fire",
+   "prop": "prop_pole: pencil and paper on the knee",
+   "pose": "sit and write on the knee, pause, write; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R24",
+   "name": "read_sit",
+   "serves": [
+    "idle_camp_life"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sit_fire",
+   "prop": "prop_pole: paper or book",
+   "pose": "sit and hold a paper before the face, turn it; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R25",
+   "name": "pipe_smoke_sit",
+   "serves": [
+    "idle_camp_life"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sit_fire",
+   "prop": "prop_pole: pipe",
+   "pose": "sit, pipe to the mouth, take it away, exhale; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R26",
+   "name": "rifle_clean_sit",
+   "serves": [
+    "idle_camp_life",
+    "ammunition_issue"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sit_fire",
+   "prop": "prop_long: musket across the knees",
+   "pose": "sit and wipe the lock and barrel with a rag, look along it; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R27",
+   "name": "cartridge_box_fill",
+   "serves": [
+    "ammunition_issue"
+   ],
+   "kind": "routine",
+   "nearest_clip": "stand_rest",
+   "prop": "prop_pole: cartridge packets",
+   "pose": "at a crate, take packets, fill the cartridge box, close the flap; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R28",
+   "name": "ammo_box_carry_pair",
+   "serves": [
+    "ammunition_issue"
+   ],
+   "kind": "routine",
+   "nearest_clip": "carry_litter_front",
+   "prop": "prop_long: ammunition box (two men)",
+   "pose": "two men carry an ammunition box by its rope handles; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R29",
+   "name": "shoe_off_foot_inspect",
+   "serves": [
+    "foot_care_shoes"
+   ],
+   "kind": "routine",
+   "nearest_clip": "sit_fire",
+   "prop": "prop_pole: shoe",
+   "pose": "sit, pull off a shoe, look at the foot and the sole; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R30",
+   "name": "wash_face_basin",
+   "serves": [
+    "washing_bathing"
+   ],
+   "kind": "routine",
+   "nearest_clip": "drink_cup",
+   "prop": "prop_instr: basin or cupped hands",
+   "pose": "stoop at a basin or stream, wash face and hands, dry; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R31",
+   "name": "bathe_stream_wade",
+   "serves": [
+    "washing_bathing"
+   ],
+   "kind": "routine",
+   "nearest_clip": "march_route_step_atwill",
+   "prop": "none",
+   "pose": "stand in a creek to the knee, scoop and splash water over the body; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R32",
+   "name": "laundry_wring_scrub",
+   "serves": [
+    "washing_bathing"
+   ],
+   "kind": "routine",
+   "nearest_clip": "cook_stir",
+   "prop": "prop_pole: shirt",
+   "pose": "scrub cloth on a board or stone, wring it; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R33",
+   "name": "sentry_walk_beat",
+   "serves": [
+    "guard_duty",
+    "picket_duty"
+   ],
+   "kind": "routine",
+   "nearest_clip": "march_common_time_shoulder",
+   "prop": "prop_long: musket at the shoulder",
+   "pose": "pace a beat at common time, turn at each end, look along the line; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R34",
+   "name": "sentry_challenge_port",
+   "serves": [
+    "guard_duty",
+    "picket_duty"
+   ],
+   "kind": "routine",
+   "nearest_clip": "stand_picket",
+   "prop": "prop_long: musket at the port",
+   "pose": "bring the musket to the port, face the sound, hold; one shot",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R35",
+   "name": "picket_tree_kneel_watch",
+   "serves": [
+    "picket_duty"
+   ],
+   "kind": "routine",
+   "nearest_clip": "cover_tree_stand_L",
+   "prop": "prop_long: musket",
+   "pose": "kneel behind a tree or rail, head turning to observe, not firing; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R36",
+   "name": "rider_halt_watch",
+   "serves": [
+    "picket_duty",
+    "guard_duty"
+   ],
+   "kind": "routine",
+   "nearest_clip": "rider_command",
+   "prop": "prop_sword: carbine on the thigh",
+   "pose": "sit a halted horse, head turning to watch, horse shifting its weight; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R37",
+   "name": "grave_dig_shallow",
+   "serves": [
+    "burial_party"
+   ],
+   "kind": "routine",
+   "nearest_clip": "dig_shovel",
+   "prop": "prop_pole: shovel",
+   "pose": "dig and throw earth in a shallow trench beside a body on the ground; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R38",
+   "name": "body_carry_blanket_two",
+   "serves": [
+    "burial_party"
+   ],
+   "kind": "routine",
+   "nearest_clip": "carry_litter_front",
+   "prop": "prop_long: blanket with a body (two men)",
+   "pose": "two men carry a body in a blanket by its corners; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R39",
+   "name": "body_lower_trench",
+   "serves": [
+    "burial_party"
+   ],
+   "kind": "routine",
+   "nearest_clip": "lie_down",
+   "prop": "prop_long: blanket with a body",
+   "pose": "lower a body into a trench by the blanket, step back; one shot",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R40",
+   "name": "grave_board_set",
+   "serves": [
+    "burial_party"
+   ],
+   "kind": "routine",
+   "nearest_clip": "dig_shovel",
+   "prop": "prop_pole: headboard and mallet",
+   "pose": "set a headboard at the head of the grave and tap it in; one shot",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R41",
+   "name": "hat_off_stand_bare",
+   "serves": [
+    "burial_party",
+    "religious_service"
+   ],
+   "kind": "routine",
+   "nearest_clip": "stand_rest",
+   "prop": "prop_pole: hat held at the chest",
+   "pose": "stand bareheaded, hat at the chest, head bowed; loop",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R42",
+   "name": "chaplain_read_stand",
+   "serves": [
+    "religious_service"
+   ],
+   "kind": "routine",
+   "nearest_clip": "officer_speak",
+   "prop": "prop_pole: book",
+   "pose": "stand with a book, read, look up at the men; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R43",
+   "name": "fife_play",
+   "serves": [
+    "music_calls"
+   ],
+   "kind": "routine",
+   "nearest_clip": "drummer_beat",
+   "prop": "prop_instr: fife",
+   "pose": "stand and play a fife, fingers moving; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R44",
+   "name": "band_brass_play",
+   "serves": [
+    "music_calls"
+   ],
+   "kind": "routine",
+   "nearest_clip": "bugler_call",
+   "prop": "prop_instr: brass instrument",
+   "pose": "stand and play a brass instrument over the shoulder or in front; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R45",
+   "name": "roll_call_stand_paper",
+   "serves": [
+    "roll_call"
+   ],
+   "kind": "routine",
+   "nearest_clip": "officer_speak",
+   "prop": "prop_pole: roll",
+   "pose": "stand before a rank, read a name from a paper, tick it; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R46",
+   "name": "orders_read_stand",
+   "serves": [
+    "roll_call"
+   ],
+   "kind": "routine",
+   "nearest_clip": "officer_speak",
+   "prop": "prop_pole: paper",
+   "pose": "stand before the assembled men and read an order aloud; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R47",
+   "name": "horse_feed_nosebag",
+   "serves": [
+    "horse_care"
+   ],
+   "kind": "routine",
+   "nearest_clip": "horse_holder",
+   "prop": "prop_pole: nosebag",
+   "pose": "fit a nosebag over the horse's head, stroke its neck; loop (horse head down on its own rig)",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R48",
+   "name": "horse_water_lead",
+   "serves": [
+    "horse_care",
+    "water_carrying"
+   ],
+   "kind": "routine",
+   "nearest_clip": "horse_walk",
+   "prop": "prop_pole: reins",
+   "pose": "lead horses to a stream and let them drink, head down; loop (horse head down on its own rig)",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R49",
+   "name": "horse_groom_curry",
+   "serves": [
+    "horse_care"
+   ],
+   "kind": "routine",
+   "nearest_clip": "horse_holder",
+   "prop": "prop_pole: curry comb",
+   "pose": "stand at the horse's side and curry its flank with short strokes; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R50",
+   "name": "saddle_girth_tighten",
+   "serves": [
+    "horse_care"
+   ],
+   "kind": "routine",
+   "nearest_clip": "horse_holder",
+   "prop": "prop_pole: girth strap",
+   "pose": "lift the stirrup, reach under, draw the girth tight; one shot",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R51",
+   "name": "team_harness_fit",
+   "serves": [
+    "horse_care"
+   ],
+   "kind": "routine",
+   "nearest_clip": "horse_holder",
+   "prop": "prop_pole: collar and trace",
+   "pose": "lift the collar over the horse's head and buckle the traces; one shot",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R52",
+   "name": "horse_graze",
+   "serves": [
+    "horse_care",
+    "rest_halt"
+   ],
+   "kind": "routine",
+   "nearest_clip": "horse_idle",
+   "prop": "none",
+   "pose": "the horse stands with its head down eating from the ground, tail swishing; loop (horse rig)",
+   "priority": "P1",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R53",
+   "name": "ford_wade_carry",
+   "serves": [
+    "water_carrying",
+    "rest_halt"
+   ],
+   "kind": "routine",
+   "nearest_clip": "march_route_step_atwill",
+   "prop": "prop_long: musket and cartridge box held high",
+   "pose": "wade a stream to the thigh, weapon and box held above the water; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R54",
+   "name": "wagon_driver_seat",
+   "serves": [
+    "ration_issue",
+    "forage_requisition"
+   ],
+   "kind": "routine",
+   "nearest_clip": "rider_walk",
+   "prop": "prop_pole: whip or reins",
+   "pose": "sit on a wagon seat with the reins, the team walking; loop (wagon rig)",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  },
+  {
+   "id": "POSE-R55",
+   "name": "wagon_unload_barrel",
+   "serves": [
+    "ration_issue"
+   ],
+   "kind": "routine",
+   "nearest_clip": "march_carry_rail",
+   "prop": "prop_long: barrel or box",
+   "pose": "lift a barrel or box from a wagon tail and carry it away; loop",
+   "priority": "P2",
+   "status": "needed",
+   "gap": "G-ANIM-09",
+   "evidence_rows": null
+  }
+ ],
+ "subkinds_without_any_clip_or_pose": [],
+ "note_horse_and_wagon": "poses marked (horse rig) or (wagon rig) need an animal or vehicle clip of the figures workstream as well as the man; request note, not built here"
+}
