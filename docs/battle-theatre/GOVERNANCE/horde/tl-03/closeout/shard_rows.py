@@ -62,12 +62,15 @@ def apply(old, out_rows, rc1, rc2):
             d['printed_page'] = c.get('printed_page')
             d['page_basis'] = c.get('page_basis')
             d['passage_ref'] = 'supports ' + (what or 'the row') + (('; ' + _clean(c.get('supports'))) if c.get('supports') else '')
-            d['quote_under_15_words'] = c['quote']
-            d['text_offset'] = c['text_offset']
-            d['text_offset_end'] = c['text_offset_end']
-            d['source_file'] = c.get('source_file')
-            d['sha256'] = c.get('sha256')
-            d['quote_reverified_by_code_this_pass'] = True
+            if c['source_id'] == 'COMPUTED':
+                d['computed'] = collections.OrderedDict(what=c['what'], value=c['value'], method=c['method'])
+            else:
+                d['quote_under_15_words'] = c['quote']
+                d['text_offset'] = c['text_offset']
+                d['text_offset_end'] = c['text_offset_end']
+                d['source_file'] = c.get('source_file')
+                d['sha256'] = c.get('sha256')
+                d['quote_reverified_by_code_this_pass'] = True
             for k in ('reading', 'image_check', 'witness', 'note'):
                 if c.get(k):
                     d[k] = c[k]

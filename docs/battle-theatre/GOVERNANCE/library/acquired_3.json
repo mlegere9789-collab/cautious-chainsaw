@@ -204,9 +204,9 @@
   {
    "id": "NPS-HSR-MCCLEAN-BARN",
    "task": "nps-landscape",
-   "title": "Historic Structure Report: The McClean Barn, Gettysburg National Military Park",
-   "creator": null,
-   "date": null,
+   "title": "Historic Structure Report: The McClean Barn, Gettysburg National Military Park (CX 4000-5-0011)",
+   "creator": "Kenneth W. Holt, P.E., Consulting Structural Engineer, and John M. Dickey, F.A.I.A., Media, Pennsylvania, for the National Park Service",
+   "date": "July 1985",
    "url": "https://www.npshistory.com/publications/gett/hsr-mcclean-barn.pdf",
    "bytes": 10679256,
    "sha256": "a57e455d7ebec78214a06cd83cd2907b803e89c69cdb12558eeae1126b11c9f8",
@@ -219,7 +219,7 @@
    "file_kept": true,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "the standard text interleaves the lines of the report's wide text frames and mixes the order of words; the content-stream-order text (pdftotext -raw, scripts/rawtext.py) reads cleanly and is the default for quotes"
   },
   {
    "id": "NPS-HCSR",
@@ -405,8 +405,8 @@
    "id": "NPS-HS-MCPHERSON",
    "task": "nps-landscape",
    "title": "Edward McPherson Farm: Historical Study",
-   "creator": null,
-   "date": null,
+   "creator": "Kathleen R. Georg, Research Historian, Planning & Resource Preservation, Gettysburg National Military Park (the title page prints Kathleen H. Georg in the text layer)",
+   "date": "October 1977 (title page; the day is garbled in the text layer)",
    "url": "https://www.npshistory.com/publications/gett/hs-mcpherson-farm.pdf",
    "bytes": 30427394,
    "sha256": "b251d6d74b7de43dac616335db6fa2bf3d52f3be5053e014d12ff96343b16af8",
@@ -419,7 +419,7 @@
    "file_kept": false,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "photocopied typescript; the OCR text layer has letter-spacing noise and some wrong letters (bam for barn) and digits (190U for 1904, 1903 for 1905); quoted in the cleaned form with {{saved|fixed}} marks and checked against page images"
   },
   {
    "id": "NPS-CLI-1STDAY",
@@ -624,9 +624,9 @@
   {
    "id": "NPS-CLR-CEMETERY",
    "task": "nps-landscape",
-   "title": "Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park",
-   "creator": null,
-   "date": null,
+   "title": "Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park: Site History, Existing Conditions, Analysis and Evaluation, Treatment Recommendations",
+   "creator": "John Auwaerter (with Christopher Anderson, Catherine Ponte, Nathan Powers and Pamela Selby, student assistants); George W. Curry, Project Director; SUNY College of Environmental Science and Forestry; Olmsted Center for Landscape Preservation, National Park Service, Boston",
+   "date": "2017",
    "url": "https://www.npshistory.com/publications/gett/clr-cemetery.pdf",
    "bytes": 270681438,
    "sha256": "546f7d08eb1e494b639f2f7cde82bc1ecbac784386a5a3391e8c0e8bcb18ff7a",
@@ -639,14 +639,14 @@
    "file_kept": false,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "two-column report: the standard text interleaves the columns and the picture captions; the content-stream-order text (pdftotext -raw, scripts/rawtext.py) reads cleanly and is the default for quotes"
   },
   {
    "id": "NPS-GMP-1999-V1",
    "task": "nps-landscape",
-   "title": "Final General Management Plan and Environmental Impact Statement: Volume 1, Gettysburg National Military Park",
-   "creator": null,
-   "date": null,
+   "title": "Final General Management Plan and Environmental Impact Statement, Volume 1: Gettysburg National Military Park",
+   "creator": "National Park Service, U.S. Department of the Interior",
+   "date": "June 1999",
    "url": "https://www.npshistory.com/publications/gett/fgmp-eis-v1-1999.pdf",
    "bytes": 228405349,
    "sha256": "25b49cda108f679053850c22d7677545de63f7b551e94ee9baa011599e845303",
@@ -659,7 +659,7 @@
    "file_kept": false,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "born-digital text, clean; a few OCR-type letter errors (bams for barns, Gulp's for Culp's) are repaired with the explicit {{saved|fixed}} form where a quote contains one"
   },
   {
    "id": "NPS-ADHI",
@@ -724,9 +724,9 @@
   {
    "id": "NPS-NRCA-2017",
    "task": "nps-landscape",
-   "title": "Natural Resource Condition Assessment, Gettysburg National Military Park and Eisenhower National Historic Site",
-   "creator": null,
-   "date": null,
+   "title": "Gettysburg National Military Park and Eisenhower National Historic Site Natural Resource Condition Assessment (Natural Resource Report NPS/NER/NRR-2017/1369)",
+   "creator": "Mary-Jane James, Graduate School of Oceanography, University of Rhode Island, for the National Park Service Natural Resource Stewardship and Science",
+   "date": "January 2017",
    "url": "https://www.npshistory.com/publications/gett/nrr-2017-1369.pdf",
    "bytes": 8762758,
    "sha256": "29cc3b89d3f4a9fce76a45a2e0dba19a46cb5b43a8dbaede063327ec09e65592",
@@ -739,7 +739,7 @@
    "file_kept": true,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "born-digital text, clean"
   },
   {
    "id": "NPS-BOUNDARY-1988",
@@ -844,9 +844,9 @@
   {
    "id": "NPS-COMMON-PRIDE-3",
    "task": "nps-landscape",
-   "title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863 — Part III",
-   "creator": null,
-   "date": null,
+   "title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863, Part III (appendices)",
+   "creator": "Kathleen R. Georg, Research Historian, Gettysburg National Military Park",
+   "date": "January 1981 (as printed: 1/81)",
    "url": "https://www.npshistory.com/publications/gett/common-pride-fame-3.pdf",
    "bytes": 21341065,
    "sha256": "2b9abad7b7f365bba98ffd2448d009cab1cca68cfa357276ef09f3b15dd3b162",
@@ -859,14 +859,14 @@
    "file_kept": true,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "typescript; OCR text layer with light noise (stray marks, split words); quoted in the cleaned form and checked against page images"
   },
   {
    "id": "NPS-DCP-LRT",
    "task": "nps-landscape",
-   "title": "Draft Development Concept Plan/Environmental Assessment: Little Round Top/Devil's Den, Gettysburg National Military Park, Pennsylvania",
-   "creator": null,
-   "date": null,
+   "title": "Draft Development Concept Plan / Environmental Assessment: Gettysburg Little Round Top / Devil's Den, Gettysburg National Military Park, Pennsylvania",
+   "creator": "National Park Service (author not stated on the cover)",
+   "date": "May 1985 (cover: 'draft development concept plan environmental assessment ... may 1985')",
    "url": "https://www.npshistory.com/publications/gett/dcp-ea-little-round-top.pdf",
    "bytes": 7783140,
    "sha256": "28541e8c49059716996be6dcd8f537241c517ae6bbc4809f6417726eb81128a9",
@@ -879,14 +879,14 @@
    "file_kept": true,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "scanned plan; the OCR text layer has letter-spacing noise (G ettysb u rg) and some wrong characters (the fraction 15 1/2 reads as '151 ^'); quoted in the cleaned form and checked against the page image"
   },
   {
    "id": "NPS-DCP-GUINN",
    "task": "nps-landscape",
-   "title": "Development Concept Plan: Guinn Woods Administrative Site Gettysburg National Military Park, Pennsylvania",
-   "creator": null,
-   "date": null,
+   "title": "Development Concept Plan: Guinn Woods Administrative Site, Gettysburg National Military Park, Pennsylvania",
+   "creator": "National Park Service, Denver Service Center (recommended by Donald Falvey, Assistant Manager, Eastern Team)",
+   "date": "1989 (recommended March 8, 1989; concurred June 9, 1989 per PDF p. 2)",
    "url": "https://www.npshistory.com/publications/gett/dcp-guinn-woods.pdf",
    "bytes": 4289493,
    "sha256": "c018a9e3492e3d65ccdc0f3d51ddcd409052e8c03cc82275b6b3871e17ecb12d",
@@ -899,7 +899,7 @@
    "file_kept": true,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "scanned plan; OCR text layer with some noise"
   },
   {
    "id": "NPS-DESIGN-GUIDE",
@@ -924,9 +924,9 @@
   {
    "id": "NPS-HB9-1954",
    "task": "nps-landscape",
-   "title": "Gettysburg National Military Park: Historic Handbook #9 (1954)",
-   "creator": null,
-   "date": null,
+   "title": "Gettysburg National Military Park, Pennsylvania (National Park Service Historical Handbook Series No. 9)",
+   "creator": "Frederick Tilberg, National Park Service",
+   "date": "1954",
    "url": "https://www.npshistory.com/handbooks/historical/9-1954.pdf",
    "bytes": 20636465,
    "sha256": "21bf2c6c1f869b72aeb9efecc22deeedb60194fc9bc8d3b43e6a23890f44b4df",
@@ -939,7 +939,7 @@
    "file_kept": true,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "born-digital text with some scanning noise; clean in the passages extracted"
   },
   {
    "id": "NPS-HB9-1962",
@@ -1004,9 +1004,9 @@
   {
    "id": "NPS-EISE-CLI-REDDING-2004",
    "task": "nps-landscape",
-   "title": "Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2004)",
-   "creator": null,
-   "date": null,
+   "title": "Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site",
+   "creator": "National Park Service",
+   "date": "revised 07/12/2004 (PDF p. 12); park superintendent's concurrence 08/08/2002 (PDF p. 10)",
    "url": "https://www.npshistory.com/publications/eise/cli-clement-redding-farm-2004.pdf",
    "bytes": 4645041,
    "sha256": "063daae3623462666b66e8571e6c7ccf4fdc0acb5bd98160b253a18611b7faaf",
@@ -1019,14 +1019,14 @@
    "file_kept": true,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "born-digital text, clean"
   },
   {
    "id": "NPS-EISE-CLI-LANDSCAPE",
    "task": "nps-landscape",
-   "title": "Cultural Landscapes Inventory: Eisenhower NHS Landscape, Eisenhower National Historic Site",
-   "creator": null,
-   "date": null,
+   "title": "Cultural Landscapes Inventory: Eisenhower National Historic Site Landscape (Farms #1, #2 and #3)",
+   "creator": "National Park Service",
+   "date": "not stated on the cover; park superintendent's concurrence 08/08/2002 (PDF p. 15)",
    "url": "https://www.npshistory.com/publications/eise/cli-landscape.pdf",
    "bytes": 4574576,
    "sha256": "300fccb770df55a221940ef21945ba34ccadb8d6f7b995b05ba5a5bbb444eb32",
@@ -1039,14 +1039,14 @@
    "file_kept": true,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "born-digital text, clean"
   },
   {
    "id": "NPS-EISE-CLR1",
    "task": "nps-landscape",
-   "title": "Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, and Analysis",
-   "creator": null,
-   "date": null,
+   "title": "Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, Analysis",
+   "creator": "J. Tracy Stakely, Margie Coffin Brown and Jeffrey Killion; edited by Carol A. Hegeman; Olmsted Center for Landscape Preservation, National Park Service, Boston",
+   "date": "2005",
    "url": "https://www.npshistory.com/publications/eise/clr1.pdf",
    "bytes": 139407280,
    "sha256": "04a1ecd0da5817421d3aafc929d7cd4d941739fc0347ef242db24bd63e96b109",
@@ -1059,7 +1059,7 @@
    "file_kept": false,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "born-digital text; fi and fl ligature letters kept as single code points (quoted through the plain letters); two-column table pages interleave"
   },
   {
    "id": "NPSGOV-BATTLEFIELD-REHAB",

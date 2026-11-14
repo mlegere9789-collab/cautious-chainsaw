@@ -1,0 +1,366 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "annualreportofad1863main/224",
+ "levels": "N",
+ "stratum": "ME-RET-officers",
+ "family": "ME-RET",
+ "layout": "cols",
+ "kind": "officers",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": null,
+ "rows_stored": 14,
+ "rows_checked": 14,
+ "rows_in_error": 12,
+ "rows_ok": 2,
+ "rows_flagged_ocr_uncertain": 8,
+ "errors": [
+  {
+   "i": 0,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored name '- 1 TT All.' printed 'Samuel H Allen' (Colonel)",
+   "rid": "1st-maine-cavalry#0",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 1,
+   "kinds": [
+    "merge",
+    "name-cut"
+   ],
+   "note": "one stored row holds three printed rows: Calvin S Douty (Lieut Colonel), David P Stowell (Major), Warren L Whitney (Major), with their ranks, residences and dates in the remarks",
+   "rid": "1st-maine-cavalry#1",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "merge",
+    "name-cut"
+   ],
+   "note": "one stored row holds Jarvis C Stevens (Adjutant) and Andrew Griffin (Quartermaster)",
+   "rid": "1st-maine-cavalry#3",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "merge",
+    "name-cut"
+   ],
+   "note": "one stored row holds seven printed rows: George D Haley (read 'Ilaley'), William L Boyd, Clarence D Ulmer, Martin T V Bowman, Samuel C Lovejoy, Emery T Gatchell, Hudson Sawyer",
+   "rid": "1st-maine-cavalry#5",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "merge",
+    "name-cut"
+   ],
+   "note": "one stored row holds Addison P Russell and Samuel Fuller (Joined Field and Staff since Nov. 1, 1862)",
+   "rid": "1st-maine-cavalry#6",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 7,
+   "kinds": [
+    "name-nonperson"
+   ],
+   "note": "stored name 'Discharged and Deceased' (a heading of the prose list below the table)",
+   "rid": "1st-maine-cavalry#7",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 8,
+   "kinds": [
+    "name-nonperson"
+   ],
+   "note": "stored name 'Art1C,man Pi;inciPal' (fragment of the prose list)",
+   "rid": "1st-maine-cavalry#8",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 9,
+   "kinds": [
+    "name-nonperson"
+   ],
+   "note": "stored name 'Dunn ... Band' (fragment of the prose list)",
+   "rid": "1st-maine-cavalry#9",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "name-nonperson"
+   ],
+   "note": "stored name 'Frank' (fragment)",
+   "rid": "1st-maine-cavalry#10",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "name-nonperson"
+   ],
+   "note": "stored name 'C, Band, (name' (fragment)",
+   "rid": "1st-maine-cavalry#11",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 12,
+   "kinds": [
+    "name-nonperson"
+   ],
+   "note": "stored name 'Lovering John,,' (fragment of a run of names)",
+   "rid": "1st-maine-cavalry#12",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 13,
+   "kinds": [
+    "name-nonperson"
+   ],
+   "note": "stored name 'Pl.c/ceTFrank' (fragment)",
+   "rid": "1st-maine-cavalry#13",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "rows 2 (Jonathan P Cilley) and 4 (George W Colby) have a correct name; the 17 men of the table (15 in the table, 2 below) are stored as 7 rows (0-6); the rows 7-13 are fragments of the prose lists that the item reports as not parsed"
+ ],
+ "reader": "names and structure level; crop of the whole table area at 300 dpi (1 Read) compared with the 14 stored rows (the print shows 15 table rows and 2 further men below the table); remarks not compared on this page (the rows are merges, so the remark cells cannot be matched line by line)",
+ "tesseract_prescreen": {
+  "agree": 0,
+  "near": 0,
+  "suspect": 14,
+  "unstored_lines": 37
+ },
+ "read": {
+  "pdf_sha256": "d77de6afc32d44373c94b64f39c58a03398966be0c4260bd34c56e8175e1635c",
+  "pdf_page": 224,
+  "view_png_sha256": "22ac62b24e1d6c0537b6ba6127bf40f2da4de839a25685b1086de3d66176d164",
+  "render300_sha256": "e1df50dc189a0d1b63951b066163bc6b589373f86c76f1bd31cb8c9f5a7094e0",
+  "tess_sha256": "20be198abe8376efd91b231bb0715e95d6c131eadf9cecb7b1cf22c86da99d49",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.851
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "1st-maine-cavalry#0",
+   "name": "- 1 TT All.",
+   "off": 696114,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 1,
+   "rid": "1st-maine-cavalry#1",
+   "name": "Calvin S Douty David P Stowell Warren L Whitney",
+   "off": 696137,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "1st-maine-cavalry#2",
+   "name": "J onathan P Cilley",
+   "off": 696191,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 3,
+   "rid": "1st-maine-cavalry#3",
+   "name": "Jarvis C Stevens Andrew Griffin",
+   "off": 696212,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "1st-maine-cavalry#4",
+   "name": "George W Colby",
+   "off": 696247,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "1st-maine-cavalry#5",
+   "name": "George D Ilaley William L Boyd Clarence D Ulmer Martin T V Bowman Samuel C Lovejoy Emery T Gatchell Hudson Sawyer",
+   "off": 696264,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "1st-maine-cavalry#6",
+   "name": "Addison P Russell Samuel Fuller",
+   "off": 697239,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "1st-maine-cavalry#7",
+   "name": "• Discharged and Deceased",
+   "off": 697659,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 8,
+   "rid": "1st-maine-cavalry#8",
+   "name": "Art1C,man Pi;inciPal",
+   "off": 697740,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 9,
+   "rid": "1st-maine-cavalry#9",
+   "name": "Dams Alexander S,",
+   "off": 697906,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "1st-maine-cavalry#10",
+   "name": "Randolph R Band;",
+   "off": 697992,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 11,
+   "rid": "1st-maine-cavalry#11",
+   "name": "^ Hollis",
+   "off": 698170,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 12,
+   "rid": "1st-maine-cavalry#12",
+   "name": "unk ms Robert, Band;",
+   "off": 698210,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 13,
+   "rid": "1st-maine-cavalry#13",
+   "name": "Charles E^lS",
+   "off": 698286,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-14T01:04:57Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT"
+ }
+}

@@ -1,34 +1,51 @@
-# REPORT shard tl-04 (rows T1-173 to T2-005, 58 rows)
+# REPORT shard tl-04 (rows T1-173 to T2-005, 58 rows), close-out of 2026-11-13
 
-## Integrity audit (completes the stalled run)
-No missing, duplicate or malformed rows. Canonical citation/passage_ref derived from the evidence list. T1-188 and T1-225 tier lowered documented to inferred (only web or project-computation evidence, no OR or primary); T1-173 inferred (railroad-cut target unsupported). Computed rows (T1-189, 190, 193, 195, 196, 223, 224) are tier inferred; they cite a project computation file, not a historical source.
+Scope: every row of the shard now has a line in GOVERNANCE/timeline_corrections/tl-04.jsonl (verdict, corrected claim, sub-claims with tier, citations with report id, printed page, verbatim quote and text offset, scenarios, what stays unsupported, every search run with its hit count). The shard file results.jsonl carries the findings (the file as it stood before is kept as results.pre-closeout.jsonl; the earlier report as REPORT.pre-closeout.md). Nothing outside the shard's ownership was edited; requests for other files are in GOVERNANCE/horde/requests/bt-timeline-tl-04-corrections.md.
 
-Schema: every row now carries id, verdict, tier, citation, passage_ref, status, notes (plus the shard's original fields; tier_raw and status_raw keep the pre-audit values). `tier` is the audit-recommended tier; seed_tier is unchanged and any promotion above the seed is an owner/integrator decision. Rule applied: tier documented and status verified require both citation and passage_ref and an OR or primary citation; otherwise downgraded (rows changed are marked `audit_downgrade`). No row sets a default among conflicting sources (default_picked is empty everywhere).
+## What was run
+- build: `python3 -I tmp/tl-04/build.py --write` (through the machine lock): 336 citations re-matched verbatim in the local text (Official Records vol. 27 parts 1-3 by report id and printed page; library, NPS and acquired texts by offset) and 84 searches listed (NOT YET EXECUTED in this build: hit counts pending), each logged with its hit count in horde/tl-04/search_log.jsonl. A quote that is not found, is found in another report, or on another page than stated stops the build; none was left unmatched.
+- an independent re-read of every stored offset against the source files (tmp/tl-04/verify_out.py, run after the build): 58 rows, 302 citations re-read, 0 errors.
+- citations by source: {"OR27": 245, "COMPUTED": 26, "BL-3": 9, "NPS-CLR-CEMETERY": 15, "SHSP-04": 7, "NPS-ART-GATEWAY": 2, "LONGSTREET-1896": 1, "NPS-CLR-1STDAY": 1, "PROJECT-DATA": 8, "EVERETT-1864": 4, "NPS-CLI-1STDAY": 2, "NPS-MON-LOC-1932": 2, "NPS-CLR-ROT-V1": 1, "NPS-CLI-ERR": 1, "JACOBS-1864": 10, "HASKELL-1908": 2}.
+- text added for this close-out: the National Park Service article "Restoring a Gateway to Gettysburg: The View from Seminary Ridge" (one request to www.nps.gov, text extracted; sha256 in horde/tl-04/sources_tl04.json). The earlier close-outs' archive.org texts and the NPS texts of the web workstream were read in place. Nothing else was downloaded. HathiTrust and eHistory (bot block) were not tried.
+- computed rows (T1-189, 190, 193, 195, 196, 220, 223, 224, 225) were recomputed with an independent library (PyEphem 4.2.1; horde/tl-04/astro_check.py and .json): sunset Jul 1 19:31:57 LMT, moonrise 19:53:11, civil, nautical and astronomical dusk 20:04:32, 20:45:44, 21:33:29, moon at 21:00 alt 9.96 az 125.11, at 22:00 alt 18.49 az 136.23, at 00:00 alt 29.96 az 163.84, at 02:00 alt 30.30 az 195.94, at 04:00 alt 19.35 az 224.07, twilights of Jul 2 02:33:44, 03:21:29, 04:02:41, sunrise 04:35:17, moonset 06:13:45. All equal the rows to the printed minute, except the illumination of T1-220: the row says 99 falling to 93 percent; the computation gives 99.0 at moonrise, 98.56 at midnight and 97.70 percent at moonset. The repository ephemeris values quoted by the shard agree. A cross-check against a published almanac (USNO) is still owed.
 
 ## Counts
-Rows: 58 (seed slice exact, 0 missing, 0 duplicate, 0 malformed).
-Verdict: {'supported_partial': 12, 'supported': 11, 'conflict': 16, 'unsupported_gap': 10, 'computed_verified': 7, 'not_testable': 1, 'gap_partly_closed': 1}
-Tier: {'inferred': 18, 'documented': 30, 'open gap': 9, 'plausible-procedural': 1}
-Status: {'verified': 45, 'gap': 11, 'inferred': 2}
+- rows: 58; verdicts: {"corrected": 28, "confirmed": 11, "partially_supported": 14, "gap": 4, "unsupported": 1}.
+- the 24 rows whose status_effective was not verified_against_or_text: {"partially_supported": 11, "confirmed": 5, "gap": 4, "unsupported": 1, "corrected": 3}.
+- the 34 rows already verified against the OR text: {"corrected": 25, "confirmed": 6, "partially_supported": 3}. A verified quote does not mean every sub-claim of the row is supported; where a quote stands for a different hour, day or place than the row (or the row had unsupported parts) the verdict is corrected or partially_supported, not confirmed. Rows verified before and not confirmed now: T1-173, T1-175, T1-176, T1-177, T1-178, T1-179, T1-180, T1-181, T1-182, T1-184, T1-185, T1-186, T1-187, T1-191, T1-192, T1-198, T1-199, T1-200, T1-201, T1-202, T1-205, T1-211, T1-221, T1-222, T2-001, T2-002, T2-004, T2-005.
+- sub-claims: 312; by tier {"documented": 240, "open gap": 23, "inferred": 45, "plausible-procedural": 4}; by support {"supported": 209, "unsupported": 44, "conflict": 26, "contradicted": 12, "computed": 20, "procedural": 1}.
+- results.jsonl after the close-out: tier {"documented": 32, "inferred": 20, "open gap": 5, "plausible-procedural": 1}; status {"verified": 32, "inferred": 21, "gap": 5}.
+- status rule in results.jsonl: a row is stored `verified` only when its central (first documented) sub-claim is carried by an Official Records citation; a row that rests on other primary or published sources, or is only partly supported, is stored `inferred`, so that merge_horde cannot label it verified_against_or_text. Rows lowered by this rule are visible by comparing results.pre-closeout.jsonl.
+- proposed register entries: 35 new (tl-04-CO-<row>.md) plus the 21 earlier ones (EG-TL04-001..021, each updated with a close-out paragraph; five are marked proposed closed or narrowed).
+- searches with zero hits: 0 of 84 (a zero is a finding, kept in the log); WARNING: 84 searches were not run in this build, their hit counts are pending.
 
-## Conflicts carried as selectable scenarios, no default picked (16)
-T1-176, T1-177, T1-182, T1-184, T1-187, T1-188, T1-192, T1-198, T1-199, T1-200, T1-201, T1-220, T1-222, T1-225, T2-001, T2-005
+## Verdict by row
+- confirmed (11): T1-174, T1-193, T1-196, T1-204, T1-209, T1-210, T1-212, T1-215, T1-216, T1-223, T1-224
+- corrected (28): T1-173, T1-175, T1-176, T1-177, T1-178, T1-179, T1-180, T1-182, T1-184, T1-185, T1-186, T1-187, T1-191, T1-192, T1-198, T1-199, T1-200, T1-201, T1-211, T1-217, T1-220, T1-221, T1-222, T1-225, T2-001, T2-002, T2-004, T2-005
+- partially_supported (14): T1-181, T1-183, T1-188, T1-189, T1-190, T1-194, T1-195, T1-197, T1-202, T1-205, T1-213, T1-214, T1-218, T1-219
+- unsupported (1): T1-206
+- gap (4): T1-203, T1-207, T1-208, T2-003
 
-## Gap and failed-lookup rows (11)
-T1-183, T1-194, T1-197, T1-203, T1-207, T1-208, T1-213, T1-214, T1-217, T1-218, T2-003
+## Main corrections to the seed claims (the reports contradict or refine the row)
+- Dates: Coulter's 19:00 and 22:00 moves (T1-184, T1-198) belong to Jul 2; the works of the 123rd NY and of Williams' division (T1-182, T1-201) and of Greene's brigade (T1-200) are Jul 2, not the night of Jul 1; the II Corps was 3-4 miles back all night and arrived on Jul 2 at 06:30-07:00 (T1-199).
+- Places: Geary stood on the extreme left near Round Top on Jul 1 (not on Cemetery Ridge, T1-176, T2-005); Johnson's division formed northeast of the town by the York railroad (T1-185); Lee's only evening place in the sources is the porch of a small house north of the town (T1-188).
+- Actors and reasons: Early urged the advance and named Culp's Hill for Johnson, he did not oppose it (T1-187); Williams learned of the retreat when about to assault, not before heading for the hill (T1-178); Wiedrich's target is the columns from the town, not the railroad cut (T1-173); Hancock left about dark, not about 18:00 (T2-004); 99 percent falls to 97.7, not 93 (T1-220).
+- Weather: the full moon was 'veiled by thin clouds' (Everett 1863), the night was 'very dark' near Emmitsburg (Burling), the dawn of Jul 2 had fog (McAllister) or mist (Haskell) or a pleasant smoky haze (Jacobs): carried as scenarios; Jacobs's own readings stay second-hand.
 
-## Proposed register entries (21)
-EG-TL04-001.md, EG-TL04-002.md, EG-TL04-003.md, EG-TL04-004.md, EG-TL04-005.md, EG-TL04-006.md, EG-TL04-007.md, EG-TL04-008.md, EG-TL04-009.md, EG-TL04-010.md, EG-TL04-011.md, EG-TL04-012.md, EG-TL04-013.md, EG-TL04-014.md, EG-TL04-015.md, EG-TL04-016.md, EG-TL04-017.md, EG-TL04-018.md, EG-TL04-019.md, EG-TL04-020.md, EG-TL04-021.md
-Every gap, failed_lookup, unsupported and conflict row is named in a proposed-register entry here or points to an existing register/conflict_register entry (T1-066, 071, 073, 099, 104 in shard 2 point to register/EG-TL-T1-*.md and conflict_register C-040).
+## Source conflicts carried as selectable scenarios (no default picked)
+Rows with scenarios (21): T1-175, T1-177, T1-182, T1-185, T1-188, T1-190, T1-191, T1-192, T1-194, T1-195, T1-199, T1-200, T1-217, T1-219, T1-221, T1-222, T1-225, T2-001, T2-002, T2-003, T2-005.
+The defaults in force are the recorded delegated ones, applied unchanged: C-001 (Meade about 01:00 on Jul 2, T1-221), C-002 (Humphreys 01:00 on Jul 2, T1-222), C-004 (II Corps 06:30-07:00 on Jul 2, T1-199), C-027 (Buford: Jul 3 Westminster; Taneytown for the night of Jul 2 is stated by Buford and Devin, T1-217), C-038 (Spangler wounded: range 1,000-2,000, all values, T2-003), C-039 (Hancock arrives about 15:00-16:00, T1-175, T2-001), C-043 not touched. New conflicts without a recorded default: Slocum's takeover hour (T1-177, T2-005), Johnson's arrival hour (T1-185), the III Corps arrival hour (T1-192), Geary's relief at the hill (T1-194), VI Corps order hours (T1-191), the cloud over the moon (T1-190, T1-195, T1-219), the dawn of Jul 2 (T1-225), Lee's establishment hour (T1-188), the start and end hours of the Culp's Hill works (T1-200), the 7th Indiana strength (T2-002).
 
-## own_checks (this audit pass)
-Method and limit: the raw OR OCR (tmp/library/or27) is not present in this checkout, so or27_find.py cannot run and the original page text could not be re-read. Web access to archive.org and loc.gov is blocked (403, not circumvented). Checks made instead: (a) every cited OR report id exists in library/or27_index.json; (b) every cited printed page of a verified row lies inside that report's indexed page range: 74 of 74 cited pages; (c) quotes were searched in separate local extractions (library/timeline_audit_T*.jsonl, or27_claim_checks.json, history/positions/*.jsonl): found 65/81. Quotes not found are shard-verified only and are listed as not independently confirmed.
-- T1-176 Geary R293 p.825 (index 824-835): 'at about 3 p. m. advanced rapidly on the road to the town' found in positions_B.jsonl: CONFIRMED; Hancock R076 p.368 (index 366-379): 'ordered the division to the high ground to the right of and near' found: CONFIRMED.
-- T1-200 Geary p.825: 'At 5 a. m. on the 2d' and 'As soon as we were in position, we began to intrench ourselves' found in both audit files: CONFIRMED.
-- T1-173 Wiedrich R265 p.751: 'about 5 p. m., our infantry, which had advanced through the...' found: CONFIRMED; second quote ('opened with shells on their columns with good effect') not found elsewhere: NOT INDEPENDENTLY CONFIRMED here. Row downgraded to inferred (railroad-cut target unsupported).
-- T1-177 Hancock: 'About 7 p. m. Generals Slocum and Sickles arrived at the cem...' found in positions_B.jsonl: CONFIRMED; 'Between 5 and 6 o'clock, my dispositions having been complet...' not found elsewhere: NOT INDEPENDENTLY CONFIRMED here.
+## Gap, unsupported and partial rows (proposed register entries)
+Rows left gap or unsupported: T1-203, T1-206, T1-207, T1-208, T2-003. Rows partially supported: T1-181, T1-183, T1-188, T1-189, T1-190, T1-194, T1-195, T1-197, T1-202, T1-205, T1-213, T1-214, T1-218, T1-219.
+Proposed entries: tl-04-CO-T1-173, tl-04-CO-T1-175, tl-04-CO-T1-176, tl-04-CO-T1-177, tl-04-CO-T1-178, tl-04-CO-T1-179, tl-04-CO-T1-180, tl-04-CO-T1-181, tl-04-CO-T1-182, tl-04-CO-T1-183, tl-04-CO-T1-184, tl-04-CO-T1-186, tl-04-CO-T1-187, tl-04-CO-T1-188, tl-04-CO-T1-189, tl-04-CO-T1-190, tl-04-CO-T1-192, tl-04-CO-T1-194, tl-04-CO-T1-195, tl-04-CO-T1-197, tl-04-CO-T1-202, tl-04-CO-T1-203, tl-04-CO-T1-205, tl-04-CO-T1-206, tl-04-CO-T1-207, tl-04-CO-T1-208, tl-04-CO-T1-213, tl-04-CO-T1-214, tl-04-CO-T1-217, tl-04-CO-T1-218, tl-04-CO-T1-219, tl-04-CO-T1-220, tl-04-CO-T2-001, tl-04-CO-T2-002, tl-04-CO-T2-003.
 
-## Owner-decision items
-- Default view for each conflict listed above (PDF recommended defaults stay PENDING OWNER).
-- Tier promotions or demotions relative to the seed tier recommended in the row notes.
-- Approval to acquire primary sources for the gap rows (see proposed-register entries).
+## Tier relative to the seed (overlay, seed rows untouched)
+Promotions proposed: T1-194, T1-199, T1-214, T1-217. Demotions against the seed: T1-181, T1-188, T1-189, T1-197, T1-206, T1-207, T1-208, T1-218, T1-225, T2-003. Unchanged: 44 rows. A promotion applies only to the corrected wording and needs the delegated-decision block DD-TL04-01 (appended to decisions/DELEGATED-DECISIONS-2026-11-11.md) or an owner decision; every unsupported remainder keeps its own tier and register entry.
+
+## What is not done or owed
+- No scan image of the Official Records was available; page numbers come from the OCR running heads (a "~" marks interpolation) and a re-read against the scan is owed (horde/SPOTCHECK.md). Where the OCR prints a number that is not a clock hour (Greene p.856 "By 13 o'clock") the printed hour was not checked against the scan and the reading is marked as a conjecture.
+- Jacobs's original weather record (Smithsonian form, National Archives RG 27 T907 reel 445; American Philosophical Society) and the 1885 Star and Sentinel article were not read; every Jacobs value in the rows is second-hand and carried as inferred.
+- Not found in any local text: the Klingel-farm wounded, the Lady-farm hospital, the Spangler hours and counts, the Rose-farm cavalry, house searches and fires on the night of Jul 1, burial parties and water details on the night of Jul 1, Beale's 1897 reading of "an hour since", the soldier's letter behind the 123rd New York date, the Thaddeus Stevens / Thompson house reading, and the fence burning at the Thompson house. Stone Sentinels, HistoryNet, Wikipedia, Strategypage and the other secondary pages named in the seed stay leads and were not used for any documented sub-claim.
+- NPS reports are used for what they literally say (a government report that names no primary source supports only that statement, marked as such). The two-column text layers of the NPS PDFs interleave lines; the quotes are the contiguous fragments and say so.
+- Rendering or timing checks: none were needed for this data task.

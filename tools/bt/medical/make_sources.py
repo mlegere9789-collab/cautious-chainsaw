@@ -182,9 +182,15 @@ def build():
             continue
         p = os.path.join(ROOT, tp)
         is_web = s['id'].startswith('NPSGOV-')
+        files = {'main': {'path': rel(p), 'sha256': sha(p), 'bytes': os.path.getsize(p), 'page_model': 'none' if is_web else 'marker', 'page_marker': None if is_web else r'^=== PAGE (\d+) ===$'}}
+        rp = s.get('raw_text_path')
+        if rp and os.path.exists(os.path.join(ROOT, rp)) and not is_web:
+            files['raw'] = {'path': rp, 'sha256': sha(os.path.join(ROOT, rp)), 'bytes': os.path.getsize(os.path.join(ROOT, rp)), 'page_model': 'marker', 'page_marker': r'^=== PAGE (\d+) ===$'}
         put(s['id'], 'nps-report', '%s%s' % (s.get('title') or s['id'], (' (' + str(s['date']) + ')') if s.get('date') else ''), NPS_GROUPS.get(s['id'], []),
-            {'main': {'path': rel(p), 'sha256': sha(p), 'bytes': os.path.getsize(p), 'page_model': 'none' if is_web else 'marker', 'page_marker': None if is_web else r'^=== PAGE (\d+) ===$'}},
-            GOV, 'National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)', rate=0.04, url=s.get('url'))
+            files, GOV, 'National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)', rate=0.04, url=s.get('url'),
+            notes=('two text files: main is the reading-order text, raw the content-stream-order text; raw is the default for quotes (the reading-order text interleaves the columns of this report)' if s.get('default_variant') == 'raw' else None))
+        if s.get('default_variant') == 'raw' and 'raw' in files:
+            reg[s['id']]['default_file'] = 'raw'
     for sid, path, url, title, groups in WEB3:
         p = os.path.join(ROOT, path)
         if os.path.exists(p):

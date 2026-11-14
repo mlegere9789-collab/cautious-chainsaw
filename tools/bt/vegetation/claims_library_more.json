@@ -1,0 +1,379 @@
+[
+{
+"id": "VC-LIB-041",
+"src": "WS9:HOSPSCENES-1864",
+"quote": "Though late in the season, the harvest was just yielding to the sickle.",
+"tier": "documented",
+"kind": "crop",
+"says": "The Patriot Daughters of Lancaster, travelling to Gettysburg in July 1863, wrote that, though late in the season, the harvest was just yielding to the sickle in the country through which they came.",
+"feature": "the harvest beginning in the country about Gettysburg",
+"when": {
+"from": "1863-07-08",
+"to": "1863-07-16",
+"basis": "the narrative gives no day; the party was at the hospitals by the middle of July"
+},
+"note": "A book of 1864 by the party. It says nothing of the crop: the grain of the district was wheat, oats and rye, cut in turn.",
+"about": {
+"stage": "harvest_beginning"
+}
+},
+{
+"id": "VC-LIB-042",
+"src": "WS9:HOSPSCENES-1864",
+"quote": "the stately hills looked down on orchards laden with their crimson frnit",
+"tier": "documented",
+"kind": "orchard",
+"says": "The same party saw the hills looking down on orchards laden with crimson fruit in the country on the way to Gettysburg in July 1863.",
+"feature": "fruit on the orchards of the country about Gettysburg",
+"when": {
+"from": "1863-07-08",
+"to": "1863-07-16",
+"basis": "the narrative gives no day"
+},
+"note": "The saved text reads \"frnit\" for \"fruit\". The fruit is not named.",
+"about": {
+"fruit": "crimson"
+}
+},
+{
+"id": "VC-LIB-043",
+"src": "WS9:HOSPSCENES-1864",
+"quote": "Houses demolished, fences destroyed, tall forest trees mowed down like so many stalks of hemp",
+"tier": "documented",
+"kind": "damage",
+"says": "The same party wrote of the field after the battle: houses demolished, fences destroyed, tall forest trees mowed down like stalks of hemp.",
+"feature": "tree damage on the field after the battle",
+"when": {
+"from": "1863-07-08",
+"to": "1863-07-16",
+"basis": "after the battle"
+},
+"note": "A figure of speech about the field as a whole: no place and no share are given.",
+"about": {
+"damage": "trees_felled_by_fire"
+}
+},
+{
+"id": "VC-LIB-044",
+"src": "WS9:TPIERCE-1889",
+"quote": "We see a man thrown high in the air and come down in a wheat field close by.",
+"tier": "documented",
+"kind": "crop",
+"says": "Tillie Pierce, at the Weikert farm on the afternoon of 2 July, saw a man thrown by an exploding caisson come down in a wheat field close by.",
+"feature": "a wheat field by the Weikert house",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "An account written later and relayed as printed; the original was not seen. A girl of fifteen at the time, published in 1889. Placed on the nearest field cell within 260 m of the farmstead.",
+"about": {
+"crop": "wheat"
+},
+"anchor": {
+"farm": "g_weikert",
+"r_m": 260,
+"class": "field",
+"k": 1
+}
+},
+{
+"id": "VC-LIB-045",
+"src": "WS9:TPIERCE-1889",
+"quote": "The orchard and space around the buildings were covered with the shattered and dying, and the barn became more and more crowded.",
+"tier": "documented",
+"kind": "orchard",
+"says": "Tillie Pierce: on the evening of 2 July the orchard and the space round the buildings of the Weikert farm were covered with the wounded.",
+"feature": "the orchard of the Weikert farm",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "An account written later and relayed as printed; the original was not seen. Placed on the nearest orchard within 220 m of the farmstead.",
+"anchor": {
+"farm": "g_weikert",
+"r_m": 220,
+"class": "orchard",
+"k": 1
+}
+},
+{
+"id": "VC-LIB-050",
+"src": "WS9:OH-8TH-1889",
+"quote": "Our position was at first in an orchard, in the rdar of some farm buildings",
+"tier": "documented",
+"kind": "orchard",
+"says": "The history of the Eighth Ohio: on the morning of 2 July the regiment stood in an orchard in the rear of some farm buildings behind the line of batteries in Ziegler's Grove.",
+"feature": "an orchard behind farm buildings by Ziegler's Grove",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "An account written later and relayed as printed; the original was not seen. The saved text reads \"rdar\" for \"rear\". Not placed: the farm is not named (it may be the Brien farm)."
+},
+{
+"id": "VC-LIB-046",
+"src": "WS9:OH-8TH-1889",
+"quote": "posted among some scattered oak trees, on the brow of the ridge, being a part of Ziegler's i^rove",
+"tier": "documented",
+"kind": "woodlot",
+"says": "The history of the Eighth Ohio: its line of batteries stood among scattered oak trees on the brow of the ridge, part of Ziegler's Grove, on 2 July.",
+"feature": "oak trees of Ziegler's Grove",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "An account written later and relayed as printed; the original was not seen. Names oak for the grove; the trees were scattered.",
+"about": {
+"species_named": [
+"oak"
+]
+},
+"anchor": {
+"gz": "Ziegler's Grove",
+"r_m": 220,
+"class": "woods",
+"k": 1
+}
+},
+{
+"id": "VC-LIB-047",
+"src": "WS9:OH-8TH-1889",
+"quote": "the wood clad outline of Gulps' Hill",
+"tier": "documented",
+"kind": "woodlot",
+"says": "The history of the Eighth Ohio: from Ziegler's Grove on 2 July the outline of Culp's Hill was wood-clad.",
+"feature": "Culp's Hill wood-clad",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "An account written later and relayed as printed; the original was not seen. The saved text reads \"Gulps'\" for \"Culp's\".",
+"about": {
+"canopy": "woods"
+},
+"anchor": {
+"poly": "LC-WOOD-0001"
+}
+},
+{
+"id": "VC-LIB-048",
+"src": "WS9:MA-BURIAL-1863",
+"quote": "The torn earth and the scarred or broken tree tell you of the flight and explosion of those fearful missiles",
+"tier": "documented",
+"kind": "damage",
+"says": "The committee on the burial of the Massachusetts dead wrote in 1863 of the torn earth and the scarred or broken trees on the field.",
+"feature": "scarred and broken trees on the field",
+"when": {
+"basis": "autumn 1863"
+},
+"note": "The report of the committee, 1863; no place and no share are given.",
+"about": {
+"damage": "scarred_timber"
+}
+},
+{
+"id": "VC-LIB-049",
+"src": "WS9:VT-GB-1914",
+"quote": "placed on a knoll in a wheat field 1,300 yards in front, suddenly opened fire",
+"tier": "documented",
+"kind": "crop",
+"says": "The history of the Vermont brigade, quoting Wainwright: about three p.m. on 2 July two Confederate batteries on a knoll in a wheat field 1,300 yards in front of the left brow of Cemetery Hill suddenly opened fire.",
+"feature": "a wheat field with a knoll, 1,300 yards in front of Cemetery Hill",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "An account written later and relayed as printed; the original was not seen. Not placed: the knoll is not named.",
+"about": {
+"crop": "wheat"
+}
+},
+{
+"id": "VC-LIB-051",
+"src": "WS9:MEADE-LL-v2",
+"quote": "For four hundred yards of this distance there were woods on the north side, and a wheat field on the south side of the road.",
+"tier": "documented",
+"kind": "crop",
+"says": "A description of the ground of the Third Corps quoted in the Life and Letters of General Meade: along four hundred yards of the cross-road from Plum Run toward the Peach Orchard there were woods on the north side and a wheat field on the south side.",
+"feature": "woods north and a wheat field south of the Wheatfield Road",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03"
+},
+"note": "Printed in a later book or journal and relayed as printed; the original was not seen. The speaker is not named in the saved text. The road is the one on the northern side of the Wheatfield.",
+"about": {
+"crop": "wheat"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+}
+},
+{
+"id": "VC-LIB-052",
+"src": "WS9:MN-1ST-1916",
+"quote": "The crest of the ridge between Little Round Top and Cemetery Hill had been cleared for agriculture, and comprised several cultivated fields, occasional groves of small timber",
+"tier": "documented",
+"kind": "crop",
+"says": "The history of the First Minnesota: the crest of the ridge between Little Round Top and Cemetery Hill had been cleared for agriculture and held several cultivated fields and occasional groves of small timber.",
+"feature": "the crest of Cemetery Ridge: cultivated fields and small groves",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03"
+},
+"note": "Printed in a later book or journal and relayed as printed; the original was not seen. No crop is named.",
+"anchor": {
+"gz": "Cemetery Ridge",
+"r_m": 900,
+"class": "field",
+"area": true
+}
+},
+{
+"id": "VC-LIB-053",
+"src": "WS9:MN-1ST-1916",
+"quote": "through a low ground of woods, a wheat- field, and then another piece of woods, towards Little Round Top",
+"tier": "documented",
+"kind": "woodlot",
+"says": "The history of the First Minnesota: Birney's division was bent back through a low ground of woods, a wheat-field and another piece of woods toward Little Round Top.",
+"feature": "woods, the Wheatfield, woods",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "Printed in a later book or journal and relayed as printed; the original was not seen. The Wheatfield is not named.",
+"about": {
+"crop": "wheat"
+},
+"anchor": {
+"poly": "LC-FIELD-0001"
+}
+},
+{
+"id": "VC-LIB-054",
+"src": "WS9:SHSP-05",
+"quote": "advanced rapidly in line of battle across a cornfield which lay between us and the base of the hill",
+"tier": "documented",
+"kind": "crop",
+"says": "A Confederate brigade (the Maryland Line) wrote that on the evening of 2 July it advanced across a cornfield that lay between it and the base of Culp's Hill, then waded Rock Creek.",
+"feature": "a cornfield at the base of Culp's Hill",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "Printed in a later book or journal and relayed as printed; the original was not seen. Printed in the Southern Historical Society Papers. Placed on the nearest field cell within 500 m of the Culp farmstead: the passage does not say whose cornfield it was.",
+"about": {
+"crop": "corn"
+},
+"anchor": {
+"farm": "culp",
+"r_m": 500,
+"class": "field",
+"k": 1
+}
+},
+{
+"id": "VC-LIB-055",
+"src": "WS9:SHSP-05",
+"quote": "The ground was rough, and the woods so thick that their generals did not realize till morning what they had gained.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Howard, as quoted in the Southern Historical Society Papers: the ground at Culp's Hill was rough and the woods so thick that the Confederate generals did not realize until morning what they had gained.",
+"feature": "Culp's Hill: thick woods in the night of 2 July",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-03"
+},
+"note": "Printed in a later book or journal and relayed as printed; the original was not seen. Said of the night: how thick the woods were is not measured, and no undergrowth value is set from it. Bachelder calls the same hill a heavy open growth (VC-LIB-028): the two are carried as they are.",
+"about": {
+"canopy": "thick_woods"
+},
+"anchor": {
+"gz": "Culp's Hill",
+"r_m": 520,
+"class": "woods",
+"area": true
+}
+},
+{
+"id": "VC-LIB-056",
+"src": "WS9:SHSP-05",
+"quote": "the trees, as cut off, lopped down, or shivered, were still there; stumps and trees were perforated with holes where leaden balls had since been dug out",
+"tier": "documented",
+"kind": "damage",
+"says": "A visitor to Culp's Hill, quoted in the Southern Historical Society Papers, saw trees cut off, lopped down or shivered, and stumps and trees perforated where bullets had since been dug out.",
+"feature": "Culp's Hill: shivered and perforated trees",
+"when": {
+"basis": "seen some years after the battle"
+},
+"note": "Printed in a later book or journal and relayed as printed; the original was not seen. ",
+"about": {
+"damage": "scarred_timber"
+},
+"anchor": {
+"gz": "Culp's Hill",
+"r_m": 520,
+"class": "woods",
+"area": true
+}
+},
+{
+"id": "VC-LIB-057",
+"src": "WS9:SHSP-04",
+"quote": "the country was open and that I could march through an open woodland pas- ture around Round Top",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Hood's account (Southern Historical Society Papers): his scouts reported on 2 July that the country was open and that he could march through an open woodland pasture around Round Top.",
+"feature": "open woodland pasture round the Round Tops",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "Printed in a later book or journal and relayed as printed; the original was not seen. \"Open woodland pasture\" is read as grazed woodland with open ground between the trees; no undergrowth value is set from it, and it is not what the park report says of the forest of Big Round Top.",
+"anchor": {
+"gz": "Big Round Top",
+"r_m": 1000,
+"class": "woods",
+"area": true
+}
+},
+{
+"id": "VC-LIB-058",
+"src": "WS9:ALEXANDER-1907",
+"quote": "opened fire from some undergrowth and brushwood along a small ravine",
+"tier": "documented",
+"kind": "thicket",
+"says": "Alexander (1907): on 3 July Perry's Florida brigade halted and opened fire from some undergrowth and brushwood along a small ravine.",
+"feature": "undergrowth and brushwood along a small ravine",
+"when": {
+"from": "1863-07-03",
+"to": "1863-07-03"
+},
+"note": "A memoir of 1907 by the Confederate artillery officer who watched. Not placed: the ravine is not named (the same ravine as in VC-LIB-040).",
+"about": {
+"understory": "thick"
+}
+},
+{
+"id": "VC-LIB-059",
+"src": "WS9:ALEXANDER-1907",
+"quote": "Both flanks presented precipitous and rocky fronts, screened from artillery fire by forest growth",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Alexander (1907): the two flanks of the Union line, Culp's Hill and Round Top, presented precipitous, rocky fronts screened from artillery fire by forest growth.",
+"feature": "forest growth on Culp's Hill and Round Top",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03"
+},
+"note": "A memoir of 1907. It speaks of both flanks: Culp's Hill and Round Top.",
+"about": {
+"canopy": "forest"
+},
+"anchor": {
+"gz": "Culp's Hill",
+"r_m": 520,
+"class": "woods",
+"area": true
+}
+}
+]

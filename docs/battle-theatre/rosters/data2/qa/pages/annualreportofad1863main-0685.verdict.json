@@ -1,0 +1,259 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "annualreportofad1863main/685",
+ "levels": "NDR",
+ "stratum": "ME-RET-officers",
+ "family": "ME-RET",
+ "layout": "cols",
+ "kind": "officers",
+ "draw_position": 2,
+ "in_lowest_decile": false,
+ "printed_page": 465,
+ "rows_stored": 15,
+ "rows_checked": 15,
+ "rows_in_error": 5,
+ "rows_ok": 10,
+ "rows_flagged_ocr_uncertain": 2,
+ "errors": [
+  {
+   "i": 5,
+   "kinds": [
+    "rem-extra"
+   ],
+   "note": "carries '[Aug.' that is the run-over of the remark of the row below",
+   "rid": "16th-maine-infantry#5",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "rem-missing"
+   ],
+   "note": "'In charge 2d div. hosp. since' lacks the run-over '[Aug.'",
+   "rid": "16th-maine-infantry#6",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Charles IT Parlin' printed 'Charles H Parlin'",
+   "rid": "16th-maine-infantry#11",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 13,
+   "kinds": [
+    "name-nonperson"
+   ],
+   "note": "stored name 'organization' (rank 'organization'): the printed note 'Rank not shown in present organization at close of company returns.' is no person line",
+   "rid": "16th-maine-infantry#13",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "name-cut",
+    "name-char",
+    "rem-date"
+   ],
+   "note": "stored name 'James 1) Maxfield; promoted' printed 'James D Maxfield' with the remark 'promoted Sergt. Major from company A; ...'; 'Sopt. 9' for 'Sept. 9'",
+   "rid": "16th-maine-infantry#14",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1",
+    "R-G2"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [
+  "the printed line 'William H Palmer, Drum Major.' (Field and Staff, discharged and deceased in 1862) is not stored (the prose lists of the returns are a known gap)"
+ ],
+ "notes": [
+  "10 of 15 rows free of errors; stored rank is empty and the rank word stands at the start of the remarks in every row of this return"
+ ],
+ "reader": "full level; two crops at 300 dpi (table and the notes below it, 2 Reads); all 15 stored rows compared with the printed Field and Staff return of the 16th Maine (name, rank, residence, date of rank, remarks); the page has no printed ditto cells in the stored columns except the rank and remark ditto marks of rows 7 to 9 (marks, no digits)",
+ "tesseract_prescreen": {
+  "agree": 10,
+  "near": 0,
+  "suspect": 5,
+  "unstored_lines": 9
+ },
+ "read": {
+  "pdf_sha256": "d77de6afc32d44373c94b64f39c58a03398966be0c4260bd34c56e8175e1635c",
+  "pdf_page": 685,
+  "view_png_sha256": "32374278cd3d8115f12f43aaf5fb5a449ac06adf235a317e1b4014b09c332ece",
+  "render300_sha256": "9f6e5f408ac836041ad8a3843d36b01e5c048596ff90891673cfc0a21b8f1291",
+  "tess_sha256": "242f07ea41ed2c60459b32983637ea0be3adef3b84715c9a936dbaaac2e0d3de",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.95
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "16th-maine-infantry#0",
+   "name": "Asa W Wildes",
+   "off": 1906951,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "16th-maine-infantry#1",
+   "name": "Charles W Tilden",
+   "off": 1907016,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "16th-maine-infantry#2",
+   "name": "Augustus B Farnham",
+   "off": 1907098,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "16th-maine-infantry#3",
+   "name": "Abner R Small",
+   "off": 1907175,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "16th-maine-infantry#4",
+   "name": "Isaac N Tucker",
+   "off": 1907219,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "16th-maine-infantry#5",
+   "name": "Charles Alexander",
+   "off": 1907264,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "16th-maine-infantry#6",
+   "name": "Joseph B Baxter",
+   "off": 1907317,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "16th-maine-infantry#7",
+   "name": "Warren Hunter",
+   "off": 1907397,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "16th-maine-infantry#8",
+   "name": "George Bullen",
+   "off": 1907450,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "16th-maine-infantry#9",
+   "name": "Francis A Wildes",
+   "off": 1907503,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "16th-maine-infantry#10",
+   "name": "George W Brown",
+   "off": 1907583,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "16th-maine-infantry#11",
+   "name": "Charles IT Parlin",
+   "off": 1907626,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "16th-maine-infantry#12",
+   "name": "William W Eaton",
+   "off": 1907675,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "16th-maine-infantry#13",
+   "name": "Rank not shown in present",
+   "off": 1907803,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 14,
+   "rid": "16th-maine-infantry#14",
+   "name": "James 1) Maxfield; promoted",
+   "off": 1907881,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-14T01:03:33Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "AGREE",
+  "2": "AGREE",
+  "3": "AGREE",
+  "4": "AGREE",
+  "5": "AGREE",
+  "6": "AGREE",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "AGREE",
+  "11": "SUSPECT",
+  "12": "AGREE",
+  "13": "AGREE",
+  "14": "SUSPECT"
+ }
+}

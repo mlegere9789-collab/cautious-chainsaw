@@ -1,0 +1,287 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "maineatgettysbur01main/513",
+ "levels": "NR",
+ "stratum": "ME-GET-officers",
+ "family": "ME-GET",
+ "layout": "cols",
+ "kind": "officers",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 433,
+ "rows_stored": 16,
+ "rows_checked": 16,
+ "rows_in_error": 7,
+ "rows_ok": 9,
+ "rows_flagged_ocr_uncertain": 1,
+ "errors": [
+  {
+   "i": 0,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "stored name 'Lieutenant-Colonel, Selden Connor' holds the rank word (the carried heading is the Field and Staff heading); by the documented design of the parser, counted as a name error here",
+   "rid": "7th-maine-infantry#2454",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 1,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "stored name 'First Lieutenant Charles H. Hasey' holds a second rank (printed 'Adjutant, First Lieutenant Charles H. Hasey, Houlton.')",
+   "rid": "7th-maine-infantry#2455",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 2,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "stored name 'First Lieutenant Charles B. Whittemore' holds a second rank",
+   "rid": "7th-maine-infantry#2456",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Hallowed.' for 'Hallowell.'",
+   "rid": "7th-maine-infantry#2460",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 8,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "stored name 'First Lieutenant Timothy Swan' holds the rank word",
+   "rid": "7th-maine-infantry#2462",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 9,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "stored name 'Second Lieutenant Church E. Gates' holds the rank word",
+   "rid": "7th-maine-infantry#2463",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "name-nonperson"
+   ],
+   "note": "stored name 'was at Portland': the line 'The company, as an organization, was at Portland, Me., on recruiting service.' is no person line",
+   "rid": "7th-maine-infantry#2464",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [
+  "the paragraph 'On Special Duty or Detached Service' names 5 men that are not stored (Major Thomas W. Hyde, Colonel Mason, Surgeon Eveleth, Quartermaster-Sergeant Hooper, Hospital Steward Sanborn): known gap EG-ROS-ME-02"
+ ],
+ "notes": [
+  "the run of the text above the list (Seventh Regiment narrative) is no stored line; 9 of 16 rows free of errors"
+ ],
+ "reader": "full level without dates; full page at 200 dpi (1 Read); all 16 stored rows compared with the printed participants lines of the Field and Staff, Company A and the start of Company B; tesseract pre-screen not usable on this page (it read the prose paragraph above the list)",
+ "tesseract_prescreen": {
+  "agree": 6,
+  "near": 0,
+  "suspect": 10,
+  "unstored_lines": 26
+ },
+ "read": {
+  "pdf_sha256": "f187290db33c253dd0e1c674f77d1014cae44352ed42dc20c41cff40cafa3961",
+  "pdf_page": 511,
+  "view_png_sha256": "bd00d32b717a2d7f1630a1bdf62fc924d5b9c1cea85f65f744441093f2079c10",
+  "render300_sha256": "00e4633c2bcac5e84e8222659bd04bea38d615c7c6d62d1181a1433fa0ec3d1d",
+  "tess_sha256": "f6e2a92e1201a9966c31f117040e215795d4b0c1c88da9c8564581b40ecf5664",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.972
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "7th-maine-infantry#2454",
+   "name": "Lieutenant-Colonel, Selden Connor",
+   "off": 1128304,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "7th-maine-infantry#2455",
+   "name": "First Lieutenant Charles H. Hasey",
+   "off": 1128393,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "7th-maine-infantry#2456",
+   "name": "First Lieutenant Charles B. Whittemore",
+   "off": 1128458,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "7th-maine-infantry#2457",
+   "name": "Ai Waterhouse",
+   "off": 1128533,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "7th-maine-infantry#2458",
+   "name": "Collamore Purrington",
+   "off": 1128569,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "7th-maine-infantry#2459",
+   "name": "Perry Greenleaf",
+   "off": 1128625,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "7th-maine-infantry#2460",
+   "name": "Ferdinand S. Richards",
+   "off": 1128674,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "7th-maine-infantry#2461",
+   "name": "Thomas B. Powers",
+   "off": 1128738,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "7th-maine-infantry#2462",
+   "name": "First Lieutenant Timothy Swan",
+   "off": 1129097,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "7th-maine-infantry#2463",
+   "name": "Second Lieutenant Church E. Gates",
+   "off": 1129170,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "7th-maine-infantry#2464",
+   "name": "was at Portland",
+   "off": 1129340,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 11,
+   "rid": "7th-maine-infantry#2465",
+   "name": "James P. Jones",
+   "off": 1129445,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "7th-maine-infantry#2466",
+   "name": "Eli H. Webber",
+   "off": 1129491,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "7th-maine-infantry#2467",
+   "name": "John C. McKenney",
+   "off": 1129545,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "7th-maine-infantry#2468",
+   "name": "Xantheus A. Withee",
+   "off": 1129578,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "7th-maine-infantry#2469",
+   "name": "John F. Doe",
+   "off": 1129616,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:59:44Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "AGREE",
+  "9": "AGREE",
+  "10": "AGREE",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "AGREE",
+  "15": "AGREE"
+ }
+}

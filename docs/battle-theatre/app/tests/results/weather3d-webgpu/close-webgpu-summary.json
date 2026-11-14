@@ -1,0 +1,633 @@
+{
+ "api": "webgpu",
+ "url": "http://127.0.0.1:36027/app/tests/weather3d-gpu.html?api=webgpu&w=640&h=360&soldiers=12000&tier=laptop",
+ "w": 640,
+ "h": 360,
+ "soldiers": 12000,
+ "tier": "laptop",
+ "realGpu": false,
+ "started": "2026-11-14T00:21:17.957Z",
+ "cases": {
+  "strike-close-jul3-1400": {
+   "w": 640,
+   "h": 360,
+   "format": "rgba8unorm",
+   "frameMs": 22,
+   "wallMs": 20415,
+   "validation": null,
+   "pixels": {
+    "all": {
+     "mean": 186.74,
+     "min": 116.82,
+     "p1": 134.89,
+     "p50": 189,
+     "p99": 226,
+     "max": 227,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 188.271,
+     "min": 174,
+     "p1": 178,
+     "p50": 188,
+     "p99": 213,
+     "max": 218,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 171.769,
+     "min": 116.82,
+     "p1": 130.89,
+     "p50": 164.32,
+     "p99": 224,
+     "max": 225,
+     "blackShare": 0
+    }
+   },
+   "gpuStats": {
+    "weatherDraws": 1,
+    "fxDraws": 1,
+    "spritesDrawn": 2395,
+    "passes": 1,
+    "binds": 1,
+    "passMs": null,
+    "passMsN": 0,
+    "gpuErrors": 0,
+    "ok": true,
+    "weatherOk": true,
+    "fxOk": true,
+    "failed": null
+   },
+   "glStats": null,
+   "effects": {
+    "nEvents": 105,
+    "nSprites": 2395
+   },
+   "weather": {
+    "cover": 0.40014642857142985,
+    "stars": 0,
+    "wet": 0,
+    "visM": 9137.107359702384,
+    "floor": [
+     0.04,
+     0.048,
+     0.075
+    ]
+   },
+   "flags": {
+    "sky": false,
+    "particles": false
+   }
+  },
+  "burst-close-jul3-1400": {
+   "w": 640,
+   "h": 360,
+   "format": "rgba8unorm",
+   "frameMs": 5,
+   "wallMs": 16202,
+   "validation": null,
+   "pixels": {
+    "all": {
+     "mean": 200.512,
+     "min": 174,
+     "p1": 179,
+     "p50": 193,
+     "p99": 226,
+     "max": 227,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 208.099,
+     "min": 174,
+     "p1": 178,
+     "p50": 215,
+     "p99": 226,
+     "max": 227,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 195.35,
+     "min": 174,
+     "p1": 178.21,
+     "p50": 190,
+     "p99": 224,
+     "max": 225,
+     "blackShare": 0
+    }
+   },
+   "gpuStats": {
+    "weatherDraws": 2,
+    "fxDraws": 2,
+    "spritesDrawn": 2523,
+    "passes": 2,
+    "binds": 1,
+    "passMs": null,
+    "passMsN": 0,
+    "gpuErrors": 0,
+    "ok": true,
+    "weatherOk": true,
+    "fxOk": true,
+    "failed": null
+   },
+   "glStats": null,
+   "effects": {
+    "nEvents": 112,
+    "nSprites": 2523
+   },
+   "weather": {
+    "cover": 0.4001499999999994,
+    "stars": 0,
+    "wet": 0,
+    "visM": 9137.107359702384,
+    "floor": [
+     0.04,
+     0.048,
+     0.075
+    ]
+   },
+   "flags": {
+    "sky": false,
+    "particles": false
+   }
+  },
+  "volley-close-jul3-1400": {
+   "w": 640,
+   "h": 360,
+   "format": "rgba8unorm",
+   "frameMs": 2,
+   "wallMs": 3154,
+   "validation": null,
+   "pixels": {
+    "all": {
+     "mean": 185.735,
+     "min": 100.54,
+     "p1": 128.54,
+     "p50": 201.46,
+     "p99": 223.07,
+     "max": 224.86,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 208.418,
+     "min": 191.16,
+     "p1": 196.39,
+     "p50": 208,
+     "p99": 220.86,
+     "max": 222.58,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 153.584,
+     "min": 115.41,
+     "p1": 128.19,
+     "p50": 153.84,
+     "p99": 175.69,
+     "max": 185.26,
+     "blackShare": 0
+    }
+   },
+   "gpuStats": {
+    "weatherDraws": 3,
+    "fxDraws": 3,
+    "spritesDrawn": 2689,
+    "passes": 3,
+    "binds": 1,
+    "passMs": null,
+    "passMsN": 0,
+    "gpuErrors": 0,
+    "ok": true,
+    "weatherOk": true,
+    "fxOk": true,
+    "failed": null
+   },
+   "glStats": null,
+   "effects": {
+    "nEvents": 397,
+    "nSprites": 2689
+   },
+   "weather": {
+    "cover": 0.40008333333333473,
+    "stars": 0,
+    "wet": 0,
+    "visM": 9137.107359702384,
+    "floor": [
+     0.04,
+     0.048,
+     0.075
+    ]
+   },
+   "flags": {
+    "sky": false,
+    "particles": false
+   }
+  },
+  "falls-close-jul2-1100": {
+   "w": 640,
+   "h": 360,
+   "format": "rgba8unorm",
+   "frameMs": 2,
+   "wallMs": 1787,
+   "validation": null,
+   "pixels": {
+    "all": {
+     "mean": 175.856,
+     "min": 8,
+     "p1": 120.74,
+     "p50": 175.19,
+     "p99": 216.37,
+     "max": 222.15,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 197.19,
+     "min": 180.86,
+     "p1": 185.93,
+     "p50": 197.65,
+     "p99": 206.93,
+     "max": 210.09,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 153.578,
+     "min": 112.62,
+     "p1": 126.48,
+     "p50": 154.33,
+     "p99": 175.41,
+     "max": 186.33,
+     "blackShare": 0
+    }
+   },
+   "gpuStats": {
+    "weatherDraws": 4,
+    "fxDraws": 4,
+    "spritesDrawn": 50,
+    "passes": 4,
+    "binds": 1,
+    "passMs": 1586.445844,
+    "passMsN": 1,
+    "gpuErrors": 0,
+    "ok": true,
+    "weatherOk": true,
+    "fxOk": true,
+    "failed": null
+   },
+   "glStats": null,
+   "effects": {
+    "nEvents": 10,
+    "nSprites": 50
+   },
+   "weather": {
+    "cover": 0.749893518518517,
+    "stars": 0,
+    "wet": 0,
+    "visM": 65200,
+    "floor": [
+     0.04,
+     0.048,
+     0.075
+    ]
+   },
+   "flags": {
+    "sky": false,
+    "particles": false
+   }
+  },
+  "fire-close-jul3-1500": {
+   "w": 640,
+   "h": 360,
+   "format": "rgba8unorm",
+   "frameMs": 1,
+   "wallMs": 9305,
+   "validation": null,
+   "pixels": {
+    "all": {
+     "mean": 169.281,
+     "min": 92.99,
+     "p1": 120.85,
+     "p50": 174.64,
+     "p99": 223.89,
+     "max": 247.98,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 155.527,
+     "min": 116.85,
+     "p1": 119.85,
+     "p50": 153.64,
+     "p99": 201.8,
+     "max": 204.43,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 172.968,
+     "min": 92.99,
+     "p1": 129.84,
+     "p50": 172.64,
+     "p99": 234.04,
+     "max": 247.98,
+     "blackShare": 0
+    }
+   },
+   "gpuStats": {
+    "weatherDraws": 5,
+    "fxDraws": 5,
+    "spritesDrawn": 2260,
+    "passes": 5,
+    "binds": 1,
+    "passMs": 117.924304,
+    "passMsN": 2,
+    "gpuErrors": 0,
+    "ok": true,
+    "weatherOk": true,
+    "fxOk": true,
+    "failed": null
+   },
+   "glStats": null,
+   "effects": {
+    "nEvents": 160,
+    "nSprites": 2260
+   },
+   "weather": {
+    "cover": 0.44285714285714284,
+    "stars": 0,
+    "wet": 0,
+    "visM": 9137.107359702384,
+    "floor": [
+     0.04,
+     0.048,
+     0.075
+    ]
+   },
+   "flags": {
+    "sky": false,
+    "particles": false
+   }
+  },
+  "fire-night-jul3-2200": {
+   "w": 640,
+   "h": 360,
+   "format": "rgba8unorm",
+   "frameMs": 1,
+   "wallMs": 2578,
+   "validation": null,
+   "pixels": {
+    "all": {
+     "mean": 58.543,
+     "min": 18,
+     "p1": 18.28,
+     "p50": 61.1,
+     "p99": 96.2,
+     "max": 213.53,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 45.527,
+     "min": 18,
+     "p1": 18.21,
+     "p50": 50.17,
+     "p99": 68.17,
+     "max": 69.89,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 73.805,
+     "min": 38.49,
+     "p1": 49.35,
+     "p50": 73.5,
+     "p99": 96.63,
+     "max": 103.56,
+     "blackShare": 0
+    }
+   },
+   "gpuStats": {
+    "weatherDraws": 6,
+    "fxDraws": 6,
+    "spritesDrawn": 534,
+    "passes": 6,
+    "binds": 1,
+    "passMs": 7707.71741,
+    "passMsN": 3,
+    "gpuErrors": 0,
+    "ok": true,
+    "weatherOk": true,
+    "fxOk": true,
+    "failed": null
+   },
+   "glStats": null,
+   "effects": {
+    "nEvents": 61,
+    "nSprites": 534
+   },
+   "weather": {
+    "cover": 0.7,
+    "stars": 0.10665456615252274,
+    "wet": 0.3,
+    "visM": 3685.86354819985,
+    "floor": [
+     0.04,
+     0.048,
+     0.075
+    ]
+   },
+   "flags": {
+    "sky": false,
+    "particles": false
+   }
+  }
+ },
+ "pure": {
+  "A again at once (strike-close-jul3-1400)": {
+   "identical": true,
+   "bytesDiffering": 0,
+   "maxDiff": 0
+  },
+  "B (burst-close-jul3-1400)": {
+   "identical": true,
+   "bytesDiffering": 0,
+   "maxDiff": 0
+  },
+  "A after B (strike-close-jul3-1400)": {
+   "identical": true,
+   "bytesDiffering": 0,
+   "maxDiff": 0
+  }
+ },
+ "errors": [],
+ "screenshot": null,
+ "ready": {
+  "ready": true,
+  "error": null,
+  "log": [
+   "renderer api webgpu"
+  ]
+ },
+ "diagInit": {
+  "api": "webgpu",
+  "hostLog": [],
+  "flags0": {
+   "terrain": 1,
+   "near": 1,
+   "mid": 1,
+   "far": 1,
+   "guns": 1,
+   "particles": false,
+   "shadows": 1,
+   "post": 1,
+   "bloom": 1,
+   "dof": 0,
+   "mblur": 0,
+   "sky": false
+  },
+  "flags": {
+   "terrain": 1,
+   "near": 1,
+   "mid": 1,
+   "far": 1,
+   "guns": 1,
+   "particles": false,
+   "shadows": 1,
+   "post": 1,
+   "bloom": 1,
+   "dof": 0,
+   "mblur": 0,
+   "sky": false
+  },
+  "fxLog": [],
+  "gpu": {
+   "ok": true,
+   "weatherOk": true,
+   "fxOk": true,
+   "failed": null,
+   "log": [],
+   "warnings": [],
+   "bytes": 1238292
+  },
+  "gl": null,
+  "adapter": {
+   "vendor": "google",
+   "arch": "swiftshader",
+   "device": "",
+   "desc": ""
+  },
+  "gpuErrors": [],
+  "wgsl": [],
+  "modules": [
+   "terrain messages=0",
+   "sky messages=0",
+   "midBone messages=0",
+   "nearFoot messages=0",
+   "nearMnt messages=0",
+   "mid messages=0",
+   "gun messages=0",
+   "imp messages=0",
+   "imp messages=0",
+   "particles messages=0",
+   "post messages=0",
+   "weather3d-mul messages=0",
+   "weather3d-add messages=0",
+   "fx3d-sprites messages=0"
+  ]
+ },
+ "resize": {
+  "case": "strike-close-jul3-1400",
+  "smallW": 480,
+  "smallH": 270,
+  "smallValidation": null,
+  "smallMean": 186.741,
+  "backValidation": null,
+  "backIdentical": true,
+  "backBytesDiffering": 0,
+  "binds": 3
+ },
+ "computeCheck": {
+  "messages": [],
+  "pipelineOk": true,
+  "pipelineError": null,
+  "validation": null,
+  "limits": {
+   "maxComputeInvocationsPerWorkgroup": 256,
+   "maxComputeWorkgroupSizeX": 256
+  }
+ },
+ "diagEnd": {
+  "api": "webgpu",
+  "hostLog": [],
+  "flags0": {
+   "terrain": 1,
+   "near": 1,
+   "mid": 1,
+   "far": 1,
+   "guns": 1,
+   "particles": false,
+   "shadows": 1,
+   "post": 1,
+   "bloom": 1,
+   "dof": 0,
+   "mblur": 0,
+   "sky": false
+  },
+  "flags": {
+   "terrain": 1,
+   "near": 1,
+   "mid": 1,
+   "far": 1,
+   "guns": 1,
+   "particles": false,
+   "shadows": 1,
+   "post": 1,
+   "bloom": 1,
+   "dof": 0,
+   "mblur": 0,
+   "sky": false
+  },
+  "fxLog": [],
+  "gpu": {
+   "ok": true,
+   "weatherOk": true,
+   "fxOk": true,
+   "failed": null,
+   "log": [],
+   "warnings": [],
+   "bytes": 1238292
+  },
+  "gl": null,
+  "adapter": {
+   "vendor": "google",
+   "arch": "swiftshader",
+   "device": "",
+   "desc": ""
+  },
+  "gpuErrors": [],
+  "wgsl": [],
+  "modules": [
+   "terrain messages=0",
+   "sky messages=0",
+   "midBone messages=0",
+   "nearFoot messages=0",
+   "nearMnt messages=0",
+   "mid messages=0",
+   "gun messages=0",
+   "imp messages=0",
+   "imp messages=0",
+   "particles messages=0",
+   "post messages=0",
+   "weather3d-mul messages=0",
+   "weather3d-add messages=0",
+   "fx3d-sprites messages=0",
+   "fx3d-compute-check messages=0"
+  ]
+ },
+ "afterDispose": {
+  "gpuErrors": [
+   "DEVICE LOST destroyed: Device was destroyed."
+  ],
+  "swap": {
+   "standIn": true,
+   "configured": 1,
+   "calls": 22
+  }
+ },
+ "finished": "2026-11-14T00:23:36.520Z",
+ "consoleLines": 0,
+ "consoleProblems": []
+}

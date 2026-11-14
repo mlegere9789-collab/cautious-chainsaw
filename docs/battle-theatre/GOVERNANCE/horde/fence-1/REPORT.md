@@ -16,11 +16,11 @@ The close-out of 2026-11-13 left three owed items (two page images and the garbl
 
 4. Page images (Read tool, crops cut at 300 dpi from archive.org scans; sha256 of every crop and source file in `image_checks.json`): OR27-1 p.431 (Davis, 69th Pa.) prints "on the morning of July 2" (the Cornell OCR "July 3" is a misread digit; E-17); OR27-1 p.856 (Greene) prints "By 12 o'clock we had a good cover for the men" (the Cornell OCR "13" is a misread; E-05); the Gettysburg Compiler of 29 Jun 1863 reads "The [c]entre span of the bridge was burnt and [smeared] in. The other two are standing, but [ba]dly damaged" (S-001: "fell in" is the likely reading of a smeared word and is not asserted). All three owed items are closed.
 5. Newly local texts searched for every open sub-claim: the books acquired by the timeline and unit workstreams (Bates 1875, Biddle 1880, Hard 1868, Barton 1898, Stoever in USCC-Smith 1868, Brown 1896, Hall 1908), the Iron Brigade and Maine books (Curtis 1891, Small 1886, Dawes 1890), the Second Corps regimental and brigade histories of the oob-kit library (25 text files: Willson 1870, McDermott 1889, Banes 1876, Bruce 1906, Ford 1898, Page 1906 and others), the Adams Sentinel and Gettysburg Compiler issues of 1863, the NPS Historic Structures Report of the McPherson farm, the NPS Little Round Top landscape report with its quoted veterans, the NPS inventories and Common Pride studies. 50 more searches and three page-image readings are logged in `lookups.jsonl` (lines with "wave": 4, with real hit counts; hits are capped per text).
-6. Cited foreign scratch books were copied into tmp/fence-1/lib (sha256 checked against the owners' ledgers) so the citations keep verifying when other workstreams clear their scratch.
-7. `scripts/build_corrections.py` re-resolved every citation (404) in the local files: each quote found verbatim (whitespace-normalised, case-sensitive) exactly once in the named report or source, or the build stops. `scripts/verify_corrections.py`: 404 citations, 0 mismatches. A strict audit (offset in the file, quote equals span, and for the Official Records the report id and printed page recomputed with tools/bt/or27_find against the stored values): 0 problems.
+6. Cited foreign scratch books were copied into tmp/fence-1/lib (sha256 checked against the owners' ledgers where a ledger records one: the timeline ledger for the acquired books, the unit-kit note for the Iron Brigade and Maine books; the Second Corps histories are checked byte for byte against their source file) so the citations keep verifying when other workstreams clear their scratch.
+7. `scripts/build_corrections.py` re-resolved every citation (428) in the local files: each quote found verbatim (whitespace-normalised, case-sensitive) exactly once in the named report or source, or the build stops. `scripts/verify_corrections.py`: 428 citations, 0 mismatches. A strict audit (offset in the file, quote equals span, and for the Official Records the report id and printed page recomputed with tools/bt/or27_find against the stored values): 0 problems.
 8. The nine hosts of the web-only rows were asked once more on 2026-11-14 (one request each): all still answer "CONNECT tunnel failed, response 403"; blocked, not worked around (log: tmp/fence-1/run4/host_probe_2026-11-14.txt).
 
-Citations by source in the new file (404 in all): OR-27-1 181, OR-27-2 29, NPS-CLR-1STDAY 16, NY-GB-1900 16, BATES-1875 12, NPS-CLR-ROT-V1 12, KIT:24thmichiganiron00curtrich 9, NPS-CLR-LRT 9, ME-GB-1898 7, NPS-COMMON-PRIDE-1 7, PA-GB-1914-v2 6, DAWES-1890 6, SHSP-05 6, BL-3 6, JACOBS-1864 6, NPS-CLI-LRT 5.
+Citations by source in the new file (428 in all): OR-27-1 181, OR-27-2 29, NPS-CLR-1STDAY 19, NY-GB-1900 16, NPS-CLR-ROT-V1 14, BATES-1875 12, KIT:24thmichiganiron00curtrich 9, NPS-CLR-LRT 9, NPS-SPANGLERS-SPRING 8, ME-GB-1898 7, NPS-COMMON-PRIDE-1 7, PA-GB-1914-v2 6, DAWES-1890 6, SHSP-05 6, BL-3 6, JACOBS-1864 6.
 
 ## Result by verdict
 
@@ -32,7 +32,7 @@ Citations by source in the new file (404 in all): OR-27-1 181, OR-27-2 29, NPS-C
 | unsupported | 0 () |
 | gap | 0 () |
 
-Sub-claims: documented/conflict 15; documented/partial 14; documented/supported 102; inferred/partial 6; inferred/unsupported 3; n/a (aggregate)/supported 2; open_gap/blocked_host 9; open_gap/contradicted 2; open_gap/partial 3; open_gap/unsupported 21.
+Sub-claims: documented/conflict 16; documented/partial 22; documented/supported 103; inferred/partial 6; inferred/unsupported 3; n/a (aggregate)/supported 2; open_gap/blocked_host 9; open_gap/contradicted 2; open_gap/partial 3; open_gap/unsupported 20.
 
 Row status: `open_gaps` = all supportable parts closed, named gaps remain registered; `blocked_host` = what is left rests only on web pages this machine cannot read (S-003, S-004, S-008, S-016).
 
@@ -132,11 +132,11 @@ One request note for the world-content workstream: `GOVERNANCE/horde/requests/bt
 ## Open gaps (registered as proposed entries fence-1-EG-01..19)
 
 - E-01: Length about 600 yd; Dismantling of a fence line over 600 yd (no length of fence removed is given anywhere); Start clock of the work (only the 11:00-13:00 window from the arrival of the division); Builder conflict: First Brigade (Robinson) vs 'Second Brigade, Second Division' (McFarland); A single printed hour for the overrun (Cooper 'after 4 p.m.', Pender 'about 4 o'clock', NPS 'by about 5:00 p.m.')
-- E-02: Clock hours of the Jul 1 work ('the first night of the battle' is the only printed time word; 18:00-21:00 is inferred); 6th Wisconsin first, then the division; Logs and earth fabric on Jul 1 evening; Extent 'Stevens' Knoll to the summit' (no source names the line)
+- E-02: Clock hours of the Jul 1 work ('the first night of the battle' is the only printed time word; 18:00-21:00 is inferred); 6th Wisconsin first, then the division; Which fabric the Jul 1 evening works had (the 1940 NPS reading of the photographs covers the works as they stood after Jul 2-3); Extent 'Stevens' Knoll to the summit' (no source names the line)
 - E-03: 10-rod distance to the stone wall (web page only); Hour the work began (after about 09:00 for the division; the regiment's own clock is 'next morning')
 - E-04: An 1863 statement that Steinwehr built or ordered works (books of 1875-1914 carry the attribution and name no source; Hancock denies solid lunettes); Date and extent of cemetery fence damage (Jul 2 vs Jul 3)
-- E-05: Head logs, boughs in front, rifle pits; First length about 300 yd (web source only); Per-regiment height (only a general NPS statement of five feet); Slocum/Geary opposition and Greene's engineering background
-- E-06: Exact build hour of the traverse; Height and profile of the traverse; Whether it was built at right angles to the main line (the OR describes the line thrown back perpendicular, not the traverse)
+- E-05: Head logs, boughs in front, rifle pits; First length about 300 yd (web source only); Per-regiment height (only general NPS statements: five feet for the elaborate log-crib works, an average of 20 inches read from the photographs); Slocum/Geary opposition and Greene's engineering background
+- E-06: Exact build hour of the traverse; Height and profile of the traverse; Whether the traverse of the OR and Greene's address is the one Bachelder calls 'constructed at the angle' (same position, different words; carried as one work)
 - E-07: Per-regiment clock times for Kane's regiments and for Wadsworth's regiments; Whether Wadsworth's works are 'on Greene's left' regiment by regiment
 - E-08: Exact hour the first Williams-division works were finished; Where Lockwood's regiments stood on the morning of Jul 3 before 17:00 ('various places')
 - E-09: 800-yd length; Any construction of a new extension at 18:30
@@ -147,8 +147,8 @@ One request note for the world-content workstream: `GOVERNANCE/horde/requests/bt
 - E-14: An Ohio battery as a builder; A printed hour for the start (words only: before the attack, at night, in the dark, now dark; about 20:00 is inferred); Wall length and height of the 1863 works (the 2-3 ft is a general NPS figure)
 - E-15: First fire 17:45; Hand-hauling as the one method; Presence or absence of an epaulement; Ammunition run up from the caissons (not found)
 - E-16: Reason for no works; Positive 'no works' for Ward's brigade; Builders, dates and locations of the Devil's Den stone walls
-- E-17: Continuity of a line along Cemetery Ridge; Dimensions of any work other than the one 'a little over knee-high' (regiment not named); Clock hours of most Jul 3 works (only 'morning', 'forenoon', 'daylight', 'during the cannonade', '18:00'); the 126th NY gives Jul 2 about 08:00 to about 18:30
-- E-18: Confederate works on Jul 2-3 at Seminary Ridge, Warfield Ridge, Oak Hill and Benner's Hill; Dimensions of any Confederate work; Length/form of the Middle Street barricade
+- E-17: Continuity of a line along Cemetery Ridge; Dimensions of any work other than the one 'a little over knee-high' (regiment not named) and the traverse spacing of about 30 ft on the Emmitsburg road wall (Bachelder, day and builder not stated); Clock hours of most Jul 3 works (only 'morning', 'forenoon', 'daylight', 'during the cannonade', '18:00'); the 126th NY gives Jul 2 about 08:00 to about 18:30
+- E-18: Confederate works on Jul 2 and the morning of Jul 3 at Seminary Ridge, Warfield Ridge, Oak Hill and Benner's Hill (works after Pickett's Charge at McMillan and Shultz Woods are documented, and Johnson's division breastworks on the Forney farm without a day); Dimensions of any Confederate work; Length/form of the Middle Street barricade
 - S-001: Printed hour of the burning (evening only); Whether the centre span fell: the word before 'in.' is smeared in the page image ('burnt' is clear)
 - S-002: Whether the Jun 30 'steeple of the college' (Norton) is Pennsylvania Hall or another college building (no source read names it); Hour on Jun 30
 - S-003: 'Along the railroad grade' (Harrison, web page only); The critic's counterclaim that no wartime account describes fences along the cut (web page only); The tenant's own damage claim (Slentz), which the NPS report footnotes, and the quoted phrase in Hall 1908 (not found in the local text)
@@ -168,7 +168,7 @@ One request note for the world-content workstream: `GOVERNANCE/horde/requests/bt
 
 ## Delegated decisions recorded
 
-DD-FENCE1-01..20 (2026-11-13) and DD-FENCE1-21..27 (2026-11-14, sections headed "bt-evidence, shard fence-1") appended to `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md`. Every alternative stays selectable; nothing written to decision_log.md.
+DD-FENCE1-01..20 (2026-11-13) and DD-FENCE1-21..29 (2026-11-14, sections headed "bt-evidence, shard fence-1" and the table added later that day) appended to `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md`. Every alternative stays selectable; nothing written to decision_log.md.
 
 ## Not run, owed, owner-only
 

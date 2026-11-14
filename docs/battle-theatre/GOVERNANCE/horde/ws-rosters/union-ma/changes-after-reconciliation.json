@@ -1,0 +1,1279 @@
+{
+ "format": "ma-changes-after-reconciliation/1",
+ "about": "The 24 unit files as the first run of 13 November 2026 wrote them (33,748 lines) against the files now. Rules of the parser changed after the reconciliation with the earlier roll files showed defects (union_ma/ma_parse.py, ma_cuts.py, ma_dates.py): a third head rule, name-cut refinements, three reviewed name cuts, two reviewed headings, a number alone on its line at a page break kept in the remarks. Lines are compared by the character offset of the name in the pinned text.",
+ "units": {
+  "u-ma-10th-massachusetts-infantry": {
+   "lines_before": 1258,
+   "lines_now": 1258,
+   "lines_added_by_third_head_rule": 0,
+   "names_cut_differently": 1,
+   "company_changed_by_reviewed_heading": 112,
+   "host_lines_with_shorter_remarks": 2,
+   "lines_with_longer_remarks_page_break_number": 1,
+   "lines_removed_unmatched": 0,
+   "added": [],
+   "name_cuts": [
+    {
+     "page": 689,
+     "offset_before": 3446772,
+     "offset_now": 3446758,
+     "name_before": "Shultis, George",
+     "name_now": "Shelters or Shultis, George"
+    }
+   ],
+   "longer": [
+    {
+     "page": 725,
+     "offset": 3639008,
+     "name": "Card, Martin",
+     "tail_now": " Va. ; must, out July 1, 1864."
+    }
+   ],
+   "company_changes": {
+    "from": [
+     "I"
+    ],
+    "to": [
+     "K"
+    ],
+    "n": 112
+   }
+  },
+  "u-ma-11th-massachusetts-infantry": {
+   "lines_before": 2038,
+   "lines_now": 2039,
+   "lines_added_by_third_head_rule": 1,
+   "names_cut_differently": 2,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 2,
+   "lines_with_longer_remarks_page_break_number": 3,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 800,
+     "offset": 4018075,
+     "name": "Page, Edgar B.",
+     "rank": "Priv.",
+     "co": "H"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 737,
+     "offset_before": 3693489,
+     "offset_now": 3693494,
+     "name_before": "\"G.\" Henry Page",
+     "name_now": "Henry Page"
+    },
+    {
+     "page": 783,
+     "offset_before": 3934261,
+     "offset_now": 3934252,
+     "name_before": "John, Ist",
+     "name_now": "Hughes, John, Ist"
+    }
+   ],
+   "longer": [
+    {
+     "page": 737,
+     "offset": 3693182,
+     "name": "William B. Mitchell",
+     "tail_now": "nna., as 2d Lieut, of Co. \"G.\""
+    },
+    {
+     "page": 758,
+     "offset": 3802608,
+     "name": "Neal, David",
+     "tail_now": "1864 ; deserted Sept. 2, 1864."
+    },
+    {
+     "page": 800,
+     "offset": 4023056,
+     "name": "Ryan, Michael",
+     "tail_now": "863 ; must, out July 14, 1865."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-12th-massachusetts-infantry": {
+   "lines_before": 1592,
+   "lines_now": 1592,
+   "lines_added_by_third_head_rule": 0,
+   "names_cut_differently": 3,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 2,
+   "lines_with_longer_remarks_page_break_number": 1,
+   "lines_removed_unmatched": 0,
+   "added": [],
+   "name_cuts": [
+    {
+     "page": null,
+     "offset_before": 11961,
+     "offset_now": 11966,
+     "name_before": "\"D.\" Loring W. Muzzey",
+     "name_now": "Loring W. Muzzey"
+    },
+    {
+     "page": 10,
+     "offset_before": 47970,
+     "offset_now": 47960,
+     "name_before": "er, Alfred",
+     "name_now": "Webendorf er, Alfred"
+    },
+    {
+     "page": 14,
+     "offset_before": 66567,
+     "offset_now": 66562,
+     "name_before": "ward, Paul",
+     "name_now": "Hay ward, Paul"
+    }
+   ],
+   "longer": [
+    {
+     "page": null,
+     "offset": 11689,
+     "name": "Charles G. Russell",
+     "tail_now": "na., as 1st Lieut, of Co. \"D.\""
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-13th-massachusetts-infantry": {
+   "lines_before": 1446,
+   "lines_now": 1448,
+   "lines_added_by_third_head_rule": 2,
+   "names_cut_differently": 3,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 5,
+   "lines_with_longer_remarks_page_break_number": 0,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 96,
+     "offset": 497711,
+     "name": "Balch, Henry C.",
+     "rank": "CorpL",
+     "co": "E"
+    },
+    {
+     "page": 96,
+     "offset": 498861,
+     "name": "Bertch, Charles",
+     "rank": "Corpi.",
+     "co": "E"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 72,
+     "offset_before": 368689,
+     "offset_now": 368665,
+     "name_before": "Jr,",
+     "name_now": "Bowker, Theodore P., Jr,"
+    },
+    {
+     "page": 87,
+     "offset_before": 447326,
+     "offset_now": 447321,
+     "name_before": "toon, John L.",
+     "name_now": "Hun toon, John L."
+    },
+    {
+     "page": 97,
+     "offset_before": 501660,
+     "offset_now": 501637,
+     "name_before": "Ruan, Michael",
+     "name_now": "Clark, George alias Ruan, Michael"
+    }
+   ],
+   "longer": [],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-15th-massachusetts-infantry": {
+   "lines_before": 1724,
+   "lines_now": 1726,
+   "lines_added_by_third_head_rule": 2,
+   "names_cut_differently": 2,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 4,
+   "lines_with_longer_remarks_page_break_number": 0,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 152,
+     "offset": 787859,
+     "name": "Maynard, Waldo B.",
+     "rank": "Priv.",
+     "co": "C"
+    },
+    {
+     "page": 160,
+     "offset": 827325,
+     "name": "Newton, Oliver W.",
+     "rank": "Priv.",
+     "co": "D"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 151,
+     "offset_before": 782864,
+     "offset_now": 782860,
+     "name_before": "ts, Albert N.",
+     "name_now": "Jef ts, Albert N."
+    },
+    {
+     "page": 187,
+     "offset_before": 976152,
+     "offset_now": 976144,
+     "name_before": "Peter, Ist",
+     "name_now": "Quinn, Peter, Ist"
+    }
+   ],
+   "longer": [],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-16th-massachusetts-infantry": {
+   "lines_before": 1369,
+   "lines_now": 1369,
+   "lines_added_by_third_head_rule": 0,
+   "names_cut_differently": 2,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 2,
+   "lines_with_longer_remarks_page_break_number": 1,
+   "lines_removed_unmatched": 0,
+   "added": [],
+   "name_cuts": [
+    {
+     "page": 242,
+     "offset_before": 1257854,
+     "offset_now": 1257848,
+     "name_before": "ord, John",
+     "name_now": "Whitf ord, John"
+    },
+    {
+     "page": 257,
+     "offset_before": 1336882,
+     "offset_now": 1336866,
+     "name_before": "VV,",
+     "name_now": "Steams, Henry VV,"
+    }
+   ],
+   "longer": [
+    {
+     "page": 223,
+     "offset": 1160014,
+     "name": "Hadley, Albert",
+     "tail_now": "nna.; must, out July 27, 1864."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-18th-massachusetts-infantry": {
+   "lines_before": 1368,
+   "lines_now": 1371,
+   "lines_added_by_third_head_rule": 3,
+   "names_cut_differently": 1,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 3,
+   "lines_with_longer_remarks_page_break_number": 0,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 374,
+     "offset": 1937896,
+     "name": "Bird^JohnE.",
+     "rank": "2dlieat.",
+     "co": ""
+    },
+    {
+     "page": 374,
+     "offset": 1938130,
+     "name": "Bishop, Edward",
+     "rank": "Priv.",
+     "co": ""
+    },
+    {
+     "page": 375,
+     "offset": 1943911,
+     "name": "Cor, Hiram G.",
+     "rank": "Priv.",
+     "co": ""
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 408,
+     "offset_before": 2118056,
+     "offset_now": 2118044,
+     "name_before": "Cartes, Obed",
+     "name_now": "Carter or Cartes, Obed"
+    }
+   ],
+   "longer": [],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-19th-massachusetts-infantry": {
+   "lines_before": 1937,
+   "lines_now": 1938,
+   "lines_added_by_third_head_rule": 1,
+   "names_cut_differently": 2,
+   "company_changed_by_reviewed_heading": 96,
+   "host_lines_with_shorter_remarks": 4,
+   "lines_with_longer_remarks_page_break_number": 2,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 427,
+     "offset": 2210167,
+     "name": "Rogers, Shubael D.",
+     "rank": "Priv.",
+     "co": "B"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 415,
+     "offset_before": 2147446,
+     "offset_now": 2147440,
+     "name_before": "ey, Orrin B.",
+     "name_now": "Chaff ey, Orrin B."
+    },
+    {
+     "page": 427,
+     "offset_before": 2213327,
+     "offset_now": 2213303,
+     "name_before": "Shaw, Thomas J.",
+     "name_now": "Strange, James alias Shaw, Thomas J."
+    }
+   ],
+   "longer": [
+    {
+     "page": 465,
+     "offset": 2417164,
+     "name": "Cross, Charles W.",
+     "tail_now": "st. ; must, out June 30, 1865."
+    },
+    {
+     "page": 482,
+     "offset": 2508198,
+     "name": "Havey, James",
+     "tail_now": "hown ; deserted Aug. 29, 1864."
+    }
+   ],
+   "company_changes": {
+    "from": [
+     "K"
+    ],
+    "to": [
+     "UNAS"
+    ],
+    "n": 96
+   }
+  },
+  "u-ma-1st-company-massachusetts-sharpshooters": {
+   "lines_before": 186,
+   "lines_now": 186,
+   "lines_added_by_third_head_rule": 0,
+   "names_cut_differently": 0,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 0,
+   "lines_with_longer_remarks_page_break_number": 1,
+   "lines_removed_unmatched": 0,
+   "added": [],
+   "name_cuts": [],
+   "longer": [
+    {
+     "page": 213,
+     "offset": 1110605,
+     "name": "Young, J. Albert",
+     "tail_now": "st, out to date Sept. 2, 1864."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-1st-massachusetts-battery-a": {
+   "lines_before": 264,
+   "lines_now": 265,
+   "lines_added_by_third_head_rule": 1,
+   "names_cut_differently": 0,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 1,
+   "lines_with_longer_remarks_page_break_number": 0,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 349,
+     "offset": 1692103,
+     "name": "Isaacs, Richard J.",
+     "rank": "Priv.",
+     "co": ""
+    }
+   ],
+   "name_cuts": [],
+   "longer": [],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-1st-massachusetts-cavalry": {
+   "lines_before": 2334,
+   "lines_now": 2341,
+   "lines_added_by_third_head_rule": 7,
+   "names_cut_differently": 1,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 7,
+   "lines_with_longer_remarks_page_break_number": 1,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 132,
+     "offset": 606844,
+     "name": "John L. Brigham",
+     "rank": "Commy. Sergt.",
+     "co": "NCS"
+    },
+    {
+     "page": 140,
+     "offset": 643549,
+     "name": "Shumway, Gilbert H.",
+     "rank": "Priv.",
+     "co": "A"
+    },
+    {
+     "page": 147,
+     "offset": 684600,
+     "name": "Vinal, Warren J.",
+     "rank": "Priv.",
+     "co": "B"
+    },
+    {
+     "page": 149,
+     "offset": 692279,
+     "name": "Brown, James R.",
+     "rank": "Priv.",
+     "co": "C"
+    },
+    {
+     "page": 155,
+     "offset": 726549,
+     "name": "Gheslyn, Richard W.",
+     "rank": "Priv.",
+     "co": "D"
+    },
+    {
+     "page": 160,
+     "offset": 751811,
+     "name": "Shepard, Louis J.",
+     "rank": "Priv.",
+     "co": "D"
+    },
+    {
+     "page": 170,
+     "offset": 803269,
+     "name": "Collins, Horace R. R.",
+     "rank": "Priv.",
+     "co": "F"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 170,
+     "offset_before": 802969,
+     "offset_now": 802961,
+     "name_before": "Duett, C,",
+     "name_now": "Clark, Duett, C,"
+    }
+   ],
+   "longer": [
+    {
+     "page": 150,
+     "offset": 700872,
+     "name": "Hilliard, George H.",
+     "tail_now": "for disability, Jany. 28 1863."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-1st-massachusetts-infantry": {
+   "lines_before": 1695,
+   "lines_now": 1699,
+   "lines_added_by_third_head_rule": 4,
+   "names_cut_differently": 2,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 6,
+   "lines_with_longer_remarks_page_break_number": 2,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 27,
+     "offset": 151348,
+     "name": "Murray, George",
+     "rank": "Priv.",
+     "co": "D"
+    },
+    {
+     "page": 49,
+     "offset": 270132,
+     "name": "Grover, Amaziah",
+     "rank": "Priv.",
+     "co": "H"
+    },
+    {
+     "page": 54,
+     "offset": 298726,
+     "name": "Downing, James H.",
+     "rank": "Priv.",
+     "co": "I"
+    },
+    {
+     "page": 57,
+     "offset": 314853,
+     "name": "Mozart, George W.",
+     "rank": "Priv.",
+     "co": "I"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 13,
+     "offset_before": 80772,
+     "offset_now": 80766,
+     "name_before": "ton, William H.",
+     "name_now": "Know] ton, William H."
+    },
+    {
+     "page": 30,
+     "offset_before": 169321,
+     "offset_now": 169313,
+     "name_before": "th, George",
+     "name_now": "Danf or th, George"
+    }
+   ],
+   "longer": [
+    {
+     "page": 32,
+     "offset": 182173,
+     "name": "Potter, Edward",
+     "tail_now": " Va. ; must, out May 25. 1864."
+    },
+    {
+     "page": 35,
+     "offset": 197945,
+     "name": "Faunce, Albert A,",
+     "tail_now": "1863 ; must, out May 25, 1864."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-20th-massachusetts-infantry": {
+   "lines_before": 2482,
+   "lines_now": 2484,
+   "lines_added_by_third_head_rule": 2,
+   "names_cut_differently": 5,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 7,
+   "lines_with_longer_remarks_page_break_number": 1,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 563,
+     "offset": 2922697,
+     "name": "McCafferty, Neal",
+     "rank": "Priv.",
+     "co": "H"
+    },
+    {
+     "page": 563,
+     "offset": 2923117,
+     "name": "McCarty, Thomas",
+     "rank": "Priv.",
+     "co": "H"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 494,
+     "offset_before": 2560327,
+     "offset_now": 2560317,
+     "name_before": "White",
+     "name_now": "ElishaM. White"
+    },
+    {
+     "page": 507,
+     "offset_before": 2625378,
+     "offset_now": 2625372,
+     "name_before": "en, John",
+     "name_now": "Hanif en, John"
+    },
+    {
+     "page": 527,
+     "offset_before": 2730849,
+     "offset_now": 2730844,
+     "name_before": "er, William F.",
+     "name_now": "Keef er, William F."
+    },
+    {
+     "page": 588,
+     "offset_before": 3061467,
+     "offset_now": 3061458,
+     "name_before": "William, Ist",
+     "name_now": "Wilson, William, Ist"
+    },
+    {
+     "page": 591,
+     "offset_before": 3070747,
+     "offset_now": 3070742,
+     "name_before": "tier, Francis",
+     "name_now": "Fil tier, Francis"
+    }
+   ],
+   "longer": [
+    {
+     "page": 540,
+     "offset": 2804499,
+     "name": "Cain, John",
+     "tail_now": "1861 ; deserted Aug. 28, 1861."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-22nd-massachusetts-infantry": {
+   "lines_before": 1452,
+   "lines_now": 1452,
+   "lines_added_by_third_head_rule": 0,
+   "names_cut_differently": 3,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 2,
+   "lines_with_longer_remarks_page_break_number": 1,
+   "lines_removed_unmatched": 0,
+   "added": [],
+   "name_cuts": [
+    {
+     "page": 668,
+     "offset_before": 3472842,
+     "offset_now": 3472835,
+     "name_before": "Perley, W.",
+     "name_now": "Read, Perley, W."
+    },
+    {
+     "page": 677,
+     "offset_before": 3517210,
+     "offset_now": 3517203,
+     "name_before": "trick, James",
+     "name_now": "Fitzpa trick, James"
+    },
+    {
+     "page": 677,
+     "offset_before": 3517533,
+     "offset_now": 3517525,
+     "name_before": "trick, Thomas",
+     "name_now": "Fitzpa trick, Thomas"
+    }
+   ],
+   "longer": [
+    {
+     "page": 691,
+     "offset": 3597496,
+     "name": "Weeks, Henry A.",
+     "tail_now": "for disability, Feb. 10, 1863."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-28th-massachusetts-infantry": {
+   "lines_before": 2063,
+   "lines_now": 2065,
+   "lines_added_by_third_head_rule": 2,
+   "names_cut_differently": 2,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 4,
+   "lines_with_longer_remarks_page_break_number": 2,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 191,
+     "offset": 981877,
+     "name": "Gallt, John T.",
+     "rank": "Music.",
+     "co": "BAND"
+    },
+    {
+     "page": 238,
+     "offset": 1233605,
+     "name": "Sullivan, James",
+     "rank": "Priv.",
+     "co": "F"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 213,
+     "offset_before": 1096645,
+     "offset_now": 1096637,
+     "name_before": "Patrick, Ist",
+     "name_now": "Lynch, Patrick, Ist"
+    },
+    {
+     "page": 269,
+     "offset_before": 1400369,
+     "offset_now": 1400358,
+     "name_before": "Jasper, William",
+     "name_now": "Jager or Jasper, William"
+    }
+   ],
+   "longer": [
+    {
+     "page": 222,
+     "offset": 1150639,
+     "name": "Regan, William",
+     "tail_now": "Va. ; must, out Dec. 19, 1864."
+    },
+    {
+     "page": 242,
+     "offset": 1258108,
+     "name": "Mahan, John J.",
+     "tail_now": "1864; must, out June 30, 1865."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-2nd-massachusetts-infantry": {
+   "lines_before": 2010,
+   "lines_now": 2013,
+   "lines_added_by_third_head_rule": 3,
+   "names_cut_differently": 4,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 5,
+   "lines_with_longer_remarks_page_break_number": 2,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 100,
+     "offset": 523696,
+     "name": "Bancroft, George",
+     "rank": "Priv.",
+     "co": "E"
+    },
+    {
+     "page": 116,
+     "offset": 605707,
+     "name": "Goodhind, Richard",
+     "rank": "Priv.",
+     "co": "G"
+    },
+    {
+     "page": 133,
+     "offset": 692153,
+     "name": "Rambeck, Leonard",
+     "rank": "Priv.",
+     "co": "I"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 71,
+     "offset_before": 377391,
+     "offset_now": 377396,
+     "name_before": "\"K.\" Erastus B, Carl!",
+     "name_now": "Erastus B, Carl!"
+    },
+    {
+     "page": 71,
+     "offset_before": 377652,
+     "offset_now": 377657,
+     "name_before": "\"F.\" Joseph W. Nutting",
+     "name_now": "Joseph W. Nutting"
+    },
+    {
+     "page": 98,
+     "offset_before": 516520,
+     "offset_now": 516503,
+     "name_before": "Jr,",
+     "name_now": "Savage, James, Jr,"
+    },
+    {
+     "page": 136,
+     "offset_before": 712376,
+     "offset_now": 712371,
+     "name_before": "ward, Albert",
+     "name_now": "Hay ward, Albert"
+    }
+   ],
+   "longer": [
+    {
+     "page": 71,
+     "offset": 377160,
+     "name": "James H. Fletcher",
+     "tail_now": "for disability, as of Co. \"K.\""
+    },
+    {
+     "page": 125,
+     "offset": 655394,
+     "name": "Powers, James E.",
+     "tail_now": "for disability, Oct. 14, 1862."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-32nd-massachusetts-infantry": {
+   "lines_before": 2164,
+   "lines_now": 2168,
+   "lines_added_by_third_head_rule": 4,
+   "names_cut_differently": 6,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 10,
+   "lines_with_longer_remarks_page_break_number": 5,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 450,
+     "offset": 2314522,
+     "name": "Z. Boylston Adams",
+     "rank": "Surgeon",
+     "co": "FS"
+    },
+    {
+     "page": 495,
+     "offset": 2551949,
+     "name": "Montague, Lotes C.",
+     "rank": "Priv.",
+     "co": "F"
+    },
+    {
+     "page": 506,
+     "offset": 2610462,
+     "name": "Bush, George H.",
+     "rank": "Priv.",
+     "co": "H"
+    },
+    {
+     "page": 517,
+     "offset": 2668384,
+     "name": "Reed, Franklin",
+     "rank": "Priv.",
+     "co": "I"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 457,
+     "offset_before": 2352988,
+     "offset_now": 2352975,
+     "name_before": "Chauncey, O.",
+     "name_now": "Richardson, Chauncey, O."
+    },
+    {
+     "page": 486,
+     "offset_before": 2501810,
+     "offset_now": 2501791,
+     "name_before": "Jr,",
+     "name_now": "Hersey, William, Jr,"
+    },
+    {
+     "page": 502,
+     "offset_before": 2585289,
+     "offset_now": 2585283,
+     "name_before": "trick, David",
+     "name_now": "Kilpa trick, David"
+    },
+    {
+     "page": 502,
+     "offset_before": 2588201,
+     "offset_now": 2588197,
+     "name_before": "viaux, Joseph",
+     "name_now": "Lou viaux, Joseph"
+    },
+    {
+     "page": 532,
+     "offset_before": 2746815,
+     "offset_now": 2746810,
+     "name_before": "lew, Francis A.",
+     "name_now": "Cor lew, Francis A."
+    },
+    {
+     "page": 534,
+     "offset_before": 2760916,
+     "offset_now": 2760894,
+     "name_before": "Godsoe, John)",
+     "name_now": "Waitt, John (alias Godsoe, John)"
+    }
+   ],
+   "longer": [
+    {
+     "page": 463,
+     "offset": 2385356,
+     "name": "Morris, Daniel",
+     "tail_now": "hown ; must, out May 26, 1865."
+    },
+    {
+     "page": 473,
+     "offset": 2438035,
+     "name": "Roberts, Henry W.",
+     "tail_now": "Va. ; must, out July 14, 1865."
+    },
+    {
+     "page": 477,
+     "offset": 2459003,
+     "name": "Fawer, Jean",
+     "tail_now": "1864; must, out June 29, 1865."
+    },
+    {
+     "page": 483,
+     "offset": 2489910,
+     "name": "Briggs, Laurice B.",
+     "tail_now": " Va., must, out June 29, 1865."
+    },
+    {
+     "page": 515,
+     "offset": 2653525,
+     "name": "Fohy, Frank",
+     "tail_now": "864 ; must, out June 29, 1865."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-33rd-massachusetts-infantry": {
+   "lines_before": 1279,
+   "lines_now": 1282,
+   "lines_added_by_third_head_rule": 3,
+   "names_cut_differently": 1,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 4,
+   "lines_with_longer_remarks_page_break_number": 0,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 547,
+     "offset": 2816651,
+     "name": "Nickerson, Silas",
+     "rank": "Priv.",
+     "co": "B"
+    },
+    {
+     "page": 554,
+     "offset": 2854812,
+     "name": "Gorham, Jason M.",
+     "rank": "Priv.",
+     "co": "D"
+    },
+    {
+     "page": 563,
+     "offset": 2901068,
+     "name": "Brown, Charles H.",
+     "rank": "Priv.",
+     "co": "F"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 575,
+     "offset_before": 2962081,
+     "offset_now": 2962056,
+     "name_before": "Mclntire, Arthur",
+     "name_now": "Mclntee, Arthur alias Mclntire, Arthur"
+    }
+   ],
+   "longer": [],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-37th-massachusetts-infantry": {
+   "lines_before": 1309,
+   "lines_now": 1310,
+   "lines_added_by_third_head_rule": 1,
+   "names_cut_differently": 2,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 3,
+   "lines_with_longer_remarks_page_break_number": 1,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 780,
+     "offset": 4019786,
+     "name": "Landon, AsaL.",
+     "rank": "Priv.",
+     "co": "B"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 792,
+     "offset_before": 4078885,
+     "offset_now": 4078880,
+     "name_before": "toe, William, Jr.",
+     "name_now": "Shaf toe, William, Jr."
+    },
+    {
+     "page": 817,
+     "offset_before": 4213894,
+     "offset_now": 4213889,
+     "name_before": "ton, George R.",
+     "name_now": "Traf ton, George R."
+    }
+   ],
+   "longer": [
+    {
+     "page": 778,
+     "offset": 4009278,
+     "name": "Carter, George T.",
+     "tail_now": "; disch. to date Oct. 7, 1865."
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-3rd-massachusetts-battery-c": {
+   "lines_before": 258,
+   "lines_now": 258,
+   "lines_added_by_third_head_rule": 0,
+   "names_cut_differently": 0,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 0,
+   "lines_with_longer_remarks_page_break_number": 0,
+   "lines_removed_unmatched": 0,
+   "added": [],
+   "name_cuts": [],
+   "longer": [],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-5th-massachusetts-battery-e": {
+   "lines_before": 331,
+   "lines_now": 331,
+   "lines_added_by_third_head_rule": 0,
+   "names_cut_differently": 0,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 0,
+   "lines_with_longer_remarks_page_break_number": 0,
+   "lines_removed_unmatched": 0,
+   "added": [],
+   "name_cuts": [],
+   "longer": [],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-7th-massachusetts-infantry": {
+   "lines_before": 1171,
+   "lines_now": 1171,
+   "lines_added_by_third_head_rule": 0,
+   "names_cut_differently": 5,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 4,
+   "lines_with_longer_remarks_page_break_number": 1,
+   "lines_removed_unmatched": 0,
+   "added": [],
+   "name_cuts": [
+    {
+     "page": 470,
+     "offset_before": 2354724,
+     "offset_now": 2354729,
+     "name_before": "\"B.\" Robert Carver",
+     "name_now": "Robert Carver"
+    },
+    {
+     "page": 477,
+     "offset_before": 2387569,
+     "offset_now": 2387548,
+     "name_before": "Jr,",
+     "name_now": "Buffinton, Israel, Jr,"
+    },
+    {
+     "page": 483,
+     "offset_before": 2418612,
+     "offset_now": 2418603,
+     "name_before": "James, Ist",
+     "name_now": "Kelley, James, Ist"
+    },
+    {
+     "page": 499,
+     "offset_before": 2505247,
+     "offset_now": 2505242,
+     "name_before": "ton, Oliver J.",
+     "name_now": "Hor ton, Oliver J."
+    },
+    {
+     "page": 500,
+     "offset_before": 2508344,
+     "offset_now": 2508339,
+     "name_before": "tes, Nicholas",
+     "name_now": "Lof tes, Nicholas"
+    }
+   ],
+   "longer": [
+    {
+     "page": 470,
+     "offset": 2354489,
+     "name": "Othniel Gilmore",
+     "tail_now": ", 1862, as Captain of Co. \"B.\""
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-9th-massachusetts-battery": {
+   "lines_before": 328,
+   "lines_now": 329,
+   "lines_added_by_third_head_rule": 1,
+   "names_cut_differently": 0,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 1,
+   "lines_with_longer_remarks_page_break_number": 0,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 458,
+     "offset": 2217019,
+     "name": "Higgins, George L.",
+     "rank": "Priv.",
+     "co": ""
+    }
+   ],
+   "name_cuts": [],
+   "longer": [],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  },
+  "u-ma-9th-massachusetts-infantry": {
+   "lines_before": 1690,
+   "lines_now": 1692,
+   "lines_added_by_third_head_rule": 2,
+   "names_cut_differently": 2,
+   "company_changed_by_reviewed_heading": 0,
+   "host_lines_with_shorter_remarks": 3,
+   "lines_with_longer_remarks_page_break_number": 1,
+   "lines_removed_unmatched": 0,
+   "added": [
+    {
+     "page": 651,
+     "offset": 3259644,
+     "name": "Coogan, John",
+     "rank": "Priv.",
+     "co": "F"
+    },
+    {
+     "page": 679,
+     "offset": 3399230,
+     "name": "O'Hare, Hugh",
+     "rank": "Priv.",
+     "co": "K"
+    }
+   ],
+   "name_cuts": [
+    {
+     "page": 617,
+     "offset_before": 3085274,
+     "offset_now": 3085279,
+     "name_before": "\"C.\" William Strachan",
+     "name_now": "William Strachan"
+    },
+    {
+     "page": 654,
+     "offset_before": 3274714,
+     "offset_now": 3274704,
+     "name_before": "John, Ist",
+     "name_now": "O'Brien, John, Ist"
+    }
+   ],
+   "longer": [
+    {
+     "page": 617,
+     "offset": 3084993,
+     "name": "William A. Phelan",
+     "tail_now": "s, Va., as Captain of Co. \"C.\""
+    }
+   ],
+   "company_changes": {
+    "from": [],
+    "to": [],
+    "n": 0
+   }
+  }
+ },
+ "totals": {
+  "lines_before": 33748,
+  "lines_now": 33787,
+  "lines_added_by_third_head_rule": 39,
+  "names_cut_differently": 49,
+  "company_changed_by_reviewed_heading": 208,
+  "host_lines_with_shorter_remarks": 81,
+  "lines_with_longer_remarks_page_break_number": 26,
+  "lines_removed_unmatched": 0
+ }
+}

@@ -503,12 +503,16 @@ def number_tokens(text):
     return out
 
 
-def parse_numbers(text, skip_lone_one=False):
-    """The numbers written in a text, digits (thousands commas dropped) and spelled-out runs, as floats."""
+def parse_numbers(text, skip_lone_one=False, spaced=False):
+    """The numbers written in a text, digits (thousands commas dropped) and spelled-out runs, as floats. spaced=True (for a quote, the text
+    of the source) also reads OCR's "1, 995" as 1995 in addition to 1 and 995."""
     found = []
     t = text.replace('½', ' 1/2 ')
     for m in re.finditer(r'\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?', t):
         found.append(float(m.group(0).replace(',', '')))
+    if spaced:
+        for m in re.finditer(r'(?<!\d)\d{1,3}(?:,\s\d{3})+(?!\d)', t):
+            found.append(float(re.sub(r'[,\s]', '', m.group(0))))
     t2 = re.sub(r'-[ \t]*\r?\n[ \t]*', '', t.lower())
     toks = []
     for tok in re.findall(r'[a-z]+', t2):
@@ -588,6 +592,7 @@ class SourceInfo:
         self.edition = ''
         self.files = {}        # key -> {'path', 'sha256', 'page_model', 'page_marker'}
         self.rate = DEFAULT_RATE
+        self.default_file = None
         self.registry = False
         self.ledger = False
 
@@ -606,6 +611,7 @@ class Sources:
                 s.lead = bool(e.get('lead')) or s.cls in LEAD_CLASSES
                 s.edition = e.get('edition') or ''
                 s.rate = float(e.get('ocr_error_rate', DEFAULT_RATE))
+                s.default_file = e.get('default_file')
                 for key, f in (e.get('files') or {}).items():
                     s.files[key] = {'path': f.get('path'), 'sha256': f.get('sha256'), 'page_model': f.get('page_model', e.get('page_model', 'none')),
                                     'page_marker': f.get('page_marker', e.get('page_marker'))}
@@ -641,7 +647,9 @@ class Sources:
             raise KeyError('source %r is in neither sources.json nor the ledger of SOURCES.md' % sid)
         key = ref.get('file')
         if key is None:
-            if len(s.files) == 1:
+            if s.default_file in s.files:
+                key = s.default_file
+            elif len(s.files) == 1:
                 key = next(iter(s.files))
             elif 'main' in s.files:
                 key = 'main'
@@ -744,24 +752,27 @@ def find_quote(rt, quote, rate=DEFAULT_RATE, near=None):
         f.reason = 'quote too short (%d letters and digits, at least %d)' % (len(qn), MIN_QUOTE_ALNUM)
         return f
     pieces = [p for p in SEGMENT_SPLIT.split(quote) if p.strip()]
-    for name in ('A', 'B'):
-        view = rt.view(name)
-        cands = locate(view.s, qn, max_err_for(len(qn), rate))
-        if cands:
-            a, b, d = _nearest(cands, view, near)
-            _fill(f, rt, view, name, [(a, b, d)], 'exact' if d == 0 else 'fuzzy')
-            return _digit_checks(f, rt, view, [qn])
+    # an exact match on either view is preferred to an approximate one on the first view (a page head inside the quote costs edits on view A)
+    for tol in (0.0, rate):
+        for name in ('A', 'B'):
+            view = rt.view(name)
+            cands = locate(view.s, qn, max_err_for(len(qn), tol))
+            if cands:
+                a, b, d = _nearest(cands, view, near)
+                _fill(f, rt, view, name, [(a, b, d)], 'exact' if d == 0 else 'fuzzy')
+                return _digit_checks(f, rt, view, [qn])
     if len(pieces) > 1:
         pn = [fold(p) for p in pieces]
         if min(len(x) for x in pn) < MIN_SEGMENT_ALNUM:
             f.reason = 'a segment between ellipses is shorter than %d letters and digits' % MIN_SEGMENT_ALNUM
             return f
-        for name in ('A', 'B'):
-            view = rt.view(name)
-            chain = _segments(view, pn, rate, near)
-            if chain:
-                _fill(f, rt, view, name, chain, 'segments')
-                return _digit_checks(f, rt, view, pn)
+        for tol in (0.0, rate):
+            for name in ('A', 'B'):
+                view = rt.view(name)
+                chain = _segments(view, pn, tol, near)
+                if chain:
+                    _fill(f, rt, view, name, chain, 'segments')
+                    return _digit_checks(f, rt, view, pn)
         f.reason = 'the segments of the quote are not all found, in order, within %d characters of each other' % SEGMENT_MAX_GAP
         return f
     # no match: report how close the best approximate position is, for the author
@@ -783,7 +794,10 @@ def _fill(f, rt, view, name, chain, mode):
 
 
 def _digit_checks(f, rt, view, qnorms):
-    """A matched quote may not change a digit, cut a number off at either end, or change a spelled-out number of the text."""
+    """A matched quote may not change a digit of the text or cut a number off at either end. The ends are judged on the raw text: a digit that
+    touches the quote, or a comma and three digits that continue it, makes the quote a piece of a larger number; a footnote mark after a full
+    stop ("July 5.9") does not."""
+    raw = rt.text
     for (a, b, _), qn in zip(f.segs, qnorms):
         va = bisect.bisect_left(view.offs, a)
         vb = bisect.bisect_left(view.offs, b)
@@ -791,10 +805,10 @@ def _digit_checks(f, rt, view, qnorms):
         if digit_runs(qn) != digit_runs(seg_view):
             f.ok, f.reason = False, 'the digits of the quote %s differ from the text %s (an OCR slip is not corrected silently: use ocr.corrections)' % (digit_runs(qn), digit_runs(seg_view))
             return f
-        if qn[:1].isdigit() and va > 0 and view.s[va - 1].isdigit():
+        if qn[:1].isdigit() and a > 0 and (raw[a - 1].isdigit() or (raw[a - 1] == ',' and a > 1 and raw[a - 2].isdigit())):
             f.ok, f.reason = False, 'the quote starts inside a number of the text'
             return f
-        if qn[-1:].isdigit() and vb < len(view.s) and view.s[vb].isdigit():
+        if qn[-1:].isdigit() and b < len(raw) and (raw[b].isdigit() or (raw[b] == ',' and raw[b + 1:b + 4].isdigit() and len(raw[b + 1:b + 4]) == 3 and not raw[b + 4:b + 5].isdigit())):
             f.ok, f.reason = False, 'the quote ends inside a number of the text'
             return f
     return f
@@ -1144,7 +1158,7 @@ def validate_row(ctx, gid, line, row, seen_ids, text_cache_rate=None):
                 R.warn('W003', 'the quote contains %r, a word the page copy test refuses: show the claim and the source, not the quote' % COPY_FORBIDDEN.search(s).group(0))
     # ---- numbers: the claim and the value may state only numbers of the quote -----------------------------------------------------------
     if (tier in ('documented', 'inferred')) and has_quote:
-        allowed = parse_numbers(reading)
+        allowed = parse_numbers(reading, spaced=True)
         exempt = set(years)
         claim_nums = parse_numbers(claim, skip_lone_one=True)
         # a year of the claim that is 1861-1865 and a day number following a month name belong to date_scope; they are exempt when the row has one
@@ -1358,6 +1372,7 @@ SYN_PARAS = [
     'In the yard of the farm the wounded numbered 14,l93 on that day, as the clerk wrote it, and tbe orderly brought water in a bucket from the spring near the road.',
     'The steward kept the stores in a chest with two locks, and the chloroform was given on a folded towel by the assistant who stood at the head of the table through the whole of the operation.',
     'About twenty-five wagons stood in the lane, and a sergeant counted twenty five men at the pump; the hospital was set up near the creek because the water was good there.',
+    'The farm served as a field hospital from July 2 until the morning of July 5.9 The barn was full of the wounded and the yard held the tents of the surgeons.',
 ]
 SYN_BORING = ['Nothing in this line matters to the test.', 'A line of filler that goes on for a while so that pages have some length to them and pages fill up.']
 
@@ -1424,6 +1439,7 @@ class SelfTest:
                     break
         c('myers vs dp', True)
         c('numbers digits', parse_numbers('the 14,193 wounded and 6,802 of the enemy; 12.5 per cent') == [14193.0, 6802.0, 12.5], str(parse_numbers('the 14,193 wounded and 6,802 of the enemy; 12.5 per cent')))
+        c('numbers spaced by OCR', 1995.0 in parse_numbers('remaining on 22d instant 1, 995 Total', spaced=True) and 1995.0 not in parse_numbers('remaining on 22d instant 1, 995 Total'))
         c('numbers words', parse_numbers('fourteen thousand one hundred and ninety-three') == [14193.0], str(parse_numbers('fourteen thousand one hundred and ninety-three')))
         c('numbers words 2', parse_numbers('six hundred and fifty medical officers; twenty-five wagons; twentyfive') == [650.0, 25.0, 25.0], str(parse_numbers('six hundred and fifty medical officers; twenty-five wagons; twentyfive')))
         c('numbers lone one', parse_numbers('no one came', skip_lone_one=True) == [] and parse_numbers('one hundred wagons', skip_lone_one=True) == [100.0])
@@ -1575,6 +1591,8 @@ class SelfTest:
         i += 1; add('changed digit', base(i, 'and 14,193 is the figure printed in the table', claim='The table prints the figure.').copy() | {'quote': 'and 14,198 is the figure printed in the table'}, ['E011'])
         i += 1; add('changed number word', base(i, 'About twenty-five wagons stood in the lane, and a sergeant counted twenty five men at the pump', claim='Wagons stood in the lane.').copy() | {'quote': 'About twenty-six wagons stood in the lane, and a sergeant counted twenty five men at the pump'}, ['E011'])
         i += 1; add('partial number', base(i, 'and 14,193 is the figure printed in the table', claim='The table prints the figure.').copy() | {'quote': '193 is the figure printed in the table. Twelve ambulances waited at the depot'}, ['E011'])
+        i += 1; add('footnote mark after a full stop is not a number', base(i, 'The farm served as a field hospital from July 2 until the morning of July 5.'), [])
+        i += 1; add('quote ends inside a number (comma and three digits follow)', base(i, 'carried fourteen thousand one hundred and ninety-three men to the hospitals, and 14', claim='The table prints a figure of men.'), ['E011'])
         i += 1; add('crosses running head', base(i, 'the surgeon carried the splint across the lane and laid it on the bed of straw beside the wounded man whom the nurse had washed'), [])
         i += 1; add('ellipsis segments in order', base(i, 'The surgeon in charge laid the limb upon a table of boards ... the operator cut the flap with a long knife'), [])
         i += 1; add('ellipsis segments out of order', base(i, 'the operator cut the flap with a long knife ... The surgeon in charge laid the limb upon a table of boards'), ['E010'])

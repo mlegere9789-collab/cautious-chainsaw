@@ -1,0 +1,5983 @@
+{
+ "format": "ma-stats/1",
+ "units": {
+  "u-ma-1st-massachusetts-infantry": {
+   "designation": "1st Massachusetts Infantry",
+   "file": "data2/union/ma/1st-massachusetts-infantry.jsonl.gz",
+   "volume": "1",
+   "arm": "infantry",
+   "lines": 1699,
+   "raw_bytes": 306433,
+   "gz_bytes": 58428,
+   "flags_bytes": 21005,
+   "sha256_raw": "f0dbc7ad6ff4a96dab111202b69ac36dda5c5c382e11b94d69de80fbd7cb18fa",
+   "bytes_per_line": 180.4,
+   "by_section": {
+    "FS": 15,
+    "NCS": 4,
+    "BAND": 30,
+    "company": 1589,
+    "UNAS": 61,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 151,
+    "B": 162,
+    "BAND": 30,
+    "C": 168,
+    "D": 148,
+    "E": 142,
+    "F": 148,
+    "FS": 15,
+    "G": 171,
+    "H": 165,
+    "I": 176,
+    "K": 158,
+    "NCS": 4,
+    "UNAS": 61
+   },
+   "xref_lines": 362,
+   "agent_rows": [
+    643,
+    1097,
+    1103,
+    1270
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 19,
+   "leaves": [
+    16,
+    82
+   ],
+   "leaf_count": 67,
+   "printed_pages": [
+    3,
+    68
+   ],
+   "rows_per_inner_leaf": {
+    "min": 19,
+    "median": 26,
+    "max": 29
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 10,
+    "H": 7,
+    "N": 9,
+    "Q": 6,
+    "R": 1,
+    "Y": 36
+   },
+   "ocr_uncertain": 63,
+   "on_rolls": {
+    "yes": 677,
+    "no": 908,
+    "unknown": 114
+   },
+   "names_gettysburg": 136,
+   "gettysburg_dated": 66,
+   "head_kinds": {
+    "cut:fragment-extended": 2,
+    "cut:reviewed": 1,
+    "res-damaged": 3,
+    "res-lost": 4
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 19,
+   "verify": {
+    "rows": 1699,
+    "name_ok": 1699,
+    "remark_ok": 1699,
+    "remark_gap_rows": 0,
+    "page_ok": 1699,
+    "page_null": 19,
+    "rank_ok": 1699,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-1MA",
+    "strength": 321,
+    "casualties": 97,
+    "designation": "1st Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     2
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    321,
+    321
+   ],
+   "reconciliation": {
+    "designation": "1st Massachusetts Infantry",
+    "rows_new_file": 1699,
+    "earlier_file": "data/NE/massachusetts/1st-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-1MA",
+    "rows_earlier_file": 1695,
+    "rows_delta_new_minus_earlier": 4,
+    "aligned_same_letters": 1695,
+    "remarks_equal": 1692,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 3,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 4,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 151,
+     "B": 162,
+     "BAND": 30,
+     "C": 168,
+     "D": 148,
+     "E": 142,
+     "F": 148,
+     "FS": 15,
+     "G": 171,
+     "H": 165,
+     "I": 176,
+     "K": 158,
+     "NCS": 4,
+     "UNAS": 61
+    },
+    "company_counts_earlier_file": {
+     "A": 151,
+     "B": 162,
+     "BAND": 30,
+     "C": 168,
+     "D": 148,
+     "E": 142,
+     "F": 147,
+     "FS": 15,
+     "G": 171,
+     "H": 165,
+     "I": 173,
+     "K": 158,
+     "NCS": 4,
+     "UNAS": 61
+    },
+    "difference_rows_written": 7,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-1st-massachusetts-infantry.csv",
+    "evidence_new_file_only": {
+     "swallowed in an earlier row": 1,
+     "not inside any earlier row": 3
+    },
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1695,
+    "lines_now": 1699,
+    "lines_added_by_third_head_rule": 4,
+    "names_cut_differently": 2,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 6
+   },
+   "diag_leaves": [
+    15,
+    82
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     16
+    ],
+    [
+     "BAND",
+     false,
+     17
+    ],
+    [
+     "A",
+     false,
+     18
+    ],
+    [
+     "B",
+     false,
+     24
+    ],
+    [
+     "C",
+     false,
+     30
+    ],
+    [
+     "D",
+     false,
+     37
+    ],
+    [
+     "E",
+     false,
+     43
+    ],
+    [
+     "F",
+     false,
+     48
+    ],
+    [
+     "G",
+     false,
+     54
+    ],
+    [
+     "H",
+     false,
+     60
+    ],
+    [
+     "I",
+     false,
+     67
+    ],
+    [
+     "K",
+     false,
+     74
+    ],
+    [
+     "UNAS",
+     false,
+     80
+    ]
+   ],
+   "units_earlier_rows": 1695,
+   "or_note": ""
+  },
+  "u-ma-2nd-massachusetts-infantry": {
+   "designation": "2nd Massachusetts Infantry",
+   "file": "data2/union/ma/2nd-massachusetts-infantry.jsonl.gz",
+   "volume": "1",
+   "arm": "infantry",
+   "lines": 2013,
+   "raw_bytes": 343196,
+   "gz_bytes": 68350,
+   "flags_bytes": 24479,
+   "sha256_raw": "c4f05ac5afa526bce8d2f6418c0546d047f34bc0c07413172a6dc87e4e159486",
+   "bytes_per_line": 170.5,
+   "by_section": {
+    "FS": 13,
+    "NCS": 6,
+    "BAND": 24,
+    "company": 1767,
+    "UNAS": 203,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 192,
+    "B": 183,
+    "BAND": 24,
+    "C": 156,
+    "D": 167,
+    "E": 192,
+    "F": 170,
+    "FS": 13,
+    "G": 198,
+    "H": 171,
+    "I": 186,
+    "K": 152,
+    "NCS": 6,
+    "UNAS": 203
+   },
+   "xref_lines": 333,
+   "agent_rows": [
+    76,
+    901
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    85,
+    161
+   ],
+   "leaf_count": 77,
+   "printed_pages": [
+    71,
+    147
+   ],
+   "rows_per_inner_leaf": {
+    "min": 23,
+    "median": 26,
+    "max": 30
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 14,
+    "H": 5,
+    "N": 9,
+    "Q": 4,
+    "R": 4,
+    "Y": 22
+   },
+   "ocr_uncertain": 53,
+   "on_rolls": {
+    "yes": 648,
+    "no": 1262,
+    "unknown": 103
+   },
+   "names_gettysburg": 137,
+   "gettysburg_dated": 134,
+   "head_kinds": {
+    "cut:fragment-extended": 1,
+    "cut:reviewed": 1,
+    "junk-after-d2": 1,
+    "res-damaged": 3,
+    "res-lost": 3
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 2013,
+    "name_ok": 2013,
+    "remark_ok": 2013,
+    "remark_gap_rows": 0,
+    "page_ok": 2013,
+    "page_null": 0,
+    "rank_ok": 2013,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-2MA",
+    "strength": 316,
+    "casualties": 136,
+    "designation": "2nd Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     1,
+     2,
+     3
+    ]
+   },
+   "or_strength": [
+    {
+     "quote": "there were 294 enlisted men taken into action by this regiment July 3",
+     "what": "enlisted men only (Col. Cogswell, 13 August 1863)",
+     "value": 294,
+     "cite": "OR Ser.I vol.27 pt.1, OR27-1-R288 Lieut. Col. Charles F. Morse, p. 818",
+     "report_id": "OR27-1-R288",
+     "author": "Lieut. Col. Charles F. Morse",
+     "page": 818,
+     "offset_from": 2872562,
+     "offset_to": 2872643
+    },
+    {
+     "quote": "Second Massachusetts, 320",
+     "what": "officers and men carried into action by the Third Brigade (footnote of the brigade report)",
+     "value": 320,
+     "cite": "OR Ser.I vol.27 pt.1, OR27-1-R287 Lieut. Col. John R. Fesler, p. 815",
+     "report_id": "OR27-1-R287",
+     "author": "Lieut. Col. John R. Fesler",
+     "page": 815,
+     "offset_from": 2864802,
+     "offset_to": 2864829
+    }
+   ],
+   "strength_range": [
+    294,
+    320
+   ],
+   "reconciliation": {
+    "designation": "2nd Massachusetts Infantry",
+    "rows_new_file": 2013,
+    "earlier_file": "data/NE/massachusetts/2nd-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-2MA",
+    "rows_earlier_file": 2013,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 2013,
+    "remarks_equal": 2011,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 192,
+     "B": 183,
+     "BAND": 24,
+     "C": 156,
+     "D": 167,
+     "E": 192,
+     "F": 170,
+     "FS": 13,
+     "G": 198,
+     "H": 171,
+     "I": 186,
+     "K": 152,
+     "NCS": 6,
+     "UNAS": 203
+    },
+    "company_counts_earlier_file": {
+     "A": 192,
+     "B": 183,
+     "BAND": 24,
+     "C": 156,
+     "D": 167,
+     "E": 192,
+     "F": 170,
+     "FS": 13,
+     "G": 198,
+     "H": 171,
+     "I": 186,
+     "K": 152,
+     "NCS": 6,
+     "UNAS": 203
+    },
+    "difference_rows_written": 2,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-2nd-massachusetts-infantry.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 2010,
+    "lines_now": 2013,
+    "lines_added_by_third_head_rule": 3,
+    "names_cut_differently": 4,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 5
+   },
+   "diag_leaves": [
+    83,
+    161
+   ],
+   "diag_headings": [
+    [
+     "FS",
+     false,
+     85
+    ],
+    [
+     "NCS",
+     false,
+     85
+    ],
+    [
+     "BAND",
+     false,
+     86
+    ],
+    [
+     "A",
+     false,
+     86
+    ],
+    [
+     "B",
+     false,
+     94
+    ],
+    [
+     "C",
+     false,
+     101
+    ],
+    [
+     "D",
+     false,
+     107
+    ],
+    [
+     "E",
+     false,
+     113
+    ],
+    [
+     "F",
+     false,
+     120
+    ],
+    [
+     "G",
+     false,
+     127
+    ],
+    [
+     "H",
+     false,
+     135
+    ],
+    [
+     "I",
+     false,
+     141
+    ],
+    [
+     "K",
+     false,
+     148
+    ],
+    [
+     "UNAS",
+     false,
+     154
+    ]
+   ],
+   "units_earlier_rows": 2013,
+   "or_note": ""
+  },
+  "u-ma-7th-massachusetts-infantry": {
+   "designation": "7th Massachusetts Infantry",
+   "file": "data2/union/ma/7th-massachusetts-infantry.jsonl.gz",
+   "volume": "1",
+   "arm": "infantry",
+   "lines": 1171,
+   "raw_bytes": 205526,
+   "gz_bytes": 38193,
+   "flags_bytes": 14537,
+   "sha256_raw": "de0cbf7787e2d77e4fe0c0ef945a211a03178831e796d1601799e2cac3e9d81c",
+   "bytes_per_line": 175.5,
+   "by_section": {
+    "FS": 15,
+    "NCS": 1,
+    "BAND": 20,
+    "company": 1135,
+    "UNAS": 0,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 127,
+    "B": 113,
+    "BAND": 20,
+    "C": 104,
+    "D": 119,
+    "E": 112,
+    "F": 112,
+    "FS": 15,
+    "G": 114,
+    "H": 110,
+    "I": 107,
+    "K": 117,
+    "NCS": 1
+   },
+   "xref_lines": 223,
+   "agent_rows": [],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    484,
+    529
+   ],
+   "leaf_count": 46,
+   "printed_pages": [
+    470,
+    515
+   ],
+   "rows_per_inner_leaf": {
+    "min": 23,
+    "median": 26.0,
+    "max": 28
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 8,
+    "H": 2,
+    "N": 7,
+    "Q": 7,
+    "R": 7,
+    "Y": 31
+   },
+   "ocr_uncertain": 59,
+   "on_rolls": {
+    "yes": 564,
+    "no": 533,
+    "unknown": 74
+   },
+   "names_gettysburg": 9,
+   "gettysburg_dated": 9,
+   "head_kinds": {
+    "cut:fragment-extended": 2,
+    "res-damaged": 7
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 1171,
+    "name_ok": 1171,
+    "remark_ok": 1171,
+    "remark_gap_rows": 0,
+    "page_ok": 1171,
+    "page_null": 0,
+    "rank_ok": 1171,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-7MA",
+    "strength": 359,
+    "casualties": 0,
+    "designation": "7th Massachusetts Volunteer Infantry",
+    "days_engaged": []
+   },
+   "or_strength": [],
+   "strength_range": [
+    359,
+    359
+   ],
+   "reconciliation": {
+    "designation": "7th Massachusetts Infantry",
+    "rows_new_file": 1171,
+    "earlier_file": "data/NE/massachusetts/7th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-7MA",
+    "rows_earlier_file": 1171,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 1171,
+    "remarks_equal": 1169,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 127,
+     "B": 113,
+     "BAND": 20,
+     "C": 104,
+     "D": 119,
+     "E": 112,
+     "F": 112,
+     "FS": 15,
+     "G": 114,
+     "H": 110,
+     "I": 107,
+     "K": 117,
+     "NCS": 1
+    },
+    "company_counts_earlier_file": {
+     "A": 127,
+     "B": 113,
+     "BAND": 20,
+     "C": 104,
+     "D": 119,
+     "E": 112,
+     "F": 112,
+     "FS": 15,
+     "G": 114,
+     "H": 110,
+     "I": 107,
+     "K": 117,
+     "NCS": 1
+    },
+    "difference_rows_written": 2,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-7th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1171,
+    "lines_now": 1171,
+    "lines_added_by_third_head_rule": 0,
+    "names_cut_differently": 5,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 4
+   },
+   "diag_leaves": [
+    483,
+    529
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     484
+    ],
+    [
+     "BAND",
+     false,
+     484
+    ],
+    [
+     "A",
+     false,
+     485
+    ],
+    [
+     "B",
+     false,
+     490
+    ],
+    [
+     "C",
+     false,
+     495
+    ],
+    [
+     "D",
+     false,
+     498
+    ],
+    [
+     "E",
+     false,
+     503
+    ],
+    [
+     "F",
+     false,
+     508
+    ],
+    [
+     "G",
+     false,
+     512
+    ],
+    [
+     "H",
+     false,
+     516
+    ],
+    [
+     "I",
+     false,
+     520
+    ],
+    [
+     "K",
+     false,
+     524
+    ]
+   ],
+   "units_earlier_rows": 1171,
+   "or_note": ""
+  },
+  "u-ma-9th-massachusetts-infantry": {
+   "designation": "9th Massachusetts Infantry",
+   "file": "data2/union/ma/9th-massachusetts-infantry.jsonl.gz",
+   "volume": "1",
+   "arm": "infantry",
+   "lines": 1692,
+   "raw_bytes": 289059,
+   "gz_bytes": 53890,
+   "flags_bytes": 18522,
+   "sha256_raw": "b2de81e282a7fc04ca6f8c7013e3701c7ef1dbc002eda71caa253f3b770a02a2",
+   "bytes_per_line": 170.8,
+   "by_section": {
+    "FS": 14,
+    "NCS": 8,
+    "BAND": 23,
+    "company": 1623,
+    "UNAS": 24,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 178,
+    "B": 163,
+    "BAND": 23,
+    "C": 171,
+    "D": 162,
+    "E": 160,
+    "F": 151,
+    "FS": 14,
+    "G": 168,
+    "H": 158,
+    "I": 160,
+    "K": 152,
+    "NCS": 8,
+    "UNAS": 24
+   },
+   "xref_lines": 373,
+   "agent_rows": [],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    631,
+    695
+   ],
+   "leaf_count": 65,
+   "printed_pages": [
+    617,
+    681
+   ],
+   "rows_per_inner_leaf": {
+    "min": 23,
+    "median": 26,
+    "max": 29
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 16,
+    "H": 3,
+    "N": 37,
+    "Q": 4,
+    "R": 7,
+    "Y": 50
+   },
+   "ocr_uncertain": 109,
+   "on_rolls": {
+    "yes": 612,
+    "no": 951,
+    "unknown": 129
+   },
+   "names_gettysburg": 17,
+   "gettysburg_dated": 5,
+   "head_kinds": {
+    "d1-damaged": 1,
+    "junk-after-d2": 1,
+    "res-damaged": 2,
+    "res-lost": 2
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 1692,
+    "name_ok": 1692,
+    "remark_ok": 1692,
+    "remark_gap_rows": 2,
+    "page_ok": 1692,
+    "page_null": 0,
+    "rank_ok": 1692,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-9MA",
+    "strength": 412,
+    "casualties": 133,
+    "designation": "9th Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     2
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    412,
+    412
+   ],
+   "reconciliation": {
+    "designation": "9th Massachusetts Infantry",
+    "rows_new_file": 1692,
+    "earlier_file": "data/NE/massachusetts/9th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-9MA",
+    "rows_earlier_file": 1665,
+    "rows_delta_new_minus_earlier": 27,
+    "aligned_same_letters": 1663,
+    "remarks_equal": 1660,
+    "remarks_new_longer": 2,
+    "remarks_earlier_longer": 1,
+    "remarks_differ_other": 0,
+    "company_differs": 149,
+    "reading_differs_candidate_pairs": 2,
+    "new_file_only": 27,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 178,
+     "B": 163,
+     "BAND": 23,
+     "C": 171,
+     "D": 162,
+     "E": 160,
+     "F": 151,
+     "FS": 14,
+     "G": 168,
+     "H": 158,
+     "I": 160,
+     "K": 152,
+     "NCS": 8,
+     "UNAS": 24
+    },
+    "company_counts_earlier_file": {
+     "A": 178,
+     "B": 163,
+     "BAND": 23,
+     "C": 170,
+     "D": 162,
+     "E": 160,
+     "F": 151,
+     "FS": 14,
+     "G": 168,
+     "H": 292,
+     "K": 152,
+     "NCS": 8,
+     "UNAS": 24
+    },
+    "difference_rows_written": 181,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-9th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {
+     "swallowed in an earlier row": 1,
+     "not inside any earlier row": 26
+    },
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1690,
+    "lines_now": 1692,
+    "lines_added_by_third_head_rule": 2,
+    "names_cut_differently": 2,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 3
+   },
+   "diag_leaves": [
+    630,
+    695
+   ],
+   "diag_headings": [
+    [
+     "FS",
+     false,
+     631
+    ],
+    [
+     "NCS",
+     false,
+     631
+    ],
+    [
+     "BAND",
+     false,
+     632
+    ],
+    [
+     "A",
+     false,
+     632
+    ],
+    [
+     "B",
+     false,
+     639
+    ],
+    [
+     "C",
+     false,
+     645
+    ],
+    [
+     "D",
+     false,
+     652
+    ],
+    [
+     "E",
+     false,
+     658
+    ],
+    [
+     "F",
+     false,
+     664
+    ],
+    [
+     "G",
+     false,
+     670
+    ],
+    [
+     "H",
+     false,
+     676
+    ],
+    [
+     "I",
+     false,
+     682
+    ],
+    [
+     "K",
+     false,
+     688
+    ],
+    [
+     "UNAS",
+     false,
+     694
+    ]
+   ],
+   "units_earlier_rows": 1665,
+   "or_note": ""
+  },
+  "u-ma-10th-massachusetts-infantry": {
+   "designation": "10th Massachusetts Infantry",
+   "file": "data2/union/ma/10th-massachusetts-infantry.jsonl.gz",
+   "volume": "1",
+   "arm": "infantry",
+   "lines": 1258,
+   "raw_bytes": 235359,
+   "gz_bytes": 42832,
+   "flags_bytes": 16084,
+   "sha256_raw": "2a2df12c915328d6d35bba81ae2c7e0e9d7d0e62cf19c79c4cad54df5136bd64",
+   "bytes_per_line": 187.1,
+   "by_section": {
+    "FS": 15,
+    "NCS": 5,
+    "BAND": 23,
+    "company": 1207,
+    "UNAS": 8,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 116,
+    "B": 116,
+    "BAND": 23,
+    "C": 126,
+    "D": 116,
+    "E": 111,
+    "F": 119,
+    "FS": 15,
+    "G": 125,
+    "H": 141,
+    "I": 125,
+    "K": 112,
+    "NCS": 5,
+    "UNAS": 8
+   },
+   "xref_lines": 351,
+   "agent_rows": [
+    686
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    698,
+    748
+   ],
+   "leaf_count": 51,
+   "printed_pages": [
+    684,
+    734
+   ],
+   "rows_per_inner_leaf": {
+    "min": 21,
+    "median": 25,
+    "max": 28
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 10,
+    "H": 4,
+    "N": 6,
+    "Q": 3,
+    "R": 2,
+    "Y": 6
+   },
+   "ocr_uncertain": 28,
+   "on_rolls": {
+    "yes": 618,
+    "no": 594,
+    "unknown": 46
+   },
+   "names_gettysburg": 7,
+   "gettysburg_dated": 6,
+   "head_kinds": {
+    "cut:alternate-name": 1,
+    "cut:no-comma": 1,
+    "cut:reviewed": 1,
+    "d1-damaged": 1,
+    "junk-after-d2": 1,
+    "res-damaged": 3
+   },
+   "company_inferred": [],
+   "reviewed_headings": [
+    {
+     "code": "K",
+     "first_row": 1138,
+     "heading": "COMPANY ''K'l",
+     "last_row": 1249,
+     "n_rows": 112,
+     "offset": 3659208
+    }
+   ],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 1258,
+    "name_ok": 1258,
+    "remark_ok": 1258,
+    "remark_gap_rows": 1,
+    "page_ok": 1258,
+    "page_null": 0,
+    "rank_ok": 1258,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-10MA",
+    "strength": 286,
+    "casualties": 0,
+    "designation": "10th Massachusetts Volunteer Infantry",
+    "days_engaged": []
+   },
+   "or_strength": [],
+   "strength_range": [
+    286,
+    286
+   ],
+   "reconciliation": {
+    "designation": "10th Massachusetts Infantry",
+    "rows_new_file": 1258,
+    "earlier_file": "data/NE/massachusetts/10th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-10MA",
+    "rows_earlier_file": 1257,
+    "rows_delta_new_minus_earlier": 1,
+    "aligned_same_letters": 1257,
+    "remarks_equal": 1253,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 4,
+    "remarks_differ_other": 0,
+    "company_differs": 135,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 1,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 116,
+     "B": 116,
+     "BAND": 23,
+     "C": 126,
+     "D": 116,
+     "E": 111,
+     "F": 119,
+     "FS": 15,
+     "G": 125,
+     "H": 141,
+     "I": 125,
+     "K": 112,
+     "NCS": 5,
+     "UNAS": 8
+    },
+    "company_counts_earlier_file": {
+     "A": 116,
+     "B": 116,
+     "C": 126,
+     "D": 116,
+     "E": 111,
+     "F": 119,
+     "FS": 15,
+     "G": 125,
+     "H": 140,
+     "I": 237,
+     "NCS": 28,
+     "UNAS": 8
+    },
+    "difference_rows_written": 140,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-10th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {
+     "not inside any earlier row": 1
+    },
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1258,
+    "lines_now": 1258,
+    "lines_added_by_third_head_rule": 0,
+    "names_cut_differently": 1,
+    "company_changed_by_reviewed_heading": 112,
+    "host_lines_with_shorter_remarks": 2
+   },
+   "diag_leaves": [
+    696,
+    748
+   ],
+   "diag_headings": [
+    [
+     "FS",
+     false,
+     698
+    ],
+    [
+     "NCS",
+     false,
+     698
+    ],
+    [
+     "BAND",
+     false,
+     699
+    ],
+    [
+     "A",
+     false,
+     699
+    ],
+    [
+     "B",
+     false,
+     704
+    ],
+    [
+     "C",
+     false,
+     709
+    ],
+    [
+     "D",
+     false,
+     714
+    ],
+    [
+     "E",
+     false,
+     719
+    ],
+    [
+     "F",
+     false,
+     723
+    ],
+    [
+     "G",
+     false,
+     728
+    ],
+    [
+     "H",
+     false,
+     733
+    ],
+    [
+     "I",
+     false,
+     738
+    ],
+    [
+     "K",
+     false,
+     743
+    ],
+    [
+     "UNAS",
+     false,
+     748
+    ]
+   ],
+   "units_earlier_rows": 1257,
+   "or_note": ""
+  },
+  "u-ma-11th-massachusetts-infantry": {
+   "designation": "11th Massachusetts Infantry",
+   "file": "data2/union/ma/11th-massachusetts-infantry.jsonl.gz",
+   "volume": "1",
+   "arm": "infantry",
+   "lines": 2039,
+   "raw_bytes": 364563,
+   "gz_bytes": 70658,
+   "flags_bytes": 23871,
+   "sha256_raw": "f477331d8d676a6e45593512d81774afdb007c307e8b50f55d1cf73ac28c26d1",
+   "bytes_per_line": 178.8,
+   "by_section": {
+    "FS": 14,
+    "NCS": 5,
+    "BAND": 23,
+    "company": 1947,
+    "UNAS": 50,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 173,
+    "B": 226,
+    "BAND": 23,
+    "C": 193,
+    "D": 207,
+    "E": 226,
+    "F": 265,
+    "FS": 14,
+    "G": 141,
+    "H": 198,
+    "I": 132,
+    "K": 186,
+    "NCS": 5,
+    "UNAS": 50
+   },
+   "xref_lines": 507,
+   "agent_rows": [
+    1290,
+    1295
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 21,
+   "leaves": [
+    751,
+    830
+   ],
+   "leaf_count": 80,
+   "printed_pages": [
+    737,
+    815
+   ],
+   "rows_per_inner_leaf": {
+    "min": 22,
+    "median": 25.0,
+    "max": 30
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 11,
+    "H": 7,
+    "N": 19,
+    "Q": 3,
+    "R": 6,
+    "Y": 2
+   },
+   "ocr_uncertain": 42,
+   "on_rolls": {
+    "yes": 618,
+    "no": 1334,
+    "unknown": 87
+   },
+   "names_gettysburg": 132,
+   "gettysburg_dated": 128,
+   "head_kinds": {
+    "cut:initials-dropped": 1,
+    "cut:no-comma": 4,
+    "cut:reviewed": 2,
+    "res-damaged": 2,
+    "res-lost": 1
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 21,
+   "verify": {
+    "rows": 2039,
+    "name_ok": 2039,
+    "remark_ok": 2039,
+    "remark_gap_rows": 0,
+    "page_ok": 2039,
+    "page_null": 21,
+    "rank_ok": 2039,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": null,
+    "strength": null,
+    "casualties": null,
+    "designation": null,
+    "days_engaged": null
+   },
+   "or_strength": [],
+   "strength_range": [
+    null,
+    null
+   ],
+   "reconciliation": {
+    "designation": "11th Massachusetts Infantry",
+    "rows_new_file": 2039,
+    "earlier_file": null,
+    "note": "the earlier family produced no file for this unit (units.json existing is empty)"
+   },
+   "changes": {
+    "lines_before": 2038,
+    "lines_now": 2039,
+    "lines_added_by_third_head_rule": 1,
+    "names_cut_differently": 2,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 2
+   },
+   "diag_leaves": [
+    749,
+    830
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     751
+    ],
+    [
+     "BAND",
+     false,
+     752
+    ],
+    [
+     "A",
+     false,
+     753
+    ],
+    [
+     "B",
+     false,
+     759
+    ],
+    [
+     "C",
+     false,
+     768
+    ],
+    [
+     "D",
+     false,
+     775
+    ],
+    [
+     "E",
+     false,
+     783
+    ],
+    [
+     "F",
+     false,
+     792
+    ],
+    [
+     "G",
+     false,
+     803
+    ],
+    [
+     "H",
+     false,
+     808
+    ],
+    [
+     "I",
+     false,
+     816
+    ],
+    [
+     "K",
+     false,
+     821
+    ],
+    [
+     "UNAS",
+     false,
+     828
+    ]
+   ],
+   "units_earlier_rows": null,
+   "or_note": ""
+  },
+  "u-ma-12th-massachusetts-infantry": {
+   "designation": "12th Massachusetts Infantry",
+   "file": "data2/union/ma/12th-massachusetts-infantry.jsonl.gz",
+   "volume": "2",
+   "arm": "infantry",
+   "lines": 1592,
+   "raw_bytes": 305492,
+   "gz_bytes": 57883,
+   "flags_bytes": 19389,
+   "sha256_raw": "ca0c25eae2f5d7e9b5e53ba50f53da8c3c292ce85aa40ea26c1a21a4b1795650",
+   "bytes_per_line": 191.9,
+   "by_section": {
+    "FS": 14,
+    "NCS": 3,
+    "BAND": 20,
+    "company": 1532,
+    "UNAS": 23,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 162,
+    "B": 137,
+    "BAND": 20,
+    "C": 165,
+    "D": 143,
+    "E": 134,
+    "F": 164,
+    "FS": 14,
+    "G": 149,
+    "H": 160,
+    "I": 158,
+    "K": 160,
+    "NCS": 3,
+    "UNAS": 23
+   },
+   "xref_lines": 404,
+   "agent_rows": [
+    1395
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 45,
+   "leaves": [
+    13,
+    78
+   ],
+   "leaf_count": 66,
+   "printed_pages": [
+    5,
+    68
+   ],
+   "rows_per_inner_leaf": {
+    "min": 21,
+    "median": 24.0,
+    "max": 27
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 13,
+    "H": 4,
+    "N": 20,
+    "Q": 1,
+    "R": 7,
+    "Y": 53
+   },
+   "ocr_uncertain": 90,
+   "on_rolls": {
+    "yes": 562,
+    "no": 921,
+    "unknown": 109
+   },
+   "names_gettysburg": 121,
+   "gettysburg_dated": 119,
+   "head_kinds": {
+    "cut:fragment-extended": 2,
+    "cut:no-comma": 1,
+    "d2-damaged": 1,
+    "res-damaged": 1
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 27,
+   "verify": {
+    "rows": 1592,
+    "name_ok": 1592,
+    "remark_ok": 1592,
+    "remark_gap_rows": 0,
+    "page_ok": 1592,
+    "page_null": 45,
+    "rank_ok": 1592,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-12MA",
+    "strength": 261,
+    "casualties": 149,
+    "designation": "12th Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     1
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    261,
+    261
+   ],
+   "reconciliation": {
+    "designation": "12th Massachusetts Infantry",
+    "rows_new_file": 1592,
+    "earlier_file": "data/NE/massachusetts/12th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-12MA",
+    "rows_earlier_file": 1592,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 1592,
+    "remarks_equal": 1587,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 5,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 162,
+     "B": 137,
+     "BAND": 20,
+     "C": 165,
+     "D": 143,
+     "E": 134,
+     "F": 164,
+     "FS": 14,
+     "G": 149,
+     "H": 160,
+     "I": 158,
+     "K": 160,
+     "NCS": 3,
+     "UNAS": 23
+    },
+    "company_counts_earlier_file": {
+     "A": 162,
+     "B": 137,
+     "BAND": 20,
+     "C": 165,
+     "D": 143,
+     "E": 134,
+     "F": 164,
+     "FS": 14,
+     "G": 149,
+     "H": 160,
+     "I": 158,
+     "K": 160,
+     "NCS": 3,
+     "UNAS": 23
+    },
+    "difference_rows_written": 5,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-12th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1592,
+    "lines_now": 1592,
+    "lines_added_by_third_head_rule": 0,
+    "names_cut_differently": 3,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 2
+   },
+   "diag_leaves": [
+    11,
+    78
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     13
+    ],
+    [
+     "BAND",
+     false,
+     13
+    ],
+    [
+     "A",
+     false,
+     14
+    ],
+    [
+     "B",
+     false,
+     21
+    ],
+    [
+     "C",
+     false,
+     27
+    ],
+    [
+     "D",
+     false,
+     33
+    ],
+    [
+     "E",
+     false,
+     39
+    ],
+    [
+     "F",
+     false,
+     45
+    ],
+    [
+     "G",
+     false,
+     52
+    ],
+    [
+     "H",
+     false,
+     58
+    ],
+    [
+     "I",
+     false,
+     64
+    ],
+    [
+     "K",
+     false,
+     71
+    ],
+    [
+     "UNAS",
+     false,
+     77
+    ]
+   ],
+   "units_earlier_rows": 1592,
+   "or_note": ""
+  },
+  "u-ma-13th-massachusetts-infantry": {
+   "designation": "13th Massachusetts Infantry",
+   "file": "data2/union/ma/13th-massachusetts-infantry.jsonl.gz",
+   "volume": "2",
+   "arm": "infantry",
+   "lines": 1448,
+   "raw_bytes": 276822,
+   "gz_bytes": 53755,
+   "flags_bytes": 18527,
+   "sha256_raw": "03ddb8ebd23913e4ec8c1f26fc982bb08c2ab8bb7e746d3f568ee372069c6ff3",
+   "bytes_per_line": 191.2,
+   "by_section": {
+    "FS": 12,
+    "NCS": 5,
+    "BAND": 18,
+    "company": 1407,
+    "UNAS": 6,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 157,
+    "B": 140,
+    "BAND": 18,
+    "C": 151,
+    "D": 134,
+    "E": 140,
+    "F": 128,
+    "FS": 12,
+    "G": 137,
+    "H": 143,
+    "I": 128,
+    "K": 149,
+    "NCS": 5,
+    "UNAS": 6
+   },
+   "xref_lines": 342,
+   "agent_rows": [],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    81,
+    140
+   ],
+   "leaf_count": 60,
+   "printed_pages": [
+    71,
+    130
+   ],
+   "rows_per_inner_leaf": {
+    "min": 21,
+    "median": 25.0,
+    "max": 27
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 34,
+    "H": 12,
+    "N": 34,
+    "Q": 13,
+    "R": 21,
+    "Y": 138
+   },
+   "ocr_uncertain": 191,
+   "on_rolls": {
+    "yes": 505,
+    "no": 761,
+    "unknown": 182
+   },
+   "names_gettysburg": 181,
+   "gettysburg_dated": 170,
+   "head_kinds": {
+    "cut:alternate-name": 1,
+    "cut:fragment-extended": 1,
+    "cut:initials-dropped": 1,
+    "cut:period-for-comma": 5,
+    "cut:reviewed": 1,
+    "d1-missing": 2,
+    "res-damaged": 13,
+    "res-lost": 2
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 1448,
+    "name_ok": 1448,
+    "remark_ok": 1448,
+    "remark_gap_rows": 0,
+    "page_ok": 1448,
+    "page_null": 0,
+    "rank_ok": 1448,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-13MA",
+    "strength": 284,
+    "casualties": 137,
+    "designation": "13th Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     1
+    ]
+   },
+   "or_strength": [
+    {
+     "quote": "went into action with 260 muskets",
+     "what": "muskets",
+     "value": 260,
+     "cite": "OR Ser.I vol.27 pt.1, OR27-1-R046 Lieut. Col. N. Walter Batchelder, p. 298",
+     "report_id": "OR27-1-R046",
+     "author": "Lieut. Col. N. Walter Batchelder",
+     "page": 298,
+     "offset_from": 1020420,
+     "offset_to": 1020458
+    }
+   ],
+   "strength_range": [
+    260,
+    284
+   ],
+   "reconciliation": {
+    "designation": "13th Massachusetts Infantry",
+    "rows_new_file": 1448,
+    "earlier_file": "data/NE/massachusetts/13th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-13MA",
+    "rows_earlier_file": 1444,
+    "rows_delta_new_minus_earlier": 4,
+    "aligned_same_letters": 1444,
+    "remarks_equal": 1436,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 8,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 4,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 157,
+     "B": 140,
+     "BAND": 18,
+     "C": 151,
+     "D": 134,
+     "E": 140,
+     "F": 128,
+     "FS": 12,
+     "G": 137,
+     "H": 143,
+     "I": 128,
+     "K": 149,
+     "NCS": 5,
+     "UNAS": 6
+    },
+    "company_counts_earlier_file": {
+     "A": 157,
+     "B": 140,
+     "BAND": 18,
+     "C": 151,
+     "D": 134,
+     "E": 137,
+     "F": 128,
+     "FS": 12,
+     "G": 137,
+     "H": 143,
+     "I": 128,
+     "K": 148,
+     "NCS": 5,
+     "UNAS": 6
+    },
+    "difference_rows_written": 12,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-13th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {
+     "swallowed in an earlier row": 3,
+     "not inside any earlier row": 1
+    },
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1446,
+    "lines_now": 1448,
+    "lines_added_by_third_head_rule": 2,
+    "names_cut_differently": 3,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 5
+   },
+   "diag_leaves": [
+    79,
+    140
+   ],
+   "diag_headings": [
+    [
+     "FS",
+     false,
+     81
+    ],
+    [
+     "NCS",
+     false,
+     81
+    ],
+    [
+     "BAND",
+     false,
+     81
+    ],
+    [
+     "A",
+     false,
+     82
+    ],
+    [
+     "B",
+     false,
+     88
+    ],
+    [
+     "C",
+     false,
+     94
+    ],
+    [
+     "D",
+     false,
+     101
+    ],
+    [
+     "E",
+     false,
+     106
+    ],
+    [
+     "F",
+     false,
+     112
+    ],
+    [
+     "G",
+     false,
+     117
+    ],
+    [
+     "H",
+     false,
+     122
+    ],
+    [
+     "I",
+     false,
+     128
+    ],
+    [
+     "K",
+     false,
+     133
+    ],
+    [
+     "UNAS",
+     false,
+     139
+    ]
+   ],
+   "units_earlier_rows": 1444,
+   "or_note": ""
+  },
+  "u-ma-15th-massachusetts-infantry": {
+   "designation": "15th Massachusetts Infantry",
+   "file": "data2/union/ma/15th-massachusetts-infantry.jsonl.gz",
+   "volume": "2",
+   "arm": "infantry",
+   "lines": 1726,
+   "raw_bytes": 337164,
+   "gz_bytes": 63105,
+   "flags_bytes": 21595,
+   "sha256_raw": "64cfaa160455589b9e0442e8e6e945a47269d7d34bdde8febd6f709f5e63e6a8",
+   "bytes_per_line": 195.3,
+   "by_section": {
+    "FS": 12,
+    "NCS": 4,
+    "BAND": 21,
+    "company": 1658,
+    "UNAS": 31,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 169,
+    "B": 161,
+    "BAND": 21,
+    "C": 162,
+    "D": 180,
+    "E": 162,
+    "F": 160,
+    "FS": 12,
+    "G": 169,
+    "H": 165,
+    "I": 181,
+    "K": 149,
+    "NCS": 4,
+    "UNAS": 31
+   },
+   "xref_lines": 365,
+   "agent_rows": [],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    143,
+    214
+   ],
+   "leaf_count": 72,
+   "printed_pages": [
+    133,
+    204
+   ],
+   "rows_per_inner_leaf": {
+    "min": 20,
+    "median": 24.0,
+    "max": 28
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 13,
+    "H": 5,
+    "N": 16,
+    "Q": 4,
+    "R": 7,
+    "Y": 35
+   },
+   "ocr_uncertain": 72,
+   "on_rolls": {
+    "yes": 535,
+    "no": 1086,
+    "unknown": 105
+   },
+   "names_gettysburg": 155,
+   "gettysburg_dated": 47,
+   "head_kinds": {
+    "cut:fragment-extended": 1,
+    "cut:no-comma": 1,
+    "cut:reviewed": 1,
+    "res-damaged": 2,
+    "res-lost": 2
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 1726,
+    "name_ok": 1726,
+    "remark_ok": 1726,
+    "remark_gap_rows": 0,
+    "page_ok": 1726,
+    "page_null": 0,
+    "rank_ok": 1726,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-15MA",
+    "strength": 239,
+    "casualties": 149,
+    "designation": "15th Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     2,
+     3
+    ]
+   },
+   "or_strength": [
+    {
+     "quote": "We went into action with 18 officers and 221 men",
+     "what": "18 officers and 221 men = 239",
+     "value": 239,
+     "cite": "OR Ser.I vol.27 pt.1, OR27-1-R101 Lieut. Col. George C. Joslin, p. 423",
+     "report_id": "OR27-1-R101",
+     "author": "Lieut. Col. George C. Joslin",
+     "page": 423,
+     "offset_from": 1484832,
+     "offset_to": 1484889
+    }
+   ],
+   "strength_range": [
+    239,
+    239
+   ],
+   "reconciliation": {
+    "designation": "15th Massachusetts Infantry",
+    "rows_new_file": 1726,
+    "earlier_file": "data/NE/massachusetts/15th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-15MA",
+    "rows_earlier_file": 1726,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 1726,
+    "remarks_equal": 1722,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 4,
+    "remarks_differ_other": 0,
+    "company_differs": 4,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 169,
+     "B": 161,
+     "BAND": 21,
+     "C": 162,
+     "D": 180,
+     "E": 162,
+     "F": 160,
+     "FS": 12,
+     "G": 169,
+     "H": 165,
+     "I": 181,
+     "K": 149,
+     "NCS": 4,
+     "UNAS": 31
+    },
+    "company_counts_earlier_file": {
+     "A": 169,
+     "B": 161,
+     "BAND": 21,
+     "C": 162,
+     "D": 180,
+     "E": 162,
+     "F": 160,
+     "FS": 16,
+     "G": 169,
+     "H": 165,
+     "I": 181,
+     "K": 149,
+     "UNAS": 31
+    },
+    "difference_rows_written": 8,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-15th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1724,
+    "lines_now": 1726,
+    "lines_added_by_third_head_rule": 2,
+    "names_cut_differently": 2,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 4
+   },
+   "diag_leaves": [
+    141,
+    214
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     143
+    ],
+    [
+     "BAND",
+     false,
+     144
+    ],
+    [
+     "A",
+     false,
+     144
+    ],
+    [
+     "B",
+     false,
+     151
+    ],
+    [
+     "C",
+     false,
+     158
+    ],
+    [
+     "D",
+     false,
+     164
+    ],
+    [
+     "E",
+     false,
+     172
+    ],
+    [
+     "F",
+     false,
+     179
+    ],
+    [
+     "G",
+     false,
+     186
+    ],
+    [
+     "H",
+     false,
+     193
+    ],
+    [
+     "I",
+     false,
+     200
+    ],
+    [
+     "K",
+     false,
+     207
+    ],
+    [
+     "UNAS",
+     false,
+     213
+    ]
+   ],
+   "units_earlier_rows": 1726,
+   "or_note": ""
+  },
+  "u-ma-1st-company-massachusetts-sharpshooters": {
+   "designation": "1st Company Massachusetts Sharpshooters",
+   "file": "data2/union/ma/1st-company-massachusetts-sharpshooters.jsonl.gz",
+   "volume": "2",
+   "arm": "sharpshooters",
+   "lines": 186,
+   "raw_bytes": 36216,
+   "gz_bytes": 8458,
+   "flags_bytes": 4119,
+   "sha256_raw": "040d2c9c75ca8d0392bb0bcf49f0786ac8d72013051bbd4722d06a1adecfbfef",
+   "bytes_per_line": 194.7,
+   "by_section": {
+    "FS": 0,
+    "NCS": 0,
+    "BAND": 0,
+    "company": 0,
+    "UNAS": 0,
+    "no_heading": 186
+   },
+   "company_counts": {
+    "": 186
+   },
+   "xref_lines": 57,
+   "agent_rows": [],
+   "copy_other_rows": [],
+   "no_rank_rows": [
+    [
+     161,
+     "Townsend, Thaddeus J."
+    ]
+   ],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    216,
+    223
+   ],
+   "leaf_count": 8,
+   "printed_pages": [
+    206,
+    213
+   ],
+   "rows_per_inner_leaf": {
+    "min": 24,
+    "median": 25.0,
+    "max": 25
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 2,
+    "H": 2,
+    "N": 1,
+    "R": 1,
+    "Y": 1
+   },
+   "ocr_uncertain": 7,
+   "on_rolls": {
+    "yes": 67,
+    "no": 109,
+    "unknown": 10
+   },
+   "names_gettysburg": 8,
+   "gettysburg_dated": 8,
+   "head_kinds": {
+    "cut:reviewed": 1,
+    "no-rank": 1
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 186,
+    "name_ok": 186,
+    "remark_ok": 186,
+    "remark_gap_rows": 0,
+    "page_ok": 186,
+    "page_null": 0,
+    "rank_ok": 185,
+    "rank_empty": 1,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": null,
+    "strength": null,
+    "casualties": null,
+    "designation": null,
+    "days_engaged": null
+   },
+   "or_strength": [],
+   "strength_range": [
+    null,
+    null
+   ],
+   "reconciliation": {
+    "designation": "1st Company Massachusetts Sharpshooters",
+    "rows_new_file": 186,
+    "earlier_file": null,
+    "note": "the earlier family produced no file for this unit (units.json existing is empty)"
+   },
+   "changes": {
+    "lines_before": 186,
+    "lines_now": 186,
+    "lines_added_by_third_head_rule": 0,
+    "names_cut_differently": 0,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 0
+   },
+   "diag_leaves": [
+    215,
+    223
+   ],
+   "diag_headings": [],
+   "units_earlier_rows": null,
+   "or_note": "unattached, Second Division, Second Corps"
+  },
+  "u-ma-16th-massachusetts-infantry": {
+   "designation": "16th Massachusetts Infantry",
+   "file": "data2/union/ma/16th-massachusetts-infantry.jsonl.gz",
+   "volume": "2",
+   "arm": "infantry",
+   "lines": 1369,
+   "raw_bytes": 250888,
+   "gz_bytes": 47924,
+   "flags_bytes": 16678,
+   "sha256_raw": "82227abffd44ecd30ad6999c83216bb0621afc718388e052df815dce6d1dc345",
+   "bytes_per_line": 183.3,
+   "by_section": {
+    "FS": 13,
+    "NCS": 3,
+    "BAND": 23,
+    "company": 1320,
+    "UNAS": 10,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 127,
+    "B": 133,
+    "BAND": 23,
+    "C": 132,
+    "D": 129,
+    "E": 138,
+    "F": 131,
+    "FS": 13,
+    "G": 129,
+    "H": 122,
+    "I": 139,
+    "K": 140,
+    "NCS": 3,
+    "UNAS": 10
+   },
+   "xref_lines": 359,
+   "agent_rows": [
+    1154
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    225,
+    279
+   ],
+   "leaf_count": 55,
+   "printed_pages": [
+    215,
+    269
+   ],
+   "rows_per_inner_leaf": {
+    "min": 23,
+    "median": 25,
+    "max": 28
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 23,
+    "H": 4,
+    "N": 18,
+    "Q": 1,
+    "R": 6,
+    "Y": 79
+   },
+   "ocr_uncertain": 119,
+   "on_rolls": {
+    "yes": 495,
+    "no": 728,
+    "unknown": 146
+   },
+   "names_gettysburg": 80,
+   "gettysburg_dated": 25,
+   "head_kinds": {
+    "cut:fragment-extended": 1,
+    "cut:period-for-comma": 1,
+    "cut:reviewed": 1,
+    "d2-damaged": 1,
+    "res-damaged": 1
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 1369,
+    "name_ok": 1369,
+    "remark_ok": 1369,
+    "remark_gap_rows": 0,
+    "page_ok": 1369,
+    "page_null": 0,
+    "rank_ok": 1369,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-16MA",
+    "strength": 243,
+    "casualties": 68,
+    "designation": "16th Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     2
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    243,
+    243
+   ],
+   "reconciliation": {
+    "designation": "16th Massachusetts Infantry",
+    "rows_new_file": 1369,
+    "earlier_file": "data/NE/massachusetts/16th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-16MA",
+    "rows_earlier_file": 1368,
+    "rows_delta_new_minus_earlier": 1,
+    "aligned_same_letters": 1368,
+    "remarks_equal": 1367,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 1,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 1,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 127,
+     "B": 133,
+     "BAND": 23,
+     "C": 132,
+     "D": 129,
+     "E": 138,
+     "F": 131,
+     "FS": 13,
+     "G": 129,
+     "H": 122,
+     "I": 139,
+     "K": 140,
+     "NCS": 3,
+     "UNAS": 10
+    },
+    "company_counts_earlier_file": {
+     "A": 127,
+     "B": 133,
+     "BAND": 23,
+     "C": 132,
+     "D": 129,
+     "E": 138,
+     "F": 131,
+     "FS": 13,
+     "G": 129,
+     "H": 122,
+     "I": 138,
+     "K": 140,
+     "NCS": 3,
+     "UNAS": 10
+    },
+    "difference_rows_written": 2,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-16th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {
+     "not inside any earlier row": 1
+    },
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1369,
+    "lines_now": 1369,
+    "lines_added_by_third_head_rule": 0,
+    "names_cut_differently": 2,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 2
+   },
+   "diag_leaves": [
+    224,
+    279
+   ],
+   "diag_headings": [
+    [
+     "FS",
+     false,
+     225
+    ],
+    [
+     "NCS",
+     false,
+     225
+    ],
+    [
+     "BAND",
+     false,
+     225
+    ],
+    [
+     "A",
+     false,
+     226
+    ],
+    [
+     "B",
+     false,
+     231
+    ],
+    [
+     "C",
+     false,
+     237
+    ],
+    [
+     "D",
+     false,
+     242
+    ],
+    [
+     "E",
+     false,
+     247
+    ],
+    [
+     "F",
+     false,
+     252
+    ],
+    [
+     "G",
+     false,
+     257
+    ],
+    [
+     "H",
+     false,
+     263
+    ],
+    [
+     "I",
+     false,
+     267
+    ],
+    [
+     "K",
+     false,
+     273
+    ],
+    [
+     "UNAS",
+     false,
+     278
+    ]
+   ],
+   "units_earlier_rows": 1368,
+   "or_note": ""
+  },
+  "u-ma-18th-massachusetts-infantry": {
+   "designation": "18th Massachusetts Infantry",
+   "file": "data2/union/ma/18th-massachusetts-infantry.jsonl.gz",
+   "volume": "2",
+   "arm": "infantry",
+   "lines": 1371,
+   "raw_bytes": 267569,
+   "gz_bytes": 55000,
+   "flags_bytes": 17693,
+   "sha256_raw": "32b9d8c1515deca89a29fec88c61ead07548582c70bca6bac9a7194fb838f674",
+   "bytes_per_line": 195.2,
+   "by_section": {
+    "FS": 14,
+    "NCS": 5,
+    "BAND": 22,
+    "company": 1185,
+    "UNAS": 7,
+    "no_heading": 138
+   },
+   "company_counts": {
+    "": 138,
+    "A": 137,
+    "B": 135,
+    "BAND": 22,
+    "C": 132,
+    "D": 129,
+    "F": 140,
+    "FS": 14,
+    "G": 132,
+    "H": 116,
+    "I": 143,
+    "K": 121,
+    "NCS": 5,
+    "UNAS": 7
+   },
+   "xref_lines": 398,
+   "agent_rows": [],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    361,
+    418
+   ],
+   "leaf_count": 58,
+   "printed_pages": [
+    351,
+    408
+   ],
+   "rows_per_inner_leaf": {
+    "min": 20,
+    "median": 24.0,
+    "max": 27
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "C": 138,
+    "G": 46,
+    "H": 14,
+    "N": 40,
+    "Q": 11,
+    "R": 15,
+    "Y": 147
+   },
+   "ocr_uncertain": 257,
+   "on_rolls": {
+    "yes": 471,
+    "no": 703,
+    "unknown": 197
+   },
+   "names_gettysburg": 22,
+   "gettysburg_dated": 17,
+   "head_kinds": {
+    "cut:alternate-name": 1,
+    "cut:initials-dropped": 1,
+    "cut:no-comma": 4,
+    "cut:period-for-comma": 7,
+    "res-damaged": 10,
+    "res-lost": 3
+   },
+   "company_inferred": [
+    [
+     574,
+     "E"
+    ],
+    [
+     575,
+     "E"
+    ],
+    [
+     576,
+     "E"
+    ],
+    [
+     577,
+     "E"
+    ],
+    [
+     578,
+     "E"
+    ],
+    [
+     579,
+     "E"
+    ],
+    [
+     580,
+     "E"
+    ],
+    [
+     581,
+     "E"
+    ],
+    [
+     582,
+     "E"
+    ],
+    [
+     583,
+     "E"
+    ],
+    [
+     584,
+     "E"
+    ],
+    [
+     585,
+     "E"
+    ],
+    [
+     586,
+     "E"
+    ],
+    [
+     587,
+     "E"
+    ],
+    [
+     588,
+     "E"
+    ],
+    [
+     589,
+     "E"
+    ],
+    [
+     590,
+     "E"
+    ],
+    [
+     591,
+     "E"
+    ],
+    [
+     592,
+     "E"
+    ],
+    [
+     593,
+     "E"
+    ],
+    [
+     594,
+     "E"
+    ],
+    [
+     595,
+     "E"
+    ],
+    [
+     596,
+     "E"
+    ],
+    [
+     597,
+     "E"
+    ],
+    [
+     598,
+     "E"
+    ],
+    [
+     599,
+     "E"
+    ],
+    [
+     600,
+     "E"
+    ],
+    [
+     601,
+     "E"
+    ],
+    [
+     602,
+     "E"
+    ],
+    [
+     603,
+     "E"
+    ],
+    [
+     604,
+     "E"
+    ],
+    [
+     605,
+     "E"
+    ],
+    [
+     606,
+     "E"
+    ],
+    [
+     607,
+     "E"
+    ],
+    [
+     608,
+     "E"
+    ],
+    [
+     609,
+     "E"
+    ],
+    [
+     610,
+     "E"
+    ],
+    [
+     611,
+     "E"
+    ],
+    [
+     612,
+     "E"
+    ],
+    [
+     613,
+     "E"
+    ],
+    [
+     614,
+     "E"
+    ],
+    [
+     615,
+     "E"
+    ],
+    [
+     616,
+     "E"
+    ],
+    [
+     617,
+     "E"
+    ],
+    [
+     618,
+     "E"
+    ],
+    [
+     619,
+     "E"
+    ],
+    [
+     620,
+     "E"
+    ],
+    [
+     621,
+     "E"
+    ],
+    [
+     622,
+     "E"
+    ],
+    [
+     623,
+     "E"
+    ],
+    [
+     624,
+     "E"
+    ],
+    [
+     625,
+     "E"
+    ],
+    [
+     626,
+     "E"
+    ],
+    [
+     627,
+     "E"
+    ],
+    [
+     628,
+     "E"
+    ],
+    [
+     629,
+     "E"
+    ],
+    [
+     630,
+     "E"
+    ],
+    [
+     631,
+     "E"
+    ],
+    [
+     632,
+     "E"
+    ],
+    [
+     633,
+     "E"
+    ],
+    [
+     634,
+     "E"
+    ],
+    [
+     635,
+     "E"
+    ],
+    [
+     636,
+     "E"
+    ],
+    [
+     637,
+     "E"
+    ],
+    [
+     638,
+     "E"
+    ],
+    [
+     639,
+     "E"
+    ],
+    [
+     640,
+     "E"
+    ],
+    [
+     641,
+     "E"
+    ],
+    [
+     642,
+     "E"
+    ],
+    [
+     643,
+     "E"
+    ],
+    [
+     644,
+     "E"
+    ],
+    [
+     645,
+     "E"
+    ],
+    [
+     646,
+     "E"
+    ],
+    [
+     647,
+     "E"
+    ],
+    [
+     648,
+     "E"
+    ],
+    [
+     649,
+     "E"
+    ],
+    [
+     650,
+     "E"
+    ],
+    [
+     651,
+     "E"
+    ],
+    [
+     652,
+     "E"
+    ],
+    [
+     653,
+     "E"
+    ],
+    [
+     654,
+     "E"
+    ],
+    [
+     655,
+     "E"
+    ],
+    [
+     656,
+     "E"
+    ],
+    [
+     657,
+     "E"
+    ],
+    [
+     658,
+     "E"
+    ],
+    [
+     659,
+     "E"
+    ],
+    [
+     660,
+     "E"
+    ],
+    [
+     661,
+     "E"
+    ],
+    [
+     662,
+     "E"
+    ],
+    [
+     663,
+     "E"
+    ],
+    [
+     664,
+     "E"
+    ],
+    [
+     665,
+     "E"
+    ],
+    [
+     666,
+     "E"
+    ],
+    [
+     667,
+     "E"
+    ],
+    [
+     668,
+     "E"
+    ],
+    [
+     669,
+     "E"
+    ],
+    [
+     670,
+     "E"
+    ],
+    [
+     671,
+     "E"
+    ],
+    [
+     672,
+     "E"
+    ],
+    [
+     673,
+     "E"
+    ],
+    [
+     674,
+     "E"
+    ],
+    [
+     675,
+     "E"
+    ],
+    [
+     676,
+     "E"
+    ],
+    [
+     677,
+     "E"
+    ],
+    [
+     678,
+     "E"
+    ],
+    [
+     679,
+     "E"
+    ],
+    [
+     680,
+     "E"
+    ],
+    [
+     681,
+     "E"
+    ],
+    [
+     682,
+     "E"
+    ],
+    [
+     683,
+     "E"
+    ],
+    [
+     684,
+     "E"
+    ],
+    [
+     685,
+     "E"
+    ],
+    [
+     686,
+     "E"
+    ],
+    [
+     687,
+     "E"
+    ],
+    [
+     688,
+     "E"
+    ],
+    [
+     689,
+     "E"
+    ],
+    [
+     690,
+     "E"
+    ],
+    [
+     691,
+     "E"
+    ],
+    [
+     692,
+     "E"
+    ],
+    [
+     693,
+     "E"
+    ],
+    [
+     694,
+     "E"
+    ],
+    [
+     695,
+     "E"
+    ],
+    [
+     696,
+     "E"
+    ],
+    [
+     697,
+     "E"
+    ],
+    [
+     698,
+     "E"
+    ],
+    [
+     699,
+     "E"
+    ],
+    [
+     700,
+     "E"
+    ],
+    [
+     701,
+     "E"
+    ],
+    [
+     702,
+     "E"
+    ],
+    [
+     703,
+     "E"
+    ],
+    [
+     704,
+     "E"
+    ],
+    [
+     705,
+     "E"
+    ],
+    [
+     706,
+     "E"
+    ],
+    [
+     707,
+     "E"
+    ],
+    [
+     708,
+     "E"
+    ],
+    [
+     709,
+     "E"
+    ],
+    [
+     710,
+     "E"
+    ],
+    [
+     711,
+     "E"
+    ]
+   ],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 1371,
+    "name_ok": 1371,
+    "remark_ok": 1371,
+    "remark_gap_rows": 0,
+    "page_ok": 1371,
+    "page_null": 0,
+    "rank_ok": 1371,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-18MA",
+    "strength": 139,
+    "casualties": 20,
+    "designation": "18th Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     2
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    139,
+    139
+   ],
+   "reconciliation": {
+    "designation": "18th Massachusetts Infantry",
+    "rows_new_file": 1371,
+    "earlier_file": "data/NE/massachusetts/18th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-18MA",
+    "rows_earlier_file": 1371,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 1371,
+    "remarks_equal": 1364,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 7,
+    "remarks_differ_other": 0,
+    "company_differs": 138,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "-": 138,
+     "A": 137,
+     "B": 135,
+     "BAND": 22,
+     "C": 132,
+     "D": 129,
+     "F": 140,
+     "FS": 14,
+     "G": 132,
+     "H": 116,
+     "I": 143,
+     "K": 121,
+     "NCS": 5,
+     "UNAS": 7
+    },
+    "company_counts_earlier_file": {
+     "A": 137,
+     "B": 135,
+     "BAND": 22,
+     "C": 132,
+     "D": 129,
+     "E": 138,
+     "F": 140,
+     "FS": 14,
+     "G": 132,
+     "H": 116,
+     "I": 143,
+     "K": 121,
+     "NCS": 5,
+     "UNAS": 7
+    },
+    "difference_rows_written": 145,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-18th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1368,
+    "lines_now": 1371,
+    "lines_added_by_third_head_rule": 3,
+    "names_cut_differently": 1,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 3
+   },
+   "diag_leaves": [
+    359,
+    418
+   ],
+   "diag_headings": [
+    [
+     "FS",
+     false,
+     361
+    ],
+    [
+     "NCS",
+     false,
+     361
+    ],
+    [
+     "BAND",
+     false,
+     362
+    ],
+    [
+     "A",
+     false,
+     362
+    ],
+    [
+     "B",
+     false,
+     368
+    ],
+    [
+     "C",
+     false,
+     373
+    ],
+    [
+     "D",
+     false,
+     379
+    ],
+    [
+     "",
+     true,
+     384
+    ],
+    [
+     "F",
+     false,
+     390
+    ],
+    [
+     "G",
+     false,
+     395
+    ],
+    [
+     "H",
+     false,
+     401
+    ],
+    [
+     "I",
+     false,
+     406
+    ],
+    [
+     "K",
+     false,
+     413
+    ],
+    [
+     "UNAS",
+     false,
+     418
+    ]
+   ],
+   "units_earlier_rows": 1371,
+   "or_note": ""
+  },
+  "u-ma-19th-massachusetts-infantry": {
+   "designation": "19th Massachusetts Infantry",
+   "file": "data2/union/ma/19th-massachusetts-infantry.jsonl.gz",
+   "volume": "2",
+   "arm": "infantry",
+   "lines": 1938,
+   "raw_bytes": 374341,
+   "gz_bytes": 76095,
+   "flags_bytes": 24029,
+   "sha256_raw": "87cb96e18e28b7b1036edccccfb3e56a0ed53063481942ff7699e20744e442dc",
+   "bytes_per_line": 193.2,
+   "by_section": {
+    "FS": 16,
+    "NCS": 5,
+    "BAND": 26,
+    "company": 1795,
+    "UNAS": 96,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 187,
+    "B": 178,
+    "BAND": 26,
+    "C": 174,
+    "D": 129,
+    "E": 182,
+    "F": 175,
+    "FS": 16,
+    "G": 192,
+    "H": 264,
+    "I": 147,
+    "K": 167,
+    "NCS": 5,
+    "UNAS": 96
+   },
+   "xref_lines": 411,
+   "agent_rows": [
+    13,
+    469,
+    1741
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    421,
+    501
+   ],
+   "leaf_count": 81,
+   "printed_pages": [
+    411,
+    491
+   ],
+   "rows_per_inner_leaf": {
+    "min": 18,
+    "median": 24,
+    "max": 30
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 33,
+    "H": 5,
+    "N": 35,
+    "Q": 2,
+    "R": 18,
+    "Y": 109
+   },
+   "ocr_uncertain": 173,
+   "on_rolls": {
+    "yes": 366,
+    "no": 1388,
+    "unknown": 184
+   },
+   "names_gettysburg": 82,
+   "gettysburg_dated": 77,
+   "head_kinds": {
+    "cut:alternate-name": 1,
+    "cut:fragment-extended": 1,
+    "cut:initials-dropped": 1,
+    "cut:period-for-comma": 1,
+    "cut:reviewed": 1,
+    "res-damaged": 1,
+    "res-lost": 1
+   },
+   "company_inferred": [],
+   "reviewed_headings": [
+    {
+     "code": "UNAS",
+     "first_row": 1842,
+     "heading": "UX-\\SSIGXED",
+     "last_row": 1937,
+     "n_rows": 96,
+     "offset": 2537300
+    }
+   ],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 1938,
+    "name_ok": 1938,
+    "remark_ok": 1938,
+    "remark_gap_rows": 0,
+    "page_ok": 1938,
+    "page_null": 0,
+    "rank_ok": 1938,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-19MA",
+    "strength": 163,
+    "casualties": 82,
+    "designation": "19th Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     2,
+     3
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    163,
+    163
+   ],
+   "reconciliation": {
+    "designation": "19th Massachusetts Infantry",
+    "rows_new_file": 1938,
+    "earlier_file": "data/NE/massachusetts/19th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-19MA",
+    "rows_earlier_file": 1938,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 1938,
+    "remarks_equal": 1934,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 4,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 187,
+     "B": 178,
+     "BAND": 26,
+     "C": 174,
+     "D": 129,
+     "E": 182,
+     "F": 175,
+     "FS": 16,
+     "G": 192,
+     "H": 264,
+     "I": 147,
+     "K": 167,
+     "NCS": 5,
+     "UNAS": 96
+    },
+    "company_counts_earlier_file": {
+     "A": 187,
+     "B": 178,
+     "BAND": 26,
+     "C": 174,
+     "D": 129,
+     "E": 182,
+     "F": 175,
+     "FS": 16,
+     "G": 192,
+     "H": 264,
+     "I": 147,
+     "K": 167,
+     "NCS": 5,
+     "UNAS": 96
+    },
+    "difference_rows_written": 4,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-19th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1937,
+    "lines_now": 1938,
+    "lines_added_by_third_head_rule": 1,
+    "names_cut_differently": 2,
+    "company_changed_by_reviewed_heading": 96,
+    "host_lines_with_shorter_remarks": 4
+   },
+   "diag_leaves": [
+    419,
+    501
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     421
+    ],
+    [
+     "BAND",
+     false,
+     422
+    ],
+    [
+     "A",
+     false,
+     423
+    ],
+    [
+     "B",
+     false,
+     431
+    ],
+    [
+     "C",
+     false,
+     438
+    ],
+    [
+     "D",
+     false,
+     445
+    ],
+    [
+     "E",
+     false,
+     450
+    ],
+    [
+     "F",
+     false,
+     458
+    ],
+    [
+     "G",
+     false,
+     465
+    ],
+    [
+     "H",
+     false,
+     473
+    ],
+    [
+     "I",
+     false,
+     484
+    ],
+    [
+     "K",
+     false,
+     490
+    ],
+    [
+     "UNAS",
+     false,
+     498
+    ]
+   ],
+   "units_earlier_rows": 1938,
+   "or_note": ""
+  },
+  "u-ma-20th-massachusetts-infantry": {
+   "designation": "20th Massachusetts Infantry",
+   "file": "data2/union/ma/20th-massachusetts-infantry.jsonl.gz",
+   "volume": "2",
+   "arm": "infantry",
+   "lines": 2484,
+   "raw_bytes": 462789,
+   "gz_bytes": 93122,
+   "flags_bytes": 29132,
+   "sha256_raw": "94cdfd53e262a0e83a8b0d4f1e32177bed48586d77dc7f3f13ea3ecbf27065a8",
+   "bytes_per_line": 186.3,
+   "by_section": {
+    "FS": 17,
+    "NCS": 6,
+    "BAND": 24,
+    "company": 2303,
+    "UNAS": 134,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 207,
+    "B": 207,
+    "BAND": 24,
+    "C": 256,
+    "D": 209,
+    "E": 208,
+    "F": 226,
+    "FS": 17,
+    "G": 215,
+    "H": 225,
+    "I": 250,
+    "K": 300,
+    "NCS": 6,
+    "UNAS": 134
+   },
+   "xref_lines": 711,
+   "agent_rows": [
+    3,
+    585
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    504,
+    603
+   ],
+   "leaf_count": 100,
+   "printed_pages": [
+    494,
+    593
+   ],
+   "rows_per_inner_leaf": {
+    "min": 21,
+    "median": 25.0,
+    "max": 29
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 20,
+    "H": 12,
+    "N": 24,
+    "Q": 4,
+    "R": 11,
+    "Y": 23
+   },
+   "ocr_uncertain": 80,
+   "on_rolls": {
+    "yes": 524,
+    "no": 1854,
+    "unknown": 106
+   },
+   "names_gettysburg": 131,
+   "gettysburg_dated": 126,
+   "head_kinds": {
+    "cut:fragment-extended": 3,
+    "cut:initials-dropped": 1,
+    "cut:no-comma": 5,
+    "cut:reviewed": 2,
+    "d1-missing": 2,
+    "res-damaged": 2,
+    "res-lost": 2
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 2484,
+    "name_ok": 2484,
+    "remark_ok": 2484,
+    "remark_gap_rows": 0,
+    "page_ok": 2484,
+    "page_null": 0,
+    "rank_ok": 2484,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-20MA",
+    "strength": 243,
+    "casualties": 127,
+    "designation": "20th Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     2,
+     3
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    243,
+    243
+   ],
+   "reconciliation": {
+    "designation": "20th Massachusetts Infantry",
+    "rows_new_file": 2484,
+    "earlier_file": "data/NE/massachusetts/20th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-20MA",
+    "rows_earlier_file": 2482,
+    "rows_delta_new_minus_earlier": 2,
+    "aligned_same_letters": 2482,
+    "remarks_equal": 2480,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 2,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 207,
+     "B": 207,
+     "BAND": 24,
+     "C": 256,
+     "D": 209,
+     "E": 208,
+     "F": 226,
+     "FS": 17,
+     "G": 215,
+     "H": 225,
+     "I": 250,
+     "K": 300,
+     "NCS": 6,
+     "UNAS": 134
+    },
+    "company_counts_earlier_file": {
+     "A": 207,
+     "B": 207,
+     "BAND": 24,
+     "C": 256,
+     "D": 209,
+     "E": 208,
+     "F": 226,
+     "FS": 17,
+     "G": 215,
+     "H": 225,
+     "I": 250,
+     "K": 298,
+     "NCS": 6,
+     "UNAS": 134
+    },
+    "difference_rows_written": 4,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-20th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {
+     "swallowed in an earlier row": 2
+    },
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 2482,
+    "lines_now": 2484,
+    "lines_added_by_third_head_rule": 2,
+    "names_cut_differently": 5,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 7
+   },
+   "diag_leaves": [
+    502,
+    603
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     505
+    ],
+    [
+     "BAND",
+     false,
+     505
+    ],
+    [
+     "A",
+     false,
+     506
+    ],
+    [
+     "B",
+     false,
+     514
+    ],
+    [
+     "C",
+     false,
+     522
+    ],
+    [
+     "D",
+     false,
+     533
+    ],
+    [
+     "E",
+     false,
+     541
+    ],
+    [
+     "F",
+     false,
+     550
+    ],
+    [
+     "G",
+     false,
+     559
+    ],
+    [
+     "H",
+     false,
+     567
+    ],
+    [
+     "I",
+     false,
+     577
+    ],
+    [
+     "K",
+     false,
+     587
+    ],
+    [
+     "UNAS",
+     false,
+     599
+    ]
+   ],
+   "units_earlier_rows": 2482,
+   "or_note": ""
+  },
+  "u-ma-22nd-massachusetts-infantry": {
+   "designation": "22nd Massachusetts Infantry",
+   "file": "data2/union/ma/22nd-massachusetts-infantry.jsonl.gz",
+   "volume": "2",
+   "arm": "infantry",
+   "lines": 1452,
+   "raw_bytes": 275709,
+   "gz_bytes": 53374,
+   "flags_bytes": 18571,
+   "sha256_raw": "ee33887410a886655e52398efde87fa74dc96eacafe2ca943a8bcf29e67d2ee5",
+   "bytes_per_line": 189.9,
+   "by_section": {
+    "FS": 15,
+    "NCS": 5,
+    "BAND": 25,
+    "company": 1383,
+    "UNAS": 24,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 129,
+    "B": 143,
+    "BAND": 25,
+    "C": 146,
+    "D": 134,
+    "E": 137,
+    "F": 133,
+    "FS": 15,
+    "G": 146,
+    "H": 146,
+    "I": 139,
+    "K": 130,
+    "NCS": 5,
+    "UNAS": 24
+   },
+   "xref_lines": 464,
+   "agent_rows": [
+    201
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [
+    [
+     353,
+     "Dickerman, Ezra L."
+    ]
+   ],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    661,
+    720
+   ],
+   "leaf_count": 60,
+   "printed_pages": [
+    651,
+    710
+   ],
+   "rows_per_inner_leaf": {
+    "min": 20,
+    "median": 25.0,
+    "max": 28
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 8,
+    "H": 4,
+    "N": 14,
+    "Q": 2,
+    "R": 3,
+    "Y": 3
+   },
+   "ocr_uncertain": 31,
+   "on_rolls": {
+    "yes": 430,
+    "no": 983,
+    "unknown": 39
+   },
+   "names_gettysburg": 34,
+   "gettysburg_dated": 33,
+   "head_kinds": {
+    "cut:fragment-extended": 2,
+    "cut:initials-dropped": 1,
+    "cut:no-comma": 1,
+    "no-rank": 1,
+    "res-damaged": 2
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 1452,
+    "name_ok": 1452,
+    "remark_ok": 1452,
+    "remark_gap_rows": 0,
+    "page_ok": 1452,
+    "page_null": 0,
+    "rank_ok": 1451,
+    "rank_empty": 1,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-22MA",
+    "strength": 137,
+    "casualties": 21,
+    "designation": "22nd Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     2
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    137,
+    137
+   ],
+   "reconciliation": {
+    "designation": "22nd Massachusetts Infantry",
+    "rows_new_file": 1452,
+    "earlier_file": "data/NE/massachusetts/22nd-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-22MA",
+    "rows_earlier_file": 1451,
+    "rows_delta_new_minus_earlier": 1,
+    "aligned_same_letters": 1451,
+    "remarks_equal": 1449,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 1,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 129,
+     "B": 143,
+     "BAND": 25,
+     "C": 146,
+     "D": 134,
+     "E": 137,
+     "F": 133,
+     "FS": 15,
+     "G": 146,
+     "H": 146,
+     "I": 139,
+     "K": 130,
+     "NCS": 5,
+     "UNAS": 24
+    },
+    "company_counts_earlier_file": {
+     "A": 129,
+     "B": 143,
+     "BAND": 25,
+     "C": 145,
+     "D": 134,
+     "E": 137,
+     "F": 133,
+     "FS": 15,
+     "G": 146,
+     "H": 146,
+     "I": 139,
+     "K": 130,
+     "NCS": 5,
+     "UNAS": 24
+    },
+    "difference_rows_written": 3,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-22nd-massachusetts-infantry.csv",
+    "evidence_new_file_only": {
+     "swallowed in an earlier row": 1
+    },
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1452,
+    "lines_now": 1452,
+    "lines_added_by_third_head_rule": 0,
+    "names_cut_differently": 3,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 2
+   },
+   "diag_leaves": [
+    659,
+    720
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     661
+    ],
+    [
+     "BAND",
+     false,
+     662
+    ],
+    [
+     "A",
+     false,
+     663
+    ],
+    [
+     "B",
+     false,
+     668
+    ],
+    [
+     "C",
+     false,
+     674
+    ],
+    [
+     "D",
+     false,
+     679
+    ],
+    [
+     "E",
+     false,
+     685
+    ],
+    [
+     "F",
+     false,
+     690
+    ],
+    [
+     "G",
+     false,
+     696
+    ],
+    [
+     "H",
+     false,
+     702
+    ],
+    [
+     "I",
+     false,
+     708
+    ],
+    [
+     "K",
+     false,
+     713
+    ],
+    [
+     "UNAS",
+     false,
+     719
+    ]
+   ],
+   "units_earlier_rows": 1451,
+   "or_note": ""
+  },
+  "u-ma-28th-massachusetts-infantry": {
+   "designation": "28th Massachusetts Infantry",
+   "file": "data2/union/ma/28th-massachusetts-infantry.jsonl.gz",
+   "volume": "3",
+   "arm": "infantry",
+   "lines": 2065,
+   "raw_bytes": 392442,
+   "gz_bytes": 75560,
+   "flags_bytes": 23189,
+   "sha256_raw": "dcb1cf37dd542823d0a0b41017884970613959e31f8e5f94bdd99c520132749b",
+   "bytes_per_line": 190.0,
+   "by_section": {
+    "FS": 15,
+    "NCS": 3,
+    "BAND": 25,
+    "company": 1768,
+    "UNAS": 254,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 186,
+    "B": 214,
+    "BAND": 25,
+    "C": 213,
+    "D": 167,
+    "E": 182,
+    "F": 176,
+    "FS": 15,
+    "G": 153,
+    "H": 151,
+    "I": 172,
+    "K": 154,
+    "NCS": 3,
+    "UNAS": 254
+   },
+   "xref_lines": 250,
+   "agent_rows": [
+    1060
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    200,
+    284
+   ],
+   "leaf_count": 85,
+   "printed_pages": [
+    190,
+    274
+   ],
+   "rows_per_inner_leaf": {
+    "min": 21,
+    "median": 24,
+    "max": 30
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 3,
+    "H": 5,
+    "N": 17,
+    "Q": 6,
+    "R": 4,
+    "Y": 2
+   },
+   "ocr_uncertain": 34,
+   "on_rolls": {
+    "yes": 480,
+    "no": 1505,
+    "unknown": 80
+   },
+   "names_gettysburg": 106,
+   "gettysburg_dated": 106,
+   "head_kinds": {
+    "cut:alternate-name": 1,
+    "cut:initials-dropped": 1,
+    "cut:no-comma": 1,
+    "cut:reviewed": 1,
+    "res-damaged": 4,
+    "res-lost": 2
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 2065,
+    "name_ok": 2065,
+    "remark_ok": 2065,
+    "remark_gap_rows": 0,
+    "page_ok": 2065,
+    "page_null": 0,
+    "rank_ok": 2065,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-28MA",
+    "strength": 224,
+    "casualties": 99,
+    "designation": "28th Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     2
+    ]
+   },
+   "or_strength": [
+    {
+     "quote": "out of 224 taken into the engagement",
+     "what": "taken into the engagement",
+     "value": 224,
+     "cite": "OR Ser.I vol.27 pt.1, OR27-1-R083 Col. Richard Byrnes, p. ~387 (387-388)",
+     "report_id": "OR27-1-R083",
+     "author": "Col. Richard Byrnes",
+     "page": 387,
+     "offset_from": 1356068,
+     "offset_to": 1356110
+    }
+   ],
+   "strength_range": [
+    224,
+    224
+   ],
+   "reconciliation": {
+    "designation": "28th Massachusetts Infantry",
+    "rows_new_file": 2065,
+    "earlier_file": "data/NE/massachusetts/28th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-28MA",
+    "rows_earlier_file": 2065,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 2065,
+    "remarks_equal": 2063,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 186,
+     "B": 214,
+     "BAND": 25,
+     "C": 213,
+     "D": 167,
+     "E": 182,
+     "F": 176,
+     "FS": 15,
+     "G": 153,
+     "H": 151,
+     "I": 172,
+     "K": 154,
+     "NCS": 3,
+     "UNAS": 254
+    },
+    "company_counts_earlier_file": {
+     "A": 186,
+     "B": 214,
+     "BAND": 25,
+     "C": 213,
+     "D": 167,
+     "E": 182,
+     "F": 176,
+     "FS": 15,
+     "G": 153,
+     "H": 151,
+     "I": 172,
+     "K": 154,
+     "NCS": 3,
+     "UNAS": 254
+    },
+    "difference_rows_written": 2,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-28th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 2063,
+    "lines_now": 2065,
+    "lines_added_by_third_head_rule": 2,
+    "names_cut_differently": 2,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 4
+   },
+   "diag_leaves": [
+    198,
+    284
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     200
+    ],
+    [
+     "BAND",
+     false,
+     201
+    ],
+    [
+     "A",
+     false,
+     202
+    ],
+    [
+     "B",
+     false,
+     209
+    ],
+    [
+     "C",
+     false,
+     218
+    ],
+    [
+     "D",
+     false,
+     227
+    ],
+    [
+     "E",
+     false,
+     234
+    ],
+    [
+     "F",
+     false,
+     241
+    ],
+    [
+     "G",
+     false,
+     249
+    ],
+    [
+     "H",
+     false,
+     255
+    ],
+    [
+     "I",
+     false,
+     262
+    ],
+    [
+     "K",
+     false,
+     269
+    ],
+    [
+     "UNAS",
+     false,
+     276
+    ]
+   ],
+   "units_earlier_rows": 2065,
+   "or_note": ""
+  },
+  "u-ma-32nd-massachusetts-infantry": {
+   "designation": "32nd Massachusetts Infantry",
+   "file": "data2/union/ma/32nd-massachusetts-infantry.jsonl.gz",
+   "volume": "3",
+   "arm": "infantry",
+   "lines": 2168,
+   "raw_bytes": 397006,
+   "gz_bytes": 75567,
+   "flags_bytes": 25653,
+   "sha256_raw": "033f9181a20cf26dd4d3358bb2196586f3dd89606ee61d469e4ab90f68cbcdc5",
+   "bytes_per_line": 183.1,
+   "by_section": {
+    "FS": 10,
+    "NCS": 3,
+    "BAND": 0,
+    "company": 2144,
+    "UNAS": 11,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 214,
+    "B": 202,
+    "C": 209,
+    "D": 202,
+    "E": 191,
+    "F": 183,
+    "FS": 10,
+    "G": 198,
+    "H": 188,
+    "I": 180,
+    "K": 176,
+    "L": 106,
+    "M": 95,
+    "NCS": 3,
+    "UNAS": 11
+   },
+   "xref_lines": 868,
+   "agent_rows": [
+    580,
+    833
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    460,
+    545
+   ],
+   "leaf_count": 86,
+   "printed_pages": [
+    450,
+    535
+   ],
+   "rows_per_inner_leaf": {
+    "min": 21,
+    "median": 26.0,
+    "max": 28
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 8,
+    "H": 9,
+    "N": 15,
+    "Q": 6,
+    "R": 7,
+    "Y": 3
+   },
+   "ocr_uncertain": 40,
+   "on_rolls": {
+    "yes": 610,
+    "no": 1493,
+    "unknown": 65
+   },
+   "names_gettysburg": 88,
+   "gettysburg_dated": 88,
+   "head_kinds": {
+    "cut:fragment-extended": 3,
+    "cut:reviewed": 2,
+    "res-damaged": 2,
+    "res-lost": 4
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 2168,
+    "name_ok": 2168,
+    "remark_ok": 2168,
+    "remark_gap_rows": 0,
+    "page_ok": 2168,
+    "page_null": 0,
+    "rank_ok": 2168,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-32MA",
+    "strength": 263,
+    "casualties": 72,
+    "designation": "32nd Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     2
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    263,
+    263
+   ],
+   "reconciliation": {
+    "designation": "32nd Massachusetts Infantry",
+    "rows_new_file": 2168,
+    "earlier_file": "data/NE/massachusetts/32nd-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-32MA",
+    "rows_earlier_file": 2168,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 2168,
+    "remarks_equal": 2166,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 214,
+     "B": 202,
+     "C": 209,
+     "D": 202,
+     "E": 191,
+     "F": 183,
+     "FS": 10,
+     "G": 198,
+     "H": 188,
+     "I": 180,
+     "K": 176,
+     "L": 106,
+     "M": 95,
+     "NCS": 3,
+     "UNAS": 11
+    },
+    "company_counts_earlier_file": {
+     "A": 214,
+     "B": 202,
+     "C": 209,
+     "D": 202,
+     "E": 191,
+     "F": 183,
+     "FS": 10,
+     "G": 198,
+     "H": 188,
+     "I": 180,
+     "K": 176,
+     "L": 106,
+     "M": 95,
+     "NCS": 3,
+     "UNAS": 11
+    },
+    "difference_rows_written": 2,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-32nd-massachusetts-infantry.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 2164,
+    "lines_now": 2168,
+    "lines_added_by_third_head_rule": 4,
+    "names_cut_differently": 6,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 10
+   },
+   "diag_leaves": [
+    458,
+    545
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     460
+    ],
+    [
+     "A",
+     false,
+     460
+    ],
+    [
+     "B",
+     false,
+     469
+    ],
+    [
+     "C",
+     false,
+     477
+    ],
+    [
+     "D",
+     false,
+     485
+    ],
+    [
+     "E",
+     false,
+     493
+    ],
+    [
+     "F",
+     false,
+     500
+    ],
+    [
+     "G",
+     false,
+     507
+    ],
+    [
+     "H",
+     false,
+     515
+    ],
+    [
+     "I",
+     false,
+     523
+    ],
+    [
+     "K",
+     false,
+     530
+    ],
+    [
+     "L",
+     false,
+     537
+    ],
+    [
+     "M",
+     false,
+     541
+    ],
+    [
+     "UNAS",
+     false,
+     545
+    ]
+   ],
+   "units_earlier_rows": 2168,
+   "or_note": "Company C was headquarters guard of the Artillery Reserve"
+  },
+  "u-ma-33rd-massachusetts-infantry": {
+   "designation": "33rd Massachusetts Infantry",
+   "file": "data2/union/ma/33rd-massachusetts-infantry.jsonl.gz",
+   "volume": "3",
+   "arm": "infantry",
+   "lines": 1282,
+   "raw_bytes": 225392,
+   "gz_bytes": 44037,
+   "flags_bytes": 15584,
+   "sha256_raw": "09b170f5c118a41bbf2a76f6f1515e811ce88594ce0f90078ddd1a1bd506dfa9",
+   "bytes_per_line": 175.8,
+   "by_section": {
+    "FS": 13,
+    "NCS": 1,
+    "BAND": 0,
+    "company": 1259,
+    "UNAS": 9,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 140,
+    "B": 108,
+    "C": 131,
+    "D": 128,
+    "E": 123,
+    "F": 123,
+    "FS": 13,
+    "G": 121,
+    "H": 124,
+    "I": 121,
+    "K": 140,
+    "NCS": 1,
+    "UNAS": 9
+   },
+   "xref_lines": 211,
+   "agent_rows": [
+    860,
+    939
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    548,
+    597
+   ],
+   "leaf_count": 50,
+   "printed_pages": [
+    538,
+    587
+   ],
+   "rows_per_inner_leaf": {
+    "min": 24,
+    "median": 26.0,
+    "max": 28
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 7,
+    "H": 5,
+    "N": 10,
+    "Q": 5,
+    "R": 3
+   },
+   "ocr_uncertain": 24,
+   "on_rolls": {
+    "yes": 834,
+    "no": 425,
+    "unknown": 23
+   },
+   "names_gettysburg": 46,
+   "gettysburg_dated": 15,
+   "head_kinds": {
+    "cut:alternate-name": 1,
+    "cut:initials-dropped": 1,
+    "cut:period-for-comma": 1,
+    "junk-after-d2": 1,
+    "res-damaged": 3,
+    "res-lost": 3
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 1282,
+    "name_ok": 1282,
+    "remark_ok": 1282,
+    "remark_gap_rows": 0,
+    "page_ok": 1282,
+    "page_null": 0,
+    "rank_ok": 1282,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-33MA",
+    "strength": 527,
+    "casualties": 51,
+    "designation": "33rd Massachusetts Volunteer Infantry",
+    "days_engaged": [
+     1
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    527,
+    527
+   ],
+   "reconciliation": {
+    "designation": "33rd Massachusetts Infantry",
+    "rows_new_file": 1282,
+    "earlier_file": "data/NE/massachusetts/33rd-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-33MA",
+    "rows_earlier_file": 1282,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 1282,
+    "remarks_equal": 1280,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 140,
+     "B": 108,
+     "C": 131,
+     "D": 128,
+     "E": 123,
+     "F": 123,
+     "FS": 13,
+     "G": 121,
+     "H": 124,
+     "I": 121,
+     "K": 140,
+     "NCS": 1,
+     "UNAS": 9
+    },
+    "company_counts_earlier_file": {
+     "A": 140,
+     "B": 108,
+     "C": 131,
+     "D": 128,
+     "E": 123,
+     "F": 123,
+     "FS": 13,
+     "G": 121,
+     "H": 124,
+     "I": 121,
+     "K": 140,
+     "NCS": 1,
+     "UNAS": 9
+    },
+    "difference_rows_written": 2,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-33rd-massachusetts-infantry.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1279,
+    "lines_now": 1282,
+    "lines_added_by_third_head_rule": 3,
+    "names_cut_differently": 1,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 4
+   },
+   "diag_leaves": [
+    546,
+    597
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     548
+    ],
+    [
+     "A",
+     false,
+     548
+    ],
+    [
+     "B",
+     false,
+     554
+    ],
+    [
+     "C",
+     false,
+     558
+    ],
+    [
+     "D",
+     false,
+     563
+    ],
+    [
+     "E",
+     false,
+     568
+    ],
+    [
+     "F",
+     false,
+     572
+    ],
+    [
+     "G",
+     false,
+     577
+    ],
+    [
+     "H",
+     false,
+     582
+    ],
+    [
+     "I",
+     false,
+     587
+    ],
+    [
+     "K",
+     false,
+     591
+    ],
+    [
+     "UNAS",
+     false,
+     597
+    ]
+   ],
+   "units_earlier_rows": 1282,
+   "or_note": ""
+  },
+  "u-ma-37th-massachusetts-infantry": {
+   "designation": "37th Massachusetts Infantry",
+   "file": "data2/union/ma/37th-massachusetts-infantry.jsonl.gz",
+   "volume": "3",
+   "arm": "infantry",
+   "lines": 1310,
+   "raw_bytes": 246913,
+   "gz_bytes": 44273,
+   "flags_bytes": 15333,
+   "sha256_raw": "a593a657a15ee21dbacc038f3eae511425592a9f9673cf4a02e95781a8ecfb16",
+   "bytes_per_line": 188.5,
+   "by_section": {
+    "FS": 12,
+    "NCS": 4,
+    "BAND": 0,
+    "company": 1264,
+    "UNAS": 30,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 139,
+    "B": 126,
+    "C": 121,
+    "D": 120,
+    "E": 129,
+    "F": 124,
+    "FS": 12,
+    "G": 112,
+    "H": 138,
+    "I": 123,
+    "K": 132,
+    "NCS": 4,
+    "UNAS": 30
+   },
+   "xref_lines": 326,
+   "agent_rows": [
+    798,
+    1237
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 21,
+   "leaves": [
+    781,
+    834
+   ],
+   "leaf_count": 54,
+   "printed_pages": [
+    771,
+    823
+   ],
+   "rows_per_inner_leaf": {
+    "min": 20,
+    "median": 25.0,
+    "max": 27
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 4,
+    "H": 4,
+    "N": 9,
+    "Q": 4,
+    "R": 3,
+    "Y": 1
+   },
+   "ocr_uncertain": 21,
+   "on_rolls": {
+    "yes": 797,
+    "no": 484,
+    "unknown": 29
+   },
+   "names_gettysburg": 46,
+   "gettysburg_dated": 45,
+   "head_kinds": {
+    "cut:fragment-extended": 2,
+    "cut:initials-dropped": 1,
+    "cut:no-comma": 1,
+    "junk-after-d2": 1,
+    "res-damaged": 3,
+    "res-lost": 1
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 21,
+   "verify": {
+    "rows": 1310,
+    "name_ok": 1310,
+    "remark_ok": 1310,
+    "remark_gap_rows": 0,
+    "page_ok": 1310,
+    "page_null": 21,
+    "rank_ok": 1310,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-37MA",
+    "strength": 590,
+    "casualties": 0,
+    "designation": "37th Massachusetts Volunteer Infantry",
+    "days_engaged": []
+   },
+   "or_strength": [],
+   "strength_range": [
+    590,
+    590
+   ],
+   "reconciliation": {
+    "designation": "37th Massachusetts Infantry",
+    "rows_new_file": 1310,
+    "earlier_file": "data/NE/massachusetts/37th-massachusetts-volunteer-infantry.csv",
+    "earlier_unit_id": "U-37MA",
+    "rows_earlier_file": 1310,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 1310,
+    "remarks_equal": 1309,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 1,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 139,
+     "B": 126,
+     "C": 121,
+     "D": 120,
+     "E": 129,
+     "F": 124,
+     "FS": 12,
+     "G": 112,
+     "H": 138,
+     "I": 123,
+     "K": 132,
+     "NCS": 4,
+     "UNAS": 30
+    },
+    "company_counts_earlier_file": {
+     "A": 139,
+     "B": 126,
+     "C": 121,
+     "D": 120,
+     "E": 129,
+     "F": 124,
+     "FS": 12,
+     "G": 112,
+     "H": 138,
+     "I": 123,
+     "K": 132,
+     "NCS": 4,
+     "UNAS": 30
+    },
+    "difference_rows_written": 1,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-37th-massachusetts-infantry.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 1309,
+    "lines_now": 1310,
+    "lines_added_by_third_head_rule": 1,
+    "names_cut_differently": 2,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 3
+   },
+   "diag_leaves": [
+    779,
+    834
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     781
+    ],
+    [
+     "A",
+     false,
+     782
+    ],
+    [
+     "B",
+     false,
+     787
+    ],
+    [
+     "C",
+     false,
+     793
+    ],
+    [
+     "D",
+     false,
+     798
+    ],
+    [
+     "E",
+     false,
+     803
+    ],
+    [
+     "F",
+     false,
+     808
+    ],
+    [
+     "G",
+     false,
+     813
+    ],
+    [
+     "H",
+     false,
+     817
+    ],
+    [
+     "I",
+     false,
+     823
+    ],
+    [
+     "K",
+     false,
+     828
+    ],
+    [
+     "UNAS",
+     false,
+     833
+    ]
+   ],
+   "units_earlier_rows": 1310,
+   "or_note": ""
+  },
+  "u-ma-1st-massachusetts-cavalry": {
+   "designation": "1st Massachusetts Cavalry",
+   "file": "data2/union/ma/1st-massachusetts-cavalry.jsonl.gz",
+   "volume": "6",
+   "arm": "cavalry",
+   "lines": 2341,
+   "raw_bytes": 437194,
+   "gz_bytes": 84865,
+   "flags_bytes": 29161,
+   "sha256_raw": "731b4b5e0d04736a76118ca16cc6b9955676f52f37e70d77a8d46ef08a40d322",
+   "bytes_per_line": 186.8,
+   "by_section": {
+    "FS": 17,
+    "NCS": 2,
+    "BAND": 14,
+    "company": 2235,
+    "UNAS": 73,
+    "no_heading": 0
+   },
+   "company_counts": {
+    "A": 210,
+    "B": 165,
+    "BAND": 14,
+    "C": 148,
+    "D": 178,
+    "E": 191,
+    "F": 161,
+    "FS": 17,
+    "G": 152,
+    "H": 218,
+    "I": 211,
+    "K": 210,
+    "L": 195,
+    "M": 196,
+    "NCS": 2,
+    "UNAS": 73
+   },
+   "xref_lines": 633,
+   "agent_rows": [
+    631
+   ],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    140,
+    235
+   ],
+   "leaf_count": 96,
+   "printed_pages": [
+    132,
+    227
+   ],
+   "rows_per_inner_leaf": {
+    "min": 21,
+    "median": 24.5,
+    "max": 29
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 128,
+    "H": 14,
+    "N": 9,
+    "Q": 14,
+    "R": 30,
+    "Y": 3
+   },
+   "ocr_uncertain": 182,
+   "on_rolls": {
+    "yes": 1032,
+    "no": 1262,
+    "unknown": 47
+   },
+   "names_gettysburg": 2,
+   "gettysburg_dated": 0,
+   "head_kinds": {
+    "cut:no-comma": 3,
+    "d1-damaged": 2,
+    "d2-damaged": 2,
+    "junk-after-d2": 2,
+    "res-damaged": 8,
+    "res-lost": 7
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 2341,
+    "name_ok": 2341,
+    "remark_ok": 2341,
+    "remark_gap_rows": 1,
+    "page_ok": 2341,
+    "page_null": 0,
+    "rank_ok": 2341,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-1MA-CAV",
+    "strength": 421,
+    "casualties": 21,
+    "designation": "1st Massachusetts Cavalry",
+    "days_engaged": [
+     2,
+     3
+    ]
+   },
+   "or_strength": [],
+   "strength_range": [
+    421,
+    421
+   ],
+   "reconciliation": {
+    "designation": "1st Massachusetts Cavalry",
+    "rows_new_file": 2341,
+    "earlier_file": "data/NE/massachusetts/1st-massachusetts-cavalry.csv",
+    "earlier_unit_id": "U-1MA-CAV",
+    "rows_earlier_file": 2339,
+    "rows_delta_new_minus_earlier": 2,
+    "aligned_same_letters": 2339,
+    "remarks_equal": 2334,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 5,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 2,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "A": 210,
+     "B": 165,
+     "BAND": 14,
+     "C": 148,
+     "D": 178,
+     "E": 191,
+     "F": 161,
+     "FS": 17,
+     "G": 152,
+     "H": 218,
+     "I": 211,
+     "K": 210,
+     "L": 195,
+     "M": 196,
+     "NCS": 2,
+     "UNAS": 73
+    },
+    "company_counts_earlier_file": {
+     "A": 210,
+     "B": 165,
+     "BAND": 14,
+     "C": 147,
+     "D": 178,
+     "E": 191,
+     "F": 161,
+     "FS": 17,
+     "G": 152,
+     "H": 218,
+     "I": 210,
+     "K": 210,
+     "L": 195,
+     "M": 196,
+     "NCS": 2,
+     "UNAS": 73
+    },
+    "difference_rows_written": 7,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-1st-massachusetts-cavalry.csv",
+    "evidence_new_file_only": {
+     "swallowed in an earlier row": 2
+    },
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 2334,
+    "lines_now": 2341,
+    "lines_added_by_third_head_rule": 7,
+    "names_cut_differently": 1,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 7
+   },
+   "diag_leaves": [
+    137,
+    235
+   ],
+   "diag_headings": [
+    [
+     "NCS",
+     false,
+     140
+    ],
+    [
+     "BAND",
+     false,
+     141
+    ],
+    [
+     "A",
+     false,
+     141
+    ],
+    [
+     "B",
+     false,
+     149
+    ],
+    [
+     "C",
+     false,
+     156
+    ],
+    [
+     "D",
+     false,
+     162
+    ],
+    [
+     "E",
+     false,
+     170
+    ],
+    [
+     "F",
+     false,
+     177
+    ],
+    [
+     "G",
+     false,
+     183
+    ],
+    [
+     "H",
+     false,
+     189
+    ],
+    [
+     "I",
+     false,
+     198
+    ],
+    [
+     "K",
+     false,
+     207
+    ],
+    [
+     "L",
+     false,
+     216
+    ],
+    [
+     "M",
+     false,
+     224
+    ],
+    [
+     "UNAS",
+     false,
+     233
+    ]
+   ],
+   "units_earlier_rows": 2339,
+   "or_note": "OR: served with the Sixth Army Corps, and on the right flank"
+  },
+  "u-ma-1st-massachusetts-battery-a": {
+   "designation": "1st Massachusetts Battery (A)",
+   "file": "data2/union/ma/1st-massachusetts-battery-a.jsonl.gz",
+   "volume": "5",
+   "arm": "artillery",
+   "lines": 265,
+   "raw_bytes": 45101,
+   "gz_bytes": 9549,
+   "flags_bytes": 4739,
+   "sha256_raw": "ca8207fe88fe29990242b126aad2b8d02797901cdb258cb941915dfaed3fe762",
+   "bytes_per_line": 170.2,
+   "by_section": {
+    "FS": 0,
+    "NCS": 0,
+    "BAND": 0,
+    "company": 0,
+    "UNAS": 0,
+    "no_heading": 265
+   },
+   "company_counts": {
+    "": 265
+   },
+   "xref_lines": 133,
+   "agent_rows": [],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    353,
+    362
+   ],
+   "leaf_count": 10,
+   "printed_pages": [
+    345,
+    354
+   ],
+   "rows_per_inner_leaf": {
+    "min": 27,
+    "median": 27.5,
+    "max": 29
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 1,
+    "H": 1,
+    "Y": 1
+   },
+   "ocr_uncertain": 3,
+   "on_rolls": {
+    "yes": 103,
+    "no": 131,
+    "unknown": 31
+   },
+   "names_gettysburg": 0,
+   "gettysburg_dated": 0,
+   "head_kinds": {
+    "res-lost": 1
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 265,
+    "name_ok": 265,
+    "remark_ok": 265,
+    "remark_gap_rows": 0,
+    "page_ok": 265,
+    "page_null": 0,
+    "rank_ok": 265,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": null,
+    "strength": null,
+    "casualties": null,
+    "designation": null,
+    "days_engaged": null
+   },
+   "or_strength": [],
+   "strength_range": [
+    null,
+    null
+   ],
+   "reconciliation": {
+    "designation": "1st Massachusetts Battery (A)",
+    "rows_new_file": 265,
+    "earlier_file": "data/NE/massachusetts/1st-battery-massachusetts-volunteer-light-artillery-battery-a-unmapped.csv",
+    "earlier_unit_id": "UNMAPPED-1MA-BTY",
+    "rows_earlier_file": 265,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 265,
+    "remarks_equal": 263,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "-": 265
+    },
+    "company_counts_earlier_file": {
+     "-": 265
+    },
+    "difference_rows_written": 2,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-1st-massachusetts-battery-a.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 264,
+    "lines_now": 265,
+    "lines_added_by_third_head_rule": 1,
+    "names_cut_differently": 0,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 1
+   },
+   "diag_leaves": [
+    351,
+    362
+   ],
+   "diag_headings": [],
+   "units_earlier_rows": 265,
+   "or_note": "McCartney"
+  },
+  "u-ma-3rd-massachusetts-battery-c": {
+   "designation": "3rd Massachusetts Battery (C)",
+   "file": "data2/union/ma/3rd-massachusetts-battery-c.jsonl.gz",
+   "volume": "5",
+   "arm": "artillery",
+   "lines": 258,
+   "raw_bytes": 45447,
+   "gz_bytes": 9552,
+   "flags_bytes": 4762,
+   "sha256_raw": "d11b76c429f126e613ec4f8d82daf32ce892d1aae0589e34b6735b491055ce5a",
+   "bytes_per_line": 176.2,
+   "by_section": {
+    "FS": 0,
+    "NCS": 0,
+    "BAND": 0,
+    "company": 0,
+    "UNAS": 0,
+    "no_heading": 258
+   },
+   "company_counts": {
+    "": 258
+   },
+   "xref_lines": 124,
+   "agent_rows": [],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    381,
+    390
+   ],
+   "leaf_count": 10,
+   "printed_pages": [
+    373,
+    382
+   ],
+   "rows_per_inner_leaf": {
+    "min": 26,
+    "median": 26.5,
+    "max": 28
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 3
+   },
+   "ocr_uncertain": 3,
+   "on_rolls": {
+    "yes": 135,
+    "no": 109,
+    "unknown": 14
+   },
+   "names_gettysburg": 5,
+   "gettysburg_dated": 4,
+   "head_kinds": {
+    "junk-after-d2": 1
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 258,
+    "name_ok": 258,
+    "remark_ok": 258,
+    "remark_gap_rows": 0,
+    "page_ok": 258,
+    "page_null": 0,
+    "rank_ok": 258,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-ART-C1MA",
+    "strength": 107,
+    "casualties": 0,
+    "designation": "Battery C, 1st Massachusetts Artillery",
+    "days_engaged": null
+   },
+   "or_strength": [],
+   "strength_range": [
+    107,
+    107
+   ],
+   "reconciliation": {
+    "designation": "3rd Massachusetts Battery (C)",
+    "rows_new_file": 258,
+    "earlier_file": "data/NE/massachusetts/3rd-battery-massachusetts-volunteer-light-artillery-battery-c.csv",
+    "earlier_unit_id": "U-ART-C1MA",
+    "rows_earlier_file": 258,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 258,
+    "remarks_equal": 256,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "-": 258
+    },
+    "company_counts_earlier_file": {
+     "-": 258
+    },
+    "difference_rows_written": 2,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-3rd-massachusetts-battery-c.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 258,
+    "lines_now": 258,
+    "lines_added_by_third_head_rule": 0,
+    "names_cut_differently": 0,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 0
+   },
+   "diag_leaves": [
+    379,
+    390
+   ],
+   "diag_headings": [],
+   "units_earlier_rows": 258,
+   "or_note": "Walcott"
+  },
+  "u-ma-5th-massachusetts-battery-e": {
+   "designation": "5th Massachusetts Battery (E)",
+   "file": "data2/union/ma/5th-massachusetts-battery-e.jsonl.gz",
+   "volume": "5",
+   "arm": "artillery",
+   "lines": 331,
+   "raw_bytes": 58839,
+   "gz_bytes": 12363,
+   "flags_bytes": 5473,
+   "sha256_raw": "d18d5e9dd91bba05a74f98234c3d714f6c0f85dd8431535a06eb74485d41bf8e",
+   "bytes_per_line": 177.8,
+   "by_section": {
+    "FS": 0,
+    "NCS": 0,
+    "BAND": 0,
+    "company": 0,
+    "UNAS": 0,
+    "no_heading": 331
+   },
+   "company_counts": {
+    "": 331
+   },
+   "xref_lines": 119,
+   "agent_rows": [],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    407,
+    419
+   ],
+   "leaf_count": 13,
+   "printed_pages": [
+    399,
+    411
+   ],
+   "rows_per_inner_leaf": {
+    "min": 25,
+    "median": 27,
+    "max": 29
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 7,
+    "N": 1,
+    "R": 2
+   },
+   "ocr_uncertain": 9,
+   "on_rolls": {
+    "yes": 113,
+    "no": 150,
+    "unknown": 68
+   },
+   "names_gettysburg": 15,
+   "gettysburg_dated": 15,
+   "head_kinds": {
+    "junk-after-d2": 2
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 331,
+    "name_ok": 331,
+    "remark_ok": 331,
+    "remark_gap_rows": 0,
+    "page_ok": 331,
+    "page_null": 0,
+    "rank_ok": 331,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-ART-5MA",
+    "strength": 104,
+    "casualties": 10,
+    "designation": "5th Massachusetts Battery (E)",
+    "days_engaged": null
+   },
+   "or_strength": [
+    {
+     "quote": "E, Massachusetts Artillery, 4 officers and 100 men",
+     "what": "taken into action by the brigade: 4 officers and 100 men = 104",
+     "value": 104,
+     "cite": "OR Ser.I vol.27 pt.1, OR27-1-R319 Capt. Charles A. Phillips, p. 884",
+     "report_id": "OR27-1-R319",
+     "author": "Capt. Charles A. Phillips",
+     "page": 884,
+     "offset_from": 3119992,
+     "offset_to": 3120049
+    }
+   ],
+   "strength_range": [
+    104,
+    104
+   ],
+   "reconciliation": {
+    "designation": "5th Massachusetts Battery (E)",
+    "rows_new_file": 331,
+    "earlier_file": "data/NE/massachusetts/5th-battery-massachusetts-volunteer-light-artillery-battery-e.csv",
+    "earlier_unit_id": "U-ART-5MA",
+    "rows_earlier_file": 331,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 331,
+    "remarks_equal": 329,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "-": 331
+    },
+    "company_counts_earlier_file": {
+     "-": 331
+    },
+    "difference_rows_written": 2,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-5th-massachusetts-battery-e.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 331,
+    "lines_now": 331,
+    "lines_added_by_third_head_rule": 0,
+    "names_cut_differently": 0,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 0
+   },
+   "diag_leaves": [
+    405,
+    419
+   ],
+   "diag_headings": [],
+   "units_earlier_rows": 331,
+   "or_note": "Phillips; 10th New York Battery attached"
+  },
+  "u-ma-9th-massachusetts-battery": {
+   "designation": "9th Massachusetts Battery",
+   "file": "data2/union/ma/9th-massachusetts-battery.jsonl.gz",
+   "volume": "5",
+   "arm": "artillery",
+   "lines": 329,
+   "raw_bytes": 56114,
+   "gz_bytes": 11056,
+   "flags_bytes": 5389,
+   "sha256_raw": "98d94795e26f34f06e97d040d8b774146ad7a2043ff2580c28d4d636a24f7930",
+   "bytes_per_line": 170.6,
+   "by_section": {
+    "FS": 0,
+    "NCS": 0,
+    "BAND": 0,
+    "company": 0,
+    "UNAS": 0,
+    "no_heading": 329
+   },
+   "company_counts": {
+    "": 329
+   },
+   "xref_lines": 113,
+   "agent_rows": [],
+   "copy_other_rows": [],
+   "no_rank_rows": [],
+   "rows_without_printed_page": 0,
+   "leaves": [
+    462,
+    474
+   ],
+   "leaf_count": 13,
+   "printed_pages": [
+    454,
+    466
+   ],
+   "rows_per_inner_leaf": {
+    "min": 26,
+    "median": 27,
+    "max": 29
+   },
+   "leaves_with_no_line": [],
+   "codes": {
+    "G": 6,
+    "H": 1,
+    "Y": 3
+   },
+   "ocr_uncertain": 10,
+   "on_rolls": {
+    "yes": 132,
+    "no": 189,
+    "unknown": 8
+   },
+   "names_gettysburg": 28,
+   "gettysburg_dated": 28,
+   "head_kinds": {
+    "res-lost": 1
+   },
+   "company_inferred": [],
+   "reviewed_headings": [],
+   "running_head_pages": 0,
+   "verify": {
+    "rows": 329,
+    "name_ok": 329,
+    "remark_ok": 329,
+    "remark_gap_rows": 0,
+    "page_ok": 329,
+    "page_null": 0,
+    "rank_ok": 329,
+    "rank_empty": 0,
+    "order_breaks": 0
+   },
+   "verify_ok": true,
+   "oob": {
+    "id": "U-ART-9MA",
+    "strength": 104,
+    "casualties": 28,
+    "designation": "9th Massachusetts Battery (Bigelow's)",
+    "days_engaged": null
+   },
+   "or_strength": [
+    {
+     "quote": "Ninth Massachusetts, 4 officers and 100 men",
+     "what": "taken into action by the brigade: 4 officers and 100 men = 104",
+     "value": 104,
+     "cite": "OR Ser.I vol.27 pt.1, OR27-1-R319 Capt. Charles A. Phillips, p. 884",
+     "report_id": "OR27-1-R319",
+     "author": "Capt. Charles A. Phillips",
+     "page": 884,
+     "offset_from": 3120052,
+     "offset_to": 3120101
+    }
+   ],
+   "strength_range": [
+    104,
+    104
+   ],
+   "reconciliation": {
+    "designation": "9th Massachusetts Battery",
+    "rows_new_file": 329,
+    "earlier_file": "data/NE/massachusetts/9th-battery-massachusetts-volunteer-light-artillery.csv",
+    "earlier_unit_id": "U-ART-9MA",
+    "rows_earlier_file": 329,
+    "rows_delta_new_minus_earlier": 0,
+    "aligned_same_letters": 329,
+    "remarks_equal": 327,
+    "remarks_new_longer": 0,
+    "remarks_earlier_longer": 2,
+    "remarks_differ_other": 0,
+    "company_differs": 0,
+    "reading_differs_candidate_pairs": 0,
+    "new_file_only": 0,
+    "earlier_file_only": 0,
+    "company_counts_new_file": {
+     "-": 329
+    },
+    "company_counts_earlier_file": {
+     "-": 329
+    },
+    "difference_rows_written": 2,
+    "differences_file": "GOVERNANCE/horde/ws-rosters/union-ma/differences-9th-massachusetts-battery.csv",
+    "evidence_new_file_only": {},
+    "evidence_earlier_file_only": {}
+   },
+   "changes": {
+    "lines_before": 328,
+    "lines_now": 329,
+    "lines_added_by_third_head_rule": 1,
+    "names_cut_differently": 0,
+    "company_changed_by_reviewed_heading": 0,
+    "host_lines_with_shorter_remarks": 1
+   },
+   "diag_leaves": [
+    460,
+    474
+   ],
+   "diag_headings": [],
+   "units_earlier_rows": 329,
+   "or_note": "Bigelow"
+  }
+ },
+ "totals": {
+  "lines": 33787,
+  "raw_bytes": 6235574,
+  "gz_bytes": 1207889,
+  "flags_bytes": 417514,
+  "xref_lines": 8437,
+  "ocr_uncertain": 1700,
+  "names_gettysburg": 1588,
+  "gettysburg_dated": 1271,
+  "rows_without_printed_page": 106,
+  "code_G": 428,
+  "code_H": 129,
+  "code_N": 350,
+  "code_Q": 100,
+  "code_R": 165,
+  "code_Y": 748,
+  "on_rolls_yes": 11928,
+  "on_rolls_no": 19863,
+  "on_rolls_unknown": 1996,
+  "code_C": 138
+ },
+ "or_joint": [
+  {
+   "unit": "u-ma-19th-massachusetts-infantry",
+   "quote": "numbering but 290 men together",
+   "what": "the 19th Massachusetts and the 42nd New York together (Col. Devereux); not a figure of the regiment alone",
+   "cite": "OR Ser.I vol.27 pt.1, OR27-1-R110 Col. Arthur F. Devereux, p. 442",
+   "report_id": "OR27-1-R110",
+   "author": "Col. Arthur F. Devereux",
+   "page": 442,
+   "offset_from": 1547637,
+   "offset_to": 1547671
+  }
+ ],
+ "reconciliation_totals": {
+  "aligned_same_letters": 31518,
+  "remarks_equal": 31451,
+  "remarks_earlier_remarks_longer": 65,
+  "new_file_only": 42,
+  "rows_new": 31562,
+  "rows_earlier": 31520,
+  "remarks_new_remarks_longer": 2,
+  "reading_differs_candidate_pair": 2,
+  "company_differs": 426
+ },
+ "changes_totals": {
+  "lines_before": 33748,
+  "lines_now": 33787,
+  "lines_added_by_third_head_rule": 39,
+  "names_cut_differently": 49,
+  "company_changed_by_reviewed_heading": 208,
+  "host_lines_with_shorter_remarks": 81,
+  "lines_with_longer_remarks_page_break_number": 26,
+  "lines_removed_unmatched": 0
+ }
+}

@@ -48,7 +48,7 @@ function resolve(p) {
   return { id: p.id, photo_key: p.photo_key ?? null, loc_id: p.loc_id, lng: +lng.toFixed(6), lat: +lat.toFixed(6), x_m: +x.toFixed(1), z_m: +z.toFixed(1), ground_m: +sampleXZ(x, z).toFixed(1), agl: p.agl_m ?? d.agl_m, headingDeg: +heading.toFixed(1), pitchDeg: p.pitch_deg ?? d.pitch_deg, fovHDeg: p.fov?.h_deg ?? p.fov_h_deg ?? d.fov_h_deg,
     anchor: ps.anchor ?? 'explicit', anchor_sigma_m: a.sigma_m, position_tier: ps.tier, heading_tier: p.heading.tier, relative: rel };
 }
-const out = path.join(ROOT, 'tmp/photomatch/renders'); fs.mkdirSync(out, { recursive: true });
+const RERUN = process.env.PM_RENDER_DIR; const out = RERUN ? path.resolve(RERUN) : path.join(ROOT, 'tmp/photomatch/renders'); fs.mkdirSync(out, { recursive: true });   // PM_RENDER_DIR: a re-run into another folder (determinism check): resolved_poses.json is then not written
 const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-angle=swiftshader', '--use-gl=angle', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--disable-gpu-sandbox'] });
 const page = await browser.newPage(); page.on('pageerror', e => console.log('PAGEERR', e.message)); page.on('console', m => { if (m.type() === 'error') console.log('CONSOLE', m.text().slice(0, 200)); });
 await page.goto(`http://127.0.0.1:${port}/render.html`); await page.waitForFunction(() => window.btReady);
@@ -64,12 +64,13 @@ for (const p of P.poses) { if (want.length && !want.includes(p.id)) continue; co
     if (lm.length) { const pr = await page.evaluate(([pose, pts, w, h]) => window.btProject(pose, pts, w, h), [pose, lm, sz[0], sz[1]]); (r['landmarks' + v.s] = pr.map((q, i) => ({ ...q, name: lm[i].name }))); }
     console.log(p.id, v.s || 'main', 'eye y', res.eye.y.toFixed(1), 'ground', res.groundM.toFixed(1), Date.now() - t0, 'ms'); } }
 const RESOLVED_DOC = 'Poses resolved from poses.json against gazetteer, building footprints, monuments and the DEM by run.mjs. Assumptions or inferences as tiered in poses.json, not measured camera positions.';
-if (!want.length) fs.writeFileSync(path.join(HERE, 'resolved_poses.json'), JSON.stringify({ _doc: RESOLVED_DOC, resolved }, null, 1));
+if (RERUN) { /* a re-run into another folder leaves resolved_poses.json alone */ }
+else if (!want.length) fs.writeFileSync(path.join(HERE, 'resolved_poses.json'), JSON.stringify({ _doc: RESOLVED_DOC, resolved }, null, 1));
 else {   // a partial run (named poses) is merged into resolved_poses.json: the named entries are replaced, the others kept, the order of poses.json restored
   const rp = path.join(HERE, 'resolved_poses.json'); let old = []; try { old = JSON.parse(fs.readFileSync(rp)).resolved || []; } catch { }
   const byId = Object.fromEntries(old.map(r => [r.id, r])); for (const r of resolved) byId[r.id] = r;
   const merged = P.poses.map(p => byId[p.id]).filter(Boolean);
   fs.writeFileSync(rp, JSON.stringify({ _doc: RESOLVED_DOC, resolved: merged }, null, 1));
-  fs.writeFileSync(path.join(ROOT, 'tmp/photomatch/renders/resolved_partial.json'), JSON.stringify({ resolved }, null, 1));
+  fs.writeFileSync(path.join(out, 'resolved_partial.json'), JSON.stringify({ resolved }, null, 1));
 }
 await browser.close(); srv.close();

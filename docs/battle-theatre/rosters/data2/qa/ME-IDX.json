@@ -5,19 +5,23 @@
   "ME-IDX-officers": {
    "pages_in_stratum": 6,
    "rows_in_stratum": 104,
-   "pages_looked_at": 0,
+   "pages_looked_at": 1,
    "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "rows_looked_at": 24,
+   "draw_positions": [
+    2
+   ],
+   "pages": [
+    "supplementtoannu00main/269"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 24,
+     "errors": 6,
+     "rate_percent": 25.0,
+     "upper95_percent": 43.47,
+     "lower95_percent": 11.49,
+     "decision": "FAIL"
     },
     "R-G2": {
      "rows": 0,
@@ -28,20 +32,20 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 24,
+     "errors": 1,
+     "rate_percent": 4.17,
+     "upper95_percent": 18.29,
+     "lower95_percent": 0.21,
+     "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 24,
+     "errors": 12,
+     "rate_percent": 50.0,
+     "upper95_percent": 68.06,
+     "lower95_percent": 31.94,
+     "decision": "FAIL"
     },
     "any": {
      "rows": 0,
@@ -52,28 +56,47 @@
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
-   "missed_lines": 0,
+   "error_kinds_count": {
+    "rem-char": 12,
+    "name-char": 6,
+    "rank": 1
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "rem-char": 2,
+    "name-char": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "name-char": 5,
+    "rem-char": 10,
+    "rank": 1
+   },
+   "missed_lines": 1,
    "census_complete": false
   },
   "ME-IDX-other": {
    "pages_in_stratum": 1145,
    "rows_in_stratum": 19559,
-   "pages_looked_at": 0,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "pages_looked_at": 3,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 49,
+   "draw_positions": [
+    3,
+    2,
+    1
+   ],
+   "pages": [
+    "supplementtoannu00main/681",
+    "supplementtoannu00main/964",
+    "supplementtoannu00main/979"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 49,
+     "errors": 16,
+     "rate_percent": 32.65,
+     "upper95_percent": 45.28,
+     "lower95_percent": 21.67,
+     "decision": "FAIL"
     },
     "R-G2": {
      "rows": 0,
@@ -84,20 +107,20 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 49,
+     "errors": 15,
+     "rate_percent": 30.61,
+     "upper95_percent": 43.16,
+     "lower95_percent": 19.91,
+     "decision": "FAIL"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 49,
+     "errors": 17,
+     "rate_percent": 34.69,
+     "upper95_percent": 47.38,
+     "lower95_percent": 23.45,
+     "decision": "FAIL"
     },
     "any": {
      "rows": 0,
@@ -108,12 +131,27 @@
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
-   "missed_lines": 0,
+   "error_kinds_count": {
+    "name-char": 16,
+    "rank": 15,
+    "rem-char": 17
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-char": 5
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "name-char": 11,
+    "rank": 15,
+    "rem-char": 17
+   },
+   "missed_lines": 2,
    "census_complete": false
   }
  },
- "verdicts": []
+ "verdicts": [
+  "supplementtoannu00main/269",
+  "supplementtoannu00main/681",
+  "supplementtoannu00main/964",
+  "supplementtoannu00main/979"
+ ]
 }

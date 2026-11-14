@@ -63,6 +63,25 @@ def load_text_and_pm(vol):
     return text, pm
 
 
+def norm_tail(orig, n):
+    """the part of orig after its first n letters and digits"""
+    c = 0
+    for i, ch in enumerate(orig):
+        if ch.isalnum() and ch.isascii():
+            c += 1
+            if c == n:
+                return orig[i + 1:].strip()
+    return ''
+
+
+def extra_kind(extra):
+    if re.search(r'[A-Z]{4,}', extra) and re.search(r'(REGIMENT|REGIMEXT|BATTERY|COMPANY|INFANTRY|ARTILLERY|CAVALRY|VOLUNTEER|VOLL|MASS\.|SHARP)', extra) or re.fullmatch(r'[\d\s\.,]*', extra):
+        return 'running head or page number'
+    if re.search(r'[\u2014\u2013-]+\s*\S+\.?\s*[\u2014\u2013-]+\s*\S{0,6}\s', extra) and re.search(r'Res|Re[ceos]', extra):
+        return 'a following entry'
+    return 'other'
+
+
 def tokens_regex(name):
     """regexp that finds the name tokens in the OCR text, separated by white space"""
     toks = name.split()
@@ -186,8 +205,21 @@ def main():
                             kind = 'remarks differ'
                         counts['remarks_' + kind.replace(' ', '_')] += 1
                         rt = difflib.SequenceMatcher(None, rem_new, rem_old, autojunk=False).ratio() if max(len(rem_new), len(rem_old)) < 1500 else None
+                        xk = ''
+                        if kind == 'earlier remarks longer':
+                            ex_ = norm_tail(o['remarks_as_printed'], len(rem_new))
+                            xk = extra_kind(ex_)
+                            counts['earlier_longer_' + xk.replace(' ', '_')] += 1
+                            kind_txt = '%s; the extra text is %s: %s' % (kind, xk, ex_[:80])
+                        elif kind == 'new remarks longer':
+                            ex_ = norm_tail(r[3], len(rem_old))
+                            xk = extra_kind(ex_)
+                            counts['new_longer_' + xk.replace(' ', '_')] += 1
+                            kind_txt = '%s; the extra text is %s: %s' % (kind, xk, ex_[:80])
+                        else:
+                            kind_txt = kind
                         rows_out.append(['remarks-differ', r[0], r[2], r[4] if r[4] is not None else '', r[5], o['name_as_printed'], o['company'], o['source_locator'], j1 + d + 2,
-                                         round(rt, 3) if rt is not None else '', '%s (%d letters and digits against %d)' % (kind, len(rem_new), len(rem_old)), r[3][:100], o['remarks_as_printed'][:100]])
+                                         round(rt, 3) if rt is not None else '', '%s (%d letters and digits against %d)' % (kind_txt, len(rem_new), len(rem_old)), r[3][:100], o['remarks_as_printed'][:100]])
             elif tag == 'delete':          # only in the new file (a-side)
                 for i in range(i1, i2):
                     counts['new_file_only'] += 1

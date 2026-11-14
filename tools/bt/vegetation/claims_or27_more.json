@@ -1,0 +1,228 @@
+[
+{
+"id": "VC-OR-030",
+"src": "OR27",
+"report": "OR27-1-R039",
+"quote": "where they were lying down concealed from view in a wheat-field",
+"tier": "documented",
+"kind": "crop",
+"says": "Captain Cook, 1 July: marching by the flank near the Seminary the regiment was fired on by the enemy, about 30 rods off, lying down concealed from view in a wheat-field: the wheat stood high enough to hide a man lying down.",
+"feature": "a wheat-field near the Seminary on 1 July",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-01"
+},
+"note": "The field is not outlined: the claim bears on the fields about the Seminary. A rod is 5.5 yards.",
+"about": {
+"crop": "wheat",
+"stage": "standing"
+},
+"anchor": {
+"gz": "Seminary Ridge",
+"r_m": 600,
+"class": "field",
+"area": true
+}
+},
+{
+"id": "VC-OR-031",
+"src": "OR27",
+"report": "OR27-1-R028",
+"quote": "some five or six acres of orchard and wooded grounds, the rest of the ridge being cleared",
+"tier": "documented",
+"kind": "orchard",
+"says": "Hunt: on the ridge near the house and barn south of the Cashtown road there were some five or six acres of orchard and wooded ground, the rest of the ridge being cleared.",
+"feature": "the orchard and wood by the house on the ridge north of the Seminary",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-01"
+},
+"note": "Placed on the nearest orchard within 350 m of the McPherson farmstead.",
+"anchor": {
+"farm": "mcpherson",
+"r_m": 350,
+"class": "orchard",
+"k": 1
+}
+},
+{
+"id": "VC-OR-032",
+"src": "OR27",
+"report": "OR27-1-R071",
+"quote": "a house and large bam, with an apple orchard and some 5 acres of wood to the south of it; the rest of the ridge is cleared",
+"tier": "documented",
+"kind": "orchard",
+"says": "Wainwright: south of the point where the Cashtown pike crosses the ridge stood a house and large barn with an apple orchard and some 5 acres of wood to the south of it; the rest of the ridge was cleared; the first skirmish, where Reynolds fell, was round this house and wood.",
+"feature": "an apple orchard and 5 acres of wood by the house on the ridge",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-01"
+},
+"note": "The saved text reads \"bam\" for \"barn\". Placed on the nearest orchard within 350 m of the McPherson farmstead.",
+"about": {
+"species_named": [
+"apple"
+]
+},
+"anchor": {
+"farm": "mcpherson",
+"r_m": 350,
+"class": "orchard",
+"k": 1
+}
+},
+{
+"id": "VC-OR-033",
+"src": "OR27",
+"report": "OR27-1-R071",
+"quote": "a house and large bam, with an apple orchard and some 5 acres of wood to the south of it; the rest of the ridge is cleared",
+"tier": "documented",
+"kind": "woodlot",
+"says": "The same passage of Wainwright for the wood: some 5 acres of wood lay to the south of the house and orchard on the ridge, the rest of the ridge being cleared.",
+"feature": "the 5 acres of wood south of the house on the ridge",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-01"
+},
+"note": "The saved text reads \"bam\" for \"barn\". Placed on the nearest wood within 350 m of the McPherson farmstead.",
+"about": {
+"canopy": "woods"
+},
+"anchor": {
+"farm": "mcpherson",
+"r_m": 350,
+"class": "woods",
+"k": 1
+}
+},
+{
+"id": "VC-OR-034",
+"src": "OR27",
+"report": "OR27-1-R280",
+"quote": "on the crest of a hill covered with heavy timber. The ground was of a rough and rocky nature",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Colonel Price: his regiment's position, some 200 or 300 yards northeast of the pike, was on the crest of a hill covered with heavy timber, the ground rough and rocky.",
+"feature": "a hill of heavy timber east of the pike",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-03"
+},
+"note": "The sentence does not name the hill; the brigade stood on the right of the line (Culp's Hill and the ground about it), so the passage is carried as evidence for the neighbourhood.",
+"about": {
+"canopy": "heavy_timber",
+"ground": "rocky"
+},
+"anchor": {
+"gz": "Culp's Hill",
+"r_m": 700,
+"class": "woods",
+"area": true
+}
+},
+{
+"id": "VC-OR-035",
+"src": "OR27",
+"report": "OR27-1-R262",
+"quote": "I was ordered in a corn-field behind a stone wall, below the Evergreen Cemetery",
+"tier": "documented",
+"kind": "crop",
+"says": "Major Ledig, 1 July evening: his regiment was ordered into a corn-field behind a stone wall below the Evergreen Cemetery.",
+"feature": "a corn-field near Cemetery Hill on 1 July",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-01"
+},
+"note": "\"Below\" is not a bearing: placed on the nearest field cell within 350 m of Cemetery Hill, so the crop of that cell is inferred, not documented.",
+"about": {
+"crop": "corn"
+},
+"anchor": {
+"gz": "Cemetery Hill",
+"r_m": 350,
+"class": "field",
+"k": 1
+}
+},
+{
+"id": "VC-OR-036",
+"src": "OR27",
+"report": "OR27-1-R057",
+"quote": "across the open fields between my position and the highway from Gettysburg to Emmits- burg",
+"tier": "documented",
+"kind": "ground",
+"says": "Colonel Gates, 3 July: the Confederate infantry, debouching from the orchard and woods on his right centre, crossed open fields between his position on Cemetery Ridge and the Emmitsburg road.",
+"feature": "open fields between Cemetery Ridge and the Emmitsburg road",
+"when": {
+"from": "1863-07-03",
+"to": "1863-07-03"
+},
+"note": "No crop is named.",
+"about": {
+"canopy": "open"
+},
+"anchor": {
+"gz": "The Angle",
+"r_m": 600,
+"class": "field",
+"area": true
+}
+},
+{
+"id": "VC-OR-037",
+"src": "OR27",
+"report": "OR27-1-R334",
+"quote": "take position in a thick peach orchard",
+"tier": "documented",
+"kind": "orchard",
+"says": "Captain Ames, 2 July: at 3 p.m. he was ordered to move forward about 800 yards and take position in a thick peach orchard.",
+"feature": "the thick peach orchard on the Emmitsburg road",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "\"Thick\" is the writer's word for the trees of the orchard; no spacing is given.",
+"about": {
+"orchard": "thick"
+},
+"anchor": {
+"poly": "LC-ORCH-0206"
+}
+},
+{
+"id": "VC-OR-038",
+"src": "OR27",
+"report": "OR27-2-R539",
+"quote": "under cover of a high ledge of rocks, thickly covered with stunted undergrowth",
+"tier": "documented",
+"kind": "thicket",
+"says": "General Wright, 2 July: the enemy passed a strong body of infantry under cover of a high ledge of rocks thickly covered with stunted undergrowth, which fell away from the gorge in rear of their batteries.",
+"feature": "a rocky ledge thick with stunted undergrowth",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"note": "Not placed: the ledge is not named (it lies between the Confederate right and the Union centre, west of Cemetery Ridge).",
+"about": {
+"understory": "thick"
+}
+},
+{
+"id": "VC-OR-039",
+"src": "OR27",
+"report": "OR27-2-R488",
+"quote": "our left iBank being harassed by the enemy's sharpshooters, posted in a wheat-field and wood",
+"tier": "documented",
+"kind": "crop",
+"says": "General Walker (the Stonewall brigade), 3 July, on the north side of the Hanover road: his left flank was harassed by sharpshooters posted in a wheat-field and wood.",
+"feature": "a wheat-field and wood by the Hanover road on 3 July",
+"when": {
+"from": "1863-07-03",
+"to": "1863-07-03"
+},
+"note": "The saved text reads \"iBank\" for \"flank\". Not placed: east of the loaded ground.",
+"about": {
+"crop": "wheat"
+}
+}
+]

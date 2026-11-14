@@ -1,0 +1,707 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "maineatgettysbur01main/447",
+ "levels": "NR",
+ "stratum": "ME-GET-other",
+ "family": "ME-GET",
+ "layout": "cols",
+ "kind": "other",
+ "draw_position": 2,
+ "in_lowest_decile": false,
+ "printed_page": 371,
+ "rows_stored": 62,
+ "rows_checked": 62,
+ "rows_in_error": 7,
+ "rows_ok": 55,
+ "rows_flagged_ocr_uncertain": 2,
+ "errors": [
+  {
+   "i": 1,
+   "kinds": [
+    "rem-missing"
+   ],
+   "note": "stored 'Burke,' printed 'Burke, Vt.,'",
+   "rid": "5th-maine-infantry#2257",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 18,
+   "kinds": [
+    "name-cut",
+    "rank"
+   ],
+   "note": "stored name 'Musician: Frank C. Kimball' (rank word in the name field), carried heading PRIVATES while the print says Musician",
+   "rid": "5th-maine-infantry#2274",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 22,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "stored name 'istSergt., Archibald Wilson' holds the rank token (read 'ist' for '1st')",
+   "rid": "5th-maine-infantry#2278",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 25,
+   "kinds": [
+    "rem-missing"
+   ],
+   "note": "stored 'Conway,' printed 'Conway, N. H.'",
+   "rid": "5th-maine-infantry#2281",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 29,
+   "kinds": [
+    "rem-missing"
+   ],
+   "note": "stored 'Fall River,' printed 'Fall River, Mass.,'",
+   "rid": "5th-maine-infantry#2285",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 45,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Coveil, Edgar C.' printed 'Covell, Edgar C.'",
+   "rid": "5th-maine-infantry#2301",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 58,
+   "kinds": [
+    "rank"
+   ],
+   "note": "stored rank 'ist Sergt.' printed '1st Sergt.'",
+   "rid": "5th-maine-infantry#2314",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [
+  "two paragraphs 'On Special Duty or Detached Service' name 11 men that are not stored (Joseph C. Paradis, Lincoln Grover, Thomas Feeney, Edwin H. Robertson, Albert A. Trull; Lorestin Danforth, Isaac N. Jackson, Charles W. Jordan, Stillman H. Saunders, Francis M. Smith, Charles T. Webster): the known gap EG-ROS-ME-02"
+ ],
+ "notes": [
+  "the page carries the end of company F, all of G and the start of H; the stored order is column by column (left column then right column), the printed reading order of a two-column list"
+ ],
+ "reader": "full level without dates (the participants lists print no dates); full page at 200 dpi (1 Read); all 62 stored rows compared with the two columns of the print (name, rank or heading, company, residence and the state); tesseract read the two columns as one line each so its pre-screen was not used for this page",
+ "tesseract_prescreen": {
+  "agree": 28,
+  "near": 0,
+  "suspect": 34,
+  "unstored_lines": 33
+ },
+ "read": {
+  "pdf_sha256": "f187290db33c253dd0e1c674f77d1014cae44352ed42dc20c41cff40cafa3961",
+  "pdf_page": 445,
+  "view_png_sha256": "3cd4ed168f65e46c9926cbb65f32b597627d19f64c5164c0a7e5534f3c31b44e",
+  "render300_sha256": "657706cb3533a582c23f934d18f1356909866d6e6b211c93008d1175e0eb0280",
+  "tess_sha256": "7a2a486ca238b0dad1b65533d499b6cf30679bf935bca84bac3e78c38f5dbaa9",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.989
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "5th-maine-infantry#2256",
+   "name": "Godfrey, John",
+   "off": 969450,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "5th-maine-infantry#2257",
+   "name": "Hicks, Barnard",
+   "off": 969477,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "5th-maine-infantry#2258",
+   "name": "Kelley, Peter",
+   "off": 969508,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "5th-maine-infantry#2259",
+   "name": "Kerrigan, John",
+   "off": 969535,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "5th-maine-infantry#2260",
+   "name": "McCullom, George",
+   "off": 969563,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "5th-maine-infantry#2261",
+   "name": "McEnnany, Michael",
+   "off": 969593,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "5th-maine-infantry#2262",
+   "name": "Morris, Otto",
+   "off": 969624,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "5th-maine-infantry#2263",
+   "name": "Patrick, George W.",
+   "off": 969650,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "5th-maine-infantry#2264",
+   "name": "Ricker, Hiram H.",
+   "off": 969683,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "5th-maine-infantry#2265",
+   "name": "Gormley, Michael",
+   "off": 969714,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "5th-maine-infantry#2266",
+   "name": "Kelley, John",
+   "off": 969744,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "5th-maine-infantry#2267",
+   "name": "Kelley, Robert",
+   "off": 969770,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "5th-maine-infantry#2268",
+   "name": "Loney, John",
+   "off": 969798,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "5th-maine-infantry#2269",
+   "name": "McDonald, John",
+   "off": 969823,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "5th-maine-infantry#2270",
+   "name": "Morgan, Charles F.",
+   "off": 969851,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "5th-maine-infantry#2271",
+   "name": "Nelson, Frederick",
+   "off": 969885,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "5th-maine-infantry#2272",
+   "name": "Pray, Leroy",
+   "off": 969916,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "5th-maine-infantry#2273",
+   "name": "Timmony, John",
+   "off": 969941,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "5th-maine-infantry#2274",
+   "name": "Musician: Frank C. Kimball",
+   "off": 969968,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 19,
+   "rid": "5th-maine-infantry#2275",
+   "name": "Alburn P. Harris",
+   "off": 970381,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 20,
+   "rid": "5th-maine-infantry#2276",
+   "name": "Daniel C. Clark",
+   "off": 970432,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "5th-maine-infantry#2277",
+   "name": "Sidney H. Hutchins",
+   "off": 970483,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "5th-maine-infantry#2278",
+   "name": "istSergt., Archibald Wilson",
+   "off": 970523,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 23,
+   "rid": "5th-maine-infantry#2279",
+   "name": "Charles G. Hall",
+   "off": 970566,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 24,
+   "rid": "5th-maine-infantry#2280",
+   "name": "Alonzo Mitchell",
+   "off": 970594,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 25,
+   "rid": "5th-maine-infantry#2281",
+   "name": "George B. Parsons",
+   "off": 970624,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 26,
+   "rid": "5th-maine-infantry#2282",
+   "name": "Ambrose Anthoine",
+   "off": 970673,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 27,
+   "rid": "5th-maine-infantry#2283",
+   "name": "Charles H. Brewer",
+   "off": 970703,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 28,
+   "rid": "5th-maine-infantry#2284",
+   "name": "Edward J. Dolan",
+   "off": 970735,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 29,
+   "rid": "5th-maine-infantry#2285",
+   "name": "Blake, James",
+   "off": 970775,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 30,
+   "rid": "5th-maine-infantry#2286",
+   "name": "Brown, James",
+   "off": 970812,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 31,
+   "rid": "5th-maine-infantry#2287",
+   "name": "Clark, Edward L.",
+   "off": 970840,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 32,
+   "rid": "5th-maine-infantry#2288",
+   "name": "Dealing, Francis O.",
+   "off": 970871,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 33,
+   "rid": "5th-maine-infantry#2289",
+   "name": "Drinkwater, Phillip F.",
+   "off": 970903,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 34,
+   "rid": "5th-maine-infantry#2290",
+   "name": "Frost, Albert",
+   "off": 970940,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 35,
+   "rid": "5th-maine-infantry#2291",
+   "name": "Hamlin, Elvin L.",
+   "off": 970966,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 36,
+   "rid": "5th-maine-infantry#2292",
+   "name": "Killeen, James",
+   "off": 970999,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 37,
+   "rid": "5th-maine-infantry#2293",
+   "name": "Kenney, Edward J.",
+   "off": 971027,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 38,
+   "rid": "5th-maine-infantry#2294",
+   "name": "Latham, Seward M.",
+   "off": 971059,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 39,
+   "rid": "5th-maine-infantry#2295",
+   "name": "Libby, Henry C.",
+   "off": 971093,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 40,
+   "rid": "5th-maine-infantry#2296",
+   "name": "Reardon, Michael",
+   "off": 971119,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 41,
+   "rid": "5th-maine-infantry#2297",
+   "name": "Shaw, John M.",
+   "off": 971149,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 42,
+   "rid": "5th-maine-infantry#2298",
+   "name": "Welch, William A. S.",
+   "off": 971177,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 43,
+   "rid": "5th-maine-infantry#2299",
+   "name": "Brown, Enoch M.",
+   "off": 971213,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 44,
+   "rid": "5th-maine-infantry#2300",
+   "name": "Chick, Charles H.",
+   "off": 971245,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 45,
+   "rid": "5th-maine-infantry#2301",
+   "name": "Coveil, Edgar C.",
+   "off": 971279,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 46,
+   "rid": "5th-maine-infantry#2302",
+   "name": "Dean, Charles H.",
+   "off": 971310,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 47,
+   "rid": "5th-maine-infantry#2303",
+   "name": "Dudley, Michael",
+   "off": 971339,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 48,
+   "rid": "5th-maine-infantry#2304",
+   "name": "Gray, Melville",
+   "off": 971368,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 49,
+   "rid": "5th-maine-infantry#2305",
+   "name": "Irvin, William",
+   "off": 971396,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 50,
+   "rid": "5th-maine-infantry#2306",
+   "name": "Kelly, Timothy",
+   "off": 971424,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 51,
+   "rid": "5th-maine-infantry#2307",
+   "name": "Kenniston, Jeremiah C.",
+   "off": 971452,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 52,
+   "rid": "5th-maine-infantry#2308",
+   "name": "Leavitt, Joseph",
+   "off": 971491,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 53,
+   "rid": "5th-maine-infantry#2309",
+   "name": "Meserve, Levi P.",
+   "off": 971520,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 54,
+   "rid": "5th-maine-infantry#2310",
+   "name": "Richardson, William",
+   "off": 971550,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 55,
+   "rid": "5th-maine-infantry#2311",
+   "name": "Wallace, Elisha W.",
+   "off": 971583,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 56,
+   "rid": "5th-maine-infantry#2312",
+   "name": "Wentworth, Benjamin N.",
+   "off": 971615,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 57,
+   "rid": "5th-maine-infantry#2313",
+   "name": "John D. Ladd",
+   "off": 972047,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 58,
+   "rid": "5th-maine-infantry#2314",
+   "name": "Charles H. Dow",
+   "off": 972122,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 59,
+   "rid": "5th-maine-infantry#2315",
+   "name": "James G. Sanborn",
+   "off": 972152,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 60,
+   "rid": "5th-maine-infantry#2316",
+   "name": "Thomas E. Lawrence",
+   "off": 972184,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 61,
+   "rid": "5th-maine-infantry#2317",
+   "name": "John W. Jordan",
+   "off": 972218,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:58:43Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "AGREE",
+  "2": "SUSPECT",
+  "3": "AGREE",
+  "4": "SUSPECT",
+  "5": "AGREE",
+  "6": "SUSPECT",
+  "7": "AGREE",
+  "8": "AGREE",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "AGREE",
+  "18": "AGREE",
+  "19": "SUSPECT",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "SUSPECT",
+  "23": "AGREE",
+  "24": "AGREE",
+  "25": "AGREE",
+  "26": "AGREE",
+  "27": "AGREE",
+  "28": "AGREE",
+  "29": "AGREE",
+  "30": "AGREE",
+  "31": "SUSPECT",
+  "32": "AGREE",
+  "33": "AGREE",
+  "34": "AGREE",
+  "35": "AGREE",
+  "36": "SUSPECT",
+  "37": "AGREE",
+  "38": "AGREE",
+  "39": "AGREE",
+  "40": "SUSPECT",
+  "41": "AGREE",
+  "42": "AGREE",
+  "43": "SUSPECT",
+  "44": "SUSPECT",
+  "45": "SUSPECT",
+  "46": "SUSPECT",
+  "47": "SUSPECT",
+  "48": "SUSPECT",
+  "49": "SUSPECT",
+  "50": "SUSPECT",
+  "51": "SUSPECT",
+  "52": "SUSPECT",
+  "53": "SUSPECT",
+  "54": "SUSPECT",
+  "55": "SUSPECT",
+  "56": "AGREE",
+  "57": "SUSPECT",
+  "58": "SUSPECT",
+  "59": "AGREE",
+  "60": "AGREE",
+  "61": "AGREE"
+ }
+}

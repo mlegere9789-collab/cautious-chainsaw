@@ -26,7 +26,8 @@
   "a type error in the WGSL (a vec3f variable given a f32)": "refused: Validation Error  Caused by:   In wgpuDeviceCreateShaderModule, label = 'bad1'  Shader validation error: Entry point fs at Fragment is inval",
   "an unknown member in the WGSL (W.floor for W.floorC)": "refused: Validation Error  Caused by:   In wgpuDeviceCreateShaderModule, label = 'bad2'  Shader 'bad2' parsing error: invalid field accessor `floor` ",
   "a layout that declares the scene depth as a float texture (the shader reads a depth texture)": "refused: Validation Error  Caused by:   In wgpuDeviceCreateRenderPipeline, label = 'weather3d-mul'     Error matching ShaderStages(FRAGMENT) shader r",
-  "a layout whose weather uniform block is hidden from the fragment stage": "refused: Validation Error  Caused by:   In wgpuDeviceCreateRenderPipeline, label = 'weather3d-mul'     Error matching ShaderStages(FRAGMENT) shader r"
+  "a layout whose weather uniform block is hidden from the fragment stage": "refused: Validation Error  Caused by:   In wgpuDeviceCreateRenderPipeline, label = 'weather3d-mul'     Error matching ShaderStages(FRAGMENT) shader r",
+  "the same depth texture attached for writing and sampled in one pass (the layer attaches it read-only)": "refused: Validation Error  Caused by:   In wgpuCommandEncoderFinish     In a pass parameter       Attempted to use Texture with 'ctl depth' label (mi"
  },
  "cases": {},
  "adapter": {
@@ -44,5 +45,24 @@
  "features_requested": [
   "float32-filterable"
  ],
+ "other_modules": {
+  "crowd": "compiles",
+  "proto-gun": "compiles",
+  "proto-impFoot": "compiles",
+  "proto-impMnt": "compiles",
+  "proto-mid": "compiles",
+  "proto-midBone": "compiles",
+  "proto-nearFoot": "compiles",
+  "proto-nearMnt": "compiles",
+  "proto-part": "compiles",
+  "proto-post": "compiles",
+  "proto-sky": "compiles",
+  "proto-terrain": "compiles",
+  "structures": "compiles"
+ },
+ "selftest": {
+  "ran": true,
+  "finite": true
+ },
  "ok": true
 }

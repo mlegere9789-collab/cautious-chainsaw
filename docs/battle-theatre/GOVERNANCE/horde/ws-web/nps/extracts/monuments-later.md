@@ -230,7 +230,7 @@ Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettys
 
 ## NPS-COMMON-PRIDE-3
 
-"A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863 — Part III (date: see INDEX.md). https://www.npshistory.com/publications/gett/common-pride-fame-3.pdf
+"A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863, Part III (appendices) (January 1981 (as printed: 1/81)). https://www.npshistory.com/publications/gett/common-pride-fame-3.pdf
 
 - **The Memorial Association's cast-iron fence around the remaining trees of the clump: proposed in 1885 and 1886, resolved in 1887, built in 1888** (`NPSX-COMMON-PRIDE-3-p005-01`)
   - State date: **1885-1888 (motions of 1885 and 1886, resolution of 1887, fence built in the summer of 1888)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 5 [428]
@@ -245,7 +245,7 @@ Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettys
 
 ## NPS-DCP-LRT
 
-Draft Development Concept Plan/Environmental Assessment: Little Round Top/Devil's Den, Gettysburg National Military Park, Pennsylvania (date: see INDEX.md). https://www.npshistory.com/publications/gett/dcp-ea-little-round-top.pdf
+Draft Development Concept Plan / Environmental Assessment: Gettysburg Little Round Top / Devil's Den, Gettysburg National Military Park, Pennsylvania (May 1985 (cover: 'draft development concept plan environmental assessment ... may 1985')). https://www.npshistory.com/publications/gett/dcp-ea-little-round-top.pdf
 
 - **After the war avenues were built along the battle lines; 17 miles transferred to the federal government in 1895** (`NPSX-DCP-LRT-p014-11`)
   - State date: **1863-1895 (avenues built after the war by the Memorial Association)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 14 [9]
@@ -254,7 +254,7 @@ Draft Development Concept Plan/Environmental Assessment: Little Round Top/Devil'
 
 ## NPS-GMP-1999-V1
 
-Final General Management Plan and Environmental Impact Statement: Volume 1, Gettysburg National Military Park (date: see INDEX.md). https://www.npshistory.com/publications/gett/fgmp-eis-v1-1999.pdf
+Final General Management Plan and Environmental Impact Statement, Volume 1: Gettysburg National Military Park (June 1999). https://www.npshistory.com/publications/gett/fgmp-eis-v1-1999.pdf
 
 - **GBMA policy: first monument in the line of battle, secondary markers after** (`NPSX-GMP-1999-V1-p023-03`)
   - State date: **1880-1895 (GBMA after 1880)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 23 [xxiii]
@@ -288,7 +288,7 @@ Final General Management Plan and Environmental Impact Statement: Volume 1, Gett
 
 ## NPS-HB9-1954
 
-Gettysburg National Military Park: Historic Handbook #9 (1954) (date: see INDEX.md). https://www.npshistory.com/handbooks/historical/9-1954.pdf
+Gettysburg National Military Park, Pennsylvania (National Park Service Historical Handbook Series No. 9) (1954). https://www.npshistory.com/handbooks/historical/9-1954.pdf
 
 - **The Soldiers' National Cemetery enclosed with a stone wall and an iron fence on the Baltimore Street front, iron gateways and a keeper's lodge within a year** (`NPSX-HB9-1954-p039-01`)
   - State date: **1864 (within a year of the cemetery's dedication in 1863)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 39 [36]

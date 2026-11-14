@@ -23,3 +23,5 @@ node tools/bt/pack_theatre.mjs --no-zip --out tmp/x/dist     # "auditHits" count
 ```
 
 When done, append `-- handled: <what was done>` to this note with a shell `>>`.
+
+-- patch ready (bt-spec-health, 2026-11-14 01:02 UTC): the comment edit of item 2 (history/gazetteer.mjs lines 1 to 2) is in the ready patch bt-spec-health-copy-audit-comment-patch.md (git apply -p1 --include=..., checked, not applied). The gazetteer.json and engagements.json lines need the generators changed with them.

@@ -1,0 +1,777 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "maineatgettysbur01main/146",
+ "levels": "NR",
+ "stratum": "ME-GET-other",
+ "family": "ME-GET",
+ "layout": "cols",
+ "kind": "other",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 102,
+ "rows_stored": 52,
+ "rows_checked": 52,
+ "rows_in_error": 17,
+ "rows_ok": 35,
+ "rows_flagged_ocr_uncertain": 7,
+ "errors": [
+  {
+   "i": 9,
+   "kinds": [
+    "rem-missing"
+   ],
+   "note": "stored 'Columbia,' printed 'Columbia, N. H.,'",
+   "rid": "5th-maine-battery-e#464",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "name-nonperson",
+    "name-cut",
+    "rem-missing"
+   ],
+   "note": "stored name 'N. H.' remarks 'Mitchell,'; printed entry 'Mitchell, Stephen, Paris,'",
+   "rid": "5th-maine-battery-e#465",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "name-cut",
+    "rem-missing"
+   ],
+   "note": "stored name 'St. Clair' remarks 'Isaac P.,'; printed 'St. Clair, Isaac P., Lisbon,' (Lisbon lost)",
+   "rid": "5th-maine-battery-e#469",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 15,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Hallowed,' for 'Hallowell,'",
+   "rid": "5th-maine-battery-e#470",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 21,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Loved,' for 'Lovell,'",
+   "rid": "5th-maine-battery-e#476",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 25,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'PI.' for 'Pl.'",
+   "rid": "5th-maine-battery-e#480",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 28,
+   "kinds": [
+    "rem-missing"
+   ],
+   "note": "'Stewartstown,' lacks 'N. H.,'",
+   "rid": "5th-maine-battery-e#483",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 36,
+   "kinds": [
+    "rem-missing"
+   ],
+   "note": "'Sheffield,' lacks 'Vt.,'",
+   "rid": "5th-maine-battery-e#491",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 37,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "'Spider, Francis J.' printed 'Spiller, Francis J.'",
+   "rid": "5th-maine-battery-e#492",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 41,
+   "kinds": [
+    "rem-missing"
+   ],
+   "note": "'Stratford,' lacks 'N. H.,'",
+   "rid": "5th-maine-battery-e#496",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 45,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "name 'Sergeants: George W. Woodbury' holds the rank word; remark cut inside the phrase",
+   "rid": "5th-maine-battery-e#500",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 46,
+   "kinds": [
+    "name-nonperson",
+    "name-cut",
+    "rem-missing"
+   ],
+   "note": "name 'commissary department' continues the row above; 'Portland.' lost",
+   "rid": "5th-maine-battery-e#501",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 47,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "name 'Wagoner: Joseph L. Marston' holds the rank word",
+   "rid": "5th-maine-battery-e#502",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 48,
+   "kinds": [
+    "name-cut",
+    "rem-missing"
+   ],
+   "note": "name 'Privates: Henry H. Hunt'; 'acting hospital steward;' stored on the next row",
+   "rid": "5th-maine-battery-e#503",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 49,
+   "kinds": [
+    "name-nonperson",
+    "rem-extra"
+   ],
+   "note": "name 'acting hospital steward' is no name; 'Frank' belongs to the name 'Frank E. Pearson'",
+   "rid": "5th-maine-battery-e#504",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 50,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "name 'E. Pearson' lost the given name Frank",
+   "rid": "5th-maine-battery-e#505",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 51,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "name 'and John P. Ryan' holds the word 'and'",
+   "rid": "5th-maine-battery-e#506",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [
+  "'Revised Report of Casualties' on this page (Captain Greenlief T. Stevens, Second Lieutenant Charles O. Hunt and 13 privates with their wounds) is not stored: known gap EG-ROS-ME-01"
+ ],
+ "notes": [
+  "the run-in paragraph 'On Daily Duty and Detached Service' (6 men) is stored as 7 fragment rows 45-51, not as 6 entries; 35 rows free of errors"
+ ],
+ "reader": "full level without dates; full page at 200 dpi (1 Read); all 52 stored rows compared with the two printed columns (45 men) and the run-in paragraph (6 men); tesseract read the columns as one line and is not used as a pre-screen here",
+ "tesseract_prescreen": {
+  "agree": 28,
+  "near": 0,
+  "suspect": 24,
+  "unstored_lines": 39
+ },
+ "read": {
+  "pdf_sha256": "f187290db33c253dd0e1c674f77d1014cae44352ed42dc20c41cff40cafa3961",
+  "pdf_page": 144,
+  "view_png_sha256": "6c0643c4b621aa6cda3e57dcb9c320c19829894d8130132274f77a41ebb71149",
+  "render300_sha256": "cbf09d307e89ff6b2e09e10e26cfe5f72e0deac2c09a9a904acd4e49876d75d9",
+  "tess_sha256": "3762ead2626aedd46d3d7165e342e18f22d8400958609aab434c17bee4b51a48",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.988
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "5th-maine-battery-e#455",
+   "name": "Connor, Maurice O.",
+   "off": 264774,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "5th-maine-battery-e#456",
+   "name": "Cummings, Henry A.",
+   "off": 264816,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "5th-maine-battery-e#457",
+   "name": "Dutton, Ruel W.",
+   "off": 264848,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "5th-maine-battery-e#458",
+   "name": "Hamilton, Henry A.",
+   "off": 264877,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "5th-maine-battery-e#459",
+   "name": "Harmon, Algernon S.",
+   "off": 264912,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "5th-maine-battery-e#460",
+   "name": "Heath, Albert",
+   "off": 264946,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "5th-maine-battery-e#461",
+   "name": "Hussey, John F.",
+   "off": 264974,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "5th-maine-battery-e#462",
+   "name": "Leonard, William",
+   "off": 265003,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "5th-maine-battery-e#463",
+   "name": "Luce, Sullivan",
+   "off": 265033,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "5th-maine-battery-e#464",
+   "name": "Mennealy, Thos. B.",
+   "off": 265059,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "5th-maine-battery-e#465",
+   "name": "N. H.",
+   "off": 265092,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 11,
+   "rid": "5th-maine-battery-e#466",
+   "name": "Morse, Bennett",
+   "off": 265099,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "5th-maine-battery-e#467",
+   "name": "Paine, John A.",
+   "off": 265126,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "5th-maine-battery-e#468",
+   "name": "Powers, Corydon",
+   "off": 265156,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "5th-maine-battery-e#469",
+   "name": "St. Clair",
+   "off": 265184,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "5th-maine-battery-e#470",
+   "name": "Smith, Charles",
+   "off": 265217,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "5th-maine-battery-e#471",
+   "name": "Sukeforth, James L.",
+   "off": 265245,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "5th-maine-battery-e#472",
+   "name": "Towne, William I.",
+   "off": 265281,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "5th-maine-battery-e#473",
+   "name": "Varney, Alden M.",
+   "off": 265315,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 19,
+   "rid": "5th-maine-battery-e#474",
+   "name": "Warren, Edward",
+   "off": 265345,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 20,
+   "rid": "5th-maine-battery-e#475",
+   "name": "Whittier, George W.",
+   "off": 265373,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "5th-maine-battery-e#476",
+   "name": "Witham, Edwin F.",
+   "off": 265405,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "5th-maine-battery-e#477",
+   "name": "Woods, John",
+   "off": 265433,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 23,
+   "rid": "5th-maine-battery-e#478",
+   "name": "Worster, John",
+   "off": 265458,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 24,
+   "rid": "5th-maine-battery-e#479",
+   "name": "Crane, Charles L.",
+   "off": 265485,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 25,
+   "rid": "5th-maine-battery-e#480",
+   "name": "Dunton, David H.",
+   "off": 265516,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 26,
+   "rid": "5th-maine-battery-e#481",
+   "name": "Greene, Patrick",
+   "off": 265558,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 27,
+   "rid": "5th-maine-battery-e#482",
+   "name": "Hanson, John H.",
+   "off": 265587,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 28,
+   "rid": "5th-maine-battery-e#483",
+   "name": "Harris, Horace",
+   "off": 265617,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 29,
+   "rid": "5th-maine-battery-e#484",
+   "name": "Hinkley, Alonzo",
+   "off": 265658,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 30,
+   "rid": "5th-maine-battery-e#485",
+   "name": "Kelly, Patrick",
+   "off": 265685,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 31,
+   "rid": "5th-maine-battery-e#486",
+   "name": "Lombard, James A.",
+   "off": 265713,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 32,
+   "rid": "5th-maine-battery-e#487",
+   "name": "Maxwell, Richard E.",
+   "off": 265745,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 33,
+   "rid": "5th-maine-battery-e#488",
+   "name": "Nevers, William H.",
+   "off": 265808,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 34,
+   "rid": "5th-maine-battery-e#489",
+   "name": "Pike, Charles E.",
+   "off": 265839,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 35,
+   "rid": "5th-maine-battery-e#490",
+   "name": "Ryan, William",
+   "off": 265870,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 36,
+   "rid": "5th-maine-battery-e#491",
+   "name": "Simpson, Aaron",
+   "off": 265896,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 37,
+   "rid": "5th-maine-battery-e#492",
+   "name": "Spider, Francis J.",
+   "off": 265931,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 38,
+   "rid": "5th-maine-battery-e#493",
+   "name": "Thompson, Eben",
+   "off": 265962,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 39,
+   "rid": "5th-maine-battery-e#494",
+   "name": "Tuttle, Wilbert D.",
+   "off": 265990,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 40,
+   "rid": "5th-maine-battery-e#495",
+   "name": "Varney, John H.",
+   "off": 266021,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 41,
+   "rid": "5th-maine-battery-e#496",
+   "name": "White, Henry",
+   "off": 266053,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 42,
+   "rid": "5th-maine-battery-e#497",
+   "name": "Witham, Charles C.",
+   "off": 266089,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 43,
+   "rid": "5th-maine-battery-e#498",
+   "name": "Withee, Charles A.",
+   "off": 266122,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 44,
+   "rid": "5th-maine-battery-e#499",
+   "name": "Woods, Joseph",
+   "off": 266154,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 45,
+   "rid": "5th-maine-battery-e#500",
+   "name": "Sergeants: George W. Woodbury",
+   "off": 266222,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 46,
+   "rid": "5th-maine-battery-e#501",
+   "name": "commissary department",
+   "off": 266289,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 47,
+   "rid": "5th-maine-battery-e#502",
+   "name": "Wagoner: Joseph L. Marston",
+   "off": 266342,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 48,
+   "rid": "5th-maine-battery-e#503",
+   "name": "Privates: Henry H. Hunt",
+   "off": 266401,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 49,
+   "rid": "5th-maine-battery-e#504",
+   "name": "acting hospital steward",
+   "off": 266439,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 50,
+   "rid": "5th-maine-battery-e#505",
+   "name": "E. Pearson",
+   "off": 266473,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 51,
+   "rid": "5th-maine-battery-e#506",
+   "name": "and John P. Ryan",
+   "off": 266495,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": [
+    "N"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:59:22Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "AGREE",
+  "2": "AGREE",
+  "3": "AGREE",
+  "4": "AGREE",
+  "5": "AGREE",
+  "6": "AGREE",
+  "7": "AGREE",
+  "8": "AGREE",
+  "9": "AGREE",
+  "10": "AGREE",
+  "11": "AGREE",
+  "12": "AGREE",
+  "13": "AGREE",
+  "14": "AGREE",
+  "15": "SUSPECT",
+  "16": "AGREE",
+  "17": "AGREE",
+  "18": "AGREE",
+  "19": "AGREE",
+  "20": "AGREE",
+  "21": "SUSPECT",
+  "22": "SUSPECT",
+  "23": "SUSPECT",
+  "24": "SUSPECT",
+  "25": "SUSPECT",
+  "26": "SUSPECT",
+  "27": "SUSPECT",
+  "28": "SUSPECT",
+  "29": "SUSPECT",
+  "30": "SUSPECT",
+  "31": "SUSPECT",
+  "32": "SUSPECT",
+  "33": "SUSPECT",
+  "34": "SUSPECT",
+  "35": "SUSPECT",
+  "36": "SUSPECT",
+  "37": "SUSPECT",
+  "38": "SUSPECT",
+  "39": "SUSPECT",
+  "40": "SUSPECT",
+  "41": "SUSPECT",
+  "42": "SUSPECT",
+  "43": "AGREE",
+  "44": "SUSPECT",
+  "45": "AGREE",
+  "46": "AGREE",
+  "47": "AGREE",
+  "48": "AGREE",
+  "49": "AGREE",
+  "50": "AGREE",
+  "51": "AGREE"
+ }
+}

@@ -37,11 +37,12 @@ The exact changes, by record:
 
 - E-05 works record: start 06:00 Jul 2 (documented) replaces any Jul 1-2 night start; finish windows 09:00-12:00 as selectable (Jones 10:00 default is documented; Greene noon)
 - E-05 fabric: close log fence + cordwood battening + earth where tools; 'rails' are documented for the 149th NY (Barnum) so the PDF's 'no rails' is not general; no head logs or boughs unless a source is found (mark as gap if drawn); the 149th NY dates its march to the line at about 04:00 (conflict with 06:00, both selectable)
-- E-05 height: 5 ft only as 'Culp's Hill log-crib works in general' (NPS, secondary); do not take profiles from the rebuilt works (CLR: Culp's Hill earthworks reconstructed 1882)
+- E-05 height: no single point (DD-FENCE1-28, DD-FENCE1-20): a window of about 20 inches to five feet drawn as a marked plausible-procedural gap, with three selectable figures: five feet (the 'elaborate log-crib' works of Culp's Hill in general, NPS CLR), an average of about 20 inches (NPS 1940, read from the Brady and Tipton photographs, for the line from Spangler's Spring to Culp's Hill) and 'not more than three feet' (Olmsted, via the NPS, for the Federal breastworks in general); none is a per-regiment height; do not take profiles from the works restored in 1882
 
 ### R14.E-06 (records: E-06, S-023, S-025) - verdict corrected
 
 - E-06: traverse may be built on screen by the 137th NY in the Jul 2 morning window with length about 20 yd (documented-secondary); height and profile stay labelled gaps; before this, the previous note 'do not render a traverse in the morning' is lifted
+- E-06: draw the traverse at the angle of the works with the line prolonged back through the woods at right angles toward the Baltimore pike (documented-secondary: Bachelder 1873); height and profile stay marked gaps
 
 ### R14.E-07 (records: E-07, S-024) - verdict partially_supported
 
@@ -97,11 +98,14 @@ The exact changes, by record:
 - FEN-emmitsburg-road: fences torn down by Harrow's regiments from about 16:00 Jul 2 (and earlier removal north of Klingel per NPS): do not show an intact Emmitsburg Road fence in front of the brick house after 16:00 Jul 2; RULE-03 not violated (works are after Jul 2 begins)
 - DD-02 (Cemetery Ridge breastworks built on screen) is confirmed and widened; 'July 2 gap south of the Copse' stays unevidenced
 - FEN-cemetery-ridge-walls and the Angle wall remain pre-existing (no construction animation); rail works are additions beside them
+- E-17: add traverses at right angles to the Emmitsburg-road stone wall at the south edge of the town, about thirty feet apart ('at the time of the battle', Bachelder 1873; day and builder open; the wall pre-existed): a spacing, not a profile
 - E-17: add a Jul 2 morning work for the 126th NY (Willard's brigade, Hays's division) on the crest near the Cemetery, built hastily of 'a low stone wall, and an old rail fence' (documented-secondary, about 08:00 to about 18:30); the 69th Pa. rail-and-stone work is dated the morning of Jul 2 (page image of the OR report)
 
 ### R14.E-18 (records: E-18, G-14, S-009) - verdict corrected
 
 - E-18: replace the whole-row open gap by dated Confederate works: Middle Street barricade (Jul 2 morning), Ewell's hill works (Jul 3-4 night), Hood's Warfield Ridge works (Jul 4), the Seminary Ridge ridge-long works (Jul 4); the units are Confederate and arrive/stand as documented; Jul 2-3 stays a marked gap for the other sites
+- E-18: add Confederate entrenchments in McMillan Woods and earthworks through Shultz Woods after Pickett's Charge (Jul 3 afternoon-evening, documented-secondary) and Johnson's division breastworks on the Forney farm (1863, day open)
+- E-18: show the stone wall just north of Spangler's Spring as Confederate breastworks (pre-existing wall, no construction) from the night of Jul 2 to the morning of Jul 3 (NPS 1940, documented-secondary)
 - E-18: add a Confederate 'earthworks built in 1863, day not stated' state for McMillan Woods, Pender's Division (Seminary Ridge), Poague's lunettes and Spangler Woods (NPS inventory), marked as a dated gap; the documented Jul 3-4 builds stay as listed
 
 ### R14.S-001 (records: bld-rock-creek-rr-bridge, S-001) - verdict corrected

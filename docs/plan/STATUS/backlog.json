@@ -139,9 +139,9 @@
    "context_files": [],
    "depends_on": [],
    "value": "Unblocks every historian verification under the default node of the container; all later historian items are checked with it.",
-   "acceptance": "Red first: under the default node (v22.23.4) `node --test tests/historian/atime.test.mjs` fails to load tools/historian/ingest/times.mjs (SyntaxError: the regular-expression modifier group (?-i:...) in the MER pattern needs V8 12.5 or later). Done when (1) times.mjs contains no modifier group and keeps the exact readings: new tests/historian/times-node22.test.mjs pins at least 12 readings (read: \"a. m.\", \"A. M.\", \"P.M.\", \"AM\", \"10 p.m.\"; not read: bare lower-case \"am\"/\"pm\" as in \"1 am informed\", and \"Am\"), and the offsets and values of the 23 cases of tests/historian/atime.test.mjs are unchanged; (2) under the default node `node --test tests/historian/*.test.mjs` loads every file (zero \"failed to load\") and its pass, fail and skip totals are identical to the same command under /opt/node24/bin/node on the same tree (both totals recorded in STATUS.json; run through tools/horde/bench.sh); (3) atime.test.mjs passes 23 of 23 under both nodes. No test is skipped, loosened or deleted to get there (git diff of tests/historian shows only the one new file).",
+   "acceptance": "Red first: under the default node (v22.23.4) `node --test tests/historian/atime.test.mjs` fails to load tools/historian/ingest/times.mjs (SyntaxError: the regular-expression modifier group (?-i:...) in the MER pattern needs V8 12.5 or later). Done when (1) times.mjs contains no modifier group and keeps the exact readings: new tests/historian/times-node22.test.mjs pins at least 12 readings (read: \"a. m.\", \"A. M.\", \"P.M.\", \"AM\", \"10 p.m.\"; not read: bare lower-case \"am\"/\"pm\" as in \"1 am informed\", and \"Am\"), and the offsets and values of the 23 cases of tests/historian/atime.test.mjs are unchanged; (2) under the default node `node --test tests/historian/*.test.mjs` loads every file (zero \"failed to load\") and its pass, fail and skip totals are identical to the same command under /opt/node24/bin/node on the same tree (both totals recorded in STATUS.json; run through tools/horde/bench.sh); (3) atime.test.mjs passes 23 of 23 under both nodes. No test is skipped, loosened or deleted to get there (git diff of tests/historian shows only the one new file). State on 2026-11-14: (1) and (3) are built and green on both nodes; what is left of (2) is the paired run `tools/horde/bench.sh --timing bash candidates/r1h/ver-hist-node/run-suites.sh` (start it first, in the background: it waits for every job that holds the machine lock) and `node candidates/r1h/ver-hist-node/check-totals.mjs --write`, then the record is written again with the full command list in HANDOFF.md (`record.mjs --check` only re-runs, it does not flip passes). run-suites.sh fixes the test-file list and the hashed files once at the start, so files that other entries add meanwhile do not invalidate the run; an edit of an existing file still does.",
    "acceptance_basis": "authored against the repository on 2026-11-13",
-   "short": "Red: under default node 22.23.4 tests/historian files fail to load (times.mjs modifier group). Done: no modifier group, same readings (new pinned test); the full tests/historian run under node 22 equals the node 24 totals; atime 23/23 on both; no test loosened.",
+   "short": "Built and green on both nodes; what is left is the paired timing run (run-suites.sh through bench.sh --timing, start it first: it waits for the lock), check-totals.mjs --write, then rewrite the record with the full command list in HANDOFF.md. Totals under node 22 must equal node 24.",
    "owed": "The full-suite run is heavy: it goes through tools/horde/bench.sh and may wait for its turn.",
    "done_evidence": null
   },
@@ -150,7 +150,7 @@
    "order": 2,
    "wave": 1,
    "done": false,
-   "title": "Toolchain, stack record, layout, config module",
+   "title": "Foundation half of WP-ARCH-09 (layout, stack record, Mapbox token module, strict base, workspace manifest): close the record",
    "source": {
     "part": "A",
     "id": "WP-ARCH-09",
@@ -204,7 +204,8 @@
    "depends_on": [],
    "decision": {
     "rows": [
-     "C03"
+     "C03",
+     "C12"
     ],
     "recorded": true,
     "summary": "Delegated, conservative: the plan's packages/<name> is src/lib/<name> (src/lib/time already is) and apps/web is src/app; tests of a new area sit beside its code; the repository's own lockfile means npm stays the package manager (the plan na"
@@ -1723,7 +1724,7 @@
    "order": 28,
    "wave": 1,
    "done": false,
-   "title": "Text, quotation and vignette corrections",
+   "title": "Remaining part of WP-TIME-08: the quotations of the day-3 rows at ticks 521 and 524 (the plan's t525 and t530) need their primary wording or lose their quotation marks",
    "source": {
     "part": "A",
     "id": "WP-TIME-08",
@@ -1762,16 +1763,17 @@
     "tmp/library/ws9 (99 public-domain texts)",
     "tools/bt/or27_find.py",
     "tools/t0/CLOCK-README.md",
-    "release/R1g/dist/data/chronology_day3.json"
+    "release/R1g/dist/data/chronology_day3.json",
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md (section 6 table, rows 525 and 530)"
    ],
    "context_files": [
     "tools/t0/data/fixes/"
    ],
    "depends_on": [],
-   "value": "Two quotations in the chronology (t525, t530) have no matched primary wording; Law 4 forbids shipping a quote that cannot be matched.",
-   "acceptance": "evidence.json holds, for each of the chronology rows t525 and t530: the current text, every search made (pattern, part or text, result count), and the outcome. Outcome \"found\": a source (OR Ser. I vol. 27 part, report id, printed page as `python -I tools/bt/or27_find.py` cites it, or the ws9 title and page) and a short verbatim quote that `python -I tools/bt/or27_find.py --verify \"<quote>\"` confirms (the test runs it and requires exit 0); the row then carries the quote with its source key. Outcome \"not found\": the lookup is recorded as FAILED with the searches, and the quotation marks are removed from the row (the sentence stays as a plain statement only if the same sentence is supported by a non-lead source, otherwise the claim is reworded to what the record supports, or marked as a visible gap). Group.json patches data/chronology_day3.json accordingly (anchors asserted once), test.mjs checks the patched rows, that no other row changes, that every remaining quotation mark of the two rows has a verified source in evidence.json, and the JSON parses. No quote is written that the matcher did not confirm; a quote found only on a blog, Wikipedia or from memory is not a source.",
+   "value": "The quotations of the day-3 rows at ticks 521 and 524 (the plan's t525; its t530 text is already gone from the shipped data) match no wording of the local Official Records text; Law 4 forbids shipping a quote that cannot be matched.",
+   "acceptance": "Identify the rows first: the plan's t525 and t530 (chapter 04, section 6 table) are legacy row numbers, not ticks of the shipped file. In release/R1g/dist/data/chronology_day3.json the t525 material now stands in the row at tick 521 (the 1:25 p.m. note: \"If you are to advance at all, you must come at once ...\") and the row at tick 524 (the 1:40 p.m. note: \"For God's sake come quick. The 18 guns have gone. ...\"); the t530 text (\"I would not make the charge now\") occurs nowhere in the shipped data or pages (0 hits, read on 2026-11-14). On 2026-11-14 `python -I tools/bt/or27_find.py --verify` finds none of \"If you are to advance at all\", \"For God's sake come quick\" or \"The 18 guns\" in the local OR27 text. evidence.json holds, for every quotation mark of the day-3 rows at ticks 510 to 545 (those two rows carry them today): the current text, every search made (pattern, part or text, result count) in tmp/library/or27 and tmp/library/ws9, and the outcome, and it records that the t530 wording is absent. Outcome \"found\": a source (OR Ser. I vol. 27 part, report id, printed page as `python -I tools/bt/or27_find.py` cites it, or the ws9 title and page) and a short verbatim quote that `python -I tools/bt/or27_find.py --verify \"<quote>\"` confirms (the test runs it and requires exit 0) or, for a ws9 text, a quote the test finds in that file; the row then carries the quote with its source key and the wording the source gives. Outcome \"not found\": the lookup is recorded as FAILED with the searches, and the quotation marks are removed from the row (the sentence stays as a plain statement only if the same sentence is supported by a non-lead source, otherwise the claim is reworded to what the record supports, or marked as a visible gap). Group.json patches data/chronology_day3.json accordingly (anchors asserted once; when every quotation is found and carries its source the group may hold no patch and the test asserts both rows unchanged), test.mjs checks the patched rows, that no other row changes, that every remaining quotation mark of the rows has a verified source in evidence.json, and that the JSON parses. No quote is written that the matcher did not confirm; a quote found only on a blog, Wikipedia or from memory is not a source.",
    "acceptance_basis": "authored against the repository on 2026-11-13",
-   "short": "Research + data patch: find the primary wording for the t525/t530 quotations in local OR27/ws9 (verbatim, confirmed by or27_find --verify) or record the lookup as failed and remove the quote marks; evidence.json lists every search; only those two rows change.",
+   "short": "Research + data patch: the quotations in the day-3 rows at ticks 521 and 524 (plan t525; t530 text already gone) match no local OR27 text: find the primary wording in OR27/ws9 (verified) or record the lookup as failed and remove the marks; evidence.json lists every search.",
    "owed": "A historian's confirmation of the wording remains owner-side.",
    "done_evidence": null
   },
@@ -1950,6 +1952,13 @@
    "depends_on": [
     "wp-arch-09"
    ],
+   "decision": {
+    "rows": [
+     "C12"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: the entry wp-arch-09 is the foundation half of the plan's WP-ARCH-09 (layout, stack record, token module, strict base, workspace manifest, the request note for the root files); it is done when its record verifies, a"
+   },
    "value": "Without pinned tools and the smoke, none of the rebuild entries after the foundation can run a lint or a build; this is the half of WP-ARCH-09 that the foundation record leaves open.",
    "acceptance": "Carries the unbuilt half of the plan's WP-ARCH-09 Fix that the survey assigned to the first dependency install (the foundation half is entry wp-arch-09; browserslist, es-check and the WebGL2 gate stub are entry wp-dec-12, which this entry only wires in). Red first: src/toolchain/toolchain.test.mjs (node:test; runs on Node 22.23.4 and on 24; legs that need installed tools skip loudly when none are installed) fails before any of the following exists. Done when (1) src/app/package.json (private, \"@gtbg/app\", type module) pins react and react-dom 18.3.1, zustand 5.x and mapbox-gl 3.24.1, and src/package.json pins as devDependencies typescript 5.9.x (row N1), vite 8.x (row N2), eslint with typescript-eslint, eslint-plugin-react-hooks and eslint-plugin-jsx-a11y, stylelint, knip, size-limit with its file plugin and es-check: every version exact (no caret, tilde, range or tag), each read from the registry on the day it is installed (one request per second, dated in src/STACK.md section 5), and rows N1, N2 and N5 of src/STACK.md name the pinned versions by small Edit with their way back; Astro is not installed here (its spike is WP-DEC-04). (2) src/eslint.config.mjs (flat config) holds typescript-eslint strict-type-checked, react-hooks, jsx-a11y strict, `no-restricted-imports` for mapbox-gl outside src/app/map/lib/map/**, and the five bans of the plan (`attributionControl:false`, `innerHTML` with data, `Math.random` in the engine, day arithmetic, a zero-selector `useStore()`); src/toolchain/fixtures/ holds one violating file and one clean twin per rule: linting the violating files exits non-zero and names the rule, linting the twins exits 0. (3) src/stylelint.config.mjs rejects a raw hex colour, a numeric z-index and a font-size under 12 px, with the same fixture pairs; src/knip.json reports 0 findings over the committed code; size-limit runs once on the smoke output and its figure is recorded (the budgets are entry wp-arch-10-build). (4) The one-day toolchain smoke of the plan: a hello-world app under src/toolchain/smoke built with the pinned Vite gives named chunk groups, hashed file names and first-party source maps; es-check passes on the output at the floor of D-BROWSERS; src/config/mapbox.js is bundled with envPrefix \"PUBLIC_\" and a production build fails closed without the token; every Vite, TypeScript and typescript-eslint option name that chapter 03 section 8 item 1 lists as unverified is recorded as verified or wrong in evidence/toolchain-options.txt. (5) The installs are proved in a scratch tree under tmp/r1h-cand/wp-arch-10-toolchain (a copy of the root package.json with the workspace lines of the wp-arch-09 request note, next to the real src/) through tools/horde/bench.sh: `npm ci` and the lint, style, knip and test commands pass there; the lock delta and what the root still needs (the tools as root devDependencies or one more workspace, the lock refresh) are the request note main-site-wp-arch-10-toolchain.md; the root package.json and package-lock.json are not edited. No existing test, gate or baseline is loosened; src/lib/time is linted in report-only mode (findings listed in HANDOFF.md, that code unchanged); pnpm stays a selectable alternative (rows C03, W09-2).",
    "acceptance_basis": "authored against the repository on 2026-11-14",
@@ -14706,6 +14715,13 @@
    "depends_on": [
     "wp-arch-10-toolchain"
    ],
+   "decision": {
+    "rows": [
+     "C12"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: the entry wp-arch-09 is the foundation half of the plan's WP-ARCH-09 (layout, stack record, token module, strict base, workspace manifest, the request note for the root files); it is done when its record verifies, a"
+   },
    "value": "The rebuilt app cannot ship without a deterministic build, hashed names and byte budgets; it is the second half of WP-ARCH-10.",
    "acceptance": "Size L: slice into entries of at most M before dispatch (split_hint), each with its own red-first test. The plan's WP-ARCH-10 Fix and Accept, whole: one build command runs the data build, the map build, the Astro build, `mount-legacy`, `gen-netlify-config` and the gates and writes `deploy-manifest.json` (path to sha256 and size) and `version.json` (app, data, timeModel, sha; `builtAt` from the commit date so builds stay deterministic); chunk groups of plan section 4.6 with a `shared` chunk so lazy chunks never import the entry; `modulePreload.polyfill:false`; first-party source maps published `noindex`; `THIRD-PARTY-NOTICES.txt`; `assert-hashed-assets.mjs` compares names with the last production manifest (manifest compare plus double build, because Vite's `[hash]` is not the sha256 of the file); `verify-deploy.mjs` (every referenced asset exists with exact case, no orphans); `/assets/*` and `/data/v2/*` immutable only once these gates exist. Accept: one patched byte without a rename fails CI; double build identical; no lazy chunk imports the entry; `size-limit` fails on a 5 percent rise of a chunk budget of section 4.6 (brotli, per chunk), and a budget raise needs a `budget-raise` label and an ADR. Nothing in release/R1g/dist changes.",
    "acceptance_basis": "authored against the repository on 2026-11-13",
@@ -26341,6 +26357,13 @@
     "wp-arch-10-toolchain",
     "wp-arch-10-build"
    ],
+   "decision": {
+    "rows": [
+     "C12"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: the entry wp-arch-09 is the foundation half of the plan's WP-ARCH-09 (layout, stack record, token module, strict base, workspace manifest, the request note for the root files); it is done when its record verifies, a"
+   },
    "acceptance": "Proof: every child is done (wp-arch-10-toolchain, wp-arch-10-build); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Starts from the wp-arch-09 foundation: install and pin the first dependencies in src/package.json and src/app/package.json (rows N2, N3, N5, N7 of src/STACK.md), call getMapboxToken() once at the start of a production build, then the chunk map, byte budgets and hash scheme. Plan acceptance (docs/plan/FINAL, WP-ARCH-10): one patched byte without a rename fails CI; double build identical; no lazy chunk imports the entry; `size-limit` fails +5%.",
    "acceptance_basis": "machine proof clause + next-step + plan-accept",
    "slices": [

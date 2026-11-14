@@ -55,7 +55,7 @@ W = {
  '2020630902': dict(code='OUT', what='a studio portrait of a nurse, Mrs. Mason', reason='portrait dated 1863 naming Gettysburg', copy_of=[]),
  '2004682792': dict(code='STG', what="men posing as dead soldiers among rocks, looking toward Little Round Top (the record: a posed scene of 11 November 1863 in the Devil's Den and slaughter pen area, from Frassanito: a lead; the NPS identifies the Weaver photographs of 11 November 1863)", reason='stereograph of a posed scene of 11 November 1863', not_july=True, staged=True, staged_basis="posed scene of 11 November 1863 (the NPS Then-And-Now series: the Weaver photographs of that day); terrain and rocks only", copy_of=[]),
  '2020634839': dict(code='POS', what='the Evergreen Cemetery gatehouse seen from the front across bare ground with a rail fence (Tyson Excelsior galleries, 1863)', reason='photograph of the gatehouse, which was the Eleventh Corps headquarters', copy_of=[]),
- '2013645929': dict(code='STG', what='a dead soldier lying among large boulders in a rock gorge (the verso gives Gardner photographic incidents of the war no. 251)', reason="print titled 'Rocks could not save him', 1863", staged=True, staged_basis="the printed number 251 is the number of the sharpshooter negative LC-B815-251 that the first pass flagged as staged (record 2012647849: Devil's Den sharpshooter); terrain and rocks only", copy_of=[]),
+ '2013645929': dict(code='STG', what='a dead soldier lying among large boulders in a rock gorge (the verso gives Gardner photographic incidents of the war no. 251)', reason="print titled 'Rocks could not save him', 1863", staged=True, staged_basis="the printed number 251 equals the number of the sharpshooter negative LC-B815-251 that the first pass flagged as staged (record 2012647849: Devil's Den sharpshooter; the series prefixes differ, so the tie is likely, not proven) and the frame shows a body among boulders in a rock gorge like that series; flagged to be safe; terrain and rocks only", copy_of=[]),
  '2006692500': dict(code='POS', what="the Evergreen Cemetery gatehouse seen across ground with earthworks in front of it, a page of Gardner's Sketch Book (plate 39)", reason="Sketch Book print of the cemetery gateway, O'Sullivan", copy_of=[]),
  '2006685385': dict(code='NEAR', what="dead soldiers in a field, a page of Gardner's Sketch Book (plate 37, the field where General Reynolds fell)", reason="Sketch Book print, O'Sullivan", copy_of=[]),
  '2019635468': dict(code='POS', what='a dirt road running down toward Gettysburg with a rail fence at the left and fields on both sides, the town far ahead (Tyson Excelsior galleries, 1863; the card is titled from Seminary Ridge)', reason='photograph from Seminary Ridge toward the town, 1863', copy_of=[]),
@@ -67,3 +67,8 @@ W = {
  '2019647064': dict(code='OUT', what='a battle-torn regimental flag of the 2nd Wisconsin Infantry on a card', reason='record naming Gettysburg, 1863?', not_july=True, copy_of=[]),
  '2006692502': dict(code='STG', what="a dead soldier among rocks in a rocky gorge, a page of Gardner's Sketch Book (plate 41, home of a rebel sharpshooter)", reason="Sketch Book print of the sharpshooter series", copy_of=[]),
 }
+
+# Ties to catalogued records (same exposure: a second print, a stereo sibling or the same plate in another book), written after looking at the two images side by side (sheets made from wide_to_catalogue.json);
+# the feature-matching score alone never writes a row. Format: wide record -> [catalogued records].
+COPY = {}
+for _pk, _c in COPY.items(): W[_pk]['copy_of'] = _c

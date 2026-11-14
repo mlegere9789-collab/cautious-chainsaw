@@ -21,7 +21,7 @@ import os, sys, json, glob, math, argparse
 
 ap = argparse.ArgumentParser()
 ap.add_argument('--wgpu-path', help='directory holding the wgpu package (pip install --target)'); ap.add_argument('--capture', help='directory written by weather3d-gpu-capture.mjs'); ap.add_argument('--wgsl', help='directory with the *.wgsl files (default: <capture>/wgsl)')
-ap.add_argument('--out', help='write the report as JSON here'); ap.add_argument('--selftest', action='store_true'); ap.add_argument('--no-controls', action='store_true'); ap.add_argument('--png', action='store_true', help='write a PNG of each replayed pass next to its capture')
+ap.add_argument('--extra-wgsl', help='directory of other *.wgsl files (tests/weather3d-gpu-wgsl-other.mjs): compiled at module level only and reported'); ap.add_argument('--out', help='write the report as JSON here'); ap.add_argument('--selftest', action='store_true'); ap.add_argument('--no-controls', action='store_true'); ap.add_argument('--png', action='store_true', help='write a PNG of each replayed pass next to its capture')
 ap.add_argument('cases', nargs='*')
 A = ap.parse_args()
 if A.wgpu_path: sys.path.insert(0, A.wgpu_path)
@@ -82,6 +82,13 @@ cull = guarded('pipeline cullCount (optional compute, not wired)', lambda: dev.c
 report['build']['pipelines'] = {'weather3d-mul': bool(P['mul']), 'weather3d-add': bool(P['add']), 'fx3d-sprites': bool(P['fx']), 'fx3d-cullCount (compute, optional, not wired)': bool(cull)}
 for k, v in {**report['build']['modules'], **report['build']['pipelines']}.items():
     if not v: problems.append('did not build: ' + k)
+
+if A.extra_wgsl:                           # module-level compile of the other renderers' WGSL: the text is valid on this compiler (nothing about pipelines or pictures)
+    report['other_modules'] = {}
+    for f in sorted(glob.glob(os.path.join(A.extra_wgsl, '*.wgsl'))):
+        n = os.path.basename(f)[:-5]
+        try: dev.create_shader_module(label=n, code=open(f).read()); report['other_modules'][n] = 'compiles'
+        except Exception as e: report['other_modules'][n] = 'REFUSED: ' + str(e).replace('\n', ' ')[:300]
 
 def refused(name, fn):
     try: fn(); report['controls'][name] = 'ACCEPTED'; problems.append('control not refused: ' + name)
@@ -217,5 +224,5 @@ elif A.capture:
     if not ctl_done and cases and not A.no_controls: rep.negative_usage_control(w, h); ctl_done = True
 report['ok'] = not problems and all(str(v).startswith('refused') for v in report['controls'].values())
 if A.out: json.dump(report, open(A.out, 'w'), indent=1)
-print(json.dumps({k: report[k] for k in ('ok', 'problems', 'build', 'controls')}, indent=1))
+print(json.dumps({k: report[k] for k in ('ok', 'problems', 'build', 'controls', 'other_modules') if k in report}, indent=1))
 sys.exit(0 if report['ok'] else 1)

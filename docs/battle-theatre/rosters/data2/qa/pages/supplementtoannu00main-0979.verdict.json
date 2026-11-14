@@ -1,0 +1,255 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "supplementtoannu00main/979",
+ "levels": "NR",
+ "stratum": "ME-IDX-other",
+ "family": "ME-IDX",
+ "layout": "cols",
+ "kind": "other",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 965,
+ "rows_stored": 13,
+ "rows_checked": 13,
+ "rows_in_error": 5,
+ "rows_ok": 8,
+ "rows_flagged_ocr_uncertain": 6,
+ "errors": [
+  {
+   "i": 1,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'lvl (M-rl t\\ ii fl i n .T'Iitiaq' printed 'McGlauflin James' (16th Infantry, G)",
+   "rid": "16th-maine-infantry#2586",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'AJJ.\\j\\AW O villi' printed 'McGee John' (1st Cavalry, H)",
+   "rid": "1st-maine-cavalry#3294",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'JIcGinlcy John' printed 'McGinley John' (5th Battery, 1 Mounted Artillery)",
+   "rid": "5th-maine-battery-e#358",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Mcuiaunin JiiUwin tx' printed 'McGlauflin Edwin H' (6th Infantry, D)",
+   "rid": "6th-maine-infantry#2203",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 12,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'fiT^fir i n 1 PT? Tafnpc lUvUlUlCV O EblUvO' printed 'McGinley James' (7th Infantry, D, Sergeant)",
+   "rid": "7th-maine-infantry#2300",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [
+  "four printed lines of the units have no stored row: 'Same | do | A | 16 | do' under McGilvery John (16th), 'McGilray John | do | C | 20 | Infantry.' (20th), 'Same | do | M | 1 | Cavalry.' under McGaffey Florian (1st Cavalry), 'McGinley George | do | F | 7 | do' (7th)"
+ ],
+ "notes": [
+  "'!McGinley Thomas' differs from the print only by a stray mark (form); the stored lines 8 and 9 are two different printed 'Same' lines (under McGinley John and under McGlauflin James)"
+ ],
+ "reader": "full level without dates; full page at 200 dpi (1 Read); all 13 stored rows compared with the printed index lines; every printed line whose regiment cell is one of the 14 units was looked for in the stored rows",
+ "tesseract_prescreen": {
+  "agree": 0,
+  "near": 0,
+  "suspect": 13,
+  "unstored_lines": 44
+ },
+ "read": {
+  "pdf_sha256": "cc4dd37fa553565deee261772b9c78c94d1191bb7ca5ea75caa8f913b3150ae7",
+  "pdf_page": 973,
+  "view_png_sha256": "21ead5a177a820d233e8f3933895cf0f7b9077bda02e6e66ee0405bb8bf39471",
+  "render300_sha256": "5d8084718475abdd9efdb7531ad8c562532f4d5c16aedaef24268182c9e2941e",
+  "tess_sha256": "fbd189a3bdcd6ab7e8fedc3bc4ed1c183eef67592f848f6e9ed3388647bb48ad",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.857
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "16th-maine-infantry#2585",
+   "name": "McGinley John",
+   "off": 2244463,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "16th-maine-infantry#2586",
+   "name": "lvl (M-rl t\\ ii fl i n .T'Iitiaq",
+   "off": 2244906,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "17th-maine-infantry#2316",
+   "name": "McGarry Daniel S",
+   "off": 2243522,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "1st-maine-cavalry#3294",
+   "name": "AJJ.\\j\\AW O villi",
+   "off": 2243949,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "1st-maine-cavalry#3295",
+   "name": "!McGinley Thomas",
+   "off": 2244512,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "1st-maine-cavalry#3296",
+   "name": "McGinniss Michael",
+   "off": 2244669,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "1st-maine-cavalry#3297",
+   "name": "McGoon Ephraim J",
+   "off": 2245482,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "20th-maine-infantry#2623",
+   "name": "Same",
+   "off": 2243461,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "C",
+    "S"
+   ]
+  },
+  {
+   "i": 8,
+   "rid": "20th-maine-infantry#2624",
+   "name": "Same",
+   "off": 2244496,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 9,
+   "rid": "20th-maine-infantry#2625",
+   "name": "Same",
+   "off": 2244964,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 10,
+   "rid": "5th-maine-battery-e#358",
+   "name": "JIcGinlcy John",
+   "off": 2244407,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "6th-maine-infantry#2203",
+   "name": "Mcuiaunin JiiUwin tx",
+   "off": 2244819,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 12,
+   "rid": "7th-maine-infantry#2300",
+   "name": "fiT^fir i n 1 PT? Tafnpc lUvUlUlCV O EblUvO",
+   "off": 2244287,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "N"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-14T01:02:34Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT"
+ }
+}

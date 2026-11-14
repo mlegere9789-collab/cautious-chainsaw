@@ -144,7 +144,8 @@ def is_running_head(line):
         return True
     letters = [c for c in s if c.isalpha()]
     if not letters:
-        return bool(re.search(r'\d', s)) and len(s) <= 8
+        # a bare page number; a number that ends with a period or a comma ('1864.') is the last word of an entry that the page break left alone on its line
+        return bool(re.search(r'\d', s)) and len(s) <= 8 and not re.search(r'[\.,;]\s*$', s)
     if len(letters) < 6 or sum(1 for c in letters if c.isupper()) / len(letters) < 0.7:
         return False
     words = [re.sub(r'[^A-Z\-\.]', '', w.upper()) for w in s.split()]

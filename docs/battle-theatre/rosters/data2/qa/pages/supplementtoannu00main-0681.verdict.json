@@ -1,0 +1,238 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "supplementtoannu00main/681",
+ "levels": "NR",
+ "stratum": "ME-IDX-other",
+ "family": "ME-IDX",
+ "layout": "cols",
+ "kind": "other",
+ "draw_position": 3,
+ "in_lowest_decile": false,
+ "printed_page": 669,
+ "rows_stored": 17,
+ "rows_checked": 17,
+ "rows_in_error": 2,
+ "rows_ok": 15,
+ "rows_flagged_ocr_uncertain": 1,
+ "errors": [
+  {
+   "i": 10,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Britto William II' printed 'Britto William H' (2d Battery, 1 Mounted Artillery)",
+   "rid": "2nd-maine-battery-b#313",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Briue William' printed 'Brine William' (3rd Infantry)",
+   "rid": "3rd-maine-infantry#2377",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [
+  "one printed line of the 1st Maine Cavalry has no stored row: the 'Same | do | C | 1 | Cavalry.' line under 'Briggs Elijah H' (the man above stands in 'D. C. Cavalry', the Same line in '1 Cavalry')"
+ ],
+ "notes": [
+  "the three 'Same' rows (3, 7, 8, 15) carry the printed word 'Same'; to which man they belong is read from the line above in print and is not in the stored row (flag S of the file)"
+ ],
+ "reader": "full level without dates; full page at 200 dpi (1 Read); all 17 stored rows (all filed to units) compared with the printed index lines (name, rank, company, regiment, corps); all printed lines whose regiment cell is one of the 14 units were looked for in the stored rows",
+ "tesseract_prescreen": {
+  "agree": 4,
+  "near": 0,
+  "suspect": 13,
+  "unstored_lines": 39
+ },
+ "read": {
+  "pdf_sha256": "cc4dd37fa553565deee261772b9c78c94d1191bb7ca5ea75caa8f913b3150ae7",
+  "pdf_page": 677,
+  "view_png_sha256": "d64a43bb09bbfb8248d1d24e09c9b93a30a3c7d837e699811421c4c835e208bc",
+  "render300_sha256": "d21727fe151bf7ff382d6122749299cb73f4dcd295501e00f8b40b884319f956",
+  "tess_sha256": "284bab968320afb827838bdf902107e000485ed3bd26edb783b444400bd1c261",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.963
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "16th-maine-infantry#2202",
+   "name": "Briggs Edward",
+   "off": 1553951,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "16th-maine-infantry#2203",
+   "name": "Same",
+   "off": 1553977,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "17th-maine-infantry#1919",
+   "name": "Brine John",
+   "off": 1554812,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "17th-maine-infantry#1920",
+   "name": "Same",
+   "off": 1555303,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "19th-maine-infantry#1997",
+   "name": "Briggs Justus C",
+   "off": 1554420,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "1st-maine-cavalry#2703",
+   "name": "Brier Francis",
+   "off": 1553541,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "20th-maine-infantry#2027",
+   "name": "Briggs Albion D",
+   "off": 1553696,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "20th-maine-infantry#2028",
+   "name": "Same",
+   "off": 1553737,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 8,
+   "rid": "20th-maine-infantry#2029",
+   "name": "Same",
+   "off": 1553993,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "R",
+    "S"
+   ]
+  },
+  {
+   "i": 9,
+   "rid": "20th-maine-infantry#2030",
+   "name": "Briggs John P",
+   "off": 1554386,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "2nd-maine-battery-b#313",
+   "name": "Britto William II",
+   "off": 1555349,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "3rd-maine-infantry#2377",
+   "name": "Briue William",
+   "off": 1554904,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "3rd-maine-infantry#2378",
+   "name": "Britten James",
+   "off": 1555271,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "4th-maine-infantry#2084",
+   "name": "Broadway Joseph",
+   "off": 1555540,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "7th-maine-infantry#2120",
+   "name": "Briggs Duncan",
+   "off": 1553836,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "7th-maine-infantry#2121",
+   "name": "Same",
+   "off": 1553861,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 16,
+   "rid": "7th-maine-infantry#2122",
+   "name": "Broad Augustus",
+   "off": 1555441,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T01:02:03Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "AGREE",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "AGREE",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "AGREE"
+ }
+}

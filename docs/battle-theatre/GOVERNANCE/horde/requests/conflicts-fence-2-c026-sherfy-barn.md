@@ -1,0 +1,12 @@
+# Request to the conflict-register workstream (r03): new evidence for C-026, the Sherfy barn fire
+
+Origin: workstream bt-evidence, shard fence-2, row R14.S-037 (2026-11-14). Evidence: `docs/battle-theatre/GOVERNANCE/evidence_corrections/fence-2.jsonl`, line `R14.S-037`.
+
+The delegated default in `decisions/conflict_defaults.json` is "Jul 2 evening (PDF), date unsourced, marked gap" with the rationale "Word Sherfy occurs 0 times in OR". That is still true of the word, but the Official Records do carry two passages about the burning of a barn near the Union line on the Emmitsburg Road ridge, both unnamed:
+
+1. Hart, 15th New York Battery (OR27-1-R321 p.888), in the part of his report that begins "Early on the morning of the 3d": after the infantry assault of 3 Jul "the enemy opened a battery on his right, in front of a barn ... I candidly believe it was I who caused his caissons to explode and set the barn on fire." This is a claim of the Union artillery on 3 Jul, not a statement about the Sherfy barn by name.
+2. Bowen, 114th Pennsylvania (OR27-1-R140 p.503): men missing "whom I have no doubt were killed and their bodies burned when the barn was burned down" (the regiment fought round the Sherfy buildings on 2 Jul; PA vol. 2 p.616 says wounded sought refuge in the barn and perished in the flames). No hour.
+
+Also Bachelder (1873, printed p.81): "His barn was burned, and many bodies of dead Union soldiers were consumed with it", with a footnote that a Confederate officer in hospital assured the writer "that he was personally in the barn immediately before it was burned" and that wounded men were not burned; the 1867 cemetery report lists unknown Zouaves "(burned" in "the destruction of Sherfy's barn".
+
+What this means for C-026: no source dates the fire to the evening of 2 Jul; the only primary time claim is Hart's 3 Jul, and it does not name the barn. The lower bound (after the 2 Jul evening fight) is documented. The first close-out and this one therefore support the window "after the evening fight of 2 Jul, possibly 3 Jul afternoon" and neither default. Suggested change, for the conflict-register owner to apply or reject: keep both scenarios selectable (C-026-S1, C-026-S2), keep the default marked as a gap, and add Hart R321 p.888 and Bowen R140 p.503 as evidence lines under C-026-S2 (3 Jul, cause "Union artillery fire, per Hart") and the lower bound. No change to the delegated default was made by this shard.

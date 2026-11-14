@@ -40,16 +40,25 @@ EVENT_WORD = r"(?:disch\w*|hon\.?\s*disch\w*|honorably|must\.?\s*,?\s*out|died|k
 LOST_SEMICOLON = re.compile(r"(?<=[0-9SsGgOoBbIl]{4})[\.,:]?\s+(?=" + EVENT_WORD + r"\b)", re.I)
 # a separation word after an abbreviation or a place ('Va. deserted Sept. 16, 1862') begins a clause of its own
 LOST_SEMICOLON_PERIOD = re.compile(r"(?<=[A-Za-z0-9]\.)\s+(?=(?:disch\w*|must\.?\s*,?\s*out|died|killed|deserted|resigned|dismissed|dropped|drowned|executed|transf\w*)\b)", re.I)
-EVENT_INSIDE = re.compile(r"\b(?:disch\w*|must\.?\s*,?\s*out|died|killed|deserted|resigned|dismissed|dropped|drowned|executed|transf\.?\s+to|returned|rejoined|retd)\b", re.I)
+EVENT_INSIDE = re.compile(r"\b(?:disch\w*|must\.?\s*,?\s*out|died|killed|deserted|resigned|dismissed|dropped|drowned|executed|transf\w*|returned|rejoined|retd)\b", re.I)
 LEAD_WORDS = re.compile(r"^(?:and|also|but|then|accidentally|dishonorably|honorably|hon\.?|not\s+mustered)\s+", re.I)
 STRAY_LETTER = re.compile(r"^[A-Za-z]\s+(?=(?:disch|must|died|killed|deserted|resigned|dismissed|dropped|drowned|executed|transf|hon|dishon|enl|draft|comm|returned|rejoined|joined|gained)\b)", re.I)
 CROSS_REF = re.compile(r"\bSee\s")
+# clauses that carry a date and are known not to end the man's service; a dated clause that is none of these, none of start, end, return (an event word the OCR damaged,
+# for example 'diaoh. Oct. 11. 1862') makes a start before the battle 'unknown'
+HARMLESS = re.compile(r"^(?:wounded|prisoner|taken\s+prisoner|missing|apptd|appointed|prom\b|promoted|re-?\s?enlist\w*|reduced|escaped|paroled|captured|absent|detailed|detached|sick|furlough|"
+                      r"accidentally|slightly|severely|mortally|comm\b|1st|2d|3d|Ist|Sergt|Corpl|Capt|Major|Lieut|Colonel|Col\b|Qr|Hospl|Chaplain|Surgeon|Adjutant|Musician|Priv|Bugler|Drummer|"
+                      r"Wagoner|Artificer|Saddler|Farrier|Teamster|Fifer|Leader|Prin\b|Commy|Ord\b|Asst|Reg|under|as\s+of|as\s+Corpl|name|alias|reported|returned|rejoined|joined|gained|restored|"
+                      r"arrested|must\b|enl\b|enlisted\b|draft|exchanged|pris\b|on\s+(?:detached|special|furlough)|"
+                      r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?,?\s+\d|sent\b|released|confined|turned\s+over|forwarded|received|admitted|arrived|surrendered|furloughed|"
+                      r"at\s+(?:Camp|Parole)|failed\s+to|date\s+of|re-?transf|in\s+hospl|hospl)", re.I)
 
 
 def clauses(remarks):
     """clauses of the part of the remarks before the first cross-reference ('See Co. ...': what follows describes the man's record elsewhere).  A clause ends at ';' or at
     ':' or '|' (the OCR reads a printed semicolon so), at a lost semicolon before an event word, and a stray mark, a stray letter or a leading 'and' / 'hon.' /
     'dishonorably' / 'accidentally' in front of an event word is dropped."""
+    remarks = re.sub(r"(?<=[a-z])-\s+(?=[a-z])", "", remarks)                         # 'de- serted', 'miss- ing': a word cut at the end of a printed line
     m = CROSS_REF.search(remarks)
     if m:
         remarks = remarks[:m.start()]
@@ -111,11 +120,13 @@ def classify(c):
         return 'return'
     if re.match(r"^transf\b", c, re.I):
         if INTERNAL_TRANSF.match(c):
-            return None                                   # transferred to another company of the same regiment: no separation
+            return 'internal'                             # transferred to another company of the same regiment: no separation
         low = c.lower()
         i_from = low.find(' from ')
         i_to = low.find(' to ')
-        if i_from >= 0 and (i_to < 0 or i_from < i_to):
+        if i_from >= 0 and i_to >= 0:
+            return 'ambiguous'                            # 'transf. from hospl. at Alexandria, Va., to insane asylum': in or out cannot be told from the words
+        if i_from >= 0:
             return 'transf-in'
         return 'end'
     if END.match(c):
@@ -137,8 +148,15 @@ def onroll(remarks):
         if re.match(r"^res\b", c, re.I):
             continue
         k = classify(c)
+        if k == 'internal':
+            continue
+        if k == 'ambiguous':
+            ambiguous = True
+            continue
         if k is None:
-            if EVENT_INSIDE.search(c[4:]):       # a clause that is none of start, end or return and still holds a separation word: the reading is not certain
+            if EVENT_INSIDE.search(c[4:]) or damaged_year(c):   # none of start, end, return, and it holds a separation word or a damaged year: the reading is not certain
+                ambiguous = True
+            elif dates_in(c) and not HARMLESS.match(c):
                 ambiguous = True
             continue
         if k == 'return':
@@ -183,8 +201,6 @@ def onroll(remarks):
         return 'no', 'enl-after %s' % start[3]
     if pos in ('during', 'july'):
         return 'unknown', None
-    if ambiguous:
-        return 'unknown', None
     # the start is certainly before the battle: look at the ends
     if any(d is None for d, c in ends):
         return 'unknown', None
@@ -196,7 +212,7 @@ def onroll(remarks):
         if returned:
             return 'unknown', None
         return 'no', 'sep-before %s' % before[0][3]
-    if returned:
+    if returned or ambiguous:                              # ambiguity can only keep a 'yes' back: a printed separation before the battle already gives 'no'
         return 'unknown', None
     return 'yes', 'enl %s' % start[3]
 

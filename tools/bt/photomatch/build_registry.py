@@ -56,6 +56,7 @@ def main():
         else:
             e['verdict'] = 'cannot judge'; e['reviewed_image'] = True   # the image was looked at (contact sheet) to write the reason
             e['why'] = STD[code].format(what=what[0].upper() + what[1:] if code in ('POS', 'OUT', 'STG') else what, basis=(basis or '')[:260])
+            if e['same_exposure_as']: e['why'] += ' Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record ' + ', '.join(e['same_exposure_as']) + ' (both images were looked at).'
         out.append(e)
     n = {}
     for e in out: n[e['verdict'].split(':')[-1].strip() if not e['pose_ids'] else e['verdict']] = n.get(e['verdict'].split(':')[-1].strip() if not e['pose_ids'] else e['verdict'], 0) + 1

@@ -93,6 +93,15 @@ MANUAL_IMPL = {
 }
 DECISION_ONLY_NODES = {'RM-03': ['A41'], 'RM-98': ['A42']}   # nodes whose own text says "recorded as delegated rows"
 SAME_WORK = {'WP-PAGEC-03': 'WP-PAGE-03'}                      # the survey says "Same work."
+# what the merge passes ran and did not run (dated, a record of those passes: regenerating does not change it; a later pass appends its own entry)
+MERGE_NOTES = [
+    ('2026-11-14 (second merge pass, from 00:40 UTC)',
+     ['Read-only recount and spot checks (a few seconds of CPU each, no browser, nothing through the machine lock): `python3 docs/plan/STATUS/verify_merge.py` (does not import this generator) recomputed the chapter table, the totals, every OWNER_ONLY step, the coverage of every open item and the delegated-row links from items-A.json and items-B.json: 0 problems; `merge_status.py --check` and `check_backlog.py` held before any change (711 entries, 101 done).',
+      'node --test src/config/tokens.test.mjs src/foundation.test.mjs: 23 of 23 under Node 22.23.4 and under 24.22.1 (candidate wp-arch-09). node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline --rules REALTIME,TICK: REALTIME 12 (immersive 1, index 2, living-ledger 4, manifest 2, site-nav 1, watch-together 2) and TICK 9 on pages (watch-together 7, cinematic-export 2) plus 12 in assets/index-52cec836.js and data/moments.json, the figures of wp-content-09b. Direct reads of release/R1g/dist for the wave-1 entries: 404.html has no main, nav or skip link; no .well-known folder; no og:site_name on any page; description and og:description differ on 10 of 21 pages (privacy and terms have no og:description); ar.html calls getUserMedia before DeviceOrientationEvent.requestPermission.',
+      'Changes of this pass: the first batch is now a computed `next_batch` (rows C11 to C13); WP-ARCH-10 is cut into wp-arch-10-toolchain and wp-arch-10-build so that the unbuilt half of WP-ARCH-09 has an entry of its own; the paired-run script of ver-hist-node fixes its test-file list and hashed files once at the start; check_backlog.py checks every wave and the batch; its self-test has nine new cases and rejects every damaged copy.',
+      'The record of wp-arch-09 (its 23 tests on both Node versions and node --test tests/time/*.test.mjs, about 6 minutes in shared mode) was started through the machine lock at 00:44 UTC; the entry counts as done only when candidates/r1h/wp-arch-09/STATUS.json verifies (the wave tables show its state). The paired Node 22 and Node 24 historian run of ver-hist-node needs the timing lock, which waits for every job that already holds the machine lock: it is not run.',
+      'Not run by this pass: any browser suite, Lighthouse, any real device, the eight acceptance passes, the whole suites of tests/time, tests/data and tests/historian (nothing under src/lib/time, tools/time, tests/time, data-src, tools/data or tests/data changed since the survey runs of tests/time and tests/data, logged 2026-11-13 19:10 to 19:30 UTC: no file there is newer than 19:31 UTC).']),
+]
 OWNER_GATE = re.compile(r"(owner's review|owner reads|owner reviews|owner review|owner decides|owner and counsel|owner inputs|owner machine|the owner answers|a person's sign-off|named reviewer|by the reviewer|reviewer's|historian decides|human review|second labeller|someone who did not build|real[- ]browser pass|real[- ]phone|real iphone|real device|counsel|account step|owner step|waits for the owner|owner exports|owner-only|owner enables|owner upload)", re.I)
 CLASS_LABEL = {'candidate-group': 'candidate patch group (candidates/r1h/<id>/)', 'source-rebuild': 'source-rebuild (src/, historian-src/, data-src/)',
                'release-request': 'request to the release workstream', 'verification-record': 'verification record (evidence, not a change)', 'decision-record': 'decision record', 'umbrella': 'closes with its children'}
@@ -504,6 +513,8 @@ def build():
             e['short'] = auth['short']
             e['owed'] = auth.get('owed', '')
             e['value'] = auth['value']
+            if auth.get('title'):
+                e['title'] = auth['title']          # an authored entry may name its own scope when it covers only part of the item's title
             if auth.get('closes_in_part'):
                 e['closes_in_part'] = auth['closes_in_part']
             if auth.get('needs_split'):
@@ -829,7 +840,7 @@ def status_md(A, B, items, order, entries, result, rows):
         tot.update(cnt[ch])
     n_tot = sum(tot.values())
     L = []
-    L.append('# Main site: status of the master plan, 2026-11-13')
+    L.append('# Main site: status of the master plan, %s' % GENERATED)
     L.append('')
     L.append('Merged from `items-A.json` (chapters 01 to 08b, %d items) and `items-B.json` (chapters 09 to 16, %d items) by `python3 docs/plan/STATUS/merge_status.py`; the work list is `backlog.json` (one entry per open item) and the rules for candidates are in `candidates/r1h/README.md`. Nothing in this file is a claim about the live site: **nothing is deployed** (ops/RELEASE-LOG.md has no deploy row, production still serves deploy 6abd6d62); every SHIPPED item is in the release candidate, train R1g (release id 52cec836), only.' % (A['total'], B['total']))
     L.append('')
@@ -857,6 +868,13 @@ def status_md(A, B, items, order, entries, result, rows):
             continue
         seen.add(k)
         L.append('- ' + f)
+    L.append('')
+    L.append('### What the merge passes ran')
+    L.append('')
+    for when, lines in MERGE_NOTES:
+        L.append('- **%s**' % when)
+        for ln in lines:
+            L.append('  - ' + ln)
     L.append('')
     L.append('## By chapter')
     L.append('')
@@ -910,7 +928,7 @@ def status_md(A, B, items, order, entries, result, rows):
     L.append('')
     for wn, lst in WAVE_ORDERS:
         n_done = sum(1 for sid in lst if entries[sid]['done'])
-        L.append('### Wave %d: %s (%d entries, %d done)' % (wn, 'the first dispatch batch' if wn == 1 else 'entries authored after wave 1', len(lst), n_done))
+        L.append('### Wave %d: %s (%d %s, %d done)' % (wn, 'the first dispatch batch' if wn == 1 else 'entries authored after wave 1', len(lst), 'entry' if len(lst) == 1 else 'entries', n_done))
         L.append('')
         if wn == 1:
             L.append('Authored against the repository; pairwise independent (disjoint write sets, no dependency between them; the few shared files are changed by small edits only and named in `shared_files`). An entry stays listed when it is done.')
@@ -980,7 +998,9 @@ def status_md(A, B, items, order, entries, result, rows):
     L.append('```')
     L.append('python3 docs/plan/STATUS/merge_status.py            # rewrite STATUS.md and backlog.json from items-A.json, items-B.json and the repository')
     L.append('python3 docs/plan/STATUS/merge_status.py --check    # exit 1 when they are stale')
-    L.append('python3 docs/plan/STATUS/check_backlog.py           # validate backlog.json and every done claim')
+    L.append('python3 docs/plan/STATUS/check_backlog.py           # validate backlog.json, the waves, the next batch and every done claim')
+    L.append('python3 docs/plan/STATUS/verify_merge.py             # independent recount from items-A.json and items-B.json (does not import the generator)')
+    L.append('python3 docs/plan/STATUS/check_backlog_selftest.py    # proves the validator can fail')
     L.append('python3 docs/plan/STATUS/check_backlog.py --rerun <id>   # re-run the recorded check of one entry')
     L.append('```')
     L.append('')

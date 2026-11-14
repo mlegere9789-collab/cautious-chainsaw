@@ -162,6 +162,14 @@ def report_heading(rec_id):
     _HEADS[rec_id] = collections.OrderedDict(text=text, text_offset=a, text_offset_end=b)
     return _HEADS[rec_id]
 
+LIBPAGES_P = os.path.join(G, 'horde', 'tl-03', 'library_pages.json')
+_LP = None
+def _libpages():
+    global _LP
+    if _LP is None:
+        _LP = json.load(open(LIBPAGES_P, encoding='utf-8'))['entries'] if os.path.exists(LIBPAGES_P) else {}
+    return _LP
+
 def sha_file(p):
     h = hashlib.sha256(); h.update(open(p, 'rb').read()); return h.hexdigest()
 
@@ -223,6 +231,11 @@ class QuoteError(Exception):
 
 def resolve(cid, c):
     """verify one citation; returns the full citation record"""
+    if c['src'] == 'COMPUTED':
+        out = collections.OrderedDict(key=cid, source_id='COMPUTED', work='computation', what=c['what'], value=c['value'], method=c['method'])
+        for k in ('supports', 'note', 'image_check', 'reading', 'witness'):
+            if c.get(k): out[k] = c[k]
+        return out
     q = norm_query(c['quote'])
     if len(q) < 8: raise QuoteError('%s: quote too short' % cid)
     if c['src'] == 'OR27':
@@ -261,14 +274,32 @@ def resolve(cid, c):
         n = nt.count(q)
         pg, basis = FIXED_PAGE.get(sid, (None, None))
         if pg is None: pg, basis = lib_page(sid, nt, i)
-        if c.get('page') and pg is not None and str(c['page']) != str(pg):
-            raise QuoteError('%s: page stated %s, recovered %s in %s' % (cid, c['page'], pg, sid))
-        if c.get('page') and pg is None: pg, basis = str(c['page']), c.get('page_basis') or 'stated from the running head read in the text'
+        dec = None; model_pg = None
+        if not sid.startswith('NPS'):
+            # printed page of an archive.org item: decided per citation in horde/tl-03/library_pages.json (tmp/tl-03/audit/libpages3.py): the number printed
+            # at the top of the scan leaf, checked against the item's own page index; hand decisions carry their reason
+            dec = _libpages().get('%s@%d' % (sid, nm[i]))
+            if dec is None:
+                if os.environ.get('TL3_NOPAGES'):
+                    dec = dict(page=pg, basis='PENDING decision', method='pending', leaf=None)
+                else:
+                    raise QuoteError('%s: no page decision for %s@%d in library_pages.json (run tmp/tl-03/audit/libpages3.py)' % (cid, sid, nm[i]))
+            if c.get('page') is not None and dec.get('page') is not None and str(c['page']) != str(dec['page']):
+                raise QuoteError('%s: page stated %s, decided %s in %s (%s)' % (cid, c['page'], dec['page'], sid, dec.get('method')))
+            if pg is not None and dec.get('page') is not None and str(pg) != str(dec['page']): model_pg = pg
+            pg, basis = dec.get('page'), dec['basis']
+        else:
+            if c.get('page') and pg is not None and str(c['page']) != str(pg):
+                raise QuoteError('%s: page stated %s, recovered %s in %s' % (cid, c['page'], pg, sid))
+            if c.get('page') and pg is None: pg, basis = str(c['page']), c.get('page_basis') or 'stated from the running head read in the text'
         out = collections.OrderedDict(key=cid, source_id=sid, work=LABEL.get(sid) or LIB[sid].get('title'), part=None, report_id=None,
               author=c.get('author'), printed_page=pg, page_basis=basis,
               quote=q, text_offset=nm[i], text_offset_end=nm[i + len(q) - 1] + 1, source_file=rel, sha256=sha,
               archive_identifier=LIB[sid].get('archive_identifier'), library_index=LIB[sid]['index'],
               source_class=CLASS.get(sid) or ('National Park Service study (text layer of the PDF; page = PDF page)' if sid.startswith('NPS') else None))
+        if dec and dec.get('leaf') is not None:
+            out['scan'] = collections.OrderedDict(archive_identifier=dec.get('archive_identifier'), leaf=dec['leaf'], leaf_head_read=dec.get('head'), item_page_index=dec.get('index_page'))
+        if model_pg is not None: out['page_running_head_model'] = model_pg
         if n > 1: out['occurrences_in_text'] = n
     for k in ('reading', 'supports', 'note', 'image_check', 'witness'):
         if c.get(k): out[k] = c[k]
@@ -419,10 +450,15 @@ def main():
         for e in errs: print(' -', e)
         sys.exit(1)
     print('rows %d, citations verified verbatim %d' % (len(out_rows), nq))
+    if '--libcites' in sys.argv:
+        dump = [dict(rid=line_['id'], key=c_['key'], source_id=c_['source_id'], text_offset=c_['text_offset'], text_offset_end=c_['text_offset_end'], archive_identifier=c_.get('archive_identifier'),
+                     source_file=c_.get('source_file'), quote=c_['quote']) for r_, line_, cites_ in out_rows for c_ in cites_.values() if c_['source_id'] not in ('OR27', 'COMPUTED') and not c_['source_id'].startswith('NPS')]
+        json.dump(dump, open(sys.argv[sys.argv.index('--libcites') + 1], 'w', encoding='utf-8'), indent=0)
+        print('library citations dumped:', len(dump)); return
     if '--show' in sys.argv:
         for r_, line_, cites_ in out_rows:
             for k_, c_ in cites_.items():
-                print('  %s %-12s %-26s %-13s p.%-9s @%-8s %s' % (line_['id'], k_, c_['source_id'], c_.get('report_id') or '', c_.get('printed_page'), c_['text_offset'], ('| ' + (c_.get('page_basis') or '')[:60]) if not c_.get('report_id') else ''))
+                print('  %s %-12s %-26s %-13s p.%-9s @%-8s %s' % (line_['id'], k_, c_['source_id'], c_.get('report_id') or '', c_.get('printed_page'), c_.get('text_offset'), ('| ' + (c_.get('page_basis') or '')[:60]) if not c_.get('report_id') else ''))
     if check_only: return
     # ---- corrections file
     cdir = os.path.join(G, 'timeline_corrections'); os.makedirs(cdir, exist_ok=True)

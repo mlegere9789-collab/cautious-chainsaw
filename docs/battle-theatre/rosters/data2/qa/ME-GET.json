@@ -5,19 +5,23 @@
   "ME-GET-officers": {
    "pages_in_stratum": 8,
    "rows_in_stratum": 195,
-   "pages_looked_at": 0,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "pages_looked_at": 1,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 16,
+   "draw_positions": [
+    1
+   ],
+   "pages": [
+    "maineatgettysbur01main/513"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 16,
+     "errors": 6,
+     "rate_percent": 37.5,
+     "upper95_percent": 60.9,
+     "lower95_percent": 17.78,
+     "decision": "FAIL"
     },
     "R-G2": {
      "rows": 0,
@@ -28,20 +32,20 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 0,
+     "rows": 16,
      "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
+     "rate_percent": 0.0,
+     "upper95_percent": 17.07,
      "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 16,
+     "errors": 1,
+     "rate_percent": 6.25,
+     "upper95_percent": 26.4,
+     "lower95_percent": 0.32,
+     "decision": "OPEN"
     },
     "any": {
      "rows": 0,
@@ -52,28 +56,43 @@
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
-   "missed_lines": 0,
+   "error_kinds_count": {
+    "name-cut": 5,
+    "rem-char": 1,
+    "name-nonperson": 1
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-nonperson": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "name-cut": 5,
+    "rem-char": 1
+   },
+   "missed_lines": 1,
    "census_complete": false
   },
   "ME-GET-other": {
    "pages_in_stratum": 75,
    "rows_in_stratum": 4227,
-   "pages_looked_at": 0,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "pages_looked_at": 2,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 114,
+   "draw_positions": [
+    1,
+    2
+   ],
+   "pages": [
+    "maineatgettysbur01main/146",
+    "maineatgettysbur01main/447"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 114,
+     "errors": 13,
+     "rate_percent": 11.4,
+     "upper95_percent": 17.52,
+     "lower95_percent": 6.88,
+     "decision": "FAIL"
     },
     "R-G2": {
      "rows": 0,
@@ -84,20 +103,20 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 114,
+     "errors": 2,
+     "rate_percent": 1.75,
+     "upper95_percent": 5.42,
+     "lower95_percent": 0.31,
+     "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 114,
+     "errors": 15,
+     "rate_percent": 13.16,
+     "upper95_percent": 19.54,
+     "lower95_percent": 8.29,
+     "decision": "FAIL"
     },
     "any": {
      "rows": 0,
@@ -108,12 +127,36 @@
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
-   "missed_lines": 0,
+   "error_kinds_count": {
+    "rem-missing": 11,
+    "name-nonperson": 3,
+    "name-cut": 10,
+    "rem-char": 3,
+    "name-char": 2,
+    "rem-extra": 1,
+    "rank": 2
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-nonperson": 3,
+    "name-cut": 8,
+    "rem-missing": 3,
+    "rem-extra": 1,
+    "rank": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "rem-missing": 8,
+    "name-cut": 2,
+    "rem-char": 3,
+    "name-char": 2,
+    "rank": 1
+   },
+   "missed_lines": 2,
    "census_complete": false
   }
  },
- "verdicts": []
+ "verdicts": [
+  "maineatgettysbur01main/513",
+  "maineatgettysbur01main/146",
+  "maineatgettysbur01main/447"
+ ]
 }

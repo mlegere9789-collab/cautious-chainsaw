@@ -325,6 +325,26 @@
    "text_quality": "photocopied typescript; the OCR text layer has letter-spacing noise and some wrong letters (bam for barn) and digits (190U for 1904, 1903 for 1905); quoted in the cleaned form with {{saved|fixed}} marks and checked against page images",
    "state_dates_note": "Chapters I-IV give the farm's ownership and the Slentz tenancy to 1863; chapter V the fighting of July 1 on the farm; chapter VI the hospital use and the losses; chapters VII-VIII the later owners, the fire of 1895 and the repairs of the barn in 1905 and 1917 (a later state of the barn, never an 1863 profile); appendices hold the damage claims and the Brady photographs.",
    "used_for_extracts": "yes (extracts/src/99-mcpherson-hs.xdef: PDF pp. 20-90 in part; page images viewed 23, 28, 43, 48, 53, 73, 80, 83, 84, 85, 89, 90; the appendices (claims, photographs, chain of title) and the rest of chapter V are owed)"
+  },
+  "NPS-HSR-MCCLEAN-BARN": {
+   "title": "Historic Structure Report: The McClean Barn, Gettysburg National Military Park (CX 4000-5-0011)",
+   "author": "Kenneth W. Holt, P.E., Consulting Structural Engineer, and John M. Dickey, F.A.I.A., Media, Pennsylvania, for the National Park Service",
+   "date": "July 1985",
+   "from": "PDF p. 1 (title page: 'Historic Structure Report The McClean Barn ... CX 4000-5-0011 July 1985 Kenneth W. Holt, P.E. Consulting Structural Engineer John M. Dickey, F.A.I.A.')",
+   "default_variant": "raw",
+   "text_quality": "the standard text interleaves the lines of the report's wide text frames and mixes the order of words; the content-stream-order text (pdftotext -raw, scripts/rawtext.py) reads cleanly and is the default for quotes",
+   "state_dates_note": "A structural report of 1985 on the existing barn: its history and fabric sections (PDF pp. 13-40) state which parts of the barn date from about 1854 (the frame barn that stood in 1863) and which are additions of c. 1869, c. 1880 and c. 1890 demolished in 1944; the recommendations (pp. 44-56) say what of 1863 the barn keeps.",
+   "used_for_extracts": "yes (extracts/src/a0-hsr-mcclean-barn.xdef; raw text variant)"
+  },
+  "NPS-CLR-CEMETERY": {
+   "title": "Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park: Site History, Existing Conditions, Analysis and Evaluation, Treatment Recommendations",
+   "author": "John Auwaerter (with Christopher Anderson, Catherine Ponte, Nathan Powers and Pamela Selby, student assistants); George W. Curry, Project Director; SUNY College of Environmental Science and Forestry; Olmsted Center for Landscape Preservation, National Park Service, Boston",
+   "date": "2017",
+   "from": "PDF pp. 2-3 (title page and copyright page: 'Olmsted Center for Landscape Preservation, National Park Service, Boston, Massachusetts 2017')",
+   "default_variant": "raw",
+   "text_quality": "two-column report: the standard text interleaves the columns and the picture captions; the content-stream-order text (pdftotext -raw, scripts/rawtext.py) reads cleanly and is the default for quotes",
+   "state_dates_note": "Site history chapter 'Before the National Cemetery, to July 1863' (PDF pp. 30-56, printed pp. 11-37) describes the site as it stood in July 1863 with Drawing 1.1 (PDF p. 54, looked at as an image); the chapters on 1863-1872, 1872-1933 and 1933 onward (pp. 57-200) describe the national cemetery built after the battle (later features); the existing-conditions and treatment chapters describe 2013.",
+   "used_for_extracts": "yes (extracts/src/a2-clr-cemetery.xdef; raw text variant; PDF pp. 42-49 and 54 only; the later chapters are owed)"
   }
  }
 }

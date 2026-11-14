@@ -23,30 +23,14 @@ node --test docs/battle-theatre/app/tests/casualties.test.mjs # through tools/ho
 
 When done, append `-- handled: <what was done>` to this note with a shell `>>`.
 
--- ready patch (bt-spec-health, staging packer, 2026-11-14 00:49 UTC): nobody's ownership list names app/tools/build-guns.mjs, so the change is prepared as one patch, made against the files as they stand and checked with 'git apply --check -p1' (not applied; the files are not mine). The committed battery-guns.json equals the output of build() today, so the patch is exactly what a regeneration gives (tests/casualties.test.mjs line 146 compares the two). Whoever takes the file applies it from the repository root with 'git apply -p1 <this block saved as a file>' (a copy is at tmp/bt-spec/r4/patches/build-guns-doc.diff on the build machine):
+-- ready change (bt-spec-health, staging packer, 2026-11-14 01:06 UTC): nobody's ownership list names app/tools/build-guns.mjs, so the change is prepared as a script that anyone can run from the repository root (it works whatever the line endings of the files are, and refuses to run if a file no longer holds the sentence exactly once). The committed battery-guns.json equals the output of build() today, so the two edits together are exactly what a regeneration gives (tests/casualties.test.mjs line 146 compares the two). Checked on a copy of both files; not run on the files (they are not mine).
 
-```diff
-diff -ruN a/docs/battle-theatre/app/data/battery-guns.json b/docs/battle-theatre/app/data/battery-guns.json
---- a/docs/battle-theatre/app/data/battery-guns.json
-+++ b/docs/battle-theatre/app/data/battery-guns.json
-@@ -1,6 +1,6 @@
- {
-  "version": 1,
-- "_doc": "Gun counts as STATED in the kit data (PDF B.6.14), keyed to the batteries of the order of battle. A battery not listed here has no stated gun count and is drawn without guns (its card says so); no default count (the 4-gun Confederate default of the PDF is a total check only) is ever applied. Built by app/tools/build-guns.mjs.",
-+ "_doc": "Gun counts as STATED in the kit data (PDF B.6.14), keyed to the batteries of the order of battle. A battery not listed here has no stated gun count and is drawn without guns (its card says so); no default count (the 4-gun Confederate default of the PDF is a total check only) is ever applied.",
-  "kit_counts": {
-   "batteries_in_kit": 125,
-   "with_stated_guns": 29
-diff -ruN a/docs/battle-theatre/app/tools/build-guns.mjs b/docs/battle-theatre/app/tools/build-guns.mjs
---- a/docs/battle-theatre/app/tools/build-guns.mjs
-+++ b/docs/battle-theatre/app/tools/build-guns.mjs
-@@ -27,7 +27,7 @@
-   }
-   return {
-     version: 1,
--    _doc: 'Gun counts as STATED in the kit data (PDF B.6.14), keyed to the batteries of the order of battle. A battery not listed here has no stated gun count and is drawn without guns (its card says so); no default count (the 4-gun Confederate default of the PDF is a total check only) is ever applied. Built by app/tools/build-guns.mjs.',
-+    _doc: 'Gun counts as STATED in the kit data (PDF B.6.14), keyed to the batteries of the order of battle. A battery not listed here has no stated gun count and is drawn without guns (its card says so); no default count (the 4-gun Confederate default of the PDF is a total check only) is ever applied.',
-     kit_counts: { batteries_in_kit: Object.keys(ab.batteries).length, with_stated_guns: stated.length },
-     matched: matched.sort((a, b) => a.history.localeCompare(b.history)), combined, unmatched,
-     detachment: { crew_per_piece: 9, basis: 'the printed manuals’ detachment: gunner and Nos. 1-7, chief of caisson ninth (kit/KIT-NOTES.md section 4 item 11; drill/drill_artillery.json); the PDF’s “eight at the piece” leaves the chief of caisson with the caisson', tier: 'documented', source_keys: ['FIELDART-1863'], limbers_behind_m: [10, 15], limbers_note: 'PDF B.6.14.9 inferred 10-15 yd behind; the manual puts the limber end-of-pole 6 yd from the trail handspike when unlimbered (inferred, weak)', teams: { teams_per_gun: 2, horses_per_team: 6, drivers_per_team: 3 } },
+```js
+// node remove-build-guns-sentence.mjs
+import fs from 'node:fs';
+const OLD = ' Built by app/tools/build-guns.mjs.';
+for (const f of ['docs/battle-theatre/app/tools/build-guns.mjs', 'docs/battle-theatre/app/data/battery-guns.json']) {
+  const s = fs.readFileSync(f, 'utf8'); if (s.split(OLD).length !== 2) throw new Error(f + ' does not hold the sentence exactly once');
+  fs.writeFileSync(f, s.replace(OLD, '')); console.log('changed ' + f);
+}
 ```

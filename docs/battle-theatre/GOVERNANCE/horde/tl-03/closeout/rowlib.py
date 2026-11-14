@@ -9,6 +9,10 @@ S_LIB = 'the 108 local library texts (99 of library/acquired_2.json and 9 earlie
 def OR(quote, report=None, page=None, **kw):
     d = dict(src='OR27', quote=quote, report=report, page=page); d.update(kw); return d
 
+def CALC(what, value, method, **kw):
+    """A computed value (not a passage of a source): what is computed, the value, the method and the independent check."""
+    d = dict(src='COMPUTED', what=what, value=value, method=method); d.update(kw); return d
+
 def L(sid, quote, page=None, **kw):
     d = dict(src=sid, quote=quote, page=page); d.update(kw); return d
 

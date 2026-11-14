@@ -15,14 +15,16 @@ except the lines named in a U line.  The input is line oriented; row numbers are
     U <row> <why>                                                                   the line could not be read on the page (not counted)
     M <text>                                                                        a printed line of the units of the four items with no stored line
     N <text>                                                                        a note on the page
+    A ditto                                                                         tag rem-ditto on every row whose stored remarks hold the token 66 after the first
+                                                                                    token (the page prints ditto marks there); E lines take ranges: E 0-3,7 kind,kind | note
 
 Error kinds.  name-char (a character of the name differs), name-cut (the boundary of the name is wrong: part of the name stands in the
 remarks or part of the remarks in the name), name-nonperson (the stored name is no person line: a heading, a footnote, running text),
 rank (the rank or the carried heading is wrong), company (the company is wrong), rem-char (a character of a remark word differs),
 rem-date (a date or number of the remarks differs: R-G2), rem-missing (printed remark text is missing), rem-extra (text that is not this line's
-stands in the remarks), rem-bound (the remarks are those of another line), rem-order (the printed words are all there but in another order), merge (two printed entries stored as one), split (one printed entry
+stands in the remarks), rem-bound (the remarks are those of another line), rem-order (the printed words are all there but in another order), rem-ditto (a printed ditto mark stored as the digits 66), merge (two printed entries stored as one), split (one printed entry
 stored as two).  Gates: R-G1 = any name-* kind; R-G2 = rem-date; R-G3 (reading of the remark, cut of the entry) = rank, company, rem-char,
-rem-missing, rem-extra, rem-bound, rem-order, merge, split.  A line is in error when it has at least one kind.
+rem-missing, rem-extra, rem-bound, rem-order, rem-ditto, merge, split.  A line is in error when it has at least one kind.
 """
 import sys, os, re, json, time, collections
 
@@ -32,12 +34,24 @@ import qa_lib as Q
 import qa_compare as C
 import qa_render as RN
 
-KINDS = ('name-char', 'name-cut', 'name-nonperson', 'rank', 'company', 'rem-char', 'rem-date', 'rem-missing', 'rem-extra', 'rem-bound', 'rem-order', 'merge', 'split')
+KINDS = ('name-char', 'name-cut', 'name-nonperson', 'rank', 'company', 'rem-char', 'rem-date', 'rem-missing', 'rem-extra', 'rem-bound', 'rem-order', 'rem-ditto', 'merge', 'split')
 GATE = {'name-char': 'R-G1', 'name-cut': 'R-G1', 'name-nonperson': 'R-G1', 'rem-date': 'R-G2'}
 
 
 def vpath(pid):
     return os.path.join(Q.QA, 'pages', RN.page_stem(pid) + '.verdict.json')
+
+
+def expand(spec):
+    """'0,3-5,9' -> [0, 3, 4, 5, 9]"""
+    out = []
+    for part in spec.split(','):
+        if '-' in part:
+            a, b = part.split('-')
+            out.extend(range(int(a), int(b) + 1))
+        else:
+            out.append(int(part))
+    return out
 
 
 def parse(text, nrows):
@@ -52,22 +66,24 @@ def parse(text, nrows):
             v['levels'] = ln[7:].strip().upper()
             if not v['levels'] or set(v['levels']) - set('NDR'):
                 raise ValueError('levels: use N (names, headings, companies, structure), D (dates) and R (remarks)')
+        elif ln.startswith('A ditto'):
+            v['auto_ditto'] = True
         elif ln.startswith('E '):
             parts = [p.strip() for p in ln[2:].split('|')]
             head = parts[0].split(None, 1)
-            i = int(head[0])
             kinds = [k.strip() for k in head[1].split(',')]
             bad = [k for k in kinds if k not in KINDS]
-            if bad or not (0 <= i < nrows):
-                raise ValueError('bad E line: %r (kinds %s, row %d of %d)' % (ln, bad, i, nrows))
-            d = {'i': i, 'kinds': kinds}
-            for p in parts[1:]:
-                m = re.match(r'(stored|printed):\s*(.*)$', p, re.S)
-                if m:
-                    d[m.group(1)] = m.group(2)
-                else:
-                    d['note'] = (d.get('note', '') + ' ' + p).strip()
-            v['errors'].append(d)
+            for i in expand(head[0]):
+                if bad or not (0 <= i < nrows):
+                    raise ValueError('bad E line: %r (kinds %s, row %d of %d)' % (ln, bad, i, nrows))
+                d = {'i': i, 'kinds': list(kinds)}
+                for p in parts[1:]:
+                    m = re.match(r'(stored|printed):\s*(.*)$', p, re.S)
+                    if m:
+                        d[m.group(1)] = m.group(2)
+                    else:
+                        d['note'] = (d.get('note', '') + ' ' + p).strip()
+                v['errors'].append(d)
         elif ln.startswith('F '):
             parts = [p.strip() for p in ln[2:].split('|')]
             head = parts[0].split(None, 1)
@@ -92,6 +108,22 @@ def parse(text, nrows):
 def add(pid, text, keep=False):
     pg, rows, res, unstored, st = C.compare(pid)
     v = parse(text, len(rows))
+    if v.get('auto_ditto'):
+        # 'A ditto': the page prints ditto marks in cells of the table and the text layer stores them as the digits 66 (the sample reader confirms the print on the page);
+        # every row whose stored remarks hold the token 66 after the first token (the age) gets the kind rem-ditto
+        have = {e['i']: e for e in v['errors']}
+        for i, r in enumerate(rows):
+            toks = r['remarks'].split()
+            hit = any(t == '66' for t in toks[1:]) or any(toks[k] == '6' and toks[k + 1] == '6' for k in range(1, len(toks) - 1))
+            if hit:
+                if i in have:
+                    if 'rem-ditto' not in have[i]['kinds']:
+                        have[i]['kinds'].append('rem-ditto')
+                else:
+                    e = {'i': i, 'kinds': ['rem-ditto'], 'note': 'ditto mark stored as the digits 66'}
+                    v['errors'].append(e)
+                    have[i] = e
+        v['errors'].sort(key=lambda e: e['i'])
     if not v['looked']:
         raise ValueError('a verdict needs a looked: line (how the page was looked at)')
     read = Q.jload(os.path.join(Q.QA, 'pages', RN.page_stem(pid) + '.read.json'))

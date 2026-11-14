@@ -398,3 +398,15 @@ test('capture and replay: the driver writes the files the replay reads (same nam
   assert.ok(/WG\.capture = async function/.test(pg) && /delete gpu\.draw/.test(pg), 'the wrapper of gpu.draw is removed again after the frame'); assert.ok(!/Math\.random/.test(drv + rp + pg), 'no random choice in the capture, the replay or the page');
   assert.equal(WU_BYTES, 848, 'the weather uniform block the replay binds is the 848 bytes of the packer');
 });
+test('stored evidence of 2026-11-14: the six close views are clean on WebGPU with their pictures, and the second WebGPU implementation built every module and pipeline, refused every negative control, and compiled the other renderers\' WGSL', () => {
+  const R = path.join(APP, 'tests/results/weather3d-webgpu'), JS = f => JSON.parse(fs.readFileSync(path.join(R, f), 'utf8'));
+  const close = JS('close-webgpu-summary.json'), r = checkRun(close, { cases: 6 }); assert.equal(r.ok, true, r.problems.join('; ')); assert.equal(r.facts.compilerMessages, 0); assert.equal(r.facts.modules, 15); assert.equal(r.facts.purityChecks, 3); assert.equal(r.facts.resize, true); assert.equal(close.realGpu, false, 'a software run says so');
+  assert.deepEqual(Object.keys(close.cases), EXTRA_CASES.map(c => c.name), 'the six cases of EXTRA_CASES, in order');
+  for (const [n, c] of Object.entries(close.cases)) { assert.equal(c.validation, null, n); assert.ok(c.gpuStats.weatherDraws >= 1 && c.gpuStats.fxDraws >= 1, n + ' drew the weather and the sprites'); assert.ok(c.effects.nSprites > 0, n + ' has sprites'); const f = path.join(R, 'close-webgpu', n + '.png'); assert.equal(fs.readFileSync(f).subarray(1, 4).toString(), 'PNG', n + '.png'); }
+  assert.ok(close.cases['fire-night-jul3-2200'].pixels.all.min > 2, 'night is never black, close to a fire too (the darkest pixel of the frame is above the black floor)');
+  const si = JS('second-implementation-build.json'); assert.equal(si.ok, true, si.problems.join('; ')); assert.deepEqual(si.problems, []); assert.match(si.implementation, /^wgpu-native via wgpu-py/); assert.equal(si.software, true); assert.match(JSON.stringify(si.adapter), /SwiftShader/, 'the adapter is a software one, recorded');
+  assert.deepEqual(Object.keys(si.build.modules), ['weather3d-mul', 'weather3d-add', 'fx3d-sprites', 'fx3d-cull-compute']); assert.ok(Object.values(si.build.modules).every(Boolean) && Object.values(si.build.pipelines).length === 4 && Object.values(si.build.pipelines).every(Boolean));
+  assert.ok(Object.values(si.build.compiler_messages).every(m => Array.isArray(m) && m.length === 0), 'no compiler message');
+  assert.equal(Object.keys(si.controls).length, 5); assert.ok(Object.values(si.controls).every(v => /^refused/.test(v)), 'every negative control was refused: the positive results are not vacuous'); assert.ok(Object.keys(si.controls).some(k => /attached for writing and sampled/.test(k)), 'the usage-scope control');
+  assert.deepEqual(si.selftest, { ran: true, finite: true }); assert.equal(Object.keys(si.other_modules).length, 13); assert.ok(Object.values(si.other_modules).every(v => v === 'compiles'));
+});

@@ -39,7 +39,15 @@ def sky_table():
         for k, s in c['summary'].items():
             rows.append(f"| {cid} ({c['criterion']}) | {k} | {s['S1_rms_deg']} | {s['S1_class']} | {s['best_heading_deg']} / {s['best_field_deg']} | {s['controls_min']}, {s['controls_q1']}, {s['controls_median']}, {s['controls_max']} | {s['rank_of_station_among_25']} | {s['S2_discriminated']} | {s['agl_sensitivity_rms_deg'].get('5.0')} and {s['agl_sensitivity_rms_deg'].get('11.0')} |")
     return rows
-tied = [(f, conf[f['id']]) for f in figs if f['id'] in conf and conf[f['id']].get('loc')]; untied = [f for f in figs if f['id'] not in conf or not conf[f['id']].get('loc')]
+def _fig_loc(f):
+    cap = f['caption'].rstrip('. ')
+    t = conf.get(f['id'], {})
+    if t.get('loc'): return t['loc']
+    for s_ in st:
+        q = s_['quote'].rstrip('. ')
+        if s_['src'] == f['source'] and (cap == q or cap in q): return s_.get('loc') or []
+    return []
+tied = [f for f in figs if _fig_loc(f)]; untied = [f for f in figs if not _fig_loc(f)]
 L = []; A = L.append
 A('# Photo-match (gate Q16)\n')
 A('**Q16 text (gates.json):** "Photo-match tests at known camera positions of period photographs (staged-photograph flags respected)." Linked from the R12 terrain source items. **Status: not passing** (reviewed 2026-11-14). `passes` is not set on the gate or on any linked item.\n')
@@ -57,7 +65,7 @@ for t in G['what_is_needed']: A(f'- {t}')
 A('\n## Owner steps (not done here)\n')
 for t in G['owner_steps']: A(f'- {t}')
 A('\n## The first tests at a documented camera place\n')
-A('The National Park Service names the place of the camera for one exposure of the first set and one of the park\'s own prints: the view of Gettysburg from the Evergreen Cemetery lodge (the Cultural Landscape Report for Gettysburg National Cemetery, Figure 1.26: "looking north from the roof of the Evergreen Cemetery lodge shortly after the battle, July 1863", Library of Congress LC-B815-273, which is record 2018671576; two other reports call the same picture, as ppmsca 35051, a view northwest from Cemetery Hill) and the view east from the same building (Record of Treatment, volume I, Figure 213). The words north and northwest differ by 45 degrees: both are carried, as two poses (P27 and P28) of one place. The earlier poses of the same records, set at an assumed spot on Cemetery Hill (P06, P07), are kept with their verdicts and marked superseded.\n')
+A('The National Park Service names the place of the camera for two exposures of the catalogue: the view of Gettysburg from the Evergreen Cemetery lodge (the Cultural Landscape Report for Gettysburg National Cemetery, Figure 1.26: "looking north from the roof of the Evergreen Cemetery lodge shortly after the battle, July 1863", Library of Congress LC-B815-273, which is record 2018671576; two other reports call the same picture, as ppmsca 35051, a view northwest from Cemetery Hill) and the view east from the same building (Record of Treatment, volume I, Figure 213, the park\'s print OS2B-2037, which is record 2012647704 by image match). The words north and northwest differ by 45 degrees: both are carried, as two poses (P27 and P28) of one place. The earlier poses of the same records, set at an assumed spot on Cemetery Hill (P06, P07), are kept with their verdicts and marked superseded.\n')
 A('The pass criteria were written **before** the renders existed and are never changed after a render was looked at (`criteria.json`, with the time each was written and the check that no render of the poses existed then):\n')
 for cid in ('C-P27-P28-1', 'C-P27-P28-2', 'C-P29-1'):
     c = crit.get(cid)
@@ -79,10 +87,17 @@ for s in st:
     if s['id'] in keep: A(f"| {s['id']} | {', '.join(s.get('loc') or s.get('cand') or ['-'])} | {s['says']} | {s['source']['id'] if 'source' in s else s['src']}, {('p. ' + str(s['page'])) if s['page'] not in ('record', 'page') else s['page']} |")
 A(f'\nThe full list ({len(st)} statements, each with its verbatim quote, page and the sha256 of the saved text) is `tools/bt/photomatch/position_statements.json`; the same sub-claims are written as evidence lines to `GOVERNANCE/evidence_corrections/web-photomatch.jsonl`.\n')
 A('## The figures of the Record of Treatment: which picture is which\n')
-A(f'The National Park Service Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment (volumes I and II, 2018) prints {len(figs) } captioned 1863 photographs (plus a few modern and later ones) with a direction of view and, for some, a place, and names them by the park\'s collection number (GETT 41135, 2B-2063 and so on) or by a Library of Congress Digital ID. A park number says nothing about a Library of Congress record, so a figure is tied to a record only where the caption holds the Digital ID or where the figure image (extracted from the PDF) matched a catalogued image by feature matching (SIFT, ratio test, RANSAC homography; at least 45 inliers and either 100 or 1.3 times the best other record) **and** both images were looked at (`nps_figures_confirmed.json`). {len(tied)} of the {len(figs)} figures are tied to a catalogued record this way; the other {len(untied)} are prints of the park, of the Tipton, Boardman or Army Heritage collections, or are not in the catalogue.\n')
-A('| Figure | Caption words | Park or collection number | Tied to LOC record | Inliers |\n|---|---|---|---|---|')
+A(f'The National Park Service Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment (volumes I and II, 2018) prints {len(figs) } captioned 1863 photographs (plus a few modern and later ones) with a direction of view and, for some, a place, and names them by the park\'s collection number (GETT 41135, 2B-2063 and so on) or by a Library of Congress Digital ID. A park number says nothing about a Library of Congress record, so a figure is tied to a record only where the caption holds the Digital ID or where the figure image (extracted from the PDF) matched a catalogued image by feature matching (SIFT, ratio test, RANSAC homography; at least 45 inliers and either 100 or 1.3 times the best other record) **and** both images were looked at (`nps_figures_confirmed.json`). {len(tied)} of the {len(figs)} figures are tied to a catalogued record ({sum(1 for f in tied if conf.get(f['id'], {}).get('loc'))} by confirmed image match, the others by the Digital ID in the caption); the other {len(untied)} are prints of the park, of the Tipton, Boardman or Army Heritage collections, or are not in the catalogue.\n')
+A('| Figure | Caption words | Park or collection number | Tied to LOC record | Basis (inliers) |\n|---|---|---|---|---|')
+def fig_stmt(f):
+    cap = f['caption'].rstrip('. ')
+    for s_ in st:
+        q = s_['quote'].rstrip('. ')
+        if s_['src'] == f['source'] and (cap == q or cap in q): return s_
+    return None
 for f in figs:
-    t = conf.get(f['id'], {}); A(f"| {f['source'][-2:]} {f['figure']}, p. {f['pdf_page']} | view {f['direction_word']}{(' from ' + f['place_named']) if f['place_named'] else ''}{', detail' if f['is_detail'] else ''} | {fmt(f['park_or_collection_number'])} ({f['credit_kind']}) | {', '.join(t.get('loc', [])) or '-'} | {fmt(t.get('inliers'))} |")
+    t = conf.get(f['id'], {}); s_ = fig_stmt(f); locs = t.get('loc') or (s_ or {}).get('loc') or []; basis = ('image match (%s inliers)' % t['inliers']) if t.get('loc') else ('Digital ID in the caption' if locs else '-')
+    A(f"| {f['source'][-2:]} {f['figure']}, p. {f['pdf_page']} | view {f['direction_word']}{(' from ' + f['place_named']) if f['place_named'] else ''}{', detail' if f['is_detail'] else ''} | {fmt(f['park_or_collection_number'])} ({f['credit_kind']}) | {', '.join(locs) or '-'} | {basis} |")
 A(f'\nThe captions and the images are `tools/bt/photomatch/nps_figures.json`; the statements built from them (source ids PS-NPS-ROTV1-F and PS-NPS-ROTV2-F) are in `position_statements.json`.\n')
 A('## The wide search of the Library of Congress Civil War group\n')
 A(f'The first catalogue run read only the Civil War Photographs collection (cwp). The National Park Service cites two records outside it by Digital ID (ppmsca-12565 and ppmsca-18947), so the search was widened to the whole Civil War group (open JSON search, 950 results): {len(wide)} further photographs of 1863 that name Gettysburg were read and classified (`wide_data.py`): {wide_cls.get("POS", 0)} with a camera place named only loosely or not at all, {wide_cls.get("NEAR", 0)} near-field views, {wide_cls.get("STG", 0)} staged or flagged, {wide_cls.get("OUT", 0)} not July 1863 battlefield views (portraits, later photographs, hospital, dedication, not digitized). Most are second prints, stereo cards or Sketch Book plates of exposures already in the catalogue; where both images were looked at the tie is recorded in `same_exposure_as` of the registry entry.\n')

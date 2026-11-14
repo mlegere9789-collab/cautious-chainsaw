@@ -4,7 +4,7 @@ To: bt-gates (owner of GATE-SPEC and the runner of Q16). Nothing in requirements
 
 ## What changed in `tools/bt/photomatch/`
 
-- `photograph_registry.json`: one entry per catalogued record, now 189 (109 first run + 20 added + 62 of the wide search of the whole Civil War group, `catalogue: "wide search (third pass)"`); every entry has `same_exposure_as`, `superseded_pose_ids`, `staged_flag`, `class`, `verdict`. `catalogue_wide_items.json` (62 records) and `wide_images_ledger.json` (57 images, 5 records not digitized) are new inputs; `images_ledger.json` has 6 more files (two records outside cwp).
+- `photograph_registry.json`: one entry per catalogued record, now 191 (109 first run + 20 added + 62 of the wide search of the whole Civil War group, `catalogue: "wide search (third pass)"`); every entry has `same_exposure_as`, `superseded_pose_ids`, `staged_flag`, `class`, `verdict`. `catalogue_wide_items.json` (62 records) and `wide_images_ledger.json` (57 images, 5 records not digitized) are new inputs; `images_ledger.json` has 6 more files (two records outside cwp).
 - `poses.json`: 20 poses. New: P13 (rendered, verdict roughly), P27 and P28 (one exposure, the view of Gettysburg from the Evergreen Cemetery lodge, as two readings of the NPS direction word: north 0 degrees, northwest 315 degrees; they supersede P07 and P06, whose verdicts are kept), P29 (the view east from the same building, LOC record 2012647704). Fields: `position.place_documented` (true on P27, P28, P29), `superseded_by` / `supersedes`, `also_loc_ids` (other prints of the same exposure).
 - `verdicts.json` `gate_q16`: `passes` false; `documented_position_count` 0 (DD-PM-01: a coordinate, a lens and a plate); new `documented_place_count` (poses at a building of known outline that the National Park Service names as the camera place, with a cardinal word; DD-PM-06). The verdict words map to Q16.4 as before; a pose verdict is evidence, not the gate's verdict.
 - `criteria.json` (new): the pass criteria of the first tests at a documented place, each with `written_utc` and `render_existed_when_written: false`; `criteria_measurements.json` and `skyline_results.json` (new): the measured results. The skyline test fits three parameters (heading inside the NPS sector, lens, vertical shift) and says so; it is compared with 24 control stations.
@@ -18,4 +18,4 @@ To: bt-gates (owner of GATE-SPEC and the runner of Q16). Nothing in requirements
 
 ## Counts the runner section quotes (re-read from the files at run time, never constants)
 
-127 records and 16 poses at the second pass; now 189 records, 20 poses (P01 to P29 with gaps), 145 statements. `tests/photomatch.test.mjs` (not mine) still fails as described in `bt-web-photomatch-old-test.md`.
+127 records and 16 poses at the second pass; now 191 records, 20 poses (P01 to P29 with gaps), 145 statements. `tests/photomatch.test.mjs` (not mine) still fails as described in `bt-web-photomatch-old-test.md`.

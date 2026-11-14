@@ -1,6 +1,6 @@
 {
  "f": "roster-qa-stats/1",
- "rules": "Counts, error kinds and one-sided 95 percent Clopper-Pearson bounds of the independent sample, per stratum (data2/qa/stats.json).\n\n    python3 -I qa_stats.py            read every data2/qa/pages/*.verdict.json, write data2/qa/stats.json and data2/qa/<family>.json, print a table\n\nGates (PLAN.md 4.3, 4.4; kinds are defined in qa_verdict.py):\n  R-G1 names           rows with a name-* kind among all rows looked at (level N: every page)\n  R-G2 dates           rows with a rem-date kind among the rows of pages looked at at level D\n  R-G3a structure      rows with a rank, company, merge or split kind among all rows looked at (level N)\n  R-G3b remark reading rows with a rem-char, rem-missing, rem-extra, rem-bound or rem-order kind among the rows of pages looked at at level R\n  any error            rows with any kind among the rows of pages looked at at all three levels (NDR)\nDecision per gate and stratum (the ladder of PLAN.md 4.4, never lowered): PASS when n >= 299 with 0 errors, n >= 473 with at most 1, n >= 628 with at\nmost 2, or n >= 773 with at most 3 (upper bound 1.0 percent); FAIL when 4 or more errors are found (no sample of the ladder can then pass);\nCENSUS when every page of the stratum was looked at (the rate is exact, the bound is not needed); OPEN otherwise (not enough rows yet).\nA level not looked at on a page (levels in the verdict) is not counted for its gate.\n",
+ "rules": "Counts, error kinds and one-sided 95 percent Clopper-Pearson bounds of the independent sample, per stratum (data2/qa/stats.json).\n\n    python3 -I qa_stats.py            read every data2/qa/pages/*.verdict.json, write data2/qa/stats.json and data2/qa/<family>.json, print a table\n\nGates (PLAN.md 4.3, 4.4; kinds are defined in qa_verdict.py):\n  R-G1 names           rows with a name-* kind among all rows looked at (level N: every page)\n  R-G2 dates           rows with a rem-date kind among the rows of pages looked at at level D\n  R-G3a structure      rows with a rank, company, merge or split kind among all rows looked at (level N)\n  R-G3b remark reading rows with a rem-char, rem-missing, rem-extra, rem-bound, rem-order or rem-ditto kind among the rows of pages looked at at level R\n  any error            rows with any kind among the rows of pages looked at at all three levels (NDR)\nDecision per gate and stratum (the ladder of PLAN.md 4.4, never lowered): PASS when n >= 299 with 0 errors, n >= 473 with at most 1, n >= 628 with at\nmost 2, or n >= 773 with at most 3 (upper bound 1.0 percent); FAIL when 4 or more errors are found (no sample of the ladder can then pass);\nCENSUS when every page of the stratum was looked at (the rate is exact, the bound is not needed); OPEN otherwise (not enough rows yet).\nA level not looked at on a page (levels in the verdict) is not counted for its gate.\n",
  "strata": {
   "MA-SSM-officers": {
    "pages_in_stratum": 19,
@@ -160,19 +160,23 @@
   "ME-GET-officers": {
    "pages_in_stratum": 8,
    "rows_in_stratum": 195,
-   "pages_looked_at": 0,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "pages_looked_at": 1,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 16,
+   "draw_positions": [
+    1
+   ],
+   "pages": [
+    "maineatgettysbur01main/513"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 16,
+     "errors": 6,
+     "rate_percent": 37.5,
+     "upper95_percent": 60.9,
+     "lower95_percent": 17.78,
+     "decision": "FAIL"
     },
     "R-G2": {
      "rows": 0,
@@ -183,20 +187,20 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 0,
+     "rows": 16,
      "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
+     "rate_percent": 0.0,
+     "upper95_percent": 17.07,
      "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 16,
+     "errors": 1,
+     "rate_percent": 6.25,
+     "upper95_percent": 26.4,
+     "lower95_percent": 0.32,
+     "decision": "OPEN"
     },
     "any": {
      "rows": 0,
@@ -207,28 +211,43 @@
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
-   "missed_lines": 0,
+   "error_kinds_count": {
+    "name-cut": 5,
+    "rem-char": 1,
+    "name-nonperson": 1
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-nonperson": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "name-cut": 5,
+    "rem-char": 1
+   },
+   "missed_lines": 1,
    "census_complete": false
   },
   "ME-GET-other": {
    "pages_in_stratum": 75,
    "rows_in_stratum": 4227,
-   "pages_looked_at": 0,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "pages_looked_at": 2,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 114,
+   "draw_positions": [
+    1,
+    2
+   ],
+   "pages": [
+    "maineatgettysbur01main/146",
+    "maineatgettysbur01main/447"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 114,
+     "errors": 13,
+     "rate_percent": 11.4,
+     "upper95_percent": 17.52,
+     "lower95_percent": 6.88,
+     "decision": "FAIL"
     },
     "R-G2": {
      "rows": 0,
@@ -239,20 +258,20 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 114,
+     "errors": 2,
+     "rate_percent": 1.75,
+     "upper95_percent": 5.42,
+     "lower95_percent": 0.31,
+     "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 114,
+     "errors": 15,
+     "rate_percent": 13.16,
+     "upper95_percent": 19.54,
+     "lower95_percent": 8.29,
+     "decision": "FAIL"
     },
     "any": {
      "rows": 0,
@@ -263,28 +282,52 @@
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
-   "missed_lines": 0,
+   "error_kinds_count": {
+    "rem-missing": 11,
+    "name-nonperson": 3,
+    "name-cut": 10,
+    "rem-char": 3,
+    "name-char": 2,
+    "rem-extra": 1,
+    "rank": 2
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-nonperson": 3,
+    "name-cut": 8,
+    "rem-missing": 3,
+    "rem-extra": 1,
+    "rank": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "rem-missing": 8,
+    "name-cut": 2,
+    "rem-char": 3,
+    "name-char": 2,
+    "rank": 1
+   },
+   "missed_lines": 2,
    "census_complete": false
   },
   "ME-IDX-officers": {
    "pages_in_stratum": 6,
    "rows_in_stratum": 104,
-   "pages_looked_at": 0,
+   "pages_looked_at": 1,
    "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "rows_looked_at": 24,
+   "draw_positions": [
+    2
+   ],
+   "pages": [
+    "supplementtoannu00main/269"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 24,
+     "errors": 6,
+     "rate_percent": 25.0,
+     "upper95_percent": 43.47,
+     "lower95_percent": 11.49,
+     "decision": "FAIL"
     },
     "R-G2": {
      "rows": 0,
@@ -295,20 +338,20 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 24,
+     "errors": 1,
+     "rate_percent": 4.17,
+     "upper95_percent": 18.29,
+     "lower95_percent": 0.21,
+     "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 24,
+     "errors": 12,
+     "rate_percent": 50.0,
+     "upper95_percent": 68.06,
+     "lower95_percent": 31.94,
+     "decision": "FAIL"
     },
     "any": {
      "rows": 0,
@@ -319,28 +362,47 @@
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
-   "missed_lines": 0,
+   "error_kinds_count": {
+    "rem-char": 12,
+    "name-char": 6,
+    "rank": 1
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "rem-char": 2,
+    "name-char": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "name-char": 5,
+    "rem-char": 10,
+    "rank": 1
+   },
+   "missed_lines": 1,
    "census_complete": false
   },
   "ME-IDX-other": {
    "pages_in_stratum": 1145,
    "rows_in_stratum": 19559,
-   "pages_looked_at": 0,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "pages_looked_at": 3,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 49,
+   "draw_positions": [
+    3,
+    2,
+    1
+   ],
+   "pages": [
+    "supplementtoannu00main/681",
+    "supplementtoannu00main/964",
+    "supplementtoannu00main/979"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 49,
+     "errors": 16,
+     "rate_percent": 32.65,
+     "upper95_percent": 45.28,
+     "lower95_percent": 21.67,
+     "decision": "FAIL"
     },
     "R-G2": {
      "rows": 0,
@@ -351,20 +413,20 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 49,
+     "errors": 15,
+     "rate_percent": 30.61,
+     "upper95_percent": 43.16,
+     "lower95_percent": 19.91,
+     "decision": "FAIL"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 49,
+     "errors": 17,
+     "rate_percent": 34.69,
+     "upper95_percent": 47.38,
+     "lower95_percent": 23.45,
+     "decision": "FAIL"
     },
     "any": {
      "rows": 0,
@@ -375,121 +437,177 @@
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
-   "missed_lines": 0,
+   "error_kinds_count": {
+    "name-char": 16,
+    "rank": 15,
+    "rem-char": 17
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-char": 5
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "name-char": 11,
+    "rank": 15,
+    "rem-char": 17
+   },
+   "missed_lines": 2,
    "census_complete": false
   },
   "ME-RET-officers": {
    "pages_in_stratum": 22,
    "rows_in_stratum": 555,
-   "pages_looked_at": 0,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "pages_looked_at": 2,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 29,
+   "draw_positions": [
+    1,
+    2
+   ],
+   "pages": [
+    "annualreportofad1863main/224",
+    "annualreportofad1863main/685"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 29,
+     "errors": 15,
+     "rate_percent": 51.72,
+     "upper95_percent": 67.97,
+     "lower95_percent": 35.2,
+     "decision": "FAIL"
     },
     "R-G2": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 15,
+     "errors": 1,
+     "rate_percent": 6.67,
+     "upper95_percent": 27.94,
+     "lower95_percent": 0.34,
+     "decision": "OPEN"
     },
     "R-G3a": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 29,
+     "errors": 4,
+     "rate_percent": 13.79,
+     "upper95_percent": 28.84,
+     "lower95_percent": 4.85,
+     "decision": "FAIL"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 15,
+     "errors": 2,
+     "rate_percent": 13.33,
+     "upper95_percent": 36.34,
+     "lower95_percent": 2.42,
+     "decision": "OPEN"
     },
     "any": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
+     "rows": 15,
+     "errors": 5,
+     "rate_percent": 33.33,
+     "upper95_percent": 57.74,
+     "lower95_percent": 14.17,
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
-   "missed_lines": 0,
+   "error_kinds_count": {
+    "name-char": 3,
+    "merge": 4,
+    "name-cut": 5,
+    "name-nonperson": 8,
+    "rem-extra": 1,
+    "rem-missing": 1,
+    "rem-date": 1
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-char": 2,
+    "name-nonperson": 7,
+    "name-cut": 1,
+    "rem-date": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "merge": 4,
+    "name-cut": 4,
+    "name-nonperson": 1,
+    "rem-extra": 1,
+    "rem-missing": 1,
+    "name-char": 1
+   },
+   "missed_lines": 1,
    "census_complete": false
   },
   "ME-RET-other": {
    "pages_in_stratum": 296,
    "rows_in_stratum": 12078,
-   "pages_looked_at": 0,
+   "pages_looked_at": 1,
    "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "rows_looked_at": 51,
+   "draw_positions": [
+    3
+   ],
+   "pages": [
+    "annualreportofad1863main/365"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 51,
+     "errors": 6,
+     "rate_percent": 11.76,
+     "upper95_percent": 21.91,
+     "lower95_percent": 5.25,
+     "decision": "FAIL"
     },
     "R-G2": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 51,
+     "errors": 4,
+     "rate_percent": 7.84,
+     "upper95_percent": 17.06,
+     "lower95_percent": 2.72,
+     "decision": "FAIL"
     },
     "R-G3a": {
-     "rows": 0,
+     "rows": 51,
      "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
+     "rate_percent": 0.0,
+     "upper95_percent": 5.7,
      "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 51,
+     "errors": 42,
+     "rate_percent": 82.35,
+     "upper95_percent": 90.47,
+     "lower95_percent": 71.23,
+     "decision": "FAIL"
     },
     "any": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
+     "rows": 51,
+     "errors": 44,
+     "rate_percent": 86.27,
+     "upper95_percent": 93.38,
+     "lower95_percent": 75.76,
      "decision": null
     }
    },
-   "error_kinds_count": {},
+   "error_kinds_count": {
+    "name-char": 5,
+    "rem-ditto": 41,
+    "rem-extra": 4,
+    "rem-date": 4,
+    "rem-char": 4,
+    "name-cut": 1,
+    "rem-missing": 2
+   },
    "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
+   "error_kinds_on_rows_not_flagged": {
+    "name-char": 5,
+    "rem-ditto": 41,
+    "rem-extra": 4,
+    "rem-date": 4,
+    "rem-char": 4,
+    "name-cut": 1,
+    "rem-missing": 2
+   },
    "missed_lines": 0,
    "census_complete": false
   },
@@ -729,6 +847,6 @@
    "census_complete": false
   }
  },
- "pages_looked_at": 15,
- "rows_looked_at": 580
+ "pages_looked_at": 25,
+ "rows_looked_at": 863
 }

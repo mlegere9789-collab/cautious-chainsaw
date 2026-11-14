@@ -1439,6 +1439,13 @@
      "bytes": 8453,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-DEV-POLICY/NPS-DEV-POLICY.raw.txt",
+     "sha256": "6844ae32ac09ee40b0e8e81eea6c8363913d749f57548bc0cf91569af28a0b96",
+     "bytes": 8228,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
    "url": "https://www.npshistory.com/publications/gett/dev-policy.pdf"
@@ -1483,6 +1490,13 @@
      "bytes": 14790,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-HS-SPANGLER-HENRY/NPS-HS-SPANGLER-HENRY.raw.txt",
+     "sha256": "1908343c4995b5af70b48dffbc92e7f76abb2e3c78f4e8265efb214a21d19154",
+     "bytes": 14456,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
    "url": "https://www.npshistory.com/publications/gett/spangler-farm.pdf"
@@ -1521,6 +1535,13 @@
      "path": "tmp/library/web/nps/NPS-BRT-ECOLOGY/NPS-BRT-ECOLOGY.txt",
      "sha256": "92d7c6df35e79e499167a6ed9106bf3c9ebd1ceb9a6bb72ab8923548ba9783eb",
      "bytes": 27792,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-BRT-ECOLOGY/NPS-BRT-ECOLOGY.raw.txt",
+     "sha256": "3fb5edadd8b7e30c09951389784cccdbdaf2c38a9a060b3c3ff717cf4eff7a92",
+     "bytes": 27679,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
     }
@@ -1593,6 +1614,13 @@
      "bytes": 5563,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-MCMILLAN-HOUSE/NPS-MCMILLAN-HOUSE.raw.txt",
+     "sha256": "cb4a1ba320b2592914bd838bb3b6a62b529f41192e408dcb2ae24850f5ab675e",
+     "bytes": 4858,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
    "url": "https://www.npshistory.com/publications/gett/mcmillan-house-as.pdf"
@@ -1635,15 +1663,22 @@
      "bytes": 13079,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-EXTENSION-1940/NPS-EXTENSION-1940.raw.txt",
+     "sha256": "8fdadd6a5b12fbf73d15256bef3217c3231266a0572b658b80280ada8ba14897",
+     "bytes": 13040,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
    "url": "https://www.npshistory.com/publications/gett/extension-1940.pdf"
   },
   "NPS-HSR-MCCLEAN-BARN": {
-   "title": "Historic Structure Report: The McClean Barn, Gettysburg National Military Park",
+   "title": "Historic Structure Report: The McClean Barn, Gettysburg National Military Park (CX 4000-5-0011) (July 1985)",
    "class": "nps-report",
    "lead": false,
-   "edition": "Historic Structure Report: The McClean Barn, Gettysburg National Military Park",
+   "edition": "Historic Structure Report: The McClean Barn, Gettysburg National Military Park (CX 4000-5-0011) (July 1985)",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [],
@@ -1655,9 +1690,18 @@
      "bytes": 86630,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-HSR-MCCLEAN-BARN/NPS-HSR-MCCLEAN-BARN.raw.txt",
+     "sha256": "30981b5769fba1473063a8cb736efe2a1060b4591d9dd2c0f2eaa12fe6d94624",
+     "bytes": 81531,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
-   "url": "https://www.npshistory.com/publications/gett/hsr-mcclean-barn.pdf"
+   "url": "https://www.npshistory.com/publications/gett/hsr-mcclean-barn.pdf",
+   "notes": "two text files: main is the reading-order text, raw the content-stream-order text; raw is the default for quotes (the reading-order text interleaves the columns of this report)",
+   "default_file": "raw"
   },
   "NPS-HCSR": {
    "title": "Historic Cemetery Survey Report: Gettysburg National Military Park",
@@ -1675,6 +1719,13 @@
      "path": "tmp/library/web/nps/NPS-HCSR/NPS-HCSR.txt",
      "sha256": "d098184559cd7e974f99db91928fa9c6f150d179e3f66c2b8d71e3f50bf7c04b",
      "bytes": 53011,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-HCSR/NPS-HCSR.raw.txt",
+     "sha256": "2596b209dea4c6ca17b10809f4227d72b55229d56a88f19e8386d16a58be1ecd",
+     "bytes": 49041,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
     }
@@ -1799,6 +1850,13 @@
      "bytes": 31736,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-ROCK-CREEK/NPS-ROCK-CREEK.raw.txt",
+     "sha256": "e7dd3039fcd1efa7ddb821e2184fd5bc84fe993273e031548f9c6241fda1410f",
+     "bytes": 31716,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
    "url": "https://www.npshistory.com/publications/gett/rock-creek.pdf"
@@ -1839,15 +1897,22 @@
      "bytes": 4169,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-BRYAN-HOUSE/NPS-BRYAN-HOUSE.raw.txt",
+     "sha256": "e6f1628e939f798bd108bef2277c5a75a5238284107baa2f1859beea7ee162cd",
+     "bytes": 3861,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
    "url": "https://www.npshistory.com/publications/gett/bryan-house-restoration.pdf"
   },
   "NPS-HS-MCPHERSON": {
-   "title": "Edward McPherson Farm: Historical Study",
+   "title": "Edward McPherson Farm: Historical Study (October 1977 (title page; the day is garbled in the text layer))",
    "class": "nps-report",
    "lead": false,
-   "edition": "Edward McPherson Farm: Historical Study",
+   "edition": "Edward McPherson Farm: Historical Study (October 1977 (title page; the day is garbled in the text layer))",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [
@@ -1985,9 +2050,18 @@
      "bytes": 486113,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-TPG-COMMEM/NPS-TPG-COMMEM.raw.txt",
+     "sha256": "3dc3b62c9b3a8e0a719548bf345a7438086e39b1b424d62dddaad6ab6a3912df",
+     "bytes": 483541,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
-   "url": "https://www.npshistory.com/publications/gett/tpg-battlefield-com-area.pdf"
+   "url": "https://www.npshistory.com/publications/gett/tpg-battlefield-com-area.pdf",
+   "notes": "two text files: main is the reading-order text, raw the content-stream-order text; raw is the default for quotes (the reading-order text interleaves the columns of this report)",
+   "default_file": "raw"
   },
   "NPS-CLI-PCB": {
    "title": "Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National Military Park (2024)",
@@ -2030,9 +2104,18 @@
      "bytes": 1900019,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-CLR-1STDAY/NPS-CLR-1STDAY.raw.txt",
+     "sha256": "ee0cfb3a236f166dbd6902ec8889e81afd95c258bbc38b7a8ffb709c087015e9",
+     "bytes": 1884097,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
-   "url": "https://www.npshistory.com/publications/gett/clr-1-day-union-1-corps.pdf"
+   "url": "https://www.npshistory.com/publications/gett/clr-1-day-union-1-corps.pdf",
+   "notes": "two text files: main is the reading-order text, raw the content-stream-order text; raw is the default for quotes (the reading-order text interleaves the columns of this report)",
+   "default_file": "raw"
   },
   "NPS-CLR-ROT-V2": {
    "title": "Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume II (the remaining areas) (2018)",
@@ -2055,9 +2138,18 @@
      "bytes": 572783,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-CLR-ROT-V2/NPS-CLR-ROT-V2.raw.txt",
+     "sha256": "fcd5bf9ee15b8576191975305c0b68d5893577874fff0f9b8e710c8cbb3a8ec5",
+     "bytes": 567778,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
-   "url": "https://www.npshistory.com/publications/gett/clr-v2.pdf"
+   "url": "https://www.npshistory.com/publications/gett/clr-v2.pdf",
+   "notes": "two text files: main is the reading-order text, raw the content-stream-order text; raw is the default for quotes (the reading-order text interleaves the columns of this report)",
+   "default_file": "raw"
   },
   "NPS-CLR-ROT-V1": {
    "title": "Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume I (Areas 1-10) (2018)",
@@ -2080,15 +2172,24 @@
      "bytes": 770063,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-CLR-ROT-V1/NPS-CLR-ROT-V1.raw.txt",
+     "sha256": "f59b3f2c2fd12996c0c2359bd51987952fc0a26ba683571f8e33eac349134428",
+     "bytes": 764317,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
-   "url": "https://www.npshistory.com/publications/gett/clr-v1.pdf"
+   "url": "https://www.npshistory.com/publications/gett/clr-v1.pdf",
+   "notes": "two text files: main is the reading-order text, raw the content-stream-order text; raw is the default for quotes (the reading-order text interleaves the columns of this report)",
+   "default_file": "raw"
   },
   "NPS-CLR-CEMETERY": {
-   "title": "Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park",
+   "title": "Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park: Site History, Existing Conditions, Analysis and Evaluation, Treatment Recommendations (2017)",
    "class": "nps-report",
    "lead": false,
-   "edition": "Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park",
+   "edition": "Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park: Site History, Existing Conditions, Analysis and Evaluation, Treatment Recommendations (2017)",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [
@@ -2103,15 +2204,24 @@
      "bytes": 1516799,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-CLR-CEMETERY/NPS-CLR-CEMETERY.raw.txt",
+     "sha256": "23fd89061029f97de456eba99515ade5269d7557f0ffcb4ae7121e622558affd",
+     "bytes": 1502900,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
-   "url": "https://www.npshistory.com/publications/gett/clr-cemetery.pdf"
+   "url": "https://www.npshistory.com/publications/gett/clr-cemetery.pdf",
+   "notes": "two text files: main is the reading-order text, raw the content-stream-order text; raw is the default for quotes (the reading-order text interleaves the columns of this report)",
+   "default_file": "raw"
   },
   "NPS-GMP-1999-V1": {
-   "title": "Final General Management Plan and Environmental Impact Statement: Volume 1, Gettysburg National Military Park",
+   "title": "Final General Management Plan and Environmental Impact Statement, Volume 1: Gettysburg National Military Park (June 1999)",
    "class": "nps-report",
    "lead": false,
-   "edition": "Final General Management Plan and Environmental Impact Statement: Volume 1, Gettysburg National Military Park",
+   "edition": "Final General Management Plan and Environmental Impact Statement, Volume 1: Gettysburg National Military Park (June 1999)",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [
@@ -2188,15 +2298,22 @@
      "bytes": 82052,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-CEM-DEDICATION/NPS-CEM-DEDICATION.raw.txt",
+     "sha256": "50f5771d229797babe1b5f3e3161cbdb5f94811ddc2b850115398d150b77af9c",
+     "bytes": 77393,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
    "url": "https://www.npshistory.com/publications/gett/cemetery-dedication.pdf"
   },
   "NPS-NRCA-2017": {
-   "title": "Natural Resource Condition Assessment, Gettysburg National Military Park and Eisenhower National Historic Site",
+   "title": "Gettysburg National Military Park and Eisenhower National Historic Site Natural Resource Condition Assessment (Natural Resource Report NPS/NER/NRR-2017/1369) (January 2017)",
    "class": "nps-report",
    "lead": false,
-   "edition": "Natural Resource Condition Assessment, Gettysburg National Military Park and Eisenhower National Historic Site",
+   "edition": "Gettysburg National Military Park and Eisenhower National Historic Site Natural Resource Condition Assessment (Natural Resource Report NPS/NER/NRR-2017/1369) (January 2017)",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [],
@@ -2285,6 +2402,13 @@
      "bytes": 100154,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-SLYDER-GUIDE/NPS-SLYDER-GUIDE.raw.txt",
+     "sha256": "7abb5f225b24cfd08fb3cb68010ca2454ed8aa6fe8fb309e71715502612e2216",
+     "bytes": 99412,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
    "url": "https://www.npshistory.com/publications/gett/slyder-farm-guide.pdf"
@@ -2336,10 +2460,10 @@
    "url": "https://www.npshistory.com/publications/gett/common-pride-fame-2.pdf"
   },
   "NPS-COMMON-PRIDE-3": {
-   "title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863 \u2014 Part III",
+   "title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863, Part III (appendices) (January 1981 (as printed: 1/81))",
    "class": "nps-report",
    "lead": false,
-   "edition": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863 \u2014 Part III",
+   "edition": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863, Part III (appendices) (January 1981 (as printed: 1/81))",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [
@@ -2359,10 +2483,10 @@
    "url": "https://www.npshistory.com/publications/gett/common-pride-fame-3.pdf"
   },
   "NPS-DCP-LRT": {
-   "title": "Draft Development Concept Plan/Environmental Assessment: Little Round Top/Devil's Den, Gettysburg National Military Park, Pennsylvania",
+   "title": "Draft Development Concept Plan / Environmental Assessment: Gettysburg Little Round Top / Devil's Den, Gettysburg National Military Park, Pennsylvania (May 1985 (cover: 'draft development concept plan environmental assessment ... may 1985'))",
    "class": "nps-report",
    "lead": false,
-   "edition": "Draft Development Concept Plan/Environmental Assessment: Little Round Top/Devil's Den, Gettysburg National Military Park, Pennsylvania",
+   "edition": "Draft Development Concept Plan / Environmental Assessment: Gettysburg Little Round Top / Devil's Den, Gettysburg National Military Park, Pennsylvania (May 1985 (cover: 'draft development concept plan environmental assessment ... may 1985'))",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [],
@@ -2379,10 +2503,10 @@
    "url": "https://www.npshistory.com/publications/gett/dcp-ea-little-round-top.pdf"
   },
   "NPS-DCP-GUINN": {
-   "title": "Development Concept Plan: Guinn Woods Administrative Site Gettysburg National Military Park, Pennsylvania",
+   "title": "Development Concept Plan: Guinn Woods Administrative Site, Gettysburg National Military Park, Pennsylvania (1989 (recommended March 8, 1989; concurred June 9, 1989 per PDF p. 2))",
    "class": "nps-report",
    "lead": false,
-   "edition": "Development Concept Plan: Guinn Woods Administrative Site Gettysburg National Military Park, Pennsylvania",
+   "edition": "Development Concept Plan: Guinn Woods Administrative Site, Gettysburg National Military Park, Pennsylvania (1989 (recommended March 8, 1989; concurred June 9, 1989 per PDF p. 2))",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [],
@@ -2419,10 +2543,10 @@
    "url": "https://www.npshistory.com/publications/gett/design-guide.pdf"
   },
   "NPS-HB9-1954": {
-   "title": "Gettysburg National Military Park: Historic Handbook #9 (1954)",
+   "title": "Gettysburg National Military Park, Pennsylvania (National Park Service Historical Handbook Series No. 9) (1954)",
    "class": "nps-report",
    "lead": false,
-   "edition": "Gettysburg National Military Park: Historic Handbook #9 (1954)",
+   "edition": "Gettysburg National Military Park, Pennsylvania (National Park Service Historical Handbook Series No. 9) (1954)",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [],
@@ -2454,6 +2578,13 @@
      "bytes": 78195,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-HB9-1962/NPS-HB9-1962.raw.txt",
+     "sha256": "36bdc372253a098260b2cdff2d80e1b0f3e0a7092bd2b0aade445d90d7efb502",
+     "bytes": 78020,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
     }
    },
    "url": "https://www.npshistory.com/handbooks/historical/9-1962.pdf"
@@ -2472,6 +2603,13 @@
      "path": "tmp/library/web/nps/NPS-FD-2016/NPS-FD-2016.txt",
      "sha256": "dae05c7ee9b957c36e2773a1ae03a7c75f772590361951e273f9e7954808b914",
      "bytes": 163112,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    },
+    "raw": {
+     "path": "tmp/library/web/nps/NPS-FD-2016/NPS-FD-2016.raw.txt",
+     "sha256": "2a48f46bd675f5bb2e4c7948a452ee07fb6f047ca83fe9bd02de8037bbea7c21",
+     "bytes": 162309,
      "page_model": "marker",
      "page_marker": "^=== PAGE (\\d+) ===$"
     }
@@ -2502,10 +2640,10 @@
    "url": "https://www.npshistory.com/publications/eise/hrs.pdf"
   },
   "NPS-EISE-CLI-REDDING-2004": {
-   "title": "Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2004)",
+   "title": "Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (revised 07/12/2004 (PDF p. 12); park superintendent's concurrence 08/08/2002 (PDF p. 10))",
    "class": "nps-report",
    "lead": false,
-   "edition": "Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2004)",
+   "edition": "Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (revised 07/12/2004 (PDF p. 12); park superintendent's concurrence 08/08/2002 (PDF p. 10))",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [],
@@ -2522,10 +2660,10 @@
    "url": "https://www.npshistory.com/publications/eise/cli-clement-redding-farm-2004.pdf"
   },
   "NPS-EISE-CLI-LANDSCAPE": {
-   "title": "Cultural Landscapes Inventory: Eisenhower NHS Landscape, Eisenhower National Historic Site",
+   "title": "Cultural Landscapes Inventory: Eisenhower National Historic Site Landscape (Farms #1, #2 and #3) (not stated on the cover; park superintendent's concurrence 08/08/2002 (PDF p. 15))",
    "class": "nps-report",
    "lead": false,
-   "edition": "Cultural Landscapes Inventory: Eisenhower NHS Landscape, Eisenhower National Historic Site",
+   "edition": "Cultural Landscapes Inventory: Eisenhower National Historic Site Landscape (Farms #1, #2 and #3) (not stated on the cover; park superintendent's concurrence 08/08/2002 (PDF p. 15))",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [],
@@ -2542,10 +2680,10 @@
    "url": "https://www.npshistory.com/publications/eise/cli-landscape.pdf"
   },
   "NPS-EISE-CLR1": {
-   "title": "Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, and Analysis",
+   "title": "Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, Analysis (2005)",
    "class": "nps-report",
    "lead": false,
-   "edition": "Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, and Analysis",
+   "edition": "Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, Analysis (2005)",
    "rights": "United States government work",
    "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
    "groups": [],

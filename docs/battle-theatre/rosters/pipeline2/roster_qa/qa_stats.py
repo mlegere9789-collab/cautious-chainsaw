@@ -6,7 +6,7 @@ Gates (PLAN.md 4.3, 4.4; kinds are defined in qa_verdict.py):
   R-G1 names           rows with a name-* kind among all rows looked at (level N: every page)
   R-G2 dates           rows with a rem-date kind among the rows of pages looked at at level D
   R-G3a structure      rows with a rank, company, merge or split kind among all rows looked at (level N)
-  R-G3b remark reading rows with a rem-char, rem-missing, rem-extra, rem-bound or rem-order kind among the rows of pages looked at at level R
+  R-G3b remark reading rows with a rem-char, rem-missing, rem-extra, rem-bound, rem-order or rem-ditto kind among the rows of pages looked at at level R
   any error            rows with any kind among the rows of pages looked at at all three levels (NDR)
 Decision per gate and stratum (the ladder of PLAN.md 4.4, never lowered): PASS when n >= 299 with 0 errors, n >= 473 with at most 1, n >= 628 with at
 most 2, or n >= 773 with at most 3 (upper bound 1.0 percent); FAIL when 4 or more errors are found (no sample of the ladder can then pass);
@@ -22,7 +22,7 @@ import qa_lib as Q
 G1 = {'name-char', 'name-cut', 'name-nonperson'}
 G2 = {'rem-date'}
 G3A = {'rank', 'company', 'merge', 'split'}
-G3B = {'rem-char', 'rem-missing', 'rem-extra', 'rem-bound', 'rem-order'}
+G3B = {'rem-char', 'rem-missing', 'rem-extra', 'rem-bound', 'rem-order', 'rem-ditto'}
 LADDER = ((299, 0), (473, 1), (628, 2), (773, 3))
 
 

@@ -160,6 +160,7 @@ A('wp-time-18', area='time', route='source-rebuild', size='M',
   owed='Page rows on Ledger and Dashboard use the module later.')
 
 A('wp-arch-09', area='rebuild', route='source-rebuild', size='M',
+  title='Foundation half of WP-ARCH-09 (layout, stack record, Mapbox token module, strict base, workspace manifest): close the record',
   value='Foundation of the whole rebuild chain (WP-ARCH-10..33): until a workspace, layout and config module exist, nothing else of the rebuild can start.',
   files=['src/README.md', 'src/app/README.md', 'src/lib/README.md', 'src/package.json', 'src/.nvmrc', 'src/config/mapbox.js', 'src/config/mapbox.d.ts', 'src/config/tokens.test.mjs', 'src/foundation.test.mjs', 'src/tsconfig.base.json', 'src/STACK.md', 'docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-arch-09.md', 'candidates/r1h/wp-arch-09/STATUS.json', 'candidates/r1h/wp-arch-09/HANDOFF.md'],
   reads=['package.json', 'docs/plan/FINAL/03-source-rebuild-and-parity.md (WP-ARCH-09)', 'docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md rows A10, A11', 'src/lib/time'],
@@ -197,14 +198,20 @@ A('wp-content-01b', area='pages', route='candidate-group', size='S',
   owed='Visual check; the Historian search of U-14BK in a browser.')
 
 A('wp-time-08', area='data', route='candidate-group', size='S',
-  value='Two quotations in the chronology (t525, t530) have no matched primary wording; Law 4 forbids shipping a quote that cannot be matched.',
-  files=cand_files('wp-time-08', ['candidates/r1h/wp-time-08/evidence.json']), touches=['data/chronology_day3.json'],
-  reads=['tmp/library/or27 (Official Records vol. 27 parts 1-3)', 'tmp/library/ws9 (99 public-domain texts)', 'tools/bt/or27_find.py', 'tools/t0/CLOCK-README.md', 'release/R1g/dist/data/chronology_day3.json'],
+  title='Remaining part of WP-TIME-08: the quotations of the day-3 rows at ticks 521 and 524 (the plan\'s t525 and t530) need their primary wording or lose their quotation marks',
+  value='The quotations of the day-3 rows at ticks 521 and 524 (the plan\'s t525; its t530 text is already gone from the shipped data) match no wording of the local Official Records text; Law 4 forbids shipping a quote that cannot be matched.',
+  files=['candidates/r1h/wp-time-08/group.json', 'candidates/r1h/wp-time-08/overlay/', 'candidates/r1h/wp-time-08/test.mjs', 'candidates/r1h/wp-time-08/STATUS.json', 'candidates/r1h/wp-time-08/HANDOFF.md', 'candidates/r1h/wp-time-08/evidence.json'],
+  touches=['data/chronology_day3.json'],
+  reads=['tmp/library/or27 (Official Records vol. 27 parts 1-3)', 'tmp/library/ws9 (99 public-domain texts)', 'tools/bt/or27_find.py', 'tools/t0/CLOCK-README.md', 'release/R1g/dist/data/chronology_day3.json', 'docs/plan/FINAL/04-time-model-and-historical-accuracy.md (section 6 table, rows 525 and 530)'],
   acceptance=(
-      'evidence.json holds, for each of the chronology rows t525 and t530: the current text, every search made (pattern, part or text, result count), and the outcome. Outcome "found": a source (OR Ser. I vol. 27 part, report id, printed page as `python -I tools/bt/or27_find.py` cites it, or the ws9 title and page) and a short verbatim quote that `python -I tools/bt/or27_find.py --verify "<quote>"` confirms (the test runs it and requires exit 0); the row then carries the quote with its source key. '
-      'Outcome "not found": the lookup is recorded as FAILED with the searches, and the quotation marks are removed from the row (the sentence stays as a plain statement only if the same sentence is supported by a non-lead source, otherwise the claim is reworded to what the record supports, or marked as a visible gap). Group.json patches data/chronology_day3.json accordingly (anchors asserted once), test.mjs checks the patched rows, that no other row changes, that every remaining quotation mark of the two rows has a verified source in evidence.json, and the JSON parses. '
+      'Identify the rows first: the plan\'s t525 and t530 (chapter 04, section 6 table) are legacy row numbers, not ticks of the shipped file. In release/R1g/dist/data/chronology_day3.json the t525 material now stands in the row at tick 521 (the 1:25 p.m. note: "If you are to advance at all, you must come at once ...") and the row at tick 524 (the 1:40 p.m. note: "For God\'s sake come quick. The 18 guns have gone. ..."); '
+      'the t530 text ("I would not make the charge now") occurs nowhere in the shipped data or pages (0 hits, read on 2026-11-14). On 2026-11-14 `python -I tools/bt/or27_find.py --verify` finds none of "If you are to advance at all", "For God\'s sake come quick" or "The 18 guns" in the local OR27 text. '
+      'evidence.json holds, for every quotation mark of the day-3 rows at ticks 510 to 545 (those two rows carry them today): the current text, every search made (pattern, part or text, result count) in tmp/library/or27 and tmp/library/ws9, and the outcome, and it records that the t530 wording is absent. '
+      'Outcome "found": a source (OR Ser. I vol. 27 part, report id, printed page as `python -I tools/bt/or27_find.py` cites it, or the ws9 title and page) and a short verbatim quote that `python -I tools/bt/or27_find.py --verify "<quote>"` confirms (the test runs it and requires exit 0) or, for a ws9 text, a quote the test finds in that file; the row then carries the quote with its source key and the wording the source gives. '
+      'Outcome "not found": the lookup is recorded as FAILED with the searches, and the quotation marks are removed from the row (the sentence stays as a plain statement only if the same sentence is supported by a non-lead source, otherwise the claim is reworded to what the record supports, or marked as a visible gap). '
+      'Group.json patches data/chronology_day3.json accordingly (anchors asserted once; when every quotation is found and carries its source the group may hold no patch and the test asserts both rows unchanged), test.mjs checks the patched rows, that no other row changes, that every remaining quotation mark of the rows has a verified source in evidence.json, and that the JSON parses. '
       'No quote is written that the matcher did not confirm; a quote found only on a blog, Wikipedia or from memory is not a source.'),
-  short='Research + data patch: find the primary wording for the t525/t530 quotations in local OR27/ws9 (verbatim, confirmed by or27_find --verify) or record the lookup as failed and remove the quote marks; evidence.json lists every search; only those two rows change.',
+  short='Research + data patch: the quotations in the day-3 rows at ticks 521 and 524 (plan t525; t530 text already gone) match no local OR27 text: find the primary wording in OR27/ws9 (verified) or record the lookup as failed and remove the marks; evidence.json lists every search.',
   owed='A historian\'s confirmation of the wording remains owner-side.')
 
 A('wp-pagec-12', area='pages', route='candidate-group', size='S',
