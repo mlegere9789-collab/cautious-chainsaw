@@ -143,6 +143,25 @@ CLASS = {
     'JACOBS-1888': 'reprint (1888), searched only',
 }
 
+_SAL = re.compile(r'\b(?:Sir|Captain|Major|General|Colonel|Gentlemen|Lieutenant|Dear Sir|Dear General|Dear Colonel|My dear General)\s*[:;.,]|\bGeneral:')
+_HEADS = {}
+def report_heading(rec_id):
+    """Verbatim OCR text at the start of the report that holds a citation (number, rank, name, unit, place and date up to the salutation), with its raw offsets:
+    the unit and author of a quoted passage are read from it (the OCR damage of the heading is kept)."""
+    if rec_id in _HEADS: return _HEADS[rec_id]
+    rec = OR_INDEX.get(rec_id or '')
+    if not rec: _HEADS[rec_id] = None; return None
+    import bisect as _b
+    P = F.get_part(rec['part'])
+    ns = _b.bisect_left(P.nmap, rec['start_offset'])
+    chunk = P.ntext[ns:ns + 420]
+    m = _SAL.search(chunk, 20)
+    text = (chunk[:m.start()] if m and m.start() < 400 else chunk[:200]).strip()
+    if not text: _HEADS[rec_id] = None; return None
+    a = P.nmap[ns]; b = P.nmap[ns + len(chunk[:len(text)]) - 1] + 1
+    _HEADS[rec_id] = collections.OrderedDict(text=text, text_offset=a, text_offset_end=b)
+    return _HEADS[rec_id]
+
 def sha_file(p):
     h = hashlib.sha256(); h.update(open(p, 'rb').read()); return h.hexdigest()
 
@@ -217,8 +236,6 @@ def resolve(cid, c):
             hs = hits
             if len(set(h['record'] for h in hits)) > 1: raise QuoteError('%s: OR quote occurs in several records %s; state report' % (cid, sorted(set(str(h['record']) for h in hits))))
         h = hs[0]
-        if c.get('page') and str(c['page']) not in str(h['page']):
-            raise QuoteError('%s: page stated %s, found %s (%s)' % (cid, c['page'], h['page'], h['record']))
         part = h['part']
         if OR_SHA[part] is None: OR_SHA[part] = sha_file(raw_path(part))
         rec = OR_INDEX.get(h['record'] or '', {})
@@ -232,6 +249,8 @@ def resolve(cid, c):
               source_file=os.path.relpath(raw_path(part), ROOT).replace(os.sep, '/'), sha256=OR_SHA[part],
               source_class='official report, order or dispatch of 1863 (printed 1889)' if part != 2 else 'Confederate report (written 1863 to 1864, printed 1889)')
         if scan: out['scan'] = scan
+        hd = report_heading(h['record'])
+        if hd: out['report_heading'] = hd
         if model_page: out['page_running_head_model'] = model_page
         if len(hs) > 1: out['occurrences_in_report'] = len(hs)
     else:

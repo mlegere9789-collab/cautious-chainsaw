@@ -26,7 +26,9 @@ const cut = (o, n) => JSON.stringify(o || {}).slice(0, n || 6000)
 const mini = (r) => r ? { s: String(r.summary || '').slice(0, 160), nf: (r.failed || []).length, nr: (r.remaining || []).length } : null
 const brief = (r) => r ? { s: String(r.summary || '').slice(0, 240), failed: (r.failed || []).slice(0, 3).map((x) => String(x).slice(0, 160)), remaining: (r.remaining || []).slice(0, 3).map((x) => String(x).slice(0, 160)), owner: (r.owner_only || []).slice(0, 3).map((x) => String(x).slice(0, 160)) } : null
 const head = (own) => COMMON + '\nWORKSTREAM: ' + WS + '\nOWNERSHIP (the only paths you may write): ' + own + '\n' + CTX + '\n\n'
+const SKIP = new Set((args && args.skip) || [])   // labels of builds that an earlier run closed (tools/horde/closed.py): skipped, so a restart does not redo finished work
 async function build(label, task, own, ph) {
+  if (SKIP.has(label)) return { summary: 'closed in an earlier run: skipped', done: [], failed: [], remaining: [], skipped: true }
   let rep = await agent(head(own) + 'TASK: ' + task, { label: label, phase: ph || 'Build', schema: REPORT, effort: EFF })
   for (let r = 1; r <= 2 && rep; r++) {
     const v = await agent(head('tmp/review-notes/** only') + REVIEW + '\nTHE TASK WAS: ' + task + '\nOWNERSHIP OF THAT WORK: ' + own + '\nREPORT TO REFUTE: ' + cut(rep), { label: label + ' / review ' + r, phase: 'Verify', schema: VERDICT, effort: EFF })

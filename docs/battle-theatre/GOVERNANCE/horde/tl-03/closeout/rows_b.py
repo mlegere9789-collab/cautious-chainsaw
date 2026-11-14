@@ -36,7 +36,7 @@ ROWS.append(dict(
         'h_three': OR('Pettigrew\'s brigade encountered the enemy in heavy force, and broke through his first, second, and third lines', R549, '638'),
         'j2': OR('we remained in line of battle until 2 p. m., when orders to advance were received', R550, '643'),
         'j_brock': OR('just with the brigade on our left, commanded by Colonel Brockenbrough', R550, '643'),
-        'hill_pender': OR('Pender\'s division was then ordered forward, Thomas\' brigade being retained in reserve', R534, '607'),
+        'hill_pender': OR("About 2.30 o'clock, the right wing of Ewell's corps made its appearance on my left, and thus formed a right angle with my line. Pender's division was then ordered forward, Thomas' brigade being retained in reserve", R534, '607'),
         'lee_rel': OR('Heth\'s troops, having suffered heavily in their protracted contest with a superior force, were relieved by Pender\'s', R426, '317'),
         'row4': OR('The position selected by General Reynolds had been steadily and determinedly maintained until nearly 4 o\'clock in the afternoon', R055, '313'),
         'row_gen': OR('A general advance of the enemy\'s infantry was now made in two very strong lines', R055, '313'),
@@ -404,7 +404,7 @@ ROWS.append(dict(
         'how_came': OR('General Hancock came to me about this time, and said General Meade had sent him on hearing the state of affairs', R243, '704'),
         'meade_wd': OR('About the time of this withdrawal, Major-General Hancock arrived, whom I had dispatched to represent me on the field', 'OR27-1-R006', '115'),
         'buf_h': OR('While there. General Hancock arrived, and in a few moments he made superb disposition to resist any attack that might be made', 'OR27-1-R337', '927'),
-        'org_n': OR('During the interval between the death of General Reynolds and the arrival of General Hancock, on the afternoon of July 1', 'OR27-1-R009', '167'),
+        'org_n': OR('During the interval between the death of General Reynolds and the arrival of General Hancock, on the afternoon of July 1', 'OR27-1-R009', '164'),
     },
     scenarios=[
         sc('A', 'About 15:00 (Hancock\'s report)', 'Hancock OR27-1-R076 p.368', 'documented', ['h3']),
@@ -495,7 +495,7 @@ ROWS.append(dict(
         's_fell': OR('the Second Brigade, First Division, whose flank had been most exposed in consequence of the advance, fell back in considerable disorder', R253, '729'),
         's_barlow': OR('was severely wounded, and had to be carried off the battle-field', R253, '729'),
         'j12': OR('I immediately placed twelve guns in position', R478, '495'),
-        'oob': OR('68th New York, Col. Gotthilf Bourry', R009, '167', note='the First Brigade, Col. Leopold von Gilsa: 41st New York (nine companies), 54th New York, 68th New York, 153rd Pennsylvania (the OCR prints J53d)'),
+        'oob': OR('68th New York, Col. Gotthilf Bourry', R009, '164', note='the First Brigade, Col. Leopold von Gilsa: 41st New York (nine companies), 54th New York, 68th New York, 153rd Pennsylvania (the OCR prints J53d)'),
     },
     scenarios=[
         sc('A', 'The enemy appears in force about 14:45 (Union clock)', 'Howard OR27-1-R243 p.703', 'documented', []),
@@ -534,7 +534,7 @@ ROWS.append(dict(
         ('The hours of the two deaths; that either fell in a counterattack on the knoll', 'open gap', 'unsupported', []),
     ],
     cites={
-        'f_ret': OR('Lieut. Colonel Douglas Fowler, 17th Infantry', R013, '187', note='the OCR of the return loses the running head; the Connecticut list is on the pages 186-193'),
+        'f_ret': OR('Lieut. Colonel Douglas Fowler, 17th Infantry', R013, '188', note='the OCR of the return loses the running head; the Connecticut list is on the pages 186-193'),
         'f_brady': OR('The remainder of the regiment (six companies), under Lieutenant- Colonel Fowler, advanced with the other regiments of the brigade to the left and front of the town', R247, '717'),
         'f_adv': OR('Lieutenant-Colonel Fowler was killed when the regiment advanced and deployed', R247, '717'),
         'w_hunt': OR('the commencement of this unequal contest', R028, '230', note='the sentence continues: Lieut. Bayard Wilkeson (Fourth U. S. Artillery), commanding the battery, a young officer of great gallantry, fell, mortally wounded'),
@@ -648,7 +648,7 @@ ROWS.append(dict(
     cites={
         'd_pick': OR('The enemy\'s cavalry picket appearing in force on our front and left flank, skirmishers from this command were ordered to dislodge him', R514, '581'),
         'd_330': OR('After a short engagement, he was driven from his position, when we occupied his position (a hill to our left), about 3.30 p. m.', R514, '581'),
-        'd_rock': OR('He was driven from behind a rock fence, with heavy loss in killed and wounded', R514, '581'),
+        'd_rock': OR('He was driven from behind a rock fence, with heavy loss in killed and wounded', R514, '582'),
     },
     scenarios=[],
     default=None,

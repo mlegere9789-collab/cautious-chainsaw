@@ -68,6 +68,25 @@ LABEL = {
  'MI-GB-1889': 'Michigan at Gettysburg (1889)',
 }
 
+# author strings of the OR index that carry OCR damage (the index keeps the raw OCR strings); the display form is the name as printed
+AUTHOR_FIX = {
+    'Capt. Emanuel D. Eoath': 'Capt. Emanuel D. Roath',
+    'Maj. G\u00abn. Winfield S. Hancock': 'Maj. Gen. Winfield S. Hancock',
+    'Maj. Gen. OUver O. Howard': 'Maj. Gen. Oliver O. Howard',
+    'Brig. Gen. Alpheus S. "Williams': 'Brig. Gen. Alpheus S. Williams',
+    'Brig. Gen. John "W. Geary': 'Brig. Gen. John W. Geary',
+    'Maj. R. C. Mafifett': 'Maj. R. C. Maffett',
+    'Maj. B. F. Eslileman': 'Maj. B. F. Eshleman',
+    'Lieut. Gen. Richard S. EweU': 'Lieut. Gen. Richard S. Ewell',
+    'Brig. Gen. S. D. Ramseur. C. S. Army': 'Brig. Gen. S. D. Ramseur',
+    'Orders.] Headquarters Army op the Potomac,': 'Headquarters Army of the Potomac (orders)',
+    'Circular.] Headquarters Army op the Potomac, Taneytown,': 'Headquarters Army of the Potomac, Taneytown (circular)',
+    'War Department,': 'War Department',
+    'Headquarters First Corps,': 'Headquarters First Corps',
+    'Headquarters Left Wing,': 'Headquarters Left Wing',
+    'Headquarters Army of the Potomac, Taneytown,': 'Headquarters Army of the Potomac, Taneytown',
+}
+
 def sha_file(p):
     h = hashlib.sha256(); h.update(open(p, 'rb').read()); return h.hexdigest()
 
@@ -224,6 +243,7 @@ def resolve(cid, c):
         if OR_SHA[part] is None: OR_SHA[part] = sha_file(raw_path(part))
         rec = OR_INDEX.get(h['record'] or '', {})
         author = c.get('author') or ((rec.get('rank') or '') + ' ' + (rec.get('author') or '')).strip() or (rec.get('header_raw') or '')[:60]
+        author = AUTHOR_FIX.get(author, author)
         out = collections.OrderedDict(key=cid, source_id='OR27', work='Official Records Ser.I vol.27', part=part, report_id=h['record'],
               author=author, printed_page=h['page'], page_basis='running heads of the OCR text (tools/bt/or27_pages.py)',
               quote=q, text_offset=h['start'], text_offset_end=h['end'],

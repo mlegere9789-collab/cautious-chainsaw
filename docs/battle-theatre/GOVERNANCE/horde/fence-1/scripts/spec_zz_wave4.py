@@ -75,9 +75,16 @@ def apply(R_):
          C('NPS', 'NPS-CLR-1STDAY', "the Union line on Seminary Ridge", reading="...the Confederates pushed on and the Union line on Seminary Ridge disintegrated by about 5:00 p.m. (two-column text: the sentence is interleaved with the neighbouring column in the saved text and read across it)", role='context'),
          C('NPS', 'NPS-CLR-1STDAY', "disintegrated by about 5:00 p.m."),
          note="Three clocks, three witnesses; none is a 'barricade overrun' hour printed by an engaged Union officer except Cooper's 'after 4 p.m.'. Carried, no default chosen.")
+    more(r, 'e',
+         C('KIT', 'sixteenthmainere00smal', "leave camp until nine o'clock a.m., when it marched", role='context'),
+         C('KIT', 'sixteenthmainere00smal', "rapidly in the direction of Gettysburgh, and halted southeast of the seminary", role='context',
+           reading="Although early under arms, the Sixteenth did not leave camp until nine o'clock a.m., when it marched rapidly in the direction of Gettysburgh, and halted southeast of the seminary. (the saved text interleaves a running head and a margin date inside the sentence; 'nine o'clock a.m.' is read from the sentence as printed)"),
+         C('KIT', 'sixteenthmainere00smal', "About one o'clock rang out the command", role='context',
+           reading="About one o'clock rang out the command, \"Fall in! Forward, Sixteenth.\" (Small, the regiment's adjutant: the First Brigade's redoubt is thrown up before this, 'just in front of the seminary')"),
+         note="Wave 4: Small (16th Maine adjutant, 1886): the regiment left camp at nine o'clock a.m., halted southeast of the seminary, the First Brigade threw up the redoubt there, and 'about one o'clock' the 16th was ordered forward to the right: the work lies between the division's arrival and about 13:00 (it does not fix the start).")
     add(r, S('k', "Purpose and use: the work was ordered as a fall-back line ('to which, in case of necessity, the line of battle could retire'); 'a final stand was made' at 'a barricade of rails which had been thrown up early in the day by Robinson's men', where Wainwright posted his batteries; the 24th Michigan fell back to 'the friendly rail fence barricade just west of the Seminary'; the Union artillery stood behind fence-rail breastworks that extended south from the Chambersburg Pike (NPS).", 'documented', 'supported', [
         C('ACQ', 'BATES-1875', "Robinson was at first ordered to hold his men in reserve, and to throw up a barricade in front of the Seminary, to which, in case of necessity, the line of battle could retire."),
-        C('ACQ', 'BATES-1875', "At a barricade of rails which had been thrown up early in the day by Robinson's men, a final stand was made", pp='79'),
+        C('ACQ', 'BATES-1875', "At a barricade of rails which had been thrown up early in the day by Robinson's men, a final stand was made, and here the chief of artillery. Colonel Wainwright, had posted his batteries", pp='79', reading="...and here the chief of artillery, Colonel Wainwright, had posted his batteries (the OCR prints a period after 'artillery')"),
         C('KIT', '24thmichiganiron00curtrich', "forced back to the friendly rail fence barricade just west of the Seminary"),
         C('LIB', 'NY-GB-1900', "protected by its slight barricade of rails, the left wing of the First Corps was making its final stand"),
         C('NPS', 'NPS-CLR-1STDAY', "behind breastworks built of fence rails that extended", reading="Union artillery, behind breastworks built of fence rails that extended south from Chambersburg Pike, responded with a final heavy bombardment against the Confederate advance. (two-column text, read across the interleave; the three fragments below are consecutive pieces of this sentence)", role='context'),
@@ -165,12 +172,27 @@ def apply(R_):
         if c['ref'] == 'R307':
             c['image'] = 'or27-1-p856'
             c['reading'] = "By 12 o'clock we had a good cover for the men (the printed hour is 12: page image of p.856 looked at 2026-11-14; the Cornell scan's OCR prints 13)"
-    more(r, 'c', C('OR1W', 'R307', "By 12 o\u2019clock we had a good cover for the men", witness='warofrebellion271unit', page='856', image='or27-1-p856'),
+    more(r, 'c', C('LIB', 'NY-GB-1902-v3', "The breastworks were completed about noon of the 2d of July.", role='context'),
+         C('OR1W', 'R307', "By 12 o\u2019clock we had a good cover for the men", witness='warofrebellion271unit', page='856', image='or27-1-p856'),
          note="Wave 4: the page image of OR27-1 p.856 (leaf 874 of warofrebellion271unit) shows 'By 12 o'clock we had a good cover for the men'; the '13' of the Cornell scan is an OCR error, so the finish hours are 09:00, 10:00, 12:00 and about noon, not 13:00.")
     r['corrected_claim'] = r['corrected_claim'].replace("(Greene; the Cornell scan misreads it as 13, two other scans read 12)", "(Greene's printed report, page image looked at 2026-11-14: the Cornell scan's OCR '13' is a misread of 12)")
     assert 'page image looked at' in r['corrected_claim']
     lines(r, 'lookups', L('page image (wave 4)', "OR27-1 p.856 (Greene), leaf 874 of warofrebellion271unit", 1, "printed: By 12 o'clock we had a good cover for the men"))
     lines(r, 'changes_vs_previous', "wave 4: Greene's hour 12 o'clock confirmed by the page image (the Cornell OCR 13 is a misread)")
+
+    # ============================================================ E-06 traverse geometry (Bachelder's guide)
+    r = R_['R14.E-06']
+    add(r, S('e', "Geometry of the traverse (Bachelder's guide, 1873): in the night attack of Jul 2 the right of Greene's brigade 'had now been refused along a traverse constructed at the angle; and from that prolonged through the woods, at right angles to the main line toward the Baltimore turnpike'; 'This was the position occupied by the troops after their return from the left and during the engagement on the morning of the 3d.'", 'documented', 'partial', [
+        C('LIB', 'BACH-WHATTOSEE-1873', "whose right had now been refused along a traverse constructed at the angle ; and from that prolonged through the woods, at right angles to the main line toward the Baltimore turnpike", pp='97'),
+        C('LIB', 'BACH-WHATTOSEE-1873', "This was the position occupied by the troops after their return from the left and during the engagement on the morning of the 3d.", pp='97'),
+        C('LIB', 'BACH-WHATTOSEE-1873', "One regiment of Greene's was beyond the \" angle.\"", role='context', pp='96')],
+        note="Secondary (John B. Bachelder's guide to the field, 1873; the 1889 edition has no such sentence): it places the traverse 'at the angle' of the works and the prolonged line at right angles to the main line toward the Baltimore turnpike, and says the position was held on the morning of Jul 3. It gives no building hour, height or profile; the 'angle' is the one between the line down the hill and the line along the ridge toward the swale."), after='c')
+    setsub(r, 'd', claim="Traverse height and profile (the geometry is documented-secondary in sub-claim e).")
+    r['stays_unsupported'] = ["Exact build hour of the traverse", "Height and profile of the traverse",
+                              "Whether the traverse of the OR and Greene's address is the one Bachelder calls 'constructed at the angle' (same position, different words; carried as one work)"]
+    lines(r, 'lookups', L('library, added books, NPS (wave 4)', "traverse (all texts)", 30, "Bachelder 1873 (a traverse constructed at the angle, line prolonged at right angles toward the Baltimore turnpike); the rest personal names, walks, a march"))
+    lines(r, 'changes_vs_previous', "wave 4: Bachelder's guide (1873) documents the geometry: a traverse at the angle with the line prolonged at right angles to the main line toward the Baltimore pike")
+    lines(r, 'product_consequence', "E-06: draw the traverse at the angle of the works with the line prolonged back through the woods at right angles toward the Baltimore pike (documented-secondary: Bachelder 1873); height and profile stay marked gaps")
 
     # ============================================================ E-12 lunettes on East Cemetery Hill
     r = R_['R14.E-12']
@@ -192,6 +214,7 @@ def apply(R_):
 
     # ============================================================ E-13 Little Round Top, no works
     r = R_['R14.E-13']
+    setsub(r, 'b', claim="Natural cover: rocks and cliffs in the centre and a ledge of rocks on the right of Vincent's line; no works mentioned in the OR reports of Rice, Chamberlain, the 16th Michigan or the 44th NY (the 44th NY's regimental history, quoted by the NPS, has a small breastwork: sub-claim f).")
     add(r, S('f', "The 44th NY on Little Round Top threw up a small breastwork during the fighting of Jul 2: 'Our brigade lay on the side hill. It was covered with large stones. We threw up a small breast-work to protect us.' (a veteran of Company A, quoted by the NPS from the regimental history, Nash 1911 p. 326).", 'documented', 'supported', [
         C('NPS', 'NPS-CLR-LRT', "veteran of Company A of the 44th New York Infantry described his posi on on Li le Round Top", role='context', reading="In a letter home, a veteran of Company A of the 44th New York Infantry described his position on Little Round Top during the fighting of July 2, 1863 (the saved text drops 'ti', 'tt' and 'ft')"),
         C('NPS', 'NPS-CLR-LRT', "Our brigade lay on the side hill. It was covered with large stones. We threw up a small breast-work to protect us.")],
@@ -442,6 +465,32 @@ def apply(R_):
     r['stays_unsupported'] = ["07:30 clock", "'McPherson Ridge' as a name used in the 1863 reports (no hit in OR parts 1-3; 'McPherson's woods', 'barn' and 'farm' are used)"]
     lines(r, 'lookups', L('OR parts 1-3 (wave 4)', "McPherson (all)", 9, "McPherson's woods (4), barn (1), farm (1) and three personal names; no 'ridge'"))
     lines(r, 'changes_vs_previous', "wave 4: the 1863 place names are McPherson's woods, barn and farm; 'McPherson Ridge' has no hit in OR 1-3")
+
+    # ============================================================ corrected claims: first sentences that wave 4 made stale, and tails for rows without one
+    def sub_text(rid, old, new):
+        row = R_[rid]
+        if old not in row['corrected_claim']:
+            raise KeyError('%s: %r not in corrected_claim' % (rid, old[:60]))
+        row['corrected_claim'] = row['corrected_claim'].replace(old, new, 1)
+    sub_text('R14.E-04', "No source says Cemetery Hill was fortified as a whole or that von Steinwehr built works. Documented:",
+             "No 1863 source says Cemetery Hill was fortified as a whole or that von Steinwehr built works (books of 1875-1914 do say so, see the last sentences). Documented in the OR:")
+    sub_text('R14.S-006', "Dawes records a fence on the turnpike without a type;",
+             "Dawes's OR report records a fence on the turnpike without a type, his memoir (1890) names 'the two post and rail fences that lined the turnpike', Fairfield (via the NPS) an old fence on the south side and a new post-and-rail fence on the north, Sullivan (via the NPS) a stake and rider fence on each side;")
+    sub_text('R14.S-006', "carry paling, post-and-rail and Virginia worm as selectable types by reach.",
+             "carry paling, post-and-rail, stake-and-rider and Virginia worm as selectable types by reach (wave 4, 2026-11-14: the McPherson-farm stretch has three participants).")
+    R_['R14.S-016']['corrected_claim'] = ("The George Spangler farm was the Eleventh Corps hospital: the NPS says the farm served as a field hospital and as the 11th Corps hospital; the NPS 'Common Pride' study quotes Dr. D. G. Brinton, in charge of the 2nd Division, 11th Corps hospital at the farm, where General Armistead was brought about 4 o'clock on the afternoon of Jul 3; Bates (1875) counts 100 rebel and 1,900 Union wounded in the Eleventh Corps hospital at George Spangler's; the 1932 tablet list puts the Eleventh Corps hospital 700 feet east of the Spangler house. "
+                                          "The day and hour it opened as a hospital (the PDF's mid-afternoon Jul 1, wounded by about 16:00) are not supported by any source readable here. The OR 'Spangler's farm' hit (McFarland, p.326) is George Spangler's farm near Emmitsburg, a different place, and must not be used as evidence.")
+    tail(R_['R14.E-02'], "Wave 4 (2026-11-14): Curtis (1891) says the 24th Michigan's remnant, 'the ninety and nine ... that rallied around the flag on Culp's Hill the evening of the first day's fight', built a line of breastworks there 'the first night of the battle', on the left of the Iron Brigade's new line 'from the top of the elevation to the foot of the hill facing the town'; no hour, no fabric.")
+    tail(R_['R14.S-014'], "Wave 4 (2026-11-14): Curtis (1891) adds that the 24th Michigan's remnant built a line of breastworks on Culp's Hill 'the first night of the battle' (see E-02).")
+    tail(R_['R14.E-11'], "Wave 4 (2026-11-14): the 5th Maine battery's history (Maine at Gettysburg, 1898) says twenty guns opened at 4 a.m. and the cannonade 'was continued with but short intervals until 10 a. m.', a second duration carried against Geary's ten minutes plus about fifteen; the damage state of the works is still not described anywhere read.")
+    tail(R_['R14.E-18'], "Wave 4 (2026-11-14): the NPS inventory of the Pickett's Charge area lists documented 1863 Confederate defenseworks at McMillan Woods (earthworks, rifle pits), Pender's Division (earthworks), Poague's Battalion (lunettes) and Spangler Woods, without dates, and the NPS list of figures has a photograph of Confederate prisoners on a stacked-rail breastwork on Seminary Lane (circa 15 Jul 1863); the days of building at these sites stay open.")
+    tail(R_['R14.S-005'], "Wave 4 (2026-11-14): the 1863 reports call the ground McPherson's woods (24th Michigan, R033), barn (R065) and farm (OR27-2 R539); 'McPherson Ridge' has no hit in OR parts 1-3.")
+    tail(R_['R14.S-007'], "Wave 4 (2026-11-14): the 95th NY's monument inscription gives 10:50 a.m. for the change of front and the advance to the cut with the 84th NY and 6th Wisconsin (the OCR of the inscription is garbled around the hour, which is legible).")
+    tail(R_['R14.S-011'], "Wave 4 (2026-11-14): Cooper (Battery B, 1st Pa.) says Perrin turned the barricade 'after 4 p.m.' and the NPS says the Union line on Seminary Ridge 'disintegrated by about 5:00 p.m.'; the hour stays a three-clock conflict (see E-01).")
+    tail(R_['R14.S-012'], "Wave 4 (2026-11-14): the Adams Sentinel of 21 Jul 1863 says the Theological Seminary 'was struck by a number of shells and balls' (OCR garbled after that), and the NPS says the main building and two professors' houses were damaged by shells.")
+    tail(R_['R14.S-002'], "Wave 4 (2026-11-14): the Jul 1 morning post is documented as the Seminary cupola (Bates, quoting the signal officer: 'early in the morning taken his station in the cupola of the Theological Seminary'; Toombs; the New York volume; Bachelder), a different event from Norton's Jun 30 'steeple of the college'.")
+    tail(R_['R14.E-15'], "Wave 4 (2026-11-14): The First Minnesota (1916) also has Hazlett's guns and caissons dragged by hand to the crest with the horses left in the rear.")
+    tail(R_['R14.E-16'], "Wave 4 (2026-11-14): the NPS inventory says the stone walls of the Devil's Den / Little Round Top landscape 'were recorded as being present at the time of the battle' by the Warren maps; no builder of a Devil's Den work was found (the 91st Pa. built its wall at night in front of Hazlett's battery, see E-14).")
 
     # ============================================================ product consequences of the wave-4 changes
     def cons(rid, *new, replace=None):

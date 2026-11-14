@@ -28,8 +28,8 @@ ROWS.append(dict(
         'geary_skirm': OR('A half hour before reaching this place our cavalry had there a skirmish with that of the rebels', R293, '825'),
         'geary_noon': OR('marched through Taneytown and Littlestown, encamping near the latter place at noon', R293, '825'),
         'geary_retired': OR('The command was hastened forward and dispositions at once made to receive the enemy, who, however, retired m the direction of Hanover', R293, '825'),
-        'rogers_double': OR('While approaching Littlestown, our cavalry was attacked and the infantry ordered to be hurried forward', 'OR27-1-R279', '798'),
-        'candy_skirm': OR('The cavalry skirmishing with the enemy in the front, I immediately moved with the brigade to the point designated', R294, '836'),
+        'rogers_double': OR('While approaching Littlestown, our cavalry was attacked and the infantry ordered to be hurried forward. We accordingly marched through the town at a double-quick, but the rebels had flown', 'OR27-1-R279', '798'),
+        'candy_skirm': OR('this brigade was ordered to take a position in the woods on the right of the town (Littlestown), in the direction of Hanover, and on the right of the road, and hold it at all hazards. The cavalry skirmishing with the enemy in the front, I immediately moved with the brigade to the point designated, formed in column by two battalion front, threw forward skirmishers, and picketed to my front and right', R294, '836'),
     },
     scenarios=[
         sc('A', 'Infantry skirmish before dawn or in the morning; Candy\'s skirmishers drive Stuart\'s detachment off', 'seed source W-Litt (lead); no text read supports it', 'open gap', []),
@@ -86,7 +86,7 @@ ROWS.append(dict(
     id='T1-044', verdict='corrected',
     claim=claim('Hanover opens when Stuart\'s column meets Kilpatrick\'s rear: scenarios (about 10 a.m. / about noon)',
                 'Kilpatrick\'s division (Farnsworth\'s brigade; 18th Pennsylvania Cavalry as the rear of the column) against Stuart\'s cavalry (Chambliss\' leading regiment, Hampton, Fitz. Lee)', 'Hanover, Pa. (the main street; the enemy\'s guns on the hills at the right of the town)',
-                'Jun 30: about 10 a.m. (Stuart) or about noon (Richmond, Hammond)', 'Stuart OR27-2-R565 p.695; Richmond OR27-1-R362 p.1005; Hammond OR27-1-R363 pp.1007-1008; Kilpatrick OR27-1-R359 pp.986-987',
+                'Jun 30: about 10 a.m. (Stuart) or about noon (Richmond, Hammond)', 'Stuart OR27-2-R565 p.695; Richmond OR27-1-R362 p.1005; Hammond OR27-1-R363 p.1008; Kilpatrick OR27-1-R359 pp.986-987',
                 'Stuart: about 10 a.m. the head of his column reached Hanover and found a large column of cavalry passing through; Union reports: about noon the advance of the column arrived (Richmond) and the column entered and halted in the main street (Hammond) when the rear, the 18th Pennsylvania, was attacked. '
                 'Kilpatrick says five minutes after a dispatch that Stuart was making for Littlestown his rear guard was attacked in Hanover; he names Stuart\'s three brigades. The seed time (before 10:00) is earlier than every value in the OR. Scenarios carried, no default.',
                 'documented', '1863-06-30T10:00', '1863-06-30T12:00'),
@@ -113,7 +113,7 @@ ROWS.append(dict(
         sc('C', 'Before 10:00 (the 18th Pennsylvania rear guard hits Confederate vedettes)', 'seed sources CAV-Hanover, W-GC (leads); no text read supports it', 'open gap', []),
     ],
     remains=[], searched=['OR27-2-R565 p.695, OR27-1-R359 pp.985-988, R362 p.1005, R363 pp.1008-1009 read; the 18th Pennsylvania\'s own report not searched for a clock time'],
-    recheck='OR-RECHECK: the three stored quotes were found (p.695, p.1005, p.~1008). Shard verdict "ambiguous_conflict" applied; the attacker is Stuart\'s cavalry in both Kilpatrick and Stuart, so the seed note "attribution uncertain" is not an OR conflict.'))
+    recheck='OR-RECHECK: the three stored quotes were found (p.695, p.1005, p.1008: the page is placed from the independent scan and the page image). Shard verdict "ambiguous_conflict" applied; the attacker is Stuart\'s cavalry in both Kilpatrick and Stuart, so the seed note "attribution uncertain" is not an OR conflict.'))
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------ T1-045
 ROWS.append(dict(
@@ -173,7 +173,7 @@ ROWS.append(dict(
     subs=[
         ('A fight of about two hours, in which the whole command was engaged at different times', 'documented', 'supported', ['kil_two']),
         ('Start of the fight about 10 a.m. (Stuart) or about noon (Richmond, Hammond)', 'documented', 'conflict', ['stuart10', 'rich_noon', 'ham_noon']),
-        ('The 6th Michigan (with the 5th at Littlestown, then Hanover) met the enemy\'s skirmishers, drove them to their guns and fought a sharp engagement outnumbered; the 7th Michigan was engaged at Hanover; the 1st Michigan supported Battery M, not actively engaged', 'documented', 'supported', ['cust6', 'cust1']),
+        ('The 6th Michigan (with the 5th at Littlestown, then Hanover) met the enemy\'s skirmishers, drove them to their guns and fought a sharp engagement outnumbered; the 7th Michigan was engaged at Hanover; the 1st Michigan supported Battery M, not actively engaged', 'documented', 'supported', ['cust6a', 'cust6', 'cust5', 'cust7', 'cust1']),
         ('The Forney farm as the place of the fight; the fight ended just before noon (seed)', 'open gap', 'unsupported', []),
     ],
     cites={
@@ -182,6 +182,9 @@ ROWS.append(dict(
         'rich_noon': OR('where the advance of the column arrived about noon of the same day', R362, '1005'),
         'ham_noon': OR('About noon, we entered the town of Hanover, and halted in the main street', R363, '1008', page_fix=PGFIX(1, 1008)),
         'cust6': OR('The remainder of the regiment proceeded to Hanover. Here we met the enemy\'s skirmishers; drove them to their guns', R361, '999'),
+        'cust6a': OR('This regiment, with the Fifth Michigan Cavalry, occupied Littlestown, Pa.', 'OR27-1-R361', '999'),
+        'cust5': OR('Was engaged in severe skirmishing with the enemy near Hanover, Pa.', 'OR27-1-R361', '998'),
+        'cust7': OR('SEVENTH MICHIGAN CAVALRY. June 30. — Engaged at Hanover, Pa.', 'OR27-1-R361', '1000'),
         'cust1': OR('On June 30, the regiment was ordered to support Battery M, Second U. S. Artillery, at Hanover, Pa.', R361, '997'),
     },
     scenarios=[
@@ -190,7 +193,7 @@ ROWS.append(dict(
     ],
     remains=['the Forney farm as a named place (the OR names the town only)'],
     searched=['OR27-1-R359 (Kilpatrick) pp.985-988, R361 (Custer) pp.997-998, R362 (Richmond) p.1005, R363 (Hammond) pp.1008-1009 read; OR vol.27 regex Forney: no hit for the Forney farm'],
-    recheck='OR-RECHECK: the stored quotes were found (p.1005, p.~1008); the item without a stored quote (Kilpatrick p.986) now carries the verbatim passage. Shard note "a 6th Michigan role not found" corrected: Custer\'s report has it (the OCR of the Fifth Michigan section is not readable).',
+    recheck='OR-RECHECK: the stored quotes were found (p.1005, p.1008: the page is placed from the independent scan and the page image); the item without a stored quote (Kilpatrick p.986) now carries the verbatim passage. Shard note "a 6th Michigan role not found" corrected: Custer\'s report has it (the OCR of the Fifth Michigan section is not readable).',
     register=reg('The Forney farm as the place of the Hanover fight', 'The OR reports name the town and its streets; no passage names the Forney farm.', 'Fight in and around Hanover for about two hours, start per the scenarios', 'documented',
                  competing='fight ends just before noon (seed, 10 a.m. start) against ends about 14:00 (noon start)', impact='the fight is drawn around the town; the farm is not named', ask='none', rids='R16, R11, R13'),
     related=['tl-01-EG-007']))
@@ -213,7 +216,7 @@ ROWS.append(dict(
         ('Pettigrew took the force for militia', 'open gap', 'unsupported', []),
     ],
     cites={
-        'heth_cav': OR('found a large force of cavalry near the town, sujjported by an infantry force', R549, '637'),
+        'heth_cav': OR('found a large force of cavalry near the town, sujjported by an infantry force. Under these circumstances, he did not deem it advisable to enter the town, and returned, as directed, to Cashtown', R549, '637'),
         'hill_cav': OR('Pettigrew had encountered the enemy at Gettysburg (principally cavalry)', R534, '607'),
         'heth77_obs': L('SHSP-04', 'the only force at Gettysburg is cavalry, probably a detachment of observation'),
         'jac_930': L('JACOBS-1864', 'At 9J a. m., a portion of Hill\'s corps advanced on the Chambersburg turnpike, as far as the crest of the Seminary hill', note=FRAC('9:30 a.m.', '9 1/2 A. M.', 21)),
@@ -280,7 +283,7 @@ ROWS.append(dict(
          'No text read names the building in the passages of Norton and Jacobs; the identification rests on the National Park Service naming Pennsylvania Hall as the college building that served as signal station.'),
     ],
     cites={
-        'norton_steeple': OR('took position in the steeple of the college', 'OR27-1-R017', '201'),
+        'norton_steeple': OR('The signal officer with General John Buford, who occupied the town of Gettysburg, took position in the steeple of the college, and reported to General Buford the whereabouts and movements of the enemy', 'OR27-1-R017', '201'),
         'norton_jul1': OR('A station of observation was established, first on the college and subsequently on the court-house in Gettysburg', 'OR27-1-R017', '201'),
         'jac_cupola': L('JACOBS-1864', 'At 8J A. m., one of these officers was on the College cupola', note=FRAC('8:30 a.m.', '8 1/2 A. M.', 25)),
         'nps_pahall': L('NPS-BOUNDARY-1988', 'It served as a classroom and dormitory building and, during the battle, as a observation post, signal station and hospital', witness='National Park Service boundary study of 1988 (text layer of the PDF), entry "Pennsylvania Hall (Old Dorm or the College Edifice), Gettysburg College"'),
@@ -355,7 +358,7 @@ ROWS.append(dict(
         'stuart_hampton': OR('and Hampton, arriving in the meantime, engaged the enemy farther to the right', R565, '696'),
         'stuart_twain': OR('We cut the enemy\'s column in twain', R565, '696'),
         'kil_two': OR('After a fight of about two hours, in which the whole command at different times was engaged', R359, '986'),
-        'kil_taken': OR('I have taken one battle-flag, a lieutenantcolonel, 1 captain, and 45 privates', R359, '987'),
+        'kil_taken': OR('I have taken one battle-flag, a lieutenantcolonel, 1 captain, and 45 privates, and upward of 15 of the enemy have been killed. My loss is trifling', R359, '987'),
         'gr_hanover': OR('Hanover, Pa., June 30 Sporting Hill, near Harrisburg, Pa., June 30', 'OR27-1-R015', '193', page_fix=PGFIX(1, 193),
                          reading='Hanover, Pa., June 30: killed, officers 2, enlisted men 17; wounded, officers 6, enlisted men 67; captured or missing, officers 5, enlisted men 118; aggregate 215',
                          image_check=ORIMG(1, 193, 'Hanover, Pa., June 30 ... 2 | 17 | 6 | 67 | 5 | 118 | 215 (General Return of Casualties in the Union forces during the Gettysburg Campaign, June 3-August 1, 1863)')),
@@ -408,7 +411,7 @@ ROWS.append(dict(
     cites={
         'it_vi': OR('the Sixth Corps from New Windsor to Manchester', R007, '144'),
         'wright_man': OR('Marched at 4 a. m. through Westminster; encamped about 2 miles from Manchester, a distance of 23 miles', 'OR27-1-R224', '666'),
-        'circ': OR('form the right', 'OR27-3-D0962', '458'),
+        'circ': OR('and communicating his right to General Sedgwick at Manchester, who will connect with him and form the right', 'OR27-3-D0962', '458'),
         'torbert35': OR('Made a forced march from Manchester to Gettysburg, Pa. ; distance, about 35 miles', 'OR27-1-R225', '669'),
         'wright35': OR('a march variously estimated at from 33\' to 35 miles', 'OR27-1-R224', '665',
                        reading='a march variously estimated at from 32 to 35 miles',
@@ -429,11 +432,13 @@ ROWS.append(dict(
     subs=[
         ('On the evening of June 30 the Eleventh Corps was at Emmitsburg', 'documented', 'supported', ['howard_evening']),
         ('At 8.30 a.m. on June 30 an order was received to take position on the north side of Emmitsburg', 'documented', 'supported', ['howard_north']),
+        ('Itinerary, Jun 29: the First and Eleventh Corps marched from Frederick to Emmitsburg', 'documented', 'supported', ['it29_xi']),
         ('Barlow\'s division was north of the town', 'open gap', 'unsupported', []),
     ],
     cites={
-        'howard_evening': OR('The Eleventh Corps was at Emmitsburg.', R243, '701'),
+        'howard_evening': OR('On the evening of June 30, the First Corps, with the exception of one brigade and the supply train at Emmitsburg, was located in the vicinity of Marsh Run, on the direct road from Emmitsburg to Gettysburg, and nearly midway between those towns. The Eleventh Corps was at Emmitsburg.', R243, '701'),
         'howard_north': OR('At 8. 30 a. m. June 30, an order was received from headquarters to take position on the north side of Emmitsburg', R243, '707'),
+        'it29_xi': OR('the First and Eleventh Corps from Frederick to Emmitsburg', R007, '144'),
     },
     scenarios=[],
     remains=['Barlow\'s division north of the town (and the camps of its regiments)'],
@@ -458,7 +463,7 @@ ROWS.append(dict(
         ('The 123rd New York was at Two Taverns on Jun 30 (seed)', 'documented', 'contradicted', ['rogers_halt']),
     ],
     cites={
-        'williams_30': OR('June 29, through Frederick to Taney town, Md., and, on the 30th', R272, '771'),
+        'williams_30': OR('June 29, through Frederick to Taney town, Md., and, on the 30th, from Taneytown to Littlestown, Pa. On approaching Littlestown, report was sent me that the enemy\'s cavalry, with artillery, were approaching that place, and were probably followed by infantry', R272, '771'),
         'williams_post': OR('The division was hastened through, and took post to the north of it', R272, '771'),
         'it_xii': OR('the Twelfth Corps from Taneytown and Bruceville to Littlestown', R007, '144'),
         'rogers_halt': OR('and halted for the night a mile outside of Littlestown, on the Hanover road', 'OR27-1-R279', '798'),
@@ -509,13 +514,13 @@ ROWS.append(dict(
         ('Ramseur\'s brigade acted as guard in rear of the division train on the march from Heidlersburg (Jul 1, not Jun 30)', 'documented', 'contradicted', ['ramseur_rear']),
     ],
     cites={
-        'rodes_hd': OR('bivouacking at Heidlersburg, after a inarch of at least 22 miles', R506, '552'),
+        'rodes_hd': OR('we set out for that place, marching through Petersburg, and bivouacking at Heidlersburg, after a inarch of at least 22 miles', R506, '552'),
         'ewell_night': OR('On the night of June 30, Rodes\' division, which I accompanied, was at HeidlersLurg ; Early 3 miles off, on the road to Berlin', R467, '444', page_fix=PGFIX(2, 444)),
         'ramseur_rear': OR('in rear of the division train, as a guard on the march from Heidlersburg', R518, '587', page_fix=PGFIX(2, 587)),
     },
     scenarios=[], remains=[],
     searched=['Rodes p.552, Ewell pp.443-444 and Ramseur pp.587-588 read'],
-    recheck='OR-RECHECK: both stored quotes found (p.552, p.~587). Shard note applied: Ramseur\'s rear-guard duty is the Jul 1 march from Heidlersburg; the Ewell passage is added for the night of Jun 30.'))
+    recheck='OR-RECHECK: both stored quotes found (p.552, p.587: the page is placed from the independent scan and the page image). Shard note applied: Ramseur\'s rear-guard duty is the Jul 1 march from Heidlersburg; the Ewell passage is added for the night of Jun 30.'))
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------ T1-057
 ROWS.append(dict(
@@ -530,11 +535,11 @@ ROWS.append(dict(
         ('Ewell: on the night of June 30 Early was 3 miles off on the road to Berlin', 'documented', 'supported', ['ewell_night']),
     ],
     cites={
-        'early_dl': OR('accordingly, at daylight on the morning of the 30th, I put my whole command in motion', R470, '467'),
+        'early_dl': OR('accordingly, at daylight on the morning of the 30th, I put my whole command in motion, moving by Weigelstown and East Berlin in the direction of Heidlersburg', R470, '467'),
         'early_route': OR('moving by Weigelstown and East Berlin', R470, '467'),
-        'early_camp': OR('I encamped about 3 miles from Heidlersburg', R470, '468'),
+        'early_camp': OR('I encamped about 3 miles from Heidlersburg, -and rode to see General Ewell at that point', R470, '468'),
         'ewell_night': OR('On the night of June 30, Rodes\' division, which I accompanied, was at HeidlersLurg ; Early 3 miles off, on the road to Berlin', R467, '444', page_fix=PGFIX(2, 444)),
     },
     scenarios=[], remains=[],
     searched=['Early pp.467-468 and Ewell p.444 read'],
-    recheck='OR-RECHECK: stored quote found at p.468; the item without a stored quote (Ewell p.~444) now carries the verbatim passage. Delegated decision DD-08 (promotion open gap -> documented) is applied by this line.'))
+    recheck='OR-RECHECK: stored quote found at p.468; the item without a stored quote (Ewell p.444) now carries the verbatim passage. Delegated decision DD-08 (promotion open gap -> documented) is applied by this line.'))

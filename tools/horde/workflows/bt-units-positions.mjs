@@ -26,7 +26,9 @@ const cut = (o, n) => JSON.stringify(o || {}).slice(0, n || 6000)
 const mini = (r) => r ? { s: String(r.summary || '').slice(0, 160), nf: (r.failed || []).length, nr: (r.remaining || []).length } : null
 const brief = (r) => r ? { s: String(r.summary || '').slice(0, 240), failed: (r.failed || []).slice(0, 3).map((x) => String(x).slice(0, 160)), remaining: (r.remaining || []).slice(0, 3).map((x) => String(x).slice(0, 160)), owner: (r.owner_only || []).slice(0, 3).map((x) => String(x).slice(0, 160)) } : null
 const head = (own) => COMMON + '\nWORKSTREAM: ' + WS + '\nOWNERSHIP (the only paths you may write): ' + own + '\n' + CTX + '\n\n'
+const SKIP = new Set((args && args.skip) || [])   // labels of builds that an earlier run closed (tools/horde/closed.py): skipped, so a restart does not redo finished work
 async function build(label, task, own, ph) {
+  if (SKIP.has(label)) return { summary: 'closed in an earlier run: skipped', done: [], failed: [], remaining: [], skipped: true }
   let rep = await agent(head(own) + 'TASK: ' + task, { label: label, phase: ph || 'Build', schema: REPORT, effort: EFF })
   for (let r = 1; r <= 2 && rep; r++) {
     const v = await agent(head('tmp/review-notes/** only') + REVIEW + '\nTHE TASK WAS: ' + task + '\nOWNERSHIP OF THAT WORK: ' + own + '\nREPORT TO REFUTE: ' + cut(rep), { label: label + ' / review ' + r, phase: 'Verify', schema: VERDICT, effort: EFF })
@@ -42,7 +44,7 @@ const T_GROUP = (g) => `Research units group ${g.id}: ${g.title}. For every unit
 const T_INTEG = `Merge docs/battle-theatre/history/undrawn/*.jsonl into the history layer through its build scripts (extend the scripts; no hand-edited generated files), rebuild the layer data the app loads, and run the layer's tests (arrival, daypos, history, sibling, ledger, crowd and cavalry test files) and python tools/bt/check_arrivals.py through the machine lock. What the new units break (speeds outside the documented ranges, teleports, an entity before its arrival) is a defect of the new data: correct it from the sources or downgrade the datum to a registered gap, never by loosening a check. Update the units-drawn table in docs/battle-theatre/app/README.md with the real numbers and write docs/battle-theatre/history/undrawn/SUMMARY.md: drawn before and after, figures before and after, units that remain gaps and why.`
 const T_CRITIC = `Completeness check after a merge round: re-derive from the rebuilt layer which units are still undrawn or only partly drawn (missing arrival, positions between documented points, strength), and for which of them unexplored sources remain (reports not yet read, state volumes, the brigade or division narrative). Add a round-2 list to docs/battle-theatre/history/undrawn/groups.json (same contract, group ids prefixed r2-) and return those groups; return an empty list when every remaining unit is a registered gap with its searches recorded.`
 phase('Scout')
-const scout = await agent(head(OWN) + 'TASK: ' + T_SCOUT, { label: 'find undrawn units and plan groups', phase: 'Scout', schema: GROUPS, effort: EFF })
+const scout = (args && args.groups && args.groups.length) ? { groups: args.groups, summary: 'plan reused from an earlier run' } : await agent(head(OWN) + 'TASK: ' + T_SCOUT, { label: 'find undrawn units and plan groups', phase: 'Scout', schema: GROUPS, effort: EFF })
 if (!scout || !scout.groups || !scout.groups.length) return { ws: WS, error: 'scout returned no groups', scout: scout }
 const res = await pipeline(scout.groups.slice(0, 26), (g) => build('units ' + g.id, T_GROUP(g), OWN_G, 'Build'))
 phase('Integrate')

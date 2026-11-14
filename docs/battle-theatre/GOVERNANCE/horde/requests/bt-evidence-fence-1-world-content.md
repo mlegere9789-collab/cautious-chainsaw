@@ -1,6 +1,6 @@
 # Request to bt-world-content: structures, schedule and works changes from the fence-1 evidence close-out
 
-From: bt-evidence (shard fence-1). Date: 2026-11-13, revised 2026-11-14 (wave 4: S-003, S-004, S-008, S-016, E-01, E-02, E-04, E-11, E-12, E-13, E-14, E-17, E-18, S-002, S-005, S-006, S-007, S-012 changed). Files you own and this note asks you to change: `docs/battle-theatre/structures/structures.json`, `state_schedule.json`, `works_stages.json`, `app/data/works3d.json` (and the scenario/default files that read them). I changed none of them.
+From: bt-evidence (shard fence-1). Date: 2026-11-13, revised 2026-11-14 (wave 4: S-003, S-004, S-008, S-016, E-01, E-02, E-04, E-11, E-12, E-13, E-14, E-17, E-18, S-002, S-005, S-006, S-007, S-012, S-014 changed). Files you own and this note asks you to change: `docs/battle-theatre/structures/structures.json`, `state_schedule.json`, `works_stages.json`, `app/data/works3d.json` (and the scenario/default files that read them). I changed none of them.
 
 Why: `GOVERNANCE/evidence_corrections/fence-1.jsonl` re-checked every citation of rows R14.E-01..E-18 and S-001..S-016 against the Official Records and added exact evidence; several rows now contradict the PDF-seeded records. Each change below names the row, the new value, its tier and the source; the quotes, report ids, pages and offsets are in the jsonl. Keep every PDF value as a selectable scenario; the defaults below are recorded as DD-FENCE1-xx in the delegated decisions.
 

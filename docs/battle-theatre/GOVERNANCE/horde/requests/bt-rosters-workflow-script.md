@@ -14,3 +14,5 @@ The workflow runs two agents at a time and restarts walk the item list from the 
 The three edits above in `tools/horde/workflows/bt-rosters.mjs`; a run of the script already in flight is not affected.
 
 When done, append `-- handled: <what was done>` to this note with a shell `>>`.
+
+-- handled (orchestrator, 2026-11-14 00:58 UTC): the general cause (restarts redo finished items and re-scout) is fixed for every workflow script, not only bt-rosters: build() now skips labels passed in args.skip, six scouts reuse args.groups, and tools/horde/closed.py --args <script> prints both from the journals (a build is closed when a reviewer found it ok or its second fixer ran). The roster-specific wording changes 1 to 3 (T_SCOUT shortcut via open_groups.py, T_ITEM row format roster2/2 with derived marks in the flags file, the CLOSED.json marker) are applied to tools/horde/workflows/bt-rosters.mjs for the next start.

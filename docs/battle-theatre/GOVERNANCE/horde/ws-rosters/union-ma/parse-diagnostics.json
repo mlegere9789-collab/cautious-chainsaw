@@ -57,9 +57,9 @@
     "Y": 6
    },
    "company_inferred_rows": 0,
-   "furniture_lines": 71,
+   "furniture_lines": 72,
    "gettysburg_dated": 6,
-   "gz_bytes": 42851,
+   "gz_bytes": 42835,
    "head_kinds": {
     "cut:alternate-name": 1,
     "cut:no-comma": 1,
@@ -86,13 +86,23 @@
     684,
     734
    ],
-   "raw_bytes": 235356,
-   "raw_lines_sha256": "2ca5d2a04d0bc0d6ad908ace919e67413c756f036d88bda90d22ee8158f78ff5",
+   "raw_bytes": 235353,
+   "raw_lines_sha256": "1b619952251faee99926eccaafcfdf0fc564a6339c1aaed97cacc68e7bc95b98",
    "reviewed_cuts": [
     [
      "Henry S. Briggs",
      "a stray mark of the scan (\"j\", \"I\") stands between the sub-heading and the first entry"
     ]
+   ],
+   "reviewed_headings": [
+    {
+     "code": "K",
+     "first_row": 1138,
+     "heading": "COMPANY ''K'l",
+     "last_row": 1249,
+     "n_rows": 112,
+     "offset": 3659208
+    }
    ],
    "rows": 1258,
    "rows_by_company": {
@@ -106,7 +116,8 @@
     "FS": 15,
     "G": 125,
     "H": 141,
-    "I": 237,
+    "I": 125,
+    "K": 112,
     "NCS": 5,
     "UNAS": 8
    },
@@ -171,6 +182,11 @@
      "I",
      false,
      738
+    ],
+    [
+     "K",
+     false,
+     743
     ],
     [
      "UNAS",
@@ -792,7 +808,7 @@
   "u-ma-16th-massachusetts-infantry": {
    "codes": {
     "G": 23,
-    "H": 3,
+    "H": 4,
     "N": 18,
     "Q": 1,
     "R": 6,
@@ -801,10 +817,11 @@
    "company_inferred_rows": 0,
    "furniture_lines": 75,
    "gettysburg_dated": 25,
-   "gz_bytes": 47935,
+   "gz_bytes": 47925,
    "head_kinds": {
     "cut:fragment-extended": 1,
     "cut:period-for-comma": 1,
+    "cut:reviewed": 1,
     "d2-damaged": 1,
     "res-damaged": 1
    },
@@ -815,7 +832,7 @@
    ],
    "names_gettysburg": 80,
    "normalised_empty": 1,
-   "ocr_uncertain": 118,
+   "ocr_uncertain": 119,
    "on_rolls": {
     "no": 687,
     "unknown": 120,
@@ -827,8 +844,13 @@
     269
    ],
    "raw_bytes": 250882,
-   "raw_lines_sha256": "18bd5d52b899d784b6ad5af1d344e3ec62ced9a0d88c041e2fbb79c454f2ed77",
-   "reviewed_cuts": [],
+   "raw_lines_sha256": "f72ff0f8c4c332d1d4a97b7c04a08424cc5beb63006df73a33ee8d7698222d97",
+   "reviewed_cuts": [
+    [
+     "Steams, Henry VV,",
+     "the initial W is printed as the two letters VV with a comma, which the comma rule takes for a surname"
+    ]
+   ],
    "rows": 1369,
    "rows_by_company": {
     "A": 127,
@@ -1092,9 +1114,9 @@
     "Y": 109
    },
    "company_inferred_rows": 0,
-   "furniture_lines": 100,
+   "furniture_lines": 101,
    "gettysburg_dated": 77,
-   "gz_bytes": 76094,
+   "gz_bytes": 76096,
    "head_kinds": {
     "cut:alternate-name": 1,
     "cut:fragment-extended": 1,
@@ -1122,13 +1144,23 @@
     411,
     491
    ],
-   "raw_bytes": 374328,
-   "raw_lines_sha256": "a2e60b1393a8f7fd04f65313cb8cca8f2d06d76d591141d3da38a838bf255669",
+   "raw_bytes": 374329,
+   "raw_lines_sha256": "c57f758d2a8be775c7a1b2a06fd381e8f9b58be266fd2291e68db25cd89e60fb",
    "reviewed_cuts": [
     [
      "Vertulan R. Stone",
      "the entry above ends in \"Georgetown, D. C.\" (initials)"
     ]
+   ],
+   "reviewed_headings": [
+    {
+     "code": "UNAS",
+     "first_row": 1842,
+     "heading": "UX-\\SSIGXED",
+     "last_row": 1937,
+     "n_rows": 96,
+     "offset": 2537300
+    }
    ],
    "rows": 1938,
    "rows_by_company": {
@@ -1143,8 +1175,9 @@
     "G": 192,
     "H": 264,
     "I": 147,
-    "K": 263,
-    "NCS": 5
+    "K": 167,
+    "NCS": 5,
+    "UNAS": 96
    },
    "rows_without_printed_page": 0,
    "section_headings": [
@@ -1207,6 +1240,11 @@
      "K",
      false,
      490
+    ],
+    [
+     "UNAS",
+     false,
+     498
     ]
    ],
    "tail_dropped": [],
@@ -1499,7 +1537,7 @@
   "u-ma-1st-massachusetts-infantry": {
    "codes": {
     "G": 10,
-    "H": 6,
+    "H": 7,
     "N": 9,
     "Q": 6,
     "R": 1,
@@ -1508,9 +1546,9 @@
    "company_inferred_rows": 0,
    "furniture_lines": 86,
    "gettysburg_dated": 66,
-   "gz_bytes": 58435,
+   "gz_bytes": 58429,
    "head_kinds": {
-    "cut:fragment-extended": 1,
+    "cut:fragment-extended": 2,
     "cut:reviewed": 1,
     "res-damaged": 3,
     "res-lost": 4
@@ -1534,7 +1572,7 @@
     68
    ],
    "raw_bytes": 306421,
-   "raw_lines_sha256": "831e12ac8e6570401981fe5784e78ccb67815885e55ae164ffc35e23e05ec8b1",
+   "raw_lines_sha256": "7b456198ac827878cafb939508d3b9ca743bdc2acb2d28588f8f4527d33821f8",
    "reviewed_cuts": [
     [
      "George D. Wells",
@@ -1644,7 +1682,7 @@
   "u-ma-20th-massachusetts-infantry": {
    "codes": {
     "G": 20,
-    "H": 11,
+    "H": 12,
     "N": 24,
     "Q": 4,
     "R": 11,
@@ -1653,12 +1691,12 @@
    "company_inferred_rows": 0,
    "furniture_lines": 120,
    "gettysburg_dated": 126,
-   "gz_bytes": 93120,
+   "gz_bytes": 93123,
    "head_kinds": {
     "cut:fragment-extended": 3,
     "cut:initials-dropped": 1,
     "cut:no-comma": 5,
-    "cut:reviewed": 1,
+    "cut:reviewed": 2,
     "d1-missing": 2,
     "res-damaged": 2,
     "res-lost": 2
@@ -1670,7 +1708,7 @@
    ],
    "names_gettysburg": 131,
    "normalised_empty": 5,
-   "ocr_uncertain": 79,
+   "ocr_uncertain": 80,
    "on_rolls": {
     "no": 1808,
     "unknown": 69,
@@ -1682,11 +1720,15 @@
     593
    ],
    "raw_bytes": 462783,
-   "raw_lines_sha256": "82d028488e54758d3d9874b0ec55a5d836f04393935f31c9af6daec981654c1b",
+   "raw_lines_sha256": "fb4d41c4db9f5a819d0d02b1c913b5d784736a08a0cd15b6deeebf54d292f96b",
    "reviewed_cuts": [
     [
      "John W. Nye",
      "the entry above ends in \"V. R. C.\" (initials)"
+    ],
+    [
+     "ElishaM. White",
+     "the given name and the middle initial are one token that ends with a period, which the period rule takes for the end of the entry above"
     ]
    ],
    "rows": 2484,
@@ -2231,7 +2273,7 @@
   "u-ma-32nd-massachusetts-infantry": {
    "codes": {
     "G": 8,
-    "H": 8,
+    "H": 9,
     "N": 15,
     "Q": 6,
     "R": 7,
@@ -2240,10 +2282,10 @@
    "company_inferred_rows": 0,
    "furniture_lines": 111,
    "gettysburg_dated": 88,
-   "gz_bytes": 75570,
+   "gz_bytes": 75573,
    "head_kinds": {
     "cut:fragment-extended": 3,
-    "cut:reviewed": 1,
+    "cut:reviewed": 2,
     "res-damaged": 2,
     "res-lost": 4
    },
@@ -2254,7 +2296,7 @@
    ],
    "names_gettysburg": 88,
    "normalised_empty": 0,
-   "ocr_uncertain": 39,
+   "ocr_uncertain": 40,
    "on_rolls": {
     "no": 1461,
     "unknown": 29,
@@ -2266,11 +2308,15 @@
     535
    ],
    "raw_bytes": 396976,
-   "raw_lines_sha256": "d6cae4d2cb1e2150a78d8b09446b996049b08289fa57ffe4fc893e053d21a211",
+   "raw_lines_sha256": "14f156085ea31cb7f38f93a17e5f3069a3c59e5bcad595ef35a24d0abfdba874",
    "reviewed_cuts": [
     [
      "Francis J. Parker",
      "the first entry follows the unit sketch, which ends in the word INFANTRY set as a heading"
+    ],
+    [
+     "Waitt, John (alias Godsoe, John)",
+     "the head prints a second name in brackets; the closing bracket ends the cut of the comma rule"
     ]
    ],
    "rows": 2168,
