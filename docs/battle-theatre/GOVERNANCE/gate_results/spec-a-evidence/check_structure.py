@@ -37,6 +37,7 @@ body = re.sub(r'```.*?```', '', text, flags=re.S)
 defined = set()
 for m in re.finditer(r'(?m)^(?:- )?\*\*((?:U|TL|SS|WK|GE|PE|CT|CF|EP|TOP|Q\d\d\.\d+|K\d+)[-.]?\d*)', body): defined.add(m.group(1))
 for m in re.finditer(r'(?m)^\| (A-\d\d|X-\d\d|T-[A-Z0-9-]+|T-SS-1|DD-G\d\d|OA\d\d|Z\.\d|OA-G\d\d) ', body): defined.add(m.group(1))
+for m in re.finditer(r'(?m)^\| [A-Za-z0-9.-]+ \(([A-Za-z0-9-]+)\) \|', body): defined.add(m.group(1))   # first cell with an alias in brackets: `OA01 (OA-G01)`, `T-Q07-1 (T-SS-1)`
 for m in re.finditer(r'(?m)^- \*\*(DD-G\d\d)', body): defined.add(m.group(1))
 for m in re.finditer(r'(?m)^\| (RC-R\d\d\.\d+|R\d\d\.0000) ', body): defined.add(m.group(1))
 for m in re.finditer(r'RC-R\d\d\.\d+', body): pass
@@ -59,9 +60,10 @@ for g in sorted(gates):
     if not mm: text_bad.append((g, 'no Text line')); continue
     t = mm.group(1)
     gt = gates[g]
-    a = re.sub(r'\s+', ' ', t).strip().lower(); b = re.sub(r'\s+', ' ', gt).strip().lower()
+    tidy = lambda x: re.sub(r'\s+([,.;:])', r'\1', re.sub(r'\s+', ' ', fold(x))).strip()   # gates.json prints some words with a space before a comma and curly apostrophes
+    a = tidy(t); b = tidy(gt)
     if not (b.startswith(a) or a == b or a in b or b in a): text_bad.append((g, 'differs from gates.json', t[:80]))
-    elif fold(t).replace('"', '') not in p136.replace('"', ''): text_bad.append((g, 'not on p. 136 verbatim', t[:80]))
+    elif tidy(t).replace('"', '') not in re.sub(r'\s+([,.;:])', r'\1', p136).replace('"', ''): text_bad.append((g, 'not on p. 136 verbatim', t[:80]))
     else: found += 1
 res['gate_sections'] = heads; res['gate_texts_verbatim_on_p136_and_in_gates_json'] = found; res['gate_text_problems'] = text_bad
 res['gates_in_gates_json'] = [g for g in gates if g.startswith('Q')]

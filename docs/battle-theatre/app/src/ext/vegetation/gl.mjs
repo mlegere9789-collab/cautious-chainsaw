@@ -87,9 +87,14 @@ void main() {
   else if (stage > 2.5 && stage < 3.5) { float r = abs(fract(across / 0.3) - 0.5) * 2.0; col *= 1.0 - 0.1 * fine * r; }                                              // stubble
   else if (stage > 3.5 && stage < 5.5) { float r = abs(fract(across / 3.4) - 0.5) * 2.0; col = mix(col, col * vec3(1.12, 1.06, 0.9), 0.35 * (1.0 - smoothstep(0.0, 0.5, r)) * fine); } // windrows
   else if (stage > 5.5 && stage < 6.5) { float r = abs(fract(across / 0.8) - 0.5) * 2.0; col *= 0.82 + 0.3 * r * fine + 0.1 * (1.0 - fine); }                              // plough furrows
-  vec3 flatCol = col * vec3(0.80, 0.74, 0.60) * (0.9 + 0.2 * n4) + vec3(0.03, 0.02, 0.0);
-  col = mix(col, flatCol, clamp(trampled * 0.85, 0.0, 1.0));
-  col = mix(col, col * vec3(0.9, 0.88, 0.78), lodged * 0.5);
+  // trampled ground: matted straw, darker and browner than the standing crop, with bare soil showing through in patches where the ground was most trodden. The soil colour and the patches are
+  // plausible-procedural stand-ins (the record gives the share trampled and when, not what the ground looked like); the share and the time are the state of the data.
+  float mat = 0.6 * vn2(xz * 0.9) + 0.4 * vn2(xz * 3.3);
+  vec3 flatCol = col * vec3(0.62, 0.54, 0.40) * (0.74 + 0.5 * mat);
+  float bare = smoothstep(0.58, 0.82, 0.45 * n2 + 0.35 * n3 + 0.25 * mat);
+  flatCol = mix(flatCol, s2l(vec3(0.43, 0.34, 0.23)) * (0.8 + 0.4 * n4), 0.5 * bare);
+  col = mix(col, flatCol, clamp(trampled, 0.0, 1.0));
+  col = mix(col, col * vec3(0.80, 0.74, 0.58) * (0.85 + 0.3 * mat), lodged * 0.6);
   if (uOverlay > 0.5) {
     int ti = int(tier + 0.5); vec3 tc = uTierCol[ti]; float hatch = 0.0;
     if (ti == 1) hatch = hln(xz.x + xz.y, 7.0, 0.2);

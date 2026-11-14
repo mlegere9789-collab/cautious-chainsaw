@@ -31,9 +31,11 @@ TIERS = ("documented", "inferred", "plausible-procedural")
 def dump(name, obj):
     os.makedirs(OUT, exist_ok=True)
     p = os.path.join(OUT, name)
-    with open(p, "w", encoding="utf-8", newline="\n") as f:
+    tmp = "%s.%d.tmp" % (p, os.getpid())                 # written beside the table and renamed: a reader never meets a half-written table
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         json.dump(obj, f, indent=1, ensure_ascii=False, sort_keys=False)
         f.write("\n")
+    os.replace(tmp, p)
     return p
 
 

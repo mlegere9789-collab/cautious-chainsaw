@@ -227,6 +227,8 @@ test('rule: the scenarios of a record are the record\'s own, and RESULTS says wh
   const jun27 = base(); jun27.scenario = [{ id: 'rr-bridge-jun27', structure: { [RB]: 'jun27' } }]; delete jun27.scenario_excludes; jun27.checks = [burned()]; await mustFail(jun27, 'structure_wrong_state', 'burned on the 26th in the scenario that puts the burning on the 27th');
   const unlisted = base(); unlisted.checks[0].scenario = 'rr-bridge-jun28'; await mustFail(unlisted, 'check_scenario_unlisted', 'a check restricted to a scenario the record does not run');
   const dup = base(); dup.scenario = ['default', 'default']; await mustFail(dup, 'scenario_duplicate');
+  const dupKey = base(); dupKey.scenario = ['default', { id: 'opening-again', from: 'default' }]; delete dupKey.scenario_excludes; const dk = await mustFail(dupKey, 'scenario_duplicate', 'the same scenario under another name'); assert.ok(dk.problems.some(p => p.code === 'scenario_duplicate' && /chooses what "default" chooses/.test(p.detail)), 'and the report says which it repeats');
+  const exKey = base(); exKey.scenario_excludes = [{ scenario: { id: 'rr-bridge-jun26-again', structure: { [RB]: 'jun26' } }, why: 'x'.repeat(40) }]; await mustFail(exKey, 'scenario_excluded_is_run', 'a scenario excluded under another name than the one it is run under');
   const exRun = base(); exRun.scenario_excludes = [{ scenario: 'default', why: 'x'.repeat(40) }]; await mustFail(exRun, 'scenario_excluded_is_run', 'a scenario both run and excluded');
   const shortWhy = base(); shortWhy.scenario_excludes[0].why = 'because'; await mustFail(shortWhy, 'scenario_excludes_bad', 'an exclusion without a real reason');
   const bad = base(); bad.scenario = 5; await mustFail(bad, 'scenario_bad');
@@ -253,6 +255,17 @@ test('rule: the two halves of the gate for one row (check.mjs coverageOf): a car
   assert.equal(none.realization_class, null); assert.equal(none.q17_covered, false); assert.equal(none.q17_covered_strict, false); assert.equal(none.coverage, 'none');
   assert.equal(reg.q17_covered, true); assert.equal(reg.q17_covered_strict, true); assert.equal(reg.coverage, 'open_register_entry'); assert.deepEqual(reg.register_open, ['EG-0001']);
   assert.equal(regRealizedCard.coverage, 'card', 'realized wins the label');
+  // GATE-SPEC 6.4: a realized scene counts strictly only if it holds in every scenario of its row's group (V6) and lies inside the exact time of the row (V4); not_strict_because says which condition fails
+  const grpOpen = E({ realized: true, kind: 'weather_sky', scenario_group: { complete: false } }), grpDone = E({ realized: true, kind: 'weather_sky', scenario_group: { complete: true } }), noGrp = E({ realized: true, kind: 'weather_sky' });
+  assert.equal(grpOpen.q17_covered, true, 'realized: covered'); assert.equal(grpOpen.q17_covered_strict, false, 'a record that leaves a scenario of its group unrun and not excluded is not a valid realization (V6)'); assert.deepEqual(grpOpen.not_strict_because, ['scenario_group_incomplete']); assert.equal(grpOpen.coverage, 'realization');
+  assert.equal(grpDone.q17_covered_strict, true); assert.equal(grpDone.not_strict_because, undefined); assert.equal(noGrp.q17_covered_strict, true, 'a row with no group report (a probe, an old file) is judged by the other conditions');
+  const margin = E({ realized: true, clock_tolerance_used: true }), exact = E({ realized: true, clock_tolerance_used: false }), unknown = E({ realized: true, clock_tolerance_used: null });
+  assert.equal(margin.q17_covered, true); assert.equal(margin.q17_covered_strict, false, 'a record that needs the clock margin is not valid (V4: the margin is applied to no row)'); assert.deepEqual(margin.not_strict_because, ['clock_margin_used']);
+  assert.equal(exact.q17_covered_strict, true); assert.equal(unknown.q17_covered_strict, true, 'null means the row has no window to judge');
+  const all = E({ realized: true, kind: 'event_card', partial: [{ words: 'x', why: 'y' }], scenario_group: { complete: false }, clock_tolerance_used: true }); assert.deepEqual(all.not_strict_because, ['card', 'partial', 'scenario_group_incomplete', 'clock_margin_used'], 'every reason is listed, in this order');
+  for (const [name, e] of [['group', grpOpen], ['margin', margin], ['all four', all]]) { const withReg = coverageOf({ ...e }, ['EG-0001']); assert.equal(withReg.q17_covered_strict, true, `${name}: an open register entry covers it`); assert.ok(withReg.not_strict_because.length, `${name}: and the reasons stay listed`); }
+  const notRealized = E({ reg: ['EG-0001'], scenario_group: { complete: false }, clock_tolerance_used: true }); assert.equal(notRealized.not_strict_because, undefined, 'a row that is not realized has nothing to be strict about');
+  const again = coverageOf({ ...grpOpen, scenario_group: { complete: true } }, []); assert.equal(again.not_strict_because, undefined, 'recomputed, not carried over'); assert.equal(again.q17_covered_strict, true);
 });
 test('rule: the totals and the Q17 verdict are computed from the rows, and are false unless every expected row is there (check.mjs summarize, q17Of)', () => {
   const row = (o = {}) => coverageOf({ realized: false, kind: 'unit_motion', codes: ['no_record'], record: null, in_clock: true, ...o }, o.reg || []);
@@ -439,6 +452,7 @@ test('rule: the conflicts that reach units, weather and structures (query.mjs un
   assert.deepEqual(Object.keys(reach), ['C-004', 'C-043'], 'the II Corps gate (C-004) and a path stop of the 19th Indiana (C-043); Gordon is reached by none');
   assert.deepEqual(reach['C-004'], [{ unit: 'us-2c', via: ['gate'] }]); assert.deepEqual(reach['C-043'], [{ unit: 'us-1c-1d-meredith-19in', via: ['path'] }]);
   assert.deepEqual(Object.keys(P.unitConflicts(['us-2c-1d'])), ['C-004'], 'a division inherits the gate of its corps'); assert.deepEqual(P.unitConflicts([]), {}); assert.deepEqual(P.unitConflicts(['no-such-unit']), {});
+  assert.ok(P.leaves('us-1c-1d-meredith', { onField: false }).includes('us-1c-1d-meredith-19in')); assert.ok('C-043' in P.unitConflicts(['us-1c-1d-meredith']), 'a formation is reached by the conflicts of its leaves: the path stop of the 19th Indiana (C-043) reaches its brigade');
   assert.deepEqual(await P.weatherConflicts('1863-07-02T13:00', '1863-07-02T15:00'), ['CF-JUL2-CLOUD-2PM', 'CF-JUL2-SKY', 'CF-WIND-SPEED'], 'the conflicts the environment lists for the minutes of the span');
   assert.deepEqual(await P.weatherConflicts('1863-07-03T13:00', '1863-07-03T15:00'), ['CF-WIND-SPEED']); assert.ok((await P.weatherConflicts('1863-07-04T04:00', '1863-07-04T06:00')).includes('CF-JUL4-RAIN-TIMING'));
   const RB = 'bld-rock-creek-rr-bridge', r = await P.structureReadings([RB, 'bld-wade-house', 'E-05']);
@@ -484,4 +498,7 @@ test('rule: the totals count the realized rows whose group is not complete (chec
   const row = (o = {}) => coverageOf({ realized: false, kind: 'weather_sky', codes: [], record: 'x:1', in_clock: true, ...o }, []);
   const rows = { a: row({ realized: true, scenario_group: { complete: true } }), b: row({ realized: true, scenario_group: { complete: false } }), c: row({ realized: true }), d: row({ scenario_group: { complete: false } }) };
   const S = summarize(rows, {}); assert.equal(S.timeline.realized_group_incomplete, 1, 'a realized row whose group is open; a row not realized is counted elsewhere'); assert.equal(q17Of(S, { timelineRows: 4, epilogueRows: 0 }).realized_group_incomplete, 1);
+  const q = q17Of(S, { timelineRows: 4, epilogueRows: 0 }); assert.equal(q.ok_strict, false, 'a realized row with an open group and no register entry is not covered strictly'); assert.equal(q.uncovered_strict, 2, 'b (group open) and d (not realized)');
+  const m = { a: row({ realized: true, clock_tolerance_used: true }), b: row({ realized: true, clock_tolerance_used: false }), c: row({ realized: true, clock_tolerance_used: null }), d: row({ clock_tolerance_used: true }) };
+  const M = summarize(m, {}); assert.equal(M.timeline.realized_clock_margin_used, 1, 'a realized row whose record used the margin; a row not realized is counted elsewhere'); assert.equal(q17Of(M, { timelineRows: 4, epilogueRows: 0 }).realized_clock_margin_used, 1); assert.equal(M.timeline.uncovered_strict, 2);
 });

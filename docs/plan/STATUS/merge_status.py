@@ -31,7 +31,7 @@ from authored_wave1b import WAVE1B  # noqa: E402
 from authored_slices import SLICES  # noqa: E402
 
 REPO = pt.REPO
-GENERATED = '2026-11-13'
+GENERATED = '2026-11-14'
 OPEN = ('OPEN_BUILDABLE', 'BUILT_NOT_SHIPPED', 'OPEN_NEEDS_DECISION')
 STATUSES = ['SHIPPED', 'BUILT_NOT_SHIPPED', 'OPEN_BUILDABLE', 'OPEN_NEEDS_DECISION', 'OWNER_ONLY', 'SUPERSEDED']
 CHAPTERS = ['01', '02', '03', '04', '05', '06', '07', '08a', '08b', '09', '10', '11', '12', '13', '14', '15', '16']

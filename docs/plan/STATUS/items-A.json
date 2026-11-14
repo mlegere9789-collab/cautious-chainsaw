@@ -11,7 +11,8 @@
   "OPEN_NEEDS_DECISION": "Waits for a decision that the owner delegated on 2026-11-11; next_step carries the conservative proposal and the alternative that stays selectable.",
   "OWNER_ONLY": "Needs a legal act, an account, a key, a DNS change, a payment, a deployment, real hardware or a third party; owner_step is the exact step.",
   "SUPERSEDED": "Overtaken by a later owner decision or standing constraint.",
-  "size": "Size of the remaining work: S under half a day, M half a day to two days, L more than two days. S for items with nothing left to build."
+  "size": "Size of the remaining work: S under half a day, M half a day to two days, L more than two days. S for items with nothing left to build.",
+  "files": "Repository files that carry the evidence or that the work changes or builds on (existing paths only, none under tmp/, release/ or deliver/ because those are not in git); for an item that is not built, the plan chapter or roadmap file that specifies it, and for a decision the delegated-decisions file that records the choice."
  },
  "evidence_legend": {
   "R1g": "Train R1g, release id 52cec836, cumulative on R0..R1f: release/R1g/anchors.json records 3,386 asserted patches in 38 groups, 0 failed; release/R1g/gate.json ok; node tools/t0/verify_release.mjs ok for all eight trains.",
@@ -25,20 +26,22 @@
   "The zips packed in this container carry a stand-in 1863 tile pyramid (96 of 1,885 files equal the original); the final zip must be packed where the original pyramid is.",
   "Source rebuild: src/ holds the time module (src/lib/time, 10 files) and, since 2026-11-13 21:27 UTC, the foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js and two test files: 23 tests pass on Node 22.23.4); there is no rebuilt app, no parity harness, no site generator. data-src/ (63 files) and historian-src/ (299 files) are built and tested but served by no train.",
   "Run by this survey on 2026-11-13, long suites through the machine lock: T0-J7 on R1g and on frozen R1f (red on both, tmp/r1h-cand/statusA/j7.log); node --test tests/time/*.test.mjs: 638 tests, 638 pass, 0 fail; npm run time:check: exit 0; node --test tests/data/*.test.mjs: 207 tests, 206 pass, 0 fail, 1 skipped; npm run data:check: exit 0. Run directly (under 5 s CPU, no browser): node tools/environment/validate.mjs and node tools/ledger/validate.mjs: 0 errors, 0 warnings each; HDR-11 alone (see VER-HDR-11). node --test tests/historian/*.test.mjs under Node 24.22.1 (/opt/node24), run through the machine lock on 2026-11-13 (log tmp/r1h-cand/statusA/historian-test3.log; started 19:31 UTC, finished 20:54 UTC): 474 tests, 386 pass, 1 fail, 87 skipped (19 of the skips are \"skipped loudly\": historian-src/raw/or27 and tmp/historian-cache are not built here). The one failure is tests/historian/engine.test.mjs:193 \"latency: p95 of a 300-query session ... far below the 30 ms budget\" with p95 39.5 ms; that job shared the CPU with other jobs, so it is not a timing result, and no run alone under the timing lock is recorded yet. Under the default Node 22.23.4 the suite could not load before 21:13 UTC (tools/historian/ingest/times.mjs held a regular-expression modifier group, which V8 before 12.5 rejects); candidate ver-hist-node rewrote that pattern (tools/historian/ingest/times.mjs has no modifier group now; new test tests/historian/times-node22.test.mjs). Its own shared-mode run of the whole suite under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log). Its STATUS.json still says passes false: the paired run of both Node versions under the timing lock has not produced its logs.",
-  "Result files of the release workstream used in pass 3: docs/accept/R1G-SUITES.json (generated 2026-11-13 21:39 UTC from 12 logs) lists 80 suites, last result OK 61 and not OK 19 (journeys.R1c, mobilefix.R1b, mobilefix.R1c, r1.anim, r1.base1863, r1.polish, r1.polish.pair, r1.perf2, r1.perf4, r1.perf5, r1.perf6, r1.wtpeer, r1.ztail, baseline.walkguard, walkguard.R0 to walkguard.R1c, headers.R1c); the last result of 58 suites is from the 2026-11-11 run, not from the final harness. A SHIPPED item whose proof suite is in that red list says so in its evidence; none of those results is acceptance evidence (container: 4 vCPU, software GL, Linux fonts).",
+  "Result files of the release workstream used in passes 3 and 4: docs/accept/R1G-SUITES.json, generated 2026-11-14 00:04 UTC from 13 logs, lists 80 suites, last result OK 60 and not OK 20 (journeys.R1c, mobilefix.R1b, mobilefix.R1c, pagesmaps.R1a, r1.anim, r1.base1863, r1.polish, r1.polish.pair, r1.perf2, r1.perf4, r1.perf5, r1.perf6, r1.wtpeer, r1.ztail, baseline.walkguard, walkguard.R0 to walkguard.R1c, headers.R1c); pass 3 read the version generated 2026-11-13 21:39 UTC (OK 61, not OK 19), and the one new red row is pagesmaps.R1a (a cold-cache run of 2026-11-14 00:04 UTC, exit 1, cause not recorded: VER-PAGESMAPS). The last result of 58 suites is from the 2026-11-11 run, not from the final harness. A SHIPPED item whose proof suite is in that red list says so in its evidence; none of those results is acceptance evidence (container: 4 vCPU, software GL, Linux fonts).",
   "Run by pass 3 from 2026-11-13 23:45 UTC to 2026-11-14 (nothing through the machine lock): node --test src/config/tokens.test.mjs src/foundation.test.mjs (23 of 23, Node 22.23.4); node tests/copy/trust-pages.test.mjs (fails: the anchor-state assertion, see OWNER-2026-10-04-6); node tools/t0/run_suites.mjs --list (80 suite rows); python3 docs/plan/STATUS/merge_status.py --check and check_backlog.py before the change (both exit 0); scripted checks in tmp/r1h-cand/statusA3: ids of the plan against the items (253 work packages, 34 decisions, 17 packages, 12 owner actions, 81 chapter owner decisions, 98 roadmap nodes: nothing missing), every \"N/M\" figure of the evidence against the recorded suite rows, every patch id and path named, and direct reads of release/R1g/dist (pages without main, token literals, inline scripts, headers, sitemap, dev-page redirects, service worker).",
   "Not run by pass 3: any browser suite, the eight acceptance passes, Lighthouse, any real device, the paired Node 22 and Node 24 historian run under the timing lock (queued by candidate ver-hist-node, not yet run), and the whole node suites of tests/time and tests/data (nothing under src/lib/time, tools/time, tests/time, data-src, tools/data or tests/data changed since the pass 2 run).",
-  "Not run by this survey (passes 1 to 3): any other browser suite, the eight acceptance passes, Lighthouse (no runner in the repository), any real device. The default node of this container is 22.23.4; /opt/node24/bin/node is 24.22.1."
+  "Not run by this survey (passes 1 to 3): any other browser suite, the eight acceptance passes, Lighthouse (no runner in the repository), any real device. The default node of this container is 22.23.4; /opt/node24/bin/node is 24.22.1.",
+  "Run by pass 4 on 2026-11-14 from 00:10 UTC (read-only scripts of a few seconds of CPU each, nothing through the machine lock, no browser; scripts and outputs in tmp/r1h-cand/statusA4): (1) the pass-3 checks again on the tree as it is: ids of the plan against the items (253 work packages and the rest: none missing), every tests entry resolves (0 unresolved), every N/M figure matches a recorded suite row except the three that quote the Windows run of R1f, python3 docs/plan/STATUS/merge_status.py --check and check_backlog.py (both exit 0 before the change); (2) every patch_groups name is a group of release/R1g/anchors.json and no train text of a SHIPPED item names a train earlier than its earliest group (release/R0 to R1g anchors.json); (3) the 77 roadmap nodes of this part against the member work packages of their source_wps in both parts: five nodes graded SHIPPED for a named subset (RM-06, RM-07, RM-15, RM-16, RM-17) now say what their other members are; (4) the 22 SHIPPED and BUILT_NOT_SHIPPED items whose proof test ids belong to a suite with a not-OK last row: the cited ids were compared with the failing ids of the row and the evidence was read; WP-UX-02, WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 were completed; (5) direct reads of release/R1g/dist: 26 html files, 13 without main (12 pages and the Search Console file), skip link and color-scheme meta on index.html only, no translate=\"no\", no viewport zoom lock, manifest.json description still carries \"in real time\", \"467\" and \"five-minute\"; (6) the sha384 of the Mapbox GL files downloaded by the 2026-11-14 00:04 UTC pagesmaps run equals the pins of tools/t0/assets-src/sri.json; (7) git: nothing under src/lib/time, tools/time, tests/time, data-src, tools/data, tests/data, historian-src, tools/historian or tests/historian changed after the checkpoint of 2026-11-13 21:23 UTC, so the test results quoted from passes 2 and 3 stand; ops/RELEASE-LOG.md still has no deploy row.",
+  "Not run by pass 4: any browser suite, the eight acceptance passes, Lighthouse, any real device or assistive technology, the paired Node 22 and Node 24 historian run under the timing lock, and the whole node suites of tests/time, tests/data and tests/historian (nothing under their code changed since the runs quoted)."
  ],
  "counts": {
   "SHIPPED": 91,
   "BUILT_NOT_SHIPPED": 17,
-  "OPEN_BUILDABLE": 227,
+  "OPEN_BUILDABLE": 228,
   "OPEN_NEEDS_DECISION": 96,
   "OWNER_ONLY": 72,
   "SUPERSEDED": 15
  },
- "total": 518,
+ "total": 519,
  "counts_by_kind": {
   "decision": {
    "SHIPPED": 14,
@@ -87,7 +90,7 @@
    "OWNER_ONLY": 9
   },
   "verification debt": {
-   "OPEN_BUILDABLE": 3,
+   "OPEN_BUILDABLE": 4,
    "OWNER_ONLY": 4
   },
   "work package (finding group)": {
@@ -109,7 +112,7 @@
   },
   "02": {
    "SHIPPED": 34,
-   "OPEN_BUILDABLE": 8,
+   "OPEN_BUILDABLE": 9,
    "OPEN_NEEDS_DECISION": 4,
    "OWNER_ONLY": 11,
    "SUPERSEDED": 3
@@ -301,7 +304,9 @@
    "evidence": "No apps/web, no Astro project, no spike (WP-DEC-04). The 25 pages are still hand-edited HTML patched by page groups.",
    "next_step": "Run WP-DEC-04 (npm reachable), then WP-ARCH-29.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "kind": "decision (ADR)"
   },
   {
@@ -348,7 +353,9 @@
    "evidence": "docs/BROWSERS.md and a browserslist do not exist; no WebGL2 gate or Text route in the R1g tree; error boundary shipped (A-error-boundary, T0-EB-01 pass).",
    "next_step": "WP-DEC-12 (write the floor, es-check gate, WebGL2 gate stub).",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "kind": "decision (ADR)"
   },
   {
@@ -359,7 +366,9 @@
    "evidence": "color-scheme meta is on index.html only (1 of 25 pages in release/R1g/dist); no self-hosted Spectral; education.html keeps its own palette.",
    "next_step": "WP-UX-07/08/11 and WP-A11Y-24 (color-scheme on the sub-pages as a candidate page group).",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "kind": "decision (ADR)"
   },
   {
@@ -443,7 +452,9 @@
    "evidence": "Shipped: intro sweep deleted (R0-intro-delete), boot-after-first-paint loader (R0M), no layout chooser from R1b (group C), deep links skip onboarding (A-onboarded-guard). Not built: static poster with three intent buttons, Text route, removal of the onboarding window.",
    "next_step": "WP-PERF-18 / WP-UX-16 / WP-UX-23.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "kind": "decision (ADR)"
   },
   {
@@ -454,7 +465,10 @@
    "evidence": "translate=\"no\" occurs 0 times in release/R1g/dist/index.html; day keys still match on key (no registry). One clock formatter ships with CLOCK.",
    "next_step": "Candidate page/bundle rows for translate=\"no\" on clocks and unit names; hotkey registry with WP-A11Y-08.",
    "size": "S",
-   "files": [],
+   "files": [
+    "tools/t0/patches/CLOCK.json",
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "kind": "decision (ADR)"
   },
   {
@@ -601,7 +615,9 @@
    "evidence": "No classroom mode, no /teach pages, no IT-admin page in the tree.",
    "next_step": "WP-UX-30. Owner-only parts: filter-vendor categorisation forms and pilot teachers.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "owner_step": "Submit the domain to the web-filter vendors and name two or three pilot teachers.",
    "kind": "decision (ADR)"
   },
@@ -613,7 +629,10 @@
    "evidence": "No /api/ingest function and no vitals client exist; a Netlify Function cannot ride a drag-and-drop zip, and the privacy text that must precede it is not approved (D-LEGAL).",
    "next_step": "Delegated, conservative: ship no telemetry; keep Netlify RUM as the only field source; build the collector only as an inert candidate. Alternative kept: enable it after the owner approves the privacy text and a function deploy path.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "decision": "First-party telemetry (D-TELEMETRY)",
    "shared_with_part_B": true,
    "kind": "decision (ADR)"
@@ -675,7 +694,10 @@
    "evidence": "Legacy trains were measured with real tiles (chapter 02 sections 14.18-14.21, ops/release-notes/perf-results.json); the static-poster variant and perf/budgets.json do not exist.",
    "next_step": "Build the poster variant as a candidate and measure both here (software GL: structure and bytes only; device timing owed to the owner).",
    "size": "M",
-   "files": [],
+   "files": [
+    "ops/release-notes/perf-results.json",
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "kind": "decision-support package"
   },
   {
@@ -686,7 +708,9 @@
    "evidence": "No spike artefact in the repository.",
    "next_step": "Run it in the container: npm reachable; record bytes, init structure and parity; no real-GPU timing.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "kind": "decision-support package"
   },
   {
@@ -711,7 +735,9 @@
    "evidence": "Not run; no Astro project.",
    "next_step": "Three pages, file format, sitemap, hash CSP, in the container.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "kind": "decision-support package"
   },
   {
@@ -826,7 +852,9 @@
    "evidence": "None of the four exists.",
    "next_step": "Write them; es-check over release/R1g/dist/assets.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "kind": "decision-support package"
   },
   {
@@ -1160,7 +1188,9 @@
    "evidence": "Open with WP-DEC-02.",
    "next_step": "Measure the current major in the spike.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
    "kind": "decision"
   },
   {
@@ -1440,7 +1470,7 @@
    "chapter": "02",
    "title": "Map sub-pages: non-blocking Mapbox with SRI, PeerJS on demand",
    "status": "SHIPPED",
-   "evidence": "Train R1a onward, PG-maps (131 patches); pages-maps suite 34/34 on R1g [C11 rerun].",
+   "evidence": "Train R1a onward, PG-maps (131 patches); pages-maps suite 34/34 on R1g [C11 rerun]. Rows of the suite family (docs/accept/R1G-SUITES.json, generated 2026-11-14 00:04 UTC): pagesmaps.R1c (the R1g tree) and pagesmaps.R1b 34/34 on 2026-11-11 (proxy rerun); pagesmaps.R1a 34/34 on 2026-11-11 and on 2026-11-13 20:33 UTC, then FAIL on 2026-11-14 00:04 UTC (exit 1, 1 of 1 counted, 2.5 s, cold vendor cache, load average 13; cause not recorded: VER-PAGESMAPS). The two Mapbox GL files that last run downloaded have the sha384 values pinned in tools/t0/assets-src/sri.json (compared in pass 4), so the pins still match the library bytes served on 2026-11-14 00:04 UTC and the failure is not an integrity mismatch.",
    "next_step": "None. Lighthouse per page is owed.",
    "size": "S",
    "files": [
@@ -1461,7 +1491,7 @@
    "chapter": "02",
    "title": "OG card, manifest, Search Console file",
    "status": "SHIPPED",
-   "evidence": "Train R1a onward (PG-maps og rows, manifest id \"/\", orientation removed, google0dca4879c9657741.html in the dist); images replaced by real photographs at R1d (PG-zimg). pages-maps 34/34, images 12/13 (+1 skip) on R1g.",
+   "evidence": "Train R1a onward (PG-maps og rows, manifest id \"/\", orientation removed, google0dca4879c9657741.html in the dist); images replaced by real photographs at R1d (PG-zimg). pages-maps 34/34 (row pagesmaps.R1c), images 12/13 (+1 skip) on R1g; the newest pagesmaps.R1a row (2026-11-14) is a FAIL of unrecorded cause (WP-T0-13, VER-PAGESMAPS).",
    "next_step": "None. DNS TXT is owner Action 2.",
    "size": "S",
    "files": [
@@ -1695,7 +1725,9 @@
    "evidence": "Moot (owner instruction to complete everything; R1d..R1g exist).",
    "next_step": "None.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/02-tranche0-hotfix-runbook.md"
+   ],
    "kind": "decision"
   },
   {
@@ -1982,7 +2014,9 @@
    "evidence": "R1G decision Z4: would remove the cross-origin stall on the eight map pages; the Mapbox terms do not say whether hosting the library files is allowed.",
    "next_step": "Owner settles the licence question.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/R1G-PROVISIONAL-DECISIONS-2026-11-01.md"
+   ],
    "owner_step": "Ask Mapbox whether the GL JS files may be served from the site origin.",
    "kind": "decision"
   },
@@ -2008,7 +2042,9 @@
    "evidence": "R1G decision I6: same on R1f and R1g, not counted by the long-task observer, not fixed.",
    "next_step": "Profile allocation in the first 10 s (heap snapshots are valid on software GL); reduce the garbage the start-up creates.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/R1G-PROVISIONAL-DECISIONS-2026-11-01.md"
+   ],
    "kind": "decision"
   },
   {
@@ -2049,6 +2085,23 @@
    "size": "S",
    "files": [
     "tests/t0/mobile-fixes.spec.mjs"
+   ],
+   "owner_workstream": "release",
+   "kind": "verification debt"
+  },
+  {
+   "id": "VER-PAGESMAPS",
+   "chapter": "02",
+   "title": "pagesmaps.R1a red in its newest row (cold vendor cache, 2026-11-14 00:04 UTC); cause not recorded",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "docs/accept/R1G-SUITES.json (generated 2026-11-14 00:04:26 UTC): pagesmaps.R1a last row FAIL, exit 1, 1 of 1 counted, 2.5 s, log docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log. The run: node tools/t0/run_suites.mjs --r1-dist release/R1g/dist --no-red --no-network --only pagesmaps.R1a --port-base 19040 through the machine lock, HTTPS_PROXY set and NODE_USE_ENV_PROXY unset in the shell, vendor cache absent before the run, load average 13.24 to 13.62. The summary keeps only the last three output lines (a closing bracket, a closing brace, \"Node.js v22.23.4\"), so the error text is not recorded, and the R1G-STATUS line says the record makes no diagnosis. Earlier rows of the suite family: pagesmaps.R1a 34/34 on 2026-11-11 (proxy rerun) and 2026-11-13 20:33 UTC; pagesmaps.R1b and pagesmaps.R1c (the R1g tree) 34/34 on 2026-11-11; the first full run of 2026-11-11, in which Node did not get the proxy variables, was 14/34. Pass 4 compared the two Mapbox GL files that run downloaded (tmp/r1g-verify2-maps/vendor, 1,796,551 and 40,806 bytes) with tools/t0/assets-src/sri.json: both sha384 values equal the pins, so the integrity assertion of ensureVendor() in tests/t0/pages-maps.spec.mjs cannot be what failed. The suite is cited as proof by WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 here and by WP-INFRA-23a, WP-SEO-04a and others in items-B.json.",
+   "next_step": "Release workstream: run the suite alone through tools/horde/bench.sh with the vendor cache present and again with it absent, keep the whole output (the summary stores only the last three lines), classify the failure as harness, environment or tree, and record it in docs/accept/R1G-STATUS.md. No SHIPPED item changes status unless the R1g rows (pagesmaps.R1c) turn red.",
+   "size": "S",
+   "files": [
+    "tests/t0/pages-maps.spec.mjs",
+    "tools/t0/assets-src/sri.json",
+    "docs/accept/R1G-SUITES.json",
+    "docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log"
    ],
    "owner_workstream": "release",
    "kind": "verification debt"
@@ -2167,7 +2220,14 @@
    "evidence": "docs/spec/ and legacy/extracted/ do not exist.",
    "next_step": "Extract per-component sheets and the inline datasets from the R1g entry bundle. Parity reference must be the R1g tree (patched bundle with CLOCK, DATA, MON, ANIM, BASE1863), not the legacy bundle.",
    "size": "L",
-   "files": [],
+   "files": [
+    "tools/t0/patches/CLOCK.json",
+    "tools/t0/patches/DATA.json",
+    "tools/t0/patches/MON.json",
+    "tools/t0/patches/ANIM.json",
+    "tools/t0/patches/BASE1863.json",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2191,7 +2251,11 @@
    "evidence": "No legacy/spec functions or goldens; the ANIM engine has its own fingerprints (tools/t0/anim/test/fingerprint.R1e.json).",
    "next_step": "Golden unit frames for 675 ticks from the R1g data and carry-forward rule.",
    "size": "M",
-   "files": [],
+   "files": [
+    "tools/t0/anim/test/fingerprint.R1e.json",
+    "tools/t0/patches/ANIM.json",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2247,7 +2311,11 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The interim rename rule lives in tools/t0/build.py.",
    "next_step": "Starts from the wp-arch-09 foundation: install and pin the first dependencies in src/package.json and src/app/package.json (rows N2, N3, N5, N7 of src/STACK.md), call getMapboxToken() once at the start of a production build, then the chunk map, byte budgets and hash scheme.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "tools/t0/build.py",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2274,7 +2342,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. Bridge equivalents ship in group B (day loading on jump, in-flight de-duplication).",
    "next_step": "After WP-ARCH-11.",
    "size": "M",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2324,7 +2395,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app.",
    "next_step": "After WP-DEC-02.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2335,7 +2409,9 @@
    "evidence": "See WP-DEC-02: not run.",
    "next_step": "Record the measured table as an amendment.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2359,7 +2435,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app.",
    "next_step": "After WP-ARCH-09.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2370,7 +2449,9 @@
    "evidence": "Bridge: A-error-boundary and the loader retry state ship (T0-EB-01, T0-R0-09 pass). No fault matrix for a rebuilt app.",
    "next_step": "After WP-ARCH-16/19.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2381,7 +2462,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2392,7 +2476,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2403,7 +2490,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2414,7 +2504,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2425,7 +2518,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2436,7 +2532,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2447,7 +2546,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2458,7 +2560,10 @@
    "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
-   "files": [],
+   "files": [
+    "src/STACK.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2469,7 +2574,9 @@
    "evidence": "No Astro project; the 25 pages are patched HTML.",
    "next_step": "After WP-DEC-04.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2480,7 +2587,9 @@
    "evidence": "No /next/ route, no flags.json.",
    "next_step": "After the ports; needs the D-ROOT decision for the route names.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2491,7 +2600,10 @@
    "evidence": "No .github/ directory; gates run locally (tools/t0/gate.mjs, run_suites.mjs).",
    "next_step": "Write the workflow files; the owner enables Actions.",
    "size": "M",
-   "files": [],
+   "files": [
+    "tools/t0/gate.mjs",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "owner_step": "Enable GitHub Actions on the repository.",
    "kind": "work package (finding group)"
   },
@@ -2503,7 +2615,9 @@
    "evidence": "Nothing exists; depends on every port.",
    "next_step": "Automation is buildable after WP-ARCH-08/30/31; the cutover deploy and the drills are owner acts.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "owner_step": "Publish the cutover build and rehearse the rollback.",
    "kind": "work package (finding group)"
   },
@@ -2515,7 +2629,9 @@
    "evidence": "Not started (follows the cutover).",
    "next_step": "After WP-ARCH-32.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2526,7 +2642,12 @@
    "evidence": "Trigger of chapter 03: phone blocking time or INP still red after R1. On the acceptance machine the phone blocking time of / fell under the 200 ms limit with PERF3/PERF4 (R1E decision R7: nothing above 163 ms in pass 750); field data does not exist (nothing is deployed).",
    "next_step": "Delegated, conservative: not triggered; re-open only if field INP or blocking time is red after the owner deploys.",
    "size": "S",
-   "files": [],
+   "files": [
+    "tools/t0/patches/PERF3.json",
+    "tools/t0/patches/PERF4.json",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "decision": "Whether the trigger is met",
    "kind": "work package (finding group)"
   },
@@ -2538,7 +2659,10 @@
    "evidence": "Open (chapter 03 section 9 item 5).",
    "next_step": "Delegated: React 18.3.1 exact (what the shipped bundle runs); Preact stays a selectable build alias.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "decision": "React version",
    "kind": "decision"
   },
@@ -2550,7 +2674,10 @@
    "evidence": "Open (section 9 item 7). FINAL-ACCEPTANCE demands regression against the published build.",
    "next_step": "Delegated, conservative: the rebuild keeps the R1g look pixel for pixel until the owner approves a redesign.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "decision": "Look change at cutover",
    "kind": "decision"
   },
@@ -2562,7 +2689,10 @@
    "evidence": "Open (section 9 item 8).",
    "next_step": "Delegated, conservative: none may slip (the Walkthrough is protected by owner decision 2026-10-04 item 3).",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "decision": "Deferrals",
    "kind": "decision"
   },
@@ -2574,7 +2704,10 @@
    "evidence": "Overtaken: corrected data already ships by owner decision 2026-10-05 item 3 (group DATA); the frozen snapshot for parity is the R1g data.",
    "next_step": "None.",
    "size": "S",
-   "files": [],
+   "files": [
+    "tools/t0/patches/DATA.json",
+    "docs/plan/FINAL/03-source-rebuild-and-parity.md"
+   ],
    "kind": "decision"
   },
   {
@@ -2821,7 +2954,9 @@
    "evidence": "Shipped: deep links (DL), bookmarks print the clock and old \"Tick n\" labels read \"Saved moment\" (CLK-19b, -21, -22, -61, -62; T0-CLK-09). No dv stamp in written share links or bookmarks.",
    "next_step": "Candidate rows: dv on the share builder and bookmark schema.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2846,7 +2981,10 @@
    "evidence": "Shipped: integer slider with aria-valuetext from the clock (a11:A-slider, CLOCK). Missing: time elements with datetime (1 hit in the bundle), translate=\"no\", a throttled live region.",
    "next_step": "Candidate bridge rows.",
    "size": "S",
-   "files": [],
+   "files": [
+    "tools/t0/patches/CLOCK.json",
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -2938,7 +3076,10 @@
    "evidence": "No ticks above 675; walkthrough stop 16 and two cards mention July 4-5.",
    "next_step": "Delegated, conservative: no new ticks (ticks 1..675 stay permanent); July 4 items become dated epilogue cards. Alternative kept: ticks 676+.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md"
+   ],
    "decision": "Epilogue form",
    "kind": "work package (finding group)"
   },
@@ -2964,7 +3105,10 @@
    "evidence": "Tick density is unchanged in R1g.",
    "next_step": "Delegated, conservative: keep the density (no data change).",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md"
+   ],
    "decision": "Night stretches",
    "kind": "decision"
   },
@@ -2976,7 +3120,10 @@
    "evidence": "Not shipped (WP-TIME-11).",
    "next_step": "Delegated: build it as a visible, selectable control; Story playback stays the default.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md"
+   ],
    "decision": "Battle-time control",
    "kind": "decision"
   },
@@ -2988,7 +3135,10 @@
    "evidence": "Tint ships on by default; no toggle.",
    "next_step": "Delegated: keep the tint and add the toggle (WP-TIME-13).",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/04-time-model-and-historical-accuracy.md"
+   ],
    "decision": "Night tint",
    "kind": "decision"
   },
@@ -3041,7 +3191,10 @@
    "evidence": "Nothing built; blocked by D-TELEMETRY and D-LEGAL.",
    "next_step": "See D-TELEMETRY (delegated: ship no telemetry; inert candidate only).",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "decision": "First-party telemetry (D-TELEMETRY)",
    "kind": "work package (finding group)"
   },
@@ -3053,7 +3206,10 @@
    "evidence": "Nothing built; depends on WP-PERF-03. Netlify RUM is the only field source.",
    "next_step": "See D-TELEMETRY. Owner exports the Netlify panels weekly after the deploy.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "decision": "First-party telemetry (D-TELEMETRY)",
    "owner_step": "Export Netlify RUM weekly after the deploy.",
    "kind": "work package (finding group)"
@@ -3154,7 +3310,9 @@
    "evidence": "Stage 1 header change is not in the generated _headers; stage 2 is rebuild work with WP-ARCH-11/12. Delegated A67 keeps /data/* at 3600 s.",
    "next_step": "With the data pipeline.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3178,7 +3336,9 @@
    "evidence": "Rebuild work: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module).",
    "next_step": "WP-ARCH-16.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3189,7 +3349,9 @@
    "evidence": "Rebuild work: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module).",
    "next_step": "WP-ARCH-10.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3200,7 +3362,9 @@
    "evidence": "Rebuild work: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module).",
    "next_step": "WP-ARCH-15.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3238,7 +3402,9 @@
    "evidence": "No quality tier; backdrop-filter stays over the map on phones.",
    "next_step": "Candidate CSS group, verified by screenshots; frame-rate effect must be measured on a GPU.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3263,7 +3429,9 @@
    "evidence": "Not built (see D-ENTRY).",
    "next_step": "Poster shell as a candidate page group; the /map move itself is D-ROOT.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3271,7 +3439,7 @@
    "chapter": "05",
    "title": "Map sub-pages: interim performance fix",
    "status": "SHIPPED",
-   "evidence": "PG-maps (R1a), PG-perf2, PG-perf3 with the 250 ms first-paint hold (R1d), PG-zperf5, PG-ztail (R1f, R1g); pages-maps 34/34 on R1g. Timing on this machine is software GL and is not evidence; green on the Windows machine for R1f (docs/accept/R1F-STATUS.md).",
+   "evidence": "PG-maps (R1a), PG-perf2, PG-perf3 with the 250 ms first-paint hold (R1d), PG-zperf5, PG-ztail (R1f, R1g); pages-maps 34/34 on R1g (row pagesmaps.R1c; the newest pagesmaps.R1a row of 2026-11-14 is a FAIL of unrecorded cause, VER-PAGESMAPS). Timing on this machine is software GL and is not evidence; green on the Windows machine for R1f (docs/accept/R1F-STATUS.md).",
    "next_step": "None for the patches; Lighthouse per page is owed.",
    "size": "S",
    "files": [
@@ -3302,7 +3470,9 @@
    "evidence": "Not built.",
    "next_step": "After WP-PERF-18 and the site generator.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3387,7 +3557,9 @@
    "evidence": "Not built.",
    "next_step": "Candidate header plus rules file for the light static pages only.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3398,7 +3570,10 @@
    "evidence": "No landing page (D-ROOT).",
    "next_step": "See D-ROOT.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "decision": "Landing at / and the app at /map (D-ROOT)",
    "kind": "work package (finding group)"
   },
@@ -3410,7 +3585,9 @@
    "evidence": "docs/perf-exceptions.md does not exist.",
    "next_step": "Write it from measured numbers once a GPU machine has run check 5 on the candidate.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3421,7 +3598,12 @@
    "evidence": "No such side effect ships: every PERF2..PERF6 change was checked for 0 differing pixels in the settled picture (R1E/R1F/R1G decision files).",
    "next_step": "Delegated, conservative: ship no performance change that alters the settled picture.",
    "size": "S",
-   "files": [],
+   "files": [
+    "tools/t0/patches/PERF2.json",
+    "tools/t0/patches/PERF6.json",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/05-performance-to-green.md"
+   ],
    "decision": "Visual side effects",
    "kind": "decision"
   },
@@ -3453,7 +3635,7 @@
    "chapter": "06",
    "title": "Compact completion and pack corrections",
    "status": "SHIPPED",
-   "evidence": "Group C (HF-5..HF-9, HF-11, C-topBar-padding-shorthand, tools sheet wiring), CP mobile-tools-footer, SHELL; mobile-matrix 19/19 on R1g; mobile-fixes see VER-MFIX.",
+   "evidence": "Group C (HF-5..HF-9, HF-11, C-topBar-padding-shorthand, tools sheet wiring), CP mobile-tools-footer, SHELL; mobile-matrix 19/19 on R1g; the mobile-fixes suite (T0-MFIX-*) is not green in this container: last rows mobilefix.R1c 27/29 (T0-MFIX-02, T0-MFIX-11) and mobilefix.R1b 28/29 (T0-MFIX-11) from the 2026-11-11 proxy rerun, classification pending in VER-MFIX; the Windows machine gave 29/29 for R1f.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -3505,7 +3687,9 @@
    "evidence": "Tranche-0 stage shipped (see D-URLSTATE). The full module, serialiser, shared-moment chip and repointed emitters are not built.",
    "next_step": "WP-ARCH-28.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3516,7 +3700,9 @@
    "evidence": "v0 ships (22 moments). No generator that emits timeline markers, Turning Points, documentary order and tour refs from one file.",
    "next_step": "With WP-TIME-05.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3548,7 +3734,9 @@
    "evidence": "No tokens file; colours are inline in 25 pages and the bundle.",
    "next_step": "Design system work for the rebuild; a tokens.css can start under src/.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3559,7 +3747,9 @@
    "evidence": "The 12 px floor ships (AX-css-shim, PGF-css-*; pages-fixes \"no text under 12 px\"). No self-hosted Spectral.",
    "next_step": "Self-host the two faces as a candidate (npm reachable for the font package).",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3570,7 +3760,9 @@
    "evidence": "Sprite ids are namespaced (PGC-nav-sprite-ids) and two glyphs became SVG (PERF2-svg-*). Emoji and letter icons remain across the app.",
    "next_step": "Rebuild component work.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3581,7 +3773,10 @@
    "evidence": "Shipped: entrance animations deleted (R0M), glow and sub-tick interpolation gated on reduced motion (a11:J2, J3), ANIM honours reduced motion. The full catalogue is rebuild work.",
    "next_step": "Rebuild.",
    "size": "S",
-   "files": [],
+   "files": [
+    "tools/t0/patches/ANIM.json",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3592,7 +3787,9 @@
    "evidence": "Not built beyond the color-scheme meta on index.html.",
    "next_step": "Rebuild; sub-page color-scheme rides WP-A11Y-24.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3603,7 +3800,9 @@
    "evidence": "Rebuild work: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module).",
    "next_step": "Rebuild.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3614,7 +3813,9 @@
    "evidence": "Interim shipped: reserved mounts, keyboard-operable menu with aria-controls (PGF-nav-*), renamed page ids. No prerendered header or footer, no breadcrumb, no main element on 12 pages.",
    "next_step": "Interim rows as a candidate page group (WP-A11Y-24); templates with the site generator.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3625,7 +3826,9 @@
    "evidence": "Rebuild work: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module).",
    "next_step": "WP-ARCH-19/27.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3636,7 +3839,11 @@
    "evidence": "Bridge: Extra Features menu fit, keys and placement (SHELL), one name per feature (PG-polish POL-N*). The overlay itself remains.",
    "next_step": "Rebuild.",
    "size": "L",
-   "files": [],
+   "files": [
+    "tools/t0/patches/PG-polish.json",
+    "tools/t0/patches/SHELL.json",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3647,7 +3854,9 @@
    "evidence": "See D-ENTRY.",
    "next_step": "Rebuild plus the poster candidate.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3658,7 +3867,9 @@
    "evidence": "Bridge shipped (integer slider with valuetext, hour steps, one clock oracle). Marker lane buttons, chapter bands and pace modes are not built.",
    "next_step": "Rebuild.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3669,7 +3880,11 @@
    "evidence": "Bridge shipped: dialog semantics and focus return (AX-*), Esc on story, event and tour cards (A2-*), layout contract that nothing lands on anything else (POLISH, ANIM card placer). One layer stack and one toast system are rebuild work.",
    "next_step": "Rebuild.",
    "size": "L",
-   "files": [],
+   "files": [
+    "tools/t0/patches/ANIM.json",
+    "tools/t0/patches/POLISH.json",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3680,7 +3895,9 @@
    "evidence": "Not built.",
    "next_step": "Rebuild; shares the entity index with search.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3704,7 +3921,10 @@
    "evidence": "Bridge shipped: 1863 base and its change layer (BASE1863), tint from the clock (CLK-95/96), attribution on. Hillshade and scale control are not built.",
    "next_step": "Rebuild.",
    "size": "M",
-   "files": [],
+   "files": [
+    "tools/t0/patches/BASE1863.json",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3715,7 +3935,9 @@
    "evidence": "Error boundary and loader retry ship. No state cards, no WebGL2 fallback, no context-loss handling.",
    "next_step": "Rebuild; a WebGL2 gate can ride a candidate page group.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3726,7 +3948,10 @@
    "evidence": "Not built; the crawlable block added by PG-zseo (ZSEO-home-crawl-text) is a tool list, not a chronicle.",
    "next_step": "Generate the static page from moments and chronology with the clock module.",
    "size": "M",
-   "files": [],
+   "files": [
+    "tools/t0/patches/PG-zseo.json",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3737,7 +3962,9 @@
    "evidence": "Not built beyond \"Copy link\" copy (cp:b*).",
    "next_step": "Rebuild; own-basemap image cards can now use the 1863 tiles.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3748,7 +3975,9 @@
    "evidence": "Not built; depends on the Historian engine shipping.",
    "next_step": "After RM-41.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3759,7 +3988,10 @@
    "evidence": "Help rows corrected (CP, CLOCK, POL-W03). No Privacy and data panel, no per-moment sources.",
    "next_step": "Rebuild; trust pages are RM-39.",
    "size": "M",
-   "files": [],
+   "files": [
+    "tools/t0/patches/CLOCK.json",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3770,7 +4002,9 @@
    "evidence": "A report print rule exists (PGC-report-css-print). No shared print layer, no one-page Battle Report test.",
    "next_step": "Candidate page group plus a print test (PDF raster).",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3781,7 +4015,10 @@
    "evidence": "Shipped: real-photograph icon set with separate any and maskable icons (PG-zimg), manifest id. No SVG favicon, no manifest screenshots, no installability test in a suite.",
    "next_step": "Candidate rows and a CDP installability test.",
    "size": "S",
-   "files": [],
+   "files": [
+    "tools/t0/patches/PG-zimg.json",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3792,7 +4029,11 @@
    "evidence": "T0 half shipped (CP; PG-polish one name per feature). The product rename and the feature renames ride D-NAME.",
    "next_step": "See D-NAME.",
    "size": "M",
-   "files": [],
+   "files": [
+    "tools/t0/patches/PG-polish.json",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "decision": "Product name and titles (D-NAME)",
    "kind": "work package (finding group)"
   },
@@ -3804,7 +4045,9 @@
    "evidence": "Not built.",
    "next_step": "Build the mode and three lessons from sourced text; pilots are owner-only.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "owner_step": "Name two or three pilot teachers.",
    "kind": "work package (finding group)"
   },
@@ -3816,7 +4059,10 @@
    "evidence": "Not built; Tier 3, unscheduled in the plan; the offline pack needs a tile-rights decision.",
    "next_step": "Delegated, conservative for scope: keep it in scope and build Near-me and the visit hub on the own 1863 tiles (no Mapbox tile caching); the field test is owner-only.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "decision": "On-site mode",
    "owner_step": "On-site test with an iPhone and an Android at three stops.",
    "kind": "work package (finding group)"
@@ -3829,7 +4075,10 @@
    "evidence": "Not built; post-cutover in the plan.",
    "next_step": "Delegated: keep in scope after the rebuild shell.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "decision": "Convergence",
    "kind": "work package (finding group)"
   },
@@ -3841,7 +4090,9 @@
    "evidence": "No study has been run; telemetry is undecided.",
    "next_step": "Owner recruits participants.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "owner_step": "Recruit participants for the card sort, tree test and the moderated rounds.",
    "kind": "work package (finding group)"
   },
@@ -3866,7 +4117,10 @@
    "evidence": "No intro moment ships.",
    "next_step": "Delegated: Pickett's Charge, only after a gesture, no clock text unless signed; First Shot stays selectable.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "decision": "Intro moment",
    "kind": "decision"
   },
@@ -3878,7 +4132,10 @@
    "evidence": "System fonts ship.",
    "next_step": "Delegated, conservative: no visible font change until the owner sees a comparison; build Spectral as a selectable candidate.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "decision": "Fonts",
    "kind": "decision"
   },
@@ -3890,7 +4147,9 @@
    "evidence": "Unanswered (Action 10).",
    "next_step": "Owner knowledge.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/06-ux-ui-mobile-desktop.md"
+   ],
    "owner_step": "Confirm in writing that the site is not affiliated with the NPS, the American Battlefield Trust or any publisher.",
    "kind": "decision"
   },
@@ -3963,7 +4222,9 @@
    "evidence": "Contrast overrides ship in the shim; no token contract, no forced-colors rules, no contrast test over tokens.",
    "next_step": "With WP-UX-07.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3974,7 +4235,9 @@
    "evidence": "Floors ship as overrides (12 px, 44 px on touch; T0-PGF target tests). No rem scale, no 200 percent text-scale test.",
    "next_step": "With WP-UX-08.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3985,7 +4248,9 @@
    "evidence": "Bridge: named dialogs with focus handling (AX-help-dialog, AX-book-dialog, AX-ancestor-dialog, AX-tools-sheet-dialog). Primitives are rebuild work.",
    "next_step": "Rebuild.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -3996,7 +4261,9 @@
    "evidence": "Bridge: names and pressed states on the patched controls. Primitives are rebuild work.",
    "next_step": "Rebuild.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4007,7 +4274,9 @@
    "evidence": "Not built. The shipped keyboard model is the one the owner approved on 2026-10-04 (A2); the alternative waits for this registry.",
    "next_step": "Rebuild.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4018,7 +4287,9 @@
    "evidence": "Done for index.html only (WP-A11Y-01).",
    "next_step": "Rebuild; sub-pages in WP-A11Y-24.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4029,7 +4300,9 @@
    "evidence": "Bridge shipped (a11:A-slider, aria-valuetext from the clock; T0-CLK-02 checks the slider text over 675 ticks).",
    "next_step": "Rebuild-native slider.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4040,7 +4313,9 @@
    "evidence": "Toasts are a log with aria-live off (a11:I-toast-log); search status row (AX-search-status). No announce() policy.",
    "next_step": "Rebuild.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4051,7 +4326,9 @@
    "evidence": "Labels and keyboard rows ship (a11:H-*, AX-search-*, AX-book-*). No ARIA combobox, no keyboard Distance.",
    "next_step": "Rebuild.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4062,7 +4339,9 @@
    "evidence": "Not built.",
    "next_step": "Rebuild; can be generated from the R1g data with the carry-forward rule.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4073,7 +4352,9 @@
    "evidence": "Not built.",
    "next_step": "Rebuild.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4084,7 +4365,9 @@
    "evidence": "Not built on the phone map.",
    "next_step": "Candidate bridge row for a NavigationControl on the phone map; the rest is rebuild.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4095,7 +4378,9 @@
    "evidence": "No Text route (WP-UX-23).",
    "next_step": "With WP-UX-23.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4106,7 +4391,9 @@
    "evidence": "See WP-UX-22.",
    "next_step": "Rebuild.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4117,7 +4404,9 @@
    "evidence": "Not built.",
    "next_step": "Rebuild.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4142,7 +4431,9 @@
    "evidence": "See WP-UX-10.",
    "next_step": "Rebuild.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4153,7 +4444,10 @@
    "evidence": "Landscape and portrait matrices pass (mobile-matrix landscape 6/6, portrait 6/6 on R1g); orientation lock removed. No 400 percent reflow or text-spacing test.",
    "next_step": "Add the two tests (release workstream owns tests/t0).",
    "size": "M",
-   "files": [],
+   "files": [
+    "tests/t0",
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4178,7 +4472,9 @@
    "evidence": "Help count wording fixed (cp:h01). FPS overlay, rank abbreviations and \"Not on field\" wording are unchanged.",
    "next_step": "Candidate bundle rows.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4229,7 +4525,9 @@
    "evidence": "Shipped: named sliders and canvases on Compare, labelled controls on Ledger and Immersive. Missing: slider valuetext, unit table fallbacks, hotspot lists.",
    "next_step": "Candidate page group.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4240,7 +4538,10 @@
    "evidence": "Contingent on the Labs dispositions.",
    "next_step": "With D-SCOPE-TIERS (delegated: pages stay, so this work is in scope).",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "decision": "Labs dispositions (D-SCOPE-TIERS)",
    "kind": "work package (finding group)"
   },
@@ -4265,7 +4566,9 @@
    "evidence": "No screen-reader log exists.",
    "next_step": "Needs real screen readers on Windows, macOS, iOS and Android.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "owner_step": "Run the 22 tasks with NVDA, JAWS, VoiceOver and TalkBack, or commission them.",
    "kind": "work package (finding group)"
   },
@@ -4293,7 +4596,9 @@
    "evidence": "Nothing exists.",
    "next_step": "Owner commissions it.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "owner_step": "Commission an independent WCAG 2.2 AA evaluation and two or three assistive-technology user sessions.",
    "kind": "work package (finding group)"
   },
@@ -4305,7 +4610,9 @@
    "evidence": "Not started; depends on WP-A11Y-04..21.",
    "next_step": "After those.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4316,7 +4623,11 @@
    "evidence": "Not done; the Extra Features overlay stays (SHELL keeps it out of the way).",
    "next_step": "Delegated, conservative: keep the overlay working as shipped; removal waits for the rebuilt header.",
    "size": "S",
-   "files": [],
+   "files": [
+    "tools/t0/patches/SHELL.json",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "decision": "Overlay scripts",
    "kind": "decision"
   },
@@ -4328,7 +4639,10 @@
    "evidence": "Shipped rule: at least 32 px on a fine pointer and 44 px on touch; its test T0-POL-05 is red in the container run of 2026-11-11 and its per-test Windows result is not recorded in the reports read here.",
    "next_step": "Delegated: keep 32 px on fine pointers (documented deviation), 44 px on touch.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/07-accessibility.md"
+   ],
    "decision": "Toolbar target size",
    "kind": "decision"
   },
@@ -4381,7 +4695,10 @@
    "evidence": "The receiver ships and reads every parameter the pages emit (DL; deeplinks 12/12 on R1g). No shared mapLink() module; emitters still write their old parameter names.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h. One emitter helper, all pages repointed, crawl test over every emitter URL.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4412,7 +4729,9 @@
    "evidence": "Interim shipped: keyboard menu with aria-controls, footer contrast, reserved mount height (PGF-nav-*, PGC-css-footer-*, PGC-css-reserve-mounts). Nav and footer are still injected by script; privacy, terms, 404 and embed have no nav.",
    "next_step": "Interim nav on the four bare pages as a candidate; prerender with the site generator.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4423,7 +4742,9 @@
    "evidence": "Per-page CSS overrides only (PGF-css-*).",
    "next_step": "With WP-UX-07.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4434,7 +4755,9 @@
    "evidence": "Not built.",
    "next_step": "With WP-UX-12.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4445,7 +4768,10 @@
    "evidence": "Escaping fixed where the stored XSS was (PGC-wt-render, PGC-wt-import), dashboard error copy (PGC-dash-error-copy). No shared loader with retry and error states.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4470,7 +4796,12 @@
    "evidence": "Interim shipped: deferred Mapbox with SRI, DOMContentLoaded wrap, first-paint hold (PG-maps, PG-perf3). No shared loader file, no library-error or WebGL-missing message.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h. Error states are testable by blocking the library request.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "tools/t0/patches/PG-maps.json",
+    "tools/t0/patches/PG-perf3.json",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4495,7 +4826,10 @@
    "evidence": "Not shipped. Counted in release/R1g/dist on 2026-11-13: inline script blocks (JSON-LD not counted) on 22 of the 25 pages (index.html 11 blocks; only 404, aftermath and terms have none), and the Mapbox token literal \"pk.eyJ\" on 8 pages (camera, cinematic-export, compare, ground-remembers, immersive, sandbox, viewshed, watch-together; one occurrence each) plus twice in the bundle assets/index-52cec836.js: 10 occurrences in 9 files. The one config module exists as src/config/mapbox.js (candidate wp-arch-09) but no shipped page reads it.",
    "next_step": "With the site generator.",
    "size": "M",
-   "files": [],
+   "files": [
+    "src/config/mapbox.js",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4503,7 +4837,7 @@
    "chapter": "08a",
    "title": "Test harness and page specs",
    "status": "SHIPPED",
-   "evidence": "tests/t0/pages-core.spec.mjs, pages-maps.spec.mjs, pages-fixes.spec.mjs: 28/28, 34/34, 20/21 (+1 skip by design) on R1g.",
+   "evidence": "tests/t0/pages-core.spec.mjs, pages-maps.spec.mjs, pages-fixes.spec.mjs: 28/28, 34/34, 20/21 (+1 skip by design) on R1g (rows pagescore.R1c, pagesmaps.R1c, pagesfix.R1c); the newest pagesmaps.R1a row (2026-11-14) is a FAIL of unrecorded cause (WP-T0-13, VER-PAGESMAPS).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -4588,7 +4922,10 @@
    "evidence": "Shipped: viewBox chart, keyboard legend with pressed state, named chart region (PGC-dash-svg, PGF-dashboard-legend-*, PGC-a11y-dashboard-chart-wrap). No data-table alternative, no loading or error state test.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "S",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4599,7 +4936,9 @@
    "evidence": "Not built.",
    "next_step": "After WP-PAGE-17/18.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4648,7 +4987,10 @@
    "evidence": "Not built beyond the hotfix.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4697,7 +5039,9 @@
    "evidence": "Not built.",
    "next_step": "After WP-PAGE-24.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4708,7 +5052,10 @@
    "evidence": "Shipped: ?unit= preselect, focus styles, 44 px rows (PGC-regiment-preselect, PGC-regiment-css-focus). No combobox, no landing content.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4719,7 +5066,9 @@
    "evidence": "Shipped: computed missing casualty rate and the cap at 100 percent (PGC-regiment-rate, ACC-regiment-rate-cap). Joins to the registry are not built.",
    "next_step": "After WP-PAGE-24.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4730,7 +5079,9 @@
    "evidence": "Not built.",
    "next_step": "After WP-PAGE-15/31.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4741,7 +5092,9 @@
    "evidence": "Not built; needs the site generator and is an SEO train (S4).",
    "next_step": "Part B gate (thin-content rule).",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "shared_with_part_B": true,
    "kind": "work package (finding group)"
   },
@@ -4753,7 +5106,10 @@
    "evidence": "Phone layout and named canvases ship (PGF-compare-dom-*, PGF-css-compare, PGC-compare-toggle-wrap; T0-PGF Compare rows). The second map is still created at load.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h. Create the second map on first use of the split.",
    "size": "S",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4764,7 +5120,9 @@
    "evidence": "Not built; nine pages read the placement files directly.",
    "next_step": "Module from the carry-forward rule shipped in group B, with a golden test against the app.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4775,7 +5133,9 @@
    "evidence": "Clock and uncertainty on both panes ship (CLK-31, CLK-81..84). Unit positions are not proven equal to the app.",
    "next_step": "After WP-PAGE-31.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4786,7 +5146,9 @@
    "evidence": "Not built.",
    "next_step": "After WP-PAGE-32.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4797,7 +5159,9 @@
    "evidence": "Not evidenced in any patch.",
    "next_step": "Red-first test: every listed unit follows; then patch.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4808,7 +5172,10 @@
    "evidence": "Clock hour and tick text ship (CLK-35..37, CLK-85). Controls unchanged.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4819,7 +5186,9 @@
    "evidence": "Hour from the clock model ships. No error state.",
    "next_step": "With WP-PAGE-10.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4830,7 +5199,9 @@
    "evidence": "Not built.",
    "next_step": "After WP-PAGE-34/35.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4841,7 +5212,10 @@
    "evidence": "Eyebrow clock and type sizes ship (CLK-38, PGF-css-documentary). Semantics and moment routing are not evidenced.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "S",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4852,7 +5226,9 @@
    "evidence": "Not built.",
    "next_step": "Sourced text only.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4863,7 +5239,10 @@
    "evidence": "Tab ranges and card times from the clock ship (CLK-39, CLK-40). Palette and no-JS path unchanged.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4874,7 +5253,9 @@
    "evidence": "Not built.",
    "next_step": "Write from sourced text; teacher review is owner-only.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "owner_step": "Have a teacher read the student texts.",
    "kind": "work package (finding group)"
   },
@@ -4886,7 +5267,9 @@
    "evidence": "Heading copy and a real photograph ship (POL-W04, IMG:figure:aftermath). No sourced expansion.",
    "next_step": "Write from tmp/library (Official Records, ws9) with page-cited quotes.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4897,7 +5280,10 @@
    "evidence": "Shipped: presets on frames their text fits (CLK-87..90), contrast and pop-up containment (PGF-sandbox-*). Drag is still mouse-only.",
    "next_step": "Delegated (see D-SCOPE-TIERS): keep the page; build touch and keyboard moves and data-derived labels.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "decision": "Labs dispositions (D-SCOPE-TIERS)",
    "kind": "work package (finding group)"
   },
@@ -4909,7 +5295,9 @@
    "evidence": "Rename and caveat ship (see D-VIEWSHED). Elevations are not corrected, and cannot be from this container: the 3DEP DEM is neither present nor reachable (see WP-PAGE-15).",
    "next_step": "After WP-PAGE-15: correct the 30 elevations from the DEM with the source and date recorded per row.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)",
    "owner_step": "Copy the 3DEP DEM raster that the 1863 base-map build used (fetched by docs/basemap1863/modern/scripts/fetch/fetch_dem.py) from the Windows machine into tmp/b1863/dem/ of this working tree, or allow the host elevation.nationalmap.gov for this environment, and say which file it is."
   },
@@ -4921,7 +5309,10 @@
    "evidence": "Not built; default off in the plan. It also needs the 3DEP DEM, which is not present and not reachable from this container (WP-PAGE-15).",
    "next_step": "Delegated: keep in scope after the DEM exists; labelled \"terrain only\".",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "decision": "Real viewshed",
    "kind": "work package (finding group)"
   },
@@ -4933,7 +5324,11 @@
    "evidence": "Load path work ships (PG-perf2 ground rows, PERF5-ground-heat-task, ZTAIL-ground-fog-later), wording and label (POL-W07, CLK-77..79). No keyboard control set, no poster.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "tools/t0/patches/PG-perf2.json",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4944,7 +5339,9 @@
    "evidence": "Not built; the time model it waited for now ships.",
    "next_step": "Duration-weighted heat from the clock model.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4955,7 +5352,10 @@
    "evidence": "No Lighthouse figure per map page is recorded for R1g.",
    "next_step": "Delegated, conservative: lower no gate; measure both states on a GPU machine and record them; claim no exception without the record.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "decision": "Map-page budget",
    "kind": "decision"
   },
@@ -4967,7 +5367,11 @@
    "evidence": "Figures carry their source and the word Contested where sources disagree (DATA).",
    "next_step": "Delegated: neutral sourced figures with their labels; no \"reviewed\" wording.",
    "size": "S",
-   "files": [],
+   "files": [
+    "tools/t0/patches/DATA.json",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
    "decision": "Casualty wording",
    "kind": "decision"
   },
@@ -4979,7 +5383,9 @@
    "evidence": "Reserved space ships (PGC-css-reserve-mounts, PGC-fill-*). No shared shell or tokens.",
    "next_step": "With WP-UX-13.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -4990,7 +5396,10 @@
    "evidence": "Not built.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5001,7 +5410,9 @@
    "evidence": "See WP-PAGE-03.",
    "next_step": "Same work.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5103,7 +5514,11 @@
    "evidence": "Shipped: Pause silences the drone (PGC-imm-pause), map inert until the sound gate (PGF-immersive-gate-*), labelled volume, early AudioContext (PG-zinput). No limiter: a comment in the shipped immersive.html says so.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h. Limiter node, mute, pause on hidden tab; test with an OfflineAudioContext peak check.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "tools/t0/patches/PG-zinput.json",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5114,7 +5529,10 @@
    "evidence": "Not built (conditional on keeping the page).",
    "next_step": "Delegated: in scope (page kept).",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "decision": "Labs dispositions (D-SCOPE-TIERS)",
    "kind": "work package (finding group)"
   },
@@ -5126,7 +5544,10 @@
    "evidence": "Not built (conditional).",
    "next_step": "Delegated: in scope.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "decision": "Labs dispositions (D-SCOPE-TIERS)",
    "kind": "work package (finding group)"
   },
@@ -5138,7 +5559,10 @@
    "evidence": "Hidden: noindex, out of nav and sitemap, notice (PGC-ar-*), start feedback (PERF3-ar-start-feedback). Permission order and stream clean-up are unchanged.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h. Request motion permission first; stop the camera and the position watch on failure.",
    "size": "S",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5149,7 +5573,10 @@
    "evidence": "Not built (conditional).",
    "next_step": "Delegated: in scope; needs an on-site device test.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "decision": "Labs dispositions (D-SCOPE-TIERS)",
    "owner_step": "On-site test with an iPhone and an Android.",
    "kind": "work package (finding group)"
@@ -5162,7 +5589,10 @@
    "evidence": "Not built (conditional).",
    "next_step": "Delegated: in scope.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "decision": "Labs dispositions (D-SCOPE-TIERS)",
    "kind": "work package (finding group)"
   },
@@ -5198,7 +5628,10 @@
    "evidence": "Not built.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5209,7 +5642,10 @@
    "evidence": "Not built; needs a Netlify Function (no deploy path for functions with drag-and-drop zips).",
    "next_step": "Delegated, conservative: keep peer-to-peer Live Sync as shipped; relay stays a candidate.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "decision": "Relay",
    "kind": "work package (finding group)"
   },
@@ -5235,7 +5671,9 @@
    "evidence": "JSON-LD ships (ZSEO-head-turning-points). Cards are still built by script.",
    "next_step": "With the site generator.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5246,7 +5684,9 @@
    "evidence": "Uncertainty tooltips ship (CLK-41b, -41c). No per-claim sources.",
    "next_step": "Source each claim from the local library with verbatim quotes.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5257,7 +5697,9 @@
    "evidence": "Not built.",
    "next_step": "After WP-PAGEC-19/20.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5268,7 +5710,10 @@
    "evidence": "Field labels ship (PGF-label-find-*). The menu label is still \"Find Your Ancestor\" (site-nav.js); the rename rides D-NAME.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h. Three-step copy and per-regiment link-outs.",
    "size": "S",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5279,7 +5724,10 @@
    "evidence": "Not built.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5290,7 +5738,10 @@
    "evidence": "Shipped: title \"Export a Video\", status copy, labelled inputs, clock captions (POL-N13, N14, W17, PGF-label-cinematic-*, CLK-72..76). Still wrong: the meta and share text say \"narrated flyover video\" (there is no audio); MediaRecorder is used without an existence check.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h. Fix the claim and guard the recorder.",
    "size": "S",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5301,7 +5752,10 @@
    "evidence": "Not built (conditional). The own 1863 tile pyramid now exists.",
    "next_step": "Delegated: in scope; record from the 1863 base so no third-party imagery is in the video.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "decision": "Labs dispositions (D-SCOPE-TIERS)",
    "kind": "work package (finding group)"
   },
@@ -5313,7 +5767,9 @@
    "evidence": "Curve fixed (PGC-ledger-curve). No shared model module; the model choice is open.",
    "next_step": "Module with the documented model; keep the alternatives selectable.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "decision": "Casualty model (O-8)",
    "kind": "work package (finding group)"
   },
@@ -5325,7 +5781,9 @@
    "evidence": "Clock and labels ship (CLK-32..34, PGC-a11y-ledger-speed). The page still says \"minute by minute\".",
    "next_step": "With WP-TIME-16.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5336,7 +5794,10 @@
    "evidence": "Not built.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5361,7 +5822,10 @@
    "evidence": "release/R1g/dist/404.html has no nav, main or search; only link target sizes changed (PGF-css-404).",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "S",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5389,7 +5853,10 @@
    "evidence": "Not built.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "M",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5400,7 +5867,10 @@
    "evidence": "Text size, contrast and targets ship (PGF-css-embed). No h1; three vignette fetches remain.",
    "next_step": "Candidate page group under candidates/r1h/ with a red-first test, handed to the release workstream for train R1h.",
    "size": "S",
-   "files": [],
+   "files": [
+    "candidates/r1h/",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "kind": "work package (finding group)"
   },
   {
@@ -5432,7 +5902,10 @@
    "evidence": "Not built.",
    "next_step": "Delegated: not needed while no page is retired.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "decision": "Labs dispositions (D-SCOPE-TIERS)",
    "kind": "work package (finding group)"
   },
@@ -5444,7 +5917,10 @@
    "evidence": "Record still works on the Mapbox canvas of that page.",
    "next_step": "Delegated, conservative: keep the feature; move it to the own 1863 base (WP-PAGEC-25) so the rights question disappears. Pausing stays selectable.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "decision": "Cinematic Record",
    "kind": "decision"
   },
@@ -5456,7 +5932,10 @@
    "evidence": "Live Sync is live, loaded on demand after the click.",
    "next_step": "Delegated: keep it live; its third parties must be disclosed in the privacy text (owner approval, D-LEGAL).",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/08b-subpages-C.md"
+   ],
    "decision": "Live Sync",
    "kind": "decision"
   },
@@ -5631,7 +6110,7 @@
    "chapter": "02",
    "title": "R0 mechanism release: patch runner, hashed names (entry and both lazy chunks), no-reload SW plus kill switch, boot-after-paint loader, intro deleted",
    "status": "SHIPPED",
-   "evidence": "Train R0 (release id 54e21b2e) and every later train carry the mechanism; r0 suite 13/13 on R0 and R1a, 12/13 (+1 skip by design) on R1g [C11].",
+   "evidence": "Train R0 (release id 54e21b2e) and every later train carry the mechanism; r0 suite 13/13 on R0 and R1a, 12/13 (+1 skip by design) on R1g [C11]. Scope: the node names WP-PERF-24 as a subset (the hashed names of the entry and both lazy chunks, which the mechanism does); the rest of WP-PERF-24 (hashed names for site-nav and icons, cache values) is that work package itself, OPEN_BUILDABLE, and the plan says it is not R0.",
    "next_step": "None in the repository; the deploy is the owner's.",
    "size": "S",
    "files": [
@@ -5669,7 +6148,7 @@
    "chapter": "02",
    "title": "R0 acceptance drills: first-visit, seeded old-SW upgrade, kill switch, rename drill, minimal Playwright base",
    "status": "SHIPPED",
-   "evidence": "tests/t0/r0.mjs: first visit, seeded old-worker upgrade, kill switch, rename drill, loader retry; results as RM-06. Only Chromium is exercised.",
+   "evidence": "tests/t0/r0.mjs: first visit, seeded old-worker upgrade, kill switch, rename drill, loader retry; results as RM-06. Only Chromium is exercised. Scope: the node names WP-QA-04 as its base slice (WP-QA-04a, SHIPPED: tests/t0/lib.mjs, viewports.json, LIB-01..09); WP-QA-04b, the hooks contract (?test=1, window.__gtbg, data-shell) of the rebuilt app, is OPEN_BUILDABLE and belongs to RM-58.",
    "next_step": "None here; Safari and Firefox runs are owed on other machines.",
    "size": "S",
    "files": [
@@ -5940,7 +6419,7 @@
    "chapter": "02",
    "title": "Interim OG card, manifest fixes, media-rights register, GSC verification file",
    "status": "SHIPPED",
-   "evidence": "See WP-T0-14 and D-MEDIA.",
+   "evidence": "See WP-T0-14 and D-MEDIA. Scope: WP-INFRA-23 (minimal) is WP-INFRA-23a (manifest id, icons, the 1200x630 card: SHIPPED); the manifest description, lang, start_url and shortcuts are WP-INFRA-23b (OPEN_BUILDABLE: release/R1g/dist/manifest.json, read in pass 4, still says \"in real time\", \"467\" and \"five-minute snapshots\") and tag parity is WP-SEO-04b (OPEN_BUILDABLE), which chapter 15 gives to RM-24 (train S1) and not to RM-15. One proof suite, pagesmaps.R1a, is red in its newest row (WP-T0-13, VER-PAGESMAPS).",
    "next_step": "DNS verification is owner Action 2.",
    "size": "S",
    "files": [
@@ -5974,7 +6453,7 @@
    "chapter": "02",
    "title": "R1 headers: embed class, dev-page twins, netlify.app host 301, CSP-RO host list",
    "status": "SHIPPED",
-   "evidence": "See WP-T0-15 (headers.R1c is 16/18 (+1 skipped): HDR-11 red because of the stand-in tile pyramid, HDR-23 needs --online).",
+   "evidence": "See WP-T0-15 (headers.R1c is 16/18 (+1 skipped): HDR-11 red because of the stand-in tile pyramid, HDR-23 needs --online). Scope: the node names WP-DEC-05 (the Netlify routing spike on a deploy preview), which is OWNER_ONLY: the rules are shipped as generated files and are verified here only by local emulation (ops/headers-probe.mjs and the headers suite), so Netlify's own header matching stays unproven until the owner runs the spike.",
    "next_step": "Close VER-HDR-11.",
    "size": "S",
    "files": [
@@ -6005,7 +6484,7 @@
    "chapter": "02",
    "title": "Truthful-copy subset (16 bundle rows, 3 Help rows, banner) and copy_lint in warn mode",
    "status": "SHIPPED",
-   "evidence": "See WP-T0-16; the lint exists as tools/copy/copy_lint.mjs with docs/content/COPY-LINT-REPORT.md.",
+   "evidence": "See WP-T0-16; the lint exists as tools/copy/copy_lint.mjs with docs/content/COPY-LINT-REPORT.md. Scope: the node covers the R1 copy rows (WP-CONTENT-02a, SHIPPED; its leftovers WP-CONTENT-02b are OPEN_BUILDABLE), the lint in warn mode (WP-CONTENT-06, BUILT_NOT_SHIPPED: tool and ratchet baseline exist, no CI, the release tree is not at zero) and the Tranche-0 copy rows of WP-A11Y-23 (the Help count wording shipped as cp:h01; the rest of WP-A11Y-23 is OPEN_BUILDABLE).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -6176,7 +6655,10 @@
    "evidence": "See D-NAME.",
    "next_step": "Delegated: no rename.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "10",
@@ -6201,7 +6683,10 @@
    "evidence": "See D-TELEMETRY.",
    "next_step": "Delegated: no telemetry.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "09",
@@ -6227,7 +6712,9 @@
    "evidence": "See D-CONTINUITY.",
    "next_step": "Owner.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "09",
@@ -6249,7 +6736,10 @@
    "evidence": "See D-ROOT.",
    "next_step": "Delegated: app stays at /; landing as candidate.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "10",
@@ -6543,7 +7033,9 @@
    "evidence": "Monuments and story markers were checked against the Park markers (verify-monuments 16/16 on R1g). Terrain against 3DEP and place extents are open.",
    "next_step": "Terrain against 3DEP waits for the DEM (WP-PAGE-15, owner-supplied); place extents and the rest are buildable here with part B.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "13",
@@ -6565,7 +7057,9 @@
    "evidence": "No spike artefact (WP-DEC-02); the Android benchmark is owner-only.",
    "next_step": "WP-DEC-02 in the container.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "01",
@@ -6588,7 +7082,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-04..08.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -6609,7 +7105,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-09, -10, -31, WP-DEC-04.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -6630,7 +7128,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-12 with the data pipeline.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -6653,7 +7153,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-14.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -6675,7 +7177,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-15, -16, -20.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -6719,7 +7223,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-UX-07..12, WP-A11Y-04..08.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "06",
@@ -6743,7 +7249,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-19, WP-UX-14, -16, -23.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -6768,7 +7276,10 @@
    "evidence": "Bridge form ships (CLOCK). Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "Rebuild-native clock surfaces.",
    "size": "L",
-   "files": [],
+   "files": [
+    "tools/t0/patches/CLOCK.json",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "04",
@@ -6791,7 +7302,9 @@
    "evidence": "Shipped: sub-pages and exports use the module, tint from the clock. Open: per-minute intensity (WP-TIME-18); Historian time tier is built, not shipped (WP-TIME-19).",
    "next_step": "WP-TIME-18.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "04",
@@ -6812,7 +7325,9 @@
    "evidence": "T0 reader and moments v0 ship. Permanent contract, registry v1, dv migration are open.",
    "next_step": "WP-TIME-05, -15, WP-ARCH-28.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "06",
@@ -6835,7 +7350,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-29, WP-PAGE-05..12, WP-PAGEC-01/02.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -6861,7 +7378,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-21..23.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -6883,7 +7402,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-24..26, WP-UX-15, -19.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -6906,7 +7427,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-27.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -6927,7 +7450,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-UX-22, -24, -25, -26, WP-PAGEC-32/33.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "06"
@@ -6947,7 +7472,11 @@
    "evidence": "Bridge forms ship (ANIM flags and legend, BASE1863, clock tint). Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-UX-20, -21, WP-A11Y-19.",
    "size": "L",
-   "files": [],
+   "files": [
+    "tools/t0/patches/ANIM.json",
+    "tools/t0/patches/BASE1863.json",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "06",
@@ -6969,7 +7498,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-A11Y-11..15, -17, -18, -20..22.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "07"
@@ -6990,7 +7521,9 @@
    "evidence": "See WP-PERF-20 and WP-PAGE-10.",
    "next_step": "Poster and loader candidate.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "05",
@@ -7011,7 +7544,9 @@
    "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "After the ports; the cutover deploy is the owner's.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -7033,7 +7568,9 @@
    "evidence": "No study run.",
    "next_step": "Owner recruits.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "06"
@@ -7050,7 +7587,7 @@
    "chapter": "07",
    "title": "Regression suites: function, console/fault/GPU, visual, accessibility automation, Historian gates, soak",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Exists: 80 suite rows (docs/accept/R1G-SUITES.json: last result OK 61, not OK 19) in tools/t0/run_suites.mjs, eight acceptance checks in tools/accept, tests/historian gates. Missing: the 24-viewport by three-engine matrix and the fault and context-loss cases.",
+   "evidence": "Exists: 80 suite rows (docs/accept/R1G-SUITES.json: last result OK 60, not OK 20 in the file generated 2026-11-14 00:04 UTC) in tools/t0/run_suites.mjs, eight acceptance checks in tools/accept, tests/historian gates. Missing: the 24-viewport by three-engine matrix and the fault and context-loss cases.",
    "next_step": "Extend (release workstream).",
    "size": "M",
    "files": [
@@ -7078,7 +7615,9 @@
    "evidence": "Hotfix level ships (WP-PAGE-16, 20, 23); completion items are open (WP-PAGE-17..19, 21, 22, 24..27).",
    "next_step": "Those items.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "08a"
@@ -7099,7 +7638,9 @@
    "evidence": "Clock, layout and wording fixes ship on every Tier-2 page; completion items are open.",
    "next_step": "WP-PAGE-31..42, WP-PAGEC-18..28.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "08a",
@@ -7120,7 +7661,10 @@
    "evidence": "See D-SCOPE-TIERS.",
    "next_step": "Delegated: retire nothing; build the keep-gates.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "08b",
@@ -7141,7 +7685,9 @@
    "evidence": "See WP-TIME-22.",
    "next_step": "Source the night moments.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "04"
@@ -7160,7 +7706,9 @@
    "evidence": "Not built; needs the site generator, the landing decision and signed times for hour pages.",
    "next_step": "Part B.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "10",
@@ -7182,7 +7730,9 @@
    "evidence": "Not built.",
    "next_step": "WP-UX-30, WP-PAGE-40/41; part B owns the teach hub.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "11",
@@ -7203,7 +7753,9 @@
    "evidence": "Not built.",
    "next_step": "WP-UX-30; pilots and vendor forms are owner-only.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "06",
@@ -7226,7 +7778,10 @@
    "evidence": "Not built beyond the DATA corrections.",
    "next_step": "Part B.",
    "size": "L",
-   "files": [],
+   "files": [
+    "tools/t0/patches/DATA.json",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "13",
@@ -7248,7 +7803,9 @@
    "evidence": "docs/perf-exceptions.md does not exist; no speculation rules.",
    "next_step": "WP-PERF-26, -28.",
    "size": "S",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "05"
@@ -7267,7 +7824,9 @@
    "evidence": "Nothing exists.",
    "next_step": "Owner.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "07",
@@ -7290,7 +7849,10 @@
    "evidence": "Conditional on keeping Immersive.",
    "next_step": "Delegated: kept, so in scope (WP-PAGEC-09..11).",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "08b"
@@ -7308,7 +7870,10 @@
    "evidence": "Conditional on keeping AR; needs an on-site test.",
    "next_step": "Delegated: kept hidden until WP-PAGEC-12..14 pass.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "08b"
@@ -7327,7 +7892,10 @@
    "evidence": "See WP-PAGEC-17.",
    "next_step": "Delegated: peer-to-peer stays; relay candidate only.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "08b",
@@ -7347,7 +7915,10 @@
    "evidence": "See WP-PAGEC-25.",
    "next_step": "Delegated: in scope on the 1863 base.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "08b"
@@ -7365,7 +7936,10 @@
    "evidence": "Plan options (WP-PAGE-19, 28, 33, 37, 39, 43, 45, 47, WP-PAGEC-21): none built.",
    "next_step": "Delegated: stay in scope after the completion items.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "08a",
@@ -7384,7 +7958,10 @@
    "evidence": "See WP-UX-31, -32; the offline pack needs a tile-rights answer.",
    "next_step": "Delegated: in scope on own tiles only.",
    "size": "L",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "06",
@@ -7405,7 +7982,10 @@
    "evidence": "AST split not triggered (WP-ARCH-34); July 4 epilogue (WP-TIME-23); Labs accessibility (WP-A11Y-28); rosters wait for NPS (D-CWSS).",
    "next_step": "Each contingent item follows its own row (A32 AST split not triggered, A36 July 4 epilogue cards, A03 Labs accessibility in scope, D-CWSS rosters wait for written NPS confirmation); row A42 records this.",
    "size": "M",
-   "files": [],
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "docs/plan/FINAL/15-roadmap.json"
+   ],
    "kind": "roadmap-node",
    "chapters": [
     "03",
@@ -8709,7 +9289,7 @@
    "L": 14
   },
   "OPEN_BUILDABLE": {
-   "S": 41,
+   "S": 42,
    "M": 93,
    "L": 93
   },
@@ -8756,5 +9336,21 @@
   ],
   "not_changed_and_why": "No status other than WP-ARCH-09 was re-graded: every other status was re-read against its evidence and held; the classes OWNER_ONLY (72) and OPEN_NEEDS_DECISION (96) were read in full and each has its owner step or its conservative proposal with the alternative kept."
  },
- "updated": "2026-11-14T00:03Z (pass 3)"
+ "updated": "2026-11-14T00:40Z (pass 4)",
+ "continuation_4": {
+  "what": "Fourth pass of 2026-11-14 (main-site workstream, started after the container restart of about 00:04 UTC that ended the run before it). It continued from pass 3 and did not redo it: it re-ran the pass-3 checks on the tree as it is, looked for drift since the last checkpoint, and cross-checked the statuses by routes the earlier passes had not used (roadmap nodes against their member work packages, proof suites against the failing test ids, patch groups and trains against anchors.json, direct reads of the dist).",
+  "changes": [
+   "drift: docs/accept/R1G-SUITES.json was regenerated at 2026-11-14 00:04 UTC with a new red row (pagesmaps.R1a, cold-cache run, cause not recorded); new item VER-PAGESMAPS (OPEN_BUILDABLE, release workstream); WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 now name the row; the totals in RM-72 and in the ground facts read OK 60 and not OK 20",
+   "WP-UX-02: the proof suite mobilefix is named with its failing ids instead of a pointer to VER-MFIX",
+   "RM-06, RM-07, RM-15, RM-16, RM-17: each says which members of its source_wps lie outside the subset the node names and what their status is (no status changed: the named subset is what the trains carry; WP-DEC-05, the owner-only Netlify spike, is named under RM-16)",
+   "files: 221 items had an empty list; each now names the existing files its evidence points at, the patch group files it names, the delegated-decisions file for a decision, and the plan chapter or roadmap file that specifies it (no path under tmp/, release/ or deliver/, which are not in git); the field is defined in status_definitions",
+   "counts: 518 to 519 items (VER-PAGESMAPS); counts, counts_by_kind, counts_by_chapter and open_by_status_and_size recomputed from the items"
+  ],
+  "verified_in_pass_4": [
+   "the file is valid JSON in the layout the merge reads (indent 1, ids unique, every item has id, chapter, title, status, evidence, next_step, size S/M/L, files, kind)",
+   "every SHIPPED item has train, tests and (except 13 items that are tooling, generated configuration or owner decisions) patch_groups; every OWNER_ONLY item has owner_step; every OPEN_NEEDS_DECISION item is governed by a row of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md (check_backlog.py)",
+   "every files entry exists on disk"
+  ],
+  "not_changed_and_why": "No status was re-graded in pass 4: the cross-checks found no item whose status the repository contradicts. Items cited as SHIPPED on a proof that is red in this container keep SHIPPED because the red rows are on other trees, are classified as environment in docs/accept/R1G-STATUS.md, or are open verification debt (VER-J7, VER-MFIX, VER-HDR-11, VER-LAYOUT-TIMING, VER-PAGESMAPS); none of them is acceptance evidence either way."
+ }
 }

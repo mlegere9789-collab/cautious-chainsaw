@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: golden: the JS port makes exactly the manifests tools/bt/check_kit.py makes (2,616 reference digests over every kit unit that was at Gettysburg, both variants of a disputed unit)
+ok 1 - golden: the JS port makes exactly the manifests tools/bt/check_kit.py makes (2,616 reference digests over every kit unit that was at Gettysburg, both variants of a disputed unit)
+  ---
+  duration_ms: 1366.99757
+  type: 'test'
+  ...
+# Subtest: determinism and refusals: the same figure gives the same manifest, a unit that was not at Gettysburg yields none, a disputed unit needs a variant and none is chosen
+ok 2 - determinism and refusals: the same figure gives the same manifest, a unit that was not at Gettysburg yields none, a disputed unit needs a variant and none is chosen
+  ---
+  duration_ms: 5.999398
+  type: 'test'
+  ...
+# Subtest: every drawn figure has a manifest from its unit’s kit record or the default of its army and arm; none exists before the unit enters; the two Berdan variants are carried, none chosen
+ok 3 - every drawn figure has a manifest from its unit’s kit record or the default of its army and arm; none exists before the unit enters; the two Berdan variants are carried, none chosen
+  ---
+  duration_ms: 656.151251
+  type: 'test'
+  ...
+# Subtest: the renderer’s variation scalar of every drawn figure is derived from its manifest’s wear level (coat brightness class); the world carries it; disputed units keep the prototype’s hash
+ok 4 - the renderer’s variation scalar of every drawn figure is derived from its manifest’s wear level (coat brightness class); the world carries it; disputed units keep the prototype’s hash
+  ---
+  duration_ms: 5131.159103
+  type: 'test'
+  ...
+# Subtest: the crosswalk is what tools/bt/kit_crosswalk.py writes now; kit_presence agrees with the arrival checker at every drawn unit’s gate
+ok 5 - the crosswalk is what tools/bt/kit_crosswalk.py writes now; kit_presence agrees with the arrival checker at every drawn unit’s gate
+  ---
+  duration_ms: 318.619678
+  type: 'test'
+  ...
+# Subtest: the Python B.6.12 validation of every drawn figure is current and clean: figures-validation.json carries the digest of what the shell draws now, 0 FAIL, every digest equal, every day-before-arrival manifest refused
+ok 6 - the Python B.6.12 validation of every drawn figure is current and clean: figures-validation.json carries the digest of what the shell draws now, 0 FAIL, every digest equal, every day-before-arrival manifest refused
+  ---
+  duration_ms: 15746.492067
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 24886.828399

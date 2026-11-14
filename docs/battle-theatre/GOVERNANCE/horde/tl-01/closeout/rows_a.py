@@ -373,7 +373,7 @@ ROWS.append(dict(
     subs=[
         ('White\'s cavalry battalion charged and routed the militia regiment in front of Gettysburg', 'documented', 'supported', ['gord_rout', 'ewell_rout']),
         ('About 3 p.m. the Rebels in force appeared and captured nearly all the pickets, 40 in number', 'documented', 'supported', ['jac_3pm']),
-        ('The prisoners: 36 of the 26th Pennsylvania Militia were paroled at Gettysburg and two officers were taken along with the Rebels', 'documented', 'supported', ['cmp_stevens']),
+        ('The prisoners: the thirty-six prisoners of the 26th Pennsylvania Militia were paroled "here" by the rebels (the Compiler is printed at Gettysburg) and two officers captured were taken along with them', 'documented', 'supported', ['cmp_stevens']),
         ('Whole-affair totals: 170 taken and paroled (Ewell), 175 prisoners in all (Early); these are not "about three dozen"', 'documented', 'conflict', ['ewell_rout', 'early_175']),
         ('Co. E of the battalion under Lt. H. M. Strickler made the charge, and the troopers raided the abandoned camp', 'open gap', 'unsupported', []),
     ],

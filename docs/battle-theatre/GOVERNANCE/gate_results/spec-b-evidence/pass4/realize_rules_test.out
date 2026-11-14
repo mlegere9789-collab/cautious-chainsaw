@@ -1,1 +1,184 @@
 TAP version 13
+# Subtest: rule: a quote is found only by whole words, apostrophes and quotation marks folded (lib.mjs hasQuote)
+ok 1 - rule: a quote is found only by whole words, apostrophes and quotation marks folded (lib.mjs hasQuote)
+  ---
+  duration_ms: 2.069375
+  type: 'test'
+  ...
+# Subtest: rule: a record's quote must be found in the row, by words (schema.mjs quote_not_in_row)
+ok 2 - rule: a record's quote must be found in the row, by words (schema.mjs quote_not_in_row)
+  ---
+  duration_ms: 850.710837
+  type: 'test'
+  ...
+# Subtest: rule: a NIGHT row needs a sky assertion with exposure_min (gate Q10: night is night, never black; schema.mjs)
+ok 3 - rule: a NIGHT row needs a sky assertion with exposure_min (gate Q10: night is night, never black; schema.mjs)
+  ---
+  duration_ms: 100.571456
+  type: 'test'
+  ...
+# Subtest: rule: every kind needs the assertion that can prove it (schema.mjs KIND_NEEDS), and every needed type is a known assertion type
+ok 4 - rule: every kind needs the assertion that can prove it (schema.mjs KIND_NEEDS), and every needed type is a known assertion type
+  ---
+  duration_ms: 105.054234
+  type: 'test'
+  ...
+# Subtest: rule: a theatre-clock window, a window inside the row, an assertion time inside the record window (schema.mjs)
+ok 5 - rule: a theatre-clock window, a window inside the row, an assertion time inside the record window (schema.mjs)
+  ---
+  duration_ms: 24.635343
+  type: 'test'
+  ...
+# Subtest: rule: the numbers of an assertion are the row's own (number_not_in_quote), and a record lists the entities it uses, no more and no less
+ok 6 - rule: the numbers of an assertion are the row's own (number_not_in_quote), and a record lists the entities it uses, no more and no less
+  ---
+  duration_ms: 32.425279
+  type: 'test'
+  ...
+# Subtest: rule: motion (unit_moves): displacement, minutes, closing, start, line (checks.mjs _moves)
+ok 7 - rule: motion (unit_moves): displacement, minutes, closing, start, line (checks.mjs _moves)
+  ---
+  duration_ms: 66.137408
+  type: 'test'
+  ...
+# Subtest: rule: position (unit_at), activity minutes, arrival place, absence (checks.mjs)
+ok 8 - rule: position (unit_at), activity minutes, arrival place, absence (checks.mjs)
+  ---
+  duration_ms: 31.860053
+  type: 'test'
+  ...
+# Subtest: rule: guns, formation, losses (checks.mjs)
+ok 9 - rule: guns, formation, losses (checks.mjs)
+  ---
+  duration_ms: 121.547801
+  type: 'test'
+  ...
+# Subtest: rule: the weather and the sky are what the weather pass draws (checks.mjs _weatherProblem, _skyProblem)
+ok 10 - rule: the weather and the sky are what the weather pass draws (checks.mjs _weatherProblem, _skyProblem)
+  ---
+  duration_ms: 324.661688
+  type: 'test'
+  ...
+# Subtest: rule: structures and works (checks.mjs _structure, _structureProblem, _work)
+ok 11 - rule: structures and works (checks.mjs _structure, _structureProblem, _work)
+  ---
+  duration_ms: 147.574333
+  type: 'test'
+  ...
+# Subtest: rule: a place a record uses is named in the row, or declared with the row's own words (checks.mjs _bindings)
+ok 12 - rule: a place a record uses is named in the row, or declared with the row's own words (checks.mjs _bindings)
+  ---
+  duration_ms: 49.282031
+  type: 'test'
+  ...
+# Subtest: rule: the scenarios of a record are the record's own, and RESULTS says which were run (checks.mjs _scenarioPlan; the T1-015 defect)
+ok 13 - rule: the scenarios of a record are the record's own, and RESULTS says which were run (checks.mjs _scenarioPlan; the T1-015 defect)
+  ---
+  duration_ms: 78.920832
+  type: 'test'
+  ...
+# Subtest: rule: the two halves of the gate for one row (check.mjs coverageOf): a card is a class of its own, a partial realization is covered strictly only by a register entry
+ok 14 - rule: the two halves of the gate for one row (check.mjs coverageOf): a card is a class of its own, a partial realization is covered strictly only by a register entry
+  ---
+  duration_ms: 20.560372
+  type: 'test'
+  ...
+# Subtest: rule: the totals and the Q17 verdict are computed from the rows, and are false unless every expected row is there (check.mjs summarize, q17Of)
+ok 15 - rule: the totals and the Q17 verdict are computed from the rows, and are false unless every expected row is there (check.mjs summarize, q17Of)
+  ---
+  duration_ms: 1.246143
+  type: 'test'
+  ...
+# Subtest: rule: the allowed time of a row is its whole printed cell, and the realized interval must lie inside it (timeline.mjs)
+ok 16 - rule: the allowed time of a row is its whole printed cell, and the realized interval must lie inside it (timeline.mjs)
+  ---
+  duration_ms: 0.159027
+  type: 'test'
+  ...
+# Subtest: rule: the claim words of a row are the printed cells and the claim fields of its correction, never the basis, the marking or the sources (timeline.mjs claimFields; the T1-003 defect)
+ok 17 - rule: the claim words of a row are the printed cells and the claim fields of its correction, never the basis, the marking or the sources (timeline.mjs claimFields; the T1-003 defect)
+  ---
+  duration_ms: 13.307632
+  type: 'test'
+  ...
+# Subtest: rule: a name is a unit's only as a proper noun, and an ordinary word names it only in a naming context (query.mjs unitsNamedIn, lib.mjs wordInfo; the Day and Stone defects)
+ok 18 - rule: a name is a unit's only as a proper noun, and an ordinary word names it only in a naming context (query.mjs unitsNamedIn, lib.mjs wordInfo; the Day and Stone defects)
+  ---
+  duration_ms: 32.479329
+  type: 'test'
+  ...
+# Subtest: rule: dates and minutes are strict (lib.mjs toMin, isoOf)
+ok 19 - rule: dates and minutes are strict (lib.mjs toMin, isoOf)
+  ---
+  duration_ms: 0.574785
+  type: 'test'
+  ...
+# Subtest: rule: the schema is static: a record that is not an object, an unknown row (validateRecord)
+ok 20 - rule: the schema is static: a record that is not an object, an unknown row (validateRecord)
+  ---
+  duration_ms: 0.190869
+  type: 'test'
+  ...
+# Subtest: rule: casualty, gun, figure and activity assertions that every product satisfies are refused (schema.mjs vacuityProblems: assert_vacuous)
+ok 21 - rule: casualty, gun, figure and activity assertions that every product satisfies are refused (schema.mjs vacuityProblems: assert_vacuous)
+  ---
+  duration_ms: 176.865097
+  type: 'test'
+  ...
+# Subtest: rule: structure, work, weather and sky assertions that every product satisfies are refused (schema.mjs vacuityProblems, checks.mjs _falsifiable)
+ok 22 - rule: structure, work, weather and sky assertions that every product satisfies are refused (schema.mjs vacuityProblems, checks.mjs _falsifiable)
+  ---
+  duration_ms: 1190.868991
+  type: 'test'
+  ...
+# Subtest: rule: a record may ask for more than a floor of the harness, never for less (schema.mjs vacuityProblems, tolerances.json units: tolerance_wider_than_stated)
+ok 23 - rule: a record may ask for more than a floor of the harness, never for less (schema.mjs vacuityProblems, tolerances.json units: tolerance_wider_than_stated)
+  ---
+  duration_ms: 25.36676
+  type: 'test'
+  ...
+# Subtest: rule: "any" leaf of a formation needs the row's own words, and "place_unspecified" is a reason that is true (checks.mjs _bindings, schema.mjs; GATE-SPEC 6.4 V2, V7)
+ok 24 - rule: "any" leaf of a formation needs the row's own words, and "place_unspecified" is a reason that is true (checks.mjs _bindings, schema.mjs; GATE-SPEC 6.4 V2, V7)
+  ---
+  duration_ms: 21.315399
+  type: 'test'
+  ...
+# Subtest: rule: what a record declared instead of letting the row bind it is listed for the reviewer (check.mjs declaredDetail; RESULTS declared_detail)
+ok 25 - rule: what a record declared instead of letting the row bind it is listed for the reviewer (check.mjs declaredDetail; RESULTS declared_detail)
+  ---
+  duration_ms: 2742.360443
+  type: 'test'
+  ...
+# Subtest: rule: a scenario names one conflict on one value ("C-004:v1"), and its identity is what it chooses (query.mjs scenarioSpec, scenarioKey)
+ok 26 - rule: a scenario names one conflict on one value ("C-004:v1"), and its identity is what it chooses (query.mjs scenarioSpec, scenarioKey)
+  ---
+  duration_ms: 10.402416
+  type: 'test'
+  ...
+# Subtest: rule: the conflicts that reach units, weather and structures (query.mjs unitConflicts, weatherConflicts, structureReadings, scenarioGroup)
+ok 27 - rule: the conflicts that reach units, weather and structures (query.mjs unitConflicts, weatherConflicts, structureReadings, scenarioGroup)
+  ---
+  duration_ms: 31.462526
+  type: 'test'
+  ...
+# Subtest: rule: a record is valid under every scenario of its row's group, or says which it excludes and why (checks.mjs _group, _groupReport; RESULTS scenario_group)
+ok 28 - rule: a record is valid under every scenario of its row's group, or says which it excludes and why (checks.mjs _group, _groupReport; RESULTS scenario_group)
+  ---
+  duration_ms: 6385.035581
+  type: 'test'
+  ...
+# Subtest: rule: the totals count the realized rows whose group is not complete (check.mjs summarize, q17Of)
+ok 29 - rule: the totals count the realized rows whose group is not complete (check.mjs summarize, q17Of)
+  ---
+  duration_ms: 0.392397
+  type: 'test'
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 29
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14573.100806

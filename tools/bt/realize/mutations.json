@@ -882,7 +882,7 @@
  {
   "id": "checks-scenario-excluded-run",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "if (seen.has(sc.key)) res.problems.push({ code: 'scenario_excluded_is_run'",
+  "find": "if (seen.has(sc.key) || byKey.has(key)) res.problems.push({ code: 'scenario_excluded_is_run'",
   "replace": "if (false) res.problems.push({ code: 'scenario_excluded_is_run'",
   "rule": "a scenario is not both run and excluded",
   "tests": [
@@ -981,8 +981,8 @@
  {
   "id": "check-strict-partial",
   "file": "tools/bt/realize/check.mjs",
-  "find": "(entry.realization_class === 'scene' && !entry.partial)",
-  "replace": "(entry.realization_class === 'scene')",
+  "find": "if (entry.partial) because.push('partial'); ",
+  "replace": "",
   "rule": "coverage: a partial realization is covered strictly only by a register entry",
   "tests": [
    "rules",
@@ -1538,9 +1538,9 @@
  {
   "id": "schema-scenario-bad",
   "file": "tools/bt/realize/schema.mjs",
-  "find": "for (const x of list) if (!specOk(x)) add('scenario_bad'",
+  "find": "for (const x of list) if (!SCENARIO_KEYWORDS.includes(x) && !specOk(x)) add('scenario_bad'",
   "replace": "for (const x of list) if (false) add('scenario_bad'",
-  "rule": "a scenario is default, pdf, conflicts or an object",
+  "rule": "a scenario is default, pdf, conflicts, group, a value of one conflict or an object",
   "tests": [
    "rules",
    "main"
@@ -1549,7 +1549,7 @@
  {
   "id": "checks-scenario-duplicate",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "if (seen.has(id)) { res.problems.push({ code: 'scenario_duplicate'",
+  "find": "if (seen.has(id) || byKey.has(key)) { res.problems.push({ code: 'scenario_duplicate'",
   "replace": "if (false) { res.problems.push({ code: 'scenario_duplicate'",
   "rule": "a scenario is listed once",
   "tests": [
@@ -1970,6 +1970,358 @@
   "find": "\"temp_f_tolerance\": 1.0,",
   "replace": "\"temp_f_tolerance\": 9.0,",
   "rule": "the temperature tolerance is 1 F",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-strict-card",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "if (entry.realization_class === 'card') because.push('card'); ",
+  "replace": "",
+  "rule": "coverage: a card alone is covered strictly only by a register entry",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-strict-group",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "if (entry.scenario_group && !entry.scenario_group.complete) because.push('scenario_group_incomplete'); ",
+  "replace": "",
+  "rule": "coverage: a realization that leaves a scenario of its row's group unrun and not excluded is covered strictly only by a register entry (6.4 V6)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-strict-margin",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "if (entry.clock_tolerance_used === true) because.push('clock_margin_used'); ",
+  "replace": "",
+  "rule": "coverage: a realization that needs the clock margin is covered strictly only by a register entry (6.4 V4)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-strict-because-listed",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "if (because.length) entry.not_strict_because = because; else delete entry.not_strict_because;",
+  "replace": "delete entry.not_strict_because;",
+  "rule": "coverage: the reasons a realization does not count strictly are listed",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-count-group-incomplete",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "realized_group_incomplete: a.filter(e => e.realized && e.scenario_group && !e.scenario_group.complete).length",
+  "replace": "realized_group_incomplete: a.filter(e => e.realized && e.scenario_group && e.scenario_group.complete).length",
+  "rule": "totals: realized rows whose scenario group is incomplete are counted",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-count-clock-margin",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "realized_clock_margin_used: a.filter(e => e.realized && e.clock_tolerance_used === true).length",
+  "replace": "realized_clock_margin_used: a.filter(e => e.realized && e.clock_tolerance_used === false).length",
+  "rule": "totals: realized rows that used the clock margin are counted",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-q17-group-field",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "realized_group_incomplete: S.timeline.realized_group_incomplete, ",
+  "replace": "",
+  "rule": "q17 carries the count of realized rows with an incomplete scenario group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-q17-margin-field",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "realized_clock_margin_used: S.timeline.realized_clock_margin_used, ",
+  "replace": "",
+  "rule": "q17 carries the count of realized rows that used the clock margin",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-conflict-gate",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "for (const c of (e && e.conflicts) || []) add(c, id, 'gate');",
+  "replace": "",
+  "rule": "a conflict reaches a unit through the gate chain of its arrival ledger rows",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-conflict-path",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "for (const st of (plan && plan.stops) || []) if (st && st.conflict) add(st.conflict, id, 'path');",
+  "replace": "",
+  "rule": "a conflict reaches a unit through a path stop of its plan (C-043)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-conflict-leaves",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "for (const x of new Set([id, ...this.leaves(id, { onField: false })]))",
+  "replace": "for (const x of new Set([id]))",
+  "rule": "a formation is reached by the conflicts of its leaf units",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-weather-conflicts",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "for (const c of (this.env.weatherAt(t, this.scenarioSpec('default').choices) || {}).conflicts || []) ids.add(c);",
+  "replace": "for (const c of []) ids.add(c);",
+  "rule": "a conflict reaches the weather of a minute when the environment record lists it",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-readings-default",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "const list = [...names].filter(r => r !== 'default').sort();",
+  "replace": "const list = [...names].sort();",
+  "rule": "the readings of a structure are the ones other than the default",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-group-range",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (o.key !== 'range') specs.push(",
+  "replace": "specs.push(",
+  "rule": "the value 'range' shows every value and is no scenario of the group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-group-dedup",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "const seen = new Set(), uniq = specs.filter(x => { const k = this.scenarioKey(x); if (seen.has(k)) return false; seen.add(k); return true; });",
+  "replace": "const uniq = specs;",
+  "rule": "a scenario that is another under another name is listed once (the delegated value is the opening scenario)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-group-named",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "const named = [...new Set(String(text || '').match(/\\bC-\\d{3}\\b/g) || [])].filter(id => this.conflicts.some(c => c.id === id)),",
+  "replace": "const named = [],",
+  "rule": "the conflicts a row's own text names are in its group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-group-readings",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "for (const [id, rs] of Object.entries(readings)) for (const r of rs) specs.push({ structure: { [id]: r } });",
+  "replace": "",
+  "rule": "the readings of a structure are scenarios of the group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-scenario-key-structure",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "JSON.stringify([sc.choices, Object.entries(sc.structure || {}).sort(([a], [b]) => (a < b ? -1 : 1))])",
+  "replace": "JSON.stringify([sc.choices])",
+  "rule": "a scenario is what it chooses: the structure readings count",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-spec-string-value",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "choices: { ...def.choices, [m[1]]: m[2] }, structure: {} };",
+  "replace": "choices: { ...def.choices }, structure: {} };",
+  "rule": "a scenario \"C-004:v1\" puts that conflict on that value",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-spec-string-conflict",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (m && !c) throw new Error(",
+  "replace": "if (false) throw new Error(",
+  "rule": "a scenario names a conflict the register has",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-spec-string-option",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (c && !o) throw new Error(",
+  "replace": "if (false) throw new Error(",
+  "rule": "a scenario names a value the conflict has",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-group-complete",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "complete: missing.length === 0 }",
+  "replace": "complete: true }",
+  "rule": "a scenario group is complete only when every scenario is run or excluded",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-group-excluded",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "excluded = items.filter(x => !runKeys.has(x.key) && exKeys.has(x.key)).map(x => x.id), missing = items.filter(x => !runKeys.has(x.key) && !exKeys.has(x.key)).map(x => x.id);",
+  "replace": "excluded = [], missing = items.filter(x => !runKeys.has(x.key)).map(x => x.id);",
+  "rule": "a scenario the record excludes with a reason is not missing from its group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-group-keyword",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "x === 'group' ? (grp ? grp.specs : P.conflictScenarios(text)) : [x]",
+  "replace": "[x]",
+  "rule": "\"scenario\": \"group\" runs every scenario of the row's group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-group-not-for-probe",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "const grp = rec.kind === 'not_realized' ? null : await this._group(rec, row, v.span, res)",
+  "replace": "const grp = await this._group(rec, row, v.span, res)",
+  "rule": "a probe is no claim: it has no scenario group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-group-weather-span",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "structures: [...ids('structures'), ...ids('works')], span: wx })",
+  "replace": "structures: [...ids('structures'), ...ids('works')], span: null })",
+  "rule": "the weather conflicts of the minutes a record asserts are in its group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-group-units",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "units: ids('units').filter(id => this.P.unit(id)),",
+  "replace": "units: [],",
+  "rule": "the conflicts that reach the units a record uses are in its group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-group-structures",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "structures: [...ids('structures'), ...ids('works')], span: wx })",
+  "replace": "structures: [], span: wx })",
+  "rule": "the readings of the structures and works a record uses are in its group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-group-text",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "text: `${row.text_raw || ''} ${row.claim_text || ''}`",
+  "replace": "text: ''",
+  "rule": "the conflicts the row's text names are in its group",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-scenario-identity-run",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (seen.has(id) || byKey.has(key)) { res.problems.push({ code: 'scenario_duplicate'",
+  "replace": "if (seen.has(id)) { res.problems.push({ code: 'scenario_duplicate'",
+  "rule": "a scenario listed twice under two names is a duplicate: a scenario is what it chooses",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-scenario-identity-excluded",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (seen.has(sc.key) || byKey.has(key)) res.problems.push({ code: 'scenario_excluded_is_run'",
+  "replace": "if (seen.has(sc.key)) res.problems.push({ code: 'scenario_excluded_is_run'",
+  "rule": "a scenario run under one name and excluded under another is both run and excluded",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-scenario-identity-report",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "byKey.has(key) && byKey.get(key) !== id ? ` (it chooses what",
+  "replace": "false ? ` (it chooses what",
+  "rule": "the duplicate report says which scenario it repeats",
   "tests": [
    "rules",
    "main"

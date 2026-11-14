@@ -363,6 +363,12 @@ def check_evidence(R, n, o, units, order, kit, cat):
         v = o['value']
         if isinstance(v.get('low'), int) and isinstance(v.get('high'), int) and v['low'] > v['high']:
             E('VALUE', 'strength low %d is above high %d' % (v['low'], v['high']))
+    if f == 'casualties' and isinstance(o.get('value'), dict) and isinstance(o['value'].get('combined'), list) and not errs:
+        for c in o['value']['combined']:
+            if len(set(c['kinds'])) != len(c['kinds']):
+                E('VALUE', 'combined kinds %s repeat a kind' % c['kinds'])
+            if isinstance(c.get('officers'), int) and isinstance(c.get('enlisted'), int) and c['officers'] + c['enlisted'] != c['total']:
+                E('VALUE', 'combined officers %d and enlisted %d add to %d, not the total %d' % (c['officers'], c['enlisted'], c['officers'] + c['enlisted'], c['total']))
     if entry is not None and f in ('guns', 'horses', 'ammunition') and entry.get('arm') not in ('artillery', 'cavalry') and f == 'guns' and entry['level'] not in ('artillery_brigade', 'artillery_battalion', 'artillery_group', 'battery'):
         W('UNIT_FIELD', 'guns on a %s' % entry['level'])
     if entry is not None and f == 'arms' and entry.get('arm') == 'artillery':
@@ -542,7 +548,7 @@ def check_evidence(R, n, o, units, order, kit, cat):
     if f == 'casualties' and tier == 'documented' and mode == 'exact' and not errs and isinstance(o.get('value'), dict):
         v = o['value']
         tot = sum((v[k].get('total') if v[k].get('total') is not None else (v[k].get('officers') or 0) + (v[k].get('enlisted') or 0)) for k in ('killed', 'wounded', 'missing'))
-        if v.get('total') is not None and tot != v['total']:
+        if v.get('total') is not None and tot != v['total'] and K.casualty_kinds_stated(v):         # a statement that gives only the aggregate (no kind stated) has nothing to add up: its figure is checked against the quote
             E('CHECK', 'killed, wounded and missing add to %d, not the stated total %s' % (tot, v['total']))
         if o.get('basis') == 'casualty_return':
             E('TABLE', 'a row of the Return of Casualties has scrambled columns in the OCR: use quote_mode image_row')

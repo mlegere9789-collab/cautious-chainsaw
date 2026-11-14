@@ -14,7 +14,7 @@ Override document (schema kit-overrides-1): {"schema", "group", "ops": [...], "u
     create           {"path": [... dict], "key": K, "value": V}                              add a new record under a dict; the key must be absent
     register_source  {"key": K, "value": {...}}                                             add a source to the table's sources block
 A guard that does not hold (the base changed since the compile) fails the build and names the operation: nothing is skipped silently."""
-import argparse, collections, copy, hashlib, json, os, re, sys
+import argparse, collections, copy, hashlib, json, os, re, shutil, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -505,13 +505,33 @@ def walk_keys(v, acc):
             walk_keys(x, acc)
 
 
+def audit_blocked(accepted):
+    """(blocked, ran): the ids of accepted lines whose own words (the quote, printed names and labels, free text) the packer's copy audit rejects, each with the matched words, and whether the audit could run.
+    The validator already rejects a hit in free text; a hit in a quoted member is only a warning there (a quotation cannot be altered), so such a line can arrive here. It is never copied into a shipped table."""
+    strings = [(o['id'], s) for o in accepted for _k, _p, s in K.audit_texts(o)]
+    hits = K.audit_strings([s for _i, s in strings])
+    if hits is None:
+        return {}, False
+    blocked = collections.defaultdict(list)
+    for i, w in hits:
+        if w not in blocked[strings[i][0]]:
+            blocked[strings[i][0]].append(w)
+    return dict(blocked), True
+
+
 def compile_lines(ctx, group, accepted, declared):
     out = Out(group)
+    out.blocked, out.audit_ran = audit_blocked(accepted)
     by = collections.defaultdict(lambda: collections.defaultdict(list))
     for o in accepted:
         by[o['unit_id']][o['field']].append(o)
     for uid in sorted(by):
         for field, lines in sorted(by[uid].items()):
+            hit = [o for o in lines if o['id'] in out.blocked]
+            if hit:
+                out.skip(lines, 'COPY AUDIT: the wording of %s (%s) would be copied into a shipped table and the packer rejects it; the line stays in the evidence index and the verified tables, and the integration decides'
+                         % (', '.join(o['id'] for o in hit), '; '.join('"%s"' % w for o in hit for w in out.blocked[o['id']])))
+                continue
             if field == 'guns':
                 c_guns(ctx, out, uid, lines)
             elif field == 'commander':
@@ -539,6 +559,24 @@ def load_base():
     return {'kit_specs': ks, 'weapons': w, 'artillery': a, 'cavalry': c}
 
 
+def collisions(docs):
+    """[(op id, op id)] of operations, in one document or across documents, that create the same record or set or remove the same path: the second would find its guard changed by the first and fail the build."""
+    seen, bad = {}, []
+    for gid in sorted(docs):
+        for op in docs[gid]['ops']:
+            if op['op'] == 'create':
+                key = ('create', op['table'], tuple(op['path']), op['key'])
+            elif op['op'] in ('set', 'remove'):
+                key = ('change', op['table'], tuple(op['path']))
+            else:
+                continue
+            if key in seen:
+                bad.append((seen[key], op['id']))
+            else:
+                seen[key] = op['id']
+    return bad
+
+
 def compile_all(only=None, ev_dir=EV, ov_dir=OV, write=True, base=None):
     import kit_evidence_check as C
     gdoc = K.groups_doc()
@@ -558,8 +596,12 @@ def compile_all(only=None, ev_dir=EV, ov_dir=OV, write=True, base=None):
             if o.get('source_id'):
                 ctx.source_meta(o['source_id'], R.declared)
         out = compile_lines(ctx, g['id'], accepted, R.declared)
-        summary[g['id']] = {'lines': sum(R.counts.values()), 'accepted': len(R.accepted), 'rejected': len(R.rejected), 'ops': len(out.ops), 'unapplied': len(out.unapplied), 'errors': len(R.errors)}
+        summary[g['id']] = {'lines': sum(R.counts.values()), 'accepted': len(R.accepted), 'rejected': len(R.rejected), 'ops': len(out.ops), 'unapplied': len(out.unapplied), 'errors': len(R.errors),
+                            'copy_audit_blocked': len(out.blocked), 'copy_audit_ran': out.audit_ran}
         docs[g['id']] = {'schema': SCHEMA, 'group': g['id'], 'compiled_from': {'evidence_sha256_16': sha16(p), 'groups_sha256_16': sha16(os.path.join(EV, 'groups.json'))}, 'ops': out.ops, 'unapplied': out.unapplied}
+    clash = collisions(docs)
+    if clash:
+        raise OverrideError('two operations make the same change (a record created twice, or one path set twice): %s' % '; '.join('%s and %s' % c for c in clash[:10]))
     if write:
         os.makedirs(ov_dir, exist_ok=True)
         for gid, d in docs.items():
@@ -625,20 +667,47 @@ def cmd_status(argv):
     return 1 if drift else 0
 
 
+def walk_strings(o, path=()):
+    """[(path, string)] of every string value of a parsed table."""
+    if isinstance(o, dict):
+        for k, v in o.items():
+            yield from walk_strings(v, path + (k,))
+    elif isinstance(o, list):
+        for i, v in enumerate(o):
+            yield from walk_strings(v, path + (i,))
+    elif isinstance(o, str):
+        yield path, o
+
+
 def cmd_check(argv):
     import tempfile
     import check_kit as CK
     base = load_base()
     ks, w, a, c, rep = apply_overrides(base['kit_specs'], base['weapons'], base['artillery'], base['cavalry'])
     d = tempfile.mkdtemp(prefix='kit-check-', dir=os.path.join(K.ROOT, 'tmp'))
-    for t, obj in zip(TABLES, (ks, w, a, c)):
-        with open(os.path.join(d, FILES[t]), 'w', encoding='utf-8', newline='\n') as f:
-            json.dump(obj, f, indent=1, ensure_ascii=False)
-    kit = CK.Kit(d)
-    errs, warns, info = CK.data_checks(kit)
-    print('override files %s: %d operations; data checks on base + overrides: %d ERROR, %d WARN' % (rep['files'] or 'none', rep['ops'], len(errs), len(warns)))
+    try:
+        for t, obj in zip(TABLES, (ks, w, a, c)):
+            with open(os.path.join(d, FILES[t]), 'w', encoding='utf-8', newline='\n') as f:
+                json.dump(obj, f, indent=1, ensure_ascii=False)
+        kit = CK.Kit(d)
+        errs, warns, info = CK.data_checks(kit)
+    finally:
+        shutil.rmtree(d, ignore_errors=True)                # the check leaves nothing behind
+    errs = list(errs)
+    # copy audit of every string of the four tables (they ship), by the packer's own rules; a table that says how it was made must not ship
+    tables = dict(zip(TABLES, (ks, w, a, c)))
+    flat = [(t, '/'.join(map(str, p)), s) for t in TABLES for p, s in walk_strings(tables[t])]
+    hits = K.audit_strings([s for _t, _p, s in flat])
+    if hits is None:
+        warns = list(warns) + [('AUDIT_SKIPPED', 'the copy audit could not run (no node, or tools/bt/pack_theatre.mjs cannot be loaded): the strings of the four tables were not checked')]
+    else:
+        for i, word in hits:
+            errs.append(('AUDIT', '%s %s has "%s": %s' % (FILES[flat[i][0]], flat[i][1], word, flat[i][2][:120])))
+    print('override files %s: %d operations; data checks and copy audit on base + overrides: %d ERROR, %d WARN' % (rep['files'] or 'none', rep['ops'], len(errs), len(warns)))
     for code, msg in errs[:30]:
         print('  ERROR %s: %s' % (code, msg))
+    for code, msg in [x for x in warns if x[0] == 'AUDIT_SKIPPED']:
+        print('  WARN %s: %s' % (code, msg))
     return 1 if errs else 0
 
 
@@ -650,6 +719,10 @@ def cmd_compile(argv):
     docs, summary, index = compile_all(a.group, write=not a.dry_run)
     for gid, s in summary.items():
         print('%-22s lines %4d accepted %4d rejected %3d (errors %d) -> %d operations, %d unapplied' % (gid, s['lines'], s['accepted'], s['rejected'], s['errors'], s['ops'], s['unapplied']))
+        if not s['copy_audit_ran']:
+            print('  AUDIT_SKIPPED: the copy audit could not run (no node, or tools/bt/pack_theatre.mjs cannot be loaded): the words of the lines were not checked')
+        if s['copy_audit_blocked']:
+            print('  COPY AUDIT: %d line(s) not compiled because their wording would ship a word the packer rejects (see unapplied)' % s['copy_audit_blocked'])
     print('%d groups with evidence files, %d evidence lines indexed%s' % (len(summary), len(index), ' (dry run: nothing written)' if a.dry_run else ''))
     for gid, d in docs.items():
         for u in d['unapplied'][:5]:

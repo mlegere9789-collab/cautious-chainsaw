@@ -213,6 +213,46 @@ def run(ok):
     kit, errs, CK = data_checks_of(tab, 'dress2')
     ok('dress: the kit data checks pass after the replacement', not errs, errs[:3])
 
+    # ---- shapes of real evidence: derived lines, several kit fields of one record, the copy audit, collisions ---------
+    der = {'type': 'evidence', 'id': 'td:0009', 'unit_id': 'us-1c-1d-cutler-76ny', 'field': 'dress', 'kit_field': 'badge', 'value': {'items': [{'printed': 'a round piece of white woolen cloth', 'item_id': 'badge_I_white', 'share': 'all'}]},
+           'basis': 'derived', 'tier': 'inferred', 'as_of': '1863-07-01', 'derived_from': ['td:0001'], 'note': 'The circular gives the colour of the division; no change is recorded before 1 July.'}
+    out = KO.compile_lines(ctx, 'td', [der], {})
+    cr = [o for o in out.ops if o['op'] == 'create' and o['table'] == 'kit_specs']
+    fb = cr[0]['value']['fields']['badge'] if cr else {}
+    ok('derived: a line with no quote (basis derived) compiles, and the note of the field names what it is derived from', len(cr) == 1 and fb.get('tier') == 'inferred' and fb.get('note', '').startswith('from the record: derived from td:0001: The circular')
+       and fb.get('evidence_ids') == ['td:0009'], fb.get('note'))
+    one = line('ta:0001', 'us-1c-1d-cutler-76ny', 'arms', arms('p1853_enfield'), kit_field='weapon', basis='regimental_history', source='NY-GB-1900', part=None, report_id='NY1-S001', printed_page=None)
+    out = KO.compile_lines(ctx, 'tw', [one, der], {})
+    cr = [o for o in out.ops if o['op'] == 'create' and o['table'] == 'kit_specs']
+    ok('two fields: a new record that two kit fields create gets one create operation holding both fields and both evidence ids', len(cr) == 1 and sorted(cr[0]['value']['fields']) == ['badge', 'weapon']
+       and set(cr[0]['evidence_ids']) == {'ta:0001', 'td:0009'} and set(cr[0]['value']['evidence_ids']) == {'ta:0001', 'td:0009'} and cr[0]['value']['weapon_assignment_ids'] == ['UA-EV-US.76NY'], [(o['op'], o.get('key')) for o in out.ops])
+    ok('two fields: the collision check finds nothing in what one group compiled', KO.collisions({'tw': {'ops': out.ops}}) == [])
+    d = fresh('ov_two')
+    write_ov(d, 'tw', out)
+    tab, rep = apply_to(base, d)
+    kit, errs, CK = data_checks_of(tab, 'two')
+    ok('two fields: the operations apply (no second create of the same record) and the kit data checks pass', set(tab['kit_specs']['units']['US.76NY']['fields']) == {'weapon', 'badge'} and not errs, errs[:3])
+    ok('collisions: two documents that create the same record, or set the same path, are found before the build', KO.collisions({'a': {'ops': [{'id': 'a:op1', 'op': 'create', 'table': 'kit_specs', 'path': ['units'], 'key': 'US.1X'}]},
+                                                                                                            'b': {'ops': [{'id': 'b:op1', 'op': 'create', 'table': 'kit_specs', 'path': ['units'], 'key': 'US.1X'},
+                                                                                                                          {'id': 'b:op2', 'op': 'set', 'table': 'weapons', 'path': ['x', 'y']}, {'id': 'b:op3', 'op': 'set', 'table': 'weapons', 'path': ['x', 'y']}]}})
+       == [('a:op1', 'b:op1'), ('b:op2', 'b:op3')])
+    bad = line('tb:0001', 'us-1c-1d-cutler-76ny', 'arms', {'weapons': [{'printed': 'Enfield rifles, bought in England by an agent', 'weapon_id': 'p1853_enfield'}]}, kit_field='weapon', basis='regimental_history', source='NY-GB-1900', part=None,
+               report_id='NY1-S001', printed_page=None)
+    out = KO.compile_lines(ctx, 'tb', [bad], {})
+    ok('copy audit: a line whose own printed words the packer rejects is not compiled into a table (no operation, a reason that says so)', out.audit_ran and 'tb:0001' in out.blocked and not [o for o in out.ops if o['op'] != 'register_source']
+       and out.unapplied and out.unapplied[0]['reason'].startswith('COPY AUDIT') and 'tb:0001' in out.unapplied[0]['evidence_ids'], (out.blocked, out.unapplied))
+    out = KO.compile_lines(ctx, 'tb', [dict(bad, id='tb:0002', value={'weapons': [{'printed': 'Enfield rifles bought by the Confederate agent Huse', 'weapon_id': 'p1853_enfield'}]})], {})
+    ok('copy audit: an agent of 1863 is not a hit, so that line compiles', not out.blocked and any(o['op'] == 'create' for o in out.ops), (out.blocked, out.unapplied))
+    real = K.audit_strings
+    try:
+        K.audit_strings = lambda strings: None
+        out = KO.compile_lines(ctx, 'tb', [bad], {})
+    finally:
+        K.audit_strings = real
+    ok('copy audit: when the audit cannot run the compile says so (audit_ran false) and does not pretend the words were checked', out.audit_ran is False and not out.blocked)
+    flat = [s for _p, s in KO.walk_strings({'a': {'b': ['x', {'c': 'Built by app/tools/build-guns.mjs.'}], 'n': 3}})]
+    ok('copy audit: the check of the built tables reaches every string of a table and finds a sentence that says how it was made', flat == ['x', 'Built by app/tools/build-guns.mjs.'] and [i for i, _w in K.audit_strings(flat)] == [1], flat)
+
     # ---- stale, reversible, policy, hygiene -----------------------------------------------------------------------
     out = KO.compile_lines(ctx, 'tg', [line('tg:0001', 'us-1c-art-5me', 'guns', guns_val())], {})
     d = fresh('ov_stale')
@@ -336,6 +376,24 @@ def run_verified(ok):
     r = o2['units']['us-1c-1d-cutler-56pa']['strength']['ranges']['taken_into_action|officers_and_men']
     ok('verified: a strength range states its kind, date and report as its basis', r['low'] == r['high'] == 252 and 'went into action' in r['basis'] and '1863-07-01' in r['basis'] and 'OR27-1-R037' in r['basis'], r)
     ok('verified: the strength status is verified when roster and commander are missing only for partly (core rule)', o2['units']['us-1c-1d-cutler-56pa']['status'] == 'partly')
+    ok('verified: a range of figures that are all of one date does not claim to span dates', r['spans_dates'] is False and list(r['by_as_of']) == ['1863-07-01'] and r['by_as_of']['1863-07-01'] == {'low': 252, 'high': 252, 'lines': 1}, r)
+    # figures of one kind at two moments (men who marched in the morning, men left in the evening) are not one range
+    ev3 = fresh('ev_ver4')
+    morning = rid(ex['examples:0002'], 'us-1c:0001')
+    morning['value'] = {'low': 1800, 'high': 1800, 'men': 'not_stated', 'scope': 'brigade in the morning'}
+    morning['basis'], morning['tier'], morning['as_of'] = 'estimate_in_report', 'documented', '1863-07-01'
+    morning['waive_numbers'] = 'test figures: the borrowed quote does not state them'
+    evening = copy.deepcopy(morning)
+    evening['id'] = 'us-1c:0002'
+    evening['value'] = {'low': 700, 'high': 700, 'men': 'not_stated', 'scope': 'brigade in the evening'}
+    evening['as_of'] = '1863-07-01/1863-07-02'
+    with open(os.path.join(ev3, 'us-1c.jsonl'), 'w', encoding='utf-8', newline='\n') as f:
+        for o in (morning, evening):
+            f.write(json.dumps(o, ensure_ascii=False) + '\n')
+    o3, b3 = KV.build(ev3, fresh('out_ver4'), write=False)
+    r3 = o3['units']['us-1c-1d-cutler-56pa']['strength']['ranges']['estimate_in_report|not_stated']
+    ok('verified: figures of one kind at two moments keep a sub-range each and the wide range says it spans dates (no pass on the wide span)', r3['low'] == 700 and r3['high'] == 1800 and r3['spans_dates'] is True
+       and r3['by_as_of'] == {'1863-07-01': {'low': 1800, 'high': 1800, 'lines': 1}, '1863-07-01/1863-07-02': {'low': 700, 'high': 700, 'lines': 1}}, r3)
     B = bat['batteries']['us-1c-art-5me']
     ok('verified batteries: Stevens\' battery is verified with figures for both dates and the kit card shown beside them', B['status'] == 'verified' and [g['as_of'] for g in B['guns']] == ['1863-07-01', '1863-07-03'] and B['range_by_date']['1863-07-01']['present'] == {'low': 6, 'high': 6, 'lines': 1}
        and B['kit_card'][0]['guns_status'] == 'gap', B)

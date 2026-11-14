@@ -1,0 +1,48 @@
+{
+ "implementation": "wgpu-native via wgpu-py 0.33.0",
+ "software": true,
+ "problems": [],
+ "build": {
+  "modules": {
+   "weather3d-mul": true,
+   "weather3d-add": true,
+   "fx3d-sprites": true,
+   "fx3d-cull-compute": true
+  },
+  "compiler_messages": {
+   "weather3d-mul": [],
+   "weather3d-add": [],
+   "fx3d-sprites": [],
+   "fx3d-cull-compute": []
+  },
+  "pipelines": {
+   "weather3d-mul": true,
+   "weather3d-add": true,
+   "fx3d-sprites": true,
+   "fx3d-cullCount (compute, optional, not wired)": true
+  }
+ },
+ "controls": {
+  "a type error in the WGSL (a vec3f variable given a f32)": "refused: Validation Error  Caused by:   In wgpuDeviceCreateShaderModule, label = 'bad1'  Shader validation error: Entry point fs at Fragment is inval",
+  "an unknown member in the WGSL (W.floor for W.floorC)": "refused: Validation Error  Caused by:   In wgpuDeviceCreateShaderModule, label = 'bad2'  Shader 'bad2' parsing error: invalid field accessor `floor` ",
+  "a layout that declares the scene depth as a float texture (the shader reads a depth texture)": "refused: Validation Error  Caused by:   In wgpuDeviceCreateRenderPipeline, label = 'weather3d-mul'     Error matching ShaderStages(FRAGMENT) shader r",
+  "a layout whose weather uniform block is hidden from the fragment stage": "refused: Validation Error  Caused by:   In wgpuDeviceCreateRenderPipeline, label = 'weather3d-mul'     Error matching ShaderStages(FRAGMENT) shader r"
+ },
+ "cases": {},
+ "adapter": {
+  "vendor": "SwiftShader driver",
+  "architecture": "",
+  "device": "SwiftShader Device (Subzero)",
+  "description": "",
+  "stackgroup_min_size": 4,
+  "stackgroup_max_size": 128,
+  "vendor_id": 6880,
+  "device_id": 49374,
+  "adapter_type": "CPU",
+  "backend_type": "Vulkan"
+ },
+ "features_requested": [
+  "float32-filterable"
+ ],
+ "ok": true
+}

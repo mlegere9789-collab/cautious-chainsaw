@@ -17,6 +17,7 @@
 //   node tools/bt/realize/q.mjs cards 1863-07-01T12:00 | epilogue <time>             the event cards / epilogue content the product shows
 //   node tools/bt/realize/q.mjs gazetteer [--write]        every place the timeline names: resolved (with tolerance), ambiguous, off the ground, unknown; --write saves GOVERNANCE/realizations/gazetteer.json
 //   node tools/bt/realize/q.mjs scenario                   the conflicts and the choices of the opening scenario
+//   node tools/bt/realize/q.mjs group T1-097 [--units id,id] [--structures id,id] [--weather | --from T --to T]    the scenario group of a row (GATE-SPEC TL-8, 6.4 V6): every value of the conflicts its words name, that reach its units and that the weather of its minutes lists; a record runs each ("scenario": "group") or excludes it with a reason
 // A time is 1863-MM-DDTHH:MM (local mean time). Add --scenario pdf for the plan's values instead of the delegated defaults.
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { REAL, GOV, readJSON, readJSONL, exists, toMin, isoOf, round, hasQuote, fold, sha256File, ROOT, rel } from './lib.mjs';
@@ -28,7 +29,7 @@ import { registerCoverage, epilogueRows } from './check.mjs';
 import { suggest, printSuggestion } from './suggest.mjs';
 
 const argv = process.argv.slice(2), cmd = argv[0], flag = n => { const i = argv.indexOf(n); return i < 0 ? null : (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true); };
-const pos = argv.filter((a, i) => i > 0 && !a.startsWith('--') && !['--near', '--radius', '--side', '--scenario'].includes(argv[i - 1]));
+const pos = argv.filter((a, i) => i > 0 && !a.startsWith('--') && !['--near', '--radius', '--side', '--scenario', '--units', '--structures', '--from', '--to'].includes(argv[i - 1]));
 const scen = flag('--scenario') || 'default', J = o => console.log(JSON.stringify(o, null, 1));
 const T = s => (/^\d+(\.\d+)?$/.test(String(s)) ? +s : toMin(s));
 const line = (...a) => console.log(...a);
@@ -38,6 +39,7 @@ async function main() {
   if (cmd === 'rows') return rowsCmd(pos[0]);
   const P = await openProduct(), S = P.scene(scen);
   if (cmd === 'row') return rowCmd(P, S, pos[0]);
+  if (cmd === 'group') return groupCmd(P, pos[0]);
   if (cmd === 'suggest') { const TL = loadTimeline(), EP = epilogueRows(TL), row = TL.byId.get(pos[0]) || EP.find(r => r.id === pos[0]); if (!row) return line(`no row ${pos[0]}`); return printSuggestion(suggest(P, S, row, { step: +(flag('--step') || 1) }), line); }
   if (cmd === 'unit') {
     const q = pos[0]; const direct = P.unit(q);
@@ -92,6 +94,8 @@ async function rowCmd(P, S, id) {
   line(`${row.id}  tier ${row.tier} (seed ${row.tier_seed})  status ${row.status_effective}${row.verdict ? ' / ' + row.verdict : ''}  shard ${row.shard}  page ${row.page}`);
   line(`TIME CELL   ${row.time_cell}`);
   line(`ALLOWED     ${describeWindow(row.window)}   [${row.window.kind}] ${row.window.flags.join(',')}`); for (const b of row.window.basis) line(`            - ${b}`);
+  { const tol0 = JSON.parse(JSON.stringify(TL.tolerances)); tol0.time.clock_tolerance_min = 0; const TL0 = loadTimeline({ tolerances: tol0 }), r0 = TL0.byId.get(id) || epilogueRows(TL0).find(r => r.id === id);
+    if (r0) line(`EXACT       ${describeWindow(r0.window)}   (no clock margin, GATE-SPEC 6.4 V4: a record whose window lies outside it has clock_tolerance_used and counts only with an open register entry)`); }
   line(`WHAT        ${row.what_text}`);
   line(`NOTES       ${row.notes_text}`);
   if (row.correction) line(`CORRECTION  ${row.correction.verdict || ''} ${String(row.correction.text || '').slice(0, 600)}`);
@@ -111,6 +115,18 @@ async function rowCmd(P, S, id) {
   }
   const rec = exists(path.join(REAL, 'RESULTS.json')) ? readJSON(path.join(REAL, 'RESULTS.json')) : null, e = rec && (rec.rows[id] || (rec.epilogue || {})[id]);
   line(`RESULT      ${e ? `${e.realized ? 'REALIZED' : 'not realized'} [${e.kind}] ${e.why}   (${e.record})` : 'no record yet'}`);
+}
+
+// the scenario group of a row: the scenarios a record has to run ("scenario": "group") or exclude with a reason; units default to the ones the row's words name
+async function groupCmd(P, id) {
+  const TL = loadTimeline(), EP = epilogueRows(TL), row = TL.byId.get(id) || EP.find(r => r.id === id); if (!row) return line(`no row ${id}`);
+  const units = flag('--units') ? String(flag('--units')).split(',') : P.unitsNamedIn(row.claim_text).map(n => n.id), structures = flag('--structures') ? String(flag('--structures')).split(',') : [];
+  const iv = row.window.intervals, span = flag('--from') ? { from: T(flag('--from')), to: T(flag('--to') || flag('--from')) } : flag('--weather') && iv.length ? { from: iv[0][0], to: iv[iv.length - 1][1] } : null;
+  const g = await P.scenarioGroup({ text: `${row.text_raw || ''} ${row.claim_text || ''}`, units, structures, span });
+  line(`${id}: ${g.ids.length} scenario(s) in the group; units ${units.join(', ') || 'none'}; structures ${structures.join(', ') || 'none'}; weather span ${span ? isoOf(span.from) + '..' + isoOf(span.to) : 'none'}`);
+  for (const c of g.conflicts) line(`  ${c.id.padEnd(22)} ${[c.named ? 'named in the row' : null, c.weather ? 'in the weather of the span' : null, ...c.units.map(u => `reaches ${u.unit} (${u.via.join('+')})`)].filter(Boolean).join('; ')}`);
+  for (const [sid, rs] of Object.entries(g.readings)) line(`  structure ${sid}: readings ${rs.join(', ')}`);
+  line(`  scenarios: ${g.ids.join('  ')}`); line('  a record says "scenario": "group" to run them all, or lists some and excludes the rest with "scenario_excludes": [{ "scenario": "<id>", "why": "<the row\'s sources that contradict it>" }]');
 }
 
 function gazetteerCmd(P) {

@@ -1,10 +1,51 @@
 {
  "format": "roster2-work-items/1",
- "generated": "2026-11-13",
+ "generated": "2026-11-14",
  "plan": "docs/battle-theatre/rosters/PRODUCTION-PLAN.md",
+ "run_order": {
+  "returned_items": [
+   "union-ma",
+   "roster-qa",
+   "conf-nc",
+   "union-pa",
+   "union-wi",
+   "union-ct",
+   "union-oh",
+   "union-nj",
+   "conf-la",
+   "union-ri",
+   "union-ny",
+   "union-md",
+   "union-wv",
+   "union-in",
+   "union-il",
+   "union-mn",
+   "conf-fl",
+   "conf-tx",
+   "conf-va",
+   "conf-md",
+   "conf-sc",
+   "conf-ga",
+   "roster-gettysburg-lists",
+   "union-mi",
+   "union-de",
+   "union-us",
+   "conf-al",
+   "conf-ms",
+   "conf-tn",
+   "conf-ar",
+   "conf-cs-staff",
+   "union-me",
+   "union-nh",
+   "union-vt"
+  ],
+  "rule": "The planning step returns only the OPEN items of this list, in this order (python3 -I docs/battle-theatre/rosters/pipeline2/open_groups.py --json). Two engineers run at a time and a restart starts the planning step again, so a closed item is not returned. union-nh and union-vt (round 1 closed) are not returned; roster-index and roster-app are the Integrate step.",
+  "closure": "docs/battle-theatre/rosters/pipeline2/open_groups.py (docstring): files for every unit or a recorded gap, report, pointer file; CLOSED.json as the last file of an item"
+ },
  "counts": {
   "groups": 36,
   "state_army_groups": 32,
+  "returned_items_in_run_order": 34,
   "units": 640,
   "by_army": {
    "union": 366,
@@ -20,7 +61,11 @@
    "writer_reader": "pipeline2/r2lib.py write_unit / read_unit / verify_rows",
    "verify": "pipeline2/verify_unit.py PATH... | --all",
    "prototypes": "pipeline2/proto_flow_moore.py (flow) and pipeline2/proto_cols_vt.py (cols)",
-   "catalogue": "pipeline2/ia_search.py search|meta (one request at a time, 1.2 s apart, cached)"
+   "catalogue": "pipeline2/ia_search.py search|meta (one request at a time, 1.2 s apart, cached)",
+   "index": "pipeline2/build_index.py [--write | --lint | --verify] (data2/INDEX.json, rosters/status.json; --lint after every item)",
+   "open_items": "pipeline2/open_groups.py [--json | --all] (which items are open, in run order)",
+   "page_image": "pipeline2/page_image.py page TEXT_ID LEAF (text PDF through archive.org/cors, pdftoppm, tesseract; transient)",
+   "examples": "cols: pipeline2/union_vt/ (word boxes, cells, flags), pipeline2/union_me/ (index, returns, lists); flow: pipeline2/union_ma/ and parse_nh_ayling.py (sections, cuts, flags, overrides)"
   },
   "steps": [
    "1 Resolve sources: for every source of the group fetch the OCR text (fetch_text.py), pin it in data2/sources/<id>.json with the rights facts of the item metadata, write the volume-to-unit map (printed pages or leaf ranges per unit) into the ledger; a failed lookup is recorded as failed, a blocked host as blocked.",
@@ -28,7 +73,8 @@
    "3 Write: r2lib.write_unit per unit into data2/<army>/<state>/<unit>.jsonl.gz, one segment per source text; a unit with several sources has several segments (a participants list or casualty list is a segment of its own).",
    "4 Verify: verify_unit.py on every file (V1 name, V2 remarks, V3 page, V4 rank); zero V1 or V3 defects; every defect is fixed in the parser, never in the row.",
    "5 Reconcile with the earlier data (rosters/data CSVs): row counts per unit and company, rows only in one of the two readings; write the differences to GOVERNANCE/horde/ws-rosters/<group>/differences.csv; resolve none by guessing.",
-   "6 Report: GOVERNANCE/horde/ws-rosters/<group>/report.md (what was run, rows, defects, gaps, what was not run) and one dated line in GOVERNANCE/progress.md (printf >>)."
+   "6 Report: rosters/reports/<group>.md in the section order of reports/union-vt.md (summary, lines per unit against the strength, the unit files and flag codes, sources and rights, checks, anomalies, gaps; numbers computed by a script, never typed), the pointer file rosters/sources/<group>.json (form roster2-sources-pointer/1), tmp/library/rosters/MANIFEST-<group>.json, gaps as lines in rosters/GAPS.md and proposed register entries under GOVERNANCE/horde/ws-rosters/proposed-register/, one dated line in GOVERNANCE/progress.md (printf >>).",
+   "7 Close: python3 -I pipeline2/build_index.py --lint (no defect), then GOVERNANCE/horde/ws-rosters/<group>/CLOSED.json as the last file written (form in pipeline2/open_groups.py); the item is then no longer returned by the planning step."
   ],
   "rules": [
    "name as printed: the OCR tokens of the source text, joined by single blanks; a garbled name stays garbled and is flagged by the verifier statistics, never repaired",
@@ -37,13 +83,18 @@
    "host rules: archive.org only for the OCR text (metadata and /cors/ downloads, one request at a time, 1.2 s apart); a refused or challenged host is recorded as blocked and not retried; no login, no key, no bot-block workaround",
    "disk: OCR text only under tmp/library/rosters; the djvu.xml of a cols source is a transient file deleted after the run; at most about 1 GB per group; delete scratch you no longer need",
    "machine: the 4 shared vCPUs; any job above about 30 s of CPU runs through tools/horde/bench.sh; one cols volume (30 to 80 MB of xml) at a time",
-   "unit assignment: a row is filed to a unit only where the source states the unit; an entry that names no Gettysburg unit goes to a list file beside the unit files (data2/<army>/<state>/_other-<source>.jsonl.gz), never to a guessed unit"
+   "unit assignment: a row is filed to a unit only where the source states the unit; an entry that names no Gettysburg unit goes to a list file beside the unit files (data2/<army>/<state>/_other-<source>.jsonl.gz), never to a guessed unit",
+   "sidecars (the contract build_index.py --lint checks): <unit>.flags.json.gz, form roster2-flags/1, keys f, u (the unit key), n (the rows of the unit file), codes (the legend of THAT file), ocr_uncertain (row numbers), on_rolls_july_1863 (yes and no, inferred from printed dates only, with its basis and rule), optional unit_file_raw_lines_sha256; <unit>.cells.json.gz, form roster2-cells/1, key rows; derived marks live there and never in a row (DD-ROS-01)",
+   "copy audit: printed names such as Claude stay as printed (DD-STG-02 lets the packer pass a name field and a flag file name list); the same word in a remark, a rank, a header, a report in the app or a pointer file is a hit: say in the report which rows hold such printed words",
+   "second reading of page images: only through pipeline2/page_image.py (text PDF from archive.org/cors, one request at a time, 1.2 s apart; images transient, never stored; the page routes archive.org/download/<id>/page/ and iiif.archive.org are refused by the proxy)"
   ],
   "gates_per_group": [
    "verify_unit.py reports zero V1 and V3 defects on every file",
-   "every unit of the group has a file or a recorded reason (gap, blocked, not found) in the report",
+   "build_index.py --lint reports no defect",
+   "every unit of the group has a file or a recorded reason (gap, blocked, not found) in the report and in CLOSED.json",
    "row counts per unit reconciled against the earlier data with every difference listed",
-   "copy audit: no file mentions how it was made"
+   "copy audit: no file mentions how it was made",
+   "the independent sample (R-G9) is run by roster-qa; a group never claims it"
   ]
  },
  "groups": [
@@ -271,9 +322,7 @@
     }
    ],
    "first_tasks": [
-    "Read three sample pages of ME-SUPP-1867 (the 1867 alphabetical index, never parsed), fix its line layout, and build the rolls of all 14 Maine units from it: this is the only whole-war name source for the 10th Maine Battalion and the 5th and 6th Batteries and an independent reading for the rest.",
-    "Re-parse ME-AGR-1863-APPD (cols) and ME-GETT-1898 (participants and casualties) as further segments of the infantry and cavalry files; carry the 575-against-386 contest unresolved.",
-    "Try the Maine items on Digital Maine once through the allowed route only if the host answers; on a challenge page stop and record it (G03)."
+    "Round 1 is closed (14 unit files, 33,105 lines, three sources, report rosters/reports/union-me.md): do not redo it. The open work is the entry \"round2\" of this item."
    ],
    "gaps_known": [
     "G03 Maine final roster of the 1864-65 report (Digital Maine answers with a bot challenge)",
@@ -292,10 +341,42 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/me/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/me/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-me/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-me.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-me.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-me.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-me/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-me/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 32,
+   "return_title": "Maine (Union), round 2 only: 1898 casualty and special-duty lists, 1861 muster-in returns, Appendix I of 1863 (deceased); round 1 is closed, do not redo it",
+   "started_snapshot_2026_11_14": {
+    "state": "round 1 closed",
+    "unit_files": 14,
+    "rows": 33105,
+    "sources_read": [
+     "ME-SUPP-1867 (index)",
+     "ME-AGR-1863-APPD (returns)",
+     "ME-GETT-1898 (participants)"
+    ],
+    "report": "rosters/reports/union-me.md",
+    "pointer": "rosters/sources/union-me.json",
+    "verify": "15 files, 0 name defects, 0 page defects (the report)",
+    "open": "EG-ROS-ME-01 to -07 (round 2 below); R-G9 not run"
+   },
+   "round2": {
+    "summary": "1898 casualty and special-duty lists, 1861 muster-in returns, Appendix I of 1863 (deceased), lines of unreadable unit",
+    "tasks": [
+     "EG-ROS-ME-01 and -02: parse the casualty lists (\"Revised Report of Casualties\") and the run-in special-duty paragraphs of ME-GETT-1898 (text pinned, parser union_me/me_gett.py) as further segments of the 14 unit files; a casualty list states presence (killed, wounded, captured): keep the printed sentence as the remarks.",
+     "EG-ROS-ME-03: parse the 1861 muster-in returns of ME-APPD-1861 (text pinned; the report gives leaves 77 onward, the 3rd to 7th Regiments, printed pp. 121 onward) as segments; adapt the returns parser union_me/me_agr.py.",
+     "EG-ROS-ME-04: parse Appendix I of the 1863 volume (deceased Maine volunteers, leaves 1300 to 1328 as the report states them; name, company and regiment in two column sets) as segments of the unit files named by the regiment column; a line whose regiment is unreadable goes to _other-ME-AGR-1863-APPD.jsonl.gz.",
+     "EG-ROS-ME-05: the 3,666 index lines of unreadable unit (_other-ME-SUPP-1867.jsonl.gz) and the 106 index lines without a name: re-read with the page-image route of roster-qa once that item has tested it; never guess a unit or a name.",
+     "Regenerate the report, the pointer file, the flag files and the index; keep every earlier line byte for byte where its source did not change; write CLOSED-R2.json."
+    ]
+   },
+   "engineer_note": "Round 1 of this item is closed. Do only the tasks of \"round2\" below. The build prompt's sentences about acquiring and parsing the whole item describe round 1 and do not apply to what is done: keep every existing line byte for byte unless its source text changed, add new material as new segments or sidecars, regenerate the report and the pointer file, write CLOSED-R2.json last."
   },
   {
    "id": "union-nh",
@@ -416,8 +497,7 @@
     }
    ],
    "first_tasks": [
-    "Re-parse NH-AYLING-1895 volumes 1 and 2 as flow entries for the 2nd, 5th and 12th New Hampshire and the 1st Light Battery; keep the cross-reference rows.",
-    "Inspect NH-AGR-1865 for the same regiments as an independent reading."
+    "Round 1 is closed (4 unit files, 6,992 lines, report rosters/reports/union-nh.md): do not redo it. The open work is the entry \"round2\" of this item; the independent sample is roster-qa."
    ],
    "gaps_known": [],
    "owner_steps": [],
@@ -431,10 +511,39 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/nh/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/nh/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-nh/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-nh.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-nh.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-nh.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-nh/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-nh/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 33,
+   "return_title": "New Hampshire (Union), round 2 only: the Register of Commissioned Officers as a further segment, the sideways Adjutant General reports (test a rotated read); round 1 is closed, do not redo it",
+   "started_snapshot_2026_11_14": {
+    "state": "round 1 closed",
+    "unit_files": 4,
+    "rows": 6992,
+    "sources_read": [
+     "NH-AYLING-1895 (two volumes)"
+    ],
+    "report": "rosters/reports/union-nh.md",
+    "pointer": "rosters/sources/union-nh.json",
+    "verify": "verify_unit.py --all: 0 name and 0 page defects; app/tests/roster-union-nh.test.mjs 23 pass (the report)",
+    "open": "EG-ROS-NH-01 to -04 (officers register not carried as rows; damaged entries; the sideways Adjutant General reports; Summary residuals): round 2; R-G9 not run: roster-qa"
+   },
+   "round2": {
+    "summary": "the Register of Commissioned Officers as a segment, the sideways Adjutant General reports, page-image reads of the leaves the report names",
+    "tasks": [
+     "EG-ROS-NH-01: carry the Register of Commissioned Officers of the Ayling volume (vol. 2, printed pp. 1225-1248; text pinned) as a further segment of the four unit files with a second parser (rank headings as the carried rank rk; the \"Not mustered\" marks stay in the remarks as printed). The report records that 21, 15, 11 and 0 register lines of the 2nd, 5th, 12th and the battery match no roll row.",
+     "EG-ROS-NH-03: test a rotated or orientation-detected read (tesseract on the text PDF, PRODUCTION-PLAN section 9.5) on three leaves of the sideways Adjutant General volumes that pipeline2/nh_agr_probe.py lists; look at the page with the Read tool; if the read agrees with the page, parse the three roster volumes as a second reading of the roll, otherwise record the test as the reason the gap stays.",
+     "EG-ROS-NH-02 and -04: read the leaves the report names (damaged entries, the four Summary leaves, the 12th and 5th register leaves) with the same route and record what the page shows; a stored row is never overwritten, a row the text layer lost is added only with its own locator.",
+     "Regenerate the report, pointer file, flag files and index; write CLOSED-R2.json."
+    ]
+   },
+   "engineer_note": "Round 1 of this item is closed. Do only the tasks of \"round2\" below. The build prompt's sentences about acquiring and parsing the whole item describe round 1 and do not apply to what is done: keep every existing line byte for byte unless its source text changed, add new material as new segments or sidecars, regenerate the report and the pointer file, write CLOSED-R2.json last."
   },
   {
    "id": "union-vt",
@@ -617,8 +726,7 @@
     }
    ],
    "first_tasks": [
-    "Build the offsets for VT-ROSTER-1892 (djvu.xml words to search-text offsets; the prototype aligned 25,422 of 25,423 words) and parse the ten infantry regiments and the cavalry; treat rank headings in the name column as the carried rank.",
-    "Read VT-MON-1890 for named officers present (local text in tmp/library/ws9)."
+    "Round 1 is closed (11 unit files, 16,854 lines, report rosters/reports/union-vt.md): do not redo it. The open work is the entry \"round2\" of this item; the independent sample is roster-qa."
    ],
    "gaps_known": [
     "no earlier roll rows for any Vermont unit: all ten infantry regiments and the cavalry start from the 1892 Revised Roster"
@@ -634,10 +742,39 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/vt/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/vt/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-vt/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-vt.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-vt.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-vt.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-vt/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-vt/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 34,
+   "return_title": "Vermont (Union), round 2 only: the 1866 Adjutant General report as a second reading (probe first), the six lost names and prose notes; round 1 is closed, do not redo it",
+   "started_snapshot_2026_11_14": {
+    "state": "round 1 closed",
+    "unit_files": 11,
+    "rows": 16854,
+    "sources_read": [
+     "VT-ROSTER-1892"
+    ],
+    "report": "rosters/reports/union-vt.md",
+    "pointer": "rosters/sources/union-vt.json",
+    "verify": "11 of 11 files ok in the stored log verify-union-vt.jsonl (0 V1, 0 V3 defects)",
+    "open": "EG-ROS-VT-01 to -06: six printed lines whose name the text layer lost, damaged date cells (40 percent), prose notes, no list of men present (roster-gettysburg-lists), the 1866 report not read: round 2; R-G9 not run: roster-qa"
+   },
+   "round2": {
+    "summary": "the 1866 Adjutant General report as a second reading (probe first), the six lost names, the prose notes",
+    "tasks": [
+     "EG-ROS-VT-05: fetch and pin VT-AGR-1866 (Internet Archive reportofadjutant00verm), probe its text layer as pipeline2/nh_agr_probe.py did for New Hampshire, and if it reads parse the 11 units as a second segment; otherwise the probe is the recorded reason.",
+     "EG-ROS-VT-01 and -02: after roster-qa has tested the page route, read the six leaves named in GOVERNANCE/horde/ws-rosters/union-vt/diag-no-name.json and write the names found as a segment of their own with their own locator; never alter a stored row; the damaged date cells (flags E and M) are read the same way only where the test showed the route reliable.",
+     "EG-ROS-VT-03: the two prose notes at the foot of roll pages (William Scott; the Palmer brothers) as a list segment, printed words only.",
+     "Regenerate the report, pointer file, flag files and index; write CLOSED-R2.json."
+    ]
+   },
+   "engineer_note": "Round 1 of this item is closed. Do only the tasks of \"round2\" below. The build prompt's sentences about acquiring and parsing the whole item describe round 1 and do not apply to what is done: keep every existing line byte for byte unless its source text changed, add new material as new segments or sidecars, regenerate the report and the pointer file, write CLOSED-R2.json last."
   },
   {
    "id": "union-ma",
@@ -995,9 +1132,9 @@
     }
    ],
    "first_tasks": [
-    "Re-read the five volumes the earlier run used (flow entries) and add volume 4 and 7 only if a Gettysburg unit is in them; the batteries are in vol 5 and the cavalry in vol 6.",
-    "Resolve the 5th Massachusetts Battery (E) and the two OOB batteries E and F that match no OR battery (GAPS G-NE02).",
-    "Record the 1931-37 imprint question in the ledger rights note."
+    "24 unit files exist (33,748 rows, flag files, verify_unit.py ok on all 24, build_index.py --lint 0 defects): do not re-parse. Finish the item: (1) the pointer file rosters/sources/union-ma.json (form roster2-sources-pointer/1 as union-me.json) with the rights basis of every text id used (MA-SSM-1931.1 to .6 and MA-SSM-1937-INDEX), the 1931-37 imprint question in its rights note (PRODUCTION-PLAN section 8, owner step 4) and tmp/library/rosters/MANIFEST-union-ma.json; build_index.py --lint warns until the pointer file exists.",
+    "(2) Reconcile with the earlier rows (rosters/data/NE/massachusetts): per-unit row and company counts, rows only in one reading, to GOVERNANCE/horde/ws-rosters/union-ma/differences-<unit>.csv; resolve none by guessing; resolve the 5th Massachusetts Battery (E) and the two OOB batteries E and F that match no OR battery (G-NE02).",
+    "(3) rosters/reports/union-ma.md in the section order of reports/union-vt.md (summary, lines per unit against strength, the unit files and flag codes, sources and rights, checks, anomalies, gaps), gaps as G-MA lines appended to rosters/GAPS.md and proposed register entries EG-ROS-MA-nn under GOVERNANCE/horde/ws-rosters/proposed-register/, a request note for the flag legend if it differs from union-me and union-nh, one progress line, then CLOSED.json."
    ],
    "gaps_known": [],
    "owner_steps": [],
@@ -1011,10 +1148,31 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/ma/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/ma/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ma/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-ma.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-ma.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-ma.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ma/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ma/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 1,
+   "return_title": "Massachusetts (Union): 24 unit files exist and verify clean; finish the pointer file (rights per text), the reconciliation with the earlier rolls, the report, the gaps and CLOSED.json",
+   "started_snapshot_2026_11_14": {
+    "state": "round 1 open: files done, closure files missing",
+    "unit_files": 24,
+    "rows": 33748,
+    "sources_read": [
+     "MA-SSM-1931 (volumes 1 to 6)"
+    ],
+    "report": null,
+    "pointer": null,
+    "verify": "24 of 24 files ok in the stored log verify-union-ma.jsonl (0 V1, 0 V3 defects); build_index.py --lint: 0 defects, 5 warnings (no rights basis in a pointer file that does not exist yet)",
+    "open": "pointer file, rights note, reconciliation, report, gaps, CLOSED.json"
+   },
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-ri",
@@ -1209,10 +1367,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/ri/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/ri/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ri/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-ri.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-ri.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-ri.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ri/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ri/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 10,
+   "return_title": "Rhode Island (Union): 6 units (2nd Infantry and five batteries) from the Official Register of Rhode Island and the battery histories",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-ct",
@@ -1391,10 +1559,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/ct/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/ct/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ct/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-ct.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-ct.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-ct.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ct/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ct/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 6,
+   "return_title": "Connecticut (Union): 8 units from the Catalogue of Connecticut Volunteer Organizations (cols); the 1889 Record of Service covers earlier wars only",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-ny",
@@ -2406,10 +2584,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/ny/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/ny/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ny/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-ny.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-ny.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-ny.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ny/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-ny/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 11,
+   "return_title": "New York (Union): 98 units from the Registers and the 1864 Record on the Internet Archive (the museum host does not answer); build the volume-to-unit map first and write units as they are done",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-nj",
@@ -2609,10 +2797,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/nj/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/nj/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-nj/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-nj.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-nj.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-nj.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-nj/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-nj/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 8,
+   "return_title": "New Jersey (Union): 15 units from Stryker, Record of Officers and Men of New Jersey (cols)",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-pa",
@@ -3433,10 +3631,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/pa/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/pa/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-pa/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-pa.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-pa.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-pa.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-pa/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-pa/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 4,
+   "return_title": "Pennsylvania (Union): 82 units from Bates, History of Pennsylvania Volunteers, five volumes (cols), the largest table source; write each unit file as soon as it verifies",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-de",
@@ -3574,10 +3782,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/de/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/de/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-de/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-de.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-de.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-de.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-de/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-de/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 25,
+   "return_title": "Delaware (Union): 2 units; the state rolls are image PDFs on a host that is not reachable; search the Internet Archive and register the gap",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-md",
@@ -3703,10 +3921,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/md/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/md/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-md/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-md.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-md.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-md.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-md/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-md/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 12,
+   "return_title": "Maryland (Union): 6 units from the History and Roster of Maryland Volunteers (cols)",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-wv",
@@ -3844,10 +4072,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/wv/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/wv/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-wv/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-wv.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-wv.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-wv.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-wv/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-wv/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 13,
+   "return_title": "West Virginia (Union): 4 units from the Adjutant General reports of 1864 and 1866",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-oh",
@@ -4159,10 +4397,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/oh/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/oh/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-oh/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-oh.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-oh.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-oh.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-oh/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-oh/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 7,
+   "return_title": "Ohio (Union): 19 units from the Official Roster of the Soldiers of the State of Ohio, seven volumes (cols)",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-in",
@@ -4336,10 +4584,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/in/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/in/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-in/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-in.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-in.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-in.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-in/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-in/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 14,
+   "return_title": "Indiana (Union): 7 units from the Report of the Adjutant General of Indiana (Terrell); resolve the volume map first",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-il",
@@ -4440,10 +4698,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/il/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/il/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-il/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-il.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-il.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-il.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-il/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-il/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 15,
+   "return_title": "Illinois (Union): 3 units from the Revised Report of the Adjutant General of Illinois",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-mi",
@@ -4733,10 +5001,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/mi/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/mi/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-mi/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-mi.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-mi.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-mi.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-mi/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-mi/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 24,
+   "return_title": "Michigan (Union): 12 units; few Record of Service volumes are on the Internet Archive (3, 8, 17, 22); read the 1865-66 reports and the 1913 survivors list, register the gaps",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-wi",
@@ -4860,10 +5138,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/wi/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/wi/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-wi/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-wi.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-wi.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-wi.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-wi/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-wi/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 5,
+   "return_title": "Wisconsin (Union): 6 units from the Roster of Wisconsin Volunteers (cols)",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-mn",
@@ -4972,10 +5260,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/mn/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/mn/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-mn/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-mn.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-mn.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-mn.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-mn/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-mn/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 16,
+   "return_title": "Minnesota (Union): 2 units from Minnesota in the Civil and Indian Wars",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "union-us",
@@ -5557,10 +5855,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/union/us/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/union/us/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-us/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/union-us.md",
+    "pointer": "docs/battle-theatre/rosters/sources/union-us.json",
+    "manifest": "tmp/library/rosters/MANIFEST-union-us.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-us/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/union-us/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 26,
+   "return_title": "United States Regulars, Sharpshooters, Engineers and staff (Union): 43 units; no enlisted rolls are open; officers from Heitman and the Army Registers, Stevens for Berdan's men, named casualties",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-nc",
@@ -6038,10 +6346,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/nc/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/nc/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-nc/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-nc.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-nc.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-nc.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-nc/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-nc/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 3,
+   "return_title": "North Carolina (Confederate): 41 units from Moore, Roster of North Carolina Troops, four volumes (flow); a prototype of the 26th exists",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-la",
@@ -6295,10 +6613,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/la/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/la/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-la/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-la.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-la.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-la.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-la/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-la/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 9,
+   "return_title": "Louisiana (Confederate): 17 units from Booth, Records of Louisiana Confederate Soldiers (flow; known incomplete)",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-va",
@@ -7539,10 +7867,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/va/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/va/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-va/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-va.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-va.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-va.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-va/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-va/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 19,
+   "return_title": "Virginia (Confederate): 105 units, no public-domain whole-war roll; search per unit, parse every roll or history that prints names, register the rest as gaps",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-sc",
@@ -7825,10 +8163,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/sc/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/sc/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-sc/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-sc.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-sc.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-sc.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-sc/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-sc/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 21,
+   "return_title": "South Carolina (Confederate): 18 units from Salley vol. II, the Tentative Rosters and Tompkins; register Salley volumes I and III (not open) as gaps",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-ga",
@@ -8371,10 +8719,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/ga/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/ga/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-ga/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-ga.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-ga.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-ga.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-ga/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-ga/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 22,
+   "return_title": "Georgia (Confederate): 45 units from Thomas, Warren, Nichols and the other open items; Henderson is never opened",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-al",
@@ -8701,10 +9059,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/al/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/al/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-al/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-al.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-al.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-al.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-al/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-al/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 27,
+   "return_title": "Alabama (Confederate): 19 units from Oates, Hurst and the regimental histories that print names; register the rest",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-ms",
@@ -8912,10 +9280,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/ms/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/ms/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-ms/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-ms.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-ms.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-ms.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-ms/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-ms/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 28,
+   "return_title": "Mississippi (Confederate): 13 units from Quitman's Historical Sketch and regimental histories; register the rest",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-fl",
@@ -9005,10 +9383,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/fl/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/fl/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-fl/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-fl.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-fl.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-fl.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-fl/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-fl/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 17,
+   "return_title": "Florida (Confederate): 3 units from Soldiers of Florida (1903); one scan drops 6.1 percent of the names, read a second copy",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-tn",
@@ -9148,10 +9536,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/tn/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/tn/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-tn/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-tn.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-tn.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-tn.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-tn/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-tn/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 29,
+   "return_title": "Tennessee (Confederate): 3 units; no whole-war roll is open; search the Internet Archive and register the gap",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-tx",
@@ -9283,10 +9681,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/tx/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/tx/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-tx/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-tx.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-tx.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-tx.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-tx/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-tx/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 18,
+   "return_title": "Texas (Confederate): 3 units from Polley, Hood's Texas Brigade (1910)",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-ar",
@@ -9376,10 +9784,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/ar/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/ar/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-ar/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-ar.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-ar.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-ar.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-ar/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-ar/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 30,
+   "return_title": "Arkansas (Confederate): 1 unit (3rd Arkansas) from the Appomattox paroles and regimental sources",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-md",
@@ -9489,10 +9907,20 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/md/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/md/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-md/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-md.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-md.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-md.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-md/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-md/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 20,
+   "return_title": "Maryland (Confederate): 5 units from Goldsborough, The Maryland Line in the Confederate Army (1900)",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
   },
   {
    "id": "conf-cs-staff",
@@ -9598,85 +10026,113 @@
    },
    "outputs": {
     "unit_files": "docs/battle-theatre/rosters/data2/confederate/cs/<unit>.jsonl.gz",
+    "sidecars": "docs/battle-theatre/rosters/data2/confederate/cs/<unit>.flags.json.gz (roster2-flags/1, asked of every unit), <unit>.cells.json.gz (roster2-cells/1, cols sources), _other-<source id>.jsonl.gz (lines of unreadable unit)",
     "ledgers": "docs/battle-theatre/rosters/data2/sources/<source id>.json",
     "raw_text": "tmp/library/rosters/<source id>/ (OCR text only)",
-    "report": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-cs-staff/report.md"
-   }
+    "report": "docs/battle-theatre/rosters/reports/conf-cs-staff.md",
+    "pointer": "docs/battle-theatre/rosters/sources/conf-cs-staff.json",
+    "manifest": "tmp/library/rosters/MANIFEST-conf-cs-staff.json",
+    "diagnostics": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-cs-staff/ (differences, diagnostics, proposed-register notes)",
+    "closure": "docs/battle-theatre/GOVERNANCE/horde/ws-rosters/conf-cs-staff/CLOSED.json (last file written; see open_groups.py)"
+   },
+   "run_position": 31,
+   "return_title": "General and staff officers of the Army of Northern Virginia (Confederate): 1 headquarters entry; officers named in the Official Records",
+   "started_snapshot_2026_11_14": null,
+   "round2": null,
+   "engineer_note": null
+  },
+  {
+   "id": "roster-gettysburg-lists",
+   "title": "Statements of presence at Gettysburg that no roll prints",
+   "army": "both",
+   "returned_as_group": true,
+   "engineer_note": "The build prompt speaks of one state item, its units, a pointer file and a manifest. For this item only the tasks below apply: the sources are the four named, the files are the sidecars of output_contract, the pointer file is rosters/sources/roster-gettysburg-lists.json (same form) and the report is rosters/reports/roster-gettysburg-lists.md; write CLOSED.json last.",
+   "depends_on": "nothing (units.json and the local texts); it writes only files of its own, so it can run beside the state items",
+   "output_contract": "data2/<army>/<state>/<unit>.lists.jsonl.gz: one roster2/2 file per unit that has such a name (same header form as a unit file, \"n\" = rows; segments of the list sources); never rows inside a state item's unit file. pipeline2/build_index.py lists them as the sidecar \"lists\" of the unit.",
+   "tasks": [
+    "Officers named in the Official Records vol. 27 reports and returns (local text tmp/library/or27, index docs/battle-theatre/library/or27_index.json, tools/bt/or27_find.py): one row per named officer and unit, the printed sentence as the remarks, offsets in the pinned OR text (a ledger entry of its own); the units of the Gettysburg order of battle are the 640 of data2/units.json.",
+    "The Soldiers' National Cemetery burial lists (PA-CEM-1867: Internet Archive revisedreportmad00penn and revisedreportma00cemegoog; the local copies CEM-REPORT-1867 and CEM-BARTLETT-1874 in tmp/library/ws9): the named dead by state and unit, graves as printed; Confederate dead reburied in Richmond (lists not located, C15) stay a registered gap.",
+    "The 1863 newspaper casualty lists on chroniclingamerica.loc.gov (one test request, then at most one request per second; stop and record a block): Richmond and state dailies of July to September 1863 for the Confederate units, the New York, Philadelphia and Boston dailies for the Union units; names as printed, never completed.",
+    "State commission and regimental volumes already local in tmp/library/ws9 (NJ-TOOMBS-1888, NJ-FINAL-1891, VT-MON-1890, OH-DED-1887, OH-8TH-1889, IN-1913, MN-1ST-1916, MA-BURIAL-1863, the Pennsylvania at Gettysburg volumes) and the 1913 Michigan survivors list: take only those that the state item of the same state recorded as \"not parsed\" (read rosters/reports/<state item>.md section 6 first); the state items parse their own lists as segments of their unit files.",
+    "Write CLOSED.json with the sources done and the sources recorded as blocked or not found."
+   ],
+   "gates": [
+    "every row locatable (V1 to V3) in its own pinned text",
+    "a stated presence is only what the list prints: no inference from a name on a roll",
+    "nothing from a modern compilation",
+    "build_index.py --lint reports no defect"
+   ],
+   "run_position": 23,
+   "return_title": "Statements of presence no roll prints: Official Records officers, National Cemetery burial lists, 1863 newspaper casualty lists, state commission volumes no state item parsed (written as sidecar files)"
+  },
+  {
+   "id": "roster-qa",
+   "title": "Independent sample of stored lines against page images",
+   "army": "both",
+   "returned_as_group": true,
+   "engineer_note": "The build prompt speaks of parsing units, a pointer file and a manifest. This item parses nothing new: it samples stored lines against page images and tests the second-reading route (tasks below); the report is rosters/reports/roster-qa.md, the data is data2/qa/*.json, and CLOSED.json (with \"covers\") is written last. Never change a stored line: a defect goes back to its item as a dated list in the report and in rosters/GAPS.md.",
+   "depends_on": "the unit files that exist; re-opened by open_groups.py when further items close",
+   "output_contract": "data2/qa/<item or source family>.json (plain JSON, never .jsonl.gz: verify_unit.py --all globs every .jsonl.gz under data2) and rosters/reports/roster-qa.md; one CLOSED.json whose \"covers\" lists the items sampled.",
+   "tasks": [
+    "Implement PLAN.md section 4.4 on the roster2/2 files with the route of PRODUCTION-PLAN section 7 (the text PDF through archive.org/cors, one page cut out with pdftoppm, the page image LOOKED AT with the Read tool as the independent reader; tesseract is the bulk second reader, not the sample reader): a seeded draw of pages per stratum (source family by layout; officers pages; the lowest decile of OCR damage flags), every row of a drawn page compared with the page for name, rank, company and remarks; counts, error kinds, the one-sided 95 percent Clopper-Pearson bound and every disagreement written to data2/qa/. The page images are transient and never stored.",
+    "Round 1 (now): the four closed items ME, NH, VT, MA. Draw a smoke sample first (about 10 pages per source family and layout) to see the error kinds early, report them to the next engineers by a dated note in rosters/PRODUCTION-PLAN.md section 9 (a shell append, never a rewrite), then the full draw: 299 rows with zero errors give an upper bound of 1.0 percent, 628 rows with at most two errors per stratum.",
+    "Re-verify the claims of each closed item's report against its files (row counts, verify_unit.py --all, build_index.py --lint, hashes of the pinned texts); list every claim that does not hold.",
+    "Test the second-reading route before any use: 20 known pages per source family read with tesseract and compared with the printed page; report the agreement; then try it on the known losses (VT six lost names, ME lost names, the Pennsylvania muster years on 2,039 pages, the Florida 6.1 percent) and write any recovered row only with its own locator (a segment of a ledger text derived from the page read), never into an existing row.",
+    "Later rounds (open_groups.py re-opens this item at the end of the list when new items close): the same sample for the new items."
+   ],
+   "gates": [
+    "R-G1 names 99 percent or better",
+    "R-G2 dates",
+    "R-G9 independent sample passed for every stratum before publication; a stratum that fails goes back to its parser as a dated defect list",
+    "no gate is lowered for a failing stratum"
+   ],
+   "run_position": 2,
+   "return_title": "Independent sample of stored lines against page images, round 1 on the closed items ME, NH, VT and MA (PDF route, look at each page; no new units); later rounds as more items close"
   },
   {
    "id": "roster-index",
    "title": "Index, whole-set verification and size report",
    "army": "both",
-   "wave": 4,
-   "depends_on": "every state group (it can run on whatever files exist and is re-run at the end)",
+   "returned_as_group": false,
+   "done_by": "the Integrate step of the workflow; pipeline2/build_index.py exists (INDEX.json, rosters/status.json, --lint, --verify)",
+   "depends_on": "every state item (re-run at the end)",
    "tasks": [
-    "Write pipeline2/build_index.py: data2/index.json (per unit: key, path, designation, rows per segment, raw bytes, gz bytes, sha256 of the raw text, source ids, coverage class, gaps, verification result) and data2/index-summary.json (rows, bytes, per army and state).",
-    "Run verify_unit.py --all through tools/horde/bench.sh and publish the counts; fail on any V1 or V3 defect.",
-    "Compare every unit file with its earlier CSV rows (conservation report per unit: rows only in the old data, rows only in the new, rows in both by name and company); list every difference, resolve none silently.",
-    "Check the size rule: if the projected total of raw jsonl passes 80 MB the files stay gzipped; write the measured total to the summary."
+    "Run build_index.py --write, --lint and --verify (through tools/horde/bench.sh) and publish the counts; fail on any V1 or V3 defect.",
+    "Conservation per unit against the earlier CSV rows (rosters/data): listed, never resolved by guessing; the per-item differences files are in GOVERNANCE/horde/ws-rosters/<item>/.",
+    "Size rule: the raw total of unit files is measured by build_index.py; the files are gzipped (DD-ROS-03); if the measured raw total ends under 80 MB the owner may choose plain files."
    ],
    "gates": [
     "R-G6 every row has a locator that resolves (verify_unit.py)",
     "R-G7 conservation reported per unit",
     "R-G8 no row without a source row"
-   ]
-  },
-  {
-   "id": "roster-qa",
-   "title": "Independent sampling test and second reading of page images",
-   "army": "both",
-   "wave": 4,
-   "depends_on": "the state groups of waves 1 to 3",
-   "tasks": [
-    "Implement PLAN.md section 4.4 on the new format: seeded draw of pages per stratum (source family by layout, officers pages, lowest OCR-confidence decile), a second agent reads the page image only and compares name, rank, company and remarks with the stored row; counts, bounds and disagreements published in data2/qa/.",
-    "Test a second OCR for the page-image reads and for the rows whose names the text layer lost (Florida 6.1 percent, Warren, Montgomery Greys, Pennsylvania muster years): rapidocr-onnxruntime (PyPI, models in the wheel, CPU) is the first candidate; run it on 20 known pages and report the agreement with the printed page before using it anywhere; page images only through https://archive.org/download/<id>/page/nN_w1500.jpg or the IIIF service, transient, never stored.",
-    "The sample size rule (one-sided 95 percent Clopper-Pearson): 299 rows with zero errors give an upper bound of 1.0 percent; 628 with at most two errors per stratum."
    ],
-   "gates": [
-    "R-G1 names 99 percent or better",
-    "R-G2 dates",
-    "R-G9 independent sample passed for every stratum before publication"
-   ]
-  },
-  {
-   "id": "roster-gettysburg-lists",
-   "title": "Statements of presence at Gettysburg that no roll prints: Official Records, National Cemetery, 1863 newspapers",
-   "army": "both",
-   "wave": 4,
-   "depends_on": "units.json only (it can start at once; its segments are added to unit files after the state groups have written theirs)",
-   "tasks": [
-    "Officers named in the Official Records vol 27 reports and returns (local text tmp/library/or27, index docs/battle-theatre/library/or27_index.json, tools/bt/or27_find.py): one row per named officer and unit with the printed sentence as the remarks, offsets in the OR text; one segment of each of the 640 unit files that has such a name.",
-    "The Soldiers' National Cemetery burial lists (PA-CEM-1867, IA revisedreportmad00penn and revisedreportma00cemegoog; ws9 copies CEM-REPORT-1867, CEM-BARTLETT-1874): named dead by state and unit, graves as printed; the Confederate dead reburied in Richmond (lists not located, C15) recorded as a gap.",
-    "The 1863 newspaper casualty lists on chroniclingamerica.loc.gov (one test request, then at most one per second): Richmond and state dailies of July to September 1863 for the Confederate units, the New York, Philadelphia and Boston dailies for the Union units; names as printed.",
-    "Gettysburg commission volumes already local in tmp/library/ws9 (NJ-TOOMBS-1888, NJ-FINAL-1891, VT-MON-1890, OH-DED-1887, OH-8TH-1889, IN-1913, MN-1ST-1916, MA-BURIAL-1863, PA at Gettysburg): lists of named men present, wounded or killed, as segments."
-   ],
-   "gates": [
-    "every row locatable (V1 to V3) in its own text",
-    "a stated presence is only what the list prints: no inference from a name on a roll",
-    "nothing from a modern compilation"
-   ]
+   "run_position": null,
+   "return_title": null
   },
   {
    "id": "roster-app",
    "title": "Roster section of the web page (docs/battle-theatre/app/roster)",
    "army": "both",
-   "wave": 4,
-   "depends_on": "roster-index (the index and the unit files)",
+   "returned_as_group": false,
+   "done_by": "the Integrate step of the workflow",
+   "depends_on": "data2/INDEX.json and the unit files",
    "tasks": [
-    "A reader in JavaScript for roster2/2 (gunzip with DecompressionStream, one file per unit, no server): app/roster/reader.mjs and tests app/tests/roster-format.test.mjs that read the two real prototype files and every unit file present.",
-    "The page of PLAN.md section 4.2 without per-man presence labels: search by surname and unit, unit page with the segments and their sources and rights, the printed remark shown as printed, a visible mark where the source states presence at Gettysburg (a remark naming Gettysburg, a participants list, a casualty list, a burial list) and the tier of every non-documented statement; \"n present, names not recovered\" against the documented strength.",
-    "Rights per name: each row shows its segment source, volume, printed page and the ledger rights text; no file of the page may mention how the data was made."
+    "A reader for roster2/2 (gunzip with DecompressionStream, one file per unit, no server) and the sidecars named by the index: flags (roster2-flags/1; show the legend of the file, not a fixed table), cells (roster2-cells/1), lists (<unit>.lists.jsonl.gz); tests in app/tests/roster*.test.mjs on the real files.",
+    "The page of PLAN.md section 4.2 without per-man presence labels: search by name and unit; the unit page with its segments, sources and rights; the printed remark as printed; a mark where a source states presence (a remark naming Gettysburg, a participants, casualty or burial list); \"damaged in the text layer\" on ocr_uncertain rows; \"on the rolls in July 1863 (inferred from printed dates)\" only with its basis; cross-reference lines shown as such; \"n present, names not recovered\" and the gap id on every unit with a gap.",
+    "Rights per name: each row shows its segment source, volume, printed page and the ledger rights text; no file of the page may mention how the data was made (the copy audit allows the printed word in the name field only, DD-STG-02)."
    ],
    "gates": [
-    "copy audit (CLAUDE.md): no mention of AI, Claude, Anthropic, agents or the production method in any shipped file",
+    "copy audit (CLAUDE.md)",
     "keyboard use, phone width, no colour-only marks",
     "no per-man presence label is shown unless a source states it"
-   ]
+   ],
+   "run_position": null,
+   "return_title": null
   }
  ],
  "not_done_here": [
-  "No unit file of data2 exists yet except two prototypes kept outside the tree (tmp/library/rosters/_proto).",
-  "No independent sample (R-G9) was run.",
+  "On 14 November 2026 53 of 640 units have a file (union-me, union-nh, union-vt, union-ma); 587 do not.",
+  "No independent sample (R-G9) was run on any item.",
   "Browser or GPU checks are not part of this work."
  ]
 }

@@ -364,3 +364,175 @@ for _g in ('conf-va', 'conf-nc', 'conf-sc', 'conf-ga', 'conf-al', 'conf-ms', 'co
     SOURCES[_g].append(S('NEWS-1863-CASUALTIES', ['(chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863)'], 'commission', 'flow', 'lead',
                          'named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)',
                          'the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine\'s reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed'))
+
+
+# ======================================================================================================================
+# Run order, closure and status of the items that were started (added 14 November 2026).  Read by make_work_items.py and
+# open_groups.py.  Nothing here is a roster row.
+# ======================================================================================================================
+
+# The planning step returns the OPEN items in this order (open_groups.py).  Two engineers run at a time (the workflow caps
+# concurrent agents at CPUs - 2 = 2), a restart of the machine starts the planning step again and walks the list from the top, so
+# (1) finished items are not returned, (2) long items (L) alternate with short ones (s) so that one slot is not blocked for hours
+# while the other idles, (3) the first sample (roster-qa) comes early because its findings change the parsers of everything after it.
+# s short (about 1 h), m medium (2 to 3 h), L long (several restarts).
+RUN_ORDER = [
+    'union-ma',                    # s  files exist and verify clean; pointer file, rights, reconciliation, report and closure are left
+    'roster-qa',                   # m  round 1: the sample of the four closed items (ME, NH, VT, MA); no new units
+    'conf-nc',                     # m  Moore, flow, prototype exists, 41 units, 49,347 earlier rows
+    'union-pa',                    # L  Bates, cols, 82 units, 110,595 earlier rows: starts early so that it spans the restarts
+    'union-wi',                    # s
+    'union-ct',                    # s
+    'union-oh',                    # L  seven volumes, cols
+    'union-nj',                    # m
+    'conf-la',                     # m  Booth, flow
+    'union-ri',                    # s
+    'union-ny',                    # L  98 units, volume map first
+    'union-md', 'union-wv', 'union-in', 'union-il', 'union-mn',      # s
+    'conf-fl', 'conf-tx',          # s
+    'conf-va',                     # L  105 units, source search per unit
+    'conf-md', 'conf-sc', 'conf-ga',  # s, m, m
+    'roster-gettysburg-lists',     # m  sidecar files, independent of the state items
+    'union-mi', 'union-de',        # m, s  thin record: source search, gaps
+    'union-us',                    # L
+    'conf-al', 'conf-ms', 'conf-tn', 'conf-ar', 'conf-cs-staff',     # m, m, s, s, s
+    'union-me', 'union-nh', 'union-vt',   # round 2 only (round 1 is closed): depth for units that already have names comes after first-pass coverage of the units that have none
+]
+
+# Not returned as items while their round 1 is closed: union-me, union-nh, union-vt appear only for round 2 (the three at the end of the list);
+# roster-index and roster-app are the Integrate step of the workflow (pipeline2/build_index.py already writes data2/INDEX.json).
+
+RETURN_TITLES = {
+    'union-ma': 'Massachusetts (Union): 24 unit files exist and verify clean; finish the pointer file (rights per text), the reconciliation with the earlier rolls, the report, the gaps and CLOSED.json',
+    'roster-qa': 'Independent sample of stored lines against page images, round 1 on the closed items ME, NH, VT and MA (PDF route, look at each page; no new units); later rounds as more items close',
+    'conf-nc': 'North Carolina (Confederate): 41 units from Moore, Roster of North Carolina Troops, four volumes (flow); a prototype of the 26th exists',
+    'union-pa': 'Pennsylvania (Union): 82 units from Bates, History of Pennsylvania Volunteers, five volumes (cols), the largest table source; write each unit file as soon as it verifies',
+    'union-wi': 'Wisconsin (Union): 6 units from the Roster of Wisconsin Volunteers (cols)',
+    'union-ct': 'Connecticut (Union): 8 units from the Catalogue of Connecticut Volunteer Organizations (cols); the 1889 Record of Service covers earlier wars only',
+    'union-oh': 'Ohio (Union): 19 units from the Official Roster of the Soldiers of the State of Ohio, seven volumes (cols)',
+    'union-nj': 'New Jersey (Union): 15 units from Stryker, Record of Officers and Men of New Jersey (cols)',
+    'conf-la': 'Louisiana (Confederate): 17 units from Booth, Records of Louisiana Confederate Soldiers (flow; known incomplete)',
+    'union-ri': 'Rhode Island (Union): 6 units (2nd Infantry and five batteries) from the Official Register of Rhode Island and the battery histories',
+    'union-ny': 'New York (Union): 98 units from the Registers and the 1864 Record on the Internet Archive (the museum host does not answer); build the volume-to-unit map first and write units as they are done',
+    'union-md': 'Maryland (Union): 6 units from the History and Roster of Maryland Volunteers (cols)',
+    'union-wv': 'West Virginia (Union): 4 units from the Adjutant General reports of 1864 and 1866',
+    'union-in': 'Indiana (Union): 7 units from the Report of the Adjutant General of Indiana (Terrell); resolve the volume map first',
+    'union-il': 'Illinois (Union): 3 units from the Revised Report of the Adjutant General of Illinois',
+    'union-mn': 'Minnesota (Union): 2 units from Minnesota in the Civil and Indian Wars',
+    'conf-fl': 'Florida (Confederate): 3 units from Soldiers of Florida (1903); one scan drops 6.1 percent of the names, read a second copy',
+    'conf-tx': 'Texas (Confederate): 3 units from Polley, Hood\'s Texas Brigade (1910)',
+    'conf-va': 'Virginia (Confederate): 105 units, no public-domain whole-war roll; search per unit, parse every roll or history that prints names, register the rest as gaps',
+    'conf-md': 'Maryland (Confederate): 5 units from Goldsborough, The Maryland Line in the Confederate Army (1900)',
+    'conf-sc': 'South Carolina (Confederate): 18 units from Salley vol. II, the Tentative Rosters and Tompkins; register Salley volumes I and III (not open) as gaps',
+    'conf-ga': 'Georgia (Confederate): 45 units from Thomas, Warren, Nichols and the other open items; Henderson is never opened',
+    'roster-gettysburg-lists': 'Statements of presence no roll prints: Official Records officers, National Cemetery burial lists, 1863 newspaper casualty lists, state commission volumes no state item parsed (written as sidecar files)',
+    'union-me': 'Maine (Union), round 2 only: 1898 casualty and special-duty lists, 1861 muster-in returns, Appendix I of 1863 (deceased); round 1 is closed, do not redo it',
+    'union-nh': 'New Hampshire (Union), round 2 only: the Register of Commissioned Officers as a further segment, the sideways Adjutant General reports (test a rotated read); round 1 is closed, do not redo it',
+    'union-vt': 'Vermont (Union), round 2 only: the 1866 Adjutant General report as a second reading (probe first), the six lost names and prose notes; round 1 is closed, do not redo it',
+    'union-mi': 'Michigan (Union): 12 units; few Record of Service volumes are on the Internet Archive (3, 8, 17, 22); read the 1865-66 reports and the 1913 survivors list, register the gaps',
+    'union-de': 'Delaware (Union): 2 units; the state rolls are image PDFs on a host that is not reachable; search the Internet Archive and register the gap',
+    'union-us': 'United States Regulars, Sharpshooters, Engineers and staff (Union): 43 units; no enlisted rolls are open; officers from Heitman and the Army Registers, Stevens for Berdan\'s men, named casualties',
+    'conf-al': 'Alabama (Confederate): 19 units from Oates, Hurst and the regimental histories that print names; register the rest',
+    'conf-ms': 'Mississippi (Confederate): 13 units from Quitman\'s Historical Sketch and regimental histories; register the rest',
+    'conf-tn': 'Tennessee (Confederate): 3 units; no whole-war roll is open; search the Internet Archive and register the gap',
+    'conf-ar': 'Arkansas (Confederate): 1 unit (3rd Arkansas) from the Appomattox paroles and regimental sources',
+    'conf-cs-staff': 'General and staff officers of the Army of Northern Virginia (Confederate): 1 headquarters entry; officers named in the Official Records',
+}
+
+# What exists on 14 November 2026 for the items that were started (Measured: pipeline2/build_index.py, build_index.py --lint, the stored
+# verify logs GOVERNANCE/horde/ws-rosters/plan/verify-*.jsonl, the reports).  A snapshot: open_groups.py reads the files, not this table.
+STARTED = {
+    'union-me': {'state': 'round 1 closed', 'unit_files': 14, 'rows': 33105, 'sources_read': ['ME-SUPP-1867 (index)', 'ME-AGR-1863-APPD (returns)', 'ME-GETT-1898 (participants)'],
+                 'report': 'rosters/reports/union-me.md', 'pointer': 'rosters/sources/union-me.json', 'verify': '15 files, 0 name defects, 0 page defects (the report)',
+                 'open': 'EG-ROS-ME-01 to -07 (round 2 below); R-G9 not run'},
+    'union-nh': {'state': 'round 1 closed', 'unit_files': 4, 'rows': 6992, 'sources_read': ['NH-AYLING-1895 (two volumes)'],
+                 'report': 'rosters/reports/union-nh.md', 'pointer': 'rosters/sources/union-nh.json', 'verify': 'verify_unit.py --all: 0 name and 0 page defects; app/tests/roster-union-nh.test.mjs 23 pass (the report)',
+                 'open': 'EG-ROS-NH-01 to -04 (officers register not carried as rows; damaged entries; the sideways Adjutant General reports; Summary residuals): round 2; R-G9 not run: roster-qa'},
+    'union-vt': {'state': 'round 1 closed', 'unit_files': 11, 'rows': 16854, 'sources_read': ['VT-ROSTER-1892'],
+                 'report': 'rosters/reports/union-vt.md', 'pointer': 'rosters/sources/union-vt.json', 'verify': '11 of 11 files ok in the stored log verify-union-vt.jsonl (0 V1, 0 V3 defects)',
+                 'open': 'EG-ROS-VT-01 to -06: six printed lines whose name the text layer lost, damaged date cells (40 percent), prose notes, no list of men present (roster-gettysburg-lists), the 1866 report not read: round 2; R-G9 not run: roster-qa'},
+    'union-ma': {'state': 'round 1 open: files done, closure files missing', 'unit_files': 24, 'rows': 33748, 'sources_read': ['MA-SSM-1931 (volumes 1 to 6)'],
+                 'report': None, 'pointer': None, 'verify': '24 of 24 files ok in the stored log verify-union-ma.jsonl (0 V1, 0 V3 defects); build_index.py --lint: 0 defects, 5 warnings (no rights basis in a pointer file that does not exist yet)',
+                 'open': 'pointer file, rights note, reconciliation, report, gaps, CLOSED.json'},
+}
+
+# Open work of a closed item that is NOT a gap to register but source text that is already pinned or named: the item is returned a second
+# time (same id) by open_groups.py until GOVERNANCE/horde/ws-rosters/<id>/CLOSED-R2.json exists.
+ROUND2 = {
+    'union-me': {
+        'summary': '1898 casualty and special-duty lists, 1861 muster-in returns, Appendix I of 1863 (deceased), lines of unreadable unit',
+        'tasks': [
+            'EG-ROS-ME-01 and -02: parse the casualty lists ("Revised Report of Casualties") and the run-in special-duty paragraphs of ME-GETT-1898 (text pinned, parser union_me/me_gett.py) as further segments of the 14 unit files; a casualty list states presence (killed, wounded, captured): keep the printed sentence as the remarks.',
+            'EG-ROS-ME-03: parse the 1861 muster-in returns of ME-APPD-1861 (text pinned; the report gives leaves 77 onward, the 3rd to 7th Regiments, printed pp. 121 onward) as segments; adapt the returns parser union_me/me_agr.py.',
+            'EG-ROS-ME-04: parse Appendix I of the 1863 volume (deceased Maine volunteers, leaves 1300 to 1328 as the report states them; name, company and regiment in two column sets) as segments of the unit files named by the regiment column; a line whose regiment is unreadable goes to _other-ME-AGR-1863-APPD.jsonl.gz.',
+            'EG-ROS-ME-05: the 3,666 index lines of unreadable unit (_other-ME-SUPP-1867.jsonl.gz) and the 106 index lines without a name: re-read with the page-image route of roster-qa once that item has tested it; never guess a unit or a name.',
+            'Regenerate the report, the pointer file, the flag files and the index; keep every earlier line byte for byte where its source did not change; write CLOSED-R2.json.',
+        ]},
+}
+
+ROUND2['union-nh'] = {
+    'summary': 'the Register of Commissioned Officers as a segment, the sideways Adjutant General reports, page-image reads of the leaves the report names',
+    'tasks': [
+        'EG-ROS-NH-01: carry the Register of Commissioned Officers of the Ayling volume (vol. 2, printed pp. 1225-1248; text pinned) as a further segment of the four unit files with a second parser (rank headings as the carried rank rk; the "Not mustered" marks stay in the remarks as printed). The report records that 21, 15, 11 and 0 register lines of the 2nd, 5th, 12th and the battery match no roll row.',
+        'EG-ROS-NH-03: test a rotated or orientation-detected read (tesseract on the text PDF, PRODUCTION-PLAN section 9.5) on three leaves of the sideways Adjutant General volumes that pipeline2/nh_agr_probe.py lists; look at the page with the Read tool; if the read agrees with the page, parse the three roster volumes as a second reading of the roll, otherwise record the test as the reason the gap stays.',
+        'EG-ROS-NH-02 and -04: read the leaves the report names (damaged entries, the four Summary leaves, the 12th and 5th register leaves) with the same route and record what the page shows; a stored row is never overwritten, a row the text layer lost is added only with its own locator.',
+        'Regenerate the report, pointer file, flag files and index; write CLOSED-R2.json.']}
+ROUND2['union-vt'] = {
+    'summary': 'the 1866 Adjutant General report as a second reading (probe first), the six lost names, the prose notes',
+    'tasks': [
+        'EG-ROS-VT-05: fetch and pin VT-AGR-1866 (Internet Archive reportofadjutant00verm), probe its text layer as pipeline2/nh_agr_probe.py did for New Hampshire, and if it reads parse the 11 units as a second segment; otherwise the probe is the recorded reason.',
+        'EG-ROS-VT-01 and -02: after roster-qa has tested the page route, read the six leaves named in GOVERNANCE/horde/ws-rosters/union-vt/diag-no-name.json and write the names found as a segment of their own with their own locator; never alter a stored row; the damaged date cells (flags E and M) are read the same way only where the test showed the route reliable.',
+        'EG-ROS-VT-03: the two prose notes at the foot of roll pages (William Scott; the Palmer brothers) as a list segment, printed words only.',
+        'Regenerate the report, pointer file, flag files and index; write CLOSED-R2.json.']}
+
+# Cross-cutting items.  roster-gettysburg-lists and roster-qa are returned as items; roster-index and roster-app are done by the
+# Integrate step of the workflow (build_index.py already writes data2/INDEX.json and rosters/status.json) and are kept here as specifications.
+CROSS = [
+    {'id': 'roster-gettysburg-lists', 'title': 'Statements of presence at Gettysburg that no roll prints', 'army': 'both', 'returned_as_group': True,
+     'engineer_note': 'The build prompt speaks of one state item, its units, a pointer file and a manifest. For this item only the tasks below apply: the sources are the four named, the files are the sidecars of output_contract, the pointer file is rosters/sources/roster-gettysburg-lists.json (same form) and the report is rosters/reports/roster-gettysburg-lists.md; write CLOSED.json last.',
+     'depends_on': 'nothing (units.json and the local texts); it writes only files of its own, so it can run beside the state items',
+     'output_contract': 'data2/<army>/<state>/<unit>.lists.jsonl.gz: one roster2/2 file per unit that has such a name (same header form as a unit file, "n" = rows; segments of the list sources); never rows inside a state item\'s unit file. pipeline2/build_index.py lists them as the sidecar "lists" of the unit.',
+     'tasks': [
+         'Officers named in the Official Records vol. 27 reports and returns (local text tmp/library/or27, index docs/battle-theatre/library/or27_index.json, tools/bt/or27_find.py): one row per named officer and unit, the printed sentence as the remarks, offsets in the pinned OR text (a ledger entry of its own); the units of the Gettysburg order of battle are the 640 of data2/units.json.',
+         'The Soldiers\' National Cemetery burial lists (PA-CEM-1867: Internet Archive revisedreportmad00penn and revisedreportma00cemegoog; the local copies CEM-REPORT-1867 and CEM-BARTLETT-1874 in tmp/library/ws9): the named dead by state and unit, graves as printed; Confederate dead reburied in Richmond (lists not located, C15) stay a registered gap.',
+         'The 1863 newspaper casualty lists on chroniclingamerica.loc.gov (one test request, then at most one request per second; stop and record a block): Richmond and state dailies of July to September 1863 for the Confederate units, the New York, Philadelphia and Boston dailies for the Union units; names as printed, never completed.',
+         'State commission and regimental volumes already local in tmp/library/ws9 (NJ-TOOMBS-1888, NJ-FINAL-1891, VT-MON-1890, OH-DED-1887, OH-8TH-1889, IN-1913, MN-1ST-1916, MA-BURIAL-1863, the Pennsylvania at Gettysburg volumes) and the 1913 Michigan survivors list: take only those that the state item of the same state recorded as "not parsed" (read rosters/reports/<state item>.md section 6 first); the state items parse their own lists as segments of their unit files.',
+         'Write CLOSED.json with the sources done and the sources recorded as blocked or not found.'],
+     'gates': ['every row locatable (V1 to V3) in its own pinned text', 'a stated presence is only what the list prints: no inference from a name on a roll', 'nothing from a modern compilation', 'build_index.py --lint reports no defect']},
+    {'id': 'roster-qa', 'title': 'Independent sample of stored lines against page images', 'army': 'both', 'returned_as_group': True,
+     'engineer_note': 'The build prompt speaks of parsing units, a pointer file and a manifest. This item parses nothing new: it samples stored lines against page images and tests the second-reading route (tasks below); the report is rosters/reports/roster-qa.md, the data is data2/qa/*.json, and CLOSED.json (with "covers") is written last. Never change a stored line: a defect goes back to its item as a dated list in the report and in rosters/GAPS.md.',
+     'depends_on': 'the unit files that exist; re-opened by open_groups.py when further items close',
+     'output_contract': 'data2/qa/<item or source family>.json (plain JSON, never .jsonl.gz: verify_unit.py --all globs every .jsonl.gz under data2) and rosters/reports/roster-qa.md; one CLOSED.json whose "covers" lists the items sampled.',
+     'tasks': [
+         'Implement PLAN.md section 4.4 on the roster2/2 files with the route of PRODUCTION-PLAN section 7 (the text PDF through archive.org/cors, one page cut out with pdftoppm, the page image LOOKED AT with the Read tool as the independent reader; tesseract is the bulk second reader, not the sample reader): a seeded draw of pages per stratum (source family by layout; officers pages; the lowest decile of OCR damage flags), every row of a drawn page compared with the page for name, rank, company and remarks; counts, error kinds, the one-sided 95 percent Clopper-Pearson bound and every disagreement written to data2/qa/. The page images are transient and never stored.',
+         'Round 1 (now): the four closed items ME, NH, VT, MA. Draw a smoke sample first (about 10 pages per source family and layout) to see the error kinds early, report them to the next engineers by a dated note in rosters/PRODUCTION-PLAN.md section 9 (a shell append, never a rewrite), then the full draw: 299 rows with zero errors give an upper bound of 1.0 percent, 628 rows with at most two errors per stratum.',
+         'Re-verify the claims of each closed item\'s report against its files (row counts, verify_unit.py --all, build_index.py --lint, hashes of the pinned texts); list every claim that does not hold.',
+         'Test the second-reading route before any use: 20 known pages per source family read with tesseract and compared with the printed page; report the agreement; then try it on the known losses (VT six lost names, ME lost names, the Pennsylvania muster years on 2,039 pages, the Florida 6.1 percent) and write any recovered row only with its own locator (a segment of a ledger text derived from the page read), never into an existing row.',
+         'Later rounds (open_groups.py re-opens this item at the end of the list when new items close): the same sample for the new items.'],
+     'gates': ['R-G1 names 99 percent or better', 'R-G2 dates', 'R-G9 independent sample passed for every stratum before publication; a stratum that fails goes back to its parser as a dated defect list', 'no gate is lowered for a failing stratum']},
+    {'id': 'roster-index', 'title': 'Index, whole-set verification and size report', 'army': 'both', 'returned_as_group': False,
+     'done_by': 'the Integrate step of the workflow; pipeline2/build_index.py exists (INDEX.json, rosters/status.json, --lint, --verify)',
+     'depends_on': 'every state item (re-run at the end)',
+     'tasks': ['Run build_index.py --write, --lint and --verify (through tools/horde/bench.sh) and publish the counts; fail on any V1 or V3 defect.',
+               'Conservation per unit against the earlier CSV rows (rosters/data): listed, never resolved by guessing; the per-item differences files are in GOVERNANCE/horde/ws-rosters/<item>/.',
+               'Size rule: the raw total of unit files is measured by build_index.py; the files are gzipped (DD-ROS-03); if the measured raw total ends under 80 MB the owner may choose plain files.'],
+     'gates': ['R-G6 every row has a locator that resolves (verify_unit.py)', 'R-G7 conservation reported per unit', 'R-G8 no row without a source row']},
+    {'id': 'roster-app', 'title': 'Roster section of the web page (docs/battle-theatre/app/roster)', 'army': 'both', 'returned_as_group': False,
+     'done_by': 'the Integrate step of the workflow', 'depends_on': 'data2/INDEX.json and the unit files',
+     'tasks': ['A reader for roster2/2 (gunzip with DecompressionStream, one file per unit, no server) and the sidecars named by the index: flags (roster2-flags/1; show the legend of the file, not a fixed table), cells (roster2-cells/1), lists (<unit>.lists.jsonl.gz); tests in app/tests/roster*.test.mjs on the real files.',
+               'The page of PLAN.md section 4.2 without per-man presence labels: search by name and unit; the unit page with its segments, sources and rights; the printed remark as printed; a mark where a source states presence (a remark naming Gettysburg, a participants, casualty or burial list); "damaged in the text layer" on ocr_uncertain rows; "on the rolls in July 1863 (inferred from printed dates)" only with its basis; cross-reference lines shown as such; "n present, names not recovered" and the gap id on every unit with a gap.',
+               'Rights per name: each row shows its segment source, volume, printed page and the ledger rights text; no file of the page may mention how the data was made (the copy audit allows the printed word in the name field only, DD-STG-02).'],
+     'gates': ['copy audit (CLAUDE.md)', 'keyboard use, phone width, no colour-only marks', 'no per-man presence label is shown unless a source states it']},
+]
+
+# First tasks of the items that were started: they replace the planning-time text above so that nobody redoes finished work.
+FIRST_TASKS['union-me'] = ['Round 1 is closed (14 unit files, 33,105 lines, three sources, report rosters/reports/union-me.md): do not redo it. The open work is the entry "round2" of this item.']
+FIRST_TASKS['union-nh'] = ['Round 1 is closed (4 unit files, 6,992 lines, report rosters/reports/union-nh.md): do not redo it. The open work is the entry "round2" of this item; the independent sample is roster-qa.']
+FIRST_TASKS['union-vt'] = ['Round 1 is closed (11 unit files, 16,854 lines, report rosters/reports/union-vt.md): do not redo it. The open work is the entry "round2" of this item; the independent sample is roster-qa.']
+FIRST_TASKS['union-ma'] = [
+    '24 unit files exist (33,748 rows, flag files, verify_unit.py ok on all 24, build_index.py --lint 0 defects): do not re-parse. Finish the item: (1) the pointer file rosters/sources/union-ma.json (form roster2-sources-pointer/1 as union-me.json) with the rights basis of every text id used (MA-SSM-1931.1 to .6 and MA-SSM-1937-INDEX), the 1931-37 imprint question in its rights note (PRODUCTION-PLAN section 8, owner step 4) and tmp/library/rosters/MANIFEST-union-ma.json; build_index.py --lint warns until the pointer file exists.',
+    '(2) Reconcile with the earlier rows (rosters/data/NE/massachusetts): per-unit row and company counts, rows only in one reading, to GOVERNANCE/horde/ws-rosters/union-ma/differences-<unit>.csv; resolve none by guessing; resolve the 5th Massachusetts Battery (E) and the two OOB batteries E and F that match no OR battery (G-NE02).',
+    '(3) rosters/reports/union-ma.md in the section order of reports/union-vt.md (summary, lines per unit against strength, the unit files and flag codes, sources and rights, checks, anomalies, gaps), gaps as G-MA lines appended to rosters/GAPS.md and proposed register entries EG-ROS-MA-nn under GOVERNANCE/horde/ws-rosters/proposed-register/, a request note for the flag legend if it differs from union-me and union-nh, one progress line, then CLOSED.json.']
+
+ROUND2_NOTE = ('Round 1 of this item is closed. Do only the tasks of "round2" below. The build prompt\'s sentences about acquiring and parsing the whole item describe round 1 and do not apply to what is done: '
+               'keep every existing line byte for byte unless its source text changed, add new material as new segments or sidecars, regenerate the report and the pointer file, write CLOSED-R2.json last.')

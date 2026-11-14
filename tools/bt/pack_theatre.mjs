@@ -387,12 +387,28 @@ export function makeZip(entries) {   // entries: [{name, data}] sorted by caller
 // markers of internal notes. Case-insensitive.
 const AUDIT_KEY_GENERATED = String.raw`"generated(?:_?(?:at|by|on|from))?"\s*:`;
 const AUDIT_KEY_MAKER = String.raw`"(?:(?:built|made|produced|written|created|exported|compiled)[_ -]?(?:by|with)|generator|builder|build[_-]?(?:script|tool))"\s*:\s*"[^"\n]*(?:\/|\.(?:mjs|cjs|js|py|sh)\b)`;
+// Statements that name the program that made a file or a piece of data. Added 2026-11-14, after a read of the real shipped files showed forms that the rules above did not see: "Written to data/x.json by
+// tools/y.mjs", "Derived from a.geojson by app/tools/build-z.mjs", "(built from the layers by tools/build-w.mjs)" (also when the comment wraps to the next line), "recomputed by build_kit_data.py", "(tools/build-gazetteer.mjs)",
+// "(node tools/x.mjs writes this file)", `generated_by: '...'` in a module. A builder cited as the MAKER of something is a production note; a checker or a test cited as the method of a reading is evidence
+// (counted for review by auditReview(), not failed). A program that SHIPS in the build is a part of the product ("the times are made per scenario by real.mjs"), not a maker of the site: lineHit() lets such a
+// name pass (never for a maker key or a path with tools/ in it). Case-insensitive; every part is a plain pattern so that other tools can read them (tools/bt/kit_evidence_lib.py reads AUDIT_RE).
+const PROD_VERB = String.raw`(?:(?:auto-?|machine-)?generated|re-?generated|produced|built|re-?built|written|made|created|compiled|exported|derived|assembled|extracted|converted|recomputed)`;
+const PROD_GAP = String.raw`(?:(?!\.\s)[^\n]){0,140}?`;                                                                  // up to 140 characters on the line, never across the end of a sentence (". ")
+const PROD_SCRIPT = String.raw`(?:[\w.-]+\/)*[\w.-]+\.(?:py|mjs|cjs|js|sh)\b`;
+export const AUDIT_PRODUCTION = [
+  String.raw`\b${PROD_VERB}\b${PROD_GAP}\b(?:by|with|using|via)\s+(?:the\s+|a\s+|an\s+)?(?:${PROD_SCRIPT}|(?:[\w.-]+\/)*tools\/[\w./*-]+)`,           // <verb> ... by|with <script file, or anything under tools/>
+  String.raw`\b(?:node|python3?)\s+${PROD_SCRIPT}[^.\n]{0,40}\b(?:writes|wrote|builds|generates|produces|makes|creates|regenerates|rebuilds)\b`,       // (node tools/x.mjs writes this file)
+  String.raw`\b(?:written|generated|built|produced|exported)\s+(?:to|into)\b${PROD_GAP}\(\s*${PROD_SCRIPT}\s*\)`,                                         // written to data/x.json (build-x.mjs)
+  String.raw`\(\s*(?:[\w.-]+\/)*(?:build|make|generate)[-_][\w.-]*\.(?:py|mjs|cjs|js|sh)\s*\)`,                                                          // a builder named by itself in brackets: (tools/build-x.mjs)
+  String.raw`(?:^|[\s{,(])["']?(?:generated_by|generated_from|built_by|made_by|produced_by|written_by)["']?\s*:\s*["'][^"'\n]*(?:\/|\.(?:mjs|cjs|js|py|sh)\b)`, // generated_by: 'tools/x.mjs' (a key in code, quoted or not)
+];
 export const AUDIT_RE = new RegExp([
   String.raw`\b(claude|anthropic|chatgpt|openai|gpt-?\d|(?:large )?language models?|LLMs?|subagents?|sub-agents?|artificial intelligence|AI[- ](?:generated|assisted|written|made|built|reviewed)|(?:generated|written|built|made|reviewed|authored) (?:by|with) (?:an? )?(?:AI|automated|machine))\b`,
   String.raw`\b(?:(?:auto-?|machine-)?generated|written|built|produced|made|derived|exported) (?:by|with|from) (?:the |a |an )?(?:(?:[\w.-]+\/)*tools\/|script|generator|build script|program)`,
   String.raw`\b(?:auto-?|machine-)?(?:generated|produced) (?:by|with|from) (?:the |a |an )?[\w./-]+\.(?:py|mjs|cjs|js|sh)\b`,
   AUDIT_KEY_GENERATED,
   AUDIT_KEY_MAKER,                                                                                                                                                              // a key that names the program that made the file: "built_by": "tools/build-x.mjs"
+  ...AUDIT_PRODUCTION,                                                                                                                                                          // statements that name the program that made a file (above)
   String.raw`do not edit by hand|\bhand-edit`,
   String.raw`\b(?:earlier|previous|prior|another|research|review(?:ing)?|coding|scout|background|worker|parallel|automated|independent)[ -]agents?\b`,
   String.raw`\bagents?(?:'s|’s)?[ -](?:read|reads|reading|re-?read|trace[ds]?|tracing|recommendations?|recommend(?:s|ed)?|propos(?:es|ed|al)|found|finds|findings?|pass(?:es)?|runs?|ran|sessions?|briefs?|reports?|reported|notes?|noted|wrote|output|lookups?|search(?:es|ed)?|check(?:s|ed)?|verified|review(?:s|ed)?|extract(?:s|ed|ion)?|transcri(?:bed|ption)|summar(?:y|ies|i[sz]ed)|opened|fetched|could not|cannot|did not|was unable|decided|chose|judged|estimated|guess(?:ed)?)\b`,
@@ -420,23 +436,41 @@ export const AUDIT_ALLOW = [
 export const AUDIT_REVIEW_RE = /\b(workstreams?|horde|shards?|task brief|research session|this session|later session|our pass|this pass)\b/gi;
 const BINARY = /\.(jpe?g|png|bin|zip|webp|gif|glb|wav|ogg|mp3|m4a|flac|woff2?|ttf|otf|wasm|ktx2|pdf)$/i;
 const AUDIT_RE_ALL = new RegExp(AUDIT_RE.source, 'gi'), AUDIT_CS_RE_ALL = new RegExp(AUDIT_CS_RE.source, 'g');
+// The four statement forms of AUDIT_PRODUCTION (the fifth is a key). A statement that ends in the name of a program that ships in this build is about the product ("made per scenario by real.mjs"), not about its maker.
+const PROD_STATEMENT_ALL = new RegExp(AUDIT_PRODUCTION.slice(0, 4).join('|'), 'gi'), PROD_STATEMENT = new RegExp(AUDIT_PRODUCTION.slice(0, 4).join('|'), 'i');
+const AUDIT_MAKER_KEY = new RegExp([AUDIT_KEY_GENERATED, AUDIT_KEY_MAKER, AUDIT_PRODUCTION[4]].join('|'), 'i'), PROD_END = /(?:^|[\s/(])([\w.-]+\.(?:py|mjs|cjs|js|sh))\)?$/;
+const shippedProgram = (word, shipped) => { if (!shipped || AUDIT_MAKER_KEY.test(word) || !PROD_STATEMENT.test(word) || /\btools\//.test(word)) return false; const t = PROD_END.exec(word); return !!(t && shipped.has(t[1])); };
 // the hit of one line (one per line, as the count in the zip name says): the first match that no reviewed allowance covers; the words of AUDIT_RE come before the two letters of AUDIT_CS_RE. A match the
-// allowances cover does not hide a later match of the same line. start = where the matched word begins in the line.
-function lineHit(L, rel, extra = {}) {
+// allowances cover does not hide a later match of the same line. start = where the matched word begins in the line. shipped = the file names of the build (a program that ships is not a maker of the site).
+function lineHit(L, rel, extra = {}, shipped = null) {
   for (const re of [AUDIT_RE_ALL, AUDIT_CS_RE_ALL]) {
     re.lastIndex = 0; let m;
     while ((m = re.exec(L))) {
       if (m[0] === '') { re.lastIndex++; continue; }
       const word = (m[1] && m[0].length <= 4 ? m[1] : m[0]).trim(), start = m[1] && m[0].length <= 4 ? m.index + m[0].length - m[1].length : m.index;
       if (AUDIT_ALLOW.some(a => a.file.test(rel) && (!a.match || a.match.test(word)) && (!a.before || a.before.test(L.slice(0, start))) && (!a.after || a.after.test(L.slice(start + word.length))))) continue;
+      if (shippedProgram(word, shipped)) continue;
       return { file: rel, line: 0, match: word, text: L.slice(Math.max(0, m.index - 50), m.index + 80), ...extra };
     }
   }
   return null;
 }
+// a production statement that wraps onto the next line of a comment ("(data/x.json, built by" / "// tools/build-y.mjs from ..."): the end of the line and the start of the next one (comment marks cut) are read as one;
+// only a match that crosses the line end counts here, everything else is lineHit's
+const stripLead = s => s.replace(/^\s*(?:\/\/+|\/\*+|\*+|#+)?\s*/, '');
+function wrapHit(L, next, rel, extra = {}, shipped = null) {
+  const tail = L.slice(-200), joined = tail + ' ' + stripLead(next).slice(0, 200); PROD_STATEMENT_ALL.lastIndex = 0; let m;
+  while ((m = PROD_STATEMENT_ALL.exec(joined))) {
+    if (m[0] === '') { PROD_STATEMENT_ALL.lastIndex++; continue; }
+    if (m.index >= tail.length || m.index + m[0].length <= tail.length + 1) continue;
+    const word = m[0].trim(); if (shippedProgram(word, shipped)) continue;
+    return { file: rel, line: 0, match: word, text: joined.slice(Math.max(0, m.index - 50), m.index + 80), wrapped: true, ...extra };
+  }
+  return null;
+}
 export function audit(dist) {
-  const hits = [];
-  for (const f of walk(dist)) {
+  const hits = [], all = walk(dist), shipped = new Set(all.map(f => path.basename(f)));
+  for (const f of all) {
     const rel = posix(path.relative(dist, f)); if (AUDIT_RE.test(rel)) hits.push({ file: rel, where: 'name' });
     let buf = fs.readFileSync(f), gz = false;
     if (/\.gz$/i.test(f)) {       // a gzip file is opened: what is inside is shipped too (the roster unit files are .jsonl.gz)
@@ -444,7 +478,7 @@ export function audit(dist) {
     }
     if (BINARY.test(f) || (gz && buf.subarray(0, 8192).includes(0))) { const m = AUDIT_BIN_RE.exec(buf.toString('latin1')); if (m) hits.push({ file: rel, where: 'binary', match: m[0], ...(gz ? { gzip: true } : {}) }); continue; }
     const lines = buf.toString('utf8').split('\n');
-    for (let i = 0; i < lines.length; i++) { const h = lineHit(lines[i], rel, gz ? { gzip: true } : {}); if (h) hits.push({ ...h, line: i + 1 }); }
+    for (let i = 0; i < lines.length; i++) { const ex = gz ? { gzip: true } : {}, h = lineHit(lines[i], rel, ex, shipped) || (i + 1 < lines.length ? wrapHit(lines[i], lines[i + 1], rel, ex, shipped) : null); if (h) hits.push({ ...h, line: i + 1 }); }
   }
   return hits;
 }

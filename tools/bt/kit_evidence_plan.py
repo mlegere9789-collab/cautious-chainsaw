@@ -817,8 +817,10 @@ def main(argv):
         return 1 if bad else 0
     os.makedirs(OUT, exist_ok=True)
     for n, t in files.items():
-        with open(os.path.join(OUT, n), 'w', encoding='utf-8', newline='\n') as f:
+        tmp = os.path.join(OUT, '%s.%d.tmp' % (n, os.getpid()))          # written beside the file and renamed: the group engineers read these files while they work, and never meet a half-written one
+        with open(tmp, 'w', encoding='utf-8', newline='\n') as f:
             f.write(t)
+        os.replace(tmp, os.path.join(OUT, n))
         print('wrote %s (%d bytes)' % (os.path.relpath(os.path.join(OUT, n), ROOT), len(t.encode('utf-8'))))
     print('%d groups, %d units (%d in the roster), %d sources' % (doc['totals']['groups'], doc['totals']['units'], doc['totals']['in_roster'], len(src_doc['sources'])))
     for g in doc['groups']:

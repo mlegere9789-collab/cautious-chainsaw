@@ -99,16 +99,17 @@ export class Runner {
   _scenarioPlan(rec, row, res, grp = null) {
     const P = this.P, list = [], seen = new Set(), items = Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario ?? 'default'], text = row.text_raw || row.claim_text;
     const raw = items.flatMap(x => (x === 'conflicts' ? P.conflictScenarios(text) : x === 'group' ? (grp ? grp.specs : P.conflictScenarios(text)) : [x]));
+    const byKey = new Map();                                     // what a scenario chooses -> the id it is run under: a scenario is what it chooses, not what it is called (query.mjs scenarioKey)
     for (const spec of raw) {
       let sc; try { sc = P.scenarioSpec(spec); } catch (e) { res.problems.push({ code: 'scenario_bad', detail: String(e.message || e) }); continue; }
-      const id = sc.key; if (seen.has(id)) { res.problems.push({ code: 'scenario_duplicate', detail: `scenario "${id}" is listed twice` }); continue; }
-      seen.add(id); list.push({ spec, id, sc });
+      const id = sc.key, key = P.scenarioKey(spec); if (seen.has(id) || byKey.has(key)) { res.problems.push({ code: 'scenario_duplicate', detail: `scenario "${id}" is listed twice${byKey.has(key) && byKey.get(key) !== id ? ` (it chooses what "${byKey.get(key)}" chooses: a scenario is what it chooses, not what it is called)` : ''}` }); continue; }
+      seen.add(id); byKey.set(key, id); list.push({ spec, id, sc });
     }
     const excluded = [];
     for (const x of rec.scenario_excludes || []) {
       let sc; try { sc = P.scenarioSpec(x && x.scenario); } catch (e) { res.problems.push({ code: 'scenario_excludes_bad', detail: String(e.message || e) }); continue; }
-      if (seen.has(sc.key)) res.problems.push({ code: 'scenario_excluded_is_run', detail: `scenario "${sc.key}" is both run and excluded` });
-      excluded.push({ id: sc.key, key: P.scenarioKey(x.scenario), why: String(x.why || '') });
+      const key = P.scenarioKey(x.scenario); if (seen.has(sc.key) || byKey.has(key)) res.problems.push({ code: 'scenario_excluded_is_run', detail: `scenario "${sc.key}" is both run and excluded${byKey.has(key) && byKey.get(key) !== sc.key ? ` (it chooses what "${byKey.get(key)}" chooses)` : ''}` });
+      excluded.push({ id: sc.key, key, why: String(x.why || '') });
     }
     return { list, excluded, seen };
   }

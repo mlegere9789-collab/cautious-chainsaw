@@ -107,6 +107,7 @@ def nul(t):
 SHARE = nul(en(*SHARES))
 DATE_T = ('date',)
 KILLED_T = obj(opt={'officers': nul(i()), 'enlisted': nul(i()), 'total': nul(i())})
+COMBINED_T = obj(req={'kinds': lst(en('killed', 'wounded', 'missing'), 2, 3), 'total': i()}, opt={'officers': nul(i()), 'enlisted': nul(i())})     # a statement that gives two or three kinds together ("killed and wounded", "officers and men lost")
 CAS_COLUMNS = ('killed_officers', 'killed_enlisted', 'wounded_officers', 'wounded_enlisted', 'missing_officers', 'missing_enlisted', 'killed', 'wounded', 'missing', 'aggregate')
 CAS_LAYOUTS = (('killed_officers', 'killed_enlisted', 'wounded_officers', 'wounded_enlisted', 'missing_officers', 'missing_enlisted', 'aggregate'), ('killed', 'wounded', 'missing', 'aggregate'), ('killed', 'wounded', 'aggregate'))
 WEAPON_ITEM = obj(req={'printed': s(300)}, opt={'weapon_id': nul(s(80)), 'caliber_in': nul(('num', 0.2, 12.0)), 'share': SHARE, 'count': nul(i()), 'companies': nul(s(40)), 'note': s(300)})
@@ -126,7 +127,7 @@ FIELD_SPECS = {
                     opt={'officers': nul(i()), 'enlisted': nul(i()), 'companies': nul(i(1, 20)), 'scope': s(120), 'text_figure': s(160), 'note': s(300),
                          'row': lst(nul(i()), 2, 14), 'row_columns': lst(s(60), 2, 14), 'identity': nul(obj(req={'sum': lst(i(0, 13), 1, 13), 'equals': i(0, 13)})), 'label_read': s(160)}),
     'casualties': obj(req={'killed': KILLED_T, 'wounded': KILLED_T, 'missing': KILLED_T, 'total': nul(i()), 'period': DATE_T},
-                      opt={'scope': s(120), 'row': lst(nul(i()), 3, 7), 'row_columns': lst(en(*CAS_COLUMNS), 3, 7), 'label_read': s(160), 'note': s(300)}),
+                      opt={'scope': s(120), 'row': lst(nul(i()), 3, 7), 'row_columns': lst(en(*CAS_COLUMNS), 3, 7), 'label_read': s(160), 'note': s(300), 'combined': lst(COMBINED_T, 1, 4)}),
     'arms': obj(req={'weapons': lst(WEAPON_ITEM, 1, 12)}, opt={'exchange': s(300), 'note': s(300)}),
     'guns': obj(req={'pieces': lst(PIECE, 1, 12), 'total': nul(i(0, 400)), 'state': en('present', 'engaged', 'lost', 'captured', 'disabled', 'recovered', 'detached')},
                 opt={'scope': en('battery', 'section', 'battalion', 'brigade', 'corps', 'other'), 'note': s(300)}),
@@ -138,7 +139,7 @@ FIELD_SPECS = {
 # value paths whose numbers must be found in the quote of a text-mode documented line (derived totals are exempt)
 NUMBER_PATHS = {
     'strength': ['officers', 'enlisted', 'low', 'high'],
-    'casualties': ['killed.officers', 'killed.enlisted', 'killed.total', 'wounded.officers', 'wounded.enlisted', 'wounded.total', 'missing.officers', 'missing.enlisted', 'missing.total'],
+    'casualties': ['killed.officers', 'killed.enlisted', 'killed.total', 'wounded.officers', 'wounded.enlisted', 'wounded.total', 'missing.officers', 'missing.enlisted', 'missing.total', 'combined.*.total', 'combined.*.officers', 'combined.*.enlisted'],
     'guns': ['pieces.*.count'],
     'horses': ['present', 'serviceable', 'unserviceable', 'lost', 'killed'],
     'ammunition': ['rounds_expended', 'rounds_on_hand'],
@@ -264,7 +265,18 @@ def value_numbers(field, v):
     if field == 'strength' and isinstance(v, dict) and isinstance(v.get('officers'), int) and isinstance(v.get('enlisted'), int):
         tot = v['officers'] + v['enlisted']
         out = [x for x in out if x != tot or x in (v['officers'], v['enlisted'])]
+    if field == 'casualties' and isinstance(v, dict):
+        if not casualty_kinds_stated(v) and isinstance(v.get('total'), int) and not isinstance(v['total'], bool) and v['total'] > 0:
+            out.append(v['total'])                      # a statement that gives only the aggregate: the aggregate is the one figure the quote must state
+        derived = {c['total'] for c in v.get('combined') or [] if isinstance(c, dict) and isinstance(c.get('officers'), int) and isinstance(c.get('enlisted'), int)
+                   and c.get('total') == c['officers'] + c['enlisted'] and c['total'] not in (c['officers'], c['enlisted'])}
+        out = [x for x in out if x not in derived]      # a figure that is the sum of a printed rank split (14 officers and 227 men = 241) is derived and exempt
     return sorted(set(out))
+
+
+def casualty_kinds_stated(v):
+    """True when a casualties value states at least one kind (killed, wounded or missing) with a figure."""
+    return any(isinstance(v.get(k), dict) and any(x is not None for x in v[k].values()) for k in ('killed', 'wounded', 'missing'))
 
 
 # ---------------------------------------------------------------------------------------------------------------------

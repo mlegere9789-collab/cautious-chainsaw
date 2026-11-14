@@ -364,9 +364,10 @@ ANCHOR_OVERRIDES = {
 }
 FARM_CONSTRAINTS = {   # farm key -> [(crop, claim id)]: fields the inventory names on a farm whose own fields cannot be placed one by one
     'mcpherson': [('corn', 'VC-NPSX-CLI-1STDAY-p058-10'), ('wheat', 'VC-NPSX-CLI-1STDAY-p059-01'), ('hay', 'VC-NPSX-CLI-1STDAY-p058-07')],
+    'brien': [('hay', 'VC-NPSC-BRIEN-FARM-p007-01'), ('barley', 'VC-NPSC-BRIEN-FARM-p007-01')],     # the wheat of the Brien inventory is placed by MacDougall's account (VC-NPSC-BRIEN-FARM-p008-01a)
 }
 KIND_FIX = {'VC-NPSX-CLI-PCB-p081-04': 'crop', 'VC-NPSX-CLI-PCB-p085-02': 'crop', 'VC-NPSX-CLI-PCB-p080-03': 'woodlot', 'VC-NPSX-CLI-PCB-p081-02': 'woodlot', 'VC-NPSX-CLI-PCB-p084-04': 'woodlot', 'VC-NPSX-CLI-PCB-p084-02': 'woodlot'}
-CLASS_MAP = {'field': ('field',), 'woods': ('woods', 'scatter'), 'orchard': ('orchard',), 'any': ('field', 'woods', 'scatter', 'orchard', 'marsh', 'cleared', 'wheatfield', 'boulder')}
+CLASS_MAP = {'field': ('field',), 'woods': ('woods', 'scatter'), 'orchard': ('orchard',), 'boulder': ('boulder',), 'any': ('field', 'woods', 'scatter', 'orchard', 'marsh', 'cleared', 'wheatfield', 'boulder')}
 
 
 def load_claims():

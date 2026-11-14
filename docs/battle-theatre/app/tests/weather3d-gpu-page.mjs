@@ -12,10 +12,14 @@ import { Environment } from '../src/environment.mjs';
 import { minOf } from '../src/clock.mjs';
 import * as fxHost from '../src/fx-host.mjs';
 import { makePlan, placeCamera, aimCamera } from './weather3d-gpu-plan.mjs';
+import { GSTRIDE } from '../src/fx3d/pack.mjs';
+import { WIND_HIST_N } from '../src/fx3d/wind.mjs';
 
 const Q = new URLSearchParams(location.search);
 const API = Q.get('api') === 'webgl2' ? 'webgl2' : 'webgpu', W = +Q.get('w') || 640, H = +Q.get('h') || 360, SOLD = +Q.get('soldiers') || 12000;
 const TIER = Q.get('tier') || 'laptop', FXON = Q.get('fx') !== 'off';
+// capture mode (?capture=1, tests/weather3d-gpu-capture.mjs only): the colour and depth targets become copy sources, nothing else about them changes (see WG.capture at the end)
+if (Q.get('capture') && window.GPUDevice) { const mkTex = GPUDevice.prototype.createTexture; GPUDevice.prototype.createTexture = function (desc) { return mkTex.call(this, /^(rgba16float|depth32float)$/.test(desc.format) ? { ...desc, usage: desc.usage | GPUTextureUsage.COPY_SRC } : desc); }; }
 const WG = window.WG = { api: API, ready: false, error: null, log: [], w: W, h: H, minOf, stage: 'start', stages: [] };
 const getJSON = async u => { const r = await fetch(u); if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); };
 const b64 = u8 => { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); };
@@ -98,3 +102,35 @@ WG.checkCompute = async () => {               // the optional GPU-cull compute s
 };
 WG.resize = async (w, h) => { WG.host.resize(w, h); WG.w = w; WG.h = h; };
 WG.dispose = async () => { try { fxHost.dispose(); } catch (e) { WG.log.push('fx dispose: ' + e.message); } try { WG.host.destroy(); } catch (e) { WG.log.push('host destroy: ' + e.message); } };
+
+// ---- capture of one frame's layer pass (WebGPU only; ?capture=1; driver tests/weather3d-gpu-capture.mjs): everything the weather and effects pass reads in that frame (the prototype's frame block, the layer's two
+// uniform blocks, the effect events with their cumulative counts and the wind history, the scene depth) and the colour target (rgba16float) before and after the pass, as bytes, so that tests/weather3d-gpu-replay.py can run the
+// same pass on a second WebGPU implementation and compare. The height texture is not captured (its bytes are the terrain's: the replay rebuilds it from the prototype's data files and checks the hash sent here).
+// Textures of the two formats are made copy sources when the page is opened with ?capture=1 (nothing else about them changes). Same time and camera as WG.render.
+const fnv = u32 => { let h = 0x811c9dc5; for (let i = 0; i < u32.length; i++) h = Math.imul(h ^ u32[i], 16777619) >>> 0; return h; };
+WG.capture = async function (spec) {
+  if (!WG.ready) throw new Error('the harness is not ready: ' + WG.error); if (API !== 'webgpu') throw new Error('capture is a WebGPU function');
+  const host = WG.host, R = host.R, cam = WG.cam, env = WG.env, L = world.show.line, tMin = spec.tMin, fi = fxHost.instance(), gpu = fi && fi.gpu; WG.choices = spec.choices || {};
+  if (!gpu || !gpu.ok) throw new Error('the WebGPU layer did not build'); if (!(R.hdr.usage & GPUTextureUsage.COPY_SRC) || !(R.depth.usage & GPUTextureUsage.COPY_SRC)) throw new Error('open the page with ?capture=1');
+  const smp = env.sample(tMin, sample), wx = env.weatherAt(tMin, WG.choices), lt = env.light(smp, { nightFloor: 0.34 }, wx, light); host.setLight(lt.sunDir, lt.exposure);
+  placeCamera(cam, spec, { T, geo: WG.geo, smp, line: L }); P.anchor(cam, spec.plan); if (spec.aim) aimCamera(cam, P, spec.aim);
+  fi.opts.drawWeather = true; fi.opts.drawFx = true; let info = fxHost.update({ tMin, cam }); info = fxHost.update({ tMin, cam });
+  const d = R.dev, w = R.W, h = R.H, pad = n => Math.ceil(n / 256) * 256, bprH = pad(w * 8), bprD = pad(w * 4), animT = 40 + (tMin * 60) % 7200;
+  const mk = (n, size) => d.createBuffer({ label: 'capture ' + n, size, usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ }), bPre = mk('pre', bprH * h), bPost = mk('post', bprH * h), bDep = mk('depth', bprD * h); let inp = null;
+  const orig = gpu.draw;
+  gpu.draw = function (enc, Wt, fr, c, flags) {            // outside any render pass: the prototype calls ext.after between its scene pass and its post passes
+    enc.copyTextureToBuffer({ texture: R.hdr }, { buffer: bPre, bytesPerRow: bprH }, [w, h]); enc.copyTextureToBuffer({ texture: R.depth, aspect: 'depth-only' }, { buffer: bDep, bytesPerRow: bprD }, [w, h]);
+    const ok = orig.call(this, enc, Wt, fr, c, flags); enc.copyTextureToBuffer({ texture: R.hdr }, { buffer: bPost, bytesPerRow: bprH }, [w, h]);
+    inp = { ok, nSprites: fr.nSprites, nEvents: fr.nEvents, fu: R.fu.slice(0, 128), wu: this.wu.slice(), fx: this.fu.slice(), events: fr.events.slice(0, fr.nEvents * GSTRIDE), cum: fr.cum.slice(0, fr.nEvents + 1), wind: fr.windHist.slice(0, WIND_HIST_N * 2) }; return ok;
+  };
+  let res; try {
+    res = await new Promise((resolve, reject) => requestAnimationFrame(() => { try { d.pushErrorScope('validation'); host.frame(animT, cam); resolve({ pic: grabGPU(R), scope: d.popErrorScope() }); } catch (e) { reject(e); } }));
+  } finally { delete gpu.draw; }                           // back to the class's own method
+  const [pic, err] = await Promise.all([res.pic, res.scope]); await d.queue.onSubmittedWorkDone();
+  const rd = async (b, bpr, rowBytes) => { await b.mapAsync(GPUMapMode.READ); const src = new Uint8Array(b.getMappedRange()), out = new Uint8Array(rowBytes * h); for (let y = 0; y < h; y++) out.set(src.subarray(y * bpr, y * bpr + rowBytes), y * rowBytes); b.unmap(); b.destroy(); return out; };
+  const pre = await rd(bPre, bprH, w * 8), post = await rd(bPost, bprH, w * 8), dep = await rd(bDep, bprD, w * 4), by = a => new Uint8Array(a.buffer, a.byteOffset, a.byteLength);
+  if (!inp) throw new Error('the layer drew nothing in this frame (no pass was encoded)');
+  return { name: spec.name, tMin, w, h, hdrFormat: R.hdr.format, depthFormat: R.depth.format, validation: err ? String(err.message || err).slice(0, 1200) : null, ok: inp.ok, nSprites: inp.nSprites, nEvents: inp.nEvents, heightHash: fnv(new Uint32Array(T.heights.buffer, T.heights.byteOffset, T.heights.length)), heightN: T.N,
+    pic: { w: pic.w, h: pic.h, format: pic.format, px: b64(pic.data) }, cam: { x: cam.x, y: cam.y, z: cam.z, yaw: cam.yaw, pitch: cam.pitch, fovDeg: cam.fov * 180 / Math.PI },
+    bin: { pre: b64(pre), post: b64(post), depth: b64(dep), fu: b64(by(inp.fu)), wu: b64(by(inp.wu)), fx: b64(by(inp.fx)), events: b64(by(inp.events)), cum: b64(by(inp.cum)), wind: b64(by(inp.wind)) } };
+};

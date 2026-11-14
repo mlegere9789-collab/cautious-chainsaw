@@ -98,7 +98,7 @@ def scan():
         if gid not in pointers:
             pointers[gid] = pointer_rights(gid)
         ent = {'key': u['key'], 'army': u['army'], 'st': u['st'], 'group': gid, 'designation': u['designation'], 'arm': u['arm'], 'file': None,
-               'rows': 0, 'raw_bytes': 0, 'gz_bytes': 0, 'sha256_raw': None, 'segments': [], 'flags': None, 'cells': None, 'roles': [],
+               'rows': 0, 'raw_bytes': 0, 'gz_bytes': 0, 'sha256_raw': None, 'segments': [], 'flags': None, 'cells': None, 'lists': None, 'roles': [],
                'coverage': 'none', 'line_bytes': None}
         path = os.path.join(D2, u['path'])
         if os.path.exists(path):
@@ -182,6 +182,17 @@ def scan():
                         res['defects'].append('%s: rows must be a list' % rel(sp))
                 elif kind == 'flags':
                     res['warnings'].append('%s: no flags file (ocr_uncertain and on_rolls_july_1863 are asked of every unit)' % u['path'])
+            lp = stem + '.lists.jsonl.gz'
+            if os.path.exists(lp):
+                ent['lists'] = rel(lp)[len(rel(D2)) + 1:]
+                try:
+                    lh, lsegs, lmeta = R.read_unit(lp)
+                    if lh.get('u') != u['key']:
+                        res['defects'].append('%s: header unit %r is not %r' % (rel(lp), lh.get('u'), u['key']))
+                    ent['lists_rows'] = lh['n']
+                    ent['lists_segments'] = [{'s': sg['s'], 'v': sg['v'], 't': sg['t'], 'lay': sg['lay'], 'rows': len(rw)} for sg, rw in lsegs]
+                except Exception as e:
+                    res['defects'].append('%s: unreadable (%s)' % (rel(lp), e))
         res['units'].append(ent)
     # files that belong to no unit of the list
     for st_dir in sorted(glob.glob(os.path.join(D2, '*', '*'))):
@@ -189,6 +200,8 @@ def scan():
             continue
         for f in sorted(os.listdir(st_dir)):
             p = rel(os.path.join(st_dir, f))[len(rel(D2)) + 1:]
+            if f.endswith('.lists.jsonl.gz') and (p[:-len('.lists.jsonl.gz')] + '.jsonl.gz') in known_paths:
+                continue
             if f.endswith('.jsonl.gz') and p not in known_paths:
                 if f.startswith('_'):
                     res['other'].setdefault(os.path.basename(os.path.dirname(st_dir)) + '/' + os.path.basename(st_dir), []).append(
@@ -216,7 +229,7 @@ def group_status(res):
         t = totals(ents)
         side = 0
         for e in ents:
-            for k in ('flags', 'cells'):
+            for k in ('flags', 'cells', 'lists'):
                 if e[k]:
                     side += os.path.getsize(os.path.join(D2, e[k]))
         stage = 'none' if t['units_with_files'] == 0 else ('files-for-every-unit' if t['units_with_files'] == t['units'] else 'partial')
@@ -236,7 +249,7 @@ def build_index(res):
     for e in res['units']:
         a = armies.setdefault(e['army'], {})
         st = a.setdefault(e['st'], {'group': e['group'], 'name': names[e['group']], 'units': []})
-        u = {k: e[k] for k in ('key', 'designation', 'arm', 'file', 'rows', 'raw_bytes', 'gz_bytes', 'sha256_raw', 'segments', 'flags', 'cells', 'roles', 'coverage')}
+        u = {k: e[k] for k in ('key', 'designation', 'arm', 'file', 'rows', 'raw_bytes', 'gz_bytes', 'sha256_raw', 'segments', 'flags', 'cells', 'lists', 'roles', 'coverage')}
         st['units'].append(u)
     for a in armies.values():
         for st in a.values():

@@ -88,19 +88,28 @@ def resolve_new(c):
     base = dict(quote=q, role=c['role'], note=c.get('note'), match='exact (whitespace-normalised, case-sensitive)')
     if c.get('reading'): base['reading'] = c['reading']
     if src == 'ACQ':
-        it = ACQ_LEDGER[ref]; p = os.path.join(ROOT, it['local_path'])
+        it = ACQ_LEDGER[ref]; p0 = os.path.join(ROOT, it['local_path'])
+        p, _s = lib_copy(p0, 'ACQ-' + ref + '_djvu.txt')
         if file_sha(p) != it['sha256']: raise SystemExit('SHA MISMATCH vs tl-02 ledger: ' + ref)
+        it = dict(it, local_path=os.path.relpath(p, ROOT))
         a, b, raw = find_in_file(p, qn, occ, ref, q)
         return dict(base, source_id=ref, source_class='secondary (published book, public domain, %s; raw OCR, single witness)' % it['date'], part=None, report_id=None,
                     printed_page=c.get('pp'), page_hint=None if c.get('pp') else page_hint(raw, a), offset=[a, b], local_path=it['local_path'], local_sha256=it['sha256'],
                     provenance=dict(archive_item=it['url'], title=it['title'], ledger='docs/battle-theatre/GOVERNANCE/horde/tl-02/sources_tl02.json'))
     if src == 'KIT':
-        p = os.path.join(KIT_LIB, ref, ref + '_djvu.txt'); sha = file_sha(p)
+        p, sha = lib_copy(os.path.join(KIT_LIB, ref, ref + '_djvu.txt'), 'KIT-' + ref + '_djvu.txt')
         if sha != KIT_SHA[ref]: raise SystemExit('SHA MISMATCH vs oob-kit note: ' + ref)
         a, b, raw = find_in_file(p, qn, occ, ref, q)
         return dict(base, source_id='KIT:' + ref, source_class='secondary (published regimental history, public domain; raw OCR, single witness)', part=None, report_id=None,
                     printed_page=c.get('pp'), page_hint=None if c.get('pp') else page_hint(raw, a), offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=sha,
                     provenance=dict(archive_item='https://archive.org/details/' + ref, title=KIT_TITLE[ref], ledger='docs/battle-theatre/GOVERNANCE/horde/requests/bt-oob-kit-us-1c-library.md'))
+    if src == 'K2':
+        p, sha = lib_copy(os.path.join(K2_SRC, ref + '.txt'), 'K2-' + ref + '.txt')
+        a, b, raw = find_in_file(p, qn, occ, ref, q)
+        ident, title = K2_PROV[ref]
+        return dict(base, source_id='K2:' + ref, source_class='secondary (published regimental or brigade history, public domain; raw OCR, single witness)', part=None, report_id=None,
+                    printed_page=c.get('pp'), page_hint=None if c.get('pp') else page_hint(raw, a), offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=sha,
+                    provenance=dict(archive_item='https://archive.org/details/' + ident, title=title, ledger='tmp/kit-us-2c-2d3d/p0_sources.py (bt-oob-kit workstream, declared 2026-11-13; scratch, not committed)'))
     if src == 'NPSW':
         p = os.path.join(PM_DIR, ref + '.htm.txt'); m = PM_MAN[os.path.basename(p)]
         if file_sha(p) != m['text_sha256']: raise SystemExit('SHA MISMATCH vs photomatch manifest: ' + ref)
@@ -124,6 +133,26 @@ def resolve_new(c):
                     report_author=(rec.get('rank') or '') + ' ' + (rec.get('author') or ''), printed_page=c['page'], offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=W2_SHA[w],
                     provenance=dict(archive_item='https://archive.org/details/' + w, note='printed page given by the engineer from the page image (leaf = printed page + 18 in this scan); offsets are in the OCR text of this scan, not in the Cornell text'))
     raise SystemExit('bad src ' + src)
+
+
+# --- wave 4 (2026-11-14): books of the bt-oob-kit II Corps pass (declared in tmp/kit-us-2c-2d3d/p0_sources.py with archive.org identifiers);
+# every foreign scratch file that is cited is copied into tmp/fence-1/lib (sha256 checked) so that the citations keep verifying when the other scratch is cleaned.
+K2_SRC = os.path.join(ROOT, 'tmp/kit-us-2c-2d3d/lib')
+K2_PROV = {
+  'ny126_willson': ('disasterstruggle00will', 'Willson, Disaster, Struggle, Triumph: the Adventures of 1000 "Boys in Blue" (126th New York, 1870)'),
+  'pa69_mcdermott': ('briefhistoryof00mcde', 'McDermott, A Brief History of the 69th Regiment Pennsylvania Veteran Volunteers (1889)'),
+  'pa_banes': ('historyofphilade01bane', 'Banes, History of the Philadelphia Brigade: Sixty-ninth, Seventy-first, Seventy-second, and One Hundred and Sixth Pennsylvania Volunteers (1876)'),
+}
+LIBDIR = os.path.join(ROOT, 'tmp/fence-1/lib')
+def lib_copy(src_path, name):
+    """copy a foreign scratch text into tmp/fence-1/lib/<name> (once) and return (path, sha256); the copy must be byte-identical"""
+    os.makedirs(LIBDIR, exist_ok=True)
+    dst = os.path.join(LIBDIR, name)
+    if not os.path.exists(dst):
+        import shutil; shutil.copyfile(src_path, dst)
+    elif os.path.exists(src_path) and file_sha(dst) != file_sha(src_path):
+        raise SystemExit('COPY DIFFERS from source: ' + name)
+    return dst, file_sha(dst)
 
 def attach_image(rec, c):
     iid = c.get('image')
@@ -232,7 +261,7 @@ def resolve_old(c):
     raise SystemExit('bad src ' + src)
 
 def resolve(c):
-    if c['src'] in ('ACQ', 'KIT', 'NPSW', 'CA', 'OR1W'):
+    if c['src'] in ('ACQ', 'KIT', 'K2', 'NPSW', 'CA', 'OR1W'):
         rec = resolve_new(c)
     else:
         rec = resolve_old(c)
@@ -242,11 +271,14 @@ def resolve(c):
     return attach_image(rec, c)
 
 def load_specs():
-    rows = []
+    rows = []; mods = []
     for f in sorted(glob.glob(os.path.join(HERE, 'spec_*.py'))):
         if f.endswith('spec_lib.py'): continue
         spec = importlib.util.spec_from_file_location(os.path.basename(f)[:-3], f); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
-        rows.extend(m.ROWS)
+        rows.extend(m.ROWS); mods.append(m)
+    by = {r['id']: r for r in rows}
+    for m in mods:
+        if hasattr(m, 'apply'): m.apply(by)      # wave-4 addenda: edits to rows already specified above
     return rows
 
 def main():
@@ -286,7 +318,7 @@ def main():
                    sub_claims=[dict(sc=rid + '.' + s['sc'], claim=s['claim'], tier=s['tier'], support=s['support'], citations=s['citations'], note=s['note']) for s in r['sub_claims']],
                    stays_unsupported=r['stays_unsupported'], conflicts_carried=r['conflicts_carried'], register_refs=r['register_refs'], blocked_host=r['blocked_host'],
                    product_consequence=r['product_consequence'], recheck=recheck, lookups=r['lookups'], changes_vs_previous=r['changes_vs_previous'], notes=r['notes'],
-                   built='2026-11-13')
+                   built='2026-11-14', revision='close-out 2026-11-13 (rev 1); reopened 2026-11-14 for page images and newly local texts (rev 2)')
         out.append(rec)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w', encoding='utf-8') as f:
