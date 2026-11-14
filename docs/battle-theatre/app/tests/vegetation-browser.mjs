@@ -111,6 +111,13 @@ try {
   const gE = mean(E, E.w / 2 - 60, E.h / 2 - 30, E.w / 2 + 60, E.h / 2 + 30);
   results.notes.push(`19 Nov mean colour over the Wheatfield: ${gE.map(x => x.toFixed(0)).join(',')}`);
 
+  // ---- Little Round Top: the three readings of its tree cover, from the west (the cleared face, the wood behind it) and from the east (the wooded slope)
+  const lrtW = await viewOfUnit('LC-OPEN-0001', { dist: 420, height: 130, yaw: Math.PI / 2 }), lrtE = await viewOfUnit('LC-WOOD-LRT-E', { dist: 300, height: 95, yaw: -Math.PI / 2 });
+  await at('1863-07-02T12:00', lrtW); const L1 = await shot('17-lrt-west-default'); await at('1863-07-02T12:00', lrtE); const L2 = await shot('18-lrt-east-default');
+  await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-LRT', 'wiki_unwooded')); const L3 = await shot('18b-lrt-east-unwooded'); await at('1863-07-02T12:00', lrtW); const L3w = await shot('17b-lrt-west-unwooded');
+  await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-LRT', 'wiki_light_summit')); await at('1863-07-02T12:00', lrtE); const L4 = await shot('18c-lrt-east-light-summit');
+  await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-LRT', 'nps_clr'));
+  check('the reading of Little Round Top reaches the picture: unwooded removes the trees of the east slope, lightly wooded keeps about half (the pictures differ from the default and from each other)', diff(L2, L3) > 0.03 && diff(L2, L4) > 0.01 && diff(L3, L4) > 0.01, { unwooded: diff(L2, L3), light: diff(L2, L4), between: diff(L3, L4) });
   // ---- the same minute and the same camera: the same pixels
   await at('1863-07-02T12:00', await wf({ dist: 420, height: 230, yaw: 2.2 })); const A3 = await shot('13-wheatfield-2jul-noon-again');
   check('the same minute and the same camera give the same pixels (before and after a visit to another time)', diff(A, A3) < 0.0005, { diff: diff(A, A3) });

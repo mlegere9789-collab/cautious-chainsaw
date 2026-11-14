@@ -1,0 +1,97 @@
+{
+ "data_bytes": 1738265,
+ "units": 927,
+ "claims": 432,
+ "checkVegetation": {
+  "gate": "Q21",
+  "ok": true,
+  "checked": 556200,
+  "failures": 0,
+  "first_failures": [],
+  "notRun": [
+   "pictures of the fields and trees (software renderer only; no real-GPU timing)",
+   "comparison with 1863 photographs (none analysed)"
+  ],
+  "summary": {
+   "units": 927,
+   "claims": 432,
+   "times": 100,
+   "scenarios": 6,
+   "states": 556200,
+   "byTier": {
+    "documented": 254,
+    "inferred": 135,
+    "plausible-procedural": 538,
+    "open gap": 0
+   },
+   "pure": true,
+   "backward": true,
+   "species": 15,
+   "byClass": {
+    "boulder": {
+     "units": 1,
+     "states": 600,
+     "failures": 0
+    },
+    "cleared": {
+     "units": 1,
+     "states": 600,
+     "failures": 0
+    },
+    "field": {
+     "units": 549,
+     "states": 329400,
+     "failures": 0
+    },
+    "marsh": {
+     "units": 2,
+     "states": 1200,
+     "failures": 0
+    },
+    "orchard": {
+     "units": 85,
+     "states": 51000,
+     "failures": 0
+    },
+    "scatter": {
+     "units": 103,
+     "states": 61800,
+     "failures": 0
+    },
+    "wheatfield": {
+     "units": 1,
+     "states": 600,
+     "failures": 0
+    },
+    "woods": {
+     "units": 185,
+     "states": 111000,
+     "failures": 0
+    }
+   }
+  }
+ },
+ "checkScene": {
+  "gate": "Q21",
+  "part": "Q21.2 scene equals schedule",
+  "ok": true,
+  "checked": 157590,
+  "failures": 0,
+  "first_failures": [],
+  "notRun": [
+   "what the shaders make of these numbers (pictures are looked at in tests/vegetation-browser.mjs, on a software renderer only)",
+   "real-GPU timing"
+  ],
+  "facts": {
+   "units": 927,
+   "times": 34,
+   "choiceSets": 5,
+   "stateFloatsPerUnit": 20,
+   "trees": 124549,
+   "decalTriangles": 147165,
+   "densityChecked": 264,
+   "lrt": "15 entries"
+  }
+ },
+ "wall_ms": 5378
+}

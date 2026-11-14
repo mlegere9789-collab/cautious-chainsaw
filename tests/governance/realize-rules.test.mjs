@@ -5,7 +5,7 @@ import test from 'node:test'; import assert from 'node:assert/strict';
 import { P, TL, R, rec, addRow, run, ex, clone, codesOf, mustFail, mustPass } from './realize-lib.mjs';
 import { validateRecord, KINDS, KIND_NEEDS, ASSERT, STAGE_ACTIVITIES } from '../../tools/bt/realize/schema.mjs';
 import { hasQuote, fold, toMin, isoOf, designators, wordInfo } from '../../tools/bt/realize/lib.mjs';
-import { coverageOf, summarize, q17Of, runAll, declaredDetail } from '../../tools/bt/realize/check.mjs';
+import { coverageOf, summarize, q17Of, runAll, declaredDetail, timeReading } from '../../tools/bt/realize/check.mjs';
 
 const A = (id, text, from, to, timeCell) => addRow(id, text, from, to, timeCell);
 const whole = (from, to) => ({ from, to, mode: 'all' });
@@ -333,6 +333,11 @@ test('rule: dates and minutes are strict (lib.mjs toMin, isoOf)', () => {
 test('rule: the schema is static: a record that is not an object, an unknown row (validateRecord)', () => {
   assert.deepEqual(validateRecord([], { row: null }).problems.map(p => p.code), ['schema_not_object']);
   assert.ok(validateRecord({ id: 'T9-999', harness: 'bt-realize-1', kind: 'event_card' }, { row: null }).problems.some(p => p.code === 'row_unknown'));
+  // the scenarios a record names are checked before any product is asked (GATE-SPEC 6.4 V1: the static validation passes)
+  const ok = ex('T1-003'), ctx = { row: TL.byId.get('T1-003'), tolerances: P.tolerances, clock: TL.clock }, bad = s => validateRecord({ ...ok, scenario: s }, ctx).problems.some(p => p.code === 'scenario_bad');
+  assert.deepEqual(validateRecord(ok, ctx).problems, [], 'a worked example is statically valid');
+  for (const s of [5, ['default', 7], 'sideways', ['C-4:v1'], [{ choices: {}, extra: 1 }], []]) assert.ok(bad(s), `scenario ${JSON.stringify(s)} is refused by the schema alone`);
+  for (const s of ['default', 'pdf', 'group', 'conflicts', 'C-004:v1', 'CF-WIND-SPEED:opt0', ['default', 'group'], [{ id: 'x', structure: { a: 'b' } }]]) assert.ok(!bad(s), `scenario ${JSON.stringify(s)} is accepted by the schema`);
 });
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -426,7 +431,7 @@ test('rule: "any" leaf of a formation needs the row\'s own words, and "place_uns
   await mustPass(related, 'the same row, with the unit related to its place');
 });
 test('rule: what a record declared instead of letting the row bind it is listed for the reviewer (check.mjs declaredDetail; RESULTS declared_detail)', async () => {
-  const B = { units: [{ id: 'u1', how: 'declared', via: 'w1' }, { id: 'u2', how: 'matched', by: 'x' }], places: [{ id: 'p1', how: 'declared', via: 'w2' }, { id: 'p2', how: 'matched' }], structures: [{ id: 's1', how: 'declared', via: 'w3' }], quantifiers: [{ i: 0, units: ['u3'], via: 'w4' }], declared: 4 };
+  const B = { units: [{ id: 'u1', how: 'declared', via: 'w1' }, { id: 'u2', how: 'matched', by: 'x' }], places: [{ id: 'p1', how: 'declared', via: 'w2' }, { id: 'p2', how: 'matched' }], structures: [{ id: 's1', how: 'declared', via: 'w3' }, { id: 's2', how: 'matched', by: 'y' }], quantifiers: [{ i: 0, units: ['u3'], via: 'w4' }], declared: 4 };
   assert.deepEqual(declaredDetail(B), [{ kind: 'unit', id: 'u1', via: 'w1' }, { kind: 'place', id: 'p1', via: 'w2' }, { kind: 'structure', id: 's1', via: 'w3' }, { kind: 'quantifier_any', units: ['u3'], via: 'w4' }]);
   assert.deepEqual(declaredDetail({ units: [], places: [], structures: [] }), [], 'nothing declared, nothing listed');
   const run1 = await runAll({ rows: ['T1-009', 'T1-003'], product: P }); const d = run1.out['T1-009'].declared_detail;
@@ -493,12 +498,43 @@ test('rule: a record is valid under every scenario of its row\'s group, or says 
   // structures: the readings of the structure are part of the group (the T1-015 exclusion is its reason)
   const t15 = await mustPass(ex('T1-015')); assert.equal(t15.scenario_group.complete, true); assert.deepEqual(t15.scenario_group.excluded, ['structure:bld-rock-creek-rr-bridge=jun27']); assert.deepEqual(t15.scenario_group.readings, { 'bld-rock-creek-rr-bridge': ['jun26', 'jun27'] });
   const no15 = ex('T1-015'); delete no15.scenario_excludes; const n15 = await mustPass(no15); assert.equal(n15.scenario_group.complete, false, 'without its exclusion the record leaves the reading jun27 open'); assert.deepEqual(n15.scenario_group.missing, ['structure:bld-rock-creek-rr-bridge=jun27']);
+  // the row's own text names a conflict: it is in the group of every record of the row (the Runner passes the text; query.mjs scenarioGroup reads it)
+  A('G-103', 'Dry weather on Jul 2 (see C-004)', '1863-07-02T12:00', '1863-07-02T16:00');
+  const named = await mustPass(rec('G-103', 'weather_sky', '1863-07-02T12:00', '1863-07-02T16:00', 'Dry weather on Jul 2', {}, [{ type: 'weather', t: { at: '1863-07-02T14:00' }, precip_kind_in: ['none'] }], { scenario: 'default' }));
+  assert.ok(named.scenario_group.conflicts.some(c => c.id === 'C-004' && c.named === true), 'a conflict the text of the row names is in the group of its record'); assert.ok(named.scenario_group.missing.includes('C-004:v1'));
+  // the works a record uses: their readings are in the group
+  A('G-104', 'Greene’s brigade builds the Culp’s Hill main line (breastworks)', '1863-07-02T06:00', '1863-07-02T10:00');
+  const wk = await mustPass(rec('G-104', 'earthwork_build', '1863-07-02T06:00', '1863-07-02T10:00', 'Greene’s brigade builds the Culp’s Hill main line', { works: ['E-05'], units: ['us-12c-2d-greene'] }, [{ type: 'work_stage', work: 'E-05', t: { at: '1863-07-02T08:00' }, stage_min: 3, crew: { units: ['us-12c-2d-greene'] } }], { scenario: 'default' }));
+  assert.ok(wk.scenario_group.readings['E-05'] && wk.scenario_group.readings['E-05'].length >= 1, 'the readings of a work the record uses are in its group'); assert.ok(wk.scenario_group.missing.some(id => id.startsWith('structure:E-05=')));
+});
+test('rule: the scenes the product keeps are bounded, the least recently used go, and a scene built again answers the same (query.mjs scene; tolerances sampling.scenes_cached)', () => {
+  const cap = P.tolerances.sampling.scenes_cached; assert.ok(Number.isInteger(cap) && cap >= 2 && cap <= 16, `a stated cap (${cap})`);
+  const seen = new Set([JSON.stringify(P.scenarioSpec('default').choices)]), specs = P.conflicts.flatMap(c => c.options.filter(o => o.key !== 'range').map(o => `${c.id}:${o.key}`)).filter(s => { const k = JSON.stringify(P.scenarioSpec(s).choices); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, cap + 4);
+  assert.equal(specs.length, cap + 4);
+  const probe = id => P.scene(id).unitAt('cs-2c-early-gordon', toMin('1863-07-01T16:00')), first = specs[0], answer = probe(first), keep = P.scene('default');
+  for (const s of specs) { P.scene(s); P.scene('default'); }                      // the opening scenario is used between every two others: it is always the most recently used but one
+  assert.ok(P._scenes.size <= cap, `${P._scenes.size} scenes kept, the cap is ${cap}`); assert.equal(P.scene('default'), keep, 'the scene in use is kept, not built again');
+  assert.ok(![...P._scenes.values()].some(s => s.spec === first), 'the least recently used is gone'); assert.ok([...P._scenes.values()].some(s => s.spec === specs[specs.length - 1]), 'the most recent is kept');
+  assert.deepEqual(probe(first), answer, 'built again, a scene answers the same'); assert.ok(P._scenes.size <= cap);
+});
+test('rule: a row says the exact time it allows, and which reading of it the record lies in (check.mjs timeReading; RESULTS allowed_exact, window_flags, record_reading; GATE-SPEC 6.4 V4)', async () => {
+  const a = toMin('1863-07-02T04:00'), b = toMin('1863-07-02T09:00'), c = toMin('1863-07-02T20:04'), d = toMin('1863-07-03T04:03'), two = [[a, b], [c, d]], at = (x, y) => ({ from: isoOf(x), to: isoOf(y) });
+  assert.deepEqual(timeReading(two, ['night_ambiguous'], at(a + 10, a + 20)), { allowed_exact: [`${isoOf(a)}..${isoOf(b)}`, `${isoOf(c)}..${isoOf(d)}`], window_flags: ['night_ambiguous'], record_reading: 0 });
+  assert.equal(timeReading(two, [], at(c, d)).record_reading, 1, 'a window that fills the second reading'); assert.equal(timeReading(two, [], at(a, b)).record_reading, 0, 'and one that fills the first');
+  assert.equal(timeReading(two, [], at(b - 5, c + 5)).record_reading, null, 'a window across the gap lies in neither'); assert.equal(timeReading(two, [], at(a - 1, a + 5)).record_reading, null, 'a window that starts before the reading (the clock margin) lies in none');
+  assert.equal(timeReading(two, [], at(a + 1, b + 1)).record_reading, null, 'nor one that ends after it');
+  assert.equal(timeReading(two, [], null).record_reading, null, 'a row with no record'); assert.equal('window_flags' in timeReading(two, [], null), false, 'no flags, none listed'); assert.deepEqual(timeReading(undefined, undefined, null), { allowed_exact: [], record_reading: null });
+  const run1 = await runAll({ rows: ['T1-003', 'T1-005', 'T1-017'], product: P });
+  for (const id of ['T1-003', 'T1-005', 'T1-017']) { const e = run1.out[id]; assert.ok(Array.isArray(e.allowed_exact) && e.allowed_exact.length >= 1 && e.allowed_exact.every(x => /^1863-\d\d-\d\dT\d\d:\d\d\.\.1863-\d\d-\d\dT\d\d:\d\d$/.test(x)), `${id}: the exact time is stated`);
+    if (e.record) assert.equal(e.clock_tolerance_used, e.record_reading === null, `${id}: the margin is used exactly when the record lies in no reading`); else assert.equal(e.record_reading, null, `${id}: no record, no reading`); }
+  assert.equal(run1.out['T1-003'].record_reading, 0); assert.equal(run1.out['T1-003'].clock_tolerance_used, false);
+  const exact = new Set(run1.out['T1-003'].allowed_exact); const wide = TL.byId.get('T1-003').window.intervals.map(([x, y]) => `${isoOf(x)}..${isoOf(y)}`); assert.ok(wide.some(w => !exact.has(w)), 'the widened window of the harness is not the exact one');
 });
 test('rule: the totals count the realized rows whose group is not complete (check.mjs summarize, q17Of)', () => {
   const row = (o = {}) => coverageOf({ realized: false, kind: 'weather_sky', codes: [], record: 'x:1', in_clock: true, ...o }, []);
-  const rows = { a: row({ realized: true, scenario_group: { complete: true } }), b: row({ realized: true, scenario_group: { complete: false } }), c: row({ realized: true }), d: row({ scenario_group: { complete: false } }) };
-  const S = summarize(rows, {}); assert.equal(S.timeline.realized_group_incomplete, 1, 'a realized row whose group is open; a row not realized is counted elsewhere'); assert.equal(q17Of(S, { timelineRows: 4, epilogueRows: 0 }).realized_group_incomplete, 1);
-  const q = q17Of(S, { timelineRows: 4, epilogueRows: 0 }); assert.equal(q.ok_strict, false, 'a realized row with an open group and no register entry is not covered strictly'); assert.equal(q.uncovered_strict, 2, 'b (group open) and d (not realized)');
-  const m = { a: row({ realized: true, clock_tolerance_used: true }), b: row({ realized: true, clock_tolerance_used: false }), c: row({ realized: true, clock_tolerance_used: null }), d: row({ clock_tolerance_used: true }) };
-  const M = summarize(m, {}); assert.equal(M.timeline.realized_clock_margin_used, 1, 'a realized row whose record used the margin; a row not realized is counted elsewhere'); assert.equal(q17Of(M, { timelineRows: 4, epilogueRows: 0 }).realized_clock_margin_used, 1); assert.equal(M.timeline.uncovered_strict, 2);
+  const rows = { a: row({ realized: true, scenario_group: { complete: true } }), b: row({ realized: true, scenario_group: { complete: false } }), c: row({ realized: true }), d: row({ scenario_group: { complete: false } }), e: row({ realized: true, scenario_group: { complete: false } }) };
+  const S = summarize(rows, {}); assert.equal(S.timeline.realized_group_incomplete, 2, 'the realized rows whose group is open (b, e), not the one whose group is complete (a) nor the row not realized (d)'); assert.equal(q17Of(S, { timelineRows: 5, epilogueRows: 0 }).realized_group_incomplete, 2);
+  const q = q17Of(S, { timelineRows: 5, epilogueRows: 0 }); assert.equal(q.ok_strict, false, 'a realized row with an open group and no register entry is not covered strictly'); assert.equal(q.uncovered_strict, 3, 'b and e (group open) and d (not realized)');
+  const m = { a: row({ realized: true, clock_tolerance_used: true }), b: row({ realized: true, clock_tolerance_used: false }), c: row({ realized: true, clock_tolerance_used: null }), d: row({ clock_tolerance_used: true }), e: row({ realized: true, clock_tolerance_used: true }) };
+  const M = summarize(m, {}); assert.equal(M.timeline.realized_clock_margin_used, 2, 'the realized rows whose record used the margin (a, e), not the one that did not (b) nor the row not realized (d)'); assert.equal(q17Of(M, { timelineRows: 5, epilogueRows: 0 }).realized_clock_margin_used, 2); assert.equal(M.timeline.uncovered_strict, 3);
 });

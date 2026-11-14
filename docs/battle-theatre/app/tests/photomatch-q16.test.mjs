@@ -3,16 +3,20 @@
 // The checks hold without the gitignored image files; when a file under tmp/ is present its size and hash are checked too.
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import { execFileSync } from 'node:child_process';
 const ROOT = path.resolve(import.meta.dirname, '../../../..'), PM = path.join(ROOT, 'tools/bt/photomatch'), J = f => JSON.parse(fs.readFileSync(path.join(PM, f), 'utf8'));
-const cat = J('catalogue.json'), add = J('catalogue_additions.json'), led = J('images_ledger.json'), st = J('position_statements.json'), poses = J('poses.json'), res = J('resolved_poses.json'), ver = J('verdicts.json'), reg = J('photograph_registry.json');
-const all = [...cat.photographs, ...add.photographs], ids = new Set(all.map(p => p.loc_id));
+const cat = J('catalogue.json'), add = J('catalogue_additions.json'), wide = J('catalogue_wide_items.json'), wled = J('wide_images_ledger.json'), led = J('images_ledger.json'), st = J('position_statements.json'), poses = J('poses.json'), res = J('resolved_poses.json'), ver = J('verdicts.json'), reg = J('photograph_registry.json');
+const crit = J('criteria.json'), figs = J('nps_figures.json');
+const all = [...cat.photographs, ...add.photographs, ...wide.photographs], ids = new Set(all.map(p => p.loc_id));
 const gz = new Set(JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/battle-theatre/app/data/gazetteer.json'))).places.map(p => p.id));
 const sha = f => crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 const VOCAB = ['matches', 'roughly', 'does not', 'cannot judge'];
+const norm = s => s.replace(/\s+/g, ' ').trim();
 
-test('catalogue: first-run records plus the added records, each with its licence basis; added records carry their reason and date status', () => {
-  assert.equal(cat.count, cat.photographs.length); assert.equal(add.count, add.photographs.length); assert.equal(all.length, 127); assert.equal(ids.size, all.length);
+test('catalogue: first-run records, the added records and the records of the wide search, each with its licence basis; added records carry their reason and date status', () => {
+  assert.equal(cat.count, cat.photographs.length); assert.equal(add.count, add.photographs.length); assert.equal(wide.count, wide.photographs.length);
+  assert.equal(all.length, cat.count + add.count + wide.count); assert.equal(ids.size, all.length, 'a record is in two lists'); assert.ok(all.length >= 189);
   for (const p of all) { assert.match(p.loc_id, /^\d+$/); assert.ok(p.loc_url.startsWith('https://www.loc.gov/')); assert.ok(p.title); assert.ok(p.date_as_catalogued); assert.match(p.licence_basis, /no known restrictions|rights field is empty/i); assert.equal(typeof p.staged_flag, 'boolean'); }
-  for (const p of add.photographs) { assert.ok(p.added_reason); assert.ok(p.date_status); }
+  for (const p of [...add.photographs, ...wide.photographs]) { assert.ok(p.added_reason); assert.ok(p.date_status); }
+  for (const p of wide.photographs) { assert.ok(p.found_by && p.found_by.includes('co=civwar')); assert.ok(['ok', 'not_offered'].includes(p.image_status), p.loc_id + ' image status ' + p.image_status); }
   assert.ok(add.skipped_search_results.every(s => s.reason));
 });
 test('images ledger: hashes, declared sizes, hosts and licence basis; files on disk match', () => {
@@ -26,18 +30,37 @@ test('images ledger: hashes, declared sizes, hosts and licence basis; files on d
   }
   assert.ok(Object.keys(led.images).length >= 430);
 });
-test('every catalogued record has at least one saved image in the ledger', () => {
+test('wide images ledger: every record of the wide search has an image (hash, hosts) or the reason it has none', () => {
+  for (const p of wide.photographs) {
+    const v = wled.images[p.loc_id]; assert.ok(v, p.loc_id + ' missing in the wide ledger'); assert.equal(v.status, p.image_status, p.loc_id);
+    if (v.status === 'not_offered') { assert.ok(v.reason && /not digitized/.test(v.reason), p.loc_id); continue; }
+    assert.match(v.sha256, /^[0-9a-f]{64}$/, p.loc_id); assert.ok(v.bytes > 0 && v.width > 0 && v.height > 0, p.loc_id); assert.ok(/^https:\/\/(cdn\.loc\.gov|tile\.loc\.gov)\//.test(v.url_final || v.url), p.loc_id + ' ' + v.url);
+    const f = path.join(ROOT, v.local_file); if (fs.existsSync(f)) { assert.equal(fs.statSync(f).size, v.bytes, p.loc_id); assert.equal(sha(f), v.sha256, p.loc_id); }
+  }
+});
+test('every catalogued record has at least one saved image in a ledger, or the registry says why not', () => {
   const have = new Set(Object.values(led.images).filter(v => v.status === 'ok').map(v => v.loc_id).filter(Boolean));
-  for (const p of all) assert.ok(have.has(p.loc_id) || reg.photographs.find(r => r.loc_id === p.loc_id).image_keys.length > 0, p.loc_id);
+  for (const p of all) assert.ok(have.has(p.loc_id) || reg.photographs.find(r => r.loc_id === p.loc_id).image_keys.length > 0 || p.image_status === 'not_offered', p.loc_id);
 });
 test('statements: every quote came from a saved text with its hash; none is a coordinate; documented ones carry a page and offset', () => {
-  assert.ok(st.count >= 60); const seen = new Set();
+  assert.ok(st.count >= 136); const seen = new Set();
   for (const s of st.statements) {
     assert.ok(!seen.has(s.id), s.id); seen.add(s.id); assert.ok(s.quote && s.says && s.prec, s.id); assert.equal(s.coordinates_published, false, s.id); assert.ok(['documented', 'inferred', 'lead'].includes(s.tier), s.id);
     const src = st.sources[s.src]; assert.ok(src, s.id); assert.match(src.sha256_text, /^[0-9a-f]{64}$/, s.id); assert.ok(src.local_text && src.retrieved, s.id);
     if (s.tier === 'documented') assert.ok(s.quote_fragments || s.offset_in_normalised_page != null, s.id + ' needs an offset');
     for (const l of [...(s.loc || []), ...(s.cand || [])]) assert.ok(ids.has(l), s.id + ' names record ' + l);
   }
+});
+test('NPS figures: every caption is a verbatim passage of the saved text of its report and has a statement; the extracted image is hashed', () => {
+  assert.ok(figs.count >= 36); const sid = new Set(st.statements.map(s => s.quote)), quotes = st.statements.map(s => s.quote.replace(/[. ]+$/, ''));
+  for (const f of figs.figures) {
+    assert.ok(['NPS-CLR-ROT-V1', 'NPS-CLR-ROT-V2'].includes(f.source), f.id); assert.match(f.image_sha256, /^[0-9a-f]{64}$/, f.id); assert.ok(/\b(north|south|east|west)/.test(f.direction_word), f.id); assert.ok(/^Figure /.test(f.caption), f.id); assert.doesNotMatch(f.caption, /\d+\.\d+\s*(?:m|ft)\b/, f.id);
+    assert.ok(quotes.some(q => q === f.caption.replace(/[. ]+$/, '') || q.includes(f.caption.replace(/[. ]+$/, ''))), f.id + ' has no statement');
+    const t = path.join(ROOT, 'tmp/library/web/nps', f.source, f.source + '.txt'); if (fs.existsSync(t)) { const parts = fs.readFileSync(t, 'utf8').split(/=== PAGE (\d+) ===/); let ok = false; for (let i = 1; i < parts.length; i += 2) if (+parts[i] === f.pdf_page) ok = norm(parts[i + 1]).includes(f.caption); assert.ok(ok, f.id + ' caption not on pdf page ' + f.pdf_page); }
+    const im = path.join(ROOT, f.image); if (fs.existsSync(im)) assert.equal(sha(im), f.image_sha256, f.id);
+  }
+  const conf = fs.existsSync(path.join(PM, 'nps_figures_confirmed.json')) ? J('nps_figures_confirmed.json').ties : {};
+  for (const [k, t] of Object.entries(conf)) { assert.ok(figs.figures.some(f => f.id === k), k); for (const l of t.loc || []) assert.ok(ids.has(l), k + ' ' + l); assert.ok(t.ident && t.confirmed_by_looking === true, k + ': a tie needs the note that both images were looked at'); }
 });
 test('poses: schema 2, every position is inferred or an assumption (never a documented position), every statement id exists, fitted poses are flagged', () => {
   assert.equal(poses.schema, 2); const sid = new Set(st.statements.map(s => s.id)), seen = new Set();
@@ -46,15 +69,25 @@ test('poses: schema 2, every position is inferred or an assumption (never a docu
     assert.ok(p.position.basis && p.heading.basis && p.fov.basis, p.id); assert.equal(typeof p.fitted_to_photograph, 'boolean'); assert.equal(typeof p.staged_flag, 'boolean');
     for (const s of p.statement_ids) assert.ok(sid.has(s), p.id + ' ' + s);
     if (p.position.anchor && p.position.anchor.startsWith('GZ-')) assert.ok(gz.has(p.position.anchor), p.id); if (p.heading.toward && p.heading.toward.startsWith('GZ-')) assert.ok(gz.has(p.heading.toward), p.id);
-    assert.ok(p.loc_id === null || ids.has(p.loc_id), p.id); assert.ok(p.photo && p.photo.file); if (Array.isArray(p.photo.crop)) { assert.equal(p.photo.crop.length, 4); for (const c of p.photo.crop) assert.ok(c >= 0 && c <= 1); }
+    assert.ok(p.loc_id === null || ids.has(p.loc_id), p.id); for (const l of p.also_loc_ids || []) assert.ok(ids.has(l), p.id + ' also ' + l); assert.ok(p.photo && p.photo.file); if (Array.isArray(p.photo.crop)) { assert.equal(p.photo.crop.length, 4); for (const c of p.photo.crop) assert.ok(c >= 0 && c <= 1); }
     if (p.position.relative && p.position.relative.width_fraction) assert.equal(p.fitted_to_photograph, true, p.id + ': a distance from the photograph is a fit');
-    assert.ok(!p.staged_flag, p.id + ': no staged photograph gets a pose in this pass');
+    if (p.superseded_by) assert.ok(poses.poses.some(q => q.id === p.superseded_by && q.supersedes === p.id), p.id + ' superseded_by must be answered by supersedes');
+    if (p.position.place_documented) { assert.equal(p.position.tier, 'inferred', p.id + ': a documented place is still an inferred position (DD-PM-01)'); assert.ok(p.position.sigma_m <= 100, p.id); assert.equal(p.fitted_to_photograph, false, p.id); }
+    assert.ok(!p.staged_flag, p.id + ': no staged photograph gets a pose');
   }
   assert.equal(res.resolved.length, poses.poses.length); assert.deepEqual(res.resolved.map(r => r.id), poses.poses.map(p => p.id));
 });
 test('deferred poses are registered with their basis and the reason they have no render yet', () => {
   const sid = new Set(st.statements.map(s => s.id));
   for (const p of poses.deferred_poses || []) { assert.ok(p.deferred_reason && p.deferred_reason.length > 40, p.id); assert.ok(ids.has(p.loc_id), p.id); for (const s of p.statement_ids) assert.ok(sid.has(s), p.id + ' ' + s); assert.ok(!poses.poses.some(q => q.id === p.id), p.id + ' is both registered and deferred'); }
+});
+test('criteria: the pass criteria of the first test at a documented place were written before its renders existed and are never edited after a render was looked at', () => {
+  assert.ok(crit.criteria.length >= 2); const t = x => Date.parse(x);
+  for (const c of crit.criteria) {
+    assert.match(c.written_utc, /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$/, c.id); assert.equal(c.render_existed_when_written, false, c.id); assert.ok(c.verdict_rule && c.basis && c.independence, c.id); assert.ok(c.poses.every(p => poses.poses.some(q => q.id === p)), c.id);
+    for (const p of c.poses) for (const s of ['', '_fov30', '_fov50']) { const f = path.join(ROOT, 'tmp/photomatch/renders', `${p}${s}_full.png`); if (fs.existsSync(f) && fs.statSync(f).mtimeMs > 0) assert.ok(fs.statSync(f).mtimeMs >= t(c.written_utc) - 1000, `${c.id}: render ${p}${s} is older than the criterion`); }
+  }
+  assert.equal(crit.criteria.find(c => c.id === 'C-P27-P28-2').model_skyline_computed_when_written, false);
 });
 test('verdicts: allowed vocabulary; a positive verdict needs a viewed image; a fitted pose is never called a match; every pose has one', () => {
   const left = new Set(poses.poses.map(p => p.id)), byId = Object.fromEntries(poses.poses.map(p => [p.id, p]));
@@ -66,17 +99,27 @@ test('verdicts: allowed vocabulary; a positive verdict needs a viewed image; a f
   assert.equal(left.size, 0, [...left].join(' '));
 });
 test('registry: one entry per catalogued record with a candid verdict and, where there is no pose, the reason', () => {
-  assert.equal(reg.count, 127); assert.equal(new Set(reg.photographs.map(r => r.loc_id)).size, 127); const pv = Object.fromEntries(ver.pose_verdicts.map(v => [v.pose, v]));
+  assert.equal(reg.count, all.length); assert.equal(new Set(reg.photographs.map(r => r.loc_id)).size, all.length); const pv = Object.fromEntries(ver.pose_verdicts.map(v => [v.pose, v])); const live = new Set(poses.poses.filter(p => !p.superseded_by).map(p => p.id));
   for (const r of reg.photographs) {
     assert.ok(ids.has(r.loc_id)); assert.ok(r.why && r.why.length > 30, r.loc_id); assert.equal(r.reviewed_image, true, r.loc_id); assert.equal(typeof r.staged_flag, 'boolean'); if (r.staged_flag) assert.ok(r.staged_basis, r.loc_id);
+    for (const p of r.pose_ids) assert.ok(live.has(p), r.loc_id + ' names a superseded pose as its headline: ' + p);
     if (r.pose_ids.length === 1) assert.equal(r.verdict, pv[r.pose_ids[0]].verdict, r.loc_id); else if (r.pose_ids.length === 0) assert.equal(r.verdict, 'cannot judge', r.loc_id);
   }
-  assert.ok(reg.photographs.filter(r => r.staged_flag).length >= 14);
+  assert.ok(reg.photographs.filter(r => r.staged_flag).length >= 20); assert.ok(reg.photographs.filter(r => r.catalogue === 'wide search (third pass)').length === wide.count);
 });
-test('gate Q16 stays not passing and says what would be needed; no linked sub-requirement is marked passed', () => {
+test('gate Q16 stays not passing, counts the documented camera positions (a coordinate, a lens and a plate: none) apart from the camera places a source names, and says what would be needed; no linked sub-requirement is marked passed', () => {
   assert.equal(ver.gate_q16.passes, false); assert.ok(ver.gate_q16.what_is_needed.length >= 5); assert.ok(ver.gate_q16.owner_steps.length >= 1); assert.equal(ver.gate_q16.documented_position_count, 0);
+  assert.ok(ver.gate_q16.documented_place_count >= 1); assert.ok(ver.gate_q16.documented_place_poses.every(p => poses.poses.some(q => q.id === p && q.position.place_documented)));
+  for (const p of poses.poses) if (p.position.place_documented) assert.ok(ver.gate_q16.documented_place_poses.includes(p.id), p.id);
   const rq = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/requirements.json'))).sub_requirements.filter(s => (s.gate_ids || []).includes('Q16'));
   assert.ok(rq.length >= 45); for (const s of rq) assert.equal(s.passes, false, s.id);
+  const gates = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/gates.json'), 'utf8')); const walk = o => Array.isArray(o) ? o.flatMap(walk) : o && typeof o === 'object' ? [o, ...Object.values(o).flatMap(walk)] : []; const q16 = walk(gates).filter(o => o.id === 'Q16' || o.gate === 'Q16'); for (const g of q16) assert.notEqual(g.passes, true, 'Q16 in gates.json');
+});
+test('the first test at a documented place: the measurements are stored, follow the pre-written definitions and are reported in the verdicts of the poses', () => {
+  const mp = path.join(PM, 'criteria_measurements.json'), sp = path.join(PM, 'skyline_results.json'); if (!fs.existsSync(mp)) return;
+  const m = J('criteria_measurements.json').measurements; for (const pid of ['P27', 'P28']) for (const k of ['_main', '_fov30', '_fov50']) { const e = m[pid + k]; assert.ok(e, pid + k); assert.ok(['pass', 'fail', 'empty', 'disagree', true, false].includes(e.T1_pass) && e.T2_horizon_frac > 0 && e.T2_horizon_frac < 1, pid + k); }
+  const vv = Object.fromEntries(ver.pose_verdicts.map(v => [v.pose, v])); for (const pid of ['P27', 'P28']) { assert.ok(vv[pid], pid); assert.ok(vv[pid].numbers && vv[pid].numbers.criterion === 'C-P27-P28-1', pid); }
+  if (fs.existsSync(sp)) { const s = J('skyline_results.json'); assert.ok(s.controls.length === 24 && s.columns > 500); for (const k of Object.keys(s.summary)) assert.ok(typeof s.summary[k].S2_discriminated === 'boolean' && s.summary[k].S1_rms_deg > 0, k); }
 });
 test('the photo-match document shipped with the app carries no copy that the audit forbids', () => {
   const d = fs.readFileSync(path.join(ROOT, 'docs/battle-theatre/app/docs/PHOTOMATCH.md'), 'utf8'); assert.ok(d.length > 2000); assert.doesNotMatch(d, new RegExp(['\\bA' + 'I\\b', 'Cla' + 'ude', 'Anthro' + 'pic', '\\bage' + 'nts?\\b', 'suba' + 'gent', '\\bLL' + 'M\\b', 'language' + ' model'].join('|'), 'i'));

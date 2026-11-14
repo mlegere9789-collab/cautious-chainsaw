@@ -13,7 +13,7 @@
 // The result of a row: realized true only when its record is valid, bound to the row's words, and every check holds in the product; q17_covered = realized or an open register entry (the two
 // halves of the gate). Nothing here sets a `passes` flag: Q17 is passing only when q17.ok is true AND the gate runner says so.
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url'; import crypto from 'node:crypto';
-import { ROOT, GOV, REAL, HARNESS, readJSON, readJSONL, readText, exists, rel, sha256, sha256File, minOf, toMin } from './lib.mjs';
+import { ROOT, GOV, REAL, HARNESS, readJSON, readJSONL, readText, exists, rel, sha256, sha256File, minOf, toMin, isoOf } from './lib.mjs';
 import { loadTimeline, coversInterval } from './timeline.mjs';
 import { openProduct } from './query.mjs';
 import { Runner } from './checks.mjs';
@@ -45,6 +45,12 @@ export function coverageOf(entry, regOpen) {
   entry.q17_covered = !!entry.realized || regOpen.length > 0; entry.q17_covered_strict = (!!entry.realized && !because.length) || regOpen.length > 0;
   entry.coverage = entry.realized ? (entry.realization_class === 'card' ? 'card' : 'realization') : regOpen.length ? 'open_register_entry' : 'none';
   return entry;
+}
+// the exact time a row allows (no clock margin: PDF p. 9, GATE-SPEC 6.4 V4) as READINGS, and which reading the record's window lies in: a printed cell that allows two windows (night_ambiguous, differs_from_windows_file)
+// keeps both, the record realizes one, and the other has to be handled (GATE-SPEC TL-8). record_reading is the index into allowed_exact, null when the row has no record or its window lies in none of them (clock_tolerance_used)
+export function timeReading(exact, flags, win) {
+  const iv = exact || [], f = win ? toMin(win.from) : null, t = win ? toMin(win.to) : null, k = f == null ? -1 : iv.findIndex(([a, b]) => a <= f && t <= b);
+  return { allowed_exact: iv.map(([a, b]) => `${isoOf(a)}..${isoOf(b)}`), ...(flags && flags.length ? { window_flags: [...flags] } : {}), record_reading: k < 0 ? null : k };
 }
 export function epilogueRows(TL) {   // the 14 epilogue rows (epilogue_seed.jsonl) as timeline rows, so that records of kind epilogue are checked the same way
   const p = path.join(GOV, 'epilogue_seed.jsonl'); if (!exists(p)) return [];
@@ -105,6 +111,7 @@ export async function runAll({ shards = null, files = null, rows = null, quiet =
       : { realized: false, kind: null, why: 'no realization record', codes: ['no_record'], record: null, window: null };
     if (res && res.spec_view) entry.spec_view = res.spec_view;
     entry.clock_tolerance_used = res && res.window ? !coversInterval(exact.get(r.id) || [], toMin(res.window.from), toMin(res.window.to)) : null;
+    Object.assign(entry, timeReading(exact.get(r.id), r.window && r.window.flags, res && res.window));
     entry.in_clock = !!(r.window && r.window.in_clock); entry.tier = r.tier; entry.status = r.status_effective; entry.shard = r.shard || null; coverageOf(entry, rg.open);
     out[r.id] = entry;
   }

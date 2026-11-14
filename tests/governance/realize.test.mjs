@@ -7,7 +7,8 @@ import test from 'node:test'; import assert from 'node:assert/strict'; import fs
 import { Runner } from '../../tools/bt/realize/checks.mjs';
 import { loadTimeline, describeWindow, parseTimeCell } from '../../tools/bt/realize/timeline.mjs';
 import { validateRecord, KINDS, KIND_NEEDS, ASSERT } from '../../tools/bt/realize/schema.mjs';
-import { readRecordFile, registerCoverage, harnessDigest } from '../../tools/bt/realize/check.mjs';
+import { readRecordFile, registerCoverage, harnessDigest, runAll } from '../../tools/bt/realize/check.mjs';
+import { buildList, render as renderBuildList, shardsOf } from '../../tools/bt/realize/buildlist.mjs';
 import { toMin, isoOf, readJSON, readJSONL, ROOT, GOV, REAL, hasQuote, designators } from '../../tools/bt/realize/lib.mjs';
 import { candidatePhrases, expand } from '../../tools/bt/realize/gazetteer.mjs';
 import { P, TL, R, H, clone, rec, addRow, run, examples, ex, codesOf, mustFail, mustPass } from './realize-lib.mjs';
@@ -269,7 +270,9 @@ test('the checker: deterministic, reports the record files\' problems, never wri
   fs.writeFileSync(f, good + '\n' + good + '\n{"broken\n');
   const out = spawnSync('node', [path.join(ROOT, 'tools/bt/realize/check.mjs'), '--file', f, '--json'], { encoding: 'utf8', maxBuffer: 1 << 28 }); assert.equal(out.status, 1, 'duplicate and broken lines make the exit code 1');
   const d = JSON.parse(out.stdout); assert.equal(d.rows['T1-003'].realized, true); assert.equal(d.record_file_problems.length, 2); assert.ok(d.record_file_problems.some(p => /duplicate record for T1-003/.test(p.error))); assert.ok(d.record_file_problems.some(p => p.line === 3));
-  const out2 = spawnSync('node', [path.join(ROOT, 'tools/bt/realize/check.mjs'), '--file', f, '--json'], { encoding: 'utf8', maxBuffer: 1 << 28 }); assert.equal(out2.stdout, out.stdout, 'two runs give the same bytes');
+  // two runs on the same inputs give the same bytes. The tree is shared with other workstreams that edit it: when the digest of the inputs differs between two runs, an input changed in between and the pair says nothing; try again (four attempts)
+  let prev = out, same = false; for (let attempt = 0; attempt < 4 && !same; attempt++) { const next = spawnSync('node', [path.join(ROOT, 'tools/bt/realize/check.mjs'), '--file', f, '--json'], { encoding: 'utf8', maxBuffer: 1 << 28 }); if (JSON.parse(prev.stdout).inputs_digest === JSON.parse(next.stdout).inputs_digest) { assert.equal(next.stdout, prev.stdout, 'two runs on the same inputs give the same bytes'); same = true; } else prev = next; }
+  assert.ok(same, 'the inputs of the shared tree were stable for two runs in a row within four attempts');
   assert.equal(fs.existsSync(res0) ? fs.statSync(res0).mtimeMs : null, before, 'RESULTS.json is not touched by a --file run');
   assert.equal(d.q17.ok, false); assert.equal(d.harness_digest, harnessDigest());
   fs.rmSync(dir, { recursive: true });
@@ -314,4 +317,27 @@ test('gazetteer.json: the places the timeline names, unknown names listed and ne
   assert.ok(g.places.every(x => x.tolerance_m > 0 && x.center && Number.isFinite(x.center.lng)));
   assert.deepEqual(Object.keys(g.tolerance_by_kind_m).sort(), Object.keys(readJSON(path.join(ROOT, 'tools/bt/realize/tolerances.json')).distance.floor_m_by_kind).sort());
   assert.ok(g.unknown.some(u => u.name === 'Belmont Rd') && g.unknown.some(u => /Salem Depot/.test(u.name)));
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test('the build list: what the product lacks, by code, from the declared records of a shard; no record says nothing; deterministic (buildlist.mjs)', async () => {
+  const run1 = await runAll({ shards: ['tl-01'], product: P }), rows = run1.out, L = buildList(rows);
+  // every declared code of every not_realized example is listed under that code, with its detail and its builder
+  let declared = 0; for (const id of Object.keys(rows)) { const e = rows[id]; if (!e.record) continue; const r = ex(id); if (r.kind !== 'not_realized') continue; for (const m of r.missing) { declared++; assert.ok((L.groups[m.code] || []).some(x => x.id === id && x.detail === m.detail && x.builder === m.builder && x.verified === true), `${id} ${m.code} is listed with its detail and builder`); } }
+  assert.ok(declared >= 20, `the examples declare ${declared} missing things`);
+  const tl01 = TL.rows.filter(r => r.shard === 'tl-01').map(r => r.id); assert.deepEqual(L.no_record, tl01.filter(id => !rows[id].record), 'the rows with no record are listed as such, in order');
+  assert.ok(L.no_record.includes('T1-021') && !L.no_record.includes('T1-020') && !(L.groups.no_record || []).length, 'and are not given a missing thing they do not declare');
+  assert.deepEqual(L.partial.map(p => p.id), ['T1-015', 'T1-016'], 'a row realized in part lists the parts it does not show'); assert.ok(L.partial.every(p => p.not_shown.length >= 1 && p.not_shown.every(n => n.words && n.why)));
+  const text = renderBuildList('tl-01', rows, { harness_digest: 'aaaa', inputs_digest: 'bbbb' }); assert.equal(text, renderBuildList('tl-01', rows, { harness_digest: 'aaaa', inputs_digest: 'bbbb' }), 'the same results give the same text');
+  assert.match(text, /^# Build list: shard tl-01/); assert.match(text, /## unit_not_on_field \(\d+ rows?\)/); assert.match(text, /\| T1-004 \|/); assert.match(text, /## Realized in part/); assert.match(text, new RegExp(`## No record yet \\(${L.no_record.length} rows\\)`)); assert.match(text, /harness aaaa, inputs bbbb/);
+  assert.ok(text.indexOf('## unit_not_on_field') < text.indexOf('## structure_unknown'), 'the codes with most rows come first');
+  // synthetic rows: a declared code the probe did not observe is marked, a missing builder is unassigned, a realized-kind record that fails is listed under its codes with the reason, a realized row is not a build item
+  const syn = { 'X-1': { record: 'x:1', realized: false, kind: 'not_realized', codes: [], missing: { unverified: ['b'] } }, 'X-2': { record: 'x:2', realized: false, kind: 'unit_motion', codes: ['unit_not_on_field', 'place_unknown'], why: 'the check fails: Early is not on the field' }, 'X-3': { record: 'x:3', realized: true, kind: 'weather_sky' }, 'X-4': { realized: false } };
+  const S = buildList(syn, { recordOf: e => (e.record === 'x:1' ? { missing: [{ code: 'a', detail: 'da', builder: 'units' }, { code: 'b', detail: 'db' }] } : null) });
+  assert.deepEqual(S.groups.a, [{ id: 'X-1', detail: 'da', builder: 'units', verified: true }]); assert.deepEqual(S.groups.b, [{ id: 'X-1', detail: 'db', builder: 'unassigned', verified: false }], 'declared, not observed, no builder');
+  assert.deepEqual(S.groups.unit_not_on_field.map(x => x.id), ['X-2']); assert.deepEqual(S.groups.place_unknown.map(x => x.id), ['X-2']); assert.deepEqual(S.failed.map(x => x.id), ['X-2']); assert.deepEqual(S.no_record, ['X-4']); assert.deepEqual(S.partial, []);
+  assert.ok(!Object.values(S.groups).some(g => g.some(x => x.id === 'X-3')), 'a realized row is not a build item');
+  assert.match(renderBuildList('x', syn, {}, { recordOf: e => (e.record === 'x:1' ? { missing: [{ code: 'b', detail: 'db' }] } : null) }), /declared, not observed by the probe/);
+  const by = shardsOf({ rows: { 'T1-001': { shard: 'tl-01' }, 'T2-001': { shard: 'tl-02' } }, epilogue: { 'E-001': { shard: 'epilogue' } } }); assert.deepEqual(Object.keys(by).sort(), ['epilogue', 'tl-01', 'tl-02']);
+  const cli = spawnSync('node', [path.join(ROOT, 'tools/bt/realize/buildlist.mjs'), '--results', path.join(os.tmpdir(), 'no-such-results.json')], { encoding: 'utf8' }); assert.equal(cli.status, 2, 'the tool says so when there is no RESULTS file'); assert.match(cli.stderr, /run check\.mjs first/);
 });

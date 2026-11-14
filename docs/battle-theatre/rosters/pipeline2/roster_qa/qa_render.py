@@ -12,7 +12,8 @@ deleted when the page verdict is written (qa_verdict.py), never stored in the tr
 tesseract text of every page is written to data2/qa/pages/<identifier>-<leaf>.read.json so that a verdict is tied to what was looked at.
 Run it through tools/horde/bench.sh when it renders more than about ten pages.
 """
-import sys, os, json, re, time, subprocess, argparse, hashlib
+import sys, os, json, re, time, subprocess, argparse, hashlib, resource
+import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -24,6 +25,31 @@ from PIL import Image
 IMG = os.path.join(Q.QTMP, 'img')
 OCR = os.path.join(Q.QTMP, 'ocr')
 READ = os.path.join(Q.QA, 'pages')
+
+
+def remove_rules(path_in, path_out, vmin=70, hmin=250):
+    """Whiten the long vertical and horizontal runs of dark pixels (table rules) of a 300 dpi grey page; the page for the eye is not touched."""
+    im = np.array(Image.open(path_in).convert('L'))
+    dark = im < 140
+
+    def runs(d, minlen):
+        out = np.zeros_like(d)
+        for x in range(d.shape[1]):
+            col = d[:, x]
+            if not col.any():
+                continue
+            idx = np.flatnonzero(np.diff(np.concatenate(([0], col.view(np.int8), [0]))))
+            for s, e in zip(idx[0::2], idx[1::2]):
+                if e - s >= minlen:
+                    out[s:e, x] = True
+        return out
+    lines = runs(dark, vmin) | runs(dark.T, hmin).T
+    grown = lines.copy()
+    for dx in (-1, 0, 1):
+        for dy in (-1, 0, 1):
+            grown |= np.roll(np.roll(lines, dx, 1), dy, 0)
+    im[grown] = 255
+    Image.fromarray(im).save(path_out)
 
 
 def ident_text_id():
@@ -74,9 +100,11 @@ def render(pids, dpi=300, psm=6):
             view = im.resize((round(im.width * 200 / dpi), round(im.height * 200 / dpi)), Image.LANCZOS)
             view.save(stem + '.png')
             env = dict(os.environ, OMP_THREAD_LIMIT='1')
-            t0 = time.process_time()
-            subprocess.run(['nice', '-n', '10', 'tesseract', stem + '-300.png', os.path.join(OCR, page_stem(pid)), '-l', 'eng', '--psm', str(psm)],
+            remove_rules(stem + '-300.png', stem + '-300c.png')
+            c0 = resource.getrusage(resource.RUSAGE_CHILDREN)
+            subprocess.run(['nice', '-n', '10', 'tesseract', stem + '-300c.png', os.path.join(OCR, page_stem(pid)), '-l', 'eng', '--psm', str(psm)],
                            check=True, capture_output=True, env=env)
+            c1 = resource.getrusage(resource.RUSAGE_CHILDREN)
             tess = open(os.path.join(OCR, page_stem(pid) + '.txt'), encoding='utf-8', errors='replace').read()
             a, b = pm.span(lf)
             leaf_tokens = set(PI.tokens(text[a:b]))
@@ -85,10 +113,12 @@ def render(pids, dpi=300, psm=6):
             rec = {'id': pid, 'identifier': ident, 'leaf': lf, 'printed_page': pm.printed(lf), 'pdf_page': p, 'pdf_pages': npdf, 'mapping': how,
                    'pdf_sha256': pdf_sha, 'dpi': dpi, 'psm': psm, 'render300_sha256': Q.R.sha256_file(stem + '-300.png'), 'view_png_sha256': Q.R.sha256_file(stem + '.png'),
                    'view_size': list(view.size), 'tess_sha256': hashlib.sha256(tess.encode('utf-8')).hexdigest(), 'tess_tokens4': len(mine), 'share_in_pinned_leaf': share,
-                   'right_page': bool(share is not None and share >= 0.5), 'tesseract_cpu_s': round(time.process_time() - t0, 2),
+                   'right_page': bool(share is not None and share >= 0.5), 'tesseract_cpu_s': round((c1.ru_utime + c1.ru_stime) - (c0.ru_utime + c0.ru_stime), 2),
+                   'rules_removed_before_ocr': True,
                    'rendered_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}
             Q.jdump(os.path.join(READ, page_stem(pid) + '.read.json'), rec)
             os.remove(stem + '-300.png')
+            os.remove(stem + '-300c.png')
             out.append(rec)
             print(json.dumps({k: rec[k] for k in ('id', 'printed_page', 'pdf_page', 'share_in_pinned_leaf', 'right_page', 'tesseract_cpu_s')}), flush=True)
     return out

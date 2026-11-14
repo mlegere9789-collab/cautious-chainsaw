@@ -1,6 +1,6 @@
 # bt-world-content, lane monuments and tour stops (OA01): status
 
-Written 2026-11-13 by the first engineer of this lane, taken over and corrected 2026-11-14 00:10 UTC by the second. Only what was run is reported as run. Notes: `docs/battle-theatre/app/docs/SITE-PLACES-NOTES.md` (sections 1 to 6; section 6 is the record of what was run and what was not).
+Written 2026-11-13 by the first engineer of this lane, taken over and corrected 2026-11-14 by the second, re-verified from 00:07 UTC the same day by the third (node tests, drift check, years check and an independent recount: section 6 of the notes). Only what was run is reported as run. Notes: `docs/battle-theatre/app/docs/SITE-PLACES-NOTES.md` (sections 1 to 6; section 6 is the record of what was run and what was not).
 
 ## What exists
 * **The site's data, read-only.** The 512 monuments (`_A`), the 16 tour stops (`d2`) and the nine-row second list (`data/monuments.json`) are literals of the entry bundle of every site tree (`baseline/dist`, `legacy/dist`, `release/R0..R1g/dist`) and one small file; `data-src/` pins the hash of the small file and holds no monument list. Copies: `app/data/site-memorials.json`, `site-tour-stops.json`; reader, writer and drift check: `app/tests/ext-site-source.mjs` (`--check` exits 1 on drift). The shell's own copy for the Views list (`app/data/site-bookmarks.json`) records the same pinned hashes and agrees with the copies in every name, position and viewpoint (a test since 2026-11-14).

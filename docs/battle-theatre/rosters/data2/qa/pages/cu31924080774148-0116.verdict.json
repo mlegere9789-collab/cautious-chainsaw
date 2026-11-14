@@ -1,0 +1,1721 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "cu31924080774148/116",
+ "stratum": "VT-REV-other",
+ "family": "VT-REV",
+ "layout": "cols",
+ "kind": "other",
+ "draw_position": 2,
+ "in_lowest_decile": false,
+ "printed_page": 101,
+ "rows_stored": 70,
+ "rows_checked": 70,
+ "rows_in_error": 53,
+ "rows_ok": 17,
+ "rows_flagged_ocr_uncertain": 60,
+ "errors": [
+  {
+   "i": 0,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'jDied' (rule read as j)",
+   "rid": "3rd-vermont-infantry#1695",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "K",
+    "M"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 2,
+   "kinds": [
+    "name-char",
+    "rem-date"
+   ],
+   "note": "name 'Nelson li.' printed 'Nelson B.'; dates 'July iS/CVjIJuly 1S/63' printed 'July 18,'63 July 18,'63'",
+   "rid": "3rd-vermont-infantry#1697",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "K",
+    "M",
+    "N"
+   ],
+   "gates": [
+    "R-G1",
+    "R-G2"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'Aug. >9.'63' for 'Aug. 19,'63'; second date after the remarks",
+   "rid": "3rd-vermont-infantry#1698",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "first date 'Aug. '63' lost the day 12; second date after the remarks",
+   "rid": "3rd-vermont-infantry#1699",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "second date after the remarks",
+   "rid": "3rd-vermont-infantry#1700",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "rem-char",
+    "rem-order"
+   ],
+   "note": "'Waterfonl'; first date placed after the remarks",
+   "rid": "3rd-vermont-infantry#1701",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 7,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'July 6/61' for 'July 16,'61'; first date after the remarks",
+   "rid": "3rd-vermont-infantry#1702",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 8,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'l6,'6i'",
+   "rid": "3rd-vermont-infantry#1703",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 9,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'Aug. 1, '63' for 'Aug. 21,'63'",
+   "rid": "3rd-vermont-infantry#1704",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "date after the remarks",
+   "rid": "3rd-vermont-infantry#1705",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "date after the remarks",
+   "rid": "3rd-vermont-infantry#1706",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 12,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "both dates after the remarks, jumbled",
+   "rid": "3rd-vermont-infantry#1707",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "F",
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 13,
+   "kinds": [
+    "rem-char",
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'liloomfield'; '6l'; dates after the remarks jumbled",
+   "rid": "3rd-vermont-infantry#1708",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "O",
+    "P"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "rem-date",
+    "rem-order",
+    "rem-extra"
+   ],
+   "note": "'io,'63' for '10,'63'; carries '[5, '64.' that is the run-over of the row below",
+   "rid": "3rd-vermont-infantry#1709",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 15,
+   "kinds": [
+    "rem-order",
+    "rem-missing"
+   ],
+   "note": "remark ends 'killed in action May' (the run-over '5, '64' is on the row above); dates after the remarks",
+   "rid": "3rd-vermont-infantry#1710",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 16,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'1 6/6.' for '16,'61'",
+   "rid": "3rd-vermont-infantry#1711",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "K",
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 17,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "dates after the remarks",
+   "rid": "3rd-vermont-infantry#1712",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 18,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'n/63' for '11,'63' twice",
+   "rid": "3rd-vermont-infantry#1713",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 19,
+   "kinds": [
+    "rem-char",
+    "rem-order"
+   ],
+   "note": "'Julv'",
+   "rid": "3rd-vermont-infantry#1714",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 20,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "dates after the remarks",
+   "rid": "3rd-vermont-infantry#1715",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 21,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'6i'",
+   "rid": "3rd-vermont-infantry#1716",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 22,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'i9i'63' for 'Dec. 19,'63'",
+   "rid": "3rd-vermont-infantry#1717",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 23,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "dates after the remarks",
+   "rid": "3rd-vermont-infantry#1718",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 24,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'5/6.' for '5,'61'",
+   "rid": "3rd-vermont-infantry#1719",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 25,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "dates after the remarks",
+   "rid": "3rd-vermont-infantry#1720",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 26,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "dates after the remarks",
+   "rid": "3rd-vermont-infantry#1721",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 27,
+   "kinds": [
+    "rem-char",
+    "rem-order"
+   ],
+   "note": "'5ub'",
+   "rid": "3rd-vermont-infantry#1722",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "K",
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 28,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "date after the remarks",
+   "rid": "3rd-vermont-infantry#1723",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 29,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'[6/63' for 'July 16,'63'",
+   "rid": "3rd-vermont-infantry#1724",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 30,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "dates after the remarks",
+   "rid": "3rd-vermont-infantry#1725",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 31,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'I4,'63' for 'Aug. 14,'63'",
+   "rid": "3rd-vermont-infantry#1726",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 32,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "date after the remarks",
+   "rid": "3rd-vermont-infantry#1727",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 33,
+   "kinds": [
+    "rem-order"
+   ],
+   "note": "dates after the remarks",
+   "rid": "3rd-vermont-infantry#1728",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "F",
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 34,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "muster date '22,'62' lost; stray \"62",
+   "rid": "3rd-vermont-infantry#1729",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 35,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'i6,'6i'",
+   "rid": "3rd-vermont-infantry#1730",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 36,
+   "kinds": [
+    "rem-char",
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "'MUSC11' for 'Muscn'; 'n' for '11'",
+   "rid": "3rd-vermont-infantry#1731",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 37,
+   "kinds": [
+    "rem-char",
+    "rem-order"
+   ],
+   "note": "'Juiy'; '62JTr'",
+   "rid": "3rd-vermont-infantry#1732",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 38,
+   "kinds": [
+    "rem-date",
+    "rem-char",
+    "rem-order"
+   ],
+   "note": "'3i'; 'S' for '8'; 'reed'",
+   "rid": "3rd-vermont-infantry#1733",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 39,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'Mch. .5' for 'Mch. 15'",
+   "rid": "3rd-vermont-infantry#1734",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "K",
+    "M"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 40,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'.->ept.' for 'Sept.'; 'Mast'",
+   "rid": "3rd-vermont-infantry#1735",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 41,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'i/65' for '1,'65'",
+   "rid": "3rd-vermont-infantry#1736",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 42,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "'6i'; 'Jul\\'; '6r'",
+   "rid": "3rd-vermont-infantry#1737",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "K",
+    "M"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 43,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Julv'",
+   "rid": "3rd-vermont-infantry#1738",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 44,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'5/6.'",
+   "rid": "3rd-vermont-infantry#1739",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 45,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'5/6.'; 'Dec. 2.' for 'Dec. 21'",
+   "rid": "3rd-vermont-infantry#1740",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "K"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 46,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'ig' for '19'",
+   "rid": "3rd-vermont-infantry#1741",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "K"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 47,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'reed'",
+   "rid": "3rd-vermont-infantry#1742",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 51,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'6i'",
+   "rid": "3rd-vermont-infantry#1746",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 59,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "'H/63' '!9i'63'; 'reed'",
+   "rid": "3rd-vermont-infantry#1754",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "M"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 62,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Au:'",
+   "rid": "3rd-vermont-infantry#1757",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 63,
+   "kinds": [
+    "rem-char",
+    "rem-date"
+   ],
+   "note": "'Sepj'; 'it' for '11'",
+   "rid": "3rd-vermont-infantry#1758",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 66,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Co 1.' for 'Co I.'",
+   "rid": "3rd-vermont-infantry#1761",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 68,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'u' for '11'",
+   "rid": "3rd-vermont-infantry#1763",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "70 stored rows, 70 printed lines of the table; no missed line; flag O (text order differs from page order) accounts for the rem-order kind: the cells sidecar was not sampled"
+ ],
+ "reader": "full page at 200 dpi (1 Read); every stored row read against the print (name, heading, company, residence, both dates, remarks); tesseract pre-screen used for candidates; rows 29-33 and the run-over brackets checked on the page image only at 200 dpi",
+ "tesseract_prescreen": {
+  "agree": 8,
+  "near": 2,
+  "suspect": 60,
+  "unstored_lines": 13
+ },
+ "read": {
+  "pdf_sha256": "df49af98ce9bde1ab90241a6a281064d7bda9b64b8ed49675df58cf70bb600a4",
+  "pdf_page": 117,
+  "view_png_sha256": "9bd41a8cc11e17bff8866b26d85628e4d3684551f618649efa6592a6e8bfe72d",
+  "render300_sha256": "d1cf5be3cc7b5af490b03ab77c678df884a49ebc26c5bdc0d32ca5b8bf45c9c2",
+  "tess_sha256": "75584511247f640fb2deff014c4d49a8346f76969e9a172fcc511197cca9661b",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.953
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "3rd-vermont-infantry#1695",
+   "name": "Rogers, Samuel M.",
+   "off": 583848,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K",
+    "M"
+   ]
+  },
+  {
+   "i": 1,
+   "rid": "3rd-vermont-infantry#1696",
+   "name": "Rowell, Schuyler",
+   "off": 583868,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "3rd-vermont-infantry#1697",
+   "name": "Rugg, Nelson li.",
+   "off": 583886,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "K",
+    "M",
+    "N"
+   ]
+  },
+  {
+   "i": 3,
+   "rid": "3rd-vermont-infantry#1698",
+   "name": "Ryan, James",
+   "off": 583905,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "O"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "3rd-vermont-infantry#1699",
+   "name": "Ryan, John",
+   "off": 583918,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "3rd-vermont-infantry#1700",
+   "name": "Ryan, Patrick",
+   "off": 583930,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 6,
+   "rid": "3rd-vermont-infantry#1701",
+   "name": "Sanborn, Oliver",
+   "off": 583945,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 7,
+   "rid": "3rd-vermont-infantry#1702",
+   "name": "Sanders, Milo",
+   "off": 583962,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 8,
+   "rid": "3rd-vermont-infantry#1703",
+   "name": "Sanders, Rosson O.",
+   "off": 583977,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 9,
+   "rid": "3rd-vermont-infantry#1704",
+   "name": "Sargent, Frederick",
+   "off": 583998,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 10,
+   "rid": "3rd-vermont-infantry#1705",
+   "name": "Sarsfield. Maurice",
+   "off": 584018,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 11,
+   "rid": "3rd-vermont-infantry#1706",
+   "name": "Schoff, Adna",
+   "off": 584038,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 12,
+   "rid": "3rd-vermont-infantry#1707",
+   "name": "Sexton, Thomas",
+   "off": 584052,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "F",
+    "O"
+   ]
+  },
+  {
+   "i": 13,
+   "rid": "3rd-vermont-infantry#1708",
+   "name": "Shallon. John",
+   "off": 584068,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "O",
+    "P"
+   ]
+  },
+  {
+   "i": 14,
+   "rid": "3rd-vermont-infantry#1709",
+   "name": "Shambo, Joseph",
+   "off": 584083,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "O"
+   ]
+  },
+  {
+   "i": 15,
+   "rid": "3rd-vermont-infantry#1710",
+   "name": "Shattuck. Joseph",
+   "off": 584099,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 16,
+   "rid": "3rd-vermont-infantry#1711",
+   "name": "Shaw, John M.",
+   "off": 584117,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 17,
+   "rid": "3rd-vermont-infantry#1712",
+   "name": "Shields, James",
+   "off": 584133,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 18,
+   "rid": "3rd-vermont-infantry#1713",
+   "name": "Shonban. Suprien",
+   "off": 584149,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 19,
+   "rid": "3rd-vermont-infantry#1714",
+   "name": "Shuhie. Bryan E.",
+   "off": 584167,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 20,
+   "rid": "3rd-vermont-infantry#1715",
+   "name": "Silver, Charles B.",
+   "off": 584186,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 21,
+   "rid": "3rd-vermont-infantry#1716",
+   "name": "Slack, Alden",
+   "off": 584207,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "O"
+   ]
+  },
+  {
+   "i": 22,
+   "rid": "3rd-vermont-infantry#1717",
+   "name": "Slack, Chandler J",
+   "off": 584221,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 23,
+   "rid": "3rd-vermont-infantry#1718",
+   "name": "Slack, Curtis O.",
+   "off": 584241,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 24,
+   "rid": "3rd-vermont-infantry#1719",
+   "name": "Smalley, Alfred",
+   "off": 584260,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "O"
+   ]
+  },
+  {
+   "i": 25,
+   "rid": "3rd-vermont-infantry#1720",
+   "name": "Smith, Daniel E.",
+   "off": 584277,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 26,
+   "rid": "3rd-vermont-infantry#1721",
+   "name": "Smith, James E.",
+   "off": 584296,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 27,
+   "rid": "3rd-vermont-infantry#1722",
+   "name": "Smith, John",
+   "off": 584314,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K",
+    "O"
+   ]
+  },
+  {
+   "i": 28,
+   "rid": "3rd-vermont-infantry#1723",
+   "name": "Smith, William",
+   "off": 584327,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 29,
+   "rid": "3rd-vermont-infantry#1724",
+   "name": "Smith, William W.",
+   "off": 584344,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 30,
+   "rid": "3rd-vermont-infantry#1725",
+   "name": "Snow, Sumner",
+   "off": 584364,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "O"
+   ]
+  },
+  {
+   "i": 31,
+   "rid": "3rd-vermont-infantry#1726",
+   "name": "Spears, Thomas",
+   "off": 584378,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 32,
+   "rid": "3rd-vermont-infantry#1727",
+   "name": "Spencer. Hollis K.",
+   "off": 584394,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 33,
+   "rid": "3rd-vermont-infantry#1728",
+   "name": "Spillane, Patrick",
+   "off": 584415,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "F",
+    "O"
+   ]
+  },
+  {
+   "i": 34,
+   "rid": "3rd-vermont-infantry#1729",
+   "name": "Stevens, Samuel C.",
+   "off": 584434,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 35,
+   "rid": "3rd-vermont-infantry#1730",
+   "name": "Stevens, Wm. H. H.",
+   "off": 584455,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 36,
+   "rid": "3rd-vermont-infantry#1731",
+   "name": "St. Jean. Amedie",
+   "off": 584477,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 37,
+   "rid": "3rd-vermont-infantry#1732",
+   "name": "Stockwell. Hubbard O",
+   "off": 584496,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 38,
+   "rid": "3rd-vermont-infantry#1733",
+   "name": "Stone, Jacob C.",
+   "off": 584519,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 39,
+   "rid": "3rd-vermont-infantry#1734",
+   "name": "Stone, Jared S.",
+   "off": 584537,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K",
+    "M"
+   ]
+  },
+  {
+   "i": 40,
+   "rid": "3rd-vermont-infantry#1735",
+   "name": "Stone, Simon",
+   "off": 584555,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 41,
+   "rid": "3rd-vermont-infantry#1736",
+   "name": "Stowell. Sylvanus B.",
+   "off": 584569,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 42,
+   "rid": "3rd-vermont-infantry#1737",
+   "name": "Streeter, Charles",
+   "off": 584592,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "K",
+    "M"
+   ]
+  },
+  {
+   "i": 43,
+   "rid": "3rd-vermont-infantry#1738",
+   "name": "Stuart, William C.",
+   "off": 584611,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 44,
+   "rid": "3rd-vermont-infantry#1739",
+   "name": "Sullivan. John",
+   "off": 584632,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 45,
+   "rid": "3rd-vermont-infantry#1740",
+   "name": "Sutherland. John A.",
+   "off": 584648,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "K"
+   ]
+  },
+  {
+   "i": 46,
+   "rid": "3rd-vermont-infantry#1741",
+   "name": "Symes, James R.",
+   "off": 584670,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K"
+   ]
+  },
+  {
+   "i": 47,
+   "rid": "3rd-vermont-infantry#1742",
+   "name": "Symes. Albert, A. C.",
+   "off": 584688,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 48,
+   "rid": "3rd-vermont-infantry#1743",
+   "name": "Taylor, Joseph W.",
+   "off": 584712,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 49,
+   "rid": "3rd-vermont-infantry#1744",
+   "name": "Tompking, William",
+   "off": 584732,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 50,
+   "rid": "3rd-vermont-infantry#1745",
+   "name": "Thompson, Richard",
+   "off": 584751,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 51,
+   "rid": "3rd-vermont-infantry#1746",
+   "name": "Turner, Solomon G.",
+   "off": 584770,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 52,
+   "rid": "3rd-vermont-infantry#1747",
+   "name": "Walker, William W.",
+   "off": 584791,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K"
+   ]
+  },
+  {
+   "i": 53,
+   "rid": "3rd-vermont-infantry#1748",
+   "name": "Walsh, John",
+   "off": 584812,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 54,
+   "rid": "3rd-vermont-infantry#1749",
+   "name": "Weeks, Henry B.",
+   "off": 584825,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 55,
+   "rid": "3rd-vermont-infantry#1750",
+   "name": "Weeks, John",
+   "off": 584843,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 56,
+   "rid": "3rd-vermont-infantry#1751",
+   "name": "Wheeler, Aaron R.",
+   "off": 584856,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "P"
+   ]
+  },
+  {
+   "i": 57,
+   "rid": "3rd-vermont-infantry#1752",
+   "name": "Wheeler, David J.",
+   "off": 584876,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 58,
+   "rid": "3rd-vermont-infantry#1753",
+   "name": "Whipple, Daniel H.",
+   "off": 584896,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 59,
+   "rid": "3rd-vermont-infantry#1754",
+   "name": "Whipple, Willard",
+   "off": 584917,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 60,
+   "rid": "3rd-vermont-infantry#1755",
+   "name": "White, Charles",
+   "off": 584935,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 61,
+   "rid": "3rd-vermont-infantry#1756",
+   "name": "White, Elam H.",
+   "off": 584951,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 62,
+   "rid": "3rd-vermont-infantry#1757",
+   "name": "Williams, Charles",
+   "off": 584968,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 63,
+   "rid": "3rd-vermont-infantry#1758",
+   "name": "Wilson, Albert",
+   "off": 584987,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 64,
+   "rid": "3rd-vermont-infantry#1759",
+   "name": "Wilson, John",
+   "off": 585003,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 65,
+   "rid": "3rd-vermont-infantry#1760",
+   "name": "Wood, Benjamin C.",
+   "off": 585017,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 66,
+   "rid": "3rd-vermont-infantry#1761",
+   "name": "Woodbury, Charles H.",
+   "off": 585037,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 67,
+   "rid": "3rd-vermont-infantry#1762",
+   "name": "Woods, William",
+   "off": 585060,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 68,
+   "rid": "3rd-vermont-infantry#1763",
+   "name": "Woodward, Wm. H.",
+   "off": 585076,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 69,
+   "rid": "3rd-vermont-infantry#1764",
+   "name": "Young, Homer T.",
+   "off": 585095,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:42:26Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "AGREE",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "SUSPECT",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "SUSPECT",
+  "23": "SUSPECT",
+  "24": "SUSPECT",
+  "25": "SUSPECT",
+  "26": "SUSPECT",
+  "27": "SUSPECT",
+  "28": "SUSPECT",
+  "29": "SUSPECT",
+  "30": "SUSPECT",
+  "31": "SUSPECT",
+  "32": "SUSPECT",
+  "33": "SUSPECT",
+  "34": "SUSPECT",
+  "35": "SUSPECT",
+  "36": "SUSPECT",
+  "37": "SUSPECT",
+  "38": "SUSPECT",
+  "39": "SUSPECT",
+  "40": "SUSPECT",
+  "41": "SUSPECT",
+  "42": "SUSPECT",
+  "43": "SUSPECT",
+  "44": "SUSPECT",
+  "45": "SUSPECT",
+  "46": "SUSPECT",
+  "47": "SUSPECT",
+  "48": "AGREE",
+  "49": "AGREE",
+  "50": "AGREE",
+  "51": "SUSPECT",
+  "52": "SUSPECT",
+  "53": "SUSPECT",
+  "54": "NEAR",
+  "55": "SUSPECT",
+  "56": "SUSPECT",
+  "57": "SUSPECT",
+  "58": "AGREE",
+  "59": "SUSPECT",
+  "60": "AGREE",
+  "61": "AGREE",
+  "62": "SUSPECT",
+  "63": "SUSPECT",
+  "64": "SUSPECT",
+  "65": "AGREE",
+  "66": "SUSPECT",
+  "67": "NEAR",
+  "68": "SUSPECT",
+  "69": "SUSPECT"
+ }
+}

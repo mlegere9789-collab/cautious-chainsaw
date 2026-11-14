@@ -38,7 +38,8 @@ DASH_WORDS = {'-', '--', '---', '_', '~', '-—', '—-', '=', ':—'}
 LEAD = r"""[\"'`\^\*\[\(\|\.\-\u2022\u25a0#\\<>{}~]*"""
 CAP_TOK = re.compile(r"^" + LEAD + r"[A-Z][^\s,;:]*[,\.]?[,\.]?$|^" + LEAD + r"[A-Z][^\s;]*,[\.\"']?$")
 INITIAL = re.compile(r"^" + LEAD + r"[A-Z0][\'`]?[\.,]{0,2}$")
-SUFFIX = re.compile(r"^" + LEAD + r"(?:Jr|Sr|[1-9][0-9]*(?:st|nd|rd|th|d))[\.,']*$")
+SUFFIX = re.compile(r"^" + LEAD + r"(?:Jr|Sr|[1-9][0-9]*(?:st|nd|rd|th|d)|[Il]st)[\.,']*$")        # [Il]st: the OCR reads a printed 1st as Ist or lst
+QUOTED_LETTER = re.compile(r"^[\"'`\u2018\u2019\u201c\u201d]+[A-Z0-9][\.,]?[\"'`\u2018\u2019\u201c\u201d]+[\.,]?$")   # a company letter in quotes (Co. "D.") closes the entry above
 PARTICLE = {'de', 'De', 'van', 'Van', 'von', 'Von', 'la', 'La', 'le', 'Le', 'du', 'Du', 'di', 'Di', 'da', 'Da', 'del', 'Del', 'der', 'Der', 'den', 'Den',
             'ter', 'Ter', 'ten', 'Ten', 'dos', 'Dos', 'des', 'Des', 'el', 'El', 'al', 'Al', 'af', 'ap'}
 NAME_ABBR = {'St.', 'Ste.', 'Wm.', 'Chas.', 'Geo.', 'Thos.', 'Jas.', 'Jno.', 'Benj.', 'Saml.', 'Danl.', 'Edw.', 'Fred.', 'Robt.', 'Alex.', 'Nath.', 'Jos.', 'Hy.',
@@ -238,6 +239,8 @@ def part_of_name(w):
 
 def ends_entry(w):
     """a token that can end the entry above: ends with a period, ';', ')' or a digit and is not part of a name (an initial, a suffix, a given-name abbreviation)"""
+    if QUOTED_LETTER.match(w):                                   # the closing token of 'as of Co. "D."' is the end of the entry above, not an initial of the next name
+        return True
     c = w.rstrip('"\'`)]’')
     if not c or part_of_name(c):
         return False
@@ -320,7 +323,8 @@ def _given_ok(words):
             return False
         if SUFFIX.match(w) and i != len(words) - 1:
             return False
-        if is_comma_tok(w) and not (i == len(words) - 2 and SUFFIX.match(words[-1])):
+        if is_comma_tok(w) and not (SUFFIX.match(w) and i == len(words) - 1) \
+                and not (i == len(words) - 2 and (SUFFIX.match(words[-1]) or INITIAL.match(words[-1]))):
             return False
     return True
 
@@ -331,6 +335,38 @@ _ABBREV_END = set()          # period-ended words that end entries in this volum
 def learn_abbrev(counter, threshold=5):
     _ABBREV_END.clear()
     _ABBREV_END.update(w for w, c in counter.items() if c >= threshold)
+
+
+ALT_WORDS = {'or', 'alias', 'Alias', 'alias,'}
+
+
+def _fragment(w):
+    """a token that can be the piece of a surname the OCR split by a blank: letters only (a stray mark at an edge is allowed), no period, no comma, not an initial"""
+    c = strip_marks(w)
+    return bool(c) and c.isalpha() and not w.endswith(',') and not w.rstrip('"\'`)]').endswith('.') and not INITIAL.match(w)
+
+
+def _extend_start(pieces, st, a):
+    """The name cut found by the comma rule can leave printed tokens of the same head behind (they would end up at the end of the entry above): (1) the head
+    prints two names ('Shelters or Shultis, George', 'Mclntee, Arthur alias Mclntire, Arthur'): the word 'or' / 'alias' stands directly before the cut: the name
+    starts at the first token of the window (the window starts after the last token that can end the entry above; initials such as 'D. C.' at its start belong to the
+    entry above and are left out), when at most 5 tokens are in between; (2) the OCR split the surname by a blank ('Know] ton,', 'Danf or th,', 'Fitzpa trick,'): the first
+    token of the cut is a lower-case fragment: the (at most 3) fragment tokens directly before it join the name.  Returns (start, kind), kind None when nothing was extended."""
+    if st <= a:
+        return st, None
+    w = strip_marks(pieces[st].w)
+    if w[:1].islower() and w not in PARTICLE:                       # checked first: in 'Danf or th,' the word 'or' is a fragment, not an alternate marker
+        s2 = st
+        while s2 > a and st - s2 < 3 and _fragment(pieces[s2 - 1].w):
+            s2 -= 1
+        if s2 < st:
+            return s2, 'fragment-extended'
+    if pieces[st - 1].w in ALT_WORDS and st - a <= 5:
+        s2 = a
+        while s2 < st - 2 and INITIAL.match(pieces[s2].w) and pieces[s2].w.endswith('.'):
+            s2 += 1
+        return s2, 'alternate-name'
+    return st, None
 
 
 def scan_name_start(pieces, ne, lower, style='comma'):
@@ -362,7 +398,8 @@ def scan_name_start(pieces, ne, lower, style='comma'):
                     nb += 1
                 if b > 0 and nb == 0 and re.fullmatch(r'[A-Z]', core[b - 1]) and core[b][:1].islower():     # the OCR split a surname: 'M acomber,'
                     b -= 1
-                return a + b, 'ok'
+                st, how = _extend_start(pieces, a + b, a)
+                return st, ('ok' if how is None else how)
         if cands:
             return a + cands[-1], 'comma-given-invalid'
         # a period where the comma belongs ('Washburn. Henry N.'): the word before the window is the surname when no abbreviation of the volume looks like it
@@ -512,7 +549,55 @@ def find_entries(pieces, rank_vocab=None):
         e = Entry(ne, rk0, d2, d1, d2, r, kind)
         e.junk = junk
         ents.append(e)
+    ents.extend(_third_rule_entries(pieces, rank_vocab, {e.res for e in ents}, {e.d1 for e in ents if e.d1 is not None}, {e.d2 for e in ents if e.d2 is not None}))
+    ents.sort(key=lambda e: e.res)
     return ents
+
+
+THIRD_RULE_MAX_RANK_PIECES = 7
+
+
+def _third_rule_entries(pieces, rank_vocab, used_res, used_d1, used_d2):
+    """Third head rule (added by the reconciliation of union-ma, 14 November 2026).  A head whose 'Res.' the OCR lost or damaged beyond every tolerant form of
+    find_entries ('Re3.', 'Ries.', 'Pes.', 'lies.', '-Res.', 'Res?', 'Res.Barre;', 'P.es-', or no 'Res' at all before the residence) is still  NAME DASH RANK DASH
+    <anything>.  Accepted only when (a) both dashes are dash pieces, (b) the pieces between them are a rank of the vocabulary or close to one (the same test the
+    'd1-damaged' form uses), none of them ends with ';' or holds a run of three digits, (c) a name-like piece or a stray mark stands directly before the first dash,
+    (d) the piece after the second dash is not itself a dash and is not already the Res piece of an entry, and neither dash run belongs to a head that the other rules found.  The remarks of such a row start at that piece, so the
+    row says what is printed (for example 'Res.Barre; 33; lawyer' or 'West Roxbury ; 38'); kind 'res-lost' (flag Q: the remarks do not start with 'Res.', and H)."""
+    out = []
+    if not rank_vocab:
+        return out
+    n = len(pieces)
+    k = 0
+    while k < n:
+        if not pieces[k].dash or (k > 0 and pieces[k - 1].dash):
+            k += 1
+            continue
+        d1 = k
+        d1_last = k
+        while d1_last + 1 < n and pieces[d1_last + 1].dash:
+            d1_last += 1
+        k = d1_last + 1
+        if d1 < 1 or not (name_like(pieces[d1 - 1].w) or _is_junkpiece(pieces[d1 - 1])) or pieces[d1 - 1].dash:
+            continue
+        j = d1_last + 1
+        while j < n and not pieces[j].dash and j - d1_last <= THIRD_RULE_MAX_RANK_PIECES + 1:
+            j += 1
+        if j >= n or not pieces[j].dash or j - d1_last < 2 or j - d1_last - 1 > THIRD_RULE_MAX_RANK_PIECES:
+            continue
+        d2 = j
+        d2_last = d2
+        while d2_last + 1 < n and pieces[d2_last + 1].dash:
+            d2_last += 1
+        res = d2_last + 1
+        if res >= n or pieces[res].dash or res in used_res or d1 in used_d1 or d2 in used_d2:
+            continue
+        ranks = [pieces[x].w for x in range(d1_last + 1, d2)]
+        if any(x.endswith(';') or re.search(r'\d{3,}', x) for x in ranks) or not _rank_like(ranks, rank_vocab):
+            continue
+        e = Entry(d1, d1_last + 1, d2, d1, d2, res, 'res-lost')
+        out.append(e)
+    return out
 
 
 def CUTS_FOR(unit_key):

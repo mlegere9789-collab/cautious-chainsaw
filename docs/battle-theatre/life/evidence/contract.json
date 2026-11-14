@@ -24,7 +24,7 @@
   "unit_text": "the unit as the source names it (verbatim fragment) or null",
   "work_id": "E-nn of structures/works_stages.json or W-... of life/inventory/works.json, or null (labour: required unless unit_id given)",
   "builder_unknown": "true only for a work whose builder the sources do not name (PDF B.7.1: built by a labelled stand-in crew)",
-  "window": "{start_min, end_min, basis, note, derived_from}: minutes on the page clock (since 1863-06-01 00:00 local mean time); start <= end; inside the theatre clock; basis from window_bases",
+  "window": "{start_min, end_min, basis, part_of_day, note, derived_from}: minutes on the page clock (since 1863-06-01 00:00 local mean time); start <= end; inside the theatre clock; basis from window_bases; part_of_day carries a stated period word (evening, just before sunset) when the passage has no hour: no hour is invented for it (DD-LIFE-02)",
   "place": "{text, ref, map_scope, preexisting_ref}: the place as the source words it; ref a gazetteer or structures id or null; map_scope from map_scopes; preexisting_ref a P-nn of PDF B.7.3 when the work touches a pre-existing wall or fence",
   "activity": "a clip id of app/data/anim3d/clips.json, or null",
   "pose_needed": "a pose id of life/evidence/poses.json (a pose no clip shows), or null; at least one of activity and pose_needed unless tier is open gap",
@@ -37,7 +37,7 @@
   "source_id": "id of life/evidence/sources.json (a local text) or null for open gap",
   "part": "Official Records part 1|2|3 or null",
   "report_id": "Official Records record id (OR27-1-R062) or a state-volume section id (NY3-S006) or null",
-  "printed_page": "the printed page as a string, or null; Official Records pages are checked against the running-head page model",
+  "printed_page": "the printed page as a string, or null; Official Records pages are checked against the scan-leaf map (page_basis scan_leaf, the project convention of DD-TL02-04) or the running-head page model (running_head, interpolated)",
   "page_basis": "one of page_bases",
   "pdf_page": "for park reports: the \"=== PAGE n ===\" marker before the passage (int)",
   "quote": "verbatim passage, 20 to 600 characters, whitespace and hyphenation tolerant, OCR errors kept as printed",
@@ -216,6 +216,7 @@
   "unknown": "the place is not named"
  },
  "page_bases": [
+  "scan_leaf",
   "running_head",
   "interpolated",
   "section_anchor",

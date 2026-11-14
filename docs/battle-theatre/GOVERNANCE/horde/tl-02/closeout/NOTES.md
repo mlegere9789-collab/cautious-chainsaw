@@ -58,24 +58,24 @@ Key finds (library texts that close sub-claims)
 - ocr2.py (second-OCR numerals check of the OR leaves) queued under the lock at 23:55 (log audit/ocr2.log, report audit/ocr2_report.txt).
 - TODO after the page work: patch tl2lib (library page decisions file horde/tl-02/library_pages.json), adapt audit_strict.py (scan-leaf page rule), rebuild: python3 -I tmp/tl-02/build3.py --write (re-uses searches; run directly if --plan says 0 new), post.py, verify_out.py, audit_strict.py, REPORT/counts, progress line (+ DD-TL02-04 if needed), update request note.
 
-## STATE at 2026-11-14 00:20 (fourth incarnation, after the 00:06 container restart)
+## STATE early in the fourth incarnation (started 00:07 UTC on 2026-11-14, after the 00:06 container restart)
 - Found: rows_a/b/c.py + tl2lib.py carry the audit edits; library_pages.json exists (23:59); `build2.py --check` = 58 rows, 380 citations, 0 problems; `build3.py --plan` = 135 searches re-used, 0 new.
 - ocr2.py job (queued 23:55) never ran (restart): ocr2.log empty. Not needed for the build; second-OCR numerals check stays optional.
 - Plan: (1) build3.py --write (outputs still the 21:16 build) (2) adapt audit_strict.py to the scan-leaf page rule (3) post.py with REPORT text updated (scan leaf rule, not "no scan image") (4) verify_out.py + audit_strict.py (5) independent review of sample rows (6) progress line, request note refresh, DD-TL02-04 only if a new default/promotion is needed.
 
-## STATE at 2026-11-14 00:50 (fourth incarnation; correction: the "00:20" time stamp above was written at about 00:09)
+## STATE in the middle of the fourth incarnation (wall-clock stamps in these headings were estimates; the run's files carry the real times)
 - Done: build3 --write of the audited rows (page rule by scan leaf; 214 OR citations, 154 library); audit_strict.py adapted to the scan-leaf rule (0 errors but the T1-105 word, now fixed).
 - Review pass edits (rows_a/b/c.py): T1-067 (Howard p.701 + Itinerary p.144: XI Corps at Emmitsburg, I Corps near Marsh Run on Jun 30; Jacobs conflict now two scenarios; event wording fixed), T1-080 ("a hot day's fight" is an idiom, not weather: removed), T1-094 (hall_9 quote extended to the 400 yards), T1-098 (Howard 10.45 vs Doubleday 10.15 as scenarios), T1-099 (note: Howard dispatch headed 5 p.m.), T1-105 (no word "generated"), T1-115 (C-041 pointer), stale "~" page statements, Buford p.930, Doubleday p.245.
 - EG-001/003/008/012 register files patched (stale pages; carbine statement is the Chancellorsville book, not New York vol. 2); post.py UPD 012 text patched.
 - Page images checked by me: part 2 PDF page 295 = printed 289 (Heth's division); part 1 PDF page 355 = printed 331, "about 12 m." (Wister).
 - NEXT: build3 --write (1 new search), verify_out.py, audit_strict.py, numcheck; post.py (REPORT text: scan-leaf rule, no more "no scan image"); DD-TL02-04 append; progress line; request-note refresh; delete tmp/tl-02/scan/chk4.
 
-## STATE at 2026-11-14 01:25 (fourth incarnation)
+## STATE later in the fourth incarnation
 - More review edits applied (rows_a/b/c.py): quotes extended to cover the full claim in T1-062 (Calef Carlisle road), 074, 078, 079 (Early route), 083 (stone faces), 084, 085 (Gamble organization), 086 (Grey Eagle split), 088, 089, 094, 097, 100 (Haskell answer), 103 (Harney), 108, 109, 112; T1-071 (bridge), T1-106 (sub 4 reworded); page table regenerated with tmp/tl-02/audit/mk_tmp_corr.py + libpages_final.py (TL2_NOPAGES=1 / TL2_CORR=...): 129 entries, existing ones unchanged.
 - post.py: REPORT text now computed from the file (scan-leaf rule, provenance, review pass); dd2.py writes tmp/tl-02/dd_block2.md (DD-TL02-04) - append ONCE with shell >> after the final rebuild; grep -c DD-TL02-04 must be 0 before.
 - Still TODO: final build3 --write + post.py + verify_out + audit_strict; append DD block; progress.md line; refresh the request note (items 13/14 conflicts + page-model request); rm tmp/tl-02/scan/chk4 and tmp_corr.jsonl (small); final structured answer.
 
-## FINAL STATE at 2026-11-14 (fourth incarnation, done)
+## FINAL STATE of the fourth incarnation (2026-11-14, about 00:40 UTC)
 - Final files: timeline_corrections/tl-02.jsonl (58 rows, 389 citations), horde/tl-02/* rebuilt by build3.py --write + post.py; verify_out.py and audit_strict.py 0 errors; DD-TL02-04 appended; progress lines appended (one plus a correction); request note updated (items 13-14, section 5).
 - Snapshot of every script and row file: docs/battle-theatre/GOVERNANCE/horde/tl-02/closeout/ (README there).
 - Owed: second-method re-read of the OCR-damaged digits (ocr2.py never ran), USNO almanac cross-check of the computed sky rows.

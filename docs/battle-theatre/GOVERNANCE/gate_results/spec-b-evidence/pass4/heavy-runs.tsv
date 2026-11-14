@@ -1,0 +1,4 @@
+locked job started 2026-11-14T00:44:18Z HEAD 2c27d056 load 11.75 13.95 12.48
+2026-11-14T00:44:18Z	browser_caps	exit 0	1.9 s	node docs/battle-theatre/GOVERNANCE/gate_results/spec-b-evidence/browser_caps.mjs
+2026-11-14T00:44:20Z	realize_inputs_test	exit 0	119.1 s	node --test --test-reporter=tap tests/governance/realize-inputs.test.mjs
+2026-11-14T00:46:19Z	bt_pack_test	exit 1	9.1 s	node --test --test-reporter=tap tests/bt-pack/pack.test.mjs tests/bt-pack/verify.test.mjs

@@ -1,0 +1,662 @@
+{
+ "format": "ma-parse-delta/1",
+ "about": "rows of the parser now against the stored unit files (by character offset); nothing was written to data2",
+ "units": {
+  "u-ma-1st-massachusetts-infantry": {
+   "rows_now": 1699,
+   "rows_stored": 1699,
+   "added": 1,
+   "removed": 1,
+   "changed": 1,
+   "unchanged": 1697,
+   "added_rows": [
+    {
+     "off": 169313,
+     "page": 30,
+     "co": "E",
+     "name": "Danf or th, George",
+     "rank": "Priv.",
+     "remarks_start": "Res. Boston; 18; lumberman; enl. and must. Nov. 11, 1861 ; disch. for "
+    }
+   ],
+   "changed_rows": [
+    {
+     "off": 169138,
+     "name": "Dalton, George W.",
+     "remarks_now_chars": 120,
+     "remarks_stored_chars": 128,
+     "name_same": true,
+     "rank_same": true,
+     "co_same": true
+    }
+   ],
+   "removed_rows": [
+    {
+     "off": 169321,
+     "name": "th, George"
+    }
+   ],
+   "verify": {
+    "rows": 1699,
+    "name_ok": 1699,
+    "remark_ok": 1699,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1699,
+    "page_null": 19,
+    "rank_ok": 1699,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-2nd-massachusetts-infantry": {
+   "rows_now": 2013,
+   "rows_stored": 2013,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 2013,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 2013,
+    "name_ok": 2013,
+    "remark_ok": 2013,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 2013,
+    "page_null": 0,
+    "rank_ok": 2013,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-7th-massachusetts-infantry": {
+   "rows_now": 1171,
+   "rows_stored": 1171,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1171,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1171,
+    "name_ok": 1171,
+    "remark_ok": 1171,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1171,
+    "page_null": 0,
+    "rank_ok": 1171,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-9th-massachusetts-infantry": {
+   "rows_now": 1692,
+   "rows_stored": 1692,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1692,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1692,
+    "name_ok": 1692,
+    "remark_ok": 1692,
+    "remark_gap_rows": 2,
+    "remark_empty": 0,
+    "page_ok": 1692,
+    "page_null": 0,
+    "rank_ok": 1692,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-10th-massachusetts-infantry": {
+   "rows_now": 1258,
+   "rows_stored": 1258,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1258,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1258,
+    "name_ok": 1258,
+    "remark_ok": 1258,
+    "remark_gap_rows": 1,
+    "remark_empty": 0,
+    "page_ok": 1258,
+    "page_null": 0,
+    "rank_ok": 1258,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-11th-massachusetts-infantry": {
+   "rows_now": 2039,
+   "rows_stored": 2039,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 2039,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 2039,
+    "name_ok": 2039,
+    "remark_ok": 2039,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 2039,
+    "page_null": 21,
+    "rank_ok": 2039,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-12th-massachusetts-infantry": {
+   "rows_now": 1592,
+   "rows_stored": 1592,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1592,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1592,
+    "name_ok": 1592,
+    "remark_ok": 1592,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1592,
+    "page_null": 45,
+    "rank_ok": 1592,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-13th-massachusetts-infantry": {
+   "rows_now": 1448,
+   "rows_stored": 1448,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1448,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1448,
+    "name_ok": 1448,
+    "remark_ok": 1448,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1448,
+    "page_null": 0,
+    "rank_ok": 1448,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-15th-massachusetts-infantry": {
+   "rows_now": 1726,
+   "rows_stored": 1726,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1726,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1726,
+    "name_ok": 1726,
+    "remark_ok": 1726,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1726,
+    "page_null": 0,
+    "rank_ok": 1726,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-1st-company-massachusetts-sharpshooters": {
+   "rows_now": 186,
+   "rows_stored": 186,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 186,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 186,
+    "name_ok": 186,
+    "remark_ok": 186,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 186,
+    "page_null": 0,
+    "rank_ok": 185,
+    "rank_empty": 1,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-16th-massachusetts-infantry": {
+   "rows_now": 1369,
+   "rows_stored": 1369,
+   "added": 1,
+   "removed": 1,
+   "changed": 1,
+   "unchanged": 1367,
+   "added_rows": [
+    {
+     "off": 1336866,
+     "page": 257,
+     "co": "H",
+     "name": "Steams, Henry VV,",
+     "rank": "Priv.",
+     "remarks_start": "Res. Waltham; milkman; 32; enl. and must. June 29, 1861 must, out July"
+    }
+   ],
+   "changed_rows": [
+    {
+     "off": 1336677,
+     "name": "Soule, John W.",
+     "remarks_now_chars": 133,
+     "remarks_stored_chars": 147,
+     "name_same": true,
+     "rank_same": true,
+     "co_same": true
+    }
+   ],
+   "removed_rows": [
+    {
+     "off": 1336882,
+     "name": "VV,"
+    }
+   ],
+   "verify": {
+    "rows": 1369,
+    "name_ok": 1369,
+    "remark_ok": 1369,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1369,
+    "page_null": 0,
+    "rank_ok": 1369,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-18th-massachusetts-infantry": {
+   "rows_now": 1371,
+   "rows_stored": 1371,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1371,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1371,
+    "name_ok": 1371,
+    "remark_ok": 1371,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1371,
+    "page_null": 0,
+    "rank_ok": 1371,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-19th-massachusetts-infantry": {
+   "rows_now": 1938,
+   "rows_stored": 1938,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1938,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1938,
+    "name_ok": 1938,
+    "remark_ok": 1938,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1938,
+    "page_null": 0,
+    "rank_ok": 1938,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-20th-massachusetts-infantry": {
+   "rows_now": 2484,
+   "rows_stored": 2484,
+   "added": 1,
+   "removed": 1,
+   "changed": 1,
+   "unchanged": 2482,
+   "added_rows": [
+    {
+     "off": 2560317,
+     "page": 494,
+     "co": "FS",
+     "name": "ElishaM. White",
+     "rank": "Surgeon",
+     "remarks_start": "Res. Boston; 22; physician; transf. June 19, 1865, from 37th Mass. Inf"
+    }
+   ],
+   "changed_rows": [
+    {
+     "off": 2560075,
+     "name": "Murdock McGregor",
+     "remarks_now_chars": 159,
+     "remarks_stored_chars": 168,
+     "name_same": true,
+     "rank_same": true,
+     "co_same": true
+    }
+   ],
+   "removed_rows": [
+    {
+     "off": 2560327,
+     "name": "White"
+    }
+   ],
+   "verify": {
+    "rows": 2484,
+    "name_ok": 2484,
+    "remark_ok": 2484,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 2484,
+    "page_null": 0,
+    "rank_ok": 2484,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-22nd-massachusetts-infantry": {
+   "rows_now": 1452,
+   "rows_stored": 1452,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1452,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1452,
+    "name_ok": 1452,
+    "remark_ok": 1452,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1452,
+    "page_null": 0,
+    "rank_ok": 1451,
+    "rank_empty": 1,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-28th-massachusetts-infantry": {
+   "rows_now": 2065,
+   "rows_stored": 2065,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 2065,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 2065,
+    "name_ok": 2065,
+    "remark_ok": 2065,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 2065,
+    "page_null": 0,
+    "rank_ok": 2065,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-32nd-massachusetts-infantry": {
+   "rows_now": 2168,
+   "rows_stored": 2168,
+   "added": 1,
+   "removed": 1,
+   "changed": 1,
+   "unchanged": 2166,
+   "added_rows": [
+    {
+     "off": 2760894,
+     "page": 534,
+     "co": "M",
+     "name": "Waitt, John (alias Godsoe, John)",
+     "rank": "Priv.",
+     "remarks_start": "Res. Boston; 35; bartender; transf. by S. O. of Oct. 21, 1864, from 22"
+    }
+   ],
+   "changed_rows": [
+    {
+     "off": 2760683,
+     "name": "Underwood, Charles H.",
+     "remarks_now_chars": 143,
+     "remarks_stored_chars": 162,
+     "name_same": true,
+     "rank_same": true,
+     "co_same": true
+    }
+   ],
+   "removed_rows": [
+    {
+     "off": 2760916,
+     "name": "Godsoe, John)"
+    }
+   ],
+   "verify": {
+    "rows": 2168,
+    "name_ok": 2168,
+    "remark_ok": 2168,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 2168,
+    "page_null": 0,
+    "rank_ok": 2168,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-33rd-massachusetts-infantry": {
+   "rows_now": 1282,
+   "rows_stored": 1282,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1282,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1282,
+    "name_ok": 1282,
+    "remark_ok": 1282,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1282,
+    "page_null": 0,
+    "rank_ok": 1282,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-37th-massachusetts-infantry": {
+   "rows_now": 1310,
+   "rows_stored": 1310,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 1310,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 1310,
+    "name_ok": 1310,
+    "remark_ok": 1310,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 1310,
+    "page_null": 21,
+    "rank_ok": 1310,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-1st-massachusetts-cavalry": {
+   "rows_now": 2341,
+   "rows_stored": 2341,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 2341,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 2341,
+    "name_ok": 2341,
+    "remark_ok": 2341,
+    "remark_gap_rows": 1,
+    "remark_empty": 0,
+    "page_ok": 2341,
+    "page_null": 0,
+    "rank_ok": 2341,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-1st-massachusetts-battery-a": {
+   "rows_now": 265,
+   "rows_stored": 265,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 265,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 265,
+    "name_ok": 265,
+    "remark_ok": 265,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 265,
+    "page_null": 0,
+    "rank_ok": 265,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-3rd-massachusetts-battery-c": {
+   "rows_now": 258,
+   "rows_stored": 258,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 258,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 258,
+    "name_ok": 258,
+    "remark_ok": 258,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 258,
+    "page_null": 0,
+    "rank_ok": 258,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-5th-massachusetts-battery-e": {
+   "rows_now": 331,
+   "rows_stored": 331,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 331,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 331,
+    "name_ok": 331,
+    "remark_ok": 331,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 331,
+    "page_null": 0,
+    "rank_ok": 331,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  },
+  "u-ma-9th-massachusetts-battery": {
+   "rows_now": 329,
+   "rows_stored": 329,
+   "added": 0,
+   "removed": 0,
+   "changed": 0,
+   "unchanged": 329,
+   "added_rows": [],
+   "changed_rows": [],
+   "removed_rows": [],
+   "verify": {
+    "rows": 329,
+    "name_ok": 329,
+    "remark_ok": 329,
+    "remark_gap_rows": 0,
+    "remark_empty": 0,
+    "page_ok": 329,
+    "page_null": 0,
+    "rank_ok": 329,
+    "rank_empty": 0,
+    "order_breaks": 0
+   }
+  }
+ },
+ "totals": {
+  "added": 4,
+  "removed": 4,
+  "changed": 4,
+  "unchanged": 33779,
+  "rows_now": 33787,
+  "rows_stored": 33787
+ }
+}

@@ -1,0 +1,3977 @@
+{
+ "_doc": "Register of works soldiers built or improved, 26 June - 14 July 1863 (tools/bt/life/build_inventory.py). A register of CANDIDATES: nothing is marked documented here; the rows of evidence/<group>.jsonl are the evidence. source_status: evidence_row (a row of this pass cites a verbatim passage), closeout_supported (the fence close-out matched quotes for part of it), pdf_only (the plan prints it, no text read for this pass), search_target. Works that touch a pre-existing feature (PDF B.7.3, contract.json preexisting) are never construction.",
+ "built": "2026-11-14",
+ "counts": {
+  "evidence_row": 7,
+  "closeout_supported": 44,
+  "pdf_only": 3,
+  "search_target": 20
+ },
+ "count": 74,
+ "works": [
+  {
+   "id": "E-01",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "I Corps remnants under Wainwright's artillery (20-22 guns)",
+   "place": "Seminary Ridge, in the small wood in front of Schmucker Hall",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "I Corps remnants under Wainwright's artillery (20-22 guns); no crew list printed",
+   "builder_unit_ids": [
+    "us-1c-art"
+   ],
+   "builder_unresolved": [],
+   "builder_known": true,
+   "window_printed": {
+    "start": "Jul 1, afternoon, before about 16:00",
+    "end": "Overrun about 16:00-16:30"
+   },
+   "window_minutes": {
+    "earliest": null,
+    "latest_start": 44160
+   },
+   "tools_men_in_plan": "I Corps remnants under Wainwright's artillery (20-22 guns); no crew list printed",
+   "flags": [
+    "No start time, no crew list"
+   ],
+   "owner_group": "us-1c",
+   "source_status": "evidence_row",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-01",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-01.a",
+      "claim": "A barricade/breastwork of rails stood in front of (west of) the Seminary on Jul 1 and was used by First Corps troops.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-01.b",
+      "claim": "Order and builder: Doubleday directed Robinson's division to throw up intrenchments on arrival; Robinson set Paul's First Brigade to work at the Seminary; the 16th Maine and 94th NY threw up the barricade.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-01.b2",
+      "claim": "Attribution conflict: McFarland credits the rail-and-stump breastwork to 'the Second Brigade, Second Division'; Robinson, Farnham, Moffett and the Maine and Pennsylvania regimental books credit the First Brigade; Robinson (7th Wis.) suppose",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-01.c",
+      "claim": "Material: rails and stumps, with earth; the Maine adjutant says 'fence rails'.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-01.d",
+      "claim": "Place: west edge of the Seminary grove, parallel with the Seminary, about 40 yd down the slope from a battery on the ridge; 'just in front of the seminary'.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-01.e",
+      "claim": "Time of the work: Robinson's division reached the field about 11:00 (Baxter, same division) and the First Brigade was set at work at once; the 16th Maine left for the right about one o'clock; Cooper's battery came behind 'a barricade of rai",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-01.f",
+      "claim": "Gun count on the line: Hunt gives sixteen guns concentrated at the Seminary plus Stewart's six (22 in four batteries: Cooper B-1st Pa. four, Stevens 5th Maine six, L-1st NY six, Stewart B-4th US six); Wainwright says twelve concentrated.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-01.g",
+      "claim": "Length of the barricade about 600 yd.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-01.h",
+      "claim": "Fences dismantled along about 600 yd to make the barricade.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-01.h2",
+      "claim": "Form: a circular or semicircular redoubt or line of earth and fence rails west of the seminary (a curved plan).",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-01.i",
+      "claim": "Overrun or turned: Cooper (Union, Battery B, 1st Pa.) says Perrin placed a regiment on the left of the barricade 'and turned our position after 4 p.m.'; Pender ordered the advance 'about 4 o'clock' (Confederate clock); the NPS says the Unio",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-01.k",
+      "claim": "Purpose and use: the work was ordered as a fall-back line ('to which, in case of necessity, the line of battle could retire'); 'a final stand was made' at 'a barricade of rails which had been thrown up early in the day by Robinson's men', w",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": [
+    "us-1c-L002"
+   ],
+   "timeline_rows": [
+    {
+     "id": "T1-136",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "OR Ser.I vol.27 pt.1, OR27-1-R029 Doubleday p.250; R057 Gates p.317; R071 Wainwright p.356"
+    },
+    {
+     "id": "T1-137",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "OR Ser.I vol.27 pt.1, OR27-1-R029 Doubleday p.250"
+    }
+   ]
+  },
+  {
+   "id": "E-02",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Wadsworth's 1st Division, I Corps, led by the 6th Wisconsin (Dawes), then the rest of the division",
+   "place": "Culp's Hill north slope, Stevens' Knoll to the summit",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "6th Wisconsin (Dawes), then the rest of Wadsworth's division; tool count capped at 12 (about a dozen spades and shovels)",
+   "builder_unit_ids": [
+    "us-1c-1d",
+    "us-1c-1d-meredith-6wi"
+   ],
+   "builder_unresolved": [],
+   "builder_known": true,
+   "window_printed": {
+    "start": "Jul 1 evening (inferred about 18:00-21:00)",
+    "end": "Rudimentary line by nightfall"
+   },
+   "window_minutes": {
+    "earliest": 44280,
+    "latest_start": 44460
+   },
+   "tools_men_in_plan": "6th Wisconsin (Dawes), then the rest of Wadsworth's division; tool count capped at 12 (about a dozen spades and shovels)",
+   "flags": [],
+   "owner_group": "us-1c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-02",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-02.a",
+      "claim": "Evening of Jul 1: Wadsworth's First Division, I Corps, was ordered to the hill on the right of the cemetery (Culp's Hill) and held it Jul 2-3; Hancock placed it there.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-02.b",
+      "claim": "The 7th Indiana began a temporary breastwork on arrival, by command of Wadsworth, on the hill east of Gettysburg that formed the extreme right of the line.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-02.c",
+      "claim": "6th Wisconsin (Dawes) intrenched on its own initiative, using a dozen spades and shovels from the regimental wagon, on the right of the brigade line (participant memoir, 1890).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-02.d",
+      "claim": "Clock window about 18:00-21:00 Jul 1 (inferred); the only printed time word is 'the first night of the battle' (Curtis 1891).",
+      "tier": "inferred",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-02.e",
+      "claim": "The 6th Wisconsin began first and the rest of the division followed.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-02.f",
+      "claim": "Fabric: logs and earth.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-02.g",
+      "claim": "The 24th Michigan's remnant ('the ninety and nine of the regiment that rallied around the flag on Culp's Hill the evening of the first day's fight') built a line of breastworks on Culp's Hill 'the first night of the battle': the remnant of ",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T1-181",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "OR Ser.I vol.27 pt.1, OR27-1-R038 Col. Ira G. Grover, p. 284"
+    },
+    {
+     "id": "T1-202",
+     "status": "verified_against_or_text",
+     "tier": "inferred",
+     "citation": "OR Ser.I vol.27 pt.1, OR27-1-R038 Col. Ira G. Grover, p. 284"
+    },
+    {
+     "id": "T2-008",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "Rufus R. Dawes, Service with the Sixth Wisconsin Volunteers (1890), printed p.179, text read at archive.org item servsixthwiscon00dawerich ("
+    }
+   ]
+  },
+  {
+   "id": "E-03",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "123rd NY (1st Division, XII Corps)",
+   "place": "Lower Culp's Hill summit",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "123rd NY (1st Division, XII Corps)",
+   "builder_unit_ids": [
+    "us-12c-1d-mcdougall-123ny"
+   ],
+   "builder_unresolved": [],
+   "builder_known": true,
+   "window_printed": {
+    "start": "Jul 1",
+    "end": "Not stated"
+   },
+   "window_minutes": {
+    "earliest": 43200,
+    "latest_start": 44639
+   },
+   "tools_men_in_plan": null,
+   "flags": [
+    "Start hour not given; conflicts with the 6 a.m. Jul 2 corps start (E-05), carried not resolved"
+   ],
+   "owner_group": "us-12c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-03",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-03.a",
+      "claim": "Date of construction: the morning of Jul 2 (the night of Jul 1 on the arms; the PDF's Jul 1 is contradicted).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-03.b",
+      "claim": "Duration: the work went on until late in the afternoon; the regiment marched to the left about 16:00 (Rogers); the division was ordered to the left about 18:00 (Ruger) - a clock difference carried.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-03.c",
+      "claim": "Division works: ordered about 09:00 Jul 2 to the ridge called Culp's Hill; breastworks of logs, rocks and earth built at once along the whole line; a stone wall about 75 yd behind the First Brigade's works.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-03.d",
+      "claim": "Stone wall about 10 rods (about 165 ft) behind the work, per a soldier's letter.",
+      "tier": "open_gap",
+      "support": "blocked_host"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T1-182",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "OR Ser.I vol.27 pt.1, OR27-1-R274 Col. Archibald L. McDougaU, p. 783; OR Ser.I vol.27 pt.1, OR27-1-R273 Brig. Gen. Thomas H. Euger, p. ~779 "
+    },
+    {
+     "id": "T2-009",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "OR27-1-R279 Lt. Col. J. C. Rogers (123rd NY) p.798; OR27-1-R274 Col. A. L. McDougall p.783"
+    }
+   ]
+  },
+  {
+   "id": "E-04",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Von Steinwehr's division and two batteries; Howard left infantry and artillery; Hancock directed troops after 16:00",
+   "place": "Cemetery Hill",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "Von Steinwehr's division and two batteries; Howard left infantry and artillery; Hancock directed troops after 16:00",
+   "builder_unit_ids": [
+    "us-11c-2d",
+    "us-11c-art"
+   ],
+   "builder_unresolved": [],
+   "builder_known": true,
+   "window_printed": {
+    "start": "Jul 1, afternoon-night",
+    "end": "Not stated"
+   },
+   "window_minutes": {
+    "earliest": 43200,
+    "latest_start": 44639
+   },
+   "tools_men_in_plan": null,
+   "flags": [
+    "method undetailed (\"Fortified\"); soft"
+   ],
+   "owner_group": "us-11c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-04",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-04.a",
+      "claim": "Infantry on Cemetery Hill were covered by existing stone fences (Jul 1 and Jul 2); no construction is stated.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-04.b",
+      "claim": "At dusk Jul 1 light earthworks were thrown up in front of each gun of the batteries outside the cemetery gate (Wainwright, Hunt); Breck's battery position was intrenched by order of Wainwright; Whittier: temporary earthworks covering the pi",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-04.c",
+      "claim": "Von Steinwehr (or the Eleventh Corps) fortified Cemetery Hill on Jul 1: books of 1875-1914 say so (Bates: Steinwehr 'threw up lunettes around each gun'; Curtis: lunettes 'which ... General Steinwehr ... had hastily constructed during the da",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-04.e",
+      "claim": "Hancock, who reached the field 'about 3 P. M., or between that and 3:30' (letter of 1878), says of the statement that Steinwehr's division threw up lunettes around each gun on Cemetery Hill: 'This is a great error; there were no works of th",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-04.d",
+      "claim": "Cemetery fences smashed: Howard dates it to the cannonade of about 13:00 (Jul 3); the schedule row says Jul 2.",
+      "tier": "documented",
+      "support": "conflict"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T1-127",
+     "status": "gap",
+     "tier": "open gap",
+     "citation": "OR Ser.I vol.27 pt.1, OR27-1-R250 Brig. Gen. Adolph von Steinwehr, p.721"
+    },
+    {
+     "id": "T1-183",
+     "status": "gap",
+     "tier": "inferred",
+     "citation": "OR Ser.I vol.27 pt.1, OR27-1-R265 Capt. Michael Wiedrich, p. 752; OR Ser.I vol.27 pt.1, OR27-1-R028 Brig. Gen. Henry J. Hunt, p. 232"
+    },
+    {
+     "id": "T2-084",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "OR27/1 R028 Hunt p.232; OR27/1 R071 Wainwright p.357; OR27/1 R073 Whittier p.361"
+    }
+   ]
+  },
+  {
+   "id": "E-05",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Greene's 3rd Brigade, XII Corps (60th, 78th, 102nd, 137th, 149th NY)",
+   "place": "Upper Culp's Hill (60th NY upper crest, 102nd and 149th in the saddle, 137th lower crest, 78th reserve)",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "Greene's 3rd Brigade, XII Corps (60th, 78th, 102nd, 137th, 149th NY)",
+   "builder_unit_ids": [
+    "us-12c-2d-greene",
+    "us-12c-2d-greene-60ny",
+    "us-12c-2d-greene-78ny",
+    "us-12c-2d-greene-102ny",
+    "us-12c-2d-greene-137ny",
+    "us-12c-2d-greene-149ny"
+   ],
+   "builder_unresolved": [],
+   "builder_known": true,
+   "window_printed": {
+    "start": "About 06:00 Jul 2 (HistoryNet King, HMDB)",
+    "end": "About 09:00-10:00 (3-4 hours); finished by about 10:00 (DMNA) or about noon (Gettysburg Daily)"
+   },
+   "window_minutes": {
+    "earliest": 45000,
+    "latest_start": 45000
+   },
+   "tools_men_in_plan": null,
+   "flags": [],
+   "owner_group": "us-12c",
+   "source_status": "evidence_row",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-05",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-05.a",
+      "claim": "Start about 06:00 Jul 2 (not the night of Jul 1-2): the brigade camped the night of Jul 1 near Little Round Top and was marched to Culp's Hill about 06:00.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-05.b",
+      "claim": "Materials and method: felled trees blocked up into a close log fence, cordwood piles set slanting against the outer face, stones, earth where spades and picks were at hand.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-05.c",
+      "claim": "Finish: about 09:00 (60th NY), about 10:00 (Jones), 'by 12 o'clock' good cover (Greene), about noon (137th NY, Eddy).",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-05.d",
+      "claim": "Height about 5 ft (the only height figure).",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-05.e",
+      "claim": "Length about 300 yd at first.",
+      "tier": "open_gap",
+      "support": "blocked_host"
+     },
+     {
+      "sc": "R14.E-05.f",
+      "claim": "Head logs on much of the line; boughs and logs in front as concealment; rifle pits.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-05.g",
+      "claim": "Greene, a former railroad engineer, ordered the works against the view of Slocum and Geary.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": [
+    "us-12c-L001"
+   ],
+   "timeline_rows": [
+    {
+     "id": "T2-059",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "OR27-1-R307 Greene p.856; OR27-1-R293 Geary p.826"
+    },
+    {
+     "id": "T2-061",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "OR27-1-R307 Greene pp.855-856; OR27-1-R302 Kane p.846"
+    },
+    {
+     "id": "T2-081",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "OR27/1 R307 Greene p.856; OR27/1 R293 Geary p.826; OR27/1 R272 Williams p.773"
+    }
+   ]
+  },
+  {
+   "id": "E-06",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Greene (supervised personally)",
+   "place": "Right-hand end of Greene's line, running back along a ridge crest toward the Baltimore Pike; where the line dropped into the swale",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "Greene (supervised personally); 137th NY traversing trench",
+   "builder_unit_ids": [
+    "us-12c-2d-greene",
+    "us-12c-2d-greene-137ny"
+   ],
+   "builder_unresolved": [],
+   "builder_known": true,
+   "window_printed": {
+    "start": "Jul 2 morning, with E-05",
+    "end": "Work continued through the day"
+   },
+   "window_minutes": {
+    "earliest": 44640,
+    "latest_start": 46079
+   },
+   "tools_men_in_plan": null,
+   "flags": [],
+   "owner_group": "us-12c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-06",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-06.a",
+      "claim": "The 137th NY commenced a traverse on the brigade's right during the morning works; it was extended about twenty yards.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-06.b",
+      "claim": "Evening use: after the 18:30 withdrawal the 137th held Kane's trenches; about 20:00 attacked on its right, Ireland threw his line back perpendicular to the intrenchments; about 22:00 the regiment fell back to the traverse and reformed.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-06.c",
+      "claim": "Traverse built in the morning with E-05 (PDF).",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-06.d",
+      "claim": "Traverse height, profile, and 'right angle' geometry.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T2-081",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "OR27/1 R307 Greene p.856; OR27/1 R293 Geary p.826; OR27/1 R272 Williams p.773"
+    }
+   ]
+  },
+  {
+   "id": "E-07",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Kane's 2nd Brigade (Greene's right) and Wadsworth's I Corps men (Greene's left)",
+   "place": "Culp's Hill, either side of Greene",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "Kane's 2nd Brigade (Greene's right) and Wadsworth's I Corps men (Greene's left)",
+   "builder_unit_ids": [
+    "us-12c-2d-kane",
+    "us-1c-1d"
+   ],
+   "builder_unresolved": [],
+   "builder_known": true,
+   "window_printed": {
+    "start": "Jul 2 morning",
+    "end": "About same as E-05"
+   },
+   "window_minutes": {
+    "earliest": 44640,
+    "latest_start": 46079
+   },
+   "tools_men_in_plan": null,
+   "flags": [
+    "per-regiment times not found"
+   ],
+   "owner_group": "us-12c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-07",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-07.a",
+      "claim": "Kane's brigade threw up a substantial breastwork of logs, stone and earth, at right angles to the Third Brigade's works, on a wooded hill.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-07.b",
+      "claim": "Clock: Kane assumed command at 06:00 Jul 2 and the brigade was ordered into line 'soon after'; the breastwork was done 'before sundown'; Cobham says the brigade remained there until evening.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-07.c",
+      "claim": "Wadsworth's First Corps men on Greene's left had works: Cutler's brigade threw up breastworks; the 60th NY connected with the right of the First Corps; the 95th NY held intrenchments on the right on Jul 2-3.",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T2-061",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "OR27-1-R307 Greene pp.855-856; OR27-1-R302 Kane p.846"
+    }
+   ]
+  },
+  {
+   "id": "E-08",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Williams's division, XII Corps (including Lockwood's brigade, position unconfirmed)",
+   "place": "Lower Culp's Hill",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "Williams's division, XII Corps (including Lockwood's brigade, position unconfirmed)",
+   "builder_unit_ids": [
+    "us-12c-1d",
+    "us-12c-1d-lockwood"
+   ],
+   "builder_unresolved": [],
+   "builder_known": true,
+   "window_printed": {
+    "start": "Jul 2 morning (on arrival)",
+    "end": "Not stated"
+   },
+   "window_minutes": {
+    "earliest": 44640,
+    "latest_start": 46079
+   },
+   "tools_men_in_plan": null,
+   "flags": [
+    "Lockwood's brigade position and work: open gap",
+    "timeline T1-201 puts the log breastwork on arrival on the night of 1 July; works_stages E-08 says the morning of 2 July: carry both as scenarios (no default)"
+   ],
+   "owner_group": "us-12c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-08",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-08.a",
+      "claim": "Ruger's division was ordered about 09:00 Jul 2 to the ridge called Culp's Hill and built breastworks of logs, rocks and earth along the whole line.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-08.b",
+      "claim": "The Third Brigade (Colgrove): 107th NY ordered to construct breastworks; works of rails, timber and stone speedily thrown up along the whole line.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-08.b2",
+      "claim": "The 3rd Wisconsin (Colgrove's brigade) threw up breastworks of earth and rails and threw down stone walls and fences in its front that might give the enemy cover (removal of fences and walls as a defensive act).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-08.c",
+      "claim": "Candy's 29th PA (Geary's division) began to fortify its own position on the 2d and ordered away at 19:00.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-08.d",
+      "claim": "Lockwood's brigade position and work on Jul 2: none; the brigade reached the First Division at 08:00 Jul 3 and was later ordered to occupy the breastworks on the right.",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T1-201",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "OR Ser.I vol.27 pt.1, OR27-1-R273 Brig. Gen. Thomas H. Euger, p. 777; OR Ser.I vol.27 pt.1, OR27-1-R273 Brig. Gen. Thomas H. Euger, p. ~779 "
+    },
+    {
+     "id": "T2-071",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "OR27/1 R282 Lockwood p.804; OR27/1 R272 Williams p.773"
+    }
+   ]
+  },
+  {
+   "id": "E-09",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Greene's brigade alone (plus about 750 reinforcements from I and XI Corps later)",
+   "place": "Whole Culp's Hill line",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "Greene's brigade alone (plus about 750 reinforcements from I and XI Corps later)",
+   "builder_unit_ids": [
+    "us-12c-2d-greene"
+   ],
+   "builder_unresolved": [],
+   "builder_known": true,
+   "window_printed": {
+    "start": "18:30 Jul 2",
+    "end": "Evening"
+   },
+   "window_minutes": {
+    "earliest": 45750,
+    "latest_start": 45750
+   },
+   "tools_men_in_plan": "Greene's brigade alone (plus about 750 reinforcements from I and XI Corps later)",
+   "flags": [],
+   "owner_group": "us-12c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-09",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-09.a",
+      "claim": "About 18:30-19:00 Williams's division and Geary's First and Second Brigades left; Greene was ordered to occupy the whole of the intrenchments with his brigade.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-09.b",
+      "claim": "Single thin line: men about a foot apart behind the breastworks.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-09.c",
+      "claim": "Reinforcements: about 400 men of the Eleventh Corps and about 350 of Wadsworth's division, 750 together.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-09.d",
+      "claim": "A 'hastily built extension' of the works.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-09.e",
+      "claim": "Line length about 800 yd.",
+      "tier": "open_gap",
+      "support": "blocked_host"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T3-004",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "[\"OR27-1-R307 Brig. Gen. George S. Greene p.856\", \"OR27-1-R293 Brig. Gen. John W. Geary p.833\", \"OR27-1-R293 Brig. Gen. John W. Geary p.826\""
+    }
+   ]
+  },
+  {
+   "id": "E-10",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Steuart's brigade (1st Maryland Battalion, 1st and 3rd NC, 10th, 23rd, 37th VA)",
+   "place": "Empty lower-hill Union works (the 1st Division, Kane and Candy areas)",
+   "kind": "not_construction",
+   "why_not_construction": "Occupation, not construction (Steuart enters the empty lower-hill works; rows S-042).",
+   "builder_printed": "Steuart's brigade (1st Maryland Battalion, 1st and 3rd NC, 10th, 23rd, 37th VA)",
+   "builder_unit_ids": [
+    "cs-2c-johnson-steuart"
+   ],
+   "builder_unresolved": [],
+   "builder_known": null,
+   "window_printed": {
+    "start": "After dark Jul 2 (about 19:00-22:00; Johnson's attacks ended by about 10 p.m.)",
+    "end": "Held several hours; driven out Jul 3"
+   },
+   "window_minutes": {
+    "earliest": null,
+    "latest_start": null
+   },
+   "tools_men_in_plan": null,
+   "flags": [],
+   "owner_group": "cs-2c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-10",
+    "verdict": "confirmed",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-10.a",
+      "claim": "Steuart's brigade held part of the Union works from the night of Jul 2 until ordered out at noon Jul 3.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-10.b",
+      "claim": "Version A (Confederate): the brigade charged the work and scattered the enemy behind it.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-10.c",
+      "claim": "Version B (Union): the works were left unoccupied; the enemy took possession in the absence of the regiments.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-10.d",
+      "claim": "Clock: Johnson's attack 'about dusk' after the artillery stopped just before sundown; Greene attacked a few minutes before 19:00; enemy in the works on Greene's right about 20:00.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-10.e",
+      "claim": "The window 19:00-22:00 as a whole.",
+      "tier": "inferred",
+      "support": "partial"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T3-009",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "[\"OR27-2-R482 Brig. Gen. George H. Steuart p.511\", \"OR27-2-R482 Brig. Gen. George H. Steuart p.510\", \"OR27-1-R286 Col. Silas Colgrove p.813\""
+    },
+    {
+     "id": "T3-024",
+     "status": "partially_verified",
+     "tier": "inferred",
+     "citation": "[\"OR27-1-R273 Brig. Gen. Thomas H. Ruger p.780\", \"OR27-1-R307 Brig. Gen. George S. Greene p.857\", \"OR27-1-R028 Brig. Gen. Henry J. Hunt p.23"
+    }
+   ]
+  },
+  {
+   "id": "E-11",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "XII Corps, Geary, Greene; Union artillery (including Powers Hill guns)",
+   "place": "Culp's Hill",
+   "kind": "not_construction",
+   "why_not_construction": "Shelling/damage state of Culp's Hill works (stage 6) rather than a construction (rows S-050, S-056).",
+   "builder_printed": "XII Corps, Geary, Greene; Union artillery (including Powers Hill guns)",
+   "builder_unit_ids": [
+    "us-12c",
+    "us-12c-2d-greene"
+   ],
+   "builder_unresolved": [],
+   "builder_known": null,
+   "window_printed": {
+    "start": "About 04:00 Jul 3",
+    "end": "Battle ended about 11:00"
+   },
+   "window_minutes": {
+    "earliest": null,
+    "latest_start": null
+   },
+   "tools_men_in_plan": null,
+   "flags": [],
+   "owner_group": "us-12c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-11",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-11.a",
+      "claim": "Union artillery opened about 03:30-04:00 Jul 3.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-11.b",
+      "claim": "Duration of the bombardment: ten minutes, then about fifteen minutes after a twenty-minute pause (Geary); pieces: fourteen under Muhlenberg plus Knap's battery.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-11.c",
+      "claim": "Rounds fired by Geary's command on Jul 3 and in later skirmishing: 277,000.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-11.d",
+      "claim": "Works retaken early; the 147th Pa. charged and carried a stone wall at 05:00 (existing wall); battle ended about 10:30-11:00.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-11.e",
+      "claim": "Physical damage state of the works after the shelling.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-11.f",
+      "claim": "A second account of the Jul 3 Union cannonade: the 5th Maine battery's history says 'Twenty guns in all opened at 4 a. m., at the short range of 600-800 yards, on the enemy holding possession of that portion of our line vacated the evening ",
+      "tier": "documented",
+      "support": "conflict"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "E-12",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Union batteries; builders unnamed (likely battery crews and infantry details: inference)",
+   "place": "East Cemetery Hill, lunettes near the gatehouse (Stewart's Battery B, 4th US occupied a lunette; Battery L, 1st NY also marked)",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "Union batteries; builders unnamed (likely battery crews and infantry details: inference)",
+   "builder_unit_ids": [],
+   "builder_unresolved": [],
+   "builder_known": false,
+   "window_printed": {
+    "start": "Between Jul 1 evening and noon Jul 2 (inferred)",
+    "end": "Existing by about 16:00 Jul 2"
+   },
+   "window_minutes": {
+    "earliest": null,
+    "latest_start": 45360
+   },
+   "tools_men_in_plan": null,
+   "flags": [
+    "PDF B.7.1: a work whose builder cannot be attributed is still built on screen by a labeled stand-in crew and flagged \"builder unknown\""
+   ],
+   "owner_group": "us-11c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-12",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-12.a",
+      "claim": "Per-gun earthworks at the batteries outside the cemetery gate were thrown up at dusk Jul 1 (Stewart's Battery B, 4th US among them); the battery commander of Battery L, 1st NY, had his position intrenched by order of the artillery chief; th",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-12.b",
+      "claim": "Builders: the battery crews (Cooper's Battery B, 1st Pa. finished four lunettes on the morning of Jul 2; the 1st NY battery men commenced redans or lunettes for each gun; artillerymen on the hill completed the lunettes begun at dusk).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-12.c",
+      "claim": "Form: lunette (semi-circular earthen berm built by artillery crews). The word is not in OR Part 1.",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-12.d",
+      "claim": "Window: begun at dusk Jul 1; finished the morning of Jul 2; in use at 16:00 Jul 2 (Cooper: the Confederate artillery crash came at 4 p.m.).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-12.f",
+      "claim": "Who built the East Cemetery Hill lunettes and when: battery crews and artillerymen at dusk Jul 1 and on the morning of Jul 2 (sub-claims a, b, d) vs General Steinwehr's division, solid works 'of such height and thickness as to defy the most",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-12.e",
+      "claim": "Dimensions of the 1863 lunettes.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T1-183",
+     "status": "gap",
+     "tier": "inferred",
+     "citation": "OR Ser.I vol.27 pt.1, OR27-1-R265 Capt. Michael Wiedrich, p. 752; OR Ser.I vol.27 pt.1, OR27-1-R028 Brig. Gen. Henry J. Hunt, p. 232"
+    }
+   ]
+  },
+  {
+   "id": "E-13",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Vincent's brigade (16th Michigan, 44th NY, 83rd PA, 20th Maine)",
+   "place": "Little Round Top",
+   "kind": "not_construction",
+   "why_not_construction": "No construction attributed; natural ledges and boulders.",
+   "builder_printed": "Vincent's brigade (16th Michigan, 44th NY, 83rd PA, 20th Maine)",
+   "builder_unit_ids": [
+    "us-5c-1d-vincent"
+   ],
+   "builder_unresolved": [],
+   "builder_known": null,
+   "window_printed": {
+    "start": "Arrived about 15:30-16:00 Jul 2",
+    "end": "Fought at once"
+   },
+   "window_minutes": {
+    "earliest": null,
+    "latest_start": null
+   },
+   "tools_men_in_plan": null,
+   "flags": [],
+   "owner_group": "us-5c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-13",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-13.a",
+      "claim": "The 83rd Pennsylvania built a hasty defense of rocks and stones before the Confederate attack of Jul 2 (move into position at about 14:30, attack at 15:15, fight to nearly 18:00).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-13.b",
+      "claim": "Natural cover: rocks and cliffs in the centre and a ledge of rocks on the right of Vincent's line; no works mentioned by Rice, Chamberlain, the 16th Michigan, 44th NY.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-13.c",
+      "claim": "A field stone wall at the Jacob Weikert farm (20th Maine Company B position) existed before the battle: about 135 ft long and 2 ft high (NPS).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-13.e",
+      "claim": "20th Maine Company B and the 2nd US Sharpshooters used a wall (a stone wall about 150 yd east of the hill for the sharpshooters).",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-13.d",
+      "claim": "No construction at all on Little Round Top by Vincent's brigade (the PDF's positive claim).",
+      "tier": "open_gap",
+      "support": "contradicted"
+     },
+     {
+      "sc": "R14.E-13.f",
+      "claim": "The 44th NY on Little Round Top threw up a small breastwork during the fighting of Jul 2: 'Our brigade lay on the side hill. It was covered with large stones. We threw up a small breast-work to protect us.' (a veteran of Company A, quoted b",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-13.g",
+      "claim": "A veteran of the 1st Pennsylvania Reserves wrote in 1892 that the stone breastworks in front of the 16th Michigan's line 'were not there at the time of the battle [on July 2] at that point' and were thrown up on the night of Jul 3 'principa",
+      "tier": "documented",
+      "support": "partial"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "E-14",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Weed's brigade, five Pennsylvania Reserve regiments, an Ohio battery",
+   "place": "Little Round Top, south slope",
+   "kind": "labour",
+   "why_not_construction": null,
+   "builder_printed": "Weed's brigade, five Pennsylvania Reserve regiments, an Ohio battery",
+   "builder_unit_ids": [
+    "us-5c-2d-weed",
+    "us-5c-3d-fisher"
+   ],
+   "builder_unresolved": [],
+   "builder_known": true,
+   "window_printed": {
+    "start": "Evening Jul 2 (about 20:00 inferred) or after",
+    "end": "Into Jul 3"
+   },
+   "window_minutes": {
+    "earliest": 45840,
+    "latest_start": null
+   },
+   "tools_men_in_plan": null,
+   "flags": [
+    "conflict: NPS says built on July 2; Wikipedia says on the evening of July 2 or after"
+   ],
+   "owner_group": "us-5c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-14",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-14.a",
+      "claim": "Weed's brigade (Garrard commanding at the time of writing) built a stone wall about halfway down the slope at night on Jul 2.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-14.b",
+      "claim": "Fisher's Reserves: the 5th and 12th Pennsylvania Reserves and the 20th Maine went up Round Top at 22:00 Jul 2; in the morning (Jul 3) the other regiments threw up a stone wall across the entire ravine and up the hill.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-14.c",
+      "claim": "Union infantry built stone breastworks from the boulder-strewn slopes during the night of Jul 2 and the morning of Jul 3; stone wall defense works typically two to three feet high, none built for permanence; O'Sullivan photographed stone br",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-14.f",
+      "claim": "Confederate witnesses on the Round Top mountain side: the enemy built two lines (Benning) or three lines plus a fourth (Waddell) of stone breastworks through the night of Jul 2-3, complete at dawn.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-14.g",
+      "claim": "The 91st Pa. (Weed's brigade) threw up a stone wall during the night of Jul 2 as a protection from sharpshooters at Devil's Den, drawn up in front of Battery D, 5th US, where Weed and Hazlett were killed (address of Chaplain Joseph Welch at",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-14.h",
+      "claim": "The 140th NY built stone walls 'in the dark' after the first day's fighting (Jul 2) to protect the men from sharpshooters on the next day (Hazen, National Tribune 1894, quoted by the NPS).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-14.i",
+      "claim": "The 146th NY: once the regiments of Weed's brigade took position, men from each went down the slope behind the rocks and 'were also instructed by Colonel Garrand to erect a rough stone wall', before the Confederate attack of the afternoon o",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-14.j",
+      "claim": "A veteran of the 1st Pa. Reserves (1892): the stone breastworks in front of the 16th Michigan 'were thrown up on the night of the 3rd of July, 1863 principally by Crawford's Division of the Fifth Corps'.",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-14.k",
+      "claim": "A Confederate heard the building at dark on Jul 2: 'It was now dark, but we could distinctly hear great confusion on Little Round Top, - the men hastily throwing up rock intrenchments, the officers cursing' (a Confederate colonel printed as",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-14.d",
+      "claim": "Builders 'five Pennsylvania Reserve regiments and an Ohio battery': the Pennsylvania Reserves (Fisher's brigade in the morning of Jul 3; Crawford's division on the night of Jul 3 per Hamilton) are documented as builders; an Ohio battery has",
+      "tier": "open_gap",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-14.e",
+      "claim": "Start about 20:00 Jul 2 (inferred): the printed time words are 'at night' (Garrard), 'during the night' (91st Pa.), 'in the dark' (140th NY), 'It was now dark' (a Confederate colonel), against an instruction before the attack of Jul 2 (146t",
+      "tier": "inferred",
+      "support": "partial"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T2-196",
+     "status": "partially_verified",
+     "tier": "inferred",
+     "citation": "OR Ser.I vol.27 pt1 OR27-1-R220 Fisher"
+    },
+    {
+     "id": "T3-029",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "[\"OR27-1-R217 Col. Kenner Garrard p.652\", \"OR27-1-R220 Col. Joseph W. Fisher p.658\", \"OR27-1-R217 Col. Kenner Garrard p.652\"]"
+    }
+   ]
+  },
+  {
+   "id": "E-15",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Hazlett's Battery D, 5th US (six guns)",
+   "place": "Little Round Top summit",
+   "kind": "not_construction",
+   "why_not_construction": "Improvised gun position, hand-hauled, no prepared epaulement (rows S-038).",
+   "builder_printed": "Hazlett's Battery D, 5th US (six guns)",
+   "builder_unit_ids": [
+    "us-5c-art-5usd"
+   ],
+   "builder_unresolved": [],
+   "builder_known": null,
+   "window_printed": {
+    "start": "March about 16:30 Jul 2; first fire 17:45",
+    "end": "Fired until after dark; remained Jul 3"
+   },
+   "window_minutes": {
+    "earliest": null,
+    "latest_start": null
+   },
+   "tools_men_in_plan": null,
+   "flags": [],
+   "owner_group": "us-5c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-15",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-15.a",
+      "claim": "Move about 16:30 Jul 2 to Round Top; battery of six 10-pounders; opened immediately; continuous fire until dark.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-15.b",
+      "claim": "Hazlett fell after about an hour of fire (the PDF's first fire 17:45 would put that after 18:45); he died at 20:00; Garrard has the battery going into battery on the summit behind the 140th NY.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-15.c",
+      "claim": "Hand-hauling vs teams: dragged by hand by the 155th Pa.; lifted by hand and handspike; horses lashed to their utmost with the infantry at the wheels (four guns, per the 140th NY narrative); teams plunging under the lash.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R14.E-15.d",
+      "claim": "First fire 17:45.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-15.e",
+      "claim": "No prepared emplacement.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-15.f",
+      "claim": "Rittenhouse took command and the battery remained Jul 3.",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T2-153",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "[\"OR27-1-R028 Brig. Gen. Henry J. Hunt p.236\", \"OR27-1-R028 Brig. Gen. Henry J. Hunt p.236\"]"
+    }
+   ]
+  },
+  {
+   "id": "E-16",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Ward's brigade, Smith's 4th NY Battery",
+   "place": "Devil's Den / Houck's Ridge",
+   "kind": "not_construction",
+   "why_not_construction": "No works; Ward lacked time or inclination.",
+   "builder_printed": "Ward's brigade, Smith's 4th NY Battery",
+   "builder_unit_ids": [
+    "us-3c-1d-ward"
+   ],
+   "builder_unresolved": [],
+   "builder_known": null,
+   "window_printed": {
+    "start": "n/a",
+    "end": "n/a"
+   },
+   "window_minutes": {
+    "earliest": null,
+    "latest_start": null
+   },
+   "tools_men_in_plan": null,
+   "flags": [],
+   "owner_group": "us-3c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-16",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-16.a",
+      "claim": "Existing stone wall about 160 yd in advance, fought for for about an hour and a half.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-16.b",
+      "claim": "No works in Ward's brigade reports or Smith's battery report.",
+      "tier": "open_gap",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-16.c",
+      "claim": "Stone wall defense works were built in the vicinity of Devil's Den (builder and date unstated), typically two to three feet high.",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-16.d",
+      "claim": "Reason: Ward lacked time or inclination.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "E-17",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Unknown",
+   "place": "Cemetery Ridge, rail works",
+   "kind": "not_construction",
+   "why_not_construction": "Open gap: do not animate rail piles as documented.",
+   "builder_printed": "Unknown",
+   "builder_unit_ids": [],
+   "builder_unresolved": [],
+   "builder_known": null,
+   "window_printed": {
+    "start": "Unknown",
+    "end": "Unknown"
+   },
+   "window_minutes": {
+    "earliest": null,
+    "latest_start": null
+   },
+   "tools_men_in_plan": null,
+   "flags": [],
+   "owner_group": "us-2c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-17",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-17.a",
+      "claim": "Jul 1 evening (from about 17:00): Robinson's division made temporary breastworks on the line left of Cemetery Hill parallel with the Emmitsburg road; the 88th Pa. used rails and earth; the 107th Pa. threw up strong breastworks; Coulter buil",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-17.b",
+      "claim": "Jul 2 from about 16:00: Harrow's 15th Mass. and 82nd NY, sent forward when the Third Corps advanced at 16:00, tore down fences, piled rails and built breastworks along the Emmitsburg road right of the brick house; Hancock calls it a slight ",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-17.c",
+      "claim": "Jul 2 evening: the 80th NY (20th NYSM) and the 151st Pa. on the left center constructed a breastwork of the rail fence and other material; the same fence barricade proved of service next day.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-17.d0",
+      "claim": "Jul 2 morning: on General Webb's order the 69th Pa. took up its line behind a temporary breastwork made of fence rails, strengthened with stone, on the morning of July 2, and remained in that position until the enemy advanced about 4 o'cloc",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-17.d",
+      "claim": "Jul 3 morning to afternoon: 28th Mass. erected breastworks of rails and earth in the morning; Stone's brigade threw up rails-and-stone breastworks; 69th and 71st Pa. behind a low stone wall and a slight breastwork hastily constructed by the",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-17.e",
+      "claim": "Jul 3 about 18:00, after the repulse: the 88th Pa. ran to the center and at once threw up breastworks of rails.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-17.l",
+      "claim": "Jul 2 morning to about half an hour before sunset: the 126th NY (Willard's brigade, Hays's division, Second Corps) reached the front about 08:00, halted near the Cemetery, moved farther to the left, and on the crest made breastworks of 'a l",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-17.f",
+      "claim": "NPS: wooden rails of fences dismantled before Jul 2 fighting were used for new breastworks; breastworks east of the Emmitsburg Road north of Klingel used Klingel-Codori boundary fence material; rapid works mostly no higher than three feet; ",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-17.i",
+      "claim": "NPS (quoting the Comte de Paris): Gibbon's division, posted since the morning of Jul 2, strengthened its positions where possible by throwing earth over the existing stone wall (the wall in places topped by a common post-and-rail fence), co",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-17.j",
+      "claim": "NPS: a regiment on the left of Gibbon's division (Harrow's brigade; the sentence follows the account of the 1st Minnesota and 19th Maine) lay behind a slight breastwork it had constructed shortly after arriving at its place that morning (Ju",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-17.k",
+      "claim": "NPS: the 13th Vermont erected the breastworks of rails in its front during the forenoon (Jul 3), under the voluntary leadership of Sergeant George H. Scott, and was ordered forward to this slight breastwork of rails when Pickett's charge wa",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-17.g",
+      "claim": "A continuous line of rail breastworks along Cemetery Ridge.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-17.h",
+      "claim": "Dimensions (length, height, profile) of any other specific Cemetery Ridge work.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "E-18",
+   "origin": "structures/works_stages.json (PDF B.7.2)",
+   "name": "Confederate units",
+   "place": "Seminary Ridge, Warfield Ridge, Oak Hill, Benner's Hill, town barricades",
+   "kind": "not_construction",
+   "why_not_construction": "Open gap: no Confederate works found for Jul 2-3.",
+   "builder_printed": "Confederate units",
+   "builder_unit_ids": [],
+   "builder_unresolved": [],
+   "builder_known": null,
+   "window_printed": {
+    "start": "Unknown",
+    "end": "Unknown"
+   },
+   "window_minutes": {
+    "earliest": null,
+    "latest_start": null
+   },
+   "tools_men_in_plan": null,
+   "flags": [],
+   "owner_group": "cs-3c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.E-18",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.E-18.a",
+      "claim": "Town barricade: early Jul 2 the Confederates began barricading Middle Street (south side, Seminary Ridge to Stratton Street) and broke down fences on the north side so reinforcements could pass.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-18.b",
+      "claim": "Night of Jul 3-4 and Jul 4, Ewell's corps near the town: Steuart's brigade occupied and intrenched the crest toward midnight; the 26th Alabama intrenched on a hill commanding the city at 02:00 Jul 4; the 12th Alabama occupied and fortified ",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-18.c",
+      "claim": "Warfield Ridge / Emmitsburg Road, Jul 3-4: Hood's division (Benning's brigade on the left of the road) was ordered to erect breastworks on Jul 4; the 5th Texas threw up breastworks on the crest of the ridge from which the Jul 2 charge start",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-18.d",
+      "claim": "Lee ordered the troops to spend Jul 4 building and strengthening breastworks along the whole ridge from Oak Hill south to the Emmitsburg road; stacked-rail works through the seminary campus and Seminary Grove, earthen works on Oak Ridge (Da",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-18.e",
+      "claim": "A Union officer saw the Confederates fortify a wooded ridge half a mile in front in the night of Jul 3-4; McMillan's fencing was used in Confederate entrenchments after the Jul 1 Union withdrawal (NPS).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.E-18.f",
+      "claim": "Oak Hill and Seminary Ridge works on Jul 2-3; Benner's Hill works.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.E-18.g",
+      "claim": "NPS Cultural Landscapes Inventory (Pickett's Charge area): documented 1863 defenseworks include McMillan Woods earthworks and rifle pits, Pender's Division earthworks, Poague's Battalion lunettes and Spangler Woods defense works (dates with",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.E-18.h",
+      "claim": "Photograph: Confederate prisoners on a stacked-rail breastwork on Seminary Lane, circa 15 Jul 1863.",
+      "tier": "documented",
+      "support": "partial"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-01",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Calef, Battery A, 2nd US (six 3-inch rifles)",
+   "place": "McPherson Ridge",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Calef, Battery A, 2nd US (six 3-inch rifles)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "night of 30 Jun in a hollow; morning 1 Jul about 600 yd forward; relieved about 10:00",
+    "end": null
+   },
+   "method_printed": "improvised field position",
+   "tier_printed": "documented",
+   "flags": [
+    "improvised: no earth"
+   ],
+   "owner_group": "us-cav",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-01",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-01.a",
+      "claim": "Unit and guns: Battery A, 2nd US Artillery (Lt John H. Calef), six 3-inch.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-01.b",
+      "claim": "Guns serving on the morning of 2 Jul: five (short of men).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-01.c",
+      "claim": "Night of 30 Jun: 'just outside of town' on the road Calef calls the Carlisle road. The PDF's 'in a hollow' is in no source read.",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-01.d",
+      "claim": "Alarm and forward move on the morning of 1 Jul: about 8 a.m.; Gamble requested Calef to select his own position; the new position was about 600 yd in front of the night position.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-01.e",
+      "claim": "Fence state: a pioneer party levelled the intervening fences and the fence in front of the new position before Calef moved forward (the report says 'I moved forward', not that only the right and centre sections did).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-01.f",
+      "claim": "Sections: Newman's left section immediately left of the road, Pergel's centre section still farther left; Roder's right section on the right of the road. NPS: four guns straddled the pike, two more were about 700 yd away south of Herbst Woo",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-01.g",
+      "claim": "First Union gun: Lt Roder's right section fired 'the first gun' on a column of rebel cavalry advancing on the right of the road (Calef's own claim); the NPS handbooks and the NPS Cultural Landscape Report repeat that Calef's battery fired t",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-01.h",
+      "claim": "Section withdrawn because the enemy-held woods came within 200 yd of its right: Sergeant Pergel's CENTRE section (not the left section as the PDF says). The left section (Newman) drew off a piece after four horses were killed.",
+      "tier": "documented",
+      "support": "contradicted"
+     },
+     {
+      "sc": "R13.G-01.i",
+      "claim": "Relief by Hall's 2nd Maine (six 3-inch): Hall took the first position on the right of the road after Roder's section withdrew. Clocks: NPS about 10:00; Hunt: Hall ordered into action about 10:15; Hall's own report (in Wainwright): first fir",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-01.j",
+      "claim": "Hall's battery was disabled in about half an hour; Calef's left and centre sections were ordered up again by Wadsworth to the ground Hall had left; the battery lost 12 men badly wounded and 13 horses killed (OCR '1.3').",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-01.k",
+      "claim": "Prepared or improvised: no gun work is named; the guns stood in open ground after the fences were levelled (inference from a detailed report that mentions the fences but no earth). The piled-rail breastwork nearby was an infantry work of Ga",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-01.l",
+      "claim": "'First shot' marker: the NPS First Shot marker stands at the Wisler Farm site on Chambersburg Road, just over a mile west of Herr's Ridge, for the purported first shot of the battle; it is not Calef's gun position. The ground position of Ro",
+      "tier": "open_gap",
+      "support": "partial"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-02",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "I Corps batteries (Wainwright, 20-22 guns)",
+   "place": "Seminary Ridge behind the E-01 rail barricade",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "I Corps batteries (Wainwright, 20-22 guns)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "1 Jul afternoon to about 16:30",
+    "end": null
+   },
+   "method_printed": "improvised (guns behind hasty rail works)",
+   "tier_printed": "documented",
+   "flags": [
+    "improvised: no earth"
+   ],
+   "owner_group": "us-1c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-02",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-02.a",
+      "claim": "Guns and batteries on the line: Cooper B/1st Pa. four 3-inch, Stevens 5th Maine six 12-pdr, Reynolds L/1st NY six 3-inch (Breck's two sections + Wilber's section), Stewart B/4th US six 12-pdr = 22 in four batteries (Hunt); Wainwright counts",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-02.b",
+      "claim": "Position: Cooper in front of the professor's house on the seminary ridge, Stevens on his right, Breck's two sections behind a stone wall on the seminary crest near Stevens, Stewart half between the Cashtown pike and the railroad and half ac",
+      "tier": "documented",
+      "support": "contradicted"
+     },
+     {
+      "sc": "R13.G-02.c",
+      "claim": "Arrival: Cooper placed about noon on the left of the Third Division, then moved near the seminary where he stood unengaged for a few minutes; Stewart posted about 200 yd south of the seminary; the 5th Maine in position on the left of the se",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-02.d",
+      "claim": "End of the position: Hunt has the troops withdrawn to Cemetery Hill about 4 p.m. (First Corps about the same time); Cooper's battery retired through Gettysburg 'at about 5 p. m.'; Wiedrich says the infantry were repulsed about 5 p.m. The PD",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-02.e",
+      "claim": "Withdrawal route: the batteries limbered to the rear and moved off down the Cashtown pike at a walk until the infantry had left it, then at a trot, and passed through the town to Cemetery Hill. The OR does not name Chambersburg Street.",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-02.f",
+      "claim": "Losses on 1 Jul: 83 officers and men and about 80 horses, a large proportion of the horses between the Seminary Ridge and the town (Hunt; Wainwright); Wilber's last piece (L/1st NY) lost after one wheel-horse and then three others were shot",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-02.g",
+      "claim": "Prepared or improvised: improvised; no gun pit, epaulement or earth is named at the seminary line; the loose rails were an infantry work; the stone wall behind Breck's guns pre-existed.",
+      "tier": "inferred",
+      "support": "partial"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-03",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Wiedrich (1st NY I), Ricketts (Pa. F and G), Stewart (B, 4th US), Battery L 1st NY",
+   "place": "East Cemetery Hill, lunettes near the gatehouse",
+   "kind": "labour",
+   "builder_printed": "Wiedrich (1st NY I), Ricketts (Pa. F and G), Stewart (B, 4th US), Battery L 1st NY",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "lunettes by about 16:00 2 Jul",
+    "end": null
+   },
+   "method_printed": "prepared (earth lunettes); builder unknown",
+   "tier_printed": "documented (existence)",
+   "flags": [
+    "prepared: built on screen"
+   ],
+   "owner_group": "us-11c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-03",
+    "verdict": "confirmed",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-03.a",
+      "claim": "Guns at the evening of 1 Jul on East Cemetery Hill north of the pike: Stewart (B/4th US) four light 12-pdr across the road, Wiedrich (I/1st NY) four 3-inch, Cooper (B/1st Pa.) four 3-inch, Reynolds (L/1st NY) five 3-inch = thirteen 3-inch; ",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-03.b",
+      "claim": "Position: Wiedrich on the hill immediately in front of the cemetery entrance, north of the Baltimore turnpike; Ricketts to the right of the turnpike on Cemetery Hill.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-03.c",
+      "claim": "Per-gun earthworks were thrown up at dusk on 1 Jul to protect the men from sharpshooters (Wainwright, Hunt); temporary earthworks covered the pieces during the night (5th Maine); Breck intrenched his position by Wainwright's order.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-03.d",
+      "claim": "Finished the morning of 2 Jul by the battery's own men (Cooper's four lunettes), in use for the 4 p.m. duel; the books of 1900-1914 call the works lunettes or redans for each gun.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-03.e",
+      "claim": "Builder: where a builder is named it is the battery's own men (Breck had his position intrenched by the artillery chief's order; Cooper's men finished four lunettes); for the other batteries the reports use the passive; the PDF's 'builder u",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-03.f",
+      "claim": "Form and dimensions: a small earthwork per gun (OR); lunette/redan (state books); the NPS describes a lunette as a semi-circular earthen berm built by artillery crews and says the East Cemetery Hill lunettes on the ground originated in the ",
+      "tier": "open_gap",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-03.g",
+      "claim": "Assault: a little before 8 p.m. (Hays), about 8 p.m. (Ricketts, Wiedrich), 'between 7 and 8' (Osborn), about sunset/dusk (Hunt, Wainwright). The PDF's 19:30-21:00 window starts later than the earliest OR value.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-03.h",
+      "claim": "Hand-to-hand fighting: the infantry pushed completely through Wiedrich's battery into Ricketts' and got into the battery's intrenchments (Hunt, Wainwright, Wiedrich); the cannoneers fought with handspikes, rammers, pistols, fence rails and ",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-03.i",
+      "claim": "Slope limited gun depression so the guns used canister: documented in Bachelder (1889) and the New York book of 1900 as the guns on East Cemetery Hill not being depressible enough; not in the OR.",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-03.j",
+      "claim": "Works in front of the guns: Hays met a stone wall at the foot of a fortified hill, an abatis of fallen timber and a third line in rifle-pits; builders and dates of the wall, abatis and pits are not stated.",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-04",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Latimer's battalion (about 20 guns)",
+   "place": "Benner's Hill",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Latimer's battalion (about 20 guns)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "about 16:00 2 Jul",
+    "end": null
+   },
+   "method_printed": "no works described",
+   "tier_printed": "documented",
+   "flags": [
+    "plan prints \"no works described\": show open-ground battery and log the gap"
+   ],
+   "owner_group": "cs-2c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-04",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-04.a",
+      "claim": "Battalion: Andrews' battalion (Major J. W. Latimer commanding) = Raine's, Dement's, Brown's and Carpenter's batteries; Graham's (First Virginia Artillery) aided. The OR's organization table gives the PDF's battery names: Chesapeake (Marylan",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-04.b",
+      "claim": "Guns: 14 of Andrews' battalion on the hill plus two 20-pounder Parrotts in rear = 16 (Andrews); twenty in all with Graham's battery (New York 1900: 14 + six 20-pdr Parrotts of Graham's and Raine's); the Union estimate is ten guns (Hunt, Wai",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-04.c",
+      "claim": "Place: the only eligible hill in front, a little to the left of Cemetery Hill and in front of the wooded mountain, exposed to concentrated fire and to an enfilade from a battery near the Baltimore road; little shelter for horses and caisson",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-04.d",
+      "claim": "Opening: 4 p.m. (Johnson, Brown, Pendleton, Andrews); about 5 p.m. (Ewell); the Union side puts it at about 3:30 (Hunt) or about 4 (Wainwright, Cooper).",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-04.e",
+      "claim": "Duration: about two hours (Johnson); one hour (Ewell); the Union batteries needed an hour or more (Hunt), an hour and a half (Wainwright), about two and a half hours (Cooper).",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-04.f",
+      "claim": "Outcome: Latimer withdrew most guns and left four (one battery) on the hill, where he received the wound of which he died; Union side: four limbers or caissons blown up, two guns drawn off by hand, 28 dead horses on the knoll.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-04.g",
+      "claim": "Works: none named; Andrews says the ground offered few advantages. Recorded as no works described (open ground), not as a documented absence.",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-04.h",
+      "claim": "Union guns opposing: the PDF's 37 from Culp's Hill to East Cemetery Hill. Brown says only that the number concentrated at that point was so great; Hunt counts the Union battery that answered at the enemy's ten guns. No source read gives 37.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-05",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Smith's 4th NY (six 10-pdr Parrotts)",
+   "place": "Devil's Den / Houck's Ridge",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Smith's 4th NY (six 10-pdr Parrotts)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "arrived 09:00 2 Jul",
+    "end": null
+   },
+   "method_printed": "improvised",
+   "tier_printed": "documented",
+   "flags": [
+    "improvised: no earth"
+   ],
+   "owner_group": "us-3c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-05",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-05.a",
+      "claim": "Unit and guns: Smith's 4th NY Independent Battery, six 10-pounder Parrotts; four placed on the height, two with the caissons in rear.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-05.b",
+      "claim": "Arrival: the battery rejoined the corps and division at 9 o'clock a.m. (Smith, 1888) after leaving Emmitsburg; Randolph led it to Devil's Den about 1 p.m.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-05.c",
+      "claim": "Action clocks: duel began about 2 p.m. (Smith 1888) or about 2:30 p.m. (Smith report); the battery was on the ground from 2 to 6 p.m.; four guns used against the infantry attack from about 3:30.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-05.d",
+      "claim": "State: improvised; the difficulty of getting the guns up the rocky height delayed Smith's opening; no work is named. NPS: Warren had Smith fire a shot into the woods; Smith's report: one of Ward's aides ordered him to return fire.",
+      "tier": "inferred",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-05.e",
+      "claim": "The four front guns could not be depressed enough to cover the Plum Run gorge, so two guns in rear were trained on it.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-05.f",
+      "claim": "Two guns in the Plum Run valley: Smith ran to the rear section and fired canister on the force coming through the gorge; the OR report says the section fired obliquely through the gully; Benning wrote of the terrible fire of two guns that s",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-05.g",
+      "claim": "'One section shifted right about 18:00': not supported; in Smith's 1888 address the four guns stay on the crest and the two in the rear fire on the gorge until the infantry fall back, then the two guns are run through the woods to take posi",
+      "tier": "documented",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R13.G-05.h",
+      "claim": "Losses: 2 killed, 10 wounded, 11 horses killed and disabled; three 10-pounder Parrotts left on the hill (one of the four had been sent to the rear disabled) and lost; 240 rounds fired.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-05.i",
+      "claim": "Capture: three 10-pounder Parrotts were taken and brought off the field the same night; who captured them is a conflict: Smith himself supposed in 1863 that the Twelfth Corps had taken them from the field and wrote in 1888 that the enemy to",
+      "tier": "documented",
+      "support": "conflict"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-06",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Hazlett's Battery D, 5th US",
+   "place": "Little Round Top summit",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Hazlett's Battery D, 5th US",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "march 16:30; first fire 17:45 2 Jul",
+    "end": null
+   },
+   "method_printed": "improvised; hand-hauled",
+   "tier_printed": "documented",
+   "flags": [
+    "improvised: no earth"
+   ],
+   "owner_group": "us-5c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-06",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-06.a",
+      "claim": "Unit and guns: Battery D, 5th US (Lt Charles E. Hazlett), six 10-pounder Parrotts; Guthrie's section of Gibbs' battery (L/1st Ohio, light 12-pdr) on the same hill on the right of Hazlett.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-06.b",
+      "claim": "March: moved to the left about 4:30 p.m. (Hunt, Martin); Garrard's brigade was moved rapidly forward from about 4 p.m.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-06.c",
+      "claim": "First fire: 'immediately upon taking up the position' and a continuous fire until dark; Hazlett was shot after the battery had been engaged only about an hour and died at 8 p.m. The PDF's 17:45 first fire is in no source and would put Hazle",
+      "tier": "documented",
+      "support": "contradicted"
+     },
+     {
+      "sc": "R13.G-06.d",
+      "claim": "Place: the summit of Little Round Top: the battery ascended behind the 140th NY and went into battery on the summit; Rittenhouse commanded 'on the top of Round Top' on 3 Jul.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-06.e",
+      "claim": "Hand-hauling vs teams: dragged by hand by the 155th Pa.; lifted by hand and handspike; horses lashed to their utmost with the infantry at the wheels; passage 'marvelous' (NPS, an eyewitness). All are 1889-1914 or later accounts; the OR repo",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-06.f",
+      "claim": "State: improvised on the summit; no gun emplacement is named; the stone wall half-way down the slope was built that night by the infantry brigade; the walls on the summit were restacked by the GBMA in 1882-87 and may not set an 1863 profile",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-06.g",
+      "claim": "Loss: Hazlett fell mortally wounded while offering his assistance to General Weed on the summit (Garrard); shot in the head, he was carried to the rear and died at 8 p.m. (Rittenhouse in Martin's report); the battery lost 1 officer and 6 me",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-07",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Hart's 15th NY (four Napoleons)",
+   "place": "Peach Orchard, Wheatfield Road",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Hart's 15th NY (four Napoleons)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "forward 16:00; placed about 16:30 2 Jul",
+    "end": null
+   },
+   "method_printed": "improvised (open field)",
+   "tier_printed": "documented",
+   "flags": [
+    "improvised: no earth"
+   ],
+   "owner_group": "us-army",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-07",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-07.a",
+      "claim": "Unit and guns: Hart's 15th NY Independent Battery, four light 12-pounders (Napoleons).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-07.b",
+      "claim": "Hours: ordered to the front at 4 p.m.; placed by Hunt at 4:30 p.m. (New York book); McGilvery received at about 3:30 p.m. an order to report to General Sickles with one light 12-pounder and one rifled battery.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-07.c",
+      "claim": "Place: McGilvery: in a peach orchard on the right and a little in front of the New Jersey battery; Hart: Hunt ordered him to a position on the left of the Peach Orchard. 'Wheatfield Road' is in no text read.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-07.d",
+      "claim": "Canister: shrapnel on the first infantry column, then canister; two attacks repulsed (Hart); the enemy's infantry gained the woods on the left of McGilvery's line about a quarter to 6 and the battery retired. No source gives a clock for the",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-07.e",
+      "claim": "Loss: 3 men killed, 5 wounded, 13 horses killed (report); about 25 horses killed or wounded and 16 killed or wounded among the men (state book).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-07.f",
+      "claim": "State: improvised in open ground; no work is named on 2 Jul in Hart's or McGilvery's report (McGilvery's line on 3 Jul had a slight earthwork: G-11).",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-07.g",
+      "claim": "'Lieutenant Knox pulled a gun off by hand': not in Hart's report or the New York book; both only praise Knox and record his wound.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R13.G-07.h",
+      "claim": "3 Jul: Hart stood in McGilvery's line; Hancock ordered him to open on the enemy's batteries and McGilvery ordered him to cease after a few rounds (the PDF's Hunt-Hancock conflict, G-13).",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-08",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Huger's four batteries of Alexander's battalion",
+   "place": "Peach Orchard region",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Huger's four batteries of Alexander's battalion",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "about 16:00 2 Jul",
+    "end": null
+   },
+   "method_printed": "no works described",
+   "tier_printed": "documented",
+   "flags": [
+    "plan prints \"no works described\": show open-ground battery and log the gap"
+   ],
+   "owner_group": "cs-1c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-08",
+    "verdict": "confirmed",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-08.a",
+      "claim": "Units: Moody, Parker, Taylor and Rhett (Lt Gilbert) of Alexander's battalion, the whole commanded by Major Frank Huger, Alexander having been ordered to control also the other battalions of artillery on the field; Jordan's and Woolfolk's ba",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-08.b",
+      "claim": "Place: about 500 yd from a heavy force, in a peach orchard on the Emmitsburg pike; Pendleton: fronting the peach orchard near the Emmitsburg road.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-08.c",
+      "claim": "Hour and duration: about 4 p.m.; a spirited half-hour engagement (Alexander); within an hour (Pendleton); about 3:45 p.m. for the memoir's 36 guns.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-08.d",
+      "claim": "Guns: the OR gives Taylor's four Napoleons and (3 Jul) Moody's four 24-pdr howitzers; no OR text gives Parker's or Rhett's count. Alexander's memoir (1907): 18 guns of his battalion in front of Barksdale (plus 8 held close), 18 of Cabell's,",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-08.e",
+      "claim": "Works: none described; Alexander mentions only the ground ('very difficult ground') at Moody's guns; recorded as open ground.",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-08.f",
+      "claim": "Loss: 19 killed, 114 wounded, 6 missing (139 men) and 116 horses killed and disabled in the two days; Huger's batteries' loss in animals was serious.",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-09",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Cabell's battalion",
+   "place": "edge of woods by the Emmitsburg Road",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Cabell's battalion",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "2 Jul; 3 Jul about 13:00",
+    "end": null
+   },
+   "method_printed": "no works described",
+   "tier_printed": "documented",
+   "flags": [
+    "plan prints \"no works described\": show open-ground battery and log the gap"
+   ],
+   "owner_group": "cs-1c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-09",
+    "verdict": "confirmed",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-09.a",
+      "claim": "Battalion and batteries: Col. H. C. Cabell's battalion: Manly's (Co. A, 1st NC Artillery), McCarthy's (1st Richmond Howitzers), Fraser's (Pulaski, Georgia) and Carlton's (Troup, Georgia) batteries.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-09.b",
+      "claim": "Guns: Manly four; McCarthy a rifle section (two 3-inch) and a Napoleon section (two); Fraser four (two 10-pdr Parrotts and two 3-inch); Carlton four (a Parrott section and a 12-pdr howitzer section) = 16; Pendleton: 1 3-inch rifle lost; Ale",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-09.c",
+      "claim": "2 Jul: on the edge of the wood, the right resting near the road from Gettysburg to Emmitsburg; the enemy's batteries 600 or 700 yd off in a peach orchard and a rocky mountain on the right.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-09.d",
+      "claim": "First to open on 2 Jul: Cabell's own statement; no second witness for 'first'.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-09.e",
+      "claim": "Pre-existing fences used on 2 Jul: Fraser's battery stood behind a loose rock fence and Carlton's Parrott section behind the stone fence between Manly's and McCarthy's batteries. No battery report names an earthwork.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-09.f",
+      "claim": "3 Jul: two 3-inch rifles (Payne, Manly's), two 3-inch rifles of McCarthy's (Anderson) and two Parrotts of Fraser's (Furlong) several hundred yd in front of the infantry, near a small brick house, fronting the Gettysburg-Emmitsburg road; Car",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-09.g",
+      "claim": "3 Jul: the fire opened about 1 p.m. and the cannonading was almost continuous for over two hours; about 4 p.m. the guns advanced to a line about 700 yd from Cemetery Hill and held to dark.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-09.h",
+      "claim": "Identity of 'the small brick house': not named by Cabell or any battery officer; the PDF row leaves it unplaced.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-10",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Bigelow's 9th Mass. (six Napoleons)",
+   "place": "Wheatfield Road, then by prolonge to the wall near Trostle's house",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Bigelow's 9th Mass. (six Napoleons)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "16:30-18:30 2 Jul",
+    "end": null
+   },
+   "method_printed": "improvised; second position behind existing wall P-06",
+   "tier_printed": "documented",
+   "flags": [
+    "improvised: no earth"
+   ],
+   "owner_group": "us-army",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-10",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-10.a",
+      "claim": "Guns: McGilvery: four guns left on the field plus two under Milton taken to the rear = six; Hunt lists Bigelow's (9th Mass.) as four 12-pounders; the PDF says six Napoleons.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-10.b",
+      "claim": "First position and hours: ordered from the park about 4 p.m. (Milton); McGilvery received at about 3.30 p.m. an order to report to General Sickles with one light 12-pounder and one rifled battery; about an hour's slow firing (Milton); the e",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-10.c",
+      "claim": "Retirement: by prolonge, firing canister; Milton gives 300 yd, McGilvery ordered 350 yd for the batteries and formed his new line about 400 yd to the rear; the PDF's 400 yd is McGilvery's new-line figure.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-10.d",
+      "claim": "Second position: 'a position near which two stone walls met at an obtuse angle' (Milton), to be held at all hazards without infantry support; the NPS ties the walls and gate to the Trostle farm and 'Bigelow's Battery Wall' (pre-1863); Hunt ",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-10.e",
+      "claim": "Loss and capture: the enemy's flanks closed in on either side, obtained a cross-fire, silenced the four pieces on Milton's right and prevented their withdrawal from loss of officers, men and horses; the NPS: the narrow gate was blocked by a",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-10.f",
+      "claim": "The PDF's 18:00-18:30 for the second position and about 18:30 for the overrun: not stated in any source; bounded by about 17:45 (infantry gave way) and 21:00 (Milton parked).",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-10.g",
+      "claim": "Horse and men losses: Milton: 45 horses killed and 15 wounded (60; two more scans agree); Hunt in Battles and Leaders (p.310, text layer of one scan): the battery went into action with 104 officers and men, a total of 28 men including 2 mis",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-10.h",
+      "claim": "3 Jul: Milton with two pieces of Battery K, 3rd US (Turnbull) was placed on the right centre, on the left of Cemetery Hill, under Baxter, and was under fire of two Whitworth guns about two miles off; the OR does not say 'Ziegler's Grove'.",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-10.i",
+      "claim": "State: first position open ground (no work named in Milton's or McGilvery's report: inferred from silence); second position at a pre-existing stone wall corner (NPS: pre-1863).",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-10.j",
+      "claim": "Hand-to-hand fighting and capturing unit: Hunt (B&L p.310): the battery was closely pressed by Colonel Humphreys's 21st Mississippi, 'the only Confederate regiment which succeeded in crossing the run'; his men had entered the battery and fo",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-11",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "McGilvery's Plum Run line (6 to 23 guns)",
+   "place": "south of Cemetery Ridge along Plum Run",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "McGilvery's Plum Run line (6 to 23 guns)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "assembled 2 Jul evening",
+    "end": null
+   },
+   "method_printed": "improvised",
+   "tier_printed": "documented",
+   "flags": [
+    "improvised: no earth"
+   ],
+   "owner_group": "us-army",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-11",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-11.a",
+      "claim": "3 Jul morning: Ames six 12-pdr; Dow's 6th Maine four 12-pdr; a New Jersey battery six 3-inch; Rank's section two 3-inch; 2nd Connecticut four James rifles and two howitzers; Hart four 12-pdr; Phillips six 3-inch; Thompson five 3-inch: 39 gu",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-11.b",
+      "claim": "3 Jul state: prepared: McGilvery had a slight earthwork thrown up in front of the guns of the line he brought into position early on 3 Jul, sufficient to resist all the projectiles that struck it (the report gives no hour for the work: it s",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-11.c",
+      "claim": "2 Jul evening line: Battery I 5th US, an unnamed volunteer battery, three guns of the 5th Mass., two of Thompson's; Dow's 6th Maine reported just before sundown; Pettit's reported and left after a few minutes; Seeley's was placed when the f",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-11.d",
+      "claim": "2 Jul evening state: improvised at the edge of the woods; a brook with low bushes between the lines held sharpshooters; no work named.",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-11.e",
+      "claim": "Place: 'the low ground on our left center' (McGilvery, 3 Jul); the 'Plum Run line' is Hunt's name (B&L p.310) for the line of artillery formed in front of the wood beyond Plum Run, by collecting the serviceable batteries and fragments of ba",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-11.f",
+      "claim": "Cannonade on 3 Jul: the enemy opened at about 12.30 o'clock with at least 140 guns (McGilvery).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-11.g",
+      "claim": "2 Jul evening total: McGilvery names the units but no total; Hunt (B&L p.310) says the Plum Run line was formed on that evening from the serviceable batteries and fragments of batteries and 'finally some twentyfive guns formed a solid mass,",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-11.h",
+      "claim": "3 Jul line total: McGilvery's list is eight batteries and 39 guns including a New Jersey battery of six 3-inch; Hunt's report lists McGilvery's command without the New Jersey battery (Thompson 5, Phillips 6, Hart 4, Sterling's 2nd Connectic",
+      "tier": "documented",
+      "support": "conflict"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-12",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Cushing's Battery A, 4th US (six 3-inch rifles)",
+   "place": "the Angle, between the 71st and 72nd PA",
+   "kind": "labour",
+   "builder_printed": "Cushing's Battery A, 4th US (six 3-inch rifles)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "2 Jul late afternoon; 3 Jul about 13:00-15:30",
+    "end": null
+   },
+   "method_printed": "prepared position in line; guns run to the pre-existing wall",
+   "tier_printed": "documented",
+   "flags": [
+    "prepared: built on screen"
+   ],
+   "owner_group": "us-2c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-12",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-12.a",
+      "claim": "Unit and guns: Battery A, 4th US (Lt Alonzo H. Cushing), six 3-inch.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-12.b",
+      "claim": "Place: Second Corps line from right to left Woodruff, Arnold, Cushing, Brown, Rorty; Webb's right resting on Cushing's battery; Gibbon: Webb's brigade partly behind a low stone wall protecting Cushing's battery on its right; two companies o",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-12.c",
+      "claim": "Arrival: the batteries of the Second Corps were posted on the morning of 2 Jul; Webb's brigade was put in position at 6.30 a.m. with its right on Cushing's battery. The PDF's 'late afternoon 2 Jul' is contradicted.",
+      "tier": "documented",
+      "support": "contradicted"
+     },
+     {
+      "sc": "R13.G-12.d",
+      "claim": "Three limbers exploded: about 8 o'clock on the morning of 3 Jul (Hazard) or during the cannonade, changed with the caisson limbers under fire (Hall).",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-12.e",
+      "claim": "Bombardment losses: by 2.45 p.m. the enemy had silenced all the guns but one of Cushing's battery; the other batteries were exhausted of ammunition but canister; the PDF's 'four of six knocked out' is not stated.",
+      "tier": "documented",
+      "support": "contradicted"
+     },
+     {
+      "sc": "R13.G-12.f",
+      "claim": "Guns run to the wall: three (Webb), one gun with cannoneers enough for a section (Hall), two (NPS from Nesbit's account); the PDF says two.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-12.g",
+      "claim": "Cushing's death: mortally wounded at the fence by the side of his guns; he fought on for an hour and a half after reporting that he was wounded in both thighs; killed while serving his last canister (Hall). About fifty men of the 71st Pa. (",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-12.h",
+      "claim": "Prepared or improvised: no gun pit or earth is named for Cushing's battery in any report read; the stone wall in front pre-existed; the PDF's 'prepared position in line, built on screen' has no OR basis.",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-12.i",
+      "claim": "'Double canister at about 100 yd': in no source for Cushing's guns; Hall says only 'his last canister'.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-13",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Union ridge line (Hunt)",
+   "place": "Cemetery Hill to Little Round Top",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Union ridge line (Hunt)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "by 13:00 3 Jul",
+    "end": null
+   },
+   "method_printed": "mixed; prepared batteries on the ridge",
+   "tier_printed": "documented, count range",
+   "flags": [
+    "prepared: built on screen"
+   ],
+   "owner_group": "us-army",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-13",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-13.a",
+      "claim": "Union guns on the line: 75 on the western crest line and not more than eighty able to reply (Hunt, OR); 77 on the Second Corps line (Hunt, B&L); 108 guns of the Artillery Reserve all in position (Tyler); 166 at the start and 220 engaged (Al",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-13.b",
+      "claim": "Opening clock: Hunt about 1 p.m.; Hancock about 1 o'clock apparently by a given signal; McGilvery about 12.30; Tyler about 12 o'clock; Longstreet has the signal about 2 p.m.; Hancock: the enemy's fire became less furious after an hour and f",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-13.c",
+      "claim": "Hunt's slowdown: about 2.30 p.m., ammunition low and caissons exploding, Hunt directed the fire to be gradually stopped; in Battles and Leaders he rode along the ridge ordering the fire to cease.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-13.d",
+      "claim": "Hancock's countermand: Hart (15th NY) records that Hancock ordered him to open on the enemy's batteries and McGilvery ordered him to cease after a few rounds; Hunt wrote that Hazard's batteries had exhausted their long-range projectiles dur",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-13.e",
+      "claim": "State: mixed: McGilvery's line had a slight earthwork (G-11b); Cemetery Hill had per-gun works (G-03); Tyler found the infantry had made a slight breastwork along the crest and 'some shelter' for the artillery; no works are documented for C",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-13.f",
+      "claim": "'34 Union cannon disabled in the bombardment': not stated. Hunt reports a large destruction of materiel and many caissons and limbers exploded; Cushing's, Arnold's and Rorty's batteries were withdrawn, Brown's retired before the cannonade c",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-14",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Confederate line (Alexander)",
+   "place": "more than 2 miles along the Emmitsburg Road",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Confederate line (Alexander)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "placed from dawn 3 Jul; fire about 13:00",
+    "end": null
+   },
+   "method_printed": "open positions",
+   "tier_printed": "documented, count range",
+   "flags": [
+    "prepared: built on screen"
+   ],
+   "owner_group": "cs-1c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-14",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-14.a",
+      "claim": "Total: Pendleton nearly 150; Hancock 115-150; McGilvery at least 140; Hunt 100-120 (115 by a newspaper figure) and about 150; B&L 150; Alexander (1907) 172 used (Longstreet 83 [8 + 75] + Third Corps 60 + 2 Whitworths + Second Corps 24), 9 h",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-14.b",
+      "claim": "Parts of the line: First Corps right wing nearly sixty guns in a sweeping curve of about a mile (Pendleton); Eshleman's eight Napoleons and two howitzers; Alexander (1907): Third Corps 60 guns on Seminary Ridge plus two Whitworths nearly a ",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-14.c",
+      "claim": "Length: Alexander's First Corps guns in an irregular line about 1,300 yd long from the Peach Orchard; Pendleton's right wing a curve of about a mile; the NPS says the Confederate line on Seminary and Warfield Ridges stretches over two miles",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-14.d",
+      "claim": "Placement from dawn and opening about 13:00: Pendleton visited the lines at a very early hour and found much already done by Alexander; Alexander began revising the line about 9 a.m.; the fire opened about 1 p.m. (Pendleton, Hunt, Hancock; ",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-14.e",
+      "claim": "Works in the OR: none described for the gun line (open positions); Pendleton calls the guns 'well advanced' and notes the enemy's, not the Confederate, earthworks.",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R13.G-14.f",
+      "claim": "Works found in the NPS texts: Poague's Battalion lunettes (Third Corps, advanced to the right wing's line by 3 Jul per Pendleton) and Reilly's Section stone lunettes are battle-origin works rebuilt in 1903 and 1895; the NPS lists Poague's l",
+      "tier": "documented",
+      "support": "partial"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-15",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Carter's rifles",
+   "place": "both sides of the railroad cut, Oak Hill",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Carter's rifles",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "3 Jul",
+    "end": null
+   },
+   "method_printed": "no works described",
+   "tier_printed": "documented",
+   "flags": [
+    "plan prints \"no works described\": show open-ground battery and log the gap"
+   ],
+   "owner_group": "cs-2c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-15",
+    "verdict": "confirmed",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-15.a",
+      "claim": "Carter's battalion on 3 Jul: ten rifled guns on the high ridge on the right and left of the railroad cut firing at the batteries on Cemetery Hill; the smoothbores held ready behind Gettysburg College.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-15.b",
+      "claim": "Place: Carter says 'the high ridge' on the right and left of the railroad cut; the NPS Cultural Landscape Inventory repeats the ten guns on either side of the cut and the Cultural Landscape Report says Oak Hill was on the Confederate lines ",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-15.c",
+      "claim": "Attachments and purpose: three batteries of the First Virginia Artillery under Captain Dance were temporarily under Carter; the fire was meant to divert the enemy's guns from Hill's and Pickett's troops and from those batteries.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-15.d",
+      "claim": "Alexander (1907): 20 rifles of Carter's and four of Graham's, all firing solid shot because the fuses were unreliable; the OR says ten rifled guns; Brown says the batteries used solid shot because of defective shell.",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-15.e",
+      "claim": "Works: none described; on 2 Jul the battalion was held ready and not engaged.",
+      "tier": "inferred",
+      "support": "partial"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-16",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Hurt's guns (McIntosh's battalion)",
+   "place": "Oak Hill/Oak Ridge or the Peach Orchard (conflict)",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Hurt's guns (McIntosh's battalion)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "3 Jul",
+    "end": null
+   },
+   "method_printed": "no works described",
+   "tier_printed": "documented, conflict",
+   "flags": [
+    "plan prints \"no works described\": show open-ground battery and log the gap"
+   ],
+   "owner_group": "cs-3c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/terrain-1.jsonl",
+    "row": "R13.G-16",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R13.G-16.a",
+      "claim": "Unit: Capt. W. B. Hurt's battery, named 'Hardaway's Alabama Artillery - Hurt's C.S. Battery' on the NPS tablet group, part of McIntosh's Reserve Artillery Battalion (Hill's Corps, NPS); on 1 Jul a section of Whitworths and Rice's battery of",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-16.b",
+      "claim": "Place on 3 Jul: the two Whitworths were moved Friday morning by A. P. Hill's direction to a commanding point north of the railroad cut; the NPS: the position marked on Oak Hill, 'the highest position on Oak Hill' (the Hardaway Alabama Artil",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-16.c",
+      "claim": "Guns: two Whitworths on 3 Jul (McIntosh; NPS; Alexander); 133 rounds of Whitworth fired in the battle; one Whitworth had an axle broken on 1 Jul and again on 3 Jul. The marker's 'plus two 3-inch rifles' is in none of these sources.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-16.d",
+      "claim": "Union witness: on 3 Jul Milton, with two pieces of Battery K, 3rd US on the left of Cemetery Hill, was under fire of two Whitworth guns planted by the enemy about two miles distant, without loss.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R13.G-16.e",
+      "claim": "Signal: two guns in quick succession from Miller's battery (Washington Artillery) between 1 and 2 p.m. (Eshleman), at 1 o'clock (NPS handbook); Furlong: two guns fired in quick succession on the signal; Alexander (B&L): two guns fired by th",
+      "tier": "documented",
+      "support": "conflict"
+     },
+     {
+      "sc": "R13.G-16.f",
+      "claim": "'One account says Whitworths on Oak Ridge fired the signal': in no source read (McIntosh does not say it; the OR says Miller's battery).",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R13.G-16.g",
+      "claim": "Works: none described; on 2 Jul the battalion stood behind a pre-existing stone wall on the range of hills to the left of the town.",
+      "tier": "inferred",
+      "support": "partial"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "G-17",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Powers Hill guns",
+   "place": "Powers Hill",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Powers Hill guns",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "morning 3 Jul",
+    "end": null
+   },
+   "method_printed": "not described",
+   "tier_printed": "documented",
+   "flags": [
+    "prepared: built on screen"
+   ],
+   "owner_group": "us-12c",
+   "source_status": "pdf_only",
+   "closeout": null,
+   "evidence_rows": []
+  },
+  {
+   "id": "G-18",
+   "origin": "PDF B.7.5 (gun emplacements)",
+   "name": "Union Culp's Hill batteries",
+   "place": "Stevens' Knoll and around",
+   "kind": "improvised_or_no_works",
+   "builder_printed": "Union Culp's Hill batteries",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "about 04:00 3 Jul",
+    "end": null
+   },
+   "method_printed": "not described",
+   "tier_printed": "documented",
+   "flags": [
+    "prepared: built on screen"
+   ],
+   "owner_group": "us-12c",
+   "source_status": "pdf_only",
+   "closeout": null,
+   "evidence_rows": []
+  },
+  {
+   "id": "S-001",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "Rock Creek railroad bridge / trestle",
+   "place": "Rock Creek railroad bridge / trestle",
+   "kind": "labour",
+   "state_change": "Intact -> Burned",
+   "builder_printed": "Early's division",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Jun 26-27 (sources vary)",
+    "end": null
+   },
+   "tier_printed": "inferred",
+   "source_keys_printed": [
+    "Wiki-GBRR"
+   ],
+   "flags": [
+    "sources vary 26 or 27"
+   ],
+   "owner_group": "cs-2c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.S-001",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.S-001.a",
+      "claim": "Date: the evening of Friday Jun 26 (Early reached Gettysburg late; moved next morning, the 27th).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.S-001.b",
+      "claim": "Which bridge and its state: the railroad bridge across Rock Creek 'was soon set on fire by the rebels'; burning cars started down the track and passed over it; 'the centre span of the bridge was burnt' (the word after 'burnt and' is smeared",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-003",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "McPherson fences along the railroad grade",
+   "place": "McPherson fences along the railroad grade",
+   "kind": "labour",
+   "state_change": "Fenced -> Partly dismantled",
+   "builder_printed": "Cavalry firewood / breastwork (Harrison)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Jun 30",
+    "end": null
+   },
+   "tier_printed": "contested",
+   "source_keys_printed": [
+    "GD-Fences"
+   ],
+   "flags": [
+    "contested (Harrison vs a critic who says no wartime account describes fences along the cut)"
+   ],
+   "owner_group": "us-cav",
+   "source_status": "pdf_only",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.S-003",
+    "verdict": "partially_supported",
+    "status": "blocked_host",
+    "sub_claims": [
+     {
+      "sc": "R14.S-003.a",
+      "claim": "McPherson Farm fences were found destroyed after the battle (cause and date not stated).",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.S-003.a2",
+      "claim": "Jun 30 evening: Buford's cavalry tore down the tenant's fencing on the McPherson farm for firewood and possible breastworks; about a quarter mile of post and rail fence was cut and thrown down 'to make way for the battle' and another cord o",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.S-003.b",
+      "claim": "Cavalry dismantled fences 'along the railroad grade' on Jun 30 for firewood or breastwork (Harrison, Gettysburg Daily): the NPS report supports the farm and the day (a2) but does not say 'along the railroad grade'.",
+      "tier": "open_gap",
+      "support": "blocked_host"
+     },
+     {
+      "sc": "R14.S-003.c",
+      "claim": "A critic says no wartime account describes fences along the cut.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": [],
+   "timeline_rows": [
+    {
+     "id": "T1-050",
+     "status": "gap",
+     "tier": "open gap",
+     "citation": ""
+    }
+   ]
+  },
+  {
+   "id": "S-009",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "McMillan fences",
+   "place": "McMillan fences",
+   "kind": "labour",
+   "state_change": "Standing -> Felled for Union troops",
+   "builder_printed": "Neighbor reportedly",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Jul 1",
+    "end": null
+   },
+   "tier_printed": "documented",
+   "source_keys_printed": [
+    "ECW-Bliss"
+   ],
+   "flags": [],
+   "owner_group": "us-1c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.S-009",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.S-009.a",
+      "claim": "Morning of Jul 1: Union troops tore down McMillan's fences to move troops; a Union battery was in the yard.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.S-009.b",
+      "claim": "After the Union withdrawal, McMillan's fencing was used in Confederate entrenchments.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.S-009.c",
+      "claim": "Setting: a stone fence and a peach orchard near McMillan's house on Seminary Ridge.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.S-009.d",
+      "claim": "Felled by a neighbor (ECW).",
+      "tier": "open_gap",
+      "support": "blocked_host"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-010",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "Seminary Ridge fences",
+   "place": "Seminary Ridge fences",
+   "kind": "labour",
+   "state_change": "Standing -> Dismantled to a rail barricade (about 600 yd)",
+   "builder_printed": "I Corps",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Jul 1 afternoon, before about 16:00",
+    "end": null
+   },
+   "tier_printed": "documented",
+   "source_keys_printed": [
+    "HN-Pender",
+    "Wiki-D1"
+   ],
+   "flags": [],
+   "owner_group": "us-1c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.S-010",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.S-010.a",
+      "claim": "A fence ran along the south end of the seminary grove about 14:00 and the breastwork of rails and stumps lay through the west edge of the grove.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.S-010.b",
+      "claim": "Rails came from fences: 'earth and fence rails' (Maine adjutant); Dr. Schmucker counted 3,108 rails lost from his adjacent farm, most probably used in the Union rail breastworks late in the fighting of Jul 1 or burned for fuel (NPS); Union ",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.S-010.c",
+      "claim": "Window: ordered about 11:00-13:00; in use by 14:00-15:00; Wadsworth ordered the retire at 15:45.",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "R14.S-010.d",
+      "claim": "About 600 yd of fence removed.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-014",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "Culp's Hill north slope (Wadsworth, 6th Wisconsin)",
+   "place": "Culp's Hill north slope (Wadsworth, 6th Wisconsin)",
+   "kind": "labour",
+   "state_change": "Bare ground -> Rudimentary line",
+   "builder_printed": "6th Wisconsin first, then the division",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Jul 1 evening (about 18:00-21:00, I)",
+    "end": null
+   },
+   "tier_printed": "documented",
+   "source_keys_printed": [
+    "HN-Walls"
+   ],
+   "flags": [
+    "clock window is inferred (tier I)"
+   ],
+   "owner_group": "us-1c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.S-014",
+    "verdict": "partially_supported",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.S-014.a",
+      "claim": "Evening of Jul 1: Wadsworth's First Division, I Corps, was ordered to the hill on the right of the cemetery (Culp's Hill) and held it Jul 2-3; Hancock placed it there.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.S-014.b",
+      "claim": "The 7th Indiana began a temporary breastwork on arrival, by command of Wadsworth, on the hill east of Gettysburg that formed the extreme right of the line.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.S-014.c",
+      "claim": "6th Wisconsin (Dawes) intrenched on its own initiative, using a dozen spades and shovels from the regimental wagon, on the right of the brigade line (participant memoir, 1890).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.S-014.d",
+      "claim": "Clock window about 18:00-21:00 Jul 1 (inferred); the only printed time word is 'the first night of the battle' (Curtis 1891).",
+      "tier": "inferred",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.S-014.e",
+      "claim": "The 6th Wisconsin began first and the rest of the division followed.",
+      "tier": "open_gap",
+      "support": "unsupported"
+     },
+     {
+      "sc": "R14.S-014.g",
+      "claim": "The 24th Michigan's remnant ('the ninety and nine of the regiment that rallied around the flag on Culp's Hill the evening of the first day's fight') built a line of breastworks on Culp's Hill 'the first night of the battle': the remnant of ",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-015",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "Culp's Hill lower summit (123rd NY)",
+   "place": "Culp's Hill lower summit (123rd NY)",
+   "kind": "labour",
+   "state_change": "Bare ground -> Breastwork",
+   "builder_printed": "123rd NY",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Jul 1",
+    "end": null
+   },
+   "tier_printed": "documented",
+   "source_keys_printed": [
+    "HN-Hundreds"
+   ],
+   "flags": [],
+   "owner_group": "us-12c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-1.jsonl",
+    "row": "R14.S-015",
+    "verdict": "corrected",
+    "status": "open_gaps",
+    "sub_claims": [
+     {
+      "sc": "R14.S-015.a",
+      "claim": "State change bare ground to breastwork happened the morning of Jul 2 (not Jul 1).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "R14.S-015.b",
+      "claim": "Date Jul 1 (PDF).",
+      "tier": "open_gap",
+      "support": "contradicted"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-023",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "Culp's Hill main line (Greene)",
+   "place": "Culp's Hill main line (Greene)",
+   "kind": "labour",
+   "state_change": "Bare ground -> Stage 5 complete",
+   "builder_printed": "Greene's order",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "About 06:00 to 09:00-10:00 (to about noon, flag) Jul 2",
+    "end": null
+   },
+   "tier_printed": "documented",
+   "source_keys_printed": [
+    "HMDB-13997",
+    "HN-King",
+    "GD-219",
+    "DMNA-60NY"
+   ],
+   "flags": [
+    "start-time conflict (about 06:00 vs night of Jul 1-2); finished by about 10:00 (DMNA) or about noon (Gettysburg Daily)"
+   ],
+   "owner_group": "us-12c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-2.jsonl",
+    "row": "R14.S-023",
+    "verdict": "corrected",
+    "status": "blocked_host",
+    "sub_claims": [
+     {
+      "sc": "S-023.1",
+      "claim": "Greene's brigade took position on the crest of Culp's Hill on the morning of 2 Jul (about 06:00 by Greene's OCR \"G a. m.\"; the division at 05:00 by Geary; at sunrise by Greene 1893) and began to intrench at once.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-023.2",
+      "claim": "Greene's brigade (Greene's order) built breastworks \"of the covering height\" of logs, cord-wood, stones and earth; Geary's whole line did the same \"immediately\".",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-023.3",
+      "claim": "The main line was a good breastwork \"in a few hours\", \"completed early in the day, almost exclusively by the Third Brigade\"; Greene's report fixes the finish at \"1? o'clock\" (OCR \"13\").",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "S-023.4",
+      "claim": "A pre-existing stone wall lay behind the breastworks; witnesses place it 30-75 yd behind the First Division works (Williams < 50 yd; Ruger about 75 yd; McDougall about 40 paces; Price 125 ft) and 200-300 yd behind Kane's and Ruger's intrenc",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-023.5",
+      "claim": "The 145th NY repaired the stone wall during 2 Jul until 18:30.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-023.6",
+      "claim": "The 3rd Wisconsin built breastworks of earth and rails and threw down stone walls and fences in its front on the east bank of Rock Creek on 2 Jul before 18:00; the 27th Indiana line used rails, timber and stone.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-023.7",
+      "claim": "The enemy held the original intrenched line and the stone wall on the night of 2 Jul.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-023.8",
+      "claim": "The line was about 300 yd long on the morning of 2 Jul.",
+      "tier": "open_gap",
+      "support": "none"
+     },
+     {
+      "sc": "S-023.9",
+      "claim": "The work may have finished about noon (Gettysburg Daily).",
+      "tier": "open_gap",
+      "support": "none"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-024",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "Culp's Hill (Kane, Williams, Wadsworth's men)",
+   "place": "Culp's Hill (Kane, Williams, Wadsworth's men)",
+   "kind": "labour",
+   "state_change": "Bare ground -> Breastworks",
+   "builder_printed": "Brigades take position",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Jul 2 morning",
+    "end": null
+   },
+   "tier_printed": "documented",
+   "source_keys_printed": [
+    "HN-King",
+    "HN-Walls"
+   ],
+   "flags": [],
+   "owner_group": "us-12c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-2.jsonl",
+    "row": "R14.S-024",
+    "verdict": "corrected",
+    "status": "open",
+    "sub_claims": [
+     {
+      "sc": "S-024.1",
+      "claim": "The First Division (Ruger/Williams) built log breastworks along the entire crest \"at once\" on 2 Jul, breastworks of logs, rocks and earth along the whole line (Ruger).",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-024.2",
+      "claim": "Geary's division (Greene, Kane, Candy in support) threw up breastworks along its whole line \"immediately\" on the morning of 2 Jul.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-024.3",
+      "claim": "Kane's brigade, ordered into line \"soon after\" he assumed command at 06:00 on 2 Jul, threw up its breastwork \"before sundown\"; Kane gives no morning hour.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-024.4",
+      "claim": "Wadsworth's First Corps men built breastworks on Culp's Hill on 2 Jul morning.",
+      "tier": "open_gap",
+      "support": "none"
+     },
+     {
+      "sc": "S-024.5",
+      "claim": "The 147th PA (Candy) occupied a stone fence in front of the enemy after several rounds from a battery that opened at 03:45 on 3 Jul, and at 05:00 was ordered to charge and carry the stone wall held by the enemy, which the enemy then abandon",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-024.6",
+      "claim": "Wall behind the line: see S-023 (six witnesses, two groups).",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-025",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "Culp's Hill traverse and extra head logs",
+   "place": "Culp's Hill traverse and extra head logs",
+   "kind": "labour",
+   "state_change": "Absent -> Complete",
+   "builder_printed": "Greene",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Jul 2 morning through the day",
+    "end": null
+   },
+   "tier_printed": "documented",
+   "source_keys_printed": [
+    "DMNA-60NY"
+   ],
+   "flags": [],
+   "owner_group": "us-12c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-2.jsonl",
+    "row": "R14.S-025",
+    "verdict": "partially_supported",
+    "status": "blocked_host",
+    "sub_claims": [
+     {
+      "sc": "S-025.1",
+      "claim": "The 137th NY (Col. Ireland) started a traverse on the right of Greene's brigade on 2 Jul \"early in the day\", extended about twenty yards; it was the position the regiment fell back to at about 22:00.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-025.2",
+      "claim": "Extra head logs were added through 2 Jul.",
+      "tier": "open_gap",
+      "support": "none"
+     },
+     {
+      "sc": "S-025.3",
+      "claim": "The traverse and head logs run from the morning of 2 Jul through the day.",
+      "tier": "inferred",
+      "support": "partial"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-026",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "East Cemetery Hill lunettes",
+   "place": "East Cemetery Hill lunettes",
+   "kind": "labour",
+   "state_change": "Absent -> Existing",
+   "builder_printed": "Battery crews, infantry details (assumed)",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Between Jul 1 evening and 16:00 Jul 2 (I; builder unknown)",
+    "end": null
+   },
+   "tier_printed": "inferred",
+   "source_keys_printed": [
+    "Wiki-ECH"
+   ],
+   "flags": [],
+   "owner_group": "us-11c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-2.jsonl",
+    "row": "R14.S-026",
+    "verdict": "corrected",
+    "status": "open",
+    "sub_claims": [
+     {
+      "sc": "S-026.1",
+      "claim": "Light/small earthworks stood in front of each gun of the batteries outside the cemetery gate by dusk on 1 Jul.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-026.2",
+      "claim": "The works were lunettes.",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "S-026.3",
+      "claim": "Built between the evening of 1 Jul and 16:00 on 2 Jul, builder unknown.",
+      "tier": "inferred",
+      "support": "partial"
+     },
+     {
+      "sc": "S-026.4",
+      "claim": "Stone walls on each side of a lane below the battery (17th CT, about 19:00 on 2 Jul); stone and plank/board fences on the ascent under the Confederate attack (Early, Lee); the Confederates were seen climbing walls and fences at the base of ",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-026.5",
+      "claim": "Cannoneers of Wiedrich's and Ricketts' batteries drove the attackers off with fence-rails and stones.",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-043",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "Little Round Top south slope",
+   "place": "Little Round Top south slope",
+   "kind": "labour",
+   "state_change": "Bare -> Stone breastworks",
+   "builder_printed": "Weed's brigade, Reserves",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Evening Jul 2 (about 20:00, I) into Jul 3",
+    "end": null
+   },
+   "tier_printed": "documented",
+   "source_keys_printed": [
+    "NPS-LRT",
+    "Wiki-LRT"
+   ],
+   "flags": [
+    "conflict: NPS says built on July 2; Wikipedia says evening of July 2 or after"
+   ],
+   "owner_group": "us-5c",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-2.jsonl",
+    "row": "R14.S-043",
+    "verdict": "corrected",
+    "status": "open",
+    "sub_claims": [
+     {
+      "sc": "S-043.1",
+      "claim": "Weed's brigade (Garrard) strengthened the Round Top ridge at night with a stone wall about half way down the slope wherever the rocks gave no protection.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-043.2",
+      "claim": "Fisher's brigade (5th and 12th PA Reserves and the 20th Maine) went up the hill at 22:00 on 2 Jul and, in the morning, \"at once threw up a stone wall across the entire ravine and up the hill\".",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-043.3",
+      "claim": "A stone fence inclosing a wood stood in front of the hill; the 7th US Infantry took cover under it at about 17:30 on 2 Jul.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-043.4",
+      "claim": "Whether the built wall reused stone from an existing wall.",
+      "tier": "open_gap",
+      "support": "none"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-052",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "Bliss house and barn",
+   "place": "Bliss house and barn",
+   "kind": "labour",
+   "state_change": "Intact -> Burned",
+   "builder_printed": "Hays/Smyth order; 14th Connecticut sets fires with hay, straw, cartridge paper",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Morning Jul 3 (late morning per one forum, unreliable); before the cannonade",
+    "end": null
+   },
+   "tier_printed": "documented",
+   "source_keys_printed": [
+    "ECW-Bliss",
+    "HMDB-16570",
+    "SS-Bliss",
+    "CWT-Query"
+   ],
+   "flags": [
+    "exact clock time open (B.8.2); forum \"late morning\" is unreliable"
+   ],
+   "owner_group": "town-burial",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-2.jsonl",
+    "row": "R14.S-052",
+    "verdict": "corrected",
+    "status": "closed",
+    "sub_claims": [
+     {
+      "sc": "S-052.1",
+      "claim": "Hays ordered the house and barn in his front burned; Smyth's brigade passed the order and the 14th Connecticut set them on fire in several places after removing its killed and wounded.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-052.2",
+      "claim": "The burning came after the lull began at about 11:00 and before about 14:00 on 3 Jul (the cannonade); the barn still sheltered Confederate skirmishers and was cleared at 07:30 that morning.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-052.3",
+      "claim": "The barn was a ruin by late afternoon of 3 Jul.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-052.4",
+      "claim": "The \"house and barn in our front\" are the Bliss house and barn.",
+      "tier": "documented",
+      "support": "partial"
+     },
+     {
+      "sc": "S-052.5",
+      "claim": "The fires were set with hay, straw and cartridge paper.",
+      "tier": "open_gap",
+      "support": "none"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "S-054",
+   "origin": "structures/state_schedule.json (PDF B.8.7)",
+   "name": "Rummel barn",
+   "place": "Rummel barn",
+   "kind": "labour",
+   "state_change": "Plank walls -> Loopholes cut",
+   "builder_printed": "Stuart's men",
+   "builder_unit_ids": [],
+   "window_printed": {
+    "start": "Jul 3",
+    "end": null
+   },
+   "tier_printed": "inferred",
+   "source_keys_printed": [
+    "SS-Rummel"
+   ],
+   "flags": [],
+   "owner_group": "cs-cav-army",
+   "source_status": "closeout_supported",
+   "closeout": {
+    "file": "GOVERNANCE/evidence_corrections/fence-3.jsonl",
+    "row": "R14.S-054",
+    "verdict": "partially_supported",
+    "status": "blocked_host",
+    "sub_claims": [
+     {
+      "sc": "S-054.1",
+      "claim": "A large barn stood on the Rummel farm in front of the 2nd Pennsylvania Cavalry's skirmish line on 3 Jul.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-054.2",
+      "claim": "Confederate dismounted troops (Jenkins' brigade of Stuart's cavalry, with other forces) held the Rummel house and barn area on the afternoon of 3 Jul and fired from it.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-054.3",
+      "claim": "Pennington's and Randol's batteries put shell after shell into the barn \"making it untenable\"; the barn bore the marks of that fire when the 1914 volume was written.",
+      "tier": "documented",
+      "support": "supported"
+     },
+     {
+      "sc": "S-054.4",
+      "claim": "Stuart's men cut loopholes in the barn planking.",
+      "tier": "open_gap",
+      "support": "none"
+     },
+     {
+      "sc": "S-054.5",
+      "claim": "The action at the barn took place in the afternoon of 3 Jul (about 14:00 onward; the fight at the farm ended at sundown with the Union line holding the Rummel buildings).",
+      "tier": "documented",
+      "support": "supported"
+     }
+    ]
+   },
+   "evidence_rows": []
+  },
+  {
+   "id": "W-WRIGHTSVILLE-WORKS",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "militia works at the Wrightsville bridgehead",
+   "place": "Wrightsville, on the Susquehanna (outside the Gettysburg map)",
+   "kind": "labour",
+   "subkind_hint": "earth_parapet",
+   "owner_group": "campaign-elsewhere",
+   "source_status": "evidence_row",
+   "evidence_rows": [
+    "cs-2c-L001"
+   ],
+   "seed_row_planned": "cs-2c-L001"
+  },
+  {
+   "id": "W-WRIGHTSVILLE-BRIDGE",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "the railroad bridge at Wrightsville burned by the militia",
+   "place": "Wrightsville-Columbia (outside the map)",
+   "kind": "labour",
+   "subkind_hint": "bridge_destroyed",
+   "owner_group": "bridges-roads",
+   "source_status": "evidence_row",
+   "evidence_rows": [
+    "cs-2c-L002"
+   ],
+   "seed_row_planned": "cs-2c-L002"
+  },
+  {
+   "id": "W-FALLING-WATERS-PONTOON",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "the Confederate pontoon bridge at Falling Waters and Williamsport destroyed by Union cavalry",
+   "place": "Falling Waters and Williamsport, Md. (outside the map)",
+   "kind": "labour",
+   "subkind_hint": "bridge_destroyed",
+   "owner_group": "bridges-roads",
+   "source_status": "evidence_row",
+   "evidence_rows": [
+    "us-army-L001"
+   ],
+   "seed_row_planned": "us-army-L001"
+  },
+  {
+   "id": "W-WILLIAMSPORT-WORKS",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "Confederate positions from Falling Waters to Funkstown said to be intrenched (10 Jul)",
+   "place": "Falling Waters - Downsville - Funkstown - Hagerstown (outside the map)",
+   "kind": "labour",
+   "subkind_hint": "breastwork_infantry",
+   "owner_group": "corr-jul4-14",
+   "source_status": "evidence_row",
+   "evidence_rows": [
+    "us-army-L002"
+   ],
+   "seed_row_planned": "us-army-L002"
+  },
+  {
+   "id": "W-SEMINARY-BREASTWORKS-94NY",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "breastworks ordered near the brick seminary, 1 Jul (94th NY)",
+   "place": "Seminary Ridge",
+   "kind": "labour",
+   "subkind_hint": "breastwork_infantry",
+   "owner_group": "us-1c",
+   "source_status": "evidence_row",
+   "evidence_rows": [],
+   "seed_row_planned": "us-1c-L001"
+  },
+  {
+   "id": "W-COULTER-BREASTWORKS",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "Coulter's First Brigade (Robinson's division, I Corps) builds breastworks behind Cemetery Hill, about 19:00 on 1 Jul (PDF timeline T1-184, T2-011: verified against the Official Records by the timeline close-out)",
+   "place": "behind Cemetery Hill",
+   "kind": "labour",
+   "subkind_hint": "breastwork_infantry",
+   "owner_group": "us-1c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null,
+   "timeline_rows": [
+    {
+     "id": "T1-184",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "OR Ser.I vol.27 pt.1, OR27-1-R044 Col. C!ol. Eichard Coulter, p. ~293 (293-294)-~294 (293-294); OR Ser.I vol.27 pt.1, OR27-1-R044 Col. C!ol."
+    },
+    {
+     "id": "T2-011",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "OR27-1-R044 Col. R. Coulter pp.293-294"
+    }
+   ]
+  },
+  {
+   "id": "W-13MA-RIFLE-PIT",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "the 13th Massachusetts gathers rails and digs a rifle pit south of the Bryan farm, night of 1-2 Jul (PDF T2-027; the timeline close-out found no verifying text)",
+   "place": "Cemetery Ridge, south of the Bryan farm",
+   "kind": "labour",
+   "subkind_hint": "rifle_pits",
+   "owner_group": "us-1c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null,
+   "timeline_rows": [
+    {
+     "id": "T2-027",
+     "status": "gap",
+     "tier": "open gap",
+     "citation": "Row source key 13MA; OR27-1-R046 Lt. Col. N. W. Batchelder (13th Mass.) p.297 read this session."
+    }
+   ]
+  },
+  {
+   "id": "W-ANGLE-WALL-STRENGTHENED",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "II Corps strengthens the stone wall before dawn on 3 Jul (PDF T2-241, T3-027): an improvement of the pre-existing wall P-01, never a construction of it",
+   "place": "Cemetery Ridge, the Angle",
+   "kind": "labour",
+   "subkind_hint": "wall_improved",
+   "owner_group": "us-2c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null,
+   "timeline_rows": [
+    {
+     "id": "T2-241",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "[\"OR27-1-R109 Col. Norman J. Hall p.~437 (437-438)\", \"OR27-1-R112 Maj. Sylvanus W. Curtis p.450\", \"OR27-1-R315 Brig. Gen. Robert O. Tyler p."
+    },
+    {
+     "id": "T3-027",
+     "status": "partially_verified",
+     "tier": "documented",
+     "citation": "[\"OR27-1-R109 Col. Norman J. Hall p.~437 (437-438)\", \"OR27-1-R112 Maj. Sylvanus W. Curtis p.450\", \"OR27-1-R315 Brig. Gen. Robert O. Tyler p."
+    }
+   ]
+  },
+  {
+   "id": "W-GBG-STATION-RAILS-TORN",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "rails and telegraph lines torn up, rail cars and the covered bridge burned at the Gettysburg station, evening 26 Jun (PDF T1-015)",
+   "place": "Gettysburg railroad station",
+   "kind": "labour",
+   "subkind_hint": "bridge_destroyed",
+   "owner_group": "cs-2c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null,
+   "timeline_rows": [
+    {
+     "id": "T1-015",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "Official Records Ser.I vol.27 pt.2 OR27-2-R470 Maj. Gen. Jubal A. Early p.465"
+    }
+   ]
+  },
+  {
+   "id": "W-FALLING-WATERS-WORKS-JUL14",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "Confederate rear-guard works at Falling Waters, 14 Jul (PDF: Custer and Kilpatrick charged \"entrenched men\")",
+   "place": "about 1.5 miles from Falling Waters (outside the map)",
+   "kind": "labour",
+   "subkind_hint": "breastwork_infantry",
+   "owner_group": "corr-jul4-14",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null,
+   "timeline_rows": [
+    {
+     "id": "T3-205",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "[\"OR Ser.I vol.27 pt.1, OR27-1-R359 Brig. Gen. Judson Kilpatrick, p. 990\", \"OR Ser.I vol.27 pt.1, OR27-1-R337 Brig. Gen. John Buford, p. ~92"
+    }
+   ]
+  },
+  {
+   "id": "W-BURIAL-TRENCHES",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "burial of the dead by soldiers, townspeople and farmers in shallow graves and trenches with headboards, 4-10 Jul (PDF T3-139, T3-150, T3-196)",
+   "place": "battlefield and hospital sites",
+   "kind": "labour",
+   "subkind_hint": "other_labour",
+   "owner_group": "town-burial",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null,
+   "timeline_rows": [
+    {
+     "id": "T3-139",
+     "status": "gap",
+     "tier": "inferred",
+     "citation": "[\"None found (OR silent on Spangler deaths and counts)\"]"
+    },
+    {
+     "id": "T3-150",
+     "status": "gap",
+     "tier": "inferred",
+     "citation": "[\"OR pt.1 R006 Meade p.117 (Jul 5 and 6 employed in succoring wounded and burying dead)\"]"
+    },
+    {
+     "id": "T3-196",
+     "status": "gap",
+     "tier": "inferred",
+     "citation": ""
+    }
+   ]
+  },
+  {
+   "id": "W-CAMP-LETTERMAN",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "construction of Camp Letterman from 10 Jul (S-077; cross-list with the hospital evidence)",
+   "place": "east of the borough",
+   "kind": "labour",
+   "subkind_hint": "other_labour",
+   "owner_group": "town-burial",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null,
+   "timeline_rows": [
+    {
+     "id": "T3-192",
+     "status": "verified_against_or_text",
+     "tier": "documented",
+     "citation": "[\"OR Ser.I vol.27 pt.1, OR27-1-R160 Brig. Gen. Joseph B. Carr, p. ~544 (544-545)\", \"OR Ser.I vol.27 pt.1, chronology of the campaign (front "
+    },
+    {
+     "id": "T3-196",
+     "status": "gap",
+     "tier": "inferred",
+     "citation": ""
+    }
+   ]
+  },
+  {
+   "id": "W-HARRISBURG-DEFENSES",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "defenses of Harrisburg and the Susquehanna crossings, 26-30 Jun (militia and regulars)",
+   "place": "Harrisburg and Camp Hill (outside the map)",
+   "kind": "labour",
+   "subkind_hint": "earth_parapet",
+   "owner_group": "campaign-elsewhere",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-CEM-RIDGE-RAIL-STONE",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "rail and stone works on Cemetery Ridge, 2-3 Jul (E-17 is the plan's open gap)",
+   "place": "Cemetery Ridge",
+   "kind": "labour",
+   "subkind_hint": "rail_barricade",
+   "owner_group": "us-2c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-SKIRMISH-PITS-EMMITSBURG-RD",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "rifle pits of skirmishers along the Emmitsburg Road and at the Bryan and Codori farms",
+   "place": "Emmitsburg Road",
+   "kind": "labour",
+   "subkind_hint": "rifle_pits",
+   "owner_group": "us-2c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-CONFED-SEMINARY-WORKS",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "Confederate works on Seminary Ridge, 1-3 Jul (child of E-18)",
+   "place": "Seminary Ridge",
+   "kind": "labour",
+   "subkind_hint": "breastwork_infantry",
+   "owner_group": "cs-3c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-CONFED-WARFIELD-WORKS",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "Confederate works on Warfield Ridge, Devil's Den and Round Top, 2-3 Jul (child of E-18)",
+   "place": "Warfield Ridge",
+   "kind": "labour",
+   "subkind_hint": "stone_works",
+   "owner_group": "cs-1c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-CONFED-OAK-HILL-BENNER",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "Confederate works on Oak Hill and Benner's Hill (child of E-18, with G-04 and G-15)",
+   "place": "Oak Hill, Benner's Hill",
+   "kind": "labour",
+   "subkind_hint": "gun_pit_or_epaulement",
+   "owner_group": "cs-2c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-TOWN-BARRICADES",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "barricades, loopholes and sniper posts in the borough (child of E-18, S-022)",
+   "place": "Gettysburg borough",
+   "kind": "labour",
+   "subkind_hint": "barricade_street",
+   "owner_group": "town-burial",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-POWERS-HILL-EMPLACEMENTS",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "Powers Hill gun emplacements and the Engineer works (PDF B.7.8: Warren and the Engineer Brigade)",
+   "place": "Powers Hill",
+   "kind": "labour",
+   "subkind_hint": "gun_pit_or_epaulement",
+   "owner_group": "us-12c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-BIG-ROUND-TOP-WORKS",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "works on Big Round Top and the road cut by gunners (PDF B.7.8)",
+   "place": "Big Round Top, Little Round Top",
+   "kind": "labour",
+   "subkind_hint": "stone_works",
+   "owner_group": "us-5c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-WEST-CEMETERY-HILL-WORKS",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "West Cemetery Hill battery works and Evergreen Cemetery wall details (PDF B.7.8)",
+   "place": "West Cemetery Hill",
+   "kind": "labour",
+   "subkind_hint": "gun_pit_or_epaulement",
+   "owner_group": "us-11c",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-POTOMAC-PONTOONS-JUN",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "Union pontoon bridges over the Potomac at the end of June (Edwards Ferry and Berlin)",
+   "place": "Potomac, Md. (outside the map)",
+   "kind": "labour",
+   "subkind_hint": "bridge_laid",
+   "owner_group": "bridges-roads",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-LEE-RETREAT-BRIDGES",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "bridges and ferries of Lee's retreat, 4-14 Jul (Williamsport, Falling Waters)",
+   "place": "Potomac at Williamsport (outside the map)",
+   "kind": "labour",
+   "subkind_hint": "bridge_laid",
+   "owner_group": "bridges-roads",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  },
+  {
+   "id": "W-ROADS-CUT",
+   "origin": "this pass (PDF B.7.8 gap list or a passage met while planning)",
+   "name": "roads cut or repaired by either army, 26 Jun - 14 Jul",
+   "place": "various",
+   "kind": "labour",
+   "subkind_hint": "road_cut_or_improved",
+   "owner_group": "bridges-roads",
+   "source_status": "search_target",
+   "evidence_rows": [],
+   "seed_row_planned": null
+  }
+ ]
+}

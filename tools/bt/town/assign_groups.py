@@ -228,6 +228,13 @@ def main(check=False):
         g = explicit.get(i) or 'town-railroad'
         members[g]['railways'].append(i)
         why[i] = 'explicit' if i in explicit else 'railway (specialised group)'
+    try:   # railway records with no geometry (a post-1863 line)
+        for it in jl(os.path.join(BASE, 'roads-rail-water', 'railways_no_geometry.json')):
+            g = explicit.get(it['id']) or 'town-railroad'
+            members[g]['railways'].append(it['id'])
+            why[it['id']] = 'railway record with no geometry (specialised group)'
+    except FileNotFoundError:
+        pass
     for fn, key in (('roads.geojson', 'roads'), ('lanes.geojson', 'lanes'), ('fences.geojson', 'fences')):
         for i, xy in lay(fn, key):
             if i in explicit:
@@ -352,6 +359,15 @@ def main(check=False):
         'far_from_every_anchor': dict(sorted(far.items())),
         'basis_of_assignment': dict(sorted(why.items())),
     }
+    # every source id named by a group is a row of the ledger
+    ledger = os.path.join(BT, 'town', 'SOURCES.md')
+    if os.path.exists(ledger):
+        sys.path.insert(0, HERE)
+        import validate_evidence as V
+        led = V.parse_ledger(ledger)
+        missing = sorted({(g['id'], x) for g in groups for x in g['sources'] if x not in led})
+        if missing:
+            raise SystemExit('source ids of groups that are not rows of SOURCES.md: %s' % missing)
     text = json.dumps(doc, indent=1, ensure_ascii=False, sort_keys=False) + '\n'
     if check:
         cur = open(OUT, encoding='utf-8').read() if os.path.exists(OUT) else ''

@@ -5,7 +5,7 @@
 | ID | fence-1-EG-08 |
 | Requirement IDs | R14 (E-17) |
 | Category | evidence conflict (partly closed) |
-| Description | Close-out 2026-11-13. CONTRADICTION confirmed and widened: rail and stone breastworks are documented by unit, material and window on Jul 1 evening (Robinson's division on the line left of Cemetery Hill, parallel with the Emmitsburg road), Jul 2 from about 16:00 (Harrow's regiments, the 7th Michigan, the 80th NY and 151st Pa.), and Jul 3 (28th Mass., 69th Pa., Stone's brigade, Vermont brigade, 142nd, 121st and 69th/71st Pa., 88th Pa. at 18:00). Still open: continuity of a line, dimensions, per-regiment clocks, and the 69th Pa. date (July 2 in two scans, July 3 in the Cornell scan). |
+| Description | Close-out 2026-11-13. CONTRADICTION confirmed and widened: rail and stone breastworks are documented by unit, material and window on Jul 1 evening (Robinson's division on the line left of Cemetery Hill, parallel with the Emmitsburg road), Jul 2 from about 16:00 (Harrow's regiments, the 7th Michigan, the 80th NY and 151st Pa.), and Jul 3 (28th Mass., 69th Pa., Stone's brigade, Vermont brigade, 142nd, 121st and 69th/71st Pa., 88th Pa. at 18:00). Still open: continuity of a line, dimensions, per-regiment clocks, and the 69th Pa. date (July 2 in two scans, July 3 in the Cornell scan). WAVE 4 (2026-11-14): the 69th Pa. date is settled by the page image (EG-16 closed): 'on the morning of July 2'. The 126th NY (Hays's division) made breastworks of 'a low stone wall, and an old rail fence' on the crest from about 08:00 on Jul 2 (Willson 1870). NPS Common Pride: earth thrown over the existing stone wall by Gibbon's division, the 20th Mass. behind a rail-topped work, one printed height 'a little over knee-high', the 13th Vermont's forenoon rail work under Sergeant Scott. |
 | Why literal 100% is not possible or blocked | No source prints a length or profile and none states continuity (Law cl.3). |
 | Evidence searched | Searched with tools/bt/or27_find (OR Ser. I vol. 27 parts 1-3, Cornell scan) and three further archive.org scans (warofrebellion271unit, warofrebellion012701rootrich, warofrebellion272unit, warofrebellionco272unit) as second witnesses; the 99-text library plus three added archive.org books; the 73 National Park Service documents under tmp/library/web/nps. Every quoted passage is in evidence_corrections/fence-1.jsonl.  |
 | Autonomous substitute applied | Works built on screen in the documented windows (DD-02), regiment-length short works, dimensions marked as a gap. |
@@ -17,5 +17,5 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | Rewording of the PDF E-17 text is the owner's call (the text is not changed here). |
 | Agent recommendation | Adopt the documented works; keep the PDF wording as a selectable scenario (DD-02). |
-| Status | partly_closed (updated by the close-out 2026-11-13; the earlier text is superseded) |
+| Status | partly_closed (updated by the close-out 2026-11-13; the earlier text is superseded); updated 2026-11-14 (wave 4) |
 | Owner decision and date | (filled only from the Decision Log) |

@@ -512,3 +512,41 @@ def _typo_cache(st):
         v = typo(st.ntext)
         _typo_views[st.id] = v
     return v
+
+
+def leaf_page(part, off):
+    """Printed page of the scan leaf holding raw offset `off` of Official Records vol. 27 part `part` (tools/bt/kit_or27_leafmap.py, the page
+    convention of DD-TL02-04 item 4), or None when the leaf map is not built or the leaf carries no printed page."""
+    try:
+        import kit_or27_leafmap as K
+        lm = K.load(int(part))
+        if lm is None:
+            return None
+        r = lm.at(off)
+        return r['page'] if r else None
+    except Exception:
+        return None
+
+
+_sv = None
+
+
+def statevol(source_id):
+    """(volume dict with page anchors, {section id: section}) of the state-volume index for a registry source id, or (None, {})"""
+    global _sv
+    if _sv is None:
+        _sv = load_json(STATEVOL_INDEX_PATH) if os.path.exists(STATEVOL_INDEX_PATH) else {'volumes': [], 'sections': []}
+    vol = next((v for v in _sv['volumes'] if v.get('source_id') == source_id), None)
+    if vol is None:
+        return None, {}
+    secs = {s['id']: s for s in _sv['sections'] if s['volume'] == vol['key']}
+    return vol, secs
+
+
+def statevol_page(vol, off):
+    anchors = vol.get('anchors') or []
+    if not anchors:
+        return None
+    starts = [a[0] for a in anchors]
+    i = bisect.bisect_right(starts, off) - 1
+    return anchors[i][1] if i >= 0 else None

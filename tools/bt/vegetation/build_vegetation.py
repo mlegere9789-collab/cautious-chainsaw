@@ -294,16 +294,24 @@ def build_units(args):
             add(cls, pr, g)
             claimed.append(g)
     town = unary_union([g for _, g in layers['excluded_town_zone']])
-    # Little Round Top, east slope. The Warren land cover draws no wood on it (the hill is open ground there), but the National Park Service says the Bushman and Weikert tracts on the east
-    # slopes were wooded in July 1863 and that a tree line at the summit divided them from the cleared west slope (VC-NPS-026 to -028). The reports name the tracts, not their outlines: the wood
-    # is the half of a disc of LRT_R metres round the summit that lies east of the crest, less every outline already drawn and the lanes. The cover is documented; the extent is a rule.
+    # Little Round Top, east slope. The National Park Service says the Bushman and Weikert tracts on the east slopes were wooded in July 1863 and that a tree line at the summit divided them from
+    # the cleared west slope (VC-NPS-026 to -028). The Warren woods of Big Round Top already cover most of that ground, as one polygon of 217 acres: to let the reading of Little Round Top
+    # (CF-VEG-LRT) act on the hill and not on Big Round Top, the half of a disc of LRT_R metres round the summit that lies east of the crest is cut out of that polygon into a unit of its own
+    # (with what no outline covers there). The reports name the tracts, not their outlines: the extent of the unit is a rule; the wood on it is the Warren outline.
     lrt_pt = gz['Little Round Top']
     hill = lrt_pt.buffer(LRT_R, 32).intersection(box(lrt_pt.x - 10.0, lrt_pt.y - LRT_R, lrt_pt.x + LRT_R, lrt_pt.y + LRT_R)).intersection(G)
-    hill = hill.difference(unary_union(claimed + [town])).difference(corridor).buffer(0)
-    for k, p in enumerate(q for q in polys(hill) if q.area >= 400):
+    brt = next((u for u in units if u['lc'] == 'LC-WOOD-0002'), None)
+    others = unary_union([u['geom'] for u in units if u is not brt] + [town]).buffer(0)
+    east = hill.difference(others).difference(corridor).buffer(0)
+    if brt is not None and not east.is_empty:
+        rest = sorted((q for q in polys(brt['geom'].difference(east)) if q.area >= 40), key=lambda q: -q.area)
+        brt['geom'] = rest[0]
+        for k, q in enumerate(rest[1:]):
+            units.append({'cls': 'woods', 'lc': 'LC-WOOD-0002#c%d' % k, 'lc_name': brt['lc_name'], 'lc_conf': brt['lc_conf'], 'geom': q})
+    for k, p in enumerate(q for q in polys(east) if q.area >= 400):
         units.append({'cls': 'woods', 'lc': 'LC-WOOD-LRT-E' + ('' if k == 0 else '#%d' % k), 'lc_name': 'Little Round Top, east slope (the Bushman and Weikert tracts)', 'lc_conf': 'Estimated', 'geom': p,
-                      'geom_tier': 'plausible-procedural', 'lrt_east': True,
-                      'geom_note': 'the east half of a disc of %d m round the summit, less the outlines already drawn and the lanes: the reports name the tracts that were wooded, not their outlines' % LRT_R})
+                      'geom_tier': 'inferred', 'lrt_east': True,
+                      'geom_note': 'the Warren wood on the east half of a disc of %d m round the summit, cut out of the Big Round Top polygon by that rule (with the open ground no outline covers there): the reports name the tracts that were wooded, not their outlines' % LRT_R})
         claimed.append(p)
     covered = unary_union(claimed + [town]).buffer(0)
     # the open remainder: open ground not covered by anything else, with the road, lane and railway corridors cut out
@@ -859,7 +867,7 @@ def make_output(args):
 
 
 def source_titles(claims):
-    """a readable title for every source key the claims cite (OR27; NPS:<ID> from the index of the web task; WS9:<ID> from the library index; WEB:<ID> from its meta file)"""
+    """a readable title for every source key the claims cite (OR27; NPS:<ID> and NPSWEB:<ID> from the index of the web task; WS9:<ID> from the library index; WEB:<ID> from its meta file)"""
     import re
     nps = {}
     idx = os.path.join(BT, 'GOVERNANCE', 'horde', 'ws-web', 'nps', 'INDEX.md')
@@ -876,6 +884,8 @@ def source_titles(claims):
             out[k] = 'The War of the Rebellion: Official Records of the Union and Confederate Armies, Series I, vol. 27 (Gettysburg Campaign)'
         elif k.startswith('NPS:'):
             out[k] = nps.get(k[4:], k[4:])
+        elif k.startswith('NPSWEB:'):
+            out[k] = nps.get(k[7:], k[7:])
         elif k.startswith('WS9:'):
             it = ws9.get(k[4:]); out[k] = (it['title'] + (' (' + str(it['date']) + ')' if it.get('date') else '')) if it else k[4:]
         elif k.startswith('WEB:'):

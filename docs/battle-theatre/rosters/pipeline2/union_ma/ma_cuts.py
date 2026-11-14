@@ -19,4 +19,8 @@ NAME_CUTS = [
     ('u-ma-15th-massachusetts-infantry', 'Charles Devens', 'the first entry follows the unit sketch, which ends in the word INFANTRY set as a heading'),
     ('u-ma-20th-massachusetts-infantry', 'John W. Nye', 'the entry above ends in "V. R. C." (initials)'),
     ('u-ma-11th-massachusetts-infantry', 'Poole William', 'the comma is lost in the text layer; the entry above ends in "as John Pickins." which the period rule would have taken for the surname'),
+    # found by the reconciliation with the earlier roll files (rosters/data/NE/massachusetts): the earlier reading cuts these three heads whole
+    ('u-ma-16th-massachusetts-infantry', 'Steams, Henry VV,', 'the initial W is printed as the two letters VV with a comma, which the comma rule takes for a surname'),
+    ('u-ma-20th-massachusetts-infantry', 'ElishaM. White', 'the given name and the middle initial are one token that ends with a period, which the period rule takes for the end of the entry above'),
+    ('u-ma-32nd-massachusetts-infantry', 'Waitt, John (alias Godsoe, John)', 'the head prints a second name in brackets; the closing bracket ends the cut of the comma rule'),
 ]

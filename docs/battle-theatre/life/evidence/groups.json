@@ -1,0 +1,1468 @@
+{
+ "_doc": "The 22 OA11 research groups (tools/bt/life/build_groups.py from groups_def.py). Every Official Records record, state-volume section and other local text belongs to exactly one group (owns); a group extracts every row of work or routine from the texts it owns. `targets` are things to look for, not claims. Output: evidence/<id>.jsonl validated by tools/bt/life/validate_evidence.py <id>; report: evidence/<id>.report.md.",
+ "schema": "life-groups-1",
+ "built": "2026-11-14",
+ "count": 22,
+ "groups": [
+  {
+   "id": "us-1c",
+   "title": "I Corps (Reynolds, Doubleday, Newton) and its artillery brigade",
+   "side": "US",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "approach, 1 Jul fight, 2-3 Jul reserve and Culp's Hill, retreat",
+   "output": "docs/battle-theatre/life/evidence/us-1c.jsonl",
+   "report": "docs/battle-theatre/life/evidence/us-1c.report.md",
+   "owns": {
+    "official_records": {
+     "count": 47,
+     "by_part": {
+      "1": 47
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "NPS-CLI-1STDAY",
+     "NPS-CLR-1STDAY",
+     "NPS-HB9-1954",
+     "NPS-HB9-1962",
+     "NPS-HS-MCPHERSON",
+     "NPSGOV-FIRST-DAY"
+    ],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": [
+     "NPS-CLI-1STDAY",
+     "NPS-CLR-1STDAY",
+     "NPSGOV-FIRST-DAY",
+     "NPS-HS-MCPHERSON",
+     "NPS-HB9-1954",
+     "NPS-HB9-1962"
+    ]
+   },
+   "units": [
+    "us-1c",
+    "us-1c-1d",
+    "us-1c-2d",
+    "us-1c-3d",
+    "us-1c-art"
+   ],
+   "works": [
+    "E-01",
+    "E-02",
+    "G-02",
+    "S-009",
+    "S-010",
+    "S-014",
+    "W-13MA-RIFLE-PIT",
+    "W-COULTER-BREASTWORKS",
+    "W-SEMINARY-BREASTWORKS-94NY"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-005",
+    "S-011"
+   ],
+   "targets": [
+    "the Seminary Ridge rail barricade (E-01): who stacked the rails, when, how many men, tools; its first mention by a participant",
+    "the breastworks \"thrown up\" near the seminary on 1 July by regiments that report it (say which regiments)",
+    "the 6th Wisconsin and Wadsworth's division on Culp's Hill the evening of 1 July (E-02): tools (the PDF says about a dozen spades and shovels from the regimental wagon, source HistoryNet: find the non-lead text or register the gap), men, hour",
+    "fences and walls used as cover on McPherson and Oak Ridge (P-07; wall_improved only), the unfinished railroad cut (P-12, terrain not work)",
+    "battery works of Wainwright's brigade on 1 July (G-02) and the rail-fence guns at the seminary",
+    "routine: the approach march of 26-30 June (camps, rations, rain), the night of 1-2 July, 2-3 July in reserve, the retreat of 4-14 July"
+   ],
+   "clips": [
+    "dig_shovel",
+    "chop_axe",
+    "march_carry_rail",
+    "stand_picket",
+    "sleep_side",
+    "eat_hardtack"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 2
+  },
+  {
+   "id": "us-2c",
+   "title": "II Corps (Hancock) and its artillery brigade",
+   "side": "US",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "approach, 1 Jul night arrival, 2-3 Jul Cemetery Ridge, retreat",
+   "output": "docs/battle-theatre/life/evidence/us-2c.jsonl",
+   "report": "docs/battle-theatre/life/evidence/us-2c.report.md",
+   "owns": {
+    "official_records": {
+     "count": 56,
+     "by_part": {
+      "1": 56
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "NPS-BRIEN-FARM",
+     "NPS-CLI-PCB",
+     "NPS-COMMON-PRIDE-1",
+     "NPS-COMMON-PRIDE-2",
+     "NPS-COMMON-PRIDE-3",
+     "NPS-HSR-LEISTER-BARN",
+     "NPSGOV-US-LINE"
+    ],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": [
+     "NPS-CLI-PCB",
+     "NPS-COMMON-PRIDE-1",
+     "NPS-COMMON-PRIDE-2",
+     "NPS-COMMON-PRIDE-3",
+     "NPS-HSR-LEISTER-BARN",
+     "NPS-BRIEN-FARM",
+     "NPSGOV-US-LINE"
+    ]
+   },
+   "units": [
+    "us-2c",
+    "us-2c-1d",
+    "us-2c-2d",
+    "us-2c-3d",
+    "us-2c-art"
+   ],
+   "works": [
+    "E-17",
+    "G-12",
+    "W-ANGLE-WALL-STRENGTHENED",
+    "W-CEM-RIDGE-RAIL-STONE",
+    "W-SKIRMISH-PITS-EMMITSBURG-RD"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-058",
+    "S-062"
+   ],
+   "targets": [
+    "the rail and stone works on Cemetery Ridge (E-17: the plan says open gap, do not animate as documented): Hancock, Gibbon, Hays, Webb, Harrow",
+    "skirmish pits and rail piles in front of the line on 2-3 July (Bryan and Codori farms, Emmitsburg Road)",
+    "the Angle wall (P-01): any statement that rails or earth were added; never a construction of the wall",
+    "Ziegler's Grove and Cushing's position (G-12): prepared or improvised, who worked",
+    "routine: the march of 29 June - 1 July, meals and sleep 2-3 July, the cooking before the cannonade of 3 July, burial of the dead 4 July, the retreat"
+   ],
+   "clips": [
+    "dig_shovel",
+    "march_carry_rail",
+    "lay_stone",
+    "stand_picket",
+    "sleep_side",
+    "cook_stir",
+    "eat_hardtack"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 2
+  },
+  {
+   "id": "us-3c",
+   "title": "III Corps (Sickles) and its artillery brigade",
+   "side": "US",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "approach, 2 Jul Peach Orchard and Devil's Den, 3 Jul, retreat",
+   "output": "docs/battle-theatre/life/evidence/us-3c.jsonl",
+   "report": "docs/battle-theatre/life/evidence/us-3c.report.md",
+   "owns": {
+    "official_records": {
+     "count": 47,
+     "by_part": {
+      "1": 47
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "NPS-CLI-ERR",
+     "NPS-HSR-SLYDER",
+     "NPS-SLAUGHTER-PEN",
+     "NPS-SLYDER-GUIDE",
+     "NPSGOV-DEVILS-DEN-REHAB",
+     "NPSGOV-WARFIELD-HOUSE",
+     "NPSGOV-WISLER-HOUSE"
+    ],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": [
+     "NPS-CLI-ERR",
+     "NPSGOV-DEVILS-DEN-REHAB",
+     "NPS-SLAUGHTER-PEN",
+     "NPSGOV-WARFIELD-HOUSE",
+     "NPSGOV-WISLER-HOUSE",
+     "NPS-SLYDER-GUIDE",
+     "NPS-HSR-SLYDER"
+    ]
+   },
+   "units": [
+    "us-3c",
+    "us-3c-1d",
+    "us-3c-2d",
+    "us-3c-art"
+   ],
+   "works": [
+    "E-16",
+    "G-05"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-033",
+    "S-034"
+   ],
+   "targets": [
+    "Devil's Den and Houck's Ridge (E-16: the plan says no works, Ward lacked time or inclination: find the sentence or the gap)",
+    "rail or stone cover at the Peach Orchard, the Emmitsburg Road fences and the Wheatfield wall (P-04, P-10: used, not built)",
+    "rifle pits and skirmish works before the attack of 2 July; Berdan's sharpshooters",
+    "gun positions of Smith, Bigelow, Hart (G-05, G-07, G-10): improvised on open ground",
+    "routine: the camp of 1-2 July, rations and the 2 July morning, picket duty, retreat"
+   ],
+   "clips": [
+    "dig_shovel",
+    "march_carry_rail",
+    "stand_picket",
+    "cook_stir",
+    "eat_hardtack"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "us-5c",
+   "title": "V Corps (Sykes) and its artillery brigade",
+   "side": "US",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "approach, 2 Jul Little Round Top and Wheatfield, 3 Jul, retreat",
+   "output": "docs/battle-theatre/life/evidence/us-5c.jsonl",
+   "report": "docs/battle-theatre/life/evidence/us-5c.report.md",
+   "owns": {
+    "official_records": {
+     "count": 37,
+     "by_part": {
+      "1": 37
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "NPS-BRT-ECOLOGY",
+     "NPS-CLI-LRT",
+     "NPS-CLR-LRT",
+     "NPS-DCP-LRT",
+     "NPS-VISTA-CUTTING",
+     "NPSGOV-LRT-REHAB"
+    ],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": [
+     "NPS-CLI-LRT",
+     "NPS-CLR-LRT",
+     "NPS-DCP-LRT",
+     "NPS-BRT-ECOLOGY",
+     "NPSGOV-LRT-REHAB",
+     "NPS-VISTA-CUTTING"
+    ]
+   },
+   "units": [
+    "us-5c",
+    "us-5c-1d",
+    "us-5c-2d",
+    "us-5c-3d",
+    "us-5c-art"
+   ],
+   "works": [
+    "E-13",
+    "E-14",
+    "E-15",
+    "G-06",
+    "S-043",
+    "W-BIG-ROUND-TOP-WORKS"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-038"
+   ],
+   "targets": [
+    "the Little Round Top breastworks (E-14: Weed's brigade, the Pennsylvania Reserves; the plan says built the evening of 2 July or later, NPS says built on 2 July): who, hour, material",
+    "Big Round Top and the south slope: any works or road cut by gunners",
+    "Hazlett's guns hauled up by hand (G-06: improvised, no earth): the men who did it",
+    "the stone wall used by the 20th Maine (P-14: used, not built)",
+    "routine: the night march of 1-2 July to Little Round Top, the halt for coffee or rest, 3 July, the retreat to Maryland"
+   ],
+   "clips": [
+    "dig_shovel",
+    "lay_stone",
+    "march_carry_rail",
+    "sleep_side",
+    "cook_stir"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 1
+  },
+  {
+   "id": "us-6c",
+   "title": "VI Corps (Sedgwick) and its artillery brigade",
+   "side": "US",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "the long march of 29 Jun - 2 Jul, 3 Jul on the left, pursuit and works of 5-14 Jul",
+   "output": "docs/battle-theatre/life/evidence/us-6c.jsonl",
+   "report": "docs/battle-theatre/life/evidence/us-6c.report.md",
+   "owns": {
+    "official_records": {
+     "count": 17,
+     "by_part": {
+      "1": 17
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": []
+   },
+   "units": [
+    "us-6c",
+    "us-6c-1d",
+    "us-6c-2d",
+    "us-6c-3d",
+    "us-6c-art"
+   ],
+   "works": [],
+   "works_cross_listed": [],
+   "schedule_rows_context": [],
+   "targets": [
+    "the march of 29 June - 2 July: halts, meals, rations, men falling out, rest in the night, arrival; the number of miles each report states",
+    "positions on 2-3 July near Little Round Top and Wolf's Hill: any works, pickets, camps",
+    "works or camps of the pursuit (Fairfield, Boonsboro, Funkstown, Williamsport 5-14 July): who intrenched, when",
+    "routine of the retreat: the days of rain, rations, burials"
+   ],
+   "clips": [
+    "march_carry_rail",
+    "dig_shovel",
+    "sleep_side",
+    "stand_rest",
+    "cook_stir"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "us-11c",
+   "title": "XI Corps (Howard) and its artillery brigade",
+   "side": "US",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "approach, 1 Jul town and Cemetery Hill, 2-3 Jul Cemetery Hill, retreat",
+   "output": "docs/battle-theatre/life/evidence/us-11c.jsonl",
+   "report": "docs/battle-theatre/life/evidence/us-11c.report.md",
+   "owns": {
+    "official_records": {
+     "count": 36,
+     "by_part": {
+      "1": 36
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": []
+   },
+   "units": [
+    "us-11c",
+    "us-11c-1d",
+    "us-11c-2d",
+    "us-11c-3d",
+    "us-11c-art"
+   ],
+   "works": [
+    "E-04",
+    "E-12",
+    "G-03",
+    "S-026",
+    "W-WEST-CEMETERY-HILL-WORKS"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-020",
+    "S-044",
+    "S-045"
+   ],
+   "targets": [
+    "Cemetery Hill and East Cemetery Hill works (E-04, E-12): the plan says von Steinwehr \"fortified\" it and the lunette builders are unknown (builder_unknown: stand-in crew): find who dug, when, with what",
+    "West Cemetery Hill battery works and the Evergreen Cemetery walls and fences (Osborn, Wainwright, Hunt)",
+    "rifle pits and barricades in the streets on 1 July and on the Baltimore Pike",
+    "the brickyard lane and low walls (P-02, P-03: pre-existing)",
+    "routine: bivouac on Cemetery Hill the night of 1-2 July, rations, pickets toward the town, burial details"
+   ],
+   "clips": [
+    "dig_shovel",
+    "lay_stone",
+    "chop_axe",
+    "stand_picket",
+    "sleep_side",
+    "eat_hardtack"
+   ],
+   "depends_on": [
+    "period-manuals",
+    "town-burial"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "us-12c",
+   "title": "XII Corps (Slocum) and its artillery brigade: Culp's Hill",
+   "side": "US",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "approach, 1-2 Jul arrival, 2-3 Jul Culp's Hill works, retreat",
+   "output": "docs/battle-theatre/life/evidence/us-12c.jsonl",
+   "report": "docs/battle-theatre/life/evidence/us-12c.report.md",
+   "owns": {
+    "official_records": {
+     "count": 47,
+     "by_part": {
+      "1": 47
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "NPS-HARMON-FARM",
+     "NPS-ROCK-CREEK",
+     "NPS-SPANGLERS-SPRING",
+     "NPSGOV-CULPS-HILL-REHAB"
+    ],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": [
+     "NPSGOV-CULPS-HILL-REHAB",
+     "NPS-SPANGLERS-SPRING",
+     "NPS-HARMON-FARM",
+     "NPS-ROCK-CREEK"
+    ]
+   },
+   "units": [
+    "us-12c",
+    "us-12c-1d",
+    "us-12c-2d",
+    "us-12c-art"
+   ],
+   "works": [
+    "E-03",
+    "E-05",
+    "E-06",
+    "E-07",
+    "E-08",
+    "E-09",
+    "E-11",
+    "G-17",
+    "G-18",
+    "S-015",
+    "S-023",
+    "S-024",
+    "S-025",
+    "W-POWERS-HILL-EMPLACEMENTS"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-041",
+    "S-050",
+    "S-056",
+    "S-057"
+   ],
+   "targets": [
+    "Greene's brigade (E-05): start about 06:00 or the night of 1-2 July (conflict carried), finish about 09:00-10:00 or noon (conflict carried), tools, men per regiment, traverse and head logs (E-06), the 137th NY trench",
+    "Kane's and Lockwood's brigades, Williams's division, Wadsworth's men on Greene's left (E-07, E-08): per-regiment work (the plan lists this as an open gap)",
+    "the 123rd NY works of 1 July (E-03) against the 6 a.m. start (conflict carried)",
+    "the line left on the evening of 2 July when the corps moved (E-09, S-041), then the return",
+    "Powers Hill and the Culp's Hill batteries (G-17, G-18); tools, spades, axes carried by the regiments or issued",
+    "routine: the camp of 1 July, the night of 2-3 July, rations during the fight of 3 July, the dead of the lower hill, the retreat"
+   ],
+   "clips": [
+    "dig_shovel",
+    "chop_axe",
+    "lay_stone",
+    "march_carry_rail",
+    "stand_picket",
+    "sleep_side",
+    "cook_stir",
+    "eat_hardtack"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 1
+  },
+  {
+   "id": "us-cav",
+   "title": "Cavalry Corps (Pleasonton): Buford, Gregg, Kilpatrick, Merritt, horse artillery",
+   "side": "US",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "approach and Hanover, 1 Jul McPherson Ridge, 2-3 Jul flanks, pursuit",
+   "output": "docs/battle-theatre/life/evidence/us-cav.jsonl",
+   "report": "docs/battle-theatre/life/evidence/us-cav.report.md",
+   "owns": {
+    "official_records": {
+     "count": 31,
+     "by_part": {
+      "1": 31
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "NPSGOV-EAST-CAVALRY"
+    ],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": [
+     "NPSGOV-EAST-CAVALRY"
+    ]
+   },
+   "units": [
+    "us-cav",
+    "us-cav-1d",
+    "us-cav-2d",
+    "us-cav-3d",
+    "us-cav-art"
+   ],
+   "works": [
+    "G-01",
+    "S-003"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-005",
+    "S-055"
+   ],
+   "targets": [
+    "fences and rails used for cover or fuel (McPherson fences S-003, East Cavalry Field fences S-055, Rummel barn loopholes S-054)",
+    "barricades and works made by cavalry on the pursuit (Fairfield, Monterey, Williamsport, Falling Waters)",
+    "horse care: feeding, watering, grooming, horse-holders (every fourth man), vedettes and pickets",
+    "routine: bivouacs of the approach, rations and forage, the nights, the retreat"
+   ],
+   "clips": [
+    "horse_holder",
+    "stand_picket",
+    "dig_shovel",
+    "sleep_side",
+    "cook_stir"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "us-army",
+   "title": "Army of the Potomac, army level: headquarters, Artillery Reserve, ordnance, quartermaster, signal, provost, trains, unplaced Union reports",
+   "side": "US",
+   "kind": "army",
+   "days": "26 Jun - 14 Jul",
+   "phase": "all",
+   "output": "docs/battle-theatre/life/evidence/us-army.jsonl",
+   "report": "docs/battle-theatre/life/evidence/us-army.report.md",
+   "owns": {
+    "official_records": {
+     "count": 53,
+     "by_part": {
+      "1": 53
+     },
+     "needs_hand_check": 42
+    },
+    "texts": [
+     "NPS-HSR-MCCLEAN-BARN",
+     "NPS-MCCLEAN-HOUSE-BARN"
+    ],
+    "state_volume_sections": null,
+    "nps_texts": [
+     "NPS-MCCLEAN-HOUSE-BARN",
+     "NPS-HSR-MCCLEAN-BARN"
+    ]
+   },
+   "units": [
+    "us-aop",
+    "us-aop-hq",
+    "us-art-reserve",
+    "us-art-reserve-ransom",
+    "us-art-reserve-mcgilvery",
+    "us-art-reserve-taft",
+    "us-art-reserve-huntington",
+    "us-art-reserve-fitzhugh",
+    "us-4nj-train-guard"
+   ],
+   "works": [
+    "G-07",
+    "G-10",
+    "G-11",
+    "G-13"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-002",
+    "S-029",
+    "S-046",
+    "S-059",
+    "S-060"
+   ],
+   "targets": [
+    "Meade's and Hunt's reports: works ordered or inspected, gun positions, Powers Hill, the order to intrench on 2-3 July",
+    "rations and supply: Ingalls (quartermaster), the beef herd, the wagon trains and where they parked, issue of rations, the 3-day and 8-day rations carried",
+    "ordnance: ammunition issued and replenished (Edie, Gillett, Rosengarten), the ammunition trains",
+    "signal stations and the cupolas used (Pennsylvania Hall, Little Round Top): construction of stations if stated",
+    "provost duty: guards, stragglers, the provost marshal (Patrick), burial orders",
+    "every Union report the assignment rules could not place (report_assignments.json needs_hand_check): decide its corps before extracting and note it in the group report"
+   ],
+   "clips": [
+    "stand_picket",
+    "march_carry_rail",
+    "stand_rest",
+    "bugler_call",
+    "drummer_beat"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 2
+  },
+  {
+   "id": "cs-1c",
+   "title": "Longstreet's First Corps (McLaws, Pickett, Hood) and its reserve artillery",
+   "side": "CS",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "Chambersburg, 1-2 Jul march, 2-3 Jul Warfield Ridge and Round Top, retreat",
+   "output": "docs/battle-theatre/life/evidence/cs-1c.jsonl",
+   "report": "docs/battle-theatre/life/evidence/cs-1c.report.md",
+   "owns": {
+    "official_records": {
+     "count": 33,
+     "by_part": {
+      "2": 33
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": []
+   },
+   "units": [
+    "cs-1c",
+    "cs-1c-mclaws",
+    "cs-1c-pickett",
+    "cs-1c-hood",
+    "cs-1c-res-art",
+    "cs-1c-art"
+   ],
+   "works": [
+    "G-08",
+    "G-09",
+    "G-14",
+    "W-CONFED-WARFIELD-WORKS"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [],
+   "targets": [
+    "Confederate works on Warfield Ridge, at Devil's Den and on Round Top (the plan lists Confederate works as an open gap): stone or rail cover built by Law's, Robertson's, Benning's, Anderson's men",
+    "artillery positions of Alexander's, Cabell's, Henry's battalions on 2-3 July (G-08, G-09: no works described): any pits, platforms, brush or ammunition parks",
+    "Pickett's division on 2-3 July: halts, rest, meals before the charge, the order to cook or not",
+    "routine: the march from Chambersburg, rations, rain, camps near Marsh Creek, the night of 2-3 July, the retreat and the Potomac crossing"
+   ],
+   "clips": [
+    "dig_shovel",
+    "lay_stone",
+    "sleep_side",
+    "cook_stir",
+    "eat_hardtack",
+    "stand_picket"
+   ],
+   "depends_on": [
+    "period-manuals",
+    "narratives-cs"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "cs-2c",
+   "title": "Ewell's Second Corps (Early, Johnson, Rodes) and its reserve artillery",
+   "side": "CS",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "York, Carlisle, Wrightsville, 1 Jul Oak Hill, 2-3 Jul Culp's Hill and the town, retreat",
+   "output": "docs/battle-theatre/life/evidence/cs-2c.jsonl",
+   "report": "docs/battle-theatre/life/evidence/cs-2c.report.md",
+   "owns": {
+    "official_records": {
+     "count": 57,
+     "by_part": {
+      "2": 57
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": []
+   },
+   "units": [
+    "cs-2c",
+    "cs-2c-early",
+    "cs-2c-johnson",
+    "cs-2c-rodes",
+    "cs-2c-res-art"
+   ],
+   "works": [
+    "E-10",
+    "G-04",
+    "G-15",
+    "S-001",
+    "W-CONFED-OAK-HILL-BENNER",
+    "W-GBG-STATION-RAILS-TORN"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-021"
+   ],
+   "targets": [
+    "Steuart's occupation and any work on the lower Culp's Hill works (E-10: occupation, not construction: look for improvement by Confederate hands)",
+    "breastworks and rifle pits of Johnson's and Early's men on 2-3 July; the Stonewall brigade, Daniel, Walker",
+    "the Rock Creek railroad bridge (S-001) and the Wrightsville bridge: who burned or destroyed, when",
+    "Oak Hill and Benner's Hill battery positions (G-04, G-15)",
+    "routine: requisitions and cooking at York and Carlisle, rations in the town, camps, the nights, the retreat"
+   ],
+   "clips": [
+    "dig_shovel",
+    "chop_axe",
+    "lay_stone",
+    "sleep_side",
+    "cook_stir",
+    "eat_hardtack"
+   ],
+   "depends_on": [
+    "period-manuals",
+    "town-burial",
+    "bridges-roads"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 3
+  },
+  {
+   "id": "cs-3c",
+   "title": "Hill's Third Corps (Anderson, Heth, Pender) and its reserve artillery",
+   "side": "CS",
+   "kind": "corps",
+   "days": "26 Jun - 14 Jul",
+   "phase": "Cashtown, 1 Jul Herr and McPherson Ridge, 2-3 Jul Seminary Ridge, retreat",
+   "output": "docs/battle-theatre/life/evidence/cs-3c.jsonl",
+   "report": "docs/battle-theatre/life/evidence/cs-3c.report.md",
+   "owns": {
+    "official_records": {
+     "count": 27,
+     "by_part": {
+      "2": 27
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "NPSGOV-CONFED-LINE"
+    ],
+    "state_volume_sections": "by regiment (scan_leads.py)",
+    "nps_texts": [
+     "NPSGOV-CONFED-LINE"
+    ]
+   },
+   "units": [
+    "cs-3c",
+    "cs-3c-anderson",
+    "cs-3c-heth",
+    "cs-3c-pender",
+    "cs-3c-res-art"
+   ],
+   "works": [
+    "E-18",
+    "G-16",
+    "W-CONFED-SEMINARY-WORKS"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [],
+   "targets": [
+    "works on Seminary Ridge on 1-3 July (the plan: Confederate works unknown): rails, rifle pits, battery pits of Pender's, Heth's and Anderson's commands",
+    "the shoe foray of 30 June (Pettigrew at Gettysburg) and the camp at Cashtown",
+    "artillery of McIntosh's, Pegram's, Poague's, Garnett's battalions: positions made, pits dug (G-16)",
+    "routine: marches, cooking, rest in the line of 2-3 July, ambulances and burial, the retreat"
+   ],
+   "clips": [
+    "dig_shovel",
+    "march_carry_rail",
+    "sleep_side",
+    "cook_stir",
+    "stand_picket"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "cs-cav-army",
+   "title": "Army of Northern Virginia: cavalry (Stuart, Jenkins, Imboden), army level, artillery reserve, ordnance, unplaced Confederate reports",
+   "side": "CS",
+   "kind": "army",
+   "days": "26 Jun - 14 Jul",
+   "phase": "all",
+   "output": "docs/battle-theatre/life/evidence/cs-cav-army.jsonl",
+   "report": "docs/battle-theatre/life/evidence/cs-cav-army.report.md",
+   "owns": {
+    "official_records": {
+     "count": 48,
+     "by_part": {
+      "2": 48
+     },
+     "needs_hand_check": 27
+    },
+    "texts": [],
+    "state_volume_sections": null,
+    "nps_texts": []
+   },
+   "units": [
+    "cs-anv",
+    "cs-anv-hq",
+    "cs-cav-div",
+    "cs-cav-hampton",
+    "cs-cav-flee",
+    "cs-cav-jenkins",
+    "cs-cav-chambliss",
+    "cs-cav-flee-chambliss",
+    "cs-cav-robertson-jones-imboden",
+    "cs-cav-horse-art"
+   ],
+   "works": [
+    "S-054"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-067"
+   ],
+   "targets": [
+    "Lee's and Pendleton's reports: artillery reserve, ammunition replenished, works ordered at Williamsport",
+    "Stuart's cavalry: rest, forage, horse care, the Rummel barn loopholes (S-054), East Cavalry Field",
+    "Imboden's command and the train at Williamsport: works, guards, burial, rations of the retreat",
+    "the pontoon bridge at Falling Waters and the Potomac crossing 13-14 July (cross-list with bridges-roads)",
+    "every Confederate report the assignment rules could not place (needs_hand_check): decide its corps first"
+   ],
+   "clips": [
+    "horse_holder",
+    "stand_picket",
+    "dig_shovel",
+    "sleep_side",
+    "cook_stir"
+   ],
+   "depends_on": [
+    "period-manuals",
+    "bridges-roads"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "town-burial",
+   "title": "The borough of Gettysburg, civilians, newspapers, hospitals as camps, burial and the cemetery",
+   "side": "both",
+   "kind": "topic",
+   "days": "26 Jun - 14 Jul and the Nov epilogue",
+   "phase": "all",
+   "output": "docs/battle-theatre/life/evidence/town-burial.jsonl",
+   "report": "docs/battle-theatre/life/evidence/town-burial.report.md",
+   "owns": {
+    "official_records": {
+     "count": 0,
+     "by_part": {},
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "ADAMS-SENTINEL-1863-06-02",
+     "ADAMS-SENTINEL-1863-06-09",
+     "ADAMS-SENTINEL-1863-06-16",
+     "ADAMS-SENTINEL-1863-06-23",
+     "ADAMS-SENTINEL-1863-06-30",
+     "ADAMS-SENTINEL-1863-07-07",
+     "ADAMS-SENTINEL-1863-07-14",
+     "ADAMS-SENTINEL-1863-07-21",
+     "ADAMS-SENTINEL-1863-07-28",
+     "ADAMS-SENTINEL-1863-08-04",
+     "ADAMS-SENTINEL-1863-08-11",
+     "ADAMS-SENTINEL-1863-08-18",
+     "(+ the 1863 newspaper issues, 26)"
+    ],
+    "state_volume_sections": null,
+    "nps_texts": [
+     "NPS-CLR-CEMETERY",
+     "NPS-CLI-CEMETERY",
+     "NPS-CEM-ENCLOSURES",
+     "NPS-HCSR",
+     "NPSGOV-CEMETERY",
+     "NPSGOV-TOWN",
+     "NPSGOV-CIVILIANS",
+     "NPS-CARE-WOUNDED-GUIDE",
+     "NPS-HS-SPANGLER-HENRY"
+    ]
+   },
+   "units": [],
+   "works": [
+    "S-052",
+    "W-BURIAL-TRENCHES",
+    "W-CAMP-LETTERMAN",
+    "W-TOWN-BARRICADES"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-022",
+    "S-051",
+    "S-053"
+   ],
+   "targets": [
+    "barricades in the streets, loopholes cut in buildings, sniper posts (Sweney house, the church belfry S-022), fences and doors used as cover: civilians' and newspapers' words",
+    "soldiers cooking, foraging, requisitioning and sleeping in the town and farms (Jacobs, Tillie Pierce, the Compiler and the Sentinel of June to August 1863)",
+    "water drawn at wells and springs; washing; bread baked for soldiers by townswomen",
+    "burial of the dead by soldiers and civilians (4 July onward): Massachusetts burial committee, cemetery reports, Bartlett, the NPS cemetery reports; numbers and methods",
+    "Bliss barn (S-052): men who set the fires, tools"
+   ],
+   "clips": [
+    "dig_shovel",
+    "cook_stir",
+    "eat_hardtack",
+    "drink_cup",
+    "orderly_water"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "bridges-roads",
+   "title": "Engineers, pioneers, bridges, roads and railroads of the campaign",
+   "side": "both",
+   "kind": "topic",
+   "days": "26 Jun - 14 Jul",
+   "phase": "all",
+   "output": "docs/battle-theatre/life/evidence/bridges-roads.jsonl",
+   "report": "docs/battle-theatre/life/evidence/bridges-roads.report.md",
+   "owns": {
+    "official_records": {
+     "count": 3,
+     "by_part": {
+      "1": 3
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "DUANE-1862"
+    ],
+    "state_volume_sections": null,
+    "nps_texts": []
+   },
+   "units": [],
+   "works": [
+    "W-FALLING-WATERS-PONTOON",
+    "W-LEE-RETREAT-BRIDGES",
+    "W-POTOMAC-PONTOONS-JUN",
+    "W-ROADS-CUT",
+    "W-WRIGHTSVILLE-BRIDGE"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-076"
+   ],
+   "targets": [
+    "the reports of the Engineer Brigade, the pioneer corps and the military railroads (the three records this group owns), and Duane (1862) for how engineer troops laid a bridge",
+    "every bridge laid, burned, repaired or destroyed 26 June - 14 July (Rock Creek, Wrightsville-Columbia, Potomac pontoons at Falling Waters and Williamsport, the Conococheague, Monocacy and railroad bridges): collate the rows of the other groups into one chronology, carry conflicts of date",
+    "roads cut or corduroyed, fords improved; the road cut by gunners (PDF B.7.8)",
+    "tools and labour of engineer troops (working parties, tool wagons)"
+   ],
+   "clips": [
+    "march_carry_rail",
+    "chop_axe",
+    "dig_shovel",
+    "lay_stone"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "corr-jun26-30",
+   "title": "Official Records part 3, correspondence and orders dated 22-30 June",
+   "side": "both",
+   "kind": "correspondence",
+   "days": "22-30 Jun",
+   "phase": "approach",
+   "output": "docs/battle-theatre/life/evidence/corr-jun26-30.jsonl",
+   "report": "docs/battle-theatre/life/evidence/corr-jun26-30.report.md",
+   "owns": {
+    "official_records": {
+     "count": 504,
+     "by_part": {
+      "3": 504
+     },
+     "needs_hand_check": 143
+    },
+    "texts": [],
+    "state_volume_sections": null,
+    "nps_texts": []
+   },
+   "units": [],
+   "works": [],
+   "works_cross_listed": [],
+   "schedule_rows_context": [],
+   "targets": [
+    "orders of march, camps ordered, rations and ammunition issued, shoes, wagons reduced, pickets and outposts posted",
+    "works ordered or reported (Harrisburg, Carlisle, Wrightsville, Maryland Heights, Frederick, Baltimore): outside the Gettysburg map but kept as evidence",
+    "the Confederate side: requisitions, orders on conduct and foraging, camps, Ewell's and Early's movements",
+    "the days before 26 June are context only: nothing earlier than the theatre clock becomes a row"
+   ],
+   "clips": [
+    "march_carry_rail",
+    "dig_shovel",
+    "stand_picket",
+    "cook_stir"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "corr-jul1-3",
+   "title": "Official Records part 3, correspondence and orders dated 1-3 July",
+   "side": "both",
+   "kind": "correspondence",
+   "days": "1-3 Jul",
+   "phase": "battle",
+   "output": "docs/battle-theatre/life/evidence/corr-jul1-3.jsonl",
+   "report": "docs/battle-theatre/life/evidence/corr-jul1-3.report.md",
+   "owns": {
+    "official_records": {
+     "count": 144,
+     "by_part": {
+      "3": 144
+     },
+     "needs_hand_check": 29
+    },
+    "texts": [],
+    "state_volume_sections": null,
+    "nps_texts": []
+   },
+   "units": [],
+   "works": [],
+   "works_cross_listed": [],
+   "schedule_rows_context": [],
+   "targets": [
+    "dispatches that order or report works (Warren, Hunt, Hancock, Slocum, Howard, Sedgwick, Pleasonton), tools and working parties",
+    "orders on rations, ammunition, pickets, guards and the trains during the fight",
+    "times stated in dispatches: these anchor the windows of other groups' rows (window basis other_row)"
+   ],
+   "clips": [
+    "dig_shovel",
+    "stand_picket",
+    "march_carry_rail"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "corr-jul4-14",
+   "title": "Official Records part 3, correspondence and orders dated 4-14 July: the retreat and the pursuit",
+   "side": "both",
+   "kind": "correspondence",
+   "days": "4-14 Jul",
+   "phase": "retreat and pursuit",
+   "output": "docs/battle-theatre/life/evidence/corr-jul4-14.jsonl",
+   "report": "docs/battle-theatre/life/evidence/corr-jul4-14.report.md",
+   "owns": {
+    "official_records": {
+     "count": 531,
+     "by_part": {
+      "3": 531
+     },
+     "needs_hand_check": 84
+    },
+    "texts": [],
+    "state_volume_sections": null,
+    "nps_texts": []
+   },
+   "units": [],
+   "works": [
+    "W-FALLING-WATERS-WORKS-JUL14",
+    "W-WILLIAMSPORT-WORKS"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [
+    "S-069"
+   ],
+   "targets": [
+    "works at Williamsport, Hagerstown, Funkstown and Falling Waters by Lee's army and the Union lines of 12-14 July",
+    "camps, rations, rain and mud, trains, burial parties, the wounded left behind, ambulance trains (cross-list with the hospitals evidence)",
+    "the pontoon bridges at Falling Waters and Williamsport: laid, destroyed, rebuilt (cross-list with bridges-roads)"
+   ],
+   "clips": [
+    "dig_shovel",
+    "sleep_side",
+    "cook_stir",
+    "march_carry_rail"
+   ],
+   "depends_on": [
+    "period-manuals",
+    "bridges-roads"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "period-manuals",
+   "title": "Period manuals and regulations: the basis of plausible-procedural scenes",
+   "side": "both",
+   "kind": "manuals",
+   "days": "n/a (generic practice)",
+   "phase": "all",
+   "output": "docs/battle-theatre/life/evidence/period-manuals.jsonl",
+   "report": "docs/battle-theatre/life/evidence/period-manuals.report.md",
+   "owns": {
+    "official_records": {
+     "count": 0,
+     "by_part": {},
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "BILLINGS-1887",
+     "BUTTERFIELD-1863",
+     "MAHAN-1862",
+     "REGS-CS-1863",
+     "REGS-US-1861"
+    ],
+    "state_volume_sections": null,
+    "nps_texts": []
+   },
+   "units": [],
+   "works": [],
+   "works_cross_listed": [],
+   "schedule_rows_context": [],
+   "targets": [
+    "US Regulations 1861 and CS Regulations 1863: rations (the ration table), the daily routine and calls, police of camps, guard and picket duty",
+    "Butterfield, Camp and Outpost Duty for Infantry (1863): camp layout, pickets, cooking and meals, the standing orders",
+    "Mahan, Treatise on Field Fortification (1862): profiles, order of work, tools and the labour a work needs, epaulements, gun pits, abatis, rifle pits",
+    "Billings, Hard Tack and Coffee (1887): what the soldiers ate, cooked and did in camp: general practice only",
+    "for every subkind that no documented row covers: one generic row per manual statement (plausible-procedural, generic true), so that no scene is drawn without a stated basis",
+    "optional second fetch: Casey and Hardee (the drill group has their archive identifiers) if \"stack arms\" and the halts are wanted"
+   ],
+   "clips": [
+    "dig_shovel",
+    "chop_axe",
+    "lay_stone",
+    "sit_fire",
+    "cook_stir",
+    "eat_hardtack",
+    "sleep_side",
+    "stand_picket"
+   ],
+   "depends_on": [],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "narratives-us",
+   "title": "Union narratives, early guides and the state volumes without a section index",
+   "side": "US",
+   "kind": "narratives",
+   "days": "26 Jun - 14 Jul",
+   "phase": "all",
+   "output": "docs/battle-theatre/life/evidence/narratives-us.jsonl",
+   "report": "docs/battle-theatre/life/evidence/narratives-us.report.md",
+   "owns": {
+    "official_records": {
+     "count": 0,
+     "by_part": {},
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "BACH-KEY-1864",
+     "BACH-REPULSE-1870",
+     "BACH-STORY-1904",
+     "BACH-WHATTOSEE-1873",
+     "BACH-WHATTOSEE-1889",
+     "BL-3",
+     "HASKELL-1908",
+     "IN-1913",
+     "LONG-GBV-1891",
+     "MEADE-LL-v1",
+     "MEADE-LL-v2",
+     "MN-1ST-1916",
+     "NJ-FINAL-1891",
+     "NJ-TOOMBS-1888",
+     "OH-8TH-1889",
+     "OH-DED-1887",
+     "PIERCE-F-1914",
+     "VT-GB-1914",
+     "VT-MON-1890"
+    ],
+    "state_volume_sections": null,
+    "nps_texts": []
+   },
+   "units": [],
+   "works": [],
+   "works_cross_listed": [],
+   "schedule_rows_context": [],
+   "targets": [
+    "Haskell, Meade's Life and Letters, Frank Pierce, Battles and Leaders vol. 3 (Union articles), Bachelder's guides, Long (1891): statements of works, meals, camps, pickets by unit and time",
+    "New Jersey, Vermont, Minnesota, Indiana and Ohio volumes: regimental accounts of camps, rations, works and burials (assign each passage to its regiment and corps in the row)",
+    "the state volumes that carry a section index (New York, Pennsylvania, Maine, Michigan) are owned by the corps groups, not by this group"
+   ],
+   "clips": [
+    "dig_shovel",
+    "cook_stir",
+    "eat_hardtack",
+    "sleep_side",
+    "stand_picket"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "narratives-cs",
+   "title": "Confederate narratives: Alexander, Longstreet, Fremantle, Southern Historical Society Papers",
+   "side": "CS",
+   "kind": "narratives",
+   "days": "26 Jun - 14 Jul",
+   "phase": "all",
+   "output": "docs/battle-theatre/life/evidence/narratives-cs.jsonl",
+   "report": "docs/battle-theatre/life/evidence/narratives-cs.report.md",
+   "owns": {
+    "official_records": {
+     "count": 0,
+     "by_part": {},
+     "needs_hand_check": 0
+    },
+    "texts": [
+     "ALEXANDER-1907",
+     "FREMANTLE-1864",
+     "LONGSTREET-1896",
+     "SHSP-04",
+     "SHSP-05",
+     "SHSP-06",
+     "SHSP-11",
+     "SHSP-12"
+    ],
+    "state_volume_sections": null,
+    "nps_texts": []
+   },
+   "units": [],
+   "works": [],
+   "works_cross_listed": [],
+   "schedule_rows_context": [],
+   "targets": [
+    "Alexander's Military Memoirs and Longstreet's memoirs: artillery positions made, works, rest and rations of the corps",
+    "Fremantle's diary of the campaign: what an observer saw soldiers do in camp and on the march",
+    "Southern Historical Society Papers vols. 4, 5, 6, 11, 12: veterans' accounts of cooking, camps, picket duty, works, burial, the retreat"
+   ],
+   "clips": [
+    "dig_shovel",
+    "cook_stir",
+    "sleep_side",
+    "stand_picket",
+    "eat_hardtack"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  },
+  {
+   "id": "campaign-elsewhere",
+   "title": "The campaign outside the Gettysburg map: Susquehanna, Maryland Heights, Harper's Ferry, Baltimore, Winchester and the other-operations reports of OR part 2",
+   "side": "both",
+   "kind": "topic",
+   "days": "26 Jun - 14 Jul",
+   "phase": "all",
+   "output": "docs/battle-theatre/life/evidence/campaign-elsewhere.jsonl",
+   "report": "docs/battle-theatre/life/evidence/campaign-elsewhere.report.md",
+   "owns": {
+    "official_records": {
+     "count": 133,
+     "by_part": {
+      "1": 4,
+      "2": 129
+     },
+     "needs_hand_check": 0
+    },
+    "texts": [],
+    "state_volume_sections": null,
+    "nps_texts": []
+   },
+   "units": [],
+   "works": [
+    "W-HARRISBURG-DEFENSES",
+    "W-WRIGHTSVILLE-WORKS"
+   ],
+   "works_cross_listed": [],
+   "schedule_rows_context": [],
+   "targets": [
+    "the defenses of Harrisburg and the Susquehanna crossings built by militia and regulars (June 26 - 4 July)",
+    "Maryland Heights, Harper's Ferry, Frederick and Baltimore works and camps; the Winchester returns of June (context)",
+    "rows are marked place.map_scope outside_map: kept, not drawn on the Gettysburg map (never narrowed)"
+   ],
+   "clips": [
+    "dig_shovel",
+    "chop_axe",
+    "stand_picket",
+    "cook_stir"
+   ],
+   "depends_on": [
+    "period-manuals"
+   ],
+   "leads": {
+    "hits": null,
+    "written": null,
+    "by_class_written": null
+   },
+   "first_reads": [],
+   "rows_so_far": 0
+  }
+ ],
+ "unassigned_outside_clock": 979,
+ "source_registry": "docs/battle-theatre/life/evidence/sources.json",
+ "assignments": "docs/battle-theatre/life/evidence/report_assignments.json",
+ "leads": "docs/battle-theatre/life/leads/",
+ "contract": "docs/battle-theatre/life/evidence/contract.json",
+ "poses": "docs/battle-theatre/life/evidence/poses.json",
+ "works_register": "docs/battle-theatre/life/inventory/works.json"
+}

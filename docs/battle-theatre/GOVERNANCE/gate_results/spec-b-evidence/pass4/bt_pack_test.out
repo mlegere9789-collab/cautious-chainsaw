@@ -1,0 +1,8 @@
+# node --test --test-reporter=tap tests/bt-pack/pack.test.mjs tests/bt-pack/verify.test.mjs   start 2026-11-14T00:46:19Z   exit 1   wall 9.1 s
+totals: {'tests': '72', 'suites': '0', 'pass': '69', 'fail': '3', 'cancelled': '0', 'skipped': '0', 'todo': '0', 'duration_ms': '9018.869044'}
+not ok lines: 3
+   not ok 18 - the shipped kit and data files carry no production note
+   not ok 25 - copy audit of the shipped dist is clean (shipping gate; red = a source file mentions how the site was made)
+   not ok 45 - real roster data: the printed names pass, nothing else in the 118 files is a hit (a second look at the files the roster section will ship)
+skipped tests: 0
+NOT RUN (NEEDS_GPU) lines: 0

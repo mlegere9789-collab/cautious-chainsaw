@@ -146,8 +146,16 @@ export class Product {
   }
   // the identity of a scenario for comparison: the conflict choices and the structure readings, whatever the scenario is called
   scenarioKey(spec) { const sc = this.scenarioSpec(spec); return JSON.stringify([sc.choices, Object.entries(sc.structure || {}).sort(([a], [b]) => (a < b ? -1 : 1))]); }
-  // a Scene is the stage under one set of conflict choices (the structure readings change nothing in the stage); scenes with the same choices are one
-  scene(spec = 'default') { const sc = this.scenarioSpec(spec), key = JSON.stringify(sc.choices); let s = this._scenes.get(key); if (!s) { s = new Scene(this, { id: sc.id, label: sc.label, choices: sc.choices }, key, spec); this._scenes.set(key, s); } return s; }
+  // a Scene is the stage under one set of conflict choices (the structure readings change nothing in the stage); scenes with the same choices are one. A scene costs about 0.4 s and 30 MB (50 to 75 MB with its
+  // structures bundle), and a record that runs its whole scenario group builds one per value of every conflict that reaches it: the least recently used are dropped beyond tolerances.json sampling.scenes_cached, so that a run
+  // of the whole timeline never holds more than that. A scene asked for again after it was dropped is built again and answers the same: it is a function of its choices.
+  scene(spec = 'default') {
+    const sc = this.scenarioSpec(spec), key = JSON.stringify(sc.choices); let s = this._scenes.get(key);
+    if (s) { this._scenes.delete(key); this._scenes.set(key, s); return s; }                      // the most recently used is last
+    s = new Scene(this, { id: sc.id, label: sc.label, choices: sc.choices }, key, spec); this._scenes.set(key, s);
+    const cap = Math.max(2, (this.tolerances.sampling && this.tolerances.sampling.scenes_cached) || 8); while (this._scenes.size > cap) this._scenes.delete(this._scenes.keys().next().value);
+    return s;
+  }
   // ---- units: static facts
   unit(id) { const u = this.byId.get(id); return u || null; }
   ancestors(id) { const out = []; let u = this.byId.get(id); while (u && u.parent) { out.push(u.parent); u = this.byId.get(u.parent); } return out; }

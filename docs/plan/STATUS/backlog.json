@@ -3872,7 +3872,7 @@
     "tests/historian/build.test.mjs"
    ],
    "depends_on": [],
-   "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-06 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Remaining work: it is not wired into any CI or release routine (no .github directory), a seeded violation does not turn a CI job red because there is none, and it reads legacy/dist/data, not the shipped (corrected) data tree: rebuild from release data. The suite needs Node 24: under the container's default Node 22 tools/historian/ingest/times.mjs fails to parse (inline regex modifier), see VER-HIST-NODE. Plan acceptance (docs/plan/FINAL, WP-HIST-06): clean rebuild reproduces hashes; a seeded violation turns CI red. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
+   "acceptance": "Proof: a red-first test under tests/historian/ (it fails before the change; the failing log is kept), the work in historian-src/, tools/historian/, tests/historian/, and `node candidates/r1h/_lib/record.mjs wp-hist-06 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Remaining work: it is not wired into any CI or release routine (no .github directory), a seeded violation does not turn a CI job red because there is none, and it reads legacy/dist/data, not the shipped (corrected) data tree: rebuild from release data. The suite loads under the container's default Node 22 since the fix of VER-HIST-NODE (tools/historian/ingest/times.mjs no longer holds the inline regex modifier); the CI job should run it under Node 22 and Node 24. Plan acceptance (docs/plan/FINAL, WP-HIST-06): clean rebuild reproduces hashes; a seeded violation turns CI red. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
    "acceptance_basis": "machine proof clause + next-step + plan-accept",
    "done_evidence": null
   },
@@ -26601,7 +26601,7 @@
     "recorded": true,
     "summary": "Delegated, conservative: do not move the app (no identity change without a Search Console baseline); build the landing page as an inert candidate; keep manifest id \"/\". Alternative kept: the S3 move as a later train."
    },
-   "acceptance": "Proof: every child is done (wp-seo-10b, wp-seo-11b, wp-seo-11c); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Landing as an inert candidate. Decision: delegated row A02 applys; build only the conservative choice and keep the alternative selectable.",
+   "acceptance": "Proof: every child is done (wp-seo-10b, wp-seo-11b, wp-seo-11c); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Delegated row A02: do not move the app; build the landing page at / as an inert candidate (WP-SEO-10b, train S3) that replaces the crawlable block; until it ships, the block and the visible tool list stay. Decision: delegated row A02 applys; build only the conservative choice and keep the alternative selectable.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -26646,7 +26646,7 @@
     "recorded": true,
     "summary": "Delegated, conservative: do not move the app (no identity change without a Search Console baseline); build the landing page as an inert candidate; keep manifest id \"/\". Alternative kept: the S3 move as a later train."
    },
-   "acceptance": "Proof: every child is done (audit-e4); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): As AUDIT-E4. Decision: delegated row A02 applys; build only the conservative choice and keep the alternative selectable.",
+   "acceptance": "Proof: every child is done (audit-e4); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Closes with AUDIT-E4 (delegated row A02): the extra h1s are already down to one (AUDIT-E3); the fragile #seo-content block goes when the landing candidate ships and is never presented as cloaking. Decision: delegated row A02 applys; build only the conservative choice and keep the alternative selectable.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -26850,7 +26850,7 @@
     "recorded": true,
     "summary": "Delegated, conservative: ship no telemetry; keep Netlify RUM as the only field source; build the collector only as an inert candidate. Alternative kept: enable it after the owner approves the privacy text and a function deploy path."
    },
-   "acceptance": "Proof: every child is done (wp-infra-15, wp-infra-16b, wp-infra-16c); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): As WP-INFRA-15. Decision: delegated row A04 applys; build only the conservative choice and keep the alternative selectable.",
+   "acceptance": "Proof: every child is done (wp-infra-15, wp-infra-16b, wp-infra-16c); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Delegated row A04: no collector and no report endpoint in the zip-published line; keep the Report-Only policies as they are (headers.spec HDR-06, 21, 22); build the collector only as an inert candidate (WP-INFRA-15) and add a Reporting-Endpoints header only together with it. Decision: delegated row A04 applys; build only the conservative choice and keep the alternative selectable.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -26883,10 +26883,12 @@
     "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
    ],
    "depends_on": [
+    "wp-infra-26",
     "nf-29",
     "audit-x5"
    ],
    "children": [
+    "wp-infra-26",
     "nf-29",
     "audit-x5"
    ],
@@ -26897,7 +26899,7 @@
     "recorded": true,
     "summary": "Delegated, conservative: ship no telemetry; keep Netlify RUM as the only field source; build the collector only as an inert candidate. Alternative kept: enable it after the owner approves the privacy text and a function deploy path."
    },
-   "acceptance": "Proof: every child is done (nf-29, audit-x5); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): As NF-29 and AUDIT-X5. Decision: delegated row A04 applys; build only the conservative choice and keep the alternative selectable.",
+   "acceptance": "Proof: every child is done (wp-infra-26, nf-29, audit-x5); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Two separate parts: the missing report endpoint stays the delegated choice of NF-29 (row A04); the privacy text that places the Street View frame correctly is the opt-in group PG-legal (AUDIT-X5, WP-INFRA-26), which ships after the owner's review. Decision: delegated row A04 applys; build only the conservative choice and keep the alternative selectable.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },

@@ -1,27 +1,38 @@
-# Shard fence-1 report (R14, items 1-35): close-out 2026-11-13
+# Shard fence-1 report (R14, items 1-35): close-out 2026-11-13, reopened 2026-11-14 (wave 4)
 
 Scope: R14.0000, E-01..E-18 (works chronology), S-001..S-016 (state schedule). These rows are earthwork, fence, building-state and hospital rows; fence relevance is marked on each row of `results.jsonl`.
 
-Machine-readable result: `GOVERNANCE/evidence_corrections/fence-1.jsonl` (35 lines, one per row: verdict, corrected claim, sub-claims with tier, citations with source id, part, report id, printed page, verbatim quote and character offset, what stays unsupported, blocked web sources, product consequence). Proposed register entries: `proposed-register/fence-1-EG-01..19.md`. World-content request note: `GOVERNANCE/horde/requests/bt-evidence-fence-1-world-content.md`. Scripts that rebuild and check everything: `scripts/` (build_corrections.py, verify_corrections.py, gen_register.py, gen_report.py).
+Machine-readable result: `GOVERNANCE/evidence_corrections/fence-1.jsonl` (35 lines, one per row: verdict, corrected claim, sub-claims with tier, citations with source id, part, report id, printed page, verbatim quote and character offset, what stays unsupported, blocked web sources, product consequence). Proposed register entries: `proposed-register/fence-1-EG-01..19.md`. World-content request note: `GOVERNANCE/horde/requests/bt-evidence-fence-1-world-content.md`. Page images looked at: `images/` and `image_checks.json`. Search log: `lookups.jsonl`. Scripts that rebuild and check everything: `scripts/` (spec_*.py hold the rows, spec_zz_wave4.py the 2026-11-14 additions; build_corrections.py, verify_corrections.py, gen_register.py, gen_report.py).
 
 ## What was run (2026-11-13)
 
 1. Every one of the 92 citations of the earlier pass was re-matched verbatim in the local Official Records (OR Ser. I vol. 27 parts 1-2, Cornell scan, via tools/bt/or27_find): all 92 found, each with the same report id, printed page and character offsets as before (recorded per row in `recheck`). The 92 lines of this shard in `horde/OR-RECHECK/results.jsonl` are all found=yes, none fuzzy.
-2. Second witnesses: four further archive.org scans of OR vol. 27 were downloaded (warofrebellion271unit, warofrebellion012701rootrich for part 1; warofrebellion272unit, warofrebellionco272unit for part 2; sha256 in `scripts/witness.py`). Of the 205 OR citations in the new file, 154 are found in both extra scans, 39 in one, 12 in none (OCR spelling differences only, listed in each citation).
-3. Every sub-claim without support was searched in OR parts 1-3, the 99-text library, three added archive.org books (Dawes 1890, Morhous 1879, Eddy 1864) and the 73 National Park Service documents now local (tmp/library/web/nps). 78 searches are logged in `lookups.jsonl` (including the failed ones). Results: 293 citations in the new file, drawn from OR-27-1 177, OR-27-2 28, NY-GB-1900 13, NPS-CLR-ROT-V1 10, NPS-CLR-1STDAY 7, ME-GB-1898 6, DAWES-1890 6, BL-3 6, JACOBS-1864 6, PA-GB-1914-v2 4, MORHOUS-1879 4, NPS-CLI-LRT 4.
-4. `scripts/verify_corrections.py` re-checks all 293 citations independently (offsets in the named local file, squashed text equals squashed quote): 0 mismatches.
+2. Second witnesses: four further archive.org scans of OR vol. 27 were downloaded (warofrebellion271unit, warofrebellion012701rootrich for part 1; warofrebellion272unit, warofrebellionco272unit for part 2; sha256 in `scripts/witness.py`). Of the 210 OR citations in the new file, 158 are found in both extra scans, 40 in one, 12 in none (OCR spelling differences only, listed in each citation).
+3. Every sub-claim without support was searched in OR parts 1-3, the 99-text library, three added archive.org books (Dawes 1890, Morhous 1879, Eddy 1864) and the 73 National Park Service documents now local (tmp/library/web/nps). 78 searches of that pass are logged in `lookups.jsonl` (including the failed ones).
+
+## What was run (reopened 2026-11-14, wave 4)
+
+The close-out of 2026-11-13 left three owed items (two page images and the garbled newspaper lines) and many texts had become local since: other workstreams had acquired books and the NPS pages. The jsonl of 2026-11-13 was rebuilt from the same row specs plus `scripts/spec_zz_wave4.py`.
+
+4. Page images (Read tool, crops cut at 300 dpi from archive.org scans; sha256 of every crop and source file in `image_checks.json`): OR27-1 p.431 (Davis, 69th Pa.) prints "on the morning of July 2" (the Cornell OCR "July 3" is a misread digit; E-17); OR27-1 p.856 (Greene) prints "By 12 o'clock we had a good cover for the men" (the Cornell OCR "13" is a misread; E-05); the Gettysburg Compiler of 29 Jun 1863 reads "The [c]entre span of the bridge was burnt and [smeared] in. The other two are standing, but [ba]dly damaged" (S-001: "fell in" is the likely reading of a smeared word and is not asserted). All three owed items are closed.
+5. Newly local texts searched for every open sub-claim: the books acquired by the timeline and unit workstreams (Bates 1875, Biddle 1880, Hard 1868, Barton 1898, Stoever in USCC-Smith 1868, Brown 1896, Hall 1908), the Iron Brigade and Maine books (Curtis 1891, Small 1886, Dawes 1890), the Second Corps regimental and brigade histories of the oob-kit library (25 text files: Willson 1870, McDermott 1889, Banes 1876, Bruce 1906, Ford 1898, Page 1906 and others), the Adams Sentinel and Gettysburg Compiler issues of 1863, the NPS Historic Structures Report of the McPherson farm, the NPS Little Round Top landscape report with its quoted veterans, the NPS inventories and Common Pride studies. 50 more searches and three page-image readings are logged in `lookups.jsonl` (lines with "wave": 4, with real hit counts; hits are capped per text).
+6. Cited foreign scratch books were copied into tmp/fence-1/lib (sha256 checked against the owners' ledgers) so the citations keep verifying when other workstreams clear their scratch.
+7. `scripts/build_corrections.py` re-resolved every citation (402) in the local files: each quote found verbatim (whitespace-normalised, case-sensitive) exactly once in the named report or source, or the build stops. `scripts/verify_corrections.py`: 402 citations, 0 mismatches. A strict audit (offset in the file, quote equals span, and for the Official Records the report id and printed page recomputed with tools/bt/or27_find against the stored values): 0 problems.
+8. The nine hosts of the web-only rows were asked once more on 2026-11-14 (one request each): all still answer "CONNECT tunnel failed, response 403"; blocked, not worked around (log: tmp/fence-1/run4/host_probe_2026-11-14.txt).
+
+Citations by source in the new file (402 in all): OR-27-1 181, OR-27-2 29, NPS-CLR-1STDAY 16, NY-GB-1900 16, BATES-1875 12, NPS-CLR-ROT-V1 12, KIT:24thmichiganiron00curtrich 9, NPS-CLR-LRT 9, ME-GB-1898 7, NPS-COMMON-PRIDE-1 7, PA-GB-1914-v2 6, DAWES-1890 6, SHSP-05 6, BL-3 6, JACOBS-1864 6, NPS-CLI-LRT 5.
 
 ## Result by verdict
 
 | verdict | rows |
 |---|---|
 | confirmed | 1 (E-10) |
-| corrected | 12 (E-03, E-04, E-06, E-08, E-11, E-13, E-17, E-18, S-001, S-005, S-009, S-015) |
-| partially_supported | 19 (0000, E-01, E-02, E-05, E-07, E-09, E-12, E-14, E-15, E-16, S-002, S-006, S-007, S-010, S-011, S-012, S-013, S-014, S-016) |
-| unsupported | 2 (S-004, S-008) |
-| gap | 1 (S-003) |
+| corrected | 13 (E-03, E-04, E-06, E-08, E-11, E-13, E-17, E-18, S-001, S-004, S-005, S-009, S-015) |
+| partially_supported | 21 (0000, E-01, E-02, E-05, E-07, E-09, E-12, E-14, E-15, E-16, S-002, S-003, S-006, S-007, S-008, S-010, S-011, S-012, S-013, S-014, S-016) |
+| unsupported | 0 () |
+| gap | 0 () |
 
-Sub-claims: documented/conflict 8; documented/partial 6; documented/supported 84; inferred/partial 8; inferred/unsupported 4; n/a (aggregate)/supported 2; open_gap/blocked_host 9; open_gap/contradicted 2; open_gap/partial 2; open_gap/unsupported 23.
+Sub-claims: documented/conflict 15; documented/partial 14; documented/supported 102; inferred/partial 6; inferred/unsupported 3; n/a (aggregate)/supported 2; open_gap/blocked_host 9; open_gap/contradicted 2; open_gap/partial 3; open_gap/unsupported 21.
 
 Row status: `open_gaps` = all supportable parts closed, named gaps remain registered; `blocked_host` = what is left rests only on web pages this machine cannot read (S-003, S-004, S-008, S-016).
 
@@ -44,16 +55,16 @@ Row status: `open_gaps` = all supportable parts closed, named gaps remain regist
 | R14.E-14 | partially_supported | open_gaps | Two builders are documented, not one: Weed's brigade (under Garrard, after Weed fell) strengthened the ridge 'at night' on Jul 2 by building a stone wall about halfway down the slope wherever the rocks gave no cover (Garrard); ... |
 | R14.E-15 | partially_supported | open_gaps | Hazlett's battery (six 10-pounders, Hunt) was moved to the left about 16:30 and, on taking position on the summit, 'immediately opened upon the enemy' and fired until dark (Martin, Hunt); the PDF's first-fire 17:45 is not ... |
 | R14.E-16 | partially_supported | open_gaps | The OR is silent about any works built by Ward's brigade before the attack: Ward's report mentions a stone wall about 160 yd ahead that both sides fought for (an existing wall), and no regimental report of the brigade reports ... |
-| R14.E-17 | corrected | open_gaps | CONTRADICTED by the Official Records: rail and stone breastworks on the Cemetery Ridge line are documented by unit, material and clock window in three waves. Jul 1 evening (Robinson's division, First Corps, on the line left of ... |
+| R14.E-17 | corrected | open_gaps | CONTRADICTED by the Official Records: rail and stone breastworks on the Cemetery Ridge line are documented by unit, material and clock window in four waves. Jul 1 evening (Robinson's division, First Corps, on the line left of ... |
 | R14.E-18 | corrected | open_gaps | Confederate works are documented, though not for all five sites and not on the dates the PDF searched. Town: on the early morning of Jul 2 the Confederates began barricading the south side of Middle Street from Seminary Ridge to ... |
 | R14.S-001 | corrected | open_gaps | The burning is dated to the evening of Friday Jun 26 (Jacobs; Early reached Gettysburg late on a rainy day and moved on next morning, 'the 27th', from Mummasburg). The bridge is the railroad bridge across Rock Creek east of the ... |
 | R14.S-002 | partially_supported | open_gaps | Primary and secondary sources place Union signal officers on a college or seminary cupola on Jun 30 and Jul 1 but do not agree on the building: Norton (Signal Corps report) puts Buford's signal officer on Jun 30 'in the steeple ... |
-| R14.S-003 | gap | blocked_host | No source read supports or refutes the Jun 30 dismantling. OR Parts 1-3 have no 'firewood' hit and the Buford/Gamble/Devin reports name no fence use on Jun 30; the 99-text library plus Dawes, Morhous and Eddy and the 73 NPS ... |
-| R14.S-004 | unsupported | blocked_host | Not supported by any source readable here. OR Part 1-3 have no 'Presbyterian church' hit; Cuyler, Vollum and Letterman (R003, R004, R016) name no building; the library and the NPS documents contain no statement that a town church ... |
+| R14.S-003 | partially_supported | blocked_host | The NPS Historic Structures Report of the McPherson farm says that on the Tuesday night before the battle (Jun 30) the tenant Slentz watched men tear down his fencing 'for firewood and for possible use as breastworks on the ... |
+| R14.S-004 | corrected | blocked_host | A Presbyterian church near the centre of the town was used as a hospital on Jul 1, not on Jun 30: after noon, when the Eleventh Corps came to the cavalry's relief and Confederate batteries brought the 8th Illinois Cavalry's ... |
 | R14.S-005 | corrected | open_gaps | Gamble's brigade used fences for cover on the morning of Jul 1, but the clock is about 08:00, not 07:30: Gamble was told at about 8 o'clock that the enemy was approaching and Buford puts the report between 8 and 9 a.m.; Gamble's ... |
 | R14.S-006 | partially_supported | open_gaps | Fences along the Chambersburg Pike on Jul 1 are documented, but the type is a conflict: Wainwright describes a 'paling fence' running parallel to and within 50 yd of the road (east of the seminary); Dawes records a fence on the ... |
 | R14.S-007 | partially_supported | open_gaps | The unfinished railroad cut west of the seminary is named by Dawes (6th Wisconsin), whose line, with the 95th NY and 14th Brooklyn, charged the cut after the Confederates took refuge in it; Davis's brigade fought there. The OR ... |
-| R14.S-008 | unsupported | blocked_host | Not supported by any source readable here: 'St. Francis' and 'Xavier' have no hit in OR Parts 1-3; the library has no statement; the NPS documents mention St. Francis Xavier only as a 1918 influenza ward (Eisenhower camp history) ... |
+| R14.S-008 | partially_supported | blocked_host | The Catholic church of Gettysburg (St. Francis Xavier) served as a hospital for wounded of both armies: a Bucktail surgeon left with the wounded of the first day was 'assigned to duty in a hospital established at the Catholic ... |
 | R14.S-009 | corrected | open_gaps | The NPS landscape inventory (from the National Register form) says Union troops themselves tore down David McMillan's fences on the morning of Jul 1 to facilitate movement, a Union battery stood in his yard, and after the Union ... |
 | R14.S-010 | partially_supported | open_gaps | The rails of the Seminary Ridge barricade are documented and in part tied to fences: a Maine adjutant says Paul's brigade built the redoubt of earth and fence rails in front of the seminary; the seminary steward's neighbor Dr. ... |
 | R14.S-011 | partially_supported | open_gaps | Union side: Wadsworth ordered the command to retire at 15:45 and held until then; Robinson's division withdrew at 'nearly 5 p.m.'; Confederate side: Pender ordered his three brigades forward 'about 4 o'clock' (Engelhard) and ... |
@@ -65,8 +76,8 @@ Row status: `open_gaps` = all supportable parts closed, named gaps remain regist
 
 ## Where the earlier shard text was wrong or incomplete
 
-- E-04: the 80th NY / 151st Pa. rail-fence breastwork (Gates) is on the Cemetery Ridge line (E-17), not on Cemetery Hill; no source says von Steinwehr fortified the hill.
-- E-05: Greene's 'By 13 o'clock' is 'By 12 o'clock' in two other scans; the 149th NY lists 'rails' and a 04:00 march; Jones (60th NY, 1888) gives a 10:00 finish; NPS gives a general five-foot figure for the log-crib works.
+- E-04: the 80th NY / 151st Pa. rail-fence breastwork (Gates) is on the Cemetery Ridge line (E-17), not on Cemetery Hill. WAVE 4: books of 1875-1914 (Bates, Curtis, the New York and Pennsylvania volumes, Toombs, Pierce) do say Steinwehr fortified the hill and built lunettes, but no 1863 report does and Hancock (letter of 17 Jan 1878) calls the lunette account 'a great error' (only shallow holes for wheels and trails when he arrived about 15:00-15:30); the earlier 'no source says' is replaced by a carried three-way conflict.
+- E-05: Greene's 'By 13 o'clock' (Cornell OCR) is 'By 12 o'clock' in the printed page (page image looked at 2026-11-14); the 149th NY lists 'rails' and a 04:00 march; Jones (60th NY, 1888) gives a 10:00 finish; NPS gives a general five-foot figure for the log-crib works.
 - E-06: a traverse was commenced by the 137th NY and extended about twenty yards (Greene 1893); the earlier 'no dimension' is replaced.
 - E-08: Lockwood's brigade did not serve on Jul 2: it reached the First Division at 08:00 Jul 3 (own report); the 3rd Wisconsin threw down fences and walls in its front.
 - E-09: 750 reinforcements = about 400 (Eleventh Corps) + about 350 (Wadsworth) (Eddy 1864); the 18:30 change is an occupation of existing works, not a construction; withdrawal clocks 18:30 (First Division) and 19:00 (Geary).
@@ -75,16 +86,17 @@ Row status: `open_gaps` = all supportable parts closed, named gaps remain regist
 - E-13: contradicted in part: the 83rd Pa. stood 'behind rocks and stones hastily thrown up' (OR27-1-R201).
 - E-14: the OR does credit Weed's brigade (Garrard R217: 'At night ... building a stone wall'); Confederate reports (Benning R458, Waddell R462) saw two and three lines of stone breastworks built through the night of Jul 2-3.
 - E-15: first fire 17:45 is unsupported; Hunt and Martin put it on arrival about 16:30; hauling method conflicts.
-- E-17: the contradiction of the PDF is widened by unit and window (Jul 1 evening, Jul 2 from 16:00, Jul 3 morning to 18:00); the 69th Pa. breastwork date is July 2 in two scans and July 3 in the Cornell scan.
+- E-17: the contradiction of the PDF is widened by unit and window (Jul 1 evening, Jul 2 morning and from 16:00, Jul 3 morning to 18:00); the 69th Pa. breastwork date is the morning of July 2 (page image of OR27-1 p.431; the Cornell OCR 'July 3' is a misread digit); WAVE 4 adds the 126th NY on Jul 2 from about 08:00 (Willson 1870).
 - E-18: Confederate works are documented for Jul 2 (Middle Street barricade), the night of Jul 3-4 and Jul 4; Jul 2-3 at the other sites stays a gap.
-- S-001: Jun 26 evening (Jacobs, Early's sequence); the bridge is the Rock Creek railroad bridge (Gettysburg Compiler, Jun 29, 1863).
-- S-002: the building is a conflict (college steeple / Seminary building cupola / College cupola); S-005: 08:00 not 07:30; S-006: type conflict now three-way; S-009: Union troops tore the fences down (NPS), then Confederates used the rails in entrenchments; S-010: 3,108 rails lost (Schmucker); S-012: holes in walls and a rebuilt northeast corner (NPS); S-016: only a general NPS field-hospital statement.
+- S-001: Jun 26 evening (Jacobs, Early's sequence); the bridge is the Rock Creek railroad bridge (Gettysburg Compiler, Jun 29, 1863); the page image confirms 'The [c]entre span of the bridge was burnt and [smeared] in': 'fell in' is not asserted.
+- S-002: the building is a conflict (college steeple / Seminary building cupola / College cupola); WAVE 4: the Jul 1 morning post is the Seminary cupola (Bates quoting the signal officer, Toombs, NY monuments, Bachelder), the Jun 30 'steeple of the college' (Norton) a different event; S-005: 08:00 not 07:30, and 'McPherson Ridge' has no hit in OR 1-3 (McPherson's woods, barn, farm are the 1863 names); S-006: fences on both sides of the pike at the McPherson farm (Dawes, Fairfield, Sullivan) with the type in conflict; S-009: Union troops tore the fences down (NPS), then Confederates used the rails in entrenchments; S-010: 3,108 rails lost (Schmucker); S-012: holes in walls and a rebuilt northeast corner (NPS), 'struck by a number of shells and balls' (Adams Sentinel, 21 Jul 1863).
+- WAVE 4 (2026-11-14), rows whose verdict or evidence changed: S-003 gap -> partially_supported (NPS Historic Structures Report: Jun 30 evening, a quarter mile of post and rail fence cut down by Buford's cavalry, rails burned); S-004 unsupported -> corrected (a Presbyterian church was a hospital on Jul 1 after noon, 8th Illinois Cavalry; Jun 30 only on the marker page); S-008 unsupported -> partially_supported (Catholic church hospital documented Jul 2-5; 'by noon Jul 1, pews removed' not); S-016 (Eleventh Corps hospital at the Spangler farm documented; the opening hour not); S-007 (95th NY inscription: 10:50 a.m. for the advance to the cut); E-01 (curved plan, overrun hour carried as three clocks); E-02/S-014 (24th Michigan's line on Culp's Hill 'the first night of the battle'); E-11 (5th Maine battery history: 'until 10 a. m.'); E-12 (builder, fabric and hour in conflict); E-13 (44th NY small breastwork; a veteran says the 16th Michigan's breastworks came on the night of Jul 3); E-14 (91st Pa., 140th NY, 146th NY, Hamilton 1892, a Confederate hearing rock works go up at dark); E-18 (NPS list of 1863 Confederate defenseworks).
 - E-01: builder (Paul's First Brigade), window (about 11:00-13:00), 22 guns (Hunt), fence rails (Maine adjutant, NPS) are now sourced; 600 yd and the curved plan remain unsupported.
 - E-02/E-03: Dawes 1890 confirms the spades and the lack of orders; Morhous 1879 confirms the 123rd NY built on the morning of Jul 2 and worked until late afternoon.
 
 ## Blocked web sources (status blocked_host): URL and what to read
 
-Tested 2026-11-13, one request each: historynet.com, hmdb.org, museum.dmna.ny.gov, gettysburgdaily.com, aleteia.org, emergingcivilwar.com, gettysburg.stonesentinels.com, battlefields.org, en.wikipedia.org all answer "CONNECT tunnel failed, response 403" from the egress proxy; blocked, not worked around. Nothing below was asserted from memory. Where the repository records a URL it is given; where it does not the entry says so and gives the title.
+Tested 2026-11-13 and again 2026-11-14, one request each each time: historynet.com, hmdb.org, museum.dmna.ny.gov, gettysburgdaily.com, aleteia.org, emergingcivilwar.com, gettysburg.stonesentinels.com, battlefields.org, en.wikipedia.org all answer "CONNECT tunnel failed, response 403" from the egress proxy; blocked, not worked around. Nothing below was asserted from memory. Where the repository records a URL it is given; where it does not the entry says so and gives the title.
 
 - **HN-Walls** (URL not recorded): HistoryNet 'Crossroads: Walls of Fame (Culp's Hill)' (URL not recorded in the PDF source list; host historynet.com refused here): read the paragraph on the 6th Wisconsin's spades and the clock window it gives for Jul 1 evening. Rows: E-02.
 - **HN-Hundreds** (URL not recorded): HistoryNet 'Hundreds of Rebels Lay...' (URL not recorded in the PDF source list; host historynet.com refused here): read the soldier's letter for the date the 123rd NY began the breastwork and for the '10 rods' distance to the heavy stone wall. / HistoryNet 'Hundreds of Rebels Lay...' (URL not recorded; host refused here): read the soldier's letter for the 250,000 rounds and 24 guns / 3-hour shelling claims. / HistoryNet 'Hundreds of Rebels Lay...' (URL not recorded in the PDF source list; host refused here): read the letter for the date it gives the 123rd NY's works. Rows: E-03, E-11, S-015.
@@ -101,7 +113,6 @@ Tested 2026-11-13, one request each: historynet.com, hmdb.org, museum.dmna.ny.go
 - **SS-8009** (URL not recorded): Stone Sentinels page 8009 (weak source in the PDF; host gettysburg.stonesentinels.com refused here): read the hauling account and the 17:45 time. Rows: E-15.
 - **SS-10491** (URL not recorded): Stone Sentinels page 10491 (weak source; host refused here): read the 'one driven to the summit' account. Rows: E-15.
 - **NPS-CWS10** (URL not recorded): NPS source cited as NPS-CWS10 in the PDF (exact URL not recorded; www.nps.gov and www.npshistory.com are reachable but the item was not identified): read what it says on rail breastworks on Cemetery Ridge. Rows: E-17.
-- **OR27-1 p.431 page image** (https://archive.org/details/warofrebellion271unit): archive.org item warofrebellion271unit, printed p.431 (leaf 449): read the page image to settle 'July 2' vs 'July 3' in Davis's report; the image host (dn*.archive.org) is refused here, so only the OCR was compared. Rows: E-17.
 - **Wiki-GBRR** (URL not recorded): Wikipedia 'Gettysburg Railroad' (host refused here; not a documented source under law 4): nothing to read. Rows: S-001.
 - **Wiki-PennHall** (URL not recorded): Wikipedia page on Pennsylvania Hall (URL not recorded; host refused here; not a documented source): nothing to read. Rows: S-002.
 - **GD-Fences** (https://www.gettysburgdaily.com/fences-constructed-along-the-emmitsburg-road/): Gettysburg Daily fence article recorded in terrain_sources.json for the fence sources (the PDF key GD-Fences is not tied to this URL in the PDF; mapping unconfirmed; host gettysburgdaily.com refused here): read what it says about McPherson/railroad-grade fences and Harrison's firewood claim and the critic's reply. / Gettysburg Daily fence article (mapping to the PDF key unconfirmed; host refused here): read the Chambersburg Pike fence type passage. Rows: S-003, S-006.
@@ -119,50 +130,51 @@ One request note for the world-content workstream: `GOVERNANCE/horde/requests/bt
 
 ## Open gaps (registered as proposed entries fence-1-EG-01..19)
 
-- E-01: Length about 600 yd; Dismantling of a fence line over 600 yd; curved plan; Start clock of the work (only the 11:00-13:00 window from the arrival of the division); Builder conflict: First Brigade (Robinson) vs 'Second Brigade, Second Division' (McFarland); Hour the barricade was overrun
-- E-02: Clock 18:00-21:00 (inferred only); 6th Wisconsin first, then the division; Logs and earth fabric on Jul 1 evening; Extent 'Stevens' Knoll to the summit' (no source names the line)
+- E-01: Length about 600 yd; Dismantling of a fence line over 600 yd (no length of fence removed is given anywhere); Start clock of the work (only the 11:00-13:00 window from the arrival of the division); Builder conflict: First Brigade (Robinson) vs 'Second Brigade, Second Division' (McFarland); A single printed hour for the overrun (Cooper 'after 4 p.m.', Pender 'about 4 o'clock', NPS 'by about 5:00 p.m.')
+- E-02: Clock hours of the Jul 1 work ('the first night of the battle' is the only printed time word; 18:00-21:00 is inferred); 6th Wisconsin first, then the division; Logs and earth fabric on Jul 1 evening; Extent 'Stevens' Knoll to the summit' (no source names the line)
 - E-03: 10-rod distance to the stone wall (web page only); Hour the work began (after about 09:00 for the division; the regiment's own clock is 'next morning')
-- E-04: Whole-hill 'fortified' wording and von Steinwehr as builder; Date and extent of cemetery fence damage (Jul 2 vs Jul 3)
+- E-04: An 1863 statement that Steinwehr built or ordered works (books of 1875-1914 carry the attribution and name no source; Hancock denies solid lunettes); Date and extent of cemetery fence damage (Jul 2 vs Jul 3)
 - E-05: Head logs, boughs in front, rifle pits; First length about 300 yd (web source only); Per-regiment height (only a general NPS statement of five feet); Slocum/Geary opposition and Greene's engineering background
 - E-06: Exact build hour of the traverse; Height and profile of the traverse; Whether it was built at right angles to the main line (the OR describes the line thrown back perpendicular, not the traverse)
 - E-07: Per-regiment clock times for Kane's regiments and for Wadsworth's regiments; Whether Wadsworth's works are 'on Greene's left' regiment by regiment
 - E-08: Exact hour the first Williams-division works were finished; Where Lockwood's regiments stood on the morning of Jul 3 before 17:00 ('various places')
 - E-09: 800-yd length; Any construction of a new extension at 18:30
 - E-10: Single 'empty vs defended' answer (both carried); Exact start of the occupation inside 19:00-20:00
-- E-11: Physical damage state of the works; Shelling length beyond 10+15 minutes (3 hours); 5 batteries / 24 guns (web or letter)
-- E-12: 1863 dimensions of the lunettes; Which units dug each lunette beyond the battery crews' own accounts; Whether the 'lunette' shape was drawn on the first evening or only in the morning (documented: begun dusk, finished morning)
-- E-13: Positive 'no works' for the 16th Michigan, 44th NY and 20th Maine (silence only); Extent and position of the 83rd PA's hasty stones (no length given); A stone wall about 150 yd east of the hill used by the 2nd US Sharpshooters (not in the sources read)
-- E-14: Five Reserve regiments and an Ohio battery as joint builders; Printed hour of the start (about 20:00 is inferred); Wall length and height of the 1863 works (the 2-3 ft is a general NPS figure)
+- E-11: Physical damage state of the works; Whether the cannonade was 25 minutes (Geary) or 4 to 10 a.m. with short intervals (the 5th Maine battery's history); '3 hours' is not printed; 5 batteries / 24 guns (web or letter; the OR and the 5th Maine history give 20 guns: fourteen under Muhlenberg and Knap's battery)
+- E-12: 1863 dimensions of the lunettes (Bates's 'such height and thickness' is a description of effect, not a measurement); Which units dug each lunette (the battery crews' own accounts vs Bates and Curtis naming Steinwehr's division; carried as a conflict); Whether the 'lunette' shape was drawn on the first evening or only in the morning (documented: begun dusk, finished morning)
+- E-13: Positive 'no works' for the 16th Michigan (one veteran's letter of 1892 via the NPS says the breastworks in front of its line came on the night of Jul 3; the 20th Maine: silence only; the 44th NY: contradicted, it threw up a small breastwork); Extent and position of the 83rd PA's hasty stones (no length given); A stone wall about 150 yd east of the hill used by the 2nd US Sharpshooters (not in the sources read; Morrill's wall is a wall, no distance)
+- E-14: An Ohio battery as a builder; A printed hour for the start (words only: before the attack, at night, in the dark, now dark; about 20:00 is inferred); Wall length and height of the 1863 works (the 2-3 ft is a general NPS figure)
 - E-15: First fire 17:45; Hand-hauling as the one method; Presence or absence of an epaulement; Ammunition run up from the caissons (not found)
 - E-16: Reason for no works; Positive 'no works' for Ward's brigade; Builders, dates and locations of the Devil's Den stone walls
-- E-17: Continuity of a line along Cemetery Ridge; Dimensions of any work; Printed date of the 69th Pa. breastwork (July 2 vs July 3; page image owed); Clock hours of most Jul 3 works (only 'morning', 'daylight', 'during the cannonade', '18:00')
+- E-17: Continuity of a line along Cemetery Ridge; Dimensions of any work other than the one 'a little over knee-high' (regiment not named); Clock hours of most Jul 3 works (only 'morning', 'forenoon', 'daylight', 'during the cannonade', '18:00'); the 126th NY gives Jul 2 about 08:00 to about 18:30
 - E-18: Confederate works on Jul 2-3 at Seminary Ridge, Warfield Ridge, Oak Hill and Benner's Hill; Dimensions of any Confederate work; Length/form of the Middle Street barricade
-- S-001: Printed hour of the burning (evening only); Centre-span damage wording (OCR of the Compiler garbled; an image check is owed)
-- S-002: Building identity (Pennsylvania Hall vs Schmucker Hall); Hour on Jun 30
-- S-003: Jun 30 dismantling; Harrison's claim and the critic's counterclaim
-- S-004: Whole claim: building, date, trigger
-- S-005: 07:30 clock; Exact place name in the 1863 reports
-- S-006: Post-and-rail along the whole pike
-- S-007: Printed clock 'about 11:00'
-- S-008: Whole claim
+- S-001: Printed hour of the burning (evening only); Whether the centre span fell: the word before 'in.' is smeared in the page image ('burnt' is clear)
+- S-002: Whether the Jun 30 'steeple of the college' (Norton) is Pennsylvania Hall or another college building (no source read names it); Hour on Jun 30
+- S-003: 'Along the railroad grade' (Harrison, web page only); The critic's counterclaim that no wartime account describes fences along the cut (web page only); Whether the NPS text's quoted phrase is in Hall 1908 (not found in the local text)
+- S-004: Jun 30 as the date of the church becoming a hospital; The address 208 Baltimore St and 'corps medical staff' as the trigger (marker page only); The hour of the move on Jul 1 (only 'after noon' in the sequence of the account)
+- S-005: 07:30 clock; 'McPherson Ridge' as a name used in the 1863 reports (no hit in OR parts 1-3; 'McPherson's woods', 'barn' and 'farm' are used)
+- S-006: Post-and-rail along the whole pike (Dawes covers the McPherson-farm stretch only)
+- S-007: A clock printed in an 1863 report for the charge at the cut (the 10:50 is a monument inscription)
+- S-008: Hour or day the church became a hospital ('by noon Jul 1'); Pews removed and boards laid (no source read)
 - S-009: 'Neighbor' as the actor; Hour of the felling and number of panels
 - S-010: 600 yd of fence removed; Which fences (locations) supplied the rails
-- S-011: Printed hour the barricade fell; 16:30 end
+- S-011: A single printed hour the barricade fell (three clocks carried); 16:30 end
 - S-012: Lost window glass; A crack (the rebuilt northeast corner is the nearest documented damage)
 - S-013: Hour the seminary building passed to Confederate control
-- S-014: Clock 18:00-21:00 (inferred only); 6th Wisconsin first, then the division
+- S-014: Clock hours ('the first night of the battle' is the only printed time word; 18:00-21:00 is inferred); 6th Wisconsin first, then the division
 - S-015: Jul 1 date (contradicted)
-- S-016: XI Corps ownership; Hour of conversion to a hospital
+- S-016: The day and hour the farm became the Eleventh Corps hospital (mid-afternoon Jul 1 is the PDF's; 'wounded there by about 16:00' is the web page's)
 
 ## Delegated decisions recorded
 
-DD-FENCE1-01..20 appended to `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md` (the section headed "bt-evidence, shard fence-1"). Every alternative stays selectable; nothing written to decision_log.md.
+DD-FENCE1-01..20 (2026-11-13) and DD-FENCE1-21..27 (2026-11-14, sections headed "bt-evidence, shard fence-1") appended to `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md`. Every alternative stays selectable; nothing written to decision_log.md.
 
 ## Not run, owed, owner-only
 
-- No gate was run, no `passes` flag touched, no product or governance data file other than the three outputs above was changed; nothing committed or deployed.
-- Owed: the printed page image of OR27-1-R105 p.431 (archive.org item warofrebellion271unit, leaf 449) to settle July 2 vs July 3; an image check of the garbled Gettysburg Compiler lines on the Rock Creek bridge (S-001); reading the blocked web pages listed above from a machine with access.
-- Owner-only acts: none needed for this shard (reading web pages is not an owner-only act; the PDF text itself is not changed here: the E-17 and E-03 wording is the owner's decision).
+- No gate was run, no `passes` flag touched, no product or governance data file other than my own outputs, the request note, the delegated-decision rows and the progress line was changed; nothing committed or deployed.
+- Owed (closed in wave 4): the page images of OR27-1 p.431 and p.856 and of the Compiler bridge passage (looked at; see `image_checks.json`).
+- Owed: the Adams Sentinel page of 21 Jul 1863 (S-012: the OCR of the sentence on the shells and balls is garbled after the first words) and the printed monument inscription of the 95th NY (S-007: the OCR is garbled around the hour 10:50 a. m.) as page images; reading the blocked web pages listed above from a machine with access; the footnote-sources quoted by the NPS reports (Nash 1911, Hazen 1894, Brainard 1915, the Hamilton letter, Fairfield 1998, Sullivan 1993) in their own books; the passage of Hall 1908 that the NPS Historic Structures Report cites for S-003 (not found in the local text).
+- Owner-only acts: none needed for this shard (reading web pages is not an owner-only act; the PDF text itself is not changed here: the E-17, E-03 and E-04 wording is the owner's decision).
 
 ## Earlier passes (kept for history)
 

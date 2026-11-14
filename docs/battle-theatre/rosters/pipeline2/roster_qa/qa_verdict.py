@@ -7,6 +7,9 @@ Writing a verdict states that the sample reader looked at the page image (Read t
 except the lines named in a U line.  The input is line oriented; row numbers are those printed by qa_compare.py for the same page:
 
     looked: <how the page was looked at: full page views, crops>
+    levels: N | ND | NR | NDR   (default NDR) what was compared on this page: N names, headings, companies, existence and cut of every line;
+                                D the dates of the remarks; R the other words of the remarks.  A level that a stratum has already failed
+                                decisively (4 errors) is not checked on its further pages; the report says so.
     E <row> <kind>[,<kind>...] | stored: <text> | printed: <text> | <note>        an error (kinds below)
     F <row> <field> | stored: <text> | printed: <text>                             a difference of case, punctuation or spacing only (not an error)
     U <row> <why>                                                                   the line could not be read on the page (not counted)
@@ -17,9 +20,9 @@ Error kinds.  name-char (a character of the name differs), name-cut (the boundar
 remarks or part of the remarks in the name), name-nonperson (the stored name is no person line: a heading, a footnote, running text),
 rank (the rank or the carried heading is wrong), company (the company is wrong), rem-char (a character of a remark word differs),
 rem-date (a date or number of the remarks differs: R-G2), rem-missing (printed remark text is missing), rem-extra (text that is not this line's
-stands in the remarks), rem-bound (the remarks are those of another line), merge (two printed entries stored as one), split (one printed entry
+stands in the remarks), rem-bound (the remarks are those of another line), rem-order (the printed words are all there but in another order), merge (two printed entries stored as one), split (one printed entry
 stored as two).  Gates: R-G1 = any name-* kind; R-G2 = rem-date; R-G3 (reading of the remark, cut of the entry) = rank, company, rem-char,
-rem-missing, rem-extra, rem-bound, merge, split.  A line is in error when it has at least one kind.
+rem-missing, rem-extra, rem-bound, rem-order, merge, split.  A line is in error when it has at least one kind.
 """
 import sys, os, re, json, time, collections
 
@@ -29,7 +32,7 @@ import qa_lib as Q
 import qa_compare as C
 import qa_render as RN
 
-KINDS = ('name-char', 'name-cut', 'name-nonperson', 'rank', 'company', 'rem-char', 'rem-date', 'rem-missing', 'rem-extra', 'rem-bound', 'merge', 'split')
+KINDS = ('name-char', 'name-cut', 'name-nonperson', 'rank', 'company', 'rem-char', 'rem-date', 'rem-missing', 'rem-extra', 'rem-bound', 'rem-order', 'merge', 'split')
 GATE = {'name-char': 'R-G1', 'name-cut': 'R-G1', 'name-nonperson': 'R-G1', 'rem-date': 'R-G2'}
 
 
@@ -38,13 +41,17 @@ def vpath(pid):
 
 
 def parse(text, nrows):
-    v = {'looked': '', 'errors': [], 'form_only': [], 'unverifiable': [], 'missed': [], 'notes': []}
+    v = {'looked': '', 'levels': 'NDR', 'errors': [], 'form_only': [], 'unverifiable': [], 'missed': [], 'notes': []}
     for ln in text.splitlines():
         ln = ln.strip()
         if not ln:
             continue
         if ln.startswith('looked:'):
             v['looked'] = ln[7:].strip()
+        elif ln.startswith('levels:'):
+            v['levels'] = ln[7:].strip().upper()
+            if not v['levels'] or set(v['levels']) - set('NDR'):
+                raise ValueError('levels: use N (names, headings, companies, structure), D (dates) and R (remarks)')
         elif ln.startswith('E '):
             parts = [p.strip() for p in ln[2:].split('|')]
             head = parts[0].split(None, 1)
@@ -94,19 +101,24 @@ def add(pid, text, keep=False):
         r = rows[e['i']]
         e['rid'] = r['rid']
         e['flagged_ocr_uncertain'] = bool(r['damaged'])
+        e['flag_codes'] = r['codes']
         e['gates'] = sorted({GATE.get(k, 'R-G3') for k in e['kinds']})
     err_rows = {e['i'] for e in v['errors']}
     unv = {u['i'] for u in v['unverifiable']}
     checked = len(rows) - len(unv)
     cnt = collections.Counter(c['status'] for c in res)
-    rec = {'f': 'roster-qa-verdict/1', 'page': pid, 'stratum': pg['stratum'], 'family': pg['family'], 'layout': pg['layout'], 'kind': pg['kind'],
+    for e in v['errors']:
+        bad = [k for k in e['kinds'] if (k.startswith('name') or k in ('rank', 'company', 'merge', 'split')) is False and 'N' == v['levels']]
+        if bad:
+            raise ValueError('row %d: kinds %s are not names-level kinds on a page checked at level N only' % (e['i'], bad))
+    rec = {'f': 'roster-qa-verdict/1', 'page': pid, 'levels': v['levels'], 'stratum': pg['stratum'], 'family': pg['family'], 'layout': pg['layout'], 'kind': pg['kind'],
            'draw_position': (order.index(pid) + 1) if pid in order else None, 'in_lowest_decile': pid in set(dr['decile']), 'printed_page': pg['printed_page'],
            'rows_stored': len(rows), 'rows_checked': checked, 'rows_in_error': len(err_rows), 'rows_ok': checked - len(err_rows - unv),
            'rows_flagged_ocr_uncertain': sum(1 for r in rows if r['damaged']),
            'errors': v['errors'], 'form_only': v['form_only'], 'unverifiable': v['unverifiable'], 'missed_lines': v['missed'], 'notes': v['notes'],
            'reader': v['looked'], 'tesseract_prescreen': {'agree': cnt['AGREE'], 'near': cnt['NEAR'], 'suspect': cnt['SUSPECT'], 'unstored_lines': len(unstored)},
            'read': {k: read[k] for k in ('pdf_sha256', 'pdf_page', 'view_png_sha256', 'render300_sha256', 'tess_sha256', 'right_page', 'share_in_pinned_leaf')},
-           'rows_listed': [{'i': i, 'rid': r['rid'], 'name': r['name'], 'off': r['off'], 'text_id': r['text_id']} for i, r in enumerate(rows)],
+           'rows_listed': [{'i': i, 'rid': r['rid'], 'name': r['name'], 'off': r['off'], 'text_id': r['text_id'], 'flag_codes': r['codes']} for i, r in enumerate(rows)],
            'verdict_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}
     # tesseract status of every row (agree / near / suspect) kept for the second-reading analysis
     rec['tesseract_status'] = {str(c['i']): c['status'] for c in res}

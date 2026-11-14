@@ -42,15 +42,15 @@
  "counts": {
   "places_in_gazetteer": 343,
   "named_in_rows": 86,
-  "unknown_names": 179,
+  "unknown_names": 182,
   "unknown_by_strength": {
-   "structural": 136,
-   "cue": 43,
+   "structural": 137,
+   "cue": 45,
    "weak": 0
   },
-  "unclassified_names": 338,
-  "person_or_unit_names": 587,
-  "excluded_names": 74,
+  "unclassified_names": 340,
+  "person_or_unit_names": 590,
+  "excluded_names": 75,
   "names_only_in_notes_without_evidence_not_listed": 121,
   "ambiguous_names": 0,
   "rows_naming_a_known_place": 538,
@@ -215,6 +215,7 @@
     "T1-049",
     "T1-049",
     "T1-051",
+    "T1-051",
     "T1-052",
     "T1-052",
     "T1-052",
@@ -253,6 +254,8 @@
     "T1-064",
     "T1-064",
     "T1-066",
+    "T1-067",
+    "T1-067",
     "T1-067",
     "T1-067",
     "T1-068",
@@ -822,7 +825,6 @@
     "T1-040",
     "T1-040",
     "T1-040",
-    "T1-040",
     "T1-043",
     "T1-043",
     "T1-043",
@@ -1255,6 +1257,77 @@
    ]
   },
   {
+   "id": "GZ-041",
+   "name": "Emmitsburg Road",
+   "aliases": [],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.25194,
+    "lat": 39.79739
+   },
+   "tolerance_m": 42,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-041",
+   "tier": "inferred",
+   "rows": [
+    "T1-067",
+    "T1-078",
+    "T1-078",
+    "T1-080",
+    "T1-087",
+    "T1-088",
+    "T1-092",
+    "T1-093",
+    "T1-093",
+    "T1-093",
+    "T1-093",
+    "T1-120",
+    "T1-120",
+    "T1-120",
+    "T1-120",
+    "T1-128",
+    "T1-138",
+    "T1-138",
+    "T1-198",
+    "T1-198",
+    "T1-206",
+    "T2-011",
+    "T2-017",
+    "T2-024",
+    "T2-060",
+    "T2-060",
+    "T2-093",
+    "T2-094",
+    "T2-094",
+    "T2-099",
+    "T2-103",
+    "T2-107",
+    "T2-115",
+    "T2-118",
+    "T2-121",
+    "T2-125",
+    "T2-139",
+    "T2-168",
+    "T2-172",
+    "T2-185",
+    "T2-186",
+    "T3-032",
+    "T3-055",
+    "T3-069",
+    "T3-075",
+    "T3-101",
+    "T3-110",
+    "T3-113",
+    "T3-125",
+    "T3-132",
+    "T3-153",
+    "E-004",
+    "E-004"
+   ]
+  },
+  {
    "id": "GZ-006",
    "name": "Cemetery Ridge",
    "aliases": [],
@@ -1325,76 +1398,6 @@
    ]
   },
   {
-   "id": "GZ-041",
-   "name": "Emmitsburg Road",
-   "aliases": [],
-   "kind": "line",
-   "shape": "line",
-   "center": {
-    "lng": -77.25194,
-    "lat": 39.79739
-   },
-   "tolerance_m": 42,
-   "on_ground": true,
-   "source": "app/data/gazetteer.json",
-   "ref": "GZ-041",
-   "tier": "inferred",
-   "rows": [
-    "T1-078",
-    "T1-078",
-    "T1-080",
-    "T1-087",
-    "T1-088",
-    "T1-092",
-    "T1-093",
-    "T1-093",
-    "T1-093",
-    "T1-093",
-    "T1-120",
-    "T1-120",
-    "T1-120",
-    "T1-120",
-    "T1-128",
-    "T1-138",
-    "T1-138",
-    "T1-198",
-    "T1-198",
-    "T1-206",
-    "T2-011",
-    "T2-017",
-    "T2-024",
-    "T2-060",
-    "T2-060",
-    "T2-093",
-    "T2-094",
-    "T2-094",
-    "T2-099",
-    "T2-103",
-    "T2-107",
-    "T2-115",
-    "T2-118",
-    "T2-121",
-    "T2-125",
-    "T2-139",
-    "T2-168",
-    "T2-172",
-    "T2-185",
-    "T2-186",
-    "T3-032",
-    "T3-055",
-    "T3-069",
-    "T3-075",
-    "T3-101",
-    "T3-110",
-    "T3-113",
-    "T3-125",
-    "T3-132",
-    "T3-153",
-    "E-004",
-    "E-004"
-   ]
-  },
-  {
    "id": "RZ-WATER-marsh-creek",
    "name": "Marsh Creek",
    "aliases": [],
@@ -1422,6 +1425,7 @@
     "T1-039",
     "T1-039",
     "T1-047",
+    "T1-067",
     "T1-067",
     "T1-067",
     "T1-067",
@@ -1846,6 +1850,55 @@
    ]
   },
   {
+   "id": "RZ-STR-TOWN-PENN_HALL",
+   "name": "Pennsylvania Hall (\"Old Dorm\"), Pennsylvania College",
+   "aliases": [
+    "Pennsylvania Hall",
+    "\"Old Dorm\"",
+    "Pennsylvania College"
+   ],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.23432,
+    "lat": 39.83496
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-TOWN-PENN_HALL",
+   "tier": "inferred",
+   "rows": [
+    "T1-049",
+    "T1-049",
+    "T1-049",
+    "T1-049",
+    "T1-049",
+    "T1-111",
+    "T1-111",
+    "T1-111",
+    "T1-111",
+    "T1-111",
+    "T1-135",
+    "T1-135",
+    "T1-135",
+    "T1-135",
+    "T1-168",
+    "T1-168",
+    "T1-168",
+    "T1-168",
+    "T1-168",
+    "T1-168",
+    "T1-170",
+    "T1-170",
+    "T1-170",
+    "T2-022",
+    "T3-048",
+    "T3-095",
+    "T3-216"
+   ]
+  },
+  {
    "id": "GZ-009",
    "name": "Little Round Top",
    "aliases": [],
@@ -1887,54 +1940,6 @@
     "T3-065",
     "T3-089",
     "T3-105"
-   ]
-  },
-  {
-   "id": "RZ-STR-TOWN-PENN_HALL",
-   "name": "Pennsylvania Hall (\"Old Dorm\"), Pennsylvania College",
-   "aliases": [
-    "Pennsylvania Hall",
-    "\"Old Dorm\"",
-    "Pennsylvania College"
-   ],
-   "kind": "building",
-   "shape": "footprint",
-   "center": {
-    "lng": -77.23432,
-    "lat": 39.83496
-   },
-   "tolerance_m": 40,
-   "on_ground": true,
-   "source": "docs/basemap1863/features/structures/structures.geojson",
-   "ref": "STR-TOWN-PENN_HALL",
-   "tier": "inferred",
-   "rows": [
-    "T1-049",
-    "T1-049",
-    "T1-049",
-    "T1-049",
-    "T1-111",
-    "T1-111",
-    "T1-111",
-    "T1-111",
-    "T1-111",
-    "T1-135",
-    "T1-135",
-    "T1-135",
-    "T1-135",
-    "T1-168",
-    "T1-168",
-    "T1-168",
-    "T1-168",
-    "T1-168",
-    "T1-168",
-    "T1-170",
-    "T1-170",
-    "T1-170",
-    "T2-022",
-    "T3-048",
-    "T3-095",
-    "T3-216"
    ]
   },
   {
@@ -3930,7 +3935,6 @@
     "followed by a state code",
     "town ending \"-burg\"",
     "after \"at\"",
-    "after \"near\"",
     "after \"north of\"",
     "after \"side of\"",
     "after \"through\"",
@@ -3942,6 +3946,7 @@
    "rows": [
     "T1-030",
     "T1-039",
+    "T1-040",
     "T1-041",
     "T1-047",
     "T1-053",
@@ -3969,6 +3974,7 @@
    "rows_in_claim": [
     "T1-030",
     "T1-039",
+    "T1-040",
     "T1-041",
     "T1-053",
     "T1-061",
@@ -4114,6 +4120,106 @@
    "status": "unknown: no repository file carries this name; not guessed"
   },
   {
+   "name": "National Park",
+   "strength": "cue",
+   "evidence": [
+    "in the place field of the corrected claim"
+   ],
+   "rows": [
+    "T1-048",
+    "T1-049",
+    "T1-050",
+    "T1-118",
+    "T1-125",
+    "T1-126",
+    "T1-130",
+    "T1-135",
+    "T1-137",
+    "T1-138",
+    "T1-140",
+    "T1-148",
+    "T1-150",
+    "T1-169",
+    "T1-170",
+    "T1-171"
+   ],
+   "rows_in_claim": [
+    "T1-048",
+    "T1-049",
+    "T1-050",
+    "T1-118",
+    "T1-125",
+    "T1-126",
+    "T1-130",
+    "T1-135",
+    "T1-137",
+    "T1-138",
+    "T1-140",
+    "T1-148",
+    "T1-150",
+    "T1-169",
+    "T1-170",
+    "T1-171"
+   ],
+   "rows_in_notes_only": [],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Taneytown",
+   "strength": "structural",
+   "evidence": [
+    "followed by a state code",
+    "town ending \"-town\"",
+    "after \"at\"",
+    "after \"through\"",
+    "in the place field of the corrected claim",
+    "after \"from\"",
+    "after \"to\"",
+    "in the first printed cell (the place column)"
+   ],
+   "rows": [
+    "T1-030",
+    "T1-038",
+    "T1-040",
+    "T1-047",
+    "T1-052",
+    "T1-054",
+    "T1-055",
+    "T1-061",
+    "T1-091",
+    "T1-116",
+    "T1-123",
+    "T1-217",
+    "T2-004",
+    "T2-092",
+    "T2-178",
+    "T3-040"
+   ],
+   "rows_in_claim": [
+    "T1-030",
+    "T1-038",
+    "T1-040",
+    "T1-052",
+    "T1-054",
+    "T1-055",
+    "T1-061",
+    "T1-091",
+    "T1-116",
+    "T1-123",
+    "T1-217",
+    "T2-004",
+    "T3-040"
+   ],
+   "rows_in_notes_only": [
+    "T1-047",
+    "T2-092",
+    "T2-178"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
    "name": "Compiler",
    "strength": "cue",
    "evidence": [
@@ -4154,102 +4260,6 @@
     "T2-032",
     "T3-185",
     "T3-208"
-   ],
-   "contains_known_place": null,
-   "status": "unknown: no repository file carries this name; not guessed"
-  },
-  {
-   "name": "National Park",
-   "strength": "cue",
-   "evidence": [
-    "in the place field of the corrected claim"
-   ],
-   "rows": [
-    "T1-048",
-    "T1-050",
-    "T1-118",
-    "T1-125",
-    "T1-126",
-    "T1-130",
-    "T1-135",
-    "T1-137",
-    "T1-138",
-    "T1-140",
-    "T1-148",
-    "T1-150",
-    "T1-169",
-    "T1-170",
-    "T1-171"
-   ],
-   "rows_in_claim": [
-    "T1-048",
-    "T1-050",
-    "T1-118",
-    "T1-125",
-    "T1-126",
-    "T1-130",
-    "T1-135",
-    "T1-137",
-    "T1-138",
-    "T1-140",
-    "T1-148",
-    "T1-150",
-    "T1-169",
-    "T1-170",
-    "T1-171"
-   ],
-   "rows_in_notes_only": [],
-   "contains_known_place": null,
-   "status": "unknown: no repository file carries this name; not guessed"
-  },
-  {
-   "name": "Taneytown",
-   "strength": "structural",
-   "evidence": [
-    "followed by a state code",
-    "town ending \"-town\"",
-    "after \"at\"",
-    "after \"through\"",
-    "in the place field of the corrected claim",
-    "after \"from\"",
-    "after \"to\"",
-    "in the first printed cell (the place column)"
-   ],
-   "rows": [
-    "T1-030",
-    "T1-038",
-    "T1-047",
-    "T1-052",
-    "T1-054",
-    "T1-055",
-    "T1-061",
-    "T1-091",
-    "T1-116",
-    "T1-123",
-    "T1-217",
-    "T2-004",
-    "T2-092",
-    "T2-178",
-    "T3-040"
-   ],
-   "rows_in_claim": [
-    "T1-030",
-    "T1-038",
-    "T1-052",
-    "T1-054",
-    "T1-055",
-    "T1-061",
-    "T1-091",
-    "T1-116",
-    "T1-123",
-    "T1-217",
-    "T2-004",
-    "T3-040"
-   ],
-   "rows_in_notes_only": [
-    "T1-047",
-    "T2-092",
-    "T2-178"
    ],
    "contains_known_place": null,
    "status": "unknown: no repository file carries this name; not guessed"
@@ -4515,6 +4525,7 @@
    ],
    "rows": [
     "T1-038",
+    "T1-040",
     "T1-042",
     "T1-044",
     "T1-045",
@@ -4526,6 +4537,7 @@
    ],
    "rows_in_claim": [
     "T1-038",
+    "T1-040",
     "T1-042",
     "T1-044",
     "T1-045",
@@ -4747,6 +4759,43 @@
    "status": "unknown: no repository file carries this name; not guessed"
   },
   {
+   "name": "Westminster",
+   "strength": "structural",
+   "evidence": [
+    "followed by a state code",
+    "after \"reaches\"",
+    "after \"rear of\"",
+    "after \"through\"",
+    "in the place field of the corrected claim",
+    "town ending \"-ster\"",
+    "in the first printed cell (the place column)"
+   ],
+   "rows": [
+    "T1-037",
+    "T1-040",
+    "T1-052",
+    "T1-061",
+    "T1-217",
+    "T2-092",
+    "T2-096",
+    "T3-040"
+   ],
+   "rows_in_claim": [
+    "T1-037",
+    "T1-040",
+    "T1-052",
+    "T1-061",
+    "T1-217",
+    "T2-096",
+    "T3-040"
+   ],
+   "rows_in_notes_only": [
+    "T2-092"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
    "name": "Beale",
    "strength": "cue",
    "evidence": [
@@ -4859,41 +4908,6 @@
     "T3-112",
     "T3-162",
     "T3-208"
-   ],
-   "contains_known_place": null,
-   "status": "unknown: no repository file carries this name; not guessed"
-  },
-  {
-   "name": "Westminster",
-   "strength": "structural",
-   "evidence": [
-    "followed by a state code",
-    "after \"reaches\"",
-    "after \"rear of\"",
-    "after \"through\"",
-    "in the place field of the corrected claim",
-    "town ending \"-ster\"",
-    "in the first printed cell (the place column)"
-   ],
-   "rows": [
-    "T1-037",
-    "T1-052",
-    "T1-061",
-    "T1-217",
-    "T2-092",
-    "T2-096",
-    "T3-040"
-   ],
-   "rows_in_claim": [
-    "T1-037",
-    "T1-052",
-    "T1-061",
-    "T1-217",
-    "T2-096",
-    "T3-040"
-   ],
-   "rows_in_notes_only": [
-    "T2-092"
    ],
    "contains_known_place": null,
    "status": "unknown: no repository file carries this name; not guessed"
@@ -5316,6 +5330,31 @@
    "status": "unknown: no repository file carries this name; not guessed"
   },
   {
+   "name": "Moritz Tavern",
+   "strength": "structural",
+   "evidence": [
+    "geographic word \"Tavern\"",
+    "after \"at\"",
+    "in the place field of the corrected claim",
+    "after \"from\""
+   ],
+   "rows": [
+    "T1-039",
+    "T1-067",
+    "T1-074",
+    "T1-087"
+   ],
+   "rows_in_claim": [
+    "T1-039",
+    "T1-067",
+    "T1-074",
+    "T1-087"
+   ],
+   "rows_in_notes_only": [],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
    "name": "Moritz’s Tavern",
    "strength": "structural",
    "evidence": [
@@ -5431,6 +5470,32 @@
     "T2-161",
     "T2-171",
     "T2-193"
+   ],
+   "rows_in_notes_only": [],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Uniontown",
+   "strength": "structural",
+   "evidence": [
+    "town ending \"-town\"",
+    "after \"at\"",
+    "after \"beyond\"",
+    "after \"near\"",
+    "in the place field of the corrected claim"
+   ],
+   "rows": [
+    "T1-040",
+    "T1-055",
+    "T1-061",
+    "T1-066"
+   ],
+   "rows_in_claim": [
+    "T1-040",
+    "T1-055",
+    "T1-061",
+    "T1-066"
    ],
    "rows_in_notes_only": [],
    "contains_known_place": null,
@@ -5686,23 +5751,24 @@
    "status": "unknown: no repository file carries this name; not guessed"
   },
   {
-   "name": "Moritz Tavern",
+   "name": "Middleburg",
    "strength": "structural",
    "evidence": [
-    "geographic word \"Tavern\"",
+    "town ending \"-burg\"",
     "after \"at\"",
+    "after \"near\"",
     "in the place field of the corrected claim",
     "after \"from\""
    ],
    "rows": [
-    "T1-039",
-    "T1-074",
-    "T1-087"
+    "T1-040",
+    "T1-055",
+    "T1-061"
    ],
    "rows_in_claim": [
-    "T1-039",
-    "T1-074",
-    "T1-087"
+    "T1-040",
+    "T1-055",
+    "T1-061"
    ],
    "rows_in_notes_only": [],
    "contains_known_place": null,
@@ -5819,30 +5885,6 @@
    "status": "unknown: no repository file carries this name; not guessed"
   },
   {
-   "name": "Uniontown",
-   "strength": "structural",
-   "evidence": [
-    "town ending \"-town\"",
-    "after \"at\"",
-    "after \"beyond\"",
-    "after \"near\"",
-    "in the place field of the corrected claim"
-   ],
-   "rows": [
-    "T1-055",
-    "T1-061",
-    "T1-066"
-   ],
-   "rows_in_claim": [
-    "T1-055",
-    "T1-061",
-    "T1-066"
-   ],
-   "rows_in_notes_only": [],
-   "contains_known_place": null,
-   "status": "unknown: no repository file carries this name; not guessed"
-  },
-  {
    "name": "Beitler",
    "strength": "cue",
    "evidence": [
@@ -5856,6 +5898,25 @@
    "rows_in_claim": [
     "T2-209",
     "T3-050"
+   ],
+   "rows_in_notes_only": [],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Bruceville",
+   "strength": "structural",
+   "evidence": [
+    "town ending \"-ville\"",
+    "in the place field of the corrected claim"
+   ],
+   "rows": [
+    "T1-038",
+    "T1-040"
+   ],
+   "rows_in_claim": [
+    "T1-038",
+    "T1-040"
    ],
    "rows_in_notes_only": [],
    "contains_known_place": null,
@@ -6061,21 +6122,43 @@
    "status": "unknown: no repository file carries this name; not guessed"
   },
   {
-   "name": "Middleburg",
+   "name": "Marsh Run",
    "strength": "structural",
    "evidence": [
-    "town ending \"-burg\"",
+    "geographic word \"Run\"",
+    "after \"at\"",
     "after \"near\"",
-    "in the place field of the corrected claim",
-    "after \"from\""
+    "in the place field of the corrected claim"
    ],
    "rows": [
-    "T1-055",
-    "T1-061"
+    "T1-039",
+    "T1-067"
    ],
    "rows_in_claim": [
-    "T1-055",
-    "T1-061"
+    "T1-039",
+    "T1-067"
+   ],
+   "rows_in_notes_only": [],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Mechanicstown",
+   "strength": "structural",
+   "evidence": [
+    "followed by a state code",
+    "town ending \"-town\"",
+    "after \"at\"",
+    "after \"near\"",
+    "in the place field of the corrected claim"
+   ],
+   "rows": [
+    "T1-040",
+    "T1-116"
+   ],
+   "rows_in_claim": [
+    "T1-040",
+    "T1-116"
    ],
    "rows_in_notes_only": [],
    "contains_known_place": null,
@@ -6196,6 +6279,26 @@
    "rows_in_claim": [
     "T1-045",
     "T1-073"
+   ],
+   "rows_in_notes_only": [],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Windsor",
+   "strength": "cue",
+   "evidence": [
+    "after \"at\"",
+    "in the place field of the corrected claim",
+    "after \"from\""
+   ],
+   "rows": [
+    "T1-040",
+    "T1-052"
+   ],
+   "rows_in_claim": [
+    "T1-040",
+    "T1-052"
    ],
    "rows_in_notes_only": [],
    "contains_known_place": null,
@@ -6472,22 +6575,6 @@
    "status": "unknown: no repository file carries this name; not guessed"
   },
   {
-   "name": "Bruceville",
-   "strength": "structural",
-   "evidence": [
-    "town ending \"-ville\""
-   ],
-   "rows": [
-    "T1-038"
-   ],
-   "rows_in_claim": [
-    "T1-038"
-   ],
-   "rows_in_notes_only": [],
-   "contains_known_place": null,
-   "status": "unknown: no repository file carries this name; not guessed"
-  },
-  {
    "name": "Caledonia",
    "strength": "cue",
    "evidence": [
@@ -6515,6 +6602,22 @@
    ],
    "rows_in_claim": [
     "T1-114"
+   ],
+   "rows_in_notes_only": [],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Chancellorsville",
+   "strength": "structural",
+   "evidence": [
+    "town ending \"-ville\""
+   ],
+   "rows": [
+    "T1-085"
+   ],
+   "rows_in_claim": [
+    "T1-085"
    ],
    "rows_in_notes_only": [],
    "contains_known_place": null,
@@ -7010,6 +7113,23 @@
    "status": "unknown: no repository file carries this name; not guessed"
   },
   {
+   "name": "Liberty",
+   "strength": "cue",
+   "evidence": [
+    "after \"at\"",
+    "in the place field of the corrected claim"
+   ],
+   "rows": [
+    "T1-040"
+   ],
+   "rows_in_claim": [
+    "T1-040"
+   ],
+   "rows_in_notes_only": [],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
    "name": "Lutheran Church",
    "strength": "structural",
    "evidence": [
@@ -7037,23 +7157,6 @@
    ],
    "rows_in_claim": [
     "T3-214"
-   ],
-   "rows_in_notes_only": [],
-   "contains_known_place": null,
-   "status": "unknown: no repository file carries this name; not guessed"
-  },
-  {
-   "name": "Marsh Run",
-   "strength": "structural",
-   "evidence": [
-    "geographic word \"Run\"",
-    "after \"at\""
-   ],
-   "rows": [
-    "T1-039"
-   ],
-   "rows_in_claim": [
-    "T1-039"
    ],
    "rows_in_notes_only": [],
    "contains_known_place": null,
@@ -7121,26 +7224,6 @@
    ],
    "rows_in_claim": [
     "T1-061"
-   ],
-   "rows_in_notes_only": [],
-   "contains_known_place": null,
-   "status": "unknown: no repository file carries this name; not guessed"
-  },
-  {
-   "name": "Mechanicstown",
-   "strength": "structural",
-   "evidence": [
-    "followed by a state code",
-    "town ending \"-town\"",
-    "after \"at\"",
-    "after \"near\"",
-    "in the place field of the corrected claim"
-   ],
-   "rows": [
-    "T1-116"
-   ],
-   "rows_in_claim": [
-    "T1-116"
    ],
    "rows_in_notes_only": [],
    "contains_known_place": null,
@@ -8189,6 +8272,33 @@
    "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
   },
   {
+   "name": "Itinerary",
+   "rows": [
+    "T1-022",
+    "T1-027",
+    "T1-038",
+    "T1-039",
+    "T1-040",
+    "T1-052",
+    "T1-053",
+    "T1-055",
+    "T1-123"
+   ],
+   "rows_in_claim": [
+    "T1-022",
+    "T1-027",
+    "T1-038",
+    "T1-039",
+    "T1-040",
+    "T1-052",
+    "T1-053",
+    "T1-055",
+    "T1-123"
+   ],
+   "contains_known_place": null,
+   "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
+  },
+  {
    "name": "Kinzie",
    "rows": [
     "T2-233",
@@ -8260,28 +8370,28 @@
    "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
   },
   {
-   "name": "Itinerary",
+   "name": "Fairfield",
    "rows": [
-    "T1-022",
-    "T1-027",
-    "T1-038",
-    "T1-039",
-    "T1-052",
-    "T1-053",
-    "T1-055",
-    "T1-123"
+    "T1-040",
+    "T1-086",
+    "T1-168",
+    "T3-119",
+    "T3-154",
+    "T3-163",
+    "T3-177",
+    "T3-208"
    ],
    "rows_in_claim": [
-    "T1-022",
-    "T1-027",
-    "T1-038",
-    "T1-039",
-    "T1-052",
-    "T1-053",
-    "T1-055",
-    "T1-123"
+    "T1-040",
+    "T1-086",
+    "T1-168",
+    "T3-119",
+    "T3-154",
+    "T3-163",
+    "T3-177"
    ],
    "contains_known_place": null,
+   "note": "a bare surname that is a word of a known place: a person, or the farm named after them",
    "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
   },
   {
@@ -8347,29 +8457,6 @@
     "T2-223"
    ],
    "contains_known_place": null,
-   "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
-  },
-  {
-   "name": "Fairfield",
-   "rows": [
-    "T1-086",
-    "T1-168",
-    "T3-119",
-    "T3-154",
-    "T3-163",
-    "T3-177",
-    "T3-208"
-   ],
-   "rows_in_claim": [
-    "T1-086",
-    "T1-168",
-    "T3-119",
-    "T3-154",
-    "T3-163",
-    "T3-177"
-   ],
-   "contains_known_place": null,
-   "note": "a bare surname that is a word of a known place: a person, or the farm named after them",
    "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
   },
   {
@@ -9364,6 +9451,21 @@
    "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
   },
   {
+   "name": "Wister",
+   "rows": [
+    "T1-088",
+    "T1-100",
+    "T1-148"
+   ],
+   "rows_in_claim": [
+    "T1-088",
+    "T1-100",
+    "T1-148"
+   ],
+   "contains_known_place": null,
+   "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
+  },
+  {
    "name": "Appearance",
    "rows": [
     "T1-088",
@@ -10142,19 +10244,6 @@
    "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
   },
   {
-   "name": "Wister",
-   "rows": [
-    "T1-100",
-    "T1-148"
-   ],
-   "rows_in_claim": [
-    "T1-100",
-    "T1-148"
-   ],
-   "contains_known_place": null,
-   "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
-  },
-  {
    "name": "Aaron",
    "rows": [
     "T1-092"
@@ -10768,6 +10857,17 @@
    ],
    "rows_in_claim": [
     "T1-137"
+   ],
+   "contains_known_place": null,
+   "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
+  },
+  {
+   "name": "Edifice",
+   "rows": [
+    "T1-049"
+   ],
+   "rows_in_claim": [
+    "T1-049"
    ],
    "contains_known_place": null,
    "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
@@ -11750,6 +11850,17 @@
    "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
   },
   {
+   "name": "Procedurally",
+   "rows": [
+    "T1-105"
+   ],
+   "rows_in_claim": [
+    "T1-105"
+   ],
+   "contains_known_place": null,
+   "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
+  },
+  {
    "name": "Provost Marshal",
    "rows": [
     "T3-189"
@@ -11811,6 +11922,17 @@
    ],
    "rows_in_claim": [
     "T3-215"
+   ],
+   "contains_known_place": null,
+   "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
+  },
+  {
+   "name": "Rector",
+   "rows": [
+    "T1-051"
+   ],
+   "rows_in_claim": [
+    "T1-051"
    ],
    "contains_known_place": null,
    "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
@@ -12176,17 +12298,6 @@
    ],
    "rows_in_claim": [
     "T1-110"
-   ],
-   "contains_known_place": null,
-   "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"
-  },
-  {
-   "name": "Windsor",
-   "rows": [
-    "T1-052"
-   ],
-   "rows_in_claim": [
-    "T1-052"
    ],
    "contains_known_place": null,
    "status": "capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates"

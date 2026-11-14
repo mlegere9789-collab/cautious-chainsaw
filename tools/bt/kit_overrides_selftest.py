@@ -282,8 +282,26 @@ def run(ok):
     ok('manual.json: an operation without a reason and evidence ids or a decision is refused', raised)
     ok('policy: confirm, replace, conflict, keep follow section 8 of PLAN.md',
        [KO.decide('documented', False, False, True, 'documented'), KO.decide('inferred', True, False, False, 'documented'), KO.decide('documented', False, True, False, 'documented'), KO.decide('documented', False, False, False, 'documented'),
-        KO.decide('inferred', False, False, False, 'inferred'), KO.decide('plausible-procedural', False, False, False, 'inferred'), KO.decide(None, None, False, False, 'documented')] ==
-       ['confirm', 'replace', 'conflict', 'replace', 'keep', 'replace', 'replace'])
+        KO.decide('inferred', False, False, False, 'inferred'), KO.decide('plausible-procedural', False, False, False, 'inferred'), KO.decide(None, None, False, False, 'documented'), KO.decide('documented', False, False, True, 'inferred')] ==
+       ['confirm', 'replace', 'conflict', 'replace', 'keep', 'replace', 'replace', 'weaker'])
+    # the 63d New York's smoothbore is a documented kit field: a documented line confirms it (source and id added); an inference of the same value is no confirmation
+    wd = {'weapons': [{'printed': 'smooth-bore Springfield muskets, caliber .69', 'weapon_id': 'm1842_smoothbore', 'share': 'all'}]}
+    out = KO.compile_lines(ctx, 'tw', [line('tw:0002', 'us-2c-1d-kelly-63ny', 'arms', wd, kit_field='weapon', basis='report_text', as_of='1863-07-02')], {})
+    kinds = [(o['op'], '/'.join(map(str, o.get('path') or []))) for o in out.ops if o['op'] != 'register_source']
+    ok('confirm: a documented line of the same value only adds its source and its id to a documented kit field', kinds == [('set', 'units/US.63NY/fields/weapon/source_keys'), ('append', 'units/US.63NY/fields/weapon/evidence_ids')], kinds)
+    wk = {'type': 'evidence', 'id': 'tw:0003', 'unit_id': 'us-2c-1d-kelly-63ny', 'field': 'arms', 'kit_field': 'weapon', 'value': wd, 'basis': 'derived', 'tier': 'inferred', 'as_of': '1863-07-02', 'derived_from': ['tw:0002'],
+          'note': 'inferred from a statement of 1862'}
+    out = KO.compile_lines(ctx, 'tw', [wk], {})
+    ok('weaker: an inference that agrees with a value the kit marks documented is not cited as a confirmation; the kit value stands and the case is listed for review (not routed)',
+       not [o for o in out.ops if o['op'] != 'register_source'] and len(out.unapplied) == 1 and 'only as an inference' in out.unapplied[0]['reason'] and not out.unapplied[0].get('routed'), (out.ops, out.unapplied))
+    # an item of another category (a cartridge load in the weapon field) does not stop the other items of its line; a barred item still stops the whole line
+    two = {'weapons': wd['weapons'] + [{'printed': '60 rounds of buck-and-ball cartridges to each man', 'weapon_id': 'buck_and_ball_load', 'share': 'all'}]}
+    out = KO.compile_lines(ctx, 'tw', [line('tw:0004', 'us-2c-1d-kelly-63ny', 'arms', two, kit_field='weapon', basis='report_text', as_of='1863-07-02')], {})
+    ok('items: a cartridge load listed with the muskets is set aside and reported, and the muskets of the same line still compile', [o['path'][-1] for o in out.ops if o['op'] == 'set'] == ['source_keys']
+       and len(out.unapplied) == 1 and 'part of the line is left out' in out.unapplied[0]['reason'] and 'ammunition_load' in out.unapplied[0]['reason'] and not out.unapplied[0].get('routed'), (out.ops, out.unapplied))
+    sp = {'weapons': wd['weapons'] + [{'printed': 'Spencer rifles', 'weapon_id': 'spencer_repeater', 'share': 'some'}]}
+    out = KO.compile_lines(ctx, 'tw', [line('tw:0005', 'us-2c-1d-kelly-63ny', 'arms', sp, kit_field='weapon', basis='report_text', as_of='1863-07-02')], {})
+    ok('items: a restricted weapon in the mix stops the whole line (it is part of the real mix: the integration decides)', not [o for o in out.ops if o['op'] != 'register_source'] and 'cannot be assigned' in out.unapplied[0]['reason'], (out.ops, out.unapplied))
     ok('status: a hand edit is shown as a difference with its position', KO.diff_paths({'a': {'b': 'one'}}, {'a': {'b': 'two'}}) and 'a/b' in KO.diff_paths({'a': {'b': 'one'}}, {'a': {'b': 'two'}})[0])
 
     # ---- end to end through the validator --------------------------------------------------------------------------

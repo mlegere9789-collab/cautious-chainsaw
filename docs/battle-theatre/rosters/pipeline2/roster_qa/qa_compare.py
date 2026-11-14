@@ -47,6 +47,11 @@ def rows_of_page(pid):
         head, segs, meta = R.read_unit(path)
         fl = Q.flags_of(path)
         damaged = set(fl.get('ocr_uncertain', [])) if fl else set()
+        codes_of = collections.defaultdict(list)
+        if fl and isinstance(fl.get('rows'), dict):
+            for code, lst in fl['rows'].items():
+                for rn in lst:
+                    codes_of[rn].append(code)
         n = 0
         for seg, rows in segs:
             if seg['t'] not in pg['text_ids']:
@@ -57,19 +62,20 @@ def rows_of_page(pid):
                 name, rank, co, rem, page, off, rd = r
                 if pm.leaf(off) == pg['leaf']:
                     out.append({'rid': '%s#%d' % (stem, n), 'file': stem, 'n': n, 'name': name, 'rank': rank, 'co': co, 'remarks': rem, 'page': page, 'off': off,
-                                'text_id': seg['t'], 'damaged': n in damaged})
+                                'text_id': seg['t'], 'damaged': n in damaged, 'codes': sorted(codes_of.get(n, []))})
                 n += 1
     return pg, out
 
 
 def stored_tokens(rows):
-    seq, owner = [], []
+    seq, owner, field = [], [], []
     for i, r in enumerate(rows):
-        parts = r['name'] + ' ' + ('' if r['rank'].startswith('^') else r['rank']) + ' ' + r['remarks']
-        for t in toks(parts):
-            seq.append(t)
-            owner.append(i)
-    return seq, owner
+        for f, part in ((0, r['name']), (1, '' if r['rank'].startswith('^') else r['rank']), (2, r['remarks'])):
+            for t in toks(part):
+                seq.append(t)
+                owner.append(i)
+                field.append(f)
+    return seq, owner, field
 
 
 def compare(pid):
@@ -81,7 +87,7 @@ def compare(pid):
         for t in toks(l):
             T.append(t)
             tline.append(li)
-    S, owner = stored_tokens(rows)
+    S, owner, field = stored_tokens(rows)
     sm = difflib.SequenceMatcher(None, S, T, autojunk=False)
     matched_s = [False] * len(S)
     matched_t = [False] * len(T)
@@ -99,11 +105,18 @@ def compare(pid):
             rowsl = sorted(by)
             for ri in rowsl:
                 gap_t[ri].append((by[ri], T[j1:j2] if tag == 'replace' else []))
+    extra = collections.defaultdict(list)      # row index -> tesseract tokens inside the row's span that the stored row does not have
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == 'insert' and 0 < i1 < len(S) and owner[i1 - 1] == owner[i1]:
+            extra[owner[i1]].append(' '.join(T[j1:j2]))
     res = []
     for i, r in enumerate(rows):
         idx = [k for k, o in enumerate(owner) if o == i]
         un = [S[k] for k in idx if not matched_s[k]]
+        name_un = [S[k] for k in idx if not matched_s[k] and field[k] == 0]
         status = 'AGREE'
+        if extra.get(i):
+            status = 'SUSPECT'
         if un:
             # spacing only: the unmatched stored tokens joined equal the tesseract tokens that stand there joined
             tt = ''.join(w for _, ws in gap_t.get(i, []) for w in ws)
@@ -111,7 +124,8 @@ def compare(pid):
                 status = 'NEAR'
             else:
                 status = 'SUSPECT'
-        res.append({'i': i, 'rid': r['rid'], 'status': status, 'unmatched': un, 'tess_there': [(' '.join(a), ' '.join(b)) for a, b in gap_t.get(i, [])], 'ntok': len(idx)})
+        res.append({'i': i, 'rid': r['rid'], 'status': status, 'unmatched': un, 'tess_there': [(' '.join(a), ' '.join(b)) for a, b in gap_t.get(i, [])], 'ntok': len(idx),
+                    'tess_extra': extra.get(i, []), 'name_unmatched': name_un})
     # unstored tesseract lines
     unst = collections.defaultdict(list)
     for k, t in enumerate(T):
@@ -124,8 +138,9 @@ def compare(pid):
 def main(argv):
     ap = argparse.ArgumentParser()
     ap.add_argument('pid')
-    ap.add_argument('--full', action='store_true', help='print every row in full (default: agreeing rows are shortened)')
+    ap.add_argument('--full', action='store_true', help='(kept for compatibility: every row is always printed in full)')
     ap.add_argument('--json', action='store_true')
+    ap.add_argument('--names', action='store_true', help='names level: print name, heading and company only (remarks cut to 30 characters) with the name tokens tesseract disagrees on')
     a = ap.parse_args(argv)
     pg, rows, res, unstored, st = compare(a.pid)
     if a.json:
@@ -134,15 +149,28 @@ def main(argv):
     cnt = collections.Counter(r['status'] for r in res)
     print('PAGE %s printed %s family %s stratum %s | stored rows %d | AGREE %d NEAR %d SUSPECT %d | tokens stored %d tess %d ratio %.3f' %
           (a.pid, pg['printed_page'], pg['family'], pg['stratum'], len(rows), cnt['AGREE'], cnt['NEAR'], cnt['SUSPECT'], st['stored_tokens'], st['tess_tokens'], st['ratio']))
+    if a.names:
+        for r, c in zip(rows, res):
+            rk = r['rank'][1:] + '^' if r['rank'].startswith('^') else r['rank']
+            tail = ''
+            if c['name_unmatched']:
+                tail = '   !! name tokens not read by tesseract: %s' % ' '.join(c['name_unmatched'])
+            print('%2d %s%s | %s | %s | %s%s' % (c['i'], 'D' if r['damaged'] else ' ', r['co'] or '-', rk, r['name'], r['remarks'][:30], tail))
+        if unstored:
+            print('UNSTORED tesseract text (first 12 lines):')
+            for li, w, line in unstored[:12]:
+                print('  t%02d %s' % (li, line[:110]))
+        return 0
     for r, c in zip(rows, res):
         mark = {'AGREE': ' ', 'NEAR': '~', 'SUSPECT': '!'}[c['status']]
         rk = r['rank'][1:] + '^' if r['rank'].startswith('^') else r['rank']
-        full = a.full or c['status'] != 'AGREE'
-        rem = r['remarks'] if full else (r['remarks'][:48] + ('...' if len(r['remarks']) > 48 else ''))
+        rem = r['remarks']
         print('%s%2d %s%s | %s | %s | %s' % (mark, c['i'], 'D' if r['damaged'] else ' ', r['co'] or '-', rk, r['name'], rem))
         if c['status'] != 'AGREE':
             for a_, b_ in c['tess_there'][:4]:
                 print('      stored-only: %s   | tesseract there: %s' % (a_, b_ or '(nothing)'))
+            for x in c['tess_extra'][:3]:
+                print('      tesseract-extra inside the line: %s' % x)
     if unstored:
         print('UNSTORED tesseract text (not accounted for by a stored line):')
         for li, w, line in unstored[:40]:

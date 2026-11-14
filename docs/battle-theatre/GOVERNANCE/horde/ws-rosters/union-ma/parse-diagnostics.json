@@ -45,12 +45,12 @@
   "Teamster",
   "Wagoner"
  ],
- "rows_total": 33748,
+ "rows_total": 33787,
  "units": {
   "u-ma-10th-massachusetts-infantry": {
    "codes": {
     "G": 10,
-    "H": 3,
+    "H": 4,
     "N": 6,
     "Q": 3,
     "R": 2,
@@ -59,8 +59,9 @@
    "company_inferred_rows": 0,
    "furniture_lines": 71,
    "gettysburg_dated": 6,
-   "gz_bytes": 42853,
+   "gz_bytes": 42851,
    "head_kinds": {
+    "cut:alternate-name": 1,
     "cut:no-comma": 1,
     "cut:reviewed": 1,
     "d1-damaged": 1,
@@ -74,7 +75,7 @@
    ],
    "names_gettysburg": 7,
    "normalised_empty": 1,
-   "ocr_uncertain": 27,
+   "ocr_uncertain": 28,
    "on_rolls": {
     "no": 584,
     "unknown": 28,
@@ -86,7 +87,7 @@
     734
    ],
    "raw_bytes": 235356,
-   "raw_lines_sha256": "66b089349f36e51d55ca5bd6f6132b3f6a5f2ffbdb2bc21acee94d335b5cc66e",
+   "raw_lines_sha256": "2ca5d2a04d0bc0d6ad908ace919e67413c756f036d88bda90d22ee8158f78ff5",
    "reviewed_cuts": [
     [
      "Henry S. Briggs",
@@ -195,21 +196,22 @@
   "u-ma-11th-massachusetts-infantry": {
    "codes": {
     "G": 11,
-    "H": 6,
+    "H": 7,
     "N": 19,
-    "Q": 2,
+    "Q": 3,
     "R": 6,
     "Y": 2
    },
    "company_inferred_rows": 0,
    "furniture_lines": 101,
    "gettysburg_dated": 128,
-   "gz_bytes": 70676,
+   "gz_bytes": 70658,
    "head_kinds": {
     "cut:initials-dropped": 1,
     "cut:no-comma": 4,
     "cut:reviewed": 2,
-    "res-damaged": 2
+    "res-damaged": 2,
+    "res-lost": 1
    },
    "head_marks": 0,
    "leaves": [
@@ -218,19 +220,19 @@
    ],
    "names_gettysburg": 132,
    "normalised_empty": 5,
-   "ocr_uncertain": 41,
+   "ocr_uncertain": 42,
    "on_rolls": {
     "no": 1309,
     "unknown": 64,
-    "yes": 665
+    "yes": 666
    },
    "page_from_running_head_rows": 21,
    "printed_pages_of_rows": [
     737,
     815
    ],
-   "raw_bytes": 364544,
-   "raw_lines_sha256": "5feeb12c22189a1d2afbd3a7911db70c6cba0dd80ca74ca4919e9251650822c3",
+   "raw_bytes": 364551,
+   "raw_lines_sha256": "57f42cc48e3da24aa9d13cddfe24285b845f82a4a12c0bd7480e981418bb3489",
    "reviewed_cuts": [
     [
      "John A, Douglass",
@@ -241,7 +243,7 @@
      "the comma is lost in the text layer; the entry above ends in \"as John Pickins.\" which the period rule would have taken for the surname"
     ]
    ],
-   "rows": 2038,
+   "rows": 2039,
    "rows_by_company": {
     "A": 173,
     "B": 226,
@@ -252,7 +254,7 @@
     "F": 265,
     "FS": 14,
     "G": 141,
-    "H": 197,
+    "H": 198,
     "I": 132,
     "K": 186,
     "NCS": 5,
@@ -328,23 +330,23 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 2038,
+    "name_ok": 2039,
     "order_breaks": 0,
     "page_null": 21,
-    "page_ok": 2038,
+    "page_ok": 2039,
     "rank_empty": 0,
-    "rank_ok": 2038,
+    "rank_ok": 2039,
     "remark_empty": 0,
-    "remark_gap_rows": 1,
-    "remark_ok": 2038,
-    "rows": 2038
+    "remark_gap_rows": 0,
+    "remark_ok": 2039,
+    "rows": 2039
    },
    "volume": "1"
   },
   "u-ma-12th-massachusetts-infantry": {
    "codes": {
     "G": 13,
-    "H": 2,
+    "H": 4,
     "N": 20,
     "Q": 1,
     "R": 7,
@@ -353,8 +355,9 @@
    "company_inferred_rows": 0,
    "furniture_lines": 84,
    "gettysburg_dated": 119,
-   "gz_bytes": 57897,
+   "gz_bytes": 57883,
    "head_kinds": {
+    "cut:fragment-extended": 2,
     "cut:no-comma": 1,
     "d2-damaged": 1,
     "res-damaged": 1
@@ -378,7 +381,7 @@
     68
    ],
    "raw_bytes": 305492,
-   "raw_lines_sha256": "6cc5e5c97a0ee7f856f04eefcade4b1d3093e8ef7eee245b91def15f7bae802e",
+   "raw_lines_sha256": "ca0c25eae2f5d7e9b5e53ba50f53da8c3c292ce85aa40ea26c1a21a4b1795650",
    "reviewed_cuts": [],
    "rows": 1592,
    "rows_by_company": {
@@ -482,23 +485,26 @@
   },
   "u-ma-13th-massachusetts-infantry": {
    "codes": {
-    "G": 33,
-    "H": 8,
+    "G": 34,
+    "H": 12,
     "N": 34,
     "Q": 13,
-    "R": 19,
-    "Y": 136
+    "R": 21,
+    "Y": 138
    },
    "company_inferred_rows": 0,
    "furniture_lines": 80,
    "gettysburg_dated": 170,
-   "gz_bytes": 53764,
+   "gz_bytes": 53755,
    "head_kinds": {
+    "cut:alternate-name": 1,
+    "cut:fragment-extended": 1,
     "cut:initials-dropped": 1,
     "cut:period-for-comma": 5,
     "cut:reviewed": 1,
     "d1-missing": 2,
-    "res-damaged": 13
+    "res-damaged": 13,
+    "res-lost": 2
    },
    "head_marks": 0,
    "leaves": [
@@ -507,10 +513,10 @@
    ],
    "names_gettysburg": 181,
    "normalised_empty": 6,
-   "ocr_uncertain": 189,
+   "ocr_uncertain": 191,
    "on_rolls": {
     "no": 721,
-    "unknown": 151,
+    "unknown": 153,
     "yes": 574
    },
    "page_from_running_head_rows": 0,
@@ -518,22 +524,22 @@
     71,
     130
    ],
-   "raw_bytes": 276808,
-   "raw_lines_sha256": "caafd7efb55783c6e2b35cb9a4dc8d69810e5ec2bd2a70b0621837f91a422cdb",
+   "raw_bytes": 276822,
+   "raw_lines_sha256": "03ddb8ebd23913e4ec8c1f26fc982bb08c2ab8bb7e746d3f568ee372069c6ff3",
    "reviewed_cuts": [
     [
      "Andeaaon . -\\: : r r aid",
      "the name is damaged beyond reading in the text layer; the printed tokens up to the first dash are taken whole"
     ]
    ],
-   "rows": 1446,
+   "rows": 1448,
    "rows_by_company": {
     "A": 157,
     "B": 140,
     "BAND": 18,
     "C": 151,
     "D": 134,
-    "E": 138,
+    "E": 140,
     "F": 128,
     "FS": 12,
     "G": 137,
@@ -624,36 +630,38 @@
     ]
    ],
    "verify": {
-    "name_ok": 1446,
+    "name_ok": 1448,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 1446,
+    "page_ok": 1448,
     "rank_empty": 0,
-    "rank_ok": 1446,
+    "rank_ok": 1448,
     "remark_empty": 0,
     "remark_gap_rows": 0,
-    "remark_ok": 1446,
-    "rows": 1446
+    "remark_ok": 1448,
+    "rows": 1448
    },
    "volume": "2"
   },
   "u-ma-15th-massachusetts-infantry": {
    "codes": {
     "G": 13,
-    "H": 2,
+    "H": 5,
     "N": 16,
-    "Q": 2,
+    "Q": 4,
     "R": 7,
     "Y": 35
    },
    "company_inferred_rows": 0,
    "furniture_lines": 91,
    "gettysburg_dated": 47,
-   "gz_bytes": 63133,
+   "gz_bytes": 63105,
    "head_kinds": {
+    "cut:fragment-extended": 1,
     "cut:no-comma": 1,
     "cut:reviewed": 1,
-    "res-damaged": 2
+    "res-damaged": 2,
+    "res-lost": 2
    },
    "head_marks": 0,
    "leaves": [
@@ -662,32 +670,32 @@
    ],
    "names_gettysburg": 155,
    "normalised_empty": 0,
-   "ocr_uncertain": 70,
+   "ocr_uncertain": 72,
    "on_rolls": {
-    "no": 1048,
+    "no": 1049,
     "unknown": 71,
-    "yes": 605
+    "yes": 606
    },
    "page_from_running_head_rows": 0,
    "printed_pages_of_rows": [
     133,
     204
    ],
-   "raw_bytes": 337150,
-   "raw_lines_sha256": "8fba8c349478cd55c81f1788f785b10d562a417db494a4231a1f084b8a224851",
+   "raw_bytes": 337164,
+   "raw_lines_sha256": "64cfaa160455589b9e0442e8e6e945a47269d7d34bdde8febd6f709f5e63e6a8",
    "reviewed_cuts": [
     [
      "Charles Devens",
      "the first entry follows the unit sketch, which ends in the word INFANTRY set as a heading"
     ]
    ],
-   "rows": 1724,
+   "rows": 1726,
    "rows_by_company": {
     "A": 169,
     "B": 161,
     "BAND": 21,
-    "C": 161,
-    "D": 179,
+    "C": 162,
+    "D": 180,
     "E": 162,
     "F": 160,
     "FS": 12,
@@ -768,23 +776,23 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 1724,
+    "name_ok": 1726,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 1724,
+    "page_ok": 1726,
     "rank_empty": 0,
-    "rank_ok": 1724,
+    "rank_ok": 1726,
     "remark_empty": 0,
     "remark_gap_rows": 0,
-    "remark_ok": 1724,
-    "rows": 1724
+    "remark_ok": 1726,
+    "rows": 1726
    },
    "volume": "2"
   },
   "u-ma-16th-massachusetts-infantry": {
    "codes": {
     "G": 23,
-    "H": 2,
+    "H": 3,
     "N": 18,
     "Q": 1,
     "R": 6,
@@ -793,8 +801,9 @@
    "company_inferred_rows": 0,
    "furniture_lines": 75,
    "gettysburg_dated": 25,
-   "gz_bytes": 47942,
+   "gz_bytes": 47935,
    "head_kinds": {
+    "cut:fragment-extended": 1,
     "cut:period-for-comma": 1,
     "d2-damaged": 1,
     "res-damaged": 1
@@ -818,7 +827,7 @@
     269
    ],
    "raw_bytes": 250882,
-   "raw_lines_sha256": "1673a55c0b38871fbe57e8d20030e21e091d7049051b0e5b1bd581e424bf1858",
+   "raw_lines_sha256": "18bd5d52b899d784b6ad5af1d344e3ec62ced9a0d88c041e2fbb79c454f2ed77",
    "reviewed_cuts": [],
    "rows": 1369,
    "rows_by_company": {
@@ -927,23 +936,25 @@
   },
   "u-ma-18th-massachusetts-infantry": {
    "codes": {
-    "C": 135,
+    "C": 138,
     "G": 46,
-    "H": 10,
-    "N": 39,
-    "Q": 10,
-    "R": 14,
-    "Y": 145
+    "H": 14,
+    "N": 40,
+    "Q": 11,
+    "R": 15,
+    "Y": 147
    },
-   "company_inferred_rows": 135,
+   "company_inferred_rows": 138,
    "furniture_lines": 78,
    "gettysburg_dated": 17,
-   "gz_bytes": 55007,
+   "gz_bytes": 55000,
    "head_kinds": {
+    "cut:alternate-name": 1,
     "cut:initials-dropped": 1,
-    "cut:no-comma": 3,
+    "cut:no-comma": 4,
     "cut:period-for-comma": 7,
-    "res-damaged": 10
+    "res-damaged": 10,
+    "res-lost": 3
    },
    "head_marks": 0,
    "leaves": [
@@ -951,11 +962,11 @@
     418
    ],
    "names_gettysburg": 22,
-   "normalised_empty": 9,
-   "ocr_uncertain": 253,
+   "normalised_empty": 10,
+   "ocr_uncertain": 257,
    "on_rolls": {
-    "no": 682,
-    "unknown": 169,
+    "no": 683,
+    "unknown": 171,
     "yes": 517
    },
    "page_from_running_head_rows": 0,
@@ -963,12 +974,12 @@
     351,
     408
    ],
-   "raw_bytes": 267548,
-   "raw_lines_sha256": "9153b62e073be177c76024a047f5b7abb19da39fc803d7d2fb03e844093a61fb",
+   "raw_bytes": 267569,
+   "raw_lines_sha256": "32b9d8c1515deca89a29fec88c61ead07548582c70bca6bac9a7194fb838f674",
    "reviewed_cuts": [],
-   "rows": 1368,
+   "rows": 1371,
    "rows_by_company": {
-    "": 135,
+    "": 138,
     "A": 137,
     "B": 135,
     "BAND": 22,
@@ -1058,37 +1069,40 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 1368,
+    "name_ok": 1371,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 1368,
+    "page_ok": 1371,
     "rank_empty": 0,
-    "rank_ok": 1368,
+    "rank_ok": 1371,
     "remark_empty": 0,
-    "remark_gap_rows": 1,
-    "remark_ok": 1368,
-    "rows": 1368
+    "remark_gap_rows": 0,
+    "remark_ok": 1371,
+    "rows": 1371
    },
    "volume": "2"
   },
   "u-ma-19th-massachusetts-infantry": {
    "codes": {
     "G": 33,
-    "H": 2,
+    "H": 5,
     "N": 35,
-    "Q": 1,
+    "Q": 2,
     "R": 18,
     "Y": 109
    },
    "company_inferred_rows": 0,
    "furniture_lines": 100,
    "gettysburg_dated": 77,
-   "gz_bytes": 76100,
+   "gz_bytes": 76094,
    "head_kinds": {
+    "cut:alternate-name": 1,
+    "cut:fragment-extended": 1,
     "cut:initials-dropped": 1,
     "cut:period-for-comma": 1,
     "cut:reviewed": 1,
-    "res-damaged": 1
+    "res-damaged": 1,
+    "res-lost": 1
    },
    "head_marks": 0,
    "leaves": [
@@ -1097,29 +1111,29 @@
    ],
    "names_gettysburg": 82,
    "normalised_empty": 1,
-   "ocr_uncertain": 171,
+   "ocr_uncertain": 173,
    "on_rolls": {
     "no": 1339,
     "unknown": 163,
-    "yes": 435
+    "yes": 436
    },
    "page_from_running_head_rows": 0,
    "printed_pages_of_rows": [
     411,
     491
    ],
-   "raw_bytes": 374321,
-   "raw_lines_sha256": "25581947c4b6875a4f80ee87f65b6ca2b01412d557c549bf880f482134912abb",
+   "raw_bytes": 374328,
+   "raw_lines_sha256": "a2e60b1393a8f7fd04f65313cb8cca8f2d06d76d591141d3da38a838bf255669",
    "reviewed_cuts": [
     [
      "Vertulan R. Stone",
      "the entry above ends in \"Georgetown, D. C.\" (initials)"
     ]
    ],
-   "rows": 1937,
+   "rows": 1938,
    "rows_by_company": {
     "A": 187,
-    "B": 177,
+    "B": 178,
     "BAND": 26,
     "C": 174,
     "D": 129,
@@ -1197,16 +1211,16 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 1937,
+    "name_ok": 1938,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 1937,
+    "page_ok": 1938,
     "rank_empty": 0,
-    "rank_ok": 1937,
+    "rank_ok": 1938,
     "remark_empty": 0,
     "remark_gap_rows": 0,
-    "remark_ok": 1937,
-    "rows": 1937
+    "remark_ok": 1938,
+    "rows": 1938
    },
    "volume": "2"
   },
@@ -1276,13 +1290,16 @@
   "u-ma-1st-massachusetts-battery-a": {
    "codes": {
     "G": 1,
+    "H": 1,
     "Y": 1
    },
    "company_inferred_rows": 0,
    "furniture_lines": 16,
    "gettysburg_dated": 0,
-   "gz_bytes": 9557,
-   "head_kinds": {},
+   "gz_bytes": 9549,
+   "head_kinds": {
+    "res-lost": 1
+   },
    "head_marks": 1,
    "leaves": [
     351,
@@ -1290,91 +1307,92 @@
    ],
    "names_gettysburg": 0,
    "normalised_empty": 0,
-   "ocr_uncertain": 2,
+   "ocr_uncertain": 3,
    "on_rolls": {
     "no": 124,
     "unknown": 28,
-    "yes": 112
+    "yes": 113
    },
    "page_from_running_head_rows": 0,
    "printed_pages_of_rows": [
     345,
     354
    ],
-   "raw_bytes": 45094,
-   "raw_lines_sha256": "75abef72a29312dacf08e60299dca485fb159d3d45f32f3b92b4a0634e002b74",
+   "raw_bytes": 45101,
+   "raw_lines_sha256": "ca8207fe88fe29990242b126aad2b8d02797901cdb258cb941915dfaed3fe762",
    "reviewed_cuts": [],
-   "rows": 264,
+   "rows": 265,
    "rows_by_company": {
-    "": 264
+    "": 265
    },
    "rows_without_printed_page": 0,
    "section_headings": [],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 264,
+    "name_ok": 265,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 264,
+    "page_ok": 265,
     "rank_empty": 0,
-    "rank_ok": 264,
+    "rank_ok": 265,
     "remark_empty": 0,
     "remark_gap_rows": 0,
-    "remark_ok": 264,
-    "rows": 264
+    "remark_ok": 265,
+    "rows": 265
    },
    "volume": "5"
   },
   "u-ma-1st-massachusetts-cavalry": {
    "codes": {
     "G": 128,
-    "H": 7,
+    "H": 14,
     "N": 9,
-    "Q": 8,
+    "Q": 14,
     "R": 30,
     "Y": 3
    },
    "company_inferred_rows": 0,
    "furniture_lines": 117,
    "gettysburg_dated": 0,
-   "gz_bytes": 84879,
+   "gz_bytes": 84862,
    "head_kinds": {
     "cut:no-comma": 3,
     "d1-damaged": 2,
     "d2-damaged": 2,
     "junk-after-d2": 2,
-    "res-damaged": 8
+    "res-damaged": 8,
+    "res-lost": 7
    },
-   "head_marks": 123,
+   "head_marks": 124,
    "leaves": [
     137,
     235
    ],
    "names_gettysburg": 2,
    "normalised_empty": 3,
-   "ocr_uncertain": 176,
+   "ocr_uncertain": 182,
    "on_rolls": {
-    "no": 1247,
-    "unknown": 23,
-    "yes": 1064
+    "no": 1248,
+    "unknown": 24,
+    "yes": 1069
    },
    "page_from_running_head_rows": 0,
    "printed_pages_of_rows": [
     132,
     227
    ],
-   "raw_bytes": 437139,
-   "raw_lines_sha256": "e2d160ef5de0bccc72b305617db908e75867d866b446f89bb3962fc4296c816b",
+   "raw_bytes": 437188,
+   "raw_lines_sha256": "0f49cb9c8d5afc36b7a40bc9e1a1c49d7be1226cbeecc099a3eeddb40cd56ead",
    "reviewed_cuts": [],
-   "rows": 2334,
+   "rows": 2341,
    "rows_by_company": {
-    "A": 209,
-    "B": 164,
+    "A": 210,
+    "B": 165,
     "BAND": 14,
-    "C": 147,
-    "D": 176,
+    "C": 148,
+    "D": 178,
     "E": 191,
-    "F": 160,
+    "F": 161,
     "FS": 17,
     "G": 152,
     "H": 218,
@@ -1382,7 +1400,7 @@
     "K": 210,
     "L": 195,
     "M": 196,
-    "NCS": 1,
+    "NCS": 2,
     "UNAS": 73
    },
    "rows_without_printed_page": 0,
@@ -1465,35 +1483,37 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 2334,
+    "name_ok": 2341,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 2334,
+    "page_ok": 2341,
     "rank_empty": 0,
-    "rank_ok": 2334,
+    "rank_ok": 2341,
     "remark_empty": 0,
-    "remark_gap_rows": 2,
-    "remark_ok": 2334,
-    "rows": 2334
+    "remark_gap_rows": 1,
+    "remark_ok": 2341,
+    "rows": 2341
    },
    "volume": "6"
   },
   "u-ma-1st-massachusetts-infantry": {
    "codes": {
     "G": 10,
-    "H": 1,
+    "H": 6,
     "N": 9,
-    "Q": 3,
+    "Q": 6,
     "R": 1,
     "Y": 36
    },
    "company_inferred_rows": 0,
    "furniture_lines": 86,
    "gettysburg_dated": 66,
-   "gz_bytes": 58436,
+   "gz_bytes": 58435,
    "head_kinds": {
+    "cut:fragment-extended": 1,
     "cut:reviewed": 1,
-    "res-damaged": 3
+    "res-damaged": 3,
+    "res-lost": 4
    },
    "head_marks": 3,
    "leaves": [
@@ -1502,38 +1522,38 @@
    ],
    "names_gettysburg": 136,
    "normalised_empty": 0,
-   "ocr_uncertain": 59,
+   "ocr_uncertain": 63,
    "on_rolls": {
-    "no": 839,
+    "no": 840,
     "unknown": 87,
-    "yes": 769
+    "yes": 772
    },
    "page_from_running_head_rows": 19,
    "printed_pages_of_rows": [
     3,
     68
    ],
-   "raw_bytes": 306393,
-   "raw_lines_sha256": "5d2ecaa9ad943bbebbd0795855337a54aad9cd9f2d000a745bf19758be9b097d",
+   "raw_bytes": 306421,
+   "raw_lines_sha256": "831e12ac8e6570401981fe5784e78ccb67815885e55ae164ffc35e23e05ec8b1",
    "reviewed_cuts": [
     [
      "George D. Wells",
      "the entry above ends in \"Officer U. S. A.\" (initials)"
     ]
    ],
-   "rows": 1695,
+   "rows": 1699,
    "rows_by_company": {
     "A": 151,
     "B": 162,
     "BAND": 30,
     "C": 168,
-    "D": 147,
+    "D": 148,
     "E": 142,
     "F": 148,
     "FS": 15,
     "G": 171,
-    "H": 164,
-    "I": 174,
+    "H": 165,
+    "I": 176,
     "K": 158,
     "NCS": 4,
     "UNAS": 61
@@ -1608,38 +1628,40 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 1695,
+    "name_ok": 1699,
     "order_breaks": 0,
     "page_null": 19,
-    "page_ok": 1695,
+    "page_ok": 1699,
     "rank_empty": 0,
-    "rank_ok": 1695,
+    "rank_ok": 1699,
     "remark_empty": 0,
     "remark_gap_rows": 0,
-    "remark_ok": 1695,
-    "rows": 1695
+    "remark_ok": 1699,
+    "rows": 1699
    },
    "volume": "1"
   },
   "u-ma-20th-massachusetts-infantry": {
    "codes": {
     "G": 20,
-    "H": 6,
+    "H": 11,
     "N": 24,
-    "Q": 2,
+    "Q": 4,
     "R": 11,
     "Y": 23
    },
    "company_inferred_rows": 0,
    "furniture_lines": 120,
    "gettysburg_dated": 126,
-   "gz_bytes": 93161,
+   "gz_bytes": 93120,
    "head_kinds": {
+    "cut:fragment-extended": 3,
     "cut:initials-dropped": 1,
     "cut:no-comma": 5,
     "cut:reviewed": 1,
     "d1-missing": 2,
-    "res-damaged": 2
+    "res-damaged": 2,
+    "res-lost": 2
    },
    "head_marks": 1,
    "leaves": [
@@ -1648,26 +1670,26 @@
    ],
    "names_gettysburg": 131,
    "normalised_empty": 5,
-   "ocr_uncertain": 77,
+   "ocr_uncertain": 79,
    "on_rolls": {
-    "no": 1807,
+    "no": 1808,
     "unknown": 69,
-    "yes": 606
+    "yes": 607
    },
    "page_from_running_head_rows": 0,
    "printed_pages_of_rows": [
     494,
     593
    ],
-   "raw_bytes": 462769,
-   "raw_lines_sha256": "4cfcf61adef59f54c419a188535968f9d6c8abece5bfd189d9d0157038bfaa8a",
+   "raw_bytes": 462783,
+   "raw_lines_sha256": "82d028488e54758d3d9874b0ec55a5d836f04393935f31c9af6daec981654c1b",
    "reviewed_cuts": [
     [
      "John W. Nye",
      "the entry above ends in \"V. R. C.\" (initials)"
     ]
    ],
-   "rows": 2482,
+   "rows": 2484,
    "rows_by_company": {
     "A": 207,
     "B": 207,
@@ -1678,7 +1700,7 @@
     "F": 226,
     "FS": 17,
     "G": 215,
-    "H": 223,
+    "H": 225,
     "I": 250,
     "K": 300,
     "NCS": 6,
@@ -1754,23 +1776,23 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 2482,
+    "name_ok": 2484,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 2482,
+    "page_ok": 2484,
     "rank_empty": 0,
-    "rank_ok": 2482,
+    "rank_ok": 2484,
     "remark_empty": 0,
-    "remark_gap_rows": 2,
-    "remark_ok": 2482,
-    "rows": 2482
+    "remark_gap_rows": 0,
+    "remark_ok": 2484,
+    "rows": 2484
    },
    "volume": "2"
   },
   "u-ma-22nd-massachusetts-infantry": {
    "codes": {
     "G": 8,
-    "H": 2,
+    "H": 4,
     "N": 14,
     "Q": 2,
     "R": 3,
@@ -1779,8 +1801,9 @@
    "company_inferred_rows": 0,
    "furniture_lines": 80,
    "gettysburg_dated": 33,
-   "gz_bytes": 53378,
+   "gz_bytes": 53373,
    "head_kinds": {
+    "cut:fragment-extended": 2,
     "cut:initials-dropped": 1,
     "cut:no-comma": 1,
     "no-rank": 1,
@@ -1805,7 +1828,7 @@
     710
    ],
    "raw_bytes": 275703,
-   "raw_lines_sha256": "076a65ccc6b9eeaeb1afbd3e8bb276852cf981b2c851a5a4a0fc5af7565830b4",
+   "raw_lines_sha256": "4ddd11587362df3c99630facaa17cd90f950a72d664d24d669b23a49d843f399",
    "reviewed_cuts": [],
    "rows": 1452,
    "rows_by_company": {
@@ -1901,7 +1924,7 @@
     "rank_empty": 1,
     "rank_ok": 1451,
     "remark_empty": 0,
-    "remark_gap_rows": 1,
+    "remark_gap_rows": 0,
     "remark_ok": 1452,
     "rows": 1452
    },
@@ -1910,21 +1933,23 @@
   "u-ma-28th-massachusetts-infantry": {
    "codes": {
     "G": 3,
-    "H": 2,
+    "H": 5,
     "N": 17,
-    "Q": 4,
+    "Q": 6,
     "R": 4,
     "Y": 2
    },
    "company_inferred_rows": 0,
    "furniture_lines": 103,
    "gettysburg_dated": 106,
-   "gz_bytes": 75578,
+   "gz_bytes": 75561,
    "head_kinds": {
+    "cut:alternate-name": 1,
     "cut:initials-dropped": 1,
     "cut:no-comma": 1,
     "cut:reviewed": 1,
-    "res-damaged": 4
+    "res-damaged": 4,
+    "res-lost": 2
    },
    "head_marks": 1,
    "leaves": [
@@ -1933,34 +1958,34 @@
    ],
    "names_gettysburg": 106,
    "normalised_empty": 0,
-   "ocr_uncertain": 31,
+   "ocr_uncertain": 34,
    "on_rolls": {
-    "no": 1460,
+    "no": 1461,
     "unknown": 46,
-    "yes": 557
+    "yes": 558
    },
    "page_from_running_head_rows": 0,
    "printed_pages_of_rows": [
     190,
     274
    ],
-   "raw_bytes": 392416,
-   "raw_lines_sha256": "aef8fb40b46f99f6e23e454682ed0be6983361ab52d52b4bd353b8b6694b2af5",
+   "raw_bytes": 392430,
+   "raw_lines_sha256": "6771a94e32cb4b263dec04a5c0506c4e408e25ff6ef491ace52ecc7cf151f372",
    "reviewed_cuts": [
     [
      "McLelland Moore",
      "the entry above ends in \"Officer U. S. A.\" (initials)"
     ]
    ],
-   "rows": 2063,
+   "rows": 2065,
    "rows_by_company": {
     "A": 186,
     "B": 214,
-    "BAND": 24,
+    "BAND": 25,
     "C": 213,
     "D": 167,
     "E": 182,
-    "F": 175,
+    "F": 176,
     "FS": 15,
     "G": 153,
     "H": 151,
@@ -2039,36 +2064,38 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 2063,
+    "name_ok": 2065,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 2063,
+    "page_ok": 2065,
     "rank_empty": 0,
-    "rank_ok": 2063,
+    "rank_ok": 2065,
     "remark_empty": 0,
-    "remark_gap_rows": 1,
-    "remark_ok": 2063,
-    "rows": 2063
+    "remark_gap_rows": 0,
+    "remark_ok": 2065,
+    "rows": 2065
    },
    "volume": "3"
   },
   "u-ma-2nd-massachusetts-infantry": {
    "codes": {
     "G": 14,
-    "H": 1,
+    "H": 5,
     "N": 9,
-    "Q": 3,
+    "Q": 4,
     "R": 4,
     "Y": 22
    },
    "company_inferred_rows": 0,
    "furniture_lines": 98,
    "gettysburg_dated": 134,
-   "gz_bytes": 68384,
+   "gz_bytes": 68351,
    "head_kinds": {
+    "cut:fragment-extended": 1,
     "cut:reviewed": 1,
     "junk-after-d2": 1,
-    "res-damaged": 3
+    "res-damaged": 3,
+    "res-lost": 3
    },
    "head_marks": 2,
    "leaves": [
@@ -2077,38 +2104,38 @@
    ],
    "names_gettysburg": 137,
    "normalised_empty": 1,
-   "ocr_uncertain": 50,
+   "ocr_uncertain": 53,
    "on_rolls": {
-    "no": 1192,
+    "no": 1193,
     "unknown": 60,
-    "yes": 758
+    "yes": 760
    },
    "page_from_running_head_rows": 0,
    "printed_pages_of_rows": [
     71,
     147
    ],
-   "raw_bytes": 343169,
-   "raw_lines_sha256": "103f8e40b84cbebc135abe5f9ad0e43cd5de7ee48a0264cde45188dfbf2f31d7",
+   "raw_bytes": 343190,
+   "raw_lines_sha256": "acc5581366845b34bb8f69caf8cfbdabdbe3fc802724e01e628d25d07204c027",
    "reviewed_cuts": [
     [
      "William Nichols, Jr.",
      "the entry above ends in \"Washington, D. C.\" (initials)"
     ]
    ],
-   "rows": 2010,
+   "rows": 2013,
    "rows_by_company": {
     "A": 192,
     "B": 183,
     "BAND": 24,
     "C": 156,
     "D": 167,
-    "E": 191,
+    "E": 192,
     "F": 170,
     "FS": 13,
-    "G": 197,
+    "G": 198,
     "H": 171,
-    "I": 185,
+    "I": 186,
     "K": 152,
     "NCS": 6,
     "UNAS": 203
@@ -2188,35 +2215,37 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 2010,
+    "name_ok": 2013,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 2010,
+    "page_ok": 2013,
     "rank_empty": 0,
-    "rank_ok": 2010,
+    "rank_ok": 2013,
     "remark_empty": 0,
     "remark_gap_rows": 0,
-    "remark_ok": 2010,
-    "rows": 2010
+    "remark_ok": 2013,
+    "rows": 2013
    },
    "volume": "1"
   },
   "u-ma-32nd-massachusetts-infantry": {
    "codes": {
     "G": 8,
-    "H": 1,
+    "H": 8,
     "N": 15,
-    "Q": 2,
+    "Q": 6,
     "R": 7,
     "Y": 3
    },
    "company_inferred_rows": 0,
    "furniture_lines": 111,
    "gettysburg_dated": 88,
-   "gz_bytes": 75599,
+   "gz_bytes": 75570,
    "head_kinds": {
+    "cut:fragment-extended": 3,
     "cut:reviewed": 1,
-    "res-damaged": 2
+    "res-damaged": 2,
+    "res-lost": 4
    },
    "head_marks": 1,
    "leaves": [
@@ -2225,37 +2254,37 @@
    ],
    "names_gettysburg": 88,
    "normalised_empty": 0,
-   "ocr_uncertain": 35,
+   "ocr_uncertain": 39,
    "on_rolls": {
-    "no": 1458,
+    "no": 1461,
     "unknown": 29,
-    "yes": 677
+    "yes": 678
    },
    "page_from_running_head_rows": 0,
    "printed_pages_of_rows": [
     450,
     535
    ],
-   "raw_bytes": 396948,
-   "raw_lines_sha256": "bce3cc112b277bd937c62af5a0c8b2e0d183bf3441ba15cde0863bf0b65f4680",
+   "raw_bytes": 396976,
+   "raw_lines_sha256": "d6cae4d2cb1e2150a78d8b09446b996049b08289fa57ffe4fc893e053d21a211",
    "reviewed_cuts": [
     [
      "Francis J. Parker",
      "the first entry follows the unit sketch, which ends in the word INFANTRY set as a heading"
     ]
    ],
-   "rows": 2164,
+   "rows": 2168,
    "rows_by_company": {
     "A": 214,
     "B": 202,
     "C": 209,
     "D": 202,
     "E": 191,
-    "F": 182,
-    "FS": 9,
+    "F": 183,
+    "FS": 10,
     "G": 198,
-    "H": 187,
-    "I": 179,
+    "H": 188,
+    "I": 180,
     "K": 176,
     "L": 106,
     "M": 95,
@@ -2337,36 +2366,38 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 2164,
+    "name_ok": 2168,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 2164,
+    "page_ok": 2168,
     "rank_empty": 0,
-    "rank_ok": 2164,
+    "rank_ok": 2168,
     "remark_empty": 0,
-    "remark_gap_rows": 1,
-    "remark_ok": 2164,
-    "rows": 2164
+    "remark_gap_rows": 0,
+    "remark_ok": 2168,
+    "rows": 2168
    },
    "volume": "3"
   },
   "u-ma-33rd-massachusetts-infantry": {
    "codes": {
     "G": 7,
-    "H": 1,
+    "H": 5,
     "N": 10,
-    "Q": 3,
+    "Q": 5,
     "R": 3
    },
    "company_inferred_rows": 0,
    "furniture_lines": 68,
    "gettysburg_dated": 15,
-   "gz_bytes": 44064,
+   "gz_bytes": 44037,
    "head_kinds": {
+    "cut:alternate-name": 1,
     "cut:initials-dropped": 1,
     "cut:period-for-comma": 1,
     "junk-after-d2": 1,
-    "res-damaged": 3
+    "res-damaged": 3,
+    "res-lost": 3
    },
    "head_marks": 2,
    "leaves": [
@@ -2375,28 +2406,28 @@
    ],
    "names_gettysburg": 46,
    "normalised_empty": 1,
-   "ocr_uncertain": 21,
+   "ocr_uncertain": 24,
    "on_rolls": {
-    "no": 399,
+    "no": 400,
     "unknown": 11,
-    "yes": 869
+    "yes": 871
    },
    "page_from_running_head_rows": 0,
    "printed_pages_of_rows": [
     538,
     587
    ],
-   "raw_bytes": 225371,
-   "raw_lines_sha256": "7188728b13ff475ce687b88373de0eff2ec1794cf3d7d8de302803a26061ab13",
+   "raw_bytes": 225392,
+   "raw_lines_sha256": "09b170f5c118a41bbf2a76f6f1515e811ce88594ce0f90078ddd1a1bd506dfa9",
    "reviewed_cuts": [],
-   "rows": 1279,
+   "rows": 1282,
    "rows_by_company": {
     "A": 140,
-    "B": 107,
+    "B": 108,
     "C": 131,
-    "D": 127,
+    "D": 128,
     "E": 123,
-    "F": 122,
+    "F": 123,
     "FS": 13,
     "G": 121,
     "H": 124,
@@ -2470,37 +2501,39 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 1279,
+    "name_ok": 1282,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 1279,
+    "page_ok": 1282,
     "rank_empty": 0,
-    "rank_ok": 1279,
+    "rank_ok": 1282,
     "remark_empty": 0,
     "remark_gap_rows": 0,
-    "remark_ok": 1279,
-    "rows": 1279
+    "remark_ok": 1282,
+    "rows": 1282
    },
    "volume": "3"
   },
   "u-ma-37th-massachusetts-infantry": {
    "codes": {
     "G": 4,
-    "H": 1,
+    "H": 4,
     "N": 9,
-    "Q": 3,
+    "Q": 4,
     "R": 3,
     "Y": 1
    },
    "company_inferred_rows": 0,
    "furniture_lines": 73,
    "gettysburg_dated": 45,
-   "gz_bytes": 44281,
+   "gz_bytes": 44272,
    "head_kinds": {
+    "cut:fragment-extended": 2,
     "cut:initials-dropped": 1,
     "cut:no-comma": 1,
     "junk-after-d2": 1,
-    "res-damaged": 3
+    "res-damaged": 3,
+    "res-lost": 1
    },
    "head_marks": 2,
    "leaves": [
@@ -2509,24 +2542,24 @@
    ],
    "names_gettysburg": 46,
    "normalised_empty": 2,
-   "ocr_uncertain": 20,
+   "ocr_uncertain": 21,
    "on_rolls": {
     "no": 477,
     "unknown": 14,
-    "yes": 818
+    "yes": 819
    },
    "page_from_running_head_rows": 21,
    "printed_pages_of_rows": [
     771,
     823
    ],
-   "raw_bytes": 246900,
-   "raw_lines_sha256": "75bfd7ec9166b9cc0c98009cac36568022237c63549a7dade9c6c75b039bf894",
+   "raw_bytes": 246907,
+   "raw_lines_sha256": "ee50d40c3a99c17e2cb6a8a6933c55f46ea7cb4dc54c830391b07fbfa346c48d",
    "reviewed_cuts": [],
-   "rows": 1309,
+   "rows": 1310,
    "rows_by_company": {
     "A": 139,
-    "B": 125,
+    "B": 126,
     "C": 121,
     "D": 120,
     "E": 129,
@@ -2604,16 +2637,16 @@
    ],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 1309,
+    "name_ok": 1310,
     "order_breaks": 0,
     "page_null": 21,
-    "page_ok": 1309,
+    "page_ok": 1310,
     "rank_empty": 0,
-    "rank_ok": 1309,
+    "rank_ok": 1310,
     "remark_empty": 0,
     "remark_gap_rows": 0,
-    "remark_ok": 1309,
-    "rows": 1309
+    "remark_ok": 1310,
+    "rows": 1310
    },
    "volume": "3"
   },
@@ -2728,6 +2761,7 @@
   "u-ma-7th-massachusetts-infantry": {
    "codes": {
     "G": 8,
+    "H": 2,
     "N": 7,
     "Q": 7,
     "R": 7,
@@ -2736,8 +2770,9 @@
    "company_inferred_rows": 0,
    "furniture_lines": 64,
    "gettysburg_dated": 9,
-   "gz_bytes": 38223,
+   "gz_bytes": 38193,
    "head_kinds": {
+    "cut:fragment-extended": 2,
     "res-damaged": 7
    },
    "head_marks": 0,
@@ -2759,7 +2794,7 @@
     515
    ],
    "raw_bytes": 205526,
-   "raw_lines_sha256": "f6e4f626f6b50fd6816a3ef27a0e90dbef65964c6cbcfd409a2cb3f22adf1d04",
+   "raw_lines_sha256": "de0cbf7787e2d77e4fe0c0ef945a211a03178831e796d1601799e2cac3e9d81c",
    "reviewed_cuts": [],
    "rows": 1171,
    "rows_by_company": {
@@ -2849,7 +2884,7 @@
     "rank_empty": 0,
     "rank_ok": 1171,
     "remark_empty": 0,
-    "remark_gap_rows": 1,
+    "remark_gap_rows": 0,
     "remark_ok": 1171,
     "rows": 1171
    },
@@ -2858,13 +2893,16 @@
   "u-ma-9th-massachusetts-battery": {
    "codes": {
     "G": 6,
+    "H": 1,
     "Y": 3
    },
    "company_inferred_rows": 0,
    "furniture_lines": 19,
    "gettysburg_dated": 28,
-   "gz_bytes": 11063,
-   "head_kinds": {},
+   "gz_bytes": 11056,
+   "head_kinds": {
+    "res-lost": 1
+   },
    "head_marks": 6,
    "leaves": [
     460,
@@ -2872,9 +2910,9 @@
    ],
    "names_gettysburg": 28,
    "normalised_empty": 0,
-   "ocr_uncertain": 9,
+   "ocr_uncertain": 10,
    "on_rolls": {
-    "no": 188,
+    "no": 189,
     "unknown": 6,
     "yes": 134
    },
@@ -2883,47 +2921,48 @@
     454,
     466
    ],
-   "raw_bytes": 56107,
-   "raw_lines_sha256": "c6d50049d441e867d612efe81f1ef68756208cc2022fbfabf3dd45e704220872",
+   "raw_bytes": 56114,
+   "raw_lines_sha256": "98d94795e26f34f06e97d040d8b774146ad7a2043ff2580c28d4d636a24f7930",
    "reviewed_cuts": [],
-   "rows": 328,
+   "rows": 329,
    "rows_by_company": {
-    "": 328
+    "": 329
    },
    "rows_without_printed_page": 0,
    "section_headings": [],
    "tail_dropped": [],
    "verify": {
-    "name_ok": 328,
+    "name_ok": 329,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 328,
+    "page_ok": 329,
     "rank_empty": 0,
-    "rank_ok": 328,
+    "rank_ok": 329,
     "remark_empty": 0,
     "remark_gap_rows": 0,
-    "remark_ok": 328,
-    "rows": 328
+    "remark_ok": 329,
+    "rows": 329
    },
    "volume": "5"
   },
   "u-ma-9th-massachusetts-infantry": {
    "codes": {
     "G": 16,
-    "H": 1,
+    "H": 3,
     "N": 37,
-    "Q": 2,
+    "Q": 4,
     "R": 7,
     "Y": 50
    },
    "company_inferred_rows": 0,
    "furniture_lines": 84,
    "gettysburg_dated": 5,
-   "gz_bytes": 53909,
+   "gz_bytes": 53890,
    "head_kinds": {
     "d1-damaged": 1,
     "junk-after-d2": 1,
-    "res-damaged": 2
+    "res-damaged": 2,
+    "res-lost": 2
    },
    "head_marks": 3,
    "leaves": [
@@ -2932,9 +2971,9 @@
    ],
    "names_gettysburg": 17,
    "normalised_empty": 1,
-   "ocr_uncertain": 107,
+   "ocr_uncertain": 109,
    "on_rolls": {
-    "no": 916,
+    "no": 918,
     "unknown": 91,
     "yes": 683
    },
@@ -2943,10 +2982,10 @@
     617,
     681
    ],
-   "raw_bytes": 289045,
-   "raw_lines_sha256": "0262449446ebd19e95214726a6a605c43da8f663805b0fe1682671b0faafcf60",
+   "raw_bytes": 289059,
+   "raw_lines_sha256": "b2de81e282a7fc04ca6f8c7013e3701c7ef1dbc002eda71caa253f3b770a02a2",
    "reviewed_cuts": [],
-   "rows": 1690,
+   "rows": 1692,
    "rows_by_company": {
     "A": 178,
     "B": 163,
@@ -2954,12 +2993,12 @@
     "C": 171,
     "D": 162,
     "E": 160,
-    "F": 150,
+    "F": 151,
     "FS": 14,
     "G": 168,
     "H": 158,
     "I": 160,
-    "K": 151,
+    "K": 152,
     "NCS": 8,
     "UNAS": 24
    },
@@ -3044,16 +3083,16 @@
     ]
    ],
    "verify": {
-    "name_ok": 1690,
+    "name_ok": 1692,
     "order_breaks": 0,
     "page_null": 0,
-    "page_ok": 1690,
+    "page_ok": 1692,
     "rank_empty": 0,
-    "rank_ok": 1690,
+    "rank_ok": 1692,
     "remark_empty": 0,
-    "remark_gap_rows": 3,
-    "remark_ok": 1690,
-    "rows": 1690
+    "remark_gap_rows": 2,
+    "remark_ok": 1692,
+    "rows": 1692
    },
    "volume": "1"
   }

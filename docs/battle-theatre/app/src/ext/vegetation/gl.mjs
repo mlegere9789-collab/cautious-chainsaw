@@ -3,14 +3,14 @@
 // function of the clock, the camera, the choices and the switches: the per-unit state is written to a small float texture from model.stateAt at a quantised minute, the trample table
 // is a texture of first-visit minutes, and the shaders read both. WebGL2 only: on WebGPU nothing here draws (the module says so in its panel).
 import { LAYER, CHUNK_M, TREE_STRIDE, selectChunks } from './mesh.mjs';
-import { stateAt } from './model.mjs';
+import { stateAt, sceneMinute } from './model.mjs';
 import { SHELL, SHELL_VS, SHELL_FS, buildShellChunks, refineChunk, selectShellChunks, ChunkCache } from './shell.mjs';
 import { perspective, lookAt, mul, frustumPlanes, sphereInFrustum } from '../../../../render/prototype/src/math.mjs';
 
 export const STATE_TEX_W = 1024;
 let TEX_STATE = 28, TEX_VISIT = 29;               // texture units: above the renderer's own (0 to 15), the weather's (12 to 15) and the crowd's (16 to 23); lowered to the last two a small driver offers
-const CROPCODE = { forest_floor: 0, wheat: 1, rye: 2, barley: 3, oats: 4, corn: 5, hay: 6, pasture: 7, open_rock: 8, marsh: 9, rock: 10 };
-const STAGECODE = { being_cut: 1, cut_shocked: 2, stubble: 3, mown: 4, hay_stubble: 5, plowed: 6, winter_grain_sprouts: 7, corn_stubble: 8, dormant_grass: 9, dormant_marsh: 9, rock: 10, shaded_litter: 11, leaf_litter: 11 };
+export const CROPCODE = { forest_floor: 0, wheat: 1, rye: 2, barley: 3, oats: 4, corn: 5, hay: 6, pasture: 7, open_rock: 8, marsh: 9, rock: 10 };
+export const STAGECODE = { being_cut: 1, cut_shocked: 2, stubble: 3, mown: 4, hay_stubble: 5, plowed: 6, winter_grain_sprouts: 7, corn_stubble: 8, dormant_grass: 9, dormant_marsh: 9, rock: 10, shaded_litter: 11, leaf_litter: 11 };
 const TIERCODE = { documented: 0, inferred: 1, 'plausible-procedural': 2, 'open gap': 3 };
 export const STATE_K = 5;                                    // texels per unit
 const smooth01 = x => { const t = Math.min(1, Math.max(0, x)); return t * t * (3 - 2 * t); };

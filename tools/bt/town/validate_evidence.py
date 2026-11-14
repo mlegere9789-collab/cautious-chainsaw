@@ -69,13 +69,19 @@ REQUIRED_FIELDS = {   # --complete: every declared building has at least one row
     'road': ('existed_july_1863', 'name', 'place', 'surface', 'width'),
     'railway': ('existed_july_1863', 'place', 'surface', 'width', 'state'),
     'terrain': ('terrain_change', 'place', 'extent'),
+    'mass': ('existed_july_1863', 'place', 'kind', 'storeys', 'state'),        # a borough mass (STR-BORO-MASS-nnn): the extent of the ink of the Warren plate
+    'symbol': ('existed_july_1863', 'place', 'kind', 'occupant'),              # a map symbol (STR-MAPSYM-nnnn, outbuilding points): a point on a plate
 }
 KIND_PROFILE = {   # value of a `kind` row -> profile of REQUIRED_FIELDS
     'bridge': 'bridge', 'covered_bridge': 'bridge', 'trestle': 'bridge', 'ford': 'bridge', 'culvert': 'bridge',
     'fence': 'fence', 'post_and_rail_fence': 'fence', 'worm_fence': 'fence', 'picket_fence': 'fence', 'iron_fence': 'fence',
     'wall': 'wall', 'stone_wall': 'wall', 'road': 'road', 'turnpike': 'road', 'lane': 'road', 'railway': 'railway', 'rail_grade': 'railway',
     'terrain': 'terrain', 'quarry': 'terrain', 'cut': 'terrain', 'avenue': 'terrain', 'pond': 'terrain',
+    'building_mass': 'mass', 'map_symbol': 'symbol',
 }
+FORM_FIELDS = ('storeys', 'height', 'footprint', 'plan_shape', 'walls', 'roof', 'foundation', 'chimneys', 'openings', 'porch', 'tower_or_cupola', 'colour', 'additions',
+               'outbuildings', 'lot_enclosure', 'orchard_or_garden', 'sign', 'span', 'fence_type', 'wall_type', 'width', 'length', 'surface')
+CONTINUITY_EXEMPT = ('lost', 'identity', 'photograph', 'built', 'name', 'owner', 'occupant', 'use', 'existed_july_1863')
 COMMON_KEYS = {'row', 'type', 'group', 'building', 'note', 'see_also', 'x_reason'}
 BUILDING_KEYS = COMMON_KEYS | {'name', 'aliases', 'declared_from', 'links', 'new_reason'}
 SEARCH_KEYS = COMMON_KEYS | {'where', 'query', 'outcome', 'at', 'found_rows', 'url'}
@@ -132,6 +138,15 @@ class Ctx:
         if self._ledger is None:
             self._ledger = parse_ledger(self.ledger_path)
         return self._ledger
+
+    def families(self):
+        if getattr(self, '_fam', None) is None:
+            try:
+                with open(os.path.join(self.evid, 'ledger-families.json'), encoding='utf-8') as f:
+                    self._fam = json.load(f).get('families', {})
+            except FileNotFoundError:
+                self._fam = {}
+        return self._fam
 
     def or27(self):
         if self._or27 is None:
@@ -332,8 +347,11 @@ def parse_ledger(path):
                 continue
             row = dict(zip(cols, cells))
             sid = row['id']
-            if sid in out:
-                dup.append(sid)
+            if sid in out and sid != '__duplicates__':
+                if out[sid].get('text', '-') in ('-', '', 'none') and row.get('text', '-') not in ('-', '', 'none'):
+                    pass            # a planned source (no local text yet) completed by its acquired row
+                else:
+                    dup.append(sid)
             out[sid] = row
     out['__duplicates__'] = dup
     return out
@@ -469,6 +487,16 @@ def check_cite(ctx, c, where, errors, warnings, need_class_not_lead=False, numbe
         numbers_in.append(quote)
     # the integrity of the file the offsets rest on
     h = (led.get('sha256') or '').strip().lower()
+    if '{part}' in led.get('text', ''):
+        fam = ctx.families().get(sid) or {}
+        ph = fam.get(c.get('part'))
+        if ph:
+            key = ('sha', path)
+            if key not in ctx._texts:
+                with open(os.path.join(ctx.root, path), 'rb') as f:
+                    ctx._texts[key] = hashlib.sha256(f.read()).hexdigest()
+            if ctx._texts[key] != ph:
+                errors.append('%s: the sha256 of %s differs from evidence/ledger-families.json: the text changed since the ledger entry' % (where, path))
     if re.fullmatch(r'[0-9a-f]{64}', h) and '{part}' not in led.get('text', ''):
         key = ('sha', path)
         if key not in ctx._texts:
@@ -799,14 +827,18 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
                 errors.append('%s: an inferred row needs a citation, an image reading or premises' % where)
         # a statement about a later state cannot make an 1863 form documented
         desc = r.get('describes')
-        if tier == 'documented' and desc in ('later', 'undated') and fld not in ('lost', 'identity', 'photograph', 'built', 'name'):
+        need_cont = False
+        if tier == 'documented':
+            if desc in ('later', 'undated') and fld not in CONTINUITY_EXEMPT:
+                need_cont = True
+            if desc == 'after_battle_to_1869' and fld in FORM_FIELDS:
+                need_cont = True
+        if need_cont:
             c2 = r.get('continuity')
             if not isinstance(c2, dict):
-                errors.append('%s: describes %s cannot make an 1863 value documented without `continuity`: a second citation that says the feature is unchanged since 1863' % (where, desc))
+                errors.append('%s: describes %s cannot make an 1863 %s documented without `continuity`: a second citation that says the feature is unchanged since 1863 (otherwise the tier is inferred, with a basis)' % (where, desc, fld))
             else:
                 check_cite(ctx, c2, '%s continuity' % where, errors, warnings, need_class_not_lead=True, numbers_in=None)
-        if tier == 'documented' and desc == 'after_battle_to_1869' and fld in ('storeys', 'footprint', 'walls', 'roof', 'height', 'chimneys', 'openings', 'additions') and not isinstance(r.get('continuity'), dict):
-            warnings.append('%s: documented from a statement about 1863-1869: a continuity citation is advised' % where)
         # the numbers
         vn = value_numbers(fld, r.get('value'))
         if vn and ek == 'text' or (vn and r.get('quote')):

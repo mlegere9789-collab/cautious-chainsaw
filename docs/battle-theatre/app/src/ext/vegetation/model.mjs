@@ -189,7 +189,7 @@ export function stateAt(model, unit, tMin, choices) {
   }
   if (u.orchard) {
     const lf = leafAt(model, u, tMin);
-    out.trees = { leaf: lf.leaf * (1 - 0.9 * dm.strip), leafFull: lf.leaf, leafRange: lf.range, strip: dm.strip, class: u.orchard.class, spacing: u.orchard.spacing_m, species: u.orchard.species };
+    out.trees = { leaf: lf.leaf * (1 - 0.9 * dm.strip), leafFull: lf.leaf, leafRange: lf.range, strip: dm.strip, keep: 1, class: u.orchard.class, spacing: u.orchard.spacing_m, species: u.orchard.species };
     out.fruit = fruitAt(model, u, tMin); out.tiers.leaf = lf.tier; out.tiers.fruit = weakest(...Object.values(out.fruit).map(f => f.tier)); out.tiers.age = u.orchard.age_tier;
     if (!out.ground) { out.ground = { crop: 'pasture', ...(() => { const cs = cropState(model, { crop: 'pasture', p: u.p, seed: u.seed }, tMin, choices); return { label: 'Grass under the trees', stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h, hStanding: cs.h, cut: 0, shockH: null, trample: clamp(dm.trample, 0, 1), lodging: 0 }; })() }; out.tiers.crop = 'plausible-procedural'; out.tiers.stage = 'plausible-procedural'; out.tiers.height = 'plausible-procedural'; out.tiers.colour = 'plausible-procedural'; }
   }
@@ -270,6 +270,9 @@ export function sampleTimes(model) {
   return [...s].sort((a, b) => a - b);
 }
 
+/** the minute the scene is drawn at: the clock rounded to half a minute (the state of every unit is written to the GPU at this minute; the same minute always gives the same picture) */
+export const sceneMinute = t => Math.round(t * 2) / 2;
+
 const finite = (...xs) => xs.every(x => Number.isFinite(x));
 const inRange = (v, lo, hi, eps = 1e-6) => v >= lo - eps && v <= hi + eps;
 
@@ -279,7 +282,8 @@ const inRange = (v, lo, hi, eps = 1e-6) => v >= lo - eps && v <= hi + eps;
  */
 export function checkVegetation(model, opts = {}) {
   const times = opts.times || sampleTimes(model), choicesList = opts.choicesList || [{}, { 'CF-VEG-HARVEST': 'early' }, { 'CF-VEG-HARVEST': 'late' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }];
-  const failures = []; let checked = 0; const fail = (u, t, why) => { if (failures.length < 200) failures.push({ unit: u.id, t, iso: minToIso(t), why }); };
+  const failures = [], failByClass = {}, statesByClass = {}; let checked = 0;
+  const fail = (u, t, why) => { const c = (model.byId.get(u.id) || {}).cls || 'other'; failByClass[c] = (failByClass[c] || 0) + 1; if (failures.length < 200) failures.push({ unit: u.id, t, iso: minToIso(t), why }); };
   const cal = model.cal;
   // claims: each has a quote, a tier of the two allowed, and a locator
   for (const c of model.data.claims) {
@@ -297,11 +301,17 @@ export function checkVegetation(model, opts = {}) {
     if (u.crop && !(u.crop in cal.crops)) fail(u, 0, 'crop ' + u.crop + ' not in the calendar');
     if (u.cls === 'field' && !u.crop_basis) fail(u, 0, 'field cell without the basis of its crop');
   }
+  // species: none introduced after 1863 and none from a modern list; each has its tier and its stated basis (the chestnut is drawn as a living tree of 1863 at a ranged share: no blight and no modern species list is used)
+  const LATER = /\b(callery|bradford|norway (maple|spruce)|autumn olive|multiflora|barberry|emerald ash|crape myrtle|leyland|kudzu|princess tree)\b/i;
+  for (const [n, sp] of Object.entries(model.species)) {
+    if (LATER.test(n + ' ' + sp.label)) fail({ id: 'species:' + n }, 0, 'a species introduced after 1863 or a modern exotic');
+    if (!TIERS.includes(sp.tier) || !sp.why) fail({ id: 'species:' + n }, 0, 'species without a tier or a stated basis');
+  }
   const prevTr = new Map();
   for (const t of times) {
     for (const choices of choicesList) {
       for (const u of model.units) {
-        const s = stateAt(model, u, t, choices); checked++;
+        const s = stateAt(model, u, t, choices); checked++; statesByClass[u.cls] = (statesByClass[u.cls] || 0) + 1;
         if (s.problems) { for (const p of s.problems) fail(u, t, p); continue; }
         if (!s.tier) { fail(u, t, 'no tier'); continue; }
         for (const k of Object.keys(s.tiers)) if (!TIERS.includes(s.tiers[k])) fail(u, t, `tier of ${k} is ${s.tiers[k]}`);
@@ -326,6 +336,9 @@ export function checkVegetation(model, opts = {}) {
         }
         if (s.trees) {
           if (!finite(s.trees.leaf, s.trees.strip)) fail(u, t, 'non-finite tree state');
+          if (!(s.trees.keep >= 0 && s.trees.keep <= 1)) fail(u, t, 'share of trees kept outside 0..1');
+          if (u.woods && !(['open', 'moderate', 'thick', 'none'].includes(s.trees.understory) && TIERS.includes(s.trees.understoryTier))) fail(u, t, 'undergrowth missing, unknown or without a tier');
+          if (u.orchard) for (const sp of Object.keys(u.orchard.species)) { const f = s.fruit && s.fruit[sp]; if (!f || !f.stage || !TIERS.includes(f.tier)) fail(u, t, 'no fruit state, or no tier of it, for ' + sp); }
           const win = s.season === 'window', L = win ? cal.leaf.window.range : cal.leaf.epilogue.range;
           if (!inRange(s.trees.leafFull, L[0], L[1])) fail(u, t, 'leaf cover outside its range');
           if (win && s.trees.leaf < 0.05) fail(u, t, 'leaf-off in the window');
@@ -340,12 +353,15 @@ export function checkVegetation(model, opts = {}) {
   }
   // purity: the same questions in a shuffled order give the same answers
   const sub = model.units.filter((_, i) => i % 7 === 0), idx = times.map((_, i) => i); const rng = mulberry32(7); for (let i = idx.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+  // backward scrub: the states asked for in descending time equal those asked for in ascending time
+  let backward = true; { const ts = times.filter((_, i) => i % 5 === 0), asc = new Map(); for (const t of ts) for (const u of sub) asc.set(u.id + '@' + t, JSON.stringify(stateAt(model, u, t, {}))); for (const t of [...ts].reverse()) for (const u of sub) if (JSON.stringify(stateAt(model, u, t, {})) !== asc.get(u.id + '@' + t)) { backward = false; fail(u, t, 'state differs when time is walked backward'); } }
   let pure = true; for (const i of idx.slice(0, 24)) for (const u of sub) { const a = JSON.stringify(stateAt(model, u, times[i], {})), b = JSON.stringify(stateAt(model, u, times[i], {})); if (a !== b) { pure = false; fail(u, times[i], 'state differs between two asks'); } }
   const summary = {
     units: model.units.length, claims: model.data.claims.length, times: times.length, scenarios: choicesList.length, states: checked,
-    byTier: Object.fromEntries(TIERS.map(t => [t, model.units.filter(u => (u.crop_tier || u.geom_tier) === t).length])), pure,
+    byTier: Object.fromEntries(TIERS.map(t => [t, model.units.filter(u => (u.crop_tier || u.geom_tier) === t).length])), pure, backward, species: Object.keys(model.species).length,
+    byClass: Object.fromEntries([...new Set(model.units.map(u => u.cls))].sort().map(c => [c, { units: model.units.filter(u => u.cls === c).length, states: statesByClass[c] || 0, failures: failByClass[c] || 0 }])),
   };
-  return { gate: 'Q21', ok: failures.length === 0 && pure, checked, failures, notRun: ['pictures of the fields and trees (software renderer only; no real-GPU timing)', 'comparison with 1863 photographs (none analysed)'], summary };
+  return { gate: 'Q21', ok: failures.length === 0 && pure && backward, checked, failures, notRun: ['pictures of the fields and trees (software renderer only; no real-GPU timing)', 'comparison with 1863 photographs (none analysed)'], summary };
 }
 
 export const GATE_HOOKS = [{ gate: 'Q21', module: 'src/ext/vegetation/model.mjs', fn: 'checkVegetation(model, opts)', inputs: 'model = new VegModel(JSON of data/vegetation.json); opts.times (minutes), opts.choicesList', output: '{ gate, ok, checked, failures[], notRun[], summary }' }];

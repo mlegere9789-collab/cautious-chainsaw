@@ -229,6 +229,22 @@ add(id='PS-NPS-ROTV2-65', src='NPS-CLR-ROT-V2', quote="Figure 65. Plum Run Gorge
 add(id='PS-NPS-CLR1D-147', src='NPS-CLR-1STDAY', quote="While there is disagreement about the location, the photograph may be looking east across the Wills Farm with the woods on Oak Ridge in the background (Wills Woods East).", loc=['2009630184'], res=['ppmsca.18947'],
     says="LOC ppmsca-18947 (record 2009630184, Gibson stereograph 'On the battlefield at Gettysburg') was photographed circa July 5, 1863; the NPS says that, while there is disagreement about the location, it may look east across the Wills Farm with the woods on Oak Ridge in the background (hedged: 'may')", prec='place+dir+ref',
     ident='id in the source (LC-DIG-ppmsca-18947 is the front of record 2009630184)')
+# ---------------------------------------------------------------- third pass (2026-11-14): the figures of the NPS Cultural Landscape Report, Record of Treatment (volumes I and II) that print an 1863 photograph with a direction of view
+# The captions are generated from nps_figures.json (each caption was cut verbatim out of the saved text by nps_figures.py; the builder checks it again). The Library of Congress record of a figure is set only where the Digital ID stands in the caption or
+# where the image match (match_third_pass.py -> nps_figures_to_loc.json) was confirmed by looking at both images (nps_figures_confirmed.json, written by hand after looking); otherwise loc stays empty and the statement says so.
+import json as _json, os as _os
+_HERE = _os.path.dirname(_os.path.abspath(__file__)); _NF = _os.path.join(_HERE, 'nps_figures.json'); _NC = _os.path.join(_HERE, 'nps_figures_confirmed.json')
+if _os.path.exists(_NF):
+    _conf = _json.load(open(_NC))['ties'] if _os.path.exists(_NC) else {}; _have = [(_s['quote'] if isinstance(_s['quote'], str) else ' '.join(_s['quote'])).rstrip('. ') for _s in S]
+    for _f in _json.load(open(_NF))['figures']:
+        if any(_f['caption'].rstrip('. ') == _h or _f['caption'].rstrip('. ') in _h for _h in _have): continue   # a figure an earlier statement already quotes
+        _vol = 'I' if _f['source'].endswith('V1') else 'II'; _t = _conf.get(_f['id']) or {}
+        _num = _f.get('park_or_collection_number'); _kind = _f['credit_kind']
+        _who = {'GNMP': 'the park collection (GETT 41135) number %s' % _num, 'LOC': 'the Library of Congress image named in the caption', 'Tipton': 'the Tipton collection of the park (GETT 41136) number %s' % _num, 'Boardman': 'the Sue Boardman Collection number %s' % _num, 'USAHEC': 'the Civil War Photographs Collection of the Army Heritage and Education Center, Carlisle'}[_kind]
+        _says = 'NPS Record of Treatment vol. %s, %s: %s, an 1863 photograph, is %sa view %s%s%s' % (_vol, _f['figure'], _who, 'a detail of ' if _f['is_detail'] else '', _f['direction_word'], (' from ' + _f['place_named']) if _f['place_named'] else '', '' if _t.get('loc') else ' (no catalogued Library of Congress record is tied to it)')
+        add(id='PS-NPS-ROT%s-F%s' % ('V1' if _vol == 'I' else 'V2', _f['figure'].replace('Figure ', '').replace(' ', '').replace('(', '').replace(')', '')), src=_f['source'], quote=_f['caption'], loc=_t.get('loc', []), res=_t.get('res', []), says=_says,
+            prec='place+dir' if _f['place_named'] else 'dir', ident=_t.get('ident') or ('no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue'),
+            note=_t.get('note'))
 # ---------------------------------------------------------------- timeline rows that these statements support (written to GOVERNANCE/timeline_corrections/web-photomatch.jsonl)
 TL = [
  dict(id='T3-064', verdict='partially_supported',

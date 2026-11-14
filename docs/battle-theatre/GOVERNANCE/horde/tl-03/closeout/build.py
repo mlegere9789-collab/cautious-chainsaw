@@ -18,6 +18,7 @@ G = os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE')
 sys.path.insert(0, os.path.join(ROOT, 'tools', 'bt'))
 sys.path.insert(0, HERE)
 import or27_find as F
+import kit_or27_leafmap as KL
 from or27_lib import build_nview, norm_query, raw_path
 
 SHARD = 'tl-03'
@@ -71,6 +72,75 @@ LABEL = {
  'LETTERMAN-1866': 'J. Letterman, Medical Recollections of the Army of the Potomac (1866)',
  'NY-GB-1900': 'New York at Gettysburg (1900), vol. 1',
  'MI-GB-1889': 'Michigan at Gettysburg (1889)',
+}
+
+# ------------------------------------------------------------------ printed pages of the Official Records: scan leaf map first
+# (second pass of 2026-11-14, the rule of the tl-02 close-out): the running-head page model of tools/bt/or27_pages.py loses its heads on tabular
+# pages and interpolates ("~"); the printed page of the scan leaf (archive.org page index aligned to the OCR text, tools/bt/kit_or27_leafmap.py,
+# read-only here) agrees with the running heads wherever both exist (880/880, 821/823, 974/975).  audit/viewed_leaves.json lists the leaves whose
+# printed page was read on the page image (key "part:leaf").
+_MODEL_BASIS = 'running heads of the OCR text (tools/bt/or27_pages.py); a page marked ~ is interpolated inside a run of lost heads'
+_LV = None
+
+def _viewed():
+    global _LV
+    if _LV is None:
+        p = os.path.join(HERE, 'audit', 'viewed_leaves.json')
+        _LV = json.load(open(p, encoding='utf-8'))['leaves'] if os.path.exists(p) else {}
+    return _LV
+
+def or_page(h):
+    """-> (printed page string, basis, scan dict or None, running-head model page when it differs from the scan page)"""
+    model = h['page']
+    lm = KL.load(h['part'])
+    if lm is None:
+        return model, _MODEL_BASIS, None, None
+    a, b = lm.at(h['start']), lm.at(h['end'] - 1)
+    if not a or not b or a['page'] is None or b['page'] is None:
+        return model, _MODEL_BASIS + '; the scan leaf carries no printed page number in the item page index', None, None
+    pa, pb = a['page'], b['page']
+    page = str(pa) if pa == pb else '%s-%s' % (pa, pb)
+    nums = sorted(set(int(x) for x in re.findall(r'\d+', re.sub(r'\([^)]*\)', '', model))))
+    agree = '~' not in model and nums == sorted({pa, pb})
+    lv = _viewed()
+    img = all(lv.get('%d:%d' % (h['part'], lf)) == pg for lf, pg in ((a['leaf'], pa), (b['leaf'], pb)))
+    scan = collections.OrderedDict(archive_identifier=KL.PARTS[h['part']], leaf=a['leaf'], pdf_page=a['leaf'] + 1)
+    if b['leaf'] != a['leaf']:
+        scan['leaf_end'] = b['leaf']
+        scan['pdf_page_end'] = b['leaf'] + 1
+    scan['printed_page_read_on_image'] = bool(img)
+    base = ('printed page given by both the running head of the OCR text (tools/bt/or27_pages.py) and the page index of the scan leaf (archive.org page_numbers aligned to the OCR text by tools/bt/kit_or27_leafmap.py)'
+            if agree else
+            'printed page of the scan leaf (archive.org page_numbers aligned to the OCR text by tools/bt/kit_or27_leafmap.py); the running-head model of the OCR text (tools/bt/or27_pages.py) gave "%s" (%s)'
+            % (model, 'interpolated inside a run of lost heads' if '~' in model else 'a head that does not belong to this page'))
+    if img:
+        base += '; printed page also read on the page image (PDF page %d of %s.pdf)' % (a['leaf'] + 1, KL.PARTS[h['part']])
+    return page, base, scan, (None if agree else model)
+
+# classes of source for the product (what kind of text a citation is)
+CLASS = {
+    'JACOBS-1864': 'eyewitness account by a Gettysburg resident, published 1864 (weather readings and narrative)',
+    'TPIERCE-1889': 'eyewitness memoir by a Gettysburg resident, written 26 years later',
+    'MEADE-LL-v2': 'compilation of army headquarters papers and staff accounts, published 1913',
+    'BL-3': 'participant articles with editors\' captions, published 1887-1888',
+    'BACH-WHATTOSEE-1873': 'guide by the battlefield historian, compiled from participants (1873)',
+    'BACH-WHATTOSEE-1889': 'guide by the battlefield historian, compiled from participants (1889 edition)',
+    'NY-GB-1900': 'state commission history (1900)',
+    'NY-GB-1900-v2': 'state commission volume with regimental addresses (1900)',
+    'NY-GB-1902-v3': 'state commission volume with regimental addresses (1902)',
+    'PA-GB-1904': 'state commission volume with regimental addresses (1904)',
+    'PA-GB-1914-v1': 'state commission volume with regimental addresses (1914 printing, vol. 1)',
+    'PA-GB-1914-v2': 'state commission volume with addresses (1914)',
+    'ME-GB-1898': 'state commission volume (1898)',
+    'LETTERMAN-1866': 'memoir by the army medical director, with orders printed in full (1866)',
+    'SHSP-04': 'participant recollection published 1877',
+    'SHSP-06': 'participant papers published 1878 (including the divisional report of 1863 as printed)',
+    'FOX-1889': 'compiled loss statistics (1889)',
+    'FREMANTLE-1864': 'eyewitness diary of a British officer with the Confederate army, published 1864',
+    'LONGSTREET-1896': 'participant memoir published 1896',
+    'PIERCE-F-1914': 'published history (1914)',
+    'HOSPSCENES-1864': 'nurse\'s account published 1864',
+    'JACOBS-1888': 'reprint (1888), searched only',
 }
 
 def sha_file(p):
@@ -153,10 +223,16 @@ def resolve(cid, c):
         if OR_SHA[part] is None: OR_SHA[part] = sha_file(raw_path(part))
         rec = OR_INDEX.get(h['record'] or '', {})
         author = c.get('author') or ((rec.get('rank') or '') + ' ' + (rec.get('author') or '')).strip() or (rec.get('header_raw') or '')[:60]
-        out = collections.OrderedDict(key=cid, source_id='OR27', work='Official Records Ser.I vol.27', part=part, report_id=h['record'],
-              author=author, printed_page=h['page'], page_basis='running heads of the OCR text (tools/bt/or27_pages.py)',
+        page, page_basis, scan, model_page = or_page(h)
+        if c.get('page') and str(c['page']) not in page.replace('-', ' ').split() and str(c['page']) != page:
+            raise QuoteError('%s: page stated %s, found %s on the scan leaf (running-head model %s) (%s)' % (cid, c['page'], page, h['page'], h['record']))
+        out = collections.OrderedDict(key=cid, source_id='OR27', work='Official Records of the Union and Confederate Armies, Ser. I, vol. 27, part %d' % part,
+              part=part, report_id=h['record'], author=author, printed_page=page, page_basis=page_basis,
               quote=q, text_offset=h['start'], text_offset_end=h['end'],
-              source_file=os.path.relpath(raw_path(part), ROOT).replace(os.sep, '/'), sha256=OR_SHA[part])
+              source_file=os.path.relpath(raw_path(part), ROOT).replace(os.sep, '/'), sha256=OR_SHA[part],
+              source_class='official report, order or dispatch of 1863 (printed 1889)' if part != 2 else 'Confederate report (written 1863 to 1864, printed 1889)')
+        if scan: out['scan'] = scan
+        if model_page: out['page_running_head_model'] = model_page
         if len(hs) > 1: out['occurrences_in_report'] = len(hs)
     else:
         sid = c['src']
@@ -172,7 +248,8 @@ def resolve(cid, c):
         out = collections.OrderedDict(key=cid, source_id=sid, work=LABEL.get(sid) or LIB[sid].get('title'), part=None, report_id=None,
               author=c.get('author'), printed_page=pg, page_basis=basis,
               quote=q, text_offset=nm[i], text_offset_end=nm[i + len(q) - 1] + 1, source_file=rel, sha256=sha,
-              archive_identifier=LIB[sid].get('archive_identifier'), library_index=LIB[sid]['index'])
+              archive_identifier=LIB[sid].get('archive_identifier'), library_index=LIB[sid]['index'],
+              source_class=CLASS.get(sid) or ('National Park Service study (text layer of the PDF; page = PDF page)' if sid.startswith('NPS') else None))
         if n > 1: out['occurrences_in_text'] = n
     for k in ('reading', 'supports', 'note', 'image_check', 'witness'):
         if c.get(k): out[k] = c[k]

@@ -3,7 +3,7 @@
 // the claims that bear on it. The data is data/vegetation.json (tools/bt/vegetation); the state is the pure function of model.mjs; the drawing is gl.mjs (WebGL2 only: on WebGPU the
 // panel says so and nothing is drawn). The panel (More, then Vegetation of July 1863) holds the switches, the three source conflicts as choices, a card for the ground under the
 // cross-hair, a list of places to look at, the tiers and the gaps. ?veg=off keeps the whole module out of a visit.
-import { VegModel, stateAt, checkVegetation, scenarioOption, isoMin, minToIso, TIERS, weakest, SEASON_SPLIT } from './model.mjs';
+import { VegModel, stateAt, checkVegetation, scenarioOption, isoMin, minToIso, TIERS, weakest, SEASON_SPLIT, sceneMinute } from './model.mjs';
 import { buildDecals, buildTrees, LAYER } from './mesh.mjs';
 import { VegGL } from './gl.mjs';
 import { makeGrid, rasterMask, VisitPlanner, stageProvider } from './plan.mjs';
@@ -124,7 +124,7 @@ function target(s, cam) {          // the ground point under the centre of the p
 export function update(frame) {
   const s = S; if (!s) return; s.t = frame.tMin; s.cam = frame.cam;
   if (s.gl && s.on) {
-    const tq = Math.round(s.t * 2) / 2, ch = effChoices(s), key = JSON.stringify([ch['CF-VEG-LRT'], ch['CF-VEG-RAIN'], ch['CF-VEG-HARVEST']]), now = performance.now();
+    const tq = sceneMinute(s.t), ch = effChoices(s), key = JSON.stringify([ch['CF-VEG-LRT'], ch['CF-VEG-RAIN'], ch['CF-VEG-HARVEST']]), now = performance.now();
     // the state of every unit is written when the quantised minute or a choice changes; while the clock runs fast it is written at most every 90 ms (a settled or paused clock is always written at once, so the same minute always gives the same picture)
     if (frame.paused || !s.lastWrite || now - s.lastWrite > 90 || key !== s.gl.choicesKey) { if (s.gl.setTime(tq, ch, key)) s.lastWrite = now; }
     if (s.planner && !s.planner.done) { s.planner.run(4, () => performance.now()); s.planVersion = (s.planVersion || 0) + 1; }
@@ -150,7 +150,7 @@ function mountChip(s) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------- the panel
-const PLACES = [['The Rose Wheatfield', 'LC-FIELD-0001'], ['The Peach Orchard', 'LC-ORCH-0206'], ["Culp's Hill timber", 'LC-WOOD-0001'], ['Big Round Top forest', 'LC-WOOD-0002'], ['Herbst Woods', 'LC-WOOD-0010'], ['Little Round Top, west slope (cleared)', 'LC-OPEN-0001'], ['Plum Run bottom: marsh and thicket', 'LC-WET-0001'], ['Devil\'s Den boulder ground', 'LC-BOULD-0001']];
+const PLACES = [['The Rose Wheatfield', 'LC-FIELD-0001'], ['The Peach Orchard', 'LC-ORCH-0206'], ["Culp's Hill timber", 'LC-WOOD-0001'], ['Big Round Top forest', 'LC-WOOD-0002'], ['Herbst Woods', 'LC-WOOD-0010'], ['Little Round Top, west slope (cleared)', 'LC-OPEN-0001'], ['Little Round Top, east slope (wooded)', 'LC-WOOD-LRT-E'], ['Plum Run bottom: marsh and thicket', 'LC-WET-0001'], ['Devil\'s Den boulder ground', 'LC-BOULD-0001']];
 function centroidLL(u) { const r = u.rings[0]; let x = 0, y = 0, n = 0; for (let i = 0; i < r.length; i += 2) { x += r[i]; y += r[i + 1]; n++; } return [x / n, y / n]; }
 function srcLabel(s, c) { const k = c.src.split('#')[0], t = s.model.data.meta.source_titles[k] || k, l = c.loc || {}; return `${t}${l.report ? ', ' + String(l.who || l.report).replace(/^OR27-\d-R\d+\s*/, '') : ''}${l.page ? ', p. ' + l.page : l.pdf_page ? ', PDF page ' + l.pdf_page : ''}`; }
 function claimHTML(s, id, role) {

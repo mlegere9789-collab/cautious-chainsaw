@@ -2326,5 +2326,173 @@
    "rules",
    "main"
   ]
+ },
+ {
+  "id": "query-scenes-bounded",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "while (this._scenes.size > cap) this._scenes.delete(this._scenes.keys().next().value);",
+  "replace": "",
+  "rule": "the scenes kept are bounded (a run of the whole timeline must not hold every scenario)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-scenes-lru",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (s) { this._scenes.delete(key); this._scenes.set(key, s); return s; }",
+  "replace": "if (s) return s;",
+  "rule": "the scene in use is the most recently used: the least recently used go first",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-scenes-cap-floor",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "const cap = Math.max(2, (this.tolerances.sampling && this.tolerances.sampling.scenes_cached) || 8);",
+  "replace": "const cap = 1;",
+  "rule": "the cap of the scenes kept is the stated one",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-reading-index",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "k = f == null ? -1 : iv.findIndex(([a, b]) => a <= f && t <= b);",
+  "replace": "k = f == null ? -1 : iv.findIndex(([a, b]) => a <= f);",
+  "rule": "the record's reading is the exact reading its whole window lies in",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-reading-flags",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "...(flags && flags.length ? { window_flags: [...flags] } : {}),",
+  "replace": "",
+  "rule": "the flags of the printed time cell (night_ambiguous ...) are reported with the readings",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-reading-null",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "record_reading: k < 0 ? null : k };",
+  "replace": "record_reading: k < 0 ? 0 : k };",
+  "rule": "a window that lies in no exact reading has no reading",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-reading-wired",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "Object.assign(entry, timeReading(exact.get(r.id), r.window && r.window.flags, res && res.window));",
+  "replace": "",
+  "rule": "every row of RESULTS says its exact time and the record's reading",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-scenes-cached",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"scenes_cached\": 8,",
+  "replace": "\"scenes_cached\": 1,",
+  "rule": "the stated cap of the scenes kept",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "buildlist-no-record",
+  "file": "tools/bt/realize/buildlist.mjs",
+  "find": "if (!e.record) { no_record.push(id); continue; }",
+  "replace": "if (false) { no_record.push(id); continue; }",
+  "rule": "a row with no record is listed as having none, never as missing something",
+  "tests": [
+   "main"
+  ]
+ },
+ {
+  "id": "buildlist-partial",
+  "file": "tools/bt/realize/buildlist.mjs",
+  "find": "if (e.partial && Array.isArray(e.not_shown)) partial.push(",
+  "replace": "if (false) partial.push(",
+  "rule": "a row realized in part lists the parts it does not show",
+  "tests": [
+   "main"
+  ]
+ },
+ {
+  "id": "buildlist-unverified",
+  "file": "tools/bt/realize/buildlist.mjs",
+  "find": "verified: !unverified.has(m.code) });",
+  "replace": "verified: true });",
+  "rule": "a declared code the probe did not observe is marked",
+  "tests": [
+   "main"
+  ]
+ },
+ {
+  "id": "buildlist-builder-default",
+  "file": "tools/bt/realize/buildlist.mjs",
+  "find": "builder: m.builder || 'unassigned',",
+  "replace": "builder: m.builder || '',",
+  "rule": "a missing thing with no builder is unassigned",
+  "tests": [
+   "main"
+  ]
+ },
+ {
+  "id": "buildlist-failed",
+  "file": "tools/bt/realize/buildlist.mjs",
+  "find": "failed.push({ id, codes: e.codes || [], why: e.why });",
+  "replace": "",
+  "rule": "a realized-kind record that fails is listed as a failure",
+  "tests": [
+   "main"
+  ]
+ },
+ {
+  "id": "buildlist-order",
+  "file": "tools/bt/realize/buildlist.mjs",
+  "find": "L.groups[b].length - L.groups[a].length || (a < b ? -1 : 1)",
+  "replace": "(a < b ? -1 : 1)",
+  "rule": "the codes with most rows come first",
+  "tests": [
+   "main"
+  ]
+ },
+ {
+  "id": "buildlist-digests",
+  "file": "tools/bt/realize/buildlist.mjs",
+  "find": "(harness ${meta.harness_digest || '?'}, inputs ${meta.inputs_digest || '?'})",
+  "replace": "",
+  "rule": "the build list says which digests it was made under",
+  "tests": [
+   "main"
+  ]
+ },
+ {
+  "id": "buildlist-no-results",
+  "file": "tools/bt/realize/buildlist.mjs",
+  "find": "if (!exists(file)) { console.error(`no ${file}: run check.mjs first`); process.exit(2); }",
+  "replace": "",
+  "rule": "no RESULTS file, no build list",
+  "tests": [
+   "main"
+  ]
  }
 ]

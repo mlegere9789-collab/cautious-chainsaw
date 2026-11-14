@@ -1,6 +1,49 @@
 # REPORT shard tl-01 (timeline_seed.jsonl lines 1-57, rows T1-001 to T1-057)
 
-## Close-out 2026-11-13 (supersedes the pass of 2026-11-04 where they differ; that report is kept below)
+## Final state 2026-11-14 (third start of the close-out, after two container restarts; supersedes the numbers of the sections below where they differ)
+
+What was asked: for every row of shard tl-01 whose status_effective was not verified_against_or_text (the 14 rows T1-003, 005, 011, 013, 018, 019, 022, 023, 029, 030, 040, 041, 048, 050) apply the OR-RECHECK and OR-RECHECK-2 findings, search the Official Records and the library for a passage that supports the claim or a sub-claim, write one corrections line, and propose a register entry for every row that stays gap, unsupported or partial; the other 43 rows also get a line. Everything below the first line of this section was done in the earlier builds and is kept; this section is the state of the files now.
+
+Files (all produced by `python3 -I docs/battle-theatre/GOVERNANCE/horde/tl-01/closeout/build.py`; `--check-only` re-verifies without writing):
+- `GOVERNANCE/timeline_corrections/tl-01.jsonl`: 57 lines, one per seed row (id, verdict, before, corrected_claim with time_window and basis, sub_claims with tier and support, citations with source id, part, report id, printed page, verbatim quote, text offset and end, source file and sha256, scenarios, default, remains_unsupported, searched, recheck_applied, register_proposed).
+- `horde/tl-01/results.jsonl`: the 57 shard rows with the findings applied (the values before are kept under *_before).
+- `horde/tl-01/proposed-register/`: 34 entries tl-01-CO-<row>.md (every row that stays partial, unsupported or gap, each with the searches made), tl-01-CONFLICTS.md (24 rows with scenarios), and the 7 older entries tl-01-EG-001..007.
+- `horde/tl-01/closeout/`: the builder and the row data (build.py, rowlib.py, rows_a.py, rows_b.py, rows_c.py), search_log.jsonl (66 logged searches), acquired_tl01.json (the files fetched, including the archive.org PDFs whose page images were read), second_scan.jsonl (the witness check), lib_search_t1040.txt (the library-wide search for the night of Jun 29), counts.json, tools/.
+
+### Counts
+
+- Rows 57. Verdicts: partially_supported 23, corrected 23, confirmed 10, unsupported 1. Of the 14 rows that were not verified against the OR text: partially_supported 9, corrected 4, unsupported 1 (T1-048 is the only row that stays unsupported; no row is a pure gap because every one of them found some support for a sub-claim).
+- Status in results.jsonl: partially_verified 33, verified 23, gap 1. Row tier: documented 53, open gap 2, inferred 2 (the row tier is the tier of what the displayed claim asserts; the sub-claims carry their own).
+- Sub-claims: 285, by tier documented 232, open gap 42, inferred 6, plausible-procedural 5; by support supported 196, unsupported 46, conflict 33, contradicted 10.
+- Citations: 341, every one re-matched verbatim in the local source text by the builder (report id and printed page checked for the OR) and compared with the file again by an independent slice (offset, normalised text: run 2026-11-14: see SLICE below); by source: OR27 221, JACOBS-1864 36, GBG-COMPILER-1863-06-29 26, PA-GB-1914-v2 16, MEADE-LL-v2 10, FREMANTLE-1864 6, BL-3 5, TPIERCE-1889 4, ALEXANDER-1907 3, SHSP-04 3, ADAMS-SENTINEL-1863-07-21 2, SHSP-06 2, NPS-HS-MCPHERSON 2, ADAMS-SENTINEL-1863-09-08 1, MN-1ST-1916 1, ME-GB-1898 1, NPS-MON-LOC-1932 1, NPS-BOUNDARY-1988 1.
+- Scenarios: 24 rows carry two or more scenarios (T1-005, T1-007, T1-008, T1-010, T1-011, T1-012, T1-015, T1-020, T1-023, T1-024, T1-030, T1-032, T1-035, T1-036, T1-039, T1-041, T1-042, T1-043, T1-044, T1-045, T1-046, T1-047, T1-051, T1-055); the only default is T1-043 (DD-07); every other conflict is carried without a default.
+- Searches: 66 logged (closeout/search_log.jsonl), plus the two weather scans of the first build and the library-wide search of the second pass.
+- Witness check of every OR citation against the other archive.org scans of the same part: NOT RUN YET in this file state (queued behind the machine lock); the first run of 2026-11-13 (189 of 196 citations of parts 1 and 2, before the changes of the second pass) gave verbatim in both scans 112, verbatim in one and aligned in the other 40, aligned in both 33, none 4.
+
+### What the second pass of 2026-11-13/14 changed
+
+Figures corrected after reading the page images of the archive.org PDFs or the other scans (the OCR text layer of the library copy was wrong or damaged):
+- T1-028: Early's militia at Wrightsville are "some 1,200 strong" (the OCR has 1.300), the same figure as Gordon's: the 1,300 scenario of the first build was an OCR artifact and is removed.
+- T1-051: Richmond's First Brigade lost 2 officers killed (OCR 3): 10 killed, not 11. T1-052: Wright's march was "from 32 to 35 miles" (OCR 33). T1-035: Heth's Cashtown is "9 miles" from Gettysburg (OCR 0). T1-006: the forks are "about 1 1/2 miles" from Cashtown (OCR 1-|). T1-033: Rodes' Alabama brigade picketed the Baltimore turnpike 1 1/2 miles out (OCR "H miles"). T1-051: the 6th Michigan lost "some 15 or 20 captured" (OCR 15 or 30). T1-024: Stuart resumed the march "early on the 28th" (OCR 2sth).
+- Jacobs 1864 prints the hour fractions as J or | in the text layer: on the page images the advance guard rode into Gettysburg at 3 1/4 P. M. (15:15, not 15:30; T1-013, T1-014) and the other hours are 10 1/2, 9 1/2, 11 1/2 and 8 1/2 (T1-008, T1-047, T1-045, T1-049).
+- Printed pages: the library citations were recovered from one parity of running head only and several were one or two pages early; both parities are now read and cross-checked (Alexander, the Southern Historical Society Papers, Fremantle, Pierce, Minnesota, Meade); eight OR citations whose page the running-head model gave as a range are placed on one page from the independent scan and the page images (443, 444, 587, 938, 1008, 193, 151).
+
+New documented evidence from the tables that the OCR text holds in scrambled columns, read on the page images:
+- T1-051 (Hanover): the General Return of Casualties (OR27-1 p.193) has Hanover, June 30: 2 officers and 17 men killed, 6 officers and 67 men wounded, 5 officers and 118 men missing, 215 in all (the figure the seed gives); the First Brigade table (p.1008) gives the losses by regiment (5th New York 13 men missing against Hammond's 10 in his text; 18th Pennsylvania 52 missing, not the seed's 57); Custer's 1st Michigan lost nothing and the 6th "some 15 or 20 captured"; the seed's 117 Confederate is the grand total of Stuart's Inclosure No. 2 (pp.713-714) for the whole march from Rector's Cross-Roads to Gettysburg including Hanover, not a Hanover-only figure. Scenarios carried, no default.
+- T1-037 (Westminster, Jun 29): Union loss 49 (General Return p.193). T1-045: the Cavalry Corps total of the return of Jun 30 (773 officers, 14,200 men present for duty, 17,104 aggregate present, OR27-1 p.151); no OR text gives a division figure.
+- T1-040 (night of Jun 29): the places the Union columns marched to (Itinerary p.144), Meade's headquarters and letter at Middleburg, Buford's camp near Fairfield, the First Corps and the 16th Maine at Emmitsburg (Life and Letters, Pennsylvania at Gettysburg, Maine at Gettysburg); Stuart at Union Mills is inferred. The library-wide search (178 texts) found no passage on fires, pickets, lights or civilians of that night; that part stays the open gap.
+- T1-049: the National Park Service names Pennsylvania Hall of Gettysburg College as an observation post and signal station during the battle; the identification of the steeple with the Hall stays inferred.
+
+Claims that went beyond their quotes were fixed in T1-005 (Early's 17th Virginia Cavalry stayed with him), T1-006 (White's battalion), T1-029 (Rodes at Carlisle until the 30th), T1-033 (Doles, the Alabama brigade, the stay at Carlisle), T1-034, T1-036, T1-038, T1-045 (Mummasburg and Hunterstown), T1-047 (the night of Jun 30) and T1-010 (the prisoners "here"). Every claim of the 57 rows was also read for numbers and names that its quotes do not contain (closeout/../tmp scratch tools tokctx, numnear): the remaining differences are dates taken from the heading of the day or the report, digits against spelled numbers ("one hundred and fifty", "four and a half"), and sums (10 killed = 2 + 8).
+
+### Checks run in this pass and what was not run
+
+- `build.py` (the builder) re-matches the 341 citations; `python3 tmp/tl-01/audit/slicecheck.py`-style independent slice check: see above; `tools/bt/merge_horde.py --dry`: 0 rows of this shard flagged; the product text of every row contains none of the banned words (checked by the builder).
+- Realization test `node --test tests/governance/realize.test.mjs` (reads this shard, read-only): see the line REALIZE below.
+- No gate run, no `passes` flag touched, no browser, nothing deployed or committed. `timeline_verified.jsonl` is not regenerated (the integrator's task), so its status_effective counts for tl-01 stay as they were until the next merge.
+- Owed: the page images of the OR were read for the figures named above, not for every citation; the witness check compares text layers, not images; Part 3 has one other scan only. The OCR of the newspapers and of Jacobs stays an OCR reading wherever the page image was not looked at. Owner-only steps are unchanged (see below).
+
+## Close-out 2026-11-13 (first build, 2026-11-13 20:31; the numbers of the section above supersede it where they differ; it supersedes the pass of 2026-11-04 where they differ)
 
 What was asked: for every row whose status_effective is not verified_against_or_text (14 rows: T1-003, 005, 011, 013, 018, 019, 022, 023, 029, 030, 040, 041, 048, 050) apply the OR-RECHECK and OR-RECHECK-2 findings, search the Official Records (all three parts) and the library for a passage supporting the claim or any sub-claim, write one corrections line, and propose a register entry for every row that stays gap, unsupported or partial; the 43 verified rows also get a line.
 

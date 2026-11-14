@@ -849,6 +849,50 @@
    ],
    "supersedes": "P06",
    "registered_note": "Registered 2026-11-13 (third pass); P06 (assumed spot at the Wiedrich monument plus 25 m, verdict does not) is kept."
+  },
+  {
+   "id": "P29",
+   "loc_id": null,
+   "photo": {
+    "file": "tmp/photomatch/nps_pdf/pos/v1_p307-000_pos.png",
+    "resource": "NPS figure 213 (Cultural Landscape Report, Record of Treatment, volume I, pdf page 307): the park's print GETT 41135 OS2B-2037; the figure image extracted from the PDF and inverted to positive (the Library of Congress record, if there is one, is the open question of match_third_pass.py)",
+    "crop": [
+     0.0,
+     0.0,
+     1.0,
+     1.0
+    ],
+    "crop_basis": "the whole NPS figure image; the plate area is not known"
+   },
+   "statement_ids": [
+    "PS-NPS-ROTV1-F213"
+   ],
+   "position": {
+    "anchor": "STR-TOWN-GATEHOUSE",
+    "tier": "inferred",
+    "sigma_m": 20,
+    "place_documented": true,
+    "basis": "NPS (Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment, volume I, Figure 213): 'View east from Evergreen Cemetery Gatehouse, 1863 (GETT 41135, Historic Photograph Collection, OS2B-2037)'. The coordinates are the centroid of the 2023 outline of the gatehouse (STR-TOWN-GATEHOUSE, err 4 m; the outline includes the right-hand addition), the same station as P27 and P28; no source gives the spot on or in the building or the height."
+   },
+   "agl_m": 8.0,
+   "agl_basis": "ASSUMPTION: as P27 and P28 (an elevated spot on the building, 8 m above the DEM ground; the photograph looks down on its foreground); 5 m and 11 m are the sensitivity of the skyline test",
+   "heading": {
+    "fixed_deg": 90,
+    "tier": "inferred",
+    "basis": "NPS (Record of Treatment, Figure 213): 'View east'; east = 90 degrees, a cardinal word (the sector is 67.5 to 112.5 degrees); not adjusted to the photograph. Culp's Hill (gazetteer centre bearing 111 degrees from the gatehouse) lies at the right edge of a 40-degree field at this heading."
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "GZ-002",
+    "GZ-003"
+   ],
+   "registered_note": "Registered 2026-11-14 (third pass) from the NPS figure captions; its criterion C-P29-1 was written (2026-11-14T00:44:11Z) before its render and before any model skyline of it was computed. The render only shows the pose; the test is the skyline test."
   }
  ],
  "deferred_poses": []

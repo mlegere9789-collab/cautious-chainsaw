@@ -83,3 +83,18 @@ test('the two shaders: the parts a driver would refuse that can be seen without 
   for (const fn of ['stx', 'hv2', 'vn2', 'hsh', 'shadowAt', 'fogged', 'lit', 's2l']) assert.ok(new RegExp('\\b' + fn + '\\s*\\(').test(SHELL_FS), 'the fragment shader uses ' + fn + ' (defined by the prelude or gl.mjs)');
   assert.ok(!/\b(AI|Claude|Anthropic|generated|automated|agent|prompt)\b/i.test(SHELL_VS + SHELL_FS), 'no audit word in the shaders');
 });
+
+test('the readings of Little Round Top reach the scene: the hill\'s east slope keeps all, half or none of its trees in the state texture, its ground is open rock when unwooded, and no other wood is touched', () => {
+  const east = M.units.find(u => u.lc === 'LC-WOOD-LRT-E'); assert.ok(east, 'the east slope of the hill is a unit of its own'); assert.ok(M.lrtUnits.has(east.id)); assert.equal(east.geom_tier, 'inferred', 'its outline is the Warren wood cut out by a rule'); assert.ok(east.area_ac > 8 && east.area_ac < 25, 'about the half of a disc of 230 m: ' + east.area_ac);
+  assert.ok(east.claims.some(([c, r]) => c === 'VC-NPS-026' && r === 'exact'), 'the claim that names the wooded east slope names this polygon');
+  const t = isoMin('1863-07-02T12:00'), canopy = new Float32Array(3); canopy.set([0.2, 0.34, 0.13]);
+  const run = (u, ch) => { const out = new Float32Array(STATE_K * 4); packUnitState(M, u, t, ch, canopy, out, 0); return { out, s: stateAt(M, u, t, ch) }; };
+  const r = [{}, { 'CF-VEG-LRT': 'wiki_light_summit' }, { 'CF-VEG-LRT': 'wiki_unwooded' }].map(ch => run(east, ch));
+  assert.deepEqual(r.map(x => x.out[16]), [1, 0.5, 0], 'texel 4 x: the share of the trees drawn');
+  assert.deepEqual(r.map(x => x.s.trees.keep), [1, 0.5, 0]); assert.equal(r[0].s.trees.perHa, east.woods.per_ha); assert.equal(r[2].s.trees.perHa, 0);
+  assert.equal(r[0].out[3], 0, 'wooded: the floor of a wood'); assert.equal(r[1].out[3], 0); assert.equal(r[2].out[3], 8, 'unwooded: open rock (crop code 8)'); assert.equal(r[2].s.ground.crop, 'open_rock'); assert.equal(r[2].s.tiers.crop, 'plausible-procedural', 'the unwooded reading is not documented');
+  for (const x of r) for (let k = 17; k < 20; k++) assert.equal(x.out[k], 0, 'the spare floats of texel 4 are zero');
+  for (const u of M.units.filter(x => (x.woods || x.orchard) && !M.lrtUnits.has(x.id)).slice(0, 60)) for (const ch of [{ 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }]) assert.equal(run(u, ch).out[16], 1, u.id + ' is not on the hill: its trees stay');
+  // the unit the scenario names are on the hill and nowhere else
+  const lrt = [...M.lrtUnits].map(id => M.byId.get(id)); for (const u of lrt) assert.ok(u.cls === 'woods' || u.cls === 'scatter', u.id);
+});

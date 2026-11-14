@@ -94,21 +94,21 @@ def resolve_new(c):
         it = dict(it, local_path=os.path.relpath(p, ROOT))
         a, b, raw = find_in_file(p, qn, occ, ref, q)
         return dict(base, source_id=ref, source_class='secondary (published book, public domain, %s; raw OCR, single witness)' % it['date'], part=None, report_id=None,
-                    printed_page=c.get('pp'), page_hint=None if c.get('pp') else page_hint(raw, a), offset=[a, b], local_path=it['local_path'], local_sha256=it['sha256'],
+                    **page_fields(raw, a, b, c.get('pp')), offset=[a, b], local_path=it['local_path'], local_sha256=it['sha256'],
                     provenance=dict(archive_item=it['url'], title=it['title'], ledger='docs/battle-theatre/GOVERNANCE/horde/tl-02/sources_tl02.json'))
     if src == 'KIT':
         p, sha = lib_copy(os.path.join(KIT_LIB, ref, ref + '_djvu.txt'), 'KIT-' + ref + '_djvu.txt')
         if sha != KIT_SHA[ref]: raise SystemExit('SHA MISMATCH vs oob-kit note: ' + ref)
         a, b, raw = find_in_file(p, qn, occ, ref, q)
         return dict(base, source_id='KIT:' + ref, source_class='secondary (published regimental history, public domain; raw OCR, single witness)', part=None, report_id=None,
-                    printed_page=c.get('pp'), page_hint=None if c.get('pp') else page_hint(raw, a), offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=sha,
+                    **page_fields(raw, a, b, c.get('pp')), offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=sha,
                     provenance=dict(archive_item='https://archive.org/details/' + ref, title=KIT_TITLE[ref], ledger='docs/battle-theatre/GOVERNANCE/horde/requests/bt-oob-kit-us-1c-library.md'))
     if src == 'K2':
         p, sha = lib_copy(os.path.join(K2_SRC, ref + '.txt'), 'K2-' + ref + '.txt')
         a, b, raw = find_in_file(p, qn, occ, ref, q)
         ident, title = K2_PROV[ref]
         return dict(base, source_id='K2:' + ref, source_class='secondary (published regimental or brigade history, public domain; raw OCR, single witness)', part=None, report_id=None,
-                    printed_page=c.get('pp'), page_hint=None if c.get('pp') else page_hint(raw, a), offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=sha,
+                    **page_fields(raw, a, b, c.get('pp')), offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=sha,
                     provenance=dict(archive_item='https://archive.org/details/' + ident, title=title, ledger='tmp/kit-us-2c-2d3d/p0_sources.py (bt-oob-kit workstream, declared 2026-11-13; scratch, not committed)'))
     if src == 'NPSW':
         p = os.path.join(PM_DIR, ref + '.htm.txt'); m = PM_MAN[os.path.basename(p)]
@@ -195,14 +195,44 @@ def nps_text(sid):
         _nt[sid] = (p, raw, nt, nm)
     return _nt[sid]
 
+_RH = re.compile(r"(?m)^[ \t]*(?:(?:\d{1,2}[ \t]+)?(\d{1,4})[ \t]+([A-Z][A-Z .,'&;:-]{5,})|([A-Z][A-Z .,'&;:-]{5,})[ \t]+(\d{1,4})|(\d{1,4})[ \t]+([A-Z][A-Za-z .,'&;:-]{5,60})|([A-Z][A-Za-z .,'&;:-]{5,60})[ \t]+(\d{1,4}))[ \t]*$")
+def _heads(raw, lo, hi):
+    out = []
+    for m in _RH.finditer(raw, max(0, lo), min(len(raw), hi)):
+        n = m.group(1) or m.group(4) or m.group(5) or m.group(8)
+        out.append((m.start(), int(n)))
+    return out
+
+def book_page(raw, a, b):
+    """printed page of a book quote from the running heads of the OCR text (wave 4, 2026-11-14): the last head before the quote and the first head after it.
+    Consecutive numbers (n, n+1) fix the page as n (printed_page); a gap of two gives 'n or n+1'; anything else gives no page (locate by offset).
+    Returns (printed_page or None, page_hint or None). Replaces the heuristic of 2026-11-13 (nearest preceding page-number-like token), which disagreed with the running heads in 12 of 20 cases where both gave a page."""
+    prv = [h for h in _heads(raw, a - 6000, a) if h[0] < a]
+    nxt = [h for h in _heads(raw, b, b + 6000)]
+    if prv and nxt:
+        p, n = prv[-1][1], nxt[0][1]
+        if n == p + 1: return str(p), None
+        if n == p + 2: return None, '%d or %d (a running head between them is not in the OCR)' % (p, p + 1)
+    return None, None     # an unconfirmed single head is not reported: inline or garbled heads gave wrong pages in tests (e.g. a stray '266' before a page-256 quote)
+
 def page_hint(raw, off):
-    """nearest preceding running-head page number in the djvu text (heuristic; a hint, not a citation page)"""
+    """OLD heuristic of 2026-11-13 (kept only for the citations that the wave-4 finder cannot place): nearest preceding running-head-like number; a hint, not a citation page"""
     lo = max(0, off - 7000); w = raw[lo:off]
     best = None
     for m in re.finditer(r'(?m)^[ \t]*(\d{1,4})[ \t]*$', w): best = m.group(1)
     for m in re.finditer(r'(?i)(?:gettysburg|at gettysburg)\.?\s+(\d{1,4})\b|\b(\d{1,4})\s+(?:new york|pennsylvania|maine|michigan|southern historical)\b', w):
         best = m.group(1) or m.group(2)
     return best
+
+def page_fields(raw, a, b, pp):
+    """printed_page / page_hint / page_check for a book citation; a given pp is checked against the running heads (a disagreement stops the build)"""
+    pg, hint = book_page(raw, a, b)
+    if pp:
+        if pg and str(pp) != pg: raise SystemExit('PAGE MISMATCH: given %s, running heads say %s at offset %d' % (pp, pg, a))
+        return dict(printed_page=str(pp), page_hint=None, page_basis='given by the engineer' + (' and confirmed by the running heads' if pg else ''))
+    if pg: return dict(printed_page=pg, page_hint=None, page_basis='running heads before and after the quote (consecutive numbers)')
+    if hint: return dict(printed_page=None, page_hint=hint, page_basis='running heads (unconfirmed)')
+    return dict(printed_page=None, page_hint=None, page_basis='no running head found near the quote (locate by offset)')
 
 def nps_page(raw, off):
     last = None
@@ -239,7 +269,7 @@ def resolve_old(c):
         if len(idxs) > 1 and occ is None: raise SystemExit('AMBIGUOUS (%d) in %s: %r' % (len(idxs), ref, q))
         i = idxs[occ or 0]; a, b = nm[i], nm[i + len(qn) - 1] + 1
         cls = 'secondary (published 19th/early-20th-century book; raw OCR, single witness)'
-        return dict(source_id=ref, source_class=cls, part=None, report_id=None, printed_page=None, page_hint=page_hint(raw, a), quote=q, offset=[a, b],
+        return dict(source_id=ref, source_class=cls, part=None, report_id=None, **page_fields(raw, a, b, c.get('pp')), quote=q, offset=[a, b],
                     local_path=os.path.relpath(p, ROOT), match='exact (whitespace-normalised, case-sensitive)', role=c['role'], note=c.get('note'))
     if src == 'NPS':
         p, raw, nt, nm = nps_text(ref)

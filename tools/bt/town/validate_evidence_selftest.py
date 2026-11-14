@@ -168,6 +168,8 @@ def run(V):
         case('R3 new building without a reason', B + [dict(twn_bad, building='TWN-ONE-0001', new_reason='')], 'new_reason')
         case('S documented from a later state without continuity', B + [fr(2, describes='later')], 'continuity')
         cont = {'source': 'T-PAGES', 'part': 'report', 'page': 3, 'quote': 'The Rose farm house is a stone house of 1811', 'text_offset': off(text2, 'The Rose farm house')}
+        case('S1 documented form from a mid-1860s statement without continuity', B + [fr(2, describes='after_battle_to_1869')], 'continuity')
+        case('S1b documented state from a statement after the battle needs no continuity', B + [fr(2, field='use', value='hospital', describes='after_battle_to_1869')], None)
         case('S2 later state with a continuity citation', B + [fr(2, describes='later', continuity=cont)], None)
         im = {'source': 'T-MAP', 'item': 'sheet 2', 'observation': 'two buildings drawn at the lot', 'viewed': True, 'caption_names_building': True}
         imrow = {'row': 'g-one.0030', 'type': 'field', 'group': 'g-one', 'building': BID, 'field': 'kind', 'value': 'house', 'tier': 'documented', 'evidence_kind': 'image', 'describes': 'before_1863', 'image_ref': im}

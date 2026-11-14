@@ -5,7 +5,7 @@
 | ID | fence-1-EG-09 |
 | Requirement IDs | R14 (E-18) |
 | Category | evidence missing (partly closed) |
-| Description | Close-out 2026-11-13. Documented now: a Middle Street barricade begun early Jul 2 (Jacobs); McMillan's fencing used in Confederate entrenchments after Jul 1 (NPS); Ewell's divisions intrenched the hills near the town on the night of Jul 3-4 and Jul 4 (Steuart, O'Neal, Pickens, Goodgame, Hopkins); Hood's division ordered to erect breastworks facing down the Emmitsburg road on Jul 4 (Benning); the Texas brigade breastworks; Lee's order of Jul 4 along the whole ridge from Oak Hill to the Emmitsburg road (NPS). Still open: any Confederate work at Seminary Ridge, Warfield Ridge, Oak Hill or Benner's Hill on Jul 2-3, and all dimensions. |
+| Description | Close-out 2026-11-13. Documented now: a Middle Street barricade begun early Jul 2 (Jacobs); McMillan's fencing used in Confederate entrenchments after Jul 1 (NPS); Ewell's divisions intrenched the hills near the town on the night of Jul 3-4 and Jul 4 (Steuart, O'Neal, Pickens, Goodgame, Hopkins); Hood's division ordered to erect breastworks facing down the Emmitsburg road on Jul 4 (Benning); the Texas brigade breastworks; Lee's order of Jul 4 along the whole ridge from Oak Hill to the Emmitsburg road (NPS). Still open: any Confederate work at Seminary Ridge, Warfield Ridge, Oak Hill or Benner's Hill on Jul 2-3, and all dimensions. WAVE 4 (2026-11-14): the NPS Cultural Landscapes Inventory (Pickett's Charge area) lists documented 1863 Confederate defenseworks at McMillan Woods (earthworks, rifle pits), Pender's Division (earthworks), Poague's Battalion (lunettes) and Spangler Woods without dates; a photograph of Confederate prisoners on a stacked-rail breastwork on Seminary Lane is dated circa 15 Jul 1863. The days of building at these sites stay open. |
 | Why literal 100% is not possible or blocked | No source found for Jul 2-3 works at those sites (Law cl.3). |
 | Evidence searched | Searched with tools/bt/or27_find (OR Ser. I vol. 27 parts 1-3, Cornell scan) and three further archive.org scans (warofrebellion271unit, warofrebellion012701rootrich, warofrebellion272unit, warofrebellionco272unit) as second witnesses; the 99-text library plus three added archive.org books; the 73 National Park Service documents under tmp/library/web/nps. Every quoted passage is in evidence_corrections/fence-1.jsonl. Part 2 search for intrench, fortif, breastwork, rifle-pit, barricad, abatis, earthwork read through R570; no hit for 'Benner'. |
 | Autonomous substitute applied | Dated Confederate works drawn from Jul 3-4 night; Jul 2-3 sites stay marked gaps. |
@@ -17,5 +17,5 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | None. |
 | Agent recommendation | Keep the Jul 2-3 gap visible. |
-| Status | partly_closed (updated by the close-out 2026-11-13; the earlier text is superseded) |
+| Status | partly_closed (updated by the close-out 2026-11-13; the earlier text is superseded); updated 2026-11-14 (wave 4) |
 | Owner decision and date | (filled only from the Decision Log) |

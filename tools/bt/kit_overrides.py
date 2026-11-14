@@ -170,10 +170,11 @@ def in_window(as_of):
 
 
 def decide(old_tier, old_weak, old_primary, same, new_tier):
-    """What an evidence value does to an existing value: confirm | replace | conflict | keep (section 8 of PLAN.md)."""
+    """What an evidence value does to an existing value: confirm | weaker | replace | conflict | keep (section 8 of PLAN.md).
+    weaker: the value is the same but the record gives it only as an inference, and the kit marks it documented: nothing is confirmed (the line is not cited under a documented field), the kit value stands, and the case is listed for a decision on the tier."""
     old = 'documented' if (old_tier == 'documented' and not old_weak) else (old_tier if old_tier in ('inferred', 'plausible-procedural') else None)
     if same and old == 'documented':
-        return 'confirm'
+        return 'confirm' if new_tier == 'documented' else 'weaker'
     if new_tier == 'documented':
         return 'conflict' if (old == 'documented' and old_primary and not same) else 'replace'
     return 'replace' if old in (None, 'plausible-procedural') else 'keep'
@@ -190,9 +191,12 @@ class Ctx:
         for cid in base['cavalry']['cards']:
             self.cards[cid] = ('cavalry', 'cards')
         self.card_users = collections.defaultdict(list)
+        self.own_users = collections.defaultdict(list)      # kit id -> roster units whose record it is (not the units that only take their brigade's record as a default)
         for uid, u in self.units.items():
             for k in u.get('kit', []):
                 self.card_users[k['id']].append(uid)
+                if k.get('how') != 'brigade':
+                    self.own_users[k['id']].append(uid)
         self.cat = gdoc['catalog']
         self.weapons = base['weapons']['weapons']
         self.items = base['kit_specs']['items']
@@ -299,6 +303,8 @@ def c_guns(ctx, out, uid, lines):
     dates = [{'as_of': d or None, 'state': l[0]['value']['state'], 'pieces': l[0]['value']['pieces'], 'total': l[0]['value'].get('total'), 'source_keys': line_keys(l), 'evidence_ids': [x['id'] for x in l]} for d, l in by_date.items()]
     if act == 'confirm':
         out.set('artillery', path + ['source_keys'], sorted(set(card['source_keys']) | set(line_keys(first))), card, ids, 'the Official Records state the same guns: source added')
+    elif act == 'weaker':
+        return out.skip(first, 'the record gives the guns of %s only as an inference, and the kit marks them documented: the kit value stands, and a delegated decision decides whether its tier is lowered' % cid)
     elif act in ('conflict', 'keep'):
         alt = {'alt': 'evidence', 'guns_printed': '; '.join(p['printed'] for p in pieces), 'pieces': pieces, 'total': o0['value'].get('total'), 'as_of': o0.get('as_of'), 'source_keys': line_keys(first), 'tier': worst_tier(first), 'evidence_ids': [x['id'] for x in first]}
         out.set('artillery', path + ['guns_alternatives'], [alt], card, ids, 'the record differs from a value the kit holds on a primary source (or is only inferred): both kept')
@@ -339,6 +345,23 @@ def c_commander(ctx, out, uid, lines):
     return None
 
 
+CAPTURE_RE = re.compile(r'\b(?:captur\w*|seiz\w*|spoils|plunder\w*|appropriat\w*|taken from the (?:enemy|federals?|yankees?))\b', re.I)
+
+
+def says_captured(o, w):
+    """True when the line itself says that an item was captured (in the printed words of the item, or in a note of the item, the value or the line): the kit marks a Union-pattern item of a Confederate unit as captured, and the compile never decides that."""
+    return bool(CAPTURE_RE.search(' '.join(str(x) for x in (w.get('printed'), w.get('note'), o['value'].get('note'), o.get('note')) if x)))
+
+
+def army_problem(unit_army, cat, o, w):
+    """Why a catalog item may not be given to a unit of this army by rule, or None: a Union unit gets no Confederate item; a Confederate unit gets a Union-pattern item only where the line says it was captured."""
+    if unit_army == 'US' and cat.get('army') == 'confederate':
+        return 'a Confederate item is not given to a Union unit by rule; the integration decides'
+    if unit_army == 'CS' and cat.get('army') == 'union' and not says_captured(o, w):
+        return 'a Union-pattern item on a Confederate unit, and the line does not say it was captured, which the kit requires; the integration decides'
+    return None
+
+
 def support_text(o, n=90):
     """The words that support a line, for the note of a field: its quote, or, for a derived line (which has no quote by contract), the ids it is derived from and its own note."""
     q = o.get('quote')
@@ -347,7 +370,7 @@ def support_text(o, n=90):
     return ('derived from %s: %s' % (', '.join(o.get('derived_from') or ['?']), o.get('note') or ''))[:n + 60]
 
 
-def new_field(ctx, entry_lines, kf, ids, old, ua=None):
+def new_field(ctx, entry_lines, kf, ids, old, ua=None, army=None):
     A = lambda item, share, detail=None: {'item': item, 'share': share, 'weight': {'value': SHARE_TUNING[share], 'kind': 'tuning_parameter', 'historical_basis': False}, 'detail': detail}
     allowed = []
     for o in entry_lines:
@@ -355,11 +378,15 @@ def new_field(ctx, entry_lines, kf, ids, old, ua=None):
         lst = v['weapons'] if 'weapons' in v else v['items']
         for w in lst:
             iid = w.get('weapon_id') or w.get('item_id')
-            share = w.get('share') or ('all' if len(lst) == 1 else 'some')
+            share = w.get('share') or ('all' if o.get('_n_items', len(lst)) == 1 else 'some')
             if share not in SHARE_TUNING:
                 share = 'some'
             if not any(x['item'] == iid for x in allowed):
-                allowed.append(A(iid, share, w['printed'] + ('' if w.get('share') or len(lst) == 1 else ' (share not stated)')))
+                e = A(iid, share, w['printed'] + ('' if w.get('share') or o.get('_n_items', len(lst)) == 1 else ' (share not stated)'))
+                cat = ctx.weapons.get(iid) or ctx.items.get(iid) or {}
+                if army == 'CS' and cat.get('army') == 'union' and says_captured(o, w):
+                    e['captured'] = True                                # the kit's own marking of a Union-pattern item in Confederate hands (see check_kit CS_UNIT_ALLOWS_UNCAPTURED_UNION_ITEM)
+                allowed.append(e)
     tier = worst_tier(entry_lines)
     f = {'allowed': allowed, 'tier_printed': tier, 'tier': tier, 'weak_source': False, 'source_keys': line_keys(entry_lines), 'source_basis': 'printed_per_row', 'evidence_ids': sorted(ids), 'tier_declared': tier,
          'note': 'from the record: ' + '; '.join(sorted({support_text(o) for o in entry_lines}))[:300]}
@@ -413,26 +440,55 @@ def c_fields(ctx, out, uid, field, lines):
         if len({canon(o['value']) for o in ls}) > 1 and len({o.get('as_of') for o in ls}) > 1:
             out.skip(ls, 'the lines of %s.%s differ across dates: review by hand' % (uid, kf))
             continue
-        bad = []
+        bad, aside, kept_lines = [], [], []
         for o in ls:
-            for w in (o['value'].get('weapons') or o['value'].get('items') or []):
+            lst = o['value'].get('weapons') or o['value'].get('items') or []
+            kept = []
+            for w in lst:
                 iid = w.get('weapon_id') or w.get('item_id')
                 if iid is None:
                     bad.append('%r has no catalog id (a catalog addition is a code change)' % w['printed'][:50])
                 elif field == 'arms':
                     wp = ctx.weapons.get(iid)
-                    if not wp or wp.get('barred') or wp.get('not_assignable') or wp.get('placeholder') or iid in ASSIGNABLE_BLOCK or wp['category'] not in ARM_CATEGORY[kf]:
+                    if not wp or wp.get('barred') or wp.get('not_assignable') or wp.get('placeholder') or iid in ASSIGNABLE_BLOCK:
                         bad.append('weapon %s cannot be assigned to %s by rule (barred, restricted, or of another category)' % (iid, kf))
+                    elif army_problem(entry['army'], wp, o, w):
+                        bad.append('weapon %s: %s' % (iid, army_problem(entry['army'], wp, o, w)))
+                    elif wp['category'] not in ARM_CATEGORY[kf]:
+                        aside.append((o, 'weapon %s cannot be assigned to %s by rule (barred, restricted, or of another category): its category is %s' % (iid, kf, wp['category'])))
+                    else:
+                        kept.append(w)
                 else:
                     it = ctx.items.get(iid)
-                    if not it or it.get('barred') or 'reference_only' in it.get('tags', []) or it['kind'] != KIT_FIELD_KIND.get(kf, kf):
+                    if not it or it.get('barred') or 'reference_only' in it.get('tags', []):
                         bad.append('item %s is not a %s item that a unit may be given' % (iid, kf))
+                    elif army_problem(entry['army'], it, o, w):
+                        bad.append('item %s: %s' % (iid, army_problem(entry['army'], it, o, w)))
+                    elif it['kind'] != KIT_FIELD_KIND.get(kf, kf):
+                        aside.append((o, 'item %s is not a %s item that a unit may be given: its kind is %s' % (iid, kf, it['kind'])))
+                    else:
+                        kept.append(w)
+            if kept:
+                o2 = copy.deepcopy(o)                                   # the line as the compile reads it: only the items that are items of this kit field
+                o2['value']['weapons' if 'weapons' in o['value'] else 'items'] = kept
+                o2['_n_items'] = len(lst)                               # a share word that the line leaves out is read against the whole list, not the kept part
+                kept_lines.append(o2)
         if bad:
-            out.skip(ls, '; '.join(bad))
+            out.skip(ls, '; '.join(bad))                                # a barred, restricted, placeholder or unknown item is part of the unit's real mix: the integration decides about the whole line
             continue
+        if not kept_lines:
+            out.skip(ls, '; '.join(r for _o, r in aside) or 'the line states no item')
+            continue
+        for o, r in aside:                                              # an item of another category (a cartridge in the weapon field) does not stop the other items of its line
+            out.skip([o], 'part of the line is left out: %s; the other items of the line are compiled' % r)
+        ls = kept_lines
+        ids = [o['id'] for o in ls]                                     # the field cites the lines that were compiled, not a line whose every item was set aside
         table, kid, create, why, template = target_unit(ctx, uid)
         if kid is None:
             out.skip(ls, why)
+            continue
+        if not create and len(ctx.own_users.get(kid, ())) > 1:
+            out.skip(ls, 'kit record %s serves several roster units (%s): evidence about one of them is not applied to the record of all, and two of them would change the same fields; the integration decides' % (kid, ', '.join(sorted(ctx.own_users[kid]))))
             continue
         ua = None
         if field == 'arms' and kf == 'weapon':
@@ -445,12 +501,15 @@ def c_fields(ctx, out, uid, field, lines):
             if act in ('conflict', 'keep'):
                 out.skip(ls, 'evidence differs from %s.%s that stands on a primary source (or is only inferred): a delegated decision names the default' % (kid, kf))
                 continue
+            if act == 'weaker':
+                out.skip(ls, 'the record gives %s.%s only as an inference, and the kit marks it documented: the kit value stands, and a delegated decision decides whether its tier is lowered' % (kid, kf))
+                continue
             if act == 'confirm':
                 out.set(table, ['units', kid, 'fields', kf, 'source_keys'], sorted(set(old['source_keys']) | set(line_keys(ls))), old, ids, 'the record states the same: source added')
                 for i in sorted(ids):
                     out.op('append', table, ['units', kid, 'fields', kf, 'evidence_ids'], ids, 'line that states it', value=i, unique=True)
                 continue
-        fld = new_field(ctx, ls, kf, ids, old, ua)
+        fld = new_field(ctx, ls, kf, ids, old, ua, entry['army'])
         prior = out.created.get((table, kid)) if create else None
         if prior is not None:
             # a second kit field of a record this group already creates: it joins that create operation (a second create of the same key would fail the build)
@@ -720,7 +779,11 @@ def cmd_compile(argv):
     ap.add_argument('--group', action='append')
     ap.add_argument('--dry-run', action='store_true')
     a = ap.parse_args(argv)
-    docs, summary, index = compile_all(a.group, write=not a.dry_run)
+    try:
+        docs, summary, index = compile_all(a.group, write=not a.dry_run)
+    except OverrideError as e:                                          # nothing was written: say why, plainly
+        print('ERROR compile: %s' % e)
+        return 1
     for gid, s in summary.items():
         print('%-22s lines %4d accepted %4d rejected %3d (errors %d) -> %d operations, %d unapplied (%d of them routed to the verified tables by design, %d to review)'
               % (gid, s['lines'], s['accepted'], s['rejected'], s['errors'], s['ops'], s['unapplied'], s['routed'], s['unapplied'] - s['routed']))

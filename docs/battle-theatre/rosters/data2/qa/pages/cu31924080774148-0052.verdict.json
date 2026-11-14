@@ -1,0 +1,724 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "cu31924080774148/52",
+ "levels": "N",
+ "stratum": "VT-REV-other",
+ "family": "VT-REV",
+ "layout": "cols",
+ "kind": "other",
+ "draw_position": 5,
+ "in_lowest_decile": false,
+ "printed_page": 37,
+ "rows_stored": 50,
+ "rows_checked": 50,
+ "rows_in_error": 6,
+ "rows_ok": 44,
+ "rows_flagged_ocr_uncertain": 47,
+ "errors": [
+  {
+   "i": 0,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'iMarquis E. Tenney,' printed 'Marquis E. Tenney,' (stray i)",
+   "rid": "2nd-vermont-infantry#315",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "K",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 2,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Asa A. l'otter.' printed 'Asa A. Potter.'",
+   "rid": "2nd-vermont-infantry#317",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "K",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Francis M. Eclgerton,' printed 'Francis M. Edgerton,'",
+   "rid": "2nd-vermont-infantry#318",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "M"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'George Eddlv,' printed 'George Eddly,'",
+   "rid": "2nd-vermont-infantry#321",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "M"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 38,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Bush. Franqis A.' printed 'Bush, Francis A.'",
+   "rid": "2nd-vermont-infantry#353",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 47,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Carrigan. James Ii.' printed 'Carrigan, James B.'",
+   "rid": "2nd-vermont-infantry#362",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "M"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "50 stored lines = 50 printed lines in the cropped part; headings Sergeants., Corporals., Musicians., Wagoner., Privates. match"
+ ],
+ "reader": "names level; crop of the heading, name and residence columns at 200 dpi (1 Read) compared with all 50 stored names, headings and the order of the lines; dates and remarks not compared (stratum already failed R-G2 and R-G3 decisively); company B not visible on the cropped region",
+ "tesseract_prescreen": {
+  "agree": 3,
+  "near": 0,
+  "suspect": 47,
+  "unstored_lines": 11
+ },
+ "read": {
+  "pdf_sha256": "df49af98ce9bde1ab90241a6a281064d7bda9b64b8ed49675df58cf70bb600a4",
+  "pdf_page": 53,
+  "view_png_sha256": "24e04e86617f5928604fd487a0d71a354e8770092ad3caf1cae1d9fefe8e5143",
+  "render300_sha256": "b6c53911799df93362a83505f968493b3e3ea41a6ba027fdd8dbdd025567a400",
+  "tess_sha256": "c6298931ddc1c0d8fa88b144215becba4db77f1dc6d7083db591ec84d83a0e24",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.923
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "2nd-vermont-infantry#315",
+   "name": "iMarquis E. Tenney,",
+   "off": 169982,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K",
+    "N"
+   ]
+  },
+  {
+   "i": 1,
+   "rid": "2nd-vermont-infantry#316",
+   "name": "Abial G. Howard,",
+   "off": 170051,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "2nd-vermont-infantry#317",
+   "name": "Asa A. l'otter.",
+   "off": 170081,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "K",
+    "N"
+   ]
+  },
+  {
+   "i": 3,
+   "rid": "2nd-vermont-infantry#318",
+   "name": "Francis M. Eclgerton,",
+   "off": 170110,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "2nd-vermont-infantry#319",
+   "name": "John A. Freelove,",
+   "off": 170144,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "2nd-vermont-infantry#320",
+   "name": "Rollin C. Ward,",
+   "off": 170175,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 6,
+   "rid": "2nd-vermont-infantry#321",
+   "name": "George Eddlv,",
+   "off": 170215,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 7,
+   "rid": "2nd-vermont-infantry#322",
+   "name": "George W. Potter,",
+   "off": 170239,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K"
+   ]
+  },
+  {
+   "i": 8,
+   "rid": "2nd-vermont-infantry#323",
+   "name": "Edson H. Fifield,",
+   "off": 170270,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "2nd-vermont-infantry#324",
+   "name": "Joseph A. Clifton,",
+   "off": 170300,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 10,
+   "rid": "2nd-vermont-infantry#325",
+   "name": "Jasper A. Benedict.",
+   "off": 170330,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "2nd-vermont-infantry#326",
+   "name": "William Parkhurst,",
+   "off": 170363,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 12,
+   "rid": "2nd-vermont-infantry#327",
+   "name": "Hiram Bailey,",
+   "off": 170394,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 13,
+   "rid": "2nd-vermont-infantry#328",
+   "name": "Leonard R. Parkhurst.",
+   "off": 170418,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 14,
+   "rid": "2nd-vermont-infantry#329",
+   "name": "James E. Hart,",
+   "off": 170464,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K"
+   ]
+  },
+  {
+   "i": 15,
+   "rid": "2nd-vermont-infantry#330",
+   "name": "James R. Wilson,",
+   "off": 170493,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 16,
+   "rid": "2nd-vermont-infantry#331",
+   "name": "John M. Shaw,",
+   "off": 170533,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 17,
+   "rid": "2nd-vermont-infantry#332",
+   "name": "Andrus, Joseph",
+   "off": 170570,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "2nd-vermont-infantry#333",
+   "name": "Arbitraca, Giovanni",
+   "off": 170597,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K",
+    "M"
+   ]
+  },
+  {
+   "i": 19,
+   "rid": "2nd-vermont-infantry#334",
+   "name": "Bailey, Alvin C.",
+   "off": 170630,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 20,
+   "rid": "2nd-vermont-infantry#335",
+   "name": "Bailey. Charles",
+   "off": 170658,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 21,
+   "rid": "2nd-vermont-infantry#336",
+   "name": "Ballard, George,",
+   "off": 170684,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 22,
+   "rid": "2nd-vermont-infantry#337",
+   "name": "Ballard, George W.",
+   "off": 170713,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 23,
+   "rid": "2nd-vermont-infantry#338",
+   "name": "Barber, Charles S.",
+   "off": 170744,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 24,
+   "rid": "2nd-vermont-infantry#339",
+   "name": "Barber, W. Alanson,",
+   "off": 170775,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 25,
+   "rid": "2nd-vermont-infantry#340",
+   "name": "Barry, Francis",
+   "off": 170807,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 26,
+   "rid": "2nd-vermont-infantry#341",
+   "name": "Bateman, David P.",
+   "off": 170835,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 27,
+   "rid": "2nd-vermont-infantry#342",
+   "name": "Bateman, John S.",
+   "off": 170865,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 28,
+   "rid": "2nd-vermont-infantry#343",
+   "name": "Bateman, Lewis L.",
+   "off": 170895,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 29,
+   "rid": "2nd-vermont-infantry#344",
+   "name": "Bates, George,",
+   "off": 170925,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 30,
+   "rid": "2nd-vermont-infantry#345",
+   "name": "Bean. Joseph",
+   "off": 170948,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 31,
+   "rid": "2nd-vermont-infantry#346",
+   "name": "Blair, James W.",
+   "off": 170972,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 32,
+   "rid": "2nd-vermont-infantry#347",
+   "name": "Bolton. Jeremiah",
+   "off": 171001,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "K",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 33,
+   "rid": "2nd-vermont-infantry#348",
+   "name": "Bover, David",
+   "off": 171030,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 34,
+   "rid": "2nd-vermont-infantry#349",
+   "name": "Brainard, Samuel",
+   "off": 171054,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 35,
+   "rid": "2nd-vermont-infantry#350",
+   "name": "Brockenraid, H. L.",
+   "off": 171083,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 36,
+   "rid": "2nd-vermont-infantry#351",
+   "name": "Bromley, James W.",
+   "off": 171113,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 37,
+   "rid": "2nd-vermont-infantry#352",
+   "name": "Brown, Chauncey W.",
+   "off": 171140,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 38,
+   "rid": "2nd-vermont-infantry#353",
+   "name": "Bush. Franqis A.",
+   "off": 171171,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 39,
+   "rid": "2nd-vermont-infantry#354",
+   "name": "Bryant, James G.",
+   "off": 171200,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 40,
+   "rid": "2nd-vermont-infantry#355",
+   "name": "Bryant, Jonathan",
+   "off": 171231,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 41,
+   "rid": "2nd-vermont-infantry#356",
+   "name": "Butler, Eben",
+   "off": 171258,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 42,
+   "rid": "2nd-vermont-infantry#357",
+   "name": "Butterfly, George",
+   "off": 171282,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "F",
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 43,
+   "rid": "2nd-vermont-infantry#358",
+   "name": "Butterfly, James",
+   "off": 171312,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 44,
+   "rid": "2nd-vermont-infantry#359",
+   "name": "Caldwell, Robert",
+   "off": 171339,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 45,
+   "rid": "2nd-vermont-infantry#360",
+   "name": "Cargill, Benjamin",
+   "off": 171367,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M",
+    "O"
+   ]
+  },
+  {
+   "i": 46,
+   "rid": "2nd-vermont-infantry#361",
+   "name": "Carrigan, Frank H.",
+   "off": 171398,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "K",
+    "M"
+   ]
+  },
+  {
+   "i": 47,
+   "rid": "2nd-vermont-infantry#362",
+   "name": "Carrigan. James Ii.",
+   "off": 171429,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 48,
+   "rid": "2nd-vermont-infantry#363",
+   "name": "Castle, Charles D.",
+   "off": 171461,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 49,
+   "rid": "2nd-vermont-infantry#364",
+   "name": "Clair, John",
+   "off": 171489,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:44:22Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "AGREE",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "AGREE",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "AGREE",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "SUSPECT",
+  "23": "SUSPECT",
+  "24": "SUSPECT",
+  "25": "SUSPECT",
+  "26": "SUSPECT",
+  "27": "SUSPECT",
+  "28": "SUSPECT",
+  "29": "SUSPECT",
+  "30": "SUSPECT",
+  "31": "SUSPECT",
+  "32": "SUSPECT",
+  "33": "SUSPECT",
+  "34": "SUSPECT",
+  "35": "SUSPECT",
+  "36": "SUSPECT",
+  "37": "SUSPECT",
+  "38": "SUSPECT",
+  "39": "SUSPECT",
+  "40": "SUSPECT",
+  "41": "SUSPECT",
+  "42": "SUSPECT",
+  "43": "SUSPECT",
+  "44": "SUSPECT",
+  "45": "SUSPECT",
+  "46": "SUSPECT",
+  "47": "SUSPECT",
+  "48": "SUSPECT",
+  "49": "SUSPECT"
+ }
+}

@@ -27,3 +27,8 @@ The scripts compute the repository root as two folders above their own, so they 
   viewed_leaves.json (the leaves whose printed page was read on the page image: key "part:leaf", PDF page = leaf + 1), numcheck.py and overlap.py
   (heuristics that list claims whose numbers or words are not in their quotes; read by hand), compact.py and show.py (readers), shifts.py, libheads.py, pagediff.py (page-index checks).
 - NOTES.md: working notes of the four runs (history, what was tried, what was found).
+
+## Do not repeat
+- dd.py and dd2.py only write a markdown block (dd_block.md, dd_block2.md) under tmp/tl-02; those blocks (DD-TL02-01 to DD-TL02-04, with two correction lines) were appended once to
+  GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md and must not be appended again. The progress lines of 2026-11-13 and 2026-11-14 in GOVERNANCE/progress.md were also appended once.
+- post.py updates the older register entries tl-02-EG-001..013 only once (marker "CLOSE-OUT UPDATE 2026-11-13"); the carbine sentence of EG-012 and three stale pages were corrected in the files on 2026-11-14.

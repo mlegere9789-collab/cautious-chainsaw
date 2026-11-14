@@ -99,18 +99,28 @@ def _page_check(res, rid, line, st, row, os_, oe_):
     pb = row.get('page_basis')
     pp = row.get('printed_page')
     if st.page_model == 'or27':
-        rng = st.page_range(os_, oe_)
-        if rng is None or pp in (None, ''):
-            if pp in (None, ''):
-                res.add('error', 'page_required', rid, 'Official Records rows carry the printed page', line)
+        if pp in (None, ''):
+            res.add('error', 'page_required', rid, 'Official Records rows carry the printed page', line)
             return
-        ok = False
         try:
             want = int(str(pp).strip().split('-')[0].lstrip('~'))
         except ValueError:
             res.add('error', 'page_invalid', rid, 'printed_page %r is not a page number' % (pp,), line)
             return
-        for pg in rng:
+        if pb == 'scan_leaf':
+            part = st.meta.get('part')
+            got = [leaf_page(part, os_), leaf_page(part, max(os_, oe_ - 1))]
+            if all(g is None for g in got):
+                res.add('error', 'page_leafmap', rid, 'no scan-leaf page for offset %d (leaf map not built or the leaf has no printed page): use running_head or interpolated' % os_, line)
+            elif want not in got:
+                res.add('error', 'page_mismatch', rid, 'printed_page %s but the scan-leaf map gives %s at offsets %d-%d' % (pp, got, os_, oe_), line)
+            return
+        if pb not in ('running_head', 'interpolated'):
+            res.add('error', 'page_basis', rid, 'Official Records page_basis is scan_leaf, running_head or interpolated', line)
+            return
+        rng = st.page_range(os_, oe_)
+        ok = False
+        for pg in rng or ():
             if pg.get('page') is None:
                 continue
             if str(pg.get('conf', '')).startswith(('head', 'front')):
@@ -119,9 +129,7 @@ def _page_check(res, rid, line, st, row, os_, oe_):
                 lo, hi = pg.get('lo'), pg.get('hi')
                 ok = ok or (lo is not None and hi is not None and lo <= want <= hi)
         if not ok:
-            res.add('error', 'page_mismatch', rid, 'printed_page %s does not match the page model at offset %d: %s' % (pp, os_, [(p.get('page'), p.get('conf'), p.get('lo'), p.get('hi')) for p in rng]), line)
-        if pb not in ('running_head', 'interpolated'):
-            res.add('error', 'page_basis', rid, 'Official Records page_basis is running_head or interpolated', line)
+            res.add('error', 'page_mismatch', rid, 'printed_page %s does not match the page model at offset %d: %s' % (pp, os_, [(p.get('page'), p.get('conf'), p.get('lo'), p.get('hi')) for p in (rng or ())]), line)
     elif st.page_model == 'pdf_markers':
         raw = st.raw
         marks = [(m.start(), int(m.group(1))) for m in re.finditer(r'=== PAGE (\d+) ===', raw)]
@@ -154,6 +162,29 @@ def _record_check(res, rid, line, st, row, os_, oe_):
             res.add('error', 'report_required', rid, 'Official Records rows carry report_id', line)
         elif rec is None or rec['id'] != rep:
             res.add('error', 'report_mismatch', rid, 'offset %d lies in %s, not in %s' % (os_, rec['id'] if rec else 'no record', rep), line)
+
+
+def _statevol_check(res, rid, line, row, os_, oe_):
+    vol, secs = statevol(row.get('source_id'))
+    if vol is None:
+        return
+    rep = row.get('report_id')
+    if rep:
+        sec = secs.get(rep)
+        if sec is None:
+            res.add('error', 'report_mismatch', rid, 'report_id %r is not a section of %s' % (rep, row.get('source_id')), line)
+        elif not (sec['start'] <= os_ < sec['end']):
+            res.add('error', 'report_mismatch', rid, 'offset %d is outside section %s (%d-%d)' % (os_, rep, sec['start'], sec['end']), line)
+    pp = row.get('printed_page')
+    if pp not in (None, '') and row.get('page_basis') in ('section_anchor', 'running_head', 'interpolated', 'scan_leaf'):
+        pg = statevol_page(vol, os_)
+        try:
+            want = int(str(pp).strip().split('-')[0].lstrip('~'))
+        except ValueError:
+            res.add('error', 'page_invalid', rid, 'printed_page %r is not a page number' % (pp,), line)
+            return
+        if pg is not None and abs(want - pg) > 1:
+            res.add('error', 'page_mismatch', rid, 'printed_page %s but the page anchors of %s put offset %d on page %s' % (pp, row.get('source_id'), os_, pg), line)
 
 
 def check_row(row, line, group, res, opts, seen_ids, rows_ctx):
@@ -353,6 +384,7 @@ def check_row(row, line, group, res, opts, seen_ids, rows_ctx):
     if row.get('context_quote') is not None:
         _check_quote(res, rid, line, st, row.get('context_quote'), row.get('context_offset_start'), row.get('context_offset_end'), 'context_quote', row, opts, modes)
     _record_check(res, rid, line, st, row, row['offset_start'], row['offset_end'])
+    _statevol_check(res, rid, line, row, row['offset_start'], row['offset_end'])
     _page_check(res, rid, line, st, row, row['offset_start'], row['offset_end'])
     # window basis versus the quote
     if wb == 'stated_clock' and not CLOCK_RE.search(quote_all):
@@ -625,12 +657,37 @@ def self_test():
                     rr = run_rows([row])
                     check('OR row: record, part, page and quote all agree', not rr.errors, [i['code'] + ':' + i['msg'][:90] for i in rr.errors])
                     check('OR row: wrong page refused', 'page_mismatch' in run_rows([dict(row, printed_page=str(int(pg.group(1)) + 40))]).codes())
+                    lp = leaf_page(1, h['start'])
+                    if lp is not None:
+                        rl = run_rows([dict(row, printed_page=str(lp), page_basis='scan_leaf')])
+                        check('OR row: scan-leaf page accepted', not rl.errors, [i['code'] + ':' + i['msg'][:90] for i in rl.errors])
+                        check('OR row: wrong scan-leaf page refused', 'page_mismatch' in run_rows([dict(row, printed_page=str(lp + 40), page_basis='scan_leaf')]).codes())
+                    else:
+                        log.append('SKIP scan-leaf checks (leaf map not built)')
                     check('OR row: wrong report refused', 'report_mismatch' in run_rows([dict(row, report_id='OR27-1-R001' if rec != 'OR27-1-R001' else 'OR27-1-R002')]).codes())
                     check('OR row: wrong part refused', 'part_mismatch' in run_rows([dict(row, part=2)]).codes())
             else:
                 log.append('SKIP real Official Records row tests (no passage located)')
         else:
             log.append('SKIP real Official Records tests (text not on disk)')
+        # 5. a state volume with a section index (the fence-2 citation c1: New York at Gettysburg vol. 3, section NY3-S006, printed page 991)
+        nyp = sources().get('NY-GB-1902-v3', {}).get('local_path')
+        if nyp and os.path.exists(os.path.join(ROOT, nyp)):
+            q = 'near the garden with a picket fence at the McPherson House, a few rods east of the stone basement barn on the south side of the pike'
+            m = match_quote(source_text('NY-GB-1902-v3'), q)
+            if m['mode'] in ('exact', 'typo') and m['spans']:
+                a, b, d = m['spans'][0]
+                nrow = variant(source_id='NY-GB-1902-v3', part=None, report_id='NY3-S006', printed_page='991', page_basis='section_anchor', quote=q, offset_start=a, offset_end=b,
+                               unit_id='us-12c-2d-greene', context_quote=None, context_offset_start=None, context_offset_end=None,
+                               window={'start_min': min_of(7, 1), 'end_min': min_of(7, 1, 23, 59), 'basis': 'stated_date'})
+                rr = run_rows([nrow])
+                check('state volume row: section, page anchor and quote agree', not rr.errors, [i['code'] + ':' + i['msg'][:90] for i in rr.errors])
+                check('state volume row: wrong section refused', 'report_mismatch' in run_rows([dict(nrow, report_id='NY3-S007')]).codes())
+                check('state volume row: wrong page refused', 'page_mismatch' in run_rows([dict(nrow, printed_page='1100')]).codes())
+            else:
+                log.append('SKIP state volume row tests (quote not located)')
+        else:
+            log.append('SKIP state volume row tests (text not on disk)')
     finally:
         sources().pop('SYN-1', None)
         sources().pop('SYN-MAN', None)

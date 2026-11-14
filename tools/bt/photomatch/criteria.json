@@ -71,6 +71,38 @@
    "verdict_rule": "The skyline test fits three parameters to the photograph (heading, lens, vertical shift) and therefore can never make a verdict matches (verdicts.json: a fitted test is not a match). It is reported beside C-P27-P28-1: (S1 match-level and S2 true) = the documented place reproduces the far skyline and is better than its neighbours (supporting evidence for the pose); (S1 partial or S2 false) = the far skyline neither supports nor contradicts the place; (S1 mismatch with S2 true or false) = the far skyline contradicts the place or the model. The 30 and 50 degree renders and the sensitivity to the camera height are reported, not used to choose.",
    "independence": "The position is the NPS place, the heading is a free parameter inside the NPS sector, the lens is free: nothing about the position is taken from the photograph, but three other parameters are. The controls say how much the fit would give anywhere near the station.",
    "gate_note": "This is evidence for the owner decision on whether a named building roof counts as a documented camera position (DD-PM-01 says no: only a coordinate, a lens and a plate); it is not the registration of Q16.3 and is not a result of T-Q16-1, which stays UNSET."
+  },
+  {
+   "id": "C-P29-1",
+   "poses": [
+    "P29"
+   ],
+   "written_utc": "2026-11-14T00:44:11Z",
+   "render_existed_when_written": false,
+   "model_skyline_computed_when_written": false,
+   "photograph_skyline_viewed_on_the_photograph_only": true,
+   "basis": "The second photograph at the documented place of the Evergreen Cemetery gatehouse: NPS Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment vol. I, Figure 213: 'View east from Evergreen Cemetery Gatehouse, 1863 (GETT 41135, Historic Photograph Collection, OS2B-2037)'. The image is the NPS figure (extracted from the PDF, inverted to positive; sha256 a3857f9ed1b95e1751cfedbc2a2ee68d045c43e428da989d6a89b480a085907c); which Library of Congress record it is, if any, is the open question of the feature matching (match_third_pass.py) and does not enter the test. The place is the same building as P27/P28 (centroid of the 2023 outline, sigma 20 m, camera height an assumption of 8 m with 5 and 11 m as sensitivity); the direction is the cardinal word east (67.5 to 112.5 degrees). Looking east the far skyline is the wooded Culp's Hill about 1 km away, a strong relief that changes shape with the camera place much more than a distant ridge does, so the test discriminates between neighbouring places better than the north view.",
+   "method": {
+    "photograph_skyline": "Frozen before any model skyline of this pose was computed. Image: tmp/photomatch/nps_pdf/pos/v1_p307-000_pos.png, the whole figure, grey, resized to 1024 px width (Lanczos); 5-row vertical box mean; sky level per column = median of rows 0.02H to 0.10H over columns x-3..x+3; skyline row = first row between 0.10H and 0.60H where the column mean over x-3..x+3 of the smoothed image falls below the sky level minus 20; a column is kept when its row lies within 12 px of the running median over 15 columns and x lies between 0.02W and 0.98W. One run of this rule on the figure gave 969 kept columns of 1024; its overlay was looked at on the photograph and follows the crest of the wooded hill.",
+    "model_skyline": "As C-P27-P28-2 (DEM ray march from the station, 8 m steps to 7000 m, bilinear, no curvature, no trees) over azimuths 20 to 160 degrees in 0.1-degree steps; camera height 8 m (5 m and 11 m as sensitivity).",
+    "projection_and_fit": "As C-P27-P28-2: level camera, heading free in 0.25-degree steps inside the sector 67.5 to 112.5 degrees (east), horizontal field F free from 25 to 70 degrees in 1-degree steps, vertical shift free (closed form); result = minimum root-mean-square vertical residual in degrees. The figure may be a crop of the plate: the vertical shift and the free field absorb that; the horizontal extent of the figure is taken as the full horizontal field.",
+    "controls": "As C-P27-P28-2: 24 control stations 100, 200 and 300 m from the station in 8 directions, same freedom; discriminated = station RMS at or below the first quartile of the controls."
+   },
+   "tests": [
+    {
+     "id": "S1",
+     "what": "RMS of the best fit at the station: match-level if <= 0.5 degrees, partial if <= 1.0 degree, mismatch above (heading inside the sector, F between 25 and 70 degrees). 0.5 degrees is 9 m of tree height at 1 km: the canopy on Culp's Hill in 1863 is in the photograph and not in the bare-earth model, which makes this test stricter in terrain than in trees; the threshold is the one of C-P27-P28-2 and is not changed for this pose.",
+     "binary": false
+    },
+    {
+     "id": "S2",
+     "what": "Discrimination: the station RMS is at or below the first quartile of the 24 controls.",
+     "binary": true
+    }
+   ],
+   "verdict_rule": "As C-P27-P28-2: the fit uses three parameters from the photograph and can never make a verdict matches; (S1 match-level and S2 true) = supporting evidence that the documented place reproduces the skyline and is better than its neighbours; (S1 partial or S2 false) = neither supports nor contradicts; (S1 mismatch) = the skyline contradicts the place or the model.",
+   "independence": "The position is the NPS place; heading (inside the sector), lens and vertical shift come from the photograph. The controls say how much the fit would give anywhere near the station.",
+   "gate_note": "Evidence for the owner decision on whether a named building counts as a documented camera position (DD-PM-01 says no); not the registration of Q16.3; T-Q16-1 stays UNSET."
   }
  ]
 }

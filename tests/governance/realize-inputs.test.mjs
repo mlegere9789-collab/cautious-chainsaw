@@ -144,6 +144,10 @@ test('the gazetteer lists every name with evidence of being a place that no repo
 test('the author tools: row names the places that are unknown, cas expands a formation to its leaf units (q.mjs; the defect: cas of a brigade printed zeros)', () => {
   const q = (...a) => node(ROOT, ['q.mjs', ...a]); const row = q('row', 'T1-004'); assert.equal(row.status, 0, row.stderr);
   assert.match(row.stdout, /unknown, never guessed\): [^\n]*Greenwood/, 'the place of the corrected claim that no file carries'); assert.match(row.stdout, /Cashtown Pike \[structural/);
+  // the exact time beside the widened one, and the scenario group of a row, before any record is written (q.mjs row, group)
+  assert.match(row.stdout, /^EXACT +1863-\d\d-\d\dT\d\d:\d\d\.\.1863-\d\d-\d\dT\d\d:\d\d +\(no clock margin, GATE-SPEC 6\.4 V4/m, 'the row prints the time it allows without the clock margin');
+  const grp = q('group', 'T2-040', '--units', 'us-3c-2d'); assert.equal(grp.status, 0, grp.stderr); assert.match(grp.stdout, /^T2-040: \d+ scenario\(s\) in the group; units us-3c-2d; structures none; weather span none$/m); assert.match(grp.stdout, /^ {2}C-002 +reaches us-3c-2d \(gate\)$/m, 'the conflict of its ledger gate chain'); assert.match(grp.stdout, /^ {2}scenarios: default {2}C-002:recommended /m);
+  assert.match(q('group', 'T1-003', '--weather').stdout, /CF-WIND-SPEED +in the weather of the span/, 'the weather conflict of the minutes of the row'); assert.match(q('group', 'T9-999').stdout, /no row T9-999/);
   const brig = JSON.parse(q('cas', '1863-07-01T10:00', '1863-07-01T16:00', 'us-1c-1d-meredith').stdout), leaf = JSON.parse(q('cas', '1863-07-01T10:00', '1863-07-01T16:00', 'us-1c-1d-meredith-6wi').stdout);
   assert.ok(brig.events > 0 && brig.killed > 0, 'the brigade has losses: a formation id is expanded'); assert.ok(brig.events > leaf.events && brig.leaves >= 2 && leaf.leaves === 1);
   const sum = P.leaves('us-1c-1d-meredith').map(l => P.scene().casualties(toMinT('1863-07-01T10:00'), toMinT('1863-07-01T16:00'), l).events).reduce((a, b) => a + b, 0); assert.equal(brig.events, sum, 'the sum of its leaves, as the casualty check counts them');

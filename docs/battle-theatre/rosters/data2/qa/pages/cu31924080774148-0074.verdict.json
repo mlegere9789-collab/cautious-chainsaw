@@ -1,0 +1,978 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "cu31924080774148/74",
+ "stratum": "VT-REV-other",
+ "family": "VT-REV",
+ "layout": "cols",
+ "kind": "other",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 59,
+ "rows_stored": 46,
+ "rows_checked": 46,
+ "rows_in_error": 43,
+ "rows_ok": 3,
+ "rows_flagged_ocr_uncertain": 46,
+ "errors": [
+  {
+   "i": 1,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "second date cell: stored 'July- •63', printed 'July 27,'63'",
+   "rid": "2nd-vermont-infantry#1579",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 2,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "issue date day lost ('June ,'61' for 'June 20,'61'); 'Pris.' read '1'ris'",
+   "rid": "2nd-vermont-infantry#1580",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date day lost",
+   "rid": "2nd-vermont-infantry#1581",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "name-char",
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "name has a stray 'j' for a printed stray mark '}' after Archelaus; issue date day lost; 'Julv'",
+   "rid": "2nd-vermont-infantry#1582",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G1",
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "issue date day lost; stray 'j' before July",
+   "rid": "2nd-vermont-infantry#1583",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'July '3' for 'July 13'; issue date day lost",
+   "rid": "2nd-vermont-infantry#1584",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 7,
+   "kinds": [
+    "rem-char",
+    "rem-date"
+   ],
+   "note": "'Flainfield' for 'Plainfield'; '6i'; issue date day lost",
+   "rid": "2nd-vermont-infantry#1585",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 8,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'Dec. '9' for 'Dec. 19'; issue date day lost",
+   "rid": "2nd-vermont-infantry#1586",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 9,
+   "kinds": [
+    "rem-char",
+    "rem-date"
+   ],
+   "note": "'Au£.' for 'Aug.'; 'Ouincy' 'Underbill'; issue date day lost",
+   "rid": "2nd-vermont-infantry#1587",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'6t' for '61'",
+   "rid": "2nd-vermont-infantry#1588",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "issue date lost; 'reed' for 'recd'",
+   "rid": "2nd-vermont-infantry#1589",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 12,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost",
+   "rid": "2nd-vermont-infantry#1590",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 13,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost",
+   "rid": "2nd-vermont-infantry#1591",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost",
+   "rid": "2nd-vermont-infantry#1592",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 15,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost",
+   "rid": "2nd-vermont-infantry#1593",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 16,
+   "kinds": [
+    "name-char",
+    "rem-date"
+   ],
+   "note": "printed 'Wiliam' (scan), stored 'William'; issue date lost",
+   "rid": "2nd-vermont-infantry#1594",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G1",
+    "R-G2"
+   ]
+  },
+  {
+   "i": 17,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "'Mav' '6i' 'Julv' 'reed'; issue date lost",
+   "rid": "2nd-vermont-infantry#1595",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 18,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost",
+   "rid": "2nd-vermont-infantry#1596",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 19,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'Dec. '9' for 'Dec. 19'; issue date lost",
+   "rid": "2nd-vermont-infantry#1597",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 20,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost",
+   "rid": "2nd-vermont-infantry#1598",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 21,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "issue date lost; 'reed'",
+   "rid": "2nd-vermont-infantry#1599",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 23,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost; '6i'",
+   "rid": "2nd-vermont-infantry#1601",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 24,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost; 'iS' for '18'",
+   "rid": "2nd-vermont-infantry#1602",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 25,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "issue date lost; 'Pies.' for 'Pres.'",
+   "rid": "2nd-vermont-infantry#1603",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 26,
+   "kinds": [
+    "rem-char",
+    "rem-date"
+   ],
+   "note": "'H.' for 'E. Montpelier'; issue date '12,'61' lost",
+   "rid": "2nd-vermont-infantry#1604",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 27,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost",
+   "rid": "2nd-vermont-infantry#1605",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 28,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost",
+   "rid": "2nd-vermont-infantry#1606",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 29,
+   "kinds": [
+    "rem-date",
+    "rem-missing",
+    "rem-order"
+   ],
+   "note": "issue date lost; remark words out of order; run-over '[for wds.' stored on the next row",
+   "rid": "2nd-vermont-infantry#1607",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 30,
+   "kinds": [
+    "rem-date",
+    "rem-char",
+    "rem-extra"
+   ],
+   "note": "'6!' for '61'; issue date lost; 'Co. II' for 'Co. H'; carries '[for wds.' that is the run-over of row 29",
+   "rid": "2nd-vermont-infantry#1608",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 31,
+   "kinds": [
+    "rem-date",
+    "rem-extra"
+   ],
+   "note": "issue date lost; carries run-over '[May 12, '64.' of the line above",
+   "rid": "2nd-vermont-infantry#1609",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 32,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "issue date '12,'61' lost; 'reed'",
+   "rid": "2nd-vermont-infantry#1610",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 33,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost",
+   "rid": "2nd-vermont-infantry#1611",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 34,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "issue date lost",
+   "rid": "2nd-vermont-infantry#1612",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 35,
+   "kinds": [
+    "rem-date",
+    "rem-order"
+   ],
+   "note": "issue date '30,'62' lost; words 'Dec. 10, '64; Wd.' out of order",
+   "rid": "2nd-vermont-infantry#1613",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 36,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "'6 r' for '61'; 'reed'",
+   "rid": "2nd-vermont-infantry#1614",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 37,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'6i' and 'iS' for '61' and '18'",
+   "rid": "2nd-vermont-infantry#1615",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 39,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'reed'",
+   "rid": "2nd-vermont-infantry#1617",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 40,
+   "kinds": [
+    "rem-char",
+    "rem-date"
+   ],
+   "note": "'Co. 1.' for 'Co. I.'; '6i'",
+   "rid": "2nd-vermont-infantry#1618",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 41,
+   "kinds": [
+    "rank"
+   ],
+   "note": "carried heading 'tst Lieutenants.' for '1st Lieutenants.'",
+   "rid": "2nd-vermont-infantry#1619",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 42,
+   "kinds": [
+    "rank",
+    "rem-date"
+   ],
+   "note": "heading; 'S' for '8' (Feb. 8)",
+   "rid": "2nd-vermont-infantry#1620",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 43,
+   "kinds": [
+    "rank",
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "heading; 'Feb. [0' for 'Feb. 10'; 'Co. L' for 'Co. I'; ''01' for ''61'",
+   "rid": "2nd-vermont-infantry#1621",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 44,
+   "kinds": [
+    "rank",
+    "rem-date"
+   ],
+   "note": "heading; 'IJUK-' for 'July'",
+   "rid": "2nd-vermont-infantry#1622",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 45,
+   "kinds": [
+    "rank",
+    "rem-char"
+   ],
+   "note": "heading; 'ljan' (rule read as l)",
+   "rid": "2nd-vermont-infantry#1623",
+   "flagged_ocr_uncertain": true,
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "rows 0-36 company H is carried from the page before (not verifiable on this page); title of the lower table printed 'COMPANY I.' (letter lost in the text layer, known flag C)",
+  "systematic: the day of the 'Date of Issue' cell is lost in the text layer on most rows of this page (flag M); no printed line without a stored row"
+ ],
+ "reader": "full page at 200 dpi (1 Read) and 4 crops at 300-600 dpi (3 Reads); every stored row read against the print (name, rank heading, company, residence, both dates, remarks); tesseract pre-screen used for candidates only",
+ "tesseract_prescreen": {
+  "agree": 3,
+  "near": 0,
+  "suspect": 43,
+  "unstored_lines": 7
+ },
+ "read": {
+  "pdf_sha256": "df49af98ce9bde1ab90241a6a281064d7bda9b64b8ed49675df58cf70bb600a4",
+  "pdf_page": 75,
+  "view_png_sha256": "2ed6615dd3221272960c7a7502e3ea3d7e14a9c864fc65cdba9a52fae4393093",
+  "render300_sha256": "6b440e1d3389cb93d860f524db1c14338b4e54aac34e2f62b2b43a57ca7c9991",
+  "tess_sha256": "38be99fede9c8f6b7d655d8c1ed232e000f7288a775613094ab631a7b59ca8f0",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.916
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "2nd-vermont-infantry#1578",
+   "name": "Robinson, Joseph",
+   "off": 318286,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 1,
+   "rid": "2nd-vermont-infantry#1579",
+   "name": "Robinson, Thomas",
+   "off": 318347,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 2,
+   "rid": "2nd-vermont-infantry#1580",
+   "name": "Rood, Vernon D.",
+   "off": 318365,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 3,
+   "rid": "2nd-vermont-infantry#1581",
+   "name": "Rose, Peter",
+   "off": 318383,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 4,
+   "rid": "2nd-vermont-infantry#1582",
+   "name": "Russell, Archelaus j",
+   "off": 318396,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 5,
+   "rid": "2nd-vermont-infantry#1583",
+   "name": "Ryan, William",
+   "off": 318419,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 6,
+   "rid": "2nd-vermont-infantry#1584",
+   "name": "Ryder, Henry R.",
+   "off": 318434,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 7,
+   "rid": "2nd-vermont-infantry#1585",
+   "name": "Scott, Orange",
+   "off": 318452,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 8,
+   "rid": "2nd-vermont-infantry#1586",
+   "name": "Scott, Wait",
+   "off": 318467,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 9,
+   "rid": "2nd-vermont-infantry#1587",
+   "name": "Seymour, Charles H.",
+   "off": 318480,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 10,
+   "rid": "2nd-vermont-infantry#1588",
+   "name": "Shattuck, Henry B.",
+   "off": 318502,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 11,
+   "rid": "2nd-vermont-infantry#1589",
+   "name": "Sherry, John W.",
+   "off": 318523,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 12,
+   "rid": "2nd-vermont-infantry#1590",
+   "name": "Shonion, Henry",
+   "off": 318541,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 13,
+   "rid": "2nd-vermont-infantry#1591",
+   "name": "Sleeper, Eugene C.",
+   "off": 318557,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 14,
+   "rid": "2nd-vermont-infantry#1592",
+   "name": "Smith, Issac L.",
+   "off": 318578,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 15,
+   "rid": "2nd-vermont-infantry#1593",
+   "name": "Snow, Edward E.",
+   "off": 318596,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 16,
+   "rid": "2nd-vermont-infantry#1594",
+   "name": "Snow, William E.",
+   "off": 318614,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 17,
+   "rid": "2nd-vermont-infantry#1595",
+   "name": "Soule, Hiram E,",
+   "off": 318633,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 18,
+   "rid": "2nd-vermont-infantry#1596",
+   "name": "Spaulding, Charles",
+   "off": 318651,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 19,
+   "rid": "2nd-vermont-infantry#1597",
+   "name": "Squires, Ezra W.",
+   "off": 318671,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 20,
+   "rid": "2nd-vermont-infantry#1598",
+   "name": "Start, Storrs W.",
+   "off": 318690,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 21,
+   "rid": "2nd-vermont-infantry#1599",
+   "name": "Stowe. Charles H.",
+   "off": 318709,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 22,
+   "rid": "2nd-vermont-infantry#1600",
+   "name": "Streeter, Andrew",
+   "off": 318729,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 23,
+   "rid": "2nd-vermont-infantry#1601",
+   "name": "Streeter, George,",
+   "off": 318747,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 24,
+   "rid": "2nd-vermont-infantry#1602",
+   "name": "Sullivan, Daniel",
+   "off": 318766,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 25,
+   "rid": "2nd-vermont-infantry#1603",
+   "name": "Trefren, John P.",
+   "off": 318784,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 26,
+   "rid": "2nd-vermont-infantry#1604",
+   "name": "Trow, George E.",
+   "off": 318803,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 27,
+   "rid": "2nd-vermont-infantry#1605",
+   "name": "Turner, Sylvester",
+   "off": 318821,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 28,
+   "rid": "2nd-vermont-infantry#1606",
+   "name": "Ward, Frank",
+   "off": 318840,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 29,
+   "rid": "2nd-vermont-infantry#1607",
+   "name": "Ward, Philip",
+   "off": 318853,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 30,
+   "rid": "2nd-vermont-infantry#1608",
+   "name": "Westman, Orson C.",
+   "off": 318868,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 31,
+   "rid": "2nd-vermont-infantry#1609",
+   "name": "Whicher, Edwin P.",
+   "off": 318888,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 32,
+   "rid": "2nd-vermont-infantry#1610",
+   "name": "White. George A.",
+   "off": 318908,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 33,
+   "rid": "2nd-vermont-infantry#1611",
+   "name": "Wilcox, Samuel J.",
+   "off": 318927,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 34,
+   "rid": "2nd-vermont-infantry#1612",
+   "name": "Witherell, Philander",
+   "off": 318947,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 35,
+   "rid": "2nd-vermont-infantry#1613",
+   "name": "Worthing, James M.",
+   "off": 318969,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 36,
+   "rid": "2nd-vermont-infantry#1614",
+   "name": "Worthing, Robert N.",
+   "off": 319538,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 37,
+   "rid": "2nd-vermont-infantry#1615",
+   "name": "Volney S. Fullam,",
+   "off": 322695,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 38,
+   "rid": "2nd-vermont-infantry#1616",
+   "name": "Newton Stone,",
+   "off": 322715,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 39,
+   "rid": "2nd-vermont-infantry#1617",
+   "name": "Daniel S, White,",
+   "off": 322730,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 40,
+   "rid": "2nd-vermont-infantry#1618",
+   "name": "Horatio F. Taylor,",
+   "off": 322749,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 41,
+   "rid": "2nd-vermont-infantry#1619",
+   "name": "Sherman W.Parkhurst",
+   "off": 322788,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 42,
+   "rid": "2nd-vermont-infantry#1620",
+   "name": "Charles C. Canning,",
+   "off": 322809,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 43,
+   "rid": "2nd-vermont-infantry#1621",
+   "name": "Ethan A. Priest,",
+   "off": 322831,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 44,
+   "rid": "2nd-vermont-infantry#1622",
+   "name": "Horatio F. Taylor,",
+   "off": 322850,
+   "text_id": "VT-ROSTER-1892.1"
+  },
+  {
+   "i": 45,
+   "rid": "2nd-vermont-infantry#1623",
+   "name": "Albert D. Beckwith,",
+   "off": 322871,
+   "text_id": "VT-ROSTER-1892.1"
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:39:39Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "SUSPECT",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "AGREE",
+  "23": "SUSPECT",
+  "24": "SUSPECT",
+  "25": "SUSPECT",
+  "26": "SUSPECT",
+  "27": "SUSPECT",
+  "28": "SUSPECT",
+  "29": "SUSPECT",
+  "30": "SUSPECT",
+  "31": "SUSPECT",
+  "32": "SUSPECT",
+  "33": "SUSPECT",
+  "34": "SUSPECT",
+  "35": "SUSPECT",
+  "36": "SUSPECT",
+  "37": "SUSPECT",
+  "38": "AGREE",
+  "39": "SUSPECT",
+  "40": "SUSPECT",
+  "41": "SUSPECT",
+  "42": "SUSPECT",
+  "43": "SUSPECT",
+  "44": "SUSPECT",
+  "45": "SUSPECT"
+ }
+}

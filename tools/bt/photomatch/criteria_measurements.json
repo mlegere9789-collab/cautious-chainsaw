@@ -1,0 +1,119 @@
+{
+ "_doc": "Measurements of the tests T1-T3 of criteria.json C-P27-P28-1 by measure_c1.py (definitions in its docstring). Computed from the renders; no number was set by hand.",
+ "measurements": {
+  "P27_main": {
+   "pose": "P27",
+   "field_h_deg": 40,
+   "heading_deg": 0,
+   "render_px": [
+    960,
+    757
+   ],
+   "T2_horizon_frac": 0.534,
+   "T2_pass": true,
+   "T1_visible_road_vertices": 52,
+   "T1_max_x_frac": 0.261,
+   "T1_min_x_frac": 0.026,
+   "T1_pass": true,
+   "T3_building_pixel_extent_centre_frac": 0.462,
+   "T3_building_pixels": 8841,
+   "T3_gz072_x_frac": 0.218,
+   "T3_pass": true
+  },
+  "P27_fov30": {
+   "pose": "P27",
+   "field_h_deg": 30,
+   "heading_deg": 0,
+   "render_px": [
+    960,
+    757
+   ],
+   "T2_horizon_frac": 0.547,
+   "T2_pass": true,
+   "T1_visible_road_vertices": 41,
+   "T1_max_x_frac": 0.181,
+   "T1_min_x_frac": 0.005,
+   "T1_pass": true,
+   "T3_building_pixel_extent_centre_frac": 0.497,
+   "T3_building_pixels": 8825,
+   "T3_gz072_x_frac": 0.117,
+   "T3_pass": true
+  },
+  "P27_fov50": {
+   "pose": "P27",
+   "field_h_deg": 50,
+   "heading_deg": 0,
+   "render_px": [
+    960,
+    757
+   ],
+   "T2_horizon_frac": 0.527,
+   "T2_pass": true,
+   "T1_visible_road_vertices": 60,
+   "T1_max_x_frac": 0.314,
+   "T1_min_x_frac": 0.007,
+   "T1_pass": true,
+   "T3_building_pixel_extent_centre_frac": 0.499,
+   "T3_building_pixels": 7743,
+   "T3_gz072_x_frac": 0.28,
+   "T3_pass": true
+  },
+  "P28_main": {
+   "pose": "P28",
+   "field_h_deg": 40,
+   "heading_deg": 315,
+   "render_px": [
+    960,
+    731
+   ],
+   "T2_horizon_frac": 0.514,
+   "T2_pass": true,
+   "T1_visible_road_vertices": 40,
+   "T1_max_x_frac": 0.994,
+   "T1_min_x_frac": 0.872,
+   "T1_pass": false,
+   "T3_building_pixel_extent_centre_frac": 0.579,
+   "T3_building_pixels": 4144,
+   "T3_gz072_x_frac": "outside the frame, right",
+   "T3_pass": "disagree"
+  },
+  "P28_fov30": {
+   "pose": "P28",
+   "field_h_deg": 30,
+   "heading_deg": 315,
+   "render_px": [
+    960,
+    731
+   ],
+   "T2_horizon_frac": 0.52,
+   "T2_pass": true,
+   "T1_visible_road_vertices": 0,
+   "T1_max_x_frac": null,
+   "T1_min_x_frac": null,
+   "T1_pass": "empty",
+   "T3_building_pixel_extent_centre_frac": 0.517,
+   "T3_building_pixels": 3028,
+   "T3_gz072_x_frac": "outside the frame, right",
+   "T3_pass": "disagree"
+  },
+  "P28_fov50": {
+   "pose": "P28",
+   "field_h_deg": 50,
+   "heading_deg": 315,
+   "render_px": [
+    960,
+    731
+   ],
+   "T2_horizon_frac": 0.512,
+   "T2_pass": true,
+   "T1_visible_road_vertices": 49,
+   "T1_max_x_frac": 0.997,
+   "T1_min_x_frac": 0.79,
+   "T1_pass": false,
+   "T3_building_pixel_extent_centre_frac": 0.499,
+   "T3_building_pixels": 5028,
+   "T3_gz072_x_frac": "outside the frame, right",
+   "T3_pass": "disagree"
+  }
+ }
+}
