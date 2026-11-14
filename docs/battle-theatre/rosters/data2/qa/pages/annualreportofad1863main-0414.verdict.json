@@ -1,0 +1,406 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "annualreportofad1863main/414",
+ "levels": "N",
+ "stratum": "ME-RET-other",
+ "family": "ME-RET",
+ "layout": "cols",
+ "kind": "other",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 194,
+ "rows_stored": 16,
+ "rows_checked": 16,
+ "rows_in_error": 11,
+ "rows_ok": 5,
+ "rows_flagged_ocr_uncertain": 3,
+ "errors": [
+  {
+   "i": 0,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Hubert M Stevens' printed 'Robert M Stevens' (Captain)",
+   "rid": "5th-maine-infantry#196",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "rank"
+   ],
+   "note": "stored rank 'JLst Sergt' printed '1st Sergt'",
+   "rid": "5th-maine-infantry#199",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "rank"
+   ],
+   "note": "rank cell holds the ditto mark, stored as the digits '66'",
+   "rid": "5th-maine-infantry#201",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "rank"
+   ],
+   "note": "rank cell holds the ditto mark, stored as the digits '66'",
+   "rid": "5th-maine-infantry#202",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 7,
+   "kinds": [
+    "rank"
+   ],
+   "note": "rank cell holds the ditto mark, stored as the digits '66'",
+   "rid": "5th-maine-infantry#203",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 9,
+   "kinds": [
+    "rank"
+   ],
+   "note": "rank cell holds the ditto mark, stored as the digits '66'",
+   "rid": "5th-maine-infantry#205",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "rank"
+   ],
+   "note": "rank cell holds the ditto mark, stored as the digits '66'",
+   "rid": "5th-maine-infantry#207",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 12,
+   "kinds": [
+    "rank"
+   ],
+   "note": "rank cell holds the ditto mark, stored as the digits '66'",
+   "rid": "5th-maine-infantry#208",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "rank"
+   ],
+   "note": "rank cell holds the ditto mark, stored as the digits '66'",
+   "rid": "5th-maine-infantry#210",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "rank"
+   ],
+   "note": "rank cell holds the ditto mark, stored as the letter 'a'",
+   "rid": "5th-maine-infantry#206",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 13,
+   "kinds": [
+    "rank"
+   ],
+   "note": "stored rank is the carried heading 'Present Organization of the Company.' (the printed rank cell is a ditto mark, Corporal)",
+   "rid": "5th-maine-infantry#209",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Jacob 0 Willey' (digit zero) printed 'Jacob O Willey'",
+   "rid": "5th-maine-infantry#210",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "'Frederick B Nesbit t' differs from 'Frederick B Nesbitt' only by a space (form); the Condensed Morning Report printed above the table (a grid of figures) is not stored and holds no names; 16 stored rows = 16 printed rows"
+ ],
+ "reader": "names and structure level; crop of the table 'Present Organization of the Company' at 300 dpi (1 Read) compared with all 16 stored rows (name, rank cell, order); age, residence, date and remark cells not compared on this page (R-G2 and R-G3b of this stratum already failed decisively)",
+ "tesseract_prescreen": {
+  "agree": 0,
+  "near": 1,
+  "suspect": 15,
+  "unstored_lines": 11
+ },
+ "read": {
+  "pdf_sha256": "d77de6afc32d44373c94b64f39c58a03398966be0c4260bd34c56e8175e1635c",
+  "pdf_page": 414,
+  "view_png_sha256": "c6ba00699b3982d21467aa8efaf783f66cd999cd7c44490fcf9d08dc543db69b",
+  "render300_sha256": "21bb9c8b9e05b2545bfb830c880a78ca4a9032e47ef80e56958188bc8437c65a",
+  "tess_sha256": "6fa45a623b7bea924051384b20f33e6765a424511818ad3ac16840d7bed3f480",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.733
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "5th-maine-infantry#196",
+   "name": "Hubert M Stevens",
+   "rank": "Captain",
+   "co": "B",
+   "remarks_sha256": "e0886ed858b43aa854680ec36ccc52e59726328fe723660d73df27a5a98cea3d",
+   "off": 1212474,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "5th-maine-infantry#197",
+   "name": "William E Stevens",
+   "rank": "1st Lieut",
+   "co": "B",
+   "remarks_sha256": "b5df291d7c79cf34706e36fbcab775c39f726d8fe4431d2dae017767fdab4c2a",
+   "off": 1212528,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "5th-maine-infantry#198",
+   "name": "John S French",
+   "rank": "2d Lieut",
+   "co": "B",
+   "remarks_sha256": "9b960ea7f7d87684a5bdb8baf31010a2d432eaedac84c6d6a4b07bbcd3edec44",
+   "off": 1212585,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "5th-maine-infantry#199",
+   "name": "Walter Foss",
+   "rank": "JLst Sergt",
+   "co": "B",
+   "remarks_sha256": "6d1d953bc088e11d56d88237ca150f9fe489cc8b355abb3e39fd5c3252253706",
+   "off": 1212663,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "5th-maine-infantry#200",
+   "name": "Billings Hodgdon",
+   "rank": "Sergt",
+   "co": "B",
+   "remarks_sha256": "650df23f0ed773f5d78b9d516e9c73c84cbf2ac610b2ad64fffa0566536a5733",
+   "off": 1212708,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "5th-maine-infantry#201",
+   "name": "John Linscott",
+   "rank": "66",
+   "co": "B",
+   "remarks_sha256": "1d50f6baa8efe556768766f29a3bf87b2a196352e94a6c5966367b1c57db4f22",
+   "off": 1212742,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "5th-maine-infantry#202",
+   "name": "(Samuel B Brackett",
+   "rank": "66",
+   "co": "B",
+   "remarks_sha256": "a10d7d2edfd76a87561af5214be04d5231f3b968f75e0c37ba277cc17b219280",
+   "off": 1212766,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 7,
+   "rid": "5th-maine-infantry#203",
+   "name": "Junius W Littlefield",
+   "rank": "66",
+   "co": "B",
+   "remarks_sha256": "c1dbd0a0def4ec3fedbd38be63d5890533ba9027c9fcdbd6a79f31e834ecdb9a",
+   "off": 1212799,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "5th-maine-infantry#204",
+   "name": "Frederick B Nesbit t",
+   "rank": "Corporal",
+   "co": "B",
+   "remarks_sha256": "647d5cbc9189e70b846abc4983cf62906b3eb96bcb33e8e932c042a298b9c46a",
+   "off": 1212847,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 9,
+   "rid": "5th-maine-infantry#205",
+   "name": "Timothy Elliot",
+   "rank": "66",
+   "co": "B",
+   "remarks_sha256": "7fbb58efe707716a74eec1ca9f2908e206917a25001ab0fe24224fcb31f04822",
+   "off": 1212901,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "5th-maine-infantry#206",
+   "name": "James Stevens",
+   "rank": "a",
+   "co": "B",
+   "remarks_sha256": "623d2816b590ecae0c967a55a7d7795dd4dd34e9b17f332ecb1fb834fbad0700",
+   "off": 1212935,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "5th-maine-infantry#207",
+   "name": "James Blake",
+   "rank": "66",
+   "co": "B",
+   "remarks_sha256": "6156a18743685ad3333b0b669f7f3e977a52a63e55085d509426c66d6e71f1c2",
+   "off": 1212961,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "5th-maine-infantry#208",
+   "name": "Cyrus P Berry",
+   "rank": "66",
+   "co": "B",
+   "remarks_sha256": "ebce7b3d436c7a1764526e140f12852b5ffa1f0d11d86736934265cedc7a08a6",
+   "off": 1213000,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "5th-maine-infantry#209",
+   "name": "Thomas Heney",
+   "rank": "^Present Organization of the Company.",
+   "co": "B",
+   "remarks_sha256": "50513bbb241e77fb3a41e5404d00f6d05d9690f7398a64d0d9ae28fa22fff444",
+   "off": 1213040,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "5th-maine-infantry#210",
+   "name": "Jacob 0 Willey",
+   "rank": "66",
+   "co": "B",
+   "remarks_sha256": "7e00a840ba846a35b74308902c272eeab8e460b6d2c7e5c31ad9c6abdd8cda68",
+   "off": 1213069,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 15,
+   "rid": "5th-maine-infantry#211",
+   "name": "Benjamin F Hadlock",
+   "rank": "Musician",
+   "co": "B",
+   "remarks_sha256": "0fc3700f469d74747cc21eee780a7d4b548a9fb554620fda3ace2d84304dcf52",
+   "off": 1213098,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T01:20:06Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "NEAR"
+ }
+}

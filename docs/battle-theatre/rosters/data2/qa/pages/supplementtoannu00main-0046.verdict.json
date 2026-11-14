@@ -1,0 +1,222 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "supplementtoannu00main/46",
+ "levels": "NR",
+ "stratum": "ME-IDX-officers",
+ "family": "ME-IDX",
+ "layout": "cols",
+ "kind": "officers",
+ "draw_position": 3,
+ "in_lowest_decile": false,
+ "printed_page": 38,
+ "rows_stored": 12,
+ "rows_checked": 12,
+ "rows_in_error": 2,
+ "rows_ok": 10,
+ "rows_flagged_ocr_uncertain": 1,
+ "errors": [
+  {
+   "i": 10,
+   "kinds": [
+    "rem-missing"
+   ],
+   "note": "'Bisbee Andrew Corporal B do' lacks the regiment 7 (printed 'B 7 do'); the line is filed to no unit for that reason",
+   "rid": "_other-ME-SUPP-1867#105",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "rem-missing"
+   ],
+   "note": "'Bisbee Hiram B do F do' lacks the regiment 9 (printed 'F 9 do')",
+   "rid": "_other-ME-SUPP-1867#106",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "all 12 names, ranks, companies and the other regiments agree with the print; no printed line of the 14 units is missing from the stored rows on this page; 10 of 12 rows free of errors (a page without damage)"
+ ],
+ "reader": "full level without dates; full page at 200 dpi (1 Read); all 12 stored rows (10 filed to units, 2 to no unit) compared with the printed index lines; every printed line whose regiment cell is one of the 14 units was looked for in the stored rows",
+ "tesseract_prescreen": {
+  "agree": 3,
+  "near": 0,
+  "suspect": 9,
+  "unstored_lines": 31
+ },
+ "read": {
+  "pdf_sha256": "cc4dd37fa553565deee261772b9c78c94d1191bb7ca5ea75caa8f913b3150ae7",
+  "pdf_page": 46,
+  "view_png_sha256": "6aae69f00a065f1cd7bbbb4bfa8b33bf8a175895f9e49d577bcf3ee8cce0461c",
+  "render300_sha256": "06798d95054903efb3853fd92461a55a259fc9a8f36e3940885281c52b26ad33",
+  "tess_sha256": "13f6bc478938f2419d4c3957462d243302f322ed371305a67d2d1c2b4e37a5b4",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.994
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "16th-maine-infantry#1451",
+   "name": "Bisbee Lewis C",
+   "rank": "do",
+   "co": "",
+   "remarks_sha256": "07cb626481e46d4a4432a9abbb189370f31b439a3d96b2f6e45b3eafb6cdd905",
+   "off": 77527,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "16th-maine-infantry#1452",
+   "name": "Same",
+   "rank": "Lieutenant",
+   "co": "",
+   "remarks_sha256": "07cb626481e46d4a4432a9abbb189370f31b439a3d96b2f6e45b3eafb6cdd905",
+   "off": 77555,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "16th-maine-infantry#1453",
+   "name": "Bisbee George D",
+   "rank": "Sergeant",
+   "co": "",
+   "remarks_sha256": "d41d9dd9fbac6033f8a907f8975b7e8392e89f691ca9365d953c677bcb3d81d1",
+   "off": 77869,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 3,
+   "rid": "19th-maine-infantry#1164",
+   "name": "Billings Adoniram J",
+   "rank": "Surgeon",
+   "co": "",
+   "remarks_sha256": "fca9ee8565a5dd327a03627d8988beddb50fd593715a0472920cf7116679e1e1",
+   "off": 76111,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "1st-maine-cavalry#1342",
+   "name": "Bisbee Hannibal",
+   "rank": "do",
+   "co": "",
+   "remarks_sha256": "ed6e5fc4a7c13f9cbddf08b01ce169d54ff8bf456cf5bc227a5bd30318157abd",
+   "off": 77636,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "4th-maine-infantry#1137",
+   "name": "Bisbee Levi B",
+   "rank": "Lieutenant",
+   "co": "",
+   "remarks_sha256": "3761dd9f3c907a11d9b7b099a99ae7c459e8dd015f0899162792a1fa823a6054",
+   "off": 77326,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "4th-maine-infantry#1138",
+   "name": "Same",
+   "rank": "Captain",
+   "co": "",
+   "remarks_sha256": "3761dd9f3c907a11d9b7b099a99ae7c459e8dd015f0899162792a1fa823a6054",
+   "off": 77360,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 7,
+   "rid": "5th-maine-infantry#1048",
+   "name": "Binner John",
+   "rank": "do",
+   "co": "",
+   "remarks_sha256": "a8091a870f24481085da1e1ab198327c828f8144a2ed403d3da82e82cdc31606",
+   "off": 77076,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "6th-maine-infantry#1257",
+   "name": "Billington Charles L",
+   "rank": "do",
+   "co": "",
+   "remarks_sha256": "c979b42942307c1771ae0d54f941c8f88c41c2398c0a9b4921a85f001fa4ad5b",
+   "off": 76847,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "7th-maine-infantry#1218",
+   "name": "Billington Nathaniel",
+   "rank": "do",
+   "co": "",
+   "remarks_sha256": "aaf9cdd96f4eff86e50725350d8c887f2dc1905e67fe52a0d0fb80a14a062340",
+   "off": 76880,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "_other-ME-SUPP-1867#105",
+   "name": "Bisbee Andrew",
+   "rank": "Corporal",
+   "co": "",
+   "remarks_sha256": "ecce21af202b80e20a15b83ad65eaa69a7bd23d36e98aa0834c33ecac74c1451",
+   "off": 77967,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "_other-ME-SUPP-1867#106",
+   "name": "Bisbee Hiram B",
+   "rank": "do",
+   "co": "",
+   "remarks_sha256": "aecfafdba4496d4ccf035603dca519dcb15d79a19f006d16b4ca5af6420243ad",
+   "off": 77998,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T01:21:04Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "AGREE",
+  "4": "SUSPECT",
+  "5": "AGREE",
+  "6": "AGREE",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT"
+ }
+}

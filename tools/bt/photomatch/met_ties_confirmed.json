@@ -1,0 +1,164 @@
+{
+ "_doc": "Metropolitan Museum programme items of the first run (archive.org copies) matched to catalogued Library of Congress records (met_to_catalogue.json) and confirmed by looking at both images; geometry from tie_geometry.py.",
+ "ties": {
+  "MMET268204": {
+   "item": "MET268204",
+   "loc": "2014646002",
+   "res": "ppmsca.35052",
+   "inliers": 209,
+   "good_matches": 232,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 209,
+    "inlier_fraction": 0.909,
+    "scale": 0.518,
+    "rotation_deg": 1.43,
+    "anisotropy": 1.051,
+    "perspective": 0.022,
+    "median_residual_px": 0.27,
+    "p90_residual_px": 0.85,
+    "footprint_share_of_candidate": 0.387,
+    "failed_tests": [],
+    "footprint_x_range_of_candidate_width": [
+     0.0,
+     0.53
+    ]
+   },
+   "confirmed_by_looking": true,
+   "note": "the left plate of a two-plate panorama: it covers the left half of the Library print (the footprint spans 0.00 to 0.53 of its width); the print joins the two plates; geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.909, scale 0.518, median residual 0.27 px"
+  },
+  "MMET268205": {
+   "item": "MET268205",
+   "loc": "2014646002",
+   "res": "ppmsca.35052",
+   "inliers": 213,
+   "good_matches": 234,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 209,
+    "inlier_fraction": 0.909,
+    "scale": 0.52,
+    "rotation_deg": 0.74,
+    "anisotropy": 1.042,
+    "perspective": 0.021,
+    "median_residual_px": 0.21,
+    "p90_residual_px": 0.58,
+    "footprint_share_of_candidate": 0.386,
+    "failed_tests": [],
+    "footprint_x_range_of_candidate_width": [
+     0.45,
+     0.96
+    ]
+   },
+   "confirmed_by_looking": true,
+   "note": "the right plate of the same panorama: it covers the right part of the Library print (the footprint spans 0.45 to 0.96 of its width); it overlaps the left plate by about 0.08 of the print; geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.909, scale 0.52, median residual 0.21 px"
+  },
+  "MMET268201": {
+   "item": "MET268201",
+   "loc": "2018670711",
+   "res": "cwpb.01662",
+   "inliers": 352,
+   "good_matches": 551,
+   "geometry": {
+    "class": "SAME_SCENE",
+    "inliers": 320,
+    "inlier_fraction": 0.577,
+    "scale": 1.135,
+    "rotation_deg": 1.78,
+    "anisotropy": 1.138,
+    "perspective": 0.136,
+    "median_residual_px": 2.13,
+    "p90_residual_px": 3.6,
+    "footprint_share_of_candidate": 0.822,
+    "failed_tests": [
+     "inlier_fraction",
+     "anisotropy"
+    ],
+    "footprint_x_range_of_candidate_width": [
+     0.0,
+     1.0
+    ]
+   },
+   "confirmed_by_looking": true,
+   "note": "the same scene as the Library negative (a white house with an outside stair); inlier fraction 0.58 and median residual 2.1 px, so the same exposure or its stereo sibling; geometry (tie_geometry.py): SAME_SCENE, inlier fraction 0.577, scale 1.135, median residual 2.13 px, failed inlier_fraction, anisotropy"
+  },
+  "MMET268202": {
+   "item": "MET268202",
+   "loc": "2012646949",
+   "res": "ppmsca.32833",
+   "inliers": 620,
+   "good_matches": 643,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 619,
+    "inlier_fraction": 0.961,
+    "scale": 1.098,
+    "rotation_deg": 0.54,
+    "anisotropy": 1.036,
+    "perspective": 0.025,
+    "median_residual_px": 0.68,
+    "p90_residual_px": 1.37,
+    "footprint_share_of_candidate": 0.817,
+    "failed_tests": [],
+    "footprint_x_range_of_candidate_width": [
+     0.0,
+     1.0
+    ]
+   },
+   "confirmed_by_looking": true,
+   "note": "a pond with a broken rail fence and a man; the same photograph as ppmsca.32833 and as ppmsca.32852 (record 2012647718): 619 and 586 inliers, residual under 1 px; geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.961, scale 1.098, median residual 0.68 px"
+  },
+  "MMET268203": {
+   "item": "MET268203",
+   "loc": "2012647706",
+   "res": "ppmsca.32840",
+   "inliers": 1154,
+   "good_matches": 1159,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 1167,
+    "inlier_fraction": 0.995,
+    "scale": 1.029,
+    "rotation_deg": -0.56,
+    "anisotropy": 1.035,
+    "perspective": 0.006,
+    "median_residual_px": 0.43,
+    "p90_residual_px": 1.06,
+    "footprint_share_of_candidate": 0.993,
+    "failed_tests": [],
+    "footprint_x_range_of_candidate_width": [
+     0.0,
+     1.0
+    ]
+   },
+   "confirmed_by_looking": true,
+   "note": "two men standing in a field in front of a wood; the same photograph as ppmsca.32840 and ppmsca.32853 (record 2012647719): 1154 and 725 inliers, residual under 1 px; geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.995, scale 1.029, median residual 0.43 px"
+  },
+  "MMET286882": {
+   "item": "MET286882",
+   "loc": "2012647835",
+   "res": "ppmsca.32922",
+   "inliers": 886,
+   "good_matches": 904,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 894,
+    "inlier_fraction": 0.981,
+    "scale": 1.331,
+    "rotation_deg": -0.21,
+    "anisotropy": 1.043,
+    "perspective": 0.022,
+    "median_residual_px": 0.47,
+    "p90_residual_px": 1.08,
+    "footprint_share_of_candidate": 1.0,
+    "failed_tests": [],
+    "footprint_x_range_of_candidate_width": [
+     0.0,
+     1.0
+    ]
+   },
+   "confirmed_by_looking": true,
+   "note": "a print of dead soldiers lying on a field, mounted on a page with printed text; the same photograph as ppmsca.32922 (886 inliers); it also matches the negative cwpb.00849 of record 2018666307 (274 inliers); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.981, scale 1.331, median residual 0.47 px"
+  }
+ }
+}

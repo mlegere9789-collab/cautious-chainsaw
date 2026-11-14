@@ -1,0 +1,665 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "annualreportofad1863main/789",
+ "levels": "N",
+ "stratum": "ME-RET-other",
+ "family": "ME-RET",
+ "layout": "cols",
+ "kind": "other",
+ "draw_position": 2,
+ "in_lowest_decile": false,
+ "printed_page": 569,
+ "rows_stored": 46,
+ "rows_checked": 46,
+ "rows_in_error": 5,
+ "rows_ok": 41,
+ "rows_flagged_ocr_uncertain": 0,
+ "errors": [
+  {
+   "i": 19,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Gliddcn Wesley' printed 'Glidden Wesley'",
+   "rid": "19th-maine-infantry#1071",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 20,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Greenwood Wiiliam' printed 'Greenwood William'",
+   "rid": "19th-maine-infantry#1072",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 36,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'LRobinson Albert' (stray L) printed 'Robinson Albert'",
+   "rid": "19th-maine-infantry#1088",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 37,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Stand Albert G' printed 'Rand Albert G'",
+   "rid": "19th-maine-infantry#1089",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 44,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Williams John II' printed 'Williams John H'",
+   "rid": "19th-maine-infantry#1096",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [
+  "the printed line 'Giles O Bailey, Corporal.' under 'Discharged and Deceased in 1862 - Final Record given in last Report.' is not stored (the prose lists of the returns are a known gap)"
+ ],
+ "notes": [
+  "46 stored rows = 46 printed rows (10 privates, 36 joined since Nov. 1, 1862); the headings agree"
+ ],
+ "reader": "names and structure level; two crops of the name, age and residence columns at 300 dpi (2 Reads) compared with all 46 stored names, headings and the order of the rows; dates and remarks not compared on this page (R-G2 and R-G3b of this stratum already failed decisively)",
+ "tesseract_prescreen": {
+  "agree": 3,
+  "near": 1,
+  "suspect": 42,
+  "unstored_lines": 7
+ },
+ "read": {
+  "pdf_sha256": "d77de6afc32d44373c94b64f39c58a03398966be0c4260bd34c56e8175e1635c",
+  "pdf_page": 789,
+  "view_png_sha256": "e873a110d7268d4ec5651ab397b5bcc2189dd75de53054d73a4941f4ee7f8dd7",
+  "render300_sha256": "61bc59ab808530a827408d1038ef67b93f51042cb1cf48fe30649db868ba4baa",
+  "tess_sha256": "5213e9aa31662308d08ba7e740d30e54a9b2b36874c107f8329e5f2dd9075eab",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.88
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "19th-maine-infantry#1052",
+   "name": "Varell Gilman N",
+   "rank": "^PRIVATES.",
+   "co": "K",
+   "remarks_sha256": "af85e7c9f9dc4583ecb09882af955bdf488df17af9fddfa82870886a6a13bf0a",
+   "off": 2187053,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "19th-maine-infantry#1053",
+   "name": "Winter Joseph W",
+   "rank": "^PRIVATES.",
+   "co": "K",
+   "remarks_sha256": "5f68e6fff2222a17a7ac980e2f67a22c51c1b866bc97b1844d65ca1ffa5ba84d",
+   "off": 2187128,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "19th-maine-infantry#1054",
+   "name": "Wallace James R",
+   "rank": "^PRIVATES.",
+   "co": "K",
+   "remarks_sha256": "e8ab92248e3c9a21dacaad044a44d54a71cd9f697f34fd066d6e6159efeb420f",
+   "off": 2187165,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "19th-maine-infantry#1055",
+   "name": "Webber Isaac jr",
+   "rank": "^PRIVATES.",
+   "co": "K",
+   "remarks_sha256": "d42b2805d15a7791f0d887fdc8d255867842db659e14311ec4a13bf0fe716388",
+   "off": 2187201,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "19th-maine-infantry#1056",
+   "name": "Webster Leonard S",
+   "rank": "^PRIVATES.",
+   "co": "K",
+   "remarks_sha256": "48ff711cda9079ff54c9341ff2c8595a7cb593afd26da6e59dc31a34a7cabccf",
+   "off": 2187269,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "19th-maine-infantry#1057",
+   "name": "Webster Lorenzo",
+   "rank": "^PRIVATES.",
+   "co": "K",
+   "remarks_sha256": "c211bd546ebd6147102ecf4457f5340f49ada4083d9feefd88eb7ee477038a88",
+   "off": 2187323,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "19th-maine-infantry#1058",
+   "name": "Williams Henry N",
+   "rank": "^PRIVATES.",
+   "co": "K",
+   "remarks_sha256": "ed69611fa3edb31077832be44272824a9af5027743e61d0680f3b3499d92ea3c",
+   "off": 2187385,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "19th-maine-infantry#1059",
+   "name": "Willis William T",
+   "rank": "^PRIVATES.",
+   "co": "K",
+   "remarks_sha256": "651ca6c3c6eb6c72042a9f53077154a89b52d59de53c512ca91a261d19946362",
+   "off": 2187456,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "19th-maine-infantry#1060",
+   "name": "Wylie James A",
+   "rank": "^PRIVATES.",
+   "co": "K",
+   "remarks_sha256": "5e3da761c64e0f3df6bdd50e1c4e83b648a3387eada9ae30261a92baa882c8bd",
+   "off": 2187513,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "19th-maine-infantry#1061",
+   "name": "Wylie Samuel 2d",
+   "rank": "^PRIVATES.",
+   "co": "K",
+   "remarks_sha256": "b2deaa20dc9321b520518e4d29accebe32cde848e00366547f97c7e506f32540",
+   "off": 2187582,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "19th-maine-infantry#1062",
+   "name": "Allen Manley",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "7d3e62c3eee469271603109acfd53f6585f4072b24a81a47512adb546f4d5cbb",
+   "off": 2187662,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "19th-maine-infantry#1063",
+   "name": "Bourne Justin T",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "075354af86c60547fbde3bf9a5bfcdac18e8443ae96c4c0e91e299f311799e49",
+   "off": 2187736,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "19th-maine-infantry#1064",
+   "name": "Bixby George",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "078de64e9ca0ce776221fb653d2f3f9bc5a7152256cec9dd717d7341c27bcc71",
+   "off": 2187785,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "19th-maine-infantry#1065",
+   "name": "Chase George",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "8e39da074d2ce44aefea36aadfe3e454891a9e3fe6b7a640a5871ebe9751d4c9",
+   "off": 2187855,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "19th-maine-infantry#1066",
+   "name": "Dorrity Charles M",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "d48b297758f3230f8801e8fb8be1f4d002da805bae7a8e39b5b2ec86b5fba365",
+   "off": 2187895,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "19th-maine-infantry#1067",
+   "name": "Flinn Charles B",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "036dbdaf9bf35ffa59976b8d38433239c878936998bee6bdc3fb53d6f44209e6",
+   "off": 2187940,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "19th-maine-infantry#1068",
+   "name": "Farrar Leroy",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "852712026cc15a14def1bc505250f939bf0ff5bcd854b3dfe2d189c59d782549",
+   "off": 2187983,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "19th-maine-infantry#1069",
+   "name": "Fielding John",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "104654813912f257a799b6da8f3af15b75259f948b11a53a12dbe279df187c18",
+   "off": 2188043,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "19th-maine-infantry#1070",
+   "name": "Gibbs Reuben",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "20f90006f7b3d975d22916f496712f8b8e3dd2a3edf624333d36e0253da393df",
+   "off": 2188085,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 19,
+   "rid": "19th-maine-infantry#1071",
+   "name": "Gliddcn Wesley",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "340c8cc62b450886322445dfd7d254c2568fbec8e767014d1b34a32160925de8",
+   "off": 2188125,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 20,
+   "rid": "19th-maine-infantry#1072",
+   "name": "Greenwood Wiiliam",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "02d059a3b8e87cf8571256aff67788a6be808ba9bcc0dcce79f6710dc59abb10",
+   "off": 2188173,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "19th-maine-infantry#1073",
+   "name": "Howes Wilson",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "3b0ac1b187fcadd356e3d4a9af6bfa9019e7c222adc28add28c0d577806067d5",
+   "off": 2188248,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "19th-maine-infantry#1074",
+   "name": "Hicks James W",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "6024385aaea35ac436e6362685721758664699786e44c5c612a11fbfed0d2479",
+   "off": 2188289,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 23,
+   "rid": "19th-maine-infantry#1075",
+   "name": "Holmes Charles",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "49f39982a410060b414555ecda4677e595edb570a24a5b98b72c11c500c3b3f0",
+   "off": 2188330,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 24,
+   "rid": "19th-maine-infantry#1076",
+   "name": "Howard Charles A",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "4cea163a58285b262bf97e1fbf1f1cc7cdcb1e66067d89e0c05767f237858cad",
+   "off": 2188384,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 25,
+   "rid": "19th-maine-infantry#1077",
+   "name": "Hefferon Thomas",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "371afb021f727f03b1e66b9f666ead24dd113984f385a2be33a66cda5c727127",
+   "off": 2188461,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 26,
+   "rid": "19th-maine-infantry#1078",
+   "name": "Killfedder Robert",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "2955bf7e1528c199df2f6812badb080f8d310812ac4c124ced0fac07ed91f9b0",
+   "off": 2188518,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 27,
+   "rid": "19th-maine-infantry#1079",
+   "name": "Lowell William R",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "a1cb8b139a61ff7d44cc6198034ac291bee9e0061075fe30556490147a7cc840",
+   "off": 2188557,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 28,
+   "rid": "19th-maine-infantry#1080",
+   "name": "Lee Peter",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "cdbf11ac9421405c61f4fb32c53f76643abd4446edaa7ee460eb6f1db6adccd8",
+   "off": 2188602,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 29,
+   "rid": "19th-maine-infantry#1081",
+   "name": "McAllister Gardiner",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "6048b96f5fa941efefcf96816ccdaa54ebd5e402b544242a3f8a3757510ffaeb",
+   "off": 2188640,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 30,
+   "rid": "19th-maine-infantry#1082",
+   "name": "McKeen Loring",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "7e9d5a494cd42c15e225e6eeeeec550f422f98000455fb377181091de7d9c226",
+   "off": 2188681,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 31,
+   "rid": "19th-maine-infantry#1083",
+   "name": "McDonald Angus",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "971b4030e0d037465c07b0517b50845f8b664d24a9d1f06b90e41b8709a467b3",
+   "off": 2188749,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 32,
+   "rid": "19th-maine-infantry#1084",
+   "name": "McKinsey Norman",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "83da63dae54e9dbde287491683c8827546cb17e8ccd4b39a2829158b7d481505",
+   "off": 2188826,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 33,
+   "rid": "19th-maine-infantry#1085",
+   "name": "Porter Josiah H",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "b0b6fc1a96881afa5ec8fd27a544114e9aaacf3f996b98da395d88ef76794b6a",
+   "off": 2188888,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 34,
+   "rid": "19th-maine-infantry#1086",
+   "name": "Porter Willis M",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "e02dc76d884aaf89d3ba9e6eb0df4988b0b2b052b296045a1ab3c938ff432cd0",
+   "off": 2188932,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 35,
+   "rid": "19th-maine-infantry#1087",
+   "name": "Potter Samuel",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "28d88fcf569ca4ef17e5b9e33d52bcf80d7688dcc2afd0a939f3ae150b1333d5",
+   "off": 2188984,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 36,
+   "rid": "19th-maine-infantry#1088",
+   "name": "LRobinson Albert",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "ebe005a9582fa7ff3687353134b4b61a4361671d7b2cea3918894f35e114ea6a",
+   "off": 2189053,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 37,
+   "rid": "19th-maine-infantry#1089",
+   "name": "Stand Albert G",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "f60770c6d3b7e861ca43e6d650abfb8d1bf6b0b705c87205c68ee4cb4ab0918c",
+   "off": 2189089,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 38,
+   "rid": "19th-maine-infantry#1090",
+   "name": "Roberts Henry",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "5dbcc62e84ec546090e89f82248bc1ccbb7d851a0d8a94308b43933ea866903a",
+   "off": 2189129,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 39,
+   "rid": "19th-maine-infantry#1091",
+   "name": "Sawyer Ether C G",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "09c0547e447e95a02e0f4b066c0e428618f818e34d0904a2d473b47bb3e2604e",
+   "off": 2189191,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 40,
+   "rid": "19th-maine-infantry#1092",
+   "name": "Shepherd Nelson R",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "0c0682de2883acc598d52f234662e793a4f5279757392f8d388a17331fa782bb",
+   "off": 2189241,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 41,
+   "rid": "19th-maine-infantry#1093",
+   "name": "Tilton Newell B",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "7cdc3ffab39c81e0eff6c2ee2d659857dce310182117f9b3481f0f937b30563c",
+   "off": 2189294,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 42,
+   "rid": "19th-maine-infantry#1094",
+   "name": "Thompson John L",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "eae795e1299ff66308182bc711144267af4f4b1fd828b44252fd50838704efec",
+   "off": 2189337,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 43,
+   "rid": "19th-maine-infantry#1095",
+   "name": "Thompson Alonzo",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "9d18e33f84c49c7c17db74ae2c1ee4417a14d3fd292851b1315f12b3fb0c92e0",
+   "off": 2189389,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 44,
+   "rid": "19th-maine-infantry#1096",
+   "name": "Williams John II",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "d92dbe39838559e56d3f186f2b6b062bf7d45954cfeec783ef4d888891a83f12",
+   "off": 2189436,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  },
+  {
+   "i": 45,
+   "rid": "19th-maine-infantry#1097",
+   "name": "Wentworth Asa C",
+   "rank": "^Joined Co. since Nov. 1, 1862.",
+   "co": "K",
+   "remarks_sha256": "5d11ca8ba98ecdee399e4da91baa69aa95cf56e8be56f2c411a445ab49a7e2b8",
+   "off": 2189491,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T01:20:36Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "SUSPECT",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "SUSPECT",
+  "23": "SUSPECT",
+  "24": "SUSPECT",
+  "25": "AGREE",
+  "26": "SUSPECT",
+  "27": "SUSPECT",
+  "28": "SUSPECT",
+  "29": "SUSPECT",
+  "30": "AGREE",
+  "31": "SUSPECT",
+  "32": "SUSPECT",
+  "33": "SUSPECT",
+  "34": "SUSPECT",
+  "35": "SUSPECT",
+  "36": "SUSPECT",
+  "37": "SUSPECT",
+  "38": "SUSPECT",
+  "39": "SUSPECT",
+  "40": "SUSPECT",
+  "41": "AGREE",
+  "42": "NEAR",
+  "43": "SUSPECT",
+  "44": "SUSPECT",
+  "45": "SUSPECT"
+ }
+}

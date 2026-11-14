@@ -2837,12 +2837,16 @@
    "id": "PS-NPS-ROTV1-F6",
    "src": "NPS-CLR-ROT-V1",
    "quote": "Figure 6. View southwest from Rose Barn, 1863 (GETT 41135, Historic Photograph Collection, 2B-2063)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. I, Figure 6: the park collection (GETT 41135) number 2B-2063, an 1863 photograph, is a view southwest from Rose Barn (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2018670660"
+   ],
+   "res": [
+    "cwpb.00846"
+   ],
+   "says": "NPS Record of Treatment vol. I, Figure 6: the park collection (GETT 41135) number 2B-2063, an 1863 photograph, is a view southwest from Rose Barn",
    "prec": "place+dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00846 (record 2018670660) with 774 inliers of 781 good matches (best other record: 8; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.985, scale 0.779, median residual 0.35 px; both images were looked at side by side and show the same scene",
+   "note": "the whole plate: a burial trench with grave boards and a wagon train beyond; the same exposure sits behind five images of the record (cwpb.00843 to 00847 match with 774, 746, 548, 440 and 214 inliers)",
    "page": 58,
    "offset_in_normalised_page": 95,
    "match": "exact",
@@ -2853,12 +2857,18 @@
    "id": "PS-NPS-ROTV1-F28",
    "src": "NPS-CLR-ROT-V1",
    "quote": "Figure 28. Herbst Woods and Reynolds Grove. View southeast from McPherson Farm, 1863 (GETT 41135, Historic Photograph Collection, 2B2001)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. I, Figure 28: the park collection (GETT 41135) number 2B2001, an 1863 photograph, is a view southeast from McPherson Farm (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2012647719",
+    "2012647706"
+   ],
+   "res": [
+    "ppmsca.32853",
+    "ppmsca.32840"
+   ],
+   "says": "NPS Record of Treatment vol. I, Figure 28: the park collection (GETT 41135) number 2B2001, an 1863 photograph, is a view southeast from McPherson Farm",
    "prec": "place+dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.32853 (record 2012647719) with 503 inliers of 510 good matches (best other record: 7; nps_figures_to_loc.json); the same exposure is held as record 2012647706 (resource ppmsca.32840, 424 inliers); geometry (tie_geometry.py): SAME_SCENE, inlier fraction 0.99, scale 0.83, median residual 0.43 px, failed rotation; both images were looked at side by side and show the same scene",
+   "note": "two men standing in a field in front of a wood: the same photograph as ppmsca.32840 (record 2012647706; 424 inliers); both records match the same Metropolitan Museum print (MET268203) with a median residual under 1 px. The rule class of tie_geometry.py is SAME_SCENE only because the figure is turned 4.2 degrees against the bar of 4.0 degrees (inlier fraction 0.99, median residual 0.4 px); called the same photograph by looking: a print placed a little crooked on the scanner",
    "page": 125,
    "offset_in_normalised_page": 36,
    "match": "exact",
@@ -2893,8 +2903,8 @@
    ],
    "says": "NPS Record of Treatment vol. I, Figure 79 (top): the Library of Congress image named in the caption, an 1863 photograph, is a detail of a view northwest from Cemetery Hill",
    "prec": "place+dir",
-   "ident": "id in the source: the caption names the Library of Congress Digital ID (resource ppmsca.35051, record 2014646001)",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.35051 (record 2014646001) with 50 inliers of 75 good matches (best other record: 21; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_SCENE, inlier fraction 0.617, scale 0.308, median residual 0.12 px, failed inlier_fraction; both images were looked at side by side and show the same scene",
+   "note": "a small detail of the print (scale 0.31 of its width); the caption names the Digital ID; the image match is corroboration only: 50 inliers, inlier fraction 0.62 (below the 0.80 bar of tie_geometry.py because a small detail holds few features), median residual 0.12 px",
    "page": 159,
    "offset_in_normalised_page": 174,
    "match": "exact",
@@ -2913,8 +2923,8 @@
    ],
    "says": "NPS Record of Treatment vol. I, Figure 163: the Library of Congress image named in the caption, an 1863 photograph, is a detail of a view northeast from Little Round Top",
    "prec": "place+dir",
-   "ident": "id in the source: the caption names the Library of Congress Digital ID (resource cwpb.01631, record 2018666303)",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.01631 (record 2018666303) with 88 inliers of 98 good matches (best other record: 7; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.888, scale 0.391, median residual 0.12 px; both images were looked at side by side and show the same scene",
+   "note": "another detail of the same view (scale 0.39); the caption names the Digital ID cwpb-01631",
    "page": 251,
    "offset_in_normalised_page": 55,
    "match": "exact",
@@ -2925,12 +2935,16 @@
    "id": "PS-NPS-ROTV1-F168",
    "src": "NPS-CLR-ROT-V1",
    "quote": "Figure 168. Frey Fields 5 and 7 east boundary stone wall and post and rail fence [GIS ID 163]. The image shows a stone wall near the western edge of Taneytown Road and a post and rail fence behind, or west, of the wall. View northwest, 1863 (GETT 41135, 163 Historic Photograph Collection, 23S0251)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. I, Figure 168: the park collection (GETT 41135) number 23S0251, an 1863 photograph, is a view northwest (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2018666296"
+   ],
+   "res": [
+    "cwp.4a39437"
+   ],
+   "says": "NPS Record of Treatment vol. I, Figure 168: the park collection (GETT 41135) number 23S0251, an 1863 photograph, is a view northwest",
    "prec": "dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwp.4a39437 (record 2018666296) with 293 inliers of 301 good matches (best other record: 76; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.973, scale 0.821, median residual 0.92 px; both images were looked at side by side and show the same scene",
+   "note": "the same scene as the Library image (viewed side by side; 291 inliers of 301, scale 0.82); the park's own photograph number is the only credit and the caption says only \"a stone wall near the western edge of Taneytown Road\"",
    "page": 253,
    "offset_in_normalised_page": 20,
    "match": "exact",
@@ -2957,12 +2971,16 @@
    "id": "PS-NPS-ROTV1-F193",
    "src": "NPS-CLR-ROT-V1",
    "quote": "Figure 193. Sherfy Meadow and John Weikert Field 1 south boundary stone wall. View south, 1863 (GETT 41135, Historic Photograph Collection, 2B2086)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. I, Figure 193: the park collection (GETT 41135) number 2B2086, an 1863 photograph, is a view south (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2018670709"
+   ],
+   "res": [
+    "cwpb.01655"
+   ],
+   "says": "NPS Record of Treatment vol. I, Figure 193: the park collection (GETT 41135) number 2B2086, an 1863 photograph, is a view south",
    "prec": "dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.01655 (record 2018670709) with 556 inliers of 559 good matches (best other record: 22; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.997, scale 0.897, median residual 0.6 px; both images were looked at side by side and show the same scene",
+   "note": "the same scene as the Library image (viewed side by side; 571 inliers, scale 0.90)",
    "page": 265,
    "offset_in_normalised_page": 48,
    "match": "exact",
@@ -2981,8 +2999,8 @@
    ],
    "says": "NPS Record of Treatment vol. I, Figure 206: the Library of Congress image named in the caption, an 1863 photograph, is a detail of a view northwest",
    "prec": "dir",
-   "ident": "id in the source: the caption names the Library of Congress Digital ID (resource cwpb.00887, record 2018666296)",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00887 (record 2018666296) with 185 inliers of 199 good matches (best other record: 24; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.907, scale 0.411, median residual 0.14 px; both images were looked at side by side and show the same scene",
+   "note": "a detail of the house, the oak and the lane (scale 0.41 of the width: an enlargement of the central part of the plate, residual 0.14 px)",
    "page": 282,
    "offset_in_normalised_page": 99,
    "match": "exact",
@@ -3001,8 +3019,8 @@
    ],
    "says": "NPS Record of Treatment vol. I, Figure 209: the Library of Congress image named in the caption, an 1863 photograph, is a detail of a view northwest",
    "prec": "dir",
-   "ident": "id in the source: the caption names the Library of Congress Digital ID (resource cwpb.00887, record 2018666296)",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00887 (record 2018666296) with 1045 inliers of 1055 good matches (best other record: 37; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.992, scale 0.818, median residual 0.16 px; both images were looked at side by side and show the same scene",
+   "note": "the whole plate; the caption names the Digital ID cwpb 00887 (1045 inliers of 1055)",
    "page": 283,
    "offset_in_normalised_page": 55,
    "match": "exact",
@@ -3021,8 +3039,8 @@
    ],
    "says": "NPS Record of Treatment vol. I, Figure 213: the park collection (GETT 41135) number OS2B-2037, an 1863 photograph, is a view east from Evergreen Cemetery Gatehouse",
    "prec": "place+dir",
-   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.32838 (record 2012647704, Culp's Hill) with 661 inliers of 672 good matches (nps_figures_to_loc.json; first seen in a targeted check of 26 images of 15 records of the cemetery and Culp's Hill, then in the full run); both images were looked at: the lunettes, the tent at the right and the wooded hill are the same",
-   "note": "the figure shows the print without its mount",
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.32838 (record 2012647704) with 661 inliers of 673 good matches (best other record: 10; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.981, scale 0.816, median residual 0.65 px; both images were looked at side by side and show the same scene",
+   "note": "the figure shows the print without its mount; first seen in a targeted check of 26 images of 15 records of the cemetery and Culp's Hill, then in the full run (661 inliers); the lunettes, the tent at the right and the wooded hill are the same",
    "page": 307,
    "offset_in_normalised_page": 95,
    "match": "exact",
@@ -3049,12 +3067,16 @@
    "id": "PS-NPS-ROTV1-F233",
    "src": "NPS-CLR-ROT-V1",
    "quote": "Figure 233. Henry Culp and Abraham Spangler Woods. View north along Greene’s Brigade breastworks, 1863 (GETT 41136, Tipton Collection, T3452a)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. I, Figure 233: the Tipton collection of the park (GETT 41136) number T3452a, an 1863 photograph, is a view north from Greene's Brigade breastworks (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2018670704"
+   ],
+   "res": [
+    "cwpb.01644"
+   ],
+   "says": "NPS Record of Treatment vol. I, Figure 233: the Tipton collection of the park (GETT 41136) number T3452a, an 1863 photograph, is a view north from Greene's Brigade breastworks",
    "prec": "place+dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.01644 (record 2018670704) with 293 inliers of 342 good matches (best other record: 86; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.847, scale 0.726, median residual 2.4 px; both images were looked at side by side and show the same scene",
+   "note": "men seated beside a log and a stone breastwork among trees; the figure is the same scene as one image of the record; median residual 2.4 px is higher than for the other ties, so a stereo sibling of the exposure cannot be ruled out",
    "page": 317,
    "offset_in_normalised_page": 20,
    "match": "exact",
@@ -3065,12 +3087,16 @@
    "id": "PS-NPS-ROTV1-F353",
    "src": "NPS-CLR-ROT-V1",
    "quote": "Figure 353. Trostle Yards post and rail fence. View northwest, 1863 (Sue Boardman Collection, GLS3)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. I, Figure 353: the Sue Boardman Collection number GLS3, an 1863 photograph, is a view northwest (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "91732551"
+   ],
+   "res": [
+    "cph.3g01831"
+   ],
+   "says": "NPS Record of Treatment vol. I, Figure 353: the Sue Boardman Collection number GLS3, an 1863 photograph, is a view northwest",
    "prec": "dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cph.3g01831 (record 91732551) with 786 inliers of 798 good matches (best other record: 645; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.984, scale 0.786, median residual 0.3 px; both images were looked at side by side and show the same scene",
+   "note": "a barn with a large tree and dead horses in front; the Library print is the same scene (the figure shows it without the card mount)",
    "page": 432,
    "offset_in_normalised_page": 99,
    "match": "exact",
@@ -3081,12 +3107,16 @@
    "id": "PS-NPS-ROTV1-F355",
    "src": "NPS-CLR-ROT-V1",
    "quote": "Figure 355. Trostle Yards picket fence and gate. View northeast, 1863 (Sue Boardman Collection, SV458)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. I, Figure 355: the Sue Boardman Collection number SV458, an 1863 photograph, is a view northeast (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2012647700"
+   ],
+   "res": [
+    "ppmsca.32834"
+   ],
+   "says": "NPS Record of Treatment vol. I, Figure 355: the Sue Boardman Collection number SV458, an 1863 photograph, is a view northeast",
    "prec": "dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.32834 (record 2012647700) with 199 inliers of 224 good matches (best other record: 18; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.884, scale 0.333, median residual 0.26 px; both images were looked at side by side and show the same scene",
+   "note": "a detail (scale 0.33 of the width) of the right-hand part of the print: the white house with dead horses in front",
    "page": 433,
    "offset_in_normalised_page": 20,
    "match": "exact",
@@ -3097,12 +3127,16 @@
    "id": "PS-NPS-ROTV2-F15",
    "src": "NPS-CLR-ROT-V2",
    "quote": "Figure 15. Rose Field 10. View east, 1863 (GETT 41135, Historic Photograph Collection, 2B-2059)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. II, Figure 15: the park collection (GETT 41135) number 2B-2059, an 1863 photograph, is a view east from Rose Field 10 (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2018666308"
+   ],
+   "res": [
+    "cwpb.00865"
+   ],
+   "says": "NPS Record of Treatment vol. II, Figure 15: the park collection (GETT 41135) number 2B-2059, an 1863 photograph, is a view east from Rose Field 10",
    "prec": "place+dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00865 (record 2018666308) with 890 inliers of 900 good matches (best other record: 97; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.983, scale 0.896, median residual 0.46 px; both images were looked at side by side and show the same scene",
+   "note": "dead soldiers in a meadow in front of a wood with a rail fence at the right; the whole plate (882 inliers)",
    "page": 114,
    "offset_in_normalised_page": 107,
    "match": "exact",
@@ -3129,12 +3163,16 @@
    "id": "PS-NPS-ROTV2-F27",
    "src": "NPS-CLR-ROT-V2",
    "quote": "Figure 27. Rose North Orchard. Detail of view northwest from Rose Field 10, 1863 (GETT 41135, Historic Photograph Collection, 2B-2056a)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. II, Figure 27: the park collection (GETT 41135) number 2B-2056a, an 1863 photograph, is a detail of a view northwest from Rose Field 10 (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2018666310"
+   ],
+   "res": [
+    "cwpb.00882"
+   ],
+   "says": "NPS Record of Treatment vol. II, Figure 27: the park collection (GETT 41135) number 2B-2056a, an 1863 photograph, is a detail of a view northwest from Rose Field 10",
    "prec": "place+dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00882 (record 2018666310) with 272 inliers of 277 good matches (best other record: 23; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.985, scale 0.612, median residual 0.19 px; both images were looked at side by side and show the same scene",
+   "note": "a wagon at the left and dead soldiers in a meadow; a detail (scale 0.61 of the width)",
    "page": 120,
    "offset_in_normalised_page": 136,
    "match": "exact",
@@ -3145,12 +3183,16 @@
    "id": "PS-NPS-ROTV2-F29",
    "src": "NPS-CLR-ROT-V2",
    "quote": "Figure 29. Rose Lane Orchard. View southwest from Rose Barn, 1863 (GETT 41135, Historic Photograph Collection, 2B-2063)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. II, Figure 29: the park collection (GETT 41135) number 2B-2063, an 1863 photograph, is a view southwest from Rose Barn (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2018670660"
+   ],
+   "res": [
+    "cwpb.00846"
+   ],
+   "says": "NPS Record of Treatment vol. II, Figure 29: the park collection (GETT 41135) number 2B-2063, an 1863 photograph, is a view southwest from Rose Barn",
    "prec": "place+dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00846 (record 2018670660) with 774 inliers of 781 good matches (best other record: 8; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.988, scale 0.779, median residual 0.35 px; both images were looked at side by side and show the same scene",
+   "note": "the same photograph as Figure 6 of volume I (the same park number 2B-2063): printed again in volume II",
    "page": 121,
    "offset_in_normalised_page": 53,
    "match": "exact",
@@ -3161,12 +3203,16 @@
    "id": "PS-NPS-ROTV2-F31left",
    "src": "NPS-CLR-ROT-V2",
    "quote": "Figure 31 (left). Rose Farm Orchard. View southwest from Rose Field 10, 1863 (GETT 41135, Historic Photograph Collection, 2B-2062)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. II, Figure 31 (left): the park collection (GETT 41135) number 2B-2062, an 1863 photograph, is a view southwest from Rose Field 10 (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2018672106"
+   ],
+   "res": [
+    "cwpb.00068"
+   ],
+   "says": "NPS Record of Treatment vol. II, Figure 31 (left): the park collection (GETT 41135) number 2B-2062, an 1863 photograph, is a view southwest from Rose Field 10",
    "prec": "place+dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00068 (record 2018672106) with 231 inliers of 265 good matches (best other record: 85; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.875, scale 0.384, median residual 0.24 px; both images were looked at side by side and show the same scene",
+   "note": "the left half of a stereo pair on one negative: a single tree with dead soldiers on the ground",
    "page": 122,
    "offset_in_normalised_page": 114,
    "match": "exact",
@@ -3177,12 +3223,16 @@
    "id": "PS-NPS-ROTV2-F33",
    "src": "NPS-CLR-ROT-V2",
    "quote": "Figure 33. Rose Old Orchard. View southwest from Rose Field 10, 1863 (GETT 41135, Historic Photograph Collection, 2B-2060)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. II, Figure 33: the park collection (GETT 41135) number 2B-2060, an 1863 photograph, is a view southwest from Rose Field 10 (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2018670703"
+   ],
+   "res": [
+    "cwpb.00854"
+   ],
+   "says": "NPS Record of Treatment vol. II, Figure 33: the park collection (GETT 41135) number 2B-2060, an 1863 photograph, is a view southwest from Rose Field 10",
    "prec": "place+dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00854 (record 2018670703) with 691 inliers of 697 good matches (best other record: 43; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.991, scale 0.794, median residual 0.32 px; both images were looked at side by side and show the same scene",
+   "note": "dead soldiers side by side in a meadow with a boulder at the left",
    "page": 123,
    "offset_in_normalised_page": 37,
    "match": "exact",
@@ -3241,12 +3291,16 @@
    "id": "PS-NPS-ROTV2-F67",
    "src": "NPS-CLR-ROT-V2",
    "quote": "Figure 67. John Musser Clearing and Thicket. View southeast, 1863 (GETT 41135, Historic Photograph Collection, 2B-2083a)",
-   "loc": [],
-   "res": [],
-   "says": "NPS Record of Treatment vol. II, Figure 67: the park collection (GETT 41135) number 2B-2083a, an 1863 photograph, is a view southeast (no catalogued Library of Congress record is tied to it)",
+   "loc": [
+    "2018672207"
+   ],
+   "res": [
+    "cwpb.03971"
+   ],
+   "says": "NPS Record of Treatment vol. II, Figure 67: the park collection (GETT 41135) number 2B-2083a, an 1863 photograph, is a view southeast",
    "prec": "dir",
-   "ident": "no catalogued Library of Congress record matched the figure image (nps_figures_to_loc.json): a print of the park, of another collection or not in the catalogue",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.03971 (record 2018672207) with 818 inliers of 828 good matches (best other record: 7; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.994, scale 0.891, median residual 0.36 px; both images were looked at side by side and show the same scene",
+   "note": "a rocky wooded slope; the whole plate",
    "page": 152,
    "offset_in_normalised_page": 133,
    "match": "exact",
@@ -3345,8 +3399,8 @@
    ],
    "says": "NPS Record of Treatment vol. II, Figure 137: the Library of Congress image named in the caption, an 1863 photograph, is a detail of a view northwest",
    "prec": "dir",
-   "ident": "id in the source: the caption names the Library of Congress Digital ID (resource cwpb.00887, record 2018666296)",
-   "note": null,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00887 (record 2018666296) with 352 inliers of 364 good matches (best other record: 12; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.97, scale 0.441, median residual 0.14 px; both images were looked at side by side and show the same scene",
+   "note": "a detail of the rail fence and stone heap at the lower left of the plate (scale 0.44 of the width); the caption names the Digital ID cwpb 00887",
    "page": 344,
    "offset_in_normalised_page": 127,
    "match": "exact",

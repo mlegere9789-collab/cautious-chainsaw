@@ -1,0 +1,58 @@
+{
+ "f": "roster-qa-detector/1",
+ "note": "computed from the verdicts that were looked at on all three levels",
+ "families": {
+  "ME-RET": {
+   "rows_looked_at_all_levels": 66,
+   "rows_in_error": 49,
+   "rows_clean": 17,
+   "error_rows_marked_SUSPECT": 46,
+   "error_rows_marked_NEAR": 0,
+   "error_rows_marked_AGREE": 3,
+   "clean_rows_marked_AGREE": 10,
+   "clean_rows_marked_NEAR": 0,
+   "clean_rows_marked_SUSPECT": 7,
+   "recall_of_errors": 0.939,
+   "agree_share_of_clean_rows": 0.588
+  },
+  "VT-REV": {
+   "rows_looked_at_all_levels": 153,
+   "rows_in_error": 121,
+   "rows_clean": 32,
+   "error_rows_marked_SUSPECT": 121,
+   "error_rows_marked_NEAR": 0,
+   "error_rows_marked_AGREE": 0,
+   "clean_rows_marked_AGREE": 18,
+   "clean_rows_marked_NEAR": 4,
+   "clean_rows_marked_SUSPECT": 10,
+   "recall_of_errors": 1.0,
+   "agree_share_of_clean_rows": 0.562
+  },
+  "NH-AYL": {
+   "rows_looked_at_all_levels": 77,
+   "rows_in_error": 57,
+   "rows_clean": 20,
+   "error_rows_marked_SUSPECT": 57,
+   "error_rows_marked_NEAR": 0,
+   "error_rows_marked_AGREE": 0,
+   "clean_rows_marked_AGREE": 12,
+   "clean_rows_marked_NEAR": 2,
+   "clean_rows_marked_SUSPECT": 6,
+   "recall_of_errors": 1.0,
+   "agree_share_of_clean_rows": 0.6
+  },
+  "MA-SSM": {
+   "rows_looked_at_all_levels": 129,
+   "rows_in_error": 51,
+   "rows_clean": 78,
+   "error_rows_marked_SUSPECT": 50,
+   "error_rows_marked_NEAR": 0,
+   "error_rows_marked_AGREE": 1,
+   "clean_rows_marked_AGREE": 64,
+   "clean_rows_marked_NEAR": 0,
+   "clean_rows_marked_SUSPECT": 14,
+   "recall_of_errors": 0.98,
+   "agree_share_of_clean_rows": 0.821
+  }
+ }
+}

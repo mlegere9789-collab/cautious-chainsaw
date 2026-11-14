@@ -441,7 +441,8 @@ ROWS.append(dict(
         ('Hays: a little after 2 o\'clock Gordon was ordered to advance', 'documented', 'conflict', ['h2']),
         ('The brigade moved forward slowly until within about 300 yards of the enemy (the OCR prints :>,()(); read as 300 on the page image), then rapidly, over rail and plank fences and a creek, and charged a line drawn up on the crest of a hill', 'documented', 'supported', ['g_300', 'g_adv']),
         ('Jones placed twelve guns in position and opened fire on the enemy\'s artillery and on the flank of a column being massed; as Gordon advanced the fire was directed farther left', 'documented', 'supported', ['j12', 'j12b', 'j12c']),
-        ('Strength about 1,200 after one regiment detached; the name Barlow\'s Knoll', 'open gap', 'unsupported', [], 'no figure of Gordon\'s strength in his report or Early\'s; the knoll names are later'),
+        ('The hill is called Barlow\'s Knoll by Bachelder (1873) and Blocher Knoll, later known as Barlow Knoll, by the National Park Service; the reports of 1863 name neither', 'documented', 'supported', ['b_knoll', 'nps_bloch'], 'later names, not names of 1863'),
+        ('Strength about 1,200 after one regiment detached', 'open gap', 'unsupported', [], 'no figure of Gordon\'s strength in his report or Early\'s (second pass: the Official Records and the library searched for a strength figure near his name, no hit)'),
     ],
     cites={
         'g_form': OR('one regiment (the Twenty-sixth Georgia) having been detached to support the artillery under Lieutenant-Colonel Jones', R477, '492'),
@@ -452,13 +453,15 @@ ROWS.append(dict(
         'j12': OR('I immediately placed twelve guns in position', R478, '495', note='the OCR prints ojDcned for opened later in the sentence'),
         'j12b': OR('and upon the flank of a column of troops that were being inassed upon our light', 'OR27-2-R478', '495', note='the OCR prints inassed for massed and light for right'),
         'j12c': OR('On the advance of General Gordon\'s brigade from, our right, we directed ()ur fire fart', 'OR27-2-R478', '495', note='the sentence ends at the word fart(her): the OCR prints ()ur for our'),
+        'b_knoll': L('BACH-WHATTOSEE-1873', 'Wilkinson\'s battery, G, 4th U. S., was posted on Barlow\'s Knoll', note='J. B. Bachelder (1873); the OCR prints Wilkinson for Wilkeson'),
+        'nps_bloch': L('NPS-CLI-1STDAY', 'Blocher Knoll (later known as Barlow Knoll in honor of the Union commander there)', note='National Park Service Cultural Landscapes Inventory'),
     },
     scenarios=[
         sc('A', 'Order to Gordon a little after 14:00', 'Hays OR27-2-R472 p.479', 'documented', ['h2']),
         sc('B', 'Order to Gordon about 15:00', 'Gordon OR27-2-R477 p.492', 'documented', ['g3']),
     ],
     default=None,
-    remains=['the strength of Gordon\'s brigade on Jul 1 (no figure; about 1,200 is the seed\'s)', 'the name of the hill'],
+    remains=['the strength of Gordon\'s brigade on Jul 1 (no figure; about 1,200 is the seed\'s)', 'a use of the hill\'s later names in 1863 (Barlow\'s Knoll is Bachelder\'s of 1873)'],
     searched=['OR27-2-R477 (Gordon) pp.491-493, R472 (Hays) p.479, R470 (Early) pp.468-469, R478 (Jones) p.495 read; regex strength figures for Gordon\'s brigade: none',
               LIB182 + ' regex Gordon near 1,200: Pennsylvania at Gettysburg and National Park Service texts give no number from a report',
               LOGNOTE],
@@ -487,10 +490,12 @@ ROWS.append(dict(
         ('Schurz: about 3 o\'clock the enemy appeared in front with heavy masses of infantry; the Second Brigade, First Division fell back in considerable disorder; Barlow was severely wounded and carried off; the First Brigade was forced back, contesting every inch', 'documented', 'supported', ['s_three', 's_fell', 's_barlow']),
         ('Jones placed twelve guns in position and opened with considerable effect on the enemy\'s artillery and a column being massed', 'documented', 'supported', ['j12', 'j12b']),
         ('The First Brigade of the First Division: von Gilsa\'s 41st (nine companies), 54th and 68th New York and 153rd Pennsylvania', 'documented', 'supported', ['oob']),
-        ('The fight lasted about 20 minutes (Civil War News) or less than an hour (Wikipedia); Barlow was shot', 'open gap', 'unsupported', [], 'no text read gives a duration; the reports say severely wounded'),
+        ('New York at Gettysburg vol.1: Barlow, occupying the knoll, placed Battery G, 4th U.S. Artillery there, and it withstood for half an hour the fire of sixteen of the enemy\'s guns (the battery\'s own duration, not the length of the infantry fight)', 'documented', 'supported', ['ny_half']),
+        ('The fight lasted about 20 minutes (Civil War News) or less than an hour (Wikipedia); Barlow was shot', 'open gap', 'unsupported', [], 'no text read gives a duration of the infantry fight (Bancroft and New York vol.1 give half an hour for the battery); the reports say severely wounded'),
     ],
     cites={
         'e_art': OR('Jones\' battalion of artillery was posted in a field on the left of the Heidlersburg road, immediately in front of Hoke\'s brigade', R470, '468'),
+        'ny_half': L('NY-GB-1900', 'Barlow, in occupying this knoll, placed Battery G, Fourth U. S. Artillery, in position there, where it withstood, for half an hour, the fire from sixteen guns of the enemy’s artillery', note='New York at Gettysburg vol.1 (1900), narrative of the Eleventh Corps'),
         'e_gord': OR('Gordon\'s brigade was then ordered forward to the support of Doles\' brigade', R470, '468'),
         'e_short': OR('After a short but hot contest. Gordon succeeded in routing the force opposed to him, consisting of a diviision of the Eleventh Corps, commanded by Brigadier-General Barlow, of the Federal Army, and drove it back with great slaughter', R470, '468', note='the OCR prints a period for the comma'),
         'e_barlow': OR('General Barlow himself, who was severely wounded', R470, '469'),
@@ -519,7 +524,7 @@ ROWS.append(dict(
 # ------------------------------------------------------------------------------------------------------------------------------------------------ T1-146
 ROWS.append(dict(
     id='T1-146', verdict='corrected',
-    limits={'start': 'the hour at which the 17th Connecticut came into Gettysburg (between 1 and 2 p. m., Brady R247 p.716) and the Eleventh Corps\' First Division was engaged on the plain',
+    limits={'start': 'the hour at which Wilkeson\'s battery came up and went into action (about 11 a. m., Hunt R028 p.230 and Bancroft R269 p.756: Wilkeson fell in the commencement of the contest); the 17th Connecticut came into Gettysburg between 1 and 2 p. m. (Brady R247 p.716), so Fowler\'s death is after 13:00',
             'end': 'Schurz\'s hour for the collapse (after about 3 o\'clock) with the retreat to Cemetery Hill after 5 o\'clock; no hour of either death is printed'},
     claim=claim('Lieut. Colonel Douglas Fowler of the 17th Connecticut is killed when his six companies advance and deploy north of the town (Ames\' brigade); Lieut. Bayard Wilkeson, commanding Battery G, 4th U.S. Artillery, is mortally wounded soon after the battery opens on the north side of the York road (Barlow\'s division); neither is a late counterattack of the knoll and neither rank or name of the seed is right',
                 '17th Connecticut (Lieut. Col. D. Fowler, Maj. A. G. Brady); Battery G, 4th U.S. Artillery (Lieut. B. Wilkeson, then Lieut. E. A. Bancroft)',
@@ -529,7 +534,7 @@ ROWS.append(dict(
                 'The casualty return lists among the officers killed, Connecticut, "Lieut. Colonel Douglas Fowler, 17th Infantry"; Brady: the regiment (six companies under Lieutenant-Colonel Fowler) advanced with the other regiments of the brigade to the left and front of the town, behind the 107th Ohio, deployed at the double-quick, and "Lieutenant-Colonel Fowler was killed when the regiment advanced and deployed". '
                 'Wilkeson: Hunt says "About 11 a. m. Wilkeson\'s battery ... came up, and reported to General Barlow, who posted it close to the enemy\'s line of infantry ... In the commencement of this unequal contest, Lieut. Bayard Wilkeson ... fell, mortally wounded, and was carried from the field"; Bancroft: the battery reached the town at 11 a. m., engaged on the north side of the York road eastward of the poor-house, and "Lieutenant Wilkeson was struck in the right leg by a shot from the enemy\'s artillery, and mortally wounded" before the sections retired after half an hour; Howard also records him mortally wounded. '
                 'The seed\'s "Col. Douglas Fowler" is Lieutenant-Colonel and "Lt. Col. Baynard Wilkeson" is First Lieutenant Bayard Wilkeson. NOT documented: the hour of either death; that either was in a "counterattack on the knoll".',
-                'documented', '1863-07-01T13:00', '1863-07-01T15:30', marking='names, ranks, deaths: documented; hours: gap; place of Wilkeson: documented (York road); Fowler: north of the town'),
+                'documented', '1863-07-01T11:00', '1863-07-01T15:30', marking='names, ranks, deaths: documented; hours: gap; place of Wilkeson: documented (York road); Fowler: north of the town'),
     subs=[
         ('Lieut. Colonel Douglas Fowler, 17th Connecticut, is listed among the officers killed (casualty return, Connecticut)', 'documented', 'supported', ['f_ret']),
         ('Lieutenant-Colonel Fowler was killed when the six companies of the regiment advanced and deployed to the left and front of the town', 'documented', 'supported', ['f_brady', 'f_adv', 'f_brady13']),
@@ -620,7 +625,8 @@ ROWS.append(dict(
         ('Doubleday: in the fight at the railroad cut Colonel Stone was severely wounded and Colonel Wister assumed command of the brigade', 'documented', 'supported', ['d_aff']),
         ('Stone: being wounded he was carried from the field; Wister assumed command', 'documented', 'supported', ['s_own', 's11']),
         ('Stone was carried into the stable area of the McPherson barn for first aid until he could be evacuated (National Park Service, citing participants)', 'inferred', 'supported', ['nps_stone']),
-        ('Stone was captured (Stone Sentinels); the opponent was Daniel; the hour 15:00-16:00', 'open gap', 'unsupported', []),
+        ('A casualty statement printed in Pennsylvania at Gettysburg vol. 2 lists Colonel Roy Stone among the wounded and his acting assistant adjutant-general Lieut. John E. Parsons among the captured', 'documented', 'supported', ['pa_stone']),
+        ('Stone was captured (Stone Sentinels); the opponent was Daniel; the hour 15:00-16:00', 'open gap', 'unsupported', [], 'the Pennsylvania statement has Stone among the wounded and his adjutant among the captured; no report names Daniel as the opponent of Stone\'s brigade or gives an hour'),
     ],
     cites={
         'd_down': OR('Stone himself was shot down, battling to the last. The gallant Colonel Wister, who succeeded iiiiii in command, was also wounded, and the command devolved upon Colonel Dana, of the One hundred and forty-third Pennsylvania Volunteers', R029, '247', note='the OCR prints iiiiii for him'),
@@ -628,6 +634,7 @@ ROWS.append(dict(
         's_own': OR('Being wounded about this time and carried from the field, I cannot speak so definitely of the remainder of the action', R061, '330'),
         's11': OR('at 11 o\'clock a. m., July 1, I posted my brigade', 'OR27-1-R061', '329'),
         'nps_stone': L('NPS-HS-MCPHERSON', 'Stone was carried in to the stable area o f the McPherson barn to receive " f i r s t aid " treatment u n t il he could be evacuated', note='the text layer of this study spaces its letters; the quote is the layer as printed'),
+        'pa_stone': L('PA-GB-1914-v2', 'Colonel Roy Stone, the brigade commander, is included among the wounded, and Lieutenant John E. Parsons, acting assistant adjutantgeneral, among the captured', note='a casualty statement printed in Pennsylvania at Gettysburg vol. 2 (the OCR joins adjutant-general)'),
     },
     scenarios=[
         sc('A', 'Stone wounded and carried from the field (Official Records)', 'Stone OR27-1-R061 p.330; Doubleday R029 pp.247-249', 'documented', ['d_down', 's_own']),

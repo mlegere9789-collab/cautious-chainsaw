@@ -1,0 +1,120 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "maineatgettysbur01main/365",
+ "levels": "NR",
+ "stratum": "ME-GET-officers",
+ "family": "ME-GET",
+ "layout": "cols",
+ "kind": "officers",
+ "draw_position": 3,
+ "in_lowest_decile": false,
+ "printed_page": 297,
+ "rows_stored": 4,
+ "rows_checked": 4,
+ "rows_in_error": 2,
+ "rows_ok": 2,
+ "rows_flagged_ocr_uncertain": 0,
+ "errors": [
+  {
+   "i": 1,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "stored name 'Lieutenant-Colonel, Henry W. Cunningham' holds the rank word (the rank cell carries the Field and Staff heading)",
+   "rid": "19th-maine-infantry#2602",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "name-cut"
+   ],
+   "note": "stored name 'First Lieutenant Francis W. Haskell' holds a second rank (printed 'Adjutant, First Lieutenant Francis W. Haskell, Waterville.')",
+   "rid": "19th-maine-infantry#2604",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "rows 0 and 2 (Francis E. Heath, Colonel; James W. Welch, Major) agree with the print; no printed participant line is missing on this page"
+ ],
+ "reader": "full level without dates; the lower half of the page at 200 dpi (1 Read, the printed participants lines and the footnote); all 4 stored rows compared with the 4 printed lines; the prose of the narrative above is no roll",
+ "tesseract_prescreen": {
+  "agree": 1,
+  "near": 0,
+  "suspect": 3,
+  "unstored_lines": 35
+ },
+ "read": {
+  "pdf_sha256": "f187290db33c253dd0e1c674f77d1014cae44352ed42dc20c41cff40cafa3961",
+  "pdf_page": 363,
+  "view_png_sha256": "cd362c139b68b0acb448c017c633b49b637c6e6a3c2088d5f3515d3bebbd2eb3",
+  "render300_sha256": "b5198bffabd261471e55e6b4a77d9c89c9f612972613d29be061c0009345f2ce",
+  "tess_sha256": "1a3e3e30809247ea10232002f069ca7d023c1c4483598b3f9af0b162812cd0df",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.987
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "19th-maine-infantry#2601",
+   "name": "Francis E. Heath",
+   "rank": "Colonel",
+   "co": "FS",
+   "remarks_sha256": "867a57a6217ea326b49050511584e0c1ab39a1987af28f7f257e7c2301e1dacb",
+   "off": 782222,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "19th-maine-infantry#2602",
+   "name": "Lieutenant-Colonel, Henry W. Cunningham",
+   "rank": "^PARTICIPANTS. FIELD, STAFF AND NON-COMMISSIONED STAFF.",
+   "co": "FS",
+   "remarks_sha256": "b8c8ff7ff42cd46ab166763d600dd3a3cc6c32eed961a681c63ba64e134fd827",
+   "off": 782255,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "19th-maine-infantry#2603",
+   "name": "James W. Welch",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "3d42d56b013b2c3d3d05a78075174b13a76c6d131edf4ac381135453c502e210",
+   "off": 782317,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "19th-maine-infantry#2604",
+   "name": "First Lieutenant Francis W. Haskell",
+   "rank": "Adjutant",
+   "co": "FS",
+   "remarks_sha256": "867a57a6217ea326b49050511584e0c1ab39a1987af28f7f257e7c2301e1dacb",
+   "off": 782356,
+   "text_id": "ME-GETT-1898.1898",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T01:22:04Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "AGREE",
+  "2": "SUSPECT",
+  "3": "SUSPECT"
+ }
+}

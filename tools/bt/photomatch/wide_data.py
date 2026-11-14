@@ -68,7 +68,46 @@ W = {
  '2006692502': dict(code='STG', what="a dead soldier among rocks in a rocky gorge, a page of Gardner's Sketch Book (plate 41, home of a rebel sharpshooter)", reason="Sketch Book print of the sharpshooter series", copy_of=[]),
 }
 
-# Ties to catalogued records (same exposure: a second print, a stereo sibling or the same plate in another book), written after looking at the two images side by side (sheets made from wide_to_catalogue.json);
-# the feature-matching score alone never writes a row. Format: wide record -> [catalogued records].
-COPY = {}
+# Ties to catalogued records (same exposure: a second print, a stereo sibling or the same plate in another book), written after looking at the two images side by side (sheets made from wide_to_catalogue.json,
+# 2026-11-14); the feature-matching score alone never writes a row. For a single image against a single image the geometry (tie_geometry.py) was read as well (same plate: inlier fraction at least 0.80, median
+# residual at most 3 px); a stereo card holds two exposures, so a single image agrees with one half only (inlier fraction near 0.5) and the pair is called by looking at the half.
+# Format: wide record -> [records (wide or first catalogue) that are the same exposure, each pair looked at]. The reverse link is added to the other record by build_registry.py.
+COPY = {
+ '2004682780': ['2025163097', '2018666315'],   # Brady stereo card no. 2288, two cards; the Library negative of the three prisoners (cwp.4a40909: inlier fraction 0.46, median residual 2.1 px: a stereo half against a single frame, same scene and same people in the same pose)
+ '2025163097': ['2004682780'],
+ '2025160089': ['2013645948', '2006692513'],    # the Trostle house with dead horses: Gardner album print, the Library print and the Sketch Book plate
+ '2013645948': ['2025160089', '2013645105'],
+ '2006692513': ['2025160089'],
+ '2011649966': ['2025167175'], '2025167175': ['2011649966', '2011649968'], '2011649968': ['2025167175'],     # stereo card no. 245 (three printings)
+ '2011660054': ['2025169709'], '2025169709': ['2011660054'],                                                 # stereo card no. 259
+ '2025167173': ['2009630184'],                                                                               # stereo card no. 243 and the Library print ppmsca.18947
+ '2011660056': ['2011660071'], '2011660071': ['2011660056'], '2025163077': ['2014647511'], '2014647511': ['2025163077'],   # John Burns: four prints of one portrait (two pairs looked at)
+ '2011646175': ['2011649970'], '2011649970': ['2011646175'],                                                 # stereo card no. 274
+ '2011649197': ['2011649196'], '2011649196': ['2011649197'],                                                 # wounded trees
+ '2011646177': ['2018670717'],                                                                               # breastworks on Round Top (cwpb.00855)
+ '2025167831': ['2011649969'], '2011649969': ['2025167831'],                                                 # the slaughter pen, stereo card no. 253
+ '2025162158': ['2015647569', '2018670704'], '2015647569': ['2025162158'],                                  # Brady, breastworks on the left wing: two cards and the Library negative cwpb.01643
+ '2025167163': ['2018666305'],                                                                               # Brady, rocky breastwork (cwp.4a39687)
+ '2011648013': ['2011648011'], '2011648011': ['2011648013', '2012647700'],                                   # In Trostle's barnyard, stereo card no. 266, and the Library print ppmsca.32834 (the half covers the left 0.6 of the print)
+ '2013645925': ['2018670673'],                                                                               # Confederate dead at a wood edge (cwpb.00850)
+ '2011648596': ['2018672106'],                                                                               # stereo card no. 236 and the Library stereo negative
+ '2013645929': ['2018670788'],                                                                               # print and negative of the staged sharpshooter scene: staged flag kept
+ '2006692500': ['2012647705'],                                                                               # Sketch Book plate 39 and the Library print of the cemetery gateway
+ '2006692501': ['2018666314'],                                                                               # Sketch Book plate 40 and the Library negative (staged scene)
+ '2006692502': ['91732531'],                                                                                 # Sketch Book plate 41 and the Library print (staged scene)
+ '2006685383': ['2014646001'],                                                                               # Sketch Book plate 35 and the Library print ppmsca.35051 (the pose P28)
+ '2012647715': ['2012647717'],                                                                               # the dedication-day crowd: two Library records
+ '2011649965': ['2018670703'],                                                                               # stereo card and the Library negative of the dead in a meadow
+ '2025167167': ['2012647845'],                                                                               # the rocks of Devil's Den: yellow stereo card and the Library print (inlier fraction 0.49: a stereo half against a single frame)
+}
+# Feature matches that scored high (at least 100 inliers) but are NOT the same photograph: rejected when both images were looked at side by side (nothing is tied from these).
+REJECTED = {
+ '2026167922': ('2012647706', 'a studio portrait of a standing man against a field view: 276 inliers from paper grain and grass texture'),
+ '2017659617': ('2012647706', 'a studio portrait against a field view: 286 inliers from texture'),
+ '2026167355': ('2012647706', 'a studio portrait of a soldier with a flag against a field view: 121 inliers from texture'),
+ '2020630902': ('91732546', 'a studio portrait of a seated woman against a gun carriage with a dead horse: 152 inliers from texture'),
+ '2019647064': ('91732546', 'a card with a torn flag against a gun carriage with a dead horse: 111 inliers from texture'),
+ '2019635468': ('2004682780', 'a road down to the town with a rail fence against a stereo card of three prisoners on rails: 109 inliers from the fence and rail texture'),
+}
 for _pk, _c in COPY.items(): W[_pk]['copy_of'] = _c
+for _pk, (_rec, _why) in REJECTED.items(): W[_pk]['rejected_ties'] = [{'record': _rec, 'why': _why}]

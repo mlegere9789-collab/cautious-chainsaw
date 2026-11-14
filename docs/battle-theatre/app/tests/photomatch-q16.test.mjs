@@ -98,6 +98,26 @@ test('verdicts: allowed vocabulary; a positive verdict needs a viewed image; a f
   }
   assert.equal(left.size, 0, [...left].join(' '));
 });
+test('image ties: each was looked at and has its geometry; the Metropolitan items are catalogued photographs; the copy ties of the wide search are symmetric between wide records and never rest on a rejected lead', () => {
+  const geo = J('tie_geometry.json'), conf = J('nps_figures_confirmed.json').ties, met = J('met_ties_confirmed.json').ties, T = geo.thresholds;
+  assert.deepEqual(T, { inlier_fraction: 0.8, anisotropy: 1.06, rotation_deg: 4, perspective: 0.2, median_residual_px: 3 }, 'the thresholds of tie_geometry.py were fixed before its run and are not changed');
+  for (const [k, t] of Object.entries(conf)) {
+    const g = geo.pairs[k + '|' + t.res[0]]; assert.ok(g && g.status === 'ok', k + ' has no geometry'); assert.equal(t.geometry.class, g.class, k);
+    if (g.class === 'SAME_PLATE') { assert.ok(g.inlier_fraction >= T.inlier_fraction && g.anisotropy <= T.anisotropy && Math.abs(g.rotation_deg) <= T.rotation_deg && g.perspective <= T.perspective && g.median_residual_px <= T.median_residual_px, k + ' is called same plate against the thresholds'); }
+    else { assert.equal(g.class, 'SAME_SCENE', k); assert.ok(t.note.length > 80, k + ': a tie the rule calls only the same scene needs the note that says why it is kept'); }
+    assert.ok(t.inliers >= 45, k);
+  }
+  assert.equal(Object.keys(met).length, 6); for (const [k, t] of Object.entries(met)) { assert.ok(ids.has(t.loc), k); assert.equal(t.confirmed_by_looking, true, k); assert.ok(t.geometry && t.geometry.class, k); }
+  assert.ok(met.MMET268204.geometry.footprint_x_range_of_candidate_width[1] <= 0.6 && met.MMET268205.geometry.footprint_x_range_of_candidate_width[0] >= 0.4, 'the two plates cover the left and the right of the panorama');
+  for (const id of ['P04', 'P05']) assert.ok(poses.poses.find(p => p.id === id).also_loc_ids.includes('2014646002'), id + ' is a plate of the panorama 2014646002');
+  const byId = Object.fromEntries(wide.photographs.map(w => [w.loc_id, w]));
+  for (const w of wide.photographs) {
+    for (const o of w.same_exposure_as || []) { assert.ok(ids.has(o), w.loc_id + ' copy of unknown ' + o); if (byId[o]) assert.ok((byId[o].same_exposure_as || []).includes(w.loc_id), 'the copy tie ' + w.loc_id + ' - ' + o + ' is not symmetric'); }
+    for (const r of w.rejected_ties || []) { assert.ok(!(w.same_exposure_as || []).includes(r.record), w.loc_id + ' ties a rejected lead'); assert.ok(r.why.length > 30, w.loc_id); }
+  }
+  assert.ok(wide.photographs.filter(w => (w.same_exposure_as || []).length).length >= 30 && wide.photographs.filter(w => (w.rejected_ties || []).length).length === 6);
+  for (const r of reg.photographs.filter(r => (r.same_exposure_as || []).length)) for (const o of r.same_exposure_as) assert.ok(ids.has(o), r.loc_id + ' ' + o);
+});
 test('registry: one entry per catalogued record with a candid verdict and, where there is no pose, the reason', () => {
   assert.equal(reg.count, all.length); assert.equal(new Set(reg.photographs.map(r => r.loc_id)).size, all.length); const pv = Object.fromEntries(ver.pose_verdicts.map(v => [v.pose, v])); const live = new Set(poses.poses.filter(p => !p.superseded_by).map(p => p.id));
   for (const r of reg.photographs) {

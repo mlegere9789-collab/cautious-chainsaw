@@ -197,9 +197,9 @@ def main():
       'Burial Report of 1863 are not read for names; two baseline batteries match no Massachusetts battery of the Official Records. Every unit of the item has a file; no unit was left to a later run.\n')
     # ------------------------------------------------------------------------------------------------------------------ section 1
     w('## 1. Lines per unit against the strength\n')
-    w('"Strength" is the value of the baseline order of battle (`baseline/dist/data/oob/`, which the earlier families recorded as second-hand, from Busey and Martin and the Official Records) and, where one was found, '
+    w('"Strength" is the value of the baseline order of battle (`baseline/dist/data/oob/`, which the earlier families recorded as second-hand: Busey and Martin via the baseline file) and, where one was found, '
       'what the Official Records (Ser. I, vol. 27, part 1) print about the number the unit took into action. **No strength range with a declared basis exists for these units in the repository**: `history/units.json` has '
-      '`strength: null` for each of them. The range below is therefore the smallest and the largest of the values found (the baseline value and the Official Records statements), each with its basis. '
+      '`strength: null` for each of the 25 registry entries of these units. The range below is therefore the smallest and the largest of the values found (the baseline value and the Official Records statements), each with its basis. '
       'A whole-war roll is **not** comparable with the strength present on 1 to 3 July 1863 (the earlier pilots measured that a man on a roll with no recorded absence was present between 36 and 72 percent of the time, '
       '`PLAN.md` 2.4, gap EG-ROS-010): the columns "lines per man" are context only.\n')
     w('| unit | strength range (basis) | baseline casualties | lines | lines per man (high - low strength) | field and staff, non-commissioned staff, band | company lines | unassigned | cross-reference lines ("See ...") | remark names Gettysburg | ... with a 1-3 July 1863 date | on the rolls, inferred: yes / no / unknown |')
@@ -350,7 +350,7 @@ def main():
     w('* **Official Records quotes** (Measured): each quote of section 1 was matched in the pinned text of volume 27 part 1 with `tools/bt/or27_find.py --verify` (report, printed page and offsets as quoted).')
     w('* **The baseline and the registry** (Measured): the 24 units are the Massachusetts entries of the organization table of the Army of the Potomac (`data2/units.json`, `or_check`: %s); a search of the table region of the Official Records text for "Massachusetts" finds no other unit.' % ', '.join('%d %s' % (v, k) for k, v in sorted(S['or_check_counts'].items(), key=lambda kv: -kv[1])))
     w('* **Not run**: the independent sample of page images (R-G9; the first sample of the item is the work of `roster-qa`); a reading of any damaged line from a page image; a second reading of the names from the 1937 index; a browser; the full node suite; any timing. '
-      '`build_index.py --lint` was run at the end: no defect, no warning for this item. ' + ('The per-item test file `docs/battle-theatre/app/tests/roster-union-ma.test.mjs` was run alone (`node --test`, through the machine lock): %d tests, %d pass, %d fail.' % node_line if node_line else 'The per-item test file `docs/battle-theatre/app/tests/roster-union-ma.test.mjs` was not run when this report was written.') + '\n')
+      '`build_index.py --lint` was run at the end: no defect, no warning for this item. ' + ('The per-item test file `docs/battle-theatre/app/tests/roster-union-ma.test.mjs` was run alone (`node --test`; 0.9 s of CPU, so not through the machine lock; output in `GOVERNANCE/horde/ws-rosters/union-ma/node-test.txt`): %d tests, %d pass, %d fail.' % node_line if node_line else 'The per-item test file `docs/battle-theatre/app/tests/roster-union-ma.test.mjs` was not run when this report was written.') + '\n')
     # ------------------------------------------------------------------------------------------------------------------ section 5
     w('## 5. Anomalies seen\n')
     c1 = CT

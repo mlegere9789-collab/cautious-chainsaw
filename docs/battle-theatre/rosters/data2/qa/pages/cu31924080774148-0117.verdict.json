@@ -1,0 +1,600 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "cu31924080774148/117",
+ "levels": "N",
+ "stratum": "VT-REV-officers",
+ "family": "VT-REV",
+ "layout": "cols",
+ "kind": "officers",
+ "draw_position": 2,
+ "in_lowest_decile": false,
+ "printed_page": 102,
+ "rows_stored": 40,
+ "rows_checked": 40,
+ "rows_in_error": 1,
+ "rows_ok": 39,
+ "rows_flagged_ocr_uncertain": 24,
+ "errors": [
+  {
+   "i": 20,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Joshua 0. Service,' (digit zero) printed 'Joshua O. Service,'",
+   "rid": "3rd-vermont-infantry#1785",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "E",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "40 stored lines = 40 printed lines; the headings Captains., 1st Lieutenants., 2d Lieutenants., Sergeants., Corporals., Musicians., Wagoner., Privates. and the company K title agree; the printed 'Jonn N. Ellsworth, Jr' is the print's own reading (stored 'Jon n N.' differs by a space only)"
+ ],
+ "reader": "names and structure level; crop of the name and residence columns with the headings at 200 dpi (1 Read) compared with all 40 stored names, headings and the order of the lines; dates and remarks not compared on this page (R-G2 and R-G3b of this stratum already failed decisively on leaf 88)",
+ "tesseract_prescreen": {
+  "agree": 8,
+  "near": 4,
+  "suspect": 28,
+  "unstored_lines": 4
+ },
+ "read": {
+  "pdf_sha256": "df49af98ce9bde1ab90241a6a281064d7bda9b64b8ed49675df58cf70bb600a4",
+  "pdf_page": 118,
+  "view_png_sha256": "6dfd00a8949510d9fee5a2e2fa28ec86c2362857dbdab82c53a054397cf4ce90",
+  "render300_sha256": "6a293891d27d2a435a6e34a6fcefbc995b99aa1dbc1e6a808f4427f3b18bb01f",
+  "tess_sha256": "b375faccd63ce6230956090397ce8bb73018c83515634306e48aa76a95fa8381",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.956
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "3rd-vermont-infantry#1765",
+   "name": "Elon O. Hammond,",
+   "rank": "^Captains.",
+   "co": "K",
+   "remarks_sha256": "36bb6b450e17bd24533ef7ae39211369dd43b0719f839a51fe6c05c1f9650ed0",
+   "off": 591507,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 1,
+   "rid": "3rd-vermont-infantry#1766",
+   "name": "Leonard E. Bennett,",
+   "rank": "^Captains.",
+   "co": "K",
+   "remarks_sha256": "dc578844a7c0e0bb6b7d295ab29c20e83848419adcb031cbcae469f13e01a3e8",
+   "off": 591594,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "3rd-vermont-infantry#1767",
+   "name": "Amasa T. Smith,",
+   "rank": "^Captains.",
+   "co": "K",
+   "remarks_sha256": "feda4f37f0028daeddef58a15453089c7b6a3b805af445c6a627af554847eca1",
+   "off": 591723,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "3rd-vermont-infantry#1768",
+   "name": "Alonzo E. Pearce,",
+   "rank": "^Captains.",
+   "co": "K",
+   "remarks_sha256": "c8fcaa2f9ccbb7746da691d76a5fad54d3df7b9d568f82c3a77c7d5574ff7b12",
+   "off": 591872,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "3rd-vermont-infantry#1769",
+   "name": "Ronald A. Kennedy,",
+   "rank": "^Captains.",
+   "co": "K",
+   "remarks_sha256": "55a40d9304a0e0d84069bfeb044627829db5ca5968835842b203418f7680c24c",
+   "off": 592009,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "3rd-vermont-infantry#1770",
+   "name": "Horace French,",
+   "rank": "^Captains.",
+   "co": "K",
+   "remarks_sha256": "bda3f4361e1a469d9a98bcc8c7f704e1a07f97cbdf4ea48d3723fefbbbd0c07d",
+   "off": 592255,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K"
+   ]
+  },
+  {
+   "i": 6,
+   "rid": "3rd-vermont-infantry#1771",
+   "name": "Amasa T. Smith,",
+   "rank": "^1st Lieutenants.",
+   "co": "K",
+   "remarks_sha256": "2401c5e17832e8da279ce8ff83a0faf94ab371830ba25c56c40ebaa4b4023bf1",
+   "off": 592636,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 7,
+   "rid": "3rd-vermont-infantry#1772",
+   "name": "Abel Morrill,",
+   "rank": "^1st Lieutenants.",
+   "co": "K",
+   "remarks_sha256": "bf1d398012e16949ea532ca3ad21dbdfd1aed057114d8aa9fde2c5324242f2c1",
+   "off": 592711,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "3rd-vermont-infantry#1773",
+   "name": "Benjamin H. Fuller,",
+   "rank": "^1st Lieutenants.",
+   "co": "K",
+   "remarks_sha256": "dd7405042c7daeae33088a70dd4de661644b0159e8804a1079cdf055319116a7",
+   "off": 592772,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "3rd-vermont-infantry#1774",
+   "name": "Ozias H. Thompson,",
+   "rank": "^1st Lieutenants.",
+   "co": "K",
+   "remarks_sha256": "4053fa99b485250e7389bd5d861a7a00d5784e87e2eb9b6c86f9ad25ad92993e",
+   "off": 592846,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "M"
+   ]
+  },
+  {
+   "i": 10,
+   "rid": "3rd-vermont-infantry#1775",
+   "name": "Alonzo E. Pearce,",
+   "rank": "^• 2d Lieutenants.",
+   "co": "K",
+   "remarks_sha256": "3392b59233d2af8f64a36f7109385fafa1607a787b19fe1ccf54c9427c5c39b2",
+   "off": 593057,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 11,
+   "rid": "3rd-vermont-infantry#1776",
+   "name": "Abel Morrill,",
+   "rank": "^• 2d Lieutenants.",
+   "co": "K",
+   "remarks_sha256": "ce0091482317fb546167a92286e34f4276f5730d3aa0db5809d51cfdefc3e638",
+   "off": 593137,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "3rd-vermont-infantry#1777",
+   "name": "Alonzo H. Newt,",
+   "rank": "^• 2d Lieutenants.",
+   "co": "K",
+   "remarks_sha256": "f8043cb299d2a4182b7d8ef5e8f0677a865af91bfb196bbe551bf090228feabc",
+   "off": 593198,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "3rd-vermont-infantry#1778",
+   "name": "Ozias H. Thompson,",
+   "rank": "^• 2d Lieutenants.",
+   "co": "K",
+   "remarks_sha256": "c06c9f72648c48e27ac1f647e0cc4786807f5ea54adaedf13dbc04013b25627f",
+   "off": 593270,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "3rd-vermont-infantry#1779",
+   "name": "Abram J. Locke,",
+   "rank": "^• 2d Lieutenants.",
+   "co": "K",
+   "remarks_sha256": "0849711ad2f141a7d3aec89adb10d690e284d75d055ef1ec3b412028e244e168",
+   "off": 593348,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "3rd-vermont-infantry#1780",
+   "name": "Ozias H. Thompson,",
+   "rank": "^Sergeants.",
+   "co": "K",
+   "remarks_sha256": "014058e44dfabf4c1a036bbb8e21409306d8fc777031a9c815efc5da3514a664",
+   "off": 593710,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 16,
+   "rid": "3rd-vermont-infantry#1781",
+   "name": "Nathaniel L. Wilson,",
+   "rank": "^Sergeants.",
+   "co": "K",
+   "remarks_sha256": "732670e26520c5d55d9f977ed00bb6e2c114f633e06d49b5dc843bdc650cde49",
+   "off": 593790,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 17,
+   "rid": "3rd-vermont-infantry#1782",
+   "name": "Chauncey E. Harris,",
+   "rank": "^Sergeants.",
+   "co": "K",
+   "remarks_sha256": "bc8e9adc8ff8e1f08d5936938d84d84ed9d3453648dacadf85f09c335a3bff67",
+   "off": 593883,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 18,
+   "rid": "3rd-vermont-infantry#1783",
+   "name": "William H. Bowker.",
+   "rank": "^Sergeants.",
+   "co": "K",
+   "remarks_sha256": "887e7e07dbef83a31bbf793e2ec98d1c07af85f9cebc36be6a8fa8ec54c7d9e1",
+   "off": 593979,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 19,
+   "rid": "3rd-vermont-infantry#1784",
+   "name": "Jon n N. Ellsworth, Jr,",
+   "rank": "^Sergeants.",
+   "co": "K",
+   "remarks_sha256": "bda6794d9e08cf2b2bf14e95a5c9c9a93313fec1882066bf1c77bca42b7fb96c",
+   "off": 594064,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "N"
+   ]
+  },
+  {
+   "i": 20,
+   "rid": "3rd-vermont-infantry#1785",
+   "name": "Joshua 0. Service,",
+   "rank": "^Corporals.",
+   "co": "K",
+   "remarks_sha256": "21bb7b1090a25ed151d4cb34469147dbc07c745b07ea29e1e38624505a8a3db1",
+   "off": 594229,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "N"
+   ]
+  },
+  {
+   "i": 21,
+   "rid": "3rd-vermont-infantry#1786",
+   "name": "Orion A. Pearce,",
+   "rank": "^Corporals.",
+   "co": "K",
+   "remarks_sha256": "9129af309314f048690a5b13e074f6111658946e5dac6a68aab2d8236b5a425a",
+   "off": 594325,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 22,
+   "rid": "3rd-vermont-infantry#1787",
+   "name": "George M. Rice,",
+   "rank": "^Corporals.",
+   "co": "K",
+   "remarks_sha256": "94162f5f826149ab44f5d04267af325250141019d88265b474dffeb50f6903cf",
+   "off": 594432,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "K"
+   ]
+  },
+  {
+   "i": 23,
+   "rid": "3rd-vermont-infantry#1788",
+   "name": "Joseph W. Fisk",
+   "rank": "^Corporals.",
+   "co": "K",
+   "remarks_sha256": "7629c09306c7501147b1a4d0b2a23bbc3288d51d809b9322eddfd35dd6add835",
+   "off": 594526,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 24,
+   "rid": "3rd-vermont-infantry#1789",
+   "name": "Harlan P. Cass,",
+   "rank": "^Corporals.",
+   "co": "K",
+   "remarks_sha256": "b0552d9bcb8021c030ae332700826a4439ff92df88c3b01b4657867935bc035d",
+   "off": 594599,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 25,
+   "rid": "3rd-vermont-infantry#1790",
+   "name": "Martin G. Hamblet,",
+   "rank": "^Corporals.",
+   "co": "K",
+   "remarks_sha256": "d7ce600814facd770aec63d0042f4bfd6cf018098e59c04414732075ee514c37",
+   "off": 594691,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 26,
+   "rid": "3rd-vermont-infantry#1791",
+   "name": "William H. Green,",
+   "rank": "^Corporals.",
+   "co": "K",
+   "remarks_sha256": "1cc74b26106aaf1a3471e3e4c35651971e15060d5a85b3638c86f29913038376",
+   "off": 594820,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 27,
+   "rid": "3rd-vermont-infantry#1792",
+   "name": "Charles H. Gill,",
+   "rank": "^Corporals.",
+   "co": "K",
+   "remarks_sha256": "025de8e2cc32eed4336126e5200fa4055aadcb9b29380a9d4af0119becc490a1",
+   "off": 594933,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 28,
+   "rid": "3rd-vermont-infantry#1793",
+   "name": "William G. Dickey,",
+   "rank": "^Musicians.",
+   "co": "K",
+   "remarks_sha256": "e82d5543586fde35c9f2abaf09c3150f9c49acc75eaea1b25656492090f37e3f",
+   "off": 595036,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 29,
+   "rid": "3rd-vermont-infantry#1794",
+   "name": "Paschal P. Ripley,",
+   "rank": "^Musicians.",
+   "co": "K",
+   "remarks_sha256": "edd731dce7a0784a219fc36fe1a67431f5fc933c72232227300bdf3694a1c7c8",
+   "off": 595156,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 30,
+   "rid": "3rd-vermont-infantry#1795",
+   "name": "Alonzo York,",
+   "rank": "^Wagoner,",
+   "co": "K",
+   "remarks_sha256": "78212edce2345b0bca7256bda571af293f22671c370cb0d9d111de1a4e305a28",
+   "off": 595288,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  },
+  {
+   "i": 31,
+   "rid": "3rd-vermont-infantry#1796",
+   "name": "Abbott, Peter M.",
+   "rank": "^Privates.",
+   "co": "K",
+   "remarks_sha256": "e403f9b08403afc01c6d339f9392e3327678afaead6e6f275de573c69b1d9116",
+   "off": 595386,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E",
+    "M"
+   ]
+  },
+  {
+   "i": 32,
+   "rid": "3rd-vermont-infantry#1797",
+   "name": "Aldrich, Chester T.",
+   "rank": "^Privates.",
+   "co": "K",
+   "remarks_sha256": "c8c42a909abe80262e2943ced0b8d8dcf20da0da73324c7f963fffb56e697eae",
+   "off": 595522,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 33,
+   "rid": "3rd-vermont-infantry#1798",
+   "name": "Aldrich, John G.",
+   "rank": "^Privates.",
+   "co": "K",
+   "remarks_sha256": "307f7f5a74a7a8bef7ccd880d7741b5bd2c71b07dd8ec90d7dc591248834ded5",
+   "off": 595694,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 34,
+   "rid": "3rd-vermont-infantry#1799",
+   "name": "Aldrich, Levi H.",
+   "rank": "^Privates.",
+   "co": "K",
+   "remarks_sha256": "706d4e61efe516260c454ebf667b5762812466c656fc4e67586e53a3a82bfbee",
+   "off": 595809,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 35,
+   "rid": "3rd-vermont-infantry#1800",
+   "name": "Aldrich, William W.",
+   "rank": "^Privates.",
+   "co": "K",
+   "remarks_sha256": "a7b8df57fc3964af9f6de5caee1199457941ae26567dd809729e7cbb67071eaf",
+   "off": 595925,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 36,
+   "rid": "3rd-vermont-infantry#1801",
+   "name": "Ainsworth, L. E.",
+   "rank": "^Privates.",
+   "co": "K",
+   "remarks_sha256": "290e4995ca69cf4e5f9d4364327e50cb1dad451b2f6f4ef537b096e1f3efc6dd",
+   "off": 596020,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 37,
+   "rid": "3rd-vermont-infantry#1802",
+   "name": "Andrews, Gustavus A.",
+   "rank": "^Privates.",
+   "co": "K",
+   "remarks_sha256": "b322d11b0662b95fc7658e06bb66fd31df794875e7b3cf5a1dc9fbe7e275d22a",
+   "off": 596091,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 38,
+   "rid": "3rd-vermont-infantry#1803",
+   "name": "Arnold, Joseph",
+   "rank": "^Privates.",
+   "co": "K",
+   "remarks_sha256": "f8383c19cf09c7852aa145c8575ed2fe3b170633496033eef337051e76c7a18f",
+   "off": 596194,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": []
+  },
+  {
+   "i": 39,
+   "rid": "3rd-vermont-infantry#1804",
+   "name": "Bailey, Edmund",
+   "rank": "^Privates.",
+   "co": "K",
+   "remarks_sha256": "8f285a9a18f4b1ef939cf7a1011141a6ee3e040f6a9cc99a6a239278814aeb3c",
+   "off": 596294,
+   "text_id": "VT-ROSTER-1892.1",
+   "flag_codes": [
+    "E"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-14T01:23:47Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "AGREE",
+  "4": "SUSPECT",
+  "5": "NEAR",
+  "6": "SUSPECT",
+  "7": "AGREE",
+  "8": "AGREE",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "AGREE",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "SUSPECT",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "AGREE",
+  "23": "SUSPECT",
+  "24": "SUSPECT",
+  "25": "NEAR",
+  "26": "SUSPECT",
+  "27": "SUSPECT",
+  "28": "SUSPECT",
+  "29": "NEAR",
+  "30": "SUSPECT",
+  "31": "SUSPECT",
+  "32": "SUSPECT",
+  "33": "AGREE",
+  "34": "SUSPECT",
+  "35": "NEAR",
+  "36": "AGREE",
+  "37": "AGREE",
+  "38": "SUSPECT",
+  "39": "SUSPECT"
+ }
+}

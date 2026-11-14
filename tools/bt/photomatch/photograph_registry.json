@@ -1,6 +1,6 @@
 {
- "_doc": "One entry per catalogued photograph (109 first-run records + 18 added): scope, staged flag with its basis, saved image files, camera-position statements, NPS Then-And-Now identity (image matching), registered poses and the candid verdict. Built by build_registry.py from registry_data.py and verdicts.json; no verdict here is written by a program.",
- "count": 129,
+ "_doc": "One entry per catalogued photograph (109 first-run records + 18 added + the records of the wide search): scope, staged flag with its basis, saved image files, camera-position statements, NPS Then-And-Now identity (image matching), registered poses and the candid verdict. Built by build_registry.py from registry_data.py and verdicts.json; no verdict here is written by a program.",
+ "count": 191,
  "photographs": [
   {
    "loc_id": "2008680497",
@@ -11,6 +11,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -33,6 +35,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2012647718"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -48,7 +54,7 @@
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "A pond with a broken rail fence, woods behind; NPS: the old quarry (pond) near the McPherson farmstead looking southwest toward Herbst Woods. The quarry is not in the model; its place relative to the barn is not sourced. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "A pond with a broken rail fence, woods behind; NPS: the old quarry (pond) near the McPherson farmstead looking southwest toward Herbst Woods. The quarry is not in the model; its place relative to the barn is not sourced. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647718 (both images were looked at)."
   },
   {
    "loc_id": "2012647705",
@@ -59,6 +65,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2006692500"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -74,7 +84,7 @@
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "The gatehouse from a distance with earthwork lunettes in the foreground and a horse cart; no side or distance is stated (third view of the gatehouse; see P03 and P26 for the other two). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "The gatehouse from a distance with earthwork lunettes in the foreground and a horse cart; no side or distance is stated (third view of the gatehouse; see P03 and P26 for the other two). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2006692500 (both images were looked at)."
   },
   {
    "loc_id": "2012647707",
@@ -85,6 +95,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -120,6 +132,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -143,6 +157,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -170,6 +186,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "Dedication of the cemetery, 19 November 1863 (not July)",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -193,6 +211,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "Crowd and troops on the way to the cemetery, 19 November 1863 (not July)",
+   "same_exposure_as": [
+    "2012647715"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -205,7 +227,7 @@
    "class": "OUT",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Crowd and troops on the way to the cemetery, 19 November 1863 (not July). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+   "why": "Crowd and troops on the way to the cemetery, 19 November 1863 (not July). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647715 (both images were looked at)."
   },
   {
    "loc_id": "2012647718",
@@ -216,6 +238,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2012646949"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -228,7 +254,7 @@
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "The same pond and fence as record 2012646949 (Brady standing in the field); NPS: quarry looking southwest; the quarry is not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "The same pond and fence as record 2012646949 (Brady standing in the field); NPS: quarry looking southwest; the quarry is not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012646949 (both images were looked at)."
   },
   {
    "loc_id": "2012647719",
@@ -239,19 +265,25 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2012647706"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
     "LOC2012647719_ppmsca.32853_r",
     "LOC2012647719_ppmsca.32853_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-NPS-ROTV1-F28"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "A meadow with two children and the point of woods where Reynolds was killed on the right; no camera position is stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "A meadow with two children and the point of woods where Reynolds was killed on the right; no camera position is stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647706 (both images were looked at)."
   },
   {
    "loc_id": "2012647822",
@@ -262,6 +294,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -287,6 +321,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -321,6 +357,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -344,6 +382,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -369,6 +409,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -392,6 +434,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -415,6 +459,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged",
    "image_keys": [
@@ -438,6 +484,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -461,6 +509,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "General hospital camp, August 1863",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -484,6 +534,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "Christian Commission at the general hospital, August 1863",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -507,6 +559,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2013645948"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -540,6 +596,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "Sanitary Commission at the general hospital, August 1863",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -563,6 +621,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "Sanitary Commission headquarters, a town building (portrait-like street scene)",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -586,6 +646,12 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2006685383"
+   ],
+   "superseded_pose_ids": [
+    "P06"
+   ],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -596,17 +662,17 @@
    "statement_ids": [
     "PS-LOC-2014646001-N",
     "PS-NPS-ROTV1-75",
+    "PS-NPS-ROTV1-F79top",
     "PS-NPS-ROTV2-131"
    ],
    "nps_then_now_identity": [],
    "pose_ids": [
-    "P06",
     "P28"
    ],
    "class": "POSE",
-   "verdict": "does not",
-   "why": "P06: At the registered pose (East Cemetery Hill, Wiedrich monument plus 25 m east, looking to the borough) the model puts every building in a narrow band at the horizon (0.52 of the frame height) and shows no road; the photograph has the Baltimore Pike running from the lower left to the town at left centre, houses spread over the full frame width, a ridge behind them at 0.47 and a tent camp at the right. The apparent size and spread of the town differ by about a factor of 2: the camera was nearer the town and lower on the slope than assumed (sigma 150 m), and the model holds only 2023 outlines of surviving buildings. The verdict is on this pose only.",
-   "reviewed_image": true
+   "verdict": "",
+   "why": " | superseded earlier pose P06 (does not): At the registered pose (East Cemetery Hill, Wiedrich monument plus 25 m east, looking to the borough) the model puts every building in a narrow band at the horizon (0.52 of the frame height) and shows no road; the photograph has the Baltimore Pike running from the lower left to the town at left centre, houses spread over the full frame width, a ridge behind them at 0.47 and a tent camp at the right. The apparent size and spread of the town differ by about a factor of 2: the camera was nearer the town and lower on the slope than assumed (sigma 150 m), and the model holds only 2023 outlines of surviving buildings. The verdict is on this pose only.",
+   "reviewed_image": false
   },
   {
    "loc_id": "2014646002",
@@ -617,6 +683,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -628,11 +696,14 @@
     "PS-LOC-2014646002-N2"
    ],
    "nps_then_now_identity": [],
-   "pose_ids": [],
+   "pose_ids": [
+    "P04",
+    "P05"
+   ],
    "class": "POS",
-   "verdict": "cannot judge",
-   "reviewed_image": true,
-   "why": "A long view of the town from the northwest (Chambersburg Pike on the right, the unfinished railroad embankment in the centre, Pennsylvania College on the left: Gardner's caption); the camera lies north-west of the town on ground whose extent is far larger than the depth of the scene and no coordinate or reference point is given. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "verdict": "P04: does not; P05: does not",
+   "why": "P04: Standpoint on Seminary Ridge looking at the borough is contradicted by the photograph itself: a large cupola building and the town appear at distance with a road curving across the foreground, i.e. the camera stands further out; only 'from the West' is in the caption, no position. The render has the borough masses on the horizon only. Horizon 0.50 vs photo 0.38. (carried over from the first run, 2026-11-11; the pose and the render are unchanged; not a catalogued LOC record) | P05: Same assumed pose as P04 although the two photographs have different standpoints (P05 has a brick house in the near middle ground). One pose cannot be right for both; the caption gives no position. Horizon 0.50 vs photo 0.38. (carried over from the first run, 2026-11-11; the pose and the render are unchanged; not a catalogued LOC record)",
+   "reviewed_image": true
   },
   {
    "loc_id": "2014646151",
@@ -643,6 +714,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "Pennsylvania College, August 1863",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -666,6 +739,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -677,6 +752,10 @@
     "PS-LOC-2018666296-T",
     "PS-NPS-CLRCEM-125",
     "PS-NPS-ROTV1-196",
+    "PS-NPS-ROTV1-F168",
+    "PS-NPS-ROTV1-F206",
+    "PS-NPS-ROTV1-F209",
+    "PS-NPS-ROTV2-F137",
     "PS-PL-LEISTER-LOC",
     "PS-TN-BF5"
    ],
@@ -709,6 +788,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -740,6 +821,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -771,6 +854,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -795,6 +880,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -835,6 +922,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -861,6 +950,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -890,6 +981,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -905,6 +998,7 @@
     "PS-NPS-CLRLRT-405",
     "PS-NPS-CP3-29",
     "PS-NPS-ROTV1-146",
+    "PS-NPS-ROTV1-F163",
     "PS-PL-SUMMIT-LOC",
     "PS-PL-SUMMIT-SAME",
     "PS-TN-LRT2-DIR",
@@ -944,6 +1038,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -991,6 +1087,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2025167163"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1006,7 +1106,7 @@
    "class": "NEAR",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Close or middle view of a stone breastwork on a rocky slope with a small tree; a strip of far fields at the left edge only. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+   "why": "Close or middle view of a stone breastwork on a rocky slope with a small tree; a strip of far fields at the left edge only. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025167163 (both images were looked at)."
   },
   {
    "loc_id": "2018666306",
@@ -1017,6 +1117,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "Alfred Waud sketching on a boulder in Devil's Den: a posed portrait, not a landscape",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1061,6 +1163,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1087,6 +1191,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1096,7 +1202,9 @@
     "LOC2018666308_cwpb.00865_r",
     "LOC2018666308_cwpb.00865_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-NPS-ROTV2-F15"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
@@ -1113,6 +1221,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1139,6 +1249,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1151,6 +1263,7 @@
     "LOC2018666310_cwpb.00883_v"
    ],
    "statement_ids": [
+    "PS-NPS-ROTV2-F27",
     "PS-PL-RW3-LOC",
     "PS-PL-RW3-WAGON",
     "PS-TN-RW3-DIR",
@@ -1194,6 +1307,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1241,6 +1356,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1269,6 +1386,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -1311,6 +1430,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2006692501"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -1352,7 +1475,7 @@
    "class": "STG",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A body in front of boulders (NPS: Slaughter Pen report plate 8 and Then-And-Now Devil's Den no. 4). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A body in front of boulders (NPS: Slaughter Pen report plate 8 and Then-And-Now Devil's Den no. 4). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2006692501 (both images were looked at)."
   },
   {
    "loc_id": "2018666315",
@@ -1363,6 +1486,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": "Three Confederate prisoners: the NPS (CLR First Day Fig. 1.46) gives a place and direction and the frame holds a landscape; the first run excluded it by the word prisoners",
+   "same_exposure_as": [
+    "2004682780"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1382,7 +1509,7 @@
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Three prisoners on stacked rails with a town skyline in the left distance (NPS: probably along Seminary Lane looking east, about July 15); the lane is not in the model and Seminary Ridge is about 3 km long. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "Three prisoners on stacked rails with a town skyline in the left distance (NPS: probably along Seminary Lane looking east, about July 15); the lane is not in the model and Seminary Ridge is about 3 km long. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2004682780 (both images were looked at)."
   },
   {
    "loc_id": "2018666316",
@@ -1393,6 +1520,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "portrait of John Burns with gun and crutches",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1419,6 +1548,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "portrait of W.D. Pender",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1442,6 +1573,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1469,6 +1602,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -1496,6 +1631,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1523,6 +1660,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1550,6 +1689,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1565,7 +1706,9 @@
     "LOC2018670660_cwpb.00847_v"
    ],
    "statement_ids": [
-    "PS-NPS-CLR1D-148"
+    "PS-NPS-CLR1D-148",
+    "PS-NPS-ROTV1-F6",
+    "PS-NPS-ROTV2-F29"
    ],
    "nps_then_now_identity": [],
    "pose_ids": [],
@@ -1583,6 +1726,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "Hanover Junction (not Gettysburg), a burned bridge",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1608,6 +1753,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2013645925"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1629,7 +1778,7 @@
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "NPS Gardner no. 235 (Rose Woods no. 2): a large split rock is the reference point; bodies gathered for burial; the rock is not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "NPS Gardner no. 235 (Rose Woods no. 2): a large split rock is the reference point; bodies gathered for burial; the rock is not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2013645925 (both images were looked at)."
   },
   {
    "loc_id": "2018670696",
@@ -1640,6 +1789,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "Sanitary Commission offices, a town building",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1663,6 +1814,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1688,6 +1841,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1713,6 +1868,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1743,6 +1900,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2011649965"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1754,14 +1915,15 @@
     "LOC2018670703_cwpb.00854_v"
    ],
    "statement_ids": [
-    "PS-LOC-2018670703-N"
+    "PS-LOC-2018670703-N",
+    "PS-NPS-ROTV2-F33"
    ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Bodies in a field opposite the extreme left with a far tree line (negative sleeve: View in wheatfield opposite our extreme left). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "Bodies in a field opposite the extreme left with a far tree line (negative sleeve: View in wheatfield opposite our extreme left). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011649965 (both images were looked at)."
   },
   {
    "loc_id": "2018670704",
@@ -1772,6 +1934,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2025162158"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1780,13 +1946,15 @@
     "LOC2018670704_cwpb.01644_r",
     "LOC2018670704_cwpb.01644_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-NPS-ROTV1-F233"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "NEAR",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Close or middle view of breastworks inside the Culp's Hill woods. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+   "why": "Close or middle view of breastworks inside the Culp's Hill woods. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025162158 (both images were looked at)."
   },
   {
    "loc_id": "2018670705",
@@ -1797,6 +1965,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1822,6 +1992,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": "Lutheran Seminary building, July 1863 (NPS Then-And-Now no. 2): a building in the model; the first run excluded it by the word Seminary",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1860,6 +2032,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1889,6 +2063,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1898,6 +2074,7 @@
     "LOC2018670709_cwpb.01656_v"
    ],
    "statement_ids": [
+    "PS-NPS-ROTV1-F193",
     "PS-NPS-VISTA-10"
    ],
    "nps_then_now_identity": [],
@@ -1916,6 +2093,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "portrait of John Burns with gun and crutches (stereo pair)",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1941,6 +2120,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "the Burns cottage with Burns seated in the doorway, a house portrait",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1966,6 +2147,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2011646177"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -1982,7 +2167,7 @@
    "class": "NEAR",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Close or middle view of a stone breastwork on a rocky slope under trees (Round Top). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+   "why": "Close or middle view of a stone breastwork on a rocky slope under trees (Round Top). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011646177 (both images were looked at)."
   },
   {
    "loc_id": "2018670726",
@@ -1993,6 +2178,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2018,6 +2205,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2043,6 +2232,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -2083,6 +2274,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2110,6 +2303,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2135,6 +2330,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2160,6 +2357,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2013645929"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -2190,7 +2391,7 @@
    "class": "STG",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). The Devil's Den niche with a body (Body of Confederate sharpshooter). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). The Devil's Den niche with a body (Body of Confederate sharpshooter). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2013645929 (both images were looked at)."
   },
   {
    "loc_id": "2018670802",
@@ -2201,6 +2402,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2226,6 +2429,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -2251,6 +2456,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2278,6 +2485,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2305,6 +2514,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2338,6 +2549,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -2378,6 +2591,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2401,6 +2616,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2454,6 +2671,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2479,6 +2698,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2504,6 +2725,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [
+    "P07"
+   ],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2518,13 +2743,12 @@
    ],
    "nps_then_now_identity": [],
    "pose_ids": [
-    "P07",
     "P27"
    ],
    "class": "POSE",
-   "verdict": "does not",
-   "why": "P07: The same assumed cemetery pose as P06 and the same result: the frame is a stereo sibling of P06 (road at the left, tents at the right, the town across the horizon) and the render shows a narrow band of footprints at the horizon and no road. Pose-conditional, as P06.",
-   "reviewed_image": true
+   "verdict": "",
+   "why": " | superseded earlier pose P07 (does not): The same assumed cemetery pose as P06 and the same result: the frame is a stereo sibling of P06 (road at the left, tents at the right, the town across the horizon) and the render shows a narrow band of footprints at the horizon and no road. Pose-conditional, as P06.",
+   "reviewed_image": false
   },
   {
    "loc_id": "2018671578",
@@ -2535,6 +2759,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -2558,6 +2784,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2581,6 +2809,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2604,19 +2834,25 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2011648596"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
     "LOC2018672106_cwpb.00068_r",
     "LOC2018672106_cwpb.00068_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-NPS-ROTV2-F31left"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "NEAR",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Close or middle view of bodies under two large trees on bare ground. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+   "why": "Close or middle view of bodies under two large trees on bare ground. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011648596 (both images were looked at)."
   },
   {
    "loc_id": "2018672107",
@@ -2627,6 +2863,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -2650,6 +2888,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": false,
    "scope_note": "Sanitary Commission offices, a town building (stereo pair)",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2673,6 +2913,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2696,6 +2938,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2719,6 +2963,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -2742,6 +2988,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2765,6 +3013,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2788,6 +3038,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2813,6 +3065,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2836,6 +3090,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2859,6 +3115,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2866,6 +3124,7 @@
     "LOC2018672207_cwpb.03971_v"
    ],
    "statement_ids": [
+    "PS-NPS-ROTV2-F67",
     "PS-NPS-VISTA-10"
    ],
    "nps_then_now_identity": [],
@@ -2884,6 +3143,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -2915,6 +3176,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2940,6 +3203,10 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2006692502"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
    "image_keys": [
@@ -2965,7 +3232,7 @@
    "class": "STG",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A mounted print of the sharpshooter in the niche, titled Dead Confederate at Little Round Top. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A mounted print of the sharpshooter in the niche, titled Dead Confederate at Little Round Top. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2006692502 (both images were looked at)."
   },
   {
    "loc_id": "91732534",
@@ -2976,6 +3243,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -2999,6 +3268,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3022,6 +3293,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3045,6 +3318,8 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3070,13 +3345,17 @@
    "catalogue": "catalogue.json",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
     "LOC91732551_cph.3g01831_r",
     "LOC91732551_cph.3g01831_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-NPS-ROTV1-F353"
+   ],
    "nps_then_now_identity": [
     {
      "nps_then_now": "trostle-farm#2",
@@ -3099,19 +3378,25 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2011648011"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
     "LOC2012647700_ppmsca.32834_r",
     "LOC2012647700_ppmsca.32834_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-NPS-ROTV1-F355"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Bigelow's dead horses with the Trostle barn at the left and house at the right (print series); no side or distance is stated; the same scene as record 2013645105 (P24) from a different print. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "Bigelow's dead horses with the Trostle barn at the left and house at the right (print series); no side or distance is stated; the same scene as record 2013645105 (P24) from a different print. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011648011 (both images were looked at)."
   },
   {
    "loc_id": "2012647701",
@@ -3122,6 +3407,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3147,6 +3434,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3172,6 +3461,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3195,19 +3486,26 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
     "LOC2012647704_ppmsca.32838_r",
     "LOC2012647704_ppmsca.32838_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOC-2012647704-N",
+    "PS-NPS-ROTV1-F213"
+   ],
    "nps_then_now_identity": [],
-   "pose_ids": [],
-   "class": "POS",
-   "verdict": "cannot judge",
-   "reviewed_image": true,
-   "why": "Culp's Hill seen from the south with a tent on the slope (print series); camera place not stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "pose_ids": [
+    "P29"
+   ],
+   "class": "POSE",
+   "verdict": "",
+   "why": "",
+   "reviewed_image": false
   },
   {
    "loc_id": "2012647706",
@@ -3218,6 +3516,10 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2012647719"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3228,14 +3530,15 @@
     "PS-LOC-2012647706-N",
     "PS-NPS-CLR1D-01",
     "PS-NPS-HSMCP-139",
-    "PS-NPS-HSMCP-139b"
+    "PS-NPS-HSMCP-139b",
+    "PS-NPS-ROTV1-F28"
    ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "A corn field and meadow with two figures and the Herbst woods group of trees; NPS (CLR First Day Fig. 0.1): looking southeast from the McPherson farm with the seminary cupola in the distance; NPS (McPherson study): taken just east of the quarry looking east-southeast. The quarry is not in the model and the two descriptions differ by about 25 degrees. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "A corn field and meadow with two figures and the Herbst woods group of trees; NPS (CLR First Day Fig. 0.1): looking southeast from the McPherson farm with the seminary cupola in the distance; NPS (McPherson study): taken just east of the quarry looking east-southeast. The quarry is not in the model and the two descriptions differ by about 25 degrees. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647719 (both images were looked at)."
   },
   {
    "loc_id": "2012647708",
@@ -3246,6 +3549,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3282,6 +3587,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3305,6 +3612,10 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": false,
    "scope_note": "matches the NPS Then-And-Now Devil's Den no. 8: the staged Weaver photograph of 11 November 1863 (LOC ppmsca 32931), not July",
+   "same_exposure_as": [
+    "2025167167"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": true,
    "staged_basis": "NPS Then-And-Now, Devil's Den no. 8: the NPS calls this photograph staged and more than four months after the battle; matches the NPS Then-And-Now Devil's Den no. 8: the staged Weaver photograph of 11 November 1863 (LOC ppmsca 32931), not July",
    "image_keys": [
@@ -3326,7 +3637,7 @@
    "class": "STG",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Staged-photograph flag respected (NPS Then-And-Now, Devil's Den no. 8: the NPS calls this photograph staged and more than four months after the battle; matches the NPS Then-And-Now Devil's Den no. 8: the staged Weaver photograph of 11 November 1863 (LOC ppmsca 32931), not July). Men posed among Devil's Den boulders: the NPS image match shows it is the Weaver photograph of 11 November 1863 (LOC ppmsca 32931), which the NPS calls staged and taken more than four months after the battle; not July, so outside the July terrain test. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+   "why": "Staged-photograph flag respected (NPS Then-And-Now, Devil's Den no. 8: the NPS calls this photograph staged and more than four months after the battle; matches the NPS Then-And-Now Devil's Den no. 8: the staged Weaver photograph of 11 November 1863 (LOC ppmsca 32931), not July). Men posed among Devil's Den boulders: the NPS image match shows it is the Weaver photograph of 11 November 1863 (LOC ppmsca 32931), which the NPS calls staged and taken more than four months after the battle; not July, so outside the July terrain test. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025167167 (both images were looked at)."
   },
   {
    "loc_id": "2012647846",
@@ -3337,6 +3648,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3360,6 +3673,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3385,6 +3700,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3410,6 +3727,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3435,6 +3754,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3460,6 +3781,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3483,6 +3806,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3506,6 +3831,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3531,6 +3858,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3555,6 +3884,8 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3580,6 +3911,10 @@
    "catalogue": "added by catalogue_additions.py",
    "scope_july_1863_terrain": true,
    "scope_note": null,
+   "same_exposure_as": [
+    "2025167173"
+   ],
+   "superseded_pose_ids": [],
    "staged_flag": false,
    "staged_basis": null,
    "image_keys": [
@@ -3596,7 +3931,1583 @@
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Bodies of Union soldiers in an open field with a low tree line on the horizon (Gibson stereograph no. 243, back of the card not read as a position); the NPS says the location is disputed and that it may look east across the Wills Farm, so no camera spot is fixed. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "Bodies of Union soldiers in an open field with a low tree line on the horizon (Gibson stereograph no. 243, back of the card not read as a position); the NPS says the location is disputed and that it may look east across the Wills Farm, so no camera spot is fixed. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025167173 (both images were looked at)."
+  },
+  {
+   "loc_id": "2004682780",
+   "title": "Three \"Johnnie Reb\" Prisoners, captured at Gettysburg, 1863",
+   "creator": "Brady, Mathew B., approximately 1823-1896",
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2004682780/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2018666315",
+    "2025163097"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2004682780"
+   ],
+   "statement_ids": [
+    "PS-LOC-2004682780-S"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Three Confederate prisoners seated on stacked rails with a far town behind them (Brady stereo card no. 2288); the record places them on Seminary Ridge about 15 July 1863 and cites Frassanito for it: a lead, not used. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2018666315, 2025163097 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025160089",
+   "title": "Incidents of the War, Trosell's [i.e. Trostle's] House, Battle Field of Gettysburg, July 1863",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "[Washington] : [Alexander Gardner, 511 7th St.], [1865]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025160089/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2006692513",
+    "2013645948"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2025160089"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Trostle house seen from a distance with dead horses on the ground in front of it (O'Sullivan negative, Gardner album print of 1865). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2006692513, 2013645948 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025160547",
+   "title": "Jenny Wade, aged 20, killed by a stray ball, at the Battle of Gettysburg, July 3, 1863, buried on the 4th, with the victorious flag of our Union waving over her grave",
+   "creator": null,
+   "date_as_catalogued": "[1881]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025160547/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a copyright-deposit record of 1881 about the burial of Jennie Wade; the Library has not digitized it",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A copyright-deposit record of 1881 about the burial of Jennie Wade; the Library has not digitized it. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2011649966",
+   "title": "[Confederate dead gathered for burial at the southwestern edge of the Rose woods, Gettysburg, Pa., July 5, 1863]",
+   "creator": null,
+   "date_as_catalogued": "Gettysburg, Pa. : Mumper & Co., Photographic Artists, No. 25 Baltimore St., [1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011649966/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2025167175"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011649966"
+   ],
+   "statement_ids": [
+    "PS-LOC-2011649966-T"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of dead Confederate soldiers in rows in front of a wood with a rail fence (Mumper stereo card); the title and date come from Frassanito (a lead): the southwestern edge of the Rose Woods. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025167175 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025160541",
+   "title": "Tablet erected by Battery B. in memory of the Battle of Gettysburg July 1, 2, 3, 1863 on Cemetery Ridge, showing Culp's Hill",
+   "creator": null,
+   "date_as_catalogued": "[between 1863 and 1900]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025160541/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a monument tablet of Battery B on Cemetery Ridge; the Library has not digitized it",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A monument tablet of Battery B on Cemetery Ridge; the Library has not digitized it. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2013645948",
+   "title": "Trossels house - battlefield Gettysburg - near to the barn on the left was where Sickles has his head quarters and lost his leg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "[1863 July]",
+   "loc_url": "https://www.loc.gov/pictures/item/2013645948/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2013645105",
+    "2025160089"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2013645948"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Trostle house with a barn at the left and dead horses in front (the record says: near the barn was where Sickles had his headquarters). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2013645105, 2025160089 (both images were looked at)."
+  },
+  {
+   "loc_id": "2024640246",
+   "title": "Battle-field of Gettysburg Culp's Hill, from Ever-green Cemetery : rifle pits in foreground. The scene of a terrific musketry contest on the 2d and 3d of July, 1863.",
+   "creator": "Tipton & Myers",
+   "date_as_catalogued": "Gettysburg, Pa. : Published by Tipton & Myers (Successors to C.J. Tyson)--Excelsior Galleries, [between 1865 and 1880]",
+   "loc_url": "https://www.loc.gov/pictures/item/2024640246/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a Tipton and Myers stereograph of Culp's Hill from the Evergreen Cemetery with rifle pits in the foreground; photographed after the battle (between 1865 and 1880); not digitized",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A Tipton and Myers stereograph of Culp's Hill from the Evergreen Cemetery with rifle pits in the foreground; photographed after the battle (between 1865 and 1880); not digitized. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2025160363",
+   "title": "The woods from which the 2d Mass. and 27th Indiana charged on the morning of July 3d, 1863. 3d Wisconsin, 13th N.J., and 107th N. York in the woods, 150th N.Y. on the open ground just behind stone wall. Ruger's Brigade, William's Div., 12th Corps.",
+   "creator": "Tipton, W. H. (William H.), 1850-1929",
+   "date_as_catalogued": "Gettysburg, Pa. : published by W.H. Tipton & Co., [between 1863 and 1890]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025160363/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a Tipton stereograph of the woods from which the 2d Massachusetts and 27th Indiana charged on 3 July; made between 1863 and 1890 (Tipton worked in Gettysburg after the war); not digitized",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A Tipton stereograph of the woods from which the 2d Massachusetts and 27th Indiana charged on 3 July; made between 1863 and 1890 (Tipton worked in Gettysburg after the war); not digitized. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2025167175",
+   "title": "Union [i.e. Confederate] dead at Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., No. 21 Linden Place, [5 July 1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025167175/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2011649966",
+    "2011649968"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2025167175"
+   ],
+   "statement_ids": [
+    "PS-LOC-2025167175-S"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of two rows of dead Confederate soldiers in front of a wood with a rail fence (stereo card no. 245; the record gives 5 July 1863 and the southwestern edge of the Rose Woods from Frassanito: a lead). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011649966, 2011649968 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011660054",
+   "title": "General Meade's Headquarters at Gettysburg",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., No. 21 Linden Place, [1863 July]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011660054/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2025169709"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011660054"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A dirt road with a rail fence leading to the Leister house and trees (Gardner stereo card no. 259, 'General Meade's headquarters'). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025169709 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025167173",
+   "title": "On the battlefield of Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., No. 21 Linden Place, [1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025167173/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2009630184"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2025167173"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of Union dead lying in a field with a tree line and distant riders (stereo card no. 243, the first day). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2009630184 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011660056",
+   "title": "John L. Burns, the old hero of Gettysburgh (i.e. Gettysburg), recovering from his wounds",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "New York : E. & H. T. Anthony & Co., American and Foreign Stereoscopic Emporium, 501 Broadway, [1863 July]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011660056/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a portrait of John Burns in a rocking chair with his gun and crutches",
+   "same_exposure_as": [
+    "2011660071"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011660056"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A portrait of John Burns in a rocking chair with his gun and crutches. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011660071 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011660071",
+   "title": "\"The hero of Gettysburg\"",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., No. 21 Linden Place, [1863 July]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011660071/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a portrait of John Burns in a rocking chair (stereo card no. 2401)",
+   "same_exposure_as": [
+    "2011660056"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011660071"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A portrait of John Burns in a rocking chair (stereo card no. 2401). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011660056 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025167831",
+   "title": "The slaughter pen at Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., No. 21 Linden Place, [1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025167831/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2011649969"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2025167831"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a dead soldier bent over among tall tree trunks (stereo card no. 253, the slaughter pen). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011649969 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025167167",
+   "title": "View of the dead at Devil's Den",
+   "creator": null,
+   "date_as_catalogued": "[United States] : [Publisher not identified], [between 1863 and 1865]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025167167/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2012647845"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": true,
+   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)",
+   "image_keys": [
+    "WIDE|2025167167"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)). Rock formations with two men and bodies among the rocks (title: Devil's Den; printed on the verso as a sight of the battlefield). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647845 (both images were looked at)."
+  },
+  {
+   "loc_id": "2024640258",
+   "title": "Battle-field of Gettysburg Federal Breast-works on Culp's Hill, near the point which was charged and carried by the Rebels on Thursday night, July 2, 1863.",
+   "creator": "Tipton & Myers",
+   "date_as_catalogued": "Gettysburg, Pa. : Published by Tipton & Myers (Successors to C.J. Tyson)--Excelsior Galleries, [between 1865 and 1880]",
+   "loc_url": "https://www.loc.gov/pictures/item/2024640258/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a Tipton and Myers stereograph of the Federal breastworks on Culp's Hill; made between 1865 and 1880; not digitized",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A Tipton and Myers stereograph of the Federal breastworks on Culp's Hill; made between 1865 and 1880; not digitized. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2014647511",
+   "title": "John Burns, the hero of Gettysburg Slaughter pen at Gettysburg /",
+   "creator": "Taylor & Huntington",
+   "date_as_catalogued": "Hartford, Conn. : Taylor & Huntington, sole owners, [1863, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/2014647511/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a card with a portrait of John Burns on the recto (the image) and the slaughter pen on the verso (not shown)",
+   "same_exposure_as": [
+    "2025163077"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2014647511"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A card with a portrait of John Burns on the recto (the image) and the slaughter pen on the verso (not shown). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025163077 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011646175",
+   "title": "War effect of a shell on a Confederate soldier at battle of Gettysburg",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "New York : E. & H.T. Anthony & Co., [1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011646175/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2011649970"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011646175"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a dead Confederate soldier lying on grass (Gardner stereo card no. 274). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011649970 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011649197",
+   "title": "Wounded trees at Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., No. 21 Linden Place, [between 1863 and 1880]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011649197/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2011649196"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011649197"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a man lying among bullet-scarred tree trunks in a wood (stereo card no. 2391, wounded trees, near Culp's Hill). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011649196 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011649196",
+   "title": "Wounded trees at Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "Hartford, Conn. : Taylor & Huntington, No. 2 State St., [between 1863 and 1880]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011649196/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2011649197"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011649196"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a man lying among bullet-scarred tree trunks in a wood (stereo card no. 2391, a second printing). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011649197 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011646177",
+   "title": "View of breastworks on Round Top - the hill which formed our extreme left at the battle of Gettysburg",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "New York : E. & H.T. Anthony & Co., [between 1863 and 1865]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011646177/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2018670717"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011646177"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a stone breastwork on a rocky slope (Gardner stereo card no. 241, breastworks on Round Top). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2018670717 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011647873",
+   "title": "Federal dead on the field of battle of first day",
+   "creator": null,
+   "date_as_catalogued": "[1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011647873/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011647873"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of six small photographs on one mount: dead soldiers, a dead horse and a donkey (stereo numbers 242, 243, 234, 226, 274 and 266). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2011649968",
+   "title": "Union (i.e. Confederate) dead at Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., No. 21 Linden Place, [1863 July 5]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011649968/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2025167175"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011649968"
+   ],
+   "statement_ids": [
+    "PS-LOC-2011649968-S"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of two rows of dead Confederate soldiers at a wood edge (stereo card no. 245, a second print). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025167175 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011649969",
+   "title": "The slaughter pen at Gettysburg",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., No. 21 Linden Place, [1863 July]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011649969/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2025167831"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011649969"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a dead soldier bent over among tall tree trunks (stereo card no. 253, a second print). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025167831 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025163077",
+   "title": "\"The hero of Gettysburg\"",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "Hartford, Conn. : Taylor & Huntington, No. 2 State St., [July 1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025163077/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a portrait of John Burns (stereo card no. 2401, a third print)",
+   "same_exposure_as": [
+    "2014647511"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2025163077"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A portrait of John Burns (stereo card no. 2401, a third print). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2014647511 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025169709",
+   "title": "General Meade's headquarters at Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "Hartford, Connecticut : The War Photograph & Exhibition Company, no. 21 Linden Place, [July 1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025169709/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2011660054"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2025169709"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A dirt road with a rail fence leading to the Leister house (stereo card no. 259, a second print). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011660054 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025162158",
+   "title": "Breastworks on left wing, Battle of Gettysburg",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "[United States] : published by E. & H.T. Anthony & Co., American and Foreign Stereoscopic Emporium, 501 Broadway, [between 1863 and 1865]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025162158/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2015647569",
+    "2018670704"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2025162158"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of two men seated at a stone breastwork among trees (Brady, 'breastworks on the left wing'). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2015647569, 2018670704 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025167163",
+   "title": "Breast works on the left wing, Battle of Gettysburgh [i.e. Gettysburg]",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "[United States] : published by E. & H.T. Anthony & Co., American and Foreign Stereoscopic Emporium, 501 Broadway, Negative by Brady & Co., [between 1863 and 1865]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025167163/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2018666305"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2025167163"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a rocky breastwork with a small tree (Brady, 'breastworks on the left wing'). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2018666305 (both images were looked at)."
+  },
+  {
+   "loc_id": "2025167164",
+   "title": "Gettysburg (?)",
+   "creator": null,
+   "date_as_catalogued": "[United States] : Publisher not identified., [between 1863 and 1865]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025167164/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2025167164"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a man with a rifle standing in woods; the record itself queries the place (Gettysburg?). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2006685384",
+   "title": "A harvest of death, Gettysburg, Pennsylvania",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July, c1865.",
+   "loc_url": "https://www.loc.gov/pictures/item/2006685384/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2006685384"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of dead soldiers lying in a field with riders far behind, a page of Gardner's Sketch Book (plate 36). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2011648013",
+   "title": "In Trossel's barnyard, Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., no. 21 Linden Place, [between 1863 and 1865, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011648013/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2011648011"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011648013"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Dead horses in the Trostle barnyard with the barn behind (stereo card no. 266, 'In Trossel's barnyard'). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011648011 (both images were looked at)."
+  },
+  {
+   "loc_id": "2013645925",
+   "title": "Confederate soldiers as they fell near the center of the battlefield of Gettysburg",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2013645925/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2018670673"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2013645925"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of Confederate dead lying in a field at a wood edge with a large boulder at the right (no. 235). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2018670673 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011649970",
+   "title": "The horrors of war",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., No. 21 Linden Place, 1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2011649970/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2011646175"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011649970"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a Confederate soldier killed by a shell lying in a field (stereo card no. 274, a second print). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011646175 (both images were looked at)."
+  },
+  {
+   "loc_id": "97501546",
+   "title": "Gen. Lee's headquarters",
+   "creator": "Tipton, W. H. (William H.), 1850-1929",
+   "date_as_catalogued": "Gettysburg, Pa. : W.H. Tipton & Co., photographers and publishers, [between 1863 and 1890]",
+   "loc_url": "https://www.loc.gov/pictures/item/97501546/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a stereograph of a stone house (Lee's headquarters) behind a fence, Tipton; made between 1863 and 1890",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|97501546"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A stereograph of a stone house (Lee's headquarters) behind a fence, Tipton; made between 1863 and 1890. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2015647569",
+   "title": "Breastworks on the left wing, Battle of Gettysburgh",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "New-York : Published by E. & H.T. Anthony & Co., American and foreign stereoscopic emporium, 501 Broadway, [1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2015647569/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2025162158"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2015647569"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of two Brady photographers seated at a stone breastwork among trees (a stereograph). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025162158 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011648011",
+   "title": "View at Losser's (i.e. Trostle's) barn, where the 9th Massachusetts Battery was cut up",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "New York : E. & H.T. Anthony, 501 Broadway, 1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2011648011/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2011648013",
+    "2012647700"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011648011"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Dead horses in the barnyard of the Trostle barn (stereo card no. 266). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2011648013, 2012647700 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011649194",
+   "title": "Devil's Den",
+   "creator": null,
+   "date_as_catalogued": "[between 1863 and 1880]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011649194/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": true,
+   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)",
+   "image_keys": [
+    "WIDE|2011649194"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)). A woman walking past the rock formations of Devil's Den (a stereograph made between 1863 and 1880). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2006692501",
+   "title": "A sharpshooter's last sleep, Gettysburg, Pennsylvania",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July, c1866.",
+   "loc_url": "https://www.loc.gov/pictures/item/2006692501/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2018666314"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": true,
+   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)",
+   "image_keys": [
+    "WIDE|2006692501"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)). A dead soldier and his rifle among rocks, a page of Gardner's Sketch Book (plate 40, a sharpshooter's last sleep). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2018666314 (both images were looked at)."
+  },
+  {
+   "loc_id": "2006692513",
+   "title": "Trossell's House, battle-field of Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2006692513/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2025160089"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2006692513"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Trostle house with slaughtered animals behind it, a page of Gardner's Sketch Book (plate 42). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025160089 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011648596",
+   "title": "Confederate soldiers who had evidently been shelled by our batteries on Round Top, at the Battle of Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "New York : E. & H. T. Anthony, 501 Broadway, wholesale agents c1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2011648596/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2018672106"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011648596"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of dead Confederate soldiers under a tree (stereo card no. 236, shelled by the batteries on Round Top). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2018672106 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011649195",
+   "title": "Meadow over which the 2d Mass. and 27th Indiana charged on morning of July 3d. Woods occupied by Confederates, Johnson's Div., Ewell's Corps",
+   "creator": null,
+   "date_as_catalogued": "Gettysburg, Pa. : W. H. Tipton & Co., [between 1863 and 1880]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011649195/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a Tipton stereograph of four men at a fence looking over a meadow toward woods (2d Massachusetts and 27th Indiana charge); made between 1863 and 1880",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011649195"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A Tipton stereograph of four men at a fence looking over a meadow toward woods (2d Massachusetts and 27th Indiana charge); made between 1863 and 1880. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "97501523",
+   "title": "Rock Creek, below Culp's Hill",
+   "creator": "Tipton, W. H. (William H.), 1850-1929",
+   "date_as_catalogued": "Gettysburg, Pa. : photographed and published by W.H. Tipton & Co., [between 1863 and 1890]",
+   "loc_url": "https://www.loc.gov/pictures/item/97501523/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a Tipton stereograph of Rock Creek below Culp's Hill; made between 1863 and 1890",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|97501523"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A Tipton stereograph of Rock Creek below Culp's Hill; made between 1863 and 1890. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2026167922",
+   "title": "[John L. Burns, veteran of the War of 1812, civilian who fought at the Battle of Gettysburg with Union troops, standing with bayoneted musket in front of painted backdrop showing terrace and river]",
+   "creator": "Bogardus, A. (Abraham), 1822-1908",
+   "date_as_catalogued": "[New York] : [Bogardus, photographer, 363 Broadway], [between 1863 and 1872]",
+   "loc_url": "https://www.loc.gov/pictures/item/2026167922/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a studio portrait of John Burns standing with his gun",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2026167922"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A studio portrait of John Burns standing with his gun. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2006692514",
+   "title": "Head-quarters Major General George G. Meade during the battle of Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2006692514/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2006692514"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Leister house behind a picket fence from the road, a page of Gardner's Sketch Book (plate 43). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2021644150",
+   "title": "[Unidentified soldiers in Union uniforms of Captain Lewis Heckman's 1st Ohio Light Artillery, Battery K with cannon at the Battle of Gettysburg]",
+   "creator": null,
+   "date_as_catalogued": "[Place not identified] : [Publisher not identified], [July 1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2021644150/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a group of soldiers of a battery in front of a log building; the place is not identified",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2021644150"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A group of soldiers of a battery in front of a log building; the place is not identified. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2017659617",
+   "title": "[John L. Burns, veteran of the War of 1812, civilian who fought at the Battle of Gettysburg with Union troops, standing with bayoneted musket]",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "New York : E. & H.T. Anthony, 501 Broadway, [between 1863 and 1872]",
+   "loc_url": "https://www.loc.gov/pictures/item/2017659617/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a studio portrait of John Burns",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2017659617"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A studio portrait of John Burns. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2021644153",
+   "title": "[Group of wounded soldiers with two female nurses in front of tents at General Hospital, near Gettysburg, Pennsylvania]",
+   "creator": "Tyson Brothers",
+   "date_as_catalogued": "[Gettysburg, Pa.] : [Tyson Brothers], [July 1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2021644153/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "wounded soldiers and two nurses in front of the tents of a general hospital (a print of the Tyson Brothers; the hospital was set up after the battle)",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2021644153"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Wounded soldiers and two nurses in front of the tents of a general hospital (a print of the Tyson Brothers; the hospital was set up after the battle). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2026167355",
+   "title": "[Sergeant Benjamin Franklin Falls of Co. A, 19th Massachusetts Infantry Regiment in uniform standing behind two tattered flags of the regiment that were carried at battle of Gettysburg]",
+   "creator": "Heald & Bro.",
+   "date_as_catalogued": "[Lynn, Mass.] : [Heald & Bro., photographists, No. 3 Ellis' Building], [between 1863 and 1864]",
+   "loc_url": "https://www.loc.gov/pictures/item/2026167355/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a studio portrait of Sergeant Falls with a captured flag",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2026167355"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A studio portrait of Sergeant Falls with a captured flag. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2020630902",
+   "title": "[Mrs. Mason, Civil War nurse at Gettysburg]",
+   "creator": "Jordan & Co. (New York, N.Y.)",
+   "date_as_catalogued": "[New York] : [Jordan & Co., late Bogardus, 229 Greenwich St.], [1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2020630902/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a studio portrait of a nurse, Mrs. Mason",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2020630902"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A studio portrait of a nurse, Mrs. Mason. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2004682792",
+   "title": "Dead at Little Round-Top - position of Berdan's Sharpshooters",
+   "creator": null,
+   "date_as_catalogued": "1863 [November 11]",
+   "loc_url": "https://www.loc.gov/pictures/item/2004682792/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": true,
+   "staged_basis": "posed scene of 11 November 1863 (the NPS Then-And-Now series: the Weaver photographs of that day); terrain and rocks only",
+   "image_keys": [
+    "WIDE|2004682792"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (posed scene of 11 November 1863 (the NPS Then-And-Now series: the Weaver photographs of that day); terrain and rocks only). Men posing as dead soldiers among rocks, looking toward Little Round Top (the record: a posed scene of 11 November 1863 in the Devil's Den and slaughter pen area, from Frassanito: a lead; the NPS identifies the Weaver photographs of 11 November 1863). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2020634839",
+   "title": "[Evergreen Cemetery gatehouse, Gettysburg, Pennsylvania]",
+   "creator": "Tyson's Excelsior Photographic Portrait Galleries",
+   "date_as_catalogued": "[Gettysburg, Pa.] : [Tyson's Excelsior Photographic Portrait Galleries], [1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2020634839/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2020634839"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Evergreen Cemetery gatehouse seen from the front across bare ground with a rail fence (Tyson Excelsior galleries, 1863). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2013645929",
+   "title": "Rocks could not save him at the Battle of Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "[1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2013645929/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2018670788"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": true,
+   "staged_basis": "the printed number 251 equals the number of the sharpshooter negative LC-B815-251 that the first pass flagged as staged (record 2012647849: Devil's Den sharpshooter; the series prefixes differ, so the tie is likely, not proven) and the frame shows a body among boulders in a rock gorge like that series; flagged to be safe; terrain and rocks only",
+   "image_keys": [
+    "WIDE|2013645929"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (the printed number 251 equals the number of the sharpshooter negative LC-B815-251 that the first pass flagged as staged (record 2012647849: Devil's Den sharpshooter; the series prefixes differ, so the tie is likely, not proven) and the frame shows a body among). A dead soldier lying among large boulders in a rock gorge (the verso gives Gardner photographic incidents of the war no. 251). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2018670788 (both images were looked at)."
+  },
+  {
+   "loc_id": "2006692500",
+   "title": "Gateway of cemetery, Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July, c1866.",
+   "loc_url": "https://www.loc.gov/pictures/item/2006692500/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2012647705"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2006692500"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Evergreen Cemetery gatehouse seen across ground with earthworks in front of it, a page of Gardner's Sketch Book (plate 39). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647705 (both images were looked at)."
+  },
+  {
+   "loc_id": "2006685385",
+   "title": "Field where General Reynolds fell, Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July, c1866.",
+   "loc_url": "https://www.loc.gov/pictures/item/2006685385/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2006685385"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of dead soldiers in a field, a page of Gardner's Sketch Book (plate 37, the field where General Reynolds fell). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2019635468",
+   "title": "[Gettysburg from Seminary Ridge]",
+   "creator": "Tyson's Excelsior Photographic Portrait Galleries",
+   "date_as_catalogued": "[Gettysburg, Pa.] : [Tyson's Excelsior Photographic Portrait Galleries], [1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2019635468/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2019635468"
+   ],
+   "statement_ids": [
+    "PS-LOC-2019635468-T"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A dirt road running down toward Gettysburg with a rail fence at the left and fields on both sides, the town far ahead (Tyson Excelsior galleries, 1863; the card is titled from Seminary Ridge). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2006685383",
+   "title": "Gettysburg, Pennsylvania",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July, c1865.",
+   "loc_url": "https://www.loc.gov/pictures/item/2006685383/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2014646001"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2006685383"
+   ],
+   "statement_ids": [
+    "PS-LOC-2006685383-S"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [
+    "P28"
+   ],
+   "class": "POS",
+   "verdict": "",
+   "why": "",
+   "reviewed_image": false
+  },
+  {
+   "loc_id": "2025163097",
+   "title": "Three \"Johnnie Reb\" prisoners",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Co., No. 21 Linden Place, [1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2025163097/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2004682780"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2025163097"
+   ],
+   "statement_ids": [
+    "PS-LOC-2025163097-S"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Three Confederate prisoners seated on stacked rails (Brady stereo card no. 2288, a second print); the record places them on Seminary Ridge about 15 July 1863, citing Frassanito (a lead). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2004682780 (both images were looked at)."
+  },
+  {
+   "loc_id": "2011649965",
+   "title": "[Dead Confederate soldiers lying side by side on the battlefield of Gettysburg]",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "[1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2011649965/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "2018670703"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2011649965"
+   ],
+   "statement_ids": [
+    "PS-LOC-2011649965-S"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of dead Confederate soldiers lying side by side with orchard trees behind (the record places them at the southwestern edge of the Rose Woods, citing Frassanito: a lead). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2018670703 (both images were looked at)."
+  },
+  {
+   "loc_id": "2006685386",
+   "title": "Interior of breastworks on Round Top, Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July, c1865.",
+   "loc_url": "https://www.loc.gov/pictures/item/2006685386/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2006685386"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A boulder-covered breastwork inside a woodland with smoke or haze, a page of Gardner's Sketch Book (plate 38, interior of the breastworks on Round Top). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647715",
+   "title": "Gettysburg, Pa. (day of Lincoln's address)",
+   "creator": null,
+   "date_as_catalogued": "[photographed 1863 November 19, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647715/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a crowd and horsemen on the road to the cemetery on the day of the Lincoln address, 19 November 1863",
+   "same_exposure_as": [
+    "2012647717"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2012647715"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A crowd and horsemen on the road to the cemetery on the day of the Lincoln address, 19 November 1863. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647717 (both images were looked at)."
+  },
+  {
+   "loc_id": "2019647064",
+   "title": "[Battle-torn regimental flag of 2nd Wisconsin Infantry Regiment (Iron Brigade) damaged at the Battle of Gettysburg]",
+   "creator": null,
+   "date_as_catalogued": "[Washington, D.C.] : [Whitehurst Gallery, 434 Pennsylvania Avenue], [1863?]",
+   "loc_url": "https://www.loc.gov/pictures/item/2019647064/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": false,
+   "scope_note": "a battle-torn regimental flag of the 2nd Wisconsin Infantry on a card",
+   "same_exposure_as": [],
+   "superseded_pose_ids": [],
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "WIDE|2019647064"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A battle-torn regimental flag of the 2nd Wisconsin Infantry on a card. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2006692502",
+   "title": "Home of a rebel sharpshooter",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July, c1866.",
+   "loc_url": "https://www.loc.gov/pictures/item/2006692502/",
+   "catalogue": "wide search (third pass)",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "same_exposure_as": [
+    "91732531"
+   ],
+   "superseded_pose_ids": [],
+   "staged_flag": true,
+   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)",
+   "image_keys": [
+    "WIDE|2006692502"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)). A dead soldier among rocks in a rocky gorge, a page of Gardner's Sketch Book (plate 41, home of a rebel sharpshooter). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 91732531 (both images were looked at)."
   }
  ]
 }

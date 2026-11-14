@@ -1,0 +1,493 @@
+{
+ "format": "roster2-sources-pointer/1",
+ "work_item": "roster-qa",
+ "generated": "2026-11-14T01:24:45Z",
+ "access_rules": "archive.org /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround; the page routes archive.org/download/<id>/page/ and iiif.archive.org are refused by the proxy and were not used",
+ "sources": [
+  {
+   "source_id": "ME-AGR-1863-APPD",
+   "volume": null,
+   "text_id": "ME-AGR-1863-APPD.1863",
+   "identifier": "annualreportofad1863main",
+   "title": "Annual report of the Adjutant General of the State of Maine, 1861-1866 (volume for the year ending 31 December 1863)",
+   "year": 1863,
+   "page_url": "https://archive.org/details/annualreportofad1863main",
+   "url": "https://archive.org/cors/annualreportofad1863main/annualreportofad1863main.pdf",
+   "bytes": 97509913,
+   "sha256": "d77de6afc32d44373c94b64f39c58a03398966be0c4260bd34c56e8175e1635c",
+   "use": "single pages rendered with pdftoppm for the independent sample and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "annualreportofad1863main.pdf",
+     "url": "https://archive.org/cors/annualreportofad1863main/annualreportofad1863main.pdf",
+     "bytes": 97509913,
+     "sha256": "d77de6afc32d44373c94b64f39c58a03398966be0c4260bd34c56e8175e1635c",
+     "retrieved_utc": "2026-11-14T00:54:04Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    },
+    {
+     "role": "scandata",
+     "name": "annualreportofad1863main_scandata.xml",
+     "url": "https://archive.org/cors/annualreportofad1863main/annualreportofad1863main_scandata.xml",
+     "bytes": 1759905,
+     "sha256": "c61c5f7308f2ca93a3d51e74a942b1fb667f7dc876f1fc61272a25e8879049fd",
+     "retrieved_utc": "2026-11-14T00:54:06Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": null,
+     "ia_possible_copyright_status": null,
+     "ia_contributor": "FamilySearch, Family History Library, The Church of Jesus Christ of Latter-day Saints",
+     "imprint_quote": "DECEMBER 31, 1863.",
+     "imprint_quote_offset_in_text": 181
+    },
+    "copied_from": "rosters/sources/union-me.json (source annualreportofad1863main)"
+   }
+  },
+  {
+   "source_id": "ME-SUPP-1867",
+   "volume": null,
+   "text_id": "ME-SUPP-1867.1867",
+   "identifier": "supplementtoannu00main",
+   "title": "Supplement to the Annual reports of the Adjutant General of the state of Maine, for the years 1861, '62, '63, '64, '65 and 1866 (Alphabetical Index)",
+   "year": 1867,
+   "page_url": "https://archive.org/details/supplementtoannu00main",
+   "url": "https://archive.org/cors/supplementtoannu00main/supplementtoannu00main.pdf",
+   "bytes": 87612393,
+   "sha256": "cc4dd37fa553565deee261772b9c78c94d1191bb7ca5ea75caa8f913b3150ae7",
+   "use": "single pages rendered with pdftoppm for the independent sample and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "supplementtoannu00main.pdf",
+     "url": "https://archive.org/cors/supplementtoannu00main/supplementtoannu00main.pdf",
+     "bytes": 87612393,
+     "sha256": "cc4dd37fa553565deee261772b9c78c94d1191bb7ca5ea75caa8f913b3150ae7",
+     "retrieved_utc": "2026-11-14T01:00:02Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    },
+    {
+     "role": "scandata",
+     "name": "supplementtoannu00main_scandata.xml",
+     "url": "https://archive.org/cors/supplementtoannu00main/supplementtoannu00main_scandata.xml",
+     "bytes": 1615215,
+     "sha256": "721a52fbc8b72a2341b2eb1f39aca362a5cc724205d0d0956c29e35d9674695e",
+     "retrieved_utc": "2026-11-14T01:00:03Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1867",
+     "ia_possible_copyright_status": null,
+     "ia_contributor": "Acton Memorial Library",
+     "imprint_quote": "STEVENS & SAYWARD, PRINTERS TO THE STATE",
+     "imprint_quote_offset_in_text": 400
+    },
+    "copied_from": "rosters/sources/union-me.json (source supplementtoannu00main)"
+   }
+  },
+  {
+   "source_id": "ME-GETT-1898",
+   "volume": null,
+   "text_id": "ME-GETT-1898.1898",
+   "identifier": "maineatgettysbur01main",
+   "title": "Maine at Gettysburg",
+   "year": 1898,
+   "page_url": "https://archive.org/details/maineatgettysbur01main",
+   "url": "https://archive.org/cors/maineatgettysbur01main/maineatgettysbur01main.pdf",
+   "bytes": 36209220,
+   "sha256": "f187290db33c253dd0e1c674f77d1014cae44352ed42dc20c41cff40cafa3961",
+   "use": "single pages rendered with pdftoppm for the independent sample and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "maineatgettysbur01main.pdf",
+     "url": "https://archive.org/cors/maineatgettysbur01main/maineatgettysbur01main.pdf",
+     "bytes": 36209220,
+     "sha256": "f187290db33c253dd0e1c674f77d1014cae44352ed42dc20c41cff40cafa3961",
+     "retrieved_utc": "2026-11-14T00:57:37Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    },
+    {
+     "role": "scandata",
+     "name": "maineatgettysbur01main_scandata.xml",
+     "url": "https://archive.org/cors/maineatgettysbur01main/maineatgettysbur01main_scandata.xml",
+     "bytes": 918969,
+     "sha256": "c2cb65008afa1c81e41181bd237638ef917cb1aa16046c00eadaef109190e615",
+     "retrieved_utc": "2026-11-14T00:57:40Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1898",
+     "ia_possible_copyright_status": null,
+     "ia_contributor": "Duke University Libraries"
+    },
+    "copied_from": "rosters/sources/union-me.json (source maineatgettysbur01main)"
+   }
+  },
+  {
+   "source_id": "NH-AYLING-1895",
+   "volume": "1",
+   "text_id": "NH-AYLING-1895.1",
+   "identifier": "cu31924096263128",
+   "title": "Revised register of the soldiers and sailors of New Hampshire in the war of the rebellion. 1861-1866",
+   "year": 1895,
+   "page_url": "https://archive.org/details/cu31924096263128",
+   "url": "https://archive.org/cors/cu31924096263128/cu31924096263128.pdf",
+   "bytes": 66582516,
+   "sha256": "a6d90192821f8f52e4bb4050e47bfb72f53cd739cc612b5dfe32f12b4cffabec",
+   "use": "single pages rendered with pdftoppm for the independent sample and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "cu31924096263128.pdf",
+     "url": "https://archive.org/cors/cu31924096263128/cu31924096263128.pdf",
+     "bytes": 66582516,
+     "sha256": "a6d90192821f8f52e4bb4050e47bfb72f53cd739cc612b5dfe32f12b4cffabec",
+     "retrieved_utc": "2026-11-14T00:52:32Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1895",
+     "ia_possible_copyright_status": null,
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "Cornell University Library",
+     "imprint": "Concord, I.C. Evans, public printer",
+     "year": 1895,
+     "why": "a state publication printed at Concord, New Hampshire, in 1895 (imprint in the item metadata)",
+     "item_notice_in_ocr_text": "There are no known copyright restrictions in the United States on the use of the text.",
+     "imprint_quote": "Ira C. Evans, Public Printer. 1895.",
+     "imprint_quote_offset_in_text": 825
+    },
+    "copied_from": "rosters/sources/union-nh.json (source cu31924096263128)"
+   }
+  },
+  {
+   "source_id": "NH-AYLING-1895",
+   "volume": "2",
+   "text_id": "NH-AYLING-1895.2",
+   "identifier": "cu31924096263136",
+   "title": "Revised register of the soldiers and sailors of New Hampshire in the war of the rebellion. 1861-1866",
+   "year": 1895,
+   "page_url": "https://archive.org/details/cu31924096263136",
+   "url": "https://archive.org/cors/cu31924096263136/cu31924096263136.pdf",
+   "bytes": 78255418,
+   "sha256": "b45802d14f55880efb8f5662f6dfcafa71142c1dccc605b867cea5042f4e5757",
+   "use": "single pages rendered with pdftoppm for the independent sample and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "cu31924096263136.pdf",
+     "url": "https://archive.org/cors/cu31924096263136/cu31924096263136.pdf",
+     "bytes": 78255418,
+     "sha256": "b45802d14f55880efb8f5662f6dfcafa71142c1dccc605b867cea5042f4e5757",
+     "retrieved_utc": "2026-11-14T00:50:01Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1895",
+     "ia_possible_copyright_status": null,
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "Cornell University Library",
+     "imprint": "Concord, I.C. Evans, public printer",
+     "year": 1895,
+     "why": "a state publication printed at Concord, New Hampshire, in 1895 (imprint in the item metadata)",
+     "item_notice_in_ocr_text": "There are no known copyright restrictions in the United States on the use of the text.",
+     "imprint_quote": "Ira C. Evans, Public Printer. 1895.",
+     "imprint_quote_offset_in_text": 840
+    },
+    "copied_from": "rosters/sources/union-nh.json (source cu31924096263136)"
+   }
+  },
+  {
+   "source_id": "VT-ROSTER-1892",
+   "volume": "1",
+   "text_id": "VT-ROSTER-1892.1",
+   "identifier": "cu31924080774148",
+   "title": "Revised roster of Vermont volunteers and lists of Vermonters who served in the army and navy of the United States during the war of the rebellion, 1861-66",
+   "year": 1892,
+   "page_url": "https://archive.org/details/cu31924080774148",
+   "url": "https://archive.org/cors/cu31924080774148/cu31924080774148.pdf",
+   "bytes": 67408335,
+   "sha256": "df49af98ce9bde1ab90241a6a281064d7bda9b64b8ed49675df58cf70bb600a4",
+   "use": "single pages rendered with pdftoppm for the independent sample and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "cu31924080774148.pdf",
+     "url": "https://archive.org/cors/cu31924080774148/cu31924080774148.pdf",
+     "bytes": 67408335,
+     "sha256": "df49af98ce9bde1ab90241a6a281064d7bda9b64b8ed49675df58cf70bb600a4",
+     "retrieved_utc": "2026-11-14T00:30:39Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1892",
+     "ia_possible_copyright_status": null,
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "Cornell University Library",
+     "imprint": "Montpelier, Press of the Watchman publishing co.",
+     "year": 1892,
+     "why": "a state publication (\"compiled by authority of the General Assembly under direction of Theodore S. Peck, Adjutant-General\") printed at Montpelier, Vermont, in 1892 (title page of the item)",
+     "imprint_quote": "Press  of  the  Watchman  Publishing  Co.,   Publishers  and  Printers.\n1892.",
+     "imprint_quote_offset_in_text": 877,
+     "authority_quote": "COMPILED  BY  AUTHORITY  OF  THE  GENERAL  ASSEMBLY",
+     "authority_quote_offset_in_text": 737,
+     "item_notice_in_ocr_text": "In compliance with current copyright law, Cornell University Library produced this replacement volume ...",
+     "item_notice_offset_in_text": 308,
+     "item_notice_reading": "a notice of the library that made a paper replacement copy of the 1892 volume in 1997; it states no restriction on the text"
+    },
+    "copied_from": "rosters/sources/union-vt.json (source cu31924080774148)"
+   }
+  },
+  {
+   "source_id": "MA-SSM-1931",
+   "volume": "1",
+   "text_id": "MA-SSM-1931.1",
+   "identifier": "massachusettssol11931mass",
+   "title": "Massachusetts soldiers, sailors, and marines in the civil war (v.1)",
+   "year": 1931,
+   "page_url": "https://archive.org/details/massachusettssol11931mass",
+   "url": "https://archive.org/cors/massachusettssol11931mass/massachusettssol11931mass.pdf",
+   "bytes": 63757338,
+   "sha256": "86b9901ea9183e9d8bcea9b6008d23f6e63cce01762900c2fb62fb0ac687003b",
+   "use": "single pages rendered with pdftoppm for the independent sample and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "massachusettssol11931mass.pdf",
+     "url": "https://archive.org/cors/massachusettssol11931mass/massachusettssol11931mass.pdf",
+     "bytes": 63757338,
+     "sha256": "86b9901ea9183e9d8bcea9b6008d23f6e63cce01762900c2fb62fb0ac687003b",
+     "retrieved_utc": "2026-11-14T00:46:04Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    },
+    {
+     "role": "scandata",
+     "name": "massachusettssol11931mass_scandata.xml",
+     "url": "https://archive.org/cors/massachusettssol11931mass/massachusettssol11931mass_scandata.xml",
+     "bytes": 437629,
+     "sha256": "e629c97dffe09037f265a8dd43eb284a741864f80900335bedf1af685b83c46f",
+     "retrieved_utc": "2026-11-14T00:46:05Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "printed 1931 (state publication, NORWOOD, MASS. PRINTED AT THE NORWOOD PRESS), after the 1929 cutoff: public domain is not established by the date of publication; Internet Archive flag NOT_IN_COPYRIGHT; no copyright notice found in the OCR text (0 hits for copyright, all rights reserved, copr., a circled c); owner decision pending (owner step 4, PRODUCTION-PLAN section 8)",
+    "evidence": {
+     "ia_date": "1931",
+     "ia_title": "Massachusetts soldiers, sailors, and marines in the civil war",
+     "ia_volume": "v.1",
+     "ia_possible_copyright_status": "NOT_IN_COPYRIGHT",
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "UMass Amherst Libraries",
+     "ia_sponsor": "UMass Amherst Libraries",
+     "ia_collection": [
+      "umass_amherst_libraries",
+      "blc",
+      "americana"
+     ],
+     "ia_publisher": "s. l., s. n",
+     "ia_scandate": "20090108132627",
+     "ia_date_is_series_date": false,
+     "printed_year": 1931,
+     "title_leaf": 5,
+     "authority_quote": "Compiled  and  Published\nBY\nTHE  ADJUTANT  GENERAL\nin  accordance  with Chapter  475,  Acts  of  1899\nAND\nChapter  64,  Resolves  of  1930",
+     "authority_quote_offset_in_text": 189,
+     "imprint_quote": "NORWOOD,    MASS. PRINTED    AT   THE    NORWOOD    PRESS\n2m-ll-'30.    No.  584-a  1931",
+     "imprint_quote_offset_in_text": 503,
+     "copyright_notice_search_of_the_whole_ocr_text": {
+      "copyright": {
+       "count": 0,
+       "first_offsets": [],
+       "context": []
+      },
+      "all rights reserved": {
+       "count": 0,
+       "first_offsets": [],
+       "context": []
+      },
+      "copr.": {
+       "count": 0,
+       "first_offsets": [],
+       "context": []
+      },
+      "(c) / circled c": {
+       "count": 0,
+       "first_offsets": [],
+       "context": []
+      }
+     },
+     "page_images": {
+      "leaves_rendered": [
+       4,
+       5,
+       6,
+       7
+      ],
+      "title_leaf": 5,
+      "verso_leaf": 6,
+      "verso_tesseract_chars": 0,
+      "verso_pinned_ocr_chars": 0,
+      "title_tesseract_notice_hits": [],
+      "title_pinned_notice_hits": [],
+      "looked_at_with_the_read_tool": "title leaf and verso",
+      "result": "the verso leaf is a blank page in the image (scan noise at the edge only); no copyright notice on the title leaf in the tesseract reading of the image (and, for volume 1, in the image itself)"
+     },
+     "term_arithmetic": "Computed, not a legal reading: if a United States copyright subsisted in a work first published in 1931, the term of 95 years from publication ends on 31 December 2026, so the work is out of any term from 1 January 2027; whether a copyright subsisted at all (a state publication, no notice on the title leaf or its verso) is not decided here",
+     "checks": "the three text files were compared with the md5 and sha1 that the item metadata lists for them (ia_md5_matches, ia_sha1_matches in files[])"
+    },
+    "copied_from": "rosters/sources/union-ma.json (source massachusettssol11931mass)"
+   }
+  },
+  {
+   "source_id": "MA-SSM-1931",
+   "volume": "2",
+   "text_id": "MA-SSM-1931.2",
+   "identifier": "massachusettssol21931mass",
+   "title": "Massachusetts soldiers, sailors, and marines in the civil war (v.2)",
+   "year": 1931,
+   "page_url": "https://archive.org/details/massachusettssol21931mass",
+   "url": "https://archive.org/cors/massachusettssol21931mass/massachusettssol21931mass.pdf",
+   "bytes": 67278670,
+   "sha256": "c76ba611469c68e60681935e141e61b92b4cf26bfa9b14489e88e88597d4d6b1",
+   "use": "single pages rendered with pdftoppm for the independent sample and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "massachusettssol21931mass.pdf",
+     "url": "https://archive.org/cors/massachusettssol21931mass/massachusettssol21931mass.pdf",
+     "bytes": 67278670,
+     "sha256": "c76ba611469c68e60681935e141e61b92b4cf26bfa9b14489e88e88597d4d6b1",
+     "retrieved_utc": "2026-11-14T00:47:43Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    },
+    {
+     "role": "scandata",
+     "name": "massachusettssol21931mass_scandata.xml",
+     "url": "https://archive.org/cors/massachusettssol21931mass/massachusettssol21931mass_scandata.xml",
+     "bytes": 426730,
+     "sha256": "224b8f32cff053cd835d0083419bd683cee8a7e98689bbb6203fb9768b1a3e01",
+     "retrieved_utc": "2026-11-14T00:47:44Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "printed 1931 (state publication, NORWOOD, MASS.), after the 1929 cutoff: public domain is not established by the date of publication; Internet Archive flag NOT_IN_COPYRIGHT; no copyright notice found in the OCR text (0 hits for copyright, all rights reserved, copr., a circled c); owner decision pending (owner step 4, PRODUCTION-PLAN section 8)",
+    "evidence": {
+     "ia_date": "1931",
+     "ia_title": "Massachusetts soldiers, sailors, and marines in the civil war",
+     "ia_volume": "v.2",
+     "ia_possible_copyright_status": "NOT_IN_COPYRIGHT",
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "UMass Amherst Libraries",
+     "ia_sponsor": "UMass Amherst Libraries",
+     "ia_collection": [
+      "umass_amherst_libraries",
+      "blc",
+      "americana"
+     ],
+     "ia_publisher": "s. l., s. n",
+     "ia_scandate": "20090107191111",
+     "ia_date_is_series_date": false,
+     "printed_year": 1931,
+     "title_leaf": 5,
+     "authority_quote": "Compiled  and  Published\nBY\nTHE  ADJUTANT  GENERAL\nin  accordance  with Chapter  475,  Acts  of  1899\nAND\nChapter  64,  Resolves  of  1930",
+     "authority_quote_offset_in_text": 213,
+     "imprint_quote": "NORWOOD,    MASS.\nPRINTED   AT  THE   NORWOOD   PRESS\n1931\n2in-ll-'30.    No.  584-b",
+     "imprint_quote_offset_in_text": 524,
+     "copyright_notice_search_of_the_whole_ocr_text": {
+      "copyright": {
+       "count": 0,
+       "first_offsets": [],
+       "context": []
+      },
+      "all rights reserved": {
+       "count": 0,
+       "first_offsets": [],
+       "context": []
+      },
+      "copr.": {
+       "count": 0,
+       "first_offsets": [],
+       "context": []
+      },
+      "(c) / circled c": {
+       "count": 0,
+       "first_offsets": [],
+       "context": []
+      }
+     },
+     "page_images": {
+      "leaves_rendered": [
+       4,
+       5,
+       6,
+       7
+      ],
+      "title_leaf": 5,
+      "verso_leaf": 6,
+      "verso_tesseract_chars": 0,
+      "verso_pinned_ocr_chars": 17,
+      "title_tesseract_notice_hits": [],
+      "title_pinned_notice_hits": [],
+      "looked_at_with_the_read_tool": "verso",
+      "result": "the verso leaf is a blank page in the image (scan noise at the edge only); no copyright notice on the title leaf in the tesseract reading of the image (and, for volume 1, in the image itself)"
+     },
+     "term_arithmetic": "Computed, not a legal reading: if a United States copyright subsisted in a work first published in 1931, the term of 95 years from publication ends on 31 December 2026, so the work is out of any term from 1 January 2027; whether a copyright subsisted at all (a state publication, no notice on the title leaf or its verso) is not decided here",
+     "checks": "the three text files were compared with the md5 and sha1 that the item metadata lists for them (ia_md5_matches, ia_sha1_matches in files[])"
+    },
+    "copied_from": "rosters/sources/union-ma.json (source massachusettssol21931mass)"
+   }
+  }
+ ],
+ "derived_texts": {
+  "ledger": "rosters/data2/sources/QA-PAGEREAD.json",
+  "texts": 15,
+  "what": "tesseract readings of single pages (psm 6, 300 dpi, table rules removed), pinned by sha256; second readings for the lines the first layer lost and for the eight leaves without text",
+  "local_dir": "tmp/library/rosters/_qa/pageread"
+ },
+ "blocked": [],
+ "not_used": [
+  {
+   "what": "page images of the Internet Archive page routes",
+   "why": "refused by the proxy (documented by the Vermont and New Hampshire engineers); the text PDF route is used instead"
+  }
+ ]
+}

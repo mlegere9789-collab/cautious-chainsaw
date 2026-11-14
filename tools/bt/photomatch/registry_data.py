@@ -136,3 +136,10 @@ R = {
  '2006692515': ('NEAR', 'a close view of boulders and the edge of a wooded slope in the Slaughter Pen with dead soldiers among the rocks (Gardner\'s Sketch Book plate 44, O\'Sullivan; the NPS calls it a view southeast); no sky line, building or road'),
  '2009630184': ('POS', 'bodies of Union soldiers in an open field with a low tree line on the horizon (Gibson stereograph no. 243, back of the card not read as a position); the NPS says the location is disputed and that it may look east across the Wills Farm, so no camera spot is fixed'),
 }
+
+# Records of the first catalogue that are the same exposure as another catalogued record (two Library records, two prints of one plate). Found in the third pass because one Metropolitan Museum item and one NPS figure each matched both
+# records with a median residual under 1 px (met_ties_confirmed.json, nps_figures_confirmed.json) and both Library images were looked at.
+SAME_EXPOSURE = {
+ '2012647719': ['2012647706'], '2012647706': ['2012647719'],      # McPherson farm view with two men in a field (MET268203 matched both: 1154 and 725 inliers; NPS Figure 28 matched both: 503 and 424)
+ '2012646949': ['2012647718'], '2012647718': ['2012646949'],      # the pond with a broken rail fence (MET268202 matched both: 619 and 586 inliers)
+}

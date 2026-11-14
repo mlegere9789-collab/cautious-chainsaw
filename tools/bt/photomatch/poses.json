@@ -141,7 +141,16 @@
    },
    "staged_flag": false,
    "fitted_to_photograph": false,
-   "note": "carried over unchanged from the first run (2026-11-11); not a catalogued LOC record"
+   "note": "carried over unchanged from the first run (2026-11-11): the pose and the render are unchanged. Third pass (2026-11-14): the photograph is one of the two plates of the Library of Congress panorama 2014646002 (View of Gettysburg from the Northwest; the standpoint of the pose, Seminary Ridge, is still an assumption: the Library caption says only \"from the Northwest\")",
+   "also_loc_ids": [
+    "2014646002"
+   ],
+   "same_plate_as_loc": {
+    "loc_id": "2014646002",
+    "resource": "ppmsca.35052",
+    "relation": "the left plate of the two-plate panorama that the Library print joins",
+    "evidence": "tie_geometry.py (met_ties_confirmed.json): MET268204 matches ppmsca.35052 with 209 inliers, same-plate geometry, footprint on the left half (0.00 to 0.53 of the width) part of the print; looked at side by side"
+   }
   },
   {
    "id": "P05",
@@ -182,7 +191,16 @@
    },
    "staged_flag": false,
    "fitted_to_photograph": false,
-   "note": "carried over unchanged from the first run (2026-11-11); not a catalogued LOC record"
+   "note": "carried over unchanged from the first run (2026-11-11): the pose and the render are unchanged. Third pass (2026-11-14): the photograph is one of the two plates of the Library of Congress panorama 2014646002 (View of Gettysburg from the Northwest; the standpoint of the pose, Seminary Ridge, is still an assumption: the Library caption says only \"from the Northwest\")",
+   "also_loc_ids": [
+    "2014646002"
+   ],
+   "same_plate_as_loc": {
+    "loc_id": "2014646002",
+    "resource": "ppmsca.35052",
+    "relation": "the right plate of the two-plate panorama that the Library print joins",
+    "evidence": "tie_geometry.py (met_ties_confirmed.json): MET268205 matches ppmsca.35052 with 213 inliers, same-plate geometry, footprint on the right part (0.45 to 0.96 of the width) part of the print; looked at side by side"
+   }
   },
   {
    "id": "P06",

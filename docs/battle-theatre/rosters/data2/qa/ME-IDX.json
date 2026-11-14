@@ -5,22 +5,26 @@
   "ME-IDX-officers": {
    "pages_in_stratum": 6,
    "rows_in_stratum": 104,
-   "pages_looked_at": 1,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 24,
+   "pages_looked_at": 3,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 46,
    "draw_positions": [
-    2
+    3,
+    2,
+    1
    ],
    "pages": [
-    "supplementtoannu00main/269"
+    "supplementtoannu00main/46",
+    "supplementtoannu00main/269",
+    "supplementtoannu00main/1093"
    ],
    "gates": {
     "R-G1": {
-     "rows": 24,
-     "errors": 6,
-     "rate_percent": 25.0,
-     "upper95_percent": 43.47,
-     "lower95_percent": 11.49,
+     "rows": 46,
+     "errors": 9,
+     "rate_percent": 19.57,
+     "upper95_percent": 31.66,
+     "lower95_percent": 10.6,
      "decision": "FAIL"
     },
     "R-G2": {
@@ -32,19 +36,19 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 24,
-     "errors": 1,
-     "rate_percent": 4.17,
-     "upper95_percent": 18.29,
-     "lower95_percent": 0.21,
+     "rows": 46,
+     "errors": 2,
+     "rate_percent": 4.35,
+     "upper95_percent": 13.06,
+     "lower95_percent": 0.78,
      "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 24,
-     "errors": 12,
-     "rate_percent": 50.0,
-     "upper95_percent": 68.06,
-     "lower95_percent": 31.94,
+     "rows": 46,
+     "errors": 16,
+     "rate_percent": 34.78,
+     "upper95_percent": 47.92,
+     "lower95_percent": 23.18,
      "decision": "FAIL"
     },
     "any": {
@@ -57,20 +61,22 @@
     }
    },
    "error_kinds_count": {
-    "rem-char": 12,
-    "name-char": 6,
-    "rank": 1
+    "rem-missing": 2,
+    "rem-char": 14,
+    "name-char": 9,
+    "rank": 2
    },
    "error_kinds_on_rows_flagged_ocr_uncertain": {
     "rem-char": 2,
-    "name-char": 1
+    "name-char": 2
    },
    "error_kinds_on_rows_not_flagged": {
-    "name-char": 5,
-    "rem-char": 10,
-    "rank": 1
+    "rem-missing": 2,
+    "name-char": 7,
+    "rem-char": 12,
+    "rank": 2
    },
-   "missed_lines": 1,
+   "missed_lines": 2,
    "census_complete": false
   },
   "ME-IDX-other": {
@@ -149,7 +155,9 @@
   }
  },
  "verdicts": [
+  "supplementtoannu00main/46",
   "supplementtoannu00main/269",
+  "supplementtoannu00main/1093",
   "supplementtoannu00main/681",
   "supplementtoannu00main/964",
   "supplementtoannu00main/979"

@@ -29,6 +29,8 @@ cv2.setNumThreads(1)
 THRESH = {'inlier_fraction': 0.80, 'anisotropy': 1.06, 'rotation_deg': 4.0, 'perspective': 0.20, 'median_residual_px': 3.0}
 # wide records whose candidate is a single image (not a stereo card): the geometry is meaningful for these (the others are pairs of stereo cards or mounts holding two exposures)
 WIDE_SINGLE = ['W2006692500', 'W2006692502', 'W2013645929', 'W2006692501', 'W2013645925', 'W2012647715', 'W2006685383', 'W2025167167', 'W2011646177', 'W2025167163', 'W2011648011']
+# stereo cards whose second-best candidate is a single-image record of the first catalogue (the same negative may sit behind both): (wide record, candidate name)
+WIDE_EXTRA = [('W2025162158', 'cwpb.01643'), ('W2015647569', 'cwpb.01643'), ('W2004682780', 'cwp.4a40909'), ('W2025163097', 'cwp.4a40909')]
 OUT_DIR = os.path.join(ROOT, 'tmp', 'photomatch', 'tie_geom')
 def geometry(qpath, cpath, cache):
     def get(p):
@@ -97,6 +99,8 @@ def main():
         d = json.load(open(os.path.join(HERE, 'wide_to_catalogue.json')))['results']
         for qid, v in d.items():
             if qid in WIDE_SINGLE and v.get('accepted'): pairs.append((qid, os.path.join(ROOT, v['file']), v['accepted'][0]['candidate'], v['accepted'][0]['loc_id'], 'wide'))
+        for qid, cand in WIDE_EXTRA:
+            if cand in P and d.get(qid, {}).get('file'): pairs.append((qid, os.path.join(ROOT, d[qid]['file']), cand, P[cand][1], 'wide'))
     cache = {}; out = {}; t0 = time.time()
     for qid, qpath, cand, loc, kind in pairs:
         cp = cand_file.get(cand)

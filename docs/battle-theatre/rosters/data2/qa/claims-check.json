@@ -1,7 +1,7 @@
 {
  "f": "roster-qa-claims/1",
- "checked": 557,
- "hold": 557,
+ "checked": 561,
+ "hold": 561,
  "do_not_hold": [],
  "claims": [
   {
@@ -4697,6 +4697,62 @@
    "claim": "manifest sha256 of massachusettssol1937mass_metadata.json",
    "claimed": "82600be67626ac1ad32d848d811a8e478a421f34275a49cd1e36e983da6804d8",
    "recomputed": "82600be67626ac1ad32d848d811a8e478a421f34275a49cd1e36e983da6804d8",
+   "holds": true
+  },
+  {
+   "item": "union-me",
+   "unit": null,
+   "claim": "verify_unit.py --all: every file ok (0 V1, 0 V3, 0 problems)",
+   "claimed": true,
+   "recomputed": {
+    "files": 15,
+    "v1": 0,
+    "v3": 0,
+    "problems": 0,
+    "not_ok": []
+   },
+   "holds": true
+  },
+  {
+   "item": "union-nh",
+   "unit": null,
+   "claim": "verify_unit.py --all: every file ok (0 V1, 0 V3, 0 problems)",
+   "claimed": true,
+   "recomputed": {
+    "files": 4,
+    "v1": 0,
+    "v3": 0,
+    "problems": 0,
+    "not_ok": []
+   },
+   "holds": true
+  },
+  {
+   "item": "union-vt",
+   "unit": null,
+   "claim": "verify_unit.py --all: every file ok (0 V1, 0 V3, 0 problems)",
+   "claimed": true,
+   "recomputed": {
+    "files": 11,
+    "v1": 0,
+    "v3": 0,
+    "problems": 0,
+    "not_ok": []
+   },
+   "holds": true
+  },
+  {
+   "item": "union-ma",
+   "unit": null,
+   "claim": "verify_unit.py --all: every file ok (0 V1, 0 V3, 0 problems)",
+   "claimed": true,
+   "recomputed": {
+    "files": 24,
+    "v1": 0,
+    "v3": 0,
+    "problems": 0,
+    "not_ok": []
+   },
    "holds": true
   }
  ]

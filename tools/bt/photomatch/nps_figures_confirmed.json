@@ -1,6 +1,309 @@
 {
- "_doc": "Ties of NPS Record of Treatment figures to catalogued Library of Congress records. A tie is written only after the figure image and the Library image were both looked at (confirmed_by_looking) and the feature matching (match_third_pass.py -> nps_figures_to_loc.json) gave at least 45 inliers and the margin of the rule; written by hand after looking.",
+ "_doc": "Ties of NPS Record of Treatment figures to catalogued Library of Congress records. A tie is written only after the figure image and the Library image were both looked at (confirmed_by_looking) and the feature matching (match_third_pass.py -> nps_figures_to_loc.json) gave at least 45 inliers and the record is the best candidate; the geometry of the match (tie_geometry.py: same plate, or only the same scene) is read beside it; confirm_ties.py writes this file from the hand-written decision table confirm_ties_table.py.",
  "ties": {
+  "NF-V1-p058-000": {
+   "loc": [
+    "2018670660"
+   ],
+   "res": [
+    "cwpb.00846"
+   ],
+   "inliers": 774,
+   "good_matches": 781,
+   "best_other_record_inliers": 8,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 763,
+    "inlier_fraction": 0.985,
+    "scale": 0.779,
+    "rotation_deg": -0.64,
+    "anisotropy": 1.008,
+    "perspective": 0.011,
+    "median_residual_px": 0.35,
+    "p90_residual_px": 0.75,
+    "footprint_share_of_candidate": 0.54,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00846 (record 2018670660) with 774 inliers of 781 good matches (best other record: 8; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.985, scale 0.779, median residual 0.35 px; both images were looked at side by side and show the same scene",
+   "note": "the whole plate: a burial trench with grave boards and a wagon train beyond; the same exposure sits behind five images of the record (cwpb.00843 to 00847 match with 774, 746, 548, 440 and 214 inliers)"
+  },
+  "NF-V2-p121-000": {
+   "loc": [
+    "2018670660"
+   ],
+   "res": [
+    "cwpb.00846"
+   ],
+   "inliers": 774,
+   "good_matches": 781,
+   "best_other_record_inliers": 8,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 766,
+    "inlier_fraction": 0.988,
+    "scale": 0.779,
+    "rotation_deg": -0.7,
+    "anisotropy": 1.01,
+    "perspective": 0.014,
+    "median_residual_px": 0.35,
+    "p90_residual_px": 0.78,
+    "footprint_share_of_candidate": 0.54,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00846 (record 2018670660) with 774 inliers of 781 good matches (best other record: 8; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.988, scale 0.779, median residual 0.35 px; both images were looked at side by side and show the same scene",
+   "note": "the same photograph as Figure 6 of volume I (the same park number 2B-2063): printed again in volume II"
+  },
+  "NF-V1-p125-000": {
+   "loc": [
+    "2012647719",
+    "2012647706"
+   ],
+   "res": [
+    "ppmsca.32853",
+    "ppmsca.32840"
+   ],
+   "inliers": 503,
+   "good_matches": 510,
+   "best_other_record_inliers": 7,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_SCENE",
+    "inliers": 501,
+    "inlier_fraction": 0.99,
+    "scale": 0.83,
+    "rotation_deg": 4.2,
+    "anisotropy": 1.044,
+    "perspective": 0.021,
+    "median_residual_px": 0.43,
+    "p90_residual_px": 0.95,
+    "footprint_share_of_candidate": 0.585,
+    "failed_tests": [
+     "rotation"
+    ]
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.32853 (record 2012647719) with 503 inliers of 510 good matches (best other record: 7; nps_figures_to_loc.json); the same exposure is held as record 2012647706 (resource ppmsca.32840, 424 inliers); geometry (tie_geometry.py): SAME_SCENE, inlier fraction 0.99, scale 0.83, median residual 0.43 px, failed rotation; both images were looked at side by side and show the same scene",
+   "note": "two men standing in a field in front of a wood: the same photograph as ppmsca.32840 (record 2012647706; 424 inliers); both records match the same Metropolitan Museum print (MET268203) with a median residual under 1 px. The rule class of tie_geometry.py is SAME_SCENE only because the figure is turned 4.2 degrees against the bar of 4.0 degrees (inlier fraction 0.99, median residual 0.4 px); called the same photograph by looking and by the 0.99 inlier fraction and the 0.4 px residual, which another exposure would not give (the turn is a difference between the two scans, not of the scene)"
+  },
+  "NF-V1-p159-000": {
+   "loc": [
+    "2014646001"
+   ],
+   "res": [
+    "ppmsca.35051"
+   ],
+   "inliers": 50,
+   "good_matches": 75,
+   "best_other_record_inliers": 21,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_SCENE",
+    "inliers": 50,
+    "inlier_fraction": 0.617,
+    "scale": 0.308,
+    "rotation_deg": -0.0,
+    "anisotropy": 1.013,
+    "perspective": 0.004,
+    "median_residual_px": 0.12,
+    "p90_residual_px": 0.35,
+    "footprint_share_of_candidate": 0.056,
+    "failed_tests": [
+     "inlier_fraction"
+    ]
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.35051 (record 2014646001) with 50 inliers of 75 good matches (best other record: 21; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_SCENE, inlier fraction 0.617, scale 0.308, median residual 0.12 px, failed inlier_fraction; both images were looked at side by side and show the same scene",
+   "note": "a small detail of the print (scale 0.31 of its width); the caption names the Digital ID; the image match is corroboration only: 50 inliers, inlier fraction 0.62 (below the 0.80 bar of tie_geometry.py because a small detail holds few features), median residual 0.12 px"
+  },
+  "NF-V1-p243-000": {
+   "loc": [
+    "2018666303"
+   ],
+   "res": [
+    "cwpb.01631"
+   ],
+   "inliers": 88,
+   "good_matches": 98,
+   "best_other_record_inliers": 7,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 89,
+    "inlier_fraction": 0.908,
+    "scale": 0.391,
+    "rotation_deg": 0.1,
+    "anisotropy": 1.013,
+    "perspective": 0.004,
+    "median_residual_px": 0.12,
+    "p90_residual_px": 0.37,
+    "footprint_share_of_candidate": 0.1,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.01631 (record 2018666303) with 88 inliers of 98 good matches (best other record: 7; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.908, scale 0.391, median residual 0.12 px; both images were looked at side by side and show the same scene",
+   "note": "a detail (scale 0.39 of the width) of the view from Little Round Top; the caption names the Digital ID cwpb-01631"
+  },
+  "NF-V1-p251-000": {
+   "loc": [
+    "2018666303"
+   ],
+   "res": [
+    "cwpb.01631"
+   ],
+   "inliers": 88,
+   "good_matches": 98,
+   "best_other_record_inliers": 7,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 87,
+    "inlier_fraction": 0.888,
+    "scale": 0.391,
+    "rotation_deg": 0.11,
+    "anisotropy": 1.012,
+    "perspective": 0.004,
+    "median_residual_px": 0.12,
+    "p90_residual_px": 0.37,
+    "footprint_share_of_candidate": 0.1,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.01631 (record 2018666303) with 88 inliers of 98 good matches (best other record: 7; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.888, scale 0.391, median residual 0.12 px; both images were looked at side by side and show the same scene",
+   "note": "another detail of the same view (scale 0.39); the caption names the Digital ID cwpb-01631"
+  },
+  "NF-V1-p253-000": {
+   "loc": [
+    "2018666296"
+   ],
+   "res": [
+    "cwp.4a39437"
+   ],
+   "inliers": 293,
+   "good_matches": 301,
+   "best_other_record_inliers": 76,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 291,
+    "inlier_fraction": 0.973,
+    "scale": 0.821,
+    "rotation_deg": 2.34,
+    "anisotropy": 1.023,
+    "perspective": 0.065,
+    "median_residual_px": 0.92,
+    "p90_residual_px": 2.09,
+    "footprint_share_of_candidate": 0.717,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwp.4a39437 (record 2018666296) with 293 inliers of 301 good matches (best other record: 76; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.973, scale 0.821, median residual 0.92 px; both images were looked at side by side and show the same scene",
+   "note": "the same scene as the Library image (viewed side by side; 291 inliers of 301, scale 0.82); the park's own photograph number is the only credit and the caption says only \"a stone wall near the western edge of Taneytown Road\""
+  },
+  "NF-V1-p265-000": {
+   "loc": [
+    "2018670709"
+   ],
+   "res": [
+    "cwpb.01655"
+   ],
+   "inliers": 556,
+   "good_matches": 559,
+   "best_other_record_inliers": 22,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 571,
+    "inlier_fraction": 0.997,
+    "scale": 0.897,
+    "rotation_deg": 0.32,
+    "anisotropy": 1.032,
+    "perspective": 0.046,
+    "median_residual_px": 0.6,
+    "p90_residual_px": 1.35,
+    "footprint_share_of_candidate": 0.69,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.01655 (record 2018670709) with 556 inliers of 559 good matches (best other record: 22; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.997, scale 0.897, median residual 0.6 px; both images were looked at side by side and show the same scene",
+   "note": "the same scene as the Library image (viewed side by side; 571 inliers, scale 0.90)"
+  },
+  "NF-V1-p277-000": {
+   "loc": [
+    "2018666296"
+   ],
+   "res": [
+    "cwpb.00887"
+   ],
+   "inliers": 393,
+   "good_matches": 405,
+   "best_other_record_inliers": 12,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 394,
+    "inlier_fraction": 0.98,
+    "scale": 0.507,
+    "rotation_deg": -0.0,
+    "anisotropy": 1.0,
+    "perspective": 0.0,
+    "median_residual_px": 0.14,
+    "p90_residual_px": 0.35,
+    "footprint_share_of_candidate": 0.182,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00887 (record 2018666296) with 393 inliers of 405 good matches (best other record: 12; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.98, scale 0.507, median residual 0.14 px; both images were looked at side by side and show the same scene",
+   "note": "a detail of the orchard (scale 0.51 of the width); the caption names the Digital ID cwpb 00887"
+  },
+  "NF-V1-p282-000": {
+   "loc": [
+    "2018666296"
+   ],
+   "res": [
+    "cwpb.00887"
+   ],
+   "inliers": 185,
+   "good_matches": 199,
+   "best_other_record_inliers": 24,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 185,
+    "inlier_fraction": 0.907,
+    "scale": 0.411,
+    "rotation_deg": -0.05,
+    "anisotropy": 1.002,
+    "perspective": 0.001,
+    "median_residual_px": 0.14,
+    "p90_residual_px": 0.39,
+    "footprint_share_of_candidate": 0.12,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00887 (record 2018666296) with 185 inliers of 199 good matches (best other record: 24; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.907, scale 0.411, median residual 0.14 px; both images were looked at side by side and show the same scene",
+   "note": "a detail of the house, the oak and the lane (scale 0.41 of the width: an enlargement of the central part of the plate, residual 0.14 px)"
+  },
+  "NF-V1-p283-000": {
+   "loc": [
+    "2018666296"
+   ],
+   "res": [
+    "cwpb.00887"
+   ],
+   "inliers": 1045,
+   "good_matches": 1055,
+   "best_other_record_inliers": 37,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 1045,
+    "inlier_fraction": 0.992,
+    "scale": 0.818,
+    "rotation_deg": -0.01,
+    "anisotropy": 1.0,
+    "perspective": 0.0,
+    "median_residual_px": 0.16,
+    "p90_residual_px": 0.38,
+    "footprint_share_of_candidate": 0.476,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00887 (record 2018666296) with 1045 inliers of 1055 good matches (best other record: 37; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.992, scale 0.818, median residual 0.16 px; both images were looked at side by side and show the same scene",
+   "note": "the whole plate; the caption names the Digital ID cwpb 00887 (1045 inliers of 1055)"
+  },
   "NF-V1-p307-000": {
    "loc": [
     "2012647704"
@@ -9,10 +312,294 @@
     "ppmsca.32838"
    ],
    "inliers": 661,
-   "good_matches": 672,
+   "good_matches": 673,
+   "best_other_record_inliers": 10,
    "confirmed_by_looking": true,
-   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.32838 (record 2012647704, Culp's Hill) with 661 inliers of 672 good matches (nps_figures_to_loc.json; first seen in a targeted check of 26 images of 15 records of the cemetery and Culp's Hill, then in the full run); both images were looked at: the lunettes, the tent at the right and the wooded hill are the same",
-   "note": "the figure shows the print without its mount"
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 661,
+    "inlier_fraction": 0.981,
+    "scale": 0.816,
+    "rotation_deg": 0.13,
+    "anisotropy": 1.029,
+    "perspective": 0.029,
+    "median_residual_px": 0.65,
+    "p90_residual_px": 1.28,
+    "footprint_share_of_candidate": 0.628,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.32838 (record 2012647704) with 661 inliers of 673 good matches (best other record: 10; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.981, scale 0.816, median residual 0.65 px; both images were looked at side by side and show the same scene",
+   "note": "the figure shows the print without its mount; first seen in a targeted check of 26 images of 15 records of the cemetery and Culp's Hill, then in the full run (661 inliers); the lunettes, the tent at the right and the wooded hill are the same"
+  },
+  "NF-V1-p317-000": {
+   "loc": [
+    "2018670704"
+   ],
+   "res": [
+    "cwpb.01644"
+   ],
+   "inliers": 293,
+   "good_matches": 342,
+   "best_other_record_inliers": 86,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 282,
+    "inlier_fraction": 0.847,
+    "scale": 0.726,
+    "rotation_deg": 2.31,
+    "anisotropy": 1.05,
+    "perspective": 0.015,
+    "median_residual_px": 2.4,
+    "p90_residual_px": 4.01,
+    "footprint_share_of_candidate": 0.533,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.01644 (record 2018670704) with 293 inliers of 342 good matches (best other record: 86; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.847, scale 0.726, median residual 2.4 px; both images were looked at side by side and show the same scene",
+   "note": "men seated beside a log and a stone breastwork among trees; the figure is the same scene as one image of the record; median residual 2.4 px is higher than for the other ties, so a stereo sibling of the exposure cannot be ruled out"
+  },
+  "NF-V1-p432-000": {
+   "loc": [
+    "91732551"
+   ],
+   "res": [
+    "cph.3g01831"
+   ],
+   "inliers": 786,
+   "good_matches": 798,
+   "best_other_record_inliers": 645,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 781,
+    "inlier_fraction": 0.984,
+    "scale": 0.786,
+    "rotation_deg": 2.94,
+    "anisotropy": 1.045,
+    "perspective": 0.017,
+    "median_residual_px": 0.3,
+    "p90_residual_px": 0.84,
+    "footprint_share_of_candidate": 0.478,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cph.3g01831 (record 91732551) with 786 inliers of 798 good matches (best other record: 645; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.984, scale 0.786, median residual 0.3 px; both images were looked at side by side and show the same scene",
+   "note": "a barn with a large tree and dead horses in front; the Library print is the same scene (the figure shows it without the card mount)"
+  },
+  "NF-V1-p433-000": {
+   "loc": [
+    "2012647700"
+   ],
+   "res": [
+    "ppmsca.32834"
+   ],
+   "inliers": 199,
+   "good_matches": 224,
+   "best_other_record_inliers": 18,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 198,
+    "inlier_fraction": 0.884,
+    "scale": 0.333,
+    "rotation_deg": -0.0,
+    "anisotropy": 1.003,
+    "perspective": 0.003,
+    "median_residual_px": 0.26,
+    "p90_residual_px": 0.72,
+    "footprint_share_of_candidate": 0.116,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.32834 (record 2012647700) with 199 inliers of 224 good matches (best other record: 18; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.884, scale 0.333, median residual 0.26 px; both images were looked at side by side and show the same scene",
+   "note": "a detail (scale 0.33 of the width) of the right-hand part of the print: the white house with dead horses in front"
+  },
+  "NF-V2-p114-000": {
+   "loc": [
+    "2018666308"
+   ],
+   "res": [
+    "cwpb.00865"
+   ],
+   "inliers": 890,
+   "good_matches": 900,
+   "best_other_record_inliers": 97,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 882,
+    "inlier_fraction": 0.983,
+    "scale": 0.896,
+    "rotation_deg": -0.27,
+    "anisotropy": 1.003,
+    "perspective": 0.01,
+    "median_residual_px": 0.46,
+    "p90_residual_px": 0.92,
+    "footprint_share_of_candidate": 0.757,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00865 (record 2018666308) with 890 inliers of 900 good matches (best other record: 97; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.983, scale 0.896, median residual 0.46 px; both images were looked at side by side and show the same scene",
+   "note": "dead soldiers in a meadow in front of a wood with a rail fence at the right; the whole plate (882 inliers)"
+  },
+  "NF-V2-p120-000": {
+   "loc": [
+    "2018666310"
+   ],
+   "res": [
+    "cwpb.00882"
+   ],
+   "inliers": 272,
+   "good_matches": 277,
+   "best_other_record_inliers": 23,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 268,
+    "inlier_fraction": 0.985,
+    "scale": 0.612,
+    "rotation_deg": -0.76,
+    "anisotropy": 1.025,
+    "perspective": 0.006,
+    "median_residual_px": 0.19,
+    "p90_residual_px": 0.45,
+    "footprint_share_of_candidate": 0.18,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00882 (record 2018666310) with 272 inliers of 277 good matches (best other record: 23; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.985, scale 0.612, median residual 0.19 px; both images were looked at side by side and show the same scene",
+   "note": "a wagon at the left and dead soldiers in a meadow; a detail (scale 0.61 of the width)"
+  },
+  "NF-V2-p122-000": {
+   "loc": [
+    "2018672106"
+   ],
+   "res": [
+    "cwpb.00068"
+   ],
+   "inliers": 231,
+   "good_matches": 265,
+   "best_other_record_inliers": 85,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 231,
+    "inlier_fraction": 0.875,
+    "scale": 0.384,
+    "rotation_deg": -0.13,
+    "anisotropy": 1.018,
+    "perspective": 0.008,
+    "median_residual_px": 0.24,
+    "p90_residual_px": 0.47,
+    "footprint_share_of_candidate": 0.297,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00068 (record 2018672106) with 231 inliers of 265 good matches (best other record: 85; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.875, scale 0.384, median residual 0.24 px; both images were looked at side by side and show the same scene",
+   "note": "the left half of a stereo pair on one negative: a single tree with dead soldiers on the ground"
+  },
+  "NF-V2-p123-000": {
+   "loc": [
+    "2018670703"
+   ],
+   "res": [
+    "cwpb.00854"
+   ],
+   "inliers": 691,
+   "good_matches": 697,
+   "best_other_record_inliers": 43,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 692,
+    "inlier_fraction": 0.991,
+    "scale": 0.794,
+    "rotation_deg": -0.49,
+    "anisotropy": 1.011,
+    "perspective": 0.011,
+    "median_residual_px": 0.32,
+    "p90_residual_px": 0.75,
+    "footprint_share_of_candidate": 0.51,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00854 (record 2018670703) with 691 inliers of 697 good matches (best other record: 43; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.991, scale 0.794, median residual 0.32 px; both images were looked at side by side and show the same scene",
+   "note": "dead soldiers side by side in a meadow with a boulder at the left"
+  },
+  "NF-V2-p152-000": {
+   "loc": [
+    "2018672207"
+   ],
+   "res": [
+    "cwpb.03971"
+   ],
+   "inliers": 818,
+   "good_matches": 828,
+   "best_other_record_inliers": 7,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 804,
+    "inlier_fraction": 0.994,
+    "scale": 0.891,
+    "rotation_deg": -0.56,
+    "anisotropy": 1.032,
+    "perspective": 0.011,
+    "median_residual_px": 0.36,
+    "p90_residual_px": 0.7,
+    "footprint_share_of_candidate": 0.633,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.03971 (record 2018672207) with 818 inliers of 828 good matches (best other record: 7; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.994, scale 0.891, median residual 0.36 px; both images were looked at side by side and show the same scene",
+   "note": "a rocky wooded slope; the whole plate"
+  },
+  "NF-V2-p329-002": {
+   "loc": [
+    "2014646001"
+   ],
+   "res": [
+    "ppmsca.35051"
+   ],
+   "inliers": 306,
+   "good_matches": 315,
+   "best_other_record_inliers": 22,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 311,
+    "inlier_fraction": 0.969,
+    "scale": 0.466,
+    "rotation_deg": -0.04,
+    "anisotropy": 1.002,
+    "perspective": 0.001,
+    "median_residual_px": 0.14,
+    "p90_residual_px": 0.37,
+    "footprint_share_of_candidate": 0.181,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.35051 (record 2014646001) with 306 inliers of 315 good matches (best other record: 22; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.969, scale 0.466, median residual 0.14 px; both images were looked at side by side and show the same scene",
+   "note": "a detail (scale 0.47 of the width) of the view of the town and the tent camp from the hill; the caption names the Digital ID"
+  },
+  "NF-V2-p344-000": {
+   "loc": [
+    "2018666296"
+   ],
+   "res": [
+    "cwpb.00887"
+   ],
+   "inliers": 352,
+   "good_matches": 364,
+   "best_other_record_inliers": 12,
+   "confirmed_by_looking": true,
+   "geometry": {
+    "class": "SAME_PLATE",
+    "inliers": 350,
+    "inlier_fraction": 0.97,
+    "scale": 0.441,
+    "rotation_deg": 0.01,
+    "anisotropy": 1.002,
+    "perspective": 0.001,
+    "median_residual_px": 0.14,
+    "p90_residual_px": 0.33,
+    "footprint_share_of_candidate": 0.139,
+    "failed_tests": []
+   },
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource cwpb.00887 (record 2018666296) with 352 inliers of 364 good matches (best other record: 12; nps_figures_to_loc.json); geometry (tie_geometry.py): SAME_PLATE, inlier fraction 0.97, scale 0.441, median residual 0.14 px; both images were looked at side by side and show the same scene",
+   "note": "a detail of the rail fence and stone heap at the lower left of the plate (scale 0.44 of the width); the caption names the Digital ID cwpb 00887"
   }
  }
 }

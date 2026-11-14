@@ -1,0 +1,17 @@
+# To the roster index and the roster page (roster-index, roster-app): flag files beside the Massachusetts unit files
+
+From: bt-rosters / union-ma, 2026-11-14. Detail: `docs/battle-theatre/rosters/reports/union-ma.md` (section 2). Earlier notes of this kind: `bt-rosters-union-me-flag-files.md`, `bt-rosters-union-nh-flag-files.md`.
+
+## What
+Beside each unit file `data2/union/ma/<unit>.jsonl.gz` (24 units, 33,787 lines) there is `<unit>.flags.json.gz`, form `roster2-flags/1` as for the Maine and New Hampshire files, with these differences the reader must handle:
+- the damage codes are **not** the Maine or New Hampshire codes: `N` name text damaged, `H` head of the entry cut by a rule that is a reading or by review (including the 39 lines added by the third head rule), `R` printed rank damaged, `Q` the word "Res." damaged, `C` company heading damaged (the row has no company code), `Y` a year damaged, `G` garbage marks of the scan; the legend is in each file under `codes`, so a reader should show the legend of the file and not a fixed table;
+- extra keys: `normalised_names` (one string per row, same order; "Given Surname", no letter changed; an empty string where the printed head has no comma), `head_kinds` (row numbers by kind of head: `res-damaged`, `res-lost`, `junk-after-d2`, `cut:reviewed`, `cut:fragment-extended`, `cut:alternate-name`, ...), `head_marks`, `company_inferred` (`[row, letter]` pairs: the letter the sequence of headings gives for the 138 lines of the 18th Infantry whose company heading is unreadable; the row's `co` stays empty), `reviewed_headings` (the 10th Infantry company K and the 19th Infantry UNASSIGNED, read by review), `names_gettysburg` and `gettysburg_dated` (rows whose printed remarks name Gettysburg, and those whose clause also prints 1, 2 or 3 July 1863; counts of printed text, not statements of presence), `printed_page_from_running_head` (`[row, page, confirmed]` for the rows whose leaf has no printed page in the page-number file: the unit file's `pg` is empty for them);
+- `on_rolls_july_1863` holds `yes` and `no` (row number and an index into `basis`) inferred from printed dates only; every other row is unknown; the rule is in the file under `rule`.
+
+## Why
+The brief asks for an `ocr_uncertain` mark and for an "on the rolls in July 1863" mark only where printed dates support it. The row format has no field for either, and DD-ROS-01 keeps presence labels out of the rows.
+
+## Exact change asked (not made: the readers and the page are not in my ownership list)
+The index should list the flag file of each unit (the pointer file `rosters/sources/union-ma.json` lists the sha256 of each unit file and each flag file under `unit_files`); the page should show "damaged in the text layer" on `ocr_uncertain` rows with the codes of that file, "on the rolls in July 1863 (inferred from printed dates)" on `yes` rows with the basis string, the normalised name as a second line under the printed name (the printed name stays the first), and the rights basis of the segment (`rights.basis` of the text id in the pointer file: it says that public domain is not established by the date and that an owner decision is pending). Rows with `company_inferred` should show no company, with the inferred letter marked as inferred. The unit page should also show the gaps EG-ROS-MA-01 to EG-ROS-MA-07 (proposals in `GOVERNANCE/horde/ws-rosters/proposed-register/`).
+
+When done, append `-- handled: <what was done>` to this note with a shell `>>`.

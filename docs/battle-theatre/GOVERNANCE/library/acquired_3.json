@@ -1464,33 +1464,32 @@
   {
    "id": "PM-LOC-DERIVATIVES",
    "task": "photomatch",
-   "title": "Library of Congress Civil War photographs: medium and large JPEG derivatives of the 127 catalogued records (109 first run + 18 added)",
+   "title": "Library of Congress Civil War photographs: medium and large JPEG derivatives of the 129 catalogued records of the first two passes (109 first run + 20 added, 2 of them outside the cwp collection)",
    "creator": "Library of Congress, Prints and Photographs Division",
    "date": "1863 photographs",
    "url": "https://www.loc.gov/pictures/collection/cwp/ (files from cdn.loc.gov, which redirects to tile.loc.gov)",
-   "fetched_at": "2026-11-13",
-   "files": 430,
-   "bytes": 63979423,
+   "fetched_at": "2026-11-13 and 2026-11-14 (the two records outside cwp)",
+   "files": 436,
+   "bytes": 64542918,
    "local_path": "tmp/photomatch/loc/",
    "pointer": "tools/bt/photomatch/images_ledger.json (sha256, size, pixel size and licence basis per file)",
-   "pointer_sha256": "774cc22e288b46a8bd49983297990ef3bb660512445a868af2036261696f6a24",
+   "pointer_sha256": "420eb4d50051b26c2fd313f09ebaf142ac9fd4502bffa998ffea6070b5639340",
    "file_kept": true,
-   "rights_basis": "LOC record rights statement: \"No known restrictions on publication.\"; 1863 photographs",
-   "rights_note": "two truncated transfers were found by comparing the declared size with the received size and re-fetched; every kept file now decodes completely",
-   "text_quality": "images, not text"
+   "rights_basis": "LOC record rights statement: no known restrictions on publication (a record with an empty rights field: 19th-century print, public domain by age, an inference)"
   },
   {
    "id": "PM-LOC-RECORDS",
    "task": "photomatch",
-   "title": "Library of Congress catalogue records (open JSON) of the 127 photographs",
+   "title": "Library of Congress catalogue records (open JSON) of the 191 photographs of the three catalogue passes",
    "creator": "Library of Congress",
    "url": "https://www.loc.gov/pictures/item/<id>/?fo=json",
-   "fetched_at": "2026-11-11 (109 records) and 2026-11-13 (18 records)",
+   "fetched_at": "2026-11-11 (109 records), 2026-11-13 (18 records), 2026-11-14 (2 records outside cwp and 62 records of the wide search)",
    "local_path": "tmp/photomatch/raw/",
-   "pointer": "tools/bt/photomatch/catalogue.json and catalogue_additions.json",
+   "pointer": "tools/bt/photomatch/catalogue.json, catalogue_additions.json and catalogue_wide_items.json",
    "pointer_sha256": {
     "catalogue.json": "9e151d843f0c53e495798ccf92342ca69f7a9d8008fc90e399b4fef3f2e7acfb",
-    "catalogue_additions.json": "7f524de0d286ee8fc8d48b2346303e90901346b7b8c5284933a91254a3b032b9"
+    "catalogue_additions.json": "75563d435f8c480687716a4a7e2f7bcb819850dbcdfdf5dc88f8c58545ad08ed",
+    "catalogue_wide_items.json": "3cb21f4037de6fbaff984d7a37404a100e81fd1a07f8a21abf4fb10ce7fbcb90"
    },
    "file_kept": true,
    "rights_basis": "LOC: no known restrictions on publication"
@@ -1540,6 +1539,56 @@
    "rights_basis": "United States government work",
    "rights_note": "kept to view the report plates (photocopies); the text of the same report is NPS-SLAUGHTER-PEN of the nps-landscape task",
    "text_quality": "poor OCR with a clean caption for plates 3 to 8 read from the page images"
+  },
+  {
+   "id": "PM-LOC-WIDE",
+   "task": "photomatch",
+   "title": "Library of Congress wide search (open JSON search of the Civil War group, co=civwar, q=gettysburg 1863, 950 results): 62 photographs of 1863 naming Gettysburg that the first two passes did not hold; 57 medium JPEGs saved, 5 records not digitized by the Library",
+   "creator": "Library of Congress, Prints and Photographs Division",
+   "url": "https://www.loc.gov/pictures/search/?q=gettysburg+1863&co=civwar&fo=json&c=100&sp=1..10 (images from cdn.loc.gov / tile.loc.gov)",
+   "fetched_at": "2026-11-14",
+   "files": 57,
+   "bytes": 4318063,
+   "local_path": "tmp/photomatch/wide/",
+   "pointer": "tools/bt/photomatch/wide_images_ledger.json, catalogue_wide.json and catalogue_wide_items.json",
+   "pointer_sha256": {
+    "wide_images_ledger.json": "70130d6ea259d74f5958557b5730711466c8ee6fa5e14fb7db161c9dc6df02a1",
+    "catalogue_wide.json": "0ba848598b6d4a4f28cab7f86bd362044d51339174882721a85cb837361e33c1",
+    "catalogue_wide_items.json": "3cb21f4037de6fbaff984d7a37404a100e81fd1a07f8a21abf4fb10ce7fbcb90"
+   },
+   "file_kept": true,
+   "rights_basis": "LOC: no known restrictions on publication, or an empty rights field on a 19th-century print (public domain by age: an inference)"
+  },
+  {
+   "id": "PM-NPS-PLACE-PAGES",
+   "task": "photomatch",
+   "title": "National Park Service Place pages of the Gettysburg Then-And-Now comparisons and of the places they name (34 pages)",
+   "creator": "National Park Service, Gettysburg National Military Park",
+   "url": "https://www.nps.gov/places/gettysburg-then-now-<name>.htm and other nps.gov/places pages",
+   "fetched_at": "2026-11-13",
+   "local_path": "tmp/library/web/photomatch/www.nps.gov/",
+   "pointer": "tmp/library/web/photomatch/manifest.jsonl (sha256 of every saved page and text); statements in tools/bt/photomatch/position_statements.json (sources NPSWEB-PL-*)",
+   "file_kept": true,
+   "rights_basis": "United States government work"
+  },
+  {
+   "id": "PM-NPS-ROT-FIGURES",
+   "task": "photomatch",
+   "title": "Figures of the NPS Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment, volumes I and II: 36 captioned 1863 photographs extracted from the PDFs (pdfimages, inverted to positive)",
+   "creator": "National Park Service, Olmsted Center for Landscape Preservation (2018)",
+   "url": "https://www.npshistory.com/publications/gett/clr-v1.pdf and clr-v2.pdf",
+   "fetched_at": "2026-11-14",
+   "sha256_of_pdfs": {
+    "clr-v1.pdf": "216f0cdd74cb2760aa19a508fc4bb104e5c9e32bdd13ee753970aaed9b8e43e3",
+    "clr-v2.pdf": "6c3203c00d02e843982c9c8b7142372147000b69b12bd7c5adb710281eb58ab2"
+   },
+   "note_pdfs": "the two PDFs (294 and 189 MB) were fetched again with one request each; their sha256 equals the manifest of the first fetch of the nps-landscape task; they were deleted after the extraction (file_kept false)",
+   "files": 36,
+   "local_path": "tmp/photomatch/nps_pdf/pos/",
+   "pointer": "tools/bt/photomatch/nps_figures.json (caption verbatim, pdf page, sha256 of every image); ties to Library of Congress records in nps_figures_confirmed.json (22 confirmed by looking)",
+   "pointer_sha256": "ca1194e5eda05da164f00abf2d77fc6af103ed302e1d9bf23bf7d61fb36d9bcb",
+   "file_kept": false,
+   "rights_basis": "United States government work (NPS publication); the figure images reproduce 1863 photographs"
   }
  ],
  "blocked_or_failed": [
@@ -1567,9 +1616,37 @@
   {
    "id": "PM-LC-B815-273",
    "task": "photomatch",
-   "url": "LOC negative LC-B815-273 (NPS CLR Cemetery Fig. 1.26)",
+   "url": "LOC negative LC-B815-273 (NPS Cemetery CLR Fig. 1.26)",
+   "status": "found",
+   "reason": "resolved 2026-11-14: it is LOC record 2018671576 (resource cwpb.00084, a stereo negative, caption from the negative sleeve: Gettysburg from the Cemetery. July 1863); the record carries the call number LC-B815- 273 [P&P]"
+  },
+  {
+   "id": "PM-NARA-CATALOG",
+   "task": "photomatch",
+   "url": "https://catalog.archives.gov/",
+   "status": "blocked",
+   "reason": "reachable, but a plain request to any address of the catalog (and to its api/v2 path) returns the same 5 KB single-page-application shell, not data; the catalog API needs a key (an account, an owner act); a browser read was not made. No NARA description of a Gettysburg photograph was read"
+  },
+  {
+   "id": "PM-LOC-NOT-DIGITIZED",
+   "task": "photomatch",
+   "url": "https://www.loc.gov/pictures/item/<id>/",
+   "status": "no image",
+   "reason": "records of the wide search that the Library has not digitized (its search result carries the placeholder 500x500_notdigitized.png): 2024640246, 2024640258, 2025160363, 2025160541, 2025160547; each is listed in the registry with its title and the reason it has no frame to look at"
+  },
+  {
+   "id": "PM-GARDNER-SKETCHBOOK-LOC",
+   "task": "photomatch",
+   "url": "https://www.loc.gov/item/01021785/ (Gardner's photographic sketch book of the war, 1865)",
+   "status": "images only",
+   "reason": "the Library item holds the album pages as images (1024 px copies and 100 MB master TIFFs) without a text layer; at 1024 px the letterpress is too small for OCR and the masters were not fetched; the plate captions that LOC transcribed into its picture records are used (plates 35 and 39)"
+  },
+  {
+   "id": "PM-GUTENBERG-SKETCHBOOK",
+   "task": "photomatch",
+   "url": "https://www.gutenberg.org/ebooks/search/?query=gardner+photographic+sketch+book",
    "status": "not found",
-   "reason": "not among the 127 catalogued records; the search outside the cwp collection was not made"
+   "reason": "the search returned no records: there is no Project Gutenberg edition of the Sketch Book"
   }
  ]
 }

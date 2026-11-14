@@ -5,13 +5,13 @@
    "id": "PM-LOC-DERIVATIVES",
    "task": "photomatch",
    "status": "ingested",
-   "reason": "430 files, sha256 in images_ledger.json, every file decoded"
+   "reason": "436 files, sha256 in images_ledger.json, every file decoded"
   },
   {
    "id": "PM-LOC-RECORDS",
    "task": "photomatch",
    "status": "ingested",
-   "reason": "127 records, caption and notes read for camera-position statements"
+   "reason": "191 records, caption and notes read for camera-position statements"
   },
   {
    "id": "PM-LOC-MASTERS",
@@ -36,6 +36,54 @@
    "task": "photomatch",
    "status": "unusable",
    "reason": "OCR holds no plate descriptions"
+  },
+  {
+   "id": "PM-LOC-WIDE",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "62 records of the wide search (outside the cwp collection): 57 medium JPEGs with sha256, 5 records not digitized by the Library, each read and classified"
+  },
+  {
+   "id": "PM-NPS-PLACE-PAGES",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "34 NPS place pages read for camera places"
+  },
+  {
+   "id": "PM-NPS-ROT-FIGURES",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "36 figure captions cut verbatim from the saved text; images matched against the catalogue; 22 ties confirmed by looking"
+  },
+  {
+   "id": "PM-LC-B815-273",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "resolved 2026-11-14: it is LOC record 2018671576 (resource cwpb.00084, a stereo negative, caption from the negative sleeve: Gettysburg from the Cemetery. July 1863); the record carries the call number LC-B815- 273 [P&P]"
+  },
+  {
+   "id": "PM-NARA-CATALOG",
+   "task": "photomatch",
+   "status": "blocked",
+   "reason": "reachable, but a plain request to any address of the catalog (and to its api/v2 path) returns the same 5 KB single-page-application shell, not data; the catalog API needs a key (an account, an owner act); a browser read was not made. No NARA description of a Gettysburg photograph was read"
+  },
+  {
+   "id": "PM-LOC-NOT-DIGITIZED",
+   "task": "photomatch",
+   "status": "partial",
+   "reason": "records of the wide search that the Library has not digitized (its search result carries the placeholder 500x500_notdigitized.png): 2024640246, 2024640258, 2025160363, 2025160541, 2025160547; each is listed in the registry with its title and the reason it has no frame to look at"
+  },
+  {
+   "id": "PM-GARDNER-SKETCHBOOK-LOC",
+   "task": "photomatch",
+   "status": "unusable",
+   "reason": "the Library item holds the album pages as images (1024 px copies and 100 MB master TIFFs) without a text layer; at 1024 px the letterpress is too small for OCR and the masters were not fetched; the plate captions that LOC transcribed into its picture records are used (plates 35 and 39)"
+  },
+  {
+   "id": "PM-GUTENBERG-SKETCHBOOK",
+   "task": "photomatch",
+   "status": "unusable",
+   "reason": "the search returned no records: there is no Project Gutenberg edition of the Sketch Book"
   }
  ]
 }

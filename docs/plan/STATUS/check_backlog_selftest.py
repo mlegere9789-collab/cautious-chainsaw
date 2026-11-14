@@ -49,8 +49,11 @@ case('wave 1 short check too long', lambda d: entry(d, 'wp-pagec-30').__setitem_
 case('wave 2 size L', lambda d: entry(d, 'wp-arch-10-toolchain').__setitem__('size', 'L'), 'wave 2 entry is size L')
 case('wave entry without authored acceptance', lambda d: entry(d, 'wp-arch-10-toolchain').__setitem__('acceptance_basis', 'machine proof clause'), 'no authored acceptance')
 case('next batch holds a done entry', lambda d: entry(d, 'wp-pagec-30').__setitem__('done', True), 'already done: take it out of the batch')
-case('next batch waits for an open entry', lambda d: d['next_batch'].append('wp-arch-10-toolchain'), 'which is not done')
-case('next batch too long', lambda d: d['next_batch'].append('wp-pagec-12'), 'at most 30')
+# an open build entry that waits for another open entry (found in the data, so the case does not depend on which entries happen to be done)
+waiting = next(e for e in base['items'] if not e['done'] and e['route']['type'] in ('candidate-group', 'source-rebuild') and e['id'] not in base['next_batch']
+               and any(not entry(base, dep)['done'] for dep in e['depends_on']))
+case('next batch waits for an open entry', lambda d: d['next_batch'].append(waiting['id']), 'which is not done')
+case('next batch too long', lambda d: d['next_batch'].append(waiting['id']), 'at most 30')
 case('next batch holds an entry without a wave', lambda d: d['next_batch'].__setitem__(0, 'wp-infra-26'), 'without an authored acceptance')
 case('next batch write overlap', lambda d: entry(d, 'wp-pagec-33')['files'].append('candidates/r1h/wp-pagec-24/test.mjs'), 'next_batch write sets overlap')
 case('next batch missing', lambda d: d.pop('next_batch'), 'next_batch is missing')

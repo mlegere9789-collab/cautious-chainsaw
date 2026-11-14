@@ -18,15 +18,18 @@ def _fig_loc(f):
         if s_['src'] == f['source'] and (cap == q or cap in q): return s_.get('loc') or []
     return []
 n_tied_all = sum(1 for f in figs if _fig_loc(f))
+met_t = J('met_ties_confirmed.json')['ties']; plates = [t['geometry'] for t in conf.values() if (t.get('geometry') or {}).get('class') == 'SAME_PLATE']
+import importlib.util as _iu, sys as _sys; _sys.path.insert(0, HERE); import wide_data as _wd
+GEO = dict(n_plate=len(plates), n_not_plate=len(conf) - len(plates), plate_frac_min=min(g['inlier_fraction'] for g in plates), plate_frac_max=max(g['inlier_fraction'] for g in plates), plate_res_min=min(g['median_residual_px'] for g in plates), plate_res_max=max(g['median_residual_px'] for g in plates), n_rej=len(_wd.REJECTED), n_met=len(met_t))
 def s1(case, key): return sky[case]['summary'][key]
 a27 = s1('P28', 'P27 north (337.5 to 22.5)'); a28 = s1('P28', 'P28 northwest (292.5 to 337.5)'); a29 = s1('P29', 'P29 east (67.5 to 112.5)')
 def sk_line(name, s): return f"{name}: RMS {s['S1_rms_deg']} degrees ({s['S1_class']}) at heading {s['best_heading_deg']}, field {s['best_field_deg']}; rank {s['rank_of_station_among_25']} of 25 against 24 controls (quartile {s['controls_q1']}, median {s['controls_median']}); discriminated {s['S2_discriminated']}"
 out = {
  '_doc': 'What was run on 2026-11-14 (third pass) and what came of it; read by make_doc.py for REPORT.md. Counts are computed from the data files; run results are copied from third_pass_inputs.json.',
  'scope_read': 'Scope read: CLAUDE.md; gates.json Q16; GATE-SPEC Q16 (state of 13 November 21:00 UTC); requirements.json (Q16 is linked from R12.001 to R12.045 and the R12 item; every one has passes false); the PDF plan B.9.2 step 7 and Table 4 rows 32 to 38; register EG-0144; the second-pass report; the state left by the interrupted run of this pass (poses P27 and P28 and the criterion C-P27-P28-1 written before the container restart of 00:05 UTC, no render of them, the wide-search script and 28 of its images, a P13 sheet without a verdict). Nothing was committed, pushed or deployed.',
- 'result_paragraph': I['result_paragraph'].format(n_records=len(reg), n_statements=len(st), n_poses=len(poses), n_ties=len(conf), n_tied_all=n_tied_all, n_figs=len(figs), n_wide=len(wide), n_wide_tied=nw_tied, v27=pv['P27']['verdict'], v28=pv['P28']['verdict'], v29=pv['P29']['verdict'], v13=pv['P13']['verdict'],
+ 'result_paragraph': I['result_paragraph'].format(n_records=len(reg), n_statements=len(st), n_poses=len(poses), n_ties=len(conf), n_tied_all=n_tied_all, n_figs=len(figs), n_wide=len(wide), n_wide_tied=nw_tied, **GEO, v27=pv['P27']['verdict'], v28=pv['P28']['verdict'], v29=pv['P29']['verdict'], v13=pv['P13']['verdict'],
                                                   sky27=sk_line('P27 (north sector)', a27), sky28=sk_line('P28 (northwest sector)', a28), sky29=sk_line('P29 (east sector)', a29), roughly=vc['roughly'], dnot=vc['does not'], cj=vc['cannot judge'], matches=vc['matches']),
- 'what_was_run': [t.format(n_fig_stmts=n_fig_stmts, n_records=len(reg), n_statements=len(st), n_poses=len(poses), n_ties=len(conf), n_tied_all=n_tied_all, n_figs=len(figs), n_wide=len(wide), n_wide_tied=nw_tied) for t in I['what_was_run']],
+ 'what_was_run': [t.format(n_fig_stmts=n_fig_stmts, n_records=len(reg), n_statements=len(st), n_poses=len(poses), n_ties=len(conf), n_tied_all=n_tied_all, n_figs=len(figs), n_wide=len(wide), n_wide_tied=nw_tied, **GEO) for t in I['what_was_run']],
  'new_or_changed': ['P13', 'P27', 'P28', 'P29'],
  'findings': I['findings'], 'tests': I['tests'], 'owed': I['owed'],
  'governance_note': I['governance_note'],

@@ -72,6 +72,7 @@ LABEL = {
  'LETTERMAN-1866': 'J. Letterman, Medical Recollections of the Army of the Potomac (1866)',
  'NY-GB-1900': 'New York at Gettysburg (1900), vol. 1',
  'MI-GB-1889': 'Michigan at Gettysburg (1889)',
+ 'HARD-1868': 'A. Hard, History of the Eighth Cavalry Regiment, Illinois Volunteers (1868)',
 }
 
 # ------------------------------------------------------------------ printed pages of the Official Records: scan leaf map first
@@ -141,6 +142,7 @@ CLASS = {
     'PIERCE-F-1914': 'published history (1914)',
     'HOSPSCENES-1864': 'nurse\'s account published 1864',
     'JACOBS-1888': 'reprint (1888), searched only',
+    'HARD-1868': 'regimental history by its surgeon, a participant (1868)',
 }
 
 _SAL = re.compile(r'\b(?:Sir|Captain|Major|General|Colonel|Gentlemen|Lieutenant|Dear Sir|Dear General|Dear Colonel|My dear General)\s*[:;.,]|\bGeneral:')
@@ -245,6 +247,7 @@ PAGE_HEADS = {
  'ALEXANDER-1907': [re.compile(r'(?<!\d)(\d{2,3}) MILITARY MEMOIRS')],
  'FREMANTLE-1864': [re.compile(r'(?<!\d)(\d{3}) [A-Z][A-Za-z\'’.-]+(?: [A-Za-z\'’.-]+){0,5}\. (?=[A-Za-z"\'])'), re.compile(r'[A-Z]{3,}[A-Za-z\'’ .-]{3,40}\. (\d{3})(?!\d)')],
  'MEADE-LL-v2': [re.compile(r'THE BATTLE OF GETTYSBURG (\d{1,3})(?!\d)')],
+ 'HARD-1868': [re.compile(r'THE EIGHTH ILLINOIS CAVALRY\. (\d{2,3})(?!\d)'), re.compile(r'(?<!\d)(\d{2,3}) THE EIGHTH ILLINOIS CAVALRY\.')],
  'BL-3': [re.compile(r'CITIZENS OF GETTYSBURG IN THE UNION ARMY\. (\d{3})(?!\d)'), re.compile(r'THE FIRST DAY AT GETTYSBURG\. (\d{3})(?!\d)'), re.compile(r'(?<!\d)(\d{3}) THE FIRST DAY AT GETTYSBURG')],
  'NY-GB-1900-v2': [re.compile(r'(?<!\d)(\d{3,4}) New York at Gettysburg\.'), re.compile(r'New York at Gettysburg\. (\d{3,4})(?!\d)')],
  'PA-GB-1914-v1': [re.compile(r'(?<!\d)(\d{3,4}) Pennsylvania at Gettys ?burg\.'), re.compile(r'Pennsylvania at Gettys ?burg\. (\d{2,4})(?!\d)')],

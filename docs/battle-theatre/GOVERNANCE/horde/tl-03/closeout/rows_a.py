@@ -69,9 +69,9 @@ ROWS.append(dict(
               LIB182 + ' regex Abbott\'?s?-?town|Mechanicstown|Rossville|Rosstown: hits in Battles and Leaders, Alexander, Longstreet, Meade L&L, Pennsylvania at Gettysburg, SHSP and others; none gives an hour for Kilpatrick or Merritt on Jul 1 (the hits are the Jun 30 fight at Hanover and later dates)',
               LOGNOTE],
     recheck='OR-RECHECK-2 (supported_partial, open gap kept): the Itinerary line is confirmed at p.145; applied: the Kilpatrick, Pleasonton, Capehart and Merritt reports and the Cavalry Corps dispatches now give the positions the seed called not found, so the row is corrected from open gap to documented positions with hours as marked gaps.',
-    register=reg('Hours of the Jul 1 cavalry moves outside Buford\'s division and the date of the Hunterstown fight in the Battery M list', 'No report read gives an hour for Kilpatrick\'s march, for the detachment to Rossville or for Merritt; Custer\'s battery list heads the Hunterstown fight July 1 while Kilpatrick and Capehart place it on Jul 2.',
+    register=reg('proposed update of EG-TL-T1-116: day-level positions documented; the hours of the Jul 1 cavalry moves outside Buford\'s division, Pleasonton\'s own position and the date of the Hunterstown fight in the Battery M list stay open', 'No report read gives an hour for Kilpatrick\'s march, for the detachment to Rossville or for Merritt; Custer\'s battery list heads the Hunterstown fight July 1 while Kilpatrick and Capehart place it on Jul 2.',
                  'Day-level positions (documented); no hour drawn; the Hunterstown date as two selectable scenarios', 'documented', competing='Hunterstown on Jul 1 (Battery M list) vs Jul 2 at sundown (Kilpatrick, Capehart)', impact='the three formations are placed by day without an hour; the Jul 2 fight is not moved to Jul 1', ask='none: both dates stay selectable, no default', rids='R11, R16'),
-    related=['tl-03-EG-07']))
+    related=['tl-03-EG-07', 'EG-TL-T1-116']))
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------ T1-117
 ROWS.append(dict(
@@ -209,7 +209,8 @@ ROWS.append(dict(
         ('Pettigrew\'s brigade moved down the pike early on the morning of Jul 1, deployed about 2.5 miles from the town and soon crossed to the right of the pike, other regiments of the division having been engaged for some time', 'documented', 'supported', ['j_early', 'j_dep', 'j_other', 'j_hd']),
         ('The brigade stood about half an hour behind the batteries, advanced half a mile to a skirt of woods and remained in line of battle until orders to advance were received at 2 p. m., moving with Brockenbrough\'s brigade on its left', 'documented', 'supported', ['j_half', 'j_2pm', 'j_brock']),
         ('Hill: Heth\'s whole division was thrown into line, Davis on the left of the road, Archer, Pettigrew and Brockenbrough on the right', 'documented', 'supported', ['hill_line']),
-        ('Arrival of the two brigades at "Herr Ridge" about 12:30', 'open gap', 'unsupported', [], 'no report gives the name or the hour; the brigades are with the division from the morning (Wikipedia only)'),
+        ('The names Buford\'s Ridge, McPherson\'s Ridge and Herr\'s Ridge for the three undulations west of the Seminary were given by Bachelder in 1873 "for convenience sake", as "names ... not known by such before the battle" (Herr\'s Ridge is the third)', 'documented', 'supported', ['bach_r1', 'bach_r3', 'bach_rn']),
+        ('Arrival of the two brigades at "Herr Ridge" about 12:30', 'open gap', 'unsupported', [], 'no report gives the hour and the name is of 1873, not of 1863; the brigades are with the division from the morning (Wikipedia only)'),
         ('The minute at which each brigade reached the ground west of Gettysburg', 'open gap', 'unsupported', []),
     ],
     cites={
@@ -225,6 +226,9 @@ ROWS.append(dict(
         'j_2pm': OR('we remained in line of battle until 2 p. m., when orders to advance were received', R550, '643'),
         'j_brock': OR('just with the brigade on our left, commanded by Colonel Brockenbrough', R550, '643'),
         'hill_line': OR('Heth\'s whole division was now thrown into line ; Davis on the left of the road, Archer, Pettigrew, and Brockenbrough on the right', R534, '607'),
+        'bach_r1': L('BACH-WHATTOSEE-1873', 'The undulation next west of the Seminary will hereafter be styled Buford\'s Ridge', note='J. B. Bachelder, Gettysburg: What to See and How to See It (1873)'),
+        'bach_r3': L('BACH-WHATTOSEE-1873', 'and the third Herr\'s Ridge'),
+        'bach_rn': L('BACH-WHATTOSEE-1873', 'for convenience sake, names will be given to other localities, not known by such before the battle'),
         'h_rest': OR('After resting in line of battle for one hour or more, orders were received to attack the enemy in my front', R549, '638'),
     },
     scenarios=[
@@ -232,7 +236,7 @@ ROWS.append(dict(
         sc('B', 'The brigades attack after the division has rested in line of battle for an hour or more (Heth gives no hour; Hill orders Pender forward after 2.30)', 'Heth OR27-2-R549 p.638; Hill R534 p.607', 'documented', ['h_rest']),
     ],
     default=None,
-    remains=['the minute of arrival of Pettigrew\'s and Brockenbrough\'s brigades west of Gettysburg', 'the name Herr Ridge for the ground (Heth: the second ridge of hills west of Gettysburg)'],
+    remains=['the minute of arrival of Pettigrew\'s and Brockenbrough\'s brigades west of Gettysburg', 'an 1863 use of the name Herr Ridge for the ground (Bachelder gave the name in 1873; Heth: the second ridge of hills west of Gettysburg)'],
     searched=['OR27-2-R549 (Heth) read; R550 (Maj. Jones, Pettigrew\'s brigade) read in full; R534 (Hill) read; regex scan of hour statements in R550-R563 (Pettigrew, Davis, Pender\'s division reports)',
               'OR27-2-R426 (Lee) pp.317-318 read: Heth advanced until within a mile of the town; no arrival hour of the brigades',
               LIB182 + ' regex Pettigrew/Brockenbrough near an arrival hour on Jul 1: nothing that gives a time for the arrival (the 12:30 value is the seed\'s Wikipedia value)',
@@ -614,16 +618,16 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-127', verdict='corrected',
     limits={'start': 'the hour at which Steinwehr says he arrived near Gettysburg (about 2 o\'clock, R250 p.721)',
-            'end': 'an allowance of the close-out: half an hour after the about-2 o\'clock arrival, for the division to close up (Schurz: the Second Division "arriving shortly after" 2 p. m.)'},
+            'end': 'the edge of the calendar date: the arrival is about 2 p. m. but the row also carries the earthworks of the dusk and the night of Jul 1 (Wainwright "at dusk", Roath and Whittier "during the night"), for which no hour is printed'},
     claim=claim('Steinwehr\'s division arrives near Gettysburg at about 2 o\'clock and is ordered to occupy Cemetery Hill, where the corps\' reserve artillery (Wiedrich\'s battery) is in position; Coster\'s brigade is placed on the north-east end of the hill in support of Wiedrich, Smith\'s brigade toward the north-west. No digging begins then: per-gun light earthworks are thrown up in front of the batteries on the hill at dusk, and by night a regiment on the left of the hill throws up breastworks and Whittier\'s battery covers its pieces with temporary earthworks (no hour printed)',
                 'Eleventh Corps Second Division (Brig. Gen. A. von Steinwehr): First Brigade (Col. C. R. Coster), Second Brigade (Col. O. Smith); Battery I, 1st New York (Capt. M. Wiedrich); the First Corps batteries from dusk',
                 'Cemetery Hill at the junction of the Baltimore and Emmitsburg turnpikes, south end of Gettysburg (north-east end: Coster; north-west: Smith); the earthworks in front of the guns on the hill outside the cemetery gate',
-                'Arrival about 14:00 (earthworks: at dusk, 19:32 sunset and 20:04 civil dusk of the sun table; no hour printed)',
+                'Arrival about 14:00; earthworks at dusk (19:32 sunset and 20:04 civil dusk of the sun table) and during the night (no hour printed)',
                 'Steinwehr OR27-1-R250 p.721; Wainwright R071 p.357; Hunt R028 p.232; Howard R243 p.702; Schurz R253 p.728',
                 'Steinwehr: at about 2 o\'clock he arrived with his division near Gettysburg and was ordered to occupy Cemetery Hill, where he found the reserve artillery of the corps in position; he placed Coster\'s brigade on the north-east end of the hill in support of Wiedrich\'s battery, which was then in position, and Smith\'s brigade toward the north-west. '
                 'The earthwork: Wainwright writes that "at dusk, no attack having been made" the batteries on the hill outside the cemetery gate were posted and "light earthworks thrown up in front of each gun to protect the men from the fire of the enemy\'s sharpshooters"; Hunt adds that each gun had a small earthwork thrown up in its front for partial shelter. '
                 'Second pass: Capt. Roath of the 107th Pennsylvania writes that after the engagement the regiment fell back to the left of Cemetery Hill and "threw up strong breastworks, which we occupied until next morning", and Lieut. Whittier (5th Maine Battery) that during the night "temporary earthworks were thrown up covering the pieces" (no hour in either). NOT documented: any digging at 14:00, the dimensions of the works, Wiedrich\'s own report of intrenchments (none in his report); the seed "begins digging" at 14:00 is contradicted. Per the standing rule no earthwork is placed before this window; the earthwork is shown as built at dusk in front of the guns only.',
-                'documented', '1863-07-01T14:00', '1863-07-01T14:30', marking='arrival: documented; earthworks: documented for the guns at dusk and for one regiment and one battery by night, hour and dimensions gap; digging at 14:00: contradicted'),
+                'documented', '1863-07-01T14:00', '1863-07-01T23:59', marking='arrival: documented; earthworks: documented for the guns at dusk and for one regiment and one battery by night, hour and dimensions gap; digging at 14:00: contradicted'),
     subs=[
         ('At about 2 o\'clock Steinwehr arrived with his division near Gettysburg and was ordered to occupy Cemetery Hill, where he found the corps\' reserve artillery in position', 'documented', 'supported', ['st_2']),
         ('Coster\'s First Brigade on the north-east end of the hill in support of Wiedrich\'s battery, which was then in position', 'documented', 'supported', ['st_coster']),
@@ -631,7 +635,7 @@ ROWS.append(dict(
         ('At dusk, no attack having been made, the batteries on the hill outside the cemetery gate were posted and light earthworks thrown up in front of each gun against the enemy\'s sharpshooters (Wainwright)', 'documented', 'supported', ['w_dusk']),
         ('Each gun of those batteries had a small earthwork thrown up in its front for partial shelter from the sharpshooters (Hunt)', 'documented', 'supported', ['hunt_ew']),
         ('Infantry and a second battery also built works on or near Cemetery Hill on Jul 1, after the engagement and during the night: the 107th Pennsylvania (Roath) fell back to the left of Cemetery Hill and threw up strong breastworks which it occupied until next morning; Whittier\'s battery had temporary earthworks thrown up covering its pieces during the night (no hour in either report)', 'documented', 'supported', ['roath', 'whit']),
-        ('Digging begins at 14:00 on arrival (seed "begins digging (earthwork start)")', 'documented', 'contradicted', ['w_dusk'], 'the only earthworks of Jul 1 in the reports are the per-gun works at dusk'),
+        ('Digging begins at 14:00 on arrival (seed "begins digging (earthwork start)")', 'documented', 'contradicted', ['w_dusk'], 'the earthworks of Jul 1 in the reports are those of the evening and the night (the per-gun works at dusk and the breastworks and battery works of the night); none is dated 14:00'),
         ('Dimensions and profile of the dusk and night earthworks; the minute of the start', 'open gap', 'unsupported', []),
     ],
     cites={
@@ -666,14 +670,15 @@ ROWS.append(dict(
                 'Jul 1, about 13:00 to 14:00 (deployment accomplished about 2 p. m.)',
                 'Schurz OR27-1-R253 pp.727-728; Early OR27-2-R470 p.469',
                 'Schurz turned over the Third Division to Schimmelfennig, ordered him to advance through the town and deploy on the right of the First Corps in two lines; the First Division under Barlow arrived by the Emmitsburg road proper, advanced through the town and was ordered to form on the right of the Third, its First Brigade connecting with the Third Division west of the Mummasburg road, the Second Brigade held en echelon behind the right of the First Brigade east of that road; "It was about 2 p. m. when the deployment of the two divisions was accomplished", the Second Division arriving shortly after. '
-                'Early calls the hill on which Barlow had been posted the one Gordon crossed the creek to (west of Rock Creek). NOT documented: that the deployment came "after Rodes takes Oak Hill" (Schurz does not state a sequence with Rodes); the names Barlow\'s Knoll and Blocher\'s Knoll are not used in any report read.',
+                'Early calls the hill on which Barlow had been posted the one Gordon crossed the creek to (west of Rock Creek). NOT documented: that the deployment came "after Rodes takes Oak Hill" (Schurz does not state a sequence with Rodes); the names Barlow\'s Knoll and Blocher\'s Knoll are not used in any report read (second pass: Bachelder 1873, the Ohio dedication volume of 1887 and a Pennsylvania address use Barlow\'s Knoll; the National Park Service has Blocher Knoll, later Barlow Knoll).',
                 'documented', '1863-07-01T13:00', '1863-07-01T14:00', marking='deployment and hour about 14:00: documented; knoll names and the Oak Hill sequence: not in the reports'),
     subs=[
         ('Schurz turned over the Third Division to Schimmelfennig and ordered him to advance briskly through the town and deploy on the right of the First Corps in two lines', 'documented', 'supported', ['s_sch']),
         ('The First Division under Barlow arrived by the Emmitsburg road proper, advanced through the town and formed on the right of the Third, its Second Brigade en echelon behind the right of the First Brigade east of the Mummasburg road', 'documented', 'supported', ['s_first', 's_eche']),
         ('It was about 2 p. m. when the deployment of the two divisions was accomplished', 'documented', 'supported', ['s2pm']),
         ('Early: Gordon crossed the creek and went over the hill on which Barlow had been posted', 'documented', 'supported', ['e_hill']),
-        ('The deployment follows Rodes\' taking of Oak Hill; the names Barlow\'s Knoll and Blocher\'s Knoll', 'open gap', 'unsupported', []),
+        ('The knoll of the Eleventh Corps\' right is named Barlow\'s Knoll by Bachelder (1873), in the Ohio dedication volume (1887) and in an address printed in Pennsylvania at Gettysburg (1889 or later); the National Park Service says it was Blocher Knoll, later known as Barlow Knoll; the reports of 1863 use neither name', 'documented', 'supported', ['b_knoll', 'oh_knoll', 'pa_knoll', 'nps_bloch'], 'the names are later names (1873 and after), not names of 1863'),
+        ('The deployment follows Rodes\' taking of Oak Hill', 'open gap', 'unsupported', [], 'Schurz does not state a sequence with Rodes'),
     ],
     cites={
         's_sch': OR('I ordered General Schimmelfennig, to whom I turned over the command of the Third Division, to advance briskly through the town, and to deploy on the right of the First Corps in two lines', R253, '727'),
@@ -681,10 +686,14 @@ ROWS.append(dict(
         's_eche': OR('while I ordered the Second Brigade to be held en echelon behind the right of the First Brigade east of the', R253, '727'),
         's2pm': OR('It was about 2 p. m. when the deployment of the two divisions was accomplished. The Second Division arriving shortly after', R253, '728'),
         'e_hill': OR('Gordon advanced across the creek, over the hill on which Barlow had been posted', R470, '469'),
+        'b_knoll': L('BACH-WHATTOSEE-1873', 'Wilkinson\'s battery, G, 4th U. S., was posted on Barlow\'s Knoll', note='J. B. Bachelder (1873); the OCR prints Wilkinson for Wilkeson'),
+        'oh_knoll': L('OH-DED-1887', '25th INFANTRY— Barlow\'s Knoll', note='list of the locations of Ohio monuments in the dedication volume of 1887'),
+        'pa_knoll': L('PA-GB-1914-v2', 'As we stand on this elevated spot, to be ever known as Barlow\'s Knoll, in honor of the gallant and distinguished officer who cammanded our Division, and who was so desperately wounded here', note='an address at a monument dedication printed in Pennsylvania at Gettysburg vol. 2; the OCR prints cammanded for commanded'),
+        'nps_bloch': L('NPS-CLI-1STDAY', 'Blocher Knoll (later known as Barlow Knoll in honor of the Union commander there)', note='National Park Service Cultural Landscapes Inventory'),
     },
     scenarios=[],
     default=None,
-    remains=['the sequence "after Rodes takes Oak Hill" (not stated)', 'the names Barlow\'s Knoll and Blocher\'s Knoll (later names)'],
+    remains=['the sequence "after Rodes takes Oak Hill" (not stated)', 'a use of the names Barlow\'s Knoll or Blocher\'s Knoll in 1863 (they are later names: 1873 and after)'],
     searched=['OR27-1-R253 (Schurz) read in full; R244 (Ames), R245 (41st New York) read; regex knoll|Blocher|Barlow\'s Hill over OR vol.27 pt.1: no hit in the Eleventh Corps reports R243-R269',
               LIB182 + ' regex Blocher/Barlow\'s Knoll: later National Park Service names only',
               LOGNOTE],

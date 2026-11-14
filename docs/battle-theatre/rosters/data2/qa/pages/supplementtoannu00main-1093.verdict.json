@@ -1,0 +1,227 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "supplementtoannu00main/1093",
+ "levels": "NR",
+ "stratum": "ME-IDX-officers",
+ "family": "ME-IDX",
+ "layout": "cols",
+ "kind": "officers",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 1079,
+ "rows_stored": 10,
+ "rows_checked": 10,
+ "rows_in_error": 3,
+ "rows_ok": 7,
+ "rows_flagged_ocr_uncertain": 2,
+ "errors": [
+  {
+   "i": 2,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Sanborn Edwin 0' (digit zero) printed 'Sanborn Edwin O'",
+   "rid": "19th-maine-infantry#2431",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 8,
+   "kinds": [
+    "name-char",
+    "rank",
+    "rem-char"
+   ],
+   "note": "'oame' for 'Same'; rank 'An'; cells 'A A nn zy Infantry.' for 'A 29 Infantry.'",
+   "rid": "_other-ME-SUPP-1867#3236",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 9,
+   "kinds": [
+    "name-char",
+    "rem-char"
+   ],
+   "note": "garbled name 't-*«*li U\\Jl Ll -LJLIL11 UIILI -LYi' for the printed 'Same' line (company A, Battalion); cells 'A l\\) do'",
+   "rid": "_other-ME-SUPP-1867#3237",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1",
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [
+  "eight printed lines of the units have no stored row: 'Sally Scott | do | D | 7 | do' and 'Sampson George | do | F | 7 | Infantry.' (7th), 'Same | do | H | 19 | do' under Salsbury Charles H (19th), 'Sanborn Edmund R | do | A | 20 | do' and 'Same | Sergeant Major | 20 | do' (20th), 'Same | Private | D | 1 | Cavalry.' under Sampson Randall (1st Cavalry), 'Sanborn Dudley F | Private | B | Battalion | 10th Infantry.' and 'Same | do | A | Battalion | do' (10th Battalion)"
+ ],
+ "notes": [
+  "7 of 10 rows free of errors; no stored line of the 7th Maine Infantry stands on this page although the print has two lines of that regiment"
+ ],
+ "reader": "full level without dates; full page at 200 dpi (1 Read); all 10 stored rows (8 filed to units, 2 to no unit) compared with the printed index lines; every printed line whose regiment cell is one of the 14 units was looked for in the stored rows",
+ "tesseract_prescreen": {
+  "agree": 2,
+  "near": 0,
+  "suspect": 8,
+  "unstored_lines": 41
+ },
+ "read": {
+  "pdf_sha256": "cc4dd37fa553565deee261772b9c78c94d1191bb7ca5ea75caa8f913b3150ae7",
+  "pdf_page": 1087,
+  "view_png_sha256": "88a8fc63fecf7151bd7247fdea8e47496340c772fe879404185cddfc239e506e",
+  "render300_sha256": "b509a989aac45ec1bfc203e1e359ce578ad5c12d4178d85f189efb18727d7218",
+  "tess_sha256": "f9956eadbfbdbbcb66f503cf111abb355eb990bcd95e022fae9ba7f65a21ff6a",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.904
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "17th-maine-infantry#2474",
+   "name": "Sanborn Edwin W",
+   "rank": "Sergeant",
+   "co": "",
+   "remarks_sha256": "e9e7997c7e58d7d3812ef2610bb4ac7457370e62dfe1a96d0d992af31c2a7c45",
+   "off": 2512987,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "17th-maine-infantry#2475",
+   "name": "Same",
+   "rank": "2d Lieutenant",
+   "co": "",
+   "remarks_sha256": "aeb7f646231bf459e9bd90ee0c6f71d8dc46452f8a7a571e0d9b370d10ffd432",
+   "off": 2513029,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "19th-maine-infantry#2431",
+   "name": "Sanborn Edwin 0",
+   "rank": "Private",
+   "co": "",
+   "remarks_sha256": "f5f121fb57efd0f40c70d09c7be35c957df54cf3768178d0ea1f3b40fb1e7f83",
+   "off": 2512916,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 3,
+   "rid": "20th-maine-infantry#2832",
+   "name": "Same",
+   "rank": "do",
+   "co": "",
+   "remarks_sha256": "d5e9d867ecc05c688eb59267543360d1a150f8c19614228ea5fc39d30966f512",
+   "off": 2512083,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S",
+    "U"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "20th-maine-infantry#2833",
+   "name": "Same",
+   "rank": "2d Lieutenant",
+   "co": "",
+   "remarks_sha256": "68ebc05a6ebac3b38c6e030967b967cbca53fe1d5af51d5d5a3e9bd63039f523",
+   "off": 2512807,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "20th-maine-infantry#2834",
+   "name": "Same",
+   "rank": "1st Lieutenant",
+   "co": "",
+   "remarks_sha256": "4d79a5ad376691784725657bac6b96a4d8dfdfd71a5fb7e125b879c1bab9b858",
+   "off": 2512835,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 6,
+   "rid": "5th-maine-infantry#2043",
+   "name": "Sanborn Fred G",
+   "rank": "1st Lieutenant",
+   "co": "",
+   "remarks_sha256": "c06a24a521b8eecc01f09cdd1fb66d459027753443c27ed0d293c85f1375f71c",
+   "off": 2513107,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "5th-maine-infantry#2044",
+   "name": "Same",
+   "rank": "Captain",
+   "co": "",
+   "remarks_sha256": "4fefe3e5fbbf27ec8be40be226d8a364d15689e98dc3d141934941e43eb3dedf",
+   "off": 2513154,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": [
+    "S"
+   ]
+  },
+  {
+   "i": 8,
+   "rid": "_other-ME-SUPP-1867#3236",
+   "name": "oame",
+   "rank": "An",
+   "co": "",
+   "remarks_sha256": "ce98a9e43dadc128b8181937477214778e31e6c11eec017f80867bb1edf9375e",
+   "off": 2512679,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "_other-ME-SUPP-1867#3237",
+   "name": "t-*«*li U\\Jl Ll -LJLIL11 UIILI -LYi",
+   "rank": "do",
+   "co": "",
+   "remarks_sha256": "fcdb94d2312f9f7fb88b36358c07f8c19722de93e923774027a892935c3f1c82",
+   "off": 2512726,
+   "text_id": "ME-SUPP-1867.1867",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T01:21:34Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "AGREE",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT"
+ }
+}

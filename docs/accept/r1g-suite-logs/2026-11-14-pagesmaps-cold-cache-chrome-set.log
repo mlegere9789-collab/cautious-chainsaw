@@ -1,0 +1,7 @@
+run_suites: 1 suite(s), port base 19140, agent r1g-final-maps
+run_suites: child environment + NODE_USE_ENV_PROXY, NODE_OPTIONS (extended) (an HTTPS proxy is set); load average (1 min) 9.37, 4 CPUs
+PASS    pagesmaps.R1a          34/34             87.7 s  load 9.37>8.21  tiles 103/300  map sub-pages, og card, manifest (PG-01..08) on R1a
+
+run_suites: load average (1 min) 9.37>8.21 from the start to the end of this run, 4 CPUs
+
+run_suites: 1/1 suites OK; green tests 34/34; red-first proofs 0/0 (0 legacy tests red as required); 88s -> tmp/r1g-final/maps.json

@@ -1,2 +1,18 @@
-{"_doc": "Texts fetched for the tl-03 close-out (2026-11-13). Each entry: the text file as saved, its sha256, the archive.org identifier and the URL used (one request at most per second, public domain). Empty until a fetch is made.",
- "items": []}
+{
+ "_doc": "Texts used by the tl-03 close-out that are not in the library indexes. Each entry: the text file as saved, its sha256, the archive.org identifier and the URL used (one request at most per second, public domain). HARD-1868 was fetched by the tl-02 close-out (sources_tl02.json lists the same sha256) and copied to tmp/tl-03/acq on 2026-11-14.",
+ "items": [
+  {
+   "id": "HARD-1868",
+   "archive_identifier": "historyofeighthc00hard",
+   "title": "History of the Eighth cavalry regiment, Illinois volunteers, during the great rebellion",
+   "creator": "Hard, Abner",
+   "date": "1868",
+   "url": "https://archive.org/details/historyofeighthc00hard",
+   "text_url": "https://archive.org/cors/historyofeighthc00hard/historyofeighthc00hard_djvu.txt",
+   "local_path": "tmp/tl-03/acq/HARD-1868/historyofeighthc00hard_djvu.txt",
+   "sha256": "3018846253cb3f0f60b4c302b5e554a1e2d0169df8df1e09d21ef8b1ffb9655a",
+   "acquired": "2026-11-13 (tl-02 close-out), copied 2026-11-14",
+   "licence_note": "archive.org item; publication before 1929 (US public domain by age); text layer read only, no login or circumvention"
+  }
+ ]
+}

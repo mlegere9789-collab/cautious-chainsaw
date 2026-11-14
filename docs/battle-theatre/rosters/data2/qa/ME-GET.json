@@ -5,22 +5,26 @@
   "ME-GET-officers": {
    "pages_in_stratum": 8,
    "rows_in_stratum": 195,
-   "pages_looked_at": 1,
+   "pages_looked_at": 3,
    "decile_pages_looked_at": 1,
-   "rows_looked_at": 16,
+   "rows_looked_at": 74,
    "draw_positions": [
+    2,
+    3,
     1
    ],
    "pages": [
+    "maineatgettysbur01main/220",
+    "maineatgettysbur01main/365",
     "maineatgettysbur01main/513"
    ],
    "gates": {
     "R-G1": {
-     "rows": 16,
-     "errors": 6,
-     "rate_percent": 37.5,
-     "upper95_percent": 60.9,
-     "lower95_percent": 17.78,
+     "rows": 74,
+     "errors": 9,
+     "rate_percent": 12.16,
+     "upper95_percent": 20.26,
+     "lower95_percent": 6.49,
      "decision": "FAIL"
     },
     "R-G2": {
@@ -32,19 +36,19 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 16,
+     "rows": 74,
      "errors": 0,
      "rate_percent": 0.0,
-     "upper95_percent": 17.07,
+     "upper95_percent": 3.97,
      "lower95_percent": 0.0,
      "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 16,
-     "errors": 1,
-     "rate_percent": 6.25,
-     "upper95_percent": 26.4,
-     "lower95_percent": 0.32,
+     "rows": 74,
+     "errors": 3,
+     "rate_percent": 4.05,
+     "upper95_percent": 10.15,
+     "lower95_percent": 1.11,
      "decision": "OPEN"
     },
     "any": {
@@ -57,41 +61,47 @@
     }
    },
    "error_kinds_count": {
-    "name-cut": 5,
-    "rem-char": 1,
-    "name-nonperson": 1
-   },
-   "error_kinds_on_rows_flagged_ocr_uncertain": {
-    "name-nonperson": 1
-   },
-   "error_kinds_on_rows_not_flagged": {
-    "name-cut": 5,
+    "rem-missing": 2,
+    "name-nonperson": 2,
+    "name-cut": 8,
     "rem-char": 1
    },
-   "missed_lines": 1,
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-nonperson": 2,
+    "name-cut": 1,
+    "rem-missing": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "rem-missing": 1,
+    "name-cut": 7,
+    "rem-char": 1
+   },
+   "missed_lines": 2,
    "census_complete": false
   },
   "ME-GET-other": {
    "pages_in_stratum": 75,
    "rows_in_stratum": 4227,
-   "pages_looked_at": 2,
+   "pages_looked_at": 3,
    "decile_pages_looked_at": 1,
-   "rows_looked_at": 114,
+   "rows_looked_at": 171,
    "draw_positions": [
     1,
+    3,
     2
    ],
    "pages": [
     "maineatgettysbur01main/146",
+    "maineatgettysbur01main/446",
     "maineatgettysbur01main/447"
    ],
    "gates": {
     "R-G1": {
-     "rows": 114,
-     "errors": 13,
-     "rate_percent": 11.4,
-     "upper95_percent": 17.52,
-     "lower95_percent": 6.88,
+     "rows": 171,
+     "errors": 16,
+     "rate_percent": 9.36,
+     "upper95_percent": 13.86,
+     "lower95_percent": 5.96,
      "decision": "FAIL"
     },
     "R-G2": {
@@ -103,19 +113,19 @@
      "decision": "NOT LOOKED AT"
     },
     "R-G3a": {
-     "rows": 114,
-     "errors": 2,
+     "rows": 171,
+     "errors": 3,
      "rate_percent": 1.75,
-     "upper95_percent": 5.42,
-     "lower95_percent": 0.31,
+     "upper95_percent": 4.47,
+     "lower95_percent": 0.48,
      "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 114,
-     "errors": 15,
-     "rate_percent": 13.16,
-     "upper95_percent": 19.54,
-     "lower95_percent": 8.29,
+     "rows": 171,
+     "errors": 19,
+     "rate_percent": 11.11,
+     "upper95_percent": 15.88,
+     "lower95_percent": 7.4,
      "decision": "FAIL"
     },
     "any": {
@@ -128,35 +138,39 @@
     }
    },
    "error_kinds_count": {
-    "rem-missing": 11,
-    "name-nonperson": 3,
-    "name-cut": 10,
+    "rem-missing": 15,
+    "name-nonperson": 4,
+    "name-cut": 13,
     "rem-char": 3,
     "name-char": 2,
     "rem-extra": 1,
-    "rank": 2
+    "rank": 3
    },
    "error_kinds_on_rows_flagged_ocr_uncertain": {
     "name-nonperson": 3,
-    "name-cut": 8,
+    "name-cut": 10,
     "rem-missing": 3,
     "rem-extra": 1,
-    "rank": 1
+    "rank": 2
    },
    "error_kinds_on_rows_not_flagged": {
-    "rem-missing": 8,
-    "name-cut": 2,
+    "rem-missing": 12,
+    "name-cut": 3,
     "rem-char": 3,
     "name-char": 2,
+    "name-nonperson": 1,
     "rank": 1
    },
-   "missed_lines": 2,
+   "missed_lines": 3,
    "census_complete": false
   }
  },
  "verdicts": [
+  "maineatgettysbur01main/220",
+  "maineatgettysbur01main/365",
   "maineatgettysbur01main/513",
   "maineatgettysbur01main/146",
+  "maineatgettysbur01main/446",
   "maineatgettysbur01main/447"
  ]
 }

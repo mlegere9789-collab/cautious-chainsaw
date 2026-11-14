@@ -87,22 +87,26 @@
   "ME-RET-other": {
    "pages_in_stratum": 296,
    "rows_in_stratum": 12078,
-   "pages_looked_at": 1,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 51,
+   "pages_looked_at": 3,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 113,
    "draw_positions": [
-    3
+    3,
+    1,
+    2
    ],
    "pages": [
-    "annualreportofad1863main/365"
+    "annualreportofad1863main/365",
+    "annualreportofad1863main/414",
+    "annualreportofad1863main/789"
    ],
    "gates": {
     "R-G1": {
-     "rows": 51,
-     "errors": 6,
-     "rate_percent": 11.76,
-     "upper95_percent": 21.91,
-     "lower95_percent": 5.25,
+     "rows": 113,
+     "errors": 13,
+     "rate_percent": 11.5,
+     "upper95_percent": 17.67,
+     "lower95_percent": 6.94,
      "decision": "FAIL"
     },
     "R-G2": {
@@ -114,12 +118,12 @@
      "decision": "FAIL"
     },
     "R-G3a": {
-     "rows": 51,
-     "errors": 0,
-     "rate_percent": 0.0,
-     "upper95_percent": 5.7,
-     "lower95_percent": 0.0,
-     "decision": "OPEN"
+     "rows": 113,
+     "errors": 10,
+     "rate_percent": 8.85,
+     "upper95_percent": 14.55,
+     "lower95_percent": 4.88,
+     "decision": "FAIL"
     },
     "R-G3b": {
      "rows": 51,
@@ -139,31 +143,38 @@
     }
    },
    "error_kinds_count": {
-    "name-char": 5,
+    "name-char": 12,
     "rem-ditto": 41,
     "rem-extra": 4,
     "rem-date": 4,
     "rem-char": 4,
     "name-cut": 1,
-    "rem-missing": 2
+    "rem-missing": 2,
+    "rank": 10
    },
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "rank": 2,
+    "name-char": 1
+   },
    "error_kinds_on_rows_not_flagged": {
-    "name-char": 5,
+    "name-char": 11,
     "rem-ditto": 41,
     "rem-extra": 4,
     "rem-date": 4,
     "rem-char": 4,
     "name-cut": 1,
-    "rem-missing": 2
+    "rem-missing": 2,
+    "rank": 8
    },
-   "missed_lines": 0,
+   "missed_lines": 1,
    "census_complete": false
   }
  },
  "verdicts": [
   "annualreportofad1863main/224",
   "annualreportofad1863main/685",
-  "annualreportofad1863main/365"
+  "annualreportofad1863main/365",
+  "annualreportofad1863main/414",
+  "annualreportofad1863main/789"
  ]
 }

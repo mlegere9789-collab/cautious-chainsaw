@@ -5,22 +5,26 @@
   "VT-REV-officers": {
    "pages_in_stratum": 66,
    "rows_in_stratum": 2347,
-   "pages_looked_at": 1,
+   "pages_looked_at": 3,
    "decile_pages_looked_at": 1,
-   "rows_looked_at": 37,
+   "rows_looked_at": 114,
    "draw_positions": [
-    1
+    1,
+    2,
+    3
    ],
    "pages": [
-    "cu31924080774148/88"
+    "cu31924080774148/88",
+    "cu31924080774148/117",
+    "cu31924080774148/225"
    ],
    "gates": {
     "R-G1": {
-     "rows": 37,
-     "errors": 0,
-     "rate_percent": 0.0,
-     "upper95_percent": 7.78,
-     "lower95_percent": 0.0,
+     "rows": 114,
+     "errors": 1,
+     "rate_percent": 0.88,
+     "upper95_percent": 4.09,
+     "lower95_percent": 0.04,
      "decision": "OPEN"
     },
     "R-G2": {
@@ -32,10 +36,10 @@
      "decision": "FAIL"
     },
     "R-G3a": {
-     "rows": 37,
+     "rows": 114,
      "errors": 0,
      "rate_percent": 0.0,
-     "upper95_percent": 7.78,
+     "upper95_percent": 2.59,
      "lower95_percent": 0.0,
      "decision": "OPEN"
     },
@@ -59,12 +63,14 @@
    "error_kinds_count": {
     "rem-date": 19,
     "rem-char": 13,
-    "rem-order": 2
+    "rem-order": 2,
+    "name-char": 1
    },
    "error_kinds_on_rows_flagged_ocr_uncertain": {
     "rem-date": 18,
     "rem-char": 13,
-    "rem-order": 2
+    "rem-order": 2,
+    "name-char": 1
    },
    "error_kinds_on_rows_not_flagged": {
     "rem-date": 1
@@ -162,6 +168,8 @@
  },
  "verdicts": [
   "cu31924080774148/88",
+  "cu31924080774148/117",
+  "cu31924080774148/225",
   "cu31924080774148/52",
   "cu31924080774148/60",
   "cu31924080774148/74",

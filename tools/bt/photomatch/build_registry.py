@@ -25,9 +25,12 @@ def main():
     sup = {}
     for p in poses:
         if p.get('loc_id') and p.get('superseded_by'): sup.setdefault(p['loc_id'], []).append(p['id'])
-        elif p.get('loc_id'):
-            by_loc.setdefault(p['loc_id'], []).append(p['id'])
-            for al in p.get('also_loc_ids') or []: by_loc.setdefault(al, []).append(p['id'])   # other prints of the same exposure (second copies, stereo siblings) carry the pose of the record it was set for
+        else:
+            if p.get('loc_id'): by_loc.setdefault(p['loc_id'], []).append(p['id'])
+            for al in p.get('also_loc_ids') or []: by_loc.setdefault(al, []).append(p['id'])   # other prints of the same exposure (second copies, stereo siblings, the two plates of a panorama) carry the pose of the record it was set for
+    rev = {}   # the reverse of the copy ties of the wide search: a first-catalogue record learns which wide records are the same exposure
+    for w_ in wide:
+        for o in w_.get('same_exposure_as') or []: rev.setdefault(o, set()).add(w_['loc_id'])
     stm = {}
     for s in st:
         for l in (s.get('loc') or []) + (s.get('cand') or []): stm.setdefault(l, []).append(s['id'])
@@ -46,7 +49,7 @@ def main():
         basis = (("NPS Then-And-Now, Devil's Den no. 8: the NPS calls this photograph staged and more than four months after the battle; " + RD.SCOPE_OUT[pk]) if pk in RD.SCOPE_OUT else None) or c.get('staged_basis') or ("same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged" if code == 'STG' else None)
         e = {'loc_id': pk, 'title': c['title'], 'creator': c.get('creator'), 'date_as_catalogued': c.get('date_as_catalogued'), 'loc_url': c.get('loc_url'),
              'catalogue': 'wide search (third pass)' if c in wide else 'added by catalogue_additions.py' if c in add else 'catalogue.json', 'scope_july_1863_terrain': (pk not in RD.SCOPE_OUT) and ((pk in RD.SCOPE_IN) or bool(c.get('in_scope_july_1863_terrain') and code != 'OUT')),
-             'scope_note': RD.SCOPE_OUT.get(pk) or RD.SCOPE_IN.get(pk) or (what if code == 'OUT' else None), 'same_exposure_as': c.get('same_exposure_as') or [], 'superseded_pose_ids': sup.get(pk, []), 'staged_flag': staged, 'staged_basis': basis if staged else None,
+             'scope_note': RD.SCOPE_OUT.get(pk) or RD.SCOPE_IN.get(pk) or (what if code == 'OUT' else None), 'same_exposure_as': sorted(set(c.get('same_exposure_as') or []) | rev.get(pk, set()) | set(getattr(RD, 'SAME_EXPOSURE', {}).get(pk, []))), 'superseded_pose_ids': sup.get(pk, []), 'staged_flag': staged, 'staged_basis': basis if staged else None,
              'image_keys': sorted(imgs.get(pk, [])), 'statement_ids': sorted(set(stm.get(pk, []))), 'nps_then_now_identity': idn.get(pk, []), 'pose_ids': poseids, 'class': code}
         if poseids:
             vs = [pv[i] for i in poseids if i in pv]

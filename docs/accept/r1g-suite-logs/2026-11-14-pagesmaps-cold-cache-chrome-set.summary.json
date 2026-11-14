@@ -1,0 +1,57 @@
+{
+ "finished": "see file mtime",
+ "seconds": 88,
+ "portBase": "19140",
+ "machine": {
+  "platform": "linux",
+  "cpus": 4,
+  "node": "v22.23.4"
+ },
+ "load1": {
+  "start": 9.37,
+  "end": 8.21
+ },
+ "childEnv": {
+  "httpsProxy": true,
+  "added": [
+   "NODE_USE_ENV_PROXY"
+  ],
+  "extended": [
+   "NODE_OPTIONS"
+  ]
+ },
+ "totals": {
+  "suites": 1,
+  "ok": 1,
+  "notOk": 0,
+  "greenTests": 34,
+  "greenTestsTotal": 34,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "pagesmaps.R1a",
+   "title": "map sub-pages, og card, manifest (PG-01..08) on R1a",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 87.7,
+   "passed": 34,
+   "total": 34,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 103,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"skipped\":\"pass --online to re-fetch\"}",
+    "T0-PG (map pages, og/manifest): 34/34 passed",
+    "mapbox requests used this run: 103 of 300 (blocked by cap: 0)"
+   ],
+   "load1Start": 9.37,
+   "load1End": 8.21
+  }
+ ]
+}
