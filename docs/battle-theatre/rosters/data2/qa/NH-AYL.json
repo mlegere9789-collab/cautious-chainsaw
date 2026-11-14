@@ -1,0 +1,89 @@
+{
+ "f": "roster-qa-family/1",
+ "family": "NH-AYL",
+ "strata": {
+  "NH-AYL-other": {
+   "pages_in_stratum": 185,
+   "rows_in_stratum": 6992,
+   "pages_looked_at": 3,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 110,
+   "draw_positions": [
+    2,
+    1,
+    3
+   ],
+   "pages": [
+    "cu31924096263128/98",
+    "cu31924096263136/63",
+    "cu31924096263136/322"
+   ],
+   "gates": {
+    "R-G1": {
+     "rows": 110,
+     "errors": 16,
+     "rate_percent": 14.55,
+     "upper95_percent": 21.25,
+     "lower95_percent": 9.34,
+     "decision": "FAIL"
+    },
+    "R-G2": {
+     "rows": 77,
+     "errors": 34,
+     "rate_percent": 44.16,
+     "upper95_percent": 54.16,
+     "lower95_percent": 34.5,
+     "decision": "FAIL"
+    },
+    "R-G3a": {
+     "rows": 110,
+     "errors": 0,
+     "rate_percent": 0.0,
+     "upper95_percent": 2.69,
+     "lower95_percent": 0.0,
+     "decision": "OPEN"
+    },
+    "R-G3b": {
+     "rows": 77,
+     "errors": 48,
+     "rate_percent": 62.34,
+     "upper95_percent": 71.58,
+     "lower95_percent": 52.36,
+     "decision": "FAIL"
+    },
+    "any": {
+     "rows": 77,
+     "errors": 57,
+     "rate_percent": 74.03,
+     "upper95_percent": 82.07,
+     "lower95_percent": 64.54,
+     "decision": null
+    }
+   },
+   "error_kinds_count": {
+    "name-char": 16,
+    "rem-date": 34,
+    "rem-char": 46,
+    "rem-extra": 3
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "rem-date": 31,
+    "rem-char": 32,
+    "name-char": 9,
+    "rem-extra": 3
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "name-char": 7,
+    "rem-date": 3,
+    "rem-char": 14
+   },
+   "missed_lines": 0,
+   "census_complete": false
+  }
+ },
+ "verdicts": [
+  "cu31924096263128/98",
+  "cu31924096263136/63",
+  "cu31924096263136/322"
+ ]
+}

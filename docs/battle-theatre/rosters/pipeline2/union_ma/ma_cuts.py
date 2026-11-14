@@ -24,3 +24,14 @@ NAME_CUTS = [
     ('u-ma-20th-massachusetts-infantry', 'ElishaM. White', 'the given name and the middle initial are one token that ends with a period, which the period rule takes for the end of the entry above'),
     ('u-ma-32nd-massachusetts-infantry', 'Waitt, John (alias Godsoe, John)', 'the head prints a second name in brackets; the closing bracket ends the cut of the comma rule'),
 ]
+
+
+# Reviewed headings: a section heading the OCR damaged so that classify_heading (ma_parse.py) does not take it as a heading, with the code a person reads in it.
+# Each is located by the exact text of the line (blanks collapsed) inside the section of the unit and must occur exactly once (the parser asserts that).  The code
+# is what the printed heading says (a company letter, UNAS for UNASSIGNED); it is never the letter that "the sequence" would give.  Found by the reconciliation with
+# the earlier roll files: without these two the rows of the heading and of the next headings' section stay under the company above.
+# (unit key, the heading line as the OCR prints it, the code, why)
+HEADINGS = [
+    ('u-ma-10th-massachusetts-infantry', "COMPANY ''K'l", 'K', 'the letter K is legible; its closing quote is printed as an apostrophe and the letter l'),
+    ('u-ma-19th-massachusetts-infantry', 'UX-\\SSIGXED', 'UNAS', 'the word UNASSIGNED with three letters damaged (U, S, S, I, G, E, D stand in order)'),
+]

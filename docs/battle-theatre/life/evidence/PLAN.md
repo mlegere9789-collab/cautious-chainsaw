@@ -24,28 +24,28 @@ Partition rule: **every text or record has exactly one owner** (Official Records
 
 | group | what it owns | records (pt1/pt2/pt3) | leads (hits) | works | rows now |
 |---|---|---|---|---|---|
-| `us-1c` | I Corps (Reynolds, Doubleday, Newton) and its artillery brigade | 47 (47/0/0) | not scanned | E-01, E-02, G-02, S-009, S-010, S-014, W-13MA-RIFLE-PIT, W-COULTER-BREASTWORKS ... | 2 |
-| `us-2c` | II Corps (Hancock) and its artillery brigade | 56 (56/0/0) | not scanned | E-17, G-12, W-ANGLE-WALL-STRENGTHENED, W-CEM-RIDGE-RAIL-STONE, W-SKIRMISH-PITS-EMMITSBURG-RD | 2 |
-| `us-3c` | III Corps (Sickles) and its artillery brigade | 47 (47/0/0) | not scanned | E-16, G-05 | 0 |
-| `us-5c` | V Corps (Sykes) and its artillery brigade | 37 (37/0/0) | not scanned | E-13, E-14, E-15, G-06, S-043, W-BIG-ROUND-TOP-WORKS | 1 |
-| `us-6c` | VI Corps (Sedgwick) and its artillery brigade | 17 (17/0/0) | not scanned | - | 0 |
-| `us-11c` | XI Corps (Howard) and its artillery brigade | 36 (36/0/0) | not scanned | E-04, E-12, G-03, S-026, W-WEST-CEMETERY-HILL-WORKS | 0 |
-| `us-12c` | XII Corps (Slocum) and its artillery brigade | 47 (47/0/0) | not scanned | E-03, E-05, E-06, E-07, E-08, E-09, E-11, G-17 ... | 1 |
-| `us-cav` | Cavalry Corps (Pleasonton) | 31 (31/0/0) | not scanned | G-01, S-003 | 0 |
-| `us-army` | Army of the Potomac, army level | 53 (53/0/0) | not scanned | G-07, G-10, G-11, G-13 | 2 |
-| `cs-1c` | Longstreet's First Corps (McLaws, Pickett, Hood) and its reserve artillery | 33 (0/33/0) | not scanned | G-08, G-09, G-14, W-CONFED-WARFIELD-WORKS | 0 |
-| `cs-2c` | Ewell's Second Corps (Early, Johnson, Rodes) and its reserve artillery | 57 (0/57/0) | not scanned | E-10, G-04, G-15, S-001, W-CONFED-OAK-HILL-BENNER, W-GBG-STATION-RAILS-TORN | 3 |
-| `cs-3c` | Hill's Third Corps (Anderson, Heth, Pender) and its reserve artillery | 27 (0/27/0) | not scanned | E-18, G-16, W-CONFED-SEMINARY-WORKS | 0 |
-| `cs-cav-army` | Army of Northern Virginia | 48 (0/48/0) | not scanned | S-054 | 0 |
+| `us-1c` | I Corps (Reynolds, Doubleday, Newton) and its artillery brigade | 47 (47/0/0) | 316 | E-01, E-02, G-02, S-009, S-010, S-014, W-13MA-RIFLE-PIT, W-COULTER-BREASTWORKS ... | 2 |
+| `us-2c` | II Corps (Hancock) and its artillery brigade | 54 (54/0/0) | 377 | E-17, G-12, W-ANGLE-WALL-STRENGTHENED, W-CEM-RIDGE-RAIL-STONE, W-SKIRMISH-PITS-EMMITSBURG-RD | 2 |
+| `us-3c` | III Corps (Sickles) and its artillery brigade | 46 (46/0/0) | 392 | E-16, G-05 | 0 |
+| `us-5c` | V Corps (Sykes) and its artillery brigade | 37 (37/0/0) | 212 | E-13, E-14, E-15, G-06, S-043, W-BIG-ROUND-TOP-WORKS | 1 |
+| `us-6c` | VI Corps (Sedgwick) and its artillery brigade | 17 (17/0/0) | 140 | - | 0 |
+| `us-11c` | XI Corps (Howard) and its artillery brigade | 35 (35/0/0) | 113 | E-04, E-12, G-03, S-026, W-WEST-CEMETERY-HILL-WORKS | 0 |
+| `us-12c` | XII Corps (Slocum) and its artillery brigade | 44 (44/0/0) | 591 | E-03, E-05, E-06, E-07, E-08, E-09, E-11, G-17 ... | 1 |
+| `us-cav` | Cavalry Corps (Pleasonton) | 31 (31/0/0) | 312 | G-01, S-003 | 0 |
+| `us-army` | Army of the Potomac, army level | 60 (60/0/0) | 434 | G-07, G-10, G-11, G-13 | 2 |
+| `cs-1c` | Longstreet's First Corps (McLaws, Pickett, Hood) and its reserve artillery | 32 (0/32/0) | 207 | G-08, G-09, G-14, W-CONFED-WARFIELD-WORKS | 0 |
+| `cs-2c` | Ewell's Second Corps (Early, Johnson, Rodes) and its reserve artillery | 56 (0/56/0) | 424 | E-10, G-04, G-15, S-001, W-CONFED-OAK-HILL-BENNER, W-GBG-STATION-RAILS-TORN | 3 |
+| `cs-3c` | Hill's Third Corps (Anderson, Heth, Pender) and its reserve artillery | 27 (0/27/0) | 129 | E-18, G-16, W-CONFED-SEMINARY-WORKS | 0 |
+| `cs-cav-army` | Army of Northern Virginia | 50 (0/50/0) | 418 | S-054 | 0 |
 | `town-burial` | The borough of Gettysburg, civilians, newspapers, hospitals as camps, burial and the cemetery | 0 (0/0/0) | not scanned | S-052, W-BURIAL-TRENCHES, W-CAMP-LETTERMAN, W-TOWN-BARRICADES | 0 |
-| `bridges-roads` | Engineers, pioneers, bridges, roads and railroads of the campaign | 3 (3/0/0) | not scanned | W-FALLING-WATERS-PONTOON, W-LEE-RETREAT-BRIDGES, W-POTOMAC-PONTOONS-JUN, W-ROADS-CUT, W-WRIGHTSVILLE-BRIDGE | 0 |
-| `corr-jun26-30` | Official Records part 3, correspondence and orders dated 22-30 June | 504 (0/0/504) | not scanned | - | 0 |
-| `corr-jul1-3` | Official Records part 3, correspondence and orders dated 1-3 July | 144 (0/0/144) | not scanned | - | 0 |
-| `corr-jul4-14` | Official Records part 3, correspondence and orders dated 4-14 July | 531 (0/0/531) | not scanned | W-FALLING-WATERS-WORKS-JUL14, W-WILLIAMSPORT-WORKS | 0 |
+| `bridges-roads` | Engineers, pioneers, bridges, roads and railroads of the campaign | 3 (3/0/0) | 34 | W-FALLING-WATERS-PONTOON, W-LEE-RETREAT-BRIDGES, W-POTOMAC-PONTOONS-JUN, W-ROADS-CUT, W-WRIGHTSVILLE-BRIDGE | 0 |
+| `corr-jun26-30` | Official Records part 3, correspondence and orders dated 22-30 June | 504 (0/0/504) | 462 | - | 0 |
+| `corr-jul1-3` | Official Records part 3, correspondence and orders dated 1-3 July | 144 (0/0/144) | 96 | - | 0 |
+| `corr-jul4-14` | Official Records part 3, correspondence and orders dated 4-14 July | 531 (0/0/531) | 488 | W-FALLING-WATERS-WORKS-JUL14, W-WILLIAMSPORT-WORKS | 0 |
 | `period-manuals` | Period manuals and regulations | 0 (0/0/0) | not scanned | - | 0 |
 | `narratives-us` | Union narratives, early guides and the state volumes without a section index | 0 (0/0/0) | not scanned | - | 0 |
 | `narratives-cs` | Confederate narratives | 0 (0/0/0) | not scanned | - | 0 |
-| `campaign-elsewhere` | The campaign outside the Gettysburg map | 133 (4/129/0) | not scanned | W-HARRISBURG-DEFENSES, W-WRIGHTSVILLE-WORKS | 0 |
+| `campaign-elsewhere` | The campaign outside the Gettysburg map | 133 (4/129/0) | 1510 | W-HARRISBURG-DEFENSES, W-WRIGHTSVILLE-WORKS | 0 |
 
 Official Records records outside the theatre clock (part 3 documents dated before 22 June or after 14 July, or undatable): 979, listed in `report_assignments.json` with the reason (group null); they are not read for rows.
 
@@ -64,6 +64,7 @@ Looks for:
 Works owned (register `inventory/works.json`): E-01, E-02, G-02, S-009, S-010, S-014, W-13MA-RIFLE-PIT, W-COULTER-BREASTWORKS, W-SEMINARY-BREASTWORKS-94NY. Schedule rows for context (state_schedule.json, not in the register): S-005, S-011.
 Units (history/units.json): `us-1c`, `us-1c-1d`, `us-1c-2d`, `us-1c-3d`, `us-1c-art`.
 Clips likely used: `dig_shovel`, `chop_axe`, `march_carry_rail`, `stand_picket`, `sleep_side`, `eat_hardtack`.
+First reads (most leads): OR27-1-R029 Maj. Gen. Abner Doubleday (35); OR27-1-R045 Lieut. Col. Augustus B. Farnham (28); OR27-1-R054 Capt. Edmund Y. Patterson (27); OR27-1-R051 Capt. Emanuel D. Eoath (25); OR27-1-R049 Capt. Jacob J. Bierer (22); OR27-1-R046 Lieut. Col. N. Walter Batchelder (18).
 
 ### `us-2c`: II Corps (Hancock) and its artillery brigade
 
@@ -79,6 +80,7 @@ Looks for:
 Works owned (register `inventory/works.json`): E-17, G-12, W-ANGLE-WALL-STRENGTHENED, W-CEM-RIDGE-RAIL-STONE, W-SKIRMISH-PITS-EMMITSBURG-RD. Schedule rows for context (state_schedule.json, not in the register): S-058, S-062.
 Units (history/units.json): `us-2c`, `us-2c-1d`, `us-2c-2d`, `us-2c-3d`, `us-2c-art`.
 Clips likely used: `dig_shovel`, `march_carry_rail`, `lay_stone`, `stand_picket`, `sleep_side`, `cook_stir`, `eat_hardtack`.
+First reads (most leads): OR27-1-R094 Maj. Leman W. Bradley (37); OR27-1-R095 Lieut. Col. Ldeut. Col. Richards McMichael (34); OR27-1-R093 Col. 'WilUam P. BaUy (33); OR27-1-R096 Capt. John W. Reynolds (23); OR27-1-R092 Col. John R. Brooke (20); OR27-1-R076 Maj. G«n. Winfield S. Hancock (19).
 
 ### `us-3c`: III Corps (Sickles) and its artillery brigade
 
@@ -94,6 +96,7 @@ Looks for:
 Works owned (register `inventory/works.json`): E-16, G-05. Schedule rows for context (state_schedule.json, not in the register): S-033, S-034.
 Units (history/units.json): `us-3c`, `us-3c-1d`, `us-3c-2d`, `us-3c-art`.
 Clips likely used: `dig_shovel`, `march_carry_rail`, `stand_picket`, `cook_stir`, `eat_hardtack`.
+First reads (most leads): OR27-1-R160 Brig. Gen. Joseph B. Carr (40); OR27-1-R159 Brig. Gen. Heiuy Prince (38); OR27-1-R163 Capt. Matthew Donovan (35); OR27-1-R170 Maj. WiUiam H. Hugo (32); OR27-1-R161 Lieut. Col. Clark B. Baldwin (25); OR27-1-R174 Col. George C. Burling (24).
 
 ### `us-5c`: V Corps (Sykes) and its artillery brigade
 
@@ -109,6 +112,7 @@ Looks for:
 Works owned (register `inventory/works.json`): E-13, E-14, E-15, G-06, S-043, W-BIG-ROUND-TOP-WORKS. Schedule rows for context (state_schedule.json, not in the register): S-038.
 Units (history/units.json): `us-5c`, `us-5c-1d`, `us-5c-2d`, `us-5c-3d`, `us-5c-art`.
 Clips likely used: `dig_shovel`, `lay_stone`, `march_carry_rail`, `sleep_side`, `cook_stir`.
+First reads (most leads): OR27-1-R195 Col. James C. Rice (25); OR27-1-R196 Col. 3ol. Joshua L. Chamberlain (23); OR27-1-R199 Maj. Robert T. Elliott (21); OR27-1-R202 Maj. William H. Lamont (18); OR27-1-R205 Capt. Andrew Sheridan (15); OR27-1-R203 Brig. Gen. Romeyn B. Ayres (14).
 
 ### `us-6c`: VI Corps (Sedgwick) and its artillery brigade
 
@@ -121,6 +125,7 @@ Looks for:
 * routine of the retreat: the days of rain, rations, burials
 Units (history/units.json): `us-6c`, `us-6c-1d`, `us-6c-2d`, `us-6c-3d`, `us-6c-art`.
 Clips likely used: `march_carry_rail`, `dig_shovel`, `sleep_side`, `stand_rest`, `cook_stir`.
+First reads (most leads): OR27-1-R374 Lieut. John H. Calef (28); OR27-1-R230 Col. Lewis A. Grant (22); OR27-1-R240 Capt. William A. Harn (18); OR27-1-R225 Brig. Gen. Alfred T. A. Torbert (16); OR27-1-R226 Brig. Gen. Joseph J. Bartlett (10); OR27-1-R235 Maj. John B. Kohler (8).
 
 ### `us-11c`: XI Corps (Howard) and its artillery brigade
 
@@ -136,6 +141,7 @@ Looks for:
 Works owned (register `inventory/works.json`): E-04, E-12, G-03, S-026, W-WEST-CEMETERY-HILL-WORKS. Schedule rows for context (state_schedule.json, not in the register): S-020, S-044, S-045.
 Units (history/units.json): `us-11c`, `us-11c-1d`, `us-11c-2d`, `us-11c-3d`, `us-11c-art`.
 Clips likely used: `dig_shovel`, `lay_stone`, `chop_axe`, `stand_picket`, `sleep_side`, `eat_hardtack`.
+First reads (most leads): OR27-1-R243 Maj. Gen. OUver O. Howard (26); OR27-1-R259 Capt. Emil Koenig (17); OR27-1-R255 Col. Frederick Hecker (12); OR27-1-R262 Maj. August Ledig (8); OR27-1-R258 Lieut. Col. William H. H. Bown (6); OR27-1-R260 Maj. Benjamin A. Willis (6).
 
 ### `us-12c`: XII Corps (Slocum) and its artillery brigade: Culp's Hill
 
@@ -152,6 +158,7 @@ Looks for:
 Works owned (register `inventory/works.json`): E-03, E-05, E-06, E-07, E-08, E-09, E-11, G-17, G-18, S-015, S-023, S-024, S-025, W-POWERS-HILL-EMPLACEMENTS. Schedule rows for context (state_schedule.json, not in the register): S-041, S-050, S-056, S-057.
 Units (history/units.json): `us-12c`, `us-12c-1d`, `us-12c-2d`, `us-12c-art`.
 Clips likely used: `dig_shovel`, `chop_axe`, `lay_stone`, `march_carry_rail`, `stand_picket`, `sleep_side`, `cook_stir`, `eat_hardtack`.
+First reads (most leads): OR27-1-R293 Brig. Gen. John "W. Geary (68); OR27-1-R271 Maj. Gen. Henry W. Slocum (40); OR27-1-R272 Brig. Gen. Alpheus S. "Williams (36); OR27-1-R274 Col. Archibald L. McDougaU (32); OR27-1-R275 Col. Warren W. Packer (31); OR27-1-R307 Brig. Gen. George S. Greene (30).
 
 ### `us-cav`: Cavalry Corps (Pleasonton): Buford, Gregg, Kilpatrick, Merritt, horse artillery
 
@@ -166,6 +173,7 @@ Looks for:
 Works owned (register `inventory/works.json`): G-01, S-003. Schedule rows for context (state_schedule.json, not in the register): S-005, S-055.
 Units (history/units.json): `us-cav`, `us-cav-1d`, `us-cav-2d`, `us-cav-3d`, `us-cav-art`.
 Clips likely used: `horse_holder`, `stand_picket`, `dig_shovel`, `sleep_side`, `cook_stir`.
+First reads (most leads): OR27-1-R337 Brig. Gen. John Buford (45); OR27-1-R336 Maj. Gen. Alfred Pleasonton (29); OR27-1-R339 Col. Thomas C. Devin (29); OR27-1-R359 Brig. Gen. Judson Kilpatrick (25); OR27-1-R338 Col. William Gamble (24); OR27-1-R344 Brig. Gen. David McM. Gregg (18).
 
 ### `us-army`: Army of the Potomac, army level: headquarters, Artillery Reserve, ordnance, quartermaster, signal, provost, trains, unplaced Union reports
 
@@ -182,6 +190,7 @@ Looks for:
 Works owned (register `inventory/works.json`): G-07, G-10, G-11, G-13. Schedule rows for context (state_schedule.json, not in the register): S-002, S-029, S-046, S-059, S-060.
 Units (history/units.json): `us-aop`, `us-aop-hq`, `us-art-reserve`, `us-art-reserve-ransom`, `us-art-reserve-mcgilvery`, `us-art-reserve-taft`, `us-art-reserve-huntington`, `us-art-reserve-fitzhugh`, `us-4nj-train-guard`.
 Clips likely used: `stand_picket`, `march_carry_rail`, `stand_rest`, `bugler_call`, `drummer_beat`.
+First reads (most leads): OR27-1-R006 Maj. Gen. George G. Meade (110); OR27-1-R378 Col. Charles R. LoweU (50); OR27-1-R005 Maj. Gen. Joseph Hooker (34); OR27-1-R158 Brig. Gen. Andrew A. Hmnphreys (31); OR27-1-R001 Maj. Gen. Henry W. Halleck (19); OR27-1-R315 Brig. Gen. Robert O. Tyler (18).
 
 ### `cs-1c`: Longstreet's First Corps (McLaws, Pickett, Hood) and its reserve artillery
 
@@ -196,6 +205,7 @@ Looks for:
 Works owned (register `inventory/works.json`): G-08, G-09, G-14, W-CONFED-WARFIELD-WORKS.
 Units (history/units.json): `cs-1c`, `cs-1c-mclaws`, `cs-1c-pickett`, `cs-1c-hood`, `cs-1c-res-art`, `cs-1c-art`.
 Clips likely used: `dig_shovel`, `lay_stone`, `sleep_side`, `cook_stir`, `eat_hardtack`, `stand_picket`.
+First reads (most leads): OR27-2-R430 Lieut. Gen. James Longstreet (26); OR27-2-R442 Maj. James Dearing (24); OR27-2-R458 Brig. Gen. Henry L. Benning (21); OR27-2-R463 Maj. M. W. Henry (18); OR27-2-R433 Maj. R. C. Mafifett (15); OR27-2-R435 Col. H. C. Cabell (14).
 
 ### `cs-2c`: Ewell's Second Corps (Early, Johnson, Rodes) and its reserve artillery
 
@@ -211,6 +221,7 @@ Looks for:
 Works owned (register `inventory/works.json`): E-10, G-04, G-15, S-001, W-CONFED-OAK-HILL-BENNER, W-GBG-STATION-RAILS-TORN. Schedule rows for context (state_schedule.json, not in the register): S-021.
 Units (history/units.json): `cs-2c`, `cs-2c-early`, `cs-2c-johnson`, `cs-2c-rodes`, `cs-2c-res-art`.
 Clips likely used: `dig_shovel`, `chop_axe`, `lay_stone`, `sleep_side`, `cook_stir`, `eat_hardtack`.
+First reads (most leads): OR27-2-R470 Maj. Gen. Jubal A. Early (70); OR27-2-R506 Maj. Gen. R. E. Rodes (50); OR27-2-R467 Lieut. Gen. Richard S. EweU (48); OR27-2-R482 Brig. Gen. George H. Steuart (32); OR27-2-R481 Maj. Gen. Edward Johnson (22); OR27-2-R472 Brig. Gen. Harry T. Hays (20).
 
 ### `cs-3c`: Hill's Third Corps (Anderson, Heth, Pender) and its reserve artillery
 
@@ -225,6 +236,7 @@ Looks for:
 Works owned (register `inventory/works.json`): E-18, G-16, W-CONFED-SEMINARY-WORKS.
 Units (history/units.json): `cs-3c`, `cs-3c-anderson`, `cs-3c-heth`, `cs-3c-pender`, `cs-3c-res-art`.
 Clips likely used: `dig_shovel`, `march_carry_rail`, `sleep_side`, `cook_stir`, `stand_picket`.
+First reads (most leads): OR27-2-R549 Maj. Gen. Henry Heth (16); OR27-2-R488 Brig. Gen. James A. Walker (13); OR27-2-R558 Brig. Gen. James H. Lane (10); OR27-2-R550 Maj. J. Jones (10); OR27-2-R537 Brig. Gen (9); OR27-2-R556 Maj. Joseph A. Engelhard (8).
 
 ### `cs-cav-army`: Army of Northern Virginia: cavalry (Stuart, Jenkins, Imboden), army level, artillery reserve, ordnance, unplaced Confederate reports
 
@@ -240,6 +252,7 @@ Looks for:
 Works owned (register `inventory/works.json`): S-054. Schedule rows for context (state_schedule.json, not in the register): S-067.
 Units (history/units.json): `cs-anv`, `cs-anv-hq`, `cs-cav-div`, `cs-cav-hampton`, `cs-cav-flee`, `cs-cav-jenkins`, `cs-cav-chambliss`, `cs-cav-flee-chambliss`, `cs-cav-robertson-jones-imboden`, `cs-cav-horse-art`.
 Clips likely used: `horse_holder`, `stand_picket`, `dig_shovel`, `sleep_side`, `cook_stir`.
+First reads (most leads): OR27-2-R426 Gen. Robert E. Lee (99); OR27-2-R565 Maj. Gen. J. E. B. Stuart (85); OR27-2-R582 Lieut. Col. Thomas Marshall. Seventh Virginia Ca (26); OR27-2-R428 Brig. Gen. William N. Pendleton (22); OR27-2-R574 Col. Thomas T. Munford (19); OR27-2-R395 Maj. Henry Peale (17).
 
 ### `town-burial`: The borough of Gettysburg, civilians, newspapers, hospitals as camps, burial and the cemetery
 
@@ -267,6 +280,7 @@ Looks for:
 
 Works owned (register `inventory/works.json`): W-FALLING-WATERS-PONTOON, W-LEE-RETREAT-BRIDGES, W-POTOMAC-PONTOONS-JUN, W-ROADS-CUT, W-WRIGHTSVILLE-BRIDGE. Schedule rows for context (state_schedule.json, not in the register): S-076.
 Clips likely used: `march_carry_rail`, `chop_axe`, `dig_shovel`, `lay_stone`.
+First reads (most leads): OR27-1-R027 Brig. (Jen. Henry W. Benham (23); OR27-1-R002 Brig. Gen. Hermann Haupt (7); OR27-1-R118 Capt. Nathan WUlard (4).
 
 ### `corr-jun26-30`: Official Records part 3, correspondence and orders dated 22-30 June
 
@@ -278,6 +292,7 @@ Looks for:
 * the Confederate side: requisitions, orders on conduct and foraging, camps, Ewell's and Early's movements
 * the days before 26 June are context only: nothing earlier than the theatre clock becomes a row
 Clips likely used: `march_carry_rail`, `dig_shovel`, `stand_picket`, `cook_stir`.
+First reads (most leads): OR27-3-D0671  (12); OR27-3-D0672  (11); OR27-3-D0548  (10); OR27-3-D0913  (10); OR27-3-D0946  (9); OR27-3-D1847  (9).
 
 ### `corr-jul1-3`: Official Records part 3, correspondence and orders dated 1-3 July
 
@@ -288,6 +303,7 @@ Looks for:
 * orders on rations, ammunition, pickets, guards and the trains during the fight
 * times stated in dispatches: these anchor the windows of other groups' rows (window basis other_row)
 Clips likely used: `dig_shovel`, `stand_picket`, `march_carry_rail`.
+First reads (most leads): OR27-3-D1003  (4); OR27-3-D0996  (4); OR27-3-D1869  (3); OR27-3-D0962  (3); OR27-3-D0990  (3); OR27-3-D1022  (3).
 
 ### `corr-jul4-14`: Official Records part 3, correspondence and orders dated 4-14 July: the retreat and the pursuit
 
@@ -300,6 +316,7 @@ Looks for:
 
 Works owned (register `inventory/works.json`): W-FALLING-WATERS-WORKS-JUL14, W-WILLIAMSPORT-WORKS. Schedule rows for context (state_schedule.json, not in the register): S-069.
 Clips likely used: `dig_shovel`, `sleep_side`, `cook_stir`, `march_carry_rail`.
+First reads (most leads): OR27-3-D1363  (18); OR27-3-D1254  (9); OR27-3-D1894  (9); OR27-3-D1117  (8); OR27-3-D1424  (8); OR27-3-D1078  (8).
 
 ### `period-manuals`: Period manuals and regulations: the basis of plausible-procedural scenes
 
@@ -345,6 +362,7 @@ Looks for:
 
 Works owned (register `inventory/works.json`): W-HARRISBURG-DEFENSES, W-WRIGHTSVILLE-WORKS.
 Clips likely used: `dig_shovel`, `chop_axe`, `stand_picket`, `cook_stir`.
+First reads (most leads): OR27-2-R400 a Court of Inquiry (153); OR27-2-S18-02 Col. Charles E. Lowell (85); OR27-2-R417 Col. David S. Forbes (79); OR27-2-S7-01 Maj. Gen. John A. Dix (75); OR27-2-R418 Col. Watson A. Fox (54); OR27-2-R380 Brig. Gen. Daniel Tyler (53).
 
 ## 4. The evidence contract
 
@@ -412,7 +430,7 @@ Eleven seed rows already stand in six group files (`us-1c`, `us-2c`, `us-5c`, `u
 
 ## 7. Routine: how it is listed
 
-Routine statements are not a table the plan can print in full: there are n/a keyword hits in the owned texts. `leads/<group>.leads.jsonl` lists every hit (up to n/a per record and class; the rest counted in `leads/SUMMARY.json`) with source, record, page, offsets, a date hint and a verbatim context; `inventory/leads_by_record.json` orders the records of each group by number of leads. A lead is a lead: the group reads it, decides what it says, and writes the row (or records that it says nothing about work or routine). Classes: `meal` (breakfast, coffee, rations, cooking, hardtack, supper), `rest` (bivouac, camp, slept, rested, stacked arms, blankets), `picket` (picket, outpost, vedette, sentry, patrol), `water_wash_burial` (canteens, wells, springs, washing, burial, graves), `works`, `tools`, `bridge_road`. The approach days (26-30 June), the nights, and the retreat (4-14 July) are covered by the correspondence groups and by every corps group's own reports.
+**The scan is PARTIAL (phases run: or; the phases not run are: statevol, texts): the counts below cover only the phases run; the full scan is `tools/horde/bench.sh python3 -I tools/bt/life/scan_leads.py` (phases: or = Official Records, statevol = state volumes with a section index, texts = narratives, newspapers, park reports, manuals).** Routine statements are not a table the plan can print in full: there are 6655 keyword hits in the owned texts. `leads/<group>.leads.jsonl` lists every hit (up to 40 per record and class; the rest counted in `leads/SUMMARY.json`) with source, record, page, offsets, a date hint and a verbatim context; `inventory/leads_by_record.json` orders the records of each group by number of leads. A lead is a lead: the group reads it, decides what it says, and writes the row (or records that it says nothing about work or routine). Classes: `meal` (breakfast, coffee, rations, cooking, hardtack, supper), `rest` (bivouac, camp, slept, rested, stacked arms, blankets), `picket` (picket, outpost, vedette, sentry, patrol), `water_wash_burial` (canteens, wells, springs, washing, burial, graves), `works`, `tools`, `bridge_road`. The approach days (26-30 June), the nights, and the retreat (4-14 July) are covered by the correspondence groups and by every corps group's own reports.
 
 ## 8. Clips and the poses that are missing
 

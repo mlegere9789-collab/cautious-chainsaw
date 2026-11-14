@@ -33,6 +33,7 @@ function png(buf) {
 }
 const mean = (im, x0, y0, x1, y1) => { let r = 0, g = 0, b = 0, n = 0; for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) { const o = (y * im.w + x) * im.bpp; r += im.px[o]; g += im.px[o + 1]; b += im.px[o + 2]; n++; } return [r / n, g / n, b / n]; };
 const luma = (c) => 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+const diffR = (a, b, x0, y0, x1, y1) => { let n = 0, m = 0; for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) { const o = (y * a.w + x) * a.bpp; m++; if (Math.abs(a.px[o] - b.px[o]) + Math.abs(a.px[o + 1] - b.px[o + 1]) + Math.abs(a.px[o + 2] - b.px[o + 2]) > 6) n++; } return n / m; };
 const diff = (a, b) => { let n = 0; for (let i = 0; i < a.px.length; i += a.bpp) if (Math.abs(a.px[i] - b.px[i]) + Math.abs(a.px[i + 1] - b.px[i + 1]) + Math.abs(a.px[i + 2] - b.px[i + 2]) > 6) n++; return n / (a.px.length / a.bpp); };
 // the luminance statistics of gate Q10 as tests/sky.spec.mjs reads them: 8-bit luma, 5th and 95th percentile, share of near-black pixels (< 8), Michelson contrast
 function lumaStats(im, x0 = 0, y0 = 0, x1 = im.w, y1 = im.h) {
@@ -57,10 +58,10 @@ const clean = async on => { if (on === cleanOn) return; cleanOn = on; await page
 const shot = async (name, ui = false) => { await clean(!ui); await page.evaluate(() => window.btApp.frames(3)); const f = path.join(out, name + '.png'); const buf = await page.screenshot({ path: f }); results.shots.push(f); return png(buf); };
 const T = s => page.evaluate(s => { const [d, t = '00:00'] = s.split('T'), [y, m, dd] = d.split('-').map(Number), [hh, mm] = t.split(':').map(Number); return (({ 6: 0, 7: 30, 8: 61, 11: 153 })[m] + dd - 1) * 1440 + hh * 60 + mm; }, s);
 // the same light for pictures that are compared (lock = true: the light of the moment is kept while the clock moves); a picture whose light matters (night, the epilogue) is taken unlocked
-const at = async (iso, view, { lock = true } = {}) => {
+const at = async (iso, view, { lock = true, keepLight = false } = {}) => {
   const t = await T(iso), chapter = iso >= '1863-11-18' ? 'epilogue' : 'battle';
-  await page.evaluate(([t, v, lock, chapter]) => { const a = window.btApp, th = a.theatre; a.setPlaying(false); a.lock(false); a.setTime(t, { chapter }); th.controls.flyTo(v, 0); window.__vegLock = lock; }, [t, view, lock, chapter]);
-  await page.evaluate(() => window.btApp.frames(lock ? 4 : 8)); if (lock) await page.evaluate(() => window.btApp.lock(true));
+  await page.evaluate(([t, v, lock, chapter, keep]) => { const a = window.btApp, th = a.theatre; a.setPlaying(false); if (!keep) a.lock(false); a.setTime(t, { chapter }); th.controls.flyTo(v, 0); }, [t, view, lock, chapter, keepLight]);
+  await page.evaluate(() => window.btApp.frames(lock ? 4 : 8)); if (lock && !keepLight) await page.evaluate(() => window.btApp.lock(true));
 };
 const viewOfUnit = (lc, o) => page.evaluate(([lc, o]) => { const th = window.btApp.theatre, u = th.vegetation.model.units.find(x => x.lc === lc), r = u.rings[0]; let x = 0, y = 0, n = 0; for (let i = 0; i < r.length; i += 2) { x += r[i]; y += r[i + 1]; n++; } const [X, Z] = th.T.xz(x / n, y / n); return th.viewFor(X, Z, o); }, [lc, o]);
 const viewOfCrop = (crop, o, k = 0) => page.evaluate(([crop, o, k]) => { const th = window.btApp.theatre, us = th.vegetation.model.units.filter(x => x.cls === 'field' && x.crop === crop && x.area_ac > 3); const u = us[Math.min(k, us.length - 1)]; if (!u) return null; const r = u.rings[0]; let x = 0, y = 0, n = 0; for (let i = 0; i < r.length; i += 2) { x += r[i]; y += r[i + 1]; n++; } const [X, Z] = th.T.xz(x / n, y / n); return { v: th.viewFor(X, Z, o), id: u.id }; }, [crop, o, k]);
@@ -118,6 +119,13 @@ try {
   await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-LRT', 'wiki_light_summit')); await at('1863-07-02T12:00', lrtE); const L4 = await shot('18c-lrt-east-light-summit');
   await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-LRT', 'nps_clr'));
   check('the reading of Little Round Top reaches the picture: unwooded removes the trees of the east slope, lightly wooded keeps about half (the pictures differ from the default and from each other)', diff(L2, L3) > 0.03 && diff(L2, L4) > 0.01 && diff(L3, L4) > 0.01, { unwooded: diff(L2, L3), light: diff(L2, L4), between: diff(L3, L4) });
+  // ---- the wind (the engine spec's wind_response): the wind is the theatre's own and the foliage sways with the minute of the clock (the light is kept, so that nothing else on the picture changes)
+  const treeView = await viewOfUnit('LC-WOOD-0001', { dist: 45, height: 16, yaw: 1.2 });
+  await at('1863-07-03T09:00', treeView); const WA = await shot('19a-sway-minute-0'); const swayA = await page.evaluate(() => window.btApp.theatre.vegetation.status().sway);
+  await at('1863-07-03T09:01', treeView, { keepLight: true }); const WB = await shot('19b-sway-minute-1');
+  const dW = diffR(WA, WB, 0, Math.floor(WA.h / 2), WA.w, WA.h); results.notes.push('sway: ' + JSON.stringify(swayA) + '; lower half of the woodland view, one minute apart: ' + dW);
+  check('the wind is read from the theatre\'s weather (a speed, a source) and the share of the sway is whole while the clock is paused', swayA && swayA.speed > 0.5 && swayA.share === 1 && !!swayA.src, swayA);
+  check('the foliage moves with the minute: one minute apart, with the light kept, the lower half of a woodland view differs', dW > 0.0003, { diff: dW });
   // ---- the same minute and the same camera: the same pixels
   await at('1863-07-02T12:00', await wf({ dist: 420, height: 230, yaw: 2.2 })); const A3 = await shot('13-wheatfield-2jul-noon-again');
   check('the same minute and the same camera give the same pixels (before and after a visit to another time)', diff(A, A3) < 0.0005, { diff: diff(A, A3) });

@@ -1,0 +1,447 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "cu31924096263136/322",
+ "levels": "N",
+ "stratum": "NH-AYL-other",
+ "family": "NH-AYL",
+ "layout": "flow",
+ "kind": "other",
+ "draw_position": 3,
+ "in_lowest_decile": false,
+ "printed_page": 903,
+ "rows_stored": 33,
+ "rows_checked": 33,
+ "rows_in_error": 4,
+ "rows_ok": 29,
+ "rows_flagged_ocr_uncertain": 21,
+ "errors": [
+  {
+   "i": 3,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Taber, Prank W.' printed 'Taber, Frank W.'",
+   "rid": "1st-new-hampshire-battery#230",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'T-wichell, Bvi P.' printed 'Twichell, Evi P.'",
+   "rid": "1st-new-hampshire-battery#237",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 17,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Wallace, Luther B.' printed 'Wallace, Luther E.'",
+   "rid": "1st-new-hampshire-battery#244",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 31,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Young, Charles B.' printed 'Young, Charles E.'",
+   "rid": "1st-new-hampshire-battery#258",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "'W^all', 'W^ebster', 'W^elch' carry a stray caret inside the surname (form difference only, not counted); 33 stored lines = 33 printed lines"
+ ],
+ "reader": "names level; crop of the name column and the first part of the entries at 200 dpi (1 Read) compared with all 33 stored names in order; the remark text was not compared on this page (R-G2 and R-G3b of this stratum already failed decisively on leaves 63 and 98); the battery roll prints no company tokens (stored company empty)",
+ "tesseract_prescreen": {
+  "agree": 4,
+  "near": 1,
+  "suspect": 28,
+  "unstored_lines": 2
+ },
+ "read": {
+  "pdf_sha256": "b45802d14f55880efb8f5662f6dfcafa71142c1dccc605b867cea5042f4e5757",
+  "pdf_page": 323,
+  "view_png_sha256": "d95b1f33c1d83b41d4a93c1059ca6596dec3c2946d7e8f88eed0197f28c48854",
+  "render300_sha256": "e6dfb5423feb6a688b59478bd85e74ab0356d0e8416e2aab22946d551da52c9f",
+  "tess_sha256": "210fcba50ecdd9af78913039c7a495d2d4ccfe479d6284b808d3f1d4dfebf6b9",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.969
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "1st-new-hampshire-battery#227",
+   "name": "Stewart, Charles,",
+   "off": 2456522,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "1st-new-hampshire-battery#228",
+   "name": "Sylvester, Leander G.",
+   "off": 2456712,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "1st-new-hampshire-battery#229",
+   "name": "Taber, Charles L.",
+   "off": 2456955,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "1st-new-hampshire-battery#230",
+   "name": "Taber, Prank W.",
+   "off": 2457163,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "1st-new-hampshire-battery#231",
+   "name": "Taber, Orrin.",
+   "off": 2457362,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "1st-new-hampshire-battery#232",
+   "name": "Taylor, Henry,",
+   "off": 2457620,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "1st-new-hampshire-battery#233",
+   "name": "Tidmarsh, John.",
+   "off": 2457776,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 7,
+   "rid": "1st-new-hampshire-battery#234",
+   "name": "Tilton, Nathan B.",
+   "off": 2457972,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "1st-new-hampshire-battery#235",
+   "name": "Titus, Jerome B.",
+   "off": 2458238,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "1st-new-hampshire-battery#236",
+   "name": "Turner, William.",
+   "off": 2458487,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 10,
+   "rid": "1st-new-hampshire-battery#237",
+   "name": "T-wichell, Bvi P.",
+   "off": 2458707,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 11,
+   "rid": "1st-new-hampshire-battery#238",
+   "name": "Underhill, William B.",
+   "off": 2458969,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 12,
+   "rid": "1st-new-hampshire-battery#239",
+   "name": "Varney, John B.",
+   "off": 2459197,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "1st-new-hampshire-battery#240",
+   "name": "Varney, Nathaniel,",
+   "off": 2459386,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 14,
+   "rid": "1st-new-hampshire-battery#241",
+   "name": "Varnum, George W.",
+   "off": 2459678,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "1st-new-hampshire-battery#242",
+   "name": "Wadleigh, John.",
+   "off": 2459882,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "G"
+   ]
+  },
+  {
+   "i": 16,
+   "rid": "1st-new-hampshire-battery#243",
+   "name": "W^all, Thomas,",
+   "off": 2460251,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "N",
+    "Y"
+   ]
+  },
+  {
+   "i": 17,
+   "rid": "1st-new-hampshire-battery#244",
+   "name": "Wallace, Luther B.",
+   "off": 2460501,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 18,
+   "rid": "1st-new-hampshire-battery#245",
+   "name": "Weare, Samuel,",
+   "off": 2460705,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 19,
+   "rid": "1st-new-hampshire-battery#246",
+   "name": "W^ebster, Sylvester F.",
+   "off": 2460861,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 20,
+   "rid": "1st-new-hampshire-battery#247",
+   "name": "W^elch, Thomas,",
+   "off": 2461062,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "N",
+    "Y"
+   ]
+  },
+  {
+   "i": 21,
+   "rid": "1st-new-hampshire-battery#248",
+   "name": "Wenz, Charles,",
+   "off": 2461429,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "1st-new-hampshire-battery#249",
+   "name": "Whalen, John.",
+   "off": 2461590,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "G",
+    "Y"
+   ]
+  },
+  {
+   "i": 23,
+   "rid": "1st-new-hampshire-battery#250",
+   "name": "Whiteman, Henry,",
+   "off": 2461760,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 24,
+   "rid": "1st-new-hampshire-battery#251",
+   "name": "Whittier, Samuel J.",
+   "off": 2461945,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 25,
+   "rid": "1st-new-hampshire-battery#252",
+   "name": "Whittle, Thomas J.",
+   "off": 2462278,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "G",
+    "Y"
+   ]
+  },
+  {
+   "i": 26,
+   "rid": "1st-new-hampshire-battery#253",
+   "name": "Williams, James,",
+   "off": 2462533,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 27,
+   "rid": "1st-new-hampshire-battery#254",
+   "name": "Wilson, Paul.",
+   "off": 2462705,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 28,
+   "rid": "1st-new-hampshire-battery#255",
+   "name": "Wood, Charles.",
+   "off": 2462892,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": []
+  },
+  {
+   "i": 29,
+   "rid": "1st-new-hampshire-battery#256",
+   "name": "Woodman, Daniel C.",
+   "off": 2463101,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 30,
+   "rid": "1st-new-hampshire-battery#257",
+   "name": "Worthen, Frederick S.",
+   "off": 2463332,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 31,
+   "rid": "1st-new-hampshire-battery#258",
+   "name": "Young, Charles B.",
+   "off": 2463525,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 32,
+   "rid": "1st-new-hampshire-battery#259",
+   "name": "Young, Morrill N.",
+   "off": 2463776,
+   "text_id": "NH-AYLING-1895.2",
+   "flag_codes": [
+    "Y"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:53:52Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "AGREE",
+  "3": "SUSPECT",
+  "4": "AGREE",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "AGREE",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "SUSPECT",
+  "18": "SUSPECT",
+  "19": "NEAR",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "SUSPECT",
+  "23": "SUSPECT",
+  "24": "SUSPECT",
+  "25": "SUSPECT",
+  "26": "SUSPECT",
+  "27": "SUSPECT",
+  "28": "AGREE",
+  "29": "SUSPECT",
+  "30": "SUSPECT",
+  "31": "SUSPECT",
+  "32": "SUSPECT"
+ }
+}

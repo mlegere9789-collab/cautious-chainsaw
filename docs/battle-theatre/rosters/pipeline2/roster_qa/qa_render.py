@@ -30,7 +30,8 @@ READ = os.path.join(Q.QA, 'pages')
 def remove_rules(path_in, path_out, vmin=70, hmin=250):
     """Whiten the long vertical and horizontal runs of dark pixels (table rules) of a 300 dpi grey page; the page for the eye is not touched."""
     im = np.array(Image.open(path_in).convert('L'))
-    dark = im < 140
+    bg = float(np.percentile(im, 75))                 # the page background (255 on a clean scan, about 155 on the grey Maine scans)
+    dark = im < min(140.0, bg - 60.0)
 
     def runs(d, minlen):
         out = np.zeros_like(d)

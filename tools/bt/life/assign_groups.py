@@ -109,14 +109,32 @@ def reg_phrases():
     return res
 
 
+def arm_of(text):
+    if re.search(r'Cavalry|Cavahy|Cavaby|Cav\.|Horse\s+Artillery', text, re.I):
+        return 'cav'
+    if re.search(r'Artillery|ArtUlery|Battery|Batteries|Artil', text, re.I):
+        return 'art'
+    return 'inf'
+
+
+def arm_ok(uid, arm, kind=None):
+    iscav = uid.startswith(('us-cav', 'cs-cav'))
+    if arm == 'cav':
+        return iscav
+    if arm == 'art':
+        return kind == 'bat' or '-art' in uid
+    return not iscav and kind != 'bat'
+
+
 def match_regiment(text, phrases, side_prefix):
     """Best unit id for the leading unit designation of a record header; exact phrase first, then fuzzy on the first 60 letters."""
     import difflib
     t = letters(text)
     lead = t[:90]
     best, hits = None, []
+    arm = arm_of(text)
     for ph, uid, kind, bl in phrases:
-        if not uid.startswith(side_prefix):
+        if not uid.startswith(side_prefix) or not arm_ok(uid, arm, kind):
             continue
         i = lead.find(ph)
         if i >= 0:
@@ -130,7 +148,7 @@ def match_regiment(text, phrases, side_prefix):
         return hits[0][2], 'exact'
     sc = []
     for ph, uid, kind, bl in phrases:
-        if not uid.startswith(side_prefix) or len(ph) < 9:
+        if not uid.startswith(side_prefix) or len(ph) < 9 or not arm_ok(uid, arm, kind):
             continue
         r = max(difflib.SequenceMatcher(None, lead[:len(ph)], ph).ratio(), difflib.SequenceMatcher(None, lead[:len(ph) + 2], ph).ratio())
         if r >= 0.86:
@@ -158,13 +176,14 @@ def digit_keys():
 
 def match_digits(hdr, dk, side_prefix):
     low = hdr.lower().replace(' ', '')
+    arm = arm_of(hdr)
     hits = set()
     for m in re.finditer(r'(\d{1,3})(?:st|nd|rd|th|d)\b', hdr):
         n = int(m.group(1))
         for abbr, long in STATES.items():
             if long in low and (n, abbr) in dk:
                 for uid in dk[(n, abbr)]:
-                    if uid.startswith(side_prefix):
+                    if uid.startswith(side_prefix) and arm_ok(uid, arm, 'reg'):
                         hits.add(uid)
     return list(hits)[0] if len(hits) == 1 else None
 

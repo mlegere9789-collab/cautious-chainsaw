@@ -89,12 +89,14 @@ def main():
         n_books += 1
         out.append(row(sid, klass(sid, it.get('date')), it['title'][:150], it.get('date') or '-', p, sha(p), 'none', it.get('licence_basis') or 'public domain',
                        it.get('details_url') or it.get('url') or '-', 'archive.org %s; OCR text, unverified (raw djvu text)' % it.get('archive_identifier')))
+    acq1 = {it.get('source_id'): it for it in jl(os.path.join(BT, 'GOVERNANCE', 'library', 'acquired.json')).get('items', [])}
     for sid, pr in sorted(prior.items()):
         p = pr['local_path']
         if not os.path.exists(os.path.join(ROOT, p)):
             continue
         n_books += 1
-        out.append(row(sid, 'book', 'prior-acquired book (see GOVERNANCE/library/acquired.json for the title)', '-', p, sha(p), 'none', 'public domain (pre-1929 US publication)',
+        a1 = acq1.get(sid) or acq1.get(sid.split('-v')[0]) or {}
+        out.append(row(sid, 'book', (a1.get('title') or 'book acquired in the first library pass (title in GOVERNANCE/library/acquired.json)')[:150], a1.get('date') or '-', p, sha(p), 'none', 'public domain (pre-1929 US publication)',
                        'https://archive.org/details/' + pr['archive_identifier'], 'archive.org %s; OCR text' % pr['archive_identifier']))
     out.append('\nWeekly papers of 1863 (families: the row names the issue date as `part`):\n\n' + HEAD)
     out.append(row('GBG-COMPILER-1863', 'primary', 'The Gettysburg Compiler, weekly, issues of %s to %s (%d issues)' % (min(fam['GBG-COMPILER-1863']), max(fam['GBG-COMPILER-1863']), len(fam['GBG-COMPILER-1863'])),

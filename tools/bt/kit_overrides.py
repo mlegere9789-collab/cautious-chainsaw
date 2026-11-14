@@ -616,6 +616,81 @@ def compile_lines(ctx, group, accepted, declared):
     return out
 
 
+def data_errors(tables, tmp):
+    """[(code, message)] of the kit data checks (tools/bt/check_kit.py) on a set of tables; they are written to the directory tmp first."""
+    import check_kit as CK
+    os.makedirs(tmp, exist_ok=True)
+    for t in TABLES:
+        with open(os.path.join(tmp, FILES[t]), 'w', encoding='utf-8', newline='\n') as f:
+            json.dump(tables[t], f, ensure_ascii=False)
+    errs, _warns, _info = CK.data_checks(CK.Kit(tmp))
+    return [tuple(e) for e in errs]
+
+
+def op_labels(op):
+    """The kit record ids that an operation touches: the key of a create under units or assignments, or the second step of a path under units, batteries, cards or assignments (an assignment UA-EV-X also names X)."""
+    p = op.get('path') or []
+    out = set()
+    if op['op'] == 'create' and p in (['units'], ['assignments']):
+        out.add(op['key'])
+    elif len(p) >= 2 and p[0] in ('units', 'batteries', 'cards', 'assignments'):
+        out.add(p[1])
+    return out | {x[6:] for x in out if x.startswith('UA-EV-')}
+
+
+def mentions(msg, label):
+    return re.search(r'(^|[^\w.])' + re.escape(label) + r'(?!\w)', msg) is not None
+
+
+def verified_compile(ctx, gid, accepted, declared, base_errs, tmp, max_rounds=4):
+    """compile_lines, then the safety net: the group's operations are applied to a copy of the base tables and the kit data checks are run on the result. A line whose operations make a check fail that the base tables pass
+    is not compiled: it is listed under unapplied (KIT DATA CHECK, with the check's own message) for the integration to decide. The override files that are written never break the checks the build is held to.
+    Returns the Out; out.demoted maps a line id to the messages."""
+    demoted = {}
+
+    def rejected(out):
+        """The new data-check errors (and stale operations) of a compile output, or [] when it passes."""
+        tables = copy.deepcopy(ctx.base)
+        stale = []
+        for op in out.ops:
+            apply_op(tables, op, stale)
+        recount(tables)
+        return [e for e in data_errors(tables, tmp) if e not in base_errs], stale
+
+    settled = False
+    for _round in range(max_rounds):
+        out = compile_lines(ctx, gid, [o for o in accepted if o['id'] not in demoted], declared)
+        new, stale = rejected(out) if out.ops else ([], [])
+        if not new and not stale:
+            settled = True
+            break
+        work = [op for op in out.ops if op['op'] != 'register_source']
+        loose = []
+        for code, msg in new:
+            hit = [op for op in work if any(mentions(msg, lab) for lab in op_labels(op))]
+            if not hit:
+                loose.append((code, msg))
+            for op in hit:
+                for eid in op['evidence_ids']:
+                    demoted.setdefault(eid, []).append('%s: %s' % (code, msg))
+        if loose or stale:                                  # an error that no operation names: nothing of this group is trusted
+            for op in work:
+                for eid in op['evidence_ids']:
+                    demoted.setdefault(eid, []).extend(['%s: %s' % e for e in loose] + list(stale) or ['the operations do not apply to the base tables'])
+    if not settled:                                         # the rounds ran out: one more compile without what was demoted; if the checks still reject it, nothing of the group goes in
+        out = compile_lines(ctx, gid, [o for o in accepted if o['id'] not in demoted], declared)
+        new, stale = rejected(out) if out.ops else ([], [])
+        if new or stale:
+            for op in out.ops:
+                for eid in op['evidence_ids']:
+                    demoted.setdefault(eid, []).append('the kit data checks still reject the result after %d rounds' % max_rounds)
+            out = compile_lines(ctx, gid, [o for o in accepted if o['id'] not in demoted], declared)
+    for eid, msgs in sorted(demoted.items()):
+        out.unapplied.append({'evidence_ids': [eid], 'reason': 'KIT DATA CHECK: the kit data checks reject the result of this line (%s); the integration decides' % '; '.join(sorted(set(msgs))[:3])[:400]})
+    out.demoted = demoted
+    return out
+
+
 def load_base():
     import build_kit_data as B
     ks, w, a, c = B.build_tables()
@@ -640,12 +715,23 @@ def collisions(docs):
     return bad
 
 
-def compile_all(only=None, ev_dir=EV, ov_dir=OV, write=True, base=None):
+def compile_all(only=None, ev_dir=EV, ov_dir=OV, write=True, base=None, verify=True):
     import kit_evidence_check as C
+    import tempfile
     gdoc = K.groups_doc()
     base = base or load_base()
     ctx = Ctx(gdoc, base)
     index, summary, docs = {}, {}, {}
+    vtmp = tempfile.mkdtemp(prefix='kit-verify-', dir=os.path.join(K.ROOT, 'tmp')) if verify else None
+    try:
+        base_errs = set(data_errors(base, vtmp)) if verify else set()
+        return _compile_all(only, ev_dir, ov_dir, write, ctx, C, gdoc, index, summary, docs, vtmp, base_errs)
+    finally:
+        if vtmp:
+            shutil.rmtree(vtmp, ignore_errors=True)
+
+
+def _compile_all(only, ev_dir, ov_dir, write, ctx, C, gdoc, index, summary, docs, vtmp, base_errs):
     for g in gdoc['groups']:
         if only and g['id'] not in only:
             continue
@@ -658,9 +744,12 @@ def compile_all(only=None, ev_dir=EV, ov_dir=OV, write=True, base=None):
             index[o['id']] = cite(o, R.declared)
             if o.get('source_id'):
                 ctx.source_meta(o['source_id'], R.declared)
-        out = compile_lines(ctx, g['id'], accepted, R.declared)
+        out = verified_compile(ctx, g['id'], accepted, R.declared, base_errs, vtmp) if vtmp else compile_lines(ctx, g['id'], accepted, R.declared)
+        for eid, words in getattr(out, 'blocked', {}).items():      # the index ships one day: a line whose own words the packer rejects says so in its entry
+            if eid in index:
+                index[eid]['copy_audit_hit'] = words
         summary[g['id']] = {'lines': sum(R.counts.values()), 'accepted': len(R.accepted), 'rejected': len(R.rejected), 'ops': len(out.ops), 'unapplied': len(out.unapplied), 'errors': len(R.errors),
-                            'routed': sum(1 for u in out.unapplied if u.get('routed')), 'copy_audit_blocked': len(out.blocked), 'copy_audit_ran': out.audit_ran}
+                            'routed': sum(1 for u in out.unapplied if u.get('routed')), 'copy_audit_blocked': len(out.blocked), 'copy_audit_ran': out.audit_ran, 'demoted': len(getattr(out, 'demoted', {}))}
         docs[g['id']] = {'schema': SCHEMA, 'group': g['id'], 'compiled_from': {'evidence_sha256_16': sha16(p), 'groups_sha256_16': sha16(os.path.join(EV, 'groups.json'))}, 'ops': out.ops, 'unapplied': out.unapplied}
     clash = collisions(docs)
     if clash:
@@ -766,10 +855,19 @@ def cmd_check(argv):
     else:
         for i, word in hits:
             errs.append(('AUDIT', '%s %s has "%s": %s' % (FILES[flat[i][0]], flat[i][1], word, flat[i][2][:120])))
+    ip = os.path.join(KIT, 'evidence_index.json')                       # the evidence index is not shipped yet: a hit in it is a warning that names the line (its quote is the source's own words)
+    if os.path.exists(ip):
+        with open(ip, encoding='utf-8') as f:
+            idx = json.load(f)
+        flat_i = [(lid, s) for lid, o in idx.get('lines', {}).items() for _p, s in walk_strings(o)]
+        ih = K.audit_strings([s for _l, s in flat_i])
+        if ih:
+            for lid in sorted({flat_i[i][0] for i, _w in ih}):
+                warns = list(warns) + [('AUDIT_INDEX', 'evidence_index.json line %s has wording the packer rejects: it must be left out or reworded before the index ships' % lid)]
     print('override files %s: %d operations; data checks and copy audit on base + overrides: %d ERROR, %d WARN' % (rep['files'] or 'none', rep['ops'], len(errs), len(warns)))
     for code, msg in errs[:30]:
         print('  ERROR %s: %s' % (code, msg))
-    for code, msg in [x for x in warns if x[0] == 'AUDIT_SKIPPED']:
+    for code, msg in [x for x in warns if x[0] in ('AUDIT_SKIPPED', 'AUDIT_INDEX')]:
         print('  WARN %s: %s' % (code, msg))
     return 1 if errs else 0
 
@@ -791,6 +889,8 @@ def cmd_compile(argv):
             print('  AUDIT_SKIPPED: the copy audit could not run (no node, or tools/bt/pack_theatre.mjs cannot be loaded): the words of the lines were not checked')
         if s['copy_audit_blocked']:
             print('  COPY AUDIT: %d line(s) not compiled because their wording would ship a word the packer rejects (see unapplied)' % s['copy_audit_blocked'])
+        if s['demoted']:
+            print('  KIT DATA CHECK: %d line(s) not compiled because the kit data checks reject the result (see unapplied)' % s['demoted'])
     print('%d groups with evidence files, %d evidence lines indexed%s' % (len(summary), len(index), ' (dry run: nothing written)' if a.dry_run else ''))
     for gid, d in docs.items():
         review = [u for u in d['unapplied'] if not u.get('routed')]

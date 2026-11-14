@@ -773,7 +773,7 @@
     "tier": "inferred",
     "sigma_m": 20,
     "place_documented": true,
-    "basis": "NPS: the exposure with the negative number LC-B815-273 looks north from the roof of the Evergreen Cemetery lodge (Cultural Landscape Report for Gettysburg National Cemetery, Fig. 1.26, printed p. 23, pdf page marker 42); the LOC record 2018671576 carries that call number (statement PS-NPS-CLRCEM-126). The coordinates are the centroid of the 2023 outline of the gatehouse (STR-TOWN-GATEHOUSE, err 4 m; the outline includes the right-hand addition, the 1863 form may have been smaller), so the horizontal position is known to about the size of the building (sigma 20 m); no source gives the roof height or the spot on the roof."
+    "basis": "NPS: the exposure with the negative number LC-B815-273 looks north from the roof of the Evergreen Cemetery lodge (Cultural Landscape Report for Gettysburg National Cemetery, Fig. 1.26, printed p. 23, pdf page marker 42); the LOC record 2018671576 carries that call number (statement PS-NPS-CLRCEM-126). The coordinates are the centroid of the 2023 outline of the gatehouse (STR-TOWN-GATEHOUSE, err 4 m; the outline includes the right-hand addition, the 1863 form may have been smaller), so the horizontal position is known to about the size of the building (sigma 20 m); no source gives the roof height or the spot on the roof. Feature matching (SIFT, RANSAC homography, 2026-11-14) of the print against the two frames of the stereo negative: 204 and 170 inliers, median residual 1.0 px, no growth of the residual from the far town (rows 0.4 to 0.6) to the near road (rows 0.8 to 1.0: 1.7 and 1.3 px): one homography explains every depth, so the prints and the frames show the same view from the same station to within the pixel noise (the shared negative or a stereo camera beside the large one); no source states it."
    },
    "agl_m": 8.0,
    "agl_basis": "ASSUMPTION: camera on the roof of a two-storey brick building: 8 m above the DEM ground (eaves about 7 to 8 m); no source gives it; the effect on the far field is below one degree, on the road and the walls 10 to 30 m away it is large",
@@ -824,7 +824,7 @@
     "tier": "inferred",
     "sigma_m": 20,
     "place_documented": true,
-    "basis": "Same exposure as P27 (Gardner Sketch Book plate 35 = the left half of the stereo negative LC-B815-273, identified by looking at both images: same road, wall, fence posts, small tree, two figures, tents and tall tree at the right; no source states it). Station as P27: roof of the Evergreen Cemetery lodge (NPS Cultural Landscape Report for Gettysburg National Cemetery, Fig. 1.26, printed p. 23), coordinates = centroid of the 2023 outline of the gatehouse, sigma 20 m."
+    "basis": "Same exposure as P27 (Gardner Sketch Book plate 35 = the left half of the stereo negative LC-B815-273, identified by looking at both images: same road, wall, fence posts, small tree, two figures, tents and tall tree at the right; no source states it). Station as P27: roof of the Evergreen Cemetery lodge (NPS Cultural Landscape Report for Gettysburg National Cemetery, Fig. 1.26, printed p. 23), coordinates = centroid of the 2023 outline of the gatehouse, sigma 20 m. Feature matching (SIFT, RANSAC homography, 2026-11-14) of the print against the two frames of the stereo negative: 204 and 170 inliers, median residual 1.0 px, no growth of the residual from the far town (rows 0.4 to 0.6) to the near road (rows 0.8 to 1.0: 1.7 and 1.3 px): one homography explains every depth, so the prints and the frames show the same view from the same station to within the pixel noise (the shared negative or a stereo camera beside the large one); no source states it."
    },
    "agl_m": 8.0,
    "agl_basis": "ASSUMPTION: as P27 (roof of the lodge, 8 m above the DEM ground)",
@@ -848,14 +848,18 @@
     "STR-TOWN-SCHMUCKER_HALL"
    ],
    "supersedes": "P06",
-   "registered_note": "Registered 2026-11-13 (third pass); P06 (assumed spot at the Wiedrich monument plus 25 m, verdict does not) is kept."
+   "registered_note": "Registered 2026-11-13 (third pass); P06 (assumed spot at the Wiedrich monument plus 25 m, verdict does not) is kept.",
+   "also_loc_ids": [
+    "2006685383"
+   ],
+   "also_loc_note": "2006685383 is the same plate (Gardner's Sketch Book plate 35, a second LOC print of the view: road at the left, stone walls, the tent camp and the large tree at the right); looked at on the contact sheet of the wide search"
   },
   {
    "id": "P29",
-   "loc_id": null,
+   "loc_id": "2012647704",
    "photo": {
     "file": "tmp/photomatch/nps_pdf/pos/v1_p307-000_pos.png",
-    "resource": "NPS figure 213 (Cultural Landscape Report, Record of Treatment, volume I, pdf page 307): the park's print GETT 41135 OS2B-2037; the figure image extracted from the PDF and inverted to positive (the Library of Congress record, if there is one, is the open question of match_third_pass.py)",
+    "resource": "NPS figure 213 (Cultural Landscape Report, Record of Treatment, volume I, pdf page 307): the park's print GETT 41135 OS2B-2037, extracted from the PDF and inverted to positive; it is the same photograph as the Library of Congress print ppmsca.32838 (record 2012647704: 661 matching features, both images looked at); the figure is used because its print area is clean and the skyline rule was frozen on it",
     "crop": [
      0.0,
      0.0,
@@ -865,7 +869,8 @@
     "crop_basis": "the whole NPS figure image; the plate area is not known"
    },
    "statement_ids": [
-    "PS-NPS-ROTV1-F213"
+    "PS-NPS-ROTV1-F213",
+    "PS-LOC-2012647704-N"
    ],
    "position": {
     "anchor": "STR-TOWN-GATEHOUSE",

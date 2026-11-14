@@ -79,7 +79,7 @@ export class ChunkCache {
 // ---------------------------------------------------------------------------------------------------------------------------------------------- the shaders (the prelude of gl.mjs COMMON and the renderer's own come before)
 export const SHELL_VS = /* glsl */`
 layout(location=0) in vec4 a;            // x, z, unit, layer (the same vertices as the ground cover, cut down to a few metres)
-uniform float uLayers; uniform float uRange;
+uniform float uLayers; uniform float uRange; uniform vec4 uWind; uniform float uSway;
 out vec3 vWp; out float vF; out float vG; flat out float vU;
 void main() {
   int u = int(a.z + 0.5);
@@ -92,7 +92,9 @@ void main() {
   float f = (float(gl_InstanceID) + 1.0) / uLayers;
   if (crop < 1 || crop > 7 || hs < ${SHELL.minHeight.toFixed(2)} || dist > uRange + 30.0) { gl_Position = HID; vWp = vec3(0.0); vF = 0.0; vG = 0.0; vU = 0.0; return; }
   float lift = 0.03 + a.w * 0.045 + dist * 0.0011 * (1.0 + a.w * 0.5);
-  vWp = vec3(a.x, g + lift + f * hs, a.y); vF = f; vG = g + lift; vU = a.z;
+  float wave = 0.55 + 0.45 * sin(uWind.w * 1.4 - dot(a.xy, uWind.xy) * 0.35);                    // gusts run over the crop in waves, downwind (a pure function of the minute)
+  vec2 shear = uWind.xy * (0.045 * uWind.z * hs * f * f * wave * uSway);                          // the top layers lean further than the bottom ones
+  vWp = vec3(a.x + shear.x, g + lift + f * hs, a.y + shear.y); vF = f; vG = g + lift; vU = a.z;
   gl_Position = vp * vec4(vWp, 1.0);
 }`;
 

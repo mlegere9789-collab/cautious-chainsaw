@@ -16,6 +16,11 @@ The rules (all on the printed text of the remarks, clause by clause; a clause en
   no       a start after 3 July 1863, or an end dated before 1 July 1863 with no return (the end clause date is a whole date or a month and year before July 1863);
   unknown  every other entry.
 Month-and-year dates ('July, 1863') count only when they are certainly before or after the dates they are compared with.
+
+Lost semicolons (added 14 November 2026, after a reading of 40 sampled rows found a 'yes' for a man printed 'enl. and must. Sept. 9, 1861 disch. Dec. 31, 1861'): the OCR
+drops the semicolon between two events in about 3 percent of the entries.  A clause is therefore also cut where an event word (disch., must. out, died, killed, deserted,
+transf., resigned, dismissed, dropped, ...) follows a year, and a start clause that still holds an event word after its first words (the event follows no year) can no
+longer give 'yes': the answer is 'unknown'.  A start certainly after the battle still gives 'no' (nothing that follows can change it).
 """
 import re
 
@@ -31,12 +36,34 @@ END = re.compile(r"^(?:disch|honorably\s+disch|discharged|must\s*[\.,]?\s*out|di
 RETURN = re.compile(r"^(?:gained\b|returned|retd\b|rejoined|joined|reported\s+for|arrested|restored)", re.I)
 
 
+EVENT_WORD = r"(?:disch\w*|hon\.?\s*disch\w*|honorably|must\.?\s*,?\s*out|died|killed|deserted|resigned|dismissed|dropped|drowned|executed|transf\w*|returned|retd|rejoined|joined|gained|missing|prisoner|wounded|reported|arrested|restored|apptd|prom\b|re-?\s?enlist\w*|reduced)"
+LOST_SEMICOLON = re.compile(r"(?<=[0-9SsGgOoBbIl]{4})[\.,:]?\s+(?=" + EVENT_WORD + r"\b)", re.I)
+# a separation word after an abbreviation or a place ('Va. deserted Sept. 16, 1862') begins a clause of its own
+LOST_SEMICOLON_PERIOD = re.compile(r"(?<=[A-Za-z0-9]\.)\s+(?=(?:disch\w*|must\.?\s*,?\s*out|died|killed|deserted|resigned|dismissed|dropped|drowned|executed|transf\w*)\b)", re.I)
+EVENT_INSIDE = re.compile(r"\b(?:disch\w*|must\.?\s*,?\s*out|died|killed|deserted|resigned|dismissed|dropped|drowned|executed|transf\.?\s+to|returned|rejoined|retd)\b", re.I)
+LEAD_WORDS = re.compile(r"^(?:and|also|but|then|accidentally|dishonorably|honorably|hon\.?|not\s+mustered)\s+", re.I)
+STRAY_LETTER = re.compile(r"^[A-Za-z]\s+(?=(?:disch|must|died|killed|deserted|resigned|dismissed|dropped|drowned|executed|transf|hon|dishon|enl|draft|comm|returned|rejoined|joined|gained)\b)", re.I)
+CROSS_REF = re.compile(r"\bSee\s")
+
+
 def clauses(remarks):
+    """clauses of the part of the remarks before the first cross-reference ('See Co. ...': what follows describes the man's record elsewhere).  A clause ends at ';' or at
+    ':' or '|' (the OCR reads a printed semicolon so), at a lost semicolon before an event word, and a stray mark, a stray letter or a leading 'and' / 'hon.' /
+    'dishonorably' / 'accidentally' in front of an event word is dropped."""
+    m = CROSS_REF.search(remarks)
+    if m:
+        remarks = remarks[:m.start()]
     out = []
-    for c in re.split(r"[;]", remarks):
-        c = ' '.join(c.split()).strip(' .,')
-        if c:
-            out.append(c)
+    for c in re.split(r"[;:|]", remarks):
+        for part in LOST_SEMICOLON.split(c):                      # 'must. June 21, 1861 deserted July 13, 1861' is two clauses
+            for p2 in LOST_SEMICOLON_PERIOD.split(part):          # 'near Fair Oaks, Va. deserted Sept. 16, 1862' too
+                p2 = re.sub(r"^[^A-Za-z0-9]+", "", p2)
+                p2 = STRAY_LETTER.sub("", p2)
+                for _ in range(3):
+                    p2 = LEAD_WORDS.sub("", p2)
+                p2 = ' '.join(p2.split()).strip(' .,')
+                if p2:
+                    out.append(p2)
     return out
 
 
@@ -105,11 +132,14 @@ def onroll(remarks):
     ends = []             # (date or None, clause)
     returned = False
     damaged = False
+    ambiguous = False     # a start clause that still holds an event word (the semicolon was lost where no year stands before the event)
     for c in cl:
         if re.match(r"^res\b", c, re.I):
             continue
         k = classify(c)
         if k is None:
+            if EVENT_INSIDE.search(c[4:]):       # a clause that is none of start, end or return and still holds a separation word: the reading is not certain
+                ambiguous = True
             continue
         if k == 'return':
             if ends:
@@ -126,6 +156,8 @@ def onroll(remarks):
             continue
         if damaged_year(c):
             damaged = True
+        if EVENT_INSIDE.search(c[6:]):
+            ambiguous = True
         if not ds:
             continue
         low = c.lower()
@@ -150,6 +182,8 @@ def onroll(remarks):
     if pos == 'after':
         return 'no', 'enl-after %s' % start[3]
     if pos in ('during', 'july'):
+        return 'unknown', None
+    if ambiguous:
         return 'unknown', None
     # the start is certainly before the battle: look at the ends
     if any(d is None for d, c in ends):

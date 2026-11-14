@@ -181,10 +181,11 @@ def classify_heading(line):
     return None
 
 
-def tokenize_section(text, pm, leaf_a, leaf_b):
+def tokenize_section(text, pm, leaf_a, leaf_b, reviewed=None):
     """content tokens of leaves leaf_a .. leaf_b-1 (absolute offsets), the section headings and the furniture lines.
     Returns (toks, heads, furn): heads = [(offset of the heading line, code, damaged, leaf, line text)], furn = [(leaf, offset, text)]"""
     toks, heads, furn = [], [], []
+    reviewed_hit = tokenize_section.hits = []
     for leaf in range(leaf_a, leaf_b):
         a, b = pm.span(leaf)
         pos = a
@@ -194,6 +195,9 @@ def tokenize_section(text, pm, leaf_a, leaf_b):
             if not line.strip():
                 continue
             h = classify_heading(line)
+            if h is None and reviewed and ' '.join(line.split()) in reviewed:      # a heading read by review (ma_cuts.HEADINGS)
+                h = (reviewed[' '.join(line.split())], False, '')
+                reviewed_hit.append(lstart)
             if h is not None:
                 heads.append((lstart, h[0], h[1], leaf, ' '.join(line.split())))
                 furn.append((leaf, lstart, ' '.join(line.split())))
@@ -600,6 +604,11 @@ def _third_rule_entries(pieces, rank_vocab, used_res, used_d1, used_d2):
     return out
 
 
+def HEADINGS_FOR(unit_key):
+    import ma_cuts
+    return [h for h in ma_cuts.HEADINGS if h[0] == unit_key]
+
+
 def CUTS_FOR(unit_key):
     import ma_cuts
     return [c for c in ma_cuts.NAME_CUTS if c[0] == unit_key]
@@ -629,7 +638,11 @@ def analyse(spec, idents, first_leaf=None, rank_vocab=None):
     S.leaf_a, S.leaf_b = leaf_range(spec, S.pm, first_leaf if first_leaf is not None else spec.get('first_leaf'))
     if spec.get('last_leaf') is not None:                          # the roster ends on this leaf; the leaves after it hold no entry (asserted by the caller)
         S.leaf_b = spec['last_leaf'] + 1
-    S.toks, S.heads, S.furn = tokenize_section(S.text, S.pm, S.leaf_a, S.leaf_b)
+    reviewed = {line: code for unit, line, code, why in HEADINGS_FOR(spec['key'])}
+    S.toks, S.heads, S.furn = tokenize_section(S.text, S.pm, S.leaf_a, S.leaf_b, reviewed)
+    S.reviewed_heads = list(tokenize_section.hits)
+    if len(S.reviewed_heads) != len(reviewed):
+        raise ValueError('%s: %d reviewed headings, %d found' % (spec['key'], len(reviewed), len(S.reviewed_heads)))
     S.tail_dropped = []
     if spec.get('end_note'):                                       # a printed note after the last entry is no part of the entry
         a0, b0 = S.pm.span(S.leaf_b - 1)

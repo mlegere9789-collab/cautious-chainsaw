@@ -346,6 +346,14 @@ class RawText:
                 if i >= 0:
                     return self._markers[i][1], 'page marker line (PDF page index)'
             return None, 'no page marker before the offset'
+        if self.page_model.startswith('or27:'):
+            try:
+                sys.path.insert(0, os.path.join(ROOT, 'tools', 'bt'))
+                import or27_find
+                pg = or27_find.get_part(int(self.page_model[5:])).pm.page_at(off)
+                return pg['page'], 'OR27 page model (%s)' % pg.get('conf')
+            except Exception as e:  # the page model is a convenience: its absence never fails a row
+                return None, 'the OR27 page model could not be loaded (%s)' % type(e).__name__
         if self.page_model == 'heads':
             if self._hp is None:
                 self._hp = head_pages(self.heads)
@@ -961,8 +969,8 @@ def validate_row(ctx, gid, line, row, seen_ids, text_cache_rate=None):
     topic = row.get('topic')
     if not isinstance(topic, str) or not TOPIC_RE.match(topic):
         R.err('E005', 'topic must be lowercase dotted words (for example amputation.circular)')
-    elif grp and topic.split('.')[0] not in grp.get('topics', []):
-        R.err('E005', 'topic %r does not start with a topic of the group (%s)' % (topic, ', '.join(grp.get('topics', []))))
+    elif grp and topic.split('.')[0] not in grp.get('topics', []) and topic.split('.')[0] != 'misc':
+        R.err('E005', 'topic %r does not start with a topic of the group (%s, or misc)' % (topic, ', '.join(grp.get('topics', []))))
     kind = row.get('kind')
     spec = KINDS.get(kind)
     if spec is None:

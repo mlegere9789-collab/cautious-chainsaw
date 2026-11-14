@@ -192,13 +192,20 @@ def run(V):
         case('X OR27 record and page', B + [orrow], None)
         case('X2 OR27 page outside the record', B + [dict(orrow, page=140)], 'outside the printed pages')
         case('X3 OR27 part is not a record id', B + [dict(orrow, part='Report 5')], 'not an OR27 record id')
+        cnt = dict(fam, source='T-PAGES', part='report', page=3, quote='About 20 wounded died in the surgeon\'s care at the farm', text_offset=text2.index('About 20 wounded'), state='other', window='day', transition='none',
+                   count=20, count_basis='wounded who died at the farm', **{'from': '1863-07-03', 'to': '1863-07-03'})
+        case('Z0 a stated count that is in the quote', B + [cnt], None)
+        case('Z0b a count that is in no quote', B + [dict(cnt, count=21)], 'the number 21')
+        case('Z0c a count without its basis', B + [{k: v for k, v in cnt.items() if k != 'count_basis'}], 'needs count_basis')
         case('Z state with a clock window but no times', B + [dict(fam, window='clock', **{'from': None, 'to': None})], 'needs from and to')
         case('Z2 state from after to', B + [dict(fam, **{'from': '1863-07-09', 'to': '1863-07-07'})], 'from is after to')
         case('Z3 state value not in the list', B + [dict(fam, state='haunted')], 'state must be one of')
         case('AA unknown key', B + [fr(2, quoet='x')], 'unknown key')
         case('AB inferred without a basis', B + [fr(2, tier='inferred')], 'needs `basis`')
         case('AB2 inferred with a basis and a quote', B + [fr(2, tier='inferred', basis='the plan of the house is read from the stated block size')], None)
-        case('AB3 inferred from premises', B + [fr(2), fr(3, field='kind', value='house', tier='inferred', evidence_kind='none', describes='undated', basis='a two-story house of this size is a farmhouse', premises=['g-one.0002'])], 'needs evidence')
+        case('AB3 inferred from premises', B + [fr(2), fr(3, field='kind', value='house', tier='inferred', evidence_kind='none', describes='undated', basis='a two-story house of this size is a farmhouse', premises=['g-one.0002'])], None)
+        case('AB4 inferred with neither evidence nor premises', B + [fr(2, field='kind', value='house', tier='inferred', evidence_kind='none', describes='undated', basis='a two-story house of this size is a farmhouse')], 'needs evidence')
+        case('AB5 inferred from a premise that is not a row of the file', B + [fr(3, field='kind', value='house', tier='inferred', evidence_kind='none', describes='undated', basis='a two-story house of this size is a farmhouse', premises=['g-one.0099'])], 'premise')
         case('AC place with coordinates but no error bound', B + [{'row': 'g-one.0040', 'type': 'field', 'group': 'g-one', 'building': BID, 'field': 'place', 'value': {'text': 'near the road', 'lng': -77.25, 'lat': 39.82},
                                                                   'tier': 'inferred', 'evidence_kind': 'image', 'describes': 'before_1863', 'basis': 'read from the Hopkins inset',
                                                                   'image_ref': dict(im, caption_names_building=False)}], 'error_m')
@@ -251,6 +258,51 @@ def run(V):
     return 0 if (not fails and not real_fail) else 1
 
 
+def fuzz(V, ctx, rows):
+    """Robustness: every key of every example row replaced by values of the wrong type (or dropped), and the nested citation keys too; the program must report errors, never raise."""
+    import copy
+    bads = [None, 0, -1, 1.5, True, False, '', ' ', 'x', 'a' * 5000, [], {}, [1], {'a': 1}, [{}], {'with': 1}, ['x'], {'source': None}, 10 ** 30, 1e308, '\u0000', '\ufb01',
+            {'text': 1}, {'material': []}, {'w': 'x', 'd': None, 'unit': {}}]
+    decl = {(r['group'], r['building']): r for r in rows if r['type'] == 'building'}
+    n, crashes = 0, []
+
+    def run(test, tag):
+        nonlocal n
+        try:
+            V.validate_rows(ctx, test, None, [], [], {'rows': 0, 'by_type': {}, 'by_tier': {}, 'buildings': 0}, {}, 'fuzz')
+            n += 1
+        except Exception as e:
+            crashes.append('%s: %r' % (tag, e))
+    for r in rows:
+        if r['type'] == 'building':
+            for k in list(r):
+                for bv in bads + ['__drop__']:
+                    m = copy.deepcopy(r)
+                    if bv == '__drop__':
+                        m.pop(k, None)
+                    else:
+                        m[k] = bv
+                    run([dict(m, __line__=1)], '%s.%s' % (r['row'], k))
+            continue
+        d = decl[(r['group'], r['building'])]
+        for k in list(r):
+            for bv in bads + ['__drop__']:
+                m = copy.deepcopy(r)
+                if bv == '__drop__':
+                    m.pop(k, None)
+                else:
+                    m[k] = bv
+                run([dict(d, __line__=1), dict(m, __line__=2)], '%s.%s' % (r['row'], k))
+        for k in ('image_ref', 'continuity'):
+            if isinstance(r.get(k), dict):
+                for kk in list(r[k]):
+                    for bv in bads:
+                        m = copy.deepcopy(r)
+                        m[k][kk] = bv
+                        run([dict(d, __line__=1), dict(m, __line__=2)], '%s.%s.%s' % (r['row'], k, kk))
+    return n, crashes
+
+
 def real_checks(V):
     """Real files of the repository, when present."""
     ctx = V.Ctx(V.REAL_ROOT)
@@ -268,6 +320,12 @@ def real_checks(V):
         errors, warnings, stats = [], [], {'rows': 0, 'by_type': {}, 'by_tier': {}, 'buildings': 0}
         V.validate_group(ctx, None, ex, errors, warnings, stats, {}, as_file=True)
         print('EXAMPLES.jsonl: %d rows, %s' % (stats['rows'], 'OK' if not errors else 'FAIL'))
+        rows = [json.loads(l) for l in open(ex, encoding='utf-8') if l.strip()]
+        n, crashes = fuzz(V, ctx, rows)
+        print('robustness: %d malformed variants of the example rows checked, %d exceptions' % (n, len(crashes)))
+        for c in crashes[:10]:
+            print('  EXCEPTION', c)
+        bad += 1 if crashes else 0
         for e in errors[:20]:
             print('  ERROR', e)
         bad += 1 if errors else 0

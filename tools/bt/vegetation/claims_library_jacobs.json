@@ -1,0 +1,106 @@
+[
+{
+"id": "VC-LIB-021",
+"src": "WS9:JACOBS-1864",
+"quote": "The wounded and dead were seen strewn amongst the grass and grain",
+"tier": "documented",
+"kind": "crop",
+"says": "On 3 July, as the Confederate column fell back, the wounded and dead lay among standing grass and grain on the plain between the lines (Jacobs, who watched from the town).",
+"feature": "grass and grain between Seminary Ridge and Cemetery Ridge on 3 July",
+"when": {
+"from": "1863-07-03",
+"to": "1863-07-03"
+},
+"about": {
+"stage": "standing"
+},
+"anchor": {
+"gz": "The Angle",
+"r_m": 450,
+"class": "field",
+"area": true
+},
+"note": "Not stated: which grain, nor which fields. Jacobs, a professor of mathematics at Pennsylvania College, who watched the fighting from the town and wrote his account within months (1864)."
+},
+{
+"id": "VC-LIB-022",
+"src": "WS9:JACOBS-1864",
+"quote": "The scarred timber in the vicinity well attests the obstinacy and effectiveness with which our men fought.",
+"tier": "documented",
+"kind": "damage",
+"says": "The timber on and about Culp's Hill, where Greene's brigade fought on the evening of 2 July, was scarred by the fire.",
+"feature": "Culp's Hill timber after the fighting of 2 July",
+"when": {
+"from": "1863-07-02",
+"to": "1864-12-31",
+"basis": "the fight of the evening of 2 July; the book is of 1864"
+},
+"about": {
+"damage": "scarred_timber"
+},
+"anchor": {
+"gz": "Culp's Hill",
+"r_m": 520,
+"class": "woods",
+"area": true
+},
+"note": "The share of trees scarred is not stated. Jacobs, a professor of mathematics at Pennsylvania College, who watched the fighting from the town and wrote his account within months (1864)."
+},
+{
+"id": "VC-LIB-023",
+"src": "WS9:JACOBS-1864",
+"quote": "our batteries, placed in a grove near Bryan's house, opened upon them",
+"tier": "documented",
+"kind": "woodlot",
+"says": "On 3 July the Union batteries that fired on the advancing column stood in a grove near the Brien house (Jacobs's spelling is Bryan).",
+"feature": "the grove near the Brien house",
+"when": {
+"from": "1863-07-03",
+"to": "1863-07-03"
+},
+"anchor": {
+"farm": "brien",
+"r_m": 260,
+"class": "woods",
+"k": 1
+},
+"note": "Placed on the nearest wood to the farmstead within 260 m (no direction is given). Jacobs, a professor of mathematics at Pennsylvania College, who watched the fighting from the town and wrote his account within months (1864)."
+},
+{
+"id": "VC-LIB-024",
+"src": "WS9:JACOBS-1864",
+"quote": "was seen to emerge from the wooded crest of the Seminary ridge, just to the south of McMillan's orchard",
+"tier": "documented",
+"kind": "orchard",
+"says": "On 3 July Pickett's division came out of the wooded crest of Seminary Ridge just south of McMillan's orchard: the orchard stood and the crest was wooded.",
+"feature": "McMillan's orchard and the wooded crest of Seminary Ridge",
+"when": {
+"from": "1863-07-03",
+"to": "1863-07-03"
+},
+"anchor": {
+"farm": "mcmillan",
+"r_m": 450,
+"class": "orchard",
+"k": 1
+},
+"note": "Placed on the nearest orchard to the McMillan farmstead within 450 m. Jacobs, a professor of mathematics at Pennsylvania College, who watched the fighting from the town and wrote his account within months (1864)."
+},
+{
+"id": "VC-LIB-025",
+"src": "WS9:JACOBS-1864",
+"quote": "drove the Rebels down the rocky front of that hill, across the valley below, and over the next hill into the woods beyond",
+"tier": "documented",
+"kind": "ground",
+"says": "At 6 p.m. on 2 July Crawford's division drove the Confederates down the rocky front of Little Round Top, across the valley below it, and over the next hill into the woods beyond.",
+"feature": "the rocky front of Little Round Top",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"anchor": {
+"poly": "LC-OPEN-0001"
+},
+"note": "\"That hill\" is the Little Round Top of the sentence before. Rocky says nothing of trees on it. Jacobs, a professor of mathematics at Pennsylvania College, who watched the fighting from the town and wrote his account within months (1864)."
+}
+]

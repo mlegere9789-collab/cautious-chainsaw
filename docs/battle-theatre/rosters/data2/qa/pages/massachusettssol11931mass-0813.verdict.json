@@ -1,0 +1,314 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "massachusettssol11931mass/813",
+ "levels": "NDR",
+ "stratum": "MA-SSM-other",
+ "family": "MA-SSM",
+ "layout": "flow",
+ "kind": "other",
+ "draw_position": 2,
+ "in_lowest_decile": false,
+ "printed_page": 799,
+ "rows_stored": 24,
+ "rows_checked": 24,
+ "rows_in_error": 4,
+ "rows_ok": 20,
+ "rows_flagged_ocr_uncertain": 0,
+ "errors": [
+  {
+   "i": 2,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Loud, Leniuel J.' printed 'Loud, Lemuel J.'",
+   "rid": "11th-massachusetts-infantry#1586",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Ist Mass. Inf.' for '1st Mass. Inf.'",
+   "rid": "11th-massachusetts-infantry#1588",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 7,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Mclntire, John' (lower-case L) printed 'McIntire, John'",
+   "rid": "11th-massachusetts-infantry#1591",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 18,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Noyos, Augustus F.' printed 'Noyes, Augustus F.'",
+   "rid": "11th-massachusetts-infantry#1602",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "company H is carried from the page before (not printed on this page); none of the four errors is in a row flagged ocr_uncertain"
+ ],
+ "reader": "full level; full page at 200 dpi (1 Read), every stored entry compared with the print (name, rank, company, residence, age, occupation, dates, remarks); tesseract pre-screen for candidates",
+ "tesseract_prescreen": {
+  "agree": 15,
+  "near": 0,
+  "suspect": 9,
+  "unstored_lines": 1
+ },
+ "read": {
+  "pdf_sha256": "86b9901ea9183e9d8bcea9b6008d23f6e63cce01762900c2fb62fb0ac687003b",
+  "pdf_page": 813,
+  "view_png_sha256": "c78fc902b95356191a8562f60c2a0a52585c3b258ce3cb9abfd8df709748f392",
+  "render300_sha256": "bea437675e59a96952020d32ec6a98ff970ff686fdaaae2fbf4c8ecb448d7b87",
+  "tess_sha256": "becc2102c53e6368e2d50bcbc1e461164833498d2c195b4c281defc0c98edd54",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.987
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "11th-massachusetts-infantry#1584",
+   "name": "Lewis, Leonard",
+   "off": 4013005,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "11th-massachusetts-infantry#1585",
+   "name": "Libby, Charles W.",
+   "off": 4013255,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "11th-massachusetts-infantry#1586",
+   "name": "Loud, Leniuel J.",
+   "off": 4013389,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "11th-massachusetts-infantry#1587",
+   "name": "Luther, Miletus",
+   "off": 4013579,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "11th-massachusetts-infantry#1588",
+   "name": "McCluskey, Francis",
+   "off": 4013765,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "11th-massachusetts-infantry#1589",
+   "name": "McGrow, Michael",
+   "off": 4013979,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "11th-massachusetts-infantry#1590",
+   "name": "McGuire, James",
+   "off": 4014107,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "11th-massachusetts-infantry#1591",
+   "name": "Mclntire, John",
+   "off": 4014358,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "11th-massachusetts-infantry#1592",
+   "name": "Mack, Michael",
+   "off": 4014720,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "11th-massachusetts-infantry#1593",
+   "name": "McLaughlin, Henry E.",
+   "off": 4014854,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "11th-massachusetts-infantry#1594",
+   "name": "Mansfield, William",
+   "off": 4015000,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "11th-massachusetts-infantry#1595",
+   "name": "Mathews, John W.",
+   "off": 4015421,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "11th-massachusetts-infantry#1596",
+   "name": "Meade, Christopher",
+   "off": 4015684,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "11th-massachusetts-infantry#1597",
+   "name": "Moore, John",
+   "off": 4016033,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "11th-massachusetts-infantry#1598",
+   "name": "Moran, Andrew",
+   "off": 4016214,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "11th-massachusetts-infantry#1599",
+   "name": "Morrill, George W.",
+   "off": 4016491,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "11th-massachusetts-infantry#1600",
+   "name": "Morse, Elon F.",
+   "off": 4016662,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "11th-massachusetts-infantry#1601",
+   "name": "Nash, James E.",
+   "off": 4016883,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "11th-massachusetts-infantry#1602",
+   "name": "Noyos, Augustus F.",
+   "off": 4017018,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 19,
+   "rid": "11th-massachusetts-infantry#1603",
+   "name": "Noyes, William M.",
+   "off": 4017196,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 20,
+   "rid": "11th-massachusetts-infantry#1604",
+   "name": "Nute, Abram",
+   "off": 4017355,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "11th-massachusetts-infantry#1605",
+   "name": "Nuttall, Charles",
+   "off": 4017481,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "11th-massachusetts-infantry#1606",
+   "name": "O'Brien, John",
+   "off": 4017730,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 23,
+   "rid": "11th-massachusetts-infantry#1607",
+   "name": "Oliver, Charles",
+   "off": 4017868,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:46:52Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "AGREE",
+  "4": "SUSPECT",
+  "5": "AGREE",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "AGREE",
+  "9": "AGREE",
+  "10": "AGREE",
+  "11": "AGREE",
+  "12": "SUSPECT",
+  "13": "AGREE",
+  "14": "AGREE",
+  "15": "AGREE",
+  "16": "AGREE",
+  "17": "AGREE",
+  "18": "SUSPECT",
+  "19": "AGREE",
+  "20": "AGREE",
+  "21": "SUSPECT",
+  "22": "AGREE",
+  "23": "AGREE"
+ }
+}

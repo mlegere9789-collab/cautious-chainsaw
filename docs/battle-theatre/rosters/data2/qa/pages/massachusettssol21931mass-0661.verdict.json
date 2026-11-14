@@ -1,0 +1,246 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "massachusettssol21931mass/661",
+ "levels": "NDR",
+ "stratum": "MA-SSM-officers",
+ "family": "MA-SSM",
+ "layout": "flow",
+ "kind": "officers",
+ "draw_position": 3,
+ "in_lowest_decile": false,
+ "printed_page": 651,
+ "rows_stored": 16,
+ "rows_checked": 16,
+ "rows_in_error": 4,
+ "rows_ok": 12,
+ "rows_flagged_ocr_uncertain": 1,
+ "errors": [
+  {
+   "i": 4,
+   "kinds": [
+    "rank"
+   ],
+   "note": "rank 'Ist Lieut, and Regtl. Qr. Master' for '1st Lieut. and Regtl. Qr. Master'",
+   "rid": "22nd-massachusetts-infantry#4",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "R"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Gcnl.' for 'Genl.'",
+   "rid": "22nd-massachusetts-infantry#10",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 13,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Res. Maiden' for 'Res. Malden'",
+   "rid": "22nd-massachusetts-infantry#13",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 15,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Ist Lieut.' and 'let Lieut, and Adjutant' for '1st'",
+   "rid": "22nd-massachusetts-infantry#15",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "all 16 names, the section headings and the order agree with the print; 'Charlestow-n' differs from 'Charlestown' only by a hyphen (form difference, not counted)"
+ ],
+ "reader": "full level; full page at 200 dpi (1 Read); 16 stored entries compared with the print (names, ranks, residence, age, dates, remarks)",
+ "tesseract_prescreen": {
+  "agree": 10,
+  "near": 0,
+  "suspect": 6,
+  "unstored_lines": 5
+ },
+ "read": {
+  "pdf_sha256": "c76ba611469c68e60681935e141e61b92b4cf26bfa9b14489e88e88597d4d6b1",
+  "pdf_page": 661,
+  "view_png_sha256": "43dce6d6e5994d503376ec3184f25b3f87b791ff5303c2bea1e0405451102b2a",
+  "render300_sha256": "213387881a9ddba05e6c1e0f1b09bee0920bcbc3543855fdb2f0225c83363da8",
+  "tess_sha256": "14d93b94f5baa63bd6c4da768dc6eada15e2af0a2fb5d089f5252d0e81e36334",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.99
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "22nd-massachusetts-infantry#0",
+   "name": "Henry Wilson",
+   "off": 3380164,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "22nd-massachusetts-infantry#1",
+   "name": "Jesse A. Gove",
+   "off": 3380343,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "22nd-massachusetts-infantry#2",
+   "name": "Charles E. Griswold",
+   "off": 3380572,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "22nd-massachusetts-infantry#3",
+   "name": "James G. Fuller",
+   "off": 3380894,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "22nd-massachusetts-infantry#4",
+   "name": "Harrison A. Royce",
+   "off": 3381130,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "R"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "22nd-massachusetts-infantry#5",
+   "name": "Ephraim L. Warren",
+   "off": 3381342,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "22nd-massachusetts-infantry#6",
+   "name": "Frederick S. Ainsworth",
+   "off": 3381570,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "22nd-massachusetts-infantry#7",
+   "name": "James P. Prince",
+   "off": 3381787,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "22nd-massachusetts-infantry#8",
+   "name": "Marshall E. Simmons",
+   "off": 3382125,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "22nd-massachusetts-infantry#9",
+   "name": "Isaac H. Stearns",
+   "off": 3382371,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "22nd-massachusetts-infantry#10",
+   "name": "William S. Tilton",
+   "off": 3382585,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "22nd-massachusetts-infantry#11",
+   "name": "Thomas Sherwin, Jr.",
+   "off": 3383080,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "22nd-massachusetts-infantry#12",
+   "name": "John Pierpont",
+   "off": 3383537,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "22nd-massachusetts-infantry#13",
+   "name": "Joseph C. Cromack",
+   "off": 3383709,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "22nd-massachusetts-infantry#14",
+   "name": "Charles M. Tyler",
+   "off": 3383908,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "22nd-massachusetts-infantry#15",
+   "name": "Frederick S. Benson",
+   "off": 3384099,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:49:55Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "AGREE",
+  "2": "AGREE",
+  "3": "SUSPECT",
+  "4": "AGREE",
+  "5": "AGREE",
+  "6": "AGREE",
+  "7": "SUSPECT",
+  "8": "AGREE",
+  "9": "AGREE",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "AGREE",
+  "13": "SUSPECT",
+  "14": "AGREE",
+  "15": "SUSPECT"
+ }
+}

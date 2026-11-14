@@ -8,6 +8,7 @@ import { buildDecals, buildTrees, LAYER } from './mesh.mjs';
 import { VegGL } from './gl.mjs';
 import { makeGrid, rasterMask, VisitPlanner, stageProvider } from './plan.mjs';
 import { SHELL } from './shell.mjs';
+import { swayUniforms } from './wind.mjs';
 
 export const ID = 'vegetation';
 export const TITLE = 'Vegetation of July 1863';
@@ -27,7 +28,8 @@ export async function init(ctx) {
   const data = await res.json(); if (th.dead) return;
   const model = new VegModel(data), T = th.T, project = (lng, lat) => T.xz(lng, lat);
   const ground = { W: T.W, H: T.H };
-  const s = S = { ctx, th, model, T, project, ground, on: true, local: {}, t: th.state.t, cam: null, tq: null, gl: null, planner: null, grid: null, ready: false, status: '', stats: {}, ac: new AbortController(), offs: [], panel: null, toggle: null, tierToggle: null, chip: null, box: null, pickT: 0, picked: null, idx: null, rings: null, planDone: false };
+  let reduced = false; try { reduced = !!(globalThis.matchMedia && globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch { /* no media query: sway as usual */ }
+  const s = S = { ctx, th, model, T, project, ground, reduced, sway: null, on: true, local: {}, t: th.state.t, cam: null, tq: null, gl: null, planner: null, grid: null, ready: false, status: '', stats: {}, ac: new AbortController(), offs: [], panel: null, toggle: null, tierToggle: null, chip: null, box: null, pickT: 0, picked: null, idx: null, rings: null, planDone: false };
   s.status = ctx.host.api === 'webgl2' ? 'starting' : 'not drawn: the renderer in use is ' + ctx.host.api + '; the vegetation is drawn on WebGL2 only';
   buildIndex(s);
   s.toggle = ctx.registerLayerToggle(ID, TITLE, () => !!(S && S.on), v => setOn(!!v));
@@ -54,7 +56,7 @@ function whenReady() { return new Promise(res => { const tick = () => { if (!S |
 function statusOf() {
   const s = S; if (!s) return null;
   return { on: s.on, api: s.ctx.host.api, status: s.status, units: s.model.units.length, claims: s.model.data.claims.length, trees: s.trees ? s.trees.n : 0, decalTriangles: s.gl ? s.gl.stats.decalTris : 0, treesDrawn: s.gl ? s.gl.stats.treesDrawn : 0, chunksNear: s.gl ? s.gl.stats.chunksNear : 0, chunksFar: s.gl ? s.gl.stats.chunksFar : 0,
-    stateWrites: s.gl ? s.gl.stats.stateWrites : 0, shell: s.gl ? { on: s.gl.on.shell, ready: !!s.gl.shell, why: s.gl.shellWhy, chunks: s.gl.stats.shellChunks || 0, tris: s.gl.stats.shellTris || 0, cached: s.gl.shell ? s.gl.shell.cache.map.size : 0, layers: SHELL.layers, range: SHELL.range } : null, plan: s.planner ? { done: s.planner.done, steps: s.planner.steps, marked: s.planner.marked, from: minToIso(s.planner.from), to: minToIso(s.planner.to) } : null, overlay: s.gl ? s.gl.on.overlay : false, local: { ...s.local }, build: s.build, gpuBytes: s.gl ? s.gl.mem : 0 };
+    stateWrites: s.gl ? s.gl.stats.stateWrites : 0, sway: s.sway ? { src: s.sway.src, speed: s.sway.speed, share: s.sway.share } : null, shell: s.gl ? { on: s.gl.on.shell, ready: !!s.gl.shell, why: s.gl.shellWhy, chunks: s.gl.stats.shellChunks || 0, tris: s.gl.stats.shellTris || 0, cached: s.gl.shell ? s.gl.shell.cache.map.size : 0, layers: SHELL.layers, range: SHELL.range } : null, plan: s.planner ? { done: s.planner.done, steps: s.planner.steps, marked: s.planner.marked, from: minToIso(s.planner.from), to: minToIso(s.planner.to) } : null, overlay: s.gl ? s.gl.on.overlay : false, local: { ...s.local }, build: s.build, gpuBytes: s.gl ? s.gl.mem : 0 };
 }
 
 function effChoices(s) { let live = {}; try { live = { ...s.ctx.choices() }; } catch { /* the shell's choices are not there */ } return { ...live, ...s.local }; }
@@ -123,6 +125,7 @@ function target(s, cam) {          // the ground point under the centre of the p
 // ---------------------------------------------------------------------------------------------------------------------------------------------- the frame
 export function update(frame) {
   const s = S; if (!s) return; s.t = frame.tMin; s.cam = frame.cam;
+  if (s.gl) { s.sway = swayUniforms(s.th, frame.tMin % 60, frame.paused ? 1 : frame.speed, s.reduced); s.gl.setWind(s.sway); }      // the minute within the hour: the phase stays small and exact in a float, and is still a pure function of the clock
   if (s.gl && s.on) {
     const tq = sceneMinute(s.t), ch = effChoices(s), key = JSON.stringify([ch['CF-VEG-LRT'], ch['CF-VEG-RAIN'], ch['CF-VEG-HARVEST']]), now = performance.now();
     // the state of every unit is written when the quantised minute or a choice changes; while the clock runs fast it is written at most every 90 ms (a settled or paused clock is always written at once, so the same minute always gives the same picture)
@@ -194,7 +197,7 @@ function renderPanel(box, th, sc) {
     <details><summary style="cursor:pointer;font-weight:600">How sure each part is</summary><p class="mini">Field cells, by what fixes the crop: ${fc.documented || 0} documented (the Wheatfield), ${fc.inferred || 0} inferred (a passage names the crop and the place is found by a rule), ${fc['plausible-procedural'] || 0} plausible-procedural (a seeded draw from the mix). Outlines: ${gt.documented || 0} documented (dense Warren tree symbols), ${gt.inferred || 0} inferred, ${gt['plausible-procedural'] || 0} plausible-procedural (cells cut inside a block of open ground: the cut lines are not mapped).</p>
       <p class="mini">The mix of crops in a draw: ${esc(Object.entries(meta.mix.shares).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${pct(v)}`).join(', '))}, from the damage-claim acreages of ${meta.mix.farms.filter(f => Object.keys(f.acres).length).length} farms.</p></details>
     <details><summary style="cursor:pointer;font-weight:600">What is not known (${m.gaps.length} gaps)</summary><ul class="list">${m.gaps.map(g => `<li><b>${esc(g.title)}</b> ${tm(g.tier === 'open gap' ? 'open gap' : g.tier)}<div class="mini">${esc(g.what)}</div><div class="mini">${esc(g.why)} <span class="pill">${esc(g.register)}</span></div></li>`).join('')}</ul></details>
-    <p class="mini">Drawn on WebGL2 only. The ground photograph under the picture is of 2022; the field cells cover it where they are drawn, but a modern tree on a road verge or in the town stays. Grass and crop height are drawn as colour and shading, not as single plants.</p>`;
+    <p class="mini">Drawn on WebGL2 only. The ground photograph under the picture is of 2022; the field cells cover it where they are drawn, but a modern tree on a road verge or in the town stays. Grass and crop height are drawn as colour and shading, not as single plants. Trees lean and flutter, and the standing crop near the camera runs in waves, with the wind of the weather timeline (inferred); less when the clock runs fast, none when your system asks for reduced motion.</p>`;
   sc.on(box, 'change', ev => {
     const t = ev.target; if (!t || !S) return;
     if (t.id === 'veg-on') Promise.resolve(S.toggle.set(t.checked)).then(() => { if (S) t.checked = S.on; });

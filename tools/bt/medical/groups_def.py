@@ -1,0 +1,523 @@
+# -*- coding: utf-8 -*-
+"""The 22 research groups of the medical evidence work (OA12): data for groups.json and for the group sections of evidence/PLAN.md.
+
+Read by tools/bt/medical/build_plan.py. Source ids are the ids of docs/battle-theatre/medical/sources.json (local, acquired or planned); build_plan.py
+refuses an id that is not in the registry. 'rows' is (least, aim): the least a group must reach before it may call its first pass finished, and what a
+thorough pass is expected to yield; a group that cannot reach the least writes the reason in its REPORT and registers the gap (it never pads).
+"""
+
+G = []
+
+
+def group(**kw):
+    G.append(kw)
+
+
+# ---------------------------------------------------------------------------------------------------------------------------- wounds
+group(
+    id='wounds-weapons',
+    title='Weapons, missiles and the wounds they made',
+    area='trauma',
+    scope='The missiles and weapons of the battle as the period medical sources describe them, the wound each made, and how often. The conical (Minie) rifle-musket ball, the round ball and buck-and-ball '
+          'of the smoothbores, buckshot, solid shot, shell and shell fragments, case shot and canister, sabre, bayonet, clubbed musket, and the accidents of the field. What a surgeon saw: entry and exit, '
+          'lodged balls, bone shattered, clothing carried into the wound, the contusion without a wound, the "spent ball". The shares of the weapons among the wounded (army-wide in the Medical and Surgical History; '
+          'Gettysburg where a table gives it).',
+    questions=[
+        'What share of the wounded were hit by small arms, by artillery missiles, by edged weapons? (MSHWR tables by missile; the Gettysburg figures where the History prints them.)',
+        'What does each period source say a conical ball does to soft parts and to bone, compared with the round ball? (Gross, Tripler, Chisolm; the NPS guide\'s statement is a pointer only.)',
+        'What are the period names of the wound classes by missile (contusion, flesh wound, penetrating, perforating, fracture by gunshot, grazing)?',
+        'How were artillery wounds described (shell fragment, solid shot, "windage", case shot)? What share were fatal on the field?',
+        'Which edged-weapon wounds are recorded (sabre, bayonet) and how many; where on the body?',
+        'How did surgeons find and name the missile (the ball, the bullet forceps, the bullet in the sleeve)?',
+    ],
+    topics=['missile', 'weapon', 'mechanism', 'appearance', 'frequency', 'classification'],
+    kinds=['wound-class', 'wound-stat', 'fact'],
+    local=['MSHWR-P1V2-1870', 'MSHWR-P1V2-1870-ALT', 'MSHWR-P2V2-1876', 'MSHWR-P3V2-1883', 'GROSS-1862-2ED', 'GROSS-1861', 'TRIPLER-BLACKMAN-1861-2ED', 'TRIPLER-BLACKMAN-1862-3ED', 'NPS-CARE-WOUNDED-GUIDE'],
+    acquire=['HAMMOND-ESSAYS-1864', 'CHISOLM-1862', 'CHISOLM-1864', 'AMM-CATALOGUE-1866'],
+    scene='Which wound classes a patient may carry and how each looks at the Documentary and the Reduced setting; the weights by which a hospital\'s patients are drawn over weapon and region (a sampling table with its basis); '
+          'the missile word the card of a patient shows.',
+    rows=(40, 120), depends=[],
+    conflicts='Shares by missile differ between the Army-wide table and any Gettysburg table, and between issues of the History: each figure is a row with its table and page; none is averaged.',
+    gaps='Gettysburg-only shares by missile may not be printed: an open gap, and the Army-wide share is then marked as borrowed.',
+)
+group(
+    id='wounds-regions',
+    title='Head, face, neck, spine, chest, abdomen, pelvis and back wounds: classes, frequencies, course',
+    area='trauma',
+    scope='Wounds of the head and face, neck, spine, chest, abdomen, pelvis and the flesh wounds of the back, by region: the classes the History names, the counts and shares, the proportion that were fatal, what was done and what was '
+          'left (the mortally wounded laid aside, the abdominal wound), the symptoms a bystander could see, and what a dressing of each region looked like. MSHWR Part I volume II (1870) chapters I to V and Part II volume II (1876) chapters VI to VIII.',
+    questions=[
+        'For each region: the classes (scalp wound, contusion of the skull, fracture of the outer table, of both tables, depressed fracture, penetrating wound of the chest, wound of the abdomen with and without a visceral lesion, wound of the spine) and the number of cases of each that the History tabulates.',
+        'The share of all wounds that fell on each region, and the share fatal, as printed (the Army-wide table and the Gettysburg figures if given).',
+        'What treatment each region received on the field and in the hospital (head bandage, strapping of the chest, no operation for the abdomen, trephining where practised) and by whom.',
+        'The period words for the sequelae a patient shows (paralysis, loss of sight, emphysema, discharge); which of them are visible in a ward.',
+        'Which wounded were laid aside as mortal (period words and the rule), where, and what care they were given.',
+    ],
+    topics=['head', 'face', 'neck', 'spine', 'chest', 'abdomen', 'pelvis', 'back', 'frequency', 'mortality', 'treatment', 'sequelae'],
+    kinds=['wound-class', 'wound-stat', 'treatment', 'fact', 'case'],
+    local=['MSHWR-P1V2-1870', 'MSHWR-P1V2-1870-ALT', 'MSHWR-P2V2-1876', 'MSHWR-P2V2-1877-2NDISSUE', 'GROSS-1862-2ED', 'TRIPLER-BLACKMAN-1862-3ED'],
+    acquire=['AMM-CATALOGUE-1866', 'HAMMOND-ESSAYS-1864', 'CHISOLM-1864'],
+    scene='The wounded of the wards by region with their dressings; the mortally wounded as a group in the documented place; the share of head, chest and abdomen wounds among those who reach a hospital (the sampling table).',
+    rows=(60, 180), depends=['wounds-weapons'],
+    conflicts='Counts differ between the 1870 and later tables and between the first and second issues; digits are read in two OCR copies before they are used.',
+    gaps='Region shares for Gettysburg alone are probably not printed; named Gettysburg cases of the History are the only Gettysburg evidence and each is one row.',
+)
+group(
+    id='wounds-limbs-joints',
+    title='Limb wounds, fractures and joint injuries, and the choice between amputation, excision and saving the limb',
+    area='trauma',
+    scope='Wounds of the upper and lower extremities, which were the largest class: flesh wounds, shot fractures of the long bones (humerus, forearm, femur, leg), the joints (shoulder, elbow, wrist, hip, knee, ankle), '
+          'the counts, the share treated by amputation, by excision or by conservative care, and the mortality of each by site. MSHWR Part II volume II (1876) chapter IX and Part III volume II (1883) chapter X, and the surgeons\' rules in Gross and Tripler.',
+    questions=[
+        'For each bone and joint: the number of shot fractures reported and the outcome under each plan of treatment (amputation, excision, conservative), as tabulated.',
+        'The rules a period surgeon gave for deciding between amputation and saving the limb (Gross\'s five circumstances; Tripler; Chisolm) and the rule of early (primary) operation.',
+        'The flesh wounds of the limbs: counts, treatment, time to healing where stated.',
+        'The fractures of the femur: the apparatus used and the mortality (a scene shows the long splint).',
+        'Named Gettysburg cases in the History or in a hospital narrative (patient as printed, wound, plan, outcome).',
+    ],
+    topics=['flesh-wound', 'fracture', 'joint', 'upper-limb', 'lower-limb', 'frequency', 'mortality', 'decision', 'case'],
+    kinds=['wound-class', 'wound-stat', 'treatment', 'fact', 'case'],
+    local=['MSHWR-P2V2-1876', 'MSHWR-P2V2-1877-2NDISSUE', 'MSHWR-P3V2-1883', 'MSHWR-P3V2-1883-2NDISSUE', 'GROSS-1862-2ED', 'GROSS-1861', 'TRIPLER-BLACKMAN-1862-3ED'],
+    acquire=['AMM-CATALOGUE-1866', 'OTIS-HIPJOINT-1867', 'OTIS-EXCISION-FEMUR-1869', 'CHISOLM-1864'],
+    scene='Patients with arm slings, splinted legs and stumps in the numbers the sampling table gives; which limb a drawn amputee has lost; the apparatus on the bed.',
+    rows=(60, 180), depends=['wounds-weapons'],
+    conflicts='Mortality by site differs between the first and second issues and between tables; each is a row.',
+    gaps='The decision rule as practised at a Gettysburg hospital is documented only where a surgeon\'s narrative says it; otherwise the manual\'s rule is inferred and marked.',
+)
+# ---------------------------------------------------------------------------------------------------------------------------- treatment
+group(
+    id='triage-first-aid',
+    title='Battlefield care: aid post, sorting of the wounded, first aid and the stages of care',
+    area='treatment',
+    scope='What happened to a wounded man between the line and the table: the regimental aid post and the field dressing station, the first dressing, the tourniquet and the soldier\'s own field tourniquet, stimulants and morphia, '
+          'the sorting of cases (the period had no word "triage": the NPS guide uses it; what the manuals say about classes of wounded and about whom to operate on first), the stages (primary operations within the first day or two, intermediate, secondary), the staff of an operating team, and the XII Corps timings Letterman quotes.',
+    questions=[
+        'Where were the aid posts, who staffed them, what did they do (Tripler, Gross, the Steward\'s Manual, Letterman)? How did a wounded man get there (walking, helped, carried)?',
+        'How were cases sorted at the hospital (what the manuals say about which cases to take first and which to leave)? What word did the period use?',
+        'The first dressing: what was applied, who applied it, with what (lint, compress, bandage, field tourniquet by the soldier).',
+        'The stages of care and their time limits (primary, intermediate, secondary operations; the 6 and 24 hours of the XII Corps).',
+        'The operating team: who stood where (operator, assistants, the steward with the instruments, the anaesthetist, the recorder), as the manuals and the narratives state.',
+        'Where and how were the dying and the dead kept apart at a field hospital?',
+    ],
+    topics=['aid-post', 'sorting', 'first-aid', 'primary-operation', 'stages', 'team', 'field-tourniquet', 'stimulant', 'dying'],
+    kinds=['treatment', 'treatment-step', 'role', 'org', 'scene-practice', 'fact'],
+    local=['TRIPLER-BLACKMAN-1862-3ED', 'TRIPLER-BLACKMAN-1861-2ED', 'GROSS-1862-2ED', 'WOODWARD-STEWARD-1863', 'LETTERMAN-1866', 'OR27', 'NPS-CARE-WOUNDED-GUIDE', 'NPSGOV-FIELD-HOSPITAL-EDU', 'NPSGOV-MEDICAL-CORPS-TABLE5'],
+    acquire=['CHISOLM-1862', 'HAMMOND-ESSAYS-1864', 'MSHWR-P3V2-1883'],
+    scene='The path a man takes from the place he falls (the casualties layer) to a hospital: first dressing at the aid post, litter or ambulance, the queue at the table; who stands at an operating table; the place where the dying lie.',
+    rows=(50, 150), depends=['org-union-system', 'org-evacuation'],
+    conflicts='The XII Corps timings (6 and 24 hours) are quoted by Letterman from McNulty: one witness for one corps, never generalised; other corps\' timings stay gaps.',
+    gaps='How the sorting was done at a particular Gettysburg hospital: probably only narrative fragments; the rest is inferred from the manuals and marked.',
+)
+group(
+    id='anaesthesia-analgesia',
+    title='Chloroform, ether, opiates and stimulants: agents, methods, doses, who gave them and how often',
+    area='treatment',
+    scope='The anaesthetic practice of 1863: chloroform and ether, how each was given (cloth, sponge, cone, inhaler), the dose in the manuals, who held the cloth, the stage at which the operation began, the cases when it was withheld '
+          '(shock), the opiates (morphia, opium, laudanum) and the stimulants (whiskey, brandy, ale, porter) given to the wounded, and the Army-wide statistics of anaesthetic use (MSHWR Part III volume II chapter XIII). '
+          'The claim that "chloroform was used at Spangler" and the PDF\'s remark on lanterns and flammable anaesthesia are checked against period statements and stay open gaps otherwise.',
+    questions=[
+        'Which agents were issued and which were used (the supply table; the History\'s statistics by agent)?',
+        'How was an anaesthetic given (apparatus, cloth, position, quantity, the first signs and the end point)?',
+        'Who gave it (an assistant, a steward, a student) and where did they stand?',
+        'When was it withheld or delayed, and what did the surgeon do instead (stimulants, waiting for reaction, sinapisms)?',
+        'What opiates and stimulants were given to the wounded, in what doses and form, and how often?',
+        'What do the narratives of Gettysburg hospitals say about anaesthetic use (NPS, Brinton, Souder, Hospital Scenes)?',
+    ],
+    topics=['agent', 'administration', 'dose', 'frequency', 'stimulant', 'opiate', 'withheld', 'statistics'],
+    kinds=['treatment', 'treatment-step', 'wound-stat', 'supply', 'fact', 'scene-practice'],
+    local=['GROSS-1862-2ED', 'GROSS-1861', 'TRIPLER-BLACKMAN-1862-3ED', 'TRIPLER-BLACKMAN-1861-2ED', 'MSHWR-P3V2-1883', 'WOODWARD-STEWARD-1863', 'NPS-CARE-WOUNDED-GUIDE'],
+    acquire=['CHISOLM-1862', 'CHISOLM-1864', 'HAMMOND-ESSAYS-1864', 'CSA-SURGEON-GENERAL-MANUAL-1863'],
+    scene='The anaesthetist at the head of the table with the cloth or cone and the bottle; the bottle on the supply table; what the Reduced setting shows (the cloth and bottle, not the face).',
+    rows=(35, 100), depends=[],
+    conflicts='Rates of use differ by source and period (the History\'s totals against the Crimean figures in the manuals): each is a row with its population.',
+    gaps='Agent used at a named Gettysburg table: documented only where a narrative says so.',
+)
+group(
+    id='amputations',
+    title='Amputation: methods, sequence, instruments, sites, timing and results',
+    area='treatment',
+    scope='The operation of the battle. The circular and the flap methods (single, double, oval), the sequence (the artery compressed by the tourniquet, the cut, the retraction, the saw, the ligatures, the nerves, the flaps closed with sutures and plaster, the dressing, the stump on a pillow), '
+          'the operating team, the instruments, the sites (finger, hand, forearm, arm, shoulder, foot, leg, thigh, hip) with their counts and mortality by site and by time (primary against secondary), the duration of an amputation where a source states it, '
+          'and what became of the limbs (the pile outside a window at Weikert, the barrels at Camp Letterman, the Army Medical Museum).',
+    questions=[
+        'Each method step by step as the manuals describe it, with the instrument and the person for each step (one row per step: kind treatment-step, order, actor, instruments).',
+        'Which method the manuals prefer in an emergency and why (Gross prefers the flap), and which method the Confederate manuals teach.',
+        'Counts and mortality of amputations by site and by time from the wound, with the table and page (MSHWR Part II vol. II ch. IX, Part III vol. II ch. X; Otis on the hip).',
+        'The staff: how many surgeons and assistants stood at a table and what each did; how long an operation took as stated.',
+        'The Gettysburg documentation: where tables stood, the piles of limbs, the number of operations at a named hospital, as the narratives and reports state.',
+        'The disposition of amputated limbs (documented at Weikert and in the camp hospital) and the Army Medical Museum specimens.',
+    ],
+    topics=['method', 'sequence', 'site', 'timing', 'mortality', 'team', 'instruments', 'duration', 'limbs', 'statistics'],
+    kinds=['treatment', 'treatment-step', 'wound-stat', 'role', 'case', 'scene-practice', 'fact'],
+    local=['GROSS-1862-2ED', 'GROSS-1861', 'GROSS-1862-RICHMOND', 'TRIPLER-BLACKMAN-1862-3ED', 'MSHWR-P2V2-1876', 'MSHWR-P3V2-1883', 'NPS-CARE-WOUNDED-GUIDE', 'NPS-CLR-1STDAY', 'NPS-HS-MCPHERSON'],
+    acquire=['CHISOLM-1864', 'CSA-SURGEON-GENERAL-MANUAL-1863', 'OTIS-HIPJOINT-1867', 'AMM-CATALOGUE-1866', 'NPS-SEM13-ESSAY5'],
+    scene='The operating scene: table, tourniquet, the cut, the saw, the pile; the clip surgeon_operate with its two assistants; the order of the steps so that a scene played over a minute is a possible operation; the stump dressing.',
+    rows=(60, 200), depends=['anaesthesia-analgesia', 'instruments-supplies', 'triage-first-aid'],
+    conflicts='Methods preferred differ between manuals; mortality differs between issues; the PDF\'s unsupported statements (hand washing, flammable anaesthesia) are not repeated unless a period or Park Service source states them.',
+    gaps='The duration of an operation at a Gettysburg table; the number of amputations by site at Gettysburg.',
+)
+group(
+    id='operations-excision-ligation',
+    title='Excisions, resections, ligation of vessels, trephining and other operations',
+    area='treatment',
+    scope='Operations other than amputation: excision of joints and bone ends (shoulder, elbow, wrist, knee, hip), resection of shattered bone, ligation of arteries for haemorrhage and for aneurysm, trephining the skull, tracheotomy, '
+          'the removal of balls by incision, paracentesis, the repair of the face, and the dressing after each. Indications, steps, instruments, counts and results as printed (MSHWR Part I vol. II to Part III vol. II; Otis on the femur head).',
+    questions=[
+        'For each operation the indication in the manuals and the History, the steps and instruments, the staff.',
+        'Counts and results by joint for excisions, and by vessel for ligations, with table and page.',
+        'Secondary haemorrhage: the period account, what the surgeon did, how often it occurred.',
+        'Trephining: counts, indications, results.',
+        'Which of these operations is attested at a Gettysburg hospital (narratives, case notes)?',
+    ],
+    topics=['excision', 'resection', 'ligation', 'trephining', 'other-operation', 'indications', 'mortality', 'haemorrhage'],
+    kinds=['treatment', 'treatment-step', 'wound-stat', 'case', 'fact'],
+    local=['MSHWR-P1V2-1870', 'MSHWR-P2V2-1876', 'MSHWR-P3V2-1883', 'GROSS-1862-2ED', 'TRIPLER-BLACKMAN-1862-3ED'],
+    acquire=['OTIS-EXCISION-FEMUR-1869', 'OTIS-HIPJOINT-1867', 'AMM-CATALOGUE-1866', 'CHISOLM-1864'],
+    scene='Which operations a table may show besides the amputation; the head wound with the trephine; the ligature threads hanging from a dressed wound.',
+    rows=(35, 100), depends=['amputations'],
+    conflicts='Results of excision against amputation differ by author and issue; each is a row.',
+    gaps='Most of these operations are not attested at a named Gettysburg hospital; scenes show them as manual practice and mark it.',
+)
+group(
+    id='wound-care-splints',
+    title='Probing, extraction, cleansing, dressings, bandages, sutures and splints',
+    area='treatment',
+    scope='The care of a wound that is not operated on: examining with the finger and the probe, removing the ball and foreign bodies (forceps, extractors), cleansing, the dressings (lint, charpie, cerate, water dressing, cold water, poultices, oiled silk), '
+          'bandages and their dimensions, adhesive plaster, sutures, and the fracture apparatus (Smith\'s anterior splint, long splints, the fracture box, slings, cushions, the stump on a pillow). Which dressing was used when, and how a dressed wound looked.',
+    questions=[
+        'How was a wound examined and a ball sought (finger, probe, porcelain-tipped probe); when was extraction attempted and when left (the manuals\' rules).',
+        'The dressings by name with what they were made of and how they were applied; the water dressing and when it was changed.',
+        'The bandages: width, length, material, how they were rolled and applied (Gross gives dimensions); the Scultetus bandage; adhesive plaster; sutures of silk or silver wire.',
+        'The splints and apparatus for each fracture and the position of the limb; slings; the stump on its pillow.',
+        'What dressing a wound received on the field and what it received in a general hospital.',
+        'How often wounds were redressed in a field hospital and by whom (stewards, nurses).',
+    ],
+    topics=['probing', 'extraction', 'cleansing', 'dressing', 'bandage', 'suture', 'splint', 'apparatus', 'redressing'],
+    kinds=['treatment', 'treatment-step', 'instrument', 'supply', 'scene-practice', 'fact'],
+    local=['GROSS-1862-2ED', 'GROSS-1861', 'TRIPLER-BLACKMAN-1862-3ED', 'WOODWARD-STEWARD-1863', 'MSHWR-P3V2-1883', 'MSHWR-P2V2-1876'],
+    acquire=['CHISOLM-1864', 'HAMMOND-ESSAYS-1864', 'CSA-SURGEON-GENERAL-MANUAL-1863'],
+    scene='What a dressed patient looks like by region (head cap, sling, strapped chest, splinted leg, stump on a pillow); the stewards and nurses redressing; the supply on the table.',
+    rows=(50, 150), depends=['wounds-regions', 'wounds-limbs-joints'],
+    conflicts='Dressings preferred differ between manuals and between the first and the later years of the war: each is a row with its date.',
+    gaps='The dressing used at a named Gettysburg hospital: probably only where a narrative names it.',
+)
+group(
+    id='nursing-diet-ward',
+    title='Nursing, diet, stimulants, bedding, water, cleanliness and the routine of a ward',
+    area='treatment',
+    scope='The care of the wounded between operations: the nurses and ward-masters and what they did, the hospital diet scales (full, half, low, spoon, extra), the stimulants (whiskey, ale and porter), the kitchen, the bedding (straw, bed-sacks, blankets, the ground), water supply, latrines (sinks), washing, '
+          'the day\'s routine, the visitors\' relief (Commission kitchens), and the conditions of the first days at Gettysburg (straw scarce for eight to ten days, the drenching rain, tents delayed). Regulations and manuals set the practice; narratives show what was done.',
+    questions=[
+        'The hospital diet as the Regulations and the Steward\'s Manual prescribe it, and what Gettysburg wounded were fed (rations, Commission kitchens, ale and porter) with dates.',
+        'The bedding and shelter in the first days: straw, bed-sacks, tents, barns, open ground; what the inspectors and nurses report.',
+        'Water: where it came from at the hospitals (springs, creeks, pumps), who carried it (orderly_water), how much.',
+        'Cleanliness and latrines: the rules and what the narratives say.',
+        'The routine of a day in a field hospital and in a general hospital (hours of dressing, meals, visits).',
+        'Nurses: who they were at each hospital (soldiers detailed, civilians, Sisters of Charity, Commission delegates), what they did.',
+    ],
+    topics=['nursing', 'diet', 'stimulant', 'bedding', 'water', 'hygiene', 'routine', 'kitchen', 'latrine', 'weather'],
+    kinds=['role', 'supply', 'scene-practice', 'fact', 'treatment', 'org'],
+    local=['WOODWARD-STEWARD-1863', 'WOODWARD-STEWARD-1862', 'TRIPLER-BLACKMAN-1862-3ED', 'OR27', 'LETTERMAN-1866', 'HOSPSCENES-1864', 'SOUDER-LEAVES-1864', 'USSC-GETTYSBURG-1863', 'NPS-CARE-WOUNDED-GUIDE'],
+    acquire=['USREGS-1861', 'HAMMOND-HYGIENE-1863', 'BUCKLIN-HOSPITAL-CAMP-1869', 'WOODWARD-CAMP-DISEASES-1863', 'MSHWR-P1V1-1870'],
+    scene='Straw and bed-sacks, the pump and the bucket, the kitchen fire and the feeding of patients, the nurse with the basin; the weather of the days (the rain of 4 July) acting on the open-air wards.',
+    rows=(50, 150), depends=['org-union-system'],
+    conflicts='Diet scales differ between the Regulations of 1861 and later orders; the supply of straw differs between Cuyler\'s report and narratives.',
+    gaps='Daily routine at a named Gettysburg field hospital; the number of nurses at each.',
+)
+group(
+    id='infection-complications',
+    title='Infection, gangrene and the other complications, under their period names',
+    area='treatment',
+    scope='What went wrong in a wound and in a ward, in the words of 1863: hospital gangrene, pyaemia (pyemia), erysipelas, tetanus, secondary haemorrhage, suppuration ("laudable pus"), maggots, traumatic fever, and the camp diseases that filled the wards '
+          '(typhoid, diarrhoea and dysentery, scurvy). How each looked, how often it occurred and how fatal it was (MSHWR Part III vol. II chapter XII and the medical volumes), what the surgeon did (bromine, nitric acid, nitrate of silver, quinine, stimulants, ventilation, the disinfectants Vollum ordered), '
+          'and what the period thought caused it. No modern explanation is used as evidence.',
+    questions=[
+        'For each complication: the period description (what the bed and the dressing show), the counts and mortality in the History, the treatment.',
+        'Hospital gangrene: the account of Tripler\'s lecture and of the History, the preventive measures (isolation, ventilation, disinfectants), whether it occurred at Gettysburg and where (the PDF says gangrene and typhoid spread at Spangler: the source must be found).',
+        'Tetanus and erysipelas: counts, treatment, how the period described the patient.',
+        'The disinfectants and caustics in use and supplied at Gettysburg (Vollum\'s list: chloride of soda, tincture of iron, creosote, nitric acid, permanganate of potassa).',
+        'Maggots and flies: what the period sources say of wounds in the open in July.',
+        'The camp diseases among the Gettysburg patients, in the hospitals and at Camp Letterman (typhoid mentioned for Spangler and Camp Letterman: documented or lead).',
+    ],
+    topics=['gangrene', 'pyaemia', 'erysipelas', 'tetanus', 'haemorrhage-secondary', 'suppuration', 'fever', 'camp-disease', 'disinfectant', 'prevention', 'frequency', 'cause-period'],
+    kinds=['wound-class', 'wound-stat', 'treatment', 'supply', 'fact', 'scene-practice'],
+    local=['MSHWR-P3V2-1883', 'MSHWR-P1V2-1870', 'GROSS-1862-2ED', 'TRIPLER-BLACKMAN-1862-3ED', 'WOODWARD-STEWARD-1863', 'OR27', 'NPS-CARE-WOUNDED-GUIDE'],
+    acquire=['TRIPLER-GANGRENE-1863', 'WOODWARD-CAMP-DISEASES-1863', 'MSHWR-P1V1-1870', 'MSHWR-P2V1-1879', 'MSHWR-P3V1-1888', 'HAMMOND-HYGIENE-1863'],
+    scene='Discharge and discolouration in dressings at the Documentary setting only; the disinfectant buckets and the airing of wards; no modern germ-based explanation appears in any text.',
+    rows=(40, 120), depends=['wound-care-splints'],
+    conflicts='Incidence and mortality differ by year and by volume; the period causes (atmosphere, overcrowding) are stated as the period\'s own.',
+    gaps='Occurrence of hospital gangrene or typhoid at a named Gettysburg hospital: a lead in the PDF (HistoryNet); a primary or Park Service statement is needed.',
+)
+group(
+    id='instruments-supplies',
+    title='Instruments, medicine chests, supply tables, tents, furniture and the vehicles that carried them',
+    area='equipment',
+    scope='What was on the table and in the wagon: the surgeon\'s pocket case, the amputating case (knives, saws, tourniquets, bone-nippers, forceps, needles, ligatures), the trephining case, probes and bullet forceps, the medicine chests and panniers, '
+          'the Standard Supply Table of the Medical Department (Tripler\'s appendix, the Steward\'s Manual), the hospital tent and its fly, furniture (tables, bedsteads, cots), the lantern, the medicine wagon and the ambulance wagon (design, load), '
+          'and what reached Gettysburg when (Brinton\'s 25 wagons on the evening of 4 July; tents on 5 July).',
+    questions=[
+        'The instruments of each case with their description (Gross, Tripler, the Steward\'s Manual, MSHWR chapter XIV on the medical staff and materia chirurgica).',
+        'The Standard Supply Table for field service: articles and quantities per regiment and per hospital.',
+        'The hospital tent, the wall tent and the fly: dimensions and the number of patients per tent in the Regulations and the manuals.',
+        'The medical wagon and the ambulance wagon: design, capacity, what each carried.',
+        'The operating table at a field hospital: what was used (doors, boards, barn floor) at each named site.',
+        'What the supply situation at Gettysburg was by day (Letterman, Brinton, Cuyler, Vollum).',
+    ],
+    topics=['instrument', 'kit', 'chest', 'supply-table', 'tent', 'furniture', 'wagon', 'ambulance-vehicle', 'light', 'supply-flow'],
+    kinds=['instrument', 'supply', 'org', 'scene-practice', 'fact', 'site-count'],
+    local=['GROSS-1862-2ED', 'TRIPLER-BLACKMAN-1861-2ED', 'TRIPLER-BLACKMAN-1862-3ED', 'WOODWARD-STEWARD-1863', 'MSHWR-P3V2-1883', 'LETTERMAN-1866', 'OR27'],
+    acquire=['USREGS-1861', 'HAMMOND-HYGIENE-1863', 'CHISOLM-1864', 'CSA-SURGEON-GENERAL-MANUAL-1863', 'BRINTON-MEMOIRS-1914', 'AMM-CATALOGUE-1866'],
+    scene='The props the scenes need, each with the row it rests on: instruments in a roll, bottles, basin and bucket, table of boards or a door, lantern, tent and fly, medicine wagon, ambulance, litter; the list is the request note to the figures and structures owners.',
+    rows=(50, 150), depends=[],
+    conflicts='Ambulance and wagon allowances differ between Wikipedia-sourced PDF statements and the Regulations; only the Regulations and Letterman are used.',
+    gaps='Dimensions of the Gettysburg-era ambulance and the medicine wagon if no manual or photograph gives them; a picture (LoC) may.',
+)
+# ---------------------------------------------------------------------------------------------------------------------------- organisation
+group(
+    id='org-union-system',
+    title='The Union medical organisation: the Letterman system, ranks, duties, numbers and orders',
+    area='organisation',
+    scope='The medical department of the Army of the Potomac in June and July 1863: the Medical Director, the corps and division surgeons, regimental surgeons and assistants, stewards, ward-masters, nurses, contract (acting assistant) surgeons, the Medical Purveyor, '
+          'the Medical Inspectors, the hospitals by division and by corps (the system of 30 October 1862 and its practice), the regulations and orders (the ambulance order of August 1862, General Orders 52 of May 1863, Hooker\'s cut of transport of 19 June, the order sending the trains to the rear), '
+          'and the numbers at Gettysburg: 650 medical officers, 106 left behind, thirteen wounded, 47 more reported on 9 July, the medical directors of the corps by name.',
+    questions=[
+        'Who held which post at Gettysburg (Letterman, Janes, Brinton, the corps medical directors as printed) and what each did.',
+        'The system as Letterman describes it in 1866 and in the Official Records: the hospital by division, the supply by wagon, the ambulance corps, the reports.',
+        'The ranks, pay and duties of stewards, ward-masters, nurses and contract surgeons (the Steward\'s Manual, the Regulations).',
+        'The orders of June and July 1863 that shaped the medical work (transport cut, trains sent to the rear, ambulances and wagons left behind for the wounded).',
+        'The numbers: medical officers present, left behind, wounded, killed; the surgeons from civil life and Letterman\'s judgement of them.',
+        'The Commissions and Army relations (the Surgeon General\'s office; Hammond\'s requests; Cuyler and Vollum sent by the Surgeon General).',
+    ],
+    topics=['system', 'hierarchy', 'roles', 'regulation', 'staffing', 'orders', 'supplies', 'purveyor', 'inspectors'],
+    kinds=['org', 'role', 'supply', 'site-count', 'case', 'fact'],
+    local=['LETTERMAN-1866', 'OR27', 'WOODWARD-STEWARD-1863', 'TRIPLER-BLACKMAN-1862-3ED', 'ORSER3-v2', 'OR-25-1', 'NPSGOV-JONATHAN-LETTERMAN', 'NPS-CARE-WOUNDED-GUIDE', 'NPSGOV-MEDICAL-CORPS-TABLE5'],
+    acquire=['USREGS-1861', 'NPS-SEM13-ESSAY5', 'BRINTON-MEMOIRS-1914', 'HAMMOND-HYGIENE-1863', 'MSHWR-P3V2-1883'],
+    scene='The people of a hospital by role (surgeon, assistant, steward, ward-master, nurse, orderly, bearer) in the numbers and dates the record gives; their dress and badges (a request to the figures owner); who commands which hospital.',
+    rows=(60, 160), depends=[],
+    conflicts='Letterman\'s total of wounded (14,193 in the report; a revised statement at p. 187 of the volume the report cites) and the other totals are carried by gettysburg-statistics; staff numbers differ between Letterman 1866 and the Official Records and the NPS guide.',
+    gaps='The names of the corps and division medical directors and their hospital sites are printed in reports not yet local (the PDF lists several from marker transcriptions).',
+)
+group(
+    id='org-evacuation',
+    title='Ambulance Corps, litters, ambulances, loading, routes, the rail depot and the trains',
+    area='organisation',
+    scope='How the wounded were moved: the Ambulance Corps (the order of August 1862, its officers and men, drills), the litter and its bearers, the ambulance wagons (two-horse, four-wheeled, spring), the loading and unloading, the drivers, the routes (Taneytown Road, Baltimore Pike, the Cashtown and Fairfield roads for the Confederates), '
+          'the order that left six ambulances and four wagons per corps (four for the cavalry) to carry the wounded to the depot, the railroad depot and the trains from 7 July (hay in the cars, water coolers, bed-pans), the numbers sent day by day (Vollum\'s table), the losses of the corps (the conflict between Letterman\'s two accounts).',
+    questions=[
+        'The structure of the Ambulance Corps and what each rank did (Letterman; Series III documents of 1862; the NPS pages).',
+        'The litter and the stretcher: description, how many bearers, how they lifted and lowered, how a man was put into an ambulance (the manuals; MSHWR Part III vol. II chapter XV on transportation of the wounded; pictures).',
+        'The ambulance wagon: the types, the number of lying and sitting men, the horses; the Gettysburg numbers (six and four, six and eight horses).',
+        'The clearing of the field: dawn of 4 July (Letterman), the wounded beyond the pickets, the losses of the corps (a conflict: 4 privates or 2 privates).',
+        'The depot and the trains: dates, trains per day, numbers, the state of the cars, who attended (Vollum), the Sanitary Commission feeding, the arrival of 50 ambulances from Washington.',
+        'The routes from the field to the hospitals and from the hospitals to the depot (roads named in the sources).',
+    ],
+    topics=['ambulance', 'litter', 'bearer', 'loading', 'route', 'rail', 'train', 'depot', 'flow', 'corps', 'losses'],
+    kinds=['org', 'role', 'site-count', 'site-event', 'scene-practice', 'treatment-step', 'fact'],
+    local=['LETTERMAN-1866', 'OR27', 'ORSER3-v2', 'OR-25-1', 'MSHWR-P3V2-1883', 'NPSGOV-MEDICAL-CORPS-TABLE5', 'NPS-CARE-WOUNDED-GUIDE', 'USSC-GETTYSBURG-1863'],
+    acquire=['STILLE-USSC-1866', 'USREGS-1861', 'BROCKETT-CAMP-1866', 'USSC-BULLETIN-V1-1863', 'NPS-SEM13-ESSAY5', 'NPS-SEM13-ESSAY1'],
+    scene='The bearers and ambulances moving along the documented roads at the documented times: the clips stretcher4_*, carry_litter_*, ambulance_load_*, limp_help_*; trains at the depot; the casualties layer\'s falls get carry paths to a site (gate Q26).',
+    rows=(60, 160), depends=['org-union-system'],
+    conflicts='Corps losses 1 officer and 4 privates killed (the report) against Lieutenant Clark and two privates killed (the book of 1866); the number of ambulances per regiment (Wikipedia-sourced PDF) against the Regulations.',
+    gaps='Litter design as used in 1863 (the PDF lists bearers\' methods, bandsmen, blankets and wheelbarrows as an open gap); the number of ambulances in each division at Gettysburg.',
+)
+group(
+    id='org-aid-societies',
+    title='The Sanitary and Christian Commissions, the Sisters of Charity, nurses, volunteers and civilians',
+    area='organisation',
+    scope='The people and bodies that came to help: the Sanitary Commission (its relief corps, wagons, lodges, the report of its operations at Gettysburg), the Christian Commission (delegates, tents, arrival, headquarters), the Sisters of Charity from Emmitsburg, '
+          'volunteer nurses (Hancock, Bucklin, Souder and others by name), the civilians of Gettysburg (Myers, Pierce, the families), the volunteer surgeons and Letterman\'s opinion of them, the state relief agents, the ladies of Lancaster and Philadelphia; what they brought (stores, food, bedding, ice) and what they did, with dates.',
+    questions=[
+        'The arrival dates and strength of the Sanitary Commission and Christian Commission at Gettysburg and what each supplied (USSC report 1863; USCC annual report 1863; the Bulletin).',
+        'The Sisters of Charity: where, how many, when, what they did (NPS, local sources).',
+        'Named nurses and civilians and where each served (as the sources state; names as printed).',
+        'Volunteer surgeons: how many came, what they did, what Letterman and Janes wrote of them.',
+        'The relief stores and kitchens: what was cooked and served and where (Commission kitchens at the hospitals).',
+        'The civilians\' houses as hospitals and the townspeople\'s work (Jacobs, Hospital Scenes, Pierce, NPS civilians page).',
+    ],
+    topics=['sanitary-commission', 'christian-commission', 'sisters', 'civilians', 'volunteers', 'nurses', 'relief-stores', 'kitchens', 'surgeons-civil'],
+    kinds=['org', 'role', 'case', 'site-event', 'site-count', 'scene-practice', 'fact'],
+    local=['USSC-GETTYSBURG-1863', 'HOSPSCENES-1864', 'SOUDER-LEAVES-1864', 'JACOBS-1864', 'TPIERCE-1889', 'OR27', 'NPSGOV-CIVILIANS', 'ADAMS-SENTINEL-1863', 'GBG-COMPILER-1863', 'LETTERMAN-1866'],
+    acquire=['USCC-1863', 'STILLE-USSC-1866', 'BUCKLIN-HOSPITAL-CAMP-1869', 'BROCKETT-CAMP-1866', 'USSC-BULLETIN-V1-1863', 'USSC-BULLETIN-V2', 'USSC-DOCUMENTS-1866'],
+    scene='Commission wagons and tents, kitchens and the serving of food, the women at the beds, the delegates with stores; the civilian caring for a patient in a town house; each with its date and place.',
+    rows=(50, 150), depends=['org-union-system'],
+    conflicts='Arrival dates of the Commissions differ between the PDF (a lead), their own reports and the Official Records; each is a row.',
+    gaps='The number of Commission delegates and nurses at each hospital.',
+)
+group(
+    id='org-confederate',
+    title='The Confederate medical service at Gettysburg: organisation, surgeons left behind, the retreat with the wounded',
+    area='organisation',
+    scope='The medical department of the Army of Northern Virginia: Medical Director Guild and his report, the corps and division medical officers, the regimental surgeons, the ambulance wagons, the hospitals the army set up near Marsh Creek and Willoughby Run and in the town, '
+          'the surgeons left with the wounded (Patterson for McLaws\'s division), the supplies, the manuals in use (Chisolm; Gross reprinted at Augusta and Richmond; the Surgeon General\'s manual of 1863), the retreat of 4 July (Imboden\'s train of wounded, the Cashtown and Fairfield roads, Williamsport and the Potomac), '
+          'and the Confederate wounded in Union hands (6,802 by Letterman; Cuyler\'s account of their condition).',
+    questions=[
+        'Guild\'s report: the wounded counts, the organisation, the transport; what he says and what he does not say (the PDF notes the "shortage of ambulances" is not in his report).',
+        'The surgeons left behind: who, how many, what they did, how they were treated (Patterson; Letterman; the NPS pages).',
+        'The Confederate hospitals at Gettysburg by site (this group gives the organisation; the sites go to the site groups) and their water siting (NPS: Willoughby Run, Marsh Creek).',
+        'Imboden\'s account of the train of wounded: length, carts, wagons, the night and the rain, the cries; the rest of the retreat.',
+        'The Confederate manuals and regulations: the duties of surgeons and the hospital system (Regulations 1863; Chisolm; the Gross reprints).',
+        'The condition of the Confederate wounded in Union hands, Cuyler\'s and Vollum\'s statements.',
+    ],
+    topics=['system', 'officers', 'ambulance-wagons', 'retreat', 'left-behind', 'supplies', 'regulation', 'wounded-captured', 'hospitals-south'],
+    kinds=['org', 'role', 'site-event', 'site-count', 'case', 'treatment', 'fact'],
+    local=['OR27', 'BL-3', 'GROSS-1861-AUGUSTA', 'GROSS-1862-RICHMOND', 'SHSP-04', 'SHSP-05', 'SHSP-06', 'SHSP-11', 'SHSP-12', 'FREMANTLE-1864', 'ALEXANDER-1907', 'LONGSTREET-1896', 'NPS-CLR-ROT-V1', 'NPS-CLR-1STDAY'],
+    acquire=['CSAREGS-1863', 'CHISOLM-1862', 'CHISOLM-1864', 'CSA-SURGEON-GENERAL-MANUAL-1863'],
+    scene='The Confederate hospitals in the documented places with their staff; the train of wounded leaving on 4 July on the documented roads, improvised wagons marked as inferred where the vehicle is not documented.',
+    rows=(40, 120), depends=['org-evacuation'],
+    conflicts='Confederate wounded counts (6,802 by Letterman; Guild\'s return; the NPS essay\'s 12,355) are carried by gettysburg-statistics as scenarios.',
+    gaps='Hospital locations on the Confederate side beyond the few the Park Service and the Official Records name.',
+)
+# ---------------------------------------------------------------------------------------------------------------------------- sites
+SITE_Q = [
+    'Identity: the name as the sources print it, the owner or tenant, the building(s) used (house, barn, church, school, tents in a field, orchard, woods), the side served and the corps, division or units served.',
+    'Dates: when it opened (as a dressing station, as a hospital), when it was shelled, burned, captured, moved or closed; one row per date with its source and the exact words.',
+    'Layout as the sources state it: where the operating tables stood, tents, the barn floor and forebay, the yard, trees, springs, the creek, the orchard burials, the amputation pile, the dead house, the distance and direction to the line; what is not stated is registered.',
+    'Capacity and numbers over time: patients (as ranges with the basis), surgeons, nurses, volunteers, deaths; each at its date.',
+    'Staff and named cases: the medical officers in charge by name, nurses, notable patients (a general; a named soldier) with wound, treatment and outcome as the source gives them.',
+    'Conditions: water, shelter, food, weather, supplies, the accounts of visitors; what the Park Service reports of the building\'s 1863 state (never a modern state).',
+    'The identity with the PDF record: which of H-01 to H-23 and which structures (bld-*) the site matches, so that the structures layer\'s badge and the data agree.',
+]
+group(
+    id='sites-town',
+    title='Hospital sites in the town of Gettysburg',
+    area='sites',
+    scope='The borough: the churches (Presbyterian, St. Francis Xavier Catholic, Christ Lutheran (the College Church), the German Reformed, the Methodist), the Adams County Court House, Pennsylvania College (Pennsylvania Hall and the other buildings), the school houses, the railroad depot, hotels and warehouses, '
+          'and the private houses marked with red flags: the town as "one vast hospital" (PDF H-22, a lead statement). Who held each, from when, how many, who nursed (the Sisters, Sallie Myers, the ladies of Lancaster), what changed when the Confederates held the town on 1-3 July and when they left.',
+    questions=SITE_Q,
+    topics=['identity', 'building', 'layout', 'staff', 'units', 'counts', 'events', 'case', 'conditions', 'water', 'burial-site', 'mapping'],
+    kinds=['site', 'site-layout', 'site-count', 'site-event', 'case', 'role', 'scene-practice', 'fact'],
+    local=['HOSPSCENES-1864', 'JACOBS-1864', 'TPIERCE-1889', 'NPSGOV-CIVILIANS', 'NPSGOV-TOWN', 'USSC-GETTYSBURG-1863', 'OR27', 'ADAMS-SENTINEL-1863', 'GBG-COMPILER-1863', 'NPS-BOUNDARY-1988', 'NPS-CLR-1STDAY', 'NY-GB-1900', 'PA-GB-1904', 'ME-GB-1898'],
+    acquire=['USCC-1863', 'USSC-BULLETIN-V1-1863', 'BROCKETT-CAMP-1866', 'BUCKLIN-HOSPITAL-CAMP-1869', 'SOUDER-LEAVES-1864', 'NPS-SEM13-ESSAY6', 'HOSPSCENES-1864-ALT'],
+    scene='For each site a scene at a set of minutes: the building with its use, the people and beds the sources give, the layout marked by tier; the church pews removed and boards laid (documented for St. Francis Xavier by a lead only until a primary or Park Service text is found).',
+    rows=(80, 220), depends=['org-union-system'],
+    conflicts='Which church held which corps; the number of wounded at the Court House and the college; Confederate and Union holdings by day.',
+    gaps='Interiors of the town hospitals (layout) are mostly unstated; registered per site.',
+    site_candidates=['presbyterian', 'st-francis', 'christ-lutheran', 'german-reformed', 'methodist', 'courthouse', 'pennsylvania-hall', 'depot', 'school-town', 'town-houses', 'hotel', 'warehouse'],
+)
+group(
+    id='sites-west-north',
+    title='Hospital sites west and north of the town: the Seminary, McPherson, Herr Ridge, the Hagerstown and Fairfield roads, the Almshouse',
+    area='sites',
+    scope='The ground of the first day and the Confederate side: the Lutheran Theological Seminary (Union I Corps then Confederate, PDF H-03 and H-20), the McPherson farm (PDF H-05; barn, wagon shed, tenant house), the Dustman and Schultz houses, the Crist and Wible farms on Herr Ridge, '
+          'the Leaper and Abraham Spangler properties, the Black Horse Tavern (a large Confederate hospital), the Benner house and barn, the Pitzer and Forney farms, Bream\'s mill, the Daniel Lady farm, the Almshouse and the farms on the Mummasburg and Harrisburg roads, '
+          'Cashtown and the hospitals by Marsh Creek and Willoughby Run.',
+    questions=SITE_Q,
+    topics=['identity', 'building', 'layout', 'staff', 'units', 'counts', 'events', 'case', 'conditions', 'water', 'burial-site', 'mapping'],
+    kinds=['site', 'site-layout', 'site-count', 'site-event', 'case', 'role', 'scene-practice', 'fact'],
+    local=['NPS-CLR-1STDAY', 'NPS-HS-MCPHERSON', 'NPS-CLI-1STDAY', 'NPS-BOUNDARY-1988', 'NPS-CLR-ROT-V1', 'NPS-COMMON-PRIDE-1', 'JACOBS-1864', 'HOSPSCENES-1864', 'OR27', 'ME-GB-1898', 'NY-GB-1900', 'NY-GB-1902-v3', 'PA-GB-1904', 'PA-GB-1914-v2', 'BL-3', 'SHSP-06', 'SHSP-11'],
+    acquire=['USCC-1863', 'USSC-BULLETIN-V1-1863', 'BROCKETT-CAMP-1866', 'BRINTON-MEMOIRS-1914'],
+    scene='The McPherson wagon shed with the boards on trestles (documented), the barn crowded with wounded, the Seminary hospital in tents under the trees (documented after the Union returned), the Confederate hospitals by water.',
+    rows=(70, 200), depends=['org-confederate'],
+    conflicts='The Seminary: Union then Confederate then Union hands, with different counts for different dates (PDF H-03: 600 to 700 at peak; over 400 Confederates).',
+    gaps='Daniel Lady farm and Hankey sites have only lead statements (PDF H-18, H-19); Pitzer, Forney and Bream\'s mill may have none.',
+    site_candidates=['seminary', 'mcpherson', 'dustman', 'schultz', 'crist', 'herr-wible', 'leaper', 'a-spangler', 'black-horse', 'benner', 'hankey', 'forney', 'pitzer', 'bream', 'lady', 'cashtown', 'marsh-creek', 'wolf-field', 'almshouse'],
+)
+group(
+    id='sites-east-southeast',
+    title='Hospital sites east and south-east: the Baltimore Pike, Rock Creek and White Run corps hospitals, Spangler, Lightner, Bushman, White Church, Two Taverns',
+    area='sites',
+    scope='The Union corps hospitals along the Baltimore Pike and around Rock Creek and White Run: the George Spangler farm (XI Corps; the four operating tables in the barn forebay; Armistead; the orchard burials), the Granite Schoolhouse, the II Corps hospitals on both sides of Rock Creek and on the Hospital Road, '
+          'the XII Corps hospital at the Lightner farm, the Bushman farms, the Diener, Conover, Beitler, Schwartz and Shaeffer farms, White Church (I Corps, 2 July), the III and V Corps hospitals moved to White Run, the VI Corps hospital, the Two Taverns area (V Corps 3rd Division), '
+          'the Hanover Road cavalry aid posts, and the Culp\'s Hill rear.',
+    questions=SITE_Q,
+    topics=['identity', 'building', 'layout', 'staff', 'units', 'counts', 'events', 'case', 'conditions', 'water', 'burial-site', 'mapping'],
+    kinds=['site', 'site-layout', 'site-count', 'site-event', 'case', 'role', 'scene-practice', 'fact'],
+    local=['NPS-BOUNDARY-1988', 'NPS-CLR-ROT-V1', 'NPS-COMMON-PRIDE-2', 'NPS-COMMON-PRIDE-3', 'NPS-SLYDER-GUIDE', 'NPS-ROCK-CREEK', 'NPS-MON-LOC-1932', 'NPS-MON-LOC-1993', 'OR27', 'LETTERMAN-1866', 'NY-GB-1902-v3', 'PA-GB-1904', 'NJ-TOOMBS-1888'],
+    acquire=['BRINTON-MEMOIRS-1914', 'NPS-SEM13-ESSAY5', 'USSC-BULLETIN-V1-1863', 'USCC-1863'],
+    scene='The Spangler hospital: the forebay with four tables and lanterns by night, the barn with the amputees, the orchard burials; the XII Corps hospital fully supplied (Letterman: within six hours and twenty-four hours); the moves of the III and V Corps hospitals on the night of 2-3 July.',
+    rows=(80, 220), depends=['org-union-system', 'org-evacuation'],
+    conflicts='Corps counts do not add to Letterman\'s total (PDF notes men were counted at several sites); the Spangler counts (1,000 to about 2,000) are carried as a range with their sources.',
+    gaps='Several of the farms the PDF lists from a Wikipedia article (Diener, Conover, Beitler) have no local source yet.',
+    site_candidates=['g-spangler', 'granite-school', 'bushman', 'lightner', 'diener', 'conover', 'beitler', 'schwartz', 'shaeffer', 'white-church', 'white-run', 'rock-creek', 'fiscel', 'clapsaddle', 'two-taverns', 'baltimore-pike', 'hanover-road', 'culp'],
+)
+group(
+    id='sites-south-southwest',
+    title='Hospital sites south and south-west: Taneytown Road, Weikert, Trostle, Hummelbaugh, Leister, Frey, the Emmitsburg Road farms, Rose, Slyder, Rummel',
+    area='sites',
+    scope='The ground of the second and third day south of the town: the Taneytown Road houses (Weikert: V Corps 2nd Division, the amputation pile outside a window and the basement; Leister: Meade\'s headquarters then a hospital; Hummelbaugh: II Corps; Patterson; the Trostle farm, III Corps, abandoned by 6 July), the Frey orchard of the 19th Massachusetts surgeon, '
+          'the Codori house and the Sherfy barn (shelter for wounded, the burned barn), and on the Confederate side the Rose, Slyder and Rummel farms and the farms of the Emmitsburg Road and the Peach Orchard; the Round Top aid posts.',
+    questions=SITE_Q,
+    topics=['identity', 'building', 'layout', 'staff', 'units', 'counts', 'events', 'case', 'conditions', 'water', 'burial-site', 'mapping'],
+    kinds=['site', 'site-layout', 'site-count', 'site-event', 'case', 'role', 'scene-practice', 'fact'],
+    local=['NPS-CLI-ERR', 'NPS-CLI-PCB', 'NPS-CLR-ROT-V1', 'NPS-HSR-LEISTER-BARN', 'NPS-COMMON-PRIDE-2', 'NPS-SLYDER-GUIDE', 'NPS-HSR-SLYDER', 'NPS-BOUNDARY-1988', 'TPIERCE-1889', 'OR27', 'PA-GB-1904', 'NJ-TOOMBS-1888', 'ME-GB-1898', 'NY-GB-1900'],
+    acquire=['BRINTON-MEMOIRS-1914', 'NPS-SEM13-ESSAY5', 'USCC-1863', 'USSC-BULLETIN-V1-1863'],
+    scene='Weikert and the pile of limbs, Leister\'s yard of dead horses (a separate horse layer), the Sherfy barn burning with wounded in it (documented by the Park Service report), the Frey orchard hospital overrun on the evening of 2 July.',
+    rows=(70, 200), depends=['org-union-system', 'org-confederate'],
+    conflicts='Hummelbaugh: Barksdale died on 2 July or 3 July (sources differ); Trostle\'s dates (PDF: abandoned by 6 July; NPS: briefly, then after 5 July).',
+    gaps='Patterson, Klingel and the Emmitsburg Road farms: local mentions only by the Official Records and regimental histories; layout open gaps.',
+    site_candidates=['weikert', 'trostle', 'hummelbaugh', 'leister', 'frey', 'patterson', 'taneytown-road', 'sherfy', 'codori', 'rose', 'slyder', 'rummel', 'peach-orchard-houses', 'henry-spangler', 'klingel', 'warfield', 'little-round-top', 'sheads'],
+)
+# ---------------------------------------------------------------------------------------------------------------------------- afterwards
+group(
+    id='camp-letterman',
+    title='Camp Letterman, the general hospital, and what became of the wounded afterwards',
+    area='after',
+    scope='The general hospital on the York Pike east of the town (about 80 acres of the Wolf farm; the 11 acres of Hospital Woods remain): the decision (Cuyler, 27 July: "a large field hospital established at a suitable place near the town"), opening (20 or 22 July; construction from 10 July; tents moved in 22 to 27 July), '
+          'the layout (rows of tents, the dead house, the embalmers\' tents, the cook house, the warehouse tent, the hospital cemetery of about 1,200, amputated limbs buried in barrels), patients over time (11,425 sent away by 22 July, 16,125 by 25 July, 1,772 on 10 August against "over 4,000"), staff, nurses, the Commissions\' posts, deaths, '
+          'the rail depot link, the closing (20 November or by January), the cemetery dedication of 19 November, and the pictures of August 1863.',
+    questions=[
+        'Location and extent: the farm, the acreage, the road, the rail siding if any, the water supply, as the sources state.',
+        'Opening and closing dates and their conflicts (20 or 22 July; 20 November or January 1864): every statement as a row with its source and its quotation.',
+        'The layout: tents (number, size, rows, spacing, patients per tent), the streets, the kitchens, the dead house, the embalming tents, the warehouses, the chapel or Commission tents, the hospital cemetery.',
+        'Population over time: arrivals, departures by rail, the number on named dates, deaths per day, the range of conflicting counts.',
+        'Staff: surgeons (Letterman left about 100 with Janes), nurses and women by name, Commission delegates, stewards, guards.',
+        'The routine as the accounts give it (Bucklin, Souder, Brinton, the newspapers of August to November 1863) and what the LoC pictures of August 1863 show.',
+        'What happened after: the last patients, the removal of the dead to the National Cemetery, the limbs to the Army Medical Museum, the ground restored, the land today (the NPS Hospital Woods).',
+    ],
+    topics=['location', 'layout', 'capacity', 'staff', 'patients', 'deaths', 'events', 'closure', 'routine', 'photographs', 'afterwards'],
+    kinds=['site', 'site-layout', 'site-count', 'site-event', 'case', 'role', 'scene-practice', 'fact'],
+    local=['NPS-BOUNDARY-1988', 'NPS-CARE-WOUNDED-GUIDE', 'NPS-GMP-1999-V1', 'NPS-EISE-HRS', 'NPS-CLR-CEMETERY', 'NPS-ADHI', 'NPSGOV-JONATHAN-LETTERMAN', 'OR27', 'ADAMS-SENTINEL-1863', 'GBG-COMPILER-1863', 'SOUDER-LEAVES-1864', 'USSC-GETTYSBURG-1863', 'HOSPSCENES-1864'],
+    acquire=['NPS-SEM13-ESSAY5', 'NPS-SEM13-ESSAY6', 'BUCKLIN-HOSPITAL-CAMP-1869', 'USCC-1863', 'USSC-BULLETIN-V2', 'BRINTON-MEMOIRS-1914', 'BROCKETT-CAMP-1866'],
+    scene='The tent city on the dates it existed (a build-up from 10 July as the camp is made, not a spawn), the dead house and the embalmers, the cook house; the trains at the depot; the cemetery growing; the wards in August; the closing in November.',
+    rows=(60, 180), depends=['org-evacuation', 'burial-practice'],
+    conflicts='Opening 20 or 22 July, closing 20 November or January 1864, the patient count on 10 August (1,772 or over 4,000), deaths (over 1,200 or about 17 a day): carried as selectable scenarios; no default is chosen (the PDF\'s own defaults contradict each other).',
+    gaps='The exact layout plan of the camp: the Park Service and the LoC pictures may give the shape; where they do not, plausible-procedural and marked.',
+)
+group(
+    id='burial-practice',
+    title='Burial: in the field, at the hospitals, embalming, the horses, and the beginning of the National Cemetery',
+    area='after',
+    scope='How the dead were buried in July to November 1863: by their comrades in shallow graves beside where they fell, in trenches with headboards where the names were known, the Confederate dead in trenches, the burial details and their dates, the hospital burial grounds (the Spangler orchard, the Seminary campus, the camp hospital\'s cemetery), '
+          'embalming and the shipping of the dead home (embalmers at the camp hospital and in the town), coffins, the Massachusetts committee\'s work, the Soldiers\' National Cemetery (the first burial on 27 October 1863, the contractor, the dedication on 19 November), '
+          'and the horses (3,000 to 5,000 carcasses burned with kerosene per a magazine; the Park Service and period sources are checked). The burial of the Confederate dead in 1870 to 1873 is later and never drawn in 1863.',
+    questions=[
+        'The burial practice of July: who buried, in what, with what marking, how deep, how soon (Jacobs, Hospital Scenes, Pierce, the Commissions, regimental narratives, the newspapers).',
+        'The hospital burial grounds and their place (Spangler orchard, Seminary, the camp hospital), numbers, the registers.',
+        'Embalming: who, where, how advertised, prices as printed, the shipping of bodies (the newspapers and the Massachusetts report).',
+        'The horses: counts and disposal as stated by period sources (Gettysburg Compiler, Adams Sentinel, soldiers, the Park Service), and the smell and the burning.',
+        'The National Cemetery: the decision, the dates (the first interment, the committee), what existed on which date (the Cemetery Ridge ground, the contractor, the removal of Union dead), so that nothing is drawn before its day.',
+        'Which of the dead were Union and which Confederate in each ground, and how the Confederate dead were treated.',
+    ],
+    topics=['field-burial', 'hospital-cemetery', 'embalming', 'horses', 'cemetery', 'registers', 'dates', 'confederate-dead'],
+    kinds=['burial', 'site', 'site-event', 'site-count', 'scene-practice', 'case', 'fact'],
+    local=['MA-BURIAL-1863', 'CEM-REPORT-1867', 'CEM-BARTLETT-1874', 'CEM-INDIANA-1865', 'EVERETT-1864', 'NPS-CLR-CEMETERY', 'NPS-CLI-CEMETERY', 'NPS-HCSR', 'NPS-ADHI', 'JACOBS-1864', 'HOSPSCENES-1864', 'SOUDER-LEAVES-1864', 'ADAMS-SENTINEL-1863', 'GBG-COMPILER-1863', 'NPS-CLR-1STDAY'],
+    acquire=['NPS-SEM13-ESSAY6', 'BUCKLIN-HOSPITAL-CAMP-1869', 'USCC-1863'],
+    scene='Burial parties at work on the documented days; grave markers (headboards where documented); the hospital burial grounds growing; embalmers\' tents at the camp hospital; horse carcasses burned (a separate marked layer); the cemetery only from its documented start.',
+    rows=(50, 140), depends=['camp-letterman'],
+    conflicts='The number of horses (a range given as an estimate by the PDF\'s lead sources); the date of the first interment in the National Cemetery; burial counts at the Spangler orchard.',
+    gaps='Burial details by unit (the PDF lists them as an open gap); embalmers\' names and prices if no newspaper gives them.',
+)
+group(
+    id='gettysburg-statistics',
+    title='Gettysburg numbers: wounded, medical officers, transport, evacuation, rations, deaths, operations, and where the sources disagree',
+    area='numbers',
+    scope='Every count of the medical side of the battle with its date and its source: the wounded of both armies (Letterman 14,193 and 6,802; the revised statement he cites; Vollum\'s 13,603 and 6,739; Cuyler\'s 16,125 sent away by the 25th; the NPS essay\'s 14,501 and 12,355; the NPS guide\'s 27,000; Guild\'s return; the 1914 tablet\'s twenty thousand), '
+          'medical officers (650, 106, 47, 13 wounded), ambulances and wagons, rations (30,000 on 4 July), trains and numbers by day (Vollum\'s table of 7 to 22 July), supplies, deaths, operations if any table gives them, '
+          'and the patients at each hospital by date; the conflicts are written as conflict sets with every alternative kept, and the cross-checks (do the corps counts add to the total?) are rows of kind inferred.',
+    questions=[
+        'Every total of wounded, by army, with its date, author, page and the population it counts (those within the lines, all of the three days, those received, those sent away).',
+        'The daily flow of the wounded by rail (Vollum\'s table; Cuyler\'s totals) and by road; the numbers remaining on named dates.',
+        'Medical personnel counts and their conflicts; the supplies by day.',
+        'Deaths: in the hospitals by day where stated; at Camp Letterman; the mortality of the Gettysburg wounded as printed in the History.',
+        'The numbers of each hospital by date as ranges, collected from the site groups into one table with the conflict sets.',
+        'For every conflict: the options, the sources, no default chosen; the scenario key a viewer selects.',
+    ],
+    topics=['wounded', 'medical-officers', 'transport', 'evacuation', 'rations', 'deaths', 'operations', 'hospital-population', 'conflict', 'crosscheck'],
+    kinds=['site-count', 'wound-stat', 'org', 'fact'],
+    local=['OR27', 'LETTERMAN-1866', 'NPS-CARE-WOUNDED-GUIDE', 'MSHWR-P1V2-1870', 'MSHWR-P2V2-1876', 'MSHWR-P3V2-1883', 'FOX-1889', 'MEADE-LL-v2', 'ADAMS-SENTINEL-1863', 'GBG-COMPILER-1863'],
+    acquire=['NPS-SEM13-ESSAY5', 'BRINTON-MEMOIRS-1914', 'MSHWR-P1V1-1870', 'AMM-CATALOGUE-1866', 'USSC-BULLETIN-V1-1863'],
+    scene='The numbers a hospital card shows and the populations of the scenes (a scene never draws more patients than its row gives or fewer without the sampling note); the scenario selector for each conflict; the daily train flow.',
+    rows=(50, 140), depends=['org-union-system', 'org-evacuation', 'org-confederate'],
+    conflicts='This group is the home of conflict sets: cs.wounded-union-total, cs.wounded-confederate-total, cs.medical-officers, cs.ambulance-corps-losses, cs.camp-letterman-dates (shared with camp-letterman), cs.spangler-patients (shared with sites-east-southeast).',
+    gaps='Gettysburg-specific operation counts; deaths by hospital.',
+)

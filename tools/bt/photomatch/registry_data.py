@@ -118,7 +118,7 @@ R = {
  '2012647701': ('POS', 'Little Round Top seen across rocky ground (print series); camera place not stated'),
  '2012647702': ('POS', 'the Bryan house with a bake oven shed and trees: a candidate for the NPS Brien Farm report\'s Brady photograph taken east of the house looking west; identity not established (see P19)'),
  '2012647703': ('POS', 'a wide view over fields to the town with two seated men: the second half of the Wiedrich-battery panorama as the title says (Scene of the charge of the Louisiana Tigers); the heading is unknown'),
- '2012647704': ('POS', 'Culp\'s Hill seen from the south with a tent on the slope (print series); camera place not stated'),
+ '2012647704': ('POSE', ''),
  '2012647706': ('POS', 'a corn field and meadow with two figures and the Herbst woods group of trees; NPS (CLR First Day Fig. 0.1): looking southeast from the McPherson farm with the seminary cupola in the distance; NPS (McPherson study): taken just east of the quarry looking east-southeast. The quarry is not in the model and the two descriptions differ by about 25 degrees'),
  '2012647708': ('POS', 'Little Round Top at the left and Round Top as a peak at the right across rocky ground; the NPS Then-And-Now image match identifies it as Little and Big Round Top from the Valley of Death, facing southeast, and the NPS vista-cutting report places a Brady view of Little Round Top from the northwest near the crossing of Wheatfield Road and Crawford Avenue. A pose (P13) is registered as deferred: its render and review sheet were not made in this session, so no verdict can be given'),
  '2012647714': ('POS', 'a field with a stone wall and a tree, a far ridge with a building (scene of Pickett\'s charge, print series); camera place not stated'),

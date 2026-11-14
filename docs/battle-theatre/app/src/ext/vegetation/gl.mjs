@@ -116,7 +116,7 @@ layout(location=0) in vec3 m;            // angle 0..1, v along the part 0..1, p
 layout(location=1) in vec4 ia;           // x, z, height, crown radius
 layout(location=2) in vec4 ib;           // species, seed, strip draw, shape
 layout(location=3) in float iu;          // unit
-uniform float uFar; uniform float uTrunk;
+uniform float uFar; uniform float uTrunk; uniform vec4 uWind; uniform float uSway;
 float hash1(float x) { return fract(sin(x * 127.1 + 311.7) * 43758.5453); }
 void treeGeom(out vec3 wp, out vec3 nrm, out float leaf, out float stripT, out float keepOut) {
   int u = int(iu + 0.5); vec4 s2 = stx(u, 2); leaf = s2.y; float stripU = s2.z; float seed = ib.y;
@@ -139,6 +139,12 @@ void treeGeom(out vec3 wp, out vec3 nrm, out float leaf, out float stripT, out f
   }
   float yaw = seed * 6.2831853; float cy2 = cos(yaw), sy2 = sin(yaw); p = vec3(p.x * cy2 - p.z * sy2, p.y, p.x * sy2 + p.z * cy2); nrm = vec3(nrm.x * cy2 - nrm.z * sy2, nrm.y, nrm.x * sy2 + nrm.z * cy2);
   wp = vec3(ia.x + p.x, g + p.y, ia.y + p.z);
+  // sway (the engine spec's wind_response): the crown leans downwind with the square of its height fraction and gusts, and the leaves flutter; a pure function of the minute and the wind
+  float hf = clamp(p.y / max(h, 1.0), 0.0, 1.3);
+  float gust = 0.65 + 0.35 * sin(uWind.w * 0.8 + seed * 40.0 + ia.x * 0.02) + 0.15 * sin(uWind.w * 2.3 + seed * 17.0);
+  float lean = 0.004 * uWind.z * h * hf * hf * gust;
+  float flutter = m.z > 0.5 ? 0.025 * uWind.z * sin(uWind.w * 3.1 + seed * 31.0 + m.x * 12.566 + m.y * 9.0) : 0.0;
+  wp.xz += uWind.xy * (lean + flutter) * uSway;
 }`;
 
 const TREE_VS = `${TREE_VS_BODY}
@@ -189,7 +195,7 @@ export function treeMesh(nAng, nCrown, withTrunk) {
 export class VegGL {
   constructor(host, model, decals, trees, opts = {}) {
     this.host = host; this.R = host.R; this.gl = host.R.gl; this.model = model; this.decals = decals; this.trees = trees; this.dead = false; this.stats = { decalTris: decals.triangles, trees: trees.n, treesDrawn: 0, chunksNear: 0, chunksFar: 0, stateWrites: 0 };
-    const gl = this.gl, R = this.R; this.on = { ground: true, trees: true, overlay: false, visit: true, shell: false }; this.ground = opts.ground || null; this.shell = null; this.shellWhy = '';
+    const gl = this.gl, R = this.R; this.wind = { dirX: 0, dirZ: 0, speed: 0, t: 0, share: 0 }; this.on = { ground: true, trees: true, overlay: false, visit: true, shell: false }; this.ground = opts.ground || null; this.shell = null; this.shellWhy = '';
     const units = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS); if (units < 30) { TEX_STATE = units - 2; TEX_VISIT = units - 1; } else { TEX_STATE = 28; TEX_VISIT = 29; }
     const H = COMMON, made = [];
     try {
@@ -205,7 +211,7 @@ export class VegGL {
     const set = (p, f) => { gl.useProgram(p); f(p); };
     for (const k of ['decal', 'tree', 'shadow']) set(this.P[k], p => { const l = gl.getUniformLocation(p, 'uVegState'); if (l) gl.uniform1i(l, TEX_STATE); });
     set(this.P.decal, p => { const l = gl.getUniformLocation(p, 'uVisit'); if (l) gl.uniform1i(l, TEX_VISIT); });
-    this.U = { decal: Object.fromEntries(['uT', 'uGrid', 'uOverlay', 'uVisitOn', 'uTierCol'].map(n => [n, gl.getUniformLocation(this.P.decal, n)])), tree: Object.fromEntries(['uFar', 'uTrunk', 'uSpA', 'uSpB'].map(n => [n, gl.getUniformLocation(this.P.tree, n)])), shadow: Object.fromEntries(['uFar', 'uTrunk'].map(n => [n, gl.getUniformLocation(this.P.shadow, n)])) };
+    this.U = { decal: Object.fromEntries(['uT', 'uGrid', 'uOverlay', 'uVisitOn', 'uTierCol'].map(n => [n, gl.getUniformLocation(this.P.decal, n)])), tree: Object.fromEntries(['uFar', 'uTrunk', 'uSpA', 'uSpB', 'uWind', 'uSway'].map(n => [n, gl.getUniformLocation(this.P.tree, n)])), shadow: Object.fromEntries(['uFar', 'uTrunk'].map(n => [n, gl.getUniformLocation(this.P.shadow, n)])) };
     const buf = (target, data, usage = gl.STATIC_DRAW) => { const b = gl.createBuffer(); gl.bindBuffer(target, b); gl.bufferData(target, data, usage); return b; };
     this.mem = 0;
     // ground cover
@@ -235,6 +241,9 @@ export class VegGL {
     gl.activeTexture(gl.TEXTURE0);
     if (opts.shell) this.enableShell(true);
   }
+
+  /** the wind of this frame (wind.mjs swayUniforms): the trees and the standing crop sway in it; zeros draw none */
+  setWind(u) { this.wind = u || { dirX: 0, dirZ: 0, speed: 0, t: 0, share: 0 }; }
 
   /** writes the per-unit state texture for the quantised minute and the choices (only when either changed) */
   setTime(tq, choices, key) {
@@ -276,7 +285,7 @@ export class VegGL {
     const data = buildShellChunks(this.decals, this.model.units, this.ground);
     const cache = new ChunkCache(SHELL.cache, ci => this._makeChunk(data, ci), e => this._dropChunk(e));
     this.shellWhy = '';
-    return { P: p, U: Object.fromEntries(['uT', 'uGrid', 'uVisitOn', 'uRange', 'uLayers'].map(n => [n, loc(n)])), data, cache };
+    return { P: p, U: Object.fromEntries(['uT', 'uGrid', 'uVisitOn', 'uRange', 'uLayers', 'uWind', 'uSway'].map(n => [n, loc(n)])), data, cache };
   }
   _makeChunk(data, ci) {
     const gl = this.gl, verts = refineChunk(this.decals, data, ci, SHELL.maxEdge), vao = gl.createVertexArray(), buf = gl.createBuffer();
@@ -288,7 +297,7 @@ export class VegGL {
     const sh = this.shell, st = this.stats, planes = this.planes; st.shellChunks = 0; st.shellTris = 0;
     const list = selectShellChunks(sh.data, cam.x, cam.z, SHELL.range + 30, (cx, cz, r) => sphereInFrustum(planes, cx, 20, cz, r + 60)), keep = new Set(list);
     if (list.length) {
-      const U = sh.U, g = this.grid; gl.useProgram(sh.P); gl.uniform1f(U.uT, tMin); gl.uniform1f(U.uVisitOn, this.on.visit && g ? 1 : 0); gl.uniform1f(U.uRange, SHELL.range); gl.uniform1f(U.uLayers, SHELL.layers);
+      const U = sh.U, g = this.grid; gl.useProgram(sh.P); gl.uniform1f(U.uT, tMin); gl.uniform1f(U.uVisitOn, this.on.visit && g ? 1 : 0); gl.uniform1f(U.uRange, SHELL.range); gl.uniform1f(U.uLayers, SHELL.layers); const wd = this.wind; gl.uniform4f(U.uWind, wd.dirX, wd.dirZ, wd.speed, wd.t); gl.uniform1f(U.uSway, wd.share);
       gl.uniform4f(U.uGrid, g ? g.x0 : 0, g ? g.z0 : 0, g ? 1 / (g.nx * g.cell) : 1, g ? 1 / (g.nz * g.cell) : 1);
       let allow = SHELL.buildsPerFrame;
       for (const ci of list) {
@@ -317,7 +326,7 @@ export class VegGL {
     }
     if (o.trees && this.trees.n) {
       const sel = selectChunks(this.trees, cam.x, cam.z, 190, 2300, (cx, cz, r) => sphereInFrustum(planes, cx, 40, cz, r * 1.2 + 60));
-      const P = this.P.tree, U = this.U.tree; gl.useProgram(P); gl.uniform3fv(U.uSpA, this.spA); gl.uniform3fv(U.uSpB, this.spB);
+      const P = this.P.tree, U = this.U.tree; gl.useProgram(P); gl.uniform3fv(U.uSpA, this.spA); gl.uniform3fv(U.uSpB, this.spB); const wd = this.wind; gl.uniform4f(U.uWind, wd.dirX, wd.dirZ, wd.speed, wd.t); gl.uniform1f(U.uSway, wd.share);
       for (const [lvl, list] of [['near', sel.near], ['far', sel.far]]) {
         if (!list.length) continue; gl.uniform1f(U.uFar, lvl === 'far' ? 1 : 0); gl.uniform1f(U.uTrunk, lvl === 'near' ? 1 : 0); const M = this.M[lvl]; gl.bindVertexArray(M.vao); gl.bindBuffer(gl.ARRAY_BUFFER, this.B.tree);
         for (const ci of list) { const c = this.trees.chunks[ci], base = c.off * TREE_STRIDE * 4; for (const [loc, n, off] of [[1, 4, 0], [2, 4, 16], [3, 1, 32]]) gl.vertexAttribPointer(loc, n, gl.FLOAT, false, TREE_STRIDE * 4, base + off); gl.drawElementsInstanced(gl.TRIANGLES, M.n, gl.UNSIGNED_SHORT, 0, c.n); st.treesDrawn += c.n; }

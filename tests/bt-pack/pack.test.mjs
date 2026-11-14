@@ -161,14 +161,20 @@ test('copy audit: a statement that names the program that made a file is caught 
     ['a port of tools/bt/check_structures.py state_at, tested against it in tests/history.test.mjs', 'a port and its test'],
     ['Built from the unit files. Used by main.mjs to draw them', 'a sentence ends before the next one names a file'],
     ['Written by J. Smith in 1863. The map is drawn by the Park Service', 'a person and a date'],
-    ['the times are made per scenario by real.mjs', 'a program that ships in this build is the product, not its maker'],
-    ['the manifest is made by real.mjs (a port of the same rule)', 'the same, other wording'],
   ];
   for (const [t, what] of MISS) { fs.writeFileSync(path.join(d, 'a.txt'), 'x ' + t + ' y'); const h = audit(d); assert.equal(h.length, 0, `should not be a hit (${what}): ${t} -> ${JSON.stringify(h)}`); }
+  // a program that ships in this build is the product, not its maker: in the program's own comments and strings only
+  fs.rmSync(path.join(d, 'a.txt'));
+  for (const [t, what] of [['// the times are made per scenario by real.mjs', 'a comment of a module'], ["const NOTE = 'the manifest is made by real.mjs (a port of the same rule)';", 'a string of a module']]) {
+    fs.writeFileSync(path.join(d, 'm.mjs'), t + '\nexport const A = 1;\n'); assert.equal(audit(d).length, 0, `should not be a hit (${what}): ${t}`);
+    for (const f of ['a.json', 'a.txt', 'a.md']) { fs.writeFileSync(path.join(d, f), 'x ' + t + ' y'); assert.equal(audit(d).filter(h => h.file === f).length, 1, `a ${f} that says it was made by a program that ships is still a hit: ${t}`); fs.rmSync(path.join(d, f)); }
+  }
+  fs.rmSync(path.join(d, 'm.mjs'));
   // the same sentence about a program that does NOT ship is a hit, and a maker key is never excused by a shipped program
-  fs.writeFileSync(path.join(d, 'a.txt'), 'the times are made per scenario by other.mjs'); assert.equal(audit(d).length, 1);
-  fs.writeFileSync(path.join(d, 'a.json'), '{"built_by": "real.mjs"}'); fs.writeFileSync(path.join(d, 'a.txt'), 'plain'); assert.equal(audit(d).length, 1, 'a maker key names who made the data, shipped or not');
-  fs.writeFileSync(path.join(d, 'a.json'), '{}'); fs.writeFileSync(path.join(d, 'a.txt'), 'made per scenario by tools/real.mjs'); assert.equal(audit(d).length, 1, 'a path under tools/ is never the product');
+  fs.writeFileSync(path.join(d, 'm.mjs'), '// the times are made per scenario by other.mjs\n'); assert.equal(audit(d).length, 1, 'the same sentence about a program that does not ship');
+  fs.writeFileSync(path.join(d, 'm.mjs'), '// made per scenario by tools/real.mjs\n'); assert.equal(audit(d).length, 1, 'a path under tools/ is never the product');
+  fs.writeFileSync(path.join(d, 'm.mjs'), "const o = { built_by: 'real.mjs' };\n"); assert.equal(audit(d).length, 1, 'a maker key names who made the data, shipped or not');
+  fs.writeFileSync(path.join(d, 'm.mjs'), 'export const A = 1;\n'); fs.writeFileSync(path.join(d, 'a.json'), '{"built_by": "real.mjs"}'); assert.equal(audit(d).length, 1, 'a maker key in a data file, the program shipped or not'); fs.rmSync(path.join(d, 'a.json'));
   assert.ok(AUDIT_PRODUCTION.length >= 5 && AUDIT_PRODUCTION.every(s => typeof s === 'string'), 'the rules are plain patterns inside AUDIT_RE (tools/bt/kit_evidence_lib.py reads that one)');
   for (const s of AUDIT_PRODUCTION) assert.ok(AUDIT_RE.source.includes(s), 'every production rule is part of AUDIT_RE');
   fs.rmSync(d, { recursive: true, force: true });

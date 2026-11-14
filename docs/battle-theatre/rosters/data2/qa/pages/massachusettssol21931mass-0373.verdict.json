@@ -1,0 +1,530 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "massachusettssol21931mass/373",
+ "levels": "NDR",
+ "stratum": "MA-SSM-other",
+ "family": "MA-SSM",
+ "layout": "flow",
+ "kind": "other",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 363,
+ "rows_stored": 24,
+ "rows_checked": 24,
+ "rows_in_error": 16,
+ "rows_ok": 8,
+ "rows_flagged_ocr_uncertain": 10,
+ "errors": [
+  {
+   "i": 0,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "'1S63' for '1863'; 'desened' for 'deserted'",
+   "rid": "18th-massachusetts-infantry#292",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 1,
+   "kinds": [
+    "rem-char",
+    "rem-date"
+   ],
+   "note": "'Rea.' for 'Res.'; '1S63'",
+   "rid": "18th-massachusetts-infantry#293",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Q",
+    "Y"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Tiemey, Patrick' printed 'Tierney, Patrick'",
+   "rid": "18th-massachusetts-infantry#295",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'1S61'",
+   "rid": "18th-massachusetts-infantry#296",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'miaaiTig' for 'missing'; 'Ini.' for 'Inf.'",
+   "rid": "18th-massachusetts-infantry#297",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "'Feb. IS' for 'Feb. 18'; 'Rail's Hill' for 'Hall's Hill'",
+   "rid": "18th-massachusetts-infantry#298",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 7,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "'1S61' '1S64'; 'Maj- 3' for 'May 3'",
+   "rid": "18th-massachusetts-infantry#299",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 8,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Rim' for 'Run'; 'furioughed' for 'furloughed'",
+   "rid": "18th-massachusetts-infantry#300",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 9,
+   "kinds": [
+    "rem-char",
+    "rem-date"
+   ],
+   "note": "'occti.'; '1S63'; 'S. 6.' for 'S. O.'; 'f568' for '#568'",
+   "rid": "18th-massachusetts-infantry#301",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'1S61'",
+   "rid": "18th-massachusetts-infantry#302",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 15,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'1S61'",
+   "rid": "18th-massachusetts-infantry#307",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 16,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Beveriy' for 'Beverly'",
+   "rid": "18th-massachusetts-infantry#308",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 18,
+   "kinds": [
+    "name-char",
+    "rem-date"
+   ],
+   "note": "name 'Wormersley, .Mexander' printed 'Alexander'; age 'IS' for '18'; '1S63'",
+   "rid": "18th-massachusetts-infantry#310",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G1",
+    "R-G2"
+   ]
+  },
+  {
+   "i": 19,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Ist U. S. Cav.' for '1st'",
+   "rid": "18th-massachusetts-infantry#311",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 22,
+   "kinds": [
+    "rank",
+    "rem-date"
+   ],
+   "note": "rank 'I*riv.' for 'Priv.'; '1S63'",
+   "rid": "18th-massachusetts-infantry#314",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "R",
+    "Y"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 23,
+   "kinds": [
+    "rem-char",
+    "rem-date"
+   ],
+   "note": "'prisonar'; '1S63'",
+   "rid": "18th-massachusetts-infantry#315",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "company B (rows 0-20) and C (rows 21-23, title COMPANY \"C\" printed) agree with the print; page also shows the company C title that is no stored line"
+ ],
+ "reader": "full level; full page at 200 dpi (1 Read); 24 stored entries compared with the print (names, ranks, company titles, residence, age, dates, remarks); in the print of this section the digit 8 is inked like an S in many places and the text layer reads it as S",
+ "tesseract_prescreen": {
+  "agree": 8,
+  "near": 0,
+  "suspect": 16,
+  "unstored_lines": 1
+ },
+ "read": {
+  "pdf_sha256": "c76ba611469c68e60681935e141e61b92b4cf26bfa9b14489e88e88597d4d6b1",
+  "pdf_page": 373,
+  "view_png_sha256": "80daf33da31b6684b245151bee98739c06309da729fd389029b0f8ccc112219c",
+  "render300_sha256": "4ac8212ca74962ade9d1c574635951166bb4837677f49559ed28dbe225073308",
+  "tess_sha256": "8f4ecae6edadae47061e3e0ba01833a5efe729520eada6cfe9ed15af2ec5bbd3",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.967
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "18th-massachusetts-infantry#292",
+   "name": "Sullivan, Joseph",
+   "off": 1875390,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 1,
+   "rid": "18th-massachusetts-infantry#293",
+   "name": "Summers, Michael",
+   "off": 1875553,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Q",
+    "Y"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "18th-massachusetts-infantry#294",
+   "name": "Thacker, Joseph",
+   "off": 1875770,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "18th-massachusetts-infantry#295",
+   "name": "Tiemey, Patrick",
+   "off": 1875928,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "18th-massachusetts-infantry#296",
+   "name": "Tompkins, James",
+   "off": 1876096,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "18th-massachusetts-infantry#297",
+   "name": "Toomey, John",
+   "off": 1876248,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "18th-massachusetts-infantry#298",
+   "name": "Walsh, Patrick",
+   "off": 1876479,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "18th-massachusetts-infantry#299",
+   "name": "Walsh, Patrick",
+   "off": 1876636,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 8,
+   "rid": "18th-massachusetts-infantry#300",
+   "name": "Ward, Michael",
+   "off": 1876950,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "18th-massachusetts-infantry#301",
+   "name": "Weld, Stephen M., Jr.",
+   "off": 1877231,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 10,
+   "rid": "18th-massachusetts-infantry#302",
+   "name": "Whalen, Joseph",
+   "off": 1877552,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 11,
+   "rid": "18th-massachusetts-infantry#303",
+   "name": "Whalley, Edmund",
+   "off": 1877723,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "18th-massachusetts-infantry#304",
+   "name": "Wheaton, Cyrus M.",
+   "off": 1877939,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "18th-massachusetts-infantry#305",
+   "name": "White, John",
+   "off": 1878122,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "18th-massachusetts-infantry#306",
+   "name": "Wiggins, John",
+   "off": 1878387,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "18th-massachusetts-infantry#307",
+   "name": "Wilbur, William H.",
+   "off": 1878543,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 16,
+   "rid": "18th-massachusetts-infantry#308",
+   "name": "Williams, Edward",
+   "off": 1878856,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "18th-massachusetts-infantry#309",
+   "name": "Wood, John",
+   "off": 1879006,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "18th-massachusetts-infantry#310",
+   "name": "Wormersley, .Mexander",
+   "off": 1879238,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 19,
+   "rid": "18th-massachusetts-infantry#311",
+   "name": "Wormersley, William H.",
+   "off": 1879476,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 20,
+   "rid": "18th-massachusetts-infantry#312",
+   "name": "Wrinn, George",
+   "off": 1879744,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "18th-massachusetts-infantry#313",
+   "name": "Addison, William K.",
+   "off": 1880034,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "18th-massachusetts-infantry#314",
+   "name": "Alriksson, Birger",
+   "off": 1880231,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "R",
+    "Y"
+   ]
+  },
+  {
+   "i": 23,
+   "rid": "18th-massachusetts-infantry#315",
+   "name": "Anderson, William",
+   "off": 1880382,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:48:56Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "AGREE",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "AGREE",
+  "12": "AGREE",
+  "13": "AGREE",
+  "14": "AGREE",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "AGREE",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "AGREE",
+  "21": "AGREE",
+  "22": "SUSPECT",
+  "23": "SUSPECT"
+ }
+}

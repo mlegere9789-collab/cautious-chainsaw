@@ -87,7 +87,7 @@ BUILDING_KEYS = COMMON_KEYS | {'name', 'aliases', 'declared_from', 'links', 'new
 SEARCH_KEYS = COMMON_KEYS | {'where', 'query', 'outcome', 'at', 'found_rows', 'url'}
 FIELD_KEYS = COMMON_KEYS | {'field', 'value', 'tier', 'evidence_kind', 'describes', 'source', 'part', 'page', 'page_note', 'printed_page', 'quote', 'quote_mode', 'raw',
                             'ocr_note', 'page_image_viewed', 'text_offset', 'also', 'continuity', 'image_ref', 'basis', 'premises', 'rule', 'searched', 'conflicts',
-                            'derived', 'derivation', 'state', 'from', 'to', 'window', 'transition', 'detail', 'count_basis', 'hospital_id', 'value_detail',
+                            'derived', 'derivation', 'state', 'from', 'to', 'window', 'transition', 'detail', 'count', 'count_basis', 'hospital_id', 'value_detail',
                             'method', 'error_m'}
 CITE_KEYS = {'source', 'part', 'page', 'quote', 'text_offset', 'quote_mode', 'raw', 'ocr_note', 'page_image_viewed', 'printed_page', 'page_note'}
 LEDGER_COLUMNS = ('id', 'class', 'title', 'date', 'text', 'sha256', 'pages', 'rights', 'url', 'notes')
@@ -387,6 +387,9 @@ def check_cite(ctx, c, where, errors, warnings, need_class_not_lead=False, numbe
     if errors and any(e.startswith(where + ': citation lacks') for e in errors):
         return False
     sid, quote = c['source'], c['quote']
+    if not isinstance(sid, str):
+        errors.append('%s: source must be a string id of SOURCES.md' % where)
+        return False
     led = ctx.ledger().get(sid)
     if led is None:
         errors.append('%s: source %r is not in SOURCES.md' % (where, sid))
@@ -510,20 +513,24 @@ def check_cite(ctx, c, where, errors, warnings, need_class_not_lead=False, numbe
 # ------------------------------------------------------------------------------------------------ rows
 def load_rows(path):
     rows, errs = [], []
-    with open(path, encoding='utf-8') as f:
-        for n, line in enumerate(f, 1):
-            if not line.strip():
-                continue
-            try:
-                r = json.loads(line)
-            except Exception as e:
-                errs.append('line %d: not JSON (%s)' % (n, str(e)[:60]))
-                continue
-            if not isinstance(r, dict):
-                errs.append('line %d: not an object' % n)
-                continue
-            r['__line__'] = n
-            rows.append(r)
+    try:
+        with open(path, encoding='utf-8') as f:
+            lines = f.readlines()
+    except UnicodeDecodeError as e:
+        return [], ['line ?: the file is not UTF-8 (%s)' % str(e)[:80]]
+    for n, line in enumerate(lines, 1):
+        if not line.strip():
+            continue
+        try:
+            r = json.loads(line)
+        except Exception as e:
+            errs.append('line %d: not JSON (%s)' % (n, str(e)[:60]))
+            continue
+        if not isinstance(r, dict):
+            errs.append('line %d: not an object' % n)
+            continue
+        r['__line__'] = n
+        rows.append(r)
     return rows, errs
 
 
@@ -627,7 +634,7 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
             continue
         m = ROW_ID_RE.match(rid)
         g = r.get('group')
-        if g not in groups:
+        if not isinstance(g, str) or g not in groups:
             errors.append('%s: group %r is not a group of groups.json' % (where, g))
             continue
         if gid_expected is not None and g != gid_expected:
@@ -684,11 +691,14 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
     fields_of = {}
     for r in rows:
         rid = r.get('row')
-        if rid not in byid or byid[rid] is not r or r.get('type') == 'building':
+        if not isinstance(rid, str) or rid not in byid or byid[rid] is not r or r.get('type') not in ('field', 'search'):
             continue
         where = '%s line %s (%s)' % (file_label, r['__line__'], rid)
         g = r.get('group')
         bid = r.get('building')
+        if not isinstance(bid, str):
+            errors.append('%s: building must be a string id' % where)
+            continue
         if r['type'] == 'search':
             if bid != '*' and bid not in declared:
                 errors.append('%s: search row names building %r which no building row declares (use "*" for a group-wide search)' % (where, bid))
@@ -750,7 +760,7 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
                 errors.append('%s: an open gap names the searches that found nothing: searched: [search row ids]' % where)
             else:
                 for s in sr:
-                    sx = byid.get(s)
+                    sx = byid.get(s) if isinstance(s, str) else None
                     if sx is None or sx.get('type') != 'search':
                         errors.append('%s: searched %r is not a search row of this file' % (where, s))
                     elif sx.get('outcome') == 'found':
@@ -760,12 +770,12 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
             if ek != 'none':
                 errors.append('%s: plausible-procedural has evidence_kind none (a generic rule, not a source)' % where)
             rule = r.get('rule')
-            if rule not in ctx.rules():
+            if not isinstance(rule, str) or rule not in ctx.rules():
                 errors.append('%s: rule %r is not in generic_rules.json' % (where, rule))
             continue
         # documented and inferred: evidence
-        if ek == 'none':
-            errors.append('%s: a %s row needs evidence (text, image or map)' % (where, tier))
+        if ek == 'none' and not (tier == 'inferred' and r.get('premises')):
+            errors.append('%s: a %s row needs evidence (text, image or map); an inferred row may rest on `premises` alone' % (where, tier))
             continue
         quotes = []
         anchored = False
@@ -773,17 +783,22 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
             cite = {k: r.get(k) for k in CITE_KEYS if k in r}
             ok = check_cite(ctx, cite, where, errors, warnings, need_class_not_lead=True, numbers_in=quotes)
             anchored = anchored or ok
-            for i, a in enumerate(r.get('also') or []):
+            alsol = r.get('also') or []
+            if not isinstance(alsol, list):
+                errors.append('%s: also is a list of citation objects' % where)
+                alsol = []
+            for i, a in enumerate(alsol):
                 if not isinstance(a, dict) or set(a) - CITE_KEYS:
                     errors.append('%s: also[%d] is a citation object with keys %s' % (where, i, sorted(CITE_KEYS)))
                     continue
                 check_cite(ctx, a, '%s also[%d]' % (where, i), errors, warnings, need_class_not_lead=True, numbers_in=quotes)
-        else:
+        elif ek in ('image', 'map'):
             im = r.get('image_ref')
             if not isinstance(im, dict):
                 errors.append('%s: evidence_kind %s needs image_ref {"source": ledger id, "item": record or sheet, "observation": text, "viewed": true}' % (where, ek))
             else:
-                led = ctx.ledger().get(im.get('source'))
+                isrc = im.get('source')
+                led = ctx.ledger().get(isrc) if isinstance(isrc, str) else None
                 if led is None:
                     errors.append('%s: image_ref source %r is not in SOURCES.md' % (where, im.get('source')))
                 elif led.get('class') == 'lead':
@@ -793,11 +808,13 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
                 for k in ('item', 'observation'):
                     if not (isinstance(im.get(k), str) and im[k].strip()):
                         errors.append('%s: image_ref.%s missing' % (where, k))
-                if im.get('file'):
+                if im.get('file') is not None and not isinstance(im.get('file'), str):
+                    errors.append('%s: image_ref.file must be a path string' % where)
+                elif im.get('file'):
                     fp = os.path.join(ctx.root, im['file'])
                     if not os.path.exists(fp):
                         errors.append('%s: image_ref.file %s does not exist' % (where, im['file']))
-                    elif im.get('sha256'):
+                    elif isinstance(im.get('sha256'), str) and im.get('sha256'):
                         with open(fp, 'rb') as f:
                             if hashlib.sha256(f.read()).hexdigest() != im['sha256']:
                                 errors.append('%s: image_ref.sha256 differs from the file' % where)
@@ -817,8 +834,12 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
         if tier == 'inferred':
             if not (isinstance(r.get('basis'), str) and len(r['basis'].strip()) >= 20):
                 errors.append('%s: an inferred row needs `basis` (at least 20 characters: what is inferred from what)' % where)
-            for p in r.get('premises') or []:
-                px = byid.get(p)
+            prem = r.get('premises') or []
+            if not isinstance(prem, list):
+                errors.append('%s: premises is a list of row ids' % where)
+                prem = []
+            for p in prem:
+                px = byid.get(p) if isinstance(p, str) else None
                 if px is None or px.get('type') != 'field' or px.get('tier') not in ('documented', 'inferred'):
                     errors.append('%s: premise %r is not a documented or inferred field row of this file' % (where, p))
                 else:
@@ -841,6 +862,10 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
                 check_cite(ctx, c2, '%s continuity' % where, errors, warnings, need_class_not_lead=True, numbers_in=None)
         # the numbers
         vn = value_numbers(fld, r.get('value'))
+        if fld == 'state' and isinstance(r.get('count'), (int, float)) and not isinstance(r.get('count'), bool):
+            vn = vn + [('count', float(r['count']))]
+            if not r.get('count_basis'):
+                errors.append('%s: a count needs count_basis (what is counted: bullet strikes, shell hits, wounded...)' % where)
         if vn and ek == 'text' or (vn and r.get('quote')):
             have = set()
             for q in quotes:
@@ -857,18 +882,22 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
     # conflicts: both rows name each other
     for r in rows:
         rid = r.get('row')
-        if rid not in byid or byid[rid] is not r or r.get('type') != 'field':
+        if not isinstance(rid, str) or rid not in byid or byid[rid] is not r or r.get('type') != 'field':
             continue
-        for c in r.get('conflicts') or []:
+        cl = r.get('conflicts') or []
+        if not isinstance(cl, list):
+            errors.append('%s line %s (%s): conflicts is a list of {"with": row id, "nature": text}' % (file_label, r['__line__'], rid))
+            cl = []
+        for c in cl:
             where = '%s line %s (%s)' % (file_label, r['__line__'], rid)
             if not isinstance(c, dict) or not isinstance(c.get('with'), str) or not isinstance(c.get('nature'), str) or len(c['nature'].strip()) < 8:
                 errors.append('%s: conflicts is a list of {"with": row id, "nature": what differs}' % where)
                 continue
-            o = byid.get(c['with'])
+            o = byid.get(c['with']) if isinstance(c.get('with'), str) else None
             if o is None:
                 errors.append('%s: conflict names row %r which is not in this file' % (where, c['with']))
-            elif o.get('building') != r.get('building') and o.get('type') == 'field' and o.get('field') != r.get('field'):
-                pass
+            elif o.get('type') != 'field':
+                errors.append('%s: conflict names %s which is not a field row' % (where, c['with']))
             elif not any(isinstance(x, dict) and x.get('with') == rid for x in (o.get('conflicts') or [])):
                 errors.append('%s: conflict with %s is not written on that row as well (a conflict is carried on both rows)' % (where, c['with']))
     return declared, fields_of, byid

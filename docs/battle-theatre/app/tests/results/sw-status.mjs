@@ -14,6 +14,7 @@ export function parseLog(file) {
     const l = L[i]; let m;
     if ((m = /^# end (\S+)\s+seconds (\d+)\s+exit (\d+)\s+source changed during the run: (.*)$/.exec(l))) Object.assign(run, { end: m[1], seconds: +m[2], exit: +m[3], srcChanged: m[4] });
     else if (/^# TIME LIMIT/.test(l)) run.timeLimit = true;
+    else if ((m = /^# CUT (.*)$/.exec(l))) run.cut = m[1];             // a note appended by hand to a log whose run was killed from outside (a container restart): the log has no end line
     else if ((m = /^# (tests|pass|fail|skipped|cancelled) (\d+)$/.exec(l))) run.n[m[1]] = +m[2];
     else if ((m = /^# \\# (.*)$/.exec(l))) { run.console.push(m[1]); buf.push(m[1]); }
     else if ((m = /^(ok|not ok) (\d+) - (.*?)(?: # SKIP ?(.*))?$/.exec(l))) {
@@ -34,7 +35,8 @@ export function build(round, dir) {
   const esc = s => String(s ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
   const specs = [...new Set([...Object.keys(V.specs || {}), ...runs.map(r => r.spec)])].sort(), out = [], tally = {}, remaining = [], owed = [];
   const label = r => r.file.replace(/\.log$/, '');
-  const how = r => `${r.n.pass ?? '?'} passed, ${r.n.fail ?? '?'} failed, ${r.n.skipped ?? '?'} not run of ${r.n.tests ?? '?'}; ${r.seconds != null ? (r.seconds / 60).toFixed(0) + ' min' : 'running, or no end line'}${r.timeLimit ? '; STOPPED AT THE TIME LIMIT' : ''}${r.snapshot ? (r.target === 'dist' ? '; packed dist of commit ' : '; frozen source snapshot of commit ') + r.snapshot : r.srcChanged && r.srcChanged !== 'no' ? '; live source tree, changed during the run' : r.target === 'src' ? '; live source tree' : ''}`;
+  const cnt = (r, k, res) => r.n[k] ?? (r.cut ? r.tests.filter(t => t.result === res).length : '?');
+  const how = r => `${cnt(r, 'pass', 'pass')} passed, ${cnt(r, 'fail', 'FAIL')} failed, ${cnt(r, 'skipped', 'not run')} not run of ${r.n.tests ?? (r.cut ? r.tests.length + ' finished' : '?')}; ${r.seconds != null ? (r.seconds / 60).toFixed(0) + ' min' : r.cut ? 'CUT: ' + r.cut : 'running, or no end line'}${r.timeLimit ? '; STOPPED AT THE TIME LIMIT' : ''}${r.snapshot ? (r.target === 'dist' ? '; packed dist of commit ' : '; frozen source snapshot of commit ') + r.snapshot : r.srcChanged && r.srcChanged !== 'no' ? '; live source tree, changed during the run' : r.target === 'src' ? '; live source tree' : ''}`;
   for (const spec of specs) {
     const mine = runs.filter(r => r.spec === spec), hand = (V.specs[spec] || {}).tests || [];
     const names = [...new Set([...hand.filter(h => h.test).map(h => h.test), ...mine.flatMap(r => r.tests.map(t => t.name))])];

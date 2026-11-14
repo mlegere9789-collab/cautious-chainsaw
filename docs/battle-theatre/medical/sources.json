@@ -1,0 +1,4085 @@
+{
+ "schema": "medical-sources/1",
+ "generated": "2026-11-14",
+ "_doc": "Registry of the texts the medical evidence validator may quote. files.<key>.sha256 null means: the hash is in the ledger of SOURCES.md (acquired by the planning step or later) or the file is planned and not yet local. page_model: heads (running heads of OCR text), marker (a regex line giving the PDF page index), or27:N (the OR27 page model of tools/bt/or27_pages.py), none.",
+ "classes": {
+  "official-report": "Official Records, inspector and medical-director reports, Surgeon General documents",
+  "official-history": "The Medical and Surgical History of the War of the Rebellion and other Surgeon General histories",
+  "period-manual": "surgical and medical manuals, regulations and supply tables of 1860 to 1865",
+  "memoir-primary": "first-person accounts by participants (diaries, letters, memoirs) written within their lifetime",
+  "contemporary-print": "newspapers, pamphlets and society reports of 1863 to 1866",
+  "institutional-history": "histories and reports of the Sanitary and Christian Commissions and like bodies, written within a few years",
+  "regimental-history": "state, regimental and monument-commission volumes (collective witness, named casualties, hospital notes)",
+  "nps-report": "National Park Service reports and pages (official secondary; its own 1863 basis is read with it)",
+  "photo-record": "catalogued photographs, drawings and prints of the period (caption text; what is seen needs the image viewed)",
+  "reference-secondary": "later scholarly reference: a pointer, or inferred at most, never documented on its own",
+  "lead": "crowd-sourced, commercial, blog, forum, Wikipedia, auction and marker-transcription pages: a lead only (tier open gap)"
+ },
+ "sources": {
+  "LETTERMAN-1866": {
+   "title": "Medical Recollections of the Army of the Potomac, New York: D. Appleton and Company, 1866 (title page read)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Medical Recollections of the Army of the Potomac, New York: D. Appleton and Company, 1866 (title page read)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-union-system",
+    "org-evacuation",
+    "triage-first-aid",
+    "instruments-supplies",
+    "nursing-diet-ward",
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/LETTERMAN-1866__medicalrecollect00lettuoft_djvu.txt",
+     "sha256": "ca792bc68725690a73beed7d9a809af6c4288ac330c0ef3c94e2014c0fa15508",
+     "bytes": 316731,
+     "page_model": "heads"
+    }
+   }
+  },
+  "JACOBS-1864": {
+   "title": "Notes on the Rebel invasion of Maryland and Pennsylvania, and the Battle of Gettysburg (1864); edition statement not read",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Notes on the Rebel invasion of Maryland and Pennsylvania, and the Battle of Gettysburg (1864); edition statement not read",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "org-aid-societies",
+    "burial-practice"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/JACOBS-1864__notesonrebelinva00jaco_djvu.txt",
+     "sha256": "7e53753bb8fe50844be02e0cbba1d8e0c4ce8eeffd3c5b143455958638a9bb5b",
+     "bytes": 83332,
+     "page_model": "heads"
+    }
+   }
+  },
+  "HOSPSCENES-1864": {
+   "title": "Hospital scenes after the battle of Gettysburg, July 1863, by the Patriot Daughters of Lancaster (Lancaster: Daily Inquirer Steam Job Print, 1864; title page read)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Hospital scenes after the battle of Gettysburg, July 1863, by the Patriot Daughters of Lancaster (Lancaster: Daily Inquirer Steam Job Print, 1864; title page read)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "org-aid-societies",
+    "nursing-diet-ward"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/HOSPSCENES-1864__hospitalscenesaf00patr_djvu.txt",
+     "sha256": "ce65adad0698acc6cdadd236300e7997e90c77a82da2eeb70e6ac1aad4546d9c",
+     "bytes": 80071,
+     "page_model": "heads"
+    }
+   }
+  },
+  "TPIERCE-1889": {
+   "title": "Tillie Pierce Alleman, At Gettysburg, or What a Girl Saw and Heard of the Battle (1889); edition statement not read; written 26 years after the events",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Tillie Pierce Alleman, At Gettysburg, or What a Girl Saw and Heard of the Battle (1889); edition statement not read; written 26 years after the events",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-south-southwest",
+    "org-aid-societies"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/TPIERCE-1889__atgettysburgorwh00alle_djvu.txt",
+     "sha256": "db450400b893a47b74b130b98affb7ec2eb984294fc5edc987a3ff5dc4ae1a06",
+     "bytes": 125116,
+     "page_model": "heads"
+    }
+   }
+  },
+  "ORSER3-v2": {
+   "title": "War of the Rebellion: Official Records, Series III, volume II (1899); the 1862 correspondence on the ambulance system among it",
+   "class": "official-report",
+   "lead": false,
+   "edition": "War of the Rebellion: Official Records, Series III, volume II (1899); the 1862 correspondence on the ambulance system among it",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-evacuation",
+    "org-union-system"
+   ],
+   "ocr_error_rate": 0.06,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/ORSER3-v2__warofrebellionof0000unse_djvu.txt",
+     "sha256": "7050328e367619fd2056b5632fc02e9e9b0aecc6e24ae9ac344db84b01f4044d",
+     "bytes": 3023888,
+     "page_model": "heads"
+    }
+   }
+  },
+  "OR-25-1": {
+   "title": "War of the Rebellion: Official Records, Series I, volume 25, part 1 (1889): Chancellorsville, with Letterman's report on that battle",
+   "class": "official-report",
+   "lead": false,
+   "edition": "War of the Rebellion: Official Records, Series I, volume 25, part 1 (1889): Chancellorsville, with Letterman's report on that battle",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-union-system",
+    "org-evacuation"
+   ],
+   "ocr_error_rate": 0.06,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/OR-25-1__warofrebellionco0025unit_djvu.txt",
+     "sha256": "0757c1009f8162c3ead6bcdc112940d93e2b7ff6ed2820fde4ca61412d31f904",
+     "bytes": 2809607,
+     "page_model": "heads"
+    }
+   }
+  },
+  "OR-29-1": {
+   "title": "War of the Rebellion: Official Records, Series I, volume 29, part 1 (1890)",
+   "class": "official-report",
+   "lead": false,
+   "edition": "War of the Rebellion: Official Records, Series I, volume 29, part 1 (1890)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-union-system"
+   ],
+   "ocr_error_rate": 0.06,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/OR-29-1__warofrebellionco0029unit_v5r6_djvu.txt",
+     "sha256": "53664b9b935a22116528558d984ce866b099edcc9a55f1bd52c933b79d9c03c1",
+     "bytes": 2914664,
+     "page_model": "heads"
+    }
+   }
+  },
+  "BL-3": {
+   "title": "Battles and Leaders of the Civil War, volume 3 (1888); includes Imboden's account of the retreat with the wounded",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Battles and Leaders of the Civil War, volume 3 (1888); includes Imboden's account of the retreat with the wounded",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-confederate",
+    "org-evacuation"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/prior/BL-3__battlesleadersof03cent_djvu.txt",
+     "sha256": "f42a03bbd58faf8934063662f892771115c5dee5ac4be631ca8f55d5543bcfcf",
+     "bytes": 3272331,
+     "page_model": "heads"
+    }
+   }
+  },
+  "SHSP-04": {
+   "title": "Southern Historical Society Papers, volume 4 (1877)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Southern Historical Society Papers, volume 4 (1877)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-confederate"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/SHSP-04__southernhistoricv4sout_djvu.txt",
+     "sha256": "6bb81a6a226d7af38a2061f4512c4c894495423b738de723ef1a132ab10d2a94",
+     "bytes": 860186,
+     "page_model": "heads"
+    }
+   }
+  },
+  "SHSP-05": {
+   "title": "Southern Historical Society Papers, volume 5 (1878)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Southern Historical Society Papers, volume 5 (1878)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-confederate"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/SHSP-05__southernhistoricv5sout_djvu.txt",
+     "sha256": "67a558806b831ca38de5fd863f80d4fb163cb3df92e19736a4cace489d949ae2",
+     "bytes": 963439,
+     "page_model": "heads"
+    }
+   }
+  },
+  "SHSP-06": {
+   "title": "Southern Historical Society Papers, volume 6 (1878)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Southern Historical Society Papers, volume 6 (1878)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-confederate"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/SHSP-06__southernhistoricv6sout_djvu.txt",
+     "sha256": "366be018544b81d50dcff7f3c965394a5c520c335da9f687a2b28307c0e3c51a",
+     "bytes": 887720,
+     "page_model": "heads"
+    }
+   }
+  },
+  "SHSP-11": {
+   "title": "Southern Historical Society Papers, volume 11 (1883)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Southern Historical Society Papers, volume 11 (1883)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-confederate"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/SHSP-11__southernhistoricv11sout_djvu.txt",
+     "sha256": "db8420acb24bddd3d98cc1fb6321e56e2cc37df1cf31018844576507940fbcfe",
+     "bytes": 1715067,
+     "page_model": "heads"
+    }
+   }
+  },
+  "SHSP-12": {
+   "title": "Southern Historical Society Papers, volume 12 (1884)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Southern Historical Society Papers, volume 12 (1884)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-confederate"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/SHSP-12__southernhistoric12sout_djvu.txt",
+     "sha256": "12846b08e09087fa13986c4b2ca762bfc8d22c36a5e9f5b59378fba72d457c86",
+     "bytes": 1673411,
+     "page_model": "heads"
+    }
+   }
+  },
+  "NJ-TOOMBS-1888": {
+   "title": "Toombs, New Jersey Troops in the Gettysburg Campaign (1888)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Toombs, New Jersey Troops in the Gettysburg Campaign (1888)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/NJ-TOOMBS-1888__newjerseytroopsi00toom_djvu.txt",
+     "sha256": "f27e47821578c8f8610a3493336294a6dbd662f2c881d217138b40d5a2c3c6ec",
+     "bytes": 598434,
+     "page_model": "heads"
+    }
+   }
+  },
+  "NJ-FINAL-1891": {
+   "title": "Final report of the Gettysburg battle-field commission of New Jersey (1891)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Final report of the Gettysburg battle-field commission of New Jersey (1891)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/NJ-FINAL-1891__finalreportofget00newj_djvu.txt",
+     "sha256": "6dc03d3f1204c235258d66034843c2c47ca7c976e75aa927512675022d57f6b1",
+     "bytes": 391518,
+     "page_model": "heads"
+    }
+   }
+  },
+  "MN-1ST-1916": {
+   "title": "History of the First Regiment Minnesota Volunteer Infantry, 1861-1864 (1916)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "History of the First Regiment Minnesota Volunteer Infantry, 1861-1864 (1916)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/MN-1ST-1916__historyoffirstre00minn_djvu.txt",
+     "sha256": "e0ce17839dbf6783f4f34b7f9ab0c197744341e11844afb315a052630d0a8f6e",
+     "bytes": 1016854,
+     "page_model": "heads"
+    }
+   }
+  },
+  "VT-GB-1914": {
+   "title": "Vermont at Gettysburg, July 1863, and fifty years later (1914)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Vermont at Gettysburg, July 1863, and fifty years later (1914)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/VT-GB-1914__vermontatgettysb00chen_djvu.txt",
+     "sha256": "bc9106283437433b7500870deb3974a2bd7608243321a1e86c6774ec0578d3ed",
+     "bytes": 132979,
+     "page_model": "heads"
+    }
+   }
+  },
+  "VT-MON-1890": {
+   "title": "Vermont monuments at Gettysburg, report of the commissioners (1890)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Vermont monuments at Gettysburg, report of the commissioners (1890)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/VT-MON-1890__vermontmonuments00verm_djvu.txt",
+     "sha256": "7a941582b7a3b272688533505c737ac7b4d7693c0acb7cbb722b7c704631dfca",
+     "bytes": 85770,
+     "page_model": "heads"
+    }
+   }
+  },
+  "OH-8TH-1889": {
+   "title": "Franklin Sawyer, The Eighth Ohio at Gettysburg (1889)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Franklin Sawyer, The Eighth Ohio at Gettysburg (1889)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/OH-8TH-1889__eighthohioatget00sawygoog_djvu.txt",
+     "sha256": "8f51b76aaedaa9687eae120158b6b7ce1668aa27bbf6fd8c2f39d39f258402c7",
+     "bytes": 56756,
+     "page_model": "heads"
+    }
+   }
+  },
+  "OH-DED-1887": {
+   "title": "Dedication of the Ohio memorials at Gettysburg (1887)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Dedication of the Ohio memorials at Gettysburg (1887)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/OH-DED-1887__dedicationofohio00ohio_djvu.txt",
+     "sha256": "afe4fa175a1db3070f15481cb30d58527d511d3e76c2abe0549d9be1eacb7a6b",
+     "bytes": 13499,
+     "page_model": "heads"
+    }
+   }
+  },
+  "IN-1913": {
+   "title": "Indiana at the fiftieth anniversary of the battle of Gettysburg (1913)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Indiana at the fiftieth anniversary of the battle of Gettysburg (1913)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/IN-1913__indianaatfiftiet00pick_djvu.txt",
+     "sha256": "a6f97756722134912e4b74e91be3b59d24d1bb0d5aa4106d46df81f5d1f9768c",
+     "bytes": 212262,
+     "page_model": "heads"
+    }
+   }
+  },
+  "HASKELL-1908": {
+   "title": "Haskell, The Battle of Gettysburg (1908 printing; narrative written in 1863)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Haskell, The Battle of Gettysburg (1908 printing; narrative written in 1863)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/HASKELL-1908__battleofgettysbu00haskuoft_djvu.txt",
+     "sha256": "43681f717e8019c987e3cbd31d4844ce3c1cbef354544a57352ad721577b524b",
+     "bytes": 273649,
+     "page_model": "heads"
+    }
+   }
+  },
+  "FREMANTLE-1864": {
+   "title": "Fremantle, Three Months in the Southern States (1864)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Fremantle, Three Months in the Southern States (1864)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-confederate"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/FREMANTLE-1864__threemonthsinsou00frem_djvu.txt",
+     "sha256": "ee25eca20c09ea509657500e05b8530b6b38de0b7fff2727c176f8c551958d3c",
+     "bytes": 496842,
+     "page_model": "heads"
+    }
+   }
+  },
+  "ALEXANDER-1907": {
+   "title": "Alexander, Military Memoirs of a Confederate (1907)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Alexander, Military Memoirs of a Confederate (1907)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-confederate"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/ALEXANDER-1907__militarymemoirso00alex_djvu.txt",
+     "sha256": "833381133e95e53e3ee95375e5e0419d39ef2486d7903ef3acc318aa9f857031",
+     "bytes": 1679470,
+     "page_model": "heads"
+    }
+   }
+  },
+  "LONGSTREET-1896": {
+   "title": "Longstreet, From Manassas to Appomattox (1896)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Longstreet, From Manassas to Appomattox (1896)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-confederate"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/LONGSTREET-1896__frommanassastoap00longuoft_djvu.txt",
+     "sha256": "1eba027506ab4ec71d07cea178e14af314246cba9aa6760b581b8efb97bd4df6",
+     "bytes": 1649877,
+     "page_model": "heads"
+    }
+   }
+  },
+  "PIERCE-F-1914": {
+   "title": "Pierce, The Battle of Gettysburg: the crest-wave of the American Civil War (1914)",
+   "class": "reference-secondary",
+   "lead": false,
+   "edition": "Pierce, The Battle of Gettysburg: the crest-wave of the American Civil War (1914)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/PIERCE-F-1914__battleofgettysbu00pier_djvu.txt",
+     "sha256": "23dcf0f436f83326939640fccad1b226f3d834b28f803a6663bf4bf74f07ac41",
+     "bytes": 696021,
+     "page_model": "heads"
+    }
+   }
+  },
+  "MEADE-LL-v1": {
+   "title": "The Life and Letters of George Gordon Meade, volume 1 (1913)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "The Life and Letters of George Gordon Meade, volume 1 (1913)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/MEADE-LL-v1__lifelettersofgeo01mead_djvu.txt",
+     "sha256": "4832d5d09123485ab1f4351dbe2328c28981b8d71141150da3341ecb4eb739fb",
+     "bytes": 1162102,
+     "page_model": "heads"
+    }
+   }
+  },
+  "MEADE-LL-v2": {
+   "title": "The Life and Letters of George Gordon Meade, volume 2 (1913)",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "The Life and Letters of George Gordon Meade, volume 2 (1913)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/MEADE-LL-v2__lifelettersofgeo02mead_djvu.txt",
+     "sha256": "ef1d8fd4985f0977de18c6429f346732ff900e1a77665f40f2a684408cfb458d",
+     "bytes": 1326931,
+     "page_model": "heads"
+    }
+   }
+  },
+  "BACH-KEY-1864": {
+   "title": "Bachelder, Key to the isometrical drawing of the Gettysburg battle-field (1864)",
+   "class": "reference-secondary",
+   "lead": false,
+   "edition": "Bachelder, Key to the isometrical drawing of the Gettysburg battle-field (1864)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/BACH-KEY-1864__keytobacheldersi00bach_djvu.txt",
+     "sha256": "f930dc5294b2e6f25a5d8a18a6f8ce6b07bc45b82e175a7d1cc40b7e9a04679e",
+     "bytes": 19948,
+     "page_model": "heads"
+    }
+   }
+  },
+  "BACH-REPULSE-1870": {
+   "title": "Bachelder, Descriptive key to the painting of the repulse of Longstreet's assault (1870)",
+   "class": "reference-secondary",
+   "lead": false,
+   "edition": "Bachelder, Descriptive key to the painting of the repulse of Longstreet's assault (1870)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/BACH-REPULSE-1870__paintingoftherepulse00bachrich_djvu.txt",
+     "sha256": "9707cac7288706b821bca0dea6f4df1330a6574ce63e782a15b6c35ff70102db",
+     "bytes": 238804,
+     "page_model": "heads"
+    }
+   }
+  },
+  "BACH-WHATTOSEE-1873": {
+   "title": "Bachelder, Gettysburg: What to See (1873)",
+   "class": "reference-secondary",
+   "lead": false,
+   "edition": "Bachelder, Gettysburg: What to See (1873)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/BACH-WHATTOSEE-1873__gettysburgwhatto00bach_djvu.txt",
+     "sha256": "0d2f6449ab69c5cbc8a67c83031115fa91aa4b8526b30dac8bab882d42088fc4",
+     "bytes": 268112,
+     "page_model": "heads"
+    }
+   }
+  },
+  "BACH-WHATTOSEE-1889": {
+   "title": "Bachelder, Gettysburg: What to See and How to See It (1889)",
+   "class": "reference-secondary",
+   "lead": false,
+   "edition": "Bachelder, Gettysburg: What to See and How to See It (1889)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/BACH-WHATTOSEE-1889__gettysburgwhatt00bach_djvu.txt",
+     "sha256": "f52a0f78c625d50780852f7010f39546488a176649ecf6388b667a221c97bf10",
+     "bytes": 255499,
+     "page_model": "heads"
+    }
+   }
+  },
+  "BACH-STORY-1904": {
+   "title": "Bachelder, The Story of the Battle of Gettysburg (1904)",
+   "class": "reference-secondary",
+   "lead": false,
+   "edition": "Bachelder, The Story of the Battle of Gettysburg (1904)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/BACH-STORY-1904__storybattlegett00bachgoog_djvu.txt",
+     "sha256": "0ef86dd4f39681c62dd0e0fed462ce79c11c7b90afd6028943da1128c9d74fc0",
+     "bytes": 201868,
+     "page_model": "heads"
+    }
+   }
+  },
+  "CEM-REPORT-1867": {
+   "title": "Revised report to the legislature of Pennsylvania relative to the Soldiers' National Cemetery at Gettysburg (1867)",
+   "class": "official-report",
+   "lead": false,
+   "edition": "Revised report to the legislature of Pennsylvania relative to the Soldiers' National Cemetery at Gettysburg (1867)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "burial-practice"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/CEM-REPORT-1867__revisedreportmad00penn_djvu.txt",
+     "sha256": "68ae55ff86bd557f03e82021a575eb3e78a73c2cbfa424fa90a026f749ee058c",
+     "bytes": 492481,
+     "page_model": "heads"
+    }
+   }
+  },
+  "CEM-BARTLETT-1874": {
+   "title": "Bartlett, The Soldiers' National Cemetery at Gettysburg (1874)",
+   "class": "institutional-history",
+   "lead": false,
+   "edition": "Bartlett, The Soldiers' National Cemetery at Gettysburg (1874)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "burial-practice"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/CEM-BARTLETT-1874__soldiersnational00bart_djvu.txt",
+     "sha256": "026e5fc357a1a70481f9aec4615081d9ccd8c7389d7d82319ea12eb63796c083",
+     "bytes": 293286,
+     "page_model": "heads"
+    }
+   }
+  },
+  "CEM-INDIANA-1865": {
+   "title": "Soldiers' National Cemetery, Gettysburg, Pennsylvania (Indiana, 1865)",
+   "class": "contemporary-print",
+   "lead": false,
+   "edition": "Soldiers' National Cemetery, Gettysburg, Pennsylvania (Indiana, 1865)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "burial-practice"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/CEM-INDIANA-1865__soldiersnational00indi_djvu.txt",
+     "sha256": "9d8ad3edcb700296637f8e84a6fea203354a23cb159771674a616c91af43a92b",
+     "bytes": 79093,
+     "page_model": "heads"
+    }
+   }
+  },
+  "MA-BURIAL-1863": {
+   "title": "Report of the Joint Special Committee on the burial of Massachusetts dead at Gettysburg (Boston, 1863)",
+   "class": "official-report",
+   "lead": false,
+   "edition": "Report of the Joint Special Committee on the burial of Massachusetts dead at Gettysburg (Boston, 1863)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "burial-practice"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/MA-BURIAL-1863__reportofjointspe3677bost_djvu.txt",
+     "sha256": "593fe2fd43999853c1f9f6740a2f894b639cc68cf5c4601f3d0113f1665ce04c",
+     "bytes": 44023,
+     "page_model": "heads"
+    }
+   }
+  },
+  "EVERETT-1864": {
+   "title": "Address of Edward Everett at the consecration of the National Cemetery at Gettysburg (1864)",
+   "class": "contemporary-print",
+   "lead": false,
+   "edition": "Address of Edward Everett at the consecration of the National Cemetery at Gettysburg (1864)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "burial-practice"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/EVERETT-1864__addressofhone3521ever_djvu.txt",
+     "sha256": "7bd245b3cb464c086674435db2dbd6a0878fefc12d0089e9533885ba40fdcd70",
+     "bytes": 162824,
+     "page_model": "heads"
+    }
+   }
+  },
+  "FOX-1889": {
+   "title": "Fox, Regimental Losses in the American Civil War (1889)",
+   "class": "reference-secondary",
+   "lead": false,
+   "edition": "Fox, Regimental Losses in the American Civil War (1889)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/prior/FOX-1889__reglossescivilwar00foxwrich_djvu.txt",
+     "sha256": "9bf4952766f3030ca488581c1c3f903a4f4d0db031f2bbed14910f85a0a70468",
+     "bytes": 2255231,
+     "page_model": "heads"
+    }
+   }
+  },
+  "ME-GB-1898": {
+   "title": "Maine at Gettysburg (1898); the one local volume with long surgeons' and hospital narratives",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Maine at Gettysburg (1898); the one local volume with long surgeons' and hospital narratives",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest",
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/prior/ME-GB-1898__maineatgettysbu01commgoog_djvu.txt",
+     "sha256": "6543c84d612b6f9b3889d86351f634ee1377ec44a732ab98949148d311758fd9",
+     "bytes": 1627370,
+     "page_model": "heads"
+    }
+   }
+  },
+  "MI-GB-1889": {
+   "title": "Michigan at Gettysburg (1889)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Michigan at Gettysburg (1889)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/prior/MI-GB-1889__cu31924030924736_djvu.txt",
+     "sha256": "7c5e0b1bedbac34b5d5888df9f8c0a7245b44ac709373c527262ba17e17c6311",
+     "bytes": 352794,
+     "page_model": "heads"
+    }
+   }
+  },
+  "NY-GB-1900-v2": {
+   "title": "Final report on the battlefield of Gettysburg, New York Monuments Commission, volume 2 (1900)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Final report on the battlefield of Gettysburg, New York Monuments Commission, volume 2 (1900)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/prior/NY-GB-1900-v2__finalreportonba00chatgoog_djvu.txt",
+     "sha256": "51d6548a9a3fc1f6188d5bb34a83f6d5afe6bea4906b76b7b12cadcfb6ac313d",
+     "bytes": 2874403,
+     "page_model": "heads"
+    }
+   }
+  },
+  "NY-GB-1900": {
+   "title": "New York at Gettysburg, volume 1 (1900)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "New York at Gettysburg, volume 1 (1900)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/prior/NY-GB-1900__newyorkatgettysb0001unse_djvu.txt",
+     "sha256": "1fc4313f9a55dba48b4e0c0c5a59cb605097c9df156e42cf0f3be9ae0031a4f9",
+     "bytes": 1348665,
+     "page_model": "heads"
+    }
+   }
+  },
+  "NY-GB-1902-v3": {
+   "title": "New York at Gettysburg, volume 3 (1902)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "New York at Gettysburg, volume 3 (1902)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/prior/NY-GB-1902-v3__cu31924052145475_djvu.txt",
+     "sha256": "a538722137a1b8497cd85c49fcb1c5aafdb677883d3cf8cedbba3740e42d7bd1",
+     "bytes": 1737369,
+     "page_model": "heads"
+    }
+   }
+  },
+  "PA-GB-1904": {
+   "title": "Pennsylvania at Gettysburg, volume 2 (1904)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Pennsylvania at Gettysburg, volume 2 (1904)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/prior/PA-GB-1904__pennsylvaniaatge02lcpenn_djvu.txt",
+     "sha256": "c396b5496b47bb33d0c07111be5f4a14739c6bc1b724fbb98a202b7ba089fc41",
+     "bytes": 2118643,
+     "page_model": "heads"
+    }
+   }
+  },
+  "PA-GB-1914-v2": {
+   "title": "Pennsylvania at Gettysburg, volume 2, second edition (1914)",
+   "class": "regimental-history",
+   "lead": false,
+   "edition": "Pennsylvania at Gettysburg, volume 2, second edition (1914)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/ws9/prior/PA-GB-1914-v2__pennsgettysburg02reynrich_djvu.txt",
+     "sha256": "24b14e4292d5899988b11cc0325fac813d865202b26ccd0270ace7ba63ee7a7b",
+     "bytes": 1987191,
+     "page_model": "heads"
+    }
+   }
+  },
+  "ADAMS-SENTINEL-1863": {
+   "title": "Adams Sentinel (Gettysburg), weekly issues of 1863 (the file key is the issue date)",
+   "class": "contemporary-print",
+   "lead": false,
+   "edition": "Adams Sentinel (Gettysburg), weekly issues of 1863 (the file key is the issue date)",
+   "rights": "public domain (US newspaper of 1863); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "org-aid-societies",
+    "camp-letterman",
+    "burial-practice",
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.07,
+   "files": {
+    "1863-06-02": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-06-02__adams-sentinel-1863-06-02_djvu.txt",
+     "sha256": "2be89166598743eb3f46390c9a898b6054bba60e813d5a2894790c351ab3b4dd",
+     "bytes": 170827,
+     "page_model": "none"
+    },
+    "1863-06-09": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-06-09__adams-sentinel-1863-06-09_djvu.txt",
+     "sha256": "b53c3338e0f8025cfcfa83af5d040f268cdccf7bd36c623a1a1befa1977ccbe1",
+     "bytes": 174431,
+     "page_model": "none"
+    },
+    "1863-06-16": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-06-16__adams-sentinel-1863-06-16_djvu.txt",
+     "sha256": "5f6ef829d05ff6454401a0e85129504b7b04bbd75b080f1200f46250ba444aae",
+     "bytes": 146683,
+     "page_model": "none"
+    },
+    "1863-06-23": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-06-23__adams-sentinel-1863-06-23_djvu.txt",
+     "sha256": "2b2024ca88bb3d076591ae5ab15dc8f99516cd07a44236d285dbf5463f54f53a",
+     "bytes": 175195,
+     "page_model": "none"
+    },
+    "1863-06-30": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-06-30__adams-sentinel-1863-06-30_djvu.txt",
+     "sha256": "3b878befc707fffeca36e4d80de65f98c4425899f822c754be96d7e35072e975",
+     "bytes": 170938,
+     "page_model": "none"
+    },
+    "1863-07-07": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-07-07__adams-sentinel-1863-07-07_djvu.txt",
+     "sha256": "b1ed7639f24fec6479c0c29ece3c21aeeabdd725f485f2d8fb668e97337fb915",
+     "bytes": 41271,
+     "page_model": "none"
+    },
+    "1863-07-14": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-07-14__adams-sentinel-1863-07-14_djvu.txt",
+     "sha256": "0f41b82ceba47e9ac301fa3cbdcfb673ea43dbb3d0d6d3dc28a2ef1a42578e9e",
+     "bytes": 42302,
+     "page_model": "none"
+    },
+    "1863-07-21": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-07-21__adams-sentinel-1863-07-21_djvu.txt",
+     "sha256": "957d18aa8947fe5853006cf3bf35be7047e626f8322e537e34f4f4a8a350c012",
+     "bytes": 172351,
+     "page_model": "none"
+    },
+    "1863-07-28": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-07-28__adams-sentinel-1863-07-28_djvu.txt",
+     "sha256": "64e326eca9d828a154c5fdf9d5b8b2f9ef7d8a5b3b22b9b5039b4052b20e8f4e",
+     "bytes": 150707,
+     "page_model": "none"
+    },
+    "1863-08-04": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-08-04__adams-sentinel-1863-08-04_djvu.txt",
+     "sha256": "91268718186a12870c479bd5197ceb568c8d964703cdbd3ec2540c60337f6939",
+     "bytes": 172696,
+     "page_model": "none"
+    },
+    "1863-08-11": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-08-11__adams-sentinel-1863-08-11_djvu.txt",
+     "sha256": "bb3da3854c424ce17787326ce801a1b3d6c3a54f43f0014acc308f73063dade8",
+     "bytes": 170151,
+     "page_model": "none"
+    },
+    "1863-08-18": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-08-18__adams-sentinel-1863-08-18_djvu.txt",
+     "sha256": "ef9aae54633ded63c804076e3a9b8ccdf42568cbd5d002aa7da8fae99efa9b75",
+     "bytes": 172360,
+     "page_model": "none"
+    },
+    "1863-08-25": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-08-25__adams-sentinel-1863-08-25_djvu.txt",
+     "sha256": "a5d89d739ecc041ad07eb5950277feadd27111f1e93b5b0664b680d487a484bd",
+     "bytes": 172351,
+     "page_model": "none"
+    },
+    "1863-09-01": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-09-01__adams-sentinel-1863-09-01_djvu.txt",
+     "sha256": "bc37023764cac4c89bc38cdc5103af9cad92363b8ebeeefd5aa47dc5ddb83a38",
+     "bytes": 167215,
+     "page_model": "none"
+    },
+    "1863-09-08": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-09-08__adams-sentinel-1863-09-08_djvu.txt",
+     "sha256": "f15ea917013aa1ae20499400d0c30d774c9d7edd6affbc46ef3436ed5abd0524",
+     "bytes": 175957,
+     "page_model": "none"
+    },
+    "1863-09-15": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-09-15__adams-sentinel-1863-09-15_djvu.txt",
+     "sha256": "e96e51eabb1b618165b0294c32078aa51da47940b9db6c551d0bbd96697aa892",
+     "bytes": 170974,
+     "page_model": "none"
+    },
+    "1863-09-22": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-09-22__adams-sentinel-1863-09-22_djvu.txt",
+     "sha256": "c289e776141244196b6a2048c00aef6edaf60a432bd17b3cbcf36a97742a5fd7",
+     "bytes": 172497,
+     "page_model": "none"
+    },
+    "1863-09-29": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-09-29__adams-sentinel-1863-09-29_djvu.txt",
+     "sha256": "67b8788a0185d10a80d3311ff3c972698c7813368c3ea1b5717f207dcfd482b3",
+     "bytes": 168221,
+     "page_model": "none"
+    },
+    "1863-10-06": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-10-06__adams-sentinel-1863-10-06_djvu.txt",
+     "sha256": "74ae97ea02cdc68da2019623c0c8a4277e41498f13adabbc60fb0b589b142f6b",
+     "bytes": 173766,
+     "page_model": "none"
+    },
+    "1863-10-13": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-10-13__adams-sentinel-1863-10-13_djvu.txt",
+     "sha256": "fc48196f31e2383d1f400b6dd5f8e8b92ece101bbfe9bbfa0a9f9299591dda3e",
+     "bytes": 173832,
+     "page_model": "none"
+    },
+    "1863-10-20": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-10-20__adams-sentinel-1863-10-20_djvu.txt",
+     "sha256": "de1f43df8de2403aff38b8da4bf3235ef2040e5e0a176710a899d6bb9aea11d9",
+     "bytes": 173846,
+     "page_model": "none"
+    },
+    "1863-10-27": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-10-27__adams-sentinel-1863-10-27_djvu.txt",
+     "sha256": "b780988e5daff283f6ffeb5fcb7ccddb2c31f516a6fdab5f2c6d1da96afa772e",
+     "bytes": 165746,
+     "page_model": "none"
+    },
+    "1863-11-03": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-11-03__adams-sentinel-1863-11-03_djvu.txt",
+     "sha256": "ef5b4652525957ceebeaea2f62791b2780aaf9075382fb413c1e6367ed53ade2",
+     "bytes": 154430,
+     "page_model": "none"
+    },
+    "1863-11-10": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-11-10__adams-sentinel-1863-11-10_djvu.txt",
+     "sha256": "bcf05977e14d872081ec5b204059751df9e6be81c4f91af6cacc6dcc4a9d95ea",
+     "bytes": 156303,
+     "page_model": "none"
+    },
+    "1863-11-17": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-11-17__adams-sentinel-1863-11-17_djvu.txt",
+     "sha256": "a2850d28170ef01fdff2bba51589c584ae1a45b08441d8e4e269d87589d43fb8",
+     "bytes": 169107,
+     "page_model": "none"
+    },
+    "1863-11-24": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-11-24__adams-sentinel-1863-11-24_djvu.txt",
+     "sha256": "d543582182063ee108f74fc6f22bf1ef5ba5f9da950f7c76b52b22e71b6699ae",
+     "bytes": 169744,
+     "page_model": "none"
+    },
+    "1863-12-01": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-12-01__adams-sentinel-1863-12-01_djvu.txt",
+     "sha256": "7a7c61d707d88fc4b5bfe492a8d9fca9a9c6574208d2482f7d54e5359f920735",
+     "bytes": 116864,
+     "page_model": "none"
+    },
+    "1863-12-08": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-12-08__adams-sentinel-1863-12-08_djvu.txt",
+     "sha256": "9eeba3ba6f572a2d21f5c1b9f7a71fca1c711b9c20ce250b1d932238217a3666",
+     "bytes": 166410,
+     "page_model": "none"
+    },
+    "1863-12-15": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-12-15__adams-sentinel-1863-12-15_djvu.txt",
+     "sha256": "63e254af9090c278f523ff884c6580c8d1f6785d7df0245243667b1c27bcc200",
+     "bytes": 133886,
+     "page_model": "none"
+    },
+    "1863-12-22": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-12-22__adams-sentinel-1863-12-22_djvu.txt",
+     "sha256": "393654d819948261916288f3b0e2df13865d0fbdbfa357976417bf482528ad66",
+     "bytes": 160321,
+     "page_model": "none"
+    },
+    "1863-12-29": {
+     "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-12-29__adams-sentinel-1863-12-29_djvu.txt",
+     "sha256": "cd73d2e2579dc8e405f5ec4fb4c60911b0b621cdccc4eab494f398745e301dff",
+     "bytes": 82802,
+     "page_model": "none"
+    }
+   },
+   "notes": "newspaper OCR is poor: quote short passages; a notice or an advertisement states what the paper printed, not what happened"
+  },
+  "GBG-COMPILER-1863": {
+   "title": "Gettysburg Compiler, weekly issues of 1863 (the file key is the issue date)",
+   "class": "contemporary-print",
+   "lead": false,
+   "edition": "Gettysburg Compiler, weekly issues of 1863 (the file key is the issue date)",
+   "rights": "public domain (US newspaper of 1863); the OCR text is machine output of the scan",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "sites-town",
+    "org-aid-societies",
+    "camp-letterman",
+    "burial-practice",
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.07,
+   "files": {
+    "1863-06-01": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-06-01__gettysburg-compiler-1863-06-01_djvu.txt",
+     "sha256": "b17a797f18da0df018609797e8924feb0800abf01893d98118a9c1a2683c943f",
+     "bytes": 209321,
+     "page_model": "none"
+    },
+    "1863-06-08": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-06-08__gettysburg-compiler-1863-06-08_djvu.txt",
+     "sha256": "ce6f03cdd0be632ec5f720a54e8235d80ff1983ca30695d4fb1cc6f889079fe7",
+     "bytes": 232378,
+     "page_model": "none"
+    },
+    "1863-06-15": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-06-15__gettysburg-compiler-1863-06-15_djvu.txt",
+     "sha256": "d27f8e7d3a8e32c9980adf2730657da8dc72a55db4540e92440eb59729a273ee",
+     "bytes": 121491,
+     "page_model": "none"
+    },
+    "1863-06-22": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-06-22__gettysburg-compiler-1863-06-22_djvu.txt",
+     "sha256": "8de6d338361e5ba5c525b76e661c04a2fd186a19d78d46dc92dd02044c7a9b92",
+     "bytes": 248026,
+     "page_model": "none"
+    },
+    "1863-06-29": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-06-29__gettysburg-compiler-1863-06-29_djvu.txt",
+     "sha256": "1f6c5cc96ff7644fb1e0a561e84a843e5bc5c53314365e99921d30b1ccdc5d5f",
+     "bytes": 212958,
+     "page_model": "none"
+    },
+    "1863-07-13": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-07-13__gettysburg-compiler-1863-07-13_djvu.txt",
+     "sha256": "ffaa744974f6d958c1a2b220035e2b93c8cd3afddd5fad5c0039a5a7ab8ed65f",
+     "bytes": 256366,
+     "page_model": "none"
+    },
+    "1863-07-20": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-07-20__gettysburg-compiler-1863-07-20_djvu.txt",
+     "sha256": "254f9b71e5eb0f5a6e94c942a6bfaae2d8d1c8675a42f751abc7eca40d320e9b",
+     "bytes": 181832,
+     "page_model": "none"
+    },
+    "1863-07-27": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-07-27__gettysburg-compiler-1863-07-27_djvu.txt",
+     "sha256": "22951fac916c931819fc66e4ceeca4dfc611b80b9bcb639a9ccbaf480f5fbf8a",
+     "bytes": 297598,
+     "page_model": "none"
+    },
+    "1863-08-03": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-08-03__gettysburg-compiler-1863-08-03_djvu.txt",
+     "sha256": "91aebef598951753432ecc9c9497e5768ebf9557ab43e30fbfdb8e4d872bd9ad",
+     "bytes": 163086,
+     "page_model": "none"
+    },
+    "1863-08-10": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-08-10__gettysburg-compiler-1863-08-10_djvu.txt",
+     "sha256": "58dc508ff672e96c95bd5f294e704304ebdaf099f4bb1531eba9db12e8fbf71f",
+     "bytes": 249089,
+     "page_model": "none"
+    },
+    "1863-08-17": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-08-17__gettysburg-compiler-1863-08-17_djvu.txt",
+     "sha256": "d4251606912004d5a3680cadfb0a5544121cbb357d38b9d6316ef157b63a6b97",
+     "bytes": 239528,
+     "page_model": "none"
+    },
+    "1863-08-24": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-08-24__gettysburg-compiler-1863-08-24_djvu.txt",
+     "sha256": "90584dbe28f9d675f46061d6f490bad550192da5f9e5fe885a6f917841f0a6f7",
+     "bytes": 226211,
+     "page_model": "none"
+    },
+    "1863-08-31": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-08-31__gettysburg-compiler-1863-08-31_djvu.txt",
+     "sha256": "8a2b1dc7adbb43222e8b4e18f3f062424f64afef84ffc933b8ad4df462ed8efe",
+     "bytes": 245686,
+     "page_model": "none"
+    },
+    "1863-09-07": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-09-07__gettysburg-compiler-1863-09-07_djvu.txt",
+     "sha256": "58be077028bc15a54a0000dedbd0a5b7ddbb638c03fcbc2f66514cfd3e1f68f6",
+     "bytes": 106829,
+     "page_model": "none"
+    },
+    "1863-09-14": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-09-14__gettysburg-compiler-1863-09-14_djvu.txt",
+     "sha256": "f4f79dd4b5863e26f5fcbce69e44d86a25bc1a86cf7322ecb5f1f893829cda1c",
+     "bytes": 177358,
+     "page_model": "none"
+    },
+    "1863-09-21": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-09-21__gettysburg-compiler-1863-09-21_djvu.txt",
+     "sha256": "3d56bfdaea20d1cc30db0dda99931882f6ad272f38a2a56349e6fe985251c155",
+     "bytes": 207580,
+     "page_model": "none"
+    },
+    "1863-09-28": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-09-28__gettysburg-compiler-1863-09-28_djvu.txt",
+     "sha256": "5ac62b339c71fe31ab7d00c7882aa1385ee29c51859fe2a991ebfe53fa7725a5",
+     "bytes": 325544,
+     "page_model": "none"
+    },
+    "1863-10-05": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-10-05__gettysburg-compiler-1863-10-05_djvu.txt",
+     "sha256": "e96a3c9ea1ff19fde88a1c80c4dbbd21006e7aeca1ed216a7602d50967948296",
+     "bytes": 153369,
+     "page_model": "none"
+    },
+    "1863-10-12": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-10-12__gettysburg-compiler-1863-10-12_djvu.txt",
+     "sha256": "2335adfd91addcaecb07285e1894e94f827b64f48e1aa0e97b5a7de27161a4ed",
+     "bytes": 216727,
+     "page_model": "none"
+    },
+    "1863-10-19": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-10-19__gettysburg-compiler-1863-10-19_djvu.txt",
+     "sha256": "8ae4a7cbe0b501eab7948023ca29b713e201b3325fe0634a115516d4b60fb9f4",
+     "bytes": 207013,
+     "page_model": "none"
+    },
+    "1863-10-26": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-10-26__gettysburg-compiler-1863-10-26_djvu.txt",
+     "sha256": "efd9d7ce5995c1e538c4b313dbac4778c9c5e0678e2093e176a8514b64c09b27",
+     "bytes": 173219,
+     "page_model": "none"
+    },
+    "1863-11-02": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-11-02__gettysburg-compiler-1863-11-02_djvu.txt",
+     "sha256": "f99143800dbe7267988c75dde7ce9f62e0a75897e0bea5834f59297fa32c3577",
+     "bytes": 123100,
+     "page_model": "none"
+    },
+    "1863-11-09": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-11-09__gettysburg-compiler-1863-11-09_djvu.txt",
+     "sha256": "19d1d1826912e816f352a3eb546b6a4b19a7d3084ca18c7ec7fb000f1e0aa9fc",
+     "bytes": 182474,
+     "page_model": "none"
+    },
+    "1863-11-16": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-11-16__gettysburg-compiler-1863-11-16_djvu.txt",
+     "sha256": "5d3bf0b3bd4c77a97d7783d1459446ce190ec8099d751139f53d106b1fd26d2a",
+     "bytes": 217494,
+     "page_model": "none"
+    },
+    "1863-11-23": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-11-23__gettysburg-compiler-1863-11-23_djvu.txt",
+     "sha256": "84149ff8bdb09e6fc4d02ab0e4828e69c12123b79906a0d906f32a55d39e20b6",
+     "bytes": 106174,
+     "page_model": "none"
+    },
+    "1863-11-30": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-11-30__gettysburg-compiler-1863-11-30_djvu.txt",
+     "sha256": "ae61ed321a1ecfdcb7f62eb4d54cc79446ceaaf6229f1d3872aace8e36359f27",
+     "bytes": 217426,
+     "page_model": "none"
+    },
+    "1863-12-07": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-12-07__gettysburg-compiler-1863-12-07_djvu.txt",
+     "sha256": "ba5860361c241d853a20c7834077fd0133601a831a3640f310f039c43f9a062d",
+     "bytes": 103453,
+     "page_model": "none"
+    },
+    "1863-12-14": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-12-14__gettysburg-compiler-1863-12-14_djvu.txt",
+     "sha256": "b18a064db3a83e2ad6b18ca13478e8fe55518032f5d7e6e4d2019a0c364934ef",
+     "bytes": 225507,
+     "page_model": "none"
+    },
+    "1863-12-21": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-12-21__gettysburg-compiler-1863-12-21_djvu.txt",
+     "sha256": "c73c981f781d79e38e82c226a03a945b0f77432414298b6d5b11e06fd6b8be97",
+     "bytes": 158347,
+     "page_model": "none"
+    },
+    "1863-12-28": {
+     "path": "tmp/library/ws9/GBG-COMPILER-1863-12-28__gettysburg-compiler-1863-12-28_djvu.txt",
+     "sha256": "21a5f88068ad5b775c3339f4e15c84bd4758f18cd22b1dd311e284e43fe3bb8e",
+     "bytes": 255152,
+     "page_model": "none"
+    }
+   },
+   "notes": "newspaper OCR is poor: quote short passages; a notice or an advertisement states what the paper printed, not what happened"
+  },
+  "OR27": {
+   "title": "War of the Rebellion: Official Records, Series I, volume 27, parts 1 to 3, Washington: Government Printing Office, 1889; report ids and printed pages: docs/battle-theatre/library/or27_index.json",
+   "class": "official-report",
+   "lead": false,
+   "edition": "War of the Rebellion: Official Records, Series I, volume 27, parts 1 to 3, Washington: Government Printing Office, 1889; report ids and printed pages: docs/battle-theatre/library/or27_index.json",
+   "rights": "United States government work",
+   "origin": "library queue, present before the medical workstream",
+   "groups": [
+    "org-union-system",
+    "org-evacuation",
+    "org-confederate",
+    "gettysburg-statistics",
+    "camp-letterman"
+   ],
+   "ocr_error_rate": 0.06,
+   "files": {
+    "pt1": {
+     "path": "tmp/library/or27/cu31924077699761_djvu.txt",
+     "sha256": "5c041e6ebc70cd4e33a325b411c7bec0b22ffa6dedbb71fbd4943fb57977a6ca",
+     "bytes": 4015765,
+     "page_model": "or27:1"
+    },
+    "pt2": {
+     "path": "tmp/library/or27/cu31924077728255_djvu.txt",
+     "sha256": "3d89c8396d3360cfe180d112d73f685603c95f68379d9dfb5a4f899133c86995",
+     "bytes": 3946453,
+     "page_model": "or27:2"
+    },
+    "pt3": {
+     "path": "tmp/library/or27/cu31924077700262_djvu.txt",
+     "sha256": "3c7212f2954d83606e38fb00337fcaf78f85193b56b79a341d1f28659f4d93c1",
+     "bytes": 3406812,
+     "page_model": "or27:3"
+    }
+   },
+   "notes": "medical reports: OR27-1-R003 Cuyler (p. 24), R004 Vollum (p. 25), R016 Letterman (p. 195); OR27-2-R427 Guild (p. 326), R431 Patterson (p. 364); OR27-3 correspondence (for example D1547 Cuyler to Hammond, 20 July, p. 730)"
+  },
+  "NPS-DEV-POLICY": {
+   "title": "Development Policy for Gettysburg National Military Park (Farm Lands and Farm Structures)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Development Policy for Gettysburg National Military Park (Farm Lands and Farm Structures)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-DEV-POLICY/NPS-DEV-POLICY.txt",
+     "sha256": "048b13252d8d609021eaad0c0c352085d45557cd43e5bf5d1439281336516268",
+     "bytes": 8453,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/dev-policy.pdf"
+  },
+  "NPS-HSR-SLYDER": {
+   "title": "Historic Structure Report: J. Slyder Farm Buildings (Part I), Gettysburg National Military Park (April-May 1959 (review memoranda of April 30 and May 8, 1959))",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Historic Structure Report: J. Slyder Farm Buildings (Part I), Gettysburg National Military Park (April-May 1959 (review memoranda of April 30 and May 8, 1959))",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-HSR-SLYDER/NPS-HSR-SLYDER.txt",
+     "sha256": "6f643ecdd335595ed0b9ec128b6f61fc174639eebfcf27598e51d1a168f2fce0",
+     "bytes": 10461,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/hsr-slyder-farm-p1.pdf"
+  },
+  "NPS-HS-SPANGLER-HENRY": {
+   "title": "Historical Statement: Henry Spangler Farm Buildings",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Historical Statement: Henry Spangler Farm Buildings",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-HS-SPANGLER-HENRY/NPS-HS-SPANGLER-HENRY.txt",
+     "sha256": "cfe9685a810192c93cd1892d6da6712b789a06e5a9472e5adcfc4bd196f279ea",
+     "bytes": 14790,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/spangler-farm.pdf"
+  },
+  "NPS-BRIEN-FARM": {
+   "title": "The Brien Farm and Family (June 1972)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "The Brien Farm and Family (June 1972)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-BRIEN-FARM/NPS-BRIEN-FARM.txt",
+     "sha256": "0d49364b257d49b7f267ea418789cbecf72471a81128c537005d3635700c32e0",
+     "bytes": 49719,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/brien-farm.pdf"
+  },
+  "NPS-BRT-ECOLOGY": {
+   "title": "The Ecology of Big Round Top",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "The Ecology of Big Round Top",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-BRT-ECOLOGY/NPS-BRT-ECOLOGY.txt",
+     "sha256": "92d7c6df35e79e499167a6ed9106bf3c9ebd1ceb9a6bb72ab8923548ba9783eb",
+     "bytes": 27792,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/big-round-top-eco.pdf"
+  },
+  "NPS-MON-LOC-1932": {
+   "title": "The Locations of the Monuments, Markers and Tablets on the Battlefield of Gettysburg (1932)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "The Locations of the Monuments, Markers and Tablets on the Battlefield of Gettysburg (1932)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-MON-LOC-1932/NPS-MON-LOC-1932.txt",
+     "sha256": "30c6cfae70cdf9c77bc62a12e7e57ff0bc17811e241c59816713b0baf6709a3d",
+     "bytes": 63295,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/mon-locations-1932.pdf"
+  },
+  "NPS-MON-LOC-1993": {
+   "title": "The Location of the Monuments Markers, and Tablets on Gettysburg Battlefield (1993)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "The Location of the Monuments Markers, and Tablets on Gettysburg Battlefield (1993)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-MON-LOC-1993/NPS-MON-LOC-1993.txt",
+     "sha256": "b86dd696be176eda8372ad4780e3a69e2f1051615799d8480f9d0f43484e352c",
+     "bytes": 84758,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/mon-locations-1993.pdf"
+  },
+  "NPS-MCMILLAN-HOUSE": {
+   "title": "Report on McMillan House: Architectural section, Gettysburg National Military Park",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Report on McMillan House: Architectural section, Gettysburg National Military Park",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-MCMILLAN-HOUSE/NPS-MCMILLAN-HOUSE.txt",
+     "sha256": "a9cb533ecfa1b658549d004aedde8b225fa324a5b0e61e0ed8d6b388bad3c1b7",
+     "bytes": 5563,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/mcmillan-house-as.pdf"
+  },
+  "NPS-CLI-CEMETERY": {
+   "title": "Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg National Military Park (2019)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg National Military Park (2019)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "burial-practice"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLI-CEMETERY/NPS-CLI-CEMETERY.txt",
+     "sha256": "57a1ba99644bb18c7c5cf1b94b97e911178540d0b714c1334b6a15ce0676e367",
+     "bytes": 112641,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/cli-cemetery.pdf"
+  },
+  "NPS-EXTENSION-1940": {
+   "title": "Report on Proposed Extension of Gettysburg Borough Line Southward Along Emmitsburg Road and a Historical Statement Relating to the Significance of This Area",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Report on Proposed Extension of Gettysburg Borough Line Southward Along Emmitsburg Road and a Historical Statement Relating to the Significance of This Area",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-EXTENSION-1940/NPS-EXTENSION-1940.txt",
+     "sha256": "45c52e6bc84b9be5b5224bb32a1cc25ebdd559ed7ed1bb99f91e9c2f5ab8d656",
+     "bytes": 13079,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/extension-1940.pdf"
+  },
+  "NPS-HSR-MCCLEAN-BARN": {
+   "title": "Historic Structure Report: The McClean Barn, Gettysburg National Military Park",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Historic Structure Report: The McClean Barn, Gettysburg National Military Park",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-HSR-MCCLEAN-BARN/NPS-HSR-MCCLEAN-BARN.txt",
+     "sha256": "926b6b9168afe47db2ba09a9f7aae93ff481a37c5c1d9ef9d0dd3da59d3d7281",
+     "bytes": 86630,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/hsr-mcclean-barn.pdf"
+  },
+  "NPS-HCSR": {
+   "title": "Historic Cemetery Survey Report: Gettysburg National Military Park",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Historic Cemetery Survey Report: Gettysburg National Military Park",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "burial-practice"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-HCSR/NPS-HCSR.txt",
+     "sha256": "d098184559cd7e974f99db91928fa9c6f150d179e3f66c2b8d71e3f50bf7c04b",
+     "bytes": 53011,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/hcsr.pdf"
+  },
+  "NPS-HSR-LEISTER-BARN": {
+   "title": "Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park (not stated in the text layer)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park (not stated in the text layer)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-HSR-LEISTER-BARN/NPS-HSR-LEISTER-BARN.txt",
+     "sha256": "133b64b9e132c5583c505ac25061ec1542d2a5391012103c365f5f7714b71539",
+     "bytes": 109668,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/hsr-leister-barn.pdf"
+  },
+  "NPS-CLI-LANDSCAPE": {
+   "title": "Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg National Military Park (2000 (revised 2004))",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg National Military Park (2000 (revised 2004))",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLI-LANDSCAPE/NPS-CLI-LANDSCAPE.txt",
+     "sha256": "c54f0cec804d222ab6089c50d9a73da9cca3744d2171eeb64c62bb92896a4e21",
+     "bytes": 203460,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf"
+  },
+  "NPS-HARMON-FARM": {
+   "title": "The Significance of the Harmon Farm and the Springs Hotel Woods (1 March 1991)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "The Significance of the Harmon Farm and the Springs Hotel Woods (1 March 1991)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-HARMON-FARM/NPS-HARMON-FARM.txt",
+     "sha256": "b74a832f34e1176636d692e3034154495068e81f3eced508261d1f80b3a96524",
+     "bytes": 168753,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/harmon-farm-springs-hotel-woods.pdf"
+  },
+  "NPS-SPANGLERS-SPRING": {
+   "title": "Proposed Restoration of the Spangler's Spring-Culp's Hill Area and the Re-Location of Avenues in the Area of the Spring (20 July 1940)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Proposed Restoration of the Spangler's Spring-Culp's Hill Area and the Re-Location of Avenues in the Area of the Spring (20 July 1940)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-SPANGLERS-SPRING/NPS-SPANGLERS-SPRING.txt",
+     "sha256": "776affabeafbff1d27b53e17936daf9ddceaa0ea7e1fa2abe316ca887dbf2db6",
+     "bytes": 50669,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/spanglers-spring-culps-hill.pdf"
+  },
+  "NPS-MCCLEAN-HOUSE-BARN": {
+   "title": "McClean House and Barn, Gettysburg National Military Park, Pa. (1 October 1968)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "McClean House and Barn, Gettysburg National Military Park, Pa. (1 October 1968)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-MCCLEAN-HOUSE-BARN/NPS-MCCLEAN-HOUSE-BARN.txt",
+     "sha256": "8224d20c22530603f367ae8d2952efceef337c8bb5f594450ec36e1d018b34c1",
+     "bytes": 50559,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/mcclean-house-barn.pdf"
+  },
+  "NPS-ROCK-CREEK": {
+   "title": "Historical Importance of Rock Creek, Gettysburg National Military Park",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Historical Importance of Rock Creek, Gettysburg National Military Park",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-ROCK-CREEK/NPS-ROCK-CREEK.txt",
+     "sha256": "606171ea31db5504c15a03e557b8182629c8451c89f05fb74b8ac9115748d297",
+     "bytes": 31736,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/rock-creek.pdf"
+  },
+  "NPS-VISTA-CUTTING": {
+   "title": "Vista Cutting Project: Area of Little Round Top, Devil's Den, the Wheatfield, and Peach Orchard (not stated; the text refers to photographs taken in December 1939)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Vista Cutting Project: Area of Little Round Top, Devil's Den, the Wheatfield, and Peach Orchard (not stated; the text refers to photographs taken in December 1939)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-VISTA-CUTTING/NPS-VISTA-CUTTING.txt",
+     "sha256": "06db83351d62c22fc3b4db8900a8350ac936cecd373c4f4dee0229e19baf3c81",
+     "bytes": 31383,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/vista-cutting.pdf"
+  },
+  "NPS-BRYAN-HOUSE": {
+   "title": "Report on the Proposed Restoration of the Bryan House",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Report on the Proposed Restoration of the Bryan House",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-BRYAN-HOUSE/NPS-BRYAN-HOUSE.txt",
+     "sha256": "c1c62add591807d4e09f33e8a4125a43613050a7d3e76c66fda79392f178337f",
+     "bytes": 4169,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/bryan-house-restoration.pdf"
+  },
+  "NPS-HS-MCPHERSON": {
+   "title": "Edward McPherson Farm: Historical Study",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Edward McPherson Farm: Historical Study",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-west-north"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-HS-MCPHERSON/NPS-HS-MCPHERSON.txt",
+     "sha256": "24860abb930b44ff25a4d5f0f64434995ff7cda12bfecffc46a243b411a59ecc",
+     "bytes": 262541,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/hs-mcpherson-farm.pdf"
+  },
+  "NPS-CLI-1STDAY": {
+   "title": "Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (2021)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (2021)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-west-north"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLI-1STDAY/NPS-CLI-1STDAY.txt",
+     "sha256": "350b95a26393c3430529a07f76a34d878522d5569403b7cd0f7901e61aa26ae2",
+     "bytes": 271164,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/cli-first-day-ufcb.pdf"
+  },
+  "NPS-CEM-ENCLOSURES": {
+   "title": "The Development and Care of the Soldiers' National Cemetery Enclosures at Gettysburg",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "The Development and Care of the Soldiers' National Cemetery Enclosures at Gettysburg",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CEM-ENCLOSURES/NPS-CEM-ENCLOSURES.txt",
+     "sha256": "822df6fc481a2360f0a8858c3f0c33b7d75d55730f02c163822ca24aa7929db9",
+     "bytes": 234811,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/cemetery-enclosures.pdf"
+  },
+  "NPS-CLR-LRT": {
+   "title": "Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettysburg National Military Park (2 March 2012 (FINAL))",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettysburg National Military Park (2 March 2012 (FINAL))",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLR-LRT/NPS-CLR-LRT.txt",
+     "sha256": "5f7fb77301c24019e3b2943e040d52169725825eca429f8b5f24b7c5da2a726c",
+     "bytes": 406615,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/clr-little-round-top.pdf"
+  },
+  "NPS-CLI-LRT": {
+   "title": "Cultural Landscapes Inventory: Little Round Top, Gettysburg National Military Park (2020)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscapes Inventory: Little Round Top, Gettysburg National Military Park (2020)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLI-LRT/NPS-CLI-LRT.txt",
+     "sha256": "531850bc7d6616be47783f138aca8ec6f994ad92017cfaf558da172fd972c20a",
+     "bytes": 235077,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/cli-little-round-top.pdf"
+  },
+  "NPS-CLI-ERR": {
+   "title": "Cultural Landscapes Inventory: Emmitsburg Road Ridge Battlefield, Gettysburg National Military Park (2024)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscapes Inventory: Emmitsburg Road Ridge Battlefield, Gettysburg National Military Park (2024)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLI-ERR/NPS-CLI-ERR.txt",
+     "sha256": "501123bb6b9cae8a09a714b9b720ed451b752beb8df5cdb4dd5b18779e19bf0b",
+     "bytes": 257638,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/cli-emmitsburg-rd-ridge-battlefield.pdf"
+  },
+  "NPS-TPG-COMMEM": {
+   "title": "Treatment Philosophy and Guidelines for the Battlefield Commemorative Area, Gettysburg National Military Park (2025)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Treatment Philosophy and Guidelines for the Battlefield Commemorative Area, Gettysburg National Military Park (2025)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-TPG-COMMEM/NPS-TPG-COMMEM.txt",
+     "sha256": "760b40bce3c672264aff50109016fc833a6b6c1ceed2a89756c951c06892bbbb",
+     "bytes": 486113,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/tpg-battlefield-com-area.pdf"
+  },
+  "NPS-CLI-PCB": {
+   "title": "Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National Military Park (2024)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National Military Park (2024)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLI-PCB/NPS-CLI-PCB.txt",
+     "sha256": "9e933e0a73ebc617a76ef7d758d318b8f3ef434874da6587a5845b6798d237bd",
+     "bytes": 280820,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/cli-picketts-charge-battlefield.pdf"
+  },
+  "NPS-CLR-1STDAY": {
+   "title": "Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (2021)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (2021)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-west-north",
+    "sites-town"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLR-1STDAY/NPS-CLR-1STDAY.txt",
+     "sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+     "bytes": 1900019,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/clr-1-day-union-1-corps.pdf"
+  },
+  "NPS-CLR-ROT-V2": {
+   "title": "Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume II (the remaining areas) (2018)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume II (the remaining areas) (2018)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLR-ROT-V2/NPS-CLR-ROT-V2.txt",
+     "sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+     "bytes": 572783,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/clr-v2.pdf"
+  },
+  "NPS-CLR-ROT-V1": {
+   "title": "Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume I (Areas 1-10) (2018)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume I (Areas 1-10) (2018)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLR-ROT-V1/NPS-CLR-ROT-V1.txt",
+     "sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+     "bytes": 770063,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/clr-v1.pdf"
+  },
+  "NPS-CLR-CEMETERY": {
+   "title": "Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "burial-practice",
+    "camp-letterman"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CLR-CEMETERY/NPS-CLR-CEMETERY.txt",
+     "sha256": "aaf37fde962d2afbd051d943570eb268fd05da60ad1320742c68e30d131e1f64",
+     "bytes": 1516799,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/clr-cemetery.pdf"
+  },
+  "NPS-GMP-1999-V1": {
+   "title": "Final General Management Plan and Environmental Impact Statement: Volume 1, Gettysburg National Military Park",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Final General Management Plan and Environmental Impact Statement: Volume 1, Gettysburg National Military Park",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "camp-letterman"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-GMP-1999-V1/NPS-GMP-1999-V1.txt",
+     "sha256": "02fe5ad082de880d1659cea1159727645a0cd4835bfd629557f730268750918d",
+     "bytes": 1206814,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/fgmp-eis-v1-1999.pdf"
+  },
+  "NPS-ADHI": {
+   "title": "Administrative History: Gettysburg National Military Park and National Cemetery, Pennsylvania (July 1991)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Administrative History: Gettysburg National Military Park and National Cemetery, Pennsylvania (July 1991)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "camp-letterman",
+    "burial-practice"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-ADHI/NPS-ADHI.txt",
+     "sha256": "50d7010ae8e8418885537e90542d2c5b16ff9d12d3c255887895e8f1073fd57e",
+     "bytes": 1116527,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/adhi.pdf"
+  },
+  "NPS-SLAUGHTER-PEN": {
+   "title": "\"Our Principal Loss Was in This Place\": Action at the Slaughter Pen and at the South End of Houck's Ridge, July 2, 1863",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "\"Our Principal Loss Was in This Place\": Action at the Slaughter Pen and at the South End of Houck's Ridge, July 2, 1863",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-SLAUGHTER-PEN/NPS-SLAUGHTER-PEN.txt",
+     "sha256": "211e2cfa8a0483cd4d1133072428aca791fe94ab51b8ba7059392475e34f526a",
+     "bytes": 98691,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/slaughter-pen.pdf"
+  },
+  "NPS-CEM-DEDICATION": {
+   "title": "Circumstances Surrounding the Dedication of the Soldiers' National Cemetery and of the Delivery by Abraham Lincoln of his Gettysburg Address, November 19, 1863",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Circumstances Surrounding the Dedication of the Soldiers' National Cemetery and of the Delivery by Abraham Lincoln of his Gettysburg Address, November 19, 1863",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CEM-DEDICATION/NPS-CEM-DEDICATION.txt",
+     "sha256": "14662b880c87704372bbd2e64874f322fc8cf02d9d6bea1738b45140b5e712fa",
+     "bytes": 82052,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/cemetery-dedication.pdf"
+  },
+  "NPS-NRCA-2017": {
+   "title": "Natural Resource Condition Assessment, Gettysburg National Military Park and Eisenhower National Historic Site",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Natural Resource Condition Assessment, Gettysburg National Military Park and Eisenhower National Historic Site",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-NRCA-2017/NPS-NRCA-2017.txt",
+     "sha256": "c92462ce84ce9aedd57f7c0e1b773b13394d5b9079da87dad83ce27099f71fc0",
+     "bytes": 577480,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/nrr-2017-1369.pdf"
+  },
+  "NPS-BOUNDARY-1988": {
+   "title": "Boundary Study, Gettysburg National Military Park: Draft Report to Congress / Environmental Assessment (1988 (the cover letter date is illegible in the text layer; the listing and file name say 1988))",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Boundary Study, Gettysburg National Military Park: Draft Report to Congress / Environmental Assessment (1988 (the cover letter date is illegible in the text layer; the listing and file name say 1988))",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-town",
+    "sites-west-north",
+    "sites-east-southeast",
+    "sites-south-southwest",
+    "camp-letterman"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-BOUNDARY-1988/NPS-BOUNDARY-1988.txt",
+     "sha256": "21aa35c30b89335e96efbe17fb4405da147e3affe6d4192efca5585ba1edcce1",
+     "bytes": 134213,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/boundary-study-1988.pdf"
+  },
+  "NPS-CARE-WOUNDED-GUIDE": {
+   "title": "Care of the Wounded Student Program: Teachers' Guide (not stated)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Care of the Wounded Student Program: Teachers' Guide (not stated)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "triage-first-aid",
+    "org-union-system",
+    "org-evacuation",
+    "amputations",
+    "anaesthesia-analgesia",
+    "camp-letterman",
+    "nursing-diet-ward",
+    "infection-complications"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-CARE-WOUNDED-GUIDE/NPS-CARE-WOUNDED-GUIDE.txt",
+     "sha256": "aa5aa911c963a852d5e04b491e81c87e48081efaf365a09c70b5d468c5f67503",
+     "bytes": 89976,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/care-of-wounded-guide.pdf"
+  },
+  "NPS-SLYDER-GUIDE": {
+   "title": "Impact of War: The Slyder Family Farm Teachers' Guide",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Impact of War: The Slyder Family Farm Teachers' Guide",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-SLYDER-GUIDE/NPS-SLYDER-GUIDE.txt",
+     "sha256": "71a7cfdf8eeceddf600d66c09ff62c422e83d9b481fbab6a8c292d00a487003a",
+     "bytes": 100154,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/slyder-farm-guide.pdf"
+  },
+  "NPS-COMMON-PRIDE-1": {
+   "title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863, Part I (January 1981 (as printed: 1/81))",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863, Part I (January 1981 (as printed: 1/81))",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-south-southwest",
+    "sites-east-southeast"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-COMMON-PRIDE-1/NPS-COMMON-PRIDE-1.txt",
+     "sha256": "fcc1c87159129c0b549133b9e52e151854afaa831f6e6045ad9f4227f8603079",
+     "bytes": 443672,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/common-pride-fame-1.pdf"
+  },
+  "NPS-COMMON-PRIDE-2": {
+   "title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863, Part II (1981)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863, Part II (1981)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-COMMON-PRIDE-2/NPS-COMMON-PRIDE-2.txt",
+     "sha256": "ac2c120ca7436e301772a579d70cf0dede1af2d24930164612002940c108c431",
+     "bytes": 409504,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/common-pride-fame-2.pdf"
+  },
+  "NPS-COMMON-PRIDE-3": {
+   "title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863 \u2014 Part III",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863 \u2014 Part III",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-east-southeast",
+    "sites-south-southwest"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-COMMON-PRIDE-3/NPS-COMMON-PRIDE-3.txt",
+     "sha256": "4d46614257fff45b5fc6202131640b008066d9f4eacf0f40f33ac695b79633d3",
+     "bytes": 210725,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/common-pride-fame-3.pdf"
+  },
+  "NPS-DCP-LRT": {
+   "title": "Draft Development Concept Plan/Environmental Assessment: Little Round Top/Devil's Den, Gettysburg National Military Park, Pennsylvania",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Draft Development Concept Plan/Environmental Assessment: Little Round Top/Devil's Den, Gettysburg National Military Park, Pennsylvania",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-DCP-LRT/NPS-DCP-LRT.txt",
+     "sha256": "266343bec0f7f4911fb0f2f30af86d355e965bd8f23930d6d8a102c825f4d998",
+     "bytes": 141427,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/dcp-ea-little-round-top.pdf"
+  },
+  "NPS-DCP-GUINN": {
+   "title": "Development Concept Plan: Guinn Woods Administrative Site Gettysburg National Military Park, Pennsylvania",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Development Concept Plan: Guinn Woods Administrative Site Gettysburg National Military Park, Pennsylvania",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-DCP-GUINN/NPS-DCP-GUINN.txt",
+     "sha256": "f8e6c8cfdd9bbbd7c4e44b1880f844f3776e9298dd409938979451d0e77dd3cc",
+     "bytes": 57462,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/dcp-guinn-woods.pdf"
+  },
+  "NPS-DESIGN-GUIDE": {
+   "title": "Gettysburg Design Guide: A Guide for Maintaining and Rehabilitating Buildings in the Gettysburg Historic District",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Gettysburg Design Guide: A Guide for Maintaining and Rehabilitating Buildings in the Gettysburg Historic District",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-DESIGN-GUIDE/NPS-DESIGN-GUIDE.txt",
+     "sha256": "c88d5ff112c980741c189fcdad64e6100604758ca0982fca52b54e4ce155a10b",
+     "bytes": 316759,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/gett/design-guide.pdf"
+  },
+  "NPS-HB9-1954": {
+   "title": "Gettysburg National Military Park: Historic Handbook #9 (1954)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Gettysburg National Military Park: Historic Handbook #9 (1954)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-HB9-1954/NPS-HB9-1954.txt",
+     "sha256": "26b54688d158c49a882f831fa66c4c52915aaaf30756728f5a09d3b31d5aa687",
+     "bytes": 89906,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/handbooks/historical/9-1954.pdf"
+  },
+  "NPS-HB9-1962": {
+   "title": "Gettysburg National Military Park: Historic Handbook #9 (1962)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Gettysburg National Military Park: Historic Handbook #9 (1962)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-HB9-1962/NPS-HB9-1962.txt",
+     "sha256": "cc2992ea30d5972bd9477551f31e9d2ed93e386f2288ca9692f0d37d8c1bdd8e",
+     "bytes": 78195,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/handbooks/historical/9-1962.pdf"
+  },
+  "NPS-FD-2016": {
+   "title": "Foundation Document, Gettysburg National Military Park, Pennsylvania",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Foundation Document, Gettysburg National Military Park, Pennsylvania",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-FD-2016/NPS-FD-2016.txt",
+     "sha256": "dae05c7ee9b957c36e2773a1ae03a7c75f772590361951e273f9e7954808b914",
+     "bytes": 163112,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/foundation-documents/gett-fd-2016.pdf"
+  },
+  "NPS-EISE-HRS": {
+   "title": "Historic Resource Study and Historical Base Map: Eisenhower Farm, 1762-1967, Eisenhower National Historic Site",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Historic Resource Study and Historical Base Map: Eisenhower Farm, 1762-1967, Eisenhower National Historic Site",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "camp-letterman",
+    "sites-east-southeast"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-EISE-HRS/NPS-EISE-HRS.txt",
+     "sha256": "393a9021ea6dbe2494e096f40df8440309fd9c87c02094ffed3e2936cdbab069",
+     "bytes": 416340,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/eise/hrs.pdf"
+  },
+  "NPS-EISE-CLI-REDDING-2004": {
+   "title": "Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2004)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2004)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-EISE-CLI-REDDING-2004/NPS-EISE-CLI-REDDING-2004.txt",
+     "sha256": "5b6d81252b3cf755999db5e266038e268ab7af8c6f323e23d479a1b3a6b1b927",
+     "bytes": 70078,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/eise/cli-clement-redding-farm-2004.pdf"
+  },
+  "NPS-EISE-CLI-LANDSCAPE": {
+   "title": "Cultural Landscapes Inventory: Eisenhower NHS Landscape, Eisenhower National Historic Site",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscapes Inventory: Eisenhower NHS Landscape, Eisenhower National Historic Site",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-EISE-CLI-LANDSCAPE/NPS-EISE-CLI-LANDSCAPE.txt",
+     "sha256": "fc27e3e10a71bfbaee809c979d5fff9b0b25d935aebea57a8300429e0e458c34",
+     "bytes": 147761,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/eise/cli-landscape.pdf"
+  },
+  "NPS-EISE-CLR1": {
+   "title": "Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, and Analysis",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, and Analysis",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/NPS-EISE-CLR1/NPS-EISE-CLR1.txt",
+     "sha256": "b9b792ec6847052bded9f79764a8c81971b8e163db60a799c101b454242e932d",
+     "bytes": 845892,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/publications/eise/clr1.pdf"
+  },
+  "NPSGOV-BATTLEFIELD-REHAB": {
+   "title": "Battlefield Rehabilitation at Gettysburg - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Battlefield Rehabilitation at Gettysburg - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-BATTLEFIELD-REHAB/NPSGOV-BATTLEFIELD-REHAB.txt",
+     "sha256": "839d38264b0993656ce1522285d26a921708fc2865d7053eb55edd42221947ff",
+     "bytes": 10070,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm"
+  },
+  "NPSGOV-CEMETERY": {
+   "title": "Gettysburg National Cemetery - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Gettysburg National Cemetery - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-CEMETERY/NPSGOV-CEMETERY.txt",
+     "sha256": "002dcec5502a1c0ac20130e0cfc9d4ef60a78bd725bc6c0e36483e633aa238bc",
+     "bytes": 4927,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/cemetery.htm"
+  },
+  "NPSGOV-CIVILIANS": {
+   "title": "Civilians at Gettysburg (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Civilians at Gettysburg (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-town",
+    "org-aid-societies"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-CIVILIANS/NPSGOV-CIVILIANS.txt",
+     "sha256": "c39f60baf34ac3165a9d3cb95ec12f6d849e420e2b356bfcf8daecc310083129",
+     "bytes": 6402,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/articles/000/civilians-at-gettysburg.htm"
+  },
+  "NPSGOV-COMMEM-WORKS": {
+   "title": "Commemorative Works and Plaques - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Commemorative Works and Plaques - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-COMMEM-WORKS/NPSGOV-COMMEM-WORKS.txt",
+     "sha256": "0dd2b5551f576c2f69aadea02b8228d507c5b7036d3e307138d0d67d7df145c3",
+     "bytes": 9365,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/commemorative-works.htm"
+  },
+  "NPSGOV-CONFED-LINE": {
+   "title": "Confederate Line (July 2 & 3) - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Confederate Line (July 2 & 3) - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-CONFED-LINE/NPSGOV-CONFED-LINE.txt",
+     "sha256": "9971d5ea4bb0c7701a85a4f3a5f90cd5c03a0e1d2d7daf7e742f6a1818e99e90",
+     "bytes": 1988,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/confederate-line.htm"
+  },
+  "NPSGOV-CS-MONUMENTS": {
+   "title": "Confederate Monuments - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Confederate Monuments - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-CS-MONUMENTS/NPSGOV-CS-MONUMENTS.txt",
+     "sha256": "f10bc795bd92df60574ed3aecc10a0268847006bee4015d040f1edc5835141ca",
+     "bytes": 7364,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/confederate-monuments.htm"
+  },
+  "NPSGOV-CULPS-HILL-REHAB": {
+   "title": "Culp's Hill - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Culp's Hill - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-CULPS-HILL-REHAB/NPSGOV-CULPS-HILL-REHAB.txt",
+     "sha256": "9073c819b1c869319777e8eeecfe333a1faa7d45dcb67a23abb8f64131c7b2d1",
+     "bytes": 7135,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/culps-hill.htm"
+  },
+  "NPSGOV-DEVILS-DEN-REHAB": {
+   "title": "Devil's Den - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Devil's Den - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-DEVILS-DEN-REHAB/NPSGOV-DEVILS-DEN-REHAB.txt",
+     "sha256": "6e78f6d00de8dcc70e96cda62fb8de1c0b3a024208a9211fa5d1218ce7b03e63",
+     "bytes": 4580,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/devils-den.htm"
+  },
+  "NPSGOV-EAST-CAVALRY": {
+   "title": "East Cavalry Field - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "East Cavalry Field - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-EAST-CAVALRY/NPSGOV-EAST-CAVALRY.txt",
+     "sha256": "72f601a45c5ae20a05383ef99818fc725bd1109c6ae96dd8a32b16ab51f6cdd4",
+     "bytes": 1842,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/east-cavalry-field.htm"
+  },
+  "NPSGOV-FIRST-DAY": {
+   "title": "First Day's Battlefield - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "First Day's Battlefield - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-west-north"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-FIRST-DAY/NPSGOV-FIRST-DAY.txt",
+     "sha256": "d750bec869c1f02caefef1b7272a21b6460eef608d9b292c0e273d32299daf2c",
+     "bytes": 2431,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/first-days-battlefield.htm"
+  },
+  "NPSGOV-GRASSLANDS": {
+   "title": "Eastern Grasslands Initiative - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Eastern Grasslands Initiative - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-GRASSLANDS/NPSGOV-GRASSLANDS.txt",
+     "sha256": "86b688d761d9087f3a34a8803c9526421b07e31cf257ae64c0c8d783d74972ce",
+     "bytes": 9057,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/grasslands-initiative.htm"
+  },
+  "NPSGOV-LRT-REHAB": {
+   "title": "Little Round Top - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Little Round Top - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-LRT-REHAB/NPSGOV-LRT-REHAB.txt",
+     "sha256": "aa7655ec6a6403cb800a24094e4789fc055e8087439c694ab0bcc08c7c42588c",
+     "bytes": 3497,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/little-round-top.htm"
+  },
+  "NPSGOV-NATURAL-FEATURES": {
+   "title": "Natural Features & Ecosystems - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Natural Features & Ecosystems - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-NATURAL-FEATURES/NPSGOV-NATURAL-FEATURES.txt",
+     "sha256": "631b34d700cbfbfdeffad02137fde7c5d5c1059e96ea32312d993a547e13aebd",
+     "bytes": 4131,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm"
+  },
+  "NPSGOV-PLANNING": {
+   "title": "Planning - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Planning - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-PLANNING/NPSGOV-PLANNING.txt",
+     "sha256": "507b466f4b79b525a8cb43ae43e6255961103dc7759626061c1cdad808c0fb00",
+     "bytes": 3188,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/getinvolved/planning.htm"
+  },
+  "NPSGOV-PLANTS": {
+   "title": "Plants - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Plants - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-PLANTS/NPSGOV-PLANTS.txt",
+     "sha256": "2f92d94826eb9b3f03cdc16b8c0682bcdfb917d1779b47ec5a37985c110f2dc6",
+     "bytes": 3672,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/nature/plants.htm"
+  },
+  "NPSGOV-TOWN": {
+   "title": "Town - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Town - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [
+    "sites-town"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-TOWN/NPSGOV-TOWN.txt",
+     "sha256": "8169b10ca053f292dc366e0f746403aa24d56405c1b90eb1d6c986673ee0e3f0",
+     "bytes": 1938,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/town.htm"
+  },
+  "NPSGOV-US-LINE": {
+   "title": "United States Line (July 2 & 3) - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "United States Line (July 2 & 3) - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-US-LINE/NPSGOV-US-LINE.txt",
+     "sha256": "8a7558c9dec47f44a7336179dfb2c6f7f12fc0164ec80cc1215b462c4c0f5b52",
+     "bytes": 2318,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/us-line.htm"
+  },
+  "NPSGOV-US-MONUMENTS": {
+   "title": "United States Monuments - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "United States Monuments - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-US-MONUMENTS/NPSGOV-US-MONUMENTS.txt",
+     "sha256": "7f68ba9f0353be021918346847a53e8527ffa795f3a4573f8cee5c7caa8d2713",
+     "bytes": 2238,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/united-states-monuments.htm"
+  },
+  "NPSGOV-WARFIELD-HOUSE": {
+   "title": "Warfield House - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Warfield House - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-WARFIELD-HOUSE/NPSGOV-WARFIELD-HOUSE.txt",
+     "sha256": "102832822b57e0d2eecae7e72e9e788d7f2c40c43e699f4d7965ec294956e3c7",
+     "bytes": 5909,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/warfield-house.htm"
+  },
+  "NPSGOV-WISLER-HOUSE": {
+   "title": "Wisler House - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Wisler House - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-13)",
+   "rights": "United States government work",
+   "origin": "National Park Service texts acquired by the web workstream (GOVERNANCE/horde/ws-web/nps)",
+   "groups": [],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/nps/pages/NPSGOV-WISLER-HOUSE/NPSGOV-WISLER-HOUSE.txt",
+     "sha256": "2b72c03c916ccb8f589956ea2f0f8defc3061e007a425be1314caf0fc6788fc9",
+     "bytes": 4382,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/historyculture/wisler-house.htm"
+  },
+  "NPSGOV-JONATHAN-LETTERMAN": {
+   "title": "NPS web page \"Jonathan Letterman\", as served 2026-11-13",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "NPS web page \"Jonathan Letterman\", as served 2026-11-13",
+   "rights": "United States government work",
+   "origin": "National Park Service page fetched by the web workstream",
+   "groups": [
+    "org-union-system",
+    "camp-letterman"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/retry/F-053/jonathan-letterman.html.txt",
+     "sha256": "34c612f83ee6fe1f98e818789cf280fba401dd3379aec1cf61b714d3ed974f84",
+     "bytes": 3498,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/articles/000/jonathan-letterman.htm"
+  },
+  "NPSGOV-FIELD-HOSPITAL-EDU": {
+   "title": "NPS web page \"Field Hospital Field Trip\", as served 2026-11-13",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "NPS web page \"Field Hospital Field Trip\", as served 2026-11-13",
+   "rights": "United States government work",
+   "origin": "National Park Service page fetched by the web workstream",
+   "groups": [
+    "triage-first-aid",
+    "nursing-diet-ward"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/retry/F-057/field-hospital-edu.html.txt",
+     "sha256": "811070c0d1b298d258dddd8c22e2cce60c08c9e3b951fdd4532afffdb9e75412",
+     "bytes": 6447,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/education/classrooms/field-hospital-education-program.htm"
+  },
+  "NPSGOV-MEDICAL-CORPS-TABLE5": {
+   "title": "NPS web page \"Table 5: Civil War Medicine\" (traveling trunk), as served 2026-11-13",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "NPS web page \"Table 5: Civil War Medicine\" (traveling trunk), as served 2026-11-13",
+   "rights": "United States government work",
+   "origin": "National Park Service page fetched by the web workstream",
+   "groups": [
+    "org-union-system",
+    "triage-first-aid",
+    "org-evacuation"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/web/retry/F-058/medical-corps.html.txt",
+     "sha256": "dc745439a32220e221d1d75fa4435f019cb303ffd842c87669d57569b68b5e12",
+     "bytes": 9432,
+     "page_model": "none"
+    }
+   },
+   "url": "https://www.nps.gov/gett/learn/education/a-nation-at-war-traveling-trunk-table-5-the-medical-corps-at-war.htm"
+  },
+  "MSHWR-P1V2-1870": {
+   "title": "Part I, Volume II (the first surgical volume), Washington: Government Printing Office, 1870; its table of contents is at the end of the file",
+   "class": "official-history",
+   "lead": false,
+   "edition": "Part I, Volume II (the first surgical volume), Washington: Government Printing Office, 1870; its table of contents is at the end of the file",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item MSHWRSurgical1",
+   "groups": [
+    "wounds-weapons",
+    "wounds-regions",
+    "gettysburg-statistics",
+    "org-evacuation"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/MSHWR-P1V2-1870/MSHWRSurgical1_djvu.txt",
+     "sha256": null,
+     "bytes": 4390167,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/MSHWRSurgical1"
+  },
+  "MSHWR-P1V2-1870-ALT": {
+   "title": "a second scan of the 1870 first surgical volume, identified by matching chapter and topic counts (its title page and table of contents were not read; the Gettysburg word count is 305 here and 266 in MSHWR-P1V2-1870); use it to confirm digits",
+   "class": "official-history",
+   "lead": false,
+   "edition": "a second scan of the 1870 first surgical volume, identified by matching chapter and topic counts (its title page and table of contents were not read; the Gettysburg word count is 305 here and 266 in MSHWR-P1V2-1870); use it to confirm digits",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item medicalsurgical12barnrich",
+   "groups": [
+    "wounds-regions"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/MSHWR-P1V2-1870-ALT/medicalsurgical12barnrich_djvu.txt",
+     "sha256": null,
+     "bytes": 5400385,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/medicalsurgical12barnrich"
+  },
+  "MSHWR-P2V2-1876": {
+   "title": "Part II, Volume II, Surgical History, first issue, Washington: Government Printing Office, 1876 (chapters VI to IX: abdomen, pelvis, back, upper extremities)",
+   "class": "official-history",
+   "lead": false,
+   "edition": "Part II, Volume II, Surgical History, first issue, Washington: Government Printing Office, 1876 (chapters VI to IX: abdomen, pelvis, back, upper extremities)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item medicalsurgical22barnrich",
+   "groups": [
+    "wounds-regions",
+    "wounds-limbs-joints",
+    "amputations",
+    "operations-excision-ligation"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/MSHWR-P2V2-1876/medicalsurgical22barnrich_djvu.txt",
+     "sha256": null,
+     "bytes": 8703472,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/medicalsurgical22barnrich"
+  },
+  "MSHWR-P2V2-1877-2NDISSUE": {
+   "title": "Part II, Volume II, Surgical History, second issue, Washington: Government Printing Office, 1877",
+   "class": "official-history",
+   "lead": false,
+   "edition": "Part II, Volume II, Surgical History, second issue, Washington: Government Printing Office, 1877",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item medicalsurgicalh22unit",
+   "groups": [
+    "wounds-limbs-joints",
+    "amputations"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/MSHWR-P2V2-1877-2NDISSUE/medicalsurgicalh22unit_djvu.txt",
+     "sha256": null,
+     "bytes": 8765555,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/medicalsurgicalh22unit"
+  },
+  "MSHWR-P3V2-1883": {
+   "title": "Part III, Volume II, Surgical History, first issue, Washington: Government Printing Office, 1883 (chapters X to XV: lower extremities, miscellaneous injuries, complications, anaesthetics, the medical staff and materia chirurgica, transportation of the wounded)",
+   "class": "official-history",
+   "lead": false,
+   "edition": "Part III, Volume II, Surgical History, first issue, Washington: Government Printing Office, 1883 (chapters X to XV: lower extremities, miscellaneous injuries, complications, anaesthetics, the medical staff and materia chirurgica, transportation of the wounded)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item MSHWRSurgical3",
+   "groups": [
+    "wounds-limbs-joints",
+    "amputations",
+    "anaesthesia-analgesia",
+    "infection-complications",
+    "instruments-supplies",
+    "org-evacuation"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/MSHWR-P3V2-1883/MSHWRSurgical3_djvu.txt",
+     "sha256": null,
+     "bytes": 7353268,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/MSHWRSurgical3"
+  },
+  "MSHWR-P3V2-1883-2NDISSUE": {
+   "title": "Part III, Volume II, Surgical History, second issue, Washington: Government Printing Office, 1883",
+   "class": "official-history",
+   "lead": false,
+   "edition": "Part III, Volume II, Surgical History, second issue, Washington: Government Printing Office, 1883",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item medicalsurgical32barnrich",
+   "groups": [
+    "wounds-limbs-joints",
+    "amputations"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/MSHWR-P3V2-1883-2NDISSUE/medicalsurgical32barnrich_djvu.txt",
+     "sha256": null,
+     "bytes": 8462494,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/medicalsurgical32barnrich"
+  },
+  "GROSS-1861": {
+   "title": "S. D. Gross, A Manual of Military Surgery, or Hints on the Emergencies of Field, Camp and Hospital Practice, Philadelphia: J. B. Lippincott & Co., entered 1861 (no edition statement on the OCR title page; the 1862 printing is marked second edition); poor OCR in places",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "S. D. Gross, A Manual of Military Surgery, or Hints on the Emergencies of Field, Camp and Hospital Practice, Philadelphia: J. B. Lippincott & Co., entered 1861 (no edition statement on the OCR title page; the 1862 printing is marked second edition); poor OCR in places",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item amanualmilitary00grosgoog",
+   "groups": [
+    "wounds-weapons",
+    "amputations",
+    "anaesthesia-analgesia",
+    "wound-care-splints",
+    "instruments-supplies",
+    "triage-first-aid"
+   ],
+   "ocr_error_rate": 0.06,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/GROSS-1861/amanualmilitary00grosgoog_djvu.txt",
+     "sha256": null,
+     "bytes": 207039,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/amanualmilitary00grosgoog"
+  },
+  "GROSS-1862-2ED": {
+   "title": "S. D. Gross, A Manual of Military Surgery, second edition, Philadelphia: J. B. Lippincott & Co., 1862 (entered 1861); clean OCR; the archive.org record dates it 1861",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "S. D. Gross, A Manual of Military Surgery, second edition, Philadelphia: J. B. Lippincott & Co., 1862 (entered 1861); clean OCR; the archive.org record dates it 1861",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item manualofmilitary00grosrich",
+   "groups": [
+    "amputations",
+    "anaesthesia-analgesia",
+    "wound-care-splints",
+    "instruments-supplies",
+    "triage-first-aid",
+    "operations-excision-ligation"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/GROSS-1862-2ED/manualofmilitary00grosrich_djvu.txt",
+     "sha256": null,
+     "bytes": 259902,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/manualofmilitary00grosrich"
+  },
+  "GROSS-1861-AUGUSTA": {
+   "title": "Gross's text reprinted at Augusta, Georgia: Steam Power Press, Chronicle & Sentinel, 1861 (a Confederate printing)",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "Gross's text reprinted at Augusta, Georgia: Steam Power Press, Chronicle & Sentinel, 1861 (a Confederate printing)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item manualofmilitary00gros",
+   "groups": [
+    "org-confederate"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/GROSS-1861-AUGUSTA/manualofmilitary00gros_djvu.txt",
+     "sha256": null,
+     "bytes": 223633,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/manualofmilitary00gros"
+  },
+  "GROSS-1862-RICHMOND": {
+   "title": "Gross's text reprinted at Richmond: J. W. Randolph, 1862 (a Confederate printing; its preface says the book was recently published at Philadelphia); clean OCR",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "Gross's text reprinted at Richmond: J. W. Randolph, 1862 (a Confederate printing; its preface says the book was recently published at Philadelphia); clean OCR",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item manualofmilitary01gros",
+   "groups": [
+    "org-confederate",
+    "amputations"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/GROSS-1862-RICHMOND/manualofmilitary01gros_djvu.txt",
+     "sha256": null,
+     "bytes": 219859,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/manualofmilitary01gros"
+  },
+  "TRIPLER-BLACKMAN-1861-A": {
+   "title": "Tripler and Blackman, Hand-book for the Military Surgeon, Cincinnati: Robert Clarke & Co., 1861; no edition statement on the OCR title page (the first edition is likely; not confirmed)",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "Tripler and Blackman, Hand-book for the Military Surgeon, Cincinnati: Robert Clarke & Co., 1861; no edition statement on the OCR title page (the first edition is likely; not confirmed)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item 46920330R.nlm.nih.gov",
+   "groups": [
+    "triage-first-aid",
+    "instruments-supplies"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/TRIPLER-BLACKMAN-1861-A/46920330R_djvu.txt",
+     "sha256": null,
+     "bytes": 335422,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/46920330R.nlm.nih.gov"
+  },
+  "TRIPLER-BLACKMAN-1861-2ED": {
+   "title": "Tripler and Blackman, Hand-book for the Military Surgeon, second edition, Cincinnati: Robert Clarke & Co., 1861 (a chapter on chloroform from Macleod is added; the appendix holds the standard supply for field service)",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "Tripler and Blackman, Hand-book for the Military Surgeon, second edition, Cincinnati: Robert Clarke & Co., 1861 (a chapter on chloroform from Macleod is added; the appendix holds the standard supply for field service)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item 46920320R.nlm.nih.gov",
+   "groups": [
+    "triage-first-aid",
+    "anaesthesia-analgesia",
+    "instruments-supplies",
+    "wound-care-splints",
+    "amputations",
+    "org-union-system"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/TRIPLER-BLACKMAN-1861-2ED/46920320R_djvu.txt",
+     "sha256": null,
+     "bytes": 336067,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/46920320R.nlm.nih.gov"
+  },
+  "TRIPLER-BLACKMAN-1862-3ED": {
+   "title": "Tripler and Blackman, Hand-book for the Military Surgeon, third edition, Cincinnati: Robert Clarke & Co., 1862",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "Tripler and Blackman, Hand-book for the Military Surgeon, third edition, Cincinnati: Robert Clarke & Co., 1862",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item 46920340R.nlm.nih.gov",
+   "groups": [
+    "triage-first-aid",
+    "anaesthesia-analgesia",
+    "instruments-supplies",
+    "wound-care-splints",
+    "amputations",
+    "org-union-system"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/TRIPLER-BLACKMAN-1862-3ED/46920340R_djvu.txt",
+     "sha256": null,
+     "bytes": 345154,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/46920340R.nlm.nih.gov"
+  },
+  "TRIPLER-BLACKMAN-1862-3ED-ALT": {
+   "title": "the same third edition, a different scan (Google; the file begins with Google's notice); use it to confirm digits",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "the same third edition, a different scan (Google; the file begins with Google's notice); use it to confirm digits",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item handbookformili00blacgoog",
+   "groups": [
+    "triage-first-aid"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/TRIPLER-BLACKMAN-1862-3ED-ALT/handbookformili00blacgoog_djvu.txt",
+     "sha256": null,
+     "bytes": 348183,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/handbookformili00blacgoog"
+  },
+  "WOODWARD-STEWARD-1862": {
+   "title": "Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1862; the title page says it was rendered authoritative by order of the Surgeon-General; the file begins with the publisher's advertisements",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1862; the title page says it was rendered authoritative by order of the Surgeon-General; the file begins with the publisher's advertisements",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item 101526781.nlm.nih.gov",
+   "groups": [
+    "org-union-system",
+    "nursing-diet-ward",
+    "instruments-supplies",
+    "infection-complications"
+   ],
+   "ocr_error_rate": 0.06,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/WOODWARD-STEWARD-1862/101526781_djvu.txt",
+     "sha256": null,
+     "bytes": 385837,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/101526781.nlm.nih.gov"
+  },
+  "WOODWARD-STEWARD-1863": {
+   "title": "Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1863 (entered 1862); cleaner OCR than the 1862 scan",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1863 (entered 1862); cleaner OCR than the 1862 scan",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item hospitalstewards00unse",
+   "groups": [
+    "org-union-system",
+    "nursing-diet-ward",
+    "instruments-supplies"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/WOODWARD-STEWARD-1863/hospitalstewards00unse_djvu.txt",
+     "sha256": null,
+     "bytes": 384034,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/hospitalstewards00unse"
+  },
+  "USSC-GETTYSBURG-1863": {
+   "title": "Report on the Operations of the Sanitary Commission during and after the Battles at Gettysburg, July 1st, 2d and 3d, 1863, New York: Wm. C. Bryant & Co., printers, 1863 (author per the archive.org record: John Hancock Douglas)",
+   "class": "institutional-history",
+   "lead": false,
+   "edition": "Report on the Operations of the Sanitary Commission during and after the Battles at Gettysburg, July 1st, 2d and 3d, 1863, New York: Wm. C. Bryant & Co., printers, 1863 (author per the archive.org record: John Hancock Douglas)",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item reportonoperatio00doug",
+   "groups": [
+    "org-aid-societies",
+    "sites-town",
+    "org-evacuation",
+    "camp-letterman"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/USSC-GETTYSBURG-1863/reportonoperatio00doug_djvu.txt",
+     "sha256": null,
+     "bytes": 64464,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/reportonoperatio00doug"
+  },
+  "SOUDER-LEAVES-1864": {
+   "title": "Mrs. Edmund A. Souder, Leaves from the Battle-field of Gettysburg: a series of letters from a field hospital and National Cemetery, Philadelphia: Caxton Press of C. Sherman, Son & Co., 1864",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Mrs. Edmund A. Souder, Leaves from the Battle-field of Gettysburg: a series of letters from a field hospital and National Cemetery, Philadelphia: Caxton Press of C. Sherman, Son & Co., 1864",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "acquired by the planning step from archive.org item leavesfrombattle00soud",
+   "groups": [
+    "org-aid-societies",
+    "camp-letterman",
+    "burial-practice",
+    "nursing-diet-ward"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/SOUDER-LEAVES-1864/leavesfrombattle00soud_djvu.txt",
+     "sha256": null,
+     "bytes": 139070,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/leavesfrombattle00soud"
+  },
+  "MSHWR-P1V1-1870": {
+   "title": "The Medical and Surgical History of the War of the Rebellion. (1861-1865) Part I. Volume I. Medical History. (1st Medical volume) (1870); archive.org item MSHWRMedical1; edition read after download",
+   "class": "official-history",
+   "lead": false,
+   "edition": "The Medical and Surgical History of the War of the Rebellion. (1861-1865) Part I. Volume I. Medical History. (1st Medical volume) (1870); archive.org item MSHWRMedical1; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "infection-complications",
+    "nursing-diet-ward",
+    "org-union-system",
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/MSHWR-P1V1-1870/MSHWRMedical1_djvu.txt",
+     "sha256": null,
+     "bytes": 4774629,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/MSHWRMedical1"
+  },
+  "MSHWR-P2V1-1879": {
+   "title": "The Medical and Surgical History of the War of the Rebellion. Part II, Volume I. (2nd Medical volume) (1879); archive.org item MSHWRMedical2; edition read after download",
+   "class": "official-history",
+   "lead": false,
+   "edition": "The Medical and Surgical History of the War of the Rebellion. Part II, Volume I. (2nd Medical volume) (1879); archive.org item MSHWRMedical2; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "infection-complications",
+    "nursing-diet-ward"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/MSHWR-P2V1-1879/MSHWRMedical2_djvu.txt",
+     "sha256": null,
+     "bytes": 5618053,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/MSHWRMedical2"
+  },
+  "MSHWR-P3V1-1888": {
+   "title": "The Medical and Surgical History of the War of the Rebellion. Part III, Volume I. (3rd Medical volume) (1888); archive.org item MSHWRMedical3; edition read after download",
+   "class": "official-history",
+   "lead": false,
+   "edition": "The Medical and Surgical History of the War of the Rebellion. Part III, Volume I. (3rd Medical volume) (1888); archive.org item MSHWRMedical3; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "infection-complications"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/MSHWR-P3V1-1888/MSHWRMedical3_djvu.txt",
+     "sha256": null,
+     "bytes": 6669522,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/MSHWRMedical3"
+  },
+  "HAMMOND-HYGIENE-1863": {
+   "title": "A treatise on hygiene : with special reference to the military service (1863); archive.org item 62510670R.nlm.nih.gov; edition read after download",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "A treatise on hygiene : with special reference to the military service (1863); archive.org item 62510670R.nlm.nih.gov; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "nursing-diet-ward",
+    "org-union-system",
+    "instruments-supplies"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/HAMMOND-HYGIENE-1863/62510670R_djvu.txt",
+     "sha256": null,
+     "bytes": 1076802,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/62510670R.nlm.nih.gov"
+  },
+  "HAMMOND-ESSAYS-1864": {
+   "title": "Military medical and surgical essays ; prepared for the United States Sanitary Commission (1864); archive.org item militarymedicals00hamm; edition read after download",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "Military medical and surgical essays ; prepared for the United States Sanitary Commission (1864); archive.org item militarymedicals00hamm; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "wounds-weapons",
+    "wound-care-dressings",
+    "infection-complications"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/HAMMOND-ESSAYS-1864/militarymedicals00hamm_djvu.txt",
+     "sha256": null,
+     "bytes": 877097,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/militarymedicals00hamm"
+  },
+  "USREGS-1861": {
+   "title": "Revised regulations for the Army of the United States, 1861 : with a full index (1862); archive.org item revisedregulatio1862unit; edition read after download",
+   "class": "official-report",
+   "lead": false,
+   "edition": "Revised regulations for the Army of the United States, 1861 : with a full index (1862); archive.org item revisedregulatio1862unit; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-union-system",
+    "nursing-diet-ward",
+    "instruments-supplies",
+    "org-evacuation"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/USREGS-1861/revisedregulatio1862unit_djvu.txt",
+     "sha256": null,
+     "bytes": 1077868,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/revisedregulatio1862unit"
+  },
+  "CSAREGS-1863": {
+   "title": "Regulations for the army of the Confederate States, 1863. With a full index (1863); archive.org item regulationsfor00conf; edition read after download",
+   "class": "official-report",
+   "lead": false,
+   "edition": "Regulations for the army of the Confederate States, 1863. With a full index (1863); archive.org item regulationsfor00conf; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-confederate",
+    "nursing-diet-ward"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/CSAREGS-1863/regulationsfor00conf_djvu.txt",
+     "sha256": null,
+     "bytes": 1033262,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/regulationsfor00conf"
+  },
+  "CHISOLM-1861": {
+   "title": "A manual of military surgery, for the use of surgeons in the Confederate Army; with an appendix of the rules and regulations of the Medical Department of the Confederate Army (1861); archive.org item manualofmilitary00chis; edition read after download",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "A manual of military surgery, for the use of surgeons in the Confederate Army; with an appendix of the rules and regulations of the Medical Department of the Confederate Army (1861); archive.org item manualofmilitary00chis; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-confederate",
+    "amputations",
+    "anaesthesia-analgesia",
+    "wound-care-splints"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/CHISOLM-1861/manualofmilitary00chis_djvu.txt",
+     "sha256": null,
+     "bytes": 691094,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/manualofmilitary00chis"
+  },
+  "CHISOLM-1862": {
+   "title": "A manual of military surgery, for the use of surgeons in the Confederate States army; with an appendix of the rules and regulations of the Medical department of the Confederate States army (1862); archive.org item manualofmilitar00chis; edition read after download",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "A manual of military surgery, for the use of surgeons in the Confederate States army; with an appendix of the rules and regulations of the Medical department of the Confederate States army (1862); archive.org item manualofmilitar00chis; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-confederate",
+    "amputations",
+    "anaesthesia-analgesia",
+    "wound-care-splints"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/CHISOLM-1862/manualofmilitar00chis_djvu.txt",
+     "sha256": null,
+     "bytes": 790145,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/manualofmilitar00chis"
+  },
+  "CHISOLM-1864": {
+   "title": "A manual of military surgery, for the use of surgeons in the Confederate States army; with explanatory plates of all useful operations (1864); archive.org item manualofmilita00chis; edition read after download",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "A manual of military surgery, for the use of surgeons in the Confederate States army; with explanatory plates of all useful operations (1864); archive.org item manualofmilita00chis; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-confederate",
+    "amputations",
+    "anaesthesia-analgesia",
+    "wound-care-splints"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/CHISOLM-1864/manualofmilita00chis_djvu.txt",
+     "sha256": null,
+     "bytes": 1294298,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/manualofmilita00chis"
+  },
+  "CSA-SURGEON-GENERAL-MANUAL-1863": {
+   "title": "A manual of military surgery (1863); archive.org item manualofmilitaryconf; edition read after download",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "A manual of military surgery (1863); archive.org item manualofmilitaryconf; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-confederate",
+    "amputations",
+    "instruments-supplies"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/CSA-SURGEON-GENERAL-MANUAL-1863/manualofmilitaryconf_djvu.txt",
+     "sha256": null,
+     "bytes": 837856,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/manualofmilitaryconf"
+  },
+  "WOODWARD-CAMP-DISEASES-1863": {
+   "title": "Outlines of the chief camp diseases of the United States armies as observed during the present war. A practical contribution to military medicine (1863); archive.org item outlineschiefca00woodgoog; edition read after download",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "Outlines of the chief camp diseases of the United States armies as observed during the present war. A practical contribution to military medicine (1863); archive.org item outlineschiefca00woodgoog; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "infection-complications",
+    "nursing-diet-ward"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/WOODWARD-CAMP-DISEASES-1863/outlineschiefca00woodgoog_djvu.txt",
+     "sha256": null,
+     "bytes": 584657,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/outlineschiefca00woodgoog"
+  },
+  "TRIPLER-GANGRENE-1863": {
+   "title": "Hospital gangrene : a lecture delivered to Prof. Blackman's class at the Medical College of Ohio, session of 1860-61 (1863); archive.org item 9601347.nlm.nih.gov; edition read after download",
+   "class": "period-manual",
+   "lead": false,
+   "edition": "Hospital gangrene : a lecture delivered to Prof. Blackman's class at the Medical College of Ohio, session of 1860-61 (1863); archive.org item 9601347.nlm.nih.gov; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "infection-complications"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/TRIPLER-GANGRENE-1863/9601347_djvu.txt",
+     "sha256": null,
+     "bytes": 69855,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/9601347.nlm.nih.gov"
+  },
+  "BRINTON-MEMOIRS-1914": {
+   "title": "Personal memoirs of John H. Brinton, major and surgeon U.S.V., 1861-1865 (1914); archive.org item personalmemoirso00brin; edition read after download",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Personal memoirs of John H. Brinton, major and surgeon U.S.V., 1861-1865 (1914); archive.org item personalmemoirso00brin; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-union-system",
+    "sites-east-southeast",
+    "sites-south-southwest",
+    "camp-letterman",
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/BRINTON-MEMOIRS-1914/personalmemoirso00brin_djvu.txt",
+     "sha256": null,
+     "bytes": 705045,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/personalmemoirso00brin"
+  },
+  "BUCKLIN-HOSPITAL-CAMP-1869": {
+   "title": "In hospital and camp: a woman's record of thrilling incidents among the wounded in the late war (1869); archive.org item inhospitalcampwo00buck; edition read after download",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "In hospital and camp: a woman's record of thrilling incidents among the wounded in the late war (1869); archive.org item inhospitalcampwo00buck; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-aid-societies",
+    "camp-letterman",
+    "nursing-diet-ward"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/BUCKLIN-HOSPITAL-CAMP-1869/inhospitalcampwo00buck_djvu.txt",
+     "sha256": null,
+     "bytes": 605693,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/inhospitalcampwo00buck"
+  },
+  "BROCKETT-CAMP-1866": {
+   "title": "The camp, the battle field, and the hospital; or, Lights and shadows of the great rebellion. Including adventures of spies and scouts, thrilling incidents, daring exploits, heroic deeds, wonderful escapes, sanitary and hospital scenes, prison scenes (c1866]); archive.org item campbattlefieldh00broc; edition read after download",
+   "class": "contemporary-print",
+   "lead": false,
+   "edition": "The camp, the battle field, and the hospital; or, Lights and shadows of the great rebellion. Including adventures of spies and scouts, thrilling incidents, daring exploits, heroic deeds, wonderful escapes, sanitary and hospital scenes, prison scenes (c1866]); archive.org item campbattlefieldh00broc; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-aid-societies",
+    "org-evacuation",
+    "sites-town",
+    "camp-letterman"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/BROCKETT-CAMP-1866/campbattlefieldh00broc_djvu.txt",
+     "sha256": null,
+     "bytes": 1011273,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/campbattlefieldh00broc"
+  },
+  "STILLE-USSC-1866": {
+   "title": "History of the United States Sanitary Commission, being the general report of its work during the War of the Rebellion (1866); archive.org item historyofuniteds00stiluoft; edition read after download",
+   "class": "institutional-history",
+   "lead": false,
+   "edition": "History of the United States Sanitary Commission, being the general report of its work during the War of the Rebellion (1866); archive.org item historyofuniteds00stiluoft; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-aid-societies",
+    "org-evacuation"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/STILLE-USSC-1866/historyofuniteds00stiluoft_djvu.txt",
+     "sha256": null,
+     "bytes": 1116114,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/historyofuniteds00stiluoft"
+  },
+  "USCC-1863": {
+   "title": "United States Christian Commission for the Army and Navy : for the year 1863, second annual report (1864); archive.org item unitedstateschri00unit; edition read after download",
+   "class": "institutional-history",
+   "lead": false,
+   "edition": "United States Christian Commission for the Army and Navy : for the year 1863, second annual report (1864); archive.org item unitedstateschri00unit; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-aid-societies",
+    "sites-town",
+    "camp-letterman"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/USCC-1863/unitedstateschri00unit_djvu.txt",
+     "sha256": null,
+     "bytes": 726258,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/unitedstateschri00unit"
+  },
+  "USSC-BULLETIN-V1-1863": {
+   "title": "The Sanitary Commission bulletin (1863); archive.org item s5150id1397637; edition read after download",
+   "class": "contemporary-print",
+   "lead": false,
+   "edition": "The Sanitary Commission bulletin (1863); archive.org item s5150id1397637; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-aid-societies",
+    "sites-town",
+    "org-evacuation"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/USSC-BULLETIN-V1-1863/s5150id1397637_djvu.txt",
+     "sha256": null,
+     "bytes": 1859483,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/s5150id1397637"
+  },
+  "USSC-BULLETIN-V2": {
+   "title": "The Sanitary Commission bulletin (1863); archive.org item s5150id1397638; edition read after download",
+   "class": "contemporary-print",
+   "lead": false,
+   "edition": "The Sanitary Commission bulletin (1863); archive.org item s5150id1397638; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-aid-societies",
+    "camp-letterman"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/USSC-BULLETIN-V2/s5150id1397638_djvu.txt",
+     "sha256": null,
+     "bytes": 1910990,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/s5150id1397638"
+  },
+  "USSC-DOCUMENTS-1866": {
+   "title": "Documents of the U.S. Sanitary Commission [electronic resource] (1866); archive.org item b20413257_0001; edition read after download",
+   "class": "institutional-history",
+   "lead": false,
+   "edition": "Documents of the U.S. Sanitary Commission [electronic resource] (1866); archive.org item b20413257_0001; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "org-aid-societies",
+    "org-evacuation"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/USSC-DOCUMENTS-1866/b20413257_0001_djvu.txt",
+     "sha256": null,
+     "bytes": 1574860,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/b20413257_0001"
+  },
+  "OTIS-HIPJOINT-1867": {
+   "title": "A report on amputations at the hip-joint, in military surgery (1867); archive.org item reportonamputati00unituoft; edition read after download",
+   "class": "official-history",
+   "lead": false,
+   "edition": "A report on amputations at the hip-joint, in military surgery (1867); archive.org item reportonamputati00unituoft; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "amputations",
+    "operations-excision-ligation"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/OTIS-HIPJOINT-1867/reportonamputati00unituoft_djvu.txt",
+     "sha256": null,
+     "bytes": 420101,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/reportonamputati00unituoft"
+  },
+  "OTIS-EXCISION-FEMUR-1869": {
+   "title": "A report on excisions of the head of the femur for gunshot injury (1869); archive.org item reportonexcision00unituoft; edition read after download",
+   "class": "official-history",
+   "lead": false,
+   "edition": "A report on excisions of the head of the femur for gunshot injury (1869); archive.org item reportonexcision00unituoft; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "operations-excision-ligation"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/OTIS-EXCISION-FEMUR-1869/reportonexcision00unituoft_djvu.txt",
+     "sha256": null,
+     "bytes": 871137,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/reportonexcision00unituoft"
+  },
+  "AMM-CATALOGUE-1866": {
+   "title": "Catalogue of the surgical section of the United States Army Medical Museum (1866); archive.org item cu31924012495200; edition read after download",
+   "class": "official-history",
+   "lead": false,
+   "edition": "Catalogue of the surgical section of the United States Army Medical Museum (1866); archive.org item cu31924012495200; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "wounds-regions",
+    "wounds-limbs-joints",
+    "amputations",
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/AMM-CATALOGUE-1866/cu31924012495200_djvu.txt",
+     "sha256": null,
+     "bytes": 2887607,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/cu31924012495200"
+  },
+  "HOSPSCENES-1864-ALT": {
+   "title": "Hospital scenes after the battle of Gettysburg, July, 1863  (1864); archive.org item hospitalscenesa00pagoog; edition read after download",
+   "class": "memoir-primary",
+   "lead": false,
+   "edition": "Hospital scenes after the battle of Gettysburg, July, 1863  (1864); archive.org item hospitalscenesa00pagoog; edition read after download",
+   "rights": "public domain (US publication before 1929); the OCR text is machine output of the scan",
+   "origin": "planned: archive.org metadata verified 2026-11-14, not yet downloaded",
+   "groups": [
+    "sites-town"
+   ],
+   "ocr_error_rate": 0.05,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/HOSPSCENES-1864-ALT/hospitalscenesa00pagoog_djvu.txt",
+     "sha256": null,
+     "bytes": 67376,
+     "page_model": "heads"
+    }
+   },
+   "url": "https://archive.org/details/hospitalscenesa00pagoog"
+  },
+  "NPS-SEM13-ESSAY5": {
+   "title": "\"War is a hellish way of settling a dispute\": Dr. Jonathan Letterman and the Tortuous Path of Medical Care from the Manassas to Camp Letterman (Gettysburg Seminar Papers, 13th seminar, essay 5)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "\"War is a hellish way of settling a dispute\": Dr. Jonathan Letterman and the Tortuous Path of Medical Care from the Manassas to Camp Letterman (Gettysburg Seminar Papers, 13th seminar, essay 5)",
+   "rights": "United States government work",
+   "origin": "planned: not yet downloaded",
+   "groups": [
+    "org-union-system",
+    "org-evacuation",
+    "camp-letterman",
+    "gettysburg-statistics",
+    "sites-east-southeast"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/NPS-SEM13-ESSAY5/essay5.pdf",
+     "sha256": null,
+     "bytes": 1643678,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/series/symposia/gettysburg_seminars/13/essay5.pdf"
+  },
+  "NPS-SEM13-ESSAY1": {
+   "title": "Advance and Pursuit: Evening 3 July to 14 July (Gettysburg Seminar Papers, 13th seminar, essay 1)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "Advance and Pursuit: Evening 3 July to 14 July (Gettysburg Seminar Papers, 13th seminar, essay 1)",
+   "rights": "United States government work",
+   "origin": "planned: not yet downloaded",
+   "groups": [
+    "org-evacuation",
+    "gettysburg-statistics"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/NPS-SEM13-ESSAY1/essay1.pdf",
+     "sha256": null,
+     "bytes": null,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/series/symposia/gettysburg_seminars/13/essay1.pdf"
+  },
+  "NPS-SEM13-ESSAY6": {
+   "title": "A Past So Fraught With Sorrow (Gettysburg Seminar Papers, 13th seminar, essay 6)",
+   "class": "nps-report",
+   "lead": false,
+   "edition": "A Past So Fraught With Sorrow (Gettysburg Seminar Papers, 13th seminar, essay 6)",
+   "rights": "United States government work",
+   "origin": "planned: not yet downloaded",
+   "groups": [
+    "camp-letterman",
+    "burial-practice",
+    "sites-town"
+   ],
+   "ocr_error_rate": 0.04,
+   "files": {
+    "main": {
+     "path": "tmp/library/medical/NPS-SEM13-ESSAY6/essay6.pdf",
+     "sha256": null,
+     "bytes": null,
+     "page_model": "marker",
+     "page_marker": "^=== PAGE (\\d+) ===$"
+    }
+   },
+   "url": "https://www.npshistory.com/series/symposia/gettysburg_seminars/13/essay6.pdf"
+  }
+ }
+}

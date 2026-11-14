@@ -190,10 +190,16 @@ def make_flags(spec, S, rows, info, unit_sha):
             p, ok = page_cache[lf]
             if p is not None:
                 page_head.append([i, p, 1 if ok else 0])
+    rev = []
+    hoffs = [h[0] for h in S.heads]
+    for off in S.reviewed_heads:                                   # headings the OCR damaged and a person read (ma_cuts.HEADINGS)
+        hi = hoffs.index(off)
+        idx = [i for i, inf in enumerate(info) if inf['heading_index'] == hi]
+        rev.append({'heading': S.heads[hi][4], 'code': S.heads[hi][1], 'offset': off, 'first_row': idx[0] if idx else None, 'last_row': idx[-1] if idx else None, 'n_rows': len(idx)})
     rows_by_code = {c: sorted(v) for c, v in sorted(rowcodes.items())}
     unc = sorted(set().union(*rowcodes.values())) if rowcodes else []
     basis = [b for b, _ in sorted(basis_idx.items(), key=lambda kv: kv[1])]
-    return {
+    out = {
         'f': 'roster2-flags/1', 'u': spec['key'], 'n': n, 'unit_file_raw_lines_sha256': unit_sha, 'about': ABOUT, 'codes': CODES,
         'rows': rows_by_code, 'ocr_uncertain': unc,
         'on_rolls_july_1863': {'rule': RULE, 'basis': basis, 'yes': yes, 'no': no},
@@ -201,6 +207,9 @@ def make_flags(spec, S, rows, info, unit_sha):
         'company_inferred': comp_inf, 'printed_page_from_running_head': page_head,
         'names_gettysburg': gett, 'gettysburg_dated': gett_dated,
     }
+    if rev:
+        out['reviewed_headings'] = rev
+    return out
 
 
 def write_gz_json(path, obj):
@@ -256,6 +265,8 @@ def main(argv):
             'tail_dropped': [list(x) for x in S.tail_dropped], 'reviewed_cuts': [(n, why) for n, why, e in S.applied_cuts],
             'normalised_empty': sum(1 for x in flags['normalised_names'] if x == ''),
         }
+        if flags.get('reviewed_headings'):
+            d['reviewed_headings'] = flags['reviewed_headings']
         diag['units'][spec['key']] = d
         print('%-45s rows %5d  raw %7d  gz %6d  codes %s  yes/no %d/%d  Gettysburg %d (dated %d)' % (
             spec['name'], len(rows), meta['raw'], meta['gz'], d['codes'], d['on_rolls']['yes'], d['on_rolls']['no'], d['names_gettysburg'], d['gettysburg_dated']))

@@ -1,0 +1,336 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "massachusettssol21931mass/143",
+ "levels": "NDR",
+ "stratum": "MA-SSM-officers",
+ "family": "MA-SSM",
+ "layout": "flow",
+ "kind": "officers",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 133,
+ "rows_stored": 16,
+ "rows_checked": 16,
+ "rows_in_error": 10,
+ "rows_ok": 6,
+ "rows_flagged_ocr_uncertain": 4,
+ "errors": [
+  {
+   "i": 1,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'1S63'",
+   "rid": "15th-massachusetts-infantry#1",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'Jany. 28, 1S62'",
+   "rid": "15th-massachusetts-infantry#3",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "rem-date",
+    "rem-char"
+   ],
+   "note": "'Xov. 15' for 'Nov. 15'; 'L'. S. Vols.' for 'U. S. Vols.'",
+   "rid": "15th-massachusetts-infantry#4",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2",
+    "R-G3"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'Xov. 27' for 'Nov. 27'",
+   "rid": "15th-massachusetts-infantry#5",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Batten,- Mass.' for 'Battery Mass.'; 'f. S. Army' for 'U. S. Army'",
+   "rid": "15th-massachusetts-infantry#6",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 9,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Millburj-' for 'Millbury'",
+   "rid": "15th-massachusetts-infantry#9",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'clergjTnan' for 'clergyman'",
+   "rid": "15th-massachusetts-infantry#11",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 13,
+   "kinds": [
+    "rem-date"
+   ],
+   "note": "'1S65'",
+   "rid": "15th-massachusetts-infantry#13",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'Gk)rham, Maine' for 'Gorham, Maine'",
+   "rid": "15th-massachusetts-infantry#14",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 15,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'disabiUty' for 'disability'",
+   "rid": "15th-massachusetts-infantry#15",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "all 16 names, ranks, the section headings Field and Staff and Non-Commissioned Staff and the order agree with the print; headings are no stored lines"
+ ],
+ "reader": "full level; full page at 200 dpi (1 Read) and two zooms at 600 dpi; 16 stored entries compared with the print; the digit 8 of this typeface is inked like an S and the text layer reads S (zoom of '1862' in the Bates entry)",
+ "tesseract_prescreen": {
+  "agree": 5,
+  "near": 0,
+  "suspect": 11,
+  "unstored_lines": 5
+ },
+ "read": {
+  "pdf_sha256": "c76ba611469c68e60681935e141e61b92b4cf26bfa9b14489e88e88597d4d6b1",
+  "pdf_page": 143,
+  "view_png_sha256": "cee817f1c73705c864f557a88742ac083c2c8b715cc72bc8c435c2a4f5e4710c",
+  "render300_sha256": "1bdc90170929acb43880da73c8e2e625da350243cd0ab34b224684e31742d14d",
+  "tess_sha256": "7949eeb1633cb96131dd002eb80aa38af3c247a1046bc1e2fa1a81b0b3e5c720",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.975
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "15th-massachusetts-infantry#0",
+   "name": "Charles Devens",
+   "off": 682901,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "H"
+   ]
+  },
+  {
+   "i": 1,
+   "rid": "15th-massachusetts-infantry#1",
+   "name": "George H. Ward",
+   "off": 683140,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "15th-massachusetts-infantry#2",
+   "name": "Church Howe",
+   "off": 683545,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "15th-massachusetts-infantry#3",
+   "name": "William B. Storer",
+   "off": 683911,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "15th-massachusetts-infantry#4",
+   "name": "George A. Hicks",
+   "off": 684166,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "15th-massachusetts-infantry#5",
+   "name": "George W. Baldwin",
+   "off": 684404,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "15th-massachusetts-infantry#6",
+   "name": "F. Le Baron Monroe",
+   "off": 684613,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "15th-massachusetts-infantry#7",
+   "name": "Joseph N. Bates",
+   "off": 684993,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "15th-massachusetts-infantry#8",
+   "name": "Samuel Foster Haven, Jr.",
+   "off": 685134,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "15th-massachusetts-infantry#9",
+   "name": "Theodore O. Cornish",
+   "off": 685384,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "15th-massachusetts-infantry#10",
+   "name": "Henry Rockwood",
+   "off": 685547,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "15th-massachusetts-infantry#11",
+   "name": "William G. Scandlin",
+   "off": 685692,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "15th-massachusetts-infantry#12",
+   "name": "Francis A. Walker",
+   "off": 685874,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "15th-massachusetts-infantry#13",
+   "name": "William R. Steele",
+   "off": 686090,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 14,
+   "rid": "15th-massachusetts-infantry#14",
+   "name": "William G. Waters",
+   "off": 686456,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "15th-massachusetts-infantry#15",
+   "name": "Henry L. Dearing",
+   "off": 686729,
+   "text_id": "MA-SSM-1931.2",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:49:38Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "AGREE",
+  "8": "AGREE",
+  "9": "SUSPECT",
+  "10": "AGREE",
+  "11": "SUSPECT",
+  "12": "AGREE",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT"
+ }
+}

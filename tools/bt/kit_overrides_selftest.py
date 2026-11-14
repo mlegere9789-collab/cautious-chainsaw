@@ -253,6 +253,51 @@ def run(ok):
     flat = [s for _p, s in KO.walk_strings({'a': {'b': ['x', {'c': 'Built by app/tools/build-guns.mjs.'}], 'n': 3}})]
     ok('copy audit: the check of the built tables reaches every string of a table and finds a sentence that says how it was made', flat == ['x', 'Built by app/tools/build-guns.mjs.'] and [i for i, _w in K.audit_strings(flat)] == [1], flat)
 
+    # ---- army rules, the kit's own marking of captured arms, the safety net, records shared by several units --------------
+    W, IT = base['weapons']['weapons'], base['kit_specs']['items']
+    ok_w = lambda v: not v.get('barred') and not v.get('placeholder') and not v.get('not_assignable')
+    union_arm = next(k for k, v in sorted(W.items()) if v['army'] == 'union' and v['category'] == 'long_arm' and ok_w(v) and k not in KO.ASSIGNABLE_BLOCK)
+    cs_arm = next(k for k, v in sorted(W.items()) if v['army'] == 'confederate' and v['category'] == 'long_arm' and ok_w(v) and k not in KO.ASSIGNABLE_BLOCK)
+    cap = lambda txt: {'weapons': [{'printed': txt, 'weapon_id': union_arm, 'share': 'some'}]}
+    csu = 'cs-1c-mclaws-kershaw-2sc'
+    out = KO.compile_lines(ctx, 'tc', [line('tc:0001', csu, 'arms', cap('rifles captured at Harper\'s Ferry'), kit_field='weapon', basis='regimental_history', source='NY-GB-1900', part=None, report_id='NY1-S001', printed_page=None)], {})
+    cr = [o for o in out.ops if o['op'] == 'create' and o['table'] == 'kit_specs']
+    ok('captured: a Union-pattern arm that the line says was captured is given to a Confederate regiment marked captured, as the kit marks it', len(cr) == 1 and cr[0]['value']['fields']['weapon']['allowed'][0].get('captured') is True, [(o['op'], o.get('key')) for o in out.ops])
+    d = fresh('ov_cap')
+    write_ov(d, 'tc', out)
+    tab, rep = apply_to(base, d)
+    kit, errs, CK = data_checks_of(tab, 'cap')
+    ok('captured: the kit data checks pass on that record (no CS_UNIT_ALLOWS_UNCAPTURED_UNION_ITEM)', not errs, errs[:3])
+    out = KO.compile_lines(ctx, 'tc', [line('tc:0002', csu, 'arms', cap('Springfield rifles'), kit_field='weapon', basis='regimental_history', source='NY-GB-1900', part=None, report_id='NY1-S001', printed_page=None)], {})
+    ok('captured: the same arm with no word of capture is not compiled (the compile never decides that an arm was captured), and the reason says what the line lacks', not [o for o in out.ops if o['op'] != 'register_source']
+       and 'does not say it was captured' in out.unapplied[0]['reason'] and not out.unapplied[0].get('routed'), (out.ops, out.unapplied))
+    out = KO.compile_lines(ctx, 'tc', [line('tc:0003', 'us-1c-1d-cutler-76ny', 'arms', {'weapons': [{'printed': 'Richmond rifles', 'weapon_id': cs_arm, 'share': 'some'}]}, kit_field='weapon', basis='regimental_history', source='NY-GB-1900', part=None, report_id='NY1-S001', printed_page=None)], {})
+    ok('army: a Confederate item is not given to a Union regiment by rule', not [o for o in out.ops if o['op'] != 'register_source'] and 'Confederate item' in out.unapplied[0]['reason'], out.unapplied)
+    # the safety net: a pair that the pre-filter does not know but the kit data checks reject (a Berdan-green coat on an ordinary regiment) is demoted with the checker's message; a good line of another regiment still compiles
+    berdan = next(k for k, v in sorted(IT.items()) if v['kind'] == 'coat' and 'berdan_green' in v.get('tags', []) and v['army'] in ('union', 'either') and not v.get('barred') and 'reference_only' not in v.get('tags', []))
+    kepi = next(k for k, v in sorted(IT.items()) if v['kind'] == 'headgear' and v['army'] in ('union', 'either') and not v.get('barred') and 'reference_only' not in v.get('tags', []) and not (set(v.get('tags', [])) & {'berdan_green', 'zouave', 'green_hatband', 'artillery_red', 'cavalry_yellow'}))
+    vt = fresh('ov_verify')
+    base_errs = set(KO.data_errors(base, vt))
+    badc = line('tv:0001', 'us-1c-1d-cutler-76ny', 'dress', {'items': [{'printed': 'a green frock coat', 'item_id': berdan, 'share': 'all'}]}, kit_field='coat', basis='state_volume', source='NY-GB-1900', part=None, report_id='NY1-S001', printed_page=None)
+    good = line('tv:0002', 'us-1c-1d-cutler-7in', 'dress', {'items': [{'printed': 'a forage cap', 'item_id': kepi, 'share': 'all'}]}, kit_field='headgear', basis='state_volume', source='NY-GB-1900', part=None, report_id='NY1-S001', printed_page=None)
+    out = KO.verified_compile(ctx, 'tv', [badc, good], {}, base_errs, vt)
+    keys = [o.get('key') for o in out.ops if o['op'] == 'create']
+    ok('safety net: a line the kit data checks reject is demoted with the checker\'s own message, and the good line of another regiment still compiles', list(out.demoted) == ['tv:0001'] and 'BERDAN_GREEN_OUTSIDE_BERDAN' in out.demoted['tv:0001'][0]
+       and keys == ['US.7IN'] and any(u['reason'].startswith('KIT DATA CHECK') and u['evidence_ids'] == ['tv:0001'] for u in out.unapplied), (out.demoted, keys, out.unapplied))
+    d = fresh('ov_safe')
+    write_ov(d, 'tv', out)
+    tab, rep = apply_to(base, d)
+    kit, errs, CK = data_checks_of(tab, 'safe')
+    ok('safety net: what survives passes the kit data checks', not errs, errs[:3])
+    out = KO.verified_compile(ctx, 'tv', [good], {}, base_errs, vt)
+    ok('safety net: a group with nothing wrong is compiled as it is', not out.demoted and [o.get('key') for o in out.ops if o['op'] == 'create'] == ['US.7IN'])
+    # a kit record that serves two roster batteries (US.ART.1st_NY_E_L) is not changed by evidence about one of them
+    fi = next(k for k, v in sorted(IT.items()) if v['kind'] == 'flag_or_instrument' and v['army'] in ('union', 'either') and not v.get('barred') and 'reference_only' not in v.get('tags', []))
+    sh = lambda i, u: line(i, u, 'dress', {'items': [{'printed': 'a guidon', 'item_id': fi, 'share': 'all'}]}, kit_field='flag_or_instrument', basis='state_volume', source='NY-GB-1900', part=None, report_id='NY1-S001', printed_page=None)
+    out = KO.compile_lines(ctx, 'ts', [sh('ts:0001', 'us-1c-art-1nye'), sh('ts:0002', 'us-1c-art-1nyl')], {})
+    ok('shared record: evidence about one of two batteries that share a kit record changes nothing and is listed for review (so two batteries never set the same fields)', not [o for o in out.ops if o['op'] != 'register_source']
+       and len(out.unapplied) == 2 and all('serves several roster units' in u['reason'] and not u.get('routed') for u in out.unapplied), (out.ops, out.unapplied))
+
     # ---- stale, reversible, policy, hygiene -----------------------------------------------------------------------
     out = KO.compile_lines(ctx, 'tg', [line('tg:0001', 'us-1c-art-5me', 'guns', guns_val())], {})
     d = fresh('ov_stale')
@@ -319,6 +364,13 @@ def run(ok):
     docs, summary, index = KO.compile_all(['us-art-corps'], ev_dir=ev, ov_dir=ovd, write=False, base=base)
     ok('end to end: a validated line compiles to operations and an evidence-index entry with its page and offset', summary['us-art-corps']['accepted'] == 1 and summary['us-art-corps']['ops'] > 3 and index['us-art-corps:0001']['printed_page'] == 231
        and index['us-art-corps:0001']['offset'] == 761301, summary)
+    g3a = copy.deepcopy(g3)
+    g3a['value']['pieces'][0]['printed'] = 'six 12-pounders, bought by an agent'
+    with open(os.path.join(ev, 'us-art-corps.jsonl'), 'w', encoding='utf-8', newline='\n') as f:
+        f.write(json.dumps(g3a, ensure_ascii=False) + '\n')
+    docs, summary, index = KO.compile_all(['us-art-corps'], ev_dir=ev, ov_dir=ovd, write=False, base=base)
+    ok('end to end: a line whose printed words the packer rejects is accepted by the validator (a warning), is not compiled into a table, and its index entry says so', summary['us-art-corps']['accepted'] == 1 and summary['us-art-corps']['copy_audit_blocked'] == 1
+       and not [o for o in docs['us-art-corps']['ops'] if o['op'] != 'register_source'] and index['us-art-corps:0001'].get('copy_audit_hit') and docs['us-art-corps']['unapplied'][0]['reason'].startswith('COPY AUDIT'), (summary, index.get('us-art-corps:0001')))
     bad = dict(g3, quote=g3['quote'].replace('Stevens', 'Stephens'))
     with open(os.path.join(ev, 'us-art-corps.jsonl'), 'w', encoding='utf-8', newline='\n') as f:
         f.write(json.dumps(bad, ensure_ascii=False) + '\n')

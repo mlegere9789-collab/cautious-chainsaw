@@ -28,6 +28,7 @@ sys.path.insert(0, HERE)
 import plan_text as pt  # noqa: E402
 from authored_wave1a import WAVE1A  # noqa: E402
 from authored_wave1b import WAVE1B  # noqa: E402
+from authored_wave2 import WAVE2, WAVE2_ORDER  # noqa: E402
 from authored_slices import SLICES  # noqa: E402
 
 REPO = pt.REPO
@@ -49,9 +50,14 @@ CHAPTER_TIER = {'01': 'legacy-a-line', '02': 'survival', '03': 'grade-a', '04': 
 WAVE1_ORDER = ['ver-hist-node', 'wp-arch-09', 'wp-infra-28b', 'wp-content-09b', 'wp-time-05', 'wp-infra-23b', 'wp-hist-01b', 'wp-data-23a', 'wp-pagec-30', 'audit-h5',
                'wp-pagec-24', 'wp-pagec-33', 'wp-seo-04b', 'wp-page-18', 'wp-time-06', 'wp-data-05b', 'wp-infra-21b', 'wp-data-16', 'wp-data-15a', 'wp-data-14a',
                'wp-data-08d', 'wp-time-18', 'wp-arch-06', 'wp-hist-36', 'wp-data-04a', 'wp-dec-12', 'wp-content-01b', 'wp-time-08', 'wp-hist-22-units', 'wp-pagec-12']
+# dispatch waves: wave 1 is the first batch (30 entries, historical: an entry of it may be done); wave 2 holds the entries authored after it (authored_wave2.py)
+WAVE_ORDERS = ((1, WAVE1_ORDER), (2, WAVE2_ORDER))
+ALL_WAVE_IDS = WAVE1_ORDER + WAVE2_ORDER
+BATCH_SIZE = 30
 AUTHORED = {}
 AUTHORED.update(WAVE1A)
 AUTHORED.update(WAVE1B)
+AUTHORED.update(WAVE2)
 for _spec in SLICES.values():
     for _sp in _spec['slices']:
         AUTHORED[_sp['id']] = _sp
@@ -90,6 +96,31 @@ SAME_WORK = {'WP-PAGEC-03': 'WP-PAGE-03'}                      # the survey says
 OWNER_GATE = re.compile(r"(owner's review|owner reads|owner reviews|owner review|owner decides|owner and counsel|owner inputs|owner machine|the owner answers|a person's sign-off|named reviewer|by the reviewer|reviewer's|historian decides|human review|second labeller|someone who did not build|real[- ]browser pass|real[- ]phone|real iphone|real device|counsel|account step|owner step|waits for the owner|owner exports|owner-only|owner enables|owner upload)", re.I)
 CLASS_LABEL = {'candidate-group': 'candidate patch group (candidates/r1h/<id>/)', 'source-rebuild': 'source-rebuild (src/, historian-src/, data-src/)',
                'release-request': 'request to the release workstream', 'verification-record': 'verification record (evidence, not a change)', 'decision-record': 'decision record', 'umbrella': 'closes with its children'}
+
+
+# ------------------------------------------------------------------ write sets (shared with check_backlog.py)
+def norm(f):
+    """The path part of a files entry ("tools/data/x.mjs (small Edit)" -> "tools/data/x.mjs")."""
+    return re.sub(r'\s*\(.*$', '', f).strip()
+
+
+def overlaps(a, b):
+    a, b = norm(a), norm(b)
+    if a == b:
+        return True
+    return (a.endswith('/') and b.startswith(a)) or (b.endswith('/') and a.startswith(b))
+
+
+def write_conflicts(a, b):
+    """Paths that two entries (dicts with files and shared_files) both write, except files that both name as shared (changed by small edits only)."""
+    out = []
+    sa = [norm(x) for x in a.get('shared_files', [])]
+    sb = [norm(x) for x in b.get('shared_files', [])]
+    for fa in a['files']:
+        for fb in b['files']:
+            if overlaps(fa, fb) and not (norm(fa) in sa and norm(fb) in sb) and norm(fa) not in ('tools/time/relabel-data.mjs',):
+                out.append(norm(fa))
+    return out
 
 
 # ------------------------------------------------------------------ loading
@@ -469,10 +500,15 @@ def build():
         # acceptance
         if auth:
             e['acceptance'] = auth['acceptance']
-            e['acceptance_basis'] = 'authored against the repository on 2026-11-13'
+            e['acceptance_basis'] = auth.get('basis') or ('authored against the repository on 2026-11-14' if sid in WAVE2_ORDER else 'authored against the repository on 2026-11-13')
             e['short'] = auth['short']
             e['owed'] = auth.get('owed', '')
             e['value'] = auth['value']
+            if auth.get('closes_in_part'):
+                e['closes_in_part'] = auth['closes_in_part']
+            if auth.get('needs_split'):
+                e['needs_split'] = True
+                e['split_hint'] = auth['split_hint']
         else:
             e['acceptance'], e['acceptance_basis'] = gen_acceptance(e, it, rt, area, accept_plan, rows)
         gate = OWNER_GATE.findall(it['next_step'])
@@ -532,11 +568,16 @@ def build():
                     changed = True
 
     # ---- order
-    wave_pos = {s: k for k, s in enumerate(WAVE1_ORDER)}
-    for s in WAVE1_ORDER:
-        if s not in entries:
-            raise SystemExit('wave-1 id not in the backlog: %s' % s)
-        entries[s]['wave'] = 1
+    wave_pos = {s: k for k, s in enumerate(ALL_WAVE_IDS)}
+    if len(wave_pos) != len(ALL_WAVE_IDS):
+        raise SystemExit('an id is listed twice in the wave orders: %s' % [s for s in ALL_WAVE_IDS if ALL_WAVE_IDS.count(s) > 1])
+    for wn, lst in WAVE_ORDERS:
+        for s in lst:
+            if s not in entries:
+                raise SystemExit('wave-%d id not in the backlog: %s' % (wn, s))
+            if s not in AUTHORED:
+                raise SystemExit('wave-%d id has no authored entry: %s' % (wn, s))
+            entries[s]['wave'] = wn
     for sid, e in entries.items():
         e.setdefault('wave', None)
 
@@ -704,6 +745,24 @@ def chapter_titles():
     return out
 
 
+def compute_next_batch(entries, result):
+    """The batch to dispatch now: the first BATCH_SIZE entries in order that have an authored acceptance (they belong to a wave), are not done, are build entries,
+    wait for no open entry and write no path that an earlier member writes (so the members are pairwise independent)."""
+    batch = []
+    for sid in result:
+        e = entries[sid]
+        if e['done'] or e.get('wave') is None or e['_klass'] != 'leaf':
+            continue
+        if any(not entries[d]['done'] for d in e['depends_on']):
+            continue
+        if any(write_conflicts(entries[b], e) for b in batch):
+            continue
+        batch.append(sid)
+        if len(batch) == BATCH_SIZE:
+            break
+    return batch
+
+
 def backlog_json(A, B, items, order, entries, result, rows):
     out_items = []
     for sid in result:
@@ -714,7 +773,7 @@ def backlog_json(A, B, items, order, entries, result, rows):
             o['children'] = e['_children']
         # a stable field order
         keys = ['id', 'order', 'wave', 'done', 'title', 'source', 'chapter', 'area', 'tier', 'tranche', 'roadmap_nodes', 'size', 'route', 'files', 'shared_files', 'touches', 'reads',
-                'context_files', 'depends_on', 'children', 'implemented_by', 'decision', 'value', 'acceptance', 'acceptance_basis', 'short', 'owed', 'needs_split', 'split_hint',
+                'context_files', 'depends_on', 'children', 'implemented_by', 'decision', 'value', 'acceptance', 'acceptance_basis', 'short', 'owed', 'closes_in_part', 'needs_split', 'split_hint',
                 'consequence_note', 'owner_gated', 'together_with', 'same_work_as', 'slice_of', 'slices', 'slice_note', 'umbrella_without_open_children', 'warnings', 'done_evidence']
         o = {k: o[k] for k in keys if k in o}
         out_items.append(o)
@@ -722,17 +781,22 @@ def backlog_json(A, B, items, order, entries, result, rows):
     for e in entries.values():
         counts[('done' if e['done'] else 'open', e['route']['type'])] += 1
     open_leaf = [s for s in result if not entries[s]['done'] and entries[s]['_klass'] == 'leaf']
+    batch = compute_next_batch(entries, result)
+    n_open_a = sum(1 for i in order if items[i]['_part'] == 'A' and items[i]['status'] in OPEN)
+    n_open_b = sum(1 for i in order if items[i]['_part'] == 'B' and items[i]['status'] in OPEN)
     doc = {
         'schema': 1, 'file': 'docs/plan/STATUS/backlog.json', 'generated': GENERATED,
         'generator': 'python3 docs/plan/STATUS/merge_status.py (validate: python3 docs/plan/STATUS/check_backlog.py)',
         'sources': ['docs/plan/STATUS/items-A.json', 'docs/plan/STATUS/items-B.json', 'docs/plan/STATUS/authored_wave1a.py', 'docs/plan/STATUS/authored_wave1b.py', 'docs/plan/STATUS/authored_slices.py',
                     'docs/plan/FINAL/15-roadmap.json', 'docs/plan/FINAL (WP dependency tables and acceptance text)', 'docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md'],
-        'scope': 'One entry per OPEN_BUILDABLE, BUILT_NOT_SHIPPED and OPEN_NEEDS_DECISION item of items-A.json (340) and items-B.json (365), plus the slices of items cut into parts (slice_of / slices): %d entries in all. SHIPPED, OWNER_ONLY and SUPERSEDED items are not here (see STATUS.md).' % len(out_items),
+        'scope': 'One entry per OPEN_BUILDABLE, BUILT_NOT_SHIPPED and OPEN_NEEDS_DECISION item of items-A.json (%d) and items-B.json (%d), plus the slices of items cut into parts (slice_of / slices): %d entries in all. SHIPPED, OWNER_ONLY and SUPERSEDED items are not here (see STATUS.md).' % (n_open_a, n_open_b, len(out_items)),
         'definitions': {
             'id': 'lowercase letters, digits and hyphens: the source id lowercased (WP-INFRA-23b -> wp-infra-23b); also the folder name candidates/r1h/<id>/',
             'route.type': {k: CLASS_LABEL[k] for k in CLASS_LABEL},
             'done': 'true only when the record verifies (candidates/r1h/<id>/STATUS.json passes with the red and green runs, test and HANDOFF.md on disk; a decision record needs its delegated row; an umbrella needs every child done). Nothing is marked done on a claim.',
-            'wave': '1 = the first dispatch batch (30 entries, authored against the repository, pairwise independent: disjoint write sets, no depends_on between them); null = later',
+            'wave': '1 = the first dispatch batch (30 entries, authored against the repository, pairwise independent: disjoint write sets, no depends_on between them; an entry of it stays listed when it is done); 2 = entries authored after it (authored_wave2.py, authored_slices.py); null = no authored acceptance yet',
+            'next_batch': 'the entries to dispatch now: the first %d entries in order that have an authored acceptance (a wave), are not done, wait for no open entry and share no written path with an earlier member (computed by merge_status.py, re-checked by check_backlog.py)' % BATCH_SIZE,
+            'closes_in_part': 'the entry closes only part of its plan item; the text names the entry that carries the rest, so nothing of the plan item is dropped',
             'order': 'position in the list: open build entries first by wave, value tier (survival, legacy A-line, grade A, full A+, optional), status (built-not-shipped first), size, roadmap node; an entry never precedes its open dependencies; umbrellas and decision records after the build entries; done entries last',
             'tier': 'the lowest path of docs/plan/FINAL/15-roadmap.json in which the entry\'s roadmap node carries work (survival < legacy-a-line < grade-a < full-a-plus; tranche P7 = optional)',
             'depends_on': 'open entries that must be done first: the plan\'s dependency tables, "after/once" clauses of the survey step, the children of an umbrella, and wp-arch-09 for rebuild entries',
@@ -740,8 +804,12 @@ def backlog_json(A, B, items, order, entries, result, rows):
             'acceptance_basis': 'authored = written against the repository; otherwise the machine proof clause plus the survey next step and the plan acceptance, quoted',
         },
         'counts': {'entries': len(out_items), 'open_build': len(open_leaf), 'by_route_and_state': {'%s/%s' % k: v for k, v in sorted(counts.items())},
-                   'wave_1': sum(1 for e in entries.values() if e.get('wave') == 1), 'done': sum(1 for e in entries.values() if e['done']),
+                   'wave_1': sum(1 for e in entries.values() if e.get('wave') == 1), 'wave_1_done': sum(1 for e in entries.values() if e.get('wave') == 1 and e['done']),
+                   'wave_2': sum(1 for e in entries.values() if e.get('wave') == 2), 'wave_2_done': sum(1 for e in entries.values() if e.get('wave') == 2 and e['done']),
+                   'next_batch': len(batch), 'done': sum(1 for e in entries.values() if e['done']),
                    'by_source_status': dict(collections.Counter(e['source']['status'] for e in entries.values())), 'by_size_open_build': dict(collections.Counter(entries[s]['size'] for s in open_leaf))},
+        'batch_size': BATCH_SIZE,
+        'next_batch': batch,
         'items': out_items,
     }
     return doc
@@ -822,19 +890,50 @@ def status_md(A, B, items, order, entries, result, rows):
     sz = collections.Counter(entries[s]['size'] for s in open_leaf)
     L.append('Open build entries by size: S %d, M %d, L %d (an L entry must be sliced to M or smaller before it is dispatched; `split_hint` quotes the plan\'s own steps).' % (sz['S'], sz['M'], sz['L']))
     L.append('')
-    L.append('### Wave 1: the first dispatch batch (30 entries)')
+    batch = compute_next_batch(entries, result)
+
+    def state_of(e):
+        if e['done']:
+            return 'done'
+        wait = [d for d in e['depends_on'] if not entries[d]['done']]
+        return 'waits for ' + ', '.join('`%s`' % d for d in wait) if wait else 'open'
+
+    L.append('### Next batch: what to dispatch now (%d entries, at most %d)' % (len(batch), BATCH_SIZE))
     L.append('')
-    L.append('Authored against the repository; pairwise independent (disjoint write sets, no dependency between them; the few shared files are changed by small edits only and named in `shared_files`).')
+    L.append('The first %d entries in order that have an authored acceptance, are not done, wait for no open entry and write no path that an earlier member writes; computed by `merge_status.py`, listed under `next_batch` in `backlog.json` and re-checked by `check_backlog.py`. The members are pairwise independent. The check is the short form; the full acceptance, files, reads and `owed` are in the entry.' % BATCH_SIZE)
     L.append('')
-    L.append('| # | Id | Route | Size | Why it is first | Check (short) |')
-    L.append('|---:|---|---|---|---|---|')
-    for n, s in enumerate(WAVE1_ORDER, 1):
-        e = entries[s]
-        L.append('| %d | `%s` | %s | %s | %s | %s |' % (n, s, e['route']['type'], e['size'], md_cell(e.get('value', '')), md_cell(e.get('short', ''))))
+    L.append('| # | Id | Route | Size | Wave | Check (short) |')
+    L.append('|---:|---|---|---|---:|---|')
+    for n, sid in enumerate(batch, 1):
+        e = entries[sid]
+        L.append('| %d | `%s` | %s | %s | %s | %s |' % (n, sid, e['route']['type'], e['size'], e['wave'], md_cell(e.get('short', ''))))
     L.append('')
+    for wn, lst in WAVE_ORDERS:
+        n_done = sum(1 for sid in lst if entries[sid]['done'])
+        L.append('### Wave %d: %s (%d entries, %d done)' % (wn, 'the first dispatch batch' if wn == 1 else 'entries authored after wave 1', len(lst), n_done))
+        L.append('')
+        if wn == 1:
+            L.append('Authored against the repository; pairwise independent (disjoint write sets, no dependency between them; the few shared files are changed by small edits only and named in `shared_files`). An entry stays listed when it is done.')
+        else:
+            L.append('Authored against the repository when the entry was reached; an entry may wait for an earlier one (State). Slices of items cut into parts are listed here too.')
+        L.append('')
+        L.append('| # | Id | Route | Size | State | Why it is first | Check (short) |')
+        L.append('|---:|---|---|---|---|---|---|')
+        for n, sid in enumerate(lst, 1):
+            e = entries[sid]
+            L.append('| %d | `%s` | %s | %s | %s | %s | %s |' % (n, sid, e['route']['type'], e['size'], state_of(e), md_cell(e.get('value', '')), md_cell(e.get('short', ''))))
+        L.append('')
+    part = [sid for sid in result if entries[sid].get('closes_in_part')]
+    if part:
+        L.append('### Entries that close part of a plan item (the rest has an entry of its own)')
+        L.append('')
+        for sid in part:
+            e = entries[sid]
+            L.append('- `%s` (%s): %s' % (sid, 'done' if e['done'] else 'open', md_cell(e['closes_in_part'])))
+        L.append('')
     nxt = [x for x in result if entries[x]['wave'] is None and not entries[x]['done'] and entries[x]['_klass'] == 'leaf'
-           and not any(d in WAVE1_ORDER for d in entries[x]['depends_on'])][:40]   # entries that wait for a wave-1 entry are not in the next batch
-    L.append('### After wave 1: the next 40 build entries in order (acceptance is derived, not yet authored against the repository)')
+           and not any(d in ALL_WAVE_IDS and not entries[d]['done'] for d in entries[x]['depends_on'])][:40]   # entries that wait for an open authored entry are not in the next batch
+    L.append('### After the authored waves: the next 40 build entries in order (acceptance is derived, not yet authored against the repository)')
     L.append('')
     L.append('| Order | Id | Route | Size | Tier | Waits for | Note |')
     L.append('|---:|---|---|---|---|---|---|')

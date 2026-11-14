@@ -1,0 +1,7 @@
+run_suites: 1 suite(s), port base 19340, agent r1g-final-repro
+run_suites: child environment + NODE_USE_ENV_PROXY, NODE_OPTIONS (extended) (an HTTPS proxy is set); load average (1 min) 6.89, 4 CPUs
+FAIL    pagesmaps.R1a          1/1                1.4 s  load 6.89>6.89  map sub-pages, og card, manifest (PG-01..08) on R1a
+
+run_suites: load average (1 min) 6.89>6.89 from the start to the end of this run, 4 CPUs
+
+run_suites: 0/1 suites OK; green tests 1/1; red-first proofs 0/0 (0 legacy tests red as required); 1s -> tmp/r1g-final/repro-runner.json

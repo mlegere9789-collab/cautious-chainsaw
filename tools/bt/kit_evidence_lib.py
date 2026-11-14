@@ -611,9 +611,13 @@ def template(field):
         'horses': ({'present': None, 'serviceable': 303, 'unserviceable': 191, 'lost': None}, 'report_text'),
         'ammunition': ({'rounds_expended': 700, 'by_type': {'shell': 200, 'canister': 100}}, 'report_text'),
         'detachment': ({'companies_absent': ['A', 'K'], 'companies_present': 8, 'strength_includes_detachment': False}, 'report_text'),
+        # statements that give no kind by kind figures: the aggregate alone, and two kinds together
+        'casualties-aggregate': ({'killed': {}, 'wounded': {}, 'missing': {}, 'total': 100, 'period': '1863-07-02', 'scope': 'regiment'}, 'report_statement'),
+        'casualties-combined': ({'killed': {}, 'wounded': {}, 'missing': {}, 'total': None, 'period': '1863-07-02', 'scope': 'regiment', 'combined': [{'kinds': ['killed', 'wounded'], 'total': 37}]}, 'state_volume'),
     }
     if field not in ex:
-        raise SystemExit('fields: ' + ', '.join(FIELDS))
+        raise SystemExit('fields: ' + ', '.join(FIELDS) + ' (and casualties-aggregate, casualties-combined)')
+    base['field'] = field.split('-')[0]
     base['value'], base['basis'] = ex[field]
     if field in ('arms', 'dress'):
         base['kit_field'] = 'weapon' if field == 'arms' else 'headgear'

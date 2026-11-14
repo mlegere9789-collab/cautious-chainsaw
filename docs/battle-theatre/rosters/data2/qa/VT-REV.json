@@ -1,0 +1,171 @@
+{
+ "f": "roster-qa-family/1",
+ "family": "VT-REV",
+ "strata": {
+  "VT-REV-officers": {
+   "pages_in_stratum": 66,
+   "rows_in_stratum": 2347,
+   "pages_looked_at": 1,
+   "decile_pages_looked_at": 1,
+   "rows_looked_at": 37,
+   "draw_positions": [
+    1
+   ],
+   "pages": [
+    "cu31924080774148/88"
+   ],
+   "gates": {
+    "R-G1": {
+     "rows": 37,
+     "errors": 0,
+     "rate_percent": 0.0,
+     "upper95_percent": 7.78,
+     "lower95_percent": 0.0,
+     "decision": "OPEN"
+    },
+    "R-G2": {
+     "rows": 37,
+     "errors": 19,
+     "rate_percent": 51.35,
+     "upper95_percent": 65.72,
+     "lower95_percent": 36.81,
+     "decision": "FAIL"
+    },
+    "R-G3a": {
+     "rows": 37,
+     "errors": 0,
+     "rate_percent": 0.0,
+     "upper95_percent": 7.78,
+     "lower95_percent": 0.0,
+     "decision": "OPEN"
+    },
+    "R-G3b": {
+     "rows": 37,
+     "errors": 13,
+     "rate_percent": 35.14,
+     "upper95_percent": 49.95,
+     "lower95_percent": 22.19,
+     "decision": "FAIL"
+    },
+    "any": {
+     "rows": 37,
+     "errors": 25,
+     "rate_percent": 67.57,
+     "upper95_percent": 80.1,
+     "lower95_percent": 52.81,
+     "decision": null
+    }
+   },
+   "error_kinds_count": {
+    "rem-date": 19,
+    "rem-char": 13,
+    "rem-order": 2
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "rem-date": 18,
+    "rem-char": 13,
+    "rem-order": 2
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "rem-date": 1
+   },
+   "missed_lines": 0,
+   "census_complete": false
+  },
+  "VT-REV-other": {
+   "pages_in_stratum": 246,
+   "rows_in_stratum": 14507,
+   "pages_looked_at": 5,
+   "decile_pages_looked_at": 2,
+   "rows_looked_at": 304,
+   "draw_positions": [
+    5,
+    4,
+    1,
+    2,
+    3
+   ],
+   "pages": [
+    "cu31924080774148/52",
+    "cu31924080774148/60",
+    "cu31924080774148/74",
+    "cu31924080774148/116",
+    "cu31924080774148/248"
+   ],
+   "gates": {
+    "R-G1": {
+     "rows": 304,
+     "errors": 11,
+     "rate_percent": 3.62,
+     "upper95_percent": 5.92,
+     "lower95_percent": 2.04,
+     "decision": "FAIL"
+    },
+    "R-G2": {
+     "rows": 116,
+     "errors": 69,
+     "rate_percent": 59.48,
+     "upper95_percent": 67.16,
+     "lower95_percent": 51.44,
+     "decision": "FAIL"
+    },
+    "R-G3a": {
+     "rows": 304,
+     "errors": 5,
+     "rate_percent": 1.64,
+     "upper95_percent": 3.43,
+     "lower95_percent": 0.65,
+     "decision": "FAIL"
+    },
+    "R-G3b": {
+     "rows": 116,
+     "errors": 65,
+     "rate_percent": 56.03,
+     "upper95_percent": 63.86,
+     "lower95_percent": 47.97,
+     "decision": "FAIL"
+    },
+    "any": {
+     "rows": 116,
+     "errors": 96,
+     "rate_percent": 82.76,
+     "upper95_percent": 88.27,
+     "lower95_percent": 75.94,
+     "decision": null
+    }
+   },
+   "error_kinds_count": {
+    "name-char": 11,
+    "rem-date": 69,
+    "rem-char": 33,
+    "rem-missing": 2,
+    "rem-order": 38,
+    "rem-extra": 3,
+    "rank": 5
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-char": 11,
+    "rem-date": 68,
+    "rem-char": 31,
+    "rem-missing": 2,
+    "rem-order": 38,
+    "rem-extra": 3,
+    "rank": 5
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "rem-char": 2,
+    "rem-date": 1
+   },
+   "missed_lines": 0,
+   "census_complete": false
+  }
+ },
+ "verdicts": [
+  "cu31924080774148/88",
+  "cu31924080774148/52",
+  "cu31924080774148/60",
+  "cu31924080774148/74",
+  "cu31924080774148/116",
+  "cu31924080774148/248"
+ ]
+}

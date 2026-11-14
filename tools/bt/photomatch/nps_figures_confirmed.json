@@ -1,0 +1,18 @@
+{
+ "_doc": "Ties of NPS Record of Treatment figures to catalogued Library of Congress records. A tie is written only after the figure image and the Library image were both looked at (confirmed_by_looking) and the feature matching (match_third_pass.py -> nps_figures_to_loc.json) gave at least 45 inliers and the margin of the rule; written by hand after looking.",
+ "ties": {
+  "NF-V1-p307-000": {
+   "loc": [
+    "2012647704"
+   ],
+   "res": [
+    "ppmsca.32838"
+   ],
+   "inliers": 661,
+   "good_matches": 672,
+   "confirmed_by_looking": true,
+   "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.32838 (record 2012647704, Culp's Hill) with 661 inliers of 672 good matches (nps_figures_to_loc.json; first seen in a targeted check of 26 images of 15 records of the cemetery and Culp's Hill, then in the full run); both images were looked at: the lunettes, the tent at the right and the wooded hill are the same",
+   "note": "the figure shows the print without its mount"
+  }
+ }
+}

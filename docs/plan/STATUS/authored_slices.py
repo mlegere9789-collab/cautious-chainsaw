@@ -31,3 +31,51 @@ SLICES = {
         ],
     },
 }
+
+
+# WP-ARCH-10 is cut in two on 2026-11-14 so that the unbuilt half of WP-ARCH-09 has an entry of its own (Law clause 1: nothing of a plan item is
+# dropped when the foundation half of WP-ARCH-09 closes). The survey (items-A.json, WP-ARCH-09) says "the unbuilt half of the Fix (lint stack,
+# browserslist from D-BROWSERS, toolchain smoke) together with WP-ARCH-10 once npm installs are done under the machine lock".
+SLICES['wp-arch-10'] = {
+    'note': ('Build, chunks, budgets, hash scheme (M-L in the plan) is cut into the toolchain slice, which carries the half of WP-ARCH-09 that is not built '
+             '(pinned installs, lint, style and dead-code tools with seeded-violation fixtures, the one-day toolchain smoke), and the build slice, which is WP-ARCH-10 proper '
+             'and is sliced again before it is dispatched (size L). Browserslist, es-check and the WebGL2 gate stub of WP-ARCH-09 are entry wp-dec-12.'),
+    'slices': [
+        dict(id='wp-arch-10-toolchain', title='Toolchain half of WP-ARCH-09, carried with WP-ARCH-10: pinned installs, lint, style and dead-code tools with seeded-violation fixtures, the one-day toolchain smoke (slice of WP-ARCH-10)',
+             wave=2, area='rebuild', route='source-rebuild', size='M',
+             value='Without pinned tools and the smoke, none of the rebuild entries after the foundation can run a lint or a build; this is the half of WP-ARCH-09 that the foundation record leaves open.',
+             files=['src/package.json', 'src/app/package.json', 'src/eslint.config.mjs', 'src/stylelint.config.mjs', 'src/knip.json', 'src/toolchain/', 'src/STACK.md (rows N1, N2, N5 and section 5, small Edit)',
+                    'docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-arch-10-toolchain.md', 'candidates/r1h/wp-arch-10-toolchain/STATUS.json', 'candidates/r1h/wp-arch-10-toolchain/HANDOFF.md',
+                    'candidates/r1h/wp-arch-10-toolchain/evidence/'],
+             reads=['src/STACK.md (rows N1 to N12, section 5)', 'src/package.json', 'src/tsconfig.base.json', 'src/config/mapbox.js', 'docs/plan/FINAL/03-source-rebuild-and-parity.md (WP-ARCH-09, WP-ARCH-10, section 8 item 1)',
+                    'docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md rows A10, C03, W09-1 to W09-5', 'docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-arch-09.md', 'candidates/r1h/wp-dec-12 (browserslist, es-check)'],
+             depends_on=['wp-arch-09'],
+             acceptance=(
+                 'Carries the unbuilt half of the plan\'s WP-ARCH-09 Fix that the survey assigned to the first dependency install (the foundation half is entry wp-arch-09; browserslist, es-check and the WebGL2 gate stub are entry wp-dec-12, which this entry only wires in). '
+                 'Red first: src/toolchain/toolchain.test.mjs (node:test; runs on Node 22.23.4 and on 24; legs that need installed tools skip loudly when none are installed) fails before any of the following exists. Done when '
+                 '(1) src/app/package.json (private, "@gtbg/app", type module) pins react and react-dom 18.3.1, zustand 5.x and mapbox-gl 3.24.1, and src/package.json pins as devDependencies typescript 5.9.x (row N1), vite 8.x (row N2), eslint with typescript-eslint, eslint-plugin-react-hooks and eslint-plugin-jsx-a11y, stylelint, knip, size-limit with its file plugin and es-check: every version exact (no caret, tilde, range or tag), each read from the registry on the day it is installed (one request per second, dated in src/STACK.md section 5), and rows N1, N2 and N5 of src/STACK.md name the pinned versions by small Edit with their way back; Astro is not installed here (its spike is WP-DEC-04). '
+                 '(2) src/eslint.config.mjs (flat config) holds typescript-eslint strict-type-checked, react-hooks, jsx-a11y strict, `no-restricted-imports` for mapbox-gl outside src/app/map/lib/map/**, and the five bans of the plan (`attributionControl:false`, `innerHTML` with data, `Math.random` in the engine, day arithmetic, a zero-selector `useStore()`); src/toolchain/fixtures/ holds one violating file and one clean twin per rule: linting the violating files exits non-zero and names the rule, linting the twins exits 0. '
+                 '(3) src/stylelint.config.mjs rejects a raw hex colour, a numeric z-index and a font-size under 12 px, with the same fixture pairs; src/knip.json reports 0 findings over the committed code; size-limit runs once on the smoke output and its figure is recorded (the budgets are entry wp-arch-10-build). '
+                 '(4) The one-day toolchain smoke of the plan: a hello-world app under src/toolchain/smoke built with the pinned Vite gives named chunk groups, hashed file names and first-party source maps; es-check passes on the output at the floor of D-BROWSERS; src/config/mapbox.js is bundled with envPrefix "PUBLIC_" and a production build fails closed without the token; every Vite, TypeScript and typescript-eslint option name that chapter 03 section 8 item 1 lists as unverified is recorded as verified or wrong in evidence/toolchain-options.txt. '
+                 '(5) The installs are proved in a scratch tree under tmp/r1h-cand/wp-arch-10-toolchain (a copy of the root package.json with the workspace lines of the wp-arch-09 request note, next to the real src/) through tools/horde/bench.sh: `npm ci` and the lint, style, knip and test commands pass there; the lock delta and what the root still needs (the tools as root devDependencies or one more workspace, the lock refresh) are the request note main-site-wp-arch-10-toolchain.md; the root package.json and package-lock.json are not edited. '
+                 'No existing test, gate or baseline is loosened; src/lib/time is linted in report-only mode (findings listed in HANDOFF.md, that code unchanged); pnpm stays a selectable alternative (rows C03, W09-2).'),
+             short='Toolchain half of WP-ARCH-09: exact pins (React 18.3.1, zustand 5, mapbox-gl 3.24.1, TS 5.9.x, Vite 8, ESLint stack, stylelint, knip, size-limit, es-check); lint and style rules each proved red/green by fixtures; one-day Vite smoke; proved in a scratch install, root edits by request note.',
+             owed='A clean-install CI run needs the owner-enabled CI (register D-CI-HOST); the Astro spike is WP-DEC-04; the root package.json and lock are the release workstream\'s.'),
+        dict(id='wp-arch-10-build', title='Build, chunk groups, budgets and hash scheme: WP-ARCH-10 proper (slice of WP-ARCH-10)',
+             wave=None, area='rebuild', route='source-rebuild', size='L',
+             value='The rebuilt app cannot ship without a deterministic build, hashed names and byte budgets; it is the second half of WP-ARCH-10.',
+             files=['src/build/', 'src/app/', 'src/budgets/', 'candidates/r1h/wp-arch-10-build/STATUS.json', 'candidates/r1h/wp-arch-10-build/HANDOFF.md'],
+             reads=['docs/plan/FINAL/03-source-rebuild-and-parity.md (WP-ARCH-10, section 4.6 chunk map and byte budgets)', 'src/STACK.md', 'src/toolchain (entry wp-arch-10-toolchain)', 'tools/t0/build.py (the interim rename rule)'],
+             depends_on=['wp-arch-10-toolchain'],
+             acceptance=(
+                 'Size L: slice into entries of at most M before dispatch (split_hint), each with its own red-first test. The plan\'s WP-ARCH-10 Fix and Accept, whole: one build command runs the data build, the map build, the Astro build, `mount-legacy`, `gen-netlify-config` and the gates and writes `deploy-manifest.json` (path to sha256 and size) and `version.json` (app, data, timeModel, sha; `builtAt` from the commit date so builds stay deterministic); '
+                 'chunk groups of plan section 4.6 with a `shared` chunk so lazy chunks never import the entry; `modulePreload.polyfill:false`; first-party source maps published `noindex`; `THIRD-PARTY-NOTICES.txt`; `assert-hashed-assets.mjs` compares names with the last production manifest (manifest compare plus double build, because Vite\'s `[hash]` is not the sha256 of the file); `verify-deploy.mjs` (every referenced asset exists with exact case, no orphans); `/assets/*` and `/data/v2/*` immutable only once these gates exist. '
+                 'Accept: one patched byte without a rename fails CI; double build identical; no lazy chunk imports the entry; `size-limit` fails on a 5 percent rise of a chunk budget of section 4.6 (brotli, per chunk), and a budget raise needs a `budget-raise` label and an ADR. Nothing in release/R1g/dist changes.'),
+             short='Size L, slice before dispatch: deterministic one-command build with deploy-manifest.json and version.json, chunk groups with a shared chunk, hashed-name and deploy gates, THIRD-PARTY-NOTICES, size-limit budgets that fail on +5 percent; double build identical.',
+             owed='Real-device timing and the clean CI run are owed (owner-enabled CI); budgets are measured as bytes only.',
+             needs_split=True,
+             split_hint=['(a) build driver: deterministic build command, deploy-manifest.json, version.json (builtAt from the commit date), mount-legacy and gen-netlify-config hooks; double build identical',
+                         '(b) gates: assert-hashed-assets.mjs against the last production manifest, verify-deploy.mjs (referenced assets exist with exact case, no orphans), one patched byte without a rename fails',
+                         '(c) chunk groups and budgets: section 4.6 chunk map with a shared chunk, modulePreload.polyfill false, source maps noindex, THIRD-PARTY-NOTICES.txt, size-limit per chunk failing at +5 percent']),
+    ],
+}

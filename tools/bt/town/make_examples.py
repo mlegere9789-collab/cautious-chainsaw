@@ -122,6 +122,13 @@ def main():
         if r['row'] == c2:
             r['conflicts'] = [{'with': c1, 'nature': 'which farm the record and the hospital H-06 are drawn on'}]
 
+    F(G2, gs, 'place', {'text': 'George Spangler house: the Eleventh Corps tablet stands on the Hospital Road 700 feet east of it', 'method': 'described_offset'}, 'inferred', 'text', 'later',
+      cite('NPS-MON-LOC-1932', 'tmp/library/web/nps/NPS-MON-LOC-1932/NPS-MON-LOC-1932.txt', 'The Eleventh Corps on Hospital Road 700 feet east of George Spangler house', 'Locations of the monuments and tablets, 1932'),
+      basis='a tablet list of 1932 gives the distance from the house along the Hospital Road; the position of the house is derived from the tablet, which this row does not locate')
+    F(G2, gs, 'use', 'Union artillery and ammunition park on the farm (with the 11th Corps hospital)', 'documented', 'text', 'july_1863',
+      cite('NPS-CLI-ERR', ERR, 'artillery and ammunition park on the nearby George Spangler farm', 'Emmitsburg Road Ridge CLI, Pickett\'s Charge'),
+      detail='the report speaks of Confederate artillery with fields of fire into the Union park on the nearby George Spangler farm')
+
     # McPherson barn
     G3 = 'farms-seminary-mcpherson-herr'
     mb = 'STR-MCPHERSON-BARN1'

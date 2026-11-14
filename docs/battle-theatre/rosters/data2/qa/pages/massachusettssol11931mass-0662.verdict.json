@@ -1,0 +1,297 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "massachusettssol11931mass/662",
+ "levels": "NDR",
+ "stratum": "MA-SSM-other",
+ "family": "MA-SSM",
+ "layout": "flow",
+ "kind": "other",
+ "draw_position": 3,
+ "in_lowest_decile": false,
+ "printed_page": 648,
+ "rows_stored": 25,
+ "rows_checked": 25,
+ "rows_in_error": 2,
+ "rows_ok": 23,
+ "rows_flagged_ocr_uncertain": 0,
+ "errors": [
+  {
+   "i": 4,
+   "kinds": [
+    "rem-char"
+   ],
+   "note": "'OflBcer' for 'Officer' (See Officer U. S. Colored Troops)",
+   "rid": "9th-massachusetts-infantry#816",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 12,
+   "kinds": [
+    "name-char"
+   ],
+   "note": "stored 'Marrln, Thomas' printed 'Marrin, Thomas'",
+   "rid": "9th-massachusetts-infantry#824",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "company E carried from the page before; both errors are in rows not flagged ocr_uncertain"
+ ],
+ "reader": "full level; full page at 200 dpi (1 Read); names, ranks and the order of all 25 entries compared with the print; remarks of the 4 entries that tesseract read differently read in full, the other 21 by agreement of the text layer with tesseract and a visual scan of the page",
+ "tesseract_prescreen": {
+  "agree": 21,
+  "near": 0,
+  "suspect": 4,
+  "unstored_lines": 1
+ },
+ "read": {
+  "pdf_sha256": "86b9901ea9183e9d8bcea9b6008d23f6e63cce01762900c2fb62fb0ac687003b",
+  "pdf_page": 662,
+  "view_png_sha256": "12a507035839a9705185ca679272fcfdf9823d86eb7dbf306e67ba0b9563ee4d",
+  "render300_sha256": "05d685bea6f1e9a133fbe7267ae8bd0b64aab54989fc1bdd71c3edde58bf221a",
+  "tess_sha256": "6e593b36c5b4d26459041f24c6fed3e9a77bb3d9c086ade6a481bd3d1446fee3",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.991
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "9th-massachusetts-infantry#812",
+   "name": "McGavisk, Thomas",
+   "off": 3242065,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "9th-massachusetts-infantry#813",
+   "name": "McKenna, Patrick",
+   "off": 3242330,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "9th-massachusetts-infantry#814",
+   "name": "McLaughlin, Michael",
+   "off": 3242510,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "9th-massachusetts-infantry#815",
+   "name": "McMullen, James",
+   "off": 3242672,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "9th-massachusetts-infantry#816",
+   "name": "McNamara, Daniel G.",
+   "off": 3242849,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "9th-massachusetts-infantry#817",
+   "name": "McNamara, James W.",
+   "off": 3243193,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "9th-massachusetts-infantry#818",
+   "name": "McNamara, Michael H.",
+   "off": 3243485,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "9th-massachusetts-infantry#819",
+   "name": "McPoland, Bernard",
+   "off": 3243668,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "9th-massachusetts-infantry#820",
+   "name": "Maher, Jeremiah",
+   "off": 3243894,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "9th-massachusetts-infantry#821",
+   "name": "Mahler, Anthony",
+   "off": 3244064,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "9th-massachusetts-infantry#822",
+   "name": "Malcolm, James",
+   "off": 3244204,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "9th-massachusetts-infantry#823",
+   "name": "Mann, John A.",
+   "off": 3244381,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "9th-massachusetts-infantry#824",
+   "name": "Marrln, Thomas",
+   "off": 3244545,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "9th-massachusetts-infantry#825",
+   "name": "Monahan, Bernard",
+   "off": 3244705,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "9th-massachusetts-infantry#826",
+   "name": "Moore, Richard",
+   "off": 3244976,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "9th-massachusetts-infantry#827",
+   "name": "Morrison, John",
+   "off": 3245207,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "9th-massachusetts-infantry#828",
+   "name": "Mullen, Robert",
+   "off": 3245353,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "9th-massachusetts-infantry#829",
+   "name": "Mullivan, Patrick",
+   "off": 3245721,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "9th-massachusetts-infantry#830",
+   "name": "Mullooney, James",
+   "off": 3245853,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 19,
+   "rid": "9th-massachusetts-infantry#831",
+   "name": "Mulroy, John",
+   "off": 3246007,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 20,
+   "rid": "9th-massachusetts-infantry#832",
+   "name": "Murphy, Thomas",
+   "off": 3246247,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "9th-massachusetts-infantry#833",
+   "name": "Neary, Patrick",
+   "off": 3246409,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "9th-massachusetts-infantry#834",
+   "name": "Newell, John B.",
+   "off": 3246616,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 23,
+   "rid": "9th-massachusetts-infantry#835",
+   "name": "Nole, James P.",
+   "off": 3246793,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 24,
+   "rid": "9th-massachusetts-infantry#836",
+   "name": "Norton, Michael",
+   "off": 3246972,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-14T00:47:07Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "AGREE",
+  "2": "AGREE",
+  "3": "AGREE",
+  "4": "SUSPECT",
+  "5": "AGREE",
+  "6": "AGREE",
+  "7": "AGREE",
+  "8": "AGREE",
+  "9": "SUSPECT",
+  "10": "AGREE",
+  "11": "AGREE",
+  "12": "SUSPECT",
+  "13": "AGREE",
+  "14": "AGREE",
+  "15": "AGREE",
+  "16": "AGREE",
+  "17": "AGREE",
+  "18": "AGREE",
+  "19": "AGREE",
+  "20": "AGREE",
+  "21": "AGREE",
+  "22": "AGREE",
+  "23": "SUSPECT",
+  "24": "AGREE"
+ }
+}

@@ -391,7 +391,7 @@ const AUDIT_KEY_MAKER = String.raw`"(?:(?:built|made|produced|written|created|ex
 // tools/y.mjs", "Derived from a.geojson by app/tools/build-z.mjs", "(built from the layers by tools/build-w.mjs)" (also when the comment wraps to the next line), "recomputed by build_kit_data.py", "(tools/build-gazetteer.mjs)",
 // "(node tools/x.mjs writes this file)", `generated_by: '...'` in a module. A builder cited as the MAKER of something is a production note; a checker or a test cited as the method of a reading is evidence
 // (counted for review by auditReview(), not failed). A program that SHIPS in the build is a part of the product ("the times are made per scenario by real.mjs"), not a maker of the site: lineHit() lets such a
-// name pass (never for a maker key or a path with tools/ in it). Case-insensitive; every part is a plain pattern so that other tools can read them (tools/bt/kit_evidence_lib.py reads AUDIT_RE).
+// name pass (only in a module's own comments and strings; never for a maker key, a data or text file, or a path with tools/ in it). Case-insensitive; every part is a plain pattern so that other tools can read them (tools/bt/kit_evidence_lib.py reads AUDIT_RE).
 const PROD_VERB = String.raw`(?:(?:auto-?|machine-)?generated|re-?generated|produced|built|re-?built|written|made|created|compiled|exported|derived|assembled|extracted|converted|recomputed)`;
 const PROD_GAP = String.raw`(?:(?!\.\s)[^\n]){0,140}?`;                                                                  // up to 140 characters on the line, never across the end of a sentence (". ")
 const PROD_SCRIPT = String.raw`(?:[\w.-]+\/)*[\w.-]+\.(?:py|mjs|cjs|js|sh)\b`;
@@ -477,8 +477,8 @@ export function audit(dist) {
       try { buf = zlib.gunzipSync(buf); gz = true; } catch (e) { hits.push({ file: rel, where: 'unreadable', match: 'gzip: ' + String(e.message).slice(0, 60) }); continue; }
     }
     if (BINARY.test(f) || (gz && buf.subarray(0, 8192).includes(0))) { const m = AUDIT_BIN_RE.exec(buf.toString('latin1')); if (m) hits.push({ file: rel, where: 'binary', match: m[0], ...(gz ? { gzip: true } : {}) }); continue; }
-    const lines = buf.toString('utf8').split('\n');
-    for (let i = 0; i < lines.length; i++) { const ex = gz ? { gzip: true } : {}, h = lineHit(lines[i], rel, ex, shipped) || (i + 1 < lines.length ? wrapHit(lines[i], lines[i + 1], rel, ex, shipped) : null); if (h) hits.push({ ...h, line: i + 1 }); }
+    const lines = buf.toString('utf8').split('\n'), prog = /\.(mjs|cjs|js|html?)$/i.test(f) ? shipped : null;      // only a program's own comments and strings can describe the product: a data or text file that names a program as its maker is a hit, shipped or not
+    for (let i = 0; i < lines.length; i++) { const ex = gz ? { gzip: true } : {}, h = lineHit(lines[i], rel, ex, prog) || (i + 1 < lines.length ? wrapHit(lines[i], lines[i + 1], rel, ex, prog) : null); if (h) hits.push({ ...h, line: i + 1 }); }
   }
   return hits;
 }

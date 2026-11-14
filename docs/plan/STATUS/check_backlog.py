@@ -26,15 +26,8 @@ WRITE_OK = ('docs/plan/STATUS/', 'docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.m
             'tools/historian/', 'tests/data/', 'tests/time/', 'tests/historian/', 'tmp/r1h-cand/', 'docs/battle-theatre/GOVERNANCE/horde/requests/main-site-')
 
 
-def norm(f):
-    return re.sub(r'\s*\(.*$', '', f).strip()
-
-
-def overlaps(a, b):
-    a, b = norm(a), norm(b)
-    if a == b:
-        return True
-    return (a.endswith('/') and b.startswith(a)) or (b.endswith('/') and a.startswith(b))
+norm = ms.norm
+overlaps = ms.overlaps
 
 
 def main(argv):
@@ -101,30 +94,83 @@ def main(argv):
 
     for n in ids:
         visit(n, [])
-    # wave 1
-    w1 = [e for e in items if e.get('wave') == 1]
-    if len(w1) != 30:
-        bad('wave 1 has %d entries, expected 30' % len(w1))
-    for e in w1:
+    # waves: every entry of a wave is an authored build entry (exact acceptance, a short check, not size L); wave 1 is the first batch of 30 and
+    # stays listed when an entry of it is done; the members of one wave are pairwise independent (no depends_on between them, disjoint write sets)
+    waves = {}
+    for e in items:
+        if e.get('wave') is not None:
+            waves.setdefault(e['wave'], []).append(e)
+    if sorted(waves) != list(range(1, max(waves) + 1)):
+        bad('waves are not numbered 1..N without gaps: %s' % sorted(waves))
+    if len(waves.get(1, [])) != 30:
+        bad('wave 1 has %d entries, expected 30' % len(waves.get(1, [])))
+    for wn, members in sorted(waves.items()):
+        if len(members) > ms.BATCH_SIZE:
+            bad('wave %d has %d entries, at most %d' % (wn, len(members), ms.BATCH_SIZE))
+        for e in members:
+            if e['route']['type'] not in ('candidate-group', 'source-rebuild'):
+                bad('%s: wave %d entry is not a build entry' % (e['id'], wn))
+            if e['size'] == 'L':
+                bad('%s: wave %d entry is size L' % (e['id'], wn))
+            if not e.get('short') or len(e['short']) > 290:
+                bad('%s: wave %d entry needs a short check of at most 290 characters' % (e['id'], wn))
+            if not e.get('acceptance_basis', '').startswith('authored'):
+                bad('%s: wave %d entry has no authored acceptance' % (e['id'], wn))
+        ids_w = {e['id'] for e in members}
+        for e in members:
+            for d in e['depends_on']:
+                if d in ids_w:
+                    bad('wave %d not independent: %s depends on %s' % (wn, e['id'], d))
+        for n, a in enumerate(members):
+            for b in members[n + 1:]:
+                for f in ms.write_conflicts(a, b):
+                    bad('wave %d write sets overlap: %s and %s both write %s' % (wn, a['id'], b['id'], f))
+    # the next batch: what the engineers are handed now
+    batch = doc.get('next_batch')
+    if not isinstance(batch, list):
+        bad('next_batch is missing')
+        batch = []
+    if len(batch) > ms.BATCH_SIZE:
+        bad('next_batch has %d entries, at most %d' % (len(batch), ms.BATCH_SIZE))
+    if len(set(batch)) != len(batch):
+        bad('next_batch lists an entry twice')
+    for i in batch:
+        if i not in by:
+            bad('next_batch names unknown %s' % i)
+            continue
+        e = by[i]
+        if e['done']:
+            bad('%s: next_batch holds an entry that is already done: take it out of the batch' % i)
+        if e.get('wave') is None:
+            bad('%s: next_batch holds an entry without an authored acceptance' % i)
         if e['route']['type'] not in ('candidate-group', 'source-rebuild'):
-            bad('%s: wave 1 entry is not a build entry' % e['id'])
-        if e['size'] == 'L':
-            bad('%s: wave 1 entry is size L' % e['id'])
-        if not e.get('short') or len(e['short']) > 290:
-            bad('%s: wave 1 entry needs a short check of at most 290 characters' % e['id'])
-        if e.get('done'):
-            bad('%s: wave 1 entry already done: take it out of the batch' % e['id'])
-    ids1 = {e['id'] for e in w1}
-    for e in w1:
+            bad('%s: next_batch holds an entry that is not a build entry' % i)
         for d in e['depends_on']:
-            if d in ids1:
-                bad('wave 1 not independent: %s depends on %s' % (e['id'], d))
-    for n, a in enumerate(w1):
-        for b in w1[n + 1:]:
-            for fa in a['files']:
-                for fb in b['files']:
-                    if overlaps(fa, fb) and not (norm(fa) in [norm(x) for x in a.get('shared_files', [])] and norm(fb) in [norm(x) for x in b.get('shared_files', [])]) and norm(fa) not in ('tools/time/relabel-data.mjs',):
-                        bad('wave 1 write sets overlap: %s and %s both write %s' % (a['id'], b['id'], norm(fa)))
+            if d in by and not by[d]['done']:
+                bad('next_batch not independent: %s waits for %s, which is not done' % (i, d))
+            if d in batch:
+                bad('next_batch not independent: %s depends on %s' % (i, d))
+    for n, i in enumerate(batch):
+        for j in batch[n + 1:]:
+            if i in by and j in by:
+                for f in ms.write_conflicts(by[i], by[j]):
+                    bad('next_batch write sets overlap: %s and %s both write %s' % (i, j, f))
+    # the batch is the first entries in order that qualify: nothing authored, open and ready may be skipped over without a conflict
+    if not fpath:
+        ordered = sorted(items, key=lambda x: x['order'])
+        expect = []
+        for e in ordered:
+            if e['done'] or e.get('wave') is None or e['route']['type'] not in ('candidate-group', 'source-rebuild'):
+                continue
+            if any(not by[d]['done'] for d in e['depends_on'] if d in by):
+                continue
+            if any(ms.write_conflicts(by[b], e) for b in expect):
+                continue
+            expect.append(e['id'])
+            if len(expect) == ms.BATCH_SIZE:
+                break
+        if expect != batch:
+            bad('next_batch is not the first %d ready authored entries in order: expected %s, found %s' % (ms.BATCH_SIZE, expect, batch))
     # delegated rows
     rows = ms.parse_delegated()
     for e in items:
@@ -183,7 +229,7 @@ def main(argv):
             print('  - ' + p)
         return 1
     done = sum(1 for e in items if e['done'])
-    print('backlog.json ok: %d entries, %d done, wave 1 = %d independent entries, every open item of items-A.json and items-B.json covered, every OPEN_NEEDS_DECISION item has its delegated row' % (len(items), done, len(w1)))
+    print('backlog.json ok: %d entries, %d done, %d waves (wave 1 = %d entries), next batch = %d independent entries, every open item of items-A.json and items-B.json covered, every OPEN_NEEDS_DECISION item has its delegated row' % (len(items), done, len(waves), len(waves.get(1, [])), len(batch)))
     return 0
 
 

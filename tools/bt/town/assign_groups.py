@@ -135,6 +135,11 @@ def main(check=False):
             xy = centroid_xy(f['geometry'], T)
             if xy:
                 pos[p['id']] = xy
+    names = {f['properties']['id']: f['properties'].get('name') for f in geo}
+    for r in S:
+        names[r['id']] = r.get('name')
+        for pt in r.get('parts') or []:
+            names[pt['id']] = '%s (%s)' % (r.get('name'), pt.get('part'))
     farm_of = {f['properties']['id']: f['properties'].get('farm') for f in geo}
     sub_of = {f['properties']['id']: f['properties'].get('subtype') for f in geo}
     for f in geo:
@@ -208,6 +213,7 @@ def main(check=False):
             p = f['properties']
             i = p.get(idkey) or f.get('id')
             xy = centroid_xy(f['geometry'], T) if f.get('geometry') else None
+            names[i] = p.get('name') or names.get(i)
             out.append((i, xy))
         return out
 
@@ -232,6 +238,7 @@ def main(check=False):
         for it in jl(os.path.join(BASE, 'roads-rail-water', 'railways_no_geometry.json')):
             g = explicit.get(it['id']) or 'town-railroad'
             members[g]['railways'].append(it['id'])
+            names[it['id']] = it.get('name')
             why[it['id']] = 'railway record with no geometry (specialised group)'
     except FileNotFoundError:
         pass
@@ -259,6 +266,7 @@ def main(check=False):
             i = it.get('id') or it.get('lane_id')
             if i and not any(i in m['lanes'] for m in members.values()):
                 members['street-middle-high-lanes']['lanes'].append(i)
+                names[i] = it.get('name')
                 why[i] = 'lane inventory entry with no traced line: named in a text, placed by the pass'
     except Exception:
         pass
@@ -317,9 +325,9 @@ def main(check=False):
             by[c] = by.get(c, 0) + 1
         cnt['basemap_structures_by_product_state'] = dict(sorted(by.items()))
         cnt['outside_loaded_ground'] = sum(1 for i in m['basemap_structures'] if (feat_dec.get(i) or {}).get('group') == 'outside')
-        cnt['curated_farm_and_named'] = sum(1 for i in m['basemap_structures'] if (feat_dec.get(i) or {}).get('group') in ('footprint', 'point') and not str(i).startswith('STR-MAPSYM'))
         cnt['map_symbols'] = sum(1 for i in m['basemap_structures'] if str(i).startswith('STR-MAPSYM'))
         cnt['borough_masses'] = sum(1 for i in m['basemap_structures'] if str(i).startswith('STR-BORO-MASS'))
+        cnt['curated_farm_and_named'] = cnt['basemap_structures'] - cnt['map_symbols'] - cnt['borough_masses']   # curated farm buildings, town buildings and named sites, drawn or not
         for k in ('bridges', 'railways', 'fences', 'roads', 'lanes', 'hospitals', 'other_records'):
             cnt[k] = len(m[k])
         cnt['photographs_to_read'] = len(gd.get('photos', []))
@@ -357,6 +365,7 @@ def main(check=False):
         'not_worked_here': [{'id': i, 'kind': k, 'reason': r} for i, k, r in sorted(unassigned)],
         'photographs_not_in_the_ledger': bad_ph,
         'far_from_every_anchor': dict(sorted(far.items())),
+        'names': {k: v for k, v in sorted(names.items()) if k in why or any(k in m.get('record_parts', []) for m in members.values())},
         'basis_of_assignment': dict(sorted(why.items())),
     }
     # every source id named by a group is a row of the ledger

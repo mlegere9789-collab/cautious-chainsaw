@@ -25,7 +25,9 @@ def main():
     sup = {}
     for p in poses:
         if p.get('loc_id') and p.get('superseded_by'): sup.setdefault(p['loc_id'], []).append(p['id'])
-        elif p.get('loc_id'): by_loc.setdefault(p['loc_id'], []).append(p['id'])
+        elif p.get('loc_id'):
+            by_loc.setdefault(p['loc_id'], []).append(p['id'])
+            for al in p.get('also_loc_ids') or []: by_loc.setdefault(al, []).append(p['id'])   # other prints of the same exposure (second copies, stereo siblings) carry the pose of the record it was set for
     stm = {}
     for s in st:
         for l in (s.get('loc') or []) + (s.get('cand') or []): stm.setdefault(l, []).append(s['id'])

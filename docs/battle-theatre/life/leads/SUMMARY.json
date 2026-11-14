@@ -1,0 +1,301 @@
+{
+ "_doc": "Lead scan (tools/bt/life/scan_leads.py). A lead is a keyword hit, not evidence. `hits` counts every hit; `written` the rows in <group>.leads.jsonl; `more` are hits beyond the per-record cap (counted, not written).",
+ "built": "2026-11-14",
+ "cap_per_record_and_class": 40,
+ "phases_run": [
+  "or"
+ ],
+ "complete": false,
+ "classes": {
+  "works": "breast-?works?|earth-?works?|rifle-?pits?|abatis|epaulements?|barricad\\w+|intrench\\w*|entrench\\w*|slight works?|field works?|log works?|rail (?:piles?|barricades?|breastworks?)|trenches|fortif\\w+|(?:thr[eo]w(?:n|ing)?|threw) up|loop-?holes?|embrasures?|traverses?|gun-?pits?|gabions?|fascines?|sand-?bags?|slashing|slashed",
+  "tools": "\\b(?:spades?|shovels?|picks|pick-?axes?|axes?|hatchets?|intrenching tools?|entrenching tools?|tool-?wagons?|pioneers?|working parties|working party|fatigue (?:parties|party|duty|men)|details? (?:of|for) \\w+ (?:men|to (?:dig|build|cut|construct)))",
+  "bridge_road": "pontoons?|\\bbridges?\\b|(?:made|opened|cut|repaired|built|constructed|corduroy|new) (?:a |the )?roads?|corduroy|causeway|trestle",
+  "meal": "breakfast|\\bcoffee|supper|dinner|\\bmeals?\\b|\\bcook(?:ed|ing|s)?\\b|hard-?tack|hard bread|haversacks?|\\brations?\\b|salt (?:pork|beef|meat)|\\bbacon|fresh beef|beef cattle|\\bcommissary|\\bsutlers?",
+  "rest": "bivouac\\w*|encamp\\w*|\\bcamped\\b|camp-?fires?|went into camp|\\bslept|\\bsleep|asleep|\\brested\\b|\\brest\\b|lay down|laid down|stacked arms|stack arms|\\bblankets?|\\btents?\\b|halted for the night|rolled up in",
+  "picket": "\\bpickets?\\b|picketed|picketing|videttes?|vedettes?|outposts?|sentinels?|sentries|\\bsentry|on guard|camp guard|guard duty|patrol(?:s|ling|led)?",
+  "water_wash_burial": "canteens?|drew water|watering|water(?:ed)? (?:the )?(?:horses|animals|teams|men|command)|\\bwell\\b|\\bspring\\b|bath(?:e|ed|ing)|wash(?:ed|ing|es)?\\b|launder\\w*|burial|\\bbur(?:y|ied|ying)|\\bgraves?\\b|interred|interment"
+ },
+ "groups": {
+  "bridges-roads": {
+   "hits": 34,
+   "written": 34,
+   "by_class_written": {
+    "tools": 3,
+    "bridge_road": 29,
+    "water_wash_burial": 2
+   },
+   "by_source_written": {
+    "OR-27-1": 34
+   }
+  },
+  "campaign-elsewhere": {
+   "hits": 1510,
+   "written": 1459,
+   "by_class_written": {
+    "works": 219,
+    "bridge_road": 373,
+    "rest": 279,
+    "picket": 258,
+    "water_wash_burial": 163,
+    "tools": 22,
+    "meal": 145
+   },
+   "by_source_written": {
+    "OR-27-2": 1433,
+    "OR-27-1": 26
+   }
+  },
+  "corr-jul1-3": {
+   "hits": 96,
+   "written": 96,
+   "by_class_written": {
+    "works": 7,
+    "bridge_road": 43,
+    "rest": 7,
+    "picket": 15,
+    "water_wash_burial": 24
+   },
+   "by_source_written": {
+    "OR-27-3": 96
+   }
+  },
+  "corr-jul4-14": {
+   "hits": 488,
+   "written": 488,
+   "by_class_written": {
+    "works": 55,
+    "tools": 2,
+    "bridge_road": 184,
+    "meal": 39,
+    "rest": 69,
+    "picket": 58,
+    "water_wash_burial": 81
+   },
+   "by_source_written": {
+    "OR-27-3": 488
+   }
+  },
+  "corr-jun26-30": {
+   "hits": 462,
+   "written": 462,
+   "by_class_written": {
+    "works": 31,
+    "tools": 1,
+    "bridge_road": 196,
+    "meal": 37,
+    "rest": 49,
+    "picket": 103,
+    "water_wash_burial": 45
+   },
+   "by_source_written": {
+    "OR-27-3": 462
+   }
+  },
+  "cs-1c": {
+   "hits": 207,
+   "written": 207,
+   "by_class_written": {
+    "works": 22,
+    "tools": 1,
+    "bridge_road": 24,
+    "meal": 9,
+    "rest": 93,
+    "picket": 24,
+    "water_wash_burial": 34
+   },
+   "by_source_written": {
+    "OR-27-2": 207
+   }
+  },
+  "cs-2c": {
+   "hits": 424,
+   "written": 424,
+   "by_class_written": {
+    "works": 102,
+    "tools": 3,
+    "bridge_road": 61,
+    "meal": 19,
+    "rest": 146,
+    "picket": 27,
+    "water_wash_burial": 66
+   },
+   "by_source_written": {
+    "OR-27-2": 424
+   }
+  },
+  "cs-3c": {
+   "hits": 129,
+   "written": 129,
+   "by_class_written": {
+    "works": 27,
+    "bridge_road": 18,
+    "meal": 2,
+    "rest": 42,
+    "picket": 15,
+    "water_wash_burial": 25
+   },
+   "by_source_written": {
+    "OR-27-2": 129
+   }
+  },
+  "cs-cav-army": {
+   "hits": 418,
+   "written": 409,
+   "by_class_written": {
+    "works": 39,
+    "tools": 2,
+    "bridge_road": 71,
+    "meal": 15,
+    "rest": 113,
+    "picket": 85,
+    "water_wash_burial": 84
+   },
+   "by_source_written": {
+    "OR-27-2": 409
+   }
+  },
+  "us-11c": {
+   "hits": 113,
+   "written": 113,
+   "by_class_written": {
+    "works": 12,
+    "bridge_road": 8,
+    "meal": 4,
+    "rest": 55,
+    "picket": 18,
+    "water_wash_burial": 16
+   },
+   "by_source_written": {
+    "OR-27-1": 113
+   }
+  },
+  "us-12c": {
+   "hits": 591,
+   "written": 591,
+   "by_class_written": {
+    "works": 323,
+    "tools": 2,
+    "bridge_road": 9,
+    "meal": 6,
+    "rest": 150,
+    "picket": 38,
+    "water_wash_burial": 63
+   },
+   "by_source_written": {
+    "OR-27-1": 591
+   }
+  },
+  "us-1c": {
+   "hits": 316,
+   "written": 316,
+   "by_class_written": {
+    "works": 133,
+    "bridge_road": 6,
+    "meal": 17,
+    "rest": 88,
+    "picket": 33,
+    "water_wash_burial": 39
+   },
+   "by_source_written": {
+    "OR-27-1": 316
+   }
+  },
+  "us-2c": {
+   "hits": 377,
+   "written": 377,
+   "by_class_written": {
+    "works": 89,
+    "tools": 5,
+    "bridge_road": 8,
+    "meal": 13,
+    "rest": 158,
+    "picket": 55,
+    "water_wash_burial": 49
+   },
+   "by_source_written": {
+    "OR-27-1": 377
+   }
+  },
+  "us-3c": {
+   "hits": 392,
+   "written": 392,
+   "by_class_written": {
+    "works": 12,
+    "tools": 2,
+    "bridge_road": 18,
+    "meal": 20,
+    "rest": 246,
+    "picket": 60,
+    "water_wash_burial": 34
+   },
+   "by_source_written": {
+    "OR-27-1": 392
+   }
+  },
+  "us-5c": {
+   "hits": 212,
+   "written": 212,
+   "by_class_written": {
+    "works": 10,
+    "tools": 1,
+    "bridge_road": 7,
+    "meal": 8,
+    "rest": 116,
+    "picket": 38,
+    "water_wash_burial": 32
+   },
+   "by_source_written": {
+    "OR-27-1": 212
+   }
+  },
+  "us-6c": {
+   "hits": 140,
+   "written": 140,
+   "by_class_written": {
+    "works": 20,
+    "tools": 1,
+    "bridge_road": 15,
+    "meal": 4,
+    "rest": 59,
+    "picket": 29,
+    "water_wash_burial": 12
+   },
+   "by_source_written": {
+    "OR-27-1": 140
+   }
+  },
+  "us-army": {
+   "hits": 434,
+   "written": 434,
+   "by_class_written": {
+    "works": 61,
+    "tools": 3,
+    "bridge_road": 69,
+    "meal": 31,
+    "rest": 85,
+    "picket": 91,
+    "water_wash_burial": 94
+   },
+   "by_source_written": {
+    "OR-27-1": 434
+   }
+  },
+  "us-cav": {
+   "hits": 312,
+   "written": 312,
+   "by_class_written": {
+    "works": 25,
+    "tools": 1,
+    "bridge_road": 24,
+    "meal": 25,
+    "rest": 96,
+    "picket": 103,
+    "water_wash_burial": 38
+   },
+   "by_source_written": {
+    "OR-27-1": 312
+   }
+  }
+ },
+ "more_total": 60
+}

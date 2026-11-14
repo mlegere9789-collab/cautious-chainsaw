@@ -140,6 +140,7 @@ def main(argv):
     ap.add_argument('pid')
     ap.add_argument('--full', action='store_true', help='(kept for compatibility: every row is always printed in full)')
     ap.add_argument('--json', action='store_true')
+    ap.add_argument('--brief', action='store_true', help='rows that tesseract reads token for token are printed short (name and the first 40 characters of the remarks); the others in full')
     ap.add_argument('--names', action='store_true', help='names level: print name, heading and company only (remarks cut to 30 characters) with the name tokens tesseract disagrees on')
     a = ap.parse_args(argv)
     pg, rows, res, unstored, st = compare(a.pid)
@@ -164,7 +165,7 @@ def main(argv):
     for r, c in zip(rows, res):
         mark = {'AGREE': ' ', 'NEAR': '~', 'SUSPECT': '!'}[c['status']]
         rk = r['rank'][1:] + '^' if r['rank'].startswith('^') else r['rank']
-        rem = r['remarks']
+        rem = r['remarks'] if (not a.brief or c['status'] != 'AGREE') else (r['remarks'][:40] + '...')
         print('%s%2d %s%s | %s | %s | %s' % (mark, c['i'], 'D' if r['damaged'] else ' ', r['co'] or '-', rk, r['name'], rem))
         if c['status'] != 'AGREE':
             for a_, b_ in c['tess_there'][:4]:

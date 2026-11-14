@@ -79,6 +79,7 @@ def main():
     cap = 40
     if '--cap' in sys.argv:
         cap = int(sys.argv[sys.argv.index('--cap') + 1])
+    phases = set(sys.argv[sys.argv.index('--phases') + 1].split(',')) if '--phases' in sys.argv else {'or', 'statevol', 'texts'}
     asg = load_json(os.path.join(EVID, 'report_assignments.json'))['assignments']
     srcs = sources()
     buckets = collections.defaultdict(list)       # group -> rows
@@ -87,7 +88,7 @@ def main():
     per_rec = collections.Counter()
     # --- Official Records
     import or27_find as F
-    for p in (1, 2, 3):
+    for p in ((1, 2, 3) if 'or' in phases else ()):
         P = F.get_part(p)
         nt, nm = P.ntext, P.nmap
         for cls, rx in RX.items():
@@ -127,7 +128,7 @@ def main():
         sec_group[s['id']] = (g, vol['source_id'])
     by_vol = collections.defaultdict(list)
     for s in svx['sections']:
-        if s['id'] in sec_group:
+        if 'statevol' in phases and s['id'] in sec_group:
             by_vol[sec_group[s['id']][1]].append(s)
     done_src = set()
     for sid, secs in by_vol.items():
@@ -154,7 +155,7 @@ def main():
         done_src.add(sid)
     # --- the other texts: one owner group per text
     for sid, s in srcs.items():
-        if sid in done_src or sid.startswith('OR-'):
+        if 'texts' not in phases or sid in done_src or sid.startswith('OR-'):
             continue
         g = SOURCE_GROUP.get(sid)
         if g is None and NEWS.match(sid):
@@ -184,7 +185,7 @@ def main():
         if old.endswith('.leads.jsonl'):
             os.remove(os.path.join(LEADS, old))
     summary = {'_doc': 'Lead scan (tools/bt/life/scan_leads.py). A lead is a keyword hit, not evidence. `hits` counts every hit; `written` the rows in <group>.leads.jsonl; '
-                       '`more` are hits beyond the per-record cap (counted, not written).', 'built': datetime.date.today().isoformat(), 'cap_per_record_and_class': cap,
+                       '`more` are hits beyond the per-record cap (counted, not written).', 'built': datetime.date.today().isoformat(), 'cap_per_record_and_class': cap, 'phases_run': sorted(phases), 'complete': phases == {'or', 'statevol', 'texts'},
                'classes': CLASSES, 'groups': {}}
     for g in sorted(set(list(buckets) + list(counts))):
         rows = buckets.get(g, [])
