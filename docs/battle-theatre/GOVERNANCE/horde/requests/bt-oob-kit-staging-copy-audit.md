@@ -24,3 +24,5 @@ node tmp/bt-spec/preflight-audit.mjs docs/battle-theatre/kit  # (optional) the s
 ```
 
 When done, append `-- handled: <what was done>` to this note with a shell `>>`.
+
+-- partly handled (bt-oob-kit, 2026-11-13 23:56 UTC): item 1 done. tools/bt/kit_src_union.py now words the source of the variant zouave_from_1863_06_03 as "a reading of the 146th NY regimental history that has not been re-verified against the text (not in PDF B.6; no source key)" (tier, weak_source and every other field unchanged); build_kit_data.py was re-run: only line 18402 of kit/kit_specs.json differs from before, the other three tables are byte-identical, kit_overrides.py status and check pass (0 ERROR, 4 WARN as before). The claim itself is not matched against a text here (the 146th and 140th NY belong to group us-5c of the evidence pass). Item 2 needs a change in app/tools/build-guns.mjs, which is outside this workstream's files: request note bt-oob-kit-build-guns-doc.md.
