@@ -72,8 +72,9 @@ def check_quote(problems, x, label, flat, q, mode, tmpl, excerpt, lig):
         if be.norm(be._CORR.sub(lambda m: m.group(2), tmpl)) != q:
             problems.append('%s: %s differs from its template with the OCR corrections applied' % (x, label))
         qk, _ = be._alnum_map(be.norm(match_form), lig)
-        if key.count(qk) != 1:
-            problems.append('%s: %s cleaned letters found %d times on the page' % (x, label, key.count(qk)))
+        st_, ln_, why_ = be.find_cleaned(key, qk, lig)
+        if st_ is None:
+            problems.append('%s: %s cleaned %s on the page' % (x, label, why_))
         if not excerpt or excerpt not in flat:
             problems.append('%s: %s raw excerpt missing from the page' % (x, label))
         return True

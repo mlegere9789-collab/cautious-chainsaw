@@ -1,0 +1,539 @@
+{
+ "format": "roster2-status/1",
+ "about": "Per work item, from the files that exist (pipeline2/build_index.py). stage: none | partial | files-for-every-unit; it says where files exist, not that a roll is complete: read the report.",
+ "totals": {
+  "units": 640,
+  "units_with_files": 53,
+  "rows": 90699,
+  "raw_bytes": 11582851,
+  "gz_bytes": 2599934,
+  "row_line_bytes_mean": 125.0,
+  "row_lines_le_90_share": 0.413
+ },
+ "groups": {
+  "union-me": {
+   "units": 14,
+   "units_with_files": 14,
+   "rows": 33105,
+   "raw_bytes": 1883895,
+   "gz_bytes": 581270,
+   "row_line_bytes_mean": 53.1,
+   "row_lines_le_90_share": 0.986,
+   "sidecar_bytes": 59083,
+   "stage": "files-for-every-unit",
+   "list_files": [
+    "union/me/_other-ME-SUPP-1867.jsonl.gz"
+   ],
+   "report": "docs/battle-theatre/rosters/reports/union-me.md",
+   "pointer": "docs/battle-theatre/rosters/sources/union-me.json",
+   "units_without_file": null,
+   "coverage": {
+    "roll": 14
+   }
+  },
+  "union-nh": {
+   "units": 4,
+   "units_with_files": 4,
+   "rows": 6992,
+   "raw_bytes": 1570341,
+   "gz_bytes": 331878,
+   "row_line_bytes_mean": 214.8,
+   "row_lines_le_90_share": 0.094,
+   "sidecar_bytes": 74468,
+   "stage": "files-for-every-unit",
+   "list_files": [],
+   "report": "docs/battle-theatre/rosters/reports/union-nh.md",
+   "pointer": "docs/battle-theatre/rosters/sources/union-nh.json",
+   "units_without_file": null,
+   "coverage": {
+    "roll": 4
+   }
+  },
+  "union-vt": {
+   "units": 11,
+   "units_with_files": 11,
+   "rows": 16854,
+   "raw_bytes": 1893438,
+   "gz_bytes": 478529,
+   "row_line_bytes_mean": 110.6,
+   "row_lines_le_90_share": 0.249,
+   "sidecar_bytes": 359789,
+   "stage": "files-for-every-unit",
+   "list_files": [],
+   "report": "docs/battle-theatre/rosters/reports/union-vt.md",
+   "pointer": "docs/battle-theatre/rosters/sources/union-vt.json",
+   "units_without_file": null,
+   "coverage": {
+    "roll": 11
+   }
+  },
+  "union-ma": {
+   "units": 24,
+   "units_with_files": 24,
+   "rows": 33748,
+   "raw_bytes": 6235177,
+   "gz_bytes": 1208257,
+   "row_line_bytes_mean": 184.1,
+   "row_lines_le_90_share": 0.0,
+   "sidecar_bytes": 416687,
+   "stage": "files-for-every-unit",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "roll": 24
+   }
+  },
+  "union-ri": {
+   "units": 6,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 6
+   }
+  },
+  "union-ct": {
+   "units": 8,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 8
+   }
+  },
+  "union-ny": {
+   "units": 98,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 98
+   }
+  },
+  "union-nj": {
+   "units": 15,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 15
+   }
+  },
+  "union-pa": {
+   "units": 82,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 82
+   }
+  },
+  "union-de": {
+   "units": 2,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 2
+   }
+  },
+  "union-md": {
+   "units": 6,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 6
+   }
+  },
+  "union-wv": {
+   "units": 4,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 4
+   }
+  },
+  "union-oh": {
+   "units": 19,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 19
+   }
+  },
+  "union-in": {
+   "units": 7,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 7
+   }
+  },
+  "union-il": {
+   "units": 3,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 3
+   }
+  },
+  "union-mi": {
+   "units": 12,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 12
+   }
+  },
+  "union-wi": {
+   "units": 6,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 6
+   }
+  },
+  "union-mn": {
+   "units": 2,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 2
+   }
+  },
+  "union-us": {
+   "units": 43,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 43
+   }
+  },
+  "conf-nc": {
+   "units": 41,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 41
+   }
+  },
+  "conf-la": {
+   "units": 17,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 17
+   }
+  },
+  "conf-va": {
+   "units": 105,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 105
+   }
+  },
+  "conf-sc": {
+   "units": 18,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 18
+   }
+  },
+  "conf-ga": {
+   "units": 45,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 45
+   }
+  },
+  "conf-al": {
+   "units": 19,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 19
+   }
+  },
+  "conf-ms": {
+   "units": 13,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 13
+   }
+  },
+  "conf-fl": {
+   "units": 3,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 3
+   }
+  },
+  "conf-tn": {
+   "units": 3,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 3
+   }
+  },
+  "conf-tx": {
+   "units": 3,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 3
+   }
+  },
+  "conf-ar": {
+   "units": 1,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 1
+   }
+  },
+  "conf-md": {
+   "units": 5,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 5
+   }
+  },
+  "conf-cs-staff": {
+   "units": 1,
+   "units_with_files": 0,
+   "rows": 0,
+   "raw_bytes": 0,
+   "gz_bytes": 0,
+   "sidecar_bytes": 0,
+   "stage": "none",
+   "list_files": [],
+   "report": null,
+   "pointer": null,
+   "units_without_file": null,
+   "coverage": {
+    "none": 1
+   }
+  }
+ },
+ "defects": [],
+ "warnings_count": 5
+}

@@ -4,6 +4,7 @@
 // is a texture of first-visit minutes, and the shaders read both. WebGL2 only: on WebGPU nothing here draws (the module says so in its panel).
 import { LAYER, CHUNK_M, TREE_STRIDE, selectChunks } from './mesh.mjs';
 import { stateAt } from './model.mjs';
+import { SHELL, SHELL_VS, SHELL_FS, buildShellChunks, refineChunk, selectShellChunks, ChunkCache } from './shell.mjs';
 import { perspective, lookAt, mul, frustumPlanes, sphereInFrustum } from '../../../../render/prototype/src/math.mjs';
 
 export const STATE_TEX_W = 1024;
@@ -11,8 +12,30 @@ let TEX_STATE = 28, TEX_VISIT = 29;               // texture units: above the re
 const CROPCODE = { forest_floor: 0, wheat: 1, rye: 2, barley: 3, oats: 4, corn: 5, hay: 6, pasture: 7, open_rock: 8, marsh: 9, rock: 10 };
 const STAGECODE = { being_cut: 1, cut_shocked: 2, stubble: 3, mown: 4, hay_stubble: 5, plowed: 6, winter_grain_sprouts: 7, corn_stubble: 8, dormant_grass: 9, dormant_marsh: 9, rock: 10, shaded_litter: 11, leaf_litter: 11 };
 const TIERCODE = { documented: 0, inferred: 1, 'plausible-procedural': 2, 'open gap': 3 };
-const STATE_K = 4;                                           // texels per unit
+export const STATE_K = 4;                                    // texels per unit
 const smooth01 = x => { const t = Math.min(1, Math.max(0, x)); return t * t * (3 - 2 * t); };
+
+/**
+ * The state of one unit as the 16 floats the shaders read (4 texels of 4), written at out[o..o+15]:
+ *   texel 0  colour (sRGB), crop code             texel 1  height now (m, after trampling and laying flat), trampled share, cut share, laid-flat share
+ *   texel 2  tier code, leaf cover, stripped share, row direction (degrees)
+ *   texel 3  stage code, then for a crop: shock height, standing height before any trampling (m); for a wood: its canopy as seen from above (sRGB)
+ * Pure: the same (model, unit, minute, choices) always writes the same numbers.
+ */
+export function packUnitState(M, u, tq, choices, canopy, out, o, co = 0) {
+  const s = stateAt(M, u, tq, choices), g = s.ground, tr = s.trees;
+  if (g) {
+    const code = CROPCODE[g.crop] ?? 0;
+    out[o] = g.color[0]; out[o + 1] = g.color[1]; out[o + 2] = g.color[2]; out[o + 3] = code;
+    out[o + 4] = (g.h[0] + g.h[1]) / 2; out[o + 5] = g.trample; out[o + 6] = g.cut; out[o + 7] = g.lodging; out[o + 12] = STAGECODE[g.stage] ?? 0; out[o + 13] = g.shockH ? (g.shockH[0] + g.shockH[1]) / 2 : 0;
+    out[o + 14] = g.hStanding ? (g.hStanding[0] + g.hStanding[1]) / 2 : 0; out[o + 15] = 0;
+  } else { out.fill(0, o, o + 16); }
+  if (u.woods && tr) {                                                // texel 3, y z w: the canopy as seen from above (sRGB)
+    const k = smooth01((tr.leaf - 0.35) / 0.45), bare = [0.27, 0.22, 0.17];
+    for (let c = 0; c < 3; c++) out[o + 13 + c] = bare[c] + (canopy[co + c] - bare[c]) * k;
+  }
+  out[o + 8] = TIERCODE[s.tiers.stage || s.tiers.species || s.tier] ?? 2; out[o + 9] = tr ? tr.leaf : 1; out[o + 10] = tr ? tr.strip : 0; out[o + 11] = (u.p && u.p.rows_deg) || 0;
+}
 const unpackPlain = gl => { gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false); };   // the pixel-store state is the context's, shared with every other layer
 
 const COMMON = /* glsl */`
@@ -159,7 +182,7 @@ export function treeMesh(nAng, nCrown, withTrunk) {
 export class VegGL {
   constructor(host, model, decals, trees, opts = {}) {
     this.host = host; this.R = host.R; this.gl = host.R.gl; this.model = model; this.decals = decals; this.trees = trees; this.dead = false; this.stats = { decalTris: decals.triangles, trees: trees.n, treesDrawn: 0, chunksNear: 0, chunksFar: 0, stateWrites: 0 };
-    const gl = this.gl, R = this.R; this.on = { ground: true, trees: true, overlay: false, visit: true };
+    const gl = this.gl, R = this.R; this.on = { ground: true, trees: true, overlay: false, visit: true, shell: false }; this.ground = opts.ground || null; this.shell = null; this.shellWhy = '';
     const units = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS); if (units < 30) { TEX_STATE = units - 2; TEX_VISIT = units - 1; } else { TEX_STATE = 28; TEX_VISIT = 29; }
     const H = COMMON, made = [];
     try {
@@ -203,24 +226,13 @@ export class VegGL {
     model.units.forEach((u, i) => { if (!u.woods) return; let w = 0, c = [0, 0, 0]; for (const [n, share] of Object.entries(u.woods.species)) { const sp = model.species[n]; if (!sp) continue; for (let k = 0; k < 3; k++) c[k] += share * (sp.color[0][k] + sp.color[1][k]) / 2; w += share; } for (let k = 0; k < 3; k++) this.canopy[i * 3 + k] = w ? c[k] / w : [0.2, 0.34, 0.13][k]; });
     this.vp = new Float32Array(16); this.view = new Float32Array(16); this.proj = new Float32Array(16); this.planes = new Float32Array(24);
     gl.activeTexture(gl.TEXTURE0);
+    if (opts.shell) this.enableShell(true);
   }
 
   /** writes the per-unit state texture for the quantised minute and the choices (only when either changed) */
   setTime(tq, choices, key) {
     if (tq === this.tq && key === this.choicesKey) return false; this.tq = tq; this.choicesKey = key; const gl = this.gl, b = this.stateBuf, M = this.model;
-    for (let i = 0; i < M.units.length; i++) {
-      const s = stateAt(M, M.units[i], tq, choices), g = s.ground, tr = s.trees, o = i * STATE_K * 4;
-      if (g) {
-        const code = CROPCODE[g.crop] ?? 0;
-        b[o] = g.color[0]; b[o + 1] = g.color[1]; b[o + 2] = g.color[2]; b[o + 3] = code;
-        b[o + 4] = (g.h[0] + g.h[1]) / 2; b[o + 5] = g.trample; b[o + 6] = g.cut; b[o + 7] = g.lodging; b[o + 12] = STAGECODE[g.stage] ?? 0; b[o + 13] = g.shockH ? (g.shockH[0] + g.shockH[1]) / 2 : 0;
-      } else { b.fill(0, o, o + 16); }
-      if (M.units[i].woods && tr) {                                                // texel 3, y z w: the canopy as seen from above (sRGB)
-        const k = smooth01((tr.leaf - 0.35) / 0.45), bare = [0.27, 0.22, 0.17];
-        for (let c = 0; c < 3; c++) b[o + 13 + c] = bare[c] + (this.canopy[i * 3 + c] - bare[c]) * k;
-      }
-      b[o + 8] = TIERCODE[s.tiers.stage || s.tiers.species || s.tier] ?? 2; b[o + 9] = tr ? tr.leaf : 1; b[o + 10] = tr ? tr.strip : 0; b[o + 11] = (M.units[i].p && M.units[i].p.rows_deg) || 0;
-    }
+    for (let i = 0; i < M.units.length; i++) packUnitState(M, M.units[i], tq, choices, this.canopy, b, i * STATE_K * 4, i * 3);
     // the witness trees share the last pseudo-unit: full leaf
     const w = M.units.length * STATE_K * 4; if (w + 16 <= b.length) { b.fill(0, w, w + 16); b[w + 9] = 1; }
     gl.activeTexture(gl.TEXTURE0 + TEX_STATE); gl.bindTexture(gl.TEXTURE_2D, this.tex); unpackPlain(gl); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, STATE_TEX_W, this.rows, gl.RGBA, gl.FLOAT, b); gl.activeTexture(gl.TEXTURE0); this.stats.stateWrites++; return true;
@@ -233,6 +245,53 @@ export class VegGL {
     gl.activeTexture(gl.TEXTURE0 + TEX_VISIT); gl.bindTexture(gl.TEXTURE_2D, this.visitTex); unpackPlain(gl); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, grid.nx, grid.nz, gl.RED, gl.FLOAT, grid.visit); gl.activeTexture(gl.TEXTURE0);
   }
 
+  /**
+   * Switches the standing crop near the camera (shell.mjs) on or off. The first time it is switched on its program is made; a driver that refuses it leaves the crop off, the reason is kept
+   * (shellWhy, shown in the panel) and nothing else of the layer is touched.
+   */
+  enableShell(v) {
+    if (!v) { this.on.shell = false; return true; }
+    if (this.shell === false) return false;
+    if (!this.shell) this.shell = this._makeShell();
+    this.on.shell = !!this.shell; return !!this.shell;
+  }
+  _makeShell() {
+    const gl = this.gl, R = this.R; let p = null;
+    const refuse = why => { this.shellWhy = why; if (p) { if (Array.isArray(R.progs)) { const i = R.progs.indexOf(p); if (i >= 0) R.progs.splice(i, 1); } try { gl.deleteProgram(p); } catch { /* gone */ } } return false; };
+    if (!this.ground) return refuse('the size of the loaded ground was not given');
+    try {
+      p = R.prog('veg-shell', COMMON + SHELL_VS, COMMON + SHELL_FS);
+      // the renderer's own check of its list throws (and logs) for a program that does not link: look at ours first, and keep the driver's words
+      if (!gl.getProgramParameter(p, gl.LINK_STATUS)) { const log = [gl.getProgramInfoLog && gl.getProgramInfoLog(p), p.v && gl.getShaderInfoLog && gl.getShaderInfoLog(p.v), p.f && gl.getShaderInfoLog && gl.getShaderInfoLog(p.f)].filter(Boolean).join(' | '); return refuse('the graphics driver did not accept the program' + (log ? ': ' + String(log).replace(/\s+/g, ' ').slice(0, 300) : '')); }
+      R.finishProgs();
+    } catch (e) { return refuse('the program could not be made: ' + (e && e.message)); }
+    gl.useProgram(p); const loc = n => gl.getUniformLocation(p, n), l0 = loc('uVegState'), l1 = loc('uVisit'); if (l0) gl.uniform1i(l0, TEX_STATE); if (l1) gl.uniform1i(l1, TEX_VISIT);
+    const data = buildShellChunks(this.decals, this.model.units, this.ground);
+    const cache = new ChunkCache(SHELL.cache, ci => this._makeChunk(data, ci), e => this._dropChunk(e));
+    this.shellWhy = '';
+    return { P: p, U: Object.fromEntries(['uT', 'uGrid', 'uVisitOn', 'uRange', 'uLayers'].map(n => [n, loc(n)])), data, cache };
+  }
+  _makeChunk(data, ci) {
+    const gl = this.gl, verts = refineChunk(this.decals, data, ci, SHELL.maxEdge), vao = gl.createVertexArray(), buf = gl.createBuffer();
+    gl.bindVertexArray(vao); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, verts, gl.STATIC_DRAW); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 4, gl.FLOAT, false, 16, 0); gl.bindVertexArray(null);
+    this.mem += verts.byteLength; return { vao, buf, n: verts.length / 4, bytes: verts.byteLength, used: 0 };
+  }
+  _dropChunk(e) { const gl = this.gl; try { gl.deleteVertexArray(e.vao); gl.deleteBuffer(e.buf); } catch { /* gone */ } this.mem -= e.bytes; }
+  _drawShell(gl, cam, tMin) {
+    const sh = this.shell, st = this.stats, planes = this.planes; st.shellChunks = 0; st.shellTris = 0;
+    const list = selectShellChunks(sh.data, cam.x, cam.z, SHELL.range + 30, (cx, cz, r) => sphereInFrustum(planes, cx, 20, cz, r + 60)), keep = new Set(list);
+    if (list.length) {
+      const U = sh.U, g = this.grid; gl.useProgram(sh.P); gl.uniform1f(U.uT, tMin); gl.uniform1f(U.uVisitOn, this.on.visit && g ? 1 : 0); gl.uniform1f(U.uRange, SHELL.range); gl.uniform1f(U.uLayers, SHELL.layers);
+      gl.uniform4f(U.uGrid, g ? g.x0 : 0, g ? g.z0 : 0, g ? 1 / (g.nx * g.cell) : 1, g ? 1 / (g.nz * g.cell) : 1);
+      let allow = SHELL.buildsPerFrame;
+      for (const ci of list) {
+        const had = sh.cache.map.has(ci), e = sh.cache.get(ci, allow); if (!e) continue; if (!had) allow--;
+        gl.bindVertexArray(e.vao); gl.drawArraysInstanced(gl.TRIANGLES, 0, e.n, SHELL.layers); st.shellChunks++; st.shellTris += (e.n / 3) * SHELL.layers;
+      }
+    }
+    sh.cache.trim(keep);
+  }
+
   _view(cam, aspect) {
     const cp = Math.cos(cam.pitch), eye = [cam.x, cam.y, cam.z], ctr = [cam.x + Math.sin(cam.yaw) * cp, cam.y + Math.sin(cam.pitch), cam.z + Math.cos(cam.yaw) * cp];
     lookAt(eye, ctr, [0, 1, 0], this.view); perspective(cam.fov, aspect, cam.near, cam.far, this.proj); mul(this.proj, this.view, this.vp); frustumPlanes(this.vp, this.planes);
@@ -242,13 +301,14 @@ export class VegGL {
     if (this.dead) return; const o = this.on, st = this.stats; st.treesDrawn = 0; st.chunksNear = st.chunksFar = 0;
     gl.disable(gl.CULL_FACE); gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LESS); gl.depthMask(true); gl.disable(gl.BLEND);
     gl.activeTexture(gl.TEXTURE0 + TEX_STATE); gl.bindTexture(gl.TEXTURE_2D, this.tex); if (this.visitTex) { gl.activeTexture(gl.TEXTURE0 + TEX_VISIT); gl.bindTexture(gl.TEXTURE_2D, this.visitTex); }
+    const aspect = R.W > 0 && R.H > 0 ? R.W / R.H : 1.6; this._view(cam, aspect); const planes = this.planes;
     if (o.ground && this.decals.triangles) {
       const P = this.P.decal, U = this.U.decal; gl.useProgram(P); gl.uniform1f(U.uT, tMin); gl.uniform1f(U.uOverlay, o.overlay ? 1 : 0); gl.uniform1f(U.uVisitOn, o.visit && this.grid ? 1 : 0); gl.uniform3fv(U.uTierCol, this.tierCol);
       const g = this.grid; gl.uniform4f(U.uGrid, g ? g.x0 : 0, g ? g.z0 : 0, g ? 1 / (g.nx * g.cell) : 1, g ? 1 / (g.nz * g.cell) : 1);
       gl.bindVertexArray(this.V.decal); gl.drawArrays(gl.TRIANGLES, 0, this.decals.triangles * 3);
+      if (o.shell && this.shell && !o.overlay) this._drawShell(gl, cam, tMin);       // the standing crop near the camera, over the ground cover (not while the tier overlay paints the ground)
     }
     if (o.trees && this.trees.n) {
-      const aspect = R.W > 0 && R.H > 0 ? R.W / R.H : 1.6; this._view(cam, aspect); const planes = this.planes;
       const sel = selectChunks(this.trees, cam.x, cam.z, 190, 2300, (cx, cz, r) => sphereInFrustum(planes, cx, 40, cz, r * 1.2 + 60));
       const P = this.P.tree, U = this.U.tree; gl.useProgram(P); gl.uniform3fv(U.uSpA, this.spA); gl.uniform3fv(U.uSpB, this.spB);
       for (const [lvl, list] of [['near', sel.near], ['far', sel.far]]) {
@@ -273,6 +333,7 @@ export class VegGL {
     if (this.dead) return; this.dead = true; const gl = this.gl;
     try {
       for (const b of Object.values(this.B)) gl.deleteBuffer(b); for (const k of ['near', 'far']) { gl.deleteBuffer(this.M[k].vb); gl.deleteBuffer(this.M[k].ib); gl.deleteVertexArray(this.M[k].vao); } gl.deleteVertexArray(this.V.decal);
+      if (this.shell) { this.shell.cache.clear(); gl.deleteProgram(this.shell.P); this.shell = null; }
       for (const p of Object.values(this.P)) gl.deleteProgram(p); gl.deleteTexture(this.tex); if (this.visitTex) gl.deleteTexture(this.visitTex);
     } catch (e) { console.warn('vegetation teardown', e); }
   }

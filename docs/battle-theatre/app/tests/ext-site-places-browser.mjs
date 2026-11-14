@@ -69,12 +69,14 @@ try {
     const hash = () => P.evaluate(() => window.btApp.liveHash());
     await view(70, 14); const h0 = await hash(); await s.shot('units-01-line-70m-layer-off');
     await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.setOn(true)); await s.frames(4);
-    const on = await P.evaluate(() => { const m = window.btApp.theatre.sitePlaces.memorials, chip = document.querySelector('#xm-chip'); return { on: m.isOn(), drawn: m.drawn(), inView: m.marksInView(), chip: chip.hidden ? '' : chip.textContent.replace(/\s+/g, ' ').trim(), hooks: window.btApp.theatre.host._hooks.length }; });
+    const on = await P.evaluate(() => { const m = window.btApp.theatre.sitePlaces.memorials, chip = document.querySelector('#xm-chip'); return { on: m.isOn(), drawn: m.drawn(), inView: m.marksInView(), hidden: m.hiddenByGround(), chip: chip.hidden ? '' : chip.textContent.replace(/\s+/g, ' ').trim(), hooks: window.btApp.theatre.host._hooks.length }; });
     const h1 = await hash(); await s.shot('units-02-line-70m-layer-on');
     check('the layer on over the manned line: marks are drawn and the notice says they were put up after the battle', on.on && on.drawn > 0 && /Put up after the battle/.test(on.chip), on);
     check('the layer changes nothing in the 1863 scene: the stage hash (the units present, their places and states) is the same with the layer on and off, and the clock is where this walk put it', h0 === h1 && (await P.evaluate(() => window.btApp.state.t)) === tSet, { h0, h1, tSet });
+    results.notes.push(`units walk, 70 m behind the line, 14 m up: ${on.drawn} marks drawn, ${on.hidden} left out because the ground hides them`);
     await view(24, 3); await s.shot('units-03-soldiers-24m-layer-on');
-    await view(9, 1.8); await s.shot('units-04-soldiers-9m-layer-on');
+    await view(9, 1.8); const low = await P.evaluate(() => { const m = window.btApp.theatre.sitePlaces.memorials; return { drawn: m.drawn(), hidden: m.hiddenByGround() }; }); await s.shot('units-04-soldiers-9m-layer-on');
+    check('at soldier\'s eye level the ground hides some of the marks (they are left out, not drawn over the hills)', low.hidden > 0, low); results.notes.push(`units walk, 9 m behind the line, 1.8 m up: ${low.drawn} marks drawn, ${low.hidden} left out because the ground hides them`);
     await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.setOn(false)); await s.frames(3);
     check('the layer off again: no canvas of the memorials is left, and the clock is where this walk put it', await P.evaluate(t => !document.querySelector('#xm-marks') && window.btApp.state.t === t, tSet));
     check('the units walk: no console error, no page error, no failed request, and no warning of these modules', clean(s.log), s.log); if (s.log.warnings.length) results.notes.push(`units walk: ${s.log.warnings.length} console warning(s): ${[...new Set(s.log.warnings)].map(w => w.slice(0, 120)).join(' | ')}`);
@@ -142,7 +144,7 @@ try {
   const tapAt = await P.evaluate(async url => { const Pm = await import(url), th = window.btApp.theatre, R = th.host.R, aspect = R && R.W > 0 ? R.W / R.H : th.cssW / th.cssH, vp = new Float32Array(16), cam = th.cam, o = [0, 0, 0], rect = document.querySelector('#bt-stage').getBoundingClientRect();
     th.sitePlaces.memorials.select(-1); Pm.viewProj(cam, aspect, vp); const found = [];
     const mem = await (await fetch(new URL('data/site-memorials.json', location.href))).json(); const idx = Pm.buildIndex(mem, th.T); const w = th.cssW, h = th.cssH;
-    for (const it of idx.items) { if (!Pm.project(vp, it.x, it.y + 4, it.z, w, h, o)) continue; if (o[0] < 430 || o[0] > w - 430 || o[1] < 130 || o[1] > h - 180) continue; found.push({ no: it.no, name: it.name, x: rect.left + o[0], y: rect.top + o[1], d: Math.hypot(it.x - cam.x, it.y - cam.y, it.z - cam.z) }); }
+    for (const it of idx.items) { if (!Pm.project(vp, it.x, it.y + 4, it.z, w, h, o)) continue; if (Pm.groundHides && Pm.groundHides(th.T, cam.x, cam.y, cam.z, it.x, it.y + 4, it.z)) continue; if (o[0] < 430 || o[0] > w - 430 || o[1] < 130 || o[1] > h - 180) continue; found.push({ no: it.no, name: it.name, x: rect.left + o[0], y: rect.top + o[1], d: Math.hypot(it.x - cam.x, it.y - cam.y, it.z - cam.z) }); }
     found.sort((p, q) => p.d - q.d); // the nearest one that no other mark is within 24 px of
     const one = found.find(f => found.every(g => g === f || Math.hypot(g.x - f.x, g.y - f.y) > 30)); return { n: found.length, one }; }, P_URL);
   check('there are marks in a view of the ridge to tap on', tapAt.n > 3 && tapAt.one, tapAt);

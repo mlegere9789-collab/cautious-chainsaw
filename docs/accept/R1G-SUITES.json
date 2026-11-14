@@ -1,7 +1,7 @@
 {
  "what": "Release 1 train R1g: every suite id that tools/t0/run_suites.mjs defines for the command below, with its last known result and the log that result is read from. A suite with no row in any log is marked never_reached. This file records; it does not judge: no row is classified here.",
  "command": "node tools/t0/run_suites.mjs --r1-dist release/R1g/dist --no-red --no-network",
- "generated": "2026-11-13T21:39:12Z",
+ "generated": "2026-11-14T00:04:26Z",
  "generated_by": "node tools/t0/r1g/suites_status.mjs (inputs: the runner's --list and the logs of tools/t0/r1g/suites_sources.json; regenerate after every new run, check with --check)",
  "how_to_read": [
   "last = the row of the newest run (by time_utc of its source entry) that has a row for the suite; earlier = its rows in older runs, newest first. status, result, seconds, tiles and load are copied from the log line (log_line is its line number in the archived log; log_original is where the log was written).",
@@ -21,11 +21,12 @@
   "suites": 80,
   "reached": 80,
   "never_reached": [],
-  "last_ok": 61,
+  "last_ok": 60,
   "last_not_ok": [
    "journeys.R1c",
    "mobilefix.R1b",
    "mobilefix.R1c",
+   "pagesmaps.R1a",
    "r1.anim",
    "r1.base1863",
    "r1.polish",
@@ -54,8 +55,9 @@
    "docs/accept/r1g-suite-logs/2026-11-13-static-before-quiet-flag.log": 0,
    "docs/accept/r1g-suite-logs/2026-11-13-static-light-after-quiet-flag.log": 0,
    "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.log": 14,
-   "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.log": 6,
-   "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.log": 2
+   "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.log": 5,
+   "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.log": 2,
+   "docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log": 1
   }
  },
  "at_a_glance": [
@@ -103,7 +105,7 @@
   "pagescore.R1c | PASS | 28/28 | 2026-11-11-full2.log:55",
   "pagescore.R1c.real | PASS | 1/1 | 2026-11-11-full2.log:56",
   "pagescore.R1c.full | PASS | 1/1 | 2026-11-11-full2.log:57",
-  "pagesmaps.R1a | PASS | 34/34 | 2026-11-13-sample-after-quiet-flag.log:4 | load 12.34>13.01",
+  "pagesmaps.R1a | FAIL | 1/1 | 2026-11-13-pagesmaps-cold-cache.log:3 | load 13.24>13.62",
   "pagesmaps.R1b | PASS | 34/34 | 2026-11-11-rerun-proxy-partial.log:14",
   "pagesmaps.R1c | PASS | 34/34 | 2026-11-11-rerun-proxy-partial.log:15",
   "pagesfix.R1a | PASS | 20/21 (+1 skipped) | 2026-11-11-rerun-proxy-partial.log:16",
@@ -651,6 +653,54 @@
     "node": "v22.23.4"
    },
    "rows_in_log": 2,
+   "rows_not_in_table": [],
+   "complete": true
+  },
+  {
+   "log": "docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log",
+   "original_log": "tmp/r1g-verify2/maps.log",
+   "time_utc": "2026-11-14T00:04:06Z",
+   "summary": "docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.summary.json",
+   "original_summary": "tmp/r1g-verify2/maps.json",
+   "present": true,
+   "conditions": "Cloud container, 2026-11-13, a verification run of the final proxy-aware runner (one suite, which downloads the pinned Mapbox GL library with its own Node fetch() code (tests/t0/pages-maps.spec.mjs)): `node tools/t0/run_suites.mjs --r1-dist release/R1g/dist --no-red --no-network --only pagesmaps.R1a --port-base 19040` (1 rows: pagesmaps.R1a; a prefix in --only can select more than one suite), started by the run script tmp/r1g-verify2/e2e-inner.sh inside one slot of the machine lock, with no manual environment: by its header the shell had HTTPS_PROXY set and NODE_USE_ENV_PROXY unset (its summary says the children's environment got: added NODE_USE_ENV_PROXY; extended NODE_OPTIONS). Header written by the run script: maps start 2026-11-14T00:04:03Z load1 13.24; HTTPS_PROXY set: yes; NODE_USE_ENV_PROXY=<unset>; NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt; NODE_OPTIONS=--use-openssl-ca; T0_MAPBOX_UNREACHABLE=<unset>; vendor caches before: ls: cannot access 'tmp/r1g-verify2-maps/vendor': No such file or directory ls: cannot access 'tmp/t0-maps/vendor': No such file or directory  / maps end 2026-11-14T00:04:06Z load1 13.62; runner exit 1; vendor cache after: mapbox-gl.css mapbox-gl.js. Runner exit code 1. Rows: pagesmaps.R1a FAIL 1/1. Load recorded: 13.24 at the start and 13.62 at the end of the run, 4 CPUs, shared with other work: the durations are not timing evidence (measured on the cloud machine (4 vCPU container, software GL)). The run reached its final line. This entry was written by tmp/r1g-verify2/register.mjs from the summary JSON, the header file, the exit-code file and the run script; it makes no diagnosis.",
+   "bytes": 551,
+   "sha256": "4c1f32fe9648db23d4e28ee4744265eb3da0d06d66dfaeb0741071fea220bdff",
+   "suites_selected": 1,
+   "final_line": "run_suites: 0/1 suites OK; green tests 1/1; red-first proofs 0/0 (0 legacy tests red as required); 2s -> tmp/r1g-verify2/maps.json",
+   "load_recorded": true,
+   "summary_sha256": "14f3943a1a5c0f10fefc48921992f19175e27798266a38454473e06d882e4fcc",
+   "summary_finished": "see file mtime",
+   "summary_seconds": 2,
+   "summary_totals": {
+    "suites": 1,
+    "ok": 0,
+    "notOk": 1,
+    "greenTests": 1,
+    "greenTestsTotal": 1,
+    "redProofs": 0,
+    "redProofsOk": 0,
+    "redTestsRedAsRequired": 0
+   },
+   "summary_child_env": {
+    "httpsProxy": true,
+    "added": [
+     "NODE_USE_ENV_PROXY"
+    ],
+    "extended": [
+     "NODE_OPTIONS"
+    ]
+   },
+   "summary_load1": {
+    "start": 13.24,
+    "end": 13.62
+   },
+   "summary_machine": {
+    "platform": "linux",
+    "cpus": 4,
+    "node": "v22.23.4"
+   },
+   "rows_in_log": 1,
    "rows_not_in_table": [],
    "complete": true
   }
@@ -4597,26 +4647,51 @@
    "title": "map sub-pages, og card, manifest (PG-01..08) on R1a",
    "reached": true,
    "last": {
-    "log": "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.log",
-    "log_original": "tmp/r1g-harness2/sample-after.log",
-    "log_line": 4,
-    "log_time_utc": "2026-11-13T20:33:11Z",
-    "summary": "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.summary.json",
-    "status": "PASS",
-    "ok": true,
-    "result": "34/34",
-    "passed": 34,
-    "total": 34,
+    "log": "docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log",
+    "log_original": "tmp/r1g-verify2/maps.log",
+    "log_line": 3,
+    "log_time_utc": "2026-11-14T00:04:06Z",
+    "summary": "docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.summary.json",
+    "status": "FAIL",
+    "ok": false,
+    "result": "1/1",
+    "passed": 1,
+    "total": 1,
     "skipped": 0,
     "failed": 0,
-    "exit": 0,
-    "seconds": 110.6,
-    "tiles": 100,
-    "load1Start": 12.34,
-    "load1End": 13.01,
-    "failing_tests_printed": []
+    "exit": 1,
+    "seconds": 2.5,
+    "tiles": null,
+    "load1Start": 13.24,
+    "load1End": 13.62,
+    "failing_tests_printed": [],
+    "summary_tail": [
+     "  ]",
+     "}",
+     "Node.js v22.23.4"
+    ]
    },
    "earlier": [
+    {
+     "log": "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.log",
+     "log_original": "tmp/r1g-harness2/sample-after.log",
+     "log_line": 4,
+     "log_time_utc": "2026-11-13T20:33:11Z",
+     "summary": "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.summary.json",
+     "status": "PASS",
+     "ok": true,
+     "result": "34/34",
+     "passed": 34,
+     "total": 34,
+     "skipped": 0,
+     "failed": 0,
+     "exit": 0,
+     "seconds": 110.6,
+     "tiles": 100,
+     "load1Start": 12.34,
+     "load1End": 13.01,
+     "failing_tests_printed": []
+    },
     {
      "log": "docs/accept/r1g-suite-logs/2026-11-11-rerun-proxy-partial.log",
      "log_original": "tmp/r1g-pack/suites-rerun-proxy.log",

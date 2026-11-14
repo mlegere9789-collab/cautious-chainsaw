@@ -220,13 +220,27 @@ export function project(m, x, y, z, w, h, out) {
 export const LABEL = Object.freeze({ max: 12, range: 420, charW: 6.3, pad: 22, h: 18, cap: 46 });
 export const labelText = it => (it.name.length > LABEL.cap ? it.name.slice(0, LABEL.cap - 2) + '…' : it.name) + ' · ' + COPY.short;
 const CAND = 64;
-export function newLayout(n) { return { n: 0, idx: new Uint16Array(n), sx: new Float32Array(n), sy: new Float32Array(n), r: new Float32Array(n), nLabels: 0, lab: new Int16Array(LABEL.max + 1), cd: new Float32Array(CAND), ci: new Int16Array(CAND), p: [0, 0, 0] }; }
-/** Fills L with the marks in view: their screen places and sizes (nearer is larger), and which of them get a name (the nearest that do not sit on one another). */
+/** Does the ground lie between the camera and a point? The straight line is sampled against the terrain's height (T.h): a step of a fortieth of the distance (12 to 60 m), the last 6 m before the
+ *  point left out, 1.5 m of margin over the line. Trees and buildings are not in the terrain, so they never hide a mark; a point within 20 m of the camera is never hidden. */
+export function groundHides(T, cx, cy, cz, x, y, z) {
+  const dx = x - cx, dy = y - cy, dz = z - cz, d = Math.hypot(dx, dy, dz); if (!(d > 20)) return false;
+  const n = Math.ceil(d / clamp(d / 40, 12, 60)), stop = (d - 6) / d;
+  for (let i = 1; i < n; i++) { const f = i / n; if (f > stop) break; if (T.h(cx + dx * f, cz + dz * f) > cy + dy * f + 1.5) return true; }
+  return false;
+}
+/** Would the name of a mark, placed as drawMarks places it (box from ax, ay - 13, aw wide, 18 high), lie under one of the panels? av: rectangles [x0, y0, x1, y1] in the picture's css pixels
+ *  (the top bar, the dock, the drawer, the panels of the left column). */
+export const underPanel = (av, ax, ay, aw) => { for (let q = 0; q < av.length; q++) { const r = av[q]; if (ax < r[2] && ax + aw > r[0] && ay - 13 < r[3] && ay + 5 > r[1]) return true; } return false; };
+export function newLayout(n) { return { n: 0, idx: new Uint16Array(n), sx: new Float32Array(n), sy: new Float32Array(n), r: new Float32Array(n), nLabels: 0, hidden: 0, lab: new Int16Array(LABEL.max + 1), cd: new Float32Array(CAND), ci: new Int16Array(CAND), p: [0, 0, 0] }; }
+/** Fills L with the marks in view: their screen places and sizes (nearer is larger), and which of them get a name (the nearest that do not sit on one another). With state.T (the terrain) a mark the ground hides from the
+ *  camera is left out and counted in L.hidden (the picked memorial is never left out); with state.avoid (rectangles of the panels over the picture) a name is not put under a panel. Neither changes which memorials are marked. */
 export function layoutMarks(index, vp, cam, w, h, state, L) {
   const { X, Y, Z, items, n } = index, p = L.p; let k = 0, nc = 0; const selNo = state && state.selected != null ? state.selected : -1; let selK = -1;
+  const T = state && state.T && typeof state.T.h === 'function' ? state.T : null, av = state && state.avoid && state.avoid.length ? state.avoid : null; L.hidden = 0;
   if (state && (state.on === true || selNo >= 0)) for (let i = 0; i < n; i++) {
     const it = items[i]; if (!(state.on === true || it.no === selNo)) continue;
     if (!project(vp, X[i], Y[i], Z[i], w, h, p)) continue; if (p[0] < -30 || p[0] > w + 30 || p[1] < -30 || p[1] > h + 30) continue;
+    if (T && it.no !== selNo && groundHides(T, cam.x, cam.y, cam.z, X[i], Y[i], Z[i])) { L.hidden++; continue; }
     const d = Math.hypot(X[i] - cam.x, Y[i] - cam.y, Z[i] - cam.z);
     L.idx[k] = i; L.sx[k] = p[0]; L.sy[k] = p[1]; L.r[k] = d < 260 ? 7 : d < 900 ? 5.5 : d < 2600 ? 4 : 3;
     if (it.no === selNo) selK = k;
@@ -237,7 +251,7 @@ export function layoutMarks(index, vp, cam, w, h, state, L) {
   }
   L.n = k; let nl = 0; if (selK >= 0) L.lab[nl++] = selK;
   for (let c = 0; c < nc && nl < LABEL.max + (selK >= 0 ? 1 : 0); c++) {
-    const a = L.ci[c], ax = L.sx[a] + 9, ay = L.sy[a] - 16, aw = items[L.idx[a]].lblW; let free = ax + aw < w + 40 && ay > -4;
+    const a = L.ci[c], ax = L.sx[a] + 9, ay = L.sy[a] - 16, aw = items[L.idx[a]].lblW; let free = ax + aw < w + 40 && ay > -4 && !(av && underPanel(av, ax, ay, aw));
     for (let q = 0; q < nl && free; q++) { const b = L.lab[q], bx = L.sx[b] + 9, by = L.sy[b] - 16, bw = items[L.idx[b]].lblW; if (ax < bx + bw && bx < ax + aw && Math.abs(ay - by) < LABEL.h + 2) free = false; }
     if (free) L.lab[nl++] = a;
   }
@@ -336,7 +350,7 @@ export function memorialPanelHTML(index, o, tm) {
     <details style="margin:0 0 10px"><summary class="mini" style="cursor:pointer">What this rests on, and what is not known</summary>
       <p class="mini" style="margin-top:8px">${e(COPY.basis)}</p>
       <p class="mini" style="margin-top:8px">${tm(LAYER.yearTier)} ${e(COPY.year)} Gap ${e(LAYER.gap)}.${c.years && c.years.documented + c.years.inferred ? ` For ${c.years.documented + c.years.inferred} of the ${c.total} a National Park Service report prints the year for a memorial of the same name; it is on their cards with the report, the page and the quotation (${c.years.documented} documented, ${c.years.inferred} inferred). For the other ${c.years.openGap} the year is an open gap.` : ''}</p>
-      <p class="mini" style="margin-top:8px">${e(COPY.position)} The list states no source for ${c.withoutSource} of the ${c.total} positions; for ${c.withSource} it names a web listing. A mark says where the list puts a memorial today and nothing about July 1863.</p>
+      <p class="mini" style="margin-top:8px">${e(COPY.position)} The list states no source for ${c.withoutSource} of the ${c.total} positions; for ${c.withSource} it names a web listing. A mark says where the list puts a memorial today and nothing about July 1863. A mark is left out while the ground lies between the camera and the place (trees and buildings do not hide a mark), and a name is not put under a panel; the memorial you picked is always marked and named.</p>
       <p class="mini" style="margin-top:8px">${c.beyond} memorials lie beyond the loaded ground (6.2 by 6.1 km). They are listed and marked like the rest: the camera goes to the edge of the ground and looks toward them, and the mark stands at the height of the nearest loaded ground because the ground there is not loaded. Gap ${e(LAYER.groundGap)}.</p>
       ${o.integrity && o.integrity.checked ? '' : '<p class="mini" style="margin-top:8px">This address gives the page no way to check the list against the hash recorded with it; the check was left out.</p>'}</details>
     ${two.length ? `<h3>Where the site holds two positions</h3><p class="mini">${two.length} state memorials are also in a second list of the site, ${fmtM(near)} to ${fmtM(far)} m from where the Monuments list puts them. Both are carried; the marks open on the Monuments list, the list this layer copies.</p>

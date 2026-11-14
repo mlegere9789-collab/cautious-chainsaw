@@ -7,9 +7,12 @@ import { VegModel, stateAt, checkVegetation, scenarioOption, isoMin, minToIso, T
 import { buildDecals, buildTrees, LAYER } from './mesh.mjs';
 import { VegGL } from './gl.mjs';
 import { makeGrid, rasterMask, VisitPlanner, stageProvider } from './plan.mjs';
+import { SHELL } from './shell.mjs';
 
 export const ID = 'vegetation';
 export const TITLE = 'Vegetation of July 1863';
+const SHELL_DEFAULT = false;                                // the standing crop near the camera (shell.mjs): ?vegshell=on / ?vegshell=off decide a visit; this is the default
+const wantShell = () => { const q = globalThis.location ? globalThis.location.search : ''; return /[?&]vegshell=on\b/.test(q) ? true : /[?&]vegshell=off\b/.test(q) ? false : SHELL_DEFAULT; };
 let S = null;                                              // the state of one visit: set by init, cleared by dispose (a module object outlives a visit)
 
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -29,19 +32,20 @@ export async function init(ctx) {
   buildIndex(s);
   s.toggle = ctx.registerLayerToggle(ID, TITLE, () => !!(S && S.on), v => setOn(!!v));
   s.tierToggle = ctx.registerLayerToggle(ID + '-tiers', 'Vegetation: show the tier on the ground', () => !!(S && S.gl && S.gl.on.overlay), v => setOverlay(!!v));
+  s.shellToggle = ctx.host.api === 'webgl2' ? ctx.registerLayerToggle(ID + '-crop', 'Vegetation: standing crops near the camera', () => !!(S && S.gl && S.gl.on.shell), v => setShell(!!v)) : null;
   s.panel = ctx.registerPanel(ID, TITLE, renderPanel);
   if (ctx.host.api === 'webgl2') {
     const t0 = performance.now(), decals = buildDecals(model, project), trees = buildTrees(model, project, ground);
     addWitnessTrees(s, trees, model, project);
     s.build = { decalMs: 0, ms: Math.round(performance.now() - t0), decalTriangles: decals.triangles, trees: trees.n, notClean: decals.notClean };
-    s.gl = new VegGL(ctx.host, model, decals, trees); s.trees = trees;
+    s.gl = new VegGL(ctx.host, model, decals, trees, { ground, shell: wantShell() }); s.trees = trees;
     s.hook = ctx.host.addSceneHook({ scene: (gl, R) => { if (S && S.on && S.cam) S.gl.scene(gl, R, S.cam, S.t); }, shadow: (gl, c, R) => { if (S && S.on && S.cam) S.gl.shadow(gl, c, R, S.cam); } });
     startPlanner(s);
     s.status = 'drawn on WebGL2';
   }
   s.offs.push(th.bus.on('scenario', () => { if (S) { startPlanner(S); S.tq = null; } }));
   mountChip(s);
-  th.vegetation = { model, check: opts => checkVegetation(model, opts), stateAt: (id, t, choices) => stateAt(model, id, t, choices || effChoices(S)), status: () => statusOf(), setOn: v => (S ? S.toggle.set(!!v) : false), setOverlay: v => (S ? S.tierToggle.set(!!v) : false), pick: (x, z) => pickUnit(S, x, z),
+  th.vegetation = { model, check: opts => checkVegetation(model, opts), stateAt: (id, t, choices) => stateAt(model, id, t, choices || effChoices(S)), status: () => statusOf(), setOn: v => (S ? S.toggle.set(!!v) : false), setOverlay: v => (S ? S.tierToggle.set(!!v) : false), setShell: v => (S && S.shellToggle ? S.shellToggle.set(!!v) : false), pick: (x, z) => pickUnit(S, x, z),
     whenReady: () => whenReady(), choose: (id, key) => choose(id, key), planner: () => S && S.planner, effChoices: () => effChoices(S),
     card: (id, t) => { const s = S; if (!s) return null; const u = s.model.unit(id); return u ? unitCard(s, u, t == null ? s.t : t) : null; } };
 }
@@ -50,12 +54,16 @@ function whenReady() { return new Promise(res => { const tick = () => { if (!S |
 function statusOf() {
   const s = S; if (!s) return null;
   return { on: s.on, api: s.ctx.host.api, status: s.status, units: s.model.units.length, claims: s.model.data.claims.length, trees: s.trees ? s.trees.n : 0, decalTriangles: s.gl ? s.gl.stats.decalTris : 0, treesDrawn: s.gl ? s.gl.stats.treesDrawn : 0, chunksNear: s.gl ? s.gl.stats.chunksNear : 0, chunksFar: s.gl ? s.gl.stats.chunksFar : 0,
-    stateWrites: s.gl ? s.gl.stats.stateWrites : 0, plan: s.planner ? { done: s.planner.done, steps: s.planner.steps, marked: s.planner.marked, from: minToIso(s.planner.from), to: minToIso(s.planner.to) } : null, overlay: s.gl ? s.gl.on.overlay : false, local: { ...s.local }, build: s.build, gpuBytes: s.gl ? s.gl.mem : 0 };
+    stateWrites: s.gl ? s.gl.stats.stateWrites : 0, shell: s.gl ? { on: s.gl.on.shell, ready: !!s.gl.shell, why: s.gl.shellWhy, chunks: s.gl.stats.shellChunks || 0, tris: s.gl.stats.shellTris || 0, cached: s.gl.shell ? s.gl.shell.cache.map.size : 0, layers: SHELL.layers, range: SHELL.range } : null, plan: s.planner ? { done: s.planner.done, steps: s.planner.steps, marked: s.planner.marked, from: minToIso(s.planner.from), to: minToIso(s.planner.to) } : null, overlay: s.gl ? s.gl.on.overlay : false, local: { ...s.local }, build: s.build, gpuBytes: s.gl ? s.gl.mem : 0 };
 }
 
 function effChoices(s) { let live = {}; try { live = { ...s.ctx.choices() }; } catch { /* the shell's choices are not there */ } return { ...live, ...s.local }; }
 function choose(id, key) { const s = S; if (!s || !s.model.scenarios[id] || !s.model.scenarios[id].options[key]) return false; s.local[id] = key; s.tq = null; s.th.announce(`${s.model.scenarios[id].title}: ${s.model.scenarios[id].options[key].label}.`); if (s.panel.isOpen()) s.panel.refresh(); return true; }
 function setOn(v) { const s = S; if (!s) return; s.on = v; if (s.chip) s.chip.hidden = !v; s.th.announce(v ? 'Vegetation of July 1863 shown.' : 'Vegetation of July 1863 hidden.'); }
+function setShell(v) {
+  const s = S; if (!s || !s.gl) return; const ok = s.gl.enableShell(v);
+  s.th.announce(v ? (ok ? 'Standing crops are drawn near the camera.' : 'Standing crops could not be drawn on this graphics driver.') : 'Standing crops are no longer drawn near the camera.'); if (s.panel && s.panel.isOpen()) s.panel.refresh();
+}
 function setOverlay(v) { const s = S; if (!s || !s.gl) return; s.gl.on.overlay = v; s.th.announce(v ? 'The tier of every field and wood is shown on the ground.' : 'The tier is no longer shown on the ground.'); }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------- the trees that have a name
@@ -176,6 +184,7 @@ function renderPanel(box, th, sc) {
   box.innerHTML = `<p class="mini">${esc(m.data.meta.title)}: what grew where, and how it looked, as far as the record allows. Everything drawn is a reconstruction and carries its tier; nothing is shown as documented that no passage names.</p>
     <label class="check"><input type="checkbox" id="veg-on" ${s.on ? 'checked' : ''}> Show the vegetation of 1863</label>
     <label class="check"><input type="checkbox" id="veg-tiers" ${s.gl && s.gl.on.overlay ? 'checked' : ''}> Show the tier on the ground (hatching and tint)</label>
+    ${s.shellToggle ? `<label class="check"><input type="checkbox" id="veg-crop" ${s.gl && s.gl.on.shell ? 'checked' : ''}> Show standing crops near the camera (stacked layers, within ${SHELL.range} m: a stand-in for single plants; their height, stage, colour, cut, trampling and flattening are the state of the data)</label>${s.gl && s.gl.shellWhy ? `<p class="mini">The standing crop is not drawn on this graphics driver: ${esc(s.gl.shellWhy)}</p>` : ''}` : ''}
     <label class="check"><input type="checkbox" id="veg-visit" ${s.gl && s.gl.on.visit ? 'checked' : ''}> Trample the fields where the troops the theatre draws walked (the events of the record trample them in any case)</label>
     <p class="mini" id="veg-status">${esc(s.status)}${s.planner ? (s.planner.done ? `; the plan of the troops' walk is whole (${s.planner.steps} steps, ${s.planner.marked} cells first walked on)` : `; the plan of the troops' walk is being made (${s.planner.steps} steps)`) : ''}</p>
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0"><span class="pill">${meta.counts.units} units</span><span class="pill">${c.field + c.wheatfield} field cells</span><span class="pill">${c.woods + c.scatter} woodlots and tree clusters</span><span class="pill">${c.orchard} orchards</span><span class="pill">${s.trees ? s.trees.n.toLocaleString('en-US') : 0} trees</span><span class="pill">${meta.counts.claims} cited passages</span></div>
@@ -190,6 +199,7 @@ function renderPanel(box, th, sc) {
     const t = ev.target; if (!t || !S) return;
     if (t.id === 'veg-on') Promise.resolve(S.toggle.set(t.checked)).then(() => { if (S) t.checked = S.on; });
     else if (t.id === 'veg-tiers') Promise.resolve(S.tierToggle.set(t.checked)).then(() => { if (S) t.checked = !!(S.gl && S.gl.on.overlay); });
+    else if (t.id === 'veg-crop') Promise.resolve(S.shellToggle && S.shellToggle.set(t.checked)).then(() => { if (S && S.gl) t.checked = !!S.gl.on.shell; });
     else if (t.id === 'veg-visit') { if (S.gl) S.gl.on.visit = t.checked; S.th.announce(t.checked ? 'The ground is trampled where the troops walked.' : 'The ground is trampled only by the events of the record.'); }
     else if (t.dataset && t.dataset.sce) choose(t.dataset.sce, t.value);
   });

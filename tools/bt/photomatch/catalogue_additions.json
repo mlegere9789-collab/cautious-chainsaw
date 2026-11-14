@@ -1,6 +1,6 @@
 {
  "_doc": "Records added to the Q16 catalogue after the first run dropped them (date filter: no 1863 in the date field). Fields copied from the LOC record by catalogue_additions.py; added_reason says why each is a July 1863 battlefield view. skipped_search_results lists the other dropped results with the reason each stays out.",
- "count": 18,
+ "count": 20,
  "photographs": [
   {
    "loc_id": "2012647700",
@@ -576,6 +576,76 @@
    "image_urls": {
     "medium": "https://cdn.loc.gov/service/pnp/ppmsc/00100/00168r.jpg",
     "thumb": "https://cdn.loc.gov/service/pnp/ppmsc/00100/00168_150px.jpg"
+   }
+  },
+  {
+   "loc_id": "2006692515",
+   "loc_url": "https://www.loc.gov/pictures/item/2006692515/",
+   "title": "Slaughter pen, foot of Round Top, Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "summary": "Photograph showing dead soldiers in a ravine at the foot of Little Round Top after the battle.",
+   "reproduction_numbers": [
+    "LC-DIG-ppmsca-12565 (digital file from original photograph)",
+    "LC-B8184-7971A (b&w film copy neg., full plate)",
+    "LC-B8184-7971 (b&w film copy neg.)"
+   ],
+   "call_number": "Illus. in E468.7 .G2, v. 1, no. 44 (Case Y) [P&P]",
+   "medium": "1 photographic print :",
+   "formats": [
+    "Albumen prints--1860-1870.",
+    "Book illustrations--1860-1870."
+   ],
+   "notes_loc": [
+    "Illus. in:  Gardner's photographic sketch book of the war / Alexander Gardner. Washington, D.C. : Philp & Solomons, [c1866], v. 1, no. 44.",
+    "Copyright by A. Gardner.",
+    "Title from item."
+   ],
+   "rights_information": "No known restrictions on publication.",
+   "licence_basis": "LOC record states: no known restrictions on publication (PD basis: 19th-century photograph)",
+   "in_scope_july_1863_terrain": true,
+   "staged_flag": false,
+   "date_status": "added by catalogue_additions.py (third pass, outside the cwp collection): the LOC date field carries 1863 (1863 July.); see added_reason",
+   "added_reason": "Slaughter pen, foot of Round Top (O'Sullivan; Gardner's Sketch Book plate 44; LC-DIG-ppmsca-12565). Outside the cwp collection, so the first run did not see it. NPS (Record of Treatment vol. II, Fig. 65): 'Plum Run Gorge and the Slaughter Pen. View southeast, 1863'",
+   "image_urls": {
+    "medium": "https://cdn.loc.gov/service/pnp/ppmsca/12500/12565r.jpg",
+    "thumb": "https://cdn.loc.gov/service/pnp/ppmsca/12500/12565_150px.jpg"
+   }
+  },
+  {
+   "loc_id": "2009630184",
+   "loc_url": "https://www.loc.gov/pictures/item/2009630184/",
+   "title": "On the battlefield at Gettysburg",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Company, No. 21 Linden Place, [1863, printed later]",
+   "summary": "Photograph shows the bloated bodies of Union soldiers killed during battle on July 1st, 1863 at Gettysburg, Pennsylvania.",
+   "reproduction_numbers": [
+    "LC-DIG-ppmsca-18947 (digital file from original item, front)",
+    "LC-DIG-ppmsca-18948 (digital file from original item, back)"
+   ],
+   "call_number": "LOT 4168, no. 216 [P&P]",
+   "medium": "1 photographic print on stereo card :",
+   "formats": [
+    "Albumen prints--1860-1870.",
+    "Stereographs--1860-1870."
+   ],
+   "notes_loc": [
+    "Title from item.",
+    "From series: 1861 Photographic War History   The War for the Union 1865.",
+    "No. 243.",
+    "Exhibited: \"The Universal Archive : The Condition of the Document and the Modern Photographic Utopia\" at the Museu d'Art Contemporani de Barcelona (MACBA), 2008-2009.",
+    "Exhibited: \"The Aesthetic Other. Notes for a Protohistory of Documentary Culture, 1848-1917,\" at the Museo Nacional Centro de Arte Reina Sofia Santa Isabel, 52 - 28012 Madrid, November 15, 2022 - February 27, 2023.",
+    "Original glass negative may be available: LC-B811-243"
+   ],
+   "rights_information": "No known restrictions on publication.",
+   "licence_basis": "LOC record states: no known restrictions on publication (PD basis: 19th-century photograph)",
+   "in_scope_july_1863_terrain": true,
+   "staged_flag": false,
+   "date_status": "added by catalogue_additions.py (third pass, outside the cwp collection): the LOC date field carries 1863 (Hartford, Conn. : The War Photograph & Exhibition Company, No. 21 Linden Place, [1863, printed later]); see added_reason",
+   "added_reason": "On the battlefield at Gettysburg (Gibson stereograph, LC-DIG-ppmsca-18947; outside the cwp collection). NPS (CLR First Day, Fig. 1.47): photographed circa July 5, 1863; the location is disputed, possibly looking east across the Wills Farm toward the woods on Oak Ridge",
+   "image_urls": {
+    "medium": "https://tile.loc.gov/storage-services/service/pnp/ppmsca/18900/18947r.jpg",
+    "thumb": "https://tile.loc.gov/storage-services/service/pnp/ppmsca/18900/18947_150px.jpg"
    }
   }
  ],

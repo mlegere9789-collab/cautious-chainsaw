@@ -91,7 +91,9 @@ def lib_text(sid):
 HEAD_A = re.compile(r'(?<![\d,.])(\d{1,4}) ([A-Z][A-Za-z\'’.,&-]*(?: [A-Za-z\'’.,&-]+){1,7})')
 
 def lib_page(sid, nt, ni):
-    """printed page from the nearest running head before position ni in the normalised text, with the head as evidence"""
+    """printed page from the nearest running head before position ni in the normalised text, with the head as evidence
+    (the per-book patterns; since the second pass of 2026-11-13 both parities of head are listed and the result is cross-checked
+    against the generic head detection of lib_page_generic: the two must agree)"""
     spec = PAGE_HEADS.get(sid)
     if not spec: return None, 'no printed page recovered from the text; offset given'
     best = None
@@ -102,14 +104,60 @@ def lib_page(sid, nt, ni):
     pg = next(g for g in best.groups() if g)
     return pg, 'running head before the passage: "%s"' % best.group(0).strip()
 
+# ---- generic running heads (second pass, 2026-11-13): a head is a short isolated line (a blank line before or after it) that carries a
+# page number at its start ("156 Southern Historical Society Papers."), at its end ("Causes of Lee's Defeat at Gettysburg. 157") or alone
+# ("289" under a running title). Heads of both parities are accepted. The page of a passage is CERTAIN when the head before it and the
+# head after it have consecutive numbers; the first pass looked for one parity only and put 11 of 17 citations of four books one or
+# two pages too early (Alexander, SHSP vol.4, Fremantle, and the Pierce and Minnesota texts had none).
+_HEAD_NUM = r'(\d{1,4})\.?'
+_HA = re.compile(r'^' + _HEAD_NUM + r'\s+(\S.{2,80})$')
+_HB = re.compile(r'^(\S.{2,80}?)\s+' + _HEAD_NUM + r'$')
+_HC = re.compile(r'^' + _HEAD_NUM + r'$')
+_WEEKDAY = re.compile(r'^"?(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b')
+MAX_PAGE = {'PA-GB-1914-v2': 1400, 'PA-GB-1904': 1400}
+# books whose two head forms are both listed in PAGE_HEADS and were read against the page sequence (second pass): where the generic heads are
+# ambiguous (a false or a damaged neighbouring head) the per-book pattern alone gives the page; for every other book an ambiguous page must be stated by hand
+PATTERN_TRUSTED = {'JACOBS-1864', 'PA-GB-1914-v2', 'BL-3', 'ME-GB-1898', 'SHSP-04', 'SHSP-06'}
+_gheads = {}
+def lib_heads(sid, raw):
+    if sid in _gheads: return _gheads[sid]
+    top = MAX_PAGE.get(sid, 999)
+    lines = raw.split('\n'); out = []; pos = 0
+    for i, ln in enumerate(lines):
+        off = pos; pos += len(ln) + 1
+        l = re.sub(r'\s+', ' ', ln).strip()
+        if not l or len(l) > 90 or _WEEKDAY.match(l): continue
+        if not ((i == 0 or not lines[i - 1].strip()) or (i + 1 >= len(lines) or not lines[i + 1].strip())): continue
+        m = _HC.match(l)
+        if m:
+            if len(m.group(1)) >= 3 and int(m.group(1)) <= top: out.append((int(m.group(1)), off, l))
+            continue
+        m = _HA.match(l)
+        if m and not re.match(r'^[a-z]', m.group(2)) and int(m.group(1)) <= top:
+            out.append((int(m.group(1)), off, l)); continue
+        m = _HB.match(l)
+        if m and not re.search(r'[a-z]{4,} [a-z]{3,} [a-z]{3,}', m.group(1)) and int(m.group(2)) <= top:
+            out.append((int(m.group(2)), off, l))
+    _gheads[sid] = out
+    return out
+
+def lib_page_generic(sid, raw, off):
+    """(page or None, prev head, next head): page only when the heads before and after the passage are consecutive"""
+    hs = lib_heads(sid, raw)
+    pv = [h for h in hs if h[1] <= off]; nx = [h for h in hs if h[1] > off]
+    p = pv[-1] if pv else None; n = nx[0] if nx else None
+    if p and n and n[0] == p[0] + 1:
+        return str(p[0]), p, n
+    return None, p, n
+
 PAGE_HEADS = {
  'JACOBS-1864': [re.compile(r'(?<!\d)(\d{1,2}) (?:THE|TIIE|TILE) +REBEL +INVASION +O[FE]'), re.compile(r'MARYLAND +AND +PENNSYLVANIA\. +(\d{1,2})(?!\d)')],
  'PA-GB-1914-v2': [re.compile(r'(?<!\d)(\d{3,4}) Pennsylvania at Gettysburg\.'), re.compile(r'Pennsylvania at Gettysburg\. (\d{3,4})(?!\d)')],
  'ME-GB-1898': [re.compile(r'(?<!\d)(\d{2,3}) MAINE AT GETTYSBURG\.'), re.compile(r'[A-Z]{4,} REGIMENT [A-Za-z]+\. (\d{2,3})(?!\d)')],
- 'SHSP-04': [re.compile(r'(?<!\d)(\d{1,3}) Southern Historical Society Papers\.')],
- 'SHSP-06': [re.compile(r'(?<!\d)(\d{1,3}) Southern Historical Society Papers\.')],
- 'ALEXANDER-1907': [re.compile(r'(?<!\d)(\d{2,3}) MILITARY MEMOIRS')],
- 'FREMANTLE-1864': [re.compile(r'(?<!\d)(\d{3}) [A-Z][A-Za-z\'’.-]+(?: [A-Za-z\'’.-]+){0,5}\. (?=[A-Za-z"\'])'), re.compile(r'[A-Z]{3,}[A-Za-z\'’ .-]{3,40}\. (\d{3})(?!\d)')],
+ 'SHSP-04': [re.compile(r'(?<!\d)(\d{1,3}) Southern Historical Society Papers\.'), re.compile(r"Causes of Lee's Defeat at Gettysburg\. (\d{3})(?!\d)")],
+ 'SHSP-06': [re.compile(r'(?<!\d)(\d{1,3}) Southern Historical Society Papers\.'), re.compile(r'The Gettysburg Campaign [^0-9]{3,40}\. (\d{3})(?!\d)')],
+ 'ALEXANDER-1907': [re.compile(r'(?<!\d)(\d{2,3}) MILITARY MEMOIRS'), re.compile(r'GETTYSBURG: THE FIRST DAY (\d{3})(?!\d)')],
+ 'FREMANTLE-1864': [],   # the heads are damaged by the OCR (HAGEESTOWN, CHAJVLBEESBUEG ...): the generic heads decide, damaged ones are stated by hand with page_check
  'MEADE-LL-v2': [re.compile(r'THE BATTLE OF GETTYSBURG (\d{1,3})(?!\d)')],
  'BL-3': [re.compile(r'CITIZENS OF GETTYSBURG IN THE UNION ARMY\. (\d{3})(?!\d)')],
 }
@@ -121,6 +169,36 @@ FIXED_PAGE = {  # pages seen on the page image (archive.org PDF, see acquired_tl
 
 class QuoteError(Exception):
     pass
+
+def lib_page_final(cid, sid, raw, nt, nm, ni, c):
+    """printed page of a library citation.
+    1. An explicit page with its page_basis (read on a page image or at a head that the text layer damaged) is accepted as given; with
+       page_check=True it must lie between the numbers of the heads before and after the passage.
+    2. Otherwise the generic heads (both parities) must give a CERTAIN page (consecutive heads before and after the passage), and the
+       per-book pattern, where one exists, must agree with it.
+    3. Where the generic detection is ambiguous (a false head, a damaged head) the per-book pattern alone gives the page and the basis
+       says so; where there is none the page stays empty and the citation is located by offset."""
+    off = nm[ni]
+    gp, ph, nh = lib_page_generic(sid, raw, off)
+    rp, rbasis = lib_page(sid, nt, ni)
+    stated, sbasis = c.get('page'), c.get('page_basis')
+    if stated and sbasis:
+        if c.get('page_check'):
+            if not (ph and nh and ph[0] <= int(stated) <= nh[0]):
+                raise QuoteError('%s: stated page %s is not between the heads before (%s) and after (%s)' % (cid, stated, ph and ph[0], nh and nh[0]))
+        return str(stated), sbasis
+    if gp:
+        if rp is not None and str(rp) != gp:
+            raise QuoteError('%s: page heads disagree in %s: generic %s (%s ... %s), per-book pattern %s' % (cid, sid, gp, ph[2], nh[2], rp))
+        if stated and str(stated) != gp: raise QuoteError('%s: page stated %s, recovered %s in %s' % (cid, stated, gp, sid))
+        return gp, 'running heads: "%s" before the passage and "%s" after it (consecutive pages %s and %s)' % (ph[2][:48], nh[2][:48], ph[0], nh[0])
+    if rp is not None and sid in PATTERN_TRUSTED:
+        if stated and str(stated) != str(rp): raise QuoteError('%s: page stated %s, recovered %s in %s' % (cid, stated, rp, sid))
+        return rp, rbasis + ' (the other head of the page was not found in the text layer; checked by the position between the heads before and after)'
+    if stated: raise QuoteError('%s: page %s stated without page_basis and no head recovered' % (cid, stated))
+    if ph and nh and nh[0] > ph[0] + 1 and sid not in ('TPIERCE-1889', 'MN-1ST-1916'):
+        raise QuoteError('%s: page of the passage in %s is ambiguous (heads %s "%s" before, %s "%s" after): state page, page_basis and page_check=True' % (cid, sid, ph[0], ph[2][:40], nh[0], nh[2][:40]))
+    return None, 'no printed page recovered from the text layer (heads %s before, %s after); offset given' % (ph and ph[0], nh and nh[0])
 
 def resolve(cid, c):
     """verify one citation; returns the full citation record"""
@@ -155,10 +233,7 @@ def resolve(cid, c):
         if i < 0: raise QuoteError('%s: quote not found in %s: %r' % (cid, sid, q))
         n = nt.count(q)
         pg, basis = FIXED_PAGE.get(sid, (None, None))
-        if pg is None: pg, basis = lib_page(sid, nt, i)
-        if c.get('page') and pg is not None and str(c['page']) != str(pg):
-            raise QuoteError('%s: page stated %s, recovered %s in %s' % (cid, c['page'], pg, sid))
-        if c.get('page') and pg is None: pg, basis = str(c['page']), c.get('page_basis') or 'stated from the running head read in the text'
+        if pg is None: pg, basis = lib_page_final(cid, sid, raw, nt, nm, i, c)
         out = collections.OrderedDict(key=cid, source_id=sid, work=LABEL.get(sid) or LIB[sid].get('title'), part=None, report_id=None,
               author=c.get('author'), printed_page=pg, page_basis=basis,
               quote=q, text_offset=nm[i], text_offset_end=nm[i + len(q) - 1] + 1, source_file=rel, sha256=sha,
@@ -185,8 +260,8 @@ LIMIT_NOTES = {
     ('T1-010', 'start'): "the latest hour given for the march out on the pike (Jacobs 10:30, row T1-008); the rout is later",
     ('T1-010', 'end'): "an allowance of the close-out, one and a half hours after the 15:00 of Jacobs and the Compiler for the rout and the paroling; no text read gives an hour for their end",
     ('T1-011', 'start'): "about 3 p.m., when the Rebels in force appeared (Jacobs p.14)",
-    ('T1-013', 'start'): "about 3 p.m., when the Confederate cavalry entered the town (Gettysburg Compiler; Jacobs has 3.30 p.m.)",
-    ('T1-014', 'start'): "about 3 p.m., when the Confederate cavalry entered the town (Gettysburg Compiler; Jacobs has 3.30 p.m.)",
+    ('T1-013', 'start'): "about 3 p.m., when the Confederate cavalry entered the town (Gettysburg Compiler; Jacobs has 3 1/4 P. M., 3.15 p.m.)",
+    ('T1-014', 'start'): "about 3 p.m., when the Confederate cavalry entered the town (Gettysburg Compiler; Jacobs has 3 1/4 P. M., 3.15 p.m.)",
     ('T1-021', 'end'): "the hour at which the order was delivered to Meade (about 03:00 on Jun 28, Life and Letters of G. G. Meade vol.2 p.1)",
     ('T1-025', 'start'): "the hour at which the order was delivered to Meade (about 03:00, Life and Letters of G. G. Meade vol.2 p.1)",
     ('T1-025', 'end'): "the hour of Meade's dispatch acknowledging the order (7 a.m., OR27-1-R006 p.61)",

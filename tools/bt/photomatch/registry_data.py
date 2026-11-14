@@ -132,4 +132,7 @@ R = {
  '95503135': ('POS', 'a print of Lee\'s headquarters (the Thompson house); camera place not stated beyond the NPS description of the first view'),
  '2018672361': ('POS', 'a view from Culp\'s Hill across a stone wall and fields to a far ridge with buildings; no direction is stated'),
  '2018667213': ('POS', 'A harvest of death: dead Federal soldiers in a field with riders in the distance; the place is not stated by the record'),
+ # third pass (2026-11-14): records outside the cwp collection that the NPS cites by LOC digital id (images looked at)
+ '2006692515': ('NEAR', 'a close view of boulders and the edge of a wooded slope in the Slaughter Pen with dead soldiers among the rocks (Gardner\'s Sketch Book plate 44, O\'Sullivan; the NPS calls it a view southeast); no sky line, building or road'),
+ '2009630184': ('POS', 'bodies of Union soldiers in an open field with a low tree line on the horizon (Gibson stereograph no. 243, back of the card not read as a position); the NPS says the location is disputed and that it may look east across the Wills Farm, so no camera spot is fixed'),
 }

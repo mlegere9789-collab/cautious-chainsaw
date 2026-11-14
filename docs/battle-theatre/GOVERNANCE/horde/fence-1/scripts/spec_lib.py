@@ -2,9 +2,16 @@
 against the local source texts (the quote must be found verbatim in the whitespace-normalised text, exactly once in
 the named report/source, or the build fails)."""
 
-def C(src, ref, quote, occ=None, role='supports', note=None):
-    """citation. src: 'OR1' | 'OR2' | 'OR3' | 'LIB' | 'NPS'. ref: report id like 'R029' (OR) or library/NPS source id."""
-    return dict(src=src, ref=ref, quote=quote, occ=occ, role=role, note=note)
+def C(src, ref, quote, occ=None, role='supports', note=None, **kw):
+    """citation. src: 'OR1' | 'OR2' | 'OR3' (Cornell scan, via or27_find) | 'OR1W' (second-witness scan of OR part 1; give report ref,
+    witness='<archive id>' and page='<printed page>') | 'LIB' (ws9 library and the three books of the first pass) | 'ACQ' (book acquired by
+    the tl-02 close-out, ref = its ledger id) | 'KIT' (book acquired by the oob-kit workstream, ref = archive.org identifier) | 'NPS' (73 NPS
+    documents) | 'NPSW' (NPS web page saved by the photo-match workstream, ref = file stem) | 'CA' (Chronicling America page OCR, ref =
+    'lccn/date/ed-N/seq-N'). ref: report id like 'R029' (OR) or the source id.
+    kw: pp (printed page of the source, where known), reading (cleaned reading of an OCR-garbled quote), image (id in image_checks.json)."""
+    d = dict(src=src, ref=ref, quote=quote, occ=occ, role=role, note=note)
+    d.update(kw)
+    return d
 
 def S(sc, claim, tier, support, cits=(), note=None):
     """sub-claim. tier: documented | inferred | plausible-procedural | open_gap.

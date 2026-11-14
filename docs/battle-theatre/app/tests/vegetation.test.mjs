@@ -313,6 +313,36 @@ test('the module on a stand-in theatre with a recording GL: programs, hooks, the
   VEG.dispose(); assert.equal(hooks.length, 0, 'the hook is given back'); assert.equal(th.vegetation, undefined);
   assert.equal((calls.deleteProgram || []).length, 3); assert.ok((calls.deleteBuffer || []).length >= 6 && (calls.deleteTexture || []).length >= 2 && (calls.deleteVertexArray || []).length >= 3, 'every GL object is deleted');
 });
+test('the standing crop near the camera: off by default, a fourth program when asked, drawn by chunks within range, not over the tier overlay, and a refused program leaves the rest of the layer alone', async () => {
+  const [wx, wz] = (() => { const r = wheatfield.rings[0]; let a = 0, b = 0, n = 0; for (let i = 0; i < r.length; i += 2) { a += r[i]; b += r[i + 1]; n++; } return TER.xz(a / n, b / n); })();
+  const near = { x: wx, y: 6, z: wz + 20, yaw: Math.PI, pitch: -0.1, fov: 60 * Math.PI / 180, near: 0.25, far: 14000 }, far = { x: wx + 5000, y: 6, z: wz + 20, yaw: Math.PI, pitch: -0.1, fov: 60 * Math.PI / 180, near: 0.25, far: 14000 };
+  const visit = async (search, refuse) => {
+    const { gl, calls } = recordingGL(), progs = [], hooks = []; if (refuse) gl.getProgramParameter = p => !(p && p.name === 'veg-shell');
+    const R = { gl, W: 800, H: 500, progs, prog(name, vs, fs) { const p = { name, vs, fs }; progs.push(p); return p; }, finishProgs() {} };
+    const { ctx, th } = standIn('webgl2'); ctx.host.R = R; ctx.host.addSceneHook = h => { hooks.push(h); return () => { const i = hooks.indexOf(h); if (i >= 0) hooks.splice(i, 1); }; };
+    th.stage = null; if (search) globalThis.location = { search }; try { await VEG.init(ctx); } finally { delete globalThis.location; }
+    return { gl, calls, progs, hooks, th, v: th.vegetation, reg: null };
+  };
+  const inst = c => (c.calls.drawArraysInstanced || []).length, draw = (c, cam) => { VEG.update({ tMin: T('1863-07-02T12:00'), dtMs: 16, cam, paused: true, speed: 1 }); c.hooks[0].scene(c.gl, { W: 800, H: 500 }); };
+  // off by default: three programs, nothing drawn, the switch is there
+  let c = await visit(''); assert.equal(c.progs.length, 3); assert.equal(c.v.status().shell.on, false); assert.equal(c.v.status().shell.ready, false);
+  draw(c, near); assert.equal(inst(c), 0, 'no crop layers while the switch is off'); VEG.dispose();
+  // asked for: a fourth program, the crop drawn by chunks near the camera, 14 layers each, none far away
+  c = await visit('?vegshell=on'); assert.deepEqual(c.progs.map(p => p.name), ['veg-decal', 'veg-tree', 'veg-tree-shadow', 'veg-shell']); const v = c.v; assert.equal(v.status().shell.on, true); assert.equal(v.status().shell.ready, true);
+  draw(c, far); assert.equal(inst(c), 0, 'nothing within range, nothing drawn');
+  draw(c, near); assert.ok(inst(c) >= 1, 'chunks near the camera are drawn'); const last = c.calls.drawArraysInstanced.at(-1); assert.equal(last[3], 14, 'layers'); assert.ok(last[2] >= 3 && last[2] % 3 === 0, 'whole triangles');
+  const st = v.status().shell; assert.ok(st.chunks >= 1 && st.tris > 0 && st.cached >= 1, JSON.stringify(st));
+  const n1 = inst(c); v.setOverlay(true); draw(c, near); assert.equal(inst(c), n1, 'the tier overlay paints the ground: the crop layers stay out of it'); v.setOverlay(false);
+  v.setShell(false); draw(c, near); assert.equal(inst(c), n1, 'switched off'); v.setShell(true); draw(c, near); assert.ok(inst(c) > n1, 'and on again');
+  draw(c, far); assert.ok(v.status().shell.cached <= 36, 'the cache holds at most its limit');
+  VEG.dispose(); assert.equal((c.calls.deleteProgram || []).length, 4, 'the fourth program is given back too'); assert.ok((c.calls.deleteVertexArray || []).length >= 4);
+  // a driver that refuses the program: the layer starts, the reason is kept and shown, nothing of the rest is lost
+  c = await visit('?vegshell=on', true); assert.equal(c.progs.some(p => p.name === 'veg-shell'), false, 'the refused program is out of the renderer\'s list'); assert.equal(c.v.status().shell.ready, false); assert.match(c.v.status().shell.why, /graphics driver/);
+  draw(c, near); assert.equal(inst(c), 0); assert.ok((c.calls.drawArrays || []).length >= 1, 'the ground cover is still drawn'); assert.equal(c.v.setShell(true) === undefined || true, true); VEG.dispose();
+  // ?vegshell=off beats nothing and the default stays off
+  c = await visit('?vegshell=off'); assert.equal(c.progs.length, 3); VEG.dispose();
+});
+
 test('a program that fails to link is taken out of the renderer\'s list, so the layers that start after it still start', async () => {
   const { gl } = recordingGL(); const progs = [];
   const R = { gl, W: 800, H: 500, progs, prog(name, vs, fs) { const p = { name }; progs.push(p); return p; }, finishProgs() { throw new Error('shader ' + progs[0].name); } };

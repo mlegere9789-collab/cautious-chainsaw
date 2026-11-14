@@ -5,7 +5,8 @@
     python -I tools/bt/kit_evidence_check.py examples --any-unit                     the worked examples (examples.jsonl)
     python -I tools/bt/kit_evidence_check.py --contract                              the contract as Markdown (what PLAN.md prints)
 Exit code 1 when any line has an ERROR (or, with --require-complete, when a unit's required field is neither evidenced nor recorded as a gap).
-A line with an ERROR is reported and never applied. The check re-matches every quote in the local source text: nothing is taken on trust."""
+A line with an ERROR is reported and never applied. The check re-matches every quote in the local source text: nothing is taken on trust.
+The text of every line is also audited with the packer's own copy-audit rules (tools/bt/pack_theatre.mjs, run through node): a free-text member that says how the data was made is the error AUDIT."""
 import argparse, collections, copy, json, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -170,6 +171,8 @@ def check_group(group, path, any_unit=False, want_diff=False):
             check_gap(R, n, o, units)
         elif t == 'evidence':
             check_evidence(R, n, o, units, order, kit, cat)
+    # pass 2b: the copy audit of the text of every line (the packer's own rules)
+    audit_pass(R, parsed, seen)
     # pass 3: supersession, conflicts, collisions
     for lid, o in R.lines.items():
         s = o.get('supersedes')
@@ -210,6 +213,35 @@ def check_group(group, path, any_unit=False, want_diff=False):
     R.accepted = [lid for lid, o in R.lines.items() if o['type'] == 'evidence' and lid not in R.rejected and lid not in R.superseded]
     coverage(R, units)
     return R
+
+
+def audit_pass(R, parsed, seen):
+    """The packer's copy audit (kit_evidence_lib.audit_strings) over every string of every line: the text of a line can reach shipped data, and a shipped file must not say how it was made.
+    A hit in a free-text member (note, basis_note, detail, terms ...) is an error of that line; a hit in a quoted or printed member (quote, printed name, label) is a warning, because a quotation cannot be altered."""
+    items = []
+    for n, o in parsed:
+        lid = o.get('id')
+        if not isinstance(lid, str) or seen.get(lid) != n:
+            continue
+        for key, path, s in K.audit_texts(o):
+            items.append((n, lid, key, path, s))
+    hits = K.audit_strings([it[4] for it in items])
+    if hits is None:
+        R.warn(0, None, 'AUDIT_SKIPPED', 'node or tools/bt/pack_theatre.mjs is not available: the text of the lines was not audited')
+        return
+    done = set()
+    for i, word in hits:
+        n, lid, key, path, s = items[i]
+        code = 'AUDIT_QUOTE' if key in K.QUOTE_LIKE_KEYS else 'AUDIT'
+        if (lid, code, path) in done:
+            continue
+        done.add((lid, code, path))
+        at = s.lower().find(word.lower().strip('("\'\u201c\u2018>['))
+        msg = '%s has "%s": ...%s...' % (path, word, s[max(0, at - 40): at + len(word) + 40].replace('\n', ' ')) if at >= 0 else '%s has "%s"' % (path, word)
+        if code == 'AUDIT':
+            R.err(n, lid, code, msg)
+        else:
+            R.warn(n, lid, code, msg)
 
 
 def declare(R, n, o):

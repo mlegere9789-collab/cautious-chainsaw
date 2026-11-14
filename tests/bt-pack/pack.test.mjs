@@ -4,7 +4,7 @@
 // and reduced working files.
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import crypto from 'node:crypto'; import { execFileSync } from 'node:child_process';
 import zlib from 'node:zlib';
-import { pack, trace, audit, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, AUDIT_ALLOW, WITHHELD, PROJECT, EXCLUDE, scrubMakerMembers, jsonMembers, isMakerMember } from '../../tools/bt/pack_theatre.mjs';
+import { pack, trace, audit, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, AUDIT_ALLOW, WITHHELD, PROJECT, EXCLUDE, scrubMakerMembers, jsonMembers, isMakerMember, sizeByFolder } from '../../tools/bt/pack_theatre.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btpack-')); let A, B;
@@ -412,4 +412,10 @@ test('fixture: a roster index that names gzip unit files and their flag files sh
   assert.ok(fs.readFileSync(path.join(out, 'rosters/data2/union/pa/1st.jsonl.gz')).equals(gz(rows)) || zlib.gunzipSync(fs.readFileSync(path.join(out, 'rosters/data2/union/pa/1st.jsonl.gz'))).toString() === rows, 'the unit file ships unchanged');
   const bad = fx('roster-gz-bad', rr => { put(rr, 'app/roster/roster.js', "export const load = () => fetch('../../rosters/data2/units.json').then(x => x.json());\n"); put(rr, 'rosters/data2/units.json', '{"units":[{"path":"union/pa/1st.jsonl.gz"}]}\n'); put(rr, 'rosters/data2/union/pa/1st.jsonl.gz', gz(rows.replace('Co. A', 'Co. A ; the list was built by Claude'))); });
   const rb = pack({ root: bad, cfg: FIXTURE_CFG, out: path.join(tmp, 'roster-gz-bad/dist'), zipDir: path.join(tmp, 'roster-gz-bad') }); assert.equal(rb.audit.length, 1); assert.equal(rb.audit[0].gzip, true); assert.match(path.basename(rb.zip), /-AUDIT-HITS-1\.zip$/);
+});
+test('size table: the bytes of every build are listed by folder (the weight of a section shows at once), they add up to the build, and app, render and rosters are split one level further', () => {
+  const t = sizeByFolder(new Map([['index.html', Buffer.alloc(10)], ['_headers', Buffer.alloc(5)], ['app/index.html', Buffer.alloc(7)], ['app/src/a.mjs', Buffer.alloc(100)], ['app/src/ui/b.mjs', Buffer.alloc(50)], ['app/data/x.json', Buffer.alloc(30)], ['app/roster/p.html', Buffer.alloc(3)],
+    ['rosters/data2/union/ma/u.jsonl.gz', Buffer.alloc(400)], ['rosters/data2/units.json', Buffer.alloc(20)], ['render/prototype/src/w.mjs', Buffer.alloc(60)], ['GOVERNANCE/a.json', Buffer.alloc(9)], ['GOVERNANCE/b/c.json', Buffer.alloc(1)]]));
+  assert.deepEqual(t, { 'rosters/data2': 420, 'app/src': 150, 'render/prototype': 60, 'app/data': 30, '(root files)': 15, GOVERNANCE: 10, app: 7, 'app/roster': 3 }); assert.deepEqual(Object.keys(t), Object.keys(t).slice().sort((a, b) => t[b] - t[a] || (a < b ? -1 : 1)), 'largest first');
+  assert.equal(Object.values(A.bytesByFolder).reduce((a, b) => a + b, 0), A.bytes, 'the folders of the real build add up to its bytes'); assert.ok(A.bytesByFolder['app/src'] > 0 && A.bytesByFolder['render/prototype'] > 0);
 });

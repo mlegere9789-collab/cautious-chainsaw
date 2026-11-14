@@ -1,0 +1,57 @@
+{
+ "finished": "see file mtime",
+ "seconds": 2,
+ "portBase": "19040",
+ "machine": {
+  "platform": "linux",
+  "cpus": 4,
+  "node": "v22.23.4"
+ },
+ "load1": {
+  "start": 13.24,
+  "end": 13.62
+ },
+ "childEnv": {
+  "httpsProxy": true,
+  "added": [
+   "NODE_USE_ENV_PROXY"
+  ],
+  "extended": [
+   "NODE_OPTIONS"
+  ]
+ },
+ "totals": {
+  "suites": 1,
+  "ok": 0,
+  "notOk": 1,
+  "greenTests": 1,
+  "greenTestsTotal": 1,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "pagesmaps.R1a",
+   "title": "map sub-pages, og card, manifest (PG-01..08) on R1a",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 2.5,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": false,
+   "tail": [
+    "  ]",
+    "}",
+    "Node.js v22.23.4"
+   ],
+   "load1Start": 13.24,
+   "load1End": 13.62
+  }
+ ]
+}

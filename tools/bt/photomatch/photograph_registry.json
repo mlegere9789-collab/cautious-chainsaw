@@ -1,6 +1,6 @@
 {
  "_doc": "One entry per catalogued photograph (109 first-run records + 18 added): scope, staged flag with its basis, saved image files, camera-position statements, NPS Then-And-Now identity (image matching), registered poses and the candid verdict. Built by build_registry.py from registry_data.py and verdicts.json; no verdict here is written by a program.",
- "count": 127,
+ "count": 129,
  "photographs": [
   {
    "loc_id": "2008680497",
@@ -66,7 +66,8 @@
     "LOC2012647705_ppmsca.32839_v"
    ],
    "statement_ids": [
-    "PS-LOC-2012647705-N"
+    "PS-LOC-2012647705-N",
+    "PS-NPS-CLRCEM-124"
    ],
    "nps_then_now_identity": [],
    "pose_ids": [],
@@ -91,7 +92,9 @@
     "LOC2012647707_ppmsca.32841_v"
    ],
    "statement_ids": [
-    "PS-LOC-2012647707-T"
+    "PS-LOC-2012647707-T",
+    "PS-PL-FORT-LOC",
+    "PS-PL-FORT-OSULL"
    ],
    "nps_then_now_identity": [
     {
@@ -591,11 +594,14 @@
     "LOC2014646001_ppmsca.35051_v"
    ],
    "statement_ids": [
-    "PS-LOC-2014646001-N"
+    "PS-LOC-2014646001-N",
+    "PS-NPS-ROTV1-75",
+    "PS-NPS-ROTV2-131"
    ],
    "nps_then_now_identity": [],
    "pose_ids": [
-    "P06"
+    "P06",
+    "P28"
    ],
    "class": "POSE",
    "verdict": "does not",
@@ -669,6 +675,9 @@
    ],
    "statement_ids": [
     "PS-LOC-2018666296-T",
+    "PS-NPS-CLRCEM-125",
+    "PS-NPS-ROTV1-196",
+    "PS-PL-LEISTER-LOC",
     "PS-TN-BF5"
    ],
    "nps_then_now_identity": [
@@ -797,6 +806,7 @@
    ],
    "statement_ids": [
     "PS-LOC-2018666300-T",
+    "PS-PL-GATEHOUSE-LOC",
     "PS-TN-BF3",
     "PS-TN-BF3-JUL2",
     "PS-TN-BF3-MOD"
@@ -894,6 +904,9 @@
     "PS-LOC-2018666303-T",
     "PS-NPS-CLRLRT-405",
     "PS-NPS-CP3-29",
+    "PS-NPS-ROTV1-146",
+    "PS-PL-SUMMIT-LOC",
+    "PS-PL-SUMMIT-SAME",
     "PS-TN-LRT2-DIR",
     "PS-TN-LRT2-NOW"
    ],
@@ -942,6 +955,8 @@
     "LOC2018666304_cwpb.00870_v"
    ],
    "statement_ids": [
+    "PS-PL-FORT-LOC",
+    "PS-PL-FORT-OSULL",
     "PS-TN-LRT3"
    ],
    "nps_then_now_identity": [
@@ -1011,7 +1026,9 @@
     "LOC2018666306_cwpb.00074_r",
     "LOC2018666306_cwpb.00074_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-PL-WAUD-LOC"
+   ],
    "nps_then_now_identity": [
     {
      "nps_then_now": "devil-s-den#1",
@@ -1134,6 +1151,8 @@
     "LOC2018666310_cwpb.00883_v"
    ],
    "statement_ids": [
+    "PS-PL-RW3-LOC",
+    "PS-PL-RW3-WAGON",
     "PS-TN-RW3-DIR",
     "PS-TN-RW3-REF",
     "PS-TN-RW3-REL"
@@ -1186,6 +1205,8 @@
    ],
    "statement_ids": [
     "PS-NPS-SPEN-6",
+    "PS-PL-PLUMRUN-LOC",
+    "PS-PL-PLUMRUN-ROCKS",
     "PS-TN-DD2"
    ],
    "nps_then_now_identity": [
@@ -1259,6 +1280,8 @@
     "LOC2018666313_ppmsc.00171_v"
    ],
    "statement_ids": [
+    "PS-PL-SHARP-HOME-LOC",
+    "PS-PL-SHARP-HOME-STAGED",
     "PS-TN-DD7-STAGED"
    ],
    "nps_then_now_identity": [
@@ -1300,7 +1323,8 @@
     "LOC2018666314_ppmsc.00172_v"
    ],
    "statement_ids": [
-    "PS-NPS-SPEN-8"
+    "PS-NPS-SPEN-8",
+    "PS-PL-GARDNER263-LOC"
    ],
    "nps_then_now_identity": [
     {
@@ -1540,7 +1564,9 @@
     "LOC2018670660_cwpb.00847_r",
     "LOC2018670660_cwpb.00847_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-NPS-CLR1D-148"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
@@ -1589,6 +1615,7 @@
     "LOC2018670673_cwpb.00850_v"
    ],
    "statement_ids": [
+    "PS-PL-RW2-LOC",
     "PS-TN-RW2-REF"
    ],
    "nps_then_now_identity": [
@@ -1806,6 +1833,7 @@
    "statement_ids": [
     "PS-LOC-2018670707-T",
     "PS-NPS-CLRROTV2-149",
+    "PS-PL-SEMINARY-LOC",
     "PS-TN-BF2"
    ],
    "nps_then_now_identity": [
@@ -2024,6 +2052,8 @@
     "LOC2018670741_cwpb.00863_v"
    ],
    "statement_ids": [
+    "PS-PL-SHARP-ORIG-CAM",
+    "PS-PL-SHARP-ORIG-LOC",
     "PS-TN-DD5-MOVED"
    ],
    "nps_then_now_identity": [
@@ -2140,7 +2170,10 @@
     "LOC2018670788_cwpb.00876_r",
     "LOC2018670788_cwpb.00876_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-PL-SHARP-HOME-LOC",
+    "PS-PL-SHARP-HOME-STAGED"
+   ],
    "nps_then_now_identity": [
     {
      "nps_then_now": "devil-s-den#7",
@@ -2314,6 +2347,8 @@
     "LOC2018670874_cwpb.00899_v"
    ],
    "statement_ids": [
+    "PS-PL-SHARP-ORIG-CAM",
+    "PS-PL-SHARP-ORIG-LOC",
     "PS-TN-DD5-MOVED"
    ],
    "nps_then_now_identity": [
@@ -2477,11 +2512,14 @@
     "LOC2018671576_cwpb.00084_v"
    ],
    "statement_ids": [
-    "PS-LOC-2018671576-N"
+    "PS-LOC-2018671576-N",
+    "PS-NPS-CLRCEM-126",
+    "PS-NPS-CLRCEM-126b"
    ],
    "nps_then_now_identity": [],
    "pose_ids": [
-    "P07"
+    "P07",
+    "P27"
    ],
    "class": "POSE",
    "verdict": "does not",
@@ -2852,7 +2890,9 @@
     "LOC2018672241_cwpb.03701_r",
     "LOC2018672241_cwpb.03701_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-PL-GARDNER263-LOC"
+   ],
    "nps_then_now_identity": [
     {
      "nps_then_now": "devil-s-den#4",
@@ -2910,7 +2950,10 @@
     "LOC91732531_ppmsca.31300_r",
     "LOC91732531_ppmsca.31300_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-PL-SHARP-HOME-LOC",
+    "PS-PL-SHARP-HOME-STAGED"
+   ],
    "nps_then_now_identity": [
     {
      "nps_then_now": "devil-s-den#7",
@@ -3212,6 +3255,7 @@
    "statement_ids": [
     "PS-LOC-2012647708-T",
     "PS-NPS-VISTA-10",
+    "PS-PL-VALLEY-LOC",
     "PS-TN-LRT1-DIR"
    ],
    "nps_then_now_identity": [
@@ -3221,11 +3265,13 @@
      "inliers": 1046
     }
    ],
-   "pose_ids": [],
+   "pose_ids": [
+    "P13"
+   ],
    "class": "POS",
-   "verdict": "cannot judge",
-   "reviewed_image": true,
-   "why": "Little Round Top at the left and Round Top as a peak at the right across rocky ground; the NPS Then-And-Now image match identifies it as Little and Big Round Top from the Valley of Death, facing southeast, and the NPS vista-cutting report places a Brady view of Little Round Top from the northwest near the crossing of Wheatfield Road and Crawford Avenue. A pose (P13) is registered as deferred: its render and review sheet were not made in this session, so no verdict can be given. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "verdict": "",
+   "why": "",
+   "reviewed_image": false
   },
   {
    "loc_id": "2012647714",
@@ -3266,6 +3312,7 @@
     "LOC2012647845_ppmsca.32931_v"
    ],
    "statement_ids": [
+    "PS-PL-WEAVER-DD",
     "PS-TN-DD8-STAGED"
    ],
    "nps_then_now_identity": [
@@ -3319,7 +3366,9 @@
     "LOC2012648410_ppmsca.33002_r",
     "LOC2012648410_ppmsca.33002_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-NPS-CLR1D-THOMPSON65"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
@@ -3496,6 +3545,58 @@
    "verdict": "cannot judge",
    "reviewed_image": true,
    "why": "A harvest of death: dead Federal soldiers in a field with riders in the distance; the place is not stated by the record. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2006692515",
+   "title": "Slaughter pen, foot of Round Top, Gettysburg",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2006692515/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2006692515_ppmsca.12565_r",
+    "LOC2006692515_ppmsca.12565_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-ROTV2-65"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a close view of boulders and the edge of a wooded slope in the Slaughter Pen with dead soldiers among the rocks (Gardner's Sketch Book plate 44, O'Sullivan; the NPS calls it a view southeast); no sky line, building or road. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2009630184",
+   "title": "On the battlefield at Gettysburg",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "Hartford, Conn. : The War Photograph & Exhibition Company, No. 21 Linden Place, [1863, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/2009630184/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2009630184_ppmsca.18947_r",
+    "LOC2009630184_ppmsca.18947_v",
+    "LOC2009630184_ppmsca.18948_r",
+    "LOC2009630184_ppmsca.18948_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-CLR1D-147"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies of Union soldiers in an open field with a low tree line on the horizon (Gibson stereograph no. 243, back of the card not read as a position); the NPS says the location is disputed and that it may look east across the Wills Farm, so no camera spot is fixed. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
   }
  ]
 }

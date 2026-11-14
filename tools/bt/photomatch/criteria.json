@@ -1,0 +1,36 @@
+{
+ "_doc": "Pass criteria written BEFORE the renders of the poses named here existed (the render job of 2026-11-13 23:48Z was still waiting in the machine lock queue; no file P27_* or P28_* existed under tmp/photomatch/renders when this file was written). The verdict vocabulary and the generic definitions are in verdicts.json (_doc). A criterion is never changed after the render has been looked at: a change is a new entry with its own timestamp and the reason.",
+ "criteria": [
+  {
+   "id": "C-P27-P28-1",
+   "poses": [
+    "P27",
+    "P28"
+   ],
+   "written_utc": "2026-11-14T00:01:29Z",
+   "render_existed_when_written": false,
+   "photograph_looked_at_before": true,
+   "basis": "documented place (NPS: roof of the Evergreen Cemetery lodge, exposure LC-B815-273 = LOC record 2018671576 = Gardner Sketch Book plate 35, LOC record 2014646001) with a cardinal-word heading (north in one NPS text, northwest in two others); lens and plate unknown (field assumed 40 degrees, variants 30 and 50). Nothing in the pose is taken from pixel positions of the photograph.",
+   "tests": [
+    {
+     "id": "T1",
+     "what": "side of the Baltimore Pike (model road RD-001) in the main render: in the photograph the pike runs from the lower left corner to the left of the frame centre and recedes toward the town on the left half of the frame, with the national cemetery side (wall, fence, farm road) at its left. T1 passes if the whole visible part of RD-001 in the render lies in the left 55 percent of the frame width; it fails if any visible part lies right of that.",
+     "binary": true
+    },
+    {
+     "id": "T2",
+     "what": "height of the far horizon (the ridge or the town band against the sky): the photograph's far ridge line stands at 0.47 of the print height (read by eye, +-0.03). T2 passes if the render's horizon (first non-sky row, computed by compose.py) is within 0.10 of the frame height of that value; it fails otherwise. A tenth of the frame is about 3 degrees at the assumed field.",
+     "binary": true
+    },
+    {
+     "id": "T3",
+     "what": "order of the model's buildings band (the borough, GZ-072 and the footprint outlines) against Seminary Ridge: in the photograph the town lies to the right of the left-hand ridge and fills the left centre of the frame (x from 0.05 to 0.60 of the print width). T3 passes if the main-field render puts the centre of the borough footprint band inside that interval.",
+     "binary": true
+    }
+   ],
+   "verdict_rule": "matches = T1, T2 and T3 all pass at the registered heading and the 40 degree field; roughly = T2 passes and one of T1 or T3 passes; does not = T1 fails and T2 fails, or the pike is on the wrong side at both NPS headings; cannot judge = the render does not contain a road or buildings in the frame at all. The 30 and 50 degree renders and the two NPS headings are reported beside the main result; a pass only at a variant is not a pass.",
+   "independence": "the position, the heading and the height are fixed from the sources and the building footprint; no number is taken from the photograph. The sensitivity to the assumed roof height (8 m) and to the heading (45 degrees between the two NPS words) is reported.",
+   "gate_note": "bt-gates Q16.1 asks for a documented position with its uncertainty: here horizontal about 20 m (the footprint of the building), height of the camera above the ground an assumption of 8 m with at least 3 m of doubt. Whether that is 'documented' enough for the gate is the owner's decision (DEC log)."
+  }
+ ]
+}

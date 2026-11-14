@@ -160,12 +160,15 @@ ERRORS = collections.OrderedDict([
     ('CHECK', 'an arithmetic identity of a table row fails (the figures were misread)'), ('DERIVED', 'a derived or inferred line has no derived_from or note, or cites an unknown line'), ('SUPERSEDES', 'supersedes names an unknown line'),
     ('CONFLICT', 'conflict is malformed, or two active lines of one quantity disagree and no conflict is declared'), ('GAP', 'a gap line needs searched (source ids and terms) and result'), ('DECLARE', 'a source declaration is malformed or its file is missing or its sha256 differs'),
     ('PROCEDURAL', 'a plausible-procedural line needs a note and a register_proposal'), ('TABLE', 'a documented line quotes a table row whose figures the OCR scrambled: use quote_mode image_row'),
+    ('AUDIT', 'a free-text member (note, basis_note, detail, terms, ...) has wording that the packer\'s copy audit rejects, because it says how the data was made: say what the source states, not who read it'),
 ])
 WARNINGS = collections.OrderedDict([
     ('OCR_CORRECTED', 'quote_mode ocr_corrected: the quote differs from the OCR text; a reviewer re-reads the page image'), ('HYPHEN', 'the quote matched only with line-end hyphenation ignored'),
     ('PAGE_END', 'the quote runs over a page break; give printed_page_end'), ('PAGE_RANGE', 'the page model of a state volume knows only a range of pages; the page given is the engineer\'s reading of the running heads'), ('PAGE_UNCHECKED', 'the page model of this source gives no page at this offset; the page is not checked'), ('REPORT_EDGE', 'the quote lies within 2,000 characters of the edge of the indexed report'),
     ('UNIT_FIELD', 'the field is unusual for this kind of unit'), ('LONG_QUOTE', 'the quote is long; the shortest passage that supports the claim is better'), ('NUMBERS_WAIVED', 'the number check was waived'),
     ('OFF_FIELD', 'the date is outside 26 June to 16 July 1863 (fine for background facts)'), ('KIT_NOW', 'information only (--diff): what the kit tables hold now for this unit and field'), ('NO_IDENTITY', 'an image_row strength line without an identity of the printed row: nothing but a reviewer checks the figures'),
+    ('AUDIT_QUOTE', 'a quoted or printed member (quote, printed name or label) has a word that the packer\'s copy audit rejects; a quotation cannot be altered, so the integration decides'),
+    ('AUDIT_SKIPPED', 'the copy audit of the free text could not run (no node, or tools/bt/pack_theatre.mjs cannot be loaded): nothing was checked'),
 ])
 ALLOWED_KEYS = {
     'evidence': {'type', 'id', 'unit_id', 'unit_name', 'parent_unit_id', 'field', 'kit_field', 'value', 'basis', 'basis_note', 'tier', 'as_of', 'source_id', 'part', 'report_id', 'printed_page', 'printed_page_end', 'offset', 'quote',
@@ -309,6 +312,52 @@ def numbers_in_text(t):
         else:
             i_ += 1
     return nums
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# copy audit. The text of an evidence line can reach shipped data (the unit card's evidence panel reads kit/evidence_index.json), and the packer refuses a shipped file
+# that says how it was made. The rules are the packer's own, read from tools/bt/pack_theatre.mjs (AUDIT_RE, AUDIT_CS_RE) so that they cannot drift from the shipping audit.
+PACKER = os.path.join(ROOT, 'tools', 'bt', 'pack_theatre.mjs')
+AUDIT_JS = ("const { AUDIT_RE, AUDIT_CS_RE } = await import(process.argv[1]); process.stdin.setEncoding('utf8'); let s = ''; for await (const d of process.stdin) s += d; "
+            "const re = new RegExp(AUDIT_RE.source, 'i'), cs = new RegExp(AUDIT_CS_RE.source), out = []; "
+            "JSON.parse(s).forEach((t, i) => { const m = re.exec(t) || cs.exec(t); if (m) out.push([i, (m[1] && m[0].length <= 4 ? m[1] : m[0]).trim()]); }); process.stdout.write(JSON.stringify(out));")
+# members that hold a printed or quoted text (a source's own words, a printed name or label): a hit there is reported, not rejected
+QUOTE_LIKE_KEYS = ('quote', 'printed', 'label_read', 'rank_printed', 'text_figure', 'name', 'unit_name', 'designation', 'place', 'title')
+# members that hold identifiers, paths, dates and vocabulary words: not text
+NOT_TEXT_KEYS = ('id', 'type', 'unit_id', 'unit_ids', 'parent_unit_id', 'supersedes', 'derived_from', 'source_id', 'report_id', 'sha256', 'local_path', 'url', 'register_proposal',
+                 'quote_mode', 'basis', 'tier', 'field', 'fields', 'kit_field', 'as_of', 'result', 'class', 'part', 'example')
+
+
+def audit_texts(obj, key=None, out=None, path=''):
+    """[(member name, path, string)] of every string of a parsed line that is text (members that hold identifiers or vocabulary are skipped); path is like value.weapons[0].note."""
+    out = [] if out is None else out
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k not in NOT_TEXT_KEYS:
+                audit_texts(v, k, out, path + ('.' if path else '') + str(k))
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            audit_texts(v, key, out, '%s[%d]' % (path, i))
+    elif isinstance(obj, str) and obj.strip():
+        out.append((key, path, obj))
+    return out
+
+
+def audit_strings(strings):
+    """[(index, matched word)] of the strings that the packer's copy audit rejects; None when the audit could not run (no node, or the packer module cannot be loaded)."""
+    if not strings:
+        return []
+    import shutil
+    node = shutil.which('node')
+    if not node or not os.path.exists(PACKER):
+        return None
+    try:
+        p = subprocess.run([node, '--input-type=module', '-e', AUDIT_JS, 'file://' + PACKER.replace(os.sep, '/')], input=json.dumps(strings), capture_output=True, text=True, encoding='utf-8', timeout=120)
+        if p.returncode != 0:
+            return None
+        return [(i, w) for i, w in json.loads(p.stdout)]
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return None
 
 
 # ---------------------------------------------------------------------------------------------------------------------

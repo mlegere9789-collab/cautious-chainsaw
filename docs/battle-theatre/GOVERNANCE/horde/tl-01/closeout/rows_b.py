@@ -28,7 +28,7 @@ ROWS.append(dict(
         'it27b': OR('the Fifth Corps from a point between Edwards Ferry and the mouth of the Monocacy to Ballinger\'s Creek, near Frederick, Md. ; the Sixth Corps from Dranesville, Va., via Edwards Ferry, to near Poolesville, Md. ; the Twelfth Corps from near the mouth of the Monocacy, via Point of Rocks, to Knoxville, Md.;', R007, '143'),
         'lee316': OR('On the 24th, Longstreet and Hill were put in mo\'ifon to follow Ewell, and, on the 27th, eiicamped near Chambersburg.', R426, '316'),
         'frem_chamb': L('FREMANTLE-1864', 'I rode slowly on to rejoin General Longstreet, near Chambersburg'),
-        'frem_both': L('FREMANTLE-1864', 'orps of Generals A. P. Hill and Longstreet are now near this place, all full of confidence and in high spuits'),
+        'frem_both': L('FREMANTLE-1864', 'orps of Generals A. P. Hill and Longstreet are now near this place, all full of confidence and in high spuits', page='242', page_check=True, page_basis='the head of p.242 (the text layer prints it "2i2 MAJOR-GENEKAL HOOD.", the OCR of "242 MAJOR-GENERAL HOOD.") stands 612 characters before the passage, between the head of p.241 before it and the head of p.243 after it'),
         'anderson': OR('and on the 27th, through Chambersburg to Fayetteville, at which place it halted until July 1', 'OR27-2-R536', '613'),
         'rodes27': OR('the two, moving on slowly without noteworthyincident, reached Carlisle on the 27th', R506, '551'),
         'early_berlin': OR('and encamped a short distance beyond Berlin', R470, '466'),
@@ -102,7 +102,7 @@ ROWS.append(dict(
         sc('A', 'Crossing about 03:00 on Jun 28', 'seed source W-GC (Wikipedia, lead); no text read supports it', 'open gap', []),
         sc('B', 'Crossing at dawn on Jun 28', 'seed note V1-TL (lead); no text read supports it', 'open gap', []),
         sc('C', 'Crossing begun early in the night and complete before midnight of Jun 27, the march resumed early on the 28th', 'Stuart OR27-2-R565 pp.693-694 (the commander\'s own report)', 'documented', ['stuart_mid', 'stuart_resume']),
-        sc('D', 'Crossing at midnight of the 27th', 'Alexander, Military Memoirs of a Confederate (1907) p.384', 'documented', ['alex_mid']),
+        sc('D', 'Crossing at midnight of the 27th', 'Alexander, Military Memoirs of a Confederate (1907) p.375', 'documented', ['alex_mid']),
     ],
     remains=[],
     searched=['OR27-2-R565 pp.692-695 read; Library regex Rowser|Rowzer, whole set: Alexander 1907 (midnight of the 27th), Minnesota 1916 (no hour); Haskell/Orser/SHSP hits are the word trousers'],
@@ -153,7 +153,7 @@ ROWS.append(dict(
     ],
     cites={
         'stuart125': OR('More than one hundred and tAventy-five best United States model', R565, '694'),
-        'mn125': L('MN-1ST-1916', 'he captured 125 six-mule wagons laden with supplies for Meade\'s army'),
+        'mn125': L('MN-1ST-1916', 'he captured 125 six-mule wagons laden with supplies for Meade\'s army', page='315', page_check=True, page_basis='the folio is printed at the foot of the page: the text layer prints "315" 380 characters after the passage, and the PDF page 344 of the archive.org scan that holds the passage ends with 315 (closeout/acquired_tl01.json)'),
         'alex8': L('ALEXANDER-1907', 'Next morning at Rockville, a train of wagons eight miles long was captured'),
     },
     scenarios=[],
@@ -189,33 +189,37 @@ ROWS.append(dict(
 # ------------------------------------------------------------------------------------------------------------------------------------------------ T1-028
 ROWS.append(dict(
     id='T1-028', verdict='corrected',
-    claim=claim('Gordon\'s brigade reaches Wrightsville on the Susquehanna on Jun 28 (about 20 miles); the militia (1,200 to 1,300) is driven off; the bridge is burned; Gordon fights the town fire',
-                'Gordon\'s brigade (Early\'s division); Pennsylvania militia (reported at 1,200 to 1,300 men)', 'Wrightsville, Pa., on the Susquehanna opposite Columbia',
-                'Jun 28; Early rode out "a short time before night" and saw the smoke of the bridge', 'Gordon OR27-2-R477 pp.491-492; Early OR27-2-R470 p.466; Jacobs 1864 p.20',
-                'On Jun 28 Gordon (a march of about 20 miles, a very warm day) found 1,200 militia (Gordon) or 1,300 (Early) intrenched at Wrightsville, drove them off with his battery, and the bridge, fired in the middle by the militia, burned; the town caught fire and Gordon formed his brigade around the burning buildings to arrest the flames. Early saw the smoke "a short time before night". '
+    claim=claim('Gordon\'s brigade reaches Wrightsville on the Susquehanna on Jun 28 (about 20 miles); the militia (about 1,200) is driven off; the bridge is burned; Gordon fights the town fire',
+                'Gordon\'s brigade (Early\'s division); Pennsylvania militia (reported at about 1,200 men)', 'Wrightsville, Pa., on the Susquehanna opposite Columbia',
+                'Jun 28; Early rode out "a short time before night" and saw the smoke of the bridge', 'Gordon OR27-2-R477 pp.491-492; Early OR27-2-R470 pp.466-467; Jacobs 1864 p.20',
+                'On Jun 28 Gordon (a march of about 20 miles, a very warm day) found a body of militia nearly equal to his brigade, about 1,200 men (Gordon: reported by their captured commander; Early: some 1,200 strong), intrenched at Wrightsville, drove them off with his battery, and the bridge, fired about midway by the retreating militia, burned (one mile and a quarter long); the town caught fire and Gordon formed his brigade around the burning buildings to arrest the flames. Early saw the smoke "a short time before night". '
                 'Jacobs dates the affair to Sunday Jun 28.',
-                'documented', '1863-06-28T12:00', '1863-06-28T23:59', marking='date: documented (Early, Jacobs); militia strength: 1,200 / 1,300 scenario'),
+                'documented', '1863-06-28T12:00', '1863-06-28T23:59', marking='date: documented (Early, Jacobs); militia strength about 1,200: documented (Gordon, and Early on the page image)'),
     subs=[
-        ('Gordon, after a march of 20 miles, found a body of Pennsylvania militia nearly equal to his brigade (reported by its captured commander at 1,200 men), intrenched', 'documented', 'supported', ['gord_1200']),
-        ('Early gives the militia as some 1,300 strong and says the march was a little over 20 miles on a very warm day; the bridge was one and a quarter miles long', 'documented', 'conflict', ['early_1300', 'early_warm']),
-        ('The bridge was fired by the retreating militia; the town caught fire and Gordon\'s men arrested the flames', 'documented', 'supported', ['gord_fire']),
+        ('Gordon, on the pike to Wrightsville, found a body of Pennsylvania militia nearly equal in number to his brigade, reported by the commanding officer (whom we captured) at 1,200 men, strongly intrenched; the fatigue of the men from the march of 20 miles is stated in the same report', 'documented', 'supported', ['gord_1200', 'gord_20']),
+        ('Early, from Gordon: a command of militia some 1,200 strong, intrenched, which fled at the bursting of the third shell; Gordon\'s men had marched a little over 20 miles on a very warm day', 'documented', 'supported', ['early_1200', 'early_fled', 'early_warm'],
+         'The OCR text layer of the Official Records prints the strength as "1.300 .strong"; the page image reads "some 1,200 strong", and the two other archive.org scans of the part agree with the page image. The earlier reading 1,300 was an OCR error and is withdrawn: Gordon and Early give the same figure.'),
+        ('The bridge, prepared for the purpose, was fired about midway by the retreating militia and was entirely consumed; it was one mile and a quarter long; the town caught fire and Gordon\'s men arrested the flames', 'documented', 'supported', ['gord_fired', 'gord_fire', 'gord_line', 'early_bridge']),
         ('Date: Early saw an immense smoke over the Susquehanna "a short time before night" on Jun 28, after Gordon marched into York that morning; Jacobs: Sunday, June 28', 'documented', 'supported', ['early_smoke', 'jac_wright']),
     ],
     cites={
-        'gord_1200': OR('a body of Pennsylvania militia nearly equal in number to my brigade', R477, '491-492'),
-        'early_1300': OR('he found a command of militia some 1.300 .strong,', R470, '466'),
+        'gord_1200': OR('a body of Pennsylvania militia nearly equal in number to my brigade, reported by the commanding officer (wliom we captured) at 1,200 men, strongly intrenched', R477, '491-492'),
+        'gord_20': OR('notwithstanding the excessive fatigue of the men from the march of 20 miles', R477, '492'),
+        'early_1200': OR('he found a command of militia some 1.300 .strong,', R470, '466', reading='he found a command of militia some 1,200 strong,', image_check=ORIMG(2, 466, 'he found a command of militia some 1,200 strong, intrenched')),
+        'early_fled': OR('he opened his artillery on tlie militia, which fled at the bursting of the third shell', R470, '466'),
         'early_warm': OR('on a very warm day', R470, '466'),
+        'gord_fired': OR('In his retreat across the bridge, the enemy fired it about midway with the most inflammable materials.', R477, '492'),
         'gord_fire': OR('Every effort was made to extinguish this fire and save the bridge, but it was impossible.', R477, '492'),
+        'gord_line': OR('I formed my brigade in line around the burning buildings, and resisted the progress of the flames until they were checked', R477, '492'),
+        'early_bridge': OR('This bridge was one mile and a quarter in length', R470, '467'),
         'early_smoke': OR('A short time before night, I rode out in the direction of Columbia', R470, '466'),
         'jac_wright': L('JACOBS-1864', 'A portion of his command was sent forward to Wrightsville'),
     },
-    scenarios=[
-        sc('A', 'About 1,200 militia', 'Gordon OR27-2-R477 pp.491-492 (reported by the captured commanding officer)', 'documented', ['gord_1200']),
-        sc('B', 'Some 1,300 militia', 'Early OR27-2-R470 p.466', 'documented', ['early_1300']),
-    ],
+    scenarios=[],
     remains=[],
-    searched=['Gordon pp.491-492 and Early pp.466-467 re-read; Jacobs 1864 p.20 read for the date; Pennypacker (PA-GB-1914-v2 p.787) for the 26th\'s detachment at Wrightsville'],
-    recheck='OR-RECHECK: stored quote found at p.491-492. The item without a stored quote (Early p.466) now carries verbatim passages; the shard note "date is an inference from the sequence" is answered by Early\'s "short time before night" and Jacobs\'s dating to Sunday Jun 28.'))
+    searched=['Gordon pp.491-492 and Early pp.466-467 re-read; Jacobs 1864 p.20 read for the date; Pennypacker (PA-GB-1914-v2 p.787) for the 26th\'s detachment at Wrightsville',
+              'second pass: Early p.466 read on the page image of the archive.org PDF (the OCR text layer has "1.300 .strong"; the page reads "some 1,200 strong") and on two other archive.org scans of part 2 (closeout/second_scan.jsonl)'],
+    recheck='OR-RECHECK: stored quote found at p.491-492. The item without a stored quote (Early p.466) now carries verbatim passages; the shard note "date is an inference from the sequence" is answered by Early\'s "short time before night" and Jacobs\'s dating to Sunday Jun 28. Second pass of 2026-11-13: the 1,300 of Early (an OCR error for 1,200, read on the page image) is withdrawn, so the strength is no longer a source conflict (the scenario B of the first close-out is removed).'))
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------ T1-029
 ROWS.append(dict(
@@ -398,7 +402,9 @@ ROWS.append(dict(
     ],
     cites={
         'hill8': OR('on the 29th I moved General Heth\'s division to Cashtown, some 8 miles', R534, '607'),
-        'heth_or': OR('Cashtown is situated at the base of the South ilountain, on the direct road from Chambersburg, via Fayetteville, to Gettysburg, and 0 miles distant from the latter place', R549, '637'),
+        'heth_or': OR('Cashtown is situated at the base of the South ilountain, on the direct road from Chambersburg, via Fayetteville, to Gettysburg, and 0 miles distant from the latter place', R549, '637',
+                   reading='Cashtown is situated at the base of the South Mountain, on the direct road from Chambersburg, via Fayetteville, to Gettysburg, and 9 miles distant from the latter place',
+                   image_check=ORIMG(2, 637, 'The division reached Cashtown, Pa., on June 29. Cashtown is situated at the base of the South Mountain, on the direct road from Chambersburg, via Fayetteville, to Gettysburg, and 9 miles distant from the latter place.')),
         'heth_shsp': L('SHSP-06', 'Cashtown is situated at the base of the South Mountain, on the direct road from Chambersburg via Fayetteville to Gettysburg, and nine miles from the latter place.'),
         'frem8': L('FREMANTLE-1864', 'Cashtown, a little village eight miles from Gettysburg'),
         'alex8': L('ALEXANDER-1907', 'which would concentrate the three corps at Cashtown, eight miles west of Gettysburg'),
@@ -428,7 +434,9 @@ ROWS.append(dict(
     ],
     cites={
         'lee_scout': OR('on the night of the 28th, information was received from a scout', R426, '307'),
-        'lee_orders': OR('Hill\'s corps was accordingly ordered to move toward Cashtown on the •^9th, and Longstreet to follow the next day', R426, '317'),
+        'lee_orders': OR('Hill\'s corps was accordingly ordered to move toward Cashtown on the •^9th, and Longstreet to follow the next day', R426, '317',
+                    reading='Hill\'s corps was accordingly ordered to move toward Cashtown on the 29th, and Longstreet to follow the next day',
+                    image_check='the two other archive.org scans of part 2 print the date as 29th (closeout/second_scan.jsonl); the base OCR prints a stray mark before 9th'),
         'ewell_order': OR('the general commanding to join the main body of the army at Cashtown', R467, '443'),
     },
     scenarios=[

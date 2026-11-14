@@ -150,7 +150,9 @@ ROWS.append(dict(
         ('The rain was cold', 'open gap', 'unsupported', []),
     ],
     cites={
-        'morn': OR('and on the morning of the 2Gth, having sent all my trains to Chambersburg, excepting the ambulances, one medical wagon for a brigade, the regimental ordnance wagons, one wagon with cooking utensils for each regiment, and fifteen empty wagons to gather supplies with', R470, '465'),
+        'morn': OR('and on the morning of the 2Gth, having sent all my trains to Chambersburg, excepting the ambulances, one medical wagon for a brigade, the regimental ordnance wagons, one wagon with cooking utensils for each regiment, and fifteen empty wagons to gather supplies with', R470, '465',
+                    reading='and on the morning of the 26th, having sent all my trains to Chambersburg, excepting the ambulances, one medical wagon for a brigade, the regimental ordnance wagons, one wagon with cooking utensils for each regiment, and fifteen empty wagons to gather supplies with',
+                    image_check=ORIMG(2, 465, 'on the morning of the 26th, having sent all my trains to Chambersburg, excepting the ambulances, one medical wagon for a brigade, the regimental ordnance wagons, one wagon with cooking utensils for each regiment, and fifteen empty wagons to gather supplies with')),
         'camp': OR('At this i)uint, my division remained in camp on the 25th', R470, '464'),
         'mud': OR('whose march was considerably delayed by the muddy condition of the roads', R470, '465'),
         'rainy': OR('The day was rainy and the roads very muddj\'.', R470, '465'),
@@ -222,7 +224,8 @@ ROWS.append(dict(
                 'Gordon\'s own report confirms he was detached on a different road with White\'s battalion. NOT documented: that Early knew the force was militia; Gordon\'s strength of about 1,900; the name "Comanches".',
                 'documented', '1863-06-26T00:00', '1863-06-26T12:00', marking='split and route: documented; militia identity, 1,900 and the nickname: gap'),
     subs=[
-        ('At the forks about 1.5 miles from Cashtown Early sent Gordon with his brigade and White\'s battalion of cavalry on the pike through Cashtown, and went himself with the rest by Hilltown to Mummasburg', 'documented', 'supported', ['split', 'route']),
+        ('At the forks of the road about 1 1/2 miles from Cashtown Early sent Gordon with his brigade and White\'s battalion of cavalry on the pike through Cashtown, and went himself with the rest by Hilltown to Mummasburg', 'documented', 'supported', ['forks', 'split', 'route'],
+         'The OCR text layer prints the distance as "1-| miles"; the page image reads "about 1 1/2 miles from Cashtown" (the two other archive.org scans print the fraction damaged as well).'),
         ('Early had heard on the road that there was probably a force at Gettysburg, size unknown; the object was for Gordon to amuse and skirmish while Early got on the flank and rear to capture the whole force', 'documented', 'supported', ['heard', 'object']),
         ('Gordon\'s own report: detached from the division, ordered on a different road with a battalion of cavalry under Lt. Col. White', 'documented', 'supported', ['gord']),
         ('Early learned that the force in Gettysburg was militia before splitting the column', 'open gap', 'unsupported', []),
@@ -230,6 +233,8 @@ ROWS.append(dict(
         ('White\'s battalion called the "Comanches"', 'open gap', 'unsupported', []),
     ],
     cites={
+        'forks': OR('on reaching the forks of the road, about 1-| miles from Cashtown', R470, '465', reading='on reaching the forks of the road, about 1 1/2 miles from Cashtown',
+                    image_check=ORIMG(2, 465, 'on reaching the forks of the road, about 1 1/2 miles from Cashtown, I sent General Gordon')),
         'split': OR('I sent General Gordon, with his brigade and White\'s battalion of cavalry', R470, '465'),
         'route': OR('moved with the rest of the command to the left, through Hill town to Mummasburg', R470, '465'),
         'heard': OR('I had heard on the road that there was probably a force at Gettysburg', R470, '465'),
@@ -301,7 +306,7 @@ ROWS.append(dict(
         ('The order was given in order to delay the Confederates', 'inferred', 'unsupported', []),
     ],
     cites={
-        'jac_hall': L('JACOBS-1864', 'by order of Major Haller, although contrary to the earnest remonstrances of Jennings, Colonel of the regiment, was sent forward, at 10 J a. m., on the Chambersburg turnpike', note=HALF('10:30 a.m.')),
+        'jac_hall': L('JACOBS-1864', 'by order of Major Haller, although contrary to the earnest remonstrances of Jennings, Colonel of the regiment, was sent forward, at 10 J a. m., on the Chambersburg turnpike', note=FRAC('10:30 a.m.', '10 1/2 A. M.', 14)),
         'jac_3mi': L('JACOBS-1864', 'But advancing to the distance of about three miles westward, our little band encamped, and threw out their pickets.'),
         'rich_10': L('BL-3', 'we were marched out on the Chambersburg pike at 10 A. M., June 26th'),
         'rich_bell': L('BL-3', 'Major Robert Bell, who commanded a troop of horse'),
@@ -488,7 +493,7 @@ ROWS.append(dict(
     claim=claim('Private George W. Sandoe of Bell\'s cavalry is shot dead by a Confederate trooper on the Baltimore turnpike, near Nathaniel Lightner\'s',
                 'Bell\'s Adams County cavalry (later Co. B, 21st Pennsylvania Cavalry): Pvt. George W. Sandoe and one other trooper; one Confederate cavalryman of the entering force (White\'s battalion)',
                 'Baltimore Street and the turnpike beyond it, as far as Nathaniel Lightner\'s',
-                'Jun 26, shortly after the Confederate cavalry entered the town at about 15:00 (Compiler) / 15:30 (Jacobs); the body was removed the same evening', 'Gettysburg Compiler Jun 29 1863 p.2; regimental monument inscription (PA-GB-1914-v2); Jacobs 1864 p.15',
+                'Jun 26, shortly after the Confederate cavalry entered the town at about 15:00 (Compiler) / 15:15 (Jacobs: 3 1/4 P. M.); the body was removed the same evening', 'Gettysburg Compiler Jun 29 1863 p.2; regimental monument inscription (PA-GB-1914-v2); Jacobs 1864 p.15',
                 'On Jun 26, after the rebel cavalry entered Gettysburg at about 3 p.m., one rebel went down the turnpike as far as Nathaniel Lightner\'s, came upon two of Bell\'s cavalry and shot one, Mr. George Sandoe, killing him on the spot (Compiler of Jun 29, printed three days later); the body was removed to his home the same evening. '
                 'The regimental monument text gives Private George W. Sandoe, an advance scout of the company later Co. B, 21st Pennsylvania Cavalry, as the first Union soldier killed at Gettysburg, June 26 1863. '
                 'NOT documented: a second named trooper "Lightner" who escaped, and the hour 16:00 (window about 15:00-18:00).',
@@ -497,7 +502,7 @@ ROWS.append(dict(
         ('Mr. George Sandoe, one of two of Bell\'s cavalry, was shot and killed on the spot by a rebel who went down the turnpike as far as Nathaniel Lightner\'s', 'documented', 'supported', ['cmp_sandoe', 'cmp_two']),
         ('The body was removed to his home the same evening; he left a wife', 'documented', 'supported', ['cmp_body']),
         ('Date June 26 1863; the monument text calls Pvt. George W. Sandoe the first Union soldier killed at Gettysburg', 'documented', 'supported', ['mon_sandoe']),
-        ('The rebel cavalry entered the town at about 3 o\'clock (Compiler) / 3.30 p.m. (Jacobs: 180 to 200 cavalry), so the shooting followed that entry', 'documented', 'supported', ['cmp_entry3', 'jac_cav']),
+        ('The rebel cavalry entered the town at about 3 o\'clock (Compiler) / 3.15 p.m. (Jacobs, 3 1/4 P. M.: 180 to 200 cavalry), so the shooting followed that entry', 'documented', 'supported', ['cmp_entry3', 'jac_cav']),
         ('The hour was about 16:00', 'inferred', 'unsupported', []),
         ('A second trooper, Pvt. Lightner, escaped; the Confederate was one of White\'s men', 'open gap', 'unsupported', []),
     ],
@@ -507,17 +512,17 @@ ROWS.append(dict(
         'cmp_body': CMP('The body was removed to bis home the same evening', CMP_SANDOE),
         'mon_sandoe': L('PA-GB-1914-v2', 'Near this spot on June 26 1863 fell Private George W. Sandoe', witness='inscription on the 21st Pennsylvania Cavalry monument, text as printed in Pennsylvania at Gettysburg'),
         'cmp_entry3': CMP('sere enough, the+tbel aiivance (cavalry) entered charging up Chambersburg street', CMP_ENTRY),
-        'jac_cav': L('JACOBS-1864', 'The advance guard of the enemy, consisting of 180 to 200 cavalry, rode into Gettysburg at 3J p. m.', note=HALF('3:30 p.m.')),
+        'jac_cav': L('JACOBS-1864', 'The advance guard of the enemy, consisting of 180 to 200 cavalry, rode into Gettysburg at 3J p. m.', note=FRAC('3:15 p.m., a quarter past three and not half past', '3 1/4 P. M.', 15)),
     },
     scenarios=[],
-    remains=['the hour 16:00 (the sources give only after the entry at 3-3.30 p.m. and the same evening)', 'a second named trooper "Lightner" who escaped, and the attribution to White\'s men'],
+    remains=['the hour 16:00 (the sources give only after the entry at 3 to 3.15 p.m. and the same evening)', 'a second named trooper "Lightner" who escaped, and the attribution to White\'s men'],
     searched=['OR vol.27 pts 1-3 regex Sandoe|Lightner: 0 hits (OR-RECHECK-2); Library, whole 108-text set, regex Sandoe: Compiler 1863-06-29 p.2 (page image read), Pennsylvania at Gettysburg monument inscription; Jacobs 1864 has no mention',
               'Compiler 1863-06-29 p.2 read on the page image (closeout/acquired_tl01.json); Adams Sentinel Jul 7 and Jul 14 1863 searched for Sandoe: no hit',
               'web lookup tl-01-LK-01 (modern articles, forums): failed to reach a primary; superseded by the Compiler'],
     recheck='OR-RECHECK-2 (not_found in the OR; failed_lookup) applied: the OR has no Sandoe text; the death is now documented by the Gettysburg Compiler of Jun 29 1863 (read on its page image) and the regimental inscription.',
     register=reg('Sandoe: hour of the shot and the second trooper "Lightner"', 'The Compiler names the place (Nathaniel Lightner\'s) and the victim but not the second trooper or an hour; the seed\'s "Pvt. Lightner" may be the place name.',
                  'Death of Pvt. Sandoe on the Baltimore turnpike on the afternoon of Jun 26 (documented); hour as a window 15:00-18:00 (inferred)', 'documented',
-                 competing='seed about 16:00 against after 3-3.30 p.m. and before the evening removal', impact='time of the first Union death on the screen is a window', ask='none', rids='R05, R11'),
+                 competing='seed about 16:00 against after 3 to 3.15 p.m. and before the evening removal', impact='time of the first Union death on the screen is a window', ask='none', rids='R05, R11'),
     related=['tl-01-EG-004']))
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------ T1-014
@@ -527,12 +532,12 @@ ROWS.append(dict(
                 'White\'s cavalry (about 150-200), Gordon\'s infantry brigade (2,500-5,000 by the estimates), Early; borough council members D. Kendlehart and A. D. Buehler',
                 'Gettysburg (Chambersburg Street, the Court-house), its railroad and the Rock Creek railroad bridge',
                 'Jun 26 from about 15:00 (cavalry) to the evening (Early arrives late; bridge and cars burned in the evening)', 'Compiler Jun 29 1863 p.2; Jacobs 1864 pp.15-17; Early OR27-2-R470 p.465; Pierce 1889',
-                'Cavalry (about 150, "180 to 200") entered at about 3 to 3.30 p.m., followed half an hour later by Gordon\'s infantry (Compiler 2,500-4,000; Jacobs 5,000); Early arrived late in the day, demanded supplies (Jacobs lists 1,200 lb sugar, 600 lb coffee, 60 barrels of flour, 1,000 lb salt, 7,000 lb bacon, 10 barrels of whisky, 10 barrels of onions, 1,000 pairs of shoes, 500 hats, or $5,000 cash). '
+                'Cavalry (about 150, "180 to 200") entered at about 3 to 3.15 p.m. (Jacobs: 3 1/4 P. M.), followed half an hour later by Gordon\'s infantry (Compiler 2,500-4,000; Jacobs 5,000); Early arrived late in the day, demanded supplies (Jacobs lists 1,200 lb sugar, 600 lb coffee, 60 barrels of flour, 1,000 lb salt, 7,000 lb bacon, 10 barrels of whisky, 10 barrels of onions, 1,000 pairs of shoes, 500 hats, or $5,000 cash). '
                 'Council members D. Kendlehart and A. D. Buehler answered that the goods were not in town, the borough had no funds and the Confederates could search; no attempt was made to enforce the requisition (Jacobs); Early reports a search of the stores found very little and about 2,000 rations in a train of cars issued to Gordon; the troops were quartered in town including the Court-house, and in the evening the railroad bridge across Rock Creek and 10-17 cars were burned. '
                 'NOT documented: prisoners locked in the Court-house, a covered bridge, torn-up telegraph lines.',
                 'documented', '1863-06-26T15:00', '1863-06-26T23:59', marking='occupation, demands, search, rations, burning: documented; prisoners in the Court-house, covered bridge and telegraph: gap'),
     subs=[
-        ('The rebel cavalry (about 150, per Jacobs 180 to 200) entered at about 3 to 3.30 p.m.; half an hour later a Georgia brigade of infantry (Gordon), variously estimated at 2,500 to 4,000 (Compiler) or 5,000 (Jacobs), followed', 'documented', 'supported', ['cmp_entry3', 'cmp_est', 'jac_cav', 'jac_inf']),
+        ('The rebel cavalry (about 150, per Jacobs 180 to 200) entered at about 3 to 3.15 p.m. (Jacobs 3 1/4 P. M.); half an hour later a Georgia brigade of infantry (Gordon), variously estimated at 2,500 to 4,000 (Compiler) or 5,000 (Jacobs), followed', 'documented', 'supported', ['cmp_entry3', 'cmp_est', 'jac_cav', 'jac_inf']),
         ('Early came late in the day and demanded supplies; Jacobs lists the demand (sugar, coffee, flour, salt, bacon, whisky, onions, 1,000 pairs of shoes, 500 hats; $6,000 or $5,000 cash)', 'documented', 'supported', ['early_late', 'early_demands', 'jac_early', 'jac_demand']),
         ('Council members D. Kendlehart and A. D. Buehler replied it was impossible to comply; the goods were not in town and the borough had no funds; they could search; no attempt was made to enforce the demand', 'documented', 'supported', ['jac_kend', 'jac_robbed']),
         ('A search of the stores secured only a very small quantity of commissary supplies, and about 2,000 rations found in a train of cars were issued to Gordon\'s brigade', 'documented', 'supported', ['early_auth', 'early_rations']),
@@ -545,7 +550,7 @@ ROWS.append(dict(
     cites={
         'cmp_entry3': CMP('sere enough, the+tbel aiivance (cavalry) entered charging up Chambersburg street', CMP_ENTRY),
         'cmp_est': CMP('variously estimated at from 2500 to 4000', CMP_ENTRY),
-        'jac_cav': L('JACOBS-1864', 'The advance guard of the enemy, consisting of 180 to 200 cavalry, rode into Gettysburg at 3J p. m.', note=HALF('3:30 p.m.')),
+        'jac_cav': L('JACOBS-1864', 'The advance guard of the enemy, consisting of 180 to 200 cavalry, rode into Gettysburg at 3J p. m.', note=FRAC('3:15 p.m., a quarter past three and not half past', '3 1/4 P. M.', 15)),
         'jac_inf': L('JACOBS-1864', 'This advance party was soon followed by 5,000 infantry, being General Gordon\'s brigade of Early\'s division of Ewell\'s corps.'),
         'early_late': OR('and as it was late when I reached the place', R470, '465'),
         'early_demands': OR('I had no opportunity of coTupelling a, compliance with my demands in this town', R470, '465'),
@@ -598,7 +603,7 @@ ROWS.append(dict(
         'jac_evening': L('JACOBS-1864', 'During the evening of Friday, however, the Rebels burned the railroad bridge and a few cars'),
         'cmp_bridge': CMP('The railroad bridge across Bock i geek ...wa* soon set on firij by the rebela,', CMP_BRIDGE),
         'cmp_cars': CMP('Altogether, wfi are fold Uzat seventeen oars were bumtjj', CMP_BRIDGE),
-        'pierce_track': L('TPIERCE-1889', 'That evening: when these raiders were leaving, they ran all the cars that were about, out to the railroad bridge east of the town, set the bridge and cars on fire and destroyed the track.', witness='eyewitness narrative of 1889 (T. Pierce, then 15); she places the burning when the raiders were leaving'),
+        'pierce_track': L('TPIERCE-1889', 'That evening: when these raiders were leaving, they ran all the cars that were about, out to the railroad bridge east of the town, set the bridge and cars on fire and destroyed the track.', page='28', page_check=True, page_basis='the head "28 Incidents Preceding the Battle." of p.28 precedes the passage and the head of p.29 (its number lost in the text layer) follows it; confirmed on the PDF page 36 of the archive.org scan (tmp/tl-01/dl/books, closeout/acquired_tl01.json)', witness='eyewitness narrative of 1889 (T. Pierce, then 15); she places the burning when the raiders were leaving'),
     },
     scenarios=[
         sc('A', '10 or 12 cars and a small railroad bridge', 'Early OR27-2-R470 p.465', 'documented', ['early_cars']),

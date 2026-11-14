@@ -135,6 +135,48 @@ test('the layout of the marks: the nearest are named, the names do not sit on on
   P.layoutMarks(idx, vp, cam, w, h, { on: false, selected: -1 }, L2); assert.equal(L2.n, 0); assert.equal(L2.nLabels, 0);
   P.layoutMarks(idx, vp, cam, w, h, { on: false, selected: 46 }, L2); assert.equal(L2.n <= 1, true);
 });
+test('what the ground hides: a mark behind a ridge is left out of the layout and counted, one in the open or near the camera is not, the picked one never is; the memorials marked do not change', () => {
+  const ridge = { h: (x, z) => Math.max(0, 50 - Math.abs(x - 120)) };       // a ridge 50 m high with its crest at x = 120, 45 degree slopes, flat ground beyond x = 70 and x = 170
+  assert.equal(P.groundHides(ridge, 0, 10, 0, 300, 4, 0), true, 'behind the ridge, seen from 10 m up');
+  assert.equal(P.groundHides(ridge, 0, 200, 0, 300, 4, 0), false, 'seen from above the ridge');
+  assert.equal(P.groundHides(ridge, 0, 10, 0, 60, 4, 0), false, 'in front of the ridge');
+  assert.equal(P.groundHides(ridge, 0, 10, 0, 120, 54, 0), false, 'on the crest, 4 m up, seen from the valley: nothing lies between');
+  assert.equal(P.groundHides(ridge, 0, 10, 0, 150, 24, 0), true, 'on the far slope: the crest lies between');
+  assert.equal(P.groundHides(ridge, 0, 2, 0, 60, 4, 0), false, 'flat ground, camera 2 m up');
+  assert.equal(P.groundHides(ridge, 0, 10, 0, 10, 4, 5), false, 'within 20 m of the camera');
+  // the real ground
+  const idx = P.buildIndex(mem, T), it = idx.byNo.get(46), vp = new Float32Array(16), w = 1280, h = 720;
+  const lay = (pose, state) => { const cam = camAt(pose), L = P.newLayout(idx.n); P.viewProj(cam, w / h, vp); P.layoutMarks(idx, vp, cam, w, h, state, L); return L; };
+  const low = P.poseAround(T, it.x, it.z, { dist: 9, height: 1.8 }), flat = lay(low, { on: true, selected: -1 }), ground = lay(low, { on: true, selected: -1, T });
+  assert.equal(flat.hidden, 0, 'without terrain in the state nothing is hidden'); assert.ok(ground.hidden >= 30, `${ground.hidden} of ${flat.n} marks in view are behind the ground at soldier\'s eye level`);
+  assert.equal(ground.n + ground.hidden, flat.n, 'the ground only removes marks that were in view; it adds none');
+  const shown = new Set(); for (let k = 0; k < ground.n; k++) shown.add(idx.items[ground.idx[k]].no);
+  const gone = []; for (let k = 0; k < flat.n; k++) { const no = idx.items[flat.idx[k]].no; if (!shown.has(no)) gone.push(no); } assert.equal(gone.length, ground.hidden);
+  const cam = camAt(low); for (const no of gone.slice(0, 20)) { const m = idx.byNo.get(no); assert.equal(P.groundHides(T, cam.x, cam.y, cam.z, m.x, m.y + 4, m.z), true, `memorial ${no} left out: the ground lies between`); }
+  // a memorial the viewer picked is drawn even where the ground would hide it
+  const pickedNo = gone[0], L1 = lay(low, { on: false, selected: pickedNo, T }), L2 = lay(low, { on: true, selected: pickedNo, T });
+  assert.equal(L1.n, 1); assert.equal(idx.items[L1.idx[0]].no, pickedNo); assert.equal(L1.hidden, 0); assert.ok([...Array(L2.n).keys()].some(k => idx.items[L2.idx[k]].no === pickedNo), 'the picked memorial is among the marks with the layer on');
+  // from a height above the whole field (the shell's overview) the ground hides almost nothing, and the layer says nothing is hidden when it is off
+  const top = lay({ x: 700, y: 1900, z: 1600, yaw: Math.atan2(-1100, -1900), pitch: Math.atan2(-1900, Math.hypot(-1100, -1900)), fov: 55 }, { on: true, selected: -1, T });
+  assert.ok(top.n > 300 && top.hidden <= 5, `overview: ${top.n} marks, ${top.hidden} behind the ground`);
+  const off = lay(low, { on: false, selected: -1, T }); assert.equal(off.n, 0); assert.equal(off.hidden, 0);
+});
+test('names and panels: a name is not put under a panel, a mark may be; the rectangles are those the shell\'s top bar, dock, drawer and left column give', () => {
+  const idx = P.buildIndex(mem, T), it = idx.byNo.get(46), cam = camAt(P.poseAround(T, it.x, it.z, { dist: 240, height: 95 })), vp = new Float32Array(16), w = 1280, h = 720; P.viewProj(cam, w / h, vp);
+  const lay = state => { const L = P.newLayout(idx.n); P.layoutMarks(idx, vp, cam, w, h, state, L); return L; }, box = (L, k) => { const q = idx.items[L.idx[k]]; return [L.sx[k] + 9, L.sy[k] - 16 - 13, L.sx[k] + 9 + q.lblW, L.sy[k] - 16 + 5]; };
+  const free = lay({ on: true, selected: -1 }); assert.ok(free.nLabels >= 3, `${free.nLabels} names without panels`);
+  // a panel over the first name: that mark keeps its mark and loses its name; nothing named is under the panel
+  const k0 = free.lab[0], b0 = box(free, k0), panel = [b0[0] - 6, b0[1] - 6, b0[2] + 6, b0[3] + 6], no0 = idx.items[free.idx[k0]].no, av = [panel];
+  assert.equal(P.underPanel(av, b0[0], b0[1] + 13, b0[2] - b0[0]), true); assert.equal(P.underPanel(av, b0[2] + 200, b0[1] + 13, 120), false); assert.equal(P.underPanel([], b0[0], b0[1] + 13, 100), false);
+  const L = lay({ on: true, selected: -1, avoid: av }); assert.equal(L.n, free.n, 'the marks themselves are the same'); assert.ok(L.nLabels >= 1);
+  const named = []; for (let i = 0; i < L.nLabels; i++) { const b = box(L, L.lab[i]); named.push(idx.items[L.idx[L.lab[i]]].no); assert.ok(!(b[0] < panel[2] && b[2] > panel[0] && b[1] < panel[3] && b[3] > panel[1]), `the name of memorial ${named[i]} lies under the panel`); }
+  assert.ok(!named.includes(no0), 'the memorial under the panel is not named'); let marked = false; for (let k = 0; k < L.n; k++) if (idx.items[L.idx[k]].no === no0) marked = true; assert.ok(marked, 'it is still marked');
+  // an empty list, or none, changes nothing
+  assert.deepEqual([...lay({ on: true, selected: -1, avoid: [] }).lab], [...free.lab]); assert.deepEqual([...lay({ on: true, selected: -1, avoid: null }).lab], [...free.lab]);
+  // the whole picture covered: no name at all, but every mark is still there (and the picked memorial is still named)
+  const none = lay({ on: true, selected: -1, avoid: [[-10, -10, w + 10, h + 10]] }); assert.equal(none.nLabels, 0); assert.equal(none.n, free.n);
+  const sel = lay({ on: true, selected: no0, avoid: [[-10, -10, w + 10, h + 10]] }); assert.equal(sel.nLabels, 1, 'the picked memorial is named even under a panel'); assert.equal(idx.items[sel.idx[sel.lab[0]]].no, no0);
+});
 test('drawing: the tier shows as the outline pattern and the shape beside every name; a few canvas calls however many marks; hollow when beyond the ground', () => {
   const idx = P.buildIndex(mem, T), it = idx.byNo.get(46), cam = camAt(P.poseAround(T, it.x, it.z, { dist: 240, height: 95 })), vp = new Float32Array(16), L = P.newLayout(idx.n), w = 1280, h = 720, st = tierMark.style('inferred');
   P.viewProj(cam, w / h, vp); P.layoutMarks(idx, vp, cam, w, h, { on: true, selected: -1 }, L); const c = recordingContext(); const n = P.drawMarks(c, idx, L, { on: true, selected: -1 }, st);

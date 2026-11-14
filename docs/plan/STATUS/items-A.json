@@ -3,7 +3,7 @@
  "file": "docs/plan/STATUS/items-A.json",
  "part": "A",
  "generated": "2026-11-13",
- "scope": "Chapters 01 to 08b of docs/plan/FINAL: the 34 decisions of the register, its 17 decision-support packages and 12 owner actions, the 253 work packages (finding groups) of chapters 02 to 08b, the owner decisions listed in each chapter, the nodes of 15-roadmap.json whose chapter list touches them (77 of 98), docs/decisions/*, and the release reports as far as those chapters need them. Owner decisions 2026-10-19 items 3 to 5 and their clarifications govern the Battle Theatre and are tracked under docs/battle-theatre/GOVERNANCE, not here.",
+ "scope": "Chapters 01 to 08b of docs/plan/FINAL: the 34 decisions of the register, its 17 decision-support packages and 12 owner actions, the 253 work packages (finding groups) of chapters 02 to 08b, the owner decisions listed in each chapter, the nodes of 15-roadmap.json whose chapter list touches them (77 of 98), docs/decisions/* (items 1 to 6 of 2026-10-04, items 1 to 5 of 2026-10-05, items 1 and 2 of 2026-10-19, and the open lists of the four provisional files), the owner questions of ops/T0-DEVIATIONS.md (rows 1, 2, 14, 22, 23, 24, 26), and the release reports as far as those chapters need them. Owner decisions 2026-10-19 items 3 to 5 and their clarifications govern the Battle Theatre and are tracked under docs/battle-theatre/GOVERNANCE, not here.",
  "status_definitions": {
   "SHIPPED": "Present in the release candidate, train R1g (and the trains named), with the patch group and the test that prove it. No train has been deployed: ops/RELEASE-LOG.md has no row and production still serves deploy 6abd6d62.",
   "BUILT_NOT_SHIPPED": "Exists in src/, historian-src/, data-src/, candidates/ or as an opt-in patch group, but is in no train; the evidence says what is missing.",
@@ -15,7 +15,7 @@
  },
  "evidence_legend": {
   "R1g": "Train R1g, release id 52cec836, cumulative on R0..R1f: release/R1g/anchors.json records 3,386 asserted patches in 38 groups, 0 failed; release/R1g/gate.json ok; node tools/t0/verify_release.mjs ok for all eight trains.",
-  "[C11]": "Regression run of 2026-11-11 in this Linux container (4 vCPU, software GL): tmp/r1g-pack/suites-r1g-full2.json (79 suites, 51 ok; 826 of 1,073 tests green) and the partial rerun tmp/r1g-pack/suites-r1g-rerun-proxy.json; per-suite result files in release/R1g/test-*.json and tmp/r1g/. Suite rows named *.R1c ran on the R1g dist. Timing and layout results from this machine are not acceptance evidence.",
+  "[C11]": "Regression run of 2026-11-11 in this Linux container (4 vCPU, software GL): tmp/r1g-pack/suites-r1g-full2.json (79 suites, 51 ok; 826 of 1,073 tests green) and the partial rerun tmp/r1g-pack/suites-r1g-rerun-proxy.json; per-suite result files in release/R1g/test-*.json and tmp/r1g/. Suite rows named *.R1c ran on the R1g dist. Timing and layout results from this machine are not acceptance evidence. Later results (docs/accept/R1G-SUITES.json, 2026-11-13) replace a [C11] row only where an item says so; the figures quoted in the evidence were all matched to a recorded suite row in pass 3.",
   "Windows machine": "The owner acceptance machine; its last full regression was on train R1f (docs/accept/R1F-STATUS.md, R1F-FINAL-REPORT.md: 43 of 47 suites ok). The R1g run there stopped at suite 34 of 79 (docs/accept/R1G-STATUS.md 2026-11-04).",
   "patch ids": "Names such as PGC-dash-cards or CLK-95-map-tint-hour are patch ids in release/R1g/anchors.json; the group files are tools/t0/patches/<group>.json."
  },
@@ -23,26 +23,29 @@
   "Nothing is deployed: ops/RELEASE-LOG.md has no deploy row; every item marked SHIPPED is in the candidate zip only (deliver/gettysburg-R1g-52cec836-PRODUCTION.zip), and deployment is an owner act.",
   "Acceptance: 0 of 8 consecutive clean passes on R1g (docs/accept/R1G-STATUS.md); the best streak on R1f was 1.",
   "The zips packed in this container carry a stand-in 1863 tile pyramid (96 of 1,885 files equal the original); the final zip must be packed where the original pyramid is.",
-  "Source rebuild: src/ holds the time module only (10 files); there is no rebuilt app, no parity harness, no site generator. data-src/ (63 files) and historian-src/ (299 files) are built and tested but served by no train.",
-  "Run by this survey on 2026-11-13, long suites through the machine lock: T0-J7 on R1g and on frozen R1f (red on both, tmp/r1h-cand/statusA/j7.log); node --test tests/time/*.test.mjs: 638 tests, 638 pass, 0 fail; npm run time:check: exit 0; node --test tests/data/*.test.mjs: 207 tests, 206 pass, 0 fail, 1 skipped; npm run data:check: exit 0. Run directly (under 5 s CPU, no browser): node tools/environment/validate.mjs and node tools/ledger/validate.mjs: 0 errors, 0 warnings each; HDR-11 alone (see VER-HDR-11). node --test tests/historian/*.test.mjs: under the default node of this container (22.23.4) every file fails to load, because tools/historian/ingest/times.mjs uses a regular-expression modifier group (?-i:...) that needs V8 12.5 or later (it is a build-time tool, not shipped to browsers). Under /opt/node24/bin/node (24.22.1) tests/historian/atime.test.mjs alone passes 23 of 23 (run directly, 8 s CPU, log tmp/r1h-cand/statusA/historian-atime-node24.log). The full suite under Node 24 was queued through the machine lock at 19:31 UTC on 2026-11-13 and had not started when this file was written: no result is claimed for the other files. Its log will be tmp/r1h-cand/statusA/historian-test3.log (summary hist-summary.log).",
-  "Not run by this survey: any other browser suite, the eight acceptance passes, Lighthouse (no runner in the repository), any real device. The default node of this container is 22.23.4; /opt/node24/bin/node is 24.22.1."
+  "Source rebuild: src/ holds the time module (src/lib/time, 10 files) and, since 2026-11-13 21:27 UTC, the foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js and two test files: 23 tests pass on Node 22.23.4); there is no rebuilt app, no parity harness, no site generator. data-src/ (63 files) and historian-src/ (299 files) are built and tested but served by no train.",
+  "Run by this survey on 2026-11-13, long suites through the machine lock: T0-J7 on R1g and on frozen R1f (red on both, tmp/r1h-cand/statusA/j7.log); node --test tests/time/*.test.mjs: 638 tests, 638 pass, 0 fail; npm run time:check: exit 0; node --test tests/data/*.test.mjs: 207 tests, 206 pass, 0 fail, 1 skipped; npm run data:check: exit 0. Run directly (under 5 s CPU, no browser): node tools/environment/validate.mjs and node tools/ledger/validate.mjs: 0 errors, 0 warnings each; HDR-11 alone (see VER-HDR-11). node --test tests/historian/*.test.mjs under Node 24.22.1 (/opt/node24), run through the machine lock on 2026-11-13 (log tmp/r1h-cand/statusA/historian-test3.log; started 19:31 UTC, finished 20:54 UTC): 474 tests, 386 pass, 1 fail, 87 skipped (19 of the skips are \"skipped loudly\": historian-src/raw/or27 and tmp/historian-cache are not built here). The one failure is tests/historian/engine.test.mjs:193 \"latency: p95 of a 300-query session ... far below the 30 ms budget\" with p95 39.5 ms; that job shared the CPU with other jobs, so it is not a timing result, and no run alone under the timing lock is recorded yet. Under the default Node 22.23.4 the suite could not load before 21:13 UTC (tools/historian/ingest/times.mjs held a regular-expression modifier group, which V8 before 12.5 rejects); candidate ver-hist-node rewrote that pattern (tools/historian/ingest/times.mjs has no modifier group now; new test tests/historian/times-node22.test.mjs). Its own shared-mode run of the whole suite under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log). Its STATUS.json still says passes false: the paired run of both Node versions under the timing lock has not produced its logs.",
+  "Result files of the release workstream used in pass 3: docs/accept/R1G-SUITES.json (generated 2026-11-13 21:39 UTC from 12 logs) lists 80 suites, last result OK 61 and not OK 19 (journeys.R1c, mobilefix.R1b, mobilefix.R1c, r1.anim, r1.base1863, r1.polish, r1.polish.pair, r1.perf2, r1.perf4, r1.perf5, r1.perf6, r1.wtpeer, r1.ztail, baseline.walkguard, walkguard.R0 to walkguard.R1c, headers.R1c); the last result of 58 suites is from the 2026-11-11 run, not from the final harness. A SHIPPED item whose proof suite is in that red list says so in its evidence; none of those results is acceptance evidence (container: 4 vCPU, software GL, Linux fonts).",
+  "Run by pass 3 from 2026-11-13 23:45 UTC to 2026-11-14 (nothing through the machine lock): node --test src/config/tokens.test.mjs src/foundation.test.mjs (23 of 23, Node 22.23.4); node tests/copy/trust-pages.test.mjs (fails: the anchor-state assertion, see OWNER-2026-10-04-6); node tools/t0/run_suites.mjs --list (80 suite rows); python3 docs/plan/STATUS/merge_status.py --check and check_backlog.py before the change (both exit 0); scripted checks in tmp/r1h-cand/statusA3: ids of the plan against the items (253 work packages, 34 decisions, 17 packages, 12 owner actions, 81 chapter owner decisions, 98 roadmap nodes: nothing missing), every \"N/M\" figure of the evidence against the recorded suite rows, every patch id and path named, and direct reads of release/R1g/dist (pages without main, token literals, inline scripts, headers, sitemap, dev-page redirects, service worker).",
+  "Not run by pass 3: any browser suite, the eight acceptance passes, Lighthouse, any real device, the paired Node 22 and Node 24 historian run under the timing lock (queued by candidate ver-hist-node, not yet run), and the whole node suites of tests/time and tests/data (nothing under src/lib/time, tools/time, tests/time, data-src, tools/data or tests/data changed since the pass 2 run).",
+  "Not run by this survey (passes 1 to 3): any other browser suite, the eight acceptance passes, Lighthouse (no runner in the repository), any real device. The default node of this container is 22.23.4; /opt/node24/bin/node is 24.22.1."
  ],
  "counts": {
-  "SHIPPED": 87,
-  "BUILT_NOT_SHIPPED": 16,
-  "OPEN_BUILDABLE": 228,
+  "SHIPPED": 91,
+  "BUILT_NOT_SHIPPED": 17,
+  "OPEN_BUILDABLE": 227,
   "OPEN_NEEDS_DECISION": 96,
   "OWNER_ONLY": 72,
-  "SUPERSEDED": 14
+  "SUPERSEDED": 15
  },
- "total": 513,
+ "total": 518,
  "counts_by_kind": {
   "decision": {
-   "SHIPPED": 12,
+   "SHIPPED": 14,
    "OPEN_BUILDABLE": 3,
    "OPEN_NEEDS_DECISION": 25,
    "OWNER_ONLY": 6,
-   "SUPERSEDED": 4
+   "SUPERSEDED": 5
   },
   "decision (ADR)": {
    "SHIPPED": 5,
@@ -71,7 +74,7 @@
    "SUPERSEDED": 5
   },
   "owner decision (implemented)": {
-   "SHIPPED": 7,
+   "SHIPPED": 9,
    "BUILT_NOT_SHIPPED": 2,
    "OPEN_BUILDABLE": 1,
    "OPEN_NEEDS_DECISION": 1
@@ -89,8 +92,8 @@
   },
   "work package (finding group)": {
    "SHIPPED": 49,
-   "BUILT_NOT_SHIPPED": 8,
-   "OPEN_BUILDABLE": 161,
+   "BUILT_NOT_SHIPPED": 9,
+   "OPEN_BUILDABLE": 160,
    "OPEN_NEEDS_DECISION": 21,
    "OWNER_ONLY": 14
   }
@@ -105,16 +108,16 @@
    "SUPERSEDED": 6
   },
   "02": {
-   "SHIPPED": 31,
+   "SHIPPED": 34,
    "OPEN_BUILDABLE": 8,
    "OPEN_NEEDS_DECISION": 4,
    "OWNER_ONLY": 11,
-   "SUPERSEDED": 2
+   "SUPERSEDED": 3
   },
   "03": {
-   "SHIPPED": 3,
-   "BUILT_NOT_SHIPPED": 2,
-   "OPEN_BUILDABLE": 42,
+   "SHIPPED": 4,
+   "BUILT_NOT_SHIPPED": 3,
+   "OPEN_BUILDABLE": 41,
    "OPEN_NEEDS_DECISION": 7,
    "OWNER_ONLY": 3,
    "SUPERSEDED": 2
@@ -184,7 +187,7 @@
    "chapter": "01",
    "title": "Source of truth: closed Tranche 0 plus strangler rebuild",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Tranche 0 half is in trains R0..R1g (tools/t0/trains.json; R1g = 3,386 patch records, 0 anchor failures, gate ok). Rebuild half: src/ holds only src/lib/time (10 files); no apps/, packages/, tests/parity, docs/spec, docs/adr.",
+   "evidence": "Tranche 0 half is in trains R0..R1g (tools/t0/trains.json; R1g = 3,386 patch records, 0 anchor failures, gate ok). Rebuild half: src/ holds the time module (src/lib/time, 10 files) and the foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/config/mapbox.js; 23 tests pass); no apps/, packages/, tests/parity, docs/spec, docs/adr.",
    "next_step": "Build the rebuild chain WP-ARCH-04..33 against the R1g tree as the parity reference (the patched candidate, not the legacy bundle, is what visitors will have).",
    "size": "L",
    "files": [
@@ -328,7 +331,7 @@
    "chapter": "01",
    "title": "CSP staging, headers, source maps",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Shipped: generated one-rule-per-header _headers with Report-Only CSP host list and frame-ancestors (R1c onward; headers suite 16/18 [C11], HDR-11 red there and untriaged, HDR-23 needs --online). No report collector, no enforcing CSP, no source maps.",
+   "evidence": "Shipped: generated one-rule-per-header _headers with Report-Only CSP host list and frame-ancestors (R1c onward; headers suite 16/18 [C11], HDR-11 red there because the tile directory of the stand-in pyramid is not named by the hash of its files (VER-HDR-11, VER-TILES), not because of a header rule; HDR-23 needs --online). No report collector, no enforcing CSP, no source maps.",
    "next_step": "Part B (chapter 09) owns enforcement; from part A: keep page groups free of new inline handlers.",
    "size": "L",
    "files": [
@@ -495,7 +498,7 @@
    "chapter": "01",
    "title": "Historian architecture: static retrieval, records only",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Engine, corpus (Official Records vol. 27), page and build exist in historian-src/ and tools/historian/ with tests/historian/; nothing of it is in any train (docs/decisions/R1E-PROVISIONAL-DECISIONS: \"the historian is not shipped\"). The shipped /historian page is the legacy page with fixes (PGC-hist-*, COPY2). node --test tests/historian/*.test.mjs: under the default node of this container (22.23.4) every file fails to load, because tools/historian/ingest/times.mjs uses a regular-expression modifier group (?-i:...) that needs V8 12.5 or later (it is a build-time tool, not shipped to browsers). Under /opt/node24/bin/node (24.22.1) tests/historian/atime.test.mjs alone passes 23 of 23 (run directly, 8 s CPU, log tmp/r1h-cand/statusA/historian-atime-node24.log). The full suite under Node 24 was queued through the machine lock at 19:31 UTC on 2026-11-13 and had not started when this file was written: no result is claimed for the other files. Its log will be tmp/r1h-cand/statusA/historian-test3.log (summary hist-summary.log).",
+   "evidence": "Engine, corpus (Official Records vol. 27), page and build exist in historian-src/ and tools/historian/ with tests/historian/; nothing of it is in any train (docs/decisions/R1E-PROVISIONAL-DECISIONS: \"the historian is not shipped\"). The shipped /historian page is the legacy page with fixes (PGC-hist-*, COPY2). node --test tests/historian/*.test.mjs under Node 24.22.1 (/opt/node24), run through the machine lock on 2026-11-13 (log tmp/r1h-cand/statusA/historian-test3.log; started 19:31 UTC, finished 20:54 UTC): 474 tests, 386 pass, 1 fail, 87 skipped (19 of the skips are \"skipped loudly\": historian-src/raw/or27 and tmp/historian-cache are not built here). The one failure is tests/historian/engine.test.mjs:193 \"latency: p95 of a 300-query session ... far below the 30 ms budget\" with p95 39.5 ms; that job shared the CPU with other jobs, so it is not a timing result, and no run alone under the timing lock is recorded yet. Under the default Node 22.23.4 the suite could not load before 21:13 UTC (tools/historian/ingest/times.mjs held a regular-expression modifier group, which V8 before 12.5 rejects); candidate ver-hist-node rewrote that pattern (tools/historian/ingest/times.mjs has no modifier group now; new test tests/historian/times-node22.test.mjs). Its own shared-mode run of the whole suite under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log). Its STATUS.json still says passes false: the paired run of both Node versions under the timing lock has not produced its logs.",
    "next_step": "Register the /hx/ artefacts and the new page as a candidate group once its gates are green; part B (chapter 14) owns it.",
    "size": "L",
    "files": [
@@ -546,7 +549,7 @@
    "files": [
     "tools/t0/patches/A.json"
    ],
-   "train": "R1a+",
+   "train": "R1a+ (group A); R1c+ (CP banner copy)",
    "patch_groups": [
     "A",
     "CP"
@@ -858,8 +861,8 @@
    "chapter": "01",
    "title": "Key hygiene (Mapbox scopes, Google key, one config module)",
    "status": "OWNER_ONLY",
-   "evidence": "Console checks are unticked in ops/owner-console-actions.md (Actions 3, 4); the token is still a literal in the bundle and 9 pages.",
-   "next_step": "Owner console acts; the single config module comes with WP-ARCH-09.",
+   "evidence": "Console checks are unticked in ops/owner-console-actions.md (Actions 3, 4); the token is still a literal in the bundle (twice) and on 8 pages (camera, cinematic-export, compare, ground-remembers, immersive, sandbox, viewshed, watch-together; counted in release/R1g/dist on 2026-11-13: 10 occurrences in 9 files).",
+   "next_step": "Owner console acts; the single config module is built (src/config/mapbox.js, candidate wp-arch-09) but nothing shipped reads it: the pages and the bundle keep their literals until the rebuild (WP-ARCH-10 onward).",
    "size": "S",
    "files": [
     "ops/owner-console-actions.md"
@@ -1223,9 +1226,6 @@
     "tests/t0/build_selftest.py"
    ],
    "train": "tooling (builds R0..R1g)",
-   "patch_groups": [
-    "runner"
-   ],
    "tests": [
     "static.selftest",
     "static.determinism",
@@ -1468,7 +1468,7 @@
     "tools/t0/patches/PG-maps.json",
     "tools/t0/patches/PG-zimg.json"
    ],
-   "train": "R1a+",
+   "train": "R1a+ (PG-maps); R1d+ (PG-zimg)",
    "patch_groups": [
     "PG-maps",
     "PG-zimg"
@@ -1484,7 +1484,7 @@
    "chapter": "02",
    "title": "Headers, embed framing, host redirect, CSP report-only host list",
    "status": "SHIPPED",
-   "evidence": "Train R1c onward: generated _headers, _redirects, comment-only netlify.toml (tools/t0/config/gen.mjs); /embed and /embed.html frameable, all else frame-ancestors none. headers suite 16/18 in the container: HDR-11 red and untriaged, HDR-23 needs --online; green on the Windows machine for R1f.",
+   "evidence": "Train R1c onward: generated _headers, _redirects, comment-only netlify.toml (tools/t0/config/gen.mjs); /embed and /embed.html frameable, all else frame-ancestors none. headers suite 16/18 in the container: HDR-11 red because the tile directory of the stand-in pyramid is not named by the hash of its files (VER-HDR-11, VER-TILES; the header rules pass HDR-11 on a scratch copy with that one directory renamed), HDR-23 needs --online; green on the Windows machine for R1f.",
    "next_step": "None for the generator; close VER-HDR-11. Netlify own matching is proven only by the owner staging deploy.",
    "size": "S",
    "files": [
@@ -1492,9 +1492,6 @@
     "tests/t0/headers.spec.mjs"
    ],
    "train": "R1c+",
-   "patch_groups": [
-    "config"
-   ],
    "tests": [
     "HDR-*"
    ],
@@ -1540,7 +1537,7 @@
    "chapter": "02",
    "title": "Test harness for Tranche 0",
    "status": "SHIPPED",
-   "evidence": "tests/t0/ (38 spec files), tools/t0/run_suites.mjs (79 suite rows, red-first control trees via tools/t0/redtrees.py), tests/t0/lib_selftest.mjs 9/10 with LIB-04c skipped by design [C11].",
+   "evidence": "tests/t0/ (38 spec files), tools/t0/run_suites.mjs (80 suite rows: the 79 of the [C11] run plus static.runner, the runner's own self-test (tools/t0/tests/runner_selftest.mjs, 20 of 21 on 2026-11-13, 1 skipped: the opt-in online test); red-first control trees via tools/t0/redtrees.py), tests/t0/lib_selftest.mjs 9/10 with LIB-04c skipped by design [C11].",
    "next_step": "None. Firefox and WebKit are not exercised (only Chromium is installed here).",
    "size": "S",
    "files": [
@@ -1548,9 +1545,6 @@
     "tools/t0/run_suites.mjs"
    ],
    "train": "tooling",
-   "patch_groups": [
-    "harness"
-   ],
    "tests": [
     "static.lib",
     "static.controls"
@@ -2048,9 +2042,9 @@
   {
    "id": "VER-MFIX",
    "chapter": "02",
-   "title": "T0-MFIX-02/-10/-11/-12 red on R1g in the container",
+   "title": "T0-MFIX-02 and T0-MFIX-11 red on R1g in the container (-10 and -12 were red only in the first full run)",
    "status": "OPEN_BUILDABLE",
-   "evidence": "tmp/r1g-pack/suites-r1g-full2.json and the rerun: MFIX-11 is also red on frozen R1b there; MFIX-02 is red on R1g only and was not compared with R1f in the same container.",
+   "evidence": "Latest rows (docs/accept/R1G-SUITES.json, from the partial rerun of 2026-11-11 with NODE_USE_ENV_PROXY set by hand): mobilefix.R1c 27/29, failing T0-MFIX-02 (Search-to-unit on the phone shell: popup and fly-to) and T0-MFIX-11 (desktop shell: the Ask the Historian and Extra Features pills sit below modal layers); mobilefix.R1b 28/29, failing only T0-MFIX-11. In the first full run of the same day, in which Node's proxy variables were not handed to the suites, mobilefix.R1c was 22/29 (7 failed, among them T0-MFIX-02, -10, -11 and -12). MFIX-11 is also red on frozen R1b; MFIX-02 is red on R1g only and was not compared with R1f in the same container. The Windows machine gave 29/29 for R1f (R1F-STATUS 2026-10-31).",
    "next_step": "Release workstream: rerun MFIX-02 on R1f here; classify.",
    "size": "S",
    "files": [
@@ -2146,9 +2140,6 @@
     "tools/t0/baseline.py"
    ],
    "train": "tooling (input of every train)",
-   "patch_groups": [
-    "baseline"
-   ],
    "tests": [
     "static.baseline",
     "baseline.drift"
@@ -2233,22 +2224,28 @@
    "id": "WP-ARCH-09",
    "chapter": "03",
    "title": "Toolchain, stack record, layout, config module",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. package.json is tooling-only (no workspace, no TypeScript).",
-   "next_step": "Create the workspace (npm reachable); one config module for the map token.",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "Built in part by candidate wp-arch-09 (candidates/r1h/wp-arch-09, written 2026-11-13 21:11 to 21:27 UTC; nothing in release/R1g/dist changes, so no train is involved): src/STACK.md (stack record: layout mapping from the plan's apps/ and packages/ to src/app and src/lib, the choices the register fixes, 12 open choices written as \"not decided: owner\" with a conservative default and the way back, dated registry readings), src/package.json (private, npm workspaces lib/* and app, engines node >=22.23.4, no dependency), src/tsconfig.base.json (strict, noUncheckedIndexedAccess, exactOptionalPropertyTypes, verbatimModuleSyntax), src/.nvmrc (24), src/config/mapbox.js and mapbox.d.ts (the one reader of PUBLIC_MAPBOX_TOKEN: public token only, secret and malformed values refused, no value in any error text) with src/config/tokens.test.mjs (13 tests) and src/foundation.test.mjs (10 tests). Run in this pass (2026-11-13 after 23:45 UTC, default Node 22.23.4): node --test src/config/tokens.test.mjs src/foundation.test.mjs = 23 tests, 23 pass, 0 fail; the candidate records the same on Node 24.22.1, a red-first log, and a 51-mutant check (4 harmless changes let through, as designed). The candidate's STATUS.json holds notes only (no tests list, passes not true), so docs/plan/STATUS/check_backlog.py does not count it done. NOT built against the plan's Fix and Accept: the pnpm workspace with a packageManager pin (npm workspaces instead: delegated rows C03 and W09-2; pnpm stays a selectable alternative), the ESLint flat config, stylelint, knip, browserslist, the Astro and Vite skeleton and the one-day toolchain smoke (none installed; WP-ARCH-10 installs them), the root package.json workspaces lines and lock refresh (request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-arch-09.md, release workstream), and the acceptance \"clean CI: install --frozen-lockfile, build, test; pk.eyJ in 1 file\" (needs owner-enabled CI; the shipped bundle still holds the token twice and 8 pages once each).",
+   "next_step": "Finish the item: close the candidate record (record.mjs with the 23 tests and the red-first log), then the unbuilt half of the Fix (lint stack, browserslist from D-BROWSERS, toolchain smoke) together with WP-ARCH-10 once npm installs are done under the machine lock. Owner-only: CI (D-CI-HOST), token rotation (OWNER-ACTION-03).",
    "size": "M",
    "files": [
-    "package.json"
+    "package.json",
+    "src/STACK.md",
+    "src/package.json",
+    "src/config/mapbox.js",
+    "src/foundation.test.mjs",
+    "candidates/r1h/wp-arch-09/"
    ],
-   "kind": "work package (finding group)"
+   "kind": "work package (finding group)",
+   "train": "none (rebuild source; the shipped site does not change)"
   },
   {
    "id": "WP-ARCH-10",
    "chapter": "03",
    "title": "Build, chunk architecture, byte budgets, hash scheme",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. The interim rename rule lives in tools/t0/build.py.",
-   "next_step": "After WP-ARCH-09.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The interim rename rule lives in tools/t0/build.py.",
+   "next_step": "Starts from the wp-arch-09 foundation: install and pin the first dependencies in src/package.json and src/app/package.json (rows N2, N3, N5, N7 of src/STACK.md), call getMapboxToken() once at the start of a production build, then the chunk map, byte budgets and hash scheme.",
    "size": "L",
    "files": [],
    "kind": "work package (finding group)"
@@ -2274,7 +2271,7 @@
    "chapter": "03",
    "title": "Runtime data layer, storage layer, migration",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. Bridge equivalents ship in group B (day loading on jump, in-flight de-duplication).",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. Bridge equivalents ship in group B (day loading on jump, in-flight de-duplication).",
    "next_step": "After WP-ARCH-11.",
    "size": "M",
    "files": [],
@@ -2285,7 +2282,7 @@
    "chapter": "03",
    "title": "Time seam: the app consumes the time module",
    "status": "OPEN_BUILDABLE",
-   "evidence": "The module exists (src/lib/time: model, anchors, playback, bridge, index.d.ts) and ships inlined through CLOCK (CLK-00-module-inline). No workspace consumes it as a package.",
+   "evidence": "The module exists (src/lib/time: model, anchors, playback, bridge, index.d.ts) and ships inlined through CLOCK (CLK-00-module-inline). No workspace consumes it as a package (the wp-arch-09 manifest lists src/lib/* as workspaces, but src/lib/time has no package.json yet).",
    "next_step": "Wire it into the workspace once WP-ARCH-09 exists; add the lint ban on day arithmetic.",
    "size": "S",
    "files": [
@@ -2298,7 +2295,7 @@
    "chapter": "03",
    "title": "Pure keyframe engine stateAt with the carry-forward rule",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. The carry-forward rule itself ships as B-i2-stateless-carry-forward; the ANIM engine holds an interpolation model (tools/t0/anim/src/engine/interp).",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The carry-forward rule itself ships as B-i2-stateless-carry-forward; the ANIM engine holds an interpolation model (tools/t0/anim/src/engine/interp).",
    "next_step": "Typed-array engine under src/, proven equal to the R1g frames.",
    "size": "L",
    "files": [
@@ -2324,7 +2321,7 @@
    "chapter": "03",
    "title": "Map facade, one-map lifecycle, lazy vendor chunk, GPU resilience",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app.",
    "next_step": "After WP-DEC-02.",
    "size": "L",
    "files": [],
@@ -2359,7 +2356,7 @@
    "chapter": "03",
    "title": "Shell and interaction skeleton",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app.",
    "next_step": "After WP-ARCH-09.",
    "size": "L",
    "files": [],
@@ -2381,7 +2378,7 @@
    "chapter": "03",
    "title": "Map surface port (overlays, tint, trails, markers, minimap)",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. The behaviour to port is the R1g tree.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
    "files": [],
@@ -2392,7 +2389,7 @@
    "chapter": "03",
    "title": "Transport, HUD, timeline, bookmarks, share",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. The behaviour to port is the R1g tree.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
    "files": [],
@@ -2403,7 +2400,7 @@
    "chapter": "03",
    "title": "Unit, story, event panels and notifications",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. The behaviour to port is the R1g tree.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
    "files": [],
@@ -2414,7 +2411,7 @@
    "chapter": "03",
    "title": "Search, filter, legend, roster, order of battle, Follow Ancestor",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. The behaviour to port is the R1g tree.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
    "files": [],
@@ -2425,7 +2422,7 @@
    "chapter": "03",
    "title": "Tools: Distance, Layers, Help, Soldier's Eye, NPS Tour",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. The behaviour to port is the R1g tree.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
    "files": [],
@@ -2436,7 +2433,7 @@
    "chapter": "03",
    "title": "First-run boot contract, Virtual Walkthrough",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. The behaviour to port is the R1g tree.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
    "files": [],
@@ -2447,7 +2444,7 @@
    "chapter": "03",
    "title": "Compact presets and mobile-only parity",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. The behaviour to port is the R1g tree.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
    "files": [],
@@ -2458,7 +2455,7 @@
    "chapter": "03",
    "title": "Cross-page contracts: deep links, bfcache, seams, PWA identity",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds only src/lib/time. The behaviour to port is the R1g tree.",
+   "evidence": "Not built: the repository has no apps/, packages/ or tests/parity; src/ holds the time module (src/lib/time, 10 files) and the rebuild foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js), but no app. The behaviour to port is the R1g tree.",
    "next_step": "Port after the foundations (WP-ARCH-09..20); each panel merges only when its checkpoints pass.",
    "size": "L",
    "files": [],
@@ -2592,7 +2589,7 @@
     "tools/t0/patches/B.json",
     "tools/t0/patches/CLOCK.json"
    ],
-   "train": "R1c+",
+   "train": "R1c+ (group B); R1d+ (CLOCK replaces it)",
    "patch_groups": [
     "B",
     "CLOCK"
@@ -2871,7 +2868,7 @@
    "chapter": "04",
    "title": "Historian time-facts tier and temporal index",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "historian-src/corpus/time_evidence.json, historian-src/core/atime.js and clock.js, tests/historian/atime.test.mjs. Not in any train. Run note: the historian suite needs Node 23 or later (see D-HIST-ARCH).",
+   "evidence": "historian-src/corpus/time_evidence.json, historian-src/core/atime.js and clock.js, tests/historian/atime.test.mjs. Not in any train. Run note: tests/historian/atime.test.mjs passes 23 of 23 under Node 24.22.1 (candidate ver-hist-node, 2026-11-13) and now loads under the default Node 22.23.4; results of the whole suite are in D-HIST-ARCH.",
    "next_step": "Ships with the Historian (part B).",
    "size": "M",
    "files": [
@@ -2890,12 +2887,10 @@
    "size": "S",
    "files": [
     "tools/time/",
-    "tests/time/"
+    "tests/time/",
+    "tools/time/validate.mjs"
    ],
    "train": "tooling",
-   "patch_groups": [
-    "validators"
-   ],
    "tests": [
     "npm run time:check",
     "npm run time:test"
@@ -3117,7 +3112,7 @@
     "tools/t0/patches/PERF.json",
     "tests/t0/perf-fixes.spec.mjs"
    ],
-   "train": "R0+/R1a+",
+   "train": "R0+ (R0-intro-delete); R1a+ (PERF); R1d+ (PG-polish, PG-zperf3)",
    "patch_groups": [
     "R0",
     "PERF",
@@ -3141,7 +3136,7 @@
     "tools/t0/patches/C.json",
     "tools/t0/patches/PERF4.json"
    ],
-   "train": "R1b+",
+   "train": "R1b+ (group C); R1e+ (PERF4)",
    "patch_groups": [
     "C",
     "PERF4"
@@ -3180,7 +3175,7 @@
    "chapter": "05",
    "title": "Map facade, lazy chunk, one map",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild work: no rebuilt app exists (src/ holds only src/lib/time).",
+   "evidence": "Rebuild work: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module).",
    "next_step": "WP-ARCH-16.",
    "size": "L",
    "files": [],
@@ -3191,7 +3186,7 @@
    "chapter": "05",
    "title": "Entry and panel split, build config",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild work: no rebuilt app exists (src/ holds only src/lib/time).",
+   "evidence": "Rebuild work: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module).",
    "next_step": "WP-ARCH-10.",
    "size": "L",
    "files": [],
@@ -3202,7 +3197,7 @@
    "chapter": "05",
    "title": "Store, clock, frame loop",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild work: no rebuilt app exists (src/ holds only src/lib/time).",
+   "evidence": "Rebuild work: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module).",
    "next_step": "WP-ARCH-15.",
    "size": "L",
    "files": [],
@@ -3464,7 +3459,7 @@
    "files": [
     "tools/t0/patches/C.json"
    ],
-   "train": "R1b+",
+   "train": "R1b+ (C, SHELL); R1c+ (CP)",
    "patch_groups": [
     "C",
     "CP",
@@ -3605,7 +3600,7 @@
    "chapter": "06",
    "title": "Component library and styleguide",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild work: no rebuilt app exists (src/ holds only src/lib/time).",
+   "evidence": "Rebuild work: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module).",
    "next_step": "Rebuild.",
    "size": "L",
    "files": [],
@@ -3627,7 +3622,7 @@
    "chapter": "06",
    "title": "One responsive shell",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild work: no rebuilt app exists (src/ holds only src/lib/time).",
+   "evidence": "Rebuild work: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module).",
    "next_step": "WP-ARCH-19/27.",
    "size": "L",
    "files": [],
@@ -4279,12 +4274,13 @@
    "chapter": "07",
    "title": "Accessibility statement, conformance report, feedback, guide",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "candidates/trust-pages/accessibility.html and the tagged guide build (candidates/user-guide, tools/guide) exist; the shipped tree has user-guide.pdf (rewritten at R1d) but no /accessibility page.",
+   "evidence": "candidates/trust-pages/accessibility.html and the tagged guide build (candidates/user-guide, tools/guide) exist; the shipped tree has user-guide.pdf (rewritten at R1d) but no /accessibility page. Regeneration is broken today: node tests/copy/trust-pages.test.mjs (2026-11-13, Node 22.23.4) stops with \"claim no-anchor-is-reviewed failed\" because tools/copy/trust/inputs.mjs still asserts that every time anchor is proposed, while data-src/time/time_anchors.json holds 25 reviewed, 4 contested and 4 proposed (tools/guide/build-guide.mjs has the same assertion); the committed candidate pages are the earlier output. The fix is in tools/copy and tools/guide (not this workstream): request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md.",
    "next_step": "Missing: the five owner inputs of docs/content/OWNER-INPUTS.md and registration in a train (RM-39).",
    "size": "M",
    "files": [
     "candidates/trust-pages/",
-    "docs/content/OWNER-INPUTS.md"
+    "docs/content/OWNER-INPUTS.md",
+    "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md"
    ],
    "shared_with_part_B": true,
    "kind": "work package (finding group)"
@@ -4496,7 +4492,7 @@
    "chapter": "08a",
    "title": "CSP-clean templates, one config module",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Inline scripts and the token literal remain on 9 pages.",
+   "evidence": "Not shipped. Counted in release/R1g/dist on 2026-11-13: inline script blocks (JSON-LD not counted) on 22 of the 25 pages (index.html 11 blocks; only 404, aftermath and terms have none), and the Mapbox token literal \"pk.eyJ\" on 8 pages (camera, cinematic-export, compare, ground-remembers, immersive, sandbox, viewshed, watch-together; one occurrence each) plus twice in the bundle assets/index-52cec836.js: 10 occurrences in 9 files. The one config module exists as src/config/mapbox.js (candidate wp-arch-09) but no shipped page reads it.",
    "next_step": "With the site generator.",
    "size": "M",
    "files": [],
@@ -4511,12 +4507,10 @@
    "next_step": "None.",
    "size": "S",
    "files": [
-    "tests/t0/"
+    "tests/t0/",
+    "tools/t0/run_suites.mjs"
    ],
    "train": "tooling",
-   "patch_groups": [
-    "harness"
-   ],
    "tests": [
     "T0-PGC-*",
     "T0-PG-*",
@@ -4620,7 +4614,7 @@
     "tools/t0/patches/PG-core.json",
     "tools/t0/patches/PG-polish.json"
    ],
-   "train": "R1a+",
+   "train": "R1a+ (PG-core, PG-maps); R1d+ (PG-polish)",
    "patch_groups": [
     "PG-core",
     "PG-polish",
@@ -5032,12 +5026,10 @@
    "next_step": "None.",
    "size": "S",
    "files": [
-    "tests/t0/"
+    "tests/t0/",
+    "tools/t0/run_suites.mjs"
    ],
    "train": "tooling",
-   "patch_groups": [
-    "harness"
-   ],
    "tests": [
     "T0-PGC-*",
     "T0-PGF-*",
@@ -5056,7 +5048,7 @@
    "files": [
     "tools/t0/patches/PG-core.json"
    ],
-   "train": "R1a+",
+   "train": "R1a+ (PG-core); R1d+ (CLOCK)",
    "patch_groups": [
     "PG-core",
     "CLOCK"
@@ -5377,16 +5369,13 @@
    "chapter": "08b",
    "title": "Embed: one clean header set for both spellings",
    "status": "SHIPPED",
-   "evidence": "/embed and /embed.html: frame-ancestors *, no X-Frame-Options (release/R1g/dist/_headers); headers suite real-browser framing rows.",
+   "evidence": "/embed and /embed.html: frame-ancestors *, no X-Frame-Options (release/R1g/dist/_headers); rows HDR-03 (the header set of both spellings) and HDR-20 (real Chrome: /embed and /embed.html frame, the other pages do not) pass; headers.R1c is 16/18 (+1 skipped) in docs/accept/R1G-SUITES.json: the one failure is HDR-11 (the stand-in tile pyramid, VER-HDR-11) and the skip is HDR-23 (needs --online).",
    "next_step": "None.",
    "size": "S",
    "files": [
     "tools/t0/config/gen.mjs"
    ],
    "train": "R1c+",
-   "patch_groups": [
-    "config"
-   ],
    "tests": [
     "HDR-*"
    ],
@@ -5423,12 +5412,12 @@
    "next_step": "None.",
    "size": "S",
    "files": [
-    "tools/t0/patches/PG-core.json"
+    "tools/t0/patches/PG-core.json",
+    "tools/t0/config/gen.mjs"
    ],
    "train": "R1a+",
    "patch_groups": [
-    "PG-core",
-    "config"
+    "PG-core"
    ],
    "tests": [
     "verify_release V3"
@@ -5684,7 +5673,8 @@
    "next_step": "None here; Safari and Firefox runs are owed on other machines.",
    "size": "S",
    "files": [
-    "tests/t0/r0.mjs"
+    "tests/t0/r0.mjs",
+    "tools/t0/run_suites.mjs"
    ],
    "kind": "roadmap-node",
    "chapters": [
@@ -5700,9 +5690,6 @@
    ],
    "shared_with_part_B": true,
    "train": "tooling",
-   "patch_groups": [
-    "harness"
-   ],
    "tests": [
     "T0-R0-01..13"
    ]
@@ -5772,7 +5759,7 @@
    "chapter": "02",
    "title": "T0 mobile shell: overlays unmounted on mobile, panels, 14 Tools tiles, dock, landscape, dvh, layout auto-detect",
    "status": "SHIPPED",
-   "evidence": "See WP-T0-08.",
+   "evidence": "See WP-T0-08 (mobile-fixes is 27/29 on R1g in the container: T0-MFIX-02 and -11 red, VER-MFIX).",
    "next_step": "Phones are owner-only.",
    "size": "S",
    "files": [
@@ -5987,7 +5974,7 @@
    "chapter": "02",
    "title": "R1 headers: embed class, dev-page twins, netlify.app host 301, CSP-RO host list",
    "status": "SHIPPED",
-   "evidence": "See WP-T0-15.",
+   "evidence": "See WP-T0-15 (headers.R1c is 16/18 (+1 skipped): HDR-11 red because of the stand-in tile pyramid, HDR-23 needs --online).",
    "next_step": "Close VER-HDR-11.",
    "size": "S",
    "files": [
@@ -6009,9 +5996,6 @@
    ],
    "shared_with_part_B": true,
    "train": "R1c+",
-   "patch_groups": [
-    "config"
-   ],
    "tests": [
     "HDR-*"
    ]
@@ -6364,12 +6348,13 @@
    "chapter": "07",
    "title": "Trust pages: About, Sources and Methods, Corrections, Contact, Accessibility statement, FAQ, changelog",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "candidates/trust-pages/ (about, sources, standard of care, corrections, FAQ, accessibility, changelog, contact) generated by tools/copy/build-trust-pages.mjs; five owner inputs open, so --publish refuses.",
+   "evidence": "candidates/trust-pages/ (about, sources, standard of care, corrections, FAQ, accessibility, changelog, contact) generated by tools/copy/build-trust-pages.mjs; five owner inputs open, so --publish refuses. Regeneration is broken today: node tests/copy/trust-pages.test.mjs (2026-11-13, Node 22.23.4) stops with \"claim no-anchor-is-reviewed failed\" because tools/copy/trust/inputs.mjs still asserts that every time anchor is proposed, while data-src/time/time_anchors.json holds 25 reviewed, 4 contested and 4 proposed (tools/guide/build-guide.mjs has the same assertion); the committed candidate pages are the earlier output. The fix is in tools/copy and tools/guide (not this workstream): request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md.",
    "next_step": "Missing: the owner inputs of docs/content/OWNER-INPUTS.md, then a page group.",
    "size": "M",
    "files": [
     "candidates/trust-pages/",
-    "docs/content/OWNER-INPUTS.md"
+    "docs/content/OWNER-INPUTS.md",
+    "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md"
    ],
    "kind": "roadmap-node",
    "chapters": [
@@ -6392,7 +6377,7 @@
    "chapter": "08b",
    "title": "Historian P1: search-core, entities and facts tier, composers and linter, UI v2 with page UI",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "See D-HIST-ARCH and WP-PAGEC-08. node --test tests/historian/*.test.mjs: under the default node of this container (22.23.4) every file fails to load, because tools/historian/ingest/times.mjs uses a regular-expression modifier group (?-i:...) that needs V8 12.5 or later (it is a build-time tool, not shipped to browsers). Under /opt/node24/bin/node (24.22.1) tests/historian/atime.test.mjs alone passes 23 of 23 (run directly, 8 s CPU, log tmp/r1h-cand/statusA/historian-atime-node24.log). The full suite under Node 24 was queued through the machine lock at 19:31 UTC on 2026-11-13 and had not started when this file was written: no result is claimed for the other files. Its log will be tmp/r1h-cand/statusA/historian-test3.log (summary hist-summary.log).",
+   "evidence": "See D-HIST-ARCH and WP-PAGEC-08. node --test tests/historian/*.test.mjs under Node 24.22.1 (/opt/node24), run through the machine lock on 2026-11-13 (log tmp/r1h-cand/statusA/historian-test3.log; started 19:31 UTC, finished 20:54 UTC): 474 tests, 386 pass, 1 fail, 87 skipped (19 of the skips are \"skipped loudly\": historian-src/raw/or27 and tmp/historian-cache are not built here). The one failure is tests/historian/engine.test.mjs:193 \"latency: p95 of a 300-query session ... far below the 30 ms budget\" with p95 39.5 ms; that job shared the CPU with other jobs, so it is not a timing result, and no run alone under the timing lock is recorded yet. Under the default Node 22.23.4 the suite could not load before 21:13 UTC (tools/historian/ingest/times.mjs held a regular-expression modifier group, which V8 before 12.5 rejects); candidate ver-hist-node rewrote that pattern (tools/historian/ingest/times.mjs has no modifier group now; new test tests/historian/times-node22.test.mjs). Its own shared-mode run of the whole suite under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log). Its STATUS.json still says passes false: the paired run of both Node versions under the timing lock has not produced its logs.",
    "next_step": "Missing: registration in a train.",
    "size": "L",
    "files": [
@@ -6600,7 +6585,7 @@
    "chapter": "03",
    "title": "Spec extraction, parity harness (T1/T2), hermetic legacy rig, quarry salvage, intended-diff registry",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-04..08.",
    "size": "L",
    "files": [],
@@ -6621,7 +6606,7 @@
    "chapter": "03",
    "title": "Toolchain, build, chunk map and hash scheme, app CI gates, Astro spike",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-09, -10, -31, WP-DEC-04.",
    "size": "L",
    "files": [],
@@ -6642,7 +6627,7 @@
    "chapter": "03",
    "title": "Runtime data layer, storage layer and migration, hashed data delivery",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-12 with the data pipeline.",
    "size": "L",
    "files": [],
@@ -6665,7 +6650,7 @@
    "chapter": "03",
    "title": "Pure keyframe engine (stateAt) with the signed carry-forward rule",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-14.",
    "size": "L",
    "files": [],
@@ -6687,7 +6672,7 @@
    "chapter": "03",
    "title": "Store slices, playback clock, one lazy map behind a facade, GPU resilience, failure containment",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-15, -16, -20.",
    "size": "L",
    "files": [],
@@ -6708,7 +6693,7 @@
    "chapter": "03",
    "title": "Unit renderer R1 (owned canvas, symbol-layer gate R2) and compositing budget",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups. The ANIM engine is the bridge form.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups. The ANIM engine is the bridge form.",
    "next_step": "WP-ARCH-18.",
    "size": "L",
    "files": [
@@ -6731,7 +6716,7 @@
    "chapter": "06",
    "title": "Design system: tokens, type scale, icons, motion, theming, component library, accessibility primitives",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-UX-07..12, WP-A11Y-04..08.",
    "size": "L",
    "files": [],
@@ -6755,7 +6740,7 @@
    "chapter": "03",
    "title": "One responsive shell, entry and boot UI, static /map shell, Text/Chronicle route",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-19, WP-UX-14, -16, -23.",
    "size": "L",
    "files": [],
@@ -6780,7 +6765,7 @@
    "chapter": "04",
    "title": "Clock surfaces rebuild-native: playback semantics, hour steps, seek-safe state, ensureDay, accessible time",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Bridge form ships (CLOCK). Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Bridge form ships (CLOCK). Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "Rebuild-native clock surfaces.",
    "size": "L",
    "files": [],
@@ -6847,7 +6832,7 @@
    "chapter": "03",
    "title": "Static-site layer: Astro layouts, shared chrome, tokens for 27 pages, head/SEO/share template, CSP-clean templates",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-29, WP-PAGE-05..12, WP-PAGEC-01/02.",
    "size": "L",
    "files": [],
@@ -6873,7 +6858,7 @@
    "chapter": "03",
    "title": "Ports A: map surface, transport/HUD/timeline, bookmarks, share, unit/story/event panels, notifications",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-21..23.",
    "size": "L",
    "files": [],
@@ -6895,7 +6880,7 @@
    "chapter": "03",
    "title": "Ports B: search, filter, legend, roster, OOB, Follow Ancestor, tools, walkthrough, command palette, header IA",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-24..26, WP-UX-15, -19.",
    "size": "L",
    "files": [],
@@ -6918,7 +6903,7 @@
    "chapter": "03",
    "title": "Compact presets and mobile-only parity",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-ARCH-27.",
    "size": "L",
    "files": [],
@@ -6939,7 +6924,7 @@
    "chapter": "06",
    "title": "States, share/cite/embed UI, Ask drawer, Help and trust layer",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-UX-22, -24, -25, -26, WP-PAGEC-32/33.",
    "size": "L",
    "files": [],
@@ -6959,7 +6944,7 @@
    "chapter": "06",
    "title": "Cartography, symbology, legend, overlays, day/night",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Bridge forms ship (ANIM flags and legend, BASE1863, clock tint). Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Bridge forms ship (ANIM flags and legend, BASE1863, clock tint). Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-UX-20, -21, WP-A11Y-19.",
    "size": "L",
    "files": [],
@@ -6981,7 +6966,7 @@
    "chapter": "07",
    "title": "Accessibility structural layer: Data View, unit cursor, pointer alternatives, live regions, forms, settings, reflow",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "WP-A11Y-11..15, -17, -18, -20..22.",
    "size": "L",
    "files": [],
@@ -7023,7 +7008,7 @@
    "chapter": "03",
    "title": "Cutover mechanics: /next beta, flags, go/no-go automation, rollback drills, decommission legacy",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Rebuild node: no rebuilt app exists (src/ holds only src/lib/time); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
+   "evidence": "Rebuild node: no rebuilt app exists (src/ holds the time module and the wp-arch-09 foundation: stack record, workspace manifest, token config module); see the WP-ARCH, WP-UX and WP-A11Y items it groups.",
    "next_step": "After the ports; the cutover deploy is the owner's.",
    "size": "M",
    "files": [],
@@ -7065,7 +7050,7 @@
    "chapter": "07",
    "title": "Regression suites: function, console/fault/GPU, visual, accessibility automation, Historian gates, soak",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Exists: 79 suite rows in tools/t0/run_suites.mjs, eight acceptance checks in tools/accept, tests/historian gates. Missing: the 24-viewport by three-engine matrix and the fault and context-loss cases.",
+   "evidence": "Exists: 80 suite rows (docs/accept/R1G-SUITES.json: last result OK 61, not OK 19) in tools/t0/run_suites.mjs, eight acceptance checks in tools/accept, tests/historian gates. Missing: the 24-viewport by three-engine matrix and the fault and context-loss cases.",
    "next_step": "Extend (release workstream).",
    "size": "M",
    "files": [
@@ -7465,7 +7450,8 @@
     "docs/plan/FINAL/03-source-rebuild-and-parity.md",
     "tools/t0/trains.json",
     "tools/t0/verify_release.mjs",
-    "docs/decisions/OWNER-DECISIONS-2026-10-04.md"
+    "docs/decisions/OWNER-DECISIONS-2026-10-04.md",
+    "tools/t0/baseline.py"
    ],
    "kind": "owner decision (chapter)",
    "related": [
@@ -7473,9 +7459,6 @@
     "WP-ARCH-02"
    ],
    "train": "tooling (input of every train)",
-   "patch_groups": [
-    "baseline"
-   ],
    "tests": [
     "static.verify",
     "static.baseline"
@@ -7543,7 +7526,7 @@
    "chapter": "03",
    "title": "Owner decision: beta promotion banner and its copy",
    "status": "OPEN_NEEDS_DECISION",
-   "evidence": "No rebuilt app and no /next/ beta exist (src/ holds only src/lib/time), so there is nothing to promote.",
+   "evidence": "No rebuilt app and no /next/ beta exist (src/ holds the time module and the wp-arch-09 foundation, no app), so there is nothing to promote.",
    "next_step": "Delegated, conservative: no banner on any production page until a rebuilt build passes the parity gate and has been seen; the beta is then opt-in by URL, noindex, with a visible link back to the classic map, and neutral copy that says what differs. A flag-controlled banner stays selectable.",
    "size": "S",
    "files": [
@@ -8519,12 +8502,13 @@
    "chapter": "07",
    "title": "Owner decision: creator bio approved (first person, \"for the love of history\"); the public contact is the site address only",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "docs/content/APPROVED-BIO.md holds the approved text; it appears word for word (typographic apostrophes aside) in candidates/trust-pages/about.html, generated by tools/copy/build-trust-pages.mjs. The shipped tree has no About page (RM-39). The contact half is shipped (D-CONTACT: one address in release/R1g/dist).",
+   "evidence": "docs/content/APPROVED-BIO.md holds the approved text; it appears word for word (typographic apostrophes aside) in candidates/trust-pages/about.html, generated by tools/copy/build-trust-pages.mjs. The shipped tree has no About page (RM-39). The contact half is shipped (D-CONTACT: one address in release/R1g/dist). Regeneration is broken today: node tests/copy/trust-pages.test.mjs (2026-11-13, Node 22.23.4) stops with \"claim no-anchor-is-reviewed failed\" because tools/copy/trust/inputs.mjs still asserts that every time anchor is proposed, while data-src/time/time_anchors.json holds 25 reviewed, 4 contested and 4 proposed (tools/guide/build-guide.mjs has the same assertion); the committed candidate pages are the earlier output. The fix is in tools/copy and tools/guide (not this workstream): request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md.",
    "next_step": "Ships with the trust pages (RM-39); the About candidate still carries the owner-input placeholder for the reviewer credit.",
    "size": "S",
    "files": [
     "docs/content/APPROVED-BIO.md",
-    "candidates/trust-pages/about.html"
+    "candidates/trust-pages/about.html",
+    "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md"
    ],
    "kind": "owner decision (implemented)",
    "related": [
@@ -8537,14 +8521,15 @@
    "chapter": "04",
    "title": "Owner decision: wave 3a content streams approved (copy and trust pages, user guide, sky, weather and casualty-ledger data) as candidates",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built and in no train: candidates/trust-pages and candidates/user-guide (tools/copy, tools/guide); data-src/environment (sun and moon for 675 ticks, weather by day) and data-src/ledger (conflict ledger) with tools/environment, tools/ledger, tests/environment and tests/ledger. node tools/environment/validate.mjs and node tools/ledger/validate.mjs on 2026-11-13: 0 errors, 0 warnings each. The decision itself says they stay candidates until integrated after verification.",
+   "evidence": "Built and in no train: candidates/trust-pages and candidates/user-guide (tools/copy, tools/guide); data-src/environment (sun and moon for 675 ticks, weather by day) and data-src/ledger (conflict ledger) with tools/environment, tools/ledger, tests/environment and tests/ledger. node tools/environment/validate.mjs and node tools/ledger/validate.mjs on 2026-11-13: 0 errors, 0 warnings each. The decision itself says they stay candidates until integrated after verification. Regeneration is broken today: node tests/copy/trust-pages.test.mjs (2026-11-13, Node 22.23.4) stops with \"claim no-anchor-is-reviewed failed\" because tools/copy/trust/inputs.mjs still asserts that every time anchor is proposed, while data-src/time/time_anchors.json holds 25 reviewed, 4 contested and 4 proposed (tools/guide/build-guide.mjs has the same assertion); the committed candidate pages are the earlier output. The fix is in tools/copy and tools/guide (not this workstream): request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md.",
    "next_step": "Integrate each when its consumer exists: trust pages with RM-39 (owner inputs), the sun table with WP-TIME-13, the ledger rows with WP-PAGEC-26..28; the tagged guide replaces the shipped guide only after a parity check against the candidate train (candidates/user-guide/README.md).",
    "size": "M",
    "files": [
     "candidates/trust-pages/",
     "candidates/user-guide/",
     "data-src/environment/",
-    "data-src/ledger/"
+    "data-src/ledger/",
+    "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md"
    ],
    "kind": "owner decision (implemented)",
    "related": [
@@ -8605,6 +8590,116 @@
     "T0-MONL-*",
     "T0-VMON-*"
    ]
+  },
+  {
+   "id": "OWNER-2026-10-04-1",
+   "chapter": "02",
+   "kind": "owner decision (implemented)",
+   "status": "SHIPPED",
+   "size": "S",
+   "title": "Owner decision: restore the Monuments feature as a map-tracking layer (512 monuments, 20 story markers, card, jump-to-moment, active-unit glow, phone Tools tile)",
+   "evidence": "Same work as T0-DEV-26 and OWNER-2026-10-05-4: group MON from R1d (29 patches in release/R1g/anchors.json, tools/t0/patches/MON.json, generated from tools/t0/mon/gtmon.js); monuments suite 19/20 (+1 skip: source books cache absent) and verify-monuments 16/16 on R1g (docs/accept/R1G-SUITES.json rows r1.monuments and r1.verifymon, both PASS); the 512-monument array is guarded by T0-WG-01. The Walkthrough guard is OWNER-2026-10-04-3.",
+   "next_step": "None for the restore. The item that is still open is the guard conflict (OWNER-2026-10-04-3).",
+   "files": [
+    "tools/t0/patches/MON.json",
+    "tests/t0/monuments.spec.mjs",
+    "tests/t0/verify-monuments.spec.mjs",
+    "tests/t0/walkthrough-guard.spec.mjs"
+   ],
+   "train": "R1d+",
+   "patch_groups": [
+    "MON"
+   ],
+   "tests": [
+    "T0-MONL-*",
+    "T0-VMON-*",
+    "T0-WG-01"
+   ]
+  },
+  {
+   "id": "OWNER-2026-10-04-4",
+   "chapter": "03",
+   "kind": "owner decision (implemented)",
+   "status": "SHIPPED",
+   "size": "S",
+   "title": "Owner decision: the repository holds the latest build (baseline/dist = verified reconstruction of live deploy 6abd6d62); archiving the true deploy zip is recommended, not required",
+   "evidence": "See WP-ARCH-02 and ARCH-OD-02: baseline/dist is the build input of every train, tools/t0/baseline.py with baseline.lock.json pins it, docs/baseline-drift.md records the drift; static.baseline 17/17, static.baselinelock PASS and baseline.drift 9/9 in docs/accept/R1G-SUITES.json (last results from 2026-11-13 and 2026-11-11); netlify.toml is not served and cannot be compared. Not a train item: it is the input of all of them.",
+   "next_step": "Optional, owner: download the live deploy 6abd6d62 zip and run compare-zip once (ops/owner-console-actions.md); recommended, not required.",
+   "files": [
+    "baseline/dist",
+    "tools/t0/baseline.py",
+    "tools/t0/baseline.lock.json",
+    "docs/baseline-drift.md"
+   ],
+   "train": "tooling (input of every train)",
+   "tests": [
+    "static.baseline",
+    "static.baselinelock",
+    "baseline.drift"
+   ]
+  },
+  {
+   "id": "T0-DEV-01",
+   "chapter": "02",
+   "kind": "decision",
+   "status": "SHIPPED",
+   "size": "S",
+   "title": "Deviation: X-Frame-Options DENY and frame-ancestors 'none' on every non-embed page (the plan said SAMEORIGIN and 'self')",
+   "evidence": "ops/T0-DEVIATIONS.md row 1: stricter than live, default keep (\"owner said stricter is fine\", switch is one token). release/R1g/dist/_headers: the \"/\" block carries \"X-Frame-Options: DENY\" and \"Content-Security-Policy: frame-ancestors 'none'\" (read 2026-11-13); /embed and /embed.html carry \"frame-ancestors *\" and no X-Frame-Options (WP-PAGEC-31). Generated by tools/t0/config/gen.mjs from R1c; the headers suite is 16/18 in the container (HDR-11: stand-in tile pyramid, VER-HDR-11; HDR-23 needs --online).",
+   "next_step": "None. Netlify's own header matching is proven only by the owner staging deploy (WP-DEC-05).",
+   "files": [
+    "ops/T0-DEVIATIONS.md",
+    "tools/t0/config/gen.mjs",
+    "release/R1g/dist/_headers"
+   ],
+   "train": "R1c+",
+   "tests": [
+    "HDR-*"
+   ]
+  },
+  {
+   "id": "T0-DEV-02",
+   "chapter": "02",
+   "kind": "decision",
+   "status": "SHIPPED",
+   "size": "S",
+   "title": "Deviation: Permissions-Policy tightened (camera, geolocation, sensors only on /ar; accelerometer and gyroscope delegated to the Street View frame on /)",
+   "evidence": "ops/T0-DEVIATIONS.md rows 2 and 3, decided by owner decision 2026-10-04 item 3 (the delegation stays so the Walkthrough logs no console error). release/R1g/dist/_headers \"/\" block: \"Permissions-Policy: accelerometer=(self \\\"https://www.google.com\\\"), camera=(), geolocation=(), gyroscope=(self \\\"https://www.google.com\\\"), magnetometer=(), microphone=(), payment=()\" (read 2026-11-13); the bundle half is patch cp:walkthrough-streetview-allow in group CP (tools/t0/patches/CP+walkthrough-sensors.json, present in release/R1g/anchors.json). Rows HDR-07, HDR-13 and HDR-21 (policy values, allow attributes, 0 policy warnings per page) pass; headers.R1c is 16/18 (+1 skipped) in docs/accept/R1G-SUITES.json: the one failure is HDR-11 (the stand-in tile pyramid, VER-HDR-11) and the skip is HDR-23 (needs --online). In the Walkthrough guard (walkguard.R1c 16/18, +1 skipped, 1 failed) the one failure is T0-WG-12, which needs the real Google Street View embed that this container cannot reach, and it fails the same way on baseline, R0, R1a and R1b. The interim legal text must disclose the delegation (D-LEGAL).",
+   "next_step": "None for the delegation; the disclosure waits for the owner's approval of the interim legal text (D-LEGAL, WP-DEC-07).",
+   "files": [
+    "ops/T0-DEVIATIONS.md",
+    "tools/t0/patches/CP+walkthrough-sensors.json",
+    "tools/t0/config/gen.mjs"
+   ],
+   "train": "R1c+",
+   "patch_groups": [
+    "CP"
+   ],
+   "tests": [
+    "HDR-*",
+    "T0-WG-*"
+   ]
+  },
+  {
+   "id": "T0-DEV-24",
+   "chapter": "02",
+   "kind": "decision",
+   "status": "SUPERSEDED",
+   "size": "S",
+   "title": "Deviation: extension part A+chooser (the layout chooser as a named modal dialog operable by keyboard)",
+   "evidence": "ops/T0-DEVIATIONS.md row 24: shipped as tools/t0/patches/A+chooser.json from R1a; the owner choice was to accept it for R0's solo week (default) or add it to R0. From R1b the layout resolver of group C removes the chooser altogether (WP-PERF-08; UX-OD-01, delegated A50: the chooser stays removed), so the part is exercised only on R1a (suite a11y.R1a.chooser 1/1 PASS in docs/accept/R1G-SUITES.json) and the question is moot on R1g.",
+   "next_step": "None.",
+   "files": [
+    "ops/T0-DEVIATIONS.md",
+    "tools/t0/patches/A+chooser.json"
+   ],
+   "train": "R1a only",
+   "patch_groups": [
+    "A"
+   ],
+   "tests": [
+    "a11y.R1a.chooser"
+   ]
   }
  ],
  "open_by_status_and_size": {
@@ -8615,7 +8710,7 @@
   },
   "OPEN_BUILDABLE": {
    "S": 41,
-   "M": 94,
+   "M": 93,
    "L": 93
   },
   "OWNER_ONLY": {
@@ -8625,7 +8720,7 @@
   },
   "BUILT_NOT_SHIPPED": {
    "S": 2,
-   "M": 8,
+   "M": 9,
    "L": 6
   }
  },
@@ -8638,5 +8733,28 @@
    "the \"does not exist\" claims spot-checked: docs/BROWSERS.md, browserslist, .github, docs/perf-exceptions.md, translate=\"no\", canonical tags, sitemap lastmod, Data View, MAP_IDLE_ACTIVATE"
   ],
   "delegated_rows_added": "A41 to A69 in docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
- }
+ },
+ "continuation_3": {
+  "what": "Third pass of 2026-11-13 (main-site run wf_7e49d492-350, started 23:45 UTC after the run before it was stopped by a user interrupt). It did not redo pass 2: it re-derived the universe of the plan from the chapter text and found nothing missing, matched every quoted figure and every named patch id to a record, read release/R1g/dist directly for the countable claims, and then changed what the repository had overtaken or what the checks showed wrong.",
+  "changes": [
+   "WP-ARCH-09 re-graded OPEN_BUILDABLE to BUILT_NOT_SHIPPED (candidate wp-arch-09 built the stack record, manifest, strict base and token config module; 23 of 23 tests pass); 37 items that quoted \"src/ holds only src/lib/time\" now describe the foundation; WP-ARCH-10 next step and WP-ARCH-13 evidence updated",
+   "historian suite results written down (Node 24: 474 tests, 386 pass, 1 fail (a latency assertion measured under load), 87 skipped; Node 22 after candidate ver-hist-node: 478 tests, 391 pass, 0 fail, 87 skipped) in D-HIST-ARCH, RM-41, WP-TIME-19 and the ground facts",
+   "wrong count corrected: the Mapbox token literal is on 8 pages plus twice in the bundle (not 9 pages) and inline scripts are on 22 of 25 pages (WP-PAGE-12, WP-DEC-15)",
+   "HDR-11 \"untriaged\" replaced by the triage of VER-HDR-11 in D-CSP and WP-T0-15; suite rows 79 to 80 in WP-T0-18 and RM-72",
+   "trust-page and guide regeneration found broken by a stale assertion (tools/copy, tools/guide; request note exists): recorded on OWNER-2026-10-04-5, -6, WP-A11Y-31 and RM-39",
+   "five items added so that every owner decision of docs/decisions/OWNER-DECISIONS-2026-10-04.md and every owner question of ops/T0-DEVIATIONS.md has an id: OWNER-2026-10-04-1 and -4, T0-DEV-01, T0-DEV-02, T0-DEV-24",
+   "patch_groups now names only patch groups of a train; the tool areas that stood there (\"runner\", \"config\", \"harness\", \"baseline\", \"validators\") moved to files",
+   "train text made exact for eight items whose single train named an earlier train than a listed group (D-SOUND, WP-T0-14, WP-TIME-01, WP-PERF-07, WP-PERF-08, WP-UX-02, WP-PAGE-20, WP-PAGEC-06), computed from the groups lists of release/<train>/anchors.json"
+  ],
+  "verified_in_pass_3": [
+   "plan ids against items: WP-T0 19, WP-ARCH 34, WP-TIME 23, WP-PERF 28, WP-UX 34, WP-A11Y 33, WP-PAGE 47, WP-PAGEC 35 (253); decisions 34, packages 17, owner actions 12; chapter owner decisions O-T0 9, ARCH 11, TIME 12, PERF 6, UX 10, A11Y 9, PAGE 12, PAGEC 12 (81); roadmap nodes 77 of 98 here and 21 in part B, none in neither",
+   "every N/M figure quoted in an evidence text (except three that quote the Windows run of R1f, checked in docs/accept/R1F-STATUS.md and R1F-FINAL-REPORT.md) matches a row of R1G-SUITES.json, suites-r1g-full2.json or release/R1g/test-*.json",
+   "every patch id named in an evidence text is an id (or the prefix of an id) in release/R1g/anchors.json; every group count named matches anchors.json",
+   "direct reads of release/R1g/dist: 25 pages (+ the Search Console file), 12 pages without main, color-scheme and skip link on index.html only, sitemap 20 loc and 0 lastmod, canonical tags name .html, /data/* max-age 3600, placement_schema.json \"430,000\", 404.html without nav or search, no security.txt, dev pages force-404, embed headers, comment-only netlify.toml, no skipWaiting call in sw.js, one contact address in 7 places, historian.html with no mention of AI",
+   "train claims: the first train of every group (from release/R0..R1g/anchors.json) against the train text of every SHIPPED item: none understated, eight made exact",
+   "counts: tests/t0 38 spec files, tests/time 26 files, src/lib/time 10 files, 65 regression waivers, 22 moments, 33 anchors (25 reviewed, 4 contested, 4 proposed), 80 runner suites"
+  ],
+  "not_changed_and_why": "No status other than WP-ARCH-09 was re-graded: every other status was re-read against its evidence and held; the classes OWNER_ONLY (72) and OPEN_NEEDS_DECISION (96) were read in full and each has its owner step or its conservative proposal with the alternative kept."
+ },
+ "updated": "2026-11-14T00:03Z (pass 3)"
 }

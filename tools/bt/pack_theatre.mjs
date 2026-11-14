@@ -457,6 +457,11 @@ export function auditReview(dist) {
   return out;
 }
 
+/** Where the bytes of a build are: { 'app/src': n, 'app/data': n, 'render/prototype': n, 'rosters/data2': n, ... } over the emitted files (app, render and rosters are split one level further). Sorted by size, largest first. */
+export function sizeByFolder(emitted) {
+  const sum = {}; for (const [r, b] of emitted) { const s = r.split('/'), k = s.length === 1 ? '(root files)' : ['app', 'render', 'rosters'].includes(s[0]) && s.length > 2 ? s[0] + '/' + s[1] : s[0]; sum[k] = (sum[k] || 0) + b.length; }
+  return Object.fromEntries(Object.entries(sum).sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)));
+}
 export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist'), zipDir = path.join(REPO, 'deliver'), zip = true, cfg } = {}) {
   root = path.resolve(root); const t = trace({ root, cfg }), { files, problems } = t; if (problems.length) throw new Error('trace problems:\n' + problems.join('\n'));
   const proj = new Map(t.projected.map(p => [p.path, p]));
@@ -481,7 +486,7 @@ export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist
   const res = { version, out, files: names.length, bytes: names.reduce((a, n) => a + emitted.get(n).length, 0), traced: files,
     counts: { modules: count(/^app\/src\/.*\.mjs$/), modulesLoaded: t.modules.loaded.length, appData: count(/^app\/data\//), sectionFiles: t.sections.reduce((a, s) => a + s.files, 0), renderer: count(/^render\//), other: files.length - count(/^app\/src\/.*\.mjs$/) - count(/^app\/data\//) - count(/^render\//) },
     trace: { notes: t.notes, withheld: t.withheld, projected: t.projected, sections: t.sections, pages: t.pages, modules: t.modules, computedImports: t.computedImports, unshippedLiterals: t.unshippedLiterals, external: t.external, why: t.why } };
-  res.scrubbed = [...scrub].map(([r, x]) => ({ path: r, removed: x.removed }));
+  res.scrubbed = [...scrub].map(([r, x]) => ({ path: r, removed: x.removed })); res.bytesByFolder = sizeByFolder(emitted);
   res.audit = audit(out); res.auditReview = auditReview(out);
   if (zip) {   // a build that fails the copy audit never gets the clean name: the name says so (the owner decides what to do with it; GOVERNANCE/FINAL-ACCEPTANCE.md accepts only a clean one)
     const zbuf = makeZip(names.map(name => ({ name, data: emitted.get(name) }))), zn = `gettysburg-BT-staging-${version}${res.audit.length ? '-AUDIT-HITS-' + res.audit.length : ''}.zip`; fs.mkdirSync(zipDir, { recursive: true });
@@ -493,7 +498,7 @@ export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist
   res.clean = res.audit.length === 0;
   // the trace report sits beside the dist, never inside it
   const git = (() => { try { return execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return null; } })();   // for the reader of the report only: never part of the build, so the build stays a function of the files
-  fs.writeFileSync(path.join(path.dirname(out), 'trace-report.json'), JSON.stringify({ built: { at: new Date().toISOString(), gitHead: git, root }, version, zip: res.zip ? path.basename(res.zip) : null, zipBytes: res.zipBytes, zipSha256: res.zipSha256, files: res.files, bytes: res.bytes, counts: res.counts, ...res.trace, scrubbed: res.scrubbed, audit: res.audit, auditReview: res.auditReview }, null, 1) + '\n');
+  fs.writeFileSync(path.join(path.dirname(out), 'trace-report.json'), JSON.stringify({ built: { at: new Date().toISOString(), gitHead: git, root }, version, zip: res.zip ? path.basename(res.zip) : null, zipBytes: res.zipBytes, zipSha256: res.zipSha256, files: res.files, bytes: res.bytes, bytesByFolder: res.bytesByFolder, counts: res.counts, ...res.trace, scrubbed: res.scrubbed, audit: res.audit, auditReview: res.auditReview }, null, 1) + '\n');
   return res;
 }
 
@@ -501,7 +506,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? path.resolve(a[i + 1]) : undefined; };
   const r = pack({ out: opt('--out'), zipDir: opt('--zip-dir'), zip: !a.includes('--no-zip') }), t = r.trace;
   const review = Object.fromEntries(Object.entries(r.auditReview).map(([k, v]) => [k, v.count]));
-  console.log(JSON.stringify({ version: r.version, out: r.out, files: r.files, bytes: r.bytes, zip: r.zip, zipBytes: r.zipBytes, zipSha256: r.zipSha256, clean: r.clean, counts: r.counts, pages: t.pages.length, sections: t.sections.map(s => `${s.path} (${s.files} files)`),
+  console.log(JSON.stringify({ version: r.version, out: r.out, files: r.files, bytes: r.bytes, zip: r.zip, zipBytes: r.zipBytes, zipSha256: r.zipSha256, clean: r.clean, bytesByFolder: r.bytesByFolder, counts: r.counts, pages: t.pages.length, sections: t.sections.map(s => `${s.path} (${s.files} files)`),
     withheld: t.withheld.map(w => `${w.pattern}: ${w.files} files`), reduced: t.projected.map(p => p.path), computedImports: t.computedImports.filter(c => c.status !== 'address').map(c => `${c.status}: ${c.file}: ${c.arg}`),
     unshippedLiterals: t.unshippedLiterals.length, external: t.external, notes: t.notes.length, auditHits: r.audit.length, internalWordsForReview: review }, null, 1));
   console.log('trace report: ' + path.join(path.dirname(r.out), 'trace-report.json'));

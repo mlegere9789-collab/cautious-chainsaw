@@ -29,6 +29,9 @@ ADD = {
  '95503135': 'General Robert E. Lee\'s headquarters (Thompson house); same subject as record 2018666297',
  '2018672361': 'View from Culp\'s hill (catalogued between 1862 and 1865; subject: the Gettysburg battlefield)',
  '2018667213': 'A harvest of death, Gettysburg, July 1863 (the title states July 1863; the c1865 date is the print/publication date)',
+ # third pass (2026-11-14): records outside the cwp collection that the National Park Service cites by their LOC digital id (found by scanning the saved NPS texts for LC-DIG ids that are not in the catalogue)
+ '2006692515': 'Slaughter pen, foot of Round Top (O\'Sullivan; Gardner\'s Sketch Book plate 44; LC-DIG-ppmsca-12565). Outside the cwp collection, so the first run did not see it. NPS (Record of Treatment vol. II, Fig. 65): \'Plum Run Gorge and the Slaughter Pen. View southeast, 1863\'',
+ '2009630184': 'On the battlefield at Gettysburg (Gibson stereograph, LC-DIG-ppmsca-18947; outside the cwp collection). NPS (CLR First Day, Fig. 1.47): photographed circa July 5, 1863; the location is disputed, possibly looking east across the Wills Farm toward the woods on Oak Ridge',
 }
 EXCLUDED_REASON = {
  'Nov': 'dedication of the cemetery, 19 November 1863: not the July battlefield', '1865': 'photographed in July 1865 or later: not July 1863',
@@ -44,7 +47,7 @@ def main():
         if pk in have: continue
         it = json.loads(C.get(f'https://www.loc.gov/pictures/item/{pk}/?fo=json', f'item_{pk}.json'))['item']
         notes = [n['note'] for n in it.get('notes', [])]
-        out.append({'loc_id': pk, 'loc_url': it.get('link'), 'title': it.get('title'), 'creator': (sr.get(pk) or {}).get('creator'), 'date_as_catalogued': it.get('created_published'), 'summary': it.get('summary'),
+        out.append({'loc_id': pk, 'loc_url': it.get('link'), 'title': it.get('title'), 'creator': (sr.get(pk) or {}).get('creator') or ((it.get('creators') or [{}])[0].get('title')), 'date_as_catalogued': it.get('created_published'), 'summary': it.get('summary'),
             'reproduction_numbers': (it.get('reproduction_number') or '').split('\n'), 'call_number': it.get('call_number'),
             'medium': it.get('medium_brief') or (it.get('mediums') or [{}])[0].get('medium'), 'formats': [f['title'] for f in it.get('formats', [])],
             'notes_loc': [n for n in notes if not n.startswith(('Forms part', 'General information', 'Credit line', 'Selected Civil', 'Corresponding print'))],
@@ -52,7 +55,7 @@ def main():
             'licence_basis': ('LOC record states: no known restrictions on publication (PD basis: 19th-century photograph)' if 'No known restrictions' in (it.get('rights_information') or '') else
                               'LOC rights field is empty for this record; a 19th-century print (made before 1929, so public domain in the United States by age: an inference, not a LOC statement); used only for viewing in the photo-match, in no shipped file'),
             'in_scope_july_1863_terrain': True, 'staged_flag': bool(C.STAGED.search(it.get('title') or '')),
-            'date_status': 'added by catalogue_additions.py: LOC gives no 1863 year in the date field; the title or subject places the photograph on the July 1863 battlefield (see added_reason); not stated by LOC',
+            'date_status': ('added by catalogue_additions.py (third pass, outside the cwp collection): the LOC date field carries 1863 (' + str(it.get('created_published')) + '); see added_reason' if '1863' in (it.get('created_published') or '') and pk in ('2006692515', '2009630184') else 'added by catalogue_additions.py: LOC gives no 1863 year in the date field; the title or subject places the photograph on the July 1863 battlefield (see added_reason); not stated by LOC'),
             'added_reason': why, 'image_urls': {'medium': it.get('service_medium'), 'thumb': it.get('thumb_gallery')}})
         if out[-1]['staged_flag']: out[-1]['staged_basis'] = 'title contains Devil\'s Den / sharpshooter: same rule as catalogue.py (PDF plan, staged Devil\'s Den photograph); terrain and rocks only, never body or prop positions'
     # which of the dropped search results were NOT added (reason recorded, nothing hidden)

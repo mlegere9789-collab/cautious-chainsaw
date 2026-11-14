@@ -222,6 +222,13 @@ add(id='PS-PL-BIGGS-LOC', src='NPSWEB-PL-biggs', quote="This photo was taken nea
     says="the NPS Place page of the Then-And-Now Home of Basil Biggs and family (comparison BF 4): the photograph was taken near Taneytown Road; the 'then' picture matched no catalogued record", prec='place', ident='caption only: the NPS picture matched no catalogued record')
 add(id='PS-PL-MCPHERSON-LOC', src='NPSWEB-PL-mcpherson', quote="This photograph was taken near Stone-Meredith Avenue.", loc=[], res=[],
     says="the NPS Place page of the Then-And-Now McPherson farm (Brady and his assistant, July 1863; comparison BF 1): the photograph was taken near Stone-Meredith Avenue; the 'then' picture matched no catalogued record (the NPS landscape report ties LOC ppmsca 32840 to a view from the McPherson farm: PS-NPS-CLR1D-01)", prec='place', ident='caption only: the NPS picture matched no catalogued record')
+# ---------------------------------------------------------------- third pass (2026-11-14): LOC records outside the cwp collection that the NPS cites by their LOC digital id
+add(id='PS-NPS-ROTV2-65', src='NPS-CLR-ROT-V2', quote="Figure 65. Plum Run Gorge and the Slaughter Pen. View southeast, 1863 (Library of Congress, Digital ID LCDIG-ppmsca-12565).", loc=['2006692515'], res=['ppmsca.12565'],
+    says="LOC ppmsca-12565 (record 2006692515, O'Sullivan, 'Slaughter pen, foot of Round Top', Gardner's Sketch Book plate 44) is called 'Plum Run Gorge and the Slaughter Pen. View southeast, 1863' in the Record of Treatment (volume II)", prec='place+dir',
+    ident='id in the source (Digital ID LCDIG-ppmsca-12565 is the resource of record 2006692515; the NPS page labels John Guinn Woods, Slaughter Pen, Plum Run, Little Round Top and Snyder Woods on its copy)')
+add(id='PS-NPS-CLR1D-147', src='NPS-CLR-1STDAY', quote="While there is disagreement about the location, the photograph may be looking east across the Wills Farm with the woods on Oak Ridge in the background (Wills Woods East).", loc=['2009630184'], res=['ppmsca.18947'],
+    says="LOC ppmsca-18947 (record 2009630184, Gibson stereograph 'On the battlefield at Gettysburg') was photographed circa July 5, 1863; the NPS says that, while there is disagreement about the location, it may look east across the Wills Farm with the woods on Oak Ridge in the background (hedged: 'may')", prec='place+dir+ref',
+    ident='id in the source (LC-DIG-ppmsca-18947 is the front of record 2009630184)')
 # ---------------------------------------------------------------- timeline rows that these statements support (written to GOVERNANCE/timeline_corrections/web-photomatch.jsonl)
 TL = [
  dict(id='T3-064', verdict='partially_supported',

@@ -266,6 +266,34 @@ def tests():
     R = run([mut(E1, id='us-1c:0001', unit_id='us-2c-1d-caldwell')], group='us-1c', any_unit=False, name='cov2')
     ok('a unit of another group is rejected in group mode', 'UNIT' in codes(R), codes(R))
 
+    # --- copy audit of the text of a line (the packer's own rules, read from tools/bt/pack_theatre.mjs) ---------------------
+    R = run([mut(E2, note='an earlier agent read this passage')], name='au1')
+    ok('copy audit: a note that says who read the passage is rejected', codes(R) == ['AUDIT'] and R.errors[0]['id'] == 'examples:0002' and 'note' in R.errors[0]['msg'] and not R.accepted, R.errors)
+    R = run([mut(E2, basis_note='written by Claude')], name='au2')
+    ok('copy audit: a basis note that names a tool is rejected', codes(R) == ['AUDIT'], codes(R))
+    R = run([mut(G6, note='the second pass by an agent found nothing')], name='au3')
+    ok('copy audit: the note of a gap line is audited', codes(R) == ['AUDIT'], codes(R))
+    g = copy.deepcopy(G6)
+    g['searched'][0]['terms'] += ' (earlier agent re-read)'
+    R = run([g], name='au4')
+    ok('copy audit: the search terms of a gap line are audited', codes(R) == ['AUDIT'] and 'terms' in R.errors[0]['msg'], R.errors)
+    R = run([mut(E2, note='The Confederate agent Huse bought the rifles; 252 is 17 plus 235.')], name='au5')
+    ok('copy audit: an agent of 1863 is not a hit (the rules name the maker, not the word)', 'AUDIT' not in codes(R) and not [w for w in R.warnings if w['code'].startswith('AUDIT')], (codes(R), R.warnings))
+    v = copy.deepcopy(E1['value'])
+    v['name'] = 'Samuel J. Williams, by an agent'
+    R = run([mut(E1, value=v)], name='au6')
+    ok('copy audit: a printed name is reported (AUDIT_QUOTE), the line stays', not R.errors and [w['code'] for w in R.warnings if w['code'].startswith('AUDIT')] == ['AUDIT_QUOTE'] and len(R.accepted) == 1, (R.errors, R.warnings))
+    R = run(list(EX.values()), name='au7')
+    ok('copy audit: the nine worked examples are clean', not R.errors and not [w for w in R.warnings if w['code'].startswith('AUDIT')], [w for w in R.warnings if w['code'].startswith('AUDIT')])
+    real = K.audit_strings
+    try:
+        K.audit_strings = lambda strings: None            # no node: the audit cannot run
+        R = run([E2], name='au8')
+    finally:
+        K.audit_strings = real
+    ok('copy audit: when it cannot run the checker says so (AUDIT_SKIPPED) and checks nothing else away', not R.errors and [w['code'] for w in R.warnings] == ['AUDIT_SKIPPED'], (R.errors, R.warnings))
+    ok('copy audit: the contract tables carry the codes', 'AUDIT' in K.ERRORS and 'AUDIT_QUOTE' in K.WARNINGS and 'AUDIT_SKIPPED' in K.WARNINGS)
+
 
     # --- robustness: no malformed line may crash the checker ----------------------------------------------------------
     junk = [None, 0, -1, 1.5, True, '', 'x', [], {}, [1], {'a': 1}, 10 ** 12]

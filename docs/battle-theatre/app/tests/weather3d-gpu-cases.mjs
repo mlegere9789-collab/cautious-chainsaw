@@ -32,6 +32,16 @@ export const EXTRA_CASES = [
   { name: 'fire-night-jul3-2200', m: [7, 3, 22, 0], at: 'lnglat', ...SHERFY, dx: 40, dz: 28, h: 4, target: [SHERFY.lng, SHERFY.lat], targetH: 6, fov: 55, what: 'the barn fire at night: the light of the fire on the ground, flames and smoke, half intensity (time uncertain)' },
 ];
 export const ALL_CASES = [...CASES, ...EXTRA_CASES];
+// Views of the real field. 'overview' and 'ground' are the shell's own views; 'unit' flies to the unit the census picks at that minute (the largest present unit of the named arm, as a visitor flies to a unit: viewFor at `dist` m, `height` m
+// above the ground, seen from `yawAdd` radians round from the unit's heading), so the pictures show how the men look close up under the weather and the effects of the API under test. The census is written into the case's JSON.
+export const REAL_CASES = [{ name: 'real-overview-jul3-1330', m: [7, 3, 13, 30], view: 'overview', what: 'the whole field at the cannonade, the real layer' }, { name: 'real-ground-jul3-1330', m: [7, 3, 13, 30], view: 'ground', what: 'ground view at the cannonade, the real layer' }, { name: 'real-ground-jul2-2330', m: [7, 2, 23, 30], view: 'ground', what: 'ground view at night, the real layer' },
+  { name: 'real-line-60m-jul3-1330', m: [7, 3, 13, 30], view: 'unit', arm: 'infantry', dist: 60, height: 8, yawAdd: Math.PI * 0.8, what: 'the largest infantry unit present at the cannonade, 60 m away, 8 m up' },
+  { name: 'real-soldiers-28m-jul3-1330', m: [7, 3, 13, 30], view: 'unit', arm: 'infantry', dist: 28, height: 4, yawAdd: Math.PI * 0.8, what: 'the same unit from 28 m, 4 m up' },
+  { name: 'real-soldiers-12m-jul3-1330', m: [7, 3, 13, 30], view: 'unit', arm: 'infantry', dist: 12, height: 2.2, yawAdd: Math.PI * 0.8, what: 'the same unit from 12 m, 2.2 m up' },
+  { name: 'real-soldiers-7m-jul3-1330', m: [7, 3, 13, 30], view: 'unit', arm: 'infantry', dist: 7, height: 1.7, yawAdd: Math.PI * 0.35, what: 'the same unit from 7 m at eye level' },
+  { name: 'real-battery-40m-jul3-1330', m: [7, 3, 13, 30], view: 'unit', arm: 'artillery', dist: 40, height: 5, yawAdd: Math.PI * 0.8, what: 'the largest battery present at the cannonade, 40 m away, 5 m up (the crowd\'s own fire plan: smoke and flashes)' },
+  { name: 'real-soldiers-12m-jul2-2330', m: [7, 2, 23, 30], view: 'unit', arm: 'infantry', dist: 12, height: 2.2, yawAdd: Math.PI * 0.8, what: 'the largest infantry unit present at night, 12 m away: the night floor on men and ground' }];
+
 export const specOf = (c, minOf) => {
   const { m, what, sec, aimFall, ...rest } = c, tMin = minOf(m[0], m[1], m[2], m[3]) + (sec || 0) / 60, spec = { ...rest, tMin };
   if (aimFall) spec.aim = [38, -20 + (Math.floor(tMin * 60 / 4) % 40), 1];         // the stand-in plan's falls: one every 4 s at (38, -20 + i), i = (t / 4) mod 40

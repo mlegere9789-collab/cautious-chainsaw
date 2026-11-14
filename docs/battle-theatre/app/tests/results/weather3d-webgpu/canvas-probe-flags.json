@@ -1,0 +1,128 @@
+[
+ {
+  "name": "A-current",
+  "args": "--enable-unsafe-webgpu --enable-features=Vulkan,WebGPUService --ignore-gpu-blocklist --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader",
+  "probe": {
+   "mode": "present",
+   "done": true,
+   "lost": "destroyed: Device was destroyed.",
+   "errors": [],
+   "fmt": "rgba8unorm"
+  },
+  "adapter": {
+   "vendor": "google",
+   "architecture": "swiftshader",
+   "description": ""
+  },
+  "screenshot": "failed: page.screenshot: Timeout 25000ms exceeded.",
+  "console": [],
+  "wallS": 41
+ },
+ {
+  "name": "B-no-vulkan-feature",
+  "args": "--enable-unsafe-webgpu --enable-unsafe-swiftshader --ignore-gpu-blocklist --use-gl=angle --use-angle=swiftshader --use-webgpu-adapter=swiftshader",
+  "probe": {
+   "mode": "present",
+   "done": true,
+   "lost": "unknown: A valid external Instance reference no longer exists.",
+   "errors": [],
+   "fmt": "rgba8unorm"
+  },
+  "adapter": {
+   "vendor": "google",
+   "architecture": "swiftshader",
+   "description": ""
+  },
+  "screenshotBytes": 165,
+  "screenshotPixel": [
+   255,
+   255,
+   255,
+   255
+  ],
+  "console": [
+   "warning: A valid external Instance reference no longer exists."
+  ],
+  "wallS": 18
+ },
+ {
+  "name": "C-softcompositing",
+  "args": "--enable-unsafe-webgpu --enable-unsafe-swiftshader --ignore-gpu-blocklist --use-gl=angle --use-angle=swiftshader --use-webgpu-adapter=swiftshader --disable-gpu-compositing",
+  "probe": {
+   "mode": "present",
+   "done": true,
+   "lost": "unknown: A valid external Instance reference no longer exists.",
+   "errors": [],
+   "fmt": "rgba8unorm"
+  },
+  "adapter": {
+   "vendor": "google",
+   "architecture": "swiftshader",
+   "description": ""
+  },
+  "screenshotBytes": 162,
+  "screenshotPixel": [
+   0,
+   0,
+   0,
+   255
+  ],
+  "console": [
+   "warning: A valid external Instance reference no longer exists."
+  ],
+  "wallS": 16
+ },
+ {
+  "name": "D-inprocess-gpu",
+  "args": "--enable-unsafe-webgpu --enable-unsafe-swiftshader --ignore-gpu-blocklist --use-gl=angle --use-angle=swiftshader --use-webgpu-adapter=swiftshader --in-process-gpu",
+  "error": "browserType.launch: Target page, context or browser has been closed",
+  "wallS": 1
+ },
+ {
+  "name": "E-webgpuservice-off",
+  "args": "--enable-unsafe-webgpu --enable-unsafe-swiftshader --ignore-gpu-blocklist --use-gl=angle --use-angle=swiftshader --use-webgpu-adapter=swiftshader --disable-features=WebGPUService",
+  "probe": {
+   "mode": "present",
+   "done": true,
+   "lost": "destroyed: Device was destroyed.",
+   "errors": [],
+   "fmt": "rgba8unorm"
+  },
+  "adapter": {
+   "vendor": "google",
+   "architecture": "swiftshader",
+   "description": ""
+  },
+  "screenshotBytes": 165,
+  "screenshotPixel": [
+   255,
+   255,
+   255,
+   255
+  ],
+  "console": [
+   "info: WebGPU is experimental on this platform. See https://github.com/gpuweb/gpuweb/wiki/Implementation-Status#implementation-status",
+   "info: WebGPU is experimental on this platform. See https://github.com/gpuweb/gpuweb/wiki/Implementation-Status#implementation-status"
+  ],
+  "wallS": 17
+ },
+ {
+  "name": "F-vulkan-swiftshader",
+  "args": "--enable-unsafe-webgpu --enable-unsafe-swiftshader --ignore-gpu-blocklist --use-vulkan=swiftshader --use-gl=angle --use-angle=swiftshader --enable-features=Vulkan --disable-vulkan-surface",
+  "probe": {
+   "mode": "present",
+   "done": true,
+   "lost": null,
+   "errors": [],
+   "fmt": "rgba8unorm"
+  },
+  "adapter": {
+   "vendor": "google",
+   "architecture": "swiftshader",
+   "description": ""
+  },
+  "screenshot": "failed: page.screenshot: Timeout 25000ms exceeded.",
+  "console": [],
+  "wallS": 41
+ }
+]

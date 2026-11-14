@@ -324,7 +324,7 @@ dispute("DISP-140NY-DRESS", "140th New York dress at Gettysburg: regulation blue
         [{"variant": "regulation_blue_zouave_jan_1864", "claim": "regulation blue; Zouave outfit issued January 1864, so at Gettysburg the regiment wore standard dress; no Zouave items",
           "source": "PDF B.6.3 (also stated in the PDF front summary); printed tier 'documented (correction)'", "source_keys": ["Wiki-140NY"], "tier_printed": "documented (correction)", "weak_source": True},
          {"variant": "zouave_from_1863_06_03", "claim": "Zouave dress from 3 June 1863",
-          "source": "an earlier agent's read of the 146th NY history (per the task brief; NOT in PDF B.6; no source key)", "source_keys": [], "tier_printed": None, "weak_source": True,
+          "source": "a reading of the 146th NY regimental history that has not been re-verified against the text (not in PDF B.6; no source key)", "source_keys": [], "tier_printed": None, "weak_source": True,
           "note": "3 June 1863 is the date the PDF assigns to the 146th NY's change to Zouave dress; whether the earlier read concerned the 140th is not established here. Item detail for this variant is not specified by any source: placeholders used."}],
         status="disputed", pdf_default="regulation_blue_zouave_jan_1864 (PDF B.6.3); NOT adopted as a default here", unit_ids=["US.140NY"],
         handling="Both variants are carried as selectable scenarios; no default chosen. The validator treats the unit as 'disputed: both allowed, flagged' and never hard-codes either.")

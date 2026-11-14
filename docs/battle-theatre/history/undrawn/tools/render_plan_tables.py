@@ -170,8 +170,8 @@ def t_sections():
         if unc: L.append('- **Reports between them in the table of contents that no ledger claim cites (not read, or read with no result):** %s.' % ', '.join('%s %s' % (rid(r['id']), (r['author'] or r['scope'])[:28].strip()) for r in unc))
         p3 = S['or27_part3_documents_cited']
         L.append('- **Other Official Records:** organization table `%s`, returns `%s`%s.' % (S['organization_table'], '`, `'.join(S['returns']), (', part 3 documents cited by claims: ' + ', '.join('%s (%d)' % (rid(x['id']), x['claims']) for x in p3)) if p3 else ''))
-        sv = S['statevol_sections']; vols = collections.Counter(s.split('-')[0] for secs in sv.values() for s in secs)
-        L.append('- **Indexed state volumes:** %s.' % (('%d units have regimental sections in %s (section ids in groups.json, `sources.statevol_sections`)' % (len(sv), ', '.join('%s %d' % kv for kv in sorted(vols.items())))) if sv else 'none indexed for these units'))
+        sv = S['statevol_sections']; uniq = sorted({s for secs in sv.values() for s in secs}); vols = collections.Counter(s.split('-')[0] for s in uniq)
+        L.append('- **Indexed state volumes:** %s.' % (('%d units have regimental or battery sections in the indexed state volumes: %d sections (by volume: %s; section ids per unit in groups.json, `sources.statevol_sections`)' % (len(sv), len(uniq), ', '.join('%s %d' % kv for kv in sorted(vols.items())))) if sv else 'none indexed for these units'))
         L.append('- **Local texts to read** (keys in sources.json): %s.' % (', '.join('`%s`' % t for t in S['local_texts']) or 'none'))
         L.append('- **Ledger claims already held** (read them first; do not repeat them): %s.' % (', '.join('ledger %s %d' % kv for kv in sorted(S['ledger_claims_held'].items())) or 'none'))
         byd = S.get('ledger_claims_by_disposition') or {}; byr = S.get('ledger_claims_by_reason') or {}; ap = sum(v for k, v in byd.items() if k.startswith(('used', 'transcribed')))

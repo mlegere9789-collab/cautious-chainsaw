@@ -24,7 +24,14 @@ def sc(id, value, basis, tier, cites=()):
 def reg(title, why, recon, tier, competing='-', impact='-', ask='-', subst='-', rids='R11'):
     return dict(title=title, why=why, recon=recon, tier=tier, competing=competing, impact=impact, ask=ask, subst=subst, rids=rids)
 
-def HALF(t):
-    """Note for a Jacobs 1864 time whose OCR text layer prints the fraction one half as J (once |)."""
-    return ('The OCR text layer prints the fraction one half as J (once as |); the quote is verbatim from that layer and is read as %s. '
-            'The reading rests on the glyph pattern of the text (the same layer prints 4J to 10| A. m. and 8J A. m.) and is not confirmed on a page image.' % t)
+def FRAC(read_as, shown, printed_page):
+    """Note for a Jacobs 1864 time whose OCR text layer prints the fraction as J (once |): the printed fraction was read on the page image
+    of the archive.org PDF of the book in the second pass of 2026-11-13 (PDF page = printed page + 10)."""
+    return ('The OCR text layer prints the fraction of the time as J (once as |); the quote is verbatim from that layer. On the page image the printed time is "%s", '
+            'read as %s (archive.org PDF of the book, PDF page %d = printed page %d; closeout/acquired_tl01.json).' % (shown, read_as, printed_page + 10, printed_page))
+
+def ORIMG(part, page, shown):
+    """image_check text for an Official Records reading taken from the page image (second pass of 2026-11-13): the archive.org PDF of the
+    part (item warofrebellion271unit for part 1, warofrebellion272unit for part 2; PDF page = printed page + 18 for part 1, + 6 for part 2)"""
+    item, off = {1: ('warofrebellion271unit', 18), 2: ('warofrebellion272unit', 6)}[part]
+    return ('page image of printed page %s of part %d (archive.org item %s, PDF page %d; closeout/acquired_tl01.json) reads: "%s"' % (page, part, item, int(page) + off, shown))

@@ -1,9 +1,9 @@
 // Self-test of tools/bt/verify_staging.mjs: the checks that decide "the staging build is honest" are proved on made-up folders and made-up request logs, so that a failure of the real run
 // means something. The walk of the real theatre needs a browser, the machine lock and minutes: it is not here. The walk of a static section (a small page set) is, when a browser starts.
 //   node --test tests/bt-pack/verify.test.mjs            (the last test starts a browser for a few seconds: run it through tools/horde/bench.sh, or set BT_PACK_NO_BROWSER=1 to skip it)
-import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
+import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { pack, trace, BT } from '../../tools/bt/pack_theatre.mjs';
-import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections } from '../../tools/bt/verify_staging.mjs';
+import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections, checkPortableNames, makeShooter } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btverify-')); test.after(() => fs.rmSync(tmp, { recursive: true, force: true }));
@@ -114,6 +114,37 @@ test('snapshot of the real tree: leaving out the folders of SNAPSHOT_EXCLUDE los
   assert.deepEqual(a.problems, []); assert.deepEqual(a.files, b.files, 'the same files are traced in the copy and in the tree: ' + JSON.stringify({ onlyCopy: a.files.filter(f => !b.files.includes(f)), onlyTree: b.files.filter(f => !a.files.includes(f)) }));
   fs.rmSync(snap, { recursive: true, force: true });
 });
+// ---- names the owner's machine can unpack
+test('portable names: the dist of a pack passes (the made-up site and the real tree); a device name, a trailing dot or space, a character a URL cannot carry, two paths that differ only by letter case and a very long path each fail', () => {
+  const p = build('pn'); assert.deepEqual(checkPortableNames(p.out).problems, []); assert.ok(checkPortableNames(p.out).checked > 10);
+  const real = pack({ out: path.join(tmp, 'pn-real/dist'), zipDir: path.join(tmp, 'pn-real'), zip: false }); assert.deepEqual(checkPortableNames(real.out).problems, [], 'every name of the real build is portable'); assert.equal(checkPortableNames(real.out).checked, real.files);
+  const bad = (rel, re, o) => { const d = fs.mkdtempSync(path.join(tmp, 'pn-')); for (const r of [].concat(rel)) { const f = path.join(d, r); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, 'x'); } const r = checkPortableNames(d, o); assert.equal(r.ok, false, String(rel)); assert.ok(r.problems.some(x => re.test(x)), `${rel}: ${r.problems.join(' | ')}`); };
+  bad('app/data/CON.json', /device name/); bad('app/data/aux', /device name/); bad('app/data/nul.tar.gz', /device name/); bad('app/data/COM3.txt', /device name/); bad('app/data/trail.', /ends in a dot or a space/); bad('app/data/gap ', /ends in a dot or a space/);
+  for (const c of ['what?.json', 'a#b.json', '50%.json', 'q"x.json', 'a<b.json', 'p|q.json', 'a:b.json', 'st*r.json']) bad('app/data/' + c, /cannot carry/);
+  bad(['app/data/Case.json', 'app/data/case.json'], /differ only by letter case/); bad('app/' + 'x'.repeat(160) + '.json', /longer than 150/); bad('app/data/ab.json', /longer than 8/, { maxPath: 8 });
+  const ok = fs.mkdtempSync(path.join(tmp, 'pn-')); for (const r of ['app/data/figures3d/flag-mean-colours.json', 'rosters/data2/union/ma/1st-massachusetts-infantry.flags.json.gz', 'app/src/ext/vegetation/index.mjs', 'a.b-c_d/e+f.json']) { const f = path.join(ok, r); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, 'x'); } assert.deepEqual(checkPortableNames(ok).problems, [], 'plain names, dots inside a name, a plus sign and the long roster names pass');
+});
+
+// ---- the pictures of a walk (mock page: no browser)
+const mockPage = (o = {}) => { const bound = {}; return { bound, async exposeFunction(name, fn) { if (o.noExpose) throw new Error('bindings are not available'); bound[name] = fn; }, async screenshot({ path: p }) { if (o.fail) throw new Error('boom'); if (o.slow) await new Promise(r => setTimeout(r, 400)); fs.writeFileSync(p, Buffer.from('89504e470d0a1a0a', 'hex')); } }; };
+test('pictures: one numbered PNG per request (from the page and from outside), a failing or slow screenshot is listed and never throws, no folder means no pictures', async () => {
+  const said = [], sink = { print: s => said.push(s) }, dir = path.join(tmp, 'shots'), sh = makeShooter(dir, 'dist', sink), page = mockPage();
+  assert.equal(await sh.install(page), true); assert.equal(typeof page.bound.__verifyShot, 'function', 'the page calls window.__verifyShot(name)');
+  await page.bound.__verifyShot('3 July 13:30 overview'); await sh.take(page, 'landing page'); await page.bound.__verifyShot('Fly to a unit, the soldiers close up!');
+  assert.deepEqual(fs.readdirSync(dir).sort(), ['dist-01-3-july-13-30-overview.png', 'dist-02-landing-page.png', 'dist-03-fly-to-a-unit-the-soldiers-close-up.png']);
+  assert.equal(sh.list.length, 3); assert.ok(sh.list.every(x => x.file && x.bytes === 8)); assert.ok(said.some(s => /picture dist-01-/.test(s)));
+  const bad = makeShooter(path.join(tmp, 'shots2'), 'source', sink, { limitMs: 60 }); assert.equal(await bad.take(mockPage({ fail: true }), 'x'), null); assert.equal(await bad.take(mockPage({ slow: true }), 'y'), null);
+  assert.equal(bad.list.length, 2); assert.ok(bad.list.every(x => x.file === null && x.error)); assert.match(bad.list[0].error, /boom/); assert.match(bad.list[1].error, /no picture within/);
+  const none = makeShooter(null, 'dist', sink); assert.equal(await none.install(mockPage()), false); assert.equal(await none.take(mockPage(), 'z'), null); assert.deepEqual(none.list, []);
+  const off = makeShooter(path.join(tmp, 'shots3'), 'dist', sink); assert.equal(await off.install(mockPage({ noExpose: true })), false); assert.ok(said.some(s => /pictures of the walk are off/.test(s)));
+});
+test('the walk keeps its pictures and its sound: a picture at each step that shows something, and the sound started with the button of Settings before the call of the audio host', () => {
+  const src = fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../tools/bt/verify_staging.mjs'), 'utf8');
+  assert.deepEqual([...src.matchAll(/await shot\('([^']+)'\)/g)].map(m => m[1]), ['3 July 13:30 overview', 'fly to a unit, the soldiers close up', '3 July 04:30 dawn', '3 July 19:30 dusk', '3 July 23:00 night', '4 July 15:00 rain', 'a unit selected', 'every added layer on']);
+  const i = src.indexOf("step('sound starts'"), j = src.indexOf("step('3 July 13:30'"); const body = src.slice(i, j); assert.ok(i > 0 && j > i);
+  assert.ok(body.indexOf('#sd-start') > 0 && body.indexOf('#sd-start') < body.indexOf('th.audio.start()'), 'the button first, then the call that joins the start'); assert.match(body, /data-panel="settings"/);
+});
+
 // ---- the walk of a static section, in a real browser (skipped when no browser starts)
 test('section walk: every page is visited, links inside the section are followed, a dead link is reported, other sites are left alone', async t => {
   if (process.env.BT_PACK_NO_BROWSER) return t.skip('BT_PACK_NO_BROWSER is set: no browser is started (run it through tools/horde/bench.sh to include this test)');

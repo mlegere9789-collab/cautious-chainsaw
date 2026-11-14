@@ -12,7 +12,9 @@
 //   node tools/bt/verify_staging.mjs --pack [--frames 20] [--json report.json]          snapshot the tree, pack it (zip into deliver/, dist in tmp/bt-spec/verify/work), verify the result; a build that
 //                                                                                        passes everything also refreshes deliver/bt-staging/dist; deliver/bt-staging/LAST-VERIFY.txt says what happened
 //   node tools/bt/verify_staging.mjs --dist deliver/bt-staging/dist [--zip file.zip] [--source docs/battle-theatre] [--frames 20] [--json report.json] [--only dist|source]
-//   add --static-only for the checks that need no browser (manifest, zip, links, copy audit); --query a=b for a development shortcut (never the official check)
+//   add --static-only for the checks that need no browser (manifest, zip, links, names, copy audit); --query a=b for a development shortcut (never the official check)
+//   pictures: every walk saves screenshots (the landing page, the soldiers close up, dawn, dusk, night, rain, a selected unit, the added layers on, and the first pages of a static section) to
+//   tmp/bt-spec/verify/shots/<time>/<dist|source>-<nn>-<name>.png (--shots <dir>, --no-shots, --viewport 1280x720; default 640x360). They are for a person to look at: the check does not judge them.
 // Run it through the machine lock (tools/horde/bench.sh): a software frame takes seconds. Exit 0 only when every check passes.
 import fs from 'node:fs'; import path from 'node:path'; import http from 'node:http'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
 import { pack, trace, SECTIONS, IMPORT_RE, CSS_URL_RE } from './pack_theatre.mjs';
@@ -89,6 +91,21 @@ export function checkZip(zip, dist) {
 export function checkNoNotes(dist) {
   const bad = walk(dist).map(f => posix(path.relative(dist, f))).filter(f => /(^|\/)(readme|notes?|todo|changelog)(\.[a-z]+)?$/i.test(f) || /\.(md|map|log|orig|bak|tmp|rej|swp)$|~$/i.test(f) || /(^|\/)\.[^/]+$/.test(f));
   return { ok: bad.length === 0, problems: bad.map(f => 'a notes or leftover file ships: ' + f) };
+}
+/** Names the owner's machine can unpack and a URL can carry. The zip is dropped on Netlify as it is, but the same files are often unzipped on Windows first: no character Windows or a URL cannot carry, no device name (CON, NUL,
+ *  COM1 ...), no name that ends in a dot or a space, no two paths that differ only by letter case, no path longer than maxPath (the folder the owner unzips into takes about 80 of the 260 characters Windows allows). */
+export function checkPortableNames(dist, { maxPath = 150 } = {}) {
+  const problems = [], seen = new Map(), files = walk(dist).map(f => posix(path.relative(dist, f)));
+  for (const f of files) {
+    if (f.length > maxPath) problems.push(`path longer than ${maxPath} characters (${f.length}): ${f}`);
+    for (const seg of f.split('/')) {
+      if (/[<>:"\\|?*#%\x00-\x1f]/.test(seg)) problems.push(`a character that Windows or a URL cannot carry in a name: ${f}`);
+      else if (/[. ]$/.test(seg)) problems.push(`a name that ends in a dot or a space: ${f}`);
+      else if (/^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\..*)?$/i.test(seg)) problems.push(`a Windows device name used as a file name: ${f}`);
+    }
+    const k = f.toLowerCase(); if (seen.has(k)) problems.push(`two paths that differ only by letter case: ${seen.get(k)} and ${f}`); else seen.set(k, f);
+  }
+  return { ok: problems.length === 0, checked: files.length, problems: [...new Set(problems)] };
 }
 /** Every relative import, style-sheet address and page link of the dist's own files exists in the dist (a check of the finished folder, not of the trace). */
 export function checkInternalLinks(dist) {
@@ -192,30 +209,37 @@ async function theatreWalk({ frames }) {
   const { minOf } = await import(new URL('./src/clock.mjs', document.baseURI).href);
   const step = async (name, fn) => { const t0 = performance.now(); let rec; try { const r = await fn(); rec = { name, ok: true, ms: Math.round(performance.now() - t0) }; if (r !== undefined) rec.r = r; } catch (e) { rec = { name, ok: false, ms: Math.round(performance.now() - t0), error: String((e && e.message) || e).slice(0, 240) }; } steps.push(rec); console.info('[verify] ' + JSON.stringify({ name: rec.name, ok: rec.ok, ms: rec.ms, error: rec.error })); };
   const settle = async () => { if (a.ext && a.ext.whenSettled) await a.ext.whenSettled(); };
+  const shot = async name => { try { if (window.__verifyShot) await window.__verifyShot(name); } catch { /* a picture that cannot be taken is not a failure of the walk */ } };
   const snapshotExt = () => a.ext ? { index: a.ext.index && a.ext.index.state, modules: a.ext.status().map(m => ({ path: m.path, state: m.state, stage: m.stage, error: m.error, late: m.late, panels: m.panels, toggles: m.toggles })), problems: a.ext.problems() } : null;
   await step('added layers settle', async () => { await settle(); out.ext = snapshotExt(); return out.ext && out.ext.modules.map(m => m.path + ':' + m.state); });
-  await step('sound starts', async () => { out.sound = th.audio ? await th.audio.start() : null; if (out.sound !== true) throw new Error('audio.start() answered ' + out.sound); });
-  await step('3 July 13:30', async () => { a.setTime(minOf(7, 3, 13, 30)); await a.frames(frames); });
+  await step('sound starts', async () => {
+    // what a visitor does: open Settings (the sound controls are drawn at its end) and press "Start sound"; start() of the audio host joins a start that is already running, so the call after the click only waits for it
+    out.soundVia = 'audio.start()'; let opened = null;
+    try { const b = document.querySelector('[data-panel="settings"]'); if (b && !b.hidden && b.offsetParent !== null && !(th.audio && th.audio.started)) { b.click(); opened = b; await a.frames(2); const s = document.querySelector('#sd-start'); if (s && !s.disabled) { s.click(); out.soundVia = 'the Start sound button in Settings'; } } } catch { /* the call below starts it */ }
+    try { out.sound = th.audio ? await th.audio.start() : null; } finally { if (opened) { try { opened.click(); await a.frames(1); } catch { /* the drawer stays */ } } }
+    if (out.sound !== true) throw new Error('audio.start() answered ' + out.sound);
+  });
+  await step('3 July 13:30', async () => { a.setTime(minOf(7, 3, 13, 30)); await a.frames(frames); await shot('3 July 13:30 overview'); });
   let ui = -1;
   await step('fly to a unit', async () => {
     const L = th.layer, w = th.world, f = w.unitF; for (let i = 0; i < L.units.length; i++) if (a.stage.present[i] && w.units[i].count > 20) { ui = i; break; }
-    if (ui < 0) throw new Error('no unit with more than 20 figures is present'); const v = th.viewFor(f[ui * 12], f[ui * 12 + 1], { dist: 30, height: 5, yaw: f[ui * 12 + 2] }); th.cam.set(v.x, v.y, v.z, v.yaw, v.pitch, 55); await a.frames(frames); return ui;
+    if (ui < 0) throw new Error('no unit with more than 20 figures is present'); const v = th.viewFor(f[ui * 12], f[ui * 12 + 1], { dist: 30, height: 5, yaw: f[ui * 12 + 2] }); th.cam.set(v.x, v.y, v.z, v.yaw, v.pitch, 55); await a.frames(frames); await shot('fly to a unit, the soldiers close up'); return ui;
   });
   await step('play at 2x', async () => { a.setPlaying(true); a.setSpeed(2); await a.frames(frames); a.setPlaying(false); });
   await step('play at 60x', async () => { a.setPlaying(true); a.setSpeed(60); await a.frames(Math.max(4, frames >> 1)); a.setPlaying(false); a.setSpeed(1); });
   const few = Math.max(6, frames >> 1);
-  await step('3 July 04:30 (dawn)', async () => { a.setTime(minOf(7, 3, 4, 30)); await a.frames(few); });
-  await step('3 July 19:30 (dusk)', async () => { a.setTime(minOf(7, 3, 19, 30)); await a.frames(few); });
-  await step('3 July 23:00 (night)', async () => { a.setTime(minOf(7, 3, 23, 0)); await a.frames(few); });
-  await step('4 July 15:00 (rain)', async () => { a.setTime(minOf(7, 4, 15, 0)); await a.frames(frames); });
+  await step('3 July 04:30 (dawn)', async () => { a.setTime(minOf(7, 3, 4, 30)); await a.frames(few); await shot('3 July 04:30 dawn'); });
+  await step('3 July 19:30 (dusk)', async () => { a.setTime(minOf(7, 3, 19, 30)); await a.frames(few); await shot('3 July 19:30 dusk'); });
+  await step('3 July 23:00 (night)', async () => { a.setTime(minOf(7, 3, 23, 0)); await a.frames(few); await shot('3 July 23:00 night'); });
+  await step('4 July 15:00 (rain)', async () => { a.setTime(minOf(7, 4, 15, 0)); await a.frames(frames); await shot('4 July 15:00 rain'); });
   await step('open every drawer', async () => { const done = []; for (const b of [...document.querySelectorAll('[data-panel]')]) { if (b.hidden || b.offsetParent === null) continue; b.click(); await a.frames(2); done.push(b.dataset.panel); b.click(); await a.frames(1); } if (!done.length) throw new Error('no drawer button is visible'); return done; });
-  await step('select a unit', async () => { if (ui < 0) throw new Error('no unit was chosen'); a.select(ui); await a.frames(3); a.select(-1); await a.frames(1); });
+  await step('select a unit', async () => { if (ui < 0) throw new Error('no unit was chosen'); a.select(ui); await a.frames(3); await shot('a unit selected'); a.select(-1); await a.frames(1); });
   await step('added layers: switches and panels', async () => {
     await settle(); const ex = a.ext; if (!ex) return 'no loader'; const st = ex.status(), did = [];
     for (const m of st) for (const id of m.toggles || []) { await ex.setToggle(id, true); await a.frames(3); did.push('switch ' + id); }
     for (const m of st) for (const id of m.panels || []) { ex.openPanel(id); await a.frames(3); ex.closePanel(id); await a.frames(1); did.push('panel ' + id); }
     const tour = th.sitePlaces && th.sitePlaces.tour; if (tour && tour.stops) { const s = tour.stops()[0]; if (s) { tour.flyTo(s.id); await a.frames(frames); did.push('tour stop ' + s.id); } }
-    for (const m of st) for (const id of m.toggles || []) { await ex.setToggle(id, false); did.push('switch off ' + id); }
+    await shot('every added layer on'); for (const m of st) for (const id of m.toggles || []) { await ex.setToggle(id, false); did.push('switch off ' + id); }
     await a.frames(2); out.ext = snapshotExt(); return did;
   });
   out.soundStarted = th.audio ? th.audio.started : null; out.units = ui; out.perf = (() => { try { const p = a.perf(); return { frames: p.frames, p50: p.p50, entryMs: p.entryMs }; } catch { return null; } })();
@@ -227,15 +251,30 @@ const PAGE_GUARD = (page, tag, sink) => {
   page.on('requestfailed', r => { try { const u = new URL(r.url()); if (u.origin === sink.origin) sink.failed.push({ url: u.pathname, failure: r.failure() && r.failure().errorText }); } catch { /* not a URL */ } });
   page.on('dialog', d => d.dismiss().catch(() => { }));
 };
+/** Pictures of a walk, for a person to look at: page.screenshot into `dir` as <label>-<nn>-<name>.png. The page asks for one through window.__verifyShot(name) at the steps of the walk (install(page));
+ *  the landing page and the first pages of a section are taken from outside (take(page, name)). A picture that cannot be taken is listed with its error and is never a failure of the walk. dir null: none. */
+export function makeShooter(dir, label, sink, { limitMs = 120000 } = {}) {
+  const list = []; let n = 0;
+  const take = async (page, name) => {
+    if (!dir) return null; const slug = String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'shot', file = path.join(dir, `${label}-${String(++n).padStart(2, '0')}-${slug}.png`); let timer;
+    try {
+      fs.mkdirSync(dir, { recursive: true });
+      await Promise.race([page.screenshot({ path: file, type: 'png' }), new Promise((_, rej) => { timer = setTimeout(() => rej(new Error('no picture within ' + Math.round(limitMs / 1000) + ' s')), limitMs); })]);
+      const bytes = fs.statSync(file).size; list.push({ name, file, bytes }); sink.print(`picture ${path.basename(file)} (${bytes} bytes)`); return file;
+    } catch (e) { list.push({ name, file: null, error: String((e && e.message) || e).slice(0, 160) }); return null; } finally { clearTimeout(timer); }
+  };
+  const install = async page => { if (!dir) return false; try { await page.exposeFunction('__verifyShot', async name => { await take(page, name); }); return true; } catch (e) { sink.print('pictures of the walk are off: ' + String((e && e.message) || e).slice(0, 120)); return false; } };
+  return { list, take, install };
+}
 /** Visits every page of each section (app/roster, ...), follows links that stay inside the section, presses a few controls, types into a search box. */
-export async function crawlSections(ctx, base, sections, sink, { max = 150, pokes = 6 } = {}) {
+export async function crawlSections(ctx, base, sections, sink, { max = 150, pokes = 6, shooter = null, shotMax = 12 } = {}) {
   const pages = [], interactions = [], queue = sections.flatMap(s => s.pages.map(p => ({ url: base + '/' + p, prefix: '/' + s.path + '/' }))), seen = new Set();
   while (queue.length && seen.size < max) {
     const { url, prefix } = queue.shift(); const key = url.replace(/#.*$/, ''); if (seen.has(key)) continue; seen.add(key);
     const page = await ctx.newPage(); PAGE_GUARD(page, '[section]', sink);
     try {
       const r = await page.goto(key, { waitUntil: 'load', timeout: 180000 }).catch(() => null); await page.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => { });
-      pages.push({ url: new URL(key).pathname, status: r ? r.status() : 0 });
+      pages.push({ url: new URL(key).pathname, status: r ? r.status() : 0 }); if (shooter && pages.length <= shotMax) await shooter.take(page, 'section ' + new URL(key).pathname);
       const links = await page.evaluate(() => [...document.querySelectorAll('a[href]')].map(a => a.href)).catch(() => []);
       for (const l of links) { try { const u = new URL(l); if (u.origin === new URL(base).origin && u.pathname.startsWith(prefix) && /(\.html?|\/)$/.test(u.pathname)) queue.push({ url: u.origin + u.pathname + u.search, prefix }); } catch { /* skip */ } }
       const box = page.locator('input[type=search], input[type=text], input:not([type])').first(); if (await box.count().catch(() => 0)) { await box.fill('a', { timeout: 5000 }).catch(() => { }); await page.waitForTimeout(600); await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => { }); interactions.push(new URL(key).pathname + ': typed in the search box'); }
@@ -246,23 +285,23 @@ export async function crawlSections(ctx, base, sections, sink, { max = 150, poke
   return { pages, interactions };
 }
 /** One walk against a served folder. Returns { log, errors, failed, entered, info, steps, ext, crawl, seconds }. */
-export async function runWalk(root, { frames = 20, label = 'run', sections = [], limitMs = 90 * 60 * 1000, query = '', crawlMax = 150, print = s => console.log(s) } = {}) {
+export async function runWalk(root, { frames = 20, label = 'run', sections = [], limitMs = 90 * 60 * 1000, query = '', crawlMax = 150, print = s => console.log(s), shotsDir = null, viewport = { width: 640, height: 360 } } = {}) {
   const t0 = Date.now(), server = await serveDir(root), base = `http://127.0.0.1:${server.port}`, sink = { errors: [], failed: [], origin: base, print: s => print(`  [${label} +${Math.round((Date.now() - t0) / 1000)}s] ${s}`) };
-  const res = { label, entered: false, info: {}, steps: [], ext: null, crawl: { pages: [], interactions: [] }, errors: sink.errors, failed: sink.failed }; let br, timer, live = null;
+  const shooter = makeShooter(shotsDir, label, sink), res = { label, entered: false, info: {}, steps: [], ext: null, crawl: { pages: [], interactions: [] }, errors: sink.errors, failed: sink.failed, shots: shooter.list }; let br, timer, live = null;
   try {
-    br = await launch(); const ctx = await br.newContext({ viewport: { width: 640, height: 360 } }); ctx.setDefaultTimeout(600000);
+    br = await launch(); const ctx = await br.newContext({ viewport }); ctx.setDefaultTimeout(600000);
     const guard = new Promise((_, rej) => { timer = setTimeout(() => rej(new Error(`time limit of ${Math.round(limitMs / 60000)} min reached in the ${label}`)), limitMs); });
     const work = (async () => {
       const page = live = await ctx.newPage(); PAGE_GUARD(page, '[theatre]', sink);
-      await page.goto(base + '/app/index.html' + (query ? '?' + query : ''), { waitUntil: 'load' }); await page.click('[data-bt-enter]');
+      await shooter.install(page); await page.goto(base + '/app/index.html' + (query ? '?' + query : ''), { waitUntil: 'load' }); await shooter.take(page, 'landing page'); await page.click('[data-bt-enter]');
       try { await page.waitForFunction(() => window.btApp && window.btApp.ready, null, { timeout: 900000, polling: 1000 }); res.entered = true; } catch (e) { sink.errors.push({ kind: 'harness', text: 'the theatre did not report ready within 15 min' }); }
       if (res.entered) {
-        sink.print('entered'); const info = await page.evaluate(theatreWalk, { frames }); res.info = { api: info.api, crowd: info.crowd, fx: info.fx, sound: info.sound, soundStarted: info.soundStarted, units: info.units, perf: info.perf }; res.steps = info.steps; res.ext = info.ext;
+        sink.print('entered'); const info = await page.evaluate(theatreWalk, { frames }); res.info = { api: info.api, crowd: info.crowd, fx: info.fx, sound: info.sound, soundVia: info.soundVia, soundStarted: info.soundStarted, units: info.units, perf: info.perf }; res.steps = info.steps; res.ext = info.ext;
         await page.click('#bt-back').catch(e => sink.errors.push({ kind: 'harness', text: 'Back could not be pressed: ' + e.message })); await page.waitForFunction(() => !window.btApp, null, { timeout: 120000, polling: 500 }).catch(() => sink.errors.push({ kind: 'harness', text: 'the theatre did not release btApp after Back' }));
         res.steps.push({ name: 'Back', ok: !(await page.evaluate(() => !!window.btApp).catch(() => true)) });
       }
       await page.goto('about:blank').catch(() => { }); await page.close().catch(() => { });
-      const present = sections.filter(s => fs.existsSync(path.join(root, s.path))); if (present.length) { sink.print('sections: ' + present.map(s => s.path).join(', ')); res.crawl = await crawlSections(ctx, base, present, sink, { max: crawlMax }); }
+      const present = sections.filter(s => fs.existsSync(path.join(root, s.path))); if (present.length) { sink.print('sections: ' + present.map(s => s.path).join(', ')); res.crawl = await crawlSections(ctx, base, present, sink, { max: crawlMax, shooter }); }
     })();
     await Promise.race([work, guard]);
   } catch (e) { sink.errors.push({ kind: 'harness', text: String(e.message || e).slice(0, 300) }); res.aborted = String(e.message || e);
@@ -291,9 +330,11 @@ const NOT_RUN = ['a real GPU: no frame time, long task or input delay was measur
 async function main() {
   const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : undefined; }, has = k => a.includes(k);
   if (has('--help') || has('-h')) { const head = []; for (const l of fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n')) { if (!l.startsWith('//')) break; head.push(l.slice(3)); } console.log(head.join('\n')); return; }
-  const frames = +opt('--frames') || 20, crawlMax = +opt('--crawl-max') || 150, query = opt('--query') || '', only = opt('--only'), t0 = Date.now(), print = s => console.log(s); let dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), zip = opt('--zip') && path.resolve(opt('--zip')), sourceRoot = path.resolve(opt('--source') || BT);
+  const frames = +opt('--frames') || 20, crawlMax = +opt('--crawl-max') || 150, query = opt('--query') || '', only = opt('--only'), t0 = Date.now(), print = s => console.log(s);
+  const vp = /^(\d{3,4})x(\d{3,4})$/.exec(opt('--viewport') || ''), viewport = vp ? { width: +vp[1], height: +vp[2] } : { width: 640, height: 360 };
+  const shotsDir = has('--no-shots') ? null : path.resolve(opt('--shots') || path.join(REPO, 'tmp/bt-spec/verify/shots', new Date().toISOString().replace(/[-:]/g, '').slice(0, 13) + 'Z')); let dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), zip = opt('--zip') && path.resolve(opt('--zip')), sourceRoot = path.resolve(opt('--source') || BT);
   const save = () => { if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1)); };
-  const rep = { when: new Date().toISOString(), frames, query, official: !query && frames >= 10, dist, mode: has('--pack') ? 'pack' : 'dist' }; const failures = [], notes = [];
+  const rep = { when: new Date().toISOString(), frames, query, official: !query && frames >= 10, viewport, shotsDir, dist, mode: has('--pack') ? 'pack' : 'dist' }; const failures = [], notes = [];
   if (has('--pack')) {
     const snap = path.resolve(opt('--snap-dir') || path.join(REPO, 'tmp/bt-spec/snap/bt')); print('snapshot of the tree: ' + snap); snapshotTree(BT, snap); sourceRoot = snap;
     // the build is made in a private work folder: other jobs may be serving deliver/bt-staging/dist (a spec run against the packed dist), and a pack that is rewritten under them breaks their run.
@@ -306,22 +347,23 @@ async function main() {
     if (r.audit.length) { failures.push(`copy audit: ${r.audit.length} hit(s) in the packed files (the zip is named "-AUDIT-HITS-${r.audit.length}")`); for (const h of r.audit) notes.push(`audit hit ${h.file}:${h.line ?? ''} ${h.match}`); }
   }
   if (!zip) { const v = checkManifest(dist).version; const cand = v && fs.existsSync(path.join(REPO, 'deliver')) ? fs.readdirSync(path.join(REPO, 'deliver')).filter(f => f.startsWith(`gettysburg-BT-staging-${v}`) && f.endsWith('.zip')) : []; if (cand.length) zip = path.join(REPO, 'deliver', cand[0]); }
-  rep.static = { manifest: checkManifest(dist), zip: zip ? checkZip(zip, dist) : null, links: checkInternalLinks(dist), notes: checkNoNotes(dist), pipeline: checkDataPipeline(dist) };
+  rep.static = { manifest: checkManifest(dist), zip: zip ? checkZip(zip, dist) : null, links: checkInternalLinks(dist), notes: checkNoNotes(dist), names: checkPortableNames(dist), pipeline: checkDataPipeline(dist) };
   if (!rep.static.pipeline.ok) failures.push('DATA PIPELINE in node: ' + rep.static.pipeline.problems.slice(0, 5).join('; ')); notes.push(...rep.static.pipeline.notes);
   if (!rep.static.notes.ok) failures.push('NOTES in the dist: ' + rep.static.notes.problems.slice(0, 5).join('; '));
+  if (!rep.static.names.ok) failures.push('NAMES in the dist: ' + rep.static.names.problems.slice(0, 5).join('; '));
   if (!rep.static.manifest.ok) failures.push('MANIFEST: ' + rep.static.manifest.problems.slice(0, 5).join('; '));
   if (!zip) notes.push('no zip was found for this dist: the zip was not checked'); else if (!rep.static.zip.ok) failures.push('ZIP: ' + rep.static.zip.problems.slice(0, 5).join('; '));
   if (!rep.static.links.ok) failures.push('LINKS inside the dist: ' + rep.static.links.problems.slice(0, 5).join('; '));
   print(`static: data pipeline in node ${rep.static.pipeline.ok ? 'ok' : 'FAILED'} (${rep.static.pipeline.requests} requests, ${rep.static.pipeline.distinct} files)`);
-  print(`static: manifest ${rep.static.manifest.ok ? 'ok' : 'FAILED'} (${rep.static.manifest.files} files), zip ${zip ? (rep.static.zip.ok ? 'ok' : 'FAILED') : 'not checked'}${zip ? ' (' + path.basename(zip) + ', unzip -t: ' + rep.static.zip.unzipTest + ')' : ''}, links ${rep.static.links.ok ? 'ok' : 'FAILED'} (${rep.static.links.checked} checked)`);
+  print(`static: manifest ${rep.static.manifest.ok ? 'ok' : 'FAILED'} (${rep.static.manifest.files} files), zip ${zip ? (rep.static.zip.ok ? 'ok' : 'FAILED') : 'not checked'}${zip ? ' (' + path.basename(zip) + ', unzip -t: ' + rep.static.zip.unzipTest + ')' : ''}, links ${rep.static.links.ok ? 'ok' : 'FAILED'} (${rep.static.links.checked} checked), names ${rep.static.names.ok ? 'ok' : 'FAILED'} (${rep.static.names.checked} paths)`);
   // the root page of the dist forwards to the shell
   try { const s = await serveDir(dist); const r = await fetch(`http://127.0.0.1:${s.port}/`); const body = await r.text(); await s.close(); if (!(r.status === 200 && /url=app\/index\.html/.test(body))) failures.push('the root page of the dist does not forward to app/index.html'); } catch (e) { failures.push('root page check failed: ' + e.message); }
   if (has('--static-only')) { rep.failures = failures; rep.notes = notes; rep.ok = failures.length === 0; rep.official = false; if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1)); for (const n of notes) print('note: ' + n);
     print(rep.ok ? 'STATIC CHECKS PASSED (no browser walk was made: this is NOT the staging verification)' : 'STATIC CHECKS FAILED:\n  ' + failures.join('\n  ')); process.exit(rep.ok ? 0 : 1); }
   const distFiles = new Set(walk(dist).map(f => '/' + posix(path.relative(dist, f)))), sections = trace({ root: sourceRoot }).sections; rep.distFiles = distFiles.size; rep.sections = sections.map(s => `${s.path} (${s.files} files, ${s.pages.length} pages)`);
   let A = null, B = null; rep.failures = failures; rep.notes = notes; save();
-  if (only !== 'source') { print(`run 1/2: the packed dist (${frames} frames per step)`); A = await runWalk(dist, { frames, label: 'dist', sections, query, crawlMax, print }); rep.distRun = A; save(); }
-  if (only !== 'dist') { print(`run 2/2: the source tree${has('--pack') ? ' (the snapshot)' : ''}`); B = await runWalk(sourceRoot, { frames, label: 'source', sections, query, crawlMax, print }); rep.sourceRun = B; save(); }
+  if (only !== 'source') { print(`run 1/2: the packed dist (${frames} frames per step)`); A = await runWalk(dist, { frames, label: 'dist', sections, query, crawlMax, print, shotsDir, viewport }); rep.distRun = A; save(); }
+  if (only !== 'dist') { print(`run 2/2: the source tree${has('--pack') ? ' (the snapshot)' : ''}`); B = await runWalk(sourceRoot, { frames, label: 'source', sections, query, crawlMax, print, shotsDir, viewport }); rep.sourceRun = B; save(); }
   rep.distRun = A; rep.sourceRun = B;
   if (A) {
     const c = compareRuns(A, B, distFiles); failures.push(...c.failures); notes.push(...c.notes); rep.compare = { missingInDist: c.missingInDist, errorsOnlyInDist: c.errorsOnlyInDist, errorsInBoth: c.errorsInBoth };
@@ -332,8 +374,9 @@ async function main() {
   { const again = checkManifest(dist); if (!again.ok || again.version !== rep.static.manifest.version) failures.push('the dist changed while the walk was running (another pack wrote into it): the result belongs to no build; run again'); }
   rep.failures = failures; rep.notes = notes; rep.notRun = NOT_RUN; rep.ok = failures.length === 0 && !!A && !!B; rep.walkOk = failures.filter(f => !/^copy audit:/.test(f)).length === 0 && !!A && !!B; rep.auditHits = rep.pack ? rep.pack.audit.length : null; rep.minutes = Math.round((Date.now() - t0) / 600) / 100;
   if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1));
-  const brief = r => r && { requests: r.requests, distinctUrls: Object.keys(r.log).length, nonOk: Object.entries(r.log).filter(([, s]) => !okStatus(s)), entered: r.entered, info: r.info, steps: r.steps.map(s => `${s.ok ? 'ok  ' : 'FAIL'} ${s.name}${s.ok ? '' : ': ' + s.error}`), ext: r.ext && r.ext.modules.map(m => `${m.path}: ${m.state}`), crawlPages: r.crawl.pages.length, errors: r.errors.length, seconds: r.seconds, aborted: r.aborted };
+  const brief = r => r && { requests: r.requests, distinctUrls: Object.keys(r.log).length, nonOk: Object.entries(r.log).filter(([, s]) => !okStatus(s)), entered: r.entered, info: r.info, steps: r.steps.map(s => `${s.ok ? 'ok  ' : 'FAIL'} ${s.name}${s.ok ? '' : ': ' + s.error}`), ext: r.ext && r.ext.modules.map(m => `${m.path}: ${m.state}`), crawlPages: r.crawl.pages.length, pictures: (r.shots || []).filter(s => s.file).length, errors: r.errors.length, seconds: r.seconds, aborted: r.aborted };
   print(JSON.stringify({ dist: dist, version: rep.pack?.version ?? rep.static.manifest.version, sections: rep.sections, distRun: brief(A), sourceRun: brief(B) }, null, 1));
+  if (shotsDir) { const got = [...(A ? A.shots || [] : []), ...(B ? B.shots || [] : [])]; print(`pictures: ${got.filter(s => s.file).length} saved in ${shotsDir}${got.some(s => !s.file) ? ' (' + got.filter(s => !s.file).length + ' could not be taken)' : ''}; they are for a person to look at, the check does not judge them`); }
   print('NOT RUN here: ' + NOT_RUN.join('; '));
   for (const n of notes) print('note: ' + n);
   if (!rep.ok && rep.walkOk) print('everything except the copy audit passed: the walk, the comparison, the static checks. The build is not acceptable until the audit hits are gone.');

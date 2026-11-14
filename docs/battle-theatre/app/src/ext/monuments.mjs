@@ -2,7 +2,7 @@
 // They were put up after the battle, so nothing here is ever part of the 1863 scene: a memorial is a flat mark on this module's own canvas over the picture, labelled
 // "later memorial", and the layer is OFF at every entry (no canvas exists until the viewer switches it on or picks a memorial from the list). All 512 can be found, read
 // and flown to; a memorial beyond the loaded ground is viewed from the edge of the ground and says so. The year a memorial was put up is not in the site's data and is
-// shown as an open gap. The rules, the words and the layout are in ./site-places.mjs (pure, tested under node); this file is the page side only.
+// shown as an open gap. A mark the ground hides from the camera is not drawn, and a name is not put under a panel. The rules, the words and the layout are in ./site-places.mjs (pure, tested under node); this file is the page side only.
 import * as P from './site-places.mjs';
 
 let S = null;                                   // the state of one visit: set by init, cleared by dispose (the module object outlives a visit)
@@ -38,7 +38,7 @@ export async function init(ctx) {
   if (th.dead || !th.root) return;                                                // the visit ended while the list was being read
   const T = th.T, index = P.buildIndex(data, T, { positions: 'list', years });
   const s = S = { ctx, th, T, data, years, index, integrity, positions: 'list', on: false, selected: -1, canvas: null, c2d: null, w: 0, h: 0, dpr: 1, vp: new Float32Array(16), L: P.newLayout(index.n), last: new Float64Array(10), fresh: true, drawn: 0,
-    tier: ctx.tierMark.style(P.LAYER.tier), ac: new AbortController(), chip: null, card: null, style: null, ro: null, toggle: null, panel: null, list: { q: '', side: 'all', group: 'all', where: 'all', shown: 60 }, tap: null };
+    tier: ctx.tierMark.style(P.LAYER.tier), ac: new AbortController(), chip: null, card: null, style: null, ro: null, toggle: null, panel: null, list: { q: '', side: 'all', group: 'all', where: 'all', shown: 60 }, tap: null, avoid: null, measuredAt: 0 };
   const sig = { signal: s.ac.signal }, left = th.root.querySelector('#bt-left'), stage = th.els.stage;
 
   // ---- the notice that is on the picture for as long as the layer is on
@@ -72,7 +72,7 @@ export async function init(ctx) {
   // for the rest of the page (the Views list, the tests): everything goes through the same doors the viewer uses
   th.sitePlaces = th.sitePlaces || {};
   th.sitePlaces.memorials = { layer: P.LAYER, isOn: () => !!(S && S.on), setOn: v => (S ? S.toggle.set(!!v) : false), select: (no, o) => select(no, o), selected: () => (S ? S.selected : -1), flyTo: no => flyTo(no), counts: () => (S ? S.index.counts : null),
-    drawn: () => (S ? S.drawn : 0), marksInView: () => (S && S.canvas ? S.L.n : 0), positions: () => (S ? S.positions : null), setPositions: k => setPositions(k), integrity: () => (S ? S.integrity : null), find: f => (S ? P.filterMemorials(S.index, f).map(it => it.no) : []) };
+    drawn: () => (S ? S.drawn : 0), marksInView: () => (S && S.canvas ? S.L.n : 0), hiddenByGround: () => (S && S.canvas ? S.L.hidden : 0), positions: () => (S ? S.positions : null), setPositions: k => setPositions(k), integrity: () => (S ? S.integrity : null), find: f => (S ? P.filterMemorials(S.index, f).map(it => it.no) : []) };
 }
 
 // ---------------------------------------------------------------- the layer switch, the picked memorial, the camera
@@ -124,11 +124,24 @@ function needCanvas(s) {
   if (ov && ov.parentNode === stage) stage.insertBefore(cv, ov); else stage.append(cv);                  // under the shell's own marks, over the picture
   s.canvas = cv; s.c2d = cv.getContext('2d'); size(s);
 }
-function dropCanvas(s) { if (!s.canvas) return; s.canvas.width = 0; s.canvas.height = 0; s.canvas.remove(); s.canvas = null; s.c2d = null; s.drawn = 0; s.L.n = 0; s.L.nLabels = 0; }
+function dropCanvas(s) { if (!s.canvas) return; s.canvas.width = 0; s.canvas.height = 0; s.canvas.remove(); s.canvas = null; s.c2d = null; s.drawn = 0; s.L.n = 0; s.L.nLabels = 0; s.L.hidden = 0; }
+
+// The rectangles over the picture that would cover a name: the top bar, the dock, the open drawer and every panel of the left column, in the picture's css pixels. A name is not put under one of them
+// (a mark may be). They are read at most every 400 ms while marks are shown, and the layout runs again only when one moved.
+function measure(s) {
+  const th = s.th, root = th && th.root, stage = th && th.els && th.els.stage; if (!root || !stage || !stage.getBoundingClientRect) return;
+  const sr = stage.getBoundingClientRect(), out = [];
+  const add = n => { if (!n || n.hidden || !n.getBoundingClientRect) return; const r = n.getBoundingClientRect(); if (!(r.width >= 4 && r.height >= 4)) return; out.push([r.left - sr.left, r.top - sr.top, r.right - sr.left, r.bottom - sr.top]); };
+  add(root.querySelector('.top')); add(root.querySelector('.dock')); add(root.querySelector('#bt-drawer'));
+  const left = root.querySelector('#bt-left'); if (left && left.children) for (const c of left.children) add(c);
+  const a = s.avoid; let same = !!a && a.length === out.length; for (let i = 0; same && i < out.length; i++) for (let j = 0; j < 4; j++) if (Math.abs(a[i][j] - out[i][j]) > 1) { same = false; break; }
+  if (!same) { s.avoid = out; s.fresh = true; }
+}
 
 export function update(frame) {
   const s = S; if (!s || !(s.on || s.selected >= 0)) return;                       // off and nothing picked: nothing exists, nothing is done
-  needCanvas(s); const cam = frame.cam, R = s.ctx.host && s.ctx.host.R, aspect = R && R.W > 0 && R.H > 0 ? R.W / R.H : s.w / s.h, a = s.last;
+  needCanvas(s); const now = performance.now(); if (now - s.measuredAt > 400) { s.measuredAt = now; measure(s); }
+  const cam = frame.cam, R = s.ctx.host && s.ctx.host.R, aspect = R && R.W > 0 && R.H > 0 ? R.W / R.H : s.w / s.h, a = s.last;
   if (!s.fresh && a[0] === cam.x && a[1] === cam.y && a[2] === cam.z && a[3] === cam.yaw && a[4] === cam.pitch && a[5] === cam.fov && a[6] === aspect && a[7] === cam.near && a[8] === cam.far) return;   // same camera, same marks
   a[0] = cam.x; a[1] = cam.y; a[2] = cam.z; a[3] = cam.yaw; a[4] = cam.pitch; a[5] = cam.fov; a[6] = aspect; a[7] = cam.near; a[8] = cam.far; s.fresh = false;
   P.viewProj(cam, aspect, s.vp); P.layoutMarks(s.index, s.vp, cam, s.w, s.h, s, s.L);

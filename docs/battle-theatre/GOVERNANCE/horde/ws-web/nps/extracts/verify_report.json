@@ -1,14 +1,25 @@
 {
  "checked": {
-  "extracts": 736,
+  "extracts": 809,
   "exact": 545,
-  "cleaned": 191,
-  "with_context": 148,
+  "cleaned": 264,
+  "with_context": 204,
   "page_image_viewed": 0,
   "from_ocr_text": 0
  },
- "problems": [],
- "warnings": [],
+ "problems": [
+  "NPSX-CLR-LRT-p039-02: number(s) 1863 of the claim are in neither the quote nor the context quote",
+  "NPSX-CLR-LRT-p061-01: number(s) 2 of the claim are in neither the quote nor the context quote",
+  "NPSX-CLR-LRT-p073-01: number(s) 4 of the claim are in neither the quote nor the context quote",
+  "NPSX-CLR-LRT-p079-01: number(s) 96 of the claim are in neither the quote nor the context quote"
+ ],
+ "warnings": [
+  "NPSX-CLR-LRT-p044-11: name 'Weed-Hazle' of the claim is in neither the quote nor the context quote",
+  "NPSX-CLR-LRT-p057-01: name 'Wright' of the claim is in neither the quote nor the context quote",
+  "NPSX-CLR-LRT-p073-01: name 'Colonel' of the claim is in neither the quote nor the context quote",
+  "NPSX-CLR-LRT-p073-01: name \"Garrand's\" of the claim is in neither the quote nor the context quote",
+  "NPSX-CLR-LRT-p085-01: name 'NPS-era' of the claim is in neither the quote nor the context quote"
+ ],
  "sources_with_extracts": [
   "NPS-ADHI",
   "NPS-BOUNDARY-1988",

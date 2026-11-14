@@ -19,7 +19,7 @@ import { WIND_HIST_N } from '../src/fx3d/wind.mjs';
 import { FxHost } from '../src/fx-host.mjs';
 import { createAnimBus } from '../src/anim3d/events.mjs';
 import { Camera } from '../../render/prototype/src/camera.mjs';
-import { CASES, EXTRA_CASES, ALL_CASES, specOf, SHERFY } from './weather3d-gpu-cases.mjs';
+import { CASES, EXTRA_CASES, ALL_CASES, REAL_CASES, specOf, SHERFY } from './weather3d-gpu-cases.mjs';
 import { makePlan, aimCamera } from './weather3d-gpu-plan.mjs';
 import { HOOKS, CHROME_ARGS, chromeArgs, REAL_GPU_ARGS } from './weather3d-gpu-lib.mjs';
 import { checkRun, checkCompare } from './weather3d-gpu-check.mjs';
@@ -316,6 +316,17 @@ test('the close-view cases: unique names, inside the battle window, a fractional
   assert.deepEqual(burst.aim, [230, -60, 14]); assert.deepEqual(strike.aim.slice(0, 2), [160, -40]);
   const fc = EXTRA_CASES.find(c => c.aimFall), spec = specOf(fc, minOf), P2 = makePlan(flat); P2.anchor({ x: 0, y: 0, z: 0, yaw: 0 }, { falls: true }); const falls = []; P2.bus.on('fall', (u, i, t, kind, pos) => falls.push({ i, t, pos: Array.from(pos) }));
   const T = spec.tMin * 60; P2.anim.advance(T - 60, T); const last = falls.at(-1); assert.ok(last.t <= T && T - last.t < 4, 'the latest fall is less than one beat before the frame'); assert.deepEqual(last.pos, P2.point(38, spec.aim[1], 0), 'aimFall points at the latest fall (v of the aim = v of that fall)');
+});
+test('the real-crowd cases of the shell harness: unique names that clash with no other list, inside the battle window, three kinds of view, and a unit view names an arm, a distance, a height and a side', () => {
+  const names = REAL_CASES.map(c => c.name), other = new Set(ALL_CASES.map(c => c.name)); assert.equal(new Set(names).size, names.length); for (const n of names) assert.ok(!other.has(n), n + ' is also a case of the other lists');
+  assert.ok(REAL_CASES.length >= 9, 'the three field views and the six views of a unit');
+  for (const c of REAL_CASES) {
+    const t = minOf(...c.m); assert.ok(t >= minOf(6, 26) && t < minOf(7, 15), c.name + ' is inside the battle window'); assert.ok(c.what && c.what.length > 20, c.name + ' says what it shows'); assert.ok(['overview', 'ground', 'unit'].includes(c.view), c.name + ' view ' + c.view);
+    if (c.view === 'unit') { assert.ok(['infantry', 'artillery', 'cavalry'].includes(c.arm), c.name + ' arm'); assert.ok(c.dist >= 5 && c.dist <= 120 && c.height >= 1 && c.height <= 40, c.name + ' distance and height in metres'); assert.ok(Number.isFinite(c.yawAdd), c.name + ' yaw'); } else assert.ok(c.dist == null && c.arm == null, c.name + ': the shell\'s own views take no unit parameters');
+  }
+  for (const re of [/overview/, /ground-jul3/, /ground-jul2/, /line-60m/, /soldiers-28m/, /soldiers-12m-jul3/, /soldiers-7m/, /battery/, /soldiers-12m-jul2/]) assert.ok(REAL_CASES.some(c => re.test(c.name)), 'a real-crowd case for ' + re);
+  assert.ok(REAL_CASES.some(c => c.m[1] === 2 && c.m[2] >= 22), 'one case at night'); assert.ok(REAL_CASES.some(c => c.arm === 'artillery'), 'one case at a battery');
+  const th = fs.readFileSync(path.join(APP, 'tests/weather3d-gpu-theatre.mjs'), 'utf8'); assert.match(th, /REAL_CASES/); assert.ok(!/Math\.random|Date\.now\(\)\s*[%*]/.test(th.replace(/const t00 = Date\.now\(\)[^;]*;/, '')), 'no random choice of the unit: the census picks the largest present unit of the arm');
 });
 // ---------- the run checker (what a gate runner calls on the summaries of the browser harness)
 const okRun = () => ({ api: 'webgpu', url: 'http://x/app/tests/weather3d-gpu.html?api=webgpu', finished: 'now', errors: [], diagInit: { gpu: { ok: true, weatherOk: true, fxOk: true, failed: null, log: [], warnings: [] } }, diagEnd: { gpuErrors: [], wgsl: [], modules: ['a', 'b'] },

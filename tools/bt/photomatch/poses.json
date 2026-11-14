@@ -228,7 +228,8 @@
     "GZ-002",
     "GZ-003",
     "GZ-073"
-   ]
+   ],
+   "superseded_by": "P28"
   },
   {
    "id": "P07",
@@ -272,7 +273,8 @@
     "GZ-002",
     "GZ-003",
     "GZ-073"
-   ]
+   ],
+   "superseded_by": "P27"
   },
   {
    "id": "P08",
@@ -746,6 +748,107 @@
    },
    "staged_flag": false,
    "fitted_to_photograph": true
+  },
+  {
+   "id": "P27",
+   "loc_id": "2018671576",
+   "photo": {
+    "file": "tmp/photomatch/loc/cwpb.00084_u4096.jpg",
+    "resource": "cwpb.00084 (master TIFF, 4096-px working copy; the frame holds a stereo pair: left view used)",
+    "crop": [
+     0.04,
+     0.08,
+     0.49,
+     0.92
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); same crop as P07"
+   },
+   "statement_ids": [
+    "PS-NPS-CLRCEM-126",
+    "PS-NPS-CLRCEM-126b",
+    "PS-LOC-2018671576-N"
+   ],
+   "position": {
+    "anchor": "STR-TOWN-GATEHOUSE",
+    "tier": "inferred",
+    "sigma_m": 20,
+    "place_documented": true,
+    "basis": "NPS: the exposure with the negative number LC-B815-273 looks north from the roof of the Evergreen Cemetery lodge (Cultural Landscape Report for Gettysburg National Cemetery, Fig. 1.26, printed p. 23, pdf page marker 42); the LOC record 2018671576 carries that call number (statement PS-NPS-CLRCEM-126). The coordinates are the centroid of the 2023 outline of the gatehouse (STR-TOWN-GATEHOUSE, err 4 m; the outline includes the right-hand addition, the 1863 form may have been smaller), so the horizontal position is known to about the size of the building (sigma 20 m); no source gives the roof height or the spot on the roof."
+   },
+   "agl_m": 8.0,
+   "agl_basis": "ASSUMPTION: camera on the roof of a two-storey brick building: 8 m above the DEM ground (eaves about 7 to 8 m); no source gives it; the effect on the far field is below one degree, on the road and the walls 10 to 30 m away it is large",
+   "heading": {
+    "fixed_deg": 0,
+    "tier": "inferred",
+    "basis": "NPS (Cultural Landscape Report for Gettysburg National Cemetery, Fig. 1.26): 'looking north'; north = 0 degrees, a cardinal word (about 22 degrees either way); not adjusted to the photograph. Two other NPS texts (Record of Treatment, volumes I and II) call the same exposure, as LOC ppmsca 35051, a view northwest (scenario carried as pose P28); the Baltimore Pike runs from the lodge toward bearing 326 degrees and the borough lies at about 352 degrees."
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "GZ-072",
+    "GZ-003",
+    "GZ-073",
+    "GZ-002",
+    "STR-TOWN-SCHMUCKER_HALL"
+   ],
+   "supersedes": "P07",
+   "registered_note": "Registered 2026-11-13 (third pass): P07 was posed at an assumed spot on Cemetery Hill (the CLR statement had not been matched to the record); P07 and its verdict (does not, conditional on that assumed pose) are kept."
+  },
+  {
+   "id": "P28",
+   "loc_id": "2014646001",
+   "photo": {
+    "file": "tmp/photomatch/loc/ppmsca.35051_u4096.jpg",
+    "resource": "ppmsca.35051 (master TIFF, 4096-px working copy)",
+    "crop": [
+     0.02,
+     0.03,
+     0.985,
+     0.97
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); same crop as P06"
+   },
+   "statement_ids": [
+    "PS-NPS-ROTV1-75",
+    "PS-NPS-ROTV2-131",
+    "PS-LOC-2014646001-N",
+    "PS-NPS-CLRCEM-126"
+   ],
+   "position": {
+    "anchor": "STR-TOWN-GATEHOUSE",
+    "tier": "inferred",
+    "sigma_m": 20,
+    "place_documented": true,
+    "basis": "Same exposure as P27 (Gardner Sketch Book plate 35 = the left half of the stereo negative LC-B815-273, identified by looking at both images: same road, wall, fence posts, small tree, two figures, tents and tall tree at the right; no source states it). Station as P27: roof of the Evergreen Cemetery lodge (NPS Cultural Landscape Report for Gettysburg National Cemetery, Fig. 1.26, printed p. 23), coordinates = centroid of the 2023 outline of the gatehouse, sigma 20 m."
+   },
+   "agl_m": 8.0,
+   "agl_basis": "ASSUMPTION: as P27 (roof of the lodge, 8 m above the DEM ground)",
+   "heading": {
+    "fixed_deg": 315,
+    "tier": "inferred",
+    "basis": "NPS (Cultural Landscape Report for Gettysburg National Military Park, Record of Treatment, volume I Fig. 75 and volume II Fig. 131): the photograph (LOC ppmsca 35051) is a 'view northwest from Cemetery Hill'; northwest = 315 degrees, a cardinal word (about 22 degrees either way); not adjusted to the photograph. The NPS Cultural Landscape Report for Gettysburg National Cemetery calls the same exposure (as the negative LC-B815-273) a view north (scenario carried as pose P27)."
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "GZ-072",
+    "GZ-003",
+    "GZ-073",
+    "GZ-002",
+    "STR-TOWN-SCHMUCKER_HALL"
+   ],
+   "supersedes": "P06",
+   "registered_note": "Registered 2026-11-13 (third pass); P06 (assumed spot at the Wiedrich monument plus 25 m, verdict does not) is kept."
   }
  ],
  "deferred_poses": []

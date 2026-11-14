@@ -32,7 +32,8 @@ Definition file format (UTF-8):
                ti tt tf ft tl ff are ignored on both sides because the text layer lost those glyphs;
                for text_defect=fi-ligature every f with the letters f, i, l after it is ignored on both sides because the text layer
                kept only the f of fi, fl and ff).
-               The builder stores the raw text-layer excerpt next to the repaired quote.
+               At the first or last word of a quote one letter may be given up where a lost-glyph group spans the quote boundary
+               on the page (find_cleaned). The builder stores the raw text-layer excerpt next to the repaired quote.
                An OCR letter error is corrected explicitly with {{saved|fixed}}: matching uses `saved` (exactly as the
                text layer reads), the quote shows `fixed`, and the record lists every pair in ocr_corrections.
                A trailing ' ~L' uses the layout text of the page, ' ~R' the content-stream-order text (line-end
@@ -212,6 +213,31 @@ def _alnum_map(flat, lig):
 _CORR = re.compile(r'\{\{(.*?)\|(.*?)\}\}')
 
 
+def find_cleaned(key, qkey, lig):
+    """Position of the quote's letters (qkey) in the letters of the page (key): (start, length, None) of the single
+    occurrence, or (None, None, reason).
+    A quote that starts or ends next to a lost-glyph group can lose its first or last letter to a group that spans the
+    quote boundary on the page side: on the page 'distant. Towards' reads 'distan' + removed 'tt' + 'owards', so a quote
+    ending in 'distant' or starting with 'Towards' has one letter more than the page key. Only for a source flagged with a
+    lost-glyph defect, and only then, one such boundary letter is given up (start: t, i, f or l; end: t or f); the
+    quote must still occur exactly once. verify_extracts.py applies the same rule."""
+    tries = [(0, 0)] + ([(1, 0), (0, 1), (1, 1)] if lig else [])
+    for lead, trail in tries:
+        if lead and qkey[:1] not in 'tilf':
+            continue
+        if trail and qkey[-1:] not in 'tf':
+            continue
+        q = qkey[lead:len(qkey) - trail]
+        if len(q) < 20:
+            continue
+        n = key.count(q)
+        if n == 1:
+            return key.find(q), len(q), None
+        if n > 1 and (lead, trail) == (0, 0):
+            return None, None, 'letters found %d times' % n
+    return None, None, 'letters not found'
+
+
 def cut_cleaned(page_text, quote, lig=False):
     """quote may contain {{saved|fixed}} marks: the text layer reads `saved` (an OCR letter error) and the quote shows `fixed`.
     Matching uses `saved`; the pairs are returned so that the record shows every correction made."""
@@ -223,14 +249,13 @@ def cut_cleaned(page_text, quote, lig=False):
     qkey, _ = _alnum_map(norm(match_form), lig)
     if len(qkey) < 25:
         return None, 'cleaned quote too short to identify a passage', None
-    n = key.count(qkey)
-    if n != 1:
+    st, ln, why = find_cleaned(key, qkey, lig)
+    if st is None:
         k = len(qkey)
         while k > 12 and key.count(qkey[:k]) == 0:
             k -= 1
-        return None, 'cleaned quote found %d times (longest matching prefix %d of %d letters: %r)' % (n, k, len(qkey), norm(match_form)[:60]), None
-    st = key.find(qkey)
-    a, b = idx[st], idx[st + len(qkey) - 1]
+        return None, 'cleaned quote: %s (longest matching prefix %d of %d letters: %r)' % (why, k, len(qkey), norm(match_form)[:60]), None
+    a, b = idx[st], idx[st + ln - 1]
     return (norm(shown), corrections, norm(quote)), None, flat[a:b + 1]
 
 

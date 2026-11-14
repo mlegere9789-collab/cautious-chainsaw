@@ -21,6 +21,121 @@ OR_PATH = {1: 'tmp/library/or27/cu31924077699761_djvu.txt', 2: 'tmp/library/or27
 EXTRA_IDS = {'DAWES-1890': 'servsixthwiscon00dawerich/servsixthwiscon00dawerich_djvu.txt', 'MORHOUS-1879': 'reminiscencesof00morh/reminiscencesof00morh_djvu.txt', 'EDDY-1864': 'historyofsixtiet00eddy/historyofsixtiet00eddy_djvu.txt'}
 CLASS = {'OR': 'primary (official report written 1863-65; Government Printing Office volume 1889, raw OCR, single witness)'}
 
+# --- sources added by the 2026-11-13 re-audit (all read-only; every file is hashed into its citation) ---
+ACQ_LEDGER = {it['id']: it for it in json.load(open(os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/horde/tl-02/sources_tl02.json')))['items']}
+KIT_LIB = os.path.join(ROOT, 'tmp/kit-us-1c/lib')
+KIT_SHA = {  # from GOVERNANCE/horde/requests/bt-oob-kit-us-1c-library.md (declared by the oob-kit workstream)
+  'servsixthwiscon00dawerich': 'b168059e595763a9d53e209a09d286f84ce60cb55a67654e28cabd18e9c367a7',
+  '24thmichiganiron00curtrich': '722f4b6fe42095cc8e85aba788402fbd63e41129794cd522af43fffa7be9f1f9',
+  'websterregiment00cookrich': '217db358359e24249c7b0803b28244ed35e3e84b22aa74e894486ae7696e0340',
+  'threeyearsinarmy00davis': 'bfbdb08986b3c8e28ef6e9d9b443d5e1e94d9290f8cb4b381d774dd5877e3330',
+  'sixteenthmainere00smal': '3845f130acd381b7779f4dbc3bbbe602616bdc09f950756d4570bc88d01f882f',
+  'infantryhist00smitrich': '5c74756553774d95bc12105d09ccd4fe110068f4a5ad467c326a0c5a80ee85f1',
+  'vermontincivilwa02bene': '53437ad1219dcbb2cfa33bf9d40e03d818f0238d10182e41911764b35feb6827'}
+KIT_TITLE = {
+  'servsixthwiscon00dawerich': 'Service with the Sixth Wisconsin Volunteers (R. R. Dawes, 1890)',
+  '24thmichiganiron00curtrich': 'History of the Twenty-fourth Michigan of the Iron Brigade (O. B. Curtis, 1891)',
+  'websterregiment00cookrich': 'History of the Twelfth Massachusetts Volunteers, the Webster Regiment (B. F. Cook, 1882)',
+  'threeyearsinarmy00davis': 'Three Years in the Army: the Thirteenth Massachusetts Volunteers (C. E. Davis, 1894)',
+  'sixteenthmainere00smal': 'The Sixteenth Maine Regiment in the War of the Rebellion (A. R. Small, 1886)',
+  'infantryhist00smitrich': 'History of the Seventy-sixth Regiment New York Volunteers (A. P. Smith, 1867)',
+  'vermontincivilwa02bene': 'Vermont in the Civil War, volume 2 (G. G. Benedict, 1886)'}
+PM_DIR = os.path.join(ROOT, 'tmp/library/web/photomatch/www.nps.gov')
+PM_MAN = {}
+for _l in open(os.path.join(ROOT, 'tmp/library/web/photomatch/manifest.jsonl'), encoding='utf-8'):
+    if _l.strip():
+        _r = json.loads(_l)
+        if _r.get('text_file'): PM_MAN[os.path.basename(_r['text_file'])] = _r
+CA_DIR = os.path.join(ROOT, 'tmp/library/web/ca/pages')
+W2_DIR = os.path.join(ROOT, 'tmp/fence-1/dl/or27_w2')
+W2_SHA = {w[0]: w[2] for part in witness.WITNESS.values() for w in part}
+IMG_CHECKS = json.load(open(os.path.join(HERE, '..', 'image_checks.json')))['checks']
+
+_sha = {}
+def file_sha(path):
+    if path not in _sha:
+        h = hashlib.sha256()
+        with open(path, 'rb') as f:
+            for b in iter(lambda: f.read(1 << 20), b''): h.update(b)
+        _sha[path] = h.hexdigest()
+    return _sha[path]
+
+_fv = {}
+def file_view(path):
+    if path not in _fv:
+        raw = open(path, encoding='utf-8', newline='').read()
+        nt, nm = build_nview(raw)
+        _fv[path] = (raw, nt, nm)
+    return _fv[path]
+
+def find_in_file(path, qn, occ, label, q):
+    """exactly one verbatim (whitespace-normalised, case-sensitive) hit of the quote in the file; returns (a, b, raw)"""
+    raw, nt, nm = file_view(path)
+    idxs = []; pos = 0
+    while True:
+        i = nt.find(qn, pos)
+        if i < 0: break
+        idxs.append(i); pos = i + 1
+    if not idxs: raise SystemExit('NOT FOUND in %s: %r' % (label, q))
+    if len(idxs) > 1 and occ is None: raise SystemExit('AMBIGUOUS (%d) in %s: %r (give occ)' % (len(idxs), label, q))
+    i = idxs[occ or 0]
+    return nm[i], nm[i + len(qn) - 1] + 1, raw
+
+def resolve_new(c):
+    """sources added by the re-audit: ACQ, KIT, NPSW, CA, OR1W"""
+    src, ref, q, occ = c['src'], c['ref'], c['quote'], c.get('occ')
+    qn = norm_query(q)
+    base = dict(quote=q, role=c['role'], note=c.get('note'), match='exact (whitespace-normalised, case-sensitive)')
+    if c.get('reading'): base['reading'] = c['reading']
+    if src == 'ACQ':
+        it = ACQ_LEDGER[ref]; p = os.path.join(ROOT, it['local_path'])
+        if file_sha(p) != it['sha256']: raise SystemExit('SHA MISMATCH vs tl-02 ledger: ' + ref)
+        a, b, raw = find_in_file(p, qn, occ, ref, q)
+        return dict(base, source_id=ref, source_class='secondary (published book, public domain, %s; raw OCR, single witness)' % it['date'], part=None, report_id=None,
+                    printed_page=c.get('pp'), page_hint=None if c.get('pp') else page_hint(raw, a), offset=[a, b], local_path=it['local_path'], local_sha256=it['sha256'],
+                    provenance=dict(archive_item=it['url'], title=it['title'], ledger='docs/battle-theatre/GOVERNANCE/horde/tl-02/sources_tl02.json'))
+    if src == 'KIT':
+        p = os.path.join(KIT_LIB, ref, ref + '_djvu.txt'); sha = file_sha(p)
+        if sha != KIT_SHA[ref]: raise SystemExit('SHA MISMATCH vs oob-kit note: ' + ref)
+        a, b, raw = find_in_file(p, qn, occ, ref, q)
+        return dict(base, source_id='KIT:' + ref, source_class='secondary (published regimental history, public domain; raw OCR, single witness)', part=None, report_id=None,
+                    printed_page=c.get('pp'), page_hint=None if c.get('pp') else page_hint(raw, a), offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=sha,
+                    provenance=dict(archive_item='https://archive.org/details/' + ref, title=KIT_TITLE[ref], ledger='docs/battle-theatre/GOVERNANCE/horde/requests/bt-oob-kit-us-1c-library.md'))
+    if src == 'NPSW':
+        p = os.path.join(PM_DIR, ref + '.htm.txt'); m = PM_MAN[os.path.basename(p)]
+        if file_sha(p) != m['text_sha256']: raise SystemExit('SHA MISMATCH vs photomatch manifest: ' + ref)
+        a, b, raw = find_in_file(p, qn, occ, ref, q)
+        return dict(base, source_id='NPSW:' + ref, source_class='secondary (National Park Service web page, United States government work; text of the saved HTML)', part=None, report_id=None,
+                    printed_page=None, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=m['text_sha256'],
+                    provenance=dict(url=m['url_final'], retrieved_utc=m['retrieved_utc'], html_file=m['file'], html_sha256=m['sha256'], ledger='tmp/library/web/photomatch/manifest.jsonl (photo-match workstream)'))
+    if src == 'CA':
+        p = os.path.join(CA_DIR, ref + '.txt')
+        lccn, date, ed, seq = ref.split('/')
+        a, b, raw = find_in_file(p, qn, occ, ref, q)
+        return dict(base, source_id='CA:' + ref, source_class='primary (1863 newspaper, Library of Congress Chronicling America; OCR text of the page, garbled)', part=None, report_id=None,
+                    printed_page=None, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p),
+                    provenance=dict(lccn=lccn, issue_date=date, edition=ed, image_sequence=seq, url='https://chroniclingamerica.loc.gov/lccn/%s/%s/%s/%s/' % (lccn, date, ed, seq)))
+    if src == 'OR1W':
+        w = c['witness']; p = os.path.join(W2_DIR, w + '_djvu.txt')
+        if file_sha(p) != W2_SHA[w]: raise SystemExit('SHA MISMATCH witness scan: ' + w)
+        a, b, raw = find_in_file(p, qn, occ, w, q)
+        rid = ref if ref.startswith('OR27') else 'OR27-1-' + ref; rec = OR_BY_ID[rid]
+        return dict(base, source_id='OR-27-1-W:' + w, source_class='primary (official report written 1863-65; Government Printing Office volume 1889, second scan of the same volume, raw OCR)', part=1, report_id=rid,
+                    report_author=(rec.get('rank') or '') + ' ' + (rec.get('author') or ''), printed_page=c['page'], offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=W2_SHA[w],
+                    provenance=dict(archive_item='https://archive.org/details/' + w, note='printed page given by the engineer from the page image (leaf = printed page + 18 in this scan); offsets are in the OCR text of this scan, not in the Cornell text'))
+    raise SystemExit('bad src ' + src)
+
+def attach_image(rec, c):
+    iid = c.get('image')
+    if not iid: return rec
+    chk = IMG_CHECKS[iid]
+    for k in ('crop_file', 'second_crop_file'):
+        if chk.get(k):
+            sha = file_sha(os.path.join(ROOT, chk[k]))
+            if sha != chk[k.replace('file', 'sha256')]: raise SystemExit('IMAGE SHA MISMATCH ' + chk[k])
+    rec['image_check'] = dict(id=iid, **{k: v for k, v in chk.items()})
+    return rec
+
 _libpath = {}
 def lib_path(sid):
     if sid in EXTRA_IDS: return os.path.join(EXTRA, EXTRA_IDS[sid])
@@ -40,9 +155,12 @@ def lib_text(sid):
     return _lt[sid]
 
 _nt = {}
+NPS_MAN = json.load(open(os.path.join(NPSD, 'MANIFEST.json')))['items']
+NPS_PAGES = {'NPSGOV-CIVILIANS': dict(url='https://www.nps.gov/articles/000/civilians-at-gettysburg.htm', retrieved='2026-11-13', text_sha256='c39f60baf34ac3165a9d3cb95ec12f6d849e420e2b356bfcf8daecc310083129')}
 def nps_text(sid):
     if sid not in _nt:
         p = os.path.join(NPSD, sid, sid + '.txt')
+        if not os.path.exists(p): p = os.path.join(NPSD, 'pages', sid, sid + '.txt')
         raw = open(p, encoding='utf-8', newline='').read()
         nt, nm = build_nview(raw)
         _nt[sid] = (p, raw, nt, nm)
@@ -62,10 +180,10 @@ def nps_page(raw, off):
     for m in re.finditer(r'=== PAGE (\d+) ===', raw[:off]): last = m.group(1)
     return last
 
-def resolve(c):
+def resolve_old(c):
     src, ref, q, occ = c['src'], c['ref'], c['quote'], c.get('occ')
     qn = norm_query(q)
-    if src.startswith('OR'):
+    if src.startswith('OR') and src != 'OR1W':
         part = int(src[2]); rid = 'OR27-%d-%s' % (part, ref) if not ref.startswith('OR27') else ref
         P = get_part(part); rec = OR_BY_ID[rid]
         hits = []; pos = 0
@@ -104,10 +222,24 @@ def resolve(c):
         if not idxs: raise SystemExit('NOT FOUND in %s: %r' % (ref, q))
         if len(idxs) > 1 and occ is None: raise SystemExit('AMBIGUOUS (%d) in %s: %r' % (len(idxs), ref, q))
         i = idxs[occ or 0]; a, b = nm[i], nm[i + len(qn) - 1] + 1
-        return dict(source_id=ref, source_class='secondary (National Park Service report, United States government work; text layer of the PDF)', part=None, report_id=None,
-                    printed_page=None, pdf_page=nps_page(raw, a), quote=q, offset=[a, b], local_path=os.path.relpath(p, ROOT), match='exact (whitespace-normalised, case-sensitive)',
+        prov = None
+        if ref in NPS_MAN: prov = dict(url=NPS_MAN[ref].get('url'), fetched_utc=NPS_MAN[ref].get('fetched_at'), ledger='tmp/library/web/nps/MANIFEST.json (bt-web workstream)')
+        elif ref in NPS_PAGES: prov = dict(url=NPS_PAGES[ref]['url'], fetched_utc=NPS_PAGES[ref]['retrieved'], ledger='GOVERNANCE/evidence_corrections/web-nps-landscape.jsonl (bt-web workstream)')
+        cls = 'secondary (National Park Service report, United States government work; text layer of the PDF)' if ref not in NPS_PAGES else 'secondary (National Park Service web page, United States government work; saved text)'
+        return dict(source_id=ref, source_class=cls, part=None, report_id=None, provenance=prov,
+                    printed_page=c.get('pp'), pdf_page=nps_page(raw, a), quote=q, offset=[a, b], local_path=os.path.relpath(p, ROOT), match='exact (whitespace-normalised, case-sensitive)',
                     role=c['role'], note=c.get('note'))
     raise SystemExit('bad src ' + src)
+
+def resolve(c):
+    if c['src'] in ('ACQ', 'KIT', 'NPSW', 'CA', 'OR1W'):
+        rec = resolve_new(c)
+    else:
+        rec = resolve_old(c)
+        if c.get('reading'): rec['reading'] = c['reading']
+        if c.get('pp') and not rec.get('printed_page'): rec['printed_page'] = c['pp']
+        if 'local_sha256' not in rec: rec['local_sha256'] = file_sha(os.path.join(ROOT, rec['local_path']))
+    return attach_image(rec, c)
 
 def load_specs():
     rows = []

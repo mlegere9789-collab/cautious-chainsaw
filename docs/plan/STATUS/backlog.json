@@ -47,8 +47,8 @@
   "done": 101,
   "by_source_status": {
    "OPEN_NEEDS_DECISION": 186,
-   "OPEN_BUILDABLE": 448,
-   "BUILT_NOT_SHIPPED": 73
+   "OPEN_BUILDABLE": 447,
+   "BUILT_NOT_SHIPPED": 74
   },
   "by_size_open_build": {
    "S": 115,
@@ -119,7 +119,7 @@
     "part": "A",
     "id": "WP-ARCH-09",
     "kind": "work package (finding group)",
-    "status": "OPEN_BUILDABLE",
+    "status": "BUILT_NOT_SHIPPED",
     "chapter": "03",
     "size": "M"
    },
@@ -159,7 +159,9 @@
     "src/lib/time"
    ],
    "context_files": [
-    "package.json"
+    "package.json",
+    "src/foundation.test.mjs",
+    "candidates/r1h/wp-arch-09/"
    ],
    "depends_on": [],
    "decision": {
@@ -2144,7 +2146,7 @@
    "order": 38,
    "wave": null,
    "done": false,
-   "title": "T0-MFIX-02/-10/-11/-12 red on R1g in the container",
+   "title": "T0-MFIX-02 and T0-MFIX-11 red on R1g in the container (-10 and -12 were red only in the first full run)",
    "source": {
     "part": "A",
     "id": "VER-MFIX",
@@ -2862,7 +2864,8 @@
    "reads": [],
    "context_files": [
     "docs/content/APPROVED-BIO.md",
-    "candidates/trust-pages/about.html"
+    "candidates/trust-pages/about.html",
+    "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md"
    ],
    "depends_on": [],
    "acceptance": "Proof: candidates/r1h/owner-2026-10-04-5/ holds group.json and/or overlay/ with every anchor asserted on release/R1g/dist, test.mjs that FAILS on the untouched tree and PASSES on the scratch tree of the group, HANDOFF.md, and `node candidates/r1h/_lib/prove.mjs owner-2026-10-04-5` exits 0 and writes STATUS.json with passes true (anchors ok, red exit non-zero, green exit 0). Specific check (survey next step, 2026-11-13): Ships with the trust pages (RM-39); the About candidate still carries the owner-input placeholder for the reviewer credit. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
@@ -3547,7 +3550,8 @@
    "reads": [],
    "context_files": [
     "candidates/trust-pages/",
-    "docs/content/OWNER-INPUTS.md"
+    "docs/content/OWNER-INPUTS.md",
+    "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md"
    ],
    "depends_on": [],
    "acceptance": "Proof: candidates/r1h/wp-a11y-31/ holds group.json and/or overlay/ with every anchor asserted on release/R1g/dist, test.mjs that FAILS on the untouched tree and PASSES on the scratch tree of the group, HANDOFF.md, and `node candidates/r1h/_lib/prove.mjs wp-a11y-31` exits 0 and writes STATUS.json with passes true (anchors ok, red exit non-zero, green exit 0). Specific check (survey next step, 2026-11-13): Missing: the five owner inputs of docs/content/OWNER-INPUTS.md and registration in a train (RM-39). Plan acceptance (docs/plan/FINAL, WP-A11Y-31): Page passes axe/pa11y/Lighthouse; a test message is acknowledged; ACR rows equal the app-a11y section-4 table. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
@@ -14620,7 +14624,7 @@
    "depends_on": [
     "wp-arch-09"
    ],
-   "acceptance": "Proof: a red-first test under src/<area>/tests/ (it fails before the change; the failing log is kept), the work in src/, and `node candidates/r1h/_lib/record.mjs wp-arch-10 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): After WP-ARCH-09. Plan acceptance (docs/plan/FINAL, WP-ARCH-10): one patched byte without a rename fails CI; double build identical; no lazy chunk imports the entry; `size-limit` fails +5%. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
+   "acceptance": "Proof: a red-first test under src/<area>/tests/ (it fails before the change; the failing log is kept), the work in src/, and `node candidates/r1h/_lib/record.mjs wp-arch-10 --test \"<command>\" --red-cmd \"<command>\" --red-exit 1 --red-log <log>` exits 0 with every test command exiting 0 and HANDOFF.md present; no existing test, gate or baseline is loosened. Specific check (survey next step, 2026-11-13): Starts from the wp-arch-09 foundation: install and pin the first dependencies in src/package.json and src/app/package.json (rows N2, N3, N5, N7 of src/STACK.md), call getMapboxToken() once at the start of a production build, then the chunk map, byte budgets and hash scheme. Plan acceptance (docs/plan/FINAL, WP-ARCH-10): one patched byte without a rename fails CI; double build identical; no lazy chunk imports the entry; `size-limit` fails +5%. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
    "acceptance_basis": "machine proof clause + next-step + plan-accept",
    "needs_split": true,
    "split_hint": [
@@ -21206,7 +21210,8 @@
    "reads": [],
    "context_files": [
     "candidates/trust-pages/",
-    "docs/content/OWNER-INPUTS.md"
+    "docs/content/OWNER-INPUTS.md",
+    "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md"
    ],
    "depends_on": [
     "wp-a11y-31",
@@ -21312,7 +21317,8 @@
     "candidates/trust-pages/",
     "candidates/user-guide/",
     "data-src/environment/",
-    "data-src/ledger/"
+    "data-src/ledger/",
+    "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-copy-suite-anchor-states.md"
    ],
    "depends_on": [
     "wp-time-13",
