@@ -55,7 +55,7 @@ for (const v of ['22', '24']) {
   if (regexErrors) bad.push(`${regexErrors} "Invalid regular expression" errors`);
   if (startTree && endTree && startTree !== endTree) bad.push('the working tree changed while the suite ran');
   const dur = info(text, /^(?:# |ℹ )duration_ms ([\d.]+)\s*$/m);
-  out[v] = { node, files, exit: exit === null ? null : Number(exit), totals: t, duration_ms: dur === null ? null : Math.round(Number(dur)), file_level_failures: loadFailures, invalid_regular_expression_errors: regexErrors, tree_at_start: startTree, tree_at_end: endTree, started: info(text, /^# started: (\S+)/m), load_average_at_start: info(text, /load average ([\d. ]+)/), log: `candidates/r1h/ver-hist-node/${name}` };
+  out[v] = { node, files, exit: exit === null ? null : Number(exit), totals: t, duration_ms: dur === null ? null : Math.round(Number(dur)), file_level_failures: loadFailures, invalid_regular_expression_errors: regexErrors, tree_at_start: startTree, tree_at_end: endTree, started: info(text, /^# started: (\d{4}-\d\d-\d\dT[\d:]+Z)/m), load_average_at_start: info(text, /load average ([\d. ]+)/), log: `candidates/r1h/ver-hist-node/${name}` };
   for (const b of bad) problems.push(`Node ${v}: ${b}`);
 }
 if (out['22'] && out['24']) {
@@ -77,6 +77,9 @@ if (out['22'] && out['24']) {
       parse_matches_totals: pa.lines === a.tests && pb.lines === b.tests };
   } else out.per_test = { error: [pa && pa.error, pb && pb.error].filter(Boolean).join('; ') || 'a log could not be read' };
   out.notes = [];
+  // the comparison counts as a check only when the parse accounts for every test line the logs claim; then a test with another outcome under the other Node is a failure even when the totals happen to agree
+  if (out.per_test.parse_matches_totals === true && out.per_test.same_outcome_for_every_test === false) problems.push(`${out.per_test.differing_count} tests have another outcome under Node 22 than under Node 24 (per_test lists them)`);
+  else if (out.per_test.parse_matches_totals !== true) out.notes.push('the per-test comparison is inconclusive here: the test lines found in the logs do not add up to the totals the logs print, so only the totals were compared');
   if (a.fail || b.fail || a.cancelled || b.cancelled) out.notes.push(`failures or cancellations are present in both runs (node 22: fail ${a.fail}, cancelled ${a.cancelled}; node 24: fail ${b.fail}, cancelled ${b.cancelled}): equal totals, but not a clean suite`);
 }
 out.ok = problems.length === 0; out.problems = problems;

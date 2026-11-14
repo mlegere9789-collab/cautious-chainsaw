@@ -8,12 +8,18 @@
 #   * the list of test files: both runs get the same explicit list (the shell glob of tests/historian/*.test.mjs expanded once), so a test file added meanwhile is in neither run;
 #   * the content hash covers the files that existed at the start (the list is kept in the log's directory): an edit or a deletion of such a file during either run still
 #     changes the hash and is reported by check-totals.mjs; a new file that nothing in the first run could have read does not.
+#   The one kind of file left out of the hash is a TypeScript declaration (*.d.ts): Node never loads one and no test of the historian reads one (a search of tools/historian, tests/historian,
+#   historian-src, src/lib/time and data-src/time finds no reference to a .d.ts), while wp-time-18 edits src/lib/time/index.d.ts; an edit of a file no run can read must not void a run that costs hours of waiting.
+# 2026-11-14 (record step): a second wait for the lock after this one can take as long as the first, so the job does not end at the two logs. Still under the exclusive lock it reads the logs
+# (check-totals.mjs --write: totals, exit codes, tree hashes, per-test outcomes, merged into STATUS.json as node_totals) and, only when that holds, writes the record with the full command list
+# (record.sh: record.mjs runs every command and sets passes from their exit codes). The output of both steps is kept in tmp/r1h-cand/ver-hist-node/check-totals.out and record.out.
+# VHN_NO_RECORD=1 in the environment stops the job after the two logs.
 cd "$(dirname "$0")/../../.." || exit 2
 O=candidates/r1h/ver-hist-node
 # a content hash of what the historian suites read: the tools, the tests, the sources and the committed hx, the time model's code and its anchors (another job editing files elsewhere does not matter)
 TREE_DIRS="tools/historian tests/historian historian-src src/lib/time data-src/time"
 LIST=$O/.files-at-start.list0
-find $TREE_DIRS -type f -not -path '*/node_modules/*' -print0 | sort -z > "$LIST"
+find $TREE_DIRS -type f -not -path '*/node_modules/*' -not -name '*.d.ts' -print0 | sort -z > "$LIST"
 tree() { xargs -0 -a "$LIST" sha256sum 2>&1 | sha256sum | cut -c1-12; }   # a file that vanished adds an error line, so the hash changes
 TESTS=$(ls tests/historian/*.test.mjs)
 for v in 22 24; do
@@ -28,3 +34,12 @@ for v in 22 24; do
   $N --test $TESTS >> "$L" 2>&1; rc=$?
   { echo "# finished: $(date -u +%FT%TZ), load average $(cut -d' ' -f1-3 /proc/loadavg); content hash at the end: $(tree)"; echo "# exit: $rc"; } >> "$L"
 done
+if [ "${VHN_NO_RECORD:-0}" != 1 ]; then
+  P=tmp/r1h-cand/ver-hist-node; mkdir -p "$P"
+  node $O/check-totals.mjs --write > "$P/check-totals.out" 2>&1; crc=$?
+  if [ "$crc" = 0 ]; then
+    bash $O/record.sh > "$P/record.out" 2>&1; rrc=$?; echo "# record.sh exit: $rrc" >> "$P/record.out"
+  else
+    echo "# check-totals.mjs exit: $crc; the record was not written (see check-totals.out)" > "$P/record.out"
+  fi
+fi

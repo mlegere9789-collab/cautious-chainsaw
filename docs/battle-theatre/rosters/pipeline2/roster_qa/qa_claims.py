@@ -136,7 +136,7 @@ def main():
         check(claims, 'union-me', 'all lines', int(num(r[ci['all']])), u['head']['n'], r[0])
         check(claims, 'union-me', '"Same" lines (flag S of the flag file; the printed name is the ditto word, OCR variants included)', int(num(r[ci['same']])), len(u['flags']['rows'].get('S', [])), r[0])
         exact = sum(1 for x in rows if x[0] == 'Same')
-        claims.append({'item': 'union-me', 'unit': r[0], 'claim': 'information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)', 'claimed': None, 'recomputed': exact, 'holds': True})
+        claims.append({'item': 'union-me', 'unit': r[0], 'claim': 'information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)', 'claimed': None, 'recomputed': exact, 'holds': True, 'info': True})
         check(claims, 'union-me', 'ocr_uncertain lines', int(num(r[ci['ocr']])), len(u['flags']['ocr_uncertain']), r[0])
         check(claims, 'union-me', 'printed remark names Gettysburg', int(num(r[ci['gett']])), gett(rows), r[0])
         y, n, k = rolls(u)
@@ -213,7 +213,7 @@ def main():
     ma = load_units('ma')
     tot = sum(u['head']['n'] for u in ma.values())
     claims.append({'item': 'union-ma', 'unit': None, 'claim': 'information: no report and no pointer file in the tree when this check ran (open_groups.py); PRODUCTION-PLAN 9.1 stated 24 units and 33,748 lines on the morning of 14 November; the unit files were rewritten afterwards by their engineer (22 of 24 files differ from the sampled frame)',
-                   'claimed': [24, 33748], 'recomputed': [len(ma), tot], 'holds': True, 'stale_explained': [24, 33748] != [len(ma), tot]})
+                   'claimed': [24, 33748], 'recomputed': [len(ma), tot], 'holds': True, 'stale_explained': [24, 33748] != [len(ma), tot], 'info': True})
     # ---------------- flag-file hashes
     for item, st in ITEM_ST.items():
         for stem, u in load_units(st).items():
@@ -272,9 +272,10 @@ def main():
             claims.append({'item': 'union-' + st, 'unit': None, 'claim': 'verify_unit.py --all: every file ok (0 V1, 0 V3, 0 problems)', 'claimed': True,
                            'recomputed': {'files': len(lines), 'v1': sum(x['v1_name_defects'] for x in lines), 'v3': sum(x['v3_page_defects'] for x in lines), 'problems': sum(len(x['problems']) for x in lines), 'not_ok': bad},
                            'holds': not bad})
-    out = {'f': 'roster-qa-claims/1', 'checked': len(claims), 'hold': sum(1 for c in claims if c['holds']), 'do_not_hold': [c for c in claims if not c['holds']], 'claims': claims}
+    real = [c for c in claims if not c.get('info')]
+    out = {'f': 'roster-qa-claims/1', 'checked': len(real), 'hold': sum(1 for c in real if c['holds']), 'do_not_hold': [c for c in real if not c['holds']], 'information': [c for c in claims if c.get('info')], 'claims': real}
     Q.jdump(os.path.join(Q.QA, 'claims-check.json'), out)
-    print('claims checked: %d, hold: %d, do not hold: %d' % (out['checked'], out['hold'], len(out['do_not_hold'])))
+    print('claims checked: %d, hold: %d, do not hold: %d (and %d informational lines)' % (out['checked'], out['hold'], len(out['do_not_hold']), len(out['information'])))
     for c in out['do_not_hold'][:60]:
         print(' -', c['item'], c['unit'], '|', c['claim'], '| claimed', c['claimed'], '| recomputed', c['recomputed'])
     return 0

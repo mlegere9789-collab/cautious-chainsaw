@@ -4,7 +4,7 @@ merge_horde.py copies these files to GOVERNANCE/register/proposed/tl-03/; an own
 import os, glob, re
 
 def _cell(s):
-    return str(s).replace('|', '/').replace('\n', ' ').strip() or '-'
+    return str(s).replace('|', '\\|').replace('\n', ' ').strip() or '-'
 
 def write(dirpath, out_rows):
     os.makedirs(dirpath, exist_ok=True)

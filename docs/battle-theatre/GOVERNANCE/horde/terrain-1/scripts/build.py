@@ -49,7 +49,7 @@ def resolve(c):
         pi = tlib.page_info(part, a, b)
         return dict(source_id='OR-27-%d' % part, source_class=CLASS['OR'], part=part, report_id=rid, report_author=((rec.get('rank') or '') + ' ' + (rec.get('author') or '')).strip(),
                     printed_page=pi['page'], page_basis=pi['basis'], quote=q, offset=[a, b], local_path=OR_PATH[part], local_sha256=OR_SHA[part],
-                    match='exact (whitespace-normalised, case-sensitive)', second_witness=tlib.witness_check(part, q), role=c['role'], note=c.get('note'))
+                    match='exact (whitespace-normalised, case-sensitive)', second_witness=tlib.witness_check(part, q), role=c['role'], note=c.get('note'), **({'image_reading': c['image']} if c.get('image') else {}))
     if src == 'LIB':
         p, raw, nt, nm = tlib.lib_text(ref)
         idxs = []; pos = 0
@@ -61,7 +61,8 @@ def resolve(c):
         if len(idxs) > 1 and occ is None: raise SystemExit('AMBIGUOUS (%d) in %s: %r' % (len(idxs), ref, q))
         i = idxs[occ or 0]; a, b = nm[i], nm[i + len(qn) - 1] + 1
         return dict(source_id=ref, source_class=lib_class(ref), part=None, report_id=None, printed_page=c.get('page'), page_basis=('running head read in the text layer (checked by hand)' if c.get('page') else 'heuristic hint only (nearest preceding number); not a citation page'), page_hint=tlib.page_hint(raw, a), quote=q, offset=[a, b],
-                    local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)', role=c['role'], note=c.get('note'))
+                    local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)', role=c['role'], note=c.get('note'),
+                    **({'second_witness': tlib.lib_witness(ref, q)} if tlib.LIB_WITNESS.get(ref) else {}))
     if src == 'NPS':
         p, raw, nt, nm = tlib.nps_text(ref)
         idxs = []; pos = 0
@@ -75,8 +76,22 @@ def resolve(c):
         pg = None
         for mm in re.finditer(r'=== PAGE (\d+) ===', raw[:a]): pg = mm.group(1)
         return dict(source_id=ref, source_class='secondary (National Park Service document, United States government work; text layer of the PDF)', part=None, report_id=None,
-                    printed_page=None, pdf_page=pg, quote=q, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)',
+                    printed_page=c.get('page'), page_basis=('page number printed at the top of the PDF page in the text layer' if c.get('page') else 'PDF page marker only (no printed page read)'), pdf_page=pg, quote=q, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)',
                     role=c['role'], note=c.get('note'))
+    if src == 'FILE':
+        p = os.path.join(ROOT, ref)
+        raw = open(p, encoding='utf-8', newline='').read()
+        nt, nm = tlib.build_nview(raw)
+        idxs = []; pos = 0
+        while True:
+            i = nt.find(qn, pos)
+            if i < 0: break
+            idxs.append(i); pos = i + 1
+        if not idxs: raise SystemExit('NOT FOUND in %s: %r' % (ref, q))
+        if len(idxs) > 1 and occ is None: raise SystemExit('AMBIGUOUS (%d) in %s: %r' % (len(idxs), ref, q))
+        i = idxs[occ or 0]; a, b = nm[i], nm[i + len(qn) - 1] + 1
+        return dict(source_id=c['sid'], source_class=c['cls'], part=None, report_id=None, printed_page=c.get('page'), page_basis=None, quote=q, offset=[a, b],
+                    local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)', role=c['role'], note=c.get('note'))
     raise SystemExit('bad src ' + src)
 
 def load_specs():

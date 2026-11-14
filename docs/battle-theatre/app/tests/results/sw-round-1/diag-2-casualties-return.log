@@ -1,0 +1,7 @@
+# run diag-2-casualties-return: tmp/bt-spec/diag-casualties.mjs  env:  BT_SNAPSHOT=/home/user/cautious-chainsaw/tmp/bt-spec/snap-c2704ba8/docs/battle-theatre  start 2026-11-14T01:36:16Z  HEAD c2704ba8  limit 5400s
+# newest source file at start: 1794618848.1487861130 docs/battle-theatre/app/src/ext/vegetation/model.mjs
+TAP version 13
+# \# renderer: ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) (SOFTWARE; hardware flags); WebGPU adapter: google swiftshader; serving the frozen source snapshot /home/user/cautious-chainsaw/tmp/bt-spec/snap-c2704ba8/docs/battle-theatre
+# \# slow renderer: frame 4135 ms on this page, wait scale K = 41.4, entry took 35 s
+# [   36 s] entered; renderer ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver); K 41.4
+# [   51 s] flags at entry: {"fxOk":true,"weatherOk":true,"dead":false}

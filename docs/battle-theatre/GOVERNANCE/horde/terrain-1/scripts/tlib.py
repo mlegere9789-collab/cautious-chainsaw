@@ -202,3 +202,24 @@ def witness_check(part, quote):
         i = t.find(q)
         res.append(dict(scan=label, sha256=sha, found=i >= 0, occurrences=t.count(q) if i >= 0 else 0))
     return res
+
+
+# ---------------------------------------------------------------- second scans of library books (added 2026-11-14)
+LIB_WITNESS = {
+  'BL-3': [('archive.org item battlesleadersci03underich (a second scan of Battles and Leaders vol. III, fetched 2026-11-14 via https://archive.org/cors/)',
+            'tmp/terrain-1/dl/bl3/bl3_underich_djvu.txt')],
+}
+_lwc = {}
+def lib_witness(sid, quote):
+    """does a second scan of the same book carry the quote (alphanumerics only, case and hyphenation ignored)? returns [] when no second scan is on file."""
+    res = []
+    q = squash(quote)
+    for label, rel in LIB_WITNESS.get(sid, []):
+        if rel not in _lwc:
+            raw = open(os.path.join(ROOT, rel), encoding='utf-8', errors='replace').read()
+            raw = re.sub(r'-\s*\n\s*(?=[a-z])', '', raw)
+            _lwc[rel] = (squash(raw), hashlib.sha256(open(os.path.join(ROOT, rel), 'rb').read()).hexdigest())
+        t, sh = _lwc[rel]
+        i = t.find(q)
+        res.append(dict(scan=label, sha256=sh, found=i >= 0, occurrences=t.count(q) if i >= 0 else 0))
+    return res

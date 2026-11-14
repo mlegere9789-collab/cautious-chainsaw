@@ -51,11 +51,11 @@ def main():
                         'page_url': 'https://archive.org/details/' + ident, 'url': 'https://archive.org/cors/%s/%s.pdf' % (ident, ident),
                         'bytes': next((f['bytes'] for f in files if f['role'] == 'pdf'), None), 'sha256': next((f['sha256'] for f in files if f['role'] == 'pdf'), None),
                         'use': 'single pages rendered with pdftoppm for the independent sample and for the second reading; the page images are never stored', 'files': files, 'rights': rights})
-    led = Q.jload(os.path.join(Q.D2, 'sources', 'QA-PAGEREAD.json'))
+    led = Q.jload(os.path.join(Q.QA, 'pageread-ledger.json'))
     doc = {'format': 'roster2-sources-pointer/1', 'work_item': 'roster-qa', 'generated': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
            'access_rules': 'archive.org /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround; the page routes archive.org/download/<id>/page/ and iiif.archive.org are refused by the proxy and were not used',
            'sources': sources,
-           'derived_texts': {'ledger': 'rosters/data2/sources/QA-PAGEREAD.json', 'texts': len(led['texts']), 'what': 'tesseract readings of single pages (psm 6, 300 dpi, table rules removed), pinned by sha256; second readings for the lines the first layer lost and for the eight leaves without text',
+           'derived_texts': {'ledger': 'rosters/data2/qa/pageread-ledger.json', 'texts': len(led['texts']), 'what': 'second readings of single pages of the item PDFs, pinned by sha256, made for lines that the first text layer lost',
                              'local_dir': 'tmp/library/rosters/_qa/pageread'},
            'blocked': [], 'not_used': [{'what': 'page images of the Internet Archive page routes', 'why': 'refused by the proxy (documented by the Vermont and New Hampshire engineers); the text PDF route is used instead'}]}
     Q.jdump(os.path.join(Q.R2, 'sources', 'roster-qa.json'), doc)

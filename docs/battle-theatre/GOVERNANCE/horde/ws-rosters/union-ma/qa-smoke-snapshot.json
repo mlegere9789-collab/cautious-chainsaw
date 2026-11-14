@@ -1,0 +1,271 @@
+{
+ "format": "ma-qa-smoke-snapshot/1",
+ "about": "What roster-qa found when it compared the stored lines of six pages of the Massachusetts item with the printed pages (smoke stage of its first round, verdicts written 2026-11-14 00:47 to 01:07 UTC), copied from rosters/data2/qa/MA-SSM.json and the six verdict files, and what the flag files of the 24 unit files say of the same lines now (after the marks of 14 November 2026 were widened; the unit files themselves are unchanged). The gates are those of roster-qa (PLAN.md 4.4); this item did not run them.",
+ "read_files": {
+  "family_file": {
+   "file": "docs/battle-theatre/rosters/data2/qa/MA-SSM.json",
+   "sha256": "020193a2caf56ace4d035f12d62bc831065a84960ad8ed0421d57f14bdfb0380"
+  },
+  "verdicts": {
+   "massachusettssol11931mass/662": {
+    "file": "docs/battle-theatre/rosters/data2/qa/pages/massachusettssol11931mass-0662.verdict.json",
+    "sha256": "dc9f00b0ad66e3d2114ac1ece4a1fc9302eb187a2e0f466b6b0c81bdf165a4c5",
+    "verdict_utc": "2026-11-14T00:47:07Z",
+    "levels": "NDR"
+   },
+   "massachusettssol11931mass/758": {
+    "file": "docs/battle-theatre/rosters/data2/qa/pages/massachusettssol11931mass-0758.verdict.json",
+    "sha256": "62fbbfa694ea785a1e05ed37f8980330f29ddedf935652be05ada8b4bf36e8d3",
+    "verdict_utc": "2026-11-14T00:47:38Z",
+    "levels": "NDR"
+   },
+   "massachusettssol11931mass/813": {
+    "file": "docs/battle-theatre/rosters/data2/qa/pages/massachusettssol11931mass-0813.verdict.json",
+    "sha256": "6330fda9adffa1c0e23ac1b1d4e1603e00b84bb77bd0f55c89530cde978ead5f",
+    "verdict_utc": "2026-11-14T00:46:52Z",
+    "levels": "NDR"
+   },
+   "massachusettssol21931mass/143": {
+    "file": "docs/battle-theatre/rosters/data2/qa/pages/massachusettssol21931mass-0143.verdict.json",
+    "sha256": "4fb726034171ce134d30e12e9bb4328ce1a212b9a2dd078621c436049662bbf6",
+    "verdict_utc": "2026-11-14T00:49:38Z",
+    "levels": "NDR"
+   },
+   "massachusettssol21931mass/373": {
+    "file": "docs/battle-theatre/rosters/data2/qa/pages/massachusettssol21931mass-0373.verdict.json",
+    "sha256": "350c98059554eb8fb6a08a294ca10fb142a111121a8a502fe968d8dc250e079a",
+    "verdict_utc": "2026-11-14T00:48:56Z",
+    "levels": "NDR"
+   },
+   "massachusettssol21931mass/661": {
+    "file": "docs/battle-theatre/rosters/data2/qa/pages/massachusettssol21931mass-0661.verdict.json",
+    "sha256": "d3122f63a1d156d19f42bbbd221181a38f653bb544dab33768b37403eadfaab8",
+    "verdict_utc": "2026-11-14T00:49:55Z",
+    "levels": "NDR"
+   }
+  }
+ },
+ "pages": [
+  {
+   "page": "massachusettssol11931mass/662",
+   "printed_page": 648,
+   "stratum": "MA-SSM-other",
+   "units": [
+    "9th-massachusetts-infantry"
+   ],
+   "rows_compared": 25,
+   "rows_with_a_difference": 2,
+   "rows_flagged_when_read": 0,
+   "error_kinds": {
+    "name-char": 1,
+    "rem-char": 1
+   },
+   "missed_lines": 0
+  },
+  {
+   "page": "massachusettssol11931mass/758",
+   "printed_page": 744,
+   "stratum": "MA-SSM-other",
+   "units": [
+    "11th-massachusetts-infantry"
+   ],
+   "rows_compared": 24,
+   "rows_with_a_difference": 15,
+   "rows_flagged_when_read": 6,
+   "error_kinds": {
+    "rem-extra": 15
+   },
+   "missed_lines": 0
+  },
+  {
+   "page": "massachusettssol11931mass/813",
+   "printed_page": 799,
+   "stratum": "MA-SSM-other",
+   "units": [
+    "11th-massachusetts-infantry"
+   ],
+   "rows_compared": 24,
+   "rows_with_a_difference": 4,
+   "rows_flagged_when_read": 0,
+   "error_kinds": {
+    "name-char": 3,
+    "rem-char": 1
+   },
+   "missed_lines": 0
+  },
+  {
+   "page": "massachusettssol21931mass/143",
+   "printed_page": 133,
+   "stratum": "MA-SSM-officers",
+   "units": [
+    "15th-massachusetts-infantry"
+   ],
+   "rows_compared": 16,
+   "rows_with_a_difference": 10,
+   "rows_flagged_when_read": 4,
+   "error_kinds": {
+    "rem-char": 6,
+    "rem-date": 5
+   },
+   "missed_lines": 0
+  },
+  {
+   "page": "massachusettssol21931mass/373",
+   "printed_page": 363,
+   "stratum": "MA-SSM-other",
+   "units": [
+    "18th-massachusetts-infantry"
+   ],
+   "rows_compared": 24,
+   "rows_with_a_difference": 16,
+   "rows_flagged_when_read": 10,
+   "error_kinds": {
+    "name-char": 2,
+    "rank": 1,
+    "rem-char": 10,
+    "rem-date": 11
+   },
+   "missed_lines": 0
+  },
+  {
+   "page": "massachusettssol21931mass/661",
+   "printed_page": 651,
+   "stratum": "MA-SSM-officers",
+   "units": [
+    "22nd-massachusetts-infantry"
+   ],
+   "rows_compared": 16,
+   "rows_with_a_difference": 4,
+   "rows_flagged_when_read": 1,
+   "error_kinds": {
+    "rank": 1,
+    "rem-char": 3
+   },
+   "missed_lines": 0
+  }
+ ],
+ "totals": {
+  "pages": 6,
+  "rows_compared": 129,
+  "rows_with_a_difference_from_the_print": 51,
+  "percent_rows_with_a_difference": 39.5,
+  "rows_with_a_wrong_name": 6,
+  "percent_rows_with_a_wrong_name": 4.7,
+  "difference_kinds_counted_over_rows": {
+   "name-char": 6,
+   "rank": 2,
+   "rem-char": 21,
+   "rem-date": 16,
+   "rem-extra": 15
+  }
+ },
+ "gates_as_computed_by_roster_qa": {
+  "MA-SSM-officers": {
+   "pages_looked_at": 2,
+   "rows_looked_at": 32,
+   "gates": {
+    "R-G1": {
+     "rows": 32,
+     "errors": 0,
+     "rate_percent": 0.0,
+     "upper95_percent": 8.94,
+     "decision": "OPEN"
+    },
+    "R-G2": {
+     "rows": 32,
+     "errors": 5,
+     "rate_percent": 15.62,
+     "upper95_percent": 30.08,
+     "decision": "FAIL"
+    },
+    "R-G3a": {
+     "rows": 32,
+     "errors": 1,
+     "rate_percent": 3.12,
+     "upper95_percent": 13.98,
+     "decision": "OPEN"
+    },
+    "R-G3b": {
+     "rows": 32,
+     "errors": 9,
+     "rate_percent": 28.12,
+     "upper95_percent": 43.94,
+     "decision": "FAIL"
+    }
+   }
+  },
+  "MA-SSM-other": {
+   "pages_looked_at": 4,
+   "rows_looked_at": 97,
+   "gates": {
+    "R-G1": {
+     "rows": 97,
+     "errors": 6,
+     "rate_percent": 6.19,
+     "upper95_percent": 11.84,
+     "decision": "FAIL"
+    },
+    "R-G2": {
+     "rows": 97,
+     "errors": 11,
+     "rate_percent": 11.34,
+     "upper95_percent": 18.07,
+     "decision": "FAIL"
+    },
+    "R-G3a": {
+     "rows": 97,
+     "errors": 1,
+     "rate_percent": 1.03,
+     "upper95_percent": 4.8,
+     "decision": "OPEN"
+    },
+    "R-G3b": {
+     "rows": 97,
+     "errors": 27,
+     "rate_percent": 27.84,
+     "upper95_percent": 36.29,
+     "decision": "FAIL"
+    }
+   }
+  }
+ },
+ "flags": {
+  "rows_with_a_difference_flagged_when_read": 20,
+  "rows_flagged_when_read_all": 21,
+  "rows_with_a_difference_flagged_now": 48,
+  "rows_without_a_difference_flagged_now": 4,
+  "rows_without_a_difference": 78,
+  "codes_on_the_rows_with_a_difference_flagged_now": {
+   "G": 16,
+   "N": 5,
+   "Q": 1,
+   "R": 2,
+   "W": 15,
+   "Y": 16
+  },
+  "rows_with_a_difference_not_flagged_now": [
+   {
+    "row": "9th-massachusetts-infantry#824",
+    "kinds": [
+     "name-char"
+    ],
+    "note": "stored 'Marrln, Thomas' printed 'Marrin, Thomas'"
+   },
+   {
+    "row": "15th-massachusetts-infantry#6",
+    "kinds": [
+     "rem-char"
+    ],
+    "note": "'Batten,- Mass.' for 'Battery Mass.'; 'f. S. Army' for 'U. S. Army'"
+   },
+   {
+    "row": "22nd-massachusetts-infantry#13",
+    "kinds": [
+     "rem-char"
+    ],
+    "note": "'Res. Maiden' for 'Res. Malden'"
+   }
+  ]
+ },
+ "caveat": "The marks of 14 November 2026 were written after reading these 51 differences, so the share of them that the flag files mark now (in-sample) is no estimate of the share marked on lines nobody compared; a line that no pattern marks is not thereby clean. The stored lines are not changed by any mark."
+}

@@ -1,10 +1,10 @@
 """Second reading of single pages for lines that the first text layer lost (roster-qa task 4).  Standard library plus Pillow and numpy.
 
-    python3 -I qa_pageread.py read PAGE_ID [PAGE_ID ...]            render, read with tesseract, keep the text as a derived text pinned in data2/sources/QA-PAGEREAD.json
+    python3 -I qa_pageread.py read PAGE_ID [PAGE_ID ...]            render, read with tesseract, keep the text as a derived text pinned in data2/qa/pageread-ledger.json
     python3 -I qa_pageread.py locate PAGE_ID "text of the lost line" [--n 3]    the lines of the derived text that resemble the lost line (best first, with offsets)
     python3 -I qa_pageread.py row PAGE_ID OFFSET LENGTH              show the derived text at an offset (to check a recovered row)
 
-A recovered row is written only with its own locator: a text id of the ledger QA-PAGEREAD (item identifier, leaf, PDF page, tesseract version and options, sha256 of the
+A recovered row is written only with its own locator: a text id of the ledger data2/qa/pageread-ledger.json (item identifier, leaf, PDF page, tesseract version and options, sha256 of the
 text) and the character offset of the first name character in that derived text.  The sample reader looks at the image of the line (Read tool) before a row is written;
 a name that tesseract did not read is NOT written (it is reported as read by eye only).  A recovered row is never merged into an existing unit file.
 """
@@ -16,7 +16,7 @@ import qa_lib as Q
 import qa_render as RN
 
 PR = os.path.join(Q.TMP, '_qa', 'pageread')
-LEDGER = os.path.join(Q.D2, 'sources', 'QA-PAGEREAD.json')
+LEDGER = os.path.join(Q.QA, 'pageread-ledger.json')
 
 
 def tess_version():

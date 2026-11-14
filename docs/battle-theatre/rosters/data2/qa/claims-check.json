@@ -1,8 +1,152 @@
 {
  "f": "roster-qa-claims/1",
- "checked": 561,
- "hold": 561,
+ "checked": 546,
+ "hold": 546,
  "do_not_hold": [],
+ "information": [
+  {
+   "item": "union-me",
+   "unit": "3rd Maine Infantry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 126,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "4th Maine Infantry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 135,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "5th Maine Infantry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 137,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "6th Maine Infantry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 87,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "7th Maine Infantry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 99,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "10th Maine Infantry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 45,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "16th Maine Infantry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 101,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "17th Maine Infantry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 318,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "19th Maine Infantry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 187,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "20th Maine Infantry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 571,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "1st Maine Cavalry",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 823,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "2nd Maine Battery (B)",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 13,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "5th Maine Battery (E)",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 24,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-me",
+   "unit": "6th Maine Battery (F)",
+   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
+   "claimed": null,
+   "recomputed": 12,
+   "holds": true,
+   "info": true
+  },
+  {
+   "item": "union-ma",
+   "unit": null,
+   "claim": "information: no report and no pointer file in the tree when this check ran (open_groups.py); PRODUCTION-PLAN 9.1 stated 24 units and 33,748 lines on the morning of 14 November; the unit files were rewritten afterwards by their engineer (22 of 24 files differ from the sampled frame)",
+   "claimed": [
+    24,
+    33748
+   ],
+   "recomputed": [
+    24,
+    33787
+   ],
+   "holds": true,
+   "stale_explained": true,
+   "info": true
+  }
+ ],
  "claims": [
   {
    "item": "union-me",
@@ -42,14 +186,6 @@
    "claim": "\"Same\" lines (flag S of the flag file; the printed name is the ditto word, OCR variants included)",
    "claimed": 127,
    "recomputed": 127,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "3rd Maine Infantry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
-   "recomputed": 126,
    "holds": true
   },
   {
@@ -127,14 +263,6 @@
   {
    "item": "union-me",
    "unit": "4th Maine Infantry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
-   "recomputed": 135,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "4th Maine Infantry",
    "claim": "ocr_uncertain lines",
    "claimed": 269,
    "recomputed": 269,
@@ -201,14 +329,6 @@
    "unit": "5th Maine Infantry",
    "claim": "\"Same\" lines (flag S of the flag file; the printed name is the ditto word, OCR variants included)",
    "claimed": 137,
-   "recomputed": 137,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "5th Maine Infantry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
    "recomputed": 137,
    "holds": true
   },
@@ -287,14 +407,6 @@
   {
    "item": "union-me",
    "unit": "6th Maine Infantry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
-   "recomputed": 87,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "6th Maine Infantry",
    "claim": "ocr_uncertain lines",
    "claimed": 314,
    "recomputed": 314,
@@ -361,14 +473,6 @@
    "unit": "7th Maine Infantry",
    "claim": "\"Same\" lines (flag S of the flag file; the printed name is the ditto word, OCR variants included)",
    "claimed": 99,
-   "recomputed": 99,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "7th Maine Infantry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
    "recomputed": 99,
    "holds": true
   },
@@ -447,14 +551,6 @@
   {
    "item": "union-me",
    "unit": "10th Maine Infantry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
-   "recomputed": 45,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "10th Maine Infantry",
    "claim": "ocr_uncertain lines",
    "claimed": 56,
    "recomputed": 56,
@@ -521,14 +617,6 @@
    "unit": "16th Maine Infantry",
    "claim": "\"Same\" lines (flag S of the flag file; the printed name is the ditto word, OCR variants included)",
    "claimed": 101,
-   "recomputed": 101,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "16th Maine Infantry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
    "recomputed": 101,
    "holds": true
   },
@@ -607,14 +695,6 @@
   {
    "item": "union-me",
    "unit": "17th Maine Infantry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
-   "recomputed": 318,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "17th Maine Infantry",
    "claim": "ocr_uncertain lines",
    "claimed": 310,
    "recomputed": 310,
@@ -682,14 +762,6 @@
    "claim": "\"Same\" lines (flag S of the flag file; the printed name is the ditto word, OCR variants included)",
    "claimed": 188,
    "recomputed": 188,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "19th Maine Infantry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
-   "recomputed": 187,
    "holds": true
   },
   {
@@ -767,14 +839,6 @@
   {
    "item": "union-me",
    "unit": "20th Maine Infantry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
-   "recomputed": 571,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "20th Maine Infantry",
    "claim": "ocr_uncertain lines",
    "claimed": 355,
    "recomputed": 355,
@@ -847,14 +911,6 @@
   {
    "item": "union-me",
    "unit": "1st Maine Cavalry",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
-   "recomputed": 823,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "1st Maine Cavalry",
    "claim": "ocr_uncertain lines",
    "claimed": 519,
    "recomputed": 519,
@@ -921,14 +977,6 @@
    "unit": "2nd Maine Battery (B)",
    "claim": "\"Same\" lines (flag S of the flag file; the printed name is the ditto word, OCR variants included)",
    "claimed": 13,
-   "recomputed": 13,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "2nd Maine Battery (B)",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
    "recomputed": 13,
    "holds": true
   },
@@ -1007,14 +1055,6 @@
   {
    "item": "union-me",
    "unit": "5th Maine Battery (E)",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
-   "recomputed": 24,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "5th Maine Battery (E)",
    "claim": "ocr_uncertain lines",
    "claimed": 80,
    "recomputed": 80,
@@ -1081,14 +1121,6 @@
    "unit": "6th Maine Battery (F)",
    "claim": "\"Same\" lines (flag S of the flag file; the printed name is the ditto word, OCR variants included)",
    "claimed": 12,
-   "recomputed": 12,
-   "holds": true
-  },
-  {
-   "item": "union-me",
-   "unit": "6th Maine Battery (F)",
-   "claim": "information: lines whose stored name is exactly Same (the rest of flag S are OCR variants of the word)",
-   "claimed": null,
    "recomputed": 12,
    "holds": true
   },
@@ -2315,21 +2347,6 @@
    "claimed": 6,
    "recomputed": 6,
    "holds": true
-  },
-  {
-   "item": "union-ma",
-   "unit": null,
-   "claim": "information: no report and no pointer file in the tree when this check ran (open_groups.py); PRODUCTION-PLAN 9.1 stated 24 units and 33,748 lines on the morning of 14 November; the unit files were rewritten afterwards by their engineer (22 of 24 files differ from the sampled frame)",
-   "claimed": [
-    24,
-    33748
-   ],
-   "recomputed": [
-    24,
-    33787
-   ],
-   "holds": true,
-   "stale_explained": true
   },
   {
    "item": "union-nh",

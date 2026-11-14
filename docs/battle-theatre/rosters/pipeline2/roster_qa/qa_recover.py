@@ -2,7 +2,7 @@
 
     python3 -I qa_recover.py union-vt          build data2/qa/recovered/union-vt.json from the specs below and check every locator
 
-A recovered row has its OWN locator: the text id of a derived text (ledger data2/sources/QA-PAGEREAD.json: the tesseract reading of that page, pinned by sha256) and the
+A recovered row has its OWN locator: the text id of a derived text (ledger data2/qa/pageread-ledger.json: the tesseract reading of that page, pinned by sha256) and the
 character offset of the first name character in it.  The checks are those of r2lib (V1 the name tokens stand at the offset, V2 the remark tokens follow in order).  The sample
 reader looked at the image of every line before the row was written (the spec says so).  The rows are plain JSON beside the sample results, never lines of a unit file:
 verify_unit.py --all globs *.jsonl.gz only, and nothing in data2/union is touched.
@@ -137,7 +137,7 @@ def build(item):
                     'context_of_co_and_rk': sp['context'], 'first_layer_text_of_the_line': sp['first_layer'], 'line_similarity_first_layer_vs_second': round(ratio, 3),
                     'checks': {'V1_name_tokens_at_offset': v1, 'V2_remark_tokens_follow': bool(m2), 'derived_text_sha256_matches_ledger': True},
                     'looked_at_image': 'yes: the line was cropped at 300 dpi and looked at with the Read tool; the printed name is the one stored here (OCR tokens of the derived text, never corrected)'})
-    doc = {'f': 'roster-qa-recovered/1', 'item': item, 'about': 'Lines that the first text layer lost, recovered by a second reading of the page image. Each row has its own locator (text_id in data2/sources/QA-PAGEREAD.json and offset); '
+    doc = {'f': 'roster-qa-recovered/1', 'item': item, 'about': 'Lines that the first text layer lost, recovered by a second reading of the page image. Each row has its own locator (text_id in data2/qa/pageread-ledger.json and offset); '
            'none is written into a unit file; the unit file of the item does not hold them.', 'generated_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'rows': out}
     Q.jdump(os.path.join(Q.QA, 'recovered', item + '.json'), doc)
     for r in out:

@@ -15,6 +15,31 @@ vl = json.load(open(os.path.join(HERE, 'audit', 'viewed_leaves.json'), encoding=
 pre = os.path.join(SH, 'REPORT.pre-closeout.md')
 if not os.path.exists(pre):
     shutil.copyfile(os.path.join(SH, 'REPORT.md'), pre)
+
+FACTS = [
+ "T1-121: the report of the Fourth Georgia (Maj. W. H. Willis, p.584) reads \"say at 12 o'clock\" on the page image (the OCR text prints 13); Doles gives about 1 p. m. for the brigade: two scenarios, the window starts at 12:00 (the first pass had 13:00).",
+ "T1-144: Gordon moved slowly until within about 300 yards of the enemy's line (OCR \":>,()()\", page image 300); the first pass carried 200.",
+ "T1-147: the revised return of casualties of the First Corps (OR p.173 and p.174, read on the page images) enters the 151st Pennsylvania with 337 (2 officers and 49 men killed, 9 and 202 wounded, 4 and 71 captured or missing) and the 24th Michigan with 363 (8 and 59, 13 and 197, 3 and 83); Morrow's own report (strength 496 with 24 line officers, losses 79 killed, 237 wounded, 316 in all, about 80 men and 3 officers missing) sums to about 399: carried as two scenarios.",
+ "T1-129: the total row of Iverson's Brigade in the casualty return (p.342, page image) prints 130 killed, 328 wounded, 308 missing and an aggregate of 820; 130 + 328 + 308 is 766 and the four regiment rows total 455: the printed columns are inconsistent and nothing is corrected.",
+ "T1-127: infantry and a second battery also built works on Jul 1 (Roath, 107th Pennsylvania, p.305: breastworks on the left of Cemetery Hill, occupied until next morning; Whittier, 5th Maine Battery, p.361: temporary earthworks during the night); the first pass had no infantry earthwork. The window now runs to the edge of the date.",
+ "T1-169: corrected from an open-gap seed: Hard, History of the Eighth Cavalry Regiment, Illinois Volunteers (1868), pp.257-258: after noon the cavalry hospital at the depot came under fire, the wounded were moved to the Presbyterian church, and Surgeons Beck, Rulison and Vosburg stayed with them when Buford's order to fall back came; afternoon, not evening; no capture stated.",
+ "T1-119, T1-128, T1-144: Herr's Ridge (Bachelder 1873: names given 'for convenience sake, not known by such before the battle') and Barlow's Knoll (Bachelder 1873, Ohio dedication volume 1887, a Pennsylvania address; the National Park Service has Blocher Knoll, later Barlow Knoll) are later names, not names of 1863.",
+ "T1-153: the National Park Service McPherson farm study says Heth fell unconscious, hit on the left side of the forehead, the bullet penetrating to the bone (the duration is cut off in the text layer); the glancing bullet and the 24 hours stay unsupported.",
+ "T1-148: a Pennsylvania casualty statement lists Colonel Stone among the wounded and his acting assistant adjutant-general among the captured, not Stone as captured.",
+ "T1-164: Howard (p.704) and Meade (p.115) give about 7 p. m. for the arrival of Slocum and Sickles; Hancock gives between 5 and 6.",
+ "T1-146: the window now starts at 11:00 (Wilkeson's battery came up about 11 a. m.: Hunt, Bancroft); T1-135: Doubleday p.256 also has Surgeons Heard and Bache staying with the wounded.",
+ "Digits read on page images: 2 1/2 miles (T1-119, T1-126, T1-154; OCR 2h and 2^), 400 yards (T1-122; OCR 4t)0), 216 (T1-152; OCR 21G), the 24th Michigan table (T1-147).",
+ "Pages: six stated pages of Official Records citations were corrected to the scan leaf (T1-116 p.914, T1-121 p.584, T1-143 and T1-145 p.164, T1-146 p.188, T1-149 p.582); library pages: Pennsylvania at Gettysburg vol.1 p.492 (not 491), New York at Gettysburg vol.1 p.21 for T1-167 (not 58), Fremantle p.254, Meade's Life and Letters p.56.",
+]
+OWED = [
+ "The second-OCR comparison of the numerals of every Official Records quote (tmp/tl-03/audit/ocr2.py, started under the machine lock at 00:44 on 2026-11-14) had not run when this report was written: a digit that looks clean in the OCR text but is wrong (13 for 12 was found by hand, not by this comparison) is found only by it. Run `tools/horde/bench.sh python3 -I tmp/tl-03/audit/ocr2.py` and read tmp/tl-03/audit/ocr2_report.txt; until then the digit checks are those listed above (heuristic search for suspect tokens, and the passages read on page images).",
+ "Only the header strip of each cited leaf (147 leaves) and the passages named above were looked at on page images; the rest of each cited page was not read on the image.",
+ "Pages of National Park Service texts are the PDF page of the text layer (marked as such); one leaf of a short pamphlet (Ohio dedication volume 1887, T1-128) has no printed page number.",
+ "Searched in the Official Records and the library and not found in any local text: the hours of Kilpatrick's and Merritt's moves on Jul 1 and Pleasonton's own position (T1-116); the arrival hour of each First Corps battery (T1-117); the hour at which Carter's battalion opened and any loss of Fry's battery at Gettysburg (T1-118); the hour of Pettigrew's and Brockenbrough's arrival (T1-119); Howard's 'a little after one' and the hour the Third Division entered the town (T1-120); Lee's arrival hour in the Official Records (T1-124); a strength of Iverson's and of Gordon's brigade (T1-129, T1-144); the weather of Jul 1 from Jacobs (T1-132); Tillie Pierce's age (T1-139); counts of wounded at the Spangler farm (T1-140); the hour of Paul's wound (T1-141); the hours of the deaths of Fowler and Wilkeson (T1-146); Heth's 24 hours (T1-153); Perrin's 50-yard gap (T1-155); the 298 men and 35 of the 16th Maine (T1-161); where Schimmelfennig hid as a midden (T1-162); Coster's 313 captured (T1-166); Lauson of the 55th Virginia (T1-171); the Seminary hospital figures (T1-170). Each search is in search_log.jsonl and in the register entries.",
+ "Hosts blocked or not served, not retried and not worked around: HathiTrust and eHistory (bot block); the HMDB markers 17936 and 17939 (the host did not serve the page): the owner may read them in a browser and send the text.",
+ "No gate was run, no passes flag was touched, nothing was committed or deployed by this workstream.",
+]
+
 V = collections.Counter(r['verdict'] for r in rows)
 seed_ver = {'verified_against_or_text': [], 'other': []}
 before = {r['id']: r['before']['status_effective'] for r in rows}
@@ -56,7 +81,7 @@ A('- second pass (2026-11-14): (1) page rule: the printed page of an Official Re
 A('- checks on the written files: build.py re-matches all citations at every write; closeout/audit/ holds the scripts of the page, number and text checks (README there).')
 A('')
 A('## Facts changed by reading the page images and by the second searches')
-for l in FACTS if 'FACTS' in globals() else []:
+for l in FACTS:
     A('- ' + l)
 A('')
 A('## Counts')
@@ -84,7 +109,7 @@ A('## Tier relative to the seed (overlay, seed rows untouched)')
 A('Promotion proposed: %s. Demotions against the seed: %s. Unchanged: %d rows. A promotion applies only to the corrected wording and needs the delegated-decision block DD-TL03-01 (appended to decisions/DELEGATED-DECISIONS-2026-11-11.md) or an owner decision; every unsupported remainder keeps its own tier and its proposed register entry.' % (', '.join(prom) or 'none', ', '.join(dem) or 'none', tc['unchanged']))
 A('')
 A('## What is not done or owed')
-for l in OWED if 'OWED' in globals() else []:
+for l in OWED:
     A('- ' + l)
 open(os.path.join(SH, 'REPORT.md'), 'w', encoding='utf-8', newline='\n').write('\n'.join(md) + '\n')
 print('REPORT.md written,', len(md), 'lines')

@@ -1,7 +1,7 @@
 {
  "format": "roster2-sources-pointer/1",
  "work_item": "roster-qa",
- "generated": "2026-11-14T01:24:45Z",
+ "generated": "2026-11-14T01:30:15Z",
  "access_rules": "archive.org /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround; the page routes archive.org/download/<id>/page/ and iiif.archive.org are refused by the proxy and were not used",
  "sources": [
   {
@@ -478,9 +478,9 @@
   }
  ],
  "derived_texts": {
-  "ledger": "rosters/data2/sources/QA-PAGEREAD.json",
+  "ledger": "rosters/data2/qa/pageread-ledger.json",
   "texts": 15,
-  "what": "tesseract readings of single pages (psm 6, 300 dpi, table rules removed), pinned by sha256; second readings for the lines the first layer lost and for the eight leaves without text",
+  "what": "second readings of single pages of the item PDFs, pinned by sha256, made for lines that the first text layer lost",
   "local_dir": "tmp/library/rosters/_qa/pageread"
  },
  "blocked": [],

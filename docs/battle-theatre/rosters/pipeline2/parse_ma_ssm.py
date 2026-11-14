@@ -29,13 +29,14 @@ GOV = os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws-ro
 ORDER = 'ABCDEFGHIKLM'
 
 CODES = {
-    'N': 'name text damaged (a digit or a mark inside a name token, a lower-case first letter, a period where the comma belongs, no comma after the surname)',
+    'N': 'name text damaged (a digit or a mark inside a name token, a lower-case first letter, a period where the comma belongs, no comma after the surname; since 14 November 2026 also a mark in front of a name token, Mc followed by a lower-case l, a name token that stands at most 10 times in the 24 unit files and differs by one look-alike pair of characters from a name token that stands at least 3 times as often)',
     'H': 'the head of the entry (name, rank, "Res.") was cut by a rule that is a reading or by a reviewed cut, or a stray mark stands in place of a dash',
     'R': 'the printed rank is not one of the ranks the volumes print (the text layer damaged it)',
     'Q': 'the word "Res." is damaged in the text layer',
     'C': 'the company heading above the row is damaged: the row has no company code (the letter the sequence of headings gives is in company_inferred)',
-    'Y': 'a year in the line is damaged (for example 1S63 or 18G1)',
-    'G': 'garbage marks of the scan (^ | ~ and the like) stand in or beside the line; a stray mark taken out of the head is listed in head_marks',
+    'Y': 'a date in the line is damaged: a year with a letter or a mark for a digit (for example 1S63 or 18G1) or, since 14 November 2026, a word in the place of the month name that is none of the month words of ma_flags.MONTHS (Xov., Julj, Jime), or a day or age printed IS, 2S and the like',
+    'G': 'garbage marks of the scan (^ | ~ and the like) stand in or beside the line; since 14 November 2026 also a single mark or letter standing alone between two words (! [ ] \' j i J, a lone I that is no company letter); a stray mark taken out of the head is listed in head_marks',
+    'W': 'a word of the remarks is damaged by the scan (since 14 November 2026): a capital letter inside a word (disabUity), a digit or a mark inside a word, the ordinal 1st printed Ist, or a word that stands at most 10 times in the 24 unit files and differs by one look-alike pair of characters (rn m, l i, o e and the like) from a word that stands at least 25 times and ten times as often (furioughed, Beveriy)',
 }
 ABOUT = ('row numbers count the rows of the unit file in file order from 0; "ocr_uncertain" = the printed line is damaged in the text layer in at least one of the ways of '
          'the codes below (an empty result does not say the line is clean, it says no pattern matched); the rows are never repaired; "on_rolls_july_1863" is inferred '
@@ -141,7 +142,7 @@ def build_unit(spec, vocab):
     return S, rows, info, seg, st
 
 
-def make_flags(spec, S, rows, info, unit_sha):
+def make_flags(spec, S, rows, info, unit_sha, vocab):
     n = len(rows)
     inferred = infer_companies(S)
     rowcodes = collections.defaultdict(set)
@@ -153,7 +154,7 @@ def make_flags(spec, S, rows, info, unit_sha):
         e = inf['entry']
         name, rank, co, rem, page, off, rd = r
         comma = e.style == 'comma'
-        if F.name_damaged(name, e.cut):
+        if F.name_damaged(name, e.cut) or F.name_marks(name, vocab):
             rowcodes['N'].add(i)
         if e.cut not in ('ok', 'initials-dropped') or e.kind not in ('reg', 'res-damaged', 'junk-after-d2') or e.cut == 'reviewed':
             rowcodes['H'].add(i)
@@ -166,10 +167,12 @@ def make_flags(spec, S, rows, info, unit_sha):
             hi = inf['heading_index']
             if hi in inferred:
                 comp_inf.append([i, inferred[hi]])
-        if F.year_damaged(rem):
+        if F.year_damaged(rem) or F.damaged_dates(rem):
             rowcodes['Y'].add(i)
-        if F.garbage_marks(rem) or F.garbage_marks(name) or inf['marks']:
+        if F.garbage_marks(rem) or F.garbage_marks(name) or inf['marks'] or F.stray_marks(rem):
             rowcodes['G'].add(i)
+        if F.damaged_words(rem, vocab):
+            rowcodes['W'].add(i)
         if e.kind != 'reg':
             head_kinds[e.kind].append(i)
         if e.cut != 'ok':
@@ -231,8 +234,9 @@ def main(argv):
     vocab = prepare_vocab()
     diag = {'format': 'roster-parse-diagnostics/1', 'item': 'union-ma', 'units': {}, 'rank_vocabulary': sorted(vocab)}
     total = 0
-    for spec in SECTIONS:
-        S, rows, info, seg, st = build_unit(spec, vocab)
+    built = [(spec,) + build_unit(spec, vocab) for spec in SECTIONS]          # every unit is parsed first: the marks of 14 November 2026 count words over all 24 units
+    wordcounts = F.Vocab([r for b in built for r in b[2]])
+    for spec, S, rows, info, seg, st in built:
         path = os.path.join(OUT, spec['file'] + '.jsonl.gz')
         if write:
             meta = R.write_unit(path, spec['key'], 'union', 'ma', spec['name'], [(seg, rows)])
@@ -246,7 +250,7 @@ def main(argv):
         back = segs[0][1]
         if len(back) != len(rows) or any(b[0] != a[0] or b[3] != a[3] or b[5] != a[5] or b[4] != a[4] or b[2] != a[2] for a, b in zip(rows, back)):
             raise SystemExit('%s: round trip differs' % spec['key'])
-        flags = make_flags(spec, S, rows, info, meta['sha256'])
+        flags = make_flags(spec, S, rows, info, meta['sha256'], wordcounts)
         if write:
             write_gz_json(os.path.join(OUT, spec['file'] + '.flags.json.gz'), flags)
         total += len(rows)

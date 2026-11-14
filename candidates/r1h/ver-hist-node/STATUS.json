@@ -62,5 +62,12 @@
  "problems": [
   "a test command failed"
  ],
- "state": "built"
+ "state": "built",
+ "notes": [
+  "Not run: any browser, GPU or real device. Nothing in this item runs in a browser; the item changes build tooling only.",
+  "87 of the 478 tests of tests/historian are skipped, identically under both Nodes: they need the corpus build (historian-src/raw/or27, tmp/historian-cache), which has not run in this container (backlog entry ver-hist-corpus). What they cover is not proven by this item.",
+  "No CI exists for the historian; the pair of commands this item proves (node --test tests/historian/*.test.mjs under Node 22 and Node 24) is not yet run on every change.",
+  "The paired run is a timing run on a machine shared with jobs that do not use the lock; the load average at the start of each run is in suite-node22.log and suite-node24.log.",
+  "The differential run (differential-node24.json) reads tmp/library/or27, which is not in git; it can be repeated only where that folder exists."
+ ]
 }

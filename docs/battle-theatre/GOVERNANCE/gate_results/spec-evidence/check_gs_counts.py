@@ -75,6 +75,20 @@ try:
     if (nm['battle_window_night'], nm['epilogue_night']) != (10380, 1694): bad(f'night split: {nm}')
     res.append(('night split', (nm['battle_window_night'], nm['epilogue_night']), '10,380', '10,380' in text and '1,694' in text))
 except Exception as e: bad(f'night_count.mjs did not run: {e}')
+
+# the sub-requirements each gate lists in `gate_ids` (the **Gates.** line of every gate section states the number)
+per = collections.Counter(g for s in subs for g in s['gate_ids'])
+lines_ = text.split('\n'); gate_of = None
+for l in lines_:
+    m = re.match(r'^### (Q\d\d) ', l)
+    if m: gate_of = m.group(1)
+    if gate_of and l.startswith('**Gates.**'):
+        mm = re.search(r'\((\d+) rows?[;)]', l)
+        want_n = per.get(gate_of, 0)
+        ok = bool(mm) and int(mm.group(1)) == want_n
+        res.append(('gate_ids rows of ' + gate_of, want_n, '', ok))
+        if not ok: bad.append(f'{gate_of}: the Gates line says {mm.group(1) if mm else None} rows, requirements.json lists the gate on {want_n}')
+        gate_of = None
 # gates
 gates = J('gates.json'); n = len(gates['gates']) if isinstance(gates, dict) and 'gates' in gates else len(gates)
 check('gates', n, 'Q01..Q28')
