@@ -74,10 +74,54 @@ def main():
     fr_pages = frame['pages']
     now = time.strftime('%d %B %Y, %H:%M UTC', time.gmtime())
     npages, nrows = len(verdicts), sum(v['rows_checked'] for v in verdicts)
+    first_v = Q.load_verdicts(merge=False)
+    second_only = [v for v in first_v if (v.get('verdict_utc') or '') >= '2026-11-15']      # verdicts written by the second sitting on pages the first had not looked at
+    n_first_sitting = len(first_v) - len(second_only)
+    addenda = {}
+    for ap_ in sorted(glob.glob(os.path.join(Q.QA, 'pages', '*.addendum.json'))):
+        a_ = Q.jload(ap_)
+        addenda[a_['page']] = a_
+    cur = Q.jload(os.path.join(Q.QA, 'verdicts-vs-files.json')) if os.path.exists(os.path.join(Q.QA, 'verdicts-vs-files.json')) else None
+    nd = {}
+    for s_, d_ in stats['strata'].items():
+        pv_ = [v for v in verdicts if v['stratum'] == s_ and not v['in_lowest_decile']]
+        nd[s_] = S.gate_counts(pv_) if pv_ else None
+    fail_cells = []
+    for s_, d_ in stats['strata'].items():
+        for g_ in ('R-G1', 'R-G2', 'R-G3a', 'R-G3b'):
+            x_ = d_['gates'][g_]
+            if x_['decision'] == 'FAIL':
+                fail_cells.append((s_, g_, x_['errors'], x_['rows'], x_['lower95_percent']))
+    weak_cells = [c_ for c_ in fail_cells if c_[4] <= 1.0]
+    nd_count_fail, nd_lower_only, nd_other = [], [], []
+    for s_ in stats['strata']:
+        c_ = nd[s_]
+        if not c_:
+            nd_other.append(s_)
+            continue
+        by_count = [g_ for g_, (n_, k_) in c_.items() if k_ >= 4]
+        by_low = [g_ for g_, (n_, k_) in c_.items() if 0 < k_ < 4 and S.lower(n_, k_) > 1.0]
+        (nd_count_fail if by_count else nd_lower_only if by_low else nd_other).append(s_)
+    node_lines = []
+    for lab_, fn_ in (('New Hampshire', 'node-roster-nh.out'), ('Massachusetts', 'node-roster-ma.out')):
+        np_ = os.path.join(Q.WSQ, fn_)
+        if os.path.exists(np_):
+            t_ = open(np_, encoding='utf-8').read()
+            m_t, m_p, m_f = re.search(r'# tests (\d+)', t_), re.search(r'# pass (\d+)', t_), re.search(r'# fail (\d+)', t_)
+            if m_t and m_p and m_f:
+                node_lines.append((lab_, int(m_t.group(1)), int(m_p.group(1)), int(m_f.group(1))))
+    node_txt = ' and '.join('%d node tests of the %s item (%d pass, %d fail)' % (t_, lab_, p_, f_) for lab_, t_, p_, f_ in node_lines)
+    n_ad_rows = sum(a_['rows_compared_at_second_sitting'] for a_ in addenda.values())
+    n_ad_err = sum(len(a_['first_verdict_error_rows']) for a_ in addenda.values())
+    n_ad_conf = sum(len(a_['confirmed_rows']) for a_ in addenda.values())
+    n_ad_notconf = sum(len(a_['not_confirmed_rows']) for a_ in addenda.values())
+    n_ad_added = sum(len(a_['errors_added']) for a_ in addenda.values())
+    n_ad_missed = sum(len(a_['missed_lines_added']) for a_ in addenda.values())
+    pages_read_twice = len(addenda)
 
     A('# Independent sample of the stored lines against page images, round 1 (Maine, New Hampshire, Vermont, Massachusetts) (work item roster-qa, OA03)')
     A('')
-    A('Written %s by the roster workstream. Evidence labels as in `PLAN.md`: **Measured** (a command run for this report produced it), **Documented** (a source text or a file says it), **Computed**, **Inferred**, **Not run**. Every number below is computed by `pipeline2/roster_qa/qa_report.py` from `data2/qa/` (frame, draw, one verdict file per page looked at, statistics, claims check, second-reading tests, recovered lines), the unit files and the logs under `GOVERNANCE/horde/ws-rosters/roster-qa/`; none is typed. No stored line, flag file or ledger of another item was changed.' % now)
+    A('Written %s by the roster workstream. Evidence labels as in `PLAN.md`: **Measured** (a command run for this report produced it), **Documented** (a source text or a file says it), **Computed**, **Inferred**, **Not run**. Every number below is computed by `pipeline2/roster_qa/qa_report.py` from `data2/qa/` (frame, draw, one verdict file per page looked at, statistics, claims check, second-reading tests, recovered lines), the unit files and the logs under `GOVERNANCE/horde/ws-rosters/roster-qa/`; no count is typed (figures quoted from the reports and plans of other items are named with their source). No stored line, flag file or ledger of another item was changed.' % now)
     A('')
     # ------------------------------------------------------------------ 0
     A('## 0. Summary')
@@ -90,15 +134,22 @@ def main():
             nstrata_fail += 1
         for g in fl:
             fails[g] += 1
-    A('* **The sample (Measured).** %d pages of the four closed items were drawn by a seeded rule (seed `%s`, %s pages in the frame, %d strata: six source families by layout, each split into pages of officers and other pages; at least a third of every stratum\'s pages from its lowest OCR-confidence decile) and **looked at** one by one with the Read tool on the page image (the item PDF through `archive.org/cors`, one page cut out with pdftoppm, transient, never stored). **%s stored lines were compared with the print** (name, rank or heading, company, and, where the stratum had not already failed the gate, dates and remarks). Page numbers, row numbers, the stored and the printed text of every difference are in `data2/qa/pages/*.verdict.json`.' % (npages, frame['seed'], f(len(fr_pages)), len(stats['strata']), f(nrows)))
-    A('* **Result (Measured).** **All %d of %d strata fail at least one gate decisively** (4 or more errors at the gate concerned, which is more than the ladder of PLAN.md 4.4 allows at its largest sample of 773 lines): R-G1 names failed in %d strata, R-G2 dates in %d, R-G3 in %d (structure) and %d (reading of the remark). **No stratum passes R-G9; none of the four items may be published as checked.** Section 2.2 gives every count with its one-sided 95 percent Clopper-Pearson bound; where a gate is still open (too few lines to decide) the table says OPEN and no pass is claimed.' %
-      (nstrata_fail, len(stats['strata']), fails['R-G1'], fails['R-G2'], fails['R-G3a'], fails['R-G3b']))
+    A('* **The sample (Measured).** %d pages of the four closed items were drawn by a seeded rule (seed `%s`, %s pages in the frame, %d strata: six source families by layout, each split into pages of officers and other pages; at least a third of every stratum\'s pages from its lowest OCR-confidence decile) and **looked at** one by one with the Read tool on the page image (the item PDF through `archive.org/cors`, one page cut out with pdftoppm, transient, never stored). **%s stored lines were compared with the print** (name, rank or heading, company, and, where the stratum had not already failed the gate, dates and remarks). Page numbers, row numbers, the stored and the printed text of every difference are in `data2/qa/pages/*.verdict.json` and `*.addendum.json`. Two sittings of the sample reader: the first (14 November) looked at %d pages; the second (15 November) looked at draw position 2 of MA-SSM-officers, which the first had passed over (no file records why), re-read %d pages (section 2.5) and compared the dates and remarks of the Vermont officers page where the first sitting had compared names only.' % (npages, frame['seed'], f(len(fr_pages)), len(stats['strata']), f(nrows), n_first_sitting, pages_read_twice))
+    A('* **Result (Measured).** **All %d of %d strata fail at least one gate by the ladder** (4 or more errors at the gate concerned, which is more than the ladder of PLAN.md 4.4 allows at its largest sample of 773 lines): R-G1 names failed in %d strata, R-G2 dates in %d, R-G3 in %d (structure) and %d (reading of the remark). **No stratum passes R-G9; none of the four items may be published as checked.** Section 2.2 gives every count with its one-sided 95 percent Clopper-Pearson bound; where a gate is still open (too few lines to decide) the table says OPEN and no pass is claimed. Of the %d failing gate cells %d also have a one-sided 95 percent lower bound above 1.0 percent, so the true error rate is above the requirement at that confidence%s. Without the lowest-decile pages (section 2.6) %d strata still fail by count (4 or more errors), %d more have a gate whose lower bound is above 1.0 percent (%s).' %
+      (nstrata_fail, len(stats['strata']), fails['R-G1'], fails['R-G2'], fails['R-G3a'], fails['R-G3b'], len(fail_cells), len(fail_cells) - len(weak_cells),
+       (' (the exception%s: %s)' % ('' if len(weak_cells) == 1 else 's', '; '.join('%s %s %d / %d, lower bound %s percent' % (c_[0], c_[1], c_[2], c_[3], c_[4]) for c_ in weak_cells))) if weak_cells else '',
+       len(nd_count_fail), len(nd_lower_only), ', '.join(nd_lower_only) or 'none'))
     kinds = collections.Counter()
     for v in verdicts:
         for e in v['errors']:
             for k in e['kinds']:
                 kinds[k] += 1
     A('* **What is wrong (Measured, section 2.3).** The text layer differs from the print in characters (digits read as letters or as other digits, `1S63`, `\'03`, `6i`; letters, `Julv`, `reed`, `Mclntire`, `II` for H; whole names garbled); the flag files mark only part of the lines in error. Besides: the ditto mark stored as the digits 66 (Maine returns), margin marks stored as letters (Massachusetts), run-in paragraphs and run-over lines stored as fragment rows or on the wrong row, several printed rows stored as one (Maine Field and Staff returns), rank words in the name field of officer lines (Maine at Gettysburg). The checks V1 to V3 cannot see any of this; the sample is the only check that does.')
+    if addenda:
+        miss_txt = '; '.join('%d on `%s`, listed in 2.5' % (len(a_['missed_lines_added']), pg_) for pg_, a_ in addenda.items() if a_['missed_lines_added'])
+        A('* **Second sitting (Measured, section 2.5).** The plan sends disagreements to a third reader and the first sitting had one reader. A second sitting re-read %d pages (%d lines) that decide strata or that the two machine readings and the first reader disagreed on: all %d rows that the first verdicts call errors on those pages are errors against the print (%d not confirmed); it added %d rows with errors at the levels D and R of one Vermont officers page%s. The verdicts of all %d pages (%s lines) are identical to the stored lines as they are now (`qa_current.py`).' %
+          (pages_read_twice, n_ad_rows, n_ad_conf, n_ad_notconf, n_ad_added, (', and it found printed lines that no stored line accounts for and that the first verdict does not list (%d: %s)' % (n_ad_missed, miss_txt)) if n_ad_missed else '',
+           cur['summary']['identical'] if cur else 0, f(cur['summary']['lines_in_verdicts']) if cur else '?'))
     if claims:
         vlines = {}
         for st_ in ('me', 'nh', 'vt', 'ma'):
@@ -107,7 +158,7 @@ def main():
         nfiles = sum(len(v_) for v_ in vlines.values())
         v1 = sum(x['v1_name_defects'] for v_ in vlines.values() for x in v_)
         v3 = sum(x['v3_page_defects'] for v_ in vlines.values() for x in v_)
-        A('* **The claims of the four reports hold (Measured, section 3).** %d claims of the reports of Maine, New Hampshire and Vermont (per-unit line counts, lines per segment, ocr_uncertain, on-the-rolls counts, Gettysburg counts, damage codes, totals), the flag-file hashes of all four items and every hash and size of the pointer files and ledgers kept locally were recomputed from the files: %d hold, %d do not. `verify_unit.py --all` on the four items: %d files, %d V1 and %d V3 defects; `build_index.py --lint`: 0 defects; the 23 node tests of the New Hampshire item pass.' % (claims['checked'], claims['hold'], len(claims['do_not_hold']), nfiles, v1, v3))
+        A('* **The claims of the four reports hold (Measured, section 3).** %d claims of the reports of Maine, New Hampshire and Vermont (per-unit line counts, lines per segment, ocr_uncertain, on-the-rolls counts, Gettysburg counts, damage codes, totals), the flag-file hashes of all four items and every hash and size of the pointer files and ledgers kept locally were recomputed from the files: %d hold, %d do not. `verify_unit.py --all` on the four items: %d files, %d V1 and %d V3 defects; `build_index.py --lint`: 0 defects%s.' % (claims['checked'], claims['hold'], len(claims['do_not_hold']), nfiles, v1, v3, ('; ' + node_txt) if node_txt else ''))
     else:
         A('* **Claims of the reports:** the check was not available when this report was written.')
     if det:
@@ -117,7 +168,7 @@ def main():
     else:
         tail = 'n/a.'
     A('* **The second-reading route (Measured, section 4).** %d of the %d lines that the first layer lost and that were tried (the %d Vermont lines of `diag-no-name.json` and %d of the %d Maine index lines of `diag-index.json`) were read by tesseract and are recovered, each with its own locator in a derived text (`data2/qa/pageread-ledger.json`) and confirmed by looking at the line on the page image; none is written into a unit file. The eight Maine index leaves without text are scanner-deleted leaves (`pageType Delete`) between consecutive printed pages: nothing is lost there. Compared with the first layer, tesseract marks as SUSPECT ' % (n_rec_vt + n_rec_me, len(rec_vt['rows']) + len(rec_me['rows']), len(rec_vt['rows']), len(rec_me['rows']), n_lost_me) + tail)
-    A('* **Not run / owed (section 7).** The Pennsylvania muster years and the Florida 6.1 percent (no unit files of those items yet); the cells sidecar of the Vermont files (page-order reading of the lines flagged O) as a second reading; the 299 to 628 lines per stratum that the plan asks for were not reached because every stratum failed first; fresh pages after the parsers are fixed; browser, timing, real-GPU checks (not part of this work).')
+    A('* **Not run / owed (section 7).** The Pennsylvania muster years and the Florida 6.1 percent (no unit files of those items yet); the cells sidecar of the Vermont files (page-order reading of the lines flagged O) as a second reading; the 299 to 628 lines per stratum that the plan asks for were not reached because every stratum failed first; fresh pages after the parsers are fixed; a third reader on every disagreement (the second sitting re-read %d of the %d pages and is the same role, not an independent person); browser, timing, real-GPU checks (not part of this work).' % (pages_read_twice, npages))
     A('')
     # ------------------------------------------------------------------ 1
     A('## 1. Lines per unit against the strength')
@@ -167,11 +218,29 @@ def main():
     A('')
     A('### 2.1 Design (as run)')
     A('')
-    A('* **Frame.** A page is a leaf of an Internet Archive item that holds at least one stored line of the four items (unit files and the `_other-` file of Maine): %s pages, %s lines. Excluded: the one pilot page that the author of the pilot read in development (`pilot/QA-SAMPLE.md`, Maine report 1863 book p. 579, leaf 798). The frame was built at its first run from the files as they stood; the sha256 of the raw lines of every file is in `data2/qa/frame.json`. **The 24 Massachusetts files were rewritten by their engineer during the run** (22 of 24 differ from the frame hashes; the lines read 33,748 at the frame and 33,787 now); the lines on every Massachusetts page that was looked at are identical (name, rank, company, remarks, offset) in the commits of 00:46 and 00:56 and in the current files, so the verdicts stand for the current files. The Maine, New Hampshire and Vermont files are unchanged since the frame.' % (f(len(fr_pages)), f(sum(p['rows'] for p in fr_pages))))
+    frame_note = ''
+    if cur:
+        ff_ = cur['frame_files']
+        diff_items = sorted({x_['item'] for x_ in ff_['differ_from_frame']})
+        frame_note = ' On 15 November %d of the %d files differ from the frame hashes (%s; the lines of %s read %s at the frame and %s now) and the stored lines of every page that was looked at are identical to the lines its verdict lists (`qa_current.py`, `data2/qa/verdicts-vs-files.json`: %d of %d pages identical, %s lines), so the verdicts stand for the files as they are now.' % (
+            len(ff_['differ_from_frame']), ff_['files_in_frame'], 'all of ' + ', '.join(diff_items) if diff_items else 'none', ', '.join(diff_items) or 'no item',
+            ' and '.join(f(ff_['rows_at_frame_by_item'][it_]) for it_ in diff_items) or '-', ' and '.join(f(ff_['rows_now_by_item'][it_]) for it_ in diff_items) or '-',
+            cur['summary']['identical'], cur['summary']['pages'], f(cur['summary']['lines_in_verdicts']))
+    A('* **Frame.** A page is a leaf of an Internet Archive item that holds at least one stored line of the four items (unit files and the `_other-` file of Maine): %s pages, %s lines. Excluded: the one pilot page that the author of the pilot read in development (`pilot/QA-SAMPLE.md`, Maine report 1863 book p. 579, leaf 798). The frame was built at its first run from the files as they stood; the sha256 of the raw lines of every file is in `data2/qa/frame.json`.%s' % (f(len(fr_pages)), f(sum(p['rows'] for p in fr_pages)), frame_note))
     A('* **Strata.** Source family by layout (6 families) x kind of page: an officers page holds at least 3 lines of which at least a quarter are officer lines (rule in `qa_frame.py`); all other pages are "other". Inside a stratum the damage score of a page is the share of its lines that the flag file marks ocr_uncertain; the lowest OCR-confidence decile is the 10 percent of pages (at least 1) with the highest score.')
-    A('* **Draw.** Pages are ordered by sha256 of `seed | stratum | identifier | leaf` (a published, recomputable pseudo-random order); decile pages and other pages form two lists; the draw order takes a decile page at positions 1, 4, 7 and so on, so that every prefix of m pages holds at least m/3 decile pages (PLAN.md 4.4). The order of every stratum is in `data2/qa/draw.json`; a sample is a prefix of it. **Where the sample is not a prefix** (ME-RET-other: draw position 3 was looked at first and positions 1 and 2 after it; no page was passed over because of what it showed) the verdict file says the position of every page.')
-    A('* **Reader.** The sample reader is the engineer of this item, who did not write or see the builders of the four items; the page image is looked at with the Read tool (200 dpi view of the page; 300 dpi crops of tables; zoom to 600 dpi for a doubtful character). Tesseract 5.3.4 (psm 6, 300 dpi, the table rules whitened first with a threshold relative to the page background) is a **pre-screen only**: it lists the stored tokens it does not read and the tokens it reads that the line lacks; the sample reader decides every line. A line that both readings agree on was still compared by eye with the page (names, headings, dates, remarks); the detector figures in 4.3 say how often two readings agreeing was not enough.')
-    A('* **Levels.** N: name, rank or carried heading, company, existence and cut of the line; D: the dates of the remarks; R: the other words of the remarks. The first pages of every family were looked at at all three levels (the smoke sample, to see the kinds of error). A level that a stratum had already failed decisively (4 errors; the ladder allows 3 at 773 lines) was not looked at on its further pages; `levels` in each verdict says what was compared. This stops the work where the result is decided, it does not lower a gate: a gate that was not decided is shown as OPEN.')
+    pos_ = {s_: sorted(d_['draw_positions']) for s_, d_ in stats['strata'].items()}
+    all_prefix = all(v_ == list(range(1, len(v_) + 1)) for v_ in pos_.values())
+    order_note = []
+    for s_ in stats['strata']:
+        vs_ = sorted([v for v in verdicts if v['stratum'] == s_], key=lambda v: v.get('verdict_utc') or '')
+        seq_ = [v['draw_position'] for v in vs_]
+        if seq_ != sorted(seq_) and not any(v['page'] in {x['page'] for x in second_only} for v in vs_):
+            order_note.append('%s: looked at in the order %s' % (s_, ', '.join(str(x) for x in seq_)))
+    A('* **Draw.** Pages are ordered by sha256 of `seed | stratum | identifier | leaf` (a published, recomputable pseudo-random order); decile pages and other pages form two lists; the draw order takes a decile page at positions 1, 4, 7 and so on, so that every prefix of m pages holds at least m/3 decile pages (PLAN.md 4.4). The order of every stratum is in `data2/qa/draw.json`; a sample is a prefix of it. **%s** The first sitting had looked at positions 1 and 3 of MA-SSM-officers (leaves 143 and 661) and passed over position 2 (leaf 631); no file records why; the second sitting looked at it (verdict `massachusettssol11931mass-0631.verdict.json`, draw position 2). %s' % (
+        ('In every stratum the pages looked at are now a prefix of the draw order (positions looked at, per stratum: %s).' % '; '.join('%s %s' % (s_, ','.join(str(x) for x in v_)) for s_, v_ in pos_.items())) if all_prefix else 'The pages looked at are NOT a prefix of the draw order in every stratum (positions: %s).' % '; '.join('%s %s' % (s_, ','.join(str(x) for x in v_)) for s_, v_ in pos_.items()),
+        ('Order of looking where it differs from the order of the draw (from the time of the verdicts): %s; the verdict file says the position of every page.' % '; '.join(order_note)) if order_note else 'The pages were looked at in the order of the draw.'))
+    A('* **Readers.** Two sittings of one role, the sample reader: the engineer of this item on 14 November and the engineer who closed it on 15 November, in different sessions; neither wrote or saw the builders of the four items. The page image is looked at with the Read tool (200 dpi view of the page; 300 dpi crops of tables; 500 or 600 dpi for a doubtful character). Tesseract 5.3.4 (psm 6, 300 dpi, the table rules whitened first with a threshold relative to the page background) is a **pre-screen only**: it lists the stored tokens it does not read and the tokens it reads that the line lacks; the sample reader decides every line. A line that both readings agree on was still compared by eye with the page (names, headings, dates, remarks); the detector figures in 4.1 say how often two readings agreeing was not enough. The plan\'s third reader for disagreements does not exist as a third person: the second sitting re-read the pages of section 2.5 in that place, with the first verdict opened only after the page had been read, and a doubtful character was zoomed and, where still doubtful, not counted as an error.')
+    A('* **Levels.** N: name, rank or carried heading, company, existence and cut of the line; D: the dates of the remarks; R: the other words of the remarks. The first pages of every family were looked at at all three levels (the smoke sample, to see the kinds of error). A level that a stratum had already failed decisively (4 errors; the ladder allows 3 at 773 lines) was not looked at on its further pages; `levels` in each verdict says what was compared. This stops the work where the result is decided, it does not lower a gate: a gate that was not decided is shown as OPEN. Because the failure of VT-REV-officers then rested on one page (the lowest-decile page), the second sitting added the levels D and R on leaf 117 (section 2.5).')
     A('* **Comparison rule.** Case, punctuation and spacing are ignored (they are not errors); any other differing character is an error, a digit read as a letter included. The kinds of error (`qa_verdict.py`): ' + '; '.join('`%s` %s' % (k, v) for k, v in KIND_TEXT.items()) + '. Gates: R-G1 = any `name-*` kind; R-G2 = `rem-date`; R-G3 structure = `rank`, `company`, `merge`, `split`; R-G3 reading of the remark = `rem-char`, `rem-missing`, `rem-extra`, `rem-bound`, `rem-order`, `rem-ditto`.')
     A('* **Decision rule (never lowered).** PASS when n >= 299 with 0 errors, n >= 473 with at most 1, n >= 628 with at most 2 or n >= 773 with at most 3 (one-sided 95 percent Clopper-Pearson upper bound 1.0 percent, `qa_lib.cp_upper`, which reproduces the values of PLAN.md 4.4); FAIL when 4 or more errors are found; OPEN otherwise. Lines of one page are not independent draws; the plan\'s own arithmetic treats them as such and so does this table (a caveat, not a change of rule).')
     A('* **What a page verdict states.** The sample reader looked at the page image and compared every stored line of the page with it (except lines named as unreadable; none was). The verdict carries the sha256 of the rendered page, of the PDF and of the tesseract text, the stored text of every line in error (`stored`) and the printed text (`printed`), and the printed lines of the units that no stored line accounts for (`missed_lines`).')
@@ -200,7 +269,24 @@ def main():
     A('')
     clean_pages = [v for v in verdicts if v['rows_in_error'] == 0]
     npp = [d_['pages_looked_at'] for d_ in stats['strata'].values() if d_['pages_looked_at']]
-    A('Findings on the sample itself. (1) The lowest-decile pages carry most errors, and the draw takes a third of its pages from the decile, so a pooled rate is an upper estimate of the rate of a whole stratum; the page table above gives every page. (2) Pages with no error at all exist (%d: %s), all of them compared at the name level only; **no page compared at the level of dates and remarks is free of error**, and the pages of the better kind still carry names that differ from the print (for example 1 line in 54 on `maineatgettysbur01main/220`, 1 in 25 on `massachusettssol11931mass/662`). (3) The pooled rates are not estimates of the files: they come from %d to %d pages per stratum, and lines of one page are not independent.' % (len(clean_pages), ', '.join('`%s`' % v['page'] for v in clean_pages), min(npp), max(npp)))
+    dec_rows = sum(v['rows_checked'] for v in verdicts if v['in_lowest_decile'])
+    dec_err = sum(v['rows_in_error'] for v in verdicts if v['in_lowest_decile'])
+    all_err = sum(v['rows_in_error'] for v in verdicts)
+    name_share = []
+    for v in verdicts:
+        if v['rows_checked'] >= 20:
+            k_ = len({e['i'] for e in v['errors'] if set(e['kinds']) & G1})
+            if k_ > 0:
+                name_share.append((k_ / v['rows_checked'], k_, v['rows_checked'], v['page']))
+    name_share.sort()
+    ex_ = '; '.join('%d line%s in %d on `%s`' % (k_, '' if k_ == 1 else 's', n_, p_) for _, k_, n_, p_ in name_share[:3])
+    d_clean = [v for v in clean_pages if 'D' in v['levels']]
+    A('Reading the decisions. FAIL means 4 or more errors at the gate: more than the ladder allows even at 773 lines, whatever further lines are drawn. %d of the %d failing gate cells have a one-sided 95 percent lower bound above 1.0 percent as well (the true rate is above the 1.0 percent of the requirement at that confidence)%s. A gate shown OPEN is not decided and no pass is claimed.' % (
+        len(fail_cells) - len(weak_cells), len(fail_cells), ('; the failing cell%s whose lower bound is not above 1.0 percent: %s (4 or more errors by the ladder, not yet proven above 1.0 percent by the bound)' % ('' if len(weak_cells) == 1 else 's', '; '.join('%s %s, %d / %d, lower bound %s percent' % (c_[0], c_[1], c_[2], c_[3], c_[4]) for c_ in weak_cells))) if weak_cells else ''))
+    A('')
+    A('Findings on the sample itself. (1) The lowest-decile pages hold %s of the lines compared and %s of the lines in error, and the draw takes a third of its pages from the decile, so a pooled rate is an upper estimate of the rate of a whole stratum; section 2.6 gives the counts without them. (2) Pages with no error at all exist (%d: %s), all of them compared at the name level only; %s, and the pages of the better kind still carry names that differ from the print (the lowest shares among pages of 20 lines or more: %s). (3) The pooled rates are not estimates of the files: they come from %d to %d pages per stratum, and lines of one page are not independent.' % (
+        pct(dec_rows, nrows), pct(dec_err, all_err), len(clean_pages), ', '.join('`%s`' % v['page'] for v in clean_pages),
+        ('**no page compared at the level of dates and remarks is free of error**' if not d_clean else '%d page(s) compared at the level of dates and remarks are free of error' % len(d_clean)), ex_, min(npp), max(npp)))
     A('')
     A('### 2.3 What kinds of error, by source family')
     A('')
@@ -238,7 +324,7 @@ def main():
     A('Of the %d instances on name fields, %d (%s) stand on lines that the flag file marks ocr_uncertain and %d do not; of all %d instances %d (%s) are flagged. **The flags are not a safe measure of the lines that are right.** The kinds, with what each means for the parsers of the later items, are written up in `PRODUCTION-PLAN.md` 9.8 (appended 14 November) and summarised in 2.4.' %
       (name_i, name_f, pct(name_f, name_i, 0), name_i - name_f, sum(allk.values()), sum(allf.values()), pct(sum(allf.values()), sum(allk.values()), 0)))
     A('')
-    A('### 2.4 Defect lists returned to the items (dated 14 November 2026; stored lines are not changed)')
+    A('### 2.4 Defect lists returned to the items (dated 14 and 15 November 2026; stored lines are not changed)')
     A('')
     ex = collections.defaultdict(list)
     for v in verdicts:
@@ -254,6 +340,46 @@ def main():
             A('* %s: %s.' % (FAMILY_TEXT[fam], '; '.join('`%s` (%d) e.g. %s' % (k, n, ' | '.join(ex[(fam, k)][:1]) if ex[(fam, k)] else '-') for k, n in a['k'].most_common(7))))
         A('')
     A('Requirements for the parsers (the same list is in PRODUCTION-PLAN 9.8): flag generously (digits and the letters that OCR confuses with them, a lower-case letter inside a name, an unusual letter pair); never store a ditto mark as digits; drop lone marks between punctuation on shadowed margins or keep them flagged; parse run-in paragraphs into entries or leave them out, never as fragment rows; keep the state after a residence (`N. H.`, `Vt.`, `Mass.`) in the remarks; assert one stored line per printed line on every table page; do not file a rank word in the name field.')
+    A('')
+    # ------------------------------------------------------------------ 2.5, 2.6
+    A('### 2.5 Second sitting (15 November 2026): pages read again')
+    A('')
+    A('Why these pages. (1) The two Massachusetts officers pages that decided MA-SSM-officers (R-G2 and R-G3b rested on 32 lines), page 685 of the Maine returns (tesseract and the text layer agreed with each other on three lines that the first reader called errors) and page 224 (12 of 14 lines in error) were read again by a second sitting. (2) The failure of VT-REV-officers rested on one page, the lowest-decile page (leaf 88); leaf 117 had been compared at the name level only; it is compared now at the levels D and R. (3) Draw position 2 of MA-SSM-officers had been passed over and is a verdict of its own (`massachusettssol11931mass-0631`: %s). An addendum never rewrites a first verdict (`qa_lib.merge_addendum` merges it when the statistics are computed); the second sitting is `pipeline2/roster_qa/qa_second_pass.py` and `data2/qa/pages/*.addendum.json`.' % ('; '.join('%d lines, %d in error' % (v['rows_checked'], v['rows_in_error']) for v in second_only) or 'none'))
+    A('')
+    A('| page | stratum | what was read again | lines compared | rows in error in the first verdict | confirmed | not confirmed | rows with errors added | printed lines added that no stored line accounts for |')
+    A('|---|---|---|---|---|---|---|---|---|')
+    for pg_, a_ in addenda.items():
+        vv_ = next(v for v in verdicts if v['page'] == pg_)
+        A('| `%s` | %s | %s | %d | %d | %d | %d | %d | %d |' % (pg_, vv_['stratum'], ('levels %s added' % a_['levels_added']) if a_['levels_added'] else 'the recorded errors', a_['rows_compared_at_second_sitting'], len(a_['first_verdict_error_rows']),
+                                                              len(a_['confirmed_rows']), len(a_['not_confirmed_rows']), len(a_['errors_added']), len(a_['missed_lines_added'])))
+    A('')
+    for pg_, a_ in addenda.items():
+        A('* `%s`: %s' % (pg_, ' '.join(n_ if n_.rstrip().endswith('.') else n_.rstrip() + '.' for n_ in a_['notes'])))
+        for m_ in a_['missed_lines_added']:
+            A('  * Not in the first verdict (printed line that no stored line accounts for): %s' % m_)
+    A('')
+    A('What the second sitting does not claim: it is the same role as the first, not an independent person, it re-read %d of the %d pages, and the other %d pages stand on the first sitting alone (%d of them on the second sitting alone: draw position 2 of MA-SSM-officers).' % (pages_read_twice, npages, npages - pages_read_twice, len(second_only)))
+    A('')
+    A('### 2.6 The same without the lowest-decile pages')
+    A('')
+    A('The draw takes at least a third of the pages of a stratum from its lowest OCR-confidence decile, which are the pages with the most damage, and the plan counts them in the pooled sample. To see how far the failures depend on them, the table counts only the pages that are not in the lowest decile: errors / lines compared (one-sided 95 percent lower bound of the error rate; * = 4 or more errors). A cell is empty where that level was not compared on those pages.')
+    A('')
+    A('| stratum | pages not in the decile (lines) | R-G1 names | R-G2 dates | R-G3 structure | R-G3 reading of the remark |')
+    A('|---|---|---|---|---|---|')
+    for s_ in stats['strata']:
+        c_ = nd[s_]
+        pvs_ = [v for v in verdicts if v['stratum'] == s_ and not v['in_lowest_decile']]
+        cells_ = []
+        for g_ in ('R-G1', 'R-G2', 'R-G3a', 'R-G3b'):
+            if not c_ or c_[g_][0] == 0:
+                cells_.append('')
+            else:
+                n_, k_ = c_[g_]
+                cells_.append('%d / %d (%s percent)%s' % (k_, n_, S.lower(n_, k_) if k_ else 0.0, ' *' if k_ >= 4 else ''))
+        A('| %s | %d (%d) | %s |' % (s_, len(pvs_), sum(v['rows_checked'] for v in pvs_), ' | '.join(cells_)))
+    A('')
+    A('Reading. Without the decile pages %d of the %d strata still reach 4 or more errors at one gate (%s); %d more have a gate whose lower bound is above 1.0 percent (%s); %d show neither%s. A stratum that does not reach 4 errors on the other pages still cannot pass: its lower bound is above the 1.0 percent of the requirement.' % (
+        len(nd_count_fail), len(stats['strata']), ', '.join(nd_count_fail) or 'none', len(nd_lower_only), ', '.join(nd_lower_only) or 'none', len(nd_other), (' (%s)' % ', '.join(nd_other)) if nd_other else ''))
     A('')
     # ------------------------------------------------------------------ 3
     A('## 3. The claims of the closed items\' reports, re-verified against their files')
@@ -295,16 +421,22 @@ def main():
     if os.path.exists(npth):
         t = open(npth, encoding='utf-8').read()
         A('* `node --test docs/battle-theatre/app/tests/roster-union-nh.test.mjs`: %s tests, %s pass, %s fail.' % (re.search(r'# tests (\d+)', t).group(1), re.search(r'# pass (\d+)', t).group(1), re.search(r'# fail (\d+)', t).group(1)))
-    A('* The four verify runs, the lint and the node test were run directly, not through `tools/horde/bench.sh`: each measured under 30 s of CPU (user times 20 s, 0.3 s, 25 s and 0.3 s for Maine, New Hampshire, Vermont; the Massachusetts run was the one queued through the lock). Locked copies of the same commands were queued as well and may overwrite the same output files with identical content.')
+    vall = os.path.join(Q.ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws-rosters', 'plan', 'verify-all-2026-11-15.jsonl')
+    if os.path.exists(vall):
+        vl_ = [json.loads(x) for x in open(vall, encoding='utf-8') if x.strip()]
+        A('* `verify_unit.py --all` of 15 November (the planning step; log `GOVERNANCE/horde/ws-rosters/plan/verify-all-2026-11-15.jsonl`, read here): %d files, %s lines, **%d V1 name defects, %d V3 page defects, %d problems**.' % (len(vl_), f(sum(x['rows'] for x in vl_)), sum(x['v1_name_defects'] for x in vl_), sum(x['v3_page_defects'] for x in vl_), sum(len(x['problems']) for x in vl_)))
+    A('* The four verify runs of 14 November, the lint and the node test of that day were run directly, not through `tools/horde/bench.sh`; their logs do not hold the CPU times, which the first sitting recorded as under 30 s each (not re-measured). The logs read above are the stored outputs of those runs; the figures of this section are read from them, none is typed.')
     A('')
     A('**An open question of the Maine report answered.** The report says of eight leaves of the index without text (328, 329, 560, 561, 838, 839, 1220, 1221) that "whether they are blank, plates or unread is not known". The scan data of the item (`supplementtoannu00main_scandata.xml`, Documented) gives `pageType Delete` and `addToAccessFormats false` for exactly these leaves, which are therefore not in the access PDF, and the printed page number advances by exactly one across each pair (319 to 320, 549 to 550, 825 to 826, 1205 to 1206; `PageMap.printed`). They are not book pages; no printed page of the index is missing there. The same holds for no other leaf of the item inside the range that carries stored lines (23 leaves of the item have no text; 15 lie before the first or after the last printed page).')
     A('')
     A('**Claims not recomputed here (Not run):** statements of prose in the reports (for example the readings of the Official Records for the strength of the 2nd and 5th New Hampshire, the explanations of the Summary residuals, the unit-by-unit notes on the sources) are not checked by this item; the counts that depend on a rule of the item (the "on the rolls" inference) were checked for consistency with the flag files, not for the correctness of the rule.')
     A('')
     # ------------------------------------------------------------------ 4
+    cpus_ = [Q.jload(rp_)['tesseract_cpu_s'] for rp_ in glob.glob(os.path.join(Q.QA, 'pages', '*.read.json'))]
+    cpu_txt = ('%.1f to %.1f s' % (min(cpus_), max(cpus_))) if cpus_ else 'not recorded'
     A('## 4. The second-reading route')
     A('')
-    A('Route (Measured, `pipeline2/page_image.py` and `pipeline2/roster_qa/qa_render.py`): the item PDF from `https://archive.org/cors/<id>/<id>.pdf` (one request, 1.2 s after the previous one, generic client name), the leaf found through the scan data where the PDF has fewer pages than the item has leaves, the page cut out with pdftoppm at 300 dpi, the table rules whitened (a threshold relative to the page background: the Maine scans are grey, about 155 on a scale of 255, and a fixed threshold erased the text and made tesseract return nothing on two pages before it was fixed), tesseract 5.3.4 `eng` psm 6 at one thread (about 1 to 4 s of CPU a page). The PDFs are transient (%s bytes in all, deleted after the run; sha256 in the pointer file).' % f(sum(x['bytes'] for s in ptr['sources'] for x in s['files'])))
+    A('Route (Measured, `pipeline2/page_image.py` and `pipeline2/roster_qa/qa_render.py`): the item PDF from `https://archive.org/cors/<id>/<id>.pdf` (one request, 1.2 s after the previous one, generic client name), the leaf found through the scan data where the PDF has fewer pages than the item has leaves, the page cut out with pdftoppm at 300 dpi, the table rules whitened (a threshold relative to the page background: the Maine scans are grey, about 155 on a scale of 255, and a fixed threshold erased the text and made tesseract return nothing on two pages before it was fixed), tesseract 5.3.4 `eng` psm 6 at one thread (%s of CPU a page on the pages looked at, from their read records). The PDFs are transient (%s bytes in all, deleted after the run; sha256 in the pointer file).' % (cpu_txt, f(sum(x['bytes'] for s in ptr['sources'] for x in s['files']))))
     A('')
     A('### 4.1 What a second reading is worth, on the pages that were looked at')
     A('')
@@ -355,7 +487,7 @@ def main():
             continue
         A('| %s | %s (%s) | `%s` | `%s` | %s / %s | %s, %s |' % (r['unit'], r['leaf'], r['printed_page'], r['name'], r['remarks'], r['checks']['V1_name_tokens_at_offset'], r['checks']['V2_remark_tokens_follow'], r['y_check']['second_reading_top_px_300dpi'], r['y_check']['distance_px']))
     A('')
-    A('Not tried: the other 99 lost Maine index lines (the route is proved on the 7; the rest is a batch job for round 2 of union-me: read the leaf, find the line by the y position, look at it); the 119 lines of the 1863 returns that the Maine item left out (`non_person_lines`: they are prose lists and notes whose names the text layer has, not lost names; the item registers them as a gap of cut, not of reading); **the Pennsylvania muster years on 2,039 pages and the Florida 6.1 percent** (no unit file of those items exists yet, so there is no row to which a second reading could be attached; owed to the round of roster-qa that follows their items).')
+    A('Not tried: the other %d lost Maine index lines (the route is proved on the %d; the rest is a batch job for round 2 of union-me, EG-ROS-ME-05: read the leaf, find the line by the y position, look at it); the 119 lines of the 1863 returns that the Maine item left out (`non_person_lines`: they are prose lists and notes whose names the text layer has, not lost names; the item registers them as a gap of cut, not of reading); **the Pennsylvania muster years on 2,039 pages and the Florida 6.1 percent** (no unit file of those items exists yet, so there is no row to which a second reading could be attached; owed to the round of roster-qa that follows their items).' % (n_lost_me - n_rec_me, n_rec_me))
     A('')
     # ------------------------------------------------------------------ 5
     A('## 5. Anomalies seen')
@@ -364,7 +496,7 @@ def main():
     A('2. **The page-number map and the PDF disagree on some items** (the PDF of the Maine index has 1,226 pages for 1,236 leaves; the MA volumes 1 and 2 are mapped through the scan data): `page_image.leaf_to_pdf_page` handled all of them; every rendered page was checked by the share of its words in the pinned leaf (all above 0.7; lowest %s).' % ('%.3f' % min(min(p['share_in_pinned_leaf'] or 1 for p in d['pages'] if 'error' not in p) for d in sr['families'].values()) if sr else 'see 4.2'))
     A('3. **The digit 8 of the Massachusetts typeface is inked like an S** in many places (`1S62`, zoom at 600 dpi): the first layer reads S. Counted as an error in the date (the printed meaning is a year); the page shows what a reader sees.')
     A('4. **Two lines of one source are both "Same".** The index prints the ditto word `Same` for a man named above; a stored `Same` row has no man: which man is read from the line above in print and is not in the row (flag S). Three `Same` rows of one page belonged to three different men.')
-    A('5. **Index lines of the units are missing on the pages looked at** (`missed_lines` in the verdicts): 3rd Maine C-company lines, 7th Maine lines, one line of the 1st Cavalry, the 2nd Battery and others; the Maine item registers the unreadable-unit lines (EG-ROS-ME-05) but not these, whose regiment cell was read and whose line was not stored.')
+    A('5. **Printed lines of the units are missing on the pages looked at** (`missed_lines` in the verdicts and the addenda): %d in all (3rd Maine C-company index lines, 7th Maine lines, one line of the 1st Cavalry, the 2nd Battery and others%s); the Maine item registers the unreadable-unit lines (EG-ROS-ME-05) but not these, whose regiment cell was read and whose line was not stored.' % (sum(len(v['missed_lines']) for v in verdicts), ('; on the returns leaf 224 two printed men whose names stand in the text layer and in no stored row, found by the second sitting' if any(a_['missed_lines_added'] for a_ in addenda.values()) else '')))
     A('6. **Run-over lines of table remarks** (a remark that wraps is printed with its overflow bracketed at the right of the next line: `[for wds.`, `[May 12, \'64.`) are stored on the row of the line they stand beside in Vermont, Maine returns and the Massachusetts margin; the printing convention is the cause, the geometry rule cannot tell.')
     import re as _re
     audit_files = glob.glob(os.path.join(Q.QA, '**', '*.json'), recursive=True) + [os.path.join(Q.R2, 'sources', 'roster-qa.json')] + glob.glob(os.path.join(Q.WSQ, '*'))
@@ -395,17 +527,19 @@ def main():
     # ------------------------------------------------------------------ 7
     A('## 7. Gaps, defects returned, owed')
     A('')
-    A('Registered (lines appended to `rosters/GAPS.md`; proposed entries under `GOVERNANCE/horde/ws-rosters/proposed-register/roster-qa-EG-ROS-QA-*.md`; none is in `register/` yet):')
+    A('Registered (lines appended to `rosters/GAPS.md` as G-QA01 to G-QA06: G-QA01 is EG-ROS-QA-01, G-QA02 to G-QA05 are the defect lists of 2.4 of the four items (also EG-ROS-QA-01), G-QA06 is EG-ROS-QA-02 to -05; proposed entries under `GOVERNANCE/horde/ws-rosters/proposed-register/roster-qa-EG-ROS-QA-*.md`; none is in `register/` yet):')
     A('')
     A('* **EG-ROS-QA-01** R-G9 not passed: every stratum of the four items fails (section 2.2); the items may not be published as checked; the defect lists of 2.4 go back to the parsers of union-me, union-nh, union-vt and union-ma, and a fresh draw (seed with the round number) of every stratum is owed after each fix.')
-    A('* **EG-ROS-QA-02** Gates not decided by this round: the strata and gates shown OPEN in 2.2 (for example R-G1 of the Vermont officers pages: 1 error in 114 lines; the structure gate of New Hampshire: 0 in 110) need 299 to 628 lines each; no pass is claimed.')
+    g1o = stats['strata']['VT-REV-officers']['gates']['R-G1']
+    g3n = stats['strata']['NH-AYL-other']['gates']['R-G3a']
+    A('* **EG-ROS-QA-02** Gates not decided by this round: the strata and gates shown OPEN in 2.2 (for example R-G1 of the Vermont officers pages: %d error in %d lines; the structure gate of New Hampshire: %d in %d) need 299 to 628 lines each; no pass is claimed.' % (g1o['errors'], g1o['rows'], g3n['errors'], g3n['rows']))
     A('* **EG-ROS-QA-03** The cells sidecar of the Vermont files (the page-order reading of the lines flagged O) is not sampled; the unit-file line stays in text-layer order by design.')
     A('* **EG-ROS-QA-04** Second reading of the Maine index lost lines beyond the 7 tried (99 left), of the lines that the first layer stored garbled (every `_other-ME-SUPP-1867` line on the pages looked at had a garbled rank or regiment cell), and of the Pennsylvania muster years and the Florida losses (items not built yet).')
-    A('* **EG-ROS-QA-05** Index lines of the units missing in the stored lines (section 5, item 5): not counted as unreadable-unit lines by the Maine item.')
+    A('* **EG-ROS-QA-05** Printed lines of the units missing in the stored lines (section 5, item 5): index lines whose regiment cell was read and two men of the 1st Maine Cavalry return (leaf 224, Charles H Smith and Stephen Boothby, names in the text layer, no stored row); not counted as unreadable-unit lines by the Maine item.')
     A('')
     A('Owner steps: none new. Delegated decisions made here: DD-ROS-QA-01 to DD-ROS-QA-05 (appended to `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md`).')
     A('')
-    A('**Not run in this item:** a browser, any timing, a real-GPU or phone check; the Pennsylvania and Florida tests; the cells sidecar; more than 3 to 6 pages per stratum; the 299 to 628 lines per stratum of the plan (every stratum failed first); a second independent reader of the disagreements (the sample reader is one reader; the plan\'s third reader for disagreements was not available, so a doubtful character was zoomed to 600 dpi and, where still doubtful, not counted as an error).')
+    A('**Not run in this item:** a browser, any timing, a real-GPU or phone check; the Pennsylvania and Florida tests; the cells sidecar; more than %d to %d pages per stratum; the 299 to 628 lines per stratum of the plan (every stratum failed first); an independent third person as reader of the disagreements (the second sitting is the same role and re-read %d of the %d pages).' % (min(npp), max(npp), pages_read_twice, npages))
     A('')
     open(OUT, 'w', encoding='utf-8').write('\n'.join(w) + '\n')
     print('report written', OUT, len('\n'.join(w)), 'characters')

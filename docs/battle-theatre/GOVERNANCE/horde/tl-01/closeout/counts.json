@@ -2,8 +2,8 @@
  "rows": 57,
  "verdict": {
   "confirmed": 10,
-  "partially_supported": 23,
-  "corrected": 23,
+  "partially_supported": 22,
+  "corrected": 24,
   "unsupported": 1
  },
  "verdict_of_rows_not_verified_before": {
@@ -12,37 +12,47 @@
   "unsupported": 1
  },
  "sub_claims_by_tier": {
-  "documented": 236,
-  "open gap": 42,
+  "documented": 244,
+  "open gap": 40,
   "plausible-procedural": 5,
-  "inferred": 6
+  "inferred": 12
  },
  "sub_claims_by_support": {
-  "supported": 200,
-  "unsupported": 46,
-  "conflict": 33,
+  "supported": 209,
+  "unsupported": 44,
+  "conflict": 38,
   "contradicted": 10
  },
- "citations": 360,
+ "citations": 399,
  "citations_by_source": {
   "OR27": 232,
   "JACOBS-1864": 39,
   "GBG-COMPILER-1863-06-29": 27,
   "ADAMS-SENTINEL-1863-07-21": 2,
   "ADAMS-SENTINEL-1863-09-08": 1,
+  "HOKE-1887": 14,
+  "CA-sn83045462-1863-07-01-p2": 4,
+  "CA-sn83021205-1863-07-08-p1": 1,
+  "CA-sn83021205-1863-07-02-p1": 1,
   "PA-GB-1914-v2": 16,
   "BL-3": 5,
+  "HISTORY-ADAMS-1886": 10,
+  "CA-sn83045784-1863-07-02-p3": 1,
   "TPIERCE-1889": 4,
   "FREMANTLE-1864": 10,
   "MEADE-LL-v2": 10,
   "ALEXANDER-1907": 3,
   "MN-1ST-1916": 1,
+  "CA-sn84031490-1863-06-29-p1": 1,
+  "CA-sn83030213-1863-07-01-p1": 1,
   "SHSP-06": 2,
   "ME-GB-1898": 1,
   "SHSP-04": 3,
+  "CA-sn84031490-1863-07-03-p1": 2,
   "NPS-MON-LOC-1932": 1,
   "NPS-BOUNDARY-1988": 1,
-  "NPS-HS-MCPHERSON": 2
+  "NPS-CLR-1STDAY": 2,
+  "NPS-HS-MCPHERSON": 4
  },
  "rows_with_scenarios": [
   "T1-005",
@@ -68,22 +78,23 @@
   "T1-045",
   "T1-046",
   "T1-047",
+  "T1-049",
   "T1-051",
   "T1-055"
  ],
  "rows_with_default": [
   "T1-043"
  ],
- "proposed_register_entries": 34,
- "rows_in_conflicts_file": 25,
+ "proposed_register_entries": 33,
+ "rows_in_conflicts_file": 26,
  "results_tier": {
   "documented": 53,
   "open gap": 2,
   "inferred": 2
  },
  "results_status": {
-  "verified": 23,
-  "partially_verified": 33,
+  "verified": 24,
+  "partially_verified": 32,
   "gap": 1
  },
  "rows_by_verdict": {
@@ -108,6 +119,7 @@
    "T1-020",
    "T1-023",
    "T1-024",
+   "T1-026",
    "T1-028",
    "T1-030",
    "T1-032",
@@ -139,7 +151,6 @@
    "T1-019",
    "T1-021",
    "T1-022",
-   "T1-026",
    "T1-029",
    "T1-040",
    "T1-043",

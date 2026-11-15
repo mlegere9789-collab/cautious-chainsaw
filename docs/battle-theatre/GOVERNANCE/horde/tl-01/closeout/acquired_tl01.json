@@ -1,5 +1,5 @@
 {
- "_doc": "Files fetched for the close-out of timeline shard tl-01. archive.org only, one request at a time, no login. Raw files live under tmp/tl-01/dl (untracked).",
+ "_doc": "Files fetched for the close-out of timeline shard tl-01. archive.org only, one request at a time, no login. Raw files live under tmp/tl-01/dl (untracked). Fourth start (2026-11-15): the items \"ca-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at most one per second); the crops are regenerated from the url; the files under tmp/tl-01/crops are untracked scratch.",
  "items": [
   {
    "archive_identifier": "gettysburg-compiler-1863-06-29",
@@ -169,6 +169,115 @@
    "purpose": "Official Records vol. 27 part 3, second scan (University of Illinois copy), OCR text: the witness check of every OR citation against another scan of the same part (closeout/second_scan.jsonl); the library copy (Cornell scans cu31924077699761, cu31924077728255, cu31924077700262) stays the text of record",
    "licence_basis": "public domain (United States government publication of 1880-1901)",
    "note": "Second pass of 2026-11-13; four of the five files were copied from the scratch tree of another workstream (terrain-1), which had fetched them from archive.org, and their sha256 was checked; warofrebellion273unit was fetched here."
+  },
+  {
+   "id": "ca-star-0701-stevens",
+   "archive_identifier": "sn83045462 (Chronicling America, Library of Congress)",
+   "url": "https://tile.loc.gov/image-services/iiif/service:ndnp:dlc:batch_dlc_alf_ver01:data:sn83045462:00280654206:1863070101:0373/54,6415,1029,247/full/0/default.jpg",
+   "bytes": 48467,
+   "sha256": "defed9368aa68011c78376452c6a9bfcbfd5efd0dcfe5a8e3111374a6e9f6026",
+   "fetched_at": "2026-11-13 (saved by the web-evidence workstream; viewed in the fourth start of this close-out, 2026-11-15)",
+   "local_path": "tmp/library/web/ca/images/sn83045462/1863-07-01/ed-1/seq-2.b_star_stevens.jpg",
+   "pages_viewed": "viewed",
+   "purpose": "Evening Star, Washington, Jul 1 1863, page 2: reading of the sentence on Stevens' Furnace (row T1-005)"
+  },
+  {
+   "id": "ca-star-0701-occupied",
+   "archive_identifier": "sn83045462 (Chronicling America, Library of Congress)",
+   "url": "https://tile.loc.gov/image-services/iiif/service:ndnp:dlc:batch_dlc_alf_ver01:data:sn83045462:00280654206:1863070101:0373/44,5676,1054,323/full/0/default.jpg",
+   "bytes": 70469,
+   "sha256": "d67b6b4114acab373677c528ae9fccb0df77a500da71a3cc8384a3e83c522f93",
+   "fetched_at": "2026-11-13 (saved by the web-evidence workstream; viewed in the fourth start of this close-out, 2026-11-15)",
+   "local_path": "tmp/library/web/ca/images/sn83045462/1863-07-01/ed-1/seq-2.b_star_inf1.jpg",
+   "pages_viewed": "viewed",
+   "purpose": "Evening Star, Jul 1 1863, page 2: the informant's sentence on the occupation of Gettysburg on Friday afternoon (rows T1-014)"
+  },
+  {
+   "id": "ca-star-0701-left",
+   "archive_identifier": "sn83045462 (Chronicling America, Library of Congress)",
+   "url": "https://tile.loc.gov/image-services/iiif/service:ndnp:dlc:batch_dlc_alf_ver01:data:sn83045462:00280654206:1863070101:0373/54,6012,1028,323/full/0/default.jpg",
+   "bytes": 65467,
+   "sha256": "e73d071bcf9721437594311fa91b751fd4e0b5e3e651a945cfa271ec40dfeb22",
+   "fetched_at": "2026-11-13 (saved by the web-evidence workstream; viewed in the fourth start of this close-out, 2026-11-15)",
+   "local_path": "tmp/library/web/ca/images/sn83045462/1863-07-01/ed-1/seq-2.b_star_inf2.jpg",
+   "pages_viewed": "viewed",
+   "purpose": "Evening Star, Jul 1 1863, page 2: the informant's sentences on the departure of the rebels the next morning (row T1-020)"
+  },
+  {
+   "id": "ca-spy-0702-stevens",
+   "archive_identifier": "sn83021205 (Chronicling America, Library of Congress)",
+   "url": "https://tile.loc.gov/image-services/iiif/service:ndnp:mb:batch_mb_artemis_ver01:data:sn83021205:00517172121:1863070201:0613/2155,2521,691,172/full/0/default.jpg",
+   "bytes": 19531,
+   "sha256": "5d8080462aebe975fa2e742c19bf1864c590e17ffc9a31a6b300b0062103a4a3",
+   "fetched_at": "2026-11-13 (saved by the web-evidence workstream; viewed in the fourth start of this close-out, 2026-11-15)",
+   "local_path": "tmp/library/web/ca/images/sn83021205/1863-07-02/ed-1/seq-1.b_wor_stevens.jpg",
+   "pages_viewed": "viewed",
+   "purpose": "Worcester Daily Spy, Jul 2 1863, page 1: the paragraph on Thaddeus Stevens' iron mills (row T1-005)"
+  },
+  {
+   "id": "ca-star-0701-camp",
+   "archive_identifier": "sn83045462 (Chronicling America, Library of Congress)",
+   "url": "https://tile.loc.gov/image-services/iiif/service:ndnp:dlc:batch_dlc_alf_ver01:data:sn83045462:00280654206:1863070101:0373/98,5880,963,181/full/0/default.jpg",
+   "bytes": 34395,
+   "sha256": "f1870ca935759e0a49d4eb7f65dd45fb746144964a746f67a47cb803fda031c8",
+   "fetched_at": "2026-11-15",
+   "local_path": "tmp/tl-01/crops/ca-star-0701-camp.jpg",
+   "pages_viewed": "viewed",
+   "purpose": "Evening Star, Jul 1 1863, page 2: \"The Rebel troops, forty-five hundred strong, encamped about one miles [sic] from Gettysburg that night\" (row T1-017)"
+  },
+  {
+   "id": "ca-wni-0702-jennings",
+   "archive_identifier": "sn83045784 (Chronicling America, Library of Congress)",
+   "url": "https://tile.loc.gov/image-services/iiif/service:ndnp:dlc:batch_dlc_firedrake_ver01:data:sn83045784:00415661630:1863070201:0143/3598,6238,982,397/full/0/default.jpg",
+   "bytes": 60211,
+   "sha256": "0f650b9b194301aeddd526fcfc46816f06f1256e419ed5b4d6174d4377c8cb42",
+   "fetched_at": "2026-11-15",
+   "local_path": "tmp/tl-01/crops/ca-wni-0702-jennings.jpg",
+   "pages_viewed": "viewed",
+   "purpose": "Weekly National Intelligencer, Jul 2 1863, page 3: the dispatch of Jun 27 from Hanover Junction on Col. Jennings's regiment (row T1-007)"
+  },
+  {
+   "id": "ca-cht-0629-140",
+   "archive_identifier": "sn84031490 (Chronicling America, Library of Congress)",
+   "url": "https://tile.loc.gov/image-services/iiif/service:ndnp:dlc:batch_dlc_edgewater_ver02:data:sn84031490:no_reel:1863062901:0001/2561,1977,397,89/full/0/default.jpg",
+   "bytes": 11696,
+   "sha256": "c86c346e2c0c2c2f9ab5fe25d33d3c5a0f54cf30a4f9883f72c76b5791125a62",
+   "fetched_at": "2026-11-15",
+   "local_path": "tmp/tl-01/crops/ca-cht-0629-140.jpg",
+   "pages_viewed": "viewed",
+   "purpose": "Chicago Daily Tribune, Jun 29 1863, page 1: \"captured a train of 140 wagons\" (the text layer prints 110) (row T1-026)",
+   "enlarged_view": {
+    "local_path": "tmp/tl-01/crops/ca-cht-0629-140_x4.png",
+    "sha256": "144f774dfe27aad7e2be53ab4cec4d45fdc76cb688f05e79ecbd6d0e50ca4cd1",
+    "note": "the crop enlarged four times with PIL LANCZOS, for reading the digits"
+   }
+  },
+  {
+   "id": "ca-tri-0701-175",
+   "archive_identifier": "sn83030213 (Chronicling America, Library of Congress)",
+   "url": "https://tile.loc.gov/image-services/iiif/service:ndnp:dlc:batch_dlc_basic_ver02:data:sn83030213:00206530741:1863070101:0389/66,6656,440,99/full/0/default.jpg",
+   "bytes": 6106,
+   "sha256": "1bef7a8fa61bf928525471d83455326770659216875c7da9064f12dcddd89763",
+   "fetched_at": "2026-11-15",
+   "local_path": "tmp/tl-01/crops/ca-tri-0701-175.jpg",
+   "pages_viewed": "viewed",
+   "purpose": "New-York Daily Tribune, Jul 1 1863, page 1: \"Of the 175 wagons they\" (the text layer prints 170) (row T1-026)",
+   "enlarged_view": {
+    "local_path": "tmp/tl-01/crops/ca-tri-0701-175_x4.png",
+    "sha256": "6c9282ee9d9d9c1e5b3f7a683b6c4ab6a141af1efca50672bee8629cf4f3697b",
+    "note": "the crop enlarged four times with PIL LANCZOS, for reading the digits"
+   }
+  },
+  {
+   "id": "ca-cht-0703-press",
+   "archive_identifier": "sn84031490 (Chronicling America, Library of Congress)",
+   "url": "https://tile.loc.gov/image-services/iiif/service:ndnp:dlc:batch_dlc_edgewater_ver02:data:sn84031490:no_reel:1863070301:0001/1853,6592,549,108/full/0/default.jpg",
+   "bytes": 26927,
+   "sha256": "db4f60670bfcb8d86f4118df946ac9309772a8397b3a0114d22ded919a6b2cfa",
+   "fetched_at": "2026-11-15",
+   "local_path": "tmp/tl-01/crops/ca-cht-0703-press.jpg",
+   "pages_viewed": "viewed",
+   "purpose": "Chicago Daily Tribune, Jul 3 1863, page 1: \"The battle commenced at 9 a. m., and continued until 7 in the evening\" (rows T1-044, T1-046)"
   }
  ],
  "lookups_failed_or_blocked": [

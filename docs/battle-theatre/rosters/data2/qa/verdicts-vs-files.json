@@ -1,7 +1,157 @@
 {
  "f": "roster-qa-verdicts-vs-files/1",
  "about": "The stored lines of every page that was looked at, now (unit files as they are in the tree) against the lines the verdict lists (as they stood when the page was compared with its image).",
- "generated_utc": "2026-11-15T23:14:13Z",
+ "generated_utc": "2026-11-15T23:26:12Z",
+ "frame_files": {
+  "files_in_frame": 54,
+  "differ_from_frame": [
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/10th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1258,
+    "rows_now": 1258,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/11th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 2038,
+    "rows_now": 2039,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/12th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1592,
+    "rows_now": 1592,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/13th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1446,
+    "rows_now": 1448,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/15th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1724,
+    "rows_now": 1726,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/16th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1369,
+    "rows_now": 1369,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/18th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1368,
+    "rows_now": 1371,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/19th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1937,
+    "rows_now": 1938,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/1st-company-massachusetts-sharpshooters.jsonl.gz",
+    "rows_at_frame": 186,
+    "rows_now": 186,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/1st-massachusetts-battery-a.jsonl.gz",
+    "rows_at_frame": 264,
+    "rows_now": 265,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/1st-massachusetts-cavalry.jsonl.gz",
+    "rows_at_frame": 2334,
+    "rows_now": 2341,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/1st-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1695,
+    "rows_now": 1699,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/20th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 2482,
+    "rows_now": 2484,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/22nd-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1452,
+    "rows_now": 1452,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/28th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 2063,
+    "rows_now": 2065,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/2nd-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 2010,
+    "rows_now": 2013,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/32nd-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 2164,
+    "rows_now": 2168,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/33rd-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1279,
+    "rows_now": 1282,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/37th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1309,
+    "rows_now": 1310,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/7th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1171,
+    "rows_now": 1171,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/9th-massachusetts-battery.jsonl.gz",
+    "rows_at_frame": 328,
+    "rows_now": 329,
+    "item": "union-ma"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/union/ma/9th-massachusetts-infantry.jsonl.gz",
+    "rows_at_frame": 1690,
+    "rows_now": 1692,
+    "item": "union-ma"
+   }
+  ],
+  "missing_now": [],
+  "rows_at_frame_by_item": {
+   "union-me": 36771,
+   "union-nh": 6992,
+   "union-vt": 16854,
+   "union-ma": 33748
+  },
+  "rows_now_by_item": {
+   "union-me": 36771,
+   "union-nh": 6992,
+   "union-vt": 16854,
+   "union-ma": 33787
+  }
+ },
  "pages": [
   {
    "page": "annualreportofad1863main/224",
@@ -180,6 +330,14 @@
    "differences": []
   },
   {
+   "page": "massachusettssol11931mass/631",
+   "stratum": "MA-SSM-officers",
+   "lines_in_verdict": 19,
+   "lines_now_on_the_leaf": 19,
+   "identical": true,
+   "differences": []
+  },
+  {
    "page": "massachusettssol11931mass/662",
    "stratum": "MA-SSM-other",
    "lines_in_verdict": 25,
@@ -277,9 +435,12 @@
   }
  ],
  "summary": {
-  "pages": 34,
-  "identical": 34,
+  "pages": 35,
+  "identical": 35,
   "different": 0,
-  "lines_in_verdicts": 1139
+  "lines_in_verdicts": 1158,
+  "files_in_frame": 54,
+  "files_differing_from_frame": 22,
+  "files_missing_now": 0
  }
 }

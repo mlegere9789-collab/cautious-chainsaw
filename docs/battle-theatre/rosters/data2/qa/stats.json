@@ -1,75 +1,80 @@
 {
  "f": "roster-qa-stats/1",
- "rules": "Counts, error kinds and one-sided 95 percent Clopper-Pearson bounds of the independent sample, per stratum (data2/qa/stats.json).\n\n    python3 -I qa_stats.py            read every data2/qa/pages/*.verdict.json, write data2/qa/stats.json and data2/qa/<family>.json, print a table\n\nGates (PLAN.md 4.3, 4.4; kinds are defined in qa_verdict.py):\n  R-G1 names           rows with a name-* kind among all rows looked at (level N: every page)\n  R-G2 dates           rows with a rem-date kind among the rows of pages looked at at level D\n  R-G3a structure      rows with a rank, company, merge or split kind among all rows looked at (level N)\n  R-G3b remark reading rows with a rem-char, rem-missing, rem-extra, rem-bound, rem-order or rem-ditto kind among the rows of pages looked at at level R\n  any error            rows with any kind among the rows of pages looked at at all three levels (NDR)\nDecision per gate and stratum (the ladder of PLAN.md 4.4, never lowered): PASS when n >= 299 with 0 errors, n >= 473 with at most 1, n >= 628 with at\nmost 2, or n >= 773 with at most 3 (upper bound 1.0 percent); FAIL when 4 or more errors are found (no sample of the ladder can then pass);\nCENSUS when every page of the stratum was looked at (the rate is exact, the bound is not needed); OPEN otherwise (not enough rows yet).\nA level not looked at on a page (levels in the verdict) is not counted for its gate.\n",
+ "rules": "Counts, error kinds and one-sided 95 percent Clopper-Pearson bounds of the independent sample, per stratum (data2/qa/stats.json).\n\n    python3 -I qa_stats.py            read every data2/qa/pages/*.verdict.json (and the addendum of a second sitting where one exists), write data2/qa/stats.json and data2/qa/<family>.json, print a table\n\nGates (PLAN.md 4.3, 4.4; kinds are defined in qa_verdict.py):\n  R-G1 names           rows with a name-* kind among all rows looked at (level N: every page)\n  R-G2 dates           rows with a rem-date kind among the rows of pages looked at at level D\n  R-G3a structure      rows with a rank, company, merge or split kind among all rows looked at (level N)\n  R-G3b remark reading rows with a rem-char, rem-missing, rem-extra, rem-bound, rem-order or rem-ditto kind among the rows of pages looked at at level R\n  any error            rows with any kind among the rows of pages looked at at all three levels (NDR)\nDecision per gate and stratum (the ladder of PLAN.md 4.4, never lowered): PASS when n >= 299 with 0 errors, n >= 473 with at most 1, n >= 628 with at\nmost 2, or n >= 773 with at most 3 (upper bound 1.0 percent); FAIL when 4 or more errors are found (no sample of the ladder can then pass);\nCENSUS when every page of the stratum was looked at (the rate is exact, the bound is not needed); OPEN otherwise (not enough rows yet).\nA level not looked at on a page (levels in the verdict) is not counted for its gate.\n",
  "strata": {
   "MA-SSM-officers": {
    "pages_in_stratum": 19,
    "rows_in_stratum": 329,
-   "pages_looked_at": 2,
+   "pages_looked_at": 3,
    "decile_pages_looked_at": 1,
-   "rows_looked_at": 32,
+   "rows_looked_at": 51,
    "draw_positions": [
+    2,
     1,
     3
    ],
    "pages": [
+    "massachusettssol11931mass/631",
     "massachusettssol21931mass/143",
     "massachusettssol21931mass/661"
    ],
    "gates": {
     "R-G1": {
-     "rows": 32,
-     "errors": 0,
-     "rate_percent": 0.0,
-     "upper95_percent": 8.94,
-     "lower95_percent": 0.0,
+     "rows": 51,
+     "errors": 1,
+     "rate_percent": 1.96,
+     "upper95_percent": 8.97,
+     "lower95_percent": 0.1,
      "decision": "OPEN"
     },
     "R-G2": {
-     "rows": 32,
-     "errors": 5,
-     "rate_percent": 15.62,
-     "upper95_percent": 30.08,
-     "lower95_percent": 6.37,
+     "rows": 51,
+     "errors": 6,
+     "rate_percent": 11.76,
+     "upper95_percent": 21.91,
+     "lower95_percent": 5.25,
      "decision": "FAIL"
     },
     "R-G3a": {
-     "rows": 32,
+     "rows": 51,
      "errors": 1,
-     "rate_percent": 3.12,
-     "upper95_percent": 13.98,
-     "lower95_percent": 0.16,
+     "rate_percent": 1.96,
+     "upper95_percent": 8.97,
+     "lower95_percent": 0.1,
      "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 32,
-     "errors": 9,
-     "rate_percent": 28.12,
-     "upper95_percent": 43.94,
-     "lower95_percent": 15.53,
+     "rows": 51,
+     "errors": 11,
+     "rate_percent": 21.57,
+     "upper95_percent": 33.17,
+     "lower95_percent": 12.59,
      "decision": "FAIL"
     },
     "any": {
-     "rows": 32,
-     "errors": 14,
-     "rate_percent": 43.75,
-     "upper95_percent": 59.68,
-     "lower95_percent": 28.73,
+     "rows": 51,
+     "errors": 18,
+     "rate_percent": 35.29,
+     "upper95_percent": 47.72,
+     "lower95_percent": 24.2,
      "decision": null
     }
    },
    "error_kinds_count": {
-    "rem-date": 5,
-    "rem-char": 9,
+    "name-char": 1,
+    "rem-date": 6,
+    "rem-char": 11,
     "rank": 1
    },
    "error_kinds_on_rows_flagged_ocr_uncertain": {
-    "rem-date": 3,
+    "name-char": 1,
+    "rem-date": 4,
+    "rem-char": 1,
     "rank": 1
    },
    "error_kinds_on_rows_not_flagged": {
-    "rem-date": 2,
-    "rem-char": 9
+    "rem-char": 10,
+    "rem-date": 2
    },
    "missed_lines": 0,
    "census_complete": false
@@ -549,7 +554,7 @@
     "rem-missing": 1,
     "name-char": 1
    },
-   "missed_lines": 1,
+   "missed_lines": 3,
    "census_complete": false
   },
   "ME-RET-other": {
@@ -741,11 +746,11 @@
      "decision": "OPEN"
     },
     "R-G2": {
-     "rows": 37,
-     "errors": 19,
-     "rate_percent": 51.35,
-     "upper95_percent": 65.72,
-     "lower95_percent": 36.81,
+     "rows": 77,
+     "errors": 36,
+     "rate_percent": 46.75,
+     "upper95_percent": 56.72,
+     "lower95_percent": 36.98,
      "decision": "FAIL"
     },
     "R-G3a": {
@@ -757,36 +762,42 @@
      "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 37,
-     "errors": 13,
-     "rate_percent": 35.14,
-     "upper95_percent": 49.95,
-     "lower95_percent": 22.19,
+     "rows": 77,
+     "errors": 20,
+     "rate_percent": 25.97,
+     "upper95_percent": 35.46,
+     "lower95_percent": 17.93,
      "decision": "FAIL"
     },
     "any": {
-     "rows": 37,
-     "errors": 25,
-     "rate_percent": 67.57,
-     "upper95_percent": 80.1,
-     "lower95_percent": 52.81,
+     "rows": 77,
+     "errors": 48,
+     "rate_percent": 62.34,
+     "upper95_percent": 71.58,
+     "lower95_percent": 52.36,
      "decision": null
     }
    },
    "error_kinds_count": {
-    "rem-date": 19,
-    "rem-char": 13,
+    "rem-date": 36,
+    "rem-char": 16,
     "rem-order": 2,
+    "rem-extra": 2,
+    "rem-missing": 2,
     "name-char": 1
    },
    "error_kinds_on_rows_flagged_ocr_uncertain": {
-    "rem-date": 18,
-    "rem-char": 13,
+    "rem-date": 35,
+    "rem-char": 14,
     "rem-order": 2,
-    "name-char": 1
+    "name-char": 1,
+    "rem-missing": 1
    },
    "error_kinds_on_rows_not_flagged": {
-    "rem-date": 1
+    "rem-date": 1,
+    "rem-extra": 2,
+    "rem-missing": 1,
+    "rem-char": 2
    },
    "missed_lines": 0,
    "census_complete": false
@@ -879,6 +890,6 @@
    "census_complete": false
   }
  },
- "pages_looked_at": 34,
- "rows_looked_at": 1139
+ "pages_looked_at": 35,
+ "rows_looked_at": 1158
 }

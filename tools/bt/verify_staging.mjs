@@ -1,6 +1,6 @@
 // Real-run check of a packed Battle Theatre staging build. The packer (tools/bt/pack_theatre.mjs) finds what the page loads by reading the code; this tool finds out what the page
 // ACTUALLY loads, with a browser (software WebGL2, one at a time), and compares:
-//   1. static: the dist matches its MANIFEST.json byte for byte; the zip holds exactly the dist (names, sizes, CRC-32) and its .sha256 file is right; every relative import of the dist exists;
+//   1. static: the dist matches its MANIFEST.json byte for byte; the zip holds exactly the dist (names, sizes, CRC-32) and its .sha256 file is right; every relative import of the dist exists; the load census of the packer (syntax tree of the code, not patterns) finds no load that the build does not answer;
 //   2. the packed dist is served the way Netlify serves it (its _headers file applied) and walked: enter the theatre with the figures on, start the sound (what a click does), let the added
 //      layers (src/ext) settle, run the scene at 3 July 13:30, fly to a unit, play at 2x and at 60x, go to dawn, dusk and night of 3 July and to 4 July 15:00 (rain), open every drawer, select a unit, switch every added layer
 //      on and open every added panel, press Back; then every page of each static section (app/roster when it exists) is visited, its links followed and its controls pressed;

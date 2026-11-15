@@ -3,7 +3,8 @@
 # 'what' says in a few words what the frame shows; 'why' (optional) is a sentence added after the standard text. Scope overrides: records the first catalogue run excluded by title but that are July 1863 views.
 SCOPE_OUT = {'2012647845': 'matches the NPS Then-And-Now Devil\'s Den no. 8: the staged Weaver photograph of 11 November 1863 (LOC ppmsca 32931), not July'}
 SCOPE_IN = {'2018670707': 'Lutheran Seminary building, July 1863 (NPS Then-And-Now no. 2): a building in the model; the first run excluded it by the word Seminary',
-            '2018666315': 'Three Confederate prisoners: the NPS (CLR First Day Fig. 1.46) gives a place and direction and the frame holds a landscape; the first run excluded it by the word prisoners'}
+            '2018666315': 'Three Confederate prisoners: the NPS (CLR First Day Fig. 1.46) gives a place and direction and the frame holds a landscape; the first run excluded it by the word prisoners',
+            '2019635468': "the Library dates the card [1863]; a faint pencil note on its verso reads 'original by Tyson in August 1863' (hand and date of the note unknown; the Library transcribes only 'Gettysburg'): kept inside the July 1863 terrain scope until the date is settled, because the note is a lead, not a source"}
 R = {
  '2008680497': ('POS', 'dead soldiers on grass in front of a tree line; the record says only the edge of the Rose woods (the woods edge is not in the model)'),
  '2012646949': ('POS', 'a pond with a broken rail fence, woods behind; NPS: the old quarry (pond) near the McPherson farmstead looking southwest toward Herbst Woods. The quarry is not in the model; its place relative to the barn is not sourced'),

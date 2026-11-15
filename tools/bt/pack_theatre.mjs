@@ -8,7 +8,9 @@
 //      new Worker('literal') and the like; an address that ends in '/' or stops at a placeholder takes the folder (or every file with that prefix, and only those with the printed ending);
 //   4. style sheets: url(...) and @import;
 //   5. folders that ship whole: SHIP_WHOLE (the shell's module folder, so no computed import can miss a module; every module in it is scanned like a loaded one), INCLUDE and
-//      EXTRA_DIRS (data read through a base path the scan cannot follow) and the static sections.
+//      EXTRA_DIRS (data read through a base path the scan cannot follow) and the static sections;
+//   6. the load census (loadCensus): the syntax tree of every shipped module and inline script is read independently of the patterns above; every address the code loads is evaluated and compared with the
+//      build, what is found missing is shipped and named in the notes, what cannot be placed is a finding (trace-report.json "loadCensus"; tests/bt-pack fails on it; `--census` prints it).
 // What the trace cannot prove is checked by a REAL run (tools/bt/verify_staging.mjs) and listed by the trace itself: computed imports of an unknown form and file-like literals of loaded
 // modules that are not in the build (tests/bt-pack keeps a reviewed list of both). The directory layout of docs/battle-theatre is kept (the shell resolves its siblings by relative
 // URL). Rewritten on the way out: app/index.html (home links, noindex, build stamp) and the files of PROJECT (reduced to the fields the shell reads). Files matching WITHHELD are never

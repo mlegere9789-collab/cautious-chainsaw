@@ -29,14 +29,18 @@ MatR resolveMat(int m, uvec4 w) {
   return r;
 }
 float ign(vec2 p) { return fract(52.9829189 * fract(dot(p, vec2(0.06711056, 0.00583715)))); }
+// THE CROSS-FADE (lod.mjs): the fourth word of an instance record is the dither range [lo, hi) of its level, lo16 | hi16 << 16 over 65534; the word 0 keeps everything. The levels of one figure (and its impostor) partition [0, 1),
+// every fragment of every level draws the same number n = fract(ign(pixel) + phase(figure)), so each pixel is drawn by exactly one of them. x = lo, y = hi (2.0 = no upper bound), z = the figure's phase.
+vec3 fadeOf(uint P, uint fig) { if (P == 0u) return vec3(0.0, 2.0, 0.0); uint hi = P >> 16u; return vec3(float(P & 65535u) / 65534.0, hi >= 65534u ? 2.0 : float(hi) / 65534.0, hsh(fig * 7u + 3u)); }
+bool fadeKeep(vec3 f, vec2 frag) { if (f.y > 1.5 && f.x <= 0.0) return true; float n = fract(ign(frag) + f.z); return n >= f.x && n < f.y; }
 `;
 
-const OUT = `out vec3 vWp; out vec3 vN; flat out uint vMat; flat out uint vFl; flat out uvec4 vW;`;
+const OUT = `out vec3 vWp; out vec3 vN; flat out uint vMat; flat out uint vFl; flat out uvec4 vW; flat out vec3 vFade;`;
 const ATTR = `layout(location=0) in vec3 aPos; layout(location=1) in vec4 aNrm; layout(location=2) in uvec2 aMF; layout(location=3) in uvec4 aJ; layout(location=4) in vec4 aW;
 layout(location=5) in vec4 iP; layout(location=6) in vec4 iA; layout(location=7) in uvec4 iI;`;
 const FINISH = `
   uvec4 w = wordsOf(iI.x); float sc = iP.w > 1.5 ? 1.0 : statureOf(w); vec3 wp = vec3(iP.x, hAt(iP.x, iP.y), iP.y) + rotY(iP.z, sp * sc);
-  vWp = wp; vN = rotY(iP.z, normalize(sn + vec3(1e-6))); vMat = aMF.x; vFl = aMF.y; vW = w; gl_Position = vp * vec4(wp, 1.0);`;
+  vWp = wp; vN = rotY(iP.z, normalize(sn + vec3(1e-6))); vMat = aMF.x; vFl = aMF.y; vW = w; vFade = fadeOf(iI.w, iI.x); gl_Position = vp * vec4(wp, 1.0);`;
 
 // LOD1, LOD2 and horses: bone-matrix texture, two clips x two frames (A, B blended by iA.z); iI.y = rowsA (frame0 | frame1 << 16), iI.z = rowsB, iA.x / iA.y = the fraction between the frames
 export const MID_VS = `${ATTR}
@@ -59,33 +63,40 @@ void main() {
     sp += wk * vec3(dot(a0.xyz, aPos) + a0.w, dot(a1.xyz, aPos) + a1.w, dot(a2.xyz, aPos) + a2.w); sn += wk * vec3(dot(a0.xyz, n), dot(a1.xyz, n), dot(a2.xyz, n)); }
   ${FINISH}
 }`;
-export const FIG_FS = `in vec3 vWp; in vec3 vN; flat in uint vMat; flat in uint vFl; flat in uvec4 vW; out vec4 o; uniform float uAo;
+export const FIG_FS = `in vec3 vWp; in vec3 vN; flat in uint vMat; flat in uint vFl; flat in uvec4 vW; flat in vec3 vFade; out vec4 o; uniform float uAo;
 void main() {
+  if (!fadeKeep(vFade, gl_FragCoord.xy)) discard;
   if ((int(vMat) == ${MATC.HAIR_CARD} || int(vMat) == ${MATC.BEARD_CARD}) && vFl > 0u && float(vFl & 31u) / 31.0 < ign(gl_FragCoord.xy)) discard;
   MatR m = resolveMat(int(vMat), vW); vec3 N = normalize(vN); float sh = shadowAt(vWp); float ao = uAo > 0.5 ? clamp(0.55 + 0.45 * smoothstep(0.0, 1.2, vWp.y - hAt(vWp.x, vWp.z)), 0.0, 1.0) : 0.8;
   o = vec4(fogged(lit(m.alb, m.rough, m.metal, N, vWp, sh, ao), vWp), 1.0);
 }`;
 export const NOFS = '#version 300 es\nprecision highp float; out vec4 o; void main() { o = vec4(0.0); }';
 
-// far impostors. uImpMeta: RGBA32F, one texel per class (height_m, ppm, 0, 0). uR.x = the radius inside which the 3D figures are drawn (the CPU draws every figure nearer than this with a mesh)
+// far impostors. uImpMeta: RGBA32F, one texel per class (height_m, ppm, 0, 0). uR = (r2, band, hysteresis, dab height in pixels): r2 is the radius inside which the 3D levels are drawn (lod.mjs), the impostor cross-fades in over
+// r2 (1 +- band) in the figure's own scale (the same hash as figureScale: hsh(fig * 13 + 5)) and keeps the fragments of [lo, 1) the three levels do not (lo = vF.x); below uR.w pixels the baked view gives way to a flat two-tone dab,
+// cross-faded over the same band of the height (vF.y = the share of the dab). A figure of under 3 px keeps a share of its fragments (vV.z), as before.
 export const IMP_VS = `uniform highp sampler2D uImpMeta; uniform vec4 uR; float hash1(uint n) { return hsh(n * 7u + 3u); }
-out vec3 vWp; out vec2 vQ; flat out uvec4 vW; flat out vec4 vV; flat out vec3 vRt;
+out vec3 vWp; out vec2 vQ; flat out uvec4 vW; flat out vec4 vV; flat out vec3 vRt; flat out vec2 vF;
+float bandS(float nu, float r, float b) { if (r <= 0.0) return 1.0; if (b <= 0.0) return nu >= r ? 1.0 : 0.0; float t = clamp((nu - r * (1.0 - b)) / (2.0 * r * b), 0.0, 1.0); return t * t * (3.0 - 2.0 * t); }
 void main() {
-  gl_Position = vec4(2.0, 2.0, 2.0, 1.0); vWp = vec3(0.0); vQ = vec2(0.0); vW = uvec4(0u); vV = vec4(0.0); vRt = vec3(0.0);
-  Pl p = place(gl_InstanceID, cam.w); vec3 d3 = p.pos + vec3(0.0, 0.9, 0.0) - cam.xyz; float dist = length(d3); if (dist < uR.x * 0.995 || dist > lod.z) return;
+  gl_Position = vec4(2.0, 2.0, 2.0, 1.0); vWp = vec3(0.0); vQ = vec2(0.0); vW = uvec4(0u); vV = vec4(0.0); vRt = vec3(0.0); vF = vec2(0.0);
+  Pl p = place(gl_InstanceID, cam.w); vec3 d3 = p.pos + vec3(0.0, 0.9, 0.0) - cam.xyz; float dist = length(d3), b = uR.y, hy = uR.z; float rLo = b > 0.0 ? uR.x * (1.0 - b) * (1.0 - hy) : uR.x * 0.995; if (dist < rLo || dist > lod.z) return;
+  float fsc = 1.0 + hy * (2.0 * hsh(uint(gl_InstanceID) * 13u + 5u) - 1.0), sF = b > 0.0 ? bandS(dist / fsc, uR.x, b) : (dist >= uR.x * 0.995 ? 1.0 : 0.0), lo = floor((1.0 - sF) * 65534.0 + 0.5); if (lo >= 65534.0) return;
   uvec4 w = wordsOf(uint(gl_InstanceID)); uvec4 vi = varInfoOf(w.x & 65535u); int cls = int(vi.z); vec4 meta = texelFetch(uImpMeta, ivec2(cls, 0), 0); float sc = statureOf(w);
   float ppm = meta.y, hm = meta.x; float qh = 64.0 / ppm * sc, qw = 48.0 / ppm * sc, yb = (hm * 0.5 - 32.0 / ppm) * sc;
-  float pxPerM = scr.y * 0.5 / (misc.x * dist), hpx = qh * pxPerM, dab = 0.0;
-  if (hpx < 7.0) { qh = max(qh, 3.0 / pxPerM); qw = max(qw, 1.7 / pxPerM); dab = clamp(hpx / 3.0, 0.12, 1.0); }
+  float pxPerM = scr.y * 0.5 / (misc.x * dist), hpx = qh * pxPerM, cover = 1.0, dm = b > 0.0 ? 1.0 - bandS(hpx * fsc, uR.w, b) : (hpx < uR.w ? 1.0 : 0.0);
+  if (hpx < 3.0) { qh = max(qh, 3.0 / pxPerM); qw = max(qw, 1.7 / pxPerM); cover = clamp(hpx / 3.0, 0.12, 1.0); }
   vec3 toCam = normalize(vec3(-d3.x, 0.0, -d3.z)); vec3 right = vec3(toCam.z, 0.0, -toCam.x); float cx = float(gl_VertexID & 1) * 2.0 - 1.0; float cy = float((gl_VertexID >> 1) & 1);
   vec3 wp = p.pos + right * (cx * qw * 0.5) + vec3(0.0, yb + cy * qh, 0.0); gl_Position = vp * vec4(wp, 1.0); vWp = wp; vQ = vec2(cx * 0.5 + 0.5, cy);
   float hh = p.head, c = cos(hh), s = sin(hh); float dxm = toCam.x * c - toCam.z * s, dzm = toCam.x * s + toCam.z * c; float yaw = atan(dxm, dzm); if (yaw < 0.0) yaw += 6.2831853;
-  float view = mod(floor(yaw / 6.2831853 * 8.0 + 0.5), 8.0); vV = vec4(view, float(cls), dab, hash1(uint(gl_InstanceID))); vW = w; vRt = right;
+  float view = mod(floor(yaw / 6.2831853 * 8.0 + 0.5), 8.0); vV = vec4(view, float(cls), cover, hash1(uint(gl_InstanceID))); vW = w; vRt = right; vF = vec2(lo / 65534.0, dm);
 }`;
-export const IMP_FS = `uniform highp sampler2DArray uImp; in vec3 vWp; in vec2 vQ; flat in uvec4 vW; flat in vec4 vV; flat in vec3 vRt; out vec4 o;
+export const IMP_FS = `uniform highp sampler2DArray uImp; in vec3 vWp; in vec2 vQ; flat in uvec4 vW; flat in vec4 vV; flat in vec3 vRt; flat in vec2 vF; out vec4 o;
 void main() {
+  float n = fract(ign(gl_FragCoord.xy) + vV.w); if (n < vF.x) discard;                                       // [0, lo) is kept by the 3D levels
+  float u = vF.x > 0.0 ? (n - vF.x) / (1.0 - vF.x) : n; if (u > vV.z) discard; float uu = vV.z < 1.0 ? u / vV.z : u;      // u, uu: uniform numbers again (the share kept, the share of the dab)
   vec3 toCam = normalize(cam.xyz - vWp); vec3 hc = normalize(vec3(toCam.x, 0.0, toCam.z));
-  if (vV.z > 0.0) { int mm = vQ.y > 0.45 ? ${MATC.COAT} : ${MATC.TROUSERS}; MatR m = resolveMat(mm, vW); if (fract(ign(gl_FragCoord.xy) + vV.w) > vV.z) discard; o = vec4(fogged(lit(m.alb, m.rough, m.metal, normalize(hc * 0.7 + vec3(0.0, 0.7, 0.0)), vWp, 1.0, 0.8), vWp), 1.0); return; }
+  if (uu < vF.y) { int mm = vQ.y > 0.45 ? ${MATC.COAT} : ${MATC.TROUSERS}; MatR m = resolveMat(mm, vW); o = vec4(fogged(lit(m.alb, m.rough, m.metal, normalize(hc * 0.7 + vec3(0.0, 0.7, 0.0)), vWp, 1.0, 0.8), vWp), 1.0); return; }
   int px = int(vV.x) * 48 + clamp(int(vQ.x * 48.0), 0, 47), py = clamp(int((1.0 - vQ.y) * 64.0), 0, 63); vec4 t = texelFetch(uImp, ivec3(px, py, int(vV.y)), 0); int mat = int(t.r * 255.0 + 0.5); if (mat == 0) discard;
   float nx = t.g * 2.0 - 1.0, ny = t.b * 2.0 - 1.0, nz = sqrt(max(0.0, 1.0 - nx * nx - ny * ny)); vec3 N = normalize(vRt * nx + vec3(0.0, 1.0, 0.0) * ny + hc * nz);
   MatR m = resolveMat(mat, vW); o = vec4(fogged(lit(m.alb, m.rough, m.metal, N, vWp, 1.0, 0.55 + 0.45 * t.a), vWp), 1.0);

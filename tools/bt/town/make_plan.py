@@ -32,6 +32,7 @@ def inventory_table():
     fen = sum(v for k, v in kinds.items() if k.startswith('fence') or k == 'stone_wall')
     works = 18
     hosp = jl(os.path.join(BT, 'structures', 'hospitals.json'))['hospitals']
+    photo_count = jl(os.path.join(ROOT, 'tools', 'bt', 'photomatch', 'photograph_registry.json'))['count']
     rows = [
         ('`structures.json` records', '%d' % len(S), '%d building and bridge records (%d drawn as extruded footprints, %d as a marker only, %d not drawn: no geometry); %d pre-existing walls and the unfinished grade (P-nn); %d gun emplacements (G-nn) and %d works (E-nn), which are another pass; %d fence records (FEN-*); %d road, avenue and railroad records; %d states of the ground, crops, people and sky; %d epilogue states'
          % (len(b), bc['drawn (extruded footprint)'], bc['marker only'], bc['not drawn'], walls_p, kinds['gun_emplacement'], works, fen,
@@ -46,7 +47,7 @@ def inventory_table():
             sum(v for (l, d, g), v in fc.items() if l.startswith('basemap railways')), sum(v for (l, d, g), v in fc.items() if l == 'basemap bridges')),
          'ground ribbons for 24 roads, 4 lanes and 2 railway lines; 8 bridge points and 2 railway points (the depot RL-006, the Rock Creek trestle RL-007) as markers; 11 bridges, 7 roads outside the ground; 18 named lanes with no traced line; 3 railway records not in 1863'),
         ('Hospitals (`hospitals.json`)', '%d' % len(hosp), '14 name a host building (11 drawn or marked, 3 with no geometry); 9 name none (corps sites, the town as one vast hospital, Camp Letterman)'),
-        ('Photographs (photo-match ledger)', '129', 'camera positions documented: 0 (70 statements in LOC and NPS texts: not one a coordinate, a lens or a station); poses registered 16: 0 match, 5 roughly, 4 do not, 7 cannot judge'),
+        ('Photographs (photo-match ledger)', '%d' % photo_count, 'camera positions documented: 0 (decision DD-PM-01); the report of the photo-match pass (`GOVERNANCE/horde/ws10-photomatch/REPORT.md`, as read on %s) lists 145 position statements in Library of Congress and Park Service texts, not one a coordinate with a lens and a plate, and 20 registered poses: 0 match, 8 roughly, 5 do not, 7 cannot judge (read the report for the state of the day)' % datetime.date.today().isoformat()),
     ]
     out = '| Class | Count | State in the product today |\n|---|---|---|\n'
     for a, b2, c in rows:
@@ -55,17 +56,17 @@ def inventory_table():
 
 
 def group_table(G):
-    out = '| # | group | prefix | records (parts) | borough masses | plate symbols | named structures | beyond the ground | bridges + rail | fence candidates | roads + lanes | hospitals |\n|---|---|---|---|---|---|---|---|---|---|---|---|\n'
+    out = '| # | group | prefix | records (parts) | borough masses | plate symbols | named structures | beyond the ground | bridges + rail | fence candidates | roads + lanes | terrain polygons | hospitals |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|\n'
     tot = collections.Counter()
     for i, g in enumerate(G, 1):
         c = g['counts']
-        out += '| %d | `%s` | %s | %d (%d) | %d | %d | %d | %d | %d | %d | %d | %d |\n' % (i, g['id'], g['prefix'], c['building_records'], c['record_parts'], c['borough_masses'], c['map_symbols'], c['curated_farm_and_named'],
-                                                                          c['outside_loaded_ground'], c['bridges'] + c['railways'], c['fences'], c['roads'] + c['lanes'], c['hospitals'])
+        out += '| %d | `%s` | %s | %d (%d) | %d | %d | %d | %d | %d | %d | %d | %d | %d |\n' % (i, g['id'], g['prefix'], c['building_records'], c['record_parts'], c['borough_masses'], c['map_symbols'], c['curated_farm_and_named'],
+                                                                                c['outside_loaded_ground'], c['bridges'] + c['railways'], c['fences'], c['roads'] + c['lanes'], c.get('terrain_polygons', 0), c['hospitals'])
         for k, v in (('rec', c['building_records']), ('part', c['record_parts']), ('mass', c['borough_masses']), ('sym', c['map_symbols']), ('named', c['curated_farm_and_named']), ('out', c['outside_loaded_ground']),
-                     ('br', c['bridges'] + c['railways']), ('fen', c['fences']), ('rd', c['roads'] + c['lanes']), ('h', c['hospitals'])):
+                     ('br', c['bridges'] + c['railways']), ('fen', c['fences']), ('rd', c['roads'] + c['lanes']), ('tp', c.get('terrain_polygons', 0)), ('h', c['hospitals'])):
             tot[k] += v
-    out += '| | **total** | | %d (%d) | %d | %d | %d | %d | %d | %d | %d | %d |\n' % (tot['rec'], tot['part'], tot['mass'], tot['sym'], tot['named'], tot['out'], tot['br'], tot['fen'], tot['rd'], tot['h'])
-    out += '\n"Named structures" are the curated farm buildings, town buildings and named sites of the catalogue (drawn or not: the three columns masses, symbols and named structures add up to the 605 structures; "beyond the ground" is a part of them, not a further class); "plate symbols" are the machine-detected and hand-reviewed symbols of the Warren plate (owner labels are OCR hints). The structures of `STR-*` that are not in a group of this table: none (605 of 605 assigned).\n'
+    out += '| | **total** | | %d (%d) | %d | %d | %d | %d | %d | %d | %d | %d | %d |\n' % (tot['rec'], tot['part'], tot['mass'], tot['sym'], tot['named'], tot['out'], tot['br'], tot['fen'], tot['rd'], tot['tp'], tot['h'])
+    out += '\n"Named structures" are the curated farm buildings, town buildings and named sites of the catalogue (drawn or not: the three columns masses, symbols and named structures add up to the 605 structures; "beyond the ground" is a part of them, not a further class); "plate symbols" are the machine-detected and hand-reviewed symbols of the Warren plate (owner labels are OCR hints). The structures of `STR-*` that are not in a group of this table: none (605 of 605 assigned). "Terrain polygons" are the places listed by the terrain pipeline where the modern ground model may differ from 1863 (`docs/battle-theatre/terrain/elev1863/demodernization_polygons.json`: kinds US15, AVE, RDC, QRY and PRK, every one a candidate with a lead or no source); the group `terrain-changes-since-1863` accounts for each of them (a sourced row, or an open gap with its failed searches) and does not edit the model.\n'
     return out
 
 
@@ -135,7 +136,8 @@ def main():
     if m and m.group(2) != '0':
         raise SystemExit('the validator self-test fails: ' + r.stdout[-600:])
     subs = {'{{DATE}}': datetime.date.today().isoformat(), '{{INVENTORY_TABLE}}': inventory_table(), '{{GROUP_TABLE}}': group_table(G), '{{GROUP_NOTES}}': group_notes(G),
-            '{{COVERAGE}}': cov_text, '{{COVERAGE_STATE}}': cov_state, '{{EXAMPLE_BLOCKS}}': ex, '{{N_EXAMPLES}}': str(n_ex), '{{N_CASES}}': n_cases}
+            '{{COVERAGE}}': cov_text, '{{COVERAGE_STATE}}': cov_state, '{{EXAMPLE_BLOCKS}}': ex, '{{N_EXAMPLES}}': str(n_ex), '{{N_CASES}}': n_cases,
+            '{{N_PHOTOS}}': str(jl(os.path.join(ROOT, 'tools', 'bt', 'photomatch', 'photograph_registry.json'))['count'])}
     for k, v in subs.items():
         t = t.replace(k, v)
     t = t.replace('62 synthetic cases', '%s synthetic cases' % n_cases)

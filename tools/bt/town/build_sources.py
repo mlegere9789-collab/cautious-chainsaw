@@ -253,4 +253,7 @@ def finish(fam, n_books, n_nps, n_ca):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1:      # the program takes no argument; an unknown one (--help) must not rewrite the ledger
+        print(__doc__)
+        sys.exit(2)
     main()

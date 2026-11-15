@@ -71,9 +71,11 @@ def build_root(tmp):
     w('docs/battle-theatre/town/SOURCES.md', ledger)
     members = {'records': ['bld-a', 'bld-b'], 'record_parts': [], 'basemap_structures': ['STR-X-1'], 'bridges': [], 'railways': [], 'fences': [], 'roads': [], 'lanes': [], 'hospitals': [], 'other_records': []}
     members2 = {'records': ['bld-other'], 'record_parts': [], 'basemap_structures': [], 'bridges': [], 'railways': [], 'fences': [], 'roads': [], 'lanes': [], 'hospitals': [], 'other_records': []}
-    groups = {'groups_list': [{'id': 'g-one', 'prefix': 'ONE', 'members': members}, {'id': 'g-two', 'prefix': 'TWO', 'members': members2}]}
+    members3 = {'records': [], 'record_parts': [], 'basemap_structures': [], 'bridges': [], 'railways': [], 'fences': [], 'roads': [], 'lanes': [], 'hospitals': [], 'other_records': [],
+                'terrain_polygons': ['DM-0001', 'DM-0002', 'DM-0003']}
+    groups = {'groups_list': [{'id': 'g-one', 'prefix': 'ONE', 'members': members}, {'id': 'g-two', 'prefix': 'TWO', 'members': members2}, {'id': 'g-three', 'prefix': 'THR', 'members': members3}]}
     w('docs/battle-theatre/town/evidence/groups.json', json.dumps(groups))
-    rules = {'rules': [{'id': 'GR-TEST-ROOF', 'applies_to': 'roof', 'statement': 'gable roof'}]}
+    rules = {'rules': [{'id': 'GR-TEST-ROOF', 'applies_to': ['roof'], 'statement': 'gable roof'}, {'id': 'GR-TEST-KIND', 'applies_to': ['kind'], 'statement': 'a point is a marker'}]}
     w('docs/battle-theatre/town/evidence/generic_rules.json', json.dumps(rules))
     return pt, ot
 
@@ -162,6 +164,7 @@ def run(V):
         pp = {'row': 'g-one.0012', 'type': 'field', 'group': 'g-one', 'building': BID, 'field': 'roof', 'value': {'form': 'gable'}, 'tier': 'plausible-procedural', 'evidence_kind': 'none',
               'describes': 'undated', 'rule': 'GR-TEST-ROOF'}
         case('O plausible-procedural with a known rule', B + [pp], None)
+        case('O3 plausible-procedural with a rule written for another field', B + [dict(pp, field='walls', value={'material': 'brick'})], 'applies to roof')
         case('O2 plausible-procedural with an unknown rule', B + [dict(pp, rule='GR-NOPE')], 'not in generic_rules.json')
         ocr = fr(2, field='footprint', value={'w': 21, 'd': 21, 'unit': 'ft'}, source='T-OCR', part='book', page=None, page_note='no page marks', quote='is three stories high with a dormer 21 ft wide',
                  text_offset=off(text_o, 'is three stories'), quote_mode='ocr', raw='is three stories high with a dormer 2l ft wide', ocr_note='l for 1', page_image_viewed=True)
@@ -244,6 +247,24 @@ def run(V):
         case('AD5 complete: a group that records no search', B + [fr(2)], 'records what was searched', complete=True)
         case('AD6 complete: a group that declares no building', [], 'declares at least one building', complete=True)
         case('AD7 complete: a link naming a structure of another group does not account for the structures of this group', [dict(base_b, links={'structures': ['bld-other']})] + full, 'not accounted for', complete=True)
+        # the terrain group's inventory is a list of polygons: one row may account for several through links.terrain
+        def terr(links, gaps=True):
+            b3 = {'row': 'g-three.0001', 'type': 'building', 'group': 'g-three', 'building': 'TWN-THR-0001', 'name': 'US 15 bypass', 'declared_from': 'new', 'new_reason': 'a modern road corridor of 1963 in the list of the terrain pipeline'}
+            if links is not None:
+                b3['links'] = links
+            sr = {'row': 'g-three.0002', 'type': 'search', 'group': 'g-three', 'building': '*', 'where': 'T-OCR', 'query': 'bypass', 'outcome': 'not_found', 'at': '2026-11-15'}
+            rr = [b3, sr, {'row': 'g-three.0003', 'type': 'field', 'group': 'g-three', 'building': 'TWN-THR-0001', 'field': 'kind', 'value': 'terrain', 'tier': 'plausible-procedural',
+                           'evidence_kind': 'none', 'describes': 'undated', 'rule': 'GR-TEST-KIND'}]
+            if gaps:
+                for i, f in enumerate(V.REQUIRED_FIELDS['terrain']):
+                    if f != 'kind':
+                        rr.append({'row': 'g-three.%04d' % (10 + i), 'type': 'field', 'group': 'g-three', 'building': 'TWN-THR-0001', 'field': f, 'value': None, 'tier': 'open gap',
+                                   'evidence_kind': 'none', 'describes': 'undated', 'searched': ['g-three.0002']})
+            return rr
+        case('AM terrain group: polygons not accounted for', terr(None), 'not accounted for', group='g-three', complete=True)
+        case('AM2 terrain group: three polygons accounted for by one row through links.terrain', terr({'terrain': ['DM-0001', 'DM-0002', 'DM-0003']}), None, group='g-three', complete=True)
+        case('AM3 terrain group: one polygon of three missing', terr({'terrain': ['DM-0001', 'DM-0003']}), 'DM-0002', group='g-three', complete=True)
+        case('AM4 terrain group: a link under the wrong key (hospitals) accounts for nothing', terr({'hospitals': ['DM-0001', 'DM-0002', 'DM-0003']}), 'not accounted for', group='g-three', complete=True)
         # links of a building row
         case('AL links that is not an object', [dict(base_b, links=['bld-b'])], 'links is an object')
         case('AL2 links with a key that is not one of the five', [dict(base_b, links={'fences': ['x']})], 'links key')

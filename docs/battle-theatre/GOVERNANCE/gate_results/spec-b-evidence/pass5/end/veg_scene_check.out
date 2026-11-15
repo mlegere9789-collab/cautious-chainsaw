@@ -1,0 +1,111 @@
+{
+ "data_bytes": 1895849,
+ "units": 927,
+ "claims": 559,
+ "checkVegetation": {
+  "gate": "Q21",
+  "ok": true,
+  "checked": 741600,
+  "failures": 0,
+  "first_failures": [],
+  "notRun": [
+   "pictures of the fields and trees (software renderer only; no real-GPU timing)",
+   "comparison with 1863 photographs (none analysed)"
+  ],
+  "summary": {
+   "units": 927,
+   "claims": 559,
+   "times": 100,
+   "scenarios": 8,
+   "states": 741600,
+   "byTier": {
+    "documented": 254,
+    "inferred": 142,
+    "plausible-procedural": 531,
+    "open gap": 0
+   },
+   "pure": true,
+   "backward": true,
+   "species": 17,
+   "byClass": {
+    "boulder": {
+     "units": 1,
+     "states": 800,
+     "failures": 0
+    },
+    "cleared": {
+     "units": 1,
+     "states": 800,
+     "failures": 0
+    },
+    "field": {
+     "units": 549,
+     "states": 439200,
+     "failures": 0
+    },
+    "marsh": {
+     "units": 2,
+     "states": 1600,
+     "failures": 0
+    },
+    "orchard": {
+     "units": 85,
+     "states": 68000,
+     "failures": 0
+    },
+    "scatter": {
+     "units": 103,
+     "states": 82400,
+     "failures": 0
+    },
+    "wheatfield": {
+     "units": 1,
+     "states": 800,
+     "failures": 0
+    },
+    "woods": {
+     "units": 185,
+     "states": 148000,
+     "failures": 0
+    }
+   }
+  }
+ },
+ "checkScene": {
+  "gate": "Q21",
+  "part": "Q21.2 scene equals schedule",
+  "ok": true,
+  "checked": 189108,
+  "failures": 0,
+  "first_failures": [],
+  "notRun": [
+   "what the shaders make of these numbers (pictures are looked at in tests/vegetation-browser.mjs, on a software renderer only)",
+   "real-GPU timing"
+  ],
+  "facts": {
+   "units": 927,
+   "times": 34,
+   "choiceSets": 6,
+   "stateFloatsPerUnit": 20,
+   "trees": 124565,
+   "decalTriangles": 147165,
+   "densityChecked": 264,
+   "understory": {
+    "as_classed": {
+     "trees": 124565,
+     "woodsChecked": 172
+    },
+    "open_grown": {
+     "trees": 110819,
+     "woodsChecked": 171
+    },
+    "dense": {
+     "trees": 208470,
+     "woodsChecked": 177
+    }
+   },
+   "lrt": "18 entries"
+  }
+ },
+ "wall_ms": 10301
+}

@@ -2,7 +2,7 @@
 // the data. The schedule is the state function of model.mjs (checkVegetation looks at that); the scene is the 20 floats per unit that gl.mjs writes to the state texture
 // (packUnitState, at the scene minute), the trees the build places (buildTrees) with the share of them a reading of Little Round Top keeps, and the ground-cover mesh (buildDecals).
 // What it cannot see: what the shaders make of those numbers (a browser looks at pictures: tests/vegetation-browser.mjs) and any real-GPU timing.
-import { stateAt, sampleTimes, sceneMinute, TIERS, minToIso } from './model.mjs';
+import { stateAt, sampleTimes, sceneMinute, TIERS, minToIso, scenarioOption, understoryOf } from './model.mjs';
 import { packUnitState, STATE_K, CROPCODE, STAGECODE } from './gl.mjs';
 import { buildDecals, buildTrees, TREE_STRIDE } from './mesh.mjs';
 
@@ -18,7 +18,7 @@ const mid = h => (h[0] + h[1]) / 2;
  * the trees placed on a wood or orchard are about its density, and the trees a reading of Little Round Top draws are the share it keeps.
  */
 export function checkScene(model, opts = {}) {
-  const times = opts.times || sampleTimes(model).filter((_, i) => i % 3 === 0), choicesList = opts.choicesList || [{}, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-HARVEST': 'early' }];
+  const times = opts.times || sampleTimes(model).filter((_, i) => i % 3 === 0), choicesList = opts.choicesList || [{}, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-HARVEST': 'early' }, { 'CF-VEG-UNDER': 'dense' }, { 'CF-VEG-MCPHERSON': 'study-1977' }];
   const failures = [], notRun = ['what the shaders make of these numbers (pictures are looked at in tests/vegetation-browser.mjs, on a software renderer only)', 'real-GPU timing'];
   const fail = (u, t, why) => { if (failures.length < 200) failures.push({ unit: u.id, t, iso: minToIso(t), why }); };
   const units = model.units, out = new Float32Array(STATE_K * 4), canopy = new Float32Array((units.length + 1) * 3); let checked = 0;
@@ -56,14 +56,32 @@ export function checkScene(model, opts = {}) {
     // trees placed per unit: about the unit's density; and what a reading of Little Round Top draws is the share it keeps
     const per = new Map(), seedKept = new Map();
     for (let o = 0; o < trees.n * TREE_STRIDE; o += TREE_STRIDE) { const ui = trees.data[o + 8]; per.set(ui, (per.get(ui) || 0) + 1); }
-    let densityChecked = 0;
+    let densityChecked = 0; const DENS = model.cal.understory_per_ha || { open: 0, moderate: 30, thick: 140 };
     units.forEach((u, i) => {
       if (!(u.woods || u.orchard)) return; const n = per.get(i) || 0, ha = u.area_ac * 0.404686;
-      // a wood: its trees per hectare plus the understory shrubs its account of the undergrowth gives (moderate 30, thick 140 per hectare); an orchard: one tree to a square of the spacing
-      const want = u.orchard ? ha * 1e4 / (u.orchard.spacing_m * u.orchard.spacing_m) : (u.woods.per_ha + ({ moderate: 30, thick: 140 }[u.woods.understory] || 0)) * ha, lo = u.orchard ? 0.6 : 0.75, hi = u.orchard ? 1.5 : 1.25;
+      // a wood: its trees per hectare plus the understory shrubs the reading in force gives (the table of the calendar, per hectare); an orchard: one tree to a square of the spacing
+      const want = u.orchard ? ha * 1e4 / (u.orchard.spacing_m * u.orchard.spacing_m) : (u.woods.per_ha + (DENS[understoryOf(model, u, {}).understory] || 0)) * ha, lo = u.orchard ? 0.6 : 0.75, hi = u.orchard ? 1.5 : 1.25;
       if (want >= (u.orchard ? 60 : 30)) { densityChecked++; if (n < lo * want || n > hi * want) fail(u, 0, `${n} trees placed where the schedule's density gives about ${Math.round(want)}`); }
     });
     facts.densityChecked = densityChecked;
+    // the readings of the understory: the shrubs placed in each wood are those of the reading (an account of the wood rules for it), and the trees an account gives heights for are within them
+    const sc = model.scenarios['CF-VEG-UNDER']; facts.understory = {};
+    if (sc) for (const key of Object.keys(sc.options)) {
+      const ch = { 'CF-VEG-UNDER': key }, tr2 = key === sc.default ? trees : buildTrees(model, opts.project, opts.ground, { choices: ch }), cnt = new Map(), sh = new Map(), shrub = model.speciesList.indexOf('shrub');
+      for (let o = 0; o < tr2.n * TREE_STRIDE; o += TREE_STRIDE) { const ui = tr2.data[o + 8]; cnt.set(ui, (cnt.get(ui) || 0) + 1); if (tr2.data[o + 4] === shrub) sh.set(ui, (sh.get(ui) || 0) + 1); }
+      let woodsChecked = 0;
+      units.forEach((u, i) => {
+        if (!u.woods || u.cls !== 'woods') return; const ha = u.area_ac * 0.404686, ue = understoryOf(model, u, ch), want = (u.woods.per_ha + (DENS[ue.understory] || 0)) * ha, n = cnt.get(i) || 0;
+        if (want >= 30) { woodsChecked++; if (n < 0.75 * want || n > 1.25 * want) fail(u, 0, `${n} trees placed under the reading ${key} where the schedule's understory (${ue.understory}) gives about ${Math.round(want)}`); }
+        if (ue.understory === 'open' && u.woods.class !== 'thicket' && (sh.get(i) || 0) > 0 && !u.woods.species.shrub) fail(u, 0, `shrubs placed in a wood read as open under ${key}`);
+      });
+      facts.understory[key] = { trees: tr2.n, woodsChecked };
+    }
+    units.forEach((u, i) => {
+      if (!(u.woods && u.woods.h_m)) return; let n = 0;
+      for (let o = 0; o < trees.n * TREE_STRIDE; o += TREE_STRIDE) if (trees.data[o + 8] === i) { n++; const h = trees.data[o + 2]; if (h < u.woods.h_m[0] * 0.9 - 1e-3 || h > u.woods.h_m[1] * 1.1 + 1e-3) fail(u, 0, `a tree of ${h.toFixed(1)} m where the claim gives ${u.woods.h_m} m`); }
+      if (n === 0) fail(u, 0, 'a unit with heights from a claim has no trees');
+    });
     for (const ch of choicesList) for (const id of model.lrtUnits) {
       const u = model.unit(id), i = units.indexOf(u), keep = stateAt(model, u, sceneMinute(36000 + 40 * 1440), ch).trees.keep; let n = 0, drawn = 0;
       for (let o = 0; o < trees.n * TREE_STRIDE; o += TREE_STRIDE) if (trees.data[o + 8] === i) { n++; if (trees.data[o + 5] <= keep) drawn++; }

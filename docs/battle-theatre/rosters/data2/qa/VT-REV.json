@@ -28,11 +28,11 @@
      "decision": "OPEN"
     },
     "R-G2": {
-     "rows": 37,
-     "errors": 19,
-     "rate_percent": 51.35,
-     "upper95_percent": 65.72,
-     "lower95_percent": 36.81,
+     "rows": 77,
+     "errors": 36,
+     "rate_percent": 46.75,
+     "upper95_percent": 56.72,
+     "lower95_percent": 36.98,
      "decision": "FAIL"
     },
     "R-G3a": {
@@ -44,36 +44,42 @@
      "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 37,
-     "errors": 13,
-     "rate_percent": 35.14,
-     "upper95_percent": 49.95,
-     "lower95_percent": 22.19,
+     "rows": 77,
+     "errors": 20,
+     "rate_percent": 25.97,
+     "upper95_percent": 35.46,
+     "lower95_percent": 17.93,
      "decision": "FAIL"
     },
     "any": {
-     "rows": 37,
-     "errors": 25,
-     "rate_percent": 67.57,
-     "upper95_percent": 80.1,
-     "lower95_percent": 52.81,
+     "rows": 77,
+     "errors": 48,
+     "rate_percent": 62.34,
+     "upper95_percent": 71.58,
+     "lower95_percent": 52.36,
      "decision": null
     }
    },
    "error_kinds_count": {
-    "rem-date": 19,
-    "rem-char": 13,
+    "rem-date": 36,
+    "rem-char": 16,
     "rem-order": 2,
+    "rem-extra": 2,
+    "rem-missing": 2,
     "name-char": 1
    },
    "error_kinds_on_rows_flagged_ocr_uncertain": {
-    "rem-date": 18,
-    "rem-char": 13,
+    "rem-date": 35,
+    "rem-char": 14,
     "rem-order": 2,
-    "name-char": 1
+    "name-char": 1,
+    "rem-missing": 1
    },
    "error_kinds_on_rows_not_flagged": {
-    "rem-date": 1
+    "rem-date": 1,
+    "rem-extra": 2,
+    "rem-missing": 1,
+    "rem-char": 2
    },
    "missed_lines": 0,
    "census_complete": false

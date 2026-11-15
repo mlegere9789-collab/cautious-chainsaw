@@ -2890,5 +2890,159 @@
    "rules",
    "main"
   ]
+ },
+ {
+  "id": "checks-casualty-max",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a[key] != null && val > a[key]) return fail('casualty_mismatch'",
+  "replace": "if (false) return fail('casualty_mismatch'",
+  "rule": "an upper bound on the men leaving the line is a bound",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-casualty-approx",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a[key] != null && Math.abs(val - a[key]) > share * a[key] + 1e-9) return fail('casualty_mismatch'",
+  "replace": "if (false) return fail('casualty_mismatch'",
+  "rule": "a number of men a row prints is matched to the men the picture shows, within the stated share",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-casualty-share-record",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "share = (a.tol_pct != null ? Math.min(a.tol_pct, stated) : stated) / 100;",
+  "replace": "share = stated / 100;",
+  "rule": "a record may ask for a smaller share of the printed number of men",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-casualty-share-stated",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "const stated = (this.tol.units.casualties || {}).tol_pct ?? 10,",
+  "replace": "const stated = 100,",
+  "rule": "the stated share for a printed number of men",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-casualty-approx-quote",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.type === 'casualty') for (const k of ['killed_approx'",
+  "replace": "if (false) for (const k of ['killed_approx'",
+  "rule": "a number of men a check asks for is printed in its own quote",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-casualty-approx-positive",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a[k] != null && !(isNum(a[k]) && a[k] > 0)) out.push({ code: 'assert_field', detail: `${k} ${JSON.stringify(a[k])} is a number of men above 0",
+  "replace": "if (false) out.push({ code: 'assert_field', detail: `${k} ${JSON.stringify(a[k])} is a number of men above 0",
+  "rule": "an approx number of men is above 0",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-casualty-max-nonneg",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a[k] != null && !(isNum(a[k]) && a[k] >= 0)) out.push({ code: 'assert_field', detail: `${k} ${JSON.stringify(a[k])} is a number of men, 0 or more",
+  "replace": "if (false) out.push({ code: 'assert_field', detail: `${k} ${JSON.stringify(a[k])} is a number of men, 0 or more",
+  "rule": "a maximum number of men is 0 or more",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-casualty-tol-wider",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "else if (a.tol_pct != null && stated != null && !(isNum(a.tol_pct) && a.tol_pct > 0 && a.tol_pct <= stated)) wide(",
+  "replace": "else if (false) wide(",
+  "rule": "a record may ask for a smaller share of the printed number of men, never a larger",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-casualty-tol-field",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.tol_pct != null && !approx.length) out.push(",
+  "replace": "if (false) out.push(",
+  "rule": "tol_pct belongs to a casualty check that names an approx field",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-casualty-share",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"casualties\": { \"tol_pct\": 10,",
+  "replace": "\"casualties\": { \"tol_pct\": 60,",
+  "rule": "the stated share for a printed number of men is 10 per cent",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-not-queryable-realized",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (rec.kind !== 'not_realized') add('not_queryable_in_realized'",
+  "replace": "if (false) add('not_queryable_in_realized'",
+  "rule": "a realized record cannot carry a probe that always fails",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-not-queryable-words",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.words != null && !hasQuote(row.claim_text, a.words)) add('quote_not_in_row', `${at}: not_queryable words",
+  "replace": "if (false) add('quote_not_in_row', `${at}: not_queryable words",
+  "rule": "the words of a not_queryable probe are the row's own",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-not-queryable-capability",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.capability != null && !(typeof a.capability === 'string' && a.capability.trim().length >= 8)) add('assert_field'",
+  "replace": "if (false) add('assert_field'",
+  "rule": "a not_queryable probe says in a sentence what the harness cannot ask",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-not-queryable-fails",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "case 'not_queryable': return fail('assertion_unavailable',",
+  "replace": "case 'not_queryable': return ok({}); void fail('assertion_unavailable',",
+  "rule": "a not_queryable probe always fails with assertion_unavailable",
+  "tests": [
+   "rules",
+   "main"
+  ]
  }
 ]

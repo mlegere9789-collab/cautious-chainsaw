@@ -1,0 +1,26 @@
+
+### 8.7 What the fifth pass found stale, and changed in place
+
+No statement of the fourth pass was found to have been false at the time it names (the spot checks were the register entries cited in Q08 and Q28, the code constants and per-file test counts of `implementation_facts.py`, the thresholds, and the data counts of 2.1 and 2.2: all as stated); what changed is the files. The quoted wording of the "Was" column is that of the file before this pass (`spec-b-evidence/pass5/GATE-SPEC-B.before-pass5.md`).
+
+| Where | Was | Now |
+|---|---|---|
+| 3 (Q01) | "a scratch build gives 41 of 825 units verified, 27 partly, 757 unverified" | 45, 23 and 757 at 22:59 on 15 November and 44, 24 and 757 at 23:25 (kit evidence files being rewritten) |
+| 3 and Q03 | `ext-loader` 28 tests, `ext-monuments` 38, "all pass at 00:13" | 29 and 38 at 23:00 (45 for `ext-monuments` at 23:26); the three modules are edited in the working tree |
+| 3 and Q06 | "four research files with 635 records" | 962 records, 0 errors, 7 warnings, nothing owed |
+| 3 and Q10 | a harness of 16 cases, black share 0 in 15 | 16 cases and six close views: 0 in 21 of the 22 cases; `weather3d-gpu.test.mjs` 26 tests then, 34 at 23:28 |
+| 3 and Q16 | "catalogue and registry of 129 photographs, 105 camera-position statements, 19 poses of which 16 have a verdict" | 191 photographs, 145 statements from 68 sources, 20 poses each with a verdict (8 roughly, 7 cannot judge, 5 does not), 3 documented camera places, 0 documented positions; the test file had 11 tests, 22 at 23:26 |
+| 3 and Q17 | "`RESULTS.json` ... at 23:47" | the stored file is of 00:42 on 14 November and its input digests are older than the tree's; a scratch run reproduces its `q17` block field for field |
+| 3 and Q21 | "925 units", `vegetation.test.mjs` 26 tests, `checkVegetation` 555,000 and 556,200 states | 927 units, 559 claims, 741,600 states and 38 tests at 23:25 to 23:27 (481 claims, 556,200 states and 28 tests with one red at 23:00) |
+| 3 and Q25 | "three status files (49 ids, 11 status words)" | 83 entries, 58 ids, 11 words at 23:18 |
+| 2.1 | decisions "DD-G01 to DD-G13 ... DD-RZ-01 to DD-RZ-09"; `status_3.json` "6 sources" and `acquired_3.json` "78 items"; `GATE-SPEC.md` "last edited 22:03 UTC"; `RESULTS.json` "last rewritten 23:47 UTC" | DD-G01 to DD-G19, DD-RZ-01 to DD-RZ-12, DD-PM, DD-REN and others; 15 entries and 81 items with 9 blocked or failed; reconciled again at 01:35 on 14 November; 00:42 on 14 November |
+| 2.3 | register proposals "560 proposal files" in 33 folders, 246 without a same-named file; `realize-rules.test.mjs` 29 tests | 623 files in 35 folders, 309; 31 tests (25 for `realize.test.mjs`) |
+| 2.4 | eleven facts | thirteen: 12 (the stored `RESULTS.json` is a record of an earlier state) and 13 (files other lanes rewrite while a gate runs); item 6 lists five more writers |
+| 5.1 to 5.4 | 17 readings stricter than the tests; no row for the Q21 event guard or the Q24 canvas limit | 20 readings; two threshold rows (both set by the author of their file); an update paragraph for OA01, OA03 and OA10 to OA12; three more things a runner must not do |
+| 6 | "72 tests: 69 pass, 3 fail" of the two pack test files | 76 tests: 73 pass, 3 fail (the same three, the same ten hits) |
+| Q11, Q05, Q13, Q15, Q28, Q27 and others | "no file modified since 18:30 UTC on 13 November (checked ... by modification time)" | by the last commit and the working-tree status (`inputs_delta.py`): for Q11 the last commit is 639586b8 of 11 November 17:00; the 12 gates with no changed input are listed in 3.1 |
+| Q12 | the scrub run "was killed by the restart and has no end line" | its log now ends with the owner's line "CUT by the container restart of 2026-11-14 about 00:05Z (not a time limit, not a test result)" |
+
+### 8.8 What was not re-checked at the fifth pass
+
+The test bodies beyond their titles (8.3 and 8.6 stand). The `Missing` bullets of the twelve gates whose inputs did not move (Q04, Q05, Q11, Q13, Q14, Q15, Q18, Q19, Q20, Q23, Q27, Q28) are the fourth pass's judgments from reading; this pass added a bullet that says what did not move and re-ran their cheap checks, and did not re-read their code. `gate_q11`, `gate_q22` and `drill_check.py` were not run (their inputs did not change and the second pass's runs stand), no browser spec or harness was run except the capability probe, and every statement about a real GPU is from reading. The files that other lanes were rewriting while this was read, and so are true of the minute named: the three `ext` modules and their tests, `GATE-HOOKS.md`, `weather3d-gpu*.mjs` and its results folder, `kit/evidence/us-1c.jsonl` and `us-2c-1d.jsonl`, `vegetation.json` and its tests, the photo-match registry, verdicts, poses and library pointers, `medical/evidence/wounds-*.jsonl`, `life/evidence/us-2c.jsonl`, `town/evidence/groups.json`, the roster index and the Massachusetts roster files, `tools/bt/realize/` (its README, `q.mjs` and `mutations.json`) and the two realization tests, `tests/bt-pack/pack.test.mjs` and `tools/bt/pack_theatre.mjs`. A figure in the gate sections that is given with two times (22:59 and 23:25, 23:00 and 23:28) was read twice for that reason; the later reading is the one the summary table of section 3 carries.

@@ -567,6 +567,7 @@ def cell_attributes(u, mix, claims, units_by_lc):
 
 
 def build_json(args):
+    use_study = getattr(args, 'mcpherson', 'clr') == 'study'
     units, terr, G, farms, gz, S = build_units(args)
     claims = load_claims()
     for c in claims.values():
@@ -579,7 +580,7 @@ def build_json(args):
         u['id'] = 'V-%04d' % (i + 1)
     units_by_lc = {u['lc']: u for u in units}
     unplaced = attach_claims(units, claims, farms, gz)
-    mix, farm_rows, acres = district_mix(claims, alt=getattr(args, 'mcpherson', 'clr') == 'study')
+    mix, farm_rows, acres = district_mix(claims, alt=use_study)
 
     # ----- crops of the field cells
     fields = [u for u in units if u['cls'] in ('field', 'wheatfield')]
@@ -616,18 +617,27 @@ def build_json(args):
         for (crop, cid), u in zip(rows, order):
             u['crop'], u['crop_tier'], u['crop_basis'], u['crop_claim'], u['crop_role'] = crop, 'plausible-procedural', 'farm_inventory', cid, 'farm'
     # the rest: seeded draw with repulsion from the neighbours already drawn
-    index = {u['id']: u for u in fields}
     nb = {}
-    geoms = {u['id']: u['geom'] for u in fields}
     for u in fields:
         nb[u['id']] = [v['id'] for v in fields if v is not u and u['geom'].distance(v['geom']) < 12.0]
-    for u in sorted(fields, key=lambda u: rnd(u['id'], 'ord')):
-        if 'crop' in u:
+    fixed = {u['id']: u['crop'] for u in fields if 'crop' in u}
+    mix_other, _, _ = district_mix(claims, alt=not use_study)
+
+    def draw_cells(mix_x):
+        crops = dict(fixed)
+        for u in sorted(fields, key=lambda u: rnd(u['id'], 'ord')):
+            if u['id'] in fixed:
+                continue
+            neigh = [crops[n] for n in nb[u['id']] if n in crops]
+            crops[u['id']] = draw_crop(rnd(u['id'], 'crop'), mix_x, neigh)
+        return crops
+    main, other = draw_cells(mix), draw_cells(mix_other)
+    for u in fields:
+        if u['id'] in fixed:
             continue
-        neigh = [index[n].get('crop') for n in nb[u['id']] if index[n].get('crop')]
-        u['crop'] = draw_crop(rnd(u['id'], 'crop'), mix, neigh)
-        u['crop_tier'] = 'plausible-procedural'
-        u['crop_basis'] = 'district_mix'
+        u['crop'], u['crop_tier'], u['crop_basis'] = main[u['id']], 'plausible-procedural', 'district_mix'
+        if other[u['id']] != main[u['id']]:
+            u['crop_alt'] = other[u['id']]          # the crop of this cell under the other reading of the McPherson acres (the choice CF-VEG-MCPHERSON)
     return units, claims, unplaced, mix, farm_rows, acres, terr, G, farms, gz, S
 
 
@@ -915,7 +925,7 @@ def make_output(args):
             rec['geom_note'] = 'cell of a block of open ground cut by straight cuts across the long axis of its pieces: the edges inside the block are not mapped' if u.get('subdivided') else 'a block of open ground between roads, lanes, confirmed fences and the outlines of woods and orchards'
             if u.get('farm_guess'):
                 rec['farm_guess'] = u['farm_guess']
-        for k in ('crop', 'crop_tier', 'crop_basis', 'crop_claim', 'crop_role', 'rock', 'woods', 'orchard', 'p', 'seed', 'ev'):
+        for k in ('crop', 'crop_alt', 'crop_tier', 'crop_basis', 'crop_claim', 'crop_role', 'rock', 'woods', 'orchard', 'p', 'seed', 'ev'):
             if k in u:
                 rec[k] = u[k]
         rec['claims'] = u['claims']
@@ -1027,16 +1037,31 @@ def write_all(args):
     assert not miss, 'the tables cite claims that do not exist: %s' % miss
     sc = json.loads(json.dumps(TB.SCENARIOS))
     sc['CF-VEG-LRT']['lrt_units'] = lrt_units
+    # the rows of the timeline that name a vegetation state: which claims bear on each, what they cover and what they leave open (the table in veg_tables.py; every row and claim must exist)
+    seed_rows = {json.loads(l)['id'] for l in open(os.path.join(BT, 'GOVERNANCE', 'timeline_seed.jsonl'), encoding='utf-8') if l.strip()}
+    rows_out = {}
+    for rid, r in TB.ROW_LINKS.items():
+        assert rid in seed_rows, ('a row link names a timeline row that does not exist', rid)
+        for cid in r['claims']:
+            assert cid in ids, ('a row link cites a claim that does not exist', rid, cid)
+        rows_out[rid] = dict(r)
+    for c in cl_out:
+        rs = sorted(rid for rid, r in TB.ROW_LINKS.items() if c['id'] in r['claims'])
+        if rs:
+            c['rows'] = rs
+    use_study = getattr(args, 'mcpherson', 'clr') == 'study'
+    mix_alt, farms_alt, acres_alt = district_mix({c['id']: c for c in claims_all.values()}, alt=not use_study)
+    sc['CF-VEG-MCPHERSON'] = {'title': 'Crop acres of the McPherson tenant\'s claim', 'default': 'study-1977' if use_study else 'clr',
+        'why': 'One claim of 1863 in two transcriptions. The Cultural Landscape Report gives for the tenant Slentz\'s farm 9 acres of wheat, 16 of corn, 4 of oats, 18 of grass and half an acre of potatoes (VC-NPS-031); the study of 1977 prints the tenant\'s petition and abstract as 18 acres of wheat, 16 of corn, 14 of oats, 18 of grass and half an acre of potatoes (VC-NPSC-HS-MCPHERSON-p099-01, VC-NPSC-HS-MCPHERSON-p101-01b). The claims name no field: the acres feed the district mix from which every cell no passage names draws its crop, so the choice changes the crop of the cells the other reading draws differently (__ALT__), and nothing else.',
+        'options': {'clr': {'label': 'The Cultural Landscape Report\'s acres (9 of wheat, 4 of oats)', 'tier': 'inferred', 'by': ['VC-NPS-031']},
+                    'study-1977': {'label': 'The study of 1977: the petition\'s acres (18 of wheat, 14 of oats)', 'tier': 'inferred', 'by': ['VC-NPSC-HS-MCPHERSON-p099-01', 'VC-NPSC-HS-MCPHERSON-p101-01b']}},
+        'mix': {'clr': mix_alt if use_study else mix, 'study-1977': mix if use_study else mix_alt}}
+    n_alt, n_mix = sum(1 for u in uo if u.get('crop_alt')), sum(1 for u in uo if u.get('crop_basis') == 'district_mix')
+    alt_words = '%d of the %d cells whose crop is a draw from the mix' % (n_alt, n_mix)
+    sc['CF-VEG-MCPHERSON']['why'] = sc['CF-VEG-MCPHERSON']['why'].replace('__ALT__', alt_words)
     for cid_list in [o['by'] for sc_ in sc.values() for o in sc_['options'].values() if o.get('by')]:
         for cid in cid_list:
             assert cid in ids, ('a scenario cites a claim that does not exist', cid)
-    use_study = getattr(args, 'mcpherson', 'clr') == 'study'
-    mix_alt, farms_alt, acres_alt = district_mix({c['id']: c for c in claims_all.values()}, alt=not use_study)
-    conflicts = [{'id': 'CF-VEG-MCPHERSON', 'title': 'McPherson farm: the acres of the tenant\'s claim', 'applied': 'at the build (the crop of a field cell is a seeded draw from the district mix: the other reading means building again with `--mcpherson study`)',
-                  'default': 'study-1977' if use_study else 'clr', 'tier': 'inferred',
-                  'readings': [{'id': 'clr', 'label': 'Cultural Landscape Report: 9 acres of wheat, 16 of corn, 4 of oats, 18 of grass, half an acre of potatoes', 'by': ['VC-NPS-031']},
-                               {'id': 'study-1977', 'label': 'Study of 1977 (the petition and abstract): 18 acres of wheat, 16 of corn, 14 of oats, 18 of grass, half an acre of potatoes', 'by': ['VC-NPSC-HS-MCPHERSON-p099-01', 'VC-NPSC-HS-MCPHERSON-p101-01b']}],
-                  'mix': {'used': mix, 'other': mix_alt}}]
     # the park's totals of 1863 (a coverage check, not a target: the area the table covers is not stated)
     gmp = claims_all.get('VC-NPSC-GMP-1999-V1-p061-01', {}).get('about') or {}
     acre = lambda cls: round(sum(u['area_ac'] for u in uo if u['cls'] == cls), 1)
@@ -1063,12 +1088,14 @@ def write_all(args):
                     'claims_sha256': sha256_file(CLAIMS)},
         'coverage': coverage,
         'named': named,
+        'rows': rows_out,
+        'units_of_measure': {'height': 'metres (ground height, m; tree height, m)', 'time': 'minutes since 1863-06-01 00:00 local mean time', 'area': 'acres (area_ac), hectares for per_ha'},
         'id_note': 'unit ids V-nnnn are assigned in a fixed order (class, land-cover id, place) from the land-cover layer of the 1863 base map: they change only when that layer or the confirmed fence lines change; the `lc` of a unit is the stable name, and `named` lists the features a timeline row can name',
         'mix': {'alt': mix_alt, 'shares': mix, 'acres_read': {k: round(v, 1) for k, v in sorted(acres.items())}, 'farms': farm_rows, 'tier': 'plausible-procedural',
                 'basis': 'shares of the acreages the damage claims of the farms in `farms` destroyed (arable and hay), with pasture raised to its floor; a draw from this mix assigns the crop of every cell no claim names'},
     }
     doc = {'schema': SCHEMA, 'meta': meta, 'calendar': calendar_json(), 'species': TB.SPECIES, 'woods_classes': TB.WOODS, 'orchard_classes': TB.ORCHARD, 'scenarios': sc, 'farms': farm_out, 'witness_trees': wts, 'events': events,
-           'conflicts': conflicts, 'gaps': [{'id': g[0], 'title': g[1], 'what': g[2].replace('__MIX__', 'wheat %.0f%%, oats %.0f%%, hay %.0f%% against %.0f%%, %.0f%%, %.0f%%' % tuple(100 * x for x in (mix_alt.get('wheat', 0), mix_alt.get('oats', 0), mix_alt.get('hay', 0), mix.get('wheat', 0), mix.get('oats', 0), mix.get('hay', 0)))), 'why': g[3], 'tier': g[4], 'register': 'ws-world-veg-' + g[0]} for g in TB.GAPS], 'claims': cl_out, 'units': uo}
+           'gaps': [{'id': g[0], 'title': g[1], 'what': g[2].replace('__ALT__', alt_words).replace('__MIX__', 'wheat %.0f%%, oats %.0f%%, hay %.0f%% (the report\'s: %.0f%%, %.0f%%, %.0f%%)' % tuple(100 * x for x in (mix_alt.get('wheat', 0), mix_alt.get('oats', 0), mix_alt.get('hay', 0), mix.get('wheat', 0), mix.get('oats', 0), mix.get('hay', 0)))), 'why': g[3], 'tier': g[4], 'register': 'ws-world-veg-' + g[0]} for g in TB.GAPS], 'claims': cl_out, 'units': uo}
     text = json.dumps(doc, ensure_ascii=False, separators=(',', ':'))
     return text, doc
 

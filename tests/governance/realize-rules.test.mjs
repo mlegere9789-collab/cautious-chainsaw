@@ -146,26 +146,31 @@ test('rule: guns, formation, losses (checks.mjs)', async () => {
 });
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 test('rule: a number of men a row prints is matched to the men the picture shows leaving the line, within the stated share; an upper bound is a bound (checks.mjs _casualty; schema.mjs; tolerances.json units.casualties; DD-RZ-16)', async () => {
-  const U = 'cs-2c-rodes-iverson', from = '1863-07-01T13:00', to = '1863-07-01T15:00', shown = P.scene('default').casualtiesOf([U], toMin(from), toMin(to));
-  assert.equal(shown.events, 900, 'the picture shows 900 men of Iverson\'s four regiments leaving the line in that window (152 killed, 548 wounded, 200 missing): the rest of this test is written against these figures'); assert.deepEqual([shown.killed, shown.wounded, shown.missing], [152, 548, 200]);
-  const text = 'Iverson’s brigade loses 900 men, among them 152 killed, 548 wounded and 200 missing', cas = (extra, quote = text) => rec('K-001', 'casualty_flow', from, to, text, { units: [U] }, [{ type: 'casualty', units: [U], quote, ...extra }]);
-  A('K-001', text, from, to, 'Jul 1 afternoon');
-  await mustPass(cas({ events_approx: 900, killed_approx: 152, wounded_approx: 548, missing_approx: 200 }), 'the numbers the row prints, as the picture shows them');
-  A('K-001', 'Iverson’s brigade loses about 850 men', from, to, 'Jul 1 afternoon'); const q850 = 'Iverson’s brigade loses about 850 men';
-  await mustPass(cas({ events_approx: 850 }, q850), '850 against 900 is 5.9 per cent: inside the stated 10'); await mustFail(cas({ events_approx: 850, tol_pct: 5 }, q850), 'casualty_mismatch', 'a record may ask for a smaller share: 5 per cent of 850 is 42.5 and the picture is 50 away');
-  await mustFail(cas({ events_approx: 850, tol_pct: 20 }, q850), 'tolerance_wider_than_stated', 'a record may not ask for a larger share');
-  A('K-001', 'Iverson’s brigade loses about 800 men', from, to, 'Jul 1 afternoon'); const q800 = 'Iverson’s brigade loses about 800 men'; const off = await mustFail(cas({ events_approx: 800 }, q800), 'casualty_mismatch', '900 against 800 is 12.5 per cent: outside the stated 10'); assert.match(off.assertions[0].detail, /shows 900 events.*row prints 800 \(within 10 per cent: 720 to 880\)/);
-  A('K-001', 'Iverson’s brigade loses 80 men', from, to, 'Jul 1 afternoon'); await mustFail(cas({ events_approx: 80 }, 'Iverson’s brigade loses 80 men'), 'casualty_mismatch', 'a number of men is not satisfied by a minimum of one: 80 is not 900');
-  A('K-001', text, from, to, 'Jul 1 afternoon'); await mustFail(cas({ events_approx: 900 }, 'Iverson’s brigade loses 90 men'), 'quote_not_in_row', 'the quote is not the row’s'); A('K-001', 'Iverson’s brigade loses heavily', from, to, 'Jul 1 afternoon'); await mustFail(cas({ events_approx: 900 }, 'Iverson’s brigade loses heavily'), 'number_not_in_quote', 'the number a check asks for is printed in its own quote');
-  for (const k of ['killed', 'wounded', 'missing']) { const v = { killed: 152, wounded: 548, missing: 200 }[k]; A('K-001', `${v} ${k}`.replace(/^/, 'Iverson’s brigade: '), from, to, 'Jul 1 afternoon'); await mustPass(cas({ [k + '_approx']: v }, `${v} ${k}`), `${k}: the picture shows ${v}`); await mustFail(cas({ [k + '_approx']: Math.round(v * 0.7) }, `${Math.round(v * 0.7)} ${k}`.replace(/^/, '')), 'casualty_mismatch', `${k}: 30 per cent too few`).catch(() => {}); }
+  // the figures are the picture's own at the time of the test (the loss model is another workstream's): the rows are written from them
+  const U = 'cs-2c-rodes-iverson', from = '1863-07-01T13:00', to = '1863-07-01T15:00', shown = P.scene('default').casualtiesOf([U], toMin(from), toMin(to)), n = shown.events;
+  assert.ok(n >= 200 && shown.killed >= 20 && shown.wounded >= 20 && shown.missing >= 20, `Iverson's regiments lose men in the afternoon of 1 July: ${JSON.stringify([shown.events, shown.killed, shown.wounded, shown.missing])}`); assert.equal(shown.killed + shown.wounded + shown.missing, n);
+  // the row says `rowText`; the record quotes all of it and the check quotes `quote` (default: the same)
+  const mk = (rowText, extra, { quote = rowText, span = [from, to] } = {}) => { A('K-001', rowText, span[0], span[1], 'Jul 1 afternoon'); return rec('K-001', 'casualty_flow', span[0], span[1], rowText, { units: [U] }, [{ type: 'casualty', units: [U], quote, ...extra }]); };
+  const text = `Iverson’s brigade loses ${n} men, among them ${shown.killed} killed, ${shown.wounded} wounded and ${shown.missing} missing`;
+  await mustPass(mk(text, { events_approx: n, killed_approx: shown.killed, wounded_approx: shown.wounded, missing_approx: shown.missing }), 'the numbers the row prints, as the picture shows them');
+  const near = Math.round(n * 1.06), far = Math.round(n * 1.25), few = Math.round(n * 0.1);
+  await mustPass(mk(`Iverson’s brigade loses about ${near} men`, { events_approx: near }), `${near} against ${n} is inside the stated 10 per cent`);
+  await mustFail(mk(`Iverson’s brigade loses about ${near} men`, { events_approx: near, tol_pct: 5 }), 'casualty_mismatch', `a record may ask for a smaller share: 5 per cent of ${near} is less than the ${near - n} the picture is away`);
+  await mustFail(mk(`Iverson’s brigade loses about ${near} men`, { events_approx: near, tol_pct: 20 }), 'tolerance_wider_than_stated', 'a record may not ask for a larger share');
+  const off = await mustFail(mk(`Iverson’s brigade loses about ${far} men`, { events_approx: far }), 'casualty_mismatch', `${n} against ${far} is 20 per cent: outside the stated 10`); assert.match(off.assertions[0].detail, new RegExp(`shows ${n} events.*row prints ${far} \\(within 10 per cent: `));
+  await mustFail(mk(`Iverson’s brigade loses ${few} men`, { events_approx: few }), 'casualty_mismatch', `a number of men is not satisfied by a minimum of one: ${few} is not ${n}`);
+  await mustFail(mk(`Iverson’s brigade loses ${n} men`, { events_approx: n }, { quote: `Iverson’s brigade loses ${n + 1} men` }), 'quote_not_in_row', 'the quote of the check is not the row’s');
+  await mustFail(mk('Iverson’s brigade loses heavily', { events_approx: n }), 'number_not_in_quote', 'the number a check asks for is printed in its own quote');
+  for (const k of ['killed', 'wounded', 'missing']) {
+    const v = shown[k]; await mustPass(mk(`Iverson’s brigade: ${v} ${k}`, { [k + '_approx']: v }), `${k}: the picture shows ${v}`);
+    const low = Math.round(v * 0.7); await mustFail(mk(`Iverson’s brigade: ${low} ${k}`, { [k + '_approx']: low }), 'casualty_mismatch', `${k}: ${low} is 30 per cent short of the ${v} the picture shows`);
+  }
   // an upper bound is a bound
-  A('K-001', text, from, to, 'Jul 1 afternoon'); await mustPass(cas({ events_max: 1000, killed_max: 200, wounded_max: 600, missing_max: 250 }), 'the picture shows no more than the row allows');
-  for (const [k, v] of [['events_max', 899], ['killed_max', 151], ['wounded_max', 547], ['missing_max', 199]]) await mustFail(cas({ [k]: v }), 'casualty_mismatch', `${k} ${v}: the picture shows one more`);
-  const calm = rec('K-002', 'casualty_flow', '1863-07-01T08:00', '1863-07-01T09:00', 'Iverson’s brigade is not yet engaged', { units: [U] }, [{ type: 'casualty', units: [U], events_max: 0 }]); A('K-002', 'Iverson’s brigade is not yet engaged', '1863-07-01T08:00', '1863-07-01T09:00', 'Jul 1 morning'); await mustPass(calm, 'no man falls before the fight: a row that says so is a maximum of 0');
-  await mustFail(cas({ events_approx: 0 }), 'assert_field', 'a number of men above 0 (a row that says no man falls is a maximum of 0)'); await mustFail(cas({ events_max: -1 }), 'assert_field', 'a maximum is a number of men, 0 or more'); await mustFail(cas({ tol_pct: 5, events_min: 1 }), 'assert_field', 'tol_pct belongs to a check that names an approx field');
+  await mustPass(mk(text, { events_max: n, killed_max: shown.killed, wounded_max: shown.wounded, missing_max: shown.missing }), 'the picture shows no more than the row allows');
+  for (const k of ['events', 'killed', 'wounded', 'missing']) await mustFail(mk(text, { [k + '_max']: (k === 'events' ? n : shown[k]) - 1 }), 'casualty_mismatch', `${k}_max one below what the picture shows`);
+  await mustPass(mk('Iverson’s brigade is not yet engaged', { events_max: 0 }, { span: ['1863-07-01T08:00', '1863-07-01T09:00'] }), 'no man falls before the fight: a row that says so is a maximum of 0');
+  await mustFail(mk(text, { events_approx: 0 }), 'assert_field', 'a number of men above 0 (a row that says no man falls is a maximum of 0)'); await mustFail(mk(text, { events_max: -1 }), 'assert_field', 'a maximum is a number of men, 0 or more'); await mustFail(mk(text, { tol_pct: 5, events_min: 1 }), 'assert_field', 'tol_pct belongs to a check that names an approx field');
 });
-
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 test('rule: the weather and the sky are what the weather pass draws (checks.mjs _weatherProblem, _skyProblem)', async () => {
   A('E-001', 'Rain on Jun 26: cloudy, roads wet and muddy, temperature 62 F at noon', '1863-06-26T06:00', '1863-06-26T23:00');
@@ -197,6 +202,18 @@ test('rule: the weather and the sky are what the weather pass draws (checks.mjs 
   allDay.checks[0].t = { from: '1863-06-26T06:00', to: '1863-06-27T12:00', mode: 'all' }; A('E-001', 'Rain on Jun 26 and 27: cloudy, roads wet and muddy', '1863-06-26T06:00', '1863-06-27T12:00'); await mustFail(allDay, 'weather_mismatch', 'mode all: the rain ends at 07:00 on 27 Jun');
 });
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test('rule: a row the harness has no assertion for is recorded not_realized with a not_queryable probe; a realized record cannot carry one (schema.mjs not_queryable; checks.mjs _assert; DD-RZ-17)', async () => {
+  const text = 'Wheatfield wheat standing, golden-straw, about 3.5-4.5 ft; woodlots in full summer leaf'; A('Z-001', text, '1863-07-02T00:00', '1863-07-02T12:00', 'Jul 2 morning');
+  const cap = 'the vegetation layer: crop, stage and leaf of a named plot', probe = (extra = {}, check = {}, kind = 'not_realized') => rec('Z-001', kind, '1863-07-02T00:00', '1863-07-02T12:00', 'Wheatfield wheat standing', {}, [{ type: 'not_queryable', words: 'woodlots in full summer leaf', capability: cap, ...check }], { intended_kind: 'structure_state', missing: [{ code: 'assertion_unavailable', detail: 'the harness has no assertion that asks the vegetation layer for a plot', builder: 'harness' }], ...extra });
+  const ok = await run(probe()); assert.equal(ok.realized, false); assert.deepEqual(ok.problems, [], JSON.stringify(ok.problems)); assert.equal(ok.missing.verified, true, 'the probe fails with the declared code'); assert.equal(ok.missing.stale, false); assert.ok(codesOf(ok).has('assertion_unavailable'));
+  assert.match(ok.assertions[0].detail, /the harness has no assertion for: the vegetation layer/); assert.match(ok.assertions[0].detail, /woodlots in full summer leaf/);
+  const other = await run(probe({ missing: [{ code: 'structure_unknown', detail: 'a code the probe does not give', builder: 'x' }] })); assert.equal(other.missing.verified, false); assert.deepEqual(other.missing.unverified, ['structure_unknown']);
+  // a realized record is made of checks that can hold: a probe that always fails does not belong in it
+  const real = rec('Z-001', 'weather_sky', '1863-07-02T00:00', '1863-07-02T12:00', 'Wheatfield wheat standing', {}, [{ type: 'weather', t: { at: '1863-07-02T07:00' }, cloud_min: 0.8 }, { type: 'not_queryable', words: 'woodlots in full summer leaf', capability: cap }]); await mustFail(real, 'not_queryable_in_realized', 'a realized record that carries a probe that cannot hold');
+  await mustFail(probe({}, { words: 'woodlots in autumn colour' }), 'quote_not_in_row', 'the words are the row’s own'); await mustFail(probe({}, { capability: 'sound' }), 'assert_field', 'a capability is said in a sentence'); const nocap = probe(); delete nocap.checks[0].capability; await mustFail(nocap, 'assert_field', 'a probe says what the harness cannot ask');
+  await mustFail(probe({}, { stage_min: 3 }), 'assert_unknown_field', 'no other field belongs to the probe');
+});
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 test('rule: a malformed record is a result and never an exception: the static validation names what is wrong with the shape, and an exception that gets past it is the problem record_crash (checks.mjs runRecord; schema.mjs shape guards)', async () => {
   // a field of the wrong shape is a problem of the record, found by the static validation (not a crash of the run of the other 700 records)

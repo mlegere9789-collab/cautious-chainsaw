@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Join everything the Q16 photo-match work knows about each catalogued photograph into photograph_registry.json (one entry per record: 109 first-run + 18 added + the records of the wide search, third pass).
 Inputs: catalogue.json, catalogue_additions.json, catalogue_wide_items.json (+ wide_data.py, wide_images_ledger.json), registry_data.py (classification made by looking at every image), position_statements.json, nps_then_to_loc.json,
-poses.json, verdicts.json (pose verdicts written after looking at the review sheets), images_ledger.json.
+poses.json, verdicts.json (pose verdicts written after looking at the review sheets), images_ledger.json, wide_extra_images_ledger.json and wide_extra_data.py (the further resources of the wide-search records, looked at on 2026-11-15).
 Output: tools/bt/photomatch/photograph_registry.json. The verdict of a record with a pose is the pose verdict; every other record gets 'cannot judge' with the reason class and text of registry_data.py.
 Usage: python3 -I tools/bt/photomatch/build_registry.py"""
 import json, os, sys, importlib.util
@@ -21,6 +21,11 @@ STD = {
 def main():
     cat = J('catalogue.json')['photographs']; add = J('catalogue_additions.json')['photographs']; wide = J('catalogue_wide_items.json')['photographs'] if os.path.exists(os.path.join(HERE, 'catalogue_wide_items.json')) else []; st = J('position_statements.json')['statements']; ident = J('nps_then_to_loc.json')['queries']
     poses = J('poses.json')['poses']; ver = J('verdicts.json'); led = J('images_ledger.json')['images']; wled = J('wide_images_ledger.json')['images'] if os.path.exists(os.path.join(HERE, 'wide_images_ledger.json')) else {}
+    xp = os.path.join(HERE, 'wide_extra_images_ledger.json'); xled = json.load(open(xp))['images'] if os.path.exists(xp) else {}; xmed = {}   # further resources of the records of the wide search (card backs, second halves, copy negatives)
+    for k_, v_ in xled.items():
+        if v_.get('status') == 'ok' and v_.get('derivative') != 'large': xmed.setdefault(v_['loc_id'], []).append(v_)
+    try: import wide_extra_data as WX
+    except ImportError: WX = None
     pv = {v['pose']: v for v in ver['pose_verdicts']}; by_loc = {}
     sup = {}
     for p in poses:
@@ -62,6 +67,8 @@ def main():
             if e['same_exposure_as']: e['why'] += ' Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record ' + ', '.join(e['same_exposure_as']) + ' (both images were looked at).'
             for s_ in st:   # the National Park Service Record of Treatment statements (third pass): quoted from the statement itself so that this text cannot say that no place or direction is stated where the Park Service gives one
                 if s_['id'].startswith('PS-NPS-ROTV') and pk in (s_.get('loc') or []): e['why'] += ' ' + s_['says'].rstrip('. ') + ' (statement ' + s_['id'] + ').'
+        if pk in xmed and WX:
+            e['why'] += WX.sentence(pk, xmed[pk]); e['image_keys'] = sorted(set(e['image_keys']) | {'WIDEX|' + x['loc_id'] + '|' + x['resource'] for x in xmed[pk]})
         out.append(e)
     n = {}
     for e in out: n[e['verdict'].split(':')[-1].strip() if not e['pose_ids'] else e['verdict']] = n.get(e['verdict'].split(':')[-1].strip() if not e['pose_ids'] else e['verdict'], 0) + 1

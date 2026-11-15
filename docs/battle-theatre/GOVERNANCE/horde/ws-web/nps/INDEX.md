@@ -17,10 +17,10 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | Source | Pages (with text) | Extracts |
 |---|---|---|
 | NPS-DEV-POLICY | 5 (4) | 0 |
-| NPS-HSR-SLYDER | 16 (11) | 1 |
+| NPS-HSR-SLYDER | 16 (11) | 22 |
 | NPS-HS-SPANGLER-HENRY | 10 (8) | 0 |
-| NPS-BRIEN-FARM | 50 (40) | 5 |
-| NPS-BRT-ECOLOGY | 15 (15) | 0 |
+| NPS-BRIEN-FARM | 50 (40) | 31 |
+| NPS-BRT-ECOLOGY | 15 (15) | 5 |
 | NPS-MON-LOC-1932 | 41 (41) | 0 |
 | NPS-MON-LOC-1993 | 59 (56) | 0 |
 | NPS-MCMILLAN-HOUSE | 15 (5) | 0 |
@@ -28,11 +28,11 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPS-EXTENSION-1940 | 16 (12) | 0 |
 | NPS-HSR-MCCLEAN-BARN | 116 (87) | 13 |
 | NPS-HCSR | 53 (41) | 0 |
-| NPS-HSR-LEISTER-BARN | 129 (95) | 4 |
+| NPS-HSR-LEISTER-BARN | 129 (95) | 36 |
 | NPS-CLI-LANDSCAPE | 105 (94) | 13 |
 | NPS-HARMON-FARM | 71 (55) | 11 |
 | NPS-SPANGLERS-SPRING | 53 (34) | 7 |
-| NPS-MCCLEAN-HOUSE-BARN | 49 (35) | 2 |
+| NPS-MCCLEAN-HOUSE-BARN | 49 (35) | 22 |
 | NPS-ROCK-CREEK | 24 (11) | 0 |
 | NPS-VISTA-CUTTING | 27 (22) | 4 |
 | NPS-BRYAN-HOUSE | 39 (10) | 0 |
@@ -50,14 +50,14 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPS-CLR-CEMETERY | 466 (440) | 55 |
 | NPS-GMP-1999-V1 | 447 (439) | 52 |
 | NPS-ADHI | 451 (445) | 21 |
-| NPS-SLAUGHTER-PEN | 60 (49) | 0 |
+| NPS-SLAUGHTER-PEN | 60 (49) | 9 |
 | NPS-CEM-DEDICATION | 33 (28) | 0 |
 | NPS-NRCA-2017 | 286 (273) | 8 |
 | NPS-BOUNDARY-1988 | 65 (59) | 8 |
 | NPS-CARE-WOUNDED-GUIDE | 47 (41) | 2 |
 | NPS-SLYDER-GUIDE | 47 (45) | 0 |
 | NPS-COMMON-PRIDE-1 | 236 (227) | 15 |
-| NPS-COMMON-PRIDE-2 | 203 (199) | 1 |
+| NPS-COMMON-PRIDE-2 | 203 (199) | 3 |
 | NPS-COMMON-PRIDE-3 | 206 (168) | 13 |
 | NPS-DCP-LRT | 77 (70) | 13 |
 | NPS-DCP-GUINN | 37 (34) | 5 |
@@ -90,7 +90,7 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPSGOV-WARFIELD-HOUSE | 1 (1) | 4 |
 | NPSGOV-WISLER-HOUSE | 1 (1) | 1 |
 
-Total extracts: 1052 from 47 sources.
+Total extracts: 1167 from 49 sources.
 
 ## NPS-DEV-POLICY
 
@@ -111,18 +111,21 @@ Total extracts: 1052 from 47 sources.
 - Text: `tmp/library/web/nps/NPS-HSR-SLYDER/NPS-HSR-SLYDER.txt`, 10461 bytes, sha256 `6f643ecdd335595ed0b9ec128b6f61fc174639eebfcf27598e51d1a168f2fce0`; 11 of 16 pages carry text
 - Rights basis: United States government work
 - Text quality: typescript OCR with noise
-- Extracts written: 1 (fences 1)
-- Used for extracts: partly (one passage, extracts/src/90-farm-studies.xdef)
+- Extracts written: 22 (farm-buildings 20, fences 1, other-landscape 1)
+- Used for extracts: yes: read to the end on 2026-11-15 (the content stands on PDF pp. 9-12 and 15; pp. 1-8 are memoranda and title sheets, pp. 13, 14 and 16 photographs); extracts/src/90-farm-studies.xdef and b0-slyder-hsr.xdef; PDF pp. 9, 10 and 11 looked at as page images
 
 ## NPS-HS-SPANGLER-HENRY
 
 - Title: Historical Statement: Henry Spangler Farm Buildings
-- Author: not stated | Date: not stated
+- Author: Frederick Tilberg (Gettysburg National Military Park; the title page and the signature of PDF p. 5 read as page images) | Date: August 31, 1956
 - URL: https://www.npshistory.com/publications/gett/spangler-farm.pdf (HTTP 200, fetched 2026-11-13T18:59:34Z)
 - File as served: 2128487 bytes, sha256 `92f5ba06f11d40fd49d782b3b37286f1f34e5c98dbf51896bd7f1835e804474c`
 - Text: `tmp/library/web/nps/NPS-HS-SPANGLER-HENRY/NPS-HS-SPANGLER-HENRY.txt`, 14790 bytes, sha256 `cfe9685a810192c93cd1892d6da6712b789a06e5a9472e5adcfc4bd196f279ea`; 8 of 10 pages carry text
 - Rights basis: United States government work
+- Text quality: photocopied typescript, damaged OCR (specks read as letters); the OCR made by scripts/ocr.py is queued behind the machine lock
+- Feature states: PDF pp. 4-5 (printed pp. 3-4, section 'The Spangler Buildings') describe the buildings as they stood in 1956 with the dates of their parts: house of about 1820 (Miss Ella M. Spangler, 88 years old), the blacksmith shop of pre-war construction, the summer kitchen, smokehouse and a long structure of about 1890, the original barn burned during the second day's battle, a barn built soon after on the same foundations destroyed in 1932 when the present barn was built on the original foundations
 - Extracts written: 0 (not yet read for extracts)
+- Used for extracts: not yet (page images of PDF pp. 2-6 were read on 2026-11-15; the quotes wait for the OCR text variant)
 
 ## NPS-BRIEN-FARM
 
@@ -134,18 +137,21 @@ Total extracts: 1052 from 47 sources.
 - Rights basis: United States government work
 - Text quality: typescript OCR with letter-spacing and letter errors (f a m i n g, b a m for barn); quotes correct them explicitly with {{saved|fixed}}
 - Feature states: Farm history; the 1863 farm is described from the census, tax records, Brien's damage claims, soldiers' accounts and Brady photographs.
-- Extracts written: 5 (farm-buildings 2, fields-woodlots 3)
-- Used for extracts: yes (extracts/src/90-farm-studies.xdef)
+- Extracts written: 31 (farm-buildings 10, fences 8, fields-woodlots 4, other-landscape 9)
+- Used for extracts: yes: first reading PDF pp. 6-9 (90-farm-studies.xdef), second reading 2026-11-15 of pp. 3-5, 10-11, 15-18 and 23-25 (b1-brien-farm.xdef; pages 4, 11, 15, 16, 17, 23 and 25 looked at as images, the typewriter 4 reads as 5 in the text layer)
 
 ## NPS-BRT-ECOLOGY
 
 - Title: The Ecology of Big Round Top
-- Author: not stated | Date: not stated
+- Author: William C. Darrah, Department of Biology, Gettysburg College (prepared for and published by the Eastern National Park and Monument Association in cooperation with Gettysburg National Military Park) | Date: not stated in the text (the booklet's rainfall record ends in 1967)
 - URL: https://www.npshistory.com/publications/gett/big-round-top-eco.pdf (HTTP 200, fetched 2026-11-13T18:59:24Z)
 - File as served: 405600 bytes, sha256 `89d41e506ac791aebe7865f6c38a69511e49045763fb63e43b5d8826c249ffe8`
 - Text: `tmp/library/web/nps/NPS-BRT-ECOLOGY/NPS-BRT-ECOLOGY.txt`, 27792 bytes, sha256 `92d7c6df35e79e499167a6ed9106bf3c9ebd1ceb9a6bb72ab8923548ba9783eb`; 15 of 15 pages carry text
-- Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Rights basis: United States government work. Not established as a United States government work. The author is a college professor and the publisher a cooperating association; the booklet is hosted openly on npshistory.com. Short verbatim quotations with citation are used; the owner confirms before any wider reuse.
+- Text quality: printed booklet, OCR clean
+- Feature states: natural history of the 1960s: only the passages on the timbering before 1850, on the farming of the valley floor and on the weeds before 1800 refer to the time before July 1863
+- Extracts written: 5 (fences 1, fields-woodlots 4)
+- Used for extracts: yes: read to the end on 2026-11-15 (15 pages; extracts/src/b4-brt-ecology.xdef; PDF p. 3 looked at as an image)
 
 ## NPS-MON-LOC-1932
 
@@ -236,10 +242,10 @@ Total extracts: 1052 from 47 sources.
 - File as served: 11689896 bytes, sha256 `7f6275e5c4526192a0cafd879c4739b4d4cd261c17180a80d21e16e44c70ee3f`
 - Text: `tmp/library/web/nps/NPS-HSR-LEISTER-BARN/NPS-HSR-LEISTER-BARN.txt`, 109668 bytes, sha256 `133b64b9e132c5583c505ac25061ec1542d2a5391012103c365f5f7714b71539`; 95 of 129 pages carry text
 - Rights basis: United States government work
-- Text quality: typescript OCR with heavy noise (B a m for Barn) and interleaved lines; only contiguous sentences quoted
+- Text quality: typescript OCR; the reading-order text interleaves lines, the layout text (flag ~L) reads in order with letter-spacing, which the cleaned quote ignores; the second reading cuts every quote from the layout text
 - Feature states: Treatment period 1863: the report states the barn is to be restored to its appearance just before the battle; its fabric statements describe the 1984-era building.
-- Extracts written: 4 (farm-buildings 1, fences 1, hospitals 1, other-landscape 1)
-- Used for extracts: yes (extracts/src/90-farm-studies.xdef)
+- Extracts written: 36 (farm-buildings 26, fences 2, fields-woodlots 3, hospitals 2, other-landscape 3)
+- Used for extracts: yes: first reading four passages (90-farm-studies.xdef; the fencing sentence of PDF p. 25 corrected, see extracts/CORRECTIONS.md), second reading 2026-11-15 of PDF pp. 13-25, 29, 47, 62 and 70 (b3-leister-barn.xdef; the pages looked at as images are listed in the file head)
 
 ## NPS-CLI-LANDSCAPE
 
@@ -292,8 +298,8 @@ Total extracts: 1052 from 47 sources.
 - Rights basis: United States government work
 - Text quality: typescript OCR with some noise
 - Feature states: The report discusses Moses McClean's farm on the Mummasburg road and his damage claim of 1863-65; its building descriptions give the 1863 house and the later one.
-- Extracts written: 2 (farm-buildings 1, other-landscape 1)
-- Used for extracts: yes (extracts/src/90-farm-studies.xdef)
+- Extracts written: 22 (farm-buildings 10, fences 2, fields-woodlots 4, hospitals 1, other-landscape 5)
+- Used for extracts: yes: first reading two passages (90-farm-studies.xdef), second reading 2026-11-15 of PDF pp. 3, 12, 18, 21-23, 25-27 (b2-mcclean-house-barn.xdef; pages 22, 23, 26 and 27 looked at as images)
 
 ## NPS-ROCK-CREEK
 
@@ -531,7 +537,7 @@ Total extracts: 1052 from 47 sources.
 - File as served: 47536739 bytes, sha256 `f7a98c4b934fdcceddf85a3397a4048f598026404760d74fce3c7fd4983c9668` (PDF deleted after text extraction to stay inside the disk budget)
 - Text: `tmp/library/web/nps/NPS-SLAUGHTER-PEN/NPS-SLAUGHTER-PEN.txt`, 98691 bytes, sha256 `211e2cfa8a0483cd4d1133072428aca791fe94ab51b8ba7059392475e34f526a`; 49 of 60 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Extracts written: 9 (fences 1, fields-woodlots 6, other-landscape 2)
 
 ## NPS-CEM-DEDICATION
 
@@ -614,7 +620,7 @@ Total extracts: 1052 from 47 sources.
 - File as served: 7212065 bytes, sha256 `d1b698e61851a09732bcbb596621cea340a74ecdd48da930ab9562e12c1430fc`
 - Text: `tmp/library/web/nps/NPS-COMMON-PRIDE-2/NPS-COMMON-PRIDE-2.txt`, 409504 bytes, sha256 `ac2c120ca7436e301772a579d70cf0dede1af2d24930164612002940c108c431`; 199 of 203 pages carry text
 - Rights basis: United States government work
-- Extracts written: 1 (hospitals 1)
+- Extracts written: 3 (fences 2, hospitals 1)
 - Used for extracts: partly (one hospital passage, extracts/src/60-hospitals-cemetery.xdef)
 
 ## NPS-COMMON-PRIDE-3

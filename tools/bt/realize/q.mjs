@@ -9,7 +9,9 @@
 //   node tools/bt/realize/q.mjs at 1863-07-01T10:00 [--near "McPherson Ridge"] [--radius 1500] [--side union|confederate]     the units on the field
 //   node tools/bt/realize/q.mjs near "Cemetery Hill" 1863-07-02T09:00 [radius]       units within the radius of a place at a time
 //   node tools/bt/realize/q.mjs place "Cemetery Hill"      resolve a place name: kind, centre, tolerance, on the loaded ground or not
+//   node tools/bt/realize/q.mjs structs Weikert            the ids of the structures a name finds: records, drawn objects, schedule rows (S-nnn) and hospitals (H-nn)
 //   node tools/bt/realize/q.mjs struct bld-rock-creek-rr-bridge 1863-06-26T12:00     a structure: its objects, state, schedule rows and what is drawn
+//   node tools/bt/realize/q.mjs works [words]                                        the earthworks and gun positions (E-nn) of the works lists, by name
 //   node tools/bt/realize/q.mjs work E-05 1863-07-02T09:00                           a work: stage, crew, draw-list status
 //   node tools/bt/realize/q.mjs guns <battery-id> 1863-07-02T09:00                   guns, limbers and caissons shown
 //   node tools/bt/realize/q.mjs weather 1863-06-26T12:00 | sky <time>               the drawn weather and the sun and moon
@@ -20,7 +22,7 @@
 //   node tools/bt/realize/q.mjs group T1-097 [--units id,id] [--structures id,id] [--weather | --from T --to T]    the scenario group of a row (GATE-SPEC TL-8, 6.4 V6): every value of the conflicts its words name, that reach its units and that the weather of its minutes lists; a record runs each ("scenario": "group") or excludes it with a reason
 // A time is 1863-MM-DDTHH:MM (local mean time). Add --scenario pdf for the plan's values instead of the delegated defaults.
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
-import { REAL, GOV, readJSON, readJSONL, exists, toMin, isoOf, round, hasQuote, fold, sha256File, ROOT, rel, angDiff, COMPASS16 } from './lib.mjs';
+import { REAL, GOV, readJSON, readJSONL, exists, toMin, isoOf, round, hasQuote, fold, sha256File, ROOT, rel, angDiff, COMPASS16, tokens } from './lib.mjs';
 import { loadTimeline, describeWindow } from './timeline.mjs';
 import { openProduct } from './query.mjs';
 import { candidatePhrases, norm, expand } from './gazetteer.mjs';
@@ -62,12 +64,33 @@ async function main() {
   }
   if (cmd === 'near') { const r = P.places.resolve(pos[0]); if (!r.place) return line(`place "${pos[0]}": ${r.status} ${r.candidates || ''}`); const t = T(pos[1]), rad = +(pos[2] || r.place.tolerance_m * 2); const list = S.present(t, { near: r.place.center, radiusM: rad }); line(`${list.length} unit(s) within ${rad} m of ${r.place.name} at ${isoOf(t)} (tolerance of the place ${r.place.tolerance_m} m)`); for (const s of list.slice(0, 60)) line(`  ${s.id.padEnd(34)} ${s.activity.padEnd(12)} ${s.d_m} m`); return; }
   if (cmd === 'place') { const r = P.places.resolve(pos.join(' ')); if (r.place) return J({ status: r.status, ...r.place, lines: r.place.lines ? `${r.place.lines.length} line(s)` : null }); line(`"${pos.join(' ')}": ${r.status}${r.candidates ? ' ' + r.candidates.join('; ') : ''}`); const near = P.places.list.filter(p => fold(p.name + ' ' + p.aliases.join(' ')).includes(fold(pos.join(' ')).split(' ')[0])).slice(0, 10); if (near.length) line('similar: ' + near.map(p => p.id + ' ' + p.name).join('; ')); return; }
+  if (cmd === 'structs') {              // find the ids of a structure by the words of its name: the structure records, the drawn objects, the schedule rows and the hospitals that carry them
+    const St = await P.structures(scen), want = tokens(pos.join(' ')).filter(w => w.length >= 3); if (!want.length) { console.error('give some words of the name: q.mjs structs Weikert'); process.exitCode = 2; return; }
+    const has = h => { const t = new Set(tokens(String(h ?? ''))); return want.every(w => t.has(w)); }, hits = { records: [], objects: [], schedule: [], hospitals: [] };
+    for (const r of St.inputs.structures.structures) if (has(`${r.id} ${r.name || ''} ${r.location || ''}`)) hits.records.push(r);
+    for (const o of St.model.objects) if (has(`${o.id} ${o.name || ''}`)) hits.objects.push(o);
+    for (const r of St.inputs.sched.rows) if (has(`${r.id} ${r.object_printed || ''}`)) hits.schedule.push(r);
+    for (const h of St.inputs.hospitals.hospitals) if (has(`${h.id} ${h.hospital || ''} ${h.location || ''}`)) hits.hospitals.push(h);
+    line(`structures named by "${pos.join(' ')}" (use the id of a record or a schedule row as "structure" in a structure_state check, a hospital id in its "hospital"; ${hits.records.length} records, ${hits.objects.length} drawn objects, ${hits.schedule.length} schedule rows, ${hits.hospitals.length} hospitals):`);
+    for (const r of hits.records) line(`  RECORD   ${String(r.id).padEnd(34)} ${String(r.name).slice(0, 40).padEnd(40)} ${r.tier || ''} ${r.location ? '(' + String(r.location).slice(0, 50) + ')' : ''}`);
+    for (const o of hits.objects.slice(0, +(flag('--limit') || 20))) line(`  OBJECT   ${String(o.id).padEnd(34)} ${String(o.name).slice(0, 40).padEnd(40)} [${o.cls}] state_id=${o.state_id} rec=${o.rec}`);
+    for (const r of hits.schedule) line(`  SCHEDULE ${String(r.id).padEnd(34)} ${String(r.object_printed).slice(0, 40).padEnd(40)} ${r.from_state} -> ${r.to_state} (${r.time && r.time.printed}) ids ${(r.object_ids || []).join(',')}`);
+    for (const h of hits.hospitals) line(`  HOSPITAL ${String(h.id).padEnd(34)} ${String(h.hospital).slice(0, 40).padEnd(40)} ${h.corps_or_side || ''} structures ${(h.structure_ids || []).join(',')}`);
+    if (hits.records.length + hits.objects.length + hits.schedule.length + hits.hospitals.length === 0) line('  (nothing: the product carries no structure by these words)');
+    return;
+  }
   if (cmd === 'struct') {
     const St = await P.structures(scen), id = pos[0], objs = St.byState.get(id) || [];
     if (!objs.length) { const nd = (St.inputs.data.notDrawn || []).find(x => x.id === id); line(`${id}: nothing drawn${nd ? ' (' + nd.reason + ')' : ''}; state engine knows it: ${St.engine.knows(id)}`); const hits = St.model.objects.filter(o => fold(o.name || '').includes(fold(id))).slice(0, 12); for (const o of hits) line(`  object ${o.id} state_id=${o.state_id} ${o.cls} ${o.name}`); return; }
     const t = pos[1] ? T(pos[1]) : null;
     for (const o of objs) { line(`object ${o.id} [${o.cls}] state_id=${o.state_id} rec=${o.rec} "${o.name}" tier ${o.tier}`); if (t != null) { const d = St.model.describe(o.oid, t, {}); line(`  at ${isoOf(t)}: ${d.state && d.state.state} (present ${d.state && d.state.present}, ${d.state && d.state.status}) rows ${(d.rows || []).join(',')} visual A=${JSON.stringify(d.visual && d.visual.A)} B=${JSON.stringify(d.visual && d.visual.B)} mix=${d.visual && d.visual.mix}; hospitals ${(d.hospitals || []).map(h => h.id + ':' + h.phase).join(',') || '-'}`); } }
     return;
+  }
+  if (cmd === 'works') {                // the earthworks and gun positions of the works lists (E-nn): name, kind, place, and whether the product draws them
+    const St = await P.structures(scen), w = await new (await import('./checks.mjs')).Runner(P, loadTimeline())._prepWs6(S); if (!w || w.error) { console.error('the works lists are not built: ' + (w && w.error)); process.exitCode = 2; return; }
+    const want = tokens(pos.join(' ')).filter(x => x.length >= 3), cov = new Map(w.works.coverage.map(c => [c.id, c])); let n = 0;
+    for (const [id, x] of w.works.byId) { const t = new Set(tokens(`${id} ${x.name || ''} ${x.kind || ''} ${(x.place && (x.place.name || x.place)) || ''}`)); if (!want.every(k => t.has(k))) continue; const c = cov.get(id) || {}; n++; line(`  ${String(id).padEnd(7)} ${String(x.name).slice(0, 62).padEnd(62)} ${String(x.kind).padEnd(16)} at ${String((x.place && (x.place.name || x.place)) || '?').slice(0, 30).padEnd(30)} ${c.decision || '?'}${c.decision && c.decision !== 'drawn' ? ': ' + String(c.reason).slice(0, 80) : ''}`); }
+    line(`${n} work(s)${want.length ? ' named by "' + pos.join(' ') + '"' : ''}: the id goes in "work" of a work_stage check (q.mjs work <id> <time> shows its stage)`); return;
   }
   if (cmd === 'work') { const St = await P.structures(scen), id = pos[0], t = T(pos[1]); const ms = Date.UTC(1863, 5, 1) + Math.round(t * 60000); line(JSON.stringify(St.engine.stateAt(id, ms, 'default', 0))); const d = await S.drawLists(t); if (d.works) { line('draw list: ' + JSON.stringify((d.works.status || []).find(w => w.id === id) || 'not in the works lists')); } return; }
   if (cmd === 'guns') { const id = pos[0], t = T(pos[1]); const i = P.index.get(id); const w = P.world.units[i]; line(JSON.stringify(S.unitAt(id, t))); const d = await S.drawLists(t); if (d.artillery) { const n = k => { const a = d.artillery[k], c = a.length / d.artillery.stride; let m = 0; for (let j = 0; j < c; j++) if (a[j * d.artillery.stride + 4] === i) m++; return m; }; line(`stated guns drawn by the stage: ${w.guns || 0}; train lists for this battery: guns ${n('guns')} limbers ${n('limbers')} caissons ${n('caissons')} wagons ${n('wagons')} horses ${n('horses')} drivers ${n('drivers')}`); } return; }

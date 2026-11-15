@@ -1,0 +1,142 @@
+TAP version 13
+# Subtest: catalogue: first-run records, the added records and the records of the wide search, each with its licence basis; added records carry their reason and date status
+ok 1 - catalogue: first-run records, the added records and the records of the wide search, each with its licence basis; added records carry their reason and date status
+  ---
+  duration_ms: 1.837376
+  type: 'test'
+  ...
+# Subtest: images ledger: hashes, declared sizes, hosts and licence basis; files on disk match
+ok 2 - images ledger: hashes, declared sizes, hosts and licence basis; files on disk match
+  ---
+  duration_ms: 129.602419
+  type: 'test'
+  ...
+# Subtest: wide images ledger: every record of the wide search has an image (hash, hosts) or the reason it has none
+ok 3 - wide images ledger: every record of the wide search has an image (hash, hosts) or the reason it has none
+  ---
+  duration_ms: 5.132971
+  type: 'test'
+  ...
+# Subtest: further resources of the wide-search records (card backs, second halves, copy negatives, 1024-px card backs read for their print): each is in the ledger with its hash and the size the record declares, and the registry entry says it was looked at
+ok 4 - further resources of the wide-search records (card backs, second halves, copy negatives, 1024-px card backs read for their print): each is in the ledger with its hash and the size the record declares, and the registry entry says it was looked at
+  ---
+  duration_ms: 13.750752
+  type: 'test'
+  ...
+# Subtest: every catalogued record has at least one saved image in a ledger, or the registry says why not
+ok 5 - every catalogued record has at least one saved image in a ledger, or the registry says why not
+  ---
+  duration_ms: 1.338276
+  type: 'test'
+  ...
+# Subtest: statements: every quote came from a saved text with its hash; none is a coordinate; documented ones carry a page and offset
+ok 6 - statements: every quote came from a saved text with its hash; none is a coordinate; documented ones carry a page and offset
+  ---
+  duration_ms: 1.205339
+  type: 'test'
+  ...
+# Subtest: NPS figures: every caption is a verbatim passage of the saved text of its report and has a statement; the extracted image is hashed
+ok 7 - NPS figures: every caption is a verbatim passage of the saved text of its report and has a statement; the extracted image is hashed
+  ---
+  duration_ms: 155.296288
+  type: 'test'
+  ...
+# Subtest: poses: schema 2, every position is inferred or an assumption (never a documented position), every statement id exists, fitted poses are flagged
+ok 8 - poses: schema 2, every position is inferred or an assumption (never a documented position), every statement id exists, fitted poses are flagged
+  ---
+  duration_ms: 1.375909
+  type: 'test'
+  ...
+# Subtest: deferred poses are registered with their basis and the reason they have no render yet
+ok 9 - deferred poses are registered with their basis and the reason they have no render yet
+  ---
+  duration_ms: 0.4341
+  type: 'test'
+  ...
+# Subtest: criteria: the pass criteria of the first test at a documented place were written before its renders existed and are never edited after a render was looked at
+ok 10 - criteria: the pass criteria of the first test at a documented place were written before its renders existed and are never edited after a render was looked at
+  ---
+  duration_ms: 0.853144
+  type: 'test'
+  ...
+# Subtest: verdicts: allowed vocabulary; a positive verdict needs a viewed image; a fitted pose is never called a match; every pose has one
+ok 11 - verdicts: allowed vocabulary; a positive verdict needs a viewed image; a fitted pose is never called a match; every pose has one
+  ---
+  duration_ms: 0.330221
+  type: 'test'
+  ...
+# Subtest: image ties: each was looked at and has its geometry; the Metropolitan items are catalogued photographs; the copy ties of the wide search are symmetric between wide records and never rest on a rejected lead
+ok 12 - image ties: each was looked at and has its geometry; the Metropolitan items are catalogued photographs; the copy ties of the wide search are symmetric between wide records and never rest on a rejected lead
+  ---
+  duration_ms: 1.480397
+  type: 'test'
+  ...
+# Subtest: registry: one entry per catalogued record with a candid verdict and, where there is no pose, the reason
+ok 13 - registry: one entry per catalogued record with a candid verdict and, where there is no pose, the reason
+  ---
+  duration_ms: 1.271738
+  type: 'test'
+  ...
+# Subtest: gate Q16 stays not passing, counts the documented camera positions (a coordinate, a lens and a plate: none) apart from the camera places a source names, and says what would be needed; no linked sub-requirement is marked passed
+ok 14 - gate Q16 stays not passing, counts the documented camera positions (a coordinate, a lens and a plate: none) apart from the camera places a source names, and says what would be needed; no linked sub-requirement is marked passed
+  ---
+  duration_ms: 3.848694
+  type: 'test'
+  ...
+# Subtest: the first test at a documented place: the measurements are stored, follow the pre-written definitions and are reported in the verdicts of the poses
+ok 15 - the first test at a documented place: the measurements are stored, follow the pre-written definitions and are reported in the verdicts of the poses
+  ---
+  duration_ms: 0.506081
+  type: 'test'
+  ...
+# Subtest: staged-photograph flags are respected: no record that carries the flag has a pose (own or as a second print of a posed exposure), every one is cannot judge and carries its basis
+ok 16 - staged-photograph flags are respected: no record that carries the flag has a pose (own or as a second print of a posed exposure), every one is cannot judge and carries its basis
+  ---
+  duration_ms: 0.554024
+  type: 'test'
+  ...
+# Subtest: review sheets: every pose has its sheet, the poses at a documented place also the lines-on-photograph image; the sheets are newer than the poses file entry they show only through their renders
+ok 17 - review sheets: every pose has its sheet, the poses at a documented place also the lines-on-photograph image; the sheets are newer than the poses file entry they show only through their renders
+  ---
+  duration_ms: 0.339053
+  type: 'test'
+  ...
+# Subtest: the skyline statements in the verdict texts agree with the stored skyline results (the rank counts from the best fit: rank - 1 control stations fit better)
+ok 18 - the skyline statements in the verdict texts agree with the stored skyline results (the rank counts from the best fit: rank - 1 control stations fit better)
+  ---
+  duration_ms: 2.250404
+  type: 'test'
+  ...
+# Subtest: P29 sheet numbers: the descriptive measurements were made from the stored renders and the frozen skyline rule, and the verdict text quotes them
+ok 19 - P29 sheet numbers: the descriptive measurements were made from the stored renders and the frozen skyline rule, and the verdict text quotes them
+  ---
+  duration_ms: 2.119385
+  type: 'test'
+  ...
+# Subtest: render determinism record: every render of every registered pose was reproduced byte for byte by an independent full re-run, and the files on disk are the recorded ones
+ok 20 - render determinism record: every render of every registered pose was reproduced byte for byte by an independent full re-run, and the files on disk are the recorded ones
+  ---
+  duration_ms: 24.126956
+  type: 'test'
+  ...
+# Subtest: the photo-match document shipped with the app carries no copy that the audit forbids
+ok 21 - the photo-match document shipped with the app carries no copy that the audit forbids
+  ---
+  duration_ms: 0.606803
+  type: 'test'
+  ...
+# Subtest: render is deterministic (SwiftShader), optional
+ok 22 - render is deterministic (SwiftShader), optional # SKIP
+  ---
+  duration_ms: 0.067692
+  type: 'test'
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 597.913243

@@ -84,7 +84,7 @@ FORM_FIELDS = ('storeys', 'height', 'footprint', 'plan_shape', 'walls', 'roof', 
                'outbuildings', 'lot_enclosure', 'orchard_or_garden', 'sign', 'span', 'fence_type', 'wall_type', 'width', 'length', 'surface')
 CONTINUITY_EXEMPT = ('lost', 'identity', 'photograph', 'built', 'name', 'owner', 'occupant', 'use', 'existed_july_1863')
 COMMON_KEYS = {'row', 'type', 'group', 'building', 'note', 'see_also', 'x_reason'}
-LINK_KEYS = ('structures', 'basemap', 'hospitals', 'timeline', 'register')
+LINK_KEYS = ('structures', 'basemap', 'terrain', 'hospitals', 'timeline', 'register')
 BUILDING_KEYS = COMMON_KEYS | {'name', 'aliases', 'declared_from', 'links', 'new_reason'}
 SEARCH_KEYS = COMMON_KEYS | {'where', 'query', 'outcome', 'at', 'found_rows', 'url'}
 FIELD_KEYS = COMMON_KEYS | {'field', 'value', 'tier', 'evidence_kind', 'describes', 'source', 'part', 'page', 'page_note', 'printed_page', 'quote', 'quote_mode', 'raw',
@@ -591,7 +591,7 @@ def known_ids(ctx, gid):
     g = ctx.groups()[gid]
     m = g['members']
     ids = set()
-    for k in ('records', 'record_parts', 'basemap_structures', 'bridges', 'railways', 'fences', 'roads', 'lanes', 'other_records'):
+    for k in ('records', 'record_parts', 'basemap_structures', 'bridges', 'railways', 'fences', 'roads', 'lanes', 'other_records', 'terrain_polygons'):
         ids.update(m.get(k, []))
     return ids
 
@@ -747,14 +747,14 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
             lk = r.get('links')
             if lk is not None:
                 if not isinstance(lk, dict):
-                    errors.append('%s: links is an object {"structures": [ids], "basemap": [ids], "hospitals": [ids], "timeline": [ids], "register": [ids]}' % where)
+                    errors.append('%s: links is an object {"structures": [ids], "basemap": [ids], "terrain": [ids], "hospitals": [ids], "timeline": [ids], "register": [ids]}' % where)
                 else:
                     for lkey, lval in lk.items():
                         if lkey not in LINK_KEYS:
                             errors.append('%s: links key %r is not one of %s' % (where, lkey, ', '.join(LINK_KEYS)))
                         elif not (isinstance(lval, list) and all(isinstance(x, str) and x.strip() for x in lval)):
                             errors.append('%s: links.%s is a list of ids (strings)' % (where, lkey))
-                        elif lkey in ('structures', 'basemap'):
+                        elif lkey in ('structures', 'basemap', 'terrain'):
                             own = all_owned(ctx)
                             for x in lval:
                                 if own.get(x) not in (None, g):
@@ -845,6 +845,12 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
             rule = r.get('rule')
             if not isinstance(rule, str) or rule not in ctx.rules():
                 errors.append('%s: rule %r is not in generic_rules.json' % (where, rule))
+            else:
+                ap = ctx.rules()[rule].get('applies_to')
+                if isinstance(ap, str):
+                    ap = [ap]
+                if isinstance(ap, list) and ap and fld not in ap:
+                    errors.append('%s: rule %s applies to %s, not to the field %r (a generic rule fills only the fields it was written for)' % (where, rule, ', '.join(map(str, ap)), fld))
             continue
         # documented and inferred: evidence
         if ek == 'none' and not (tier == 'inferred' and r.get('premises')):
@@ -1003,7 +1009,7 @@ def validate_group(ctx, gid, path, errors, warnings, stats, seen_ids, complete=F
             for br in declared.values():
                 lk = br.get('links')
                 if isinstance(lk, dict):
-                    for lkey in ('structures', 'basemap'):
+                    for lkey in ('structures', 'basemap', 'terrain'):
                         lv = lk.get(lkey)
                         if isinstance(lv, list):
                             accounted.update(x for x in lv if isinstance(x, str))

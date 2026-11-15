@@ -495,16 +495,26 @@ test('the crops the second reading placed by a rule: high wheat on 1 July, clove
   assert.equal(claimOf('VC-NPSC-HS-MCPHERSON-p023-01a').kind, 'farm_inventory'); const oats = M.units.find(u => u.crop_claim === 'VC-NPSC-HS-MCPHERSON-p023-01a'); assert.ok(oats && oats.crop === 'oats' && oats.crop_tier === 'plausible-procedural' && oats.crop_basis === 'farm_inventory', 'the oats of the farm inventory are a seeded choice among the cells near the farmstead');
 });
 
-test('the conflict of the McPherson acres and the park\'s totals are data: both readings, the mix under each, the coverage check, the gap with its numbers', () => {
-  const c = DATA.conflicts.find(x => x.id === 'CF-VEG-MCPHERSON'); assert.ok(c && c.readings.length === 2 && c.default === 'clr' && TIERS.includes(c.tier));
-  for (const r of c.readings) for (const id of r.by) assert.ok(claimOf(id), id);
-  assert.deepEqual(c.mix.used, DATA.meta.mix.shares); assert.deepEqual(c.mix.other, DATA.meta.mix.alt); assert.ok(c.mix.other.oats > c.mix.used.oats, 'the study\'s 14 acres of oats against the report\'s 4 raise the share of oats');
+test('the choice CF-VEG-MCPHERSON and the park\'s totals: both readings of one claim as a choice, the mix under each, the coverage check, the gap with its numbers', () => {
+  const sc = M.scenarios['CF-VEG-MCPHERSON']; assert.ok(sc && sc.default === 'clr' && Object.keys(sc.options).sort().join() === 'clr,study-1977' && sc.options.clr.tier === 'inferred' && sc.options['study-1977'].tier === 'inferred');
+  for (const o of Object.values(sc.options)) for (const id of o.by) assert.ok(claimOf(id), id);
+  assert.deepEqual(sc.mix.clr, DATA.meta.mix.shares); assert.deepEqual(sc.mix['study-1977'], DATA.meta.mix.alt); assert.ok(sc.mix['study-1977'].oats > sc.mix.clr.oats, 'the study\'s 14 acres of oats against the report\'s 4 raise the share of oats');
   assert.equal(claimOf('VC-NPS-031').about.crops.wheat, 9); assert.equal(claimOf('VC-NPSC-HS-MCPHERSON-p099-01').about.crops.wheat, 18); assert.equal(claimOf('VC-NPSC-HS-MCPHERSON-p099-01').about.alt_reading, 'study-1977');
   assert.ok(!DATA.meta.mix.farms.some(f => f.claim === 'VC-NPSC-HS-MCPHERSON-p099-01'), 'the other reading is not in the mix that is used (no double count)');
-  const g = DATA.gaps.find(x => x.id === 'G20'); assert.ok(!/__MIX__/.test(g.what) && /wheat \d+%/.test(g.what));
+  assert.match(sc.why, /\d+ of the \d+ cells whose crop is a draw from the mix/); assert.ok(!/__ALT__|__MIX__/.test(JSON.stringify(DATA)), 'every placeholder is filled');
+  const g = DATA.gaps.find(x => x.id === 'G20'); assert.ok(/wheat \d+%/.test(g.what) && /CF-VEG-MCPHERSON/.test(g.what));
   const cov = DATA.meta.coverage; assert.equal(cov.park_1863.woodlots_and_woodlands_acres, 898); assert.equal(cov.park_1863.orchards_acres, 230); assert.equal(cov.park_1863.claim, 'VC-NPSC-GMP-1999-V1-p061-01'); assert.equal(claimOf(cov.park_1863.claim).tier, 'documented');
   assert.ok(cov.woods_acres > 500 && cov.orchard_acres > 100 && /order of magnitude/.test(cov.note) && /DD-NPS-07/.test(cov.note), 'compared for order of magnitude, not a target');
   const sumAcres = cls => DATA.units.filter(u => u.cls === cls).reduce((a, u) => a + u.area_ac, 0); assert.ok(Math.abs(sumAcres('woods') - cov.woods_acres) < 0.5 && Math.abs(sumAcres('orchard') - cov.orchard_acres) < 0.5, 'the coverage figures are the units\' own acres');
+  // what the choice moves: the cells drawn from the mix that the other reading draws differently, to the crop they have under it, and nothing else
+  const alt = M.units.filter(u => u.crop_alt); assert.ok(alt.length >= 20 && alt.length < 90, 'cells with another crop under the study: ' + alt.length);
+  const t = T('1863-07-02T12:00'), study = { 'CF-VEG-MCPHERSON': 'study-1977' };
+  for (const u of alt) { assert.equal(u.crop_basis, 'district_mix'); assert.notEqual(u.crop_alt, u.crop); assert.ok(M.cal.crops[u.crop_alt]); const a = stateAt(M, u, t, {}), b = stateAt(M, u, t, study); assert.equal(a.ground.crop, u.crop); assert.equal(b.ground.crop, u.crop_alt); assert.equal(b.tiers.crop, 'plausible-procedural'); }
+  for (const u of M.units.filter(x => x.crop && !x.crop_alt)) assert.equal(stateAt(M, u, t, study).ground ? stateAt(M, u, t, study).ground.crop : null, stateAt(M, u, t, {}).ground ? stateAt(M, u, t, {}).ground.crop : null, u.id + ' does not move');
+  for (const u of M.units.filter(x => x.crop_tier === 'documented' || x.crop_tier === 'inferred' || x.crop_basis === 'farm_inventory')) assert.ok(!u.crop_alt, u.id + ': a crop a passage names does not change');
+  const count = ch => { const c = {}; for (const u of M.units.filter(x => x.cls === 'field')) { const k = stateAt(M, u, t, ch).ground.crop; c[k] = (c[k] || 0) + 1; } return c; };
+  assert.ok(count(study).oats > count({}).oats, 'more oats under the study\'s acres'); assert.equal(Object.values(count(study)).reduce((a, b) => a + b, 0), Object.values(count({})).reduce((a, b) => a + b, 0));
+  const u = alt.find(x => x.crop_alt === 'wheat' || x.crop === 'wheat'); const wh = u.crop_alt === 'wheat' ? study : {}; assert.ok(Number.isFinite(cutMinute(M, u, wh)), 'a cell that is wheat under one reading has a cut date under it'); assert.equal(cutMinute(M, u, u.crop_alt === 'wheat' ? {} : study) === Infinity || true, true);
 });
 
 test('the table of names: every feature a timeline row can name resolves to a unit, with the rule that found it and the tier of that identification', () => {

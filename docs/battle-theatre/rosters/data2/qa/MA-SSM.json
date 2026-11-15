@@ -5,71 +5,76 @@
   "MA-SSM-officers": {
    "pages_in_stratum": 19,
    "rows_in_stratum": 329,
-   "pages_looked_at": 2,
+   "pages_looked_at": 3,
    "decile_pages_looked_at": 1,
-   "rows_looked_at": 32,
+   "rows_looked_at": 51,
    "draw_positions": [
+    2,
     1,
     3
    ],
    "pages": [
+    "massachusettssol11931mass/631",
     "massachusettssol21931mass/143",
     "massachusettssol21931mass/661"
    ],
    "gates": {
     "R-G1": {
-     "rows": 32,
-     "errors": 0,
-     "rate_percent": 0.0,
-     "upper95_percent": 8.94,
-     "lower95_percent": 0.0,
+     "rows": 51,
+     "errors": 1,
+     "rate_percent": 1.96,
+     "upper95_percent": 8.97,
+     "lower95_percent": 0.1,
      "decision": "OPEN"
     },
     "R-G2": {
-     "rows": 32,
-     "errors": 5,
-     "rate_percent": 15.62,
-     "upper95_percent": 30.08,
-     "lower95_percent": 6.37,
+     "rows": 51,
+     "errors": 6,
+     "rate_percent": 11.76,
+     "upper95_percent": 21.91,
+     "lower95_percent": 5.25,
      "decision": "FAIL"
     },
     "R-G3a": {
-     "rows": 32,
+     "rows": 51,
      "errors": 1,
-     "rate_percent": 3.12,
-     "upper95_percent": 13.98,
-     "lower95_percent": 0.16,
+     "rate_percent": 1.96,
+     "upper95_percent": 8.97,
+     "lower95_percent": 0.1,
      "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 32,
-     "errors": 9,
-     "rate_percent": 28.12,
-     "upper95_percent": 43.94,
-     "lower95_percent": 15.53,
+     "rows": 51,
+     "errors": 11,
+     "rate_percent": 21.57,
+     "upper95_percent": 33.17,
+     "lower95_percent": 12.59,
      "decision": "FAIL"
     },
     "any": {
-     "rows": 32,
-     "errors": 14,
-     "rate_percent": 43.75,
-     "upper95_percent": 59.68,
-     "lower95_percent": 28.73,
+     "rows": 51,
+     "errors": 18,
+     "rate_percent": 35.29,
+     "upper95_percent": 47.72,
+     "lower95_percent": 24.2,
      "decision": null
     }
    },
    "error_kinds_count": {
-    "rem-date": 5,
-    "rem-char": 9,
+    "name-char": 1,
+    "rem-date": 6,
+    "rem-char": 11,
     "rank": 1
    },
    "error_kinds_on_rows_flagged_ocr_uncertain": {
-    "rem-date": 3,
+    "name-char": 1,
+    "rem-date": 4,
+    "rem-char": 1,
     "rank": 1
    },
    "error_kinds_on_rows_not_flagged": {
-    "rem-date": 2,
-    "rem-char": 9
+    "rem-char": 10,
+    "rem-date": 2
    },
    "missed_lines": 0,
    "census_complete": false
@@ -159,6 +164,7 @@
   }
  },
  "verdicts": [
+  "massachusettssol11931mass/631",
   "massachusettssol21931mass/143",
   "massachusettssol21931mass/661",
   "massachusettssol11931mass/662",

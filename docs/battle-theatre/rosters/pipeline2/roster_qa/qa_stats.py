@@ -59,6 +59,33 @@ def lower(n, k):
     return round((lo + hi) / 2 * 100, 2)
 
 
+def gate_counts(pv):
+    """{gate: [rows compared, rows in error]} over the merged verdicts pv (the rules of main(), as a function: the report uses it for the pages outside the lowest decile)."""
+    cnt = {'R-G1': [0, 0], 'R-G2': [0, 0], 'R-G3a': [0, 0], 'R-G3b': [0, 0]}
+    for v in pv:
+        lv = v.get('levels', 'NDR')
+        nrows = v['rows_checked']
+        unv = {u['i'] for u in v['unverifiable']}
+        errs = collections.defaultdict(set)
+        for e in v['errors']:
+            for k in e['kinds']:
+                errs[k].add(e['i'])
+
+        def rows_with(kinds):
+            return len(set().union(*[errs[k] for k in kinds if k in errs]) - unv) if any(k in errs for k in kinds) else 0
+        cnt['R-G1'][0] += nrows
+        cnt['R-G1'][1] += rows_with(G1)
+        cnt['R-G3a'][0] += nrows
+        cnt['R-G3a'][1] += rows_with(G3A)
+        if 'D' in lv:
+            cnt['R-G2'][0] += nrows
+            cnt['R-G2'][1] += rows_with(G2)
+        if 'R' in lv:
+            cnt['R-G3b'][0] += nrows
+            cnt['R-G3b'][1] += rows_with(G3B)
+    return cnt
+
+
 def main():
     vs = Q.load_verdicts()          # the first verdicts with the addenda of the second sitting merged in (qa_lib.merge_addendum)
     draw = Q.jload(os.path.join(Q.QA, 'draw.json'))['strata']
@@ -101,6 +128,8 @@ def main():
                 cnt['any'][0] += nrows
                 cnt['any'][1] += v['rows_in_error']
             missed += len(v['missed_lines'])
+        chk = gate_counts(pv)
+        assert all(chk[g] == cnt[g] for g in chk), (s, chk, cnt)       # the function and the loop above are the same rule
         gates = {}
         for g, (n, k) in cnt.items():
             gates[g] = {'rows': n, 'errors': k, 'rate_percent': round(100.0 * k / n, 2) if n else None, 'upper95_percent': bound(n, k), 'lower95_percent': lower(n, k) if k else 0.0,

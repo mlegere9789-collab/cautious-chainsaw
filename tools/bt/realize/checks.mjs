@@ -203,6 +203,7 @@ export class Runner {
       case 'card_shown': return this._cards(c, 'event_cards');
       case 'epilogue_shown': return this._cards(c, 'epilogue');
       case 'place_known': return this._placeKnown(c);
+      case 'not_queryable': return fail('assertion_unavailable', `the harness has no assertion for: ${String(c.a.capability).slice(0, 160)} (the row's words: "${String(c.a.words).slice(0, 100)}"): it cannot say whether the product shows this part of the row; the row stays covered by its open register entry`, { capability: c.a.capability });
       default: return fail('assert_type', `unknown assertion type ${a.type}`);
     }
   }

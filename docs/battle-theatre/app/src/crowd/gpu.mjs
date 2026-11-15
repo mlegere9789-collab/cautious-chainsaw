@@ -18,7 +18,7 @@ export class CrowdGPU {
     };
     if (!S.imp.layers) this.tex.imp = tex('impostors', 1, 1, 1, 'rgba8unorm', new Uint8Array(4), 4);
     this.poseB = d.createBuffer({ label: 'crowd.pose', size: S.nearCap * 183 * 16, usage: BU.STORAGE | BU.COPY_DST }); this.track('buffers', 'pose', S.nearCap * 183 * 16);
-    const cfgBuf = () => { const b = d.createBuffer({ size: 16, usage: BU.UNIFORM | BU.COPY_DST }); this.bufs.push(b); return b; }; this.cfg = { human: cfgBuf(), horse: cfgBuf() };
+    const cfgBuf = () => { const b = d.createBuffer({ size: 32, usage: BU.UNIFORM | BU.COPY_DST }); this.bufs.push(b); return b; }; this.cfg = { human: cfgBuf(), horse: cfgBuf() };      // Cfg (shaders-wgsl.mjs): tpf, pad, r2, band, hyst, dab, pad, pad
     d.queue.writeBuffer(this.cfg.human, 0, new Uint32Array([S.banks.human.tpf, 0, 0, 0])); d.queue.writeBuffer(this.cfg.horse, 0, new Uint32Array([S.banks.horse.tpf, 0, 0, 0]));
     const vis = G.VERTEX | G.FRAGMENT, e = (b, v, o) => ({ binding: b, visibility: v, ...o });
     this.bgl = d.createBindGroupLayout({ entries: [e(0, G.VERTEX, { texture: { sampleType: 'unfilterable-float' } }), e(1, vis, { texture: { sampleType: 'uint' } }), e(2, vis, { texture: { sampleType: 'uint' } }), e(3, vis, { texture: { sampleType: 'unfilterable-float' } }),
@@ -56,7 +56,7 @@ export class CrowdGPU {
     if (F.instBytes) { const need = (F.instBytes + 3) & ~3; if (need > this.instCap) { if (this.instB) this.instB.destroy(); this.instCap = Math.max(need, this.instCap * 2, 1 << 16); this.instB = d.createBuffer({ label: 'crowd.inst', size: this.instCap, usage: BU.VERTEX | BU.COPY_DST }); }
       d.queue.writeBuffer(this.instB, 0, F.inst, 0, need); }
     if (F.nPose) d.queue.writeBuffer(this.poseB, 0, F.pose, 0, F.nPose * 183 * 4);
-    d.queue.writeBuffer(this.impCfg, 0, new Float32Array([0, 0, F.r2, 0]).buffer); for (const k of ['human', 'horse']) d.queue.writeBuffer(this.cfg[k], 8, new Float32Array([F.r2]));
+    const cf = new Float32Array([F.r2, F.band, F.hyst, F.dabPx]); d.queue.writeBuffer(this.impCfg, 8, cf); for (const k of ['human', 'horse']) d.queue.writeBuffer(this.cfg[k], 8, cf);
   }
   _run(p, shadow) {
     const F = this.F, P = this.P; if (!F || !F.draws.length) return; p.setVertexBuffer(0, this.vb); p.setIndexBuffer(this.ib, 'uint32'); let cur = null, curBG = null, draws = 0, tris = 0, inst = 0;

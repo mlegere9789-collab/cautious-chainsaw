@@ -67,6 +67,7 @@ export const ASSERT = {
   card_shown:     { time: true, need: ['rows'], opt: ['tier'] },
   epilogue_shown: { time: true, need: ['rows'], opt: ['tier'] },
   place_known:    { time: false, need: ['place'], opt: ['on_ground'] },
+  not_queryable:  { time: false, need: ['words', 'capability'], opt: [] },     // a probe for a not_realized record whose row says something the harness has no assertion for (vegetation, sound, smoke, civilians ...): it always fails with assertion_unavailable
 };
 export const UNIT_TYPES = Object.entries(ASSERT).filter(([, v]) => v.units).map(([k]) => k);
 export const MODES = ['any', 'all'];
@@ -204,6 +205,11 @@ export function validateRecord(rec, ctx) {
       let s = null; try { s = parseSpan(a.t, null); } catch (e) { add('assert_time', `${at}: ${e.message}`); }
       if (s && span && (s.from < span.from || s.to > span.to)) add('assert_time_outside_window', `${at} (${a.type}): its time ${isoOf(s.from)}..${isoOf(s.to)} is outside the record window`);
       if (!a.t && span) { /* the record window is the default */ }
+    }
+    if (a.type === 'not_queryable') {
+      if (rec.kind !== 'not_realized') add('not_queryable_in_realized', `${at} (not_queryable): a probe that says the harness cannot ask the product belongs to a record of kind not_realized; a realized record's checks must be able to hold`);
+      if (a.words != null && !hasQuote(row.claim_text, a.words)) add('quote_not_in_row', `${at}: not_queryable words "${String(a.words).slice(0, 80)}" are not in the row text`);
+      if (a.capability != null && !(typeof a.capability === 'string' && a.capability.trim().length >= 8)) add('assert_field', `${at} (not_queryable): "capability" says what the harness cannot ask the product (a sentence of at least 8 characters: "the vegetation layer: crop, height and leaf of a named plot")`);
     }
     if (a.type === 'unit_activity') for (const x of [].concat(a.activities || [])) if (!ACTIVITY_NAMES.includes(x)) add('assert_activity', `${at}: unknown activity "${x}" (${ACTIVITY_NAMES.join(', ')})`);
     if (a.quote != null && !hasQuote(row.claim_text, a.quote)) add('quote_not_in_row', `${at}: "${String(a.quote).slice(0, 80)}" is not in the row text`);

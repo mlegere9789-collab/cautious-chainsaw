@@ -99,9 +99,18 @@ function bracket(keys, te) {
   return [keys[i], keys[i + 1], (te - keys[i].t) / (keys[i + 1].t - keys[i].t)];
 }
 const midOf = (range, f) => lerp(range[0], range[1], f);
+/**
+ * The crop of a unit under the readings in force. A cell whose crop is a draw from the district's mix carries the crop it would have under the other reading of the McPherson acres
+ * (`crop_alt`, conflict CF-VEG-MCPHERSON); every other unit has one crop.
+ */
+export function cropOf(model, u, choices) {
+  if (!u.crop_alt) return u.crop;
+  const sc = model.scenarios['CF-VEG-MCPHERSON']; if (!sc) return u.crop;
+  return scenarioOption(model, choices, 'CF-VEG-MCPHERSON') !== sc.default ? u.crop_alt : u.crop;
+}
 /** the instant a unit's crop is cut: the harvest range of the calendar with the unit's own draw (or the end the viewer pinned) */
 export function cutMinute(model, u, choices) {
-  const c = model.cal.crops[u.crop]; if (!c || !c.harvest) return Infinity;
+  const c = model.cal.crops[cropOf(model, u, choices)]; if (!c || !c.harvest) return Infinity;
   const h = c.harvest, opt = model.scenarios['CF-VEG-HARVEST'].options[scenarioOption(model, choices, 'CF-VEG-HARVEST')];
   const draw = opt.u == null ? Math.pow(u.p.cut_u, h.bias) : opt.u;
   return Math.round(lerp(h.earliest_min, h.latest_min, draw));
@@ -109,10 +118,10 @@ export function cutMinute(model, u, choices) {
 
 /** ground cover state of a crop at a minute: before the cut, during it, after it */
 export function cropState(model, u, tMin, choices) {
-  const cal = model.cal, c = cal.crops[u.crop]; if (!c) return null;
+  const cal = model.cal, crop = cropOf(model, u, choices), c = cal.crops[crop]; if (!c) return null;
   const p = u.p;
   if (tMin >= SEASON_SPLIT) {                                   // the epilogue: 19 November
-    const rows = cal.epilogue.stages[u.crop] || cal.epilogue.stages.pasture; let x = p.epi_u * rows.reduce((a, r) => a + r.w, 0), r = rows[rows.length - 1];
+    const rows = cal.epilogue.stages[crop] || cal.epilogue.stages.pasture; let x = p.epi_u * rows.reduce((a, r) => a + r.w, 0), r = rows[rows.length - 1];
     for (const q of rows) { if ((x -= q.w) <= 0) { r = q; break; } }
     return { season: 'epilogue', stage: r.stage, color: lerpArr(r.color[0], r.color[1], p.color_u), colorRange: r.color, h: r.h.map(v => v * p.h_scale), cut: 1, tier: cal.epilogue.tier, why: cal.epilogue.why };
   }
@@ -151,7 +160,7 @@ export function damageAt(model, u, tMin) {
 }
 export function lodgingAt(model, u, tMin, choices) {
   const L = model.cal.lodging, opt = model.scenarios['CF-VEG-RAIN'].options[scenarioOption(model, choices, 'CF-VEG-RAIN')];
-  if (!L.crops.includes(u.crop)) return 0;
+  if (!L.crops.includes(cropOf(model, u, choices))) return 0;
   return opt.lodging * ramp(tMin, L.from_min, L.to_min) * (0.6 + 0.8 * u01(u.seed, 'lodge'));
 }
 
@@ -184,12 +193,13 @@ export function stateAt(model, unit, tMin, choices) {
   const dm = damageAt(model, u, tMin); if (season === 'epilogue') dm.trample = 0;                 // the crop of 1863 is gone by November: a trampled field is stubble, plough or sprouts like the rest
   const out = { id: u.id, cls: u.cls, name: u.name, t: tMin, season, tiers: {}, claims: u.claims, events: dm.events };
   let lrtNote = null;
-  if (u.crop && !model.cal.crops[u.crop]) out.problems = [`crop ${u.crop} is not in the calendar`];
-  else if (u.crop) {
+  const crop = cropOf(model, u, choices);
+  if (crop && !model.cal.crops[crop]) out.problems = [`crop ${crop} is not in the calendar`];
+  else if (crop) {
     const cs = cropState(model, u, tMin, choices);
     const lodge = season === 'window' && cs.cut < 0.5 ? lodgingAt(model, u, tMin, choices) : 0;     // only a standing crop can be laid flat by the rain
     const flat = clamp(dm.trample, 0, 1);
-    out.ground = { crop: u.crop, label: model.cal.crops[u.crop].label, stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h.map(v => v * (1 - 0.82 * flat) * (1 - 0.45 * lodge)), hStanding: cs.h, cut: cs.cut, cutAt: Number.isFinite(cs.cutAt) ? cs.cutAt : null, shockH: cs.shockH || null, trample: flat, lodging: lodge };
+    out.ground = { crop, label: model.cal.crops[crop].label, stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h.map(v => v * (1 - 0.82 * flat) * (1 - 0.45 * lodge)), hStanding: cs.h, cut: cs.cut, cutAt: Number.isFinite(cs.cutAt) ? cs.cutAt : null, shockH: cs.shockH || null, trample: flat, lodging: lodge };
     out.tiers.crop = u.crop_tier; out.tiers.stage = u.crop_tier === 'documented' ? cs.tier : weakest(cs.tier, u.crop_tier); out.tiers.height = out.tiers.stage; out.tiers.colour = 'plausible-procedural';
     out.why = cs.why;
   }
@@ -299,7 +309,7 @@ const inRange = (v, lo, hi, eps = 1e-6) => v >= lo - eps && v <= hi + eps;
  * Nothing here lowers a bar: a failing unit is reported with the minute and the reason; `notRun` lists what the check does not look at (pictures, real-GPU timing).
  */
 export function checkVegetation(model, opts = {}) {
-  const times = opts.times || sampleTimes(model), choicesList = opts.choicesList || [{}, { 'CF-VEG-HARVEST': 'early' }, { 'CF-VEG-HARVEST': 'late' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }, { 'CF-VEG-UNDER': 'open_grown' }, { 'CF-VEG-UNDER': 'dense' }];
+  const times = opts.times || sampleTimes(model), choicesList = opts.choicesList || [{}, { 'CF-VEG-HARVEST': 'early' }, { 'CF-VEG-HARVEST': 'late' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }, { 'CF-VEG-UNDER': 'open_grown' }, { 'CF-VEG-UNDER': 'dense' }, { 'CF-VEG-MCPHERSON': 'study-1977' }];
   const failures = [], failByClass = {}, statesByClass = {}; let checked = 0;
   const fail = (u, t, why) => { const c = (model.byId.get(u.id) || {}).cls || 'other'; failByClass[c] = (failByClass[c] || 0) + 1; if (failures.length < 200) failures.push({ unit: u.id, t, iso: minToIso(t), why }); };
   const cal = model.cal;
@@ -321,7 +331,8 @@ export function checkVegetation(model, opts = {}) {
       const ok = (u.claims || []).some(([cid, role]) => role === 'exact' && model.claims.get(cid) && model.claims.get(cid).tier === 'documented' && model.claims.get(cid).about && model.claims.get(cid).about.crop === u.crop);
       if (!ok) fail(u, 0, 'documented crop without an exact documented claim that names it');
     }
-    if (u.crop && !(u.crop in cal.crops)) fail(u, 0, 'crop ' + u.crop + ' not in the calendar');
+    for (const cr of [u.crop, u.crop_alt]) if (cr && !(cr in cal.crops)) fail(u, 0, 'crop ' + cr + ' not in the calendar');
+    if (u.crop_alt && (u.crop_alt === u.crop || u.crop_basis !== 'district_mix')) fail(u, 0, 'a cell with an alternative crop that is the same crop, or not a draw from the mix');
     if (u.cls === 'field' && !u.crop_basis) fail(u, 0, 'field cell without the basis of its crop');
     for (const kind of ['woods', 'orchard']) {                   // the species of a stand: all in the table, the shares add up, and what a claim set names the claim
       const W = u[kind]; if (!W) continue; let z = 0;
@@ -348,7 +359,7 @@ export function checkVegetation(model, opts = {}) {
         if (!s.tier) { fail(u, t, 'no tier'); continue; }
         for (const k of Object.keys(s.tiers)) if (!TIERS.includes(s.tiers[k])) fail(u, t, `tier of ${k} is ${s.tiers[k]}`);
         if (s.ground) {
-          const g = s.ground, c = cal.crops[u.crop] || null;
+          const g = s.ground, c = (u.crop ? cal.crops[g.crop] : null) || null;               // the schedule of the unit's crop (a boulder ground or a wood's floor has no crop of the calendar)
           if (!finite(...g.color, ...g.h, g.cut, g.trample, g.lodging)) fail(u, t, 'non-finite ground state');
           if (g.color.some(v => v < 0 || v > 1)) fail(u, t, 'colour outside 0..1');
           if (g.h[0] < -1e-9 || g.h[0] > g.h[1] + 1e-9) fail(u, t, 'height range inverted');

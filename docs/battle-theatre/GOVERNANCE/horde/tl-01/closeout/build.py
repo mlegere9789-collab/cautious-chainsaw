@@ -44,6 +44,8 @@ if os.path.exists(_a3):
         if it.get('local_path') and it.get('text_sha256'):
             LIB[it['id']] = {'path': it['local_path'], 'sha256': it['text_sha256'], 'title': it.get('title'), 'date': it.get('date'), 'archive_identifier': None, 'index': 'GOVERNANCE/library/acquired_3.json'}
 LOCAL = json.load(open(os.path.join(HERE, 'acquired_tl01.json'), encoding='utf-8'))
+import extra_sources as X      # fourth start of the close-out (2026-11-15): the town books and the newspaper pages saved after the earlier passes
+import rows_patch as RP         # the additions of that start, applied to the row data before every quote is re-matched
 OR_SHA = {1: None, 2: None, 3: None}
 OR_INDEX = {r['id']: r for r in json.load(open(os.path.join(ROOT, 'docs', 'battle-theatre', 'library', 'or27_index.json'), encoding='utf-8'))['records']}
 
@@ -311,6 +313,8 @@ LIMIT_NOTES = {
     ('T1-055', 'end'): "the hour of Hancock's bivouac at Taneytown on Jul 1 (about 11 a.m., OR27-1-R076 p.367)",
 }
 
+LIMIT_NOTES.update(RP.LIMIT_NOTES_PATCH)
+
 def window_limits_note(rid, start, end, errs=None):
     """One sentence saying what each limit of a corrected window is, so that no limit stands unexplained."""
     parts = []
@@ -348,6 +352,8 @@ def main():
             rows += importlib.import_module(mod).ROWS
         except ModuleNotFoundError:
             if '--partial' not in sys.argv: raise
+    RP.apply(rows)
+    X.register(LIB, FIXED_PAGE, LABEL, sorted({c_['src'] for r_ in rows for c_ in r_.get('cites', {}).values()}))
     seed = [json.loads(l) for l in open(os.path.join(G, 'timeline_seed.jsonl'), encoding='utf-8')][:57]
     seed_by = {r['id']: r for r in seed}
     # The "before" values must be those of the shard as it was BEFORE the close-out, whatever the number of times this builder runs:

@@ -4,6 +4,7 @@
 //   tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu.mjs <outDir> <webgpu|webgl2> [case,case,...] [--w=640] [--h=360] [--soldiers=12000] [--no-repeat] [--tier=laptop] [--real-canvas] [--fx=off] [--no-screenshot]
 // --fx=off: the prototype alone (its own sky and particles, no weather or effects layer): the baseline that shows how far the two renderers are from each other without this layer.
 // --real-canvas: no stand-in for the canvas texture (on a machine with a real GPU).
+// --chrome-arg=<flag> (repeatable): one more Chrome command-line flag (for trying flag sets; the summary records the flags used). --headed under a virtual X server (xvfb-run -a -s "-screen 0 1280x720x24" node ...) is the way to try the real canvas on a machine without a GPU.
 // --canvas-shot: after each case, page.screenshot (25 s limit) of the page and its difference from the read-back of the same frame (summary.cases[...].canvasShot: mean absolute difference per channel, p99, shares over 8 and 24 levels, or the error); on by default with --real-canvas and --real-gpu, off with --no-screenshot.
 // --real-gpu: the run is a real-GPU run: Chrome is started without the software-rasteriser flags (both APIs use the GPU Chrome picks), the real canvas is used, and checkRun fails the run when the recorded adapter is a software one.
 //   --headed opens a visible window (where headless Chrome has no GPU access).
@@ -20,6 +21,7 @@ const pos = args.filter(a => !a.startsWith('--')), outRoot = path.resolve(pos[0]
 const W = +flag('w', 640), H = +flag('h', 360), SOLD = +flag('soldiers', 12000), TIER = flag('tier', 'laptop'), REPEAT = !args.includes('--no-repeat'), SHOT = !args.includes('--no-screenshot'), FXOFF = args.includes('--fx=off'), READY_MS = +flag('ready-timeout', 240) * 1000;
 const REALGPU = args.includes('--real-gpu'), out = path.join(outRoot, api); fs.mkdirSync(out, { recursive: true });
 // the compositor's picture of the real canvas is compared with the read-back of the same frame whenever the real canvas is in use (--real-canvas, --real-gpu) or when asked (--canvas-shot); --no-screenshot switches it off
+const EXTRA_CHROME_ARGS = args.filter(a => a.startsWith('--chrome-arg=')).map(a => a.slice('--chrome-arg='.length));          // --chrome-arg=--flag (repeatable): more Chrome flags, for trying a flag set on a machine
 const CANVAS_SHOT = !args.includes('--no-screenshot') && (args.includes('--canvas-shot') || REALGPU || args.includes('--real-canvas'));
 const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).toFixed(0).padStart(5) + 's', ...a);
 
@@ -43,7 +45,7 @@ const summary = { api, url, w: W, h: H, soldiers: SOLD, tier: TIER, realGpu: REA
 const save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
 const logs = []; let browser;
 try {
-  browser = await chromium.launch({ channel: 'chrome', headless: !args.includes('--headed'), args: chromeArgs(REALGPU) });
+  browser = await chromium.launch({ channel: 'chrome', headless: !args.includes('--headed'), args: [...chromeArgs(REALGPU), ...EXTRA_CHROME_ARGS] }); summary.chromeArgs = [...chromeArgs(REALGPU), ...EXTRA_CHROME_ARGS]; summary.headed = args.includes('--headed');
   const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas') || REALGPU, trace: true }); ctx.setDefaultTimeout(0);
   const page = await ctx.newPage(); page.on('console', m => logs.push(m.type() + ': ' + m.text())); page.on('pageerror', e => logs.push('pageerror: ' + e.message)); page.on('crash', () => logs.push('PAGE CRASH')); page.on('response', r => { if (r.status() >= 400) logs.push('http ' + r.status() + ' ' + r.url()); }); browser.on('disconnected', () => logs.push('BROWSER DISCONNECTED'));
   say('open', url); await page.goto(url, { waitUntil: 'load' });

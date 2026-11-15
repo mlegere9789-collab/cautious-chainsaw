@@ -38,6 +38,17 @@ test('wide images ledger: every record of the wide search has an image (hash, ho
     const f = path.join(ROOT, v.local_file); if (fs.existsSync(f)) { assert.equal(fs.statSync(f).size, v.bytes, p.loc_id); assert.equal(sha(f), v.sha256, p.loc_id); }
   }
 });
+test('further resources of the wide-search records (card backs, second halves, copy negatives, 1024-px card backs read for their print): each is in the ledger with its hash and the size the record declares, and the registry entry says it was looked at', () => {
+  const x = J('wide_extra_images_ledger.json').images, keys = Object.keys(x); assert.ok(keys.length >= 82);
+  assert.ok(keys.filter(k => x[k].derivative !== 'large').length >= 51 && keys.filter(k => x[k].derivative === 'large').length >= 31);
+  for (const [k, v] of Object.entries(x)) {
+    assert.equal(v.status, 'ok', k); assert.match(v.sha256, /^[0-9a-f]{64}$/, k); assert.ok(/^https:\/\/(cdn\.loc\.gov|tile\.loc\.gov)\//.test(v.url_final || v.url), k); assert.ok(v.licence_basis && v.width > 0 && v.height > 0, k);
+    if (v.bytes_declared_by_record != null) assert.equal(v.bytes, v.bytes_declared_by_record, k + ': a transfer cut short');
+    const f = path.join(ROOT, v.local_file); if (fs.existsSync(f)) { assert.equal(fs.statSync(f).size, v.bytes, k); assert.equal(sha(f), v.sha256, k); }
+    assert.ok(wide.photographs.some(w => w.loc_id === v.loc_id), k + ' is not a record of the wide search');
+  }
+  for (const id of new Set(keys.map(k => x[k].loc_id))) assert.ok(reg.photographs.find(r => r.loc_id === id).why.includes('Further images of this record'), id + ' registry entry does not mention them');
+});
 test('every catalogued record has at least one saved image in a ledger, or the registry says why not', () => {
   const have = new Set(Object.values(led.images).filter(v => v.status === 'ok').map(v => v.loc_id).filter(Boolean));
   for (const p of all) assert.ok(have.has(p.loc_id) || reg.photographs.find(r => r.loc_id === p.loc_id).image_keys.length > 0 || p.image_status === 'not_offered', p.loc_id);
