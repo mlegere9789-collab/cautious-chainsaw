@@ -89,6 +89,11 @@ def apply(R_):
     cons(r, "S-007 CORRECTION: the inscription's hour is 10:30 a.m. (not 10:50): show 'about 10:30' as the documented clock of the change of front and the advance to the cut (commemorative source, hour of the capture not stated); the PDF 'about 11:00' stays as the inferred clock of the fight in the cut",
          replace={"S-007: the 95th NY monument inscription gives 10:50 a.m.": "S-007 (see the correction below): the 95th NY monument inscription gives the hour of the change of front and the advance to the railroad cut; the PDF 'about 11:00' stays as the inferred clock of the fight in the cut"})
 
+    r = R_['R14.S-001']
+    for sc_ in r['sub_claims']:
+        for c in sc_['citations']:
+            if c.get('ref') == 'GBG-COMPILER-1863-06-29' and not c.get('pp'):
+                c['pp'] = '1'      # leaf 1 of the four-page issue (image_checks.json: gbg-compiler-1863-06-29-bridge)
     # ============================================================ S-012: Adams Sentinel image read; S-010 / S-013 get its other sentences
     r = R_['R14.S-012']
     for c in sub(r, 'b')['citations']:
@@ -96,24 +101,25 @@ def apply(R_):
             c['reading'] = ("The Theological Seminary was struck by a number of shells and balls, and several serious fractures caused, which will probably require part of one gable end to be taken down. "
                             "(page image of the Adams Sentinel, 21 Jul 1863, page 2, looked at 2026-11-15: the OCR text prints 'shello aud balls' and garbles the rest of the sentence)")
             c['image'] = 'adams-sentinel-1863-07-21-seminary'
+            c['pp'] = '2'
     sub(r, 'b')['note'] = ("The Adams Sentinel of 21 Jul 1863 (contemporary, local, page image read 2026-11-15) says the Seminary was struck by a number of shells and balls and several serious fractures caused, which will probably require part of one gable end to be taken down; "
                            "the NPS says the main building and two professors' houses were damaged by shells.")
     setsub(r, 'c', claim="Fractures, lost window glass and bullet holes at the seminary: the main building had 'several serious fractures' caused by shells and balls (part of one gable end to be taken down); 'window frames were shattered, and nearly all the glass destroyed' at Dr. Schmucker's house, a Professor's house on the seminary grounds (Adams Sentinel, page image); window glass of the MAIN building is not stated.",
            tier='documented', support='partial')
     more(r, 'c',
-         C('LIB', 'ADAMS-SENTINEL-1863-07-21', "number of shello aud balls, and several", image='adams-sentinel-1863-07-21-seminary',
+         C('LIB', 'ADAMS-SENTINEL-1863-07-21', "number of shello aud balls, and several", image='adams-sentinel-1863-07-21-seminary', pp='2',
            reading="...a number of shells and balls, and several serious fractures caused, which will probably require part of one gable end to be taken down. (image reading; see sub-claim b)"),
-         C('LIB', 'ADAMS-SENTINEL-1863-07-21', "The house occupied by J)r. Suhnmtker, was pu-foi tiled by thu teen", image='adams-sentinel-1863-07-21-seminary',
+         C('LIB', 'ADAMS-SENTINEL-1863-07-21', "The house occupied by J)r. Suhnmtker, was pu-foi tiled by thu teen", image='adams-sentinel-1863-07-21-seminary', pp='2',
            reading="The house occupied by Dr. Schmucker, was perforated by thirteen shells and cannon balls, several large fissures were made in the walls, window frames were shattered, and nearly all the glass destroyed. (image reading)"),
-         C('LIB', 'ADAMS-SENTINEL-1863-07-21', "iramcs weie bhattcied. and nearly all the", image='adams-sentinel-1863-07-21-seminary',
+         C('LIB', 'ADAMS-SENTINEL-1863-07-21', "iramcs weie bhattcied. and nearly all the", image='adams-sentinel-1863-07-21-seminary', pp='2',
            reading="...window frames were shattered, and nearly all the glass destroyed. (image reading; the sentence is the house of Dr. Schmucker's)"),
          note="WAVE 5: the image of the Adams Sentinel closes the owed check of 2026-11-14: the glass loss is documented for Dr. Schmucker's house, not for the seminary main building; for the main building only 'serious fractures' and one gable end are documented.")
     add(r, S('d', "The fences and some out-houses on 20 acres of Seminary land were 'almost wholly destroyed' (Adams Sentinel, 21 Jul 1863, page image; cause and day not stated).", 'documented', 'supported', [
-        C('LIB', 'ADAMS-SENTINEL-1863-07-21', "on 20 acres of rfeminaiy land,", image='adams-sentinel-1863-07-21-seminary',
+        C('LIB', 'ADAMS-SENTINEL-1863-07-21', "on 20 acres of rfeminaiy land,", image='adams-sentinel-1863-07-21-seminary', pp='2',
           reading="...the fences and some out-houses on 20 acres of Seminary land, almost wholly destroyed. (image reading)")],
         note="The Sentinel says nothing about who destroyed the fences or when; it supports 'the fences on the Seminary land were gone' as a state at the time of writing (three weeks after the battle), not as the origin of the barricade rails."), after='c')
     add(r, S('e', "The Seminary and the College 'are, and for a month to come probably will be, occupied as hospitals for the sick and wounded of both armies' (Adams Sentinel, 21 Jul 1863, page image).", 'documented', 'supported', [
-        C('LIB', 'ADAMS-SENTINEL-1863-07-21', "dettrficd. The Seminary", image='adams-sentinel-1863-07-21-seminary',
+        C('LIB', 'ADAMS-SENTINEL-1863-07-21', "dettrficd. The Seminary", image='adams-sentinel-1863-07-21-seminary', pp='2',
           reading="...almost wholly destroyed. The Seminary and College are, and for a month to come, probably will, be occupied as hospitals for the sick and wounded of both armies, and will require not only many repairs, but also much purification and painting, before they can again be occupied for their appropriate purposes. (image reading; the quoted OCR words only mark the place: the flat OCR text interleaves the neighbouring columns)")],
         note="A contemporary local newspaper; the hospital use by both armies is documented for the Seminary and the College as a state of July 1863."), after='d')
     sub_text(r, "Lost window glass is not stated for the seminary building in any source read; the broken-sash and glass passage in the NPS text belongs to the McPherson farmhouse.",
@@ -127,13 +133,13 @@ def apply(R_):
 
     r = R_['R14.S-010']
     add(r, S('e', "The fences and some out-houses on 20 acres of Seminary land were 'almost wholly destroyed' by 21 Jul 1863 (Adams Sentinel, page image): a state, not a cause; it does not say that the barricade rails came from them.", 'documented', 'partial', [
-        C('LIB', 'ADAMS-SENTINEL-1863-07-21', "on 20 acres of rfeminaiy land,", image='adams-sentinel-1863-07-21-seminary',
+        C('LIB', 'ADAMS-SENTINEL-1863-07-21', "on 20 acres of rfeminaiy land,", image='adams-sentinel-1863-07-21-seminary', pp='2',
           reading="...the fences and some out-houses on 20 acres of Seminary land, almost wholly destroyed. (image reading)")],
         note="Same sentence as S-012 sub-claim d; carried here because the barricade rails and the destroyed fences are the same question (which fences were taken)."), after='b')
 
     r = R_['R14.S-013']
     add(r, S('c', "By 21 Jul 1863 'the Seminary and College are, and for a month to come probably will be, occupied as hospitals for the sick and wounded of both armies' (Adams Sentinel, page image): the building held wounded of both armies after the battle.", 'documented', 'supported', [
-        C('LIB', 'ADAMS-SENTINEL-1863-07-21', "dettrficd. The Seminary", image='adams-sentinel-1863-07-21-seminary',
+        C('LIB', 'ADAMS-SENTINEL-1863-07-21', "dettrficd. The Seminary", image='adams-sentinel-1863-07-21-seminary', pp='2',
           reading="The Seminary and College are, and for a month to come, probably will, be occupied as hospitals for the sick and wounded of both armies. (image reading)")],
         note="Contemporary local newspaper; it does not give the hour the building passed to Confederate control."), after='a')
     tail(r, "Wave 5 (2026-11-15): the Adams Sentinel of 21 Jul 1863 (page image read) says the Seminary and the College were hospitals for the sick and wounded of both armies and would be for a month to come; the hour the building passed to Confederate control is still not printed.")
@@ -200,6 +206,12 @@ def apply(R_):
     lines(r, 'lookups', L('medical library (wave 5)', "Spangler + hospital/Eleventh Corps in USSC report 1863, Souder 1864, MSHWR, Letterman", 1, "USSC report 1863 p. 24; no opening hour"))
     lines(r, 'changes_vs_previous', "wave 5: a contemporary 1863 printed source (Sanitary Commission report p. 24) now names George Spangler's house and farm as the Eleventh Corps hospital")
 
+    for b in R_['R14.S-004']['blocked_host']:
+        if b['source_key'] == 'HMDB-17939':
+            b['what_to_read'] = b['what_to_read'].rstrip('. ') + ". WAVE 5: the Sanitary Commission's report of 1863 (printed p.24) already documents the Presbyterian church on Baltimore street as the Cavalry Corps hospital and p.15 the use of churches for the wounded of Jul 1; the marker page is needed only for the Jun 30 date, the address (208 Baltimore St) and the trigger."
+    for b in R_['R14.S-016']['blocked_host']:
+        if b['source_key'] in ('HN-Spangler', 'Gettysburg Foundation George Spangler Farm'):
+            b['what_to_read'] = b['what_to_read'].rstrip('. ') + ". WAVE 5: George Spangler's house and farm as the Eleventh Corps hospital is documented by the Sanitary Commission's report of 1863 (printed p.24); only the day and hour of the opening need the page."
     # ============================================================ S-005: fences as a line of defence by the Eleventh Corps (Sanitary Commission report)
     r = R_['R14.S-005']
     add(r, S('g', "Afternoon of Jul 1: 'the eleventh corps formed a line between the college and the town, making the fences their line of defence'; the Confederates advanced 'about four P. M.' (Major Bush, in the Sanitary Commission report of 1863, printed pp. 14-15).", 'documented', 'supported', [
@@ -236,6 +248,13 @@ def apply(R_):
         C('OR1', 'R331', "I built earthworks in front of my guns."),
         C('OR1', 'R331', "was ordered into position between the Second Connecticut Battery and Ames' (First New York) battery")],
         note="Artillery positions belong to the R13 gun-position shards (terrain-1, terrain-2); carried here because the same line and morning are the subject. McGilvery's report does not say when the earthwork was thrown up; Dow's is the morning of Jul 3."), after='o')
+    add(r, S('q', "The Angle (Webb's front): the low stone wall 'had been thrown down in places to let the guns through on the second day, and at these gaps and in other places rails had been used for additional shelter. That was the only breastwork or fortification that protected Webb's infantry, on the left of the trees'; Captain Cowan: the wall was 'very low in the angle, certainly not over two feet high', made high enough to turn cattle by 'three or four rails, stake and rider fashion', with not enough soil there to strengthen it (NPS 'Common Pride', quoting accounts; a pre-existing wall with rails added, no construction animation).", 'documented', 'partial', [
+        C('NPS', 'NPS-COMMON-PRIDE-1', "This low stone wall had been thrown down in places to let the guns through on the second day, and at these gaps and in other places rails had been used for additional shelter."),
+        C('NPS', 'NPS-COMMON-PRIDE-1', "That was the only breastwork or fortification that protected Webb's infantry, on the left of the trees."),
+        C('NPS', 'NPS-COMMON-PRIDE-1', "because it was very low in the angle, certainly not over two feet high.", reading="Our infantry at the wall had very slight protection, because it was very low in the angle, certainly not over two feet high. (the text layer reads 'veryyslight')"),
+        C('NPS', 'NPS-COMMON-PRIDE-1', "Three or four rails, stake and rider fashion, had previously made it high enough to turn", reading="Three or four rails, stake and rider fashion, had previously made it high enough to turn cattle. (the text layer breaks 'cat-tle' across a line with a soft hyphen)"),
+        C('NPS', 'NPS-COMMON-PRIDE-1', "There was not enough soil there to strengthen the wall and raise it higher.")],
+        note="WAVE 5: found in the NPS 'Common Pride' study (secondary; it quotes accounts, the first an unnamed one, the second Captain Cowan's): they give the state of the pre-existing Angle wall (height not over two feet, rails on top, thrown down in places for the guns on Jul 2, rails used at the gaps), not a new construction; it bears on the PDF's 'no works' for the Angle and on FEN-cemetery-ridge-walls."), after='p')
     setsub(r, 'g', claim="A continuous line of rail breastworks along Cemetery Ridge: not stated by any source as a continuous line of RAILS; Tyler (Artillery Reserve) found on the morning of Jul 3 that 'the infantry had constructed a slight breastwork of such materials as the ground afforded along the entire crest of the hill, and some shelter had been thrown up for the artillery'.",
            tier='documented', support='partial')
     more(r, 'g',
@@ -260,7 +279,9 @@ def apply(R_):
     lines(r, 'changes_vs_previous', "wave 5: Caldwell's First Division (Jul 3 morning, OR R077-R097), a printed profile (20th Mass.: a foot deep and a foot high, Abbott R111), a statement of near-continuity (Tyler R315) and artillery earthworks (McGilvery R318, Dow R331) added; the dimension and continuity gaps are narrowed, not closed")
     cons(r, "E-17: add Jul 3 morning works for Caldwell's First Division of the Second Corps (units and clocks in sub-claim o): short breastworks, earthworks or rifle-pits in front of each regiment's line, begun early on the morning of the 3d, serviceable before noon; the 116th Pa.'s begins after Hancock moved the line forward and is 'quite formidable' by 11:00; no rails are named, so draw them as earth and stones (plausible-procedural fabric), not as rail piles",
          "E-17: the 20th Mass. rifle-pit of the night of Jul 2 to 3 has a printed profile (a foot deep, a foot high, one shovel, 'too thin to stop anything more than a spent ball'): use it as the documented size of an overnight single-shovel work; the NPS 'earth against a low stone fence topped with rails' stays a selectable second form for the same regiment",
-         "E-17: show a 'slight breastwork along the entire crest' at the Artillery Reserve's position on the morning of Jul 3 (Tyler) as a documented, low, regiment-by-regiment line; keep continuity as a marked gap (one officer's summary); add the artillery earthworks of the First Volunteer Brigade (McGilvery) and of Dow's battery on the morning of Jul 3 (R13 gun positions)")
+         "E-17: show a 'slight breastwork along the entire crest' at the Artillery Reserve's position on the morning of Jul 3 (Tyler) as a documented, low line (one officer's statement for the crest he rode); keep the continuity of the whole ridge a marked gap; add the artillery earthworks of the First Volunteer Brigade (McGilvery) and of Dow's battery on the morning of Jul 3 (R13 gun positions)")
+
+    cons(r, "E-17 / FEN-cemetery-ridge-walls: the Angle wall's 1863 state: 'certainly not over two feet high' with three or four rails stake and rider on top, thrown down in places on Jul 2 to let the guns through and rails used at the gaps and elsewhere (NPS 'Common Pride' quoting accounts; documented-secondary, partial): a state of the pre-existing wall, not a construction animation")
 
     # ============================================================ E-04 / E-12: Cemetery Hill breastworks and Wiedrich's intrenchments
     r = R_['R14.E-04']
@@ -270,7 +291,7 @@ def apply(R_):
         C('OR1', 'R258', "July 5. — Still in our old position behind the breastworks")],
         note="WAVE 5: Bown (Lieut. Col., 61st Ohio) writes a day-by-day account; the breastworks are at the regiment's position at the cemetery (the Jul 2 evening move to support the Twelfth Corps is followed by 'we were ordered to our old position behind the breastworks'). The report does not say who built them or when (the night of Jul 1 or the morning of Jul 2 are the bounds); it neither supports nor refutes the books' lunettes of Steinwehr's division."), after='f')
     sub_text(r, "No 1863 source says Cemetery Hill was fortified as a whole or that von Steinwehr built works",
-             "No 1863 source says Cemetery Hill was fortified as a whole or that von Steinwehr built works (the 61st Ohio's report has breastworks at its own place on the hill by Jul 2, see the last sentences)")
+             "No 1863 source says Cemetery Hill was fortified as a whole or that von Steinwehr built works; the 61st Ohio's report does have breastworks at its own place on the hill by Jul 2 (wave 5, last sentences)")
     tail(r, "Wave 5 (2026-11-15): the report of the 61st Ohio (Lieut. Col. Bown, OR27-1-R258 p. 738) puts the regiment 'to the cemetery, upon the south of Gettysburg' on Jul 1 and 'still in position behind the breastworks' on Jul 2 and Jul 5: breastworks existed at one regiment's place on Cemetery Hill by the morning of Jul 2 (no builder, hour or form).")
     r['stays_unsupported'] = list(r['stays_unsupported']) + ["Who built the breastworks of the 61st Ohio's position, when (night of Jul 1 or morning of Jul 2) and in what form"]
     lines(r, 'changes_vs_previous', "wave 5: the 61st Ohio's report (OR27-1-R258) documents breastworks at its position on Cemetery Hill on Jul 2 and Jul 5")

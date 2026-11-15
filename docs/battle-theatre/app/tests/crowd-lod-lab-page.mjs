@@ -12,7 +12,7 @@ import { MeshStore } from '../src/crowd/meshes.mjs';
 import { buildPal, PAL_W, PAL_H, NSLOT, MATC } from '../src/crowd/tables.mjs';
 
 const Q = new URLSearchParams(location.search), API = Q.get('api') === 'webgl2' ? 'webgl2' : 'webgpu', W = +Q.get('w') || 320, H = +Q.get('h') || 180;
-const LAB = window.LAB = { api: API, ready: false, error: null, log: [], w: W, h: H, mats: { L0: 40, L1: 41, L2: 42, IMP: 43, COAT: MATC.COAT, TROUSERS: MATC.TROUSERS } };
+const LAB = window.LAB = { api: API, ready: false, error: null, log: [], w: W, h: H, mats: { L0: 40, L1: 41, L2: 42, IMP: 43, VIEW0: 44, COAT: MATC.COAT, TROUSERS: MATC.TROUSERS } };
 const b64 = u8 => { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); };
 let world = null, T = null, host = null, be = null, crowdLike = null, S = null, ms = null, cam = null;
 const half1 = 0x3C00;
@@ -31,7 +31,11 @@ async function setup() {
   ms = new MeshStore(1 << 10, 1 << 11); const pal = buildPal({});
   const setc = (m, r, g, b) => { pal[m * 4] = r; pal[m * 4 + 1] = g; pal[m * 4 + 2] = b; pal[m * 4 + 3] = 0.9; const o1 = (PAL_W + m) * 4; pal[o1] = 0; pal[o1 + 1] = -1; pal[o1 + 2] = 0; pal[o1 + 3] = 0; };
   setc(LAB.mats.L0, 0.8, 0.03, 0.03); setc(LAB.mats.L1, 0.8, 0.7, 0.03); setc(LAB.mats.L2, 0.1, 0.05, 0.8); setc(LAB.mats.IMP, 0.85, 0.85, 0.85); setc(LAB.mats.COAT, 0.8, 0.03, 0.6); setc(LAB.mats.TROUSERS, 0.03, 0.6, 0.8);
-  const imp = { w: 384, h: 64, layers: 1, data: new Uint8Array(384 * 64 * 4), meta: Float32Array.from([2.0, 32.0, 0, 0]) }; for (let i = 0; i < 384 * 64; i++) { imp.data[i * 4] = LAB.mats.IMP; imp.data[i * 4 + 1] = 128; imp.data[i * 4 + 2] = 128; imp.data[i * 4 + 3] = 255; }
+  const VIEWC = [[0.8, 0.03, 0.03], [0.8, 0.45, 0.03], [0.7, 0.75, 0.03], [0.1, 0.7, 0.05], [0.03, 0.65, 0.65], [0.05, 0.1, 0.8], [0.5, 0.05, 0.8], [0.8, 0.05, 0.5]]; VIEWC.forEach((c, v) => setc(LAB.mats.VIEW0 + v, c[0], c[1], c[2]));
+  LAB.atlas = kind => makeAtlas(kind);
+  const makeAtlas = kind => { const imp = { w: 384, h: 64, layers: 1, data: new Uint8Array(384 * 64 * 4), meta: Float32Array.from([2.0, 32.0, 0, 0]) };      // 'uniform': one material in every texel; 'views': eight views of 48 texels, each of its own material (view v: VIEW0 + v)
+    for (let y = 0; y < 64; y++) for (let x = 0; x < 384; x++) { const i = (y * 384 + x) * 4; imp.data[i] = kind === 'views' ? LAB.mats.VIEW0 + ((x / 48) | 0) : LAB.mats.IMP; imp.data[i + 1] = 128; imp.data[i + 2] = 128; imp.data[i + 3] = 255; } return imp; };
+  const imp = makeAtlas('uniform');
   S = { count: world.count, nVariants: 2, nslot: NSLOT, inst: new Uint32Array(world.count * 4), varInfo: new Uint16Array(8), varPal: new Uint8Array(2 * NSLOT * 4), pal, palW: PAL_W, palH: PAL_H, nearCap: 4, banks: { human: mkBank(), horse: mkBank(60) }, imp };
   crowdLike = { meshes: ms, settings: {}, prepare() { }, scene(p) { if (be) be.scene(p); }, shadow(p, c) { if (be) be.shadow(p, c); }, destroy() { } };
   const { CrowdGL } = API === 'webgl2' ? await import('../src/crowd/gl.mjs') : {}, { CrowdGPU } = API === 'webgpu' ? await import('../src/crowd/gpu.mjs') : {};
@@ -48,12 +52,12 @@ function grabGPU(R) {
 }
 function grabGL(R) { const gl = R.gl, w = R.W, h = R.H, px = new Uint8Array(w * h * 4); gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, px); const out = new Uint8Array(w * h * 4); for (let y = 0; y < h; y++) out.set(px.subarray((h - 1 - y) * w * 4, (h - y) * w * 4), y * w * 4); return Promise.resolve({ w, h, data: out }); }
 
-// spec = { dist (m from the figure), fovDeg, dx, t, draws: [{ level: 0|1|2, mat, dz, P }], imp: null | { r2, band, hyst, dabPx }, band, hyst, dabPx }
+// spec = { dist (m from the figure), fovDeg, dx, az (the camera's azimuth around the figure, radians; default: on its -z side), t, draws: [{ level: 0|1|2, mat, dz, P }], imp: null | { r2, band, hyst, dabPx }, band, hyst, dabPx }
 // the camera looks at figure 0 from dist metres on its -z side; the quads face -z; a smaller dz is nearer to the camera
 LAB.shot = async function (spec) {
   if (!LAB.ready) throw new Error('the lab is not ready: ' + LAB.error);
   const R = host.R, t = spec.t ?? 100, tmp = [0, 0, 0]; soldierPlace(world, 0, t, tmp); const gx = tmp[0], gz = tmp[1], gy = T.h(gx, gz);
-  cam.set(gx, gy + 1.4, gz - spec.dist, 0, 0, spec.fovDeg || 30); cam.lookAtPoint(gx, gy + 1.4, gz); cam.x += spec.dx || 0;      // dx: a parallel shift of the camera (the figure moves a fraction of a pixel across the dither)
+  const az = spec.az ?? Math.PI; cam.set(gx + spec.dist * Math.sin(az) * (spec.az == null ? 0 : 1), gy + 1.4, gz + spec.dist * Math.cos(az), 0, 0, spec.fovDeg || 30); cam.lookAtPoint(gx, gy + 1.4, gz); cam.x += spec.dx || 0;      // dx: a parallel shift of the camera (the figure moves a fraction of a pixel across the dither)
   const nrec = (spec.draws || []).length, inst = new ArrayBuffer(48 * Math.max(1, nrec)), f32 = new Float32Array(inst), u32 = new Uint32Array(inst), draws = [];
   (spec.draws || []).forEach((d, i) => { const e = quad(d.mat, d.dz || 0), o = i * 12; f32[o] = gx; f32[o + 1] = gz; f32[o + 2] = 0; f32[o + 3] = 1; u32[o + 8] = 0; u32[o + 9] = 0; u32[o + 10] = 0; u32[o + 11] = d.P >>> 0;
     draws.push({ near: d.level === 0, bank: d.level === 0 ? null : 'human', first: e.firstIndex, count: e.indexCount, off: i * 48, n: 1 }); });
@@ -65,4 +69,7 @@ LAB.shot = async function (spec) {
   let glErr = null; if (API === 'webgl2') { const e = R.gl.getError(); if (e) glErr = e; }
   return { w: pic.w, h: pic.h, px: b64(pic.data), figure: { x: gx, z: gz, y: gy }, validation: err ? String(err.message || err).slice(0, 1200) : null, glError: glErr, gpuErrors: (window.__gpuErrors || []).slice(), wgsl: (window.__wgslMessages || []).slice() };
 };
+// a fresh backend on the same renderer with another atlas ('uniform' | 'views'); the old one is left standing (the prototype keeps every program it compiled)
+LAB.useAtlas = async kind => { S.imp = LAB.atlas(kind); const { CrowdGL } = API === 'webgl2' ? await import('../src/crowd/gl.mjs') : {}, { CrowdGPU } = API === 'webgpu' ? await import('../src/crowd/gpu.mjs') : {}; be = API === 'webgl2' ? new CrowdGL(host, crowdLike) : new CrowdGPU(host, crowdLike); be.init(S); return kind; };
+LAB.heading = () => { const tmp = [0, 0, 0]; soldierPlace(world, 0, 100, tmp); return tmp[2]; };
 LAB.diag = () => ({ api: API, ready: LAB.ready, error: LAB.error, log: LAB.log, adapter: host && host.info, gpuErrors: window.__gpuErrors || [], wgsl: window.__wgslMessages || [], modules: window.__gpuLabels || [], hostLog: host ? host.log : [] });

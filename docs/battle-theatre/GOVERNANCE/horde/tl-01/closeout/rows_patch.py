@@ -14,7 +14,9 @@ QUOTES = {
     'hist_1030': "June 30, at half past ten o'clock in the morning, Buford passed through Gettysburg upon a reconnoisance in force",
     'hist_3pm': "the advance g^ard of the rebels, 200 strong, galloped into Gettysburg about 3 o' clock on the afternoon of the 26th,",
     'hist_735': 'On the 24th a regiment of Pennsylvania Volunteer MUitia, numbering 735 men, of which Company A was nearly entirely students from Pennsylvania College, had been started from Harrisburg and Carlisle to Gettysburg.',
+    'hist_demand': '1,200 pounds of sugar, 600 pounds of coffee, 60 barrels of flour, 1,000 pounds of salt, 7,000 pounds of bacon, 10 barrels of whisky, 10 barrels of onions, 1,000 pairs of shoes and 500 hats, or, in lieu of all this, $5, 000 in cash.',
     'hist_guards': 'Guards were posted about the public buildings and some of the stores, and a few, but very few, private houses.',
+    'hist_jenkins': "Jenkins' Cavalry galloped into Gettysburg the afternoon of the 26th of June.",
     'hist_sent': "Jennings and his command were sent out on the Chambersburg Turnpike on the morning of the 26th. When they met the rebels, in the afternoon, the enemy captured nearly all of Jenning's advance guard — about forty men",
     'hist_sidewalks': 'When permitted to stack arms, or put themselves at rest, they lay down on the sidewalks and in the streets with their knapsacks under their heads.',
     'hist_thu': 'Col. Jennings and his command had reached this place on Thursday',
@@ -22,8 +24,10 @@ QUOTES = {
     'hoke_buford': 'General Buford in command of a division of Federal cavalry passed through Gettysburg in the afternoon of the day (Tuesday)',
     'hoke_burn': 'While on their way across the mountain they burned the Caledonia Iron Works, which belonged to Hon. Thaddeus Stevens. These works were situated about two miles east of Greenwood, at the base of the South Mountain, and about ten miles from Chambersburg.',
     'hoke_date': "In the morning of this day — Friday, 26th, — Early's division left its camp at Greenwood, where it had remained",
+    'hoke_demand': 'a requisition was made upon the authorities for sixty barrels of flour, seven thousand pounds of pork or bacon, one thousand two hundred pounds of sugar, one hundred pounds of coifee, one thousand pounds salt, forty bushels onions, one thousand pairs shoes, live hundred hats; or, ten thousand dollars in money.',
     'hoke_ewell': 'These wagons proved to be part of EwelPs train',
     'hoke_fires': "The line of the railroad could be traced by the numerous fires still burning. The sound of the drum was heard in the direction of Pickett's Camp. Along the South Mountain, for miles up and down the valley, innumerable lights were seen.",
+    'hoke_left': "Early's division, which had left Gettysburg some time on Friday afternoon, reached the town of York.",
     'hoke_nocol': 'No column of our troops was sent to burn the iron works of Thaddeus Stevens',
     'hoke_order': 'they were burned by my order, and on my own responsibility.',
     'hoke_pettig': "About half past nine o'clock in the morning a detachment from Ileth's division under General Pettigrew left their encampment at Cashtown and advanced upon a reconnoisance to within about one mile of Gettysburg. They had with them a number of wagons, and it was supposed",
@@ -180,10 +184,18 @@ def apply(rows):
     r = by['T1-014']
     r['cites'].update({
         'hist_3pm': LH(Q['hist_3pm'], '154', note='the number 200 as read in the text layer; page image not viewed'),
+        'hist_jenkins': LH(Q['hist_jenkins']),
+        'hist_demand': LH(Q['hist_demand'], note='the list as read in the text layer (digits not viewed on the page image); the county history gives $5,000 in cash and no value of the goods'),
+        'hoke_demand': L('HOKE-1887', Q['hoke_demand'], note='the text layer prints "coifee" and "live hundred hats"; the quantities as read in the text layer, page image not viewed'),
         'star_fri': CA('CA-sn83045462-1863-07-01-p2', Q['star_fri'], reading="The place was occupied on Friday afternoon last by four thousand five hundred Rebels under command of General Early; they had with them twenty pieces of light artillery.", image=IMG['star_fri'],
                        witness='Evening Star (Washington), Jul 1 1863: an informant who was in Gettysburg when the rebel troops entered, reported by a Philadelphia Inquirer correspondent at Harrisburg, Jun 30'),
     })
     sub_append(r, 1, '; the county history of 1886 has the advance guard of the rebels, 200 strong, gallop into Gettysburg about 3 o\'clock on the afternoon of the 26th; an informant of the Evening Star of Jul 1 1863 says the place was occupied on Friday afternoon by 4,500 Rebels under General Early with twenty pieces of light artillery', 'hist_3pm', 'star_fri')
+    sub_add(r, "Hoke (1887, p.171) lists the requisition otherwise than Jacobs: 60 barrels of flour, 7,000 pounds of pork or bacon, 1,200 pounds of sugar, 100 pounds of coffee (Jacobs 600), 1,000 pounds of salt, 40 bushels of onions (Jacobs 10 barrels), 1,000 pairs of shoes and 500 hats, or ten thousand dollars in money (Jacobs: goods worth $6,000, or $5,000 cash); no whisky",
+            'inferred', 'conflict', ['hoke_demand', 'jac_demand', 'jac_demand2', 'hist_demand'])
+    r['scenarios'] = [sc('A', "Early's requisition as Jacobs gives it: 1,200 lb sugar, 600 lb coffee, 60 barrels of flour, 1,000 lb salt, 7,000 lb bacon, 10 barrels of whisky, 10 barrels of onions, 1,000 pairs of shoes, 500 hats, worth $6,000, or $5,000 cash", 'Jacobs 1864 pp.16-17 (eyewitness at Gettysburg); the county history of 1886 p.153 has the same list with $5,000 in cash', 'documented', ['jac_demand', 'jac_demand2', 'hist_demand']),
+                      sc('B', "Early's requisition as Hoke gives it: 60 barrels of flour, 7,000 lb pork or bacon, 1,200 lb sugar, 100 lb coffee, 1,000 lb salt, 40 bushels of onions, 1,000 pairs of shoes, 500 hats, or $10,000 in money", 'Hoke 1887 p.171 (a later book that names no source for the list; quantities as read in the text layer)', 'inferred', ['hoke_demand'])]
+    sub_add(r, "The county history of 1886 (p.153) has Jenkins' cavalry gallop into Gettysburg on the afternoon of the 26th (the Compiler of Jun 29 1863 names the advance of about 150 men as White's cavalry)", 'inferred', 'contradicted', ['hist_jenkins', 'cmp_entry3'])
 
     # ------------------------------------------------------------------------------------------------------------------ T1-017
     r = by['T1-017']
@@ -211,11 +223,14 @@ def apply(rows):
     r = by['T1-020']
     r['cites'].update({
         'hist_10': LH(Q['hist_10']),
+        'hoke_left': L('HOKE-1887', Q['hoke_left'], note='Hoke places this in the narrative of Sunday Jun 28; the departure from Gettysburg on Friday afternoon contradicts Early\'s report (at light next morning) and the Compiler (not a rebel in the town by 8 o\'clock)'),
         'star_left': CA('CA-sn83045462-1863-07-01-p2', Q['star_left'], reading="The next morning after the occupation the rebels left Gettysburg, after stealing everything they could lay their hands on. They pursued their way for York by way of Hanover.", image=IMG['star_left'],
                         witness='Evening Star (Washington), Jul 1 1863: an informant who was in Gettysburg when the rebels entered; the route "by way of Hanover" is his, Early gives East Berlin and Dover for the main body'),
     })
     sub_append(r, 2, '; the county history of 1886 has the rear of their army move out by ten o\'clock the next day (a later hour than the Compiler\'s 8 o\'clock); an informant of the Evening Star (Jul 1 1863): the next morning after the occupation the rebels left Gettysburg for York by way of Hanover', 'hist_10', 'star_left', support='conflict')
     scen_extend(r, 'B', '; Evening Star Jul 1 1863 (the next morning the rebels left Gettysburg for York by way of Hanover)', 'star_left')
+    sub_add(r, "Hoke (1887, p.183): Early's division \"had left Gettysburg some time on Friday afternoon\" (Early's report and the Compiler have the division in Gettysburg over Friday night and leaving on Saturday morning)", 'inferred', 'contradicted', ['hoke_left'])
+    r['scenarios'].append(sc('D', "Early's division leaves Gettysburg some time on Friday afternoon (Jun 26)", "Hoke 1887 p.183 (a later book that names no source); contradicted by Early OR27-2-R470 p.466 (at light next morning) and by the Compiler of Jun 29 1863 (not a rebel in the town by 8 o'clock on Saturday)", 'inferred', ['hoke_left']))
     r['scenarios'].append(sc('C', 'The rear of the Confederates had moved out of Gettysburg by ten o\'clock on Jun 27', 'History of Cumberland and Adams Counties 1886 p.155 (written 23 years later; against the Compiler of Jun 29 1863: not a rebel in the town by 8 o\'clock)', 'inferred', ['hist_10']))
 
     # ------------------------------------------------------------------------------------------------------------------ T1-026
@@ -315,6 +330,8 @@ def apply(rows):
     })
     sub_add(r, "Hoke (1887): about half past nine in the morning of Jun 30 the detachment left Cashtown and went to within about one mile of Gettysburg with a number of wagons; approaching the town it halted, and after a careful observation by the officers through their field-glasses it withdrew and encamped at Marsh Creek (a later book that names no source)",
             'inferred', 'conflict', ['hoke_pettig', 'hoke_pettig2'])
+    sub_append(r, 5, '; Hoke (1887): the detachment withdrew and encamped at Marsh Creek', 'hoke_pettig2')
+    r['scenarios'].append(sc('C', 'The brigade leaves Cashtown about 09:30, goes to within about a mile of Gettysburg, halts and observes the town, withdraws and encamps at Marsh Creek', 'Hoke 1887 pp.232-233 (a later book that names no source for the hour or the camp)', 'inferred', ['hoke_pettig', 'hoke_pettig2']))
 
     # ------------------------------------------------------------------------------------------------------------------ T1-049
     r = by['T1-049']

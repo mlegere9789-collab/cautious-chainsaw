@@ -1,0 +1,18 @@
+# kit-us-1c-04: Company commanders and other officers of the First Corps infantry the record does not name
+
+| Field | Content |
+|---|---|
+| ID | kit-us-1c-04 |
+| Requirement IDs | R04, OA04; evidence group us-1c |
+| Category | evidence missing |
+| Description | R04 and OA04 ask for commanders from lieutenant to general named where the record names them. The evidence file kit/evidence/us-1c.jsonl names the commanders of every regiment, brigade, division and the corps with the order of succession, the officers killed or mortally wounded (53 lines), and, from the reports and the histories read, 231 officers in all (staff, aides, surgeons, company and field officers wounded, captured or commended). It does not name the captains and lieutenants who commanded the companies of most regiments: the reports name a company officer only for a wound, a capture, a death or a commendation, and the second-pass gap line us-1c:0682 lists eleven regiments for which the reports and histories read name no officer beyond the commanders and the officers killed or mortally wounded (7th Indiana, 84th, 95th, 94th and 104th New York, 13th Massachusetts, 11th, 90th and 121st Pennsylvania, 7th Wisconsin, 16th Vermont). The first names of many officers are not printed (the reports give only a surname; the given names of the staff officers are those in the editors' brackets). |
+| Why literal 100% is not possible or blocked | The Official Records and the regimental and state histories read do not list the company officers of each regiment on 1 to 3 July. The rolls that do (the state rosters and the regimental rolls) are the work of the roster workstream and were not part of this pass. |
+| Evidence searched | OR27-1 reports R029 to R070: every mention of a rank word followed by a capitalized name listed (about 400) and read; the lists of officers killed and mortally wounded (R013 pp. 188 to 192); the eight further histories of the second pass (the 150th's chapters of 1 July in full); the state volumes of the first pass for the officers of the passages found. OCR garbles of a rank word or a name can hide a mention. |
+| Autonomous substitute applied | The unit card names the commanders the file gives; the other companies carry no named commander. The roster workstream's rolls (officers by company with dates of commission) are the way to name them, as inferred from the rolls with a date check against the casualty lists. |
+| Strongest evidence-based reconstruction | The officers named by the record, each with its quote and event; nothing is added from memory. |
+| Confidence tier | documented for the named officers; not named for the rest |
+| Product marking | A company without a named commander says "commander not named in the record read". |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | Whether the roster workstream's company officers (dated) are to be joined to these lines in the verified table, and whether a company commander that only a roll names (tier inferred, with the date check) is acceptable for the unit card. |
+| Status | open (proposed by bt-oob-kit; not yet in register/) |
+| Owner decision and date | (filled only from the Decision Log) |

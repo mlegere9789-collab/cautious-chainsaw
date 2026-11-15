@@ -4,7 +4,7 @@
 
 Why these pages.  (1) The plan (PLAN.md 4.4) sends every disagreement to a third reader; the first sitting had one reader.  The two Massachusetts officers pages that decide
 MA-SSM-officers (R-G2 and R-G3b rest on 32 lines), page 685 where tesseract agreed with the stored text on three lines that the reader called errors, and page 224 (12 of 14
-lines in error) were read again by a second sitting of the same role, with the verdict of the first sitting in front of it only after the page had been read.  (2) The failure of
+lines in error) were read again by a second sitting of the same role, which had the first verdict and the stored lines in front of it when it looked at the page: a check of the recorded disagreements against the page, not a blind second reading.  (2) The failure of
 VT-REV-officers rested on one page (the lowest-decile page, leaf 88): leaves 117 and 225 had been compared at the name level only because the dates and remarks had
 "already failed"; leaf 117 is compared now at the levels D and R.  (3) Draw position 2 of MA-SSM-officers was passed over by the first sitting; it is a verdict of its own
 (massachusettssol11931mass-0631.verdict.json, written with qa_verdict.py), not an addendum.
@@ -23,8 +23,8 @@ R = Q.R
 
 GATE = {'name-char': 'R-G1', 'name-cut': 'R-G1', 'name-nonperson': 'R-G1', 'rem-date': 'R-G2'}
 
-READER = ('the engineer who closed the item, a later sitting than the one that wrote the first verdicts; the page image was looked at with the Read tool before the first verdict was '
-          'opened; every stored line of the page was compared with the print')
+READER = ('the engineer who closed the item, a later sitting than the one that wrote the first verdicts; the first verdict and the stored lines were in front of the reader when the page image was '
+          'looked at with the Read tool (a check of the recorded disagreements against the page, not a blind second reading); every stored line of the page was compared with the print')
 
 # page -> spec.  confirmed: rows of the first verdict that this sitting also finds in error; added: errors at levels the first sitting had not compared
 PAGES = {
@@ -80,7 +80,47 @@ PAGES = {
 }
 
 
+# The 13 lines that the first layer lost and that the first sitting recovered from the page (data2/qa/recovered/*.json): the second sitting looked at the stored 300 dpi crop of each line
+# (tmp/library/rosters/_qa/img, transient, not tracked) and wrote down the printed name, or the printed ditto word Same, that it reads there; the row stands when the two agree.
+RECOVERED_CHECK = [
+    ('union-vt', 'u-vt-2nd-vermont-infantry', 'cu31924080774148/79', 'Higgins, William', "Shoreham, May 17,'61 June 20,'61 Taken pris., July 2, '62; Par. Aug. 5, '62; Prom. Corp. Dec. 31, '62; killed in action May 4, '63."),
+    ('union-vt', 'u-vt-6th-vermont-infantry', 'cu31924080774148/202', 'Daggett, Charles R.', "Putney, July 13,'63 July 13,'63 Drafted; joined ambulance train May 17, '64; died ----, in Hanover county Va., buried July 29, '64."),
+    ('union-vt', 'u-vt-13th-vermont-infantry', 'cu31924080774148/514', 'Drugg, Cliffus', "Stowe, Aug. 25,'62 Oct. 10,'62 Must. out July 21, '63."),
+    ('union-vt', 'u-vt-15th-vermont-infantry', 'cu31924080774148/543', 'Dennis Duhigg,', "Lyndon, Sept. 17,'62 Oct. 22,'62 Priv. Co. G.; Prom. Sergt.-Maj. Nov. 14, '62; Must out Aug. 5, '63."),
+    ('union-vt', 'u-vt-15th-vermont-infantry', 'cu31924080774148/559', 'Samuel H. Kellogg,', "Concord, Aug. 28,'62 Oct. 22,'62 Recd. May 3, '63; Must. out Aug. 5, '63."),
+    ('union-vt', 'u-vt-1st-vermont-cavalry', 'cu31924080774148/246', 'Langdon H. Nichols,', "Roxbury, Oct. 3,'61 Nov. 19,'61 Taken pris. May 24, '62, and died at Lynchburg, Va., July 27, '62."),
+    ('union-me', 'u-me-3rd-maine-infantry', 'supplementtoannu00main/56', 'Same', 'Corporal I 3 do (the line under Boynton Wilbert)'),
+    ('union-me', 'u-me-3rd-maine-infantry', 'supplementtoannu00main/126', 'Same', 'Corporal A 3 do (the line under Curtis Timothy B)'),
+    ('union-me', 'u-me-4th-maine-infantry', 'supplementtoannu00main/78', 'Same', 'Sergeant B 4 do (the line under Butler John, Corporal)'),
+    ('union-me', 'u-me-20th-maine-infantry', 'supplementtoannu00main/103', 'Coan Elisha S', 'Private D 20 do'),
+    ('union-me', 'u-me-20th-maine-infantry', 'supplementtoannu00main/201', 'Same', 'Lieut. Colonel 20 do (the second Same under Gilmore Charles D, Captain)'),
+    ('union-me', 'u-me-6th-maine-infantry', 'supplementtoannu00main/31', 'Same', 'Captain C 6 do (the line under Ballinger John H, Lieutenant)'),
+    ('union-me', 'u-me-1st-maine-cavalry', 'supplementtoannu00main/162', 'Ellis Osco A', 'Lieutenant E 1 do'),
+]
+
+
+def check_recovered():
+    import re
+    norm = lambda x: re.sub(r'[^a-z0-9]', '', x.casefold())
+    rec = {}
+    for item in ('union-vt', 'union-me'):
+        for r in Q.jload(os.path.join(Q.QA, 'recovered', item + '.json'))['rows']:
+            if r.get('status', '').startswith('recovered'):
+                rec[(r['unit'], r.get('leaf'))] = r
+    rows = []
+    for item, unit, page, read_name, read_rest in RECOVERED_CHECK:
+        leaf = int(page.rsplit('/', 1)[1])
+        r = rec.get((unit, leaf))
+        assert r is not None, (unit, leaf)
+        rows.append({'item': item, 'unit': unit, 'page': page, 'recovered_name': r['name'], 'second_sitting_reads_on_the_crop': read_name, 'rest_of_the_line_as_read': read_rest, 'agrees': norm(r['name']) == norm(read_name)})
+    doc = {'f': 'roster-qa-recovered-check/1', 'about': 'The second sitting looked at the stored crop of each of the 13 recovered lines and wrote down the printed name (or the printed ditto word Same) that it reads there; no row of a recovered file was changed.',
+           'reader': READER, 'rows': rows, 'summary': {'lines': len(rows), 'agree': sum(1 for x in rows if x['agrees'])}}
+    Q.jdump(os.path.join(Q.QA, 'recovered', 'second-sitting-check.json'), doc)
+    print('recovered lines checked against their crops: %d of %d agree' % (doc['summary']['agree'], doc['summary']['lines']))
+
+
 def main():
+    check_recovered()
     now = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
     out = []
     for pid, sp in PAGES.items():

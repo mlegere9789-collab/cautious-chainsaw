@@ -297,9 +297,9 @@ CURATED += [
      'The study says Ziegler\'s Grove, a large wooded area north of the clump on the ridgeline, was a much larger and striking feature on the 1863 landscape than the clump.', D3,
      {'q': None, 'anchor': ZIEG}),
     ('NPSX-COMMON-PRIDE-3-p006-02', '', 'ground', 'inferred', 'Ziegler\'s Grove: probably cut down after the battle, replanted in 1888',
-     'The study says there was probably no Ziegler\'s Grove at the time Bachelder was impressed with the Copse of Trees, and that in November 1888 the Memorial Association replanted 125 trees in the grove, apparently to replace trees cut down there: the grove of 1863 was larger than the woods the Warren sheet shows (1868-69).', {'basis': 'after the battle; replanted November 1888'},
+     'The study says there was probably no Ziegler\'s Grove at the time Bachelder was impressed with the Copse of Trees, and that in November 1888 the Memorial Association replanted 125 trees in the grove, apparently to replace trees cut down there.', {'basis': 'after the battle; replanted November 1888'},
      {'q': 'He could not, because there was probably no Ziegler\'s Grove at the time Bachelder was so impressed with the Copse of Trees. In November 1888, just one year after Bachelder managed to get his resolution for the iron fence passed, the G3MA replanted 125 trees in Ziegler\'s Grove, apparently to replace trees cut down there.', 'own_quote': True, 'anchor': ZIEG,
-      'note': 'The study\'s own "probably": inferred. It bears on the extent of the drawn grove (gap). Letter for letter as saved: the text layer reads "G3MA" where the study prints GBMA (the Gettysburg Battlefield Memorial Association).'}),
+      'note': 'The study\'s own "probably": inferred. It bears on the extent of the drawn grove: the layer draws the Warren wood of 1868-69, which may show less than the grove of 1863 (gap G19). Letter for letter as saved: the text layer reads "G3MA" where the study prints GBMA (the Gettysburg Battlefield Memorial Association).'}),
     ('NPSX-COMMON-PRIDE-3-p004-01', '', 'ground', 'documented', 'the copse trees cut down by their owner after the war',
      'Bachelder\'s recollection of 1894, quoted by the study: after the war he found the owner cutting the copse trees down, a dozen or more already lying on the ground, and persuaded him to spare them: the copse as the Warren sheet shows it is the part that was spared.', {'basis': 'the 1860s, after the war'},
      {'q': None, 'anchor': COPSE, 'note': ACCOUNT + ' (Bachelder\'s recollection of 1894).'}),
@@ -519,6 +519,14 @@ CURATED += [
      {'excerpt': True, 'note': 'The report\'s own hedge ("appear", "possibly"): inferred; the species of the layer\'s orchards are not changed by it. Not placed (see the claim before).'}),
 ]
 
+TIMELINE_PASSAGES = {'NPSX-HSR-LEISTER-BARN-p013-05'}      # xids of the timeline-correction file (not R20 rows) that this file reads: the passage a timeline row of vegetation rests on
+
+CURATED += [
+    ('NPSX-HSR-LEISTER-BARN-p013-05', '', 'damage', 'documented', 'the Leister farm after the battle: the crops trampled',
+     'The report says that when Mrs. Leister, who had left the farm on the evening of 1 July, came back several days later, dead horses littered the yard and the crops were trampled (the same passage says she found the farm in literal ruins and the barn and house damaged by shell fire and by troops who took the siding for firewood and grave markers).', {'from': '1863-07-01', 'to': '1863-07-08', 'basis': 'several days after 1 July'},
+     {'q': 'Dead horses littered the yard, the crops were trampled', 'anchor': {'farm': 'leister', 'r_m': 350, 'class': 'field', 'area': True}, 'note': 'A passage the web task linked to the timeline row T3-087. The report names no crop and no acreage and does not date the trampling: no event is made of it (the fields near the farm are trampled where the troops the theatre draws walked, and by the events of the record).'}),
+]
+
 # rows read and left out, each with the reason (so that a row of the correction file cannot be skipped silently)
 LEFT_OUT_B = {
     'NPSX-CLR-LRT-p036-01': 'the Commission\'s aim of 1895 to 1922 (keep the arrangement of the existing woods and fields): management of a later time, no state of 1863',
@@ -569,6 +577,13 @@ def main():
             r = json.loads(l)
             if str(r.get('id', '')).startswith('R20'):
                 rows[r['xid']] = r
+    tl = os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'timeline_corrections', 'web-nps-landscape.jsonl')     # passages the web task linked to timeline rows that name a vegetation state (they carry the same citation)
+    if os.path.exists(tl):
+        for l in open(tl, encoding='utf-8'):
+            if l.strip():
+                r = json.loads(l)
+                if r.get('xid') in TIMELINE_PASSAGES and r['xid'] not in rows:
+                    rows[r['xid']] = r
     out, bad = [], []
     for xid, suf, kind, tier, feat, says, when, ex in CURATED:
         r = rows.get(xid)

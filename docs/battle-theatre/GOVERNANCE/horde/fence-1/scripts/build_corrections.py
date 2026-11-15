@@ -343,7 +343,22 @@ def resolve_old(c):
                     role=c['role'], note=c.get('note'))
     raise SystemExit('bad src ' + src)
 
+_PO_PATH = os.path.join(HERE, '..', 'page_overrides.json')
+PAGE_OVERRIDES = json.load(open(_PO_PATH, encoding='utf-8'))['overrides'] if os.path.exists(_PO_PATH) else {}
+def apply_page_override(rec):
+    """wave 5: a book citation without a printed page gets the page found in the archive.org page-by-page OCR (make_page_overrides.py; page_from_xml.py states the rule)"""
+    if rec.get('printed_page') or rec.get('source_id', '').startswith(('OR-', 'NPS', 'CA:')): return rec
+    ov = PAGE_OVERRIDES.get('%s|%d|%d' % (rec['source_id'], rec['offset'][0], rec['offset'][1]))
+    if ov:
+        rec['printed_page'] = ov['printed_page']; rec['page_hint'] = None
+        rec['page_basis'] = ('printed number from the archive.org page-by-page OCR (item %s, leaf %s of its _djvu.xml): %s; the head of the leaf is read and confirmed by the heads of neighbouring leaves (scripts/page_from_xml.py)' % (ov['archive_item'], ov['leaf'], ov['method']))
+    return rec
+
 def resolve(c):
+    rec = _resolve(c)
+    return apply_page_override(rec)
+
+def _resolve(c):
     if c['src'] == 'XF':
         rec = resolve_xf(c)
     elif c['src'] in ('ACQ', 'KIT', 'K2', 'NPSW', 'CA', 'OR1W'):

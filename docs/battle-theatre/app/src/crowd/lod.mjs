@@ -21,7 +21,11 @@ import { soldierPlace } from '../../../render/prototype/src/world.mjs';
 export const LOD_BASE = Object.freeze({ r0: 10, r1: 13, r2: 75 });                      // metres at 1080p, 60 degrees (figures3d handover.json)
 export const LOD0_BUDGET = 96;                                                          // men at LOD0 at once (the pose palette has this many slots)
 export const LOD_FADE = Object.freeze({ width: 0.15, band: 0.075, hysteresis: 0.10, dabPx: 7 });   // width = 2 * band; hysteresis = the half-width of the per-figure threshold spread; dabPx = height of an impostor below which it is a dab
-export const LOD_Q = 65534;                                                             // ranges are 16-bit integers 0 .. LOD_Q
+export const LOD_Q = 65534;
+// the flat dab of a small figure (below dabPx pixels high) fills its whole impostor quad; the baked figure fills 18 percent of it (131 upright foot classes of data/figures3d/impostor-atlas.png: mean silhouette area 0.181 of the quad,
+// bounding box 22.1 of 48 texels wide and 56.1 of 64 high, so the mean width over the height 0.181 / 0.877 = 0.206). A cross-fade from one to the other cannot hide a five-fold jump of area, so the dab narrows to the figure's
+// footprint as the figure grows: from the whole quad at lowPx pixels (the earlier look of a small figure, kept) to a strip w wide and margin short of the top and bottom at dabPx, where the baked view takes over.
+export const LOD_DAB = Object.freeze({ w: 0.21, margin: 0.06, lowPx: 3 });                                                             // ranges are 16-bit integers 0 .. LOD_Q
 const H30 = Math.PI / 6;
 
 // ---------------------------------------------------------------------------------------------------- options and radii
@@ -65,8 +69,14 @@ export const ditherNumber = (fig, px, py) => fr(ign(px, py) + figurePhase(fig));
 export function keepFragment(P, fig, px, py) { if (P === 0) return true; const { lo, hi } = decodeRange(P), n = ditherNumber(fig, px, py); return n >= lo && n < hi; }
 // the impostor keeps what the three levels do not: n >= q2 / LOD_Q, with q2 from the impostor's own distance (the vertex shader computes it from its own position)
 export function farKeeps(nu, r2, b, fig, px, py) { const q2 = lodQ(nu, r2, b); if (q2 >= LOD_Q) return false; return ditherNumber(fig, px, py) >= q2 / LOD_Q; }
+// the impostor's baked views stand at whole numbers of yn = yaw / (2 pi) * 8 (0 .. 8): between two, a fragment takes the next view with the share fract(yn) (hard mode: the nearest view). { view, share } of the first view and of the next one.
+export function viewBlend(yn, b) { return b > 0 ? { view: ((Math.floor(yn) % 8) + 8) % 8, share: yn - Math.floor(yn) } : { view: ((Math.floor(yn + 0.5) % 8) + 8) % 8, share: 0 }; }
+// the view a fragment of the impostor of figure fig at pixel centre (px, py) draws: the second noise is the same pattern turned over (ign of the transposed pixel) shifted by a second phase of the figure
+export function impostorView(yn, b, fig, px, py) { const v = viewBlend(yn, b); if (v.share > 0 && fr(ign(py, px) + fr(figurePhase(fig) * 7.0 + 0.37)) < v.share) return (v.view + 1) % 8; return v.view; }
 // the impostor of a figure of apparent height hpx (pixels; after the figure's scale) shades as a flat two-tone dab below dabPx and as the baked view above it: the share of the dab
 export const dabShare = (hpx, f, b, dabPx = LOD_FADE.dabPx) => 1 - fadeBand(hpx * f, dabPx, b);
+// the footprint of the dab at apparent height ht (= hpx * the figure's scale): { w: the share of the quad's width it fills, margin: the share of the quad's height left empty at the top and at the bottom, k }; the whole quad in hard mode
+export function dabFootprint(ht, b, dabPx = LOD_FADE.dabPx) { let k = 0; if (b > 0) { const t = Math.min(1, Math.max(0, (ht - LOD_DAB.lowPx) / (dabPx - LOD_DAB.lowPx))); k = t * t * (3 - 2 * t); } return { w: 1 - (1 - LOD_DAB.w) * k, margin: LOD_DAB.margin * k, k }; }
 
 // ---------------------------------------------------------------------------------------------------- the list of drawn figures (typed arrays, grown by doubling, nothing allocated per frame)
 const FIELDS = [['fig', Int32Array, 1], ['unit', Int32Array, 1], ['k', Int32Array, 1], ['x', Float32Array, 1], ['z', Float32Array, 1], ['h', Float32Array, 1], ['d2', Float64Array, 1], ['nu', Float64Array, 1], ['mount', Uint8Array, 1],

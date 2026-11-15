@@ -119,6 +119,33 @@ try {
   await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-LRT', 'wiki_light_summit')); await at('1863-07-02T12:00', lrtE); const L4 = await shot('18c-lrt-east-light-summit');
   await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-LRT', 'nps_clr'));
   check('the reading of Little Round Top reaches the picture: unwooded removes the trees of the east slope, lightly wooded keeps about half (the pictures differ from the default and from each other)', diff(L2, L3) > 0.03 && diff(L2, L4) > 0.01 && diff(L3, L4) > 0.01, { unwooded: diff(L2, L3), light: diff(L2, L4), between: diff(L3, L4) });
+  // ---- the second reading of the park's landscape evidence (15 November): the data seen through the page, the Copse of Trees and Ziegler's Grove, the Meyers orchard on the day of the dedication,
+  // Houck's ground under its two readings, the understory under its three readings (the woods are placed again), the McPherson acres
+  const nf = await page.evaluate(() => { const v = window.btApp.theatre.vegetation, M = v.model, copse = M.units.find(u => u.lc === 'LC-TREES-0039'), s = v.stateAt(copse.id, 33 * 1440 + 12 * 60, {}); return { scenarios: Object.keys(M.scenarios), witness: M.data.witness_trees.length, claims: M.data.claims.length, named: M.data.meta.named.length, rows: Object.keys(M.data.meta.rows).length, copseHeight: s.trees.height, copseTier: s.tiers.treeHeight, copseSpecies: Object.keys(s.trees.species) }; });
+  results.newData = nf;
+  check('the new data is seen through the page: six choices, five named trees, the Copse of Trees at 2.4 to 3.1 m (inferred), the table of names and of rows', nf.scenarios.length === 6 && nf.witness === 5 && nf.named >= 12 && nf.rows === 14 && nf.claims > 550 && nf.copseHeight && nf.copseHeight[0] === 2.4 && nf.copseHeight[1] === 3.1 && nf.copseTier === 'inferred' && nf.copseSpecies.join() === 'oak', nf);
+  await at('1863-07-03T12:00', await viewOfUnit('LC-TREES-0039', { dist: 55, height: 14, yaw: 0.8 })); await shot('31-copse-of-trees-3jul');
+  await at('1863-07-03T12:00', await viewOfUnit('LC-WOOD-0127', { dist: 150, height: 40, yaw: 0.8 })); await shot('32-zieglers-grove-3jul');
+  await at('1863-11-19T12:00', await viewOfUnit('LC-ORCH-0046', { dist: 170, height: 45, yaw: 1.0 }), { lock: false }); await shot('33-meyers-orchard-19nov');
+  const houckView = await viewOfUnit('LC-TREES-0009', { dist: 220, height: 80, yaw: 1.4 });
+  await at('1863-07-02T12:00', houckView); const H1 = await shot('34-houck-ridge-warren-woods');
+  await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-HOUCK', 'clear_cut')); const H2 = await shot('35-houck-ridge-clear-cut-pasture');
+  const hkState = await page.evaluate(() => { const v = window.btApp.theatre.vegetation; return v.model.scenarios['CF-VEG-HOUCK'].units.map(id => { const s = v.stateAt(id, 32 * 1440 + 12 * 60); return { id, keep: s.trees.keep, crop: s.ground.crop }; }); });
+  await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-HOUCK', 'as_warren'));
+  check("Houck's ground read as clear-cut changes the picture (its trees are gone and the ground is pasture); the Warren reading is the default", diff(H1, H2) > 0.01 && hkState.length >= 4 && hkState.every(x => x.keep === 0 && x.crop === 'pasture'), { diff: diff(H1, H2), hkState });
+  // the understory: a ridge forest from a low view under the three readings. The shrubs are placed again after a choice (about a second of work: wait for the number of trees to change)
+  const underView = await viewOfUnit('LC-WOOD-0001', { dist: 60, height: 12, yaw: 1.2 });
+  const nTrees = () => page.evaluate(() => window.btApp.theatre.vegetation.status().trees);
+  const nowTrees = async (k) => { await page.waitForFunction(k => window.btApp.theatre.vegetation.status().trees !== k, k, { timeout: 300000 }); await page.evaluate(() => window.btApp.frames(4)); return nTrees(); };
+  const n0 = await nTrees(); await at('1863-07-03T09:00', underView); const U1 = await shot('36-understory-as-classed-culps-hill');
+  await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-UNDER', 'dense')); const n1 = await nowTrees(n0); const U2 = await shot('37-understory-dense-culps-hill');
+  await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-UNDER', 'open_grown')); const n2 = await nowTrees(n1); const U3 = await shot('38-understory-open-grown-culps-hill');
+  await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-UNDER', 'as_classed')); const n3 = await nowTrees(n2);
+  results.notes.push(`trees after each reading of the understory: as classed ${n0}, dense ${n1}, open-grown ${n2}, as classed again ${n3}`);
+  check('the reading of the understory places the woods again: dense has more trees than as classed, open-grown fewer, and back to as classed the same number', n1 > n0 + 30000 && n2 < n0 && n3 === n0, { n0, n1, n2, n3 });
+  check('the three readings of the understory give three pictures of a ridge forest at a low view', diff(U1, U2) > 0.003 && diff(U1, U3) > 0.0005 && diff(U2, U3) > 0.003, { dense: diff(U1, U2), open: diff(U1, U3), between: diff(U2, U3) });
+  const mc = await page.evaluate(() => { const v = window.btApp.theatre.vegetation, M = v.model, count = ch => { const c = {}; for (const u of M.units) if (u.cls === 'field') { const k = v.stateAt(u.id, 32 * 1440 + 12 * 60, ch).ground.crop; c[k] = (c[k] || 0) + 1; } return c; }; return { clr: count({}), study: count({ 'CF-VEG-MCPHERSON': 'study-1977' }) }; });
+  check('the McPherson acres move the crop of the cells the other mix draws differently (more oats under the study) and no crop a passage names', mc.study.oats > mc.clr.oats && Object.values(mc.study).reduce((a, b) => a + b, 0) === Object.values(mc.clr).reduce((a, b) => a + b, 0), mc);
   // ---- the wind (the engine spec's wind_response): the wind is the theatre's own and the foliage sways with the minute of the clock (the light is kept, so that nothing else on the picture changes)
   const treeView = await viewOfUnit('LC-WOOD-0001', { dist: 45, height: 16, yaw: 1.2 });
   await at('1863-07-03T09:00', treeView); const WA = await shot('19a-sway-minute-0'); const swayA = await page.evaluate(() => window.btApp.theatre.vegetation.status().sway);
@@ -170,7 +197,7 @@ try {
   await clean(false);
   await page.evaluate(() => window.btApp.theatre.openPanel('vegetation')); await page.waitForSelector('#veg-card h3', { timeout: 60000 });
   const pn = await page.evaluate(() => ({ title: document.querySelector('#bt-drawer-title').textContent, card: document.querySelector('#veg-card').textContent.slice(0, 400), pills: document.querySelectorAll('.xp-body .pill, #bt-drawer .pill').length, sce: [...document.querySelectorAll('[data-sce]')].length, gaps: document.querySelectorAll('details ul.list li').length, crop: !!document.querySelector('#veg-crop') }));
-  check('the panel names the ground under the cross-hair, offers the three conflicts and the switch of the standing crop', /Wheatfield|wheat/i.test(pn.card) && pn.sce >= 8 && pn.crop, pn); await shot('16-panel', true);
+  check('the panel names the ground under the cross-hair, offers the six choices and the switch of the standing crop', /Wheatfield|wheat/i.test(pn.card) && pn.sce >= 16 && pn.crop, pn); await shot('16-panel', true);
   const sc = await page.evaluate(() => { const v = window.btApp.theatre.vegetation; const a = v.stateAt('V-0001', 45 * 1440, {}).ground.stage; v.choose('CF-VEG-LRT', 'wiki_unwooded'); return { local: v.effChoices(), a }; });
   check('a choice of the panel is kept and reaches the state function', sc.local['CF-VEG-LRT'] === 'wiki_unwooded', sc);
   await page.keyboard.press('Escape');

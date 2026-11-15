@@ -1,6 +1,7 @@
 // WGSL of the figure pass (WebGPU): the same three programs as shaders-gl.mjs (MID: bone-matrix texture, NEAR: CPU palette, IMP: far impostors), appended to the prototype's own common(K) (frame block, units / soldier tables,
 // hAt, place, shadowAt, lit, fogged ...). Bind group 1 holds this pass's data; see gpu.mjs.
 import { MATC, NSLOT } from './tables.mjs';
+import { LOD_DAB } from './lod.mjs';
 
 export const wgsl = (common) => common + /* wgsl */`
 struct Cfg { tpf: u32, pad0: u32, r2: f32, band: f32, hyst: f32, dab: f32, pad2: f32, pad3: f32 }       // r2, band, hyst, dab: the cross-fade of the impostor (lod.mjs); the human and horse groups carry the same block
@@ -75,10 +76,10 @@ fn fetchM(g: u32, b: u32, m: u32) -> vec4f { let x = i32((g & 1u) * cfg.tpf + b 
   return vec4f(fogged(lit(m.alb, m.rough, m.metal, N, i.wp, sh, ao), i.wp), 1.0);
 }
 // ---- far impostors: one instance per world figure. cfg = (r2, band, hysteresis, dab height in pixels): the impostor cross-fades in over r2 (1 +- band) in the figure's own scale (the same hash as figureScale: hsh(fig * 13 + 5)),
-// keeps the fragments of [lo, 1) the three levels do not (lo = f.x), and gives way from the baked view to a flat two-tone dab below cfg.dab pixels over the same band of the height (f.y = the share of the dab). A figure of under 3 px keeps a share of its fragments (v.z).
-struct IOut { @builtin(position) pos: vec4f, @location(0) wp: vec3f, @location(1) q: vec2f, @location(2) @interpolate(flat) w: vec4<u32>, @location(3) @interpolate(flat) v: vec4f, @location(4) @interpolate(flat) rt: vec3f, @location(5) @interpolate(flat) f: vec2f }
+// keeps the fragments of [lo, 1) the three levels do not (lo = f.x), and gives way from the baked view to a flat two-tone dab below cfg.dab pixels over the same band of the height (f.y = the share of the dab), and between two baked views the fragment takes the next view with the share f.z. A figure of under 3 px keeps a share of its fragments (v.z).
+struct IOut { @builtin(position) pos: vec4f, @location(0) wp: vec3f, @location(1) q: vec2f, @location(2) @interpolate(flat) w: vec4<u32>, @location(3) @interpolate(flat) v: vec4f, @location(4) @interpolate(flat) rt: vec3f, @location(5) @interpolate(flat) f: vec4f }
 @vertex fn vs_imp(@builtin(vertex_index) vi: u32, @builtin(instance_index) ii: u32) -> IOut {
-  var o: IOut; o.pos = vec4f(2.0, 2.0, 2.0, 1.0); o.wp = vec3f(0.0); o.q = vec2f(0.0); o.w = vec4<u32>(0u); o.v = vec4f(0.0); o.rt = vec3f(0.0); o.f = vec2f(0.0);
+  var o: IOut; o.pos = vec4f(2.0, 2.0, 2.0, 1.0); o.wp = vec3f(0.0); o.q = vec2f(0.0); o.w = vec4<u32>(0u); o.v = vec4f(0.0); o.rt = vec3f(0.0); o.f = vec4f(0.0);
   let p = place(ii, F.cam.w); let d3 = p.pos + vec3f(0.0, 0.9, 0.0) - F.cam.xyz; let dist = length(d3); let b = cfg.band; let hy = cfg.hyst; var rLo = cfg.r2 * 0.995; if (b > 0.0) { rLo = cfg.r2 * (1.0 - b) * (1.0 - hy); } if (dist < rLo || dist > F.lod.z) { return o; }
   let fsc = 1.0 + hy * (2.0 * hsh(ii * 13u + 5u) - 1.0); var sF = select(0.0, 1.0, dist >= cfg.r2 * 0.995); if (b > 0.0) { sF = bandS(dist / fsc, cfg.r2, b); } let lo = floor((1.0 - sF) * 65534.0 + 0.5); if (lo >= 65534.0) { return o; }
   let w = wordsOf(ii); let vinf = varInfoOf(w.x & 65535u); let cls = i32(vinf.z); let imeta = textureLoad(impMetaT, vec2<i32>(cls, 0), 0); let sc = statureOf(w);
@@ -88,15 +89,18 @@ struct IOut { @builtin(position) pos: vec4f, @location(0) wp: vec3f, @location(1
   let toCam = normalize(vec3f(-d3.x, 0.0, -d3.z)); let right = vec3f(toCam.z, 0.0, -toCam.x); let cx = f32(vi & 1u) * 2.0 - 1.0; let cy = f32((vi >> 1u) & 1u);
   let wp = p.pos + right * (cx * qw * 0.5) + vec3f(0.0, yb + cy * qh, 0.0); o.pos = F.vp * vec4f(wp, 1.0); o.wp = wp; o.q = vec2f(cx * 0.5 + 0.5, cy);
   let c = cos(p.head); let s = sin(p.head); let dxm = toCam.x * c - toCam.z * s; let dzm = toCam.x * s + toCam.z * c; var yaw = atan2(dxm, dzm); if (yaw < 0.0) { yaw += 6.2831853; }
-  let view = floor(yaw / 6.2831853 * 8.0 + 0.5) % 8.0; o.v = vec4f(view, f32(cls), cover, hsh(ii * 7u + 3u)); o.w = w; o.rt = right; o.f = vec2f(lo / 65534.0, dm); return o;
+  let yn = yaw / 6.2831853 * 8.0; var view = floor(yn + 0.5) % 8.0; var fv = 0.0; if (b > 0.0) { view = floor(yn) % 8.0; fv = fract(yn); }      // the eight baked views stand at whole numbers of yn; between two the fragment takes the next view with the share fv
+  o.v = vec4f(view, f32(cls), cover, hsh(ii * 7u + 3u)); o.w = w; o.rt = right; var kd = 0.0; if (b > 0.0) { kd = smoothstep(${LOD_DAB.lowPx.toFixed(1)}, cfg.dab, hpx * fsc); } o.f = vec4f(lo / 65534.0, dm, fv, kd); return o;      // w: the dab narrows to the figure's footprint as the figure grows (LOD_DAB)
 }
 @fragment fn fs_imp(i: IOut) -> @location(0) vec4f {
   let n = fract(ign(i.pos.xy) + i.v.w); if (n < i.f.x) { discard; }                                          // [0, lo) is kept by the 3D levels
   var u = n; if (i.f.x > 0.0) { u = (n - i.f.x) / (1.0 - i.f.x); } if (u > i.v.z) { discard; } var uu = u; if (i.v.z < 1.0) { uu = u / i.v.z; }      // u, uu: uniform numbers again (the share kept, the share of the dab)
   let toCam = normalize(F.cam.xyz - i.wp); let hc = normalize(vec3f(toCam.x, 0.0, toCam.z));
-  if (uu < i.f.y) { let mm = select(${MATC.TROUSERS}, ${MATC.COAT}, i.q.y > 0.45); let m = resolveMat(mm, i.w);
+  if (uu < i.f.y) { let fw = mix(1.0, ${LOD_DAB.w.toFixed(3)}, i.f.w); let mg = ${LOD_DAB.margin.toFixed(3)} * i.f.w; if (abs(i.q.x - 0.5) > 0.5 * fw || i.q.y < mg || i.q.y > 1.0 - mg) { discard; }
+    let mm = select(${MATC.TROUSERS}, ${MATC.COAT}, i.q.y > 0.45); let m = resolveMat(mm, i.w);
     return vec4f(fogged(lit(m.alb, m.rough, m.metal, normalize(hc * 0.7 + vec3f(0.0, 0.7, 0.0)), i.wp, 1.0, 0.8), i.wp), 1.0); }
-  let px = i32(i.v.x) * 48 + clamp(i32(i.q.x * 48.0), 0, 47); let py = clamp(i32((1.0 - i.q.y) * 64.0), 0, 63); let t = textureLoad(impT, vec2<i32>(px, py), i32(i.v.y), 0); let mat = i32(t.r * 255.0 + 0.5); if (mat == 0) { discard; }
+  var view = i.v.x; if (i.f.z > 0.0 && fract(ign(i.pos.yx) + fract(i.v.w * 7.0 + 0.37)) < i.f.z) { view = (view + 1.0) % 8.0; }
+  let px = i32(view) * 48 + clamp(i32(i.q.x * 48.0), 0, 47); let py = clamp(i32((1.0 - i.q.y) * 64.0), 0, 63); let t = textureLoad(impT, vec2<i32>(px, py), i32(i.v.y), 0); let mat = i32(t.r * 255.0 + 0.5); if (mat == 0) { discard; }
   let nx = t.g * 2.0 - 1.0; let ny = t.b * 2.0 - 1.0; let nz = sqrt(max(0.0, 1.0 - nx * nx - ny * ny)); let N = normalize(i.rt * nx + vec3f(0.0, 1.0, 0.0) * ny + hc * nz);
   let m = resolveMat(mat, i.w); return vec4f(fogged(lit(m.alb, m.rough, m.metal, N, i.wp, 1.0, 0.55 + 0.45 * t.a), i.wp), 1.0);
 }`;

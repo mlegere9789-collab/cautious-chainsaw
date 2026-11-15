@@ -82,13 +82,14 @@ export function checkScene(model, opts = {}) {
       for (let o = 0; o < trees.n * TREE_STRIDE; o += TREE_STRIDE) if (trees.data[o + 8] === i) { n++; const h = trees.data[o + 2]; if (h < u.woods.h_m[0] * 0.9 - 1e-3 || h > u.woods.h_m[1] * 1.1 + 1e-3) fail(u, 0, `a tree of ${h.toFixed(1)} m where the claim gives ${u.woods.h_m} m`); }
       if (n === 0) fail(u, 0, 'a unit with heights from a claim has no trees');
     });
-    for (const ch of choicesList) for (const id of [...model.lrtUnits, ...model.houckUnits]) {
+    const houckKept = new Map();
+    for (const [ids, map] of [[model.lrtUnits, seedKept], [model.houckUnits, houckKept]]) for (const ch of choicesList) for (const id of ids) {            // the readings of Little Round Top and of Houck's land keep a share of the trees of their units
       const u = model.unit(id), i = units.indexOf(u), keep = stateAt(model, u, sceneMinute(36000 + 40 * 1440), ch).trees.keep; let n = 0, drawn = 0;
       for (let o = 0; o < trees.n * TREE_STRIDE; o += TREE_STRIDE) if (trees.data[o + 8] === i) { n++; if (trees.data[o + 5] <= keep) drawn++; }
       if (n >= 20 && Math.abs(drawn - keep * n) > 0.15 * n + 3) fail(u, 0, `${drawn} of ${n} trees drawn under the reading ${JSON.stringify(ch)} where the schedule keeps ${keep}`);
-      seedKept.set(id + JSON.stringify(ch), [n, drawn, keep]);
+      map.set(id + JSON.stringify(ch), [n, drawn, keep]);
     }
-    facts.lrt = Object.fromEntries([...seedKept.entries()].map(([k, v]) => [k, v]));
+    facts.lrt = Object.fromEntries([...seedKept.entries()].map(([k, v]) => [k, v])); facts.houck = Object.fromEntries([...houckKept.entries()].map(([k, v]) => [k, v]));
   } else notRun.push('the trees placed and the ground-cover mesh (no projection given)');
   return { gate: 'Q21', part: 'Q21.2 scene equals schedule', ok: failures.length === 0, checked, failures, facts, notRun };
 }

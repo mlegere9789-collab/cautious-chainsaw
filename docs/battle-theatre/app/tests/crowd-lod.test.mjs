@@ -5,9 +5,11 @@
 import test from 'node:test'; import assert from 'node:assert/strict';
 import { perspective, lookAt, mul, frustumPlanes, sphereInFrustum, hsh } from '../../render/prototype/src/math.mjs';
 import { soldierPlace } from '../../render/prototype/src/world.mjs';
-import { LOD_BASE, LOD0_BUDGET, LOD_FADE, LOD_Q, lodOptions, lodRadii, fadeBand, figureScale, figurePhase, thresholds, sharesOf, packRange, decodeRange, edgeRange, ign, keepFragment, farKeeps, dabShare, FigureList, selectFigures, checkComplementary } from '../src/crowd/lod.mjs';
+import { LOD_BASE, LOD0_BUDGET, LOD_FADE, LOD_DAB, LOD_Q, dabFootprint, lodOptions, lodRadii, fadeBand, figureScale, figurePhase, thresholds, sharesOf, packRange, decodeRange, edgeRange, ign, keepFragment, farKeeps, dabShare, viewBlend, impostorView, FigureList, selectFigures, checkComplementary } from '../src/crowd/lod.mjs';
 import { HEAD, MID_VS, NEAR_VS, FIG_FS, IMP_VS, IMP_FS } from '../src/crowd/shaders-gl.mjs';
 import { wgsl } from '../src/crowd/shaders-wgsl.mjs';
+import { decodePng } from './weather3d-gpu-lib.mjs';
+import fs from 'node:fs';
 
 const near = (a, b, e = 1e-9) => Math.abs(a - b) <= e;
 
@@ -72,6 +74,27 @@ test('the impostor and the dab: the far share is the complement of the three lev
   for (const nu of [70, 74, 75, 76, 80]) { const q = [0, 0, 0]; thresholds(nu, 10, 13, 75, 0.075, q); const s = sharesOf(q); let far = 0; const N = 4000; for (let i = 0; i < N; i++) if (farKeeps(nu, 75, 0.075, 99, i % 64 + 0.5, (i / 64 | 0) + 0.5)) far++; assert.ok(Math.abs(far / N - s[3]) < 0.04); }
   assert.equal(dabShare(20, 1, 0.075), 0); assert.equal(dabShare(5, 1, 0.075), 1); assert.ok(near(dabShare(7, 1, 0.075), 0.5)); assert.equal(dabShare(6.99, 1, 0), 1); assert.equal(dabShare(7.01, 1, 0), 0);
   let prev = 1; for (let h = 4; h < 10; h += 0.01) { const s = dabShare(h, 1, 0.075); assert.ok(s <= prev + 1e-12); prev = s; }
+});
+
+test('the eight baked views of the impostor: a figure takes the next view with the share fract(yn), so the picture changes continuously as the camera turns; the hard mode takes the nearest view', () => {
+  for (const yn of [0, 0.25, 0.5, 0.9999, 3.3, 7.75, 7.999]) { const v = viewBlend(yn, 0.075); assert.equal(v.view, Math.floor(yn) % 8); assert.ok(near(v.share, yn - Math.floor(yn), 1e-12)); }
+  assert.deepEqual(viewBlend(2.4, 0), { view: 2, share: 0 }); assert.deepEqual(viewBlend(2.6, 0), { view: 3, share: 0 }); assert.deepEqual(viewBlend(7.6, 0), { view: 0, share: 0 });
+  // the share of the pixels of a 96 x 96 patch that take the next view equals the fraction, for five figures and five angles
+  for (const fig of [0, 17, 4321, 99999, 127000]) for (const yn of [2.0, 2.2, 2.5, 2.8, 7.9]) { let next = 0; for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) if (impostorView(yn, 0.075, fig, x + 0.5, y + 0.5) !== Math.floor(yn) % 8) next++; assert.ok(Math.abs(next / 9216 - (yn - Math.floor(yn))) < 0.03, `figure ${fig} yn ${yn}: ${next / 9216}`); }
+  // no pop: turning the camera by 1/100 of a view changes the share of the next view by 1/100 (the hard mode flips the whole figure at the half way)
+  let worstSoft = 0, worstHard = 0, prevS = 0, prevH = 0; for (let yn = 0; yn < 8; yn += 0.01) { const vs = viewBlend(yn, 0.075), vh = viewBlend(yn, 0), cs = (vs.view + vs.share) , ch = vh.view; if (yn > 0.01) { worstSoft = Math.max(worstSoft, Math.abs(((cs - prevS) + 4 + 8) % 8 - 4)); worstHard = Math.max(worstHard, Math.abs(((ch - prevH) + 4 + 8) % 8 - 4)); } prevS = cs; prevH = ch; }
+  assert.ok(worstSoft < 0.0101 + 1e-9, `soft ${worstSoft}`); assert.ok(worstHard >= 1, `hard ${worstHard}`);
+});
+
+test('the dab narrows to the footprint of the baked figure: the whole quad at 3 px, the measured silhouette at 7 px, continuous between, the whole quad in hard mode', () => {
+  const f = h => dabFootprint(h, 0.075); assert.deepEqual(f(2), { w: 1, margin: 0, k: 0 }); assert.deepEqual(f(3), { w: 1, margin: 0, k: 0 }); assert.ok(near(f(7).w, LOD_DAB.w) && near(f(7).margin, LOD_DAB.margin) && near(f(9).w, LOD_DAB.w));
+  let prev = f(3); for (let h = 3; h <= 7; h += 0.01) { const c = f(h); assert.ok(c.w <= prev.w + 1e-12 && Math.abs(c.w - prev.w) < 0.02, `h ${h}`); prev = c; } assert.deepEqual(dabFootprint(5, 0), { w: 1, margin: 0, k: 0 });
+  // the numbers are the baked atlas's: 131 upright foot classes of data/figures3d/impostor-atlas.png (R = material id, 0 = empty)
+  const dir = new URL('../data/figures3d/', import.meta.url), png = decodePng(fs.readFileSync(new URL('impostor-atlas.png', dir))), rows = JSON.parse(fs.readFileSync(new URL('impostor-atlas.json', dir), 'utf8')).rows.filter(r => r.height_m < 2.3);
+  let area = 0, bw = 0, bh = 0, top = 0, bottom = 0, n = 0; for (const r of rows) for (let v = 0; v < 8; v++) { let cnt = 0, minx = 99, maxx = -1, miny = 99, maxy = -1; for (let y = 0; y < 64; y++) for (let x = 0; x < 48; x++) if (png.data[(((r.row * 64 + y) * png.w) + v * 48 + x) * 4]) { cnt++; minx = Math.min(minx, x); maxx = Math.max(maxx, x); miny = Math.min(miny, y); maxy = Math.max(maxy, y); } area += cnt / (48 * 64); bw += maxx - minx + 1; bh += maxy - miny + 1; top += miny / 64; bottom += (63 - maxy) / 64; n++; }
+  area /= n; bw /= n; bh /= n; top /= n; bottom /= n; console.log(`# the baked atlas: ${rows.length} upright classes, mean silhouette ${area.toFixed(3)} of the quad, bounding box ${bw.toFixed(1)} x ${bh.toFixed(1)} of 48 x 64, empty margin ${top.toFixed(3)} above and ${bottom.toFixed(3)} below; the dab: width ${LOD_DAB.w}, margin ${LOD_DAB.margin}`);
+  assert.ok(rows.length > 100); assert.ok(Math.abs(area / (bh / 64) - LOD_DAB.w) < 0.02, `the mean width over the height ${area / (bh / 64)}`); assert.ok(Math.abs(top - LOD_DAB.margin) < 0.03 && Math.abs(bottom - LOD_DAB.margin) < 0.03);
+  assert.ok(Math.abs(LOD_DAB.w * (1 - 2 * LOD_DAB.margin) - area) < 0.02, 'the dab at its narrowest has the area of the silhouette');
 });
 
 // ---------------------------------------------------------------------------------------------------- the selection on a synthetic world
@@ -168,7 +191,9 @@ test('WebGL2 shaders: the fade word is decoded as lod.mjs packs it, every level 
   assert.match(FIG_FS, /flat in vec3 vFade/); assert.match(FIG_FS, /if \(!fadeKeep\(vFade, gl_FragCoord\.xy\)\) discard;/);
   assert.match(IMP_VS, /hsh\(uint\(gl_InstanceID\) \* 13u \+ 5u\)/); assert.match(IMP_VS, /hash1\(uint n\) \{ return hsh\(n \* 7u \+ 3u\)/); assert.match(IMP_VS, /t \* t \* \(3\.0 - 2\.0 \* t\)/); assert.match(IMP_VS, /\(nu - r \* \(1\.0 - b\)\) \/ \(2\.0 \* r \* b\)/);
   assert.match(IMP_VS, /floor\(\(1\.0 - sF\) \* 65534\.0 \+ 0\.5\)/); assert.match(IMP_VS, /uR\.x \* \(1\.0 - b\) \* \(1\.0 - hy\)/); assert.match(IMP_VS, /1\.0 - bandS\(hpx \* fsc, uR\.w, b\)/); assert.match(IMP_VS, /if \(hpx < 3\.0\)/);
+  assert.ok(IMP_FS.includes(`mix(1.0, ${LOD_DAB.w.toFixed(3)}, vF.w)`) && IMP_FS.includes(`${LOD_DAB.margin.toFixed(3)} * vF.w`)); assert.ok(IMP_VS.includes(`smoothstep(${LOD_DAB.lowPx.toFixed(1)}, uR.w, hpx * fsc)`));
   assert.match(IMP_FS, /if \(n < vF\.x\) discard/); assert.match(IMP_FS, /\(n - vF\.x\) \/ \(1\.0 - vF\.x\)/); assert.match(IMP_FS, /uu < vF\.y/);
+  assert.match(IMP_VS, /view = b > 0\.0 \? mod\(floor\(yn\), 8\.0\) : mod\(floor\(yn \+ 0\.5\), 8\.0\), fv = b > 0\.0 \? fract\(yn\) : 0\.0/); assert.match(IMP_FS, /fract\(ign\(gl_FragCoord\.yx\) \+ fract\(vV\.w \* 7\.0 \+ 0\.37\)\) < vF\.z\) view = mod\(view \+ 1\.0, 8\.0\)/);
 });
 test('WebGPU shaders: the same decode, the same discards, the same hashes, band and dab as the WebGL2 ones', () => {
   const W = wgsl('/*common*/ fn hsh(n0: u32) -> f32 { return 0.0; }'), strip = s => s.replace(/\s+/g, ' ');
@@ -176,6 +201,8 @@ test('WebGPU shaders: the same decode, the same discards, the same hashes, band 
   assert.match(W, /o\.fade = fadeOf\(v\.iI\.w, v\.iI\.x\)/); assert.match(W, /if \(!fadeKeep\(i\.fade, i\.pos\.xy\)\) \{ discard; \}/); assert.match(W, /n >= f\.x && n < f\.y/);
   assert.match(W, /hsh\(ii \* 13u \+ 5u\)/); assert.match(W, /hsh\(ii \* 7u \+ 3u\)/); assert.match(W, /t \* t \* \(3\.0 - 2\.0 \* t\)/); assert.match(W, /\(nu - r \* \(1\.0 - b\)\) \/ \(2\.0 \* r \* b\)/);
   assert.match(W, /floor\(\(1\.0 - sF\) \* 65534\.0 \+ 0\.5\)/); assert.match(W, /cfg\.r2 \* \(1\.0 - b\) \* \(1\.0 - hy\)/); assert.match(W, /1\.0 - bandS\(hpx \* fsc, cfg\.dab, b\)/); assert.match(W, /if \(hpx < 3\.0\)/);
+  assert.match(W, /view = floor\(yn \+ 0\.5\) % 8\.0; var fv = 0\.0; if \(b > 0\.0\) \{ view = floor\(yn\) % 8\.0; fv = fract\(yn\); \}/); assert.match(W, /fract\(ign\(i\.pos\.yx\) \+ fract\(i\.v\.w \* 7\.0 \+ 0\.37\)\) < i\.f\.z\) \{ view = \(view \+ 1\.0\) % 8\.0; \}/);
+  assert.ok(W.includes(`mix(1.0, ${LOD_DAB.w.toFixed(3)}, i.f.w)`) && W.includes(`${LOD_DAB.margin.toFixed(3)} * i.f.w`)); assert.ok(W.includes(`smoothstep(${LOD_DAB.lowPx.toFixed(1)}, cfg.dab, hpx * fsc)`));
   assert.match(W, /if \(n < i\.f\.x\) \{ discard; \}/); assert.match(W, /\(n - i\.f\.x\) \/ \(1\.0 - i\.f\.x\)/); assert.match(W, /uu < i\.f\.y/); assert.match(strip(W), /struct Cfg \{ tpf: u32, pad0: u32, r2: f32, band: f32, hyst: f32, dab: f32, pad2: f32, pad3: f32 \}/);
   // the two ports use one set of constants
   for (const [a, b] of [[/65534\.0/g, 65534.0]]) { void a; void b; } assert.equal((W.match(/65534\.0/g) || []).length >= 4, true);

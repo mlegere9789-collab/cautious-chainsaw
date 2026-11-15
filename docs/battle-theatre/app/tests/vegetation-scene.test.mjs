@@ -24,6 +24,8 @@ test('scene equals schedule: the state texture, the trees placed, the ground cov
   const lrt = Object.entries(r.facts.lrt).filter(([k]) => /wiki_unwooded/.test(k)); assert.ok(lrt.length >= 2 && lrt.every(([, v]) => v[1] === 0), 'unwooded: no tree of the hill is drawn');
   const u = r.facts.understory; assert.deepEqual(Object.keys(u).sort(), ['as_classed', 'dense', 'open_grown']); assert.ok(u.as_classed.woodsChecked > 100 && u.dense.woodsChecked > 100, JSON.stringify(u));
   assert.ok(u.dense.trees > u.as_classed.trees + 30000 && u.as_classed.trees > u.open_grown.trees, 'the readings place different numbers of shrubs: ' + JSON.stringify(u));
+  const hk = Object.entries(r.facts.houck).filter(([k, v]) => /clear_cut/.test(k) && v[0] >= 20); assert.ok(hk.length >= 1 && hk.every(([, v]) => v[1] === 0), "Houck's land read as clear-cut: no tree of its woods is drawn: " + JSON.stringify(hk));
+  const hk0 = Object.entries(r.facts.houck).filter(([k, v]) => !/clear_cut/.test(k) && v[0] >= 20); assert.ok(hk0.length >= 1 && hk0.every(([, v]) => v[1] === v[0]), 'otherwise all are drawn');
   const half = Object.entries(r.facts.lrt).filter(([k, v]) => /wiki_light_summit/.test(k) && v[0] >= 20); assert.ok(half.length >= 1 && half.every(([, v]) => Math.abs(v[1] / v[0] - 0.5) < 0.2), 'lightly wooded: about half of the trees');
 });
 

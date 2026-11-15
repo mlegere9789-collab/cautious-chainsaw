@@ -148,6 +148,8 @@ test('the lines recovered by a second reading carry their own locator and are ne
       assert.equal(r.checks.V1_name_tokens_at_offset, true); assert.equal(r.checks.V2_remark_tokens_follow, true);
     }
   }
+  const chk = jl(path.join(QA, 'recovered', 'second-sitting-check.json')); assert.equal(chk.summary.lines, chk.rows.length); assert.equal(chk.summary.agree, chk.rows.filter((r) => r.agrees).length);
+  const nrec = ['union-vt', 'union-me'].reduce((a, it) => a + jl(path.join(QA, 'recovered', it + '.json')).rows.filter((x) => (x.status || '').startsWith('recovered')).length, 0); assert.equal(chk.summary.lines, nrec, 'every recovered line was checked by the second sitting');
   const bad = []; const walk = (d) => { for (const f of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, f.name); if (f.isDirectory()) walk(p); else if (f.name.endsWith('.gz')) bad.push(p); } }; walk(QA);
   assert.deepEqual(bad, [], 'no .gz under data2/qa (verify_unit.py --all globs every .jsonl.gz under data2)');
   const idx = fs.readFileSync(path.join(ROSTERS, 'data2', 'INDEX.json'), 'utf8'); assert.ok(!/data2\/qa|"qa\//.test(idx) && !idx.includes('pageread'), 'the roster index does not load the work area');

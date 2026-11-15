@@ -70,6 +70,9 @@ STRONG_RANKS = ['colonel', 'lieutenant', 'lieut', 'major', 'captain', 'adjutant'
 def is_rankword(t):
     """A rank word of the roll: exact (Lieut., Sergt., Col., ...) or a close OCR misreading of a long rank word (Lieuteuant, Captaiu).  Names that look like rank words
     (Stewart, Alexander) are not matched: the fuzzy match is bounded in length and ratio."""
+    if '-' in t.strip('-,.;:'):
+        parts = [x for x in t.strip('-,.;:').split('-') if x]
+        return len(parts) >= 2 and all(is_rankword(x) for x in parts)
     w = alpha(t)
     if not w:
         return False
@@ -255,6 +258,8 @@ def boundary(S, i, ev_idx_set):
     if i == 0 or i in ev_idx_set:
         return 2
     p = S.toks[i - 1][2]
+    if alpha(p) in ('com', 'co', 'company', 'regt', 'reg', 'cav', 'battalion', 'bn') and not S.toks[i][3]:
+        return 0                                    # a letter after "Com." is a company letter, not the start of a name
     if re.search(r"[\.;!\?][,\)\]\"'’\-—~\*\^/]{0,2}$", p):
         return 2
     if S.toks[i][3]:
@@ -326,7 +331,8 @@ def match_S(S, i, bd=2):
     else:
         return None
     w = alpha(t0)
-    if len(w) < 2 or w in ABBREV_BAD or (is_month(t0) and len(w) <= 4 and w not in ('mayo', 'marsh')):
+    month_name = is_month(t0) and len(w) <= 5
+    if len(w) < 2 or (w in ABBREV_BAD and w not in ('may', 'march', 'june', 'july', 'august', 'april')):
         return None
     if re.match(r"^[^\w\s]{0,2}[0-9]", t0):
         return None
@@ -338,7 +344,7 @@ def match_S(S, i, bd=2):
         ev = evidence_at(S, j, toks[j - 1][2])
         if ev:
             kind = ev[0]
-            if (dot or lower or split) and kind not in ('mark',):
+            if (dot or lower or split or month_name) and kind not in ('mark',):
                 return None
             if given == 0 and kind not in ('mark',):
                 return None                           # surname alone needs a strong marker
@@ -376,7 +382,7 @@ def match_G(S, i):
         if len(alpha(last)) < 2 or alpha(last) in ABBREV_BAD:
             continue
         front = [toks[x][2] for x in range(i, k - 1)]
-        if any(not given_ok(f) or sentence_end(f) or (alpha(f) in PLACE and not initial_tok(f)) or (len(alpha(f)) >= 3 and is_rankword(f)) for f in front):
+        if any(not given_ok(f) or sentence_end(f) or (alpha(f) in PLACE and not initial_tok(f) and not re.search(r"[,;]$", f)) or (len(alpha(f)) >= 3 and is_rankword(f)) for f in front):
             continue
         if not (given_ok(last, before_mark=True, lower_ok=True)) or (len(alpha(last)) >= 3 and is_rankword(last)):
             continue
@@ -482,7 +488,7 @@ def parse_section(tid, a, b, co_start='', verbose=False):
     ev_idx = set(ev_by_idx)
     # parts: token ranges between events, with the state that holds there
     cuts = sorted(ev_idx | {0, n})
-    state = {'co': co_start, 'section': None, 'head': '', 'prev_section': None, 'comp_since_priv': True, 'started': False}
+    state = {'co': co_start, 'section': None, 'head': '', 'prev_section': None, 'comp_since_priv': True, 'started': False, 'co_rule': '', 'co_heading': '', 'co_off': None}
     parts, log = [], []
     heading_log = []
     for ci in range(len(cuts)):
@@ -507,15 +513,15 @@ def parse_section(tid, a, b, co_start='', verbose=False):
                 else:
                     co, rule = hmap, 'out-of-sequence'
                 heading_log.append({'off': off, 'heading': ' '.join(payload.split()), 'letter_read': hl, 'assigned': co, 'rule': rule, 'prev': prev})
-                state.update(co=co, section='officers', head='', comp_since_priv=True, started=True)
+                state.update(co=co, section='officers', head='', comp_since_priv=True, started=True, co_rule=rule, co_heading=' '.join(payload.split()), co_off=off)
             elif kind == 'fs':
-                state.update(co='FS', section='fs', head=head_text(kind, payload), started=True)
+                state.update(co='FS', section='fs', head=head_text(kind, payload), started=True, co_rule='', co_heading='', co_off=None)
             elif kind == 'off':
                 if state['section'] in ('nco', 'privates') and state['co'] not in ('FS', '', None) and not state['comp_since_priv']:
                     prev = state['co']
                     nxt = L.LETTERS[L.LETTERS.index(prev) + 1] if prev in L.LETTERS and L.LETTERS.index(prev) + 1 < len(L.LETTERS) else prev
                     heading_log.append({'off': off, 'heading': 'OFFICERS (company heading lost)', 'letter_read': '', 'assigned': nxt, 'rule': 'inferred-after-privates', 'prev': prev})
-                    state['co'] = nxt
+                    state.update(co=nxt, co_rule='inferred-after-privates', co_heading='OFFICERS (company heading lost)', co_off=off)
                 state.update(section='officers', head=head_text(kind, payload), comp_since_priv=False if state['section'] in ('nco', 'privates') else state['comp_since_priv'], started=True)
                 state['comp_since_priv'] = False
             elif kind == 'nco':
@@ -584,7 +590,8 @@ def parse_section(tid, a, b, co_start='', verbose=False):
                 page = pm.printed(leaf) if leaf is not None else None
                 row = R.row(name, rank, st['co'], remarks, page, off, rd)
                 rows.append({'row': row, 'kind': kind, 'section': st['section'], 'head': st['head'], 'line_start': toks[hs][3], 'tok': hs, 'end': (rem_toks[-1][1] if rem_toks else (toks[rs - 1][1])),
-                             'leaf': leaf})
+                             'leaf': leaf, 'co_rule': st.get('co_rule', ''), 'co_heading': st.get('co_heading', ''), 'co_off': st.get('co_off'),
+                             'lone_dropped': len(nt) < (last + 1 - hs), 'lowercase_head': bool(re.match(r"^[^\w\s]{0,2}[a-z]", toks[hs][2]) and not initial_tok(toks[hs][2]))})
     return {'rows': rows, 'notes': notes, 'headings': heading_log, 'preamble_tokens': preamble_tokens, 'furniture': len(S.furniture), 'tokens': n, 'stream': S}
 
 

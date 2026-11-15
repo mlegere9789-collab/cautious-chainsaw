@@ -3,6 +3,7 @@
 //   NEAR   LOD0 parts: skinned from a per-figure 61 bone palette texture written by the CPU (anim3d sampleFigure + foot planting).
 //   IMP    far impostors: one instance per world figure (all of them), placed by the prototype's own place() from the unit / soldier tables; the baked views carry material ids, colours come from the outfit variant.
 import { MATC, NSLOT } from './tables.mjs';
+import { LOD_DAB } from './lod.mjs';
 
 export const HEAD = `
 precision highp usampler2D; precision highp sampler2DArray;
@@ -74,12 +75,13 @@ export const NOFS = '#version 300 es\nprecision highp float; out vec4 o; void ma
 
 // far impostors. uImpMeta: RGBA32F, one texel per class (height_m, ppm, 0, 0). uR = (r2, band, hysteresis, dab height in pixels): r2 is the radius inside which the 3D levels are drawn (lod.mjs), the impostor cross-fades in over
 // r2 (1 +- band) in the figure's own scale (the same hash as figureScale: hsh(fig * 13 + 5)) and keeps the fragments of [lo, 1) the three levels do not (lo = vF.x); below uR.w pixels the baked view gives way to a flat two-tone dab,
-// cross-faded over the same band of the height (vF.y = the share of the dab). A figure of under 3 px keeps a share of its fragments (vV.z), as before.
+// cross-faded over the same band of the height (vF.y = the share of the dab), and between two baked views the fragment takes the next view with the share vF.z (the views stand 45 degrees apart; a formation of one heading no longer changes view all at once).
+// A figure of under 3 px keeps a share of its fragments (vV.z), as before.
 export const IMP_VS = `uniform highp sampler2D uImpMeta; uniform vec4 uR; float hash1(uint n) { return hsh(n * 7u + 3u); }
-out vec3 vWp; out vec2 vQ; flat out uvec4 vW; flat out vec4 vV; flat out vec3 vRt; flat out vec2 vF;
+out vec3 vWp; out vec2 vQ; flat out uvec4 vW; flat out vec4 vV; flat out vec3 vRt; flat out vec4 vF;
 float bandS(float nu, float r, float b) { if (r <= 0.0) return 1.0; if (b <= 0.0) return nu >= r ? 1.0 : 0.0; float t = clamp((nu - r * (1.0 - b)) / (2.0 * r * b), 0.0, 1.0); return t * t * (3.0 - 2.0 * t); }
 void main() {
-  gl_Position = vec4(2.0, 2.0, 2.0, 1.0); vWp = vec3(0.0); vQ = vec2(0.0); vW = uvec4(0u); vV = vec4(0.0); vRt = vec3(0.0); vF = vec2(0.0);
+  gl_Position = vec4(2.0, 2.0, 2.0, 1.0); vWp = vec3(0.0); vQ = vec2(0.0); vW = uvec4(0u); vV = vec4(0.0); vRt = vec3(0.0); vF = vec4(0.0);
   Pl p = place(gl_InstanceID, cam.w); vec3 d3 = p.pos + vec3(0.0, 0.9, 0.0) - cam.xyz; float dist = length(d3), b = uR.y, hy = uR.z; float rLo = b > 0.0 ? uR.x * (1.0 - b) * (1.0 - hy) : uR.x * 0.995; if (dist < rLo || dist > lod.z) return;
   float fsc = 1.0 + hy * (2.0 * hsh(uint(gl_InstanceID) * 13u + 5u) - 1.0), sF = b > 0.0 ? bandS(dist / fsc, uR.x, b) : (dist >= uR.x * 0.995 ? 1.0 : 0.0), lo = floor((1.0 - sF) * 65534.0 + 0.5); if (lo >= 65534.0) return;
   uvec4 w = wordsOf(uint(gl_InstanceID)); uvec4 vi = varInfoOf(w.x & 65535u); int cls = int(vi.z); vec4 meta = texelFetch(uImpMeta, ivec2(cls, 0), 0); float sc = statureOf(w);
@@ -89,15 +91,18 @@ void main() {
   vec3 toCam = normalize(vec3(-d3.x, 0.0, -d3.z)); vec3 right = vec3(toCam.z, 0.0, -toCam.x); float cx = float(gl_VertexID & 1) * 2.0 - 1.0; float cy = float((gl_VertexID >> 1) & 1);
   vec3 wp = p.pos + right * (cx * qw * 0.5) + vec3(0.0, yb + cy * qh, 0.0); gl_Position = vp * vec4(wp, 1.0); vWp = wp; vQ = vec2(cx * 0.5 + 0.5, cy);
   float hh = p.head, c = cos(hh), s = sin(hh); float dxm = toCam.x * c - toCam.z * s, dzm = toCam.x * s + toCam.z * c; float yaw = atan(dxm, dzm); if (yaw < 0.0) yaw += 6.2831853;
-  float view = mod(floor(yaw / 6.2831853 * 8.0 + 0.5), 8.0); vV = vec4(view, float(cls), cover, hash1(uint(gl_InstanceID))); vW = w; vRt = right; vF = vec2(lo / 65534.0, dm);
+  float yn = yaw / 6.2831853 * 8.0, view = b > 0.0 ? mod(floor(yn), 8.0) : mod(floor(yn + 0.5), 8.0), fv = b > 0.0 ? fract(yn) : 0.0;      // the eight baked views stand at whole numbers of yn; between two the fragment takes the next view with the share fv
+  vV = vec4(view, float(cls), cover, hash1(uint(gl_InstanceID))); vW = w; vRt = right; vF = vec4(lo / 65534.0, dm, fv, b > 0.0 ? smoothstep(${LOD_DAB.lowPx.toFixed(1)}, uR.w, hpx * fsc) : 0.0);      // w: the dab narrows to the figure's footprint as the figure grows (LOD_DAB)
 }`;
-export const IMP_FS = `uniform highp sampler2DArray uImp; in vec3 vWp; in vec2 vQ; flat in uvec4 vW; flat in vec4 vV; flat in vec3 vRt; flat in vec2 vF; out vec4 o;
+export const IMP_FS = `uniform highp sampler2DArray uImp; in vec3 vWp; in vec2 vQ; flat in uvec4 vW; flat in vec4 vV; flat in vec3 vRt; flat in vec4 vF; out vec4 o;
 void main() {
   float n = fract(ign(gl_FragCoord.xy) + vV.w); if (n < vF.x) discard;                                       // [0, lo) is kept by the 3D levels
   float u = vF.x > 0.0 ? (n - vF.x) / (1.0 - vF.x) : n; if (u > vV.z) discard; float uu = vV.z < 1.0 ? u / vV.z : u;      // u, uu: uniform numbers again (the share kept, the share of the dab)
   vec3 toCam = normalize(cam.xyz - vWp); vec3 hc = normalize(vec3(toCam.x, 0.0, toCam.z));
-  if (uu < vF.y) { int mm = vQ.y > 0.45 ? ${MATC.COAT} : ${MATC.TROUSERS}; MatR m = resolveMat(mm, vW); o = vec4(fogged(lit(m.alb, m.rough, m.metal, normalize(hc * 0.7 + vec3(0.0, 0.7, 0.0)), vWp, 1.0, 0.8), vWp), 1.0); return; }
-  int px = int(vV.x) * 48 + clamp(int(vQ.x * 48.0), 0, 47), py = clamp(int((1.0 - vQ.y) * 64.0), 0, 63); vec4 t = texelFetch(uImp, ivec3(px, py, int(vV.y)), 0); int mat = int(t.r * 255.0 + 0.5); if (mat == 0) discard;
+  if (uu < vF.y) { float fw = mix(1.0, ${LOD_DAB.w.toFixed(3)}, vF.w), mg = ${LOD_DAB.margin.toFixed(3)} * vF.w; if (abs(vQ.x - 0.5) > 0.5 * fw || vQ.y < mg || vQ.y > 1.0 - mg) discard;
+    int mm = vQ.y > 0.45 ? ${MATC.COAT} : ${MATC.TROUSERS}; MatR m = resolveMat(mm, vW); o = vec4(fogged(lit(m.alb, m.rough, m.metal, normalize(hc * 0.7 + vec3(0.0, 0.7, 0.0)), vWp, 1.0, 0.8), vWp), 1.0); return; }
+  float view = vV.x; if (vF.z > 0.0 && fract(ign(gl_FragCoord.yx) + fract(vV.w * 7.0 + 0.37)) < vF.z) view = mod(view + 1.0, 8.0);
+  int px = int(view) * 48 + clamp(int(vQ.x * 48.0), 0, 47), py = clamp(int((1.0 - vQ.y) * 64.0), 0, 63); vec4 t = texelFetch(uImp, ivec3(px, py, int(vV.y)), 0); int mat = int(t.r * 255.0 + 0.5); if (mat == 0) discard;
   float nx = t.g * 2.0 - 1.0, ny = t.b * 2.0 - 1.0, nz = sqrt(max(0.0, 1.0 - nx * nx - ny * ny)); vec3 N = normalize(vRt * nx + vec3(0.0, 1.0, 0.0) * ny + hc * nz);
   MatR m = resolveMat(mat, vW); o = vec4(fogged(lit(m.alb, m.rough, m.metal, N, vWp, 1.0, 0.55 + 0.45 * t.a), vWp), 1.0);
 }`;

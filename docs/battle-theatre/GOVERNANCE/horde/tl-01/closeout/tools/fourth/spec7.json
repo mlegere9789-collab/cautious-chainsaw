@@ -1,0 +1,4 @@
+[
+ {"rows":["T1-003","T1-019","T1-023","T1-030","T1-041"],"pattern":"(Prof\\.? ?Jacobs|M\\. Jacobs|Jacobs).{0,250}(weather|temperature|thermometer|degrees|rain fall|rainfall|record of)|(weather|temperature|thermometer|rainfall).{0,250}(Prof\\.? ?Jacobs|M\\. Jacobs)","scopes":["town","ws9"],"note":"Jacobs weather records in the 1863-64 papers and the library","ctx":260},
+ {"rows":["T1-003","T1-019","T1-023","T1-030","T1-041"],"pattern":"(June|Jun\\.?).{0,40}(mean|average|highest|lowest).{0,40}(temperature|heat|degrees)|(mean|average) temperature","scopes":["town","ws9","ca"],"d0":"1863-06-26","d1":"1864-12-31","note":"monthly weather summaries for June 1863","ctx":220}
+]
