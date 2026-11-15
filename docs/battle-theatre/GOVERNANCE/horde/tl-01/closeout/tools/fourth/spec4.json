@@ -1,0 +1,6 @@
+[
+ {"rows":["T1-006"],"pattern":"Comanche","scopes":["ca"],"d0":"1863-06-26","d1":"1863-09-30","note":"Comanches nickname of White's battalion in 1863 newspapers","ctx":200},
+ {"rows":["T1-006","T1-010","T1-014","T1-020"],"pattern":"(Early|Gordon|Hays|White.s (battalion|cavalry)).{0,200}(Gettysburg).{0,300}(militia|captured|paroled|rain|flag)","scopes":["ca"],"d0":"1863-06-27","d1":"1863-07-25","note":"Confederate and Union dispatches on the occupation of Gettysburg Jun 26","ctx":260},
+ {"rows":["T1-005"],"pattern":"Caledonia.{0,200}(burn|destroy|Early|rebel|Stevens)|(Early|rebels).{0,200}Caledonia","scopes":["ca"],"d0":"1863-06-26","d1":"1863-09-30","note":"Caledonia works burned in 1863 newspapers","ctx":260},
+ {"rows":["T1-012"],"pattern":"Hunterstown.{0,200}(militia|Jennings|captured|paroled)|(militia|Jennings).{0,200}Hunterstown","scopes":["ca"],"d0":"1863-06-27","d1":"1863-07-25","note":"26th PA militia at Hunterstown","ctx":260}
+]

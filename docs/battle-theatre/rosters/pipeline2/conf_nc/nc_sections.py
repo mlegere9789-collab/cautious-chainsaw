@@ -82,11 +82,10 @@ def section(tid, number, unit_kind='regiment'):
     for (num, uk), off in ov.items():
         pts.append((off, num, uk, 'override'))
     pts.sort()
+    best = None
     for i, (off, num, uk, line) in enumerate(pts):
         if num == number and uk == unit_kind:
-            end = pts[i + 1][0] if i + 1 < len(pts) else None
-            if end is None:
-                text = L.load(tid)[0]
-                end = len(text)
-            return off, end, line
-    return None
+            end = pts[i + 1][0] if i + 1 < len(pts) else len(L.load(tid)[0])
+            if best is None or end - off > best[1] - best[0]:
+                best = (off, end, line)       # a number that stands twice (a table of contents line, a page head): the section is the longer one
+    return best

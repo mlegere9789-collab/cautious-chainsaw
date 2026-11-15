@@ -102,31 +102,31 @@ The printed pages are typeset to a uniform page: on every inner leaf of every un
 
 | unit file | volume | lines | raw bytes | gzip bytes | raw bytes per line | flag file bytes | lines whose printed page the page-number file does not give |
 |---|---|---|---|---|---|---|---|
-| 1st-massachusetts-infantry | 1 | 1,699 | 306,433 | 58,428 | 180.4 | 21,243 | 19 |
-| 2nd-massachusetts-infantry | 1 | 2,013 | 343,196 | 68,350 | 170.5 | 24,717 | 0 |
-| 7th-massachusetts-infantry | 1 | 1,171 | 205,526 | 38,193 | 175.5 | 14,769 | 0 |
-| 9th-massachusetts-infantry | 1 | 1,692 | 289,059 | 53,890 | 170.8 | 18,757 | 0 |
-| 10th-massachusetts-infantry | 1 | 1,258 | 235,359 | 42,832 | 187.1 | 16,318 | 0 |
-| 11th-massachusetts-infantry | 1 | 2,039 | 364,563 | 70,658 | 178.8 | 24,109 | 21 |
-| 12th-massachusetts-infantry | 2 | 1,592 | 305,492 | 57,883 | 191.9 | 19,626 | 45 |
-| 13th-massachusetts-infantry | 2 | 1,448 | 276,822 | 53,755 | 191.2 | 18,761 | 0 |
-| 15th-massachusetts-infantry | 2 | 1,726 | 337,164 | 63,105 | 195.3 | 21,837 | 0 |
-| 1st-company-massachusetts-sharpshooters | 2 | 186 | 36,216 | 8,458 | 194.7 | 4,310 | 0 |
-| 16th-massachusetts-infantry | 2 | 1,369 | 250,888 | 47,924 | 183.3 | 16,912 | 0 |
-| 18th-massachusetts-infantry | 2 | 1,371 | 267,569 | 55,000 | 195.2 | 17,930 | 0 |
-| 19th-massachusetts-infantry | 2 | 1,938 | 374,341 | 76,095 | 193.2 | 24,269 | 0 |
-| 20th-massachusetts-infantry | 2 | 2,484 | 462,789 | 93,122 | 186.3 | 29,377 | 0 |
-| 22nd-massachusetts-infantry | 2 | 1,452 | 275,709 | 53,374 | 189.9 | 18,809 | 0 |
-| 28th-massachusetts-infantry | 3 | 2,065 | 392,442 | 75,560 | 190.0 | 23,426 | 0 |
-| 32nd-massachusetts-infantry | 3 | 2,168 | 397,006 | 75,567 | 183.1 | 25,893 | 0 |
-| 33rd-massachusetts-infantry | 3 | 1,282 | 225,392 | 44,037 | 175.8 | 15,815 | 0 |
-| 37th-massachusetts-infantry | 3 | 1,310 | 246,913 | 44,273 | 188.5 | 15,568 | 21 |
-| 1st-massachusetts-cavalry | 6 | 2,341 | 437,194 | 84,865 | 186.8 | 29,381 | 0 |
-| 1st-massachusetts-battery-a | 5 | 265 | 45,101 | 9,549 | 170.2 | 4,927 | 0 |
-| 3rd-massachusetts-battery-c | 5 | 258 | 45,447 | 9,552 | 176.2 | 4,952 | 0 |
-| 5th-massachusetts-battery-e | 5 | 331 | 58,839 | 12,363 | 177.8 | 5,665 | 0 |
-| 9th-massachusetts-battery | 5 | 329 | 56,114 | 11,056 | 170.6 | 5,583 | 0 |
-| **all** | | **33,787** | **6,235,574** | **1,207,889** | **184.6** | **422,954** | **106** |
+| 1st-massachusetts-infantry | 1 | 1,699 | 306,433 | 58,428 | 180.4 | 22,183 | 19 |
+| 2nd-massachusetts-infantry | 1 | 2,013 | 343,196 | 68,350 | 170.5 | 25,690 | 0 |
+| 7th-massachusetts-infantry | 1 | 1,171 | 205,526 | 38,193 | 175.5 | 15,412 | 0 |
+| 9th-massachusetts-infantry | 1 | 1,692 | 289,059 | 53,890 | 170.8 | 19,749 | 0 |
+| 10th-massachusetts-infantry | 1 | 1,258 | 235,359 | 42,832 | 187.1 | 16,926 | 0 |
+| 11th-massachusetts-infantry | 1 | 2,039 | 364,563 | 70,658 | 178.8 | 24,955 | 21 |
+| 12th-massachusetts-infantry | 2 | 1,592 | 305,492 | 57,883 | 191.9 | 20,380 | 45 |
+| 13th-massachusetts-infantry | 2 | 1,448 | 276,822 | 53,755 | 191.2 | 19,723 | 0 |
+| 15th-massachusetts-infantry | 2 | 1,726 | 337,164 | 63,105 | 195.3 | 22,686 | 0 |
+| 1st-company-massachusetts-sharpshooters | 2 | 186 | 36,216 | 8,458 | 194.7 | 4,713 | 0 |
+| 16th-massachusetts-infantry | 2 | 1,369 | 250,888 | 47,924 | 183.3 | 17,915 | 0 |
+| 18th-massachusetts-infantry | 2 | 1,371 | 267,569 | 55,000 | 195.2 | 18,766 | 0 |
+| 19th-massachusetts-infantry | 2 | 1,938 | 374,341 | 76,095 | 193.2 | 25,364 | 0 |
+| 20th-massachusetts-infantry | 2 | 2,484 | 462,789 | 93,122 | 186.3 | 30,566 | 0 |
+| 22nd-massachusetts-infantry | 2 | 1,452 | 275,709 | 53,374 | 189.9 | 19,597 | 0 |
+| 28th-massachusetts-infantry | 3 | 2,065 | 392,442 | 75,560 | 190.0 | 24,137 | 0 |
+| 32nd-massachusetts-infantry | 3 | 2,168 | 397,006 | 75,567 | 183.1 | 26,793 | 0 |
+| 33rd-massachusetts-infantry | 3 | 1,282 | 225,392 | 44,037 | 175.8 | 16,436 | 0 |
+| 37th-massachusetts-infantry | 3 | 1,310 | 246,913 | 44,273 | 188.5 | 16,129 | 21 |
+| 1st-massachusetts-cavalry | 6 | 2,341 | 437,194 | 84,865 | 186.8 | 30,080 | 0 |
+| 1st-massachusetts-battery-a | 5 | 265 | 45,101 | 9,549 | 170.2 | 5,327 | 0 |
+| 3rd-massachusetts-battery-c | 5 | 258 | 45,447 | 9,552 | 176.2 | 5,354 | 0 |
+| 5th-massachusetts-battery-e | 5 | 331 | 58,839 | 12,363 | 177.8 | 6,078 | 0 |
+| 9th-massachusetts-battery | 5 | 329 | 56,114 | 11,056 | 170.6 | 6,039 | 0 |
+| **all** | | **33,787** | **6,235,574** | **1,207,889** | **184.6** | **440,998** | **106** |
 
 The production plan's aim of about 90 bytes a line is **not met** (185 bytes on average): each entry prints a service history of 100 to 400 characters and remarks are never cut (Law, clause 1; DD-ROS-02). For the 106 lines on leaves whose printed page the page-number file does not give, the page of the row is empty and the flag file gives the number the running head prints (`printed_page_from_running_head`).
 
@@ -135,14 +135,15 @@ The production plan's aim of about 90 bytes a line is **not met** (185 bytes on 
 | code | meaning | lines (all units) |
 |---|---|---|
 | C | the company heading above the row is damaged: the row has no company code (the letter the sequence of headings gives is in company_inferred) | 138 |
-| G | garbage marks of the scan (^ | ~ and the like) stand in or beside the line; a stray mark taken out of the head is listed in head_marks | 428 |
+| G | garbage marks of the scan (^ | ~ and the like) stand in or beside the line; since 14 November 2026 also a single mark or letter standing alone between two words (! [ ] ' j i J, a lone I that is no company letter); a stray mark taken out of the head is listed in head_marks | 503 |
 | H | the head of the entry (name, rank, "Res.") was cut by a rule that is a reading or by a reviewed cut, or a stray mark stands in place of a dash | 129 |
-| N | name text damaged (a digit or a mark inside a name token, a lower-case first letter, a period where the comma belongs, no comma after the surname) | 350 |
+| N | name text damaged (a digit or a mark inside a name token, a lower-case first letter, a period where the comma belongs, no comma after the surname; since 14 November 2026 also a mark in front of a name token, Mc followed by a lower-case l, a name token that stands at most 10 times in the 24 unit files and differs by one look-alike pair of characters from a name token that stands at least 3 times as often) | 870 |
 | Q | the word "Res." is damaged in the text layer | 100 |
 | R | the printed rank is not one of the ranks the volumes print (the text layer damaged it) | 165 |
-| Y | a year in the line is damaged (for example 1S63 or 18G1) | 748 |
+| W | a word of the remarks is damaged by the scan (since 14 November 2026): a capital letter inside a word (disabUity), a digit or a mark inside a word, the ordinal 1st printed Ist, or a word that stands at most 10 times in the 24 unit files and differs by one look-alike pair of characters (rn m, l i, o e and the like) from a word that stands at least 25 times and ten times as often (furioughed, Beveriy) | 1,615 |
+| Y | a date in the line is damaged: a year with a letter or a mark for a digit (for example 1S63 or 18G1) or, since 14 November 2026, a word in the place of the month name that is none of the month words of ma_flags.MONTHS (Xov., Julj, Jime), or a day or age printed IS, 2S and the like | 1,033 |
 
-`ocr_uncertain` (the union of the codes) marks 1,700 lines (5.0 percent of 33,787). The rows of the codes per unit are in `stats.json` (`units.<unit>.codes`).
+`ocr_uncertain` (the union of the codes) marks 3,657 lines (10.8 percent of 33,787). The rows of the codes per unit are in `stats.json` (`units.<unit>.codes`).
 
 **Lines by section** (the company letters A to M together in one column):
 
@@ -225,8 +226,8 @@ Files, sizes and sha256 are in `rosters/sources/union-ma.json` (tracked) and `tm
    * **21 entries had lost their last word at a page break**: a year alone on a line ("1864.") was dropped as a page number; a number that ends with a period or a comma is now kept (21 lines now end with such a number). 5 other lines are longer because the closing company letter of the entry ("as Captain of Co. "B."") is no longer taken into the name of the next entry.
    * The 81 lines whose remarks became shorter are the lines above the entries that were cut out of them. **No line was removed.**
 2. **Differences with the earlier roll files that remain** (all listed, none resolved): the 42 lines only in the new files (section 4), the company codes of four units, the remarks (section 4). The earlier parser swallowed 10 entries into the remarks of the line above (Waterhouse, Thomas J. into the remarks of Waite, John H. on printed page 39 of the 1st Infantry; Coyle, James into Coy, George H. on page 632 of the 9th; and so on: the `evidence` column names the earlier line and its csv line). **26 lines of printed page 668 of the 9th Infantry (the end of company H and the start of company I) are in no earlier line**: the earlier file has no company I at all (its company codes run H, then K). Two stray single letters in front of a name ("J Conlon, Michael", "I Holman, John") are in the earlier names and not in the new ones (they stay at the end of the line above).
-3. **Damaged names (flag N): 350 lines.** Typical damage: a capital letter read as the two marks ".\" (".\heam, Timothy A.", ".\hrend, Herman", ".\llen, Edward F.": the 1st Infantry, page 53, three lines under COMPANY "I"); on printed page 96 of the 13th Infantry (company E) 7 of the 25 lines are flagged N and the dates on it are damaged as well ("Washburn. Henry N.", "Wellington, -\rthur N.", "Whitney. Edward H.", "Whittemore. Samuel K."); a mark inside a name ("Bird^JohnE."). The text is kept as the layer has it; nothing is repaired (a reading of the page image is the open work, EG-ROS-MA-03).
-4. **Damaged company heading of the 18th Infantry** (printed pages 374 to 380): the heading of company E is unreadable in the text layer, so the 138 lines under it have no company code (flag C); the sequence D, F says E and the earlier file writes E; the flag file keeps the inferred letter in `company_inferred` and the line stays empty (a letter the page prints is never replaced by one the sequence gives; DD-ROS-MA-03). The 18th Infantry has 147 lines flagged Y (a damaged year), the most of any unit.
+3. **Damaged names (flag N): 870 lines.** Typical damage: a capital letter read as the two marks ".\" (".\heam, Timothy A.", ".\hrend, Herman", ".\llen, Edward F.": the 1st Infantry, page 53, three lines under COMPANY "I"); on printed page 96 of the 13th Infantry (company E) 9 of the 25 lines are flagged N and the dates on it are damaged as well ("Washburn. Henry N.", "Wellington, -\rthur N.", "Weils, Edward E.", "Whitney. Edward H."); a mark inside a name ("Bird^JohnE."). The text is kept as the layer has it; nothing is repaired (a reading of the page image is the open work, EG-ROS-MA-03).
+4. **Damaged company heading of the 18th Infantry** (printed pages 374 to 380): the heading of company E is unreadable in the text layer, so the 138 lines under it have no company code (flag C); the sequence D, F says E and the earlier file writes E; the flag file keeps the inferred letter in `company_inferred` and the line stays empty (a letter the page prints is never replaced by one the sequence gives; DD-ROS-MA-03). The 18th Infantry has 165 lines flagged Y (a damaged year), not the most (13th Massachusetts Infantry has 167) of any unit.
 5. **Lines whose leaf has no printed page number in the item's page-number file: 106** (1st Infantry 19, 11th 21, 12th 45, 37th 21, the others none). Their `pg` is empty; the flag file gives the number the running head prints (confirmed by the numbered leaves around it where the check could be made).
 6. **Lines with no printed rank: 2** (Townsend, Thaddeus J., 1st Company Massachusetts Sharpshooters; Dickerman, Ezra L., 22nd Massachusetts Infantry): the text layer has the name, one dash and "Res." where the other lines have a rank between two dashes (the rank and the second dash are not in the layer; whether the page prints them is not known).
 7. **Cross-reference lines.** 8,437 lines (25.0 percent) print a cross-reference ("See Co. K 2d Mass. Hy. Arty.", "See V. R. C.", "See U. S. Navy.") to the same man's record in another organization. They are lines of the unit and are kept as printed; they are not duplicates to be removed, and the cross-reference is a pointer, not a statement about 1863.
@@ -238,7 +239,7 @@ Files, sizes and sha256 are in `rosters/sources/union-ma.json` (tracked) and `tm
 
 * **EG-ROS-MA-01** Rights of the 1931-35 volumes: public domain is not established by the date of publication (flag `NOT_IN_COPYRIGHT`, no notice found, state publication); owner step 4. Not a gap of data; registered so that the page marks it and the decision is recorded.
 * **EG-ROS-MA-02** Presence on 1-3 July 1863: the volumes print no muster roll of 30 June 1863; 1,588 lines name Gettysburg; every other man is "on the rolls, names not recovered". Open for `roster-gettysburg-lists` (the Burial Report of 1863 in `tmp/library/ws9`, 1863 newspaper casualty lists, the Record of 1868-70).
-* **EG-ROS-MA-03** Damaged lines: 1,700 lines flagged in the text layer (N 350, Y 748, G 428, H 129, Q 100, R 165, C 138); a second reading of page images is not run (names damaged beyond reading: the 13th Infantry page 96, the 18th Infantry company D and E pages).
+* **EG-ROS-MA-03** Damaged lines: 3,657 lines flagged in the text layer (N 870, Y 1,033, G 503, H 129, Q 100, R 165, C 138); a second reading of page images is not run (names damaged beyond reading: the 13th Infantry page 96, the 18th Infantry company D and E pages).
 * **EG-ROS-MA-04** Independent sample (R-G9) not run; residual losses unknown: the new files and the earlier files (a different parser on a different text file) agree on 31,518 of 31,562 lines, but an entry whose dashes and "Res." are both damaged could still be inside the remarks above it (a search for a rank between two dashes finds none).
 * **EG-ROS-MA-05** The 1937 Index to Army Records (a name with volume and page for every record of volumes I to VI) is pinned and not used as a second reading: the text layer interleaves its columns; a count of references per printed page would be an independent census of the lines per page.
 * **EG-ROS-MA-06** The Record of the Massachusetts Volunteers 1868-70 (officers, casualty statements) is not fetched; the Burial Report of 1863 is not read for names (EG-ROS-MA-02).

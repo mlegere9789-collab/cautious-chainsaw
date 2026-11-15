@@ -6,3 +6,4 @@ Tools of the close-out of shard tl-01 (copies of the scripts that were run from 
  patchlib.py     row-scoped edits of rows_a.py, rows_b.py, rows_c.py
  make_report.py  writes the Final state section of REPORT.md from counts.json, the corrections file and second_scan.jsonl
 Paths inside the scripts point to the working tree of the run (tmp/tl-01/audit, tmp/tl-01/dl, tmp/tl-01/cache).
+Fourth start (2026-11-15): see fourth/README.txt (srch.py, runsearch.py, qp.py, mkquotes.py, crop.py, validate.py and the six spec files). rows_patch.py and extra_sources.py in the folder above hold the additions of that start.

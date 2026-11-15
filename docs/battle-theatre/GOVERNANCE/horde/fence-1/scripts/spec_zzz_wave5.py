@@ -296,7 +296,7 @@ def apply(R_):
     cons(r, "E-05 / E-08: add an abatis in front of the Twelfth Corps works on Culp's Hill from the morning of Jul 2 (documented: Slocum R271, Price R280; extent and form open): felled trees with their branches toward the enemy, plausible-procedural beyond the word")
 
     r = R_['R14.E-07']
-    add(r, S('d', "Geary's Second Brigade, 111th Pa. (Walker): 'moved into line of battle on the right of the Baltimore pike during the forenoon of the 2d instant', the 109th Pa. on its left and the First Division on its right; 'we at once began building a rifle-pit of logs and stone, which was finished in about three hours'; it stayed 'until a little before dark, when we were ordered to move to the rear and abandon our works'.", 'documented', 'supported', [
+    add(r, S('d', "Second Brigade (Kane; Cobham of the 111th commanded it until Kane arrived), 111th Pa. (Walker): 'moved into line of battle on the right of the Baltimore pike during the forenoon of the 2d instant', the 109th Pa. on its left and the First Division on its right; 'we at once began building a rifle-pit of logs and stone, which was finished in about three hours'; it stayed 'until a little before dark, when we were ordered to move to the rear and abandon our works'.", 'documented', 'supported', [
         C('OR1', 'R306', "during the forenoon of the 2d instant, the One hundred and ninth Pennsylvania Volunteers on our left, and connections with the First Division on the right"),
         C('OR1', 'R306', "We at once began building a rifle-pit of logs and stone, which was finished in about three hours."),
         C('OR1', 'R306', "remained until a little before dark, when we were ordered to move to the rear and abandon our works")],
@@ -325,11 +325,14 @@ def apply(R_):
         C('OR1', 'R290', "About daybreak of the 2d ultimo, I moved with the brigade"),
         C('OR1', 'R290', "Here we were ordered to build breastworks, or rifle-pits, forming a line in connection with the Second Division, Twelfth Corps. About 7 p. m., the works being finished")],
         note="WAVE 5: per-regiment builders and clocks the PDF did not have (start about daybreak to 8 a. m.; the 107th NY's works finished by about 19:00)."), after='f')
+    setsub(r, 'c', claim="The 29th Pa. (Rickards; Cobham's Second Brigade, with the 109th and 111th Pa.) began to fortify its own position on the 2d and was ordered by General Geary to leave its breastworks at 19:00.")
+    more(r, 'c', C('OR1', 'R303', "The Twenty-ninth, One hundred and ninth, and One hundred and eleventh Regiments Pennsylvania Volunteers are deserving of much praise"),
+         note="WAVE 5 CORRECTION: the earlier text called this regiment 'Candy's 29th PA'; Cobham's report of the Second Brigade (R303 p. 849) lists the 29th, 109th and 111th Pa. as his regiments, so it belongs to the Second Brigade (Kane, Cobham), not to Candy's First Brigade.")
     r['stays_unsupported'] = ["Exact hour the first Williams-division works were finished for the regiments not named in sub-claims f and g (the 46th Pa.: 'the afternoon'; the 107th NY: about 19:00; the 111th Pa. of Geary's division: about three hours from the forenoon)",
                               "Where Lockwood's regiments stood on the morning of Jul 3 before 17:00 ('various places')"]
     tail(r, "Wave 5 (2026-11-15): the corps and division commanders and eight more regiments' reports are now cited: Williams (orders at 8 a. m.; 'log breastworks along the entire crest of the ridge'; a thick stone fence less than 50 yards behind), McDougall (the First Brigade withdrawn at about 11 a. m., then 'immediately built breastworks' with its front line about 40 paces ahead of the stone wall), the 5th Conn. (fortified 'on the morning of the 2d'), the 145th NY (the first line building breastworks until 6.30 p. m.), the 46th Pa. (completed 'in the afternoon'), the 27th Ind. (breastworks of stone for two companies, ordered at about 8 a. m.) and the 107th NY (works finished about 7 p. m.).")
     lines(r, 'lookups', L('Official Records vol. 27 part 1 (wave 5)', "construction statements in the Twelfth Corps reports R271-R309 not cited before", 53, "Slocum, Williams, McDougall, Packer, Price, Selfridge, Fesler, Crane, Morse, Grimes, Walker read in context; Ketcham, Maulsby, Flynn, Creighton, Stevens, Pardee, Redington only mention the works of Jul 3-4"))
-    lines(r, 'changes_vs_previous', "wave 5: Williams (R272), McDougall (R274), Packer (R275), Price (R280), Selfridge (R281), Fesler (R287) and Crane (R290) give per-brigade and per-regiment builders, clocks and distances; the 'about 9 a. m.' (Ruger) and 'about 11 a. m.' (McDougall) clocks are a carried conflict")
+    lines(r, 'changes_vs_previous', "wave 5: CORRECTION of E-08 sub-claim c: the 29th Pa. is in the Second Brigade (Cobham R303), not Candy's; Williams (R272), McDougall (R274), Packer (R275), Price (R280), Selfridge (R281), Fesler (R287) and Crane (R290) give per-brigade and per-regiment builders, clocks and distances; the 'about 9 a. m.' (Ruger) and 'about 11 a. m.' (McDougall) clocks are a carried conflict")
     cons(r, "E-08: the First Division's works have per-brigade clocks: Williams' orders 8 a. m., Ruger's about 9 a. m., McDougall's brigade moved about 11 a. m. and 'immediately built' its breastworks (front line about 40 paces ahead of the stone wall), the 27th Ind. and 107th NY start about daybreak to 8 a. m. and the 107th NY's are finished about 19:00, the 46th Pa.'s 'in the afternoon': carry the 9 and 11 o'clock clocks as a selector, no default; the stone fence behind the works is less than 50 yd (Williams) or about 75 yd (Ruger)")
 
     r = R_['R14.E-03']
@@ -389,3 +392,35 @@ def apply(R_):
     r = R_['R14.0000']
     r['corrected_claim'] = r['corrected_claim'].rstrip() + (" Third pass 2026-11-15: an Official Records sweep for construction statements in reports not yet cited (97 reports, read and sorted), the texts that became local after 2026-11-14 (Sanitary Commission report 1863, Reily 1885, History of Adams County 1886) and two books read behind NPS quotations (Nash 1911, Brainard 1915) were folded in; four page images were looked at, one of which CORRECTS an earlier claim (the 95th NY inscription reads 10:30 a.m., not 10:50); the rows that changed are listed in REPORT.md.")
     r['sub_claims'][2]['claim'] = "Open gaps remain (1863 dimensions of most works and any length, clocks of many works, the 600-yd barricade, damage state of the works, web-only claims)."
+
+    # ============================================================ S-006 CORRECTION: the Dawes memoir sentence about 'the two post and rail fences' is Antietam, not Gettysburg
+    r = R_['R14.S-006']
+    e = sub(r, 'e')
+    e['citations'] = [c for c in e['citations'] if not (c.get('src') == 'KIT' and c.get('ref') == 'servsixthwiscon00dawerich')]
+    e['citations'] = [
+        C('KIT', 'servsixthwiscon00dawerich', "The regiment halted at the fence along the Cashtown Turnpike, and I gave the order to fire."),
+        C('KIT', 'servsixthwiscon00dawerich', "our carefully aimed muskets, resting on the fence rails"),
+        C('KIT', 'servsixthwiscon00dawerich', "I ordered my men to climb over the turnpike fences and advance."),
+        C('KIT', 'servsixthwiscon00dawerich', "fell dead while climbing the second fence, and many were struck on the fences")] + e['citations']
+    e['claim'] = ("Fences stood on both sides of the Chambersburg turnpike where the 6th Wisconsin charged the railroad cut on Jul 1, and the 6th Wisconsin men climbed them: Dawes's memoir (1890): the regiment 'halted at the fence along the Cashtown Turnpike', fired 'resting on the fence rails' (a rail fence), then climbed 'the turnpike fences' (two: Captain Ticknor 'fell dead while climbing the second fence'), type not named; "
+                  "Fairfield (National Tribune, quoted by the NPS): the first fence on the south side 'was an old one, and we pulled it down', the fence on the north side 'was a new post-and-rail fence'; Sullivan (memoir, quoted by the NPS): 'a stake and rider fence on each side of it'.")
+    e['note'] = ("Three participants of the same charge (a memoir of 1890, a National Tribune piece quoted by the NPS, a memoir quoted by the NPS): fences on both sides of the pike at the McPherson farm; the type is a conflict (a rail fence, type not named / new post-and-rail on the north and an old fence on the south / stake and rider). None says the type for the whole pike. The two NPS quotations are endnotes of the NPS report (each printed twice in its notes). "
+                 "WAVE 5 CORRECTION (2026-11-15): the passes of 2026-11-14 cited Dawes's sentence 'In climbing the two post and rail fences that lined the turnpike, great numbers of men were killed' for the Chambersburg pike; the page map of the book (archive.org page-by-page OCR) puts it on printed p. 95, in the Antietam chapter: it is the Sharpsburg and Hagerstown turnpike of 19 Sept 1862. It is withdrawn here. Dawes's Gettysburg chapter has the four statements now cited (fence along the Cashtown Turnpike, rail fence, turnpike fences, second fence) and names no fence type other than 'fence rails'.")
+    sub_text(r, "his memoir (1890) names 'the two post and rail fences that lined the turnpike',", "his memoir (1890) has the regiment halt 'at the fence along the Cashtown Turnpike', fire 'resting on the fence rails' and climb 'the turnpike fences' (two; no type named; WAVE 5 CORRECTION: the memoir's 'two post and rail fences that lined the turnpike' is the Antietam turnpike and was cited here in error until 2026-11-15),")
+    r['stays_unsupported'] = ["Post-and-rail along the whole pike (no source covers more than the McPherson-farm stretch; Dawes's memoir names no type)"]
+    r['conflicts_carried'] = [x.replace("post and rail at the McPherson farm (Dawes 1890; Fairfield: new post-and-rail on the north side, an old fence on the south)", "at the McPherson farm a rail fence of unnamed type (Dawes 1890), new post-and-rail on the north side and an old fence on the south (Fairfield)") for x in r['conflicts_carried']]
+    r['product_consequence'] = [x.replace("(three participants of the 6th Wisconsin's charge, documented-secondary) with the type a selector: post and rail (Dawes), new post-and-rail", "(three participants of the 6th Wisconsin's charge, documented-secondary) with the type a selector: a rail fence of unnamed type (Dawes), new post-and-rail") for x in r['product_consequence']]
+    for l_ in r['lookups']:
+        l_['result'] = l_['result'].replace("Dawes 1890 (post and rail)", "Dawes 1890 (turnpike fences, rail fence, no type; the memoir's 'two post and rail fences' is Antietam)")
+    lines(r, 'changes_vs_previous', "wave 5: CORRECTION: Dawes's 'two post and rail fences that lined the turnpike' is the Antietam turnpike (printed p. 95), not the Chambersburg pike; replaced by Dawes's Gettysburg statements (fence along the Cashtown Turnpike, fence rails, two turnpike fences)")
+    cons(r, "S-006 CORRECTION: do not use 'post and rail (Dawes)' for the McPherson-farm stretch: Dawes's Gettysburg chapter names no type (fence rails, two turnpike fences); the type stays a selector among Fairfield (new post-and-rail north, old south), Sullivan (stake and rider), the NPS (Virginia worm, north side) and the rail fence of unnamed type")
+
+    # ============================================================ register references (the rows that had open gaps but no proposed entry)
+    R_['R14.E-04']['register_refs'] = ['fence-1-EG-06']
+    R_['R14.S-001']['register_refs'] = ['fence-1-EG-21']
+    R_['R14.S-002']['register_refs'] = ['fence-1-EG-17']
+    R_['R14.S-005']['register_refs'] = ['fence-1-EG-22']
+    R_['R14.S-007']['register_refs'] = ['fence-1-EG-20']
+    R_['R14.E-08']['register_refs'] = ['fence-1-EG-04', 'fence-1-EG-14']
+    R_['R14.E-17']['register_refs'] = ['fence-1-EG-08', 'fence-1-EG-19']
+    R_['R14.0000']['register_refs'] = ['fence-1-EG-%02d' % i for i in range(1, 23)]

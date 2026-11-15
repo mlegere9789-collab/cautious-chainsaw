@@ -9393,7 +9393,7 @@
   ],
   "not_changed_and_why": "No status other than WP-ARCH-09 was re-graded: every other status was re-read against its evidence and held; the classes OWNER_ONLY (72) and OPEN_NEEDS_DECISION (96) were read in full and each has its owner step or its conservative proposal with the alternative kept."
  },
- "updated": "2026-11-15T23:30Z (pass 5)",
+ "updated": "2026-11-15T23:33Z (pass 5)",
  "merge_edit_2026_11_14": "Item WP-ARCH-09 only: evidence and next_step brought up to date after the record of candidate wp-arch-09 was written (2026-11-14 01:16 UTC); status and counts unchanged.",
  "continuation_4": {
   "what": "Fourth pass of 2026-11-14 (main-site workstream, started after the container restart of about 00:04 UTC that ended the run before it). It continued from pass 3 and did not redo it: it re-ran the pass-3 checks on the tree as it is, looked for drift since the last checkpoint, and cross-checked the statuses by routes the earlier passes had not used (roadmap nodes against their member work packages, proof suites against the failing test ids, patch groups and trains against anchors.json, direct reads of the dist).",
@@ -9431,6 +9431,7 @@
    "the \"does not exist\" claims of the OPEN_BUILDABLE items and the countable claims about release/R1g/dist (see ground_facts)",
    "every line of the open lists of the four provisional decision files has an item (three were added), and every OPEN_NEEDS_DECISION item has a delegated row (A72 and A73 are new)"
   ],
+  "for_part_B": "The read that re-graded four work packages here (the plan text of each SHIPPED work package, its Fix and its Accept, against release/R1g/dist with grep and a diff against baseline/dist, and against the tests that exist) was not applied by this part to the SHIPPED work packages of items-B.json (chapters 09 to 16: WP-INFRA, WP-SEO, WP-CONTENT, WP-QA, WP-DATA, WP-HIST and the audit items). Passes 1 to 4 graded part A by group names and test ids, which is how WP-PAGE-20, WP-PAGE-23, WP-PAGEC-05 and WP-PAGEC-07 were over-claimed; part B may carry the same defect.",
   "not_changed_and_why": "Besides VER-PAGESMAPS and the four re-grades above, every status was re-read against its evidence and the repository and held. Part B (items-B.json, updated at 23:13 UTC the same day) read the same R1G-SUITES.json: its 13 items that cite the pagesmaps.R1a row (WP-INFRA-19a, WP-INFRA-23a, WP-INFRA-28a, WP-SEO-07, WP-SEO-04a, OD-SEO-3, WP-QA-10a, VD12-1, V18, AUDIT-E1, NF-12, CORR-20, CORR-27) already quote the green repeat and call VER-PAGESMAPS closed, so the two files agree."
  }
 }

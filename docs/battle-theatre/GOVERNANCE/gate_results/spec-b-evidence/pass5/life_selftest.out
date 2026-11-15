@@ -1,0 +1,57 @@
+PASS numbers: dozen, hundreds, digits
+PASS numbers: no invented figure
+PASS match: hyphenation and whitespace joined (exact)
+PASS match: curly quotes (typo mode)
+PASS match: OCR digit fold (6 for G)
+PASS match: small edit distance
+PASS match: a fabricated sentence is not found
+PASS match: offsets point at the same words in the raw text
+PASS row: a valid documented row has no errors
+PASS refused: fabricated quote -> quote_not_found
+PASS refused: offset moved -> offset_mismatch
+PASS refused: unknown clip -> clip_unknown
+PASS refused: unknown unit -> unit_unknown
+PASS refused: window before the theatre -> window_outside_theatre
+PASS refused: window reversed -> window_order
+PASS refused: window too long -> window_too_long
+PASS refused: tier invalid -> tier_invalid
+PASS refused: source not in the registry -> source_unknown
+PASS refused: inferred without reasoning -> tier_basis_required
+PASS refused: plausible-procedural without generic -> generic_required
+PASS refused: men number not in the quote -> number_not_in_quote
+PASS refused: tool count not in the quote -> number_not_in_quote
+PASS refused: stated clock but no hour in the quote -> window_basis_not_in_quote
+PASS refused: extra key -> unknown_key
+PASS refused: id prefix -> id_prefix
+PASS refused: no subject -> subject_missing
+PASS refused: no activity and no pose -> activity_missing
+PASS refused: activity without its basis -> activity_basis
+PASS refused: construction of a pre-existing wall -> construction_of_preexisting
+PASS refused: page basis missing -> missing_key
+PASS refused: ocr fold without declared repairs -> ocr_unexplained
+PASS refused: manual cannot carry documented -> tier_class_forbidden
+PASS refused: manual row must be generic -> manual_not_generic
+PASS refused: bad conflict shape -> conflict_shape
+PASS refused: open gap with a quote -> gap_has_quote
+PASS accepted: OCR repair declared
+PASS refused under --strict: OCR fold
+PASS accepted: a registered open gap
+PASS refused: open gap without searched list
+PASS refused: open gap without register_ref
+PASS accepted: an inferred row with its reasoning
+PASS accepted: a generic manual row
+PASS accepted: stated date window
+PASS refused: two rows on the same passage, kind and unit -> duplicate_row
+PASS refused: the same id twice
+PASS OR: the located passage is found again (exact)
+PASS OR row: record, part, page and quote all agree
+PASS OR row: wrong page refused
+PASS OR row: scan-leaf page accepted
+PASS OR row: wrong scan-leaf page refused
+PASS OR row: wrong report refused
+PASS OR row: wrong part refused
+PASS state volume row: section, page anchor and quote agree
+PASS state volume row: wrong section refused
+PASS state volume row: wrong page refused
+SELF-TEST OK (55 checks, 0 failed)
+exit 0

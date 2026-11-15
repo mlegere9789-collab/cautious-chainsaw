@@ -1,0 +1,9 @@
+[
+ {"rows":["T1-009"],"pattern":"clover","scopes":["town","nps","ca"],"d0":"1863-06-26","d1":"1863-08-31","note":"clover field of the 26th PA militia camp","ctx":200},
+ {"rows":["T1-009","T1-011"],"pattern":"Knoxlyn|Belmont (road|school)|Bayly|Bayley","scopes":["town","nps"],"note":"Knoxlyn, Belmont Road, Bayly's Hill in town books and NPS texts","ctx":200},
+ {"rows":["T1-014","T1-015"],"pattern":"covered bridge.{0,200}(burn|fire|destroy)|(burn|fire|destroy).{0,200}covered bridge","scopes":["town","ca"],"d0":"1863-06-26","d1":"1863-08-31","note":"covered bridge burned at Gettysburg","ctx":200},
+ {"rows":["T1-014","T1-015"],"pattern":"telegraph.{0,120}(cut|torn|destroy|wires)|(cut|tore|torn|destroy).{0,80}telegraph","scopes":["town"],"note":"telegraph lines torn up at Gettysburg Jun 26","ctx":200},
+ {"rows":["T1-042"],"pattern":"Littlestown.{0,300}(skirmish|Stuart|rebel|cavalry)|(skirmish|Stuart).{0,300}Littlestown","scopes":["town"],"note":"Littlestown Jun 30 in the town books","ctx":250},
+ {"rows":["T1-053"],"pattern":"Barlow.{0,200}(Emmitsburg|Gettysburg).{0,200}(June 30|30th|Tuesday)|Howard.{0,200}Emmitsburg","scopes":["town","nps"],"note":"XI Corps and Barlow at Emmitsburg Jun 30","ctx":220},
+ {"rows":["T1-021"],"pattern":"(Hooker|Meade).{0,200}(relieved|assumed command|assigned to the command)","scopes":["ca"],"d0":"1863-06-28","d1":"1863-07-01","note":"Meade assumes command, newspaper dispatches of Jun 28-Jul 1","ctx":220}
+]

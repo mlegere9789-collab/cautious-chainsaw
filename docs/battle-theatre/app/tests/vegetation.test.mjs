@@ -517,6 +517,25 @@ test('the choice CF-VEG-MCPHERSON and the park\'s totals: both readings of one c
   const u = alt.find(x => x.crop_alt === 'wheat' || x.crop === 'wheat'); const wh = u.crop_alt === 'wheat' ? study : {}; assert.ok(Number.isFinite(cutMinute(M, u, wh)), 'a cell that is wheat under one reading has a cut date under it'); assert.equal(cutMinute(M, u, u.crop_alt === 'wheat' ? {} : study) === Infinity || true, true);
 });
 
+test('the choice CF-VEG-HOUCK: the Slaughter Pen study of Houck\'s land against the Warren woods; it acts on the woods and clusters in its box and nothing else, and the cleared ground is pasture', () => {
+  const sc = M.scenarios['CF-VEG-HOUCK']; assert.equal(sc.default, 'as_warren'); assert.deepEqual(Object.keys(sc.options).sort(), ['as_warren', 'clear_cut']); assert.equal(sc.options.clear_cut.tier, 'inferred'); assert.equal(sc.options.as_warren.tier, 'inferred');
+  assert.ok(sc.options.as_warren.by.includes('VC-OR-023') && sc.options.clear_cut.by.includes('VC-NPSC-SLAUGHTER-PEN-p007-04'), 'Kershaw against the study, both cited'); for (const o of Object.values(sc.options)) for (const c of o.by) assert.ok(claimOf(c), c);
+  assert.deepEqual(sc.box, [-77.2445, 39.7915, -77.2392, 39.7982]); assert.ok(sc.units.length >= 4 && sc.units.includes('V-0648') && sc.units.includes('V-0808'), sc.units.join());
+  const t = T('1863-07-02T12:00'), ids = new Set(sc.units); for (const id of sc.units) { const u = M.byId.get(id); assert.ok(u.woods && (u.cls === 'woods' || u.cls === 'scatter')); for (const c of ['VC-NPSC-SLAUGHTER-PEN-p007-03', 'VC-NPSC-SLAUGHTER-PEN-p007-04', 'VC-NPSC-SLAUGHTER-PEN-p007-05']) assert.ok(u.claims.some(([x, r]) => x === c && r === 'area'), id + ' ' + c); }
+  for (const id of sc.units) {
+    const u = M.byId.get(id), a = stateAt(M, u, t, {}), b = stateAt(M, u, t, { 'CF-VEG-HOUCK': 'clear_cut' });
+    assert.equal(a.trees.keep, 1, 'the Warren outline is drawn by default'); assert.equal(a.scenario, undefined); assert.equal(b.trees.keep, 0); assert.equal(b.trees.perHa, 0); assert.equal(b.scenario['CF-VEG-HOUCK'], 'clear_cut'); assert.equal(b.tiers.cover, 'inferred');
+    assert.equal(b.ground.crop, 'pasture'); assert.match(b.ground.label, /clear-cut/); assert.equal(a.ground.crop, 'forest_floor');
+  }
+  const other = M.units.find(u => u.woods && !ids.has(u.id) && !M.lrtUnits.has(u.id) && u.cls === 'woods'); assert.equal(stateAt(M, other, t, { 'CF-VEG-HOUCK': 'clear_cut' }).trees.keep, 1, 'a wood outside the box is not moved');
+  assert.ok(M.byId.get('V-0001').claims.length > 0 && stateAt(M, M.byId.get('V-0001'), t, { 'CF-VEG-HOUCK': 'clear_cut' }).ground.crop === 'wheat', 'the Wheatfield stands');
+  assert.ok(claimOf('VC-NPSC-SLAUGHTER-PEN-p007-04').quote.includes('clear-'), 'the quote is the saved text as it reads'); assert.match(claimOf('VC-NPSC-SLAUGHTER-PEN-p007-04').note, /Letter for letter as saved/);
+  assert.ok(DATA.gaps.some(g => g.id === 'G24' && /Houck/.test(g.what) && /Big Round Top/.test(g.what)));
+  // the third reading: Big Round Top, the Brien farm, the McClean and Leister reports
+  assert.ok(byLc('LC-WOOD-0002').claims.some(([c, r]) => c === 'VC-NPSC-BRT-ECOLOGY-p003-02' && r === 'exact') && /before 1850/.test(claimOf('VC-NPSC-BRT-ECOLOGY-p003-02').says));
+  for (const id of ['VC-NPSC-HSR-LEISTER-BARN-p021-03', 'VC-NPSC-HSR-LEISTER-BARN-p023-01', 'VC-NPSC-MCCLEAN-HOUSE-BARN-p018-01']) assert.equal(claimOf(id).placed, false, id + ' is listed as not placed');
+});
+
 test('the table of names: every feature a timeline row can name resolves to a unit, with the rule that found it and the tier of that identification', () => {
   const named = DATA.meta.named, byName = Object.fromEntries(named.map(n => [n.name, n])); assert.ok(named.length >= 12, 'names: ' + named.length);
   for (const n of named) { const u = M.byId.get(n.unit); assert.ok(u && u.lc === n.lc, n.name); assert.ok(n.via.length > 20 && TIERS.includes(n.tier), n.name); }

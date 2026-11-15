@@ -15,24 +15,33 @@ QUOTES = {
     'hist_3pm': "the advance g^ard of the rebels, 200 strong, galloped into Gettysburg about 3 o' clock on the afternoon of the 26th,",
     'hist_735': 'On the 24th a regiment of Pennsylvania Volunteer MUitia, numbering 735 men, of which Company A was nearly entirely students from Pennsylvania College, had been started from Harrisburg and Carlisle to Gettysburg.',
     'hist_guards': 'Guards were posted about the public buildings and some of the stores, and a few, but very few, private houses.',
+    'hist_sent': "Jennings and his command were sent out on the Chambersburg Turnpike on the morning of the 26th. When they met the rebels, in the afternoon, the enemy captured nearly all of Jenning's advance guard — about forty men",
     'hist_sidewalks': 'When permitted to stack arms, or put themselves at rest, they lay down on the sidewalks and in the streets with their knapsacks under their heads.',
     'hist_thu': 'Col. Jennings and his command had reached this place on Thursday',
+    'hoke_arrive': "In the afternoon of this day Early's division reached Gettysburg",
     'hoke_buford': 'General Buford in command of a division of Federal cavalry passed through Gettysburg in the afternoon of the day (Tuesday)',
     'hoke_burn': 'While on their way across the mountain they burned the Caledonia Iron Works, which belonged to Hon. Thaddeus Stevens. These works were situated about two miles east of Greenwood, at the base of the South Mountain, and about ten miles from Chambersburg.',
     'hoke_date': "In the morning of this day — Friday, 26th, — Early's division left its camp at Greenwood, where it had remained",
+    'hoke_ewell': 'These wagons proved to be part of EwelPs train',
     'hoke_fires': "The line of the railroad could be traced by the numerous fires still burning. The sound of the drum was heard in the direction of Pickett's Camp. Along the South Mountain, for miles up and down the valley, innumerable lights were seen.",
     'hoke_nocol': 'No column of our troops was sent to burn the iron works of Thaddeus Stevens',
     'hoke_order': 'they were burned by my order, and on my own responsibility.',
-    'hoke_pettig': "About half past nine o'clock in the morning a detachment from Ileth's division under General Pettigrew left their encampment at Cashtown and advanced upon a reconnoisance to within about one mile of Gettysburg.",
+    'hoke_pettig': "About half past nine o'clock in the morning a detachment from Ileth's division under General Pettigrew left their encampment at Cashtown and advanced upon a reconnoisance to within about one mile of Gettysburg. They had with them a number of wagons, and it was supposed",
     'hoke_pettig2': 'Approaching the town, this detachment halted, and after a careful observation Ly the officers, through their Held -glasses, they withdrew and encamped at Marsh Creek.',
+    'hoke_pike': 'turning east at the Public Square, drove on out the Gettysburg pike. Although these wagons were heavily loaded, as the grinding noise they made indicated, they were sometimes driven at a trot.',
+    'hoke_road': 'I found the iron works above mentioned on the road aforesaid, where it begins to ascend the South Mountain',
     'hoke_rumble': 'A low, rumbling noise could be heard which sounded strange in the stillness of Cthe night, as if the whole valley were filled with moving trains.',
     'hoke_steeple': 'In the evening of this day — Monday, June 29th, — some time after dark, in company with two of our citizens, I went up into the steeple of the Reformed Church to take observations.',
     'hoke_stream': 'we saw a continuous stream of wagons driven hurriedly through our street.',
+    'hoke_time': "probably about one or two o'clock, I was awakened",
+    'hoke_union1': "At night the head of Stuart's column rested at Union Mills, half way between Westminster and Littlestown.",
+    'hoke_union2': 'Stuart, who had bivouacked over night at Union Mills, midway between Westminster and Littlestown,',
     'nps_clr_schm': 'Schmucker Hall or Old Dorm (1832), the original seminary building with its cupola that served as a Union signal station',
     'nps_clr_sem': 'Arriving on June 30, General Buford used the cupola of the Seminary building as a signal station while his cavalry division encamped at the McPherson Farm',
-    'press_9': 'arrived there Tuesday morning, when they were charged upon In the rear by Stuart’s reb el cavalry, about six thousand strong. The National forces numbered 1,800. The battle commenced at 9 a. m., and continued until 7 in the evening.',
+    'press_9': 'The Press has the following: Columbia, Pa., Julyl.—TheSthNewYork, Ist Vermont, Ist Virginia and 18th Pcnnsyl vania cavalry regiments left Frederick, Md., on Saturday, moved forward to Hanover, and arrived there Tuesday morning, when they were charged upon In the rear by Stuart’s reb el cavalry, about six thousand strong. The National forces numbered 1,800. The battle commenced at 9 a. m., and continued until 7 in the evening.',
     'slentz_aff': "G e n l B u f o r d ' s com mand o c c u p i e d t h e p l a c e u n t i l 1 0 am n e x t d a y , t h e y c u t a n d t h r e w dow n a b o u t \\ m i l e p o s t an d r a i l f e n c e t o m ake w ay f o r t h e b a t t l e .",
     'slentz_pet': "B u f o r d ' s C a v a l r y who e n cam p e d on i t J u n e 3 0 1 8 6 3",
+    'spy_14mi': 'Gregg, at Caledonia iron works, fourteen miles west of Gettysburg',
     'spy_iron': 'Hon. Thad. Stevens’ iron mills near Get tysburg have been destroyed by the rebels. His loss is about',
     'star_camp': 'The Rebel troops, forty-five hundred strong',
     'star_fri': 'The place was occupied on triday afternoon last by tour thousand five hundred Rebels under command o! General Early; they had with them twenty i pieces ot light artillery.',
@@ -40,10 +49,6 @@ QUOTES = {
     'star_left': 'The next morning after the occupation the rebels eft Gettysburg after stealing "very! thing they could lay their hands on. Thev* pursued their way lor Y\'ork by way of Har over.',
     'tri_175': 'Of the 170 wagons they captured near Rockville',
     'wni_fri': 'regi ment lefc Harrisburg on Thursday for Gettysburg. On Friday morning the regiment went to Gettysburg.',
-    'hist_sent': "Jennings and his command were sent out on the Chambersburg Turnpike on the morning of the 26th. When they met the rebels, in the afternoon, the enemy captured nearly all of Jenning's advance guard — about forty men",
-    'hoke_union1': "At night the head of Stuart's column rested at Union Mills, half way between Westminster and Littlestown.",
-    'hoke_union2': 'Stuart, who had bivouacked over night at Union Mills, midway between Westminster and Littlestown,',
-    'spy_14mi': 'Gregg, at Caledonia iron works, fourteen miles west of Gettysburg',
 }
 
 IMG = {
@@ -55,6 +60,7 @@ IMG = {
     'wni': 'page-image crop of the Weekly National Intelligencer page 3 (acquired_tl01.json, item ca-wni-0702-jennings) reads: "HANOVER JUNCTION, JUNE 27.-Col. Jennings\'s regi[ment] left Harrisburg on Thursday for Gettysburg. On [Friday] morning the regiment went to Gettysburg. The Philadelphia city troops and another cavalry company preceded them."; the word Friday is cut by the crop edge (its last letter y is on the line start)',
     'cht140': 'page-image crop of the Chicago Daily Tribune page 1 (acquired_tl01.json, item ca-cht-0629-140) reads, enlarged four times: "captured a train of 140 wagons"; the text layer prints 110',
     'tri175': 'page-image crop of the New-York Daily Tribune page 1 (acquired_tl01.json, item ca-tri-0701-175) reads, enlarged four times: "Of the 175 wagons they"; the text layer prints 170',
+    'spy_14mi': 'page-image crop of the Worcester Daily Spy page 1 (acquired_tl01.json, item ca-spy-0708-gregg) reads: "A dispatch from Gen. Gregg, at Caledonia iron works, fourteen miles west of Gettysburg, at 4 A. M. to-day, says the rebels have turned to"',
     'press9': 'page-image crop of the Chicago Daily Tribune page 1 (acquired_tl01.json, item ca-cht-0703-press) reads: "...el cavalry, about six thousand strong. The National forces numbered 1,800. The battle commenced at 9 a. m., and continued until 7 in the evening."',
 }
 
@@ -107,13 +113,15 @@ def apply(rows):
     # ------------------------------------------------------------------------------------------------------------------ T1-005
     r = by['T1-005']
     r['cites'].update({
-        'hoke_date': L('HOKE-1887', Q['hoke_date']),
+        'hoke_date': L('HOKE-1887', Q['hoke_date'], note='the sentence continues on p.170 after the running head: "over the previous day"'),
+        'hoke_road': L('HOKE-1887', Q['hoke_road'], note="General Early's letter of May 7th, 1886, printed by Hoke in a footnote"),
+        'hoke_arrive': L('HOKE-1887', Q['hoke_arrive']),
         'hoke_burn': L('HOKE-1887', Q['hoke_burn']),
         'hoke_order': L('HOKE-1887', Q['hoke_order'], note="General Early's letter of May 7th, 1886 to Prof. J. Fraise Richard, printed by Hoke in a footnote of his book of 1887"),
         'hoke_nocol': L('HOKE-1887', Q['hoke_nocol'], note="the same letter of General Early of May 7th, 1886"),
         'star_furn': CA('CA-sn83045462-1863-07-01-p2', Q['star_furn'], reading="At Stevens' Furnace, which, by the way, belongs to Hon. Thaddeus Stevens, the rebels burned everything, and what could not be burned was destroyed.", image=IMG['star_stevens'],
                         witness='Evening Star (Washington), Jul 1 1863: a Philadelphia Inquirer correspondent at Harrisburg, Jun 30, reporting an informant who passed the works on the road from Gettysburg toward Chambersburg after the rebels had left'),
-        'spy_14mi': CA('CA-sn83021205-1863-07-08-p1', Q['spy_14mi'], witness='Worcester Daily Spy, Jul 8 1863: a dispatch from Gettysburg, Jul 6, quoting General Gregg at the Caledonia iron works (the skirmish of Jul 5-6); the distance is the dispatch\'s'),
+        'spy_14mi': CA('CA-sn83021205-1863-07-08-p1', Q['spy_14mi'], reading='A dispatch from Gen. Gregg, at Caledonia iron works, fourteen miles west of Gettysburg, at 4 A. M. to-day', image=IMG['spy_14mi'], witness='Worcester Daily Spy, Jul 8 1863: a dispatch from Gettysburg, Jul 6, quoting General Gregg at the Caledonia iron works (the skirmish of Jul 5-6); the distance is the dispatch\'s'),
         'spy_iron': CA('CA-sn83021205-1863-07-02-p1', Q['spy_iron'], reading="Hon. Thad. Stevens' iron mills near Gettysburg have been destroyed by the rebels. His loss is about $100,000.", image=IMG['spy_iron'],
                        witness='Worcester Daily Spy, Jul 2 1863: a short telegraphic paragraph with no source named; "iron mills near Gettysburg" is the paper\'s own wording for the works'),
     })
@@ -122,9 +130,9 @@ def apply(rows):
             'documented', 'supported', ['sen_where', 'hoke_burn', 'spy_14mi'])
     sub_append(r, 5, '; a dispatch quoting General Gregg of Jul 6 (Worcester Daily Spy, Jul 8 1863) puts the Caledonia iron works fourteen miles west of Gettysburg')
     sub_set(r, 6, "Time of day: after Early's division left its camp at Greenwood in the morning of Friday Jun 26 and before it reached Gettysburg in the afternoon, within about two miles of that camp (the order of events in Hoke 1887); no source gives an hour",
-            'inferred', 'supported', ['hoke_date', 'hoke_burn'])
+            'inferred', 'supported', ['hoke_date', 'hoke_burn', 'hoke_arrive'])
     sub_add(r, "Early's own letter of 1886 (printed by Hoke): the iron works were burned by his order and on his own responsibility; he also says that no column of troops was sent to burn them (his division found them on its road)",
-            'documented', 'supported', ['hoke_order', 'hoke_nocol'])
+            'documented', 'supported', ['hoke_order', 'hoke_nocol', 'hoke_road'])
     sub_add(r, "The seed's \"about 2 miles out from camp\" is the distance from Early's camp at Greenwood: Hoke has the works about two miles east of Greenwood and the division in camp at Greenwood on Jun 25 (the identification of the seed's camp with Greenwood is inferred)",
             'inferred', 'supported', ['hoke_burn', 'hoke_date'])
     scen_extend(r, 'A', '; Hoke 1887 pp.169-170 (the division left Greenwood on the morning of Friday Jun 26 and burned the works on its way across the mountain, before it reached Gettysburg in the afternoon)', 'hoke_date', 'hoke_burn')
@@ -136,7 +144,7 @@ def apply(rows):
     r['remains'] = ['hour of the burning', 'which date is right (Jun 25 or Jun 26)']
     r['searched'] = list(r['searched']) + [
         SRCH4 + "Hoke, The Great Invasion of 1863 (HOKE-1887, tmp/library/town), pp.169-171 read: the division left Greenwood on the morning of Friday Jun 26, the works about two miles east of Greenwood burned on the way across the mountain, Early's letter of 1886 ('burned by my order'); History of Cumberland and Adams Counties 1886 (HISTORY-ADAMS-1886): regex Stevens.{0,100}(furnace|iron works|forge)|Caledonia (iron|furnace|works): only the later rebuilding of the works, no date or hour",
-        SRCH4 + "1863 newspaper pages (tmp/library/web/ca, 933 pages, Jun 26 - Aug 31): regex Stevens.{0,80}(furnace|iron works|iron mill|forge)|Caledonia: the dispatches of Jun 30 - Jul 4 repeat the destruction; Evening Star Jul 1 and Worcester Daily Spy Jul 2 cited; none gives the day or the hour",
+        SRCH4 + "1863 newspaper pages (tmp/library/web/ca, the pages dated Jun 26 - Aug 31 1863): regex Stevens.{0,80}(furnace|iron works|iron mill|forge)|Caledonia: the dispatches of Jun 30 - Jul 4 repeat the destruction; Evening Star Jul 1 and Worcester Daily Spy Jul 2 cited; none gives the day or the hour",
     ]
     r['register'].update(title='Caledonia iron works: date (Jun 25 or Jun 26) and hour',
         why="Two accounts disagree on the day (Friday Jun 26: Compiler of Jun 29 1863 and Hoke 1887; Thursday Jun 25: Tribune letter and Adams Sentinel); no source gives an hour; no report of the burning from Early's command is in the OR.",
@@ -193,7 +201,7 @@ def apply(rows):
         'hist_guards': LH(Q['hist_guards']),
         'hist_sidewalks': LH(Q['hist_sidewalks']),
     })
-    sub_append(r, 1, '; the county history of 1886 adds that guards were posted about the public buildings and some of the stores and a very few private houses', 'hist_guards')
+    sub_append(r, 1, '; the county history of 1886 adds that guards were posted about the public buildings and some of the stores, and a few, but very few, private houses', 'hist_guards')
     sub_append(r, 2, '; the county history of 1886: when permitted to stack arms they lay down on the sidewalks and in the streets', 'hist_sidewalks')
     r['searched'] = list(r['searched']) + [
         SRCH4 + "History of Cumberland and Adams Counties 1886 (HISTORY-ADAMS-1886) p.153 read: guards about the public buildings and some of the stores, the men lay down on the sidewalks and in the streets (cited); no campfire, no lights in houses, no sentries on prisoners; HOKE-1887 pp.170-172 read: the requisition and the borough's reply of Jun 26, no night scene",
@@ -214,21 +222,21 @@ def apply(rows):
     r = by['T1-026']
     r['cites'].update({
         'cht_140': CA('CA-sn84031490-1863-06-29-p1', Q['cht_140'], reading='... captured a train of 140 wagons ...', image=IMG['cht140'],
-                      witness='Chicago Daily Tribune, Jun 29 1863: a Washington dispatch of Sunday Jun 28; the same wire in other papers reads "a train of 150 wagons"'),
+                      witness='Chicago Daily Tribune, Jun 29 1863: a Washington dispatch of Sunday Jun 28; other papers print "a train of 150 wagons" in dispatches of the same days'),
         'tri_175': CA('CA-sn83030213-1863-07-01-p1', Q['tri_175'], reading='Of the 175 wagons they ...', image=IMG['tri175'],
-                      witness='New-York Daily Tribune, Jul 1 1863: an officer captured by Stuart at Rockville, paroled and returned to Washington, estimates the captured wagons at 175 (the sentence continues: the rebels burned only three or four that were upset and broken)'),
+                      witness='New-York Daily Tribune, Jul 1 1863, in a report that follows the account of an officer captured by Stuart at Rockville, paroled and returned to Washington; the figure stands in the paper\'s own voice (the sentence continues: the rebels burned only three or four that were upset and broken)'),
     })
     sub_set(r, 4, 'A count of about 140 wagons: the Chicago Daily Tribune of Jun 29 1863 prints "captured a train of 140 wagons" near Rockville (page image; the text layer reads 110)', 'documented', 'supported', ['cht_140'])
-    sub_add(r, 'An officer captured by Stuart at Rockville estimates 175 wagons captured (New-York Daily Tribune, Jul 1 1863; page image 175, the text layer reads 170)', 'documented', 'supported', ['tri_175'])
+    sub_add(r, 'The New-York Daily Tribune of Jul 1 1863, in a report that follows the account of an officer captured by Stuart at Rockville, has 175 wagons captured near Rockville (page image 175, the text layer reads 170)', 'documented', 'supported', ['tri_175'])
     c = scen(r, 'C')
     c.update(value='About 140 wagons (the seed)', basis='Chicago Daily Tribune, Jun 29 1863, p.1 (Washington dispatch of Jun 28; page image 140, the text layer reads 110)', tier='documented', cites=['cht_140'])
-    r['scenarios'].append(sc('D', 'About 175 wagons (an officer captured at Rockville)', 'New-York Daily Tribune, Jul 1 1863, p.1 (page image 175, the text layer reads 170)', 'documented', ['tri_175']))
+    r['scenarios'].append(sc('D', 'About 175 wagons (New-York Daily Tribune, in a report on an officer captured at Rockville)', 'New-York Daily Tribune, Jul 1 1863, p.1 (page image 175, the text layer reads 170)', 'documented', ['tri_175']))
     r['verdict'] = 'corrected'
     r['claim']['event'] = 'Stuart\'s cavalry captures a United States wagon train at Rockville on Jun 28: 125 to 175 wagons by the sources (train about eight miles long)'
     r['claim']['text'] = ("On Jun 28 at Rockville Stuart secured \"more than one hundred and twenty-five\" of the best United States model wagons with their teams, a train eight miles long (Alexander); the 1st Minnesota history says 125 six-mule wagons. "
                           "The Union side of the same day gives 150: Halleck wrote to Meade at 3 p.m. that his train of one hundred and fifty wagons had been captured by Fitzhugh Lee near Rockville, and Meigs wrote at 4.05 p.m. that carelessness had cost 150 wagons and 900 mules captured between Washington and Rockville. "
-                          "The Chicago Daily Tribune of Jun 29 1863 prints 140 wagons (the seed value; page image, the text layer reads 110) and the New-York Daily Tribune of Jul 1 1863 has an officer captured at Rockville estimate 175. Scenarios carried, no default.")
-    r['claim']['marking'] = '125 or more (Stuart), 140 (Chicago Daily Tribune), 150 (Union dispatches) and 175 (an officer captured at Rockville) wagons: documented, carried as scenarios'
+                          "The Chicago Daily Tribune of Jun 29 1863 prints 140 wagons (the seed value; page image, the text layer reads 110) and the New-York Daily Tribune of Jul 1 1863, in a report that follows the account of an officer captured at Rockville, has 175 (page image; the text layer reads 170). Scenarios carried, no default.")
+    r['claim']['marking'] = '125 or more (Stuart), 140 (Chicago Daily Tribune), 150 (Union dispatches) and 175 (New-York Daily Tribune) wagons: documented, carried as scenarios'
     r['remains'] = []
     r['register'] = None
     r['searched'] = list(r['searched']) + [
@@ -253,7 +261,7 @@ def apply(rows):
     # ------------------------------------------------------------------------------------------------------------------ T1-044
     r = by['T1-044']
     r['cites'].update({
-        'press_9': CA('CA-sn84031490-1863-07-03-p1', Q['press_9'], reading='... arrived there Tuesday morning, when they were charged upon in the rear by Stuart\'s rebel cavalry, about six thousand strong. The National forces numbered 1,800. The battle commenced at 9 a. m., and continued until 7 in the evening.',
+        'press_9': CA('CA-sn84031490-1863-07-03-p1', Q['press_9'], reading='... about six thousand strong. The National forces numbered 1,800. The battle commenced at 9 a. m., and continued until 7 in the evening. (the part of the sentence before "about six thousand strong" is read in the text layer only)',
                       image=IMG['press9'], witness='Chicago Daily Tribune, Jul 3 1863: a Philadelphia Press special dispatch from Columbia, Pa., Jul 1; the same dispatch is in the Springfield Weekly Republican of Jul 4 ("9 o\'clock") and in the New-York Daily Tribune, New York Herald and Daily Evansville Journal of Jul 3'),
     })
     sub_set(r, 5, 'The 18th Pennsylvania rear guard hit Confederate vedettes before 10:00 and so opened the fight (seed): the vedette detail is in no text read; a start about 9 a.m. is in the Philadelphia Press special dispatch (next sub-claim)', 'open gap', 'conflict', [])
@@ -265,7 +273,7 @@ def apply(rows):
                       when='Jun 30: about 9 a.m. (Philadelphia Press special), about 10 a.m. (Stuart) or about noon (Richmond, Hammond)',
                       basis='Philadelphia Press special in the Chicago Daily Tribune Jul 3 1863 p.1; Stuart OR27-2-R565 p.695; Richmond OR27-1-R362 p.1005; Hammond OR27-1-R363 p.1008; Kilpatrick OR27-1-R359 pp.986-987',
                       start='1863-06-30T09:00')
-    r['claim']['text'] = r['claim']['text'].replace('The seed time (before 10:00) is earlier than every value in the OR.', 'The seed time (before 10:00) is earlier than every value in the OR; a Philadelphia Press special dispatch of Jul 1, printed in several papers on Jul 2-4 1863, has the column charged in the rear on its arrival on Tuesday morning and the battle commence at 9 a. m. (scenario C), which agrees with the seed\'s hour but not with its mechanism (vedettes).')
+    r['claim']['text'] = r['claim']['text'].replace('The seed time (before 10:00) is earlier than every value in the OR.', 'The seed time (before 10:00) is earlier than every value in the OR; a Philadelphia Press special dispatch of Jul 1, printed in several papers on Jul 3-4 1863, has the column charged in the rear on its arrival on Tuesday morning and the battle commence at 9 a. m. (scenario C), which agrees with the seed\'s hour but not with its mechanism (vedettes).')
     r['searched'] = list(r['searched']) + [
         SRCH4 + "1863 newspaper pages (tmp/library/web/ca, Jul 1 - Jul 6): regex Hanover.{0,300}(10 o'clock|ten o'clock|noon|12 o'clock|forenoon|morning|2 o'clock|afternoon).{0,300}(Kilpatrick|Stuart|Farnsworth|Custer) and the reverse: 15 windows in 14 pages; the Press special of Jul 1 (9 a. m. to 7 in the evening) is printed in at least six papers and cited once (page image read); the Times special of Jun 30 (HQ, 8 p.m.): Gregg drove Stuart from Westminster to Hanover early on Tuesday, Kilpatrick and Custer drove Stuart out of Hanover 'during the forenoon' (no hour)",
     ]
@@ -273,7 +281,7 @@ def apply(rows):
     # ------------------------------------------------------------------------------------------------------------------ T1-046
     r = by['T1-046']
     r['cites'].update({
-        'press_9': CA('CA-sn84031490-1863-07-03-p1', Q['press_9'], reading='... arrived there Tuesday morning, when they were charged upon in the rear by Stuart\'s rebel cavalry, about six thousand strong. The National forces numbered 1,800. The battle commenced at 9 a. m., and continued until 7 in the evening.',
+        'press_9': CA('CA-sn84031490-1863-07-03-p1', Q['press_9'], reading='... about six thousand strong. The National forces numbered 1,800. The battle commenced at 9 a. m., and continued until 7 in the evening. (the part of the sentence before "about six thousand strong" is read in the text layer only)',
                       image=IMG['press9'], witness='Chicago Daily Tribune, Jul 3 1863: a Philadelphia Press special dispatch from Columbia, Pa., Jul 1, printed in several papers'),
     })
     sub_set(r, 2, 'Start of the fight about 9 a.m. (Philadelphia Press special), about 10 a.m. (Stuart) or about noon (Richmond, Hammond); the Press special has the battle continue until 7 in the evening, against Kilpatrick\'s two hours', 'documented', 'conflict', ['press_9', 'stuart10', 'rich_noon', 'ham_noon'])
@@ -371,6 +379,9 @@ def apply(rows):
         'hoke_fires': L('HOKE-1887', Q['hoke_fires']),
         'hoke_stream': L('HOKE-1887', Q['hoke_stream']),
         'hoke_rumble': L('HOKE-1887', Q['hoke_rumble'], note='the text layer prints "Cthe night"'),
+        'hoke_time': L('HOKE-1887', Q['hoke_time']),
+        'hoke_pike': L('HOKE-1887', Q['hoke_pike']),
+        'hoke_ewell': L('HOKE-1887', Q['hoke_ewell'], note='the text layer prints "EwelPs"'),
         'hoke_union1': L('HOKE-1887', Q['hoke_union1']),
         'hoke_union2': L('HOKE-1887', Q['hoke_union2']),
     })
@@ -379,7 +390,7 @@ def apply(rows):
     sub_add(r, "Chambersburg and the South Mountain after dark on Monday Jun 29, seen by Hoke from the steeple of the Reformed Church: the line of the railroad could be traced by the numerous fires still burning, the sound of the drum was heard toward Pickett's camp, and innumerable lights were seen along the South Mountain for miles up and down the valley",
             'documented', 'supported', ['hoke_steeple', 'hoke_fires'])
     sub_add(r, "About one or two o'clock in the night of Jun 29-30 a continuous stream of wagons (Ewell's train) was driven hurriedly through the street of Chambersburg and out the Gettysburg pike, at times at a trot, with a low rumbling noise as if the whole valley were filled with moving trains (Hoke)",
-            'documented', 'supported', ['hoke_stream', 'hoke_rumble'])
+            'documented', 'supported', ['hoke_stream', 'hoke_rumble', 'hoke_time', 'hoke_pike', 'hoke_ewell'])
     r['claim']['text'] = r['claim']['text'].replace("Campfires, picket lines, lights, sounds and the civilians' contact with the troops on the night of Jun 29 across both armies remain an open gap: no passage found describes them for that night.",
         "Hoke, who watched from the steeple of the Reformed Church at Chambersburg after dark on Monday Jun 29, saw the line of the railroad by the numerous fires still burning, heard a drum toward Pickett's camp, saw innumerable lights along the South Mountain for miles, and was woken about one or two o'clock by a continuous stream of Ewell's wagons driven hurriedly through the street with a low rumbling noise (a later book, the author's own account). "
         "Campfires, picket lines, lights, sounds and the civilians' contact with the troops on the Union side and around Gettysburg on the night of Jun 29 remain an open gap: no passage found describes them for that night.")
@@ -402,6 +413,18 @@ def apply(rows):
         'T1-041': "weather words and instruments for Jun 30 in the same corpora as T1-003: none",
         'T1-048': "Pancoast|Presbyterian.{0,200}(hospital|wounded|cavalry) in the town books (HISTORY-ADAMS-1886, HOKE-1887, WARCLAIMS-CHURCHES-1912: the list of church war claims has two Gettysburg churches, St. James Lutheran and St. Mark's German Reformed, both hospitals after the battle; none for the Presbyterian church), the National Park Service texts and the medical texts: no statement of a hospital at the Presbyterian Church on Jun 30",
     }
+    NONE.update({
+        'T1-006': "Comanche in the newspaper pages of Jun 26 - Sep 30 1863 and the town books: only an ironclad and the Carlisle Indian school; militia within 160 characters of Early or Gordon in the town books (14 windows): none says that Early learned that the force in Gettysburg was militia",
+        'T1-011': "Knoxlyn|Belmont (road|school)|Bayly|Bayley in the town books and the National Park Service texts: nothing on the flight of the militia (the Belmont Schoolhouse hit is the 26th North Carolina on Jul 1)",
+        'T1-012': "Bayly|Bayley in the town books and the National Park Service texts: family names only; Hunterstown.{0,200}(militia|Jennings|captured|paroled) in the newspaper pages of Jun 27 - Jul 25 1863: no window",
+        'T1-015': "covered bridge.{0,200}(burn|fire|destroy) and telegraph.{0,120}(cut|torn|destroy) in the town books and the newspaper pages of Jun 26 - Aug 31 1863: no passage about Gettysburg",
+        'T1-021': "newspaper dispatches of Jun 28 - Jul 1 1863 (8 windows): Hooker relieved at his own request and Meade appointed to the command, no hour of the order",
+        'T1-042': "Littlestown.{0,300}(skirmish|Stuart|rebel|cavalry) in the town books (10 windows): Hoke gives the marches of Jun 29-30 (Kilpatrick's division from Frederick to Littlestown, the Twelfth Corps resting at Littlestown), no account of a skirmish there",
+        'T1-051': "Stuart.{0,160}(ditch|leaped|jumped) in the newspaper pages of Jul 1-31 1863 and the town books: no account of Stuart escaping by jumping a ditch at Hanover; Hanover casualty figures in the town books: none",
+        'T1-053': "Barlow.{0,200}(Emmitsburg|Gettysburg).{0,200}(June 30|30th|Tuesday)|Howard.{0,200}Emmitsburg in the town books and the National Park Service texts: Barton's book has General Howard's headquarters at Emmitsburg and General Schurz near St. Joseph's on the 28th to 30th; nothing on Barlow's division",
+    })
+    r = by['T1-009']
+    r['searched'] = list(r['searched']) + [SRCH4 + "clover in the newspaper pages of Jun 26 - Aug 31 1863, the town books and the National Park Service texts: advertisements for clover seed only; Knoxlyn|Belmont (road|school)|Bayly|Bayley in the town books and the National Park Service texts: nothing on the militia camp"]
     for rid, text in NONE.items():
         r = by[rid]
         r['searched'] = list(r['searched']) + [SRCH4 + text]

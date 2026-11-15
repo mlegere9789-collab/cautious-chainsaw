@@ -40,6 +40,7 @@ SCHEMA = 'bt-vegetation/1'
 TO_M = Transformer.from_crs(4326, 32618, always_xy=True)
 TO_LL = Transformer.from_crs(32618, 4326, always_xy=True)
 ACRE = 4046.8564224
+HOUCK_BOX = [-77.2445, 39.7915, -77.2392, 39.7982]    # Houck's 47 acres west of Plum Run (west, south, east, north): between Plum Run and the Wheatfield and Rose Woods, from Wheatfield Road to Devil's Den and the Slaughter Pen (the Slaughter Pen study's words); a reading of the words, not an outline
 LRT_R = 230.0          # radius (m) of the hill of Little Round Top as the scenario CF-VEG-LRT sees it: the report gives the summit and slopes as about 40 acres (a disc of 227 m)
 
 FARMS = {
@@ -435,6 +436,17 @@ def attach_claims(units, claims, farms, gz):
         a = c.get('anchor')
         if not a:
             unplaced.append(cid)
+            continue
+        if 'box' in a:                                      # the woods and clusters whose centre lies in a box of longitude and latitude (west, south, east, north): a reading of a place the words give by its sides
+            x0, y0 = TO_M.transform(a['box'][0], a['box'][1])
+            x1, y1 = TO_M.transform(a['box'][2], a['box'][3])
+            cls = CLASS_MAP.get(a.get('class') or 'any')
+            hit = [u for u in units if u['cls'] in cls and x0 <= u['geom'].centroid.x <= x1 and y0 <= u['geom'].centroid.y <= y1]
+            if not hit:
+                unplaced.append(cid)
+                continue
+            for u in hit:
+                u['claims'].append([cid, 'area'])
             continue
         if 'poly' in a and not a.get('class'):
             u = by_lc.get(a['poly'])
@@ -1037,6 +1049,10 @@ def write_all(args):
     assert not miss, 'the tables cite claims that do not exist: %s' % miss
     sc = json.loads(json.dumps(TB.SCENARIOS))
     sc['CF-VEG-LRT']['lrt_units'] = lrt_units
+    hx0, hy0 = TO_M.transform(HOUCK_BOX[0], HOUCK_BOX[1])
+    hx1, hy1 = TO_M.transform(HOUCK_BOX[2], HOUCK_BOX[3])
+    sc['CF-VEG-HOUCK']['box'] = HOUCK_BOX
+    sc['CF-VEG-HOUCK']['units'] = [uo[i]['id'] for i, u in enumerate(units) if u['cls'] in ('woods', 'scatter') and hx0 <= u['geom'].centroid.x <= hx1 and hy0 <= u['geom'].centroid.y <= hy1]
     # the rows of the timeline that name a vegetation state: which claims bear on each, what they cover and what they leave open (the table in veg_tables.py; every row and claim must exist)
     seed_rows = {json.loads(l)['id'] for l in open(os.path.join(BT, 'GOVERNANCE', 'timeline_seed.jsonl'), encoding='utf-8') if l.strip()}
     rows_out = {}

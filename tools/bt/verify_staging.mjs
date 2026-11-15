@@ -340,11 +340,11 @@ export function censusVerdict(census, byCensus = []) {
   return { failures, notes, summary: { available: true, scanned: census.scanned, loads: census.loads, counts: census.counts, findings: census.findings.map(line), shippedByCensus: byCensus.map(x => x.path) } };
 }
 export const STAGING_DOC = path.join(BT, 'app/docs/NETLIFY-STAGING.md'), BLOCK_START = '<!-- CURRENT-BUILD:start -->', BLOCK_END = '<!-- CURRENT-BUILD:end -->';
-/** The request notes (GOVERNANCE/horde/requests/*.md) that name a file with a copy-audit hit and speak of the audit: where the exact change is written down. Newest first, at most 3 per file. */
+/** The request notes (GOVERNANCE/horde/requests/*.md) that name a file with a copy-audit hit and speak of the audit: where the exact change is written down. The note that names most hit files first, then the newest; at most `max`. */
 export function findRequestNotes(hitFiles, requestsDir = path.join(BT, 'GOVERNANCE/horde/requests'), max = 5) {
   if (!fs.existsSync(requestsDir)) return [];
-  const files = [].concat(hitFiles), out = []; for (const f of fs.readdirSync(requestsDir).filter(n => n.endsWith('.md'))) { let t = ''; try { t = fs.readFileSync(path.join(requestsDir, f), 'utf8'); } catch { continue; } if (files.some(h => t.includes(h)) && /copy audit|AUDIT/i.test(t)) out.push({ f, m: fs.statSync(path.join(requestsDir, f)).mtimeMs }); }
-  return out.sort((x, y) => y.m - x.m).slice(0, max).map(x => x.f);
+  const files = [].concat(hitFiles), out = []; for (const f of fs.readdirSync(requestsDir).filter(n => n.endsWith('.md'))) { let t = ''; try { t = fs.readFileSync(path.join(requestsDir, f), 'utf8'); } catch { continue; } const n = files.filter(h => t.includes(h)).length; if (n && /copy audit|AUDIT/i.test(t)) out.push({ f, n, m: fs.statSync(path.join(requestsDir, f)).mtimeMs }); }
+  return out.sort((x, y) => y.n - x.n || y.m - x.m).slice(0, max).map(x => x.f);          // the note that names most of the hit files first (one note may carry the whole fix), then the newest
 }
 /** The markdown between the two markers of NETLIFY-STAGING.md. dist and zip are the newest pack; the trace report sits beside the dist (the pack wrote it). selftestLog: the TAP output of tests/bt-pack;
  *  report: the JSON of a real run (--json); queued: a sentence for a run that has not finished. Every number comes from a file; `now` is only the time stamp. */

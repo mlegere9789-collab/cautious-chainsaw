@@ -1,6 +1,6 @@
 # Independent sample of the stored lines against page images, round 1 (Maine, New Hampshire, Vermont, Massachusetts) (work item roster-qa, OA03)
 
-Written 15 November 2026, 23:30 UTC by the roster workstream. Evidence labels as in `PLAN.md`: **Measured** (a command run for this report produced it), **Documented** (a source text or a file says it), **Computed**, **Inferred**, **Not run**. Every number below is computed by `pipeline2/roster_qa/qa_report.py` from `data2/qa/` (frame, draw, one verdict file per page looked at, statistics, claims check, second-reading tests, recovered lines), the unit files and the logs under `GOVERNANCE/horde/ws-rosters/roster-qa/`; no count is typed (figures quoted from the reports and plans of other items are named with their source). No stored line, flag file or ledger of another item was changed.
+Written 15 November 2026, 23:43 UTC by the roster workstream. Evidence labels as in `PLAN.md`: **Measured** (a command run for this report produced it), **Documented** (a source text or a file says it), **Computed**, **Inferred**, **Not run**. Every number below is computed by `pipeline2/roster_qa/qa_report.py` from `data2/qa/` (frame, draw, one verdict file per page looked at, statistics, claims check, second-reading tests, recovered lines), the unit files and the logs under `GOVERNANCE/horde/ws-rosters/roster-qa/`; no count is typed (figures quoted from the reports and plans of other items are named with their source). No stored line, flag file or ledger of another item was changed.
 
 ## 0. Summary
 
@@ -8,7 +8,7 @@ Written 15 November 2026, 23:30 UTC by the roster workstream. Evidence labels as
 * **Result (Measured).** **All 11 of 11 strata fail at least one gate by the ladder** (4 or more errors at the gate concerned, which is more than the ladder of PLAN.md 4.4 allows at its largest sample of 773 lines): R-G1 names failed in 9 strata, R-G2 dates in 6, R-G3 in 4 (structure) and 9 (reading of the remark). **No stratum passes R-G9; none of the four items may be published as checked.** Section 2.2 gives every count with its one-sided 95 percent Clopper-Pearson bound; where a gate is still open (too few lines to decide) the table says OPEN and no pass is claimed. Of the 28 failing gate cells 27 also have a one-sided 95 percent lower bound above 1.0 percent, so the true error rate is above the requirement at that confidence (the exception: VT-REV-other R-G3a 5 / 304, lower bound 0.65 percent). Without the lowest-decile pages (section 2.6) 9 strata still fail by count (4 or more errors), 2 more have a gate whose lower bound is above 1.0 percent (ME-GET-officers, ME-RET-officers).
 * **What is wrong (Measured, section 2.3).** The text layer differs from the print in characters (digits read as letters or as other digits, `1S63`, `'03`, `6i`; letters, `Julv`, `reed`, `Mclntire`, `II` for H; whole names garbled); the flag files mark only part of the lines in error. Besides: the ditto mark stored as the digits 66 (Maine returns), margin marks stored as letters (Massachusetts), run-in paragraphs and run-over lines stored as fragment rows or on the wrong row, several printed rows stored as one (Maine Field and Staff returns), rank words in the name field of officer lines (Maine at Gettysburg). The checks V1 to V3 cannot see any of this; the sample is the only check that does.
 * **Second sitting (Measured, section 2.5).** The plan sends disagreements to a third reader and the first sitting had one reader. A second sitting re-read 5 pages (101 lines) that decide strata or that the two machine readings and the first reader disagreed on: all 32 rows that the first verdicts call errors on those pages are errors against the print (0 not confirmed); it added 23 rows with errors at the levels D and R of one Vermont officers page, and it found printed lines that no stored line accounts for and that the first verdict does not list (2: 2 on `annualreportofad1863main/224`, listed in 2.5). The verdicts of all 35 pages (1,158 lines) are identical to the stored lines as they are now (`qa_current.py`).
-* **The claims of the four reports hold (Measured, section 3).** 546 claims of the reports of Maine, New Hampshire and Vermont (per-unit line counts, lines per segment, ocr_uncertain, on-the-rolls counts, Gettysburg counts, damage codes, totals), the flag-file hashes of all four items and every hash and size of the pointer files and ledgers kept locally were recomputed from the files: 546 hold, 0 do not. `verify_unit.py --all` on the four items: 54 files, 0 V1 and 0 V3 defects; `build_index.py --lint`: 0 defects; 23 node tests of the New Hampshire item (23 pass, 0 fail).
+* **The claims of the four reports (Measured, section 3).** 920 claims of the reports of Maine, New Hampshire, Vermont and Massachusetts (per-unit line counts, lines per segment, ocr_uncertain, on-the-rolls counts, Gettysburg counts, damage codes, totals), the flag-file and unit-file hashes of the pointer files of all four items and every hash and size of the ledgers and manifests kept locally were recomputed from the files: 920 hold, 0 do not. **At the start of the second sitting 53 of 919 claims did not hold, all of union-ma** (the damage-code counts of its report and the bytes and sha256 of its 24 flag files in its pointer file: the flag files were rewritten on 14 November at 01:30, after the report and the pointer file); they were regenerated from the files by the scripts of that item (section 3) and the check is clean now, and its node test passes 124 of 124 (it passed 100 of 124 before). `verify_unit.py --all` on the four items: 54 files, 0 V1 and 0 V3 defects; `build_index.py --lint`: 0 defects; 23 node tests of the New Hampshire item (23 pass, 0 fail) and 124 node tests of the Massachusetts item (124 pass, 0 fail).
 * **The second-reading route (Measured, section 4).** 13 of the 13 lines that the first layer lost and that were tried (the 6 Vermont lines of `diag-no-name.json` and 7 of the 106 Maine index lines of `diag-index.json`) were read by tesseract and are recovered, each with its own locator in a derived text (`data2/qa/pageread-ledger.json`) and confirmed by looking at the line on the page image; none is written into a unit file. The eight Maine index leaves without text are scanner-deleted leaves (`pageType Delete`) between consecutive printed pages: nothing is lost there. Compared with the first layer, tesseract marks as SUSPECT between 94 and 100 percent of the lines that the sample reader found in error (4.1); the agreement of the two engines on 20 pages per family is in 4.2.
 * **Not run / owed (section 7).** The Pennsylvania muster years and the Florida 6.1 percent (no unit files of those items yet); the cells sidecar of the Vermont files (page-order reading of the lines flagged O) as a second reading; the 299 to 628 lines per stratum that the plan asks for were not reached because every stratum failed first; fresh pages after the parsers are fixed; a third reader on every disagreement (the second sitting re-read 5 of the 35 pages and is the same role, not an independent person); browser, timing, real-GPU checks (not part of this work).
 
@@ -166,6 +166,8 @@ Counts are instances (a line can carry several kinds). "flagged" = the line is i
 
 Of the 118 instances on name fields, 57 (48 percent) stand on lines that the flag file marks ocr_uncertain and 61 do not; of all 613 instances 362 (59 percent) are flagged. **The flags are not a safe measure of the lines that are right.** The kinds, with what each means for the parsers of the later items, are written up in `PRODUCTION-PLAN.md` 9.8 (appended 14 November) and summarised in 2.4.
 
+Lines in error (a line counted once) that the flag file marks ocr_uncertain, when the verdict was written and in the flag files as they are now (`qa_current.py`): ME-RET 11 of 77 (14 percent) and 11 (14 percent); VT-REV 143 of 152 (94 percent) and 143 (94 percent); NH-AYL 42 of 61 (69 percent) and 42 (69 percent); ME-GET 13 of 41 (32 percent) and 13 (32 percent); MA-SSM 23 of 55 (42 percent) and 51 (93 percent); ME-IDX 9 of 45 (20 percent) and 9 (20 percent). Only MA-SSM differ: the Massachusetts flag files were rewritten on 14 November at 01:30 with wider rules after the verdicts of the first sitting (section 3); the legend of the new rules names `1S63`, `Ist` and `disabUity`, which these pages showed, so the share now is not an independent measure of the new rules and fresh pages are owed.
+
 ### 2.4 Defect lists returned to the items (dated 14 and 15 November 2026; stored lines are not changed)
 
 **union-me**
@@ -232,16 +234,41 @@ Reading. Without the decile pages 9 of the 11 strata still reach 4 or more error
 
 ## 3. The claims of the closed items' reports, re-verified against their files
 
-546 claims were recomputed from the files (script `pipeline2/roster_qa/qa_claims.py`, result `data2/qa/claims-check.json`): **546 hold, 0 do not.**
+920 claims were recomputed from the files (script `pipeline2/roster_qa/qa_claims.py`, result `data2/qa/claims-check.json`): **920 hold, 0 do not.**
 
 | item | what was recomputed | claims | hold |
 |---|---|---|---|
 | ledgers | ledger sha256 of the pinned text, page-index and page-number files | 63 | 63 |
+| union-ma | company lines | 24 | 24 |
+| union-ma | cross-reference lines | 24 | 24 |
+| union-ma | field and staff, non-commissioned staff and band lines | 24 | 24 |
 | union-ma | flag file unit_file_raw_lines_sha256 equals the unit file | 24 | 24 |
+| union-ma | lines | 24 | 24 |
+| union-ma | lines with damage code C | 1 | 1 |
+| union-ma | lines with damage code G | 1 | 1 |
+| union-ma | lines with damage code H | 1 | 1 |
+| union-ma | lines with damage code N | 1 | 1 |
+| union-ma | lines with damage code Q | 1 | 1 |
+| union-ma | lines with damage code R | 1 | 1 |
+| union-ma | lines with damage code W | 1 | 1 |
+| union-ma | lines with damage code Y | 1 | 1 |
 | union-ma | manifest sha256 of the files kept locally | 36 | 36 |
+| union-ma | ocr_uncertain lines | 1 | 1 |
+| union-ma | on the rolls inferred yes / no / unknown | 24 | 24 |
 | union-ma | pointer file bytes of the files kept locally | 36 | 36 |
 | union-ma | pointer file sha256 of the files kept locally | 36 | 36 |
+| union-ma | pointer file: bytes of the flag file | 24 | 24 |
+| union-ma | pointer file: bytes of the unit file | 24 | 24 |
+| union-ma | pointer file: rows of the unit file | 24 | 24 |
+| union-ma | pointer file: sha256 of the flag file | 24 | 24 |
+| union-ma | pointer file: sha256 of the raw lines of the unit file | 24 | 24 |
+| union-ma | pointer file: sha256 of the unit file | 24 | 24 |
+| union-ma | remark names Gettysburg | 24 | 24 |
+| union-ma | summary | 4 | 4 |
+| union-ma | the code table of the report lists every damage code of the flag files | 1 | 1 |
+| union-ma | unassigned lines | 24 | 24 |
 | union-ma | verify_unit.py --all | 1 | 1 |
+| union-ma | with a 1-3 July 1863 date | 24 | 24 |
 | union-me | "Same" lines | 14 | 14 |
 | union-me | all lines | 14 | 14 |
 | union-me | index 1867 lines | 14 | 14 |
@@ -266,6 +293,12 @@ Reading. Without the decile pages 9 of the 11 strata still reach 4 or more error
 | union-nh | on the rolls inferred yes / no / unknown | 4 | 4 |
 | union-nh | pointer file bytes of the files kept locally | 24 | 24 |
 | union-nh | pointer file sha256 of the files kept locally | 24 | 24 |
+| union-nh | pointer file: bytes of the flag file | 4 | 4 |
+| union-nh | pointer file: bytes of the unit file | 4 | 4 |
+| union-nh | pointer file: rows of the unit file | 4 | 4 |
+| union-nh | pointer file: sha256 of the flag file | 4 | 4 |
+| union-nh | pointer file: sha256 of the raw lines of the unit file | 4 | 4 |
+| union-nh | pointer file: sha256 of the unit file | 4 | 4 |
 | union-nh | remarks name Gettysburg | 4 | 4 |
 | union-nh | summary | 1 | 1 |
 | union-nh | verify_unit.py --all | 1 | 1 |
@@ -283,7 +316,9 @@ Reading. Without the decile pages 9 of the 11 strata still reach 4 or more error
 | union-vt | summary | 2 | 2 |
 | union-vt | verify_unit.py --all | 1 | 1 |
 
-* Two readings of the check were corrected before the result above: the Maine "Same" lines were first counted by the exact word (7 units differed by 1 to 5 lines) while the report counts the flag S, the printed ditto word with its OCR variants (`Samo`, `fcame`), which is the right definition; and the Massachusetts total of the morning (33,748 lines) is stale by design (the files were regenerated after the reconciliation, 33,787 lines, `GAPS.md` G-MA04). Neither is a defect of a report; both are listed as information in `claims-check.json`.
+* Two readings of the check were corrected before its first result: the Maine "Same" lines were first counted by the exact word (7 units differed by 1 to 5 lines) while the report counts the flag S, the printed ditto word with its OCR variants (`Samo`, `fcame`), which is the right definition; and the first run of the check (14 November, 01:30) found no Massachusetts report and no Massachusetts claims to check: the report exists since 01:18 and is checked here (the second sitting added its tables and the `unit_files` entries of the pointer files of New Hampshire and Massachusetts to `qa_claims.py`).
+
+**Claims that did not hold when the second sitting started** (`data2/qa/claims-check-before-repair.json`: 53 of 919): union-ma: lines with damage code G (1); union-ma: lines with damage code N (1); union-ma: lines with damage code Y (1); union-ma: ocr_uncertain lines (all units) (1); union-ma: pointer file: bytes of the flag file (24); union-ma: pointer file: sha256 of the flag file (24); union-ma: the code table of the report lists every damage code of the flag files (1). All are claims of union-ma. Cause (Inferred from the file times and the legends of the flag files): the unit files and the flag files of the 24 Massachusetts units were rewritten on 14 November at 01:30, with flag rules extended after the first sample (a new code W, a wider N, G and Y; the legend of every flag file says "since 14 November 2026"), after the pointer file (01:13), `stats.json` and the report (01:18) had been written; the unit files came out byte for byte the same, the flag files did not. Before the repair the node test of the item failed 24 of 124 tests on "the pointer file records this file's size and sha256". Repair (15 November; the scripts of the item, nothing typed, no unit file, flag file or row changed): `ma_sources.py` (pointer file, manifest: the `generated` time and the bytes and sha256 of the 24 flag files changed, nothing else), `ma_stats.py` (only flag fields of `stats.json` changed: the codes G, N, Y, the new code W, the flag bytes and `ocr_uncertain`), `ma_report.py` (the flag-byte column, the code table with its legends and the new code W, the ocr_uncertain total, anomaly 3 and the line of EG-ROS-MA-03; every other line of the report is identical), `ma_closure.py` for the proposed entry EG-ROS-MA-03 (the code W added to its text) and a dated correction line under G-MA03 in `GAPS.md`. After the repair: 920 claims, 920 hold, 0 do not; the node test of the item 124 of 124.
 
 * `verify_unit.py --all --root data2/union/me`: 15 files, 36,771 lines, **0 V1 name defects, 0 V3 page defects, 0 problems** (ledger hashes matched); 0 files not ok.
 * `verify_unit.py --all --root data2/union/nh`: 4 files, 6,992 lines, **0 V1 name defects, 0 V3 page defects, 0 problems** (ledger hashes matched); 0 files not ok.
@@ -355,8 +390,10 @@ Not tried: the other 99 lost Maine index lines (the route is proved on the 7; th
 3. **The digit 8 of the Massachusetts typeface is inked like an S** in many places (`1S62`, zoom at 600 dpi): the first layer reads S. Counted as an error in the date (the printed meaning is a year); the page shows what a reader sees.
 4. **Two lines of one source are both "Same".** The index prints the ditto word `Same` for a man named above; a stored `Same` row has no man: which man is read from the line above in print and is not in the row (flag S). Three `Same` rows of one page belonged to three different men.
 5. **Printed lines of the units are missing on the pages looked at** (`missed_lines` in the verdicts and the addenda): 13 in all (3rd Maine C-company index lines, 7th Maine lines, one line of the 1st Cavalry, the 2nd Battery and others; on the returns leaf 224 two printed men whose names stand in the text layer and in no stored row, found by the second sitting); the Maine item registers the unreadable-unit lines (EG-ROS-ME-05) but not these, whose regiment cell was read and whose line was not stored.
-6. **Run-over lines of table remarks** (a remark that wraps is printed with its overflow bracketed at the right of the next line: `[for wds.`, `[May 12, '64.`) are stored on the row of the line they stand beside in Vermont, Maine returns and the Massachusetts margin; the printing convention is the cause, the geometry rule cannot tell.
-7. **Copy audit (Law; rule 6 of the task).** A word search (AI, Claude, Anthropic, agent, subagent, LLM, GPT, artificial intelligence) over the 129 files this item wrote under `data2/qa`, `GOVERNANCE/horde/ws-rosters/roster-qa` and the pointer file found 1 file(s) with a hit: `docs/battle-theatre/rosters/data2/qa/pages/maineatgettysbur01main-0513.verdict.json`: Ai. The hit is a printed given name of the source (the Maine participants list prints a man named Ai), kept as printed (Law 1 and 4). None of these files is loaded by the roster page; `data2/qa` is a work area and must not be packed (request note `GOVERNANCE/horde/requests/bt-rosters-roster-qa-work-files.md`); the derived-text ledger is kept there, not under `data2/sources/`, because the packer audits that folder for statements of how a file was made.
+6. **Run-over lines of table remarks** (a remark that wraps is printed with its overflow bracketed at the right of the line below or above it: `[for wds.`, `[May 12, '64.`, on Vermont leaf 117 `['63, for disab.` stands on the line above the remark it completes and `[19, '65.` on the line below) are stored on the row of the line they stand beside in Vermont, Maine returns and the Massachusetts margin; the printing convention is the cause, the geometry rule cannot tell.
+7. **Draw position 2 of MA-SSM-officers was passed over by the first sitting** (it looked at positions 1 and 3; no file records why) and the first report called the sample a prefix of the draw order; the second sitting looked at the page (leaf 631: 19 lines, 4 in error) and section 2.1 states the prefix test from the verdicts.
+8. **A verdict miscounted the men of a printed table** (Maine returns, leaf 224, 1st Cavalry): the first verdict counts 17 men (15 in the table and 2 below); the print shows 19 (the block Joined Field and Staff since Nov. 1, 1862 has 4 men); the text layer holds all 19 names, the stored rows 17 of them. Recorded in the addendum of the page (section 2.5); no stored line was changed.
+9. **Copy audit (Law; rule 6 of the task).** A word search (AI, Claude, Anthropic, agent, subagent, LLM, GPT, artificial intelligence) over the 132 files this item wrote under `data2/qa`, `GOVERNANCE/horde/ws-rosters/roster-qa` and the pointer file found 1 file(s) with a hit: `docs/battle-theatre/rosters/data2/qa/pages/maineatgettysbur01main-0513.verdict.json`: Ai. The hit is a printed given name of the source (the Maine participants list prints a man named Ai), kept as printed (Law 1 and 4). None of these files is loaded by the roster page; `data2/qa` is a work area and must not be packed (request note `GOVERNANCE/horde/requests/bt-rosters-roster-qa-work-files.md`); the derived-text ledger is kept there, not under `data2/sources/`, because the packer audits that folder for statements of how a file was made.
 
 ## 6. Sources and rights
 

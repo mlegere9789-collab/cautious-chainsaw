@@ -55,7 +55,7 @@ export class VegModel {
     this.claims = new Map(data.claims.map(c => [c.id, c])); this.events = new Map(data.events.map(e => [e.id, e])); this.farms = new Map(data.farms.map(f => [f.id, f]));
     this.scenarios = data.scenarios; this.species = data.species; this.speciesList = Object.keys(data.species); this.gaps = data.gaps;
     for (const k of Object.keys(this.cal.crops)) { this.cal.crops[k].keys.sort((a, b) => a.t - b.t); }
-    this.lrtUnits = new Set(data.scenarios['CF-VEG-LRT'].lrt_units);
+    this.lrtUnits = new Set(data.scenarios['CF-VEG-LRT'].lrt_units); this.houckUnits = new Set((data.scenarios['CF-VEG-HOUCK'] || {}).units || []);
   }
   unit(u) { return typeof u === 'string' ? this.byId.get(u) : u; }
   stateAt(u, tMin, choices) { return stateAt(this, u, tMin, choices); }
@@ -207,11 +207,13 @@ export function stateAt(model, unit, tMin, choices) {
     const lf = leafAt(model, u, tMin);
     let density = u.woods ? u.woods.per_ha : 0, keep = 1, lrt = scenarioOption(model, choices, 'CF-VEG-LRT');
     if (model.lrtUnits.has(u.id)) { if (lrt === 'wiki_unwooded') { density = 0; keep = 0; lrtNote = 'Little Round Top read as unwooded'; } else if (lrt === 'wiki_light_summit') { density *= 0.5; keep = 0.5; lrtNote = 'Little Round Top read as lightly wooded'; } }
+    let houck = null; if (model.houckUnits.has(u.id) && model.scenarios['CF-VEG-HOUCK'] && scenarioOption(model, choices, 'CF-VEG-HOUCK') === 'clear_cut') { density = 0; keep = 0; houck = 'Houck\'s 47 acres read as clear-cut at the time of the battle and pastured'; }
     const ue = u.woods ? understoryOf(model, u, choices) : null;
     out.trees = { leaf: lf.leaf * (1 - 0.9 * dm.strip), leafFull: lf.leaf, leafRange: lf.range, strip: dm.strip, perHa: density, keep, class: u.woods && u.woods.class, understory: ue && ue.understory, understoryTier: ue && ue.tier, understoryBy: ue ? (ue.byScenario ? 'CF-VEG-UNDER:' + ue.key : (u.woods.understory_claim || 'class')) : null, species: u.woods && u.woods.species, height: (u.woods && u.woods.h_m) || null };
     out.tiers.leaf = lf.tier; out.tiers.density = 'plausible-procedural'; out.tiers.species = (u.woods && u.woods.species_tier) || ((u.woods && u.woods.class === 'big_round_top') ? 'inferred' : 'plausible-procedural');
     if (u.woods && u.woods.h_m) out.tiers.treeHeight = u.woods.h_tier || 'inferred';
     if (lrtNote) { out.tiers.cover = model.scenarios['CF-VEG-LRT'].options[lrt].tier; out.scenario = { 'CF-VEG-LRT': lrt, note: lrtNote }; }
+    if (houck) { out.tiers.cover = model.scenarios['CF-VEG-HOUCK'].options.clear_cut.tier; out.scenario = { 'CF-VEG-HOUCK': 'clear_cut', note: houck }; }
   }
   if (u.orchard) {
     const lf = leafAt(model, u, tMin);
@@ -220,9 +222,9 @@ export function stateAt(model, unit, tMin, choices) {
     if (!out.ground) { out.ground = { crop: 'pasture', ...(() => { const cs = cropState(model, { crop: 'pasture', p: u.p, seed: u.seed }, tMin, choices); return { label: 'Grass under the trees', stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h, hStanding: cs.h, cut: 0, shockH: null, trample: clamp(dm.trample, 0, 1), lodging: 0 }; })() }; out.tiers.crop = 'plausible-procedural'; out.tiers.stage = 'plausible-procedural'; out.tiers.height = 'plausible-procedural'; out.tiers.colour = 'plausible-procedural'; }
   }
   if (u.cls === 'boulder') { out.ground = { crop: 'open_rock', label: 'Boulder ground', stage: 'rock', color: [0.46, 0.43, 0.38], colorRange: [[0.42, 0.40, 0.35], [0.5, 0.46, 0.4]], h: [0, 0.1], hStanding: [0, 0.1], cut: 0, shockH: null, trample: 0, lodging: 0 }; out.tiers.crop = 'inferred'; out.tiers.stage = 'inferred'; out.tiers.height = 'inferred'; out.tiers.colour = 'plausible-procedural'; }
-  if ((u.cls === 'woods' || u.cls === 'scatter') && out.trees && out.trees.keep === 0) {       // a wood of Little Round Top read as unwooded: open, rocky ground (the same cover as the cleared west slope)
-    const cs = cropState(model, { crop: 'open_rock', p: u.p, seed: u.seed }, tMin, choices);
-    out.ground = { crop: 'open_rock', label: 'Open rocky ground (read as unwooded)', stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h, hStanding: cs.h, cut: 0, shockH: null, trample: 0, lodging: 0 };
+  if ((u.cls === 'woods' || u.cls === 'scatter') && out.trees && out.trees.keep === 0) {       // a wood of Little Round Top read as unwooded: open, rocky ground (the same cover as the cleared west slope); a wood of Houck's ground read as clear-cut: pasture
+    const pasture = !!(out.scenario && out.scenario['CF-VEG-HOUCK']), cs = cropState(model, { crop: pasture ? 'pasture' : 'open_rock', p: u.p, seed: u.seed }, tMin, choices);
+    out.ground = { crop: pasture ? 'pasture' : 'open_rock', label: pasture ? 'Pasture (the ground read as clear-cut)' : 'Open rocky ground (read as unwooded)', stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h, hStanding: cs.h, cut: 0, shockH: null, trample: 0, lodging: 0 };
     out.tiers.crop = 'plausible-procedural'; out.tiers.stage = 'plausible-procedural'; out.tiers.height = 'plausible-procedural'; out.tiers.colour = 'plausible-procedural';
   } else if (u.cls === 'woods' || u.cls === 'scatter') {          // the ground under a woodlot: leaf litter and shade, not a crop
     out.ground = { crop: 'forest_floor', label: 'Woodlot floor', stage: season === 'window' ? 'shaded_litter' : 'leaf_litter', color: season === 'window' ? [0.31, 0.29, 0.18] : [0.34, 0.27, 0.17], colorRange: [[0.25, 0.24, 0.15], [0.38, 0.35, 0.22]], h: [0, 0.2], hStanding: [0, 0.2], cut: 0, shockH: null, trample: 0, lodging: 0 };
@@ -309,7 +311,7 @@ const inRange = (v, lo, hi, eps = 1e-6) => v >= lo - eps && v <= hi + eps;
  * Nothing here lowers a bar: a failing unit is reported with the minute and the reason; `notRun` lists what the check does not look at (pictures, real-GPU timing).
  */
 export function checkVegetation(model, opts = {}) {
-  const times = opts.times || sampleTimes(model), choicesList = opts.choicesList || [{}, { 'CF-VEG-HARVEST': 'early' }, { 'CF-VEG-HARVEST': 'late' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }, { 'CF-VEG-UNDER': 'open_grown' }, { 'CF-VEG-UNDER': 'dense' }, { 'CF-VEG-MCPHERSON': 'study-1977' }];
+  const times = opts.times || sampleTimes(model), choicesList = opts.choicesList || [{}, { 'CF-VEG-HARVEST': 'early' }, { 'CF-VEG-HARVEST': 'late' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }, { 'CF-VEG-UNDER': 'open_grown' }, { 'CF-VEG-UNDER': 'dense' }, { 'CF-VEG-MCPHERSON': 'study-1977' }, { 'CF-VEG-HOUCK': 'clear_cut' }];
   const failures = [], failByClass = {}, statesByClass = {}; let checked = 0;
   const fail = (u, t, why) => { const c = (model.byId.get(u.id) || {}).cls || 'other'; failByClass[c] = (failByClass[c] || 0) + 1; if (failures.length < 200) failures.push({ unit: u.id, t, iso: minToIso(t), why }); };
   const cal = model.cal;

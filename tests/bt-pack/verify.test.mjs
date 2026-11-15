@@ -164,6 +164,12 @@ test('the Current build block: a build with audit hits is flagged "do not upload
   assert.ok(b.includes('`owner-note.md`') && !b.includes('unrelated.md') && !b.includes('no-audit-words.md'), 'only a note that names the file and speaks of the audit is listed');
   assert.deepEqual(findRequestNotes('app/data/doc-relative.json', rd), ['owner-note.md']); assert.deepEqual(findRequestNotes('app/data/none.json', rd), []); assert.deepEqual(findRequestNotes('x', path.join(tmp, 'no-such-folder')), []);
 });
+test('request notes of the hit files: the note that names most of them comes first (one note may carry the whole fix), then the newest; a note that does not speak of the audit is never listed', () => {
+  const rd = path.join(tmp, 'rank-req'); fs.mkdirSync(rd, { recursive: true });
+  fs.writeFileSync(path.join(rd, 'all-three.md'), '# copy audit: app/a.json, app/b.mjs and app/c.json in one script\n'); fs.writeFileSync(path.join(rd, 'one-newer.md'), '# copy audit of app/a.json only\n'); fs.writeFileSync(path.join(rd, 'no-audit.md'), 'app/a.json app/b.mjs app/c.json are large\n');
+  fs.utimesSync(path.join(rd, 'all-three.md'), new Date('2026-11-14T00:00:00Z'), new Date('2026-11-14T00:00:00Z')); fs.utimesSync(path.join(rd, 'one-newer.md'), new Date('2026-11-15T00:00:00Z'), new Date('2026-11-15T00:00:00Z'));
+  assert.deepEqual(findRequestNotes(['app/a.json', 'app/b.mjs', 'app/c.json'], rd), ['all-three.md', 'one-newer.md']); assert.deepEqual(findRequestNotes(['app/a.json'], rd), ['one-newer.md', 'all-three.md'], 'with one hit file both name one: the newest first'); assert.deepEqual(findRequestNotes(['app/a.json', 'app/b.mjs', 'app/c.json'], rd, 1), ['all-three.md']);
+});
 test('the Current build block: the numbers of a real run come from its report; a report of another build is called that, with the files that differ', () => {
   const p = build('blk-c'), same = renderStagingBlock({ dist: p.out, zip: p.zip, report: { ...fakeReport(p.version, p.out), reportFile: path.join(tmp, 'rep.json') } });
   assert.match(same, /\| Real-browser run \| this very build was walked \(below\) \|/); assert.match(same, /\*\*Newest real-browser verification: build `/); assert.ok(same.includes('| Requests | 12 (3 different URLs) | 12 (3 different URLs) |')); assert.ok(same.includes('| Not answered 2xx (404s) | 0 | 0 |')); assert.ok(same.includes('| Steps passed | 2 of 2 | 2 of 2 |'));

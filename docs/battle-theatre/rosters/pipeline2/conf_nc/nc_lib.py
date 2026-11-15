@@ -100,26 +100,60 @@ CMAP = {'A': 'A', 'B': 'B', 'a': 'C', 'C': 'C', 'D': 'D', 'E': 'E', 'F': 'F', 'G
 CONFUSE = {'A': set('AHRa'), 'B': set('BRE8') | {'II', 'BL'}, 'C': set('CaGOQcge0€') | {'€', 'CL'}, 'D': set('DOB') | {'I)'}, 'E': set('ERFB'), 'F': set('FEP'),
            'G': set('GaCOQ6y0'), 'H': set('HRN') | {'II', 'Hr', 'IL'}, 'I': set('ILT1lJ') | {'II'}, 'K': set('KRXL'), 'L': set('LIK'), 'M': set('MHN')}
 
-# A heading may stand alone on a line or lead the line ("OFFICERS. Lewis H. Webb, Captain, ...") or follow a running head.
-HEAD_ALT = (r"(?P<comp>\bC[O0]MPAN[YV]\b[ \t]*(?P<cl>[^\s]{0,3}))|(?P<fs>\bF[I1]EL[DI][ \t]+A[NX]D[ \t]+STAFF)|(?P<nco>\bN[O0][NXH][\-—\s]*COMM\w{0,12}[ \t]+(?:OFFICERS|STAFF)\w?)|"
-            r"(?P<off>\bOFFICERS\b)|(?P<priv>\bPRIVATES?\b)|(?P<mus>\bMUSICIANS\b|\bBAND\b)|(?P<abbr>\bABBREVIATIONS\b)")
-RE_HEAD = re.compile(HEAD_ALT)
+# Headings are printed in capitals; the OCR garbles them (FIEliD AND STAFF, NOX-COMMl!jSIONED OFFICERS, COMPANY a, ©FFICERS), so a heading is read by the
+# closest canonical word of the upper-case tokens of a line, never by exact spelling.
+def _upper_share(w):
+    lt = [c for c in w if c.isalpha()]
+    return (sum(1 for c in lt if c.isupper()) / len(lt)) if lt else 0.0
 
 
-def heading_events(line, base):
-    """Headings found in an upper-case position of a line: [(offset, end, kind, payload)]; kind in comp fs nco off priv mus abbr.
-    Only tokens written in capitals count (the roll prints its remarks in lower case and abbreviations)."""
-    ev = []
-    for m in RE_HEAD.finditer(line):
-        k = m.lastgroup if m.lastgroup != 'cl' else 'comp'
-        if m.group('comp') is not None:
-            k = 'comp'
-        else:
-            k = next(g for g in ('fs', 'nco', 'off', 'priv', 'mus', 'abbr') if m.group(g) is not None)
-        s = m.group(0)
-        if k == 'comp':
-            # require capitals: COMPANY (not "Company") -- the running heads use Company and are furniture
-            if not re.match(r'^C[O0]MPAN[YV]', s):
+def _fz(w, target):
+    w = re.sub(r'[^A-Za-z]', '', w).upper().replace('0', 'O')
+    return difflib.SequenceMatcher(None, w, target).ratio() if w else 0.0
+
+
+def heading_scan(toks):
+    """toks: [(start, end, text)] of one line.  Returns [(first token index, end token index (exclusive), kind, payload text)] of the headings in the line.
+    kind: comp (payload = the letter token as printed) fs nco off priv mus abbr."""
+    out = []
+    n = len(toks)
+    i = 0
+    while i < n:
+        w = toks[i][2]
+        core = re.sub(r'[^A-Za-z]', '', w)
+        if len(core) >= 3 and _upper_share(w) >= 0.65:
+            nxt = toks[i + 1][2] if i + 1 < n else ''
+            if len(core) >= 5 and _fz(w, 'COMPANY') >= 0.72 and len(core) <= 9:
+                letter = nxt if (i + 1 < n and len(nxt) <= 4) else ''
+                out.append((i, i + (2 if letter else 1), 'comp', letter))
+                i += 2 if letter else 1
                 continue
-        ev.append((base + m.start(), base + m.end(), k, s))
-    return ev
+            if _fz(w, 'FIELD') >= 0.7 and any(_fz(toks[j][2], 'STAFF') >= 0.7 for j in range(i + 1, min(i + 4, n))):
+                j = next(j for j in range(i + 1, min(i + 4, n)) if _fz(toks[j][2], 'STAFF') >= 0.7)
+                out.append((i, j + 1, 'fs', 'FIELD AND STAFF'))
+                i = j + 1
+                continue
+            if _fz(w, 'NONCOMMISSIONED') >= 0.62 or (re.match(r'^N[O0X][NXH]-?$', core) and i + 1 < n and _fz(nxt, 'COMMISSIONED') >= 0.6):
+                j = i + 1 if _fz(w, 'NONCOMMISSIONED') >= 0.62 else i + 2
+                if j < n and (_fz(toks[j][2], 'OFFICERS') >= 0.7 or _fz(toks[j][2], 'STAFF') >= 0.7):
+                    out.append((i, j + 1, 'nco', ' '.join(t[2] for t in toks[i:j + 1])))
+                    i = j + 1
+                    continue
+            if len(core) >= 6 and _fz(w, 'OFFICERS') >= 0.8:
+                out.append((i, i + 1, 'off', w))
+                i += 1
+                continue
+            if len(core) >= 6 and _fz(w, 'PRIVATES') >= 0.8:
+                out.append((i, i + 1, 'priv', w))
+                i += 1
+                continue
+            if len(core) >= 7 and _fz(w, 'MUSICIANS') >= 0.8:
+                out.append((i, i + 1, 'mus', w))
+                i += 1
+                continue
+            if len(core) >= 8 and _fz(w, 'ABBREVIATIONS') >= 0.75:
+                out.append((i, i + 1, 'abbr', w))
+                i += 1
+                continue
+        i += 1
+    return out

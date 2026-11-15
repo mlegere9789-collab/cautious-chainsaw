@@ -25,6 +25,7 @@ def main():
         need.update(fpage[v['page']]['files'])
     by_stem = {}
     frame_in = {Q.rel(os.path.join(Q.ROOT, i['file'])): i for i in frame['inputs']}
+    ocr_now = {}
     frame_files = {'files_in_frame': len(frame['inputs']), 'differ_from_frame': [], 'missing_now': [], 'rows_at_frame_by_item': {}, 'rows_now_by_item': {}}
     for fi in frame['inputs']:
         frame_files['rows_at_frame_by_item'][fi['item']] = frame_files['rows_at_frame_by_item'].get(fi['item'], 0) + fi['rows']
@@ -32,6 +33,8 @@ def main():
         stem = os.path.basename(path)[:-len('.jsonl.gz')]
         head, segs, meta = R.read_unit(path)
         frame_files['rows_now_by_item'][item] = frame_files['rows_now_by_item'].get(item, 0) + head['n']
+        fl_ = Q.flags_of(path)
+        ocr_now[stem] = set(fl_.get('ocr_uncertain', [])) if fl_ else set()
         fi = frame_in.get(Q.rel(path))
         if fi is not None and fi['sha256_raw_lines'] != meta['sha256']:
             frame_files['differ_from_frame'].append({'file': Q.rel(path), 'rows_at_frame': fi['rows'], 'rows_now': head['n'], 'item': item})
@@ -74,6 +77,19 @@ def main():
         nid += ident
         out['pages'].append({'page': v['page'], 'stratum': v['stratum'], 'lines_in_verdict': len(listed), 'lines_now_on_the_leaf': len(now), 'identical': ident, 'differences': diffs[:50]})
         print('%-40s %-16s verdict %3d now %3d %s' % (v['page'], v['stratum'], len(listed), len(now), 'identical' if ident else 'DIFFERENT (%d differences)' % len(diffs)))
+    # lines in error on the pages looked at: flagged ocr_uncertain when the verdict was written and in the flag files as they are now (the Massachusetts flag files were rewritten after the first sitting)
+    fam_flags = {}
+    for v in Q.load_verdicts():
+        rows_ = {}
+        for e in v['errors']:
+            rows_.setdefault(e['i'], e)
+        d = fam_flags.setdefault(v['family'], {'rows_in_error': 0, 'flagged_at_verdict': 0, 'flagged_now': 0})
+        for i, e in rows_.items():
+            stem, n = e['rid'].split('#')
+            d['rows_in_error'] += 1
+            d['flagged_at_verdict'] += 1 if e.get('flagged_ocr_uncertain') else 0
+            d['flagged_now'] += 1 if int(n) in ocr_now.get(stem, set()) else 0
+    out['error_rows_flagged'] = fam_flags
     out['summary'] = {'pages': len(verdicts), 'identical': nid, 'different': len(verdicts) - nid, 'lines_in_verdicts': sum(len(v['rows_listed']) for v in verdicts),
                       'files_in_frame': frame_files['files_in_frame'], 'files_differing_from_frame': len(frame_files['differ_from_frame']), 'files_missing_now': len(frame_files['missing_now'])}
     Q.jdump(os.path.join(Q.QA, 'verdicts-vs-files.json'), out)

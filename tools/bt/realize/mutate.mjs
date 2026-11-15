@@ -12,7 +12,7 @@
 //   (before the first mutation the unmutated copy must pass the tests it is judged by; --no-baseline skips that)
 // Each mutation runs realize-rules.test.mjs first, then realize.test.mjs, and the tests of realize-inputs.test.mjs only for the mutations marked "inputs" (they make scratch trees of their own); it stops at
 // the first failing file. It is a heavy job (a few minutes per ten mutations on a quiet machine): run it through tools/horde/bench.sh.
-import fs from 'node:fs'; import path from 'node:path'; import { spawnSync } from 'node:child_process';
+import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { spawnSync } from 'node:child_process';
 import { ROOT, REAL, readJSON, rel, sha256File } from './lib.mjs';
 import { makeTree, removeTree } from './tree.mjs';
 
@@ -26,8 +26,16 @@ export function applyMutation(text, m) {
   const out = text.slice(0, i) + m.replace + text.slice(i + m.find.length); if (out === text) throw new Error(`mutation ${m.id}: the mutation changes nothing`); return out;
 }
 if (argv.includes('--check')) {
-  let bad = 0; for (const m of MUT) { try { applyMutation(fs.readFileSync(path.join(ROOT, m.file), 'utf8'), m); } catch (e) { console.log(String(e.message)); bad++; } }
-  console.log(`${MUT.length} mutations, ${bad} not applicable`); process.exit(bad ? 1 : 0);
+  // every mutation applies (its snippet occurs exactly once and the file changes) AND leaves a file that still parses: a mutant that breaks the syntax is "killed" by every test for no reason and proves nothing about its rule
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'mutcheck-')); let bad = 0, broken = 0;
+  for (const m of MUT) {
+    let out; try { out = applyMutation(fs.readFileSync(path.join(ROOT, m.file), 'utf8'), m); } catch (e) { console.log(String(e.message)); bad++; continue; }
+    if (m.file.endsWith('.json')) { try { JSON.parse(out); } catch (e) { console.log(`mutation ${m.id}: the mutant of ${m.file} is not JSON (${String(e.message).slice(0, 60)})`); broken++; } continue; }
+    const f = path.join(dir, 'mutant.mjs'); fs.writeFileSync(f, out); const r = spawnSync('node', ['--check', f], { encoding: 'utf8' });
+    if (r.status !== 0) { console.log(`mutation ${m.id}: the mutant of ${m.file} does not parse (${((r.stderr || '').split('\n').find(l => /Error/.test(l)) || '').slice(0, 80)})`); broken++; }
+  }
+  fs.rmSync(dir, { recursive: true, force: true });
+  console.log(`${MUT.length} mutations, ${bad} not applicable, ${broken} that leave a file that does not parse`); process.exit(bad || broken ? 1 : 0);
 }
 const old = fs.existsSync(OUT) ? readJSON(OUT) : { results: [] }, results = Object.fromEntries((Array.isArray(old.results) ? old.results : Object.values(old.results || {})).filter(r => r && r.id && r.status !== 'not run').map(({ id, ...r }) => [id, r]));      // the report keeps the results of the mutations a run does not touch
 let list = MUT; if (opt('--only')) { const ids = String(opt('--only')).split(','); list = MUT.filter(m => ids.includes(m.id)); } else if (argv.includes('--survivors')) list = MUT.filter(m => (results[m.id] || {}).status === 'survived'); else if (argv.includes('--resume')) list = MUT.filter(m => !results[m.id]);

@@ -18,7 +18,7 @@ const mid = h => (h[0] + h[1]) / 2;
  * the trees placed on a wood or orchard are about its density, and the trees a reading of Little Round Top draws are the share it keeps.
  */
 export function checkScene(model, opts = {}) {
-  const times = opts.times || sampleTimes(model).filter((_, i) => i % 3 === 0), choicesList = opts.choicesList || [{}, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-HARVEST': 'early' }, { 'CF-VEG-UNDER': 'dense' }, { 'CF-VEG-MCPHERSON': 'study-1977' }];
+  const times = opts.times || sampleTimes(model).filter((_, i) => i % 3 === 0), choicesList = opts.choicesList || [{}, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-HARVEST': 'early' }, { 'CF-VEG-UNDER': 'dense' }, { 'CF-VEG-MCPHERSON': 'study-1977' }, { 'CF-VEG-HOUCK': 'clear_cut' }];
   const failures = [], notRun = ['what the shaders make of these numbers (pictures are looked at in tests/vegetation-browser.mjs, on a software renderer only)', 'real-GPU timing'];
   const fail = (u, t, why) => { if (failures.length < 200) failures.push({ unit: u.id, t, iso: minToIso(t), why }); };
   const units = model.units, out = new Float32Array(STATE_K * 4), canopy = new Float32Array((units.length + 1) * 3); let checked = 0;
@@ -82,7 +82,7 @@ export function checkScene(model, opts = {}) {
       for (let o = 0; o < trees.n * TREE_STRIDE; o += TREE_STRIDE) if (trees.data[o + 8] === i) { n++; const h = trees.data[o + 2]; if (h < u.woods.h_m[0] * 0.9 - 1e-3 || h > u.woods.h_m[1] * 1.1 + 1e-3) fail(u, 0, `a tree of ${h.toFixed(1)} m where the claim gives ${u.woods.h_m} m`); }
       if (n === 0) fail(u, 0, 'a unit with heights from a claim has no trees');
     });
-    for (const ch of choicesList) for (const id of model.lrtUnits) {
+    for (const ch of choicesList) for (const id of [...model.lrtUnits, ...model.houckUnits]) {
       const u = model.unit(id), i = units.indexOf(u), keep = stateAt(model, u, sceneMinute(36000 + 40 * 1440), ch).trees.keep; let n = 0, drawn = 0;
       for (let o = 0; o < trees.n * TREE_STRIDE; o += TREE_STRIDE) if (trees.data[o + 8] === i) { n++; if (trees.data[o + 5] <= keep) drawn++; }
       if (n >= 20 && Math.abs(drawn - keep * n) > 0.15 * n + 3) fail(u, 0, `${drawn} of ${n} trees drawn under the reading ${JSON.stringify(ch)} where the schedule keeps ${keep}`);

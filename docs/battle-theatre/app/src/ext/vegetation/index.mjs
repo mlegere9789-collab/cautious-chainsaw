@@ -141,7 +141,7 @@ export function update(frame) {
   const s = S; if (!s) return; s.t = frame.tMin; s.cam = frame.cam;
   if (s.gl) { s.sway = swayUniforms(s.th, frame.tMin % 60, frame.paused ? 1 : frame.speed, s.reduced); s.gl.setWind(s.sway); }      // the minute within the hour: the phase stays small and exact in a float, and is still a pure function of the clock
   if (s.gl && s.on) {
-    const tq = sceneMinute(s.t), ch = effChoices(s), key = JSON.stringify([ch['CF-VEG-LRT'], ch['CF-VEG-RAIN'], ch['CF-VEG-HARVEST'], ch['CF-VEG-MCPHERSON']]), now = performance.now(); if ((ch['CF-VEG-UNDER'] || null) !== (s.lastUnder || null)) { s.lastUnder = ch['CF-VEG-UNDER']; retree(s); }
+    const tq = sceneMinute(s.t), ch = effChoices(s), key = JSON.stringify([ch['CF-VEG-LRT'], ch['CF-VEG-RAIN'], ch['CF-VEG-HARVEST'], ch['CF-VEG-MCPHERSON'], ch['CF-VEG-HOUCK']]), now = performance.now(); if ((ch['CF-VEG-UNDER'] || null) !== (s.lastUnder || null)) { s.lastUnder = ch['CF-VEG-UNDER']; retree(s); }
     // the state of every unit is written when the quantised minute or a choice changes; while the clock runs fast it is written at most every 90 ms (a settled or paused clock is always written at once, so the same minute always gives the same picture)
     if (frame.paused || !s.lastWrite || now - s.lastWrite > 90 || key !== s.gl.choicesKey) { if (s.gl.setTime(tq, ch, key)) s.lastWrite = now; }
     if (s.planner && !s.planner.done) { s.planner.run(4, () => performance.now()); s.planVersion = (s.planVersion || 0) + 1; }

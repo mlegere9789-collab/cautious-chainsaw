@@ -197,47 +197,51 @@ def split_glue(start, tok):
 
 class Stream:
     """Tokens of text[a:b] with absolute offsets: toks[i] = (start, end, text, line_start).  Headings become events positioned before a token index;
-    furniture lines are left out (their spans are kept); notes are recorded."""
+    furniture lines are left out (their spans are kept)."""
 
     def __init__(self, text, a, b):
         self.text, self.a, self.b = text, a, b
         self.toks = []
         self.events = []         # (token index, kind, payload text, offset)
         self.furniture = []      # (start, end)
-        self.preamble = True
         for off, ln in L.lines_of(text, a, b):
             if not ln.strip():
                 continue
-            if L.is_furniture(ln):
-                self.furniture.append((off, off + len(ln)))
+            lt = [(off + m.start(), off + m.end(), m.group(0)) for m in TOK.finditer(ln)]
+            evs = L.heading_scan(lt)
+            if not evs:
+                if L.is_furniture(ln):
+                    self.furniture.append((off, off + len(ln)))
+                    continue
+                self._body(lt, True)
                 continue
-            # headings inside the line (capitals only)
-            ev = L.heading_events(ln, off)
-            pos = off
-            first = True
-            pieces = []
-            for (s, e, kind, payload) in ev:
-                # a company heading may carry the letter right after "COMPANY"; the letter token stays part of the heading
-                if kind == 'comp':
-                    m = re.match(r"\s*([^\s]{1,3})", text[e:b]) if False else None
-                pieces.append((pos, s, 'body'))
-                pieces.append((s, e, (kind, payload)))
-                pos = e
-            pieces.append((pos, off + len(ln), 'body'))
-            for (s, e, what) in pieces:
-                if what == 'body':
-                    seg = text[s:e]
-                    fl = first
-                    for m in TOK.finditer(seg):
-                        for (so, tk) in split_glue(s + m.start(), m.group(0)):
-                            self.toks.append((so, so + len(tk), tk, fl and (so == s + m.start())))
-                        fl = False
-                    if seg.strip():
-                        first = False
+            first = evs[0][0]
+            if first > 0:
+                prefix = lt[:first]
+                if L.is_furniture(' '.join(t[2] for t in prefix)):
+                    self.furniture.append((prefix[0][0], prefix[-1][1]))
                 else:
-                    kind, payload = what
-                    self.events.append((len(self.toks), kind, payload, s))
-                    first = True
+                    self._body(prefix, True)
+            pos = first
+            fresh = True
+            for k, (ts, te, kind, payload) in enumerate(evs):
+                if ts > pos:
+                    self._body(lt[pos:ts], fresh)
+                    fresh = False
+                if kind == 'comp':
+                    text_payload = ' '.join(t[2] for t in lt[ts:te])
+                elif kind in ('fs', 'nco', 'off', 'priv', 'mus', 'abbr'):
+                    text_payload = ' '.join(t[2] for t in lt[ts:te])
+                self.events.append((len(self.toks), kind, text_payload, lt[ts][0]))
+                pos = te
+                fresh = True
+            if pos < len(lt):
+                self._body(lt[pos:], True)
+
+    def _body(self, lt, line_start):
+        for k, (s0, e0, tk) in enumerate(lt):
+            for (so, piece) in split_glue(s0, tk):
+                self.toks.append((so, so + len(piece), piece, line_start and k == 0 and so == s0))
 
 
 # ------------------------------------------------------------------ head matching
@@ -494,8 +498,12 @@ def parse_section(tid, a, b, co_start='', verbose=False):
                 rule = 'letter'
                 if exp and (hl == exp or hmap == exp):
                     co = exp
-                elif exp and (hl in L.CONFUSE.get(exp, ()) or hmap not in L.LETTERS):
-                    co, rule = exp, 'sequence'
+                elif exp and (hl in L.CONFUSE.get(exp, ()) or hmap in L.CONFUSE.get(exp, ()) or hmap not in L.LETTERS):
+                    co, rule = exp, 'sequence'                # the printed letter is one the scan confuses with the expected letter, or no letter: the sequence gives it
+                elif hl in L.LETTERS and exp and L.LETTERS.index(hl) > L.LETTERS.index(exp) and L.LETTERS.index(hl) - L.LETTERS.index(exp) <= 3:
+                    co, rule = hl, 'skip'                     # a clean letter further on: the roll has no company in between
+                elif exp:
+                    co, rule = exp, 'sequence'                # the printed letter repeats an earlier one or is far off: the sequence of the headings gives the letter
                 else:
                     co, rule = hmap, 'out-of-sequence'
                 heading_log.append({'off': off, 'heading': ' '.join(payload.split()), 'letter_read': hl, 'assigned': co, 'rule': rule, 'prev': prev})

@@ -43,7 +43,7 @@ def write(dirpath, out_rows):
             ('Competing values', g.get('competing') or '-'),
             ('Product marking', cc.get('marking') or 'tier glyph on every sub-claim that is not documented; the unsupported items are shown as marked gaps'),
             ('Visual and audio impact', g.get('impact') or '-'),
-            ('Review status', 'internal review only (DEC-006: no public review label); proposed by the close-out of shard tl-01 (2026-11-13), not yet merged'),
+            ('Review status', 'internal review only (DEC-006: no public review label); proposed by the close-out of shard tl-01 (2026-11-13, rebuilt 2026-11-15), not yet merged'),
             ('Owner decision requested', g.get('ask') or 'none: no default is chosen where sources conflict; every scenario stays selectable'),
             ('Agent recommendation', 'Carry the supported part as marked; show the unsupported items only as marked gaps; do not present them as documented.'),
             ('Status', 'proposed'),

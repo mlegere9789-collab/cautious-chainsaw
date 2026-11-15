@@ -1104,9 +1104,9 @@
  {
   "id": "check-merge-totals",
   "file": "tools/bt/realize/check.mjs",
-  "find": "doc.totals = S; doc.q17 = q17Of(S,",
-  "replace": "doc.totals = S; doc.q17 = (doc.q17 || q17Of(S,",
-  "rule": "a merged file recomputes q17 from its rows",
+  "find": "doc.q17 = q17Of(S, { problems, timelineRows: TLcount, epilogueRows: EPcount });",
+  "replace": "doc.q17 = { ...q17Of(S, { problems, timelineRows: TLcount, epilogueRows: EPcount }), realized: 4 };",
+  "rule": "a merged file recomputes q17 from its rows (a q17 that kept the 4 realized rows of the earlier file is the defect)",
   "tests": [
    "rules",
    "main",

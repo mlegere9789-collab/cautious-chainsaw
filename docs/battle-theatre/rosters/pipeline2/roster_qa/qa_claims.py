@@ -9,7 +9,8 @@ What is checked (every number is recomputed from the unit files, the flag files,
   summaries: totals of lines and files, the 3,666 lines of _other-ME-SUPP-1867, the 6 Vermont lines without a name (diag-no-name.json);
   pointer files (rosters/sources/<item>.json) and ledgers (data2/sources/*.json): every listed file that is kept locally is present with the recorded bytes and sha256;
       the sha256 of the raw lines in the flag files (unit_file_raw_lines_sha256) equals the unit file;
-  Massachusetts has no report yet (the item is still being written): its totals are checked against units.json and PRODUCTION-PLAN 9.1 and its flag-file hashes against its unit files.
+  Massachusetts (report of 14 November, written after the first run of this check): per unit lines, staff, company, unassigned, "See", Gettysburg, dated and on-the-rolls counts, the totals of the
+      summary, the damage-code table and ocr_uncertain, recomputed from the unit files and flag files.
 verify_unit.py --all and build_index.py --lint are run by separate commands (outputs under GOVERNANCE/horde/ws-rosters/roster-qa/) and read here when present.
 """
 import sys, os, re, json, gzip, glob, collections
@@ -209,17 +210,79 @@ def main():
     dn = Q.jload(os.path.join(Q.WSQ, '..', 'union-vt', 'diag-no-name.json'))
     cnt = len(dn) if isinstance(dn, list) else len(dn.get('lines', dn.get('rows', dn)))
     check(claims, 'union-vt', 'summary: 6 printed lines whose name the text layer lost (diag-no-name.json)', 6, cnt)
-    # ---------------- Massachusetts (no report yet)
+    # ---------------- Massachusetts (report of 14 November 01:18; the first run of this check, at 01:30 the same morning, still read "no report yet")
     ma = load_units('ma')
+    md = open(os.path.join(REPORTS, 'union-ma.md'), encoding='utf-8').read()
+    tb = tables(md)
+    t1 = next(t for t in tb if t[0] and t[0][0] == 'unit' and any('cross-reference' in x for x in t[0]))
+    h = t1[0]
+    ix = {k: h.index(v) for k, v in {'lines': 'lines', 'staff': 'field and staff, non-commissioned staff, band', 'co': 'company lines', 'un': 'unassigned', 'see': 'cross-reference lines ("See ...")',
+                                       'gett': 'remark names Gettysburg', 'dated': '... with a 1-3 July 1863 date', 'rolls': 'on the rolls, inferred: yes / no / unknown'}.items()}
+    tot_g = tot_d = 0
+    tot_r = [0, 0, 0]
+    for r in t1[1]:
+        stem, u = find_unit(ma, r[0])
+        if not u:
+            check(claims, 'union-ma', 'unit of the table has a file', r[0], None, r[0])
+            continue
+        rows = all_rows(u)
+        fl = u['flags']
+        check(claims, 'union-ma', 'lines', int(num(r[ix['lines']])), u['head']['n'], r[0])
+        check(claims, 'union-ma', 'field and staff, non-commissioned staff and band lines', int(num(r[ix['staff']])), sum(1 for x in rows if x[2] in ('FS', 'NCS', 'BAND')), r[0])
+        check(claims, 'union-ma', 'company lines (every line that is not field and staff, non-commissioned staff, band or unassigned: lines whose company heading is damaged or absent count here)', int(num(r[ix['co']])), sum(1 for x in rows if x[2] not in ('FS', 'NCS', 'BAND', 'UNAS')), r[0])
+        check(claims, 'union-ma', 'unassigned lines', int(num(r[ix['un']])), sum(1 for x in rows if x[2] == 'UNAS'), r[0])
+        check(claims, 'union-ma', 'cross-reference lines ("See ...")', int(num(r[ix['see']])), sum(1 for x in rows if re.search(r'(?<![A-Za-z])See\b', x[3])), r[0])
+        g = gett(rows)
+        gd = len((fl.get('gettysburg_dated') or []))
+        check(claims, 'union-ma', 'remark names Gettysburg', int(num(r[ix['gett']])), g, r[0])
+        check(claims, 'union-ma', 'with a 1-3 July 1863 date (flag file gettysburg_dated)', int(num(r[ix['dated']])), gd, r[0])
+        y, n, k = rolls(u)
+        check(claims, 'union-ma', 'on the rolls inferred yes / no / unknown', [int(num(x)) for x in r[ix['rolls']].split('/')], [y, n, k], r[0])
+        tot_g += g
+        tot_d += gd
+        tot_r = [tot_r[0] + y, tot_r[1] + n, tot_r[2] + k]
     tot = sum(u['head']['n'] for u in ma.values())
-    claims.append({'item': 'union-ma', 'unit': None, 'claim': 'information: no report and no pointer file in the tree when this check ran (open_groups.py); PRODUCTION-PLAN 9.1 stated 24 units and 33,748 lines on the morning of 14 November; the unit files were rewritten afterwards by their engineer (22 of 24 files differ from the sampled frame)',
-                   'claimed': [24, 33748], 'recomputed': [len(ma), tot], 'holds': True, 'stale_explained': [24, 33748] != [len(ma), tot], 'info': True})
+    m = re.search(r'\*\*([\d,]+) lines in all\*\*', md)
+    check(claims, 'union-ma', 'summary: lines in all', int(num(m.group(1))), tot)
+    check(claims, 'union-ma', 'summary: 24 unit files', 24, len(ma))
+    m = re.search(r'\*\*([\d,]+) lines\*\* print a remark that names Gettysburg.*?([\d,]+) of them with a date', md, re.S)
+    check(claims, 'union-ma', 'summary: lines that name Gettysburg and those with a 1-3 July date', [int(num(m.group(1))), int(num(m.group(2)))], [tot_g, tot_d])
+    m = re.search(r'yes ([\d,]+), no ([\d,]+), unknown ([\d,]+)', md)
+    check(claims, 'union-ma', 'summary: on the rolls inferred yes / no / unknown, all units', [int(num(m.group(i))) for i in (1, 2, 3)], tot_r)
+    tc = next(t for t in tb if t[0] and t[0][0] == 'code')
+    for r in tc[1]:
+        code = r[0].strip()
+        check(claims, 'union-ma', 'lines with damage code %s' % code, int(num(r[-1])), sum(len((u['flags'] or {}).get('rows', {}).get(code, [])) for u in ma.values()))      # the last cell: a meaning can hold a | itself
+    m = re.search(r'marks ([\d,]+) lines \(([\d.]+) percent of ([\d,]+)\)', md)
+    check(claims, 'union-ma', 'ocr_uncertain lines (all units)', int(num(m.group(1))), sum(len((u['flags'] or {}).get('ocr_uncertain', [])) for u in ma.values()))
     # ---------------- flag-file hashes
     for item, st in ITEM_ST.items():
         for stem, u in load_units(st).items():
             f = u['flags']
             if f and 'unit_file_raw_lines_sha256' in f:
                 check(claims, item, 'flag file unit_file_raw_lines_sha256 equals the unit file', f['unit_file_raw_lines_sha256'], u['meta']['sha256'], stem)
+    # ---------------- unit files listed in the pointer files (bytes, sha256 of the file and of its raw lines, rows; the flag file's bytes and sha256)
+    for item in ('union-nh', 'union-ma'):
+        pj = Q.jload(os.path.join(Q.R2, 'sources', item + '.json'))
+        for e in pj.get('unit_files', []):
+            rel_path = e.get('file') or e.get('path')
+            full = os.path.join(Q.ROOT, rel_path) if rel_path.startswith('docs/') else os.path.join(Q.D2, rel_path[len('data2/'):] if rel_path.startswith('data2/') else rel_path)
+            head, segs, meta = R.read_unit(full)
+            label = os.path.basename(full)[:-len('.jsonl.gz')]
+            check(claims, item, 'pointer file: rows of the unit file', e['rows'], head['n'], label)
+            check(claims, item, 'pointer file: bytes of the unit file', e['file_bytes'], os.path.getsize(full), label)
+            check(claims, item, 'pointer file: sha256 of the unit file', e['file_sha256'], R.sha256_file(full), label)
+            check(claims, item, 'pointer file: sha256 of the raw lines of the unit file', e['raw_lines_sha256'], meta['sha256'], label)
+            fp = e.get('flags_file') or e.get('flags_path')
+            if fp:
+                ffull = os.path.join(Q.ROOT, fp) if fp.startswith('docs/') else os.path.join(Q.D2, fp[len('data2/'):] if fp.startswith('data2/') else fp)
+                if e.get('flags_bytes') is not None:
+                    check(claims, item, 'pointer file: bytes of the flag file', e['flags_bytes'], os.path.getsize(ffull), label)
+                if e.get('flags_sha256'):
+                    check(claims, item, 'pointer file: sha256 of the flag file', e['flags_sha256'], R.sha256_file(ffull), label)
+    codes_now = sorted({c for u in ma.values() for c in (u['flags'] or {}).get('rows', {})})
+    codes_report = sorted(r[0].strip() for r in tc[1])
+    check(claims, 'union-ma', 'the code table of the report lists every damage code of the flag files', codes_report, codes_now)
     # ---------------- pointer files and ledgers
     for item in ITEM_ST:
         pp = os.path.join(Q.R2, 'sources', item + '.json')

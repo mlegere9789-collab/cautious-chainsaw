@@ -158,7 +158,18 @@ def main():
         nfiles = sum(len(v_) for v_ in vlines.values())
         v1 = sum(x['v1_name_defects'] for v_ in vlines.values() for x in v_)
         v3 = sum(x['v3_page_defects'] for v_ in vlines.values() for x in v_)
-        A('* **The claims of the four reports hold (Measured, section 3).** %d claims of the reports of Maine, New Hampshire and Vermont (per-unit line counts, lines per segment, ocr_uncertain, on-the-rolls counts, Gettysburg counts, damage codes, totals), the flag-file hashes of all four items and every hash and size of the pointer files and ledgers kept locally were recomputed from the files: %d hold, %d do not. `verify_unit.py --all` on the four items: %d files, %d V1 and %d V3 defects; `build_index.py --lint`: 0 defects%s.' % (claims['checked'], claims['hold'], len(claims['do_not_hold']), nfiles, v1, v3, ('; ' + node_txt) if node_txt else ''))
+        before_ = Q.jload(os.path.join(Q.QA, 'claims-check-before-repair.json')) if os.path.exists(os.path.join(Q.QA, 'claims-check-before-repair.json')) else None
+        mab_ = {}
+        for nm_, key_ in (('node-roster-ma-before-repair.out', 'before'), ('node-roster-ma.out', 'after')):
+            np_ = os.path.join(Q.WSQ, nm_)
+            if os.path.exists(np_):
+                t_ = open(np_, encoding='utf-8').read()
+                mab_[key_] = (int(re.search(r'# tests (\d+)', t_).group(1)), int(re.search(r'# pass (\d+)', t_).group(1)), int(re.search(r'# fail (\d+)', t_).group(1)))
+        rep_txt = ''
+        if before_ and before_['do_not_hold']:
+            rep_txt = ' **At the start of the second sitting %d of %d claims did not hold, all of union-ma** (the damage-code counts of its report and the bytes and sha256 of its 24 flag files in its pointer file: the flag files were rewritten on 14 November at 01:30, after the report and the pointer file); they were regenerated from the files by the scripts of that item (section 3) and the check is clean now%s.' % (
+                len(before_['do_not_hold']), before_['checked'], (', and its node test passes %d of %d (it passed %d of %d before)' % (mab_['after'][1], mab_['after'][0], mab_['before'][1], mab_['before'][0])) if 'after' in mab_ and 'before' in mab_ else '')
+        A('* **The claims of the four reports (Measured, section 3).** %d claims of the reports of Maine, New Hampshire, Vermont and Massachusetts (per-unit line counts, lines per segment, ocr_uncertain, on-the-rolls counts, Gettysburg counts, damage codes, totals), the flag-file and unit-file hashes of the pointer files of all four items and every hash and size of the ledgers and manifests kept locally were recomputed from the files: %d hold, %d do not.%s `verify_unit.py --all` on the four items: %d files, %d V1 and %d V3 defects; `build_index.py --lint`: 0 defects%s.' % (claims['checked'], claims['hold'], len(claims['do_not_hold']), rep_txt, nfiles, v1, v3, ('; ' + node_txt) if node_txt else ''))
     else:
         A('* **Claims of the reports:** the check was not available when this report was written.')
     if det:
@@ -324,6 +335,12 @@ def main():
     A('Of the %d instances on name fields, %d (%s) stand on lines that the flag file marks ocr_uncertain and %d do not; of all %d instances %d (%s) are flagged. **The flags are not a safe measure of the lines that are right.** The kinds, with what each means for the parsers of the later items, are written up in `PRODUCTION-PLAN.md` 9.8 (appended 14 November) and summarised in 2.4.' %
       (name_i, name_f, pct(name_f, name_i, 0), name_i - name_f, sum(allk.values()), sum(allf.values()), pct(sum(allf.values()), sum(allk.values()), 0)))
     A('')
+    if cur and cur.get('error_rows_flagged'):
+        ef_ = cur['error_rows_flagged']
+        diff_ = [fm_ for fm_, d_ in ef_.items() if d_['flagged_now'] != d_['flagged_at_verdict']]
+        A('Lines in error (a line counted once) that the flag file marks ocr_uncertain, when the verdict was written and in the flag files as they are now (`qa_current.py`): ' + '; '.join('%s %d of %d (%s) and %d (%s)' % (fm_, d_['flagged_at_verdict'], d_['rows_in_error'], pct(d_['flagged_at_verdict'], d_['rows_in_error'], 0), d_['flagged_now'], pct(d_['flagged_now'], d_['rows_in_error'], 0)) for fm_, d_ in ef_.items()) + '.' +
+          ((' Only %s differ: the Massachusetts flag files were rewritten on 14 November at 01:30 with wider rules after the verdicts of the first sitting (section 3); the legend of the new rules names `1S63`, `Ist` and `disabUity`, which these pages showed, so the share now is not an independent measure of the new rules and fresh pages are owed.' % ', '.join(diff_)) if diff_ else ''))
+        A('')
     A('### 2.4 Defect lists returned to the items (dated 14 and 15 November 2026; stored lines are not changed)')
     A('')
     ex = collections.defaultdict(list)
@@ -388,6 +405,8 @@ def main():
         by = collections.defaultdict(lambda: [0, 0])
         for c in claims['claims']:
             what = re.sub(r'\s*\(.*', '', c['claim']).split(':')[0][:70]
+            if c['claim'].startswith('pointer file:'):
+                what = re.sub(r'\s*\(.*', '', c['claim'])
             what = re.sub(r'^ledger sha256 of .*', 'ledger sha256 of the pinned text, page-index and page-number files', what)
             what = re.sub(r'^pointer file (bytes|sha256) of .*', lambda m_: 'pointer file %s of the files kept locally' % m_.group(1), what)
             what = re.sub(r'^manifest sha256 of .*', 'manifest sha256 of the files kept locally', what)
@@ -403,7 +422,14 @@ def main():
         A('')
         for c in claims['do_not_hold']:
             A('* **Does not hold:** %s %s | %s | claimed %s | recomputed %s' % (c['item'], c.get('unit'), c['claim'], c['claimed'], c['recomputed']))
-        A('* Two readings of the check were corrected before the result above: the Maine "Same" lines were first counted by the exact word (7 units differed by 1 to 5 lines) while the report counts the flag S, the printed ditto word with its OCR variants (`Samo`, `fcame`), which is the right definition; and the Massachusetts total of the morning (33,748 lines) is stale by design (the files were regenerated after the reconciliation, 33,787 lines, `GAPS.md` G-MA04). Neither is a defect of a report; both are listed as information in `claims-check.json`.')
+        A('* Two readings of the check were corrected before its first result: the Maine "Same" lines were first counted by the exact word (7 units differed by 1 to 5 lines) while the report counts the flag S, the printed ditto word with its OCR variants (`Samo`, `fcame`), which is the right definition; and the first run of the check (14 November, 01:30) found no Massachusetts report and no Massachusetts claims to check: the report exists since 01:18 and is checked here (the second sitting added its tables and the `unit_files` entries of the pointer files of New Hampshire and Massachusetts to `qa_claims.py`).')
+        bef_ = Q.jload(os.path.join(Q.QA, 'claims-check-before-repair.json')) if os.path.exists(os.path.join(Q.QA, 'claims-check-before-repair.json')) else None
+        if bef_ and bef_['do_not_hold']:
+            grp_ = collections.Counter((c_['item'], c_['claim']) for c_ in bef_['do_not_hold'])
+            A('')
+            A('**Claims that did not hold when the second sitting started** (`data2/qa/claims-check-before-repair.json`: %d of %d): %s. All are claims of union-ma. Cause (Inferred from the file times and the legends of the flag files): the unit files and the flag files of the 24 Massachusetts units were rewritten on 14 November at 01:30, with flag rules extended after the first sample (a new code W, a wider N, G and Y; the legend of every flag file says "since 14 November 2026"), after the pointer file (01:13), `stats.json` and the report (01:18) had been written; the unit files came out byte for byte the same, the flag files did not. Before the repair the node test of the item failed %s on "the pointer file records this file\'s size and sha256". Repair (15 November; the scripts of the item, nothing typed, no unit file, flag file or row changed): `ma_sources.py` (pointer file, manifest: the `generated` time and the bytes and sha256 of the 24 flag files changed, nothing else), `ma_stats.py` (only flag fields of `stats.json` changed: the codes G, N, Y, the new code W, the flag bytes and `ocr_uncertain`), `ma_report.py` (the flag-byte column, the code table with its legends and the new code W, the ocr_uncertain total, anomaly 3 and the line of EG-ROS-MA-03; every other line of the report is identical), `ma_closure.py` for the proposed entry EG-ROS-MA-03 (the code W added to its text) and a dated correction line under G-MA03 in `GAPS.md`. After the repair: %s.' % (
+                len(bef_['do_not_hold']), bef_['checked'], '; '.join('%s: %s (%d)' % (it_, cl_, n_) for (it_, cl_), n_ in sorted(grp_.items())),
+                ('%d of %d tests' % (mab_['before'][2], mab_['before'][0])) if 'before' in mab_ else 'some tests', ('%d claims, %d hold, %d do not; the node test of the item %d of %d' % (claims['checked'], claims['hold'], len(claims['do_not_hold']), mab_['after'][1], mab_['after'][0])) if 'after' in mab_ else '%d claims, %d hold' % (claims['checked'], claims['hold'])))
         A('')
     for st in ('me', 'nh', 'vt', 'ma'):
         vp = os.path.join(Q.WSQ, 'verify-%s.jsonl' % st)
@@ -497,7 +523,10 @@ def main():
     A('3. **The digit 8 of the Massachusetts typeface is inked like an S** in many places (`1S62`, zoom at 600 dpi): the first layer reads S. Counted as an error in the date (the printed meaning is a year); the page shows what a reader sees.')
     A('4. **Two lines of one source are both "Same".** The index prints the ditto word `Same` for a man named above; a stored `Same` row has no man: which man is read from the line above in print and is not in the row (flag S). Three `Same` rows of one page belonged to three different men.')
     A('5. **Printed lines of the units are missing on the pages looked at** (`missed_lines` in the verdicts and the addenda): %d in all (3rd Maine C-company index lines, 7th Maine lines, one line of the 1st Cavalry, the 2nd Battery and others%s); the Maine item registers the unreadable-unit lines (EG-ROS-ME-05) but not these, whose regiment cell was read and whose line was not stored.' % (sum(len(v['missed_lines']) for v in verdicts), ('; on the returns leaf 224 two printed men whose names stand in the text layer and in no stored row, found by the second sitting' if any(a_['missed_lines_added'] for a_ in addenda.values()) else '')))
-    A('6. **Run-over lines of table remarks** (a remark that wraps is printed with its overflow bracketed at the right of the next line: `[for wds.`, `[May 12, \'64.`) are stored on the row of the line they stand beside in Vermont, Maine returns and the Massachusetts margin; the printing convention is the cause, the geometry rule cannot tell.')
+    A('6. **Run-over lines of table remarks** (a remark that wraps is printed with its overflow bracketed at the right of the line below or above it: `[for wds.`, `[May 12, \'64.`, on Vermont leaf 117 `[\'63, for disab.` stands on the line above the remark it completes and `[19, \'65.` on the line below) are stored on the row of the line they stand beside in Vermont, Maine returns and the Massachusetts margin; the printing convention is the cause, the geometry rule cannot tell.')
+    A('7. **Draw position 2 of MA-SSM-officers was passed over by the first sitting** (it looked at positions 1 and 3; no file records why) and the first report called the sample a prefix of the draw order; the second sitting looked at the page (leaf 631: %d lines, %d in error) and section 2.1 states the prefix test from the verdicts.' % tuple(next((v['rows_checked'], v['rows_in_error']) for v in verdicts if v['page'] == 'massachusettssol11931mass/631') if any(v['page'] == 'massachusettssol11931mass/631' for v in verdicts) else (0, 0)))
+    if any(a_['missed_lines_added'] for a_ in addenda.values()):
+        A('8. **A verdict miscounted the men of a printed table** (Maine returns, leaf 224, 1st Cavalry): the first verdict counts 17 men (15 in the table and 2 below); the print shows 19 (the block Joined Field and Staff since Nov. 1, 1862 has 4 men); the text layer holds all 19 names, the stored rows 17 of them. Recorded in the addendum of the page (section 2.5); no stored line was changed.')
     import re as _re
     audit_files = glob.glob(os.path.join(Q.QA, '**', '*.json'), recursive=True) + [os.path.join(Q.R2, 'sources', 'roster-qa.json')] + glob.glob(os.path.join(Q.WSQ, '*'))
     pat = _re.compile(r"\bAI\b|Claude|Anthropic|\bagents?\b|\bsub-?agents?\b|\bLLM\b|\bGPT\b|artificial intelligence", _re.I)
@@ -510,7 +539,7 @@ def main():
         m_ = [x.group(0) for x in pat.finditer(tx)]
         if m_:
             ah[os.path.relpath(fp, Q.ROOT).replace(os.sep, '/')] = m_
-    A('7. **Copy audit (Law; rule 6 of the task).** A word search (AI, Claude, Anthropic, agent, subagent, LLM, GPT, artificial intelligence) over the %d files this item wrote under `data2/qa`, `GOVERNANCE/horde/ws-rosters/roster-qa` and the pointer file found %d file(s) with a hit: %s. %s None of these files is loaded by the roster page; `data2/qa` is a work area and must not be packed (request note `GOVERNANCE/horde/requests/bt-rosters-roster-qa-work-files.md`); the derived-text ledger is kept there, not under `data2/sources/`, because the packer audits that folder for statements of how a file was made.' % (len(audit_files), len(ah), '; '.join('`%s`: %s' % (k, ', '.join(sorted(set(v)))) for k, v in ah.items()) or 'none', 'The hit is a printed given name of the source (the Maine participants list prints a man named Ai), kept as printed (Law 1 and 4).' if ah else ''))
+    A('9. **Copy audit (Law; rule 6 of the task).** A word search (AI, Claude, Anthropic, agent, subagent, LLM, GPT, artificial intelligence) over the %d files this item wrote under `data2/qa`, `GOVERNANCE/horde/ws-rosters/roster-qa` and the pointer file found %d file(s) with a hit: %s. %s None of these files is loaded by the roster page; `data2/qa` is a work area and must not be packed (request note `GOVERNANCE/horde/requests/bt-rosters-roster-qa-work-files.md`); the derived-text ledger is kept there, not under `data2/sources/`, because the packer audits that folder for statements of how a file was made.' % (len(audit_files), len(ah), '; '.join('`%s`: %s' % (k, ', '.join(sorted(set(v)))) for k, v in ah.items()) or 'none', 'The hit is a printed given name of the source (the Maine participants list prints a man named Ai), kept as printed (Law 1 and 4).' if ah else ''))
     A('')
     # ------------------------------------------------------------------ 6
     A('## 6. Sources and rights')

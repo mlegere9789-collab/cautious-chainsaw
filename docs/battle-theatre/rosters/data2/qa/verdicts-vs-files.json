@@ -1,7 +1,7 @@
 {
  "f": "roster-qa-verdicts-vs-files/1",
  "about": "The stored lines of every page that was looked at, now (unit files as they are in the tree) against the lines the verdict lists (as they stood when the page was compared with its image).",
- "generated_utc": "2026-11-15T23:26:12Z",
+ "generated_utc": "2026-11-15T23:43:04Z",
  "frame_files": {
   "files_in_frame": 54,
   "differ_from_frame": [
@@ -442,5 +442,37 @@
   "files_in_frame": 54,
   "files_differing_from_frame": 22,
   "files_missing_now": 0
+ },
+ "error_rows_flagged": {
+  "ME-RET": {
+   "rows_in_error": 77,
+   "flagged_at_verdict": 11,
+   "flagged_now": 11
+  },
+  "VT-REV": {
+   "rows_in_error": 152,
+   "flagged_at_verdict": 143,
+   "flagged_now": 143
+  },
+  "NH-AYL": {
+   "rows_in_error": 61,
+   "flagged_at_verdict": 42,
+   "flagged_now": 42
+  },
+  "ME-GET": {
+   "rows_in_error": 41,
+   "flagged_at_verdict": 13,
+   "flagged_now": 13
+  },
+  "MA-SSM": {
+   "rows_in_error": 55,
+   "flagged_at_verdict": 23,
+   "flagged_now": 51
+  },
+  "ME-IDX": {
+   "rows_in_error": 45,
+   "flagged_at_verdict": 9,
+   "flagged_now": 9
+  }
  }
 }

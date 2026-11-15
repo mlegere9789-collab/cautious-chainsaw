@@ -468,6 +468,57 @@ CURATED += [
       'note': 'The photograph itself was not read here. It bears on the day of the dedication, 19 November 1863: the orchard stood (leaf-off).'}),
 ]
 
+# ---- third reading: the 18 rows the correction file gained later on 15 November (the Slaughter Pen study, the Big Round Top booklet, the McClean and Leister reports, the Brien study)
+HOUCK = {'box': [-77.2445, 39.7915, -77.2392, 39.7982], 'class': 'woods', 'area': True}   # Houck's 47 acres: between Plum Run and the Wheatfield and Rose Woods, from Wheatfield Road to Devil's Den (the study's words); the same box as HOUCK_BOX in build_vegetation.py
+
+CURATED += [
+    ('NPSX-SLAUGHTER-PEN-p007-01', '', 'woodlot', 'documented', 'Little Round Top west face cleared of timber a year or two before the battle (the Slaughter Pen study)',
+     'The study says that only a year or two before the battle the western face of Little Round Top was cleared of marketable or usable timber by its owner.', {'to': '1863-07-01', 'basis': 'a year or two before the battle'},
+     {'excerpt': True, 'anchor': WEST_EXACT, 'about': {'canopy': 'cleared'}, 'note': 'The study gives no source for the date. It agrees with the Hanaway-tract statement (VC-NPS-027), Bachelder (VC-LIB-026, -027) and the vista report (VC-NPSC-VISTA-CUTTING-p010-01); the report on the hill says "several years" (VC-NPSC-CLR-LRT-p043-02): carried in CF-VEG-LRT as each states it.'}),
+    ('NPSX-SLAUGHTER-PEN-p007-02', '', 'ground', 'documented', 'Little Round Top: the east face Weikert\'s, the west face Hanaway\'s down to Plum Run',
+     'The study says the steep eastern face of Little Round Top was owned by Jacob Weikert in 1863 and the western face by Ephraim Hanaway, whose acreage extended westward down the slope to Plum Run.', {'basis': 'ownership in 1863'},
+     {'anchor': WEST_AREA, 'note': 'Ownership, not cover: it names the tract (Hanaway\'s) that the layer draws as the cleared west slope.'}),
+    ('NPSX-SLAUGHTER-PEN-p007-04', '', 'woodlot', 'documented', 'Houck\'s 47 acres west of Plum Run almost entirely clear-cut at the time of the battle (the Slaughter Pen study)',
+     'The study says almost the entirety of John Houck\'s 47 acres was clear-cut at the time of the battle.', B,
+     dict(anchor=HOUCK, excerpt=True, note='The study gives no source and hedges the clearing itself ("apparently", next claims). Houck\'s 47 acres lie between Plum Run and the Wheatfield and Rose Woods, from Wheatfield Road south to Devil\'s Den and the Slaughter Pen (the study\'s words): the layer holds the Warren woods and scattered trees of 1868-69 on that ground (about 24 acres) and Kershaw\'s stony hill covered with heavy timber (VC-OR-023). The two are carried as the choice CF-VEG-HOUCK; the box is a reading of the words, not an outline.')),
+    ('NPSX-SLAUGHTER-PEN-p007-03', '', 'woodlot', 'inferred', 'Houck bought the 47 acres fifteen years before the battle and apparently cleared them',
+     'The study says John Houck had purchased the 47 acres west of Plum Run with a business partner fifteen years before the battle and apparently had cleared the area from Wheatfield Road southward to Devil\'s Den and the Slaughter Pen and from Plum Run to his western boundary at Rose Woods and the Wheatfield.', {'from': '1848-01-01', 'to': '1863-07-01', 'basis': 'fifteen years before the battle to the battle'},
+     dict(anchor=HOUCK, excerpt=True, note='The study\'s own "apparently": inferred.')),
+    ('NPSX-SLAUGHTER-PEN-p007-05', '', 'crop', 'inferred', 'Houck\'s land leased in the growing months for pasture (the Slaughter Pen study)',
+     'The study says Houck, like Hanaway, lived in the borough of Gettysburg and had no improvements on this township property, which he apparently leased during the growing months to other Gettysburg residents for pasture use of their animals.', {'to': '1863-07-01', 'basis': 'before the battle'},
+     dict(anchor=HOUCK, excerpt=True, about={'crop': 'pasture'}, note='The study\'s "apparently": inferred. Under the reading CF-VEG-HOUCK "clear-cut" the ground is drawn as pasture. A neighbourhood claim (role area): it sets no crop on any field cell.')),
+    ('NPSX-SLAUGHTER-PEN-p008-02', '', 'regional', 'documented', 'the fields of the Snyder and G. W. Weikert farms between the skirmishers and the extreme left at Devil\'s Den',
+     'The study says that in the interval between the skirmishers and the line of the extreme left at Devil\'s Den were the fields of the Snyder and G. W. [Weikert (Timbers)] farms (the sentence runs on to the next page).', D2,
+     {'excerpt': True, 'note': 'The quote stops at the page break (the saved text puts a page marker there); the correction row reads the rest as "the swampy woodlot of the Sherfy farm" as well. Not placed.'}),
+    ('NPSX-BRT-ECOLOGY-p003-01', '', 'woodlot', 'documented', 'Big Round Top: steep stony hillsides unsuited to any kind of agriculture since settlement',
+     'The booklet says the steep, stony hillsides of Big Round Top, from the time of white settlement between 1750 and 1780 to the present, have been unsuited for any kind of agriculture.', {'basis': '1750-1780 to the 1960s'},
+     {'anchor': BRT_EXACT, 'note': 'A booklet of the 1960s by the park: the hill was never farmed, so its cover was wood (and its stony ground rough).'}),
+    ('NPSX-BRT-ECOLOGY-p003-02', '', 'woodlot', 'documented', 'Big Round Top: the original virgin timber was cut before 1850',
+     'The booklet says the original cover of virgin trees on Big Round Top, white pine, white oak, black oak and in places chestnut, was timbered before 1850: the forest of July 1863 is second growth (its age is not given).', {'to': '1850-12-31', 'basis': 'before 1850'},
+     {'anchor': BRT_EXACT, 'note': 'This names the species of the virgin cover (white pine, white oak, black oak, chestnut: all in the layer\'s species table) and says it was cut before 1850. It does not say how old the trees of 1863 were: the Cultural Landscape Report calls the forest mature (VC-NPS-022): gap G24.'}),
+    ('NPSX-BRT-ECOLOGY-p009-01', '', 'crop', 'documented', 'the flat bottom land below Big Round Top, especially to the north-east, farmed for more than 150 years',
+     'The booklet says the flat bottom land below Big Round Top, especially to the northeast, has been farmed for more than 150 years.', {'basis': 'to the 1960s: farmed before and after 1863'},
+     {'anchor': {'gz': 'Big Round Top', 'bearing': 45, 'dist_m': 450, 'r_m': 450, 'class': 'field', 'area': True}, 'note': 'The neighbourhood of the hill (role area): the field cells there are arable or meadow, never wood.'}),
+    ('NPSX-BRIEN-FARM-p005-01', '', 'regional', 'documented', 'the Brien farm in July 1863: the locale\'s common crops, two houses and a set of farm buildings',
+     'The study says that on 1 July 1863 Abraham Brien owned a small farm on the southern outskirts of Gettysburg on which he raised the locale\'s common crops and maintained two houses and a set of farm buildings.', D1,
+     {'note': 'The crops are not named here (the inventory names wheat, barley and hay: VC-NPSC-BRIEN-FARM-p007-01).'}),
+    ('NPSX-MCCLEAN-HOUSE-BARN-p018-01', '', 'thicket', 'documented', 'shrubbery at the McClean farm north of the Mummasburg road, 1 July',
+     'The report quotes Col. Gilbert G. Prey of the 104th New York, who noted late on 1 July that the Confederates had massed for attack under shelter of the McLean buildings and shrubbery north of the Mummasburg road.', D1,
+     {'note': ACCOUNT + '. The McClean farm has no farmstead outline in the repository: not placed.'}),
+    ('NPSX-MCCLEAN-HOUSE-BARN-p022-01', '', 'damage', 'documented', 'the McClean fields before the battle: encamped on by the Confederates on 26 June and the Union cavalry on 30 June',
+     'The report says the property had suffered damage before the battle, the Union cavalry having encamped in McClean\'s fields on 30 June and the Confederates on 26 June.', {'from': '1863-06-26', 'to': '1863-06-30'},
+     {'note': 'Not placed (no farmstead outline). The fields were already used by troops before 1 July.'}),
+    ('NPSX-MCCLEAN-HOUSE-BARN-p026-04', '', 'crop', 'documented', 'a clover field of the McClean farm: a large force of New York Cavalry encamped on it on 30 June',
+     'The report transcribes McClean\'s claim: on 30 June a large force of New York Cavalry encamped upon one of his clover fields, extended over most of the place.', {'from': '1863-06-30', 'to': '1863-06-30'},
+     {'about': {'crop': 'hay'}, 'note': ACCOUNT + ' (a claimant\'s statement, DD-NPS-08). Not placed (no farmstead outline); clover is read as the layer\'s hay meadow.'}),
+    ('NPSX-HSR-LEISTER-BARN-p021-03', '', 'orchard', 'inferred', 'the Leister orchard in the Gardner photograph: fruit trees with white-washed trunks east of the barnyard',
+     'The report says that east of the barnyard many fruit trees with white-washed trunks are visible in the Gardner photograph, surely an orchard laid out in two groupings.', {'basis': 'a photograph of July 1863'},
+     {'note': 'The report reads a photograph (not read here): inferred. Not placed: the Warren orchard nearest the farmstead (28 m) is labelled Bryan orchard, and the orchard east of the Leister barnyard is not identified with it.'}),
+    ('NPSX-HSR-LEISTER-BARN-p023-01', '', 'orchard', 'inferred', 'the group of fruit trees nearest the Leister barn: not apples, possibly pears or cherries',
+     'The report says the trees of the grouping nearest the barn appear not to have been apples, but possibly pears or cherries.', {'basis': 'a photograph of July 1863'},
+     {'excerpt': True, 'note': 'The report\'s own hedge ("appear", "possibly"): inferred; the species of the layer\'s orchards are not changed by it. Not placed (see the claim before).'}),
+]
+
 # rows read and left out, each with the reason (so that a row of the correction file cannot be skipped silently)
 LEFT_OUT_B = {
     'NPSX-CLR-LRT-p036-01': 'the Commission\'s aim of 1895 to 1922 (keep the arrangement of the existing woods and fields): management of a later time, no state of 1863',
@@ -498,6 +549,11 @@ LEFT_OUT = {
     'NPSX-CLI-ERR-p095-09': 'farming after the battle (1864-1895): not the state of 1863',
     'NPSX-CLR-ROT-V1-p171-01': "a damage claimant's trade (canned fruit taken or destroyed): not about what grew where (also in the exclusion list of gen_nps_claims.py)",
 }
+LEFT_OUT_B.update({
+    'NPSX-MCCLEAN-HOUSE-BARN-p023-04': 'who farmed the McClean property (the owners or tenants): ownership and tenancy, no state of the ground',
+    'NPSX-HSR-LEISTER-BARN-p029-01': 'a view of about 1900: the orchard re-established to its original extent is a later state (the extent of the orchard of 1863 is held in the claims of the Gardner photograph)',
+    'NPSX-BRT-ECOLOGY-p010-01': 'European weeds well established before 1800 (the booklet\'s own hedge): weeds of the district, no crop, tree or place of 1863',
+})
 LEFT_OUT.update(LEFT_OUT_B)
 
 
@@ -521,6 +577,10 @@ def main():
             continue
         c = r['citation']
         q = ex.get('q') or c['quote']
+        cleaned = None
+        if ex.get('excerpt'):                       # a poor scan: the saved words, letter for letter (the row's own excerpt of the saved text); the cleaned reading goes into the note
+            cleaned, q = norm(c['quote']), norm(c.get('source_text_excerpt') or c['quote'])
+            ex = dict(ex, own_quote=True, note=((ex.get('note') + ' ') if ex.get('note') else '') + 'Letter for letter as saved (the scan is poor, and the text layer misreads many letters); the study reads: "' + cleaned + '"')
         if norm(q) not in norm(c['quote']) and not ex.get('own_quote'):
             bad.append((xid + suf, 'q is not a verbatim part of the row quote'))
             continue
