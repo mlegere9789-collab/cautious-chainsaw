@@ -10,19 +10,20 @@ How a row is made (nothing is retyped):
   * the entry is cut from the saved reading-order text of the report (tmp/library/web/nps/<ID>/<ID>.txt), page by page; the
     page footer ('Cultural Landscapes Inventory Page n of m') is not part of the entry;
   * the items of the entry are the words of the list as printed: split at the semicolons (lists written with semicolons) or at the
-    commas (lists of tablets, in which no name contains a comma), or, for a sentence that names one memorial, given in ITEMS below
-    and then looked up in the entry (every item must be a substring of the entry, in order; the build stops otherwise);
-  * `name_as_printed` is the item exactly as the entry prints it (one trailing full stop or semicolon removed); `name` is the same
-    without the list words 'the' / 'and' / 'and the' in front of it. Neither is matched to anything.
-  * `quote` is the whole entry, verbatim, so that the card shows the report's own wording; `year`/`year_to` are the header years of
-    the entry ('CE 1885 - 1886'); `text_years` are the years the entry's own sentence gives ('In 1909-1911'); when the two differ
-    `years_differ` is true and both are carried.
+    commas (lists of tablets and the like, in which no name contains a comma), or, for a sentence that names memorials, given in
+    RULES below and then looked up in the entry (every item must be a substring of the entry, in order; the build stops otherwise);
+  * `name_as_printed` is the item exactly as the entry prints it (the list word 'and' in front of the last item and one trailing
+    full stop or semicolon removed); `name` is the same without a leading 'the'. Neither is matched to anything;
+  * `quote` is the whole entry, verbatim, so that a card can show the report's own wording; `year`/`year_to` are the header years
+    of the entry ('CE 1885 - 1886'); `text_years` are the years the entry's own sentence gives ('In 1909-1911'); when the two
+    differ `years_differ` is true and both are carried.
 
-Entries that name no memorial (anniversaries, avenues, fences, pillars, the unnamed guns of batteries) are not rows; each is
-listed with its reason in extracts/memorial_years_left.json, so that nothing is hidden.
+Entries that name no memorial (anniversaries, fences, pillars, the unnamed guns of batteries) are not rows; each is listed with its
+reason in extracts/memorial_years_left.json, so that nothing is hidden.
 
   memorial_years.py            build extracts/memorial_years.jsonl, memorial_years_left.json and memorial_years.md
   memorial_years.py --check    rebuild in memory and compare with the files (exit 1 on a difference)
+  memorial_years.py --list     print the rows
 Run with python3 -I.
 """
 import hashlib, json, os, re, sys
@@ -34,6 +35,7 @@ LIB = os.path.join(ROOT, 'tmp', 'library', 'web', 'nps')
 OUT = os.path.join(NPS, 'extracts')
 RETRIEVED = '2026-11-13'
 SHORT = {'NPS-CLI-PCB': 'PCB', 'NPS-CLI-LRT': 'LRT', 'NPS-CLI-ERR': 'ERR', 'NPS-CLI-LANDSCAPE': 'LSC'}
+CHRON_SOURCES = ('NPS-CLI-PCB', 'NPS-CLI-LRT', 'NPS-CLI-ERR')
 
 
 def norm(s):
@@ -48,20 +50,24 @@ def sha256_file(p):
     return h.hexdigest()
 
 
-def load_pages(sid, layout=False):
-    p = os.path.join(LIB, sid, sid + ('.layout.txt' if layout else '.txt'))
+def load_pages(sid, variant=None):
+    p = os.path.join(LIB, sid, sid + ('.layout.txt' if variant == 'layout' else '.txt'))
     txt = open(p, encoding='utf-8').read()
     parts = re.split(r'^=== PAGE (\d+) ===\n', txt, flags=re.M)
     return {int(parts[i]): parts[i + 1] for i in range(1, len(parts), 2)}, sha256_file(p), os.path.relpath(p, ROOT)
 
 
 FOOTER = re.compile(r'\s*Cultural Landscapes Inventory(?: Part \w+)? Page \d+(?: of \d+)?\s*$')
+PRINTED = re.compile(r'Page (\d+) of (\d+)')
 HEAD = re.compile(r'\b(CE|AD) (\d{4})(?: - (\d{4}))? Memorialized ')
 NEXT = re.compile(r'\b(?:CE|AD) \d{4}(?: - \d{4})? [A-Z]')
 
-# Entries that are lists written with semicolons after a colon ('semi'), lists of tablets written with commas after a colon ('comma'),
-# a sentence that names memorials, given by explicit items ('items': the strings are looked up in the entry), or that names no
-# memorial ('none': the reason).  Key: (source, pdf page, header years as printed).
+# How each 'Memorialized' entry is read. Key: (source, pdf page, header years as printed [+ '#k' when the header repeats on the page]).
+#   ('semi',)            'head: item; item; and item.'    items split at the semicolons after the first colon
+#   ('semi_tail', S)     as 'semi', with the closing words S that are not part of the last item (kept in also_in_entry)
+#   ('comma',)           'head: item, item, and item.'    items split at the commas after the first colon
+#   ('items', [...])     the items are given (strings found in the entry, in order); an item may be (string, note)
+#   ('none', reason)     the entry names no memorial
 RULES = {
     # ---- Pickett's Charge Battlefield (NPS-CLI-PCB)
     ('NPS-CLI-PCB', 41, 'CE 1884'): ('semi',),
@@ -88,10 +94,10 @@ RULES = {
     ('NPS-CLI-PCB', 44, 'CE 1938'): ('items', ['The Peace Memorial']),
     ('NPS-CLI-PCB', 45, 'CE 1963#1'): ('none', 'an anniversary: no memorial is named'),
     ('NPS-CLI-PCB', 45, 'CE 1963#2'): ('semi',),
-    ('NPS-CLI-PCB', 45, 'CE 1971'): ('semi_sentence', 'Sponsor Tablet is also installed.'),
+    ('NPS-CLI-PCB', 45, 'CE 1971'): ('semi_tail', ' Sponsor Tablet is also installed.'),
     ('NPS-CLI-PCB', 45, 'CE 1973'): ('semi_tail', ' is also installed.'),
     ('NPS-CLI-PCB', 45, 'CE 1982'): ('semi',),
-    ('NPS-CLI-PCB', 45, 'CE 1998'): ('semi_sentence', 'Includes two tablets: Biography and Battle History.'),
+    ('NPS-CLI-PCB', 45, 'CE 1998'): ('semi_tail', ' Includes two tablets: Biography and Battle History.'),
     ('NPS-CLI-PCB', 45, 'CE 2000'): ('semi',),
     # ---- Little Round Top (NPS-CLI-LRT)
     ('NPS-CLI-LRT', 29, 'CE 1863 - 1864'): ('items', ['Strong Vincent Inscribed Boulder', 'Weed-Hazlett Inscribed Boulder']),
@@ -111,20 +117,21 @@ RULES = {
     ('NPS-CLI-LRT', 31, 'CE 1906 - 1907'): ('semi',),
     ('NPS-CLI-LRT', 31, 'CE 1907 - 1908'): ('semi',),
     ('NPS-CLI-LRT', 31, 'CE 1909 - 1910'): ('semi',),
-    ('NPS-CLI-LRT', 31, 'CE 1911 - 1912'): ('comma_and',),
+    ('NPS-CLI-LRT', 31, 'CE 1911 - 1912'): ('comma',),
     ('NPS-CLI-LRT', 31, 'CE 1919'): ('items', ['United States Signal Corps Marker']),
-    ('NPS-CLI-LRT', 31, 'CE 1938'): ('none', 'an anniversary reunion of veterans: no memorial is named'),
+    ('NPS-CLI-LRT', 31, 'CE 1938'): ('none', 'a reunion of veterans on the 75th anniversary: no memorial is named'),
     ('NPS-CLI-LRT', 32, 'CE 1988'): ('items', ['Brigadier General Samuel W. Crawford Statue']),
     # ---- Emmitsburg Road Ridge (NPS-CLI-ERR)
     ('NPS-CLI-ERR', 33, 'CE 1880'): ('none', 'the battery guns and shell pyramids that the GBMA placed from 1880 to mark Union batteries are not named individually; the saved text of this cell also carries the page heading words inside the entry'),
-    ('NPS-CLI-ERR', 34, 'CE 1886'): ('comma_and_the',),
-    ('NPS-CLI-ERR', 34, 'CE 1888'): ('comma_and_the',),
-    ('NPS-CLI-ERR', 34, 'CE 1889'): ('comma_and_the',),
-    ('NPS-CLI-ERR', 34, 'CE 1892'): ('items', ['the 16th Vermont Infantry Monument']),
-    ('NPS-CLI-ERR', 35, 'CE 1893'): ('comma_and_the',),
-    ('NPS-CLI-ERR', 35, 'CE 1896'): ('none', 'shell and chain fencing in front of three tablets (the tablets are named only as the place of the fence)'),
+    ('NPS-CLI-ERR', 34, 'CE 1886'): ('items', ['the 16th Massachusetts Infantry Monument', 'the 118th Pennsylvania Infantry (2nd position) Monument']),
+    ('NPS-CLI-ERR', 34, 'CE 1888'): ('comma',),
+    ('NPS-CLI-ERR', 34, 'CE 1889'): ('items', ['the 120th New York Infantry Monument', 'the 150th New York Infantry Monument', 'the 105th Pennsylvania Infantry Monument',
+                                               ('the 139th Pennsylvania Infantry Monument', 'the entry says this fourth monument is relocated into the project area in this year; it does not say when it was first erected')]),
+    ('NPS-CLI-ERR', 34, 'CE 1892'): ('items', ['The 16th Vermont Infantry Monument']),
+    ('NPS-CLI-ERR', 35, 'CE 1893'): ('comma',),
+    ('NPS-CLI-ERR', 35, 'CE 1896'): ('none', 'shell and chain fencing placed in front of three tablets: the tablets are named only as the place of the fence'),
     ('NPS-CLI-ERR', 35, 'CE 1897'): ('none', 'stone pillars topped with shells at two road intersections: no memorial is named'),
-    ('NPS-CLI-ERR', 35, 'CE 1900'): ('comma_and_the',),
+    ('NPS-CLI-ERR', 35, 'CE 1900'): ('comma',),
     ('NPS-CLI-ERR', 35, 'CE 1901'): ('items', ['The Sickles (Wounded) Marker']),
     ('NPS-CLI-ERR', 36, 'CE 1907'): ('comma',),
     ('NPS-CLI-ERR', 36, 'CE 1910'): ('items', ['Humphreys’ Division Tablet']),
@@ -132,34 +139,23 @@ RULES = {
     ('NPS-CLI-ERR', 36, 'CE 1913#1'): ('none', 'an anniversary: no memorial is named'),
     ('NPS-CLI-ERR', 36, 'CE 1913#2'): ('items', ['General Sickles’ Headquarters Marker']),
     ('NPS-CLI-ERR', 36, 'CE 1914'): ('items', ['General Humphreys Monument']),
-    ('NPS-CLI-ERR', 36, 'CE 1915'): ('damaged', 'Four markers are erected in Excelsior Field (Trostle Field #1)'),
+    ('NPS-CLI-ERR', 36, 'CE 1915'): ('items', [
+        ('the 701\\ 7151, 72"\'1', 'the report prints four markers (the entry says four) but its printed text is garbled for three of the regiment numbers (the page image of PDF p. 36, looked at, shows the same characters); not repaired or guessed here'),
+        '74th New York Infantry Markers']),
     ('NPS-CLI-ERR', 37, 'CE 1938'): ('none', 'an anniversary: no memorial is named'),
     ('NPS-CLI-ERR', 37, 'CE 1963'): ('none', 'an anniversary: no memorial is named'),
 }
 
 
-def split_semicolons(body):
-    out = []
-    for it in re.split(r';\s*', body):
-        it = it.strip().rstrip('.').strip()
-        it = re.sub(r'^and\s+', '', it)
-        if it:
-            out.append(it)
-    return out
+def clean_item(it):
+    it = it.strip()
+    it = re.sub(r'[.;]+$', '', it).strip()
+    it = re.sub(r'^and\s+', '', it)
+    return it
 
 
-def split_commas(body):
-    out = []
-    for it in re.split(r',\s*', body):
-        it = it.strip().rstrip('.').strip()
-        it = re.sub(r'^and\s+', '', it)
-        if it:
-            out.append(it)
-    return out
-
-
-def strip_lead(name):
-    return re.sub(r'^(?:and the |and |the )', '', name, flags=re.I)
+def split_on(sep, body):
+    return [clean_item(x) for x in re.split(sep, body) if clean_item(x)]
 
 
 def entries_of(sid):
@@ -168,24 +164,23 @@ def entries_of(sid):
     for p in sorted(pages):
         N = norm(pages[p])
         heads = list(HEAD.finditer(N))
-        counts = {}
         for m in heads:
-            ent_end = len(N)
             nm = NEXT.search(N, m.end())
-            if nm:
-                ent_end = nm.start()
-            ent = N[m.start():ent_end].strip()
+            ent = N[m.start():(nm.start() if nm else len(N))].strip()
             ent = FOOTER.sub('', ent).strip()
             hdr = '%s %s%s' % (m.group(1), m.group(2), (' - ' + m.group(3)) if m.group(3) else '')
-            counts[hdr] = counts.get(hdr, 0) + 1
-            out.append({'sid': sid, 'page': p, 'hdr': hdr, 'n': counts[hdr], 'entry': ent, 'page_text': N})
-    # a header that repeats on the same page gets '#k' (k-th on the page) in the rule key
-    return out, tsha, tpath, pages
-
-
-def rule_key(e, entries):
-    same = [x for x in entries if x['sid'] == e['sid'] and x['page'] == e['page'] and x['hdr'] == e['hdr']]
-    return (e['sid'], e['page'], e['hdr'] + ('#%d' % e['n'] if len(same) > 1 else ''))
+            pm = PRINTED.search(N)
+            out.append({'sid': sid, 'page': p, 'hdr': hdr, 'entry': ent, 'printed': ('Page %s of %s' % pm.groups()) if pm else None})
+    # ordinal of the entry among the page's entries, and '#k' for a header that repeats on the page
+    per_page = {}
+    for e in out:
+        per_page.setdefault((e['page']), []).append(e)
+    for p, lst in per_page.items():
+        for i, e in enumerate(lst, 1):
+            e['ord'] = i
+            same = [x for x in lst if x['hdr'] == e['hdr']]
+            e['key'] = (e['sid'], p, e['hdr'] + ('#%d' % (same.index(e) + 1) if len(same) > 1 else ''))
+    return out, tsha, tpath
 
 
 def years_of(hdr):
@@ -194,118 +189,161 @@ def years_of(hdr):
 
 
 def build():
-    rows, left = [], []
-    srcmeta = {}
-    for sid in ('NPS-CLI-PCB', 'NPS-CLI-LRT', 'NPS-CLI-ERR'):
-        entries, tsha, tpath, pages = entries_of(sid)
-        srcmeta[sid] = {'text_sha256': tsha, 'text_path': tpath}
+    rows, left, meta = [], [], {}
+    for sid in CHRON_SOURCES:
+        entries, tsha, tpath = entries_of(sid)
+        meta[sid] = {'text_sha256': tsha, 'text_path': tpath}
         seen = set()
         for e in entries:
-            key = rule_key(e, entries)
+            key = e['key']
             seen.add(key)
             rule = RULES.get(key)
             if rule is None:
                 raise SystemExit('no rule for entry %r: %s' % (key, e['entry'][:160]))
             y1, y2 = years_of(e['hdr'])
-            body_start = e['entry'].find('Memorialized ') + len('Memorialized ')
-            text = e['entry'][body_start:]
+            text = e['entry'][e['entry'].find('Memorialized ') + len('Memorialized '):]
             kind = rule[0]
             if kind == 'none':
-                left.append({'source_id': sid, 'pdf_page': e['page'], 'header_years': e['hdr'], 'entry': e['entry'], 'why_not_a_row': rule[1]})
+                left.append({'source_id': sid, 'pdf_page': e['page'], 'printed_page': e['printed'], 'header_years': e['hdr'], 'entry': e['entry'], 'why_not_a_row': rule[1]})
                 continue
-            list_head, items = None, []
-            if kind in ('semi', 'semi_sentence', 'semi_tail'):
+            list_head, tail, items = None, None, []
+            if kind in ('semi', 'semi_tail', 'comma'):
                 if ':' not in text:
                     raise SystemExit('no colon in %r' % (key,))
                 list_head, body = text.split(':', 1)
                 body = body.strip()
-                extra = None
-                if kind == 'semi_sentence':
-                    if not body.endswith(rule[1]):
-                        raise SystemExit('expected tail sentence %r in %r' % (rule[1], key))
-                    extra = rule[1]
-                    body = body[:-len(rule[1])].strip()
                 if kind == 'semi_tail':
-                    if not body.endswith(rule[1]):
-                        raise SystemExit('expected tail %r in %r' % (rule[1], key))
-                    extra = rule[1].strip()
-                    body = body[:-len(rule[1])].strip()
-                items = split_semicolons(body)
-                tail = extra
-            elif kind in ('comma', 'comma_and', 'comma_and_the'):
-                if ':' in text:
-                    list_head, body = text.split(':', 1)
-                else:
-                    list_head, body = text.split(' are erected in the project area: ', 1) if ' are erected in the project area: ' in text else (None, text)
-                items = split_commas(body.strip())
-                tail = None
+                    if not body.endswith(rule[1].strip()):
+                        raise SystemExit('expected closing words %r in %r' % (rule[1], key))
+                    tail = rule[1].strip()
+                    body = body[:-len(rule[1].strip())].strip()
+                items = [(x, None) for x in split_on(r',\s*' if kind == 'comma' else r';\s*', body)]
+                # a list of memorials written with 'and' between the last two items and no comma ('the A and the B') is not used by these reports
             elif kind == 'items':
-                items = list(rule[1])
-                list_head = text
-                tail = None
-            elif kind == 'damaged':
-                raise SystemExit('entry %r needs its page image: add its explicit items to RULES' % (key,))
+                items = [(x, None) if isinstance(x, str) else x for x in rule[1]]
+                list_head = None
             else:
                 raise SystemExit('unknown rule %r' % (rule,))
-            if kind == 'comma_and_the':
-                # 'Two monuments are erected in the project area: the A and the B.' / 'the A, the B, and the C.'
-                pass
-            # ERR lists: 'a, b, and c' or 'a and b' (two items): split at ' and the ' when only two are listed
-            if kind == 'comma_and_the' and len(items) == 1 and ' and the ' in items[0]:
-                items = [x for x in re.split(r' and (?=the )', items[0])]
-            if kind in ('comma_and_the',):
-                fixed = []
-                for it in items:
-                    fixed.append(it)
-                items = fixed
-            # LRT 1911-1912: 'five Brigade Tablets, Army of the Potomac: Bartlett's Brigade-Wheatfield Road, ..., and Weed's Brigade-Sykes Avenue.'
             # every item must be found in the entry, in order
             pos = 0
-            norm_entry = e['entry']
-            for it in items:
-                i = norm_entry.find(it, pos)
+            for it, _ in items:
+                i = e['entry'].find(it, pos)
                 if i < 0:
                     raise SystemExit('item %r of %r is not in the entry, in order' % (it, key))
                 pos = i + len(it)
-            thead = re.search(r'\b(?:in|In) (\d{4})(?: ?[-–] ?(\d{4}))?', text)
-            text_years = None
-            if thead:
-                text_years = [int(thead.group(1))] + ([int(thead.group(2))] if thead.group(2) else [])
-            cal = re.findall(r'\(ca\.\s*\d{4}(?:\s*[-–]\s*\d{4})?\)', e['entry'])
-            for k, it in enumerate(items, 1):
-                nm = strip_lead(it)
-                row = {
-                    'id': 'NPSMY-%s-p%03d-%d-%02d' % (SHORT[sid], e['page'], y1, k) + ('b' if e['n'] > 1 and len([x for x in entries if x['sid'] == sid and x['page'] == e['page'] and x['hdr'] == e['hdr']]) > 1 and e['n'] > 1 else ''),
-                    'source_id': sid, 'pdf_page': e['page'],
-                    'name': nm, 'name_as_printed': it,
+            tm = re.search(r'\b[Ii]n (\d{4})(?: ?[-–] ?(\d{4}))?', text)
+            text_years = ([int(tm.group(1))] + ([int(tm.group(2))] if tm.group(2) else [])) if tm else None
+            differ = bool(text_years and (text_years[0], text_years[-1]) != (y1, y2 or y1))
+            for k, (it, note) in enumerate(items, 1):
+                ca = re.findall(r'\(ca\.\s*\d{4}(?:\s*[-–]\s*\d{4})?\)', it)
+                rows.append({
+                    'id': 'NPSMY-%s-p%03d-e%02d-i%02d' % (SHORT[sid], e['page'], e['ord'], k),
+                    'source_id': sid, 'pdf_page': e['page'], 'printed_page': e['printed'],
+                    'name': re.sub(r'^the ', '', it, flags=re.I), 'name_as_printed': it,
                     'year': y1, 'year_to': y2, 'header_years': e['hdr'],
-                    'event_printed': 'Memorialized',
                     'list_head': norm(list_head) if list_head else None,
                     'item_index': k, 'items_in_entry': len(items),
                     'quote': e['entry'],
-                    'text_years': text_years,
-                    'years_differ': bool(text_years and (text_years[0] != y1 or (len(text_years) > 1 and text_years[1] != (y2 or text_years[1])))),
-                    'also_in_entry': tail,
-                    'ca_in_entry': cal or None,
-                    'state_date': ('erected %d' % y1) + (' to %d' % y2 if y2 else '') + ' (the chronology year of the memorial, not an 1863 state)',
+                    'text_years': text_years, 'years_differ': differ,
+                    'also_in_entry': tail, 'ca_in_item': ca[0] if ca else None,
+                    'note': note,
+                    'state_date': 'erected or installed in %d%s as the chronology prints it (a later memorial; not an 1863 state)' % (y1, ('-%d' % y2) if y2 else ''),
                     'use_for_1863': 'none',
-                    'tier_proposed': 'documented',
-                    'tier_basis': 'a National Park Service inventory prints the year of this memorial in its chronology table; the inventory\'s own sources are not named in the cell',
-                    'retrieved': RETRIEVED,
-                    'text_variant': 'reading-order',
+                    'tier_proposed': 'inferred' if ca else 'documented',
+                    'tier_basis': ('the chronology gives the year with ca. for this item; carry as inferred' if ca else
+                                   'a National Park Service inventory prints the year of this memorial in its chronology table; the inventory does not name the records behind the cell'),
+                    'retrieved': RETRIEVED, 'text_variant': 'reading-order',
                     'text_path': tpath, 'text_sha256': tsha,
-                    'url': None,
-                }
-                rows.append(row)
-        # no rule may be left unused (a changed text would otherwise go unnoticed)
+                })
         for key in RULES:
             if key[0] == sid and key not in seen:
-                raise SystemExit('rule %r matched no entry' % (key,))
-    return rows, left, srcmeta
+                raise SystemExit('rule %r matched no entry (the saved text changed?)' % (key,))
+    # park-wide chronology (layout text: the 2000 scan has no punctuation, so the entry is quoted as the layout text prints it)
+    pages, tsha, tpath = load_pages('NPS-CLI-LANDSCAPE', 'layout')
+    meta['NPS-CLI-LANDSCAPE'] = {'text_sha256': tsha, 'text_path': tpath, 'text_variant': 'layout'}
+    LSC = [
+        (22, 1878, 'markers to General Vincent and Colonel Taylor',
+         '1878 AD Memorialized The Pennsylvania Grand Army of the Republic GAR held week-long reunion at the battlefield early monumentation was ushered in by dedication of markers to General Vincent and Colonel Taylor both Pennsylvania heroes for whom the GAR posts were named',
+         'the entry names two persons the markers honour, not the markers; no marker name is printed'),
+        (22, 1879, '24th Mass',
+         '1879 AD Memorialized First regimental monument marking battle position 24th Mass erected',
+         'the entry names the regiment (24th Mass) only; the printed words do not give the monument\'s full name'),
+    ]
+    for p, y, name, quote, note in LSC:
+        N = norm(pages[p])
+        if N.count(quote) != 1:
+            raise SystemExit('LANDSCAPE entry not found once on p.%d: %r' % (p, quote[:60]))
+        rows.append({
+            'id': 'NPSMY-LSC-p%03d-%d' % (p, y), 'source_id': 'NPS-CLI-LANDSCAPE', 'pdf_page': p, 'printed_page': None,
+            'name': name, 'name_as_printed': name, 'year': y, 'year_to': None, 'header_years': '%d AD' % y,
+            'list_head': None, 'item_index': 1, 'items_in_entry': 1, 'quote': quote, 'text_years': None, 'years_differ': False,
+            'also_in_entry': None, 'ca_in_item': None, 'note': note,
+            'state_date': 'erected or dedicated in %d as the park-wide chronology prints it (a later memorial; not an 1863 state)' % y,
+            'use_for_1863': 'none', 'tier_proposed': 'documented',
+            'tier_basis': 'the park-wide inventory prints the year in its chronology table (layout text of a 2000 print scan, no punctuation)',
+            'retrieved': RETRIEVED, 'text_variant': 'layout', 'text_path': tpath, 'text_sha256': tsha})
+    return rows, left, meta
+
+
+def sources_meta():
+    return {s['id']: s for s in json.load(open(os.path.join(NPS, 'sources.json')))['sources']}
+
+
+def write(rows, left, meta):
+    src = sources_meta()
+    for r in rows:
+        s = src[r['source_id']]
+        r['source_title'], r['source_date'], r['source_author'], r['url'] = s['title'], s['date'], s['author'], s['url']
+        r['rights_basis'] = s.get('rights_basis')
+    with open(os.path.join(OUT, 'memorial_years.jsonl'), 'w', encoding='utf-8') as f:
+        for r in rows:
+            f.write(json.dumps(r, ensure_ascii=False, sort_keys=True) + '\n')
+    json.dump({'_doc': 'Chronology entries of the Cultural Landscapes Inventories that carry the event word Memorialized and name no memorial; read, and left out of memorial_years.jsonl with the reason. Generated by scripts/memorial_years.py.',
+               'items': left}, open(os.path.join(OUT, 'memorial_years_left.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    with open(os.path.join(OUT, 'memorial_years.md'), 'w', encoding='utf-8') as f:
+        f.write('# Memorials named in the chronology tables of the National Park Service inventories, with the year each table prints\n\n')
+        f.write('Generated by `scripts/memorial_years.py` (do not edit by hand) for the request of the world-content workstream. One row per memorial named in a chronology entry of the event type Memorialized; '
+                'the name is the list item exactly as the entry prints it (`name_as_printed`); nothing is matched to any other list of names. The quote is the whole entry, verbatim from the saved text '
+                '(`scripts/verify_memorial_years.py` finds it again). Every row is a later memorial: use for the July 1863 scene is `none`. The year is the chronology year of the cell (a range where the cell prints a range); '
+                'the report does not say which record gives it.\n\n')
+        f.write('%d rows from %d sources; %d chronology entries with the event type Memorialized that name no memorial are listed in `memorial_years_left.json`.\n\n' % (len(rows), len({r['source_id'] for r in rows}), len(left)))
+        cur = None
+        for r in sorted(rows, key=lambda r: (r['source_id'], r['pdf_page'], r['id'])):
+            if r['source_id'] != cur:
+                cur = r['source_id']
+                f.write('\n## %s\n\n%s (%s). %s\n\n| id | year | name as printed | PDF page [printed] | note |\n|---|---|---|---|---|\n' % (cur, r['source_title'], r['source_date'], r['url']))
+            yr = str(r['year']) + ('-%d' % r['year_to'] if r['year_to'] else '')
+            notes = []
+            if r['years_differ']:
+                notes.append('the sentence of the entry prints years %s' % '-'.join(str(x) for x in r['text_years']))
+            if r['ca_in_item']:
+                notes.append('item carries %s' % r['ca_in_item'])
+            if r['also_in_entry']:
+                notes.append('entry continues: %s' % r['also_in_entry'])
+            if r['note']:
+                notes.append(r['note'])
+            f.write('| `%s` | %s | %s | %d%s | %s |\n' % (r['id'], yr, r['name_as_printed'].replace('|', '/'), r['pdf_page'], (' [%s]' % r['printed_page']) if r['printed_page'] else '', '; '.join(notes).replace('|', '/')))
 
 
 if __name__ == '__main__':
-    rows, left, srcmeta = build()
-    print(len(rows), 'rows;', len(left), 'entries left out')
-    for r in rows:
-        print('%-26s p%-3d %s%s | %s | %s' % (r['id'], r['pdf_page'], r['year'], ('-%d' % r['year_to']) if r['year_to'] else '', r['name_as_printed'], r['name']))
+    rows, left, meta = build()
+    if '--list' in sys.argv:
+        for r in rows:
+            print('%-26s p%-3d %s%s | %s | %s' % (r['id'], r['pdf_page'], r['year'], ('-%d' % r['year_to']) if r['year_to'] else '', r['name_as_printed'], r['name']))
+        print(len(rows), 'rows;', len(left), 'entries left out')
+    elif '--check' in sys.argv:
+        src = sources_meta()
+        have = [json.loads(l) for l in open(os.path.join(OUT, 'memorial_years.jsonl'), encoding='utf-8')]
+        for r in rows:
+            s = src[r['source_id']]
+            r['source_title'], r['source_date'], r['source_author'], r['url'] = s['title'], s['date'], s['author'], s['url']
+            r['rights_basis'] = s.get('rights_basis')
+        a = [json.dumps(r, ensure_ascii=False, sort_keys=True) for r in rows]
+        b = [json.dumps(r, ensure_ascii=False, sort_keys=True) for r in have]
+        if a != b:
+            print('DIFFERENT: %d rows built, %d in the file' % (len(a), len(b)))
+            sys.exit(1)
+        print('memorial_years.jsonl equals the rebuild (%d rows)' % len(rows))
+    else:
+        write(rows, left, meta)
+        print('%d rows, %d entries left out; written to %s' % (len(rows), len(left), OUT))

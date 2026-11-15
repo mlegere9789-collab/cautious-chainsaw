@@ -3,7 +3,7 @@
  "file": "docs/plan/STATUS/items-A.json",
  "part": "A",
  "generated": "2026-11-13",
- "scope": "Chapters 01 to 08b of docs/plan/FINAL: the 34 decisions of the register, its 17 decision-support packages and 12 owner actions, the 253 work packages (finding groups) of chapters 02 to 08b, the owner decisions listed in each chapter, the nodes of 15-roadmap.json whose chapter list touches them (77 of 98), docs/decisions/* (items 1 to 6 of 2026-10-04, items 1 to 5 of 2026-10-05, items 1 and 2 of 2026-10-19, and the open lists of the four provisional files), the owner questions of ops/T0-DEVIATIONS.md (rows 1, 2, 14, 22, 23, 24, 26), and the release reports as far as those chapters need them. Owner decisions 2026-10-19 items 3 to 5 and their clarifications govern the Battle Theatre and are tracked under docs/battle-theatre/GOVERNANCE, not here.",
+ "scope": "Chapters 01 to 08b of docs/plan/FINAL: the 34 decisions of the register, its 17 decision-support packages and 12 owner actions, the 253 work packages (finding groups) of chapters 02 to 08b, the owner decisions listed in each chapter, the nodes of 15-roadmap.json whose chapter list touches them (77 of 98), docs/decisions/* (items 1 to 6 of 2026-10-04, items 1 to 5 of 2026-10-05, items 1 and 2 of 2026-10-19, and the open lists of the four provisional files), the owner questions of ops/T0-DEVIATIONS.md (rows 1, 2, 14, 22, 23, 24, 26), and the release reports as far as those chapters need them. Owner decisions 2026-10-19 items 3 to 5 and their clarifications govern the Battle Theatre and are tracked under docs/battle-theatre/GOVERNANCE, not here. Pass 5 added three points of the open lists of the provisional decision files that no item named (PROV-R1E-OOB, PROV-R1F-F7, PROV-R1F-PK6).",
  "status_definitions": {
   "SHIPPED": "Present in the release candidate, train R1g (and the trains named), with the patch group and the test that prove it. No train has been deployed: ops/RELEASE-LOG.md has no row and production still serves deploy 6abd6d62.",
   "BUILT_NOT_SHIPPED": "Exists in src/, historian-src/, data-src/, candidates/ or as an opt-in patch group, but is in no train; the evidence says what is missing.",
@@ -26,27 +26,29 @@
   "The zips packed in this container carry a stand-in 1863 tile pyramid (96 of 1,885 files equal the original); the final zip must be packed where the original pyramid is.",
   "Source rebuild: src/ holds the time module (src/lib/time, 10 files) and, since 2026-11-13 21:27 UTC, the foundation of candidate wp-arch-09 (src/STACK.md, src/package.json, src/tsconfig.base.json, src/.nvmrc, src/config/mapbox.js and two test files: 23 tests pass on Node 22.23.4); there is no rebuilt app, no parity harness, no site generator. data-src/ (63 files) and historian-src/ (299 files) are built and tested but served by no train.",
   "Run by this survey on 2026-11-13, long suites through the machine lock: T0-J7 on R1g and on frozen R1f (red on both, tmp/r1h-cand/statusA/j7.log); node --test tests/time/*.test.mjs: 638 tests, 638 pass, 0 fail; npm run time:check: exit 0; node --test tests/data/*.test.mjs: 207 tests, 206 pass, 0 fail, 1 skipped; npm run data:check: exit 0. Run directly (under 5 s CPU, no browser): node tools/environment/validate.mjs and node tools/ledger/validate.mjs: 0 errors, 0 warnings each; HDR-11 alone (see VER-HDR-11). node --test tests/historian/*.test.mjs under Node 24.22.1 (/opt/node24), run through the machine lock on 2026-11-13 (log tmp/r1h-cand/statusA/historian-test3.log; started 19:31 UTC, finished 20:54 UTC): 474 tests, 386 pass, 1 fail, 87 skipped (19 of the skips are \"skipped loudly\": historian-src/raw/or27 and tmp/historian-cache are not built here). The one failure is tests/historian/engine.test.mjs:193 \"latency: p95 of a 300-query session ... far below the 30 ms budget\" with p95 39.5 ms; that job shared the CPU with other jobs, so it is not a timing result, and no run alone under the timing lock is recorded yet. Under the default Node 22.23.4 the suite could not load before 21:13 UTC (tools/historian/ingest/times.mjs held a regular-expression modifier group, which V8 before 12.5 rejects); candidate ver-hist-node rewrote that pattern (tools/historian/ingest/times.mjs has no modifier group now; new test tests/historian/times-node22.test.mjs). Its own shared-mode run of the whole suite under Node 22.23.4 gives 478 tests, 391 pass, 0 fail, 87 skipped (log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log). Its STATUS.json still says passes false: the paired run of both Node versions under the timing lock has not produced its logs.",
-  "Result files of the release workstream used in passes 3 and 4: docs/accept/R1G-SUITES.json, generated 2026-11-14 00:27 UTC from 13 logs, lists 80 suites, last result OK 60 and not OK 20 (journeys.R1c, mobilefix.R1b, mobilefix.R1c, pagesmaps.R1a, r1.anim, r1.base1863, r1.polish, r1.polish.pair, r1.perf2, r1.perf4, r1.perf5, r1.perf6, r1.wtpeer, r1.ztail, baseline.walkguard, walkguard.R0 to walkguard.R1c, headers.R1c); pass 3 read the version generated 2026-11-13 21:39 UTC (OK 61, not OK 19), and the one new red row is pagesmaps.R1a (a cold-cache run of 2026-11-14 00:04 UTC, exit 1; the release workstream diagnoses it, at 00:27 UTC, as a run without T0_CHROME and has queued the repeat: VER-PAGESMAPS). The file changes while the release workstream works: read its generated time before quoting a total. The last result of 58 suites is from the 2026-11-11 run, not from the final harness. A SHIPPED item whose proof suite is in that red list says so in its evidence; none of those results is acceptance evidence (container: 4 vCPU, software GL, Linux fonts).",
+  "Result files of the release workstream used in passes 3 to 5: docs/accept/R1G-SUITES.json, generated 2026-11-14 01:21 UTC (the newest version in the tree on 2026-11-15; the release workstream rewrites it while it works, so read its generated time before quoting a total), lists 80 suites, last result OK 61 and not OK 19 (journeys.R1c, mobilefix.R1b, mobilefix.R1c, r1.anim, r1.base1863, r1.polish, r1.polish.pair, r1.perf2, r1.perf4, r1.perf5, r1.perf6, r1.wtpeer, r1.ztail, baseline.walkguard, walkguard.R0 to walkguard.R1c, headers.R1c). Pass 4 read the version generated 2026-11-14 00:27 UTC (OK 60, not OK 20), in which pagesmaps.R1a was red because of a run without T0_CHROME; the cold-cache repeat with T0_CHROME set ran 01:19:59 to 01:21:26 UTC and is green (34 of 34), which closed VER-PAGESMAPS; pass 3 had read the version of 2026-11-13 21:39 UTC (OK 61, not OK 19). The last result of 58 suites is from the 2026-11-11 run, not from the final harness (22 suites have a last result from it). A SHIPPED item whose proof suite is in the red list says so in its evidence; none of those results is acceptance evidence (container: 4 vCPU, software GL, Linux fonts).",
   "Run by pass 3 from 2026-11-13 23:45 UTC to 2026-11-14 (nothing through the machine lock): node --test src/config/tokens.test.mjs src/foundation.test.mjs (23 of 23, Node 22.23.4); node tests/copy/trust-pages.test.mjs (fails: the anchor-state assertion, see OWNER-2026-10-04-6); node tools/t0/run_suites.mjs --list (80 suite rows); python3 docs/plan/STATUS/merge_status.py --check and check_backlog.py before the change (both exit 0); scripted checks in tmp/r1h-cand/statusA3: ids of the plan against the items (253 work packages, 34 decisions, 17 packages, 12 owner actions, 81 chapter owner decisions, 98 roadmap nodes: nothing missing), every \"N/M\" figure of the evidence against the recorded suite rows, every patch id and path named, and direct reads of release/R1g/dist (pages without main, token literals, inline scripts, headers, sitemap, dev-page redirects, service worker).",
   "Not run by pass 3: any browser suite, the eight acceptance passes, Lighthouse, any real device, the paired Node 22 and Node 24 historian run under the timing lock (queued by candidate ver-hist-node, not yet run), and the whole node suites of tests/time and tests/data (nothing under src/lib/time, tools/time, tests/time, data-src, tools/data or tests/data changed since the pass 2 run).",
   "Not run by this survey (passes 1 to 3): any other browser suite, the eight acceptance passes, Lighthouse (no runner in the repository), any real device. The default node of this container is 22.23.4; /opt/node24/bin/node is 24.22.1.",
   "Run by pass 4 on 2026-11-14 from 00:10 UTC (read-only scripts of a few seconds of CPU each, nothing through the machine lock, no browser; scripts and outputs in tmp/r1h-cand/statusA4): (1) the pass-3 checks again on the tree as it is: ids of the plan against the items (253 work packages and the rest: none missing), every tests entry resolves (0 unresolved), every N/M figure matches a recorded suite row except the three that quote the Windows run of R1f, python3 docs/plan/STATUS/merge_status.py --check and check_backlog.py (both exit 0 before the change); (2) every patch_groups name is a group of release/R1g/anchors.json and no train text of a SHIPPED item names a train earlier than its earliest group (release/R0 to R1g anchors.json); (3) the 77 roadmap nodes of this part against the member work packages of their source_wps in both parts: five nodes graded SHIPPED for a named subset (RM-06, RM-07, RM-15, RM-16, RM-17) now say what their other members are; (4) the 22 SHIPPED and BUILT_NOT_SHIPPED items whose proof test ids belong to a suite with a not-OK last row: the cited ids were compared with the failing ids of the row and the evidence was read; WP-UX-02, WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 were completed; (5) direct reads of release/R1g/dist: 26 html files, 13 without main (12 pages and the Search Console file), skip link and color-scheme meta on index.html only, no translate=\"no\", no viewport zoom lock, manifest.json description still carries \"in real time\", \"467\" and \"five-minute\"; (6) the sha384 of the Mapbox GL files downloaded by the 2026-11-14 00:04 UTC pagesmaps run equals the pins of tools/t0/assets-src/sri.json; the diagnosis of that red row, added by the release workstream at 00:27 UTC, was read and quoted (not re-run); (7) git: nothing under src/lib/time, tools/time, tests/time, data-src, tools/data, tests/data, historian-src, tools/historian or tests/historian changed after the checkpoint of 2026-11-13 21:23 UTC, so the test results quoted from passes 2 and 3 stand; ops/RELEASE-LOG.md still has no deploy row.",
-  "Not run by pass 4: any browser suite, the eight acceptance passes, Lighthouse, any real device or assistive technology, the paired Node 22 and Node 24 historian run under the timing lock, and the whole node suites of tests/time, tests/data and tests/historian (nothing under their code changed since the runs quoted)."
+  "Not run by pass 4: any browser suite, the eight acceptance passes, Lighthouse, any real device or assistive technology, the paired Node 22 and Node 24 historian run under the timing lock, and the whole node suites of tests/time, tests/data and tests/historian (nothing under their code changed since the runs quoted).",
+  "Run by pass 5 on 2026-11-15 from 22:55 UTC, the first run after the weekly limit (the container had been restarted at 22:51 UTC; no file of this workstream's areas changed between the last checkpoint of 2026-11-14 01:37 UTC and this start): (1) drift check against git and file times: since pass 4 only docs/accept (R1G-SUITES.json, R1G-STATUS.md, R1G-HANDOFF.md, five new logs), tools/t0/r1g/suites_sources.json, release/R1a and release/R1g test-pages-maps.json, candidates/r1h/ver-hist-node and docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md changed in the areas this part reads; nothing under src/, historian-src/, data-src/, tools/{data,time,historian}, tests/{data,time,historian}, tools/t0, tests/t0, release/*/dist or docs/plan/FINAL; (2) the universe of the plan against the items again, with a new script: WP-T0 19, WP-ARCH 34, WP-TIME 23, WP-PERF 28, WP-UX 34, WP-A11Y 33, WP-PAGE 47 (01..47), WP-PAGEC 35 = 253 work packages, 34 ADRs, 17 decision-support packages, 12 owner actions, 77 of the 98 roadmap nodes (the other 21 are in items-B.json), nothing missing and no id in both files; (3) forward audit of the 93 SHIPPED items (91 at pass 4, plus VER-PAGESMAPS and PROV-R1F-PK6): every patch group is a group of release/R1g/anchors.json, no train text names a train earlier than the earliest group, every test id resolves in tests/ or tools/ or is a suite row of R1G-SUITES.json (the one case the script could not resolve, T0-PGF-01a and -01b, is built by a template literal in tests/t0/pages-fixes.spec.mjs:316); (4) patch-id tokens of the evidence texts against release/R1g/anchors.json: 274 tokens, 0 unresolved (11 false positives were test ids and ranges); (5) roadmap nodes against the status of their member work packages: only RM-06, RM-16 and RM-17 (SHIPPED for a named subset, as pass 4 recorded) and RM-03 (its only listed member is the superseded WP-DEC-14; the ratification is the delegated row A41) differ from a pure roll-up; (6) the \"absent\" claims re-checked by direct reads: no docs/BROWSERS.md, browserslist, .github, docs/adr, docs/spec, apps, packages, tests/parity, flags.json, perf/budgets.json, docs/perf-exceptions.md; no gold-trail layer, no Data View and no MAP_IDLE_ACTIVATE in the bundle; release/R1g/dist: 26 html files, 13 without a main element (12 pages and the Search Console file), color-scheme and skip link on index.html only, no translate=\"no\", canonical tags name .html, sitemap 20 loc and 0 lastmod, the plan references named by COPY-PLAN-REFS are still in immersive.html, sw.js and _redirects, cinematic-export.html still says \"narrated flyover video\" and calls MediaRecorder without an existence check; (7) node tests/copy/trust-pages.test.mjs still stops at once (the anchor-state assertion of tools/copy/trust/inputs.mjs; request note main-site-copy-suite-anchor-states.md is still open); (8) release/verify-all.json and release/R1g/verify.json were regenerated by the release workstream at 22:55 UTC on 2026-11-15: failures [] for R0, R1a to R1g, cumulative and all (release ids 54e21b2e, a267d0ed, 3a00b7d6, 2531699e, 753e318f, c2afeeda, 5f898a66, 52cec836); (9) the live site, read-only, two requests: GET https://gettysburginteractivemap.com/version.json answers 404 (every train from R0 on ships version.json), and GET / names assets/index-Cg8FAMXN.js and assets/index-B4G7Z_2G.css, the file names of baseline/dist/index.html; the two index.html files differ only in how Netlify rewrote the links (extensionless /historian and the like, single quotes), so production still serves the baseline bundle and no train has been published (ops/RELEASE-LOG.md has no deploy row); (10) the open lists of the four provisional decision files (R1D, R1E, R1F, R1G, every line marked open, NOT TAKEN, NOT DONE or \"owner's call\") read against the items of both files: every line has an item except three, now PROV-R1E-OOB, PROV-R1F-F7 and PROV-R1F-PK6 (delegated rows A72 and A73 appended); (11) for PROV-R1E-OOB: the brigade strengths and regiment strengths of release/R1g/dist/data/oob and baseline/dist/data/oob summed by a script (Paul's Brigade U-I-2-1: 1,536 = 298 + 284 + 411 + 286 + 122 + 135 in the legacy data, regiments 1,669 after ACC1; 4 of 51 brigades equal their regiment sum in the legacy data, 3 in R1g), tools/bt/or27_find.py over the three local parts of the Official Records (the string 1,536 occurs only inside the index text \"491,536\"; Merritt p.943-944, Nolan p.948 read as hits only); (12) one probe of the host named in WP-PAGE-15 (elevation.nationalmap.gov): CONNECT tunnel failed, response 403, as on 2026-11-13; recorded as blocked and not worked around.",
+  "Not run by pass 5: any browser suite, the eight acceptance passes, Lighthouse, any real device or assistive technology, the paired Node 22 and Node 24 historian run under the timing lock (candidate ver-hist-node: its job was queued at 01:21 UTC on 2026-11-14 and died with the restart; its STATUS.json still says passes false), and the whole suite of tests/historian."
  ],
  "counts": {
-  "SHIPPED": 91,
+  "SHIPPED": 93,
   "BUILT_NOT_SHIPPED": 17,
   "OPEN_BUILDABLE": 228,
-  "OPEN_NEEDS_DECISION": 96,
+  "OPEN_NEEDS_DECISION": 97,
   "OWNER_ONLY": 72,
   "SUPERSEDED": 15
  },
- "total": 519,
+ "total": 522,
  "counts_by_kind": {
   "decision": {
-   "SHIPPED": 14,
-   "OPEN_BUILDABLE": 3,
-   "OPEN_NEEDS_DECISION": 25,
+   "SHIPPED": 15,
+   "OPEN_BUILDABLE": 4,
+   "OPEN_NEEDS_DECISION": 26,
    "OWNER_ONLY": 6,
    "SUPERSEDED": 5
   },
@@ -90,7 +92,8 @@
    "OWNER_ONLY": 9
   },
   "verification debt": {
-   "OPEN_BUILDABLE": 4,
+   "SHIPPED": 1,
+   "OPEN_BUILDABLE": 3,
    "OWNER_ONLY": 4
   },
   "work package (finding group)": {
@@ -111,8 +114,8 @@
    "SUPERSEDED": 6
   },
   "02": {
-   "SHIPPED": 34,
-   "OPEN_BUILDABLE": 9,
+   "SHIPPED": 35,
+   "OPEN_BUILDABLE": 8,
    "OPEN_NEEDS_DECISION": 4,
    "OWNER_ONLY": 11,
    "SUPERSEDED": 3
@@ -128,14 +131,14 @@
   "04": {
    "SHIPPED": 12,
    "BUILT_NOT_SHIPPED": 3,
-   "OPEN_BUILDABLE": 17,
+   "OPEN_BUILDABLE": 18,
    "OPEN_NEEDS_DECISION": 11,
    "OWNER_ONLY": 4
   },
   "05": {
-   "SHIPPED": 6,
+   "SHIPPED": 7,
    "OPEN_BUILDABLE": 25,
-   "OPEN_NEEDS_DECISION": 9,
+   "OPEN_NEEDS_DECISION": 10,
    "OWNER_ONLY": 3
   },
   "06": {
@@ -1470,7 +1473,7 @@
    "chapter": "02",
    "title": "Map sub-pages: non-blocking Mapbox with SRI, PeerJS on demand",
    "status": "SHIPPED",
-   "evidence": "Train R1a onward, PG-maps (131 patches); pages-maps suite 34/34 on R1g [C11 rerun]. Rows of the suite family (docs/accept/R1G-SUITES.json, generated 2026-11-14 00:27 UTC): pagesmaps.R1c (the R1g tree) and pagesmaps.R1b 34/34 on 2026-11-11 (proxy rerun); pagesmaps.R1a 34/34 on 2026-11-11 and on 2026-11-13 20:33 UTC, then FAIL on 2026-11-14 00:04 UTC (exit 1, 1 of 1 counted, 2.5 s, cold vendor cache, load average 13). The release workstream's diagnosis of that row, added 2026-11-14 00:27 UTC and reproduced without a browser (docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-no-chrome-repro.log): the shell of that run did not set T0_CHROME, so tests/t0/lib.mjs used its Windows Chrome path and the spawn failed with ENOENT after PG-01 had passed; the repeat with T0_CHROME set is queued behind the machine lock and had not run when this was written (VER-PAGESMAPS). The two Mapbox GL files that run downloaded have the sha384 values pinned in tools/t0/assets-src/sri.json (compared in pass 4), so the pins still match the library bytes served on 2026-11-14 00:04 UTC.",
+   "evidence": "Train R1a onward, PG-maps (131 patches); pages-maps suite 34/34 on R1g [C11 rerun]. Rows of the suite family (docs/accept/R1G-SUITES.json, generated 2026-11-14 01:21 UTC): pagesmaps.R1c (the R1g tree) and pagesmaps.R1b 34/34 on 2026-11-11 (proxy rerun); pagesmaps.R1a 34/34 on 2026-11-11, on 2026-11-13 20:33 UTC and again on 2026-11-14 01:21 UTC (cold vendor cache, final harness, T0_CHROME=/usr/bin/google-chrome, 87.7 s, tiles 103 of 300), with one FAIL between them on 2026-11-14 00:04 UTC (exit 1, 1 of 1 counted, 2.5 s, cold vendor cache, load average 13). The release workstream's diagnosis of that row, reproduced without a browser (docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-no-chrome-repro.log): the shell of that run did not set T0_CHROME, so tests/t0/lib.mjs used its Windows Chrome path and the spawn failed with ENOENT after PG-01 had passed; the repeat with T0_CHROME set (docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-cold-cache-chrome-set.log) agrees with it and closes VER-PAGESMAPS. The two Mapbox GL files that the 00:04 run downloaded have the sha384 values pinned in tools/t0/assets-src/sri.json (compared in pass 4).",
    "next_step": "None. Lighthouse per page is owed.",
    "size": "S",
    "files": [
@@ -1491,7 +1494,7 @@
    "chapter": "02",
    "title": "OG card, manifest, Search Console file",
    "status": "SHIPPED",
-   "evidence": "Train R1a onward (PG-maps og rows, manifest id \"/\", orientation removed, google0dca4879c9657741.html in the dist); images replaced by real photographs at R1d (PG-zimg). pages-maps 34/34 (row pagesmaps.R1c), images 12/13 (+1 skip) on R1g; the newest pagesmaps.R1a row (2026-11-14) is a FAIL that the release workstream diagnoses as a run without T0_CHROME, repeat pending (WP-T0-13, VER-PAGESMAPS).",
+   "evidence": "Train R1a onward (PG-maps og rows, manifest id \"/\", orientation removed, google0dca4879c9657741.html in the dist); images replaced by real photographs at R1d (PG-zimg). pages-maps 34/34 (row pagesmaps.R1c), images 12/13 (+1 skip) on R1g; the newest pagesmaps.R1a row (2026-11-14 01:21 UTC) is 34/34 again after one FAIL at 00:04 UTC that was a run without T0_CHROME (WP-T0-13, VER-PAGESMAPS closed).",
    "next_step": "None. DNS TXT is owner Action 2.",
    "size": "S",
    "files": [
@@ -1888,6 +1891,27 @@
    "kind": "owner decision (implemented)"
   },
   {
+   "id": "PROV-R1E-OOB",
+   "chapter": "04",
+   "title": "R1E open line: two strength figures still unsettled (the 6th US Cavalry at Fairfield, the total of Paul's Brigade)",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "docs/decisions/R1E-PROVISIONAL-DECISIONS-2026-10-22.md ends with the open line \"the brigade strength 1536 of the 6th US Cavalry's brigade is unchanged\" (decisions ACC1 and ACC2; item 4 of the open list of R1D-PROVISIONAL-DECISIONS-2026-10-22.md is the same point) and no item named it. The sentence mixes two records. (1) The 6th US Cavalry (release/R1g/dist/data/oob/union_cavalry_artillery.json, U-6US-CAV, Reserve Brigade) carries strength 226, casualties 242 and no casualty rate since R1e (patch ACC-oob-6USCAV-no-rate, group ACC): the 242 were lost at Fairfield (OR 27/1 p.185 footnote), no report held at the time gave the strength there, and Lieutenant Nolan counts 290 enlisted men (OR 27/1 p.948); the pages never print a rate above 100 percent (ACC-regiment-rate-cap, ACC-report-rate-cap). The Reserve Brigade record U-CAV-1-R carries strength 1,298 and 291 casualties. (2) The figure 1,536 is the strength of Paul's Brigade (data/oob/union_oob_brigades.json, U-I-2-1, the brigade of the 107th Pennsylvania). In the legacy data (baseline/dist) it equals the sum of its six regiments, 298 + 284 + 411 + 286 + 122 + 135, the 122 being the 107th New York's strength under a 107th Pennsylvania label; ACC1 corrected the regiment to 255 men (patch ACC-oob-107PA-strength, MacThomson's report OR 27/1 p.304), so the regiments of R1g sum to 1,669 while the brigade record still says 1,536 (casualties 1,041 against 1,036 for the regiments). In the legacy data 4 of the 51 Union brigade records had a strength equal to the sum of their regiments (U-I-2-1, U-II-1-4, U-XII-2-3, U-CAV-2-2); in R1g 3 do (the first no longer). The other brigade totals are independent figures with no recorded basis, so a brigade total is not a derived field. The Official Records vol. 27 text is now local (tmp/library/or27, tools/bt/or27_find.py) and holds the return with its footnote (p.185), Merritt's report (No. 340; p.943: \"The reports of this regiment, since detached, I have not been able to get\"; his postscript on p.944 says he has since got the Sixth's reports and a list of casualties, \"Embodied in revised statement, p. 185\") and Nolan's report of 27 July 1863 (No. 343, p.948); the number 1,536 does not occur in that text as a figure (a search of all three parts finds it only inside the index string \"491,536\"). This survey searched the text and read the hits; it settled no figure.",
+   "next_step": "Read the return footnote, Merritt's report and Nolan's report, and the returns that give the strength of Paul's Brigade, in the local text; settle each figure with a verbatim quote and its basis (present for duty, engaged, returned) or register it as a gap (a failed lookup is recorded as failed); then a candidate data patch (group.json under candidates/r1h, anchored on release/R1g/dist/data/oob) for union_cavalry_artillery.json and union_oob_brigades.json, with a test that every regiment and brigade figure it changes carries its source and basis. Until then the shipped state stays (delegated row A73).",
+   "size": "M",
+   "files": [
+    "docs/decisions/R1E-PROVISIONAL-DECISIONS-2026-10-22.md",
+    "docs/decisions/R1D-PROVISIONAL-DECISIONS-2026-10-22.md",
+    "tools/t0/patches/ACC.json",
+    "tools/t0/acc/gen.mjs",
+    "docs/data-audit/fixes.json",
+    "tools/bt/or27_find.py",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ],
+   "decision": "Strength figures the R1E open line leaves unsettled",
+   "delegated_decision": "A73",
+   "kind": "decision"
+  },
+  {
    "id": "OWNER-2026-10-05-5",
    "chapter": "06",
    "title": "Owner decision: unit markers move smoothly and look professional",
@@ -2048,6 +2072,52 @@
    "kind": "decision"
   },
   {
+   "id": "PROV-R1F-F7",
+   "chapter": "05",
+   "title": "Tail of /ground-remembers (1 load in 10 to 20 on a shared machine): four ways out left to the owner",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "R1F decision F7 (docs/decisions/R1F-PROVISIONAL-DECISIONS-2026-10-31.md), \"NOT TAKEN, owner's call\": the tail of /ground-remembers (1 load in 10 to 20 on the shared machine, 1 in 20 to 30 on the quiet one) is five synchronous calls inside the Mapbox library, 40 to 50 percent of them lazy compilation of its code on a cold load. The four ways out: (a) build the map in the page's first task before the first paint and fetch the placement files in parallel (the 60 to 70 ms constructor falls before the first contentful paint, which is where the blocking-time metric starts, and the paint is 60 ms later on the 4x phone), (b) a poster with a \"load the map\" step, (c) a lighter dark style, (d) self-hosting the library with a code cache; (b) and (c) change the look and (d) needs the licence answer of PROV-R1G-Z4. The next round took Z2 (the style's fog is off for the first frames of /ground-remembers: patch group PG-ztail, train R1g) and did not take Z3 (the map before the first paint; the 250 ms hold stays). The ztail suite is 5 of 7 in the last container rows (T0-ZT-01 red, software GL: row r1.ztail of docs/accept/R1G-SUITES.json). No item named F7 before pass 5.",
+   "next_step": "Delegated, conservative (row A72): take none of the four now (change no look, raise no limit, the first paint comes first); report the tail as it is. Alternative kept: build (a) as a selectable candidate page group and measure it on a GPU machine before it ships; (b), (c) and (d) by a recorded decision.",
+   "size": "S",
+   "files": [
+    "docs/decisions/R1F-PROVISIONAL-DECISIONS-2026-10-31.md",
+    "docs/decisions/R1G-PROVISIONAL-DECISIONS-2026-11-01.md",
+    "tools/t0/patches/PG-ztail.json",
+    "tests/t0/ztail.spec.mjs",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ],
+   "decision": "Tail of /ground-remembers",
+   "delegated_decision": "A72",
+   "kind": "decision"
+  },
+  {
+   "id": "PROV-R1F-PK6",
+   "chapter": "05",
+   "title": "Unit Roster first open and the 51 ms render after Compare \"3D Terrain\": left to the owner in R1f, taken in R1g",
+   "status": "SHIPPED",
+   "evidence": "R1F decision PK6 (docs/decisions/R1F-PROVISIONAL-DECISIONS-2026-10-31.md) left two tails to the owner: (a) the Unit Roster's first open (35 to 45 ms of work, 1 in 30 opens over 50 ms on R1f) and (b) the 51 ms Mapbox render after /compare \"3D Terrain\". Both were taken in the next round (docs/decisions/R1G-PROVISIONAL-DECISIONS-2026-11-01.md): I1, the roster list is virtualised (patch PERF6-roster-virtual, group PERF6), and I5, the circle and symbol programs with fog and without terrain are queued (patch PERF6-nav-terrain-fog-variant, group PG-zperf6); both patches are in train R1g (release/R1g/anchors.json). Proof suite tests/t0/perf6.spec.mjs: 7 of 7 on 2026-11-04, 6 of 7 in the last container row (r1.perf6 of 2026-11-11): the failing id is T0-P6-06, the timing check of (b) (\"no shader program inside a frame above 8 ms, no task reaches 50 ms\"), which software GL on this machine cannot settle (VER-LAYOUT-TIMING); T0-P6-01 to -05 and -07 (the roster rows, semantics and clock, and the settled picture of Compare) pass there. Not acceptance evidence. No item named PK6 before pass 5.",
+   "next_step": "None. The timing of (b) is owed to a GPU machine (VER-LAYOUT-TIMING).",
+   "size": "S",
+   "files": [
+    "docs/decisions/R1F-PROVISIONAL-DECISIONS-2026-10-31.md",
+    "docs/decisions/R1G-PROVISIONAL-DECISIONS-2026-11-01.md",
+    "tests/t0/perf6.spec.mjs",
+    "tools/t0/patches/PERF6.json",
+    "tools/t0/patches/PG-zperf6.json"
+   ],
+   "train": "R1g",
+   "patch_groups": [
+    "PERF6",
+    "PG-zperf6"
+   ],
+   "tests": [
+    "T0-P6-01",
+    "T0-P6-06"
+   ],
+   "decision": "Unit Roster first open and Compare 3D Terrain",
+   "kind": "decision"
+  },
+  {
    "id": "PROV-WG-17",
    "chapter": "06",
    "title": "Virtual Walkthrough map dies when the window crosses 860 px while open",
@@ -2092,19 +2162,27 @@
   {
    "id": "VER-PAGESMAPS",
    "chapter": "02",
-   "title": "pagesmaps.R1a red in its newest row (2026-11-14 00:04 UTC): diagnosed as a run without T0_CHROME, the repeat is pending",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "docs/accept/R1G-SUITES.json (generated 2026-11-14 00:27 UTC): pagesmaps.R1a last row FAIL, exit 1, 1 of 1 counted, 2.5 s, log docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log. The run: node tools/t0/run_suites.mjs --r1-dist release/R1g/dist --no-red --no-network --only pagesmaps.R1a --port-base 19040 through the machine lock, HTTPS_PROXY set and NODE_USE_ENV_PROXY unset in the shell, vendor cache absent, load average 13.24 to 13.62; the summary keeps only the last three output lines. The release workstream's diagnosis (added 2026-11-14 00:27 UTC to the source conditions of that log, labelled a diagnosis and not a fact the run recorded, because the run header does not list T0_CHROME): T0_CHROME was unset, tests/t0/lib.mjs then uses the Windows Chrome path, and the Chrome spawn, which has no error handler, died with ENOENT after PG-01 passed; the same tail (a closing bracket, a closing brace, \"Node.js v22.23.4\") and exit 1 were reproduced without a browser (docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-no-chrome-repro.log), and a control in the shell as the container gives it with T0_CHROME set but without the proxy variable failed in ensureVendor with \"fetch failed\" (...-no-proxy-env-control.log), the failure of the first full run. The repeat with T0_CHROME set is queued behind the machine lock (planned log docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-cold-cache-chrome-set.log) and had not run when pass 4 wrote this. Earlier rows of the family: pagesmaps.R1a 34/34 on 2026-11-11 (proxy rerun) and 2026-11-13 20:33 UTC; pagesmaps.R1b and pagesmaps.R1c (the R1g tree) 34/34 on 2026-11-11; the first full run of 2026-11-11, in which Node did not get the proxy variables, was 14/34. Pass 4 compared the two Mapbox GL files that run downloaded (tmp/r1g-verify2-maps/vendor, 1,796,551 and 40,806 bytes) with tools/t0/assets-src/sri.json: both sha384 values equal the pins, so the integrity assertion of ensureVendor() cannot be what failed. The suite is cited as proof by WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 here and by WP-INFRA-23a, WP-SEO-04a and others in items-B.json.",
-   "next_step": "Release workstream: when the queued repeat with T0_CHROME set has run, add its row to docs/accept/R1G-SUITES.json and one line to docs/accept/R1G-STATUS.md; if it passes the row is closed and this item with it. The diagnosis also names a harness weakness (the Chrome spawn has no error handler, so a wrong path ends the suite as an unhandled error without a message): a clear failure line in tests/t0/lib.mjs is the release workstream's to add. No SHIPPED item changes status unless the R1g rows (pagesmaps.R1c) turn red.",
+   "title": "pagesmaps.R1a red in the run of 2026-11-14 00:04 UTC (a run without T0_CHROME): the repeat with T0_CHROME set is green, 34 of 34 (2026-11-14 01:21 UTC)",
+   "status": "SHIPPED",
+   "evidence": "Closed. docs/accept/R1G-SUITES.json (generated 2026-11-14 01:21 UTC, 80 suites, last result OK 61 and not OK 19): pagesmaps.R1a last row PASS 34 of 34, exit 0, 87.7 s, tiles 103 of 300, load 9.37 to 8.21, log docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-cold-cache-chrome-set.log (with its .summary.json), registered in tools/t0/r1g/suites_sources.json and written up in docs/accept/R1G-STATUS.md (line \"THE COLD-CACHE REPEAT HAS RUN AND IS GREEN\"). The run: node tools/t0/run_suites.mjs --r1-dist release/R1g/dist --no-red --no-network --only pagesmaps.R1a --port-base 19140 through the machine lock (submitted 00:10, ran 01:19:59 to 01:21:26 UTC), final proxy-aware harness, HTTPS_PROXY set and NODE_USE_ENV_PROXY unset in the shell, T0_CHROME=/usr/bin/google-chrome, no vendor cache before (the spec's ensureVendor() downloaded both Mapbox GL files and asserts their pinned sha384 values from tools/t0/assets-src/sri.json). It agrees with the diagnosis of the red row: the run of 00:04 UTC (exit 1 after 2.5 s, 1 of 1 counted, load average 13) had no T0_CHROME, so tests/t0/lib.mjs used its Windows Chrome path and the Chrome spawn, which has no error handler, died with ENOENT after PG-01 had passed (reproduced without a browser: docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-no-chrome-repro.log; the control without the proxy variable failed in ensureVendor with \"fetch failed\": ...-no-proxy-env-control.log). The R1g tree itself was never red in this family: pagesmaps.R1c (the R1g tree) and pagesmaps.R1b are 34 of 34 on 2026-11-11. The suite is cited as proof by WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19 and RM-15 here and by WP-INFRA-23a, WP-SEO-04a and others in items-B.json; none of them changes status. A green row from this container is not acceptance evidence (4 vCPU, software GL, Linux fonts).",
+   "next_step": "None for the verification debt. Optional hardening that no plan requirement asks for: a clear failure line in tests/t0/lib.mjs when the browser path does not exist; docs/accept/README.md already lists \"The runners do not choose a browser\" (T0_CHROME) as a limit, and the release workstream owns tests/t0 (request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-ver-pagesmaps.md).",
    "size": "S",
    "files": [
     "tests/t0/pages-maps.spec.mjs",
     "tools/t0/assets-src/sri.json",
+    "tools/t0/r1g/suites_sources.json",
     "docs/accept/R1G-SUITES.json",
+    "docs/accept/R1G-STATUS.md",
+    "docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-cold-cache-chrome-set.log",
     "docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log"
    ],
    "owner_workstream": "release",
-   "kind": "verification debt"
+   "kind": "verification debt",
+   "train": "tooling (the suite pagesmaps.R1a runs on the frozen R1a tree; the R1g tree is the row pagesmaps.R1c)",
+   "tests": [
+    "pagesmaps.R1a",
+    "pagesmaps.R1c"
+   ]
   },
   {
    "id": "VER-HDR-11",
@@ -3439,7 +3517,7 @@
    "chapter": "05",
    "title": "Map sub-pages: interim performance fix",
    "status": "SHIPPED",
-   "evidence": "PG-maps (R1a), PG-perf2, PG-perf3 with the 250 ms first-paint hold (R1d), PG-zperf5, PG-ztail (R1f, R1g); pages-maps 34/34 on R1g (row pagesmaps.R1c; the newest pagesmaps.R1a row of 2026-11-14 is a FAIL that the release workstream diagnoses as a run without T0_CHROME, repeat pending: VER-PAGESMAPS). Timing on this machine is software GL and is not evidence; green on the Windows machine for R1f (docs/accept/R1F-STATUS.md).",
+   "evidence": "PG-maps (R1a), PG-perf2, PG-perf3 with the 250 ms first-paint hold (R1d), PG-zperf5, PG-ztail (R1f, R1g); pages-maps 34/34 on R1g (row pagesmaps.R1c; the newest pagesmaps.R1a row of 2026-11-14 01:21 UTC is 34/34, after one FAIL at 00:04 UTC that was a run without T0_CHROME: VER-PAGESMAPS closed). Timing on this machine is software GL and is not evidence; green on the Windows machine for R1f (docs/accept/R1F-STATUS.md).",
    "next_step": "None for the patches; Lighthouse per page is owed.",
    "size": "S",
    "files": [
@@ -4837,7 +4915,7 @@
    "chapter": "08a",
    "title": "Test harness and page specs",
    "status": "SHIPPED",
-   "evidence": "tests/t0/pages-core.spec.mjs, pages-maps.spec.mjs, pages-fixes.spec.mjs: 28/28, 34/34, 20/21 (+1 skip by design) on R1g (rows pagescore.R1c, pagesmaps.R1c, pagesfix.R1c); the newest pagesmaps.R1a row (2026-11-14) is a FAIL that the release workstream diagnoses as a run without T0_CHROME, repeat pending (WP-T0-13, VER-PAGESMAPS).",
+   "evidence": "tests/t0/pages-core.spec.mjs, pages-maps.spec.mjs, pages-fixes.spec.mjs: 28/28, 34/34, 20/21 (+1 skip by design) on R1g (rows pagescore.R1c, pagesmaps.R1c, pagesfix.R1c); the newest pagesmaps.R1a row (2026-11-14 01:21 UTC) is 34/34 again after one FAIL at 00:04 UTC that was a run without T0_CHROME (WP-T0-13, VER-PAGESMAPS closed).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -6419,7 +6497,7 @@
    "chapter": "02",
    "title": "Interim OG card, manifest fixes, media-rights register, GSC verification file",
    "status": "SHIPPED",
-   "evidence": "See WP-T0-14 and D-MEDIA. Scope: WP-INFRA-23 (minimal) is WP-INFRA-23a (manifest id, icons, the 1200x630 card: SHIPPED); the manifest description, lang, start_url and shortcuts are WP-INFRA-23b (OPEN_BUILDABLE: release/R1g/dist/manifest.json, read in pass 4, still says \"in real time\", \"467\" and \"five-minute snapshots\") and tag parity is WP-SEO-04b (OPEN_BUILDABLE), which chapter 15 gives to RM-24 (train S1) and not to RM-15. One proof suite, pagesmaps.R1a, is red in its newest row (WP-T0-13, VER-PAGESMAPS).",
+   "evidence": "See WP-T0-14 and D-MEDIA. Scope: WP-INFRA-23 (minimal) is WP-INFRA-23a (manifest id, icons, the 1200x630 card: SHIPPED); the manifest description, lang, start_url and shortcuts are WP-INFRA-23b (OPEN_BUILDABLE: release/R1g/dist/manifest.json, read in pass 4, still says \"in real time\", \"467\" and \"five-minute snapshots\") and tag parity is WP-SEO-04b (OPEN_BUILDABLE), which chapter 15 gives to RM-24 (train S1) and not to RM-15. The proof suite pagesmaps.R1a is green in its newest row (34/34, 2026-11-14 01:21 UTC; one earlier FAIL was a run without T0_CHROME: WP-T0-13, VER-PAGESMAPS closed).",
    "next_step": "DNS verification is owner Action 2.",
    "size": "S",
    "files": [
@@ -7587,7 +7665,7 @@
    "chapter": "07",
    "title": "Regression suites: function, console/fault/GPU, visual, accessibility automation, Historian gates, soak",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Exists: 80 suite rows (docs/accept/R1G-SUITES.json: last result OK 60, not OK 20 in the file generated 2026-11-14 00:27 UTC) in tools/t0/run_suites.mjs, eight acceptance checks in tools/accept, tests/historian gates. Missing: the 24-viewport by three-engine matrix and the fault and context-loss cases.",
+   "evidence": "Exists: 80 suite rows (docs/accept/R1G-SUITES.json: last result OK 61, not OK 19 in the file generated 2026-11-14 01:21 UTC) in tools/t0/run_suites.mjs, eight acceptance checks in tools/accept, tests/historian gates. Missing: the 24-viewport by three-engine matrix and the fault and context-loss cases.",
    "next_step": "Extend (release workstream).",
    "size": "M",
    "files": [
@@ -8439,7 +8517,7 @@
    "size": "S",
    "files": [
     "docs/plan/FINAL/06-ux-ui-mobile-desktop.md",
-    "release/R1g/dist/index.html"
+    "baseline/dist/index.html"
    ],
    "kind": "owner decision (chapter)",
    "related": [
@@ -9229,8 +9307,7 @@
    "next_step": "None. Netlify's own header matching is proven only by the owner staging deploy (WP-DEC-05).",
    "files": [
     "ops/T0-DEVIATIONS.md",
-    "tools/t0/config/gen.mjs",
-    "release/R1g/dist/_headers"
+    "tools/t0/config/gen.mjs"
    ],
    "train": "R1c+",
    "tests": [
@@ -9284,13 +9361,13 @@
  ],
  "open_by_status_and_size": {
   "OPEN_NEEDS_DECISION": {
-   "S": 61,
+   "S": 62,
    "M": 21,
    "L": 14
   },
   "OPEN_BUILDABLE": {
-   "S": 42,
-   "M": 93,
+   "S": 41,
+   "M": 94,
    "L": 93
   },
   "OWNER_ONLY": {
@@ -9336,7 +9413,7 @@
   ],
   "not_changed_and_why": "No status other than WP-ARCH-09 was re-graded: every other status was re-read against its evidence and held; the classes OWNER_ONLY (72) and OPEN_NEEDS_DECISION (96) were read in full and each has its owner step or its conservative proposal with the alternative kept."
  },
- "updated": "2026-11-14T00:31Z (pass 4)",
+ "updated": "2026-11-15T23:30Z (pass 5)",
  "merge_edit_2026_11_14": "Item WP-ARCH-09 only: evidence and next_step brought up to date after the record of candidate wp-arch-09 was written (2026-11-14 01:16 UTC); status and counts unchanged.",
  "continuation_4": {
   "what": "Fourth pass of 2026-11-14 (main-site workstream, started after the container restart of about 00:04 UTC that ended the run before it). It continued from pass 3 and did not redo it: it re-ran the pass-3 checks on the tree as it is, looked for drift since the last checkpoint, and cross-checked the statuses by routes the earlier passes had not used (roadmap nodes against their member work packages, proof suites against the failing test ids, patch groups and trains against anchors.json, direct reads of the dist).",
@@ -9354,5 +9431,23 @@
    "every files entry exists on disk"
   ],
   "not_changed_and_why": "No status was re-graded in pass 4: the cross-checks found no item whose status the repository contradicts. Items cited as SHIPPED on a proof that is red in this container keep SHIPPED because the red rows are on other trees, are classified as environment in docs/accept/R1G-STATUS.md, or are open verification debt (VER-J7, VER-MFIX, VER-HDR-11, VER-LAYOUT-TIMING, VER-PAGESMAPS); none of them is acceptance evidence either way."
+ },
+ "continuation_5": {
+  "what": "Fifth pass of 2026-11-15 (main-site workstream, the fifth start: the first run after the weekly limit and the container restart of 22:51 UTC; run wf_fb1e4fc8-77c). It continued from pass 4 and did not redo it: it looked for drift since the last checkpoint (2026-11-14 01:37 UTC), re-derived the universe of the plan with a new script, re-ran the forward audit of the SHIPPED items and the roll-up of the roadmap nodes, read every item of chapters 01 to 08b against the repository once more, and read the live site once for the claim that nothing is deployed.",
+  "changes": [
+   "VER-PAGESMAPS closed: OPEN_BUILDABLE to SHIPPED (a verification debt is shipped when its proof exists): the cold-cache repeat with T0_CHROME set ran 2026-11-14 01:19:59 to 01:21:26 UTC and is green, pagesmaps.R1a 34 of 34; text of WP-T0-13, WP-T0-14, WP-PAGE-13, WP-PERF-19, RM-15 and RM-72 and the suite ground fact brought up to date (R1G-SUITES.json generated 2026-11-14 01:21 UTC: OK 61, not OK 19)",
+   "three points of the open lists of the provisional decision files that no item named became items: PROV-R1E-OOB (OPEN_BUILDABLE, M: the R1E open line \"the brigade strength 1536 of the 6th US Cavalry's brigade is unchanged\" mixes two records: the 6th US Cavalry at Fairfield (strength 226 and no rate, 242 or 290 casualties) and the total of Paul's Brigade, 1,536, which equals the sum of its regiments with the 107th at 122 and not after ACC1 raised it to 255), PROV-R1F-F7 (OPEN_NEEDS_DECISION, S, row A72: the tail of /ground-remembers) and PROV-R1F-PK6 (SHIPPED, S: the roster first open and the Compare 3D Terrain render, taken in R1g as PERF6-roster-virtual and PERF6-nav-terrain-fog-variant); rows A72 and A73 appended to docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md; merge_status.py: PROV-R1E-OOB gets the area \"data\" (AREA_OVERRIDE)",
+   "counts, counts_by_kind, counts_by_chapter and open_by_status_and_size recomputed from the items (SHIPPED 91 to 93, OPEN_BUILDABLE 228 to 228 (VER-PAGESMAPS out, PROV-R1E-OOB in), OPEN_NEEDS_DECISION 96 to 97; every other count unchanged; total 519 to 522)",
+   "files: two entries that named a path under the git-ignored release/ (UX-OD-05, T0-DEV-01) now name tracked carriers (baseline/dist/index.html; tools/t0/config/gen.mjs was already listed)",
+   "ground_facts: the run list of pass 5 added, including the first read of the live site (two read-only requests) which confirms that nothing has been published"
+  ],
+  "verified_in_pass_5": [
+   "the file is valid JSON in the layout the merge reads (indent 1, ASCII, no trailing newline), ids unique, every item has id, chapter, title, status, evidence, next_step, size S/M/L, files, kind; every SHIPPED item has train and tests; every OPEN_NEEDS_DECISION item has a delegated row (check_backlog.py)",
+   "plan ids against items: 253 work packages, 34 ADRs, 17 decision-support packages, 12 owner actions, 77 roadmap nodes of 98 (21 in part B), 0 missing, 0 in both files",
+   "forward audit of the SHIPPED items (patch groups, earliest train, tests) and of the patch ids quoted in evidence texts: 0 problems",
+   "the \"does not exist\" claims of the OPEN_BUILDABLE items and the countable claims about release/R1g/dist (see ground_facts)",
+   "every line of the open lists of the four provisional decision files has an item (three were added), and every OPEN_NEEDS_DECISION item has a delegated row (A72 and A73 are new)"
+  ],
+  "not_changed_and_why": "No status other than VER-PAGESMAPS was re-graded: every other status was re-read against its evidence and the repository and held. Items-B.json quotes the pagesmaps.R1a row in 13 items (WP-INFRA-19a, WP-INFRA-23a, WP-INFRA-28a, WP-SEO-07, WP-SEO-04a, OD-SEO-3, WP-QA-10a, VD12-1, V18, AUDIT-E1, NF-12, CORR-20, CORR-27) and the totals \"ok for 60\" in VD12-1 and V18: part B owns them and brings them up to date from R1G-SUITES.json (see the note of this pass in the answer of the survey)."
  }
 }

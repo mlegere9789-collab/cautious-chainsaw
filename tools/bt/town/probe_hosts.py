@@ -36,6 +36,10 @@ PROBES = [
     ('achs-gettysburghistory', 'https://gettysburghistory.org/our-holdings/', 'Adams County Historical Society holdings (damage claims index, 1858 and 1872 name indexes)'),
     ('npgallery-nrhp', 'https://npgallery.nps.gov/', 'National Register documentation host (Gettysburg Historic District nomination)'),
     ('gutenberg-search', 'https://www.gutenberg.org/ebooks/search/?query=gettysburg+town', 'Project Gutenberg texts that describe the borough in 1863'),
+    # added on the second run of the planning step (2026-11-15): drawings made on the field and Bachelder's isometrical drawing (images of buildings of 1863-64)
+    ('loc-bachelder-isometrical', 'https://www.loc.gov/search/?q=bachelder+isometrical+drawing+gettysburg&fo=json&c=10', "Bachelder's isometrical drawing of the Gettysburg battle-field (LOC search, JSON)"),
+    ('loc-waud-gettysburg', 'https://www.loc.gov/search/?q=waud+gettysburg+drawing+1863&fo=json&c=10', 'Drawings of Gettysburg made on the field by Alfred R. Waud (LOC search, JSON)'),
+    ('loc-forbes-gettysburg', 'https://www.loc.gov/search/?q=edwin+forbes+gettysburg+sketch&fo=json&c=10', 'Sketches of Gettysburg by Edwin Forbes (LOC search, JSON)'),
 ]
 
 

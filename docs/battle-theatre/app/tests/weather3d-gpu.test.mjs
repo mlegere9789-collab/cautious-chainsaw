@@ -22,6 +22,8 @@ import { Camera } from '../../render/prototype/src/camera.mjs';
 import { CASES, EXTRA_CASES, ALL_CASES, REAL_CASES, specOf, SHERFY } from './weather3d-gpu-cases.mjs';
 import { makePlan, aimCamera } from './weather3d-gpu-plan.mjs';
 import { HOOKS, CHROME_ARGS, chromeArgs, REAL_GPU_ARGS } from './weather3d-gpu-lib.mjs';
+import { encodePng, decodePng, diffStats, CANVAS_SHOT_LIMIT } from './weather3d-gpu-lib.mjs'; import zlib from 'node:zlib';
+import { planSteps, summarize, renderMarkdown } from './weather3d-gpu-realrun.mjs'; import os from 'node:os';
 import { checkRun, checkCompare } from './weather3d-gpu-check.mjs';
 
 const APP = path.resolve(BT, 'app'), J = f => JSON.parse(fs.readFileSync(path.join(BT, f), 'utf8')), D = f => JSON.parse(fs.readFileSync(path.join(APP, 'data/fx3d', f), 'utf8'));
@@ -417,4 +419,76 @@ test('stored evidence of 2026-11-15: the six close views on WebGL2 are clean, ar
   for (const [n, c] of Object.entries(gl.cases)) { assert.equal(c.validation, null, n); assert.ok(c.glStats.weatherDraws >= 1 && c.glStats.fxDraws >= 1, n + ' drew the weather and the sprites on WebGL2'); assert.equal(c.effects.nSprites, gpu.cases[n].effects.nSprites, n + ': the same fx3d frame feeds both APIs'); const f = path.join(R, 'close-webgl2', n + '.png'); assert.equal(fs.readFileSync(f).subarray(1, 4).toString(), 'PNG', n + '.png'); }
   const cmp = JS('close-compare-summary.json'), k = checkCompare(cmp); assert.equal(k.ok, true, k.problems.join('; ')); assert.deepEqual(cmp.rows.map(x => x.case).sort(), EXTRA_CASES.map(c => c.name).sort(), 'the comparison lists the six cases (alphabetical)');
   assert.ok(k.facts.meanAbsMin >= 0.33 && k.facts.meanAbsMax <= 0.40 && k.facts.over24Max <= 0.001, JSON.stringify(k.facts)); for (const x of cmp.rows) { assert.equal(x.spritesGL, x.spritesGPU, x.case); assert.ok(x.all.p99 <= 1, x.case + ' p99'); }
+});
+
+// ---------- the compositor's picture of the real canvas against the read-back (--real-canvas, --real-gpu, --canvas-shot): the PNG reader, the difference measures and the run checker's use of them
+test('PNG reader: all five row filters, RGB and RGBA, the harness\'s own PNG writer, and what it refuses', () => {
+  const w = 11, h = 9; let seed = 12345; const rnd = () => { seed = (Math.imul(seed, 1103515245) + 12345) >>> 0; return seed >>> 16; };
+  const chunk = (type, data) => { const len = Buffer.alloc(4); len.writeUInt32BE(data.length); const td = Buffer.concat([Buffer.from(type, 'latin1'), data]), c = Buffer.alloc(4); c.writeInt32BE(zlib.crc32 ? zlib.crc32(td) | 0 : 0); return Buffer.concat([len, td, c]); };
+  for (const bpp of [3, 4]) {
+    const img = new Uint8Array(w * h * bpp); for (let i = 0; i < img.length; i++) img[i] = rnd() & 255; const stride = w * bpp, rows = [];
+    for (let y = 0; y < h; y++) {
+      const ft = y % 5, row = img.subarray(y * stride, (y + 1) * stride), prev = y ? img.subarray((y - 1) * stride, y * stride) : new Uint8Array(stride), f = Buffer.alloc(stride + 1); f[0] = ft;
+      for (let i = 0; i < stride; i++) { const a = i >= bpp ? row[i - bpp] : 0, b = prev[i], c = i >= bpp ? prev[i - bpp] : 0; let pr = 0;
+        if (ft === 1) pr = a; else if (ft === 2) pr = b; else if (ft === 3) pr = (a + b) >> 1; else if (ft === 4) { const q = a + b - c, pa = Math.abs(q - a), pb = Math.abs(q - b), pc = Math.abs(q - c); pr = pa <= pb && pa <= pc ? a : pb <= pc ? b : c; } f[i + 1] = (row[i] - pr) & 255; }
+      rows.push(f);
+    }
+    const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = bpp === 4 ? 6 : 2;
+    const png = Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(Buffer.concat(rows))), chunk('IEND', Buffer.alloc(0))]), d = decodePng(png);
+    assert.equal(d.w, w); assert.equal(d.h, h); for (let i = 0; i < w * h; i++) { for (let c = 0; c < 3; c++) assert.equal(d.data[i * 4 + c], img[i * bpp + c], `bpp ${bpp} pixel ${i} channel ${c}`); assert.equal(d.data[i * 4 + 3], bpp === 4 ? img[i * 4 + 3] : 255); }
+  }
+  const px = new Uint8Array(w * h * 4); for (let i = 0; i < px.length; i++) px[i] = i % 4 === 3 ? 255 : rnd() & 255; const d = decodePng(encodePng(w, h, px)); assert.deepEqual([...d.data], [...px], 'the harness\'s own writer round-trips');
+  assert.throws(() => decodePng(Buffer.from('not a png at all, not a png at all, not a png')), /not a PNG/);
+  const png16 = encodePng(w, h, px); png16[24] = 16; assert.throws(() => decodePng(png16), /unsupported PNG/); const pal = encodePng(w, h, px); pal[25] = 3; assert.throws(() => decodePng(pal), /unsupported PNG/);
+});
+test('picture difference: zero for equal pictures, and the measures are those of weather3d-gpu-compare.mjs (mean per channel, rmse, p99 and maximum of the largest channel difference, shares over 8 and 24)', () => {
+  const w = 10, h = 10, a = new Uint8Array(w * h * 4).fill(100), b = a.slice(); assert.deepEqual(diffStats(a, b, w, h), { meanAbs: 0, rmse: 0, p99: 0, max: 0, over8: 0, over24: 0 });
+  b[4 * 37 + 1] = 130; const r = diffStats(a, b, w, h); assert.equal(r.max, 30); assert.equal(r.p99, 30, 'one pixel in a hundred is the 99th percentile index of the sorted maxima'); assert.equal(r.over8, 0.01); assert.equal(r.over24, 0.01); assert.equal(r.meanAbs, 0.1); assert.equal(r.rmse, +Math.sqrt(900 / 300).toFixed(3));
+  b[4 * 50 + 3] = 7; assert.equal(diffStats(a, b, w, h).meanAbs, 0.1, 'the alpha channel is ignored'); assert.throws(() => diffStats(a, b.subarray(4), w, h), /RGBA/);
+  const lim = CANVAS_SHOT_LIMIT; assert.ok(lim >= 1 && lim <= 8, 'a harness value of a few levels, not a project gate');
+});
+test('the run checker reads the canvas pictures: a clean read-back agreement is a fact, a failed or different or non-numeric one is a problem, and runs without them are unchanged', () => {
+  const R = path.join(APP, 'tests/results/weather3d-webgpu'), base = JSON.parse(fs.readFileSync(path.join(R, 'webgpu-summary.json'), 'utf8')), names = Object.keys(base.cases);
+  const with_ = shot => { const s = JSON.parse(JSON.stringify(base)); s.cases[names[0]].canvasShot = shot; return s; };
+  const none = checkRun(base, { cases: 16 }); assert.equal(none.ok, true); assert.equal(none.facts.canvasShot, undefined, 'no canvas pictures, no such fact');
+  const good = checkRun(with_({ meanAbs: 1.2, rmse: 2, p99: 2, max: 9, over8: 0, over24: 0, ms: 80 }), { cases: 16 }); assert.equal(good.ok, true, good.problems.join('; ')); assert.deepEqual(good.facts.canvasShot, { cases: 1, failed: 0, worstMeanAbs: 1.2 });
+  for (const [what, shot, re] of [['a screenshot that failed', { error: 'page.screenshot: Timeout 25000ms exceeded.', ms: 25000 }, /could not be taken/], ['a canvas that shows something else', { meanAbs: 41.5, rmse: 60, p99: 200, max: 255, over8: 0.9, over24: 0.8, ms: 90 }, /differs from the read-back/], ['a difference that is not a number', { meanAbs: NaN, ms: 5 }, /differs from the read-back/]]) {
+    const r = checkRun(with_(shot), { cases: 16 }); assert.equal(r.ok, false, what); assert.match(r.problems.join('; '), re, what);
+  }
+  const src = fs.readFileSync(path.join(APP, 'tests/weather3d-gpu.mjs'), 'utf8'); assert.match(src, /const CANVAS_SHOT = !args\.includes\('--no-screenshot'\) && \(args\.includes\('--canvas-shot'\) \|\| REALGPU \|\| args\.includes\('--real-canvas'\)\)/, 'on with the real canvas and with --real-gpu, off with --no-screenshot');
+  assert.match(src, /run\(c, undefined, CANVAS_SHOT\)/, 'only the first run of a case is photographed, not the purity repeats and the resize runs');
+});
+
+// ---------- the owner-run real-GPU command (weather3d-gpu-realrun.mjs): the plan, and the summary that must never call a software run a real-GPU result
+test('real-GPU command: the plan runs the 16 cases, the six close views and the shell on both APIs with --real-gpu, compares them, and every script and flag it names exists', () => {
+  const st = planSteps({ out: '/x/out' }), names = st.map(x => x.name);
+  assert.deepEqual(names, ['main-webgpu', 'main-webgl2', 'main-compare', 'close-webgpu', 'close-webgl2', 'close-compare', 'shell-webgpu', 'shell-webgl2', 'shell-compare']);
+  for (const x of st) { assert.ok(fs.existsSync(path.join(APP, 'tests', x.script)), x.script + ' exists'); if (x.kind !== 'compare') { assert.ok(x.args.includes('--real-gpu'), x.name + ' asks for a real-GPU run'); } else assert.ok(!x.args.includes('--real-gpu')); }
+  assert.ok(st.find(x => x.name === 'close-webgpu').args.includes('--extra') && st.find(x => x.name === 'close-webgl2').args.includes('--extra'), 'the six close views');
+  assert.ok(!st.find(x => x.name === 'main-webgpu').args.includes('--no-screenshot'), 'the 16 cases keep the compositor pictures of the canvas (W-E7)'); assert.ok(st.find(x => x.name === 'close-webgpu').args.includes('--no-screenshot'));
+  assert.deepEqual(st.find(x => x.name === 'main-webgpu').args.filter(a => /^--[wh]=/.test(a)), ['--w=1920', '--h=1080'], 'full HD by default (W-E2)'); assert.ok(!st.some(x => x.args.includes('--headed')) && planSteps({ out: '/x', headed: true }).filter(x => x.kind !== 'compare').every(x => x.args.includes('--headed')));
+  assert.deepEqual(planSteps({ out: '/x', skipClose: true, skipShell: true }).map(x => x.name), ['main-webgpu', 'main-webgl2', 'main-compare']);
+  assert.deepEqual(planSteps({ out: '/x', realCrowd: true }).slice(-3).map(x => x.name), ['crowd-webgpu', 'crowd-webgl2', 'crowd-compare']); assert.ok(planSteps({ out: '/x', realCrowd: true }).filter(x => /^crowd-(webgpu|webgl2)$/.test(x.name)).every(x => x.args.includes('--real')));
+  // the flags the steps pass are flags the scripts read
+  const src = f => fs.readFileSync(path.join(APP, 'tests', f), 'utf8'); for (const f of ['--real-gpu', '--headed', '--extra', '--no-screenshot']) assert.ok(src('weather3d-gpu.mjs').includes(f), f + ' in weather3d-gpu.mjs');
+  for (const f of ['--real-gpu', '--headed', '--real', '--entry-timeout']) assert.ok(src('weather3d-gpu-theatre.mjs').includes(f), f + ' in weather3d-gpu-theatre.mjs'); assert.ok(src('weather3d-gpu-compare.mjs').includes('--prefix='));
+  // a child output directory per step as the checker and the comparer expect it
+  assert.equal(path.basename(st[0].args[0]), 'main'); assert.equal(st[0].args[0], st[2].args[0], 'the comparison reads the folder the two runs wrote'); assert.equal(st[6].args[0], st[8].args[0]);
+});
+test('real-GPU command: a folder of software runs is NOT a real-GPU result (said first, in the problems and in the markdown); a folder whose runs recorded hardware and were run with --real-gpu is, and carries the canvas pictures and the pass time', () => {
+  const R = path.join(APP, 'tests/results/weather3d-webgpu'), J = f => JSON.parse(fs.readFileSync(path.join(R, f), 'utf8')), tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'w3d-realrun-')), put = (rel, o) => { const f = path.join(tmp, rel); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, JSON.stringify(o)); };
+  try {
+    put('main/webgpu/summary.json', J('webgpu-summary.json')); put('main/webgl2/summary.json', J('webgl2-summary.json')); put('main/compare/summary.json', J('compare-summary.json'));
+    const sw = summarize(tmp, { skipClose: true }); assert.equal(sw.realGpu, false); assert.ok(sw.problems.some(p => /^NOT A REAL-GPU RESULT: a run recorded a software adapter/.test(p)), sw.problems.join(' | ')); assert.ok(renderMarkdown(sw).startsWith('# NOT A REAL-GPU RESULT'));
+    assert.deepEqual(Object.keys(sw.rows), ['W-E1', 'W-E2', 'W-E3', 'W-E4', 'W-E5', 'W-E6', 'W-E7', 'W-E8', 'W-E9']); assert.equal(sw.rows['W-E1'].webgpu.run, 'clean'); assert.equal(sw.rows['W-E2'].main.ok, true); assert.equal(sw.rows['W-E7'].webgpu, 'no canvas pictures in the run');
+    for (const k of ['W-E5', 'W-E6']) assert.match(sw.rows[k].owed, /not covered by this command/, k + ' is never claimed'); assert.match(sw.rows['W-E2'].owed, /^LOOK at/, 'the pictures are for a person to look at');
+    // the same files, as a machine with a GPU would have written them (a synthetic fixture for this test only: nothing below is evidence)
+    const gp = J('webgpu-summary.json'), gl = J('webgl2-summary.json'); gp.realGpu = true; gl.realGpu = true; gp.diagInit.adapter = { vendor: 'nvidia', arch: 'blackwell', device: '', desc: '' }; gp.diagEnd.adapter = gp.diagInit.adapter; gl.diagInit.adapter = { vendor: 'webgl2', arch: 'x', renderer: 'ANGLE (NVIDIA, NVIDIA RTX Direct3D11 vs_5_0 ps_5_0, D3D11)' }; gl.diagEnd.adapter = gl.diagInit.adapter;
+    let i = 0; for (const c of Object.values(gp.cases)) { c.gpuStats.passMs = 0.2 + (i++ % 4) * 0.1; c.canvasShot = { meanAbs: 0.8, rmse: 1, p99: 2, max: 9, over8: 0, over24: 0, ms: 50 }; } for (const c of Object.values(gl.cases)) c.canvasShot = { meanAbs: 0.7, rmse: 1, p99: 2, max: 9, over8: 0, over24: 0, ms: 50 };
+    put('main/webgpu/summary.json', gp); put('main/webgl2/summary.json', gl); const hw = summarize(tmp, { skipClose: true });
+    assert.equal(hw.realGpu, true, hw.problems.join(' | ')); assert.ok(!hw.problems.some(p => /NOT A REAL/.test(p)), 'no software warning'); assert.ok(renderMarkdown(hw).startsWith('# Real-GPU run'));
+    assert.deepEqual(hw.rows['W-E7'].webgpu, { cases: 16, failed: 0, worstMeanAbs: 0.8 }); assert.equal(hw.rows['W-E4'].measured.n, 16); assert.equal(hw.rows['W-E4'].measured.median, 0.35); assert.match(hw.rows['W-E4'].measured.note, /not the 600-frame/);
+    gp.diagEnd.adapter = { vendor: 'google', arch: 'swiftshader' }; put('main/webgpu/summary.json', gp); assert.equal(summarize(tmp, { skipClose: true }).realGpu, false, 'one software adapter among the runs and the whole result is not a real-GPU result');
+    gp.diagEnd.adapter = { vendor: 'nvidia', arch: 'blackwell' }; gp.realGpu = false; put('main/webgpu/summary.json', gp); assert.equal(summarize(tmp, { skipClose: true }).realGpu, false, 'a run that was not started with --real-gpu is not one');
+  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
 });

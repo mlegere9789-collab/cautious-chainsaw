@@ -135,6 +135,13 @@
     "_doc": "How far the picture's weather may be from a number a row prints. These are rules of the CHECK, not historical claims. A record may ask for a tighter tolerance, never a wider one.",
     "temp_f_tolerance": 1.0,
     "temp_f_basis": "the environment layer interpolates linearly between the thermometer readings (08:00, 14:00, 21:00 and the printed 07:00 and 21:00 readings of Jacobs via the PDF, secondary source): at the minute of a reading the picture shows that reading, so a row that prints '60 F at 07:00' is matched to 1 F; between readings the interpolation is the product's own and a row that prints a reading is checked at the minute it prints.",
-    "cloud_fraction_note": "cloud cover is checked by thresholds the record states (cloud_min, cloud_max); the record's words ('overcast', 'clear') are not given numbers here"
+    "cloud_fraction_note": "cloud cover is checked by thresholds the record states (cloud_min, cloud_max); the record's words ('overcast', 'clear') are not given numbers here",
+    "wind_from_rule": "The direction a wind blows FROM, as the 16-point compass names it (N, NNE, NE ... NNW). A point stands for the 22.5 degrees around it, the arc closed at both ends (a wind from 191.25 degrees is 'from S' and 'from SSW'); wind_from_in lists the points the row's words name ('S to SSW' lists both) and holds when the drawn direction lies in the arc of one of them. The drawn direction counts only where the environment layer RECORDS a direction for the minute (wind.directionRecorded): elsewhere the picture draws a default that no source gave, and the check refuses it (weather_mismatch)."
+  },
+  "sky": {
+    "_doc": "How far the picture's sun and moon may be from an angle a row prints (altitude above the horizon and azimuth, degrees, north 0 clockwise). These are rules of the CHECK, not historical claims. A record may ask for a tighter tolerance (tol_deg), never a wider one.",
+    "angle_rule": "half a unit of the last digit the row prints, never less than angle_floor_deg: 'altitude 37.9 deg' is matched to 0.05, 'altitude 10 deg' and 'azimuth 125' to 0.5. The number must be printed in the check's own quote (number_not_in_quote), and the digits it is printed with are read from that quote (lib.mjs angleTolerance); an azimuth is compared the short way round (359 and 1 are 2 degrees apart).",
+    "angle_floor_deg": 0.05,
+    "angle_floor_basis": "the sky is a table of sun and moon positions interpolated between its rows (app/src/environment.mjs, source 'table'); a row that prints 37.9 degrees for 16:00 is matched by the picture to 0.03 degrees, so a floor of 0.05 keeps the half unit of one decimal and does not ask for the table's own interpolation error to vanish."
   }
 }

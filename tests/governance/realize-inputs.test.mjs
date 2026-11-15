@@ -79,9 +79,15 @@ test('check.mjs --update writes each record\'s result back into its shard file, 
 test('a partial run written over the earlier file recomputes the totals, q17 and scope from the merged rows (check.mjs main; the defect: q17.realized stayed 4 after T1-003 failed)', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'rz-merge-')), out = path.join(dir, 'RESULTS.json'), chk = (...a) => node(ROOT, ['check.mjs', ...a]);
   try {
-    const full = chk('--out', out, '--quiet'); assert.equal(full.status, 0, full.stderr); const d0 = readJSON(out); assert.equal(d0.q17.complete, true); assert.equal(d0.q17.realized, 4); assert.equal(d0.totals.timeline.realized, 4); assert.equal(Object.keys(d0.rows).length, 691);
-    // the same inputs, one shard written over the file: nothing carried over is stale, everything derived is the same
-    const same = chk('--shard', 'tl-01', '--write', '--out', out, '--quiet'); assert.equal(same.status, 0, same.stderr); const d1 = readJSON(out);
+    // other workstreams edit the shell and the governance files while this runs (the digests of two back-to-back runs then differ and a merged file rightly says so): the pair of runs is repeated until the inputs held still between them
+    let d0 = null, d1 = null;
+    for (let attempt = 0; attempt < 4 && !d1; attempt++) {
+      const full = chk('--out', out, '--quiet'); assert.equal(full.status, 0, full.stderr); d0 = readJSON(out);
+      // the same inputs, one shard written over the file: nothing carried over is stale, everything derived is the same
+      const same = chk('--shard', 'tl-01', '--write', '--out', out, '--quiet'); assert.equal(same.status, 0, same.stderr); const merged = readJSON(out);
+      if (merged.inputs_digest === d0.inputs_digest) d1 = merged;
+    }
+    assert.ok(d1, 'the inputs of the tree kept changing under the test'); assert.equal(d0.q17.complete, true); assert.equal(d0.q17.realized, 4); assert.equal(d0.totals.timeline.realized, 4); assert.equal(Object.keys(d0.rows).length, 691);
     assert.equal(d1.rows_from_other_digests, undefined); assert.deepEqual(d1.totals, d0.totals); assert.deepEqual(d1.q17, d0.q17); assert.equal(d1.scope.partial, false); assert.equal(d1.scope.merged_over_earlier_file, true); assert.equal(Object.keys(d1.rows).length, 691);
     // T1-003 made to fail: the row and every number derived from it change
     const recs = readJSONL(path.join(REAL, 'EXAMPLES.jsonl')), bad = clone(recs.find(r => r.id === 'T1-003')); bad.checks[0].precip_kind_in = ['snow']; const f = path.join(dir, 'T1-003-fails.jsonl'); fs.writeFileSync(f, JSON.stringify(bad) + '\n');

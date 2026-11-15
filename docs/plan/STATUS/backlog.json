@@ -13,7 +13,7 @@
   "docs/plan/FINAL (WP dependency tables and acceptance text)",
   "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
  ],
- "scope": "One entry per OPEN_BUILDABLE, BUILT_NOT_SHIPPED and OPEN_NEEDS_DECISION item of items-A.json (341) and items-B.json (368), plus the slices of items cut into parts (slice_of / slices): 715 entries in all. SHIPPED, OWNER_ONLY and SUPERSEDED items are not here (see STATUS.md).",
+ "scope": "One entry per OPEN_BUILDABLE, BUILT_NOT_SHIPPED and OPEN_NEEDS_DECISION item of items-A.json (342) and items-B.json (368), plus the slices of items cut into parts (slice_of / slices): 716 entries in all. SHIPPED, OWNER_ONLY and SUPERSEDED items are not here (see STATUS.md).",
  "definitions": {
   "id": "lowercase letters, digits and hyphens: the source id lowercased (WP-INFRA-23b -> wp-infra-23b); also the folder name candidates/r1h/<id>/",
   "route.type": {
@@ -35,31 +35,31 @@
   "acceptance_basis": "authored = written against the repository; otherwise the machine proof clause plus the survey next step and the plan acceptance, quoted"
  },
  "counts": {
-  "entries": 715,
-  "open_build": 427,
+  "entries": 716,
+  "open_build": 426,
   "by_route_and_state": {
-   "done/decision-record": 101,
+   "done/decision-record": 102,
    "done/source-rebuild": 1,
-   "open/candidate-group": 230,
-   "open/release-request": 8,
+   "open/candidate-group": 231,
+   "open/release-request": 7,
    "open/source-rebuild": 148,
-   "open/umbrella": 186,
-   "open/verification-record": 41
+   "open/umbrella": 187,
+   "open/verification-record": 40
   },
   "wave_1": 30,
   "wave_1_done": 1,
   "wave_2": 1,
   "wave_2_done": 0,
   "next_batch": 30,
-  "done": 102,
+  "done": 103,
   "by_source_status": {
-   "OPEN_NEEDS_DECISION": 186,
+   "OPEN_NEEDS_DECISION": 187,
    "OPEN_BUILDABLE": 454,
    "BUILT_NOT_SHIPPED": 75
   },
   "by_size_open_build": {
-   "S": 113,
-   "M": 193,
+   "S": 111,
+   "M": 194,
    "L": 121
   }
  },
@@ -2267,51 +2267,8 @@
    "done_evidence": null
   },
   {
-   "id": "ver-pagesmaps",
-   "order": 39,
-   "wave": null,
-   "done": false,
-   "title": "pagesmaps.R1a red in its newest row (2026-11-14 00:04 UTC): diagnosed as a run without T0_CHROME, the repeat is pending",
-   "source": {
-    "part": "A",
-    "id": "VER-PAGESMAPS",
-    "kind": "verification debt",
-    "status": "OPEN_BUILDABLE",
-    "chapter": "02",
-    "size": "S"
-   },
-   "chapter": "02",
-   "area": "misc",
-   "tier": "survival",
-   "tranche": null,
-   "roadmap_nodes": [],
-   "size": "S",
-   "route": {
-    "type": "release-request",
-    "owner": "release workstream (tools/t0, tests/t0, tools/accept, tools/ship)",
-    "record": "candidates/r1h/ver-pagesmaps/",
-    "request_note": "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-ver-pagesmaps.md"
-   },
-   "files": [
-    "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-ver-pagesmaps.md",
-    "candidates/r1h/ver-pagesmaps/STATUS.json",
-    "candidates/r1h/ver-pagesmaps/HANDOFF.md"
-   ],
-   "reads": [],
-   "context_files": [
-    "tests/t0/pages-maps.spec.mjs",
-    "tools/t0/assets-src/sri.json",
-    "docs/accept/R1G-SUITES.json",
-    "docs/accept/r1g-suite-logs/2026-11-13-pagesmaps-cold-cache.log"
-   ],
-   "depends_on": [],
-   "acceptance": "Proof: the request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-ver-pagesmaps.md names the exact change (file, lines, text), the red-first check the release workstream runs and its expected result, and candidates/r1h/ver-pagesmaps/STATUS.json records passes true once the note exists; the change itself is the release workstream's. Specific check (survey next step, 2026-11-13): Release workstream: when the queued repeat with T0_CHROME set has run, add its row to docs/accept/R1G-SUITES.json and one line to docs/accept/R1G-STATUS.md; if it passes the row is closed and this item with it. The diagnosis also names a harness weakness (the Chrome spawn has no error handler, so a wrong path ends the suite as an unhandled error without a message): a clear failure line in tests/t0/lib.mjs is the release workstream's to add. No SHIPPED item changes status unless the R1g rows (pagesmaps.R1c) turn red.",
-   "acceptance_basis": "machine proof clause + next-step",
-   "done_evidence": null
-  },
-  {
    "id": "wp-infra-03b",
-   "order": 40,
+   "order": 39,
    "wave": null,
    "done": false,
    "title": "Mapbox token programme: one config module for the token literals",
@@ -2356,7 +2313,7 @@
   },
   {
    "id": "wp-infra-05",
-   "order": 41,
+   "order": 40,
    "wave": null,
    "done": false,
    "title": "Secret hygiene and supply chain",
@@ -2405,7 +2362,7 @@
   },
   {
    "id": "wp-qa-01",
-   "order": 42,
+   "order": 41,
    "wave": null,
    "done": false,
    "title": "Repository, CI skeleton, expiring registries, governance",
@@ -2453,7 +2410,7 @@
   },
   {
    "id": "wp-dec-01",
-   "order": 43,
+   "order": 42,
    "wave": null,
    "done": false,
    "title": "Boot-contract spike under production-equivalent load",
@@ -2497,7 +2454,7 @@
   },
   {
    "id": "wp-perf-01",
-   "order": 44,
+   "order": 43,
    "wave": null,
    "done": false,
    "title": "Measurement foundation and baseline of record",
@@ -2544,7 +2501,7 @@
   },
   {
    "id": "wp-qa-04b",
-   "order": 45,
+   "order": 44,
    "wave": null,
    "done": false,
    "title": "Hooks contract for the rebuilt app (?test=1, window.__gtbg, data-shell)",
@@ -2589,7 +2546,7 @@
   },
   {
    "id": "wp-ux-05",
-   "order": 46,
+   "order": 45,
    "wave": null,
    "done": false,
    "title": "One moments.json with chapters and anchors",
@@ -2635,7 +2592,7 @@
   },
   {
    "id": "amd-t0-2",
-   "order": 47,
+   "order": 46,
    "wave": null,
    "done": false,
    "title": "Amendment: gold trail as a Mapbox line layer fed by the unit keyframes",
@@ -2677,7 +2634,7 @@
   },
   {
    "id": "wp-ux-04",
-   "order": 48,
+   "order": 47,
    "wave": null,
    "done": false,
    "title": "URL-state contract",
@@ -2727,7 +2684,7 @@
   },
   {
    "id": "wp-infra-04d",
-   "order": 49,
+   "order": 48,
    "wave": null,
    "done": false,
    "title": "NPS video frame of the tour panel: click-to-load or link-out",
@@ -2778,7 +2735,7 @@
   },
   {
    "id": "wp-seo-11b",
-   "order": 50,
+   "order": 49,
    "wave": null,
    "done": false,
    "title": "Static footer links on the 20 sub-pages for crawlers and visitors without JavaScript",
@@ -2823,7 +2780,7 @@
   },
   {
    "id": "wp-hist-34",
-   "order": 51,
+   "order": 50,
    "wave": null,
    "done": false,
    "title": "Legal and privacy alignment for the Historian",
@@ -2877,7 +2834,7 @@
   },
   {
    "id": "wp-content-20b",
-   "order": 52,
+   "order": 51,
    "wave": null,
    "done": false,
    "title": "Public changelog and known issues",
@@ -2923,7 +2880,7 @@
   },
   {
    "id": "hb-02",
-   "order": 53,
+   "order": 52,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-02: Confederate OOB, 22 cavalry commanders, Union OOB check against Official Records No. 9",
@@ -2965,7 +2922,7 @@
   },
   {
    "id": "owner-2026-10-04-5",
-   "order": 54,
+   "order": 53,
    "wave": null,
    "done": false,
    "title": "Owner decision: creator bio approved (first person, \"for the love of history\"); the public contact is the site address only",
@@ -3009,7 +2966,7 @@
   },
   {
    "id": "vd11-3",
-   "order": 55,
+   "order": 54,
    "wave": null,
    "done": false,
    "title": "Mapbox 3.24.1 telemetry payload (V5), Google satellite verification wording and HMDB, Stone Sentinels, Wikipedia rights (V10)",
@@ -3053,7 +3010,7 @@
   },
   {
    "id": "vd14-5",
-   "order": 56,
+   "order": 55,
    "wave": null,
    "done": false,
    "title": "OCR quality proxy (hs1-13) and QA harness (hs1-16) piloted on Official Records part 1",
@@ -3092,7 +3049,7 @@
   },
   {
    "id": "wp-seo-12",
-   "order": 57,
+   "order": 56,
    "wave": null,
    "done": false,
    "title": "Trust pack integration (About, Sources, Corrections, Changelog, Contact, Accessibility, FAQ)",
@@ -3142,7 +3099,7 @@
   },
   {
    "id": "wp-data-01",
-   "order": 58,
+   "order": 57,
    "wave": null,
    "done": false,
    "title": "Baseline freeze, authoring repository, legacy-compatible emitter",
@@ -3193,7 +3150,7 @@
   },
   {
    "id": "wp-data-02",
-   "order": 59,
+   "order": 58,
    "wave": null,
    "done": false,
    "title": "Versioning: manifest, data_version, changelog, version stamps",
@@ -3247,7 +3204,7 @@
   },
   {
    "id": "wp-data-03",
-   "order": 60,
+   "order": 59,
    "wave": null,
    "done": false,
    "title": "Schemas, 60-rule validator, ratchet, CI",
@@ -3301,7 +3258,7 @@
   },
   {
    "id": "wp-qa-11",
-   "order": 61,
+   "order": 60,
    "wave": null,
    "done": false,
    "title": "Data validators",
@@ -3348,7 +3305,7 @@
   },
   {
    "id": "wp-hist-05",
-   "order": 62,
+   "order": 61,
    "wave": null,
    "done": false,
    "title": "Entity registry, unit crosswalk, aliases",
@@ -3399,7 +3356,7 @@
   },
   {
    "id": "wp-hist-02",
-   "order": 63,
+   "order": 62,
    "wave": null,
    "done": false,
    "title": "Source registry, tier gate, rights retro-audit",
@@ -3454,7 +3411,7 @@
   },
   {
    "id": "wp-content-04",
-   "order": 64,
+   "order": 63,
    "wave": null,
    "done": false,
    "title": "facts.json and check_facts",
@@ -3504,7 +3461,7 @@
   },
   {
    "id": "wp-content-05",
-   "order": 65,
+   "order": 64,
    "wave": null,
    "done": false,
    "title": "features.json, glossary, parity gate",
@@ -3553,7 +3510,7 @@
   },
   {
    "id": "wp-content-06",
-   "order": 66,
+   "order": 65,
    "wave": null,
    "done": false,
    "title": "Style guide, string catalogue, disclaimers, copy lint",
@@ -3605,7 +3562,7 @@
   },
   {
    "id": "wp-page-09",
-   "order": 67,
+   "order": 66,
    "wave": null,
    "done": false,
    "title": "Names, counts, validation; derived data",
@@ -3649,7 +3606,7 @@
   },
   {
    "id": "wp-a11y-31",
-   "order": 68,
+   "order": 67,
    "wave": null,
    "done": false,
    "title": "Accessibility statement, conformance report, feedback, guide",
@@ -3698,7 +3655,7 @@
   },
   {
    "id": "wp-content-16a",
-   "order": 69,
+   "order": 68,
    "wave": null,
    "done": false,
    "title": "Corrections page and its log",
@@ -3746,7 +3703,7 @@
   },
   {
    "id": "wp-content-17",
-   "order": 70,
+   "order": 69,
    "wave": null,
    "done": false,
    "title": "About, Contact, glossary page, site map",
@@ -3793,7 +3750,7 @@
   },
   {
    "id": "wp-hist-33",
-   "order": 71,
+   "order": 70,
    "wave": null,
    "done": false,
    "title": "Governance: citation permanence, corrections intake, changelog, /sources and /method feed",
@@ -3843,7 +3800,7 @@
   },
   {
    "id": "wp-hist-04",
-   "order": 72,
+   "order": 71,
    "wave": null,
    "done": false,
    "title": "Fetch, OCR normaliser, page map",
@@ -3894,7 +3851,7 @@
   },
   {
    "id": "wp-hist-06",
-   "order": 73,
+   "order": 72,
    "wave": null,
    "done": false,
    "title": "Build, emit, validate (deterministic, content-hashed, two versions kept)",
@@ -3945,7 +3902,7 @@
   },
   {
    "id": "wp-hist-07",
-   "order": 74,
+   "order": 73,
    "wave": null,
    "done": false,
    "title": "Evaluation harness, golden sets and gates",
@@ -3996,7 +3953,7 @@
   },
   {
    "id": "wp-a11y-26",
-   "order": 75,
+   "order": 74,
    "wave": null,
    "done": false,
    "title": "Ask the Historian UI contract and interim fix",
@@ -4040,7 +3997,7 @@
   },
   {
    "id": "wp-hist-09",
-   "order": 76,
+   "order": 75,
    "wave": null,
    "done": false,
    "title": "Data lake to entities, facts, authority tables",
@@ -4090,7 +4047,7 @@
   },
   {
    "id": "wp-hist-10",
-   "order": 77,
+   "order": 76,
    "wave": null,
    "done": false,
    "title": "Composers, render linter I1-I8, refusals and conversation state",
@@ -4145,7 +4102,7 @@
   },
   {
    "id": "hb-03",
-   "order": 78,
+   "order": 77,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-03: 28 dual-meaning ids; 61 crosswalk rows and 22 with no match; density numbering",
@@ -4189,7 +4146,7 @@
   },
   {
    "id": "wp-page-24",
-   "order": 79,
+   "order": 78,
    "wave": null,
    "done": false,
    "title": "Unit content model and picker",
@@ -4233,7 +4190,7 @@
   },
   {
    "id": "wp-data-06b",
-   "order": 80,
+   "order": 79,
    "wave": null,
    "done": false,
    "title": "Unit registry, id crosswalk, collisions and aliases (candidates) and the remaining ids",
@@ -4291,7 +4248,7 @@
   },
   {
    "id": "wp-data-07b",
-   "order": 81,
+   "order": 80,
    "wave": null,
    "done": false,
    "title": "VI Corps brigade records, reciprocity, misfiles, roll-ups, missing fields (candidates)",
@@ -4346,7 +4303,7 @@
   },
   {
    "id": "wp-data-20",
-   "order": 82,
+   "order": 81,
    "wave": null,
    "done": false,
    "title": "Unit index, batteries and the page consumers",
@@ -4399,7 +4356,7 @@
   },
   {
    "id": "wp-hist-08",
-   "order": 83,
+   "order": 82,
    "wave": null,
    "done": false,
    "title": "search-core: normalisation, repair, linking, intent, ranking, no-answer gate",
@@ -4455,7 +4412,7 @@
   },
   {
    "id": "wp-hist-11",
-   "order": 84,
+   "order": 83,
    "wave": null,
    "done": false,
    "title": "UI v2 and integration (accessibility, performance, adapters, search.html)",
@@ -4513,7 +4470,7 @@
   },
   {
    "id": "wp-pagec-08",
-   "order": 85,
+   "order": 84,
    "wave": null,
    "done": false,
    "title": "Historian: answer-card UI, states, conversation",
@@ -4561,7 +4518,7 @@
   },
   {
    "id": "d-hist-arch",
-   "order": 86,
+   "order": 85,
    "wave": null,
    "done": false,
    "title": "Historian architecture: static retrieval, records only",
@@ -4609,7 +4566,7 @@
   },
   {
    "id": "wp-qa-02b",
-   "order": 87,
+   "order": 86,
    "wave": null,
    "done": false,
    "title": "Static gates still missing: route manifest, translate hint, robots policy, manifest fields, source maps",
@@ -4654,7 +4611,7 @@
   },
   {
    "id": "wp-a11y-23",
-   "order": 88,
+   "order": 87,
    "wave": null,
    "done": false,
    "title": "Copy, sensory characteristics, abbreviations, dead code",
@@ -4698,7 +4655,7 @@
   },
   {
    "id": "wp-content-02b",
-   "order": 89,
+   "order": 88,
    "wave": null,
    "done": false,
    "title": "In-app copy leftovers in the bundle and Help chunk",
@@ -4746,7 +4703,7 @@
   },
   {
    "id": "wp-infra-10b",
-   "order": 90,
+   "order": 89,
    "wave": null,
    "done": false,
    "title": "Cross-Origin-Opener-Policy same-origin in the /* block",
@@ -4789,7 +4746,7 @@
   },
   {
    "id": "wp-infra-11c",
-   "order": 91,
+   "order": 90,
    "wave": null,
    "done": false,
    "title": "User guide PDF served inline under a versioned name",
@@ -4833,7 +4790,7 @@
   },
   {
    "id": "wp-seo-06a",
-   "order": 92,
+   "order": 91,
    "wave": null,
    "done": false,
    "title": "Sitemap index with lastmod, shorter cache for robots and sitemaps",
@@ -4879,7 +4836,7 @@
   },
   {
    "id": "wp-infra-16b",
-   "order": 93,
+   "order": 92,
    "wave": null,
    "done": false,
    "title": "CSP stage 1: enforced base-uri, object-src and form-action beside frame-ancestors",
@@ -4922,7 +4879,7 @@
   },
   {
    "id": "wp-qa-25",
-   "order": 94,
+   "order": 93,
    "wave": null,
    "done": false,
    "title": "Operations ceiling, drills, continuity checks, test health",
@@ -4967,7 +4924,7 @@
   },
   {
    "id": "wp-infra-07a",
-   "order": 95,
+   "order": 94,
    "wave": null,
    "done": false,
    "title": "Vendor register ops/vendors.yaml with exit triggers",
@@ -5011,7 +4968,7 @@
   },
   {
    "id": "wp-infra-34b",
-   "order": 96,
+   "order": 95,
    "wave": null,
    "done": false,
    "title": "Historian platform reservation: /hx/* header rules (immutable, noindex, manifest no-cache)",
@@ -5057,7 +5014,7 @@
   },
   {
    "id": "wp-perf-23",
-   "order": 97,
+   "order": 96,
    "wave": null,
    "done": false,
    "title": "Historian performance contract",
@@ -5101,7 +5058,7 @@
   },
   {
    "id": "wp-seo-02a",
-   "order": 98,
+   "order": 97,
    "wave": null,
    "done": false,
    "title": "KPI ledger, SEO release log and traffic-quality templates",
@@ -5146,7 +5103,7 @@
   },
   {
    "id": "hb-01",
-   "order": 99,
+   "order": 98,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-01: Confederate casualty authority and the Busey and Martin edition and pages",
@@ -5191,7 +5148,7 @@
   },
   {
    "id": "hb-04",
-   "order": 100,
+   "order": 99,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-04: The detachment U-11PA-R-F, the commander of C-61VA, artillery completeness (306 versus about 370 batteries, 194 versus about 283 guns)",
@@ -5233,7 +5190,7 @@
   },
   {
    "id": "hb-08",
-   "order": 101,
+   "order": 100,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-08: Successions: 15 of 42 not reflected; sample ten page-level citations",
@@ -5275,7 +5232,7 @@
   },
   {
    "id": "hb-10",
-   "order": 102,
+   "order": 101,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-10: Speeds, frontage, timing default and cap sign-off (Casey 1862, Hardee 1855)",
@@ -5317,7 +5274,7 @@
   },
   {
    "id": "nf-gap-1",
-   "order": 103,
+   "order": 102,
    "wave": null,
    "done": false,
    "title": "Gap: 48 value-and-JSX zero-render sites (app-latent-41) have only the generic ESLint criterion",
@@ -5357,7 +5314,7 @@
   },
   {
    "id": "reg-flag-6",
-   "order": 104,
+   "order": 103,
    "wave": null,
    "done": false,
    "title": "MapLibre version to re-measure",
@@ -5398,7 +5355,7 @@
   },
   {
    "id": "v13",
-   "order": 105,
+   "order": 104,
    "wave": null,
    "done": false,
    "title": "Historian: budgets, OCR gates, QA harness, feedback logging, reader-index offsets, phone latency",
@@ -5438,7 +5395,7 @@
   },
   {
    "id": "vd10-4",
-   "order": 106,
+   "order": 105,
    "wave": null,
    "done": false,
    "title": "Vendor crawler token spellings, any consumer of llms.txt, Google sitemap ping retirement",
@@ -5477,7 +5434,7 @@
   },
   {
    "id": "vd10-5",
-   "order": 107,
+   "order": 106,
    "wave": null,
    "done": false,
    "title": "Rich-result gallery at build time; WebPage.reviewedBy acceptance",
@@ -5516,7 +5473,7 @@
   },
   {
    "id": "vd10-8",
-   "order": 108,
+   "order": 107,
    "wave": null,
    "done": false,
    "title": "20th Maine strength (386 in the data against 358 elsewhere), whether landing.html was ever indexed, search-assistant reliance on Bing",
@@ -5556,7 +5513,7 @@
   },
   {
    "id": "vd11-5",
-   "order": 109,
+   "order": 108,
    "wave": null,
    "done": false,
    "title": "Standards codes for the lessons (V7), D-CLOCK numbers waiting for the signed anchor file (V8)",
@@ -5595,7 +5552,7 @@
   },
   {
    "id": "vd11-7",
-   "order": 110,
+   "order": 109,
    "wave": null,
    "done": false,
    "title": "One definition of the dash baseline (V16): raw 1,938, non-metadata 1,799, rendered 1,639, subset 1,591",
@@ -5635,7 +5592,7 @@
   },
   {
    "id": "vd11-8",
-   "order": 111,
+   "order": 110,
    "wave": null,
    "done": false,
    "title": "Bibliographic data of the inclusive-history candidate sources (V18) and the carried unverified findings (pagesB-23, ux-flows-22, pages-C-40, -79, -84, hist-current-27)",
@@ -5677,7 +5634,7 @@
   },
   {
    "id": "vd12-2",
-   "order": 112,
+   "order": 111,
    "wave": null,
    "done": false,
    "title": "Referer injection honoured for api.mapbox.com; RUM blocking without console error; WEBGL_lose_context recovery on mapbox-gl 3.24.1",
@@ -5717,7 +5674,7 @@
   },
   {
    "id": "vd12-5",
-   "order": 113,
+   "order": 112,
    "wave": null,
    "done": false,
    "title": "Observatory CLI, PDF/UA checker, iOS 16 coverage and device-cloud price",
@@ -5756,7 +5713,7 @@
   },
   {
    "id": "vd13-4",
-   "order": 114,
+   "order": 113,
    "wave": null,
    "done": false,
    "title": "Whether the 28 hourly Bachelder maps exist digitally",
@@ -5795,7 +5752,7 @@
   },
   {
    "id": "vd13-5",
-   "order": 115,
+   "order": 114,
    "wave": null,
    "done": false,
    "title": "East Cavalry Field truth; C-McClanahan-ART versus the horse-artillery batteries",
@@ -5834,7 +5791,7 @@
   },
   {
    "id": "vd14-2",
-   "order": 116,
+   "order": 115,
    "wave": null,
    "done": false,
    "title": "Internet Archive reader index offsets on all Official Records parts and the state books",
@@ -5875,7 +5832,7 @@
   },
   {
    "id": "vd14-9",
-   "order": 117,
+   "order": 116,
    "wave": null,
    "done": false,
    "title": "NPS on the soldier roster data; contractor authorship of NPS reports; Bachelder maps; the weather primary",
@@ -5923,7 +5880,7 @@
   },
   {
    "id": "ver-copy-suite",
-   "order": 118,
+   "order": 117,
    "wave": null,
    "done": false,
    "title": "Copy test suite has 17 failures: the guide and trust-page generators assert that every time anchor is \"proposed\"",
@@ -5967,7 +5924,7 @@
   },
   {
    "id": "ver16-4",
-   "order": 119,
+   "order": 118,
    "wave": null,
    "done": false,
    "title": "Annex verification 4: the placed-id definition (87, 95 or 100 unresolved ids)",
@@ -6007,7 +5964,7 @@
   },
   {
    "id": "wp-a11y-20",
-   "order": 120,
+   "order": 119,
    "wave": null,
    "done": false,
    "title": "Motion policy",
@@ -6050,7 +6007,7 @@
   },
   {
    "id": "wp-pagec-22",
-   "order": 121,
+   "order": 120,
    "wave": null,
    "done": false,
    "title": "Find Ancestor: honest naming, three steps, link-outs",
@@ -6093,7 +6050,7 @@
   },
   {
    "id": "wp-pagec-27",
-   "order": 122,
+   "order": 121,
    "wave": null,
    "done": false,
    "title": "Living Ledger: disclosure, labels, clock, copy",
@@ -6135,7 +6092,7 @@
   },
   {
    "id": "wp-qa-06b",
-   "order": 123,
+   "order": 122,
    "wave": null,
    "done": false,
    "title": "Lighthouse runs, rising performance floor, exception register",
@@ -6181,7 +6138,7 @@
   },
   {
    "id": "wp-qa-16b",
-   "order": 124,
+   "order": 123,
    "wave": null,
    "done": false,
    "title": "Promotion checks and versioning: changelog and version bump, freeze calendar, version.json with data and time-model versions",
@@ -6227,7 +6184,7 @@
   },
   {
    "id": "wp-infra-11b",
-   "order": 125,
+   "order": 124,
    "wave": null,
    "done": false,
    "title": "Hashed data paths /data/<name>.<hash>.json listed in the page (stale-while-revalidate for legacy names is not added)",
@@ -6282,7 +6239,7 @@
   },
   {
    "id": "wp-seo-09b",
-   "order": 126,
+   "order": 125,
    "wave": null,
    "done": false,
    "title": "Structured data: Event location, per-template types, validator in CI",
@@ -6328,7 +6285,7 @@
   },
   {
    "id": "wp-seo-11c",
-   "order": 127,
+   "order": 126,
    "wave": null,
    "done": false,
    "title": "Link-graph CI, visible breadcrumbs, related blocks, /site-map page",
@@ -6372,7 +6329,7 @@
   },
   {
    "id": "wp-page-12",
-   "order": 128,
+   "order": 127,
    "wave": null,
    "done": false,
    "title": "CSP-clean templates, one config module",
@@ -6418,7 +6375,7 @@
   },
   {
    "id": "wp-pagec-04",
-   "order": 129,
+   "order": 128,
    "wave": null,
    "done": false,
    "title": "CSP readiness and per-path Permissions-Policy",
@@ -6462,7 +6419,7 @@
   },
   {
    "id": "wp-infra-08b",
-   "order": 130,
+   "order": 129,
    "wave": null,
    "done": false,
    "title": "Monitoring: scheduled probe, certificate and domain expiry checks, one alert channel",
@@ -6507,7 +6464,7 @@
   },
   {
    "id": "wp-qa-18",
-   "order": 131,
+   "order": 130,
    "wave": null,
    "done": false,
    "title": "Synthetic monitors, smoke, alert routing",
@@ -6552,7 +6509,7 @@
   },
   {
    "id": "wp-infra-06b",
-   "order": 132,
+   "order": 131,
    "wave": null,
    "done": false,
    "title": "Backup, restore, continuity: secret-free inventory file, restore-drill script, static lite snapshot",
@@ -6598,7 +6555,7 @@
   },
   {
    "id": "wp-content-13",
-   "order": 133,
+   "order": 132,
    "wave": null,
    "done": false,
    "title": "Microcopy, states, alt text, reading-level gate, landing copy",
@@ -6647,7 +6604,7 @@
   },
   {
    "id": "wp-content-19",
-   "order": 134,
+   "order": 133,
    "wave": null,
    "done": false,
    "title": "Accessibility statement",
@@ -6694,7 +6651,7 @@
   },
   {
    "id": "wp-data-09b",
-   "order": 135,
+   "order": 134,
    "wave": null,
    "done": false,
    "title": "Compat data drop 1.0.1: the remaining text and structure items, with a version bump",
@@ -6746,7 +6703,7 @@
   },
   {
    "id": "wp-infra-27b",
-   "order": 136,
+   "order": 135,
    "wave": null,
    "done": false,
    "title": "Privacy-and-data panel with \"Clear my saved data\"",
@@ -6791,7 +6748,7 @@
   },
   {
    "id": "wp-page-14",
-   "order": 137,
+   "order": 136,
    "wave": null,
    "done": false,
    "title": "Copy, voice, typography; text lint",
@@ -6837,7 +6794,7 @@
   },
   {
    "id": "wp-content-16b",
-   "order": 138,
+   "order": 137,
    "wave": null,
    "done": false,
    "title": "In-app \"Report an error in this record\" links",
@@ -6881,7 +6838,7 @@
   },
   {
    "id": "wp-hist-03",
-   "order": 139,
+   "order": 138,
    "wave": null,
    "done": false,
    "title": "The /hx/ platform: headers, CSP, robots rules, spikes",
@@ -6930,7 +6887,7 @@
   },
   {
    "id": "wp-time-07",
-   "order": 140,
+   "order": 139,
    "wave": null,
    "done": false,
    "title": "Content triage: wrong-day, misordered, composite events",
@@ -6982,7 +6939,7 @@
   },
   {
    "id": "wp-time-09",
-   "order": 141,
+   "order": 140,
    "wave": null,
    "done": false,
    "title": "Placement arrival audit and kinematics",
@@ -7031,7 +6988,7 @@
   },
   {
    "id": "wp-perf-02",
-   "order": 142,
+   "order": 141,
    "wave": null,
    "done": false,
    "title": "Budgets file, per-route gates, ratchet",
@@ -7075,7 +7032,7 @@
   },
   {
    "id": "wp-qa-13",
-   "order": 143,
+   "order": 142,
    "wave": null,
    "done": false,
    "title": "Bundle, request and network budgets",
@@ -7120,7 +7077,7 @@
   },
   {
    "id": "wp-data-14a-minimap",
-   "order": 144,
+   "order": 143,
    "wave": null,
    "done": false,
    "title": "Minimap bounds constant of the bundle follows the map extent (bundle patch, slice of WP-DATA-14a)",
@@ -7188,7 +7145,7 @@
   },
   {
    "id": "wp-data-14b",
-   "order": 145,
+   "order": 144,
    "wave": null,
    "done": false,
    "title": "Terrain elevations against 3DEP, summit snapping",
@@ -7240,7 +7197,7 @@
   },
   {
    "id": "wp-seo-30b",
-   "order": 146,
+   "order": 145,
    "wave": null,
    "done": false,
    "title": "SEO CI job, redirect matrix, five-user-agent parity, monitors, runbook",
@@ -7285,7 +7242,7 @@
   },
   {
    "id": "d-url",
-   "order": 147,
+   "order": 146,
    "wave": null,
    "done": false,
    "title": "Extensionless canonical URLs (train S1)",
@@ -7327,7 +7284,7 @@
   },
   {
    "id": "exit-16-4",
-   "order": 148,
+   "order": 147,
    "wave": null,
    "done": false,
    "title": "X-4: each of the 44 non-confirmed findings is verified, dropped or waived with a date",
@@ -7367,7 +7324,7 @@
   },
   {
    "id": "hb-05",
-   "order": 149,
+   "order": 148,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-05: Highest loss rate C-8VA, Pickett 2,700 versus 2,614, 26th NC, 1st Minnesota, Iverson, Avery, Lincoln, Alexander",
@@ -7413,7 +7370,7 @@
   },
   {
    "id": "hb-06",
-   "order": 150,
+   "order": 149,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-06: East Cavalry Field rows t560-565, Farnsworth, LOC-021, V-020; tick-1 staging; Pickett's presence",
@@ -7455,7 +7412,7 @@
   },
   {
    "id": "hb-07",
-   "order": 151,
+   "order": 150,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-07: Monuments: 20 suspect coordinates, mn, \"1,328\"; 30 terrain points and 10 canonical places",
@@ -7497,7 +7454,7 @@
   },
   {
    "id": "hb-09",
-   "order": 152,
+   "order": 151,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-09: Aftermath facts (Vicksburg, storm, wagon train, Potomac, 2,400 residents, Everett and Lincoln) and bibliography (Gottfried 2007 or 2013, Coddington 1968 or 1984); sensitive-content policy",
@@ -7535,6 +7492,61 @@
    "owner_gated": [
     "reviewer's"
    ],
+   "done_evidence": null
+  },
+  {
+   "id": "prov-r1e-oob",
+   "order": 152,
+   "wave": null,
+   "done": false,
+   "title": "R1E open line: two strength figures still unsettled (the 6th US Cavalry at Fairfield, the total of Paul's Brigade)",
+   "source": {
+    "part": "A",
+    "id": "PROV-R1E-OOB",
+    "kind": "decision",
+    "status": "OPEN_BUILDABLE",
+    "chapter": "04",
+    "size": "M"
+   },
+   "chapter": "04",
+   "area": "data",
+   "tier": "legacy-a-line",
+   "tranche": null,
+   "roadmap_nodes": [],
+   "size": "M",
+   "route": {
+    "type": "candidate-group",
+    "dir": "candidates/r1h/prov-r1e-oob/",
+    "train": "R1h (cumulative on R1g, release id 52cec836)",
+    "register": "release workstream: tools/t0/trains.json after the proof passes"
+   },
+   "files": [
+    "candidates/r1h/prov-r1e-oob/group.json",
+    "candidates/r1h/prov-r1e-oob/overlay/",
+    "candidates/r1h/prov-r1e-oob/test.mjs",
+    "candidates/r1h/prov-r1e-oob/STATUS.json",
+    "candidates/r1h/prov-r1e-oob/HANDOFF.md"
+   ],
+   "reads": [],
+   "context_files": [
+    "docs/decisions/R1E-PROVISIONAL-DECISIONS-2026-10-22.md",
+    "docs/decisions/R1D-PROVISIONAL-DECISIONS-2026-10-22.md",
+    "tools/t0/patches/ACC.json",
+    "tools/t0/acc/gen.mjs",
+    "docs/data-audit/fixes.json",
+    "tools/bt/or27_find.py",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ],
+   "depends_on": [],
+   "decision": {
+    "rows": [
+     "A73"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: change no number without a source quoted verbatim from the local Official Records text (tools/bt/or27_find.py) and say on what basis each figure stands (present for duty, engaged, returned); carry conflicting figure"
+   },
+   "acceptance": "Proof: candidates/r1h/prov-r1e-oob/ holds group.json and/or overlay/ with every anchor asserted on release/R1g/dist, test.mjs that FAILS on the untouched tree and PASSES on the scratch tree of the group, HANDOFF.md, and `node candidates/r1h/_lib/prove.mjs prov-r1e-oob` exits 0 and writes STATUS.json with passes true (anchors ok, red exit non-zero, green exit 0). Specific check (survey next step, 2026-11-13): Read the return footnote, Merritt's report and Nolan's report, and the returns that give the strength of Paul's Brigade, in the local text; settle each figure with a verbatim quote and its basis (present for duty, engaged, returned) or register it as a gap (a failed lookup is recorded as failed); then a candidate data patch (group.json under candidates/r1h, anchored on release/R1g/dist/data/oob) for union_cavalry_artillery.json and union_oob_brigades.json, with a test that every regiment and brigade figure it changes carries its source and basis. Until then the shipped state stays (delegated row A73). Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
+   "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
   {
@@ -9315,54 +9327,8 @@
    "done_evidence": null
   },
   {
-   "id": "vd12-4",
-   "order": 190,
-   "wave": null,
-   "done": false,
-   "title": "web-vitals fields, Blobs conditional write, rate-limit rules, Sec-Fetch-Site in Functions; do probes count in Netlify analytics",
-   "source": {
-    "part": "B",
-    "id": "VD12-4",
-    "kind": "verification-debt",
-    "status": "OPEN_NEEDS_DECISION",
-    "chapter": "12",
-    "size": "S"
-   },
-   "chapter": "12",
-   "area": "qa",
-   "tier": "legacy-a-line",
-   "tranche": null,
-   "roadmap_nodes": [],
-   "size": "S",
-   "route": {
-    "type": "verification-record",
-    "dir": "candidates/r1h/vd12-4/",
-    "record": "evidence file plus STATUS.json and HANDOFF.md"
-   },
-   "files": [
-    "candidates/r1h/vd12-4/evidence.json",
-    "candidates/r1h/vd12-4/STATUS.json",
-    "candidates/r1h/vd12-4/HANDOFF.md"
-   ],
-   "reads": [],
-   "context_files": [
-    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
-   ],
-   "depends_on": [],
-   "decision": {
-    "rows": [
-     "A04"
-    ],
-    "recorded": true,
-    "summary": "Delegated, conservative: ship no telemetry; keep Netlify RUM as the only field source; build the collector only as an inert candidate. Alternative kept: enable it after the owner approves the privacy text and a function deploy path."
-   },
-   "acceptance": "Proof: candidates/r1h/vd12-4/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs vd12-4 --evidence candidates/r1h/vd12-4/evidence.json --test \"<command>\"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named. Specific check (survey next step, 2026-11-13): Not done unless the collector is chosen. Decision: delegated row A04 applys; build only the conservative choice and keep the alternative selectable.",
-   "acceptance_basis": "machine proof clause + next-step",
-   "done_evidence": null
-  },
-  {
    "id": "vd14-10",
-   "order": 191,
+   "order": 190,
    "wave": null,
    "done": false,
    "title": "Model ids and prices; Kaggle, DPLA, NARA API, the Broadhead diary; iOS HTTP-cache retention of the first tier",
@@ -9408,7 +9374,7 @@
   },
   {
    "id": "vd14-4",
-   "order": 192,
+   "order": 191,
    "wave": null,
    "done": false,
    "title": "Feedback and query logging (hc-27)",
@@ -9454,7 +9420,7 @@
   },
   {
    "id": "wp-content-07",
-   "order": 193,
+   "order": 192,
    "wave": null,
    "done": false,
    "title": "Canonical names, titles, descriptions, social copy (train S2)",
@@ -9510,7 +9476,7 @@
   },
   {
    "id": "wp-ux-29",
-   "order": 194,
+   "order": 193,
    "wave": null,
    "done": false,
    "title": "Copy and naming",
@@ -9564,7 +9530,7 @@
   },
   {
    "id": "wp-perf-03",
-   "order": 195,
+   "order": 194,
    "wave": null,
    "done": false,
    "title": "Vitals client, schema, histograms",
@@ -9616,7 +9582,7 @@
   },
   {
    "id": "wp-qa-17",
-   "order": 196,
+   "order": 195,
    "wave": null,
    "done": false,
    "title": "Field-data evaluator and alerting",
@@ -9670,7 +9636,7 @@
   },
   {
    "id": "wp-seo-13",
-   "order": 197,
+   "order": 196,
    "wave": null,
    "done": false,
    "title": "First-party SEO measurement (events to the collector)",
@@ -9721,7 +9687,7 @@
   },
   {
    "id": "wp-infra-16c",
-   "order": 198,
+   "order": 197,
    "wave": null,
    "done": false,
    "title": "CSP stage 2: violation crawl with clicks and 7 days of production reports",
@@ -9772,7 +9738,7 @@
   },
   {
    "id": "wp-infra-19b",
-   "order": 199,
+   "order": 198,
    "wave": null,
    "done": false,
    "title": "Third-party script origins, end state: self-hosted map library and click-or-idle activation",
@@ -9824,7 +9790,7 @@
   },
   {
    "id": "wp-perf-27",
-   "order": 200,
+   "order": 199,
    "wave": null,
    "done": false,
    "title": "Landing performance contract",
@@ -9876,7 +9842,7 @@
   },
   {
    "id": "wp-content-08",
-   "order": 201,
+   "order": 200,
    "wave": null,
    "done": false,
    "title": "Headline-figure and quotation adjudication",
@@ -9937,7 +9903,7 @@
   },
   {
    "id": "wp-content-24",
-   "order": 202,
+   "order": 201,
    "wave": null,
    "done": false,
    "title": "Privacy and Terms wording, footer identity, generated dates",
@@ -9989,7 +9955,7 @@
   },
   {
    "id": "wp-content-14",
-   "order": 203,
+   "order": 202,
    "wave": null,
    "done": false,
    "title": "Sources and Methods pages",
@@ -10041,7 +10007,7 @@
   },
   {
    "id": "wp-content-18",
-   "order": 204,
+   "order": 203,
    "wave": null,
    "done": false,
    "title": "FAQ",
@@ -10093,7 +10059,7 @@
   },
   {
    "id": "wp-content-12b",
-   "order": 205,
+   "order": 204,
    "wave": null,
    "done": false,
    "title": "In-app Help final form: tabs from the feature registry, version line, trust links",
@@ -10142,7 +10108,7 @@
   },
   {
    "id": "wp-content-15",
-   "order": 206,
+   "order": 205,
    "wave": null,
    "done": false,
    "title": "Citation permanence",
@@ -10189,7 +10155,7 @@
   },
   {
    "id": "pagec-od-11",
-   "order": 207,
+   "order": 206,
    "wave": null,
    "done": false,
    "title": "Owner decision: optional /support page",
@@ -10238,7 +10204,7 @@
   },
   {
    "id": "wp-a11y-22",
-   "order": 208,
+   "order": 207,
    "wave": null,
    "done": false,
    "title": "Virtual Walkthrough view",
@@ -10287,7 +10253,7 @@
   },
   {
    "id": "wp-seo-08",
-   "order": 209,
+   "order": 208,
    "wave": null,
    "done": false,
    "title": "Name, titles, descriptions, page dispositions (train S2)",
@@ -10345,7 +10311,7 @@
   },
   {
    "id": "wp-infra-15",
-   "order": 210,
+   "order": 209,
    "wave": null,
    "done": false,
    "title": "First-party collector /api/ingest (Netlify Function, Blobs)",
@@ -10402,7 +10368,7 @@
   },
   {
    "id": "wp-data-22",
-   "order": 211,
+   "order": 210,
    "wave": null,
    "done": false,
    "title": "Corrections workflow and public pages",
@@ -10457,7 +10423,7 @@
   },
   {
    "id": "wp-seo-10b",
-   "order": 212,
+   "order": 211,
    "wave": null,
    "done": false,
    "title": "Landing page at / and the app at /map, forwarder, cloaking controls, keep or revert (train S3)",
@@ -10513,7 +10479,7 @@
   },
   {
    "id": "ms-hist1",
-   "order": 213,
+   "order": 212,
    "wave": null,
    "done": false,
    "title": "Milestone HIST1: Historian P1 live",
@@ -10572,7 +10538,7 @@
   },
   {
    "id": "ms-s3",
-   "order": 214,
+   "order": 213,
    "wave": null,
    "done": false,
    "title": "Milestone S3: landing at / and the app at /map",
@@ -10626,7 +10592,7 @@
   },
   {
    "id": "wp-page-45",
-   "order": 215,
+   "order": 214,
    "wave": null,
    "done": false,
    "title": "Real viewshed (plan option, Labs)",
@@ -10680,7 +10646,7 @@
   },
   {
    "id": "wp-hist-13",
-   "order": 216,
+   "order": 215,
    "wave": null,
    "done": false,
    "title": "Classifier, chunker, deduplication (tables kept out of the prose)",
@@ -10729,7 +10695,7 @@
   },
   {
    "id": "wp-time-11",
-   "order": 217,
+   "order": 216,
    "wave": null,
    "done": false,
    "title": "Playback semantics, hour steps, Battle-time mode",
@@ -10774,7 +10740,7 @@
   },
   {
    "id": "wp-time-19",
-   "order": 218,
+   "order": 217,
    "wave": null,
    "done": false,
    "title": "Historian time-facts tier and temporal index",
@@ -10821,7 +10787,7 @@
   },
   {
    "id": "wp-qa-20",
-   "order": 219,
+   "order": 218,
    "wave": null,
    "done": false,
    "title": "Ask-the-Historian evaluation gates in CI",
@@ -10868,7 +10834,7 @@
   },
   {
    "id": "wp-hist-14",
-   "order": 220,
+   "order": 219,
    "wave": null,
    "done": false,
    "title": "Unit, person and place linkers with a labelled set",
@@ -10921,7 +10887,7 @@
   },
   {
    "id": "wp-hist-17",
-   "order": 221,
+   "order": 220,
    "wave": null,
    "done": false,
    "title": "Passage engine, T2 emit, composers for passages",
@@ -10975,7 +10941,7 @@
   },
   {
    "id": "wp-hist-19",
-   "order": 222,
+   "order": 221,
    "wave": null,
    "done": false,
    "title": "Golden-Passage set, audit 1, gate G-A2 and G-X report",
@@ -11029,7 +10995,7 @@
   },
   {
    "id": "wp-qa-24a",
-   "order": 223,
+   "order": 222,
    "wave": null,
    "done": false,
    "title": "Claims registry for user-facing statements",
@@ -11075,7 +11041,7 @@
   },
   {
    "id": "wp-hist-12",
-   "order": 224,
+   "order": 223,
    "wave": null,
    "done": false,
    "title": "Official Records segmenters and page map",
@@ -11130,7 +11096,7 @@
   },
   {
    "id": "wp-hist-15",
-   "order": 225,
+   "order": 224,
    "wave": null,
    "done": false,
    "title": "Time anchors and evidence tables",
@@ -11188,7 +11154,7 @@
   },
   {
    "id": "wp-perf-10",
-   "order": 226,
+   "order": 225,
    "wave": null,
    "done": false,
    "title": "Mapbox init, worker and tile trims",
@@ -11232,7 +11198,7 @@
   },
   {
    "id": "wp-ux-10",
-   "order": 227,
+   "order": 226,
    "wave": null,
    "done": false,
    "title": "Motion and reduced motion",
@@ -11278,7 +11244,7 @@
   },
   {
    "id": "wp-a11y-16",
-   "order": 228,
+   "order": 227,
    "wave": null,
    "done": false,
    "title": "Chronicle (Text route) accessibility contract",
@@ -11322,7 +11288,7 @@
   },
   {
    "id": "wp-time-17",
-   "order": 229,
+   "order": 228,
    "wave": null,
    "done": false,
    "title": "Display honesty and accessibility of time",
@@ -11367,7 +11333,7 @@
   },
   {
    "id": "wp-time-13",
-   "order": 230,
+   "order": 229,
    "wave": null,
    "done": false,
    "title": "Solar-driven lighting",
@@ -11412,7 +11378,7 @@
   },
   {
    "id": "wp-time-15",
-   "order": 231,
+   "order": 230,
    "wave": null,
    "done": false,
    "title": "Permalinks, bookmarks, dv migration",
@@ -11458,7 +11424,7 @@
   },
   {
    "id": "wp-page-11",
-   "order": 232,
+   "order": 231,
    "wave": null,
    "done": false,
    "title": "Head, SEO, share-image template",
@@ -11502,7 +11468,7 @@
   },
   {
    "id": "wp-ux-28",
-   "order": 233,
+   "order": 232,
    "wave": null,
    "done": false,
    "title": "Brand and PWA",
@@ -11547,7 +11513,7 @@
   },
   {
    "id": "wp-seo-29",
-   "order": 234,
+   "order": 233,
    "wave": null,
    "done": false,
    "title": "Editorial calendar, style guide, lints",
@@ -11593,7 +11559,7 @@
   },
   {
    "id": "wp-perf-26",
-   "order": 235,
+   "order": 234,
    "wave": null,
    "done": false,
    "title": "Navigation speed (speculation rules)",
@@ -11637,7 +11603,7 @@
   },
   {
    "id": "wp-perf-28",
-   "order": 236,
+   "order": 235,
    "wave": null,
    "done": false,
    "title": "Fallback and exception register",
@@ -11681,7 +11647,7 @@
   },
   {
    "id": "wp-qa-15b",
-   "order": 237,
+   "order": 236,
    "wave": null,
    "done": false,
    "title": "Key contract probes (KEY-01, KEY-02) and an external header grade check",
@@ -11725,7 +11691,7 @@
   },
   {
    "id": "wp-a11y-33",
-   "order": 238,
+   "order": 237,
    "wave": null,
    "done": false,
    "title": "Cheap AAA set sign-off",
@@ -11769,7 +11735,7 @@
   },
   {
    "id": "wp-dec-02",
-   "order": 239,
+   "order": 238,
    "wave": null,
    "done": false,
    "title": "Map-engine facade spike (Mapbox 3 / 2 / MapLibre)",
@@ -11812,7 +11778,7 @@
   },
   {
    "id": "wp-arch-03",
-   "order": 240,
+   "order": 239,
    "wave": null,
    "done": false,
    "title": "Quarry salvage map, import rules, fidelity diff",
@@ -11858,7 +11824,7 @@
   },
   {
    "id": "wp-qa-19",
-   "order": 241,
+   "order": 240,
    "wave": null,
    "done": false,
    "title": "Parity QA layer and cut-over computation",
@@ -11903,7 +11869,7 @@
   },
   {
    "id": "wp-arch-31",
-   "order": 242,
+   "order": 241,
    "wave": null,
    "done": false,
    "title": "App CI gates, promotion, definition of done",
@@ -11952,7 +11918,7 @@
   },
   {
    "id": "wp-dec-04",
-   "order": 243,
+   "order": 242,
    "wave": null,
    "done": false,
    "title": "Astro spike",
@@ -11995,7 +11961,7 @@
   },
   {
    "id": "wp-data-21",
-   "order": 244,
+   "order": 243,
    "wave": null,
    "done": false,
    "title": "Data packaging and delivery (/data/v2 packs, ensureDay, service-worker guard)",
@@ -12051,7 +12017,7 @@
   },
   {
    "id": "wp-perf-22",
-   "order": 245,
+   "order": 244,
    "wave": null,
    "done": false,
    "title": "Shared sub-page data layer (one search index)",
@@ -12095,7 +12061,7 @@
   },
   {
    "id": "wp-perf-16",
-   "order": 246,
+   "order": 245,
    "wave": null,
    "done": false,
    "title": "Compositing budget, quality tiers",
@@ -12139,7 +12105,7 @@
   },
   {
    "id": "wp-a11y-04",
-   "order": 247,
+   "order": 246,
    "wave": null,
    "done": false,
    "title": "Tokens: contrast, two-tone focus, forced-colors, color-scheme",
@@ -12183,7 +12149,7 @@
   },
   {
    "id": "wp-a11y-05",
-   "order": 248,
+   "order": 247,
    "wave": null,
    "done": false,
    "title": "Size floors: type scale, text size, text spacing, targets",
@@ -12227,7 +12193,7 @@
   },
   {
    "id": "wp-a11y-08",
-   "order": 249,
+   "order": 248,
    "wave": null,
    "done": false,
    "title": "Hotkey registry (code first, IME, off switch)",
@@ -12272,7 +12238,7 @@
   },
   {
    "id": "wp-page-06",
-   "order": 250,
+   "order": 249,
    "wave": null,
    "done": false,
    "title": "Tokens, shell, type scale, layout modes, print base",
@@ -12316,7 +12282,7 @@
   },
   {
    "id": "wp-ux-08",
-   "order": 251,
+   "order": 250,
    "wave": null,
    "done": false,
    "title": "Typography (Spectral, 12 px floor)",
@@ -12361,7 +12327,7 @@
   },
   {
    "id": "wp-ux-09",
-   "order": 252,
+   "order": 251,
    "wave": null,
    "done": false,
    "title": "Icon system",
@@ -12406,7 +12372,7 @@
   },
   {
    "id": "wp-ux-11",
-   "order": 253,
+   "order": 252,
    "wave": null,
    "done": false,
    "title": "Theming: dark-only, forced-colors, contrast, density",
@@ -12451,7 +12417,7 @@
   },
   {
    "id": "wp-a11y-09",
-   "order": 254,
+   "order": 253,
    "wave": null,
    "done": false,
    "title": "Landmarks, headings, skip links, title, entry shell",
@@ -12496,7 +12462,7 @@
   },
   {
    "id": "wp-ux-23",
-   "order": 255,
+   "order": 254,
    "wave": null,
    "done": false,
    "title": "Text route (Chronicle)",
@@ -12542,7 +12508,7 @@
   },
   {
    "id": "wp-a11y-10",
-   "order": 256,
+   "order": 255,
    "wave": null,
    "done": false,
    "title": "Timeline and clock semantics",
@@ -12587,7 +12553,7 @@
   },
   {
    "id": "wp-time-12",
-   "order": 257,
+   "order": 256,
    "wave": null,
    "done": false,
    "title": "Seek-safe state, crossing triggers, ensureDay, minute windows",
@@ -12636,7 +12602,7 @@
   },
   {
    "id": "wp-time-18-pages",
-   "order": 258,
+   "order": 257,
    "wave": null,
    "done": false,
    "title": "Ledger and Dashboard show the casualty rate per battle-minute from the module (slice of WP-TIME-18)",
@@ -12705,7 +12671,7 @@
   },
   {
    "id": "wp-a11y-24",
-   "order": 259,
+   "order": 258,
    "wave": null,
    "done": false,
    "title": "Static-page shared layer (interim, then templates)",
@@ -12749,7 +12715,7 @@
   },
   {
    "id": "wp-page-08",
-   "order": 260,
+   "order": 259,
    "wave": null,
    "done": false,
    "title": "Data layer, escaping, states",
@@ -12794,7 +12760,7 @@
   },
   {
    "id": "wp-pagec-02",
-   "order": 261,
+   "order": 260,
    "wave": null,
    "done": false,
    "title": "Page loader, safe storage, error states",
@@ -12839,7 +12805,7 @@
   },
   {
    "id": "wp-pagec-23",
-   "order": 262,
+   "order": 261,
    "wave": null,
    "done": false,
    "title": "Find Ancestor: matching, sort, cards, URL state",
@@ -12884,7 +12850,7 @@
   },
   {
    "id": "wp-ux-27",
-   "order": 263,
+   "order": 262,
    "wave": null,
    "done": false,
    "title": "Print",
@@ -12928,7 +12894,7 @@
   },
   {
    "id": "wp-perf-15",
-   "order": 264,
+   "order": 263,
    "wave": null,
    "done": false,
    "title": "Panel interaction cost",
@@ -12972,7 +12938,7 @@
   },
   {
    "id": "wp-ux-22",
-   "order": 265,
+   "order": 264,
    "wave": null,
    "done": false,
    "title": "States and resilience",
@@ -13016,7 +12982,7 @@
   },
   {
    "id": "wp-ux-26",
-   "order": 266,
+   "order": 265,
    "wave": null,
    "done": false,
    "title": "Help and trust layer",
@@ -13062,7 +13028,7 @@
   },
   {
    "id": "wp-ux-21",
-   "order": 267,
+   "order": 266,
    "wave": null,
    "done": false,
    "title": "Overlays, day and night, relief, attribution",
@@ -13108,7 +13074,7 @@
   },
   {
    "id": "wp-a11y-11",
-   "order": 268,
+   "order": 267,
    "wave": null,
    "done": false,
    "title": "Announcements, live regions, event log",
@@ -13153,7 +13119,7 @@
   },
   {
    "id": "wp-a11y-15",
-   "order": 269,
+   "order": 268,
    "wave": null,
    "done": false,
    "title": "Single-pointer alternatives: pan and zoom controls, Go to location",
@@ -13197,7 +13163,7 @@
   },
   {
    "id": "wp-page-10",
-   "order": 270,
+   "order": 269,
    "wave": null,
    "done": false,
    "title": "Map loader facade, map-page hardening",
@@ -13246,7 +13212,7 @@
   },
   {
    "id": "wp-page-30",
-   "order": 271,
+   "order": 270,
    "wave": null,
    "done": false,
    "title": "Compare: mobile layout, lazy second map",
@@ -13293,7 +13259,7 @@
   },
   {
    "id": "wp-page-36",
-   "order": 272,
+   "order": 271,
    "wave": null,
    "done": false,
    "title": "Camera: hardening, errors, solar model",
@@ -13337,7 +13303,7 @@
   },
   {
    "id": "wp-infra-25",
-   "order": 273,
+   "order": 272,
    "wave": null,
    "done": false,
    "title": "Cutover infrastructure (/next, /classic, flags, service-worker scope at S3)",
@@ -13381,7 +13347,7 @@
   },
   {
    "id": "wp-ux-34",
-   "order": 274,
+   "order": 273,
    "wave": null,
    "done": false,
    "title": "Test harness and governance",
@@ -13426,7 +13392,7 @@
   },
   {
    "id": "wp-a11y-29",
-   "order": 275,
+   "order": 274,
    "wave": null,
    "done": false,
    "title": "Automated gates",
@@ -13470,7 +13436,7 @@
   },
   {
    "id": "wp-qa-08b",
-   "order": 276,
+   "order": 275,
    "wave": null,
    "done": false,
    "title": "Fault matrix remainder: WebGL unavailable, map host blocked, GPU context loss, content-blocker profile",
@@ -13515,7 +13481,7 @@
   },
   {
    "id": "wp-qa-10b",
-   "order": 277,
+   "order": 276,
    "wave": null,
    "done": false,
    "title": "Specs for the defects still open: natural sort, Distance tool, Soldier's Eye, Help delay, Order of Battle, phone map bounds, key codes, canvas pixel ratio",
@@ -13561,7 +13527,7 @@
   },
   {
    "id": "wp-qa-12b",
-   "order": 278,
+   "order": 277,
    "wave": null,
    "done": false,
    "title": "Accessibility matrix remainder: every state in reduced-motion and forced-colors, the 22 keyboard journeys, style lint, Lighthouse accessibility",
@@ -13605,7 +13571,7 @@
   },
   {
    "id": "wp-qa-14b",
-   "order": 279,
+   "order": 278,
    "wave": null,
    "done": false,
    "title": "Deterministic per-state screenshot baselines of the current design",
@@ -13650,7 +13616,7 @@
   },
   {
    "id": "wp-hist-16",
-   "order": 280,
+   "order": 279,
    "wave": null,
    "done": false,
    "title": "Review tool and decision loop",
@@ -13701,7 +13667,7 @@
   },
   {
    "id": "wp-hist-22-places",
-   "order": 281,
+   "order": 280,
    "wave": null,
    "done": false,
    "title": "Place page-data export: one places/<slug>.json per place with cited excerpts (slice of WP-HIST-22)",
@@ -13762,7 +13728,7 @@
   },
   {
    "id": "wp-a11y-25",
-   "order": 282,
+   "order": 281,
    "wave": null,
    "done": false,
    "title": "Tier-1 pages (search, report, regiment, dashboard, legal, 404, embed)",
@@ -13806,7 +13772,7 @@
   },
   {
    "id": "wp-a11y-27",
-   "order": 283,
+   "order": 282,
    "wave": null,
    "done": false,
    "title": "Tier-2 pages",
@@ -13850,7 +13816,7 @@
   },
   {
    "id": "wp-pagec-19",
-   "order": 284,
+   "order": 283,
    "wave": null,
    "done": false,
    "title": "Turning Points: static prerender, semantics, print, JSON-LD",
@@ -13896,7 +13862,7 @@
   },
   {
    "id": "wp-pagec-20",
-   "order": 285,
+   "order": 284,
    "wave": null,
    "done": false,
    "title": "Turning Points: sources, claim review, meta",
@@ -13940,7 +13906,7 @@
   },
   {
    "id": "wp-pagec-09",
-   "order": 286,
+   "order": 285,
    "wave": null,
    "done": false,
    "title": "Immersive keep-gate: silent start, mute, Pause, limiter, lifecycle, captions",
@@ -13986,7 +13952,7 @@
   },
   {
    "id": "wp-pagec-16",
-   "order": 287,
+   "order": 286,
    "wave": null,
    "done": false,
    "title": "Tours by link (#tour=)",
@@ -14031,7 +13997,7 @@
   },
   {
    "id": "wp-seo-25",
-   "order": 288,
+   "order": 287,
    "wave": null,
    "done": false,
    "title": "Embeds, oEmbed, cite, print, share",
@@ -14076,7 +14042,7 @@
   },
   {
    "id": "wp-content-11b",
-   "order": 289,
+   "order": 288,
    "wave": null,
    "done": false,
    "title": "Guide: PDF/UA validation, HTML edition, A4, inline delivery",
@@ -14125,7 +14091,7 @@
   },
   {
    "id": "wp-content-26",
-   "order": 290,
+   "order": 289,
    "wave": null,
    "done": false,
    "title": "Repository docs and shipped-comment strip",
@@ -14173,7 +14139,7 @@
   },
   {
    "id": "wp-infra-31",
-   "order": 291,
+   "order": 290,
    "wave": null,
    "done": false,
    "title": "In-app browser and hostile-environment matrix",
@@ -14218,7 +14184,7 @@
   },
   {
    "id": "wp-qa-21b",
-   "order": 292,
+   "order": 291,
    "wave": null,
    "done": false,
    "title": "Cross-browser and hostile-environment automation",
@@ -14264,7 +14230,7 @@
   },
   {
    "id": "wp-data-18",
-   "order": 293,
+   "order": 292,
    "wave": null,
    "done": false,
    "title": "Commander tenures and people",
@@ -14315,7 +14281,7 @@
   },
   {
    "id": "wp-perf-21",
-   "order": 294,
+   "order": 293,
    "wave": null,
    "done": false,
    "title": "Static-page layout stability, fonts, prerender",
@@ -14359,7 +14325,7 @@
   },
   {
    "id": "wp-infra-32",
-   "order": 295,
+   "order": 294,
    "wave": null,
    "done": false,
    "title": "Infra CI gates",
@@ -14407,7 +14373,7 @@
   },
   {
    "id": "wp-arch-04",
-   "order": 296,
+   "order": 295,
    "wave": null,
    "done": false,
    "title": "Spec extraction: component sheets, identifier map, extracted data",
@@ -14461,7 +14427,7 @@
   },
   {
    "id": "wp-arch-11",
-   "order": 297,
+   "order": 296,
    "wave": null,
    "done": false,
    "title": "Data pipeline, schemas, validators, hashed artefacts, facts",
@@ -14513,7 +14479,7 @@
   },
   {
    "id": "wp-arch-13",
-   "order": 298,
+   "order": 297,
    "wave": null,
    "done": false,
    "title": "Time seam: the app consumes the time module",
@@ -14559,7 +14525,7 @@
   },
   {
    "id": "wp-arch-12",
-   "order": 299,
+   "order": 298,
    "wave": null,
    "done": false,
    "title": "Runtime data layer, storage layer, migration",
@@ -14606,7 +14572,7 @@
   },
   {
    "id": "wp-arch-05",
-   "order": 300,
+   "order": 299,
    "wave": null,
    "done": false,
    "title": "Hermetic legacy rig and deterministic capture",
@@ -14655,7 +14621,7 @@
   },
   {
    "id": "wp-arch-07",
-   "order": 301,
+   "order": 300,
    "wave": null,
    "done": false,
    "title": "Checkpoint catalogue, T2 snapshots, non-parity gates",
@@ -14704,7 +14670,7 @@
   },
   {
    "id": "wp-arch-08",
-   "order": 302,
+   "order": 301,
    "wave": null,
    "done": false,
    "title": "Intended-diff registry, parity report, cutover gate",
@@ -14750,7 +14716,7 @@
   },
   {
    "id": "wp-arch-10-build",
-   "order": 303,
+   "order": 302,
    "wave": null,
    "done": false,
    "title": "Build, chunk groups, budgets and hash scheme: WP-ARCH-10 proper (slice of WP-ARCH-10)",
@@ -14822,7 +14788,7 @@
   },
   {
    "id": "wp-perf-12",
-   "order": 304,
+   "order": 303,
    "wave": null,
    "done": false,
    "title": "Entry and panel split, build config",
@@ -14870,7 +14836,7 @@
   },
   {
    "id": "wp-arch-14",
-   "order": 305,
+   "order": 304,
    "wave": null,
    "done": false,
    "title": "Pure keyframe engine stateAt with the carry-forward rule",
@@ -14922,7 +14888,7 @@
   },
   {
    "id": "wp-arch-15",
-   "order": 306,
+   "order": 305,
    "wave": null,
    "done": false,
    "title": "Playback clock, store slices, subscription discipline",
@@ -14972,7 +14938,7 @@
   },
   {
    "id": "wp-perf-11",
-   "order": 307,
+   "order": 306,
    "wave": null,
    "done": false,
    "title": "Map facade, lazy chunk, one map",
@@ -15020,7 +14986,7 @@
   },
   {
    "id": "wp-perf-13",
-   "order": 308,
+   "order": 307,
    "wave": null,
    "done": false,
    "title": "Store, clock, frame loop",
@@ -15068,7 +15034,7 @@
   },
   {
    "id": "wp-perf-14",
-   "order": 309,
+   "order": 308,
    "wave": null,
    "done": false,
    "title": "Unit engine and renderer (gate G-R)",
@@ -15116,7 +15082,7 @@
   },
   {
    "id": "wp-a11y-06",
-   "order": 310,
+   "order": 309,
    "wave": null,
    "done": false,
    "title": "Dialog and panel primitives, overlay stack, focus, inert",
@@ -15165,7 +15131,7 @@
   },
   {
    "id": "wp-a11y-07",
-   "order": 311,
+   "order": 310,
    "wave": null,
    "done": false,
    "title": "Control primitives, names, tooltips, click-only conversions",
@@ -15214,7 +15180,7 @@
   },
   {
    "id": "wp-page-07",
-   "order": 312,
+   "order": 311,
    "wave": null,
    "done": false,
    "title": "Shared UI primitives",
@@ -15264,7 +15230,7 @@
   },
   {
    "id": "wp-page-38",
-   "order": 313,
+   "order": 312,
    "wave": null,
    "done": false,
    "title": "Documentary: text, semantics, routing, eyebrow",
@@ -15311,7 +15277,7 @@
   },
   {
    "id": "wp-page-46",
-   "order": 314,
+   "order": 313,
    "wave": null,
    "done": false,
    "title": "Ground Remembers: load path, controls, honest wording",
@@ -15361,7 +15327,7 @@
   },
   {
    "id": "wp-page-26",
-   "order": 315,
+   "order": 314,
    "wave": null,
    "done": false,
    "title": "Regiment landing, shell, combobox, URL",
@@ -15408,7 +15374,7 @@
   },
   {
    "id": "wp-page-35",
-   "order": 316,
+   "order": 315,
    "wave": null,
    "done": false,
    "title": "Camera: controls, honest speed, motion",
@@ -15453,7 +15419,7 @@
   },
   {
    "id": "wp-ux-07",
-   "order": 317,
+   "order": 316,
    "wave": null,
    "done": false,
    "title": "Tokens and CSS architecture",
@@ -15502,7 +15468,7 @@
   },
   {
    "id": "wp-ux-12",
-   "order": 318,
+   "order": 317,
    "wave": null,
    "done": false,
    "title": "Component library and styleguide",
@@ -15551,7 +15517,7 @@
   },
   {
    "id": "wp-arch-19",
-   "order": 319,
+   "order": 318,
    "wave": null,
    "done": false,
    "title": "Shell and interaction skeleton",
@@ -15601,7 +15567,7 @@
   },
   {
    "id": "wp-perf-18",
-   "order": 320,
+   "order": 319,
    "wave": null,
    "done": false,
    "title": "Boot contract: static poster, intent buttons, Text route triggers",
@@ -15649,7 +15615,7 @@
   },
   {
    "id": "wp-ux-14",
-   "order": 321,
+   "order": 320,
    "wave": null,
    "done": false,
    "title": "One responsive shell",
@@ -15698,7 +15664,7 @@
   },
   {
    "id": "wp-ux-16",
-   "order": 322,
+   "order": 321,
    "wave": null,
    "done": false,
    "title": "Entry and boot UI",
@@ -15747,7 +15713,7 @@
   },
   {
    "id": "wp-ux-17",
-   "order": 323,
+   "order": 322,
    "wave": null,
    "done": false,
    "title": "Timeline, transport, clock surface",
@@ -15796,7 +15762,7 @@
   },
   {
    "id": "wp-arch-28",
-   "order": 324,
+   "order": 323,
    "wave": null,
    "done": false,
    "title": "Cross-page contracts: deep links, bfcache, seams, PWA identity",
@@ -15849,7 +15815,7 @@
   },
   {
    "id": "wp-arch-29",
-   "order": 325,
+   "order": 324,
    "wave": null,
    "done": false,
    "title": "Astro site mechanics and the /map shell",
@@ -15899,7 +15865,7 @@
   },
   {
    "id": "wp-infra-18",
-   "order": 326,
+   "order": 325,
    "wave": null,
    "done": false,
    "title": "CSP end state, Trusted Types, source maps (after the static-site rebuild)",
@@ -15948,7 +15914,7 @@
   },
   {
    "id": "wp-page-05",
-   "order": 327,
+   "order": 326,
    "wave": null,
    "done": false,
    "title": "Shared chrome: nav, footer, header, back links",
@@ -15996,7 +15962,7 @@
   },
   {
    "id": "wp-pagec-01",
-   "order": 328,
+   "order": 327,
    "wave": null,
    "done": false,
    "title": "Shell, tokens, head partial, reserved space for the 14 pages",
@@ -16044,7 +16010,7 @@
   },
   {
    "id": "wp-ux-13",
-   "order": 329,
+   "order": 328,
    "wave": null,
    "done": false,
    "title": "Static-page shell and templates",
@@ -16092,7 +16058,7 @@
   },
   {
    "id": "wp-arch-22",
-   "order": 330,
+   "order": 329,
    "wave": null,
    "done": false,
    "title": "Transport, HUD, timeline, bookmarks, share",
@@ -16145,7 +16111,7 @@
   },
   {
    "id": "wp-arch-23",
-   "order": 331,
+   "order": 330,
    "wave": null,
    "done": false,
    "title": "Unit, story, event panels and notifications",
@@ -16198,7 +16164,7 @@
   },
   {
    "id": "wp-ux-18",
-   "order": 332,
+   "order": 331,
    "wave": null,
    "done": false,
    "title": "Panels, sheets, dialogs, toasts",
@@ -16249,7 +16215,7 @@
   },
   {
    "id": "wp-ux-15",
-   "order": 333,
+   "order": 332,
    "wave": null,
    "done": false,
    "title": "Global header, IA, Features, tool registry",
@@ -16300,7 +16266,7 @@
   },
   {
    "id": "wp-ux-19",
-   "order": 334,
+   "order": 333,
    "wave": null,
    "done": false,
    "title": "Command palette and hotkey registry",
@@ -16349,7 +16315,7 @@
   },
   {
    "id": "wp-arch-27",
-   "order": 335,
+   "order": 334,
    "wave": null,
    "done": false,
    "title": "Compact presets and mobile-only parity",
@@ -16399,7 +16365,7 @@
   },
   {
    "id": "wp-ux-24",
-   "order": 336,
+   "order": 335,
    "wave": null,
    "done": false,
    "title": "Share, cite, embed, report",
@@ -16448,7 +16414,7 @@
   },
   {
    "id": "wp-ux-20",
-   "order": 337,
+   "order": 336,
    "wave": null,
    "done": false,
    "title": "Cartography and symbology",
@@ -16497,7 +16463,7 @@
   },
   {
    "id": "wp-a11y-12",
-   "order": 338,
+   "order": 337,
    "wave": null,
    "done": false,
    "title": "Forms, combobox, Distance without a pointer, bookmarks",
@@ -16546,7 +16512,7 @@
   },
   {
    "id": "wp-a11y-13",
-   "order": 339,
+   "order": 338,
    "wave": null,
    "done": false,
    "title": "Data View and situation summary",
@@ -16595,7 +16561,7 @@
   },
   {
    "id": "wp-a11y-14",
-   "order": 340,
+   "order": 339,
    "wave": null,
    "done": false,
    "title": "Map keyboard model: unit cursor",
@@ -16644,7 +16610,7 @@
   },
   {
    "id": "wp-perf-20",
-   "order": 341,
+   "order": 340,
    "wave": null,
    "done": false,
    "title": "Map sub-page template: poster, click-or-idle activation",
@@ -16694,7 +16660,7 @@
   },
   {
    "id": "wp-hist-20",
-   "order": 342,
+   "order": 341,
    "wave": null,
    "done": false,
    "title": "State books: New York (3 vols), Pennsylvania, Maine, New Jersey, Michigan, Minnesota",
@@ -16749,7 +16715,7 @@
   },
   {
    "id": "wp-hist-21",
-   "order": 343,
+   "order": 342,
    "wave": null,
    "done": false,
    "title": "Fox and Guild casualty facts and the reconciliation report",
@@ -16805,7 +16771,7 @@
   },
   {
    "id": "wp-data-08c",
-   "order": 344,
+   "order": 343,
    "wave": null,
    "done": false,
    "title": "Notable-intensity statistics generated from the order of battle",
@@ -16859,7 +16825,7 @@
   },
   {
    "id": "wp-data-08a",
-   "order": 345,
+   "order": 344,
    "wave": null,
    "done": false,
    "title": "Casualty and strength authorities, headline wording, retired literals",
@@ -16921,7 +16887,7 @@
   },
   {
    "id": "wp-data-08b",
-   "order": 346,
+   "order": 345,
    "wave": null,
    "done": false,
    "title": "Reconciliation table (Official Records, Fox, site value, delta) and the adjudication of contested figures",
@@ -16982,7 +16948,7 @@
   },
   {
    "id": "wp-data-19",
-   "order": 347,
+   "order": 346,
    "wave": null,
    "done": false,
    "title": "Facts registry and unit census",
@@ -17041,7 +17007,7 @@
   },
   {
    "id": "wp-page-31",
-   "order": 348,
+   "order": 347,
    "wave": null,
    "done": false,
    "title": "Shared positions module for the pages",
@@ -17091,7 +17057,7 @@
   },
   {
    "id": "wp-page-03",
-   "order": 349,
+   "order": 348,
    "wave": null,
    "done": false,
    "title": "Map-link emitters, canonical params, contract tests",
@@ -17138,7 +17104,7 @@
   },
   {
    "id": "wp-page-22",
-   "order": 350,
+   "order": 349,
    "wave": null,
    "done": false,
    "title": "Search UX and accessibility",
@@ -17185,7 +17151,7 @@
   },
   {
    "id": "wp-page-27",
-   "order": 351,
+   "order": 350,
    "wave": null,
    "done": false,
    "title": "Regiment data joins",
@@ -17231,7 +17197,7 @@
   },
   {
    "id": "wp-page-25",
-   "order": 352,
+   "order": 351,
    "wave": null,
    "done": false,
    "title": "Report page completion",
@@ -17280,7 +17246,7 @@
   },
   {
    "id": "wp-page-47",
-   "order": 353,
+   "order": 352,
    "wave": null,
    "done": false,
    "title": "Ground heat v2",
@@ -17328,7 +17294,7 @@
   },
   {
    "id": "wp-page-19",
-   "order": 354,
+   "order": 353,
    "wave": null,
    "done": false,
    "title": "Dashboard completion",
@@ -17376,7 +17342,7 @@
   },
   {
    "id": "wp-page-32",
-   "order": 355,
+   "order": 354,
    "wave": null,
    "done": false,
    "title": "Compare fidelity, accessibility, handler hygiene",
@@ -17423,7 +17389,7 @@
   },
   {
    "id": "wp-page-34",
-   "order": 356,
+   "order": 355,
    "wave": null,
    "done": false,
    "title": "Camera: Follow coverage and defaults",
@@ -17469,7 +17435,7 @@
   },
   {
    "id": "wp-page-29",
-   "order": 357,
+   "order": 356,
    "wave": null,
    "done": false,
    "title": "Per-unit static pages",
@@ -17519,7 +17485,7 @@
   },
   {
    "id": "wp-seo-15",
-   "order": 358,
+   "order": 357,
    "wave": null,
    "done": false,
    "title": "Thin-content and rights gate, slug lock, release-train governance",
@@ -17570,7 +17536,7 @@
   },
   {
    "id": "wp-seo-16",
-   "order": 359,
+   "order": 358,
    "wave": null,
    "done": false,
    "title": "Enrichment: computed prose and public-domain excerpts for unit pages",
@@ -17622,7 +17588,7 @@
   },
   {
    "id": "wp-seo-24",
-   "order": 360,
+   "order": 359,
    "wave": null,
    "done": false,
    "title": "Classroom kit: /teach templates, LearningResource data, share links",
@@ -17671,7 +17637,7 @@
   },
   {
    "id": "wp-infra-30a",
-   "order": 361,
+   "order": 360,
    "wave": null,
    "done": false,
    "title": "School-network readiness: allow-list from a full session, Classroom-mode test",
@@ -17719,7 +17685,7 @@
   },
   {
    "id": "wp-ux-30",
-   "order": 362,
+   "order": 361,
    "wave": null,
    "done": false,
    "title": "Classroom, Present, Teach",
@@ -17771,7 +17737,7 @@
   },
   {
    "id": "wp-data-13",
-   "order": 363,
+   "order": 362,
    "wave": null,
    "done": false,
    "title": "Regiment and battery coverage: formation model",
@@ -17827,7 +17793,7 @@
   },
   {
    "id": "wp-data-24",
-   "order": 364,
+   "order": 363,
    "wave": null,
    "done": false,
    "title": "Provenance backfill campaign",
@@ -17887,7 +17853,7 @@
   },
   {
    "id": "wp-infra-17",
-   "order": 365,
+   "order": 364,
    "wave": null,
    "done": false,
    "title": "CSP enforcement by class (hash-based)",
@@ -17937,7 +17903,7 @@
   },
   {
    "id": "wp-pagec-35",
-   "order": 366,
+   "order": 365,
    "wave": null,
    "done": false,
    "title": "Labs retirement mechanics",
@@ -17989,7 +17955,7 @@
   },
   {
    "id": "arch-od-04",
-   "order": 367,
+   "order": 366,
    "wave": null,
    "done": false,
    "title": "Owner decision: carry-forward rule (keep forever or sign a TTL) and whether glide interpolation may ship as schematic",
@@ -18039,7 +18005,7 @@
   },
   {
    "id": "ux-od-03",
-   "order": 368,
+   "order": 367,
    "wave": null,
    "done": false,
    "title": "Owner decision: five-destination information architecture and labels",
@@ -18091,7 +18057,7 @@
   },
   {
    "id": "ux-od-05",
-   "order": 369,
+   "order": 368,
    "wave": null,
    "done": false,
    "title": "Owner decision: fold education.html into the default theme (density option), move the PDF button out of the top bar, delete the eye toggle",
@@ -18125,7 +18091,7 @@
    "reads": [],
    "context_files": [
     "docs/plan/FINAL/06-ux-ui-mobile-desktop.md",
-    "release/R1g/dist/index.html"
+    "baseline/dist/index.html"
    ],
    "depends_on": [],
    "decision": {
@@ -18141,7 +18107,7 @@
   },
   {
    "id": "wp-a11y-19",
-   "order": 370,
+   "order": 369,
    "wave": null,
    "done": false,
    "title": "Colour-independent encoding, CVD palette",
@@ -18192,7 +18158,7 @@
   },
   {
    "id": "wp-hist-18",
-   "order": 371,
+   "order": 370,
    "wave": null,
    "done": false,
    "title": "Build-time model grafts (link proposals, query expansion) and the AI disclosure",
@@ -18248,7 +18214,7 @@
   },
   {
    "id": "wp-page-43",
-   "order": 372,
+   "order": 371,
    "wave": null,
    "done": false,
    "title": "Sandbox disposition and conditional fixes",
@@ -18301,7 +18267,7 @@
   },
   {
    "id": "prov-r1d-legend",
-   "order": 373,
+   "order": 372,
    "wave": null,
    "done": false,
    "title": "ANIM replaced the published legend; marks are no longer coloured by disposition",
@@ -18350,7 +18316,7 @@
   },
   {
    "id": "wp-seo-14",
-   "order": 374,
+   "order": 373,
    "wave": null,
    "done": false,
    "title": "Static-first page templates, map art, page budgets",
@@ -18408,7 +18374,7 @@
   },
   {
    "id": "wp-seo-17",
-   "order": 375,
+   "order": 374,
    "wave": null,
    "done": false,
    "title": "Moment pages (24), turning-point pages (9), hubs",
@@ -18465,7 +18431,7 @@
   },
   {
    "id": "wp-seo-19",
-   "order": 376,
+   "order": 375,
    "wave": null,
    "done": false,
    "title": "Ancestor funnel: state pages and the tracing guide",
@@ -18521,7 +18487,7 @@
   },
   {
    "id": "wp-seo-20",
-   "order": 377,
+   "order": 376,
    "wave": null,
    "done": false,
    "title": "Order-of-battle tree pages (brigades, divisions, corps; unit pages gated)",
@@ -18577,7 +18543,7 @@
   },
   {
    "id": "wp-hist-27",
-   "order": 378,
+   "order": 377,
    "wave": null,
    "done": false,
    "title": "Regimental histories (stoppable wave 4b)",
@@ -18627,7 +18593,7 @@
   },
   {
    "id": "wp-content-21",
-   "order": 379,
+   "order": 378,
    "wave": null,
    "done": false,
    "title": "Press and embed kit",
@@ -18671,7 +18637,7 @@
   },
   {
    "id": "wp-page-40",
-   "order": 380,
+   "order": 379,
    "wave": null,
    "done": false,
    "title": "Students page: shell, palette, tabs, no-JS",
@@ -18719,7 +18685,7 @@
   },
   {
    "id": "wp-hist-23",
-   "order": 381,
+   "order": 380,
    "wave": null,
    "done": false,
    "title": "Voices: Battles and Leaders, Joint Committee, memoirs",
@@ -18774,7 +18740,7 @@
   },
   {
    "id": "wp-hist-25",
-   "order": 382,
+   "order": 381,
    "wave": null,
    "done": false,
    "title": "Contested-topic registry, balance rule, filters, sources drawer",
@@ -18828,7 +18794,7 @@
   },
   {
    "id": "wp-time-22",
-   "order": 383,
+   "order": 382,
    "wave": null,
    "done": false,
    "title": "Event-less stretches and night moments (sourced)",
@@ -18883,7 +18849,7 @@
   },
   {
    "id": "wp-page-41",
-   "order": 384,
+   "order": 383,
    "wave": null,
    "done": false,
    "title": "Students reading level",
@@ -18934,7 +18900,7 @@
   },
   {
    "id": "wp-hist-24",
-   "order": 385,
+   "order": 384,
    "wave": null,
    "done": false,
    "title": "Southern Historical Society Papers shortlist (reviewer-gated)",
@@ -18994,7 +18960,7 @@
   },
   {
    "id": "wp-hist-26",
-   "order": 386,
+   "order": 385,
    "wave": null,
    "done": false,
    "title": "Reviewed answers (about 60) and audit 2; same work as WP-SEO-23",
@@ -19055,7 +19021,7 @@
   },
   {
    "id": "wp-seo-23",
-   "order": 387,
+   "order": 386,
    "wave": null,
    "done": false,
    "title": "Reviewed question-and-answer hub (about 60), same work as WP-HIST-26",
@@ -19114,7 +19080,7 @@
   },
   {
    "id": "wp-content-25",
-   "order": 388,
+   "order": 387,
    "wave": null,
    "done": false,
    "title": "Inclusive-history content (slavery, emancipation, Black residents, civilians)",
@@ -19170,7 +19136,7 @@
   },
   {
    "id": "wp-content-23",
-   "order": 389,
+   "order": 388,
    "wave": null,
    "done": false,
    "title": "Students edition and reading-level rewrite",
@@ -19221,7 +19187,7 @@
   },
   {
    "id": "wp-content-22",
-   "order": 390,
+   "order": 389,
    "wave": null,
    "done": false,
    "title": "Teach hub, lessons, handouts, IT-admin page",
@@ -19273,7 +19239,7 @@
   },
   {
    "id": "wp-page-28",
-   "order": 391,
+   "order": 390,
    "wave": null,
    "done": false,
    "title": "Regiment features (plan option)",
@@ -19323,7 +19289,7 @@
   },
   {
    "id": "wp-page-33",
-   "order": 392,
+   "order": 391,
    "wave": null,
    "done": false,
    "title": "Compare features (plan option)",
@@ -19374,7 +19340,7 @@
   },
   {
    "id": "wp-page-37",
-   "order": 393,
+   "order": 392,
    "wave": null,
    "done": false,
    "title": "Director Mode heuristic (plan option)",
@@ -19426,7 +19392,7 @@
   },
   {
    "id": "wp-page-39",
-   "order": 394,
+   "order": 393,
    "wave": null,
    "done": false,
    "title": "Documentary features (plan option)",
@@ -19476,7 +19442,7 @@
   },
   {
    "id": "wp-pagec-21",
-   "order": 395,
+   "order": 394,
    "wave": null,
    "done": false,
    "title": "Turning Points: feature completion (plan option)",
@@ -19527,7 +19493,7 @@
   },
   {
    "id": "wp-hist-28",
-   "order": 396,
+   "order": 395,
    "wave": null,
    "done": false,
    "title": "Wave 5: civilians, newspapers, guides, NPS pages, weather, optional offline pack",
@@ -19590,7 +19556,7 @@
   },
   {
    "id": "wp-arch-34",
-   "order": 397,
+   "order": 396,
    "wave": null,
    "done": false,
    "title": "Contingent: AST split bridge of the frozen bundle",
@@ -19646,7 +19612,7 @@
   },
   {
    "id": "wp-pagec-10",
-   "order": 398,
+   "order": 397,
    "wave": null,
    "done": false,
    "title": "Immersive: intensity series, night bed, panning",
@@ -19700,7 +19666,7 @@
   },
   {
    "id": "wp-pagec-11",
-   "order": 399,
+   "order": 398,
    "wave": null,
    "done": false,
    "title": "Immersive: facade, start-up, error path",
@@ -19752,7 +19718,7 @@
   },
   {
    "id": "wp-pagec-13",
-   "order": 400,
+   "order": 399,
    "wave": null,
    "done": false,
    "title": "AR heading engine",
@@ -19804,7 +19770,7 @@
   },
   {
    "id": "wp-pagec-17",
-   "order": 401,
+   "order": 400,
    "wave": null,
    "done": false,
    "title": "Live Sync relay on a function",
@@ -19856,7 +19822,7 @@
   },
   {
    "id": "wp-hist-31",
-   "order": 402,
+   "order": 401,
    "wave": null,
    "done": false,
    "title": "Optional: on-device semantic reranker (stage B)",
@@ -19913,7 +19879,7 @@
   },
   {
    "id": "wp-time-23",
-   "order": 403,
+   "order": 402,
    "wave": null,
    "done": false,
    "title": "July 4 epilogue",
@@ -19970,7 +19936,7 @@
   },
   {
    "id": "wp-pagec-14",
-   "order": 404,
+   "order": 403,
    "wave": null,
    "done": false,
    "title": "AR markers, list, permission UX",
@@ -20026,7 +19992,7 @@
   },
   {
    "id": "wp-pagec-25",
-   "order": 405,
+   "order": 404,
    "wave": null,
    "done": false,
    "title": "Cinematic Export v2 on an owned basemap",
@@ -20082,7 +20048,7 @@
   },
   {
    "id": "wp-infra-24",
-   "order": 406,
+   "order": 405,
    "wave": null,
    "done": false,
    "title": "Offline pack (Workbox) with a terms-bounded tile cache [deferred, Tier 2]",
@@ -20138,7 +20104,7 @@
   },
   {
    "id": "wp-ux-31",
-   "order": 407,
+   "order": 406,
    "wave": null,
    "done": false,
    "title": "On-site mode",
@@ -20198,7 +20164,7 @@
   },
   {
    "id": "wp-ux-32",
-   "order": 408,
+   "order": 407,
    "wave": null,
    "done": false,
    "title": "Map-mode convergence",
@@ -20255,7 +20221,7 @@
   },
   {
    "id": "wp-hist-29",
-   "order": 409,
+   "order": 408,
    "wave": null,
    "done": false,
    "title": "Wave 6, gated: Wikipedia, OpenStreetMap, Commons, LoC photographs, battle-data slices",
@@ -20314,7 +20280,7 @@
   },
   {
    "id": "wp-hist-32",
-   "order": 410,
+   "order": 409,
    "wave": null,
    "done": false,
    "title": "Optional: server-side explanation (stage C-lite)",
@@ -20373,7 +20339,7 @@
   },
   {
    "id": "wp-seo-21",
-   "order": 411,
+   "order": 410,
    "wave": null,
    "done": false,
    "title": "Places, commanders, monument-group pages (tier 3)",
@@ -20429,7 +20395,7 @@
   },
   {
    "id": "wp-seo-22",
-   "order": 412,
+   "order": 411,
    "wave": null,
    "done": false,
    "title": "Day and part-of-day pages (tier 3)",
@@ -20486,7 +20452,7 @@
   },
   {
    "id": "wp-seo-31",
-   "order": 413,
+   "order": 412,
    "wave": null,
    "done": false,
    "title": "Video channel (tier 3, after the owned renderer)",
@@ -20544,7 +20510,7 @@
   },
   {
    "id": "wp-a11y-28",
-   "order": 414,
+   "order": 413,
    "wave": null,
    "done": false,
    "title": "Tier-3 Labs accessibility",
@@ -20600,7 +20566,7 @@
   },
   {
    "id": "rm-20",
-   "order": 415,
+   "order": 414,
    "wave": null,
    "done": false,
    "title": "Contact architecture: role addresses, forwarder, DMARC ladder, security.txt, Report-a-problem intake",
@@ -20640,7 +20606,7 @@
   },
   {
    "id": "wp-pagec-03",
-   "order": 416,
+   "order": 415,
    "wave": null,
    "done": false,
    "title": "mapLink() and emitter repointing",
@@ -20681,7 +20647,7 @@
   },
   {
    "id": "wp-pagec-32",
-   "order": 417,
+   "order": 416,
    "wave": null,
    "done": false,
    "title": "Embed: docs, generator, oEmbed, resize",
@@ -20728,7 +20694,7 @@
   },
   {
    "id": "rm-02",
-   "order": 418,
+   "order": 417,
    "wave": null,
    "done": false,
    "title": "Private repo, publish-dir isolation, staging site, Git-deploy byte-identity, CI skeleton, registries, gitleaks, ADR files",
@@ -20772,7 +20738,7 @@
   },
   {
    "id": "rm-05",
-   "order": 419,
+   "order": 418,
    "wave": null,
    "done": false,
    "title": "Real-tile measurement harness and baseline of record (CDP Referer injection; boot-contract spike)",
@@ -20814,7 +20780,7 @@
   },
   {
    "id": "rm-12",
-   "order": 420,
+   "order": 419,
    "wave": null,
    "done": false,
    "title": "T0 deep-link reader, moments.json v0, Turning Points anchors, emitters repointed",
@@ -20864,7 +20830,7 @@
   },
   {
    "id": "rm-14",
-   "order": 421,
+   "order": 420,
    "wave": null,
    "done": false,
    "title": "Page hotfix core: Watch Together XSS, AR hidden, dev pages removed, Historian undefined, dashboard/search/report defects, map sub-pages non-blocking",
@@ -20913,7 +20879,7 @@
   },
   {
    "id": "audit-x5",
-   "order": 422,
+   "order": 421,
    "wave": null,
    "done": false,
    "title": "Privacy text omits PeerJS, Mapbox telemetry, AR",
@@ -20957,7 +20923,7 @@
   },
   {
    "id": "nf-17",
-   "order": 423,
+   "order": 422,
    "wave": null,
    "done": false,
    "title": "Privacy and Terms are materially wrong",
@@ -21000,7 +20966,7 @@
   },
   {
    "id": "vd13-2",
-   "order": 424,
+   "order": 423,
    "wave": null,
    "done": false,
    "title": "Confederate order of battle and the 22 cavalry commanders (Official Records part 2 organisation)",
@@ -21039,7 +21005,7 @@
   },
   {
    "id": "rm-39",
-   "order": 425,
+   "order": 424,
    "wave": null,
    "done": false,
    "title": "Trust pages: About, Sources and Methods, Corrections, Contact, Accessibility statement, FAQ, changelog",
@@ -21101,7 +21067,7 @@
   },
   {
    "id": "nf-26",
-   "order": 426,
+   "order": 425,
    "wave": null,
    "done": false,
    "title": "103 artillery batteries never loaded by the search pages",
@@ -21146,7 +21112,7 @@
   },
   {
    "id": "owner-2026-10-04-6",
-   "order": 427,
+   "order": 426,
    "wave": null,
    "done": false,
    "title": "Owner decision: wave 3a content streams approved (copy and trust pages, user guide, sky, weather and casualty-ledger data) as candidates",
@@ -21194,7 +21160,7 @@
   },
   {
    "id": "vd14-6",
-   "order": 428,
+   "order": 427,
    "wave": null,
    "done": false,
    "title": "Linker precision beyond the 25-item sample; anchor pool size; Confederate coverage",
@@ -21233,7 +21199,7 @@
   },
   {
    "id": "rm-31",
-   "order": 429,
+   "order": 428,
    "wave": null,
    "done": false,
    "title": "Data authoring repo, versioning (data_version, dv), schemas, 60-rule validator, ratchet, CI",
@@ -21283,7 +21249,7 @@
   },
   {
    "id": "rm-33",
-   "order": 430,
+   "order": 429,
    "wave": null,
    "done": false,
    "title": "Data identity: unit registry, ID crosswalk, OOB completion (VI Corps), unit index, batteries searchable",
@@ -21329,7 +21295,7 @@
   },
   {
    "id": "rm-37",
-   "order": 431,
+   "order": 430,
    "wave": null,
    "done": false,
    "title": "Copy foundation: facts, features and glossary parity, style guide, copy lint, string catalogue, in-app Help and About",
@@ -21382,7 +21348,7 @@
   },
   {
    "id": "rm-40",
-   "order": 432,
+   "order": 431,
    "wave": null,
    "done": false,
    "title": "Historian P0: /hx/ platform, fetch and OCR normaliser, entity registry, build and CI, eval harness, governance",
@@ -21440,7 +21406,7 @@
   },
   {
    "id": "rm-41",
-   "order": 433,
+   "order": 432,
    "wave": null,
    "done": false,
    "title": "Historian P1: search-core, entities and facts tier, composers and linter, UI v2 with page UI",
@@ -21494,7 +21460,7 @@
   },
   {
    "id": "wp-ux-25",
-   "order": 434,
+   "order": 433,
    "wave": null,
    "done": false,
    "title": "Ask drawer",
@@ -21540,7 +21506,7 @@
   },
   {
    "id": "rm-18",
-   "order": 435,
+   "order": 434,
    "wave": null,
    "done": false,
    "title": "R1 legacy performance increment: idle CPU to zero, shell CLS, one map on phones, Day-data stage 1",
@@ -21589,7 +21555,7 @@
   },
   {
    "id": "audit-d1",
-   "order": 436,
+   "order": 435,
    "wave": null,
    "done": false,
    "title": "Help modal 1 to 2 s late, no loading state",
@@ -21632,7 +21598,7 @@
   },
   {
    "id": "audit-e5",
-   "order": 437,
+   "order": 436,
    "wave": null,
    "done": false,
    "title": "Sitemap with 20 URLs, no privacy or terms",
@@ -21677,7 +21643,7 @@
   },
   {
    "id": "audit-h9",
-   "order": 438,
+   "order": 437,
    "wave": null,
    "done": false,
    "title": "\"1x (real time)\" label wrong",
@@ -21722,7 +21688,7 @@
   },
   {
    "id": "audit-p4",
-   "order": 439,
+   "order": 438,
    "wave": null,
    "done": false,
    "title": "Render-blocking site-nav.js and stylesheets",
@@ -21761,7 +21727,7 @@
   },
   {
    "id": "d-lang",
-   "order": 440,
+   "order": 439,
    "wave": null,
    "done": false,
    "title": "English-only, translate=no on the stage, code-first hotkeys",
@@ -21800,7 +21766,7 @@
   },
   {
    "id": "exit-16-1",
-   "order": 441,
+   "order": 440,
    "wave": null,
    "done": false,
    "title": "X-1: no plan or user-facing text repeats a claim refuted in section 1.2",
@@ -21839,7 +21805,7 @@
   },
   {
    "id": "nf-14",
-   "order": 442,
+   "order": 441,
    "wave": null,
    "done": false,
    "title": "Watch Together stored XSS and guessable codes",
@@ -21883,7 +21849,7 @@
   },
   {
    "id": "nf-32",
-   "order": 443,
+   "order": 442,
    "wave": null,
    "done": false,
    "title": "Long sessions, projectors and kiosks untested",
@@ -21922,7 +21888,7 @@
   },
   {
    "id": "nf-33",
-   "order": 444,
+   "order": 443,
    "wave": null,
    "done": false,
    "title": "The key handler switches on key, not code",
@@ -21961,7 +21927,7 @@
   },
   {
    "id": "nf-48",
-   "order": 445,
+   "order": 444,
    "wave": null,
    "done": false,
    "title": "Stale toasts replay after a paused seek; commander toasts dead; date printed twice",
@@ -22004,7 +21970,7 @@
   },
   {
    "id": "nf-49",
-   "order": 446,
+   "order": 445,
    "wave": null,
    "done": false,
    "title": "Help renders behind OOB and Roster; 27 z-index levels",
@@ -22045,7 +22011,7 @@
   },
   {
    "id": "vd11-1",
-   "order": 447,
+   "order": 446,
    "wave": null,
    "done": false,
    "title": "PDF engines: flags, tagged output, PDF/UA checkers (V1); reading-level tool (V11); Vale semantics and inventory recall (V13)",
@@ -22084,7 +22050,7 @@
   },
   {
    "id": "vd14-7",
-   "order": 448,
+   "order": 447,
    "wave": null,
    "done": false,
    "title": "Wayback capture of archive.org URLs",
@@ -22122,7 +22088,7 @@
   },
   {
    "id": "ver16-5",
-   "order": 449,
+   "order": 448,
    "wave": null,
    "done": false,
    "title": "Annex verification 5: re-probe every Mapbox endpoint family for the one 200 on a foreign Referer",
@@ -22160,7 +22126,7 @@
   },
   {
    "id": "ver16-6",
-   "order": 450,
+   "order": 449,
    "wave": null,
    "done": false,
    "title": "Annex verification 6: re-grade from the machine scorecard after two weekly runs",
@@ -22198,7 +22164,7 @@
   },
   {
    "id": "rm-08",
-   "order": 451,
+   "order": 450,
    "wave": null,
    "done": false,
    "title": "Safety-net remainder: static gates, probe cron, tap/layout detectors, LH assert, clock lint, scorecard skeleton, journeys",
@@ -22242,7 +22208,7 @@
   },
   {
    "id": "rm-22",
-   "order": 452,
+   "order": 451,
    "wave": null,
    "done": false,
    "title": "Page hotfix extended: Dashboard, Search, Report/Regiment, Compare, Camera, Documentary, High Ground, Ground",
@@ -22288,7 +22254,7 @@
   },
   {
    "id": "rm-23",
-   "order": 453,
+   "order": 452,
    "wave": null,
    "done": false,
    "title": "Header and redirect generator for both URL spellings; caching classes; hashed data paths",
@@ -22336,7 +22302,7 @@
   },
   {
    "id": "rm-32",
-   "order": 454,
+   "order": 453,
    "wave": null,
    "done": false,
    "title": "Data compat drop 1.0.1 (value-only, after R0)",
@@ -22378,7 +22344,7 @@
   },
   {
    "id": "rm-43",
-   "order": 455,
+   "order": 454,
    "wave": null,
    "done": false,
    "title": "Time module: 33-anchor piecewise clock, schemas, golden tick-clock, validators TM-V1..V21",
@@ -22421,7 +22387,7 @@
   },
   {
    "id": "rm-45",
-   "order": 456,
+   "order": 455,
    "wave": null,
    "done": false,
    "title": "Content triage: wrong-day, misordered, composite events, quotations, arrival audit and kinematics",
@@ -22465,7 +22431,7 @@
   },
   {
    "id": "rm-46",
-   "order": 457,
+   "order": 456,
    "wave": null,
    "done": false,
    "title": "Performance budgets, ratchet, lab gates, INP harness and real-device runs",
@@ -22509,7 +22475,7 @@
   },
   {
    "id": "rm-48",
-   "order": 458,
+   "order": 457,
    "wave": null,
    "done": false,
    "title": "Geometry, extents, places, terrain vs 3DEP, monuments extraction and rights (A part)",
@@ -22555,7 +22521,7 @@
   },
   {
    "id": "rm-49",
-   "order": 459,
+   "order": 458,
    "wave": null,
    "done": false,
    "title": "SEO operations: KPI ledger, traffic-quality protocol, SEO CI suite and runbook",
@@ -22599,7 +22565,7 @@
   },
   {
    "id": "audit-d3",
-   "order": 460,
+   "order": 459,
    "wave": null,
    "done": false,
    "title": "Label collisions; no auto-fly after a day jump",
@@ -22642,7 +22608,7 @@
   },
   {
    "id": "audit-g1",
-   "order": 461,
+   "order": 460,
    "wave": null,
    "done": false,
    "title": "User-guide PDF defects",
@@ -22682,7 +22648,7 @@
   },
   {
    "id": "audit-h10",
-   "order": 462,
+   "order": 461,
    "wave": null,
    "done": false,
    "title": "Count inconsistency 467 versus 445+",
@@ -22726,7 +22692,7 @@
   },
   {
    "id": "audit-h2",
-   "order": 463,
+   "order": 462,
    "wave": null,
    "done": false,
    "title": "Esc ignored in search; does not close panels",
@@ -22769,7 +22735,7 @@
   },
   {
    "id": "audit-h3",
-   "order": 464,
+   "order": 463,
    "wave": null,
    "done": false,
    "title": "Layout choice not persisted, long splash, no mobile auto-detect",
@@ -22809,7 +22775,7 @@
   },
   {
    "id": "audit-h4",
-   "order": 465,
+   "order": 464,
    "wave": null,
    "done": false,
    "title": "Load and jump clutter; toasts",
@@ -22852,7 +22818,7 @@
   },
   {
    "id": "audit-h7",
-   "order": 466,
+   "order": 465,
    "wave": null,
    "done": false,
    "title": "Developer-log copy in user-facing text",
@@ -22895,7 +22861,7 @@
   },
   {
    "id": "audit-h8",
-   "order": 467,
+   "order": 466,
    "wave": null,
    "done": false,
    "title": "Overpromising names (the Historian is a search)",
@@ -22938,7 +22904,7 @@
   },
   {
    "id": "audit-p3",
-   "order": 468,
+   "order": 467,
    "wave": null,
    "done": false,
    "title": "About 30 JSON fetches on load",
@@ -22983,7 +22949,7 @@
   },
   {
    "id": "audit-p7",
-   "order": 469,
+   "order": 468,
    "wave": null,
    "done": false,
    "title": "Lighthouse failing audits",
@@ -23026,7 +22992,7 @@
   },
   {
    "id": "audit-s1",
-   "order": 470,
+   "order": 469,
    "wave": null,
    "done": false,
    "title": "Battle Reports and Regimental Biography: a lone search box",
@@ -23065,7 +23031,7 @@
   },
   {
    "id": "audit-s2",
-   "order": 471,
+   "order": 470,
    "wave": null,
    "done": false,
    "title": "Ground Remembers map blank for about 3 s",
@@ -23109,7 +23075,7 @@
   },
   {
    "id": "audit-s3",
-   "order": 472,
+   "order": 471,
    "wave": null,
    "done": false,
    "title": "Camera and Viewshed canvas painted incompletely",
@@ -23150,7 +23116,7 @@
   },
   {
    "id": "corr-19",
-   "order": 473,
+   "order": 472,
    "wave": null,
    "done": false,
    "title": "Camera and Viewshed canvas incomplete paint did not reproduce",
@@ -23190,7 +23156,7 @@
   },
   {
    "id": "corr-12",
-   "order": 474,
+   "order": 473,
    "wave": null,
    "done": false,
    "title": "Toasts do auto-dismiss; the defects are live regions and stale replays",
@@ -23230,7 +23196,7 @@
   },
   {
    "id": "corr-13",
-   "order": 475,
+   "order": 474,
    "wave": null,
    "done": false,
    "title": "467 records plus 103 batteries = 570 records; 569 distinct units",
@@ -23269,7 +23235,7 @@
   },
   {
    "id": "corr-14",
-   "order": 476,
+   "order": 475,
    "wave": null,
    "done": false,
    "title": "38 boot fetches on desktop, 72 on mobile; the bundle is 79 percent Mapbox",
@@ -23307,7 +23273,7 @@
   },
   {
    "id": "corr-24",
-   "order": 477,
+   "order": 476,
    "wave": null,
    "done": false,
    "title": "Accessibility is D/D by code, not C+/C",
@@ -23345,7 +23311,7 @@
   },
   {
    "id": "d-browsers",
-   "order": 478,
+   "order": 477,
    "wave": null,
    "done": false,
    "title": "Support floor, GPU resilience, in-app browsers",
@@ -23383,7 +23349,7 @@
   },
   {
    "id": "d-design",
-   "order": 479,
+   "order": 478,
    "wave": null,
    "done": false,
    "title": "Dark-only theme, Spectral, education palette",
@@ -23427,7 +23393,7 @@
   },
   {
    "id": "d-urlstate",
-   "order": 480,
+   "order": 479,
    "wave": null,
    "done": false,
    "title": "One deep-link contract",
@@ -23470,7 +23436,7 @@
   },
   {
    "id": "exit-16-2",
-   "order": 481,
+   "order": 480,
    "wave": null,
    "done": false,
    "title": "X-2: the first machine scorecard matches the corrected grades within one step",
@@ -23508,7 +23474,7 @@
   },
   {
    "id": "exit-16-3",
-   "order": 482,
+   "order": 481,
    "wave": null,
    "done": false,
    "title": "X-3: 57 of 57 audit ids and all NF ids trace to a work package and a gate",
@@ -23547,7 +23513,7 @@
   },
   {
    "id": "nf-31",
-   "order": 483,
+   "order": 482,
    "wave": null,
    "done": false,
    "title": "In-app browsers: no persistence, service worker, Web Share, sensors",
@@ -23588,7 +23554,7 @@
   },
   {
    "id": "nf-34",
-   "order": 484,
+   "order": 483,
    "wave": null,
    "done": false,
    "title": "Browser-injected transformations: translate, forced dark, blockers",
@@ -23629,7 +23595,7 @@
   },
   {
    "id": "nf-39",
-   "order": 485,
+   "order": 484,
    "wave": null,
    "done": false,
    "title": "Six divergent moment lists; Turning Points anchors land on other events",
@@ -23674,7 +23640,7 @@
   },
   {
    "id": "nf-42",
-   "order": 486,
+   "order": 485,
    "wave": null,
    "done": false,
    "title": "terrain.json disagrees with 3DEP; place coordinates differ by up to 2.1 km",
@@ -23715,7 +23681,7 @@
   },
   {
    "id": "nf-43",
-   "order": 487,
+   "order": 486,
    "wave": null,
    "done": false,
    "title": "Immersive: Pause leaves the drone running; no mute or limiter",
@@ -23754,7 +23720,7 @@
   },
   {
    "id": "nf-46",
-   "order": 488,
+   "order": 487,
    "wave": null,
    "done": false,
    "title": "Regimental Biography join finds 1 of 467; Documentary one paragraph; Dashboard 446 px, Compare 528 px",
@@ -23803,7 +23769,7 @@
   },
   {
    "id": "audit-s4",
-   "order": 489,
+   "order": 488,
    "wave": null,
    "done": false,
    "title": "Mobile sub-pages: Dashboard chart, Compare tabs, targets",
@@ -23846,7 +23812,7 @@
   },
   {
    "id": "corr-08",
-   "order": 490,
+   "order": 489,
    "wave": null,
    "done": false,
    "title": "Chip and button contrast come from the shared reset; the Dashboard key widens the phone layout",
@@ -23884,7 +23850,7 @@
   },
   {
    "id": "nf-47",
-   "order": 491,
+   "order": 490,
    "wave": null,
    "done": false,
    "title": "The unit panel reads exact-tick rows only",
@@ -23927,7 +23893,7 @@
   },
   {
    "id": "nf-52",
-   "order": 492,
+   "order": 491,
    "wave": null,
    "done": false,
    "title": "Interaction hot spots: Roster +4,989 nodes, Select Mobile INP, Skip intro",
@@ -23966,7 +23932,7 @@
   },
   {
    "id": "vd11-4",
-   "order": 493,
+   "order": 492,
    "wave": null,
    "done": false,
    "title": "History checks: 26th NC, Iverson, Avery, Lincoln, Alexander, NPS 23,049 and 28,063, Gottfried 2007, monuments 1,328 (V6)",
@@ -24004,7 +23970,7 @@
   },
   {
    "id": "rm-24",
-   "order": 494,
+   "order": 493,
    "wave": null,
    "done": false,
    "title": "Train S1: extensionless canonical form, sitemap index, robots and crawler policy, IndexNow, social tag parity",
@@ -24055,7 +24021,7 @@
   },
   {
    "id": "rm-28",
-   "order": 495,
+   "order": 494,
    "wave": null,
    "done": false,
    "title": "Operations: monitoring, alerts, synthetic monitors, scheduled drills, test health",
@@ -24101,7 +24067,7 @@
   },
   {
    "id": "rm-34",
-   "order": 496,
+   "order": 495,
    "wave": null,
    "done": false,
    "title": "Numbers and casualty authority (A-line part), retire 467, 445+, 51,000",
@@ -24149,7 +24115,7 @@
   },
   {
    "id": "rm-35",
-   "order": 497,
+   "order": 496,
    "wave": null,
    "done": false,
    "title": "Rights: source registry, tier gate, provenance retro-audit, dispositions, counsel questions",
@@ -24197,7 +24163,7 @@
   },
   {
    "id": "rm-38",
-   "order": 498,
+   "order": 497,
    "wave": null,
    "done": false,
    "title": "Data text hygiene, unit census, headline-figure and quotation adjudication",
@@ -24246,7 +24212,7 @@
   },
   {
    "id": "rm-47",
-   "order": 499,
+   "order": 498,
    "wave": null,
    "done": false,
    "title": "Motion data: densification tooling, keyframe campaign wave 1, hold and interpolation policy",
@@ -24292,7 +24258,7 @@
   },
   {
    "id": "audit-a1",
-   "order": 500,
+   "order": 499,
    "wave": null,
    "done": false,
    "title": "Colour-contrast failures",
@@ -24336,7 +24302,7 @@
   },
   {
    "id": "audit-a2",
-   "order": 501,
+   "order": 500,
    "wave": null,
    "done": false,
    "title": "Unlabeled slider",
@@ -24378,7 +24344,7 @@
   },
   {
    "id": "audit-a3",
-   "order": 502,
+   "order": 501,
    "wave": null,
    "done": false,
    "title": "Tiny targets",
@@ -24418,7 +24384,7 @@
   },
   {
    "id": "audit-a4",
-   "order": 503,
+   "order": 502,
    "wave": null,
    "done": false,
    "title": "9 to 11 px fonts",
@@ -24460,7 +24426,7 @@
   },
   {
    "id": "audit-a5",
-   "order": 504,
+   "order": 503,
    "wave": null,
    "done": false,
    "title": "Unlabeled close buttons",
@@ -24502,7 +24468,7 @@
   },
   {
    "id": "audit-a6",
-   "order": 505,
+   "order": 504,
    "wave": null,
    "done": false,
    "title": "Modal focus, landmarks, reduced motion",
@@ -24546,7 +24512,7 @@
   },
   {
    "id": "audit-c4",
-   "order": 506,
+   "order": 505,
    "wave": null,
    "done": false,
    "title": "Clock versus history versus the app's own narrative",
@@ -24588,7 +24554,7 @@
   },
   {
    "id": "audit-d2",
-   "order": 507,
+   "order": 506,
    "wave": null,
    "done": false,
    "title": "9-11 px type, tiny targets, unlabeled slider, no landmarks",
@@ -24634,7 +24600,7 @@
   },
   {
    "id": "audit-h6",
-   "order": 508,
+   "order": 507,
    "wave": null,
    "done": false,
    "title": "Toolbar iconography inconsistent and small",
@@ -24675,7 +24641,7 @@
   },
   {
    "id": "audit-t3",
-   "order": 509,
+   "order": 508,
    "wave": null,
    "done": false,
    "title": "Duplicate URL forms",
@@ -24716,7 +24682,7 @@
   },
   {
    "id": "audit-x3",
-   "order": 510,
+   "order": 509,
    "wave": null,
    "done": false,
    "title": "CSP Report-Only with unsafe-inline and the RUM host missing",
@@ -24764,7 +24730,7 @@
   },
   {
    "id": "d-entry",
-   "order": 511,
+   "order": 510,
    "wave": null,
    "done": false,
    "title": "Boot contract: no gates, intent poster, boot after first paint",
@@ -24806,7 +24772,7 @@
   },
   {
    "id": "d-schools",
-   "order": 512,
+   "order": 511,
    "wave": null,
    "done": false,
    "title": "Classroom readiness",
@@ -24844,7 +24810,7 @@
   },
   {
    "id": "d-shell",
-   "order": 513,
+   "order": 512,
    "wave": null,
    "done": false,
    "title": "One responsive shell",
@@ -24886,7 +24852,7 @@
   },
   {
    "id": "d-sitegen",
-   "order": 514,
+   "order": 513,
    "wave": null,
    "done": false,
    "title": "Static-page generator: Astro",
@@ -24926,7 +24892,7 @@
   },
   {
    "id": "ms-m3",
-   "order": 515,
+   "order": 514,
    "wave": null,
    "done": false,
    "title": "Milestone M3: legacy A-line complete",
@@ -24964,7 +24930,7 @@
   },
   {
    "id": "ms-s1",
-   "order": 516,
+   "order": 515,
    "wave": null,
    "done": false,
    "title": "Milestone S1: train S1 shipped (canonical URLs, sitemap index, robots, tag parity)",
@@ -25002,7 +24968,7 @@
   },
   {
    "id": "nf-10",
-   "order": 517,
+   "order": 516,
    "wave": null,
    "done": false,
    "title": "History-dependent data and renderer: 1,804 keyframes on 188 ticks, module-global carry-forward cache",
@@ -25048,7 +25014,7 @@
   },
   {
    "id": "nf-41",
-   "order": 518,
+   "order": 517,
    "wave": null,
    "done": false,
    "title": "Casualty numbers have no authority; divisions do not sum; VI Corps has no brigades",
@@ -25096,7 +25062,7 @@
   },
   {
    "id": "nf-50",
-   "order": 519,
+   "order": 518,
    "wave": null,
    "done": false,
    "title": "Schools: web filters, WebRTC, Classroom default of period language",
@@ -25137,7 +25103,7 @@
   },
   {
    "id": "perf-od-06",
-   "order": 520,
+   "order": 519,
    "wave": null,
    "done": false,
    "title": "Owner decision: delete the intro from the boot path (20 s moment on a gesture) and adopt the 3 s first-timer boot rule with Text-route triggers",
@@ -25177,7 +25143,7 @@
   },
   {
    "id": "rm-44",
-   "order": 521,
+   "order": 520,
    "wave": null,
    "done": false,
    "title": "Clock on the legacy app (bridge patch on all surfaces) plus truthful clock copy",
@@ -25228,7 +25194,7 @@
   },
   {
    "id": "audit-h1",
-   "order": 522,
+   "order": 521,
    "wave": null,
    "done": false,
    "title": "Floating Ask / Extra Features overlay collides",
@@ -25270,13 +25236,13 @@
     "recorded": true,
     "summary": "Delegated, conservative: keep the overlay working as shipped; removal waits for the rebuilt header."
    },
-   "acceptance": "Proof: every child is done (wp-ux-15, wp-a11y-09); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): As delegated. Decision: delegated row A08 applys; build only the conservative choice and keep the alternative selectable.",
+   "acceptance": "Proof: every child is done (wp-ux-15, wp-a11y-09); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Delegated conservative (row A08): keep the Ask and Extra Features overlay working as shipped (group SHELL keeps it clear of panels and hides it behind modals); its removal waits for the rebuilt header (WP-UX-15). Way back: the owner may order an earlier removal by a recorded decision. Decision: delegated row A08 applys; build only the conservative choice and keep the alternative selectable.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
   {
    "id": "audit-p6",
-   "order": 523,
+   "order": 522,
    "wave": null,
    "done": false,
    "title": "No source maps",
@@ -25323,6 +25289,51 @@
     "summary": "Delegated, conservative: none before the rebuild; first-party maps with noindex afterwards; selectable."
    },
    "acceptance": "Proof: every child is done (wp-infra-18, wp-perf-12, wp-arch-31, wp-qa-06b); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Delegated conservative: no public source maps before the rebuild; first-party maps with noindex then; selectable. Decision: delegated row B19 applys; build only the conservative choice and keep the alternative selectable.",
+   "acceptance_basis": "machine proof clause + next-step",
+   "done_evidence": null
+  },
+  {
+   "id": "vd12-4",
+   "order": 523,
+   "wave": null,
+   "done": false,
+   "title": "web-vitals fields, Blobs conditional write, rate-limit rules, Sec-Fetch-Site in Functions; do probes count in Netlify analytics",
+   "source": {
+    "part": "B",
+    "id": "VD12-4",
+    "kind": "verification-debt",
+    "status": "OPEN_NEEDS_DECISION",
+    "chapter": "12",
+    "size": "S"
+   },
+   "chapter": "12",
+   "area": "qa",
+   "tier": "legacy-a-line",
+   "tranche": null,
+   "roadmap_nodes": [],
+   "size": "S",
+   "route": {
+    "type": "umbrella"
+   },
+   "files": [],
+   "reads": [],
+   "context_files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ],
+   "depends_on": [
+    "wp-infra-15"
+   ],
+   "children": [
+    "wp-infra-15"
+   ],
+   "decision": {
+    "rows": [
+     "A04"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: ship no telemetry; keep Netlify RUM as the only field source; build the collector only as an inert candidate. Alternative kept: enable it after the owner approves the privacy text and a function deploy path."
+   },
+   "acceptance": "Proof: every child is done (wp-infra-15); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Delegated (row A04): none of it is built in the zip-published line, which has no first-party collector, so no web-vitals field, Blobs write, rate-limit rule or Sec-Fetch-Site check is written except as an inert candidate together with the collector (WP-INFRA-15). Way back: the collector decision of row A04. Decision: delegated row A04 applys; build only the conservative choice and keep the alternative selectable.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -25488,7 +25499,7 @@
     "recorded": true,
     "summary": "Delegated, conservative: change no title or name until the owner approves; keep the optional group selectable. False descriptive words are handled under WP-TIME-16."
    },
-   "acceptance": "Proof: every child is done (wp-seo-08, wp-content-07); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Build S2 as a candidate. Decision: delegated row A01 applys; build only the conservative choice and keep the alternative selectable.",
+   "acceptance": "Proof: every child is done (wp-seo-08, wp-content-07); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Delegated conservative (row A01): change no title until the owner approves; build the S2 candidate that moves every title to the register name (WP-SEO-08, WP-CONTENT-07) and keep it selectable. Decision: delegated row A01 applys; build only the conservative choice and keep the alternative selectable.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -25886,7 +25897,7 @@
     "recorded": true,
     "summary": "Delegated, conservative: retire nothing (a retirement is a scope reduction only the owner may take); keep AR hidden with its notice; schedule the keep-gates of every Labs page (WP-PAGEC-09..17, 24, 25, WP-PAGE-43). Way back: the owner retir"
    },
-   "acceptance": "Proof: every child is done (wp-pagec-12, wp-pagec-13, wp-pagec-14); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): As A03. Decision: delegated row A03 applys; build only the conservative choice and keep the alternative selectable.",
+   "acceptance": "Proof: every child is done (wp-pagec-12, wp-pagec-13, wp-pagec-14); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Delegated conservative (row A03): retire nothing (a retirement is a scope reduction only the owner may take); keep AR hidden with its notice; schedule the keep-gates of the AR pages as candidates (WP-PAGEC-13 the heading engine, WP-PAGEC-14 markers, list and permission UX); the on-site test is the owner's (VER16-7). Way back: the owner retires a page by a recorded decision. Decision: delegated row A03 applys; build only the conservative choice and keep the alternative selectable.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -25934,7 +25945,7 @@
     "recorded": true,
     "summary": "Delegated, conservative: keep the feature; move it to the own 1863 base (WP-PAGEC-25) so the rights question disappears. Pausing stays selectable."
    },
-   "acceptance": "Proof: every child is done (wp-pagec-24, wp-pagec-25); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): As A15. Decision: delegated row A15 applys; build only the conservative choice and keep the alternative selectable.",
+   "acceptance": "Proof: every child is done (wp-pagec-24, wp-pagec-25); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Delegated conservative (row A15): keep Cinematic Export and move it to the own 1863 base map (WP-PAGEC-25) so that the rights question disappears; the interim containment (the unguarded recorder check that throws in Safari, the 'narrated flyover' wording that is false) is the candidate WP-PAGEC-24; pausing the feature stays selectable. Decision: delegated row A15 applys; build only the conservative choice and keep the alternative selectable.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -32665,8 +32676,61 @@
    }
   },
   {
-   "id": "q-data-2",
+   "id": "prov-r1f-f7",
    "order": 670,
+   "wave": null,
+   "done": true,
+   "title": "Tail of /ground-remembers (1 load in 10 to 20 on a shared machine): four ways out left to the owner",
+   "source": {
+    "part": "A",
+    "id": "PROV-R1F-F7",
+    "kind": "decision",
+    "status": "OPEN_NEEDS_DECISION",
+    "chapter": "05",
+    "size": "S"
+   },
+   "chapter": "05",
+   "area": "perf",
+   "tier": "legacy-a-line",
+   "tranche": null,
+   "roadmap_nodes": [],
+   "size": "S",
+   "route": {
+    "type": "decision-record"
+   },
+   "files": [],
+   "reads": [],
+   "context_files": [
+    "docs/decisions/R1F-PROVISIONAL-DECISIONS-2026-10-31.md",
+    "docs/decisions/R1G-PROVISIONAL-DECISIONS-2026-11-01.md",
+    "tools/t0/patches/PG-ztail.json",
+    "tests/t0/ztail.spec.mjs",
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ],
+   "depends_on": [],
+   "implemented_by": [],
+   "decision": {
+    "rows": [
+     "A72"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: take none of the four ways out now. The conditions that produced F7 still hold (change no look, raise no limit, the first paint comes first; R1F F7 and R1G Z3), so a map built before the first paint, a poster step a"
+   },
+   "acceptance": "Proof: delegated row A72 of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md names PROV-R1F-F7 with the conservative choice and the way back; the choice needs no build step of its own.",
+   "acceptance_basis": "machine proof clause",
+   "consequence_note": "the conservative choice names work, and no other open item carries it (see the row); recorded here, to be split when it is dispatched",
+   "done_evidence": {
+    "basis": "delegated decision recorded",
+    "rows": [
+     "A72"
+    ],
+    "file": "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
+    "consequence_items": []
+   }
+  },
+  {
+   "id": "q-data-2",
+   "order": 671,
    "wave": null,
    "done": true,
    "title": "Casualty headline wording",
@@ -32719,7 +32783,7 @@
   },
   {
    "id": "q-data-3",
-   "order": 671,
+   "order": 672,
    "wave": null,
    "done": true,
    "title": "Busey and Martin as facts-only with attribution; open dataset excludes B and M numbers and positions until counsel",
@@ -32767,7 +32831,7 @@
   },
   {
    "id": "q-data-4",
-   "order": 672,
+   "order": 673,
    "wave": null,
    "done": true,
    "title": "Widen map_extent east and relocate East Cavalry Field anchors",
@@ -32819,7 +32883,7 @@
   },
   {
    "id": "q-data-5",
-   "order": 673,
+   "order": 674,
    "wave": null,
    "done": true,
    "title": "Formation-derived regiment positions labelled approximate",
@@ -32871,7 +32935,7 @@
   },
   {
    "id": "q-data-6",
-   "order": 674,
+   "order": 675,
    "wave": null,
    "done": true,
    "title": "Count wording \"569 units (465 regiments, 104 batteries)\"; retire 467 and 445+",
@@ -32923,7 +32987,7 @@
   },
   {
    "id": "q-data-8",
-   "order": 675,
+   "order": 676,
    "wave": null,
    "done": true,
    "title": "U-14BK becomes a search synonym, not a row",
@@ -32971,7 +33035,7 @@
   },
   {
    "id": "qa-od-3",
-   "order": 676,
+   "order": 677,
    "wave": null,
    "done": true,
    "title": "Alert channel and quiet hours",
@@ -33025,7 +33089,7 @@
   },
   {
    "id": "qa-od-5",
-   "order": 677,
+   "order": 678,
    "wave": null,
    "done": true,
    "title": "Scorecard policy (Tier 2 graded A, Labs non-blocking) and the operations ceiling",
@@ -33073,7 +33137,7 @@
   },
   {
    "id": "qa-od-7",
-   "order": 678,
+   "order": 679,
    "wave": null,
    "done": true,
    "title": "Visual-diff and changelog tools",
@@ -33125,7 +33189,7 @@
   },
   {
    "id": "reg-flag-2",
-   "order": 679,
+   "order": 680,
    "wave": null,
    "done": true,
    "title": "Home title \"Five-Minute Steps\" contradicts the time-warp",
@@ -33177,7 +33241,7 @@
   },
   {
    "id": "time-od-04",
-   "order": 680,
+   "order": 681,
    "wave": null,
    "done": true,
    "title": "Owner decision: provisional launch when no reviewer is named (proposed rows, pill, \"about\")",
@@ -33231,7 +33295,7 @@
   },
   {
    "id": "time-od-05",
-   "order": 681,
+   "order": 682,
    "wave": null,
    "done": true,
    "title": "Owner decision: \"about\" threshold 10 or 20 minutes",
@@ -33279,7 +33343,7 @@
   },
   {
    "id": "time-od-06",
-   "order": 682,
+   "order": 683,
    "wave": null,
    "done": true,
    "title": "Owner decision: night stretches keep tick density or become a time-lapse",
@@ -33328,7 +33392,7 @@
   },
   {
    "id": "time-od-07",
-   "order": 683,
+   "order": 684,
    "wave": null,
    "done": true,
    "title": "Owner decision: triage scope: t8 as a context card or delete; July 4 as epilogue cards or ticks 676+",
@@ -33382,7 +33446,7 @@
   },
   {
    "id": "time-od-08",
-   "order": 684,
+   "order": 685,
    "wave": null,
    "done": true,
    "title": "Owner decision: Battle-time as a visible control",
@@ -33435,7 +33499,7 @@
   },
   {
    "id": "time-od-09",
-   "order": 685,
+   "order": 686,
    "wave": null,
    "done": true,
    "title": "Owner decision: night tint default and Daylight toggle",
@@ -33488,7 +33552,7 @@
   },
   {
    "id": "time-od-11",
-   "order": 686,
+   "order": 687,
    "wave": null,
    "done": true,
    "title": "Owner decision: wording: approve \"moment by moment\", the ban list and the D-CLOCK sentence",
@@ -33540,7 +33604,7 @@
   },
   {
    "id": "time-od-12",
-   "order": 687,
+   "order": 688,
    "wave": null,
    "done": true,
    "title": "Owner decision: publishing evidence (Sources and Times credit line, low-authority labels)",
@@ -33592,7 +33656,7 @@
   },
   {
    "id": "cd-2",
-   "order": 688,
+   "order": 689,
    "wave": null,
    "done": true,
    "title": "Publish inclusive-history content and the sensitivity stance",
@@ -33644,7 +33708,7 @@
   },
   {
    "id": "d-scope-tiers",
-   "order": 689,
+   "order": 690,
    "wave": null,
    "done": true,
    "title": "Tiers, Labs ship-or-retire, capacity contract",
@@ -33717,7 +33781,7 @@
   },
   {
    "id": "d-telemetry",
-   "order": 690,
+   "order": 691,
    "wave": null,
    "done": true,
    "title": "One first-party collector",
@@ -33774,7 +33838,7 @@
   },
   {
    "id": "infra-od-3",
-   "order": 691,
+   "order": 692,
    "wave": null,
    "done": true,
    "title": "Google key restriction; NPS video frame versus link-out; ADR amendment for Street View click-to-load and the token literals",
@@ -33828,7 +33892,7 @@
   },
   {
    "id": "infra-od-6",
-   "order": 692,
+   "order": 693,
    "wave": null,
    "done": true,
    "title": "Watch Together: hotfix, earlier retirement or a funded relay; alert channel; GitHub plan; the 10 h per month ceiling; fund On-site mode or not",
@@ -33882,7 +33946,7 @@
   },
   {
    "id": "od-11",
-   "order": 693,
+   "order": 694,
    "wave": null,
    "done": true,
    "title": "Closed-list amendments: error boundary, gold-trail line layer, overlay scripts, Street View click-to-load, token literals",
@@ -33937,7 +34001,7 @@
   },
   {
    "id": "od-12",
-   "order": 694,
+   "order": 695,
    "wave": null,
    "done": true,
    "title": "Carry-forward rule for units after their last keyframe",
@@ -33989,7 +34053,7 @@
   },
   {
    "id": "od-13",
-   "order": 695,
+   "order": 696,
    "wave": null,
    "done": true,
    "title": "Small closed-list additions for natural sort (H5), Order of Battle on desktop (D4), Distance tool (H12)",
@@ -34041,7 +34105,7 @@
   },
   {
    "id": "od-17",
-   "order": 696,
+   "order": 697,
    "wave": null,
    "done": true,
    "title": "Casualty headline wording, count wording \"569 units\", Busey and Martin as facts-only, Historian numbers policy, sensitive-content stance",
@@ -34090,7 +34154,7 @@
   },
   {
    "id": "od-19",
-   "order": 697,
+   "order": 698,
    "wave": null,
    "done": true,
    "title": "Design, engine, renderer and generator after the spikes; Classroom pilot teachers; embed frame-ancestors only on /embed; Cinematic Export and Watch Together",
@@ -34123,17 +34187,21 @@
    ],
    "decision": {
     "rows": [
-     "B18"
+     "B18",
+     "A24",
+     "A15"
     ],
     "recorded": true,
     "summary": "Delegated: run the spikes in this container first; take the register defaults (dark-only, Spectral as a selectable candidate row A24, Mapbox GL behind a facade, owned canvas renderer, Astro); Labs rows A15 and A16 as delegated."
    },
-   "acceptance": "Proof: delegated row B18 of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md names OD-19 with the conservative choice and the way back; its consequence is carried by wp-dec-02, wp-dec-04.",
+   "acceptance": "Proof: delegated rows B18, A24, A15 of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md name OD-19 with the conservative choice and the way back; its consequence is carried by wp-dec-02, wp-dec-04.",
    "acceptance_basis": "machine proof clause",
    "done_evidence": {
     "basis": "delegated decision recorded",
     "rows": [
-     "B18"
+     "B18",
+     "A24",
+     "A15"
     ],
     "file": "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md",
     "consequence_items": [
@@ -34144,7 +34212,7 @@
   },
   {
    "id": "od-2",
-   "order": 698,
+   "order": 699,
    "wave": null,
    "done": true,
    "title": "Name \"Gettysburg Interactive Map\", remove in-app sound, delete the dead heat map",
@@ -34197,7 +34265,7 @@
   },
   {
    "id": "od-seo-9",
-   "order": 699,
+   "order": 700,
    "wave": null,
    "done": true,
    "title": "Kit at /teach and /learn: 3 lessons in v1, 6 by 2027-06-01; two or three pilot teachers",
@@ -34251,7 +34319,7 @@
   },
   {
    "id": "q-data-1",
-   "order": 700,
+   "order": 701,
    "wave": null,
    "done": true,
    "title": "Honest hold versus forever carry-forward of units after their last anchor",
@@ -34303,7 +34371,7 @@
   },
   {
    "id": "a11y-od-04",
-   "order": 701,
+   "order": 702,
    "wave": null,
    "done": true,
    "title": "Owner decision: role=application with a unit cursor on fine pointers; Data View as the default on touch; battle-event announcements off by default",
@@ -34359,7 +34427,7 @@
   },
   {
    "id": "d-root",
-   "order": 702,
+   "order": 703,
    "wave": null,
    "done": true,
    "title": "Landing at / and the app at /map (train S3)",
@@ -34413,7 +34481,7 @@
   },
   {
    "id": "od-9",
-   "order": 703,
+   "order": 704,
    "wave": null,
    "done": true,
    "title": "Root: landing at / and app at /map; entry without chooser or fake fast-forward",
@@ -34465,7 +34533,7 @@
   },
   {
    "id": "page-od-09",
-   "order": 704,
+   "order": 705,
    "wave": null,
    "done": true,
    "title": "Owner decision: Aftermath and Students authoring: publish only sourced text; without a reviewer keep four sourced events and skip the student rewrite",
@@ -34521,7 +34589,7 @@
   },
   {
    "id": "arch-od-05",
-   "order": 705,
+   "order": 706,
    "wave": null,
    "done": true,
    "title": "Owner decision: React 18.3.1 through cutover, Preact behind a gate",
@@ -34574,7 +34642,7 @@
   },
   {
    "id": "arch-od-07",
-   "order": 706,
+   "order": 707,
    "wave": null,
    "done": true,
    "title": "Owner decision: the cutover changes the look; contact-sheet review instead of pixel parity",
@@ -34627,7 +34695,7 @@
   },
   {
    "id": "arch-od-08",
-   "order": 707,
+   "order": 708,
    "wave": null,
    "done": true,
    "title": "Owner decision: which of Walkthrough, NPS Tour, Soldier's Eye may slip",
@@ -34680,7 +34748,7 @@
   },
   {
    "id": "arch-od-09",
-   "order": 708,
+   "order": 709,
    "wave": null,
    "done": true,
    "title": "Owner decision: beta promotion banner and its copy",
@@ -34734,7 +34802,7 @@
   },
   {
    "id": "prov-r1f-a6",
-   "order": 709,
+   "order": 710,
    "wave": null,
    "done": true,
    "title": "Entry of about 30 units at one tick stays one solve task",
@@ -34782,7 +34850,7 @@
   },
   {
    "id": "prov-wg-17",
-   "order": 710,
+   "order": 711,
    "wave": null,
    "done": true,
    "title": "Virtual Walkthrough map dies when the window crosses 860 px while open",
@@ -34830,7 +34898,7 @@
   },
   {
    "id": "ux-od-01",
-   "order": 711,
+   "order": 712,
    "wave": null,
    "done": true,
    "title": "Owner decision: remove the chooser, the onboarding modal and the fake fast-forward",
@@ -34884,7 +34952,7 @@
   },
   {
    "id": "ux-od-02",
-   "order": 712,
+   "order": 713,
    "wave": null,
    "done": true,
    "title": "Owner decision: default 20-second moment",
@@ -34937,7 +35005,7 @@
   },
   {
    "id": "ux-od-04",
-   "order": 713,
+   "order": 714,
    "wave": null,
    "done": true,
    "title": "Owner decision: Spectral or system fonts; light theme",
@@ -34990,7 +35058,7 @@
   },
   {
    "id": "ux-od-08",
-   "order": 714,
+   "order": 715,
    "wave": null,
    "done": true,
    "title": "Owner decision: fund On-site/AR (20 to 30 days plus a field test) or build the Visit hub MVP only",
@@ -35048,7 +35116,7 @@
   },
   {
    "id": "rm-98",
-   "order": 715,
+   "order": 716,
    "wave": null,
    "done": true,
    "title": "Contingent: AST-split bridge, July 4 epilogue ticks, Labs accessibility if kept, CWSS rosters if permitted (rosters not sized)",

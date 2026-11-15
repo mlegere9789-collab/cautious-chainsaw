@@ -7,7 +7,7 @@ carry 1863 in the date or the title and name Gettysburg, removes the records the
 catalogue_wide.json with its LOC fields and a disposition. It then fetches the medium JPEG (r.jpg, the search result's own image URL, cdn.loc.gov/tile.loc.gov) of each candidate
 (1 request per second, no retry on a refusal) into tmp/photomatch/wide/ and records sha256, size and pixel size in wide_images_ledger.json.
 Nothing is invented: every field is copied from the LOC search result. The disposition (same exposure as a catalogued record / new exposure / out of scope) is written by
-match_wide.py (image matching) and by a person who looked at the images (wide_dispositions.py).
+match_wide.py (image matching) and by looking at the images (wide_dispositions.py).
 Usage: python3 -I tools/bt/photomatch/wide_search.py [--no-images]"""
 import hashlib, json, os, re, subprocess, sys, time
 from urllib.parse import urlparse

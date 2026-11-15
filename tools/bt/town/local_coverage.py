@@ -14,6 +14,9 @@ whitespace and a hyphen at a line end is tolerated. OCR errors are not repaired.
 """
 import glob, json, os, re, sys, time
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import textpat  # noqa: E402
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..'))
 OUT = os.path.join(ROOT, 'docs', 'battle-theatre', 'town', 'evidence', 'coverage-local.json')
 GROUPS_PY = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'town_groups.py')
@@ -27,31 +30,8 @@ def load_terms():
 
 
 def pat(p):
-    """Compile a search term (a regular expression, case-insensitive, `.` also crossing a line end).
-
-    A space outside a character class matches a run of whitespace, a line-end hyphen included; a space inside a character class
-    (`court[- ]?house`) matches any whitespace character. Everything else is the regular expression as written.
-    """
-    out, in_cls, i = [], False, 0
-    while i < len(p):
-        c = p[i]
-        if c == '\\' and i + 1 < len(p):
-            out.append(p[i:i + 2])
-            i += 2
-            continue
-        if in_cls:
-            if c == ']':
-                in_cls = False
-            out.append(r'\s' if c == ' ' else c)
-        elif c == '[':
-            in_cls = True
-            out.append(c)
-        elif c == ' ':
-            out.append(r'(?:\s|-\s)+')
-        else:
-            out.append(c)
-        i += 1
-    return re.compile(''.join(out), re.I | re.S)
+    """Compile a search term: the reading of textpat.py (a regular expression, case-insensitive, `.` crossing a line end, a space a run of whitespace)."""
+    return textpat.compile_term(p)
 
 
 def source_files():
@@ -79,10 +59,7 @@ def ca_pages():
 
 
 def count(rx, text):
-    n = 0
-    for _ in rx.finditer(text):
-        n += 1
-    return n
+    return textpat.count(rx, text)
 
 
 def run():

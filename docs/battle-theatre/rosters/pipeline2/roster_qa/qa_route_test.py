@@ -30,7 +30,15 @@ def run():
         order = draw[fam + '-other']['order'][:20]
         pages = []
         for pid in order:
+            # qa_render.render writes data2/qa/pages/<stem>.read.json; a page that was looked at keeps its own record (restored after the read), any other page leaves none
+            rp = os.path.join(RN.READ, RN.page_stem(pid) + '.read.json')
+            keep = open(rp, 'rb').read() if os.path.exists(rp) else None
             rec = RN.render([pid])[0]
+            if keep is not None:
+                with open(rp, 'wb') as fh:
+                    fh.write(keep)
+            elif os.path.exists(rp):
+                os.remove(rp)
             if rec.get('error'):
                 pages.append({'page': pid, 'error': rec['error']})
                 continue
@@ -38,7 +46,8 @@ def run():
             pg, rows, res, unstored, st = C.compare(pid)
             cnt = collections.Counter(r['status'] for r in res)
             pages.append({'page': pid, 'printed_page': rec['printed_page'], 'rows': len(rows), 'agree': cnt['AGREE'], 'near': cnt['NEAR'], 'suspect': cnt['SUSPECT'],
-                          'share_in_pinned_leaf': rec['share_in_pinned_leaf'], 'right_page': rec['right_page'], 'token_ratio': st['ratio'], 'tesseract_cpu_s': rec['tesseract_cpu_s']})
+                          'share_in_pinned_leaf': rec['share_in_pinned_leaf'], 'right_page': rec['right_page'], 'token_ratio': st['ratio'], 'tesseract_cpu_s': rec['tesseract_cpu_s'],
+                          'render300_sha256': rec['render300_sha256'], 'tess_sha256': rec['tess_sha256'], 'looked_at': keep is not None})
             RN.clean([pid])
         ok = [p for p in pages if 'error' not in p]
         rows = sum(p['rows'] for p in ok)

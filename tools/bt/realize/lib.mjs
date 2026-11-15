@@ -85,6 +85,18 @@ export function designatorHits(s) {
 }
 export const round = (x, d = 1) => (x == null || !Number.isFinite(x) ? x : Math.round(x * 10 ** d) / 10 ** d);
 
+// ---- angles and compass points (the sky and wind assertions). A bearing is in degrees, 0 = north, clockwise; the difference of two bearings is the short way round (359 and 1 are 2 apart).
+export const angDiff = (a, b) => Math.abs(((((a - b) % 360) + 360 + 180) % 360) - 180);
+export const COMPASS16 = { N: 0, NNE: 22.5, NE: 45, ENE: 67.5, E: 90, ESE: 112.5, SE: 135, SSE: 157.5, S: 180, SSW: 202.5, SW: 225, WSW: 247.5, W: 270, WNW: 292.5, NW: 315, NNW: 337.5 };
+export const COMPASS_HALF_WIDTH = 11.25;                        // a point of the 16-point compass stands for the 22.5 degrees around it (the arc is closed: a wind from 191.25 is "from S" and "from SSW")
+// the number of decimals with which a text prints the number n ("37.9" -> 1, "10" -> 0, "1,200" -> 0); -1 when the text does not print it. When it prints it more than once the finest print is taken.
+export function printedDecimals(text, n) {
+  let best = -1; for (const m of String(text ?? '').replace(/(\d),(\d{3})(?!\d)/g, '$1$2').matchAll(/(?<![\d.])([-−–]?)(\d+)(?:\.(\d+))?(?![\d])/g)) if ((m[1] ? -1 : 1) * +`${m[2]}${m[3] ? '.' + m[3] : ''}` === +n) best = Math.max(best, (m[3] || '').length);
+  return best;
+}
+// how far a picture may be from an angle a row prints: half a unit of the last digit the row prints (37.9 -> 0.05, 10 -> 0.5, 62 -> 0.5), never less than the floor (the sky is interpolated between table rows). A record may ask for less, never for more.
+export const angleTolerance = (text, n, floorDeg) => Math.max(floorDeg, 0.5 * 10 ** -Math.max(0, printedDecimals(text, n)));
+
 // ---- the words of a text with their case and their naming context (query.mjs unitsNamedIn). A surname names a unit only as a PROPER NOUN: capitalised in the text; and where the same word is also an
 // ordinary word of the timeline (day, stone, early, hill, iron ...: lower case somewhere in the printed rows) only in a naming context: a possessive ("Day's brigade"), a unit noun after it
 // ("Iron Brigade", "Stone division") or a title before it ("Gen. Early"). Otherwise "all day" would name Day's brigade and "stone wall" Stone's.

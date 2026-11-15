@@ -2,7 +2,7 @@
 // a gate; it never loosens anything, and what it cannot know (a real GPU) is not in it. A gate runner can call checkRun / checkCompare, or the command:
 //   node docs/battle-theatre/app/tests/weather3d-gpu-check.mjs <outDir> [--api=webgpu|webgl2] [--limit=6]       exit code 1 when a problem is found
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
-import { SOFTWARE_ADAPTER_RE } from './weather3d-gpu-lib.mjs';
+import { SOFTWARE_ADAPTER_RE, CANVAS_SHOT_LIMIT } from './weather3d-gpu-lib.mjs';
 
 // one run of one API (the content of <outDir>/<api>/summary.json). expect: { cases: n } the number of cases the run was asked for (default: any, at least 1)
 export function checkRun(s, expect = {}) {
@@ -24,6 +24,12 @@ export function checkRun(s, expect = {}) {
   for (const [k, v] of Object.entries(s.pure || {})) if (v.identical !== true) p.push(`scrub purity: ${k} is not identical (${v.bytesDiffering} bytes differ)`); facts.purityChecks = Object.keys(s.pure || {}).length;
   if (s.resize) { if (s.resize.smallValidation || s.resize.backValidation) p.push('validation error after a resize'); if (s.resize.backIdentical === false) p.push(`after a resize back to the first size the picture differs (${s.resize.backBytesDiffering} bytes)`); facts.resize = s.resize.backIdentical === true; }
   for (const [n, c] of cases) { const a = c.pixels && c.pixels.all; if (!a || !(a.mean > 0)) p.push(`${n}: the picture is blank`); }
+  // runs on the real canvas (--real-canvas, --real-gpu, --canvas-shot): the compositor's picture of the canvas against the read-back of the same frame (harness limit CANVAS_SHOT_LIMIT levels, not a project gate)
+  const shots = cases.filter(([, c]) => c.canvasShot);
+  if (shots.length) {
+    facts.canvasShot = { cases: shots.length, failed: shots.filter(([, c]) => c.canvasShot.error).length, worstMeanAbs: Math.max(...shots.map(([, c]) => (c.canvasShot.meanAbs == null ? Infinity : c.canvasShot.meanAbs))) };
+    for (const [n, c] of shots) { if (c.canvasShot.error) p.push(`${n}: the compositor's picture of the canvas could not be taken: ${String(c.canvasShot.error).slice(0, 160)}`); else if (!(c.canvasShot.meanAbs <= CANVAS_SHOT_LIMIT)) p.push(`${n}: the compositor's picture of the canvas differs from the read-back of the same frame (mean absolute ${c.canvasShot.meanAbs} levels, harness limit ${CANVAS_SHOT_LIMIT})`); }
+  }
   return { ok: p.length === 0, problems: p, facts };
 }
 // the comparison of WebGL2 and WebGPU (<outDir>/compare/summary.json): every case within the limit of mean absolute difference per channel (8-bit levels), and the same effect sprite counts

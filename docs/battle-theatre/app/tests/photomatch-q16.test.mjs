@@ -141,6 +141,11 @@ test('the first test at a documented place: the measurements are stored, follow 
   const vv = Object.fromEntries(ver.pose_verdicts.map(v => [v.pose, v])); for (const pid of ['P27', 'P28']) { assert.ok(vv[pid], pid); assert.ok(vv[pid].numbers && vv[pid].numbers.criterion === 'C-P27-P28-1', pid); }
   if (fs.existsSync(sp)) { const s = J('skyline_results.json'); assert.ok(s.cases.P28 && s.cases.P29, 'both skyline cases'); for (const [cid, c] of Object.entries(s.cases)) { assert.ok(c.controls.length === 24 && c.columns > 500, cid); for (const k of Object.keys(c.summary)) assert.ok(typeof c.summary[k].S2_discriminated === 'boolean' && c.summary[k].S1_rms_deg > 0 && ['match-level', 'partial', 'mismatch'].includes(c.summary[k].S1_class), cid + ' ' + k); } }
 });
+test('staged-photograph flags are respected: no record that carries the flag has a pose (own or as a second print of a posed exposure), every one is cannot judge and carries its basis', () => {
+  const posed = new Set(poses.poses.flatMap(p => [p.loc_id, ...(p.also_loc_ids || [])]).filter(Boolean));
+  for (const r of reg.photographs.filter(x => x.staged_flag)) { assert.ok(!posed.has(r.loc_id), r.loc_id + ' is staged but has a pose'); assert.deepEqual(r.pose_ids, [], r.loc_id); assert.equal(r.verdict, 'cannot judge', r.loc_id); assert.ok(r.staged_basis && r.staged_basis.length > 20, r.loc_id); }
+  for (const p of poses.poses) for (const l of [p.loc_id, ...(p.also_loc_ids || [])].filter(Boolean)) assert.equal(reg.photographs.find(r => r.loc_id === l).staged_flag, false, p.id + ' stands on a staged record ' + l);
+});
 test('review sheets: every pose has its sheet, the poses at a documented place also the lines-on-photograph image; the sheets are newer than the poses file entry they show only through their renders', () => {
   for (const p of poses.poses) { const s = path.join(PM, 'reports', p.id + '.jpg'); assert.ok(fs.existsSync(s) && fs.statSync(s).size > 20000, p.id + ' has no review sheet'); if (p.position.place_documented) { const l = path.join(PM, 'reports', p.id + '_lines.jpg'); assert.ok(fs.existsSync(l) && fs.statSync(l).size > 20000, p.id + ' has no lines image'); } }
 });

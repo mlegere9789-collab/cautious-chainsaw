@@ -8,7 +8,7 @@ Rule: a passage is a candidate when its window (the sentence around a trigger, a
   (a) a picture credit or id: Library of Congress, LC-DIG, LC-B8, LC-USZ, ppmsca, cwpb, cwp, Digital ID, Brady, Gardner, O'Sullivan, Gibson, Tyson, Weaver, Waud, Bachelder, Mumper, Tipton, Frassanito, 'photograph', 'stereo', and
   (b) a place or direction of view: looking <direction>, view <direction>, 'taken from/near/at', 'photographed from', 'from the <vantage>', camera, tripod, vantage, 'stood'.
 Output: tools/bt/photomatch/nps_photo_scan.json (counts per source, every candidate with source, pdf page marker, offset in the normalised page, window, covered flag).
-The scan finds passages; it does not decide anything. A candidate becomes a statement only when a person reads it and statements_data.py quotes it (the builder then refuses a quote it cannot find in the saved text).
+The scan finds passages; it does not decide anything. A candidate becomes a statement only when it is read in full and statements_data.py quotes it (the builder then refuses a quote it cannot find in the saved text).
 Usage: nice python3 -I tools/bt/photomatch/scan_nps_photos.py"""
 import json, os, re, sys, glob, hashlib
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))

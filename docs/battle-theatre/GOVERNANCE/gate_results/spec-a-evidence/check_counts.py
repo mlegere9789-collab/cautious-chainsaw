@@ -4,6 +4,11 @@ numbering is complete: classes of 2.2 against requirements.json; the OA derived 
 U-01.., A-01.., DD-G01.. contiguous and the Contents line equal to the last; the 71 requirement-level checks of section 5;
 register, timeline, correction-record, library-word and night-minute counts. Reads files only (one `node` call for the night
 count, 1 s). Prints one line per check and a JSON summary; exit 1 when any check is a MISMATCH.
+Two kinds of check. A hard check (OK or MISMATCH) is on a count or a structure that does not move while the other workstreams work:
+the rows of requirements.json, the seed and window files of the timeline, the register, the numbering of the spec. A soft check (OK or STALE)
+is on a count of files that other workstreams are still writing (correction records, library status files, photo-match, vegetation,
+realization results): a difference is printed as STALE and listed in the summary, and does not fail the run, because the number in the spec
+is the one of the date it states; the run that writes a revision must end with no STALE line.
 Usage: python3 -I check_counts.py [path-to-spec]"""
 import json, os, re, sys, glob, subprocess, collections
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -14,6 +19,12 @@ spec = open(doc, encoding='utf-8').read()
 J = lambda p: json.load(open(os.path.join(GOV, p), encoding='utf-8'))
 JL = lambda p: [json.loads(l) for l in open(os.path.join(GOV, p), encoding='utf-8') if l.strip()]
 results = []
+stale = []
+
+
+def soft(name, ok, detail=''):
+    if not ok: stale.append(name)
+    print(('OK       ' if ok else 'STALE    ') + name + (' :: ' + detail if detail and not ok else ''))
 
 
 def check(name, ok, detail=''):
@@ -56,7 +67,7 @@ for k in ('TL', 'EP', 'SS', 'WK', 'GE', 'PE', 'CT', 'CF', 'TOP', 'OA'):
     check(f'2.2 class {k} count {rows22.get(k)} equals requirements.json {cls[k]}', rows22.get(k) == cls[k])
 check('2.2 total equals the number of rows', has(r'\| \| Total \| \| %d \|' % len(subs), sec22), f'{len(subs)} rows')
 orig = collections.Counter(s['origin'] for s in subs)
-check('1.1 origin counts', has(r'\(%d rows on 2026-11-14: %d `origin: pdf`, %d `origin: owner_chat`' % (len(subs), orig['pdf'], orig['owner_chat'])), str(dict(orig)))
+check('1.1 origin counts', has(r'\(%d rows on 2026-11-15: %d `origin: pdf`, %d `origin: owner_chat`' % (len(subs), orig['pdf'], orig['owner_chat'])), str(dict(orig)))
 check('1.3 "on all N rows" equals the total', has(r'on all %d rows' % len(subs)))
 oa = sorted(s['id'][:4] for s in subs if klass(s['id']) == 'OA')
 check('OA rows are OA01..OAnn without a gap', oa == [f'OA{i:02d}' for i in range(1, len(oa) + 1)], str(oa))
@@ -134,15 +145,17 @@ tc, ec = cj.get('timeline_corrections', {}), cj.get('evidence_corrections', {})
 if tc and ec:
     sentence = ('`timeline_corrections/` holds %d records over %d row ids (%d row-level and %d supplementary; %d ids have more than one record; %d ids have supplementary records only)' % (
         tc['records'], tc['distinct_ids'], tc['kinds']['row-level'], tc['kinds']['supplementary'], tc['ids_with_more_than_one_record'], tc['ids_with_only_supplementary_records']))
-    check('1.3 timeline correction counts', sentence in spec, sentence)
+    soft('1.3 timeline correction counts', sentence in spec, sentence)
     sentence = ('`evidence_corrections/` holds {:,} records over {} ids ({} row-level and {:,} supplementary; {} ids have more than one record; {} have supplementary records only)'.format(
         ec['records'], ec['distinct_ids'], ec['kinds']['row-level'], ec['kinds']['supplementary'], ec['ids_with_more_than_one_record'], ec['ids_with_only_supplementary_records']))
-    check('1.3 evidence correction counts', sentence in spec, sentence)
-    check('1.3 records on top rows', has(r'{:,} of the {:,} evidence records carry the id of a top-level row'.format(ec['records_on_a_top_level_row'], ec['records'])))
-    check('1.3 confirmed or corrected with nothing left: 39 and 70',
-          tc['records_with_empty_remains_unsupported_and_verdict_confirmed_or_corrected'] == 39 and ec['records_with_empty_remains_unsupported_and_verdict_confirmed_or_corrected'] == 70 and has(r'of which 39 row-level records') and has(r'of which 70 have that verdict'))
+    soft('1.3 evidence correction counts', sentence in spec, sentence)
+    soft('1.3 records on top rows', has(r'{:,} of the {:,} evidence records carry the id of a top-level row'.format(ec['records_on_a_top_level_row'], ec['records'])))
+    tcc = tc['records_with_empty_remains_unsupported_and_verdict_confirmed_or_corrected']; ecc = ec['records_with_empty_remains_unsupported_and_verdict_confirmed_or_corrected']
+    tc_all = tc['verdict_words'].get('confirmed', 0) + tc['verdict_words'].get('corrected', 0)
+    soft('1.3 confirmed or corrected with nothing left: %d and %d (%d records have the verdict, %d of them list something)' % (tcc, ecc, tc_all, tc_all - tcc),
+         has(r'of which %d row-level records' % tcc) and has(r'of which %d have that verdict' % ecc) and has(r'\(%d records have that verdict and %d of them list something in `remains_unsupported`' % (tc_all, tc_all - tcc)))
     check('1.3 no verdict word outside the list of the derivation', not tc['verdict_words_outside_the_known_list'] and not ec['verdict_words_outside_the_known_list'])
-    check('1.3 alias spelling count 77', tc['records_using_the_alias_spelling_subclaims_or_unsupported'] + ec['records_using_the_alias_spelling_subclaims_or_unsupported'] == 77 and has(r'spelled `subclaims` in 77 records'))
+    soft('1.3 alias spelling count', has(r'spelled `subclaims` in %d records' % (tc['records_using_the_alias_spelling_subclaims_or_unsupported'] + ec['records_using_the_alias_spelling_subclaims_or_unsupported'])))
 else:
     check('corrections census ran', False, cen.stderr[:200])
 
@@ -175,14 +188,19 @@ for name, (n, rl_, cl_, so_, nr_) in want.items():
     okp = okp and has(pat)
 sup_txt = 'Supplementary records only: R13.P %d, R12 %d, R03.C %d, R22 %d' % (want['R13.P'][3], want['R12'][3], want['R03.C'][3], want['R22'][3])
 none_txt = 'No record at all: R13.G %d, R13.P %d, R12 %d, R03.C %d' % (want['R13.G'][4], want['R13.P'][4], want['R12'][4], want['R03.C'][4])
-check('1.3 row-level records by class', okp and sup_txt in spec and none_txt in spec, str(want))
-check('1.3 / SS-2: all 88 S rows have a row-level record, 42 clean', want['R14.S'][:3] == (88, 88, 42) and has(r'all 88 have a row-level record, 42 of them confirmed or corrected'))
+soft('1.3 row-level records by class', okp and sup_txt in spec and none_txt in spec, str(want))
+soft('1.3 / SS-2: all 88 S rows have a row-level record, %d clean' % want['R14.S'][2], want['R14.S'][:2] == (88, 88) and has(r'all 88 have a row-level record, %d of them confirmed or corrected' % want['R14.S'][2]))
 
 # ---------------------------------------------------------------- library status words
 lw = subprocess.run([sys.executable, '-I', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'library_words.py'), doc], capture_output=True, text=True)
 lj = json.loads(lw.stdout) if lw.returncode == 0 else {}
-check('Q25 the status-word table reproduces the three files', lj.get('spec_table_mismatches') == {} and lj.get('words_in_use') == 11 and len(lj.get('words_outside_the_three', [])) == 8
-      and has(r'11 words, 8 of them outside the gate\'s three') and lj.get('ids_after_merging') == 49 and has(r'49 ids on 2026-11-13: 11 only in the first, 7 only in the second, 6 only in the third, 25 in the first two'), str(lj.get('spec_table_mismatches')))
+mism_ = lj.get('spec_table_mismatches', {})
+check('Q25 every status word in use is a row of the spec table (a word outside the table is FAIL by CT-1 and Q25.2)', bool(lj) and lj.get('words_in_use') == lj.get('spec_table_rows') and all(m['spec'] is not None for m in mism_.values())
+      and has(r'%d words, %d of them outside the gate\'s three' % (lj.get('words_in_use', -1), len(lj.get('words_outside_the_three', [])))), str(mism_))
+soft('Q25 the status-word table reproduces the counts of the three files', mism_ == {}, str(mism_))
+mem_ = lj.get('ids_by_files_they_appear_in', {})
+soft('Q25 ids after merging: %s' % lj.get('ids_after_merging'), has(r'\(%d ids on 2026-11-15: %d only in the first, %d only in the second, %d only in the third, %d in the first two\)' % (
+    lj.get('ids_after_merging', -1), mem_.get('status.json', 0), mem_.get('status_2.json', 0), mem_.get('status_3.json', 0), mem_.get('status.json+status_2.json', 0))), str(mem_))
 
 # ---------------------------------------------------------------- night minutes
 nc = subprocess.run(['node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'night_count.mjs')], capture_output=True, text=True, cwd=os.path.dirname(os.path.abspath(__file__)))
@@ -194,6 +212,61 @@ if nc.returncode == 0:
 else:
     check('night count ran (node)', False, nc.stderr[:200])
 
+# ---------------------------------------------------------------- rows outside the clock (TL-13, SS-12, A-58, revision 4)
+BT = os.path.join(ROOT, 'docs', 'battle-theatre')
+win = JL('timeline_windows.jsonl')
+by_date = sorted(r['id'] for r in win if r['date'] is None or r['date'] < '1863-06-26' or r['date'] > '1863-07-14')
+by_cell = sorted(r['id'] for r in seed if 'before Jun 26' in (r.get('time_window_raw') or ''))
+outside = sorted(set(by_date) | set(by_cell))
+check('TL-13 rows wholly outside the clock are T1-001, T1-002 and T3-209 to T3-219 (%d rows; %d by the date field)' % (len(outside), len(by_date)),
+      outside == ['T1-001', 'T1-002'] + ['T3-%d' % n for n in range(209, 220)] and len(by_date) == 12
+      and has(r'13 timeline rows lie wholly outside it') and has(r'\(12 rows by its `date` field\)') and has(r'T3-209 to T3-218') and has(r'T3-219 \(`Jul-Nov \(summary\)`, no date\)'), str(outside))
+ss_rows = json.load(open(os.path.join(BT, 'structures', 'state_schedule.json'), encoding='utf-8'))['rows']
+s77 = next(r for r in ss_rows if r['id'] == 'S-077'); s81 = next(r for r in ss_rows if r['id'] == 'S-081')
+CLOCK_END = '1863-07-14T23:59'
+inside_ph = [p['state'] for p in s77['phases'] if p['window'][1] <= CLOCK_END]
+beyond_ph = [p['state'] for p in s77['phases'] if p['window'][0] > CLOCK_END]
+check('SS-12 S-077 has the phase Construction inside the clock and Open and Closed beyond it', inside_ph == ['Construction'] and beyond_ph == ['Open', 'Closed'] and has(r'phases Open \(July 20 or 22') and has(r'Closed \(November 20\)'), str((inside_ph, beyond_ph)))
+check('SS-12 S-081 is a state of 19 November inside the clock', s81['time']['window'][0].startswith('1863-11-19') and s81['time']['window'][1].startswith('1863-11-19') and has(r'S-081 \(the reburials\) is not such a row'))
+oob = sorted(r['id'] for r in ss_rows if r.get('out_of_battle_scope'))
+check('SS-10 the rows out of the battle scope are S-078 and S-079', oob == ['S-078', 'S-079'] and has(r'\(S-078, S-079\)'))
+clock = open(os.path.join(BT, 'app', 'src', 'clock.mjs'), encoding='utf-8').read()
+check('U-06 the clock of the viewer: BATTLE 26 June to 15 July 00:00, EPILOGUE 18 to 20 November 00:00', 'BATTLE = { from: minOf(6, 26), to: minOf(7, 15)' in clock and 'EPILOGUE = { from: minOf(11, 18), to: minOf(11, 20)' in clock
+      and has(r'BATTLE from June 26 00:00 to July 15 00:00, EPILOGUE from November 18 00:00 to November 20 00:00'))
+
+# ---------------------------------------------------------------- vegetation (soft: its owner is still writing)
+veg = json.load(open(os.path.join(BT, 'app', 'data', 'vegetation.json'), encoding='utf-8'))
+vcls = collections.Counter(u.get('cls') for u in veg['units'])
+vtxt = ', '.join('%s %d' % (k, n) for k, n in vcls.most_common())
+soft('2.3 / Q21 / 9 vegetation: %d units in %d classes, %d claims' % (len(veg['units']), len(vcls), len(veg['claims'])),
+     has(r'`app/data/vegetation.json` holds %d units in eight polygon classes \(%s;' % (len(veg['units']), re.escape(vtxt))) and len(vcls) == 8 and has(r'\) and %d claims \|' % len(veg['claims']))
+     and has(r'present on 2026-11-15 with %d units in eight polygon classes and %d claims' % (len(veg['units']), len(veg['claims']))) and has(r'`app/data/vegetation.json`: %d units and %d claims on 2026-11-15' % (len(veg['units']), len(veg['claims']))), vtxt)
+
+# ---------------------------------------------------------------- realization results (soft)
+rz = J('realizations/RESULTS.json'); q17 = rz['q17']; rzt = rz['totals']['timeline']
+soft('Q17 / 9 realization results: digest %s, %d realized, %d with a record, %d without' % (rz['harness_digest'], q17['realized'], rzt['with_record'], rzt['no_record']),
+     has(r'harness digest %s, `complete` %s' % (rz['harness_digest'], str(q17['complete']).lower())) and has(r'of the 691 timeline rows %d are realized by scene' % q17['realized_by_scene'])
+     and has(r'%d have a record and %d have none' % (rzt['with_record'], rzt['no_record'])) and has(r'counts %d rows as covered by an open register entry only' % q17['covered_by_open_register_entry_only'])
+     and has(r'and %d as uncovered \(%d by its strict reading\)' % (q17['uncovered'], q17['uncovered_strict'])) and has(r'harness digest %s: 4 of 691 timeline rows realized by scene' % rz['harness_digest']))
+
+# ---------------------------------------------------------------- photo-match: invariants hard, counts soft (the owner was still writing)
+PM = os.path.join(ROOT, 'tools', 'bt', 'photomatch')
+pmv = json.load(open(os.path.join(PM, 'verdicts.json'), encoding='utf-8')); pms = json.load(open(os.path.join(PM, 'position_statements.json'), encoding='utf-8'))
+pmr = json.load(open(os.path.join(PM, 'photograph_registry.json'), encoding='utf-8'))['photographs']; pmp = json.load(open(os.path.join(PM, 'poses.json'), encoding='utf-8'))['poses']
+check('Q16 the set P is empty: documented_position_count is 0 and no statement of where the camera stood gives a coordinate', pmv['gate_q16']['documented_position_count'] == 0 and pmv['gate_q16']['passes'] is False
+      and not any(s.get('coordinates_published') for s in pms['statements']) and has(r'`documented_position_count` 0') and has(r'`coordinates_published` is false on all of them'))
+vc_ = collections.Counter(p['verdict'] for p in pmr)
+soft('Q16 photo-match counts: %d registry records, %d statements, %d poses, %d places' % (len(pmr), len(pms['statements']), len(pmp), pmv['gate_q16'].get('documented_place_count', -1)),
+     has(r'\(%d records at 23:03 UTC on 2026-11-15' % len(pmr)) and has(r'%d flagged staged' % sum(1 for p in pmr if p['staged_flag'])) and has(r'\(%d statements of where the camera stood, from %d sources' % (len(pms['statements']), len(pms['sources'])))
+     and has(r'\(%d poses, none a documented position\)' % len(pmp)) and has(r'`documented_place_count` %d' % pmv['gate_q16'].get('documented_place_count', -1))
+     and has(r'the candid verdicts over the %d registry records are %d roughly, %d does not, %d cannot judge and %d that combines two' % (len(pmr), vc_['roughly'], vc_['does not'], vc_['cannot judge'], sum(n for k, n in vc_.items() if k not in ('roughly', 'does not', 'cannot judge')))), str(dict(vc_)))
+
+# ---------------------------------------------------------------- thresholds (section 7)
+sec7 = section('## 7. Threshold registry', '## 8. Ambiguity register')
+t_rows = re.findall(r'(?m)^\| (T-[A-Z0-9]+-\d+(?: \(T-[A-Z0-9]+-\d+\))?) \|', sec7)
+t_ids = [i for row in t_rows for i in re.findall(r'T-[A-Z0-9]+-\d+', row)]   # a row with an alias (`T-Q07-1 (T-SS-1)`) defines two ids
+check('7 threshold ids are unique and T-Q21-1 to T-Q21-3 are rows of the registry (%d thresholds)' % len(t_ids), len(t_ids) == len(set(t_ids)) and all(('T-Q21-%d' % i) in t_ids for i in (1, 2, 3)) and has(r'carry the same 42 thresholds') and len(t_ids) == 42, str(len(t_ids)))
+
 bad = [r for r in results if not r[1]]
-print(json.dumps({'checks': len(results), 'ok': len(results) - len(bad), 'mismatches': len(bad), 'mismatched': [r[0] for r in bad]}))
+print(json.dumps({'checks': len(results), 'ok': len(results) - len(bad), 'mismatches': len(bad), 'mismatched': [r[0] for r in bad], 'soft_checks_stale': len(stale), 'stale': stale}))
 sys.exit(1 if bad else 0)

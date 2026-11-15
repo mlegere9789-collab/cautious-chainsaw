@@ -4,7 +4,7 @@
 import test from 'node:test'; import assert from 'node:assert/strict';
 import { P, TL, R, rec, addRow, run, ex, clone, codesOf, mustFail, mustPass } from './realize-lib.mjs';
 import { validateRecord, KINDS, KIND_NEEDS, ASSERT, STAGE_ACTIVITIES } from '../../tools/bt/realize/schema.mjs';
-import { hasQuote, fold, toMin, isoOf, designators, wordInfo } from '../../tools/bt/realize/lib.mjs';
+import { hasQuote, fold, toMin, isoOf, designators, wordInfo, angDiff, printedDecimals, angleTolerance, COMPASS16 } from '../../tools/bt/realize/lib.mjs';
 import { coverageOf, summarize, q17Of, runAll, declaredDetail, timeReading } from '../../tools/bt/realize/check.mjs';
 
 const A = (id, text, from, to, timeCell) => addRow(id, text, from, to, timeCell);
@@ -173,6 +173,53 @@ test('rule: the weather and the sky are what the weather pass draws (checks.mjs 
   await mustFail(sky({ moon_illum_min: 99.9 }), 'sky_mismatch', 'a full moon that is not');
   const allDay = wx({ precip_kind_in: ['rain'] }); allDay.checks[0].t = { from: '1863-06-26T06:00', to: '1863-06-26T23:00', mode: 'all' }; await mustPass(allDay, 'rain at every minute of 26 Jun');
   allDay.checks[0].t = { from: '1863-06-26T06:00', to: '1863-06-27T12:00', mode: 'all' }; A('E-001', 'Rain on Jun 26 and 27: cloudy, roads wet and muddy', '1863-06-26T06:00', '1863-06-27T12:00'); await mustFail(allDay, 'weather_mismatch', 'mode all: the rain ends at 07:00 on 27 Jun');
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test('rule: the sun and moon angles a row prints are matched to the digits it prints them with, an azimuth the short way round (checks.mjs _skyProblem; lib.mjs angDiff, printedDecimals, angleTolerance; schema.mjs ANGLE_FIELDS; DD-RZ-13)', async () => {
+  assert.equal(angDiff(359, 1), 2); assert.equal(angDiff(1, 359), 2); assert.equal(angDiff(10, 350), 20); assert.equal(angDiff(90, 270), 180); assert.equal(angDiff(0, 360), 0); assert.equal(angDiff(725, 5), 0, 'a bearing past 360 is the same bearing');
+  assert.equal(printedDecimals('Sun at 37.9 deg altitude, azimuth 270', 37.9), 1); assert.equal(printedDecimals('Sun at 37.9 deg altitude, azimuth 270', 270), 0); assert.equal(printedDecimals('Sun at 37.9 deg altitude, azimuth 270', 38), -1, 'a number the text does not print');
+  assert.equal(printedDecimals('about 1,200 men', 1200), 0); assert.equal(printedDecimals('the 37.9 and the 37.90', 37.9), 2, 'the finest print of a number is taken'); assert.equal(printedDecimals('the 37.90 and the 37.9', 37.9), 2, 'whichever comes first'); assert.equal(printedDecimals('altitude -5.5 deg', -5.5), 1); assert.equal(printedDecimals('altitude 5.5 deg', -5.5), -1, 'a sign is part of the number'); assert.equal(printedDecimals('azimuth 2701', 270), -1, 'a number inside a longer number is not printed');
+  assert.equal(angleTolerance('altitude 37.9 deg', 37.9, 0.05), 0.05); assert.equal(angleTolerance('altitude 10 deg', 10, 0.05), 0.5); assert.equal(angleTolerance('altitude 37.99 deg', 37.99, 0.05), 0.05, 'never less than the floor'); assert.equal(angleTolerance('altitude 12 deg', 12, 0.2), 0.5);
+  const T = '1863-07-01T16:00', Q = 'Sun at 37.9 deg altitude, azimuth 270';
+  A('S-100', Q + ' (W): the geometric position of the sun', T, T, 'Jul 1 16:00');
+  const sun = (extra, quote = Q) => rec('S-100', 'weather_sky', T, T, quote, {}, [{ type: 'sky', t: { at: T }, quote, ...extra }]);
+  await mustPass(sun({ sun_alt: 37.9, sun_az: 270 }), 'the sun as the row prints it (drawn 37.867 and 269.95)');
+  await mustPass(sun({ sun_alt: 37.9, tol_deg: 0.04 }), 'a tighter tolerance than the stated one is allowed');
+  await mustFail(sun({ sun_alt: 37.9, tol_deg: 0.01 }), 'sky_mismatch', 'a tolerance tighter than the picture\'s own interpolation: the record asks for more and the product does not give it');
+  await mustFail(sun({ sun_alt: 37.9, tol_deg: 0.2 }), 'tolerance_wider_than_stated', 'a record may tighten, never widen the stated half unit');
+  await mustFail(sun({ sun_alt: 37.9, tol_deg: 0 }), 'assert_field', 'a tolerance of 0 is no tolerance');
+  const badNum = await mustFail(sun({ sun_alt: 38.5 }), 'number_not_in_quote', 'a number the row does not print'); assert.match(badNum.problems.find(p => p.code === 'number_not_in_quote').detail, /sun_alt 38.5/);
+  A('S-106', 'Sun at 95 deg altitude, azimuth 361', T, T, 'Jul 1 16:00'); const Q6 = 'Sun at 95 deg altitude, azimuth 361', beyond = k => rec('S-106', 'weather_sky', T, T, Q6, {}, [{ type: 'sky', t: { at: T }, [k]: k === 'sun_alt' ? 95 : 361, quote: Q6 }]);
+  await mustFail(beyond('sun_alt'), 'assert_field', 'an altitude above the zenith'); await mustFail(beyond('sun_az'), 'assert_field', 'an azimuth beyond 360');
+  await mustFail(sun({ tol_deg: 0.04, sun_alt_min: 30 }), 'assert_field', 'tol_deg belongs to a check that names an angle');
+  await mustFail(sun({ band_in: 'Day' }), 'assert_error', 'a malformed assertion fails the record: the harness does not crash on it (the control minutes of the falsifiability test are tried inside the same guard as the checks)');
+  // the digits the row prints set the tolerance: "38" is matched to 0.5, "37.8" to 0.05 (the picture draws 37.867)
+  A('S-101', 'Sun at 38 deg altitude', T, T, 'Jul 1 16:00'); await mustPass(rec('S-101', 'weather_sky', T, T, 'Sun at 38 deg altitude', {}, [{ type: 'sky', t: { at: T }, sun_alt: 38, quote: 'Sun at 38 deg altitude' }]), 'printed to the unit: 0.133 off is inside 0.5');
+  A('S-102', 'Sun at 37.8 deg altitude', T, T, 'Jul 1 16:00'); await mustFail(rec('S-102', 'weather_sky', T, T, 'Sun at 37.8 deg altitude', {}, [{ type: 'sky', t: { at: T }, sun_alt: 37.8, quote: 'Sun at 37.8 deg altitude' }]), 'sky_mismatch', 'printed to a tenth: 0.067 off is outside 0.05');
+  // values the picture does not draw
+  A('S-103', 'Sun at 45.0 deg altitude, azimuth 90 (E); moon altitude 25 deg, azimuth 200', T, T, 'Jul 1 16:00'); const Q3 = 'Sun at 45.0 deg altitude, azimuth 90 (E); moon altitude 25 deg, azimuth 200';
+  for (const [k, v] of [['sun_alt', 45], ['sun_az', 90], ['moon_alt', 25], ['moon_az', 200]]) await mustFail(rec('S-103', 'weather_sky', T, T, Q3, {}, [{ type: 'sky', t: { at: T }, [k]: v, quote: Q3 }]), 'sky_mismatch', `${k} ${v}: the picture draws another value`);
+  // the moon: T1-196 prints altitude 18.5 and azimuth 136 for 22:00 on 1 July (the picture draws 18.489 and 136.23)
+  const T2 = '1863-07-01T22:00', Q4 = 'Moon altitude 18.5 deg, azimuth 136 (SE)'; A('S-104', Q4, T2, T2, 'Jul 1 22:00');
+  const moon = extra => rec('S-104', 'weather_sky', T2, T2, Q4, {}, [{ type: 'sky', t: { at: T2 }, quote: Q4, ...extra }]);
+  await mustPass(moon({ moon_alt: 18.5, moon_az: 136 }), 'the moon as the row prints it'); await mustPass(moon({ moon_alt: 18.5, moon_az: 136, moon_up: true, band_in: ['Night'] }), 'with the other sky fields of the record');
+  // an azimuth is compared the short way round: find the minutes of 1 July at which the drawn sun azimuth is just below and just above north
+  let below = null, above = null; for (let t = toMin('1863-07-01T00:00'); t < toMin('1863-07-02T00:00'); t++) { const az = (await P.weatherAt(t, 'default')).drawn.sky.sunAz; if (az >= 359.6 && az < 360 && (!below || az > below.az)) below = { t, az }; if (az >= 0 && az <= 0.4 && (!above || az < above.az)) above = { t, az }; }
+  assert.ok(below && above, 'the sun crosses north on 1 July');
+  for (const [which, hit, said] of [['just before north', below, 0], ['just after north', above, 360]]) { const iso = isoOf(hit.t), text = `Sun azimuth ${said} deg at ${iso.slice(11)}`; A('S-105', text, iso, iso, 'Jul 1'); await mustPass(rec('S-105', 'weather_sky', iso, iso, text, {}, [{ type: 'sky', t: { at: iso }, sun_az: said, quote: text }]), `${which}: the row prints ${said}, the picture draws ${hit.az.toFixed(2)}`); }
+});
+test('rule: the wind a row prints is a direction of the 16-point compass, and only a direction the environment layer records counts (checks.mjs _weatherProblem; schema.mjs vacuityProblems; DD-RZ-13)', async () => {
+  const T = '1863-07-01T21:00', Q = 'Gentle warm southern breeze'; A('W-001', Q + '; overcast; 74 F', T, T, 'Jul 1 21:00');
+  const wind = (from, extra = {}) => rec('W-001', 'weather_sky', T, T, Q, {}, [{ type: 'weather', t: { at: T }, wind_from_in: from, ...extra }]);
+  await mustPass(wind(['S']), 'a southern breeze: the picture draws a wind from 191.25 degrees on 1 July, the edge of the arc of S'); await mustPass(wind(['S', 'SSW'])); await mustPass(wind(['SSW']), 'the arc is closed at both ends: 191.25 is the edge of SSW as well');
+  for (const bad of [['N'], ['N', 'NE', 'E'], ['SSE'], ['SW'], ['SSE', 'SE', 'E']]) await mustFail(wind(bad), 'weather_mismatch', `a wind from ${bad.join(' or ')} is not the picture's`);
+  const w = await mustFail(wind(['N']), 'weather_mismatch'); assert.match(w.assertions[0].detail, /191\.3 degrees \((S|SSW)\)/, 'the message names the drawn direction');
+  await mustFail(wind(Object.keys(COMPASS16)), 'assert_vacuous', 'every direction of the compass satisfies a list of all 16'); await mustFail(wind(['SOUTH']), 'assert_field', 'a name that is no point of the compass'); await mustFail(wind([]), 'assert_field', 'an empty list'); await mustFail(wind('S'), 'assert_field', 'a string is no list');
+  await mustFail(rec('W-001', 'weather_sky', T, T, Q, {}, [{ type: 'weather', t: { at: T }, record: true }]), 'assert_vacuous', 'a weather record alone says nothing');
+  await mustPass(wind(['S'], { record: true }), 'a weather record beside a direction is a statement');
+  // a day with no recorded direction: the picture draws a default from 191.25 degrees that no source gave; a row that says "south wind" is not realized by it
+  A('W-002', 'A south wind on Jun 29', '1863-06-29T12:00', '1863-06-29T12:00', 'Jun 29 12:00'); const nr = await mustFail(rec('W-002', 'weather_sky', '1863-06-29T12:00', '1863-06-29T12:00', 'A south wind on Jun 29', {}, [{ type: 'weather', t: { at: '1863-06-29T12:00' }, wind_from_in: ['S'] }]), 'weather_mismatch', 'the direction is not recorded for 29 Jun'); assert.match(nr.assertions[0].detail, /no wind direction is recorded/);
 });
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

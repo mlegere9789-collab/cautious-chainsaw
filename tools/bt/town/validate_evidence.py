@@ -4,7 +4,8 @@
     python3 tools/bt/town/validate_evidence.py <group>            one group (exit 1 on any failure)
     python3 tools/bt/town/validate_evidence.py --all              every group of evidence/groups.json (a missing file is a failure; --allow-missing skips it)
     python3 tools/bt/town/validate_evidence.py --file F.jsonl     one file whose rows name their own group (used for EXAMPLES.jsonl)
-    python3 tools/bt/town/validate_evidence.py <group> --complete every declared building also has a row (an evidence row or an open-gap row) for every required field
+    python3 tools/bt/town/validate_evidence.py <group> --complete every declared building also has a row (an evidence row or an open-gap row) for every required field, and every
+                                                                  structure of the group's inventory (groups.json members) is declared or named in a building row's `links`
     python3 tools/bt/town/validate_evidence.py --check-ledger     every source of SOURCES.md: file present, sha256 equal
     python3 tools/bt/town/validate_evidence.py --schema           print the vocabularies of the contract
     python3 tools/bt/town/validate_evidence.py --self-test        the checks of this program on synthetic and real data
@@ -83,6 +84,7 @@ FORM_FIELDS = ('storeys', 'height', 'footprint', 'plan_shape', 'walls', 'roof', 
                'outbuildings', 'lot_enclosure', 'orchard_or_garden', 'sign', 'span', 'fence_type', 'wall_type', 'width', 'length', 'surface')
 CONTINUITY_EXEMPT = ('lost', 'identity', 'photograph', 'built', 'name', 'owner', 'occupant', 'use', 'existed_july_1863')
 COMMON_KEYS = {'row', 'type', 'group', 'building', 'note', 'see_also', 'x_reason'}
+LINK_KEYS = ('structures', 'basemap', 'hospitals', 'timeline', 'register')
 BUILDING_KEYS = COMMON_KEYS | {'name', 'aliases', 'declared_from', 'links', 'new_reason'}
 SEARCH_KEYS = COMMON_KEYS | {'where', 'query', 'outcome', 'at', 'found_rows', 'url'}
 FIELD_KEYS = COMMON_KEYS | {'field', 'value', 'tier', 'evidence_kind', 'describes', 'source', 'part', 'page', 'page_note', 'printed_page', 'quote', 'quote_mode', 'raw',
@@ -544,13 +546,17 @@ def known_ids(ctx, gid):
 
 
 def all_owned(ctx):
-    own = {}
-    for gid, g in ctx.groups().items():
-        for k, v in g['members'].items():
-            if k == 'hospitals':
-                continue
-            for i in v:
-                own.setdefault(i, gid)
+    own = getattr(ctx, '_owned', None)
+    if own is None or getattr(ctx, '_owned_for', None) is not ctx._groups:
+        own = {}
+        for gid, g in ctx.groups().items():
+            for k, v in g['members'].items():
+                if k == 'hospitals':
+                    continue
+                for i in v:
+                    own.setdefault(i, gid)
+        ctx._owned = own
+        ctx._owned_for = ctx._groups
     return own
 
 
@@ -686,6 +692,22 @@ def validate_rows(ctx, rows, gid_expected, errors, warnings, stats, seen_ids, fi
                     errors.append('%s: declared_from "new" is for TWN ids only' % where)
             if bid in declared:
                 errors.append('%s: building %s declared twice (line %s)' % (where, bid, declared[bid]['__line__']))
+            # links: other ids this building row accounts for (a record and its basemap outline, the candidate lines of one fence system, ...)
+            lk = r.get('links')
+            if lk is not None:
+                if not isinstance(lk, dict):
+                    errors.append('%s: links is an object {"structures": [ids], "basemap": [ids], "hospitals": [ids], "timeline": [ids], "register": [ids]}' % where)
+                else:
+                    for lkey, lval in lk.items():
+                        if lkey not in LINK_KEYS:
+                            errors.append('%s: links key %r is not one of %s' % (where, lkey, ', '.join(LINK_KEYS)))
+                        elif not (isinstance(lval, list) and all(isinstance(x, str) and x.strip() for x in lval)):
+                            errors.append('%s: links.%s is a list of ids (strings)' % (where, lkey))
+                        elif lkey in ('structures', 'basemap'):
+                            own = all_owned(ctx)
+                            for x in lval:
+                                if own.get(x) not in (None, g):
+                                    warnings.append('%s: links.%s names %s, which the inventory assigns to group %s (the pass of that group declares it)' % (where, lkey, x, own[x]))
             declared[bid] = r
     # second pass: field and search rows need a declared building
     fields_of = {}
@@ -923,6 +945,26 @@ def validate_group(ctx, gid, path, errors, warnings, stats, seen_ids, complete=F
             miss = [f for f in req if f not in fields_of.get(bid, {})]
             if miss:
                 errors.append('%s: building %s (profile %s) has no row for: %s (write an evidence row or an open-gap row for each)' % (label, bid, prof, ', '.join(miss)))
+        if gid is not None and not as_file:
+            # nothing is narrowed by leaving a structure out: every id of the group's inventory is the `building` of a building row or is named in the `links`
+            # of one (a record and its basemap outline; the candidate lines of one fence system), a group looked (a search row) and found something to declare
+            accounted = set(declared)
+            for br in declared.values():
+                lk = br.get('links')
+                if isinstance(lk, dict):
+                    for lkey in ('structures', 'basemap'):
+                        lv = lk.get(lkey)
+                        if isinstance(lv, list):
+                            accounted.update(x for x in lv if isinstance(x, str))
+            inv = known_ids(ctx, gid)
+            missing = sorted(inv - accounted)
+            if missing:
+                errors.append('%s: %d of the %d structures of the group inventory (groups.json members) are not accounted for: declare each with a building row, or name it in `links` '
+                              '(structures or basemap) of the building row it belongs to; first ids: %s' % (label, len(missing), len(inv), ', '.join(missing[:12])))
+            if not declared:
+                errors.append('%s: a finished group declares at least one building (a building row)' % label)
+            if not any(r.get('type') == 'search' for r in rows):
+                errors.append('%s: a finished group records what was searched (at least one search row, a failed search included)' % label)
     else:
         for bid in declared:
             if not fields_of.get(bid):
@@ -1011,7 +1053,7 @@ def print_schema():
         'fields': FIELDS, 'states': STATES, 'windows': WINDOWS, 'transitions': TRANSITIONS, 'exists_values': EXISTS_VALUES, 'materials': MATERIALS, 'roof_forms': ROOF_FORMS,
         'roof_materials': ROOF_MATERIALS, 'place_methods': PLACE_METHODS, 'units': UNITS, 'observable_fields': OBSERVABLE_FIELDS, 'measure_fields': MEASURE_FIELDS,
         'numbers_that_must_stand_in_a_quote': QUOTED_NUMBER_KEYS, 'required_fields_for_complete': REQUIRED_FIELDS, 'kind_profiles': KIND_PROFILE,
-        'keys': {'building': sorted(BUILDING_KEYS), 'field': sorted(FIELD_KEYS), 'search': sorted(SEARCH_KEYS)}, 'ledger_columns': LEDGER_COLUMNS,
+        'keys': {'building': sorted(BUILDING_KEYS), 'field': sorted(FIELD_KEYS), 'search': sorted(SEARCH_KEYS)}, 'link_keys': LINK_KEYS, 'ledger_columns': LEDGER_COLUMNS,
         'quote_limits': {'min_letters_and_digits': MIN_QUOTE_ALNUM, 'max_characters': MAX_QUOTE_CHARS},
     }
     print(json.dumps(s, indent=1))

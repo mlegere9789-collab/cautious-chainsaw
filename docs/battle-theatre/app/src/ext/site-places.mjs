@@ -240,6 +240,12 @@ export function panelRects(root, stage) {
   const left = root.querySelector('#bt-left'); if (left && left.children) for (const c of left.children) add(c);
   return out;
 }
+/** Are two lists of panel rectangles the same (to within a pixel)? Used to redraw only when a panel really moved. */
+export function sameRects(a, b) {
+  if (!a || !b || a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) for (let j = 0; j < 4; j++) if (Math.abs(a[i][j] - b[i][j]) > 1) return false;
+  return true;
+}
 /** The free stretch of a row of the picture (css pixels; rows top to bottom) around a point at x = ax: [left, right, blocked]. Left is the right edge of the nearest panel on its left, right the left edge
  *  of the nearest panel on its right, among the panels that reach into the row, inside the picture (w wide) less a margin m. blocked is true when a panel in the row lies over the point itself: no
  *  stretch helps there (the stretch is then given as if that panel were not there). */
@@ -327,6 +333,7 @@ export function drawMarks(c, index, L, state, tier) {
       const pl = placeLabel(ax, L.sy[k], w, LABEL.h, state.w, state.h, state.avoid, { gap: 9, up: 29, above: 26, prefer: state.selSide }); state.selSide = pl.side; x = pl.x; y = pl.y + 13;
       if (pl.cut) { txt = fitLabel(c, it, pl.maxW); w = c.measureText(txt).width + LABEL.pad; x = clamp(ax - w / 2, pl.x, Math.max(pl.x, pl.x + pl.maxW - w)); }          // no stretch is wide enough: the name is shortened, never the words after it
     }
+    if (sel && state) { state.selBox = [x, y - 13, w, LABEL.h]; state.selText = txt; }              // where the picked memorial's name stands, for whoever checks it (the page's own test)
     c.fillStyle = sel ? 'rgba(14,14,25,.88)' : 'rgba(14,14,25,.78)'; c.fillRect(x, y - 13, w, LABEL.h);
     (GLYPH[tier.glyph] || GLYPH.square)(c, x + 8, y - 4, 4); c.fillStyle = tier.color + '55'; c.fill(); c.lineWidth = 1.3; c.strokeStyle = tier.color; c.setLineDash(dashed ? [2, 1.5] : []); c.stroke(); c.setLineDash([]);
     c.fillStyle = sel ? '#e8d5a3' : '#ecebe6'; c.fillText(txt, x + 16, y);

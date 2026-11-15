@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write nps_figures_confirmed.json: the ties of NPS Record of Treatment figures to catalogued Library of Congress records that a person confirmed by looking at the figure image and the Library image side by side
+"""Write nps_figures_confirmed.json: the ties of NPS Record of Treatment figures to catalogued Library of Congress records that were confirmed by looking at the figure image and the Library image side by side
 (sheets made from nps_figures_to_loc.json). The table CONFIRM is that person's decision, one row per tie; the inliers, the good matches and the competing record are read from the matching result, and a row whose record is not the best
 candidate of the matching, or whose score is below the rule (45 inliers), stops the run: a tie is never written from the score alone and never against it.
 Usage: python3 -I tools/bt/photomatch/confirm_ties.py"""

@@ -242,7 +242,7 @@ def klass(it, impl_map):
     return 'leaf'
 
 
-AREA_OVERRIDE = {'OWNER-2026-10-05-3': 'data', 'WP-PERF-22': 'data', 'WP-A11Y-26': 'historian', 'PROV-R1G-I6': 'perf'}
+AREA_OVERRIDE = {'OWNER-2026-10-05-3': 'data', 'WP-PERF-22': 'data', 'WP-A11Y-26': 'historian', 'PROV-R1G-I6': 'perf', 'PROV-R1E-OOB': 'data'}
 
 
 def area_of(it):

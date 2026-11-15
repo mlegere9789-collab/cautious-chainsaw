@@ -1,12 +1,12 @@
 {
- "_doc": "Candid per-pose verdicts, written after looking at the review sheet of each pose (tools/bt/photomatch/reports/<pose>.jpg). Allowed: matches, roughly, does not, cannot judge. matches = the render at the registered pose reproduces horizon height, the order and spacing of the named landmarks and the visible structures to within about a tenth of the frame without any parameter set from the photograph; roughly = the large-scale layout agrees but the offsets are larger than that; does not = the layout contradicts the photograph; cannot judge = nothing comparable is in the frame or the pose leaves nothing to test. A verdict of matches or roughly needs reviewed_image = true. independent_test = false where a number (the distance) was read from the photograph: such a pose is never called a match and carries no weight for the gate. Every verdict is conditional on the registered pose, none is a finding about the 1863 landscape alone. Photograph-level verdicts for all 127 records are in photograph_registry.json. Third pass (2026-11-14): for the poses at a documented camera place (P27, P28, P29) the pass criteria were written before the render and are in criteria.json; a verdict may be stricter than the letter of a criterion (the binary tests are necessary conditions) and never looser; a test that fits parameters to the photograph (the skyline test fits the heading inside the NPS sector, the lens and a vertical shift) can support a pose but never makes a verdict matches. Poses superseded by a better-sourced pose keep their verdicts (P06 by P28, P07 by P27); the photograph-level verdict of a record is the verdict of its current pose.",
+ "_doc": "Candid per-pose verdicts, written after looking at the review sheet of each pose (tools/bt/photomatch/reports/<pose>.jpg). Allowed: matches, roughly, does not, cannot judge. matches = the render at the registered pose reproduces horizon height, the order and spacing of the named landmarks and the visible structures to within about a tenth of the frame without any parameter set from the photograph; roughly = the large-scale layout agrees but the offsets are larger than that; does not = the layout contradicts the photograph; cannot judge = nothing comparable is in the frame or the pose leaves nothing to test. A verdict of matches or roughly needs reviewed_image = true. independent_test = false where a number (the distance) was read from the photograph: such a pose is never called a match and carries no weight for the gate. Every verdict is conditional on the registered pose, none is a finding about the 1863 landscape alone. Photograph-level verdicts for all 191 records are in photograph_registry.json. Third pass (2026-11-14): for the poses at a documented camera place (P27, P28, P29) the pass criteria were written before the render and are in criteria.json; a verdict may be stricter than the letter of a criterion (the binary tests are necessary conditions) and never looser; a test that fits parameters to the photograph (the skyline test fits the heading inside the NPS sector, the lens and a vertical shift) can support a pose but never makes a verdict matches. Poses superseded by a better-sourced pose keep their verdicts (P06 by P28, P07 by P27); the photograph-level verdict of a record is the verdict of its current pose.",
  "vocabulary": [
   "matches",
   "roughly",
   "does not",
   "cannot judge"
  ],
- "reviewed": "2026-11-13: review sheets P01, P03, P06 to P09, P11, P12, P13, P17 to P20, P24, P26 viewed; P04 and P05 as in the first run (2026-11-11)",
+ "reviewed": "2026-11-13: review sheets P01, P03, P06 to P09, P11, P12, P13, P17 to P20, P24, P26 viewed; P04 and P05 as in the first run (2026-11-11). 2026-11-14: P13 verdict written, sheets and lines images of P27 and P28 viewed. 2026-11-15: sheet and lines image of P29 viewed and its verdict written; the sheets of P01, P06, P07, P09, P13, P18, P24, P27, P28 and the lines images of P27 and P28 opened and looked at again (renders reproduced byte for byte).",
  "pose_verdicts": [
   {
    "pose": "P01",
@@ -363,7 +363,7 @@
    "Decide the default reading of the lodge-roof view (north in the Cemetery report, northwest in the Record of Treatment; both are carried as P27 and P28, none is chosen here), whether a named building roof counts as a documented camera position (DD-PM-06) and the value of T-Q16-1.",
    "A NARA catalog API key (an account: an owner act) would let the Brady and Gardner descriptions of the National Archives be read; not requested here."
   ],
-  "reviewed": "2026-11-14",
+  "reviewed": "2026-11-15",
   "documented_place_count": 3,
   "documented_place_poses": [
    "P27",

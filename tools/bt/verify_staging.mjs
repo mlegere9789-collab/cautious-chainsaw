@@ -327,6 +327,18 @@ export function recordVerdict({ home, dist, zip, rep, failures = [], publish = t
 }
 
 // ---------------------------------------------------------------- 4. the "Current build" block of app/docs/NETLIFY-STAGING.md, written from FILES and never from memory
+/** What the load census (pack_theatre.mjs) says about a build, as failures and notes of the verification. A load that the build does not answer (missing, dangling, excluded, outside) fails; a form the census cannot evaluate
+ *  (unreviewed) and a file that only the census found are notes: somebody has to look, the build is not wrong by that. */
+export function censusVerdict(census, byCensus = []) {
+  if (!census) return { failures: [], notes: ['the load census has no result for this build'], summary: null };
+  if (!census.available) return { failures: [], notes: [census.reason], summary: { available: false, reason: census.reason } };
+  const failures = [], notes = [], bad = census.findings.filter(f => f.status !== 'unreviewed'), open = census.findings.filter(f => f.status === 'unreviewed'), line = f => `${f.status} ${f.file}:${f.line} ${f.address.slice(0, 80)}${f.target ? ' => ' + f.target : ''}`;
+  if (bad.length) failures.push(`LOAD CENSUS: ${bad.length} load(s) of the shipped code that the build does not answer: ${bad.slice(0, 4).map(line).join('; ')}`);
+  if (open.length) notes.push(`load census: ${open.length} load(s) of a form it cannot evaluate, to be looked at: ${open.slice(0, 4).map(line).join('; ')}`);
+  if (census.parseErrors && census.parseErrors.length) failures.push('LOAD CENSUS: a module does not parse: ' + census.parseErrors.slice(0, 3).join('; '));
+  if (byCensus.length) notes.push(`load census: ${byCensus.length} file(s) are in the build only because the census found a load of them (the patterns of the trace do not follow it): ${byCensus.slice(0, 5).map(x => x.path).join(', ')}`);
+  return { failures, notes, summary: { available: true, scanned: census.scanned, loads: census.loads, counts: census.counts, findings: census.findings.map(line), shippedByCensus: byCensus.map(x => x.path) } };
+}
 export const STAGING_DOC = path.join(BT, 'app/docs/NETLIFY-STAGING.md'), BLOCK_START = '<!-- CURRENT-BUILD:start -->', BLOCK_END = '<!-- CURRENT-BUILD:end -->';
 /** The request notes (GOVERNANCE/horde/requests/*.md) that name a file with a copy-audit hit and speak of the audit: where the exact change is written down. Newest first, at most 3 per file. */
 export function findRequestNotes(hitFiles, requestsDir = path.join(BT, 'GOVERNANCE/horde/requests'), max = 5) {
@@ -360,6 +372,8 @@ export function renderStagingBlock({ dist, zip, selftestLog = null, report = nul
   L.push(`| Contents | ${man.files.length + 1} files, ${mb(unz)} MB unzipped. Largest folders: ${folders}. ${c.modules} modules of \`app/src\` (${(mods.loaded || []).filter(f => f.startsWith('app/src/')).length} reached from the page by imports, ${(mods.shippedOnly || []).filter(f => f.startsWith('app/src/')).length} shipped with their folder and imported by no page), ${c.appData} data files of \`app/data\`, ${c.renderer} renderer files; ${(tr.sections || []).length ? 'static sections: ' + tr.sections.map(x => `\`${x.path}\` (${x.files} files, ${x.pages.length} pages)`).join(', ') : 'no roster section (`app/roster` does not exist yet)'}. |`);
   const ok = x => x && x.ok ? 'ok' : 'FAILED';
   L.push(`| Static checks | manifest ${ok(st.manifest)} (${st.manifest.files} files); zip against dist ${ok(st.zip)} (\`unzip -t\`: ${st.zip.unzipTest}); links inside the dist ${ok(st.links)} (${st.links.checked} checked); names the owner's Windows can unpack ${ok(st.names)} (${st.names.checked} paths); no notes or leftovers ${ok(st.notes)}; the data loaders of the shell run from the dist alone in node ${ok(st.pipeline)} (${st.pipeline.requests} requests, ${st.pipeline.distinct} files). |`);
+  if (tr.loadCensus) { const lc = tr.loadCensus, by = tr.shippedByCensus || [], cnt = Object.entries(lc.counts || {}).map(([k, v]) => `${v} ${k}`).join(', ');
+    L.push(lc.available === false ? `| Load census | **NOT RUN**: ${lc.reason} |` : `| Load census | the syntax trees of ${lc.scanned} modules and ${plural(lc.pagesScanned || 0, 'page')} were read, independently of the patterns of the trace, and every address the code loads was compared with the build: ${plural(lc.loads, 'load')} (${cnt}); ${lc.findings.length ? '**' + plural(lc.findings.length, 'finding') + '**: ' + lc.findings.slice(0, 4).map(f => `${f.status} \`${f.file}:${f.line}\``).join(', ') : '0 findings'}; files in the build only because the census found a load of them: ${by.length ? by.map(x => '`' + x.path + '`').join(', ') : 'none'}. |`); }
   const hits = tr.audit || [], hitFiles = [...new Set(hits.map(h => h.file))];
   if (hits.length) { const notes = findRequestNotes(hitFiles, requestsDir); L.push(`| Copy audit | **${plural(hits.length, 'hit')}** in ${plural(hitFiles.length, 'file')} that belong to other workstreams: ${hits.map(h => `\`${h.file}:${h.line}\``).join(', ')}. The newest requests that name these files, with the exact change, are in \`GOVERNANCE/horde/requests/\`: ${notes.length ? notes.map(n => '`' + n + '`').join(', ') : 'none found'}. The rules are described under "Copy audit" below. |`); }
   else L.push('| Copy audit | **0 hits** (rules: see "Copy audit" below) |');
@@ -426,19 +440,21 @@ async function main() {
   }
   if (!zip) { const v = checkManifest(dist).version; const cand = v && fs.existsSync(path.join(REPO, 'deliver')) ? fs.readdirSync(path.join(REPO, 'deliver')).filter(f => f.startsWith(`gettysburg-BT-staging-${v}`) && f.endsWith('.zip')) : []; if (cand.length) zip = path.join(REPO, 'deliver', cand[0]); }
   rep.static = { manifest: checkManifest(dist), zip: zip ? checkZip(zip, dist) : null, links: checkInternalLinks(dist), notes: checkNoNotes(dist), names: checkPortableNames(dist), pipeline: checkDataPipeline(dist) };
+  const traceOfSource = trace({ root: sourceRoot }), cv = censusVerdict(traceOfSource.census, traceOfSource.byCensus); rep.census = cv.summary; failures.push(...cv.failures); notes.push(...cv.notes);
   if (!rep.static.pipeline.ok) failures.push('DATA PIPELINE in node: ' + rep.static.pipeline.problems.slice(0, 5).join('; ')); notes.push(...rep.static.pipeline.notes);
   if (!rep.static.notes.ok) failures.push('NOTES in the dist: ' + rep.static.notes.problems.slice(0, 5).join('; '));
   if (!rep.static.names.ok) failures.push('NAMES in the dist: ' + rep.static.names.problems.slice(0, 5).join('; '));
   if (!rep.static.manifest.ok) failures.push('MANIFEST: ' + rep.static.manifest.problems.slice(0, 5).join('; '));
   if (!zip) notes.push('no zip was found for this dist: the zip was not checked'); else if (!rep.static.zip.ok) failures.push('ZIP: ' + rep.static.zip.problems.slice(0, 5).join('; '));
   if (!rep.static.links.ok) failures.push('LINKS inside the dist: ' + rep.static.links.problems.slice(0, 5).join('; '));
+  print(`static: load census ${cv.summary ? (cv.summary.available ? `${cv.summary.loads} loads in ${cv.summary.scanned} modules (${Object.entries(cv.summary.counts).map(([k, v]) => v + ' ' + k).join(', ')}), ${cv.summary.findings.length} finding(s)` : 'NOT RUN') : 'no result'}`);
   print(`static: data pipeline in node ${rep.static.pipeline.ok ? 'ok' : 'FAILED'} (${rep.static.pipeline.requests} requests, ${rep.static.pipeline.distinct} files)`);
   print(`static: manifest ${rep.static.manifest.ok ? 'ok' : 'FAILED'} (${rep.static.manifest.files} files), zip ${zip ? (rep.static.zip.ok ? 'ok' : 'FAILED') : 'not checked'}${zip ? ' (' + path.basename(zip) + ', unzip -t: ' + rep.static.zip.unzipTest + ')' : ''}, links ${rep.static.links.ok ? 'ok' : 'FAILED'} (${rep.static.links.checked} checked), names ${rep.static.names.ok ? 'ok' : 'FAILED'} (${rep.static.names.checked} paths)`);
   // the root page of the dist forwards to the shell
   try { const s = await serveDir(dist); const r = await fetch(`http://127.0.0.1:${s.port}/`); const body = await r.text(); await s.close(); if (!(r.status === 200 && /url=app\/index\.html/.test(body))) failures.push('the root page of the dist does not forward to app/index.html'); } catch (e) { failures.push('root page check failed: ' + e.message); }
   if (has('--static-only')) { rep.failures = failures; rep.notes = notes; rep.ok = failures.length === 0; rep.official = false; if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1)); for (const n of notes) print('note: ' + n);
     print(rep.ok ? 'STATIC CHECKS PASSED (no browser walk was made: this is NOT the staging verification)' : 'STATIC CHECKS FAILED:\n  ' + failures.join('\n  ')); process.exit(rep.ok ? 0 : 1); }
-  const distFiles = new Set(walk(dist).map(f => '/' + posix(path.relative(dist, f)))), sections = trace({ root: sourceRoot }).sections; rep.distFiles = distFiles.size; rep.sections = sections.map(s => `${s.path} (${s.files} files, ${s.pages.length} pages)`);
+  const distFiles = new Set(walk(dist).map(f => '/' + posix(path.relative(dist, f)))), sections = traceOfSource.sections; rep.distFiles = distFiles.size; rep.sections = sections.map(s => `${s.path} (${s.files} files, ${s.pages.length} pages)`);
   let A = null, B = null; rep.failures = failures; rep.notes = notes; save();
   if (only !== 'source') { print(`run 1/2: the packed dist (${frames} frames per step)`); A = await runWalk(dist, { frames, label: 'dist', sections, query, crawlMax, print, shotsDir, viewport }); rep.distRun = A; save(); }
   if (only !== 'dist') { print(`run 2/2: the source tree${has('--pack') ? ' (the snapshot)' : ''}`); B = await runWalk(sourceRoot, { frames, label: 'source', sections, query, crawlMax, print, shotsDir, viewport }); rep.sourceRun = B; save(); }

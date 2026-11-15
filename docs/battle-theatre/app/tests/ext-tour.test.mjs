@@ -67,6 +67,7 @@ test('the words: a stop beyond the ground says how far beyond which edge; the pi
 });
 
 // ---------------------------------------------------------------- the module in a stand-in page
+const log0 = (th, tr) => tr.stops().find(x => x.id === tr.active()).pose;      // the pose the camera was sent to for the stop that is chosen
 async function visit(fn, o = {}) { const doc = installFakeDocument(), env = await standIn(o); overrideData(o.override); try { return await fn(env, doc); } finally { overrideData(null); doc.restore(); } }
 test('module: at entry no pin shows and nothing is registered but the panel: no switch, no scene hook, no clock call', () => visit(async ({ th, ctx, log, stage }, doc) => {
   await Tour.init(ctx); assert.equal(log.toggles.length, 0, 'no layer switch: the stops are camera bookmarks'); assert.equal(log.panels.length, 1); assert.equal(log.panels[0].id, 'tour-stops'); assert.equal(log.panels[0].title, 'Tour stops');
@@ -86,16 +87,35 @@ test('module: choosing a stop sends the camera there and shows the pin once the 
   assert.equal(log.timeCalls.length, 0); assert.equal(th.state.t, 12345, 'the clock stands where it stood'); assert.equal(th.state.playing, false); assert.equal(th.state.speed, 1);
   tr.clear(); assert.equal(tr.active(), -1); assert.equal(pin.hidden, true); Tour.update(frameOf(th.cam)); assert.equal(pin.hidden, true); Tour.dispose();
 }));
-test('module: the label of the pin goes to the other side of the place when it would run under the drawer; it comes back when the drawer closes; the pin is moved to the place at once', () => visit(async ({ th, ctx, stage, root }) => {
+test('module: the label of the pin stands on the right of the place and, where a panel would cover it there, on the left, above or below it; where no side is clear it wraps inside the free stretch; it goes back when the panel closes; no panel ever covers it', () => visit(async ({ th, ctx, stage, root, left, clock, shellCard }) => {
   await Tour.init(ctx); const tr = th.sitePlaces.tour, pin = stage.querySelector('#xt-pin'), lab = pin.querySelector('#xt-pin-lab'), B = P.tourBookmarks(tour, T); assert.ok(lab, 'the label is its own element');
-  const drawer = new FakeEl('aside'); drawer.id = 'bt-drawer'; drawer.rect = { left: 868, top: 66, width: 400, height: 500 }; root.append(drawer); lab.rect = { left: 0, top: 0, width: 320, height: 24 };
-  tr.flyTo(8); Object.assign(th.cam, camAt(B[7].pose)); th.state.panel = 'tour-stops'; th.bus.emit('panel-open', 'tour-stops'); Tour.update(frameOf(th.cam));
-  assert.equal(tr.pinShown(), true); assert.equal(lab.style.left, 'auto', 'the place is at the middle of the picture, a label of 320 px to its right would run under the drawer: it goes to the left'); assert.equal(lab.style.right, '12px');
-  th.state.panel = null; th.bus.emit('panel-close'); Tour.update(frameOf(th.cam)); assert.equal(lab.style.left, '12px', 'no drawer: the label is on the right again'); assert.equal(lab.style.right, 'auto');
-  // a drawer that is a sheet over the foot of the picture (a phone) does not push the label sideways
-  drawer.rect = { left: 0, top: 300, width: 1280, height: 400 }; th.state.panel = 'tour-stops'; th.bus.emit('panel-open', 'tour-stops'); Tour.update(frameOf(th.cam)); assert.equal(lab.style.left, '12px');
-  // a label that fits on neither side stays on the right
-  drawer.rect = { left: 868, top: 66, width: 400, height: 500 }; lab.rect = { left: 0, top: 0, width: 900, height: 24 }; th.bus.emit('panel-open', 'tour-stops'); Tour.update(frameOf(th.cam)); assert.equal(lab.style.left, '12px');
+  // the shell with the Tour stops panel open: the clock face and two notices in the left column (396 px from the left), the drawer on the right (868 px from the left)
+  clock.rect = { left: 16, top: 70, width: 380, height: 82 }; shellCard.hidden = true; const n1 = new FakeEl('div'), n2 = new FakeEl('div'); n1.rect = { left: 16, top: 164, width: 380, height: 138 }; n2.rect = { left: 16, top: 314, width: 380, height: 120 }; left.append(n1, n2);
+  const drawer = new FakeEl('aside'); drawer.id = 'bt-drawer'; drawer.hidden = true; drawer.rect = { left: 868, top: 66, width: 400, height: 524 }; root.append(drawer);
+  const panels = () => [clock, n1, n2, drawer].filter(n => !n.hidden).map(n => [n.rect.left, n.rect.top, n.rect.left + n.rect.width, n.rect.top + n.rect.height]);
+  const at = () => { const m = /^translate\((-?[\d.]+)px,(-?[\d.]+)px\)$/.exec(pin.style.transform); assert.ok(m, 'the pin is on the picture'); return [+m[1], +m[2]]; };
+  const box = () => { const [px, py] = at(), w = lab.style.maxWidth ? parseFloat(lab.style.maxWidth) : lab.rect.width, h = lab.style.maxWidth ? Math.max(lab.rect.height, Math.ceil(lab.rect.width / (w - 4)) * 15.6 + 8) : lab.rect.height; return [px + parseFloat(lab.style.left), py + parseFloat(lab.style.top), px + parseFloat(lab.style.left) + w, py + parseFloat(lab.style.top) + h]; };
+  const covered = () => panels().filter(r => { const b = box(); return b[0] < r[2] && b[2] > r[0] && b[1] < r[3] && b[3] > r[1]; });
+  const open = on => { drawer.hidden = !on; th.state.panel = on ? 'tour-stops' : null; th.bus.emit(on ? 'panel-open' : 'panel-close', 'tour-stops'); };
+  // 1. no drawer: the label is on the right of the place as it always was
+  lab.rect = { left: 0, top: 0, width: 330, height: 26 }; tr.flyTo(8); Object.assign(th.cam, camAt(B[7].pose)); Tour.update(frameOf(th.cam)); assert.equal(tr.pinShown(), true);
+  assert.equal(lab.style.left, '12px'); assert.equal(lab.style.top, '-30px'); assert.equal(lab.style.right, 'auto'); assert.equal(lab.style.whiteSpace, 'nowrap'); assert.equal(lab.style.maxWidth, ''); assert.deepEqual(covered(), []);
+  // 2. the drawer opens: the place is at the middle of the picture, a label of 330 px would run under the drawer on the right and under the left column on the left: it stands above the place, clear of both
+  open(true); Tour.update(frameOf(th.cam)); assert.equal(lab.style.whiteSpace, 'nowrap'); assert.equal(lab.style.left, '-165px', 'centred on the place'); assert.equal(lab.style.top, '-38px', 'above it');
+  assert.deepEqual(covered(), [], 'no panel covers the label'); { const b = box(), [px] = at(); assert.ok(b[0] >= 402 && b[2] <= 862, `between the left column and the drawer: ${b}`); assert.ok(px > b[0] && px < b[2], 'over the place'); }
+  // only the drawer: the label goes to the left of the place, as before
+  for (const n of [clock, n1, n2]) n.hidden = true; th.bus.emit('resize'); Tour.update(frameOf(th.cam)); assert.equal(parseFloat(lab.style.left), -(12 + 330), 'on the left of the place'); assert.equal(lab.style.top, '-30px'); assert.deepEqual(covered(), []);
+  for (const n of [clock, n1, n2]) n.hidden = false; th.bus.emit('resize'); Tour.update(frameOf(th.cam));
+  // 3. the panel closes: back on the right
+  open(false); Tour.update(frameOf(th.cam)); assert.equal(lab.style.left, '12px', 'no drawer: the label is on the right again'); assert.equal(lab.style.top, '-30px'); assert.deepEqual(covered(), []);
+  // 4. a stop beyond the ground has the longer label (600 px): between the left column and the drawer there are 460 px, so the label wraps there; nothing of its words is cut
+  lab.rect = { left: 0, top: 0, width: 600, height: 26 }; tr.flyTo(2); Object.assign(th.cam, camAt(log0(th, tr))); open(true); Tour.update(frameOf(th.cam)); assert.equal(tr.pinShown(), true);
+  assert.equal(lab.style.whiteSpace, 'normal'); assert.equal(lab.style.width, 'max-content'); assert.equal(lab.style.maxWidth, '460px'); assert.deepEqual(covered(), [], 'the wrapped label is clear of the panels'); { const b = box(), [, py] = at(); assert.ok(b[0] >= 402 - 1e-6 && b[2] <= 862 + 1e-6, `${b}`); assert.ok(b[3] <= py - 5, 'its foot is above the place'); }
+  assert.match(pin.querySelector('#xt-pin-text').textContent, /modern tour stop · [\d,]+ m beyond the loaded ground$/, 'all the words are still there');
+  open(false); Tour.update(frameOf(th.cam)); assert.equal(lab.style.whiteSpace, 'nowrap', 'the panel closed: one line again'); assert.equal(lab.style.maxWidth, ''); assert.equal(lab.style.left, '12px'); assert.deepEqual(covered(), []);
+  // 5. a drawer that is a sheet over the foot of the picture (a phone), the place above it: it does not push the label sideways
+  lab.rect = { left: 0, top: 0, width: 330, height: 26 }; tr.flyTo(8); Object.assign(th.cam, camAt(B[7].pose)); drawer.rect = { left: 0, top: 520, width: 1280, height: 200 }; open(true); Tour.update(frameOf(th.cam)); assert.equal(lab.style.left, '12px'); assert.equal(lab.style.top, '-30px'); assert.deepEqual(covered(), []);
+  // 6. the panels are read again when something moved, not in every frame, and the subscriptions are the loader's to take back
   assert.equal((th.bus.m.get('panel-open') || new Set()).size, 1, 'one subscription while running'); Tour.dispose(); for (const n of ['panel-open', 'panel-close', 'resize']) assert.equal((th.bus.m.get(n) || new Set()).size, 0, `no subscription to ${n} after dispose`);
 }));
 test('module: a stop beyond the ground is flown to from the edge, the pin and the words say how far beyond; the camera stays over the ground', () => visit(async ({ th, ctx, log, stage }) => {

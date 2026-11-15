@@ -1,10 +1,11 @@
 // Browser harness (not a gate): the two added modules of the site's places (src/ext/monuments.mjs, src/ext/tour.mjs) in the real page, on WebGL2 with software GL.
 // The real list src/ext/index.mjs and the real modules are loaded (nothing is routed or faked). It walks: a desktop visit (the layer is off at entry, the switch, the marks, a picked
 // memorial and its card, a memorial beyond the loaded ground, a tap on a mark, the tour stops, the clock never moved, Back, a second entry) and a phone visit (touch, 390 px wide).
-//   node docs/battle-theatre/app/tests/ext-site-places-browser.mjs [outDir] [light|full|look|units]
+//   node docs/battle-theatre/app/tests/ext-site-places-browser.mjs [outDir] [light|full|look|units|labels]
 // light (default): ?crowd=off&structures=off&fx=off, the quick look. full: the shell as a viewer gets it (figures, structures, effects), slow on software GL.
 // look: the shell as a viewer gets it, but only a short walk (layer on over Cemetery Ridge, a picked memorial, a tour stop, Back) for the screenshots: the marks over the real scene.
 // units: the shell as a viewer gets it, on 3 July 1863 at 14:30, with the camera among the soldiers of the unit nearest the Pennsylvania State Memorial, the layer off and on: how the 1863 scene and the flat marks of the later memorials sit in one picture.
+// labels: where the names stand: the tour pin's label and the picked memorial's name with the drawer open beside the picture and the notices in the left column, on a desktop and a phone; no panel may cover them.
 // Writes outDir/results.json and screenshots (to be looked at, not asserted). Exit code 1 when a check fails. One browser at a time on a shared machine: run it through tools/horde/bench.sh.
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
@@ -12,7 +13,7 @@ import { serve } from '../tools/serve.mjs';
 import { spawnSync } from 'node:child_process';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), REPO = path.resolve(here, '../../../..');
-const out = path.resolve(process.argv[2] || path.join(REPO, 'tmp/ext-site-places-browser')), mode = process.argv[3] === 'full' ? 'full' : process.argv[3] === 'look' ? 'look' : process.argv[3] === 'units' ? 'units' : 'light', port = +process.env.BT_PLACES_PORT || 10827; fs.mkdirSync(out, { recursive: true });
+const out = path.resolve(process.argv[2] || path.join(REPO, 'tmp/ext-site-places-browser')), mode = ['full', 'look', 'units', 'labels'].includes(process.argv[3]) ? process.argv[3] : 'light', port = +process.env.BT_PLACES_PORT || 10827; fs.mkdirSync(out, { recursive: true });
 const Q = mode === 'full' || mode === 'look' || mode === 'units' ? 'api=webgl2' : 'api=webgl2&crowd=off&structures=off&fx=off&nearR=12&midR=60', WAIT = 1800000;
 
 const DRIVER_NOISE = /GPU stall due to ReadPixels|GL_CLOSE_PATH_NV|Automatic fallback to software WebGL|powerPreference option is currently ignored/;        // the software GL driver talking about itself (a screenshot reads the canvas back), as tests/lib.mjs
@@ -40,6 +41,13 @@ async function session(query, o = {}) {
 }
 // the pure helpers of the page, imported by the same address the theatre uses (so it is the same module instance)
 const P_URL = '/app/src/ext/site-places.mjs';
+// the panels over the picture at this moment (top bar, dock, drawer, every child of the left column that is shown), in the page's css pixels: which of them lie over a box {l, t, r, b}, and is the box inside the picture
+const underOf = P => box => P.evaluate(b => { const out = []; const add = (n, name) => { if (!n || n.hidden || !n.getBoundingClientRect) return; const cs = getComputedStyle(n); if (cs.display === 'none' || cs.visibility === 'hidden') return; const r = n.getBoundingClientRect(); if (!(r.width >= 4 && r.height >= 4)) return; if (b.l < r.right && b.r > r.left && b.t < r.bottom && b.b > r.top) out.push(name + ' ' + [r.left, r.top, r.right, r.bottom].map(Math.round).join(',')); };
+  add(document.querySelector('.top'), 'top bar'); add(document.querySelector('.dock'), 'dock'); add(document.querySelector('#bt-drawer'), 'drawer'); for (const c of document.querySelector('#bt-left').children) add(c, c.id || c.className);
+  const st = document.querySelector('#bt-stage').getBoundingClientRect(); return { under: out, inside: b.l >= st.left && b.r <= st.right + 0.5 && b.t >= st.top && b.b <= st.bottom, stage: [st.left, st.top, st.right, st.bottom].map(Math.round) }; }, box);
+// the box of the tour pin's label and its words, and of the picked memorial's name (in page pixels: the module gives the name's box in the picture's)
+const pinBoxOf = P => () => P.evaluate(() => { const lab = document.querySelector('#xt-pin-lab'), l = lab.getBoundingClientRect(); return { l: l.left, t: l.top, r: l.right, b: l.bottom, text: document.querySelector('#xt-pin-text').textContent, wrap: getComputedStyle(lab).whiteSpace, shown: !document.querySelector('#xt-pin').hidden }; });
+const nameBoxOf = P => () => P.evaluate(() => { const m = window.btApp.theatre.sitePlaces.memorials, lb = m.label(), st = document.querySelector('#bt-stage').getBoundingClientRect(); return lb ? { l: st.left + lb.x, t: st.top + lb.y, r: st.left + lb.x + lb.w, b: st.top + lb.y + lb.h, text: lb.text, side: lb.side } : null; });
 
 try {
   if (mode === 'look') {
@@ -83,6 +91,41 @@ try {
     check('the layer off again: no canvas of the memorials is left, and the clock is where this walk put it', await P.evaluate(t => !document.querySelector('#xm-marks') && window.btApp.state.t === t, tSet));
     check('the units walk: no console error, no page error, no failed request, and no warning of these modules', clean(s.log), s.log); if (s.log.warnings.length) results.notes.push(`units walk: ${s.log.warnings.length} console warning(s): ${[...new Set(s.log.warnings)].map(w => w.slice(0, 120)).join(' | ')}`);
     await s.leave(); await s.ctx.close();
+  } else if (mode === 'labels') {
+    // ======================================================== where the names stand: the tour pin's label and the picked memorial's name under no panel (desktop with the drawer open, then a phone)
+    const s = await session(Q); const P = s.page, under = underOf(P), pinBox = pinBoxOf(P), nameBox = nameBoxOf(P); const ms = await s.enter(); results.notes.push(`entry (labels, desktop 1280 x 720): ${ms} ms on software GL; not a timing measurement`);
+    const t0 = await P.evaluate(() => window.btApp.state.t), settled = async () => { await s.settle(); await P.waitForTimeout(700); await s.frames(3); };         // the panels are read again at most every 400 ms
+    // the tour stops, the drawer open beside the picture
+    await P.evaluate(() => window.btApp.theatre.openPanel('tour-stops')); await P.waitForSelector('#xt-list .item'); await s.drawerShown();
+    for (const [n, shotName] of [[8, 'labels-01-tour-stop-8-drawer-open'], [2, 'labels-02-tour-stop-2-beyond-drawer-open'], [3, 'labels-03-tour-stop-3-beyond-drawer-open']]) {
+      await P.click(`#xt-list .item[data-stop="${n}"]`); await settled(); const lb = await pinBox(), un = await under(lb);
+      check(`tour stop ${n}, the drawer open: the pin is shown, its label lies on the picture and under no panel, and all its words are there`, lb.shown && un.inside && un.under.length === 0 && /modern tour stop/.test(lb.text) && (n === 8 || /m beyond the loaded ground$/.test(lb.text)), { lb, un });
+      results.notes.push(`tour stop ${n}, drawer open: label ${Math.round(lb.r - lb.l)} x ${Math.round(lb.b - lb.t)} px at ${Math.round(lb.l)},${Math.round(lb.t)}, white-space ${lb.wrap}`); await s.shot(shotName);
+    }
+    await P.keyboard.press('Escape'); await settled(); { const lb = await pinBox(), un = await under(lb); check('tour stop 3, the drawer closed: the label is clear of the notices of the left column and inside the picture', lb.shown && un.inside && un.under.length === 0, { lb, un }); await s.shot('labels-04-tour-stop-3-drawer-closed'); }
+    await P.evaluate(() => window.btApp.theatre.sitePlaces.tour.clear());
+    // the picked memorial, the drawer (the memorial panel) and the card open
+    await P.evaluate(() => { const th = window.btApp.theatre, m = th.sitePlaces.memorials; m.setOn(false); th.openPanel('later-memorials'); }); await P.waitForSelector('#xm-list .item'); await s.drawerShown();
+    for (const [no, shotName] of [[46, 'labels-05-memorial-46-drawer-open'], [367, 'labels-06-memorial-367-beyond-drawer-open']]) {
+      await P.evaluate(n => { const m = window.btApp.theatre.sitePlaces.memorials; m.select(n); m.flyTo(n); }, no); await settled(); const lb = await nameBox(); const un = lb ? await under(lb) : null;
+      check(`memorial ${no} picked, the drawer and the card open: its name is on the picture and under no panel, and "later memorial" is read`, !!lb && un.inside && un.under.length === 0 && / · later memorial/.test(lb.text) && (no !== 367 || / m beyond the loaded ground$/.test(lb.text)), { lb, un });
+      if (lb) results.notes.push(`memorial ${no}: its name stands ${lb.side} of the mark, "${lb.text}"`); await s.shot(shotName);
+    }
+    await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.select(-1)); await P.keyboard.press('Escape'); await s.frames(2);
+    check('the clock never moved', await P.evaluate(() => window.btApp.state.t) === t0);
+    check('the desktop labels walk: no console error, no page error, no failed request, and no warning of these modules', clean(s.log), s.log); if (s.log.warnings.length) results.notes.push(`desktop labels walk: ${s.log.warnings.length} console warning(s): ${[...new Set(s.log.warnings)].map(w => w.slice(0, 120)).join(' | ')}`);
+    await s.leave(); await s.ctx.close(); save();
+    // a phone: 390 x 844, touch; the panels are sheets, the label of the pin is longer than the picture is wide
+    const ph = await session(Q, { w: 390, h: 844, touch: true }); const PP = ph.page, underP = underOf(PP), pinBoxP = pinBoxOf(PP), nameBoxP = nameBoxOf(PP); await ph.enter();
+    for (const [n, shotName] of [[8, 'labels-07-phone-tour-stop-8'], [2, 'labels-08-phone-tour-stop-2-beyond']]) {
+      await PP.evaluate(k => window.btApp.theatre.sitePlaces.tour.flyTo(k), n); await ph.settle(); await PP.waitForTimeout(700); await ph.frames(3); const lb = await pinBoxP(), un = await underP(lb);
+      check(`phone, tour stop ${n}: the label of the pin is inside the picture (${un.stage.join(', ')}), under no panel, and all its words are there`, lb.shown && un.inside && un.under.length === 0 && /modern tour stop/.test(lb.text) && (n === 8 || /m beyond the loaded ground$/.test(lb.text)), { lb, un });
+      results.notes.push(`phone, tour stop ${n}: label ${Math.round(lb.r - lb.l)} x ${Math.round(lb.b - lb.t)} px at ${Math.round(lb.l)},${Math.round(lb.t)}, white-space ${lb.wrap}`); await ph.shot(shotName);
+    }
+    await PP.evaluate(() => { window.btApp.theatre.sitePlaces.tour.clear(); const m = window.btApp.theatre.sitePlaces.memorials; m.select(367); m.flyTo(367); }); await ph.settle(); await PP.waitForTimeout(700); await ph.frames(3);
+    { const lb = await nameBoxP(), un = lb ? await underP(lb) : null; check('phone, memorial 367 picked (beyond the ground): its name is inside the picture and "later memorial" and the distance are read', !!lb && un.inside && / · later memorial · [\d,]+ m beyond the loaded ground$/.test(lb.text), { lb, un }); await ph.shot('labels-09-phone-memorial-367'); }
+    check('the phone labels walk: no console error, no page error, no failed request, and no warning of these modules', clean(ph.log), ph.log);
+    await ph.leave(); await ph.ctx.close();
   } else {
   // ======================================================== visit 1: a desktop
   let s = await session(Q); const P = s.page; const ms1 = await s.enter(); results.notes.push(`entry (${mode}, desktop): ${ms1} ms on software GL; not a timing measurement`);
@@ -185,7 +228,7 @@ try {
   check('the tour panel says they are stops of a modern tour, used as places for the camera, and that the clock does not move', /modern tour/.test(t1.text) && /never the clock/.test(t1.text) && t1.pills.some(x => /Modern tour/.test(x)), t1.text.slice(0, 500));
   await P.click('#xt-list .item[data-stop="8"]'); await s.settle();
   const t8 = await P.evaluate(async url => { const Pm = await import(url), th = window.btApp.theatre, tour = th.sitePlaces.tour.stops()[7], cam = th.cam, pin = document.querySelector('#xt-pin'); return { active: th.sitePlaces.tour.active(), shown: th.sitePlaces.tour.pinShown(), pinHidden: pin.hidden, pinText: pin.textContent, kind: tour.kind, pose: tour.pose, cam: { x: cam.x, y: cam.y, z: cam.z, yaw: cam.yaw, pitch: cam.pitch }, live: document.querySelector('#bt-live').textContent, current: document.querySelector('#xt-list [aria-current="true"]')?.dataset.stop, lab: (() => { const l = document.querySelector('#xt-pin-lab').getBoundingClientRect(), d = document.querySelector('#bt-drawer').getBoundingClientRect(); return { left: l.left, right: l.right, drawerLeft: d.left, flipped: document.querySelector('#xt-pin-lab').style.right === '12px' }; })() }; }, P_URL);
-  check('tour stop 8 with the drawer open: the label of the pin does not run under the drawer', t8.lab.right <= t8.lab.drawerLeft + 1 && t8.lab.left >= 0, t8.lab);
+  { const lb = await pinBoxOf(P)(), un = await underOf(P)(lb); check('tour stop 8 with the drawer open: the label of the pin lies on the picture and under no panel (not the drawer, not the notices of the left column, not the bars)', un.inside && un.under.length === 0 && lb.shown, { lb, un, lab: t8.lab }); }
   check('tour stop 8: the camera arrives at the viewpoint of the site\'s walkthrough, the pin shows with "modern tour stop", the row is marked current, the move is announced', t8.active === 8 && t8.kind === 'viewpoint' && Math.hypot(t8.cam.x - t8.pose.x, t8.cam.z - t8.pose.z) < 1 && Math.abs(Math.atan2(Math.sin(t8.cam.yaw - t8.pose.yaw), Math.cos(t8.cam.yaw - t8.pose.yaw))) < .01 && /modern tour stop/.test(t8.pinText) && t8.pinHidden === false && t8.shown === true && t8.current === '8' && /Flying to Tour Stop 8, Little Round Top/.test(t8.live), t8);
   await s.shot('08-tour-stop-8');
   await P.click('#xt-list .item[data-stop="2"]'); await s.settle();
@@ -240,7 +283,7 @@ console.log(`${results.checks.length - failed} of ${results.checks.length} check
 // and runs each listed mode here, one after the other, each with its own output folder and log beside it. Without that file nothing of this happens.
 const thenFile = path.join(path.dirname(out), 'then');
 if (mode === 'light' && fs.existsSync(thenFile)) {
-  for (const m of fs.readFileSync(thenFile, 'utf8').split(/\s+/).filter(x => ['look', 'units', 'full'].includes(x))) {
+  for (const m of fs.readFileSync(thenFile, 'utf8').split(/\s+/).filter(x => ['look', 'units', 'labels', 'full'].includes(x))) {
     const log = fs.openSync(path.join(path.dirname(out), m + '.log'), 'w');
     const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), path.join(path.dirname(out), m), m], { stdio: ['ignore', log, log], env: process.env });
     fs.closeSync(log); fs.appendFileSync(path.join(path.dirname(out), 'driver.out'), `${m} exit ${r.status}\n`);

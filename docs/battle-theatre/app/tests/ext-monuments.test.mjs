@@ -177,6 +177,90 @@ test('names and panels: a name is not put under a panel, a mark may be; the rect
   const none = lay({ on: true, selected: -1, avoid: [[-10, -10, w + 10, h + 10]] }); assert.equal(none.nLabels, 0); assert.equal(none.n, free.n);
   const sel = lay({ on: true, selected: no0, avoid: [[-10, -10, w + 10, h + 10]] }); assert.equal(sel.nLabels, 1, 'the picked memorial is named even under a panel'); assert.equal(idx.items[sel.idx[sel.lab[0]]].no, no0);
 });
+// ---------------------------------------------------------------- where a label stands when panels cover parts of the picture (the picked memorial's name, the tour pin's label)
+test('freeBand: the free stretch of a row around a point lies between the panels that reach into the row; a panel over the point itself blocks the row, a panel outside the row counts for nothing', () => {
+  const W = 1280, left = [16, 70, 396, 580], drawer = [868, 66, 1268, 590], top = [0, 0, 1280, 56], dock = [0, 600, 1280, 720];
+  assert.deepEqual(P.freeBand(632, 300, 326, W, [], 6), [6, 1274, false]); assert.deepEqual(P.freeBand(632, 300, 326, W, null), [6, 1274, false]);
+  assert.deepEqual(P.freeBand(632, 300, 326, W, [left, drawer, top, dock]), [402, 862, false], 'the left column and the drawer bound the row; the top bar and the dock are not in it');
+  assert.deepEqual(P.freeBand(632, 20, 46, W, [left, drawer, top]), [6, 1274, true], 'the top bar lies over the point in this row: blocked');
+  assert.deepEqual(P.freeBand(632, 600, 626, W, [left, drawer, dock]), [6, 1274, true], 'the dock is over the point in the row below the panels');
+  assert.deepEqual(P.freeBand(400, 300, 326, W, [left]), [402, 1274, false], 'a point just right of the left column: the stretch starts a margin from it');
+  assert.deepEqual(P.freeBand(632, 300, 326, W, [left, drawer], 20), [416, 848, false], 'the margin is the caller\'s');
+});
+test('placeLabel: on the right of the place; on the left, above or below when a panel covers the right; inside the free stretch above when none of the four stands clear; the side it last stood on first', () => {
+  const W = 1280, H = 720, left = [16, 70, 396, 580], drawer = [868, 66, 1268, 590], ax = 638, ay = 352, o = { gap: 12, up: 30, above: 12 };
+  const r1 = P.placeLabel(ax, ay, 330, 26, W, H, [], o); assert.deepEqual(r1, { x: 650, y: 322, side: 'right', cut: false, maxW: 330 }, 'nothing covers it: where the pin\'s label always stood');
+  const r2 = P.placeLabel(ax, ay, 330, 26, W, H, [drawer], o); assert.equal(r2.side, 'left'); assert.equal(r2.x, 296); assert.equal(r2.y, 322);
+  const r3 = P.placeLabel(ax, ay, 330, 26, W, H, [left, drawer], o); assert.equal(r3.side, 'above', 'the drawer on the right and the left column on the left (the case of the 1280 x 720 picture with a tour stop chosen): centred above the place'); assert.equal(r3.x, 473); assert.equal(r3.y, 314); assert.equal(r3.cut, false);
+  const r4 = P.placeLabel(ax, ay, 600, 26, W, H, [left, drawer], o); assert.equal(r4.side, 'band'); assert.equal(r4.cut, true, 'a label of 600 px does not fit the 460 px between the two'); assert.equal(r4.maxW, 460); assert.equal(r4.x, 402); assert.equal(r4.y, 314);
+  const r5 = P.placeLabel(ax, ay, 460, 52, W, H, [left, drawer], o); assert.equal(r5.cut, false, 'wrapped to the stretch it fits'); assert.equal(r5.side, 'band'); assert.equal(r5.x, 402); assert.equal(r5.y, 288, 'taller, so it stands higher: its foot is where the foot of a one-line label would be');
+  assert.equal(P.placeLabel(ax, ay, 330, 26, W, H, [], { ...o, prefer: 'left' }).side, 'left', 'the side it stood on last time while that still fits'); assert.equal(P.placeLabel(ax, ay, 330, 26, W, H, [left], { ...o, prefer: 'left' }).side, 'right', 'and the first side that fits when that no longer does');
+  assert.equal(P.placeLabel(ax, ay, 330, 26, W, H, [], { ...o, prefer: 'nonsense' }).side, 'right', 'a side that is none of the four is ignored');
+  // near the top of the picture: the row above does not exist, the row below does
+  const r6 = P.placeLabel(ax, 40, 330, 26, W, H, [], o); assert.equal(r6.side, 'right'); assert.ok(r6.y >= 6, `${r6.y}`); const top = [0, 0, 1280, 56], r7 = P.placeLabel(ax, 70, 330, 26, W, H, [top, left, drawer], o); assert.ok(r7.y >= 56 + 2 - 1e-9 || r7.side === 'band', JSON.stringify(r7));
+  // a point under a panel is nobody's to help: a label is still given, inside the picture
+  const r8 = P.placeLabel(ax, ay, 330, 26, W, H, [[-10, -10, W + 10, H + 10]], o); assert.ok(r8.x >= 6 && r8.x + 330 <= W - 6 && r8.y >= 6 && r8.y + 26 <= H - 6, JSON.stringify(r8));
+  // a phone: 390 px wide, no panel: a label of 330 px has no side that fits except centred above; one of 549 px is cut to the width of the picture
+  assert.equal(P.placeLabel(195, 360, 330, 26, 390, 844, [], o).side, 'above'); const ph = P.placeLabel(195, 360, 549, 26, 390, 844, [], o); assert.equal(ph.cut, true); assert.equal(ph.maxW, 378); assert.equal(ph.x, 6);
+});
+test('placeLabel, 4000 pictures: a label that is not cut is on the picture and, when it stands beside the place, under no panel; one that is cut is cut to a stretch narrower than itself; the answer is the same for the same question', () => {
+  let seed = 12345; const rnd = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296, ri = (a, b) => Math.floor(a + rnd() * (b - a + 1));
+  const hit = (b, r) => b[0] < r[2] && b[2] > r[0] && b[1] < r[3] && b[3] > r[1]; let sides = { right: 0, left: 0, above: 0, below: 0, band: 0 }, cuts = 0;
+  for (let n = 0; n < 4000; n++) {
+    const phone = rnd() < .3, W = phone ? 390 : ri(900, 1920), H = phone ? 844 : ri(560, 1080), av = [];
+    if (!phone || rnd() < .5) av.push([16, ri(56, 90), ri(330, 420), ri(300, H - 100)]);                                   // the left column
+    if (rnd() < .6) av.push(phone ? [0, ri(200, H - 150), W, H] : [W - ri(300, 440), 66, W - 12, ri(300, H - 120)]);      // the drawer (a sheet over the foot of a phone)
+    if (rnd() < .5) av.push([0, 0, W, 56]); if (rnd() < .5) av.push([0, H - 90, W, H]);                                     // the top bar, the dock
+    let ax, ay, tries = 0; do { ax = ri(10, W - 10); ay = ri(10, H - 10); tries++; } while (tries < 50 && av.some(r => ax >= r[0] && ax <= r[2] && ay >= r[1] && ay <= r[3]));
+    if (av.some(r => ax >= r[0] && ax <= r[2] && ay >= r[1] && ay <= r[3])) continue;                                         // only places that are not under a panel
+    const bw = ri(60, 700), bh = rnd() < .5 ? 26 : ri(26, 80), o = { gap: 12, up: 30, above: 12, prefer: ['right', 'left', 'above', 'below', null][ri(0, 4)] }, a = P.placeLabel(ax, ay, bw, bh, W, H, av, o), again = P.placeLabel(ax, ay, bw, bh, W, H, av, o);
+    assert.deepEqual(a, again); assert.ok(['right', 'left', 'above', 'below', 'band'].includes(a.side)); sides[a.side]++;
+    const box = [a.x, a.y, a.x + bw, a.y + bh];
+    if (a.cut) { cuts++; assert.ok(a.side === 'band' && a.maxW < bw && a.maxW >= 0, JSON.stringify(a)); continue; }
+    assert.ok(box[0] >= 6 - 1e-6 && box[2] <= W - 6 + 1e-6, `case ${n}: ${JSON.stringify(a)} is off the picture sideways (${W} wide)`);
+    if (a.side !== 'band') { assert.ok(box[1] >= 6 - 1e-6 && box[3] <= H - 6 + 1e-6, `case ${n}: off the picture`); for (const r of av) assert.ok(!hit(box, r), `case ${n}: ${a.side} label ${JSON.stringify(box)} lies under the panel ${JSON.stringify(r)}`); }
+    else { const fb = P.freeBand(ax, a.y, a.y + bh, W, av); if (!fb[2]) for (const r of av) assert.ok(!hit(box, r), `case ${n}: band label ${JSON.stringify(box)} lies under the panel ${JSON.stringify(r)}`); }
+  }
+  assert.ok(sides.right > 100 && sides.left > 20 && sides.above > 20 && sides.band > 20 && cuts > 20, `all kinds of answer were exercised: ${JSON.stringify(sides)}, ${cuts} cut`);
+});
+test('the picked memorial is always named and its "later memorial" always read: its name goes to the other side of the mark, above or below it, when a panel covers the place beside it; it is shortened (never the words after it) when no stretch is wide enough', () => {
+  const idx = P.buildIndex(mem, T), W = 1280, H = 720, st = tierMark.style('inferred'), vp = new Float32Array(16), left = [16, 70, 396, 580], drawer = [868, 66, 1268, 590], hit = (b, r) => b[0] < r[2] && b[0] + b[2] > r[0] && b[1] < r[3] && b[1] + b[3] > r[1];
+  const run = (no, state) => { const it = idx.byNo.get(no), cam = camAt(P.memorialPose(T, it)), L = P.newLayout(idx.n); P.viewProj(cam, W / H, vp); P.layoutMarks(idx, vp, cam, W, H, state, L); const c = recordingContext(); P.drawMarks(c, idx, L, state, st); return { c, L, it, box: c.boxes.at(-1), text: c.texts.at(-1), at: (() => { for (let k = 0; k < L.n; k++) if (idx.items[L.idx[k]].no === no) return [L.sx[k], L.sy[k]]; return null; })() }; };
+  const free = run(46, { on: false, selected: 46 }); assert.ok(free.at, 'the mark is in view'); assert.equal(free.box[0], free.at[0] + 9, 'no size or panels given: the label stands where it always stood, on the right of the mark'); assert.equal(free.text, 'Pennsylvania State Memorial · later memorial');
+  const shut = run(46, { on: false, selected: 46, w: W, h: H, avoid: [left, drawer] }); assert.ok(shut.at[0] > 500 && shut.at[0] < 780, `the mark is at the middle of the picture: ${shut.at}`);
+  assert.equal(shut.text, 'Pennsylvania State Memorial · later memorial'); assert.ok(shut.box[0] >= 6 && shut.box[0] + shut.box[2] <= W - 6, 'on the picture'); assert.ok(!hit(shut.box, left) && !hit(shut.box, drawer), `the name stands under no panel: ${shut.box}`);
+  assert.ok(shut.box[1] + shut.box[3] <= shut.at[1] - 5, 'it stands above the mark, not over it');
+  const state = { on: false, selected: 46, w: W, h: H, avoid: [left, drawer] }; run(46, state); assert.equal(state.selSide, 'above', 'the side it stands on is kept for the next frame');
+  const only = run(46, { on: false, selected: 46, w: W, h: H, avoid: [drawer] }); assert.ok(!hit(only.box, drawer) && only.box[0] + only.box[2] <= drawer[0] - 2, 'with only the drawer open the label goes to the left of the mark');
+  // a memorial beyond the ground has the longer label: its name is cut, never "later memorial" or the distance
+  const far = run(367, { on: false, selected: 367, w: W, h: H, avoid: [left, drawer] }); assert.ok(far.at, 'the mark is in view'); const it = far.it; assert.equal(it.inside, false);
+  assert.match(far.text, / · later memorial · [\d,]+ m beyond the loaded ground$/); assert.ok(far.text.includes('…'), 'the name was shortened'); assert.ok(far.box[2] <= 460 + 1e-6, `the label is no wider than the stretch between the panels: ${far.box[2]}`); assert.ok(!hit(far.box, left) && !hit(far.box, drawer), `${far.box}`);
+  const full = `${it.name} · later memorial · ${Math.round(it.beyondM).toLocaleString('en-US')} m beyond the loaded ground`; assert.ok(full.length > far.text.length && far.text.startsWith(it.name.slice(0, 6)));
+  // a phone: 390 px wide, a stretch of 378: the name is cut to the room; where the room is smaller than the words after the name, those words stay whole (the name is then one letter)
+  const fit = P.fitLabel(recordingContext(), it, 378); assert.match(fit, /^.+… · later memorial · [\d,]+ m beyond the loaded ground$/); assert.ok(fit.length * 6.2 + P.LABEL.pad <= 378 + 1e-6, `${fit.length} characters`); assert.equal(P.fitLabel(recordingContext(), idx.byNo.get(46), 9999), 'Pennsylvania State Memorial · later memorial');
+  const tiny = P.fitLabel(recordingContext(), it, 100); assert.match(tiny, /^.… · later memorial · [\d,]+ m beyond the loaded ground$/, 'no room for the words after the name: they are kept, the name is reduced to one letter');
+  // the whole picture covered: the picked memorial is still named
+  const cover = run(46, { on: false, selected: 46, w: W, h: H, avoid: [[-10, -10, W + 10, H + 10]] }); assert.equal(cover.text, 'Pennsylvania State Memorial · later memorial');
+});
+test('all 512: flown to and picked, the memorial\'s name stands on the picture, under none of the panels of a desktop with the drawer open or of a phone, and says "later memorial"', () => {
+  const idx = P.buildIndex(mem, T), vp = new Float32Array(16), st = tierMark.style('inferred'), hit = (b, r) => b[0] < r[2] && b[0] + b[2] > r[0] && b[1] < r[3] && b[1] + b[3] > r[1];
+  const screens = [{ name: 'desktop with the drawer open', W: 1280, H: 720, avoid: [[0, 0, 1280, 56], [0, 600, 1280, 720], [16, 70, 396, 152], [16, 164, 396, 302], [16, 318, 396, 588], [868, 66, 1268, 590]] },
+    { name: 'phone', W: 390, H: 844, avoid: [[0, 0, 390, 100], [0, 760, 390, 844]] }];
+  for (const sc of screens) {
+    let seen = 0, moved = 0, cut = 0; const L = P.newLayout(idx.n), c = recordingContext();
+    for (const it of idx.items) {
+      const cam = camAt(P.memorialPose(T, it)); P.viewProj(cam, sc.W / sc.H, vp); const state = { on: false, selected: it.no, w: sc.W, h: sc.H, avoid: sc.avoid }; P.layoutMarks(idx, vp, cam, sc.W, sc.H, state, L);
+      c.boxes.length = 0; c.texts.length = 0; P.drawMarks(c, idx, L, state, st); if (!c.boxes.length) continue; seen++;                   // the mark is in view (the flight puts it at the middle of the picture)
+      const b = c.boxes.at(-1), t = c.texts.at(-1); assert.match(t, / · later memorial/, `${sc.name}: memorial ${it.no}`); if (it.beyondM > 0) assert.match(t, / m beyond the loaded ground$/, `${sc.name}: memorial ${it.no} is beyond the ground`);
+      assert.ok(b[0] >= 5.9 && b[0] + b[2] <= sc.W - 5.9 || state.selSide === 'band', `${sc.name}: memorial ${it.no}: the name ${b} is off the picture`);
+      if (state.selSide !== 'band') for (const r of sc.avoid) assert.ok(!hit(b, r), `${sc.name}: memorial ${it.no}: the name ${b} (${state.selSide}) lies under the panel ${r}`);
+      else { const [l, rr] = P.freeBand(L.sx[0], b[1], b[1] + b[3], sc.W, sc.avoid); assert.ok(b[0] >= l - 1 && b[0] + b[2] <= rr + 1 || /…/.test(t), `${sc.name}: memorial ${it.no}: the name ${b} is out of the free stretch ${l}..${rr}`); }
+      if (state.selSide !== 'right') moved++; if (/…/.test(t)) cut++;
+    }
+    assert.ok(seen >= 500, `${sc.name}: the mark of ${seen} of 512 memorials was in view from its own flight`); assert.ok(moved > 100, `${sc.name}: ${moved} names had to leave the right of the mark`);
+    if (sc.W === 390) assert.ok(cut > 0, 'on a phone the longest names are cut');
+  }
+});
 test('drawing: the tier shows as the outline pattern and the shape beside every name; a few canvas calls however many marks; hollow when beyond the ground', () => {
   const idx = P.buildIndex(mem, T), it = idx.byNo.get(46), cam = camAt(P.poseAround(T, it.x, it.z, { dist: 240, height: 95 })), vp = new Float32Array(16), L = P.newLayout(idx.n), w = 1280, h = 720, st = tierMark.style('inferred');
   P.viewProj(cam, w / h, vp); P.layoutMarks(idx, vp, cam, w, h, { on: true, selected: -1 }, L); const c = recordingContext(); const n = P.drawMarks(c, idx, L, { on: true, selected: -1 }, st);
@@ -315,6 +399,20 @@ test('module: a memorial picked from the list opens its card, flies the camera, 
   close.fire('click'); assert.equal(it.selected(), -1, 'the close button puts it away'); assert.equal(card.hidden, true);
   M.update(frameOf(th.cam)); assert.equal(cv.removed, true, 'nothing marked and nothing picked: the canvas is taken down');
   M.dispose();
+}));
+test('module: the picked memorial\'s name stands clear of the panels the shell shows (the drawer, the left column), is read through th.sitePlaces.memorials.label(), and goes back beside the mark when the panels go', () => visit(async ({ th, ctx, left, root, clock, shellCard }, doc) => {
+  await M.init(ctx); const it = th.sitePlaces.memorials, chip = left.querySelector('#xm-chip'), card = left.querySelector('#xm-card'), idx = P.buildIndex(readJSON('site-memorials.json'), th.T);
+  clock.rect = { left: 16, top: 70, width: 380, height: 82 }; shellCard.hidden = true; chip.rect = { left: 16, top: 160, width: 380, height: 80 }; card.rect = { left: 16, top: 318, width: 380, height: 270 };
+  const drawer = new FakeEl('aside'); drawer.id = 'bt-drawer'; drawer.rect = { left: 868, top: 66, width: 400, height: 524 }; root.append(drawer);
+  const panels = () => [clock, chip, card, drawer].filter(n => !n.hidden).map(n => [n.rect.left, n.rect.top, n.rect.left + n.rect.width, n.rect.top + n.rect.height]), hit = (b, r) => b.x < r[2] && b.x + b.w > r[0] && b.y < r[3] && b.y + b.h > r[1];
+  assert.equal(it.label(), null, 'nothing picked: no label'); it.select(46); Object.assign(th.cam, camAt(P.memorialPose(th.T, idx.byNo.get(46)))); M.update(frameOf(th.cam)); const l1 = it.label(); assert.ok(l1, 'the picked memorial has a label on the picture');
+  assert.equal(l1.text, 'Pennsylvania State Memorial · later memorial'); assert.equal(card.hidden, false); assert.deepEqual(panels().filter(r => hit(l1, r)), [], `no panel covers the name: ${JSON.stringify(l1)}`); assert.ok(l1.x >= 6 && l1.x + l1.w <= 1274, 'on the picture');
+  // the beyond-the-ground memorial: the longer label is cut to the stretch between the panels, its words after the name are whole
+  it.select(367); Object.assign(th.cam, camAt(P.memorialPose(th.T, idx.byNo.get(367)))); M.update(frameOf(th.cam)); const l2 = it.label(); assert.ok(l2); assert.match(l2.text, / · later memorial · [\d,]+ m beyond the loaded ground$/); assert.deepEqual(panels().filter(r => hit(l2, r)), [], `no panel covers the name: ${JSON.stringify(l2)}`);
+  // the panels go: the name is beside the mark again (the first place), and putting the pick away leaves no label
+  drawer.hidden = true; card.hidden = true; chip.hidden = true; clock.hidden = true; th.bus.emit('resize'); M.update(frameOf({ ...th.cam, yaw: th.cam.yaw + .001 })); await new Promise(r => setTimeout(r, 450));       // the panels are read again at most every 400 ms
+  M.update(frameOf({ ...th.cam, yaw: th.cam.yaw + .002 })); const l3 = it.label(); assert.ok(l3); assert.equal(l3.side, 'right', 'with nothing over the picture the name is on the right of the mark, as it always was');
+  it.select(-1); assert.equal(it.label(), null); M.dispose();
 }));
 test('module: a memorial card makes room as the shell\'s own cards do (the root says data-card on), the notice gives way to it, the card carries the button that puts the marks away, and none of it is taken from a unit or structure card', () => visit(async ({ th, ctx, left, root, log }) => {
   await M.init(ctx); const it = th.sitePlaces.memorials, chip = left.querySelector('#xm-chip'), card = left.querySelector('#xm-card'); await it.setOn(true); assert.equal(chip.dataset.compact, undefined, 'with no card the notice is shown');

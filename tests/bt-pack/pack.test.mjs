@@ -4,7 +4,7 @@
 // and reduced working files.
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import crypto from 'node:crypto'; import { execFileSync } from 'node:child_process';
 import zlib from 'node:zlib';
-import { pack, trace, audit, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, AUDIT_ALLOW, AUDIT_PRODUCTION, WITHHELD, PROJECT, EXCLUDE, scrubMakerMembers, jsonMembers, isMakerMember, sizeByFolder } from '../../tools/bt/pack_theatre.mjs';
+import { pack, trace, audit, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, AUDIT_ALLOW, AUDIT_PRODUCTION, WITHHELD, PROJECT, EXCLUDE, scrubMakerMembers, jsonMembers, isMakerMember, sizeByFolder, loadCensus, KNOWN_LOADS, CENSUS_OK } from '../../tools/bt/pack_theatre.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btpack-')); let A, B;
@@ -95,6 +95,19 @@ const REVIEWED_LITERALS = [
 test('file-like literals of loaded modules are in the build, withheld, or reviewed', () => {
   const open = trace().unshippedLiterals.filter(l => !l.comment && !REVIEWED_LITERALS.some(r => r.literal === l.literal && r.file.test(l.file)));
   assert.deepEqual(open, [], 'a loaded module names a file that is not in the build: if the page requests it the packer must ship it (INCLUDE or a rule); if it is only text, add it to REVIEWED_LITERALS with the reason');
+});
+// The census of the loads (loadCensus in tools/bt/pack_theatre.mjs) reads the SYNTAX TREE of every shipped module, independently of the regular expressions the trace uses, and compares every address the
+// code loads with the build. A finding is a load the build does not clearly answer; the trace ships what the census finds MISSING (and says so in its notes), so a form that the patterns do not know
+// never reaches a visitor as a 404 and never waits for a real run to be found.
+test('load census, real tree: every load of the shipped code resolves to the build, is plumbing, is withheld on purpose, or is on the reviewed list; nothing on that list is stale', t => {
+  const T = trace(), c = T.census; if (!c.available) return t.skip(c.reason);
+  assert.deepEqual(c.parseErrors, [], 'a module that does not parse');
+  assert.ok(c.scanned >= 150 && c.loads >= 60, `the census read ${c.scanned} modules and found ${c.loads} loads: it is not reading the code`);
+  const open = c.findings.map(f => `${f.status} ${f.file}:${f.line} [${f.how}] ${f.address}${f.detail ? ' => ' + f.detail : ''}`);
+  assert.deepEqual(open, [], 'a load of the shipped code that the build does not clearly answer. missing / dangling / excluded / outside: the file is not in the build, not in the repository, left out on purpose or outside the packed folder (fix the trace or the code); unreviewed: a form the census cannot evaluate, look at it and add it to KNOWN_LOADS in tools/bt/pack_theatre.mjs with the reason');
+  for (const k of KNOWN_LOADS) assert.ok(c.entries.some(e => e.status === 'reviewed' && k.file.test(e.file) && k.arg.test(e.address)), 'an entry of KNOWN_LOADS that no load matches any more (delete it): ' + k.file + ' ' + k.arg);
+  assert.ok(c.entries.some(e => e.status === 'withheld' && /register/.test(e.address)), 'the register links are withheld on purpose and the census knows it');
+  assert.deepEqual(T.byCensus.map(x => x.path), [], 'the build holds files that only the census found: the patterns of trace() are behind the code, extend them (the build itself is right)');
 });
 test('withheld and reduced working files: the register entries never ship, the register index ships as ids only', () => {
   const t = trace(), all = distFiles(A.out);
@@ -319,6 +332,78 @@ test('fixture: a computed import of an unknown form is listed as unresolved', ()
 test('fixture: a file-like literal of a loaded module that is not in the build is listed', () => {
   const root = fx('literal', r => patch(r, 'app/src/theatre.mjs', '// MARK', "export const TEX = base => base + 'ghost/thing.bin'; const g = 'ghost/thing.bin';")), t = trace({ root, cfg: FIXTURE_CFG });
   assert.deepEqual(t.unshippedLiterals.map(l => [l.literal, l.file]), [['ghost/thing.bin', 'app/src/theatre.mjs']]);
+});
+const entryOf = (c, text) => c.entries.find(e => e.address.includes(text));
+test('fixture: load census. Forms the patterns of the trace do not know are evaluated and their files ship, whatever the name of the function that loads them', t => {
+  if (!loadCensus({ files: [] }).available) return t.skip('acorn is not installed');
+  const root = fx('census-forms', r => {
+    put(r, 'app/src/forms.mjs', [
+      "import { URLS } from './config.mjs';",
+      "const { data } = URLS;",                                                                  // a destructured key
+      "const U = URLS.data;",                                                                    // an alias
+      "const opt = async u => { try { return await fetch(u); } catch { return null; } };",       // a helper with a name of its own; its fetch(u) is plumbing
+      "export const a = () => opt(URLS.data + 'f-opt.json');",                                    // known to the patterns
+      "export const b = () => fetch(data + 'f-destructured.json');",
+      "export const c = () => fetch(U + 'f-alias.json');",
+      "export const d = () => new URL('./f-url.json', URLS.data);",
+      "export const e = () => fetch(URLS['data'] + 'f-computed-member.json');",
+      "export const f = id => fetch(`${URLS.data}f-tpl/${id}.json`);",                            // known to the patterns
+      "export const g = base => fetch(base + 'data/terrain.json');",                              // a parameter and a literal tail: found by the tail
+      '',
+    ].join('\n'));
+    for (const n of ['f-opt', 'f-destructured', 'f-alias', 'f-url', 'f-computed-member']) put(r, `app/data/${n}.json`, '{}\n'); put(r, 'app/data/f-tpl/1.json', '{}\n');
+  });
+  const t0 = trace({ root, cfg: FIXTURE_CFG }), c = t0.census; assert.deepEqual(t0.problems, []);
+  for (const f of ['app/data/f-opt.json', 'app/data/f-destructured.json', 'app/data/f-alias.json', 'app/data/f-url.json', 'app/data/f-computed-member.json', 'app/data/f-tpl/1.json']) assert.ok(t0.files.includes(f), 'shipped: ' + f);
+  assert.deepEqual(t0.byCensus.map(x => x.path).sort(), ['app/data/f-alias.json', 'app/data/f-computed-member.json', 'app/data/f-destructured.json', 'app/data/f-url.json'], 'exactly the four the patterns do not know were shipped by the census');
+  assert.ok(t0.why['app/data/f-alias.json'].some(w => /^load census: .* in app\/src\/forms\.mjs:\d+$/.test(w)), 'the reason names the census and the line');
+  assert.ok(t0.notes.some(n => /4 file\(s\) are in the build because the load census found a load of them/.test(n)), 'the notes say that the patterns are behind');
+  assert.deepEqual(c.findings, [], 'after shipping them, nothing is left');
+  for (const [text, status] of [["data + 'f-destructured.json'", 'resolved'], ["U + 'f-alias.json'", 'resolved'], ["opt(", undefined], ["URLS['data'] + 'f-computed-member.json'", 'resolved'], ["base + 'data/terrain.json'", 'resolved'], ['u', undefined]]) { if (status) assert.equal(entryOf(c, text)?.status, status, text); }
+  assert.equal(c.entries.find(e => e.address === 'u')?.status, 'plumbing', 'a parameter that is passed on is plumbing: its callers are listed on their own');
+  assert.equal(entryOf(c, "new URL('./f-url.json', URLS.data)")?.status, 'resolved');
+});
+test('fixture: load census. A load that no file of the build answers is a finding (dangling, excluded, outside, unreviewed); a withheld file and a reviewed form are not', t => {
+  if (!loadCensus({ files: [] }).available) return t.skip('acorn is not installed');
+  const root = fx('census-findings', r => {
+    put(r, 'app/src/bad.mjs', [
+      "import { URLS } from './config.mjs';",
+      "export const dangling = () => fetch(URLS.data + 'nowhere.json');",
+      "export const excluded = () => fetch(URLS.data + 'not-referenced.json');",
+      "export const outside = () => fetch(URLS.app + '../../../etc/passwd');",
+      "export const unknown = () => fetch(window.makeAddress());",
+      "export const open = (base, name) => fetch(base + name);",
+      "export const known = (base, name) => fetch(base + name + '.dat');",
+      '',
+    ].join('\n'));
+  });
+  const cfg = { ...FIXTURE_CFG, exclude: [{ path: 'app/data/not-referenced.json', why: 'test' }], knownLoads: [{ file: /bad\.mjs$/, arg: /^base \+ name \+ '\.dat'$/, covered: 'test: the caller passes a folder that ships whole' }] };
+  const c = trace({ root, cfg }).census, by = Object.fromEntries(c.findings.map(f => [f.address, f.status]));
+  assert.deepEqual(by, { "URLS.data + 'nowhere.json'": 'dangling', "URLS.data + 'not-referenced.json'": 'excluded', "URLS.app + '../../../etc/passwd'": 'outside', 'window.makeAddress()': 'unreviewed', 'base + name': 'unreviewed' });
+  assert.equal(entryOf(c, "base + name + '.dat'")?.status, 'reviewed');
+  assert.equal(entryOf(c, '${URLS.gov}register/${id}.md')?.status, 'withheld', 'the register entries are withheld on purpose');
+  for (const f of c.findings) assert.ok(!CENSUS_OK.has(f.status));
+});
+test('fixture: load census. What the trace did not ship is MISSING and says what would answer it; the real files are never changed by it', t => {
+  if (!loadCensus({ files: [] }).available) return t.skip('acorn is not installed');
+  const root = fx('census-missing'), t0 = trace({ root, cfg: FIXTURE_CFG });
+  const run = drop => loadCensus({ root, files: t0.files.filter(f => !drop.includes(f)), urlKeys: t0.urlKeys, pages: t0.pages, leftOut: [], withheld: FIXTURE_CFG.withheld }).findings;
+  const file = run(['app/data/monuments.json']); assert.deepEqual(file.map(f => [f.status, f.target, f.ship]), [['missing', 'app/data/monuments.json', { kind: 'file', path: 'app/data/monuments.json' }]]);
+  const pre = run(['app/data/prefix-a.json', 'app/data/prefix-b.json']); assert.deepEqual(pre.map(f => [f.status, f.ship && f.ship.kind]), [['missing', 'prefix']]);
+  const folder = run(['app/data/tiles/1.json', 'app/data/tiles/2.json']); assert.deepEqual(folder.map(f => [f.status, f.ship && f.ship.kind, f.ship && f.ship.suffix]), [['missing', 'folder', '.json']]);
+  assert.deepEqual(run([]), [], 'the full list has no finding');
+});
+test('fixture: load census. The inline script of a page is read too, and a module that does not parse is reported', t => {
+  if (!loadCensus({ files: [] }).available) return t.skip('acorn is not installed');
+  const root = fx('census-inline', r => { patch(r, 'app/index.html', '<script type="module" src="src/main.mjs"></script>', '<script type="module" src="src/main.mjs"></script><script type="module">fetch(\'src/inline-data.json\');</script>'); put(r, 'app/src/inline-data.json', '{}\n'); put(r, 'app/src/broken.mjs', 'export const = ;\n'); });
+  const c = trace({ root, cfg: FIXTURE_CFG }).census;
+  assert.equal(c.entries.find(e => e.file === 'app/index.html' && /inline-data/.test(e.address))?.status, 'resolved', 'a fetch in an inline script of the page');
+  assert.equal(c.parseErrors.length, 1); assert.match(c.parseErrors[0], /^app\/src\/broken\.mjs: /);
+});
+test('fixture: the census is part of every pack: its counts are in the trace report beside the dist', t => {
+  if (!loadCensus({ files: [] }).available) return t.skip('acorn is not installed');
+  const root = fx('census-pack'), out = path.join(tmp, 'census-pack-out'), r = pack({ root, out, zip: false, cfg: FIXTURE_CFG }), rep = JSON.parse(fs.readFileSync(path.join(path.dirname(out), 'trace-report.json'), 'utf8'));
+  assert.ok(r.census.available && r.census.loads > 5); assert.deepEqual(rep.loadCensus.counts, r.census.counts); assert.deepEqual(rep.shippedByCensus, []);
 });
 test('fixture: withheld files never ship and are listed; a reduced file keeps the listed fields; a second reader fails the trace', () => {
   const root = fx('withheld'), out = path.join(tmp, 'wh/dist'), r = pack({ root, cfg: FIXTURE_CFG, out, zipDir: path.join(tmp, 'wh') });

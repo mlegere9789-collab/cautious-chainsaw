@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Write the verdicts of the poses that are new or finished in the third pass (P13, P27, P28, P29) and the gate block of the third pass into verdicts.json.
-Every verdict was written by a person after looking at the review sheet and the lines-on-photograph image of the pose (reports/<pose>.jpg, reports/<pose>_lines.jpg); the numbers quoted in the texts are read from criteria_measurements.json and skyline_results.json at run time, never typed.
+Every verdict is written after looking at the review sheet and the lines-on-photograph image of the pose (reports/<pose>.jpg, reports/<pose>_lines.jpg); the numbers quoted in the texts are read from criteria_measurements.json and skyline_results.json at run time, never typed.
+Run ONCE on the verdicts.json of the second pass: it is not idempotent (the P04 and P05 texts append their third-pass paragraph; run again on a finished file it would append it twice). The finished file was written on 2026-11-15 after the P29 sheet note was written.
 Usage: python3 -I tools/bt/photomatch/add_verdicts_third_pass.py"""
 import json, os
 HERE = os.path.dirname(os.path.abspath(__file__))

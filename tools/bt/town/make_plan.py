@@ -44,7 +44,7 @@ def inventory_table():
             sum(v for (l, d, g), v in fc.items() if l == 'basemap roads'), sum(v for (l, d, g), v in fc.items() if l == 'basemap lanes'),
             sum(v for (l, d, g), v in fc.items() if l == 'basemap lanes (inventory without geometry)'),
             sum(v for (l, d, g), v in fc.items() if l.startswith('basemap railways')), sum(v for (l, d, g), v in fc.items() if l == 'basemap bridges')),
-         'ground ribbons for 24 roads, 4 lanes and 2 railway lines; 8 bridge points as markers; 11 bridges, 7 roads outside the ground; 18 named lanes with no traced line; 3 railway records not in 1863'),
+         'ground ribbons for 24 roads, 4 lanes and 2 railway lines; 8 bridge points and 2 railway points (the depot RL-006, the Rock Creek trestle RL-007) as markers; 11 bridges, 7 roads outside the ground; 18 named lanes with no traced line; 3 railway records not in 1863'),
         ('Hospitals (`hospitals.json`)', '%d' % len(hosp), '14 name a host building (11 drawn or marked, 3 with no geometry); 9 name none (corps sites, the town as one vast hospital, Camp Letterman)'),
         ('Photographs (photo-match ledger)', '129', 'camera positions documented: 0 (70 statements in LOC and NPS texts: not one a coordinate, a lens or a station); poses registered 16: 0 match, 5 roughly, 4 do not, 7 cannot judge'),
     ]

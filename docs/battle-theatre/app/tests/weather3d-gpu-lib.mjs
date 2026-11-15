@@ -15,6 +15,43 @@ export function stats(w, h, rgba) {
   const a = Math.floor(h * 0.35), b = Math.ceil(h * 0.65); return { all: reg(0, h), top: reg(0, a), bottom: reg(b, h) };
 }
 
+// A PNG reader for what a browser writes for page.screenshot: 8-bit, not interlaced, RGB (colour type 2) or RGBA (6). Returns { w, h, data } with data as RGBA bytes (alpha 255 for RGB). Throws on anything else.
+export function decodePng(buf) {
+  const sig = [137, 80, 78, 71, 13, 10, 26, 10]; if (!buf || buf.length < 33 || sig.some((v, i) => buf[i] !== v)) throw new Error('not a PNG');
+  let pos = 8, w = 0, h = 0, bd = 0, ct = 0, il = 0; const idat = [];
+  while (pos + 8 <= buf.length) {
+    const len = buf.readUInt32BE(pos), type = buf.toString('latin1', pos + 4, pos + 8), d = buf.subarray(pos + 8, pos + 8 + len); pos += 12 + len;
+    if (type === 'IHDR') { w = d.readUInt32BE(0); h = d.readUInt32BE(4); bd = d[8]; ct = d[9]; il = d[12]; } else if (type === 'IDAT') idat.push(d); else if (type === 'IEND') break;
+  }
+  if (bd !== 8 || il !== 0 || (ct !== 2 && ct !== 6)) throw new Error(`unsupported PNG (bit depth ${bd}, colour type ${ct}, interlace ${il})`);
+  const bpp = ct === 6 ? 4 : 3, stride = w * bpp, raw = zlib.inflateSync(Buffer.concat(idat)); if (raw.length < (stride + 1) * h) throw new Error('truncated PNG data');
+  const out = new Uint8Array(w * h * 4); let prev = new Uint8Array(stride);
+  for (let y = 0; y < h; y++) {
+    const o = y * (stride + 1), ft = raw[o], cur = new Uint8Array(stride);
+    for (let i = 0; i < stride; i++) {
+      const x = raw[o + 1 + i], a = i >= bpp ? cur[i - bpp] : 0, b = prev[i], c = i >= bpp ? prev[i - bpp] : 0; let v;
+      if (ft === 0) v = x; else if (ft === 1) v = x + a; else if (ft === 2) v = x + b; else if (ft === 3) v = x + ((a + b) >> 1);
+      else if (ft === 4) { const q = a + b - c, pa = Math.abs(q - a), pb = Math.abs(q - b), pc = Math.abs(q - c); v = x + (pa <= pb && pa <= pc ? a : pb <= pc ? b : c); } else throw new Error('bad PNG filter ' + ft);
+      cur[i] = v & 255;
+    }
+    for (let xq = 0; xq < w; xq++) { const sp = xq * bpp, dp = (y * w + xq) * 4; out[dp] = cur[sp]; out[dp + 1] = cur[sp + 1]; out[dp + 2] = cur[sp + 2]; out[dp + 3] = bpp === 4 ? cur[sp + 3] : 255; }
+    prev = cur;
+  }
+  return { w, h, data: out };
+}
+// How far two RGBA pictures of the same size are apart (alpha ignored): the mean absolute difference per colour channel (8-bit levels), the rmse, the 99th percentile and the maximum of the largest channel difference of a pixel,
+// and the shares of pixels whose largest channel difference is over 8 and over 24 levels (the same measures as weather3d-gpu-compare.mjs).
+export function diffStats(a, b, w, h) {
+  const n = w * h; if (a.length !== n * 4 || b.length !== n * 4) throw new Error('the two pictures are not both ' + w + ' x ' + h + ' RGBA');
+  let sum = 0, sq = 0, n8 = 0, n24 = 0, max = 0; const hist = new Uint32Array(256);
+  for (let i = 0; i < n; i++) { let m = 0; for (let c = 0; c < 3; c++) { const d = Math.abs(a[i * 4 + c] - b[i * 4 + c]); sum += d; sq += d * d; if (d > m) m = d; } hist[m]++; if (m > 8) n8++; if (m > 24) n24++; if (m > max) max = m; }
+  let acc = 0, p99 = 0; const target = Math.floor(0.99 * n); for (let v = 0; v < 256; v++) { acc += hist[v]; if (acc > target) { p99 = v; break; } }
+  return { meanAbs: +(sum / (n * 3)).toFixed(3), rmse: +Math.sqrt(sq / (n * 3)).toFixed(3), p99, max, over8: +(n8 / n).toFixed(4), over24: +(n24 / n).toFixed(4) };
+}
+// The mean absolute difference (8-bit levels per channel) that the compositor's picture of the real canvas may have from the read-back of the same frame before it is a problem. A harness value, not a project gate: rounding of the compositor
+// is a level or two; a blank, black, stale, flipped or red-blue swapped canvas is tens of levels.
+export const CANVAS_SHOT_LIMIT = 4;
+
 // Chrome flags of the harnesses: WebGPU on its software adapter (SwiftShader through Vulkan) and WebGL2 on SwiftShader through ANGLE. This machine has no GPU; nothing run with these flags is a real-GPU result.
 export const CHROME_ARGS = ['--enable-unsafe-webgpu', '--enable-features=Vulkan,WebGPUService', '--ignore-gpu-blocklist', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'];
 // Chrome flags of a run on a machine WITH a GPU (--real-gpu of the harnesses): no software rasteriser is asked for, so WebGPU and WebGL2 both use the GPU that Chrome picks (on Linux WebGPU needs the Vulkan feature).

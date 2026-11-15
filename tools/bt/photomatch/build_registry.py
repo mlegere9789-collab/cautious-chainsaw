@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Join everything the Q16 photo-match work knows about each catalogued photograph into photograph_registry.json (one entry per record: 109 first-run + 18 added + the records of the wide search, third pass).
-Inputs: catalogue.json, catalogue_additions.json, catalogue_wide_items.json (+ wide_data.py, wide_images_ledger.json), registry_data.py (classification by a person who looked at every image), position_statements.json, nps_then_to_loc.json,
+Inputs: catalogue.json, catalogue_additions.json, catalogue_wide_items.json (+ wide_data.py, wide_images_ledger.json), registry_data.py (classification made by looking at every image), position_statements.json, nps_then_to_loc.json,
 poses.json, verdicts.json (pose verdicts written after looking at the review sheets), images_ledger.json.
 Output: tools/bt/photomatch/photograph_registry.json. The verdict of a record with a pose is the pose verdict; every other record gets 'cannot judge' with the reason class and text of registry_data.py.
 Usage: python3 -I tools/bt/photomatch/build_registry.py"""
@@ -60,6 +60,8 @@ def main():
             e['verdict'] = 'cannot judge'; e['reviewed_image'] = True   # the image was looked at (contact sheet) to write the reason
             e['why'] = STD[code].format(what=what[0].upper() + what[1:] if code in ('POS', 'OUT', 'STG') else what, basis=(basis or '')[:260])
             if e['same_exposure_as']: e['why'] += ' Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record ' + ', '.join(e['same_exposure_as']) + ' (both images were looked at).'
+            for s_ in st:   # the National Park Service Record of Treatment statements (third pass): quoted from the statement itself so that this text cannot say that no place or direction is stated where the Park Service gives one
+                if s_['id'].startswith('PS-NPS-ROTV') and pk in (s_.get('loc') or []): e['why'] += ' ' + s_['says'].rstrip('. ') + ' (statement ' + s_['id'] + ').'
         out.append(e)
     n = {}
     for e in out: n[e['verdict'].split(':')[-1].strip() if not e['pose_ids'] else e['verdict']] = n.get(e['verdict'].split(':')[-1].strip() if not e['pose_ids'] else e['verdict'], 0) + 1

@@ -47,18 +47,20 @@ export function update(frame) {
   P.viewProj(cam, R && R.W > 0 && R.H > 0 ? R.W / R.H : w / h, s.vp);
   const vis = P.project(s.vp, b.x, b.y, b.z, w, h, s.p) && s.p[0] > -20 && s.p[0] < w + 20 && s.p[1] > -20 && s.p[1] < h + 20;
   if (vis !== s.shown) { s.shown = vis; s.pin.hidden = !vis; }
-  if (vis) standLabel(s, w, h);
-  if (vis && !(Math.abs(s.p[0] - s.px) <= .2 && Math.abs(s.p[1] - s.py) <= .2)) { s.px = s.p[0]; s.py = s.p[1]; s.pin.style.transform = `translate(${s.px.toFixed(1)}px,${s.py.toFixed(1)}px)`; }       // not "<= .2 on both" also when the place is not known yet (NaN after a new stop is chosen)
+  const moved = vis && !(Math.abs(s.p[0] - s.px) <= .2 && Math.abs(s.p[1] - s.py) <= .2);
+  if (vis) standLabel(s, w, h, moved);
+  if (moved) { s.px = s.p[0]; s.py = s.p[1]; s.pin.style.transform = `translate(${s.px.toFixed(1)}px,${s.py.toFixed(1)}px)`; }       // not "<= .2 on both" also when the place is not known yet (NaN after a new stop is chosen)
 }
 
 // The label of the pin stands on the right of the place; where a panel would cover it there, it stands on the left, above or below, or inside the free stretch of the picture above the place, and
 // where that stretch is narrower than the label the text wraps (all of it stays: the words "modern tour stop" and the distance beyond the ground are never cut). The panels are read when something may
-// have moved (a panel opens or closes, the picture is resized) and at most every 400 ms; the place of the label is arithmetic in every frame.
+// have moved (a panel opens or closes, the picture is resized) and at most every 400 ms; the label is placed again only when the pin moved or a panel did.
 const LINE = 15.6, PAD = 8;                                                            // the label's line height (12 px at 1.3) and the padding and border above and below its text
-function standLabel(s, w, h) {
-  const th = s.th, lab = s.lab, now = performance.now();
-  if (!s.labW) { lab.style.whiteSpace = 'nowrap'; lab.style.maxWidth = ''; lab.style.width = ''; s.wrapW = 0; const r = lab.getBoundingClientRect(); s.labW = r.width || 0; s.labH = r.height || 24; s.lx = s.ly = NaN; }       // its size on one line, once for each stop
-  if (!s.avoid || now - s.measuredAt > 400) { s.measuredAt = now; s.avoid = P.panelRects(th.root, th.els.stage); }
+function standLabel(s, w, h, moved) {
+  const th = s.th, lab = s.lab, now = performance.now(); let dirty = moved;
+  if (!s.labW) { lab.style.whiteSpace = 'nowrap'; lab.style.maxWidth = ''; lab.style.width = ''; s.wrapW = 0; const r = lab.getBoundingClientRect(); s.labW = r.width || 0; s.labH = r.height || 24; s.lx = s.ly = NaN; dirty = true; }       // its size on one line, once for each stop
+  if (!s.avoid || now - s.measuredAt > 400) { s.measuredAt = now; const next = P.panelRects(th.root, th.els.stage); if (!P.sameRects(s.avoid, next)) { s.avoid = next; dirty = true; } }
+  if (!dirty) return;
   const ax = s.p[0], ay = s.p[1], o = { gap: 12, up: 30, above: 12, prefer: s.side }; let pl = P.placeLabel(ax, ay, s.labW, s.labH, w, h, s.avoid, o), wrapW = 0;
   for (let i = 0; i < 3 && pl.cut && pl.maxW >= 60; i++) { wrapW = Math.floor(pl.maxW); const n = Math.ceil(s.labW / Math.max(40, wrapW - 4)); pl = P.placeLabel(ax, ay, wrapW, Math.max(s.labH, n * LINE + PAD), w, h, s.avoid, o); }       // wrapped to the room there is (a taller box may find a narrower stretch: at most three tries)
   s.side = pl.side; const st = lab.style, lx = Math.round(pl.x - ax), ly = Math.round(pl.y - ay);

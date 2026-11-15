@@ -2494,5 +2494,291 @@
   "tests": [
    "main"
   ]
+ },
+ {
+  "id": "lib-angdiff-wrap",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "export const angDiff = (a, b) => Math.abs(((((a - b) % 360) + 360 + 180) % 360) - 180);",
+  "replace": "export const angDiff = (a, b) => Math.abs(a - b);",
+  "rule": "an azimuth is compared the short way round (359 and 1 are 2 degrees apart)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-angle-tol-halfunit",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "Math.max(floorDeg, 0.5 * 10 ** -Math.max(0, printedDecimals(text, n)))",
+  "replace": "Math.max(floorDeg, 0.05)",
+  "rule": "an angle a row prints is matched to half a unit of the last digit it prints",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-angle-tol-floor",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "Math.max(floorDeg, 0.5 * 10 ** -Math.max(0, printedDecimals(text, n)))",
+  "replace": "0.5 * 10 ** -Math.max(0, printedDecimals(text, n))",
+  "rule": "the angle tolerance is never less than the floor of tolerances.json sky",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-printed-decimals-finest",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "best = Math.max(best, (m[3] || '').length);",
+  "replace": "best = (m[3] || '').length;",
+  "rule": "a number printed twice is read at its finest print",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-printed-decimals-sign",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "if ((m[1] ? -1 : 1) * +`",
+  "replace": "if (+`",
+  "rule": "a minus sign is part of the number a row prints",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-compass-half-width-wide",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "export const COMPASS_HALF_WIDTH = 11.25;",
+  "replace": "export const COMPASS_HALF_WIDTH = 33.75;",
+  "rule": "a point of the 16-point compass stands for the 22.5 degrees around it",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-compass-half-width-narrow",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "export const COMPASS_HALF_WIDTH = 11.25;",
+  "replace": "export const COMPASS_HALF_WIDTH = 5;",
+  "rule": "a point of the 16-point compass stands for the 22.5 degrees around it",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-compass-point",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "S: 180, SSW: 202.5,",
+  "replace": "S: 180, SSW: 225,",
+  "rule": "the 16 points of the compass are 22.5 degrees apart",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-sun-alt",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "['sun_alt', s.sunAlt, 'sun altitude', false], ",
+  "replace": "",
+  "rule": "a sun altitude the row prints is the picture's",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-sun-az",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "['sun_az', s.sunAz, 'sun azimuth', true], ",
+  "replace": "",
+  "rule": "a sun azimuth the row prints is the picture's",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-moon-alt",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "['moon_alt', s.moonAlt, 'moon altitude', false], ",
+  "replace": "",
+  "rule": "a moon altitude the row prints is the picture's",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-moon-az",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": ", ['moon_az', s.moonAz, 'moon azimuth', true]];",
+  "replace": "];",
+  "rule": "a moon azimuth the row prints is the picture's",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-circular",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "diff = circular ? angDiff(got, a[k]) : Math.abs(got - a[k]);",
+  "replace": "diff = Math.abs(got - a[k]);",
+  "rule": "an azimuth is compared the short way round",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-tol-record",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "tol = a.tol_deg != null ? Math.min(a.tol_deg, stated) : stated,",
+  "replace": "tol = stated,",
+  "rule": "a record may tighten the angle tolerance",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-no-value",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a[k] == null) continue; if (!Number.isFinite(got)) return `the picture has no ${label} at this minute`;",
+  "replace": "if (a[k] == null) continue;",
+  "rule": "a sky angle the picture does not have fails the check",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-wind-recorded",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (w.directionRecorded !== true || !Number.isFinite(w.fromDeg)) return `no wind direction",
+  "replace": "if (!Number.isFinite(w.fromDeg)) return `no wind direction",
+  "rule": "only a wind direction the environment layer records counts",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-wind-closed-arc",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "angDiff(w.fromDeg, COMPASS16[p]) <= COMPASS_HALF_WIDTH + 1e-9",
+  "replace": "angDiff(w.fromDeg, COMPASS16[p]) < COMPASS_HALF_WIDTH",
+  "rule": "the arc of a compass point is closed at both ends",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-wind-list-valid",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": ".filter(p => Object.prototype.hasOwnProperty.call(COMPASS16, p)), said =",
+  "replace": ", said =",
+  "rule": "a name that is no point of the compass names no direction",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-falsifiable-guard",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "catch (e) { res.problems.push({ code: 'assert_error', detail: `checks[${i}] (${a.type}) threw while it was tried at the control minutes: ${String(e && e.message || e).slice(0, 200)}` }); continue; }",
+  "replace": "catch (e) { throw e; }",
+  "rule": "a malformed assertion fails the record; the harness does not crash on it",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-angle-number-in-quote",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "else if (!numIn(a.quote, a[k])) add('number_not_in_quote'",
+  "replace": "else if (false) add('number_not_in_quote'",
+  "rule": "an angle of a check is a number the check's own quote prints",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-angle-range",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!(typeof a[k] === 'number' && Number.isFinite(a[k]) && a[k] >= lo && a[k] <= hi)) add('assert_field'",
+  "replace": "if (false) add('assert_field'",
+  "rule": "an altitude lies in -90..90 and an azimuth in 0..360",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-angle-tol-wider",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "a.tol_deg > angleTolerance(a.quote, a[k], floorDeg) + 1e-12",
+  "replace": "false",
+  "rule": "a record may tighten the angle tolerance, never widen it",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-angle-tol-field",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.tol_deg != null && !named.length) add('assert_field'",
+  "replace": "if (false) add('assert_field'",
+  "rule": "tol_deg belongs to a check that names an angle",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-vac-tol-deg",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.tol_deg != null && !(isNum(a.tol_deg) && a.tol_deg > 0)) out.push(",
+  "replace": "if (false) out.push(",
+  "rule": "a tolerance of 0 degrees is no tolerance",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-wind-all16",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "else if (new Set(names).size >= Object.keys(COMPASS16).length) vac(",
+  "replace": "else if (false) vac(",
+  "rule": "a list of all 16 compass points is satisfied by every wind",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-wind-names",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!names || !names.length || bad.length) out.push(",
+  "replace": "if (false) out.push(",
+  "rule": "wind_from_in is a non-empty list of points of the 16-point compass",
+  "tests": [
+   "rules",
+   "main"
+  ]
  }
 ]

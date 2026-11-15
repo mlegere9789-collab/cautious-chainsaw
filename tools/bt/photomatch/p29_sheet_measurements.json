@@ -55,6 +55,17 @@
    "sha256": "22f72d396ead5894962cede6057f51240dcbac5104fe544e462d720b41ac26e1"
   }
  },
+ "render_vs_raymarch": {
+  "what": "silhouette of the main render against the ray-marched model skyline at the same station, camera height, heading and field (both read the same DEM; a check of the tooling, not a test of the photograph)",
+  "mean_px": -5.78,
+  "rms_px": 7.66,
+  "max_abs_px": 15.08,
+  "rms_deg": 0.333,
+  "frame_px": [
+   960,
+   570
+  ]
+ },
  "differences_at_registered_pose": {
   "crest_x_frac_difference_render_minus_photo": -0.011,
   "crest_row_frac_difference_render_minus_photo": 0.307,

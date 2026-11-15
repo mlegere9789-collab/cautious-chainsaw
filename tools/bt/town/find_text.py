@@ -16,10 +16,11 @@ import glob, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import validate_evidence as V  # noqa: E402
+import textpat  # noqa: E402
 
 
 def compile_pat(p):
-    return re.compile(p.replace(' ', r'(?:\s|-\s)+'), re.I | re.S)
+    return textpat.compile_term(p)
 
 
 def members(ctx, sid):
@@ -103,6 +104,11 @@ def self_test():
         raw = open(os.path.join(tmp, 'tmp/library/test/a.txt'), newline='').read()
         m = compile_pat('court house stood').search(raw)
         assert m and raw[m.start():m.start() + 5] == 'Court'
+        # a space inside a character class (the example of the docstring compiles and finds what it says), `.` across a line end
+        assert compile_pat('court[- ]?house').search('the court house, the court-house and the courthouse')
+        assert run('A', 'used[- ]as a', ctx=c) == 1
+        assert run('A', 'court house.{0,60}hospital', ctx=c) == 1
+        assert run('A', 'stood on the [Ss]quare', ctx=c) == 1
         print('find_text self-test ok')
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

@@ -111,7 +111,7 @@ def run(V):
             r.update(kw)
             return {k: v for k, v in r.items() if v != '__drop__'}
 
-        def case(name, rows, expect, group='g-one', complete=False):
+        def case(name, rows, expect, group='g-one', complete=False, warn=None):
             nonlocal n_ok, n_fail
             p = os.path.join(tmp, 'docs/battle-theatre/town/evidence/%s.jsonl' % group)
             with open(p, 'w', encoding='utf-8') as f:
@@ -123,6 +123,9 @@ def run(V):
                 good = ok and not errors
             else:
                 good = (not ok) and any(expect in e for e in errors)
+            if warn is not None and not any(warn in w for w in warnings):
+                good = False
+                expect = (expect or 'no error') + ' and a warning containing %r (warnings: %s)' % (warn, warnings[:2])
             if good:
                 n_ok += 1
             else:
@@ -213,11 +216,33 @@ def run(V):
                                                          'tier': 'inferred', 'evidence_kind': 'image', 'describes': 'before_1863', 'basis': 'read from the Hopkins inset by scale', 'method': 'affine',
                                                          'image_ref': dict(im, caption_names_building=False)}], 'outside the battlefield box')
         # completeness
-        def gapfor(n, f):
-            return {'row': 'g-one.%04d' % n, 'type': 'field', 'group': 'g-one', 'building': BID, 'field': f, 'value': None, 'tier': 'open gap', 'evidence_kind': 'none', 'describes': 'undated', 'searched': ['g-one.0010']}
+        def gapfor(n, f, bid=BID):
+            return {'row': 'g-one.%04d' % n, 'type': 'field', 'group': 'g-one', 'building': bid, 'field': f, 'value': None, 'tier': 'open gap', 'evidence_kind': 'none', 'describes': 'undated', 'searched': ['g-one.0010']}
         case('AD complete: required fields missing', B + [fr(2)], 'has no row for', complete=True)
         req = [f for f in V.REQUIRED_FIELDS['building'] if f != 'storeys']
-        case('AD2 complete: every required field has a row (open gaps allowed)', B + [srch, fr(2)] + [gapfor(100 + i, f) for i, f in enumerate(req)], None, complete=True)
+        full = [srch, fr(2)] + [gapfor(100 + i, f) for i, f in enumerate(req)]
+        # the inventory of g-one is bld-a, bld-b and STR-X-1: nothing is narrowed by leaving one out
+        case('AD2 complete: two structures of the group inventory are not accounted for', B + full, 'not accounted for', complete=True)
+        linked = dict(base_b, links={'structures': ['bld-b'], 'basemap': ['STR-X-1']})
+        case('AD3 complete: every required field has a row and the inventory is accounted for by links (open gaps allowed)', [linked] + full, None, complete=True)
+        ids = [300]
+
+        def nxt():
+            ids[0] += 1
+            return ids[0]
+        own = []
+        for bid2, how in (('bld-b', 'structures.json'), ('STR-X-1', 'basemap')):
+            own.append({'row': 'g-one.%04d' % nxt(), 'type': 'building', 'group': 'g-one', 'building': bid2, 'name': 'Building ' + bid2, 'declared_from': how})
+            own += [gapfor(nxt(), f, bid2) for f in V.REQUIRED_FIELDS['building']]
+        case('AD4 complete: the other structures declared by building rows of their own', B + full + own, None, complete=True)
+        case('AD5 complete: a group that records no search', B + [fr(2)], 'records what was searched', complete=True)
+        case('AD6 complete: a group that declares no building', [], 'declares at least one building', complete=True)
+        case('AD7 complete: a link naming a structure of another group does not account for the structures of this group', [dict(base_b, links={'structures': ['bld-other']})] + full, 'not accounted for', complete=True)
+        # links of a building row
+        case('AE links that is not an object', [dict(base_b, links=['bld-b'])], 'links is an object')
+        case('AE2 links with a key that is not one of the five', [dict(base_b, links={'fences': ['x']})], 'links key')
+        case('AE3 links value that is not a list of ids', [dict(base_b, links={'basemap': 'STR-X-1'})], 'is a list of ids')
+        case('AE4 links naming a structure that the inventory gives to another group warns', [dict(base_b, links={'structures': ['bld-other']})], None, warn='assigns to group g-two')
         # a file of rows that name their own group
         e2 = []
         errors, warnings, stats = e2, [], {'rows': 0, 'by_type': {}, 'by_tier': {}, 'buildings': 0}

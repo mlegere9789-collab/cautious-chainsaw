@@ -3,7 +3,7 @@
 //   node --test tests/bt-pack/verify.test.mjs            (the last test starts a browser for a few seconds: run it through tools/horde/bench.sh, or set BT_PACK_NO_BROWSER=1 to skip it)
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { pack, trace, BT } from '../../tools/bt/pack_theatre.mjs';
-import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections, checkPortableNames, makeShooter, renderStagingBlock, writeStagingBlock, findRequestNotes, BLOCK_START, BLOCK_END } from '../../tools/bt/verify_staging.mjs';
+import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections, checkPortableNames, makeShooter, renderStagingBlock, writeStagingBlock, findRequestNotes, censusVerdict, BLOCK_START, BLOCK_END } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btverify-')); test.after(() => fs.rmSync(tmp, { recursive: true, force: true }));
@@ -179,6 +179,24 @@ test('the Current build block: the numbers of a real run come from its report; a
   assert.ok(diff.includes('| Real-browser run | **not this build**: the last one that ran walked build `' + q.version + '`'));
   assert.match(diff, /\*\*The newest pack is not the verified build\.\*\* Against build `\w+` it differs in 1 files? .*1 changed \(app\/data\/doc-relative\.json\)/);
   const gone = renderStagingBlock({ dist: p.out, zip: p.zip, report: fakeReport(q.version, path.join(tmp, 'no-such-dist')) }); assert.match(gone, /is not on disk any more/);
+});
+test('the Current build block: the load census has a row of its own, from the trace report of the pack', () => {
+  const p = build('blk-census'), b = renderStagingBlock({ dist: p.out, zip: p.zip }), row = b.split('\n').find(l => l.startsWith('| Load census |'));
+  assert.ok(row, 'a pack by this packer carries the census'); assert.match(row, /the syntax trees of \d+ modules and \d+ pages? were read, independently of the patterns of the trace/); assert.match(row, /\d+ loads? \(.*resolved.*\); 0 findings; files in the build only because the census found a load of them: none\./);
+  // a report that says the census could not run is shown as NOT RUN, and a finding is named
+  const rep = path.join(path.dirname(p.out), 'trace-report.json'), j = JSON.parse(fs.readFileSync(rep, 'utf8'));
+  fs.writeFileSync(rep, JSON.stringify({ ...j, loadCensus: { available: false, reason: 'the load census could not run: acorn is not installed (x); run npm ci' } })); assert.match(renderStagingBlock({ dist: p.out, zip: p.zip }), /\| Load census \| \*\*NOT RUN\*\*: the load census could not run: acorn is not installed/);
+  fs.writeFileSync(rep, JSON.stringify({ ...j, loadCensus: { ...j.loadCensus, findings: [{ status: 'dangling', file: 'app/src/a.mjs', line: 3 }] }, shippedByCensus: [{ path: 'app/data/z.json', why: 'x' }] })); const r2 = renderStagingBlock({ dist: p.out, zip: p.zip }); assert.match(r2, /\*\*1 finding\*\*: dangling `app\/src\/a\.mjs:3`/); assert.match(r2, /only because the census found a load of them: `app\/data\/z\.json`/);
+  fs.writeFileSync(rep, JSON.stringify((({ loadCensus, shippedByCensus, ...rest }) => rest)(j))); assert.ok(!renderStagingBlock({ dist: p.out, zip: p.zip }).includes('| Load census |'), 'an older report without a census has no row');
+});
+test('the census verdict of the verification: a load the build does not answer fails; a form it cannot evaluate and a file only the census found are notes; no result and no acorn are said, not hidden', () => {
+  const f = (status, extra = {}) => ({ status, file: 'app/src/a.mjs', line: 7, how: 'fetch()', address: "URLS.data + 'x.json'", target: 'app/data/x.json', ...extra }), census = findings => ({ available: true, scanned: 190, loads: 80, counts: { resolved: 79, [findings[0] ? findings[0].status : 'resolved']: 1 }, findings, parseErrors: [], entries: findings });
+  assert.deepEqual(censusVerdict(census([])).failures, []); assert.deepEqual(censusVerdict(census([])).notes, []);
+  for (const st of ['missing', 'dangling', 'excluded', 'outside']) { const v = censusVerdict(census([f(st)])); assert.equal(v.failures.length, 1, st); assert.match(v.failures[0], new RegExp(`^LOAD CENSUS: 1 load\\(s\\) of the shipped code that the build does not answer: ${st} app/src/a\\.mjs:7`)); }
+  const u = censusVerdict(census([f('unreviewed', { target: undefined })])); assert.deepEqual(u.failures, []); assert.match(u.notes[0], /1 load\(s\) of a form it cannot evaluate, to be looked at: unreviewed app\/src\/a\.mjs:7/);
+  const by = censusVerdict(census([]), [{ path: 'app/data/q.json', why: 'x' }]); assert.deepEqual(by.failures, []); assert.match(by.notes[0], /1 file\(s\) are in the build only because the census found a load of them .*: app\/data\/q\.json/); assert.deepEqual(by.summary.shippedByCensus, ['app/data/q.json']);
+  const pe = censusVerdict({ ...census([]), parseErrors: ['app/src/b.mjs: Unexpected token'] }); assert.match(pe.failures[0], /a module does not parse: app\/src\/b\.mjs/);
+  assert.match(censusVerdict(null).notes[0], /no result/); const off = censusVerdict({ available: false, reason: 'acorn is not installed' }); assert.deepEqual(off.failures, []); assert.match(off.notes[0], /acorn is not installed/); assert.equal(off.summary.available, false);
 });
 test('the Current build block: only the text between the two markers of the document changes, and a document without them is refused', () => {
   const p = build('blk-e'), doc = path.join(tmp, 'blk-e-doc.md'), before = `# Title\n\nintro line\n\n${BLOCK_START}\nold block\n${BLOCK_END}\n\n## Build\nthe rest of the document\n`; fs.writeFileSync(doc, before);

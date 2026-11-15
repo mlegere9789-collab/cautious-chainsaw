@@ -16,7 +16,7 @@
 // The copy audit (AUDIT_RE below) runs on the finished dist. A build with hits exits 2, prints every line, and its zip is named gettysburg-BT-staging-<id>-AUDIT-HITS-<n>.zip: the plain
 // name means "clean" and nothing else (the zips of earlier flagged builds are removed by the next pack; a clean zip never is). tools/bt/verify_staging.mjs does the whole honest run
 // (snapshot, pack, static checks, browser walk of the dist and of the source, comparison); tests/bt-pack holds the self-tests of both tools.
-import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
+import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url'; import { createRequire } from 'node:module';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 export const REPO = path.resolve(here, '../..');
@@ -245,6 +245,21 @@ export function trace(opts = {}) {
     again = false;
     for (const [abs, whys] of [...files]) if (/\.json$/i.test(abs) && !seenJson.has(abs) && [...whys].some(w => cfg.sections.some(sec => w.includes(' in ' + sec + '/')))) { const n = files.size; scanJson(abs, path.dirname(abs)); if (files.size > n) again = true; }
   }
+  // ---- 6. the census (loadCensus, below): the syntax tree of every shipped module is read once more, independently of the patterns above. What it evaluates to a file, a folder or a name prefix that is
+  // in the repository and not in the build is shipped now and named in the notes (the patterns are then behind the code); what it cannot place stays in the result for the report and the self-tests.
+  const censusArgs = () => ({ root, files: [...files.keys()].map(rel), urlKeys: cfg.urlKeys, pages: [...seenPage].map(rel), leftOut: cfg.exclude.map(e => ({ path: typeof e === 'string' ? e : e.path })), withheld: cfg.withheld, known: c.knownLoads || KNOWN_LOADS });
+  let census = loadCensus(censusArgs()); const byCensus = [];
+  for (let round = 0; round < 6 && census.available; round++) {
+    const miss = census.entries.filter(e => e.status === 'missing' && e.ship); if (!miss.length) break;
+    const had = new Set(files.keys());
+    for (const e of miss) ref(path.join(root, e.ship.path), `load census: ${e.how} in ${e.file}:${e.line}`, { mode: 'shipped', kind: e.ship.kind, suffix: e.ship.suffix || '', missing: null });
+    for (let guard = 0; (reached.length || later.length) && guard < 1e4; guard++) { drain(reached); const l = later.splice(0); drain(l); }
+    const added = [...files.keys()].filter(f => !had.has(f)); if (!added.length) break;
+    for (const f of added) byCensus.push({ path: rel(f), why: [...files.get(f)].sort()[0] });
+    census = loadCensus(censusArgs());
+  }
+  if (!census.available) problems.push(census.reason);
+  if (byCensus.length) notes.push(`${byCensus.length} file(s) are in the build because the load census found a load of them that the patterns of the trace do not follow (extend the patterns): ${byCensus.slice(0, 6).map(x => x.path).join(', ')}${byCensus.length > 6 ? ', ...' : ''}`);
   const leftOut = [];
   for (const e of cfg.exclude) { const d = typeof e === 'string' ? e : e.path, abs = path.join(root, d), gone = []; for (const f of [...files.keys()]) if (f === abs || f.startsWith(abs + path.sep)) { files.delete(f); gone.push(rel(f)); } if (gone.length) leftOut.push({ path: d, files: gone.length, why: typeof e === 'string' ? '' : e.why || '' }); }
   // ---- working files that are shipped reduced: every shipped module that names one must be a listed reader, reading it the listed way
@@ -262,7 +277,7 @@ export function trace(opts = {}) {
   return { root, files: shipped, leftOut, problems: [...new Set(problems)], notes: [...new Set(notes)].sort(), why, urlKeys: cfg.urlKeys,
     withheld: [...withheld.values()].map(w => ({ id: w.id, pattern: w.pattern, why: w.why, files: w.files.size, referencedBy: [...w.referencedBy].sort() })),
     projected, sections, pages: [...seenPage].map(rel).sort(), modules: { loaded: [...seenMod].filter(([, m]) => m === 'reached').map(([f]) => rel(f)).sort(), shippedOnly: [...seenMod].filter(([f, m]) => m === 'shipped' && files.has(f)).map(([f]) => rel(f)).sort() },
-    computedImports: computed, unshippedLiterals: [...unshipped.values()].sort((a, b) => (a.file + a.literal < b.file + b.literal ? -1 : 1)), external: [...external].sort() };
+    computedImports: computed, unshippedLiterals: [...unshipped.values()].sort((a, b) => (a.file + a.literal < b.file + b.literal ? -1 : 1)), external: [...external].sort(), census, byCensus };
 }
 
 // ---- transforms of the files that differ from the repository copy
@@ -491,6 +506,153 @@ export function auditReview(dist) {
   return out;
 }
 
+// ---- independent census of the loads in the shipped code
+// trace() reads the code with regular expressions, so it can only follow the forms it has a pattern for. This census reads the SYNTAX TREE of every shipped module and of the inline scripts of the
+// pages (acorn, a declared devDependency of the repository) and lists every address the code loads, whatever the name of the function that loads it: (1) every string expression built on a folder key
+// of config.mjs (`URLS.data + 'x.json'`, `${urls.kit}a/${id}.json`, `ctx.urls.data`, an alias `const U = URLS.data`, a destructured `const { data } = URLS`, `URLS['data']`), also when it is handed to a
+// helper such as opt(...) or getJSON(...); (2) every call of the platform that loads something (fetch and the fetch functions that are passed in, new Worker / Audio / Request / EventSource, import(),
+// importScripts, new URL(x, base), an assigned .src or .href with a literal part). Each address is evaluated as far as the code itself says (literals, templates, concatenation, a unique const, a
+// function parameter, the module's own folder) and compared with the BUILD: resolved (a shipped file, or a shipped file with that folder or name prefix), plumbing (the address is a parameter of a helper:
+// the callers are listed on their own), external, withheld on purpose (WITHHELD), reviewed (KNOWN_LOADS below, with the reason), or a finding: MISSING (in the repository, not in the build), DANGLING (not in the
+// repository either), EXCLUDED (the code asks for a file that EXCLUDE leaves out), OUTSIDE (leaves the packed folder) and UNREVIEWED (a form this census cannot evaluate: someone must look at it).
+// trace() runs it as its last step and SHIPS what it finds MISSING (the reason is recorded: "load census: ... in file:line", and the trace notes name every such file, because the patterns are then behind
+// the code); the findings that remain are in trace-report.json ("loadCensus") and tests/bt-pack fails on them. Loads whose address comes from DATA (the file names in app/data/audio3d/sources.json)
+// cannot be seen by any scan of code: they have their own tripwire in tests/bt-pack ("recorded sounds").
+export const KNOWN_LOADS = [
+  { file: /^app\/src\/fx-host\.mjs$/, arg: /^url \+ f$/, covered: 'the loader of the effects data: the one call that creates it passes URLS.data + "fx3d/" (listed on its own); the files of that folder that no page loads are in EXCLUDE' },
+  { file: /^app\/src\/audio3d\/index\.mjs$/, arg: /^new URL\(name, baseUrl\)(?:\.href)?$/, covered: 'the sound data loader: the base is new URL("../../data/audio3d/", import.meta.url) in the caller (listed on its own); the files it asks for are in INCLUDE app/data/audio3d' },
+  { file: /^app\/src\/audio3d\/loader\.mjs$/, arg: /^new URL\(s\.file, baseUrl\)(?:\.href)?$/, covered: 'the recorded sounds: the file names come from app/data/audio3d/sources.json; no page calls loadRecordings today (tests/bt-pack has the tripwire "recorded sounds")' },
+  { file: /^render\/prototype\/src\/(?:webgl2|webgpu)\.mjs$/, arg: /^base \+ 'data\/aerial\.jpg'$/, covered: 'the shell always passes base: URLS.proto (src/render-host.mjs); the default "./" is the prototype page of the renderer; render/prototype/data ships whole (EXTRA_DIRS)' },
+];
+export const CENSUS_OK = new Set(['resolved', 'plumbing', 'external', 'withheld', 'reviewed', 'inline-data']);
+const CENSUS_RAW = new Map();      // sha256 of a source (+ the folder keys) -> its raw loads: the parse is the slow part and the tests ask many times
+const censusLib = (() => { let lib; return () => { if (lib === undefined) { try { const req = createRequire(import.meta.url); lib = { acorn: req('acorn'), walker: req('acorn-walk') }; } catch (e) { lib = { error: String(e.message).split('\n')[0] }; } } return lib; }; })();
+const lit = s => ({ t: 'lit', s }), HOLE = { t: 'hole' }, MOD = { t: 'mod' };
+/** The raw loads of one source text: [{ line, how, address, alts }] (alts = the alternatives the address can take; each is a list of parts: lit, base, mod, param, hole). Throws on a text that does not parse. */
+function censusRaw(code, urlKeys) {
+  const { acorn, walker } = censusLib(), ck = sha(Buffer.from(code)) + Object.keys(urlKeys).sort().join(','); if (CENSUS_RAW.has(ck)) return CENSUS_RAW.get(ck);
+  let ast; try { ast = acorn.parse(code, { ecmaVersion: 'latest', sourceType: 'module', allowHashBang: true, locations: true }); } catch (e1) { ast = acorn.parse(code, { ecmaVersion: 'latest', sourceType: 'script', allowHashBang: true, locations: true }); }
+  const txt = n => code.slice(n.start, n.end).replace(/\s+/g, ' ').trim(), has = k => Object.prototype.hasOwnProperty.call(urlKeys, k), raw = [], seen = new Map();
+  const cross = (A, B) => { const o = []; for (const a of A) for (const b of B) { o.push([...a, ...b]); if (o.length > 12) return o; } return o; };
+  const fnParams = fn => { const o = new Set(); const add = p => { if (!p) return; if (p.type === 'Identifier') o.add(p.name); else if (p.type === 'AssignmentPattern') add(p.left); else if (p.type === 'RestElement') add(p.argument); else if (p.type === 'ObjectPattern') p.properties.forEach(q => add(q.value || q.argument)); else if (p.type === 'ArrayPattern') p.elements.forEach(add); }; fn.params.forEach(add); return o; };
+  const decl = new Map(), keyAlias = new Map();
+  const isKeyHolder = o => o && ((o.type === 'Identifier' && /^(URLS|urls)$/.test(o.name)) || (o.type === 'MemberExpression' && !o.computed && /^(URLS|urls)$/.test(o.property.name)));
+  const baseKey = n => { if (!n || n.type !== 'MemberExpression' || !isKeyHolder(n.object)) return null; const k = n.computed ? (n.property.type === 'Literal' ? String(n.property.value) : null) : n.property.name; return k && has(k) ? k : null; };
+  walker.fullAncestor(ast, (n, _s, anc) => {
+    if (n.type !== 'VariableDeclarator') return;
+    if (n.id.type === 'Identifier') { if (!decl.has(n.id.name)) decl.set(n.id.name, []); decl.get(n.id.name).push({ init: n.init, anc: anc.slice(0, -1) }); }
+    else if (n.id.type === 'ObjectPattern' && isKeyHolder(n.init)) for (const p of n.id.properties) if (p.type === 'Property' && p.key.type === 'Identifier' && p.value.type === 'Identifier' && has(p.key.name)) keyAlias.set(p.value.name, p.key.name);
+  });
+  const enclosing = anc => anc.filter(a => /Function/.test(a.type)).reverse();
+  function ev(n, anc, depth = 0) {          // the alternatives of an expression
+    if (!n || depth > 8) return [[HOLE]];
+    switch (n.type) {
+      case 'Literal': return typeof n.value === 'string' ? [[lit(n.value)]] : [[HOLE]];
+      case 'TemplateLiteral': { let a = [[]]; n.quasis.forEach((q, i) => { a = cross(a, [[lit(q.value.cooked ?? '')]]); if (n.expressions[i]) a = cross(a, ev(n.expressions[i], anc, depth + 1)); }); return a; }
+      case 'BinaryExpression': return n.operator === '+' ? cross(ev(n.left, anc, depth + 1), ev(n.right, anc, depth + 1)) : [[HOLE]];
+      case 'AwaitExpression': case 'ChainExpression': return ev(n.argument || n.expression, anc, depth + 1);
+      case 'ConditionalExpression': return [...ev(n.consequent, anc, depth + 1), ...ev(n.alternate, anc, depth + 1)];
+      case 'LogicalExpression': return n.operator === '&&' ? ev(n.right, anc, depth + 1) : [...ev(n.right, anc, depth + 1), ...ev(n.left, anc, depth + 1)];
+      case 'MetaProperty': return [[MOD]];
+      case 'MemberExpression': {
+        if (n.object.type === 'MetaProperty' && !n.computed && n.property.name === 'url') return [[MOD]];
+        const k = baseKey(n); if (k) return [[{ t: 'base', key: k }]];
+        if (!n.computed && /^(href|pathname)$/.test(n.property.name)) return ev(n.object, anc, depth + 1);
+        return [[HOLE]];
+      }
+      case 'NewExpression': if (n.callee.type === 'Identifier' && n.callee.name === 'URL' && n.arguments.length) { const rel = ev(n.arguments[0], anc, depth + 1); return n.arguments[1] ? cross(ev(n.arguments[1], anc, depth + 1), rel) : rel; } return [[HOLE]];
+      case 'CallExpression': if (n.callee.type === 'Identifier' && n.callee.name === 'String' && n.arguments.length === 1) return ev(n.arguments[0], anc, depth + 1); return [[HOLE]];
+      case 'Identifier': {
+        for (const f of enclosing(anc)) if (fnParams(f).has(n.name)) return [[{ t: 'param', name: n.name }]];
+        if (keyAlias.has(n.name)) return [[{ t: 'base', key: keyAlias.get(n.name) }]];
+        const d = decl.get(n.name); if (d && d.length === 1 && d[0].init) return ev(d[0].init, d[0].anc, depth + 1);
+        return [[HOLE]];
+      }
+      default: return [[HOLE]];
+    }
+  }
+  const note = (node, how, anc) => {         // node: the address expression
+    const k = node.start + ':' + node.end; if (seen.has(k)) { const e = seen.get(k); if (!e.how.includes(how)) e.how += ', ' + how; return; }
+    const e = { line: node.loc.start.line, how, address: txt(node).slice(0, 140), alts: ev(node, anc) }; seen.set(k, e); raw.push(e);
+  };
+  const LOADCALL = /^(fetch\w*|importScripts)$/;
+  walker.fullAncestor(ast, (n, _s, anc) => {
+    anc = anc.slice(0, -1);
+    if (n.type === 'MemberExpression' && baseKey(n)) {          // (1) a string expression built on a folder key: evaluated once, at its outermost concatenation or template
+      let top = n, i = anc.length - 1; while (i >= 0 && ((anc[i].type === 'BinaryExpression' && anc[i].operator === '+') || anc[i].type === 'TemplateLiteral' || anc[i].type === 'AwaitExpression')) { top = anc[i]; i--; }
+      const parent = anc[i], aliasOnly = top === n && parent && ((parent.type === 'VariableDeclarator' && parent.init === n) || (parent.type === 'MemberExpression' && parent.object === n) || (parent.type === 'Property' && parent.shorthand));
+      if (!aliasOnly) note(top, 'keyed address', anc.slice(0, i + 1));
+    }
+    let arg = null, how = null;                                   // (2) the calls of the platform that load something
+    if (n.type === 'CallExpression') { const c = n.callee, nm = c.type === 'Identifier' ? c.name : c.type === 'MemberExpression' && !c.computed ? c.property.name : ''; if (LOADCALL.test(nm) || (c.type === 'MemberExpression' && /^(addModule|register)$/.test(nm) && /serviceWorker|audioWorklet|Worklet/i.test(txt(c.object)))) { arg = n.arguments[0]; how = nm + '()'; } }
+    else if (n.type === 'NewExpression' && n.callee.type === 'Identifier') { const nm = n.callee.name; if (/^(Worker|SharedWorker|Audio|Request|EventSource)$/.test(nm)) { arg = n.arguments[0]; how = 'new ' + nm; } else if (nm === 'URL' && n.arguments.length >= 2) { arg = n; how = 'new URL(…, base)'; } }
+    else if (n.type === 'ImportExpression') { if (n.source.type !== 'Literal') { arg = n.source; how = 'import()'; } }       // import('literal') is read and judged by trace() itself (a missing one is a note: the call may be guarded)
+    else if (n.type === 'AssignmentExpression' && n.operator === '=' && n.left.type === 'MemberExpression' && !n.left.computed && /^(src|href)$/.test(n.left.property.name)) { if (ev(n.right, anc).some(a => a.some(x => (x.t === 'lit' && /[./]/.test(x.s)) || x.t === 'base'))) { arg = n.right; how = '.' + n.left.property.name + ' ='; } }
+    if (arg && !(arg.type === 'Literal' && typeof arg.value !== 'string')) note(arg, how, anc);
+  });
+  CENSUS_RAW.set(ck, raw); return raw;
+}
+/**
+ * The census of the loads of the shipped code against a build. files: the build's file list (paths under root). Returns { available, scanned, loads, counts, findings, entries, parseErrors }; findings are the entries whose
+ * status is not in CENSUS_OK. An entry with status 'missing' carries `ship` ({ kind: 'file'|'folder'|'prefix', path, suffix }): what the build would need to hold the answer.
+ */
+export function loadCensus({ root = BT, files, urlKeys = URL_KEYS, pages = [], leftOut = [], withheld = WITHHELD, known = KNOWN_LOADS } = {}) {
+  const lib = censusLib(); if (lib.error) return { available: false, reason: `the load census could not run: acorn is not installed (${lib.error}); run npm ci`, entries: [], findings: [], counts: {}, parseErrors: [] };
+  root = path.resolve(root); const shippedList = [...new Set(files)], shipped = new Set(shippedList), pageDirs = pages.map(p => posix(path.dirname(p)));
+  const statSync = r => { try { return fs.statSync(path.join(root, r)); } catch { return null; } }, exists = r => !!statSync(r), isDirRepo = r => { const s = statSync(r); return !!(s && s.isDirectory()); };
+  const norm = r => posix(path.posix.normalize(r)).replace(/^\.\//, ''), entries = [], parseErrors = [];
+  function target(full, open, suffix) {
+    full = norm(full); if (full.startsWith('../') || full === '..') return { status: 'outside', detail: 'leaves the packed folder: ' + full };
+    const probe = open ? full + 'x' + (suffix || '') : full;
+    for (const w of withheld) if (w.match.test(probe)) return { status: 'withheld', detail: w.pattern, target: full };
+    for (const e of leftOut) if (probe === e.path || probe.startsWith(e.path + '/')) return { status: 'excluded', detail: 'the code asks for a file that the build leaves out on purpose (EXCLUDE): ' + e.path, target: full };
+    const dirLike = full === '' || full.endsWith('/');
+    if (!open && !dirLike) {
+      if (shipped.has(full)) return { status: 'resolved', target: full };
+      if (isDirRepo(full)) return shippedList.some(f => f.startsWith(full + '/')) ? { status: 'resolved', target: full + '/' } : { status: 'missing', detail: 'a folder with nothing in the build', target: full, ship: { kind: 'file', path: full } };
+      return exists(full) ? { status: 'missing', detail: 'in the repository, not in the build', target: full, ship: { kind: 'file', path: full } } : { status: 'dangling', detail: 'not in the repository', target: full };
+    }
+    if (shippedList.some(f => f.startsWith(full) && (!suffix || f.endsWith(suffix)))) return { status: 'resolved', target: full + '*' + (suffix || '') };
+    const dir = dirLike ? full.replace(/\/$/, '') : posix(path.dirname(full)), kind = dirLike ? 'folder' : 'prefix';
+    return dir === '' || dir === '.' || isDirRepo(dir) ? { status: 'missing', detail: 'nothing with that start is in the build', target: full + '*' + (suffix || ''), ship: { kind, path: full, suffix: suffix || '' } } : { status: 'dangling', detail: 'no such folder in the repository', target: full + '*' };
+  }
+  const tails = t => shippedList.some(f => f === t || f.endsWith('/' + t));
+  function classify(parts, relFile) {
+    const P = []; for (const x of parts) { if (x.t === 'lit') { if (x.s === '') continue; if (P.length && P[P.length - 1].t === 'lit') { P[P.length - 1] = lit(P[P.length - 1].s + x.s); continue; } } P.push(x); }
+    if (!P.length) return { status: 'empty' };
+    const head = P[0]; let i = 1, p = head.t === 'lit' ? head.s : ''; while (i < P.length && P[i].t === 'lit') { p += P[i].s; i++; }
+    const open = i < P.length, suffix = open && P[P.length - 1].t === 'lit' ? P[P.length - 1].s : '';
+    if (head.t === 'base') return target((urlKeys[head.key] || '') + p, open, suffix);
+    if (head.t === 'mod') return target(posix(path.dirname(relFile)) + '/' + p, open, suffix);
+    if (head.t === 'lit') {
+      if (/^(?:#|javascript:|mailto:|tel:|data:|blob:)/i.test(p)) return { status: 'inline-data' };
+      if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(p)) return { status: 'external', detail: p.slice(0, 80) };
+      if (p === '') return { status: 'unknown' };
+      if (p.startsWith('/')) return target(p.slice(1), open, suffix);
+      const cands = [...new Set([...pageDirs, posix(path.dirname(relFile))])].map(d => target(d + '/' + p.replace(/[?#].*$/, ''), open, suffix));
+      return cands.find(c => ['resolved', 'withheld', 'excluded'].includes(c.status)) || cands.find(c => c.status === 'missing') || cands[0] || { status: 'unknown' };
+    }
+    if (P.length === 1) return head.t === 'param' ? { status: 'plumbing', detail: 'parameter ' + head.name } : { status: 'unknown' };      // the address starts with a parameter or something unknown: a literal tail can still be looked for
+    const tail = P[P.length - 1];
+    if (tail.t === 'lit' && /[./]/.test(tail.s) && P.slice(1, -1).every(x => x.t === 'lit')) { const t = tail.s.replace(/[?#].*$/, ''); return tails(t) ? { status: 'resolved', detail: 'by its tail (the base is a parameter)', target: '*' + t } : { status: 'dangling', detail: 'no file of the build ends with ' + t, target: '*' + t }; }
+    return { status: head.t === 'param' ? 'open-plumbing' : 'unknown' };
+  }
+  const rank = s => ({ missing: 6, dangling: 6, outside: 6, excluded: 6, 'open-plumbing': 4, unknown: 4, plumbing: 1, empty: 0 })[s] ?? 2;
+  const scan = (code, relFile) => {
+    let raw; try { raw = censusRaw(code, urlKeys); } catch (e) { parseErrors.push(`${relFile}: ${e.message}`); return; }
+    for (const r of raw) {
+      const res = r.alts.map(a => classify(a, relFile)); let worst = res[0]; for (const x of res) if (rank(x.status) > rank(worst.status)) worst = x; if (worst.status === 'empty') continue;
+      let { status, detail } = worst; const bad = !CENSUS_OK.has(status);
+      if (bad) { const k = known.find(k => k.file.test(relFile) && k.arg.test(r.address)); if (k) { status = 'reviewed'; detail = k.covered; } else if (status === 'unknown' || status === 'open-plumbing') status = 'unreviewed'; }
+      entries.push({ file: relFile, line: r.line, how: r.how, address: r.address, status, ...(detail ? { detail } : {}), ...(worst.target ? { target: worst.target } : {}), ...(status === 'missing' && worst.ship ? { ship: worst.ship } : {}), alternatives: r.alts.length });
+    }
+  };
+  for (const f of shippedList) if (/\.(mjs|js)$/i.test(f) && exists(f)) scan(fs.readFileSync(path.join(root, f), 'utf8'), f);
+  for (const p of pages) { if (!exists(p)) continue; const html = fs.readFileSync(path.join(root, p), 'utf8').replace(/<!--[\s\S]*?-->/g, ''); for (const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) { const type = (/\btype\s*=\s*["']?([^"'\s>]+)/i.exec(m[1]) || [])[1] || ''; if (!/\bsrc\s*=/.test(m[1]) && m[2].trim() && (!type || /module|javascript/i.test(type))) scan(m[2], p); } }
+  entries.sort((a, b) => a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line); const counts = {}; for (const e of entries) counts[e.status] = (counts[e.status] || 0) + 1;
+  return { available: true, scanned: shippedList.filter(f => /\.(mjs|js)$/i.test(f)).length, pagesScanned: pages.length, parseErrors, loads: entries.length, counts, findings: entries.filter(e => !CENSUS_OK.has(e.status)), entries };
+}
+
 /** Where the bytes of a build are: { 'app/src': n, 'app/data': n, 'render/prototype': n, 'rosters/data2': n, ... } over the emitted files (app, render and rosters are split one level further). Sorted by size, largest first. */
 export function sizeByFolder(emitted) {
   const sum = {}; for (const [r, b] of emitted) { const s = r.split('/'), k = s.length === 1 ? '(root files)' : ['app', 'render', 'rosters'].includes(s[0]) && s.length > 2 ? s[0] + '/' + s[1] : s[0]; sum[k] = (sum[k] || 0) + b.length; }
@@ -522,6 +684,7 @@ export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist
     trace: { notes: t.notes, withheld: t.withheld, projected: t.projected, sections: t.sections, pages: t.pages, modules: t.modules, computedImports: t.computedImports, unshippedLiterals: t.unshippedLiterals, external: t.external, why: t.why } };
   res.scrubbed = [...scrub].map(([r, x]) => ({ path: r, removed: x.removed })); res.bytesByFolder = sizeByFolder(emitted);
   res.audit = audit(out); res.auditReview = auditReview(out);
+  res.census = t.census; res.byCensus = t.byCensus;
   if (zip) {   // a build that fails the copy audit never gets the clean name: the name says so (the owner decides what to do with it; GOVERNANCE/FINAL-ACCEPTANCE.md accepts only a clean one)
     const zbuf = makeZip(names.map(name => ({ name, data: emitted.get(name) }))), zn = `gettysburg-BT-staging-${version}${res.audit.length ? '-AUDIT-HITS-' + res.audit.length : ''}.zip`; fs.mkdirSync(zipDir, { recursive: true });
     fs.writeFileSync(path.join(zipDir, zn), zbuf); res.zip = path.join(zipDir, zn); res.zipBytes = zbuf.length; res.zipSha256 = sha(zbuf);
@@ -532,17 +695,28 @@ export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist
   res.clean = res.audit.length === 0;
   // the trace report sits beside the dist, never inside it
   const git = (() => { try { return execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return null; } })();   // for the reader of the report only: never part of the build, so the build stays a function of the files
-  fs.writeFileSync(path.join(path.dirname(out), 'trace-report.json'), JSON.stringify({ built: { at: new Date().toISOString(), gitHead: git, root }, version, zip: res.zip ? path.basename(res.zip) : null, zipBytes: res.zipBytes, zipSha256: res.zipSha256, files: res.files, bytes: res.bytes, bytesByFolder: res.bytesByFolder, counts: res.counts, ...res.trace, scrubbed: res.scrubbed, audit: res.audit, auditReview: res.auditReview }, null, 1) + '\n');
+  fs.writeFileSync(path.join(path.dirname(out), 'trace-report.json'), JSON.stringify({ built: { at: new Date().toISOString(), gitHead: git, root }, version, zip: res.zip ? path.basename(res.zip) : null, zipBytes: res.zipBytes, zipSha256: res.zipSha256, files: res.files, bytes: res.bytes, bytesByFolder: res.bytesByFolder, counts: res.counts, ...res.trace, scrubbed: res.scrubbed, audit: res.audit, auditReview: res.auditReview, loadCensus: res.census, shippedByCensus: res.byCensus }, null, 1) + '\n');
   return res;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url) && process.argv.includes('--census')) {      // node tools/bt/pack_theatre.mjs --census [--all]: the census of the loads, nothing is packed or written
+  const t = trace(), c = t.census;
+  if (!c.available) { console.error(c.reason); process.exit(3); }
+  if (t.byCensus.length) console.log(`shipped by the census (the patterns of the trace did not follow them): ${t.byCensus.map(x => x.path).join(', ')}`);
+  console.log(`load census: ${c.loads} loads in ${c.scanned} modules and ${c.pagesScanned} page(s): ${Object.entries(c.counts).map(([k, v]) => v + ' ' + k).join(', ')}; ${c.findings.length} finding(s); ${c.parseErrors.length} parse error(s)`);
+  for (const e of c.entries) if (process.argv.includes('--all') || !['resolved', 'inline-data'].includes(e.status)) console.log(`${e.status.padEnd(10)} ${e.file}:${e.line} [${e.how}] ${e.address.slice(0, 100)}${e.detail ? ' => ' + e.detail.slice(0, 100) : ''}`);
+  for (const e of c.parseErrors) console.error('parse error: ' + e);
+  process.exit(c.findings.length || c.parseErrors.length ? 2 : 0);
+}
+else if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? path.resolve(a[i + 1]) : undefined; };
   const r = pack({ out: opt('--out'), zipDir: opt('--zip-dir'), zip: !a.includes('--no-zip') }), t = r.trace;
   const review = Object.fromEntries(Object.entries(r.auditReview).map(([k, v]) => [k, v.count]));
   console.log(JSON.stringify({ version: r.version, out: r.out, files: r.files, bytes: r.bytes, zip: r.zip, zipBytes: r.zipBytes, zipSha256: r.zipSha256, clean: r.clean, bytesByFolder: r.bytesByFolder, counts: r.counts, pages: t.pages.length, sections: t.sections.map(s => `${s.path} (${s.files} files)`),
     withheld: t.withheld.map(w => `${w.pattern}: ${w.files} files`), reduced: t.projected.map(p => p.path), computedImports: t.computedImports.filter(c => c.status !== 'address').map(c => `${c.status}: ${c.file}: ${c.arg}`),
-    unshippedLiterals: t.unshippedLiterals.length, external: t.external, notes: t.notes.length, auditHits: r.audit.length, internalWordsForReview: review }, null, 1));
+    unshippedLiterals: t.unshippedLiterals.length, external: t.external, notes: t.notes.length, auditHits: r.audit.length, internalWordsForReview: review,
+    loadCensus: r.census.available ? { loads: r.census.loads, ...r.census.counts, findings: r.census.findings.length } : r.census.reason }, null, 1));
   console.log('trace report: ' + path.join(path.dirname(r.out), 'trace-report.json'));
+  if (r.census.available && r.census.findings.length) { console.error('LOAD CENSUS FINDINGS (a load of the shipped code that the build does not clearly answer; see "loadCensus" in the trace report):'); for (const e of r.census.findings) console.error(' ', `${e.status} ${e.file}:${e.line} [${e.how}] ${e.address.slice(0, 100)}${e.detail ? ' => ' + e.detail : ''}`); }
   if (r.audit.length) { console.error('COPY AUDIT HITS:'); for (const h of r.audit) console.error(' ', JSON.stringify(h)); console.error(`NOT AN ACCEPTABLE BUILD: ${r.audit.length} hit(s). ${r.zip ? 'The zip carries "-AUDIT-HITS-' + r.audit.length + '" in its name so that it is never taken for a clean one. ' : ''}Fix the source file named by each hit (or ask its owner), then pack again.`); process.exit(2); }
 }

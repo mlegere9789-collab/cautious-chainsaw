@@ -5,14 +5,14 @@
 // An assertion returns { ok, code, detail, evidence }. `code` is the machine reason of a failure (grouped by the build list): unit_not_in_layer, unit_not_drawn, unit_not_on_field, unit_wrong_place,
 // unit_not_moving, unit_wrong_activity, place_unknown, place_ambiguous, place_off_ground, structure_unknown, structure_not_drawn, structure_wrong_state, work_wrong_stage, weather_mismatch, sky_mismatch,
 // casualty_none, adapter_missing, card_not_shown, ...  A record is realized only when it is statically valid, every binding holds, and every assertion is ok in every scenario it lists.
-import { HARNESS, toMin, isoOf, round, hasQuote, fold, tokens } from './lib.mjs';
+import { HARNESS, toMin, isoOf, round, hasQuote, fold, tokens, angDiff, COMPASS16, COMPASS_HALF_WIDTH, angleTolerance } from './lib.mjs';
 import { parseSpan, validateRecord, ASSERT, entityId, entityVia, assertionUnits, SCENARIO_KEYWORDS } from './schema.mjs';
 import { coversInterval } from './timeline.mjs';
 import { measure, distM, outsideGround } from './gazetteer.mjs';
 
 const MOVING = new Set(['march', 'double_quick', 'gallop']);
 const CONTROL_STEP = 30;                                       // minutes between the control minutes of the falsifiability test (weather and sky assertions)
-const SKY_FIELDS = new Set(['sun_alt_min', 'sun_alt_max', 'moon_up', 'moon_illum_min', 'moon_illum_max', 'band_in', 'exposure_min']);
+const SKY_FIELDS = new Set(['sun_alt_min', 'sun_alt_max', 'sun_alt', 'sun_az', 'moon_alt', 'moon_az', 'moon_up', 'moon_illum_min', 'moon_illum_max', 'band_in', 'exposure_min']);
 // words too common to tie a structure to a row (a structure is bound by a distinctive word of its name, its schedule row or its record: trestle, Wade, Bliss ...)
 const STRUCT_STOP = new Set(['town', 'farm', 'house', 'barn', 'street', 'road', 'building', 'buildings', 'church', 'hospital', 'burned', 'bridge', 'creek', 'rail', 'railroad', 'east', 'west', 'north', 'south', 'near', 'from', 'with', 'that', 'this', 'were', 'when', 'ridge', 'hill', 'gettysburg', 'station', 'farmhouse', 'stone', 'brick', 'wall', 'fence', 'works', 'earth']);
 const minutesOf = span => { const a = Math.ceil(span.from - 1e-9), b = Math.floor(span.to + 1e-9); if (b < a) return [span.from]; const out = []; for (let t = a; t <= b; t++) out.push(t); return out; };
@@ -37,7 +37,16 @@ export class Runner {
 
   // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   // a record -> result
-  async runRecord(rec, { source = null } = {}) {
+  // a record is data written by people: whatever shape it has, the answer is a result and never an exception (one malformed record must not stop the run of the other 700). The static validation reports what is wrong with
+  // the shape (schema.mjs); an exception that gets past it is reported as the problem record_crash, with the message, so that it is seen and cannot pass for a realization.
+  async runRecord(rec, opts = {}) {
+    try { return await this._runRecord(rec, opts); }
+    catch (e) {
+      const msg = String(e && e.message || e).slice(0, 300), id = rec && typeof rec === 'object' ? rec.id : null;
+      return { id, kind: rec && typeof rec === 'object' ? rec.kind : null, source: (opts && opts.source) || null, realized: false, codes: ['record_crash'], problems: [{ code: 'record_crash', detail: `the harness threw while it ran this record (a malformed record, or a defect of the harness): ${msg}` }], assertions: [], bindings: { units: [], places: [], structures: [], quantifiers: [], declared: 0 }, scenarios: [], why: `record_crash: ${msg}` };
+    }
+  }
+  async _runRecord(rec, { source = null } = {}) {
     const row = this.TL.byId.get(rec && rec.id), res = { id: rec && rec.id, kind: rec && rec.kind, source, realized: false, codes: [], problems: [], assertions: [], bindings: { units: [], places: [], structures: [], quantifiers: [], declared: 0 }, scenarios: [], why: null };
     const v = validateRecord(rec, { row, tolerances: this.tol, clock: this.TL.clock }); res.problems.push(...v.problems);
     if (!row || !v.span) { res.codes = uniq(res.problems.map(p => p.code)); res.why = res.problems.map(p => p.detail).slice(0, 3).join(' | '); return res; }
@@ -51,7 +60,7 @@ export class Runner {
     // a weather or sky assertion is a function of the minute only: one that no minute of the theatre clock violates cannot tell the minute the row is about from any other (the night floor is the exception: it holds at every minute by design)
     for (const [i, a] of (rec.checks || []).entries()) {
       if (!a || (a.type !== 'weather' && a.type !== 'sky')) continue; const scs = plan.list.filter(x => !only[i] || only[i].includes(x.id)); if (!scs.length) continue;
-      let can = false; for (const { spec } of scs) if (await this._falsifiable(a, spec)) { can = true; break; }
+      let can = false; try { for (const { spec } of scs) if (await this._falsifiable(a, spec)) { can = true; break; } } catch (e) { res.problems.push({ code: 'assert_error', detail: `checks[${i}] (${a.type}) threw while it was tried at the control minutes: ${String(e && e.message || e).slice(0, 200)}` }); continue; }
       if (!can) res.problems.push({ code: 'assert_vacuous', detail: `checks[${i}] (${a.type}) holds at every one of the ${this._control().length} minutes of the theatre clock tried (every ${CONTROL_STEP} minutes from ${isoOf(this.TL.clock[0][0])}): it cannot tell the minute the row is about from any other, so it proves nothing about the row` });
     }
     const results = [];
@@ -405,6 +414,12 @@ export class Runner {
     if (a.wetness_max != null && !(d.wetness.v != null && d.wetness.v <= a.wetness_max)) return `ground wetness ${num(d.wetness.v, 2)} > ${a.wetness_max}`;
     if (a.wind_mph_min != null && !(d.wind.mph && d.wind.mph[1] >= a.wind_mph_min)) return `wind ${JSON.stringify(d.wind.mph)} mph < ${a.wind_mph_min}`;
     if (a.wind_mph_max != null && !(d.wind.mph && d.wind.mph[0] <= a.wind_mph_max)) return `wind ${JSON.stringify(d.wind.mph)} mph > ${a.wind_mph_max}`;
+    if (a.wind_from_in != null) {                                  // the direction the wind blows FROM, by the 16-point compass; only where the environment layer records a direction (otherwise the picture draws a default no source gave)
+      const w = d.wind || {}, want = (Array.isArray(a.wind_from_in) ? a.wind_from_in : []).filter(p => Object.prototype.hasOwnProperty.call(COMPASS16, p)), said = want.join(' or ') || '(no point of the compass)';
+      const name = () => Object.entries(COMPASS16).sort((p, q) => angDiff(w.fromDeg, p[1]) - angDiff(w.fromDeg, q[1]))[0][0];
+      if (w.directionRecorded !== true || !Number.isFinite(w.fromDeg)) return `no wind direction is recorded for this minute (the picture draws ${Number.isFinite(w.fromDeg) ? 'a default from ' + num(w.fromDeg, 1) + ' degrees' : 'none'}: "${w.text || ''}"), the check needs a wind from ${said}`;
+      if (!want.some(p => angDiff(w.fromDeg, COMPASS16[p]) <= COMPASS_HALF_WIDTH + 1e-9)) return `the wind is from ${num(w.fromDeg, 1)} degrees (${name()}), the check needs a wind from ${said}`;
+    }
     if (a.visibility_m_max != null && d.fog.visibilityM > a.visibility_m_max) return `visibility ${num(d.fog.visibilityM, 0)} m > ${a.visibility_m_max}`;
     return null;
   }
@@ -419,6 +434,13 @@ export class Runner {
   _skyProblem(a, s) {
     if (a.sun_alt_min != null && s.sunAlt < a.sun_alt_min) return `sun altitude ${num(s.sunAlt, 1)} < ${a.sun_alt_min}`;
     if (a.sun_alt_max != null && s.sunAlt > a.sun_alt_max) return `sun altitude ${num(s.sunAlt, 1)} > ${a.sun_alt_max}`;
+    // an angle the row prints: matched to half a unit of the last digit of the print (never less than the floor), an azimuth the short way round (lib.mjs angDiff, angleTolerance)
+    const ang = [['sun_alt', s.sunAlt, 'sun altitude', false], ['sun_az', s.sunAz, 'sun azimuth', true], ['moon_alt', s.moonAlt, 'moon altitude', false], ['moon_az', s.moonAz, 'moon azimuth', true]];
+    for (const [k, got, label, circular] of ang) {
+      if (a[k] == null) continue; if (!Number.isFinite(got)) return `the picture has no ${label} at this minute`;
+      const stated = angleTolerance(a.quote, a[k], (this.tol.sky || {}).angle_floor_deg ?? 0.05), tol = a.tol_deg != null ? Math.min(a.tol_deg, stated) : stated, diff = circular ? angDiff(got, a[k]) : Math.abs(got - a[k]);
+      if (diff > tol + 1e-9) return `${label} ${num(got, 2)} is ${num(diff, 2)} degrees from the ${a[k]} the row prints (tolerance ${num(tol, 3)})`;
+    }
     if (a.moon_up != null && !!s.moonUp !== a.moon_up) return `the moon is ${s.moonUp ? 'up' : 'down'} (altitude ${num(s.moonAlt, 1)})`;
     if (a.moon_illum_min != null && s.moonIllum < a.moon_illum_min) return `moon illumination ${num(s.moonIllum, 0)}% < ${a.moon_illum_min}`;
     if (a.moon_illum_max != null && s.moonIllum > a.moon_illum_max) return `moon illumination ${num(s.moonIllum, 0)}% > ${a.moon_illum_max}`;

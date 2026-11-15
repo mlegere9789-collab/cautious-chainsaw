@@ -38,7 +38,7 @@ export async function init(ctx) {
   if (th.dead || !th.root) return;                                                // the visit ended while the list was being read
   const T = th.T, index = P.buildIndex(data, T, { positions: 'list', years });
   const s = S = { ctx, th, T, data, years, index, integrity, positions: 'list', on: false, selected: -1, canvas: null, c2d: null, w: 0, h: 0, dpr: 1, vp: new Float32Array(16), L: P.newLayout(index.n), last: new Float64Array(10), fresh: true, drawn: 0,
-    tier: ctx.tierMark.style(P.LAYER.tier), ac: new AbortController(), chip: null, card: null, style: null, ro: null, toggle: null, panel: null, list: { q: '', side: 'all', group: 'all', where: 'all', shown: 60 }, tap: null, avoid: null, measuredAt: 0 };
+    tier: ctx.tierMark.style(P.LAYER.tier), ac: new AbortController(), chip: null, card: null, style: null, ro: null, toggle: null, panel: null, list: { q: '', side: 'all', group: 'all', where: 'all', shown: 60 }, tap: null, avoid: null, measuredAt: -Infinity };
   const sig = { signal: s.ac.signal }, left = th.root.querySelector('#bt-left'), stage = th.els.stage;
 
   // ---- the notice that is on the picture for as long as the layer is on
@@ -72,7 +72,7 @@ export async function init(ctx) {
   // for the rest of the page (the Views list, the tests): everything goes through the same doors the viewer uses
   th.sitePlaces = th.sitePlaces || {};
   th.sitePlaces.memorials = { layer: P.LAYER, isOn: () => !!(S && S.on), setOn: v => (S ? S.toggle.set(!!v) : false), select: (no, o) => select(no, o), selected: () => (S ? S.selected : -1), flyTo: no => flyTo(no), counts: () => (S ? S.index.counts : null),
-    drawn: () => (S ? S.drawn : 0), marksInView: () => (S && S.canvas ? S.L.n : 0), hiddenByGround: () => (S && S.canvas ? S.L.hidden : 0), positions: () => (S ? S.positions : null), setPositions: k => setPositions(k), integrity: () => (S ? S.integrity : null), find: f => (S ? P.filterMemorials(S.index, f).map(it => it.no) : []) };
+    drawn: () => (S ? S.drawn : 0), label: () => (S && S.canvas && S.selected >= 0 && S.selBox ? { x: S.selBox[0], y: S.selBox[1], w: S.selBox[2], h: S.selBox[3], side: S.selSide, text: S.selText } : null), marksInView: () => (S && S.canvas ? S.L.n : 0), hiddenByGround: () => (S && S.canvas ? S.L.hidden : 0), positions: () => (S ? S.positions : null), setPositions: k => setPositions(k), integrity: () => (S ? S.integrity : null), find: f => (S ? P.filterMemorials(S.index, f).map(it => it.no) : []) };
 }
 
 // ---------------------------------------------------------------- the layer switch, the picked memorial, the camera
@@ -130,8 +130,7 @@ function dropCanvas(s) { if (!s.canvas) return; s.canvas.width = 0; s.canvas.hei
 // (a mark may be). They are read at most every 400 ms while marks are shown, and the layout runs again only when one moved.
 function measure(s) {
   const th = s.th, root = th && th.root, stage = th && th.els && th.els.stage; if (!root || !stage || !stage.getBoundingClientRect) return;
-  const out = P.panelRects(root, stage), a = s.avoid; let same = !!a && a.length === out.length; for (let i = 0; same && i < out.length; i++) for (let j = 0; j < 4; j++) if (Math.abs(a[i][j] - out[i][j]) > 1) { same = false; break; }
-  if (!same) { s.avoid = out; s.fresh = true; }
+  const out = P.panelRects(root, stage); if (!P.sameRects(s.avoid, out)) { s.avoid = out; s.fresh = true; }
 }
 
 export function update(frame) {

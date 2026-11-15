@@ -3,7 +3,7 @@
 Inputs: poses.json (schema 2), resolved_poses.json, photo_crops.json, tmp/photomatch/renders/<pose>{,_fov30,_fov50}_{base,full}.png, the photograph files named by each pose.
 Output: tools/bt/photomatch/reports/<pose>.jpg = row 1: photograph (print area) | render at the registered pose | overlay (cyan = relief edges of the render on the photograph; ticks = named landmarks as the model places them);
         row 2: render at 30 deg | render at 50 deg | the pose numbers. And metrics.json (horizon row of render and, when written into poses.json, of the photograph).
-The numbers are only a coarse aid; the verdict is written by a person after looking at the sheet (verdicts.json).
+The numbers are only a coarse aid; the verdict is written after looking at the sheet (verdicts.json).
 Usage: python3 -I tools/bt/photomatch/compose.py [poseId ...]"""
 import json, os, sys, numpy as np
 from PIL import Image, ImageDraw

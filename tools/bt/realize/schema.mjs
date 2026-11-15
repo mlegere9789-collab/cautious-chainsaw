@@ -36,7 +36,7 @@
 // A TIME in a check is { "at": "1863-07-01T10:00" } or { "from": "...", "to": "...", "mode": "any" | "all" }; "any" (the default) = at some whole minute of the span, "all" = at every whole minute.
 // A UNIT is a layer unit id. A formation (corps, division, brigade, battalion) stands for its leaf units on the field; every one of them must satisfy the assertion (quantifier "all", the default) or
 // one of them (quantifier "any", for rows that say "part of"); a leaf the picture does not draw fails and is named.
-import { HARNESS, toMin, isoOf, hasQuote, fold } from './lib.mjs';
+import { HARNESS, toMin, isoOf, hasQuote, fold, COMPASS16, angleTolerance } from './lib.mjs';
 import { coversInterval, describeWindow } from './timeline.mjs';
 
 export const SCENARIO_KEYWORDS = ['conflicts', 'group'];     // 'conflicts': the opening scenario and one scenario per value of every conflict the row's text names; 'group': the whole scenario group of the row (query.mjs scenarioGroup)
@@ -61,8 +61,8 @@ export const ASSERT = {
   structure_state: { time: true, need: ['structure'], opt: ['state', 'present', 'visual', 'schedule_row', 'hospital', 'drawn'] },
   work_stage:     { time: true, need: ['work'], opt: ['stage_min', 'stage_max', 'present', 'crew'] },
   battery_guns:   { units: true, time: true, need: [], opt: ['guns_min', 'limbers_min', 'caissons_min', 'horses_min'] },
-  weather:        { time: true, need: [], one: ['precip_kind_in', 'precip_intensity_min', 'precip_intensity_max', 'cloud_min', 'cloud_max', 'temp_f', 'wetness_min', 'wetness_max', 'wind_mph_min', 'wind_mph_max', 'visibility_m_max', 'record'], opt: ['tol_f', 'value_quote'] },
-  sky:            { time: true, need: [], one: ['sun_alt_min', 'sun_alt_max', 'moon_up', 'moon_illum_min', 'moon_illum_max', 'band_in', 'exposure_min'], opt: [] },
+  weather:        { time: true, need: [], one: ['precip_kind_in', 'precip_intensity_min', 'precip_intensity_max', 'cloud_min', 'cloud_max', 'temp_f', 'wetness_min', 'wetness_max', 'wind_mph_min', 'wind_mph_max', 'wind_from_in', 'visibility_m_max', 'record'], opt: ['tol_f', 'value_quote'] },
+  sky:            { time: true, need: [], one: ['sun_alt_min', 'sun_alt_max', 'sun_alt', 'sun_az', 'moon_alt', 'moon_az', 'moon_up', 'moon_illum_min', 'moon_illum_max', 'band_in', 'exposure_min'], opt: ['tol_deg'] },
   casualty:       { time: true, need: [], one: ['killed_min', 'wounded_min', 'missing_min', 'events_min'], opt: ['units'] },
   card_shown:     { time: true, need: ['rows'], opt: ['tier'] },
   epilogue_shown: { time: true, need: ['rows'], opt: ['tier'] },
@@ -82,7 +82,7 @@ export const parseSpan = (obj, base) => {          // { at } or { from, to, mode
 export const entityId = e => (typeof e === 'string' ? e : e && e.id);
 export const entityVia = e => (e && typeof e === 'object' ? e.via : null);
 // the units an assertion names (before leaf expansion), as ids
-export function assertionUnits(a) { const u = [...(a.unit ? [a.unit] : []), ...(a.units || [])]; if (a.type === 'casualty') return (a.units || []); return u; }
+export function assertionUnits(a) { const list = Array.isArray(a.units) ? a.units : []; const u = [...(a.unit ? [a.unit] : []), ...list]; if (a.type === 'casualty') return list; return u; }
 
 // ---- an assertion that cannot fail realizes nothing. A row is "realized" only by checks that a product which does NOT show it would fail; a casualty minimum of 0, a battery with no gun count, a structure with no state
 // named, a march of 0 minutes, an exposure floor of 0 are satisfied by every product, so a record made of them would confirm a row by confirming nothing (assert_vacuous). And a record may tighten a floor the harness
@@ -90,7 +90,8 @@ export function assertionUnits(a) { const u = [...(a.unit ? [a.unit] : []), ...(
 // the product's own values over time (weather, sky) are tested for falsifiability against the whole theatre clock in checks.mjs (_falsifiable); everything here is static. Returns [{ code, detail }].
 export const STAGE_ACTIVITIES = ['march', 'double_quick', 'halt', 'stand', 'rest', 'fire', 'serve_guns', 'gallop', 'build_works', 'camp'];     // every activity the stage gives a unit that is on the field
 const VISUAL_KEY = /^(burn|dmg|down|gone|mix|vis)_(min|max)$/;
-const WEATHER_CONTENT = ['precip_kind_in', 'precip_intensity_min', 'precip_intensity_max', 'cloud_min', 'cloud_max', 'temp_f', 'wetness_min', 'wetness_max', 'wind_mph_min', 'wind_mph_max', 'visibility_m_max'];
+const WEATHER_CONTENT = ['precip_kind_in', 'precip_intensity_min', 'precip_intensity_max', 'cloud_min', 'cloud_max', 'temp_f', 'wetness_min', 'wetness_max', 'wind_mph_min', 'wind_mph_max', 'wind_from_in', 'visibility_m_max'];
+export const ANGLE_FIELDS = { sun_alt: [-90, 90], sun_az: [0, 360], moon_alt: [-90, 90], moon_az: [0, 360] };     // the sky assertions that name an angle a row prints, and the range an angle lies in
 export function vacuityProblems(a, T = {}) {
   const out = [], vac = d => out.push({ code: 'assert_vacuous', detail: d }), wide = d => out.push({ code: 'tolerance_wider_than_stated', detail: d }), isNum = x => typeof x === 'number' && Number.isFinite(x);
   const atLeast = (k, n, why) => { if (a[k] != null && !(isNum(a[k]) && a[k] >= n)) vac(`${k} ${JSON.stringify(a[k])} is satisfied by a product that shows ${why}: it proves nothing (the least that proves anything is ${n})`); };
@@ -125,11 +126,20 @@ export function vacuityProblems(a, T = {}) {
     case 'work_stage':
       if (a.present == null && !(isNum(a.stage_min) && a.stage_min > 0) && !(isNum(a.stage_max) && a.stage_max < 6)) vac('names no presence, no stage_min above 0 and no stage_max below 6 (the stages run 0 to 6): the crew alone says nothing about the work');
       break;
-    case 'sky': if (a.exposure_min != null && !(isNum(a.exposure_min) && a.exposure_min > 0)) vac(`exposure_min ${JSON.stringify(a.exposure_min)} is satisfied by black: the night floor of gate Q10 is above 0`); break;
+    case 'sky':
+      if (a.exposure_min != null && !(isNum(a.exposure_min) && a.exposure_min > 0)) vac(`exposure_min ${JSON.stringify(a.exposure_min)} is satisfied by black: the night floor of gate Q10 is above 0`);
+      if (a.tol_deg != null && !(isNum(a.tol_deg) && a.tol_deg > 0)) out.push({ code: 'assert_field', detail: `tol_deg ${JSON.stringify(a.tol_deg)} is no tolerance: it is a number of degrees above 0 (and at most the half unit of the digits the row prints)` });
+      break;
     case 'weather': {
       // "an environment record exists for this minute" is not a statement about the weather; the row's own weather (precipitation, cloud, temperature, wetness, wind, visibility) has to be named beside it. record: false alone is a statement: the product shows no record where the row says there is none
       if (a.record === true && !WEATHER_CONTENT.some(k => a[k] != null)) vac('record: true alone says that an environment record exists, not what the weather is: name what the row states (precipitation, cloud, temperature, wetness, wind or visibility)');
-      const stated = T.weather && T.weather.temp_f_tolerance; if (a.tol_f != null && stated != null && !(isNum(a.tol_f) && a.tol_f <= stated)) wide(`tol_f ${JSON.stringify(a.tol_f)} is wider than the stated ${stated} F (tolerances.json weather): a record may ask for a tighter tolerance, never a wider one`); break; }
+      const stated = T.weather && T.weather.temp_f_tolerance; if (a.tol_f != null && stated != null && !(isNum(a.tol_f) && a.tol_f <= stated)) wide(`tol_f ${JSON.stringify(a.tol_f)} is wider than the stated ${stated} F (tolerances.json weather): a record may ask for a tighter tolerance, never a wider one`);
+      if (a.wind_from_in != null) {
+        const names = Array.isArray(a.wind_from_in) ? a.wind_from_in : null, bad = names ? names.filter(x => !Object.prototype.hasOwnProperty.call(COMPASS16, x)) : [];
+        if (!names || !names.length || bad.length) out.push({ code: 'assert_field', detail: `wind_from_in is a list of points of the 16-point compass (${Object.keys(COMPASS16).join(' ')}) (found ${JSON.stringify(a.wind_from_in).slice(0, 80)})` });
+        else if (new Set(names).size >= Object.keys(COMPASS16).length) vac('wind_from_in lists all 16 points of the compass: every wind direction satisfies it');
+      }
+      break; }
     default: break;
   }
   return out;
@@ -159,7 +169,7 @@ export function validateRecord(rec, ctx) {
     else for (const x of rec.scenario_excludes) if (!x || !specOk(x.scenario) || typeof x.why !== 'string' || x.why.trim().length < 30) add('scenario_excludes_bad', 'each "scenario_excludes" entry needs a scenario (an object or "pdf") and a "why" of at least 30 characters: the sources of the row that contradict it (GATE-SPEC TL-8)');
   }
   // ---- the claim: a piece of the row's own words
-  const quotes = [...(rec.claim && rec.claim.quote ? [rec.claim.quote] : []), ...((rec.claim && rec.claim.quotes) || [])];
+  const quotes = [...(rec.claim && rec.claim.quote ? [rec.claim.quote] : []), ...(rec.claim && Array.isArray(rec.claim.quotes) ? rec.claim.quotes : [])];
   if (!quotes.length) add('quote_missing', 'claim.quote: a verbatim piece of the row\'s text this record realizes');
   for (const q of quotes) if (!hasQuote(row.claim_text, q)) add('quote_not_in_row', `"${String(q).slice(0, 80)}" is not in the printed cells of ${row.id} or its corrected claim (apostrophes and quotation marks are folded, words must match)`);
   // ---- assertions
@@ -192,20 +202,31 @@ export function validateRecord(rec, ctx) {
     const numIn = (q, n) => q != null && (String(q).replace(/(\d),(\d)/g, '$1$2').match(/\d+(?:\.\d+)?/g) || []).some(x => +x === +n);
     if (a.type === 'weather' && a.temp_f != null && !numIn(a.quote, a.temp_f)) add('number_not_in_quote', `${at}: temp_f ${a.temp_f} must come from a printed number: give "quote" with the row's words containing ${a.temp_f}`);
     if (a.type === 'unit_figures' && a.approx != null && !numIn(a.quote, a.approx)) add('number_not_in_quote', `${at}: approx ${a.approx} must come from a printed number: give "quote" with the row's words containing it`);
+    if (a.type === 'sky') {
+      const floorDeg = ((ctx.tolerances || {}).sky || {}).angle_floor_deg ?? 0.05, named = Object.keys(ANGLE_FIELDS).filter(k => a[k] != null);
+      for (const k of named) {
+        const [lo, hi] = ANGLE_FIELDS[k];
+        if (!(typeof a[k] === 'number' && Number.isFinite(a[k]) && a[k] >= lo && a[k] <= hi)) add('assert_field', `${at} (sky): ${k} is an angle in degrees from ${lo} to ${hi} (found ${JSON.stringify(a[k])})`);
+        else if (!numIn(a.quote, a[k])) add('number_not_in_quote', `${at}: ${k} ${a[k]} must come from a printed number: give "quote" with the row's words containing ${a[k]}`);
+        else if (a.tol_deg != null && typeof a.tol_deg === 'number' && a.tol_deg > angleTolerance(a.quote, a[k], floorDeg) + 1e-12) add('tolerance_wider_than_stated', `${at} (sky): tol_deg ${a.tol_deg} is wider than the stated ${angleTolerance(a.quote, a[k], floorDeg)} degrees for ${k} ${a[k]} (half a unit of the last digit the quote prints, at least ${floorDeg}; tolerances.json sky): a record may ask for a tighter tolerance, never a wider one`);
+      }
+      if (a.tol_deg != null && !named.length) add('assert_field', `${at} (sky): tol_deg belongs to a check that names sun_alt, sun_az, moon_alt or moon_az`);
+    }
     for (const u of assertionUnits(a)) used.units.add(entityId(u));
-    if (a.structure) used.structures.add(a.structure); if (a.work) used.works.add(a.work); if (a.crew && a.crew.units) for (const u of a.crew.units) used.units.add(entityId(u));
+    if (a.structure) used.structures.add(a.structure); if (a.work) used.works.add(a.work); if (a.crew && Array.isArray(a.crew.units)) for (const u of a.crew.units) used.units.add(entityId(u));
     for (const k of ['place', 'from', 'to', 'toward', 'along', 'away_from', 'at_place']) if (a[k] != null && typeof a[k] === 'string') used.places.add(a[k]);
-    if ((a.type === 'card_shown' || a.type === 'epilogue_shown') && a.rows) for (const r of a.rows) used.cards.add(r);
+    if ((a.type === 'card_shown' || a.type === 'epilogue_shown') && Array.isArray(a.rows)) for (const r of a.rows) used.cards.add(r);
   }
   // ---- kind needs
   if (KINDS.includes(rec.kind) && checks) {
-    for (const group of KIND_NEEDS[rec.kind] || []) if (!checks.some(a => group.includes(a.type))) add('kind_needs', `kind ${rec.kind} needs at least one ${group.join(' or ')} assertion`);
-    const types = checks.map(a => a.type);
-    if (rec.kind === 'unit_motion' && !checks.some(a => a.type === 'unit_moves' && ['from', 'to', 'toward', 'along', 'away_from'].some(k => a[k] != null)) && !rec.place_unspecified) add('kind_needs', 'unit_motion needs a unit_moves assertion that relates the motion to a place (from, to, toward, along or away_from), or "place_unspecified": "why" when the row names no place');
+    const objs = checks.filter(a => a && typeof a === 'object' && !Array.isArray(a));          // a malformed entry is reported above (assert_bad); the rules below look at the others
+    for (const group of KIND_NEEDS[rec.kind] || []) if (!objs.some(a => group.includes(a.type))) add('kind_needs', `kind ${rec.kind} needs at least one ${group.join(' or ')} assertion`);
+    const types = objs.map(a => a.type);
+    if (rec.kind === 'unit_motion' && !objs.some(a => a.type === 'unit_moves' && ['from', 'to', 'toward', 'along', 'away_from'].some(k => a[k] != null)) && !rec.place_unspecified) add('kind_needs', 'unit_motion needs a unit_moves assertion that relates the motion to a place (from, to, toward, along or away_from), or "place_unspecified": "why" when the row names no place');
     if (rec.kind === 'unit_activity' && !types.includes('unit_at') && !rec.place_unspecified) add('kind_needs', 'unit_activity needs a unit_at assertion (where the unit does it), or "place_unspecified": "why" when the row names no place');
-    if (rec.kind === 'earthwork_build' && !checks.some(a => a.type === 'work_stage' && a.crew)) add('kind_needs', 'earthwork_build needs a work_stage assertion with "crew": { "units": [...] } (PDF Q08: a work crew in the construction interval)');
+    if (rec.kind === 'earthwork_build' && !objs.some(a => a.type === 'work_stage' && a.crew)) add('kind_needs', 'earthwork_build needs a work_stage assertion with "crew": { "units": [...] } (PDF Q08: a work crew in the construction interval)');
   }
-  if (rec.kind !== 'not_realized' && KINDS.includes(rec.kind) && checks && /\bNIGHT\b/.test(row.time_cell || '') && !checks.some(a => a.type === 'sky' && a.exposure_min != null)) add('kind_needs', 'a NIGHT row needs a sky assertion with exposure_min (gate Q10: night is night, never black; GATE-SPEC-A K6)');
+  if (rec.kind !== 'not_realized' && KINDS.includes(rec.kind) && checks && /\bNIGHT\b/.test(row.time_cell || '') && !checks.some(a => a && a.type === 'sky' && a.exposure_min != null)) add('kind_needs', 'a NIGHT row needs a sky assertion with exposure_min (gate Q10: night is night, never black; GATE-SPEC-A K6)');
   if (rec.place_unspecified != null && (typeof rec.place_unspecified !== 'string' || rec.place_unspecified.trim().length < 8)) add('place_unspecified_bad', `"place_unspecified" is the reason a motion or activity row names no place: a sentence of at least 8 characters (found ${JSON.stringify(rec.place_unspecified)})`);
   if (rec.not_shown != null) {
     if (!Array.isArray(rec.not_shown) || !rec.not_shown.length) add('not_shown_bad', '"not_shown" is a non-empty list of { words, why }');
@@ -214,13 +235,14 @@ export function validateRecord(rec, ctx) {
   }
   if (rec.kind === 'not_realized') {
     if (!Array.isArray(rec.missing) || !rec.missing.length) add('missing_missing', 'kind not_realized needs "missing": [ { "code", "detail" } ] (what the product lacks)');
-    for (const m of rec.missing || []) { if (!m || !m.code || !m.detail) add('missing_bad', 'each "missing" entry needs code and detail'); }
+    for (const m of Array.isArray(rec.missing) ? rec.missing : []) { if (!m || !m.code || !m.detail) add('missing_bad', 'each "missing" entry needs code and detail'); }
   } else if (rec.missing) add('missing_on_realized', '"missing" belongs on a not_realized record only');
   // ---- entities: what the checks use, no more, no less
   const E = rec.entities && typeof rec.entities === 'object' ? rec.entities : null;
   if (!E) add('entities_missing', 'a record needs "entities": { units, structures, places, ... }');
   else {
-    const ids = k => new Set((E[k] || []).map(entityId));
+    for (const k of ['units', 'structures', 'places', 'schedule', 'works', 'cards']) if (E[k] != null && !Array.isArray(E[k])) add('entities_bad', `entities.${k} is a list (found ${JSON.stringify(E[k]).slice(0, 60)})`);
+    const ids = k => new Set((Array.isArray(E[k]) ? E[k] : []).map(entityId));
     const same = (k, usedSet, label) => { const have = ids(k); for (const x of usedSet) if (!have.has(x)) add('entity_undeclared', `${label} ${x} is used by a check but not listed in entities.${k}`); for (const x of have) if (!usedSet.has(x)) add('entity_unused', `${label} ${x} is listed in entities.${k} but no check uses it`); };
     same('units', used.units, 'unit'); same('structures', used.structures, 'structure'); same('works', used.works, 'work'); same('places', used.places, 'place'); same('cards', used.cards, 'card row');
     for (const k of Object.keys(E)) if (!['units', 'structures', 'places', 'schedule', 'works', 'cards'].includes(k)) add('entities_unknown', `entities.${k} is not a known entity list`);
