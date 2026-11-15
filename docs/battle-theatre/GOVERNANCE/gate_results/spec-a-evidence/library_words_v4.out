@@ -1,10 +1,10 @@
 {
- "ids_after_merging": 57,
+ "ids_after_merging": 58,
  "ids_by_files_they_appear_in": {
   "status.json": 11,
   "status.json+status_2.json": 25,
   "status_2.json": 7,
-  "status_3.json": 14
+  "status_3.json": 15
  },
  "ledgers": {
   "acquired.json": {
@@ -27,28 +27,11 @@
  "rows_per_file": {
   "status.json": 36,
   "status_2.json": 32,
-  "status_3.json": 14
+  "status_3.json": 15
  },
- "spec_table_mismatches": {
-  "blocked": {
-   "counted": 4,
-   "spec": 3
-  },
-  "ingested": {
-   "counted": 23,
-   "spec": 19
-  },
-  "partial": {
-   "counted": 13,
-   "spec": 12
-  },
-  "unusable": {
-   "counted": 3,
-   "spec": 1
-  }
- },
+ "spec_table_mismatches": {},
  "spec_table_rows": 11,
- "spec_table_sum": 49,
+ "spec_table_sum": 58,
  "status_after_merging": {
   "blocked": 4,
   "blocked-to-prior-research": 2,
@@ -59,7 +42,7 @@
   "print-only": 2,
   "scheduled": 5,
   "targeted-lookup-only": 1,
-  "unusable": 3,
+  "unusable": 4,
   "viewer-only": 1
  },
  "words_in_use": 11,
@@ -98,7 +81,7 @@
    "blocked": 1,
    "ingested": 7,
    "partial": 3,
-   "unusable": 3
+   "unusable": 4
   }
  }
 }

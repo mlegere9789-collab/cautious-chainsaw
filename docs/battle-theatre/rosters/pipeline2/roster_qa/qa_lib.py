@@ -85,6 +85,55 @@ def flags_of(path):
     return None
 
 
+# ---- verdicts and second-sitting addenda ---------------------------------------------------------------------------------
+
+def merge_addendum(v, a):
+    """A verdict plus the addendum of a second sitting on the same page (data2/qa/pages/<stem>.addendum.json, written by qa_second_pass.py).
+
+    The first verdict file is never rewritten.  The addendum can (1) add levels (N, D, R) that the first sitting had not compared on that page, with the errors found at
+    them, (2) record which recorded errors the second sitting confirmed or did not confirm, and (3) add printed lines of the units that no stored line accounts for.
+    The merged record is what the statistics and the report count."""
+    v = json.loads(json.dumps(v))
+    v['levels'] = ''.join(c for c in 'NDR' if c in v['levels'] or c in a.get('levels_added', ''))
+    by = {e['i']: e for e in v['errors']}
+    for e in a.get('errors_added', []):
+        if e['i'] in by:
+            old = by[e['i']]
+            for k in e['kinds']:
+                if k not in old['kinds']:
+                    old['kinds'].append(k)
+            old['gates'] = sorted(set(old.get('gates', [])) | set(e.get('gates', [])))
+            if e.get('note'):
+                old['note'] = ((old.get('note') or '') + ' || second sitting: ' + e['note']).strip()
+            if e.get('stored') and not old.get('stored'):
+                old['stored'], old['printed'] = e['stored'], e.get('printed')
+        else:
+            v['errors'].append(dict(e))
+            by[e['i']] = v['errors'][-1]
+    v['errors'].sort(key=lambda e: e['i'])
+    err_rows = {e['i'] for e in v['errors']}
+    unv = {u['i'] for u in v['unverifiable']}
+    v['rows_in_error'] = len(err_rows)
+    v['rows_ok'] = v['rows_checked'] - len(err_rows - unv)
+    v['missed_lines'] = list(v['missed_lines']) + list(a.get('missed_lines_added', []))
+    v['notes'] = list(v['notes']) + ['second sitting: ' + n for n in a.get('notes', [])]
+    v['reader'] = v['reader'] + ' || second sitting (' + a.get('sitting_utc', '') + '): ' + a.get('reader', '')
+    v['addendum'] = {k: a[k] for k in ('sitting_utc', 'levels_added', 'confirmed_rows', 'not_confirmed_rows', 'rows_compared_at_second_sitting', 'read') if k in a}
+    return v
+
+
+def load_verdicts(merge=True):
+    """Every verdict of data2/qa/pages in file order; a page with an addendum gets the second sitting merged in (merge=False: the first verdicts as written)."""
+    out = []
+    for p in sorted(glob.glob(os.path.join(QA, 'pages', '*.verdict.json'))):
+        v = jload(p)
+        ap = p[:-len('.verdict.json')] + '.addendum.json'
+        if merge and os.path.exists(ap):
+            v = merge_addendum(v, jload(ap))
+        out.append(v)
+    return out
+
+
 # ---- statistics --------------------------------------------------------------------------------------------------------
 
 def _betainc_reg(a, b, x):

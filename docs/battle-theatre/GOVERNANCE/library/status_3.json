@@ -35,7 +35,7 @@
    "id": "PM-GARDNER-SKETCHBOOK-TEXT",
    "task": "photomatch",
    "status": "unusable",
-   "reason": "OCR holds no plate descriptions"
+   "reason": "OCR holds no plate descriptions (re-fetched and checked again 2026-11-15: it reads the binding decoration)"
   },
   {
    "id": "PM-LOC-WIDE",
@@ -84,6 +84,12 @@
    "task": "photomatch",
    "status": "unusable",
    "reason": "the search returned no records: there is no Project Gutenberg edition of the Sketch Book"
+  },
+  {
+   "id": "PM-NPS-TN-EXIF-GPS",
+   "task": "photomatch",
+   "status": "unusable",
+   "reason": "searched 2026-11-15: 47 saved NPS Then-And-Now pictures, 25 carry an EXIF block, none a GPS block: no coordinate"
   }
  ]
 }

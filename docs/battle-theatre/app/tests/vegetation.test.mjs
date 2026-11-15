@@ -391,3 +391,142 @@ test('a program that fails to link is taken out of the renderer\'s list, so the 
   await assert.rejects(() => VEG.init(ctx), /shader veg-decal/); assert.equal(progs.length, 0, 'none of its programs stays in the list');
   VEG.dispose();
 });
+
+// ---------------------------------------------------------------------------------------------------------------------------------- the second reading of the park's landscape evidence (15 November)
+// The Copse of Trees, Ziegler's Grove, the Meyers orchard, three named trees, the conflict about the understory of the woodlots, the two readings of one claim's crop acres, the park's
+// totals of 1863 as a coverage check, the table of names. Each assertion can fail: a value taken from a claim must show up in the data, the state and the trees placed.
+const byLc = lc => M.units.find(u => u.lc === lc);
+const claimOf = id => DATA.claims.find(c => c.id === id);
+const lng0 = -77.249, lat0 = 39.801, PROJ = (lng, lat) => [(lng - lng0) * 85400, -(lat - lat0) * 111200];
+const metres = (a, b) => Math.hypot((a[0] - b[0]) * 85400, (a[1] - b[1]) * 111200);
+
+test('the Copse of Trees: the chestnut oaks of the account, no higher than the study reasons, inferred and marked so; the other clusters keep their species\' own heights', () => {
+  const u = byLc('LC-TREES-0039'); assert.ok(u && u.cls === 'scatter', 'the Warren cluster that holds the Angle');
+  assert.deepEqual(u.woods.species, { oak: 1 }); assert.equal(u.woods.species_claim, 'VC-NPSC-COMMON-PRIDE-3-p015-01'); assert.equal(u.woods.species_tier, 'inferred', 'placed by a rule: not documented for this polygon');
+  assert.deepEqual(u.woods.h_m, [2.4, 3.1]); assert.equal(u.woods.h_claim, 'VC-NPSC-COMMON-PRIDE-3-p015-02'); assert.equal(u.woods.h_tier, 'inferred'); assert.equal(claimOf('VC-NPSC-COMMON-PRIDE-3-p015-02').tier, 'inferred');
+  const t = placeTrees(M, u, PROJ), n = t.length / 8; assert.ok(n >= 8, 'the Copse has trees: ' + n);
+  for (let i = 0; i < n; i++) { const h = t[i * 8 + 2]; assert.ok(h >= 2.4 * 0.9 - 1e-6 && h <= 3.1 * 1.1 + 1e-6, `a tree of the Copse is 8 to 10 feet high, not an oak of 20 m: ${h}`); assert.ok(t[i * 8 + 3] >= 0.8 && t[i * 8 + 3] < 4, 'a crown to match'); assert.equal(M.speciesList[t[i * 8 + 4]], 'oak'); }
+  const s = stateAt(M, u, T('1863-07-03T12:00'), {}); assert.deepEqual(s.trees.height, [2.4, 3.1]); assert.equal(s.tiers.treeHeight, 'inferred'); assert.equal(s.tiers.species, 'inferred'); assert.equal(s.tier === 'documented', false);
+  const ids = new Set(u.claims.map(c => c[0])); for (const id of ['p015-01', 'p015-02', 'p014-01', 'p014-03', 'p015-04', 'p015-05', 'p004-01']) assert.ok(ids.has('VC-NPSC-COMMON-PRIDE-3-' + id), id + ' bears on the Copse');
+  const other = M.units.find(x => x.cls === 'scatter' && x !== u && !x.woods.h_m && x.area_ac > 3), t2 = placeTrees(M, other, PROJ); let hmax = 0; for (let i = 0; i < t2.length / 8; i++) hmax = Math.max(hmax, t2[i * 8 + 2]); assert.ok(hmax > 10, 'a cluster no account describes keeps full-size trees: ' + hmax);
+  assert.ok(DATA.gaps.some(g => g.id === 'G19' && /Copse/.test(g.title)), 'the extent and the thick growth are a gap, said');
+});
+
+test('Ziegler\'s Grove: oaks with some black cherry as the study infers, the Warren outline of 1868-69, and the gap said', () => {
+  const u = byLc('LC-WOOD-0127'); assert.ok(u && u.cls === 'woods');
+  assert.equal(u.woods.species.oak, 0.9); assert.equal(u.woods.species.black_cherry, 0.1); assert.equal(u.woods.species_claim, 'VC-NPSC-COMMON-PRIDE-3-p015-03'); assert.equal(u.woods.species_tier, 'inferred'); assert.equal(u.woods.species_shares_tier, 'plausible-procedural', 'the names are the study\'s, the shares are a range');
+  assert.ok(M.species.black_cherry && M.species.black_cherry.tier === 'inferred' && /perhaps/.test(M.species.black_cherry.why));
+  for (const id of ['p006-01', 'p006-02', 'p015-03']) assert.ok(u.claims.some(([c]) => c === 'VC-NPSC-COMMON-PRIDE-3-' + id), id);
+  assert.equal(claimOf('VC-NPSC-COMMON-PRIDE-3-p006-02').kind, 'ground'); assert.equal(claimOf('VC-NPSC-COMMON-PRIDE-3-p006-02').tier, 'inferred', 'the study says "probably": inferred');
+  const t = placeTrees(M, u, PROJ), names = new Set(); for (let i = 0; i < t.length / 8; i++) names.add(M.speciesList[t[i * 8 + 4]]); assert.ok(names.has('oak') && [...names].every(n => ['oak', 'black_cherry', 'shrub'].includes(n)), [...names].join());
+  assert.ok(DATA.gaps.find(g => g.id === 'G19').what.includes('Ziegler'));
+});
+
+test('the Meyers orchard: apple trees about thirty feet apart (the report\'s hedge), placed by a rule, inferred; an orchard\'s age is documented only where a claim names its polygon', () => {
+  const u = byLc('LC-ORCH-0046'); assert.ok(u && u.cls === 'orchard' && u.claims.some(([c, r]) => c === 'VC-NPSC-CLR-CEMETERY-p045-06' && r === 'nearest'));
+  assert.deepEqual(u.orchard.species, { apple: 1 }); assert.equal(u.orchard.spacing_m, 9.14); assert.equal(u.orchard.spacing_tier, 'inferred'); assert.equal(u.orchard.species_tier, 'inferred');
+  const t = placeTrees(M, u, PROJ), n = t.length / 8; assert.ok(n > 40); for (let i = 0; i < n; i++) assert.equal(M.speciesList[t[i * 8 + 4]], 'apple');
+  const expect = u.area_ac * 4046.86 / 9.14 ** 2; assert.ok(n > expect * 0.7 && n < expect * 1.2, `${n} trees, about ${Math.round(expect)} expected at 30 feet`);
+  const s = stateAt(M, u, T('1863-11-19T12:00'), {}); assert.equal(s.tiers.spacing, 'inferred'); assert.equal(s.tiers.species, 'inferred'); assert.ok(s.trees.leaf < 0.31, 'the orchard stood on the day of the dedication, leaf-off');
+  assert.ok(claimOf('VC-NPSC-CLR-CEMETERY-p069-01').when.from === '1863-10-01', 'the photograph of the reinterments');
+  for (const o of M.units.filter(x => x.orchard)) {
+    const roles = o.claims.filter(([c]) => ['young', 'young_and_declining'].includes((claimOf(c).about || {}).age)).map(c => c[1]);
+    if (o.lc === 'LC-ORCH-0206') continue;
+    if (o.orchard.class === 'young') assert.equal(o.orchard.age_tier, roles.includes('exact') ? 'documented' : 'inferred', o.id + ': a young orchard placed by a rule is inferred');
+    else assert.equal(o.orchard.age_tier, 'plausible-procedural', o.id);
+  }
+});
+
+test('the three trees the park\'s reports name: the butternut, the old pine and the white oak, each with its claim, its tier and the place it is found by', () => {
+  const W = Object.fromEntries(DATA.witness_trees.map(w => [w.id, w])); assert.deepEqual(Object.keys(W).sort(), ['WT-01', 'WT-02', 'WT-03', 'WT-04', 'WT-05']);
+  for (const w of Object.values(W)) { assert.ok(M.species[w.species], w.id + ' species'); assert.ok(w.h_m[0] > 0 && w.h_m[0] <= w.h_m[1] && w.r_m[0] <= w.r_m[1]); assert.ok(w.pos_err_m >= 40 && TIERS.includes(w.pos_tier) && w.basis.length > 80, w.id); for (const c of w.claims) assert.ok(claimOf(c), c); }
+  const mem = JSON.parse(fs.readFileSync(path.join(APP, 'data', 'site-memorials.json'), 'utf8')).monuments, m140 = mem.find(m => m.no === 322), m7w = mem.find(m => m.no === 496);
+  assert.equal(m140.name, '140th New York Infantry Monument'); assert.equal(m7w.name, '7th Wisconsin Infantry Monument');
+  const d4 = metres(W['WT-04'].lnglat, [m140.lng, m140.lat]); assert.ok(Math.abs(d4 - 30) < 3, 'the old pine stands 30 m from the monument that is its locator: ' + d4);
+  const d5 = metres(W['WT-05'].lnglat, [m7w.lng, m7w.lat]); assert.ok(Math.abs(d5 - 45.7) < 3 && W['WT-05'].lnglat[0] > m7w.lng, 'fifty yards east of the monument: ' + d5);
+  const lrt = DATA.scenarios['CF-VEG-LRT'].summit.lnglat; assert.ok(metres(W['WT-03'].lnglat, lrt) < 5, 'the butternut is at the summit');
+  assert.equal(W['WT-03'].tier, 'inferred'); assert.equal(W['WT-04'].tier, 'documented'); assert.equal(W['WT-05'].tier, 'inferred'); assert.equal(claimOf(W['WT-03'].claims[0]).tier, 'inferred', 'a purported witness');
+  assert.ok(/later memorial/.test(W['WT-04'].basis) && /later memorial/.test(W['WT-05'].basis), 'a monument is only a locator, and the data says so');
+});
+
+test('the understory conflict CF-VEG-UNDER: acts only on the woods no account describes, changes the shrubs placed and nothing else, and every option cites claims', () => {
+  const sc = M.scenarios['CF-VEG-UNDER']; assert.equal(sc.default, 'as_classed'); assert.deepEqual(Object.keys(sc.options).sort(), ['as_classed', 'dense', 'open_grown']);
+  for (const [k, o] of Object.entries(sc.options)) { assert.ok(TIERS.includes(o.tier) && o.label && o.by.length >= 2, k); for (const c of o.by) assert.ok(M.claims.has(c), c); }
+  assert.ok(sc.options.open_grown.by.includes('VC-NPSC-NRCA-2017-p129-01') && sc.options.dense.by.includes('VC-NPSC-NRCA-2017-p199-01') && sc.options.as_classed.by.includes('VC-NPS-007'));
+  assert.ok(/contradicts itself/.test(sc.why) && /rules for that wood/.test(sc.why), 'the conflict is stated, and the rule that an account of one wood rules');
+  const sens = M.units.filter(u => u.woods && u.woods.understory_by_scenario), own = M.units.filter(u => u.woods && u.woods.understory_claim); assert.ok(sens.length > 100 && own.length >= 3, `${sens.length} read by the choice, ${own.length} by an account`);
+  assert.ok(!sens.some(u => u.woods.understory_claim) && !sens.some(u => u.cls === 'scatter'), 'no wood is both');
+  const t = T('1863-07-02T12:00');
+  for (const u of sens.slice(0, 60)) {
+    const a = stateAt(M, u, t, {}).trees, o = stateAt(M, u, t, { 'CF-VEG-UNDER': 'open_grown' }).trees, d = stateAt(M, u, t, { 'CF-VEG-UNDER': 'dense' }).trees;
+    assert.equal(a.understory, u.woods.understory, 'as classed is the class of the wood'); assert.equal(o.understory, 'open'); assert.equal(d.understory, 'thick'); assert.equal(o.understoryTier, 'inferred'); assert.equal(d.understoryBy, 'CF-VEG-UNDER:dense'); assert.equal(a.perHa, d.perHa, 'the trees are the same');
+  }
+  for (const u of own) { const base = stateAt(M, u, t, {}).trees, o = stateAt(M, u, t, { 'CF-VEG-UNDER': 'open_grown' }).trees, d = stateAt(M, u, t, { 'CF-VEG-UNDER': 'dense' }).trees; assert.equal(o.understory, base.understory); assert.equal(d.understory, base.understory, u.id + ': the account of this wood rules'); assert.equal(d.understoryBy, u.woods.understory_claim); }
+  const herbst = byLc('LC-WOOD-0010'); assert.equal(herbst.woods.understory, 'open'); assert.equal(herbst.woods.understory_claim, 'VC-NPSC-GMP-1999-V1-p068-01', 'the plan of 1999 finds the Herbst woodlot open: documented, exact'); assert.equal(herbst.woods.understory_tier, 'documented');
+  // the shrubs placed
+  const shrub = M.speciesList.indexOf('shrub'), count = (u, ch) => { const a = placeTrees(M, u, PROJ, { choices: ch }); let s = 0, n = 0; for (let i = 0; i < a.length / 8; i++) { if (a[i * 8 + 4] === shrub) s++; else n++; } return { s, n, a }; };
+  const farm = sens.find(u => u.woods.class === 'farm_woodlot' && u.area_ac > 12), ridge = sens.find(u => u.woods.class === 'ridge_forest' && u.area_ac > 12 && u.area_ac < 120); assert.ok(farm && ridge);
+  const ha = u => u.area_ac * 0.40469, c0 = count(farm, {}), c1 = count(farm, { 'CF-VEG-UNDER': 'open_grown' }), c2 = count(farm, { 'CF-VEG-UNDER': 'dense' });
+  assert.equal(c0.s, 0, 'a farm woodlot as classed: open'); assert.equal(c1.s, 0); assert.ok(c2.s > 100 * ha(farm) && c2.s < 180 * ha(farm), `dense: ${c2.s} shrubs on ${ha(farm).toFixed(1)} ha`);
+  assert.equal(c0.n, c2.n, 'the trees are the same under every reading'); for (let i = 0; i < c0.n; i++) { /* the first trees placed are the same ones */ } assert.deepEqual(Array.from(c0.a.subarray(0, 8 * c0.n)), Array.from(c2.a.subarray(0, 8 * c2.n)).slice(0, 8 * c0.n));
+  const r0 = count(ridge, {}), r2 = count(ridge, { 'CF-VEG-UNDER': 'dense' }); assert.ok(r0.s > 20 * ha(ridge) && r0.s < 45 * ha(ridge), `a ridge forest as classed: moderate ${r0.s}`); assert.ok(r2.s > 3 * r0.s, 'dense is about 4.7 times moderate');
+  const h0 = count(herbst, {}), h2 = count(herbst, { 'CF-VEG-UNDER': 'dense' }); assert.equal(h0.s, h2.s, 'a wood with an account of its own is not moved by the choice');
+});
+
+test('the readings of Little Round Top: the new accounts bear on the east slope and the west slope, the light reading is inferred, the unwooded one has no account for it', () => {
+  const lrt = DATA.scenarios['CF-VEG-LRT'], east = byLc('LC-WOOD-LRT-E'), west = byLc('LC-OPEN-0001'), brt = byLc('LC-WOOD-0002');
+  assert.equal(lrt.options.wiki_light_summit.tier, 'inferred'); assert.ok(lrt.options.wiki_light_summit.by.includes('VC-NPSC-CLR-LRT-p123-03') && lrt.options.wiki_light_summit.by.includes('VC-NPSC-CLR-LRT-p126-01')); assert.deepEqual(lrt.options.wiki_unwooded.by, []);
+  for (const id of ['VC-NPSC-CLR-LRT-p043-02', 'VC-NPSC-CLR-LRT-p044-03', 'VC-NPSC-CLR-LRT-p090-01']) { assert.ok(lrt.options.nps_clr.by.includes(id), id); assert.ok(west.claims.some(([c, r]) => c === id && r === 'exact'), id + ' names the west slope'); }
+  for (const id of ['VC-NPSC-CLR-LRT-p123-03', 'VC-NPSC-CLR-LRT-p126-01', 'VC-NPSC-CLR-LRT-p126-02a', 'VC-NPSC-CLR-LRT-p125-06', 'VC-NPSC-CLR-LRT-p122-01a']) assert.ok(east.claims.some(([c, r]) => c === id && r === 'area'), id + ' bears on the east slope');
+  assert.ok(brt.claims.some(([c, r]) => c === 'VC-NPSC-CLR-LRT-p115-01a' && r === 'exact') && brt.claims.some(([c]) => c === 'VC-NPSC-CLR-LRT-p122-01b'));
+  assert.match(lrt.why, /Spear/); assert.match(lrt.why, /sparsely covered/); assert.match(lrt.why, /half of its trees/);
+  assert.equal(west.crop, 'open_rock'); assert.ok(!M.lrtUnits.has('nonexistent'));
+  assert.ok(claimOf('VC-NPSC-CLR-LRT-p090-02').kind === 'ground' && /neither is drawn/.test(claimOf('VC-NPSC-CLR-LRT-p090-02').says), 'sumac and red cedar of today are not drawn on the west slope');
+  assert.ok(DATA.gaps.some(g => g.id === 'G22' && /east slope/.test(g.title)));
+});
+
+test('the crops the second reading placed by a rule: high wheat on 1 July, clover and tall grass on 3 July, each inferred and each on its own cell', () => {
+  const crops = ['VC-NPSC-HS-MCPHERSON-p043-01', 'VC-NPSC-HS-MCPHERSON-p063-01', 'VC-NPSC-COMMON-PRIDE-1-p135-01', 'VC-NPSC-HB9-1954-p034-01'], want = { 'VC-NPSC-HS-MCPHERSON-p043-01': 'wheat', 'VC-NPSC-HS-MCPHERSON-p063-01': 'wheat', 'VC-NPSC-COMMON-PRIDE-1-p135-01': 'hay', 'VC-NPSC-HB9-1954-p034-01': 'hay' };
+  const cells = new Set();
+  for (const id of crops) {
+    const u = M.units.find(x => x.crop_claim === id); assert.ok(u, id + ' set a crop'); assert.equal(u.cls, 'field'); assert.equal(u.crop, want[id]); assert.equal(u.crop_tier, 'inferred', 'placed by a rule from a verbal description'); assert.equal(u.crop_role, 'nearest'); assert.ok(!cells.has(u.id), 'one cell for one claim'); cells.add(u.id);
+    const s = stateAt(M, u, T(claimOf(id).when.from + 'T12:00'), {}); assert.equal(s.tiers.crop, 'inferred'); assert.equal(s.ground.cut, 0, 'standing on the day the account speaks of'); assert.ok(s.ground.h[1] > 0.5, 'high wheat and tall grass: ' + s.ground.h);
+  }
+  assert.equal(claimOf('VC-NPSC-HS-MCPHERSON-p023-01a').kind, 'farm_inventory'); const oats = M.units.find(u => u.crop_claim === 'VC-NPSC-HS-MCPHERSON-p023-01a'); assert.ok(oats && oats.crop === 'oats' && oats.crop_tier === 'plausible-procedural' && oats.crop_basis === 'farm_inventory', 'the oats of the farm inventory are a seeded choice among the cells near the farmstead');
+});
+
+test('the conflict of the McPherson acres and the park\'s totals are data: both readings, the mix under each, the coverage check, the gap with its numbers', () => {
+  const c = DATA.conflicts.find(x => x.id === 'CF-VEG-MCPHERSON'); assert.ok(c && c.readings.length === 2 && c.default === 'clr' && TIERS.includes(c.tier));
+  for (const r of c.readings) for (const id of r.by) assert.ok(claimOf(id), id);
+  assert.deepEqual(c.mix.used, DATA.meta.mix.shares); assert.deepEqual(c.mix.other, DATA.meta.mix.alt); assert.ok(c.mix.other.oats > c.mix.used.oats, 'the study\'s 14 acres of oats against the report\'s 4 raise the share of oats');
+  assert.equal(claimOf('VC-NPS-031').about.crops.wheat, 9); assert.equal(claimOf('VC-NPSC-HS-MCPHERSON-p099-01').about.crops.wheat, 18); assert.equal(claimOf('VC-NPSC-HS-MCPHERSON-p099-01').about.alt_reading, 'study-1977');
+  assert.ok(!DATA.meta.mix.farms.some(f => f.claim === 'VC-NPSC-HS-MCPHERSON-p099-01'), 'the other reading is not in the mix that is used (no double count)');
+  const g = DATA.gaps.find(x => x.id === 'G20'); assert.ok(!/__MIX__/.test(g.what) && /wheat \d+%/.test(g.what));
+  const cov = DATA.meta.coverage; assert.equal(cov.park_1863.woodlots_and_woodlands_acres, 898); assert.equal(cov.park_1863.orchards_acres, 230); assert.equal(cov.park_1863.claim, 'VC-NPSC-GMP-1999-V1-p061-01'); assert.equal(claimOf(cov.park_1863.claim).tier, 'documented');
+  assert.ok(cov.woods_acres > 500 && cov.orchard_acres > 100 && /order of magnitude/.test(cov.note) && /DD-NPS-07/.test(cov.note), 'compared for order of magnitude, not a target');
+  const sumAcres = cls => DATA.units.filter(u => u.cls === cls).reduce((a, u) => a + u.area_ac, 0); assert.ok(Math.abs(sumAcres('woods') - cov.woods_acres) < 0.5 && Math.abs(sumAcres('orchard') - cov.orchard_acres) < 0.5, 'the coverage figures are the units\' own acres');
+});
+
+test('the table of names: every feature a timeline row can name resolves to a unit, with the rule that found it and the tier of that identification', () => {
+  const named = DATA.meta.named, byName = Object.fromEntries(named.map(n => [n.name, n])); assert.ok(named.length >= 12, 'names: ' + named.length);
+  for (const n of named) { const u = M.byId.get(n.unit); assert.ok(u && u.lc === n.lc, n.name); assert.ok(n.via.length > 20 && TIERS.includes(n.tier), n.name); }
+  assert.equal(byName['The Wheatfield (George Rose farm)'].unit, 'V-0001'); assert.equal(byName['The Wheatfield (George Rose farm)'].tier, 'documented');
+  assert.equal(byName['The Peach Orchard (Sherfy; the Warren polygon includes the J. Want block)'].lc, 'LC-ORCH-0206'); assert.equal(byName["Ziegler's Grove"].lc, 'LC-WOOD-0127'); assert.equal(byName["Ziegler's Grove"].tier, 'inferred', 'found by the nearest wood to a gazetteer place');
+  assert.equal(byName['The Copse of Trees (at the Angle)'].lc, 'LC-TREES-0039'); assert.equal(byName['Meyers orchard (national cemetery site)'].lc, 'LC-ORCH-0046');
+  assert.match(DATA.meta.id_note, /fixed order/); assert.match(DATA.meta.id_note, /`lc`/);
+});
+
+test('a choice of the understory reading places the woods again and rewrites the tree buffer; the other choices leave the trees alone', async () => {
+  const { gl, calls } = recordingGL(), progs = [], hooks = [];
+  const R = { gl, W: 800, H: 500, progs, prog(name, vs, fs) { const p = { name, vs, fs }; progs.push(p); return p; }, finishProgs() {} };
+  const { ctx, th } = standIn('webgl2'); ctx.host.R = R; ctx.host.addSceneHook = h => { hooks.push(h); return () => { const i = hooks.indexOf(h); if (i >= 0) hooks.splice(i, 1); }; };
+  await VEG.init(ctx); const v = th.vegetation, n0 = v.status().trees, wait = ms => new Promise(r => setTimeout(r, ms));
+  const until = async (f, ms = 20000) => { const t0 = Date.now(); while (!f() && Date.now() - t0 < ms) await wait(25); return f(); };
+  const bd = () => (calls.bufferData || []).length, b0 = bd();
+  assert.equal(v.choose('CF-VEG-UNDER', 'dense'), true); assert.equal(bd(), b0, 'the woods are placed again a moment after the choice has been drawn, not inside the call');
+  assert.ok(await until(() => v.status().trees > n0 + 30000), `dense: ${v.status().trees} trees against ${n0}`); assert.ok(bd() > b0, 'the tree buffer was rewritten'); const n1 = v.status().trees;
+  const b1 = bd(); v.choose('CF-VEG-RAIN', 'none'); v.choose('CF-VEG-HARVEST', 'early'); await wait(300); assert.equal(bd(), b1, 'a choice that does not touch the trees does not place them again'); assert.equal(v.status().trees, n1);
+  assert.equal(v.choose('CF-VEG-UNDER', 'open_grown'), true); assert.ok(await until(() => v.status().trees < n0 + 1), 'open-grown: the moderate shrubs of the ridge forests are gone: ' + v.status().trees); assert.ok(v.status().trees > n0 - 20000);
+  assert.equal(v.choose('CF-VEG-UNDER', 'as_classed'), true); assert.ok(await until(() => v.status().trees === n0), 'back to the reading it began with: the same trees ' + v.status().trees);
+  VEG.dispose();
+});

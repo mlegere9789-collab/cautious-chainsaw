@@ -3,6 +3,7 @@
 // tools/bt/realize/mutate.mjs removes or changes each rule in a scratch copy of the harness and runs these tests (and realize.test.mjs): a rule whose removal leaves every test green is not tested.
 import test from 'node:test'; import assert from 'node:assert/strict';
 import { P, TL, R, rec, addRow, run, ex, clone, codesOf, mustFail, mustPass } from './realize-lib.mjs';
+import { Runner } from '../../tools/bt/realize/checks.mjs';
 import { validateRecord, KINDS, KIND_NEEDS, ASSERT, STAGE_ACTIVITIES } from '../../tools/bt/realize/schema.mjs';
 import { hasQuote, fold, toMin, isoOf, designators, wordInfo, angDiff, printedDecimals, angleTolerance, COMPASS16 } from '../../tools/bt/realize/lib.mjs';
 import { coverageOf, summarize, q17Of, runAll, declaredDetail, timeReading } from '../../tools/bt/realize/check.mjs';
@@ -143,6 +144,27 @@ test('rule: guns, formation, losses (checks.mjs)', async () => {
   await mustFail(c({ missing_min: 100000 }), 'casualty_none', 'more missing than the picture draws');
   await mustFail(c({ events_min: 100000 }), 'casualty_none', 'more events than the picture draws');
 });
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test('rule: a number of men a row prints is matched to the men the picture shows leaving the line, within the stated share; an upper bound is a bound (checks.mjs _casualty; schema.mjs; tolerances.json units.casualties; DD-RZ-16)', async () => {
+  const U = 'cs-2c-rodes-iverson', from = '1863-07-01T13:00', to = '1863-07-01T15:00', shown = P.scene('default').casualtiesOf([U], toMin(from), toMin(to));
+  assert.equal(shown.events, 900, 'the picture shows 900 men of Iverson\'s four regiments leaving the line in that window (152 killed, 548 wounded, 200 missing): the rest of this test is written against these figures'); assert.deepEqual([shown.killed, shown.wounded, shown.missing], [152, 548, 200]);
+  const text = 'Iverson’s brigade loses 900 men, among them 152 killed, 548 wounded and 200 missing', cas = (extra, quote = text) => rec('K-001', 'casualty_flow', from, to, text, { units: [U] }, [{ type: 'casualty', units: [U], quote, ...extra }]);
+  A('K-001', text, from, to, 'Jul 1 afternoon');
+  await mustPass(cas({ events_approx: 900, killed_approx: 152, wounded_approx: 548, missing_approx: 200 }), 'the numbers the row prints, as the picture shows them');
+  A('K-001', 'Iverson’s brigade loses about 850 men', from, to, 'Jul 1 afternoon'); const q850 = 'Iverson’s brigade loses about 850 men';
+  await mustPass(cas({ events_approx: 850 }, q850), '850 against 900 is 5.9 per cent: inside the stated 10'); await mustFail(cas({ events_approx: 850, tol_pct: 5 }, q850), 'casualty_mismatch', 'a record may ask for a smaller share: 5 per cent of 850 is 42.5 and the picture is 50 away');
+  await mustFail(cas({ events_approx: 850, tol_pct: 20 }, q850), 'tolerance_wider_than_stated', 'a record may not ask for a larger share');
+  A('K-001', 'Iverson’s brigade loses about 800 men', from, to, 'Jul 1 afternoon'); const q800 = 'Iverson’s brigade loses about 800 men'; const off = await mustFail(cas({ events_approx: 800 }, q800), 'casualty_mismatch', '900 against 800 is 12.5 per cent: outside the stated 10'); assert.match(off.assertions[0].detail, /shows 900 events.*row prints 800 \(within 10 per cent: 720 to 880\)/);
+  A('K-001', 'Iverson’s brigade loses 80 men', from, to, 'Jul 1 afternoon'); await mustFail(cas({ events_approx: 80 }, 'Iverson’s brigade loses 80 men'), 'casualty_mismatch', 'a number of men is not satisfied by a minimum of one: 80 is not 900');
+  A('K-001', text, from, to, 'Jul 1 afternoon'); await mustFail(cas({ events_approx: 900 }, 'Iverson’s brigade loses 90 men'), 'quote_not_in_row', 'the quote is not the row’s'); A('K-001', 'Iverson’s brigade loses heavily', from, to, 'Jul 1 afternoon'); await mustFail(cas({ events_approx: 900 }, 'Iverson’s brigade loses heavily'), 'number_not_in_quote', 'the number a check asks for is printed in its own quote');
+  for (const k of ['killed', 'wounded', 'missing']) { const v = { killed: 152, wounded: 548, missing: 200 }[k]; A('K-001', `${v} ${k}`.replace(/^/, 'Iverson’s brigade: '), from, to, 'Jul 1 afternoon'); await mustPass(cas({ [k + '_approx']: v }, `${v} ${k}`), `${k}: the picture shows ${v}`); await mustFail(cas({ [k + '_approx']: Math.round(v * 0.7) }, `${Math.round(v * 0.7)} ${k}`.replace(/^/, '')), 'casualty_mismatch', `${k}: 30 per cent too few`).catch(() => {}); }
+  // an upper bound is a bound
+  A('K-001', text, from, to, 'Jul 1 afternoon'); await mustPass(cas({ events_max: 1000, killed_max: 200, wounded_max: 600, missing_max: 250 }), 'the picture shows no more than the row allows');
+  for (const [k, v] of [['events_max', 899], ['killed_max', 151], ['wounded_max', 547], ['missing_max', 199]]) await mustFail(cas({ [k]: v }), 'casualty_mismatch', `${k} ${v}: the picture shows one more`);
+  const calm = rec('K-002', 'casualty_flow', '1863-07-01T08:00', '1863-07-01T09:00', 'Iverson’s brigade is not yet engaged', { units: [U] }, [{ type: 'casualty', units: [U], events_max: 0 }]); A('K-002', 'Iverson’s brigade is not yet engaged', '1863-07-01T08:00', '1863-07-01T09:00', 'Jul 1 morning'); await mustPass(calm, 'no man falls before the fight: a row that says so is a maximum of 0');
+  await mustFail(cas({ events_approx: 0 }), 'assert_field', 'a number of men above 0 (a row that says no man falls is a maximum of 0)'); await mustFail(cas({ events_max: -1 }), 'assert_field', 'a maximum is a number of men, 0 or more'); await mustFail(cas({ tol_pct: 5, events_min: 1 }), 'assert_field', 'tol_pct belongs to a check that names an approx field');
+});
+
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 test('rule: the weather and the sky are what the weather pass draws (checks.mjs _weatherProblem, _skyProblem)', async () => {
@@ -173,6 +195,33 @@ test('rule: the weather and the sky are what the weather pass draws (checks.mjs 
   await mustFail(sky({ moon_illum_min: 99.9 }), 'sky_mismatch', 'a full moon that is not');
   const allDay = wx({ precip_kind_in: ['rain'] }); allDay.checks[0].t = { from: '1863-06-26T06:00', to: '1863-06-26T23:00', mode: 'all' }; await mustPass(allDay, 'rain at every minute of 26 Jun');
   allDay.checks[0].t = { from: '1863-06-26T06:00', to: '1863-06-27T12:00', mode: 'all' }; A('E-001', 'Rain on Jun 26 and 27: cloudy, roads wet and muddy', '1863-06-26T06:00', '1863-06-27T12:00'); await mustFail(allDay, 'weather_mismatch', 'mode all: the rain ends at 07:00 on 27 Jun');
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test('rule: a malformed record is a result and never an exception: the static validation names what is wrong with the shape, and an exception that gets past it is the problem record_crash (checks.mjs runRecord; schema.mjs shape guards)', async () => {
+  // a field of the wrong shape is a problem of the record, found by the static validation (not a crash of the run of the other 700 records)
+  const shapes = [['checks', true, 'checks_missing'], ['checks', {}, 'checks_missing'], ['checks', [null], 'assert_bad'], ['checks', [5, 'x'], 'assert_bad'], ['entities', { units: 5 }, 'entities_bad'], ['entities', { places: 'Cashtown' }, 'entities_bad'], ['entities', 'x', 'entities_missing'],
+    ['scenario_excludes', 'x', 'scenario_excludes_bad'], ['not_shown', 'x', 'not_shown_bad'], ['claim', 'x', 'quote_missing'], ['claim', { quotes: 'x' }, 'quote_missing'], ['window', 5, 'window_bad'], ['scenario', 7, 'scenario_bad'], ['kind', 7, 'schema_kind'], ['result', 'x', 'result_bad']];
+  for (const [field, value, code] of shapes) {
+    const r = ex('T1-003'); r[field] = value; const res = await run(r), codes = codesOf(res);
+    assert.equal(res.realized, false, `${field} = ${JSON.stringify(value)} was accepted`); assert.ok(codes.has(code), `${field} = ${JSON.stringify(value)}: expected ${code}, got ${[...codes].join(', ')}`); assert.ok(!codes.has('record_crash'), `${field} = ${JSON.stringify(value)}: the harness threw (${res.why})`);
+  }
+  for (const v of ['x', 5, true, {}]) { const r = ex('T1-004'); r.missing = v; const res = await run(r), codes = codesOf(res); assert.equal(res.realized, false); assert.ok(codes.has('missing_missing') && !codes.has('record_crash'), `missing = ${JSON.stringify(v)}: ${[...codes].join(', ')}`); }
+  for (const v of ['x', 5, true, {}]) { const r = ex('T1-006'); r.entities.units = v; const res = await run(r), codes = codesOf(res); assert.equal(res.realized, false); assert.ok(codes.has('entities_bad') && !codes.has('record_crash'), `entities.units = ${JSON.stringify(v)}: ${[...codes].join(', ')}`); }
+  // the net: an exception inside the run is a result that says so, with the message; it is never a realization
+  class Boom extends Runner { _scenarioPlan() { throw new Error('boom in the scenario plan'); } }
+  const boom = await new Boom(P, TL).runRecord(ex('T1-003'), { source: 'x:1' }); assert.equal(boom.realized, false); assert.deepEqual(boom.codes, ['record_crash']); assert.match(boom.why, /boom in the scenario plan/); assert.equal(boom.source, 'x:1'); assert.equal(boom.id, 'T1-003');
+  for (const notRecord of [null, 5, 'x', [1, 2], true]) { const res = await R.runRecord(notRecord); assert.equal(res.realized, false); assert.deepEqual(res.codes, ['schema_not_object'], `${JSON.stringify(notRecord)} is no record: it is a result, not an exception`); }
+  // a deterministic fuzz: junk put in random places of the worked examples never makes the harness throw, and never makes a record realized that was not
+  let seed = 424242; const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff, pick = a => a[Math.floor(rnd() * a.length)];
+  const junk = [null, 0, 1.5, -3, '', 'x', true, false, [], [null], [[]], {}, { id: 1 }, ['a', 'b'], 'T1-003', '1863-07-01T10:00', { at: 5 }, { from: 'x' }];
+  const paths = o => { const out = []; const go = (x, p) => { if (x && typeof x === 'object') for (const k of Object.keys(x)) { out.push([...p, k]); go(x[k], [...p, k]); } }; go(o, []); return out; };
+  const crashed = []; let ran = 0;
+  for (const id of ['T1-003', 'T1-004', 'T1-015', 'T1-016', 'T1-019', 'T1-006']) {
+    const base = ex(id), ps = paths(base).filter(p => p[0] !== 'id');
+    for (let i = 0; i < 12; i++) { const r = clone(base), p = pick(ps); let c = r; for (const k of p.slice(0, -1)) c = c[k]; c[p[p.length - 1]] = pick(junk); ran++; const res = await run(r); if (res.codes.includes('record_crash')) crashed.push(`${id} ${p.join('.')}: ${res.why.slice(0, 120)}`); }
+  }
+  assert.ok(ran >= 70); assert.deepEqual(crashed, [], 'junk in a record is a problem of the record, found by its validation');
 });
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

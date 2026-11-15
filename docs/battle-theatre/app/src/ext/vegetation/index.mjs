@@ -37,15 +37,15 @@ export async function init(ctx) {
   s.shellToggle = ctx.host.api === 'webgl2' ? ctx.registerLayerToggle(ID + '-crop', 'Vegetation: standing crops near the camera', () => !!(S && S.gl && S.gl.on.shell), v => setShell(!!v)) : null;
   s.panel = ctx.registerPanel(ID, TITLE, renderPanel);
   if (ctx.host.api === 'webgl2') {
-    const t0 = performance.now(), decals = buildDecals(model, project), trees = buildTrees(model, project, ground);
-    addWitnessTrees(s, trees, model, project);
+    const t0 = performance.now(), decals = buildDecals(model, project), trees = buildTrees(model, project, ground, { choices: effChoices(s) });
+    s.underKey = scenarioOption(model, effChoices(s), 'CF-VEG-UNDER'); addWitnessTrees(s, trees, model, project);
     s.build = { decalMs: 0, ms: Math.round(performance.now() - t0), decalTriangles: decals.triangles, trees: trees.n, notClean: decals.notClean };
     s.gl = new VegGL(ctx.host, model, decals, trees, { ground, shell: wantShell() }); s.trees = trees;
     s.hook = ctx.host.addSceneHook({ scene: (gl, R) => { if (S && S.on && S.cam) S.gl.scene(gl, R, S.cam, S.t); }, shadow: (gl, c, R) => { if (S && S.on && S.cam) S.gl.shadow(gl, c, R, S.cam); } });
     startPlanner(s);
     s.status = 'drawn on WebGL2';
   }
-  s.offs.push(th.bus.on('scenario', () => { if (S) { startPlanner(S); S.tq = null; } }));
+  s.offs.push(th.bus.on('scenario', () => { if (S) { startPlanner(S); S.tq = null; retree(S); } }));
   mountChip(s);
   th.vegetation = { model, check: opts => checkVegetation(model, opts), stateAt: (id, t, choices) => stateAt(model, id, t, choices || effChoices(S)), status: () => statusOf(), setOn: v => (S ? S.toggle.set(!!v) : false), setOverlay: v => (S ? S.tierToggle.set(!!v) : false), setShell: v => (S && S.shellToggle ? S.shellToggle.set(!!v) : false), pick: (x, z) => pickUnit(S, x, z),
     whenReady: () => whenReady(), choose: (id, key) => choose(id, key), planner: () => S && S.planner, effChoices: () => effChoices(S),
@@ -60,13 +60,27 @@ function statusOf() {
 }
 
 function effChoices(s) { let live = {}; try { live = { ...s.ctx.choices() }; } catch { /* the shell's choices are not there */ } return { ...live, ...s.local }; }
-function choose(id, key) { const s = S; if (!s || !s.model.scenarios[id] || !s.model.scenarios[id].options[key]) return false; s.local[id] = key; s.tq = null; s.th.announce(`${s.model.scenarios[id].title}: ${s.model.scenarios[id].options[key].label}.`); if (s.panel.isOpen()) s.panel.refresh(); return true; }
+function choose(id, key) { const s = S; if (!s || !s.model.scenarios[id] || !s.model.scenarios[id].options[key]) return false; s.local[id] = key; s.tq = null; if (id === 'CF-VEG-UNDER') retree(s); s.th.announce(`${s.model.scenarios[id].title}: ${s.model.scenarios[id].options[key].label}.`); if (s.panel.isOpen()) s.panel.refresh(); return true; }
 function setOn(v) { const s = S; if (!s) return; s.on = v; if (s.chip) s.chip.hidden = !v; s.th.announce(v ? 'Vegetation of July 1863 shown.' : 'Vegetation of July 1863 hidden.'); }
 function setShell(v) {
   const s = S; if (!s || !s.gl) return; const ok = s.gl.enableShell(v);
   s.th.announce(v ? (ok ? 'Standing crops are drawn near the camera.' : 'Standing crops could not be drawn on this graphics driver.') : 'Standing crops are no longer drawn near the camera.'); if (s.panel && s.panel.isOpen()) s.panel.refresh();
 }
 function setOverlay(v) { const s = S; if (!s || !s.gl) return; s.gl.on.overlay = v; s.th.announce(v ? 'The tier of every field and wood is shown on the ground.' : 'The tier is no longer shown on the ground.'); }
+
+// The reading of the understory (CF-VEG-UNDER) changes how many shrubs stand in the woods no account describes: the trees are placed again for the reading (about a second of work, done just after
+// the choice has been drawn) and the buffer of the trees is rewritten. The state of the ground does not depend on it.
+function retree(s) {
+  if (!s || !s.gl || !s.model) return;
+  const key = scenarioOption(s.model, effChoices(s), 'CF-VEG-UNDER'); if (key === s.underKey) return; s.underKey = key;
+  if (s.retreeTimer) clearTimeout(s.retreeTimer);
+  s.retreeTimer = setTimeout(() => {
+    s.retreeTimer = null; if (S !== s || !s.gl) return;
+    const t0 = performance.now(), trees = buildTrees(s.model, s.project, s.ground, { choices: effChoices(s) }); addWitnessTrees(s, trees, s.model, s.project);
+    s.gl.setTrees(trees); s.trees = trees; s.build = { ...s.build, trees: trees.n, retreeMs: Math.round(performance.now() - t0) }; s.retrees = (s.retrees || 0) + 1;
+    s.th.announce(`The woods are drawn again for the reading "${s.model.scenarios['CF-VEG-UNDER'].options[key].label}".`); if (s.panel && s.panel.isOpen()) s.panel.refresh();
+  }, 30);
+}
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------- the trees that have a name
 function addWitnessTrees(s, trees, model, project) {
@@ -127,7 +141,7 @@ export function update(frame) {
   const s = S; if (!s) return; s.t = frame.tMin; s.cam = frame.cam;
   if (s.gl) { s.sway = swayUniforms(s.th, frame.tMin % 60, frame.paused ? 1 : frame.speed, s.reduced); s.gl.setWind(s.sway); }      // the minute within the hour: the phase stays small and exact in a float, and is still a pure function of the clock
   if (s.gl && s.on) {
-    const tq = sceneMinute(s.t), ch = effChoices(s), key = JSON.stringify([ch['CF-VEG-LRT'], ch['CF-VEG-RAIN'], ch['CF-VEG-HARVEST']]), now = performance.now();
+    const tq = sceneMinute(s.t), ch = effChoices(s), key = JSON.stringify([ch['CF-VEG-LRT'], ch['CF-VEG-RAIN'], ch['CF-VEG-HARVEST']]), now = performance.now(); if ((ch['CF-VEG-UNDER'] || null) !== (s.lastUnder || null)) { s.lastUnder = ch['CF-VEG-UNDER']; retree(s); }
     // the state of every unit is written when the quantised minute or a choice changes; while the clock runs fast it is written at most every 90 ms (a settled or paused clock is always written at once, so the same minute always gives the same picture)
     if (frame.paused || !s.lastWrite || now - s.lastWrite > 90 || key !== s.gl.choicesKey) { if (s.gl.setTime(tq, ch, key)) s.lastWrite = now; }
     if (s.planner && !s.planner.done) { s.planner.run(4, () => performance.now()); s.planVersion = (s.planVersion || 0) + 1; }
@@ -217,6 +231,7 @@ function renderPanel(box, th, sc) {
 
 export function dispose() {
   const s = S; S = null; if (!s) return;
+  if (s.retreeTimer) { clearTimeout(s.retreeTimer); s.retreeTimer = null; }
   try { s.ac.abort(); } catch { /* gone */ }
   stopPump(s);
   for (const off of s.offs || []) { try { off(); } catch { /* the bus is gone */ } }

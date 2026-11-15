@@ -472,3 +472,20 @@ GROUP_DEFS = [
   'terms': ['quarr(y|ies)', 'railroad cut', 'grad(ed|ing)', 'avenue', 'pond', 'excavat', 'embankment', 'filled', 'regrad', 'rebuilt wall', 'Spangler.s Spring'],
  },
 ]
+
+
+# Sources added on the second run of the planning step (2026-11-15), appended to the `sources` of the groups whose buildings they can speak about. Each id is a row of
+# docs/battle-theatre/town/SOURCES.md (assign_groups.py refuses an id that is not). A source in this list is a place to look, not a claim about what it holds:
+#   BACHELDER-1863      Bachelder's map of c1863 (LOC 99447490; image only; whether it draws buildings has NOT been read)
+#   BACH-WHATTOSEE-1873 / -1889   Bachelder's visitors' guides (later accounts of the field: barns, farms, the avenues), local texts
+#   BACH-KEY-1864       Key to Bachelder's isometrical drawing (a short local text; it names the Seminary and the cemetery)
+_EXTRA_SOURCES = {
+    'BACHELDER-1863': AREAS + ['town-cemeteries-gatehouse', 'terrain-changes-since-1863'],
+    'BACH-WHATTOSEE-1873': AREAS + ['terrain-changes-since-1863'],
+    'BACH-WHATTOSEE-1889': AREAS + ['terrain-changes-since-1863'],
+    'BACH-KEY-1864': ['town-seminary', 'town-cemeteries-gatehouse'],
+}
+for _g in GROUP_DEFS:
+    for _sid, _gids in _EXTRA_SOURCES.items():
+        if _g['id'] in _gids and _sid not in _g['sources']:
+            _g['sources'].append(_sid)

@@ -20,12 +20,13 @@ const ok = (evidence = {}) => ({ ok: true, code: null, detail: null, evidence })
 const fail = (code, detail, evidence = {}) => ({ ok: false, code, detail, evidence });
 const num = (x, d = 1) => (x == null ? 'null' : String(round(x, d)));
 const uniq = a => [...new Set(a)];
+const arr = x => (Array.isArray(x) ? x : []);                // a field of a record that should be a list and is not is reported by the static validation (schema.mjs); the runner treats it as an empty list
 const asRegex = s => { const m = /^\/(.*)\/([a-z]*)$/.exec(String(s)); return m ? new RegExp(m[1], m[2]) : null; };
 const matchState = (want, got) => { const text = String(got ?? ''); return [].concat(want).some(w => { const re = asRegex(w); return re ? re.test(text) : fold(w) === fold(text); }); };
 
 // the record as GATE-SPEC-A TL-2 states a realization record: realized: [{ t_start, t_end, subjects[], probe, expected, observed_ref }]
 export function specView(rec, only = []) {
-  return (rec.checks || []).map((a, i) => {
+  return arr(rec.checks).map((a, i) => {
     const t = a && a.t ? parseSpanSafe(a.t) : parseSpanSafe(rec.window), { type, t: _t, quote, note, ...rest } = a || {};
     const subjects = [...(assertionUnits(a || {}).map(entityId)), ...(a && a.structure ? [a.structure] : []), ...(a && a.work ? [a.work] : []), ...(a && a.place ? [a.place] : [])];
     return { t_start: t && isoOf(t.from), t_end: t && isoOf(t.to), subjects, scenarios: only[i] || null, probe: { type, ...rest }, expected: rec.kind === 'not_realized' ? 'fail with the codes the record gives' : 'ok', observed_ref: `RESULTS.json#/rows/${rec.id}/assertions/${i}` };
@@ -54,18 +55,18 @@ export class Runner {
     try { await this._bindings(rec, row, res); } catch (e) { res.problems.push({ code: 'binding_error', detail: String(e && e.stack || e).slice(0, 300) }); }
     // the scenarios the record is run in (each with its id), the ones it excludes with the reason, and the scenarios each check holds in (a check without "scenario" holds in every scenario of the record)
     const grp = rec.kind === 'not_realized' ? null : await this._group(rec, row, v.span, res), plan = this._scenarioPlan(rec, row, res, grp); res.scenarios = plan.list.map(x => x.id); res.excluded_scenarios = plan.excluded; if (grp) res.scenario_group = this._groupReport(grp, plan);
-    const idOf = x => { if (typeof x === 'string') return x; try { return this.P.scenarioId(x); } catch (e) { return `(invalid scenario: ${String(e.message || e).slice(0, 80)})`; } }, only = (rec.checks || []).map(a => (a && a.scenario != null ? [].concat(a.scenario).map(idOf) : null));
+    const idOf = x => { if (typeof x === 'string') return x; try { return this.P.scenarioId(x); } catch (e) { return `(invalid scenario: ${String(e.message || e).slice(0, 80)})`; } }, only = arr(rec.checks).map(a => (a && a.scenario != null ? [].concat(a.scenario).map(idOf) : null));
     only.forEach((ids, i) => { for (const id of ids || []) if (!plan.seen.has(id)) res.problems.push({ code: 'check_scenario_unlisted', detail: `checks[${i}] holds in scenario "${id}", which the record does not run (it runs ${[...plan.seen].join(', ') || 'none'}); list the scenario in "scenario"` }); });
     res.spec_view = specView(rec, only);
     // a weather or sky assertion is a function of the minute only: one that no minute of the theatre clock violates cannot tell the minute the row is about from any other (the night floor is the exception: it holds at every minute by design)
-    for (const [i, a] of (rec.checks || []).entries()) {
+    for (const [i, a] of arr(rec.checks).entries()) {
       if (!a || (a.type !== 'weather' && a.type !== 'sky')) continue; const scs = plan.list.filter(x => !only[i] || only[i].includes(x.id)); if (!scs.length) continue;
       let can = false; try { for (const { spec } of scs) if (await this._falsifiable(a, spec)) { can = true; break; } } catch (e) { res.problems.push({ code: 'assert_error', detail: `checks[${i}] (${a.type}) threw while it was tried at the control minutes: ${String(e && e.message || e).slice(0, 200)}` }); continue; }
       if (!can) res.problems.push({ code: 'assert_vacuous', detail: `checks[${i}] (${a.type}) holds at every one of the ${this._control().length} minutes of the theatre clock tried (every ${CONTROL_STEP} minutes from ${isoOf(this.TL.clock[0][0])}): it cannot tell the minute the row is about from any other, so it proves nothing about the row` });
     }
     const results = [];
     for (const { spec, id: scId } of plan.list) {
-      for (const [i, a] of (rec.checks || []).entries()) {
+      for (const [i, a] of arr(rec.checks).entries()) {
         if (!ASSERT[a && a.type]) continue; if (only[i] && !only[i].includes(scId)) continue;
         let r; try { r = await this._assert(a, { rec, row, span: v.span, scene: this.P.scene(spec), scenario: spec, scenSpec: this.P.scenarioSpec(spec) }); } catch (e) { r = fail('assert_error', `${a.type} threw: ${String(e && e.message || e).slice(0, 300)}`, { stack: String(e && e.stack || '').split('\n').slice(0, 3).join(' / ') }); }
         results.push({ i, scenario: scId, type: a.type, ...r });
@@ -77,9 +78,9 @@ export class Runner {
     if (rec.result && typeof rec.result.realized === 'boolean') res.stale_result_pending = rec.result.realized;
     if (rec.kind === 'not_realized') {
       // the probe must FAIL, with the reasons the record gives; if it passes the row is realized now and the record is stale
-      const observed = new Set([...failed.flatMap(r => r.all_codes || [r.code]), ...res.problems.map(p => p.code)]), declared = (rec.missing || []).map(m => m.code);
+      const observed = new Set([...failed.flatMap(r => r.all_codes || [r.code]), ...res.problems.map(p => p.code)]), declared = arr(rec.missing).map(m => m && m.code);
       res.realized = false; res.missing = { declared, observed: [...observed], verified: (failed.length > 0 || res.problems.length > 0) && declared.every(c => observed.has(c)), unverified: declared.filter(c => !observed.has(c)), stale: !failed.length && !res.problems.length };
-      res.why = res.missing.stale ? 'the probe now passes: the product shows this row; rewrite the record with its real kind' : `not realized: ${(rec.missing || []).map(m => m.detail).join('; ').slice(0, 280)}`;
+      res.why = res.missing.stale ? 'the probe now passes: the product shows this row; rewrite the record with its real kind' : `not realized: ${arr(rec.missing).map(m => m && m.detail).join('; ').slice(0, 280)}`;
       if (res.missing.unverified.length) res.why += ` [declared but not observed: ${res.missing.unverified.join(', ')}]`;
       return res;
     }
@@ -94,7 +95,7 @@ export class Runner {
   // the scenario group of the row for this record (GATE-SPEC TL-8, 6.4 V6): the conflicts its text names, the conflicts that reach the units it uses and the weather and sky it asserts, the readings of its structures
   async _group(rec, row, span, res) {
     const E = rec.entities || {}, ids = k => (Array.isArray(E[k]) ? E[k] : []).map(entityId).filter(x => typeof x === 'string'), spans = [];
-    for (const a of rec.checks || []) if (a && (a.type === 'weather' || a.type === 'sky')) { const s = (a.t && parseSpanSafe(a.t)) || span; if (s) spans.push(s); }
+    for (const a of arr(rec.checks)) if (a && (a.type === 'weather' || a.type === 'sky')) { const s = (a.t && parseSpanSafe(a.t)) || span; if (s) spans.push(s); }
     const wx = spans.length ? { from: Math.min(...spans.map(s => s.from)), to: Math.max(...spans.map(s => s.to)) } : null;
     try { return await this.P.scenarioGroup({ text: `${row.text_raw || ''} ${row.claim_text || ''}`, units: ids('units').filter(id => this.P.unit(id)), structures: [...ids('structures'), ...ids('works')], span: wx }); }
     catch (e) { res.problems.push({ code: 'scenario_group_error', detail: String(e && e.message || e).slice(0, 300) }); return null; }
@@ -115,7 +116,7 @@ export class Runner {
       seen.add(id); byKey.set(key, id); list.push({ spec, id, sc });
     }
     const excluded = [];
-    for (const x of rec.scenario_excludes || []) {
+    for (const x of arr(rec.scenario_excludes)) {
       let sc; try { sc = P.scenarioSpec(x && x.scenario); } catch (e) { res.problems.push({ code: 'scenario_excludes_bad', detail: String(e.message || e) }); continue; }
       const key = P.scenarioKey(x.scenario); if (seen.has(sc.key) || byKey.has(key)) res.problems.push({ code: 'scenario_excluded_is_run', detail: `scenario "${sc.key}" is both run and excluded${byKey.has(key) && byKey.get(key) !== sc.key ? ` (it chooses what "${byKey.get(key)}" chooses)` : ''}` });
       excluded.push({ id: sc.key, key, why: String(x.why || '') });
@@ -136,7 +137,7 @@ export class Runner {
   // the bindings of a record to its row: the units, places and structures it uses must be the ones the row's own words name (or be declared with a quote of the row)
   async _bindings(rec, row, res) {
     const E = rec.entities || {}, text = row.claim_text, P = this.P, B = res.bindings;
-    for (const e of E.units || []) {
+    for (const e of arr(E.units)) {
       const id = entityId(e), via = entityVia(e);
       if (!P.unit(id)) { res.problems.push({ code: 'unit_not_in_layer', detail: `unit ${id} is not in the history layer` }); continue; }
       const m = P.bindUnit(id, text);
@@ -145,7 +146,7 @@ export class Runner {
       else res.problems.push({ code: 'unit_not_bound', detail: `unit ${id} (${P.unit(id).name}) is not named in the row's text (units named there: ${P.unitsNamedIn(text).slice(0, 5).map(x => x.id).join(', ') || 'none'}); if the row names it in other words, give { "id": "${id}", "via": "<verbatim words of the row>" }` });
     }
     const found = new Map(this.pl.findIn(text).map(h => [h.place.id, h]));
-    for (const e of E.places || []) {
+    for (const e of arr(E.places)) {
       const name = entityId(e), via = entityVia(e), r = this.pl.resolve(name);
       if (r.status === 'unknown') { res.problems.push({ code: 'place_unknown', detail: `place "${name}" is not in the gazetteer (the repository's files carry no such name): unknown places are listed, never guessed` }); continue; }
       if (r.status === 'ambiguous') { res.problems.push({ code: 'place_ambiguous', detail: `place "${name}" names more than one entry (${r.candidates.join('; ')}); use the id of one` }); continue; }
@@ -154,9 +155,9 @@ export class Runner {
       else if (via && hasQuote(text, via)) { B.places.push({ name, id: pl.id, how: 'declared', via }); B.declared++; }
       else res.problems.push({ code: 'place_not_in_row', detail: `place ${pl.id} "${pl.name}" is not named in the row's text (places named there: ${[...found.values()].map(h => h.place.id + ' ' + h.place.name).slice(0, 6).join('; ') || 'none'}); if the row names it in other words, give { "id": "${name}", "via": "<verbatim words of the row>" }` });
     }
-    if ((E.structures || []).length || (E.works || []).length) {
+    if (arr(E.structures).length || arr(E.works).length) {
       const S = await P.structures('default'), rtk = new Set(tokens(text));
-      for (const e of [...(E.structures || []), ...(E.works || [])]) {
+      for (const e of [...arr(E.structures), ...arr(E.works)]) {
         const id = entityId(e), via = entityVia(e), objs = S.byState.get(id) || [], sched = (S.inputs.sched.rows || []).filter(r => r.object_ids.includes(id)), rec_ = S.inputs.structures.structures.find(s => s.id === id);
         if (!objs.length && !sched.length && !rec_) { res.problems.push({ code: 'structure_unknown', detail: `structure ${id} is in no structure file (structures.json, state_schedule.json, the drawn objects)` }); continue; }
         const names = [...objs.map(o => o.name), ...sched.map(r => r.object_printed), rec_ && rec_.name, rec_ && rec_.location, ...(S.inputs.hospitals.hospitals || []).filter(h => (h.structure_ids || []).includes(id)).map(h => h.hospital)].filter(Boolean).join(' ');
@@ -169,7 +170,7 @@ export class Runner {
     // a motion or activity row that "names no place" must name none: a place of the gazetteer in the row's words is a place the record has to relate the unit to (otherwise the reason would dodge the place check)
     if (typeof rec.place_unspecified === 'string' && found.size) { const named = [...found.values()].map(h => h.place); res.problems.push({ code: 'place_unspecified_but_named', detail: `the record says the row names no place ("${rec.place_unspecified.slice(0, 60)}"), but its words name ${named.slice(0, 4).map(p => p.id + ' ' + p.name).join('; ')}: relate the unit to the place (unit_at, from, to, toward, along) or leave the row not realized` }); }
     // "any" for a formation: the row must say, in its own words, that only part of it is meant (GATE-SPEC 6.4 V7, DD-RZ-03); otherwise one drawn leaf would stand for a whole division
-    for (const [i, a] of (rec.checks || []).entries()) {
+    for (const [i, a] of arr(rec.checks).entries()) {
       if (!a || a.quantifier !== 'any' || !ASSERT[a.type] || !ASSERT[a.type].units) continue;
       const multi = assertionUnits(a).map(entityId).filter(id => P.unit(id) && P.leaves(id).length > 1);
       if (!multi.length) continue;
@@ -453,6 +454,10 @@ export class Runner {
     const a = c.a, S = c.scene, ids = (a.units || []).map(entityId), r = S.casualtiesOf(ids, c.span.from, c.span.to), k = r.killed, w = r.wounded, m = r.missing, ev = r.events;
     const tot = { killed: k, wounded: w, missing: m, events: ev, units: r.units.length, leaves: r.leaves };
     for (const [key, val] of [['killed_min', k], ['wounded_min', w], ['missing_min', m], ['events_min', ev]]) if (a[key] != null && val < a[key]) return fail('casualty_none', `the picture shows ${val} ${key.replace('_min', '')} (events) in ${isoOf(c.span.from)}..${isoOf(c.span.to)}, the check needs ${a[key]}`, tot);
+    for (const [key, val] of [['killed_max', k], ['wounded_max', w], ['missing_max', m], ['events_max', ev]]) if (a[key] != null && val > a[key]) return fail('casualty_mismatch', `the picture shows ${val} ${key.replace('_max', '')} (events) in ${isoOf(c.span.from)}..${isoOf(c.span.to)}, the check allows ${a[key]}`, tot);
+    // a number of men the row prints: the picture's count is within the stated share of it (one stage event per man down: tolerances.json units.casualties)
+    const stated = (this.tol.units.casualties || {}).tol_pct ?? 10, share = (a.tol_pct != null ? Math.min(a.tol_pct, stated) : stated) / 100;
+    for (const [key, val] of [['killed_approx', k], ['wounded_approx', w], ['missing_approx', m], ['events_approx', ev]]) if (a[key] != null && Math.abs(val - a[key]) > share * a[key] + 1e-9) return fail('casualty_mismatch', `the picture shows ${val} ${key.replace('_approx', '')} (events) in ${isoOf(c.span.from)}..${isoOf(c.span.to)}; the row prints ${a[key]} (within ${round(share * 100, 1)} per cent: ${round(a[key] * (1 - share), 1)} to ${round(a[key] * (1 + share), 1)})`, { ...tot, row: a[key], share });
     return ok(tot);
   }
   // ---- cards and the epilogue chapter (adapters: modules the owning workstream adds)

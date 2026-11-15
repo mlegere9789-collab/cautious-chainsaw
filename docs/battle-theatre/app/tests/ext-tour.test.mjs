@@ -94,7 +94,7 @@ test('module: the label of the pin stands on the right of the place and, where a
   const drawer = new FakeEl('aside'); drawer.id = 'bt-drawer'; drawer.hidden = true; drawer.rect = { left: 868, top: 66, width: 400, height: 524 }; root.append(drawer);
   const panels = () => [clock, n1, n2, drawer].filter(n => !n.hidden).map(n => [n.rect.left, n.rect.top, n.rect.left + n.rect.width, n.rect.top + n.rect.height]);
   const at = () => { const m = /^translate\((-?[\d.]+)px,(-?[\d.]+)px\)$/.exec(pin.style.transform); assert.ok(m, 'the pin is on the picture'); return [+m[1], +m[2]]; };
-  const box = () => { const [px, py] = at(), w = lab.style.maxWidth ? parseFloat(lab.style.maxWidth) : lab.rect.width, h = lab.style.maxWidth ? Math.max(lab.rect.height, Math.ceil(lab.rect.width / (w - 4)) * 15.6 + 8) : lab.rect.height; return [px + parseFloat(lab.style.left), py + parseFloat(lab.style.top), px + parseFloat(lab.style.left) + w, py + parseFloat(lab.style.top) + h]; };
+  const box = () => { const [px, py] = at(), w = lab.style.maxWidth ? parseFloat(lab.style.maxWidth) : lab.rect.width, h = lab.style.maxWidth ? P.wrapHeight(lab.rect.height, P.wrapLines(lab.rect.width, w)) : lab.rect.height; return [px + parseFloat(lab.style.left), py + parseFloat(lab.style.top), px + parseFloat(lab.style.left) + w, py + parseFloat(lab.style.top) + h]; };
   const covered = () => panels().filter(r => { const b = box(); return b[0] < r[2] && b[2] > r[0] && b[1] < r[3] && b[3] > r[1]; });
   const open = on => { drawer.hidden = !on; th.state.panel = on ? 'tour-stops' : null; th.bus.emit(on ? 'panel-open' : 'panel-close', 'tour-stops'); };
   // 1. no drawer: the label is on the right of the place as it always was

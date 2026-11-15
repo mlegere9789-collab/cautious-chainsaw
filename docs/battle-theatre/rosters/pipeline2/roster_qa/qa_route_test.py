@@ -63,8 +63,7 @@ def run():
 
 def detector():
     res = {}
-    for p in sorted(glob.glob(os.path.join(Q.QA, 'pages', '*.verdict.json'))):
-        v = Q.jload(p)
+    for v in Q.load_verdicts():
         if v['levels'] != 'NDR':
             continue
         fam = v['family']

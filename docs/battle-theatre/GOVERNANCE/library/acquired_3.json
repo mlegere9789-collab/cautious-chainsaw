@@ -1597,7 +1597,7 @@
    "task": "photomatch",
    "url": "https://archive.org/cors/GardnersPhotographicSketchBookOfTheWar/ (volume I and II _djvu.txt)",
    "status": "fetched, unusable",
-   "reason": "the OCR text layer holds plate decoration only (0 occurrences of Gettysburg in 60 KB); the plate descriptions would have to be read from the page images (the jp2 zips are 150 MB each, not fetched)"
+   "reason": "the OCR text layer holds plate decoration only (0 occurrences of Gettysburg in 60 KB); the plate descriptions would have to be read from the page images (the jp2 zips are 150 MB each, not fetched) Re-fetched 2026-11-15 (2 requests): still unusable; the text layer reads the binding decoration (99 words of five letters or more in volume I, none from a plate); sha256 of the two _djvu.txt files 4bca1403ef788628d038e4775cdf334fbeb411fc36f0d4b4b6dc3d12b7aab7d3 (vol. I) and 54bdfb629bdad3ad958acfeed22ab2bc0d9e6c78bb07a21b23ce2d569313c5c5 (vol. II); the scratch copies were deleted."
   },
   {
    "id": "PM-NPS-VISTA-CUTTING-PLATES",
@@ -1647,6 +1647,13 @@
    "url": "https://www.gutenberg.org/ebooks/search/?query=gardner+photographic+sketch+book",
    "status": "not found",
    "reason": "the search returned no records: there is no Project Gutenberg edition of the Sketch Book"
+  },
+  {
+   "id": "PM-NPS-TN-EXIF-GPS",
+   "task": "photomatch",
+   "url": "tmp/library/web/photomatch/www.nps.gov (the saved NPS Then-And-Now pictures)",
+   "status": "searched, none",
+   "reason": "2026-11-15: the EXIF of the 47 saved JPEG files was read: 25 carry an EXIF block (Canon EOS 60D or 80D, 2016 to 2018, focal lengths 18 to 35 mm of the modern lens), none carries a GPS block: no coordinate there; the modern focal length is not the lens of the 1863 exposure"
   }
  ]
 }

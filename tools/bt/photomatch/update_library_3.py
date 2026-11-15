@@ -41,6 +41,7 @@ def main():
         'PM-NARA-CATALOG': {'id': 'PM-NARA-CATALOG', 'task': 'photomatch', 'url': 'https://catalog.archives.gov/', 'status': 'blocked', 'reason': 'reachable, but a plain request to any address of the catalog (and to its api/v2 path) returns the same 5 KB single-page-application shell, not data; the catalog API needs a key (an account, an owner act); a browser read was not made. No NARA description of a Gettysburg photograph was read'},
         'PM-LOC-NOT-DIGITIZED': {'id': 'PM-LOC-NOT-DIGITIZED', 'task': 'photomatch', 'url': 'https://www.loc.gov/pictures/item/<id>/', 'status': 'no image', 'reason': 'records of the wide search that the Library has not digitized (its search result carries the placeholder 500x500_notdigitized.png): ' + ', '.join(sorted(wnd)) + '; each is listed in the registry with its title and the reason it has no frame to look at'},
         'PM-GARDNER-SKETCHBOOK-LOC': {'id': 'PM-GARDNER-SKETCHBOOK-LOC', 'task': 'photomatch', 'url': 'https://www.loc.gov/item/01021785/ (Gardner\'s photographic sketch book of the war, 1865)', 'status': 'images only', 'reason': 'the Library item holds the album pages as images (1024 px copies and 100 MB master TIFFs) without a text layer; at 1024 px the letterpress is too small for OCR and the masters were not fetched; the plate captions that LOC transcribed into its picture records are used (plates 35 and 39)'},
+        'PM-NPS-TN-EXIF-GPS': {'id': 'PM-NPS-TN-EXIF-GPS', 'task': 'photomatch', 'url': 'tmp/library/web/photomatch/www.nps.gov (the saved NPS Then-And-Now pictures)', 'status': 'searched, none', 'reason': '2026-11-15: the EXIF of the 47 saved JPEG files was read: 25 carry an EXIF block (Canon EOS 60D or 80D, 2016 to 2018, focal lengths 18 to 35 mm of the modern lens), none carries a GPS block: no coordinate there; the modern focal length is not the lens of the 1863 exposure'},
         'PM-GUTENBERG-SKETCHBOOK': {'id': 'PM-GUTENBERG-SKETCHBOOK', 'task': 'photomatch', 'url': 'https://www.gutenberg.org/ebooks/search/?query=gardner+photographic+sketch+book', 'status': 'not found', 'reason': 'the search returned no records: there is no Project Gutenberg edition of the Sketch Book'},
     }
     with open(os.path.join(ROOT, 'tmp', 'acquired_3.lock'), 'w') as lk:
@@ -55,7 +56,7 @@ def main():
             tmp = p + '.tmp'; json.dump(d, open(tmp, 'w'), indent=1, ensure_ascii=False); os.replace(tmp, p)
         p = os.path.join(LIB, 'status_3.json'); d = json.load(open(p)); cur = {s['id']: s for s in d['sources']}
         for k, (s, r) in st.items(): cur[k] = {'id': k, 'task': 'photomatch', 'status': s, 'reason': r}
-        smap = {'found': 'ingested', 'blocked': 'blocked', 'no image': 'partial', 'images only': 'unusable', 'not found': 'unusable'}
+        smap = {'found': 'ingested', 'blocked': 'blocked', 'no image': 'partial', 'images only': 'unusable', 'not found': 'unusable', 'searched, none': 'unusable'}
         for k, v in blocked.items(): cur[k] = {'id': k, 'task': 'photomatch', 'status': smap[v['status']], 'reason': v['reason'][:300]}
         order = [s['id'] for s in d['sources']] + [k for k in cur if k not in [s['id'] for s in d['sources']]]; d['sources'] = [cur[k] for k in order]
         tmp = p + '.tmp'; json.dump(d, open(tmp, 'w'), indent=1, ensure_ascii=False); os.replace(tmp, p)

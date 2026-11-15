@@ -1,0 +1,347 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "massachusettssol11931mass/631",
+ "levels": "NDR",
+ "stratum": "MA-SSM-officers",
+ "family": "MA-SSM",
+ "layout": "flow",
+ "kind": "officers",
+ "draw_position": 2,
+ "in_lowest_decile": false,
+ "printed_page": 617,
+ "rows_stored": 19,
+ "rows_checked": 19,
+ "rows_in_error": 4,
+ "rows_ok": 15,
+ "rows_flagged_ocr_uncertain": 3,
+ "errors": [
+  {
+   "i": 1,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Cromwell G. Rowel!",
+   "printed": "Cromwell G. Rowell",
+   "note": "the last letter l of the surname is read as an exclamation mark",
+   "rid": "9th-massachusetts-infantry#1",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "S. O. i3l8",
+   "printed": "S. O. #318",
+   "note": "the number of the order (the sign # read as i, the digit 1 read as l)",
+   "rid": "9th-massachusetts-infantry#3",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "W"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "rem-char"
+   ],
+   "stored": "Ist Lieut., July 3, 1862",
+   "printed": "1st Lieut., July 3, 1862",
+   "note": "the digit 1 of 1st read as the letter I",
+   "rid": "9th-massachusetts-infantry#14",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "W"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 18,
+   "kinds": [
+    "rem-char"
+   ],
+   "stored": "as 2d Lieut. of Co. \"L\"",
+   "printed": "as 2d Lieut. of Co. \"I.\"",
+   "note": "the company letter I read as L",
+   "rid": "9th-massachusetts-infantry#18",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "all 19 stored names, ranks and the order agree with the print except the one letter named; 19 stored entries = 19 printed entries; the headings Field and Staff and Non-Commissioned Staff are no stored lines",
+  "tesseract read 'oth' for the printed 9th of row 15 and the stored 9th is right: a pre-screen mark that the reader overruled by looking at the page"
+ ],
+ "reader": "full page at 200 dpi (1 Read) on 15 November 2026 by the engineer who closed the item (draw position 2 of MA-SSM-officers, which the first sitting had passed over without a recorded reason); all 19 stored entries compared with the print (names, ranks, residence, age, dates, remarks); 500 dpi zoom was not needed",
+ "tesseract_prescreen": {
+  "agree": 14,
+  "near": 0,
+  "suspect": 5,
+  "unstored_lines": 5
+ },
+ "read": {
+  "pdf_sha256": "86b9901ea9183e9d8bcea9b6008d23f6e63cce01762900c2fb62fb0ac687003b",
+  "pdf_page": 631,
+  "view_png_sha256": "af30f10f2e930c7fe8576e94df55eb4f266b1ceac4da7432748e0adcfaba6331",
+  "render300_sha256": "0948983a8ecc237bb22db9a2ba26068fb76ed1b23fecfd38860ba7c0a3659c57",
+  "tess_sha256": "475684959c4d3787a279b350b7ea922f0de5e7e88e643b777bcab3541f0418f5",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.993
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "9th-massachusetts-infantry#0",
+   "name": "Thomas Cass",
+   "rank": "Colonel",
+   "co": "FS",
+   "remarks_sha256": "3a4a0fd240115d8682bf40dd629a4e9784babf14c9f68536ccd44555c1867440",
+   "off": 3082304,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "9th-massachusetts-infantry#1",
+   "name": "Cromwell G. Rowel!",
+   "rank": "Lieut. Colonel",
+   "co": "FS",
+   "remarks_sha256": "e39bf057d98a1bc38f669d026bf7b7a566a69d7839eb1eaf03d1e80589838ee2",
+   "off": 3082524,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "9th-massachusetts-infantry#2",
+   "name": "Robert Peard",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "ca4b12bcbc503ecf6b2d47e32ce5ee719bcfb71b9aca273156fca9645c2fcf97",
+   "off": 3082668,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "9th-massachusetts-infantry#3",
+   "name": "John Moran",
+   "rank": "Quarter Master",
+   "co": "FS",
+   "remarks_sha256": "ae2559592f8a19d2a07cacfcf44dec1649ce7223388074b3656216d9559833ea",
+   "off": 3082904,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": [
+    "W"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "9th-massachusetts-infantry#4",
+   "name": "Peter Pineo",
+   "rank": "Surgeon",
+   "co": "FS",
+   "remarks_sha256": "b9ef38f3ebe80d0125c0d879546a831a586efde0f60574306e831ceecacab57f",
+   "off": 3083075,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "9th-massachusetts-infantry#5",
+   "name": "Stephen Watson Drew",
+   "rank": "Surgeon",
+   "co": "FS",
+   "remarks_sha256": "2f480d48bc9ed871b6f1dddfe37b1998d13acc6f8b942ae6ad85301e54bcc8d7",
+   "off": 3083303,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "9th-massachusetts-infantry#6",
+   "name": "James F. Sullivan",
+   "rank": "Asst. Surgeon",
+   "co": "FS",
+   "remarks_sha256": "4b63502d2a4b6a0f13ed46ba6912a2b5479417cead066644298870644dc68f47",
+   "off": 3083459,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "9th-massachusetts-infantry#7",
+   "name": "Patrick A. O'Connell",
+   "rank": "Asst. Surgeon",
+   "co": "FS",
+   "remarks_sha256": "124b5cfe4f59d053dddb3c4b02da305109a49441394c00a5ca2307c1b544e394",
+   "off": 3083647,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "9th-massachusetts-infantry#8",
+   "name": "Francis M. Lincoln",
+   "rank": "Asst. Surgeon",
+   "co": "FS",
+   "remarks_sha256": "330af5823044d339994b90ebb6ad8a38eabae38ca9fd1e41e130d4811b50d5d0",
+   "off": 3083880,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "9th-massachusetts-infantry#9",
+   "name": "James W. Fitzpatrick",
+   "rank": "Asst. Surgeon",
+   "co": "FS",
+   "remarks_sha256": "19a44f475f33d540f9c41fef38488c9abda1b4fc31ca26969d291c53c6434a17",
+   "off": 3084110,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "9th-massachusetts-infantry#10",
+   "name": "John Ryan",
+   "rank": "Asst. Surgeon",
+   "co": "FS",
+   "remarks_sha256": "1b753745c1beb1e526e2a1fe9b204036b2113e4402d87094e6d04104be2116fd",
+   "off": 3084315,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "9th-massachusetts-infantry#11",
+   "name": "George W. Perkins",
+   "rank": "Adjutant",
+   "co": "FS",
+   "remarks_sha256": "6dedfaa2196008e9865d8dfe988e218176aa6f9a0ef2fc017c35bb7bab1d87aa",
+   "off": 3084449,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "9th-massachusetts-infantry#12",
+   "name": "Thomas Scully",
+   "rank": "Chaplain",
+   "co": "FS",
+   "remarks_sha256": "b61bcced085acfc9d6d835ad4b5ba9c41fcd477807a9c6abf357d061a5c384b5",
+   "off": 3084597,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "9th-massachusetts-infantry#13",
+   "name": "Costney Louis Egan",
+   "rank": "Chaplain",
+   "co": "FS",
+   "remarks_sha256": "f5e5e1a9a009bf97c1a41e2d5513dfd8e35816b52a3c0c1066936ac976b4769a",
+   "off": 3084780,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "9th-massachusetts-infantry#14",
+   "name": "William A. Phelan",
+   "rank": "Sergt. Major",
+   "co": "NCS",
+   "remarks_sha256": "228f215ccb799054193f4a2bc4f72e6fd6019ee7c31f01338f8434fba4a2bf42",
+   "off": 3084993,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": [
+    "W"
+   ]
+  },
+  {
+   "i": 15,
+   "rid": "9th-massachusetts-infantry#15",
+   "name": "William Strachan",
+   "rank": "Sergt. Major",
+   "co": "NCS",
+   "remarks_sha256": "5c911f2b94d4a0353730af99602bf7a1328e546f6718e39b29c3e903553dcbf9",
+   "off": 3085279,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "9th-massachusetts-infantry#16",
+   "name": "Thomas Mooney",
+   "rank": "Qr. Master Sergt.",
+   "co": "NCS",
+   "remarks_sha256": "06fa0714c8bfc7c13a270a1e87e6640117cb27e9dfea6bb2f783bb9a26fd9a1c",
+   "off": 3085628,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "9th-massachusetts-infantry#17",
+   "name": "Patrick W. Black",
+   "rank": "Commy. Sergt.",
+   "co": "NCS",
+   "remarks_sha256": "886100eee2f72448fe85bf98b21487dbbcf1bcd45deec3abfce29f8c992476fb",
+   "off": 3085890,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "9th-massachusetts-infantry#18",
+   "name": "Francis O'Dowd",
+   "rank": "Commy. Sergt.",
+   "co": "NCS",
+   "remarks_sha256": "5c7f61696786785627133db5bdf7304df027567e86a26e4600af2abe67ee1c9b",
+   "off": 3086215,
+   "text_id": "MA-SSM-1931.1",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-15T23:21:54Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "SUSPECT",
+  "2": "AGREE",
+  "3": "SUSPECT",
+  "4": "AGREE",
+  "5": "AGREE",
+  "6": "AGREE",
+  "7": "AGREE",
+  "8": "AGREE",
+  "9": "AGREE",
+  "10": "AGREE",
+  "11": "AGREE",
+  "12": "AGREE",
+  "13": "AGREE",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "AGREE",
+  "17": "AGREE",
+  "18": "SUSPECT"
+ }
+}

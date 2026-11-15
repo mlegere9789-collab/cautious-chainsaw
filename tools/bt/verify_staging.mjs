@@ -413,7 +413,7 @@ export function writeStagingBlock(block, docFile = STAGING_DOC) {
 
 // ---------------------------------------------------------------- the CLI
 const NOT_RUN = ['a real GPU: no frame time, long task or input delay was measured (software rendering only)', 'the WebGPU picture (?api=webgpu): the default renderer is WebGL2; the WebGPU modules are in the dist (static check) but were not run', 'listening to the sound: the audio started and its graph ran, nobody heard it',
-  'other visits: ?history=stub, ?ext=off, ?crowd=off, a phone-sized page, a second entry after Back', 'other browsers (Safari, Firefox) and real phones'];
+  'other visits (?history=stub, ?ext=off, ?crowd=off, a phone-sized page, a second entry after Back): not walked; the load census reads the code of every path, so a file such a visit would ask for is checked against the build, but nobody watched those visits run', 'other browsers (Safari, Firefox) and real phones'];
 async function main() {
   const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : undefined; }, has = k => a.includes(k);
   if (has('--help') || has('-h')) { const head = []; for (const l of fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n')) { if (!l.startsWith('//')) break; head.push(l.slice(3)); } console.log(head.join('\n')); return; }

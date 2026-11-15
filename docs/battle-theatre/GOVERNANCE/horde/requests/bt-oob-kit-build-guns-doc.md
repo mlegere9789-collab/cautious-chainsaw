@@ -34,3 +34,5 @@ for (const f of ['docs/battle-theatre/app/tools/build-guns.mjs', 'docs/battle-th
   fs.writeFileSync(f, s.replace(OLD, '')); console.log('changed ' + f);
 }
 ```
+
+-- update (bt-spec-health, 2026-11-15 23:16 UTC): the two edits (build-guns.mjs and battery-guns.json) are also entry lane guns of the script of bt-spec-health-copy-audit-apply-all.md: node tmp/bt-spec/apply-copy-audit-fixes.mjs guns (from the repository root); checked: the patched generator gives the patched data file byte for byte, and tests/casualties.test.mjs line 146 compares exactly that pair. Nobody's ownership list names app/tools/build-guns.mjs: the orchestrator may run it.

@@ -17,3 +17,5 @@ node tools/bt/pack_theatre.mjs --no-zip --out tmp/x/dist      # "auditHits" coun
 ```
 
 When done, append `-- handled: <what was done>` to this note with a shell `>>`.
+
+-- update (bt-spec-health, 2026-11-15 23:16 UTC): the engagements.json line with its generator, and both gazetteer lines (data with its generator, and the comment of the module) are in the script of bt-spec-health-copy-audit-apply-all.md: node tmp/bt-spec/apply-copy-audit-fixes.mjs units (from the repository root). Checked on copies: the three generators reproduce the committed data files byte for byte, and the patched generators give the patched data files byte for byte, so a later regeneration changes nothing. Nothing has been applied to your files.

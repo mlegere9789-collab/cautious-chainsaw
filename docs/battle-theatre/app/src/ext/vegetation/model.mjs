@@ -79,6 +79,18 @@ export function scenarioOption(model, choices, id) {
   return c && s.options[c] ? c : s.default;
 }
 
+/**
+ * The understory of a wood under the reading in force: a wood that an account describes keeps what the account says; every other wood takes the reading of the conflict CF-VEG-UNDER
+ * (as classed: its own class, open-grown: open, dense: thick). Returns { understory, tier, key, byScenario }.
+ */
+export function understoryOf(model, u, choices) {
+  const W = u.woods; if (!W) return null;
+  const sc = model.scenarios['CF-VEG-UNDER']; let key = null, opt = null;
+  if (sc) { key = scenarioOption(model, choices, 'CF-VEG-UNDER'); opt = sc.options[key]; }
+  if (W.understory_by_scenario && opt && opt.understory) return { understory: opt.understory, tier: opt.tier, key, byScenario: true };
+  return { understory: W.understory, tier: W.understory_tier || 'plausible-procedural', key, byScenario: false };
+}
+
 // ---------------------------------------------------------------------------------------------------------------------------------- crops
 function bracket(keys, te) {
   if (te <= keys[0].t) return [keys[0], keys[0], 0];
@@ -185,14 +197,16 @@ export function stateAt(model, unit, tMin, choices) {
     const lf = leafAt(model, u, tMin);
     let density = u.woods ? u.woods.per_ha : 0, keep = 1, lrt = scenarioOption(model, choices, 'CF-VEG-LRT');
     if (model.lrtUnits.has(u.id)) { if (lrt === 'wiki_unwooded') { density = 0; keep = 0; lrtNote = 'Little Round Top read as unwooded'; } else if (lrt === 'wiki_light_summit') { density *= 0.5; keep = 0.5; lrtNote = 'Little Round Top read as lightly wooded'; } }
-    out.trees = { leaf: lf.leaf * (1 - 0.9 * dm.strip), leafFull: lf.leaf, leafRange: lf.range, strip: dm.strip, perHa: density, keep, class: u.woods && u.woods.class, understory: u.woods && u.woods.understory, understoryTier: u.woods && (u.woods.understory_tier || 'plausible-procedural'), species: u.woods && u.woods.species };
-    out.tiers.leaf = lf.tier; out.tiers.density = 'plausible-procedural'; out.tiers.species = (u.woods && u.woods.class === 'big_round_top') ? 'inferred' : 'plausible-procedural';
+    const ue = u.woods ? understoryOf(model, u, choices) : null;
+    out.trees = { leaf: lf.leaf * (1 - 0.9 * dm.strip), leafFull: lf.leaf, leafRange: lf.range, strip: dm.strip, perHa: density, keep, class: u.woods && u.woods.class, understory: ue && ue.understory, understoryTier: ue && ue.tier, understoryBy: ue ? (ue.byScenario ? 'CF-VEG-UNDER:' + ue.key : (u.woods.understory_claim || 'class')) : null, species: u.woods && u.woods.species, height: (u.woods && u.woods.h_m) || null };
+    out.tiers.leaf = lf.tier; out.tiers.density = 'plausible-procedural'; out.tiers.species = (u.woods && u.woods.species_tier) || ((u.woods && u.woods.class === 'big_round_top') ? 'inferred' : 'plausible-procedural');
+    if (u.woods && u.woods.h_m) out.tiers.treeHeight = u.woods.h_tier || 'inferred';
     if (lrtNote) { out.tiers.cover = model.scenarios['CF-VEG-LRT'].options[lrt].tier; out.scenario = { 'CF-VEG-LRT': lrt, note: lrtNote }; }
   }
   if (u.orchard) {
     const lf = leafAt(model, u, tMin);
     out.trees = { leaf: lf.leaf * (1 - 0.9 * dm.strip), leafFull: lf.leaf, leafRange: lf.range, strip: dm.strip, keep: 1, class: u.orchard.class, spacing: u.orchard.spacing_m, species: u.orchard.species };
-    out.fruit = fruitAt(model, u, tMin); out.tiers.leaf = lf.tier; out.tiers.fruit = weakest(...Object.values(out.fruit).map(f => f.tier)); out.tiers.age = u.orchard.age_tier;
+    out.fruit = fruitAt(model, u, tMin); out.tiers.leaf = lf.tier; out.tiers.fruit = weakest(...Object.values(out.fruit).map(f => f.tier)); out.tiers.age = u.orchard.age_tier; out.tiers.spacing = u.orchard.spacing_tier || 'plausible-procedural'; out.tiers.species = u.orchard.species_tier || 'plausible-procedural';
     if (!out.ground) { out.ground = { crop: 'pasture', ...(() => { const cs = cropState(model, { crop: 'pasture', p: u.p, seed: u.seed }, tMin, choices); return { label: 'Grass under the trees', stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h, hStanding: cs.h, cut: 0, shockH: null, trample: clamp(dm.trample, 0, 1), lodging: 0 }; })() }; out.tiers.crop = 'plausible-procedural'; out.tiers.stage = 'plausible-procedural'; out.tiers.height = 'plausible-procedural'; out.tiers.colour = 'plausible-procedural'; }
   }
   if (u.cls === 'boulder') { out.ground = { crop: 'open_rock', label: 'Boulder ground', stage: 'rock', color: [0.46, 0.43, 0.38], colorRange: [[0.42, 0.40, 0.35], [0.5, 0.46, 0.4]], h: [0, 0.1], hStanding: [0, 0.1], cut: 0, shockH: null, trample: 0, lodging: 0 }; out.tiers.crop = 'inferred'; out.tiers.stage = 'inferred'; out.tiers.height = 'inferred'; out.tiers.colour = 'plausible-procedural'; }
@@ -225,13 +239,15 @@ export function placeTrees(model, u, project, opts = {}) {
   const spec = u.orchard ? u.orchard.species : u.woods.species, names = Object.keys(spec).filter(n => model.species[n]), cum = []; let acc = 0; for (const n of names) { acc += spec[n]; cum.push(acc); }
   const pickSpecies = r => { const x = r * acc; for (let i = 0; i < names.length; i++) if (x <= cum[i]) return names[i]; return names[names.length - 1]; };
   const out = []; const rnd = mulberry32(u.seed ^ 0x5bd1e995);
+  const hr = u.woods && Array.isArray(u.woods.h_m) && u.woods.h_m.length === 2 ? u.woods.h_m : null;          // the heights an account gives for the trees of this unit (the Copse of Trees): they replace the species' own range
   const push = (x, z, young) => {
-    const sp = pickSpecies(rnd()), S = model.species[sp], g = rnd(), age = young ? 0.5 : 1;
-    const h = lerp(S.h[0], S.h[1], Math.pow(rnd(), 1.4)) * age * (0.9 + 0.2 * g), r = lerp(S.r[0], S.r[1], rnd()) * age;
+    const sp = pickSpecies(rnd()), S = model.species[sp], g = rnd(), age = young ? 0.5 : 1, hu = rnd(), ru = rnd();
+    let h = lerp(S.h[0], S.h[1], Math.pow(hu, 1.4)) * age * (0.9 + 0.2 * g), r = lerp(S.r[0], S.r[1], ru) * age;
+    if (hr) { h = lerp(hr[0], hr[1], Math.pow(hu, 1.4)) * (0.9 + 0.2 * g); r = Math.max(0.8, lerp(S.r[0], S.r[1], ru) * Math.pow(h / ((S.h[0] + S.h[1]) / 2), 0.7)); }
     out.push(x, z, h, r, model.speciesList.indexOf(sp), rnd(), rnd(), SHAPES.indexOf(S.shape));
   };
-  const thin = opts.thin == null ? 1 : opts.thin;
-  const shrubPerHa = u.woods && thin > 0 ? ({ moderate: 30, thick: 140 }[u.woods.understory] || 0) : 0, shrubIdx = model.speciesList.indexOf('shrub');
+  const thin = opts.thin == null ? 1 : opts.thin, DENS = model.cal.understory_per_ha || { open: 0, moderate: 30, thick: 140 };
+  const shrubPerHa = u.woods && thin > 0 ? (DENS[understoryOf(model, u, opts.choices).understory] || 0) : 0, shrubIdx = model.speciesList.indexOf('shrub');
   if (u.orchard) {
     const s = u.orchard.spacing_m, ang = (u.p.rows_deg || 0) * Math.PI / 180, ca = Math.cos(ang), sa = Math.sin(ang), young = u.orchard.class === 'young';
     const cx = (minx + maxx) / 2, cz = (minz + maxz) / 2, R = Math.hypot(maxx - minx, maxz - minz) / 2 + s;
@@ -283,7 +299,7 @@ const inRange = (v, lo, hi, eps = 1e-6) => v >= lo - eps && v <= hi + eps;
  * Nothing here lowers a bar: a failing unit is reported with the minute and the reason; `notRun` lists what the check does not look at (pictures, real-GPU timing).
  */
 export function checkVegetation(model, opts = {}) {
-  const times = opts.times || sampleTimes(model), choicesList = opts.choicesList || [{}, { 'CF-VEG-HARVEST': 'early' }, { 'CF-VEG-HARVEST': 'late' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }];
+  const times = opts.times || sampleTimes(model), choicesList = opts.choicesList || [{}, { 'CF-VEG-HARVEST': 'early' }, { 'CF-VEG-HARVEST': 'late' }, { 'CF-VEG-RAIN': 'pdf_flattened' }, { 'CF-VEG-LRT': 'wiki_unwooded' }, { 'CF-VEG-LRT': 'wiki_light_summit' }, { 'CF-VEG-UNDER': 'open_grown' }, { 'CF-VEG-UNDER': 'dense' }];
   const failures = [], failByClass = {}, statesByClass = {}; let checked = 0;
   const fail = (u, t, why) => { const c = (model.byId.get(u.id) || {}).cls || 'other'; failByClass[c] = (failByClass[c] || 0) + 1; if (failures.length < 200) failures.push({ unit: u.id, t, iso: minToIso(t), why }); };
   const cal = model.cal;
@@ -307,6 +323,15 @@ export function checkVegetation(model, opts = {}) {
     }
     if (u.crop && !(u.crop in cal.crops)) fail(u, 0, 'crop ' + u.crop + ' not in the calendar');
     if (u.cls === 'field' && !u.crop_basis) fail(u, 0, 'field cell without the basis of its crop');
+    for (const kind of ['woods', 'orchard']) {                   // the species of a stand: all in the table, the shares add up, and what a claim set names the claim
+      const W = u[kind]; if (!W) continue; let z = 0;
+      for (const [n, w] of Object.entries(W.species || {})) { if (!model.species[n]) fail(u, 0, `species ${n} is not in the table`); if (!(w >= 0)) fail(u, 0, `share of ${n} is not a number`); z += w; }
+      if (Math.abs(z - 1) > 0.02) fail(u, 0, `the species shares of the ${kind} add up to ${z.toFixed(3)}, not 1`);
+      for (const k of ['species_claim', 'h_claim', 'understory_claim', 'spacing_claim']) if (W[k] && !model.claims.has(W[k])) fail(u, 0, `${k} ${W[k]} is not a claim`);
+      for (const k of ['species_tier', 'h_tier', 'understory_tier', 'spacing_tier', 'age_tier']) if (W[k] !== undefined && !TIERS.includes(W[k])) fail(u, 0, `${k} is ${W[k]}`);
+    }
+    if (u.woods && u.woods.h_m && !(u.woods.h_m[0] > 0 && u.woods.h_m[0] <= u.woods.h_m[1] && u.woods.h_claim)) fail(u, 0, 'tree heights of the unit are not a range or name no claim');
+    if (u.woods && u.woods.understory_by_scenario && u.woods.understory_claim) fail(u, 0, 'a wood with an account of its own undergrowth is also read by the choice');
   }
   // species: none introduced after 1863 and none from a modern list; each has its tier and its stated basis (the chestnut is drawn as a living tree of 1863 at a ranged share: no blight and no modern species list is used)
   const LATER = /\b(callery|bradford|norway (maple|spruce)|autumn olive|multiflora|barberry|emerald ash|crape myrtle|leyland|kudzu|princess tree)\b/i;
@@ -344,7 +369,9 @@ export function checkVegetation(model, opts = {}) {
         if (s.trees) {
           if (!finite(s.trees.leaf, s.trees.strip)) fail(u, t, 'non-finite tree state');
           if (!(s.trees.keep >= 0 && s.trees.keep <= 1)) fail(u, t, 'share of trees kept outside 0..1');
-          if (u.woods && !(['open', 'moderate', 'thick', 'none'].includes(s.trees.understory) && TIERS.includes(s.trees.understoryTier))) fail(u, t, 'undergrowth missing, unknown or without a tier');
+          if (u.woods && !(['open', 'moderate', 'thick', 'none'].includes(s.trees.understory) && TIERS.includes(s.trees.understoryTier) && s.trees.understoryBy)) fail(u, t, 'undergrowth missing, unknown, without a tier or without its basis');
+          if (u.woods && u.woods.understory_by_scenario && !choices['CF-VEG-UNDER'] && s.trees.understory !== u.woods.understory) fail(u, t, 'the default reading of the understory is not the class of the wood');
+          if (u.woods && u.woods.h_m && !(s.trees.height && s.trees.height[0] === u.woods.h_m[0] && s.tiers.treeHeight)) fail(u, t, 'the heights of the unit\'s claim are not in its state');
           if (u.orchard) for (const sp of Object.keys(u.orchard.species)) { const f = s.fruit && s.fruit[sp]; if (!f || !f.stage || !TIERS.includes(f.tier)) fail(u, t, 'no fruit state, or no tier of it, for ' + sp); }
           const win = s.season === 'window', L = win ? cal.leaf.window.range : cal.leaf.epilogue.range;
           if (!inRange(s.trees.leafFull, L[0], L[1])) fail(u, t, 'leaf cover outside its range');

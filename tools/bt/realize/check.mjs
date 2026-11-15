@@ -9,7 +9,7 @@
 //   options: --write (write RESULTS.json even for a partial run: the rows of the run replace their rows in the previous file and the totals, q17 and scope are recomputed from the merged rows; rows carried over
 //            from an earlier run under other digests are listed and q17.ok is then false), --update (write each record's "result" field back into its shard file), --quiet,
 //            --json (print the whole report as JSON), --out <path> (write there instead of RESULTS.json; a gate runner does this for a full run)
-// Exit code: 0 when the run completed (a row that is not realized is a result, not an error); 1 when a record file cannot be read; 2 on a harness error.
+// Exit code: 0 when the run completed (a row that is not realized is a result, not an error); 1 when a record file has a problem (record_file_problems is not empty; the report is written all the same); 2 on a harness error.
 // The result of a row: realized true only when its record is valid, bound to the row's words, and every check holds in the product; q17_covered = realized or an open register entry (the two
 // halves of the gate). Nothing here sets a `passes` flag: Q17 is passing only when q17.ok is true AND the gate runner says so.
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url'; import crypto from 'node:crypto';
@@ -78,9 +78,9 @@ export function readRecordFile(file) {
   return { records: out, errors };
 }
 
-export async function runAll({ shards = null, files = null, rows = null, quiet = true, product = null } = {}) {
+export async function runAll({ shards = null, files = null, rows = null, quiet = true, product = null, runner = null } = {}) {       // runner: a Runner other than the standard one (the tests give one that throws)
   const TL = loadTimeline(), EP = epilogueRows(TL); for (const r of EP) { TL.byId.set(r.id, r); }
-  const P = product || await openProduct(), R = new Runner(P, TL); if (typeof P.warm === 'function') await P.warm();     // every lazy load happens now, so that the digest of the inputs does not depend on which records ran
+  const P = product || await openProduct(), R = runner || new Runner(P, TL); if (typeof P.warm === 'function') await P.warm();     // every lazy load happens now, so that the digest of the inputs does not depend on which records ran
   // the allowed windows WITHOUT the clock margin (the plan: the armies' clocks differ by about 20 minutes, which "is not applied to any row, it is carried as uncertainty"): a record whose window lies inside the widened window
   // and outside the exact one has used the margin (clock_tolerance_used); GATE-SPEC 6.4 V4 and DD-G09 do not accept it for a Q17 PASS
   const tol0 = JSON.parse(JSON.stringify(TL.tolerances)); tol0.time.clock_tolerance_min = 0; const TL0 = loadTimeline({ tolerances: tol0 }), exact = new Map([...TL0.rows, ...epilogueRows(TL0)].map(r => [r.id, r.window.intervals]));
@@ -95,8 +95,12 @@ export async function runAll({ shards = null, files = null, rows = null, quiet =
   for (const { file, shard, examples: isEx } of fileList) {
     const { records, errors } = readRecordFile(file); problems.push(...errors);
     for (const { rec, line } of records) {
+      // a line of a record file that is not a record, or names no row of the timeline, is a problem of the FILE (seen in record_file_problems; q17 is not ok while there is one), never a crash and never silently dropped
+      if (!rec || typeof rec !== 'object' || Array.isArray(rec) || typeof rec.id !== 'string') { problems.push({ file: rel(file), line, error: 'a record is one JSON object with a string "id" (the timeline row it realizes)' }); continue; }
+      if (!TL.byId.has(rec.id)) { problems.push({ file: rel(file), line, error: `record for ${JSON.stringify(rec.id).slice(0, 40)}: the timeline has no such row (a row is T1-001 .. T3-nnn, E-001 .. E-014)` }); continue; }
       if (rows && !rows.includes(rec.id)) continue;
       const src = `${rel(file)}:${line}`, res = await R.runRecord(rec, { source: src });
+      if ((res.codes || []).includes('record_crash')) problems.push({ file: rel(file), line, error: `record_crash: ${rec.id}: ${(res.problems.find(p => p.code === 'record_crash') || {}).detail}` });
       if (isEx) { examples.set(rec.id, res); continue; }
       if (results.has(rec.id)) { problems.push({ file: rel(file), line, error: `duplicate record for ${rec.id} (first in ${results.get(rec.id).source})` }); continue; }
       results.set(rec.id, res);
@@ -184,6 +188,6 @@ async function main() {
     for (const p of problems) console.log(`  FILE PROBLEM ${p.file}:${p.line}: ${p.error}`);
     if (rows || (shards && shards.length === 1)) for (const [id, e] of Object.entries(inRows)) console.log(`  ${id} ${e.realized ? 'REALIZED' : 'not realized'} [${e.kind || '-'}] ${e.why}`);
   }
-  process.exitCode = problems.some(p => /duplicate|JSON|Unexpected/.test(p.error)) ? 1 : 0;       // not process.exit: a large --json write to a pipe must be flushed first
+  process.exitCode = problems.length ? 1 : 0;       // 1: a record file has a problem (a line that does not parse or is no record, a duplicate, a row the timeline does not have, a record the harness could not run); the report is written all the same. Not process.exit: a large --json write to a pipe must be flushed first
 }
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) main().catch(e => { console.error(e && e.stack || e); process.exitCode = 2; });

@@ -211,8 +211,8 @@
  {
   "id": "schema-motion-needs",
   "file": "tools/bt/realize/schema.mjs",
-  "find": "if (rec.kind === 'unit_motion' && !checks.some(",
-  "replace": "if (false && rec.kind === 'unit_motion' && !checks.some(",
+  "find": "if (rec.kind === 'unit_motion' && !objs.some(",
+  "replace": "if (false && rec.kind === 'unit_motion' && !objs.some(",
   "rule": "a motion record relates the motion to a place",
   "tests": [
    "rules",
@@ -233,8 +233,8 @@
  {
   "id": "schema-earthwork-crew",
   "file": "tools/bt/realize/schema.mjs",
-  "find": "if (rec.kind === 'earthwork_build' && !checks.some(a => a.type === 'work_stage' && a.crew))",
-  "replace": "if (false && rec.kind === 'earthwork_build' && !checks.some(a => a.type === 'work_stage' && a.crew))",
+  "find": "if (rec.kind === 'earthwork_build' && !objs.some(a => a.type === 'work_stage' && a.crew))",
+  "replace": "if (false && rec.kind === 'earthwork_build' && !objs.some(a => a.type === 'work_stage' && a.crew))",
   "rule": "an earthwork record has a crew (Q08)",
   "tests": [
    "rules",
@@ -244,7 +244,7 @@
  {
   "id": "schema-kind-needs",
   "file": "tools/bt/realize/schema.mjs",
-  "find": "for (const group of KIND_NEEDS[rec.kind] || []) if (!checks.some(a => group.includes(a.type)))",
+  "find": "for (const group of KIND_NEEDS[rec.kind] || []) if (!objs.some(a => group.includes(a.type)))",
   "replace": "for (const group of KIND_NEEDS[rec.kind] || []) if (false)",
   "rule": "each kind needs the assertion that proves it",
   "tests": [
@@ -2776,6 +2776,116 @@
   "find": "if (!names || !names.length || bad.length) out.push(",
   "replace": "if (false) out.push(",
   "rule": "wind_from_in is a non-empty list of points of the 16-point compass",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-record-crash-guard",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "const msg = String(e && e.message || e).slice(0, 300), id = rec && typeof rec === 'object' ? rec.id : null;",
+  "replace": "throw e; const msg = String(e && e.message || e).slice(0, 300), id = rec && typeof rec === 'object' ? rec.id : null;",
+  "rule": "an exception inside the run of a record is a result (record_crash), never an exception of the whole run",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-arr-group",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "for (const a of arr(rec.checks)) if (a && (a.type === 'weather' || a.type === 'sky')) {",
+  "replace": "for (const a of rec.checks || []) if (a && (a.type === 'weather' || a.type === 'sky')) {",
+  "rule": "a \"checks\" that is no list is a problem of the record, found by its validation, not a crash",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-arr-missing",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "declared = arr(rec.missing).map(m => m && m.code);",
+  "replace": "declared = (rec.missing || []).map(m => m.code);",
+  "rule": "a \"missing\" that is no list is a problem of the record, not a crash",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-arr-units",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "for (const e of arr(E.units)) {",
+  "replace": "for (const e of E.units || []) {",
+  "rule": "an entities list that is no list is a problem of the record, not a crash",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-objs-filter",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "const objs = checks.filter(a => a && typeof a === 'object' && !Array.isArray(a));",
+  "replace": "const objs = checks;",
+  "rule": "an assertion that is no object is reported (assert_bad) and the kind rules look at the others",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-entities-bad",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (E[k] != null && !Array.isArray(E[k])) add('entities_bad'",
+  "replace": "if (false) add('entities_bad'",
+  "rule": "every entities list is a list",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-file-not-record",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "if (!rec || typeof rec !== 'object' || Array.isArray(rec) || typeof rec.id !== 'string') { problems.push(",
+  "replace": "if (false) { problems.push(",
+  "rule": "a line of a record file that is no record is a problem of the file",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-unknown-row",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "if (!TL.byId.has(rec.id)) { problems.push(",
+  "replace": "if (false) { problems.push(",
+  "rule": "a record for a row the timeline does not have is a problem of the file, never silently dropped",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-record-crash-problem",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "if ((res.codes || []).includes('record_crash')) problems.push(",
+  "replace": "if (false) problems.push(",
+  "rule": "a record the harness could not run is a problem of the file",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-exit-code",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "process.exitCode = problems.length ? 1 : 0;",
+  "replace": "process.exitCode = 0;",
+  "rule": "a record file with a problem gives exit code 1",
   "tests": [
    "rules",
    "main"

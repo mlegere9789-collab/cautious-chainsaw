@@ -199,7 +199,7 @@ check('Q25 every status word in use is a row of the spec table (a word outside t
       and has(r'%d words, %d of them outside the gate\'s three' % (lj.get('words_in_use', -1), len(lj.get('words_outside_the_three', [])))), str(mism_))
 soft('Q25 the status-word table reproduces the counts of the three files', mism_ == {}, str(mism_))
 mem_ = lj.get('ids_by_files_they_appear_in', {})
-soft('Q25 ids after merging: %s' % lj.get('ids_after_merging'), has(r'\(%d ids on 2026-11-15: %d only in the first, %d only in the second, %d only in the third, %d in the first two\)' % (
+soft('Q25 ids after merging: %s' % lj.get('ids_after_merging'), has(r'\(%d ids on 2026-11-15: %d only in the first, %d only in the second, %d only in the third, %d in the first two[;)]' % (
     lj.get('ids_after_merging', -1), mem_.get('status.json', 0), mem_.get('status_2.json', 0), mem_.get('status_3.json', 0), mem_.get('status.json+status_2.json', 0))), str(mem_))
 
 # ---------------------------------------------------------------- night minutes
@@ -220,7 +220,7 @@ by_cell = sorted(r['id'] for r in seed if 'before Jun 26' in (r.get('time_window
 outside = sorted(set(by_date) | set(by_cell))
 check('TL-13 rows wholly outside the clock are T1-001, T1-002 and T3-209 to T3-219 (%d rows; %d by the date field)' % (len(outside), len(by_date)),
       outside == ['T1-001', 'T1-002'] + ['T3-%d' % n for n in range(209, 220)] and len(by_date) == 12
-      and has(r'13 timeline rows lie wholly outside it') and has(r'\(12 rows by its `date` field\)') and has(r'T3-209 to T3-218') and has(r'T3-219 \(`Jul-Nov \(summary\)`, no date\)'), str(outside))
+      and next(r for r in win if r['id'] == 'T1-001')['date'] == '1863-06-26' and has(r'gives T1-001 the date June 26') and has(r'13 timeline rows lie wholly outside it') and has(r'\(12 rows by its `date` field\)') and has(r'T3-209 to T3-218') and has(r'T3-219 \(`Jul-Nov \(summary\)`, no date\)'), str(outside))
 ss_rows = json.load(open(os.path.join(BT, 'structures', 'state_schedule.json'), encoding='utf-8'))['rows']
 s77 = next(r for r in ss_rows if r['id'] == 'S-077'); s81 = next(r for r in ss_rows if r['id'] == 'S-081')
 CLOCK_END = '1863-07-14T23:59'
@@ -247,7 +247,9 @@ rz = J('realizations/RESULTS.json'); q17 = rz['q17']; rzt = rz['totals']['timeli
 soft('Q17 / 9 realization results: digest %s, %d realized, %d with a record, %d without' % (rz['harness_digest'], q17['realized'], rzt['with_record'], rzt['no_record']),
      has(r'harness digest %s, `complete` %s' % (rz['harness_digest'], str(q17['complete']).lower())) and has(r'of the 691 timeline rows %d are realized by scene' % q17['realized_by_scene'])
      and has(r'%d have a record and %d have none' % (rzt['with_record'], rzt['no_record'])) and has(r'counts %d rows as covered by an open register entry only' % q17['covered_by_open_register_entry_only'])
-     and has(r'and %d as uncovered \(%d by its strict reading\)' % (q17['uncovered'], q17['uncovered_strict'])) and has(r'harness digest %s: 4 of 691 timeline rows realized by scene' % rz['harness_digest']))
+     and has(r'and %d as uncovered \(%d by its strict reading\)' % (q17['uncovered'], q17['uncovered_strict'])) and has(r'harness digest %s: 4 of 691 timeline rows realized by scene' % rz['harness_digest'])
+     and has(r'\(%d rows are `night_ambiguous` in the harness\'s results' % sum(1 for x in rz['rows'].values() if 'night_ambiguous' in (x.get('window_flags') or [])))
+     and has(r'and %d others differ from the windows file\)' % sum(1 for x in rz['rows'].values() if 'differs_from_windows_file' in (x.get('window_flags') or []))))
 
 # ---------------------------------------------------------------- photo-match: invariants hard, counts soft (the owner was still writing)
 PM = os.path.join(ROOT, 'tools', 'bt', 'photomatch')
@@ -265,7 +267,7 @@ soft('Q16 photo-match counts: %d registry records, %d statements, %d poses, %d p
 sec7 = section('## 7. Threshold registry', '## 8. Ambiguity register')
 t_rows = re.findall(r'(?m)^\| (T-[A-Z0-9]+-\d+(?: \(T-[A-Z0-9]+-\d+\))?) \|', sec7)
 t_ids = [i for row in t_rows for i in re.findall(r'T-[A-Z0-9]+-\d+', row)]   # a row with an alias (`T-Q07-1 (T-SS-1)`) defines two ids
-check('7 threshold ids are unique and T-Q21-1 to T-Q21-3 are rows of the registry (%d thresholds)' % len(t_ids), len(t_ids) == len(set(t_ids)) and all(('T-Q21-%d' % i) in t_ids for i in (1, 2, 3)) and has(r'carry the same 42 thresholds') and len(t_ids) == 42, str(len(t_ids)))
+check('7 threshold ids are unique and T-Q21-1 to T-Q21-3 are rows of the registry (%d thresholds)' % len(t_ids), len(t_ids) == len(set(t_ids)) and all(('T-Q21-%d' % i) in t_ids for i in (1, 2, 3)) and has(r'the thresholds \(the same %d ids\)' % len(t_ids)) and len(t_ids) == 42, str(len(t_ids)))
 
 bad = [r for r in results if not r[1]]
 print(json.dumps({'checks': len(results), 'ok': len(results) - len(bad), 'mismatches': len(bad), 'mismatched': [r[0] for r in bad], 'soft_checks_stale': len(stale), 'stale': stale}))

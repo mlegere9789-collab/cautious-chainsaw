@@ -388,7 +388,7 @@ CURATED += [
     # ---- the McPherson farm study (1977)
     ('NPSX-HS-MCPHERSON-p023-01', 'a', 'farm_inventory', 'documented', 'McPherson farm in 1863: over half of 95 acres in wheat, corn, oats and grass',
      'The study says that over half of the 95 acres of the farm (the tenant Slentz\'s farm at the planting of 1863) was planted in crops, wheat, corn, oats and grass.', {'from': '1863-06-01', 'to': '1863-07-01'},
-     {'q': 'Over half of the 95 acres was planted in crops--wheat, corn, oats, and grass.', 'about': {'farm': 'mcpherson', 'crops_named': ['wheat', 'corn', 'oats', 'grass']}, 'note': 'The acres by crop are the tenant\'s claim (next claims and VC-NPS-031): the two transcriptions differ (conflict CF-VEG-MCPHERSON).'}),
+     {'q': 'Over half of the 95 acres was planted in crops--wheat, corn, oats, and grass.', 'anchor': {'farm': 'mcpherson', 'r_m': 500, 'class': 'field', 'area': True}, 'about': {'farm': 'mcpherson', 'crops_named': ['wheat', 'corn', 'oats', 'grass']}, 'note': 'The acres by crop are the tenant\'s claim (next claims and VC-NPS-031): the two transcriptions differ (conflict CF-VEG-MCPHERSON).'}),
     ('NPSX-HS-MCPHERSON-p023-01', 'b', 'orchard', 'documented', 'McPherson farm: about thirty acres of woodland, pasture and a young orchard',
      'The study says the remainder of the 95 acres, about thirty acres, was woodland and pasture for the stock and a young orchard for home preserving and cooking use.', {'from': '1863-06-01', 'to': '1863-07-01'},
      {'q': 'The remainder, about thirty acres, was in woodland and pasture for the stock and a young orchard for home preserving and cooking use.', 'about': {'farm': 'mcpherson', 'age': 'young'},
@@ -406,7 +406,7 @@ CURATED += [
       'note': 'Placed by a rule on the field cell nearest a point 140 m north-north-east of the railroad grade (the guard stood north of the pike near the cut): tier inferred.'}),
     ('NPSX-HS-MCPHERSON-p067-01', '', 'farm_inventory', 'documented', 'the McPherson farm: cornfields and an orchard',
      'The study says that when the last of Stone\'s Brigade fell back, the McPherson acreage saw no more hostilities over its cornfields and orchard.', D1,
-     {'q': 'McPherson\'s acreage saw no more hostilities over its cornfields and orchard.', 'about': {'farm': 'mcpherson', 'crops_named': ['corn']}}),
+     {'q': 'McPherson\'s acreage saw no more hostilities over its cornfields and orchard.', 'anchor': {'farm': 'mcpherson', 'r_m': 500, 'class': 'field', 'area': True}, 'about': {'farm': 'mcpherson', 'crops_named': ['corn']}}),
     ('NPSX-HS-MCPHERSON-p033-01', 'a', 'woodlot', 'documented', 'Herbst Woods: the woodlot portion of the 160-acre Herbst farm',
      'The study says the entire length and width of the grove called Reynolds Woods or McPherson Woods was owned by John Herbst at the time of the battle and was the woodlot portion of his 160-acre farm; no McPherson ever owned the Herbst Woods.', {'basis': 'at the time of the battle'},
      {'q': 'But the fact remains that the entire length and width of the grove was owned by John Herbst at the time of the Battle of Gettysburg, and was the woodlot portion of the 160-acre Herbst Farm.', 'anchor': {'poly': 'LC-WOOD-0010'}}),

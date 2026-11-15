@@ -109,6 +109,15 @@ test('load census, real tree: every load of the shipped code resolves to the bui
   assert.ok(c.entries.some(e => e.status === 'withheld' && /register/.test(e.address)), 'the register links are withheld on purpose and the census knows it');
   assert.deepEqual(T.byCensus.map(x => x.path), [], 'the build holds files that only the census found: the patterns of trace() are behind the code, extend them (the build itself is right)');
 });
+test('load census agrees with the trace: every file that the patterns shipped for a keyed address is the answer to a load the census found in the same module (each reads the code its own way, so a disagreement is a defect of one of them)', t => {
+  const T = trace(), c = T.census; if (!c.available) return t.skip(c.reason);
+  const star = (pat, f) => { const i = pat.indexOf('*'); return i < 0 ? pat === f : f.startsWith(pat.slice(0, i)) && f.endsWith(pat.slice(i + 1)); }, covers = (e, f) => !!e.target && (e.target === f || (e.target.endsWith('/') && f.startsWith(e.target)) || (e.target.includes('*') && star(e.target, f)));
+  const byFile = new Map(); for (const e of c.entries) { if (!byFile.has(e.file)) byFile.set(e.file, []); byFile.get(e.file).push(e); }
+  const gaps = []; let checked = 0;
+  for (const [f, whys] of Object.entries(T.why)) for (const w of whys) { const m = /^(?:URLS|urls)\.(\w+)(?: template)? in (.+)$/.exec(w); if (!m) continue; checked++; if (!(byFile.get(m[2]) || []).some(e => covers(e, f))) gaps.push(`${f}  (${w})`); }
+  assert.ok(checked > 30, `only ${checked} keyed references were compared: the reasons of the trace changed their wording`);
+  assert.deepEqual(gaps, [], 'the patterns shipped these for a keyed address that the census does not find in that module: one of the two readings is wrong');
+});
 test('withheld and reduced working files: the register entries never ship, the register index ships as ids only', () => {
   const t = trace(), all = distFiles(A.out);
   assert.ok(!all.some(f => WITHHELD.some(w => w.match.test(f))), 'no withheld file in the dist');
@@ -309,6 +318,19 @@ test('fixture: an index file OUTSIDE the section that a page of the section load
   assert.ok(t.why['rosters/data2/pa/u1.json'].some(w => /listed in rosters\/data2\/INDEX\.json/.test(w)), JSON.stringify(t.why['rosters/data2/pa/u1.json']));
   assert.ok(t.notes.some(n => /do not resolve/.test(n) && /pa\/not-there\.json/.test(n)), 'a name that does not resolve is noted: ' + t.notes.join(' | '));
 });
+test('fixture: a section that loads its index by a literal address ships the index and the files it names and not the working folders beside it; a folder address takes the whole folder (the census agrees)', t => {
+  const mk = name => fx(name, r => {
+    put(r, 'rosters/data2/INDEX.json', JSON.stringify({ format: 'x/1', armies: { union: { me: { units: [{ file: 'union/me/a.jsonl.gz', flags: 'union/me/a.flags.json.gz', cells: null }] } } } }));
+    put(r, 'rosters/data2/union/me/a.jsonl.gz', 'gz-a'); put(r, 'rosters/data2/union/me/a.flags.json.gz', 'gz-flags'); put(r, 'rosters/data2/qa/work.json', '{"qa":1}\n'); put(r, 'rosters/data2/sources/s.json', '{"s":1}\n');
+  });
+  const byIndex = mk('roster-index'); put(byIndex, 'app/roster/roster.js', "const indexUrl = new URL('../../rosters/data2/INDEX.json', import.meta.url);\nexport const load = async () => { const idx = await (await fetch(indexUrl)).json(); return Promise.all(Object.values(idx.armies.union.me.units).map(u => fetch(new URL(u.file, indexUrl)))); };\n");
+  const t1 = trace({ root: byIndex, cfg: FIXTURE_CFG }); assert.deepEqual(t1.problems, []);
+  for (const f of ['rosters/data2/INDEX.json', 'rosters/data2/union/me/a.jsonl.gz', 'rosters/data2/union/me/a.flags.json.gz']) assert.ok(t1.files.includes(f), 'ships: ' + f);
+  for (const f of ['rosters/data2/qa/work.json', 'rosters/data2/sources/s.json']) assert.ok(!t1.files.includes(f), 'not shipped, the page does not load it: ' + f);
+  const byFolder = mk('roster-folder'); put(byFolder, 'app/roster/roster.js', "const DATA = new URL('../../rosters/data2/', import.meta.url);\nexport const load = name => fetch(new URL(name, DATA));\n");
+  const t2 = trace({ root: byFolder, cfg: FIXTURE_CFG }); for (const f of ['rosters/data2/INDEX.json', 'rosters/data2/union/me/a.jsonl.gz', 'rosters/data2/qa/work.json', 'rosters/data2/sources/s.json']) assert.ok(t2.files.includes(f), 'a folder address takes the whole folder: ' + f);
+  if (loadCensus({ files: [] }).available) for (const T of [t1, t2]) assert.deepEqual(T.census.findings, [], 'the census places both routes: ' + JSON.stringify(T.census.findings.map(f => f.address)));
+});
 test('fixture: no section folder, no section (the shell alone still packs)', () => {
   const root = fx('noroster', r => { fs.rmSync(path.join(r, 'app/roster'), { recursive: true }); fs.rmSync(path.join(r, 'rosters'), { recursive: true }); }), t = trace({ root, cfg: FIXTURE_CFG });
   assert.deepEqual(t.problems, []); assert.deepEqual(t.sections, []); assert.ok(!t.files.some(f => f.startsWith('app/roster/') || f.startsWith('rosters/')));
@@ -349,6 +371,7 @@ test('fixture: load census. Forms the patterns of the trace do not know are eval
       "export const e = () => fetch(URLS['data'] + 'f-computed-member.json');",
       "export const f = id => fetch(`${URLS.data}f-tpl/${id}.json`);",                            // known to the patterns
       "export const g = base => fetch(base + 'data/terrain.json');",                              // a parameter and a literal tail: found by the tail
+      "export const h = v => fetch(URLS.data + 'f-opt.json?v=' + v);",                           // a query after the file name is not part of the file
       '',
     ].join('\n'));
     for (const n of ['f-opt', 'f-destructured', 'f-alias', 'f-url', 'f-computed-member']) put(r, `app/data/${n}.json`, '{}\n'); put(r, 'app/data/f-tpl/1.json', '{}\n');
@@ -362,6 +385,7 @@ test('fixture: load census. Forms the patterns of the trace do not know are eval
   for (const [text, status] of [["data + 'f-destructured.json'", 'resolved'], ["U + 'f-alias.json'", 'resolved'], ["opt(", undefined], ["URLS['data'] + 'f-computed-member.json'", 'resolved'], ["base + 'data/terrain.json'", 'resolved'], ['u', undefined]]) { if (status) assert.equal(entryOf(c, text)?.status, status, text); }
   assert.equal(c.entries.find(e => e.address === 'u')?.status, 'plumbing', 'a parameter that is passed on is plumbing: its callers are listed on their own');
   assert.equal(entryOf(c, "new URL('./f-url.json', URLS.data)")?.status, 'resolved');
+  assert.equal(entryOf(c, "URLS.data + 'f-opt.json?v=' + v")?.status, 'resolved', 'the query is cut off before the file is looked for');
 });
 test('fixture: load census. A load that no file of the build answers is a finding (dangling, excluded, outside, unreviewed); a withheld file and a reviewed form are not', t => {
   if (!loadCensus({ files: [] }).available) return t.skip('acorn is not installed');

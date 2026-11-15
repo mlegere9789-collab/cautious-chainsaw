@@ -89,10 +89,10 @@ def coverage_block():
         return ('**Where the words of each group occur in the local texts**: the count job (`tools/bt/town/local_coverage.py`, through `tools/horde/bench.sh`) was queued behind the machine lock when this file was written and had not '
                 'returned; when it has, `evidence/coverage-local.json` lists for each group the texts with the most hits and the terms that hit, and rerunning `make_plan.py` puts the summary here. A hit count is a lead, not evidence.\n'), 'queued behind the machine lock, not completed when this file was written'
     d = jl(p)
-    out = '**Where the words of each group occur in the local texts** (`evidence/coverage-local.json`: %d texts and %d newspaper pages read; a hit is a lead, not evidence):\n\n| group | hits | texts with a hit | most hits in |\n|---|---|---|---|\n' % (d['texts_read'], d['ca_pages_read'])
+    out = '**Where the words of each group occur in the local texts** (`evidence/coverage-local.json`: %d text files of %d ledger sources read, a family of papers or pages summed under its source id; a hit is a lead, not evidence; the ids are those of `SOURCES.md`, so `find_text.py <id> "<term>"` finds the passages):\n\n| group | hits | sources with a hit | most hits in |\n|---|---|---|---|\n' % (d['texts_read'], d['sources_read'])
     for gid, v in d['groups'].items():
         out += '| `%s` | %d | %d | %s |\n' % (gid, v['total_hits'], v['texts_with_hits'], ', '.join('%s (%d)' % (t['source'], t['hits']) for t in v['top_texts'][:4]))
-    return out, 'counted: %d texts, %d newspaper pages' % (d['texts_read'], d['ca_pages_read'])
+    return out, 'counted: %d text files of %d sources' % (d['texts_read'], d['sources_read'])
 
 
 def example_blocks():

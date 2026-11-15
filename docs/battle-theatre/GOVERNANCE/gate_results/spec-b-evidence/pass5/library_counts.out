@@ -1,0 +1,152 @@
+{
+ "entries_per_file": {
+  "status.json": 36,
+  "status_2.json": 32,
+  "status_3.json": 15
+ },
+ "entries": 83,
+ "distinct_ids": 58,
+ "ids_in_both_of_the_first_two": 25,
+ "ids_of_the_third_also_in_an_earlier_file": 0,
+ "status_words": 11,
+ "status_counts": {
+  "scheduled": 25,
+  "ingested": 23,
+  "partial": 14,
+  "blocked-to-prior-research": 4,
+  "print-only": 4,
+  "blocked": 4,
+  "unusable": 4,
+  "licence-checked": 2,
+  "viewer-only": 1,
+  "targeted-lookup-only": 1,
+  "finder-not-authority": 1
+ },
+ "status_3": [
+  [
+   "PM-LOC-DERIVATIVES",
+   "ingested"
+  ],
+  [
+   "PM-LOC-RECORDS",
+   "ingested"
+  ],
+  [
+   "PM-LOC-MASTERS",
+   "partial"
+  ],
+  [
+   "PM-NPS-THEN-AND-NOW",
+   "ingested"
+  ],
+  [
+   "PM-NPS-SLAUGHTER-PEN-PDF",
+   "partial"
+  ],
+  [
+   "PM-GARDNER-SKETCHBOOK-TEXT",
+   "unusable"
+  ],
+  [
+   "PM-LOC-WIDE",
+   "ingested"
+  ],
+  [
+   "PM-NPS-PLACE-PAGES",
+   "ingested"
+  ],
+  [
+   "PM-NPS-ROT-FIGURES",
+   "ingested"
+  ],
+  [
+   "PM-LC-B815-273",
+   "ingested"
+  ],
+  [
+   "PM-NARA-CATALOG",
+   "blocked"
+  ],
+  [
+   "PM-LOC-NOT-DIGITIZED",
+   "partial"
+  ],
+  [
+   "PM-GARDNER-SKETCHBOOK-LOC",
+   "unusable"
+  ],
+  [
+   "PM-GUTENBERG-SKETCHBOOK",
+   "unusable"
+  ],
+  [
+   "PM-NPS-TN-EXIF-GPS",
+   "unusable"
+  ]
+ ],
+ "acquired.json": {
+  "items": 34,
+  "blocked": 1
+ },
+ "acquired_2.json": {
+  "items": 99,
+  "reverified_prior_items": 9,
+  "blocked_or_failed": 9
+ },
+ "acquired_3.json": {
+  "items": 81,
+  "blocked_or_failed": 9
+ },
+ "acquired_3_items_by_task": {
+  "nps-landscape": 73,
+  "photomatch": 8
+ },
+ "acquired_3_blocked_or_failed": [
+  [
+   "PM-GARDNER-SKETCHBOOK-TEXT",
+   "fetched, unusable"
+  ],
+  [
+   "PM-NPS-VISTA-CUTTING-PLATES",
+   "captions read, plates unreadable"
+  ],
+  [
+   "PM-NPS-SLAUGHTER-PEN-PLATES",
+   "captions read, plates not matchable"
+  ],
+  [
+   "PM-LC-B815-273",
+   "found"
+  ],
+  [
+   "PM-NARA-CATALOG",
+   "blocked"
+  ],
+  [
+   "PM-LOC-NOT-DIGITIZED",
+   "no image"
+  ],
+  [
+   "PM-GARDNER-SKETCHBOOK-LOC",
+   "images only"
+  ],
+  [
+   "PM-GUTENBERG-SKETCHBOOK",
+   "not found"
+  ],
+  [
+   "PM-NPS-TN-EXIF-GPS",
+   "searched, none"
+  ]
+ ],
+ "files": [
+  "acquired.json",
+  "acquired_2.json",
+  "acquired_3.json",
+  "candidates.json",
+  "figures-ledger.json",
+  "status.json",
+  "status_2.json",
+  "status_3.json"
+ ]
+}

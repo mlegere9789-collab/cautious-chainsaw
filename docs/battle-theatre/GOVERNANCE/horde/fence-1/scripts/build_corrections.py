@@ -154,6 +154,59 @@ def lib_copy(src_path, name):
         raise SystemExit('COPY DIFFERS from source: ' + name)
     return dst, file_sha(dst)
 
+# --- wave 5 (2026-11-15): further local texts. Each is read-only; a foreign scratch file is copied into tmp/fence-1/lib (sha256 stored) so the
+# citations keep verifying when the other workstream clears its scratch; the md5 of an archive.org derivative is checked against the archive.org record.
+import hashlib as _hl
+def _md5(path):
+    h = _hl.md5()
+    with open(path, 'rb') as f:
+        for b in iter(lambda: f.read(1 << 20), b''): h.update(b)
+    return h.hexdigest()
+XF_REG = {
+  'USSC-GETTYSBURG-1863': dict(path='tmp/library/medical/USSC-GETTYSBURG-1863/reportonoperatio00doug_djvu.txt', copy='XF-USSC-GETTYSBURG-1863_djvu.txt', md5='70d4a3f0d32ead1d9af12fa4405c0308',
+      cls='primary (contemporary printed report of the U.S. Sanitary Commission, New York, 1863; public domain; raw OCR of the scan, single witness; the printed pages were read from the page images)',
+      prov=dict(archive_item='https://archive.org/details/reportonoperatio00doug', title='Report on the Operations of the Sanitary Commission during and after the Battles at Gettysburg, July 1st, 2d and 3d, 1863 (New York: Wm. C. Bryant & Co., 1863; author per the archive.org record: John Hancock Douglas)',
+                ledger='docs/battle-theatre/medical/sources.json (bt-medical workstream, sha256 not recorded there); the md5 of the text equals the archive.org record (checked 2026-11-15)')),
+  'REILY-1885': dict(path='tmp/library/town/CONEWAGO-REILY-1885/ConewagoACollection_pdftext_pages.txt', copy='XF-REILY-1885_pdftext_pages.txt', md5=None, pages='marker',
+      cls='secondary (published parish history, Martinsburg W. Va. 1885, public domain mark on the archive.org record; text layer of the page-image PDF, one block per PDF page)',
+      prov=dict(archive_item='https://archive.org/details/ConewagoACollection', title='Reily, John T., Conewago: a collection of Catholic local history gathered from the fields of Catholic missionary labor within our reach (Martinsburg, W. Va.: Herald Print, 1885)',
+                ledger='tmp/library/town/CONEWAGO-REILY-1885/ (bt-town workstream, scratch; no ledger row yet); the PDF there has the md5 of the archive.org record (ea1315990bd861a33bbd4fe8ea6f79ff, checked 2026-11-15) and the page text was compared with pdftotext of the same page')),
+  'HISTORY-ADAMS-1886': dict(path='tmp/library/town/HISTORY-ADAMS-1886/cu31924028852619_djvu.txt', copy='XF-HISTORY-ADAMS-1886_djvu.txt', md5=None, sha256='76c101c0575eab9d7d4a45ca46787244b97d848deef8449509eb835cd9289ab1',
+      cls='secondary (published county history, Chicago 1886, public domain; raw OCR, single witness)',
+      prov=dict(archive_item='https://archive.org/details/cu31924028852619', title='History of Cumberland and Adams Counties, Pennsylvania (Chicago: Warner, Beers and Co., 1886)', ledger='docs/battle-theatre/town/SOURCES.md section 10 (bt-town workstream; sha256 from the ledger row)')),
+  'NASH-1911': dict(path='tmp/fence-1/dl/historyoffortyfo00nash/historyoffortyfo00nash_djvu.txt', copy=None, md5='8dd84582dbd3557eeb3aab9f866d3a94',
+      cls='secondary (published regimental history, Buffalo 1911, public domain; raw OCR, single witness; prints a soldier\'s letter of 1863)',
+      prov=dict(archive_item='https://archive.org/details/historyoffortyfo00nash', title='Nash, Eugene Arus, A History of the Forty-fourth Regiment, New York Volunteer Infantry, in the Civil War, 1861-1865 (1911)', ledger='downloaded by this workstream 2026-11-15 from https://archive.org/cors/historyoffortyfo00nash/historyoffortyfo00nash_djvu.txt; md5 equals the archive.org record')),
+  'BRAINARD-1915': dict(path='tmp/fence-1/dl/campaignsonehun00braigoog/campaignsonehun00braigoog_djvu.txt', copy=None, md5='56b097d5c26d3402d32c31bc82a63a03',
+      cls='secondary (published regimental history, 1915, public domain; raw OCR, single witness)',
+      prov=dict(archive_item='https://archive.org/details/campaignsonehun00braigoog', title="Brainard, Mary Genevie Green, Campaigns of the One hundred and forty-sixth regiment, New York state volunteers, also known as Halleck's infantry, the Fifth Oneida, and Garrard's tigers (1915)", ledger='downloaded by this workstream 2026-11-15 from https://archive.org/cors/campaignsonehun00braigoog/campaignsonehun00braigoog_djvu.txt; md5 equals the archive.org record')),
+}
+def pages_file_page(raw, a):
+    """printed page of a quote in a text made page by page ('=== PAGE n ===' blocks; the printed number is the first line of the block): (pdf page, printed page)"""
+    last = None
+    for m in re.finditer(r'=== PAGE (\d+) ===\n', raw[:a]): last = m
+    if not last: return None, None
+    nxt = raw[last.end(): last.end() + 12].split('\n')[0].strip()
+    return last.group(1), (nxt if nxt.isdigit() else None)
+
+def resolve_xf(c):
+    ref, q, occ = c['ref'], c['quote'], c.get('occ'); m = XF_REG[ref]; qn = norm_query(q)
+    src_path = os.path.join(ROOT, m['path'])
+    if _md5 and m.get('md5') and _md5(src_path) != m['md5']: raise SystemExit('MD5 MISMATCH vs archive.org record: ' + ref)
+    if m.get('copy'): p, sha = lib_copy(src_path, m['copy'])
+    else: p = src_path; sha = file_sha(p)
+    if m.get('sha256') and sha != m['sha256']: raise SystemExit('SHA MISMATCH vs ledger: ' + ref)
+    a, b, raw = find_in_file(p, qn, occ, ref, q)
+    base = dict(quote=q, role=c['role'], note=c.get('note'), match='exact (whitespace-normalised, case-sensitive)')
+    if c.get('reading'): base['reading'] = c['reading']
+    if m.get('pages') == 'marker':
+        pdfp, pr = pages_file_page(raw, a)
+        if c.get('pp') and pr and str(c['pp']) != pr: raise SystemExit('PAGE MISMATCH %s: given %s, page block says %s' % (ref, c['pp'], pr))
+        pg = dict(printed_page=str(c.get('pp') or pr), pdf_page=pdfp, page_basis='printed number at the top of the page block of the text layer (the PDF page %s)' % pdfp)
+    else:
+        pg = page_fields(raw, a, b, c.get('pp'))
+    return dict(base, source_id=ref, source_class=m['cls'], part=None, report_id=None, **pg, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=sha, provenance=m['prov'])
+
 def attach_image(rec, c):
     iid = c.get('image')
     if not iid: return rec
@@ -291,7 +344,9 @@ def resolve_old(c):
     raise SystemExit('bad src ' + src)
 
 def resolve(c):
-    if c['src'] in ('ACQ', 'KIT', 'K2', 'NPSW', 'CA', 'OR1W'):
+    if c['src'] == 'XF':
+        rec = resolve_xf(c)
+    elif c['src'] in ('ACQ', 'KIT', 'K2', 'NPSW', 'CA', 'OR1W'):
         rec = resolve_new(c)
     else:
         rec = resolve_old(c)
@@ -348,7 +403,7 @@ def main():
                    sub_claims=[dict(sc=rid + '.' + s['sc'], claim=s['claim'], tier=s['tier'], support=s['support'], citations=s['citations'], note=s['note']) for s in r['sub_claims']],
                    stays_unsupported=r['stays_unsupported'], conflicts_carried=r['conflicts_carried'], register_refs=r['register_refs'], blocked_host=r['blocked_host'],
                    product_consequence=r['product_consequence'], recheck=recheck, lookups=r['lookups'], changes_vs_previous=r['changes_vs_previous'], notes=r['notes'],
-                   built='2026-11-14', revision='close-out 2026-11-13 (rev 1); reopened 2026-11-14 for page images and newly local texts (rev 2)')
+                   built='2026-11-15', revision='close-out 2026-11-13 (rev 1); reopened 2026-11-14 for page images and newly local texts (rev 2); third pass 2026-11-15 for the Official Records sweep, the texts that arrived after rev 2 and two more page images (rev 3)')
         out.append(rec)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w', encoding='utf-8') as f:

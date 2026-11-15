@@ -51,6 +51,10 @@ def build_root(tmp):
     for k, v in FAMILY.items():
         w('tmp/library/test/fam/%s.txt' % k, v)
     orp = w('tmp/library/test/or27.txt', OR27_TEXT)
+    f2 = {'a': 'MANIFEST FAMILY. The mill on the creek was a three-story stone building with a slate roof, and the dam below it was washed out in 1862.\n', 'b': 'second member of the family.\n'}
+    w('tmp/library/test/fam2/MANIFEST.sha256', ''.join('%s  %s.txt\n' % (hashlib.sha256(v.encode('utf-8')).hexdigest(), k) for k, v in f2.items()))
+    for k, v in f2.items():
+        w('tmp/library/test/fam2/%s.txt' % k, v)
     idx = {'records': [{'id': 'OR27-1-RTEST', 'part': 1, 'start_offset': 0, 'end_offset': len(OR27_TEXT), 'start_page': 100, 'end_page': 103, 'start_page_conf': 'head'}]}
     w('docs/battle-theatre/library/or27_index.json', json.dumps(idx))
     ledger = ('# test ledger\n\n| id | class | title | date | text | sha256 | pages | rights | url | notes |\n|---|---|---|---|---|---|---|---|---|---|\n'
@@ -58,6 +62,7 @@ def build_root(tmp):
               '| T-OCR | book | Test OCR book | 1890 | tmp/library/test/ocr.txt | %s | none | public | - | test |\n'
               '| T-FAM | primary | Test weekly | 1863 | tmp/library/test/fam/{part}.txt | - | none | public | - | family of issues |\n'
               '| T-OR27 | primary | Test OR | 1889 | tmp/library/test/or27.txt | %s | or27 | public | - | test |\n'
+              '| T-FAM2 | primary | Test family with a sha256sum manifest | 1863 | tmp/library/test/fam2/{part}.txt | - | none | public | - | appended family with MANIFEST.sha256 |\n'
               '| T-LEAD | lead | A web page | 2020 | - | - | none | - | - | lead only |\n'
               '| T-MAP | primary | A map sheet | 1858 | - | - | none | public | - | image only |\n'
               '\n| id | class | title | date | text | sha256 | pages | rights | url | notes |\n'
@@ -81,6 +86,7 @@ def run(V):
         pt, ot = build_root(tmp)
         ctx = V.Ctx(tmp)
         text2 = open(pt, encoding='utf-8', newline='').read()
+        f2_text = open(os.path.join(tmp, 'tmp/library/test/fam2/a.txt'), encoding='utf-8', newline='').read()
         text_o = open(ot, encoding='utf-8', newline='').read()
 
         def off(txt, needle):
@@ -239,10 +245,10 @@ def run(V):
         case('AD6 complete: a group that declares no building', [], 'declares at least one building', complete=True)
         case('AD7 complete: a link naming a structure of another group does not account for the structures of this group', [dict(base_b, links={'structures': ['bld-other']})] + full, 'not accounted for', complete=True)
         # links of a building row
-        case('AE links that is not an object', [dict(base_b, links=['bld-b'])], 'links is an object')
-        case('AE2 links with a key that is not one of the five', [dict(base_b, links={'fences': ['x']})], 'links key')
-        case('AE3 links value that is not a list of ids', [dict(base_b, links={'basemap': 'STR-X-1'})], 'is a list of ids')
-        case('AE4 links naming a structure that the inventory gives to another group warns', [dict(base_b, links={'structures': ['bld-other']})], None, warn='assigns to group g-two')
+        case('AL links that is not an object', [dict(base_b, links=['bld-b'])], 'links is an object')
+        case('AL2 links with a key that is not one of the five', [dict(base_b, links={'fences': ['x']})], 'links key')
+        case('AL3 links value that is not a list of ids', [dict(base_b, links={'basemap': 'STR-X-1'})], 'is a list of ids')
+        case('AL4 links naming a structure that the inventory gives to another group warns', [dict(base_b, links={'structures': ['bld-other']})], None, warn='assigns to group g-two')
         # a file of rows that name their own group
         e2 = []
         errors, warnings, stats = e2, [], {'rows': 0, 'by_type': {}, 'by_tier': {}, 'buildings': 0}
@@ -274,6 +280,23 @@ def run(V):
             n_ok += 1
         ctx._texts = {}
         case('AE a changed text is refused in a row check', B + [fr(2)], 'the text changed since the ledger entry')
+        # a family acquired later carries a sha256sum manifest: its members are re-hashed by the ledger check and by a citation into a member
+        ctx._fam = None
+        assert ctx.families().get('T-FAM2', {}).keys() == {'a', 'b'}, ctx.families().get('T-FAM2')
+        fam2 = fr(2, field='walls', value={'material': 'stone'}, source='T-FAM2', part='a', page=None, page_note='no page marks', quote='a three-story stone building with a slate roof',
+                  text_offset=f2_text.index('a three-story stone'))
+        case('AF a family member with a manifest hash is accepted', B + [fam2], None)
+        with open(os.path.join(tmp, 'tmp/library/test/fam2/a.txt'), 'a', encoding='utf-8', newline='') as f:
+            f.write('A line added after the manifest.\n')
+        ctx._texts = {}
+        ctx._fam = None
+        ok, errs, n = V.check_ledger(ctx)
+        if ok or not any('differs from the recorded hash' in e for e in errs):
+            n_fail += 1
+            fails.append('ledger check did not notice a changed member of a family with a manifest: %s' % errs[:2])
+        else:
+            n_ok += 1
+        case('AF2 a changed family member is refused in a row check', B + [fam2], 'differs from the recorded hash of the family')
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     print('self-test, synthetic repository: %d cases passed, %d failed' % (n_ok, n_fail))

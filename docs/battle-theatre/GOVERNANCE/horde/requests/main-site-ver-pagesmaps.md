@@ -15,3 +15,7 @@ One local fact from the survey: the two Mapbox GL files that run downloaded (`tm
 ## The exact change
 
 Nothing in a file this workstream owns. When the repeat with T0_CHROME set has run, please add its row to `docs/accept/R1G-SUITES.json` and one line to `docs/accept/R1G-STATUS.md`; the survey reads the result at its next pass. Optional hardening that is yours to decide: a clear failure line in `tests/t0/lib.mjs` when the Chrome path does not exist, so a wrong path no longer ends a suite as an unhandled error.
+
+## Update 2026-11-15 (main-site, status survey part A, pass 5): closed
+
+The repeat has run and the release workstream recorded it (docs/accept/R1G-STATUS.md, docs/accept/R1G-SUITES.json generated 2026-11-14 01:21 UTC): `pagesmaps.R1a` PASS 34 of 34 with T0_CHROME set, log `docs/accept/r1g-suite-logs/2026-11-14-pagesmaps-cold-cache-chrome-set.log`. The survey item VER-PAGESMAPS is closed (SHIPPED, items-A.json). Nothing in the first paragraph of "The exact change" is still asked. What remains is only the optional hardening above (a clear failure line in `tests/t0/lib.mjs` when the Chrome path does not exist), which stays the release workstream's to decide.

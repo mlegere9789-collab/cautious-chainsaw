@@ -40,6 +40,12 @@ PROBES = [
     ('loc-bachelder-isometrical', 'https://www.loc.gov/search/?q=bachelder+isometrical+drawing+gettysburg&fo=json&c=10', "Bachelder's isometrical drawing of the Gettysburg battle-field (LOC search, JSON)"),
     ('loc-waud-gettysburg', 'https://www.loc.gov/search/?q=waud+gettysburg+drawing+1863&fo=json&c=10', 'Drawings of Gettysburg made on the field by Alfred R. Waud (LOC search, JSON)'),
     ('loc-forbes-gettysburg', 'https://www.loc.gov/search/?q=edwin+forbes+gettysburg+sketch&fo=json&c=10', 'Sketches of Gettysburg by Edwin Forbes (LOC search, JSON)'),
+    # the two searches above timed out (45 s, no bytes: not a refusal); one more try each with a smaller page
+    ('loc-bachelder-isometrical-retry', 'https://www.loc.gov/search/?q=bachelder+isometrical+drawing+gettysburg&fo=json&c=3', "Bachelder's isometrical drawing of the Gettysburg battle-field (LOC search, JSON; second try, 3 results)"),
+    ('loc-forbes-gettysburg-retry', 'https://www.loc.gov/search/?q=edwin+forbes+gettysburg+sketch&fo=json&c=3', 'Sketches of Gettysburg by Edwin Forbes (LOC search, JSON; second try, 3 results)'),
+    # the Bachelder search returned four map items of 1863 with the title of the isometrical drawing's key: read two records (maker, date, format, rights, notes)
+    ('loc-item-99447490', 'https://www.loc.gov/item/99447490/?fo=json', 'LOC map item 99447490, Gettysburg battle-field. Battle fought at Gettysburg, Pa., July 1st, 2d & 3d, 1863 (item record)'),
+    ('loc-item-2007630423', 'https://www.loc.gov/item/2007630423/?fo=json', 'LOC map item 2007630423, Gettysburg battle-field. Battle fought at Gettysburg, Pa., July 1st, 2d & 3d, 1863 (item record)'),
 ]
 
 
@@ -59,6 +65,8 @@ def already_ok():
                     continue
                 if r.get('outcome') in ('ok', 'refused', 'blocked'):
                     ok.add(r['id'])
+                elif 'CONNECT tunnel failed, response 403' in str(r.get('note', '')):
+                    ok.add(r['id'])      # the network refused the host (an older line logged it as `failed`): recorded as blocked, never asked again
     return ok
 
 
@@ -95,6 +103,8 @@ def main():
             note = head[:200]
         if r.returncode != 0:
             outcome, note = 'failed', (r.stderr.decode('utf-8', 'replace')[:200])
+            if 'CONNECT tunnel failed, response 403' in note:
+                outcome = 'blocked'      # the host is refused by the network: recorded as blocked, not worked around, not asked again
         elif http in (200,):
             outcome = 'ok'
         elif http in (401, 403, 429, 451):

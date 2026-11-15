@@ -254,6 +254,12 @@ export class VegGL {
     gl.activeTexture(gl.TEXTURE0 + TEX_STATE); gl.bindTexture(gl.TEXTURE_2D, this.tex); unpackPlain(gl); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, STATE_TEX_W, this.rows, gl.RGBA, gl.FLOAT, b); gl.activeTexture(gl.TEXTURE0); this.stats.stateWrites++; return true;
   }
 
+  /** the trees drawn again after a choice that changes them (the understory reading of CF-VEG-UNDER): the buffer every tree mesh reads is rewritten and the chunk lists are those of the new set; nothing else is touched */
+  setTrees(trees) {
+    const gl = this.gl; gl.bindVertexArray(null); gl.bindBuffer(gl.ARRAY_BUFFER, this.B.tree); gl.bufferData(gl.ARRAY_BUFFER, trees.data, gl.STATIC_DRAW);
+    this.mem += trees.data.byteLength - this.trees.data.byteLength; this.trees = trees; this.stats.trees = trees.n;
+  }
+
   /** the table of first visits (grid from plan.mjs): uploaded whole when the plan is done (or on a refresh while it runs) */
   setVisit(grid) {
     const gl = this.gl; this.grid = grid;

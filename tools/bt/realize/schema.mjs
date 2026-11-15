@@ -63,7 +63,7 @@ export const ASSERT = {
   battery_guns:   { units: true, time: true, need: [], opt: ['guns_min', 'limbers_min', 'caissons_min', 'horses_min'] },
   weather:        { time: true, need: [], one: ['precip_kind_in', 'precip_intensity_min', 'precip_intensity_max', 'cloud_min', 'cloud_max', 'temp_f', 'wetness_min', 'wetness_max', 'wind_mph_min', 'wind_mph_max', 'wind_from_in', 'visibility_m_max', 'record'], opt: ['tol_f', 'value_quote'] },
   sky:            { time: true, need: [], one: ['sun_alt_min', 'sun_alt_max', 'sun_alt', 'sun_az', 'moon_alt', 'moon_az', 'moon_up', 'moon_illum_min', 'moon_illum_max', 'band_in', 'exposure_min'], opt: ['tol_deg'] },
-  casualty:       { time: true, need: [], one: ['killed_min', 'wounded_min', 'missing_min', 'events_min'], opt: ['units'] },
+  casualty:       { time: true, need: [], one: ['killed_min', 'wounded_min', 'missing_min', 'events_min', 'killed_max', 'wounded_max', 'missing_max', 'events_max', 'killed_approx', 'wounded_approx', 'missing_approx', 'events_approx'], opt: ['units', 'tol_pct'] },
   card_shown:     { time: true, need: ['rows'], opt: ['tier'] },
   epilogue_shown: { time: true, need: ['rows'], opt: ['tier'] },
   place_known:    { time: false, need: ['place'], opt: ['on_ground'] },
@@ -98,7 +98,15 @@ export function vacuityProblems(a, T = {}) {
   const floor = (k, stated) => { if (a[k] != null && stated != null && !(isNum(a[k]) && a[k] >= stated)) wide(`${k} ${JSON.stringify(a[k])} is below the stated floor of ${stated} (tolerances.json units): a record may ask for more, never for less`); };
   const U = T.units || {};
   switch (a.type) {
-    case 'casualty': for (const k of ['killed_min', 'wounded_min', 'missing_min', 'events_min']) atLeast(k, 1, 'no man leaving the line'); break;
+    case 'casualty': {
+      for (const k of ['killed_min', 'wounded_min', 'missing_min', 'events_min']) atLeast(k, 1, 'no man leaving the line');
+      for (const k of ['killed_approx', 'wounded_approx', 'missing_approx', 'events_approx']) if (a[k] != null && !(isNum(a[k]) && a[k] > 0)) out.push({ code: 'assert_field', detail: `${k} ${JSON.stringify(a[k])} is a number of men above 0 (a row that says no man falls is killed_max, wounded_max, missing_max or events_max of 0)` });
+      for (const k of ['killed_max', 'wounded_max', 'missing_max', 'events_max']) if (a[k] != null && !(isNum(a[k]) && a[k] >= 0)) out.push({ code: 'assert_field', detail: `${k} ${JSON.stringify(a[k])} is a number of men, 0 or more` });
+      const approx = ['killed_approx', 'wounded_approx', 'missing_approx', 'events_approx'].filter(k => a[k] != null), stated = U.casualties && U.casualties.tol_pct;
+      if (a.tol_pct != null && !approx.length) out.push({ code: 'assert_field', detail: 'tol_pct belongs to a check that names killed_approx, wounded_approx, missing_approx or events_approx' });
+      else if (a.tol_pct != null && stated != null && !(isNum(a.tol_pct) && a.tol_pct > 0 && a.tol_pct <= stated)) wide(`tol_pct ${JSON.stringify(a.tol_pct)} is wider than the stated ${stated} per cent (tolerances.json units.casualties): a record may ask for a smaller share, never a larger`);
+      break;
+    }
     case 'battery_guns': {
       const ks = ['guns_min', 'limbers_min', 'caissons_min', 'horses_min'];
       if (!ks.some(k => a[k] != null)) vac('names no guns_min, limbers_min, caissons_min or horses_min: every battery that is on the field satisfies it');
@@ -202,6 +210,7 @@ export function validateRecord(rec, ctx) {
     const numIn = (q, n) => q != null && (String(q).replace(/(\d),(\d)/g, '$1$2').match(/\d+(?:\.\d+)?/g) || []).some(x => +x === +n);
     if (a.type === 'weather' && a.temp_f != null && !numIn(a.quote, a.temp_f)) add('number_not_in_quote', `${at}: temp_f ${a.temp_f} must come from a printed number: give "quote" with the row's words containing ${a.temp_f}`);
     if (a.type === 'unit_figures' && a.approx != null && !numIn(a.quote, a.approx)) add('number_not_in_quote', `${at}: approx ${a.approx} must come from a printed number: give "quote" with the row's words containing it`);
+    if (a.type === 'casualty') for (const k of ['killed_approx', 'wounded_approx', 'missing_approx', 'events_approx']) if (a[k] != null && isFinite(a[k]) && !numIn(a.quote, a[k])) add('number_not_in_quote', `${at}: ${k} ${a[k]} must come from a printed number: give "quote" with the row's words containing ${a[k]}`);
     if (a.type === 'sky') {
       const floorDeg = ((ctx.tolerances || {}).sky || {}).angle_floor_deg ?? 0.05, named = Object.keys(ANGLE_FIELDS).filter(k => a[k] != null);
       for (const k of named) {

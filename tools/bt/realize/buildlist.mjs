@@ -25,8 +25,8 @@ export function buildList(rows, { recordOf: rec = recordOf } = {}) {
   for (const id of Object.keys(rows).sort(natural)) {
     const e = rows[id];
     if (!e.record) { no_record.push(id); continue; }
-    if (e.realized) { if (e.partial && Array.isArray(e.not_shown)) partial.push({ id, not_shown: e.not_shown.map(n => ({ words: n.words, why: n.why })) }); continue; }
-    const r = rec(e), miss = r && Array.isArray(r.missing) ? r.missing : [], unverified = new Set((e.missing && e.missing.unverified) || []);
+    if (e.realized) { if (e.partial && Array.isArray(e.not_shown)) partial.push({ id, not_shown: e.not_shown.filter(n => n && typeof n === 'object').map(n => ({ words: n.words, why: n.why })) }); continue; }
+    const r = rec(e), miss = r && Array.isArray(r.missing) ? r.missing.filter(m => m && typeof m === 'object') : [], unverified = new Set((e.missing && e.missing.unverified) || []);
     if (e.kind === 'not_realized' && miss.length) for (const m of miss) add(m.code, { id, detail: m.detail, builder: m.builder || 'unassigned', verified: !unverified.has(m.code) });
     else { failed.push({ id, codes: e.codes || [], why: e.why }); for (const c of e.codes && e.codes.length ? e.codes : ['unclassified']) add(c, { id, detail: e.why, builder: 'the record\'s author: the record is realized-kind and its checks fail', verified: true }); }
   }

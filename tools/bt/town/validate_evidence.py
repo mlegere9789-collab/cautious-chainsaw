@@ -142,12 +142,38 @@ class Ctx:
         return self._ledger
 
     def families(self):
+        """{source id: {part: sha256}} of the families of texts: the seeded ones from evidence/ledger-families.json, the ones a pass acquired later (an appended ledger
+        row) from the `MANIFEST.sha256` (sha256sum format) in the folder of their template."""
         if getattr(self, '_fam', None) is None:
             try:
                 with open(os.path.join(self.evid, 'ledger-families.json'), encoding='utf-8') as f:
-                    self._fam = json.load(f).get('families', {})
+                    fam = json.load(f).get('families', {})
             except FileNotFoundError:
-                self._fam = {}
+                fam = {}
+            try:
+                for sid, row in self.ledger().items():
+                    t = row.get('text', '') if isinstance(row, dict) else ''
+                    if sid == '__duplicates__' or sid in fam or '{part}' not in t:
+                        continue
+                    mf = os.path.join(self.root, os.path.dirname(t.split('{part}')[0]), 'MANIFEST.sha256')
+                    if not os.path.exists(mf):
+                        continue
+                    hashes = {}
+                    with open(mf, encoding='utf-8') as f:
+                        for line in f:
+                            m = re.match(r'^([0-9a-fA-F]{64})\s+\*?(.+?)\s*$', line)
+                            if m:
+                                hashes[m.group(2)] = m.group(1).lower()
+                    parts = {}
+                    for part, rel in list_texts(self, sid):
+                        h = hashes.get(os.path.basename(rel))
+                        if h:
+                            parts[part] = h
+                    if parts:
+                        fam[sid] = parts
+            except Exception:
+                pass
+            self._fam = fam
         return self._fam
 
     def or27(self):
@@ -380,6 +406,31 @@ def resolve_text(ctx, sid, part):
     return t, None
 
 
+def list_texts(ctx, sid):
+    """[(part or None, repo-relative path)] of the local texts of a ledger source. A family (`{part}` in the ledger text path) is listed by walking the folder of
+    its template: a part may contain `/` (the newspaper pages are `<lccn>/<date>/ed-1/seq-<n>`) and a template may name the part twice (the weeklies)."""
+    led = ctx.ledger().get(sid)
+    if led is None:
+        return []
+    t = led.get('text', '')
+    if not t or t in ('-', 'none'):
+        return []
+    if '{part}' not in t:
+        return [(None, t)] if os.path.exists(os.path.join(ctx.root, t)) else []
+    pieces = t.split('{part}')
+    rx = re.compile(re.escape(pieces[0]) + '(?P<p>.+?)' + re.escape(pieces[1]) + ''.join('(?P=p)' + re.escape(x) for x in pieces[2:]))
+    base = os.path.join(ctx.root, os.path.dirname(pieces[0]) or '.')
+    out = []
+    for dp, dn, fn in os.walk(base):
+        dn.sort()
+        for f in sorted(fn):
+            rel = os.path.relpath(os.path.join(dp, f), ctx.root).replace(os.sep, '/')
+            m = rx.fullmatch(rel)
+            if m:
+                out.append((m.group('p'), rel))
+    return sorted(out)
+
+
 # ------------------------------------------------------------------------------------------------ citations
 def check_cite(ctx, c, where, errors, warnings, need_class_not_lead=False, numbers_in=None):
     """Verify one citation (source, part, page, quote, text_offset, quote_mode, raw ...). Returns True when the quote was found at the offset."""
@@ -501,7 +552,7 @@ def check_cite(ctx, c, where, errors, warnings, need_class_not_lead=False, numbe
                 with open(os.path.join(ctx.root, path), 'rb') as f:
                     ctx._texts[key] = hashlib.sha256(f.read()).hexdigest()
             if ctx._texts[key] != ph:
-                errors.append('%s: the sha256 of %s differs from evidence/ledger-families.json: the text changed since the ledger entry' % (where, path))
+                errors.append('%s: the sha256 of %s differs from the recorded hash of the family (evidence/ledger-families.json or the MANIFEST.sha256 of its folder): the text changed since the ledger entry' % (where, path))
     if re.fullmatch(r'[0-9a-f]{64}', h) and '{part}' not in led.get('text', ''):
         key = ('sha', path)
         if key not in ctx._texts:
@@ -1032,6 +1083,16 @@ def check_ledger(ctx):
                 errors.append('ledger %s: directory %s missing' % (sid, d))
             else:
                 ok += 1
+                # every member with a recorded hash (ledger-families.json, or the MANIFEST.sha256 of the folder) is re-hashed
+                members = dict((part, rel) for part, rel in list_texts(ctx, sid))
+                for part, ph in sorted((ctx.families().get(sid) or {}).items()):
+                    rel = members.get(part)
+                    if rel is None:
+                        errors.append('ledger %s: member %s of the recorded hashes is missing' % (sid, part))
+                        continue
+                    with open(os.path.join(ctx.root, rel), 'rb') as f:
+                        if hashlib.sha256(f.read()).hexdigest() != ph:
+                            errors.append('ledger %s: sha256 of %s differs from the recorded hash' % (sid, rel))
             continue
         p = os.path.join(ctx.root, t)
         if not os.path.exists(p):

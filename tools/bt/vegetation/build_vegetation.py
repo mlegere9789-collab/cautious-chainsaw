@@ -387,11 +387,11 @@ ANCHOR_OVERRIDES = {
     'VC-NPSX-CLR-LRT-p021-02': ({'poly': 'LC-WOOD-LRT-E'}, {}),
 }
 FARM_CONSTRAINTS = {   # farm key -> [(crop, claim id)]: fields the inventory names on a farm whose own fields cannot be placed one by one
-    'mcpherson': [('corn', 'VC-NPSX-CLI-1STDAY-p058-10'), ('wheat', 'VC-NPSX-CLI-1STDAY-p059-01'), ('hay', 'VC-NPSX-CLI-1STDAY-p058-07')],
+    'mcpherson': [('corn', 'VC-NPSX-CLI-1STDAY-p058-10'), ('wheat', 'VC-NPSX-CLI-1STDAY-p059-01'), ('hay', 'VC-NPSX-CLI-1STDAY-p058-07'), ('oats', 'VC-NPSC-HS-MCPHERSON-p023-01a')],     # the study of 1977 names wheat, corn, oats and grass
     'brien': [('hay', 'VC-NPSC-BRIEN-FARM-p007-01'), ('barley', 'VC-NPSC-BRIEN-FARM-p007-01')],     # the wheat of the Brien inventory is placed by MacDougall's account (VC-NPSC-BRIEN-FARM-p008-01a)
 }
 KIND_FIX = {'VC-NPSX-CLI-PCB-p081-04': 'crop', 'VC-NPSX-CLI-PCB-p085-02': 'crop', 'VC-NPSX-CLI-PCB-p080-03': 'woodlot', 'VC-NPSX-CLI-PCB-p081-02': 'woodlot', 'VC-NPSX-CLI-PCB-p084-04': 'woodlot', 'VC-NPSX-CLI-PCB-p084-02': 'woodlot'}
-CLASS_MAP = {'field': ('field',), 'woods': ('woods', 'scatter'), 'orchard': ('orchard',), 'boulder': ('boulder',), 'any': ('field', 'woods', 'scatter', 'orchard', 'marsh', 'cleared', 'wheatfield', 'boulder')}
+CLASS_MAP = {'field': ('field',), 'woods': ('woods', 'scatter'), 'orchard': ('orchard',), 'boulder': ('boulder',), 'cleared': ('cleared',), 'any': ('field', 'woods', 'scatter', 'orchard', 'marsh', 'cleared', 'wheatfield', 'boulder')}
 
 
 def load_claims():
@@ -482,12 +482,20 @@ def attach_claims(units, claims, farms, gz):
 
 
 # ---------------------------------------------------------------------------------------------------------------- the district mix of crops
-def district_mix(claims):
-    """shares of the arable and hay acreage from the farm inventories read in the claims (acres, ranges by midpoint)"""
+MCPHERSON_CLR = 'VC-NPS-031'          # the Cultural Landscape Report's acres for the McPherson claim (9 wheat, 16 corn, 4 oats, 18 grass); the study of 1977 gives 18, 16, 14, 18 (alt_reading 'study-1977')
+
+
+def district_mix(claims, alt=False):
+    """shares of the arable and hay acreage from the farm inventories read in the claims (acres, ranges by midpoint). alt=True reads the McPherson claim as the study of 1977 transcribes it
+    (conflict CF-VEG-MCPHERSON) instead of as the Cultural Landscape Report does; nothing else changes."""
     tot = collections.Counter()
     farms = []
     for c in claims.values():
         if c['kind'] != 'farm_inventory' or not (c.get('about') or {}).get('crops'):
+            continue
+        if (c.get('about') or {}).get('alt_reading') and not alt:
+            continue                                            # the other reading of a conflict is only read when it is asked for
+        if alt and c['id'] == MCPHERSON_CLR:
             continue
         row = {}
         for crop, ac in c['about']['crops'].items():
@@ -571,7 +579,7 @@ def build_json(args):
         u['id'] = 'V-%04d' % (i + 1)
     units_by_lc = {u['lc']: u for u in units}
     unplaced = attach_claims(units, claims, farms, gz)
-    mix, farm_rows, acres = district_mix(claims)
+    mix, farm_rows, acres = district_mix(claims, alt=getattr(args, 'mcpherson', 'clr') == 'study')
 
     # ----- crops of the field cells
     fields = [u for u in units if u['cls'] in ('field', 'wheatfield')]
@@ -635,29 +643,58 @@ def jitter_weights(uid, w, tag):
 def class_attributes(units, claims, gz, farms):
     lrt = gz.get('Little Round Top')
     lrt_units = []
+
+    def tier_of(role, cid):
+        """the tier of a value read from a claim: documented only where the claim names this polygon (role exact) and is itself documented; a claim placed by a rule gives an inferred value"""
+        return 'documented' if (role == 'exact' and claims[cid]['tier'] == 'documented') else 'inferred'
+
+    def values_from_claims(u, W, understory):
+        """what the claims placed on this wood or cluster (role exact or nearest) say: the undergrowth (woods only), the heights of the trees, the species"""
+        for cid, role in sorted(u['claims']):
+            if role not in ('exact', 'nearest'):
+                continue
+            ab = claims[cid].get('about') or {}
+            if understory and ab.get('understory') in ('open', 'moderate', 'thick'):
+                W.update({'understory': ab['understory'], 'understory_claim': cid, 'understory_tier': tier_of(role, cid)})
+            if isinstance(ab.get('height_m'), list) and len(ab['height_m']) == 2:
+                W.update({'h_m': [float(x) for x in ab['height_m']], 'h_claim': cid, 'h_tier': tier_of(role, cid)})
+            if isinstance(ab.get('species'), dict):
+                z = sum(ab['species'].values())
+                W.update({'species': {k: round(v / z, 3) for k, v in sorted(ab['species'].items())}, 'species_claim': cid, 'species_tier': tier_of(role, cid), 'species_shares_tier': 'plausible-procedural'})
+
     for u in units:
         uid = u['id']
         cl = {cid: role for cid, role in u['claims']}
-        young = any((claims[c].get('about') or {}).get('age') in ('young', 'young_and_declining') and r in ('nearest', 'exact') for c, r in cl.items())
+        young_exact = any((claims[c].get('about') or {}).get('age') in ('young', 'young_and_declining') and r == 'exact' for c, r in cl.items())
+        young_near = any((claims[c].get('about') or {}).get('age') in ('young', 'young_and_declining') and r == 'nearest' for c, r in cl.items())
         if u['cls'] == 'woods':
             k = 'ridge_forest' if u.get('lrt_east') else woods_class(u, gz, farms)
             W = TB.WOODS[k]
             u['woods'] = {'class': k, 'species': jitter_weights(uid, W['species'], 'sp'), 'per_ha': round(pick(None, (uid, 'dens'), W['per_ha']), 1), 'understory': W['understory'], 'tier': W['tier']}
-            for cid, role in u['claims']:                      # an account of the undergrowth sets it, where it is placed on this woodlot
-                ab = claims[cid].get('about') or {}
-                if role in ('exact', 'nearest') and ab.get('understory') in ('open', 'moderate', 'thick'):
-                    u['woods'].update({'understory': ab['understory'], 'understory_claim': cid, 'understory_tier': 'documented' if role == 'exact' else 'inferred'})
+            values_from_claims(u, u['woods'], True)             # an account of the undergrowth sets it, where it is placed on this woodlot
+            u['woods']['understory_by_scenario'] = 'understory_claim' not in u['woods']      # the conflict CF-VEG-UNDER acts on a wood no account of its own describes
             if lrt is not None and (u.get('lrt_east') or u['geom'].centroid.distance(lrt) < LRT_R + 30):
                 lrt_units.append(uid)
         elif u['cls'] == 'scatter':
             W = TB.WOODS['scatter']
             u['woods'] = {'class': 'scatter', 'species': jitter_weights(uid, W['species'], 'sp'), 'per_ha': round(pick(None, (uid, 'dens'), W['per_ha']), 1), 'understory': 'none', 'tier': W['tier']}
+            values_from_claims(u, u['woods'], False)
             if lrt is not None and u['geom'].centroid.distance(lrt) < LRT_R + 30:
                 lrt_units.append(uid)
         elif u['cls'] == 'orchard':
-            k = 'peach_orchard' if u['lc'] == 'LC-ORCH-0206' else ('young' if young else 'mature')
+            k = 'peach_orchard' if u['lc'] == 'LC-ORCH-0206' else ('young' if (young_exact or young_near) else 'mature')
             O = TB.ORCHARD[k]
-            u['orchard'] = {'class': k, 'spacing_m': round(pick(None, (uid, 'sp'), O['spacing_m']), 2), 'species': jitter_weights(uid, O['species'], 'osp'), 'age_tier': 'documented' if (young and k == 'young') or k == 'peach_orchard' else 'plausible-procedural', 'tier': O['tier']}
+            u['orchard'] = {'class': k, 'spacing_m': round(pick(None, (uid, 'sp'), O['spacing_m']), 2), 'species': jitter_weights(uid, O['species'], 'osp'),
+                            'age_tier': 'documented' if (young_exact or k == 'peach_orchard') else ('inferred' if young_near else 'plausible-procedural'), 'tier': O['tier']}
+            for cid, role in sorted(u['claims']):
+                if role not in ('exact', 'nearest'):
+                    continue
+                ab = claims[cid].get('about') or {}
+                if isinstance(ab.get('species'), dict):
+                    z = sum(ab['species'].values())
+                    u['orchard'].update({'species': {kk: round(v / z, 3) for kk, v in sorted(ab['species'].items())}, 'species_claim': cid, 'species_tier': tier_of(role, cid)})
+                if isinstance(ab.get('spacing_m'), list) and len(ab['spacing_m']) == 2:
+                    u['orchard'].update({'spacing_m': round(sum(ab['spacing_m']) / 2, 2), 'spacing_claim': cid, 'spacing_tier': tier_of(role, cid)})
         elif u['cls'] == 'marsh':
             u['crop'], u['crop_tier'], u['crop_basis'] = 'marsh', 'inferred', 'claim' if u['lc'] == 'LC-WET-0001' else 'warren_symbol'
             if u['lc'] == 'LC-WET-0001':
@@ -749,7 +786,7 @@ def nearest_on(lines, pt):
     return best
 
 
-def witness_trees(farms, gz):
+def witness_trees(farms, gz, claims):
     roads = load(os.path.join(RRW, 'roads.geojson'))['features']
     lanes = load(os.path.join(RRW, 'lanes.geojson'))['features']
     out = []
@@ -772,6 +809,25 @@ def witness_trees(farms, gz):
         pt = Point(j.x - 6.0, j.y + 4.0)
         out.append({'id': 'WT-02', 'name': 'Large tree at the Codori lane and the Emmitsburg Road (Confederate sharpshooter, 3 July)', 'species': 'oak', 'h_m': [16, 22], 'r_m': [6, 9], 'lnglat': [round(v, 6) for v in TO_LL.transform(pt.x, pt.y)], 'pos_err_m': 50, 'pos_tier': 'inferred', 'claims': ['VC-NPSX-CLI-ERR-p095-03'],
                     'basis': 'the junction of the lane line (LN-004) and the Emmitsburg Road line (RD-003) of the repository; the claim says only "near the junction"; the species is not stated and the oak is a plain assumption'})
+    # three trees the National Park Service reports name: the later memorials of the site's own list serve only as the locators of two of them
+    mon = {m['no']: m for m in load(os.path.join(BT, 'app', 'data', 'site-memorials.json'))['monuments']}
+
+    def at(m, bearing, dist):
+        base = Point(*TO_M.transform(m['lng'], m['lat']))
+        b = math.radians(bearing)
+        return Point(base.x + dist * math.sin(b), base.y + dist * math.cos(b))
+
+    def ll(pt):
+        return [round(v, 6) for v in TO_LL.transform(pt.x, pt.y)]
+    if 'VC-NPSC-CLR-LRT-p119-01' in claims and 'Little Round Top' in gz:
+        out.append({'id': 'WT-03', 'name': 'Large butternut at the summit of Little Round Top (General Warren\'s lookout: a purported witness)', 'species': 'butternut', 'h_m': [12, 20], 'r_m': [5, 8], 'lnglat': ll(gz['Little Round Top']), 'pos_err_m': 100, 'pos_tier': 'inferred',
+                    'tier': 'inferred', 'claims': ['VC-NPSC-CLR-LRT-p119-01'], 'basis': 'an article of 1892 by a purported witness, quoted by the report: Warren\'s chief position was on top of a large butternut; the summit is the nearest named place and the hill is about 40 acres, so the tree stood within about 100 m of it; the height and the crown are ranges for a large tree of the species (plausible-procedural)'})
+    if 'VC-NPSC-CLR-LRT-p036-03' in claims and 322 in mon:
+        out.append({'id': 'WT-04', 'name': 'Old pine forward of the 140th New York Monument, alive at the battle', 'species': 'white_pine', 'h_m': [14, 22], 'r_m': [3, 4.5], 'lnglat': ll(at(mon[322], 250, 30)), 'pos_err_m': 60, 'pos_tier': 'inferred',
+                    'tier': 'documented', 'claims': ['VC-NPSC-CLR-LRT-p036-03'], 'basis': 'the report says an old pine "forward of the 140th New York Monument" was alive at the time of the battle and was venerated and kept; the monument is a later memorial (its place is the site\'s own and serves only as the locator); "forward" is read as toward the enemy, to the west-south-west, 30 m, with an error of 60 m; the kind of pine is not stated (the layer\'s pine is the stand-in), and the height and crown are ranges (plausible-procedural)'})
+    if 'VC-NPSC-HS-MCPHERSON-p070-01' in claims and 496 in mon:
+        out.append({'id': 'WT-05', 'name': 'Large white oak just north of Herbst Woods (about a third of its present girth in 1863)', 'species': 'oak', 'h_m': [9, 15], 'r_m': [4, 7], 'lnglat': ll(at(mon[496], 90, 45.7)), 'pos_err_m': 40, 'pos_tier': 'inferred',
+                    'tier': 'inferred', 'claims': ['VC-NPSC-HS-MCPHERSON-p070-01'], 'basis': 'the study of 1977 puts the tree fifty yards (45.7 m) east of the 7th Wisconsin monument (a later memorial: its place is the site\'s own and serves only as the locator) and says it would have been about one third its present size in 1863; the height and the crown are ranges for an open-grown white oak of that age (plausible-procedural)'})
     return out
 
 
@@ -797,7 +853,7 @@ def make_output(args):
     units, claims, unplaced, mix, farm_rows, acres, terr, G, farms, gz, S = build_json(args)
     lrt_units = class_attributes(units, claims, gz, farms)
     events = build_events(units, farms, gz, claims)
-    wts = witness_trees(farms, gz)
+    wts = witness_trees(farms, gz, claims)
     # farm record
     farm_out = []
     inv = collections.defaultdict(list)
@@ -908,8 +964,56 @@ def calendar_json():
     cal['epilogue'] = dict(TB.EPILOGUE, t=iso_min('1863-11-19'))
     for k, f in TB.ORCHARD_FRUIT.items():
         cal['orchard_fruit'][k] = {'keys': [dict(x, t=iso_min(x['d'])) for x in f['keys']], 'why': f['why']}
+    cal['understory_per_ha'] = {'open': 0, 'moderate': 30, 'thick': 140, 'why': 'shrubs and saplings drawn per hectare among the trees of a wood for each reading of its understory (the scene places them at the thick density in the woods the choice CF-VEG-UNDER can act on and draws the share the reading keeps); the numbers are look parameters (plausible-procedural), the record gives words, not counts'}
     cal['lodging'] = {'from_min': iso_min('1863-07-03T22:00'), 'to_min': iso_min('1863-07-04T14:00'), 'crops': ['wheat', 'rye', 'barley', 'oats'], 'why': 'heavy rain from late 3 July into 4 July (weather record); the share of the standing crop laid flat is the scenario CF-VEG-RAIN'}
     return cal
+
+
+NAMED_RULES = [      # the features a timeline row can name, and the rule that finds the unit (an outline of the layer) each is drawn as
+    ('The Wheatfield (George Rose farm)', 'lc', 'LC-FIELD-0001'),
+    ('The Peach Orchard (Sherfy; the Warren polygon includes the J. Want block)', 'lc', 'LC-ORCH-0206'),
+    ('Herbst Woods (Reynolds Woods) and the McPherson woodlots', 'lc', 'LC-WOOD-0010'),
+    ('Big Round Top (timber)', 'lc', 'LC-WOOD-0002'),
+    ('Little Round Top, east slope (wooded: the Bushman and Weikert tracts)', 'lc', 'LC-WOOD-LRT-E'),
+    ('Little Round Top, west slope (the Hanaway tract, cleared)', 'lc', 'LC-OPEN-0001'),
+    ("Devil's Den and Houck's Ridge boulder field", 'lc', 'LC-BOULD-0001'),
+    ('Plum Run bottom (the Codori-Trostle thicket, the Valley of Death, the Slaughter Pen)', 'lc', 'LC-WET-0001'),
+    ("Culp's Hill (timber)", 'lc', 'LC-WOOD-0001'),
+    ('Seminary Ridge grove (Lutheran Theological Seminary)', 'lc', 'LC-WOOD-0067'),
+    ("Ziegler's Grove", 'gz', "Ziegler's Grove", ('woods',), 150),
+    ('The Copse of Trees (at the Angle)', 'gz', 'The Angle', ('woods', 'scatter'), 120),
+    ("Pitzer's Woods", 'gz', "Pitzer's Woods", ('woods',), 200),
+    ("Biesecker's Woods", 'gz', "Biesecker's Woods", ('woods',), 200),
+    ('Meyers orchard (national cemetery site)', 'claim', 'VC-NPSC-CLR-CEMETERY-p045-06'),
+]
+
+
+def named_features(units, uo, claims_all, gz):
+    """the table from the words of a timeline row to the units of the layer: each entry names its rule (`via`) and the tier of the identification"""
+    by_lc = {u['lc']: i for i, u in enumerate(units)}
+    out = []
+    for rule in NAMED_RULES:
+        name, kind = rule[0], rule[1]
+        i, via, tier = None, None, 'inferred'
+        if kind == 'lc':
+            i = by_lc.get(rule[2])
+            if i is not None:
+                nm = uo[i].get('name')
+                via = 'the polygon %s of the land-cover layer%s' % (rule[2], ' (named "%s" on the Warren sheet)' % nm if nm else '')
+                tier = 'documented' if nm else 'inferred'
+        elif kind == 'gz':
+            pt, cls = gz.get(rule[2]), rule[3]
+            c = sorted((u['geom'].distance(pt), k) for k, u in enumerate(units) if u['cls'] in cls) if pt is not None else []
+            if c and c[0][0] <= rule[4]:
+                i, via = c[0][1], 'the nearest %s of the layer to the gazetteer place "%s" (%d m)' % ('/'.join(cls), rule[2], c[0][0])
+        elif kind == 'claim':
+            for k, r in enumerate(uo):
+                if any(cid == rule[2] and role in ('exact', 'nearest') for cid, role in r['claims']):
+                    i, via = k, 'the unit the claim %s is placed on by its rule' % rule[2]
+                    break
+        if i is not None:
+            out.append({'name': name, 'unit': uo[i]['id'], 'lc': uo[i]['lc'], 'via': via, 'tier': tier})
+    return out
 
 
 def write_all(args):
@@ -923,13 +1027,30 @@ def write_all(args):
     assert not miss, 'the tables cite claims that do not exist: %s' % miss
     sc = json.loads(json.dumps(TB.SCENARIOS))
     sc['CF-VEG-LRT']['lrt_units'] = lrt_units
+    for cid_list in [o['by'] for sc_ in sc.values() for o in sc_['options'].values() if o.get('by')]:
+        for cid in cid_list:
+            assert cid in ids, ('a scenario cites a claim that does not exist', cid)
+    use_study = getattr(args, 'mcpherson', 'clr') == 'study'
+    mix_alt, farms_alt, acres_alt = district_mix({c['id']: c for c in claims_all.values()}, alt=not use_study)
+    conflicts = [{'id': 'CF-VEG-MCPHERSON', 'title': 'McPherson farm: the acres of the tenant\'s claim', 'applied': 'at the build (the crop of a field cell is a seeded draw from the district mix: the other reading means building again with `--mcpherson study`)',
+                  'default': 'study-1977' if use_study else 'clr', 'tier': 'inferred',
+                  'readings': [{'id': 'clr', 'label': 'Cultural Landscape Report: 9 acres of wheat, 16 of corn, 4 of oats, 18 of grass, half an acre of potatoes', 'by': ['VC-NPS-031']},
+                               {'id': 'study-1977', 'label': 'Study of 1977 (the petition and abstract): 18 acres of wheat, 16 of corn, 14 of oats, 18 of grass, half an acre of potatoes', 'by': ['VC-NPSC-HS-MCPHERSON-p099-01', 'VC-NPSC-HS-MCPHERSON-p101-01b']}],
+                  'mix': {'used': mix, 'other': mix_alt}}]
+    # the park's totals of 1863 (a coverage check, not a target: the area the table covers is not stated)
+    gmp = claims_all.get('VC-NPSC-GMP-1999-V1-p061-01', {}).get('about') or {}
+    acre = lambda cls: round(sum(u['area_ac'] for u in uo if u['cls'] == cls), 1)
+    coverage = {'woods_acres': acre('woods'), 'scattered_trees_acres': acre('scatter'), 'orchard_acres': acre('orchard'), 'field_acres': round(sum(u['area_ac'] for u in uo if u['cls'] in ('field', 'wheatfield')), 1),
+                'park_1863': {'claim': 'VC-NPSC-GMP-1999-V1-p061-01', 'woodlots_and_woodlands_acres': gmp.get('woods_acres'), 'orchards_acres': gmp.get('orchard_acres'), 'tier': 'documented'},
+                'note': 'The park\'s table of its base map of 1863 does not say what area it covers; the layer holds the ground the theatre loads (about 5 by 6 km) and the Warren outlines (1868-69). The two are compared for order of magnitude only (DD-NPS-07); no target is drawn from them.'}
+    named = named_features(units, uo, claims_all, gazetteer())
     lrt = gz_point_ll('Little Round Top')
     sc['CF-VEG-LRT']['summit'] = {'lnglat': lrt, 'r_m': 90}
     meta = {
         'title': 'Vegetation of July 1863',
         'schema': SCHEMA,
         'requirement': 'R20', 'gate': 'Q21',
-        'as_of': '2026-11-13',
+        'as_of': '2026-11-15',
         'time': {'unit': 'minutes since 1863-06-01 00:00 local mean time', 'window': ['1863-06-26T00:00', '1863-07-14T24:00'], 'epilogue': '1863-11-19'},
         'ground': {'lng': [terr['lng0'], terr['lng1']], 'lat': [terr['lat0'], terr['lat1']], 'note': 'units are clipped to the ground the theatre loads'},
         'geometry': {'woods_orchards_trees': 'the land-cover layer of the 1863 base map, outlined from the Warren survey of 1868-69 and placed to 30-40 m (docs/basemap1863/SOURCES-landcover.md); woodlot extents are those of 1868-69',
@@ -940,11 +1061,14 @@ def write_all(args):
         'tiers': {'units_geometry': dict(collections.Counter(u['geom_tier'] for u in uo)), 'field_crops': dict(collections.Counter(u.get('crop_tier') for u in uo if u['cls'] in ('field', 'wheatfield')))},
         'sources': {'landcover_sha256': {n: sha256_file(os.path.join(LC, n + '.geojson')) for n in ('woods_1863', 'orchards_1863', 'scattered_trees_1863', 'marsh_wetland_1863', 'boulder_fields_1863', 'open_cleared_1863', 'fields_documented_1863', 'open_ground_1863')},
                     'claims_sha256': sha256_file(CLAIMS)},
-        'mix': {'shares': mix, 'acres_read': {k: round(v, 1) for k, v in sorted(acres.items())}, 'farms': farm_rows, 'tier': 'plausible-procedural',
+        'coverage': coverage,
+        'named': named,
+        'id_note': 'unit ids V-nnnn are assigned in a fixed order (class, land-cover id, place) from the land-cover layer of the 1863 base map: they change only when that layer or the confirmed fence lines change; the `lc` of a unit is the stable name, and `named` lists the features a timeline row can name',
+        'mix': {'alt': mix_alt, 'shares': mix, 'acres_read': {k: round(v, 1) for k, v in sorted(acres.items())}, 'farms': farm_rows, 'tier': 'plausible-procedural',
                 'basis': 'shares of the acreages the damage claims of the farms in `farms` destroyed (arable and hay), with pasture raised to its floor; a draw from this mix assigns the crop of every cell no claim names'},
     }
     doc = {'schema': SCHEMA, 'meta': meta, 'calendar': calendar_json(), 'species': TB.SPECIES, 'woods_classes': TB.WOODS, 'orchard_classes': TB.ORCHARD, 'scenarios': sc, 'farms': farm_out, 'witness_trees': wts, 'events': events,
-           'gaps': [{'id': g[0], 'title': g[1], 'what': g[2], 'why': g[3], 'tier': g[4], 'register': 'ws-world-veg-' + g[0]} for g in TB.GAPS], 'claims': cl_out, 'units': uo}
+           'conflicts': conflicts, 'gaps': [{'id': g[0], 'title': g[1], 'what': g[2].replace('__MIX__', 'wheat %.0f%%, oats %.0f%%, hay %.0f%% against %.0f%%, %.0f%%, %.0f%%' % tuple(100 * x for x in (mix_alt.get('wheat', 0), mix_alt.get('oats', 0), mix_alt.get('hay', 0), mix.get('wheat', 0), mix.get('oats', 0), mix.get('hay', 0)))), 'why': g[3], 'tier': g[4], 'register': 'ws-world-veg-' + g[0]} for g in TB.GAPS], 'claims': cl_out, 'units': uo}
     text = json.dumps(doc, ensure_ascii=False, separators=(',', ':'))
     return text, doc
 
@@ -973,6 +1097,7 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--check', action='store_true')
     ap.add_argument('--no-register', action='store_true')
+    ap.add_argument('--mcpherson', choices=('clr', 'study'), default='clr', help='which reading of the McPherson acres feeds the district mix (conflict CF-VEG-MCPHERSON)')
     ap.add_argument('--out', help='write the data here instead of the app data file (the register proposals are then not written)')
     a = ap.parse_args()
     if a.out:

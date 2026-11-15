@@ -1,6 +1,6 @@
 """Counts, error kinds and one-sided 95 percent Clopper-Pearson bounds of the independent sample, per stratum (data2/qa/stats.json).
 
-    python3 -I qa_stats.py            read every data2/qa/pages/*.verdict.json, write data2/qa/stats.json and data2/qa/<family>.json, print a table
+    python3 -I qa_stats.py            read every data2/qa/pages/*.verdict.json (and the addendum of a second sitting where one exists), write data2/qa/stats.json and data2/qa/<family>.json, print a table
 
 Gates (PLAN.md 4.3, 4.4; kinds are defined in qa_verdict.py):
   R-G1 names           rows with a name-* kind among all rows looked at (level N: every page)
@@ -60,9 +60,7 @@ def lower(n, k):
 
 
 def main():
-    vs = []
-    for p in sorted(glob.glob(os.path.join(Q.QA, 'pages', '*.verdict.json'))):
-        vs.append(Q.jload(p))
+    vs = Q.load_verdicts()          # the first verdicts with the addenda of the second sitting merged in (qa_lib.merge_addendum)
     draw = Q.jload(os.path.join(Q.QA, 'draw.json'))['strata']
     by = collections.defaultdict(list)
     for v in vs:

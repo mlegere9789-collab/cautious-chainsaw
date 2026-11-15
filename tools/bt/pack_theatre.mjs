@@ -259,9 +259,10 @@ export function trace(opts = {}) {
     census = loadCensus(censusArgs());
   }
   if (!census.available) problems.push(census.reason);
-  if (byCensus.length) notes.push(`${byCensus.length} file(s) are in the build because the load census found a load of them that the patterns of the trace do not follow (extend the patterns): ${byCensus.slice(0, 6).map(x => x.path).join(', ')}${byCensus.length > 6 ? ', ...' : ''}`);
   const leftOut = [];
   for (const e of cfg.exclude) { const d = typeof e === 'string' ? e : e.path, abs = path.join(root, d), gone = []; for (const f of [...files.keys()]) if (f === abs || f.startsWith(abs + path.sep)) { files.delete(f); gone.push(rel(f)); } if (gone.length) leftOut.push({ path: d, files: gone.length, why: typeof e === 'string' ? '' : e.why || '' }); }
+  const shippedByCensus = byCensus.filter(x => files.has(path.join(root, x.path)));        // not the ones EXCLUDE took out again
+  if (shippedByCensus.length) notes.push(`${shippedByCensus.length} file(s) are in the build because the load census found a load of them that the patterns of the trace do not follow (extend the patterns): ${shippedByCensus.slice(0, 6).map(x => x.path).join(', ')}${shippedByCensus.length > 6 ? ', ...' : ''}`);
   // ---- working files that are shipped reduced: every shipped module that names one must be a listed reader, reading it the listed way
   const projected = [];
   for (const p of cfg.project) { const abs = path.join(root, p.path); if (!files.has(abs)) continue; const base = path.basename(p.path); let ok = true;
@@ -277,7 +278,7 @@ export function trace(opts = {}) {
   return { root, files: shipped, leftOut, problems: [...new Set(problems)], notes: [...new Set(notes)].sort(), why, urlKeys: cfg.urlKeys,
     withheld: [...withheld.values()].map(w => ({ id: w.id, pattern: w.pattern, why: w.why, files: w.files.size, referencedBy: [...w.referencedBy].sort() })),
     projected, sections, pages: [...seenPage].map(rel).sort(), modules: { loaded: [...seenMod].filter(([, m]) => m === 'reached').map(([f]) => rel(f)).sort(), shippedOnly: [...seenMod].filter(([f, m]) => m === 'shipped' && files.has(f)).map(([f]) => rel(f)).sort() },
-    computedImports: computed, unshippedLiterals: [...unshipped.values()].sort((a, b) => (a.file + a.literal < b.file + b.literal ? -1 : 1)), external: [...external].sort(), census, byCensus };
+    computedImports: computed, unshippedLiterals: [...unshipped.values()].sort((a, b) => (a.file + a.literal < b.file + b.literal ? -1 : 1)), external: [...external].sort(), census, byCensus: shippedByCensus };
 }
 
 // ---- transforms of the files that differ from the repository copy
@@ -560,7 +561,8 @@ function censusRaw(code, urlKeys) {
         if (!n.computed && /^(href|pathname)$/.test(n.property.name)) return ev(n.object, anc, depth + 1);
         return [[HOLE]];
       }
-      case 'NewExpression': if (n.callee.type === 'Identifier' && n.callee.name === 'URL' && n.arguments.length) { const rel = ev(n.arguments[0], anc, depth + 1); return n.arguments[1] ? cross(ev(n.arguments[1], anc, depth + 1), rel) : rel; } return [[HOLE]];
+      case 'NewExpression': if (n.callee.type === 'Identifier' && n.callee.name === 'URL' && n.arguments.length) { const rel = ev(n.arguments[0], anc, depth + 1); return n.arguments[1] ? cross(ev(n.arguments[1], anc, depth + 1), rel) : rel; }
+        if (n.callee.type === 'Identifier' && n.callee.name === 'Request' && n.arguments.length) return ev(n.arguments[0], anc, depth + 1); return [[HOLE]];
       case 'CallExpression': if (n.callee.type === 'Identifier' && n.callee.name === 'String' && n.arguments.length === 1) return ev(n.arguments[0], anc, depth + 1); return [[HOLE]];
       case 'Identifier': {
         for (const f of enclosing(anc)) if (fnParams(f).has(n.name)) return [[{ t: 'param', name: n.name }]];
@@ -621,7 +623,8 @@ export function loadCensus({ root = BT, files, urlKeys = URL_KEYS, pages = [], l
     const P = []; for (const x of parts) { if (x.t === 'lit') { if (x.s === '') continue; if (P.length && P[P.length - 1].t === 'lit') { P[P.length - 1] = lit(P[P.length - 1].s + x.s); continue; } } P.push(x); }
     if (!P.length) return { status: 'empty' };
     const head = P[0]; let i = 1, p = head.t === 'lit' ? head.s : ''; while (i < P.length && P[i].t === 'lit') { p += P[i].s; i++; }
-    const open = i < P.length, suffix = open && P[P.length - 1].t === 'lit' ? P[P.length - 1].s : '';
+    let open = i < P.length, suffix = open && P[P.length - 1].t === 'lit' ? P[P.length - 1].s : '';
+    const q = p.search(/[?#]/); if (q >= 0) { p = p.slice(0, q); open = false; suffix = ''; }                  // 'x.json?v=' + build: the file is the part before the query
     if (head.t === 'base') return target((urlKeys[head.key] || '') + p, open, suffix);
     if (head.t === 'mod') return target(posix(path.dirname(relFile)) + '/' + p, open, suffix);
     if (head.t === 'lit') {

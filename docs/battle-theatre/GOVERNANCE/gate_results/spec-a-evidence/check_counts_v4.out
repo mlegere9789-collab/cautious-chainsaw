@@ -22,10 +22,10 @@ OK       2.3 and 3.9: 39 of the 71 are the children of the 12 single-row require
 OK       5 each top row of requirements.json appears in section 5
 OK       U-01..U-28 contiguous
 OK       Contents names U-01..U-28
-OK       A-01..A-57 contiguous
-OK       Contents names A-01..A-57
-OK       DD-G01..DD-G15 contiguous in section 7
-OK       header names DD-G01 to DD-G15
+OK       A-01..A-60 contiguous
+OK       Contents names A-01..A-60
+OK       DD-G01..DD-G20 contiguous in section 7
+OK       header names DD-G01 to DD-G20
 OK       every DD-G of section 7 is a row of the decisions file
 OK       sections 1..11 present in order
 OK       28 gate sections Q01..Q28
@@ -37,16 +37,28 @@ OK       TL-1 seed tiers
 OK       TL-1 overlay tiers
 OK       TL-1 status_effective counts
 OK       1.4 the five unclassified rows are named
-MISMATCH 1.3 timeline correction counts :: `timeline_corrections/` holds 391 records over 282 row ids (231 row-level and 160 supplementary; 47 ids have more than one record; 51 ids have supplementary records only)
-MISMATCH 1.3 evidence correction counts :: `evidence_corrections/` holds 2,383 records over 169 ids (137 row-level and 2,246 supplementary; 73 ids have more than one record; 32 have supplementary records only)
-MISMATCH 1.3 records on top rows
-MISMATCH 1.3 confirmed or corrected with nothing left: 39 and 70
+OK       1.3 timeline correction counts
+OK       1.3 evidence correction counts
+OK       1.3 records on top rows
+OK       1.3 confirmed or corrected with nothing left: 54 and 74 (155 records have the verdict, 101 of them list something)
 OK       1.3 no verdict word outside the list of the derivation
-OK       1.3 alias spelling count 77
-MISMATCH 1.3 row-level records by class :: {'R14.S': (88, 88, 46, 0, 0), 'R14.E': (18, 18, 9, 0, 0), 'R13.G': (18, 16, 10, 0, 2), 'R13.P': (14, 9, 8, 3, 2), 'R12': (45, 4, 1, 5, 36), 'R03.C': (47, 0, 0, 5, 42), 'R22': (14, 0, 0, 14, 0)}
-MISMATCH 1.3 / SS-2: all 88 S rows have a row-level record, 42 clean
-MISMATCH Q25 the status-word table reproduces the three files :: {'blocked': {'counted': 4, 'spec': 3}, 'ingested': {'counted': 23, 'spec': 19}, 'partial': {'counted': 13, 'spec': 12}, 'unusable': {'counted': 3, 'spec': 1}}
+OK       1.3 alias spelling count
+OK       1.3 row-level records by class
+OK       1.3 / SS-2: all 88 S rows have a row-level record, 46 clean
+OK       Q25 every status word in use is a row of the spec table (a word outside the table is FAIL by CT-1 and Q25.2)
+OK       Q25 the status-word table reproduces the counts of the three files
+OK       Q25 ids after merging: 58
 OK       Q10.1 night minutes 10,380 + 1,694 = 12,074 at the integer minute
 OK       Q10.1 at mid-minute 10,381 + 1,693 = 12,074
 OK       Q10.1 grid 27,360 + 2,880 minutes
-{"checks": 51, "ok": 44, "mismatches": 7, "mismatched": ["1.3 timeline correction counts", "1.3 evidence correction counts", "1.3 records on top rows", "1.3 confirmed or corrected with nothing left: 39 and 70", "1.3 row-level records by class", "1.3 / SS-2: all 88 S rows have a row-level record, 42 clean", "Q25 the status-word table reproduces the three files"]}
+OK       TL-13 rows wholly outside the clock are T1-001, T1-002 and T3-209 to T3-219 (13 rows; 12 by the date field)
+OK       SS-12 S-077 has the phase Construction inside the clock and Open and Closed beyond it
+OK       SS-12 S-081 is a state of 19 November inside the clock
+OK       SS-10 the rows out of the battle scope are S-078 and S-079
+OK       U-06 the clock of the viewer: BATTLE 26 June to 15 July 00:00, EPILOGUE 18 to 20 November 00:00
+OK       2.3 / Q21 / 9 vegetation: 927 units in 8 classes, 559 claims
+OK       Q17 / 9 realization results: digest fc85b8db0fca8cae, 4 realized, 20 with a record, 671 without
+OK       Q16 the set P is empty: documented_position_count is 0 and no statement of where the camera stood gives a coordinate
+OK       Q16 photo-match counts: 191 registry records, 145 statements, 20 poses, 3 places
+OK       7 threshold ids are unique and T-Q21-1 to T-Q21-3 are rows of the registry (42 thresholds)
+{"checks": 51, "ok": 51, "mismatches": 0, "mismatched": [], "soft_checks_stale": 0, "stale": []}

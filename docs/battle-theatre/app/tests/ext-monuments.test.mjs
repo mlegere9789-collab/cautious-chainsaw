@@ -203,6 +203,10 @@ test('placeLabel: on the right of the place; on the left, above or below when a 
   // a phone: 390 px wide, no panel: a label of 330 px has no side that fits except centred above; one of 549 px is cut to the width of the picture
   assert.equal(P.placeLabel(195, 360, 330, 26, 390, 844, [], o).side, 'above'); const ph = P.placeLabel(195, 360, 549, 26, 390, 844, [], o); assert.equal(ph.cut, true); assert.equal(ph.maxW, 378); assert.equal(ph.x, 6);
 });
+test('wrapLines and wrapHeight: a label that fits is one line; one that does not takes the lines its text needs (a tenth more than an even fill), never fewer than two, and the box is that many lines tall', () => {
+  assert.equal(P.wrapLines(330, 330), 1); assert.equal(P.wrapLines(330, 500), 1); assert.equal(P.wrapLines(600, 460), 2); assert.equal(P.wrapLines(600, 300), 3); assert.equal(P.wrapLines(600, 61), 31, 'a stretch narrower than the label\'s own chrome counts as a room of 20 px: 556 px of text in lines of 20 px, a tenth more');
+  assert.equal(P.wrapLines(331, 330), 2); assert.ok(P.wrapLines(2000, 100) >= 20); assert.equal(P.wrapHeight(32, 1), 32); assert.equal(P.wrapHeight(32, 2), 39.2); assert.equal(P.wrapHeight(32, 3), 54.8);
+});
 test('placeLabel, 4000 pictures: a label that is not cut is on the picture and, when it stands beside the place, under no panel; one that is cut is cut to a stretch narrower than itself; the answer is the same for the same question', () => {
   let seed = 12345; const rnd = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296, ri = (a, b) => Math.floor(a + rnd() * (b - a + 1));
   const hit = (b, r) => b[0] < r[2] && b[2] > r[0] && b[1] < r[3] && b[3] > r[1]; let sides = { right: 0, left: 0, above: 0, below: 0, band: 0 }, cuts = 0;

@@ -278,6 +278,24 @@ test('the checker: deterministic, reports the record files\' problems, never wri
   assert.equal(d.q17.ok, false); assert.equal(d.harness_digest, harnessDigest());
   fs.rmSync(dir, { recursive: true });
 });
+test('the checker: a line that is no record, a record for a row the timeline does not have, and a record the harness could not run are problems of the FILE, listed and never a crash (check.mjs runAll)', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'rz-')), f = path.join(dir, 'x.jsonl'), good = JSON.stringify(ex('T1-003'));
+  fs.writeFileSync(f, ['null', '[1,2]', '"T1-003"', '{"id": 5}', '{"id": "T9-999", "kind": "weather_sky"}', good, '{"id": "T1-004", "harness": "bt-realize-1", "kind": 7, "checks": true, "entities": {"units": 5}, "missing": "x"}'].join('\n') + '\n');
+  const out = spawnSync('node', [path.join(ROOT, 'tools/bt/realize/check.mjs'), '--file', f, '--json'], { encoding: 'utf8', maxBuffer: 1 << 28 }); assert.equal(out.status, 1, 'a file with problems: exit code 1, and the report is written all the same: ' + out.stderr);
+  const d = JSON.parse(out.stdout), pr = d.record_file_problems; assert.equal(pr.length, 5, JSON.stringify(pr.map(p => p.line)));
+  for (const line of [1, 2, 3, 4]) assert.ok(pr.some(p => p.line === line && /one JSON object with a string "id"/.test(p.error)), `line ${line} is no record`);
+  assert.ok(pr.some(p => p.line === 5 && /the timeline has no such row/.test(p.error)), 'a record for T9-999 is not silently dropped'); assert.equal(d.rows['T1-003'].realized, true, 'the good record of the same file is still run');
+  assert.equal(d.rows['T1-004'].realized, false); assert.ok(!d.rows['T1-004'].codes.includes('record_crash'), 'a malformed record is a result with the problems of its shape'); assert.equal(d.q17.ok, false, 'a file with problems is no verdict'); assert.equal(d.q17.ok_strict, false);
+  fs.rmSync(dir, { recursive: true });
+});
+test('a record the harness could not run is a problem of the file with the message of the exception, and the other rows are still run (check.mjs runAll)', async () => {
+  class Boom extends Runner { async _runRecord(rec, o) { if (rec.id === 'T1-004') throw new Error('boom in the record of T1-004'); return super._runRecord(rec, o); } }
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'rz-')), f = path.join(dir, 'x.jsonl'); fs.writeFileSync(f, ['T1-003', 'T1-004'].map(id => JSON.stringify(ex(id))).join('\n') + '\n');
+  try {
+    const r = await runAll({ files: [f], runner: new Boom(P, TL), product: P }); assert.ok(r.problems.some(p => p.line === 2 && /^record_crash: T1-004: .*boom in the record of T1-004/.test(p.error)), JSON.stringify(r.problems));
+    assert.equal(r.out['T1-004'].realized, false); assert.ok(r.out['T1-004'].codes.includes('record_crash')); assert.equal(r.out['T1-003'].realized, true, 'the other record of the file is run all the same'); assert.equal(r.problems.length, 1);
+  } finally { fs.rmSync(dir, { recursive: true }); }
+});
 test('RESULTS.json: written by the full run, one entry per timeline row, coverage = realization or an open register entry (the register half is compared with tools/bt/check_coverage.py in realize-inputs.test.mjs, which runs that script)', () => {
   const p = path.join(REAL, 'RESULTS.json'); assert.ok(fs.existsSync(p), 'RESULTS.json is produced by check.mjs (a full run); the tree ships it');
   const d = readJSON(p); assert.equal(Object.keys(d.rows).length, 691); assert.equal(Object.keys(d.epilogue).length, 14); assert.equal(d.harness, H);
@@ -311,6 +329,9 @@ test('the author tools print what the harness knows: row, suggest, place', () =>
   const sug = q('suggest', 'T1-097'); assert.equal(sug.status, 0); assert.match(sug.stdout, /UNIT us-1c-1d-cutler-147ny/); assert.match(sug.stdout, /McPherson Ridge \[tol 430 m\]/);
   const pl = q('place', 'Cemetery Hill'); assert.match(pl.stdout, /"tolerance_m": 250/); const unk = q('place', 'Belmont Road'); assert.match(unk.stdout, /unknown/);
   const rows = q('rows', 'tl-01'); assert.match(rows.stdout, /T1-003 \[[a-z ]+\] REALIZED weather_sky/);
+  // the numbers an angle or wind assertion is matched to are printed with the digits the tolerance rule reads (T1-196: moon altitude 18.5, azimuth 136 at 22:00 on 1 July; the wind of 1 July is recorded)
+  const sky = JSON.parse(q('sky', '1863-07-01T22:00').stdout); assert.equal(sky.moon.alt, 18.489); assert.equal(sky.moon.az, 136.23); assert.ok(sky.sun.az > 329 && sky.sun.az < 330 && sky.sun.alt < -20);
+  const wx = JSON.parse(q('weather', '1863-07-01T22:00').stdout); assert.equal(wx.wind.from_deg, 191.25); assert.equal(wx.wind.direction_recorded, true); assert.ok(['S', 'SSW'].includes(wx.wind.from_point)); assert.equal(JSON.parse(q('weather', '1863-06-29T12:00').stdout).wind.direction_recorded, false);
 });
 test('gazetteer.json: the places the timeline names, unknown names listed and never given coordinates', () => {
   const p = path.join(REAL, 'gazetteer.json'); assert.ok(fs.existsSync(p), 'gazetteer.json is written by q.mjs gazetteer --write and ships with the tree'); const g = readJSON(p);

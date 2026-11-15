@@ -1,0 +1,21 @@
+ok    positive: check_structure on the unmodified copy
+ok    positive: check_gate_parts on the unmodified copy
+ok    positive: check_pages on the unmodified copy
+ok    positive: check_quotes on the unmodified copy
+ok    gate parts: Q09 without its Judges part
+ok    structure: a row of the ambiguity table with a missing cell
+ok    structure: A-99 and U-99 used and not defined
+ok    structure: the text of Q08 changed
+ok    quotes: a made-up quotation with a page cited
+ok    quotes: a real quotation cited to the wrong page
+ok    pages: a Q gate cited to a page that is not p. 136
+ok    paths: a path that does not exist
+ok    counts: 966 rows where the file has 969
+ok    counts: A-30 missing from the ambiguity register
+ok    counts: 12 rows outside the clock where the files give 13
+ok    counts: T-Q21-2 missing from the threshold registry
+ok    counts: DD-G21 is not a row of the decisions file
+ok    counts: RC-R20.3 removed (70 items, not 71)
+ok    counts: the phases of S-077 beyond the clock misdescribed
+ok    soft: a stale vegetation count is listed as STALE
+controls: 20, reported or clean as expected: 20, missed: 0

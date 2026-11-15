@@ -30,23 +30,18 @@ def members(ctx, sid):
     t = led.get('text', '')
     if t in ('', '-', 'none'):
         raise SystemExit('source %r has no local text (image or planned source)' % sid)
-    if '{part}' not in t:
-        return [(None, t)]
-    pat = t.replace('{part}', '*')
-    out = []
-    for f in sorted(glob.glob(os.path.join(ctx.root, pat))):
-        rel = os.path.relpath(f, ctx.root)
-        # recover the part: the text between the template prefix and suffix
-        pre, suf = t.split('{part}')[0], t.split('{part}')[-1]
-        mid = t.split('{part}')
-        part = rel
-        if len(mid) == 2:
-            part = rel[len(mid[0]):len(rel) - len(mid[1])]
-        elif len(mid) == 3:          # {part} twice in the template (paper issues): the first occurrence gives the part
-            first = rel[len(mid[0]):]
-            part = first[:first.index(mid[1])] if mid[1] in first else first
-        out.append((part, rel))
-    return out
+    return V.list_texts(ctx, sid)
+
+
+def light_text(ctx, rel):
+    """(raw text, page marks) of a local text, read the way the validator reads it but without building the comparison skeleton (a search over a whole family would otherwise build one per page)."""
+    hit = ctx._texts.get(rel)
+    if hit:
+        return hit[0], hit[3]
+    with open(os.path.join(ctx.root, rel), encoding='utf-8', errors='replace', newline='') as f:
+        raw = f.read()
+    marks = [(m.start(), int(m.group(1))) for m in re.finditer(r'^=== PAGE (\d+) ===\s*$', raw, re.M)]
+    return raw, marks
 
 
 def run(sid, pattern, part=None, context=260, maxn=8, ctx=None):
@@ -57,7 +52,7 @@ def run(sid, pattern, part=None, context=260, maxn=8, ctx=None):
     for pt, rel in members(ctx, sid):
         if part and pt != part:
             continue
-        raw, skel, omap, marks = ctx.text(rel)
+        raw, marks = light_text(ctx, rel)
         for m in rx.finditer(raw):
             page = None
             for pos, k in marks:
@@ -94,13 +89,28 @@ def self_test():
             f.write('=== PAGE 1 ===\nnothing\n=== PAGE 2 ===\nThe Court-\nhouse stood on the square and was used as a\nhospital.\n')
         with open(os.path.join(tmp, 'tmp/library/test/p-1.txt'), 'w', encoding='utf-8') as f:
             f.write('the barn burned\n')
+        os.makedirs(os.path.join(tmp, 'tmp/library/test/nest/sn1/1863-07-08/ed-1'))
+        with open(os.path.join(tmp, 'tmp/library/test/nest/sn1/1863-07-08/ed-1/seq-2.txt'), 'w', encoding='utf-8') as f:
+            f.write('the court house was crowded with wounded\n')
+        os.makedirs(os.path.join(tmp, 'tmp/library/test/two'))
+        with open(os.path.join(tmp, 'tmp/library/test/two/x-1863-07-14__y-1863-07-14.txt'), 'w', encoding='utf-8') as f:
+            f.write('a church was used as a hospital\n')
         with open(os.path.join(tmp, 'docs/battle-theatre/town/SOURCES.md'), 'w', encoding='utf-8') as f:
             f.write('| id | class | title | date | text | sha256 | pages | rights | url | notes |\n|---|---|---|---|---|---|---|---|---|---|\n'
-                    '| A | official | t | 1 | tmp/library/test/a.txt | - | markers | - | - | - |\n| FAM | primary | t | 1 | tmp/library/test/p-{part}.txt | - | none | - | - | - |\n')
+                    '| A | official | t | 1 | tmp/library/test/a.txt | - | markers | - | - | - |\n| FAM | primary | t | 1 | tmp/library/test/p-{part}.txt | - | none | - | - | - |\n'
+                    '| NEST | primary | t | 1 | tmp/library/test/nest/{part}.txt | - | none | - | - | - |\n'
+                    '| TWICE | primary | t | 1 | tmp/library/test/two/x-{part}__y-{part}.txt | - | none | - | - | - |\n')
         c = V.Ctx(tmp)
         assert run('A', 'court house stood', ctx=c) == 1
         assert run('FAM', 'barn', part='1', ctx=c) == 1
         assert run('FAM', 'barn', part='2', ctx=c) == 0
+        # a family whose part holds slashes (the newspaper pages) and a template that names the part twice (the weeklies)
+        assert V.list_texts(c, 'NEST') == [('sn1/1863-07-08/ed-1/seq-2', 'tmp/library/test/nest/sn1/1863-07-08/ed-1/seq-2.txt')], V.list_texts(c, 'NEST')
+        assert V.list_texts(c, 'TWICE') == [('1863-07-14', 'tmp/library/test/two/x-1863-07-14__y-1863-07-14.txt')], V.list_texts(c, 'TWICE')
+        assert run('NEST', 'court house', ctx=c) == 1
+        assert run('NEST', 'court house', part='sn1/1863-07-08/ed-1/seq-2', ctx=c) == 1
+        assert run('TWICE', 'church.{0,30}hospital', part='1863-07-14', ctx=c) == 1
+        assert run('TWICE', 'church', part='1863-07-15', ctx=c) == 0
         raw = open(os.path.join(tmp, 'tmp/library/test/a.txt'), newline='').read()
         m = compile_pat('court house stood').search(raw)
         assert m and raw[m.start():m.start() + 5] == 'Court'

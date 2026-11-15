@@ -22,3 +22,5 @@ for (const [f, s] of text) { fs.writeFileSync(f, s); console.log('changed ' + f)
 ```
 
 What it does not cover (these need a generator and its data file changed together, which only their owners can do): `app/data/gazetteer.json` and `app/tools/build-gazetteer.mjs` (units), `app/data/engagements.json` and `app/tools/build-engagements.mjs` (units), `app/src/figures3d/skeleton.mjs` line 193 with `app/data/figures3d/skeleton.json` and `app/tools/figures3d-build.mjs` (figures), `app/data/battery-guns.json` and `app/tools/build-guns.mjs` (a script is at the end of `bt-oob-kit-build-guns-doc.md`). The details of every line are in the three lane notes above.
+
+-- update (bt-spec-health, 2026-11-15 23:16 UTC): this patch is now one of the lanes of the script in bt-spec-health-copy-audit-apply-all.md (lanes figures, units, structures, guns; the generator and data pairs of the units and guns lanes are in it too).

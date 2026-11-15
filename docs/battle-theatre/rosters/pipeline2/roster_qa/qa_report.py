@@ -57,7 +57,7 @@ def main():
     A = w.append
     frame = Q.jload(os.path.join(Q.QA, 'frame.json'))
     draw = Q.jload(os.path.join(Q.QA, 'draw.json'))['strata']
-    verdicts = [Q.jload(p) for p in sorted(glob.glob(os.path.join(Q.QA, 'pages', '*.verdict.json')))]
+    verdicts = Q.load_verdicts()
     S.main.__call__ if False else None
     stats = Q.jload(os.path.join(Q.QA, 'stats.json'))
     claims = Q.jload(os.path.join(Q.QA, 'claims-check.json')) if os.path.exists(os.path.join(Q.QA, 'claims-check.json')) else None

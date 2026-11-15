@@ -254,6 +254,11 @@ export function freeBand(ax, top, bottom, w, av, m = 6) {
   for (let q = 0; av && q < av.length; q++) { const p = av[q]; if (!(p[1] < bottom && p[3] > top)) continue; if (p[2] <= ax) { if (p[2] + m > l) l = p[2] + m; } else if (p[0] >= ax) { if (p[0] - m < r) r = p[0] - m; } else blocked = true; }
   return [l, r, blocked];
 }
+/** How many lines a one-line label of natural width `natural` px takes when it may be `maxW` px wide: its text is `natural` less the `chrome` (padding, border, gap and the close button: 44 px of the
+ *  tour pin's label), and words do not fill a line to the last pixel (10 % more). The height of such a box: lines times `line` px (12 px type at 1.3) plus `pad` for padding and border, never less than
+ *  the one-line height. */
+export const wrapLines = (natural, maxW, chrome = 44) => (natural <= maxW ? 1 : Math.max(2, Math.ceil(Math.max(20, natural - chrome) / Math.max(20, maxW - chrome) * 1.1)));
+export const wrapHeight = (oneLine, lines, line = 15.6, pad = 8) => Math.max(oneLine, lines * line + pad);
 /** Where a label box (bw by bh css pixels) stands beside a point (ax, ay) of the picture (w by h) so that no panel covers it and all of it is on the picture. It tries, in this order, the right of the
  *  point (the box's left edge `gap` px off, its top `up` px above the point), the left of it, above it, below it (centred, `above` px off); o.prefer, the side it stood on last time, goes first while
  *  it still fits, so a label does not jump from frame to frame. When none stands clear it goes inside the free stretch of the row above the point (the row below it when a panel lies over the point
