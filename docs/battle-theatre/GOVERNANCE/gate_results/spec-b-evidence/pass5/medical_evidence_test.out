@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: groups.json: 14 to 22 groups, ids of lowercase letters, digits and hyphens, every field the group passes need
+ok 1 - groups.json: 14 to 22 groups, ids of lowercase letters, digits and hyphens, every field the group passes need
+  ---
+  duration_ms: 1.843965
+  type: 'test'
+  ...
+# Subtest: sources.json: every source has a class the validator knows, an edition, rights, a file; a lead source is never documented evidence; planned files are marked as planned
+ok 2 - sources.json: every source has a class the validator knows, an edition, rights, a file; a lead source is never documented evidence; planned files are marked as planned
+  ---
+  duration_ms: 2.774995
+  type: 'test'
+  ...
+# Subtest: validate_evidence.py --self-test passes (88 checks on synthetic texts; nothing of the repository is read or written)
+ok 3 - validate_evidence.py --self-test passes (88 checks on synthetic texts; nothing of the repository is read or written)
+  ---
+  duration_ms: 2009.56695
+  type: 'test'
+  ...
+# Subtest: validate_evidence.py: --list-groups agrees with groups.json; a usage error, an unknown group and a missing group file exit 1
+ok 4 - validate_evidence.py: --list-groups agrees with groups.json; a usage error, an unknown group and a missing group file exit 1
+  ---
+  duration_ms: 977.779849
+  type: 'test'
+  ...
+# Subtest: --check-sources: every local file of the registry and ledger has the recorded sha256 (NOT RUN when the texts are not in the checkout)
+ok 5 - --check-sources: every local file of the registry and ledger has the recorded sha256 (NOT RUN when the texts are not in the checkout)
+  ---
+  duration_ms: 459.146198
+  type: 'test'
+  ...
+# Subtest: --all: every evidence row of every group file passes (NOT RUN when the texts are not in the checkout)
+ok 6 - --all: every evidence row of every group file passes (NOT RUN when the texts are not in the checkout)
+  ---
+  duration_ms: 8368.933089
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11969.877154

@@ -1,0 +1,222 @@
+{
+ "limit": 6,
+ "rows": [
+  {
+   "case": "burst-close-jul3-1400",
+   "what": "a shell burst in the air: flash, smoke ring and fragments, close (stand-in plan, gun 0, 0.6 s after the burst)",
+   "all": {
+    "meanAbs": 0.336,
+    "rmse": 0.579,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.332,
+    "rmse": 0.576,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 200.511,
+   "meanLumGPU": 200.512,
+   "minLumGL": 174,
+   "minLumGPU": 174,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 2523,
+   "spritesGPU": 2523
+  },
+  {
+   "case": "falls-close-jul2-1100",
+   "what": "dust at the places where men fell, close (stand-in plan, the latest fall and the ones before it)",
+   "all": {
+    "meanAbs": 0.396,
+    "rmse": 2.121,
+    "p99": 1,
+    "max": 144,
+    "over8": 0.002,
+    "over24": 0.0006
+   },
+   "top": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.332,
+    "rmse": 0.576,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 175.867,
+   "meanLumGPU": 175.856,
+   "minLumGL": 7,
+   "minLumGPU": 8,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 50,
+   "spritesGPU": 50
+  },
+  {
+   "case": "fire-close-jul3-1500",
+   "what": "the barn fire close: flames, sparks and smoke, half intensity (time uncertain)",
+   "all": {
+    "meanAbs": 0.339,
+    "rmse": 0.62,
+    "p99": 1,
+    "max": 34,
+    "over8": 0.0002,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 169.285,
+   "meanLumGPU": 169.281,
+   "minLumGL": 93.07,
+   "minLumGPU": 92.99,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 2260,
+   "spritesGPU": 2260
+  },
+  {
+   "case": "fire-night-jul3-2200",
+   "what": "the barn fire at night: the light of the fire on the ground, flames and smoke, half intensity (time uncertain)",
+   "all": {
+    "meanAbs": 0.347,
+    "rmse": 0.697,
+    "p99": 1,
+    "max": 43,
+    "over8": 0.0005,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.336,
+    "rmse": 0.58,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.332,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 58.546,
+   "meanLumGPU": 58.543,
+   "minLumGL": 18,
+   "minLumGPU": 18,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 534,
+   "spritesGPU": 534
+  },
+  {
+   "case": "strike-close-jul3-1400",
+   "what": "a solid shot strikes the ground: clods thrown up and the dust plume, close (stand-in plan, gun 0, 0.7 s after the strike)",
+   "all": {
+    "meanAbs": 0.333,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.332,
+    "rmse": 0.576,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 186.741,
+   "meanLumGPU": 186.74,
+   "minLumGL": 116.82,
+   "minLumGPU": 116.82,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 2395,
+   "spritesGPU": 2395
+  },
+  {
+   "case": "volley-close-jul3-1400",
+   "what": "a fresh musket volley by day: flashes and the first smoke at 30 m (stand-in plan, 1 s after the volley)",
+   "all": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.335,
+    "rmse": 0.579,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.333,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 185.735,
+   "meanLumGPU": 185.735,
+   "minLumGL": 100.54,
+   "minLumGPU": 100.54,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 2689,
+   "spritesGPU": 2689
+  }
+ ],
+ "problems": []
+}

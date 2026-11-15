@@ -29,8 +29,9 @@ export async function realTerrain() {
 
 // ---- a recording 2D context: every call is kept, nothing is drawn
 export function recordingContext() {
-  const calls = [], texts = [], dashes = [], c = { calls, texts, dashes, fillStyle: '', strokeStyle: '', lineWidth: 1, font: '', textBaseline: '' };
+  const calls = [], texts = [], dashes = [], boxes = [], c = { calls, texts, dashes, boxes, fillStyle: '', strokeStyle: '', lineWidth: 1, font: '', textBaseline: '' };
   for (const m of ['setTransform', 'clearRect', 'beginPath', 'moveTo', 'lineTo', 'closePath', 'fill', 'stroke', 'arc', 'rect', 'fillRect', 'save', 'restore']) c[m] = () => { calls.push(m); };
+  c.fillRect = (x, y, w, h) => { calls.push('fillRect'); boxes.push([x, y, w, h]); };                // the boxes of the names: where each stands
   c.fillText = t => { calls.push('fillText'); texts.push(String(t)); }; c.setLineDash = d => { calls.push('setLineDash'); dashes.push([...d]); };
   c.measureText = t => ({ width: String(t).length * 6.2 }); return c;
 }

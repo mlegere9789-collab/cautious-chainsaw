@@ -1,0 +1,6 @@
+# node --test --test-reporter=tap tests/governance/realize-inputs.test.mjs   start 2026-11-15T22:59:31Z   exit 1   wall 195.3 s
+totals: {'tests': '15', 'suites': '0', 'pass': '14', 'fail': '1', 'cancelled': '0', 'skipped': '0', 'todo': '0', 'duration_ms': '195075.395343'}
+not ok lines: 1
+   not ok 8 - a partial run written over the earlier file recomputes the totals, q17 and scope from the merged rows (check.mjs main; the defect: q17.realized stayed 4 after T1-003 failed)
+skipped tests: 0
+NOT RUN (NEEDS_GPU) lines: 0

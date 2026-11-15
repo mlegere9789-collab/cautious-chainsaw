@@ -1,0 +1,226 @@
+TAP version 13
+# Subtest: WGSL: both modes are whole programs (balanced, no template leftovers, the entry points the pipelines name) and differ only in the mode constant
+ok 1 - WGSL: both modes are whole programs (balanced, no template leftovers, the entry points the pipelines name) and differ only in the mode constant
+  ---
+  duration_ms: 2.640953
+  type: 'test'
+  ...
+# Subtest: WGSL: the uniform block has the members of WU in the order and at the offsets the packer writes (std140-like: every member a vec4)
+ok 2 - WGSL: the uniform block has the members of WU in the order and at the offsets the packer writes (std140-like: every member a vec4)
+  ---
+  duration_ms: 5.231244
+  type: 'test'
+  ...
+# Subtest: WGSL is the port of the GLSL: the same numeric constants (as a set; the counts differ only where the WGSL shares one hash function and drops the GL depth-to-clip conversion)
+ok 3 - WGSL is the port of the GLSL: the same numeric constants (as a set; the counts differ only where the WGSL shares one hash function and drops the GL depth-to-clip conversion)
+  ---
+  duration_ms: 1.130192
+  type: 'test'
+  ...
+# Subtest: fx3d WGSL: the soft-particle depth read is patched to the hardware depth with the same linearisation as the GLSL; a changed source is refused
+ok 4 - fx3d WGSL: the soft-particle depth read is patched to the hardware depth with the same linearisation as the GLSL; a changed source is refused
+  ---
+  duration_ms: 5.261599
+  type: 'test'
+  ...
+# Subtest: the prototype's bind group 0, as the weather WGSL uses it: the frame block (dynamic offset, 512 bytes, enough for the 496 of FU), the height texture and its filtering sampler
+ok 5 - the prototype's bind group 0, as the weather WGSL uses it: the frame block (dynamic offset, 512 bytes, enough for the 496 of FU), the height texture and its filtering sampler
+  ---
+  duration_ms: 0.245568
+  type: 'test'
+  ...
+# Subtest: blend states are the GL blend functions of gl.mjs (multiply: ZERO, SRC_COLOR; add: ONE, ONE; sprites: ONE, ONE_MINUS_SRC_ALPHA)
+ok 6 - blend states are the GL blend functions of gl.mjs (multiply: ZERO, SRC_COLOR; add: ONE, ONE; sprites: ONE, ONE_MINUS_SRC_ALPHA)
+  ---
+  duration_ms: 0.218912
+  type: 'test'
+  ...
+# Subtest: uniform block: packWeather writes exactly the values gl.mjs sends to the WebGL2 program (0 lights)
+ok 7 - uniform block: packWeather writes exactly the values gl.mjs sends to the WebGL2 program (0 lights)
+  ---
+  duration_ms: 25.350946
+  type: 'test'
+  ...
+# Subtest: uniform block: packWeather writes exactly the values gl.mjs sends to the WebGL2 program (3 lights)
+ok 8 - uniform block: packWeather writes exactly the values gl.mjs sends to the WebGL2 program (3 lights)
+  ---
+  duration_ms: 20.103306
+  type: 'test'
+  ...
+# Subtest: uniform block: packWeather writes exactly the values gl.mjs sends to the WebGL2 program (16 lights)
+ok 9 - uniform block: packWeather writes exactly the values gl.mjs sends to the WebGL2 program (16 lights)
+  ---
+  duration_ms: 8.794443
+  type: 'test'
+  ...
+# Subtest: uniform block: packWeather writes exactly the values gl.mjs sends to the WebGL2 program (20 lights)
+ok 10 - uniform block: packWeather writes exactly the values gl.mjs sends to the WebGL2 program (20 lights)
+  ---
+  duration_ms: 9.030813
+  type: 'test'
+  ...
+# Subtest: uniform block: packWeather is a pure function of its inputs (no clock, no random) and clears the lights it does not use
+ok 11 - uniform block: packWeather is a pure function of its inputs (no clock, no random) and clears the lights it does not use
+  ---
+  duration_ms: 3.713519
+  type: 'test'
+  ...
+# Subtest: uniform block of the sprites: packFx writes exactly the values gl.mjs sends to the WebGL2 sprite program, and the matrix is the WebGPU view-projection
+ok 12 - uniform block of the sprites: packFx writes exactly the values gl.mjs sends to the WebGL2 sprite program, and the matrix is the WebGPU view-projection
+  ---
+  duration_ms: 598.17143
+  type: 'test'
+  ...
+# Subtest: GPUPasses builds the pipelines the pass needs with the same targets, depth state and blends as the WebGL2 path, and tells what it holds
+ok 13 - GPUPasses builds the pipelines the pass needs with the same targets, depth state and blends as the WebGL2 path, and tells what it holds
+  ---
+  duration_ms: 2.136014
+  type: 'test'
+  ...
+# Subtest: GPUPasses.draw: one pass, colour loaded, depth read-only; weather multiply then add, then the sprites; the uniforms uploaded are the packers' values
+ok 14 - GPUPasses.draw: one pass, colour loaded, depth read-only; weather multiply then add, then the sprites; the uniforms uploaded are the packers' values
+  ---
+  duration_ms: 1093.992484
+  type: 'test'
+  ...
+# Subtest: GPUPasses: GPU timing writes (timestamp queries) are used only when the device has them; a pipeline that fails to build is reported and the others still work
+ok 15 - GPUPasses: GPU timing writes (timestamp queries) are used only when the device has them; a pipeline that fails to build is reported and the others still work
+  ---
+  duration_ms: 633.596575
+  type: 'test'
+  ...
+# Subtest: GPUPasses never waits for ever on the device: a pipeline, the validation scope or the compiler messages that do not arrive end the set-up in time, reported, and the layer carries on with what built
+ok 16 - GPUPasses never waits for ever on the device: a pipeline, the validation scope or the compiler messages that do not arrive end the set-up in time, reported, and the layer carries on with what built
+  ---
+  duration_ms: 60205.078116
+  type: 'test'
+  ...
+# Subtest: fx-host on WebGPU: the prototype's sky and particles are switched off only when the new passes built; `after` is chained after whatever hook is there; dispose puts everything back
+ok 17 - fx-host on WebGPU: the prototype's sky and particles are switched off only when the new passes built; `after` is chained after whatever hook is there; dispose puts everything back
+  ---
+  duration_ms: 313.204916
+  type: 'test'
+  ...
+# Subtest: fx-host on WebGPU: a failed build leaves the prototype passes on; a validation error at run time hands the sky and the particles back and keeps the state running
+ok 18 - fx-host on WebGPU: a failed build leaves the prototype passes on; a validation error at run time hands the sky and the particles back and keeps the state running
+  ---
+  duration_ms: 322.99373
+  type: 'test'
+  ...
+# Subtest: fx-host: a renderer that is gone before the pipelines are ready is not touched; the WebGL2 install is unchanged by the WebGPU one
+ok 19 - fx-host: a renderer that is gone before the pipelines are ready is not touched; the WebGL2 install is unchanged by the WebGPU one
+  ---
+  duration_ms: 1.448729
+  type: 'test'
+  ...
+# Subtest: the prototype renderer calls ext.after between its scene pass and its post passes, and the shipped files say nothing about how they were made
+ok 20 - the prototype renderer calls ext.after between its scene pass and its post passes, and the shipped files say nothing about how they were made
+  ---
+  duration_ms: 1.179911
+  type: 'test'
+  ...
+# Subtest: the harness cases: unique names, times inside the battle window, every feature of the layer has a case, the Sherfy barn is the documented point, and HOOKS is a self-contained function
+ok 21 - the harness cases: unique names, times inside the battle window, every feature of the layer has a case, the Sherfy barn is the documented point, and HOOKS is a self-contained function
+  ---
+  duration_ms: 1.195182
+  type: 'test'
+  ...
+# Subtest: the close-view cases: unique names, inside the battle window, a fractional minute (sec) stays inside its minute, the aim points are inside the stand-in plan, aimFall hits the latest fall of the plan, and the default run is still the 16 cases
+ok 22 - the close-view cases: unique names, inside the battle window, a fractional minute (sec) stays inside its minute, the aim points are inside the stand-in plan, aimFall hits the latest fall of the plan, and the default run is still the 16 cases
+  ---
+  duration_ms: 1.930036
+  type: 'test'
+  ...
+# Subtest: the real-crowd cases of the shell harness: unique names that clash with no other list, inside the battle window, three kinds of view, and a unit view names an arm, a distance, a height and a side
+ok 23 - the real-crowd cases of the shell harness: unique names that clash with no other list, inside the battle window, three kinds of view, and a unit view names an arm, a distance, a height and a side
+  ---
+  duration_ms: 0.788284
+  type: 'test'
+  ...
+# Subtest: the run checker: a clean run is clean; every kind of defect is named; nothing is loosened
+ok 24 - the run checker: a clean run is clean; every kind of defect is named; nothing is loosened
+  ---
+  duration_ms: 2.561789
+  type: 'test'
+  ...
+# Subtest: real-GPU mode of the harnesses: Chrome without a software-rasteriser flag; a run that claims to be a real-GPU run on a software adapter, or with no adapter recorded, is a problem; a hardware adapter and an unclaimed software run are not
+ok 25 - real-GPU mode of the harnesses: Chrome without a software-rasteriser flag; a run that claims to be a real-GPU run on a software adapter, or with no adapter recorded, is a problem; a hardware adapter and an unclaimed software run are not
+  ---
+  duration_ms: 1.119257
+  type: 'test'
+  ...
+# Subtest: stored evidence: the WebGPU and WebGL2 runs are clean, the two APIs agree to the figures the notes state, the other budget tiers are clean, and the 16 pictures are there
+ok 26 - stored evidence: the WebGPU and WebGL2 runs are clean, the two APIs agree to the figures the notes state, the other budget tiers are clean, and the 16 pictures are there
+  ---
+  duration_ms: 6.130383
+  type: 'test'
+  ...
+# Subtest: capture and replay: the driver writes the files the replay reads (same names and encodings), the terrain hash is the same function on both sides, the replay mirrors the prototype's group 0 and the pass encoding of gpu.mjs, and capture mode only adds a copy source to the colour and depth formats
+ok 27 - capture and replay: the driver writes the files the replay reads (same names and encodings), the terrain hash is the same function on both sides, the replay mirrors the prototype's group 0 and the pass encoding of gpu.mjs, and capture mode only adds a copy source to the colour and depth formats
+  ---
+  duration_ms: 1.544817
+  type: 'test'
+  ...
+# Subtest: stored evidence of 2026-11-14: the six close views are clean on WebGPU with their pictures, and the second WebGPU implementation built every module and pipeline, refused every negative control, and compiled the other renderers' WGSL
+ok 28 - stored evidence of 2026-11-14: the six close views are clean on WebGPU with their pictures, and the second WebGPU implementation built every module and pipeline, refused every negative control, and compiled the other renderers' WGSL
+  ---
+  duration_ms: 2.400388
+  type: 'test'
+  ...
+# Subtest: stored evidence of 2026-11-15: the six close views on WebGL2 are clean, are the same six cases with the same sprite counts as on WebGPU, and the two APIs agree to the figures the notes state
+not ok 29 - stored evidence of 2026-11-15: the six close views on WebGL2 are clean, are the same six cases with the same sprite counts as on WebGPU, and the two APIs agree to the figures the notes state
+  ---
+  duration_ms: 3.757855
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/weather3d-gpu.test.mjs:413:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+    -   'strike-close-jul3-1400',
+        'burst-close-jul3-1400',
+    -   'volley-close-jul3-1400',
+        'falls-close-jul2-1100',
+        'fire-close-jul3-1500',
+        'fire-night-jul3-2200',
+    +   'strike-close-jul3-1400',
+    +   'volley-close-jul3-1400'
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: 'strike-close-jul3-1400'
+    1: 'burst-close-jul3-1400'
+    2: 'volley-close-jul3-1400'
+    3: 'falls-close-jul2-1100'
+    4: 'fire-close-jul3-1500'
+    5: 'fire-night-jul3-2200'
+  actual:
+    0: 'burst-close-jul3-1400'
+    1: 'falls-close-jul2-1100'
+    2: 'fire-close-jul3-1500'
+    3: 'fire-night-jul3-2200'
+    4: 'strike-close-jul3-1400'
+    5: 'volley-close-jul3-1400'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/weather3d-gpu.test.mjs:418:128)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 28
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 63573.558028

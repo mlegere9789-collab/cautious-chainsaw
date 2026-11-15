@@ -130,11 +130,7 @@ function dropCanvas(s) { if (!s.canvas) return; s.canvas.width = 0; s.canvas.hei
 // (a mark may be). They are read at most every 400 ms while marks are shown, and the layout runs again only when one moved.
 function measure(s) {
   const th = s.th, root = th && th.root, stage = th && th.els && th.els.stage; if (!root || !stage || !stage.getBoundingClientRect) return;
-  const sr = stage.getBoundingClientRect(), out = [];
-  const add = n => { if (!n || n.hidden || !n.getBoundingClientRect) return; const r = n.getBoundingClientRect(); if (!(r.width >= 4 && r.height >= 4)) return; out.push([r.left - sr.left, r.top - sr.top, r.right - sr.left, r.bottom - sr.top]); };
-  add(root.querySelector('.top')); add(root.querySelector('.dock')); add(root.querySelector('#bt-drawer'));
-  const left = root.querySelector('#bt-left'); if (left && left.children) for (const c of left.children) add(c);
-  const a = s.avoid; let same = !!a && a.length === out.length; for (let i = 0; same && i < out.length; i++) for (let j = 0; j < 4; j++) if (Math.abs(a[i][j] - out[i][j]) > 1) { same = false; break; }
+  const out = P.panelRects(root, stage), a = s.avoid; let same = !!a && a.length === out.length; for (let i = 0; same && i < out.length; i++) for (let j = 0; j < 4; j++) if (Math.abs(a[i][j] - out[i][j]) > 1) { same = false; break; }
   if (!same) { s.avoid = out; s.fresh = true; }
 }
 

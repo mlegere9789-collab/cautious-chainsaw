@@ -8,8 +8,8 @@ pass starts from the texts that mention its buildings. A count is a lead for a r
     python3 tools/bt/town/local_coverage.py --self-test
 
 Texts read (all local, none downloaded here): tmp/library/ws9/*.txt (public-domain books and 1863 weekly papers), tmp/library/or27
-(Official Records vol. 27, parts 1-3), tmp/library/web/nps/*/*.txt (Park Service reports, reading-order text), and the July 1863
-Chronicling America pages of tmp/library/web/ca/pages. Matching is case-insensitive; a space in a pattern matches any run of
+(Official Records vol. 27, parts 1-3), tmp/library/web/nps/*/*.txt (Park Service reports, reading-order text), tmp/library/town/*/*.txt (the
+texts the town passes acquired themselves, summed per source id), and the July 1863 Chronicling America pages of tmp/library/web/ca/pages. Matching is case-insensitive; a space in a pattern matches any run of
 whitespace and a hyphen at a line end is tolerated. OCR errors are not repaired.
 """
 import glob, json, os, re, sys, time
@@ -27,8 +27,31 @@ def load_terms():
 
 
 def pat(p):
-    # a space in a term matches whitespace (incl. a line-end hyphen); the rest is a regular expression
-    return re.compile(p.replace(' ', r'(?:\s|-\s)+'), re.I)
+    """Compile a search term (a regular expression, case-insensitive, `.` also crossing a line end).
+
+    A space outside a character class matches a run of whitespace, a line-end hyphen included; a space inside a character class
+    (`court[- ]?house`) matches any whitespace character. Everything else is the regular expression as written.
+    """
+    out, in_cls, i = [], False, 0
+    while i < len(p):
+        c = p[i]
+        if c == '\\' and i + 1 < len(p):
+            out.append(p[i:i + 2])
+            i += 2
+            continue
+        if in_cls:
+            if c == ']':
+                in_cls = False
+            out.append(r'\s' if c == ' ' else c)
+        elif c == '[':
+            in_cls = True
+            out.append(c)
+        elif c == ' ':
+            out.append(r'(?:\s|-\s)+')
+        else:
+            out.append(c)
+        i += 1
+    return re.compile(''.join(out), re.I | re.S)
 
 
 def source_files():
@@ -41,6 +64,10 @@ def source_files():
         if p.endswith('.layout.txt'):
             continue
         out.append(('nps:' + os.path.basename(p)[:-4], p))
+    # texts the town passes acquired themselves (tmp/library/town/<source id>/): one entry per source id, the counts of a family of
+    # issues (the weeklies of the other years) are summed under the id of the family
+    for p in sorted(glob.glob(os.path.join(ROOT, 'tmp', 'library', 'town', '*', '*.txt'))):
+        out.append(('town:' + os.path.basename(os.path.dirname(p)), p))
     return out
 
 
@@ -73,7 +100,9 @@ def run():
                 if n:
                     row[t] = n
             if row:
-                res[gid][sid] = row
+                cur = res[gid].setdefault(sid, {})
+                for t, n in row.items():
+                    cur[t] = cur.get(t, 0) + n
     # July 1863 newspaper pages: summed per paper (lccn)
     pages = ca_pages()
     ca = {g: {} for g in compiled}
@@ -112,10 +141,18 @@ def self_test():
     defs = load_terms()
     ids = [g['id'] for g in defs]
     assert len(ids) == len(set(ids)) and 14 <= len(ids) <= 22, ids
+    # every term of every group compiles through pat() (the transformation the job really uses)
+    nterms = 0
     for g in defs:
         for t in g['terms']:
-            re.compile(t.replace(' ', r'\s+'))
-    print('local_coverage self-test ok:', len(ids), 'groups')
+            pat(t)
+            nterms += 1
+    # a space inside a character class and a regular expression with alternatives
+    assert count(pat('court[- ]?house'), 'the Court-house, the court house and the courthouse, the court\nhouse') == 4
+    assert count(pat('jail|prison'), 'Jail prison JAIL') == 3
+    assert count(pat('church.{0,60}hospital'), 'the church was\nused as a hospital') == 1
+    assert count(pat('Baltimore [Ss]treet'), 'Baltimore\nstreet and baltimore Street') == 2
+    print('local_coverage self-test ok:', len(ids), 'groups,', nterms, 'terms')
 
 
 if __name__ == '__main__':

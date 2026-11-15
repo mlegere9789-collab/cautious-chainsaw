@@ -1,0 +1,104 @@
+{
+ "ids_after_merging": 57,
+ "ids_by_files_they_appear_in": {
+  "status.json": 11,
+  "status.json+status_2.json": 25,
+  "status_2.json": 7,
+  "status_3.json": 14
+ },
+ "ledgers": {
+  "acquired.json": {
+   "entries": 34,
+   "key": "items"
+  },
+  "acquired_2.json": {
+   "entries": 99,
+   "key": "items"
+  },
+  "acquired_3.json": {
+   "entries": 81,
+   "key": "items"
+  },
+  "candidates.json": {
+   "entries": 12,
+   "key": "candidates"
+  }
+ },
+ "rows_per_file": {
+  "status.json": 36,
+  "status_2.json": 32,
+  "status_3.json": 14
+ },
+ "spec_table_mismatches": {
+  "blocked": {
+   "counted": 4,
+   "spec": 3
+  },
+  "ingested": {
+   "counted": 23,
+   "spec": 19
+  },
+  "partial": {
+   "counted": 13,
+   "spec": 12
+  },
+  "unusable": {
+   "counted": 3,
+   "spec": 1
+  }
+ },
+ "spec_table_rows": 11,
+ "spec_table_sum": 49,
+ "status_after_merging": {
+  "blocked": 4,
+  "blocked-to-prior-research": 2,
+  "finder-not-authority": 1,
+  "ingested": 23,
+  "licence-checked": 2,
+  "partial": 13,
+  "print-only": 2,
+  "scheduled": 5,
+  "targeted-lookup-only": 1,
+  "unusable": 3,
+  "viewer-only": 1
+ },
+ "words_in_use": 11,
+ "words_outside_the_three": [
+  "blocked-to-prior-research",
+  "finder-not-authority",
+  "licence-checked",
+  "partial",
+  "print-only",
+  "targeted-lookup-only",
+  "unusable",
+  "viewer-only"
+ ],
+ "words_per_file": {
+  "status.json": {
+   "blocked": 2,
+   "blocked-to-prior-research": 2,
+   "finder-not-authority": 1,
+   "ingested": 3,
+   "licence-checked": 2,
+   "partial": 2,
+   "print-only": 2,
+   "scheduled": 20,
+   "targeted-lookup-only": 1,
+   "viewer-only": 1
+  },
+  "status_2.json": {
+   "blocked": 1,
+   "blocked-to-prior-research": 2,
+   "ingested": 13,
+   "partial": 9,
+   "print-only": 2,
+   "scheduled": 5
+  },
+  "status_3.json": {
+   "blocked": 1,
+   "ingested": 7,
+   "partial": 3,
+   "unusable": 3
+  }
+ }
+}

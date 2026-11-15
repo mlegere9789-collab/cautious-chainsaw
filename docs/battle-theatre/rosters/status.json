@@ -4,10 +4,10 @@
  "totals": {
   "units": 640,
   "units_with_files": 53,
-  "rows": 90699,
-  "raw_bytes": 11582851,
-  "gz_bytes": 2599934,
-  "row_line_bytes_mean": 125.0,
+  "rows": 90738,
+  "raw_bytes": 11583248,
+  "gz_bytes": 2599566,
+  "row_line_bytes_mean": 124.9,
   "row_lines_le_90_share": 0.413
  },
  "groups": {
@@ -70,16 +70,16 @@
   "union-ma": {
    "units": 24,
    "units_with_files": 24,
-   "rows": 33748,
-   "raw_bytes": 6235177,
-   "gz_bytes": 1208257,
-   "row_line_bytes_mean": 184.1,
+   "rows": 33787,
+   "raw_bytes": 6235574,
+   "gz_bytes": 1207889,
+   "row_line_bytes_mean": 183.9,
    "row_lines_le_90_share": 0.0,
-   "sidecar_bytes": 416687,
+   "sidecar_bytes": 440998,
    "stage": "files-for-every-unit",
    "list_files": [],
-   "report": null,
-   "pointer": null,
+   "report": "docs/battle-theatre/rosters/reports/union-ma.md",
+   "pointer": "docs/battle-theatre/rosters/sources/union-ma.json",
    "units_without_file": null,
    "coverage": {
     "roll": 24
@@ -535,5 +535,5 @@
   }
  },
  "defects": [],
- "warnings_count": 5
+ "warnings_count": 0
 }

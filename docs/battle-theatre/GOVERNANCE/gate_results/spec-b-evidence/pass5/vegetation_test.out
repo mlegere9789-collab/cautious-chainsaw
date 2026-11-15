@@ -1,0 +1,375 @@
+TAP version 13
+# Subtest: the data is whole: schema, units with outlines and tiers, claims with quotes and places, every reference resolves
+ok 1 - the data is whole: schema, units with outlines and tiers, claims with quotes and places, every reference resolves
+  ---
+  duration_ms: 13.686989
+  type: 'test'
+  ...
+# Subtest: time: the minutes of the theatre clock, both ways
+ok 2 - time: the minutes of the theatre clock, both ways
+  ---
+  duration_ms: 156.894978
+  type: 'test'
+  ...
+# Subtest: the Wheatfield: documented standing wheat on 2 July, trampled in the engagement window (an inference from the documented movement, marked so), never before it
+ok 3 - the Wheatfield: documented standing wheat on 2 July, trampled in the engagement window (an inference from the documented movement, marked so), never before it
+  ---
+  duration_ms: 4.656935
+  type: 'test'
+  ...
+# Subtest: the calendar: wheat is cut inside its documented bounds and the order of asking does not matter
+ok 4 - the calendar: wheat is cut inside its documented bounds and the order of asking does not matter
+  ---
+  duration_ms: 6.508461
+  type: 'test'
+  ...
+# Subtest: corn and oats: stand through the window, never cut in it; hay is mown late; rye may be cut before the window
+ok 5 - corn and oats: stand through the window, never cut in it; hay is mown late; rye may be cut before the window
+  ---
+  duration_ms: 1.385462
+  type: 'test'
+  ...
+# Subtest: woods and orchards: full leaf in the window, leaf-off on 19 November, the damage events strip trees only inside their windows
+ok 6 - woods and orchards: full leaf in the window, leaf-off on 19 November, the damage events strip trees only inside their windows
+  ---
+  duration_ms: 3.748349
+  type: 'test'
+  ...
+# Subtest: scenarios: the three of Little Round Top, the harvest and the rain move what they say and nothing else
+ok 7 - scenarios: the three of Little Round Top, the harvest and the rain move what they say and nothing else
+  ---
+  duration_ms: 0.54747
+  type: 'test'
+  ...
+# Subtest: tiers: a state carries the weakest tier of its parts; documented only where a claim that names the polygon says so
+ok 8 - tiers: a state carries the weakest tier of its parts; documented only where a claim that names the polygon says so
+  ---
+  duration_ms: 6.514635
+  type: 'test'
+  ...
+# Subtest: Q21: the check passes over every unit, every sampled date and every scenario set, and it can fail
+ok 9 - Q21: the check passes over every unit, every sampled date and every scenario set, and it can fail
+  ---
+  duration_ms: 4877.218739
+  type: 'test'
+  ...
+# Subtest: trees: seeded, inside their polygon, at the unit's density; orchards in rows at their spacing
+ok 10 - trees: seeded, inside their polygon, at the unit's density; orchards in rows at their spacing
+  ---
+  duration_ms: 442.613519
+  type: 'test'
+  ...
+# Subtest: hashes and seeds: stable numbers
+ok 11 - hashes and seeds: stable numbers
+  ---
+  duration_ms: 0.353775
+  type: 'test'
+  ...
+# Subtest: the data lies inside the ground the theatre loads: every outline, every witness tree and every event disc
+ok 12 - the data lies inside the ground the theatre loads: every outline, every witness tree and every event disc
+  ---
+  duration_ms: 90.735904
+  type: 'test'
+  ...
+# Subtest: the park landscape evidence: every vegetation row of the corrections is a claim, a row left out with its reason, or a passage already held; later growth never sets a crop or a species
+not ok 13 - the park landscape evidence: every vegetation row of the corrections is a claim, a row left out with its reason, or a passage already held; later growth never sets a crop or a species
+  ---
+  duration_ms: 174.807345
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/vegetation.test.mjs:149:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    rows of the corrections that are in no claim, no left-out list and no held passage
+    + actual - expected
+    
+    + [
+    +   'NPSX-CLR-LRT-p115-01',
+    +   'NPSX-CLR-LRT-p119-01',
+    +   'NPSX-CLR-LRT-p122-01',
+    +   'NPSX-CLR-LRT-p122-04',
+    +   'NPSX-CLR-LRT-p122-05',
+    +   'NPSX-CLR-LRT-p123-03',
+    +   'NPSX-CLR-LRT-p124-02',
+    +   'NPSX-CLR-LRT-p125-05',
+    +   'NPSX-CLR-LRT-p125-06',
+    +   'NPSX-CLR-LRT-p126-01',
+    +   'NPSX-CLR-LRT-p126-02',
+    +   'NPSX-CLR-LRT-p036-01',
+    +   'NPSX-CLR-LRT-p036-02',
+    +   'NPSX-CLR-LRT-p036-03',
+    +   'NPSX-CLR-LRT-p039-01',
+    +   'NPSX-CLR-LRT-p039-02',
+    +   'NPSX-CLR-LRT-p043-01',
+    +   'NPSX-CLR-LRT-p043-02',
+    +   'NPSX-CLR-LRT-p044-03',
+    +   'NPSX-CLR-LRT-p090-01',
+    +   'NPSX-CLR-LRT-p090-02',
+    +   'NPSX-CLR-LRT-p090-03',
+    +   'NPSX-GMP-1999-V1-p061-01',
+    +   'NPSX-GMP-1999-V1-p060-03',
+    +   'NPSX-GMP-1999-V1-p067-01',
+    +   'NPSX-GMP-1999-V1-p067-02',
+    +   'NPSX-GMP-1999-V1-p068-01',
+    +   'NPSX-GMP-1999-V1-p087-01',
+    +   'NPSX-GMP-1999-V1-p040-01',
+    +   'NPSX-GMP-1999-V1-p040-02',
+    +   'NPSX-GMP-1999-V1-p174-02',
+    +   'NPSX-GMP-1999-V1-p180-01',
+    +   'NPSX-GMP-1999-V1-p185-01',
+    +   'NPSX-GMP-1999-V1-p126-01',
+    +   'NPSX-GMP-1999-V1-p151-01',
+    +   'NPSX-NRCA-2017-p129-01',
+    +   'NPSX-NRCA-2017-p129-02',
+    +   'NPSX-NRCA-2017-p129-03',
+    +   'NPSX-NRCA-2017-p199-01',
+    +   'NPSX-NRCA-2017-p199-02',
+    +   'NPSX-NRCA-2017-p130-01',
+    +   'NPSX-NRCA-2017-p039-01',
+    +   'NPSX-EISE-CLI-REDDING-2004-p034-01',
+    +   'NPSX-EISE-CLI-REDDING-2004-p034-02',
+    +   'NPSX-EISE-CLI-REDDING-2004-p034-03',
+    +   'NPSX-COMMON-PRIDE-1-p135-01',
+    +   'NPSX-COMMON-PRIDE-3-p015-01',
+    +   'NPSX-COMMON-PRIDE-3-p015-02',
+    +   'NPSX-COMMON-PRIDE-3-p015-03',
+    +   'NPSX-COMMON-PRIDE-3-p014-01',
+    +   'NPSX-COMMON-PRIDE-3-p014-03',
+    +   'NPSX-COMMON-PRIDE-3-p015-04',
+    +   'NPSX-COMMON-PRIDE-3-p015-05',
+    +   'NPSX-COMMON-PRIDE-3-p006-01',
+    +   'NPSX-COMMON-PRIDE-3-p006-02',
+    +   'NPSX-COMMON-PRIDE-3-p004-01',
+    +   'NPSX-DCP-LRT-p014-07',
+    +   'NPSX-DCP-LRT-p014-08',
+    +   'NPSX-DCP-LRT-p014-09',
+    +   'NPSX-DCP-LRT-p009-01',
+    +   'NPSX-DCP-LRT-p018-01',
+    +   'NPSX-DCP-GUINN-p011-03',
+    +   'NPSX-DCP-GUINN-p011-05',
+    +   'NPSX-HB9-1954-p034-01',
+    +   'NPSX-HB9-1954-p050-01',
+    +   'NPSX-HS-MCPHERSON-p023-01',
+    +   'NPSX-HS-MCPHERSON-p048-01',
+    +   'NPSX-HS-MCPHERSON-p043-01',
+    +   'NPSX-HS-MCPHERSON-p063-01',
+    +   'NPSX-HS-MCPHERSON-p067-01',
+    +   'NPSX-HS-MCPHERSON-p033-01',
+    +   'NPSX-HS-MCPHERSON-p070-01',
+    +   'NPSX-HS-MCPHERSON-p099-01',
+    +   'NPSX-HS-MCPHERSON-p101-01',
+    +   'NPSX-CLR-CEMETERY-p044-01',
+    +   'NPSX-CLR-CEMETERY-p045-05',
+    +   'NPSX-CLR-CEMETERY-p045-06',
+    +   'NPSX-CLR-CEMETERY-p045-07',
+    +   'NPSX-CLR-CEMETERY-p046-01',
+    +   'NPSX-CLR-CEMETERY-p046-02',
+    +   'NPSX-CLR-CEMETERY-p047-01',
+    +   'NPSX-CLR-CEMETERY-p044-06',
+    +   'NPSX-CLR-CEMETERY-p048-02',
+    +   'NPSX-CLR-CEMETERY-p069-01',
+    +   'NPSX-CLR-CEMETERY-p038-01',
+    +   'NPSX-FD-2016-p007-01',
+    +   'NPSX-WEB-DEVILS-DEN-REHAB-p001-01'
+    + ]
+    - []
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0: 'NPSX-CLR-LRT-p115-01'
+    1: 'NPSX-CLR-LRT-p119-01'
+    2: 'NPSX-CLR-LRT-p122-01'
+    3: 'NPSX-CLR-LRT-p122-04'
+    4: 'NPSX-CLR-LRT-p122-05'
+    5: 'NPSX-CLR-LRT-p123-03'
+    6: 'NPSX-CLR-LRT-p124-02'
+    7: 'NPSX-CLR-LRT-p125-05'
+    8: 'NPSX-CLR-LRT-p125-06'
+    9: 'NPSX-CLR-LRT-p126-01'
+    10: 'NPSX-CLR-LRT-p126-02'
+    11: 'NPSX-CLR-LRT-p036-01'
+    12: 'NPSX-CLR-LRT-p036-02'
+    13: 'NPSX-CLR-LRT-p036-03'
+    14: 'NPSX-CLR-LRT-p039-01'
+    15: 'NPSX-CLR-LRT-p039-02'
+    16: 'NPSX-CLR-LRT-p043-01'
+    17: 'NPSX-CLR-LRT-p043-02'
+    18: 'NPSX-CLR-LRT-p044-03'
+    19: 'NPSX-CLR-LRT-p090-01'
+    20: 'NPSX-CLR-LRT-p090-02'
+    21: 'NPSX-CLR-LRT-p090-03'
+    22: 'NPSX-GMP-1999-V1-p061-01'
+    23: 'NPSX-GMP-1999-V1-p060-03'
+    24: 'NPSX-GMP-1999-V1-p067-01'
+    25: 'NPSX-GMP-1999-V1-p067-02'
+    26: 'NPSX-GMP-1999-V1-p068-01'
+    27: 'NPSX-GMP-1999-V1-p087-01'
+    28: 'NPSX-GMP-1999-V1-p040-01'
+    29: 'NPSX-GMP-1999-V1-p040-02'
+    30: 'NPSX-GMP-1999-V1-p174-02'
+    31: 'NPSX-GMP-1999-V1-p180-01'
+    32: 'NPSX-GMP-1999-V1-p185-01'
+    33: 'NPSX-GMP-1999-V1-p126-01'
+    34: 'NPSX-GMP-1999-V1-p151-01'
+    35: 'NPSX-NRCA-2017-p129-01'
+    36: 'NPSX-NRCA-2017-p129-02'
+    37: 'NPSX-NRCA-2017-p129-03'
+    38: 'NPSX-NRCA-2017-p199-01'
+    39: 'NPSX-NRCA-2017-p199-02'
+    40: 'NPSX-NRCA-2017-p130-01'
+    41: 'NPSX-NRCA-2017-p039-01'
+    42: 'NPSX-EISE-CLI-REDDING-2004-p034-01'
+    43: 'NPSX-EISE-CLI-REDDING-2004-p034-02'
+    44: 'NPSX-EISE-CLI-REDDING-2004-p034-03'
+    45: 'NPSX-COMMON-PRIDE-1-p135-01'
+    46: 'NPSX-COMMON-PRIDE-3-p015-01'
+    47: 'NPSX-COMMON-PRIDE-3-p015-02'
+    48: 'NPSX-COMMON-PRIDE-3-p015-03'
+    49: 'NPSX-COMMON-PRIDE-3-p014-01'
+    50: 'NPSX-COMMON-PRIDE-3-p014-03'
+    51: 'NPSX-COMMON-PRIDE-3-p015-04'
+    52: 'NPSX-COMMON-PRIDE-3-p015-05'
+    53: 'NPSX-COMMON-PRIDE-3-p006-01'
+    54: 'NPSX-COMMON-PRIDE-3-p006-02'
+    55: 'NPSX-COMMON-PRIDE-3-p004-01'
+    56: 'NPSX-DCP-LRT-p014-07'
+    57: 'NPSX-DCP-LRT-p014-08'
+    58: 'NPSX-DCP-LRT-p014-09'
+    59: 'NPSX-DCP-LRT-p009-01'
+    60: 'NPSX-DCP-LRT-p018-01'
+    61: 'NPSX-DCP-GUINN-p011-03'
+    62: 'NPSX-DCP-GUINN-p011-05'
+    63: 'NPSX-HB9-1954-p034-01'
+    64: 'NPSX-HB9-1954-p050-01'
+    65: 'NPSX-HS-MCPHERSON-p023-01'
+    66: 'NPSX-HS-MCPHERSON-p048-01'
+    67: 'NPSX-HS-MCPHERSON-p043-01'
+    68: 'NPSX-HS-MCPHERSON-p063-01'
+    69: 'NPSX-HS-MCPHERSON-p067-01'
+    70: 'NPSX-HS-MCPHERSON-p033-01'
+    71: 'NPSX-HS-MCPHERSON-p070-01'
+    72: 'NPSX-HS-MCPHERSON-p099-01'
+    73: 'NPSX-HS-MCPHERSON-p101-01'
+    74: 'NPSX-CLR-CEMETERY-p044-01'
+    75: 'NPSX-CLR-CEMETERY-p045-05'
+    76: 'NPSX-CLR-CEMETERY-p045-06'
+    77: 'NPSX-CLR-CEMETERY-p045-07'
+    78: 'NPSX-CLR-CEMETERY-p046-01'
+    79: 'NPSX-CLR-CEMETERY-p046-02'
+    80: 'NPSX-CLR-CEMETERY-p047-01'
+    81: 'NPSX-CLR-CEMETERY-p044-06'
+    82: 'NPSX-CLR-CEMETERY-p048-02'
+    83: 'NPSX-CLR-CEMETERY-p069-01'
+    84: 'NPSX-CLR-CEMETERY-p038-01'
+    85: 'NPSX-FD-2016-p007-01'
+    86: 'NPSX-WEB-DEVILS-DEN-REHAB-p001-01'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/vegetation.test.mjs:163:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: claims and places agree: a claim is marked placed exactly when a unit cites it, the evidence from the library names its source edition, and a quote is never a paraphrase of fewer than 12 letters
+ok 14 - claims and places agree: a claim is marked placed exactly when a unit cites it, the evidence from the library names its source edition, and a quote is never a paraphrase of fewer than 12 letters
+  ---
+  duration_ms: 2.811331
+  type: 'test'
+  ...
+# Subtest: the shipped data says nothing of how it was made, and names no later tree as a tree of 1863
+ok 15 - the shipped data says nothing of how it was made, and names no later tree as a tree of 1863
+  ---
+  duration_ms: 33.809057
+  type: 'test'
+  ...
+# Subtest: the module is listed, and the gate hook is stated
+ok 16 - the module is listed, and the gate hook is stated
+  ---
+  duration_ms: 0.459404
+  type: 'test'
+  ...
+# Subtest: splitTriangle: every piece is short, the pieces cover the triangle
+ok 17 - splitTriangle: every piece is short, the pieces cover the triangle
+  ---
+  duration_ms: 1.288973
+  type: 'test'
+  ...
+# Subtest: the ground-cover mesh covers every unit, in short triangles, and stays on its unit
+ok 18 - the ground-cover mesh covers every unit, in short triangles, and stays on its unit
+  ---
+  duration_ms: 555.599699
+  type: 'test'
+  ...
+# Subtest: trees: chunked, sorted, counted, all inside the ground
+ok 19 - trees: chunked, sorted, counted, all inside the ground
+  ---
+  duration_ms: 2086.700167
+  type: 'test'
+  ...
+# Subtest: the trample plan: a formation marks the ground it covered at the minute it first stood there, nothing else, and nothing twice
+ok 20 - the trample plan: a formation marks the ground it covered at the minute it first stood there, nothing else, and nothing twice
+  ---
+  duration_ms: 4.258842
+  type: 'test'
+  ...
+# Subtest: the stage as a provider: reads the cache and the presence windows as the stage does, and gives nothing for a unit that is not there
+ok 21 - the stage as a provider: reads the cache and the presence windows as the stage does, and gives nothing for a unit that is not there
+  ---
+  duration_ms: 0.499653
+  type: 'test'
+  ...
+# Subtest: the module reads the real stage the way the provider expects
+ok 22 - the module reads the real stage the way the provider expects
+  ---
+  duration_ms: 0.605175
+  type: 'test'
+  ...
+# Subtest: the module starts on a stand-in theatre: switches, panel, a card for the ground, the choices, and Back
+ok 23 - the module starts on a stand-in theatre: switches, panel, a card for the ground, the choices, and Back
+  ---
+  duration_ms: 51.990654
+  type: 'test'
+  ...
+# Subtest: the card of the ground can be written for every unit, at three dates, with nothing undefined or not a number in it
+ok 24 - the card of the ground can be written for every unit, at three dates, with nothing undefined or not a number in it
+  ---
+  duration_ms: 2667.336385
+  type: 'test'
+  ...
+# Subtest: ?veg=off keeps the module out of a visit; a missing data file is an error the loader can show
+ok 25 - ?veg=off keeps the module out of a visit; a missing data file is an error the loader can show
+  ---
+  duration_ms: 0.89747
+  type: 'test'
+  ...
+# Subtest: the module on a stand-in theatre with a recording GL: programs, hooks, the plan of the troops, the draw calls, and clean-up
+ok 26 - the module on a stand-in theatre with a recording GL: programs, hooks, the plan of the troops, the draw calls, and clean-up
+  ---
+  duration_ms: 1578.293298
+  type: 'test'
+  ...
+# Subtest: the standing crop near the camera: off by default, a fourth program when asked, drawn by chunks within range, not over the tier overlay, and a refused program leaves the rest of the layer alone
+ok 27 - the standing crop near the camera: off by default, a fourth program when asked, drawn by chunks within range, not over the tier overlay, and a refused program leaves the rest of the layer alone
+  ---
+  duration_ms: 4894.603035
+  type: 'test'
+  ...
+# Subtest: a program that fails to link is taken out of the renderer's list, so the layers that start after it still start
+ok 28 - a program that fails to link is taken out of the renderer's list, so the layers that start after it still start
+  ---
+  duration_ms: 1550.6922
+  type: 'test'
+  ...
+1..28
+# tests 28
+# suites 0
+# pass 27
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 19478.867169

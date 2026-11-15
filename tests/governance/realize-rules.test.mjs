@@ -214,7 +214,8 @@ test('rule: a place a record uses is named in the row, or declared with the row\
   const r = await mustFail(at('Cemetery Hill'), 'place_not_in_row', 'a place the row does not name'); assert.match(r.problems.find(p => p.code === 'place_not_in_row').detail, /"id": "Cemetery Hill"/, 'the message names the form that works');
   const d = await mustFail(at({ id: 'Cemetery Hill', via: 'Cutler’s brigade stands in line' }), 'unit_wrong_place', 'a declared place is no proof of the position'); assert.ok(!codesOf(d).has('place_not_in_row') && d.bindings.declared === 1);
   await mustFail(at({ id: 'Cemetery Hill', via: 'Pickett charges' }), 'place_not_in_row', 'a declaration whose words are not the row\'s');
-  await mustFail(at('Belmont Road'), 'place_unknown', 'a name no repository file carries'); await mustFail(at('Cashtown'), 'place_off_ground', 'a place off the loaded ground');
+  const unk = await mustFail(at('Belmont Road'), 'place_unknown', 'a name no repository file carries'); assert.ok(unk.problems.some(p => p.code === 'place_unknown'), 'an unknown place is a problem of the record itself, found at its binding, not only a failure of the check that uses it'); assert.ok(!unk.problems.some(p => p.code === 'binding_error'), 'and the binding stage names it without failing on it');
+  await mustFail(at('Cashtown'), 'place_off_ground', 'a place off the loaded ground');
 });
 test('rule: the scenarios of a record are the record\'s own, and RESULTS says which were run (checks.mjs _scenarioPlan; the T1-015 defect)', async () => {
   const RB = 'bld-rock-creek-rr-bridge', burned = scenario => ({ type: 'structure_state', structure: RB, ...(scenario ? { scenario } : {}), t: { at: '1863-06-27T00:00' }, state: 'Burned', schedule_row: 'S-001', visual: { burn_min: 1 }, quote: 'the Rock Creek railroad bridge are burned on the evening of Jun 26' });

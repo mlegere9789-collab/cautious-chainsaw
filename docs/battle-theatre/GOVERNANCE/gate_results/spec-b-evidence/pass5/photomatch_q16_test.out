@@ -1,0 +1,181 @@
+TAP version 13
+# Subtest: catalogue: first-run records, the added records and the records of the wide search, each with its licence basis; added records carry their reason and date status
+ok 1 - catalogue: first-run records, the added records and the records of the wide search, each with its licence basis; added records carry their reason and date status
+  ---
+  duration_ms: 3.987506
+  type: 'test'
+  ...
+# Subtest: images ledger: hashes, declared sizes, hosts and licence basis; files on disk match
+ok 2 - images ledger: hashes, declared sizes, hosts and licence basis; files on disk match
+  ---
+  duration_ms: 92.167132
+  type: 'test'
+  ...
+# Subtest: wide images ledger: every record of the wide search has an image (hash, hosts) or the reason it has none
+ok 3 - wide images ledger: every record of the wide search has an image (hash, hosts) or the reason it has none
+  ---
+  duration_ms: 6.244289
+  type: 'test'
+  ...
+# Subtest: every catalogued record has at least one saved image in a ledger, or the registry says why not
+ok 4 - every catalogued record has at least one saved image in a ledger, or the registry says why not
+  ---
+  duration_ms: 1.629891
+  type: 'test'
+  ...
+# Subtest: statements: every quote came from a saved text with its hash; none is a coordinate; documented ones carry a page and offset
+ok 5 - statements: every quote came from a saved text with its hash; none is a coordinate; documented ones carry a page and offset
+  ---
+  duration_ms: 1.385396
+  type: 'test'
+  ...
+# Subtest: NPS figures: every caption is a verbatim passage of the saved text of its report and has a statement; the extracted image is hashed
+ok 6 - NPS figures: every caption is a verbatim passage of the saved text of its report and has a statement; the extracted image is hashed
+  ---
+  duration_ms: 189.113621
+  type: 'test'
+  ...
+# Subtest: poses: schema 2, every position is inferred or an assumption (never a documented position), every statement id exists, fitted poses are flagged
+ok 7 - poses: schema 2, every position is inferred or an assumption (never a documented position), every statement id exists, fitted poses are flagged
+  ---
+  duration_ms: 1.36424
+  type: 'test'
+  ...
+# Subtest: deferred poses are registered with their basis and the reason they have no render yet
+ok 8 - deferred poses are registered with their basis and the reason they have no render yet
+  ---
+  duration_ms: 0.2215
+  type: 'test'
+  ...
+# Subtest: criteria: the pass criteria of the first test at a documented place were written before its renders existed and are never edited after a render was looked at
+ok 9 - criteria: the pass criteria of the first test at a documented place were written before its renders existed and are never edited after a render was looked at
+  ---
+  duration_ms: 0.770476
+  type: 'test'
+  ...
+# Subtest: verdicts: allowed vocabulary; a positive verdict needs a viewed image; a fitted pose is never called a match; every pose has one
+not ok 10 - verdicts: allowed vocabulary; a positive verdict needs a viewed image; a fitted pose is never called a match; every pose has one
+  ---
+  duration_ms: 1.284589
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:92:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    P13 P27 P28 P29
+    
+    4 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 4
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:99:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: image ties: each was looked at and has its geometry; the Metropolitan items are catalogued photographs; the copy ties of the wide search are symmetric between wide records and never rest on a rejected lead
+ok 11 - image ties: each was looked at and has its geometry; the Metropolitan items are catalogued photographs; the copy ties of the wide search are symmetric between wide records and never rest on a rejected lead
+  ---
+  duration_ms: 1.427992
+  type: 'test'
+  ...
+# Subtest: registry: one entry per catalogued record with a candid verdict and, where there is no pose, the reason
+not ok 12 - registry: one entry per catalogued record with a candid verdict and, where there is no pose, the reason
+  ---
+  duration_ms: 0.59189
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:121:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    2014646001
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:124:91)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: gate Q16 stays not passing, counts the documented camera positions (a coordinate, a lens and a plate: none) apart from the camera places a source names, and says what would be needed; no linked sub-requirement is marked passed
+not ok 13 - gate Q16 stays not passing, counts the documented camera positions (a coordinate, a lens and a plate: none) apart from the camera places a source names, and says what would be needed; no linked sub-requirement is marked passed
+  ---
+  duration_ms: 3.931141
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:130:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(ver.gate_q16.documented_place_count >= 1)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:132:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: the first test at a documented place: the measurements are stored, follow the pre-written definitions and are reported in the verdicts of the poses
+not ok 14 - the first test at a documented place: the measurements are stored, follow the pre-written definitions and are reported in the verdicts of the poses
+  ---
+  duration_ms: 0.395435
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:138:1'
+  failureType: 'testCodeFailure'
+  error: 'P27'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/photomatch-q16.test.mjs:141:118)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: the photo-match document shipped with the app carries no copy that the audit forbids
+ok 15 - the photo-match document shipped with the app carries no copy that the audit forbids
+  ---
+  duration_ms: 0.370559
+  type: 'test'
+  ...
+# Subtest: render is deterministic (SwiftShader), optional
+ok 16 - render is deterministic (SwiftShader), optional # SKIP
+  ---
+  duration_ms: 0.051371
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 11
+# fail 4
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 457.682463

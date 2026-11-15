@@ -240,6 +240,7 @@ test('wrong: a record of kind not_realized must fail with the reasons it gives; 
   const none = clone(e); delete none.missing; await mustFail(none, 'missing_missing');
   const noKind = clone(e); delete noKind.intended_kind; await mustFail(noKind, 'schema_intended_kind');
   const onReal = ex('T1-003'); onReal.missing = [{ code: 'x', detail: 'y' }]; await mustFail(onReal, 'missing_on_realized');
+  const onMissing = clone(e); onMissing.not_shown = [{ words: e.claim.quote, why: 'a part of the row a probe cannot show' }]; const om = await run(onMissing); assert.ok(om.problems.some(p => p.code === 'not_shown_on_not_realized'), 'not_shown belongs on a realized record: a not_realized record says what is missing with "missing"'); assert.equal(om.missing.verified, true, 'and the rule is the only thing wrong with it: the probe still fails with the declared codes');
   // a probe that passes: the weather IS shown, so a not_realized record of the weather row is stale
   const stale = ex('T1-003'); stale.kind = 'not_realized'; stale.intended_kind = 'weather_sky'; stale.missing = [{ code: 'weather_mismatch', detail: 'claimed missing' }]; const s = await run(stale); assert.equal(s.realized, false); assert.equal(s.missing.stale, true); assert.match(s.why, /now passes/);
   const early = ex('T1-002'); const er = await run(early); assert.ok(codesOf(er).has('time_outside_clock'), 'a row before the clock cannot be realized at its time');

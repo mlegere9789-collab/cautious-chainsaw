@@ -410,3 +410,11 @@ test('stored evidence of 2026-11-14: the six close views are clean on WebGPU wit
   assert.equal(Object.keys(si.controls).length, 5); assert.ok(Object.values(si.controls).every(v => /^refused/.test(v)), 'every negative control was refused: the positive results are not vacuous'); assert.ok(Object.keys(si.controls).some(k => /attached for writing and sampled/.test(k)), 'the usage-scope control');
   assert.deepEqual(si.selftest, { ran: true, finite: true }); assert.equal(Object.keys(si.other_modules).length, 13); assert.ok(Object.values(si.other_modules).every(v => v === 'compiles'));
 });
+test('stored evidence of 2026-11-15: the six close views on WebGL2 are clean, are the same six cases with the same sprite counts as on WebGPU, and the two APIs agree to the figures the notes state', () => {
+  const R = path.join(APP, 'tests/results/weather3d-webgpu'), JS = f => JSON.parse(fs.readFileSync(path.join(R, f), 'utf8'));
+  const gl = JS('close-webgl2-summary.json'), gpu = JS('close-webgpu-summary.json'), r = checkRun(gl, { cases: 6 }); assert.equal(r.ok, true, r.problems.join('; ')); assert.equal(gl.api, 'webgl2'); assert.equal(gl.realGpu, false, 'a software run says so');
+  assert.equal(r.facts.purityChecks, 3); assert.equal(r.facts.resize, true); assert.deepEqual(Object.keys(gl.cases), EXTRA_CASES.map(c => c.name), 'the six cases of EXTRA_CASES, in order');
+  for (const [n, c] of Object.entries(gl.cases)) { assert.equal(c.validation, null, n); assert.ok(c.glStats.weatherDraws >= 1 && c.glStats.fxDraws >= 1, n + ' drew the weather and the sprites on WebGL2'); assert.equal(c.effects.nSprites, gpu.cases[n].effects.nSprites, n + ': the same fx3d frame feeds both APIs'); const f = path.join(R, 'close-webgl2', n + '.png'); assert.equal(fs.readFileSync(f).subarray(1, 4).toString(), 'PNG', n + '.png'); }
+  const cmp = JS('close-compare-summary.json'), k = checkCompare(cmp); assert.equal(k.ok, true, k.problems.join('; ')); assert.deepEqual(cmp.rows.map(x => x.case).sort(), EXTRA_CASES.map(c => c.name).sort(), 'the comparison lists the six cases (alphabetical)');
+  assert.ok(k.facts.meanAbsMin >= 0.33 && k.facts.meanAbsMax <= 0.40 && k.facts.over24Max <= 0.001, JSON.stringify(k.facts)); for (const x of cmp.rows) { assert.equal(x.spritesGL, x.spritesGPU, x.case); assert.ok(x.all.p99 <= 1, x.case + ' p99'); }
+});

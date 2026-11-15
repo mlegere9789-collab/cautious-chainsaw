@@ -141,6 +141,32 @@ test('the first test at a documented place: the measurements are stored, follow 
   const vv = Object.fromEntries(ver.pose_verdicts.map(v => [v.pose, v])); for (const pid of ['P27', 'P28']) { assert.ok(vv[pid], pid); assert.ok(vv[pid].numbers && vv[pid].numbers.criterion === 'C-P27-P28-1', pid); }
   if (fs.existsSync(sp)) { const s = J('skyline_results.json'); assert.ok(s.cases.P28 && s.cases.P29, 'both skyline cases'); for (const [cid, c] of Object.entries(s.cases)) { assert.ok(c.controls.length === 24 && c.columns > 500, cid); for (const k of Object.keys(c.summary)) assert.ok(typeof c.summary[k].S2_discriminated === 'boolean' && c.summary[k].S1_rms_deg > 0 && ['match-level', 'partial', 'mismatch'].includes(c.summary[k].S1_class), cid + ' ' + k); } }
 });
+test('review sheets: every pose has its sheet, the poses at a documented place also the lines-on-photograph image; the sheets are newer than the poses file entry they show only through their renders', () => {
+  for (const p of poses.poses) { const s = path.join(PM, 'reports', p.id + '.jpg'); assert.ok(fs.existsSync(s) && fs.statSync(s).size > 20000, p.id + ' has no review sheet'); if (p.position.place_documented) { const l = path.join(PM, 'reports', p.id + '_lines.jpg'); assert.ok(fs.existsSync(l) && fs.statSync(l).size > 20000, p.id + ' has no lines image'); } }
+});
+test('the skyline statements in the verdict texts agree with the stored skyline results (the rank counts from the best fit: rank - 1 control stations fit better)', () => {
+  const sky = J('skyline_results.json').cases, keyOf = { P27: ['P28', 'P27 north (337.5 to 22.5)'], P28: ['P28', 'P28 northwest (292.5 to 337.5)'], P29: ['P29', 'P29 east (67.5 to 112.5)'] };
+  for (const v of ver.pose_verdicts) {
+    const k = keyOf[v.pose]; if (!k) continue; const s = sky[k[0]].summary[k[1]]; assert.ok(v.numbers && v.numbers.skyline, v.pose); assert.equal(v.numbers.skyline.rank_of_station_among_25, s.rank_of_station_among_25, v.pose); assert.equal(v.numbers.skyline.S1_rms_deg, s.S1_rms_deg, v.pose);
+    const ctr = sky[k[0]].controls.map(c => c[k[1]]); assert.equal(ctr.length, 24);
+    const lo = ctr.filter(x => x < s.S1_rms_deg - 5e-5).length, hi = ctr.filter(x => x <= s.S1_rms_deg + 5e-5).length;   // the stored values are rounded to 4 decimals: controls tied with the station at that precision may count either way
+    assert.ok(lo + 1 <= s.rank_of_station_among_25 && s.rank_of_station_among_25 <= hi + 1, v.pose + ': the stored rank ' + s.rank_of_station_among_25 + ' is not between ' + (lo + 1) + ' and ' + (hi + 1) + ' recomputed from the stored controls');
+    const m = v.why.match(/(\d+) of the 24 control stations fit better/); if (m) assert.equal(+m[1], s.rank_of_station_among_25 - 1, v.pose + ': the verdict text counts the control stations that fit better wrongly');
+    assert.equal(s.S2_discriminated, s.S1_rms_deg <= s.controls_q1, v.pose + ': discriminated means the station RMS is at or below the first quartile of the 24 controls');
+  }
+  assert.ok(ver.pose_verdicts.find(v => v.pose === 'P29').why.includes('18 of the 24 control stations fit better'), 'P29 verdict text');
+});
+test('P29 sheet numbers: the descriptive measurements were made from the stored renders and the frozen skyline rule, and the verdict text quotes them', () => {
+  const m = J('p29_sheet_measurements.json'), v = ver.pose_verdicts.find(x => x.pose === 'P29');
+  for (const k of ['main_fov40', 'fov30', 'fov50']) { const f = path.join(ROOT, 'tmp/photomatch/renders', 'P29' + ({ main_fov40: '', fov30: '_fov30', fov50: '_fov50' })[k] + '_base.png'); if (fs.existsSync(f)) assert.equal(sha(f), m.render[k].sha256, 'P29 ' + k + ' render changed since the sheet numbers were measured'); }
+  assert.ok(v.why.includes(String(m.figure.crest_x_frac)) && v.why.includes(String(m.render.main_fov40.highest_point_row_frac)), 'the verdict text must quote the measured numbers');
+  assert.equal(m.differences_at_registered_pose.crest_row_frac_difference_render_minus_photo, +(m.render.main_fov40.highest_point_row_frac - m.figure.crest_row_frac).toFixed(3));
+});
+test('render determinism record: every render of every registered pose was reproduced byte for byte by an independent full re-run, and the files on disk are the recorded ones', () => {
+  const d = J('render_determinism.json'); assert.equal(d.files_expected, 6 * poses.poses.length); assert.equal(d.files_recorded, d.files_expected); assert.equal(d.files_identical_in_rerun, d.files_expected); assert.deepEqual(d.differing, []); assert.deepEqual(d.missing_in_rerun, []);
+  assert.deepEqual(d.poses, poses.poses.map(p => p.id)); assert.ok(d.earlier_sessions.files >= 96 && d.earlier_sessions.identical_to_current === d.earlier_sessions.files && d.earlier_sessions.differing.length === 0);
+  for (const [n, f] of Object.entries(d.files)) { assert.equal(f.sha256, f.rerun_sha256, n); assert.match(f.sha256, /^[0-9a-f]{64}$/, n); const p = path.join(ROOT, 'tmp/photomatch/renders', n); if (fs.existsSync(p)) assert.equal(sha(p), f.sha256, n + ' changed after the determinism check: run the re-run and record_determinism.py again'); }
+});
 test('the photo-match document shipped with the app carries no copy that the audit forbids', () => {
   const d = fs.readFileSync(path.join(ROOT, 'docs/battle-theatre/app/docs/PHOTOMATCH.md'), 'utf8'); assert.ok(d.length > 2000); assert.doesNotMatch(d, new RegExp(['\\bA' + 'I\\b', 'Cla' + 'ude', 'Anthro' + 'pic', '\\bage' + 'nts?\\b', 'suba' + 'gent', '\\bLL' + 'M\\b', 'language' + ' model'].join('|'), 'i'));
   assert.match(d, /not passing/i);

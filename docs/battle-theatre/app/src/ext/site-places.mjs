@@ -231,6 +231,39 @@ export function groundHides(T, cx, cy, cz, x, y, z) {
 /** Would the name of a mark, placed as drawMarks places it (box from ax, ay - 13, aw wide, 18 high), lie under one of the panels? av: rectangles [x0, y0, x1, y1] in the picture's css pixels
  *  (the top bar, the dock, the drawer, the panels of the left column). */
 export const underPanel = (av, ax, ay, aw) => { for (let q = 0; q < av.length; q++) { const r = av[q]; if (ax < r[2] && ax + aw > r[0] && ay - 13 < r[3] && ay + 5 > r[1]) return true; } return false; };
+/** The rectangles over the picture that would cover a label: the top bar, the dock, the open drawer and every panel of the left column, in the css pixels of the picture ([x0, y0, x1, y1]).
+ *  root, stage: the shell's own elements. A box under 4 px either way, or a hidden one, is not a panel. Reads the page (layout), so it is called when something may have moved, not every frame. */
+export function panelRects(root, stage) {
+  if (!root || !stage || !stage.getBoundingClientRect) return []; const sr = stage.getBoundingClientRect(), out = [];
+  const add = n => { if (!n || n.hidden || !n.getBoundingClientRect) return; const r = n.getBoundingClientRect(); if (!(r.width >= 4 && r.height >= 4)) return; out.push([r.left - sr.left, r.top - sr.top, r.right - sr.left, r.bottom - sr.top]); };
+  add(root.querySelector('.top')); add(root.querySelector('.dock')); add(root.querySelector('#bt-drawer'));
+  const left = root.querySelector('#bt-left'); if (left && left.children) for (const c of left.children) add(c);
+  return out;
+}
+/** The free stretch of a row of the picture (css pixels; rows top to bottom) around a point at x = ax: [left, right, blocked]. Left is the right edge of the nearest panel on its left, right the left edge
+ *  of the nearest panel on its right, among the panels that reach into the row, inside the picture (w wide) less a margin m. blocked is true when a panel in the row lies over the point itself: no
+ *  stretch helps there (the stretch is then given as if that panel were not there). */
+export function freeBand(ax, top, bottom, w, av, m = 6) {
+  let l = m, r = w - m, blocked = false;
+  for (let q = 0; av && q < av.length; q++) { const p = av[q]; if (!(p[1] < bottom && p[3] > top)) continue; if (p[2] <= ax) { if (p[2] + m > l) l = p[2] + m; } else if (p[0] >= ax) { if (p[0] - m < r) r = p[0] - m; } else blocked = true; }
+  return [l, r, blocked];
+}
+/** Where a label box (bw by bh css pixels) stands beside a point (ax, ay) of the picture (w by h) so that no panel covers it and all of it is on the picture. It tries, in this order, the right of the
+ *  point (the box's left edge `gap` px off, its top `up` px above the point), the left of it, above it, below it (centred, `above` px off); o.prefer, the side it stood on last time, goes first while
+ *  it still fits, so a label does not jump from frame to frame. When none stands clear it goes inside the free stretch of the row above the point (the row below it when a panel lies over the point
+ *  in the row above, or the row is off the picture); where the stretch is narrower than the box `cut` is true and `maxW` is the width it may have (the caller wraps or shortens the text), and x is
+ *  the left end of the stretch. Returns {x, y, side, cut, maxW}: the box's left and top. */
+export function placeLabel(ax, ay, bw, bh, w, h, av, o = {}) {
+  const gap = o.gap ?? 12, up = o.up ?? 30, above = o.above ?? 12, m = o.margin ?? 6, list = av || [];
+  const at = side => (side === 'right' ? [ax + gap, ay - up] : side === 'left' ? [ax - gap - bw, ay - up] : side === 'above' ? [ax - bw / 2, ay - above - bh] : [ax - bw / 2, ay + above]);
+  const fits = (x, y) => { if (!(x >= m && x + bw <= w - m && y >= m && y + bh <= h - m)) return false; for (let q = 0; q < list.length; q++) { const r = list[q]; if (x - 2 < r[2] && x + bw + 2 > r[0] && y - 2 < r[3] && y + bh + 2 > r[1]) return false; } return true; };
+  const order = ['right', 'left', 'above', 'below']; if (order.includes(o.prefer)) order.unshift(o.prefer);
+  for (const side of order) { const [x, y] = at(side); if (fits(x, y)) return { x, y, side, cut: false, maxW: bw }; }
+  let y = clamp(ay - above - bh, m, Math.max(m, h - m - bh)), band = freeBand(ax, y, y + bh, w, list, m);
+  if (band[2]) { const y2 = ay + above; if (y2 + bh <= h - m) { const b2 = freeBand(ax, y2, y2 + bh, w, list, m); if (!b2[2]) { y = y2; band = b2; } } }
+  const room = band[1] - band[0];
+  return room >= bw ? { x: clamp(ax - bw / 2, band[0], band[1] - bw), y, side: 'band', cut: false, maxW: bw } : { x: band[0], y, side: 'band', cut: true, maxW: Math.max(0, room) };
+}
 export function newLayout(n) { return { n: 0, idx: new Uint16Array(n), sx: new Float32Array(n), sy: new Float32Array(n), r: new Float32Array(n), nLabels: 0, hidden: 0, lab: new Int16Array(LABEL.max + 1), cd: new Float32Array(CAND), ci: new Int16Array(CAND), p: [0, 0, 0] }; }
 /** Fills L with the marks in view: their screen places and sizes (nearer is larger), and which of them get a name (the nearest that do not sit on one another). With state.T (the terrain) a mark the ground hides from the
  *  camera is left out and counted in L.hidden (the picked memorial is never left out); with state.avoid (rectangles of the panels over the picture) a name is not put under a panel. Neither changes which memorials are marked. */
@@ -286,15 +319,26 @@ export function drawMarks(c, index, L, state, tier) {
   if (n) { c.beginPath(); for (let k = 0; k < n; k++) stone(c, L.sx[k], L.sy[k], L.r[k]); c.lineWidth = 1.3; c.strokeStyle = tier.color; c.setLineDash(dashed ? [3, 2] : []); c.stroke(); c.setLineDash([]); }
   c.textBaseline = 'alphabetic';
   for (let q = L.nLabels - 1; q >= 0; q--) {                      // the picked memorial last, on top
-    const k = L.lab[q], it = items[L.idx[k]], sel = it.no === selNo, txt = sel ? (it.selLbl || (it.selLbl = markLabel(it))) : it.lbl, x = L.sx[k] + 9, y = L.sy[k] - 16;
+    const k = L.lab[q], it = items[L.idx[k]], sel = it.no === selNo, ax = L.sx[k]; let txt = sel ? (it.selLbl || (it.selLbl = markLabel(it))) : it.lbl, x = ax + 9, y = L.sy[k] - 16;
     c.font = sel ? '600 12.5px system-ui, sans-serif' : '11.5px system-ui, sans-serif';
-    if (sel) { c.lineWidth = 2.2; c.strokeStyle = '#e8d5a3'; c.beginPath(); c.arc(L.sx[k], L.sy[k] - L.r[k] * .3, L.r[k] * 1.9 + 4, 0, 6.2832); c.stroke(); }
-    const w = c.measureText(txt).width + LABEL.pad;
+    if (sel) { c.lineWidth = 2.2; c.strokeStyle = '#e8d5a3'; c.beginPath(); c.arc(ax, L.sy[k] - L.r[k] * .3, L.r[k] * 1.9 + 4, 0, 6.2832); c.stroke(); }
+    let w = c.measureText(txt).width + LABEL.pad;
+    if (sel && state && state.w > 0 && state.h > 0) {               // the picked memorial is always named, and its "later memorial" is always read: the name goes to the other side of the mark, above or below it, when a panel covers the place beside it
+      const pl = placeLabel(ax, L.sy[k], w, LABEL.h, state.w, state.h, state.avoid, { gap: 9, up: 29, above: 26, prefer: state.selSide }); state.selSide = pl.side; x = pl.x; y = pl.y + 13;
+      if (pl.cut) { txt = fitLabel(c, it, pl.maxW); w = c.measureText(txt).width + LABEL.pad; x = clamp(ax - w / 2, pl.x, Math.max(pl.x, pl.x + pl.maxW - w)); }          // no stretch is wide enough: the name is shortened, never the words after it
+    }
     c.fillStyle = sel ? 'rgba(14,14,25,.88)' : 'rgba(14,14,25,.78)'; c.fillRect(x, y - 13, w, LABEL.h);
     (GLYPH[tier.glyph] || GLYPH.square)(c, x + 8, y - 4, 4); c.fillStyle = tier.color + '55'; c.fill(); c.lineWidth = 1.3; c.strokeStyle = tier.color; c.setLineDash(dashed ? [2, 1.5] : []); c.stroke(); c.setLineDash([]);
     c.fillStyle = sel ? '#e8d5a3' : '#ecebe6'; c.fillText(txt, x + 16, y);
   }
   return n;
+}
+/** The picked memorial's label cut to a room of `room` css pixels: the NAME is shortened with an ellipsis, the words after it (later memorial, and the distance beyond the ground) never are. */
+export function fitLabel(c, it, room) {
+  const tail = ` · ${COPY.short}${it.inside ? '' : ` · ${fmtM(it.beyondM)} m ${COPY.beyond}`}`, name = it.name, fits = t => c.measureText(t).width + LABEL.pad <= room;
+  if (fits(name + tail)) return name + tail;
+  let lo = 1, hi = name.length - 1; while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (fits(name.slice(0, mid).trimEnd() + '…' + tail)) lo = mid; else hi = mid - 1; }
+  return name.slice(0, lo).trimEnd() + '…' + tail;
 }
 
 // ---------------------------------------------------------------- the words of a memorial (card and list; pure HTML strings)
