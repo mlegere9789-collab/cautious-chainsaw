@@ -12,6 +12,8 @@
 
 export const SCHEMA = 'bt-vegetation/1';
 export const TIERS = ['documented', 'inferred', 'plausible-procedural', 'open gap'];
+/** the plan's rule: a source is quoted by a short phrase, under 15 words (E.6, p. 134); gate T-Q02-1 and T-Q21-1 read at most 14 */
+export const QUOTE_MAX_WORDS = 14;
 const RANK = Object.fromEntries(TIERS.map((t, i) => [t, i]));
 /** Words by which a passage speaks of damage; a documented event must cite at least one documented passage that uses them (a lexical guard: whether the passage supports the claim is a reading, set down in the event's basis). */
 export const DAMAGE_RE = /trampl|trodden|trod\b|scarred|stripped|splinter|damag|destroy|batter|bullet|shell|shot\b|lopped|cut off|ruin/i;
@@ -318,6 +320,9 @@ export function checkVegetation(model, opts = {}) {
   // claims: each has a quote, a tier of the two allowed, and a locator
   for (const c of model.data.claims) {
     if (!c.quote || c.quote.length < 12) fail({ id: c.id }, 0, 'claim without a quote of at least 12 characters');
+    else if (c.quote.trim().split(/\s+/).length > QUOTE_MAX_WORDS) fail({ id: c.id }, 0, `claim quote of more than ${QUOTE_MAX_WORDS} words (the plan quotes a short phrase, under 15 words: T-Q21-1)`);
+    if (!c.src || !c.fam) fail({ id: c.id }, 0, 'claim without the id of its source and its family');
+    if (c.loc && c.loc.span && !(c.loc.span[0] <= c.loc.char_start && (c.loc.char_end == null || c.loc.char_end <= c.loc.span[1] + 64))) fail({ id: c.id }, 0, 'the quote lies outside the passage the claim rests on');
     if (c.tier !== 'documented' && c.tier !== 'inferred') fail({ id: c.id }, 0, 'claim tier is ' + c.tier);
     if (!c.loc || !(c.loc.pdf_page || c.loc.page || c.loc.char_start != null)) fail({ id: c.id }, 0, 'claim without a place in its source');
   }

@@ -25,6 +25,47 @@ def jl(p):
     return Q.jload(p) if os.path.exists(p) else None
 
 
+def nc_log():
+    """The verify log of the 41 conf-nc files: (records, path, text) for the newest complete log that is not older than the newest file under data2/confederate/nc, else (None, None, why)."""
+    ncdir = os.path.join(Q.ROOT, 'docs', 'battle-theatre', 'rosters', 'data2', 'confederate', 'nc')
+    files = sorted(glob.glob(os.path.join(ncdir, '*.jsonl.gz')))
+    newest = max(os.path.getmtime(x) for x in glob.glob(os.path.join(ncdir, '*')))
+    cands = [(os.path.join(Q.WSQ, 'r2', 'verify-nc.jsonl'), os.path.join(Q.WSQ, 'r2', 'verify-nc.done')),
+             (os.path.join(Q.ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws-rosters', 'conf-nc', 'verify-unit-run.out'), None)]
+    why = []
+    good = []
+    for p, done in cands:
+        if not os.path.exists(p):
+            why.append('%s does not exist' % Q.rel(p))
+            continue
+        if done is not None and not os.path.exists(done):
+            why.append('%s has no .done marker (the run has not finished)' % Q.rel(p))
+            continue
+        t = os.path.getmtime(done if done is not None else p)
+        recs = []
+        for line in open(p, encoding='utf-8'):
+            line = line.strip()
+            if line.startswith('{'):
+                try:
+                    recs.append(json.loads(line))
+                except ValueError:
+                    pass
+        have = {os.path.basename(r.get('file', '')) for r in recs}
+        need = {os.path.basename(x) for x in files}
+        if have != need:
+            why.append('%s covers %d of the %d files' % (Q.rel(p), len(have & need), len(need)))
+            continue
+        if t < newest:
+            why.append('%s is older than the newest file of data2/confederate/nc (the item was rebuilt after the run)' % Q.rel(p))
+            continue
+        good.append((t, recs, p))
+    if not good:
+        return None, None, '; '.join(why)
+    good.sort(key=lambda x: x[0])
+    t, recs, p = good[-1]
+    return recs, p, ''
+
+
 def main():
     lint = subprocess.run([sys.executable, '-I', os.path.join(os.path.dirname(HERE), 'build_index.py'), '--lint'], capture_output=True, text=True)
     m = re.search(r'defects: (\d+), warnings: (\d+)', lint.stdout)
@@ -32,15 +73,14 @@ def main():
         print('build_index.py --lint does not report 0 defects:\n' + lint.stdout[-800:])
         return 1
     plan = os.path.join(Q.ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws-rosters', 'plan', 'verify-all-2026-11-15.jsonl')
-    nc = os.path.join(Q.WSQ, 'r2', 'verify-nc.jsonl')
-    for p in (plan, nc):
-        if not os.path.exists(p):
-            print('missing verify log: ' + p)
-            return 1
-    if not os.path.exists(os.path.join(Q.WSQ, 'r2', 'verify-nc.done')):
-        print('the verify run of the conf-nc files has not finished (r2/verify-nc.done is missing)')
+    if not os.path.exists(plan):
+        print('missing verify log: ' + plan)
         return 1
-    vl = [json.loads(x) for x in open(plan, encoding='utf-8') if x.strip()] + [json.loads(x) for x in open(nc, encoding='utf-8') if x.strip()]
+    ncrecs, ncpath, why = nc_log()
+    if ncrecs is None:
+        print('no fresh verify log of the 41 conf-nc files: ' + why)
+        return 1
+    vl = [json.loads(x) for x in open(plan, encoding='utf-8') if x.strip()] + ncrecs
     v1, v3 = sum(x['v1_name_defects'] for x in vl), sum(x['v3_page_defects'] for x in vl)
     if v1 or v3 or any(not x['ok'] for x in vl):
         print('the verify logs show defects: V1 %d, V3 %d' % (v1, v3))
@@ -78,7 +118,7 @@ def main():
         s1['pages_looked_at'], '{:,}'.format(s1['rows_looked_at']), n1, len(s1['strata']),
         'done (4.2)' if sr1 else 'OWED (G-QA06)', 'done (8.7)' if sr2 else 'OWED (G-QA08)')
     doc = {'f': 'roster2-closed/1', 'work_item': 'roster-qa', 'round': ROUND, 'units_without_file': [], 'covers': COVERS,
-           'verify': {'files': len(vl), 'v1_defects': v1, 'v3_defects': v3}, 'note': note}
+           'verify': {'files': len(vl), 'v1_defects': v1, 'v3_defects': v3, 'logs': [Q.rel(plan), Q.rel(ncpath)]}, 'note': note}
     Q.jdump(os.path.join(Q.WSQ, 'CLOSED.json'), doc)
     print('CLOSED.json written: round %d, covers %s, verify %s' % (ROUND, COVERS, doc['verify']))
     return 0

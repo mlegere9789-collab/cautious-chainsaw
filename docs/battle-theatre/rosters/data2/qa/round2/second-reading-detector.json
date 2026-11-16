@@ -1,0 +1,32 @@
+{
+ "f": "roster-qa-detector/1",
+ "note": "computed from the verdicts that were looked at on all three levels",
+ "families": {
+  "NC-MOO-E": {
+   "rows_looked_at_all_levels": 204,
+   "rows_in_error": 82,
+   "rows_clean": 122,
+   "error_rows_marked_SUSPECT": 73,
+   "error_rows_marked_NEAR": 1,
+   "error_rows_marked_AGREE": 8,
+   "clean_rows_marked_AGREE": 58,
+   "clean_rows_marked_NEAR": 1,
+   "clean_rows_marked_SUSPECT": 63,
+   "recall_of_errors": 0.89,
+   "agree_share_of_clean_rows": 0.475
+  },
+  "NC-MOO-G": {
+   "rows_looked_at_all_levels": 225,
+   "rows_in_error": 68,
+   "rows_clean": 157,
+   "error_rows_marked_SUSPECT": 66,
+   "error_rows_marked_NEAR": 0,
+   "error_rows_marked_AGREE": 2,
+   "clean_rows_marked_AGREE": 62,
+   "clean_rows_marked_NEAR": 1,
+   "clean_rows_marked_SUSPECT": 94,
+   "recall_of_errors": 0.971,
+   "agree_share_of_clean_rows": 0.395
+  }
+ }
+}

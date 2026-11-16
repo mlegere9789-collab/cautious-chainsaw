@@ -582,7 +582,7 @@ test('negative controls: the run checker reads them (seen, not seen, absent, ski
 });
 test('negative controls: the page harness, the driver and the shell harness run them once at the end on WebGPU only, the controls are free of clock and randomness, and what they make is marked and taken out of the console list', () => {
   const R = f => fs.readFileSync(path.join(APP, 'tests', f), 'utf8'), page = R('weather3d-gpu-page.mjs'), drv = R('weather3d-gpu.mjs'), th = R('weather3d-gpu-theatre.mjs'), nc = R('weather3d-gpu-negctl.mjs');
-  assert.match(page, /import \{ deviceControls, frameControl \} from '\.\/weather3d-gpu-negctl\.mjs'/); assert.match(page, /WG\.negativeControl = async spec =>/); assert.match(page, /frameControl\(s => WG\.render\(s\), fi && fi\.gpu, d, spec\)/);
+  assert.match(page, /import \{ deviceControls, frameControl, stripMarked \} from '\.\/weather3d-gpu-negctl\.mjs'/); assert.match(page, /WG\.negativeControl = async spec =>/); assert.match(page, /frameControl\(s => WG\.render\(s\), fi && fi\.gpu, d, spec\)/);
   assert.match(drv, /api === 'webgpu' && !args\.includes\('--no-negctl'\) && list\.length/); assert.match(drv, /window\.WG\.negativeControl\(s\)/); assert.match(drv, /!l\.includes\('harness negative control'\)/);
   assert.match(th, /api === 'webgpu' && !args\.includes\('--no-negctl'\)/); assert.match(th, /import\('\/app\/tests\/weather3d-gpu-negctl\.mjs'\)/); assert.match(th, /!l\.includes\('harness negative control'\)/);
   assert.ok(!/Math\.random|Date\.now|performance\.now/.test(nc), 'nothing random and no clock in the controls (only setTimeout bounds)'); assert.equal(MARK, 'harness negative control');

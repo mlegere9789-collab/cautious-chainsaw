@@ -35,6 +35,7 @@ LC = os.path.join(ROOT, 'docs', 'basemap1863', 'features', 'landcover')
 RRW = os.path.join(ROOT, 'docs', 'basemap1863', 'features', 'roads-rail-water')
 OUT = os.path.join(BT, 'app', 'data', 'vegetation.json')
 CLAIMS = os.path.join(HERE, 'claims_verified.json')
+EXTRACTS = os.path.join(HERE, 'claim_extracts.json')    # the short quote of every claim (short_quotes.py): at most 14 words, copied from the saved text, placed in it
 SCHEMA = 'bt-vegetation/1'
 
 TO_M = Transformer.from_crs(4326, 32618, always_xy=True)
@@ -392,7 +393,7 @@ FARM_CONSTRAINTS = {   # farm key -> [(crop, claim id)]: fields the inventory na
     'brien': [('hay', 'VC-NPSC-BRIEN-FARM-p007-01'), ('barley', 'VC-NPSC-BRIEN-FARM-p007-01')],     # the wheat of the Brien inventory is placed by MacDougall's account (VC-NPSC-BRIEN-FARM-p008-01a)
 }
 KIND_FIX = {'VC-NPSX-CLI-PCB-p081-04': 'crop', 'VC-NPSX-CLI-PCB-p085-02': 'crop', 'VC-NPSX-CLI-PCB-p080-03': 'woodlot', 'VC-NPSX-CLI-PCB-p081-02': 'woodlot', 'VC-NPSX-CLI-PCB-p084-04': 'woodlot', 'VC-NPSX-CLI-PCB-p084-02': 'woodlot'}
-CLASS_MAP = {'field': ('field',), 'woods': ('woods', 'scatter'), 'orchard': ('orchard',), 'boulder': ('boulder',), 'cleared': ('cleared',), 'any': ('field', 'woods', 'scatter', 'orchard', 'marsh', 'cleared', 'wheatfield', 'boulder')}
+CLASS_MAP = {'field': ('field',), 'woods': ('woods', 'scatter'), 'orchard': ('orchard',), 'boulder': ('boulder',), 'cleared': ('cleared',), 'yard': ('yard',), 'any': ('field', 'woods', 'scatter', 'orchard', 'marsh', 'cleared', 'wheatfield', 'boulder')}
 
 
 def load_claims():
@@ -578,20 +579,53 @@ def cell_attributes(u, mix, claims, units_by_lc):
     u['p'] = p
 
 
+def make_yards(farms, G):
+    """The farmyard of every farmstead the structures layer places: an ellipse round the farmstead point (axes, turn and worn share are seeded draws inside the ranges of TB.YARD). It overlays the field
+    cell or woodlot that holds the buildings (the ground cover of a yard is drawn above it) and is a plausible-procedural unit: no source outlines a yard (gap G25)."""
+    import shapely.affinity as aff
+    out = []
+    for k in sorted(farms):
+        pt = farms[k]
+        a = TB.YARD['a_m'][0] + (TB.YARD['a_m'][1] - TB.YARD['a_m'][0]) * rnd('yard', k, 'a')
+        b = TB.YARD['b_m'][0] + (TB.YARD['b_m'][1] - TB.YARD['b_m'][0]) * rnd('yard', k, 'b')
+        ell = aff.rotate(aff.scale(pt.buffer(1.0, 24), a, b), 360.0 * rnd('yard', k, 'turn'), origin=pt).intersection(G)
+        if ell.is_empty or ell.area < 200:
+            continue
+        g = max(polys(ell), key=lambda q: q.area)
+        out.append({'cls': 'yard', 'lc': 'YARD-' + k, 'lc_name': FARMS.get(k, k).replace(' farmstead', '').replace(' (Meade headquarters)', '').replace(' (Peach Orchard)', '').replace(' (Rock Creek)', '') + ' farmyard', 'lc_conf': 'Estimated', 'geom': g,
+                    'geom_tier': 'plausible-procedural', 'farm_key': k,
+                    'geom_note': 'an ellipse of %.0f by %.0f m (semi-axes) round the farmstead point of the structures layer, turned by a seed: no source outlines a yard (gap G25)' % (a, b)})
+    return out
+
+
 def build_json(args):
     use_study = getattr(args, 'mcpherson', 'clr') == 'study'
     units, terr, G, farms, gz, S = build_units(args)
+    units.extend(make_yards(farms, G))
     claims = load_claims()
     for c in claims.values():
         if 'about' not in c:
             c['about'] = {}
     # a stable order and stable ids
-    order = {'wheatfield': 0, 'field': 1, 'cleared': 2, 'marsh': 3, 'boulder': 4, 'orchard': 5, 'scatter': 6, 'woods': 7}
+    order = {'wheatfield': 0, 'field': 1, 'cleared': 2, 'marsh': 3, 'boulder': 4, 'orchard': 5, 'scatter': 6, 'woods': 7, 'yard': 8}      # the yards come last: the ids of every other unit stay as they were
     units.sort(key=lambda u: (order[u['cls']], u['lc'], round(u['geom'].centroid.x), round(u['geom'].centroid.y)))
     for i, u in enumerate(units):
         u['id'] = 'V-%04d' % (i + 1)
     units_by_lc = {u['lc']: u for u in units}
     unplaced = attach_claims(units, claims, farms, gz)
+    yard_of = {u['farm_key']: u for u in units if u['cls'] == 'yard'}
+    for fk, cids in TB.YARD_CLAIMS.items():
+        for cid in cids:
+            if fk in yard_of and cid in claims:
+                yard_of[fk]['claims'].append([cid, 'nearest'])
+                if cid in unplaced:
+                    unplaced.remove(cid)
+    for u in yard_of.values():
+        for cid in TB.YARD_AREA_CLAIMS:
+            if cid in claims:
+                u['claims'].append([cid, 'area'])
+                if cid in unplaced:
+                    unplaced.remove(cid)
     mix, farm_rows, acres = district_mix(claims, alt=use_study)
 
     # ----- crops of the field cells
@@ -717,6 +751,9 @@ def class_attributes(units, claims, gz, farms):
                     u['orchard'].update({'species': {kk: round(v / z, 3) for kk, v in sorted(ab['species'].items())}, 'species_claim': cid, 'species_tier': tier_of(role, cid)})
                 if isinstance(ab.get('spacing_m'), list) and len(ab['spacing_m']) == 2:
                     u['orchard'].update({'spacing_m': round(sum(ab['spacing_m']) / 2, 2), 'spacing_claim': cid, 'spacing_tier': tier_of(role, cid)})
+        elif u['cls'] == 'yard':
+            u['crop'], u['crop_tier'], u['crop_basis'] = 'pasture', 'plausible-procedural', 'farmyard'
+            u['yard'] = {'farm': u['farm_key'], 'wear': list(TB.YARD['wear']), 'wear_tier': TB.YARD['tier']}
         elif u['cls'] == 'marsh':
             u['crop'], u['crop_tier'], u['crop_basis'] = 'marsh', 'inferred', 'claim' if u['lc'] == 'LC-WET-0001' else 'warren_symbol'
             if u['lc'] == 'LC-WET-0001':
@@ -763,6 +800,12 @@ EVENTS = [
      'claims': ['VC-LIB-018'], 'basis': 'the orchards splintered (Haskell, the evening of 2 July); the disc is the Peach Orchard and the orchards around it'},
     {'id': 'EV-VEG-10', 'kind': 'strip', 'label': 'The Klingel and Trostle orchards, 2 July', 'region': {'disc': {'farm': 'klingel', 'r_m': 420}}, 'from': '1863-07-02T17:30', 'to': '1863-07-02T19:30', 'final': [0.15, 0.4], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
      'claims': ['VC-LIB-018', 'VC-NPS-025'], 'basis': 'the orchards splintered; a general reported them as thick orchards on 2 July'},
+    {'id': 'EV-VEG-11', 'kind': 'trample', 'label': 'The McMillan yard: a Union battery, 1 July', 'unit_lc': 'YARD-mcmillan', 'from': '1863-07-01T10:00', 'to': '1863-07-01T16:30', 'final': [0.3, 0.7], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-NPSX-CLI-PCB-p072-02'], 'basis': 'the report says a Union artillery battery stood for a short time in the McMillan yard on 1 July and damaged his corn (the yard itself is not described); the guns, limbers and horses of a battery wear a yard\'s grass, so the yard is trampled inside the hours of the day\'s fighting; the hours and the share are ranges'},
+    {'id': 'EV-VEG-12', 'kind': 'trample', 'label': 'The Leister yard: the army headquarters, dead horses, 2 to 3 July', 'unit_lc': 'YARD-leister', 'from': '1863-07-02T21:00', 'to': '1863-07-03T15:30', 'final': [0.5, 0.9], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-NPSC-HSR-LEISTER-BARN-p013-05'], 'basis': 'the report says that when Mrs. Leister came back several days after she left on the evening of 1 July dead horses littered the yard and the crops were trampled; the house was the army\'s headquarters from the night of 2 July and the farm lay under the cannonade of 3 July; the report gives no hour, so the window runs from the evening of 2 July to the end of the cannonade and the share is a range'},
+    {'id': 'EV-VEG-13', 'kind': 'trample', 'label': 'The Weikert yard and orchard: the wounded, 2 July evening', 'unit_lc': 'YARD-j_weikert', 'from': '1863-07-02T18:30', 'to': '1863-07-02T22:00', 'final': [0.4, 0.8], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-LIB-045'], 'basis': 'Tillie Pierce (Jacob Weikert\'s farm): on the evening of 2 July the orchard and the space round the buildings were covered with the wounded; the ground under many bodies is trodden and laid with straw and blankets; the hours are those of the evening of the fighting and the share is a range'},
 ]
 
 
@@ -784,7 +827,7 @@ def build_events(units, farms, gz, claims):
         else:
             reg = region_geom(e['region'], farms, gz)
             d['region_ll'] = [round(x, 5) for xy in list(to_ll(reg).exterior.coords)[:-1] for x in xy] if reg.geom_type == 'Polygon' else None
-            want = ('field', 'wheatfield', 'cleared', 'orchard') if e['kind'] == 'trample' else ('woods', 'orchard', 'scatter')
+            want = ('field', 'wheatfield', 'cleared', 'orchard', 'yard') if e['kind'] == 'trample' else ('woods', 'orchard', 'scatter')
             for u in units:
                 if u['cls'] not in want:
                     continue
@@ -894,17 +937,28 @@ def make_output(args):
             c = u['geom'].centroid
             dist = sorted((c.distance(p), k) for k, p in farms.items())
             u['farm_guess'] = dist[0][1] if dist[0][0] < 900 else None
-    # claim trim
+    # claim trim: what the data carries of a claim is its sentence, its tier, its place in the source and a SHORT quote (at most 14 words, copied letter for letter from the saved text:
+    # the plan's rule is to quote a short phrase and paraphrase the rest); the passage the sentence rests on stays in the working files of this folder and is named by its offsets (loc.span)
+    ext = {e['id']: e for e in load(EXTRACTS)}
     cl_out = []
     for cid in sorted(claims):
         c = claims[cid]
-        r = {k: c[k] for k in ('id', 'src', 'tier', 'kind', 'says', 'feature') if k in c}
-        r['quote'] = c['quote'] if c.get('restored') else c['quote_found']
-        if c.get('restored'):                      # the printed words are shown; the words of the saved text (a text layer that lost glyphs) stay on record
-            r['quote_as_saved'] = c['quote_found']
-            r['text_defect'] = c['restored']
+        e = ext.get(cid)
+        if e is None or not e.get('ok'):
+            raise SystemExit('claim %s has no short quote: run short_quotes.py' % cid)
+        fam = c['src'].split(':')[0]
+        r = {k: c[k] for k in ('id', 'tier', 'kind', 'says', 'feature') if k in c}
+        r['src'] = gate_source(c, e)
+        r['fam'] = fam
+        r['quote'] = e['extract']
+        if e.get('printed'):                      # a lost glyph or a letter-spaced text layer: the saved words are the quote (the gate finds them again), the words as printed are for the reader
+            r['quote_printed'] = e['printed']
+            if c.get('restored'):
+                r['text_defect'] = c['restored']
         r['when'] = c.get('when')
-        r['loc'] = {k: v for k, v in c['locator'].items() if k in ('pdf_page', 'page', 'report', 'who', 'char_start')}
+        r['loc'] = {k: v for k, v in e['locator'].items() if k in ('pdf_page', 'page', 'report', 'who', 'char_start', 'char_end')}
+        if e.get('passage') and e['passage'][0] is not None and e.get('same_text'):
+            r['loc']['span'] = e['passage']        # the offsets of the whole passage the claim rests on (the quote lies inside it)
         if c.get('about'):
             r['about'] = c['about']
         if c.get('note'):
@@ -937,7 +991,7 @@ def make_output(args):
             rec['geom_note'] = 'cell of a block of open ground cut by straight cuts across the long axis of its pieces: the edges inside the block are not mapped' if u.get('subdivided') else 'a block of open ground between roads, lanes, confirmed fences and the outlines of woods and orchards'
             if u.get('farm_guess'):
                 rec['farm_guess'] = u['farm_guess']
-        for k in ('crop', 'crop_alt', 'crop_tier', 'crop_basis', 'crop_claim', 'crop_role', 'rock', 'woods', 'orchard', 'p', 'seed', 'ev'):
+        for k in ('crop', 'crop_alt', 'crop_tier', 'crop_basis', 'crop_claim', 'crop_role', 'rock', 'woods', 'orchard', 'yard', 'p', 'seed', 'ev'):
             if k in u:
                 rec[k] = u[k]
         rec['claims'] = u['claims']
@@ -945,8 +999,17 @@ def make_output(args):
     return units, uo, cl_out, farm_out, events, wts, mix, farm_rows, acres, lrt_units, unplaced, terr, S
 
 
+def gate_source(c, e):
+    """the source id of a claim as the gate's text store knows it: the report id of the Official Records, the library id of the other texts (no family prefix); the saved text variant
+    (#layout, #raw: a two-column page is read in order there) is kept in the id when the short quote is found only in it"""
+    if c['src'] == 'OR27':
+        return e['locator'].get('report') or c['locator'].get('report')
+    via = e.get('via') or c['src']
+    return via.split(':', 1)[1]
+
+
 def source_titles(claims):
-    """a readable title for every source key the claims cite (OR27; NPS:<ID> and NPSWEB:<ID> from the index of the web task; WS9:<ID> from the library index; WEB:<ID> from its meta file)"""
+    """a readable title for every source the claims cite, keyed by the id the claim carries (OR27 for the Official Records; NPS-...; the library id of the books and papers)"""
     import re
     nps = {}
     idx = os.path.join(BT, 'GOVERNANCE', 'horde', 'ws-web', 'nps', 'INDEX.md')
@@ -957,19 +1020,60 @@ def source_titles(claims):
     out = {}
     for c in claims.values():
         k = c['src'].split('#')[0]
-        if k in out:
+        key = 'OR27' if k == 'OR27' else k.split(':', 1)[1]
+        if key in out:
             continue
         if k == 'OR27':
-            out[k] = 'The War of the Rebellion: Official Records of the Union and Confederate Armies, Series I, vol. 27 (Gettysburg Campaign)'
+            out[key] = 'The War of the Rebellion: Official Records of the Union and Confederate Armies, Series I, vol. 27 (Gettysburg Campaign)'
         elif k.startswith('NPS:'):
-            out[k] = nps.get(k[4:], k[4:])
+            out[key] = nps.get(k[4:], k[4:])
         elif k.startswith('NPSWEB:'):
-            out[k] = nps.get(k[7:], k[7:])
+            out[key] = nps.get(k[7:], k[7:])
         elif k.startswith('WS9:'):
-            it = ws9.get(k[4:]); out[k] = (it['title'] + (' (' + str(it['date']) + ')' if it.get('date') else '')) if it else k[4:]
+            it = ws9.get(k[4:]); out[key] = (it['title'] + (' (' + str(it['date']) + ')' if it.get('date') else '')) if it else k[4:]
         elif k.startswith('WEB:'):
             mp = os.path.join(ROOT, 'tmp', 'library', 'web', 'veg', k[4:] + '.meta.json')
-            out[k] = load(mp)['title'] if os.path.exists(mp) else k[4:]
+            out[key] = load(mp)['title'] if os.path.exists(mp) else k[4:]
+    return out
+
+
+def year_of(s):
+    import re
+    m = re.findall(r'(1[89]\d\d|20\d\d)', str(s or ''))
+    return int(m[0]) if m else None
+
+
+def source_manifest(claims):
+    """one entry for every source the claims cite (keyed by the id of the claim): family, title, the date it was written (the year its own title page or index gives), the rights basis the library ledger
+    records, and the reliability tier by the plan's weighting (Part D, library audit step 8: tier 1 orders and dispatches of the day, 2 reports written within weeks to a year or two, 3 letters and memoirs written
+    years later, 4 later compilations and modern studies); the tier is read from the date written and says so. `independent_of` is not recorded here: no relation between these sources has been checked."""
+    a2 = {it['id']: it for it in load(os.path.join(BT, 'GOVERNANCE', 'library', 'acquired_2.json'))['items']}
+    a3 = {it['id']: it for it in load(os.path.join(BT, 'GOVERNANCE', 'library', 'acquired_3.json'))['items']}
+    titles = source_titles(claims)
+    out = {}
+    for c in claims.values():
+        k = c['src'].split('#')[0]
+        key = 'OR27' if k == 'OR27' else k.split(':', 1)[1]
+        if key in out:
+            continue
+        fam = k.split(':')[0]
+        e = {'fam': fam, 'title': titles.get(key, key)}
+        if fam == 'OR27':
+            e.update(date_written='1863-1889', rights='US Government publication (public domain)', reliability_tier=2,
+                     reliability_basis='official reports of the battle, most written within weeks to months of it (the plan: tier 2); the printed volume is of 1889')
+        else:
+            it = a2.get(key) or a3.get(key.split('#')[0])
+            if fam == 'WEB':
+                mp = os.path.join(ROOT, 'tmp', 'library', 'web', 'veg', key + '.meta.json')
+                it = load(mp) if os.path.exists(mp) else {}
+            it = it or {}
+            y = year_of(it.get('date') or it.get('date_written') or titles.get(key))
+            e['date_written'] = str(y) if y else 'not stated'
+            e['rights'] = it.get('licence_basis') or it.get('rights_basis') or it.get('rights') or 'not recorded in the ledger'
+            if y:
+                e['reliability_tier'] = 2 if y <= 1864 else (3 if y <= 1928 else 4)
+                e['reliability_basis'] = 'by the year written (%d): %s' % (y, 'within about a year of the battle' if y <= 1864 else ('years after it' if y <= 1928 else 'a later compilation or modern study'))
+        out[key] = e
     return out
 
 
@@ -1099,6 +1203,7 @@ def write_all(args):
                      'trees': 'not stored: each tree is placed at run time by a seeded scatter inside its unit (rows for orchards)'},
         'counts': {'units': len(uo), 'by_class': dict(collections.Counter(u['cls'] for u in uo)), 'claims': len(cl_out), 'claims_unplaced': len(unplaced), 'events': len(events), 'witness_trees': len(wts)},
         'source_titles': source_titles(claims_all),
+        'source_manifest': source_manifest(claims_all),
         'tiers': {'units_geometry': dict(collections.Counter(u['geom_tier'] for u in uo)), 'field_crops': dict(collections.Counter(u.get('crop_tier') for u in uo if u['cls'] in ('field', 'wheatfield')))},
         'sources': {'landcover_sha256': {n: sha256_file(os.path.join(LC, n + '.geojson')) for n in ('woods_1863', 'orchards_1863', 'scattered_trees_1863', 'marsh_wetland_1863', 'boulder_fields_1863', 'open_cleared_1863', 'fields_documented_1863', 'open_ground_1863')},
                     'claims_sha256': sha256_file(CLAIMS)},

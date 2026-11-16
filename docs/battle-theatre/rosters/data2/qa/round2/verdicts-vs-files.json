@@ -1,7 +1,7 @@
 {
  "f": "roster-qa-verdicts-vs-files/1",
  "about": "The stored lines of every page that was looked at, now (unit files as they are in the tree) against the lines the verdict lists (as they stood when the page was compared with its image).",
- "generated_utc": "2026-11-16T03:15:30Z",
+ "generated_utc": "2026-11-16T03:36:46Z",
  "frame_files": {
   "files_in_frame": 41,
   "differ_from_frame": [
@@ -1334,6 +1334,24 @@
    "differences": []
   },
   {
+   "page": "rosternorthcaro00moorgoog/383",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 18,
+   "lines_now_on_the_leaf": 18,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosternorthcaro00moorgoog/384",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 52,
+   "lines_now_on_the_leaf": 52,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
    "page": "rosterofnorthcar02nort/14",
    "stratum": "NC-MOO-G-other",
    "lines_in_verdict": 52,
@@ -1406,6 +1424,24 @@
    "differences": []
   },
   {
+   "page": "rosterofnorthcar02nort/217",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 40,
+   "lines_now_on_the_leaf": 40,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar03moor/68",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 41,
+   "lines_now_on_the_leaf": 41,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
    "page": "rosterofnorthcar03moor/286",
    "stratum": "NC-MOO-G-other",
    "lines_in_verdict": 55,
@@ -1424,6 +1460,24 @@
    "differences": []
   },
   {
+   "page": "rosterofnorthcar03moor/352",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 54,
+   "lines_now_on_the_leaf": 54,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar03moor/512",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 41,
+   "lines_now_on_the_leaf": 41,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
    "page": "rosterofnorthcar03moor/536",
    "stratum": "NC-MOO-G-other",
    "lines_in_verdict": 31,
@@ -1434,11 +1488,11 @@
   }
  ],
  "summary": {
-  "pages": 19,
-  "identical": 15,
+  "pages": 25,
+  "identical": 21,
   "renumbered": 4,
   "different": 0,
-  "lines_in_verdicts": 693,
+  "lines_in_verdicts": 939,
   "files_in_frame": 41,
   "files_differing_from_frame": 29,
   "files_missing_now": 0
@@ -1450,9 +1504,9 @@
    "flagged_now": 48
   },
   "NC-MOO-G": {
-   "rows_in_error": 79,
-   "flagged_at_verdict": 33,
-   "flagged_now": 33
+   "rows_in_error": 111,
+   "flagged_at_verdict": 47,
+   "flagged_now": 47
   }
  }
 }

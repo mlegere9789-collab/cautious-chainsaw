@@ -30,6 +30,7 @@ import { openProduct } from './query.mjs';
 import { candidatePhrases, norm, expand } from './gazetteer.mjs';
 import { occurrencesOf, classifyNames, buildLexicon } from './names.mjs';
 import { registerCoverage, epilogueRows } from './check.mjs';
+import { VEG_STOP } from './checks.mjs';
 import { suggest, printSuggestion } from './suggest.mjs';
 
 const argv = process.argv.slice(2), cmd = argv[0], flag = n => { const i = argv.indexOf(n); return i < 0 ? null : (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true); };
@@ -148,6 +149,11 @@ async function rowCmd(P, S, id) {
     const pres = row.window.intervals.length ? ls.filter(l => { for (const [a, b] of row.window.intervals) { for (let t = Math.ceil(a); t <= Math.min(b, a + 1500); t += 15) if (S.unitAt(l, t).present) return true; } return false; }).length : 0;
     line(`  ${n.id.padEnd(34)} ${String(n.name).slice(0, 36).padEnd(36)} ${n.level.padEnd(10)} (${n.why}) leaves ${ls.length}, drawn ${drawn.length}${arr.length ? ', first arrival ' + isoOf(Math.min(...arr)) : ''}; on the field somewhere in the allowed window: ${pres}`);
   }
+  // the vegetation layer: what it says it covers for this row (meta.rows), and the plots its table of names (meta.named) finds in the row's words
+  { const V = P.veg; if (V.available) {
+    const r = (V.meta.rows || {})[id], rtk = new Set(tokens(text)), named = (V.meta.named || []).filter(n => { const w = tokens(n.name).filter(x => x.length >= 4 && rtk.has(x) && !VEG_STOP.has(x)); return w.length >= 1; }).map(n => `${n.unit} ${(V.units.find(u => u.id === n.unit) || {}).lc} (${n.name})`);
+    if (r || named.length) { line('VEGETATION LAYER (README section 4a; q.mjs veg <plot> <time>):'); if (r) { line(`  the layer lists this row: ${r.what}`); line(`  covers: ${r.covers}`); line(`  not covered: ${r.not_covered}`); } if (named.length) line(`  plots of the layer whose names share a word with the row: ${named.slice(0, 6).join('; ')}`); }
+  } }
   const rec = exists(path.join(REAL, 'RESULTS.json')) ? readJSON(path.join(REAL, 'RESULTS.json')) : null, e = rec && (rec.rows[id] || (rec.epilogue || {})[id]);
   line(`RESULT      ${e ? `${e.realized ? 'REALIZED' : 'not realized'} [${e.kind}] ${e.why}   (${e.record})` : 'no record yet'}`);
 }

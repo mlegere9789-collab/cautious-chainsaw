@@ -172,11 +172,11 @@ def lockstate():
     return '; '.join(parts) + '. 7.8 has the table of what each ran.'
 
 
-def tok_CUR(g):
-    import hashlib, datetime
+def cur_counts(g):
+    import hashlib
     r = load(os.path.join(GR, g + '.json'))
     if r is None:
-        return 'there is no stored record.'
+        return None
     same = 0; diff = []; miss_then_miss = []; now_present = []
     for i in r.get('inputs') or []:
         p = i.get('path')
@@ -190,14 +190,22 @@ def tok_CUR(g):
             diff.append(p + ' (gone)'); continue
         h = hashlib.sha256()
         with open(full, 'rb') as f:
-            for b in iter(lambda: f.read(1 << 20), b''):
-                h.update(b)
+            for blk in iter(lambda: f.read(1 << 20), b''):
+                h.update(blk)
         if h.hexdigest() == i['sha256']:
             same += 1
         else:
             diff.append(p)
+    return {'same': same, 'diff': diff, 'miss': miss_then_miss, 'now': now_present, 'n': len(r.get('inputs') or [])}
+
+
+def tok_CUR(g):
+    import datetime
+    c = cur_counts(g)
+    if c is None:
+        return 'there is no stored record.'
+    same, diff, miss_then_miss, now_present, n = c['same'], c['diff'], c['miss'], c['now'], c['n']
     short = lambda p: p.replace('docs/battle-theatre/', '').replace('GOVERNANCE/', '')
-    n = len(r.get('inputs') or [])
     s = 'at %s UTC %d of the %d files the record hashed equal today\'s files' % (datetime.datetime.now(datetime.timezone.utc).strftime('%H:%M'), same, n)
     if diff:
         s += '; %d differ (%s%s)' % (len(diff), ', '.join('`%s`' % short(x) for x in diff[:4]), (' and %d more' % (len(diff) - 4)) if len(diff) > 4 else '')
@@ -208,12 +216,23 @@ def tok_CUR(g):
     return s + '.'
 
 
+def tok_CURSUM():
+    import datetime
+    parts = []
+    for g in ('Q01', 'Q02', 'Q14', 'Q19', 'Q20', 'Q23', 'Q25'):
+        c = cur_counts(g)
+        if c is not None:
+            parts.append('%s %d of %d' % (g, len(c['diff']), c['n']))
+    return 'at %s UTC the files that differ from their recorded sha256, over the files each record names, were %s' % (datetime.datetime.now(datetime.timezone.utc).strftime('%H:%M'), ', '.join(parts))
+
+
 def expand(t):
     t = re.sub(r'\{\{T:([a-z0-9_]+)\}\}', lambda m: tok_T(m.group(1)), t)
     t = re.sub(r'\{\{L:([a-z]+)\}\}', lambda m: tok_L(m.group(1)), t)
     t = re.sub(r'\{\{R:(Q\d\d)\}\}', lambda m: tok_R(m.group(1)), t)
     t = re.sub(r'\{\{CUR:(Q\d\d)\}\}', lambda m: tok_CUR(m.group(1)), t)
     t = t.replace('{{LOCKSTATE}}', lockstate())
+    t = t.replace('{{CURSUM}}', tok_CURSUM())
     t = t.replace('{{RERUNS}}', tok_RERUNS())
     qp = os.path.join(HERE, 'quotes_result.txt')
     t = t.replace('{{QUOTES}}', rd(qp).strip() if os.path.exists(qp) else 'it had not been run when this was written.')

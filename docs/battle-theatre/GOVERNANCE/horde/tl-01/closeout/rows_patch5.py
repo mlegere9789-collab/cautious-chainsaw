@@ -52,6 +52,11 @@ IMG5 = {
     'star_granger': PIC('Evening Star', 2, 'ca5-star-0701-p2', 'ment, who left Edwards\' Ferry on Saturday evening, and arrived at Seneca Creek at 4 o\'clock on Sunday morning and found himself surrounded by the whole of the forces"'),
     'dnl_seneca': PIC('Daily National Intelligencer', 2, 'ca5-dnl-0701-p2b', 'REBELS AT SANDY SPRINGS. We learn that the main body of the rebel cavalry [the end of the line is cut by the crop edge] that crossed the Potomac near Seneca on Sunday mor[ning] camped the same night at the Old Quaker settleme[nt of] Sandy Springs, in Montgomery county"; the text layer has the word raid after cavalry, at the line end that the crop cuts'),
     'her_xii': PIC('New York Herald', 4, 'ca5-her-0702-p4 and -p4b', 'MR. G. W. HOSMER\'S LETTER. Headquarters, Twelfth Corps, June 28, 1863. Across the Potomac. Reveille sounded in the camp of the Twelfth c[orps at] three A. M. on Friday, the 26th, and in little more than an hour later we were on the march\u2014of course in the rain. When the corps last marched the day was terribly hot, sunny and dusty; and to all that, the present march formed the strongest possible contrast, for the day was cool, the roads were deep with soft mud, and the rain fell constantly."; the text layer reads tbo, throe, wero, tho, c< ntrast and cooi (the crops show the printed words)'),
+    'tim_date': PIC('Worcester Daily Spy', 1, 'ca5-spy-0702-p1b', 'The Times prints the following special this afternoon:\u2014 Headquarters Army of the Potomac, Tuesday, 8 P. M.\u2014I am just in from the front, and send by a messenger to Frederick a brief dispatch of the occurrences of yesterday and today."; the text layer reads Bp. m. and the page image 8 P. M.'),
+    'fre_rain': PIC('Monmouth Herald and Inquirer', 2, 'ca5-fre-0702-p2', 'Thursday, June 25 ... During the afternoon our forces could be seen advancing on the other side of the river. It commenced raining about 2 o\'clock P. M., and continued all night. The work on the fortifications progresses during the day."; the text layer reads 2 p. jf.y for 2 o\'clock P. M.'),
+    'fre_rain26': PIC('Monmouth Herald and Inquirer', 2, 'ca5-fre-0702-p2b', 'Friday, June 26 ... They encamped in our rear, and report that the 11th Army Corps is close behind. It is still raining; no work has been done on the fortifications to-day, except mounting some guns. Heavy reenforcements are"'),
+    'whig_18h': PIC('Richmond Whig', 2, 'ca5-whig-0702-p2', 'It is just reported that Hooker\'s right wing is in the vicinity of Hagerstown. It has rained for the last eighteen hours incess[antly], and the friendly showers are still falling. The Susquehanna has already risen twenty inches, and is exp[ected soon to be an impassable barrier]"; the ends of the lines are cut by the crop edge'),
+    'sun_rain': PIC('Sunday Dispatch (New York)', 1, 'ca5-sun-0628-p1', 'Washington, June 27. There has been a considerable quantity of rain within the past few days, which will have the effect of making the roads, wherever an army passes over them, very heavy, and may mate[rially interfere]"; the text layer reads fleet for effect and oyer for over'),
     'ei_flag': PIC('Evening Star', 1, 'ca5-star-0702-p1b', 'Official advices from the Army of the Potomac state that a portion of our cavalry, under Gen. Kilpatrick, had a handsome fight yesterday with the enemy\'s cavalry at Hanover. He captured a battle-flag, a lieutenant [colonel, one] captain and forty-five privates. [Fifteen or] twenty of the enemy were killed."'),
     'ei_400': PIC('Evening Star', 1, 'ca5-star-0702-p1c', 'A Battle at Hanover. Harrisburg, July 1—9.30 p. m.—A battle took place yesterday afternoon at Hanover Junction between Pleasanton and the rebel cavalry. It lasted nearly the whole afternoon, and the result was the enemy lost 400 in killed, wounded and prisoners, besides six pieces of artillery."; the dispatch means Hanover (the Tribune of Jul 2 says "which probably means Hanover")'),
 }
@@ -89,6 +94,16 @@ def apply(rows):
                                   witness='New York Herald, Jul 2 1863: the letter of G. W. Hosmer from the headquarters of the Twelfth Corps (Army of the Potomac), June 28, headed Across the Potomac; the place of the march of Jun 26 is not named in the passage')
     sub_add(r, 'The Twelfth Corps of the Army of the Potomac broke camp at three A. M. on Friday, Jun 26 and marched in the rain: "the day was cool, the roads were deep with soft mud, and the rain fell constantly" (letter of G. W. Hosmer, headquarters of the Twelfth Corps, June 28, New York Herald, Jul 2): a second regional statement for Jun 26 (the corps was south of the Potomac or just across it, not at Gettysburg); no temperature',
             'inferred', 'supported', ['her_xii'])
+    r['cites'].update({
+        'fre_rain': cite('CA-sn83032312-1863-07-02-p2', 'fre_rain', 'It commenced raining about 2 o\'clock P. M., and continued all night.', 'fre_rain',
+                         witness='Monmouth Herald and Inquirer (Freehold, N.J.), Jul 2 1863: the letter of a soldier signed H. from the garrison of Maryland Heights, which "was now under Gen. Hooker", entry of Thursday, June 25; the text layer reads 2 p. jf.y'),
+        'fre_rain26': cite('CA-sn83032312-1863-07-02-p2', 'fre_rain26', 'It is still raining; no work has been done on the fortifications to-day, except mounting some guns', 'fre_rain26',
+                           witness='Monmouth Herald and Inquirer, Jul 2 1863: the same letter, entry of Friday, June 26'),
+        'whig_18h': cite('CA-sn84024669-1863-07-02-p2', 'whig_18h', 'It has rained for the last eighteen hours incessantly, and the friendly showers are still falling. The Susquehanna has already risen twenty inches', 'whig_18h',
+                         witness='Richmond Whig, Jul 2 1863: a dispatch from Harrisburg (the New York Herald of Jun 27 p.3 prints it under the head Harrisburg, June 26; that text layer is damaged and was not viewed on the image); the text layer reads incessautly and Susque hanna'),
+    })
+    sub_add(r, 'Regional statements for the rain of Jun 25-26: the letter of a soldier of the Maryland Heights garrison (Monmouth Herald and Inquirer, Jul 2): on Thursday, Jun 25 "It commenced raining about 2 o\'clock P. M., and continued all night" and on Friday, Jun 26 "It is still raining; no work has been done on the fortifications to-day"; a dispatch from Harrisburg (Richmond Whig, Jul 2): "It has rained for the last eighteen hours incessantly, and the friendly showers are still falling": none of them is for Gettysburg, and no text gives the 08:00 of Jun 25 that the seed has for the beginning of the rain',
+            'inferred', 'supported', ['fre_rain', 'fre_rain26', 'whig_18h'])
     r.setdefault('searched', []).append(S5 + 'rain, mud, dust, heat and thermometer words (327 windows, 305 distinct) in the pages of Jun 27 - Jul 3 and near Gettysburg, Hanover, Frederick, York, Harrisburg, Chambersburg and Westminster in the pages of Jun 26 - Jul 3: the Harrisburg dispatch of Jun 26 and the Twelfth Corps letter above; no temperature and no statement for Gettysburg itself')
 
     # ------------------------------------------------------------------------------------------------------------------ T1-004
@@ -157,7 +172,7 @@ def apply(rows):
         'cht_scout': cite('CA-sn84031490-1863-06-29-p1', 'cht_thu', 'On Thursday night the rebel encampment extended from Cashtown to Fayetteville. The editor of the Gettysburg Star has been captured, and it is reported that one of our scouts has been shot.', 'cht_thu',
                           witness='Chicago Daily Tribune, Jun 29 1863: ' + BUL),
     })
-    sub_add(r, 'Two contemporary dispatches of Jun 27, independent of the Compiler of Jun 29, report a Union scout shot at Gettysburg on Jun 26: "One of our scouts was killed at Gettysburg yesterday and several were taken prisoners" (a dispatch from Hanover Junction of the morning of Jun 27, New-York Daily Tribune, Jun 29) and "it is reported that one of our scouts has been shot" (the Bulletin special of Jun 27, Chicago Daily Tribune, Jun 29); neither names him, gives the hour or names the unit',
+    sub_add(r, 'Two dispatches of Jun 27, printed two days before the Compiler of Jun 29, report a Union scout shot at Gettysburg on Jun 26: "One of our scouts was killed at Gettysburg yesterday and several were taken prisoners" (a dispatch from Hanover Junction of the morning of Jun 27, New-York Daily Tribune, Jun 29) and "it is reported that one of our scouts has been shot" (the Bulletin special of Jun 27, Chicago Daily Tribune, Jun 29); neither names him, gives the hour or names the unit',
             'documented', 'supported', ['tri_scout', 'cht_scout'])
     r.setdefault('searched', []).append(S5 + 'Sandoe, Sandow, scout, shot and killed at Gettysburg in the newspaper pages of Jun 26 - Jul 12: the two dispatches above (no name in either); the hour 16:00 and the second trooper Lightner are in none of the pages')
 
@@ -293,7 +308,7 @@ def apply(rows):
     r = by['T1-044']
     r['cites']['whig_9'] = cite('CA-sn84024669-1863-07-07-p2', 'whig_9', 'They advanced on Tuesday to Hanover, at 9 o\'clock, charged on the rear and advance of Gen. Pleasonton\'s cavalry, composed of the 5th New York, 1st Vermont, 1st Virginia and 18th Pennsylvania—1,800 in all.', 'whig_9',
                                 witness='Richmond Whig, Jul 7 1863: a despatch to the New York Tribune dated Columbia, Penn., Jul 1, the report of Captain McIrvin (Harr\'s Light Guard), captured with about 200 of Pleasonton\'s cavalry and paroled by Stuart; the text layer reads Plcssonton\'n and ISth')
-    sub_add(r, 'Captain McIrvin, paroled by Stuart (a despatch to the New York Tribune dated Columbia, Jul 1, in the Richmond Whig of Jul 7): Stuart\'s force advanced on Tuesday to Hanover at 9 o\'clock and charged on the rear and advance of Pleasonton\'s cavalry (the 5th New York, 1st Vermont, 1st Virginia and 18th Pennsylvania, 1,800 in all): a second witness for the hour of the Press special',
+    sub_add(r, 'Captain McIrvin, paroled by Stuart (a despatch to the New York Tribune dated Columbia, Jul 1, in the Richmond Whig of Jul 7): Stuart\'s force advanced on Tuesday to Hanover at 9 o\'clock and charged on the rear and advance of Pleasonton\'s cavalry (the 5th New York, 1st Vermont, 1st Virginia and 18th Pennsylvania, 1,800 in all): the same hour as the Press special of Columbia, Jul 1 (the two dispatches may rest on one informant)',
             'documented', 'conflict', ['whig_9'])
     scen_extend(r, 'C', '; Captain McIrvin\'s report in the New York Tribune dispatch of Columbia, Jul 1, printed in the Richmond Whig of Jul 7 p.2 (page image): they advanced on Tuesday to Hanover, at 9 o\'clock', 'whig_9')
     r.setdefault('searched', []).append(S5 + 'Hanover with Stuart, Kilpatrick, Custer, hours and losses in the newspaper pages of Jun 30 - Jul 10 (31 of 346 windows read): Captain McIrvin\'s report (a second witness for 9 o\'clock); the vedette detail is in none of the pages')
@@ -303,11 +318,13 @@ def apply(rows):
     r['cites'].update({
         'inq_cav': cite('CA-sn83021205-1863-07-01-p1', 'inq_cav', 'It is ascertained that a large body of federal cavalry have reached Gettysburg, taken possession of the town, and captured quite a number of rebels.', 'inq_cav',
                         witness='Worcester Daily Spy, Jul 1 1863: a special dispatch to the Philadelphia Inquirer from Baltimore of Jun 30 (also in the Portland Daily Press of Jul 1 and the Daily Evansville Journal of Jul 1); the text layer reads iederal and lebels'),
+        'tim_date': cite('CA-sn83021205-1863-07-02-p1', 'tim_date', 'Headquarters Army of the Potomac, Tuesday, 8 P. M.\u2014I am just in from the front, and send by a messenger to Frederick a brief dispatch of the occurrences of yesterday and today.', 'tim_date',
+                         witness='Worcester Daily Spy, Jul 2 1863: the head of the special dispatch of the New York Times that follows (Tuesday is Jun 30); the text layer reads Tues day, Bp. m. and dis patch'),
         'tim_buf': cite('CA-sn83021205-1863-07-02-p1', 'tim_hanover', 'During the day, Gen. Buford drove a regiment of rebel infantry out of Gettysburg, who also retired in a north-easterly direction.', 'tim_hanover',
                         witness='Worcester Daily Spy, Jul 2 1863: a special dispatch to the Times from the headquarters of the Army of the Potomac, dated 8 o\'clock of the evening of Jun 30 (the Daily National Intelligencer prints northeasterly, the Portland Daily Press and the Ellsworth American northwesterly, the Burlington Weekly Hawk-Eye easterly: text layers)'),
     })
     sub_add(r, 'The press of Jun 30-Jul 1: a large body of Federal cavalry reached Gettysburg, took possession of the town and captured quite a number of rebels (Philadelphia Inquirer special of Jun 30); Gen. Buford drove a regiment of rebel infantry out of Gettysburg, who retired in a north-easterly direction (New York Times special of Jun 30; north-westerly and easterly in other printings, text layers): the prisoners and the direction conflict with Buford\'s report and Jacobs (the enemy withdrew toward Cashtown, west)',
-            'documented', 'conflict', ['inq_cav', 'tim_buf'])
+            'documented', 'conflict', ['inq_cav', 'tim_buf', 'tim_date'])
     r['scenarios'].append(sc('G', 'Buford\'s cavalry take possession of the town and capture quite a number of rebels; a regiment of rebel infantry is driven out and retires north-easterly',
                              'Philadelphia Inquirer special of Jun 30 and New York Times special of Jun 30 as printed in the Worcester Daily Spy of Jul 1 and Jul 2 (page images); the other printings of the Times special differ (north-westerly in the Portland Daily Press and the Ellsworth American, easterly in the Burlington Weekly Hawk-Eye; text layers); no default', 'documented', ['inq_cav', 'tim_buf']))
     r.setdefault('searched', []).append(S5 + 'Buford with 2,000-4,000, men, cavalry, Gettysburg and Jun 30 in the newspaper pages of Jun 30 - Jul 5 (15 windows): the two reports above; no strength of the division and no vedettes in any page')
@@ -319,16 +336,18 @@ def apply(rows):
                        witness='Richmond Whig, Jul 7 1863: Captain McIrvin\'s report (see T1-044); the sentence goes on: Then entering the town, the battle raged furiously all day'),
         'whig_35': cite('CA-sn84024669-1863-07-07-p2', 'whig_35', 'Gen. Stuart admits a loss of 35 killed. A large number were wounded, and the entire First South Carolina Cavalry captured. Our prisoners were sent to the rear about 4 o\'clock P. M., but they heard heavy artillery firing until 7½.', 'whig_35',
                         witness='Richmond Whig, Jul 7 1863: the same report; the text layer reads nuiu her wers, eutue, 4 oV.ock and 74'),
+        'tim_date': cite('CA-sn83021205-1863-07-02-p1', 'tim_date', 'Headquarters Army of the Potomac, Tuesday, 8 P. M.\u2014I am just in from the front, and send by a messenger to Frederick a brief dispatch of the occurrences of yesterday and today.', 'tim_date',
+                         witness='Worcester Daily Spy, Jul 2 1863: the head of the special dispatch of the New York Times that follows (Tuesday is Jun 30); the text layer reads Tues day, Bp. m. and dis patch'),
         'tim_fore': cite('CA-sn83021205-1863-07-02-p1', 'tim_hanover', 'During the forenoon, Gens. Kilpatrick and Custer drove Stuart out of Hanover, after a splendid fight, and are still pursuing him', 'tim_hanover',
                          witness='Worcester Daily Spy, Jul 2 1863: a special dispatch to the Times dated 8 o\'clock of the evening of Jun 30 (the Daily National Intelligencer, the Portland Daily Press and other papers of Jul 1-3 print it too, "During the forenoon"); the text layer reads Castar'),
     })
     sub_add(r, 'Captain McIrvin (Richmond Whig, Jul 7): after the advance to Hanover at 9 o\'clock the battle raged furiously all day, charging and recharging; the prisoners were sent to the rear about 4 p.m. and heard heavy artillery firing until 7½; Stuart admitted a loss of 35 killed, a large number wounded and the entire First South Carolina Cavalry captured; against Kilpatrick\'s fight of about two hours',
             'documented', 'conflict', ['whig_9', 'whig_35'])
     sub_add(r, 'A special dispatch to the New York Times of 8 o\'clock on the evening of Jun 30 (printed in the papers of Jul 1-3): during the forenoon Gens. Kilpatrick and Custer drove Stuart out of Hanover after a splendid fight and were still pursuing him',
-            'documented', 'conflict', ['tim_fore'])
+            'documented', 'conflict', ['tim_fore', 'tim_date'])
     scen_extend(r, 'D', '; Captain McIrvin\'s report (Richmond Whig of Jul 7 p.2, page image): the battle raged furiously all day and the prisoners heard heavy artillery firing until 7½ (printed as a small fraction)', 'whig_9', 'whig_35')
     r['scenarios'].append(sc('E', 'The fight is over in the forenoon: Kilpatrick and Custer drove Stuart out of Hanover during the forenoon after a splendid fight',
-                             'Times special of Jun 30 8 p.m. as printed in the Worcester Daily Spy of Jul 2 1863 p.1 (page image) and other papers; against Kilpatrick\'s two hours from about 10 a.m. to about noon (scenario A) and the fights of the afternoon in B to D; no default', 'documented', ['tim_fore']))
+                             'Times special of Jun 30 8 p.m. as printed in the Worcester Daily Spy of Jul 2 1863 p.1 (page image) and other papers; against Kilpatrick\'s two hours from about 10 a.m. to about noon (scenario A) and the fights of the afternoon in B to D; no default', 'documented', ['tim_fore', 'tim_date']))
     r.setdefault('searched', []).append(S5 + 'Hanover with Stuart, Kilpatrick, Custer, hours and losses in the newspaper pages of Jun 30 - Jul 10: Captain McIrvin\'s report (all day until 7½) and the Times special (forenoon); the Forney farm is in none of the pages')
 
     # ------------------------------------------------------------------------------------------------------------------ T1-051
@@ -346,6 +365,14 @@ def apply(rows):
     r['scenarios'].append(sc('G', 'Confederate loss at Hanover as reported in the press of Jul 1-7: 400 killed, wounded and prisoners and six guns; or a battle-flag, a lieutenant colonel, a captain, 45 privates captured and 15 or 20 killed; or 35 killed admitted by Stuart',
                              'Evening Star of Jul 2 1863 p.1 (page images) and Richmond Whig of Jul 7 1863 p.2 (page image); against the casualty tables of the Official Records (scenarios A to F); no default', 'documented', ['ei_flag', 'ei_400', 'whig_35']))
     r.setdefault('searched', []).append(S5 + 'Hanover with killed, wounded, missing, captured and prisoners in the newspaper pages of Jun 30 - Jul 10: three press values for the Confederate loss; a Hanover-only figure of Stuart himself is in none of the pages')
+
+    # ------------------------------------------------------------------------------------------------------------------ T1-019
+    r = by['T1-019']
+    r['cites']['sun_rain'] = cite('CA-sn85026213-1863-06-28-p1', 'sun_rain', 'There has been a considerable quantity of rain within the past few days, which will have the effect of making the roads, wherever an army passes over them, very heavy', 'sun_rain',
+                                  witness='Sunday Dispatch (New York), Jun 28 1863: a Washington dispatch of Jun 27; the text layer reads fleet and oyer')
+    sub_add(r, 'A Washington dispatch of Jun 27 (Sunday Dispatch, New York, Jun 28): "There has been a considerable quantity of rain within the past few days, which will have the effect of making the roads, wherever an army passes over them, very heavy": a regional statement for the ground of Jun 27, with no hour for the end of the rain and no temperature',
+            'inferred', 'supported', ['sun_rain'])
+    r.setdefault('searched', []).append(S5 + 'rain, mud and weather words in the newspaper pages of Jun 27 - Jul 3 (327 windows): the Washington dispatch of Jun 27 above; no hour at which the rain ended at Gettysburg and no temperature')
 
     # ------------------------------------------------------------------------------------------------------------------ T1-020
     r = by['T1-020']
@@ -385,6 +412,10 @@ def apply(rows):
     scen_extend(r, 'B', '; Historic American Buildings Survey record HABS PA-359 of 1966 (the cupola of the Seminary Main Building used as a post of observation by Buford and Reynolds, July 1, 1863: page image viewed)', 'habs_cupola')
     r.setdefault('searched', []).append(S5 + 'cupola, steeple, belfry, signal and observation with Buford, Reynolds and the college or the seminary in the National Park Service texts (acquired_3.json, now 275 items): the HABS record PA-359 of the Seminary Main Building (fetched 2026-11-15 23:43 UTC by the web-evidence workstream)')
 
+    # ------------------------------------------------------------------------------------------------------------------ T1-040
+    r = by['T1-040']
+    r.setdefault('searched', []).append(S5 + 'camp-fire, bivouac and lights with Emmitsburg, Taneytown, Westminster, Uniontown, Middleburg, Frederick, Gettysburg, Cashtown, Marsh Creek, Littlestown and Hanover in the newspaper pages of Jun 30 - Jul 10 (45 windows, 43 distinct passages): none about the night of Jun 29 or Jun 30; the open gap stays')
+
     # ------------------------------------------------------------------------------------------------------------------ register entries: competing values and remains
     def competing(rid, more):
         rg = by[rid].get('register')
@@ -399,5 +430,12 @@ def apply(rows):
     competing('T1-045', 'Buford takes possession and captures quite a number of rebels and drives a regiment of infantry out to the north-east (press of Jun 30) against the enemy within half a mile and pushed back toward Cashtown (Buford, Jacobs)')
     competing('T1-046', 'a fight in the forenoon (Times special of Jun 30); all day until 7\u00bd p.m. (Captain McIrvin)')
     competing('T1-051', 'press values of the Confederate loss: 400 and six guns / 45 privates and 15 or 20 killed / 35 killed admitted by Stuart')
+    def recon_add(rid, more):
+        rg = by[rid].get('register')
+        if rg:
+            c = rg.get('recon') or '-'
+            rg['recon'] = more if c in ('-', '') else c.rstrip(' .') + '; ' + more
+    recon_add('T1-003', 'regional statements of the fifth start (tier inferred, none for Gettysburg): rain from about 2 p.m. on Jun 25 through the night and still raining on Jun 26 (Maryland Heights letter), eighteen hours of rain at Harrisburg on Jun 26, a cool day with deep soft mud and constant rain for the Twelfth Corps on Jun 26; no temperature')
+    recon_add('T1-019', 'a Washington dispatch of Jun 27 (tier inferred, regional): considerable rain within the past few days, the roads very heavy; no hour for the end of the rain and no temperature')
     r = by['T1-018']
     r['remains'] = [x.replace('picket posts by name and place', 'picket posts by name and place other than the one near Oxford') if isinstance(x, str) else x for x in r['remains']]

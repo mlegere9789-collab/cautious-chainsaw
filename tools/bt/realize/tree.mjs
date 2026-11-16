@@ -21,7 +21,7 @@ function privatize(dst, rel) {
   const f = path.join(here, parts[parts.length - 1]); if (fs.existsSync(f) && fs.lstatSync(f).isSymbolicLink()) fs.unlinkSync(f);
   return f;
 }
-export function makeTree(dst, { files = {}, add = {} } = {}) {
+export function makeTree(dst, { files = {}, add = {}, remove = [] } = {}) {
   dst = path.resolve(ROOT, dst); fs.rmSync(dst, { recursive: true, force: true }); fs.mkdirSync(dst, { recursive: true });
   copyDir(path.join(ROOT, 'tools/bt/realize'), path.join(dst, 'tools/bt/realize')); copyDir(path.join(ROOT, 'tests/governance'), path.join(dst, 'tests/governance'), /^realize.*\.mjs$/);
   // top level links: docs (and anything else a path in `files` does not need privately)
@@ -36,8 +36,10 @@ export function makeTree(dst, { files = {}, add = {} } = {}) {
     const before = fs.readFileSync(target, 'utf8'), after = typeof edit === 'function' ? edit(before) : String(edit);
     if (after === before) throw new Error(`makeTree: the edit of ${rel} changed nothing`); fs.writeFileSync(target, after);
   }
-  // `add`: files that do not exist in the real tree (a module another workstream has not written yet), { 'docs/battle-theatre/app/src/ext/event-cards.mjs': 'export ...' }; the directories on their way are real and hold links to their other entries
-  for (const [rel, content] of Object.entries(add)) { if (fs.existsSync(path.join(ROOT, rel))) throw new Error(`makeTree: ${rel} exists in the real tree: edit it with \`files\``); fs.writeFileSync(privatize(dst, rel), content); }
+  // `add`: files written into the tree whether or not the real tree has them (a module another workstream has not written yet, or one whose content a test fixes), { 'docs/battle-theatre/app/src/ext/event-cards.mjs': 'export ...' };
+  // `remove`: files the tree does not have although the real tree does. The directories on their way are real and hold links to their other entries; the real tree is never written
+  for (const [rel, content] of Object.entries(add)) fs.writeFileSync(privatize(dst, rel), content);
+  for (const rel of remove) fs.rmSync(privatize(dst, rel), { force: true });
   return dst;
 }
 export const removeTree = dst => fs.rmSync(path.resolve(ROOT, dst), { recursive: true, force: true });

@@ -217,7 +217,7 @@ def section_lines():
     A('* **Strata.** The roll is one source printed once and read from two scans, two text layers of the same print with different errors (the item picks, per unit, the scan with the better measured score). A stratum is therefore the scan x the kind of page: NC-MOO-E (the four Emory scans, %s) and NC-MOO-G (the four Internet Archive scans, %s), each as officers pages (at least 3 lines and at least a quarter officer lines; rule in `qa_frame.py`) and other pages. Frame: %s.' % (
         FAM_TEXT['NC-MOO-E'], FAM_TEXT['NC-MOO-G'], '; '.join('%s: %s pages, %s lines, %d decile pages (damage score %.3f or more)' % (s, f(d['pages']), f(d['rows']), d['decile_pages'], d['decile_min_score']) for s, d in draw.items())))
     A('* **Draw.** As round 1 (sha256 of `seed | stratum | identifier | leaf`, decile pages at positions 1, 4, 7, ...). Order and decile of every stratum: `data2/qa/round2/draw.json`. Positions looked at: %s.' % '; '.join('%s %s' % (s, ','.join(str(x) for x in sorted(d['draw_positions']))) for s, d in stats['strata'].items()))
-    A('* **Reader.** One sitting of the sample reader (16 November 2026), who had not written or read the parsers of conf-nc before looking at the pages (it read the report of the item and its flag files for the frame). The page image is looked at with the Read tool (200 dpi view; 300 to 800 dpi crops for a doubtful character); tesseract 5.3.4 (psm 6, the table rules whitened first) is a pre-screen only and decides nothing. The company letter of a page that has no heading of its own is read from the running heads of the pages before and after it (Moore prints "Company X-Nth Regiment" on the odd pages). The third reader of the plan does not exist as a third person; a doubtful character, zoomed and still doubtful, is not counted as an error (the verdict says so in its note).')
+    A('* **Reader.** One sitting of the sample reader (16 November 2026), who had not written the parsers of conf-nc (before the first page it read the report of the item, the flag file of one unit and the five-line change of the head rule in `nc_parse.py` that the rebuild then in progress carried, to judge what the rebuild would change; it did not read the parser further). The page image is looked at with the Read tool (200 dpi view; 300 to 800 dpi crops for a doubtful character); tesseract 5.3.4 (psm 6, the table rules whitened first) is a pre-screen only and decides nothing. The company letter of a page that has no heading of its own is read from the running heads of the pages before and after it (Moore prints "Company X-Nth Regiment" on the odd pages). The third reader of the plan does not exist as a third person; a doubtful character, zoomed and still doubtful, is not counted as an error (the verdict says so in its note).')
     A('* **Levels, comparison rule, decision rule.** As in 2.1: levels N (name, rank or carried heading, company, existence and cut of the line), D (the dates of the remarks), R (the other remark words); the first pages of a stratum are compared at all three levels; a level that a stratum has already failed decisively (4 errors at the gate) is not compared on its further pages (`levels` in every verdict says what was compared; this stops the reading where the result is decided and does not lower a gate: a gate that was not decided is shown OPEN). Case, punctuation and spacing are ignored; every other differing character is an error. Gates and kinds as in 2.1; PASS needs the ladder (299 lines with 0 errors, 473 with at most 1, 628 with at most 2, 773 with at most 3), FAIL is 4 or more errors, never lowered.')
     A('* **What is new in the reading (round 2).** (1) The pages are single-column with one printed entry to a line or two, so the comparison is entry by entry; an entry whose text stands inside the remarks of the line before it is a `merge` at that line (not a missed line), an entry that no stored line holds at all is a missed line (`missed_lines`). (2) The first words or the initials of the next entry at the end of a line are `rem-extra` at that line and `name-cut` at the next one (each counted at its own gate). (3) A damaged carried heading (PRIVATES read PRIVATE-) is a `rank` error at every line under it, as in round 1 (ME-RET leaf 414); a page with such a heading says so in its note, as one defect that costs many lines.')
     A('')
@@ -252,7 +252,7 @@ def section_lines():
     if cur:
         s_ = cur['summary']
         ff = cur['frame_files']
-        A('**The verdicts against the files as they are now** (`qa_current.py`, `data2/qa/round2/verdicts-vs-files.json`, %s): of %d pages, %d have exactly the lines of their verdict, %d have the same lines under other row numbers (the rebuild of conf-nc removed lines earlier in the same unit file; offset, name, rank, company and remarks of every line are unchanged) and %d have changed lines (%s lines in the verdicts). The frame was built from the first build of the item (%s lines in all); the rebuild of the item at 03:05 UTC on 16 November, with a changed rule for the heads of entries (`nc_parse.py`, a short lower-case word is no surname), left %s lines in %d of the %d files that differ from the frame hashes.' % (
+        A('**The verdicts against the files as they are now** (`qa_current.py`, `data2/qa/round2/verdicts-vs-files.json`, %s): of %d pages, %d have exactly the lines of their verdict, %d have the same lines under other row numbers (the rebuild of conf-nc removed lines earlier in the same unit file; offset, name, rank, company and remarks of every line are unchanged) and %d have changed lines (%s lines in the verdicts). The frame was built from the first build of the item (%s lines in all); the rebuild of the item at 03:05 UTC on 16 November, with a changed rule for the heads of entries (`nc_parse.py`, a short lower-case word is no surname), leaves %s lines in the 41 files now, and %d of the %d files differ from the frame hashes.' % (
             cur['generated_utc'], s_['pages'], s_['identical'], s_.get('renumbered', 0), s_['different'], f(s_['lines_in_verdicts']),
             f(sum(ff['rows_at_frame_by_item'].values())), f(sum(ff['rows_now_by_item'].values())), s_['files_differing_from_frame'], s_['files_in_frame']))
         sup = sorted(glob.glob(os.path.join(QA2, 'superseded', '*.json')))
@@ -311,11 +311,26 @@ def section_lines():
     A('**The flag files and the lines in error (Measured).** Of the %s lines found in error, %s (%s) are marked ocr_uncertain by the flag file of the unit as it stood when the page was looked at; %s (%s) carry at least one damage code of that file (N name, H head cut by a rule that is a reading, C company letter inferred, R rank text damaged, Y year or date damaged, G garbage marks, M possible second entry, W word damaged; the legend of each file is in the file); the other lines in error are lines that no pattern of the flag file matched. Rows in error by code: %s.' % (
         f(n_err_rows), f(n_flag), pct(n_flag, n_err_rows), f(n_any_code), pct(n_any_code, n_err_rows), ', '.join('%s %d' % (c, n) for c, n in sorted(code_ct.items())) or 'none'))
     A('')
+    # precision and recall of the flag on the pages compared at all three levels
+    fl_rows = fl_err = err_all = 0
+    for v in vs:
+        if v['levels'] != 'NDR':
+            continue
+        errs = {}
+        for e in v['errors']:
+            errs.setdefault(e['i'], e)
+        fl_rows += v['rows_flagged_ocr_uncertain']
+        err_all += len(errs)
+        fl_err += sum(1 for e in errs.values() if e.get('flagged_ocr_uncertain'))
+    nrows3 = sum(v['rows_checked'] for v in vs if v['levels'] == 'NDR')
+    A('**How well the flag sees the errors (Measured, the pages compared at all three levels).** %s lines were compared; the flag files mark %s of them ocr_uncertain; %s lines are in error; %s of the lines in error are marked (recall %s); %s of the marked lines are in error (precision %s). A mark is a pattern of damage that the parser knows, not a reading of the page: lines that no pattern matched are wrong as often as the flag misses them.' % (
+        f(nrows3), f(fl_rows), f(err_all), f(fl_err), pct(fl_err, err_all), f(fl_err), pct(fl_err, fl_rows)))
+    A('')
     # by scan: names and any error among rows
     famv = collections.defaultdict(list)
     for v in vs:
         famv[v['family']].append(v)
-    A('**The two scans (Measured).** Pooled over the pages looked at (not a stratified estimate: 2 to 4 pages per stratum, the draw puts a third of the pages in the lowest decile, and the stopping rule leaves the levels D and R on fewer pages):')
+    A('**The two scans (Measured).** Pooled over the pages looked at (not a stratified estimate: the number of pages per stratum is in 8.3, the draw puts a third of the pages in the lowest decile, and the stopping rule leaves the levels D and R on fewer pages):')
     A('')
     A('| scan family | pages | lines compared | lines with a name error (R-G1) | lines with a structure error (R-G3a) | lines with any error at the pages compared at all three levels | lines at all three levels |')
     A('|---|---|---|---|---|---|---|')
@@ -366,8 +381,12 @@ def section_lines():
                 if k == 'merge':
                     mech['two or more printed entries stored as one line'] += 1
                     ex.setdefault('two or more printed entries stored as one line', (v['page'], e.get('stored'), e.get('printed')))
-                if k == 'rank' and 'carried heading' in note:
+                if k == 'rank' and 'carried heading' in note and 'is damaged' in note:
+                    mech['a damaged carried heading is the rank of every line under it'] += 1
+                    ex.setdefault('a damaged carried heading is the rank of every line under it', (v['page'], e.get('stored'), e.get('printed')))
+                elif k == 'rank' and 'carried heading' in note:
                     mech['a carried heading stands where the printed rank belongs'] += 1
+                    ex.setdefault('a carried heading stands where the printed rank belongs', (v['page'], e.get('stored'), e.get('printed')))
     A('**Mechanisms seen (Measured; the counts are rows with the mechanism, taken from the notes of the verdicts):** ' + '; '.join('%s: %d' % (m, n) for m, n in mech.most_common()) + '.')
     A('')
     # detector
@@ -458,7 +477,19 @@ def section_lines():
         A('The pointer file does not list the Moore scans yet (`qa_sources_r2.py` writes them from the PDFs on disk): owed.')
         A('')
     # ---------------------------------------------------------------- 8.9
-    A('### 8.9 Not run, owed')
+    A('### 8.9 Anomalies seen (round 2; each is in the verdict of the page named)')
+    A('')
+    A('1. **The page number of the text layer and the print differ.** `05913252.3309.emory.edu/62`: the text layer prints the running head page as 48 and the page map says 46 (the print says 46); `rosterofnorthcar02nort/14`: the page map has no printed page number for the leaf and the print shows 4. The stored `page` of a line is the page map\'s; the leaf and offset are exact.')
+    A('2. **The first entry of a page can be missing from the stored lines although the text layer holds it.** `05913252.3309.emory.edu/62`: Charles C. Tew, Colonel (the first line of the 2nd North Carolina Infantry roll), is in the text layer and in no stored line (a garbled initial in the head: `(\'.`); `05913252.3309.emory.edu/511` (rebuilt file): B. P. Jenkins, 1st Sergt.; `rosterofnorthcar02nort/32`: C. M. McLeod, 1st Sergeant. The conf-nc report says that unparsed text is counted in the diagnostics; these lines are lines of the roll.')
+    A('3. **A printed misprint is stored as printed.** `rosterofnorthcar03moor/536`: John F. Lipps, "pr. September 22d, \'24" (the same capture as the line of Wm. C. Fletcher below, \'64): the print says \'24 and so does the stored line; it is not counted as an error, and a reader of the file sees a year before the enlistment of the man (enlisted 1862).')
+    A('4. **A dash prints an unknown date.** `rosterofnorthcar03moor/536` ("e. --;") and `05913252.3309.emory.edu/250` ("Fullbright, --,"): the stored line keeps a bullet or nothing where the print has the dash (punctuation only, not an error, but the name field of `Fullbright` has no given name).')
+    A('5. **Margin marks become letters (volume 3 page 344, `rosterofnorthcar03moor/352`).** The ink marks of the copy in the left margin stand in four of the five names with an error as a stray letter or character (`V Bowden, Rufus`, `J Carlisle, James PI.`); the same pattern as the Massachusetts margins of round 1 (section 5, item 3).')
+    A('6. **The artillery pages of volume 1 in the first scan are dark and bold** (`rosternorthcaro00moorgoog/384` and `/383`, the Charlotte Artillery): 22 of 52 lines have a name error on one of them; the file of the unit is built from this text because the second scan scored lower for the unit (conf-nc report 3).')
+    A('7. **A damaged heading is inherited by every line under it** (`05913252.3309.emory.edu/511`: PRIVATES read PRIVATE- and NON-COMMISSIONED OFFICERS read XOX-COMMI8SIOXED OFFICERS; the 32 lines of the page carry a wrong rank word on 30 lines).')
+    A('8. **Lines of a clean page are marked uncertain wholesale** (`05913252.3309.emory.edu/472`, `rosterofnorthcar02nort/20`): the flag file marks every line of the page because the company heading is damaged (flag C) or the company letter is inferred; the lines themselves read well (6 of 47 and 21 of 40 lines in error), and the company letter is right on every line (checked against the running heads of the neighbouring pages).')
+    A('9. **A rebuild while the sample was taken** (8.3): the lines of 4 verdict pages moved to other row numbers and the lines of one page changed (the fragment line of the Jenkins entry was dropped); the row number of a line in a unit file is not a stable name for it, its offset in the pinned text is.')
+    A('')
+    A('### 8.10 Not run, owed')
     A('')
     A('* The pages that the stopping rule left uncompared: the gates shown OPEN in 8.3 and the levels D and R of the strata whose first pages already failed them need fresh pages after conf-nc is corrected (a later round draws a new seed and excludes the pages of this one, `EXCLUDED_BY_ROUND` in `qa_frame.py`).')
     A('* The second reading of the damaged lines of conf-nc from page images (EG-ROS-NC-02 of the item; the route is tested in 8.7 and in section 4) and of the printed lines that no stored line holds; the Pennsylvania muster years (union-pa had no report when this section was written) and the Florida losses (conf-fl has no unit file).')

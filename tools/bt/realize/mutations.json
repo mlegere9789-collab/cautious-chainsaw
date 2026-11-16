@@ -3486,11 +3486,11 @@
   ]
  },
  {
-  "id": "checks-veg-mode-all",
+  "id": "checks-veg-mode-all-count",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "if (mode === 'all') return fail('vegetation_mismatch', `at ${isoOf(t)}: plot ${r.bad.plot}",
-  "replace": "if (false) return fail('vegetation_mismatch', `at ${isoOf(t)}: plot ${r.bad.plot}",
-  "rule": "vegetation_state: mode all holds at every whole minute",
+  "find": "if (r.ok) { n++; if (!firstOk) firstOk = { at: isoOf(t), plots: plots.length,",
+  "replace": "if (r.ok) { if (!firstOk) firstOk = { at: isoOf(t), plots: plots.length,",
+  "rule": "vegetation_state: mode all holds only when every whole minute of the span holds (the count of minutes that held equals the minutes of the span)",
   "tests": [
    "rules",
    "main"

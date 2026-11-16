@@ -179,9 +179,13 @@ def try_candidate(c, cand, ts, ex, strict=False):
     src = c['src']
     keys = [src.split('#')[0], src] if '#' in src else [src]
     r, via = None, None
+    pa, pb = c['locator'].get('char_start'), c['locator'].get('char_end')
     for k in keys:
         try:
-            r0 = srcs.verify(k, cand, report=c['locator'].get('report') if k == 'OR27' else None)
+            same = (k == src)         # the passage offsets belong to the text of the claim's own key; in another text variant only the PDF page can tell the place
+            r0 = srcs.verify(k, cand, report=c['locator'].get('report') if k == 'OR27' else None,
+                             within=(pa - 2, pb + 2) if same and pa is not None else None,
+                             page=None if same else c['locator'].get('pdf_page'))
         except Exception:
             continue
         if r0.get('ok'):
@@ -201,7 +205,7 @@ def try_candidate(c, cand, ts, ex, strict=False):
         return None, 'more than %d words in the saved text' % MAXW
     if len(re.sub(r'\W', '', found)) < 12:
         return None, 'fewer than 12 letters and digits'
-    rec = {'extract': found, 'via': via}
+    rec = {'extract': found, 'via': via, 'same_text': via == src}
     if r.get('defect') or len(found.split()) > len(cand.split()) * 1.4 + 1:       # a lost glyph, or a letter-spaced text layer: the saved words are the extract, the words as printed are for the reader
         rec['printed'] = cand
     rec['locator'] = {k: v for k, v in r['locator'].items() if k in ('char_start', 'char_end', 'pdf_page', 'page', 'report', 'who')}

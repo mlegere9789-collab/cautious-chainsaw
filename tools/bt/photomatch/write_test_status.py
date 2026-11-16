@@ -49,7 +49,7 @@ if F5:
     fmt = dict(n_new=len(st) - 145, n_records=len(reg), n_statements=len(st), n_poses=len(poses), v27=pv['P27']['verdict'], v28=pv['P28']['verdict'], v29=pv['P29']['verdict'], v13=pv['P13']['verdict'], roughly=vc['roughly'], dnot=vc['does not'], cj=vc['cannot judge'], matches=vc['matches'],
                q16_pass=(q16 or {}).get('pass', '?'), q16_fail=(q16 or {}).get('fail', '?'), q16_skip=(q16 or {}).get('skipped', '?'), q16_tests=(q16 or {}).get('tests', '?'))
     def _job(name, c, queued):
-        if c is None: return f'{name}: queued behind the machine lock at {queued} UTC on 2026-11-16 and not finished when this report was written: NOT RUN (the waiter writes its output file if it gets a slot; if it was stopped, run the command again through the lock)'
+        if c is None: return f'{name}: queued behind the machine lock at {queued} UTC on 2026-11-16 and not finished when this report was written: NOT RUN (at 03:31 UTC the lock had 36 waiting processes, among them two timing jobs that wait for an exclusive window (48 and 56 minutes at that time) and keep every new job out; the waiter writes its output file if it gets a slot; if it was stopped, run the command again through the lock)'
         return f"{name}: finished, {c['tests']} tests, {c['pass']} pass, {c['fail']} fail, {c['skipped']} skipped"
     owed_job = '; '.join([_job('`tools/horde/bench.sh node --test docs/battle-theatre/app/tests/*.test.mjs` (the full app suite)', suite, '03:16'), _job('`PHOTOMATCH_RENDER=1 tools/horde/bench.sh node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs` (the renderer determinism test)', rend, '03:16')])
     fmt['full_suite_owed'] = owed_job

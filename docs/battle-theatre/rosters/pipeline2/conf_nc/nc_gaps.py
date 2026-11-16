@@ -7,7 +7,7 @@
 
 nc_report.py imports analysis() and GAPS from here so that the report, GAPS.md and the proposed entries say the same thing.
 """
-import os, sys, json, statistics, collections
+import os, sys, json, re, statistics, collections
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import nc_lib as L, nc_units as U
@@ -78,9 +78,31 @@ def analysis(S):
     A['clark_units_with'] = [k for k, x in units.items() if x.get('clark', {}).get('notes')]
     A['clark_units_without'] = [k for k, x in units.items() if not x.get('clark', {}).get('notes')]
     A['clark_strength_units'] = [k for k, x in units.items() if x.get('clark', {}).get('strength_low') is not None]
+    # Moore's notes that promise an appendix ("the names will be inserted in an appendix to this volume"): where the words stand in the eight text layers
+    app = {}
+    for vol in '1234':
+        for sc in 'ab':
+            txt = L.load(L.text_id(vol, sc))[0]
+            hits = [m.start() for m in re.finditer(r'(?i)appendix|addenda|errata|corrigenda', txt)]
+            app[L.text_id(vol, sc)] = {'n': len(hits), 'promises': sum(1 for h in hits if re.search(r'(?i)\ban\s+$', txt[max(0, h - 30):h]))}
+    A['appendix'] = app
     A['registry_history_ids'] = len(ids)
     A['registry_with_strength'] = sum(1 for i in ids if hh[i].get('strength') is not None)
     return A
+
+
+def appendix_clause(A, cap=False):
+    """A measured sentence about the appendix that some of Moore's notes promise (no number is typed here; it stops the run when a hit is not a promise)."""
+    ap = A['appendix']
+    na = sum(v['n'] for k, v in ap.items() if not k.endswith('~b'))
+    nb = sum(v['n'] for k, v in ap.items() if k.endswith('~b'))
+    pa = sum(v['promises'] for k, v in ap.items() if not k.endswith('~b'))
+    pb = sum(v['promises'] for k, v in ap.items() if k.endswith('~b'))
+    assert pa == na and pb == nb, 'a place of the words appendix, addenda, errata, corrigenda is not inside a promise ("in an appendix"): read it before the gap text is written'
+    vols = ' and '.join('volume %s' % v for v in '1234' if ap[L.text_id(v, 'a')]['n'] or ap[L.text_id(v, 'b')]['n']) or 'no volume'
+    c = ('a search of the text layers of the eight pinned scans for the words appendix, addenda, errata and corrigenda finds %d places in the four first scans and %d in the four second scans (%s), every one inside a note that promises an appendix '
+         '("... will be inserted in an appendix to this volume"); no part of a volume is headed by one of these words, so the names those notes promise (in this item Company I of the 4th Cavalry) are not in the pinned volumes' % (na, nb, vols))
+    return c[0].upper() + c[1:] if cap else c
 
 
 def gaps(S, A, audit=None):
@@ -148,9 +170,9 @@ def gaps(S, A, audit=None):
     g.append({
         'id': 'EG-ROS-NC-06', 'gid': 'G-NC06', 'category': 'rolls printed partially or not at all by the source; prose notes not carried as lines',
         'title': 'North Carolina: rolls that Moore prints in part or not at all, and the prose notes inside the rolls',
-        'line': '| G-NC06 | **North Carolina: partial rolls and notes** (EG-ROS-NC-06): %d printed notes (Moore: "Note.") inside the rolls are prose, not lines, and are not in the unit files (they are listed in the report and in diagnostics/<unit>.json): the 4th Infantry "very imperfectly reported", the 16th Infantry Company A roll (printed at the end of the regiment), Company F of the 18th, Companies A, E and F of the 2nd Cavalry, Company C of the 22nd, Company I of the 4th Cavalry, Companies C, D and E of the 2nd Battalion, one on Beaufort county in the Branch Artillery; small rolls: %s; the Charlotte Artillery (Company C of the Tenth Regiment) holds %d lines and one captain, and no printed note was found in its section | the 41 unit files; Moore notes at the offsets listed in the report | Open: the muster rolls Moore did not have (NARA, owner-only) are the only source; nothing is added from memory |'
-                % (len(A['notes']), small, u['c-nc-charlotte-artillery']['lines']),
-        'what': 'Moore printed what the rolls of 1882 held. Twelve notes of his comment on the source of a roll (a roll not reported, found late, marked with the letter of another company or not obtained; counties or residences of the men not found; a county remark), listed in the report with their offsets; the company rolls under them are as short as printed: %s. The Charlotte Artillery is Company C of the Tenth Regiment (First Artillery) in Moore; the text prints %d lines and one captain for it and no printed note was found in its section (whether the roll is partial is not stated), and the identification rests on the Official Records index (documented) and on the counties of the men (inferred). The notes are prose: they are kept in diagnostics/<unit>.json with their offsets, never made into lines.' % (small, u['c-nc-charlotte-artillery']['lines']),
+        'line': '| G-NC06 | **North Carolina: partial rolls and notes** (EG-ROS-NC-06): %d printed notes (Moore: "Note.") inside the rolls are prose, not lines, and are not in the unit files (they are listed in the report and in diagnostics/<unit>.json): the 4th Infantry "very imperfectly reported", the 16th Infantry Company A roll (printed at the end of the regiment), Company F of the 18th, Companies A, E and F of the 2nd Cavalry, Company C of the 22nd, Company I of the 4th Cavalry, Companies C, D and E of the 2nd Battalion, one on Beaufort county in the Branch Artillery; small rolls: %s; the Charlotte Artillery (Company C of the Tenth Regiment) holds %d lines and one captain, and no printed note was found in its section; %s | the 41 unit files; Moore notes at the offsets listed in the report | Open: the muster rolls Moore did not have (NARA, owner-only) are the only source; nothing is added from memory |'
+                % (len(A['notes']), small, u['c-nc-charlotte-artillery']['lines'], appendix_clause(A)),
+        'what': 'Moore printed what the rolls of 1882 held. %d notes of his comment on the source of a roll (a roll not reported, found late, marked with the letter of another company or not obtained; counties or residences of the men not found; a county remark), listed in the report with their offsets; the company rolls under them are as short as printed: %s. The Charlotte Artillery is Company C of the Tenth Regiment (First Artillery) in Moore; the text prints %d lines and one captain for it and no printed note was found in its section (whether the roll is partial is not stated), and the identification rests on the Official Records index (documented) and on the counties of the men (inferred). The notes are prose: they are kept in diagnostics/<unit>.json with their offsets, never made into lines. %s.' % (len(A['notes']), small, u['c-nc-charlotte-artillery']['lines'], appendix_clause(A, True)),
         'evidence': 'GOVERNANCE/horde/ws-rosters/conf-nc/diagnostics/<unit>.json (notes), stats.json; rosters/reports/conf-nc.md section 5',
         'route': 'no open source holds the missing rolls; NARA compiled service records are owner-only and not used; a page-image reading of the notes would confirm their text',
         'tier': 'documented (the note says so); the missing men are unknown', 'markers': 'the unit page should say that the roll is partial where this report says so'})

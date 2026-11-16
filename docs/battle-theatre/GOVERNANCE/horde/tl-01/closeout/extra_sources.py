@@ -45,6 +45,7 @@ PAPERS = {
     'sn83016025': 'The Portland Daily Press (Portland, Me.)',
     'sn84024669': 'Richmond Whig (Richmond, Va.)',
     'sn84024735': 'Richmond Enquirer (Richmond, Va.)',
+    'sn85026213': 'Sunday Dispatch (New York)',
 }
 CA_RX = re.compile(r'^CA-(sn\d{8})-(\d{4}-\d\d-\d\d)-p(\d+)$')
 

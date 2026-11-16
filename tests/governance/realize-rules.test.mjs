@@ -775,7 +775,11 @@ test('rule: a vegetation_state assertion that every plot satisfies, or that is m
   A('VG-006', 'Wheatfield wheat standing about 3.5-4.5 ft; Woodlots in full summer leaf; 3.5 ft', '1863-07-02T06:00', '1863-07-02T12:00', 'Jul 2 morning');
   const q = 'Wheatfield wheat standing', wf = extra => veg('VG-006', '1863-07-02T06:00', '1863-07-02T12:00', q, [WHEAT], [{ type: 'vegetation_state', plot: WHEAT, t: { at: '1863-07-02T08:00' }, quote: q, ...extra }]);
   await mustPass(wf({ cut_max: 0 }), 'a maximum of 0 is a statement: a cut field fails it');
-  for (const k of ['cut', 'trample', 'lodging', 'leaf', 'strip', 'keep']) { await vacuous(wf({ [`${k}_min`]: 0 }), `${k}_min 0 holds for every state of every plot`); await vacuous(wf({ [`${k}_max`]: 1 }), `${k}_max 1 holds for every state of every plot`); }
+  const stat = r => validateRecord(r, { row: TL.byId.get('VG-006'), tolerances: P.tolerances, clock: TL.clock, activities: P.activities() }).problems.map(p => p.code);       // the static validation alone: no product is asked
+  for (const k of ['cut', 'trample', 'lodging', 'leaf', 'strip', 'keep']) {
+    await vacuous(wf({ [`${k}_min`]: 0 }), `${k}_min 0 holds for every state of every plot`); await vacuous(wf({ [`${k}_max`]: 1 }), `${k}_max 1 holds for every state of every plot`);
+    assert.ok(stat(wf({ [`${k}_min`]: 0 })).includes('assert_vacuous') && stat(wf({ [`${k}_max`]: 1 })).includes('assert_vacuous'), `${k}: a share bound every state meets is refused by the schema, before the product is asked (the run-time test would refuse it too)`);
+  }
   for (const bad of [{ cut_min: 1.5 }, { cut_max: -0.1 }, { leaf_min: '0.9' }, { trample_max: NaN }]) await mustFail(wf(bad), 'assert_field', `a share is a number from 0 to 1: ${JSON.stringify(bad)}`);
   await mustFail(wf({ cut_min: 0.6, cut_max: 0.4 }), 'assert_field', 'a minimum above the maximum');
   await mustFail(wf({}), 'assert_field', 'a check that says nothing about the plot');
@@ -785,7 +789,7 @@ test('rule: a vegetation_state assertion that every plot satisfies, or that is m
   // the plots a check names
   const who = (extra, entities = [WHEAT]) => veg('VG-006', '1863-07-02T06:00', '1863-07-02T12:00', q, entities, [{ type: 'vegetation_state', t: { at: '1863-07-02T08:00' }, quote: q, cut_max: 0, ...extra }]);
   await mustFail(who({}, []), 'assert_field', 'neither a plot nor a selector'); await mustFail(who({ plot: WHEAT, where: { cls: 'woods' } }), 'assert_field', 'both a plot and a selector');
-  await mustFail(who({ plot: '' }, ['']), 'assert_field', 'an empty plot'); await mustFail(who({ where: {} }, []), 'assert_field', 'an empty selector'); await mustFail(who({ where: { cls: 'woods', size: 3 } }, []), 'assert_field', 'a selector key the harness does not know');
+  await mustFail(who({ plot: '' }, ['']), 'assert_field', 'an empty plot'); await mustFail(who({ where: {} }, []), 'assert_field', 'an empty selector'); await mustFail(who({ where: { cls: 'woods', size: 'big' } }, []), 'assert_field', 'a selector key the harness does not know (with a value that looks like a name)');
   await mustFail(who({ where: { cls: [] } }, []), 'assert_field', 'an empty class list');
   const noq = who({ where: { cls: 'woods' }, quote: undefined }, []); delete noq.checks[0].quote; await mustFail(noq, 'assert_field', 'a selector with no words of the row to name the class');
   await mustFail(who({ plot: WHEAT, min_plots: 2 }), 'assert_field', 'min_plots belongs to a selector');

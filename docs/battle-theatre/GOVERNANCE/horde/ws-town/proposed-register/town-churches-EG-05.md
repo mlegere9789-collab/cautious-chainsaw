@@ -4,18 +4,18 @@
 |---|---|
 | ID | town-churches-EG-05 |
 | Requirement IDs | R12, OA10 |
-| Category | open gap (form) and inference (existence) |
-| Description | The inset of 1858 labels a Coloured Church west of Washington Street (a black rectangle at the head of the label, about 6.5 by 11.5 m) and Rupp lists an African church among the eight churches of the borough in 1844 (rows 0239). No source of 1859 to 1869 names it or says it was lost; the Warren plate of 1869 prints no label at this size. Its standing in July 1863 is inferred from continuity (row 0240); place with 25 m (row 0244); no storeys, footprint, walls or roof (rows 0245, 0246). |
-| Why literal 100% is not possible or blocked | The congregation is named by no weekly of 1858 to 1869 that was read (search row 0045); church records are owner-only. |
-| Evidence searched | The weeklies (Compiler, Sentinel), the 1886 history, Rupp, the Hopkins inset, the Warren plate. |
-| Autonomous substitute applied | None. |
-| Strongest evidence-based reconstruction | A point with a generic building, marked inferred and uncertain, at the place of the inset; the form by generic rules only. |
-| Confidence tier | existence inferred; form open gap |
+| Category | open gap (form) and inference (existence and hospital use) |
+| Description | The inset of 1858 labels a Coloured Church west of Washington Street (a black rectangle at the head of the label, about 6.5 by 11.5 m) and Rupp lists an African church among the eight churches of the borough in 1844 (row 0239). No source of 1859 to 1869 names it or says it was lost; the Warren plate of 1869 prints no label at this size. Its standing in July 1863 is inferred from continuity (row 0240); place with 25 m (row 0244); no storeys, footprint, walls or roof (rows 0245, 0246). **Second pass:** the Christian Commission says that on 4 to 7 July every church and public building of the town was filled with wounded men; read as including this church it is an inferred hospital (row 0250); no source names the church in the hospital use. |
+| Why literal 100% is not possible or blocked | No source gives the form, the date of building or any use of the church; the congregation's records are owner-only; the host of the Adams County Historical Society is blocked. |
+| Evidence searched | Rupp 1846, the Hopkins inset, the weeklies (five hits, all of other places), the new compilations and church histories (search rows 0045, 0294). |
+| Autonomous substitute applied | None applied. |
+| Strongest evidence-based reconstruction | A point with a generic building, marked inferred and uncertain, at the place of the inset; the form by generic rules only; the hospital use marked as inferred from a general statement. |
+| Confidence tier | inferred (existence, hospital use), open gap (form) |
 | Competing values | None. |
-| Product marking | Marked uncertain building. |
-| Visual and audio impact | One small building at the south-west edge of the borough. |
+| Product marking | Marked uncertain; the form is generic. |
+| Visual and audio impact | A small church at the point. |
 | Review status | internal review only (DEC-006: no public review label) |
-| Owner decision requested | Whether a generic building is drawn at the point or only a marker. |
-| Agent recommendation | Draw a small generic building marked uncertain, because the inset and the list of 1844 agree that a church of the coloured people stood. |
-| Status | open (proposed by the evidence pass of the group town-churches, 2026-11-16) |
+| Owner decision requested | Whether a generic building is drawn at the point or only a marker; whether wounded are shown in it. |
+| Agent recommendation | Draw a marker; add a generic building only on the owner's instruction. |
+| Status | open (proposed by the evidence pass of the group town-churches; second pass 2026-11-16) |
 | Owner decision and date | (filled only from the Decision Log) |

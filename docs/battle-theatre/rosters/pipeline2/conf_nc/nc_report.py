@@ -342,7 +342,7 @@ def main():
          % (len(A['diffs']), len(A['recap_image']), ', '.join('%s %s' % (D(k), fmt(units[k]['printed_total']['value'])) for k in A['recap_image']), A['diff_min'], A['diff_max']))
     nl = A['notes']
     item('**Printed notes inside the rolls: %d.** They are prose, not lines: they are not in the unit files and are kept with their offsets in `diagnostics/<unit>.json` (gap EG-ROS-NC-06). The first 200 characters of each, as the text layer prints them: ' % len(nl) +
-         ' '.join('(%s, Company %s, offset %s) "%s"' % (D(k), x['co'], x['off'], x['text'].replace('"', "'")) for k, x in nl))
+         ' '.join('(%s, Company %s, offset %s) "%s"' % (D(k), x['co'], x['off'], x['text'].replace('"', "'")) for k, x in nl) + ' ' + G.appendix_clause(A, True) + ' (Measured).')
     sc = A['small_companies']
     item('**Small company rolls** (fewer than half of the median company of the unit; the roll is as printed): %s. The Charlotte Artillery (Company C of the Tenth Regiment) holds %d lines and one captain; no printed note was found in its section.' % ('; '.join('%s Company %s: %d lines (median %d)' % (D(k), c, v, med) for k, c, v, med in sc), units['c-nc-charlotte-artillery']['lines']))
     # company letters in one reading only

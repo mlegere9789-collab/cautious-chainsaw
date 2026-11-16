@@ -165,14 +165,19 @@ def expand(key):
     return [key]
 
 
-def verify(key, quote, report=None, defect=None):
+def verify(key, quote, report=None, defect=None, within=None, page=None):
     """-> {ok, count, found, locator{...}, sha256}; for OR27 locator carries report, page and cite. `defect` (or DEFECT_OF for the report) lets a quote written with the printed words
-    be found in a text whose layer lost glyphs: tried only when the letter-for-letter comparison finds nothing; the result then has `defect` set and `found` is the saved words."""
+    be found in a text whose layer lost glyphs: tried only when the letter-for-letter comparison finds nothing; the result then has `defect` set and `found` is the saved words.
+    `within` = (start, end) offsets: only a match that lies inside them counts (the quote of a claim must be the words OF ITS PASSAGE, not an earlier place with the same words);
+    `page` = a PDF page: only a match on that page counts (a text variant keeps another offset scale)."""
+    ok_at = lambda a, b: (within is None or (within[0] <= a and b <= within[1])) 
     if key == 'OR27':
         import or27_find as F
         hits = F.verify(quote, parts=(1, 2, 3))
         if report:
             hits = [h for h in hits if h.get('record') == report]
+        if within is not None:
+            hits = [h for h in hits if within[0] <= h['start'] and h['end'] <= within[1]]
         if not hits:                                   # the OCR keeps stray marks inside a line (} < . ) that the letter-and-digit comparison ignores
             qs, _ = skeleton(quote)
             for part in (1, 2, 3):
@@ -188,7 +193,7 @@ def verify(key, quote, report=None, defect=None):
                     a, b = idx[i], idx[i + len(qs) - 1] + 1
                     os_, oe = P.orig_span(a, b)
                     c = P.cite(os_, oe)
-                    if not report or c['record'] == report:
+                    if (not report or c['record'] == report) and (within is None or (within[0] <= c['start'] and c['end'] <= within[1])):
                         hits.append(c)
                     pos = i + 1
                 if hits:
@@ -205,20 +210,22 @@ def verify(key, quote, report=None, defect=None):
     if len(qs) < 12:
         return {'ok': False, 'count': 0, 'found': None, 'error': 'quote too short to be a test'}
     sk, idx = t.sk
+    accept = lambda i, last: ok_at(idx[i], idx[last] + 1) and (page is None or t.page_at(idx[i]) == page)
     n, pos, first = 0, 0, None
     while True:
         i = sk.find(qs, pos)
         if i < 0:
             break
-        n += 1
-        if first is None:
-            first = i
+        if accept(i, i + len(qs) - 1):
+            n += 1
+            if first is None:
+                first = i
         pos = i + 1
     d = defect or DEFECT_OF.get(key.split('#')[0])
     span = None
     if first is None and d:
         rx = re.compile(defect_pattern(qs, d))
-        ms = list(rx.finditer(sk))
+        ms = [m for m in rx.finditer(sk) if accept(m.start(), m.end() - 1)]
         if ms:
             n, first = len(ms), ms[0].start()
             span = (ms[0].start(), ms[0].end())

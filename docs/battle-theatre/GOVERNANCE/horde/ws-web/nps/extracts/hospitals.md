@@ -419,7 +419,7 @@ Civilians at Gettysburg (U.S. National Park Service) (web page, undated unless n
 Table 5: Civil War Medicine - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/education/a-nation-at-war-traveling-trunk-table-5-the-medical-corps-at-war.htm
 
 - **A Union field hospital lay about two miles from the front lines, out of range of most artillery (a general statement of the lesson)** (`NPSX-WEB-EDU-A-NATION-AT-WAR-TRAVELING-TRUNK-TABLE-5-THE-MEDICAL-CORPS-AT-WAR-p001-01`)
-  - State date: **1861-1865 (a general rule of the Union medical system as the lesson gives it; not a Gettysburg site)** | use for the July 1863 scene: **indirect** | tier proposed: inferred (source wording: hedged) | PDF p. 1
+  - State date: **the Civil War (a general rule of the Union medical system as the lesson gives it; not a Gettysburg site)** | use for the July 1863 scene: **indirect** | tier proposed: inferred (source wording: hedged) | PDF p. 1
   - Claim: The page says a field hospital was located about two miles from the front lines, out of range of most artillery, as a general statement of Civil War practice that names no source and no Gettysburg site
   - Quote: "A field hospital was located about two miles from the front lines, out of range of most artillery."
 
@@ -431,7 +431,7 @@ Fallen Soldiers: Pre-Visit Lesson - Gettysburg National Military Park (U.S. Nati
   - State date: **1863-07 (the hospitals of 1863 as the caption reads the burials marked on Elliott's map of 1864)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
   - Claim: The caption says that on the detail of S. G. Elliott's 1864 map of the battlefield, showing the area around Little and Big Round Top, Devil's Den, the Wheatfield and the Peach Orchard, the burials to the right of the road mark the locations of several field hospitals
   - Quote: "Note the burials to the right of the road on the right-hand-side of map; these were the locations of several field hospitals."
-  - Context (PDF p. 1): "Detail of S.G. Elliott's 1864 Map of the Gettysburg Battlefield."
+  - Context (PDF p. 1): "Detail of S.G. Elliott's 1864 Map of the Gettysburg Battlefield. The "Explanation" or key on the lower right portion identifies the marks on the map, including post-battle burial locations. This detail shows the area around such battlefield landmarks as Little and Big Round Top; Devil's Den; the Wheatfield; and the Peach Orchard."
 
 ## NPSGOV-EDU-SLYDER-FAMILY-FARM-PRE-VISIT-LESSONS
 
