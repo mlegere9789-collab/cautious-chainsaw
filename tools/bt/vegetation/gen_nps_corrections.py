@@ -527,6 +527,63 @@ CURATED += [
      {'q': 'Dead horses littered the yard, the crops were trampled', 'anchor': {'farm': 'leister', 'r_m': 350, 'class': 'field', 'area': True}, 'note': 'A passage the web task linked to the timeline row T3-087. The report names no crop and no acreage and does not date the trampling: no event is made of it (the fields near the farm are trampled where the troops the theatre draws walked, and by the events of the record).'}),
 ]
 
+# ---- fourth reading (16 November): 18 rows the web task added to the correction file at 00:34, after the third reading (the vista-cutting report's account of the line of 2 July and of the Warren
+# map's readings along Plum Run, the Rock Creek report, the Harmon farm study, two HABS reports): each is a claim below or a row left out with its reason (LEFT_OUT_B)
+DEN_PO = {'box': [-77.25063, 39.79156, -77.24094, 39.80143], 'class': 'woods', 'area': True}      # the corridor from Devil's Den toward the Peach Orchard: the box of the two gazetteer points (-77.24214, 39.79216 and -77.24943, 39.80083), widened by about 100 m east-west and 70 m north-south
+PLUM_N = {'box': [-77.24200, 39.80120, -77.23750, 39.80985], 'class': 'woods', 'area': True}      # Plum Run between the Trostle farmstead and its upper end south of the Codori buildings: the stream of the waterways layer (WT-302, present in 1863) with 70 m either side
+WARREN = {'basis': 'Warren survey, 1868-69'}
+
+CURATED += [
+    ('NPSX-VISTA-CUTTING-p008-01', '', 'woodlot', 'documented', "the wooded ridge from Devil's Den to the Wheatfield, and the woods next to the Wheatfield, on the line of the Third Corps",
+     "The vista-cutting report says the battle line of the advanced position of the Third Corps ran northward from Devil's Den along the wooded ridge to the Wheatfield, then westerly through the Wheatfield and the adjacent woods to the Peach Orchard and northerly to the Emmitsburg Road.", D2,
+     {'q': "his left flank rested at Devil's Den, the battle line extending northward along the wooded ridge to the Wheatfield, thence westerly through the Wheatfield and adjacent woods to the Peach Orchard, thence northerly to Emmittsburg Road.", 'anchor': HOUCK,
+      'note': "A report of about 1940 that names the Warren survey map and the Brady and Tipton photographs as its basis (pp. 9-11) and cites none for this sentence. The first words of the sentence (\"When General Sickles moved the Third Corps forward to its advance position\") are damaged in the saved text (\"Yfhen ... forvrard\") and are left out of the quote. Houck's Ridge is the ridge between Devil's Den and the Wheatfield: the box of CF-VEG-HOUCK is the reading of the place (role area). One of the statements for the Warren reading of that choice; the Slaughter Pen study says the same ground was almost entirely clear-cut (VC-NPSC-SLAUGHTER-PEN-p007-04): both carried."}),
+    ('NPSX-VISTA-CUTTING-p008-02', '', 'woodlot', 'documented', "the heavily wooded area from Devil's Den toward the Peach Orchard where the Confederate attack first struck",
+     "The vista-cutting report says the Confederate attack first struck the Federal positions in the heavily wooded area extending from Devil's Den in the direction of, and nearly to, the Peach Orchard.", D2,
+     {'q': "first struck the Federal Positions in the heavily wooded area extending from Devil's Den in the direction of, and nearly to, the Peach Orchard", 'anchor': DEN_PO,
+      'note': "The place is given by two points only: the box of the layer's wood units whose centre lies between them is the reading (role area). The report names no source in the sentence; its basis is the Warren map and the photographs (see the claim before). A statement for the Warren reading of CF-VEG-HOUCK."}),
+    ('NPSX-VISTA-CUTTING-p008-02', 'b', 'woodlot', 'documented', 'the wooded slopes of Big Round Top in the attack on Little Round Top',
+     "The vista-cutting report says Law's Brigade drove through the wooded slopes of Big Round Top in its attack on Little Round Top.", D2,
+     {'q': "Law's Brigade driving through the wooded slopes of Big Round Top in his attack on Little Round Top", 'anchor': BRT_EXACT,
+      'note': "The slopes are wooded in the report's account of the attack: it names no species, age or density here (the Warren map's reading is VC-NPSC-VISTA-CUTTING-p011-01a; gap G24)."}),
+    ('NPSX-VISTA-CUTTING-p008-03', '', 'ground', 'documented', "open ground of the battle area: the Wheatfield, the valley of Plum Run, the fields behind the Peach Orchard and south of the Trostle and George Weikert buildings",
+     "The vista-cutting report names as open ground of the battle area the fields in rear of the Federal position at the Peach Orchard, the Wheatfield west of Little Round Top, the broad valley of Plum Run between Little Round Top and Devil's Den Ridge, and areas south of the Trostle and George Weikert farm buildings.", B,
+     {'anchor': {'poly': 'LC-FIELD-0001'}, 'note': "Placed on the Wheatfield only, the one place of the list the layer outlines as one polygon (role exact): the others have no outline of their own. The report says what was open, not what the open ground bore (the Wheatfield's crop is held by other claims)."}),
+    ('NPSX-VISTA-CUTTING-p011-02', '', 'thicket', 'inferred', "a growth of smaller trees and underbrush west of Devil's Den on the Warren map",
+     "The vista-cutting report says that west of Devil's Den the Warren map shows, though its legend does not name it, what appears to be a growth of smaller trees and considerable underbrush.", WARREN,
+     {'anchor': {'gz': "Devil's Den", 'bearing': 270, 'dist_m': 250, 'r_m': 250, 'class': 'woods', 'k': 1},
+      'note': "The report's own hedge (\"appears to be\") about a symbol the legend does not name: inferred; a map of five years after the battle. Placed by a rule on the wood or cluster of the layer nearest a point 250 m west of the Den (the report gives no distance). It sets no understory value: the choice CF-VEG-UNDER does not follow one hedged reading of a map symbol. A statement for the Warren reading of CF-VEG-HOUCK."}),
+    ('NPSX-VISTA-CUTTING-p012-01', '', 'ground', 'documented', 'the low ground along Plum Run toward the Trostle farm shown open, and the swamp at the north-west foot of Little Round Top',
+     "The vista-cutting report says the Warren Survey Map shows the low ground bordering Plum Run, in the direction of the Trostle farm buildings, as open ground, and as an extension northward of the swamp area at the northwest base of Little Round Top.", WARREN,
+     {'anchor': {'poly': 'LC-WET-0001'}, 'note': "Placed on the marsh polygon of the layer, the one swamp the layer holds on that ground (the Plum Run wetland west of Little Round Top); the open ground north of it has no outline of its own. A map of five years after the battle."}),
+    ('NPSX-VISTA-CUTTING-p012-02', '', 'woodlot', 'documented', 'an open area north of the Wheatfield Road that the Warren map shows wooded',
+     "The vista-cutting report says that an area just north of the Wheatfield Road, to the left of the open ground of the Plum Run swale as seen from Little Round Top, was open at the time of the report although, according to the Warren map, it should be wooded.", WARREN,
+     {'note': "Not placed: the sentence gives only \"just north of the Wheatfield Road\", to the left of the open ground as seen from Little Round Top. The state of about 1940 is not a state of 1863; the claim is what the report reads from the Warren map (wood there, five years after the battle)."}),
+    ('NPSX-VISTA-CUTTING-p013-01', '', 'thicket', 'documented', 'trees and underbrush along Plum Run north of the Trostle buildings on the Warren map',
+     "The vista-cutting report says that northward from the Trostle buildings the Warren map shows a growth of trees and underbrush along Plum Run, extending nearly to the upper end of Plum Run just south of the Codori buildings.", WARREN,
+     {'anchor': PLUM_N, 'note': "Placed by a rule: the wood units and tree clusters of the layer whose centre lies within 70 m of the stream (WT-302 of the waterways layer) between the Trostle farmstead and the upper end of the run (one cluster of 17.6 acres). A map of five years after the battle."}),
+    ('NPSX-VISTA-CUTTING-p013-02', '', 'ground', 'documented', 'open ground in the swale south of the George Weikert farm to the Wheatfield Road on the Warren map',
+     "The vista-cutting report says the Warren map indicates open ground in the swale extending southward from the George Weikert farm buildings to the Wheatfield Road.", WARREN,
+     {'anchor': {'farm': 'g_weikert', 'bearing': 180, 'dist_m': 350, 'r_m': 300, 'class': 'field', 'area': True},
+      'note': "Placed by a rule (role area): the field cells whose centre lies within 300 m of a point 350 m south of the George Weikert farmstead. The report adds that Caldwell's division moved down this swale to the Wheatfield. A map of five years after the battle."}),
+    ('NPSX-ROCK-CREEK-p013-01', '', 'woodlot', 'documented', 'the banks of Rock Creek covered with woods during the battle',
+     "The report says that during the battle the banks of Rock Creek were covered with woods and, as the name implies, bristling with rocks, and cites the Comte de Paris (p. 90).", {'from': '1863-07-01', 'to': '1863-07-03'},
+     {'anchor': {'gz': 'Rock Creek', 'r_m': 500, 'class': 'woods', 'area': True}, 'note': "A later account relayed by the report; the history of the Comte de Paris was not read here. The gazetteer gives one point on the creek: the wood units within 500 m of it carry the claim (role area); the whole length of the banks is not outlined."}),
+    ('NPSX-HARMON-FARM-p033-01', '', 'damage', 'documented', 'Harmon farm: ten acres of wheat and five of rye lost by the movement of both armies; a potato patch and truck garden destroyed',
+     "The farm study says the tenant Finfruck claimed the loss of ten acres of wheat and five acres of rye by the movement of both armies across his crop fields, and that a potato patch and truck garden near the house was also destroyed.", {'basis': 'a claim of the tenant'},
+     {'about': {'farm': 'harman', 'same_acres_as': 'VC-NPS-033'},
+      'note': ACCOUNT + " (a claimant's statement, DD-NPS-08). The same acres as the Cultural Landscape Report's Harman farm claim (VC-NPS-033: 10 acres of wheat and 5 of rye), which names the tenant William Comfort; the two reports give two names for the claimant and one pair of acreages. Kept as a damage statement, not an inventory: the acres are already in the district mix once. Not placed (no farmstead outline)."}),
+    ('NPSX-HABS-pa3988-p006-01', '', 'ground', 'documented', "Ziegler's Grove denuded of trees since the battle; the maples of 1888",
+     "The HABS report on the Cyclorama building says the Ziegler's Grove area had been denuded of trees since the battle and that the Gettysburg Battlefield Memorial Association tried to plant maples in 1888 to recreate the grove, of which only a few survived.", {'from': '1863-07-04', 'to': '1888-12-31', 'basis': 'after the battle until the planting of 1888; the felling is not dated'},
+     {'anchor': ZIEG, 'note': "A later state: the report does not date the felling and the layer (the Warren wood of 1868-69) draws the grove through 19 November as a leaf-off wood with the tier of its parts (gap G19). The maples of 1888 and every later tree there are not 1863 trees."}),
+    ('NPSX-HABS-pa3648-p055-01', '', 'woodlot', 'documented', "a small patch of woods and an open swale at the border of Spangler's Meadow",
+     "The HABS report on the park's tour roads says the Twentieth Massachusetts veterans put their monument on a large granite boulder in Spangler's Meadow, at the border of a small patch of woods and an open swale that characterized the landscape during the battle and at the dedication of 1879.", {'from': '1863-07-01', 'to': '1863-07-03', 'basis': 'the battle and the dedication of 1879'},
+     {'note': "Not placed: the passage names Spangler's Meadow and a monument but no outline, and the layer's Spangler farm outline is not the meadow. The report gives no source for the state of 1863."}),
+    ('NPSX-HABS-pa3648-p173-01', '', 'crop', 'inferred', "a field of wheat past the old farm lane that Howe Avenue follows, on Cope's map",
+     "The HABS report says that, according to Emmor B. Cope's map of existing features at the time of the battle, Howe Avenue follows the trace of an old farm lane, past what had been a field of wheat.", {'basis': "Cope's crop patterns of the 1890s, inked on reduced Warren sheets (the report's footnote)"},
+     {'about': {'crop': 'wheat'}, 'note': "Inferred: the map the report relies on was made in the 1890s, a generation later (the footnote: Cope, \"Crop Map\", crop patterns inked on reduced versions of the Warren map, c. 1890s), and was not read here. The avenue runs perpendicular off the Taneytown Road opposite Wright Avenue at the southern end of the park; the field is not placed (no outline of the lane or the field in the repository)."}),
+]
+
 # rows read and left out, each with the reason (so that a row of the correction file cannot be skipped silently)
 LEFT_OUT_B = {
     'NPSX-CLR-LRT-p036-01': 'the Commission\'s aim of 1895 to 1922 (keep the arrangement of the existing woods and fields): management of a later time, no state of 1863',
@@ -561,6 +618,13 @@ LEFT_OUT_B.update({
     'NPSX-MCCLEAN-HOUSE-BARN-p023-04': 'who farmed the McClean property (the owners or tenants): ownership and tenancy, no state of the ground',
     'NPSX-HSR-LEISTER-BARN-p029-01': 'a view of about 1900: the orchard re-established to its original extent is a later state (the extent of the orchard of 1863 is held in the claims of the Gardner photograph)',
     'NPSX-BRT-ECOLOGY-p010-01': 'European weeds well established before 1800 (the booklet\'s own hedge): weeds of the district, no crop, tree or place of 1863',
+})
+LEFT_OUT_B.update({         # the fourth reading
+    'NPSX-HABS-pa3988-p007-01': 'the repaving of Hancock Avenue, the observation tower of 1896 and the trees replanted in Ziegler\'s Grove in 1897: later states (the row\'s own use for 1863 is none); the earlier planting of 1888 is held in VC-NPSC-HABS-pa3988-p006-01',
+    'NPSX-HABS-pa3988-p045-01': 'the plan of 1999 to demolish the Cyclorama building and the visitor center in order to recreate the 1863 appearance of Ziegler\'s Grove: management of a later time; it says nothing of what the grove of 1863 was',
+    'NPSX-HABS-pa3988-p060-01': 'several trees of Ziegler\'s Grove, stone walls and boulders removed to prepare the site of the Cyclorama building (1959-62): a later removal; the trees were not those of 1863 (the saved sentence also stops at the page break)',
+    'NPSX-HABS-pa3988-p061-02': 'rows of fruit trees planted near the building by 2004 that suggest a historic orchard: a modern planting; the report claims no orchard of 1863',
+    'NPSX-HABS-pa3648-p204-03': 'the hayfields, hedgerows and woodlot a visitor sees along Wainwright Avenue in 1998: the state of the park when it was surveyed, not dated to 1863 (the stone walls it mentions are structures)',
 })
 LEFT_OUT.update(LEFT_OUT_B)
 

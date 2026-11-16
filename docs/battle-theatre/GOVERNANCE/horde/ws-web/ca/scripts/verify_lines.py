@@ -156,6 +156,11 @@ def main():
                 if (c.get('reprint') or {}).get('status') not in ('original', 'reprint', 'wire', 'unknown'):
                     problems.append('%s reprint status missing/invalid (%s)' % (tag, pid))
                 oc = c.get('ocr_check') or {}
+                for extra in (oc.get('images') or []) + ([c['heading_image']] if c.get('heading_image') else []):
+                    ish2 = extra.get('image_sha256')
+                    im2 = img_by_sha.get(ish2)
+                    if not im2 or not os.path.exists(os.path.join(ROOT, im2['local_path'])) or sha_file(os.path.join(ROOT, im2['local_path'])) != ish2:
+                        problems.append('%s further image missing or sha256 differs (%s)' % (tag, pid))
                 if oc.get('reading'):
                     readings.append(oc['reading'])
                     ish = oc.get('image_sha256')
@@ -166,14 +171,20 @@ def main():
                         p = os.path.join(ROOT, im['local_path'])
                         if not os.path.exists(p) or sha_file(p) != ish:
                             problems.append('%s saved crop missing or sha256 differs (%s)' % (tag, im['local_path']))
-            blob = [alnum(x) for x in quotes + readings]
-            for fr in re.findall(r'"([^"]{30,})"', d.get('sub_claim') or ''):
-                a = alnum(fr)
-                if a and not any(a in b for b in blob):
-                    # try without a leading/trailing ellipsis fragments
-                    parts = [alnum(x) for x in re.split(r'\.\.\.|…', fr) if len(alnum(x)) >= 15]
-                    if not parts or not all(any(p in b for b in blob) for p in parts):
-                        notes.append('UNMATCHED fragment in sub_claim of %s: "%s"' % (tag, fr[:110]))
+            blobs = [alnum(x) for x in quotes + readings]
+            for c in cites:
+                for part in (c.get('dateline'), c.get('attribution'), (c.get('reprint') or {}).get('from'), c.get('heading')):
+                    if part:
+                        blobs.append(alnum(part))
+            pos = [i for i, ch in enumerate(d.get('sub_claim') or '') if ch == '"']
+            for a_, b_ in zip(pos[0::2], pos[1::2]):
+                fr = d['sub_claim'][a_ + 1:b_]
+                if len(fr) < 30:
+                    continue
+                parts = [alnum(x) for x in re.split(r'\[[^\]]*\]|\.\.\.|\u2026', fr)]
+                parts = [x for x in parts if len(x) >= 12]
+                if parts and not all(any(x in b for b in blobs) for x in parts):
+                    notes.append('UNMATCHED fragment in sub_claim of %s: "%s"' % (tag, fr[:110]))
     print('lines %d, citations %d, distinct pages cited %d' % (nlines, total_cites, len(pages_cited)))
     print('problems: %d, unmatched sub_claim fragments: %d' % (len(problems), len(notes)))
     if not quiet:

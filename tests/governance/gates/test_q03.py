@@ -18,6 +18,21 @@ import q03_world as W  # noqa: E402
 import pq_common as pq  # noqa: E402
 
 UNIT = 'US.2WI'
+
+
+def load_runner():
+    """The runner module of GATES_DIR (the real one, or a mutated copy), imported fresh."""
+    import importlib.util
+    for name in ('q03_anachronism', 'q03_structures', 'q03_runner_under_test'):
+        sys.modules.pop(name, None)
+    sys.path.insert(0, W.GATES_DIR)
+    try:
+        spec = importlib.util.spec_from_file_location('q03_runner_under_test', os.path.join(W.GATES_DIR, 'q03_anachronism.py'))
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        return m
+    finally:
+        sys.path.remove(W.GATES_DIR)
 KEPI_UNIT, BADGE_UNIT, DISPUTED_UNIT = 'CS.CAV.10VA', 'US.119NY', 'US.140NY'
 
 
@@ -149,7 +164,7 @@ class KitClasses(Q03Base):
     def test_class6_a_manifest_that_is_not_reproducible(self):
         w = self.world()
         w.write()
-        import q03_anachronism as Q
+        Q = load_runner()
         env = pq.Env(w.root, w.out)
         V = Q.Validators(env)
         kit = V.CK.Kit(os.path.join(w.bt, 'kit'))
@@ -157,14 +172,25 @@ class KitClasses(Q03Base):
         V.GG = types.SimpleNamespace(canon=lambda m: str(next(counter)), add_defaults=V.GG.add_defaults)
         rec = pq.Record('Q03', env)
         Q.UNIT_FILTER = __import__('re').compile('^%s$' % UNIT.replace('.', r'\.'))
-        try:
-            fp = Q.FlagPolicy(env, rec, {'flags': {}}, "Object.entries(s.flags)")
-            Q.population(V, rec, kit, Q.Rows(env), fp)
-        finally:
-            Q.UNIT_FILTER = None
+        fp = Q.FlagPolicy(env, rec, {'flags': {}}, "Object.entries(s.flags)")
+        Q.population(V, rec, kit, Q.Rows(env), fp)
         it = [i for i in rec.items if i['id'] == 'Q03/Q03.1/unit/%s' % UNIT][0]
         self.assertEqual(it['result'], 'FAIL')
         self.assertIn('class 6', it['reason'])
+
+    def test_an_absent_unit_the_validator_does_not_refuse_is_fail(self):
+        w = self.world()
+        w.write()
+        Q = load_runner()
+        env = pq.Env(w.root, w.out)
+        V = Q.Validators(env)
+        kit = V.CK.Kit(os.path.join(w.bt, 'kit'))
+        V.CK = types.SimpleNamespace(manifest_for=lambda *a, **k: {'soldier_id': 'x'}, validate_manifest=lambda *a, **k: [], mk=V.CK.mk)         # a validator that lets an absent unit through
+        rec = pq.Record('Q03', env)
+        Q.UNIT_FILTER = __import__('re').compile(r'^US\.5NY_INF$')
+        Q.absent_units(V, rec, kit, Q.Rows(env))
+        it = [i for i in rec.items if i['id'] == 'Q03/Q03.1/absent/US.5NY_INF'][0]
+        self.assertEqual(it['result'], 'FAIL')
 
     def test_class1_present_unit_that_the_kit_marks_absent_is_refused(self):
         w = self.world()
@@ -319,6 +345,14 @@ class Validity(Q03Base):
         self.fails(rec, 'Q03/Q03.2/date/1863-07-04')
         self.passes(rec, 'Q03/Q03.2/date/1863-07-05')
 
+    def test_a_spec_entry_that_is_hardly_ever_drawn_is_still_validated_on_every_day(self):
+        w = self.world()
+        add_entry(w.kit['kit_specs.json']['units'][UNIT], 'headgear', 'fez_red_114pa', weight=1e-12)     # all but never drawn: only the one-by-one scan of the spec entries sees it
+        rec = self.go(w)
+        it = self.fails(rec, 'Q03/Q03.2/date/1863-07-01', 'spec entries valid on the day fail the validator one by one')
+        self.assertGreater(it['evidence']['entries_failing'], 0)
+        self.assertEqual(it['evidence']['n_units_failing'], 0, 'the sample manifests do not see it')
+
     def test_a_clean_unit_passes_every_battle_day(self):
         rec = self.go(self.world())
         for d in W.SCENE_DATES[:19]:
@@ -375,6 +409,13 @@ class Structures(Q03Base):
         self.fails(rec, 'Q03/Q03.3/object/STR-LATE', 'later building')
         self.fails(rec, 'Q03/Q03.4/registry/buildings', 'STR-LATE')
 
+    def test_building_that_represents_a_later_building_is_fail_whatever_its_date(self):
+        w = self.world()
+        w.add_building('STR-REP', 'Rebuilt barn', rec='bld-spangler-farm', built='1850', represents='later building on the 1863 site/foundation (not the 1863 structure itself)')
+        rec = self.go(w)
+        self.fails(rec, 'Q03/Q03.3/object/STR-REP', 'the drawn geometry is a later building')
+        self.fails(rec, 'Q03/Q03.4/registry/buildings', 'represents a later building')
+
     def test_building_the_build_note_calls_later_is_fail(self):
         w = self.world()
         w.add_building('STR-CHURCH', 'Church', rec='bld-presbyterian-church', built='site since 1842; building rebuilt later')
@@ -392,7 +433,7 @@ class Structures(Q03Base):
         w = self.world()
         w.add_building('STR-NOT', 'Not yet', rec='bld-schmucker-hall', built='1832', present=False)
         rec = self.go(w)
-        self.fails(rec, 'Q03/Q03.3/object/STR-NOT', 'present_1863')
+        self.fails(rec, 'Q03/Q03.3/object/STR-NOT', 'the registry row says present_1863')
 
     def test_object_with_no_state_schedule_is_fail(self):
         w = self.world()
@@ -437,6 +478,28 @@ class Structures(Q03Base):
                 s['never_place'] = False
         rec2 = self.go(w2)
         self.fails(rec2, 'Q03/Q03.3/record/RD-avenues')
+
+    def _work_object(self, wid, pre=False):
+        def mut(d):
+            d['model']['objects'].append({'oid': 900, 'id': 'OBJ-%s' % wid, 'cls': 'works', 'name': wid, 'tier': 'inferred', 'state_id': wid, 'rec': wid, 'part': None, 'dropped': False, 'geometry': None, 'meta': {'pre_existing': pre}})
+        return mut
+
+    def test_a_work_with_a_documented_beginning_passes_and_one_without_is_fail(self):
+        w = self.world()
+        w.make_dump(mutate=self._work_object('E-01'))
+        self.passes(self.go(w), 'Q03/Q03.3/work/OBJ-E-01')
+        w2 = self.world()
+        w2.struct['works_stages.json']['works']['E-01']['begin'] = {'gran': 'date'}
+        w2.make_dump(mutate=self._work_object('E-01'))
+        self.fails(self.go(w2), 'Q03/Q03.3/work/OBJ-E-01', 'no documented beginning')
+
+    def test_a_pre_existing_work_whose_record_does_not_say_so_is_fail(self):
+        w = self.world()
+        for r in w.struct['structures.json']['structures']:
+            if r['id'] == 'P-01':
+                r['preexisting'] = False
+        w.make_dump(mutate=self._work_object('P-01', pre=True))
+        self.fails(self.go(w), 'Q03/Q03.3/work/OBJ-P-01', 'does not say pre-existing')
 
     def test_without_the_model_the_objects_are_blocked_not_passed(self):
         w = self.world()
@@ -673,7 +736,7 @@ class Regression(Q03Base):
     def test_140th_ny_zouave_item_in_the_regulation_blue_variant_is_fail(self):
         w = self.world()
         blue = w.kit['kit_specs.json']['units']['US.140NY']['variants']['regulation_blue_zouave_jan_1864']
-        add_entry(blue, 'headgear', 'fez_red_114pa', weight=1.0)
+        add_entry(blue, 'headgear', 'fez_red_114pa', weight=1e-12)          # in the spec but (all but) never drawn: only the spec scan sees it
         rec = self.run_reg(w)
         self.fails(rec, 'Q03/Q03.6/140th-ny-regulation-blue', 'fez_red_114pa')
 

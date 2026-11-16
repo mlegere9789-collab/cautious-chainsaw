@@ -379,7 +379,7 @@ CLAIMS = [
     # ------------------------------------------------------------------ E-009  Everett
     dict(ids=['E-009', 'R22.0009'], key='everett-introduced-two-hours',
          sub_claim=('Everett was introduced, as the papers first printed it, by B. B. French (Intelligencer 21 Nov: "Hon B. B. French now introduced the Hon. Edward Everett, who advanced to the '
-                    'front of the platform and pronounced the eloquent oration"; Republican 20 Nov the same); the Chicago Tribune (special dispatch, 21 Nov) prints that he "proceeded with a '
+                    'front of the platform and pronounced the eloquent oration"; Republican 20 Nov the same; the Evening Star 20 Nov "Hon. Edward Everett was introduced by Hon. B. B. French, and delivered an eloquent address"); the Chicago Tribune (special dispatch, 21 Nov) prints that he "proceeded with a '
                     'discourse occupying two hours and four minutes in the delivery" (the letter o of "four" is damaged in the print). B. B. French himself corrected the first point (see the '
                     'correction claim).'),
          tier='documented', state_date='1863-11-19',
@@ -436,7 +436,7 @@ CLAIMS = [
          sub_claim=('After Everett and before Lincoln the hymn (ode) written by B. B. French was sung: Intelligencer "When Mr. Everett had concluded the following Hymn, composed by Hon. '
                     'B. B. French, was sung with excellent effect by the Baltimore Glee Club" (text of the hymn printed); Republican the same; the Tribune\'s correspondent "At the close '
                     'of Mr. Everett\'s oration, the Baltimore Glee Club sung the following Ode written for the occasion by B. B. French"; the Chicago Tribune "a choir from the Musical '
-                    'Association, of Baltimore, treated the people to the following beautiful Dirge" (same text); the Evening Star prints "the Union Glee Club" (read from the print).'),
+                    'Association, of Baltimore, treated the people to the following beautiful Dirge" (same text); the Evening Star prints "A dirge was then sung by the Union Glee Club".'),
          tier='documented', state_date='1863-11-19',
          cites=[dict(page=INT21, span=('When Mr. Everett had concluded the following Hymn', 'Baltimore Glee Club:'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
@@ -451,17 +451,18 @@ CLAIMS = [
                 dict(page=STAR20, span=('Hon. Ed ^ i Introduced by Hon. B. B.', 'by the *Jnion Glee Clnb'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'})],
          row_effect=('agrees with the row\'s two readings: the hymn follows Everett (printed order) and "one account has the Baltimore Glee Club sing French\'s ode after Everett and '
-                     'before Lincoln": four papers say so; the Star prints "Union Glee Club"; no paper prints the hymn after Lincoln'),
+                     'before Lincoln": four papers say so; the Star calls it a dirge sung by the Union Glee Club; no paper prints the hymn after Lincoln'),
          remains='the title of the hymn (the Tribune and Chicago call it an Ode or a Dirge, the Intelligencer a Hymn); the size of the choir',
          independence='Intelligencer and Republican share a text; the Tribune and Chicago dispatches are separate accounts that agree'),
 
     # ------------------------------------------------------------------ E-011  the address and who was present
     dict(ids=['E-011', 'R22.0011'], key='address-printings-east',
-         sub_claim=('Lincoln\'s dedicatory remarks as printed on 20-21 Nov in the Republican, the New-York Tribune and the Intelligencer: the Republican prints "Four score and seven years ago our fathers brought forth upon this '
+         sub_claim=('Lincoln\'s dedicatory remarks as printed on 20-21 Nov in the Republican, the New-York Tribune, the Intelligencer and the Evening Star: the Republican prints "Four score and seven years ago our fathers brought forth upon this '
                     'continent a new nation, conceived in liberty and dedicated to the proposition that all men are created equal. [Applause.]"; the New-York Tribune ends the remarks "that we here highly resolve that the dead shall '
                     'not have died in vain (applause); that the nation shall, under God, have a new birth of freedom; and that Governments of the people, by the people, and for the people, shall not perish from the earth. '
                     '[Long-continued applause.] Three cheers were here given for the President and the Governors of the States"; the Intelligencer ends "that we here highly resolve that these dead shall not have died in vain. [Applause.] '
                     'That the nation shall, under God, have a new birth of freedom; and that Governments of the people, by the people and for the people, shall not perish from the earth. [Long-continued applause.]" '
+                    'the Evening Star prints "President Lincoln then appeared at the foot of the platform and delivered the following dedicatory address" and "Four score and seven years ago our fathers brought forth upon this continent a new nation, conceived in liberty and dedicated to the proposition that all men are created equal. [Applause.]" '
                     '(the printed readings differ in small words between the papers).'),
          tier='documented', state_date='1863-11-19',
          cites=[dict(page=REP20, span=('Four score and seven years ago our fathers brought forth upon', 'created equal. Ap plause.'),
@@ -474,7 +475,7 @@ CLAIMS = [
                 dict(page=STAR20, span=('president Lincoln then ap', 'm plauie.]'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'})],
          row_effect='adds to E-011 ("a few minutes at most"): the text printed on 20 Nov (the day after) as Lincoln\'s remarks; the printed readings vary and none is the later Bliss copy; applause marks are printed (applause after "created equal", after "in vain", and "Long-continued applause" at the end, then three cheers for the President and the Governors)',
-         remains='the wording is a transcription by reporters; the differences between printings are listed in address_printings.json when it exists; which wording the film speaks is an owner decision (the row carries it as a scenario); the Star of 20-21 Nov does not print the remarks in the pages read',
+         remains='the wording is a transcription by reporters; the differences between printings are listed in address_printings.json when it exists; which wording the film speaks is an owner decision (the row carries it as a scenario)',
          independence='the three printings are not independent copies of a manuscript; their common source is the reporters\' transcription'),
 
     dict(ids=['E-011', 'R22.0011'], key='address-printings-western',

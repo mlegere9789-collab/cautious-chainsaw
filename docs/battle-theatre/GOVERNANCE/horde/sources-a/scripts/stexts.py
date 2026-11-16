@@ -54,6 +54,31 @@ def lk(id_):
     return (ok or recs or [None])[-1]
 
 
+def _flat(obj, prefix='', out=None):
+    """one 'path: value' line per scalar; strings raw with line breaks turned into single spaces (so a quote may cross a line break)"""
+    if out is None:
+        out = []
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            _flat(v, (prefix + '.' if prefix else '') + str(k), out)
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            _flat(v, '%s[%d]' % (prefix, i), out)
+    else:
+        val = re.sub(r'\s+', ' ', obj) if isinstance(obj, str) else json.dumps(obj)
+        out.append('%s: %s' % (prefix, val))
+    return out
+
+
+def json_to_text2(src, dst, drop_prefixes=()):
+    d = json.load(open(src, encoding='utf-8'))
+    lines = _flat(d)
+    if drop_prefixes:
+        lines = [l for l in lines if not l.startswith(drop_prefixes)]
+    open(dst, 'w', encoding='utf-8', newline='').write('\n'.join(lines) + '\n')
+    return dst
+
+
 def html_with_links(src, dst):
     s = open(src, encoding='utf-8', errors='replace').read()
     s = re.sub(r'<a\b[^>]*?href="([^"]*)"[^>]*>(.*?)</a>', lambda m: m.group(2) + ' [href: ' + m.group(1) + '] ', s, flags=re.S | re.I)
@@ -79,9 +104,15 @@ FETCHED = [
     ('LOC-CWM-WHITNEY', 'loc_cwm_q_whitney.json', 'json', 'loc_cwm_q_whitney', 'https://www.loc.gov/collections/civil-war-maps/?q=whitney+gettysburg&fo=json&c=10', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, q=whitney gettysburg'),
     ('LOC-CWM-COPE', 'loc_cwm_f_cope.json', 'json', 'loc_cwm_f_cope', 'https://www.loc.gov/collections/civil-war-maps/?c=10&fa=contributor:cope,+emmor+b.&fo=json&q=gettysburg', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, contributor Cope, Emmor B.'),
     ('LOC-CWM-BIEN', 'loc_cwm_f_bien2.json', 'json', 'loc_cwm_f_bien2', 'https://www.loc.gov/collections/civil-war-maps/?c=10&fa=contributor:bien,+julius&fo=json&q=gettysburg', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, contributor Bien, Julius'),
+    ('LOC-CWM-SICKLES', 'loc_cwm_q_sickles.json', 'json', 'loc_cwm_q_sickles', 'https://www.loc.gov/collections/civil-war-maps/?q=sickles+headquarters+gettysburg&fo=json&c=10', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, q=sickles headquarters gettysburg (0 results)'),
+    ('LOC-CWM-MEADE-HQ', 'loc_cwm_q_meade_hq.json', 'json', 'loc_cwm_q_meade_hq', 'https://www.loc.gov/collections/civil-war-maps/?q=meade+headquarters+gettysburg&fo=json&c=10', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, q=meade headquarters gettysburg (0 results)'),
+    ('LOC-CWM-EDWIN-WHITNEY', 'loc_cwm_q_edwin_whitney.json', 'json', 'loc_cwm_q_edwin_whitney', 'https://www.loc.gov/collections/civil-war-maps/?q=edwin+whitney&fo=json&c=10', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, q=edwin whitney (0 results)'),
+    ('LOC-CWM-SICKLES1', 'loc_cwm_q_sickles1.json', 'json', 'loc_cwm_q_sickles1', 'https://www.loc.gov/collections/civil-war-maps/?q=sickles&fo=json&c=25', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, q=sickles'),
+    ('LOC-CWM-WHITNEY1', 'loc_cwm_q_whitney1.json', 'json', 'loc_cwm_q_whitney1', 'https://www.loc.gov/collections/civil-war-maps/?q=whitney&fo=json&c=25', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, q=whitney'),
+    ('LOC-CWM-HQGETT', 'loc_cwm_q_headquarters_gettysburg.json', 'json', 'loc_cwm_q_headquarters_gettysburg', 'https://www.loc.gov/collections/civil-war-maps/?q=headquarters+gettysburg&fo=json&c=25', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, q=headquarters gettysburg'),
     ('LOC-IIIF-cw0350500', 'tile_info_cw0350500.json', 'json', 'tile_info_cw0350500', 'https://tile.loc.gov/image-services/iiif/service:gmd:gmd382:g3822:g3822g:cw0350500/info.json', 'Library of Congress IIIF image service (info.json)', 'image size of the Warren extract'),
     ('IA-ATLAS-META', 'ia_atlas_meta.html', 'json', 'ia_atlas_meta', 'https://archive.org/metadata/atlastoaccompany00unit', 'Internet Archive item metadata (JSON)', 'Atlas to accompany the official records, IA item atlastoaccompany00unit'),
-    ('IA-ATLAS-SEARCH', 'ia_search_atlas.json', 'json', 'ia_search_atlas', 'https://archive.org/advancedsearch.php?q=title%3A%28atlas+to+accompany+the+official+records%29&fl%5B%5D=identifier&fl%5B%5D=title&fl%5B%5D=date&rows=20&output=json', 'Internet Archive advanced search (JSON)', 'copies of the Atlas on archive.org'),
+    ('IA-ATLAS-SEARCH', 'ia_search_atlas.html', 'json', 'ia_search_atlas', 'https://archive.org/advancedsearch.php?q=title%3A%28atlas+to+accompany+the+official+records%29&fl%5B%5D=identifier&fl%5B%5D=title&fl%5B%5D=date&rows=20&output=json', 'Internet Archive advanced search (JSON)', 'copies of the Atlas on archive.org'),
     ('EPT-ROOT', 'aws_ept_pa_south_central.json', 'json', 'aws_ept_pa_south_central', 'https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_PA_South_Central_B1_2017_LAS_2019/ept.json', 'public cloud-storage object (Entwine EPT root, USGS 3DEP lidar on AWS)', 'EPT root of USGS_LPC_PA_South_Central_B1_2017_LAS_2019'),
     ('EPT-BUILD', 'ept_build.json', 'json', 'ept_build', 'https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_PA_South_Central_B1_2017_LAS_2019/ept-build.json', 'public cloud-storage object (Entwine build record)', 'EPT build record'),
     ('EPT-SRC-18SUK309410', 'ept_src_18SUK309410.json', 'json', 'ept_src_18SUK309410', 'https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_PA_South_Central_B1_2017_LAS_2019/ept-sources/USGS_LPC_PA_South_Central_B1_2017_18SUK309410_LAS_2019.json', 'public cloud-storage object (EPT source record read from the LAZ header)', 'LAZ tile 18SUK309410 (Gettysburg), project PA_South_Central_B1_2017'),
@@ -124,7 +155,7 @@ def build():
             continue
         if conv == 'json':
             tp = os.path.join(TEXT, key.lower() + '.txt')
-            slib.json_to_text(rawp, tp, drop_prefixes=('more_like_this', 'related_items', 'options', 'cite_this', 'timestamp', 'articles_and_essays', 'views', 'facet_views'))
+            json_to_text2(rawp, tp, drop_prefixes=('more_like_this', 'related_items', 'options', 'cite_this', 'timestamp', 'articles_and_essays', 'views', 'facet_views'))
         elif conv == 'html':
             tp = os.path.join(TEXT, key.lower() + '.txt')
             html_with_links(rawp, tp)

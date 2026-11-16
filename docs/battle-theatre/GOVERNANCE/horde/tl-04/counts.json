@@ -3,14 +3,14 @@
  "verdict": {
   "corrected": 28,
   "confirmed": 11,
-  "partially_supported": 14,
-  "gap": 4,
+  "partially_supported": 15,
+  "gap": 3,
   "unsupported": 1
  },
  "verdict_of_rows_not_verified_before": {
-  "partially_supported": 11,
+  "partially_supported": 12,
   "confirmed": 5,
-  "gap": 4,
+  "gap": 3,
   "unsupported": 1,
   "corrected": 3
  },
@@ -20,24 +20,24 @@
   "partially_supported": 3
  },
  "rows_not_verified_before": 24,
- "sub_claims": 314,
+ "sub_claims": 333,
  "sub_claims_by_tier": {
-  "documented": 242,
-  "open gap": 24,
-  "inferred": 44,
+  "documented": 260,
+  "open gap": 23,
+  "inferred": 46,
   "plausible-procedural": 4
  },
  "sub_claims_by_support": {
-  "supported": 211,
-  "unsupported": 45,
+  "supported": 231,
+  "unsupported": 44,
   "conflict": 25,
   "contradicted": 12,
   "computed": 20,
   "procedural": 1
  },
- "citations": 352,
+ "citations": 382,
  "citations_by_source": {
-  "OR27": 258,
+  "OR27": 264,
   "COMPUTED": 26,
   "BL-3": 9,
   "NPS-CLR-CEMETERY": 15,
@@ -45,14 +45,23 @@
   "NPS-ART-GATEWAY": 2,
   "LONGSTREET-1896": 1,
   "NPS-CLR-1STDAY": 3,
+  "JACOBS-1864": 11,
+  "SOUDER-LEAVES-1864": 3,
+  "HOKE-1887": 2,
   "PROJECT-DATA": 8,
   "EVERETT-1864": 4,
+  "CA-sn85033078-1863-07-23-p2": 3,
+  "CA-sn85033019-1863-07-23-p1": 1,
+  "CA-sn84022549-1863-07-10-p2": 1,
+  "CA-sn84031490-1863-07-12-p2": 1,
+  "CA-sn83030313-1863-07-06-p4": 1,
   "NPS-CLI-1STDAY": 2,
+  "USSC-GETTYSBURG-1863": 9,
   "NPS-MON-LOC-1932": 2,
-  "NPS-CLR-ROT-V1": 1,
+  "NPS-CLR-ROT-V1": 2,
   "NPS-CLI-ERR": 2,
-  "JACOBS-1864": 10,
-  "HASKELL-1908": 2
+  "HASKELL-1908": 2,
+  "NPS-BOUNDARY-1988": 1
  },
  "rows_with_scenarios": [
   "T1-175",
@@ -92,14 +101,14 @@
  "proposed_register_entries": 35,
  "results_tier": {
   "documented": 32,
-  "inferred": 20,
-  "open gap": 5,
+  "inferred": 21,
+  "open gap": 4,
   "plausible-procedural": 1
  },
  "results_status": {
   "verified": 32,
-  "inferred": 21,
-  "gap": 5
+  "inferred": 22,
+  "gap": 4
  },
  "rows_by_verdict": {
   "confirmed": [
@@ -159,7 +168,8 @@
    "T1-213",
    "T1-214",
    "T1-218",
-   "T1-219"
+   "T1-219",
+   "T2-003"
   ],
   "unsupported": [
    "T1-206"
@@ -167,8 +177,7 @@
   "gap": [
    "T1-203",
    "T1-207",
-   "T1-208",
-   "T2-003"
+   "T1-208"
   ]
  },
  "tier_vs_seed": {
@@ -237,7 +246,7 @@
    "T2-005"
   ]
  },
- "searches_run": 146,
- "searches_with_zero_hits": 0,
- "searches_not_run": 146
+ "searches_run": 205,
+ "searches_with_zero_hits": 60,
+ "searches_not_run": 0
 }

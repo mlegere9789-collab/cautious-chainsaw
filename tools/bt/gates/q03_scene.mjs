@@ -119,10 +119,10 @@ await guard('ext', async () => {
 
 // ---------------------------------------------------------------- the layer part: artillery train and works draw lists
 if (NO_LAYER) { out.train = null; out.works3d = null; out.sections.train = 'skipped'; out.sections.works3d = 'skipped'; } else {
-  let L = null, stage = null, both = null;
+  let L = null, stage = null, both = null, LT = null;
   await guard('train', async () => {
     const lib = await import(pathToFileURL(path.join(here, 'oob_layer_lib.mjs')).href);
-    const B = await lib.build({ stage: true }); L = B.layer; both = L.both({});
+    const B = await lib.build({ stage: true }); L = B.layer; LT = B.T; both = L.both({});
     stage = new B.Stage({ layer: L, world: B.world, T: B.T, geo: B.geo }); stage.loadScenario({});
     const { planArtillery, ArtilleryTrain, KIND, stagePoseAt } = await imp('src/structures/artillery.mjs');
     const train = rj('app/data/artillery-train.json'), bg = rj('app/data/battery-guns.json');
@@ -145,7 +145,7 @@ if (NO_LAYER) { out.train = null; out.works3d = null; out.sections.train = 'skip
     if (!L) throw new Error('the history layer did not build (see the train section)');
     const { buildWorks3D } = await imp('src/structures/works3d.mjs'), { Gazetteer } = await imp('src/history/gazetteer.mjs');
     const d3w = rj('app/data/works3d.json'), gaz = new Gazetteer(rj('app/data/gazetteer.json'));
-    const W = buildWorks3D({ data: d3w, inputs: { structures, sched, works, hospitals }, T, gaz, units: L.units, events: both.events });
+    const W = buildWorks3D({ data: d3w, inputs: { structures, sched, works, hospitals }, T: LT, gaz, units: L.units, events: both.events });
     const pre = W.preexisting();
     const preIds = new Set(structures.structures.filter(s => /^P-\d\d$/.test(s.id)).map(s => s.id));
     return { works: W.works.map(o => ({ id: o.id, alias: o.alias || [], pre_existing: W.engine && W.engine.byId.get(o.id) ? W.engine.byId.get(o.id).preexisting === true : null })), preexisting: pre.map(p => ({ id: p.id, present: p.present, construction: p.construction, progress: p.progress })),

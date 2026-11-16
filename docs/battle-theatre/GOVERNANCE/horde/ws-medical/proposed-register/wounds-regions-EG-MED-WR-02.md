@@ -1,21 +1,21 @@
-# EG-MED-WR-02: Wounds by region for Gettysburg alone: only Billings's chest figure is found
+# EG-MED-WR-02: Wounds by region for Gettysburg alone are not printed
 
 | Field | Content |
 |---|---|
 | ID | EG-MED-WR-02 |
 | Requirement IDs | OA12 (accurate field hospitals, battle trauma and period-accurate treatment); PDF B.8.5; gate Q26; Law clauses 3, 4 and 7 |
 | Category | evidence missing (to be read) |
-| Description | The surgical volumes tabulate the wounded of the whole war. The only Gettysburg-wide figure found for any region is the one the compiler quotes from Assistant Surgeon Billings (Appendix of the first volume of Part I, p. 200): 858 cases of penetrating chest wounds at Gettysburg with 295 deaths, or 34 per cent. (row 273 of the group file carries it; row 274 registers the gap). |
-| Why literal 100% is not possible or blocked | The Appendix is not local; the corps medical directors' reports and returns of July 1863 are not local (EG-MED-PLAN-01). |
-| Evidence searched | The 1870, 1876, 1877 and 1883 surgical volumes (all tables and the passages naming Gettysburg), the Army Medical Museum catalogue (1866), the manuals. |
-| Autonomous substitute applied | Fifty-seven named cases of Gettysburg as single rows (56 of Gettysburg), each with the hospital named; the Army-wide shares marked as borrowed. |
-| Strongest evidence-based reconstruction | Army-wide shares from the History written as readings, marked as borrowed for a Gettysburg ward; named Gettysburg cases as single rows; Billings's 858 and 295 as the one Gettysburg-wide chest datum. |
-| Confidence tier | documented (Billings via the compiler, as that witness's figure); plausible-procedural (use of Army-wide shares at Gettysburg) |
-| Competing values | Billings (34 per cent. at Gettysburg, 858 cases) and Smart (32.6 per cent., 150 cases) against the compiler's 33.4 per cent. for the Union field returns of the last year of the war and 62.4 per cent. for the Union cases traced to their end: the compiler holds that the early figures could not trace the cases to their terminations. |
+| Description | The regional tables of the History (Tables CXVI, CXVII, CXIX, CXX of the third volume; the tables of the first and second volumes) are for the whole war. No table of wounds by region for Gettysburg alone is in the local texts. The only Gettysburg-wide figure found for any region is Billings's 858 cases at Gettysburg with 295 deaths, 34 per cent. (row 216; gap row 274), which the compiler quotes from the Appendix to Part I. 56 named cases of Gettysburg are single rows. |
+| Why literal 100% is not possible or blocked | The Appendix to Part I and the corps medical directors' reports and returns of July 1863 are not local (EG-MED-PLAN-01). |
+| Evidence searched | Every regional table of the three surgical volumes was read; the passages naming Gettysburg in the first and second surgical volumes were listed (the word occurs 305 and 167 times) and read for the cases entered. |
+| Autonomous substitute applied | The sampling table borrows the Army-wide shares of Table CXIX (rows 305 to 323) and marks them as borrowed; the named Gettysburg cases are rows. |
+| Strongest evidence-based reconstruction | Army-wide shares as readings, marked as borrowed for a Gettysburg ward; named Gettysburg cases as single rows; Billings's 858 and 295 as the one Gettysburg-wide datum. |
+| Confidence tier | documented (Billings, as the compiler quotes him; the Army-wide shares); plausible-procedural (their use for a Gettysburg ward) |
+| Competing values | Billings 34 per cent. of 858 and Smart 32.6 per cent. of 150 (row 216) against the compiler's 33.4 per cent. of the penetrating chest wounds of the last year of the war (row 127), 62.4 per cent. of 7,654 determined Union cases (row 289) and 65.1 per cent. of 8,269 penetrations in Table CXVII (row 338): the compiler holds that the early figures could not trace the cases to their ends. |
 | Product marking | The scene or card carries the tier mark and, for an open gap, the gap marker with this id. |
 | Visual and audio impact | the sampling table and the hospital card of every Gettysburg site |
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | None needed. |
-| Agent recommendation | Acquire the Appendix of Part I (the medical volume) of the History from archive.org and read p. 200; read the corps medical directors' reports for July 1863. |
-| Status | open (proposed by bt-medical, group wounds-regions, 2026-11-15; not yet in register/) |
+| Agent recommendation | Read the Appendix to Part I and the corps medical directors' reports for July 1863; keep every reading selectable with no default. |
+| Status | open (proposed by bt-medical, group wounds-regions, 2026-11-16; not yet in register/) |
 | Owner decision and date | (filled only from the Decision Log) |

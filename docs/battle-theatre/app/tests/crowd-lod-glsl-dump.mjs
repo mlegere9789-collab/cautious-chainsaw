@@ -5,23 +5,15 @@
 //                                       the cases (the four levels of a partition, the word 0, a train fade), with their decoded [lo, hi)
 //   node crowd-lod-glsl-dump.mjs <outDir>
 // It reads webgl2.mjs of the prototype as text (PRE is not exported there) and stops with an error when the template is not where it expects it.
-import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
+import fs from 'node:fs'; import path from 'node:path';
+import { pre, TW, assemble } from './crowd-lod-glsl-sources.mjs';
 import { HEAD, MID_VS, NEAR_VS, FIG_FS, NOFS, IMP_VS, IMP_FS } from '../src/crowd/shaders-gl.mjs';
 import { LOD_Q, packRange, decodeRange, edgeRange, ditherNumber } from '../src/crowd/lod.mjs';
 
-const BT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..') + path.sep, out = path.resolve(process.argv[2] || '.');
-fs.mkdirSync(out, { recursive: true });
-const src = fs.readFileSync(BT + 'render/prototype/src/webgl2.mjs', 'utf8'), tag = 'const PRE = (K) => `', a = src.indexOf(tag), b = src.indexOf('const NOFS', a), e = src.lastIndexOf('`;', b);
-if (a < 0 || b < 0 || e < a) throw new Error('webgl2.mjs: the PRE template is not where tests/crowd-lod-glsl-dump.mjs expects it');
-const TW = Number((/const FU_BYTES = \d+, TW = (\d+);/.exec(src) || [])[1]); if (!(TW > 0)) throw new Error('webgl2.mjs: TW not found');
-const PRE = new Function('K', 'TW', 'return `' + src.slice(a + tag.length, e) + '`;');
-const K = { frames: 32, frow: '0.0,32.0,64.0,96.0,128.0,160.0,192.0', hrow: '0.0,32.0,64.0' };
-const pre = PRE(K, TW).replace('#version 300 es', '#version 300 es\n'), H = HEAD;        // the same text and the same added line break as GLRenderer.prog() with no defs
-if (!pre.startsWith('#version 300 es')) throw new Error('PRE does not start with the version line');
+const out = path.resolve(process.argv[2] || '.'); fs.mkdirSync(out, { recursive: true });
+const H = HEAD;
 const progs = { 'c-mid': [H + MID_VS, H + FIG_FS], 'c-midS': [H + MID_VS, NOFS], 'c-near': [H + NEAR_VS, H + FIG_FS], 'c-nearS': [H + NEAR_VS, NOFS], 'c-imp': [H + IMP_VS, H + IMP_FS] };
-for (const [name, [vs, fs_]] of Object.entries(progs)) {
-  fs.writeFileSync(`${out}/${name}.vert`, pre + vs); fs.writeFileSync(`${out}/${name}.frag`, fs_.startsWith('#version') ? fs_ : pre + fs_);
-}
+for (const [name, [vs, fs_]] of Object.entries(progs)) { const p = assemble(vs, fs_); fs.writeFileSync(`${out}/${name}.vert`, p.vs); fs.writeFileSync(`${out}/${name}.frag`, p.fs); }
 fs.writeFileSync(`${out}/pre.glsl`, pre); fs.writeFileSync(`${out}/head.glsl`, H);
 
 // ---- the reference of the dither

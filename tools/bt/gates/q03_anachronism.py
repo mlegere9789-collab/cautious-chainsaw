@@ -547,13 +547,60 @@ def epilogue_domain(V, kit, exp):
     return kit_units, drawn
 
 
+def entry_scan(V, kit, uid, u, var, date, cache):
+    """Every entry of the unit's spec that is valid on the day (nearest definition, the officer default for an officer), as a manifest of that one item, through the validator: the exhaustive form of
+    "every item is valid on the date". The entries the generator would never draw (a rank that may not carry it, a drop-pack with no pile, a Confederate private's kepi with no exception) are left out as it leaves them out."""
+    CK = V.CK
+    n, fails = 0, []
+    for rank in ('private', 'captain'):
+        for field in CK.FIELD_ORDER:
+            if field in ('weapon', 'bayonet') and (u['branch'] not in CK.LONG_ARM_BRANCHES or rank in CK.OFFICERS):
+                continue
+            if field == 'bayonet' and u['branch'] == 'cavalry':
+                continue
+            try:
+                spec, ents, owner = CK.resolve_field(kit, uid, field, date, var, rank)
+            except Exception:  # noqa: BLE001
+                continue
+            if spec is None:
+                continue
+            for e in ents:
+                iid = e['item']
+                if not CK.rank_allows_item(kit, iid, rank, u):
+                    continue
+                if CK.has_tag(kit, iid, 'needs_pile_id') and not e.get('pile_id'):
+                    continue
+                if u['army'] == 'confederate' and CK.has_tag(kit, iid, 'kepi') and rank in CK.ENLISTED and e.get('flagged_exception') != 'private_purchase':
+                    continue
+                gated = bool(e.get('valid_from') or e.get('valid_to') or e.get('only_on')) or iid == 'spencer_repeater'
+                key = (uid, var, field, rank, iid, date if gated else None)
+                if key not in cache:
+                    flags = []
+                    if e.get('flagged') or e.get('flagged_exception'):
+                        flags.append('flagged_entry:%s' % iid)
+                    if e.get('flagged_exception'):
+                        flags.append('flagged_exception:%s' % e['flagged_exception'])
+                        if e['flagged_exception'] == 'private_purchase':
+                            flags.append('private_purchase_exception')
+                    m = CK.mk(kit, uid, date=date, rank=rank, variant=var, flags=flags, **{field: [iid]})
+                    cache[key] = sorted({'%s' % f['code'] for f in CK.validate_manifest(m, kit=kit) if f['severity'] == 'FAIL'})
+                n += 1
+                if cache[key]:
+                    fails.append('%s %s %s (%s): %s' % (uid, field, iid, rank, ','.join(cache[key])))
+    return n, fails
+
+
 def date_scan(V, rec, kit, R, exp):
     CK = V.CK
+    entry_cache = {}
     units = [(uid, u, (list(u['variants']) if u.get('variants') else [None])) for uid, u in sorted(kit.units.items()) if u['presence']['status'] == 'present_at_gettysburg' and in_scope(uid)]
     for date in BATTLE_DATES:
-        fails, empties, n = {}, [], 0
+        fails, empties, n, n_entries, entry_fails = {}, [], 0, 0, []
         for uid, u, vars_ in units:
             for var in vars_:
+                ne, ef = entry_scan(V, kit, uid, u, var, date, entry_cache)
+                n_entries += ne
+                entry_fails += ef
                 for rank in RANKS8:
                     sid = 'Q03.2:%s:%s:%s' % (uid, date, rank)
                     try:
@@ -579,11 +626,11 @@ def date_scan(V, rec, kit, R, exp):
                         empties.append({'unit': uid, 'variant': var, 'field': field, 'owner': owner})
         bad = sorted({'%s%s' % (k[0], '#' + k[1] if k[1] else '') for k in fails})
         ev = {'date': date, 'units': len(units), 'manifests': n, 'units_failing': bad[:40], 'n_units_failing': len(bad), 'fields_with_no_valid_item': empties[:30], 'n_fields_with_no_valid_item': len(empties),
-              'first_findings': sorted({x for v in fails.values() for x in v})[:8]}
-        if bad or empties:
-            rec.item('Q03/Q03.2/date/%s' % date, 'FAIL', '%s: %d unit(s) have a manifest that fails the validator and %d (unit, field) pair(s) have no item valid on the day' % (date, len(bad), len(empties)), ev, check='Q03.2', sub_requirements=R.unit(None))
+              'first_findings': sorted({x for v in fails.values() for x in v})[:8], 'entries_validated_one_by_one': n_entries, 'entries_failing': len(entry_fails), 'first_entry_failures': sorted(entry_fails)[:8]}
+        if bad or empties or entry_fails:
+            rec.item('Q03/Q03.2/date/%s' % date, 'FAIL', '%s: %d unit(s) have a manifest that fails the validator, %d (unit, field) pair(s) have no item valid on the day and %d spec entries valid on the day fail the validator one by one' % (date, len(bad), len(empties), len(entry_fails)), ev, check='Q03.2', sub_requirements=R.unit(None))
         else:
-            rec.item('Q03/Q03.2/date/%s' % date, 'PASS', 'every one of the %d manifests of the %d present kit units on %s validates and every defined field has an item valid on the day' % (n, len(units), date), ev, check='Q03.2', sub_requirements=R.unit(None))
+            rec.item('Q03/Q03.2/date/%s' % date, 'PASS', 'every one of the %d spec entries valid on %s (%d present kit units) passes the validator as a manifest of that one item, every one of the %d sample manifests validates and every defined field has an item valid on the day' % (n_entries, date, len(units), n), ev, check='Q03.2', sub_requirements=R.unit(None))
     kit_units, drawn = epilogue_domain(V, kit, exp)
     for date in EPILOGUE_DATES:
         iid = 'Q03/Q03.2/date/%s' % date

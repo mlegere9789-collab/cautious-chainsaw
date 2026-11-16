@@ -125,6 +125,18 @@ def ocr_cite(pdf_page, quote, excerpt=None, corrections=None):
     return c
 
 
+def ocr_cite_gen(textpath, imgpath, pdf_page, printed, quote, excerpt, corrections, source_id, title, url, pdfsha, date, note):
+    off, raw = find_in(textpath, quote if excerpt is None else excerpt)
+    c = {'author': 'National Park Service', 'date': date, 'local_path': textpath, 'page_marker': '=== PDF PAGE %d ===' % pdf_page, 'pdf_page': pdf_page, 'printed_page': printed, 'quote': quote,
+         'quote_mode': 'exact' if excerpt is None else 'cleaned', 'retrieved': RETRIEVED, 'source_class': 'official secondary (National Park Service study, typescript photocopy)', 'source_id': source_id,
+         'source_text_excerpt': None if excerpt is None else rlib.norm_ws(raw), 'text_sha256': rlib.sha_file(rlib.abspath(textpath)),
+         'text_variant': 'machine reading (tesseract eng, --psm 6, 300 dpi) of the page image; the PDF text layer misreads digits of this scan and was not used', 'text_offset': off, 'text_offset_end': off + len(raw),
+         'title': title, 'url': url, 'source_pdf_sha256': pdfsha, 'image_checked': True, 'image_file': imgpath, 'image_sha256': rlib.sha_file(rlib.abspath(imgpath)), 'image_check': note}
+    if corrections:
+        c['ocr_corrections'] = corrections
+    return c
+
+
 def book2(fid, textname, quote, title, author, date, url, ident, sid, page_basis, printed_page=None, excerpt=None, corrections=None, source_class='printed book (public domain, archive.org scan)'):
     path = 'tmp/library/web/retry/%s/%s' % (fid, textname)
     off, raw = find_in(path, quote if excerpt is None else excerpt)
@@ -257,7 +269,7 @@ def build():
          'R14.S-037 and conflict C-026: Minnigh\'s guide of 1892 says "The Sherfy barn was burned during the 3d of July"',
          'documented', c_barn, 'supports_in_part',
          'This gives the day (3 July) of the barn fire as a non-lead printed statement, which the 3 July window of C-026 had lacked (its "morning of 3 Jul" rested on a 77th NY soldier read through a summariser on a refused host); it gives no hour (so "morning" stays a lead), no cause, no statement on who was in the barn, and cites no basis. It does not support the evening of 2 July. Secondary, written 29 years after the battle; two independent OCR scans agree.',
-         '1863-07-03 (printed 1892)', ['LKR-fence-2-L38', 'LKR-fence-2-L73', 'LKR-fence-2-L6', 'LKR-BH-fence-2-R14.S-037#bh0'], 'printed guide book of 1892 by a battlefield guide (secondary, 29 years after the battle)')
+         '1863-07-03 (printed 1892)', ['LKR-fence-2-L38', 'LKR-fence-2-L73', 'LKR-fence-2-L6', 'LKR-fence-2-L122', 'LKR-BH-fence-2-R14.S-037#bh0'], 'printed guide book of 1892 by a battlefield guide (secondary, 29 years after the battle)')
 
     # ------------------------------------------------------------------ R14.S-076 the Gettysburg Railroad (Haupt, OR27-1 p.23 = Haupt 1901; Letterman, OR27-1 pp.198-199)
     c_haupt = [be.or_cite('after completing the railroad to Gettysburg, returned to Baltimore Sunday night, after a very active week', page_check='23',
@@ -291,7 +303,7 @@ def build():
          '1863-11-18', ['LKR-fence-3-L112', 'LKR-BH-fence-3-R14.S-088#bh0', 'LKR-BH-fence-3-R14.S-087#bh0'], 'contemporary newspaper pages (1863) digitised by the Library of Congress', use='direct')
 
     # ================================================================== batch 3: the cemetery-enclosures study read from the page images (retry of fence-3 L84 and L8: pdftoppm is installed now)
-    lk = ['LKR-fence-3-L84', 'LKR-fence-3-L8', 'LKR-BH-fence-3-R14.S-083#bh1']
+    lk = ['LKR-fence-3-L84', 'LKR-fence-2-L7', 'LKR-fence-2-L9', 'LKR-BH-fence-3-R14.S-083#bh1']
     c = [ocr_cite(11, 'The first enclosure to be completed was the division fence between the Evergreen and National Cemeteries'),
          ocr_cite(11, 'This was described by the local newspaper as an "iron railing" dividing the two burial grounds.'),
          ocr_cite(11, 'This fence was constructed of wrought-iron gas pipes (1 1/4 inches in diameter) which were screwed together and passed through cast-iron posts. The gas pipe rails were in panels of three, placed one above the other about a foot and a half apart. This fencing was 1726 feet long (from Baltimore Pike southwest, 960 feet; then south, 766 feet), and cost between $2.35 and $2.55 per linear foot',
@@ -352,6 +364,20 @@ def build():
          'plausible-procedural', c, 'supports_in_part',
          'A general statement about field hospitals of the war, not about the Spangler farm: it supports no Spangler-specific detail (four tables, lanterns, 80 amputees, the schoolhouse, the barn forebay, no hand washing all stay unsupported). The Gettysburg pages read in this pass say nothing on them: F-050 (tour a family farm turned field hospital) is the Ray house at Wilson\'s Creek, F-316 is Shiloh and F-317 is Mill Springs, and the NPS Spangler news page redirects to a host the proxy refuses (home.nps.gov).',
          '1863-07 (general practice)', ['LKR-T2-220', 'LKR-fence-2-L52', 'LKR-fence-2-L129'], 'official web page of the National Park Service describing general practice (a traveling-trunk lesson page)', use='indirect')
+
+    # ================================================================== batch 5: page-image check of the 1972 Brien farm study (retry of fence-3 L8: pdftoppm is installed now)
+    BR = dict(textpath='tmp/library/web/retry/F-366/ocr_p7-15.txt', source_id='NPS-BRIEN-FARM', title='The Brien Farm and Family', url='https://www.npshistory.com/publications/gett/brien-farm.pdf',
+              pdfsha='76a1a095b7fae524fe440a0f1c606b02ed0a65b4f810a3756283c0dcdaa40eda', date='undated typescript study of 1972 (npshistory.com copy, read from the copy saved 2026-11-13)')
+    c = [ocr_cite_gen(imgpath='tmp/library/web/retry/F-366/img/p015.png', pdf_page=15, printed='134', quote='(194 panels of fence--part post and rail and part worm - worth $174; stone fence destroyed worth $5.00)',
+                      excerpt='(19) panels of fence--part post and rail and part worm - worth $17; stone fence destroyed worth $5.00)', corrections=[['(19) panels', '(194 panels'], ['$17;', '$174;']],
+                      note='the page image was looked at (150 dpi view): the digits read 194 and $174 (the typeface\'s 4 is misread by the machine reading as a bracket and a missing digit, and by the PDF text layer as 195 and $175); these two repairs are the only differences', **BR),
+         ocr_cite_gen(imgpath='tmp/library/web/retry/F-366/img/p007.png', pdf_page=7, printed='5', quote='He appears to have received only $15, out of $1,028', excerpt=None, corrections=None,
+                      note='the page image was looked at (130 dpi view): the sentence reads "He appears to have received only $15, out of $1,028 requested" (the footnote number 8 stands between "$1,028" and "requested"); the machine reading agrees', **BR)]
+    emit([('E', 'R14.S-063')], 'brien-study-image-check',
+         'R14.S-063.3, read from the page images of the 1972 study (printed pp. 5 and 134): "194 panels of fence--part post and rail and part worm - worth $174; stone fence destroyed worth $5.00" and "He appears to have received only $15, out of $1,028 requested"',
+         'documented', c, 'supports_sub_claim',
+         'This closes the page-image check that fence-3 L8 owed (pdftoppm was not installed then): the figures fence-3 used (194 panels, $174, $15 of $1,028) are right and the PDF\'s embedded text layer, which reads 195 panels and $175 and "$15>, out of $1,028 g", is wrong. The NPS web page on the Brian farm agrees on 194 panels but prints the claim total as $575 (line WLK2-brien-nps): the two NPS texts differ on the amount claimed and both stand as printed, no default. Only the two pages named were re-read from images; the rest of the study keeps the machine reading fence-3 used.',
+         '1863-07 (claim of the 1870s)', ['LKR-fence-3-L8', 'LKR-fence-3-L54', 'LKR-BH-fence-3-R14.S-063#bh0', 'LKR-BH-fence-3-R14.S-063#bh1'], 'official National Park Service study (1972) reading the claim files; digits checked against the page images in this pass')
 
 
 def merge():

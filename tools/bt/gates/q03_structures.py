@@ -196,6 +196,37 @@ def q033_objects(env, rec, inp, dump, R, SD):
     return out
 
 
+def q033_works(env, rec, inp, dump, R):
+    """The works the scene draws at a named place (cls works): a pre-existing wall or fence exists from before the window (its record says so); a work built on screen needs a documented beginning."""
+    mdl = (dump or {}).get('model')
+    eng = engine_facts(dump)
+    objs = [o for o in (mdl or {}).get('objects', []) if o.get('cls') == 'works']
+    if not mdl or not eng or inp.works is None or inp.structures is None:
+        rec.item('Q03/Q03.3/works', 'BLOCKED-INPUT', 'input missing: %s' % ('the structures model of the node child' if not mdl else 'the state engine of the node child' if not eng else 'structures/works_stages.json or structures.json'), {}, check='Q03.3', sub_requirements=R.struct())
+        return
+    wk = inp.works.get('works') or {}
+    for o in sorted(objs, key=lambda x: x['id']):
+        wid = o.get('state_id') or o['id']
+        srec = inp.by_id.get(wid.split('#')[0])
+        w = wk.get(wid) or {}
+        pre = (o.get('meta') or {}).get('pre_existing') is True
+        begin = w.get('begin') or {}
+        reasons, ev = [], {'work': wid, 'pre_existing': pre, 'construction_applies': w.get('construction_applies'), 'begin': {k: begin.get(k) for k in ('earliest', 'default', 'latest', 'date', 'gran') if begin.get(k)}, 'record_preexisting': (srec or {}).get('preexisting')}
+        if pre:
+            if not (srec and srec.get('preexisting') is True):
+                reasons.append('drawn as a pre-existing feature but its record does not say pre-existing')
+        elif not any(begin.get(k) for k in ('earliest', 'default', 'date', 'latest')):
+            reasons.append('a work built on screen with no documented beginning (no earliest, default, latest or date): no existence interval')
+        if not (eng.get('known') or {}).get(wid) and not (eng.get('asked_known') or {}).get(wid) and wid.split('#')[0] not in (eng.get('known') or {}):
+            reasons.append('the state engine does not know %s: no state schedule' % wid)
+        iid = 'Q03/Q03.3/work/%s' % o['id']
+        sub = R.struct(wid.split('#')[0])
+        if reasons:
+            rec.item(iid, 'FAIL', '; '.join(reasons)[:380], ev, check='Q03.3', subjects=[o['id']], sub_requirements=sub)
+        else:
+            rec.item(iid, 'PASS', '%s %s and the state engine holds its schedule' % (wid, 'is a pre-existing feature whose record says so' if pre else 'has a documented beginning (%s)' % ', '.join('%s %s' % (k, v) for k, v in ev['begin'].items() if k != 'gran')[:80]), ev, check='Q03.3', subjects=[o['id']], sub_requirements=sub)
+
+
 def q033_records(env, rec, inp, dump, R):
     """The structure records the routing table of GATE-SPEC 3.2 sends to Q03.3: bld-, H-, RD- and FEN- (P- are Q03.5)."""
     if inp.structures is None or inp.sched is None:
@@ -649,6 +680,7 @@ def regression_structures(env, rec, dump, V, item, CASE):
 def run(env, rec, V, dump, R, SD, args):
     inp = Inputs(env, rec)
     objs = q033_objects(env, rec, inp, dump, R, SD)
+    q033_works(env, rec, inp, dump, R)
     q033_records(env, rec, inp, dump, R)
     q034_registry(env, rec, inp, dump, R, SD, objs)
     q034_avenues(env, rec, inp, dump, R)

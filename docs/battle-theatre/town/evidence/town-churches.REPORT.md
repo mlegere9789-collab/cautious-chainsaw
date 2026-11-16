@@ -6,19 +6,19 @@ Written for OA10 (`GOVERNANCE/requirements.json`; handling `decision_log.md` DEC
 
 | what | count |
 |---|---|
-| rows | 285 (building 12, field 235, search 38) |
+| rows | 288 (building 12, field 238, search 38) |
 | field rows of tier documented | 90 |
 | field rows of tier inferred | 91 |
-| field rows of tier plausible-procedural | 14 |
+| field rows of tier plausible-procedural | 17 |
 | field rows of tier open gap | 40 |
-| field rows by evidence kind | text 104, map 73, image 4, none 54 |
+| field rows by evidence kind | text 104, map 73, image 4, none 57 |
 | state rows (windows: day 4, period 7, unknown 18; open gaps 5) | 34 |
 | conflicts carried (pairs; each is written on both rows) | 5 |
 | searches by outcome | blocked 1, found 10, not_found 27 |
 
 Buildings declared (12): the 3 records and 1 record part of the inventory (`bld-presbyterian-church` with `STR-TOWN-PRESBYTERIAN_CHURCH`; `bld-poorhouse-christ-lutheran-wills#christ_lutheran_church` with `STR-TOWN-CHRIST_LUTHERAN`; `bld-st-francis-xavier`; `bld-town-belfry`) and 8 new ids `TWN-CHU-0001` to `0008` that no record of the repository names. Every id of the inventory of the group (`groups.json` members) is declared or named in `links`; the hospital ids H-01 and H-02 are named in the links of their buildings.
 
-Field rows by field: state 34, place 25, footprint 19, roof 18, existed_july_1863 13, occupant 13, storeys 13, kind 12, name 12, outbuildings 12, walls 12, built 10, tower_or_cupola 10, height 7, orientation 5, additions 4, identity 4, interior_change 3, plan_shape 3, lot_enclosure 2, photograph 2, colour 1, porch 1.
+Field rows by field: state 34, place 25, roof 21, footprint 19, existed_july_1863 13, occupant 13, storeys 13, kind 12, name 12, outbuildings 12, walls 12, built 10, tower_or_cupola 10, height 7, orientation 5, additions 4, identity 4, interior_change 3, plan_shape 3, lot_enclosure 2, photograph 2, colour 1, porch 1.
 
 ## 2. What the pass found, target by target
 
@@ -70,10 +70,10 @@ One line per building; the cells list the rows of the field (a field with severa
 | `TWN-CHU-0002` German Reformed Church | 0172D, 0173D | 0171D | 0174D |  | 0176D | 0177D | 0178D, 0179I, 0180I | 0191I | 0181I | 0185I | 0182I, 0183I |  | 0184D | 0186I, 0187P | 0188I, 0189I |  |  | 0175D |  | 0192G |  | 0193P, 0194G | 0190D |
 | `TWN-CHU-0003` United Presbyterian Church | 0196I | 0195D | 0197G |  | 0199D | 0200D | 0203I, 0204I |  | 0205I |  | 0206I, 0207I | 0202D | 0208I | 0209I, 0210P | 0211G |  | 0201D | 0198I |  | 0213G | 0212I | 0214D, 0215P |  |
 | `TWN-CHU-0004` St. James' Lutheran Church | 0217D | 0216D | 0218G |  | 0219D | 0220D | 0221D, 0222I, 0223I | 0232I | 0224I | 0228I | 0225D, 0226I |  | 0227D | 0229I, 0230P | 0231I |  |  |  |  | 0233D |  | 0234D, 0235D, 0236D, 0237P |  |
-| `TWN-CHU-0005` Coloured Church | 0240I | 0238I | 0241G | 0239I | 0242I | 0243I | 0244I |  | 0245G |  | 0246G |  | 0247G | 0248G |  |  |  |  |  | 0249G |  | 0250G |  |
-| `TWN-CHU-0006` Methodist church of 1872 | 0252D | 0251D | 0253D |  | 0254D | 0255I | 0256I |  | 0257I |  | 0258I |  | 0259I | 0260I |  |  |  |  |  | 0261G |  | 0262I |  |
+| `TWN-CHU-0005` Coloured Church | 0240I | 0238I | 0241G | 0239I | 0242I | 0243I | 0244I |  | 0245G |  | 0246G |  | 0247G | 0248G, 0286P |  |  |  |  |  | 0249G |  | 0250G |  |
+| `TWN-CHU-0006` Methodist church of 1872 | 0252D | 0251D | 0253D |  | 0254D | 0255I | 0256I |  | 0257I |  | 0258I |  | 0259I | 0260I, 0287P |  |  |  |  |  | 0261G |  | 0262I |  |
 | `TWN-CHU-0007` Episcopal chapel of 1876 | 0264D | 0263D | 0265D |  | 0266D | 0267I | 0268G |  | 0269G |  | 0270G |  | 0271G | 0272G |  |  |  |  |  | 0273G |  | 0274I |  |
-| `TWN-CHU-0008` Chapel of the plan of 1886 | 0275G | 0276I |  |  | 0277G | 0278I | 0279I |  | 0280I |  | 0281I |  | 0282I | 0283I |  |  |  |  |  | 0284G |  | 0285G |  |
+| `TWN-CHU-0008` Chapel of the plan of 1886 | 0275G | 0276I |  |  | 0277G | 0278I | 0279I |  | 0280I |  | 0281I |  | 0282I | 0283I, 0288P |  |  |  |  |  | 0284G |  | 0285G |  |
 
 ## 4. Conflicts carried (pairs; each is written on both rows; none is chosen)
 
@@ -104,7 +104,7 @@ One line per building; the cells list the rows of the field (a field with severa
 
 ## 6. Generic rules used (a procedure, never a fact)
 
-- Rows by rule: `GR-NO-DAMAGE-WITHOUT-SOURCE` 7, `GR-ROOF-GABLE-30` 7.
+- Rows by rule: `GR-NO-DAMAGE-WITHOUT-SOURCE` 7, `GR-ROOF-GABLE-30` 10.
 - `GR-ROOF-GABLE-30` fills the roof form where the plan of 1886 gives only the material (a ridge along the long side, 30 degrees); `GR-NO-DAMAGE-WITHOUT-SOURCE` is the intact state before the first dated use or damage of each building. No other rule is used: the footprint rule `GR-FOOTPRINT-2023` is **not** used for any church because the outlines of 2023 are of later buildings.
 
 ## 7. What was searched and what was not found

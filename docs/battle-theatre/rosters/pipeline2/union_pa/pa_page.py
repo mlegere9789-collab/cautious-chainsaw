@@ -33,6 +33,24 @@ def header_word(k):
     return False
 
 
+_HEAD_FUZZ = ['name', 'rank', 'date', 'muster', 'into', 'service', 'remarks', 'term', 'years', 'enlistment']
+_RUN_FUZZ = ['regiment', 'pennsylvania', 'volunteers', 'hundred', 'infantry', 'cavalry', 'artillery', 'battery', 'independent', 'reserve', 'heavy', 'militia', 'emergency']
+
+
+def _fuzzy_hit(k, words, ratio=0.45):
+    """The word k is within a few letters of one of the printed words (the text layer damages the heads of the pages more than the lines)."""
+    n = len(k)
+    if n < 3:
+        return False
+    for h in words:
+        if abs(len(h) - n) > 3:
+            continue
+        d = T.lev(k, h, 3)
+        if d <= 3 and d / max(n, len(h)) <= ratio:
+            return True
+    return False
+
+
 def is_header_line(toks):
     """Column heading line ("NAME. RANK. DATE OF MUSTER INTO SERVICE. REMARKS.", or one of its two printed lines, damaged or intact)."""
     ks = [_alpha(t) for t in toks]
@@ -43,7 +61,35 @@ def is_header_line(toks):
     small = sum(1 for k in ks if k in ('of', 'op', 'ol', 'oi', 'date', 'dale', 'into', 'and', 'in', 'i', 'l', 'j'))
     if any(T.is_month_loose(t) for t in toks):
         return False
-    return hits >= 1 and hits + small >= 0.7 * len(ks)
+    if hits >= 1 and hits + small >= 0.7 * len(ks):
+        return True
+    fz = sum(1 for k in ks if _fuzzy_hit(k, _HEAD_FUZZ))
+    return fz >= 3 and fz + small >= 0.75 * len(ks)
+
+
+_FOOT_RE = re.compile(r'^(?P<pre>[0-9A-Za-z]{1,4})[VvYyW][OoQ0Uu][LlIi1EeFfKkrR|!][IilLUuHhVvTtNn1|]{0,5}[a-z]?$')
+
+
+def is_foot_line(toks, i, n):
+    """The signature mark at the foot of a page ("84 - VOL. III."), damaged or intact: a number, VOL, a roman numeral, nothing else."""
+    if len(toks) > 5 or any(T.is_month_loose(t) for t in toks):
+        return False
+    k = ''.join(re.sub(r'[^A-Za-z0-9]', '', t) for t in toks)
+    m = _FOOT_RE.match(k)
+    return bool(m) and (any(c.isdigit() for c in m.group('pre')) or i >= n - 4)
+
+
+_FOOTNOTE_MARK = re.compile(r'^[*\u2020\u2021\u00a7^|]+$|^[tfjJ]$|^[*\u2020\u2021\u00a7^]+[A-Z][a-z]+$')
+
+
+def is_footnote_line(toks):
+    """A footnote under the table ("* There are no muster-out rolls of this company on file ..."; the dagger is often read as t, ^ or |)."""
+    if len(toks) < 4:
+        return False
+    if not _FOOTNOTE_MARK.match(toks[0]):
+        return False
+    nxt = toks[1] if len(toks[0]) == 1 or not T.core(toks[0]) else toks[0]
+    return bool(re.match(r'^[^A-Za-z]*[A-Z][a-z]', nxt)) and not any(T.is_month_loose(t) for t in toks[:3])
 
 
 _SERVICE_RE = re.compile(r'(three|thkee|thbee|theee|threb|tiiree|tiikee|tiiree|thue|nine|one|six|twelve|two|four|five)', re.I)
@@ -62,8 +108,12 @@ def is_service_line(toks):
 def is_regiment_head(toks):
     s = ' '.join(toks)
     k = _alpha(s)
-    return bool(re.search(r'reg[il]?m[eb]|eeg[il]?m|keg[il]?m|regmen|regim|egime|reserve|cavalry|cavalhy|oavalry|artillery|aetillery', k)) and len(toks) <= 14 and not any(
-        T.is_month(t) for t in toks)
+    if len(toks) > 14 or any(T.is_month(t) for t in toks):
+        return False
+    if re.search(r'reg[il]?m[eb]|eeg[il]?m|keg[il]?m|regmen|regim|egime|reserve|cavalry|cavalhy|oavalry|artillery|aetillery|independ|inclepend', k):
+        return True
+    # the running head with the words damaged ("ONE HUNDRED AND EIGHTEENTH EEGniENT, PENNSYLVANIA VOLUNTEERS"): two words within a few letters of the printed ones
+    return sum(1 for t in toks if _fuzzy_hit(_alpha(t), _RUN_FUZZ, 0.4)) >= 2
 
 
 COMPANY_RE = re.compile(r"^(?:C[o0Q]mp[a-z]{0,4}|Battery|BATTERY|COMPANY|Troop|TROOP|Comp|C0MPANY)$")
@@ -142,6 +192,25 @@ def build_lines(ws):
 NOTE_RE = re.compile(r'following\s+abbrev|abbreviat|prepara?tion\s+of\s+rem|used\s+in\s+the\s+prep', re.I)
 RECRUIT_RE = re.compile(r'^(?:rec|bec|kec|reo|rec\^|kooruit|keor|eeor|recr|recruit|raised|organi[sz]ed|enrolled|mustered|recruitl)', re.I)
 MARKS = re.compile(r"^[^A-Za-z0-9]*$")
+_DATEISH = re.compile(r"^[.,'‘’`\"]*\d{1,4}[.,;:]*$")
+# the first word of a remark that stands alone on a line whose name, rank and date cells the text layer lost
+REMARK_START = re.compile(r'^(?:died|disch|dis\b|dism|not\b|must|mus\b|kill|wound|wd\b|capt|cap\b|absen|abs\b|trans|tr\b|deser|promo|pr\b|resign|draft|missing|mis\b|drop|subst|vet\b|taken|appoint|commiss|honor|prison|parol|sick|never|supp|unknown|exch|retir|cashier|expir|detail|re-?enl|reenl)', re.I)
+_ABBR_END = re.compile(r'(?:^|[^A-Za-z])[A-Za-z]\.$|(?:Co|Cav|Res|Reg|Pa|Va|Md|Del|Cor|Sgt|Lt|Capt|Gen|Col|No|St|Jr|Sr|Wm|Jas|Geo|Chas|Thos|Hosp|Art|Batt|Dept|Cem|Gov|Adj|Maj|Sept|Aug|Oct|Nov|Dec|Jan|Feb|Mar|Apr)\.$')
+
+
+def _remark_start(tok):
+    t = re.sub(r'^[^A-Za-z]+', '', tok)
+    return bool(t) and t[0].isupper() and bool(REMARK_START.match(t))
+
+
+def _ends_sentence(row):
+    """The remark above ends with a full stop that closes a sentence (not an abbreviation or an initial at the end of a wrapped line)."""
+    ws = row['cont_w'] or row['post_w']
+    for w in reversed(ws):
+        t = w['w'].rstrip('"\'\u201d\u2019)]')
+        if T.core(t):
+            return t.endswith('.') and not _ABBR_END.search(t)
+    return False
 
 
 def tok_text(l):
@@ -242,10 +311,21 @@ def analyse_leaf(rec, ctx):
     hs = [line_height(l) for l in lines if any(T.is_month(w['w']) and abs(w['x0'] - xd) <= 0.03 * W for w in l)]
     hmed = statistics.median(hs) if hs else None
     out['info']['hrow'] = None if hmed is None else round(hmed)
+    # the left edge of the remark column: the first remark word of the dated lines (after the date and the term digit)
+    rem0 = []
+    for l in lines:
+        if any(T.is_month(w['w']) and abs(w['x0'] - xd) <= 0.03 * W for w in l):
+            for w in l:
+                if w['x0'] >= xd + 0.095 * W and len(T.core(w['w'])) >= 2 and not T.is_month(w['w']) and not _DATEISH.match(w['w']):
+                    rem0.append(w['x0'])
+                    break
+    xrem = statistics.median(rem0) if len(rem0) >= 5 else None
+    out['info']['xrem'] = None if xrem is None else round(xrem)
     # --- classify the lines top to bottom
     pitch = None
     ys = [statistics.mean(w['yk'] for w in l) for l in lines]
     note_from = None
+    footnote_from = None
     month_ys = [ys[i] for i, l in enumerate(lines) if any(T.is_month(w['w']) and abs(w['x0'] - xd) <= 0.03 * W for w in l)]
     y_first_month = min(month_ys) if month_ys else 0
     dd = [b - a for a, b in zip(month_ys, month_ys[1:]) if 0 < b - a < 120]
@@ -271,6 +351,17 @@ def analyse_leaf(rec, ctx):
             out['items'].append(('skip', 'note', txt, y))
             last_row = None
             continue
+        if footnote_from is not None or (not has_month and i > 0 and is_footnote_line(toks) and not any(
+                B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l)):
+            if footnote_from is None:
+                footnote_from = y
+            out['items'].append(('skip', 'footnote', txt, y))      # a footnote under the table and everything below it (the signature mark)
+            last_row = None
+            continue
+        if not has_month and is_foot_line(toks, i, len(lines)):
+            out['items'].append(('skip', 'foot', txt, y))
+            last_row = None
+            continue
         if has_month:
             hd = None
         else:
@@ -278,9 +369,11 @@ def analyse_leaf(rec, ctx):
             if hd and hd[0].startswith('company') and (x0 < (xn if xn is not None else 0.12 * W) + 0.04 * W and len(toks) > 3):
                 hd = None     # a name that begins like a heading word ("Compton, James H")
         right_alnum = [w for w in right if T.core(w['w'])]
-        if not has_month and not hd and (i < 3 or y < y_first_month - 2.2 * (pitch0 or 40)) and not any(
+        far_above = y < y_first_month - 2.2 * (pitch0 or 40)
+        is_recruit = bool(RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', toks[0]))) and len(toks) >= 2
+        if not has_month and not hd and (i < 3 or far_above) and not any(
                 B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l) and (
-                not right_alnum or is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)):
+                not right_alnum or (far_above and not is_recruit) or is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)):
             out['items'].append(('skip', 'head', txt, y))      # the running head, the page number, the column headings (a table line has cells right of the name)
             continue
         if not has_month and not hd and (is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)) and i < 4:
@@ -295,7 +388,8 @@ def analyse_leaf(rec, ctx):
             ctx['seen_heading'] = True
             last_row = None
             continue
-        if not has_month and RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', toks[0])) and (xn is None or x0 > xn + 0.04 * W) and (x0 < B2 or last_row is None) and len(toks) >= 2:
+        if not has_month and RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', toks[0])) and (xn is None or x0 > xn + 0.04 * W or (
+                len(toks) >= 3 and re.match(r'^[Aa][TtIiRr]?[.,]?$', toks[1]) and toks[0][:1].isupper())) and (x0 < B2 or last_row is None) and len(toks) >= 2:
             out['items'].append(('skip', 'recruited', txt, y))
             prev_items = [it for it in out['items'][:-1] if it[0] in ('heading', 'row', 'skip', 'orphan')]
             near_heading = any(it[0] == 'heading' and y - it[-1] < 4.2 * (pitch0 or 40) for it in out['items'][-3:-1])
@@ -316,6 +410,17 @@ def analyse_leaf(rec, ctx):
             out['items'].append(('skip', 'foot', txt, y))        # the signature mark at the foot of a page ("104", "131 - VOL. III.")
             continue
         if not left_alnum and not has_month:
+            if xrem is not None and len(toks) >= 2 and abs(l[0]['x0'] - xrem) <= 0.008 * W and _remark_start(toks[0]) and (last_row is None or _ends_sentence(last_row)):
+                # a remark that begins at the left edge of the remark column, under a remark that is complete: a printed line whose name, rank and date
+                # cells the text layer lost (a wrapped remark would stand indented, and under an unfinished remark)
+                row = {'y': y, 'lines': 1, 'left_w': [], 'post_w': list(l), 'cont_w': [], 'flags': set(), 'h': h, 'line': i, 'dated': False}
+                out['items'].append(('row', row))
+                if last_y is not None and y - last_y > 0:
+                    d = y - last_y
+                    if pitch is None or d < pitch * 1.6:
+                        pitch = d if pitch is None else 0.8 * pitch + 0.2 * d
+                last_row, last_y = row, y
+                continue
             # continuation line (wrapped remark) or a stray mark line
             if last_row is not None and (pitch is None or y - last_y <= 2.4 * pitch):
                 last_row['cont_w'].extend(l)

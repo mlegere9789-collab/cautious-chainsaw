@@ -5,7 +5,7 @@
 | ID | EG-MED-WR-06 |
 | Requirement IDs | OA12 (accurate field hospitals, battle trauma and period-accurate treatment); PDF B.8.5; gate Q26; Law clauses 3, 4 and 7 |
 | Category | use of evidence |
-| Description | The History describes the dressings and drugs of the whole war by region (simple dressing, broad chest bandage, adhesive plaster fenestrated at the wound, carded oakum, binders' board with a four-tailed bandage, ice, opium, persulphate and perchloride of iron); the manuals give the doctrine of 1861 and 1862 (Gross, Tripler and Blackman) and the Confederate doctrine (Chisolm 1864). Few rows say that a given dressing was used at a given Gettysburg hospital. |
+| Description | The History describes the dressings and drugs of the whole war by region (simple dressing, broad chest bandage, adhesive plaster fenestrated at the wound, carded oakum, binders' board with a four-tailed bandage, ice, opium, persulphate and perchloride of iron); the manuals give the doctrine of 1861 and 1862 (Gross, Tripler and Blackman) and the Confederate doctrine (Chisolm, 1864). Few rows say that a given dressing was used at a given Gettysburg hospital; the hermetical sealing at the hospital of the Fifth Corps is documented (rows 226, 227, 228, 229, 230, 234, 237). |
 | Why literal 100% is not possible or blocked | The record states the practice of the army, not each hospital (Law cl.3). |
 | Evidence searched | The same texts as the other entries. |
 | Autonomous substitute applied | None: rows with scene use show carry the practice as documented for the war and the Gettysburg cases as documented for the hospital named. |
@@ -17,5 +17,5 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | None needed. |
 | Agent recommendation | Mark each depiction with the tier of its row; never show a practice of the manuals that the History reports abandoned as the practice of Gettysburg without the reading selectable. |
-| Status | open (proposed by bt-medical, group wounds-regions, 2026-11-15; not yet in register/) |
+| Status | open (proposed by bt-medical, group wounds-regions, 2026-11-16; not yet in register/) |
 | Owner decision and date | (filled only from the Decision Log) |

@@ -187,3 +187,72 @@ export class Runs {                                // presence as maximal runs o
   done() { for (let i = 0; i < this.n; i++) if (this.on[i]) { this.runs[i].push([this.a[i], this.b[i]]); this.on[i] = 0; } return this; }
   of(i) { return { runs: this.runs[i].map(([a, b]) => [r6(a), r6(b)]), samples: this.k[i] }; }
 }
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------
+// the scenarios of one run, their per-unit behaviours and the check of the factorisation (shared by the runners of Q05 and Q06; the child of Q04 carries its own copy of the same steps)
+export function prepareScenarios(P, S, { only = null } = {}) {
+  const { layer } = P, U = layer.units;
+  let scenarios = S.list;
+  if (only) { const w = new Set(String(only).split(',')); scenarios = scenarios.filter(s => w.has(s.id) || s.id === 'delegated'); }
+  const behaviours = new Map(), hashDefault = new Map();
+  for (const sc of scenarios) { const b = unitBehaviours(layer, sc); behaviours.set(sc.id, b); if (sc.id === 'delegated') for (const [id, h] of b.hashes) hashDefault.set(id, h); }
+  const base = scenarios.find(s => s.id === 'delegated');
+  const factor = { scenarios: scenarios.length, violations: [], joint: [], checked_units: U.length, rule: 'a unit depends on the conflicts of its own gate, on its parent\'s when its gate is a floor or absent (ArrivalModel.effective), and on stop.conflict for its legs' };
+  for (const sc of scenarios) {
+    const varied = Object.keys(sc.choices).filter(c => sc.choices[c] !== base.choices[c] || sc.optionText[c] !== base.optionText[c]);
+    sc.varied_vs_default = varied;
+    const b = behaviours.get(sc.id), changed = [];
+    for (const u of U) if (b.hashes.get(u.id) !== hashDefault.get(u.id)) changed.push(u.id);
+    sc.changed = changed;
+    const bad = changed.filter(id => !(S.deps.get(id) || []).some(c => varied.includes(c)));
+    if (bad.length) factor.violations.push({ scenario: sc.id, units: bad.slice(0, 20), n: bad.length });
+  }
+  const groupOfConflict = new Map(); S.groups.forEach((g, gi) => g.forEach(c => groupOfConflict.set(c, gi)));
+  const groupScenarioHash = new Map();
+  for (const sc of scenarios) if (sc.kind === 'group') groupScenarioHash.set(sc.group - 1 + '|' + S.groups[sc.group - 1].map(c => sc.choices[c]).join(','), behaviours.get(sc.id).hashes);
+  const unitGroup = new Map();
+  for (const u of U) { const ds = S.deps.get(u.id) || []; unitGroup.set(u.id, ds.length ? groupOfConflict.get(ds[0]) : null); }
+  for (const sc of scenarios) if (sc.kind === 'named' && sc.id !== 'delegated') {
+    const b = behaviours.get(sc.id); let compared = 0; const bad = [];
+    for (const u of U) {
+      const gi = unitGroup.get(u.id); if (gi == null) { if (b.hashes.get(u.id) !== hashDefault.get(u.id)) bad.push(u.id); compared++; continue; }
+      const ref = groupScenarioHash.get(gi + '|' + S.groups[gi].map(c => sc.choices[c]).join(','));
+      if (!ref) continue; compared++; if (ref.get(u.id) !== b.hashes.get(u.id)) bad.push(u.id);
+    }
+    factor.joint.push({ scenario: sc.id, compared, mismatches: bad.slice(0, 20), n_mismatch: bad.length });
+  }
+  return { scenarios, behaviours, hashDefault, factor, unitGroup };
+}
+// the scenario part of a dump: the set, the groups, the options, the factorisation, the hashes of every unit under every scenario (only the units that differ from the default are listed)
+export function scenarioDump(P, S, R, extra = {}) {
+  const U = P.layer.units;
+  const unitsMeta = U.map((u, i) => ({ id: u.id, name: u.name, side: u.side, arm: u.arm, level: u.level, parent: u.parent, status: u.status, drawn: !!u.drawn, render: u.render.status, count: P.world.units[i].count, klass: P.world.units[i].klass, slot_kind: P.world.units[i].kind, formation_kind: u.formation && u.formation.kind, register: u.register, tier: u.tier, deps: S.deps.get(u.id) || [], group: R.unitGroup.get(u.id) == null ? null : R.unitGroup.get(u.id) + 1 }));
+  const hashes = { default: Object.fromEntries(R.hashDefault), scenarios: {} };
+  for (const sc of R.scenarios) { const b = R.behaviours.get(sc.id), o = {}; for (const id of sc.changed) o[id] = b.hashes.get(id); hashes.scenarios[sc.id] = o; }
+  return {
+    units: unitsMeta, hashes,
+    scenarios: Object.fromEntries(R.scenarios.map(s => [s.id, { id: s.id, kind: s.kind, group: s.group, varied: s.varied_vs_default, choices: s.choices, optionText: s.optionText, changed: s.changed.length, note: s.note || null }])),
+    scenario_set: { id: extra.id || 'S*', complete: !!extra.complete, count: R.scenarios.length, groups: S.groups.map((g, gi) => ({ id: gi + 1, conflicts: g, options: Object.fromEntries(g.map(c => [c, S.opts[c].map(o => o.key)])), product: g.reduce((p, c) => p * S.opts[c].length, 1), units: unitsMeta.filter(u => u.group === gi + 1).length })),
+      options: Object.fromEntries(Object.entries(S.opts).map(([c, os]) => [c, os.map(o => ({ key: o.key, text: o.text }))])), factorisation: R.factor, restriction_check: extra.restriction || { checked: false } },
+  };
+}
+export function withUnits(P, keep, fn) {                       // the layer says only what the unit set needs (the stage reads layer.both)
+  if (!keep) return fn();
+  const layer = P.layer, orig = layer.both;
+  layer.both = sc => { const r = orig(sc); return { ...r, arrivals: r.arrivals.filter(a => keep.has(a.unit)), events: r.events.filter(e => keep.has(e.unit)) }; };
+  try { return fn(); } finally { layer.both = orig; }
+}
+// visit the scenarios in order; for each, the units whose (unit, behaviour) has not been scanned yet are `need`; scanFn(sc, keepOrNull, need) returns {units:{id:record}, ...scan info}
+export function driveScans(P, R, scanFn, { selectedUnits = null } = {}) {
+  const U = P.layer.units, scanned = new Set(), records = {}, scans = [], t0 = Date.now();
+  for (const sc of R.scenarios) {
+    const B = R.behaviours.get(sc.id), need = new Set();
+    for (const u of U) { if (selectedUnits && !selectedUnits.has(u.id)) continue; const key = u.id + '|' + B.hashes.get(u.id); if (!scanned.has(key)) need.add(u.id); }
+    if (!need.size) { scans.push({ scenario: sc.id, scanned_units: 0, skipped: 'every unit behaves as in a scan already made' }); continue; }
+    const full = !selectedUnits && (need.size >= U.length * 0.9 || sc.id === 'delegated');
+    const res = scanFn(sc, full ? null : need, need);
+    for (const [id, rec] of Object.entries(res.units)) { if (!need.has(id)) continue; scanned.add(id + '|' + rec.hash); (records[id] = records[id] || {})[rec.hash] = { ...rec, scanned_in: sc.id }; }
+    scans.push({ scenario: sc.id, scanned_units: need.size, full, ...res.info, ms: Date.now() - t0 });
+  }
+  return { records, scans };
+}

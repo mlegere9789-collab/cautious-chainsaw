@@ -116,7 +116,7 @@ class Absolute(unittest.TestCase):                    # Q04.1
 
     def test_a_manifest_flags_and_colour_bearers_before_the_unit_enters_fails(self):
         def early(D):
-            D['behaviours'][R1]['a1']['classes']['manifest']['runs'] = [[F.minute(2, 6), F.minute(2, 8, 3)]]
+            D['behaviours'][R1]['a1']['classes']['manifest']['runs'] = [[F.minute(2, 4), F.minute(2, 8, 3)]]
         x = one(run(mutate_d=early), 'Q04.1', 'Q04.1/%s/delegated' % R1)
         self.assertEqual(x['result'], 'FAIL')
         self.assertIn('manifest', x['reason'])
@@ -139,7 +139,7 @@ class ScenarioLocal(unittest.TestCase):               # Q04.2
         x = one(run(mutate_d=early), 'Q04.1', 'Q04.1/%s/delegated' % R1)
         self.assertEqual(x['result'], 'FAIL')
         self.assertIn('window the scenario selects', x['reason'])
-        self.assertNotIn('earliest documented value %s' % F.minute(2, 5), [c['detail'] for c in x['evidence']['conditions'] if c['name'].startswith('Q04.1')][0])
+        self.assertTrue([c for c in x['evidence']['conditions'] if c['name'].startswith('Q04.1') and c['ok']], 'the absolute bound holds: the unit is there after the ledger\'s 05:00')
 
     def test_a_unit_with_no_arrival_record_in_the_scenario_but_present_fails(self):
         def norec(D):
@@ -162,14 +162,14 @@ class Effects(unittest.TestCase):                     # Q04.7
 
     def test_a_man_who_falls_before_the_window_opens_fails(self):
         def fall(D):
-            D['behaviours'][R1]['a1']['classes']['casualties']['first_fall_s'] = F.minute(2, 6) * 60.0
+            D['behaviours'][R1]['a1']['classes']['casualties']['first_fall_s'] = F.minute(2, 4) * 60.0
         x = one(run(mutate_d=fall), 'Q04.1', 'Q04.1/%s/delegated' % R1)
         self.assertEqual(x['result'], 'FAIL')
         self.assertIn('falls', x['reason'])
 
     def test_casualties_on_the_ground_before_the_window_opens_fail(self):
         def lying(D):
-            D['behaviours'][R1]['a1']['classes']['casualties']['runs'] = [[F.minute(2, 6), F.TO]]
+            D['behaviours'][R1]['a1']['classes']['casualties']['runs'] = [[F.minute(2, 4), F.TO]]
         self.assertEqual(one(run(mutate_d=lying), 'Q04.1', 'Q04.1/%s/delegated' % R1)['result'], 'FAIL')
 
     def test_a_casualty_event_before_the_unit_enters_fails(self):
@@ -329,7 +329,9 @@ class Unknown(unittest.TestCase):                     # Q04.5
 class NamedCases(unittest.TestCase):                  # Q04.6
     def test_a_stuart_brigade_before_the_evening_of_july_2_in_the_default_view_fails_the_case(self):
         def early(D):
-            D['behaviours']['cs-cav-flee-1va']['d-cs-cav-flee-1va']['classes']['soldiers']['runs'] = [[F.minute(2, 18), F.TO]]
+            r = D['behaviours']['cs-cav-flee-1va']['d-cs-cav-flee-1va']
+            r['classes']['soldiers']['runs'] = [[F.minute(2, 18), F.TO]]
+            r['arrival']['earliest'] = F.minute(2, 15)
         def lowbound(K):
             K['bound']['cs-cav-flee-1va']['abs_min'] = F.minute(2, 15)           # the ledger floor is lower: only the plan's named default catches it
         out = run(mutate_d=early, mutate_k=lowbound)
@@ -418,8 +420,10 @@ class ScenarioSet(unittest.TestCase):                 # S*, the scans
                 s['grid']['mode'] = 'coarse'
                 s['grid']['samples'] = 1473
         out = run(mutate_d=coarse)
-        self.assertEqual(out['verdict'], 'FAIL')                     # the scan items say that the grid is not every minute
+        self.assertEqual(out['verdict'], 'INCOMPLETE')
+        self.assertEqual(out['counts']['FAIL'], 0)
         self.assertTrue(any('coarse test grid' in r for r in out['incomplete_reasons']))
+        self.assertEqual(one(out, 'Q04.scan', 'scan/delegated')['result'], 'NOT-RUN')
 
     def test_a_run_without_the_effects_or_the_manifests_or_the_train_is_incomplete(self):
         for key, val in (('effects_run', False), ('manifest_run', False), ('train', None), ('selected_units', ['x'])):
@@ -493,7 +497,7 @@ class RealProduct(unittest.TestCase):
         self.assertIn('animation emits', x['reason'])
 
     def test_a_unit_that_leaves_inside_the_ground_is_caught_on_a_dense_run(self):
-        x = [i for i in self.runner('vanish.mjs', extra=['--grid-dense-for-tests']) ['items'] if i['check'] == 'Q04.4' and self.UNIT in i['id']]
+        x = [i for i in self.runner('vanish.mjs', extra=['--grid', 'dense']) ['items'] if i['check'] == 'Q04.4' and self.UNIT in i['id']]
         self.assertTrue(x and x[0]['result'] == 'FAIL', [i['reason'] for i in x])
 
 

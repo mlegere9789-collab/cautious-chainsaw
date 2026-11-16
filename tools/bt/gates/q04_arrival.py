@@ -25,6 +25,7 @@ import json
 import os
 import re
 import sys
+import warnings
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 for _p in (HERE, os.path.join(HERE, 'lib'), os.path.abspath(os.path.join(HERE, '..'))):
@@ -84,7 +85,10 @@ def load_bounds(rec, env, units):
     try:
         if os.path.abspath(env.root) == os.path.abspath(os.path.join(HERE, '..', '..', '..')):
             sys.path.insert(0, os.path.abspath(os.path.join(HERE, '..')))
-            import check_arrivals as CA  # noqa: E402
+            with warnings.catch_warnings():
+                warnings.simplefilter('ignore', ResourceWarning)
+                import check_arrivals as CA  # noqa: E402
+                CA.load()
             for u in units:
                 t, owner = CA.gate_time(u['id'], 'earliest')
                 if t is None:
@@ -136,8 +140,10 @@ def run_start(c):
 
 
 def evaluate(rec, env, D, K):
-    units = D['units']
-    by = {u['id']: u for u in units}
+    units_all = D['units']
+    sel = set(D.get('selected_units') or [])
+    units = [u for u in units_all if not sel or u['id'] in sel]            # a partial scan judges the units it scanned (and is INCOMPLETE)
+    by = {u['id']: u for u in units_all}
     rows, all_ids = gate_rows(env, GATE)
     ground, battle = D['ground'], D['battle']
     dense = D['grid']['mode'] == 'dense'
@@ -183,14 +189,19 @@ def evaluate(rec, env, D, K):
         if not sc.get('scanned_units'):
             continue
         cs, grid = sc.get('consistency') or {}, sc.get('grid') or {}
-        conds = [cond('the grid is every integer minute of the window (%s samples for %s minutes) plus the boundaries' % (grid.get('samples'), grid.get('integer_minutes')), grid.get('mode') == 'dense' and (grid.get('samples') or 0) >= (grid.get('integer_minutes') or 1), 'mode %s, %s samples' % (grid.get('mode'), grid.get('samples'))),
-                 cond('no event of the layer was refused by the sim cache (outside the presence window, Q04)', not sc.get('refused_total'), '%s refused' % sc.get('refused_total')),
+        grid_ok = grid.get('mode') == 'dense' and (grid.get('samples') or 0) >= (grid.get('integer_minutes') or 1)
+        conds = [cond('no event of the layer was refused by the sim cache (outside the presence window, Q04)', not sc.get('refused_total'), '%s refused' % sc.get('refused_total')),
                  cond('the men lying (Stage._detail) equal the fall table at every sample', not cs.get('down_mismatch_samples'), '%s samples differ, first %s' % (cs.get('down_mismatch_samples'), cs.get('down_first'))),
                  cond('the mounted count the stage reports equals the mounted figures present at every sample (the horses)', not cs.get('mounted_mismatch_samples'), '%s samples differ' % cs.get('mounted_mismatch_samples')),
                  cond('the soldier count the stage reports equals the figures of the present units at every sample', not cs.get('soldiers_mismatch_samples'), '%s samples differ' % cs.get('soldiers_mismatch_samples'))]
         bad = first_failed(conds)
-        rec.item('Q04/scan/%s' % sid, 'FAIL' if bad else 'PASS', ('scan of %s: ' % sid + '; '.join(bad)) if bad else 'scan of %s: %d unit(s), %s samples, every consistency check holds' % (sid, sc['scanned_units'], grid.get('samples')),
-                 {'conditions': conds, 'grid': grid, 'scanned_units': sc['scanned_units']}, check='Q04.scan', scenario=sid, sub_requirements=rows)
+        ev_s = {'conditions': conds, 'grid': grid, 'scanned_units': sc['scanned_units']}
+        if bad:
+            rec.item('Q04/scan/%s' % sid, 'FAIL', 'scan of %s: ' % sid + '; '.join(bad), ev_s, check='Q04.scan', scenario=sid, sub_requirements=rows)
+        elif not grid_ok:
+            rec.item('Q04/scan/%s' % sid, 'NOT-RUN', 'scan of %s: the grid is %s (%s samples for %s integer minutes), not every integer minute of the window plus the boundaries (GATE-SPEC 1.5): a fraction of the grid is never a PASS' % (sid, grid.get('mode'), grid.get('samples'), grid.get('integer_minutes')), ev_s, check='Q04.scan', scenario=sid, sub_requirements=rows)
+        else:
+            rec.item('Q04/scan/%s' % sid, 'PASS', 'scan of %s: %d unit(s) over %s samples (every integer minute and the boundaries), every consistency check holds' % (sid, sc['scanned_units'], grid.get('samples')), ev_s, check='Q04.scan', scenario=sid, sub_requirements=rows)
 
     # ------------------------------------------------------------------------------------------------ Q04.1, Q04.2, Q04.7: one item per (unit, behaviour)
     per_unit_items = {}                           # unit -> list of (item result, hash) for the aggregations below

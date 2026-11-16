@@ -1,0 +1,124 @@
+{
+ "by_shard": {
+  "fence-1": {
+   "answered_with_evidence": 1,
+   "retrieved": 2,
+   "retrieved_no_statement": 1,
+   "still_failed_host_refused": 27,
+   "still_failed_http_error": 2,
+   "still_failed_no_route": 2
+  },
+  "fence-2": {
+   "answered_with_evidence": 17,
+   "owner_only": 2,
+   "retrieved": 1,
+   "still_failed_host_refused": 33,
+   "still_failed_no_route": 4,
+   "still_failed_no_source_found": 27,
+   "superseded_by_shard_retry": 1
+  },
+  "fence-3": {
+   "answered_with_evidence": 12,
+   "not_requested_robots_disallowed": 2,
+   "owner_only": 3,
+   "retrieved": 1,
+   "still_failed_host_refused": 18,
+   "still_failed_no_route": 1,
+   "still_failed_no_source_found": 11
+  },
+  "r03-1": {
+   "retrieved_no_statement": 2
+  },
+  "r03-2": {
+   "answered_with_evidence": 2,
+   "still_failed_no_source_found": 1
+  },
+  "sources-a": {
+   "not_requested_robots_disallowed": 1,
+   "not_retried_blocked_host_instruction": 1,
+   "retrieved": 2,
+   "still_failed_host_refused": 9
+  },
+  "sources-b": {
+   "not_requested_robots_disallowed": 1,
+   "not_retried_blocked_host_instruction": 9,
+   "resolved_other_route": 3,
+   "retrieved": 7,
+   "still_failed_host_refused": 11,
+   "still_failed_http_error": 1
+  },
+  "terrain-1": {
+   "answered_with_evidence": 1,
+   "not_requested_robots_disallowed": 1,
+   "resolved_other_route": 1,
+   "still_failed_host_refused": 15,
+   "still_failed_http_error": 1
+  },
+  "terrain-2": {
+   "answered_with_evidence": 2,
+   "resolved_other_route": 1,
+   "retrieved": 2,
+   "still_failed_host_refused": 9
+  },
+  "tl-01": {
+   "answered_with_evidence": 2,
+   "resolved_other_route": 1,
+   "retrieved": 1,
+   "still_failed_host_refused": 3,
+   "still_failed_no_source_found": 4
+  },
+  "tl-02": {
+   "answered_with_evidence": 3,
+   "resolved_other_route": 1,
+   "retrieved": 1,
+   "still_failed_no_source_found": 2
+  },
+  "tl-03": {
+   "answered_with_evidence": 3
+  },
+  "tl-05": {
+   "answered_with_evidence": 1
+  },
+  "tl-06": {
+   "answered_with_evidence": 3,
+   "still_failed_no_source_found": 1
+  },
+  "tl-08": {
+   "answered_with_evidence": 2
+  },
+  "tl-09": {
+   "answered_with_evidence": 1
+  },
+  "tl-10": {
+   "answered_with_evidence": 3
+  },
+  "tl-11": {
+   "answered_with_evidence": 3
+  },
+  "tl-12": {
+   "answered_with_evidence": 6,
+   "still_failed_host_refused": 2
+  },
+  "ws-town": {
+   "retrieved": 1,
+   "still_failed_host_refused": 6,
+   "superseded_by_shard_retry": 2
+  }
+ },
+ "outcomes": {
+  "answered_with_evidence": 62,
+  "not_requested_robots_disallowed": 5,
+  "not_retried_blocked_host_instruction": 10,
+  "owner_only": 5,
+  "resolved_other_route": 7,
+  "retrieved": 18,
+  "retrieved_no_statement": 3,
+  "still_failed_host_refused": 133,
+  "still_failed_http_error": 4,
+  "still_failed_no_route": 7,
+  "still_failed_no_source_found": 46,
+  "superseded_by_shard_retry": 3
+ },
+ "rows": 303,
+ "written": "2026-11-16T01:30:45Z"
+}
