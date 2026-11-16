@@ -16,6 +16,32 @@
   "a 16 byte config block against a binding that needs the 32 bytes of the struct is refused": "refused: Validation Error  Caused by:   In wgpuDeviceCreateBindGroup     Binding size 16 of Buffer with '' label is less than minimum 32",
   "the 32 byte block of gpu.mjs is accepted by the same binding": "accepted"
  },
+ "dither": {
+  "decisions_sha256": "8551541cd2444d03dbab33d4380ac60797267c1f1b1a6849d1c5a409f48ff23f",
+  "pixels_compared": 1327104,
+  "differing": 543,
+  "differing_fraction": 0.000409,
+  "differing_outside_tolerance": 0,
+  "tolerance_n": 0.002,
+  "kept_per_case": {
+   "L0 [0, q0)": 55327,
+   "L1 [q0, q1)": 55304,
+   "L2 [q1, q2)": 55276,
+   "far [q2, unbounded)": 55277,
+   "all (word 0)": 221184,
+   "train fade [0, q)": 88622
+  },
+  "partition_pixels": 221184,
+  "gaps": 0,
+  "overlaps": 0,
+  "shares": {
+   "L0 [0, q0)": 0.2501,
+   "L1 [q0, q1)": 0.25,
+   "L2 [q1, q2)": 0.2499,
+   "far [q2, unbounded)": 0.2499
+  },
+  "reverse_order_identical": true
+ },
  "adapter": {
   "vendor": "SwiftShader driver",
   "architecture": "",
@@ -30,5 +56,10 @@
  },
  "module": true,
  "bind_group_32": true,
+ "dither_controls": {
+  "the dither of another figure disagrees with the reference": "40.2 percent of the pixels differ",
+  "a fragXY that does not turn the y axis over is caught by the dither comparison": "caught: 431351 pixel decisions of the shader differ from lod.mjs by more than float32 can explain",
+  "a wrong constant in ign (0.0583715 for 0.00583715) is caught by the dither comparison": "caught: 430667 pixel decisions of the shader differ from lod.mjs by more than float32 can explain"
+ },
  "ok": true
 }

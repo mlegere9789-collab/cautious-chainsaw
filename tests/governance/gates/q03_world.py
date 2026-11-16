@@ -79,6 +79,7 @@ class World:
         self.card = "const flags = Object.entries(s.flags).map(([f, n]) => `${f} (${n})`).join('; ');\n"
         self.ground = {'aerial.jpg': b'AERIAL-corrected', 'height.bin': b'HEIGHT-corrected', 'terrain.json': b'{}'}
         self.audit = None            # a dict written to GOVERNANCE/ground_audit/audit.json, or None
+        self.basemap = True          # write the registry of the basemap
         self.export = None
         self.dump = None
         self.extra_files = {}
@@ -104,6 +105,7 @@ class World:
 
     # ----------------------------------------------------------------------------------------- the dump of the node child, made from the reference engine
     def make_dump(self, mutate=None):
+        self.write()
         import check_structures as CS
         CS.DIR = os.path.join(self.bt, 'structures')
         CS._data.cache_clear()
@@ -120,7 +122,9 @@ class World:
                     if key:
                         asked[key] = key.split('#')[0] in {i.split('#')[0] for i in ids} or key in ids
                         rows_of.setdefault(key, sorted(r['id'] for r in sched_rows if key in r['object_ids']))
-        pre = sorted(s['id'] for s in d['structures']['structures'] if s.get('kind') == 'preexisting_wall_or_fence')
+        import re
+        pre = sorted(s['id'] for s in d['structures']['structures'] if re.match(r'^P-\d\d$', s['id']))
+        pre_drawn = sorted(s['id'] for s in d['structures']['structures'] if s.get('kind') == 'preexisting_wall_or_fence')
         reg = [i for i in ('bld-mcpherson-farm', 'bld-mcpherson-farm#house', 'bld-mcpherson-farm#barn', 'bld-bliss-farm', 'bld-bliss-farm#house', 'bld-bliss-farm#barn', 'RD-avenues', 'FEN-emmitsburg-road') if i in ids]
         t0 = datetime.datetime(1863, 6, 26)
         times = set()
@@ -168,7 +172,7 @@ class World:
             'ext': {'layer': {'id': 'later-memorials', 'defaultOn': False, 'inScene': False, 'tier': 'inferred'}, 'minutes_checked': 30240, 'scene_objects_nonempty': [], 'memorials': {'ok': True, 'problems': [], 'facts': {'memorials': 512}}, 'tour': {'ok': True, 'problems': [], 'facts': {'stops': 16}}},
             'train': {'KIND': {'gun': 0, 'limber': 1, 'caisson': 2, 'wagon': 3, 'forge': 4, 'horse': 5, 'driver': 6}, 'times': ['1863-07-01T14:00', '1863-07-02T12:00', '1863-07-03T14:00'], 'batteries': 3,
                       'by_army': {a: {k: 6 for k in ('gun', 'limber', 'caisson', 'wagon', 'forge', 'horse', 'driver')} for a in ('union', 'confederate')}},
-            'works3d': {'works': [], 'preexisting': [{'id': p, 'present': True, 'construction': False, 'progress': 1} for p in pre], 'pre_ids_in_works': []},
+            'works3d': {'works': [], 'preexisting': [{'id': p, 'present': True, 'construction': False, 'progress': 1} for p in pre_drawn], 'pre_ids_in_works': []},
         }
         if mutate:
             mutate(dump)
@@ -177,15 +181,25 @@ class World:
 
     def make_export(self, units=(('us-1c-1d-meredith-2wi', 'US.2WI', 3, '1863-07-01'),), mutate=None):
         """The export of app/tools/export-figures.mjs for a few drawn units, with digests made by the reference generator (so the clean export agrees with it)."""
+        self.write()
         import check_kit as CK
         import gen_golden_manifests as GG
+        import check_arrivals as CA
+        CA.HIST = os.path.join(self.bt, 'history')
+        CA.REG = os.path.join(self.bt, 'GOVERNANCE', 'conflicts_structured.json')
+        CA._D.clear()
         kit = CK.Kit(os.path.join(self.bt, 'kit'))
         GG.add_defaults(kit)
         out = []
         for hid, ku, n, date in units:
             ent = kit.units[ku]
-            rec = {'id': hid, 'name': hid, 'side': 'union', 'arm': 'infantry', 'figures': n, 'kit_unit': ku, 'how': 'record', 'default': False, 'date': date, 'earliest_min': 0, 'earliest': '1 Jul 08:00',
-                   'earliest_iso': date + 'T08:00', 'disputed': bool(ent.get('variants')), 'variants': list(ent['variants']) if ent.get('variants') else None, 'digest': None, 'variant_digests': {}}
+            try:
+                pg, _o = CA.gate_time(hid, 'default')
+            except Exception:  # noqa: BLE001
+                pg = None
+            earliest = (pg or (date + 'T08:00'))[:16]
+            rec = {'id': hid, 'name': hid, 'side': 'union', 'arm': 'infantry', 'figures': n, 'kit_unit': ku, 'how': 'record', 'default': False, 'date': date, 'earliest_min': 0, 'earliest': earliest,
+                   'earliest_iso': earliest, 'disputed': bool(ent.get('variants')), 'variants': list(ent['variants']) if ent.get('variants') else None, 'digest': None, 'variant_digests': {}}
             if ent.get('variants'):
                 for v in ent['variants']:
                     rec['variant_digests'][v] = sha(''.join(sha(GG.canon(CK.manifest_for('%s:%04d' % (hid, k), ku, 1863, date=date, rank='private', role='rifleman', variant=v, kit=kit))) for k in range(n)))
@@ -239,7 +253,8 @@ class World:
             lay = 'structures/structures.geojson' if k.startswith('STR') else 'roads-rail-water/fences.geojson' if k.startswith('FN') else 'roads-rail-water/roads.geojson'
             feats[lay].append({'type': 'Feature', 'properties': o, 'geometry': None})
         for rel, fs in feats.items():
-            self._w('docs/basemap1863/features/' + rel, {'type': 'FeatureCollection', 'features': fs})
+            if self.basemap:
+                self._w('docs/basemap1863/features/' + rel, {'type': 'FeatureCollection', 'features': fs})
         if self.audit is not None:
             self._w(b + 'GOVERNANCE/ground_audit/audit.json', self.audit)
         self._w('flags.json', self.flags_map)

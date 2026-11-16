@@ -79,7 +79,15 @@ def page_text(meta):
     gz = base + '.alto.xml.gz'
     with open(raw, 'rb') as fi, open(gz, 'wb') as fz, gzip.GzipFile(filename='', mode='wb', fileobj=fz, compresslevel=9, mtime=0) as fo:
         shutil.copyfileobj(fi, fo)
-    text, words, info = rebuild_cols.rebuild(raw)
+    try:
+        text, words, info = rebuild_cols.rebuild(raw)
+    except Exception as e:  # a truncated or damaged ALTO download: record it, keep nothing, go on
+        os.remove(raw)
+        if os.path.exists(gz):
+            os.remove(gz)
+        rec['parse_error'] = '%s: %s' % (type(e).__name__, str(e)[:120])
+        rlib.jsonl_append(LOG, rec)
+        return None, 'ALTO could not be parsed (%s)' % rec['parse_error']
     os.remove(raw)
     with open(txt, 'w', encoding='utf-8') as f:
         f.write(text)

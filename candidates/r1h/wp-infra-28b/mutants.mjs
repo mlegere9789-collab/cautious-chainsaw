@@ -75,7 +75,7 @@ for (const m of MUTANTS) {
   fs.writeFileSync(path.join(dir, 'watch-together.html'), page.replace(m.from, () => m.to));
   const t0 = Date.now();
   const r = cp.spawnSync(process.execPath, ['--test', '--test-reporter=tap', 'candidates/r1h/wp-infra-28b/test.mjs'], {
-    cwd: REPO, encoding: 'utf8', timeout: 25000, maxBuffer: 64 * 1024 * 1024, env: { ...process.env, R1H_TREE: path.relative(REPO, dir), R1H_BASE: 'release/R1g/dist' },
+    cwd: REPO, encoding: 'utf8', timeout: 12000, maxBuffer: 64 * 1024 * 1024, env: { ...process.env, R1H_TREE: path.relative(REPO, dir), R1H_BASE: 'release/R1g/dist' },
   });
   const out = (r.stdout || '') + (r.stderr || '');
   const failed = [...out.matchAll(/^not ok \d+ - (.*)$/gm)].map((x) => x[1]);

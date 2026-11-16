@@ -174,7 +174,7 @@ export function buildGrid(P, { mode = 'dense', boundaries = [], coarseStep = 60 
   const { from, to } = P.BATTLE, set = new Set(), sec = 1 / 60, step = mode === 'dense' ? 1 : coarseStep;
   for (let t = Math.ceil(from); t <= to; t += step) set.add(t);
   set.add(from); set.add(to);
-  for (const b of boundaries) if (b != null && Number.isFinite(b)) for (const d of [-sec, 0, sec]) { const t = b + d; if (t >= from && t <= to) set.add(r6(t)); }
+  for (const b of boundaries) if (b != null && Number.isFinite(b)) for (const d of [-sec, 0, sec]) { const t = b + d; if (t >= from && t <= to) set.add(t); }       // exact doubles: a sample AT a boundary must be the boundary (an event at t is in force at t)
   return [...set].sort((a, b) => a - b);
 }
 

@@ -385,6 +385,8 @@ CLAIMS = [
          tier='documented', state_date='1863-11-19',
          cites=[dict(page=INT21, span=('Hon B. B. French now introduced', 'pronounced the eloquent oration'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
+                dict(page=STAR20, span=('Hon. Ed ^ i Introduced by Hon. B. B.', 'by the *Jnion Glee Clnb'),
+                     reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
                 dict(page=REP20, span=('lion. tJ. is. rrcccn now introduced', 'pronounced TUK ORATION.'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
                 dict(page=CHI21, span=('Mr. Everett, tbe orator, proceeded', 'iu Hie delivery.'), img='chi21_times',
@@ -446,9 +448,7 @@ CLAIMS = [
                 dict(page=CHI21, span=('At the conclusion of the oration, a choir from the Murical', 'Dirge.'),
                      attribution='[Special Dispatch to the Chicago Tribune.]',
                      reprint={'status': 'original', 'from': 'special dispatch to the Chicago Tribune', 'basis': '[Special Dispatch to the Chicago Tribune.]'}),
-                dict(page=STAR20, span=('by the *Jnion Glee Clnb', 'Glee Clnb'), img='star20_glee',
-                     reading='... a [hymn] sung by the Union Glee Club. President Lincoln then ap[peared]',
-                     corrections=[['*Jnion Glee Clnb', 'Union Glee Club']],
+                dict(page=STAR20, span=('Hon. Ed ^ i Introduced by Hon. B. B.', 'by the *Jnion Glee Clnb'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'})],
          row_effect=('agrees with the row\'s two readings: the hymn follows Everett (printed order) and "one account has the Baltimore Glee Club sing French\'s ode after Everett and '
                      'before Lincoln": four papers say so; the Star prints "Union Glee Club"; no paper prints the hymn after Lincoln'),
@@ -461,7 +461,7 @@ CLAIMS = [
                     'continent a new nation, conceived in liberty and dedicated to the proposition that all men are created equal. [Applause.]"; the New-York Tribune ends the remarks "that we here highly resolve that the dead shall '
                     'not have died in vain (applause); that the nation shall, under God, have a new birth of freedom; and that Governments of the people, by the people, and for the people, shall not perish from the earth. '
                     '[Long-continued applause.] Three cheers were here given for the President and the Governors of the States"; the Intelligencer ends "that we here highly resolve that these dead shall not have died in vain. [Applause.] '
-                    'That the nation shall, under God, have a new birth of freedom; and that Government of the people, by the people and for the people, shall not perish from the earth. [Long-Continued, applause.]" '
+                    'That the nation shall, under God, have a new birth of freedom; and that Governments of the people, by the people and for the people, shall not perish from the earth. [Long-continued applause.]" '
                     '(the printed readings differ in small words between the papers).'),
          tier='documented', state_date='1863-11-19',
          cites=[dict(page=REP20, span=('Four score and seven years ago our fathers brought forth upon', 'created equal. Ap plause.'),
@@ -470,6 +470,8 @@ CLAIMS = [
                      dateline='GersyeBURe, Thursday, Nov. 19, 1563.',
                      reprint={'status': 'unknown', 'from': None, 'basis': 'unsigned dispatch'}),
                 dict(page=INT21, span=('that we here highly resolve that these dea l', 'Long-Continued, applause.]'),
+                     reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
+                dict(page=STAR20, span=('president Lincoln then ap', 'm plauie.]'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'})],
          row_effect='adds to E-011 ("a few minutes at most"): the text printed on 20 Nov (the day after) as Lincoln\'s remarks; the printed readings vary and none is the later Bliss copy; applause marks are printed (applause after "created equal", after "in vain", and "Long-continued applause" at the end, then three cheers for the President and the Governors)',
          remains='the wording is a transcription by reporters; the differences between printings are listed in address_printings.json when it exists; which wording the film speaks is an owner decision (the row carries it as a scenario); the Star of 20-21 Nov does not print the remarks in the pages read',

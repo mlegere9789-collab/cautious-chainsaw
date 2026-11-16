@@ -40,7 +40,8 @@ export const PARAM_SETS = {
     what: 'earlier set of WP-INFRA-28 Part A: 31-character alphabet (about 887 million codes), note of at most 140 characters; superseded, kept selectable (row C08)',
     codeLength: 6,
     alphabet: 'ABCDEFGHJKMNPQRSTUVWXYZ23456789',
-    alphabetNote: 'none of I, L, O, 0, 1 (the plan states the size 31 and the word unambiguous; this is the set of that size without the look-alikes)',
+    // the page comment says only what the set is; why it is spelled this way (the plan gives its size and the word unambiguous) is row W28B-2
+    alphabetNote: 'none of I, L, O, 0, 1',
     maxGuests: 20,
     noteMax: 140,
     tickMax: 675,

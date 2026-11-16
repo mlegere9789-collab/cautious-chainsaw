@@ -277,9 +277,11 @@ def analyse_leaf(rec, ctx):
             hd = heading_of(toks)
             if hd and hd[0].startswith('company') and (x0 < (xn if xn is not None else 0.12 * W) + 0.04 * W and len(toks) > 3):
                 hd = None     # a name that begins like a heading word ("Compton, James H")
+        right_alnum = [w for w in right if T.core(w['w'])]
         if not has_month and not hd and (i < 3 or y < y_first_month - 2.2 * (pitch0 or 40)) and not any(
-                B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l):
-            out['items'].append(('skip', 'head', txt, y))
+                B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l) and (
+                not right_alnum or is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)):
+            out['items'].append(('skip', 'head', txt, y))      # the running head, the page number, the column headings (a table line has cells right of the name)
             continue
         if not has_month and not hd and (is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)) and i < 4:
             out['items'].append(('skip', 'head', txt, y))

@@ -1,0 +1,160 @@
+{
+ "id": "wp-infra-28b",
+ "route": "candidate-group",
+ "base": "release/R1g/dist",
+ "test": "candidates/r1h/wp-infra-28b/test.mjs",
+ "checked_at": "2026-11-16T01:11:57.203Z",
+ "anchors": {
+  "exit": 0,
+  "patches": 9,
+  "ok": true,
+  "failed": [],
+  "overlay_files": 0
+ },
+ "test_exists": true,
+ "handoff_exists": true,
+ "red": {
+  "cmd": "R1H_BASE=release/R1g/dist node --test candidates/r1h/wp-infra-28b/test.mjs",
+  "exit": 1,
+  "expect": "non-zero",
+  "ms": 1315,
+  "tail": "...unner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\nok 21 - page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\n  ---\n  duration_ms: 93.209913\n  type: 'test'\n  ...\n# Subtest: page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\nok 22 - page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\n  ---\n  duration_ms: 2.274831\n  type: 'test'\n  ...\n1..22\n# tests 22\n# suites 0\n# pass 4\n# fail 18\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1254.120867\n"
+ },
+ "green": {
+  "cmd": "R1H_BASE=release/R1g/dist R1H_TREE=tmp/r1h-cand/wp-infra-28b/green node --test candidates/r1h/wp-infra-28b/test.mjs",
+  "exit": 0,
+  "expect": 0,
+  "ms": 1780,
+  "tail": "...a group that applies and behaves by its constants\n  ---\n  duration_ms: 215.527234\n  type: 'test'\n  ...\n# Subtest: page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\nok 21 - page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\n  ---\n  duration_ms: 74.593611\n  type: 'test'\n  ...\n# Subtest: page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\nok 22 - page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\n  ---\n  duration_ms: 3.408754\n  type: 'test'\n  ...\n1..22\n# tests 22\n# suites 0\n# pass 22\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1650.256043\n"
+ },
+ "passes": true,
+ "problems": [],
+ "state": "tested",
+ "group": "PG-r1h-wp-infra-28b",
+ "target": "watch-together.html",
+ "request_note": "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-infra-28b.md",
+ "delegated_rows": [
+  "C08",
+  "W28B-1",
+  "W28B-2",
+  "W28B-3",
+  "W28B-4"
+ ],
+ "evidence": {
+  "test": {
+   "file": "candidates/r1h/wp-infra-28b/test.mjs",
+   "tests": 22,
+   "red_untouched_R1g": {
+    "pass": 4,
+    "fail": 18,
+    "passing": [
+     "the table of the test and gen.mjs sets",
+     "group.json is what gen.mjs writes",
+     "inline scripts parse with acorn",
+     "the unchanged parts of the page"
+    ]
+   },
+   "green_scratch_tree": {
+    "pass": 22,
+    "fail": 0
+   },
+   "node": [
+    "22.23.4",
+    "24.22.1"
+   ],
+   "harness": "page script in node:vm, fake DOM, fake mapboxgl, fake PeerJS (page-vm.mjs)"
+  },
+  "copy_lint": {
+   "rules": [
+    "REALTIME",
+    "TICK",
+    "UNDEFINED",
+    "WE",
+    "DASH",
+    "QUOTES",
+    "EMOJI",
+    "NAME",
+    "TODO",
+    "IDLEAK",
+    "DEVLOG",
+    "AIPERSONA",
+    "CLAIM"
+   ],
+   "base_counts": {
+    "REALTIME": 2,
+    "TICK": 7,
+    "UNDEFINED": 0,
+    "WE": 2,
+    "DASH": 5,
+    "QUOTES": 3,
+    "EMOJI": 3,
+    "NAME": 5,
+    "TODO": 0,
+    "IDLEAK": 0,
+    "DEVLOG": 0,
+    "AIPERSONA": 0,
+    "CLAIM": 0
+   },
+   "patched_counts": {
+    "REALTIME": 1,
+    "TICK": 7,
+    "UNDEFINED": 0,
+    "WE": 2,
+    "DASH": 5,
+    "QUOTES": 3,
+    "EMOJI": 3,
+    "NAME": 5,
+    "TODO": 0,
+    "IDLEAK": 0,
+    "DEVLOG": 0,
+    "AIPERSONA": 0,
+    "CLAIM": 0
+   },
+   "note": "REALTIME 2 to 1 (the hit of the Live Sync sentence); no rule rises"
+  },
+  "wire_check": {
+   "file": "candidates/r1h/wp-infra-28b/evidence/wire-check.json",
+   "library": "https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js",
+   "sri_matches_page_pin": true,
+   "problems": 0,
+   "summary": {
+    "hostMessages": 7,
+    "hostileCarried": 53,
+    "hostileNotCarried": 7,
+    "madeValidByTheSerializer": [
+     "M30",
+     "M33",
+     "M34"
+    ],
+    "valid": 9,
+    "validNotCarried": [
+     "V06"
+    ]
+   },
+   "proto_key_case": {
+    "unpackedPrototypeIsForeign": true,
+    "ownKeys": [
+     "type",
+     "tick",
+     "note"
+    ],
+    "reachedGoToTick": false
+   }
+  },
+  "coordination": {
+   "file": "candidates/r1h/wp-infra-28b/evidence/coordination.json",
+   "sibling_groups_on_disk_patching_the_page": 0,
+   "foreign_hits_inside_an_anchor": 0,
+   "problems": 0,
+   "note": "no other group on disk patches watch-together.html at the time of this run: nothing is claimed about groups that do not exist yet"
+  },
+  "mutants": "not yet run: queued behind the machine lock",
+  "browser_check": "not yet run: queued behind the machine lock"
+ },
+ "notes": [
+  "Not run: real PeerJS traffic between two browsers over the public broker (T0-WTP specs on the full train, for the release workstream; the entry lists it as owed); any GPU, timing or train-build figure; the existing tests/t0 specs named in the request note (read, not run); a phone or an engine other than Chromium.",
+  "The proof record above was written by prove.mjs run directly (3 s wall, light); the same command is queued behind the machine lock and rewrites this file when it runs. The mutation run and the real-Chromium pass are queued behind the lock too; their results appear under evidence/ and in the evidence block above only when they have run.",
+  "No sibling group file existed on disk for watch-together.html when coordination-check.mjs ran: nothing is claimed about the anchors of wp-content-09b, wp-seo-04b or wp-seo-11b beyond the lint-located TICK and REALTIME text and the head and footer text, which lie outside every anchor. Run it again when those groups exist.",
+  "Nothing is registered in a train, deployed or committed by this item. The group adds no overlay file."
+ ]
+}

@@ -1,4 +1,4 @@
-// A real-browser pass over the Live Sync controls of a scratch full tree (release/R1g/dist with the group applied), run through the machine lock:
+// A real-browser pass over the Live Sync controls of a scratch full tree (a copy of release/R1g/dist with the group applied; made and deleted by this script when --tree is under tmp/r1h-cand/wp-infra-28b/), run through the machine lock:
 //
 //   tools/horde/bench.sh node candidates/r1h/wp-infra-28b/browser-check.mjs --tree tmp/r1h-cand/wp-infra-28b/dist --base release/R1g/dist --out tmp/r1h-cand/wp-infra-28b/browser-check.json
 //
@@ -10,6 +10,7 @@
 // Not checked here, and not claimed: real PeerJS traffic between two browsers, the Mapbox map, any GPU or timing figure.
 import fs from 'node:fs';
 import path from 'node:path';
+import cp from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
 import { createStaticServer } from '../../../tools/t0/serve.mjs';
@@ -23,6 +24,24 @@ const BASE = path.resolve(REPO, opt('--base', 'release/R1g/dist'));
 const OUT = path.resolve(REPO, opt('--out', 'tmp/r1h-cand/wp-infra-28b/browser-check.json'));
 const SHOTS = path.resolve(REPO, opt('--shots', 'tmp/r1h-cand/wp-infra-28b/shots'));
 const ALPHABET = 'BCDFGHJKMNPQRSTVWXYZ23456789';
+
+// A tree under tmp/r1h-cand/wp-infra-28b/ is this script's own scratch tree: it is made here (a copy of the base tree with the group applied by the
+// builder's applier, candidates/r1h/_lib/apply_group.py) and deleted when the run ends, so nothing has to exist beforehand and nothing is left behind.
+const OWN_ROOT = path.join(REPO, 'tmp', 'r1h-cand', 'wp-infra-28b');
+const OWN = TREE.startsWith(OWN_ROOT + path.sep);
+function makeOwnTree() {
+  fs.rmSync(TREE, { recursive: true, force: true });
+  fs.cpSync(BASE, TREE, { recursive: true });
+  const green = path.join(OWN_ROOT, 'green-browser');
+  const r = cp.spawnSync('python3', ['candidates/r1h/_lib/apply_group.py', 'wp-infra-28b', '--base', path.relative(REPO, BASE), '--out', path.relative(REPO, green), '--report', path.relative(REPO, path.join(OWN_ROOT, 'report-browser.json'))], { cwd: REPO, encoding: 'utf8' });
+  if (r.status !== 0) { console.error(r.stdout + r.stderr); process.exit(2); }
+  fs.copyFileSync(path.join(green, 'watch-together.html'), path.join(TREE, 'watch-together.html'));
+  fs.rmSync(green, { recursive: true, force: true });
+  fs.rmSync(path.join(OWN_ROOT, 'report-browser.json'), { force: true });
+}
+if (OWN) makeOwnTree();
+else if (!fs.existsSync(path.join(TREE, 'watch-together.html'))) { console.error(`no tree at ${TREE}`); process.exit(2); }
+if (argv.includes('--prepare-only')) { console.log(`scratch tree ready at ${path.relative(REPO, TREE)} (no browser started; delete it when done)`); process.exit(0); }
 
 const STUB = `(() => {
   window.__maps = []; window.__peers = [];
@@ -160,7 +179,7 @@ try {
   results.externalAborted = [...new Set([...P.external, ...G.external])];
   await G.close();
   await P.close();
-} finally { await browser.close(); }
+} finally { await browser.close(); if (OWN) fs.rmSync(TREE, { recursive: true, force: true }); }
 
 // the placeholder: does it fit as well as the old one did?
 const fitNote = [];
@@ -176,6 +195,8 @@ for (const label of ['desktop', 'phone']) {
 results.placeholderFit = fitNote;
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, JSON.stringify(results, null, 1) + '\n');
+const EVIDENCE = path.join(path.dirname(fileURLToPath(import.meta.url)), 'evidence', 'browser-check.json');   // the evidence copy is always written, wherever --out points
+if (path.resolve(EVIDENCE) !== path.resolve(OUT)) { fs.mkdirSync(path.dirname(EVIDENCE), { recursive: true }); fs.writeFileSync(EVIDENCE, JSON.stringify(results, null, 1) + '\n'); }
 console.log(`${results.checks.filter((c) => c.ok).length} of ${results.checks.length} checks passed; problems: ${results.problems.length}`);
 for (const p of results.problems) console.log('  PROBLEM ' + p);
 process.exit(results.problems.length ? 1 : 0);

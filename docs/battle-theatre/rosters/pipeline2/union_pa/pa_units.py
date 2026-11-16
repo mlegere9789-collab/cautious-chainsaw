@@ -16,8 +16,9 @@ Every range was checked against the printed running heads (pa_check_ranges.py wr
 U = []
 
 
-def u(key, vol, n, a, b, co=None, also=(), note=''):
-    U.append(dict(key=key, vol=vol, n=n, a=a, b=b, co=co, also=list(also), note=note))
+def u(key, vol, n, a, b, co=None, also=(), note='', init_co=None):
+    """init_co: {first leaf of a range: company code of the section} for sections whose title page names the battery and whose pages carry no company title."""
+    U.append(dict(key=key, vol=vol, n=n, a=a, b=b, co=co, also=list(also), note=note, init_co=dict(init_co or {})))
 
 
 # ---- volume 1: three-years regiments
@@ -105,7 +106,7 @@ u('u-pa-16th-pennsylvania-cavalry', 4, 161, 997, 1038)
 u('u-pa-17th-pennsylvania-cavalry', 4, 162, 1039, 1081)
 u('u-pa-18th-pennsylvania-cavalry', 4, 163, 1082, 1129)
 # ---- volume 5: the independent batteries
-u('u-pa-pennsylvania-independent-batteries-c-and-f', 5, 'C', 887, 896, also=[(915, 926)])
-u('u-pa-pennsylvania-independent-battery-e', 5, 'E', 905, 914)
+u('u-pa-pennsylvania-independent-batteries-c-and-f', 5, 'C', 887, 896, also=[(915, 926)], init_co={887: 'C', 915: 'F'})
+u('u-pa-pennsylvania-independent-battery-e', 5, 'E', 905, 914, init_co={905: 'E'})
 
 BY_KEY = {x['key']: x for x in U}

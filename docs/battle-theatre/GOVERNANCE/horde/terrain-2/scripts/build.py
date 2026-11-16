@@ -105,6 +105,16 @@ def resolve(c):
         return dict(source_id=ref, source_class='secondary (National Park Service document, United States government work; text layer of the PDF)', part=None, report_id=None,
                     printed_page=c.get('page'), pdf_page=pg, quote=quote, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)',
                     role=c['role'], note=c.get('note'))
+    if src == 'FILE':
+        p = os.path.join(ROOT, ref)
+        raw = open(p, encoding='utf-8', newline='').read()
+        nt, nm = tlib.build_nview(raw)
+        sp = spans_of(nt, q)
+        if not sp: raise SystemExit('NOT FOUND in %s: %r' % (ref, q))
+        if len(sp) > 1 and occ is None: raise SystemExit('AMBIGUOUS (%d) in %s: %r' % (len(sp), ref, q))
+        i0, i1 = sp[occ or 0]; a, b = nm[i0], nm[i1 - 1] + 1; quote = nt[i0:i1]
+        return dict(source_id=c.get('sid') or ref, source_class=c.get('cls') or 'local file', part=None, report_id=None, printed_page=c.get('page'), url=c.get('url'),
+                    quote=quote, offset=[a, b], local_path=ref, local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)', role=c['role'], note=c.get('note'))
     raise SystemExit('bad src ' + src)
 
 def load_specs():

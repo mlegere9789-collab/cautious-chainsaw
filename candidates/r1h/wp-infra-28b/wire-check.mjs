@@ -116,9 +116,9 @@ for (const v of VALID) {
 }
 host.close(); guest.close();
 
-const carried = results.hostile.filter((r) => r.carried).length, skipped = results.hostile.filter((r) => r.skipped).length;
+const carried = results.hostile.filter((r) => r.carried).length, skipped = results.hostile.filter((r) => r.skipped && !r.valid).length, validSkipped = results.hostile.filter((r) => r.skipped && r.valid).map((r) => r.id);
 const normalized = results.hostile.filter((r) => r.carried && r.validAfterTheWire).map((r) => r.id);
-results.summary = { hostMessages: results.hostToGuest.length, hostileCarried: carried, hostileNotCarried: skipped, madeValidByTheSerializer: normalized, valid: VALID.length };
+results.summary = { hostMessages: results.hostToGuest.length, hostileCarried: carried, hostileNotCarried: skipped, madeValidByTheSerializer: normalized, valid: VALID.length, validNotCarried: validSkipped };
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, JSON.stringify(results, null, 1) + '\n');
 console.log(`wire check against ${pin} (sha384 pin matches): ${results.hostToGuest.length} host messages through pack/unpack, reached the guest map: ${results.hostToGuest.filter((r) => r.reachedGoToTick).length}; ${carried} of the ${FUZZ_20.length + FUZZ_MORE.length} fuzz payloads are carried by the serializer (${skipped} are not), ${normalized.length} of them (${normalized.join(', ')}) are plain valid messages after the wire, the rest were all refused; ${VALID.length} valid payloads; problems: ${results.problems.length}`);

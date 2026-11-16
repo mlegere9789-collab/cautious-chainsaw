@@ -175,6 +175,8 @@ CLASS = {
     'CAVTACT-1855b': 'official drill regulation of the U.S. cavalry (1855 reprint of the 1841 text)',
     'JACOBS-1888': 'reprint (1888), searched only',
     'HASKELL-1908': 'participant narrative (written 1863, printed 1908)',
+    'ALEXANDER-1907': 'participant memoir by a Confederate artillery officer (1907)',
+    'IN-1913': 'state commission report of the fiftieth-anniversary commission, with a historical summary (1913)',
     'PIERCE-F-1914': 'published history (1914)',
     'CHANC-1910': 'secondary study (1910) of the spring 1863 campaign, quoting cavalry practice in general; not a report of the Gettysburg campaign',
     'DTIC-ADA207999': 'secondary: U.S. Army War College study project (1989; a U.S. Government work) that prints a letter of 18 Oct 1865 by the signal officer (original in the Bachelder Papers, not seen) and quotes official reports',

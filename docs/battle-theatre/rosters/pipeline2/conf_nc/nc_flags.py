@@ -283,3 +283,28 @@ def make_flags(unit_key, rows, vocab, raw_sha, extra=None):
     if extra:
         out.update(extra)
     return out
+
+
+# Rows whose printed line was looked at on a page image.  The unit file keeps the text layer as it is (a line must be locatable at its offset in the pinned text); the reading of the page goes
+# here, with its evidence, and never into the line.  The reading of a page image is the engineer's own look at a transient image (not stored); a tesseract read is not one.
+PAGE_IMAGE_READINGS = {
+    'c-nc-2nd-north-carolina-cavalry': [
+        {'text_id': 'NC-MOORE-1882.2~b', 'offset': 370257, 'field': 'name', 'printed': 'Walker, Jesse M.',
+         'how': 'page image of the other copy of the volume (Internet Archive item rosterofnorthcar02nort, leaf 130, printed page 116; text PDF of archive.org/cors rendered at 200 dpi, looked at '
+                'on 2026-11-16, not stored): the line prints "Walker, Jesse M., e. June 18th, \'61."; the text layer of that copy reads the middle initial as M. too (NC-MOORE-1882.2, offset 383417); '
+                'the text layer of the primary copy reads the initial as two capital letters, which the unit file keeps as the layer prints it'},
+    ],
+}
+
+
+def page_readings(unit_key, rows):
+    """The reviewed page-image readings of a unit as a list for the flag file; each is tied to its row by the offset of the row in the pinned text."""
+    out = []
+    for e in PAGE_IMAGE_READINGS.get(unit_key, []):
+        idx = [i for i, r in enumerate(rows) if r['row'][5] == e['offset']]
+        if len(idx) != 1:
+            raise ValueError('page-image reading of %s at offset %d: %d rows found' % (unit_key, e['offset'], len(idx)))
+        d = dict(e)
+        d['row'] = idx[0]
+        out.append(d)
+    return out

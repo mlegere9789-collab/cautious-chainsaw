@@ -49,7 +49,7 @@ const ctx = await br.newContext({ viewport: { width: 800, height: 500 }, deviceS
 const SW = /GL Driver Message|swiftshader|GPU stall|Automatic fallback|powerPreference|WebGL: INVALID|Unable to find ICD|ReadPixels/i;
 page.on('console', m => { const t = m.text(); if (['error', 'warning'].includes(m.type()) && !SW.test(t)) results.console.push(m.type() + ': ' + t.slice(0, 300)); });
 page.on('pageerror', e => results.console.push('pageerror: ' + String(e).slice(0, 300)));
-page.on('requestfailed', r => results.console.push(`requestfailed: ${r.method()} ${r.url().slice(-120)} ${(r.failure() && r.failure().errorText) || ''} (at ${Math.round(performance.now() / 1000)} s)`));
+page.on('requestfailed', r => (r.method() === 'HEAD' && /\/app\/src\/ext\/index\.mjs$/.test(r.url()) ? results.notes.push(`the loader's HEAD check of src/ext/index.mjs was aborted by the browser on this static server (${(r.failure() && r.failure().errorText) || ''}): the loader passes an unanswered check over and the import follows; the modules ran`) : results.console.push(`requestfailed: ${r.method()} ${r.url().slice(-120)} ${(r.failure() && r.failure().errorText) || ''} (at ${Math.round(performance.now() / 1000)} s)`)));
 page.on('response', r => { if (r.status() >= 400) results.console.push(`http ${r.status()}: ${r.url().slice(-120)}`); });
 
 const CLEAN = 'header.top, #bt-left, footer.dock, #bt-overlay, #bt-pad, #bt-card, #bt-drawer { visibility: hidden !important; }';
@@ -61,7 +61,7 @@ const T = s => page.evaluate(s => { const [d, t = '00:00'] = s.split('T'), [y, m
 const at = async (iso, view, { lock = true, keepLight = false } = {}) => {
   const t = await T(iso), chapter = iso >= '1863-11-18' ? 'epilogue' : 'battle';
   await page.evaluate(([t, v, lock, chapter, keep]) => { const a = window.btApp, th = a.theatre; a.setPlaying(false); if (!keep) a.lock(false); a.setTime(t, { chapter }); th.controls.flyTo(v, 0); }, [t, view, lock, chapter, keepLight]);
-  await page.evaluate(() => window.btApp.frames(lock ? 4 : 8)); if (lock && !keepLight) await page.evaluate(() => window.btApp.lock(true));
+  await page.evaluate(n => window.btApp.frames(n), lock ? 4 : 8); if (lock && !keepLight) await page.evaluate(() => window.btApp.lock(true));
 };
 const viewOfUnit = (lc, o) => page.evaluate(([lc, o]) => { const th = window.btApp.theatre, u = th.vegetation.model.units.find(x => x.lc === lc), r = u.rings[0]; let x = 0, y = 0, n = 0; for (let i = 0; i < r.length; i += 2) { x += r[i]; y += r[i + 1]; n++; } const [X, Z] = th.T.xz(x / n, y / n); return th.viewFor(X, Z, o); }, [lc, o]);
 const viewOfCrop = (crop, o, k = 0) => page.evaluate(([crop, o, k]) => { const th = window.btApp.theatre, us = th.vegetation.model.units.filter(x => x.cls === 'field' && x.crop === crop && x.area_ac > 3); const u = us[Math.min(k, us.length - 1)]; if (!u) return null; const r = u.rings[0]; let x = 0, y = 0, n = 0; for (let i = 0; i < r.length; i += 2) { x += r[i]; y += r[i + 1]; n++; } const [X, Z] = th.T.xz(x / n, y / n); return { v: th.viewFor(X, Z, o), id: u.id }; }, [crop, o, k]);
@@ -78,7 +78,7 @@ try {
   // the plan of the troops' walk is computed in the idle time between frames; on a software renderer a frame can take seconds, so the wait is bounded and the state at its end is what the check reads
   const ready = await page.evaluate(async () => { const v = window.btApp.theatre.vegetation; if (!v) return null; const t0 = performance.now(); await Promise.race([v.whenReady(), new Promise(r => setTimeout(r, 300000))]); const st = v.status(); st.waitedMs = Math.round(performance.now() - t0); return st; }); results.status = ready;
   check('the trample plan is whole and the page draws on WebGL2', ready && ready.api === 'webgl2' && ready.plan && ready.plan.done && ready.decalTriangles > 50000 && ready.trees > 60000, ready);
-  results.notes.push(`plan: ${ready.plan.steps} steps, ${ready.plan.marked} cells first visited; GPU bytes ${ready.gpuBytes}; build ${JSON.stringify(ready.build)}; claims in the data ${ready.claims}`);
+  results.notes.push(`plan: ${ready && ready.plan ? `${ready.plan.steps} steps, ${ready.plan.marked} cells first visited` : 'not reported'}; GPU bytes ${ready && ready.gpuBytes}; build ${JSON.stringify(ready && ready.build)}; claims in the data ${ready && ready.claims}`);
   const dataFacts = await page.evaluate(() => { const v = window.btApp.theatre.vegetation, M = v.model, min = (m, d, h = 0) => ({ 6: 0, 7: 30, 11: 153 }[m] + d - 1) * 1440 + h * 60; const wood = M.units.find(u => u.woods && u.cls === 'woods'); return { leafJul: v.stateAt(wood.id, min(7, 2, 12)).trees.leaf, leafNov: v.stateAt(wood.id, min(11, 19, 12)).trees.leaf, wfStand: v.stateAt('V-0001', min(7, 2, 12)).ground.h, wfTramp: v.stateAt('V-0001', min(7, 3, 12)).ground.trample, wfStage14: v.stateAt('V-0001', min(7, 14, 12)).ground.stage }; });
   results.dataFacts = dataFacts;
   check('the data seen through the page: full leaf in July, leaf-off in November, the Wheatfield standing 1 to 1.6 m and trampled after the fight', dataFacts.leafJul > 0.8 && dataFacts.leafNov < 0.3 && dataFacts.wfStand[0] > 0.9 && dataFacts.wfTramp > 0.5, dataFacts);
@@ -136,7 +136,8 @@ try {
   // the understory: a ridge forest from a low view under the three readings. The shrubs are placed again after a choice (about a second of work: wait for the number of trees to change)
   const underView = await viewOfUnit('LC-WOOD-0001', { dist: 60, height: 12, yaw: 1.2 });
   const nTrees = () => page.evaluate(() => window.btApp.theatre.vegetation.status().trees);
-  const nowTrees = async (k) => { await page.waitForFunction(k => window.btApp.theatre.vegetation.status().trees !== k, k, { timeout: 300000 }); await page.evaluate(() => window.btApp.frames(4)); return nTrees(); };
+  // a wait that times out is a failed check with the numbers, not the end of the run: the pictures that follow are still taken
+  const nowTrees = async (k) => { try { await page.waitForFunction(k => window.btApp.theatre.vegetation.status().trees !== k, k, { timeout: 150000 }); } catch (e) { results.notes.push('the number of trees did not change within 150 s after a choice of the understory'); } await page.evaluate(() => window.btApp.frames(4)); return nTrees(); };
   const n0 = await nTrees(); await at('1863-07-03T09:00', underView); const U1 = await shot('36-understory-as-classed-culps-hill');
   await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-UNDER', 'dense')); const n1 = await nowTrees(n0); const U2 = await shot('37-understory-dense-culps-hill');
   await page.evaluate(() => window.btApp.theatre.vegetation.choose('CF-VEG-UNDER', 'open_grown')); const n2 = await nowTrees(n1); const U3 = await shot('38-understory-open-grown-culps-hill');
@@ -195,8 +196,8 @@ try {
   }
   await at('1863-07-02T12:00', await wf({ dist: 420, height: 230, yaw: 2.2 }));
   await clean(false);
-  await page.evaluate(() => window.btApp.theatre.openPanel('vegetation')); await page.waitForSelector('#veg-card h3', { timeout: 60000 });
-  const pn = await page.evaluate(() => ({ title: document.querySelector('#bt-drawer-title').textContent, card: document.querySelector('#veg-card').textContent.slice(0, 400), pills: document.querySelectorAll('.xp-body .pill, #bt-drawer .pill').length, sce: [...document.querySelectorAll('[data-sce]')].length, gaps: document.querySelectorAll('details ul.list li').length, crop: !!document.querySelector('#veg-crop') }));
+  await page.evaluate(() => window.btApp.theatre.openPanel('vegetation')); try { await page.waitForSelector('#veg-card h3', { timeout: 60000 }); } catch (e) { results.notes.push('the card of the panel did not show an h3 within 60 s: ' + String(e).slice(0, 120)); }
+  const pn = await page.evaluate(() => ({ title: (document.querySelector('#bt-drawer-title') || { textContent: '' }).textContent, card: (document.querySelector('#veg-card') || { textContent: '' }).textContent.slice(0, 400), pills: document.querySelectorAll('.xp-body .pill, #bt-drawer .pill').length, sce: [...document.querySelectorAll('[data-sce]')].length, gaps: document.querySelectorAll('details ul.list li').length, crop: !!document.querySelector('#veg-crop') }));
   check('the panel names the ground under the cross-hair, offers the six choices and the switch of the standing crop', /Wheatfield|wheat/i.test(pn.card) && pn.sce >= 16 && pn.crop, pn); await shot('16-panel', true);
   const sc = await page.evaluate(() => { const v = window.btApp.theatre.vegetation; const a = v.stateAt('V-0001', 45 * 1440, {}).ground.stage; v.choose('CF-VEG-LRT', 'wiki_unwooded'); return { local: v.effChoices(), a }; });
   check('a choice of the panel is kept and reaches the state function', sc.local['CF-VEG-LRT'] === 'wiki_unwooded', sc);

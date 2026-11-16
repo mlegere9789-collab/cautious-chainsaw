@@ -35,31 +35,50 @@ def load_images():
     return out
 
 
+def _views(words):
+    """two token streams over the word list: plain, and with line-end hyphen pieces joined (the second view of the saved reading text).
+    each view is (joined text, [(char start, first word index, last word index)])"""
+    out = []
+    for dehy in (False, True):
+        joined, spans = '', []
+        i = 0
+        while i < len(words):
+            w, wc, eol, ln = words[i][:4]
+            if dehy and eol and w.endswith('-') and len(w) > 1 and i + 1 < len(words):
+                tok, last = w[:-1] + words[i + 1][0], i + 1
+            else:
+                tok, last = w, i
+            spans.append((len(joined), i, last))
+            joined += tok + ' '
+            i = last + 1
+        out.append((joined, spans))
+    return out
+
+
 def find_runs(words, quote):
-    """Locate the quote in the word list (words joined by single spaces, the same view as the collapsed reading text; column markers of the
-    reading text are left out of the quote) and cut the words into runs at column breaks. Returns list of lists of word tuples, or None."""
+    """Locate the quote in the word list (words joined by single spaces, plain view first, then the view with line-end hyphen breaks joined;
+    column markers of the reading text are left out of the quote) and cut the words into runs at column breaks. Returns list of lists of word tuples, or None."""
     import bisect
     quote = ' '.join(re.sub(r'=== COLUMN \d+ ===', ' ', quote).split())
-    joined, starts = '', []
-    for w in words:
-        starts.append(len(joined))
-        joined += w[0] + ' '
-    i = joined.find(quote)
-    if i < 0:
-        return None
-    a = bisect.bisect_right(starts, i) - 1
-    b = bisect.bisect_right(starts, i + len(quote) - 1) - 1
-    seg = words[a:b + 1]
-    runs, cur = [], [seg[0]]
-    for prev, w in zip(seg, seg[1:]):
-        px, py, pw, ph = prev[4]
-        x, y, ww, hh = w[4]
-        if y < py - 8 * max(ph, 60):      # the reading jumped back up the page: the next column starts here
-            runs.append(cur)
-            cur = []
-        cur.append(w)
-    runs.append(cur)
-    return runs
+    for joined, spans in _views(words):
+        i = joined.find(quote)
+        if i < 0:
+            continue
+        starts = [x[0] for x in spans]
+        a = spans[bisect.bisect_right(starts, i) - 1][1]
+        b = spans[bisect.bisect_right(starts, i + len(quote) - 1) - 1][2]
+        seg = words[a:b + 1]
+        runs, cur = [], [seg[0]]
+        for prev, w in zip(seg, seg[1:]):
+            px, py, pw, ph = prev[4]
+            x, y, ww, hh = w[4]
+            if y < py - 8 * max(ph, 60):      # the reading jumped back up the page: the next column starts here
+                runs.append(cur)
+                cur = []
+            cur.append(w)
+        runs.append(cur)
+        return runs
+    return None
 
 
 def main():

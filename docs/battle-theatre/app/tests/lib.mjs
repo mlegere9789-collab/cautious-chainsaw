@@ -66,6 +66,9 @@ export async function launch(extra = []) {
 //   SLOW.k            the wait scale. 1 on any machine that draws a frame in under 100 ms: there every helper below is exactly the plain Playwright call the specs always made.
 //   wait(page, ms)    a pause that gives the PAGE ms of its own clock (replaces page.waitForTimeout in the specs): on a slow renderer it lets frames run until the page clock has advanced ms.
 //   T(ms)             a time limit of a waitFor... call, multiplied by K. A limit is the moment a test gives up, never something a test asserts.
+//   SLOW.stepMs       the most the page's clock advances in one frame (100 ms). A loop that runs INSIDE the page and must cover a span of the page's clock instead of a number of frames
+//                     accumulates min(frame time, SLOW.stepMs) per frame, as wait() does (scrub.spec.mjs, "no unit pops": 0.5 s of warm-up and 4 s measured are exactly the old 30 and 240
+//                     frames at 16.7 ms, and the same arrivals at 100 ms or more a frame; with fixed frame counts the earliest arrival fell into the warm-up of a slow renderer).
 // K is measured, not configured: enter() / ready() time two frames of the running theatre and wait() re-measures on every call, so the scale follows the machine while other jobs load it.
 // Before the first frame of a run exists, a software renderer starts at SLOW.startK = 25 (2.5 s a frame, the uncontended figure of the 4-vCPU container). BT_WAIT_K=<n> fixes K by hand.
 // What the knob NEVER touches: what a test asserts, and every performance threshold (frame time, long tasks, input delay, added GPU or CPU time). Those are not scaled; on a software

@@ -97,9 +97,13 @@ def main():
                 w.writerow(['new-file-only', n[0], n[5], n[2], n[3], n[4][:160]])
             for o in only_old:
                 w.writerow(['earlier-file-only', o[0], '', o[2], o[3], o[4][:160]])
+        a, b = u['a'], u['b']
+        rngs = [(a, b)] + list(u['also'])
+        inside = sum(1 for o in only_old if o[0] is not None and any(x <= o[0] <= y for x, y in rngs))
         by_co = collections.Counter(n[2] for n in new)
         summary[u['key']] = {'rows_new': len(new), 'rows_earlier': len(old), 'matched': matched, 'new_only': len(only_new), 'earlier_only': len(only_old),
-                             'company_differs': co_differs, 'companies_new': dict(sorted(by_co.items()))}
+                             'company_differs': co_differs, 'companies_new': dict(sorted(by_co.items())),
+                             'earlier_only_inside_leaf_range': inside, 'earlier_only_outside_leaf_range': len(only_old) - inside}
         tot['new'] += len(new)
         tot['earlier'] += len(old)
         tot['matched'] += matched

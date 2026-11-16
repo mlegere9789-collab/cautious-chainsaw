@@ -55,7 +55,7 @@ SEED = 1863
 UNIT_FILTER = None            # a compiled regex set by --units: restricts the kit units scanned (the verdict is then INCOMPLETE)
 
 
-def want(uid):
+def in_scope(uid):
     return UNIT_FILTER is None or UNIT_FILTER.search(uid) is not None
 UNIT_TOP_ROWS = ('R04.0000', 'R10.0000', 'R17.0000')
 STRUCT_TOP_ROWS = ('R02.0000', 'R13.0000')
@@ -321,7 +321,7 @@ def population(V, rec, kit, R, fp):
     CK, GG = V.CK, V.GG
     results = {}
     for uid, u in sorted(kit.units.items()):
-        if u['presence']['status'] != 'present_at_gettysburg' or not want(uid):
+        if u['presence']['status'] != 'present_at_gettysburg' or not in_scope(uid):
             continue
         variants = list(u['variants']) if u.get('variants') else [None]
         for var in variants:
@@ -358,7 +358,7 @@ def population(V, rec, kit, R, fp):
 def absent_units(V, rec, kit, R):
     CK = V.CK
     for uid, u in sorted(kit.units.items()):
-        if u['presence']['status'] == 'present_at_gettysburg' or not want(uid):
+        if u['presence']['status'] == 'present_at_gettysburg' or not in_scope(uid):
             continue
         refused = False
         try:
@@ -394,7 +394,7 @@ def drawn_figures(env, V, rec, kit, R, fp, exp):
         return '%04d-%02d-%02d' % (y, m, dd)
 
     for u in exp['units']:
-        if not want(u['id']) and not want(u['kit_unit']):
+        if not in_scope(u['id']) and not in_scope(u['kit_unit']):
             continue
         hid, ku, date, n = u['id'], u['kit_unit'], u['date'], u['figures']
         variants = u['variants'] or [None]
@@ -549,7 +549,7 @@ def epilogue_domain(V, kit, exp):
 
 def date_scan(V, rec, kit, R, exp):
     CK = V.CK
-    units = [(uid, u, (list(u['variants']) if u.get('variants') else [None])) for uid, u in sorted(kit.units.items()) if u['presence']['status'] == 'present_at_gettysburg' and want(uid)]
+    units = [(uid, u, (list(u['variants']) if u.get('variants') else [None])) for uid, u in sorted(kit.units.items()) if u['presence']['status'] == 'present_at_gettysburg' and in_scope(uid)]
     for date in BATTLE_DATES:
         fails, empties, n = {}, [], 0
         for uid, u, vars_ in units:
@@ -710,14 +710,14 @@ def regression(V, rec, kit, env, dump, exp, pop, R):
             default_chosen = False
         oks = {v: unit_ok('US.140NY', v) for v in vs}
         drawn140 = [u for u in ((exp or {}).get('units') or []) if u.get('kit_unit') == 'US.140NY']
-        both_drawn = all(set((u.get('variants') or [])) == set(vs) for u in drawn140) if drawn140 else False
+        both_drawn = all(set((u.get('variants') or [])) == set(vs) for u in drawn140) if drawn140 else None
         ev.update(variants=vs, zouave_items_in_the_regulation_blue_variant=zou_in_blue, default_variant_chosen=default_chosen, variant_unit_items_pass=oks, drawn_units=[u['id'] for u in drawn140], both_variants_in_the_drawn_figures=both_drawn,
                   dispute='DISP-140NY-DRESS', owner_decision='PENDING OWNER: no default is chosen (decision log)')
-        good = 'regulation_blue_zouave_jan_1864' in vs and len(vs) >= 2 and blue is not None and not zou_in_blue and not default_chosen and all(v is True for v in oks.values()) and both_drawn is True
+        good = 'regulation_blue_zouave_jan_1864' in vs and len(vs) >= 2 and blue is not None and not zou_in_blue and not default_chosen and all(v is True for v in oks.values()) and both_drawn is not False
         item('140th-ny-regulation-blue', good, 'the 140th New York carries regulation blue (no Zouave item) and the Zouave reading as selectable variants, no default is chosen, and both variants pass the validator',
              'the 140th New York correction does not hold: %s' % '; '.join(x for x in (
                  'the regulation-blue variant holds Zouave items %s' % zou_in_blue if zou_in_blue else '', 'a manifest is made without a selected variant (a default is chosen)' if default_chosen else '',
-                 'a variant fails the validator %s' % {v: o for v, o in oks.items() if o is not True} if not all(v is True for v in oks.values()) else '', 'the drawn figures do not carry both variants (no drawn unit takes its figures from the 140th, or one carries a single variant)' if both_drawn is not True else '', 'the regulation-blue variant is missing' if blue is None else '') if x), ev, ['US.140NY'])
+                 'a variant fails the validator %s' % {v: o for v, o in oks.items() if o is not True} if not all(v is True for v in oks.values()) else '', 'a drawn unit of the 140th does not carry both variants' if both_drawn is False else '', 'the regulation-blue variant is missing' if blue is None else '') if x), ev, ['US.140NY'])
 
     # ---- 3. the 146th New York and the 114th Pennsylvania are Zouave units
     ev, bad, per = {}, [], {}

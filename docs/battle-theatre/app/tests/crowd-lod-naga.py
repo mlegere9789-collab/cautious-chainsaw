@@ -1,6 +1,7 @@
 # Check of the figure pass's WGSL (app/src/crowd/shaders-wgsl.mjs with the prototype's common block, including the cross-fade of lod.mjs) on a SECOND WebGPU implementation: wgpu-native (naga front end, wgpu-core validation)
 # running on SwiftShader's Vulkan, software only. Nothing here is a real-GPU result. It builds the five pipelines of gpu.mjs (mid, midS, near, nearS, imp) with the same bind group layouts (group 0 = the prototype's, group 1 = the
-# crowd's), the same vertex buffer layouts and the same targets, then the bind group of group 1 with buffers of the sizes gpu.mjs makes, and runs negative controls (each must be refused by the same implementation).
+# crowd's), the same vertex buffer layouts and the same targets, then the bind group of group 1 with buffers of the sizes gpu.mjs makes, runs negative controls (each must be refused by the same implementation), and RUNS the dither of the
+# cross-fade (the real fadeOf / fadeKeep / fragXY in a full-screen draw of a 3840 x 2160 frame) against the JavaScript reference of lod.mjs, the same comparison as tests/crowd-lod-glsl.py makes for the GLSL.
 #   python3 -I docs/battle-theatre/app/tests/crowd-lod-naga.py --wgpu-path <dir with the wgpu package> [--out report.json]
 # The wgpu package (pip install --target <dir> wgpu) and a Vulkan ICD (SwiftShader's, found under /opt/pw-browsers) are not vendored. Exit 0 when every check passed and every control was refused.
 import os, sys, json, glob, subprocess, tempfile
@@ -15,7 +16,7 @@ DUMP = """import fs from 'node:fs'; const A = process.argv[2]; const { common } 
 const K = { frames: 32, frow: '0.0,32.0,64.0,96.0,128.0,160.0,192.0', hrow: '0.0,32.0,64.0' }; fs.writeFileSync(process.argv[3], wgsl(common(K)));"""
 tmp = tempfile.mkdtemp(prefix='crowd-wgsl-'); dump = os.path.join(tmp, 'dump.mjs'); wg = os.path.join(tmp, 'crowd.wgsl'); open(dump, 'w').write(DUMP)
 subprocess.run(['node', dump, 'file://' + BT + '/', wg], check=True)
-res = {'implementation': 'wgpu-native via wgpu-py ' + wgpu.__version__, 'software': True, 'errors': [], 'pipelines': {}, 'controls': {}}
+res = {'implementation': 'wgpu-native via wgpu-py ' + wgpu.__version__, 'software': True, 'errors': [], 'pipelines': {}, 'controls': {}, 'dither': {}}
 ad = wgpu.gpu.request_adapter_sync(); res['adapter'] = {k: (v if isinstance(v, (str, int)) else str(v)) for k, v in dict(ad.info).items()}
 want = [f for f in ('float32-filterable',) if f in ad.features]; dev = ad.request_device_sync(required_features=want)
 S = wgpu.ShaderStage; VF = S.VERTEX | S.FRAGMENT; HDR = 'rgba16float'; DF = 'depth32float'
@@ -72,7 +73,49 @@ if mod:
     sized = dev.create_bind_group_layout(label='sized.bgl', entries=[{'binding': 0, 'visibility': VF, 'buffer': {'type': 'uniform', 'min_binding_size': 32}}])
     refused('a 16 byte config block against a binding that needs the 32 bytes of the struct is refused', lambda: dev.create_bind_group(layout=sized, entries=[{'binding': 0, 'resource': {'buffer': dev.create_buffer(size=16, usage=U.UNIFORM | U.COPY_DST), 'offset': 0, 'size': 16}}]))
     res['controls']['the 32 byte block of gpu.mjs is accepted by the same binding'] = 'accepted' if guarded('sized 32', lambda: dev.create_bind_group(layout=sized, entries=[{'binding': 0, 'resource': {'buffer': dev.create_buffer(size=32, usage=U.UNIFORM | U.COPY_DST), 'offset': 0, 'size': 32}}])) else 'REFUSED'
-res['ok'] = bool(mod) and not res['errors'] and all(res['pipelines'].values()) and res.get('bind_group_32') is True and all(v.startswith('refused') or v == 'accepted' for v in res['controls'].values())
+# ---- the dither, run: the real fadeOf / fadeKeep / fragXY of the crowd's WGSL (with the prototype's hsh and the frame block F) in a full-screen draw of a 3840 x 2160 frame, scissored to three 96 x 96 windows, for 8 figures and 6 range words,
+# against the JavaScript reference of lod.mjs (the same comparison as tests/crowd-lod-glsl.py, which runs the GLSL of the WebGL2 path): a pixel decision may differ only within 2e-3 of a boundary (float32 against float64), the four levels of
+# a partition cover every pixel exactly once, a second pass in the reverse order gives the same bytes, and the comparison fails against the number of another figure. fragXY turns the top-left origin of WebGPU into the bottom-left
+# origin of GL: both APIs must give the same pixels.
+sys.path.insert(0, HERE); import crowd_lod_dither as D, struct
+if mod and '--no-dither' not in sys.argv:
+    ref_dir = os.path.join(tmp, 'ref'); os.makedirs(ref_dir); subprocess.run(['node', os.path.join(HERE, 'crowd-lod-glsl-dump.mjs'), ref_dir], check=True, capture_output=True); ref = D.load_ref(ref_dir)
+    FW, FH, WIN = ref['frame'][0], ref['frame'][1], ref['win']
+    TEST = """
+@group(1) @binding(15) var<uniform> DTP: vec4u;
+struct DTO { @builtin(position) pos: vec4f, @location(0) @interpolate(flat) fade: vec3f }
+@vertex fn vs_dither(@builtin(vertex_index) vi: u32) -> DTO { var o: DTO; let v = vec2f(f32((vi << 1u) & 2u), f32(vi & 2u)); o.pos = vec4f(v.x * 2.0 - 1.0, v.y * 2.0 - 1.0, 0.0, 1.0); o.fade = fadeOf(DTP.x, DTP.y); return o; }
+@fragment fn fs_dither(i: DTO) -> @location(0) vec4f { if (!fadeKeep(i.fade, fragXY(i.pos))) { discard; } return vec4f(1.0 + F.scr.z * 0.0); }          // F.scr.z is 0: the colour is exactly 1, and the frame block stays in use when fragXY is broken for a control
+"""
+    def make_draw(code_text):
+        tmod = dev.create_shader_module(label='crowd+dither', code=code_text + TEST)
+        pipe = dev.create_render_pipeline(label='dither', layout='auto', vertex={'module': tmod, 'entry_point': 'vs_dither'}, fragment={'module': tmod, 'entry_point': 'fs_dither', 'targets': [{'format': 'rgba8unorm'}]}, primitive={'topology': 'triangle-list'})
+        q = dev.queue; BU, TU = wgpu.BufferUsage, wgpu.TextureUsage
+        Fb = dev.create_buffer(label='F', size=496, usage=BU.UNIFORM | BU.COPY_DST); q.write_buffer(Fb, 352, struct.pack('<4f', FW, FH, 0, 0))      # FU.scr at byte 352 (five mat4x4f, cam, sun, scr): scr.y = the height, as the host writes it
+        TPb = dev.create_buffer(label='DTP', size=16, usage=BU.UNIFORM | BU.COPY_DST)
+        bg0 = dev.create_bind_group(layout=pipe.get_bind_group_layout(0), entries=[{'binding': 0, 'resource': {'buffer': Fb, 'offset': 0, 'size': 496}}])
+        bg1 = dev.create_bind_group(layout=pipe.get_bind_group_layout(1), entries=[{'binding': 15, 'resource': {'buffer': TPb, 'offset': 0, 'size': 16}}])
+        tex = dev.create_texture(label='frame', size=(FW, FH, 1), format='rgba8unorm', usage=TU.RENDER_ATTACHMENT | TU.COPY_SRC); view = tex.create_view()
+        bpr = (WIN * 4 + 255) // 256 * 256; outb = dev.create_buffer(label='readback', size=bpr * WIN, usage=BU.COPY_DST | BU.COPY_SRC)
+        def draw(P, fig, x0, y0):                           # (x0, y0) in GL window coordinates (origin bottom left); the readback has its top row first
+            ytop = FH - y0 - WIN; q.write_buffer(TPb, 0, struct.pack('<4I', P, fig, 0, 0)); enc = dev.create_command_encoder()
+            rp = enc.begin_render_pass(color_attachments=[{'view': view, 'clear_value': (0, 0, 0, 0), 'load_op': 'clear', 'store_op': 'store'}]); rp.set_pipeline(pipe); rp.set_bind_group(0, bg0); rp.set_bind_group(1, bg1)
+            rp.set_scissor_rect(x0, ytop, WIN, WIN); rp.draw(3); rp.end()
+            enc.copy_texture_to_buffer({'texture': tex, 'origin': (x0, ytop, 0)}, {'buffer': outb, 'offset': 0, 'bytes_per_row': bpr, 'rows_per_image': WIN}, (WIN, WIN, 1)); q.submit([enc.finish()])
+            raw = bytes(q.read_buffer(outb)); m = bytearray(WIN * WIN)
+            for r in range(WIN): m[(WIN - 1 - r) * WIN:(WIN - r) * WIN] = raw[r * bpr:r * bpr + WIN * 4:4]      # row r from the top is row WIN-1-r from the bottom
+            return bytes(m)
+        return draw
+    def dither_run():
+        info, errs, ctl = D.battery(ref, make_draw(code)); res['dither'] = info; res['dither_controls'] = ctl
+        res['errors'].extend('dither: ' + e for e in errs)
+        for name, old, new in (('a fragXY that does not turn the y axis over is caught by the dither comparison', 'F.scr.y - p.y', 'p.y'), ('a wrong constant in ign (0.0583715 for 0.00583715) is caught by the dither comparison', '0.00583715', '0.0583715')):
+            assert old in code, old
+            _, errs_bad, _ = D.battery(ref, make_draw(code.replace(old, new, 1)), log=lambda *a: None)
+            res['dither_controls'][name] = ('caught: ' + errs_bad[0][:140]) if errs_bad else 'NOT CAUGHT'
+            if not errs_bad: res['errors'].append('control: ' + name.replace('is caught', 'was NOT caught'))
+    guarded('dither run', dither_run)
+res['ok'] = bool(mod) and not res['errors'] and all(res['pipelines'].values()) and (res.get('dither', {}).get('differing_outside_tolerance') == 0 or '--no-dither' in sys.argv) and res.get('bind_group_32') is True and all(v.startswith('refused') or v == 'accepted' for v in res['controls'].values())
 out = arg('--out')
 if out: open(out, 'w').write(json.dumps(res, indent=1))
 print(json.dumps(res, indent=1)); sys.exit(0 if res['ok'] else 1)

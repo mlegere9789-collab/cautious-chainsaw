@@ -55,6 +55,9 @@ def process_unit(u, caches, assert_all=True):
         recs = {rec['leaf']: rec for rec in L.read_cache(vol, wanted=set(range(a, b + 1)))}
         ctx = {}
         state = {'co': state['co'] if (a, b) == ranges[0] else '', 'letter': state['letter'] if (a, b) == ranges[0] else None}
+        if a in u.get('init_co', {}):
+            state['co'] = u['init_co'][a]            # a section whose title page names the battery: the rows stand under that heading
+            state['letter'] = u['init_co'][a]
         for leaf in range(a, b + 1):
             rec = recs.get(leaf)
             if rec is None:
@@ -63,12 +66,13 @@ def process_unit(u, caches, assert_all=True):
             r = P.analyse_leaf(rec, ctx)
             inf = r['info']
             li = {k: inf.get(k) for k in ('kind', 'pg', 'xd', 'nd', 'xd_source', 'xr', 'B1', 'B2', 'xn', 'table_score', 'pitch')}
+            li['lost'] = 0
             li['kind'] = inf.get('kind', 'table')
             li['rows'] = 0
             if inf.get('kind') in ('narrative', 'empty', 'no-date-column'):
                 leafinfo[leaf] = li
                 if inf.get('kind') == 'no-date-column':
-                    orphans.append({'leaf': leaf, 'why': 'table page whose date column the text layer lost: not parsed', 'text': ''})
+                    orphans.append({'leaf': leaf, 'why': 'table page whose date column the text layer lost: not parsed', 'text': '', 'co': state['co']})
                 continue
             for it in r['items']:
                 kind = it[0]
@@ -86,6 +90,7 @@ def process_unit(u, caches, assert_all=True):
                 elif kind == 'row':
                     rec2, why = RW.finalize_row(it[1], inf, text, pm, ti, leaf)
                     if rec2 is None:
+                        li['lost'] += 1
                         rejected.append({'leaf': leaf, 'y': round(it[1]['y']), 'co': state['co'], 'why': why,
                                          'left': ' '.join(w['w'] for w in it[1]['left_w']), 'rest': ' '.join(w['w'] for w in it[1]['post_w'])[:100]})
                         continue
@@ -102,7 +107,7 @@ def process_unit(u, caches, assert_all=True):
                     rows.append(rec2)
                     li['rows'] += 1
                 elif kind == 'orphan':
-                    orphans.append({'leaf': leaf, 'why': it[3], 'text': it[1][:100], 'y': round(it[2])})
+                    orphans.append({'leaf': leaf, 'why': it[3], 'text': it[1][:100], 'y': round(it[2]), 'co': state['co']})
                 elif kind == 'skip':
                     skips[it[1]] += 1
                     if it[1] == 'note':
@@ -143,8 +148,13 @@ def main(argv):
             caches[vol] = (text, pm, RW.TokenIndex(text, pm))
         res = process_unit(u, caches, assert_all)
         rows = res['rows']
+        rej, orph = res['rejected'], res['orphans']
         if u['co'] is not None:
             keep = [x for x in rows if x['row'][2] in u['co']]
+            # lost-name lines and stray lines that stand under another company of the shared leaves belong to that company's unit
+            rej = [x for x in rej if x['co'] in u['co']]
+            orph = [x for x in orph if x.get('co') in u['co']]
+            res['rejected'], res['orphans'] = rej, orph
         else:
             keep = rows
         cnt = collections.Counter()

@@ -140,7 +140,11 @@ def main(argv):
         segs = unit_rows(d)
         path, info = write_unit_file(d, segs)
         rows = [r for sg, rs in segs for r in rs]
-        flags = F.make_flags(k, rows, vocab, info['sha256'], extra={'segment_of_row': {'second_scan': list(range(len(segs[0][1]), len(rows)))} if len(segs) > 1 else {}})
+        extra = {'segment_of_row': {'second_scan': list(range(len(segs[0][1]), len(rows)))} if len(segs) > 1 else {}}
+        pr = F.page_readings(k, rows)
+        if pr:
+            extra['page_image_readings'] = pr
+        flags = F.make_flags(k, rows, vocab, info['sha256'], extra=extra)
         fpath = path[:-len('.jsonl.gz')] + '.flags.json.gz'
         raw = (json.dumps(flags, ensure_ascii=False, separators=(',', ':')) + '\n').encode('utf-8')
         with open(fpath + '.tmp', 'wb') as f:

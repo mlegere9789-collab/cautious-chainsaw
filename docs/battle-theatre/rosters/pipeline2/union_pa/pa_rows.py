@@ -109,6 +109,14 @@ def name_damage(tokens):
             return True
         if c[0].islower() and len(c) > 1:
             return True
+        letters = re.sub(r"[^A-Za-z]", '', c)
+        if len(letters) >= 3:
+            if not re.search(r'[AEIOUYaeiouy]', letters) and letters.lower() not in ('thos', 'chrs', 'jno', 'wm', 'chas', 'geo', 'benj', 'saml', 'robt', 'jas', 'danl', 'nich', 'hy', 'thos', 'mrs', 'mr', 'dr', 'jr', 'sr', 'sgt', 'cpl'):
+                return True               # a word with no vowel
+            if re.search(r'[BCDFGHJKLMNPQRSTVWXZbcdfghjklmnpqrstvwxz]{5}', letters):
+                return True               # five consonants in a row
+            if re.match(r'^[A-Z]{2}[a-z]', letters) and not re.match(r'^(Mc|Mac|De|La|Le|Di|Van|Von|Mac|Ph|Th|Ch|Sh|Wm|Fr|Ge|Ja|Jo|Ed|Ab)', letters):
+                return True               # two capitals before lower case ("ATichafil")
     letters = re.findall(r'[A-Za-z]{2,}', txt)
     if len(letters) < 1:
         return True
@@ -156,10 +164,12 @@ def finalize_row(row, info, text, pm, ti, leaf):
     rz = [w for w in left if w['x0'] >= cut_x]
     # a middle initial that stands in the rank column's area right behind the name ("Taylor, William H..") is a name word, unless it sits on the rule
     xrule = info.get('xrule')
+    xr_col = info.get('xr')
     while nz and rz and re.match(r'^[A-HJ-KM-Z][.,]*$', rz[0]['w']) and not (xrule is not None and abs(rz[0]['x0'] - xrule) <= 0.008 * W) \
-            and rz[0]['x0'] - nz[-1]['x1'] < 0.04 * W and not T.is_ditto(rz[0]['w']):
+            and rz[0]['x0'] - nz[-1]['x1'] < 0.04 * W and not T.is_ditto(rz[0]['w']) \
+            and not (xr_col is not None and rz[0]['x0'] >= xr_col - 0.008 * W) \
+            and not (len(rz) > 1 and T.rank_like(rz[1]['w'])):
         nz.append(rz.pop(0))
-        flags.add('G') if False else None
     # the name zone: leading marks left of the first letter-bearing token are marks of the margin, not name words
     while nz and not T.core(nz[0]['w']) and nz[0]['x0'] < xn - 0.01 * W:
         marks.append(nz.pop(0))
