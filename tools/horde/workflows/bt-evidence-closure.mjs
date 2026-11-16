@@ -6,6 +6,8 @@ export const meta = {
 const WS = 'bt-evidence'
 const CTX = `CONTEXT: ten evidence shards under docs/battle-theatre/GOVERNANCE/horde/ hold one result row per sub-requirement item: fence-1, fence-2, fence-3 (R14: fences, walls, earthwork and structure state schedule), terrain-1, terrain-2 (R13: gun positions and pre-existing features), sources-a, sources-b (R12 terrain source catalogue, R21 library), r03-1, r03-2 (R03: the 47 source conflicts C-001 to C-047), r22-oa (R22 epilogue rows and the owner additions OA01 to OA09). They were written before the Official Records text was restored locally; a later quote recheck is in horde/OR-RECHECK/results.jsonl. Many rows are 'verified' only against earlier extractions; web-sourced rows (National Park Service pages and others) could not be re-read because those hosts are refused from here. Delegated decisions: GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md and conflict_defaults.json.`
 const EFF = 'max'
+const EFF_MECH = 'medium', EFF_MID = 'high'   // owner 2026-11-16: lower effort is allowed on mechanical stages; independent reviewers always stay at EFF
+const effFor = (label) => /^(merge new units|staging pack|screenshot baseline|build the roster section|integrate evidence corrections|integrate timeline corrections|integrate kit evidence)/.test(label) ? EFF_MECH : /^integrate /.test(label) ? EFF_MID : EFF
 const COMMON = `You are one engineer in a large parallel team finishing the Gettysburg Interactive Map in /home/user/cautious-chainsaw. CLAUDE.md (The Law, hard rules, standing owner constraints) is binding. Rules for every task:
 1. Scope is exactly the owner's: never narrow, defer or water down a requirement; never lower, skip, disable or weaken a gate, threshold or test; never set passes=true unless that gate was actually run and passed. Never fabricate (Law 4): a claim is 'documented' only with a non-lead source that supports exactly that claim, cited with a short verbatim quote you matched in the source text; a failed lookup is recorded as failed; gaps are registered and visibly marked, never hidden (Law 7). Source conflicts are carried as selectable scenarios.
 2. Many engineers share this working tree. Do NOT run git commit, push, pull, stash, checkout, reset, clean or restore (the orchestrator commits every few minutes). Never revert or overwrite a file outside your OWNERSHIP list. If you need a change in a file you do not own, write a request note docs/battle-theatre/GOVERNANCE/horde/requests/<workstream>-<short-name>.md (what, why, the exact change) and carry on.
@@ -27,11 +29,11 @@ const head = (own) => COMMON + '\nWORKSTREAM: ' + WS + '\nOWNERSHIP (the only pa
 const SKIP = new Set((args && args.skip) || [])   // labels of builds that an earlier run closed (tools/horde/closed.py): skipped, so a restart does not redo finished work
 async function build(label, task, own, ph) {
   if (SKIP.has(label)) return { summary: 'closed in an earlier run: skipped', done: [], failed: [], remaining: [], skipped: true }
-  let rep = await agent(head(own) + 'TASK: ' + task, { label: label, phase: ph || 'Build', schema: REPORT, effort: EFF })
+  let rep = await agent(head(own) + 'TASK: ' + task, { label: label, phase: ph || 'Build', schema: REPORT, effort: effFor(label) })
   for (let r = 1; r <= 2 && rep; r++) {
     const v = await agent(head('tmp/review-notes/** only') + REVIEW + '\nTHE TASK WAS: ' + task + '\nOWNERSHIP OF THAT WORK: ' + own + '\nREPORT TO REFUTE: ' + cut(rep), { label: label + ' / review ' + r, phase: 'Verify', schema: VERDICT, effort: EFF })
     if (!v || v.ok || !v.defects || !v.defects.length) break
-    const fx = await agent(head(own) + 'TASK: an independent reviewer found the defects below in earlier work on this task. Fix every one and re-run the relevant checks; if you can show with evidence that a defect is wrong, say so in failed and leave it. DEFECTS: ' + cut(v.defects, 5000) + '\nORIGINAL TASK: ' + task, { label: label + ' / fix ' + r, phase: 'Fix', schema: REPORT, effort: EFF })
+    const fx = await agent(head(own) + 'TASK: an independent reviewer found the defects below in earlier work on this task. Fix every one and re-run the relevant checks; if you can show with evidence that a defect is wrong, say so in failed and leave it. DEFECTS: ' + cut(v.defects, 5000) + '\nORIGINAL TASK: ' + task, { label: label + ' / fix ' + r, phase: 'Fix', schema: REPORT, effort: effFor(label) })
     if (fx) rep = fx
   }
   return rep

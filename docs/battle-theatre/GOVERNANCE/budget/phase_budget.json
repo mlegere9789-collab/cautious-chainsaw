@@ -159,5 +159,11 @@
   "gpu_power_temp_guard": null,
   "no_progress_halt_sessions": null,
   "cache_snapshot_interval": null
+ },
+ "owner_decision_2026_11_16": {
+  "caps": "none",
+  "owner_words": "there is no budget cap ... i give u unlimited allowance (owner chat 2026-11-16)",
+  "effect": "usd_cap, token_cap and gpu_hours_cap stay null on purpose: no cap exists; gate Q27 reports spend and compute and records this decision; the stop condition tied to a cap cannot trigger",
+  "decision_log": "DEC-OWNER-2026-11-16 point 5"
  }
 }
