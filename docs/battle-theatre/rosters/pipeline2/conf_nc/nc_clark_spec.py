@@ -182,17 +182,17 @@ N(PETTIGREW, '5', 'On the morn- ing of 1 July it numbered 2,800 to 3,000', 1, 't
   'Young (vol. 5): on the morning of 1 July the brigade numbered 2,800 to 3,000, on the 4th 935.', [('2,800 to 3,000', None, 'numbered, 1 July'), ('935', 935, 'numbered, 4 July')], source='young')
 N(['i11'], '5', 'Company C, of the Eleventh, lost tAvo officers killed and 34 out of 38 men', 1, 'casualties', 'Company C, 11th Regiment', '1 July 1863',
   'Young (vol. 5): Company C of the 11th lost two officers killed and 34 out of 38 men killed and wounded.', [('34', 34, 'killed and wounded'), ('38', 38, 'men, out of')], source='young')
-N(PETTIGREW, '5', 'Pettigrew\'s Brigade was about 1,700 strong, and lost 1,100', 1, 'casualties', 'Pettigrew\'s brigade', '3 July 1863',
-  'Ashe (vol. 5): Pettigrew\'s brigade about 1,700 strong lost 1,100, the greater part killed and wounded; Lane carried in 1,300 and lost 600 (the text layer prints GOO).',
-  [('1,700', 1700, 'strong'), ('1,100', 1100, 'lost')], source='ashe')
+N(LANE + PETTIGREW + SCALES, '5', 'Lane carried in 1,300 and lost', 4, 'casualties', 'Lane\'s, Pettigrew\'s and Scales\' brigades', '3 July 1863',
+  'Ashe (vol. 5): Lane carried in 1,300 and lost 600 (the text layer prints GOO; the page image reads 600), nearly all killed and wounded; Pettigrew\'s brigade was about 1,700 strong and lost 1,100, the greater part killed and wounded; Scales\' brigade suffered in the like proportion; the three brigades doubtless lost 1,500 killed and wounded.',
+  [('1,300', 1300, 'Lane\'s brigade carried in'), ('GOO', None, 'Lane\'s brigade lost (text layer damaged; the page image reads 600)'), ('1,700', 1700, 'Pettigrew\'s brigade strong, "about"'), ('1,100', 1100, 'Pettigrew\'s brigade lost'), ('1,500', 1500, 'killed and wounded of the three brigades, "doubtless"')], source='ashe')
 N(['i47', 'i52'], '3', 'for the Forty-seventh and Fifty-second had abbut 1,300 men in line', 1, 'taken_into_action', 'the 47th and 52nd Regiments together', '1 July 1863',
-  'Thorp/Rogers (47th chapter): the 47th and 52nd had about 1,300 men in line in both regiments.', [('1,300', 1300, 'men in line, both regiments')])
+  'Rogers (47th chapter): the 47th and 52nd had about 1,300 men in line in both regiments.', [('1,300', 1300, 'men in line, both regiments')])
 N(PETTIGREW, '3', 'General Pettigrew had in line of battle that morning nearer 3,000 soldiers', 1, 'taken_into_action', 'Pettigrew\'s brigade', '1 July 1863',
-  'Thorp/Rogers (47th chapter): Pettigrew had in line that morning nearer 3,000 soldiers than 2,500.', [('3,000', 3000, 'soldiers'), ('2,500', 2500, 'soldiers')])
+  'Rogers (47th chapter): Pettigrew had in line that morning nearer 3,000 soldiers than 2,500.', [('3,000', 3000, 'soldiers'), ('2,500', 2500, 'soldiers')])
 N(['i11', 'i26'], '3', 'Before night the Twentysixth and Eleventh', 1, 'casualties', 'the 26th and 11th Regiments', '1 July 1863',
-  'Thorp/Rogers (47th chapter): before night the 26th and 11th had lost two-thirds of their numbers.', [('two-thirds', None, 'of their numbers lost')], chap='i47')
+  'Rogers (47th chapter): before night the 26th and 11th had lost two-thirds of their numbers.', [('two-thirds', None, 'of their numbers lost')], chap='i47')
 N(['i47'], '3', 'our regiment numbered 98 men for duty', 1, 'remaining_after', 'regiment', 'a few days after Falling Waters, July 1863',
-  'Thorp/Rogers (47th chapter): when the regiment camped at Bunker Hill a few days after Falling Waters it numbered 98 men for duty.', [('98', 98, 'men for duty')])
+  'Rogers (47th chapter): when the regiment camped at Bunker Hill a few days after Falling Waters it numbered 98 men for duty.', [('98', 98, 'men for duty')])
 N(['i11'], '1', 'the regiment lost fifty killed and one hundred and fifty-nine wounded', 1, 'casualties', 'regiment', '1 and 3 July 1863',
   'Martin/Outlaw (11th chapter): in the battles of the first and third days (held in reserve the second) the regiment lost fifty killed and one hundred and fifty-nine wounded.', [('fifty', 50, 'killed'), ('one hundred and fifty-nine', 159, 'wounded')])
 N(['i11'], '1', 'Company A had crossed the Potomac with a hundred men', 1, 'strength_other', 'Company A', 'June and 3 July 1863',
@@ -206,45 +206,45 @@ N(['i52'], '3', 'The Adjutant of the regiment reported the losses', 1, 'casualti
 N(['i1'], '1', 'leaving most of our dead, thirty-eight in number, on the field', 1, 'casualties', 'regiment', 'night after the assault of 3 July 1863 (Culp\'s Hill)',
   'Brown (1st chapter): after the failed assault on the morning of the 3d the regiment fell back and retreated at night, leaving most of its dead, thirty-eight in number, on the field.', [('thirty-eight', 38, 'dead left on the field')])
 N(['i3'], '1', 'The battle of Gettysburg is generally conceded', 4, 'taken_into_action', 'regiment', 'July 1863',
-  'DeRosset (3rd chapter): entering the battle with three hundred guns the regiment was reduced by the killing and wounding of two hundred and twenty-three men.', [('three hundred', 300, 'guns'), ('two hundred and twenty- three', 223, 'killed and wounded')], strength=300)
+  'Cowan and Metts (3rd chapter, p. 196): entering the battle with three hundred guns the regiment was reduced by the killing and wounding of two hundred and twenty-three men.', [('three hundred', 300, 'guns'), ('two hundred and twenty- three', 223, 'killed and wounded')], strength=300)
 N(['i3'], '1', 'When the regiment was mustered after the battle, seventy-seven muskets', 2, 'remaining_after', 'regiment', 'after the battle, July 1863',
-  'DeRosset (3rd chapter): when the regiment was mustered after the battle seventy-seven muskets were all that could be gotten in the ranks; the loss was within a fraction of seventy-five per cent.', [('seventy-seven', 77, 'muskets in the ranks'), ('seventy-five per cent', 75, 'loss')])
+  'Cowan and Metts (3rd chapter, p. 196): when the regiment was mustered after the battle seventy-seven muskets were all that could be gotten in the ranks; the loss was within a fraction of seventy-five per cent.', [('seventy-seven', 77, 'muskets in the ranks'), ('seventy-five per cent', 75, 'loss')])
 N(['i5'], '1', 'Its loss at Gettysburg is reported in the', 1, 'casualties', 'regiment', '1-3 July 1863',
   'MacRae/Busbee (5th chapter): the loss at Gettysburg is reported in the "Records of the Rebellion" at thirty-one killed and one hundred and twelve wounded.', [('thirty-one', 31, 'killed'), ('one hundred and twelve', 112, 'wounded')])
 N(['i13'], '1', 'In the first day\'s fight at Gettysburg the Thirteenth had only', 1, 'taken_into_action', 'regiment', '1 July 1863',
-  'Smith/Rawley (13th chapter): in the first day\'s fight at Gettysburg the 13th had only one hundred and eighty men in line.', [('one hundred and eighty', 180, 'men in line')], strength=180)
+  'Smith (13th chapter): in the first day\'s fight at Gettysburg the 13th had only one hundred and eighty men in line.', [('one hundred and eighty', 180, 'men in line')], strength=180)
 N(['i13'], '1', 'Of the one hundred and eighty men in the regiment one hundred and fifty', 2, 'casualties', 'regiment', '1 July 1863',
   'Same chapter: of the 180 men 150 were killed and wounded, leaving only thirty; only two officers were left.', [('one hundred and eighty', 180, 'men'), ('one hundred and fifty', 150, 'killed and wounded'), ('thirty', 30, 'left')])
 N(['i13'], '1', 'The next day fifteen men who had been left at Greencastle', 6, 'remaining_after', 'regiment', '2 and 3 July 1863',
   'Same chapter: next day fifteen men left at Greencastle joined and the regiment was recruited to forty-five men; in the charge of the 3d twenty-three of them were killed and wounded, leaving only twenty-two men.',
   [('fifteen', 15, 'men joined'), ('forty-five', 45, 'men'), ('twenty- three', 23, 'killed and wounded'), ('twenty-two', 22, 'left')])
 N(['i16'], '1', 'at the close of those crucial three days it was found that', 1, 'casualties', 'regiment', '1-3 July 1863',
-  'Harrill (16th chapter; he was not at Gettysburg): at the close of the three days the Federal bullets had deprived the 16th of seventy-two more of its men (killed or wounded not stated).', [('seventy-two', 72, 'men lost')])
-N(LANE, '2', 'although it had lost nearly 40 per cent', 1, 'casualties', 'Lane\'s brigade', '1-3 July 1863',
+  'Cathey (16th chapter; he writes that he was not at Gettysburg): at the close of the three days the Federal bullets had deprived the 16th of seventy-two more of its men (killed or wounded not stated).', [('seventy-two', 72, 'men lost')])
+N(LANE, '2', 'In the battles around Richmond in 1862, the brigade lost 800 men', 2, 'casualties', 'Lane\'s brigade', '1-3 July 1863',
   'McLaurin (18th chapter): at Gettysburg the brigade formed the left of Longstreet\'s charge although it had lost nearly 40 per cent in its three days\' fighting.', [('40 per cent', 40, 'lost in three days')])
 N(LANE, '2', 'The casualties in the regiment were 10 killed, 53 wounded', 2, 'casualties', 'the 33rd Regiment and Lane\'s brigade', '3 July 1863',
   'Weston (33rd chapter): casualties in the regiment 10 killed, 53 wounded; the brigade loss was 660 out of an effective total of 1,355.', [('10', 10, 'killed'), ('53', 53, 'wounded'), ('660', 660, 'brigade loss'), ('1,355', 1355, 'effective total')])
 N(LANE + SCALES, '2', 'now reduced to mere squads, not numbering in all 800 men', 1, 'remaining_after', 'Lane\'s and Scales\' brigades', 'end of the charge, 3 July 1863',
   'Weston (33rd chapter) quotes Colonel Lowrance: the two brigades, reduced to mere squads, did not number 800 men in all.', [('800', 800, 'men in both brigades')])
 N(['i28'], '2', 'Its loss was IS killed and 92 wounded', 1, 'casualties', 'regiment', '3 July 1863',
-  'Lane (28th chapter): loss 18 (the text layer prints IS) killed and 92 wounded.', [('IS', None, 'killed (text layer damaged)'), ('92', 92, 'wounded')])
+  'Lane (28th chapter): loss 12 killed and 92 wounded (the first text layer prints IS and the second 19; the page image reads 12).', [('IS', None, 'killed (text layer damaged; the page image reads 12)'), ('92', 92, 'wounded')])
 N(['i20'], '2', 'The reports of the battle give twenty-nine killed and ninety-three wounded', 1, 'casualties', 'regiment', '1-3 July 1863',
   'Toon (20th chapter): the reports give twenty-nine killed and ninety-three wounded in the 20th.', [('twenty-nine', 29, 'killed'), ('ninety-three', 93, 'wounded')])
 N(IVERSON, '2', 'General Iverson reports 500 men of his brigade killed', 1, 'casualties', 'Iverson\'s brigade', '1 July 1863',
   'Toon (20th chapter): General Iverson reports 500 men of his brigade killed (lying in as good order as if on dress parade).', [('500', 500, 'men of the brigade killed')])
-N(['i22'], '2', 'Scales\' Brigade had not one Field Officer left for duty', 2, 'casualties', 'regiment', '1-3 July 1863',
-  'Daves (22nd chapter): at Gettysburg the 22nd\'s total loss was 102 killed and 322 wounded.', [('102', 102, 'killed'), ('322', 322, 'wounded')])
+N(SCALES, '2', 'Scales\' Brigade had not one Field Officer left for duty', 2, 'casualties', 'Scales\' brigade or the 22nd Regiment (the antecedent of "Its" is not stated)', '3 July 1863',
+  'Daves (22nd chapter), at the end of his account of Gettysburg: after Scales\' brigade had not one field officer left for duty, "Its total loss was 102 killed and 322 wounded"; the sentence does not say whether "Its" is the brigade or the regiment, so the note is carried with every regiment of the brigade.', [('102', 102, 'killed'), ('322', 322, 'wounded')], chap='i22')
 N(['i23'], '2', 'Here he held his men in position under a most terrific fire', 1, 'casualties', 'regiment', '1 July 1863',
   'Turner/Wall (23rd chapter): Colonel Christie held his men under fire for an hour till the whole regiment was killed, wounded or captured, except a lieutenant and sixteen men.', [('sixteen', 16, 'men left, with a lieutenant')])
 N(DANIEL, '2', 'Daniel\'s Brigade entered the battle of Gettysburg with 2,100 men', 1, 'taken_into_action', 'Daniel\'s brigade', '1 July 1863',
-  'London (32nd chapter): the brigade entered the battle with 2,100 men and lost in killed and wounded 778 (the text layer prints 7T8).', [('2,100', 2100, 'men'), ('7T8', None, 'killed and wounded (text layer damaged; 778 as the digits stand)')])
+  'London (32nd chapter): the brigade entered the battle with 2,100 men and lost in killed and wounded 778 (the first text layer prints 7T8; the page image reads 778).', [('2,100', 2100, 'men'), ('7T8', None, 'killed and wounded (text layer damaged; 778 as the digits stand)')])
 N(['i38'], '2', 'After the third day\'s fight the regiment had only about 40 men', 1, 'remaining_after', 'regiment', 'after 3 July 1863',
   'Flowers (38th chapter): after the third day\'s fight the regiment had only about 40 men, commanded by a first lieutenant.', [('about 40', 40, 'men')])
 N(['i45', 'bn2'], '3', 'While the Forty-fifth Kegiment and the Second North Carolina Battalion', 1, 'casualties', 'the 45th Regiment and the 2nd Battalion', '1 July 1863',
   'Watson (45th chapter), writing of the account in a federal history: the 45th and the 2nd Battalion (six companies) lost that day nearly 400 men.', [('400', 400, 'men lost, "nearly"')])
 N(['i45'], '3', 'My own company lost seven men dead on the field', 1, 'casualties', 'one company (the writer\'s, not named)', '1 July 1863',
   'Watson (45th chapter): his own company lost seven men dead on the field and between twenty-five and thirty wounded, all its officers but one.', [('seven', 7, 'dead'), ('twenty-five and thirty', None, 'wounded')])
-N(['bn2'], '4', 'One hundred and fifty-three is authenticated record', 1, 'casualties', 'battalion', '1 July 1863',
+N(['bn2'], '4', 'It fell short of a full regiment', 2, 'casualties', 'battalion', '1 July 1863',
   'Green (2nd Battalion chapter): at Gettysburg the battalion fell short of a full regiment; one hundred and fifty-three killed and wounded is the authenticated record.', [('One hundred and fifty-three', 153, 'killed and wounded')])
 N(['bn2'], '4', 'Its killed was twenty-nine', 2, 'casualties', 'battalion', '1 July 1863',
   'Green prints a letter of H. A. London: killed twenty-nine (including Lieutenant-Colonel Andrews), wounded 124; the 57th Virginia had 26 killed and 95 wounded.', [('twenty-nine', 29, 'killed'), ('124', 124, 'wounded')])
@@ -260,7 +260,7 @@ N(['cav2'], '2', 'Captain Graham, as officer commanding, had a force of forty me
   'Graham (2nd Cavalry chapter): on the morning of 3 July, gathering up the fragments left from Hanover and what was available from the wagon train, Captain Graham had a force of forty men.', [('forty', 40, 'men')])
 
 # ----------------------------------------------------------------------------------------------------------------------------- artillery
-N(['batta'], '1', 'We lost at Gettysburg private W. E. Ramsay, killed', 1, 'casualties', 'battery (Cabell\'s battalion)', '2 July 1863',
+N(['batta'], '1', 'We lost at Gettysburg private W. E. Ramsay, killed', 1, 'casualties', 'Company A (Manly\'s battery, in Cabell\'s battalion)', '2 July 1863',
   'Ramsay (Light Batteries A, D, F and I): the battery lost at Gettysburg one private killed, one wounded and captured and eight wounded (named); the surgeon was left in the enemy\'s lines with the wounded of the battalion.', [('Ramsay, killed', None, 'one killed (name as printed)')])
 N(['rowan', 'branch'], '1', 'On July 2 Reilly\'s and Latham\'s Batteries', 3, 'casualties', 'Henry\'s battalion (four batteries: Reilly\'s Rowan Artillery, Latham\'s, and two others)', '2 and 3 July 1863',
   'Ramsay: on 2 July Reilly\'s and Latham\'s batteries of Henry\'s battalion were on the extreme right at Gettysburg; on the 3d the whole four batteries were engaged in the same position and lost four killed and twenty-three wounded.', [('four', 4, 'killed, four batteries'), ('twenty-three', 23, 'wounded, four batteries')])
@@ -287,6 +287,16 @@ N(DANIEL, '4', 'This brigade went into the first day\'s fight at Gettysburg abou
   'London (brigade history, vol. 4): the brigade went into the first day\'s fight at Gettysburg about 2 o\'clock and lost over 600 men that afternoon and almost half of its men in the campaign.', [('600', 600, 'men lost on the afternoon of 1 July, "over"')], source='london')
 N(SCALES, '4', 'In this charge the brigade lost some 400 killed and wounded', 1, 'casualties', 'Scales\' brigade', '1 July 1863',
   'Rawley (brigade history, vol. 4): in the charge of 1 July the brigade lost some 400 killed and wounded, among them Colonel Scales, Captain Riddick and General Pender.', [('400', 400, 'killed and wounded, "some"')], source='rawley')
+
+# ----------------------------------------------------------------------------------------------------------------------------- identification of the four artillery companies (they corroborate DD-ROS-NC-04, no figure)
+N(['batta'], '1', 'The battery, up to this time, was called Ramseur\'s', 1, 'identification', 'Company A of the Tenth Regiment', 'spring 1861',
+  'Ramsay (Light Batteries A, D, F and I): Company A, Tenth North Carolina State Troops, was organized at Raleigh in April 1861 as the "Ellis Light Artillery"; it was called Ramseur\'s until Manly took charge and then, at the men\'s request, Manly\'s: Manly\'s Battery (Battery A, 1st North Carolina Artillery) is Company A of Moore\'s Tenth Regiment (First Artillery).', [])
+N(['rowan'], '1', 'Reilly\'s Battery, usually styled in the Army Returns the', 1, 'identification', 'Company D of the Tenth Regiment', '15 June 1863',
+  'Ramsay: Reilly\'s Battery is the one styled in the Army Returns the "Rowan Artillery" and belonged to Henry\'s Battalion from 15 June 1863; the chapter describes Light Batteries A, D, F and I of the Tenth Regiment, and Reilly\'s is Company D.', [])
+N(['charlotte'], '1', 'Company C, Tenth North Carolina State Troops, was organ- ized at Charlotte', 1, 'identification', 'Company C of the Tenth Regiment', '16 May 1861',
+  'Williams (Company C chapter): Company C, Tenth North Carolina State Troops, was organized at Charlotte on 16 May 1861 (Captain Thomas H. Brem; Joseph Graham and A. B. Williams Second Lieutenants): the Charlotte Artillery (Graham\'s battery) is Company C of Moore\'s Tenth Regiment.', [])
+N(['branch'], '4', 'Captain, Alex. C. Latham', 1, 'identification', 'Company F of the Thirteenth Battalion', 'organization of the battalion',
+  'Clark, Thirteenth Battalion (Starr\'s): Company F (Craven, Beaufort and Wake counties) had Captain Alex. C. Latham: Latham\'s battery, the Branch Artillery (Moore: Company F of the Fifth Battalion, originally the Thirteenth Battalion).', [])
 
 
 # ----------------------------------------------------------------------------------------------------------------------------- page-image checks
@@ -327,6 +337,7 @@ I('Its loss was IS killed and 92 wounded', '2', 478, 554, 'viewed', {'IS': '12 (
 I('The reports of the battle give twenty-nine killed and ninety-three wounded', '2', 119, 149, 'tesseract', {'twenty-nine': 'twenty-nine', 'ninety-three': 'ninety-three'}, 'tesseract reads the words as the text layer does')
 I('General Iverson reports 500 men of his brigade killed', '2', 119, 149, 'tesseract', {'500': '500'}, 'tesseract reads 500 as the text layer of the first scan does')
 I('Scales\' Brigade had not one Field Officer left for duty', '2', 171, 213, 'tesseract', {'102': '102', '322': '322'}, 'tesseract reads 102 killed and 322 wounded as the text layer of the first scan does')
+I('Lane carried in 1,300 and lost', '5', 158, 194, 'viewed', {'1,300': '1,300', 'GOO': '600 (the first digit looks like a G in the text layer)', '1,700': '1,700', '1,100': '1,100', '1,500': '1,500'}, 'the print reads Lane 1,300 carried in and 600 lost, Pettigrew 1,700 strong and 1,100 lost, 1,500 for the three brigades; the text layer reads 600 as GOO')
 I('Daniel\'s Brigade entered the battle of Gettysburg with 2,100 men', '2', 529, 617, 'tesseract', {'2,100': '2,100', '7T8': '778'}, 'the print reads 778 (tesseract): the first scan prints 7T8 (a damaged digit)')
 I('After the third day\'s fight the regiment had only about 40 men', '2', 693, 801, 'tesseract', {'about 40': 'about 40'}, 'tesseract reads about 40 as the text layer of the first scan does')
 I('Company B lost at Gettysburg out of about 65 men', '3', 264, 310, 'tesseract', {'65': '65', '8': '8', '22': '22'}, 'tesseract reads 65, 8 and 22 as the text layer of the first scan does; the second scan reads 65 as 05')

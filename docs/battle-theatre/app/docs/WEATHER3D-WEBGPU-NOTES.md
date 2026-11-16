@@ -2,6 +2,19 @@
 
 Written 2026-11-13, extended 2026-11-14 (close views, a second WebGPU implementation), 2026-11-15 (the close views on WebGL2 and their comparison, the canvas picture check of the harness, the one-command run for a machine with a GPU) and 2026-11-16 (the real canvas captured on the software adapter, the replay of captured frames on the second implementation, negative controls of the harness, the scrub-purity lint, the timing harness). Code: `app/src/weather3d/gpu.mjs`, `app/src/weather3d/shaders-wgsl.mjs`, the host side in `app/src/fx-host.mjs`, one hook in `render/prototype/src/webgpu.mjs`. Register entry EG-W3D-G08 (the path used to compute state and draw nothing). **Everything below was run on Chrome's software WebGPU adapter (SwiftShader). Nothing has run on a real GPU, no real-GPU timing was taken, and none is claimed.** Real-hardware checks are listed in `BROWSER-VERIFICATION-LIST-WEATHER.md` section E.
 
+## At a glance (2026-11-16)
+
+| question | answer | where |
+|---|---|---|
+| Does the weather and effects layer draw on WebGPU? | Yes: sky, stars, moon, clouds, mist, wet ground, smoke, flashes, dust, fires, flash light, night floor, the same inputs, order and blend states as WebGL2. In the shell itself too (`fxHost.status()` says weather and effects are drawn by the WebGPU passes). **On a software adapter only.** | sections 1 to 3 |
+| Any WebGPU validation error, uncaptured error or compiler message? | None in the 16 cases, the six close views, the shell, the phone and desktop budget tiers, the resize; a second implementation (wgpu-native: naga, wgpu-core) builds the modules and pipelines and accepts the pass. The error machinery of the harness is shown to see errors made on purpose (negative controls; the corrected last one still to run in a browser). | section 3 |
+| Does it look right and agree with WebGL2? | Pictures looked at (16 cases, 6 close views, the shell); mean absolute difference 0.33 to 0.46 of 255 per channel against WebGL2 with identical sprite counts; 12 captured frames replayed on the second implementation agree to half-float rounding. | section 3 |
+| Was a WebGPU picture of the real canvas captured? | Yes, on the software adapter, in headed Chrome under a virtual X server with two extra flags (`--xvfb-canvas`): the compositor's picture equals the read-back to 0 levels; headless Chrome cannot. | sections 3, 4 |
+| Is the same time and camera the same pixels? | Byte-identical repeats in the browser, a syntax-tree lint of the 20 modules of the draw path, and a behavioural test with the clock and the random source replaced by counters (node). | sections 3, 6 |
+| What has NOT been seen? | A real GPU, a real GPU's compositor, any real-GPU timing, Safari, Firefox, a phone, a device without `float32-filterable`, the crowd of figures on WebGPU. | section 5 |
+| Which API is the default? | WebGL2 (DD-27, DD-REN-01, DD-REN-02) until section E of `BROWSER-VERIFICATION-LIST-WEATHER.md` and the crowd's item 2 are ticked on real hardware. | section 7 |
+| What does the owner do? | Run `weather3d-gpu-realrun.mjs` on the PC (the brief for a session on it is `GOVERNANCE/horde/requests/bt-renderer-pc-real-gpu-run.md`), look at the montages. | section 7 |
+
 ## 1. What it draws
 
 The same layers as the WebGL2 path (`weather3d/gl.mjs`), from the same inputs (the `WeatherTimeline` state, the fx3d frame, the prototype `Camera`), in the same order with the same blend states:
@@ -58,7 +71,7 @@ All of it from `app/tests/weather3d-gpu.mjs` (headless Chrome 153, software WebG
 ## 6. Commands
 
 ```
-node --test docs/battle-theatre/app/tests/weather3d-gpu.test.mjs                                   # 36 node tests, no browser
+node --test docs/battle-theatre/app/tests/weather3d-gpu.test.mjs docs/battle-theatre/app/tests/weather3d-gpu-timing.test.mjs docs/battle-theatre/app/tests/weather3d-determinism.test.mjs   # 47 + 11 + 9 node tests, no browser
 tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu.mjs <out> webgpu             # the 16 cases, errors, purity, compute check, swapchain probe
 tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu.mjs <out> webgl2
 tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu.mjs <out2> webgpu --extra --no-screenshot   # the six close views (EXTRA_CASES); the same with webgl2

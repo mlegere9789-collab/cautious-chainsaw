@@ -19,7 +19,9 @@ def archive_id(local_path):
     if b.endswith('_djvu.txt'): return b[:-len('_djvu.txt')]
     return None
 rows = [json.loads(l) for l in open(SRC, encoding='utf-8') if l.strip()]
-maps = {}; out = {}; stats = {'no page': 0, 'filled': 0, 'no xml': 0, 'unconfirmed': 0}
+_po = os.path.join(HERE, '..', 'page_overrides.json')
+maps = {}; out = dict(json.load(open(_po, encoding='utf-8'))['overrides']) if os.path.exists(_po) else {}   # wave 6: merge with the overrides found earlier (a citation that already has its page from an override is no longer 'without a page' in the built file)
+stats = {'no page': 0, 'filled': 0, 'no xml': 0, 'unconfirmed': 0}
 for r in rows:
     for s in r['sub_claims']:
         for c in s['citations']:

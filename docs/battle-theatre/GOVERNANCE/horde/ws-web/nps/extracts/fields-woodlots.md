@@ -1545,7 +1545,7 @@ Draft Development Concept Plan / Environmental Assessment: Gettysburg Little Rou
 
 ## NPS-DEV-POLICY
 
-Development Policy for Gettysburg National Military Park (Farm Lands and Farm Structures) (date: see INDEX.md). https://www.npshistory.com/publications/gett/dev-policy.pdf
+Development Policy, Gettysburg National Military Park (Farm Lands and Farm Structures) (memorandum of November 14, 1938; approved December 9, 1938; sent to the regional directors on January 4, 1939 (the last digit of the year of that covering memorandum is under a stamp; the stamp reads 1939)). https://www.npshistory.com/publications/gett/dev-policy.pdf
 
 - **In 1938 the farm lands and farm structures of the park were judged unsatisfactory for historical presentation and preservation, economy of operation and the lack of modern utilities** (`NPSX-DEV-POLICY-p002-01`)
   - State date: **1938 (the memorandum of November 14, 1938; the condition of the farm lands then, not in 1863)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 2
@@ -1587,7 +1587,7 @@ Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Histori
 
 ## NPS-EISE-CLI-REDDING-2025
 
-Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2025 edition) (date: see INDEX.md). https://www.npshistory.com/publications/eise/cli-clement-redding-farm-2025.pdf
+Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2004, revised 8/2025). https://www.npshistory.com/publications/eise/cli-clement-redding-farm-2025.pdf
 
 - **The Clement Redding farm in 1863: hit by artillery fire and stripped of farm resources by trampling and looting, while Farms 1, 2 and 3 escaped the most intense fighting** (`NPSX-EISE-CLI-REDDING-2025-p045-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 45 [Page 40 of 73]
@@ -1873,7 +1873,7 @@ McClean House and Barn, Gettysburg National Military Park, Pa. (1 October 1968).
 
 ## NPS-NEWSLETTER-V13N2
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 13 No. 2, Fall (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v13n2.pdf
+Park News: The Gettysburg Quarterly, Vol. 13, No. 2 (Fall 2006) (Fall 2006). https://www.npshistory.com/publications/gett/newsletter/v13n2.pdf
 
 - **The McMillan orchard, called the largest orchard on the battlefield from the 1863 period, 26 acres** (`NPSX-NEWSLETTER-V13N2-p002-01`)
   - State date: **1863 (the largest orchard of the 1863 period; whether 26 acres is its 1863 extent or the area to be replanted is not stated)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 2
@@ -1890,7 +1890,7 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 13 No. 2,
 
 ## NPS-NEWSLETTER-V16N1
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 16 No. 1, Spring (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v16n1.pdf
+Park News: The Gettysburg Quarterly, Vol. 16, No. 1 (Spring 2009) (Spring 2009). https://www.npshistory.com/publications/gett/newsletter/v16n1.pdf
 
 - **Almost every farm of any size in Gettysburg in 1863 had an orchard, usually in proportion to the farmstead (park historians)** (`NPSX-NEWSLETTER-V16N1-p002-01`)
   - State date: **1863** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 2
@@ -1903,7 +1903,7 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 16 No. 1,
 - **Four historic orchards replanted in April 2009: the 26-acre McMillan orchard, the orchards of the Timbers farm, the Klingel farm and the Joseph Spangler farm at East Cavalry Battlefield** (`NPSX-NEWSLETTER-V16N1-p002-03`)
   - State date: **2009 replanting (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 2
   - Claim: The newsletter says that in early April the park replanted four more historic orchards, among them the 26 acre McMillan Orchard, the largest in the park, and those at the Timbers Farm, the Klingel farm and the Joseph Spangler farm at East Cavalry Battlefield
-  - Quote: "the park replanted four more historic orchards in major battle action areas on the battlefield so visitors can better understand the fighting and see the battlefield through the eyes of the soldiers fighting in 1863. Hively Landscapes of Dover, Pa., planted the trees - including the 26 acre McMillan Orchard which is the largest orchard in the park. Also included were the orchards at the Timbers Farm, Klingel farm and at the Joseph Spangler farm at East Cavalry Battlefield."
+  - Quote: "In early April, the park replanted four more historic orchards in major battle action areas on the battlefield so visitors can better understand the fighting and see the battlefield through the eyes of the soldiers fighting in 1863. Hively Landscapes of Dover, Pa., planted the trees - including the 26 acre McMillan Orchard which is the largest orchard in the park. Also included were the orchards at the Timbers Farm, Klingel farm and at the Joseph Spangler farm at East Cavalry Battlefield."
 - **The replanted orchards of 2009 use modern apple varieties: Williams Pride, Pristine, Gold Rush, Liberty, Enterprise and Freedom** (`NPSX-NEWSLETTER-V16N1-p002-04`)
   - State date: **2009 replanting (modern cultivars; not the varieties of 1863)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 2
   - Claim: The newsletter says the new orchard trees are hardy varieties of apple named Williams Pride, Pristine, Gold Rush, Liberty, Enterprise and Freedom
@@ -1919,7 +1919,7 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 16 No. 1,
 
 ## NPS-NEWSLETTER-V16N2
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 16 No. 2, Fall (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v16n2.pdf
+Park News: The Gettysburg Quarterly, Vol. 16, No. 2 (Fall 2009) (Fall 2009). https://www.npshistory.com/publications/gett/newsletter/v16n2.pdf
 
 - **The majority of Culp's Hill was wooded at the time of the battle** (`NPSX-NEWSLETTER-V16N2-p001-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1940,7 +1940,7 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 16 No. 2,
 
 ## NPS-NEWSLETTER-V17N2
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17 No. 2, Summer (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v17n2.pdf
+Park News: The Gettysburg Quarterly, Vol. 17, No. 2 (Summer 2010) (Summer 2010). https://www.npshistory.com/publications/gett/newsletter/v17n2.pdf
 
 - **In 1863 almost every farm of any size had orchards; troops took cover in them, they concealed movement and people gathered in them to rest or seek medical assistance** (`NPSX-NEWSLETTER-V17N2-p002-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 2
@@ -1958,7 +1958,7 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17 No. 2,
 
 ## NPS-NEWSLETTER-V18N3
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 18 No. 3, Fall (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v18n3.pdf
+Park News: The Gettysburg Quarterly, Vol. 18, No. 3 (Fall 2011) (Fall 2011). https://www.npshistory.com/publications/gett/newsletter/v18n3.pdf
 
 - **A fallen oak on Culp's Hill with two minie balls in cross section: believed 100 years old in 1863 and only 8 to 10 inches in diameter, growing slowly near the top of a dry rocky slope** (`NPSX-NEWSLETTER-V18N3-p004-01`)
   - State date: **1863-07 (the age and size of the tree when the bullets hit it; the tree fell in 2011)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 4
@@ -2272,7 +2272,7 @@ Trees and Shrubs - Gettysburg National Military Park (U.S. National Park Service
 
 ## NPSGOV-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP
 
-Archeological Survey at Little Round Top - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/archeological-survey-at-little-round-top.htm
+Archeological Survey at Little Round Top - Gettysburg National Military Park (U.S. National Park Service) (news release of February 22, 2017). https://www.nps.gov/gett/learn/news/archeological-survey-at-little-round-top.htm
 
 - **2017 prescribed burn on 52 acres of the west slope of Little Round Top to maintain open fields and meadows by reducing woody vegetation** (`NPSX-WEB-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP-p001-02`)
   - State date: **2017 (a modern management burn)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -2281,7 +2281,7 @@ Archeological Survey at Little Round Top - Gettysburg National Military Park (U.
 
 ## NPSGOV-NEWS-CULPS-HILL-REHAB
 
-Gettysburg National Military Park & Gettysburg Foundation Partnership Project: Culp’s Hill Rehabilitation - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/culps-hill-rehab.htm
+Gettysburg National Military Park & Gettysburg Foundation Partnership Project: Culp’s Hill Rehabilitation - Gettysburg National Military Park (U.S. National Park Service) (news release of January 28, 2021). https://www.nps.gov/gett/learn/news/culps-hill-rehab.htm
 
 - **Culp's Hill rehabilitation of 2021: brush and understory trees of five inches or less removed along the east side of the Union earthworks over 18 acres; larger trees within the earthworks felled in place** (`NPSX-WEB-NEWS-CULPS-HILL-REHAB-p001-01`)
   - State date: **2021 (a modern treatment of the woodlot)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -2304,7 +2304,7 @@ Goals of Battlefield Rehabilitation - Gettysburg National Military Park (U.S. Na
 
 ## NPSGOV-NEWS-GETTYSBURG-ORCHARDS
 
-Recruit Members of the Gettysburg Foundation Support Gettysburg’s Orchards - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/gettysburg-orchards.htm
+Recruit Members of the Gettysburg Foundation Support Gettysburg’s Orchards - Gettysburg National Military Park (U.S. National Park Service) (news release of November 22, 2016). https://www.nps.gov/gett/learn/news/gettysburg-orchards.htm
 
 - **The orchards on the battlefield gave cover and concealment to soldiers in the fighting of July 1863** (`NPSX-WEB-NEWS-GETTYSBURG-ORCHARDS-p001-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -2322,7 +2322,7 @@ Recruit Members of the Gettysburg Foundation Support Gettysburg’s Orchards - G
 
 ## NPSGOV-NEWS-GRASSLAND-RESTORATION
 
-Grassland Restoration Project Begins at Gettysburg National Military Park - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/grassland-restoration.htm
+Grassland Restoration Project Begins at Gettysburg National Military Park - Gettysburg National Military Park (U.S. National Park Service) (news release of May 8, 2026). https://www.nps.gov/gett/learn/news/grassland-restoration.htm
 
 - **160-acre grassland restoration of 2026 around the Pennsylvania Monument and the Eternal Light Peace Memorial, to maintain the open views that define the 1863 battlefield** (`NPSX-WEB-NEWS-GRASSLAND-RESTORATION-p001-01`)
   - State date: **2026 (a restoration of grassland beginning May 9, 2026; native grasses and wildflowers replace non-native grasses and woody plants)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -2332,7 +2332,7 @@ Grassland Restoration Project Begins at Gettysburg National Military Park - Gett
 
 ## NPSGOV-NEWS-HARMAN-FARM-AQUIRED-3-25-11
 
-Sec. of Interior Announces Important Land Preservation at Gettysburg - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/harman-farm-aquired-3-25-11.htm
+Sec. of Interior Announces Important Land Preservation at Gettysburg - Gettysburg National Military Park (U.S. National Park Service) (news release of March 29, 2011). https://www.nps.gov/gett/learn/news/harman-farm-aquired-3-25-11.htm
 
 - **In 1863 the 95 acres of the former country club were part of the historic Harman and Abraham Spangler farms** (`NPSX-WEB-NEWS-HARMAN-FARM-AQUIRED-3-25-11-p001-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -2341,7 +2341,7 @@ Sec. of Interior Announces Important Land Preservation at Gettysburg - Gettysbur
 
 ## NPSGOV-NEWS-HAZARDOUS-TREES
 
-Hazardous trees to be removed from Soldiers’ National Cemetery - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/hazardous-trees.htm
+Hazardous trees to be removed from Soldiers’ National Cemetery - Gettysburg National Military Park (U.S. National Park Service) (news release of September 27, 2017). https://www.nps.gov/gett/learn/news/hazardous-trees.htm
 
 - **A honey locust called a witness tree stands near the southeast corner of the Soldiers' National Cemetery (2017; the page does not say what it witnessed)** (`NPSX-WEB-NEWS-HAZARDOUS-TREES-p001-01`)
   - State date: **2017 (a tree called a witness tree; no date or basis is given)** | use for the July 1863 scene: **indirect** | tier proposed: inferred (source wording: hedged) | PDF p. 1
@@ -2350,7 +2350,7 @@ Hazardous trees to be removed from Soldiers’ National Cemetery - Gettysburg Na
 
 ## NPSGOV-NEWS-HERR-WOODS-1-2012
 
-Gettysburg Woods Get a Facelift - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/herr-woods-1-2012.htm
+Gettysburg Woods Get a Facelift - Gettysburg National Military Park (U.S. National Park Service) (news release of January 5, 2012). https://www.nps.gov/gett/learn/news/herr-woods-1-2012.htm
 
 - **Herr's woodlot, northwest of the park just west of Country Club Lane, still exists from the July 1863 battle** (`NPSX-WEB-NEWS-HERR-WOODS-1-2012-p001-01`)
   - State date: **1863-07 (the woodlot existed; its 2012 extent is given as 42 acres)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -2383,7 +2383,7 @@ Gettysburg Woods Get a Facelift - Gettysburg National Military Park (U.S. Nation
 
 ## NPSGOV-NEWS-HISTORIC-LEASING
 
-Unique Business Opportunity Announced at Gettysburg National Military Park - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/historic-leasing.htm
+Unique Business Opportunity Announced at Gettysburg National Military Park - Gettysburg National Military Park (U.S. National Park Service) (news release of January 23, 2023). https://www.nps.gov/gett/learn/news/historic-leasing.htm
 
 - **Rose farm: on the afternoon of July 2, 1863 the fighting spread across the fields, woods and ridges around the house** (`NPSX-WEB-NEWS-HISTORIC-LEASING-p001-06`)
   - State date: **1863-07-02** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -2393,7 +2393,7 @@ Unique Business Opportunity Announced at Gettysburg National Military Park - Get
 
 ## NPSGOV-NEWS-PRESCRIBED-BURN-COMPLETED-AT-LITTLE-ROUND-TOP
 
-Prescribed Burn Completed at Little Round Top - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/prescribed-burn-completed-at-little-round-top.htm
+Prescribed Burn Completed at Little Round Top - Gettysburg National Military Park (U.S. National Park Service) (news release of April 10, 2017). https://www.nps.gov/gett/learn/news/prescribed-burn-completed-at-little-round-top.htm
 
 - **Little Round Top: 52 acres burned on April 10, 2017 in an area historically open at the time of the battle** (`NPSX-WEB-NEWS-PRESCRIBED-BURN-COMPLETED-AT-LITTLE-ROUND-TOP-p001-01`)
   - State date: **1863-07 (the release's statement of the 1863 condition: an area historically open; the burn is of 2017)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -2406,7 +2406,7 @@ Prescribed Burn Completed at Little Round Top - Gettysburg National Military Par
 
 ## NPSGOV-NEWS-PRESCRIBED-FIRES
 
-Gettysburg National Military Park plans prescribed fires in the southern portion of the battlefield in late March or April - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/prescribed-fires.htm
+Gettysburg National Military Park plans prescribed fires in the southern portion of the battlefield in late March or April - Gettysburg National Military Park (U.S. National Park Service) (news release of March 8, 2018). https://www.nps.gov/gett/learn/news/prescribed-fires.htm
 
 - **2018 prescribed fire: a 215-acre burn unit between Devil's Den and South Confederate Avenue, to maintain the conditions of the battlefield as the soldiers experienced it** (`NPSX-WEB-NEWS-PRESCRIBED-FIRES-p001-01`)
   - State date: **2018 (a modern management burn; the objective names the battle conditions without describing them)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -2415,7 +2415,7 @@ Gettysburg National Military Park plans prescribed fires in the southern portion
 
 ## NPSGOV-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14
 
-Battlefield Rehabilitation Continues on Cemetery Ridge - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/rehabilitation-of-cemetery-ridge-1-14.htm
+Battlefield Rehabilitation Continues on Cemetery Ridge - Gettysburg National Military Park (U.S. National Park Service) (news release of January 28, 2014). https://www.nps.gov/gett/learn/news/rehabilitation-of-cemetery-ridge-1-14.htm
 
 - **41 apple trees planted in 2010 to reestablish the Frey orchard (North) on North Cemetery Ridge** (`NPSX-WEB-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14-p001-01`)
   - State date: **2010 replanting (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -2425,7 +2425,7 @@ Battlefield Rehabilitation Continues on Cemetery Ridge - Gettysburg National Mil
 
 ## NPSGOV-NEWS-STONE-WALLS
 
-Stone Walls at Gettysburg get a Facelift - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/stone-walls.htm
+Stone Walls at Gettysburg get a Facelift - Gettysburg National Military Park (U.S. National Park Service) (news release of June 19, 2018). https://www.nps.gov/gett/learn/news/stone-walls.htm
 
 - **The 2018 work crew rehabilitated historic woodlots at Culp's Hill from early May** (`NPSX-WEB-NEWS-STONE-WALLS-p001-08`)
   - State date: **2018 (woodlot rehabilitation by a work crew; a modern treatment)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1

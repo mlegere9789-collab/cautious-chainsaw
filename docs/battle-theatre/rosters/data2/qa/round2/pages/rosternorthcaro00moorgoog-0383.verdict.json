@@ -1,0 +1,355 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "rosternorthcaro00moorgoog/383",
+ "levels": "N",
+ "stratum": "NC-MOO-G-other",
+ "family": "NC-MOO-G",
+ "layout": "flow",
+ "kind": "other",
+ "draw_position": 13,
+ "in_lowest_decile": true,
+ "printed_page": 350,
+ "rows_stored": 18,
+ "rows_checked": 18,
+ "rows_in_error": 3,
+ "rows_ok": 15,
+ "rows_flagged_ocr_uncertain": 4,
+ "errors": [
+  {
+   "i": 2,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "An Thomas L. Seigle",
+   "printed": "Thomas L. Seigle",
+   "note": "the letters Au of the cut-off end of the line above (w. Au...) stand in front of the name",
+   "rid": "charlotte-artillery#2",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Dennis Colling",
+   "printed": "Dennis Collins",
+   "rid": "charlotte-artillery#4",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "R"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "rank"
+   ],
+   "stored": "Ist Sergt.",
+   "printed": "1st Sergt.",
+   "note": "the digit 1 read I",
+   "rid": "charlotte-artillery#4",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "R"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "Joseph L. Hoffman, 2d Bergt.",
+   "printed": "Joseph L. Hoffman",
+   "note": "the rank 2d Sergt. stands in the name field (read Bergt.)",
+   "rid": "charlotte-artillery#5",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "H",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "rank"
+   ],
+   "stored": "^NON-COMMISSIONED OFFICERS",
+   "printed": "2d Sergt.",
+   "note": "the carried heading stands where the printed rank belongs",
+   "rid": "charlotte-artillery#5",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "H",
+    "N"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "Printed page 350 (Tenth Regiment, Company C, the Charlotte Artillery: its officers and non-commissioned officers; the twenty-two privates printed above the heading COMPANY C belong to the company before it and are in no stored line of this unit); 18 printed entries, all 18 stored. The two last lines print no rank; the carried heading in their rank field is not counted as an error."
+ ],
+ "reader": "full page view at 200 dpi (Read tool; a dark, bold scan); names, rank headings, company and the cut of every line compared with the print (level N only: R-G1, R-G2 and R-G3b of this stratum had failed on its first pages); the company letter C of all lines read from the heading COMPANY C on the page",
+ "tesseract_prescreen": {
+  "agree": 5,
+  "near": 0,
+  "suspect": 13,
+  "unstored_lines": 27
+ },
+ "read": {
+  "pdf_sha256": "bf870c7be364c36c58f4f7bdd34361ada17e5682e2bff110ff50832f5bfab123",
+  "pdf_page": 384,
+  "view_png_sha256": "a770c636291111be332071fdccf083d9c1ae87e282429d2c32ee196c4943f08d",
+  "render300_sha256": "54fe3a25c0452baef8888bcd0a0e88bb830c354eb3f905c40927012211372795",
+  "tess_sha256": "250e9680fbb98a76fb75047f8a7bc4e92b293240dd2877deeccaf42ec82b80d1",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.935
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "charlotte-artillery#0",
+   "name": "Arthur B. Williams",
+   "rank": "Captain",
+   "co": "C",
+   "remarks_sha256": "1146f97a23faaf99d981ef152fb14bdb92f45bc208b0631ad536c065b32eaad4",
+   "off": 1232780,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "charlotte-artillery#1",
+   "name": "Abdan Alexander",
+   "rank": "1st Lieut.",
+   "co": "C",
+   "remarks_sha256": "c185f8db676febfd14ed7758ee6fccc0d1da084ab209e4c659d45fa2457d10b1",
+   "off": 1232851,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "charlotte-artillery#2",
+   "name": "An Thomas L. Seigle",
+   "rank": "2d Lieut.",
+   "co": "C",
+   "remarks_sha256": "6bdcba925a6035650ae74542398297145a636fa4b5cca7c85ab6ec4a362a6447",
+   "off": 1232929,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "charlotte-artillery#3",
+   "name": "Henry A, Albright",
+   "rank": "2d Lieut.",
+   "co": "C",
+   "remarks_sha256": "f5b8c53779139c7ec44e6e740d91b66f2d6ca7d0928079ac64f1ccd0468d369c",
+   "off": 1232995,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "charlotte-artillery#4",
+   "name": "Dennis Colling",
+   "rank": "Ist Sergt.",
+   "co": "C",
+   "remarks_sha256": "eaa95b9b41952e7849f8b4d57f7f41e0ee566b0cb21ddb72feeeae39c2af624d",
+   "off": 1233079,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": [
+    "R"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "charlotte-artillery#5",
+   "name": "Joseph L. Hoffman, 2d Bergt.",
+   "rank": "^NON-COMMISSIONED OFFICERS",
+   "co": "C",
+   "remarks_sha256": "53e8dce3a4750bbde6c4f98c7419494f689b565439a6cb716848737b4f71f562",
+   "off": 1233145,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": [
+    "H",
+    "N"
+   ]
+  },
+  {
+   "i": 6,
+   "rid": "charlotte-artillery#6",
+   "name": "Robert V. Gudger",
+   "rank": "3d Sergt.",
+   "co": "C",
+   "remarks_sha256": "50ade609c8a671b12c920da3f8a5c47f32daed417628a6a99fae84153e34bc9c",
+   "off": 1233221,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "charlotte-artillery#7",
+   "name": "John E. Albright",
+   "rank": "4th Sergt.",
+   "co": "C",
+   "remarks_sha256": "1d6aba1465610eead906c2ee47d49be4ca714cbec02c8886ad10496e70e2f5ce",
+   "off": 1233291,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "charlotte-artillery#8",
+   "name": "Robert P. Chapman",
+   "rank": "5th Sergt.",
+   "co": "C",
+   "remarks_sha256": "d501e0dcdc99dfd53fc00a50d10cda0b0893ec58f1bdfd10e5aca2c21c33e5c4",
+   "off": 1233353,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "charlotte-artillery#9",
+   "name": "J. Perry Smith",
+   "rank": "6th Sergt.",
+   "co": "C",
+   "remarks_sha256": "24918e4b285fcf92be06a5ae92b84f14e2baaa10d82c2149452ad4ce7a0ffed3",
+   "off": 1233428,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "charlotte-artillery#10",
+   "name": "Moses, Blackwelder",
+   "rank": "1st Corporal",
+   "co": "C",
+   "remarks_sha256": "2b1d06f21ce8d027ce025d8b3f24dcfe7bf73950061917520ef6a3d8bb28ac49",
+   "off": 1233501,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "charlotte-artillery#11",
+   "name": "D. M. L. Faunt",
+   "rank": "2d Corporal",
+   "co": "C",
+   "remarks_sha256": "711e7a24143d14f3d1be08d1640386347938053dbc4745f670fd232bb0eb6029",
+   "off": 1233560,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "charlotte-artillery#12",
+   "name": "Patrick Lyons",
+   "rank": "3d Corporal",
+   "co": "C",
+   "remarks_sha256": "f161f79226135d39a39351cb08a10d3d6246303962ef5b612c76d3c6378d701d",
+   "off": 1233618,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "charlotte-artillery#13",
+   "name": "Mathero Chapman",
+   "rank": "4th Corporal",
+   "co": "C",
+   "remarks_sha256": "1f185cf77ba05ef4cd4e3abbbceca8279257b2c3b15f3f91d0bb330c4082a3d3",
+   "off": 1233684,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "charlotte-artillery#14",
+   "name": "Miles A. Henderson",
+   "rank": "5th Corporal",
+   "co": "C",
+   "remarks_sha256": "612768a5c82b97553dcd3ab97414ce09e121c695dd3efc2657ffd1abaf2d22c2",
+   "off": 1233759,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "charlotte-artillery#15",
+   "name": "William W. Shelby",
+   "rank": "6th Corporal",
+   "co": "C",
+   "remarks_sha256": "96f3e368f0a6c38dd476ba4fc86d3b1870b3f4a8d4d057a8b4f1947c27c452a1",
+   "off": 1233820,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "charlotte-artillery#16",
+   "name": "William S. Williams",
+   "rank": "^NON-COMMISSIONED OFFICERS",
+   "co": "C",
+   "remarks_sha256": "c55d27fdc843ef139e31f0f84242d4f368259501b4839bb138a22dca8b2129c4",
+   "off": 1233899,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": [
+    "H"
+   ]
+  },
+  {
+   "i": 17,
+   "rid": "charlotte-artillery#17",
+   "name": "Daniel W. McLean",
+   "rank": "^NON-COMMISSIONED OFFICERS",
+   "co": "C",
+   "remarks_sha256": "8e825715017d09c57add11217e040bf445ac60bc4740a4eecb04efa0297d24c3",
+   "off": 1233959,
+   "text_id": "NC-MOORE-1882.1",
+   "flag_codes": [
+    "H"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-16T03:28:02Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "AGREE",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "AGREE",
+  "12": "AGREE",
+  "13": "AGREE",
+  "14": "AGREE",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "SUSPECT"
+ }
+}

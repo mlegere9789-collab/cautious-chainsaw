@@ -383,7 +383,7 @@ Gettysburg National Military Park, Pennsylvania (National Park Service Historica
 
 ## NPS-NEWSLETTER-V14N2
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 14 No. 2, Fall (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v14n2.pdf
+Park News: The Gettysburg Quarterly, Vol. 14, No. 2 (Fall 2007) (Fall 2007). https://www.npshistory.com/publications/gett/newsletter/v14n2.pdf
 
 - **Seven monuments near the Cyclorama building were moved in the 1960s and are to go back to the places where veterans dedicated them** (`NPSX-NEWSLETTER-V14N2-p001-02`)
   - State date: **1960s (monuments moved during the construction of the Cyclorama building)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -396,11 +396,11 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 14 No. 2,
 
 ## NPS-NEWSLETTER-V17N3
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17 No. 3, Fall (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v17n3.pdf
+Park News: The Gettysburg Quarterly, Vol. 17, No. 3 (Fall 2010) (Fall 2010). https://www.npshistory.com/publications/gett/newsletter/v17n3.pdf
 
 - **The Cyclorama building, designed by Richard Neutra, completed by the Service in 1962** (`NPSX-NEWSLETTER-V17N3-p001-01`)
   - State date: **1962 (the Cyclorama building)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
-  - Claim: The newsletter says the Cyclorama building was designed by the architect Richard Neutra and that construction by the National Park Service was completed in 1962
+  - Claim: The newsletter says the Cyclorama building was designed by the architect Richard Neutra and that construction by NPS was completed in 1962
   - Quote: "The Cyclorama building was designed by noted architect Richard Neutra and construction by NPS was completed in 1962."
 
 ## NPS-TPG-COMMEM
@@ -529,7 +529,7 @@ Eisenhower at Gettysburg - Eisenhower National Historic Site (U.S. National Park
 
 ## NPSGOV-HC-ALABAMA-MONUMENT
 
-Alabama Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/alabama-monument.htm
+Alabama Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/alabama-monument.htm
 
 - **Alabama Monument: final program for the dedication of November 12, 1933** (`NPSX-WEB-HC-ALABAMA-MONUMENT-p001-01`)
   - State date: **1933-11-12 (dedication of the Alabama Monument; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -543,7 +543,7 @@ Alabama Monument - Gettysburg National Military Park (U.S. National Park Service
 
 ## NPSGOV-HC-ARKANSAS-MONUMENT
 
-Arkansas Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/arkansas-monument.htm
+Arkansas Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/arkansas-monument.htm
 
 - **Arkansas Monument: the Gettysburg Times of June 20, 1966 reports it dedicated** (`NPSX-WEB-HC-ARKANSAS-MONUMENT-p001-01`)
   - State date: **1966-06 (dedication of the Arkansas Monument; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -557,7 +557,7 @@ Arkansas Monument - Gettysburg National Military Park (U.S. National Park Servic
 
 ## NPSGOV-HC-DELAWARE-MEMORIAL
 
-Delaware Memorial - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/delaware-memorial.htm
+Delaware Memorial - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/delaware-memorial.htm
 
 - **Delaware Memorial: dedication program of April 29, 2000** (`NPSX-WEB-HC-DELAWARE-MEMORIAL-p001-01`)
   - State date: **2000-04-29 (dedication of the Delaware State Memorial; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -567,7 +567,7 @@ Delaware Memorial - Gettysburg National Military Park (U.S. National Park Servic
 
 ## NPSGOV-HC-FLORIDA-MONUMENT
 
-Florida Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/florida-monument.htm
+Florida Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/florida-monument.htm
 
 - **Florida and South Carolina monuments: dedications proposed for the centennial days of July 1 to 3, 1963** (`NPSX-WEB-HC-FLORIDA-MONUMENT-p001-01`)
   - State date: **1963-07 (proposed dedications; the monuments were erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -580,7 +580,7 @@ Florida Monument - Gettysburg National Military Park (U.S. National Park Service
 
 ## NPSGOV-HC-GEORGIA-MONUMENT
 
-Georgia Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/georgia-monument.htm
+Georgia Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/georgia-monument.htm
 
 - **Georgia Monument: dedication program and order of ceremonies of September 21, 1961** (`NPSX-WEB-HC-GEORGIA-MONUMENT-p001-01`)
   - State date: **1961-09-21 (dedication of the Georgia Monument at Gettysburg; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -593,7 +593,7 @@ Georgia Monument - Gettysburg National Military Park (U.S. National Park Service
 
 ## NPSGOV-HC-KENTUCKY-MEMORIAL
 
-Kentucky Memorial - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/kentucky-memorial.htm
+Kentucky Memorial - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/kentucky-memorial.htm
 
 - **Kentucky Memorial: program for the dedication of the Kentucky State Monument on November 19, 1975** (`NPSX-WEB-HC-KENTUCKY-MEMORIAL-p001-01`)
   - State date: **1975-11-19 (dedication of the Kentucky State Monument; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -606,7 +606,7 @@ Kentucky Memorial - Gettysburg National Military Park (U.S. National Park Servic
 
 ## NPSGOV-HC-LINCOLN-SPEECH-MEMORIAL
 
-Lincoln Speech Memorial - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/lincoln-speech-memorial.htm
+Lincoln Speech Memorial - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/lincoln-speech-memorial.htm
 
 - **Lincoln Speech Memorial: the Gettysburg Compiler of October 1, 1895 announced the plan to build it and its probable location** (`NPSX-WEB-HC-LINCOLN-SPEECH-MEMORIAL-p001-01`)
   - State date: **1895-10-01 (plan of the Lincoln Speech Memorial; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -619,7 +619,7 @@ Lincoln Speech Memorial - Gettysburg National Military Park (U.S. National Park 
 
 ## NPSGOV-HC-LOUISIANA-MONUMENT
 
-Louisiana Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/louisiana-monument.htm
+Louisiana Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/louisiana-monument.htm
 
 - **Louisiana Monument: dedication program and schedule of events of June 11, 1971** (`NPSX-WEB-HC-LOUISIANA-MONUMENT-p001-01`)
   - State date: **1971-06-11 (dedication of the Louisiana Monument; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -632,7 +632,7 @@ Louisiana Monument - Gettysburg National Military Park (U.S. National Park Servi
 
 ## NPSGOV-HC-MISSISSIPPI
 
-Mississippi Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/mississippi.htm
+Mississippi Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/mississippi.htm
 
 - **Mississippi Monument: dedication rescheduled for October 5, 1973 from June 15, 1973; a dedication program is dated October 19, 1973** (`NPSX-WEB-HC-MISSISSIPPI-p001-01`)
   - State date: **1973-10 (dedication of the Mississippi Monument; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: inferred (source wording: conflict) | PDF p. 1
@@ -642,7 +642,7 @@ Mississippi Monument - Gettysburg National Military Park (U.S. National Park Ser
 
 ## NPSGOV-HC-NORTH-CAROLINA-MONUMENT
 
-North Carolina Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/north-carolina-monument.htm
+North Carolina Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/north-carolina-monument.htm
 
 - **North Carolina Monument: dedication program of July 3, 1929** (`NPSX-WEB-HC-NORTH-CAROLINA-MONUMENT-p001-01`)
   - State date: **1929-07-03 (dedication of the North Carolina Monument; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -661,7 +661,7 @@ North Carolina Monument - Gettysburg National Military Park (U.S. National Park 
 
 ## NPSGOV-HC-PENNSYLVANIA-MEMORIAL
 
-Pennsylvania Memorial - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/pennsylvania-memorial.htm
+Pennsylvania Memorial - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/pennsylvania-memorial.htm
 
 - **Pennsylvania State Memorial: shuttle trains ran between Gettysburg Station and the Monument on Hancock Avenue for the dedication of September 27, 1910** (`NPSX-WEB-HC-PENNSYLVANIA-MEMORIAL-p001-01`)
   - State date: **1910-09-27 (dedication of the State Memorial; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -674,7 +674,7 @@ Pennsylvania Memorial - Gettysburg National Military Park (U.S. National Park Se
 
 ## NPSGOV-HC-SOLDIERS-AND-SAILORS-MONUMENT
 
-Soldiers and Sailors Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/soldiers-and-sailors-monument.htm
+Soldiers and Sailors Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/soldiers-and-sailors-monument.htm
 
 - **Confederate Soldiers and Sailors Monument: dedication program of August 25, 1965 and the dedication ceremony** (`NPSX-WEB-HC-SOLDIERS-AND-SAILORS-MONUMENT-p001-01`)
   - State date: **1965-08-25 (dedication of the Soldiers and Sailors Monument; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -684,7 +684,7 @@ Soldiers and Sailors Monument - Gettysburg National Military Park (U.S. National
 
 ## NPSGOV-HC-SOUTH-CAROLINA-MONUMENT
 
-South Carolina Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/south-carolina-monument.htm
+South Carolina Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/south-carolina-monument.htm
 
 - **South Carolina Monument: approved for dedication at 10:30 am on July 2, 1963** (`NPSX-WEB-HC-SOUTH-CAROLINA-MONUMENT-p001-01`)
   - State date: **1963-07-02 (the South Carolina Monument dedication as approved; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -693,7 +693,7 @@ South Carolina Monument - Gettysburg National Military Park (U.S. National Park 
 
 ## NPSGOV-HC-STATE-OF-INDIANA-MONUMENT
 
-State of Indiana Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/state-of-indiana-monument.htm
+State of Indiana Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/state-of-indiana-monument.htm
 
 - **Indiana Monument: dedication program of July 1, 1971 and a proposed date of July 3, 1971 approved by the superintendent** (`NPSX-WEB-HC-STATE-OF-INDIANA-MONUMENT-p001-01`)
   - State date: **1971-07 (dedication of the State of Indiana Monument; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: inferred (source wording: conflict) | PDF p. 1
@@ -703,7 +703,7 @@ State of Indiana Monument - Gettysburg National Military Park (U.S. National Par
 
 ## NPSGOV-HC-TENNESSEE-MONUMENT
 
-Tennessee Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/tennessee-monument.htm
+Tennessee Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/tennessee-monument.htm
 
 - **Tennessee Monument: dedication program of July 3, 1982** (`NPSX-WEB-HC-TENNESSEE-MONUMENT-p001-01`)
   - State date: **1982-07-03 (dedication of the Tennessee Monument; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -716,7 +716,7 @@ Tennessee Monument - Gettysburg National Military Park (U.S. National Park Servi
 
 ## NPSGOV-HC-TEXAS-MONUMENT
 
-Texas Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/texas-monument.htm
+Texas Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/texas-monument.htm
 
 - **Texas Monument: a Texas marker for Hood's Texas Brigade already stood near the location the Texas committee chose (1963 letter)** (`NPSX-WEB-HC-TEXAS-MONUMENT-p001-01`)
   - State date: **1963 (the marker of Hood's Texas Brigade, a later feature; the letter dates from the centennial planning)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -725,7 +725,7 @@ Texas Monument - Gettysburg National Military Park (U.S. National Park Service) 
 
 ## NPSGOV-HC-VIRGINIA-MONUMENT
 
-Virginia Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/virginia-monument.htm
+Virginia Monument - Gettysburg National Military Park (U.S. National Park Service) (web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16). https://www.nps.gov/gett/learn/historyculture/virginia-monument.htm
 
 - **Virginia Monument: the Virginia Gettysburg Commission selected Spangler's Woods as the site in December 1909** (`NPSX-WEB-HC-VIRGINIA-MONUMENT-p001-01`)
   - State date: **1909-12 (site chosen for the Virginia memorial; erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -749,7 +749,7 @@ Virginia Monument - Gettysburg National Military Park (U.S. National Park Servic
 
 ## NPSGOV-NEWS-121STNY-MONUMENT-REPAIR-5-13
 
-Gettysburg's 121st NY Monument Repaired - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/121stny-monument-repair-5-13.htm
+Gettysburg's 121st NY Monument Repaired - Gettysburg National Military Park (U.S. National Park Service) (news release of May 7, 2013). https://www.nps.gov/gett/learn/news/121stny-monument-repair-5-13.htm
 
 - **The 121st New York monument on the west side of Sykes Avenue was dedicated in 1889** (`NPSX-WEB-NEWS-121STNY-MONUMENT-REPAIR-5-13-p001-01`)
   - State date: **1889 (dedication of the monument)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -759,7 +759,7 @@ Gettysburg's 121st NY Monument Repaired - Gettysburg National Military Park (U.S
 
 ## NPSGOV-NEWS-5TH-US-ARTILLERY-MONUMENT-9-14
 
-Battery F, 5th U.S. Artillery Monument Returned to Original Location in the Park - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/5th-us-artillery-monument-9-14.htm
+Battery F, 5th U.S. Artillery Monument Returned to Original Location in the Park - Gettysburg National Military Park (U.S. National Park Service) (news release of September 24, 2014). https://www.nps.gov/gett/learn/news/5th-us-artillery-monument-9-14.htm
 
 - **Battery F, 5th U.S. Artillery monument: placed after 1907, moved in the early 1960s for the Cyclorama building and returned on September 24, 2014 to its original place in Ziegler's Grove** (`NPSX-WEB-NEWS-5TH-US-ARTILLERY-MONUMENT-9-14-p001-01`)
   - State date: **1907 and later (the marker was placed after 1907; moved in the early 1960s; returned in 2014)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -773,7 +773,7 @@ Battery F, 5th U.S. Artillery Monument Returned to Original Location in the Park
 
 ## NPSGOV-NEWS-CEMETERY-WATER-LINE
 
-Gettysburg National Cemetery Water Line to be Replaced - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/cemetery-water-line.htm
+Gettysburg National Cemetery Water Line to be Replaced - Gettysburg National Military Park (U.S. National Park Service) (news release of June 3, 2019). https://www.nps.gov/gett/learn/news/cemetery-water-line.htm
 
 - **The water line of the Gettysburg National Cemetery first installed in 1939 for irrigation and monument cleaning** (`NPSX-WEB-NEWS-CEMETERY-WATER-LINE-p001-01`)
   - State date: **1939 (the water line of the national cemetery)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -782,7 +782,7 @@ Gettysburg National Cemetery Water Line to be Replaced - Gettysburg National Mil
 
 ## NPSGOV-NEWS-CULPS-HILL-REHAB
 
-Gettysburg National Military Park & Gettysburg Foundation Partnership Project: Culp’s Hill Rehabilitation - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/culps-hill-rehab.htm
+Gettysburg National Military Park & Gettysburg Foundation Partnership Project: Culp’s Hill Rehabilitation - Gettysburg National Military Park (U.S. National Park Service) (news release of January 28, 2021). https://www.nps.gov/gett/learn/news/culps-hill-rehab.htm
 
 - **Slocum Avenue near the summit of Culp's Hill is lined with monuments** (`NPSX-WEB-NEWS-CULPS-HILL-REHAB-p001-03`)
   - State date: **later than 1863 (an avenue and monuments of the commemorative era; the photograph caption of 2021)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -791,7 +791,7 @@ Gettysburg National Military Park & Gettysburg Foundation Partnership Project: C
 
 ## NPSGOV-NEWS-CYCLORAMA-CENTER-EA-8-2012
 
-Environmental Assessment for GNMP Cyclorama Center Available for Public Comment - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/cyclorama-center-ea-8-2012.htm
+Environmental Assessment for GNMP Cyclorama Center Available for Public Comment - Gettysburg National Military Park (U.S. National Park Service) (news release of August 24, 2012). https://www.nps.gov/gett/learn/news/cyclorama-center-ea-8-2012.htm
 
 - **The Cyclorama building on North Cemetery Ridge, a modern intrusion whose demolition was proposed in 2012 to return the ridge to its 1863 and commemorative-era appearance** (`NPSX-WEB-NEWS-CYCLORAMA-CENTER-EA-8-2012-p001-01`)
   - State date: **modern (the building is called a modern intrusion; the page does not date its construction)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -814,7 +814,7 @@ Goals of Battlefield Rehabilitation - Gettysburg National Military Park (U.S. Na
 
 ## NPSGOV-NEWS-HARMAN-FARM-AQUIRED-3-25-11
 
-Sec. of Interior Announces Important Land Preservation at Gettysburg - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/harman-farm-aquired-3-25-11.htm
+Sec. of Interior Announces Important Land Preservation at Gettysburg - Gettysburg National Military Park (U.S. National Park Service) (news release of March 29, 2011). https://www.nps.gov/gett/learn/news/harman-farm-aquired-3-25-11.htm
 
 - **The Harman land developed in the 1950s as the Gettysburg Country Club, which closed in 2008** (`NPSX-WEB-NEWS-HARMAN-FARM-AQUIRED-3-25-11-p001-02`)
   - State date: **1950s (the country club; a later use of the land)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -823,7 +823,7 @@ Sec. of Interior Announces Important Land Preservation at Gettysburg - Gettysbur
 
 ## NPSGOV-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14
 
-Battlefield Rehabilitation Continues on Cemetery Ridge - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/rehabilitation-of-cemetery-ridge-1-14.htm
+Battlefield Rehabilitation Continues on Cemetery Ridge - Gettysburg National Military Park (U.S. National Park Service) (news release of January 28, 2014). https://www.nps.gov/gett/learn/news/rehabilitation-of-cemetery-ridge-1-14.htm
 
 - **The old visitor center (demolished 2009) and the Cyclorama building (demolished 2013) on North Cemetery Ridge** (`NPSX-WEB-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14-p001-02`)
   - State date: **2009 and 2013 (demolitions of later buildings on the 1863 ground)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -837,7 +837,7 @@ Battlefield Rehabilitation Continues on Cemetery Ridge - Gettysburg National Mil
 
 ## NPSGOV-NEWS-THREE-MONUMENTS-PROJECT-5-2012
 
-Three of Gettysburg's Tallest Monuments to be Washed and Polished in June - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/three-monuments-project-5-2012.htm
+Three of Gettysburg's Tallest Monuments to be Washed and Polished in June - Gettysburg National Military Park (U.S. National Park Service) (news release of May 14, 2012). https://www.nps.gov/gett/learn/news/three-monuments-project-5-2012.htm
 
 - **The New York State Memorial in the Soldiers' National Cemetery was dedicated in 1893 (about 90 feet tall)** (`NPSX-WEB-NEWS-THREE-MONUMENTS-PROJECT-5-2012-p001-01`)
   - State date: **1893 (dedication of the New York State Memorial)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -854,7 +854,7 @@ Three of Gettysburg's Tallest Monuments to be Washed and Polished in June - Gett
 
 ## NPSGOV-NEWS-TOWERS-CLOSURE
 
-Observation Towers Close for Engineering Assessments - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/towers-closure.htm
+Observation Towers Close for Engineering Assessments - Gettysburg National Military Park (U.S. National Park Service) (news release of March 31, 2022). https://www.nps.gov/gett/learn/news/towers-closure.htm
 
 - **The park's three observation towers were built between 1895 and 1896** (`NPSX-WEB-NEWS-TOWERS-CLOSURE-p001-01`)
   - State date: **1895-1896 (the observation towers)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -863,7 +863,7 @@ Observation Towers Close for Engineering Assessments - Gettysburg National Milit
 
 ## NPSGOV-NEWS-TOWERS-CLOSURE-FLAG-POLES
 
-Observation Towers Close for Preservation Work - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/towers-closure-flag-poles.htm
+Observation Towers Close for Preservation Work - Gettysburg National Military Park (U.S. National Park Service) (news release of October 26, 2023). https://www.nps.gov/gett/learn/news/towers-closure-flag-poles.htm
 
 - **The Warfield (Longstreet), Culp's Hill and Oak Ridge observation towers were built between 1895 and 1896, when the War Department administered the park** (`NPSX-WEB-NEWS-TOWERS-CLOSURE-FLAG-POLES-p001-01`)
   - State date: **1895-1896 (the observation towers)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -872,7 +872,7 @@ Observation Towers Close for Preservation Work - Gettysburg National Military Pa
 
 ## NPSGOV-NEWS-VA-MEMORIAL-PRESERVATION
 
-Virginia Memorial Preservation and Patination Project - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/va-memorial-preservation.htm
+Virginia Memorial Preservation and Patination Project - Gettysburg National Military Park (U.S. National Park Service) (news release of August 29, 2022). https://www.nps.gov/gett/learn/news/va-memorial-preservation.htm
 
 - **The Virginia Memorial was dedicated in 1917** (`NPSX-WEB-NEWS-VA-MEMORIAL-PRESERVATION-p001-01`)
   - State date: **1917 (dedication of the Virginia Memorial)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1

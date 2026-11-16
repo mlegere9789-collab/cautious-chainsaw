@@ -147,9 +147,20 @@ def probe_hits(relpath, anchors, near, window=300, max_hits=8, flags=re.I, score
     rxs = [re.compile(n, flags) for n in near]
     clock = re.compile(CLOCK, re.I)
     terms = [t.lower() for t in (score_terms or [])]
-    # whitespace in the OCR text is irregular (double spaces, line breaks): an anchor of several words matches across any run of white space
-    arx = re.compile('|'.join(r'\s+'.join(re.escape(w) for w in a.lower().split()) for a in anchors))
-    offs = [m.start() for m in arx.finditer(low)]
+    # whitespace in the OCR text is irregular (double spaces, line breaks): an anchor of several words matches across any run of white space.
+    # The first word is found with str.find (fast) and the rest of the anchor is matched at that position.
+    offs = []
+    for a in anchors:
+        words = a.lower().split()
+        if not words:
+            continue
+        rest = re.compile(r'\s+'.join(re.escape(w) for w in words)) if len(words) > 1 else None
+        i = low.find(words[0])
+        while i >= 0:
+            if rest is None or rest.match(low, i):
+                offs.append(i)
+            i = low.find(words[0], i + 1)
+    offs = sorted(set(offs))
     out, last = [], -10 ** 9
     for o in offs:
         if o - last < window:
@@ -201,3 +212,28 @@ def locate_quote(ctx, sid, quote, part=None):
         return [], None, why
     raw, skel, omap, marks = ctx.text(path)
     return T.match_quote(skel, omap, quote), path, None
+
+
+def locate_quote_spans(ctx, sid, quote, part=None, max_gap_alnum=900):
+    """[(start, end)] character offsets of a quote in a ledger text (the end is the offset after the last character of the last fragment), by the rule of locate_quote."""
+    T = L.town()
+    path, why = T.resolve_text(ctx, sid, part)
+    if path is None:
+        return [], None, why
+    raw, skel, omap, marks = ctx.text(path)
+    frs = [T.quote_skeleton(f) for f in T.fragments(quote)]
+    out = []
+    if not frs:
+        return out, path, None
+    for i0 in T.find_all(skel, frs[0]):
+        pos = i0 + len(frs[0])
+        ok = True
+        for fr in frs[1:]:
+            j = skel.find(fr, pos, pos + max_gap_alnum + len(fr))
+            if j < 0:
+                ok = False
+                break
+            pos = j + len(fr)
+        if ok:
+            out.append((int(omap[i0]), int(omap[pos - 1]) + 1))
+    return out, path, None

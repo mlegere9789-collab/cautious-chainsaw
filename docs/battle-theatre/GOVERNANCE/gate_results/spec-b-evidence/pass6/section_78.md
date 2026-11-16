@@ -21,7 +21,7 @@ Raw outputs are in `spec-b-evidence/pass6/`. The programs of this pass are `fact
 | `verify_positions_C` | 0 | 2.1 s | exit 0 |
 | `verify_positions_D` | 0 | 2.1 s | exit 0 |
 | `verify_positions_E` | 0 | 1.9 s | exit 0 |
-| `realize_digests` | 0 | 2.1 s | {;  "harness": "bt-realize-1",;  "harness_digest": "30ec0d0142b1ce2b",;  "inputs_digest": "f415056737470af5",;  "inputs_parts": {; |
+| `realize_digests` | 0 | 2.1 s | harness bt-realize-1, digest 30ec0d0142b1ce2b; inputs digest f415056737470af5 over 238 files (governance 12, app_src 180, data 45, records 1) |
 | `realize_scratch` | 0 | 4.0 s | see 2.3 / Q17 |
 | `veg_check` | 0 | 4.5 s | ok true, 927,000 states, 0 failures |
 | `veg_scene_check` | 0 | 8.9 s | checkVegetation 927,000 states, 0 failures; checkScene 252,144 states, 0 failures |
@@ -61,7 +61,7 @@ Raw outputs are in `spec-b-evidence/pass6/`. The programs of this pass are `fact
 | `realize_rules_test` | 0 | 39 s | 42 tests: 42 pass, 0 fail |
 | `life_validate_all` | 1 | 6.1 s | 1383 row(s) in 7 file(s): 1 error(s), 30 warning(s) |
 | `medical_validate_all` | 0 | 32 s | checked 1003 rows in 22 group file(s): 0 failed |
-| `town_validate_all` | 0 | 6.2 s |   warn  terrain-changes-since-1863: no evidence file (not started) |
+| `town_validate_all` | 0 | 6.2 s | all: OK; rows 953 (building 51, field 776, search 126); buildings 51; tiers documented 293, inferred 263, open gap 173, plausible-procedural 47; 18 warning lines: no evidence file (not started) |
 
 **Run directly after the light script** (not under the lock, because locked job A had not started; niced; `pass6/light3-runs.tsv`, `pass6/bt_pack_test.out`): the two test files of `tests/bt-pack` (the packer and the copy audit of the shipped dist), 03:15 UTC, 96 tests of which 92 pass and 4 fail, 21 s of CPU and 121 s of wall time; the four failures are the copy-audit tests of section 6.
 
@@ -85,4 +85,4 @@ Locked job C: queued at 02:46:04 UTC; it had not started when this was written (
 
 **Deviations from the working rules, recorded.** (1) `tests/governance/gates/test_q03.py` was started directly (niced) to measure its cost with a short timeout in mind and ran 490 s of wall time and 128 s of CPU (117 tests, all pass; `pass6/gates_test_q03_verbose.out`, `gates_test_q03.time`): over the guideline of 30 s of CPU, so a repeat belongs under the lock. (2) `test_q04.py` took 38.9 s of CPU and `medical-evidence.test.mjs` 35.1 s: over the guideline by a little, run in the light script; (3) `kit_evidence_check.py --all` took 20 s of CPU and `kit_verified.py build` 19.8 s (9.6 and 9.3 s at the fifth pass, with two evidence groups instead of four). (4) The whole node suite was not run (8.11). (5) `medical-evidence.test.mjs` printed 5 of 6 passing: its test 6 (`--all`) fails on two rows of `medical/evidence/wounds-regions.jsonl` (E013: "the claim states 4" and "the claim states 11", which the quote does not) while the medical lane was extending that file; it is that lane's file and test and says nothing of a gate.
 
-**Not run** (as in 7.4, 7.5 and 7.7 and for the reasons they give, plus): any browser spec or harness (the capability probe is in locked job A), the dense runs of Q04 to Q06, the mutation checks of Q03 and Q04 to Q06, `link_subreqs.py`, `register_from_proposed.py`, `gate_q11`, `gate_q22`, `drill_check.py`, and anything on a real GPU.
+**Not run** (as in 7.4, 7.5 and 7.7 and for the reasons they give, plus): any browser spec or harness (the capability probe is in locked job A), `check_figures.py` (its inputs did not change: Q03) and `realize-inputs.test.mjs` (locked job A), the two pack test files were run directly instead (above), the dense runs of Q04 to Q06, the mutation checks of Q03 and Q04 to Q06, `link_subreqs.py`, `register_from_proposed.py`, `gate_q11`, `gate_q22`, `drill_check.py`, and anything on a real GPU.

@@ -1,10 +1,11 @@
 """Write GOVERNANCE/horde/ws-rosters/roster-qa/CLOSED.json, the last file of the roster-qa item (form in pipeline2/open_groups.py).
 
-    python3 -I qa_closed.py            run build_index.py --lint (it must report 0 defects), read the verify log, write CLOSED.json
+    python3 -I qa_closed.py            run build_index.py --lint (it must report 0 defects), read the verify logs, write CLOSED.json (round 2: covers the four Union items of round 1 and conf-nc)
 
 The file is written only when (1) `build_index.py --lint` reports 0 defects, (2) the verify log of the planning step (GOVERNANCE/horde/ws-rosters/plan/verify-all-2026-11-15.jsonl, one JSON
-object per unit file: `verify_unit.py --all`) shows 0 V1 and 0 V3 defects on every file, (3) every item of `covers` has all its unit files and a report and a pointer file (the closure
-rule of open_groups.py), and (4) the report, the pointer file, the manifest, the verdicts and the closure texts of the item exist.  It states in `note` what is owed.  Nothing here lowers a gate.
+object per unit file of the four Union items: `verify_unit.py --all`) and the verify log of the 41 conf-nc files (GOVERNANCE/horde/ws-rosters/roster-qa/r2/verify-nc.jsonl, run by this item) show
+0 V1 and 0 V3 defects on every file, (3) every item of `covers` has all its unit files and a report and a pointer file (the closure rule of open_groups.py), and (4) the report, the pointer
+file, the manifest, the verdicts of both rounds and the closure texts of the item exist.  It states in `note` what is owed.  Nothing here lowers a gate.
 """
 import sys, os, re, json, glob, subprocess, time
 
@@ -14,7 +15,14 @@ sys.path.insert(0, os.path.dirname(HERE))
 import qa_lib as Q
 import open_groups as OG
 
-COVERS = ['union-me', 'union-nh', 'union-vt', 'union-ma']
+COVERS = ['union-me', 'union-nh', 'union-vt', 'union-ma', 'conf-nc']
+ROUND = 2
+QA1 = Q.QA_ROOT
+QA2 = os.path.join(Q.QA_ROOT, 'round2')
+
+
+def jl(p):
+    return Q.jload(p) if os.path.exists(p) else None
 
 
 def main():
@@ -23,11 +31,19 @@ def main():
     if not m or int(m.group(1)) != 0:
         print('build_index.py --lint does not report 0 defects:\n' + lint.stdout[-800:])
         return 1
-    vp = os.path.join(Q.ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws-rosters', 'plan', 'verify-all-2026-11-15.jsonl')
-    vl = [json.loads(x) for x in open(vp, encoding='utf-8') if x.strip()]
+    plan = os.path.join(Q.ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws-rosters', 'plan', 'verify-all-2026-11-15.jsonl')
+    nc = os.path.join(Q.WSQ, 'r2', 'verify-nc.jsonl')
+    for p in (plan, nc):
+        if not os.path.exists(p):
+            print('missing verify log: ' + p)
+            return 1
+    if not os.path.exists(os.path.join(Q.WSQ, 'r2', 'verify-nc.done')):
+        print('the verify run of the conf-nc files has not finished (r2/verify-nc.done is missing)')
+        return 1
+    vl = [json.loads(x) for x in open(plan, encoding='utf-8') if x.strip()] + [json.loads(x) for x in open(nc, encoding='utf-8') if x.strip()]
     v1, v3 = sum(x['v1_name_defects'] for x in vl), sum(x['v3_page_defects'] for x in vl)
     if v1 or v3 or any(not x['ok'] for x in vl):
-        print('the verify log shows defects: V1 %d, V3 %d' % (v1, v3))
+        print('the verify logs show defects: V1 %d, V3 %d' % (v1, v3))
         return 1
     wi, groups, order, out, state = OG.evaluate()
     for it in COVERS:
@@ -35,27 +51,36 @@ def main():
         if not ok:
             print('item %s is not closed by the rule of open_groups.py: %s' % (it, why))
             return 1
-    for need in (os.path.join(Q.R2, 'reports', 'roster-qa.md'), os.path.join(Q.R2, 'sources', 'roster-qa.json'), os.path.join(Q.TMP, 'MANIFEST-roster-qa.json'), os.path.join(Q.QA, 'stats.json'),
-                 os.path.join(Q.WSQ, 'closure', 'gaps-lines.md'), os.path.join(Q.WSQ, 'closure', 'decisions-rows.md')):
+    for need in (os.path.join(Q.R2, 'reports', 'roster-qa.md'), os.path.join(Q.R2, 'sources', 'roster-qa.json'), os.path.join(Q.TMP, 'MANIFEST-roster-qa.json'), os.path.join(QA1, 'stats.json'), os.path.join(QA2, 'stats.json'),
+                 os.path.join(QA2, 'verdicts-vs-files.json'), os.path.join(QA2, 'claims-check.json'), os.path.join(Q.WSQ, 'closure', 'gaps-lines.md'), os.path.join(Q.WSQ, 'closure', 'r2-gaps-lines.md'),
+                 os.path.join(Q.WSQ, 'closure', 'r2-decisions-rows.md')):
         if not os.path.exists(need):
             print('missing: ' + need)
             return 1
-    stats = Q.jload(os.path.join(Q.QA, 'stats.json'))
-    sr = os.path.exists(os.path.join(Q.QA, 'second-reading.json'))
-    nstrata = len(stats['strata'])
-    nfail = sum(1 for d in stats['strata'].values() if any(x['decision'] == 'FAIL' for g, x in d['gates'].items() if g != 'any'))
-    note = ('Round 1 of the independent sample of the stored lines against page images: %d pages and %d stored lines of the four closed items (union-me, union-nh, union-vt, union-ma) in %d strata, looked at in two '
-            'sittings; %d of %d strata fail at least one gate by the ladder of PLAN.md 4.4 and no gate passes (R-G9 not passed, EG-ROS-QA-01; defect lists in reports/roster-qa.md 2.4 and rosters/GAPS.md G-QA02 to G-QA05, '
-            'returned to the parsers of the four items; a fresh draw is owed after each fix). Gates shown OPEN are undecided (EG-ROS-QA-02). Written with it: GAPS.md G-QA01 to G-QA06, proposed register entries '
-            'EG-ROS-QA-01 to -05, DD-ROS-QA-01 to -05, PRODUCTION-PLAN 9.10, request note bt-rosters-roster-qa-work-files.md, app/tests/roster-qa.test.mjs. The claims of the four reports were re-verified '
-            '(reports/roster-qa.md section 3; the stale Massachusetts flag counts and flag-file hashes were found and regenerated by that item\'s own scripts). The second-reading route test on 20 pages per family is %s. '
-            'Later rounds: open_groups.py returns this item again when a state item closes that "covers" does not name.') % (
-        stats['pages_looked_at'], stats['rows_looked_at'], nstrata, nfail, nstrata,
-        'done (reports/roster-qa.md 4.2)' if sr else 'OWED (G-QA06: queued through the machine lock, not run when this file was written; run qa_route_test.py run through tools/horde/bench.sh, then qa_report.py)')
-    doc = {'f': 'roster2-closed/1', 'work_item': 'roster-qa', 'round': 1, 'units_without_file': [], 'covers': COVERS,
+    s1, s2 = jl(os.path.join(QA1, 'stats.json')), jl(os.path.join(QA2, 'stats.json'))
+    sr1, sr2 = os.path.exists(os.path.join(QA1, 'second-reading.json')), os.path.exists(os.path.join(QA2, 'second-reading.json'))
+    cur2 = jl(os.path.join(QA2, 'verdicts-vs-files.json'))
+    cl2 = jl(os.path.join(QA2, 'claims-check.json'))
+    n1 = sum(1 for d in s1['strata'].values() if any(x['decision'] == 'FAIL' for g, x in d['gates'].items() if g != 'any'))
+    n2 = sum(1 for d in s2['strata'].values() if any(x['decision'] == 'FAIL' for g, x in d['gates'].items() if g != 'any'))
+    ncc = os.path.exists(os.path.join(Q.ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws-rosters', 'conf-nc', 'CLOSED.json'))
+    note = ('Round 2 of the independent sample of the stored lines against page images (rosters/reports/roster-qa.md section 8; data2/qa/round2): conf-nc (North Carolina, Moore 1882), %d pages and %s stored lines in %d strata '
+            '(the two scans of the roll x officers pages and other pages), looked at on 16 November 2026; %d of %d strata fail at least one gate by the ladder of PLAN.md 4.4 and no gate passes (R-G9 not passed for conf-nc, '
+            'EG-ROS-QA-06; defect list in rosters/GAPS.md G-QA07, returned to the parser of conf-nc; fresh pages are owed after the fixes, G-QA08, EG-ROS-QA-07). The verdicts of %d pages describe the files as they are now '
+            '(%d identical, %d with the same lines under new row numbers; the item was rebuilt by its own engineer while the sample was taken, one page was looked at again and its first verdict is kept under superseded/); '
+            '%s claims of the conf-nc report and pointer file recomputed, %s hold, %d do not (section 8.6); verify_unit.py on the 41 files: 0 V1, 0 V3; the conf-nc item had %s CLOSED.json when this file was written. '
+            'Round 1 (union-me, union-nh, union-vt, union-ma): %d pages and %s lines, %d of %d strata fail, unchanged (35 of 35 verdict pages still describe the files). The second-reading route test is %s for the six round 1 families and %s '
+            'for the two Moore scan families. Written with this round: GAPS.md G-QA07 and G-QA08, proposed register entries EG-ROS-QA-06 and -07, DD-ROS-QA-06 to -09, PRODUCTION-PLAN 9.11, request note '
+            'bt-rosters-roster-qa-round2.md, app/tests/roster-qa.test.mjs (both rounds), the pointer file and manifest of the Moore scans. Later rounds: open_groups.py returns this item again when a state item closes that '
+            '"covers" does not name.') % (
+        s2['pages_looked_at'], '{:,}'.format(s2['rows_looked_at']), len(s2['strata']), n2, len(s2['strata']), cur2['summary']['pages'], cur2['summary']['identical'], cur2['summary'].get('renumbered', 0),
+        '{:,}'.format(cl2['checked']), '{:,}'.format(cl2['checked'] - len(cl2['do_not_hold'])), len(cl2['do_not_hold']), 'a' if ncc else 'no',
+        s1['pages_looked_at'], '{:,}'.format(s1['rows_looked_at']), n1, len(s1['strata']),
+        'done (4.2)' if sr1 else 'OWED (G-QA06)', 'done (8.7)' if sr2 else 'OWED (G-QA08)')
+    doc = {'f': 'roster2-closed/1', 'work_item': 'roster-qa', 'round': ROUND, 'units_without_file': [], 'covers': COVERS,
            'verify': {'files': len(vl), 'v1_defects': v1, 'v3_defects': v3}, 'note': note}
     Q.jdump(os.path.join(Q.WSQ, 'CLOSED.json'), doc)
-    print('CLOSED.json written: covers %s, verify %s' % (COVERS, doc['verify']))
+    print('CLOSED.json written: round %d, covers %s, verify %s' % (ROUND, COVERS, doc['verify']))
     return 0
 
 

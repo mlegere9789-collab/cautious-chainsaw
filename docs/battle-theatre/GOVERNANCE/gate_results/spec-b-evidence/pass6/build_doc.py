@@ -97,10 +97,10 @@ def tok_L(kind):
         x = last_lines('life_validate_all', 1)
         return ('`tools/bt/life/validate_evidence.py --all` (%s): "%s".' % (run_phrase('life_validate_all'), x[-1][:200])) if x and 'life_validate_all' in RUNS else 'The OA11 validator was not run when this was written.'
     if kind == 'town':
-        x = last_lines('town_validate_all', 1)
         t = rd(os.path.join(HERE, 'town_validate_all.out')) if os.path.exists(os.path.join(HERE, 'town_validate_all.out')) else ''
+        ls = [l.strip() for l in t.split('\n') if l.strip()]
         nst = len(re.findall(r'no evidence file \(not started\)', t))
-        return ('`tools/bt/town/validate_evidence.py --all --allow-missing` (%s): %d groups still "no evidence file (not started)", last line "%s".' % (run_phrase('town_validate_all'), nst, x[-1][:160])) if x and 'town_validate_all' in RUNS else 'The OA10 validator was not run when this was written.'
+        return ('`tools/bt/town/validate_evidence.py --all --allow-missing` (%s): first line "%s", then %d groups with "no evidence file (not started)" as warnings.' % (run_phrase('town_validate_all'), ls[0][:170], nst)) if ls and 'town_validate_all' in RUNS else 'The OA10 validator was not run when this was written.'
     if kind == 'medical':
         x = last_lines('medical_validate_all', 1)
         return ('`tools/bt/medical/validate_evidence.py --all --summary` (%s): "%s".' % (run_phrase('medical_validate_all'), x[-1][:200])) if x and 'medical_validate_all' in RUNS else 'The OA12 validator was not run when this was written.'
@@ -154,7 +154,8 @@ def tok_RERUNS():
         return 'the seven re-runs of 7.8 were not done when this was written.'
     out = 'the re-runs of %s into a scratch folder gave the verdict and the counts of their stored records' % ', '.join(g for g, _, _ in same) if same else ''
     for g, a_, b_ in diff:
-        out += ('; ' if out else '') + 'the re-run of %s differs from its stored record (%s items against %s) because inputs of that record changed in between (%s)' % (g, format(b_, ','), format(a_, ','), tok_CUR(g).rstrip('.').split('; ', 1)[1] if '; ' in tok_CUR(g) else 'see 7.8')
+        tail = tok_CUR(g).rstrip('.').split('; ', 1)[1].replace('; ', ', and ') if '; ' in tok_CUR(g) else 'see 7.8'
+        out += ('; ' if out else '') + 'the re-run of %s differs from its stored record (%s items against %s), and its inputs are no longer those of the stored record: %s; that is the likely reason, not a proven one, because a record does not name the version of the runner that made it (2.6)' % (g, format(b_, ','), format(a_, ','), tail)
     return out + '.'
 
 

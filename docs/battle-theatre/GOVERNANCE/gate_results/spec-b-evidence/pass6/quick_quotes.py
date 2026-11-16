@@ -6,6 +6,9 @@ so no machine lock), as a quick companion of verify_quotes.py (which reads 200 M
 
 Which strings: every double-quoted string in the lines of DOC that are not lines of BEFORE (added or changed lines).  Folding as verify_quotes.py does it: backticks, backslash
 escapes and curly quotes removed, dashes unified, white space collapsed, lower case; a string is split on '...' and each fragment of at least 10 characters must occur.
+A fragment that the fixed-string scan does not find is tried once more as a regular expression in which each blank of the fragment stands for any run of white space (the scan
+folds the fragment but not the text it reads, so a verbatim quotation of a line with two blanks would otherwise count as found nowhere).
+The checkers' own output files (quick_quotes*, verify_quotes*, *negctl*, quotes_result.txt) are left out of the run output, because they list the fragments that were not found.
 Corpus: docs, tests, tools, sim and ops of the repository without docs/battle-theatre/GOVERNANCE/gate_results (the spec files), files up to 3 MB; then the run output kept in spec-b-evidence
 (*.out, *.tsv, *.txt, *.err, *.log, *.tap; never *.md) and in tmp/bt-gates (raw outputs): a string found only there is reported under only_in_run_output; then the text of BEFORE
 (the wording of this file before the pass: the 'Was' column quotes it).  A control document must live outside these folders (the scratchpad).
@@ -51,14 +54,33 @@ def scan(paths, globs):
     return set(fold(x) for x in out.split('\n') if x)
 # rg matches within a line, so a fragment is found when it occurs inside one line; fold() of the match equals the fragment (fixed-string, case-insensitive)
 repo = scan(['docs', 'tests', 'tools', 'sim', 'ops', 'historian-src'], ['!docs/battle-theatre/GOVERNANCE/gate_results/**', '!**/node_modules/**', '!**/.git/**', '!release/**', '!deliver/**'])
-run = scan(['docs/battle-theatre/GOVERNANCE/gate_results/spec-b-evidence', 'tmp/bt-gates'], ['*.out', '*.tsv', '*.txt', '*.err', '*.log', '*.tap', '*.raw'])   # no *.md: a copy of a spec file must never count as run output
+SELF = ['!**/quick_quotes*', '!**/verify_quotes*', '!**/*negctl*', '!**/quotes_result.txt']   # the checkers' own output lists the fragments it did not find: it must not count as a place where a fragment is found
+run = scan(['docs/battle-theatre/GOVERNANCE/gate_results/spec-b-evidence', 'tmp/bt-gates'], ['*.out', '*.tsv', '*.txt', '*.err', '*.log', '*.tap', '*.raw'] + SELF)   # no *.md: a copy of a spec file must never count as run output
 run |= scan(['docs/battle-theatre/GOVERNANCE/gate_results'], ['Q[0-9][0-9].json', 'Q[0-9][0-9].prev.json', '**/gate_results/evidence/**'])   # the stored gate records and the runners' evidence folder (not the spec files)
 before_text = fold(open(BEFORE, encoding='utf-8').read())
+META = set('\\.+*?()|[]{}^$#&-~')
+def blank_tolerant(f):
+    return r'\s+'.join(''.join('\\' + c if c in META else c for c in w) for w in f.split(' '))
+def retry(f, paths, globs):
+    cmd = ['rg', '-i', '-q', '--max-filesize', '3M', '--no-messages', '-e', blank_tolerant(f)]
+    for g in globs:
+        cmd += ['-g', g]
+    cmd += paths
+    return subprocess.run(cmd, capture_output=True, cwd=ROOT).returncode == 0
+REPO_ARGS = (['docs', 'tests', 'tools', 'sim', 'ops', 'historian-src'], ['!docs/battle-theatre/GOVERNANCE/gate_results/**', '!**/node_modules/**', '!**/.git/**', '!release/**', '!deliver/**'])
+RUN_ARGS = [(['docs/battle-theatre/GOVERNANCE/gate_results/spec-b-evidence', 'tmp/bt-gates'], ['*.out', '*.tsv', '*.txt', '*.err', '*.log', '*.tap', '*.raw'] + SELF),
+            (['docs/battle-theatre/GOVERNANCE/gate_results'], ['Q[0-9][0-9].json', 'Q[0-9][0-9].prev.json', '**/gate_results/evidence/**'])]
+retried = []
+for f in [f for f in frags if f not in repo and f not in run and f not in before_text]:
+    if retry(f, *REPO_ARGS):
+        repo.add(f); retried.append(f)
+    elif any(retry(f, *a) for a in RUN_ARGS):
+        run.add(f); retried.append(f)
 # the pass-5 copies of old text in spec-b-evidence are the "before" file itself: skip it in run output
 found_repo = {f for f in frags if f in repo}
 found_run = {f for f in frags if f not in repo and f in run}
 found_old = {f for f in frags if f not in repo and f not in run and f in before_text}
 nowhere = [f for f in frags if f not in repo and f not in run and f not in before_text]
 os.unlink(pats.name)
-print(json.dumps({'added_or_changed_lines': len(new_lines), 'quoted_strings': len(strings), 'fragments': len(frags), 'in_repo': len(found_repo), 'only_in_run_output': len(found_run), 'only_in_the_text_before_this_pass': len(found_old), 'nowhere': len(nowhere),
+print(json.dumps({'added_or_changed_lines': len(new_lines), 'quoted_strings': len(strings), 'fragments': len(frags), 'in_repo': len(found_repo), 'only_in_run_output': len(found_run), 'only_in_the_text_before_this_pass': len(found_old), 'found_by_blank_tolerant_retry': len(retried), 'nowhere': len(nowhere),
                   'nowhere_list': [{'fragment': f[:200], 'in': frags[f][0][:200]} for f in nowhere]}, indent=1, ensure_ascii=False))

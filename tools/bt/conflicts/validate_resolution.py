@@ -250,7 +250,8 @@ def check_positions(R, ctx, obj, cid, S, delegated):
     scen_cov = {}
     flags_ok = set(S['flags'])
     event_date = obj.get('event_date') if isinstance(obj.get('event_date'), str) else None
-    default_ids = set(((obj.get('default') or {}).get('positions')) or [])
+    d0 = obj.get('default')
+    default_ids = set(x for x in (d0.get('positions') if isinstance(d0, dict) and isinstance(d0.get('positions'), list) else []) if isinstance(x, str))
     for i, p in enumerate(P_):
         w = 'positions[%d]' % i
         if not isinstance(p, dict):
@@ -356,7 +357,7 @@ def check_positions(R, ctx, obj, cid, S, delegated):
             _check_searches(R, fl, '%s failed_lookups' % w, 'failed_lookup_shape')
         # flags (gate spec CF-4: two independent non-lead sources or a flag)
         fg = p.get('flags', [])
-        if not isinstance(fg, list) or any(f not in flags_ok for f in fg):
+        if not isinstance(fg, list) or any((not isinstance(f, str)) or f not in flags_ok for f in fg):
             R.err('enum', '%s: flags is a list of %s' % (w, ', '.join(S['flags'])))
             fg = []
         if len(groups) < 2 and not (set(fg) & {'single_source', 'unsourced', 'lead_only', 'weak', 'memoir_only'}):
@@ -441,7 +442,8 @@ def check_coverage(R, obj, cid, delegated, cov):
 
 def check_default(R, obj, cid, byid, S):
     d = obj.get('default')
-    cls, tier = obj.get('class'), obj.get('tier')
+    cls = obj.get('class') if isinstance(obj.get('class'), str) else None
+    tier = obj.get('tier') if isinstance(obj.get('tier'), str) else None
     if not isinstance(d, dict):
         R.err('default_shape', 'default must be {"mode", "positions", "label", ...}')
         return
@@ -473,7 +475,7 @@ def check_default(R, obj, cid, byid, S):
     bw = P.banned_words(d.get('label'))
     if bw:
         R.err('banned_copy', 'default.label mentions %s' % bw)
-    kinds = {byid[x].get('kind') for x in ids}
+    kinds = {byid[x].get('kind') if isinstance(byid[x].get('kind'), str) else '?' for x in ids}
     numeric = kinds <= {'count', 'count_range', 'quantity', 'duration'}
     if numeric and kinds:
         rg = d.get('range')
@@ -510,7 +512,7 @@ def check_default(R, obj, cid, byid, S):
     if cls == 'settled' and mode == 'unresolved_set':
         R.err('class_mode', 'class settled cannot have an unresolved set as its default')
     # tier of the default against its positions
-    ptiers = [byid[x].get('tier') for x in ids]
+    ptiers = [byid[x].get('tier') if isinstance(byid[x].get('tier'), str) else '?' for x in ids]
     weakest = L.weakest_tier(ptiers)
     if weakest and tier in L.TIER_RANK and L.TIER_RANK[tier] < L.TIER_RANK[weakest]:
         R.err('tier_better_than_support', 'tier %s is better than the weakest default position (%s): the tier of a resolution is that of the weakest position its default rests on' % (tier, weakest))
@@ -519,13 +521,17 @@ def check_default(R, obj, cid, byid, S):
     # the default never rests on a lead alone (gate spec CF-4)
     for x in ids:
         p = byid[x]
-        sup = p.get('support') or []
+        sup = p.get('support') if isinstance(p.get('support'), list) else []
         if sup and all(isinstance(c, dict) and ((c.get('source_class') == 'lead')) for c in sup) and tier not in ('plausible-procedural', 'open gap'):
             R.err('default_lead_only', 'default position %s rests on a lead only: a lead is never the basis of a default view above plausible-procedural' % x)
 
 
 def check_class_tier(R, obj, S):
-    cls, tier = obj.get('class'), obj.get('tier')
+    cls = obj.get('class') if isinstance(obj.get('class'), str) else None
+    tier = obj.get('tier') if isinstance(obj.get('tier'), str) else None
+    if cls is None or tier is None:
+        R.err('enum', 'class and tier are strings of schema.json (class %s; tier %s)' % (', '.join(S['classes']), ', '.join(S['tiers'])))
+        return
     if cls not in S['classes']:
         R.err('enum', 'class must be one of %s' % ', '.join(S['classes']))
     if tier not in S['tiers']:
@@ -590,7 +596,7 @@ def check_holds(R, obj):
 
 
 def check_searches(R, obj):
-    cls = obj.get('class')
+    cls = obj.get('class') if isinstance(obj.get('class'), str) else None
     fs = obj.get('failed_searches')
     need = {'gap': 3, 'irreducible': 2}.get(cls, 0)
     if fs is None:
@@ -608,18 +614,18 @@ def check_searches(R, obj):
 
 def check_brief(R, obj, cid, byid):
     """Warnings of the rubric: the default rests on a weaker citation than a rejected value; a rejected value is as well sourced as the default."""
-    d = obj.get('default') or {}
-    dids = [x for x in (d.get('positions') or []) if x in byid]
+    d = obj.get('default') if isinstance(obj.get('default'), dict) else {}
+    dids = [x for x in (d.get('positions') if isinstance(d.get('positions'), list) else []) if isinstance(x, str) and x in byid]
     WR = {'order_or_dispatch': 6, 'private_letter_or_diary': 5, 'newspaper_1863': 4, 'official_report': 5, 'reference_table': 4, 'early_narrative': 3, 'postwar_narrative': 2,
           'proceedings_or_tablet': 2, 'later_history': 1, 'institutional': 1, 'lead': 0}
 
     def best(p):
         b = -1
-        for c in p.get('support') or []:
+        for c in (p.get('support') if isinstance(p.get('support'), list) else []):
             if isinstance(c, dict) and c.get('source_class') != 'lead' and isinstance(c.get('written'), dict):
                 k = c['written'].get('kind')
                 r = WR.get(k, 0)
-                if k == 'official_report' and isinstance(c['written'].get('date'), str) and re.match(r'^\d{4}-\d{2}-\d{2}$', c['written']['date']) and obj.get('event_date'):
+                if k == 'official_report' and isinstance(c['written'].get('date'), str) and re.match(r'^\d{4}-\d{2}-\d{2}$', c['written']['date']) and isinstance(obj.get('event_date'), str) and re.match(r'^\d{4}-\d{2}-\d{2}$', obj['event_date']):
                     import datetime
                     try:
                         gap = (datetime.date.fromisoformat(c['written']['date']) - datetime.date.fromisoformat(obj['event_date'])).days
@@ -634,14 +640,25 @@ def check_brief(R, obj, cid, byid):
     for pid, p in byid.items():
         if pid in dids:
             continue
-        rn = p.get('reason_not_chosen') or {}
+        rn = p.get('reason_not_chosen') if isinstance(p.get('reason_not_chosen'), dict) else {}
         pb = best(p)
         if pb > db and rn.get('kind') not in ('clock', 'different_event', 'place_of_observation', 'elsewhere', 'tolerance', 'rounding', 'unclear_expression'):
             R.warn('rubric', 'position %s is supported by a better class of writing (rank %d) than the default (rank %d) and is rejected for %r: say in weighing why the default still holds' % (pid, pb, db, rn.get('kind')))
         if rn.get('kind') == 'later_memory' and pb >= db and db >= 0:
             R.warn('rubric', 'position %s is rejected as later memory but its best citation is not of a later class than the default\'s' % pid)
-        if rn.get('kind') == 'no_source' and any(isinstance(c, dict) and c.get('source_class') != 'lead' for c in (p.get('support') or [])):
+        if rn.get('kind') == 'no_source' and any(isinstance(c, dict) and c.get('source_class') != 'lead' for c in (p.get('support') if isinstance(p.get('support'), list) else [])):
             R.warn('rubric', 'position %s is rejected as no_source but has non-lead citations' % pid)
+
+
+def _safe(R, name, fn, *args):
+    """Run one check; a bug of the validator or a file shape it did not foresee is reported as an error of the file, never as a crash of the whole run."""
+    try:
+        return fn(*args)
+    except Exception as ex:   # noqa: BLE001
+        import traceback
+        tb = traceback.extract_tb(ex.__traceback__)[-1]
+        R.err('validator_crash', 'the check %s failed on this file (%s: %s at %s line %d): the file has a shape the validator did not foresee; fix the shape' % (name, type(ex).__name__, str(ex)[:100], os.path.basename(tb.filename), tb.lineno))
+        return None
 
 
 def validate_obj(obj, label, ctx, file_id=None):
@@ -650,22 +667,23 @@ def validate_obj(obj, label, ctx, file_id=None):
     if not isinstance(obj, dict):
         R.err('not_object', 'the file is not a JSON object')
         return R
-    cid = check_top(R, obj, S, file_id)
+    cid = _safe(R, 'top', check_top, R, obj, S, file_id)
     if cid is None:
         return R
-    check_pdf_row(R, obj, cid)
-    delegated = check_first_delegated(R, obj, cid)
-    check_class_tier(R, obj, S)
-    byid, cov, _cites, infos = check_positions(R, ctx, obj, cid, S, delegated)
+    _safe(R, 'pdf_row', check_pdf_row, R, obj, cid)
+    delegated = _safe(R, 'first_delegated', check_first_delegated, R, obj, cid)
+    _safe(R, 'class_tier', check_class_tier, R, obj, S)
+    res = _safe(R, 'positions', check_positions, R, ctx, obj, cid, S, delegated)
+    byid, cov, _cites, infos = res if res else ({}, {'values': {}, 'scen': {}}, {}, {})
     if byid:
-        check_coverage(R, obj, cid, delegated, cov)
-        check_default(R, obj, cid, byid, S)
-        check_brief(R, obj, cid, byid)
-    check_panel(R, obj)
-    check_weighing(R, obj, S)
-    check_readers(R, obj, S)
-    check_holds(R, obj)
-    check_searches(R, obj)
+        _safe(R, 'coverage', check_coverage, R, obj, cid, delegated, cov)
+        _safe(R, 'default', check_default, R, obj, cid, byid, S)
+        _safe(R, 'rubric', check_brief, R, obj, cid, byid)
+    _safe(R, 'panel', check_panel, R, obj)
+    _safe(R, 'weighing', check_weighing, R, obj, S)
+    _safe(R, 'readers', check_readers, R, obj, S)
+    _safe(R, 'holds', check_holds, R, obj)
+    _safe(R, 'searches', check_searches, R, obj)
     R.stats = {'positions': len(byid), 'citations': sum(len(v) for v in infos.values()) if isinstance(infos, dict) else 0, 'class': obj.get('class'), 'tier': obj.get('tier')}
     return R
 

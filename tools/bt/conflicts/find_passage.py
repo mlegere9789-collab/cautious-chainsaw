@@ -82,11 +82,13 @@ def main(argv):
     if quote:
         found = 0
         for sid, p, path, row in srcs:
-            offs, rp, why = S.locate_quote(ctx, sid, quote, p)
-            for off in offs[:10]:
-                info = S.describe(row, rp, off, len(quote), p)
-                print('FOUND in %s%s at offset %d | page %s (%s) | %s' % (sid, (' [' + p + ']') if p else '', off, info['page'], info['page_basis'], info.get('who') or ''))
-                print(json.dumps(citation_skeleton(sid, row, p, off, quote, info), ensure_ascii=False, indent=1))
+            spans, rp, why = S.locate_quote_spans(ctx, sid, quote, p)
+            for off, end in spans[:10]:
+                info = S.describe(row, rp, off, end - off, p)
+                print('FOUND in %s%s at offset %d-%d | page %s (%s) | %s' % (sid, (' [' + p + ']') if p else '', off, end, info['page'], info['page_basis'], info.get('who') or ''))
+                sk = citation_skeleton(sid, row, p, off, quote, info)
+                sk['text_offset_end'] = end
+                print(json.dumps(sk, ensure_ascii=False, indent=1))
                 found += 1
         if not found:
             print('NOT FOUND (letters and digits, case, punctuation, line breaks and hyphenation are ignored; an OCR error in the text needs quote_mode "ocr" with raw)')

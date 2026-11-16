@@ -16,6 +16,15 @@ Two more were read for a few statements each and are staged the same way: B. F. 
 
 Two further local histories of the same corps were NOT read for evidence (owed): A. P. Smith, History of the 76th Regiment New York Volunteers (1867, `infantryhist00smitrich`, copy `tmp/life-us-1c/lib/SMITH-76NY-1867.txt`, sha256 `5c74756553774d95bc12105d09ccd4fe110068f4a5ad467c326a0c5a80ee85f1`) and G. G. Benedict, Vermont in the Civil War, vol. 2 (1886, `vermontincivilwa02bene`, copy `tmp/life-us-1c/lib/BENEDICT-VT-1886.txt`, sha256 `53437ad1219dcbb2cfa33bf9d40e03d818f0238d10182e41911764b35feb6827`); the 76th New York and the 14th Vermont have no row in the evidence file. The oob-kit directory `tmp/kit-us-1c/lib/` holds twelve more (88th Pennsylvania, 9th New York State Militia, 150th Pennsylvania, 20th New York State Militia, 14th Brooklyn, 142nd Pennsylvania ...): none read for evidence.
 
+## Two more histories, third run (2026-11-16): ids `WILLIAMS-14VT-1864` and `SMITH-76NY-1867`
+
+| text | archive.org item | copy (sha256 matches the kit ledger `bt-oob-kit-us-1c-library.md` and `-library-2.md`) | what it gives |
+|---|---|---|---|
+| Williams, Life in Camp: a History of the Nine Months' Service of the Fourteenth Vermont Regiment (1864) | `lifeincampahist00willgoog` | `tmp/life-us-1c/lib/WILLIAMS-14VT-1864.txt`, sha256 `0d0d4aa02435576aa26a4a8d1dcb5d627d89d4bdf7d5806ab43892e4fb3e3a1c` | the campaign diary of the Fourteenth Vermont (Stannard's brigade) from 26 June to 14 July: 18 staged rows (reveille at 5 a. m., the waits for the passing corps, the camps and halts of each day with hours, the nights without shelter, "Took breakfast at three o'clock and marched at four" on 7 July, three days' rations issued on 9 July, "busily engaged in fortifying" on 10 July): the first rows of the 14th Vermont |
+| A. P. Smith, History of the Seventy-sixth Regiment New York Volunteers (1867) | `infantryhist00smitrich` | `tmp/life-us-1c/lib/SMITH-76NY-1867.txt`, sha256 `5c74756553774d95bc12105d09ccd4fe110068f4a5ad467c326a0c5a80ee85f1` | the regiment of Cutler's brigade that led the corps into Gettysburg: 8 staged rows (the cherries eaten at the halt before noon on 1 July, the fences removed in the advance, the wet arms put in order, the muster for pay on 30 June, the camp of 9 July at South Mountain): the first rows of the 76th New York |
+
+Both are public domain, fetched from archive.org by earlier workstreams (one request per item, no account); class `regimental_volume` like the other five. In `build_sources.py` the rule `(r'^(CURTIS|DAVIS|COOK|SMALL|SMITH|BENEDICT)-', ...)` already covers SMITH; add WILLIAMS to it. The staged rows are in `tmp/life-us-1c/rows_q.py` (Williams) and `rows_r.py` (Smith); `tmp/life-us-1c/pending/us-1c.pending.jsonl` now holds 61 staged rows.
+
 ## Why
 
 Gate OA-G11 and the plan (PLAN.md 9, "every work assigned to it has rows or a registered gap") need E-02's tools and W-13MA-RIFLE-PIT; the only non-lead statements are in these texts. Until the registry takes them the group carries registered gaps (`EG-LIFE-0102`, `0103`, `0105`, `0109`, `0110`) and a staged file of rows.
@@ -28,7 +37,7 @@ Gate OA-G11 and the plan (PLAN.md 9, "every work assigned to it has rows or a re
 
 ## What is waiting (updated 2026-11-16, third run)
 
-The staged rows are no longer appended as 35 lines: three scenarios (E01-ARRIVAL, E02-24MI-WHEN, 16ME-30JUN-8-vs-9) name rows of the main file, and every member of a scenario must list every other member. Use the builder or the merged file: `cd tmp/life-us-1c && python3 -I build.py rows_a rows_b rows_c rows_c2 rows_c3 rows_d rows_e rows_f rows_g rows_h rows_i rows_j rows_k rows_l rows_m rows_n rows_p` writes `docs/battle-theatre/life/evidence/us-1c.jsonl` with the staged rows in (the ids of the existing rows are pinned and do not move), or copy `tmp/life-us-1c/pending/us-1c.merged.jsonl` (332 lines at the time of writing; validated with a registry overlay: 0 errors, 0 warnings). The paragraph below is the earlier text.
+The staged rows are no longer appended as 35 lines: three scenarios (E01-ARRIVAL, E02-24MI-WHEN, 16ME-30JUN-8-vs-9) name rows of the main file, and every member of a scenario must list every other member. Use the builder or the merged file: `cd tmp/life-us-1c && python3 -I build.py rows_a rows_b rows_c rows_c2 rows_c3 rows_d rows_e rows_f rows_g rows_h rows_i rows_j rows_k rows_l rows_m rows_n rows_p rows_q rows_r` writes `docs/battle-theatre/life/evidence/us-1c.jsonl` with the staged rows in (the ids of the existing rows are pinned and do not move), or copy `tmp/life-us-1c/pending/us-1c.merged.jsonl` (358 lines at the time of writing: the 297 rows of the file and 61 staged rows; validated with a registry overlay: 0 errors, 0 warnings). The paragraph below is the earlier text.
 
 ## What is waiting (earlier text)
 

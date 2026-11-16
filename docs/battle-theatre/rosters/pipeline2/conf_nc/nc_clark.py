@@ -36,7 +36,7 @@ Q = r'(?:\d[\d,\.]*\d|\d{1,3}|' + NW + r'(?:[- ]+(?:and\s+)?' + NW + r')*)'
 FIG = re.compile(r'(?i)(?<![A-Za-z])' + Q + r'\s+(?:(?:rank\s+and\s+file|enlisted|private|commissioned|able|brave|gallant|noble|effective|fighting|wounded|killed|dead|musketeers?)\s+)?'
                  r'(?:men|officers|muskets|privates|killed|wounded|missing|prisoners|captured|strong|present|aggregate|musicians|guns|horses|carried|survivors|rank|effectives?|souls|boys|heroes)\b|'
                  r'\b(?:killed|wounded|lost|loss|numbered|aggregate|total|strength|reduced\s+to|with|only|about|nearly|over|some)\s+(?:of\s+)?(?:about\s+|only\s+|nearly\s+|over\s+|some\s+)?' + Q + r'(?![A-Za-z\d])')
-ABBREV = {'col', 'capt', 'lieut', 'lt', 'gen', 'maj', 'sergt', 'sgt', 'adjt', 'wm', 'thos', 'jas', 'geo', 'chas', 'benj', 'jno', 'jos', 'hon', 'rev', 'dr', 'mr', 'mrs', 'co', 'cos', 'no', 'st', 'jr', 'sr', 'vs', 'ft',
+ABBREV = {'col', 'capt', 'lieut', 'lt', 'gen', 'maj', 'sergt', 'sgt', 'adjt', 'wm', 'thos', 'jas', 'geo', 'chas', 'benj', 'jno', 'jos', 'hon', 'rev', 'dr', 'mr', 'mrs', 'co', 'cos', 'no', 'st', 'jr', 'sr', 'vs', 'ft', 'alex', 'edw', 'robt', 'saml', 'danl', 'fredk', 'jno', 'hy', 'nath', 'theo',
           'asst', 'regt', 'vol', 'pa', 'va', 'md', 'n.c', 'c.s.a'}
 SPLIT = re.compile(r'(?<=[\.\?\!])\s+(?=[A-Z"“‘\'\[])')
 
@@ -243,12 +243,11 @@ def main(argv):
         return 0
     led = json.load(open(LEDGER, encoding='utf-8'))
     led['notes_format'] = 'roster2-notes/1'
-    led['notes_scope'] = ('Statements of strength, number present for duty, number taken into action, number left and losses of the units of the work item conf-nc at Gettysburg (1-3 July 1863) and in the campaign, '
-                          'taken from Clark, Histories of the Several Regiments and Battalions from North Carolina in the Great War, 1861-65 (1901), as the text layer prints them; a note is a statement '
-                          'of the author named in the chapter label or of the person he quotes, not a muster; the list is a floor (pipeline2/conf_nc/nc_clark_spec.py says how it was made) and not a count of '
-                          'everything Clark prints; no note is a roster row')
+    led['notes_scope'] = ('Statements of strength, number present for duty, number taken into action, number left and losses of the North Carolina units at Gettysburg (1-3 July 1863) and in the '
+                          'campaign, taken from Clark, Histories of the Several Regiments and Battalions from North Carolina in the Great War, 1861-65 (1901), as the text layer prints them. A note is a statement of the author '
+                          'named in the chapter label or of the person he quotes, not a muster. The notes are a selection and not a count of everything Clark prints. No note is a roster row.')
     led['notes'] = notes
-    led['notes_units'] = cov
+    led['notes_units'] = {k: {'chapters': v['chapters'], 'notes': v['notes'], 'notes_by_kind': v['notes_by_kind']} for k, v in cov.items()}
     with open(LEDGER, 'w', encoding='utf-8') as f:
         json.dump(led, f, ensure_ascii=False, indent=1)
         f.write('\n')

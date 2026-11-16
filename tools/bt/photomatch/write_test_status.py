@@ -46,13 +46,13 @@ if F5:
         return {k: int(v.group(1)) for k, v in m.items()} if all(m.values()) else None
     W = os.path.join(ROOT, 'tmp', 'photomatch', 'work')
     q16 = _tap(os.path.join(W, 'q16_direct_20261116.out')); suite = _tap(os.path.join(W, 'full_suite_20261116.out')); rend = _tap(os.path.join(W, 'q16_render_test_20261116.out'))
-    fmt = dict(n_records=len(reg), n_statements=len(st), n_poses=len(poses), v27=pv['P27']['verdict'], v28=pv['P28']['verdict'], v29=pv['P29']['verdict'], v13=pv['P13']['verdict'], roughly=vc['roughly'], dnot=vc['does not'], cj=vc['cannot judge'], matches=vc['matches'],
+    fmt = dict(n_new=len(st) - 145, n_records=len(reg), n_statements=len(st), n_poses=len(poses), v27=pv['P27']['verdict'], v28=pv['P28']['verdict'], v29=pv['P29']['verdict'], v13=pv['P13']['verdict'], roughly=vc['roughly'], dnot=vc['does not'], cj=vc['cannot judge'], matches=vc['matches'],
                q16_pass=(q16 or {}).get('pass', '?'), q16_fail=(q16 or {}).get('fail', '?'), q16_skip=(q16 or {}).get('skipped', '?'), q16_tests=(q16 or {}).get('tests', '?'))
     def _job(name, c, queued):
         if c is None: return f'{name}: queued behind the machine lock at {queued} UTC on 2026-11-16 and not finished when this report was written: NOT RUN (the waiter writes its output file if it gets a slot; if it was stopped, run the command again through the lock)'
         return f"{name}: finished, {c['tests']} tests, {c['pass']} pass, {c['fail']} fail, {c['skipped']} skipped"
     owed_job = '; '.join([_job('`tools/horde/bench.sh node --test docs/battle-theatre/app/tests/*.test.mjs` (the full app suite)', suite, '03:16'), _job('`PHOTOMATCH_RENDER=1 tools/horde/bench.sh node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs` (the renderer determinism test)', rend, '03:16')])
     fmt['full_suite_owed'] = owed_job
-    out['fifth'] = {'title': F5['title'], 'scope_read': F5['scope_read'], 'result_paragraph': F5['result_paragraph'].format(**fmt), 'what_was_run': F5['what_was_run'], 'findings': F5['findings'], 'tests': [t.format(**fmt) for t in F5['tests']] + [owed_job],
+    out['fifth'] = {'title': F5['title'], 'scope_read': F5['scope_read'], 'result_paragraph': F5['result_paragraph'].format(**fmt), 'what_was_run': [x.replace('{n_new}', str(fmt['n_new'])) for x in F5['what_was_run']], 'findings': F5['findings'], 'tests': [t.format(**fmt) for t in F5['tests']] + [owed_job],
                     'owed': [t.format(**fmt) for t in F5['owed']], 'governance_note': F5['governance_note']}
 json.dump(out, open(os.path.join(HERE, 'test_status.json'), 'w'), indent=1, ensure_ascii=False); print('test_status.json written')

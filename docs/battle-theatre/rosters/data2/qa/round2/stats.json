@@ -97,7 +97,7 @@
    "rows_in_stratum": 33029,
    "pages_looked_at": 4,
    "decile_pages_looked_at": 2,
-   "rows_looked_at": 182,
+   "rows_looked_at": 181,
    "draw_positions": [
     3,
     2,
@@ -112,11 +112,11 @@
    ],
    "gates": {
     "R-G1": {
-     "rows": 182,
-     "errors": 19,
-     "rate_percent": 10.44,
-     "upper95_percent": 14.94,
-     "lower95_percent": 6.94,
+     "rows": 181,
+     "errors": 18,
+     "rate_percent": 9.94,
+     "upper95_percent": 14.39,
+     "lower95_percent": 6.53,
      "decision": "FAIL"
     },
     "R-G2": {
@@ -128,11 +128,11 @@
      "decision": "FAIL"
     },
     "R-G3a": {
-     "rows": 182,
-     "errors": 30,
-     "rate_percent": 16.48,
-     "upper95_percent": 21.69,
-     "lower95_percent": 12.12,
+     "rows": 181,
+     "errors": 29,
+     "rate_percent": 16.02,
+     "upper95_percent": 21.2,
+     "lower95_percent": 11.71,
      "decision": "FAIL"
     },
     "R-G3b": {
@@ -158,8 +158,7 @@
     "rem-char": 6,
     "rem-extra": 2,
     "name-cut": 4,
-    "name-nonperson": 1,
-    "rank": 29,
+    "rank": 28,
     "merge": 2
    },
    "error_kinds_on_rows_flagged_ocr_uncertain": {
@@ -168,8 +167,7 @@
     "rem-char": 5,
     "rem-extra": 2,
     "name-cut": 4,
-    "name-nonperson": 1,
-    "rank": 8,
+    "rank": 7,
     "merge": 1
    },
    "error_kinds_on_rows_not_flagged": {
@@ -276,34 +274,46 @@
   "NC-MOO-G-other": {
    "pages_in_stratum": 290,
    "rows_in_stratum": 12728,
-   "pages_looked_at": 7,
-   "decile_pages_looked_at": 3,
-   "rows_looked_at": 311,
+   "pages_looked_at": 13,
+   "decile_pages_looked_at": 5,
+   "rows_looked_at": 557,
    "draw_positions": [
+    13,
+    10,
     6,
     1,
     7,
     4,
     5,
+    8,
+    9,
     3,
+    12,
+    11,
     2
    ],
    "pages": [
+    "rosternorthcaro00moorgoog/383",
+    "rosternorthcaro00moorgoog/384",
     "rosterofnorthcar02nort/14",
     "rosterofnorthcar02nort/20",
     "rosterofnorthcar02nort/29",
     "rosterofnorthcar02nort/38",
     "rosterofnorthcar02nort/202",
+    "rosterofnorthcar02nort/217",
+    "rosterofnorthcar03moor/68",
     "rosterofnorthcar03moor/286",
+    "rosterofnorthcar03moor/352",
+    "rosterofnorthcar03moor/512",
     "rosterofnorthcar03moor/536"
    ],
    "gates": {
     "R-G1": {
-     "rows": 311,
-     "errors": 22,
-     "rate_percent": 7.07,
-     "upper95_percent": 9.95,
-     "lower95_percent": 4.84,
+     "rows": 557,
+     "errors": 54,
+     "rate_percent": 9.69,
+     "upper95_percent": 12.01,
+     "lower95_percent": 7.71,
      "decision": "FAIL"
     },
     "R-G2": {
@@ -315,12 +325,12 @@
      "decision": "FAIL"
     },
     "R-G3a": {
-     "rows": 311,
-     "errors": 3,
-     "rate_percent": 0.96,
-     "upper95_percent": 2.47,
-     "lower95_percent": 0.26,
-     "decision": "OPEN"
+     "rows": 557,
+     "errors": 5,
+     "rate_percent": 0.9,
+     "upper95_percent": 1.88,
+     "lower95_percent": 0.35,
+     "decision": "FAIL"
     },
     "R-G3b": {
      "rows": 126,
@@ -340,33 +350,33 @@
     }
    },
    "error_kinds_count": {
-    "name-char": 20,
+    "name-cut": 9,
+    "name-char": 47,
+    "rank": 4,
     "rem-date": 14,
     "rem-char": 7,
-    "name-cut": 3,
-    "rank": 2,
     "merge": 1,
     "rem-extra": 1
    },
    "error_kinds_on_rows_flagged_ocr_uncertain": {
-    "name-char": 9,
+    "name-char": 20,
+    "rank": 4,
+    "name-cut": 6,
     "rem-date": 4,
     "rem-char": 2,
-    "name-cut": 2,
-    "rank": 2,
     "merge": 1
    },
    "error_kinds_on_rows_not_flagged": {
-    "name-char": 11,
+    "name-cut": 3,
+    "name-char": 27,
     "rem-date": 10,
     "rem-char": 5,
-    "name-cut": 1,
     "rem-extra": 1
    },
    "missed_lines": 0,
    "census_complete": false
   }
  },
- "pages_looked_at": 19,
- "rows_looked_at": 694
+ "pages_looked_at": 25,
+ "rows_looked_at": 939
 }

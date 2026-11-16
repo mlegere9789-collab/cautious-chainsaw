@@ -320,7 +320,7 @@ BANNED = re.compile(r"\b(?:AI|A\.I\.|Claude|Anthropic|LLMs?|sub-?agents?|agents?
 
 def banned_words(text):
     """The words of a product text that would reveal how the site was made (copy audit, CLAUDE.md): a list, empty when the text is clean."""
-    return sorted({m.group(0) for m in BANNED.finditer(text or '')})
+    return sorted({m.group(0) for m in BANNED.finditer(text if isinstance(text, str) else '')})
 
 
 # ----------------------------------------------------------------------------------------------------------------------------- hedges

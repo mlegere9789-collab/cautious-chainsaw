@@ -1386,7 +1386,7 @@ McClean House and Barn, Gettysburg National Military Park, Pa. (1 October 1968).
 
 ## NPS-NEWSLETTER-V19N3
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 19 No. 3, Fall (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v19n3.pdf
+Park News: The Gettysburg Quarterly, Vol. 19, No. 3 (Fall 2012) (Fall 2012). https://www.npshistory.com/publications/gett/newsletter/v19n3.pdf
 
 - **Fences replaced in the summer of 2012: Sherfy hog fence, Slyder lane post and board fence, Emmitsburg Road hog fence, Spangler farm post and board fence, picket fences at the Hummelbaugh, Rose, Bushman, Spangler, Klingel, Trostle and Althoff farms** (`NPSX-NEWSLETTER-V19N3-p002-01`)
   - State date: **2012 (fences replaced that summer; a modern reconstruction)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 2
@@ -1507,7 +1507,7 @@ Lt. Alonzo Cushing at Gettysburg - Gettysburg National Military Park (U.S. Natio
 
 ## NPSGOV-NEWS-COMPREHENSIVE-TRAILS-PLAN
 
-Comprehensive Trails Plan - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/comprehensive-trails-plan.htm
+Comprehensive Trails Plan - Gettysburg National Military Park (U.S. National Park Service) (news release of December 17, 2015). https://www.nps.gov/gett/learn/news/comprehensive-trails-plan.htm
 
 - **Planned trails would follow historic alignments such as avenues, lanes, railways, tree lines and fence lines in place at the time of the battle (the list includes avenues, which are later)** (`NPSX-WEB-NEWS-COMPREHENSIVE-TRAILS-PLAN-p001-01`)
   - State date: **2015 (a planning statement; the avenues named in the same list did not exist in 1863 and no fence line or tree line is named)** | use for the July 1863 scene: **indirect** | tier proposed: inferred (source wording: hedged) | PDF p. 1
@@ -1529,7 +1529,7 @@ Goals of Battlefield Rehabilitation - Gettysburg National Military Park (U.S. Na
 
 ## NPSGOV-NEWS-STONE-WALLS
 
-Stone Walls at Gettysburg get a Facelift - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/stone-walls.htm
+Stone Walls at Gettysburg get a Facelift - Gettysburg National Military Park (U.S. National Park Service) (news release of June 19, 2018). https://www.nps.gov/gett/learn/news/stone-walls.htm
 
 - **Stone walls rebuilt in 2018: 1,467 linear feet of missing walls in the Snyder farm fields along the Emmitsburg Road and along the lane to the Slyder farm** (`NPSX-WEB-NEWS-STONE-WALLS-p001-01`)
   - State date: **2018 (walls rebuilt that summer and fall; a modern reconstruction)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1565,7 +1565,7 @@ Stone Walls at Gettysburg get a Facelift - Gettysburg National Military Park (U.
 
 ## NPSGOV-NEWS-WISLER-HOUSE-PARKING
 
-Parking is Now Available at the Wisler House - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/wisler-house-parking.htm
+Parking is Now Available at the Wisler House - Gettysburg National Military Park (U.S. National Park Service) (news release of March 28, 2023). https://www.nps.gov/gett/learn/news/wisler-house-parking.htm
 
 - **Wisler house: the first shot of July 1, 1863 was fired from the western yard of the house with the carbine rested on one of Wisler's fence posts** (`NPSX-WEB-NEWS-WISLER-HOUSE-PARKING-p001-01`)
   - State date: **1863-07-01** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1

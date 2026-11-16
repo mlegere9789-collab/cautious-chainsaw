@@ -121,7 +121,12 @@ def main():
     rchk_p = os.path.join(Q.QA, 'recovered', 'second-sitting-check.json')
     rchk = Q.jload(rchk_p) if os.path.exists(rchk_p) else None
 
-    A('# Independent sample of the stored lines against page images, round 1 (Maine, New Hampshire, Vermont, Massachusetts) (work item roster-qa, OA03)')
+    import qa_report_r2 as R2
+    r2_bullets = R2.summary_bullets()
+    if r2_bullets:
+        A('# Independent sample of the stored lines against page images, rounds 1 and 2 (round 1: Maine, New Hampshire, Vermont, Massachusetts; round 2: North Carolina, section 8) (work item roster-qa, OA03)')
+    else:
+        A('# Independent sample of the stored lines against page images, round 1 (Maine, New Hampshire, Vermont, Massachusetts) (work item roster-qa, OA03)')
     A('')
     A('Written %s by the roster workstream. Evidence labels as in `PLAN.md`: **Measured** (a command run for this report produced it), **Documented** (a source text or a file says it), **Computed**, **Inferred**, **Not run**. Every number below is computed by `pipeline2/roster_qa/qa_report.py` from `data2/qa/` (frame, draw, one verdict file per page looked at, statistics, claims check, second-reading tests, recovered lines), the unit files and the logs under `GOVERNANCE/horde/ws-rosters/roster-qa/`; no count is typed (figures quoted from the reports and plans of other items are named with their source). No stored line, flag file or ledger of another item was changed.' % now)
     A('')
@@ -183,6 +188,10 @@ def main():
     A('* **The second-reading route (Measured, section 4).** %d of the %d lines that the first layer lost and that were tried (the %d Vermont lines of `diag-no-name.json` and %d of the %d Maine index lines of `diag-index.json`) were read by tesseract and are recovered, each with its own locator in a derived text (`data2/qa/pageread-ledger.json`) and confirmed by looking at the line on the page image%s; none is written into a unit file. The eight Maine index leaves without text are scanner-deleted leaves (`pageType Delete`) between consecutive printed pages: nothing is lost there. Compared with the first layer, tesseract marks as SUSPECT ' % (n_rec_vt + n_rec_me, len(rec_vt['rows']) + len(rec_me['rows']), len(rec_vt['rows']), len(rec_me['rows']), n_lost_me, (' (and again by the second sitting on the stored crops: %d of %d agree)' % (rchk['summary']['agree'], rchk['summary']['lines'])) if rchk else '') + tail)
     A('* **Not run / owed (section 7).** The Pennsylvania muster years and the Florida 6.1 percent (no unit files of those items yet); the cells sidecar of the Vermont files (page-order reading of the lines flagged O) as a second reading; the 299 to 628 lines per stratum that the plan asks for were not reached because every stratum failed first; fresh pages after the parsers are fixed; a third reader on every disagreement (the second sitting re-read %d of the %d pages and is the same role, not an independent person); browser, timing, real-GPU checks (not part of this work).' % (pages_read_twice, npages))
     A('')
+    for b_ in r2_bullets:
+        A(b_)
+    if r2_bullets:
+        A('')
     # ------------------------------------------------------------------ 1
     A('## 1. Lines per unit against the strength')
     A('')
@@ -572,6 +581,7 @@ def main():
     A('')
     A('**Not run in this item:** a browser, any timing, a real-GPU or phone check; the Pennsylvania and Florida tests; the cells sidecar; more than %d to %d pages per stratum; the 299 to 628 lines per stratum of the plan (every stratum failed first); an independent third person as reader of the disagreements (the second sitting is the same role and re-read %d of the %d pages).' % (min(npp), max(npp), pages_read_twice, npages))
     A('')
+    w.extend(R2.section_lines())
     open(OUT, 'w', encoding='utf-8').write('\n'.join(w) + '\n')
     print('report written', OUT, len('\n'.join(w)), 'characters')
 

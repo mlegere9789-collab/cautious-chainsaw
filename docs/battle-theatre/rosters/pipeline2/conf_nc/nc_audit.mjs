@@ -28,6 +28,7 @@ const copy = (src, rel) => { const d = path.join(DIST, rel); fs.mkdirSync(path.d
 const unitFiles = fs.readdirSync(NC).filter(f => f.endsWith('.jsonl.gz') || f.endsWith('.flags.json.gz')).sort();
 for (const f of unitFiles) copy(path.join(NC, f), 'rosters/data2/confederate/nc/' + f);
 copy(path.join(BT, 'rosters', 'data2', 'sources', 'NC-MOORE-1882.json'), 'rosters/data2/sources/NC-MOORE-1882.json');
+copy(path.join(BT, 'rosters', 'data2', 'sources', 'NC-CLARK-1901.json'), 'rosters/data2/sources/NC-CLARK-1901.json');       // the Clark notes ship with the ledger
 // the pointer file rosters/sources/conf-nc.json is not under rosters/data2 and does not ship (the packer takes rosters/data2 only); it is not audited here
 
 const hits = audit(DIST);
@@ -65,13 +66,20 @@ for (const f of unitFiles) {
     for (const w of matchAll(JSON.stringify(rest))) words.push({ unit, row: null, field: 'flag-file-other', word: w, text: '' });
   }
 }
+// the Clark ledger (the notes: quotations, claims, chapters): every word the rules match, as text of the notes
+{
+  const led = JSON.parse(fs.readFileSync(path.join(BT, 'rosters', 'data2', 'sources', 'NC-CLARK-1901.json'), 'utf8'));
+  (led.notes || []).forEach((n, i) => { for (const w of matchAll(JSON.stringify(n))) words.push({ unit: 'NC-CLARK-1901', row: i, field: 'clark-note', word: w, text: String(n.quote).slice(0, 90) }); });
+  const rest = { ...led, notes: undefined };
+  for (const w of matchAll(JSON.stringify(rest))) words.push({ unit: 'NC-CLARK-1901', row: null, field: 'clark-ledger-other', word: w, text: '' });
+}
 const byField = {};
 for (const w of words) { const k = w.field + ' | ' + w.word.toLowerCase(); byField[k] = (byField[k] || 0) + 1; }
 
 const out = {
   format: 'conf-nc-copy-audit/1',
   about: "The packer's audit (tools/bt/pack_theatre.mjs audit(), rules AUDIT_RE, AUDIT_CS_RE, allowances AUDIT_ALLOW; DD-STG-02) run on a scratch copy of the shipped files of this item; plus a count of every printed word the rules match, by field.",
-  files_audited: unitFiles.length + 1, unit_files: unitFiles.filter(f => f.endsWith('.jsonl.gz')).length, flag_files: unitFiles.filter(f => f.endsWith('.flags.json.gz')).length,
+  files_audited: unitFiles.length + 2, unit_files: unitFiles.filter(f => f.endsWith('.jsonl.gz')).length, flag_files: unitFiles.filter(f => f.endsWith('.flags.json.gz')).length,
   rows_read: rowsRead, flag_files_read: flagsRead, raw_bytes_of_gzip_files: bytes,
   hits,
   printed_words: { by_field_and_word: byField, total: words.length, listing: words },

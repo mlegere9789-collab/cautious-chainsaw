@@ -35,7 +35,7 @@ def build():
     }
     hunt = {
         'source': 'OR27-1', 'source_class': 'primary', 'part': 'OR27-1-R028', 'page': '232', 'page_basis': 'scan_leaf', 'text_offset': 762427,
-        'quote': 'reached Gettysburg about 2 a. m. of the 2d',
+        'text_offset_end': 762477, 'quote': 'reached Gettysburg about 2 a. m. of the 2d',
         'witness': {'name': 'Henry J. Hunt', 'role': 'Brigadier General, Chief of Artillery, Army of the Potomac', 'side': 'union'},
         'written': {'date': '1863-09-27', 'kind': 'official_report'}, 'vantage': 'not_stated', 'knew_by': 'relayed_report', 'clock': 'union', 'hedge': 'about',
         'group': 'hunt', 'exact': True, 'states': {'times': ['02:00'], 'numbers': [2], 'dates': ['07-02']},
@@ -87,9 +87,58 @@ def build():
     }
 
 
-if __name__ == '__main__':
+if __name__ == '__main__' and '--c015' not in sys.argv:
     out = os.path.join(HERE, 'c001-valid.json')
     with open(out, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(build(), f, ensure_ascii=False, indent=1)
+        f.write('\n')
+    print('wrote', out)
+
+
+def build_c015():
+    """A complete valid numeric resolution of C-015 (20th Maine strength) from the real register and one real Official Records passage: the positive control of the numeric path."""
+    cid = 'C-015'
+    reg, st, d = L.register()[cid], L.structured()[cid], L.defaults()[cid]
+    chamberlain = {
+        'source': 'OR27-1', 'source_class': 'primary', 'part': 'OR27-1-R196', 'page': '626', 'page_basis': 'scan_leaf', 'text_offset': 2197296,
+        'quote': 'We went into the fight with 386, all told',
+        'witness': {'name': 'Joshua L. Chamberlain', 'role': 'Colonel commanding the 20th Maine Infantry', 'side': 'union'},
+        'written': {'date': '1863-07-06', 'kind': 'official_report'}, 'vantage': 'commander_present', 'knew_by': 'own_orders', 'clock': 'not_applicable', 'hedge': 'exact',
+        'group': 'chamberlain', 'exact': True, 'states': {'numbers': [386]},
+    }
+    positions = [
+        {'id': 'C-015-P1', 'origin': 'pdf_value', 'pdf_label': '385', 'scenario_ids': ['C-015-S1', 'C-015-S3'], 'label': '385 (the plan\'s recommended figure)', 'kind': 'count', 'value': {'n': 385, 'unit': 'men'},
+         'tier': 'open gap', 'clock': 'not_applicable', 'stance': 'selectable', 'flags': ['unsourced'], 'support': [],
+         'failed_lookups': [{'where': 'Official Records Ser. I vol. 27 parts 1-3', 'query': r'(\b385\b|three hundred and eighty-five) within 120 characters of Twentieth|20th|Maine|Chamberlain', 'outcome': 'not_found', 'at': '2026-11-16'},
+                            {'where': 'ME-GB-1898 (Maine at Gettysburg)', 'query': r'(\b385\b|\b386\b) within 100 characters of Twentieth|20th', 'outcome': 'not_found', 'at': '2026-11-16'}],
+         'reason_not_chosen': {'kind': 'no_source', 'text': 'No report of the time or later volume read gives 385; the colonel himself says 386.'}},
+        {'id': 'C-015-P2', 'origin': 'pdf_value', 'pdf_label': '386', 'scenario_ids': ['C-015-S2', 'C-015-DEFAULT'], 'label': '386 men, 358 with rifles (the colonel\'s count)', 'kind': 'count', 'value': {'n': 386, 'unit': 'men'},
+         'tier': 'documented', 'clock': 'not_applicable', 'stance': 'default', 'flags': ['single_source'], 'support': [chamberlain]},
+    ]
+    return {
+        'schema': 'conflict-resolution-1', 'id': cid, 'topic': reg['topic'], 'researched': '2026-11-16', 'researcher': 'selftest fixture (not a research result)', 'event_date': '1863-07-02',
+        'pdf_row': {'page': reg['page'], 'text': reg['text'], 'values': [v['label'] for v in st['values']], 'recommended_default': st['pdf_recommended_default'], 'selectable_alternatives': st['selectable_alternatives']},
+        'first_delegated': {'default_scenario_id': d['default_scenario_id'], 'default_label': d['default_label'], 'tier': d['tier'], 'basis': d['basis'], 'scenario_ids': [s['id'] for s in d['scenarios']]},
+        'class': 'weighted', 'tier': 'documented',
+        'basis': {'kind': 'official_records', 'text': 'Chamberlain\'s own report (OR 27/1 p.626): "386, all told - 358 guns"; the figure 385 has no source in the record read.'},
+        'default': {'mode': 'position', 'positions': ['C-015-P2'], 'label': '386 men, 358 with rifles', 'value': 386,
+                    'range': {'low': 385, 'high': 386, 'basis': 'the two figures of the PDF row; one man apart'},
+                    'animation': {'at': None, 'rule': 'follows_printed_strength', 'note': 'the soldiers instanced follow the printed unit strength (DEC-008)'}},
+        'positions': positions,
+        'weighing': {'summary': 'The colonel counts his own regiment at 386; 385 has no source.', 'who': 'Chamberlain commanded the regiment and counted it himself.',
+                     'when': 'He wrote on or about 6 Jul 1863, four days after the fight: the best class of writing there is.', 'where': 'He stood at the head of the regiment he counts.',
+                     'how_knew': 'He knew from the roll of the men who went into the fight.', 'clock': 'not applicable: a count, not a time.',
+                     'independence': 'One witness for 386; the figure 385 has no witness: both are flagged.'},
+        'source_panel_text': 'The 20th Maine went into the fight with 386 men, 358 of them with rifles, by its colonel\'s own report of Jul 1863. The plan\'s 385 has no source. The range 385-386 stays visible and the men drawn follow the printed strength.',
+        'holds': {'pdf_default': {'holds': 'no', 'note': 'The plan\'s 385 is one man below the colonel\'s own count and has no source.'}, 'first_delegated': {'holds': 'yes', 'note': 'The first delegated default 386 is the colonel\'s figure and is confirmed.'}},
+        'readers': [{'kind': 'app_data', 'ref': 'docs/battle-theatre/app/data/conflict-defaults.json', 'must_change': False, 'note': 'the default stays 386'}],
+        'failed_searches': [], 'what_would_change_it': 'A roll or a return of the regiment of 1-2 July 1863 giving another count.',
+    }
+
+
+if __name__ == '__main__' and '--c015' in sys.argv:
+    out = os.path.join(HERE, 'c015-valid.json')
+    with open(out, 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(build_c015(), f, ensure_ascii=False, indent=1)
         f.write('\n')
     print('wrote', out)

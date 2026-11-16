@@ -14,7 +14,7 @@ import * as fxHost from '../src/fx-host.mjs';
 import { makePlan, placeCamera, aimCamera } from './weather3d-gpu-plan.mjs';
 import { GSTRIDE } from '../src/fx3d/pack.mjs';
 import { WIND_HIST_N } from '../src/fx3d/wind.mjs';
-import { deviceControls, frameControl } from './weather3d-gpu-negctl.mjs';
+import { deviceControls, frameControl, stripMarked } from './weather3d-gpu-negctl.mjs';
 
 const Q = new URLSearchParams(location.search);
 const API = Q.get('api') === 'webgl2' ? 'webgl2' : 'webgpu', W = +Q.get('w') || 640, H = +Q.get('h') || 360, SOLD = +Q.get('soldiers') || 12000;
@@ -95,6 +95,7 @@ WG.render = async function (spec) {
     gpuStats: gpu ? { ...gpu.stats, ok: gpu.ok, weatherOk: gpu.weatherOk, fxOk: gpu.fxOk, failed: gpu.failed } : null, glStats: gl ? { ...gl.stats, ok: gl.ok, weatherOk: gl.weatherOk, fxOk: gl.fxOk } : null, hostLog: info ? info.log.slice(0, 6) : [] };
 };
 WG.diag = async () => { const dv = WG.host && WG.host.R && WG.host.R.dev; if (dv) { try { await dv.queue.onSubmittedWorkDone(); } catch { /* the device is gone */ } }          // a round trip first: an uncaptured error that is still on its way has been dispatched when the lists are read
+  stripMarked(window);                                                       // and what the negative controls made on purpose is not the run's own (an entry that arrived after the controls' own cleanup)
   const fi = FXON ? fxHost.instance() : null; return { api: WG.host && WG.host.api, hostLog: WG.host ? WG.host.log : [], flags0: WG.flags0, flags: WG.host ? { ...WG.host.R.o.flags } : null, fxLog: fi ? fi.log : null,
   gpu: fi && fi.gpu ? { ok: fi.gpu.ok, weatherOk: fi.gpu.weatherOk, fxOk: fi.gpu.fxOk, failed: fi.gpu.failed, log: fi.gpu.log, warnings: fi.gpu.warnings, bytes: fi.gpu.bytes, timing: !!fi.gpu.timing } : null, gl: fi && fi.gl ? { ok: fi.gl.ok, log: fi.gl.log } : null,
   adapter: WG.host && WG.host.info, gpuErrors: window.__gpuErrors || [], wgsl: window.__wgslMessages || [], modules: window.__gpuLabels || [] }; };

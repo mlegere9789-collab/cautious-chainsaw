@@ -1,0 +1,9 @@
+Tools of the fifth start of the close-out of shard tl-01 (2026-11-16). Copies of the scripts that were run from tmp/tl-01/run5 (paths inside them point there).
+ clusters.py     distinct passages around a regular expression in the saved 1863 newspaper pages for a date range (tmp/library/web/ca/pages); windows of one page are merged and reprints of one dispatch (5-word shingles) are listed once with the papers that carry them: python3 -I clusters.py OUT REGEX DATE0 DATE1 [CTX]
+ crop5.py        one IIIF crop of a newspaper page image around a phrase, built from the ALTO words of the saved page and the image id of the segment in horde/ws-web/ca/pages.jsonl (the fourth-start tool needed the saved search results); PAD and PADX (environment) set the margins in ALTO units, DRY=1 prints the URL only; one request, at least 1.2 s apart
+ mkq5.py         cuts quotes out of the builder's normalised view of a text between a start and an end regular expression (spec files specs5a..k.json; the result is closeout/quotes5.json, read by rows_patch5.py)
+ ledger5.py      appends the crops (items ca5-*) to closeout/acquired_tl01.json with the regenerated url, bytes and sha256
+ numcheck.py     mechanical check: the numbers of every documented sub-claim must stand in the quotes, readings or image checks of its citations (words such as thirteen and the derived values 3.15 or 4,500 are not recognised, so the flagged lines were read by hand)
+ crops_batch1.sh the first batch of crops
+The fourth-start tools (srch.py, runsearch.py, qp.py) were run unchanged on the grown corpora: the 41 searches of its seven spec files were repeated and only the windows that were not in its output were read (tmp/tl-01/run5/new_windows.txt).
+The row data of this start is ../../rows_patch5.py (applied by build.py after rows_patch.py); the sources it adds are registered in ../../extra_sources.py (three more newspaper titles) and the library index acquired_3.json (NPS-HABS-pa0007).

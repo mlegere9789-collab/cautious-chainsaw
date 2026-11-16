@@ -100,17 +100,28 @@ def compile_near(near):
     return out
 
 
-def author_filter(sid, by):
-    """Predicate on a character offset of an Official Records part: the record the offset lies in was written by one of the names (author, heading or addressee)."""
+def author_filter(sid, by, event_date):
+    """Predicate on a character offset of an Official Records part: the record the offset lies in was written by one of the named officers (the surname of the author of a
+    report; the heading or addressee of a letter or order of Part 3, which must be dated in the month of the event or the next)."""
+    import datetime
     n = int(sid[-1])
     names = [x.lower() for x in by]
+    d = datetime.date.fromisoformat(event_date)
+    months = {d.strftime('%B').lower()[:3], (d.replace(day=28) + datetime.timedelta(days=5)).strftime('%B').lower()[:3]}
 
     def ok(off):
         r = S.or_record_at(n, off)
         if r is None:
             return False
-        blob = ' '.join(str(r.get(k) or '') for k in ('author', 'header_raw', 'toc_text', 'unit_scope', 'addressee')).lower()
-        return any(x in blob for x in names)
+        au = str(r.get('author') or '').lower().strip(' .,')
+        if au:
+            sur = au.split()[-1] if au.split() else ''
+            return any(sur == x or (' ' in x and x in au) or (x == 'fitz' and 'fitz' in au) for x in names)
+        blob = ' '.join(str(r.get(k) or '') for k in ('header_raw', 'toc_text', 'addressee')).lower()
+        if not any(re.search(r'\b%s\b' % re.escape(x), blob) for x in names):
+            return False
+        dt = str(r.get('date_raw') or r.get('header_raw') or '').lower()
+        return (not re.search(r'jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec', dt)) or any(m in dt for m in months)
     return ok
 
 
@@ -133,7 +144,7 @@ def scan_all(only=None, log=print):
                         continue
                     if pr.get('by') and scope != 'or':
                         continue
-                    acc = author_filter(sid, pr['by']) if pr.get('by') else None
+                    acc = author_filter(sid, pr['by'], DP.P[cid]['event_date']) if pr.get('by') else None
                     hits = S.probe_hits(rel, pr['anchors'], compile_near(pr['near']), pr['window'], PER_SOURCE[scope], score_terms=DP.P[cid]['terms'], accept=acc)
                     if hits:
                         res[i].setdefault(scope, []).extend([dict(h, sid=sid, part=part, path=rel, scope=scope) for h in hits])
@@ -607,6 +618,24 @@ def dossier(cid, ctx, scan_res, tokens, arr, cand, glossary_cache):
     return '\n'.join(out)
 
 
+def write_index():
+    """dossiers/INDEX.md: the 47 conflicts at a glance (topic, expected kind of value, PDF row, first delegated default, arrival rows that carry it)."""
+    arr = load_arrivals()
+    out = ['# The 47 conflicts at a glance', '',
+           'Generated %s by `tools/bt/conflicts/build_dossiers.py --index`. One dossier per conflict (`C-0xx.md`); the plan is `../PLAN.md`; the validator is `tools/bt/conflicts/validate_resolution.py`. '
+           'A resolution file does not exist yet for any conflict until its researcher writes it (`../resolutions/`).' % L.today(), '',
+           '| id | topic | event date | kind of value | PDF values | PDF default | first delegated default (tier, basis) | arrival rows |',
+           '|---|---|---|---|---|---|---|---|']
+    for cid in L.IDS:
+        reg, st, d, pf = L.register()[cid], L.structured()[cid], L.defaults()[cid], DP.P[cid]
+        out.append('| [%s](%s.md) | %s | %s | %s | %s | %s | %s (%s, %s) | %s |' % (cid, cid, reg['topic'].replace('|', '/'), pf['event_date'], ', '.join(pf['kinds']), ' ; '.join(v['label'] for v in st['values']).replace('|', '/'),
+                                                                                  st['pdf_recommended_default'].replace('|', '/'), d['default_label'].replace('|', '/'), d['tier'], d['basis'], ', '.join(r['id'] for r in arr.get(cid, [])) or '-'))
+    out.append('')
+    with open(os.path.join(L.DOSSIERS, 'INDEX.md'), 'w', encoding='utf-8', newline='\n') as f:
+        f.write('\n'.join(out))
+    return len(L.IDS)
+
+
 def check():
     bad = []
     for cid in L.IDS:
@@ -629,6 +658,10 @@ def check():
 def main(argv):
     if '--check' in argv:
         return check()
+    if '--index' in argv:
+        os.makedirs(L.DOSSIERS, exist_ok=True)
+        print('INDEX.md written for %d conflicts' % write_index())
+        return 0
     only = [a for a in argv if L.ID_RE.match(a)] or None
     t0 = time.time()
     print('scanning the library for %d conflicts ...' % (len(only) if only else 47))
@@ -645,6 +678,8 @@ def main(argv):
         txt = dossier(cid, ctx, scan_res, tokens, arr, cand, None)
         with open(os.path.join(L.DOSSIERS, cid + '.md'), 'w', encoding='utf-8', newline='\n') as f:
             f.write(txt + '\n')
+    if not only:
+        write_index()
     print('wrote %d dossiers in %.0f s' % (len(only or L.IDS), time.time() - t0))
     return check() if not only else 0
 

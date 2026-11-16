@@ -77,7 +77,7 @@ class Vegetation {
   // and a wood or a stand of trees that the choices read as treeless (CF-VEG-LRT unwooded, CF-VEG-HOUCK clear-cut: trees.keep 0) is a bare plot there, not a woodlot: a class of woodlots is the woodlots drawn. A plot NAMED
   // by a check is never dropped: it fails the tree checks in such a reading, and the record says so or excludes the reading.
   select(where, choices = {}) {
-    const w = where && typeof where === 'object' ? where : {}, cls = [].concat(w.cls || []), crop = [].concat(w.crop || []), t0 = this.mod.WINDOW_FROM + 1440;
+    const w = where && typeof where === 'object' ? where : {}, cls = [].concat(w.cls || []), crop = [].concat(w.crop || []), t0 = T_('1863-06-27T00:00');                         // a minute inside the battle chapter: the share of trees kept does not depend on the minute
     return this.units.filter(u => (!cls.length || cls.includes(u.cls)) && (!crop.length || crop.includes(this.mod.cropOf(this.model, u, choices))) && !((u.cls === 'woods' || u.cls === 'scatter') && cls.length && this.stateAt(u, t0, choices).trees?.keep === 0));
   }
   stateAt(u, tMin, choices = {}) { return this.mod.stateAt(this.model, u, T_(tMin), choices); }

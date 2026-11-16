@@ -146,7 +146,7 @@
     "angle_floor_basis": "the sky is a table of sun and moon positions interpolated between its rows (app/src/environment.mjs, source 'table'); a row that prints 37.9 degrees for 16:00 is matched by the picture to 0.03 degrees, so a floor of 0.05 keeps the half unit of one decimal and does not ask for the table's own interpolation error to vanish."
   },
   "vegetation": {
-    "_doc": "How the picture's crops, woods and orchards (app/src/ext/vegetation, data/vegetation.json: a plot is a unit of the layer, V-nnnn, stable name `lc`) may differ from what a row says (gate Q17, assertion vegetation_state). These are rules of the CHECK, not historical claims. A record may ask for a tighter tolerance, never a wider one.",
+    "_doc": "How the picture's crops, woods and orchards (app/src/ext/vegetation, data/vegetation.json: a plot is a unit of the layer, V-nnnn, stable name `lc`) may differ from what a row says (gate Q17, assertion vegetation_state). These are rules of the CHECK, not historical claims (decisions DD-RZ-18 to DD-RZ-21). A record may ask for a tighter tolerance, never a wider one.",
     "height_tol_pct": 10,
     "height_tol_basis": "a height a row prints ('about 3.5-4.5 ft') is matched to the whole range of heights the picture draws for the plot at that minute (state.ground.h, metres: the layer draws every cell of the plot at a height inside that range): the range must lie inside the row's range widened by this share at each end, the same 10 per cent as the figures of a unit (units.figures). The number must be printed in the check's own quote (number_not_in_quote); feet are turned into metres with ft_to_m.",
     "ft_to_m": 0.3048,

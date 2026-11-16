@@ -179,6 +179,34 @@ class Validator(unittest.TestCase):
         codes = V.validate_obj(o, 'x', ctx(), 'C-001').codes()
         self.assertIn('default_range', codes)
 
+    def test_malformed_shapes_never_crash(self):
+        vals = (None, 5, [], {}, 'x', [1, 2], True, {'a': 1}, [{'a': 1}])
+        n = 0
+
+        def chk(o, tag):
+            R = V.validate_obj(o, 'x', ctx(), 'C-001')
+            self.assertNotIn('validator_crash', R.codes(), (tag, [m for c, m in R.errors if c == 'validator_crash'][:1]))
+        for key in base():
+            for val in vals:
+                o = base()
+                o[key] = val
+                chk(o, (key, val))
+        for k in base()['positions'][2]:
+            for val in vals:
+                o = base()
+                o['positions'][2][k] = val
+                chk(o, ('position', k, val))
+        for k in list(base()['positions'][2]['support'][0]) + ['text_offset_end']:
+            for val in vals:
+                o = base()
+                o['positions'][2]['support'][0][k] = val
+                chk(o, ('citation', k, val))
+        for k in base()['default']:
+            for val in vals:
+                o = base()
+                o['default'][k] = val
+                chk(o, ('default', k, val))
+
     def test_command_line(self):
         exe = [sys.executable, '-I', os.path.join(TOOLS, 'validate_resolution.py')]
         r = subprocess.run(exe + [ST.FIX], capture_output=True, text=True)

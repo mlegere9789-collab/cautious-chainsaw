@@ -1,0 +1,797 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "rosterofnorthcar03moor/352",
+ "levels": "N",
+ "stratum": "NC-MOO-G-other",
+ "family": "NC-MOO-G",
+ "layout": "flow",
+ "kind": "other",
+ "draw_position": 12,
+ "in_lowest_decile": false,
+ "printed_page": 344,
+ "rows_stored": 54,
+ "rows_checked": 54,
+ "rows_in_error": 5,
+ "rows_ok": 49,
+ "rows_flagged_ocr_uncertain": 10,
+ "errors": [
+  {
+   "i": 3,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "► Bowden, ffm„",
+   "printed": "Bowden, Wm.",
+   "note": "a margin mark and the letters Wm. read ffm",
+   "rid": "47th-north-carolina-infantry#800",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "H",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "V Bowden, Rufus",
+   "printed": "Bowden, Rufus",
+   "note": "a margin mark read as the letter V in front of the name",
+   "rid": "47th-north-carolina-infantry#801",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "G",
+    "H"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 7,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Bfockley, Riffin C",
+   "printed": "Blockley, Riffin C.",
+   "rid": "47th-north-carolina-infantry#804",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Bobbitt, R S.",
+   "printed": "Bobbitt, P. S.",
+   "rid": "47th-north-carolina-infantry#808",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 18,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "J Carlisle, James PI.",
+   "printed": "Carlisle, James H.",
+   "note": "a margin mark read as the letter J in front of the name; H. read PI.",
+   "rid": "47th-north-carolina-infantry#815",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "H"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "Printed page 344 (Forty-Seventh Regiment, Company G, privates B to H); 54 printed entries, all 54 stored; the five errors are in the lines that have a margin mark in the print (the ink marks of the copy), four of the five names carry a stray letter or character from them."
+ ],
+ "reader": "full page view at 200 dpi (Read tool; a page with ink marks in the left margin); names, rank headings, company and the cut of every line compared with the print (level N only: R-G1, R-G2 and R-G3b of this stratum had failed on its first pages); the company letter G of all lines checked against the running heads of the neighbouring pages 343 and 345 (Company G, Forty-Seventh Regiment)",
+ "tesseract_prescreen": {
+  "agree": 21,
+  "near": 0,
+  "suspect": 33,
+  "unstored_lines": 1
+ },
+ "read": {
+  "pdf_sha256": "cd19cd7b0f1e2fe6b21f6d68ae5e57eb886e60a2efa99368d26ef7f9465cf299",
+  "pdf_page": 352,
+  "view_png_sha256": "6ef634ce58656b93c7822b577c4fb7a1e9c870804dc4ee21a7eb4e9e405d8db2",
+  "render300_sha256": "e5d9f2e3bf5125eb0af30e8c6e808b7203295ddf27b03adfdb44407d183c8352",
+  "tess_sha256": "5e2eecf70b8d3ca748bd2eebdfe75defadec9b9fadfedc097fe496b28d77fd49",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.97
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "47th-north-carolina-infantry#797",
+   "name": "Bradford, John W.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "18606835220f9a7342089e2d5b3920a1a765f3078e243af5be053c2191673358",
+   "off": 1057723,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "47th-north-carolina-infantry#798",
+   "name": "Blockley, Augustus",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "657b220257dc9065079af076cee43104229b926b5627965bef71359b656cdaa0",
+   "off": 1057807,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "47th-north-carolina-infantry#799",
+   "name": "Barham, Jasper",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "d2d3b6a897fcaa5b16f173469b3e9175223d1f3b85b0df58dc6292aeb91955e0",
+   "off": 1057910,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "47th-north-carolina-infantry#800",
+   "name": "► Bowden, ffm„",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "c56e67900e85fea485112c640415e4a6c95678f14f01f2d27a5795f0b7ce0e6e",
+   "off": 1057966,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "H",
+    "N"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "47th-north-carolina-infantry#801",
+   "name": "V Bowden, Rufus",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "c50ba5d2925cb8b0cd12874898c994164f70298435f3b9c5edb2ee75ce7c0a47",
+   "off": 1058062,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "G",
+    "H"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "47th-north-carolina-infantry#802",
+   "name": "Bowden, Jordan",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "d2d3b6a897fcaa5b16f173469b3e9175223d1f3b85b0df58dc6292aeb91955e0",
+   "off": 1058123,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "47th-north-carolina-infantry#803",
+   "name": "Brummitt, E. R.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "a726fedf1ce632c03052ee3d12781041a61c3ff5eb566fa767b8f82506179d8a",
+   "off": 1058179,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "47th-north-carolina-infantry#804",
+   "name": "Bfockley, Riffin C",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "effca5844a27e1e44dfab49fb267f21d859795344c2d718e33aff77577a74b61",
+   "off": 1058240,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "47th-north-carolina-infantry#805",
+   "name": "Blockley, James",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "4558b6c252dd6888ac103dd8317c4a6e00399a79f5e9b376e12eb7063dee4c4a",
+   "off": 1058300,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "47th-north-carolina-infantry#806",
+   "name": "Bunn, John T.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "e43127d5a465048fa3cd5f4836ba80cc38974ba41b4e2cc25ddfa9cc7b683537",
+   "off": 1058363,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "47th-north-carolina-infantry#807",
+   "name": "Bridges, Samuel H. J.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "76aecbaca1be002b5e841d669d7d96a7fe2c5651be3c7d8720f5b3e2d0c10c51",
+   "off": 1058427,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "47th-north-carolina-infantry#808",
+   "name": "Bobbitt, R S.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "2c14e37b99c8169b998ad084f5448ce842d930c78e828decfa5813754f4d4f24",
+   "off": 1058500,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "47th-north-carolina-infantry#809",
+   "name": "Breedlore, Joseph",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "d384beaa4acac2bf6eda64a95772e174f802c5522fcde2c760b1358043eeb940",
+   "off": 1058596,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "G"
+   ]
+  },
+  {
+   "i": 13,
+   "rid": "47th-north-carolina-infantry#810",
+   "name": "Batchelor, Wm. C„",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "b1ca147f01603a563562e395cd5764eaa49332d40be3a1f2960ac7d3085efc83",
+   "off": 1058716,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 14,
+   "rid": "47th-north-carolina-infantry#811",
+   "name": "Best, Henry",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "271f0ac865fbde96171c70130d75b16e0f51f2701c782c198886e10d9172e7c2",
+   "off": 1058784,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "47th-north-carolina-infantry#812",
+   "name": "Benton, Henry",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "5262a00aa4b0136050af0280e8ceba32824ba0abda7c4b8dced57f530cb8ef62",
+   "off": 1058843,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "47th-north-carolina-infantry#813",
+   "name": "Carroll, T. S.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "433d442ca12075430a0e5b812c0b6400992adf60d35361b0f574429f395ee2b6",
+   "off": 1058898,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "47th-north-carolina-infantry#814",
+   "name": "Carr, T. W.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "b18774e847d7df6c9e7bff98382f8ba4c02e9c78166a1c33945588252e06fe23",
+   "off": 1058950,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "47th-north-carolina-infantry#815",
+   "name": "J Carlisle, James PI.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "f7a2aec5e9bf8af0d8499f8e6c877585a642c4843b34cc790fd2ff948ceda3a4",
+   "off": 1059046,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "H"
+   ]
+  },
+  {
+   "i": 19,
+   "rid": "47th-north-carolina-infantry#816",
+   "name": "Carlisle, J. K.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "03093f2e8d137f89ace9f1c91e3302bfdd3dbc710952db5f7e220c6c461bc93a",
+   "off": 1059115,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "G"
+   ]
+  },
+  {
+   "i": 20,
+   "rid": "47th-north-carolina-infantry#817",
+   "name": "Cannady, W. H.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "9628152b1aeebfcaf58db03167c10ffff124f6b7713ef4cdef9ffd8516d3bf5c",
+   "off": 1059174,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "G"
+   ]
+  },
+  {
+   "i": 21,
+   "rid": "47th-north-carolina-infantry#818",
+   "name": "Duke, R. L.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "671df0d70b759f08c1e96885bfd3a95feb643c69c73c316a4e01acc5c357115c",
+   "off": 1059234,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "47th-north-carolina-infantry#819",
+   "name": "Debnam, T. R.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "337db22834a4f05a2bf7870a7890ad70fa7bfe8a5ceae78d4182766564f8f60a",
+   "off": 1059291,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 23,
+   "rid": "47th-north-carolina-infantry#820",
+   "name": "Debnam, W. R.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "9ab23a6695fef81669be0f41242d5d9055e4429e12eaadb4a29f50cbaeb5a444",
+   "off": 1059347,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 24,
+   "rid": "47th-north-carolina-infantry#821",
+   "name": "Dement, S. F.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "5e98c1f3be262bba249ff3eec540e9f443165ebe3635362bf3b69e5ae1535321",
+   "off": 1059443,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 25,
+   "rid": "47th-north-carolina-infantry#822",
+   "name": "Dement, M. W.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "e0b7e96a4ad6aa6f8c3fe7f47ec6338d696ccfb09c5a91869d6363eec00a2134",
+   "off": 1059537,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 26,
+   "rid": "47th-north-carolina-infantry#823",
+   "name": "Dorsey, Washington",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "d9ec031ca42168ef01aec70412cdf4113aa57296ba6f05b5f35f968c93f7208a",
+   "off": 1059617,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 27,
+   "rid": "47th-north-carolina-infantry#824",
+   "name": "Dickerson, L. F.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "94eae199c76bebcb460687e4bbd7adb63fef805e4598b2e7816ce7f4c3b1f609",
+   "off": 1059678,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 28,
+   "rid": "47th-north-carolina-infantry#825",
+   "name": "Edwards, M. D.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "df02edc7e248342a1d78956abd83edb0abe796b876731e03958351865ce0c6ed",
+   "off": 1059741,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 29,
+   "rid": "47th-north-carolina-infantry#826",
+   "name": "Foster, W. B.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "bff5ebd0a2c9c8fb469cf364a3793f564257a3ef5d3948cfff057b17710e33de",
+   "off": 1059800,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 30,
+   "rid": "47th-north-carolina-infantry#827",
+   "name": "Freeman, John",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "23c074d0eff0738327233dbf36777928db92a93ae9194129125144e42ab519d6",
+   "off": 1059900,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 31,
+   "rid": "47th-north-carolina-infantry#828",
+   "name": "Fowler, Everett",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "d5734cd251c2652cc0ce18baea9cbc64c55e92f577da5007adf13a73deb3dae7",
+   "off": 1059974,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 32,
+   "rid": "47th-north-carolina-infantry#829",
+   "name": "Fuller, Henry",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "00e7bc2325aa86469d67ab4193d7a0de2168627c2ac59ec04cdd1c4484ab1202",
+   "off": 1060071,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 33,
+   "rid": "47th-north-carolina-infantry#830",
+   "name": "Fuller, W. D.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "00e7bc2325aa86469d67ab4193d7a0de2168627c2ac59ec04cdd1c4484ab1202",
+   "off": 1060124,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 34,
+   "rid": "47th-north-carolina-infantry#831",
+   "name": "Fuller, Jonathan",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "00e7bc2325aa86469d67ab4193d7a0de2168627c2ac59ec04cdd1c4484ab1202",
+   "off": 1060178,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 35,
+   "rid": "47th-north-carolina-infantry#832",
+   "name": "Fuller, M. B.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "81c725590fdee832db8a7acd600a8b58973a69d71613b4854a4d2b6a58b99103",
+   "off": 1060234,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 36,
+   "rid": "47th-north-carolina-infantry#833",
+   "name": "Grissom, A. L.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "3db0767d84cbd37708a56129995577076a184e166864747dcf1e971db3c5fe45",
+   "off": 1060301,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 37,
+   "rid": "47th-north-carolina-infantry#834",
+   "name": "Green, A. C",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "bb736b011b5e6640a56bfe510dfe525de3470bb81982f4980235404c629bfbeb",
+   "off": 1060404,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 38,
+   "rid": "47th-north-carolina-infantry#835",
+   "name": "Green, S. P.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "05154d1b138af4342c27f6b371e60a8d22179cc37ccb0824a1c91e18cf3e727e",
+   "off": 1060458,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 39,
+   "rid": "47th-north-carolina-infantry#836",
+   "name": "Hays, Lemuel",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "2a5c51ed6f8e8a2478d0182dd203830d7a39aaa53d0eb30b55273a570e40a1a3",
+   "off": 1060514,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 40,
+   "rid": "47th-north-carolina-infantry#837",
+   "name": "Harper, James N.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "9dc0b0de24283e513e5a051d6965e708391c356fc04a28c097954a6d4ea8dcda",
+   "off": 1060601,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 41,
+   "rid": "47th-north-carolina-infantry#838",
+   "name": "Hubbard, Wiley",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "fe7adb82d413f6a544db614e9a6bff661cacbeda5049c52b01da4a4ccb48e4eb",
+   "off": 1060663,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 42,
+   "rid": "47th-north-carolina-infantry#839",
+   "name": "Hodge, Henry",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "e8a50068b10a1bc1039888e70b011ff7990f73e2efb04e634bff243d931e5c21",
+   "off": 1060752,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 43,
+   "rid": "47th-north-carolina-infantry#840",
+   "name": "Harris, W. D.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "c1f7ef91d52aa8bead486d9f7cb31b58cfc142da1a9280a118a9dd32b04e1a01",
+   "off": 1060805,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 44,
+   "rid": "47th-north-carolina-infantry#841",
+   "name": "Hawkins, B. F.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "7a0263159b93d5b9694d8be38a9d941b35ee31971d3f760d597153537e062ddc",
+   "off": 1060893,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 45,
+   "rid": "47th-north-carolina-infantry#842",
+   "name": "Horner, George W.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "5f7b93d58aa68e9f709053c76ec17aa5dbcf0dfc33da42b36dd6c9f951aa2a1e",
+   "off": 1060949,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 46,
+   "rid": "47th-north-carolina-infantry#843",
+   "name": "Horner, R. D.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "00e7bc2325aa86469d67ab4193d7a0de2168627c2ac59ec04cdd1c4484ab1202",
+   "off": 1061028,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 47,
+   "rid": "47th-north-carolina-infantry#844",
+   "name": "Horner, J. T.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "d0ace6aa8ce9e0b4ab86ba0d926aa31d61da69fb5075d785acd564b015fb37da",
+   "off": 1061082,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "H"
+   ]
+  },
+  {
+   "i": 48,
+   "rid": "47th-north-carolina-infantry#845",
+   "name": "Hicks, G. M.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "db690a7ac79b6aac1ff378a559cd5e0bc2ecb45e9f8636755842fcea78fd990b",
+   "off": 1061120,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 49,
+   "rid": "47th-north-carolina-infantry#846",
+   "name": "Holmes, W. D.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "a1314035c0b314d3153854ce5a46aaaa2fd1f88b5c4380c7fd842af723d59fee",
+   "off": 1061173,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "G"
+   ]
+  },
+  {
+   "i": 50,
+   "rid": "47th-north-carolina-infantry#847",
+   "name": "Hight, J. H.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "3fd3c04ca55c7dd56e8f95ce774d82f7e612eeb53939f1e58d41f2017e8348db",
+   "off": 1061239,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 51,
+   "rid": "47th-north-carolina-infantry#848",
+   "name": "Hunt, A. A.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "d1c41aee95ecb646126850525899776959bcff12ba900422e942c3349d681f97",
+   "off": 1061295,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 52,
+   "rid": "47th-north-carolina-infantry#849",
+   "name": "Hilliard, J. P.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "afb6665b582736128353f8f48bb0bc08e91877bc85b07207c5a2b1c8508a2204",
+   "off": 1061369,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "G"
+   ]
+  },
+  {
+   "i": 53,
+   "rid": "47th-north-carolina-infantry#850",
+   "name": "Harper, George T.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "8a37e6fe3b18f4a6f0fbe0f5adc79a46c645c9cb6545a865afcae423a45a4248",
+   "off": 1061432,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-16T03:27:43Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "SUSPECT",
+  "2": "AGREE",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "AGREE",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "AGREE",
+  "17": "SUSPECT",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "AGREE",
+  "21": "SUSPECT",
+  "22": "SUSPECT",
+  "23": "AGREE",
+  "24": "SUSPECT",
+  "25": "AGREE",
+  "26": "SUSPECT",
+  "27": "AGREE",
+  "28": "AGREE",
+  "29": "SUSPECT",
+  "30": "SUSPECT",
+  "31": "AGREE",
+  "32": "AGREE",
+  "33": "AGREE",
+  "34": "SUSPECT",
+  "35": "AGREE",
+  "36": "SUSPECT",
+  "37": "SUSPECT",
+  "38": "AGREE",
+  "39": "AGREE",
+  "40": "AGREE",
+  "41": "SUSPECT",
+  "42": "SUSPECT",
+  "43": "SUSPECT",
+  "44": "SUSPECT",
+  "45": "AGREE",
+  "46": "AGREE",
+  "47": "SUSPECT",
+  "48": "SUSPECT",
+  "49": "SUSPECT",
+  "50": "SUSPECT",
+  "51": "AGREE",
+  "52": "AGREE",
+  "53": "AGREE"
+ }
+}

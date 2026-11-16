@@ -396,13 +396,13 @@ McClean House and Barn, Gettysburg National Military Park, Pa. (1 October 1968).
 
 ## NPS-NEWSLETTER-V18N4
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17(18?) No. 4, Winter 2011/2012 (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v18n4.pdf
+Park News: The Gettysburg Quarterly, Vol. 17, No. 4 (as printed; the index of the host site says 17(18?)) (Winter 2011/2012) (Winter 2011/2012). https://www.npshistory.com/publications/gett/newsletter/v18n4.pdf
 
 - **George Spangler farm and its 80 surrounding acres: perhaps the best preserved Gettysburg field hospital site; over one thousand men treated, among them Armistead** (`NPSX-NEWSLETTER-V18N4-p001-01`)
   - State date: **1863-07 (hospital use; the 80 acres and the preservation are as the newsletter states them in 2011)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 1
   - Repository ids: `bld-spangler-farm`, `H-06`
   - Claim: The newsletter says the George Spangler farm and its surrounding 80 acres is perhaps the most well preserved site of a Gettysburg field hospital still standing and that over one thousand men were treated there, including Confederate General Lewis A. Armistead
-  - Quote: "This farm and its surrounding 80 acres is perhaps the most well preserved site of a Gettysburg field hospital still standing. Over one thousand men were treated here including Confederate General Lewis A. Armistead and George Nixon"
+  - Quote: "The George Spangler Farm: This farm and its surrounding 80 acres is perhaps the most well preserved site of a Gettysburg field hospital still standing. Over one thousand men were treated here including Confederate General Lewis A. Armistead and George Nixon"
 
 ## NPSGOV-CIVILIANS
 
@@ -458,7 +458,7 @@ Gettysburg Overview - Gettysburg National Military Park (U.S. National Park Serv
 
 ## NPSGOV-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP
 
-Archeological Survey at Little Round Top - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/archeological-survey-at-little-round-top.htm
+Archeological Survey at Little Round Top - Gettysburg National Military Park (U.S. National Park Service) (news release of February 22, 2017). https://www.nps.gov/gett/learn/news/archeological-survey-at-little-round-top.htm
 
 - **The George Spangler farm was the site of a hospital during the battle; an archeological study before the planting of a historic orchard there** (`NPSX-WEB-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP-p001-03`)
   - State date: **1863-07 (hospital use; the orchard is a 2017 plan)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -468,7 +468,7 @@ Archeological Survey at Little Round Top - Gettysburg National Military Park (U.
 
 ## NPSGOV-NEWS-GETTYSBURG-ORCHARDS
 
-Recruit Members of the Gettysburg Foundation Support Gettysburg’s Orchards - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/gettysburg-orchards.htm
+Recruit Members of the Gettysburg Foundation Support Gettysburg’s Orchards - Gettysburg National Military Park (U.S. National Park Service) (news release of November 22, 2016). https://www.nps.gov/gett/learn/news/gettysburg-orchards.htm
 
 - **The George Spangler farm, called a Gettysburg farm and field hospital site** (`NPSX-WEB-NEWS-GETTYSBURG-ORCHARDS-p001-04`)
   - State date: **1863-07 (the release's description of the site)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -478,7 +478,7 @@ Recruit Members of the Gettysburg Foundation Support Gettysburg’s Orchards - G
 
 ## NPSGOV-NEWS-HERR-WOODS-1-2012
 
-Gettysburg Woods Get a Facelift - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/herr-woods-1-2012.htm
+Gettysburg Woods Get a Facelift - Gettysburg National Military Park (U.S. National Park Service) (news release of January 5, 2012). https://www.nps.gov/gett/learn/news/herr-woods-1-2012.htm
 
 - **Wounded Confederates went into the shade of Herr Woods to wait for ambulances (the park historian's reading: most likely the saddest use of the woods)** (`NPSX-WEB-NEWS-HERR-WOODS-1-2012-p001-07`)
   - State date: **1863-07-01** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 1

@@ -1,7 +1,9 @@
 """Sources of the conf-nc work item: item metadata, the manifest and the tracked pointer file.
 
-    python3 -I nc_sources.py --fetch-metadata     the Internet Archive metadata of the 8 items (one request at a time, 1.2 s apart, generic client name)
+    python3 -I nc_sources.py --fetch-metadata     the Internet Archive metadata of the 18 items (8 of Moore, 10 of Clark; one request at a time, 1.2 s apart, generic client name)
     python3 -I nc_sources.py --write              tmp/library/rosters/MANIFEST-conf-nc.json and docs/battle-theatre/rosters/sources/conf-nc.json (form roster2-sources-pointer/1)
+
+Clark (1901): ten texts (five volumes, two Internet Archive items each) are listed with role commission: they are read for notes of the ledger NC-CLARK-1901.json, never for roster lines.
 
 Rights.  The rights basis of a text is "public domain (United States publication before 1929)" only where that is true: the volumes are the State of North Carolina's
 own roster, printed at Raleigh in 1882 by the state printers under an act of the General Assembly (the title page and the act are quoted from the text, with their
@@ -168,9 +170,10 @@ def source_entries(summary):
 
 
 def clark_imprint_quote(text):
-    """The printed imprint of a Clark title page (a substring of the text with its offset, verified), or None."""
-    for pat in (r"(?:NASH|Nash)\s+B\w+,?\s+BOOK\s+AND\s+JOB\s+P\w+,?\s+\w+,?\s+N\.?\s+C\.?\s+1901", r"PUBLISHED\s+BY\s+THE\s+STATE\.?\s*\|?\s*(?:NASH|Nash)[^\n]{0,120}1901",
-                r"E\.\s*M\.\s*UZZELL[^\n]{0,60}1901", r"[^\n]{0,60}GOLDSBORO[^\n]{0,60}", r"PUBLISHED\s+BY\s+THE\s+STATE\.?"):
+    """The printed imprint of a Clark title page (a substring of the text with its offset, verified), or None.  The title page with the year first (volume 1: Raleigh, E. M. Uzzell, 1901;
+    volumes 3 to 5: Goldsboro, Nash Brothers, 1901), then a preface or chapter signed with its date in 1901 (volume 2 prints no year on the title page)."""
+    for pat in (r"RALEIGH:\s+E\.\s*M\.\s+U\w+,\s+Printer\s+and\s+Binder\.\s+1901\.", r"BOOK\s+AND\s+\.?JOB\s+P\w+,?\s+\w+,?\s+N\.?\s+C\.?\s+1901\.?",
+                r"N\.\s*C,\s+\w{1,2}\s+April[\.,]?\s+1901\.", r"PUBLISHED\s+BY\s+THE\s+STATE\."):
         m = re.search(pat, text[:60000])
         if m:
             q = m.group(0)
@@ -212,7 +215,7 @@ def clark_entries(notes):
                 'ia_date': t['ia_date'], 'ia_possible_copyright_status': t['ia_possible_copyright_status'], 'ia_access_restricted_item': t['ia_access_restricted_item'],
                 'ia_licenseurl': _one(mdd.get('licenseurl')), 'ia_contributor': t['ia_contributor'], 'imprint': _one(mdd.get('publisher')) or t['ia_publisher'], 'year': 1901,
                 'why': 'published by the State of North Carolina ("Published by the state", Goldsboro, Nash Brothers, printers, 1901; volume 1 Raleigh, E. M. Uzzell): a US publication of 1901',
-                'imprint_quote': iq, 'imprint_quote_offset_in_text': ioff, 'year_printed_in_quote': bool(iq and '1901' in iq), 'year_source': 'the item date 1901' if not (iq and '1901' in iq) else 'the printed title page'}},
+                'imprint_quote': iq, 'imprint_quote_offset_in_text': ioff, 'year_printed_in_quote': bool(iq and '1901' in iq), 'year_source': 'the item date 1901' if not (iq and '1901' in iq) else ('a chapter signed with its date in 1901 (the title page of volume 2 prints no year)' if 'April' in iq else 'the printed title page')}},
             'role': 'commission',
             'status': 'read for notes (strength, present for duty, taken into action, losses) in the ledger data2/sources/NC-CLARK-1901.json; no roster line is made from it',
             'used_for': sorted(used.get(tid, [])),

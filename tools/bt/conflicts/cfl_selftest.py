@@ -193,6 +193,16 @@ def _readers(o):
     o['readers'] = []
 
 
+def _end_before_start(o):
+    c = pos(o, 'C-001-P4')['support'][0]
+    c['text_offset_end'] = c['text_offset'] - 5
+
+
+def _end_far_away(o):
+    c = pos(o, 'C-001-P4')['support'][0]
+    c['text_offset_end'] = c['text_offset'] + 30000
+
+
 def _source_keys(o):
     pos(o, 'C-001-P1')['source_keys'] = ['ZZZ']
 
@@ -256,8 +266,72 @@ CASES = [
     ('banned word in a label', _banned_label, ['banned_copy']),
     ('no readers and no note', _readers, ['readers_missing']),
     ('source key that the PDF row does not print', _source_keys, ['source_keys_mismatch']),
+    ('end offset before the start offset', _end_before_start, ['offset_mismatch']),
+    ('end offset far after the quote', _end_far_away, ['offset_mismatch']),
     ('numeric value whose number is in no quote', _number_value_not_stated, ['number_not_in_quote']),
     ('time window default without the instant that drives the picture', _window_no_animation, ['default_animation']),
+]
+
+
+FIX15 = os.path.join(HERE, 'selftest', 'c015-valid.json')
+
+
+def gap_variant(base):
+    """A valid resolution of class gap built from the base: no source, the first position kept as a marked stand-in, three failed searches in two places."""
+    o = copy.deepcopy(base)
+    o['class'], o['tier'] = 'gap', 'plausible-procedural'
+    o['basis'] = {'kind': 'gap', 'text': 'No report, letter or later volume read states the hour; the plan\'s value is kept as a marked stand-in.'}
+    for p in o['positions']:
+        p['support'] = []
+        p.pop('inference', None)
+        p.pop('derived', None)
+        p['flags'] = ['unsourced']
+        p['failed_lookups'] = [{'where': 'Official Records Ser. I vol. 27 parts 1-3', 'query': 'arrived Gettysburg a. m. headquarters', 'outcome': 'not_found', 'at': '2026-11-16'}]
+        p['tier'] = 'open gap'
+    d = pos(o, 'C-001-P3')
+    d['tier'] = 'plausible-procedural'
+    d['procedural_basis'] = 'the plan\'s recommended value kept as a marked stand-in until a source states the hour'
+    o['failed_searches'] = [{'where': 'Official Records Ser. I vol. 27 parts 1-3', 'query': 'arrived Gettysburg a. m. headquarters', 'outcome': 'not_found', 'at': '2026-11-16'},
+                            {'where': 'LONGSTREET-1896 and the ws9 books', 'query': 'general Meade arrived at the field one o\'clock', 'outcome': 'not_found', 'at': '2026-11-16'},
+                            {'where': 'NPS texts', 'query': 'Meade arrived Cemetery Hill midnight', 'outcome': 'not_found', 'at': '2026-11-16'}]
+    return o
+
+
+def irreducible_variant(base):
+    """A valid resolution of class irreducible built from the base: a window default of the two documented values, with its declared basis and the animation instant."""
+    o = copy.deepcopy(base)
+    o['class'] = 'irreducible'
+    o['default'] = {'mode': 'window', 'positions': ['C-001-P3', 'C-001-P4'], 'label': 'between 01:00 and 02:00 on Jul 2', 'basis_text': 'the two reports of the arrival: Meade 1 a.m., Hunt about 2 a.m.',
+                    'animation': {'at': '1863-07-02T01:00', 'rule': 'earliest_documented', 'note': 'the earlier of the two documented hours'}}
+    for pid in ('C-001-P3', 'C-001-P4'):
+        pos(o, pid)['stance'] = 'default'
+        pos(o, pid).pop('reason_not_chosen', None)
+    o['failed_searches'] = [{'where': 'Official Records Ser. I vol. 27 parts 1-3', 'query': 'a dated order or dispatch timing the arrival of the commanding general', 'outcome': 'not_found', 'at': '2026-11-16'},
+                            {'where': 'MEADE-LL-v2', 'query': 'arrived at the cemetery gate', 'outcome': 'not_found', 'at': '2026-11-16'}]
+    return o
+
+
+def _c15_wrong_state(o):
+    pos(o, 'C-015-P2')['support'][0]['states']['numbers'] = [385]
+
+
+def _c15_no_range(o):
+    del o['default']['range']
+
+
+def _c15_value_not_stated(o):
+    pos(o, 'C-015-P2')['value'] = {'n': 387, 'unit': 'men'}
+
+
+def _c15_value_outside_range(o):
+    o['default']['value'] = 400
+
+
+CASES15 = [
+    ('numeric: the number the citation states is not in the quote', _c15_wrong_state, ['state_not_in_quote']),
+    ('numeric: a default without its range', _c15_no_range, ['default_range']),
+    ('numeric: the value is not the number the quote states', _c15_value_not_stated, ['value_not_stated', 'number_not_in_quote']),
+    ('numeric: the figure lies outside the range', _c15_value_outside_range, ['default_range']),
 ]
 
 
@@ -291,6 +365,29 @@ def run():
         else:
             ok = False
             print('FAIL  NOT CAUGHT: %s (expected %s; the validator said: %s)' % (name, '/'.join(expect), sorted(codes) or 'nothing'))
+    # positive controls: valid resolutions of the other paths (numeric, gap, irreducible) must have no error
+    controls = [('numeric resolution (C-015)', V.load_file(FIX15)[0], 'C-015'), ('gap resolution (no source, stand-in, failed searches)', gap_variant(base), 'C-001'),
+                ('irreducible resolution (window default)', irreducible_variant(base), 'C-001')]
+    for name, o, fid in controls:
+        R = V.validate_obj(copy.deepcopy(o), name, ctx, fid)
+        if R.errors:
+            ok = False
+            print('FAIL  positive control has errors: %s -> %s' % (name, [c + ': ' + m[:110] for c, m in R.errors[:4]]))
+        else:
+            n_ok += 1
+            print('PASS  positive control: %s has 0 errors (%d warnings)' % (name, len(R.warnings)))
+    b15 = V.load_file(FIX15)[0]
+    for name, fn, expect in CASES15:
+        o = copy.deepcopy(b15)
+        fn(o)
+        codes = V.validate_obj(o, name, ctx, 'C-015').codes()
+        got = [e for e in expect if e in codes]
+        if got:
+            n_ok += 1
+            print('PASS  caught: %s -> %s' % (name, ', '.join(got)))
+        else:
+            ok = False
+            print('FAIL  NOT CAUGHT: %s (expected %s; got %s)' % (name, '/'.join(expect), sorted(codes) or 'nothing'))
     # a different id in the file name
     o = copy.deepcopy(base)
     R = V.validate_obj(o, 'name', ctx, 'C-002')
@@ -326,7 +423,7 @@ def run():
                 ok = False
                 print('FAIL  cli: %s (rc %s %s)' % (nm, [r1.returncode, r2.returncode, r3.returncode, r4.returncode], (r1.stdout + r2.stdout)[-300:]))
     print('SELF-TEST %s: %d planted defects and checks caught' % ('OK' if ok else 'FAILED', n_ok))
-    result = {'ok': ok, 'caught': n_ok, 'cases': len(CASES) + 1 + 4, 'date': L.today(), 'fixture': L.rel(FIX), 'valid_fixture_errors': len(R0.errors), 'valid_fixture_warnings': len(R0.warnings)}
+    result = {'ok': ok, 'caught': n_ok, 'cases': len(CASES) + len(CASES15) + 1 + 3 + 4, 'date': L.today(), 'fixture': L.rel(FIX), 'valid_fixture_errors': len(R0.errors), 'valid_fixture_warnings': len(R0.warnings)}
     try:
         L.dump_json(os.path.join(L.CONF, 'selftest', 'RESULT.json'), result)
     except OSError:

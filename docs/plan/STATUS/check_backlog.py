@@ -22,8 +22,8 @@ import merge_status as ms  # noqa: E402
 REPO = ms.REPO
 ID_RE = re.compile(r'^[a-z0-9]+(-[a-z0-9]+)*$')
 ROUTES = {'candidate-group', 'source-rebuild', 'verification-record', 'release-request', 'decision-record', 'umbrella'}
-# routes whose entries an engineer builds in a batch (row C18: a request note to the release workstream is a deliverable of its own, done when the note and HANDOFF.md exist)
-BATCH_ROUTES = ('candidate-group', 'source-rebuild', 'release-request')
+# routes whose entries an engineer finishes in a batch (rows C18 and C23: a request note to the release workstream is done when the note and HANDOFF.md exist; a verification record is done when its evidence and check verify)
+BATCH_ROUTES = ('candidate-group', 'source-rebuild', 'release-request', 'verification-record')
 WRITE_OK = ('docs/plan/STATUS/', 'docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md', 'candidates/r1h/', 'src/', 'historian-src/', 'data-src/', 'tools/data/', 'tools/time/',
             'tools/historian/', 'tests/data/', 'tests/time/', 'tests/historian/', 'tmp/r1h-cand/', 'docs/battle-theatre/GOVERNANCE/horde/requests/main-site-')
 
@@ -158,21 +158,21 @@ def main(argv):
                 for f in ms.write_conflicts(by[i], by[j]):
                     bad('next_batch write sets overlap: %s and %s both write %s' % (i, j, f))
     # the batch is the first entries in order that qualify: nothing authored, open and ready may be skipped over without a conflict
-    if not fpath:
-        ordered = sorted(items, key=lambda x: x['order'])
-        expect = []
-        for e in ordered:
-            if e['done'] or e.get('wave') is None or e['route']['type'] not in BATCH_ROUTES:
-                continue
-            if any(not by[d]['done'] for d in e['depends_on'] if d in by):
-                continue
-            if any(ms.write_conflicts(by[b], e) for b in expect):
-                continue
-            expect.append(e['id'])
-            if len(expect) == ms.BATCH_SIZE:
-                break
-        if expect != batch:
-            bad('next_batch is not the first %d ready authored entries in order: expected %s, found %s' % (ms.BATCH_SIZE, expect, batch))
+    # (computed from the file's own entries, so it also runs on the damaged copies of the self-test)
+    ordered = sorted(items, key=lambda x: x['order'])
+    expect = []
+    for e in ordered:
+        if e['done'] or e.get('wave') is None or e['route']['type'] not in BATCH_ROUTES:
+            continue
+        if any(not by[d]['done'] for d in e['depends_on'] if d in by):
+            continue
+        if any(ms.write_conflicts(by[b], e) for b in expect):
+            continue
+        expect.append(e['id'])
+        if len(expect) == ms.BATCH_SIZE:
+            break
+    if expect != batch:
+        bad('next_batch is not the first %d ready authored entries in order: expected %s, found %s' % (ms.BATCH_SIZE, expect, batch))
     # delegated rows
     rows = ms.parse_delegated()
     for e in items:

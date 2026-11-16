@@ -27,7 +27,7 @@ CLOCKS = ('union', 'confederate', 'unspecified', 'not_applicable')
 HEDGES = ('exact', 'about', 'upper', 'lower', 'soon_after', 'window')
 PAGE_BASES = ('scan_leaf', 'running_head', 'interpolated', 'pdf_marker', 'as_read', 'none')
 CITE_KEYS = {'id', 'source', 'source_class', 'part', 'page', 'page_basis', 'text_offset', 'quote', 'quote_mode', 'raw', 'ocr_note', 'page_image_viewed', 'printed_page',
-             'page_note', 'witness', 'written', 'vantage', 'knew_by', 'clock', 'clock_note', 'hedge', 'group', 'states', 'exact', 'note'}
+             'page_note', 'witness', 'written', 'vantage', 'knew_by', 'clock', 'clock_note', 'hedge', 'group', 'states', 'exact', 'note', 'text_offset_end'}
 TOWN_KEYS = ('source', 'part', 'page', 'quote', 'text_offset', 'quote_mode', 'raw', 'ocr_note', 'page_image_viewed', 'printed_page', 'page_note')
 STATE_KEYS = {'times', 'numbers', 'dates', 'phrases'}
 OR_PARTS = {'OR27-1': 1, 'OR27-2': 2, 'OR27-3': 3}
@@ -161,9 +161,9 @@ def check_citation(ctx, c, where, errs, warns, event_date=None):
         errs.append(('witness', '%s: witness is {"name": who wrote it, "role": rank/office/unit, "side": union|confederate|civilian|other}' % where))
     elif wit.get('side') not in ('union', 'confederate', 'civilian', 'other', 'institution'):
         errs.append(('enum', '%s: witness.side is union, confederate, civilian, other or institution' % where))
-    if isinstance(c.get('group'), str) and not c['group'].strip():
-        errs.append(('cite_missing_field', '%s: group is empty (the line of knowledge: the witness, or the report this passage relays)' % where))
-    info['group'] = (c.get('group') or '').strip().lower()
+    if c.get('group') is not None and not (isinstance(c.get('group'), str) and c['group'].strip()):
+        errs.append(('cite_missing_field', '%s: group is a non-empty text (the line of knowledge: the witness, or the report this passage relays)' % where))
+    info['group'] = c['group'].strip().lower() if isinstance(c.get('group'), str) else ''
     if c.get('exact') is not None and not isinstance(c.get('exact'), bool):
         errs.append(('enum', '%s: exact is true or false' % where))
     # page basis against the ledger page model
@@ -243,6 +243,33 @@ def check_citation(ctx, c, where, errs, warns, event_date=None):
                         warns.append(('page_hint', '%s: the printed page %s does not appear as a number within 6000 characters of the quote (read it on the page image and say so in page_note)' % (where, pg)))
                 except Exception:
                     pass
+    # the optional end offset (the life evidence files carry offset_start and offset_end): the slice must hold the quote and be about as long as it
+    te = c.get('text_offset_end')
+    if te is not None and info['ok']:
+        off = c.get('text_offset')
+        if not (_isint(te) and _isint(off) and te > off):
+            errs.append(('offset_mismatch', '%s: text_offset_end must be an integer greater than text_offset' % where))
+        else:
+            try:
+                path_, _why = L.town().resolve_text(ctx, sid, c.get('part'))
+                raw_ = ctx.text(path_)[0]
+                sl = raw_[off:te]
+                frs = [L.town().quote_skeleton(f) for f in L.town().fragments(quote if c.get('quote_mode') != 'ocr' else (c.get('raw') or quote))]
+                sk = L.town().quote_skeleton(sl)
+                pos_ = 0
+                good = True
+                for fr in frs:
+                    j = sk.find(fr, pos_)
+                    if j < 0:
+                        good = False
+                        break
+                    pos_ = j + len(fr)
+                if not good:
+                    errs.append(('offset_mismatch', '%s: the text between text_offset and text_offset_end does not hold the quote' % where))
+                elif te - off > 3 * len(quote) + 400:
+                    errs.append(('offset_mismatch', '%s: text_offset_end is %d characters after text_offset for a quote of %d characters' % (where, te - off, len(quote))))
+            except Exception:
+                pass
     # what the citation says it states stands in the quote
     st = c.get('states')
     qtext = quote

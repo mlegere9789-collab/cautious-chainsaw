@@ -94,7 +94,7 @@ A(f'\nThe full list ({len(st)} statements, each with its verbatim quote, page an
 SBC = J('sketchbook_concordance.json'); RR = J('loc_reread_20261116.json')
 if SBC:
     A("## The photographer's own words: Gardner's Sketch Book and catalogue\n")
-    A("Alexander Gardner's Photographic Sketch Book of the War (1865-66) prints a page of letterpress before each mounted plate. The Library of Congress holds its copy of the album as images only; the letterpress pages of the ten Gettysburg plates (35 to 44) were read by machine from the Library's master scans and by eye. The Library's own call numbers tie each plate to a catalogued record:\n")
+    A("Alexander Gardner's Photographic Sketch Book of the War (1865-66) prints a page of letterpress before each mounted plate. The Library of Congress holds its copy of the album as images only; the letterpress pages of the ten Gettysburg plates (35 to 44) were read from the Library's master scans with text recognition and by eye. The Library's own call numbers tie each plate to a catalogued record:\n")
     A("| Plate | Title as printed | Credit as printed | Library record (call number) | Letterpress says where the camera stood |\n|---|---|---|---|---|")
     for pl in SBC['plates']:
         A(f"| {pl['plate']} | {pl['printed_title']} | {pl['printed_credit'].split('. ...')[0].rstrip('.')} | " + '; '.join(f"{k} ({v.split(' (Case')[0]})" for k, v in pl['loc_records_by_call_number'].items()) + f" | {'yes: ' + pl['letterpress_note'] if pl['letterpress_states_where_the_camera_stood'] else 'no'} |")
@@ -136,7 +136,7 @@ for f, t in [('catalogue.py, catalogue_additions.py, wide_search.py, catalogue_w
              ('images_ledger.json, wide_images_ledger.json, wide_extra_images_ledger.json', 'sha256, bytes, pixel size, urls and licence basis per saved file; the files are under gitignored tmp/photomatch/'), ('statements_data.py, build_statements.py -> position_statements.json', 'the camera-position statements; the builder refuses a quote it cannot find in the saved text'),
              ('scan_nps_photos.py -> nps_photo_scan.json', f"one fixed rule over every saved NPS text ({J('nps_photo_scan.json')['sources_scanned']} texts) for passages that give a place or direction of view of a photograph; a list of places to read, not statements"),
              ('loc_reread.py, loc_reread_review.py -> loc_reread_20261116.json, loc_reread_review.json', 'every registered Library record read again from its open JSON; each sentence that names a place or direction of view is a statement or has a written reading'),
-             ('sketch_master_ocr.py, build_sketchbook_concordance.py, fifth_texts.py -> sketchbook_concordance.json', "the letterpress of Gardner's Sketch Book plates 35 to 44 read by machine from the Library's master scans (sha256 of each scan and text); the saved text of Gardner's catalogue of 1863 and of the Library essays"),
+             ('sketch_master_ocr.py, build_sketchbook_concordance.py, fifth_texts.py -> sketchbook_concordance.json', "the letterpress of Gardner's Sketch Book plates 35 to 44 read from the Library's master scans with text recognition (sha256 of each scan and text); the saved text of Gardner's catalogue of 1863 and of the Library essays"),
              ('nps_figures.py -> nps_figures.json', 'the captions of the 1863 photographs printed in the Record of Treatment, cut verbatim from the saved text, with the extracted images'),
              ('tie_geometry.py -> tie_geometry.json', 'same plate or only the same scene? the homography of every accepted tie (inlier fraction, scale, rotation, anisotropy, perspective, residual, footprint), thresholds fixed before the run; the class is a lead and both images are looked at'),
              ('match_nps_then.py, match_third_pass.py -> nps_then_to_loc.json, nps_figures_to_loc.json, wide_to_catalogue.json, met_to_catalogue.json', 'which catalogued LOC image each NPS picture, each wide-search image and each Metropolitan Museum item is (feature matching; a lead until both images were looked at)'),
@@ -159,7 +159,7 @@ print('PHOTOMATCH.md written', len(L), 'lines')
 # ---------------------------------------------------------------------------------------------------------------- the workstream report (not shipped)
 def report():
     R = []; B = R.append; ts = J('test_status.json') or {}
-    f5 = ts.get('fifth')
+    f5 = ts.get('fifth'); H = '###' if f5 else '##'
     if f5:
         B('# ' + f5['title'] + '\n'); B(f5['scope_read'] + '\n'); B('## Result in one paragraph (fifth session)\n'); B(f5['result_paragraph'] + '\n'); B('## What was run (fifth session) and what came of it\n')
         for t in f5['what_was_run']: B('- ' + t)
@@ -176,27 +176,27 @@ def report():
     if not f5: B('# ws10 photo-match (Q16) report, third pass 2026-11-14, finished in a fourth session 2026-11-15 (second pass 2026-11-13, first pass 2026-11-11)\n')
     else: B('## Scope read (earlier sessions)\n')
     B(ts.get('scope_read', 'Scope read: CLAUDE.md; gates.json Q16; GATE-SPEC Q16; the PDF plan B.9.2 step 7 and Table 4; the second-pass report. Nothing was committed, pushed or deployed.') + '\n')
-    B('## Result in one paragraph\n')
+    B(H + ' Result in one paragraph\n')
     B(ts.get('result_paragraph', '(to be written)') + '\n')
-    B('## What was run (and what came of it)\n')
+    B(H + ' What was run (and what came of it)\n')
     for t in ts.get('what_was_run', []): B('- ' + t)
-    B('\n## Verdicts of the poses that are new or changed in this pass\n')
+    B('\n' + H + ' Verdicts of the poses that are new or changed in the third pass\n')
     B('| Pose | Record | Verdict | Independent | Short reason |\n|---|---|---|---|---|')
     for p in poses:
         if p['id'] not in ts.get('new_or_changed', []): continue
         v = pv[p['id']]; B(f"| {p['id']} | {p.get('loc_id') or 'NPS figure'} | {v['verdict']} | {'yes' if v.get('independent_test') else 'no'} | {v['why'][:200].rstrip()}... |")
     B(f'\nAll poses: {vc.get("matches", 0)} matches, {vc.get("roughly", 0)} roughly, {vc.get("does not", 0)} does not, {vc.get("cannot judge", 0)} cannot judge over {len(poses)} poses; by record: posed {sum(1 for r in reg if r["pose_ids"])} of {len(reg)}, cannot judge without a pose {len(reg) - sum(1 for r in reg if r["pose_ids"])} (near field only {cls.get("NEAR", 0)}; camera place not fixed {cls.get("POS", 0)}; staged {cls.get("STG", 0)}; not July battlefield views {cls.get("OUT", 0)}).\n')
-    B('## Findings worth another workstream\'s attention\n')
+    B(H + ' Findings worth another workstream\'s attention\n')
     for t in ts.get('findings', []): B('- ' + t)
     B('\n## How to rebuild\n')
-    B('`python3 tools/bt/photomatch/build_statements.py && tools/horde/bench.sh node tools/bt/photomatch/run.mjs && python3 tools/bt/photomatch/compose.py && python3 tools/bt/photomatch/measure_c1.py && tools/horde/bench.sh python3 tools/bt/photomatch/skyline_test.py && python3 tools/bt/photomatch/catalogue_wide_items.py && python3 tools/bt/photomatch/build_registry.py && python3 tools/bt/photomatch/make_doc.py`. Test: `node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`. The record of a determinism check: `python3 tools/bt/photomatch/record_determinism.py` after a full re-run into tmp/photomatch/renders_rerun (`PM_RENDER_DIR=tmp/photomatch/renders_rerun tools/horde/bench.sh node tools/bt/photomatch/run.mjs`). The further resources of the wide-search records: `python3 tools/bt/photomatch/wide_extra_images.py`.')
-    B('\n## Tests\n')
+    B('Fifth session additions (2026-11-16): `python3 tools/bt/photomatch/loc_reread.py && python3 tools/bt/photomatch/loc_reread_review.py && python3 tools/bt/photomatch/fifth_texts.py && python3 tools/bt/photomatch/sketch_master_ocr.py && python3 tools/bt/photomatch/build_sketchbook_concordance.py && python3 tools/bt/photomatch/nps_scan_review.py` before `build_statements.py`; after `build_registry.py`: `python3 tools/bt/photomatch/add_verdicts_fifth_pass.py` (idempotent) and `python3 tools/bt/photomatch/write_test_status.py` before `make_doc.py`. Earlier: `python3 tools/bt/photomatch/build_statements.py && tools/horde/bench.sh node tools/bt/photomatch/run.mjs && python3 tools/bt/photomatch/compose.py && python3 tools/bt/photomatch/measure_c1.py && tools/horde/bench.sh python3 tools/bt/photomatch/skyline_test.py && python3 tools/bt/photomatch/catalogue_wide_items.py && python3 tools/bt/photomatch/build_registry.py && python3 tools/bt/photomatch/make_doc.py`. Test: `node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`. The record of a determinism check: `python3 tools/bt/photomatch/record_determinism.py` after a full re-run into tmp/photomatch/renders_rerun (`PM_RENDER_DIR=tmp/photomatch/renders_rerun tools/horde/bench.sh node tools/bt/photomatch/run.mjs`). The further resources of the wide-search records: `python3 tools/bt/photomatch/wide_extra_images.py`.')
+    B('\n' + H + ' Tests\n')
     for t in ts.get('tests', []): B('- ' + t)
-    B('\n## Not run, owed\n')
+    B('\n' + H + ' Not run, owed\n')
     for t in ts.get('owed', []): B('- ' + t)
     B('\n## Owner steps (acts only the owner may do)\n')
     for t in G['owner_steps']: B('- ' + t)
-    B('\n## Governance note\n')
+    B('\n' + H + ' Governance note\n')
     B(ts.get('governance_note', ''))
     open(os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws10-photomatch', 'REPORT.md'), 'w').write('\n'.join(R) + '\n'); print('REPORT.md written', len(R), 'lines')
 report()

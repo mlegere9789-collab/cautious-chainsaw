@@ -522,7 +522,7 @@ Draft Development Concept Plan / Environmental Assessment: Gettysburg Little Rou
 
 ## NPS-DEV-POLICY
 
-Development Policy for Gettysburg National Military Park (Farm Lands and Farm Structures) (date: see INDEX.md). https://www.npshistory.com/publications/gett/dev-policy.pdf
+Development Policy, Gettysburg National Military Park (Farm Lands and Farm Structures) (memorandum of November 14, 1938; approved December 9, 1938; sent to the regional directors on January 4, 1939 (the last digit of the year of that covering memorandum is under a stamp; the stamp reads 1939)). https://www.npshistory.com/publications/gett/dev-policy.pdf
 
 - **Auxiliary farm structures were erected on the park's farms without adequate planning (before 1938)** (`NPSX-DEV-POLICY-p002-03`)
   - State date: **after July 1863 (auxiliary farm structures erected before 1938; the memorandum names none and gives no dates)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 2
@@ -543,23 +543,24 @@ Development Policy for Gettysburg National Military Park (Farm Lands and Farm St
 
 ## NPS-EISE-CLI-REDDING-2025
 
-Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2025 edition) (date: see INDEX.md). https://www.npshistory.com/publications/eise/cli-clement-redding-farm-2025.pdf
+Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2004, revised 8/2025). https://www.npshistory.com/publications/eise/cli-clement-redding-farm-2025.pdf
 
 - **Clement Redding farm before 1799: Thomas Douglas had added three log structures, a two-story house, a kitchen and a barn (Federal Direct Tax of 1798)** (`NPSX-EISE-CLI-REDDING-2025-p042-01`)
   - State date: **pre-1863 (log structures standing before 1799; the inventory gives no later date of removal for the kitchen and barn)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 42 [Page 37 of 73]
-  - Claim: The inventory says that before his death in 1799 Thomas Douglas had added three log structures, a two-story house, a kitchen and a barn, citing the Federal Direct Tax of 1798
+  - Claim: The inventory says that Thomas Douglas, who bought the 136 acres of the Clement Redding farm in 1749 (the same inventory spells the name Douglass elsewhere), had added before his death in 1799 three log structures, a two-story house, a kitchen and a barn, citing the Federal Direct Tax of 1798
   - Quote: "Before Thomas’s death in 1799, he had added three log structures including, a two-story house, a kitchen, and a barn (Federal Direct Tax, 1798)."
+  - Context (PDF p. 42): "the 136 acres now known as the Clement Redding Farm was purchased by Thomas Douglas in 1749."
 - **The large bank barn of the Redding farm was built by Sandoe between the mid-1860s and 1885** (`NPSX-EISE-CLI-REDDING-2025-p045-05`)
   - State date: **mid-1860s to 1885 (the bank barn, built after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 45 [Page 40 of 73]
   - Claim: The inventory says that between the mid-1860s and 1885 Sandoe built the large bank barn
   - Quote: "Between the mid-1860s and 1885, Sandoe built the large bank barn."
 - **The Warren map shows four other wooden structures on the Redding farm and an orchard west of the farm buildings** (`NPSX-EISE-CLI-REDDING-2025-p045-06`)
-  - State date: **1868-1869 (Warren map; the inventory does not say which of the four structures stood in 1863)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 45 [Page 40 of 73]
+  - State date: **soon after the Civil War ended (the Warren map; the inventory gives no year and does not say which of the four structures stood in 1863)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 45 [Page 40 of 73]
   - Claim: The inventory says the Warren Map illustrates four other wooden structures on the property as well as an orchard west of the farm buildings
   - Quote: "The Warren Map illustrates four other wooden structures on the property as well as an orchard west of the farm buildings."
 - **A log structure down slope of the 1901 house site, sometimes called the original dwelling but most likely a kitchen built by Thomas Douglass in the late eighteenth century, demolished by Redding** (`NPSX-EISE-CLI-REDDING-2025-p046-01`)
   - State date: **pre-1863 (hedged: most likely a kitchen of the late eighteenth century; the demolition came after 1901)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 46 [Page 41 of 73]
-  - Claim: The inventory says the house site of 1898 to 1901 was down slope from a log structure sometimes purported to be the original dwelling but most likely a kitchen built by Thomas Douglass in the late eighteenth century, which Redding demolished once his new house was complete
+  - Claim: The inventory says the site of Redding's new brick farmhouse was down slope from a log structure sometimes purported to be the original dwelling but most likely a kitchen built by Thomas Douglass in the late eighteenth century, which Redding demolished once his new house was complete
   - Quote: "The site was down slope from a log structure sometimes purported to be the original dwelling but most likely a kitchen built by Thomas Douglass during the late-eighteenth century. Once the large, red brick, Queen Anne style farmhouse was complete, Redding demolished this older structure."
 - **Between 1898 and 1901 Redding graded land below the ridgeline for a new brick house with a small stone retaining wall** (`NPSX-EISE-CLI-REDDING-2025-p046-02`)
   - State date: **1898-1901 (grading and the new brick farmhouse; after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 46 [Page 41 of 73]
@@ -1284,7 +1285,7 @@ Historical Statement: Henry Spangler Farm Buildings (August 31, 1956). https://w
 - **Henry Spangler house: a frame, brick and stone structure built about 1820 (Miss Ella M. Spangler's account)** (`NPSX-HS-SPANGLER-HENRY-p004-02`)
   - State date: **1820 (built about 1820, according to Miss Ella M. Spangler, aged 88 in 1956)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 4
   - Repository ids: `STR-SPANGLER_H-HOUSE1`
-  - Claim: The statement says the Spangler house, a frame, brick and stone structure, was built about 1820, according to Miss Ella M. Spangler, 88 years old, who lived in the house the greater part of her life and until it was sold to the United States Government the year before
+  - Claim: The statement says the Spangler house, a frame, brick and stone structure, was built about 1820, according to Miss Ella M. Spangler, 88 years old, who lived in the house the greater part of her life and until it was sold to the U. S. Government last year
   - Quote: "The Spangler house is a frame brick and stone structure built about 1820, according to Miss Ella M. Spangler, 88 years old, who lived in the house the greater part of her life and until it was sold to the U. S. Government last year."
 - **Henry Spangler house: an extension (lean-to) on the west side tapered from the eaves of the main house to one story in height (the form before it was raised about 1880; its own date is not given)** (`NPSX-HS-SPANGLER-HENRY-p005-01`)
   - State date: **pre-1880 (the form of the extension before it was raised about 1880; the statement does not say when the extension was built)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 5
@@ -1711,7 +1712,7 @@ McClean House and Barn, Gettysburg National Military Park, Pa. (1 October 1968).
 
 ## NPS-NEWSLETTER-V16N1
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 16 No. 1, Spring (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v16n1.pdf
+Park News: The Gettysburg Quarterly, Vol. 16, No. 1 (Spring 2009) (Spring 2009). https://www.npshistory.com/publications/gett/newsletter/v16n1.pdf
 
 - **The Patterson House along Taneytown Road dates to 1798** (`NPSX-NEWSLETTER-V16N1-p001-01`)
   - State date: **pre-1863 (the date of the house as the newsletter gives it)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1725,7 +1726,7 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 16 No. 1,
 
 ## NPS-NEWSLETTER-V17N1
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17 No. 1, Winter/Spring 2010 (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v17n1.pdf
+Park News: The Gettysburg Quarterly, Vol. 17, No. 1 (Winter/Spring 2010) (Winter/Spring 2010). https://www.npshistory.com/publications/gett/newsletter/v17n1.pdf
 
 - **Klingel house: a log house on the Emmitsburg Road Ridge north of the Peach Orchard; on July 2 Carr's brigade knocked out the chinking of its exposed log walls to fire from it; on July 3 it screened Confederate artillery in the field just west** (`NPSX-NEWSLETTER-V17N1-p001-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1735,7 +1736,7 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17 No. 1,
 
 ## NPS-NEWSLETTER-V17N2
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17 No. 2, Summer (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v17n2.pdf
+Park News: The Gettysburg Quarterly, Vol. 17, No. 2 (Summer 2010) (Summer 2010). https://www.npshistory.com/publications/gett/newsletter/v17n2.pdf
 
 - **Two modern brick houses on what was the Philip Snyder farm along the Emmitsburg Road, two acres bought in March 2010** (`NPSX-NEWSLETTER-V17N2-p003-01`)
   - State date: **modern (two modern houses on the Snyder farm land; the newsletter gives no date of building)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 3
@@ -1745,13 +1746,14 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17 No. 2,
 
 ## NPS-NEWSLETTER-V18N4
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17(18?) No. 4, Winter 2011/2012 (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v18n4.pdf
+Park News: The Gettysburg Quarterly, Vol. 17, No. 4 (as printed; the index of the host site says 17(18?)) (Winter 2011/2012) (Winter 2011/2012). https://www.npshistory.com/publications/gett/newsletter/v18n4.pdf
 
 - **George Spangler farm: built in the early 1800s; a main house, a summer kitchen and a bank barn** (`NPSX-NEWSLETTER-V18N4-p001-02`)
-  - State date: **pre-1863 (built in the early 1800s; the buildings as the newsletter lists them in 2011)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
+  - State date: **2011 (the buildings as the newsletter lists them; it dates the farm, not each building, to the early 1800s)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
   - Repository ids: `bld-spangler-farm`, `bld-spangler-farm#summer_kitchen`
   - Claim: The newsletter says the George Spangler farm, built in the early 1800s, consists of a main house, a summer kitchen and a bank barn
   - Quote: "Built in the early 1800s, the farm consists of a main house, a summer kitchen, and a bank barn."
+  - Context (PDF p. 1): "The George Spangler Farm: This farm and its surrounding 80 acres is perhaps the most well preserved site of a Gettysburg field hospital still standing."
 
 ## NPSGOV-ART-CHOICES-AND-COMMITMENTS-SOLDIER-AT-GETTYSBURG
 
@@ -1803,7 +1805,7 @@ Eisenhower at Gettysburg - Eisenhower National Historic Site (U.S. National Park
 
 ## NPSGOV-NEWS-HISTORIC-LEASING
 
-Unique Business Opportunity Announced at Gettysburg National Military Park - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/historic-leasing.htm
+Unique Business Opportunity Announced at Gettysburg National Military Park - Gettysburg National Military Park (U.S. National Park Service) (news release of January 23, 2023). https://www.nps.gov/gett/learn/news/historic-leasing.htm
 
 - **Althoff farmhouse east of Devil's Den was constructed just after the battle** (`NPSX-WEB-NEWS-HISTORIC-LEASING-p001-01`)
   - State date: **after July 1863 (the present farmhouse, built just after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1830,7 +1832,7 @@ Unique Business Opportunity Announced at Gettysburg National Military Park - Get
 
 ## NPSGOV-NEWS-LEASING-HISTORIC-BATTLEFIELD-HOMES
 
-Historic Homes on the Gettysburg Battlefield Now Available for Public Leasing - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/leasing-historic-battlefield-homes.htm
+Historic Homes on the Gettysburg Battlefield Now Available for Public Leasing - Gettysburg National Military Park (U.S. National Park Service) (news release of May 9, 2024). https://www.nps.gov/gett/learn/news/leasing-historic-battlefield-homes.htm
 
 - **The Bushman and Slyder houses witnessed the battle on July 2, 1863: the Bushman farm as staging ground for Hood's attack and the Slyder farm as a Union sharpshooter position** (`NPSX-WEB-NEWS-LEASING-HISTORIC-BATTLEFIELD-HOMES-p001-01`)
   - State date: **1863-07-02** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1840,7 +1842,7 @@ Historic Homes on the Gettysburg Battlefield Now Available for Public Leasing - 
 
 ## NPSGOV-NEWS-WARFIELD-HOUSE
 
-Selective demolition of modern additions at historic Warfield house to begin December 2 - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/warfield-house.htm
+Selective demolition of modern additions at historic Warfield house to begin December 2 - Gettysburg National Military Park (U.S. National Park Service) (news release of November 21, 2019). https://www.nps.gov/gett/learn/news/warfield-house.htm
 
 - **Warfield house: modern 2nd and 3rd floors and a breezeway to the garage removed in 2019** (`NPSX-WEB-NEWS-WARFIELD-HOUSE-p001-01`)
   - State date: **modern (the modern floors, breezeway and garage of the Warfield house, removed from December 2019)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1849,7 +1851,7 @@ Selective demolition of modern additions at historic Warfield house to begin Dec
 
 ## NPSGOV-NEWS-WISLER-HOUSE-PARKING
 
-Parking is Now Available at the Wisler House - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/wisler-house-parking.htm
+Parking is Now Available at the Wisler House - Gettysburg National Military Park (U.S. National Park Service) (news release of March 28, 2023). https://www.nps.gov/gett/learn/news/wisler-house-parking.htm
 
 - **Wisler house rehabilitated: the brick house painted red per historic specifications, penciling to follow (2023)** (`NPSX-WEB-NEWS-WISLER-HOUSE-PARKING-p001-02`)
   - State date: **2023 (a rehabilitation of the house; the paint is a modern treatment)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1

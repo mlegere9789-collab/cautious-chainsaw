@@ -727,14 +727,14 @@ Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Histori
 
 ## NPS-EISE-CLI-REDDING-2025
 
-Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2025 edition) (date: see INDEX.md). https://www.npshistory.com/publications/eise/cli-clement-redding-farm-2025.pdf
+Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2004, revised 8/2025). https://www.npshistory.com/publications/eise/cli-clement-redding-farm-2025.pdf
 
 - **Breastworks across the east and south edges of Farms 1 and 2; a stone wall on the east border of the Redding farm that may date to the Civil War era, with no conclusive evidence that it was used for cover** (`NPSX-EISE-CLI-REDDING-2025-p045-02`)
   - State date: **1863-07 (hedged: may date to the Civil War era; no conclusive evidence of use in the battle)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 45 [Page 40 of 73]
   - Claim: The inventory says breastworks extended across the east and south perimeters of Farms 1 and 2 and that a stone wall along the eastern border of the Clement Redding Farm may date to the Civil War era although there is no conclusive evidence that it was used for cover during the battle
   - Quote: "Breastworks extended across the east and south perimeters of Farms #1 and #2. A stone wall along the eastern border of the Clement Redding Farm may date to the Civil War era, although there is no conclusive evidence that it was used for cover during battle."
 - **The Warren survey party's maps, soon after the war, show the pre-nineteenth-century circulation system of all four Eisenhower farms** (`NPSX-EISE-CLI-REDDING-2025-p045-03`)
-  - State date: **1868-1869 (Warren survey; the circulation system is older than the nineteenth century)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 45 [Page 40 of 73]
+  - State date: **soon after the Civil War ended (the Warren survey party's maps; the inventory gives no year; the circulation system is older than the nineteenth century)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 45 [Page 40 of 73]
   - Claim: The inventory says the maps completed by the Warren survey party soon after the Civil War ended show evidence of the pre-nineteenth-century circulation system for all four farms of the Eisenhower site that remain evident today
   - Quote: "Maps completed by the Warren survey party soon after the Civil War ended, show evidence of the pre-nineteenth-century circulation system for all four farms of the Eisenhower NHS that remain evident today."
 - **After the battle all farm occupants of the Eisenhower site except the Sandoes of the Redding farm filed claims, which recorded loss of livestock, acres of crops, clothing, foodstuff, equipment, fencing and damage to farm land and gardens** (`NPSX-EISE-CLI-REDDING-2025-p045-04`)
@@ -1073,7 +1073,7 @@ McClean House and Barn, Gettysburg National Military Park, Pa. (1 October 1968).
 
 ## NPS-NEWSLETTER-V14N2
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 14 No. 2, Fall (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v14n2.pdf
+Park News: The Gettysburg Quarterly, Vol. 14, No. 2 (Fall 2007) (Fall 2007). https://www.npshistory.com/publications/gett/newsletter/v14n2.pdf
 
 - **Cemetery Ridge project area of 43 1/2 acres: historic houses, barns, fences, stone walls, orchards and more than 70 monuments (2007)** (`NPSX-NEWSLETTER-V14N2-p001-01`)
   - State date: **2007 (the project area as described; the newsletter does not separate surviving battle-era features from rebuilt ones)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1082,7 +1082,7 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 14 No. 2,
 
 ## NPS-NEWSLETTER-V17N2
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17 No. 2, Summer (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v17n2.pdf
+Park News: The Gettysburg Quarterly, Vol. 17, No. 2 (Summer 2010) (Summer 2010). https://www.npshistory.com/publications/gett/newsletter/v17n2.pdf
 
 - **In 1863 the Peach Orchard artillery had sight lines along the Emmitsburg Road that the modern houses now block** (`NPSX-NEWSLETTER-V17N2-p003-02`)
   - State date: **1863-07-02** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 3
@@ -1092,12 +1092,13 @@ Newsletter (npshistory.com index of the Gettysburg publications): Vol. 17 No. 2,
 
 ## NPS-NEWSLETTER-V18N1
 
-Newsletter (npshistory.com index of the Gettysburg publications): Vol. 18 No. 1, Winter 2010/2011 (date: see INDEX.md). https://www.npshistory.com/publications/gett/newsletter/v18n1.pdf
+Park News: The Gettysburg Quarterly, Vol. 18, No. 1 (Winter 2010/2011) (Winter 2010/2011). https://www.npshistory.com/publications/gett/newsletter/v18n1.pdf
 
 - **The park did not have a clear understanding of the extent of the battle-era resources at Little Round Top; a Cultural Landscape Report was needed (2011)** (`NPSX-NEWSLETTER-V18N1-p002-01`)
   - State date: **2011 (the park's statement of what it did not yet know)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 2
   - Claim: The newsletter says that as the 2003-2005 study developed it became apparent that the park did not have a clear understanding of the extent of existing battle-era resources within the project area and that a full Cultural Landscape Report for Little Round Top was needed
   - Quote: "it became apparent that park did not have a clear understanding of the extent of existing battle-era resources within the project area and that a full Cultural Landscape Report for Little Round Top was needed."
+  - Context (PDF p. 2): "In 2003 – 2005, the NPS funded a study to develop potential treatment alternatives for solving the park’s concerns about resource issues of this important battlefield feature."
 
 ## NPS-ROCK-CREEK
 
@@ -1344,7 +1345,7 @@ Water Quality - Gettysburg National Military Park (U.S. National Park Service) (
 
 ## NPSGOV-NEWS-5TH-US-ARTILLERY-MONUMENT-9-14
 
-Battery F, 5th U.S. Artillery Monument Returned to Original Location in the Park - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/5th-us-artillery-monument-9-14.htm
+Battery F, 5th U.S. Artillery Monument Returned to Original Location in the Park - Gettysburg National Military Park (U.S. National Park Service) (news release of September 24, 2014). https://www.nps.gov/gett/learn/news/5th-us-artillery-monument-9-14.htm
 
 - **Ziegler's Grove: missing portions to be replanted and the historic terrain of Cemetery Ridge and Ziegler's Ravine rehabilitated (2014 fund-raising)** (`NPSX-WEB-NEWS-5TH-US-ARTILLERY-MONUMENT-9-14-p001-03`)
   - State date: **2014 (a plan; the grove is partly missing in 2014)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1357,7 +1358,7 @@ Battery F, 5th U.S. Artillery Monument Returned to Original Location in the Park
 
 ## NPSGOV-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP
 
-Archeological Survey at Little Round Top - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/archeological-survey-at-little-round-top.htm
+Archeological Survey at Little Round Top - Gettysburg National Military Park (U.S. National Park Service) (news release of February 22, 2017). https://www.nps.gov/gett/learn/news/archeological-survey-at-little-round-top.htm
 
 - **Little Round Top rises 164 feet above the Plum Run Valley to the west (a measurement of 2017)** (`NPSX-WEB-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP-p001-01`)
   - State date: **2017 (the height as the release states it; the relief of the hill is unchanged)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1366,7 +1367,7 @@ Archeological Survey at Little Round Top - Gettysburg National Military Park (U.
 
 ## NPSGOV-NEWS-CEMETERY-RIDGE-FUNDING
 
-Cemetery Ridge Funding - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/cemetery-ridge-funding.htm
+Cemetery Ridge Funding - Gettysburg National Military Park (U.S. National Park Service) (news release of April 23, 2015). https://www.nps.gov/gett/learn/news/cemetery-ridge-funding.htm
 
 - **Cemetery Ridge rehabilitation of 2015: Ziegler's ravine, commemorative walkways and a part of Hancock Avenue with its ornamental entrance gates at Taneytown Road to be returned** (`NPSX-WEB-NEWS-CEMETERY-RIDGE-FUNDING-p001-01`)
   - State date: **2015 (a planned reconstruction; the avenue and gates are commemorative features)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1379,7 +1380,7 @@ Cemetery Ridge Funding - Gettysburg National Military Park (U.S. National Park S
 
 ## NPSGOV-NEWS-CEMETERY-WATER-LINE
 
-Gettysburg National Cemetery Water Line to be Replaced - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/cemetery-water-line.htm
+Gettysburg National Cemetery Water Line to be Replaced - Gettysburg National Military Park (U.S. National Park Service) (news release of June 3, 2019). https://www.nps.gov/gett/learn/news/cemetery-water-line.htm
 
 - **Gettysburg National Cemetery established in 1863; over 6,000 service members rest within its 17 acres (2019)** (`NPSX-WEB-NEWS-CEMETERY-WATER-LINE-p001-02`)
   - State date: **2019 (the area and the count as the release gives them; the cemetery was established in 1863)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1388,7 +1389,7 @@ Gettysburg National Cemetery Water Line to be Replaced - Gettysburg National Mil
 
 ## NPSGOV-NEWS-CENTENNIAL-ACCOMPLISHMENTS
 
-Gettysburg and Eisenhower Parks Celebrate NPS Centennial Accomplishments - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/centennial-accomplishments.htm
+Gettysburg and Eisenhower Parks Celebrate NPS Centennial Accomplishments - Gettysburg National Military Park (U.S. National Park Service) (news release of December 21, 2016). https://www.nps.gov/gett/learn/news/centennial-accomplishments.htm
 
 - **Cemetery Ridge rehabilitation (centennial project, completed spring 2017): Ziegler's grove, Ziegler's ravine, the Hancock Avenue gate and commemorative walkways brought back** (`NPSX-WEB-NEWS-CENTENNIAL-ACCOMPLISHMENTS-p001-01`)
   - State date: **2016-2017 (battle-era features being brought back; the avenue gate and walkways are commemorative)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1397,7 +1398,7 @@ Gettysburg and Eisenhower Parks Celebrate NPS Centennial Accomplishments - Getty
 
 ## NPSGOV-NEWS-CULP-RUN
 
-Gettysburg National Military Park and Gettysburg Borough partner on Culp Run Restoration project - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/culp-run.htm
+Gettysburg National Military Park and Gettysburg Borough partner on Culp Run Restoration project - Gettysburg National Military Park (U.S. National Park Service) (news release of June 22, 2022). https://www.nps.gov/gett/learn/news/culp-run.htm
 
 - **Culp Run: two unnamed tributaries to Rock Creek, 2,900 linear feet of stream bank to be restored in 2022 after decades of cattle use (cattle removed in 2021)** (`NPSX-WEB-NEWS-CULP-RUN-p001-01`)
   - State date: **2022 (a modern stream restoration; the cattle were removed in 2021)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1406,7 +1407,7 @@ Gettysburg National Military Park and Gettysburg Borough partner on Culp Run Res
 
 ## NPSGOV-NEWS-CULPS-HILL-REHAB
 
-Gettysburg National Military Park & Gettysburg Foundation Partnership Project: Culp’s Hill Rehabilitation - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/culps-hill-rehab.htm
+Gettysburg National Military Park & Gettysburg Foundation Partnership Project: Culp’s Hill Rehabilitation - Gettysburg National Military Park (U.S. National Park Service) (news release of January 28, 2021). https://www.nps.gov/gett/learn/news/culps-hill-rehab.htm
 
 - **Forbes Rock, a prominent landmark on the 1863 battlefield, named after the artist and war correspondent Edwin Forbes** (`NPSX-WEB-NEWS-CULPS-HILL-REHAB-p001-02`)
   - State date: **1863 (a rock landmark of the battlefield; the page does not date the name)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
@@ -1415,7 +1416,7 @@ Gettysburg National Military Park & Gettysburg Foundation Partnership Project: C
 
 ## NPSGOV-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14
 
-Battlefield Rehabilitation Continues on Cemetery Ridge - Gettysburg National Military Park (U.S. National Park Service) (web page, undated unless noted; as served 2026-11-16). https://www.nps.gov/gett/learn/news/rehabilitation-of-cemetery-ridge-1-14.htm
+Battlefield Rehabilitation Continues on Cemetery Ridge - Gettysburg National Military Park (U.S. National Park Service) (news release of January 28, 2014). https://www.nps.gov/gett/learn/news/rehabilitation-of-cemetery-ridge-1-14.htm
 
 - **The old Visitor Center parking lot on North Cemetery Ridge removed in 2014 and the area regraded to its historic profile in 1863 with meadow grasses and historic fencing** (`NPSX-WEB-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14-p001-03`)
   - State date: **2014 (regrading and fencing of 2014; a modern reconstruction)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1

@@ -232,7 +232,7 @@ TIER_RANK = {'documented': 0, 'inferred': 1, 'plausible-procedural': 2, 'open ga
 
 
 def weakest_tier(tiers):
-    tiers = [t for t in tiers if t in TIER_RANK]
+    tiers = [t for t in tiers if isinstance(t, str) and t in TIER_RANK]
     return max(tiers, key=lambda t: TIER_RANK[t]) if tiers else None
 
 

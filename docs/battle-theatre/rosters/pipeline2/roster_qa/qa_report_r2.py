@@ -423,6 +423,21 @@ def section_lines():
             A('| %s | %d | %s | %.3f / %.3f | %s | %s (%s) | %s | %s | %s |' % (fam, d['pages_read'], 'all' if d['right_page_all'] else 'NOT all', d['share_in_pinned_leaf_mean'], d['share_in_pinned_leaf_min'] or 0, f(d['stored_lines']),
                                                                          f(d['agree']), pct(d['agree'], d['stored_lines']), f(d['near']), f(d['suspect']), d['tesseract_cpu_s_total']))
         A('')
+        sr1p = os.path.join(Q.QA_ROOT, 'second-reading.json')
+        sr1 = Q.jload(sr1p) if os.path.exists(sr1p) else None
+        rows_f = []
+        for lab, doc in (('round 2', sr), ('round 1', sr1)):
+            for fam, d in (doc['families'].items() if doc else []):
+                for grp, x in (d.get('fragments') or {}).items():
+                    rows_f.append((lab, fam, grp, x['errors_with_both_texts'], x['printed_text_found_in_tesseract_reading'], x['stored_text_found_in_tesseract_reading']))
+        if rows_f:
+            A('**Does tesseract read the printed text where the first layer is wrong? (Measured.)** For the errors of the pages looked at that are among the pages read, in which the verdict records both the stored and the printed text of the difference (at least %d characters, case, punctuation and spacing ignored), the table counts how often the printed text stands, character for character, in tesseract\'s reading of the page, and how often the stored (wrong) text stands in it (a shared error). A fragment found anywhere on the page is a generous test for short fragments; the counts are an upper estimate of what the second reading repairs.' % 4)
+            A('')
+            A('| round | scan family | kind of error | errors with both texts | printed text found in the tesseract reading | stored text found in the tesseract reading |')
+            A('|---|---|---|---|---|---|')
+            for lab, fam, grp, a, b, c in rows_f:
+                A('| %s | %s | %s | %d | %d (%s) | %d (%s) |' % (lab, fam, grp, a, b, pct(b, a), c, pct(c, a)))
+            A('')
     else:
         A('NOT RUN: the test on 20 pages per scan family (`RQA_ROUND=2 python3 -I qa_route_test.py run`) is queued through `tools/horde/bench.sh` and had not been given a slot when this section was written; it is owed (G-QA06 and the line G-QA07 of `GAPS.md`).')
         A('')

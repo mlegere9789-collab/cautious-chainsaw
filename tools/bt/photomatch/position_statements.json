@@ -1,6 +1,6 @@
 {
  "_doc": "Camera-position statements for the Q16 photographs: what each source literally says about where the camera stood or which way it looked. Built by build_statements.py; every quote was found in the saved source text. tier documented = the source says it (it is a statement, not a coordinate); tier lead = a statement the source takes from a book that may not be used (Frassanito), listed so that nothing is hidden. No source read gives a coordinate.",
- "count": 158,
+ "count": 161,
  "sources": {
   "LOC-2012647712": {
    "id": "LOC-2012647712",
@@ -3930,6 +3930,84 @@
    "page": "page",
    "offset_in_normalised_page": 7110,
    "match": "exact",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-NPS-CLRCEM-LODGE-FORM",
+   "src": "NPS-CLR-CEMETERY",
+   "quote": "Button designed an Italianate-style two-story archway that symbolized victory in death, and two floors of lodge quarters in the flanking piers",
+   "loc": [
+    "2018671576",
+    "2014646001"
+   ],
+   "res": [
+    "cwpb.00084",
+    "ppmsca.35051"
+   ],
+   "says": "NPS: the Evergreen gate lodge, begun 1 September 1855, is an Italianate two-story archway with two floors of lodge quarters in the flanking piers (with bracketed eaves, parapets and a central urn finial): the building on whose roof the same report places the camera (PS-NPS-CLRCEM-126); it is two storeys, not the one storey that the model draws by default; no height in metres, no roof spot",
+   "prec": "rel",
+   "ident": "the same report (Figure 1.26) names the lodge roof as the camera place of the exposure LC-B815-273 = record 2018671576; 2014646001 is the same view (image match)",
+   "note": "Read for the camera height: the assumed 8 m of poses P27 to P29 is consistent with two storeys and a roof but is not documented.",
+   "page": 39,
+   "offset_in_normalised_page": 735,
+   "match": "exact",
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-NPS-CLRCEM-LODGE-ADDITION",
+   "src": "NPS-CLR-CEMETERY",
+   "quote": "the gatehouse, including patching of the brick walls and construction of a two-story frame addition on the rear",
+   "loc": [
+    "2018671576",
+    "2014646001"
+   ],
+   "res": [
+    "cwpb.00084",
+    "ppmsca.35051"
+   ],
+   "says": "NPS: after the battle (probably some repairs before the dedication of 19 November 1863, and soon after) the Evergreen Cemetery Association repaired the gatehouse, including patching the brick walls and building a two-story frame addition on the rear: that addition is later than July 1863, so the 2023 outline that the model holds for the lodge, which includes an addition, may not be the form of the building in July 1863 (which part of the outline is the addition is not stated)",
+   "prec": "rel",
+   "ident": "the building on whose roof the NPS places the camera of the exposure LC-B815-273 (record 2018671576)",
+   "note": "two-column page: the fragments are verbatim and found in order; the sentence continues in the other column ('and repair of the gatehouse ...')",
+   "quote_fragments": [
+    {
+     "fragment": "the gatehouse, including patching of the brick walls and",
+     "page": 73,
+     "offset_in_normalised_page": 1234,
+     "match": "exact"
+    },
+    {
+     "fragment": "construction of a two-story frame addition on the rear",
+     "page": 73,
+     "offset_in_normalised_page": 1345,
+     "match": "exact"
+    }
+   ],
+   "quote_note": "two-column page: the caption lines are interleaved with the other column in the saved text; each fragment is verbatim and found in order",
+   "page": 73,
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-LOC-2018671576-PLATE",
+   "src": "LOC-2018671576",
+   "quote": "1 negative : glass, stereograph, wet collodion ; 4 x 10 in.",
+   "loc": [
+    "2018671576",
+    "2014646001"
+   ],
+   "res": [
+    "cwpb.00084"
+   ],
+   "says": "the Library's physical description of the negative of the lodge-roof exposure (LC-B815-273): one glass negative, stereograph, wet collodion, 4 x 10 in. (a plate that holds the two frames of a stereo pair); this documents the plate, not the lens: the focal length is not given, so the field of view stays an assumption",
+   "prec": "plate",
+   "ident": "record id (2018671576); 2014646001 is the same view by image match (the print of the plate in the Sketch Book)",
+   "note": "16 of the 191 records give a plate size (all 4 x 10 in., glass stereograph, wet collodion); most other negatives give the plate type without a size; no record gives a lens.",
+   "page": "record",
+   "offset_in_normalised_page": 454,
+   "match": "exact",
+   "tier": "documented",
    "coordinates_published": false
   }
  ]

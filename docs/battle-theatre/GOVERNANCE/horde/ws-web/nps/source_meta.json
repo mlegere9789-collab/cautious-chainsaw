@@ -382,9 +382,10 @@
    "author": "Frederick Tilberg (Gettysburg National Military Park; the title page and the signature of PDF p. 5 read as page images)",
    "date": "August 31, 1956",
    "from": "PDF p. 1 (title page: Historical Statement, Henry Spangler Farm Buildings, by F. Tilberg, August 31, 1956) and PDF p. 5 (signature: Frederick Tilberg, August 31, 1956)",
-   "text_quality": "photocopied typescript, damaged OCR (specks read as letters); the OCR made by scripts/ocr.py is queued behind the machine lock",
+   "text_quality": "photocopied typescript with a damaged text layer; the OCR made by scripts/ocr.py (tesseract) is registered and the quotes cut from it were confirmed digit by digit on the page images (the extracts list the images viewed)",
    "state_dates_note": "PDF pp. 4-5 (printed pp. 3-4, section 'The Spangler Buildings') describe the buildings as they stood in 1956 with the dates of their parts: house of about 1820 (Miss Ella M. Spangler, 88 years old), the blacksmith shop of pre-war construction, the summer kitchen, smokehouse and a long structure of about 1890, the original barn burned during the second day's battle, a barn built soon after on the same foundations destroyed in 1932 when the present barn was built on the original foundations",
-   "used_for_extracts": "not yet (page images of PDF pp. 2-6 were read on 2026-11-15; the quotes wait for the OCR text variant)"
+   "used_for_extracts": "21 extracts (NPSX-HS-SPANGLER-HENRY-p002-01 to p008-02); keyed to the Henry Spangler farmstead (STR-SPANGLER_H-*), never to the George Spangler hospital farm (bld-spangler-farm, H-06)",
+   "kind": "official secondary (National Park Service historical statement of 1956; it reports the recollection of Miss Ella M. Spangler, aged 88)"
   },
   "NPS-HABS-pa0004": {
    "title": "Adams County Courthouse, Gettysburg, Adams County, PA",
@@ -1048,6 +1049,845 @@
    "covers": "record notes (page 0); data PDF: 11 page(s)",
    "state_dates_note": "The record states the building dates and what the programme found; a form or drawing set describes the building as measured (1930s to 2010s), so a material or plan statement refers to that date unless it says otherwise. Statements about July 1863 are the historian's account and are dated 1863 only where the text says so.",
    "used_for_extracts": "see extracts/src/c0-habs.xdef (if no extract names this source, the record carries no statement on the 1863 landscape; see not_extracted.json)"
+  },
+  "NPSGOV-HC-ALABAMA-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-ARKANSAS-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-DELAWARE-MEMORIAL": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-FLORIDA-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-GEORGIA-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-KENTUCKY-MEMORIAL": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-LINCOLN-SPEECH-MEMORIAL": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-LOUISIANA-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-MISSISSIPPI": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-NORTH-CAROLINA-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-PENNSYLVANIA-MEMORIAL": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-SOLDIERS-AND-SAILORS-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-SOUTH-CAROLINA-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-STATE-OF-INDIANA-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-TENNESSEE-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-TEXAS-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-VIRGINIA-MONUMENT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863.",
+   "date": "web page, a finding aid of archival files dated 1895-2000; as served 2026-11-16"
+  },
+  "NPSGOV-HC-LITTLE-ROUND-TOP-TREES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863."
+  },
+  "NPSGOV-HC-LITTLE-ROUND-TOP-PLANTS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863."
+  },
+  "NPSGOV-HC-LITTLE-ROUND-TOP-GRASSES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863."
+  },
+  "NPSGOV-HC-LITTLE-ROUND-TOP-FAQ2": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863."
+  },
+  "NPSGOV-HC-FLOWERING-PLANTS-LITTLE-ROUND-TOP": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863."
+  },
+  "NPSGOV-HC-LRT-PROGRESS-PHOTOS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863."
+  },
+  "NPSGOV-HC-CUSHING-AT-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863."
+  },
+  "NPSGOV-HC-GETTYSBURG-OVERVIEW": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of the park history and culture section. The state-monument pages are finding aids of the park's monument files: their dates are those of the archival letters and programs they list and every monument is a later feature (use none); the Little Round Top pages describe the rehabilitation of 2022-2024 (use indirect) beside statements about 1863."
+  },
+  "NPSGOV-NEWS-GETTYSBURG-ORCHARDS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of November 22, 2016"
+  },
+  "NPSGOV-NEWS-STONE-WALLS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of June 19, 2018"
+  },
+  "NPSGOV-NEWS-GETT-REHAB-GOALS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none."
+  },
+  "NPSGOV-NEWS-GETTYSBURG-FORGOTTEN-HISTORY": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of April 26, 2022"
+  },
+  "NPSGOV-NEWS-HERR-WOODS-1-2012": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of January 5, 2012"
+  },
+  "NPSGOV-NEWS-HARMAN-FARM-AQUIRED-3-25-11": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of March 29, 2011"
+  },
+  "NPSGOV-NEWS-CEMETERY-RIDGE-REHAB-PROJECT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of July 6, 2016"
+  },
+  "NPSGOV-NEWS-CEMETERY-RIDGE-FUNDING": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of April 23, 2015"
+  },
+  "NPSGOV-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of January 28, 2014"
+  },
+  "NPSGOV-NEWS-CULPS-HILL-REHAB": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of January 28, 2021"
+  },
+  "NPSGOV-NEWS-CULPS-HILL-PAVING-2024": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of July 22, 2024"
+  },
+  "NPSGOV-NEWS-DEVILS-DEN-REHAB-PROJECT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of March 10, 2022"
+  },
+  "NPSGOV-NEWS-DEVIL-S-DEN-REOPENS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of September 29, 2022"
+  },
+  "NPSGOV-NEWS-LITTLE-ROUND-TOP-PLAN": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of April 13, 2017"
+  },
+  "NPSGOV-NEWS-LITTLE-ROUND-TOP-SELECT-TREE-CUTTING": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of February 1, 2022"
+  },
+  "NPSGOV-NEWS-HAZARDOUS-TREES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of September 27, 2017"
+  },
+  "NPSGOV-NEWS-GRASSLAND-RESTORATION": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of May 8, 2026"
+  },
+  "NPSGOV-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of February 22, 2017"
+  },
+  "NPSGOV-NEWS-BENNER-BARN-VANDALISM": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of August 14, 2024"
+  },
+  "NPSGOV-NEWS-THREE-MONUMENTS-PROJECT-5-2012": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of May 14, 2012"
+  },
+  "NPSGOV-NEWS-VA-MEMORIAL-PRESERVATION": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of August 29, 2022"
+  },
+  "NPSGOV-NEWS-HISTORIC-LEASING": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of January 23, 2023"
+  },
+  "NPSGOV-NEWS-LEASING-HISTORIC-BATTLEFIELD-HOMES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of May 9, 2024"
+  },
+  "NPSGOV-NEWS-WARFIELD-HOUSE": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of November 21, 2019"
+  },
+  "NPSGOV-NEWS-CEMETERY-WATER-LINE": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of June 3, 2019"
+  },
+  "NPSGOV-NEWS-PARDEE-FIELD-PRESCRIBED-BURN": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of April 12, 2017"
+  },
+  "NPSGOV-NEWS-LITTLE-ROUND-TOP-PRESCRIBED-FIRE": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of April 6, 2017"
+  },
+  "NPSGOV-NEWS-PRESCRIBED-BURN-COMPLETED-AT-LITTLE-ROUND-TOP": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of April 10, 2017"
+  },
+  "NPSGOV-NEWS-CEREMONIAL-RIBBON-CUTTING-HELD-TO-CELEBRATE-THE-REOPENING-OF-LITTLE-ROUND-TOP": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of June 24, 2024"
+  },
+  "NPSGOV-NEWS-CLOSURE-LITTLE-ROUND-TOP": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of July 28, 2022"
+  },
+  "NPSGOV-NEWS-COSTER-AVENUE": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of August 1, 2019"
+  },
+  "NPSGOV-NEWS-121STNY-MONUMENT-REPAIR-5-13": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of May 7, 2013"
+  },
+  "NPSGOV-NEWS-5TH-US-ARTILLERY-MONUMENT-9-14": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of September 24, 2014"
+  },
+  "NPSGOV-NEWS-CENTURY-OF-SACRIFICE": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of May 10, 2023"
+  },
+  "NPSGOV-NEWS-CENTENNIAL-ACCOMPLISHMENTS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of December 21, 2016"
+  },
+  "NPSGOV-NEWS-CULP-RUN": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of June 22, 2022"
+  },
+  "NPSGOV-NEWS-TOWERS-CLOSURE": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of March 31, 2022"
+  },
+  "NPSGOV-NEWS-TOWERS-CLOSURE-FLAG-POLES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of October 26, 2023"
+  },
+  "NPSGOV-NEWS-COMPREHENSIVE-TRAILS-PLAN": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of December 17, 2015"
+  },
+  "NPSGOV-NEWS-TRAILS-PLAN": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of November 2, 2026"
+  },
+  "NPSGOV-NEWS-CYCLORAMA-CENTER-EA-8-2012": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of August 24, 2012"
+  },
+  "NPSGOV-NEWS-PRESCRIBED-FIRES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of March 8, 2018"
+  },
+  "NPSGOV-NEWS-SPRING-BATTLEFIELD-FORAY": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of March 2, 2016"
+  },
+  "NPSGOV-NEWS-CULTURAL-RESOURCE-SPECIALIST-RECOGNIZED": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of May 15, 2017"
+  },
+  "NPSGOV-NEWS-NATIONAL-CEMETERY-SPECIAL-EVENTS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of March 27, 2023"
+  },
+  "NPSGOV-NEWS-FALL-INTO-HISTORY": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of September 18, 2025"
+  },
+  "NPSGOV-NEWS-WISLER-HOUSE-PARKING": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of March 28, 2023"
+  },
+  "NPSGOV-NEWS-PARK-AWARDS-HILL-BRADY-4-2014": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A news release dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "date": "news release of April 28, 2014"
+  },
+  "NPSGOV-NATURE-TREESANDSHRUBS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A natural-resource page of the park (undated): species and conditions as of the page (use indirect); a statement about the time of the battle names no source."
+  },
+  "NPSGOV-NATURE-GRASSES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A natural-resource page of the park (undated): species and conditions as of the page (use indirect); a statement about the time of the battle names no source."
+  },
+  "NPSGOV-NATURE-PRAIRIES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A natural-resource page of the park (undated): species and conditions as of the page (use indirect); a statement about the time of the battle names no source."
+  },
+  "NPSGOV-NATURE-SCENICVISTAS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A natural-resource page of the park (undated): species and conditions as of the page (use indirect); a statement about the time of the battle names no source."
+  },
+  "NPSGOV-NATURE-GEOLOGICFORMATIONS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A natural-resource page of the park (undated): species and conditions as of the page (use indirect); a statement about the time of the battle names no source."
+  },
+  "NPSGOV-NATURE-ENVIRONMENTALFACTORS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A natural-resource page of the park (undated): species and conditions as of the page (use indirect); a statement about the time of the battle names no source."
+  },
+  "NPSGOV-NATURE-PRESCRIBED-FIRES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A natural-resource page of the park (undated): species and conditions as of the page (use indirect); a statement about the time of the battle names no source."
+  },
+  "NPSGOV-NATURE-WATERQUALITY": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A natural-resource page of the park (undated): species and conditions as of the page (use indirect); a statement about the time of the battle names no source."
+  },
+  "NPSGOV-NATURE-NONNATIVESPECIES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A natural-resource page of the park (undated): species and conditions as of the page (use indirect); a statement about the time of the battle names no source."
+  },
+  "NPSGOV-EDU-FIELD-HOSPITAL-EDUCATION-PROGRAM": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-A-NATION-AT-WAR-TRAVELING-TRUNK-TABLE-5-THE-MEDICAL-CORPS-AT-WAR": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-SLYDER-FAMILY-FARM-EDUCATION-PROGRAM": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-SLYDER-FAMILY-FARM-POST-VISIT-LESSON": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-SLYDER-FAMILY-FARM-PRE-VISIT-LESSONS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-ROUND-TOPS-EDUCATION-PROGRAM": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-ROUND-TOPS-FIELD-TRIP-PRE-VISIT-LESSON": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-THE-ROUND-TOPS-POST-VISIT-LESSON": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-PICKETT-S-CHARGE-EDUCATION-PROGRAM": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-ESSENTIAL-BACKGROUND-THE-BATTLE-OF-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-FALLEN-SOLDIERS-EDUCATION-PROGRAM": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-FALLEN-SOLDIERS-PRE-VISIT-LESSON": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-EDU-FALLEN-SOLDIERS-POST-VISIT-LESSON": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A student-program page of the park: lesson narratives name no source (hedged); a reprinted account is the account of its author; claim lists are what the claimant listed."
+  },
+  "NPSGOV-ART-AFRICAN-AMERICANS-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-ALONZO-CUSHING-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-ADVANCE-TO-BREAK-THE-DEADLOCK-AT-GETTYSBURG-BATTLEFIELD": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-CHARGE-FOR-VICTORY-OR-DEFEAT-AT-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-GETTYSBURG-CAMPAIGN": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-NEUTRA-S-VISITOR-CENTER-AND-CYCLORAMA-AT-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-PHOTOGRAMMETRY-GETTYSBURG-CULTURAL": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-RESTORING-A-GATEWAY-TO-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-CHRISTMAS-EVE-ON-A-GETTYSBURG-FARM": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-GETTYSBURG-PARTNERSHIP": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-NPS-GEODIVERSITY-ATLAS-GETTYSBURG-NATIONAL-MILITARY-PARK-PENNSYLVANIA": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-FROM-THE-FRONT-LINES-TO-THE-HOSPITAL": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-DYING-IN-THE-HOSPITAL": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-CHOICES-AND-COMMITMENTS-SOLDIER-AT-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-EISE-LEARN-HISTORYCULTURE-IKE-AND-THE-CIVIL-WAR": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of Eisenhower National Historic Site: statements about the farm in 1863 and about the later works of the 1950s (use none)."
+  },
+  "NPSGOV-EISE-LEARN-HISTORYCULTURE-EISENHOWER-AT-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of Eisenhower National Historic Site: statements about the farm in 1863 and about the later works of the 1950s (use none)."
+  },
+  "NPSGOV-EISE-LEARN-HISTORYCULTURE-EISENHOWERS-IN-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of Eisenhower National Historic Site: statements about the farm in 1863 and about the later works of the 1950s (use none)."
+  },
+  "NPSGOV-EISE-LEARN-HISTORYCULTURE-PLACES": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of Eisenhower National Historic Site: statements about the farm in 1863 and about the later works of the 1950s (use none)."
+  },
+  "NPSGOV-EISE-LEARN-NATURE-NATURALFEATURESANDECOSYSTEMS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of Eisenhower National Historic Site: statements about the farm in 1863 and about the later works of the 1950s (use none)."
+  },
+  "NPSGOV-EISE-LEARN-NATURE-TREESANDSHRUBS": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "A page of Eisenhower National Historic Site: statements about the farm in 1863 and about the later works of the 1950s (use none)."
+  },
+  "NPSGOV-ART-THE-ARMYS-FIRST-TANK-SCHOOL-CAMP-COLT-AT-GETTYSBURG": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-CAMP-COLT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPSGOV-ART-CITIZENSHIP-AT-CAMP-COLT": {
+   "author": "National Park Service",
+   "from": "page title and the page itself",
+   "state_dates_note": "An article of the National Park Service: it supports what it says; later features (Camp Colt of 1917-1919, the Cyclorama building of 1962, modern houses) are use none."
+  },
+  "NPS-NEWSLETTER-V12N3": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 12, No. 3 (Fall 2005)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Fall 2005",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V13N1": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 13, No. 1 (Summer 2006)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Summer 2006",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V13N2": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 13, No. 2 (Fall 2006)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Fall 2006",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V14N2": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 14, No. 2 (Fall 2007)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Fall 2007",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V15N1": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 15, No. 1 (Fall 2008)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Fall 2008",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V16N1": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 16, No. 1 (Spring 2009)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Spring 2009",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V16N2": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 16, No. 2 (Fall 2009)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Fall 2009",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V17N1": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 17, No. 1 (Winter/Spring 2010)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Winter/Spring 2010",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V17N2": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 17, No. 2 (Summer 2010)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Summer 2010",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V17N3": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 17, No. 3 (Fall 2010)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Fall 2010",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V18N1": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 18, No. 1 (Winter 2010/2011)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Winter 2010/2011",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V18N2": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 18, No. 2 (Spring 2011)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Spring 2011",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V18N3": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 18, No. 3 (Fall 2011)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Fall 2011",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V18N4": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 17, No. 4 (as printed; the index of the host site says 17(18?)) (Winter 2011/2012)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Winter 2011/2012",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V19N3": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 19, No. 3 (Fall 2012)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Fall 2012",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-NEWSLETTER-V19N4": {
+   "title": "Park News: The Gettysburg Quarterly, Vol. 19, No. 4 (Winter 2012/2013)",
+   "author": "Gettysburg National Military Park (National Park Service)",
+   "date": "Winter 2012/2013",
+   "from": "masthead of page 1 (\"The official newsletter of Gettysburg National Military Park\")",
+   "state_dates_note": "A newsletter dates the work it reports: a fence, wall, orchard, woodlot treatment, restoration or replanting announced in it is a modern or rebuilt state (use indirect) and never an 1863 profile; what it says about 1863 is use direct (hedged where it names no basis); later features (monuments, towers, the Cyclorama building, Camp Colt) are use none.",
+   "text_quality": "text layer of a 4-page PDF; its standard text interleaves columns and sidebars, so quotes are cleaned quotes cut from the content-stream-order text (rawtext.py)",
+   "kind": "official secondary (National Park Service newsletter)"
+  },
+  "NPS-EISE-CLI-REDDING-2025": {
+   "title": "Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site",
+   "author": "National Park Service",
+   "date": "2004, revised 8/2025",
+   "from": "PDF p. 1 (title page)",
+   "state_dates_note": "An inventory describes the farm as it stands (use indirect or none for later work: the bank barn of the mid-1860s to 1885, the brick house of 1898-1901); statements about 1863 (artillery fire, looting, breastworks, the stone wall hedged) are use direct; the Warren map of 1868-69 is read as a map of the years after the battle."
+  },
+  "NPS-EISE-CLI-LANDSCAPE-2025": {
+   "title": "Cultural Landscapes Inventory: Eisenhower NHS Landscape, Eisenhower National Historic Site",
+   "author": "National Park Service",
+   "date": "2004, revised 8/2025",
+   "from": "PDF p. 1 (title page)"
+  },
+  "NPS-EISE-NR-FARMSTEAD": {
+   "title": "General Dwight D. Eisenhower Farmstead (National Register of Historic Places nomination)",
+   "author": "National Park Service",
+   "date": "not stated in the readable text (the farm purchases it lists run to 1957)",
+   "from": "PDF pp. 1-2",
+   "text_quality": "typescript with a damaged text layer"
+  },
+  "NPS-TRAILS-PLAN-DEA-2026": {
+   "title": "Gettysburg National Military Park and Eisenhower National Historic Site Trails Plan Draft Environmental Assessment",
+   "author": "National Park Service",
+   "date": "November 2026",
+   "from": "PDF p. 1 (title page)",
+   "state_dates_note": "A planning document of 2026: its descriptions are modern (use indirect); its statements about the 1863 landscape repeat the nps.gov pages."
+  },
+  "NPS-TOURIST-GUIDE": {
+   "title": "Tourist guide (commercial visitor booklet, about 1970)",
+   "rights_basis": "not a United States government work; not kept"
+  },
+  "NPS-DEV-POLICY": {
+   "title": "Development Policy, Gettysburg National Military Park (Farm Lands and Farm Structures)",
+   "author": "National Park Service (memorandum for the Director, recommended by the Acting Chief of Planning, the Supervisor of Historic Sites and Buildings and the Superintendent of the park; approved by Director Arno B. Cammerer)",
+   "date": "memorandum of November 14, 1938; approved December 9, 1938; sent to the regional directors on January 4, 1939 (the last digit of the year of that covering memorandum is under a stamp; the stamp reads 1939)",
+   "from": "PDF p. 2 (heading and date of the memorandum), p. 3 (recommendations and approval of Dec. 9, 1938), p. 4 (covering memorandum); read as page images",
+   "text_quality": "poor photocopy of a typescript; the OCR by scripts/ocr.py is garbled in places (it reads the year of the memorandum as 1988); every number of every quote was confirmed on the page image and the extracts carry the list of images viewed",
+   "state_dates_note": "A statement of policy of 1938: what it says about the present condition of the farms (the present 18 farms, read on the enlarged image; the OCR gives 16) is a state of 1938 (use indirect); the structures that stand as they were at the time of the battle are the park's own statement of 1938, not a measurement; objectives to restore or rebuild are plans, never a state of 1863.",
+   "used_for_extracts": "9 extracts (NPSX-DEV-POLICY-p002-01 to p003-02)",
+   "kind": "official record (National Park Service policy memorandum of 1938; a source for the policy of 1938, not for the state of 1863)"
   }
  }
 }

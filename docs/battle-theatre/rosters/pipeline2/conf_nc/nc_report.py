@@ -3,7 +3,7 @@ the unit files and the pinned texts, verify-unit-run.out); nothing is typed.  Se
 
     python3 -I nc_stats.py && python3 -I nc_report.py        (nc_gaps.py supplies the gap texts)
 """
-import os, sys, json, gzip, collections, statistics, glob, time
+import os, sys, re, json, gzip, collections, statistics, glob, time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import nc_lib as L, nc_units as U, nc_gaps as G, nc_flags as F
@@ -177,6 +177,70 @@ def main():
     o.extend(table(['unit', 'text read', 'roll leaves (first - last)', 'printed pages of the roll', 'lines without a printed page', 'company letters', 'field and staff lines (FS)'], rows))
     w('')
 
+    # ---------------------------------------------------------------- 1.3 Clark
+    cl = jload(os.path.join(L.D2, 'sources', 'NC-CLARK-1901.json'))
+    cn = cl['notes']
+    KA = {'present_for_duty': 'P', 'taken_into_action': 'T', 'remaining_after': 'R', 'casualties': 'L', 'strength_other': 'S', 'identification': 'I'}
+
+    def short_chapter(x):
+        return x['chapter']
+
+    w('### 1.3 Statements of strength and losses in Clark (1901), as notes of the ledger')
+    w('')
+    w('Clark, *Histories of the Several Regiments and Battalions from North Carolina in the Great War, 1861-\'65* (published by the State, Raleigh and Goldsboro, 1901, five volumes), is read here for **statements, not for names**: work item first task 2 asks for its present-for-duty figures as notes in the ledger, not as rows. '
+      '`data2/sources/NC-CLARK-1901.json` pins the ten texts (each volume twice, sha256) and holds, under `notes`, **%d notes** (%s). A note is the quotation exactly as the text layer prints it (white space joined), its offset and end in the pinned text, the printed page, the chapter and its author, the figures as printed with a reading of each as a number, the comparison with the second scan and, where the scans read a figure differently, a page-image check (%d notes; %d looked at by eye, the rest read with tesseract only). '
+      '**A note is a statement of the author of the chapter or of the person he quotes, not a muster**; where authors disagree every statement stays and none is made the default (DD-ROS-NC-08, DD-ROS-NC-09). The list is a **floor**: the chapters of the 41 units, the Gettysburg chapters of volume 5 and the brigade histories of volume 4 were scanned sentence by sentence for a figure that names men, guns or losses near a mention of Gettysburg (the scan is `nc_clark.py`; the counts per unit are in the table), every hit was read in its context and kept only where the sentence states a strength, a number present, a number taken into action, a number left or a loss of that unit (or of the brigade, battalion or company named); a figure the scan does not know is not in the list (gap EG-ROS-NC-05). Kinds: P present for duty, T taken into action or in line, R left or present after the fight, L losses, S other strength (the crossing of the Potomac, guns), I identification of a battery (no figure).'
+      % (len(cn), ', '.join('%s %d' % (k, v) for k, v in sorted(collections.Counter(x['kind'] for x in cn).items())), tot['clark_notes_page_image'], tot['clark_notes_page_image_viewed']))
+    w('')
+    rows = []
+    for k in keys:
+        u = units[k]
+        c = u['clark']
+        mine = [x for x in cn if k in x['units']]
+        kinds = collections.Counter(KA[x['kind']] for x in mine)
+        st = [x for x in mine if x.get('strength_figure') is not None]
+        sc = c['scan'] or {}
+        rows.append([D(k), len(mine), ' '.join('%s%d' % (a, kinds[a]) for a in 'PTRLSI' if kinds[a]) or '-',
+                     '; '.join('%s: %s' % (x['id'], fmt(x['strength_figure'])) for x in st) or 'none',
+                     ('%s - %s' % (fmt(c['strength_low']), fmt(c['strength_high']))) if c['strength_low'] is not None and c['strength_low'] != c['strength_high'] else (fmt(c['strength_low']) if c['strength_low'] is not None else 'none'),
+                     fmt(u['lines']), '; '.join(c['chapters']) or '-', '%s / %s / %s' % (fmt(sc.get('sentences', 0)), fmt(sc.get('figure_sentences', 0)), fmt(sc.get('figure_sentences_with_men_or_losses', 0)))])
+    o.extend(table(['unit', 'notes', 'kinds', 'regiment-level strength statements (note: figure)', 'range of the statements', 'lines of the file', 'Clark chapter(s) scanned', 'sentences / with a figure near Gettysburg / with a figure naming men or losses'], rows))
+    w('')
+    st_notes = [x for x in cn if x.get('strength_figure') is not None]
+    w('**The statements of a regiment\'s strength** (every note with a regiment-level strength figure; the range in the table is the lowest and the highest of them, Computed; nothing is picked):')
+    w('')
+    rows = []
+    for x in st_notes:
+        rows.append([x['id'], D(x['units'][0]), fmt(x['strength_figure']), x['kind'], short_chapter(x), x['pg'] if x['pg'] is not None else 'no printed page', x['when'][:60], 'both layers' if x['second_scan'].get('agrees') else ('page image (%s)' % x['page_image_check']['how'] if x.get('page_image_check') else 'second scan not matched')])
+    o.extend(table(['note', 'unit', 'strength figure', 'kind', 'author (volume)', 'printed page', 'date as stated', 'checked'], rows))
+    w('')
+    multi = [(k, units[k]['clark']) for k in keys if units[k]['clark']['strength_low'] is not None and units[k]['clark']['strength_low'] != units[k]['clark']['strength_high']]
+    grp = collections.defaultdict(list)
+    for x in cn:
+        if x['kind'] in ('present_for_duty', 'taken_into_action') and x['subject'].startswith('Company') and x['figures']:
+            for un in x['units']:
+                grp[(un, x['subject'])].append(x)
+    cconf = []
+    for (un, sub), xs in grp.items():
+        vals = {}
+        for x in xs:
+            for f in x['figures']:
+                if f['value'] is not None and f['what'] in ('present for duty', 'men for duty', 'men', 'enlisted men', 'rank and file taken into action', 'men in action', 'men taken into the battle', 'privates present for duty', 'aggregate present', 'enlisted present', 'rank and file crossing in June', 'present and absent'):
+                    vals.setdefault(f['value'], []).append(x['id'])
+        if len(vals) > 1:
+            cconf.append('%s %s: %s' % (D(un), sub, '; '.join('%s (%s)' % (fmt(v), ', '.join(ids)) for v, ids in sorted(vals.items()))))
+    w('**Where the statements conflict.** %s Company-level statements that name different numbers for the same company (the "what" of each figure differs: present for duty, taken into action, enlisted, aggregate present or absent): %s. The statements are those of different authors about different dates and different counts (muster rolls of 30 June, men in the ranks on 1 July, "muskets", rank and file); this report does not reconcile them.'
+      % (' '.join('%s: %s from %d statements (%s).' % (D(k), '%s to %s' % (fmt(c['strength_low']), fmt(c['strength_high'])), len(c['strength_notes']), ', '.join(c['strength_notes'])) for k, c in multi) or 'No unit has two different statements.', '; '.join(cconf) or 'none'))
+    w('')
+    nonote = [k for k in keys if not units[k]['clark']['notes']]
+    w('**Units with no note (%d)**: %s. For each the chapter named in the table was scanned (the counts are in the last column); the scan found no figure of the kinds above for that unit, and no one has read the chapter by eye for a statement the scan could not see (gap EG-ROS-NC-05). A unit without a note is a unit whose Clark chapter gives no such figure that the scan found: it is not a statement that the unit was absent or that no figure exists.'
+      % (len(nonote), ', '.join(D(k) for k in nonote)))
+    w('')
+    bs = [x for x in cn if re.search(r'brigade|battalion|column|detachment', x['subject'], re.I)]
+    w('**Brigade, battalion and detachment statements** are carried with every unit of this work item they name (the `units` of the note); %d notes: %s.'
+      % (len(bs), '; '.join('%s, %s (%s): %s' % (x['id'], x['subject'], x['when'][:40], ', '.join('%s %s' % (f['printed'], f['what']) for f in x['figures'])) for x in bs)))
+    w('')
+
     # ---------------------------------------------------------------- 2 the unit files
     w('## 2. The unit files')
     w('')
@@ -228,7 +292,7 @@ def main():
          prim.get('NC-MOORE-1882.3~b', 0), sum(1 for k in keys if units[k]['moore']['volume'] == '3'), prim.get('NC-MOORE-1882.4~b', 0), sum(1 for k in keys if units[k]['moore']['volume'] == '4'),
          ', '.join('%s (%d leaves)' % (D(k), v) for k, v in sorted(A['dup_units'].items())) or 'no unit'))
     w('')
-    w('**Leads, not read** (the pointer file `not_used`): ' + '; '.join('%s (%s): %s' % (x['source_id'], x['title'], x['status']) for x in ptr['not_used']) + '. **Clark (1901)**: ten texts (five volumes, each from two Internet Archive items, `NC-CLARK-1901.<vol>` and `.<vol>~b`; the Cornell, Harvard-free New York Public Library and Emory copies) are pinned in the ledger `rosters/data2/sources/NC-CLARK-1901.json` with sha256 and the manifest, and read for notes only (section 1.3). **Blocked: none** (no host refused a request of this item; `blocked` is empty in the pointer file). **Page images**: text PDFs from archive.org /cors/ (one request at a time, 1.2 s apart) were fetched to look at pages (section 5, item 12; the four Moore totals, section 1.1; the pages of Clark notes, section 1.3): `rosterofnorthcar02nort` (53,035,273 bytes), the Emory copy of Moore volume 4 and the Emory copies of Clark volumes 1, 2, 3 and 5; they are transient files under `tmp/library/rosters/_pdf/`, the ones of Clark are deleted at the end of the run, and no image is stored in the tree.')
+    w('**Leads, not read** (the pointer file `not_used`): ' + '; '.join('%s (%s): %s' % (x['source_id'], x['title'], x['status']) for x in ptr['not_used']) + '. **Clark (1901)**: ten texts (five volumes, each from two Internet Archive items, `NC-CLARK-1901.<vol>` and `.<vol>~b`; the Cornell University Library copies of volumes 1 to 4, the New York Public Library copy of volume 5 and the Emory University copies as second scans) are pinned in the ledger `rosters/data2/sources/NC-CLARK-1901.json` with sha256 and the manifest, and read for notes only (section 1.3). **Blocked: none** (no host refused a request of this item; `blocked` is empty in the pointer file). **Page images**: text PDFs from archive.org /cors/ (one request at a time, 1.2 s apart) were fetched to look at pages (section 5, item 12; the four Moore totals, section 1.1; the pages of Clark notes, section 1.3): `rosterofnorthcar02nort` (53,035,273 bytes), the Emory copy of Moore volume 4 and the Emory copies of Clark volumes 1, 2, 3 and 5; they are transient files under `tmp/library/rosters/_pdf/`, the ones of Clark are deleted at the end of the run, and no image is stored in the tree.')
     w('')
 
     # ---------------------------------------------------------------- 4 what was checked
@@ -253,10 +317,12 @@ def main():
          fmt(sum(rec[k]['earlier']['only_in_file_by_key'] for k in e_units)), fmt(sum(rec[k]['earlier']['only_in_earlier_by_key'] for k in e_units)), A['n_diff_files']))
     w('* **Moore\'s totals** (`recap.json`, `nc_recap.py`): the Recapitulation line of each section is found in the volume-4 text of both scans; the figure is kept as the text layer prints it, with the quote and its offset (verified: `text[offset:offset+len(quote)] == quote`); a figure is read from the text layers only where it is printed in full in one layer and the other layer agrees or damages it without changing its length, otherwise from the page image where both layers damage it (DD-ROS-NC-05): the 1st, 2nd, 4th and 33rd Infantry, read from the Emory copy of volume 4 (leaves 470 and 471, printed pages 456 and 457; a crop looked at and read with tesseract). %d of %d sections have a read figure.'
       % (sum(1 for v in recap.values() if v['value'] is not None), len(recap)))
-    w('* **Clark notes** (`nc_clark.py`; the ledger; `clark-notes-check.json`): every quotation was located in the pinned text by a phrase that occurs once in the volume, the sentences were joined as printed, and every printed figure was asserted to stand in the quotation; the same statement was looked for in the second scan (the Emory copy) on the same printed page: %d notes agree in both text layers, %d do not (a figure damaged in one layer, or the statement not matched because the page furniture splits it) and %d of these carry a page-image check (300 ppi crop, %d looked at by eye, the others read with tesseract only); no note is left with a disagreement that was not looked at.' % (tot['clark_notes_second_scan_agrees'], tot['clark_notes_second_scan_other'], tot['clark_notes_page_image'], tot['clark_notes_page_image_viewed']))
+    dis = [x for x in clark_notes if x['second_scan'].get('agrees') is not True]
+    dis_unchecked = [x for x in dis if not x.get('page_image_check')]
+    w('* **Clark notes** (`nc_clark.py`; the ledger; `clark-notes-check.json`): every quotation was located in the pinned text by a phrase that occurs once in the volume, the sentences were joined as printed, and every printed figure was asserted to stand in the quotation; the same statement was looked for in the second scan (the Emory copy) on the same printed page: %d notes agree in both text layers (every printed figure stands in the second scan too), %d do not (a figure damaged in one layer, or the statement not matched because the page furniture splits it); %d notes carry a page-image check (300 ppi crop; %d looked at by eye, the others read with tesseract only), among them %d of the %d that do not agree; %s.' % (tot['clark_notes_second_scan_agrees'], len(dis), tot['clark_notes_page_image'], tot['clark_notes_page_image_viewed'], len(dis) - len(dis_unchecked), len(dis), ('every disagreement was settled from the page' if not dis_unchecked else '%d disagreements were NOT checked: %s' % (len(dis_unchecked), ', '.join(x['id'] for x in dis_unchecked)))))
     w('* **One page image looked at, for a name** (section 5, item 12): leaf 130 of `rosterofnorthcar02nort`, printed page 116 (the 2nd North Carolina Cavalry, Company A privates); the tesseract read of the page shares 0.939 of its tokens with the pinned leaf; a tesseract read is not a reading of the print and is not used as evidence.')
     if audit:
-        w('* **Copy audit** (`nc_audit.mjs`, the rules of the staging packer `tools/bt/pack_theatre.mjs`: `audit()`, `AUDIT_RE`, `AUDIT_CS_RE`, `AUDIT_ALLOW`; DD-STG-02): the %d files of this item that ship under `rosters/data2` (%d unit files, %d flag files and the source ledger) were opened, the gzip files too, and their text audited (%s rows read): **%d hit%s**%s. Printed words that the rules match, by field: %s.'
+        w('* **Copy audit** (`nc_audit.mjs`, the rules of the staging packer `tools/bt/pack_theatre.mjs`: `audit()`, `AUDIT_RE`, `AUDIT_CS_RE`, `AUDIT_ALLOW`; DD-STG-02): the %d files of this item that ship under `rosters/data2` (%d unit files, %d flag files and the two source ledgers, Moore and Clark) were opened, the gzip files too, and their text audited (%s rows read): **%d hit%s**%s. Printed words that the rules match, by field: %s.'
           % (audit['files_audited'], audit['unit_files'], audit['flag_files'], fmt(audit['rows_read']), len(audit['hits']), '' if len(audit['hits']) == 1 else 's',
              (' (' + '; '.join('%s line %s: "%s"' % (h['file'], h.get('line'), h.get('match')) for h in audit['hits']) + ')') if audit['hits'] else '',
              '; '.join('%s: %d' % (k, v) for k, v in sorted(audit['printed_words']['by_field_and_word'].items())) or 'none'))
@@ -311,11 +377,11 @@ def main():
     chp = os.path.join(WS, 'changes-after-review.json')
     if os.path.exists(chp):
         ch = jload(chp)['totals']
-        item('**Parser corrected after the first review of the files (DD-ROS-NC-07).** Writing this report showed two classes of mis-cut heads in the first build: %s rows whose name was a county phrase ("Wilkes co.", a county taken for a split surname) and %s rows whose remarks ended with the first given name of the next head ("Wm.", "Thos.", left behind a county). Three narrow rules were corrected and the %d files rebuilt: after the correction %s and %s such rows remain; rows %s to %s; %s changed blocks in %s units, each listed in `changes-after-review.json` with the printed names and the first 60 characters of the remarks of both sides; no printed word is changed. What remains of the second class are heads that the text layer damaged (an initial run into the name: "JohnL.", "PeterS."; a given name read as "Tas." or "Tno."; a bare name with no date): they stay merged with the line before and carry flag M where a name-like run follows a period.'
+        item('**Parser corrected after the first review of the files (DD-ROS-NC-07).** Writing this report showed two classes of mis-cut heads in the first build: %s rows whose name was a county phrase ("Wilkes co.", a county taken for a split surname) and %s rows whose remarks ended with the first given name of the next head ("Wm.", "Thos.", left behind a county). Four narrow rules were corrected in two rounds (the fourth, a lower-case word of at most three letters that ends with a full stop or a semicolon is no surname, "Burke eo.;", was first written without the distinction from a lower-case fragment that ends with a comma, "Alf red,", "Rough ton,", which are the second half of a surname the scan split; that form took true heads out of the files and was refined after the change list was read) and the %d files rebuilt from the same pinned texts: after the correction %s and %s such rows remain; rows %s to %s; %s changed blocks in %s units, each listed in `changes-after-review.json` with the printed names and the first 60 characters of the remarks of both sides; no printed word is changed. What remains of the second class are heads that the text layer damaged (an initial run into the name: "JohnL.", "PeterS."; a given name read as "Tas." or "Tno."; a bare name with no date): they stay merged with the line before and carry flag M where a name-like run follows a period.'
              % (fmt(ch['county_name_rows_before']), fmt(ch['given_name_abbreviation_before']), n, fmt(ch['county_name_rows_after']), fmt(ch['given_name_abbreviation_after']),
                 fmt(ch['rows_before']), fmt(ch['rows_after']), fmt(ch['blocks']), fmt(ch['units_changed'])))
     ident = [k for k in keys if units[k].get('identification')]
-    item('**Identification of the four artillery units** (DD-ROS-NC-04; Documented by the Official Records index lines, Inferred where it rests on the captain or the counties): ' + ' || '.join('%s = Moore volume %s, %s %s, Company %s: %s' % (D(k), units[k]['moore']['volume'], 'Tenth Regiment' if units[k]['moore']['number'] == 10 else 'Fifth Battalion', '(First Artillery)' if units[k]['moore']['number'] == 10 else '(Light Artillery)', units[k]['moore']['company'], units[k]['identification']) for k in ident))
+    item('**Identification of the four artillery units** (DD-ROS-NC-04; Documented by the Official Records index lines, Inferred where it rests on the captain or the counties): ' + ' || '.join('%s = Moore volume %s, %s %s, Company %s: %s' % (D(k), units[k]['moore']['volume'], 'Tenth Regiment' if units[k]['moore']['number'] == 10 else 'Fifth Battalion', '(First Artillery)' if units[k]['moore']['number'] == 10 else '(Light Artillery)', units[k]['moore']['company'], units[k]['identification']) for k in ident) + '. **Clark corroborates the four from his own chapters** (the notes of kind identification in the ledger): ' + ' || '.join('%s (%s, printed page %s): "%s"' % (x['id'], D(x['units'][0]), x['pg'] if x['pg'] is not None else 'not numbered', x['quote'][:170]) for x in cn if x['kind'] == 'identification') + '. The Clark chapters speak of Company A ("Ellis Light Artillery", later Manly\'s), Company C (organized at Charlotte, Joseph Graham a lieutenant), Reilly\'s battery ("Rowan Artillery") and Company F of the Thirteenth Battalion (Captain Latham); they confirm the captain or the place that Moore\'s companies carry and do not add a number.')
     ph = F.PAGE_IMAGE_READINGS
     item('**One name read from a page image and one word the copy audit rejects.** ' + ' '.join('%s: row %d (offset %d in %s), printed reading "%s". %s' % (D(k), x_row(units, k, e), e['offset'], e['text_id'], e['printed'], e['how']) for k, es in ph.items() for e in es) +
          ' The unit file keeps the text layer (a line must be found at its offset in the pinned text; a name is never respelled to pass an audit; DD-ROS-NC-02); the reading is in the flag file member `page_image_readings`. The staging packer asked for this (`GOVERNANCE/horde/requests/bt-rosters-staging-copy-audit-ai-token.md`); its copy audit rejects the two capital letters of that name in the name field of the row and in the normalised-name list of the flag file; the allowance it describes (one reviewed allowance for that one name, DD-ROS-NC-03) is the packer\'s to add, and the answer is appended to the note.')

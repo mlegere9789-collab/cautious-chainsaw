@@ -1,8 +1,8 @@
 """Short extracts for the vegetation claims (the plan's rule: quote at most a short phrase, under 15 words; gate T-Q21-1 and T-Q02-1).
 
-    python -I tools/bt/vegetation/short_quotes.py              # read claims_verified.json, write claims_extracts.json, print what needs a look
+    python -I tools/bt/vegetation/short_quotes.py              # read claims_verified.json, write claim_extracts.json, print what needs a look
     python -I tools/bt/vegetation/short_quotes.py --review A B # print claims A..B (index) with their passage, the extract chosen and what it leaves out
-    python -I tools/bt/vegetation/short_quotes.py --check      # exit 1 when claims_extracts.json is not what this run would write
+    python -I tools/bt/vegetation/short_quotes.py --check      # exit 1 when claim_extracts.json is not what this run would write
 
 A claim keeps its whole passage in the working files of this folder (claims_*.json, claims_verified.json: public-domain or government texts, never shipped). What the data file
 carries as the claim's quote is an EXTRACT of at most 14 words, copied letter for letter from the saved text of the source, inside the passage, found again in that text (the
@@ -23,7 +23,7 @@ import srcs  # noqa: E402
 ROOT = srcs.ROOT
 VERIFIED = os.path.join(HERE, 'claims_verified.json')
 CURATED = os.path.join(HERE, 'short_quotes_curated.json')
-OUT = os.path.join(HERE, 'claims_extracts.json')
+OUT = os.path.join(HERE, 'claim_extracts.json')
 MAXW = 14
 
 STOP = set('''a an the and or but nor of in on at to for from by with as is are was were be been being it its this that these those there their they them he his her she him we us you your i
@@ -150,7 +150,7 @@ def gate_store():
 def strip_context_numbers(c):
     """the sentence of the claim without the numbers that only say WHEN or in which book (years of publication, the day of the month a claim is dated to): they are context, not statements that an extract has to carry"""
     t = c['says']
-    t = re.sub(r'\b(1[5-9]\d\d)\b', ' ', t)
+    t = re.sub(r'\b(1[5-9]\d\d)s?\b', ' ', t)
     wh = c.get('when') or {}
     days = set()
     for k in (wh.values() if isinstance(wh, dict) else [wh]):

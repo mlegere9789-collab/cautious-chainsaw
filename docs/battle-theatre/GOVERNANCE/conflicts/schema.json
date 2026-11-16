@@ -304,10 +304,7 @@
    20,
    220
   ],
-  "quote_chars": [
-   20,
-   700
-  ],
+  "quote_chars": "at least 20 letters and digits, at most 700 characters (the engine's rule)",
   "failed_searches_min": {
    "gap": 3,
    "irreducible": 2
@@ -420,6 +417,7 @@
   "witness",
   "source_keys_mismatch",
   "account_missing",
-  "number_not_in_quote"
+  "number_not_in_quote",
+  "validator_crash"
  ]
 }

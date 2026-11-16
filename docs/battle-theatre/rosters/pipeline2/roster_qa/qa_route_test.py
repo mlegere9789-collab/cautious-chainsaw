@@ -11,7 +11,7 @@ SUSPECT otherwise).  This measures how far the two engines agree; it is not an a
 Two-column lists (Maine at Gettysburg) and index pages (Maine Supplement) are read by tesseract as one run per printed line, so the line-level comparison is weak there; the
 word-level share is reported for them as well.  Images are transient (deleted after each page); the reading texts are deleted too.
 """
-import sys, os, json, glob, collections, time
+import sys, os, re, json, glob, collections, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -19,12 +19,40 @@ import qa_lib as Q
 import qa_render as RN
 import qa_compare as C
 
+FRAG_MIN = 4          # a recorded fragment counts for the second-reading measure when its normalised text has at least this many characters
+
+
+def fragments_of(v):
+    """[(kind group, printed fragment parts, stored fragment parts)] of the errors of a verdict that record both texts (the reader typed the printed text of the difference)."""
+    out = []
+    for e in v['errors']:
+        pr, st = e.get('printed'), e.get('stored')
+        if not pr or not st:
+            continue
+        grp = 'name' if any(k.startswith('name') for k in e['kinds']) else 'date' if 'rem-date' in e['kinds'] else 'other'
+        pp = [x for x in re.split(r'\s*\.\.\.\s*', pr) if len(C.norm(x)) >= FRAG_MIN]
+        sp = [x for x in re.split(r'\s*\.\.\.\s*', st) if len(C.norm(x)) >= FRAG_MIN]
+        if pp and sp:
+            out.append((grp, pp, sp))
+    return out
+
+
+def verdict_of(pid):
+    p = os.path.join(Q.QA, 'pages', RN.page_stem(pid) + '.verdict.json')
+    if not os.path.exists(p):
+        return None
+    v = Q.jload(p)
+    ap = p[:-len('.verdict.json')] + '.addendum.json'
+    return Q.merge_addendum(v, Q.jload(ap)) if os.path.exists(ap) else v
+
+
 FAMILIES = {'1': ['VT-REV', 'MA-SSM', 'NH-AYL', 'ME-RET', 'ME-IDX', 'ME-GET'], '2': ['NC-MOO-E', 'NC-MOO-G']}[Q.ROUND]      # round 2 (RQA_ROUND=2): the two scan families of Moore 1882
 
 
 def run():
     draw = Q.jload(os.path.join(Q.QA, 'draw.json'))['strata']
     out = {'f': 'roster-qa-second-reading/1', 'method': __doc__, 'engine': None, 'families': {}, 'pdfs': {}}
+    frag = {}
     t0 = time.time()
     for fam in FAMILIES:
         order = draw[fam + '-other']['order'][:20]
@@ -45,6 +73,14 @@ def run():
             out['pdfs'][rec['identifier']] = rec['pdf_sha256']
             pg, rows, res, unstored, st = C.compare(pid)
             cnt = collections.Counter(r['status'] for r in res)
+            vv = verdict_of(pid) if keep is not None else None
+            if vv is not None:
+                tn = C.norm(open(os.path.join(Q.QTMP, 'ocr', RN.page_stem(pid) + '.txt'), encoding='utf-8', errors='replace').read())
+                for grp, pp, sp in fragments_of(vv):
+                    fr = frag.setdefault(fam, {}).setdefault(grp, [0, 0, 0])
+                    fr[0] += 1
+                    fr[1] += 1 if all(C.norm(x) in tn for x in pp) else 0
+                    fr[2] += 1 if all(C.norm(x) in tn for x in sp) else 0
             pages.append({'page': pid, 'printed_page': rec['printed_page'], 'rows': len(rows), 'agree': cnt['AGREE'], 'near': cnt['NEAR'], 'suspect': cnt['SUSPECT'],
                           'share_in_pinned_leaf': rec['share_in_pinned_leaf'], 'right_page': rec['right_page'], 'token_ratio': st['ratio'], 'tesseract_cpu_s': rec['tesseract_cpu_s'],
                           'render300_sha256': rec['render300_sha256'], 'tess_sha256': rec['tess_sha256'], 'looked_at': keep is not None})
@@ -56,6 +92,7 @@ def run():
                                 'share_in_pinned_leaf_min': min((p['share_in_pinned_leaf'] or 0) for p in ok) if ok else None,
                                 'stored_lines': rows, 'agree': sum(p['agree'] for p in ok), 'near': sum(p['near'] for p in ok), 'suspect': sum(p['suspect'] for p in ok),
                                 'agree_share': round(sum(p['agree'] for p in ok) / rows, 3) if rows else None, 'tesseract_cpu_s_total': round(sum(p['tesseract_cpu_s'] for p in ok), 1), 'pages': pages}
+        out['families'][fam]['fragments'] = {grp: {'errors_with_both_texts': a, 'printed_text_found_in_tesseract_reading': b, 'stored_text_found_in_tesseract_reading': c} for grp, (a, b, c) in sorted(frag.get(fam, {}).items())}
         print(fam, {k: v for k, v in out['families'][fam].items() if k != 'pages'}, flush=True)
     out['wall_s'] = round(time.time() - t0)
     Q.jdump(os.path.join(Q.QA, 'second-reading.json'), out)

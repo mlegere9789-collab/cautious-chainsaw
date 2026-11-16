@@ -1,0 +1,180 @@
+{
+ "schema": "conflict-resolution-1",
+ "id": "C-015",
+ "topic": "20th Maine strength",
+ "researched": "2026-11-16",
+ "researcher": "selftest fixture (not a research result)",
+ "event_date": "1863-07-02",
+ "pdf_row": {
+  "page": 62,
+  "text": "20th Maine strength | 385; 386 | 385 | 386",
+  "values": [
+   "385",
+   "386"
+  ],
+  "recommended_default": "385",
+  "selectable_alternatives": [
+   "386"
+  ]
+ },
+ "first_delegated": {
+  "default_scenario_id": "C-015-DEFAULT",
+  "default_label": "386 (Chamberlain: 386 all told, 358 guns)",
+  "tier": "documented",
+  "basis": "OR",
+  "scenario_ids": [
+   "C-015-S1",
+   "C-015-S2",
+   "C-015-S3",
+   "C-015-DEFAULT"
+  ]
+ },
+ "class": "weighted",
+ "tier": "documented",
+ "basis": {
+  "kind": "official_records",
+  "text": "Chamberlain's own report (OR 27/1 p.626): \"386, all told - 358 guns\"; the figure 385 has no source in the record read."
+ },
+ "default": {
+  "mode": "position",
+  "positions": [
+   "C-015-P2"
+  ],
+  "label": "386 men, 358 with rifles",
+  "value": 386,
+  "range": {
+   "low": 385,
+   "high": 386,
+   "basis": "the two figures of the PDF row; one man apart"
+  },
+  "animation": {
+   "at": null,
+   "rule": "follows_printed_strength",
+   "note": "the soldiers instanced follow the printed unit strength (DEC-008)"
+  }
+ },
+ "positions": [
+  {
+   "id": "C-015-P1",
+   "origin": "pdf_value",
+   "pdf_label": "385",
+   "scenario_ids": [
+    "C-015-S1",
+    "C-015-S3"
+   ],
+   "label": "385 (the plan's recommended figure)",
+   "kind": "count",
+   "value": {
+    "n": 385,
+    "unit": "men"
+   },
+   "tier": "open gap",
+   "clock": "not_applicable",
+   "stance": "selectable",
+   "flags": [
+    "unsourced"
+   ],
+   "support": [],
+   "failed_lookups": [
+    {
+     "where": "Official Records Ser. I vol. 27 parts 1-3",
+     "query": "(\\b385\\b|three hundred and eighty-five) within 120 characters of Twentieth|20th|Maine|Chamberlain",
+     "outcome": "not_found",
+     "at": "2026-11-16"
+    },
+    {
+     "where": "ME-GB-1898 (Maine at Gettysburg)",
+     "query": "(\\b385\\b|\\b386\\b) within 100 characters of Twentieth|20th",
+     "outcome": "not_found",
+     "at": "2026-11-16"
+    }
+   ],
+   "reason_not_chosen": {
+    "kind": "no_source",
+    "text": "No report of the time or later volume read gives 385; the colonel himself says 386."
+   }
+  },
+  {
+   "id": "C-015-P2",
+   "origin": "pdf_value",
+   "pdf_label": "386",
+   "scenario_ids": [
+    "C-015-S2",
+    "C-015-DEFAULT"
+   ],
+   "label": "386 men, 358 with rifles (the colonel's count)",
+   "kind": "count",
+   "value": {
+    "n": 386,
+    "unit": "men"
+   },
+   "tier": "documented",
+   "clock": "not_applicable",
+   "stance": "default",
+   "flags": [
+    "single_source"
+   ],
+   "support": [
+    {
+     "source": "OR27-1",
+     "source_class": "primary",
+     "part": "OR27-1-R196",
+     "page": "626",
+     "page_basis": "scan_leaf",
+     "text_offset": 2197296,
+     "quote": "We went into the fight with 386, all told",
+     "witness": {
+      "name": "Joshua L. Chamberlain",
+      "role": "Colonel commanding the 20th Maine Infantry",
+      "side": "union"
+     },
+     "written": {
+      "date": "1863-07-06",
+      "kind": "official_report"
+     },
+     "vantage": "commander_present",
+     "knew_by": "own_orders",
+     "clock": "not_applicable",
+     "hedge": "exact",
+     "group": "chamberlain",
+     "exact": true,
+     "states": {
+      "numbers": [
+       386
+      ]
+     }
+    }
+   ]
+  }
+ ],
+ "weighing": {
+  "summary": "The colonel counts his own regiment at 386; 385 has no source.",
+  "who": "Chamberlain commanded the regiment and counted it himself.",
+  "when": "He wrote on or about 6 Jul 1863, four days after the fight: the best class of writing there is.",
+  "where": "He stood at the head of the regiment he counts.",
+  "how_knew": "He knew from the roll of the men who went into the fight.",
+  "clock": "not applicable: a count, not a time.",
+  "independence": "One witness for 386; the figure 385 has no witness: both are flagged."
+ },
+ "source_panel_text": "The 20th Maine went into the fight with 386 men, 358 of them with rifles, by its colonel's own report of Jul 1863. The plan's 385 has no source. The range 385-386 stays visible and the men drawn follow the printed strength.",
+ "holds": {
+  "pdf_default": {
+   "holds": "no",
+   "note": "The plan's 385 is one man below the colonel's own count and has no source."
+  },
+  "first_delegated": {
+   "holds": "yes",
+   "note": "The first delegated default 386 is the colonel's figure and is confirmed."
+  }
+ },
+ "readers": [
+  {
+   "kind": "app_data",
+   "ref": "docs/battle-theatre/app/data/conflict-defaults.json",
+   "must_change": false,
+   "note": "the default stays 386"
+  }
+ ],
+ "failed_searches": [],
+ "what_would_change_it": "A roll or a return of the regiment of 1-2 July 1863 giving another count."
+}

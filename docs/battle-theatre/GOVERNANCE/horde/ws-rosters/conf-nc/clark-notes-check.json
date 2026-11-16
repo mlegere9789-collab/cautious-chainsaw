@@ -1,6 +1,6 @@
 {
  "format": "conf-nc-clark-check/1",
- "notes": 85,
+ "notes": 89,
  "second_scan_agrees": [
   "CL-001",
   "CL-002",
@@ -30,7 +30,6 @@
   "CL-035",
   "CL-036",
   "CL-038",
-  "CL-039",
   "CL-040",
   "CL-042",
   "CL-043",
@@ -66,7 +65,11 @@
   "CL-082",
   "CL-083",
   "CL-084",
-  "CL-085"
+  "CL-085",
+  "CL-086",
+  "CL-087",
+  "CL-088",
+  "CL-089"
  ],
  "second_scan_disagrees": [
   "CL-012",
@@ -75,6 +78,7 @@
   "CL-019",
   "CL-021",
   "CL-026",
+  "CL-039",
   "CL-041",
   "CL-057",
   "CL-059",
@@ -142,7 +146,7 @@
     }
    ],
    "scan": {
-    "sentences": 614,
+    "sentences": 613,
     "gettysburg_zone_sentences": 30,
     "figure_sentences": 5,
     "figure_sentences_with_men_or_losses": 1
@@ -225,9 +229,9 @@
     "figure_sentences": 5,
     "figure_sentences_with_men_or_losses": 1
    },
-   "notes": 3,
+   "notes": 4,
    "notes_by_kind": {
-    "casualties": 2,
+    "casualties": 3,
     "remaining_after": 1
    }
   },
@@ -289,10 +293,10 @@
     "figure_sentences": 10,
     "figure_sentences_with_men_or_losses": 7
    },
-   "notes": 5,
+   "notes": 7,
    "notes_by_kind": {
+    "casualties": 4,
     "taken_into_action": 1,
-    "casualties": 2,
     "remaining_after": 2
    }
   },
@@ -335,9 +339,9 @@
     "figure_sentences": 32,
     "figure_sentences_with_men_or_losses": 12
    },
-   "notes": 3,
+   "notes": 5,
    "notes_by_kind": {
-    "casualties": 2,
+    "casualties": 4,
     "remaining_after": 1
    }
   },
@@ -351,14 +355,14 @@
     }
    ],
    "scan": {
-    "sentences": 905,
+    "sentences": 903,
     "gettysburg_zone_sentences": 94,
     "figure_sentences": 27,
     "figure_sentences_with_men_or_losses": 11
    },
-   "notes": 3,
+   "notes": 4,
    "notes_by_kind": {
-    "casualties": 2,
+    "casualties": 3,
     "remaining_after": 1
    }
   },
@@ -372,7 +376,7 @@
     }
    ],
    "scan": {
-    "sentences": 261,
+    "sentences": 260,
     "gettysburg_zone_sentences": 15,
     "figure_sentences": 6,
     "figure_sentences_with_men_or_losses": 2
@@ -411,15 +415,15 @@
     }
    ],
    "scan": {
-    "sentences": 247,
+    "sentences": 245,
     "gettysburg_zone_sentences": 47,
     "figure_sentences": 17,
     "figure_sentences_with_men_or_losses": 4
    },
-   "notes": 3,
+   "notes": 4,
    "notes_by_kind": {
-    "remaining_after": 1,
-    "casualties": 2
+    "casualties": 3,
+    "remaining_after": 1
    }
   },
   "c-nc-23rd-north-carolina-infantry": {
@@ -432,8 +436,8 @@
     }
    ],
    "scan": {
-    "sentences": 1555,
-    "gettysburg_zone_sentences": 176,
+    "sentences": 1554,
+    "gettysburg_zone_sentences": 175,
     "figure_sentences": 34,
     "figure_sentences_with_men_or_losses": 8
    },
@@ -459,7 +463,7 @@
     }
    ],
    "scan": {
-    "sentences": 1725,
+    "sentences": 1723,
     "gettysburg_zone_sentences": 612,
     "figure_sentences": 205,
     "figure_sentences_with_men_or_losses": 62
@@ -488,9 +492,9 @@
     "figure_sentences": 8,
     "figure_sentences_with_men_or_losses": 2
    },
-   "notes": 4,
+   "notes": 5,
    "notes_by_kind": {
-    "casualties": 3,
+    "casualties": 4,
     "remaining_after": 1
    }
   },
@@ -504,7 +508,7 @@
     }
    ],
    "scan": {
-    "sentences": 203,
+    "sentences": 202,
     "gettysburg_zone_sentences": 9,
     "figure_sentences": 2,
     "figure_sentences_with_men_or_losses": 0
@@ -548,9 +552,9 @@
     "figure_sentences": 18,
     "figure_sentences_with_men_or_losses": 6
    },
-   "notes": 3,
+   "notes": 4,
    "notes_by_kind": {
-    "casualties": 2,
+    "casualties": 3,
     "remaining_after": 1
    }
   },
@@ -569,10 +573,10 @@
     "figure_sentences": 5,
     "figure_sentences_with_men_or_losses": 1
    },
-   "notes": 2,
+   "notes": 4,
    "notes_by_kind": {
-    "remaining_after": 1,
-    "casualties": 1
+    "casualties": 3,
+    "remaining_after": 1
    }
   },
   "c-nc-37th-north-carolina-infantry": {
@@ -590,9 +594,9 @@
     "figure_sentences": 12,
     "figure_sentences_with_men_or_losses": 1
    },
-   "notes": 3,
+   "notes": 4,
    "notes_by_kind": {
-    "casualties": 2,
+    "casualties": 3,
     "remaining_after": 1
    }
   },
@@ -611,10 +615,10 @@
     "figure_sentences": 8,
     "figure_sentences_with_men_or_losses": 4
    },
-   "notes": 3,
+   "notes": 5,
    "notes_by_kind": {
-    "remaining_after": 2,
-    "casualties": 1
+    "casualties": 3,
+    "remaining_after": 2
    }
   },
   "c-nc-43rd-north-carolina-infantry": {
@@ -627,7 +631,7 @@
     }
    ],
    "scan": {
-    "sentences": 250,
+    "sentences": 248,
     "gettysburg_zone_sentences": 24,
     "figure_sentences": 5,
     "figure_sentences_with_men_or_losses": 1
@@ -879,9 +883,10 @@
     "figure_sentences": 6,
     "figure_sentences_with_men_or_losses": 2
    },
-   "notes": 1,
+   "notes": 2,
    "notes_by_kind": {
-    "casualties": 1
+    "casualties": 1,
+    "identification": 1
    }
   },
   "c-nc-rowan-artillery": {
@@ -899,9 +904,10 @@
     "figure_sentences": 6,
     "figure_sentences_with_men_or_losses": 2
    },
-   "notes": 1,
+   "notes": 2,
    "notes_by_kind": {
-    "casualties": 1
+    "casualties": 1,
+    "identification": 1
    }
   },
   "c-nc-charlotte-artillery": {
@@ -919,9 +925,10 @@
     "figure_sentences": 4,
     "figure_sentences_with_men_or_losses": 2
    },
-   "notes": 1,
+   "notes": 2,
    "notes_by_kind": {
-    "strength_other": 1
+    "strength_other": 1,
+    "identification": 1
    }
   },
   "c-nc-branch-artillery": {
@@ -940,14 +947,15 @@
     }
    ],
    "scan": {
-    "sentences": 799,
+    "sentences": 797,
     "gettysburg_zone_sentences": 69,
     "figure_sentences": 13,
     "figure_sentences_with_men_or_losses": 2
    },
-   "notes": 1,
+   "notes": 2,
    "notes_by_kind": {
-    "casualties": 1
+    "casualties": 1,
+    "identification": 1
    }
   }
  }

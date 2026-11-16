@@ -30,7 +30,7 @@ def source(sid):
     if sid in sources: return sources[sid]
     if sid.startswith('LOC-'):
         pk = sid[4:]; p = os.path.join(RAW, f'item_{pk}.json'); d = json.load(open(p))['item']
-        text = ' || '.join([d.get('title') or '', d.get('summary') or ''] + [n['note'] for n in d.get('notes', [])])
+        text = ' || '.join([d.get('title') or '', d.get('summary') or ''] + [n['note'] for n in d.get('notes', [])] + [m.get('medium') or '' for m in d.get('mediums', [])])   # 2026-11-16: the physical description (plate type and size) is part of the record's own words
         sources[sid] = {'id': sid, 'kind': 'Library of Congress catalogue record (open JSON of the record)', 'title': d.get('title'), 'url': f'https://www.loc.gov/pictures/item/{pk}/', 'local_text': os.path.relpath(p, ROOT),
                         'sha256_text': sha(p), 'retrieved': time.strftime('%Y-%m-%d', time.gmtime(os.path.getmtime(p))), 'rights': 'LOC: no known restrictions on publication', 'pages': {'record': text}}
     elif sid.startswith('NPSWEB-'):

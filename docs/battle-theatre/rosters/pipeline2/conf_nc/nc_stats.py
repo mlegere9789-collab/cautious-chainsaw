@@ -44,6 +44,8 @@ def main():
     rec = jload(os.path.join(L.WS, 'reconciliation.json'))['units']
     clark = jload(os.path.join(L.D2, 'sources', 'NC-CLARK-1901.json')) if os.path.exists(os.path.join(L.D2, 'sources', 'NC-CLARK-1901.json')) else {}
     cnotes = clark.get('notes', [])
+    ccp = os.path.join(L.WS, 'clark-notes-check.json')
+    clark_check = jload(ccp) if os.path.exists(ccp) else {}
     out = {'format': 'conf-nc-stats/1', 'units': {}, 'totals': {}}
     tot = collections.Counter()
     gaps = []
@@ -87,7 +89,7 @@ def main():
             'scan': {'why': s['why'], 'rows_by_scan': s['rows_by_scan'], 'heading_defects': s['heading_defects'], 'dups_dropped': {k: v for k, v in s['dups_dropped'].items()}, 'section': s['section']},
         })
         mine = [x for x in cnotes if key in x['units']]
-        cu = (clark.get('notes_units') or {}).get(key, {})
+        cu = (clark_check.get('coverage') or {}).get(key, {})
         sf = [(x['strength_figure'], x['id']) for x in mine if x.get('strength_figure') is not None]
         e['clark'] = {'notes': len(mine), 'by_kind': dict(collections.Counter(x['kind'] for x in mine)), 'ids': [x['id'] for x in mine],
                       'strength_low': min(v for v, i in sf) if sf else None, 'strength_high': max(v for v, i in sf) if sf else None, 'strength_notes': [i for v, i in sf],
