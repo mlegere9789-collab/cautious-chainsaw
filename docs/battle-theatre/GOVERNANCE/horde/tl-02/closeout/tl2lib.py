@@ -23,11 +23,12 @@ SUPPORT = ('supported', 'contradicted', 'unsupported', 'conflict', 'computed', '
 ROWS = collections.OrderedDict()
 
 
-def OR(quote, report=None, page=None, note=None, supports=None, witness=None):
+def OR(quote, report=None, page=None, note=None, supports=None, witness=None, reading=None):
     d = dict(src='OR27', quote=quote, report=report, page=page)
     if note: d['note'] = note
     if supports: d['supports'] = supports
     if witness: d['witness'] = witness
+    if reading: d['reading'] = reading
     return d
 
 
@@ -118,6 +119,8 @@ LABEL = {
     'FOX-1889': 'W. F. Fox, Regimental Losses in the American Civil War (1889)',
     'HASKELL-1908': 'F. A. Haskell, The Battle of Gettysburg (1908 ed.)',
     'PIERCE-F-1914': 'F. C. Pierce, The Battle of Gettysburg, the Crest-Wave of the American Civil War (1914)',
+    'DTIC-ADA207999': 'A. W. Cameron (LTC, U.S. Army), A Communicator\'s Guide to the Gettysburg Campaign (U.S. Army War College study project, Carlisle Barracks, 1989; DTIC ADA207999)',
+    'AMEPH-1863': 'U.S. Navy, The American Ephemeris and Nautical Almanac for the year 1863 (Washington 1861)',
     'HARD-1868': 'A. Hard, History of the Eighth Cavalry Regiment, Illinois Volunteers (1868)',
     'IL-MON-1892': 'Illinois Monument Commission, Illinois Monuments at Gettysburg (1892)',
     'BROWN-SIGNAL-1896': 'J. W. Brown, The Signal Corps, U.S.A., in the War of the Rebellion (1896)',
@@ -174,6 +177,8 @@ CLASS = {
     'HASKELL-1908': 'participant narrative (written 1863, printed 1908)',
     'PIERCE-F-1914': 'published history (1914)',
     'CHANC-1910': 'secondary study (1910) of the spring 1863 campaign, quoting cavalry practice in general; not a report of the Gettysburg campaign',
+    'DTIC-ADA207999': 'secondary: U.S. Army War College study project (1989; a U.S. Government work) that prints a letter of 18 Oct 1865 by the signal officer (original in the Bachelder Papers, not seen) and quotes official reports',
+    'AMEPH-1863': 'official almanac of the U.S. Navy (computed predictions of the Nautical Almanac Office, published 1861 for the year 1863)',
 }
 ARCH = {'JACOBS-1864': 'notesonrebelinva00jaco', 'CHANC-1910': 'finalreportonba00chatgoog'}
 # a work bound into the archive.org item of another source: its text is read from that source's file
@@ -409,7 +414,7 @@ def resolve(key, c):
         dec = _libpages().get('%s@%d' % (sid, nmap[i]))
         if dec is None and os.environ.get('TL2_NOPAGES'):
             # only used by tmp/tl-02/audit/mk_tmp_corr.py to list the citations that still need a page decision
-            dec = dict(page=pg, basis='PENDING decision', method='pending', leaf=None)
+            dec = dict(page=pg if pg is not None else c.get('page'), basis='PENDING decision', method='pending', leaf=None)
         if dec is None:
             raise QuoteError('%s: no page decision for %s@%d in library_pages.json (run tmp/tl-02/audit/libpages_final.py)' % (key, sid, nmap[i]))
         if c.get('page') is not None and str(c['page']) != str(dec['page']):

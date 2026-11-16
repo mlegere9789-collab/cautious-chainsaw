@@ -27,5 +27,18 @@ ev('sunset_jul1', o.next_setting, mid, '-0:34', ephem.Sun())
 m = ephem.Moon()
 for k, d in (('moon_lit_pct_jun30_2100lmt', '1863/7/1 02:08:55'), ('moon_lit_pct_at_full', str(fm)), ('moon_lit_pct_jul1_0400lmt', '1863/7/1 09:08:55')):
     m.compute(d); out[k] = round(m.phase, 2)
+# Cross-check against the American Ephemeris and Nautical Almanac for 1863, page 103 (June 1863, Greenwich mean time, "Phases of the Moon"); the almanac figures
+# were read on the page image (the OCR text damages them).  The almanac counts the Greenwich day from noon (astronomical reckoning): day D, hour h = civil D 12:00 + h.
+import datetime
+alm = [('full', 1, 11, 29.8, ephem.next_full_moon, '1863/5/30'), ('last quarter', 8, 1, 52.5, ephem.next_last_quarter_moon, '1863/6/5'),
+       ('new', 15, 19, 36.1, ephem.next_new_moon, '1863/6/10'), ('first quarter', 23, 22, 31.2, ephem.next_first_quarter_moon, '1863/6/20'),
+       ('full', 30, 18, 46.0, ephem.next_full_moon, '1863/6/25')]
+rows = []
+for name, dd, hh, mm, fn, start in alm:
+    t = ephem.Date(fn(start)).datetime()
+    almanac_civil = datetime.datetime(1863, 6, dd, 12, 0, 0) + datetime.timedelta(hours=hh, minutes=mm)
+    rows.append({'phase': name, 'almanac_astronomical': 'June %d, %d h %.1f m' % (dd, hh, mm), 'almanac_as_civil_ut': almanac_civil.strftime('%Y-%m-%d %H:%M:%S'),
+                 'pyephem_ut': t.strftime('%Y-%m-%d %H:%M:%S'), 'difference_minutes': round((t - almanac_civil).total_seconds() / 60.0, 2)})
+out['almanac_1863_page103_phases'] = rows
 out['_method'] = 'PyEphem %s; LMT offset %.2f min; pressure 0, horizon -0:34 (upper limb) for rise/set; Sun centre at -6/-12/-18 for twilight' % (ephem.__version__, off_days * 1440)
 print(json.dumps(out, indent=1))

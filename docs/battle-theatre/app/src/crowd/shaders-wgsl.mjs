@@ -41,6 +41,8 @@ fn ign(p: vec2f) -> f32 { return fract(52.9829189 * fract(dot(p, vec2f(0.0671105
 // every fragment of every level draws the same number n = fract(ign(pixel) + phase(figure)), so each pixel is drawn by exactly one of them. x = lo, y = hi (2.0 = no upper bound), z = the figure's phase.
 fn fadeOf(P: u32, fig: u32) -> vec3f { if (P == 0u) { return vec3f(0.0, 2.0, 0.0); } let hi = P >> 16u; var h = 2.0; if (hi < 65534u) { h = f32(hi) / 65534.0; } return vec3f(f32(P & 65535u) / 65534.0, h, hsh(fig * 7u + 3u)); }
 fn fadeKeep(f: vec3f, frag: vec2f) -> bool { if (f.y > 1.5 && f.x <= 0.0) { return true; } let n = fract(ign(frag) + f.z); return n >= f.x && n < f.y; }
+// the pixel as GLSL's gl_FragCoord.xy: WebGPU's position has its origin at the top of the picture, WebGL2's at the bottom; flipped here the dither of a figure is the same pattern on both APIs
+fn fragXY(p: vec4f) -> vec2f { return vec2f(p.x, F.scr.y - p.y); }
 fn bandS(nu: f32, r: f32, b: f32) -> f32 { if (r <= 0.0) { return 1.0; } if (b <= 0.0) { return select(0.0, 1.0, nu >= r); } let t = clamp((nu - r * (1.0 - b)) / (2.0 * r * b), 0.0, 1.0); return t * t * (3.0 - 2.0 * t); }
 struct FOut { @builtin(position) pos: vec4f, @location(0) wp: vec3f, @location(1) n: vec3f, @location(2) @interpolate(flat) mat: u32, @location(3) @interpolate(flat) fl: u32, @location(4) @interpolate(flat) w: vec4<u32>, @location(5) @interpolate(flat) fade: vec3f }
 struct VIn { @location(0) pos: vec3f, @location(1) nrm: vec4f, @location(2) mf: vec4<u32>, @location(3) j: vec4<u32>, @location(4) wt: vec4f, @location(5) iP: vec4f, @location(6) iA: vec4f, @location(7) iI: vec4<u32> }
@@ -70,8 +72,8 @@ fn fetchM(g: u32, b: u32, m: u32) -> vec4f { let x = i32((g & 1u) * cfg.tpf + b 
   return finish(v, sp, sn);
 }
 @fragment fn fs_fig(i: FOut) -> @location(0) vec4f {
-  if (!fadeKeep(i.fade, i.pos.xy)) { discard; }
-  if ((i32(i.mat) == ${MATC.HAIR_CARD} || i32(i.mat) == ${MATC.BEARD_CARD}) && i.fl > 0u && f32(i.fl & 31u) / 31.0 < ign(i.pos.xy)) { discard; }
+  if (!fadeKeep(i.fade, fragXY(i.pos))) { discard; }
+  if ((i32(i.mat) == ${MATC.HAIR_CARD} || i32(i.mat) == ${MATC.BEARD_CARD}) && i.fl > 0u && f32(i.fl & 31u) / 31.0 < ign(fragXY(i.pos))) { discard; }
   let m = resolveMat(i32(i.mat), i.w); let N = normalize(i.n); let sh = shadowAt(i.wp); let ao = 0.8;
   return vec4f(fogged(lit(m.alb, m.rough, m.metal, N, i.wp, sh, ao), i.wp), 1.0);
 }
@@ -93,13 +95,13 @@ struct IOut { @builtin(position) pos: vec4f, @location(0) wp: vec3f, @location(1
   o.v = vec4f(view, f32(cls), cover, hsh(ii * 7u + 3u)); o.w = w; o.rt = right; var kd = 0.0; if (b > 0.0) { kd = smoothstep(${LOD_DAB.lowPx.toFixed(1)}, cfg.dab, hpx * fsc); } o.f = vec4f(lo / 65534.0, dm, fv, kd); return o;      // w: the dab narrows to the figure's footprint as the figure grows (LOD_DAB)
 }
 @fragment fn fs_imp(i: IOut) -> @location(0) vec4f {
-  let n = fract(ign(i.pos.xy) + i.v.w); if (n < i.f.x) { discard; }                                          // [0, lo) is kept by the 3D levels
+  let fc = fragXY(i.pos); let n = fract(ign(fc) + i.v.w); if (n < i.f.x) { discard; }                                          // [0, lo) is kept by the 3D levels
   var u = n; if (i.f.x > 0.0) { u = (n - i.f.x) / (1.0 - i.f.x); } if (u > i.v.z) { discard; } var uu = u; if (i.v.z < 1.0) { uu = u / i.v.z; }      // u, uu: uniform numbers again (the share kept, the share of the dab)
   let toCam = normalize(F.cam.xyz - i.wp); let hc = normalize(vec3f(toCam.x, 0.0, toCam.z));
   if (uu < i.f.y) { let fw = mix(1.0, ${LOD_DAB.w.toFixed(3)}, i.f.w); let mt = ${LOD_DAB.top.toFixed(3)} * i.f.w; let mb = ${LOD_DAB.bottom.toFixed(3)} * i.f.w; if (abs(i.q.x - 0.5) > 0.5 * fw || i.q.y < mb || i.q.y > 1.0 - mt) { discard; }
     let mm = select(${MATC.TROUSERS}, ${MATC.COAT}, i.q.y > 0.45); let m = resolveMat(mm, i.w);
     return vec4f(fogged(lit(m.alb, m.rough, m.metal, normalize(hc * 0.7 + vec3f(0.0, 0.7, 0.0)), i.wp, 1.0, 0.8), i.wp), 1.0); }
-  var view = i.v.x; if (i.f.z > 0.0 && fract(ign(i.pos.yx) + fract(i.v.w * 7.0 + 0.37)) < i.f.z) { view = (view + 1.0) % 8.0; }
+  var view = i.v.x; if (i.f.z > 0.0 && fract(ign(vec2f(fc.y, fc.x)) + fract(i.v.w * 7.0 + 0.37)) < i.f.z) { view = (view + 1.0) % 8.0; }
   let px = i32(view) * 48 + clamp(i32(i.q.x * 48.0), 0, 47); let py = clamp(i32((1.0 - i.q.y) * 64.0), 0, 63); let t = textureLoad(impT, vec2<i32>(px, py), i32(i.v.y), 0); let mat = i32(t.r * 255.0 + 0.5); if (mat == 0) { discard; }
   let nx = t.g * 2.0 - 1.0; let ny = t.b * 2.0 - 1.0; let nz = sqrt(max(0.0, 1.0 - nx * nx - ny * ny)); let N = normalize(i.rt * nx + vec3f(0.0, 1.0, 0.0) * ny + hc * nz);
   let m = resolveMat(mat, i.w); return vec4f(fogged(lit(m.alb, m.rough, m.metal, N, i.wp, 1.0, 0.55 + 0.45 * t.a), i.wp), 1.0);

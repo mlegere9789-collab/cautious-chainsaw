@@ -18,4 +18,9 @@ The builder runs in place (it finds the repository root from its own location): 
 - libpages3.py, neigh.py, ia_fetch.py: library page decisions. NOTES.md: working notes.
 
 ## Do not repeat
-- The delegated-decision block DD-TL03-01 to DD-TL03-04 and the progress lines of 2026-11-13 and 2026-11-14 were appended once to GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md and GOVERNANCE/progress.md.
+- The delegated-decision block (DD-TL03-01 to DD-TL03-04, prepared on 2026-11-14) was NOT appended on 2026-11-14 although an earlier version of this note said so; it was appended once on 2026-11-16 together with DD-TL03-05 (grep DD-TL03 in GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md gives 5 lines). Its text is kept in ../dd_block_final.md. The progress lines of 2026-11-13 and 2026-11-14 are in-progress lines; the final line of the close-out is dated 2026-11-16 (grep "tl-03" progress.md). Do not append either again.
+- Row data edited after the last build is not in the published corrections: always run build.py (not only --check-only) after an edit of rows_a.py, rows_b.py, rows_c.py or rows_patch.py, and compare with the backup (review/diffrows.py).
+
+## Third pass of 2026-11-16
+- review/ holds the scripts of the claim-to-quote tie (README there). ../rows_patch.py and ../patch_quotes.json hold every wording edit, quote extension and added citation of that reading; build.py applies them after loading rows_a.py, rows_b.py and rows_c.py (`--no-patch` skips them and rebuilds the wording as it stood on 2026-11-14).
+- ocr2.py: queued again under the machine lock on 2026-11-16 at 00:15 (the lock serves timing jobs first); its status when REPORT.md was written is in the REPORT.

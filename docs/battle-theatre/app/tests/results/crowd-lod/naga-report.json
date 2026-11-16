@@ -11,7 +11,7 @@
  },
  "controls": {
   "a type error in the fade decode is refused": "refused: Validation Error  Caused by:   In wgpuDeviceCreateShaderModule, label = 'bad1'  Shader 'bad1' parsing error: automatic conversions cannot convert `{AbstractFloat}` to `vec3<f32>`     \u250c\u2500 wgsl:140:62   ",
-  "an unknown identifier in the impostor fade is refused": "refused: Validation Error  Caused by:   In wgpuDeviceCreateShaderModule, label = 'bad2'  Shader 'bad2' parsing error: invalid field accessor `bandwidth`     \u250c\u2500 wgsl:181:117     \u2502 181 \u2502   let p = place(ii, F.ca",
+  "an unknown identifier in the impostor fade is refused": "refused: Validation Error  Caused by:   In wgpuDeviceCreateShaderModule, label = 'bad2'  Shader 'bad2' parsing error: invalid field accessor `bandwidth`     \u250c\u2500 wgsl:183:117     \u2502 183 \u2502   let p = place(ii, F.ca",
   "a layout whose config block is hidden from the vertex stage (vs_imp reads it) is refused": "refused: Validation Error  Caused by:   In wgpuDeviceCreateRenderPipeline, label = 'crowd.imp'     Error matching ShaderStages(VERTEX) shader requirements against the pipeline       Shader global ResourceBindi",
   "a 16 byte config block against a binding that needs the 32 bytes of the struct is refused": "refused: Validation Error  Caused by:   In wgpuDeviceCreateBindGroup     Binding size 16 of Buffer with '' label is less than minimum 32",
   "the 32 byte block of gpu.mjs is accepted by the same binding": "accepted"

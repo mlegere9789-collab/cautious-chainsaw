@@ -114,6 +114,14 @@ OVERRIDES = {
     ('battleofgettysbu00haskuoft', 40): ('11', 'footer folio', 'in the OCR text of this edition the folio is a bracketed number at the end of each page ("[11]" ends this leaf, "[10]" ends the leaf before; the preface ends its pages with [xxi], [xxii], [xxiii]); the page heads alternate "GETTYSBURG" (odd pages) and "FRANK A. HASKELL" (even pages) and this leaf has "GETTYSBURG"; the item page index gives no numbers'),
     # Barton 1898: table of contents (front matter)
     ('angelsofbattlefi00bart', 23): (None, 'front matter', 'the quotation is a line of the table of contents (front matter); the scan leaf carries no printed page number in the OCR text or in the item page index'),
+    # New York at Gettysburg vol. 1: first page of the text proper, head without number
+    ('newyorkatgettysb0001unse', 13): ('7', 'sequence+index', 'the OCR head of this leaf reads "NEW YORK AT GETTYSBURG." without its number; the heads of the neighbouring leaves read 6 (leaf 12) and 8 (leaf 14) and the item page index gives 7'),
+    # Cheney 1901: numeral of the head damaged ("Ill" for 111)
+    ('historyofninthre00chen', 123): ('111', 'sequence+index', 'the OCR head reads "JOHN BURNS AT GETTYSBURG. Ill" (the numeral is damaged and stands for 111); the heads of the neighbouring leaves read 110 (leaf 122) and 112 (leaf 124) and the item page index gives 111'),
+    # DTIC ADA207999 (A Communicator's Guide to the Gettysburg Campaign, 1989): a typescript report whose folio stands at the FOOT of each page; read on the page images (PDF pages 13, 14, 15 = leaves 12, 13, 14)
+    ('DTIC_ADA207999', 12): ('8', 'footer folio', 'the folio "8" is printed at the foot of this page (page image of PDF page 13 read) and the item page index gives 8 for leaf 12'),
+    ('DTIC_ADA207999', 13): ('9', 'footer folio', 'the folio "9" is printed at the foot of this page (page image of PDF page 14 read) and the item page index gives 9 for leaf 13'),
+    ('DTIC_ADA207999', 14): ('10', 'footer folio', 'the folio "10" is printed at the foot of this page (page image of PDF page 15 read) and the item page index gives 10 for leaf 14'),
 }
 # a passage that belongs to another work bound into the same archive.org item: (source id, text offset) -> new source id
 RENAME = {('NY-GB-1900-v2', 1523268): 'CHANC-1910'}

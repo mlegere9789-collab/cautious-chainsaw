@@ -30,10 +30,31 @@ GOV = os.path.abspath(os.path.join(calib.CA_DOCS, '..', '..', '..'))
 OUT_T = os.path.join(GOV, 'timeline_corrections', 'web-newspapers.jsonl')
 OUT_E = os.path.join(GOV, 'evidence_corrections', 'web-newspapers.jsonl')
 VIEWED_DEFAULT = '2026-11-13'   # date of the first image readings (an overlay or cite may carry its own 'viewed')
+SEARCHED_ON = '2026-11-16'      # date of the last run of the lookups over the saved pages (set by hand when the saved set or the patterns change)
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 
 PAGE_REPRINT = {}
+
+
+LENIENT = '--lenient' in sys.argv     # fragment problems are printed as warnings instead of stopping the build
+_VALID = None
+
+
+def valid_ids():
+    """timeline rows (T1-001 ..), epilogue rows (E-001 ..), requirement items (R03.C-037, R15.0000 ..) that exist in the governance files"""
+    global _VALID
+    if _VALID is None:
+        v = set()
+        for fn in ('timeline_seed.jsonl', 'epilogue_seed.jsonl'):
+            for l in open(os.path.join(GOV, fn), encoding='utf-8'):
+                if l.strip():
+                    v.add(json.loads(l)['id'])
+        req = json.load(open(os.path.join(GOV, 'requirements.json'), encoding='utf-8'))
+        for sr in req['sub_requirements']:
+            v.add(sr['id'])
+        _VALID = v
+    return _VALID
 
 
 def load_modules():
@@ -208,6 +229,8 @@ def shares(pid, quote, man, window_days=3):
     grams = [g for g in grams if len(g) > 12]
     if len(grams) < 3:
         return []
+    step = max(1, len(grams) // 12)
+    sample = grams[::step][:12]
     out = []
     for oid, om in man.items():
         if oid == pid or om['lccn'] == man[pid]['lccn'] and om['date'] == man[pid]['date']:
@@ -215,6 +238,8 @@ def shares(pid, quote, man, window_days=3):
         if abs((datetime.date.fromisoformat(om['date']) - d0).days) > window_days:
             continue
         t = norm_page(oid)
+        if not any((' ' + g + ' ') in t for g in sample):
+            continue   # speed: a page that shares 35 percent of the shingles holds at least one of 12 evenly spaced ones (checked against the full count in the first build)
         hit = sum(1 for g in grams if (' ' + g + ' ') in t)
         if hit / len(grams) >= 0.35:
             out.append({'page_id': oid, 'newspaper': (paper_display(om['lccn']) or om.get('paper') or '').split(' (')[0],
@@ -333,7 +358,7 @@ def run_lookup(spec, man):
     titles = sorted({man[p]['lccn'] for p in pages})
     return {'patterns': spec['patterns'], 'window': list(spec['window']), 'pages_searched': len(pages), 'titles_searched': len(titles),
             'page_list_in': 'pages.jsonl (the saved pages of the window; the saved set is what searches and issue enumeration returned, not every page printed)',
-            'hits': len(hits), 'hit_pages': hits[:12], 'searched_on': RETRIEVED, 'method': 'regular expressions over the saved reading text, line-end hyphens joined, case-insensitive'}
+            'hits': len(hits), 'hit_pages': hits[:12], 'searched_on': SEARCHED_ON, 'method': 'regular expressions over the saved reading text, line-end hyphens joined, case-insensitive'}
 
 
 def build():
@@ -342,6 +367,7 @@ def build():
     seen = set()
     lines_t, lines_e = [], []
     errors = []
+    warnings = []
     for c in claims:
         cites = []
         for x in c['cites']:
@@ -351,6 +377,17 @@ def build():
                 errors.append('[%s %s] %s' % (c['_module'], c['key'], e))
         if len(cites) != len(c['cites']):
             continue
+        bad = check_fragments(c, cites)
+        if bad:
+            msg = ['[%s %s] sub_claim fragment not found in any print reading, quote, dateline or attribution of its citations: "%s"' % (c['_module'], c['key'], b[:140]) for b in bad]
+            if LENIENT:
+                warnings.extend(msg)
+            else:
+                errors.extend(msg)
+                continue
+        for tid in c['ids']:
+            if tid not in valid_ids():
+                errors.append('[%s %s] unknown id %s' % (c['_module'], c['key'], tid))
         papers = sorted({x['lccn'] for x in cites})
         for tid in c['ids']:
             k = (tid, c['_module'], c['key'])
@@ -379,6 +416,9 @@ def build():
                     line[k2] = c[k2]
             (lines_t if is_timeline else lines_e).append(line)
     for spec in load_lookups():
+        for tid in spec['ids']:
+            if tid not in valid_ids():
+                errors.append('[lookup %s] unknown id %s' % (spec['key'], tid))
         res = run_lookup(spec, man)
         for tid in spec['ids']:
             is_timeline = bool(re.match(r'^(E|T\d)-\d+$', tid))
@@ -389,9 +429,11 @@ def build():
                     'tier': None, 'state_date': spec.get('state_date'), 'lookup': dict(res, hits_note=spec.get('hits_note')),
                     'remains_unsupported': spec.get('remains') or 'the item stays unsupported by the newspapers read; a miss in the saved pages is not evidence that no paper printed it'}
             (lines_t if is_timeline else lines_e).append(line)
+    if warnings:
+        print('\n'.join('WARNING ' + w for w in warnings))
     if errors:
         print('\n'.join(errors))
-        raise SystemExit('%d cite(s) failed; nothing written' % len(errors))
+        raise SystemExit('%d problem(s); nothing written' % len(errors))
     return lines_t, lines_e
 
 

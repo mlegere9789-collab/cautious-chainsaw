@@ -2,7 +2,7 @@
 // Every time change here goes through the user interface (the scrubber's input event and the keyboard), not through the page's own API.
 //   node --test docs/battle-theatre/app/tests/scrub.spec.mjs
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { startServer, launch, open, enter } from './lib.mjs';
+import { startServer, launch, open, enter, SLOW } from './lib.mjs';
 
 let S, B, page, ctx, log;
 test.before(async () => { S = await startServer(10782); B = await launch(); ({ ctx, page, log } = await open(B, S.base)); await enter(page); });
@@ -57,20 +57,26 @@ test('no unit pops while playing at 60x: every unit moves at most double-quick s
   // start two sim minutes before the 100th arrival, so that a few units march in during the run
   const start = await page.evaluate(() => { const a = window.btApp; return Math.min(...a.layer.units.filter(u => u.drawn).map(u => a.stage.arrivals.get(u.id).default)) - 2; });
   await page.locator('#bt-slider').fill(String(Math.floor(start))); await frames(3);
-  const res = await page.evaluate(async () => {
-    const a = window.btApp, st = a.stage, n = a.layer.units.length, W = st.T.W / 2, H = st.T.H / 2; a.setPlaying(true); await a.frames(30);
+  // The two spans of this run are spans of the PAGE'S OWN CLOCK (0.5 s of warm-up while the rate eases in, then 4 s), not frame counts: a frame advances that clock by min(frame time, SLOW.stepMs)
+  // (theatre.mjs loop: dt = min(0.1, dtMs / 1000)). On a real GPU 30 frames are 0.5 s of it and 240 frames 4 s, exactly the old counts; on a renderer that needs seconds a frame the same
+  // counts would cover 3 and 24 SIMULATED minutes, the earliest arrival (two minutes after the start) would fall into the warm-up and the last assertion (a run that covers an arrival) could not hold.
+  // Node check of both frame times with the real layer: tmp/bt-spec/pre/scrub-node.mjs (20 units enter in the measured span at 16.7 ms and at 100 ms a frame). lib.mjs: the one knob.
+  const res = await page.evaluate(async ({ step }) => {
+    const a = window.btApp, st = a.stage, n = a.layer.units.length, W = st.T.W / 2, H = st.T.H / 2; a.setPlaying(true);
+    const run = async (ms, each) => { let acc = 0; while (acc < ms) { const t0 = performance.now(); await a.frames(1); acc += Math.min(step, performance.now() - t0); if (each) each(); } };
+    await run(500);
     let prevX = Float32Array.from(st.cx), prevZ = Float32Array.from(st.cz), prevP = Uint8Array.from(st.present), prevT = a.state.t; let maxStep = 0, enters = 0, leaves = 0, badEnter = 0, badLeave = 0, frames = 0, tSpan = 0;
-    for (let f = 0; f < 240; f++) {
-      await a.frames(1); frames++; const t = a.state.t, dtMin = t - prevT;
+    await run(4000, () => {
+      frames++; const t = a.state.t, dtMin = t - prevT;
       for (let i = 0; i < n; i++) {
         if (st.present[i] && prevP[i]) { const d = Math.hypot(st.cx[i] - prevX[i], st.cz[i] - prevZ[i]); const bound = dtMin * 60 * 2.4384 * 1.01 + 0.5; if (d > bound) maxStep = Math.max(maxStep, d - bound); }
         else if (st.present[i] && !prevP[i]) { enters++; if (!(Math.abs(st.cx[i]) > W - 150 || Math.abs(st.cz[i]) > H - 150)) badEnter++; }
         else if (!st.present[i] && prevP[i]) { leaves++; if (!(Math.abs(prevX[i]) > W - 150 || Math.abs(prevZ[i]) > H - 150)) badLeave++; }
       }
       tSpan += dtMin; prevX.set(st.cx); prevZ.set(st.cz); prevP.set(st.present); prevT = t;
-    }
+    });
     a.setPlaying(false); return { maxStep, enters, leaves, badEnter, badLeave, frames, simHours: tSpan / 60 };
-  });
+  }, { step: SLOW.stepMs });
   console.log(`# 60x playback: ${res.frames} frames, ${res.simHours.toFixed(1)} sim hours; ${res.enters} units entered, ${res.leaves} left; largest excess step beyond marching speed ${res.maxStep.toFixed(3)} m; entries/exits on the loaded ground: ${res.badEnter}/${res.badLeave}`);
   assert.equal(res.badEnter, 0, 'a unit appeared on the loaded ground instead of marching in'); assert.equal(res.badLeave, 0); assert.ok(res.maxStep < 0.01, `a unit jumped ${res.maxStep} m beyond marching speed`); assert.ok(res.enters > 0, 'the run covered at least one arrival');
 });

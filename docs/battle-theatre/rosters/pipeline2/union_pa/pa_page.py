@@ -86,20 +86,33 @@ def heading_of(toks):
         return ('unassigned', '')
     if re.search(r'^recruits?$', k) or re.search(r'unattached|unas', k):
         return ('unassigned', '')
-    t0 = re.sub(r'[^A-Za-z0-9]', '', toks[0])
-    is_co = bool(re.match(r'^(Company|COMPANY|Battery|BATTERY|Troop|TROOP)$', t0)) or (
-        len(t0) >= 6 and T.lev(t0.lower(), 'company', 2) <= 2 and t0[0] in 'CcOo') or (len(t0) >= 6 and T.lev(t0.lower(), 'battery', 2) <= 2)
-    if is_co:
-        # "Company H." / "Company H. recruited at ..." / "Company I was disbanded ..." is a heading only when the word is followed by one short
-        # letter token (the company) and nothing that reads as a date; "company, June 13, 1864." is the end of a remark
-        if len(toks) >= 2:
-            t1 = re.sub(r'[^A-Za-z0-9]', '', toks[1])
-            if len(t1) == 1 or (len(t1) == 2 and t1[0] == t1[1]):
-                if len(toks) == 2 or not any(T.is_month(t) for t in toks):
-                    return ('company', t1[0].upper())
-            if len(toks) <= 3 and t1 == '':
-                return ('company', '?')
-        elif len(toks) == 1:
+    # company / battery heading: the word "Company" (or Battery, Troop) may be split or damaged by the text layer ("Co MPAN T B .", "COMPAjVfY G.")
+    acc, k = '', 0
+    word = None
+    while k < len(toks) and len(acc) < 7:
+        acc += re.sub(r'[^A-Za-z0-9]', '', toks[k])
+        k += 1
+    accl = acc.lower()
+    if len(accl) >= 7 and accl[0] in 'cb' and len(toks) <= 8:
+        if accl[0] == 'c' and T.lev(accl[:7], 'company', 2) <= 2:
+            word = 'company'
+        elif accl[0] == 'b' and T.lev(accl[:7], 'battery', 2) <= 2:
+            word = 'battery'
+    if word is None and len(accl) == 5 and accl == 'troop':
+        word = 'troop'
+    if word and not any(T.is_month(t) for t in toks):
+        rest = toks[k:]
+        extra = len(acc) - 7
+        if k == 1 and extra >= 2:
+            pass                                   # one damaged word of 9 or 10 characters: the word itself, the letter follows
+        elif extra == 1 and not rest:
+            return ('company', acc[7].upper() if acc[7].isalpha() else '?')   # the letter glued to the word ("COMPANYB.")
+        if not rest:
+            return ('company', '?')
+        t1 = re.sub(r'[^A-Za-z0-9]', '', rest[0])
+        if len(t1) == 1 or (len(t1) == 2 and t1[0] == t1[1]):
+            return ('company', t1[0].upper())
+        if t1 == '' or RECRUIT_RE.match(t1):
             return ('company', '?')
     return None
 
@@ -256,6 +269,11 @@ def analyse_leaf(rec, ctx):
             continue
         if not has_month and RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', toks[0])) and (xn is None or x0 > xn + 0.04 * W) and len(toks) >= 2:
             out['items'].append(('skip', 'recruited', txt, y))
+            prev_items = [it for it in out['items'][:-1] if it[0] in ('heading', 'row', 'skip', 'orphan')]
+            near_heading = any(it[0] == 'heading' and y - it[-1] < 2.6 * (pitch0 or 40) for it in out['items'][-3:-1])
+            if not near_heading and x0 > (xn if xn is not None else 0) + 0.12 * W:
+                # the line that says where the company was recruited stands without the heading above it: the heading was lost by the text layer
+                out['items'].insert(len(out['items']) - 1, ('heading', 'company', '?', '(inferred from the recruited line) ' + txt, y - 1))
             last_row = None
             continue
         if not has_month and not right and left_alnum and all(T.core(w['w']).isdigit() or T.core(w['w']).lower() in ('vol', 'il', 'ill', 'iii', 'ii', 'iv', 'v', 'i', 'l') for w in left_alnum):

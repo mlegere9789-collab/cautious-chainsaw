@@ -47,7 +47,7 @@ def find_runs(words, quote):
             for prev, w in zip(seg, seg[1:]):
                 px, py, pw, ph = prev[4]
                 x, y, ww, hh = w[4]
-                if y < py - 6 * max(ph, 20) or x > px + 2500 or x < px - 2500:
+                if y < py - 8 * max(ph, 60):      # the reading jumped back up the page: the next column starts here
                     runs.append(cur)
                     cur = []
                 cur.append(w)

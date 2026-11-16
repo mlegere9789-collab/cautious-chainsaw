@@ -38,7 +38,7 @@ FACTS = [
 ]
 OWED = [
  "The second-OCR comparison of the numerals of every Official Records quote (tmp/tl-03/audit/ocr2.py; queued under the machine lock on 2026-11-14 at 00:44 and again on 2026-11-16 at 00:15) " + (open(os.path.join(HERE, 'audit', 'ocr2_status.txt'), encoding='utf-8').read().strip() if os.path.exists(os.path.join(HERE, 'audit', 'ocr2_status.txt')) else "had not run when this report was written") + ": a digit that looks clean in the OCR text but is wrong (13 for 12 was found by hand, not by this comparison) is found only by it. Run `tools/horde/bench.sh python3 -I tmp/tl-03/audit/ocr2.py` (it caches each page, so a restart resumes) and read tmp/tl-03/audit/ocr2_report.txt; until then the digit checks are those listed above (heuristic search for suspect tokens, and the passages read on page images).",
- "Only the header strip of each cited leaf (%d leaves) and the passages named above were looked at on page images; the rest of each cited page was not read on the image." % len(leaves),
+ "Only the header strip of each cited leaf (@LEAVES@ leaves) and the passages named above were looked at on page images; the rest of each cited page was not read on the image.",
  "Pages of National Park Service texts are the PDF page of the text layer (marked as such); one leaf of a short pamphlet (Ohio dedication volume 1887, T1-128) has no printed page number.",
  "Searched in the Official Records and the library and not found in any local text: the hours of Kilpatrick's and Merritt's moves on Jul 1 and Pleasonton's own position (T1-116); the arrival hour of each First Corps battery (T1-117); the hour at which Carter's battalion opened and any loss of Fry's battery at Gettysburg (T1-118); the hour of Pettigrew's and Brockenbrough's arrival (T1-119); Howard's 'a little after one' and the hour the Third Division entered the town (T1-120); Lee's arrival hour in the Official Records (T1-124); a strength of Iverson's and of Gordon's brigade (T1-129, T1-144); the weather of Jul 1 from Jacobs (T1-132); Tillie Pierce's age (T1-139); counts of wounded at the Spangler farm (T1-140); the hour of Paul's wound (T1-141); the hour of the death of Fowler and of Wilkeson (T1-146; Wilkeson: that night, in the Almshouse, no hour); Heth's 24 hours (T1-153); Perrin's 50-yard gap (T1-155); the 298 men and 35 of the 16th Maine (T1-161); where Schimmelfennig hid as a midden (T1-162); Coster's 313 captured (T1-166); Lauson of the 55th Virginia (T1-171); the Seminary hospital figures (T1-170). Each search is in search_log.jsonl and in the register entries.",
  "Hosts blocked or not served, not retried and not worked around: HathiTrust and eHistory (bot block); the HMDB markers 17936 and 17939 (the host did not serve the page): the owner may read them in a browser and send the text.",
@@ -119,6 +119,6 @@ A('Promotion proposed: %s. Demotions against the seed: %s. Unchanged: %d rows. A
 A('')
 A('## What is not done or owed')
 for l in OWED:
-    A('- ' + l)
+    A('- ' + l.replace('@LEAVES@', str(len(leaves))))
 open(os.path.join(SH, 'REPORT.md'), 'w', encoding='utf-8', newline='\n').write('\n'.join(md) + '\n')
 print('REPORT.md written,', len(md), 'lines')

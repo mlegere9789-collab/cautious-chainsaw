@@ -10,8 +10,10 @@ Written 2026-11-16 by workstream bt-gates (runner `tools/bt/gates/q23_marking.py
 6. **Figure choices** (Q23.3): 8 of 55 choices in `app/data/figures3d/TIERS.json` that are not documented declare `mark: "none"` (the ninth, `none (internal)`, is excluded as not visible).
 7. The picture part of Q23 (frames at the default overlay state; legibility at night, Q10.6) is NOT-RUN in the runner and owed on `app/tests/ui.spec.mjs` and `sky.spec.mjs` run through `tools/horde/bench.sh`, with a person looking at the saved images (U-10).
 
+8. **Register entries with no marking** (Q23.7; 11 of 385 entries whose tier is not documented): EG-0006 (`Product marking: n/a`), EG-0137 and EG-0139 (`None`), EG-0292 to EG-0299 (`not stated by the shard proposal`). The proposer of each entry states the marking that the product shows for it, or states that the entry has no product content (EG-0006 is a note on the PDF's row count). `tools/bt/check_coverage.py` counts 10 because its pattern does not treat `n/a` as missing; the runner counts 11 and is not relaxed (only the owner decides a narrower reading).
+
 ## The exact change asked for
 
-The edits named in 1 to 6. Re-run `python3 tools/bt/gates/q23_marking.py` (6 s) to see each item move.
+The edits named in 1 to 6 and 8. Re-run `python3 tools/bt/gates/q23_marking.py` (6 s) to see each item move.
 
 When done, append `-- handled: <what was done>` to this note with a shell `>>`.

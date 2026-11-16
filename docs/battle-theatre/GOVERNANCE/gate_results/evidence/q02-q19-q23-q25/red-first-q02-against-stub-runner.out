@@ -320,12 +320,12 @@ FAIL: test_number_of_the_claim_missing_from_the_extract_is_fail (__main__.Q02.te
 ----------------------------------------------------------------------
 Traceback (most recent call last):
   File "/home/user/cautious-chainsaw/tests/governance/gates/test_q02.py", line 110, in test_number_of_the_claim_missing_from_the_extract_is_fail
-    self.fails(self.go(w), 'not in the extract', 'Q02/Q02.3/t.things')
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    self.fails(self.go(w), 'not in the span', 'Q02/Q02.3/t.things')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/user/cautious-chainsaw/tests/governance/gates/test_q02.py", line 28, in fails
     self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: [] is not true : no FAIL item with 'not in the extract' under Q02/Q02.3/t.things; FAIL items: []
+AssertionError: [] is not true : no FAIL item with 'not in the span' under Q02/Q02.3/t.things; FAIL items: []
 
 ======================================================================
 FAIL: test_open_gap_without_register_entry_is_fail (__main__.Q02.test_open_gap_without_register_entry_is_fail)
@@ -424,6 +424,6 @@ Traceback (most recent call last):
 AssertionError: [] is not true : no FAIL item with 'names no tier' under Q02/Q02.2/t.things; FAIL items: []
 
 ----------------------------------------------------------------------
-Ran 35 tests in 4.752s
+Ran 35 tests in 5.617s
 
 FAILED (failures=31, errors=3)

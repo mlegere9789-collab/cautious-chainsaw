@@ -203,12 +203,12 @@ test('WebGL2 shaders: the fade word is decoded as lod.mjs packs it, every level 
 test('WebGPU shaders: the same decode, the same discards, the same hashes, band and dab as the WebGL2 ones', () => {
   const W = wgsl('/*common*/ fn hsh(n0: u32) -> f32 { return 0.0; }'), strip = s => s.replace(/\s+/g, ' ');
   assert.match(W, /f32\(P & 65535u\) \/ 65534\.0/); assert.match(W, /if \(hi < 65534u\) \{ h = f32\(hi\) \/ 65534\.0; \}/); assert.match(W, /hsh\(fig \* 7u \+ 3u\)/); assert.match(W, /if \(P == 0u\) \{ return vec3f\(0\.0, 2\.0, 0\.0\); \}/);
-  assert.match(W, /o\.fade = fadeOf\(v\.iI\.w, v\.iI\.x\)/); assert.match(W, /if \(!fadeKeep\(i\.fade, i\.pos\.xy\)\) \{ discard; \}/); assert.match(W, /n >= f\.x && n < f\.y/);
+  assert.match(W, /o\.fade = fadeOf\(v\.iI\.w, v\.iI\.x\)/); assert.match(W, /if \(!fadeKeep\(i\.fade, fragXY\(i\.pos\)\)\) \{ discard; \}/); assert.match(W, /fn fragXY\(p: vec4f\) -> vec2f \{ return vec2f\(p\.x, F\.scr\.y - p\.y\); \}/); assert.match(W, /n >= f\.x && n < f\.y/);
   assert.match(W, /hsh\(ii \* 13u \+ 5u\)/); assert.match(W, /hsh\(ii \* 7u \+ 3u\)/); assert.match(W, /t \* t \* \(3\.0 - 2\.0 \* t\)/); assert.match(W, /\(nu - r \* \(1\.0 - b\)\) \/ \(2\.0 \* r \* b\)/);
   assert.match(W, /floor\(\(1\.0 - sF\) \* 65534\.0 \+ 0\.5\)/); assert.match(W, /cfg\.r2 \* \(1\.0 - b\) \* \(1\.0 - hy\)/); assert.match(W, /1\.0 - bandS\(hpx \* fsc, cfg\.dab, b\)/); assert.match(W, /if \(hpx < 3\.0\)/);
-  assert.match(W, /view = floor\(yn \+ 0\.5\) % 8\.0; var fv = 0\.0; if \(b > 0\.0\) \{ view = floor\(yn\) % 8\.0; fv = fract\(yn\); \}/); assert.match(W, /fract\(ign\(i\.pos\.yx\) \+ fract\(i\.v\.w \* 7\.0 \+ 0\.37\)\) < i\.f\.z\) \{ view = \(view \+ 1\.0\) % 8\.0; \}/);
+  assert.match(W, /view = floor\(yn \+ 0\.5\) % 8\.0; var fv = 0\.0; if \(b > 0\.0\) \{ view = floor\(yn\) % 8\.0; fv = fract\(yn\); \}/); assert.match(W, /fract\(ign\(vec2f\(fc\.y, fc\.x\)\) \+ fract\(i\.v\.w \* 7\.0 \+ 0\.37\)\) < i\.f\.z\) \{ view = \(view \+ 1\.0\) % 8\.0; \}/);
   assert.ok(W.includes(`mix(1.0, ${LOD_DAB.w.toFixed(3)}, i.f.w)`) && W.includes(`${LOD_DAB.top.toFixed(3)} * i.f.w`) && W.includes(`${LOD_DAB.bottom.toFixed(3)} * i.f.w`)); assert.ok(W.includes(`smoothstep(${LOD_DAB.lowPx.toFixed(1)}, cfg.dab, hpx * fsc)`));
-  assert.match(W, /if \(n < i\.f\.x\) \{ discard; \}/); assert.match(W, /\(n - i\.f\.x\) \/ \(1\.0 - i\.f\.x\)/); assert.match(W, /uu < i\.f\.y/); assert.match(strip(W), /struct Cfg \{ tpf: u32, pad0: u32, r2: f32, band: f32, hyst: f32, dab: f32, pad2: f32, pad3: f32 \}/);
+  assert.match(W, /let fc = fragXY\(i\.pos\); let n = fract\(ign\(fc\) \+ i\.v\.w\); if \(n < i\.f\.x\) \{ discard; \}/); assert.match(W, /\(n - i\.f\.x\) \/ \(1\.0 - i\.f\.x\)/); assert.match(W, /uu < i\.f\.y/); assert.match(strip(W), /struct Cfg \{ tpf: u32, pad0: u32, r2: f32, band: f32, hyst: f32, dab: f32, pad2: f32, pad3: f32 \}/);
   // the two ports use one set of constants
   for (const [a, b] of [[/65534\.0/g, 65534.0]]) { void a; void b; } assert.equal((W.match(/65534\.0/g) || []).length >= 4, true);
 });

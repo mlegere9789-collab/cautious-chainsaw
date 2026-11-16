@@ -1,0 +1,11 @@
+OK   test 1: 61 sequential states vs 61 random-access seeks: 0 differ (spec: 0)
+OK   header seed 1863 code bt-sim-0.1 input hash e493b054
+OK   test 4, real GPU, 240 frames: warm-up ended 0.35 sim min after the start (earliest arrival at +2), 240 measured frames covering 3.99 sim min; enters 20, leaves 0, bad enters 0, bad leaves 0, largest excess step 0.0000 m (spec: 0, 0, < 0.01 m, enters > 0)
+FAIL test 4, software renderer (dt capped at 0.1 s), 240 frames as the spec has it: warm-up ended 2.88 sim min after the start (earliest arrival at +2), 240 measured frames covering 24.00 sim min; enters 0, leaves 0, bad enters 0, bad leaves 0, largest excess step 0.0000 m (spec: 0, 0, < 0.01 m, enters > 0)
+FAIL test 4, software renderer, measuring until the clock has advanced 4 sim minutes (the span 240 frames cover at 60 frames per second): warm-up ended 2.88 sim min after the start (earliest arrival at +2), 41 measured frames covering 4.10 sim min; enters 0, leaves 0, bad enters 0, bad leaves 0, largest excess step 0.0000 m (spec: 0, 0, < 0.01 m, enters > 0)
+OK   test 4, real GPU, spans of the page clock as the fixed spec will take them (0.5 s warm-up, 4 s measured): warm-up ended 0.35 sim min after the start (earliest arrival at +2), 241 measured frames covering 4.01 sim min; enters 20, leaves 0, bad enters 0, bad leaves 0, largest excess step 0.0000 m (spec: 0, 0, < 0.01 m, enters > 0)
+OK   test 4, software renderer, spans of the page clock as the fixed spec will take them (0.5 s warm-up, 4 s measured): warm-up ended 0.39 sim min after the start (earliest arrival at +2), 40 measured frames covering 4.00 sim min; enters 20, leaves 0, bad enters 0, bad leaves 0, largest excess step 0.0000 m (spec: 0, 0, < 0.01 m, enters > 0)
+
+real	0m10.872s
+user	0m2.756s
+sys	0m0.143s

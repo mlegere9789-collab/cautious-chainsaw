@@ -32,16 +32,15 @@ def next_letter(prev):
 def resolve_letter(raw, prev):
     """The company letter of a heading: (letter, inferred).  A damaged letter is replaced by the one the order of the headings gives."""
     exp = next_letter(prev)
-    if raw in RW.LETTERS:
-        if raw == exp:
-            return raw, False
-        if prev is not None and RW.LETTERS.index(raw) > RW.LETTERS.index(prev):
-            return raw, False
-        if raw == prev:
-            return raw, False
+    if raw == exp and raw in RW.LETTERS:
+        return raw, False
+    if raw == prev and raw in RW.LETTERS:
+        return raw, False
     if exp and (raw in ('?', '') or raw in RW.CONFUSE.get(exp, '') or raw.isdigit()):
         return exp, True
-    return (raw if raw in RW.LETTERS else (exp or '?')), True
+    if raw in RW.LETTERS and prev in RW.LETTERS and RW.LETTERS.index(raw) > RW.LETTERS.index(prev):
+        return raw, False            # letters skipped: the headings between were not found (reported as a gap in the sequence)
+    return (exp or '?'), True
 
 
 def process_unit(u, caches, assert_all=True):

@@ -16,5 +16,5 @@ L=[l for l in open(p,encoding='utf-8').read().split('\n') if l.strip() and 'bt-e
 open(p,'w',encoding='utf-8').write('\n'.join(L)+'\n')
 PY
 python3 -I tmp/fence-3/scripts/gen_report3.py
-for f in verify_or_light.py r2lib.py r2_a.py r2_b.py r2_c.py r2_assemble.py r2_assemble_lib.py r3lib.py r3_a.py r3_b.py r3_assemble.py r3_assemble_lib.py check_rows.py validate_r2.py verify_or.py triage.py gen_register_r3.py gen_report3.py update_request.py finalize_all.sh; do cp tmp/fence-3/scripts/$f $G/horde/fence-3/scripts/$f; done
+for f in r3_c.py verify_or_light.py r2lib.py r2_a.py r2_b.py r2_c.py r2_assemble.py r2_assemble_lib.py r3lib.py r3_a.py r3_b.py r3_assemble.py r3_assemble_lib.py check_rows.py validate_r2.py verify_or.py triage.py gen_register_r3.py gen_report3.py update_request.py finalize_all.sh; do cp tmp/fence-3/scripts/$f $G/horde/fence-3/scripts/$f; done
 python3 -I tmp/fence-3/scripts/validate.py | tail -1

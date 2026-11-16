@@ -79,11 +79,7 @@ def best_window(qw, pw):
     return best
 
 
-def main():
-    pages = {}
-    for k in sorted(need):
-        pages[k] = page_text(*k)
-        print('ocr', k, len(pages[k]), flush=True)
+def compare(pages, final):
     lines = []
     nflag = nmatch = 0
     for r in rows:
@@ -92,11 +88,14 @@ def main():
                 continue
             lm = lms[c['part']]
             a, b = lm.at(c['text_offset']), lm.at(c['text_offset_end'] - 1)
-            txt = pages[(c['part'], a['leaf'])] + ('\n' + pages[(c['part'], b['leaf'])] if b['leaf'] != a['leaf'] else '')
+            ka, kb = (c['part'], a['leaf']), (c['part'], b['leaf'])
+            if ka not in pages or kb not in pages:
+                continue
+            txt = pages[ka] + ('\n' + pages[kb] if kb != ka else '')
             qw = toks(c['quote'])
             pw = toks(txt)
-            ratio, s, e = best_window(qw, pw)
-            win = ' '.join(pw[s:e])
+            ratio, s_, e_ = best_window(qw, pw)
+            win = ' '.join(pw[s_:e_])
             qn = nums(c['quote'])
             wn = nums(win)
             miss = sorted(x for x in qn if x not in wn)
@@ -106,7 +105,19 @@ def main():
                 lines.append('%s %s p.%s leaf %d | match %.2f | quote numerals missing from the tesseract window: %s\n    quote : %s\n    window: %s' % (
                     r['id'], c['key'], c['printed_page'], a['leaf'], ratio, miss, c['quote'][:200], win[:260]))
     rep = os.path.join(HERE, 'ocr2_report.txt')
-    open(rep, 'w', encoding='utf-8').write('\n'.join(lines) + '\n\ncitations compared %d, flagged %d\n' % (nmatch, nflag))
+    open(rep, 'w', encoding='utf-8').write('\n'.join(lines) + '\n\n%s: citations compared %d of %d, flagged %d; pages OCR-ed %d of %d\n' % (
+        'FINAL' if final else 'PARTIAL', nmatch, sum(1 for r in rows for c in r['citations'] if c['source_id'] == 'OR27'), nflag, len(pages), len(need)))
+    return nmatch, nflag, rep
+
+
+def main():
+    pages = {}
+    for n, k in enumerate(sorted(need), 1):
+        pages[k] = page_text(*k)
+        print('ocr', k, len(pages[k]), flush=True)
+        if n % 10 == 0:
+            compare(pages, False)
+    nmatch, nflag, rep = compare(pages, True)
     print('done: compared %d flagged %d -> %s' % (nmatch, nflag, rep))
 
 

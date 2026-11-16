@@ -20,9 +20,15 @@ async function session(extra = '') {
   return s;
 }
 // the camera over the unit, light fixed so only the unit's men can change the picture
+// STALE_TEST update (software run, round 1): since the effects layer is drawn, a picture is a function of the time AND of where the camera stood when the clock was put there. A seek replays the fire of
+// the last minutes (src/fx-host.mjs _drive/_replay) and the effects layer chooses, per musket shot, a near puff or the far fog AT SPAWN from the camera of that moment (src/fx3d/index.mjs onFire;
+// app/docs/FX3D-NOTES.md section 10, "LOD route of a shot is chosen at spawn from the camera then"; node reproduction tmp/bt-spec/pre/fx-camera-at-spawn.mjs: 40 of 40 shots near with the camera over
+// the unit, 0 of 40 with it high over the field). The first visit used to reach its time with the camera still far and every later visit with the camera over the unit, so "the same time gives the same
+// picture" compared two replays made from two cameras (48.9 % of the pixels differed on SwiftShader, diag-1-casualties-webgl2). Both visits now reach the time the same way: the camera is placed over the
+// unit after a first seek (that is where the unit stands from here to the end of the window), and the time is then reached again by a seek from half an hour earlier. Nothing asserted changes.
 async function aim(s, t0) {
   await s.at(t0); await s.page.evaluate(id => { const a = window.btApp, th = a.theatre, i = a.unitIds().indexOf(id); a.setPlaying(false); a.lock(true); const x = a.stage.cx[i], z = a.stage.cz[i], g = th.T.h(x, z); th.controls.flyTo({ x, y: g + 40, z: z - 6, yaw: 0, pitch: -1.45, fov: 50 }, 0); }, UNIT);
-  await s.frames(6);
+  await s.frames(6); await s.at(t0 - 30); await s.at(t0);
 }
 const REGION = { x: 380, y: 150, width: 520, height: 500 };
 

@@ -50,7 +50,7 @@ NOTES = {   # appended to the row's recheck text (becomes recheck_applied)
     'T1-131': 'Second reading 2026-11-16: the regimental commanders of the brigade named in the unit are cited from Rodes\' report.',
     'T1-132': 'Second reading 2026-11-16: the quote of the 104th New York sketch now carries the move north that the claim states.',
     'T1-133': 'Second reading 2026-11-16: Davis\' quote now carries "moving in line perpendicular to ours".',
-    'T1-134': 'Second reading 2026-11-16: Heth\'s sentence on Brockenbrough (held in check on the left, then drove the enemy in confusion) is cited.',
+    'T1-134': 'Second reading 2026-11-16: Heth\'s sentence on Brockenbrough is cited; scenario C no longer says nearly 15:45 (Rowley says nearly 4 o\'clock, Doubleday about 4 p. m.).',
     'T1-136': 'Second reading 2026-11-16: Doubleday\'s sentence now carries Meredith\'s brigade (the covering brigades) before the intrenchments.',
     'T1-137': 'Second reading 2026-11-16: Wainwright\'s sentence now carries the enemy\'s skirmishers that fired from the paling fence.',
     'T1-139': 'Second reading 2026-11-16: the headline text called the Weikert farm Tillie Pierce\'s grandparent\'s; the memoir says Jacob Weikert was the father of Mrs. Schriver, the neighbour with whom she went (corrected); the quotes now carry the request that she accompany Mrs. Schriver and her parents\' consent, the way out Baltimore Street into the cemetery, the pump and the night, and her walk home with Mrs. Schriver and the children.',
@@ -138,7 +138,9 @@ def apply(ROWS):
     sub_edit('T1-129', 4, claim='Iverson: 500 of his men were left lying dead and wounded on a line as straight as a dress parade')
     sub_append('T1-146', 'New York at Gettysburg vol.1 (1900): Wilkeson, a young officer only nineteen years old, was fatally wounded early in the action by a shot from the enemy\'s artillery and was carried to the Almshouse, where he died that night within the Confederate lines (no hour)', 'documented', 'supported', ['w_alms'])
     sub_edit('T1-146', 6, claim='The hour of Fowler\'s death and of Wilkeson\'s death (Wilkeson: that night, in the Almshouse, no hour); that either fell in a counterattack on the knoll')
-    by['T1-146']['remains'] = ['the hour of Fowler\'s death', 'the hour of Wilkeson\'s death (the narrative of 1900 says that night, in the Almshouse, and gives no hour)', 'that either fell in a late counterattack on Barlow\'s Knoll']
+    by['T1-146']['remains'] = ['the hour of Fowler\'s death and of Wilkeson\'s death (Wilkeson: that night, in the Almshouse, per the narrative of 1900; no hour)', 'that either fell in a late counterattack on Barlow\'s Knoll']
+    by['T1-146']['register']['recon'] = 'Fowler shown killed as the regiment deploys north of the town (no hour: after the regiment came in between 1 and 2 p. m. and before the retreat); Wilkeson shown mortally wounded in the artillery duel after 11:00 and dying that night in the Almshouse (no hour); names and ranks as the reports'
+    by['T1-146']['register']['impact'] = 'two officers fall on the north side of the town (Wilkeson dies that night in the Almshouse); no hour of either death is claimed'
     old_s = ' regex Fowler/Wilkeson: New York at Gettysburg vol.1 and the Connecticut volume are not in the library; the state volumes read give nothing earlier than the reports'
     new_s = ' regex Fowler/Wilkeson (first pass): the Connecticut volume is not in the library; second reading 2026-11-16: the New York volume of 1900 (in the library, NY-GB-1900) and Battles and Leaders vol.3 both say that Wilkeson died that night in the Almshouse (the New York volume is cited; the Battles and Leaders text layer is interleaved in two columns at that place and is not quoted); no text read gives an hour of the death of either officer'
     n_ = 0
@@ -152,6 +154,10 @@ def apply(ROWS):
     replace_in('T1-127', 'event', '(no hour printed)', '(no hour printed); through the night the troops are heard chopping, picking and shoveling on Cemetery Hill (a civilian, Tillie Pierce, 1889)')
     sub_edit('T1-132', 5, claim='The sketch of the 104th New York (New York at Gettysburg vol. 2, 1900): when the regiment was moved farther north towards the railroad track, "the day had become quite showery"')
     sub_edit('T1-134', 2, add_keys=['h_brock'])
+    for s_ in by['T1-134']['scenarios']:
+        if s_['id'] == 'C':
+            assert 'nearly 15:45 to about 16:00' in s_['value'], s_['value']
+            s_['value'] = 'General advance of the enemy at nearly 16:00 (Rowley: "until nearly 4 o\'clock") and about 16:00 (Doubleday) (Union clock)'
     sub_edit('T1-137', 4, claim='Wainwright: the enemy\'s skirmishers, who had lapped the retreating columns, fired from behind a paling fence running parallel to and within 50 yards of the road (the Cashtown pike)')
     replace_in('T1-139', 'event', 'her grandparent\'s farm, Jacob Weikert\'s,', 'the farm of Mrs. Schriver\'s father, Jacob Weikert,')
     replace_in('T1-139', 'text', 'and asked that Tillie come with her;', 'and requested that Tillie be permitted to accompany her (her parents consented);')
@@ -161,7 +167,7 @@ def apply(ROWS):
     sub_append('T1-141', 'Command of Paul\'s brigade after his fall: Robinson: it devolved successively on Colonels Leonard (13th Massachusetts), Root (94th New York) and Coulter (11th Pennsylvania); the 104th New York sketch (1900): after the two senior colonels were wounded Colonel Prey took command by order of General Robinson and kept it until the close of the first day\'s engagement', 'documented', 'conflict', ['r_succ', 'ny_prey'])
     replace_in('T1-141', 'unit', 'command to Colonels Leonard, Root, then Prey)', 'command to Colonels Leonard and Root, then Coulter (Robinson) or Prey (104th New York sketch): two accounts)')
     by['T1-141']['scenarios'] += [
-        sc('A', 'After Paul\'s fall the command devolved on Colonels Leonard, Root and Coulter (Coulter from about 17:00 in the cemetery)', 'Robinson OR27-1-R043 p.290; Coulter OR27-1-R044 p.293 (row T1-172)', 'documented', ['r_succ']),
+        sc('A', 'After Paul\'s fall the command devolved on Colonels Leonard, Root and Coulter (Robinson; Coulter took the command on Cemetery Hill, see row T1-172)', 'Robinson OR27-1-R043 p.290; Coulter OR27-1-R044 p.293 (row T1-172)', 'documented', ['r_succ']),
         sc('B', 'Colonel Prey (104th New York) took command by Robinson\'s order and kept it until the close of the first day\'s engagement', 'New York at Gettysburg vol.2 p.753 (the sketch of the 104th New York, 1900)', 'documented', ['ny_prey'])]
     by['T1-172']['scenarios'] += [
         sc('A', 'Colonel Coulter took command of the brigade about 17:00 on Cemetery Hill (Coulter; Robinson names Coulter last in the succession)', 'Coulter OR27-1-R044 p.293; Robinson OR27-1-R043 p.290', 'documented', ['c_trans', 'c_cmd', 'r_succ']),

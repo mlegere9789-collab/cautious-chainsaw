@@ -1,0 +1,500 @@
+[
+ {
+  "fid": "F-200",
+  "url": "https://www.loc.gov/item/2007630423/?fo=json",
+  "purpose": "retry ws-town L34 (timeout 2026-11-15): LOC map item record (allowed path /item/, JSON interface)",
+  "lk": [
+   "LKR-ws-town-L34"
+  ],
+  "max_time": 120,
+  "save": "item-2007630423.json"
+ },
+ {
+  "fid": "F-201",
+  "url": "https://www.npshistory.com/publications/civil_war_series/16/sec8.htm",
+  "purpose": "retry terrain-2 R13.P-04 (HTTP 502 three times on 2026-11-13): NPS Civil War Series, The Battle of Gettysburg, section 8",
+  "lk": [
+   "LKR-BH-terrain-2-R13.P-04#bh0"
+  ],
+  "max_time": 120,
+  "save": "cws16-sec8.htm"
+ },
+ {
+  "fid": "F-202",
+  "url": "https://www.nps.gov/gett/learn/news/gettysburg-foundation-buys-spangler-farm.htm",
+  "purpose": "retry of an NPS news page that answered CONNECT 403 on 2026-11-13 (F-051, F-139) although www.nps.gov is reachable",
+  "lk": [
+   "LKR-BH-fence-1-R14.S-016#bh1",
+   "LKR-T2-220"
+  ],
+  "max_time": 120,
+  "save": "spangler-news.htm"
+ },
+ {
+  "fid": "F-203",
+  "url": "https://acoustics.org/pressroom/httpdocs/136th/ross.htm",
+  "purpose": "retry of the refused host acoustics.org (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-b-R21.PG.ACOUSTICS"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-204",
+  "url": "https://aleteia.org/2024/07/09/the-daughters-of-charity-at-gettysburg-part-2-photos/",
+  "purpose": "retry of the refused host aleteia.org (one request; the rows that name it: 3)",
+  "lk": [
+   "LKR-BH-fence-1-R14.S-008#bh0",
+   "LKR-fence-1-L169",
+   "LKR-fence-1-L95"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-205",
+  "url": "https://blogs.loc.gov/loc/2023/11/where-did-lincoln-stand-while-delivering-the-gettysburg-address/",
+  "purpose": "retry of the refused host blogs.loc.gov (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-BH-fence-3-R14.S-083#bh0"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-206",
+  "url": "https://catalog-beta.data.gov/",
+  "purpose": "retry of the refused host catalog-beta.data.gov (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-b-R12.025.2"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-207",
+  "url": "https://catalog.data.gov/",
+  "purpose": "retry of the refused host catalog.data.gov (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-b-R12.026.2"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-208",
+  "url": "https://civilwarintheeast.com/",
+  "purpose": "retry of the refused host civilwarintheeast.com (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-BH-terrain-2-R13.P-06#bh0"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-209",
+  "url": "https://civilwartalk.com/threads/whitworths-at-gettysburg.129286/",
+  "purpose": "retry of the refused host civilwartalk.com (one request; the rows that name it: 2)",
+  "lk": [
+   "LKR-BH-terrain-1-R13.G-16#bh0",
+   "LKR-terrain-1-W8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-210",
+  "url": "https://davidrumsey.com/maps1100223-26914.html",
+  "purpose": "retry of the refused host davidrumsey.com (one request; the rows that name it: 3)",
+  "lk": [
+   "LKR-sources-a-rumsey",
+   "LKR-sources-a-rumsey2",
+   "LKR-sources-b-R21.PG.RUMSEY-1895"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-211",
+  "url": "https://digital.library.cornell.edu/catalog/may904002",
+  "purpose": "retry of the refused host digital.library.cornell.edu (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-tl-01-L3"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-212",
+  "url": "https://dmna.ny.gov/",
+  "purpose": "retry of the refused host dmna.ny.gov (one request; the rows that name it: 3)",
+  "lk": [
+   "LKR-BH-fence-2-R14.S-023#bh1",
+   "LKR-BH-fence-2-R14.S-025#bh0",
+   "LKR-fence-2-L14"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-213",
+  "url": "https://emergingcivilwar.com/2022/09/30/fence-friday-post-and-rail/",
+  "purpose": "retry of the refused host emergingcivilwar.com (one request; the rows that name it: 5)",
+  "lk": [
+   "LKR-BH-fence-1-R14.S-006#bh1",
+   "LKR-BH-terrain-1-R13.G-04#bh0",
+   "LKR-fence-1-L169",
+   "LKR-fence-1-L95",
+   "LKR-terrain-1-W8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-214",
+  "url": "https://en.wikipedia.org/wiki/Battle_of_Gettysburg,_first_day",
+  "purpose": "retry of the refused host en.wikipedia.org (one request; the rows that name it: 9)",
+  "lk": [
+   "LKR-BH-fence-1-R14.E-11#bh1",
+   "LKR-BH-fence-2-R14.S-051#bh0",
+   "LKR-BH-terrain-2-R13.P-01#bh2",
+   "LKR-BH-terrain-2-R13.P-02#bh0",
+   "LKR-BH-terrain-2-R13.P-05#bh0",
+   "LKR-BH-terrain-2-R13.P-07#bh0",
+   "LKR-fence-1-L169",
+   "LKR-fence-1-L95",
+   "LKR-terrain-1-W8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-215",
+  "url": "https://forum.game-labs.net/robots.txt",
+  "purpose": "retry of the refused host forum.game-labs.net (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-a-gamelabs_robots"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-216",
+  "url": "https://geodata.libraries.mit.edu/record/gisogm:edu.umn:3cfe346bdd99",
+  "purpose": "retry of the refused host geodata.libraries.mit.edu (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-a-not_requested-1"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-217",
+  "url": "https://gettysburg.stonesentinels.com/battlefield-farms/sherfy-farm/",
+  "purpose": "retry of the refused host gettysburg.stonesentinels.com (one request; the rows that name it: 27)",
+  "lk": [
+   "LKR-BH-fence-1-R14.E-15#bh1",
+   "LKR-BH-fence-2-R14.S-021#bh0",
+   "LKR-BH-fence-2-R14.S-030#bh0",
+   "LKR-BH-fence-2-R14.S-032#bh0",
+   "LKR-BH-fence-2-R14.S-036#bh0",
+   "LKR-BH-fence-2-R14.S-037#bh0",
+   "LKR-BH-fence-2-R14.S-040#bh0",
+   "LKR-BH-fence-2-R14.S-046#bh0",
+   "LKR-BH-fence-3-R14.S-053#bh0",
+   "LKR-BH-fence-3-R14.S-054#bh0",
+   "LKR-BH-fence-3-R14.S-055#bh0",
+   "LKR-BH-fence-3-R14.S-059#bh0",
+   "LKR-BH-fence-3-R14.S-063#bh0",
+   "LKR-BH-fence-3-R14.S-068#bh0",
+   "LKR-BH-fence-3-R14.S-071#bh0",
+   "LKR-BH-fence-3-R14.S-073#bh0",
+   "LKR-BH-fence-3-R14.S-079#bh0",
+   "LKR-BH-terrain-1-R13.G-01#bh0",
+   "LKR-BH-terrain-1-R13.G-05#bh0",
+   "LKR-BH-terrain-1-R13.G-06#bh0",
+   "LKR-BH-terrain-1-R13.G-12#bh0",
+   "LKR-BH-terrain-2-R13.P-01#bh1",
+   "LKR-fence-1-L169",
+   "LKR-fence-1-L95",
+   "LKR-fence-2-L11",
+   "LKR-fence-2-L163",
+   "LKR-terrain-1-W8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-218",
+  "url": "https://gettysburgfoundation.org/george-spangler-farm",
+  "purpose": "retry of the refused host gettysburgfoundation.org (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-BH-fence-1-R14.S-016#bh1"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-219",
+  "url": "https://gettysburghistory.org/our-holdings/",
+  "purpose": "retry of the refused host gettysburghistory.org (one request; the rows that name it: 6)",
+  "lk": [
+   "LKR-sources-a-achs",
+   "LKR-sources-b-R12.038.a",
+   "LKR-sources-b-R12.038.b",
+   "LKR-ws-town-L15",
+   "LKR-ws-town-L22",
+   "LKR-ws-town-L24"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-220",
+  "url": "https://irma.nps.gov/robots.txt",
+  "purpose": "retry of the refused host irma.nps.gov (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-b-R12.025.1"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-221",
+  "url": "https://libguides.gettysburg.edu/gettdigital",
+  "purpose": "retry of the refused host libguides.gettysburg.edu (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-b-R21.PG.GETTDIGITAL"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-222",
+  "url": "https://museum.dmna.ny.gov/unit-history/infantry-1/60th-infantry-regiment/historical-sketch",
+  "purpose": "retry of the refused host museum.dmna.ny.gov (one request; the rows that name it: 4)",
+  "lk": [
+   "LKR-BH-fence-1-R14.E-05#bh1",
+   "LKR-fence-1-L169",
+   "LKR-fence-1-L95",
+   "LKR-fence-2-L166"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-223",
+  "url": "https://npgallery.nps.gov/",
+  "purpose": "retry of the refused host npgallery.nps.gov (one request; the rows that name it: 3)",
+  "lk": [
+   "LKR-ws-town-L16",
+   "LKR-ws-town-L23",
+   "LKR-ws-town-L25"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-224",
+  "url": "https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212965",
+  "purpose": "retry of the refused host scrcguides.libraries.wm.edu (one request; the rows that name it: 2)",
+  "lk": [
+   "LKR-sources-a-not_requested-2",
+   "LKR-sources-a-wm212965"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-225",
+  "url": "https://storymaps.esri.com/stories/2013/gettysburg",
+  "purpose": "retry of the refused host storymaps.esri.com (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-a-not_requested-3"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-226",
+  "url": "https://www.battlefields.org/",
+  "purpose": "retry of the refused host www.battlefields.org (one request; the rows that name it: 6)",
+  "lk": [
+   "LKR-BH-fence-3-R14.S-062#bh1",
+   "LKR-BH-fence-3-R14.S-077#bh0",
+   "LKR-BH-terrain-1-R13.G-13#bh0",
+   "LKR-fence-1-L169",
+   "LKR-fence-1-L95",
+   "LKR-terrain-1-W8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-227",
+  "url": "https://www.civilwarnews.com/",
+  "purpose": "retry of the refused host www.civilwarnews.com (one request; the rows that name it: 2)",
+  "lk": [
+   "LKR-BH-terrain-1-R13.G-10#bh0",
+   "LKR-terrain-1-W8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-228",
+  "url": "https://www.crossroadsofwar.org/research/newspapers?id=6816",
+  "purpose": "retry of the refused host www.crossroadsofwar.org (one request; the rows that name it: 3)",
+  "lk": [
+   "LKR-fence-2-L12",
+   "LKR-fence-2-L168",
+   "LKR-fence-2-L8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-229",
+  "url": "https://www.davidrumsey.com/",
+  "purpose": "retry of the refused host www.davidrumsey.com (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-a-not_requested-4"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-230",
+  "url": "https://www.eyewitnesstohistory.com/",
+  "purpose": "retry of the refused host www.eyewitnesstohistory.com (one request; the rows that name it: 2)",
+  "lk": [
+   "LKR-BH-fence-3-R14.S-087#bh0",
+   "LKR-BH-fence-3-R14.S-088#bh0"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-231",
+  "url": "https://www.gettysburg.edu/",
+  "purpose": "retry of the refused host www.gettysburg.edu (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-b-R12.037.1"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-232",
+  "url": "https://www.gettysburgdaily.com/fences-constructed-along-the-emmitsburg-road/",
+  "purpose": "retry of the refused host www.gettysburgdaily.com (one request; the rows that name it: 16)",
+  "lk": [
+   "LKR-BH-fence-1-R14.E-05#bh0",
+   "LKR-BH-fence-1-R14.E-09#bh0",
+   "LKR-BH-fence-1-R14.E-12#bh1",
+   "LKR-BH-fence-1-R14.S-003#bh0",
+   "LKR-BH-fence-1-R14.S-006#bh0",
+   "LKR-BH-fence-2-R14.S-041#bh0",
+   "LKR-BH-fence-3-R14.S-062#bh1",
+   "LKR-BH-fence-3-R14.S-075#bh0",
+   "LKR-BH-terrain-1-R13.G-03#bh0",
+   "LKR-BH-terrain-1-R13.G-05#bh0",
+   "LKR-BH-terrain-2-R13.P-03#bh0",
+   "LKR-fence-1-L169",
+   "LKR-fence-1-L95",
+   "LKR-fence-2-L16",
+   "LKR-fence-2-L167",
+   "LKR-terrain-1-W8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-233",
+  "url": "https://www.historynet.com/",
+  "purpose": "retry of the refused host www.historynet.com (one request; the rows that name it: 21)",
+  "lk": [
+   "LKR-BH-fence-1-R14.E-02#bh0",
+   "LKR-BH-fence-1-R14.E-03#bh0",
+   "LKR-BH-fence-1-R14.S-016#bh0",
+   "LKR-BH-fence-2-R14.S-023#bh1",
+   "LKR-BH-fence-2-R14.S-025#bh0",
+   "LKR-BH-fence-2-R14.S-027#bh0",
+   "LKR-BH-fence-2-R14.S-028#bh0",
+   "LKR-BH-fence-2-R14.S-047#bh0",
+   "LKR-BH-fence-2-R14.S-049#bh0",
+   "LKR-BH-fence-3-R14.S-065#bh0",
+   "LKR-BH-fence-3-R14.S-066#bh0",
+   "LKR-BH-fence-3-R14.S-070#bh0",
+   "LKR-BH-fence-3-R14.S-072#bh0",
+   "LKR-BH-terrain-1-R13.G-02#bh0",
+   "LKR-BH-terrain-1-R13.G-16#bh0",
+   "LKR-BH-terrain-2-R13.P-09#bh0",
+   "LKR-fence-1-L169",
+   "LKR-fence-1-L95",
+   "LKR-fence-2-L13",
+   "LKR-fence-2-L164",
+   "LKR-terrain-1-W8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-234",
+  "url": "https://www.hmdb.org/m.asp?m=17939",
+  "purpose": "retry of the refused host www.hmdb.org (one request; the rows that name it: 14)",
+  "lk": [
+   "LKR-BH-fence-1-R14.E-05#bh2",
+   "LKR-BH-fence-1-R14.S-004#bh0",
+   "LKR-BH-fence-2-R14.S-019#bh0",
+   "LKR-BH-fence-2-R14.S-023#bh0",
+   "LKR-BH-fence-2-R14.S-041#bh0",
+   "LKR-BH-fence-2-R14.S-048#bh0",
+   "LKR-BH-fence-2-R14.S-048#bh1",
+   "LKR-fence-1-L169",
+   "LKR-fence-1-L95",
+   "LKR-fence-2-L15",
+   "LKR-fence-2-L165",
+   "LKR-fence-3-L18",
+   "LKR-terrain-1-W9",
+   "LKR-tl-01-L13"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-235",
+  "url": "https://www.maine.gov/civilwar/books/index.html",
+  "purpose": "retry of the refused host www.maine.gov (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-b-R21.PG.MAINE-BOOKS"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-236",
+  "url": "https://www.ncpedia.org/biography/pettigrew-james-johnston",
+  "purpose": "retry of the refused host www.ncpedia.org (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-tl-12-W8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-237",
+  "url": "https://www.savasbeatie.com/content/Titles/Fall%202014/Pickett%20Hessler/excerpt%20From%20Picketts%20Charge.pdf",
+  "purpose": "retry of the refused host www.savasbeatie.com (one request; the rows that name it: 2)",
+  "lk": [
+   "LKR-BH-fence-3-R14.S-062#bh0",
+   "LKR-fence-3-L15"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-238",
+  "url": "https://www.si.edu/openaccess",
+  "purpose": "retry of the refused host www.si.edu (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-sources-b-R21.PG.SI-OPENACCESS"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-239",
+  "url": "https://www.strategypage.com/",
+  "purpose": "retry of the refused host www.strategypage.com (one request; the rows that name it: 2)",
+  "lk": [
+   "LKR-BH-terrain-1-R13.G-14#bh0",
+   "LKR-terrain-1-W8"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-240",
+  "url": "https://www.thegettysburgexperience.com/",
+  "purpose": "retry of the refused host www.thegettysburgexperience.com (one request; the rows that name it: 2)",
+  "lk": [
+   "LKR-BH-fence-2-R14.S-049#bh0",
+   "LKR-fence-2-L169"
+  ],
+  "max_time": 30
+ },
+ {
+  "fid": "F-241",
+  "url": "https://www.thereconstructionera.com/",
+  "purpose": "retry of the refused host www.thereconstructionera.com (one request; the rows that name it: 1)",
+  "lk": [
+   "LKR-fence-2-L170"
+  ],
+  "max_time": 30
+ }
+]

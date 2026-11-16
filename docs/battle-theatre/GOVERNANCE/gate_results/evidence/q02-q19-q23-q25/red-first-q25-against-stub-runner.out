@@ -31,76 +31,76 @@ test_scheduled_with_no_work_queue_file_is_fail_not_pass (__main__.Q25.test_sched
 test_scheduled_without_reason_next_action_or_queue_entry_is_fail (__main__.Q25.test_scheduled_without_reason_next_action_or_queue_entry_is_fail) ... FAIL
 test_stale_block_is_fail_when_the_host_answered_later (__main__.Q25.test_stale_block_is_fail_when_the_host_answered_later) ... FAIL
 test_status_id_named_by_a_row_that_exists_nowhere_is_fail (__main__.Q25.test_status_id_named_by_a_row_that_exists_nowhere_is_fail) ... FAIL
-test_the_runner_writes_nothing_but_its_own_record (__main__.Q25.test_the_runner_writes_nothing_but_its_own_record) ... /home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/BIBLE/plan-clean.txt'>
+test_the_runner_writes_nothing_but_its_own_record (__main__.Q25.test_the_runner_writes_nothing_but_its_own_record) ... /home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/BIBLE/plan-clean.txt'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/fixture/acquisition_list.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/fixture/acquisition_list.json'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/fixture/library_ids.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/fixture/library_ids.json'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/library/status.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/library/status.json'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/library/acquired.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/library/acquired.json'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/library/terms.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/library/terms.json'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/library/work_queue.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/library/work_queue.json'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/register_index.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/register_index.json'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/register/EG-0001.md'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/register/EG-0001.md'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/terrain/terrain_sources.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/terrain/terrain_sources.json'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/app/data/audio3d/sources.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/app/data/audio3d/sources.json'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/app/data/audio3d/a1.ogg'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:328: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/app/data/audio3d/a1.ogg'>
   before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/BIBLE/plan-clean.txt'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/BIBLE/plan-clean.txt'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/fixture/acquisition_list.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/fixture/acquisition_list.json'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/fixture/library_ids.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/fixture/library_ids.json'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/library/status.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/library/status.json'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/library/acquired.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/library/acquired.json'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/library/terms.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/library/terms.json'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/library/work_queue.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/library/work_queue.json'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/register_index.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/register_index.json'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/GOVERNANCE/register/EG-0001.md'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/GOVERNANCE/register/EG-0001.md'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/terrain/terrain_sources.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/terrain/terrain_sources.json'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/app/data/audio3d/sources.json'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/app/data/audio3d/sources.json'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-44ilx_qj/repo/docs/battle-theatre/app/data/audio3d/a1.ogg'>
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:330: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-1_ml64_i/repo/docs/battle-theatre/app/data/audio3d/a1.ogg'>
   after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -507,6 +507,6 @@ Traceback (most recent call last):
 AssertionError: [] is not true : no FAIL item with 'unmapped status word' in Q25/; FAIL items: []
 
 ----------------------------------------------------------------------
-Ran 38 tests in 5.113s
+Ran 38 tests in 6.379s
 
 FAILED (failures=30, errors=5)

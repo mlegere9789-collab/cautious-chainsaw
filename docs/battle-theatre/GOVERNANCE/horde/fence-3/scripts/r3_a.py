@@ -36,7 +36,7 @@ def NPSBLDGS(a, b=None, note=None):
 @patch('S-053')
 def S053(d):
     p = P3(d)
-    c = p.cite(NPSX('NPS-BOUNDARY-1988', 'known as the Taney Farm, to the park. The farm was the site of intense skirmishing', 'during the battle.',
+    c = p.cite(NPSX('NPS-BOUNDARY-1988', 'donate 30 acres, known as the Taney Farm', 'during the battle.',
                     note='NPS Boundary Study (August 1988), pdf p.22 (the section on the boundary understanding of 1974): in 1986 a private conservation association tried to donate 30 acres known as the Taney Farm to the park. '
                          'The study names no building, no ruin and no fence; it does not say that the farm is the one on which the stone house of the New York volumes stood (an identification neither text makes).'))
     p.add('taney_farm_site_of_intense_skirmishing_nps_1988', 'The NPS Boundary Study of 1988 says that the Taney Farm (about 30 acres) "was the site of intense skirmishing between Union and Confederate troops during the battle"; it names no house, ruin or fence.',
@@ -143,6 +143,12 @@ def S063(d):
     s3['claim'] = s3['claim'].replace('195 panels', '194 panels').replace('$175', '$174')
     assert '194 panels' in s3['claim'] and '$174' in s3['claim'], s3['claim']
     s3['why'] = s3['why'] + ' Round 3: the figures are the page-image reading (194 panels, $174), not the text layer (195, $175).'
+    for sc in p.d['subclaims']:
+        if sc is s3:
+            continue
+        for k in ('claim', 'why'):
+            if k in sc and ('195 panels' in sc[k] or '$175' in sc[k]):
+                sc[k] = sc[k].replace('195 panels', '194 panels').replace('$175', '$174')
     # the other places that carried the OCR digits
     for k in ('corrected_claim',):
         if '195 panels' in p.d[k]:
@@ -392,6 +398,8 @@ def S084(d):
     p = P3(d)
     c = p.cite(NPSX('NPS-CLR-CEMETERY', 'After fighting ceased on July 3, 1863, the site', 'torn-up fields.', raw=True,
                     note='CLR 2017, printed p.24 (pdf p.43): the state of the national cemetery site after the fighting; hedged, the report says "At least one regiment held its position ... until July 5th, while others retreated immediately".'))
-    p.edit(5, add_cites=[c], why=p.sc(5)['why'] + ' Round 3: the NPS CLR (2017) says that after the fighting the site was left with "broken fences, clothing and supplies, damaged buildings, and torn-up fields" (July 1863, not 19 Nov); the CLR also says the Evergreen Association "probably made some initial repairs" in time for the dedication.')
+    rp = p.cite(NPSX('NPS-CLR-CEMETERY', 'the Evergreen Cemetery Association probably made some initial repairs in time for the national cemetery dedication on', 'November 19, 1863', raw=True,
+                     note='CLR 2017, printed p.54 (pdf p.73): the sentence begins "To the south, the Evergreen Cemetery Association probably made some initial repairs ..." and goes on to the repair of monuments, the plank fence on Baltimore Pike and the gatehouse; hedged ("probably").'))
+    p.edit(5, add_cites=[c, rp], why=p.sc(5)['why'] + ' Round 3: the NPS CLR (2017) says that after the fighting the site was left with "broken fences, clothing and supplies, damaged buildings, and torn-up fields" (July 1863, not 19 Nov); the CLR also says the Evergreen Association "probably made some initial repairs" in time for the dedication.')
     p.rev('Round 3: the NPS CLR (2017) statement on the state of the cemetery site after the fighting ("broken fences, clothing and supplies, damaged buildings, and torn-up fields") added to S-084.5 as July 1863 context; the state on 19 Nov 1863 stays inferred.')
     return p.finish()
