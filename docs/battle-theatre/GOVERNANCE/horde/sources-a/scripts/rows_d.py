@@ -8,13 +8,13 @@ def ROWS(prev):
     # ------------------------------------------------------------------ R12.012
     rows.append(dict(
         id='R12.012',
-        verdict='confirmed',
+        verdict='partially_supported',
         pdf_claim='OR Atlas (175 plates) on eHistory: plates; official atlas plates; https://ehistory.osu.edu/books/official-records/atlas; images; varies; public domain (pre-1929); "Which plates cover Gettysburg was not looked up"; R3.',
         corrected_claim=(
-            'Confirmed, and the gap "which plates cover Gettysburg" is closed from the Atlas\'s own index (OCR text of the Internet Archive scan atlastoaccompany00unit, "Atlas to accompany the official records of the Union and Confederate armies", Washington G.P.O., catalogue date 1891, lithographs by Julius Bien & Co.). '
+            'Confirmed for the plates, and the gap "which plates cover Gettysburg" is closed from the Atlas\'s own index (OCR text of the Internet Archive scan atlastoaccompany00unit, "Atlas to accompany the official records of the Union and Confederate armies", Washington G.P.O., catalogue date 1891, lithographs by Julius Bien & Co.). '
             'The list of plates ends with "PLATE 175 ... Corps flags, badges, etc." (175 plates). The index entry "Battle of, July 1-3, 1863" reads 28,4; 40,2; 43,1,2; 73,[digit unreadable in the OCR]; 95,1,2, and "Gettysburg Campaign, June 3-Aug. 1, 1863: Army of Northern Virginia, routes and positions" reads 43,7; 116,2. '
             'The author index credits plate 95 map 1 to Warren (also 40,2) and to W. H. Chase, E. A. Chase, Frink, Hill, Hinman, Morrison, Trill, Turtle, Wanoleben, Dager and Davis (OCR spellings), plate 95 map 2 to Bachelder (OCR "9S.2") and F. O. Maxson (July 3). '
-            'New from the NPS: the First Day CLR reproduces "Post-battle map based on survey by Major E. B. Cope" from the Atlas, plate XL (= plate 40), so plate 40 map 2 is the Cope-based map (credited to Warren in the Atlas index). '
+            'New from the NPS: the First Day CLR reproduces a "Post-battle map based on survey by Major E. B. Cope" from the Atlas, plate XL (= plate 40); the Atlas index lists a Gettysburg map on plate 40 (map 2) and credits Warren, so the Cope-based map is probably map 2 (an inference: the NPS caption does not give the map number). '
             'Clarification: the IA catalogue date is 1891, but the OCR plate list runs to plate 175, so the scan carries the completed Atlas plan; which printing each plate is, and whether plate 95 map 1 equals the 1868-69 Warren sheet at the scale shown, remain unread (no plate image was viewed). eHistory (ehistory.osu.edu) is refused by its own bot block; the IA scan is used instead.'),
         sub_claims=[
             S('R12.012.a', 'scan_identity', 'Internet Archive item atlastoaccompany00unit is the "Atlas to accompany the official records of the Union and Confederate armies" (Washington [D.C.] : G.P.O.; catalogue date 1891; "Lithographs by Julius Bien & Co. Lith. N.Y"; 226 images).',
@@ -23,6 +23,7 @@ def ROWS(prev):
                   C('IA-ATLAS-META', 'date: 1891', locator='metadata.date'),
                   C('IA-ATLAS-META', 'Lithographs by Julius Bien & Co. Lith. N.Y', locator='metadata.description[1]'),
                   C('IA-ATLAS-META', 'imagecount: 226', locator='metadata.imagecount'),
+                  C('IA-ATLAS-META', 'metadata.identifier: atlastoaccompany00unit', locator='metadata.identifier'),
               ]),
             S('R12.012.b', 'plate_count', 'The Atlas has 175 plates: the list of plates ends with plate 175 "Corps flags, badges, etc."',
               'documented', 'supported', [
@@ -58,16 +59,23 @@ def ROWS(prev):
                   C('IA-ATLAS-TXT', 'Bacholdor, Joliu B. : Gettysburg, Pa., July 1-3,1800 9S.2', locator='author index (Bachelder)'),
                   C('IA-ATLAS-TXT', 'Maxson, Frank O. : Gettysburg, Po., July 3, 1863 95, 2', locator='author index'),
               ], note='OCR spellings kept as printed in the text layer; "9S.2" is read as 95,2 (three index passages agree on plate 95 for the others).'),
-            S('R12.012.f', 'plate_40_is_cope_based', 'Plate 40 (map 2) of the Atlas carries the Cope-based post-battle map: the NPS First Day CLR reproduces "Post-battle map based on survey by Major E. B. Cope" from "Atlas to Accompany the Official Records ... 1895, Plate XL".',
+            S('R12.012.f', 'plate_XL_cope_based_map', 'The NPS First Day CLR reproduces a "Post-battle map based on survey by Major E. B. Cope" from "Atlas to Accompany the Official Records ... 1895, Plate XL" (plate 40); the Atlas index lists a Gettysburg map on plate 40 (map 2) and credits Warren for it.',
               'documented', 'supported', [
                   C('NPS-CLR-1STDAY', 'Post-battle map based on survey by Major E. B. Cope showing topography of the 1st Corps field.'),
                   C('NPS-CLR-1STDAY', '1895, Plate XL, annotated by SUNY ESF'),
-              ], note='Atlas plate XL = plate 40 (Roman numeral); the index lists Gettysburg on 40,2 and credits Warren; the NPS caption names Cope. The Atlas index credit and the NPS caption are both carried.'),
-            S('R12.012.g', 'other_plate_headings', 'The list of plates puts "Gettysburg Campaign" on plates 28, 40, 43, 73 and 116 as well.',
+                  C('IA-ATLAS-TXT', 'Battlo of, July 1-3, 1863 28, 4 ; 40,2; 43,1,2; 73,0; 95,1,2', locator='geographical index (plate 40 map 2)'),
+                  C('IA-ATLAS-TXT', 'Gottysbnrg, Pa., July 1-3, 1863 40,2; 95,1', locator='author index, Warren'),
+              ], note='Two credits for what may be one map: the NPS caption names Cope, the Atlas index names Warren; both are carried.'),
+            S('R12.012.f2', 'plate_40_map_2_is_the_cope_detail', 'The detail reproduced by the NPS from plate XL is plate 40, map 2.', 'inferred', 'derived', [],
+              computation='XL = 40 (Roman numeral); plate 40 has one Gettysburg battle map in the index (map 2); the NPS caption shows a map of the 1st Corps field that "indicates breastworks". Not stated by either source; no plate image was viewed.'),
+            S('R12.012.g', 'other_plate_headings', 'The list of plates puts "Gettysburg Campaign" on plates 28, 39, 40, 43, 45, 73 and 116 as well (the Pennsylvania index entry reads 28,1; 40,2; 43,1,2,7; 45,2; 73,[?]; 95,1,2; 116,2).',
               'documented', 'supported', [
-                  C('IA-ATLAS-TXT', 'Gettysburg Campaign, June 3-August 1, 1863. — Lewisburg Pike, Tenu, April 4, 1863.', locator='plate 28'),
-                  C('IA-ATLAS-TXT', 'Petersburg, Va., 1863. — Gettysburg Campaign, June 3- August 1, 1863.', locator='plate 40'),
-                  C('IA-ATLAS-TXT', 'Gettysburg Campaign, June 4-August 1, 1863. — Atlanta Campaign', locator='plate 43'),
+                  C('IA-ATLAS-TXT', 'PLATE 28. Maryland Campaign, September 3-20, 1862. — Deserted House or Kelly\'s Store, Va., January 30, 1863. — Gettysburg Campaign, June 3-August 1, 1863.', locator='plate 28'),
+                  C('IA-ATLAS-TXT', 'PUTE 39. Jackson, Miss., Campaign. July 5-25, 1863. — Chancellorsville Campaign, April 27-May 6, 1863. — Gettysburg Campaign, June 3-August 1, 1863', locator='plate 39'),
+                  C('IA-ATLAS-TXT', 'PUTE 40. Petersburg, Va., 1863. — Gettysburg Campaign, June 3- August 1, 1863.', locator='plate 40'),
+                  C('IA-ATLAS-TXT', 'PUTE 43. Gettysburg Campaign, June 4-August 1, 1863.', locator='plate 43'),
+                  C('IA-ATLAS-TXT', 'PUTE 45. Mine Run Campaign, November 26-Deccinber 2, 18G3. — Gettysburg Campaign, June 3-August 1, 1863.', locator='plate 45'),
+                  C('IA-ATLAS-TXT', 'Gettysburg Campaign 28, 1; 40,2; 43,1,2,7; 45,2; 73,0; 95,1, 2; 116, 2', locator='index, Pennsylvania (State)'),
                   C('IA-ATLAS-TXT', 'PLATE 73. Northern Alabama and Middle Tennessee Campaign, November 14, 1864-January 23, 1865.— Gettysburg Campaign, June 3-August 1, 1863,', locator='plate 73'),
                   C('IA-ATLAS-TXT', 'PLATE 116. McDowell, Va., May 8, 1862. — Gettysburg Campaign, June 3-August 1. 1865.', locator='plate 116 (OCR year 1865 for 1863)'),
               ]),
@@ -114,13 +122,15 @@ def ROWS(prev):
               'documented', 'supported', [
                   C('NPS-CLR-ROT-V1', 'Forney Market Orchard. Detail of the 1872 topographical survey map, 1872 (GETT, Sheet A3).'),
                   C('NPS-CLR-ROT-V1', 'the battlefeld landscape research team examined other maps prepared shortly after the battle by E. B. Cope, S. G. Elliott, and John B. Bachelder'),
+                  C('NPS-CLR-ROT-V2', 'Historic Imagery References ☐ 1868 Warren Map ☐ 1863 Cope Map ☐ 1863 Bachelder Map ☐ 1863 Elliott Map ☐ 1872 Topographical Survey Map ☐ Gettysburg National Park Commission (GNPC) Drawings'),
+                  C('NPS-GMP-1999-V1', 'Important maps included those developed by Bachelder (1863 and 1872), Warren (1868) and others to document the field at or near the time of the battle'),
               ], note='What is documented is the NPS list; the match of each NPS-page date to one of these maps is not stated by the NPS.'),
             S('R12.013.d', 'match_dates_to_items', 'The "War Department" 1863 map of the rehabilitation page is the Cope map (made on Meade\'s detail, October 1863), the GBMA 1872 map is the 1872 topographical survey, and the 1868 map is Warren\'s.',
               'inferred', 'derived', [], computation='Reasoning: Cope\'s map was made on the army\'s detail (NPS Administrative History); the GBMA existed 1864-1895; the 1872 map\'s maker is unnamed in every text read. Not asserted anywhere in product text.'),
             S('R12.013.e', 'identity_of_1872_map', 'Who made the "1872 topographical survey map" (GETT, Sheet A3) and for whom.', 'open_gap', 'unsupported', [], note='GMP credits "Bachelder (1863 and 1872)"; the Record of Treatment gives no maker. The Adams County atlas of 1872 (Lake) is a different 1872 map.'),
         ],
         stays_unsupported=['which 1863 map and whose 1872 map the NPS page means', 'maker of the 1872 topographical survey map'],
-        register_refs=['sources-a-EG-02'],
+        register_refs=['sources-a-EG-02', 'sources-a-EG-12'],
         blocked_host=[],
         product_consequence=['terrain_sources.json row 13: state "1868 = Warren (GMP, Record of Treatment)"; list the NPS set (Warren 1868, Cope 1863, Bachelder 1863, Elliott 1863, 1872 topographical survey) instead of the single candidate Cope/Hewitt; keep status inferred for the mapping of dates to items'],
         lookups=['NPS rehabilitation page fetched 2026-11-13 21:57 UTC (200) and a second copy by another workstream 2026-11-13 19:00 UTC (same text)'],
@@ -140,7 +150,7 @@ def ROWS(prev):
             'Blocked, not re-asserted: the 2001 paper\'s registration method (300 dpi LOC scan of the 1886 tracing, nine control points, affine then rubbersheeting, 72 dpi NARA copy), the 1-ft/1:600 existing-conditions maps and the 1996 orthophoto, and the transfer of layers to Knowles (xyHt). '
             'Still no source states that the 1863 layers are request-only; no public download was found in the reachable corpus (negative, not proof). The owner-only step of asking the NPS GIS office stays open (register sources-a-EG-04).'),
         sub_claims=[
-            S('R12.014.a', 'who', 'Curt Musselman is the Gettysburg NMP cartographer (First Day CLR, Record of Treatment I) / GIS specialist (Record of Treatment II) / "GIS Specialist and Historian" (GMP team list); the 2001 paper names him "Curtis Musselman".',
+            S('R12.014.a', 'who', 'Curt Musselman is the Gettysburg NMP cartographer (First Day CLR, Record of Treatment I) / GIS specialist (Record of Treatment II) / "GIS Specialist and Historian" (GMP team list). The NPS texts write "Curt"; "Curtis" is the PDF\'s form.',
               'documented', 'supported', [
                   C('NPS-GMP-1999-V1', 'Curt Musselman, GIS Specialist and Historian'),
                   C('NPS-CLR-1STDAY', 'Curt Musselman, Cartographer'),
@@ -160,6 +170,7 @@ def ROWS(prev):
               ]),
             S('R12.014.d', 'period_plans_1863', 'The 1863 period plans are 32 sheets (25 hand-drawn, then 7 overlapping) at 1 inch equals 200 feet on the 1868 Warren maps, by Kathy Georg Harrison with Winona Peterson; they cover most of the park except East Cavalry Field; overlap and gaps hampered stitching them in the park\'s GIS; Harrison and Peterson also made a spreadsheet per sheet (parcel names, how the feature influenced the battle, sources).',
               'documented', 'supported', [
+                  C('NPS-CLR-ROT-V1', 'PREPARATION OF 1863 PERIOD PLANS (32 SHEETS)'),
                   C('NPS-CLR-ROT-V1', 'This efort was led by Senior Historian Kathy Georg Harrison with assistance from Cultural Resource Specialist Winona Peterson.'),
                   C('NPS-CLR-ROT-V1', 'Using the 1868 Warren maps as a base and working at a scale of 1 inch equals 200 feet, Harrison initially produced 25 hand-drawn sheets, then produced another 7 overlapping sheets for a total of 32 sheets.'),
                   C('NPS-CLR-ROT-V1', 'The 32 sheets covered most of the park area except East Cavalry Field and a few gaps within the park that were missed due to overlapping maps.'),
@@ -204,6 +215,7 @@ def ROWS(prev):
             S('R12.015.a', 'warren_facts_repeated', 'Warren\'s survey of 1868-69 at 200 ft to the inch was reduced to the 1:12,000 map with spot elevations and contours for every change of 4 feet in elevation.',
               'documented', 'supported', [
                   C('LOC-99448794', 'The map is reduced from one on a scale of 200 feet to the inch, deposited in the Archives of the office of the Chief of Engineers.', locator='LOC 99448794 item.notes[3]'),
+                  C('LOC-99448794', 'The survey was made in 1868 and 1869 and revised on the ground by P. M. Blake, Civil Engineer in 1873.', locator='LOC 99448794 item.notes[3]'),
                   C('LOC-99448794', 'Scale 1:12,000 (1 inch equals 1000 feet).', locator='LOC 99448794 item.notes[5]'),
                   C('LOC-99447491', 'An extremely detailed topographic map with spot elevations and contours "given for every change of 4 feet in elevation."', locator='LOC 99447491 item.notes[4]'),
               ]),
@@ -256,7 +268,7 @@ def ROWS(prev):
                   C('NPS-REHAB-PAGE', 'we need to remove non-historic trees that have grown up over the past 65 - 70 years'),
                   C('NPS-REHAB-PAGE', 'fields that have not been farmed over the past 65 years have become forests'),
               ]),
-            S('R12.016.c', 'inconsistent_spans', 'The page gives three spans for the change since 1863: 141 years (pull quote), 147 years (body) and 140 years (maps).',
+            S('R12.016.c', 'inconsistent_spans', 'The page gives three spans for how long the landscapes have been changing: 141 years (pull quote), 147 years (body) and 140 years (the base maps).',
               'documented', 'conflict', [
                   C('NPS-REHAB-PAGE', 'how they had changed in the last 141 years became one of our most important research goals'),
                   C('NPS-REHAB-PAGE', 'how they had changed in the last 147 years became one of our most important research goals'),
@@ -278,7 +290,7 @@ def ROWS(prev):
         ],
         stays_unsupported=['the sum "nine miles" is an NPS statement, not a measurement; no per-segment sum was computed'],
         conflicts_carried=['Span since 1863 on the NPS page: 141 / 147 / 140 years (the GMP says 135 years for 1863-1998)'],
-        register_refs=[],
+        register_refs=['sources-a-EG-12'],
         blocked_host=[],
         product_consequence=['R13/R14 fence and field schedules: use the Record of Treatment per-segment lengths and the 1868 Warren fence lines as the basis for 1863 fences, never "today\'s park" as 1863; do not print "nine miles" as an 1863 quantity'],
         lookups=['NPS rehabilitation page: 200 (2026-11-13), robots.txt allows (/search and /ns disallowed only)'],

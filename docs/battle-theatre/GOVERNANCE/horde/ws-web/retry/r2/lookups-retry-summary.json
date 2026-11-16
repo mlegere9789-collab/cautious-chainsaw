@@ -13,8 +13,8 @@
    "owner_only": 2,
    "retrieved": 1,
    "still_failed_host_refused": 32,
-   "still_failed_no_route": 2,
    "still_failed_no_source_found": 28,
+   "still_failed_retry_not_run": 2,
    "superseded_by_shard_retry": 1
   },
   "fence-3": {
@@ -60,8 +60,7 @@
    "still_failed_host_refused": 9
   },
   "tl-01": {
-   "answered_with_evidence": 2,
-   "resolved_other_route": 1,
+   "answered_with_evidence": 3,
    "retrieved": 1,
    "still_failed_host_refused": 3,
    "still_failed_no_source_found": 4
@@ -105,19 +104,19 @@
   }
  },
  "outcomes": {
-  "answered_with_evidence": 64,
+  "answered_with_evidence": 65,
   "not_requested_robots_disallowed": 5,
   "not_retried_blocked_host_instruction": 10,
   "owner_only": 5,
-  "resolved_other_route": 7,
+  "resolved_other_route": 6,
   "retrieved": 18,
   "retrieved_no_statement": 3,
   "still_failed_host_refused": 132,
   "still_failed_http_error": 4,
-  "still_failed_no_route": 2,
   "still_failed_no_source_found": 50,
+  "still_failed_retry_not_run": 2,
   "superseded_by_shard_retry": 3
  },
  "rows": 303,
- "written": "2026-11-16T01:34:10Z"
+ "written": "2026-11-16T01:46:43Z"
 }

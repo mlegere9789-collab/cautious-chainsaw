@@ -397,3 +397,14 @@ CL('T2-003', place="George Spangler farm (Hospital Road; the 1932 NPS list puts 
 CL('T1-205', place="George Spangler farm (Hospital Road) and the other corps hospitals; the churches and public buildings of the town")
 CL('T2-003', unit="XI Corps hospital staff, the divisions consolidated under Dr. Armstrong (Sanitary Commission report); the seed's Spangler family in an upstairs room is not in any text read")
 RM('T2-003', "That the Spangler family stayed in an upstairs room (seed detail; no passage read).")
+
+
+# ------------------------------------------------------------------ names of the unit fields that no quotation carried (Colgrove in T1-201, Graham in T1-192)
+QX('T1-201', 'r_9am', "I turned over the command of my brigade, the Third, to Col. Silas Colgrove, Twenty-seventh Indiana Volunteers, senior colonel, and assumed command of the division. About 9 a. m. I received orders from General Williams, commanding corps, to move the division by the Baltimore turnpike toward Gettysburg, and place it in position next on the right of the Second Division of the corps")
+NC('T1-192', 'oob_birney', OR("FIRST DIVISION. Maj. Gen. David B. Birney. Brig. Gen. J. H. Hobart Ward. First Brigade. Brig. Gen. Charles K. Graham.", 'OR27-1-R009', None,
+                              note="organization of the Army of the Potomac, June 30 to Jul 3 (Third Corps, First Division): the heading of each brigade names its commander; the brigade lines that follow are not quoted"))
+CF('T1-192', 1, keys=['b_2pm', 'oob_birney'], note="the Third Brigade (De Trobriand) stayed at Emmitsburg; the brigade commanders Graham (First) and Ward (Second) are from the Organization of the Army of the Potomac (Official Records vol. 27 part 1)")
+
+# ------------------------------------------------------------------ Souder p.137: the head of that page is damaged in the OCR text ('lo7'); the heads before and after read 136 and 138
+ROWS['T1-188']['cites']['sou_hq']['page'] = '137'
+ROWS['T1-188']['cites']['sou_hq']['page_basis'] = "the running heads before and after the passage read 136 and 138 (CONSECRATION CEREMONIES); the head of the page between them is damaged in the OCR text ('lo7'), so the page is 137 (not read on the page image)"

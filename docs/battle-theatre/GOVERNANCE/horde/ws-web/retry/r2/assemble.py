@@ -104,7 +104,12 @@ MANUAL = {
                          'text_file': 'tmp/library/web/retry/F-350/ocr3/ocr_p7-11.txt', 'text_sha256': rlib.sha_file(rlib.abspath('tmp/library/web/retry/F-350/ocr3/ocr_p7-11.txt')),
                          'says': 'cover: K R Georg, June 16, 1978; printed p. 8: "The first enclosure to be completed was the division fence between the Evergreen and National Cemeteries" (iron railing of gas pipe, 1726 feet, Wills to Curtin 6 March 1865); p. 6 note 13: Wills, 8 July 1864, "If we can now avoid the expense of the fence between the two cemeteries we should do so"'}],
     'LKR-tl-01-L6': [{'attempt': 'LT-jacobs-verbatim', 'kind': 'local_text_read', 'at': '2026-11-16T01:10:00Z', 'text_file': 'tmp/library/ws9/JACOBS-1864__notesonrebelinva00jaco_djvu.txt',
-                      'text_sha256': rlib.sha_file(rlib.abspath('tmp/library/ws9/JACOBS-1864__notesonrebelinva00jaco_djvu.txt')), 'says': 'p. 25: "one of these officers was on the College cupola making observations"; p. 15: the Confederate cavalry at "3J p. m."'}],
+                      'text_sha256': rlib.sha_file(rlib.abspath('tmp/library/ws9/JACOBS-1864__notesonrebelinva00jaco_djvu.txt')), 'says': 'p. 25: "one of these officers was on the College cupola making observations"; p. 15: the Confederate cavalry at "3J p. m."'},
+                     {'attempt': 'LT-jacobs-page-images', 'kind': 'local_page_image_reading', 'at': '2026-11-16T01:44:00Z', 'tool': 'pdftoppm at 150 dpi (full pages) and 500 dpi (line crops), viewed',
+                      'pdf': 'tmp/library/web/retry/F-373/notesonrebelinva00jaco.pdf', 'pdf_sha256': rlib.sha_file(rlib.abspath('tmp/library/web/retry/F-373/notesonrebelinva00jaco.pdf')), 'pages': [25, 35, 51],
+                      'images': [_img('tmp/library/web/retry/F-373/img/p%03d.png' % n) for n in (25, 35, 51)] + [_img('tmp/library/web/retry/F-373/img/' + n) for n in ('p15_3J.png', 'p25_8J.png', 'p41_2J.png')],
+                      'says': 'the page images print the fractions that the OCR text reads as "J": p. 15 "3¼ P. M." (cavalry into Gettysburg, 26 June), p. 25 "8½ A. M." (signal officer on the College cupola, 1 July), p. 41 "2½ P. M."; '
+                              'the second-hand reading recorded in the row ("advance guard in Gettysburg 3.30 p.m.") is not what the page prints'}],
     'LKR-r03-1-L2': [{'attempt': 'LT-bl3-law', 'kind': 'local_text_read', 'at': '2026-11-16T01:22:00Z', 'text_file': 'tmp/library/misc/battlesleadersof03cent_djvu.txt',
                       'text_sha256': rlib.sha_file(rlib.abspath('tmp/library/misc/battlesleadersof03cent_djvu.txt')), 'says': 'Law, "The Struggle for Round Top", Battles and Leaders vol. III pp. 318 ff.: every "minutes" in the article\'s pages read; no ten- or fifteen-minute interval about Vincent'}],
 }
@@ -260,5 +265,8 @@ def build():
 
 if __name__ == '__main__':
     import decide
+    import local_rescan
+    decide.PENDING_LOCAL = {s[0] for s in local_rescan.SPECS if s[0] not in LOCAL}
+    print('local re-run questions without a result yet:', len(decide.PENDING_LOCAL))
     att = build()
     decide.run(inv, att, EV_BY_LK, OUT, SUMMARY, TODAY, row_hosts, host_of, DNR_HOSTS, REACH, evid_short)

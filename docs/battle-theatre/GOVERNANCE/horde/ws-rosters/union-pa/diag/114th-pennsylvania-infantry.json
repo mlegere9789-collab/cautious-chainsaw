@@ -1,6 +1,6 @@
 {
 "unit": "u-pa-114th-pennsylvania-infantry",
-"rows": 1097,
+"rows": 1096,
 "lost_name_lines": [
 {
 "leaf": 1222,
@@ -213,10 +213,18 @@
 ],
 "orphans": [
 {
+"leaf": 1222,
+"why": "text right of the name columns and no row above",
+"text": "D.\\TE OF MUSTER",
+"y": 363,
+"co": "B"
+},
+{
 "leaf": 1230,
 "why": "text right of the name columns and no row above",
 "text": "Company Gt.",
-"y": 1171
+"y": 1171,
+"co": "F"
 }
 ],
 "headings": [
@@ -313,6 +321,85 @@
 {
 "after": "F",
 "missing": "G"
+}
+],
+"skipped_lines": [
+{
+"leaf": 1221,
+"kind": "head-far",
+"text": "ATE OF MfSTER",
+"y": 391,
+"co": "B"
+},
+{
+"leaf": 1222,
+"kind": "head-far",
+"text": "IS",
+"y": 473,
+"co": "B"
+},
+{
+"leaf": 1223,
+"kind": "head-far",
+"text": "a",
+"y": 358,
+"co": "C"
+},
+{
+"leaf": 1223,
+"kind": "foot",
+"text": "150 — VOL. Ul.",
+"y": 3617,
+"co": "C"
+},
+{
+"leaf": 1225,
+"kind": "head-far",
+"text": "KAMS. RANK. BEMARICS.",
+"y": 417,
+"co": "D"
+},
+{
+"leaf": 1229,
+"kind": "head-far",
+"text": "DATR OF MDSTKR 1",
+"y": 397,
+"co": "F"
+},
+{
+"leaf": 1230,
+"kind": "head-far",
+"text": "i",
+"y": 376,
+"co": "F"
+},
+{
+"leaf": 1230,
+"kind": "head-far",
+"text": "KAHE. RANK. REMARKS.",
+"y": 429,
+"co": "F"
+},
+{
+"leaf": 1231,
+"kind": "foot",
+"text": "151 — ^voL. m.",
+"y": 3607,
+"co": "F"
+},
+{
+"leaf": 1233,
+"kind": "head-far",
+"text": "1",
+"y": 477,
+"co": "H"
+},
+{
+"leaf": 1235,
+"kind": "head-far",
+"text": "i",
+"y": 378,
+"co": "I"
 }
 ]
 }

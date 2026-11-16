@@ -33,7 +33,7 @@ Files I do not own and what I would like changed in them. Nothing below was edit
   Hancock's report calls it a communication to the major-general commanding, sent by Captain Parker. The rows now say so.
 - T1-191: the march of the VI Corps was "from 32 to 35 miles" (page image of printed p.665; the OCR text reads 33). Shard tl-01 (T1-052) had already read 32 to 35 on the page image.
 - T1-186: Rodes' division had lost 2,500 men (page image of vol. 27 part 2 printed p.555; the OCR text reads 3,600), the same figure as Early's 1877 "about 2,500": no conflict.
-- The archive.org OCR text of the Official Records contains damaged digits that change hours and figures (three found among 18 leaves read on the page images). Any other shard that
+- The archive.org OCR text of the Official Records contains damaged digits that change hours and figures (three found among the 30 leaves of the Official Records read by a second OCR on the page images). Any other shard that
   quotes digits from the three part texts without a page image reading should re-read them; the list of the leaves read by tl-04 is in horde/tl-04/REPORT.md.
 
 ## 4. Product notes (app data owners)

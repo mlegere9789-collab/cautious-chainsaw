@@ -69,7 +69,7 @@
 {
 "leaf": 716,
 "y": 1964,
-"co": "L",
+"co": "M",
 "why": "no name (the text layer lost the name cell)",
 "left": "...do",
 "rest": "July 16, '64, 3 Not accounted for."
@@ -77,7 +77,7 @@
 {
 "leaf": 716,
 "y": 2084,
-"co": "L",
+"co": "M",
 "why": "no name (the text layer lost the name cell)",
 "left": "...do",
 "rest": "June 22, -64, 3 Substitute — discharged by G. 0., Nov. 6, 1SG5."
@@ -85,7 +85,7 @@
 {
 "leaf": 716,
 "y": 2245,
-"co": "L",
+"co": "M",
 "why": "no name (the text layer lost the name cell)",
 "left": "...do",
 "rest": "Mar. 31, '64, 3 Not accounted for."
@@ -93,7 +93,7 @@
 {
 "leaf": 716,
 "y": 2567,
-"co": "L",
+"co": "M",
 "why": "no name (the text layer lost the name cell)",
 "left": "...do",
 "rest": "July 18, '64, 3 Not accounted f )r."
@@ -104,37 +104,50 @@
 "leaf": 676,
 "why": "text right of the name columns and no row above",
 "text": "ISTO 3EKVICK.",
-"y": 432
+"y": 432,
+"co": "FS"
 },
 {
 "leaf": 676,
 "why": "text right of the name columns and no row above",
 "text": "B",
-"y": 450
+"y": 450,
+"co": "FS"
 },
 {
 "leaf": 676,
 "why": "text right of the name columns and no row above",
 "text": "1",
-"y": 490
+"y": 490,
+"co": "FS"
 },
 {
 "leaf": 686,
 "why": "text right of the name columns and no row above",
 "text": "IKTO SERVICE. |^",
-"y": 720
+"y": 720,
+"co": "D"
 },
 {
-"leaf": 706,
+"leaf": 713,
 "why": "text right of the name columns and no row above",
-"text": ">",
-"y": 477
+"text": "Company IM.",
+"y": 356,
+"co": "L"
+},
+{
+"leaf": 713,
+"why": "text right of the name columns and no row above",
+"text": "P.tTE OF MUSTER",
+"y": 644,
+"co": "M"
 },
 {
 "leaf": 716,
 "why": "text right of the name columns and no row above",
 "text": "Ul^ASSIGlTED MEi^",
-"y": 1318
+"y": 1318,
+"co": "M"
 }
 ],
 "headings": [
@@ -233,7 +246,262 @@
 "co": "L",
 "inferred": false,
 "text": "Company L."
+},
+{
+"leaf": 713,
+"kind": "company?",
+"raw": "?",
+"co": "M",
+"inferred": true,
+"text": "(inferred from the recruited line) RECRUITED IN ALLEGHENY CO"
 }
 ],
-"company_gaps": []
+"company_gaps": [],
+"skipped_lines": [
+{
+"leaf": 676,
+"kind": "head-far",
+"text": "054 OXB HUXDRED AXD SECOXD EEGl.AIEXT,",
+"y": 205,
+"co": "FS"
+},
+{
+"leaf": 676,
+"kind": "head-far",
+"text": "H",
+"y": 308,
+"co": "FS"
+},
+{
+"leaf": 676,
+"kind": "head-far",
+"text": "a",
+"y": 330,
+"co": "FS"
+},
+{
+"leaf": 676,
+"kind": "head-far",
+"text": "3",
+"y": 374,
+"co": "FS"
+},
+{
+"leaf": 676,
+"kind": "head-far",
+"text": "NAME. BAXK. KEMARE3.",
+"y": 415,
+"co": "FS"
+},
+{
+"leaf": 676,
+"kind": "recruited",
+"text": "RECRUITED IN ALLEGHENY COUNTY.",
+"y": 1341,
+"co": "A"
+},
+{
+"leaf": 679,
+"kind": "recruited",
+"text": "RECRUITED IN ALLEGHENY COUNTY.",
+"y": 3240,
+"co": "B"
+},
+{
+"leaf": 679,
+"kind": "foot",
+"text": "83— VOL. III.",
+"y": 3616,
+"co": "B"
+},
+{
+"leaf": 682,
+"kind": "recruited",
+"text": "kecrtjited in allegheny county.",
+"y": 2910,
+"co": "C"
+},
+{
+"leaf": 683,
+"kind": "head-far",
+"text": "THREE TEAES' SREVTCE. 661",
+"y": 146,
+"co": "C"
+},
+{
+"leaf": 683,
+"kind": "head-far",
+"text": "E!",
+"y": 412,
+"co": "C"
+},
+{
+"leaf": 686,
+"kind": "head-far",
+"text": "664 ONE nUXDRED AND SECOND EEGIIVIENT,",
+"y": 200,
+"co": "C"
+},
+{
+"leaf": 686,
+"kind": "recruited",
+"text": "recruited in allegheny county.",
+"y": 498,
+"co": "D"
+},
+{
+"leaf": 687,
+"kind": "foot",
+"text": "84— VOL. ni.",
+"y": 3595,
+"co": "D"
+},
+{
+"leaf": 689,
+"kind": "recruited",
+"text": "RECRUITED IN ALLEGHENY COUNTY.",
+"y": 2661,
+"co": "E"
+},
+{
+"leaf": 691,
+"kind": "head-far",
+"text": "THEEB TEAES' SEEYICB. 6G0",
+"y": 182,
+"co": "E"
+},
+{
+"leaf": 692,
+"kind": "head-far",
+"text": "670 05E HITNDFJED AND SECOXD EEGEUIEXT,",
+"y": 228,
+"co": "E"
+},
+{
+"leaf": 692,
+"kind": "head-far",
+"text": "EEJIAKKS.",
+"y": 435,
+"co": "E"
+},
+{
+"leaf": 693,
+"kind": "recruited",
+"text": "recruited in allegheny county:",
+"y": 455,
+"co": "F"
+},
+{
+"leaf": 695,
+"kind": "foot",
+"text": "85--YOL. in.",
+"y": 3612,
+"co": "F"
+},
+{
+"leaf": 696,
+"kind": "recruited",
+"text": "recruited in allegheny county",
+"y": 1325,
+"co": "G"
+},
+{
+"leaf": 699,
+"kind": "recruited",
+"text": "recruited in allegheny and butler counties.",
+"y": 498,
+"co": "H"
+},
+{
+"leaf": 699,
+"kind": "head-far",
+"text": "i",
+"y": 644,
+"co": "H"
+},
+{
+"leaf": 701,
+"kind": "head-far",
+"text": "3",
+"y": 329,
+"co": "H"
+},
+{
+"leaf": 701,
+"kind": "head-far",
+"text": ";fAMB. KANK. EEMAIIK3.",
+"y": 368,
+"co": "H"
+},
+{
+"leaf": 703,
+"kind": "recruited",
+"text": "RECRUITED IN ALLEGHENY COUNTY.",
+"y": 2254,
+"co": "I"
+},
+{
+"leaf": 703,
+"kind": "foot",
+"text": "86— VOL. IIL",
+"y": 3579,
+"co": "I"
+},
+{
+"leaf": 705,
+"kind": "head-far",
+"text": "EEUAGKS.",
+"y": 376,
+"co": "I"
+},
+{
+"leaf": 706,
+"kind": "recruited",
+"text": "recruited in allegheny county.",
+"y": 1938,
+"co": "K"
+},
+{
+"leaf": 708,
+"kind": "head-far",
+"text": "w",
+"y": 330,
+"co": "K"
+},
+{
+"leaf": 708,
+"kind": "head-far",
+"text": "S",
+"y": 374,
+"co": "K"
+},
+{
+"leaf": 709,
+"kind": "recruited",
+"text": "recruited in allegheny county.",
+"y": 2553,
+"co": "L"
+},
+{
+"leaf": 711,
+"kind": "foot",
+"text": "87— VOL.",
+"y": 3597,
+"co": "L"
+},
+{
+"leaf": 712,
+"kind": "head-far",
+"text": "D.iTR OP MtTSTER 1",
+"y": 387,
+"co": "L"
+},
+{
+"leaf": 713,
+"kind": "recruited",
+"text": "RECRUITED IN ALLEGHENY COUNTY,",
+"y": 458,
+"co": "M"
+}
+]
 }

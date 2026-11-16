@@ -14,8 +14,19 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
+import { syncBuiltinESMExports } from 'node:module';
+
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = process.env.BT_GATES_ROOT ? path.resolve(process.env.BT_GATES_ROOT) : path.resolve(HERE, '..', '..', '..');
+// every file of the repository that the run reads through fs.readFileSync (the data the layer, the world and the loaders of the application read): the python runner hashes each of them into the record (GATE-SPEC 1.6 `inputs`).
+// The hook is installed before any application module is imported, and the named exports of `node:fs` are brought in line with it.
+const READ_FILES = new Set(), realRead = fs.readFileSync;
+fs.readFileSync = function (p, ...rest) {
+  try { const f = typeof p === 'string' ? p : p instanceof URL ? fileURLToPath(p) : null; if (f && f.startsWith(ROOT + path.sep) && !f.includes(path.sep + 'node_modules' + path.sep)) READ_FILES.add(f); } catch { /* a path that is not a file */ }
+  return realRead.call(this, p, ...rest);
+};
+syncBuiltinESMExports();
+export const inputsRead = () => [...READ_FILES].filter(f => { try { return fs.statSync(f).isFile(); } catch { return false; } }).map(f => path.relative(ROOT, f).split(path.sep).join('/')).sort();
 export const BT = path.join(ROOT, 'docs', 'battle-theatre');
 export const APP = path.join(BT, 'app');
 export const imp = rel => import(pathToFileURL(path.join(APP, rel)).href);

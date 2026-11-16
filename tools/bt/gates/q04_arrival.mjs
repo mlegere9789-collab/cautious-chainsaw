@@ -11,7 +11,7 @@
 // The scan of a scenario is restricted to the units whose arrival record and events differ from a scan already made (a unit's behaviour is a pure function of its own record and events: the stage reduces per unit,
 // guns and crews follow their own battery); the equality of a restricted and a full scan is itself scanned (`restriction_check`).
 import path from 'node:path';
-import { buildProduct, buildScenarioSet, unitBehaviours, buildGrid, Runs, loadScenario, imp, parseArgs, loadMutation, writeOut, r6, readJSON, ROOT } from './q456_lib.mjs';
+import { buildProduct, buildScenarioSet, unitBehaviours, buildGrid, Runs, loadScenario, imp, parseArgs, loadMutation, writeOut, r6, readJSON, ROOT, inputsRead } from './q456_lib.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const mutate = await loadMutation(args.mutate);
@@ -245,5 +245,5 @@ writeOut(args.out, {
     options: Object.fromEntries(Object.entries(S.opts).map(([c, os]) => [c, os.map(o => ({ key: o.key, text: o.text }))])), factorisation: factor, restriction_check: restriction },
   scenarios: Object.fromEntries(scenarios.map(s => [s.id, { id: s.id, kind: s.kind, group: s.group, varied: s.varied_vs_default, choices: s.choices, optionText: s.optionText, changed: s.changed.length, note: s.note || null }])),
   units: unitsMeta, hashes, behaviours: behaviourRecords, scans, train: haveTrain ? { readings: TRAIN_READINGS.map(r => r), file: 'app/data/artillery-train.json' } : null,
-  effects_run: !!crowd, manifest_run: !args['no-manifest'], selected_units: selectedUnits ? [...selectedUnits] : null, root: path.basename(ROOT), r6: r6(0),
+  inputs_read: inputsRead(), effects_run: !!crowd, manifest_run: !args['no-manifest'], selected_units: selectedUnits ? [...selectedUnits] : null, root: path.basename(ROOT), r6: r6(0),
 });

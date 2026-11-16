@@ -1,7 +1,7 @@
 // Recorder of the NATIVE replay of the crowd's figure pass (the python half is tests/crowd-lod-native-replay.py). In node, with no browser and no GPU: the real layer at 13:30 on 3 July, the real crowd built with the REAL WebGL2 backend
 // (src/crowd/gl.mjs, unchanged) whose `gl` is a recorder: every GL call the backend makes (textures, buffers, vertex arrays, programs, uniforms, draws) is written to <out>/ops.json with its data in <out>/blobs.bin, together with the
 // frame blocks and the world tables the prototype's renderer would have bound (<out>/world.*). The replay then makes the same calls on a real OpenGL ES 3.2 context (Mesa llvmpipe, software) and writes the pictures.
-//   node crowd-lod-native-record.mjs <outDir> [--near=7,7.5,...,14.5] [--far=62,64,...,90] [--modes=fade,hard] [--w=640] [--h=360]
+//   node crowd-lod-native-record.mjs <outDir> [--near=7,8,9,9.5,9.75,...,15] [--far=70,71,...,88] [--modes=fade,hard] [--w=640] [--h=360]
 // The unit it picks (the largest infantry unit present at 13:30) is on the march in a column of fours about a kilometre long, so the camera stands BESIDE the column, not in front of it (in front it would stand among the men).
 // Scene 'track': the camera at the distance D from the middle man, on the side, looking at him: his distance is D, the pictures are the strips of one man crossing the 10 m, 13 m and 75 m boundaries. Scene 'diag': the camera 8 m
 // (and 60 m) from the column looking 40 degrees along it, so that the men in view stand at a continuous range of distances (9 to 15 m, and 65 to 120 m) and the levels and the fades side by side.
@@ -27,7 +27,7 @@ import { assemble, TW, pre } from './crowd-lod-glsl-sources.mjs';
 const out = path.resolve(process.argv[2] || '.'); fs.mkdirSync(out, { recursive: true });
 const opt = (k, d) => { const a = process.argv.find(x => x.startsWith('--' + k + '=')); return a ? a.slice(k.length + 3) : d; };
 const rng = (a, b, st) => { const o = []; for (let v = a; v <= b + 1e-9; v += st) o.push(+v.toFixed(3)); return o; };
-const NEAR = opt('near', '').length ? opt('near', '').split(',').map(Number) : rng(7, 14.5, 0.5), FAR = opt('far', '').length ? opt('far', '').split(',').map(Number) : rng(62, 90, 2), MODES = opt('modes', 'fade,hard').split(','), W = Number(opt('w', 640)), Hh = Number(opt('h', 360));
+const NEAR = opt('near', '').length ? opt('near', '').split(',').map(Number) : [7, 8, 9, ...rng(9.5, 15, 0.25)], FAR = opt('far', '').length ? opt('far', '').split(',').map(Number) : rng(70, 88, 1), MODES = opt('modes', 'fade,hard').split(','), W = Number(opt('w', 640)), Hh = Number(opt('h', 360));
 
 // ---- the recorder
 const ops = [], blobs = []; let boff = 0, hid = 0;
@@ -36,7 +36,8 @@ const CONST = { ARRAY_BUFFER: 0x8892, ELEMENT_ARRAY_BUFFER: 0x8893, DYNAMIC_DRAW
   TEXTURE_MIN_FILTER: 0x2801, TEXTURE_MAG_FILTER: 0x2800, TEXTURE_WRAP_S: 0x2802, TEXTURE_WRAP_T: 0x2803, NEAREST: 0x2600, CLAMP_TO_EDGE: 0x812F, TRIANGLES: 4, TRIANGLE_STRIP: 5, CULL_FACE: 0x0B44, DEPTH_TEST: 0x0B71, BLEND: 0x0BE2,
   LESS: 0x0201, UNPACK_ALIGNMENT: 0x0CF5 };
 const H = kind => ({ __h: ++hid, kind }), enc = a => (a && typeof a === 'object' && '__h' in a ? { h: a.__h } : a === undefined ? null : a);
-const blob = (ta, so = 0, len) => { const bpe = ta.BYTES_PER_ELEMENT, n = (len ?? ta.length - so) * bpe; if (so * bpe + n > ta.byteLength) throw new Error('recorder: a source range past the end of its array'); blobs.push(new Uint8Array(ta.buffer, ta.byteOffset + so * bpe, n)); const r = [boff, n]; boff += n; return r; };
+// blobs are COPIES (slice): the crowd reuses its arrays from frame to frame, a view would show the last frame's bytes in every frame
+const blob = (ta, so = 0, len) => { const bpe = ta.BYTES_PER_ELEMENT, n = (len ?? ta.length - so) * bpe; if (so * bpe + n > ta.byteLength) throw new Error('recorder: a source range past the end of its array'); blobs.push(new Uint8Array(ta.buffer, ta.byteOffset + so * bpe, n).slice()); const r = [boff, n]; boff += n; return r; };
 const CREATE = new Set(['createTexture', 'createBuffer', 'createVertexArray', 'createFramebuffer', 'createRenderbuffer']), seen = new Set();
 const gl = new Proxy({}, { get(_, p) {
   if (typeof p !== 'string') return undefined;
@@ -84,6 +85,7 @@ for (const mode of MODES) for (const sp of SPEC) {
   crowd.lod.band = mode === 'hard' ? 0 : 0.075; crowd.lod.hyst = mode === 'hard' ? 0 : 0.10;
   const c = camera(sp.D, sp.turn); crowd.prepare(c, ANIM_T); const fl = crowd.fl, st = crowd.stats, label = `${sp.scene}-${mode}-${sp.D}`;
   let me = null; for (let j = 0; j < fl.n; j++) if (fl.fig[j] === mid) { const sh = [0, 1, 2].map(l => { if (!((fl.mask[j] >> l) & 1)) return 0; const d = decodeRange(fl.p[j * 3 + l]); return Math.max(0, Math.min(d.hi, 1) - d.lo); }); me = { mask: fl.mask[j], shares: sh.map(v => +v.toFixed(3)), dist: +Math.sqrt(fl.d2[j]).toFixed(2) }; }
+  const F_ = crowd.frameData, u32_ = new Uint32Array(F_.inst.buffer, F_.inst.byteOffset, F_.instBytes / 4); let midRecs = 0, midX = null; for (let r = 0; r < F_.instBytes / 48; r++) if (u32_[r * 12 + 8] === mid) { midRecs++; midX = [new Float32Array(F_.inst.buffer, F_.inst.byteOffset + r * 48, 4)[0], new Float32Array(F_.inst.buffer, F_.inst.byteOffset + r * 48, 4)[1]]; }
   frames.push({ label, scene: sp.scene, mode, D: sp.D, grp: sp.grp, turn: sp.turn, listed: fl.n, records: crowd.frameData.instBytes / 48, draws: crowd.frameData.draws.length, lod0: st.lod0, fading: st.fading, man: me });
   ops.push(['frame', label, frameBlock(c)]); crowd.scene(gl); ops.push(['end']);
 }

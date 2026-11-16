@@ -1,12 +1,12 @@
 {
  "format": "conf-nc-copy-audit/1",
  "about": "The packer's audit (tools/bt/pack_theatre.mjs audit(), rules AUDIT_RE, AUDIT_CS_RE, allowances AUDIT_ALLOW; DD-STG-02) run on a scratch copy of the shipped files of this item; plus a count of every printed word the rules match, by field.",
- "files_audited": 84,
+ "files_audited": 83,
  "unit_files": 41,
  "flag_files": 41,
- "rows_read": 54403,
+ "rows_read": 54387,
  "flag_files_read": 41,
- "raw_bytes_of_gzip_files": 6172212,
+ "raw_bytes_of_gzip_files": 6180017,
  "hits": [
   {
    "file": "rosters/data2/confederate/nc/2nd-north-carolina-cavalry.flags.json.gz",
@@ -21,12 +21,6 @@
    "match": "AI",
    "text": "[40,\"Walker, Jesse AI.\",\"\",\"e. June 18th, '61.\",22]",
    "gzip": true
-  },
-  {
-   "file": "rosters/sources/conf-nc.json",
-   "line": 4,
-   "match": "\"generated\":",
-   "text": " \"generated\": \"2026-11-16T01:04:35Z\","
   }
  ],
  "printed_words": {

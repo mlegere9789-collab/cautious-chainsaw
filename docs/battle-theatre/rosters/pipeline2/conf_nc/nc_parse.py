@@ -395,6 +395,9 @@ def match_G(S, i):
             continue
         if len(alpha(last)) < 2 or alpha(last) in ABBREV_BAD:
             continue
+        core_last = re.sub(r"[^A-Za-z]", "", last)
+        if core_last.islower() and len(core_last) <= 3:
+            continue                                  # a short lower-case word is no surname: "Burke eo.;" is a county whose abbreviation the scan damaged (the promotion that follows belongs to the entry before)
         front = [toks[x][2] for x in range(i, k - 1)]
         if any((not given_ok(f, garbled_ok=True) and not re.fullmatch(r"[A-Z][A-Za-z\|\(\)1]{1,2}\.", f)) or (sentence_end(f) and not re.fullmatch(r"[A-Z][A-Za-z\|\(\)1]{1,2}\.", f))
                or (alpha(f) in PLACE and not initial_tok(f) and not re.search(r"[,;]$", f)) or (len(alpha(f)) >= 3 and is_rankword(f)) or alpha(f) in ABBREV_BAD for f in front):
@@ -463,7 +466,7 @@ def find_heads(S, a, b, section, ev_idx):
         if not (MARK_GLUED.match(toks[m][2]) or is_month(nxt) or re.match(r"^['`‘’\"][0-9OoSsIl]", nxt)):
             continue
         k = m - 1
-        while k >= a and m - k <= 7 and not sentence_end(toks[k][2]) and toks[k][2] not in ('co.', 'CO.') and not re.match(r"^['’`][0-9OoSsIl]{2}[\-,\.;]?$", toks[k][2]):
+        while k >= a and m - k <= 7 and not sentence_end(toks[k][2]) and alpha(toks[k][2]) != 'co' and not re.match(r"^['’`][0-9OoSsIl]{2}[\-,\.;]?$", toks[k][2]):
             k -= 1
         kstart = k + 1
         while kstart < m - 1 and not contiguous(S, kstart, m - 1):

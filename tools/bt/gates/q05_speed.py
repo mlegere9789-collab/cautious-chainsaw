@@ -32,6 +32,7 @@ for _p in (HERE, os.path.join(HERE, 'lib'), os.path.abspath(os.path.join(HERE, '
 
 from oobgates_common import cond, covered_by_register, first_failed, gate_rows, layer_dump, register_state, sub_requirements_for  # noqa: E402
 from pq_common import Env, InputMissing, Record, base_parser, guarded_main, node_version  # noqa: E402
+from q456_inputs import register_inputs  # noqa: E402
 
 GATE = 'Q05'
 FACTOR = 1.0001                       # T-Q05-2 (DD-G01): the upper bound is exact up to the rounding factor 1.0001
@@ -170,8 +171,10 @@ def evaluate(rec, env, D, K):
                      cond('every leg of a foot unit declares a gait and its mean speed is inside the documented range of that gait (both ends)', not [x for x in f1 if 'declared' in x or 'no declared gait' in x], '; '.join([x for x in f1 if 'declared' in x or 'no declared gait' in x][:3])),
                      cond('no jump inside a path and the teams of horses are below the documented gallop', not [x for x in f1 if 'no time' in x or 'teams' in x], '; '.join([x for x in f1 if 'no time' in x or 'teams' in x][:3]))]
             bad = first_failed(conds)
-            ev1 = dict(base, legs=[{k: l[k] for k in ('i', 't0', 't1', 'length_m', 'mean_ms', 'max_seg_ms', 'min_seg_ms', 'gait', 'tier')} for l in legs][:40], n_legs=len(legs), ranges=ranges[:40], conditions=conds,
-                       documented={'foot': {k: doc['foot'][k] for k in ('march', 'double_quick', 'upper')}, 'cavalry_upper': doc['cavalry']['upper'], 'team_upper': doc['team']['upper']}, train=({k: v['max_ms'] for k, v in tr['lists'].items()} if tr else None))
+            summ = {'n_legs': len(legs), 'mean_ms': [min([l['mean_ms'] for l in legs if l['mean_ms'] is not None] or [None]), max([l['mean_ms'] for l in legs if l['mean_ms'] is not None] or [None])], 'max_seg_ms': max([l['max_seg_ms'] or 0 for l in legs] or [0]), 'gaits': {g: len([l for l in legs if l['gait'] == g]) for g in sorted({str(l['gait']) for l in legs})}}
+            ev1 = dict(base, summary=summ, conditions=conds, documented={'foot': {k: doc['foot'][k] for k in ('march', 'double_quick', 'upper')}, 'cavalry_upper': doc['cavalry']['upper'], 'team_upper': doc['team']['upper']}, train=({k: v['max_ms'] for k, v in tr['lists'].items()} if tr else None))
+            if bad:
+                ev1.update(legs=[{k: l[k] for k in ('i', 't0', 't1', 'length_m', 'mean_ms', 'max_seg_ms', 'min_seg_ms', 'gait', 'tier')} for l in legs][:40], ranges=ranges[:40])
             rec.item('Q05/Q05.1/%s/%s' % (uid, lab), 'FAIL' if bad else 'PASS', ('unit %s under %s: ' % (uid, lab) + '; '.join(bad)) if bad else 'unit %s under %s: %d leg(s) within the documented ranges of %s' % (uid, lab, len(legs), cls), ev1, check='Q05.1', subjects=[uid], scenario=lab, sub_requirements=sub)
             # ---- Q05.2
             f2 = []
@@ -200,7 +203,9 @@ def evaluate(rec, env, D, K):
             if len(f3) > 6:
                 n_more = len(f3) - 4
                 f3 = f3[:4] + ['and %d more turns or joins' % n_more]
-            ev3 = dict(base, joins=joins[:40], n_turns=len(turns), turns_over=len([t for t in turns if t['edge_peak_ms'] > upper]), worst_turn=worst, extent_m=R.get('extent_m'), stage=(D.get('product') or {}).get('stage'))
+            ev3 = dict(base, n_joins=len(joins), max_join_m=max([j['d_m'] or 0 for j in joins] or [0]), min_gap_s=min([j['gap_s'] for j in joins if j['gap_s'] is not None] or [None]), n_turns=len(turns), turns_over=len([t for t in turns if t['edge_peak_ms'] > upper]), worst_turn=worst, extent_m=R.get('extent_m'), stage=(D.get('product') or {}).get('stage'))
+            if f3:
+                ev3.update(joins=[j for j in joins if (j['d_m'] or 0) > JOIN_M or (j['gap_s'] is not None and j['gap_s'] < -1e-3)][:20], turns_failing=[t for t in turns if t['edge_peak_ms'] > upper][:12])
             rec.item('Q05/Q05.3/%s/%s' % (uid, lab), 'FAIL' if f3 else 'PASS', ('unit %s under %s: ' % (uid, lab) + '; '.join(f3)) if f3 else 'unit %s under %s: %d legs join within %s m and never overlap; %d turns, the far end never moves faster than %.4f m/s' % (uid, lab, len(legs), JOIN_M, len(turns), upper), ev3, check='Q05.3', subjects=[uid], scenario=lab, sub_requirements=sub)
             # ---- Q05.4: lateness the layer keeps as an offset (COVERED needs an open register entry of level L3 that records the lateness; the unit's generic entries name other gaps)
             for k, o in enumerate(R.get('offsets') or []):
@@ -269,6 +274,7 @@ def run(env, dump=None, inputs=None, write=True, mutate=None, argv=None, extra=(
     K = inputs if inputs is not None else load_inputs(rec, env)
     rec.extra['time_grid'] = {'step_s': 60, 'boundaries': True, 'mode': D['grid']['mode'], 'fraction_done': 1.0 if D['grid']['mode'] == 'dense' and D['scenario_set'].get('complete') else 0.0}
     rec.extra['scenario_set'] = {'id': D['scenario_set']['id'], 'count': D['scenario_set']['count'], 'groups': D['scenario_set']['groups']}
+    register_inputs(rec, env, D, node_files=('tools/bt/gates/q05_speed.mjs',))
     evaluate(rec, env, D, K)
     out = rec.finish()
     if write:

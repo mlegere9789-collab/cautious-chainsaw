@@ -376,6 +376,8 @@ def q034_registry(env, rec, inp, dump, R, SD, objs):
             bad.append('registry present_1863 = %r' % props.get('present_1863'))
         if built and yrs and yrs[0] > 1863:
             bad.append('valid_from %d (built %s)' % (yrs[0], built[:50]))
+        elif built and LATER.search(built):
+            bad.append('the build note says the present building is later (%s)' % built[:50])
         reps = (r or {}).get('represents') or props.get('geometry_represents') or ''
         if reps.startswith('later building'):
             bad.append('represents a later building: %s' % reps[:70])

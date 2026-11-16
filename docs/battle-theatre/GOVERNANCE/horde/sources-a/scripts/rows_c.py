@@ -31,6 +31,7 @@ def ROWS(prev):
             S('R12.017.b', 'pickett_clr_is_cli', 'There is no Pickett\'s Charge Cultural Landscape Report in the index; the 2024 item is "Cultural Landscapes Inventory: Pickett\'s Charge Battlefield" (a CLI); the First Day CLR 2021 of the PDF is the CLR "First Day - Union 1st Corps Battlefield".',
               'documented', 'supported', [
                   C('NPSHISTORY-INDEX', 'Cultural Landscapes Inventory: Pickett\'s Charge Battlefield, Gettysburg National Military Park [href: cli-picketts-charge-battlefield.pdf] (2024)'),
+                  C('NPSHISTORY-INDEX', 'Cultural Landscape Report for First Day — Union 1st Corps Battlefield, Gettysburg National Military Park [href: clr-1-day-union-1-corps.pdf] (Jon Auwaerter, Zhangshuai Wang, Anna Tiburzi and Nathaniel Bauder, 2021)'),
               ], note='The absence of a Pickett\'s Charge CLR is read from the five CLR lines of the index (sub-claim a); a negative on one index page.'),
             S('R12.017.c', 'farm_histories_admin_history', 'The index lists "The Brien Farm and Family" (Marcella Sherfy, June 1972), "Edward McPherson Farm: Historical Study" (Kathleen R. Georg, October 14, 1977), "Historic Structure Report: J. Slyder Farm Buildings (Part I)" (Frederick Tilberg, December 11, 1958) and the Administrative History (Harlan D. Unrau, July 1991).',
               'documented', 'supported', [
@@ -69,7 +70,7 @@ def ROWS(prev):
                   C('OWN-NPS-MANIFEST', 'NPS-CLR-LRT | url https://www.npshistory.com/publications/gett/clr-little-round-top.pdf | bytes 54173676', note='size of the npshistory copy read by the web-evidence workstream, 2026-11-13'),
                   C('NPS-CLR-LRT', 'FINAL March 2nd, 2012', note='cover'),
                   C('NPS-PLANNING-PAGE', 'Download the Little Round Top Cultural Landscape Report here. [href: /gett/getinvolved/upload/FinalCLR_LittleRoundTop_AllSections-508.pdf]'),
-                  C('OWN-HEAD-RECORDS', 'last-modified Thu, 22 Mar 2018 05:40:45 GMT', note='HEAD of the nps.gov URL, status 200, 2026-11-13'),
+                  C('OWN-HEAD-RECORDS', 'HEAD https://www.nps.gov/gett/getinvolved/upload/FinalCLR_LittleRoundTop_AllSections-508.pdf | status 200 | content-length None | last-modified Thu, 22 Mar 2018 05:40:45 GMT', note='HEAD of the nps.gov URL, 2026-11-13'),
                   C('NPS-PLANNING-PAGE', 'Download the Fire Management Plan here [href: https://www.nps.gov/gett/learn/management/upload/GETT-EISE-FMP-EA-Final-July-2-2014-508.pdf]'),
               ]),
             S('R12.017.g', 'treatment_philosophy_lead', 'The index lists "Treatment Philosophy: The 1863 Landscape (Gettysburg)" (Eric Campbell, March 2004), linked to the IRMA download file 472822; the Record of Treatment says the draft informed decisions by 2002.',
@@ -87,7 +88,7 @@ def ROWS(prev):
         ],
         stays_unsupported=['IRMA record text and date of issue (2018-09-30)', 'the NPS Historic Vegetation Study', 'the Treatment Philosophy: The 1863 Landscape (IRMA download not read)'],
         conflicts_carried=['Record of Treatment authors: Layton and Brown (LC cataloguing data, IRMA) vs Layton, Chinburg and Braquet (npshistory) vs four preparers (title page): resolved as partial lists'],
-        register_refs=['sources-a-EG-09'],
+        register_refs=['sources-a-EG-09', 'sources-a-EG-12'],
         blocked_host=[HOST('IRMA', 'https://irma.nps.gov/DataStore/Reference/Profile/2257218', 'IRMA reference profile of the Record of Treatment (authors, issue date, abstract) and https://irma.nps.gov/DataStore/DownloadFile/472822 (Treatment Philosophy: The 1863 Landscape, 2004).')],
         product_consequence=['terrain_sources.json row 17: change "Pickett\'s Charge CLR 2024" to "Pickett\'s Charge Battlefield CLI 2024"; mark the Little Round Top CLR as read; add the Treatment Philosophy (2004) as a lead for the 1863 rules', 'fence and field schedules (R13/R14) draw their 1863 basis from Warren plus these CLRs; the Record of Treatment per-area text is the documented source of what NPS rebuilt'],
         lookups=['npshistory.com index: 200 (2026-11-13), robots allows /publications/', 'nps.gov planning page: 200 (2026-11-13)', 'irma.nps.gov robots.txt: proxy refusal (2026-11-13, 2026-11-16)'],
@@ -102,7 +103,7 @@ def ROWS(prev):
         pdf_claim='Stone Sentinels, Farms and Buildings: aggregator, about two dozen farm and building pages (Bliss, Codori, Klingel, Rose, Trostle, Thompson House and others); building notes (for example Sherfy farm about 50 acres, house built 1840s, original barn burned in the battle); https://gettysburg.stonesentinels.com/?p=203; HTML; check terms; secondary aggregator; details of most pages not captured.',
         corrected_claim=(
             'Unsupported from here: gettysburg.stonesentinels.com is refused by the proxy, so the page, its menu of 22 entries and the "Battlefield Terrain" page cannot be re-read; the first round\'s read (22 pages named) is carried only as an earlier reading. '
-            'The Sherfy example can be checked against NPS documents: the Pickett\'s Charge Battlefield CLI dates the Joseph Sherfy house "between 1840-1860" (not "1840s"), "A Common Pride and Fame" says Sherfy\'s barn burned on July 2 (supports "barn burned in the battle"), and an NPS administrative history of the 1930s gives the Sherfy farm as "70 acres" (not "about 50"): the Stone Sentinels figure is unconfirmed. '
+            'The Sherfy example can be checked against NPS documents: the Pickett\'s Charge Battlefield CLI dates the Joseph Sherfy house "between 1840-1860" (not "1840s"), "A Common Pride and Fame" says Sherfy\'s barn burned on July 2 (supports "barn burned in the battle"), and a 1940 land-acquisition study (Tilberg, quoted in the NPS Administrative History) gives the Sherfy farm as "70 acres" (not "about 50"): the Stone Sentinels figure is unconfirmed. '
             'Stone Sentinels stays a lead list only: never the sole basis of any object (Law clause 4).'),
         sub_claims=[
             BLK('R12.018.a', 'site_and_menu', 'https://gettysburg.stonesentinels.com/battlefield-farms/ (the ?p=203 form redirects) lists a Farms & Buildings menu of 22 pages (Black Horse Tavern, Bliss, Brian, Codori, Hummelbaugh, Klingel, Leister, Lutheran Seminary, McAllister\'s Mill, McLean, McPherson, Rogers House, Rose, Rummel, Sherfy, Slyder, Snyder, Taney, Thompson House, Trostle, George Weikert, Wentz) and a separate "Battlefield Terrain" page.',
@@ -117,7 +118,7 @@ def ROWS(prev):
                   C('NPS-COMMON-PRIDE-2', 'the first two were burned during the battle (Sherfy1s on July 2 and Spangler\'s also on July 2)', note='Georg 1981; OCR "Sherfy1s" = Sherfy\'s'),
               ]),
             S('R12.018.d', 'sherfy_acres', 'The Sherfy farm was "about 50 acres" (Stone Sentinels example).', 'open_gap', 'conflict', [
-                C('NPS-ADHI', 'the Sherfy farm of 70 acres', role='context', note='an NPS administrative history of the park (about the 1930s-40s, when land acquisition was urged); not the 1863 size'),
+                C('NPS-ADHI', 'the Sherfy farm of 70 acres', role='context', note='Tilberg, 23 October 1940, quoted in the NPS Administrative History (land-acquisition study); not the 1863 size'),
             ], note='No source gives the 1863 acreage; the two figures belong to different dates and are both unconfirmed for 1863.'),
         ],
         stays_unsupported=['the Stone Sentinels pages (menu, "Battlefield Terrain" page, per-farm notes)', 'farm acreage of the Sherfy farm in 1863'],
@@ -144,10 +145,12 @@ def ROWS(prev):
             S('R12.019.b', 'lrt_clr_topographic_survey', 'The Little Round Top CLR (2012) base map comes from "a full topographic survey of the project area ... using aerial photogrammetry and field verification methods" and the park GIS library was updated with it.',
               'documented', 'supported', [
                   C('NPS-CLR-LRT', 'a full topographic survey of the project area was generated using aerial photogrammatery and ﬁeld veriﬁca on methods', note='OCR of the PDF text layer drops "ti" ligatures'),
+                  C('NPS-CLR-LRT', 'FINAL March 2nd, 2012', note='cover'),
               ], note='A different (earlier, 2010-2012) modern survey; data not in hand.'),
             S('R12.019.c', 'lrt_clr_lidar_suggestion', 'The Little Round Top CLR (2012) recommended, as further research, "Conduct LIDAR topography mapping at Little Round Top", at a resolution of one foot or better.',
               'documented', 'supported', [
                   C('NPS-CLR-LRT', 'Conduct LIDAR topography mapping at Li le Round Top.', note='OCR drops "tt"'),
+                  C('NPS-CLR-LRT', 'FINAL March 2nd, 2012', note='cover'),
               ], note='Context for the 2017 project; says nothing of its figures.'),
             S('R12.019.d', 'data_availability', 'The orthomosaic, point cloud and TIN of the 2017 survey are available to the project.', 'open_gap', 'unsupported', [], note='The report does not offer them; an NPS request would be an owner-only act.'),
         ],
@@ -201,8 +204,9 @@ def ROWS(prev):
                   C('OWN-EPT-SOURCES-SUMMARY', 'source files listed: 4911', note='computed from ept-sources/list.json (sha256 in the summary text)'),
                   C('OWN-EPT-SOURCES-SUMMARY', 'sum of points: 76019979744'),
               ]),
-            S('R12.021.b', 'gettysburg_tile_header', 'The Gettysburg tile 18SUK309410 (13,309,519 points; a 1,500 m square: x 309000-310500, y 4410000-4411500) is recorded in NAD83(2011) / UTM zone 18N with vertical NAVD88 height; LAS 1.4, point data format 6; software "LiDAR Suite"; file created in 2018, day of year 288.',
+            S('R12.021.b', 'gettysburg_tile_header', 'The Gettysburg tile 18SUK309410 (13,309,519 points; bounds x 309000 to 310499.99, y 4410000 to 4411499.99, i.e. a 1,500 m square) is recorded in NAD83(2011) / UTM zone 18N with vertical NAVD88 height; LAS 1.4, point data format 6; software "LiDAR Suite"; file created in 2018, day of year 288.',
               'documented', 'supported', [
+                  C('EPT-SRC-18SUK309410', 'path: s3://usgs-lidar/Projects/USGS_LPC_PA_South_Central_B1_2017_LAS_2019/laz/USGS_LPC_PA_South_Central_B1_2017_18SUK309410_LAS_2019.laz'),
                   C('EPT-SRC-18SUK309410', 'metadata.count: 13309519'),
                   C('EPT-SRC-18SUK309410', 'metadata.minx: 309000'),
                   C('EPT-SRC-18SUK309410', 'metadata.maxx: 310499.99'),
@@ -266,6 +270,7 @@ def ROWS(prev):
                   C('EPT-ROOT', 'dataType: laszip', locator='ept.json'),
                   C('EPT-BUILD', 'software: Entwine', locator='ept-build.json'),
                   C('EPT-BUCKET-LIST-PA', '<Prefix>USGS_LPC_PA_South_Central_B1_2017_LAS_2019/</Prefix>'),
+                  C('EPT-BUCKET-LIST-PA', '<Prefix>USGS_LPC_PA_Allentown_2016_LAS_2017/</Prefix>'),
                   C('OWN-HEAD-RECORDS', 'content-length 2590802', note='HEAD of ept-sources/list.json, status 200, last-modified Fri, 06 Aug 2021'),
               ], note='This documents the route, not the USGS page text about it.'),
             BLK('R12.022.b', 'usgs_policy_and_routes', 'All 3DEP products are available, free of charge and without use restrictions; routes: GIS Data Download (The National Map), 3DEP Lidar Explorer, Rockyweb direct downloads, WMS/WCS dynamic DEM services, 1-meter seamless (S1M) 10 km by 10 km cloud-optimized GeoTIFF tiles with production in progress since mid-2025, and an AWS public dataset.',

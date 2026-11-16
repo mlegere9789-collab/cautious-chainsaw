@@ -22,7 +22,7 @@ INF, ART, CAV = 'us-1c-1d-r1', 'us-1c-art-b1', 'us-cav-1d-c1'
 
 
 def run(D=None, mutate_d=None, cover=COVER):
-    env = Env(out=tempfile.mkdtemp(prefix='q05-test-'))
+    env = Env(root=F.ROOT, out=tempfile.mkdtemp(prefix='q05-test-'))
     D = copy.deepcopy(D) if D is not None else F.q05_dump()
     if mutate_d:
         mutate_d(D)
@@ -303,7 +303,7 @@ class ScenarioSet(unittest.TestCase):
 
 class MissingInputs(unittest.TestCase):
     def test_a_missing_documented_table_blocks_the_speed_items_and_is_never_a_pass(self):
-        env = Env(out=tempfile.mkdtemp(prefix='q05-test-'))
+        env = Env(root=F.ROOT, out=tempfile.mkdtemp(prefix='q05-test-'))
         D = F.q05_dump()
         rec, out = Q.run(env, dump=D, inputs={'doc': None, 'missing': 'docs/battle-theatre/app/data/anim3d/drill-timing.json'}, write=False)
         xs = items(out, 'Q05.1')
@@ -317,7 +317,7 @@ class RealProduct(unittest.TestCase):
     UNIT = 'us-1c-1d-meredith-19in'
 
     def runner(self, mutation, units=None, extra=()):
-        env = Env(out=tempfile.mkdtemp(prefix='q05-e2e-'))
+        env = Env(root=F.ROOT, out=tempfile.mkdtemp(prefix='q05-e2e-'))
         from pq_common import Record
         K = Q.load_inputs(Record('Q05', env), env)
         K['cover'] = COVER

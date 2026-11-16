@@ -60,6 +60,30 @@ export const CHROME_ARGS = ['--enable-unsafe-webgpu', '--enable-features=Vulkan,
 export const REAL_GPU_ARGS = ['--enable-unsafe-webgpu', '--ignore-gpu-blocklist', ...(process.platform === 'linux' ? ['--enable-features=Vulkan'] : [])];
 export const chromeArgs = realGpu => (realGpu ? REAL_GPU_ARGS : CHROME_ARGS);
 export const SOFTWARE_ADAPTER_RE = /swiftshader|llvmpipe|lavapipe|softpipe|software|basic render|microsoft basic/i;
+// What a recorded adapter says about the machine, for the run checker and the one-command real-GPU run. The records are the prototype's `adapterInfo`: WebGPU { vendor, arch, device, desc } (an empty {} when the browser
+// gives no adapter.info), WebGL2 { vendor: 'webgl2', arch: <renderer>, renderer } with the renderer 'unknown' when the browser hides it (no WEBGL_debug_renderer_info). A record NAMES hardware only when at least one
+// identifying field carries a real value: an empty record, empty strings, 'unknown', 'n/a' and the harness's own labels ('webgl2') name nothing, and a run with such a record cannot be told from a software run, so it is never a
+// real-GPU result. `software`: the WHOLE record (never a shortened copy of it) matches SOFTWARE_ADAPTER_RE, or says it is a fallback adapter. Several records (the run records one at the start and one at the end) are read
+// together: one software record among them makes the answer software; one record that names hardware is enough to have a name. Pure. Returns { named, software, text (the record shown, at most 200 characters, or null), names }.
+export const ADAPTER_ID_KEYS = ['vendor', 'arch', 'architecture', 'device', 'desc', 'description', 'renderer'];
+const NO_NAME_RE = /^(?:|unknown|n\/a|na|none|null|undefined|nil|-+|\?+|webgl2?|webgpu|generic|default|unmasked|not available|unavailable)(?:\s+(?:gpu|adapter|renderer|vendor|device))?$/i;
+export function adapterVerdict(...records) {
+  const recs = records.filter(r => r !== null && r !== undefined && r !== false && r !== ''), shown = [];
+  const nameOf = v => (typeof v === 'string' && !NO_NAME_RE.test(v.trim()) ? v.trim() : null);
+  for (const r of recs) {
+    let recNamed = false, recSoft = false;
+    if (typeof r === 'string') { recNamed = nameOf(r) !== null; recSoft = SOFTWARE_ADAPTER_RE.test(r); }
+    else if (typeof r === 'object') {
+      for (const k of ADAPTER_ID_KEYS) if (nameOf(r[k]) !== null) recNamed = true;
+      let whole = ''; try { whole = JSON.stringify(r) || ''; } catch { whole = ''; }
+      recSoft = SOFTWARE_ADAPTER_RE.test(whole) || r.isFallbackAdapter === true || r.fallback === true;
+    }
+    shown.push({ r, recNamed, recSoft });
+  }
+  const named = shown.some(x => x.recNamed), software = shown.some(x => x.recSoft), pick = shown.find(x => x.recSoft) || shown.find(x => x.recNamed) || shown[0] || null;
+  const text = pick ? (typeof pick.r === 'string' ? pick.r : JSON.stringify(pick.r)).slice(0, 200) : null;
+  return { named, software, text, names: shown.filter(x => x.recNamed).length };
+}
 // Installed before any page script (context.addInitScript(HOOKS, { realCanvas })): uncaptured WebGPU errors and device loss go to window.__gpuErrors; the compiler messages of every shader module to window.__wgslMessages.
 // The canvas texture is replaced by an ordinary texture of the same size and format (configure() is not passed on, getCurrentTexture() returns the stand-in): the software adapter of a machine without a GPU
 // loses its device as soon as the real swapchain is read, drawn into for a while or captured (see the swapchain probe of tests/weather3d-gpu.mjs), and a texture of our own is the one thing that can be read back.

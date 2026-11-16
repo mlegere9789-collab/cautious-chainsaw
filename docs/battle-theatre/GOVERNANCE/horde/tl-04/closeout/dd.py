@@ -25,6 +25,8 @@ n_img = sum(1 for c in orc if (c.get('scan') or {}).get('printed_page_read_on_im
 leaves = set()
 for c in orc:
     s = c.get('scan') or {}
+    if not s.get('printed_page_read_on_image'):
+        continue
     for k in ('leaf', 'leaf_end'):
         if s.get(k) is not None:
             leaves.add((c['part'], s[k]))

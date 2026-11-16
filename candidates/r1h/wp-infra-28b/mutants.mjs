@@ -3,8 +3,8 @@
 //
 //   tools/horde/bench.sh node candidates/r1h/wp-infra-28b/mutants.mjs [--out candidates/r1h/wp-infra-28b/evidence/mutants.json]   (--dry only checks that every mutant's anchor is found once)
 //
-// Needs the scratch tree: python3 candidates/r1h/_lib/apply_group.py wp-infra-28b (this script runs it first).  Scratch output goes under
-// tmp/r1h-cand/wp-infra-28b/mut and is deleted at the end.
+// It makes its own scratch tree with candidates/r1h/_lib/apply_group.py (tmp/r1h-cand/wp-infra-28b/green-mut) and its mutants under
+// tmp/r1h-cand/wp-infra-28b/mut; both are deleted at the end.
 import fs from 'node:fs';
 import path from 'node:path';
 import cp from 'node:child_process';
@@ -14,10 +14,13 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..', '..', '..');
 const argv = process.argv.slice(2);
 const OUT = path.resolve(REPO, argv.includes('--out') ? argv[argv.indexOf('--out') + 1] : 'candidates/r1h/wp-infra-28b/evidence/mutants.json');
-const MUT = path.join(REPO, 'tmp', 'r1h-cand', 'wp-infra-28b', 'mut');
-const GREEN = path.join(REPO, 'tmp', 'r1h-cand', 'wp-infra-28b', 'green', 'watch-together.html');
+const SCRATCH = path.join(REPO, 'tmp', 'r1h-cand', 'wp-infra-28b');
+const MUT = path.join(SCRATCH, 'mut');
+// this script has its own scratch tree for the group (not tmp/.../green, which prove.mjs reads when both run at the same time under the lock)
+const GREEN_DIR = path.join(SCRATCH, 'green-mut');
+const GREEN = path.join(GREEN_DIR, 'watch-together.html');
 
-const ap = cp.spawnSync('python3', ['candidates/r1h/_lib/apply_group.py', 'wp-infra-28b'], { cwd: REPO, encoding: 'utf8' });
+const ap = cp.spawnSync('python3', ['candidates/r1h/_lib/apply_group.py', 'wp-infra-28b', '--out', path.relative(REPO, GREEN_DIR), '--report', path.relative(REPO, path.join(SCRATCH, 'report-mut.json'))], { cwd: REPO, encoding: 'utf8' });
 if (ap.status !== 0) { console.error(ap.stdout + ap.stderr); process.exit(2); }
 const page = fs.readFileSync(GREEN, 'utf8');
 
@@ -61,6 +64,7 @@ if (argv.includes('--dry')) {
   let bad = 0;
   for (const m of MUTANTS) { const n = page.split(m.from).length - 1; if (n !== 1) { bad++; console.error(`mutant ${m.id}: its anchor occurs ${n} times`); } }
   console.log(`${MUTANTS.length} mutants, ${bad} with a wrong anchor`);
+  fs.rmSync(GREEN_DIR, { recursive: true, force: true }); fs.rmSync(path.join(SCRATCH, 'report-mut.json'), { force: true });
   process.exit(bad ? 2 : 0);
 }
 fs.rmSync(MUT, { recursive: true, force: true });
@@ -85,6 +89,8 @@ for (const m of MUTANTS) {
   fs.rmSync(dir, { recursive: true, force: true });
 }
 fs.rmSync(MUT, { recursive: true, force: true });
+fs.rmSync(GREEN_DIR, { recursive: true, force: true });
+fs.rmSync(path.join(SCRATCH, 'report-mut.json'), { force: true });
 const survived = results.filter((r) => !r.killed);
 if (only) { console.log(`${results.length - survived.length} of ${results.length} selected mutants killed (partial run, no evidence file written)`); process.exit(survived.length ? 1 : 0); }
 fs.mkdirSync(path.dirname(OUT), { recursive: true });

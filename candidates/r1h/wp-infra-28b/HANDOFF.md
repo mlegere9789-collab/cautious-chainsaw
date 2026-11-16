@@ -9,7 +9,7 @@ Nine patches on text of `release/R1g/dist/watch-together.html` (each anchor foun
 | Patch id (`r1h-wp-infra-28b-...`) | Lines on R1g | What it does |
 |---|---|---|
 | `sentence` | 126 | the Live Sync sentence says "a 6-character code" and ends "as the host plays or jumps" instead of "in real time" (the REALTIME hit of line 126 is this group's; the other one, in the span after "Share this code", stays wp-content-09b's) |
-| `join-input` | 160 | `placeholder="Enter 6-character code" maxlength="6"` |
+| `join-input` | 160 | `placeholder="Enter 6-character code" maxlength="6"` (shorter than "Enter a 6-character code" on purpose: by font metrics and the page CSS the longer text would touch the edge of the 174 px of text room in DejaVu Sans; an estimate, see the request note) |
 | `core` | 298-303 | replaces `randomCode()` with: the constant block `WT` (code length 6, the 28-character alphabet, 20 guests, notes of 280, moments to 675), `randomCode()` from `crypto.getRandomValues`, `parseGoto()` (the message check) and `hostMessage()` (what the host sends) |
 | `broadcast` | 295 | the host's broadcast goes through `hostMessage()` |
 | `host-code` | 346 | `randomCode()` is called inside try/catch: with no usable `crypto.getRandomValues` no session starts and the status reads "could not make a safe session code in this browser" |

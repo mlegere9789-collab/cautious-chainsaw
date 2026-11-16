@@ -3,7 +3,7 @@
  "route": "candidate-group",
  "base": "release/R1g/dist",
  "test": "candidates/r1h/wp-infra-28b/test.mjs",
- "checked_at": "2026-11-16T01:11:57.203Z",
+ "checked_at": "2026-11-16T01:48:13.914Z",
  "anchors": {
   "exit": 0,
   "patches": 9,
@@ -17,15 +17,15 @@
   "cmd": "R1H_BASE=release/R1g/dist node --test candidates/r1h/wp-infra-28b/test.mjs",
   "exit": 1,
   "expect": "non-zero",
-  "ms": 1315,
-  "tail": "...unner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\nok 21 - page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\n  ---\n  duration_ms: 93.209913\n  type: 'test'\n  ...\n# Subtest: page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\nok 22 - page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\n  ---\n  duration_ms: 2.274831\n  type: 'test'\n  ...\n1..22\n# tests 22\n# suites 0\n# pass 4\n# fail 18\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1254.120867\n"
+  "ms": 1555,
+  "tail": "...nner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\nok 21 - page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\n  ---\n  duration_ms: 90.095454\n  type: 'test'\n  ...\n# Subtest: page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\nok 22 - page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\n  ---\n  duration_ms: 12.168244\n  type: 'test'\n  ...\n1..22\n# tests 22\n# suites 0\n# pass 4\n# fail 18\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1374.653408\n"
  },
  "green": {
   "cmd": "R1H_BASE=release/R1g/dist R1H_TREE=tmp/r1h-cand/wp-infra-28b/green node --test candidates/r1h/wp-infra-28b/test.mjs",
   "exit": 0,
   "expect": 0,
-  "ms": 1780,
-  "tail": "...a group that applies and behaves by its constants\n  ---\n  duration_ms: 215.527234\n  type: 'test'\n  ...\n# Subtest: page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\nok 21 - page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\n  ---\n  duration_ms: 74.593611\n  type: 'test'\n  ...\n# Subtest: page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\nok 22 - page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\n  ---\n  duration_ms: 3.408754\n  type: 'test'\n  ...\n1..22\n# tests 22\n# suites 0\n# pass 22\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1650.256043\n"
+  "ms": 1802,
+  "tail": "... a group that applies and behaves by its constants\n  ---\n  duration_ms: 397.920893\n  type: 'test'\n  ...\n# Subtest: page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\nok 21 - page: every inline script parses with acorn, the parser of the build gate (tools/t0/gate.mjs: ecmaVersion latest, script)\n  ---\n  duration_ms: 82.167368\n  type: 'test'\n  ...\n# Subtest: page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\nok 22 - page: the page still parses and builds its Live Sync controls (the unchanged parts are not disturbed)\n  ---\n  duration_ms: 2.98814\n  type: 'test'\n  ...\n1..22\n# tests 22\n# suites 0\n# pass 22\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1703.580848\n"
  },
  "passes": true,
  "problems": [],

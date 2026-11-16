@@ -34,6 +34,7 @@ for _p in (HERE, os.path.join(HERE, 'lib'), os.path.abspath(os.path.join(HERE, '
 
 from oobgates_common import cond, covered_by_register, first_failed, gate_rows, layer_dump, sub_requirements_for  # noqa: E402
 from pq_common import Env, InputMissing, Record, base_parser, guarded_main, node_version  # noqa: E402
+from q456_inputs import register_inputs  # noqa: E402
 from q05_speed import documented  # noqa: E402
 
 GATE = 'Q06'
@@ -220,7 +221,9 @@ def evaluate(rec, env, D, K):
                       cond('every leg carries a tier and sources and a rate inside the documented bound', not [x for x in f1 if 'tier' in x or 'source key' in x or 'rate' in x or 'bound' in x], '; '.join([x for x in f1 if 'tier' in x or 'source key' in x or 'rate' in x or 'bound' in x][:3])),
                       cond('the route is a documented or inferred road of approach with its tier, and a clause stands behind the fighting position', not [x for x in f1 if 'road of approach' in x or 'stop' in x], '; '.join([x for x in f1 if 'road of approach' in x or 'stop' in x][:3]))]
             bad1 = first_failed(conds1)
-            ev1 = dict(base, conditions=conds1, n_legs=len(legs), legs=[{k: l[k] for k in ('i', 't0', 't1', 'length_m', 'mean_ms', 'gait', 'tier', 'sources')} for l in legs][:24], joins=joins[:24], approach=ap, plan=plan, stops=R.get('stops'), days=R.get('days'), slot=R.get('slot'), chain_legs=len(chain), departure_leg=dep_t1 is not None, documented_upper_ms=upper)
+            ev1 = dict(base, conditions=conds1, n_legs=len(legs), chain_legs=len(chain), departure_leg=dep_t1 is not None, approach=ap, plan=plan, slot=R.get('slot'), documented_upper_ms=upper, mean_ms=[min([l['mean_ms'] for l in legs if l['mean_ms'] is not None] or [None]), max([l['mean_ms'] for l in legs if l['mean_ms'] is not None] or [None])], tiers=sorted({str(l.get('tier')) for l in legs}), max_join_m=max([j['d_m'] or 0 for j in joins] or [0]))
+            if bad1:
+                ev1.update(legs=[{k: l[k] for k in ('i', 't0', 't1', 'length_m', 'mean_ms', 'gait', 'tier', 'sources')} for l in legs][:24], joins=joins[:24], stops=R.get('stops'), days=R.get('days'))
             rec.item('Q06/Q06.1/%s/%s' % (uid, lab), 'FAIL' if bad1 else 'PASS', ('unit %s under %s: ' % (uid, lab) + '; '.join(bad1)) if bad1 else 'unit %s under %s: a chain of %d leg(s) from the entry at the edge to the fighting position, each with tier and sources, joined within 1 m' % (uid, lab, len(legs)), ev1, check='Q06.1', subjects=[uid], scenario=lab, sub_requirements=sub)
             # ---- Q06.2
             f2, reg_needed = [], False
@@ -293,6 +296,7 @@ def run(env, dump=None, inputs=None, write=True, mutate=None, argv=None, extra=(
     D = dump if dump is not None else layer_dump(env, 'q06_path.mjs', list(extra), mutate=mutate, timeout=6 * 3600)
     K = inputs if inputs is not None else load_inputs(rec, env, run_checker=check_undrawn)
     rec.extra['scenario_set'] = {'id': D['scenario_set']['id'], 'count': D['scenario_set']['count'], 'groups': D['scenario_set']['groups']}
+    register_inputs(rec, env, D, node_files=('tools/bt/gates/q06_path.mjs',))
     evaluate(rec, env, D, K)
     out = rec.finish()
     if write:

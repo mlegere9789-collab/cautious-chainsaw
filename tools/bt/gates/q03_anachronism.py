@@ -954,6 +954,9 @@ def main(argv=None):
     rec.note('Q03.4 reading: the classes absent in 1863 are those the plan names (monuments, avenues, modern roads and lots, post-1863 buildings, towers, signs, wires and poles, modern fences, markers); they are matched on the structured fields of the registry (class, subtype, kind, represents, built), never on a name, '
              'because an address ("89 Steinwehr Avenue") is not an avenue. The ground audit (b) is BLOCKED-INPUT until the terrain work writes GOVERNANCE/ground_audit/audit.json; the product\'s own statement that the ground is the modern landscape is a FAIL, never a pass (A-33, X-11).')
     rec.note('Q03.1 flags: a validator flag is acceptable only when every variant passes, the flag is marked in the manifest and on the figure card, and a register entry that is open and complete (L1) names the flag class (tools/bt/gates/q03_flags.json). Marking in the picture is Q23\'s.')
+    rec.note('Q03.2 reading (stricter wins): "every item is valid on each scene date" is read with K.9 (p. 135): every kit item carries valid_from and valid_to, so an item with no stated validity cannot be shown valid on a date (the census item); on each scene day every spec entry valid that day '
+             'is validated as a manifest of that one item, and the dress of a drawn unit (made for its first day) must still be valid on every later day it is drawn. The national colour is compared with the statutory count of the app\'s own evidence module on every day.')
+    rec.note('Q03.5 covers all 14 records P-01 to P-14 (R13.P-01 to R13.P-14); P-12 (the unfinished railroad grade, kind terrain_excavation) is terrain: present at frame one with no construction in the engine, and not among the works. The pre-existing draw list holds the 13 walls and fences.')
     rec.note('No COVERED: Q03 has no register or flag branch of its own (GATE-SPEC K3).')
     rec.note('Q03.1 class 1 (presence): the arrival half is checked for every drawn figure with the presence test bound to the unit\'s arrival gate and a negative control on the day before; the validator gates arrival only (kit_presence: departures are not gated), so the departure half '
              '("has already left") is not checked by this runner; Q04.4 judges departures in the scene.')
@@ -1035,6 +1038,8 @@ def main(argv=None):
         q3s.safe(rec, 'validator-selftests', validator_selftests, V, rec, kit, R, args.skip_selftests)
         pop = q3s.safe(rec, 'population', population, V, rec, kit, R, fp) or {}
         q3s.safe(rec, 'absent-units', absent_units, V, rec, kit, R)
+        if not pop and UNIT_FILTER is None:
+            rec.item('Q03/Q03.1/units', 'BLOCKED-INPUT', 'input missing: no kit unit is present at Gettysburg (empty domain, U-03)', {'kit_units': len(kit.units)}, check='Q03.1', sub_requirements=R.unit())
         if args.skip_drawn:
             rec.item('Q03/Q03.1/drawn-figures', 'NOT-RUN', 'the validation of every drawn figure was skipped by --skip-drawn', {'skipped': True}, check='Q03.1', sub_requirements=R.unit())
             rec.incomplete('the drawn-figure validation was skipped')
@@ -1042,6 +1047,8 @@ def main(argv=None):
             rec.item('Q03/Q03.1/drawn-figures', 'BLOCKED-INPUT', 'input missing: the figures the shell draws could not be exported (%s)' % (exp_error or 'no export'), {'missing': exp_error}, check='Q03.1', sub_requirements=R.unit())
         else:
             drawn = q3s.safe(rec, 'drawn-figures', drawn_figures, env, V, rec, kit, R, fp, exp) or {}
+            if not (exp.get('units') or []):
+                rec.item('Q03/Q03.1/drawn-figures', 'BLOCKED-INPUT', 'input missing: the export lists no drawn unit (empty domain, U-03)', {}, check='Q03.1', sub_requirements=R.unit())
         q3s.safe(rec, 'flag-items', flag_items, rec, fp, pop, drawn, R)
         q3s.safe(rec, 'class7', class7, rec, kit, R)
         q3s.safe(rec, 'validity-census', validity_census, V, rec, kit, SD, R)

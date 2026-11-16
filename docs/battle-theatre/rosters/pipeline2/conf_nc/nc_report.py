@@ -307,6 +307,12 @@ def main():
     item('**Presence.** %s of %s lines name Gettysburg in their remarks and %s of them print 1, 2 or 3 July 1863 (lower bounds). For the 26th Infantry this run counts %d lines that name Gettysburg (the earlier GAPS lines G05 and GN01 give 512 and 515 by another rule, against Clark\'s 708 killed, wounded and missing) and for the 4th Infantry %d (GN01: 21); the rules differ and the difference is not examined. No line states presence on any other ground (gap EG-ROS-NC-04).' % (fmt(tot['names_gettysburg']), fmt(rows_total), fmt(tot['gettysburg_dated']), units[gk]['names_gettysburg'], units[g4]['names_gettysburg']))
     item('**Lines against the earlier files**: for the %d units that have an earlier file the earlier files hold %s lines against %s in these files (%+d); the six units with no earlier file (the four cavalry regiments, the Branch and the Charlotte Artillery) have only the second scan as a second reading. The differences by line are in `differences-<unit>.csv` (section 4); none is resolved.'
          % (len(e_units), fmt(sum(rec[k]['earlier']['lines'] for k in e_units)), fmt(sum(units[k]['lines'] for k in e_units)), sum(units[k]['lines'] for k in e_units) - sum(rec[k]['earlier']['lines'] for k in e_units)))
+    chp = os.path.join(WS, 'changes-after-review.json')
+    if os.path.exists(chp):
+        ch = jload(chp)['totals']
+        item('**Parser corrected after the first review of the files (DD-ROS-NC-07).** Writing this report showed two classes of mis-cut heads in the first build: %s rows whose name was a county phrase ("Wilkes co.", a county taken for a split surname) and %s rows whose remarks ended with the first given name of the next head ("Wm.", "Thos.", left behind a county). Three narrow rules were corrected and the %d files rebuilt: after the correction %s and %s such rows remain; rows %s to %s; %s changed blocks in %s units, each listed in `changes-after-review.json` with the printed names and the first 60 characters of the remarks of both sides; no printed word is changed. What remains of the second class are heads that the text layer damaged (an initial run into the name: "JohnL.", "PeterS."; a given name read as "Tas." or "Tno."; a bare name with no date): they stay merged with the line before and carry flag M where a name-like run follows a period.'
+             % (fmt(ch['county_name_rows_before']), fmt(ch['given_name_abbreviation_before']), n, fmt(ch['county_name_rows_after']), fmt(ch['given_name_abbreviation_after']),
+                fmt(ch['rows_before']), fmt(ch['rows_after']), fmt(ch['blocks']), fmt(ch['units_changed'])))
     ident = [k for k in keys if units[k].get('identification')]
     item('**Identification of the four artillery units** (DD-ROS-NC-04; Documented by the Official Records index lines, Inferred where it rests on the captain or the counties): ' + ' || '.join('%s = Moore volume %s, %s %s, Company %s: %s' % (D(k), units[k]['moore']['volume'], 'Tenth Regiment' if units[k]['moore']['number'] == 10 else 'Fifth Battalion', '(First Artillery)' if units[k]['moore']['number'] == 10 else '(Light Artillery)', units[k]['moore']['company'], units[k]['identification']) for k in ident))
     ph = F.PAGE_IMAGE_READINGS
@@ -323,7 +329,7 @@ def main():
     for e in gaps:
         w('* **%s** (GAPS.md %s): %s. Route: %s. Tier: %s.' % (e['id'], e['gid'], e['title'], e['route'], e['tier']))
     w('')
-    w('No unit lacks a file, so `units_without_file` in `CLOSED.json` is empty. Delegated decisions DD-ROS-NC-01 to -06 are appended to `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md`.')
+    w('No unit lacks a file, so `units_without_file` in `CLOSED.json` is empty. Delegated decisions DD-ROS-NC-01 to -07 are appended to `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md`.')
     w('')
     path = os.path.join(L.R2, 'reports', 'conf-nc.md')
     os.makedirs(os.path.dirname(path), exist_ok=True)

@@ -7,7 +7,7 @@ Written 2026-11-16 by the evidence pass of group us-2c-2d3d (Second Corps: Secon
 | unit as printed | parent unit | what the record says | line |
 |---|---|---|---|
 | Pioneer Corps, First Brigade, Third Division, Second Corps | `us-2c-3d-carroll` | commanded by Capt. Nathan Willard, Fourteenth Indiana ("Chief of Pioneers"); 2 lieutenants and 50 enlisted men; buried 4 officers and 38 men of the brigade and 37 of the enemy, assisted 113 wounded, collected 349 stand of arms (OR27-1-R118 p. 459; the scan reads 50 where the OCR prints "5(T") | 0509 |
-| Second Division staff (return of casualties) | `us-2c-2d` | 3 officers wounded (Brig. Gen. Harrow's rows; Captain John P. Blinn, assistant adjutant general, mortally wounded on the 3d is among the officers of the list p. 192) | 0110 |
+| Second Division staff (return of casualties) | `us-2c-2d` | 3 officers wounded (the OCR prints the row under the heading of Gibbon and Harrow; the return does not say which officers the staff row counts: Harrow's report names his assistant adjutant-general, Capt. John P. Blinn, as having "fell, mortally wounded, on the 3d", and the list of officers killed or mortally wounded, p. 192, has him) | 0110 |
 | First Brigade staff, Second Division (return of casualties) | `us-2c-2d-harrow` | 1 officer wounded | 0112 |
 
 The provost guard of the First Brigade, Third Division (Capt. Alfred T. Craig, Eighth Ohio; 1 captain, 1 second lieutenant, 1 sergeant, 3 corporals, 30 privates, drawn from the 4th Ohio, 7th West Virginia, 8th Ohio and 14th Indiana; OR27-1-R121 p. 463) is entered as a detachment line of the 8th Ohio (0336), not as a unit.

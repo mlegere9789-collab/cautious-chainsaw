@@ -1,9 +1,9 @@
 // Self-test of tools/bt/verify_staging.mjs: the checks that decide "the staging build is honest" are proved on made-up folders and made-up request logs, so that a failure of the real run
 // means something. The walk of the real theatre needs a browser, the machine lock and minutes: it is not here. The walk of a static section (a small page set) is, when a browser starts.
 //   node --test tests/bt-pack/verify.test.mjs            (the last test starts a browser for a few seconds: run it through tools/horde/bench.sh, or set BT_PACK_NO_BROWSER=1 to skip it)
-import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
+import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import zlib from 'node:zlib'; import { fileURLToPath } from 'node:url';
 import { pack, trace, BT, EXCLUDE } from '../../tools/bt/pack_theatre.mjs';
-import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkLeftOut, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections, checkPortableNames, makeShooter, renderStagingBlock, writeStagingBlock, findRequestNotes, censusVerdict, BLOCK_START, BLOCK_END } from '../../tools/bt/verify_staging.mjs';
+import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkLeftOut, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections, checkPortableNames, makeShooter, renderStagingBlock, writeStagingBlock, findRequestNotes, censusVerdict, lookAhead, rosterHits, STAGING_DOC, BLOCK_START, BLOCK_END } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btverify-')); test.after(() => fs.rmSync(tmp, { recursive: true, force: true }));
@@ -219,6 +219,46 @@ test('the census verdict of the verification: a load the build does not answer f
   const by = censusVerdict(census([]), [{ path: 'app/data/q.json', why: 'x' }]); assert.deepEqual(by.failures, []); assert.match(by.notes[0], /1 file\(s\) are in the build only because the census found a load of them .*: app\/data\/q\.json/); assert.deepEqual(by.summary.shippedByCensus, ['app/data/q.json']);
   const pe = censusVerdict({ ...census([]), parseErrors: ['app/src/b.mjs: Unexpected token'] }); assert.match(pe.failures[0], /a module does not parse: app\/src\/b\.mjs/);
   assert.match(censusVerdict(null).notes[0], /no result/); const off = censusVerdict({ available: false, reason: 'acorn is not installed' }); assert.deepEqual(off.failures, []); assert.match(off.notes[0], /acorn is not installed/); assert.equal(off.summary.available, false);
+});
+test('the Current build block: the words that are only counted have a row of their own, and the words of the working process are said to be hits', () => {
+  const root = makeFixture(path.join(tmp, 'blk-words-src')); fs.writeFileSync(path.join(root, 'app/data/doc-relative.json'), '{"a":1,"note":"no source was opened by this workstream; ws10: riders; a render pass: this pass draws; a horde of stragglers"}\n');
+  const p = { root, ...pack({ root, cfg: FIXTURE_CFG, out: path.join(tmp, 'blk-words/dist'), zipDir: path.join(tmp, 'blk-words') }) }; assert.equal(p.audit.length, 1); assert.equal(p.audit[0].kind, 'process');
+  const row = renderStagingBlock({ dist: p.out, zip: p.zip }).split('\n').find(l => l.startsWith('| Copy audit, what is only counted |')); assert.ok(row, 'the row exists');
+  assert.match(row, /ws label 1/); assert.match(row, /this pass 1/); assert.match(row, /horde 1/); assert.match(row, /1 of the 1 hit above is of that kind/); assert.match(row, /they fail nothing/); assert.doesNotMatch(row, /workstream 1|shard 1/, 'a failing word is not counted a second time');
+  const clean = build('blk-words-clean'), r2 = renderStagingBlock({ dist: clean.out, zip: clean.zip }).split('\n').find(l => l.startsWith('| Copy audit, what is only counted |')); assert.ok(r2 && !/are of that kind|is of that kind/.test(r2), 'a build with no hit makes no claim about hits');
+});
+test('look ahead: the copy audit of today over the roster data and the data files that no page loads, run in place; the document row is written from it and a build without it has no such row', () => {
+  const root = makeFixture(path.join(tmp, 'la-src')), put = (rel, body) => { const f = path.join(root, rel); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, body); };
+  put('rosters/data2/INDEX.json', '{"about": "Built from the unit files under data2/ by pipeline2/build_index.py."}\n');                                    // a hit (says how it was made)
+  put('rosters/data2/units.json', '{"generated": "2026-11-04", "units": []}\n');                                                                       // the publication filter's member: not counted
+  put('rosters/data2/union/nh/5th.jsonl.gz', zlib.gzipSync('{"f":"roster2/2","u":"u-nh-5th"}\n[218,"Mansfield, Claude.","","Co. I",12]\n'));           // a printed given name: data
+  put('rosters/data2/confederate/nc/2nd.jsonl.gz', zlib.gzipSync('{"f":"roster2/2","u":"u-nc-2"}\n[40,"Walker, Jesse AI.","","e. June 18th, \'61.",22]\n')); // two capital letters standing alone: a hit
+  put('app/data/never-loaded.json', '{"note":"read by shard terrain-1"}\n');                                                                           // no page loads it: a hit that does not count for this build
+  put('app/data/also-never-loaded.json', '{"plain":"history"}\n');
+  const p = { root, ...pack({ root, cfg: FIXTURE_CFG, out: path.join(tmp, 'la/dist'), zipDir: path.join(tmp, 'la') }) }; assert.ok(!fs.existsSync(path.join(p.out, 'rosters/data2/INDEX.json')), 'the roster data is not in this build'); assert.equal(p.audit.length, 0);
+  const a = lookAhead({ btDir: root, dist: p.out });
+  assert.equal(a.roster.files, 4, 'the fixture ships x.jsonl through its section: a shipped file is not counted'); assert.equal(a.roster.gzip, 2); assert.deepEqual(a.roster.hits.map(h => h.file).sort(), ['rosters/data2/INDEX.json', 'rosters/data2/confederate/nc/2nd.jsonl.gz']);
+  assert.equal(a.roster.hits.find(h => /2nd/.test(h.file)).line, 2); assert.equal(a.roster.hits.find(h => /2nd/.test(h.file)).match, 'AI');
+  assert.deepEqual(a.unshipped.hits.map(h => [h.file, h.kind]), [['app/data/never-loaded.json', 'process']]); assert.ok(a.unshipped.files >= 2 && a.unshipped.dir === 'app/data');
+  assert.deepEqual(rosterHits([{ file: 'rosters/data2/units.json', text: ' "generated": "2026-11-04"' }, { file: 'rosters/data2/units.json', text: ' "about": "built by tools/x.mjs"' }, { file: 'rosters/data2/sources/a.json', text: '"generated"' }]).map(h => h.text), [' "about": "built by tools/x.mjs"']);
+  const rd = path.join(tmp, 'la-req'); fs.mkdirSync(rd, { recursive: true }); fs.writeFileSync(path.join(rd, 'to-rosters.md'), '# copy audit: rosters/data2/confederate/nc/2nd.jsonl.gz line 2 has two capital letters\n');
+  const b = renderStagingBlock({ dist: p.out, zip: p.zip, lookAhead: a, requestsDir: rd }), row = b.split('\n').find(l => l.startsWith('| Copy audit, look ahead'));
+  assert.ok(row, 'the row exists'); assert.match(row, /Roster data \(`rosters\/data2`, 4 files, 2 of them gzip\): \*\*2 hits\*\* in 2 files: `rosters\/data2\/INDEX\.json:1`/); assert.ok(row.includes('`rosters/data2/confederate/nc/2nd.jsonl.gz:2`'));
+  assert.ok(row.includes('requests: `to-rosters.md`') && row.includes('no request note names these files yet'), 'the note that names the file is listed; the file with none says so');
+  assert.match(row, /Data files that no page loads \(`app\/data`, \d+ files\): \*\*1 hit\*\* in 1 file: `app\/data\/never-loaded\.json:1`/); assert.match(row, /run at \d{4}-\d\d-\d\d \d\d:\d\d UTC/); assert.match(row, /do not ship|does not ship/);
+  assert.ok(!renderStagingBlock({ dist: p.out, zip: p.zip }).includes('look ahead'), 'without a look ahead there is no row (the tests and the callers that give none)');
+  // a clean tree says 0 hits for what it has, and a tree without a roster folder has no roster sentence
+  const clean = makeFixture(path.join(tmp, 'la2-src')); fs.writeFileSync(path.join(clean, 'app/data/never-loaded.json'), '{"plain":"history"}\n'); const q = { root: clean, ...pack({ root: clean, cfg: FIXTURE_CFG, out: path.join(tmp, 'la2/dist'), zipDir: path.join(tmp, 'la2') }) }, a2 = lookAhead({ btDir: clean, dist: q.out });
+  assert.equal(a2.roster, null); assert.ok(a2.unshipped && a2.unshipped.hits.length === 0); const r2 = renderStagingBlock({ dist: q.out, zip: q.zip, lookAhead: a2 }).split('\n').find(l => l.startsWith('| Copy audit, look ahead'));
+  assert.ok(r2 && !/Roster data/.test(r2) && /\*\*0 hits\*\*/.test(r2), r2);
+  assert.deepEqual(lookAhead({ btDir: path.join(tmp, 'no-such-tree') }), { at: lookAhead({ btDir: path.join(tmp, 'no-such-tree') }).at, roster: null, unshipped: null }, 'a tree without the folders gives nothing and does not throw');
+});
+test('NETLIFY-STAGING.md: outside the generated block the document states no result of the audit of one day (a count of hits, of files, "as they are today"); those live in the block, written from a run', () => {
+  const doc = fs.readFileSync(STAGING_DOC, 'utf8'), i = doc.indexOf(BLOCK_START), j = doc.indexOf(BLOCK_END); assert.ok(i > 0 && j > i, 'the markers are in the document');
+  const outside = doc.slice(0, i) + doc.slice(j + BLOCK_END.length);
+  for (const [re, what] of [[/\b\d+ gzip files?\b/i, 'a count of roster files'], [/\b(?:have|has|hold|holds|with) \d+ (?:hits?|lines?)\b/i, 'a count of hits'], [/\bas they are today\b/i, '"as they are today"'], [/\b(?:a )?look ahead on \d{4}-\d\d-\d\d\b/i, 'a dated look ahead'], [/\b\d+ files? of `?app\/data`? that this build does not ship\b/i, 'a count of unshipped data files'], [/\bthe \d+ gzip\b/i, 'a count of gzip files']])
+    assert.doesNotMatch(outside, re, `a result of one day outside the block (${what}): it goes stale; the block is written from a run`);
+  assert.match(outside, /Copy audit, look ahead/, 'the document says where the look ahead is');
 });
 test('the Current build block: only the text between the two markers of the document changes, and a document without them is refused', () => {
   const p = build('blk-e'), doc = path.join(tmp, 'blk-e-doc.md'), before = `# Title\n\nintro line\n\n${BLOCK_START}\nold block\n${BLOCK_END}\n\n## Build\nthe rest of the document\n`; fs.writeFileSync(doc, before);

@@ -10,7 +10,7 @@
 //             unit is present, and every pair whose displacement is more than v_max x dt plus the position resolution; the same for every gun piece
 //   train     for every battery the draw lists of ArtilleryTrain (limbers, caissons, wagon and forge, teams of horses, drivers, extra guns) every 5 s while the battery moves or turns: the fastest entity of each list
 //   offsets   the layer's own report of lateness (report().offsets, defects, state_offsets): where a documented time cannot be met at a documented rate
-import { buildProduct, buildScenarioSet, prepareScenarios, scenarioDump, driveScans, withUnits, buildGrid, loadScenario, imp, parseArgs, loadMutation, writeOut, r6, readJSON } from './q456_lib.mjs';
+import { buildProduct, buildScenarioSet, prepareScenarios, scenarioDump, driveScans, withUnits, buildGrid, loadScenario, imp, parseArgs, loadMutation, writeOut, r6, readJSON, inputsRead } from './q456_lib.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const mutate = await loadMutation(args.mutate);
@@ -165,6 +165,6 @@ const { SPEED } = await imp('src/history/real.mjs');
 const stageConst = { TURN_S: 25, MAX_TURN_EDGE_MS: 4.4, note: 'read from src/stage.mjs (the shortest turn and the fastest the outer edge of a formation may move while it turns, by the stage\'s own words)' };
 writeOut(args.out, {
   schema: 'q05-dump/1', layer: { id: layer.meta.id, contract: layer.meta.contract, units: nL, counts: layer.counts }, ground: P.ground, battle: BATTLE,
-  grid: { mode: gridMode, from: BATTLE.from, to: BATTLE.to, boundary_s: 1, resolution_m: RESOLUTION_M }, ...sd, behaviours: records, scans, selected_units: selectedUnits ? [...selectedUnits] : null,
+  grid: { mode: gridMode, from: BATTLE.from, to: BATTLE.to, boundary_s: 1, resolution_m: RESOLUTION_M }, inputs_read: inputsRead(), ...sd, behaviours: records, scans, selected_units: selectedUnits ? [...selectedUnits] : null,
   bounds: BOUNDS, product: { speed: { march: SPEED.march, double_quick: SPEED.double_quick }, stage: stageConst, train: haveTrain ? { layout_turn_s: train.layout.train_turn_s, file: 'app/data/artillery-train.json' } : null }, train_run: haveTrain,
 });

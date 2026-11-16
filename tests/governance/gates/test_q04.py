@@ -20,7 +20,7 @@ MUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'q456_mutations')
 
 
 def run(D=None, K=None, mutate_d=None, mutate_k=None):
-    env = Env(out=tempfile.mkdtemp(prefix='q04-test-'))
+    env = Env(root=F.ROOT, out=tempfile.mkdtemp(prefix='q04-test-'))
     D = copy.deepcopy(D) if D is not None else F.q04_dump()
     K = copy.deepcopy(K) if K is not None else F.q04_inputs()
     if mutate_d:
@@ -121,12 +121,18 @@ class Absolute(unittest.TestCase):                    # Q04.1
         self.assertEqual(x['result'], 'FAIL')
         self.assertIn('manifest', x['reason'])
 
-    def test_a_unit_listed_as_never_on_the_field_that_is_present_fails_both_in_its_item_and_in_the_never_on_the_field_case(self):
+    def test_a_unit_listed_as_never_on_the_field_that_is_present_fails_even_when_its_times_are_in_order(self):
         def appears(D):
             D['units'][[u['id'] for u in D['units']].index('us-cav-2d-huey')]['drawn'] = True
-            D['behaviours']['us-cav-2d-huey']['d-us-cav-2d-huey']['classes'] = {'soldiers': F.runs(F.minute(2, 12))}
-        out = run(mutate_d=appears)
-        self.assertEqual(one(out, 'Q04.1', 'Q04.1/us-cav-2d-huey/delegated')['result'], 'FAIL')
+            r = D['behaviours']['us-cav-2d-huey']['d-us-cav-2d-huey']
+            r['arrival'] = {'earliest': F.minute(2, 5), 'default': F.minute(2, 8), 'latest': F.minute(2, 8), 'tier': 'inferred', 'sources': [], 'conflict': None, 'entry': None, 'entry_status': 'x'}
+            r['classes'] = {'soldiers': F.runs(F.minute(2, 12))}
+        def gate(K):
+            K['bound']['us-cav-2d-huey'] = {'abs_min': F.minute(2, 5), 'owner': 'us-cav', 'kind': 'printed_clock', 'tier': 'documented', 'values': [], 'earliest': F.minute(2, 5)}
+        out = run(mutate_d=appears, mutate_k=gate)
+        x = one(out, 'Q04.1', 'Q04.1/us-cav-2d-huey/delegated')
+        self.assertEqual(x['result'], 'FAIL')
+        self.assertIn('listed as never_on_field', x['reason'])
         self.assertEqual(one(out, 'Q04.6', 'never-on-field/us-cav-2d-huey')['result'], 'FAIL')
 
 
@@ -177,9 +183,15 @@ class Effects(unittest.TestCase):                     # Q04.7
             D['behaviours'][R1]['a1']['events']['state_before_enter'] = 2
         self.assertEqual(one(run(mutate_d=ev), 'Q04.1', 'Q04.1/%s/delegated' % R1)['result'], 'FAIL')
 
-    def test_an_event_of_the_layer_before_the_window_fails_even_when_the_sim_cache_kept_it_off_the_scene(self):
+    def test_an_event_of_the_layer_before_the_window_fails_even_when_nothing_was_refused(self):
         def ev(D):
             D['behaviours'][R1]['a1']['events'].update({'before_earliest': 1, 'first_before_earliest': {'t': F.minute(2, 4), 'type': 'enter'}})
+        x = one(run(mutate_d=ev), 'Q04.1', 'Q04.1/%s/delegated' % R1)
+        self.assertEqual(x['result'], 'FAIL')
+        self.assertIn('event(s) before the window opens', x['reason'])
+
+    def test_an_event_refused_by_the_sim_cache_fails_even_when_the_scene_is_empty(self):
+        def ev(D):
             D['behaviours'][R1]['a1'].update({'n_refused': 1, 'refused': [{'unit': R1, 't': F.minute(2, 4), 'type': 'enter', 'reason': 'outside presence window (Q04)'}]})
         x = one(run(mutate_d=ev), 'Q04.1', 'Q04.1/%s/delegated' % R1)
         self.assertEqual(x['result'], 'FAIL')
@@ -455,7 +467,7 @@ class RealProduct(unittest.TestCase):
     UNIT = 'us-1c-1d-meredith-19in'
 
     def runner(self, mutation, units=None, extra=()):
-        env = Env(out=tempfile.mkdtemp(prefix='q04-e2e-'))
+        env = Env(root=F.ROOT, out=tempfile.mkdtemp(prefix='q04-e2e-'))
         rec, out = Q.run(env, mutate=os.path.join(MUT, mutation) if mutation else None, write=False, extra=['--scenarios', 'default', '--grid', 'coarse', '--units', units or self.UNIT, '--no-restriction-check'] + list(extra))
         return out
 

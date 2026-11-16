@@ -4,7 +4,7 @@ Written 2026-11-16. The lines of `docs/battle-theatre/kit/evidence/us-2c-2d3d.js
 
 ## Weapons (`weapon_id` null)
 
-- smooth-bore muskets of the Springfield pattern, calibre .69, model not named, with buck and ball: the 4th Ohio (0344, 0459, 0460), 12th New Jersey (0346, 0347), 8th Ohio (0351, 0352). The catalog has `smoothbore_69_musket_unspecified` (used where the source gives calibre .69 or says "Springfield muskets", e.g. 0459-0460) and `m1842_smoothbore`.
+- smooth-bore muskets of unnamed model: the 4th Ohio ("smooth-bore muskets", 0344), the 12th New Jersey ("smooth-bore muskets", 0347), the 8th Ohio ("old smooth-bore musket", 0351, and "musket", 0352). The catalog has `smoothbore_69_musket_unspecified` (used for the 4th Ohio's Springfield muskets of caliber .69, 0459-0460) and `m1842_smoothbore` (used for the 12th New Jersey's "smooth-bore Springfields", 0346, although the passage names neither the model year nor the calibre).
 - Harper's Ferry muskets, old smooth-bore guns altered from flint-lock to percussion (the 42d New York, 1861, 0355); "many of the guns dignified by the name of rifles were only flint-lock muskets, altered" (69th, 71st, 72d Pennsylvania, autumn 1861, 0399-0401); Harper's Ferry rifles of calibre .69 (15th Massachusetts, one company, 0413): no catalog item for the .69 Harper's Ferry rifle (the catalog has `harpers_ferry_rifle_m1855`, the .58).
 - heavy telescopic rifles (1st Company Massachusetts Sharpshooters, 1861, 0417): `scoped_target_rifle` is the nearest.
 - sabre or sword bayonets (named in the 1st Minnesota's history for its Mississippi rifles in 1861, 0353): no catalog item for the sabre bayonet (the catalog has `socket_bayonet`).

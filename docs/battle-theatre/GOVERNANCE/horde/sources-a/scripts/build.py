@@ -41,7 +41,7 @@ def src_class(key):
         return REG[key]['source_class'] if key in ('OWN-EPT-SOURCES-SUMMARY', 'OWN-NPS-MANIFEST') else CLASS['OWN']
     if key.startswith('ROBOTS'):
         return CLASS['ROBOTS']
-    if key.startswith('PROJ'):
+    if key.startswith('PROJ') or key.startswith('OR-'):
         return REG[key]['source_class']
     return REG[key].get('source_class')
 
@@ -61,7 +61,7 @@ def cite(c):
     out = {
         'source_id': key,
         'source_class': src_class(key),
-        'part': None, 'report_id': None, 'printed_page': c.get('printed_page'),
+        'part': c.get('part'), 'report_id': c.get('report_id'), 'report_author': c.get('report_author'), 'page_basis': c.get('page_basis'), 'printed_page': c.get('printed_page'),
         'pdf_page': h['pdf_page'],
         'quote': c['quote'],
         'offset': h['offset'],
@@ -132,7 +132,7 @@ def build_row(row, prev):
         'sub_claims': subs,
         'stays_unsupported': row.get('stays_unsupported', []),
         'conflicts_carried': row.get('conflicts_carried', []),
-        'register_refs': row.get('register_refs', []),
+        'register_refs': list(row.get('register_refs', [])) + (['sources-a-EG-11'] if (row.get('blocked_host') or any(s['support'] == 'blocked_host' for s in subs)) and 'sources-a-EG-11' not in row.get('register_refs', []) else []),
         'blocked_host': row.get('blocked_host', []),
         'product_consequence': row.get('product_consequence', []),
         'recheck': {

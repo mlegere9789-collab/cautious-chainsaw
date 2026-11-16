@@ -67,13 +67,17 @@ def is_header_line(toks):
     return fz >= 3 and fz + small >= 0.75 * len(ks)
 
 
+_FUNCTION_WORDS = {'the', 'of', 'and', 'on', 'in', 'to', 'at', 'by', 'was', 'were', 'that', 'which', 'with', 'until', 'from', 'for', 'it', 'its', 'his', 'their', 'had', 'has', 'after', 'when', 'where'}
+_LOWER_WORD = re.compile(r'[a-z]{4,}')      # a word of running text; the damaged heads and running heads of the pages have none
+_REMARK_WORD = re.compile(r'muster|disch|died|dying|kill|wound|captur|deser|transf|promot|absent|resign|dismiss|draft|substitut|compan|batter|regiment|expir|surgeon|certif|general order|special order|unknown|veteran|reserve corps|not on|accounted', re.I)
 _FOOT_RE = re.compile(r'^(?P<pre>[0-9A-Za-z]{1,4})[VvYyWTt]?[OoQ0Uu][LlIi1EeFfKkrR|!][IilLUuHhVvYyTtNn1|]{0,5}[a-z]?$')
 
 
-def is_foot_line(toks, i, n):
+def is_foot_line(toks, i, n, in_left_zone=True):
     """The signature mark at the foot of a page ("84 - VOL. III."), damaged or intact: a number, VOL, a roman numeral, nothing else; or what is left of it
-    (a number alone, a few short tokens with a digit) on one of the last lines of the page."""
-    if len(toks) > 5 or any(T.is_month_loose(t) for t in toks) or any(T.is_ditto(t) for t in toks):
+    (a number alone, a few short tokens with a digit) on one of the last lines of the page.  It stands in the left zone of the page (name and rank cells),
+    never in the remark column: the tail of a remark ("12, 1864.") is not a signature mark."""
+    if not in_left_zone or len(toks) > 5 or any(T.is_month_loose(t) for t in toks) or any(T.is_ditto(t) for t in toks):
         return False
     cores = [T.core(t) for t in toks if T.core(t)]
     if not cores:
@@ -95,13 +99,19 @@ _FOOTNOTE_MARK = re.compile(r'^[*\u2020\u2021\u00a7^|]+$|^[tfjJ]$|^[*\u2020\u202
 
 
 def is_footnote_line(toks):
-    """A footnote under the table ("* There are no muster-out rolls of this company on file ..."; the dagger is often read as t, ^ or |)."""
+    """A footnote under the table ("* There are no muster-out rolls of this company on file ..."; the dagger is often read as t, ^ or |): a mark, a capital
+    word and running prose (lower-case words), no ditto mark, no date.  A table line that begins with a stray mark of the rule is not a footnote."""
     if len(toks) < 4:
         return False
     if not _FOOTNOTE_MARK.match(toks[0]):
         return False
-    nxt = toks[1] if len(toks[0]) == 1 or not T.core(toks[0]) else toks[0]
-    return bool(re.match(r'^[^A-Za-z]*[A-Z][a-z]', nxt)) and not any(T.is_month_loose(t) for t in toks[:3])
+    rest = toks[1:] if (len(toks[0]) == 1 or not T.core(toks[0])) else toks
+    if not rest or not re.match(r'^[^A-Za-z]*[A-Z][a-z]', rest[0]):
+        return False
+    if any(T.is_ditto(t) for t in rest) or any(T.is_month(t) and k + 1 < len(rest) and re.match(r'^[.,]*\d{1,2}[.,;:]*$', rest[k + 1]) for k, t in enumerate(rest)):
+        return False
+    lower = [t for t in rest if re.match(r"^[a-z][a-z'\-]+[.,;]?$", t)]
+    return len(lower) >= 2 and len(lower) >= 0.4 * len(rest)
 
 
 _SERVICE_RE = re.compile(r'(three|thkee|thbee|theee|threb|tiiree|tiikee|tiiree|thue|nine|one|six|twelve|two|four|five)', re.I)
@@ -149,7 +159,9 @@ def heading_of(toks):
     if re.search(r'^recruits?$', k) or re.search(r'unattached|unas', k):
         return ('unassigned', '')
     # company / battery heading: the word "Company" (or Battery, Troop) may be split or damaged by the text layer ("Co MPAN T B .", "Co ]& PANT H.")
-    if not (len(toks) <= 8 and toks[0][:1] in ('C', 'B', 'c', 'b') and (toks[0][:1].isupper() or toks[0][:2].isupper())):
+    last_letter = bool(re.fullmatch(r"[A-IK-P][.,]?\*?", toks[-1])) and ',' not in ' '.join(toks) and len(toks) <= 5
+    if not (len(toks) <= 8 and toks[0][:1] in ('C', 'B', 'c', 'b') and (toks[0][:1].isupper() or toks[0][:2].isupper())) and not (
+            last_letter and len(toks) >= 2 and toks[0][:1] in ('O', '0') and toks[0][:2].isupper()):
         return None
     if any(T.is_month(t) for t in toks):
         return None
@@ -161,12 +173,12 @@ def heading_of(toks):
         if len(al) < 5:
             continue
         for word in ('company', 'battery'):
-            if al[0] != word[0]:
+            if al[0] != word[0] and not (word == 'company' and al[0] in 'o0' and last_letter):
                 continue
             d = T.lev(al, word, 3)
             if k == 1 and len(al) >= 8:
                 d = min(d, T.lev(al[:7], word, 3))
-            if (d <= 1) or (d <= 2 and len(al) >= 6):
+            if (d <= 1) or (d <= 2 and len(al) >= 6) or (d <= 3 and len(al) >= 7 and last_letter and al[0] in 'co0'):
                 if best is None or d < best[0] or (d == best[0] == 1 and k > best[1]):
                     best = (d, k, word)
         if len(al) > 9:
@@ -350,6 +362,7 @@ def analyse_leaf(rec, ctx):
     ys = [statistics.mean(w['yk'] for w in l) for l in lines]
     note_from = None
     footnote_from = None
+    last_month_i = max([i for i, l in enumerate(lines) if any(T.is_month(w['w']) and abs(w['x0'] - xd) <= 0.03 * W for w in l)] or [-1])
     month_ys = [ys[i] for i, l in enumerate(lines) if any(T.is_month(w['w']) and abs(w['x0'] - xd) <= 0.03 * W for w in l)]
     y_first_month = min(month_ys) if month_ys else 0
     dd = [b - a for a, b in zip(month_ys, month_ys[1:]) if 0 < b - a < 120]
@@ -375,14 +388,14 @@ def analyse_leaf(rec, ctx):
             out['items'].append(('skip', 'note', txt, y))
             last_row = None
             continue
-        if footnote_from is not None or (not has_month and i > 0 and is_footnote_line(toks) and not any(
+        if footnote_from is not None or (not has_month and i > 0 and i > last_month_i and is_footnote_line(toks) and not any(
                 B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l)):
             if footnote_from is None:
                 footnote_from = y
             out['items'].append(('skip', 'footnote', txt, y))      # a footnote under the table and everything below it (the signature mark)
             last_row = None
             continue
-        if not has_month and is_foot_line(toks, i, len(lines)):
+        if not has_month and is_foot_line(toks, i, len(lines), x0 < B2):
             out['items'].append(('skip', 'foot', txt, y))
             last_row = None
             continue
@@ -398,7 +411,7 @@ def analyse_leaf(rec, ctx):
         recognised = is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)
         if not has_month and not hd and (i < 3 or far_above) and not any(
                 B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l) and (
-                not right_alnum or (far_above and not is_recruit) or recognised):
+                not right_alnum or (far_above and i < 8 and not is_recruit and not _REMARK_WORD.search(txt) and not _LOWER_WORD.search(txt)) or recognised):
             # the running head, the page number, the column headings (a table line has cells right of the name); a line that no head pattern recognises
             # and that is skipped only for its place above the first dated line is kept in the list of skipped lines as head-far
             out['items'].append(('skip', 'head' if (recognised or not T.core(txt)) else 'head-far', txt, y))
@@ -416,7 +429,8 @@ def analyse_leaf(rec, ctx):
             last_row = None
             continue
         if not has_month and is_recruit_tok(toks[0]) and (xn is None or x0 > xn + 0.04 * W or (
-                len(toks) >= 3 and re.match(r'^(?:[Aa][TtIiRr]?|[Ii][Nn]|[Ff][Rr][Oo][Mm])[.,]?$', toks[1]) and toks[0][:1].isupper())) and (x0 < B2 or last_row is None) and len(toks) >= 2:
+                len(toks) >= 3 and re.match(r'^(?:[Aa][TtIiRr]?|[Ii][Nn]|[Ff][Rr][Oo][Mm])[.,]?$', toks[1]) and toks[0][:1].isupper())) and (x0 < B2 or (last_row is None and not re.match(r'^[Mm]us', toks[0])) or (
+                toks[0].isupper() and len(T.core(toks[0])) >= 7 and not re.match(r'^MUS', toks[0]))) and len(toks) >= 2:
             out['items'].append(('skip', 'recruited', txt, y))
             prev_items = [it for it in out['items'][:-1] if it[0] in ('heading', 'row', 'skip', 'orphan')]
             near_heading = any(it[0] == 'heading' and y - it[-1] < 4.2 * (pitch0 or 40) for it in out['items'][-3:-1])
@@ -427,9 +441,10 @@ def analyse_leaf(rec, ctx):
             continue
         # a line of running prose (a narrative page ends above the roll, a footnote under the table): words stand in the rank and date columns where a
         # table line has a rank word, a month or nothing at all
-        if pre_roll and not has_month and len(l) >= 3 and toks[0][:1].islower() and len(T.core(toks[0])) >= 3 and not any(
-                B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l):
-            out['items'].append(('skip', 'prose', txt, y))      # the end of a sentence of the narrative above the roll ("office of the State.")
+        if pre_roll and not has_month and i < 8 and not any(B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l) and (
+                (len(toks) >= 2 and not re.search(r'[a-z]', txt) and len(T.core(txt)) >= 5) or
+                (len(toks) >= 3 and sum(1 for t in toks if t.lower().strip('.,;:') in _FUNCTION_WORDS) >= 2)):
+            out['items'].append(('skip', 'head-far' if not re.search(r'[a-z]', txt) else 'prose', txt, y))      # a damaged column heading (capitals only) or a fragment of the narrative above the roll
             last_row = None
             continue
         if pre_roll and not has_month and len(l) >= 6 and left_alnum:

@@ -8,7 +8,7 @@
 //   the entry                         the enter event and whether it lies outside the loaded ground
 //   the deployment                    the layout the unit is built in, the second layout it blends to, every change of formation (time, duration, tier, clause)
 //   the departure                     the leave event and the march before it
-import { buildProduct, buildScenarioSet, prepareScenarios, scenarioDump, driveScans, imp, parseArgs, loadMutation, writeOut, r6 } from './q456_lib.mjs';
+import { buildProduct, buildScenarioSet, prepareScenarios, scenarioDump, driveScans, imp, parseArgs, loadMutation, writeOut, r6, inputsRead } from './q456_lib.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const mutate = await loadMutation(args.mutate);
@@ -73,5 +73,5 @@ function recordsFor(sc, need) {
 const { records, scans } = driveScans(P, R, (sc, keep, need) => ({ units: recordsFor(sc, [...need].filter(id => leaves.some(l => l.id === id)).map(id => id)), info: { leaves: need.size } }), { selectedUnits });
 const sd = scenarioDump(P, S, R, { id: args.scenarios === 'default' ? 'default' : 'S*', complete: args.scenarios !== 'default' && !args.only && !selectedUnits });
 const { SPEED } = await imp('src/history/real.mjs');
-writeOut(args.out, { schema: 'q06-dump/1', layer: { id: layer.meta.id, contract: layer.meta.contract, units: nL, counts: layer.counts }, ground: P.ground, battle: BATTLE, ...sd, behaviours: records, scans, selected_units: selectedUnits ? [...selectedUnits] : null,
+writeOut(args.out, { schema: 'q06-dump/1', layer: { id: layer.meta.id, contract: layer.meta.contract, units: nL, counts: layer.counts }, ground: P.ground, battle: BATTLE, inputs_read: inputsRead(), ...sd, behaviours: records, scans, selected_units: selectedUnits ? [...selectedUnits] : null,
   product: { speed: { march: SPEED.march, double_quick: SPEED.double_quick }, formation_seconds: FORMATION_SECONDS }, resolution_m: 1.0 });

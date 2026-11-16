@@ -1,6 +1,6 @@
 {
 "unit": "u-pa-72nd-pennsylvania-infantry",
-"rows": 1562,
+"rows": 1571,
 "lost_name_lines": [
 {
 "leaf": 862,
@@ -153,50 +153,72 @@
 "why": "no name (the text layer lost the name cell)",
 "left": "...do",
 "rest": "Aug; 10, '61, 3 Deserted December 13, 1862."
+},
+{
+"leaf": 867,
+"y": 2023,
+"co": "E",
+"why": "no name (the text layer lost the name cell)",
+"left": "",
+"rest": "Transferred from company L, November 1. '62^"
 }
 ],
 "orphans": [
 {
 "leaf": 853,
 "why": "text right of the name columns and no row above",
+"text": "re",
+"y": 348,
+"co": "FS"
+},
+{
+"leaf": 853,
+"why": "text right of the name columns and no row above",
 "text": ">",
-"y": 363
+"y": 363,
+"co": "FS"
 },
 {
 "leaf": 853,
 "why": "text right of the name columns and no row above",
 "text": "CoilPAJfT A.",
-"y": 1285
+"y": 1285,
+"co": "FS"
 },
 {
 "leaf": 853,
 "why": "text right of the name columns and no row above",
 "text": "RECRUITED AT PHILADELPHIA.",
-"y": 1370
+"y": 1370,
+"co": "FS"
 },
 {
 "leaf": 864,
 "why": "text right of the name columns and no row above",
 "text": "3 Transferred to Vet. Reserve Corps, Nov. 28, '63.",
-"y": 458
+"y": 458,
+"co": "D"
 },
 {
 "leaf": 877,
 "why": "text right of the name columns and no row above",
 "text": "Company EL",
-"y": 1341
+"y": 1341,
+"co": "I"
 },
 {
 "leaf": 877,
 "why": "text right of the name columns and no row above",
 "text": "RECRUITED AT PHILADELPHIA.",
-"y": 1416
+"y": 1416,
+"co": "I"
 },
 {
 "leaf": 879,
 "why": "text right of the name columns and no row above",
 "text": "TJ:5^ASSIG2TED meist.",
-"y": 2449
+"y": 2449,
+"co": "I"
 }
 ],
 "headings": [
@@ -255,6 +277,14 @@
 "co": "H",
 "inferred": false,
 "text": "Company H."
+},
+{
+"leaf": 875,
+"kind": "company?",
+"raw": "?",
+"co": "I",
+"inferred": true,
+"text": "(inferred from the recruited line) RECRUITED AT PHILADELPHIA"
 }
 ],
 "company_gaps": [
@@ -265,6 +295,239 @@
 {
 "after": "E",
 "missing": "F"
+}
+],
+"skipped_lines": [
+{
+"leaf": 852,
+"kind": "prose",
+"text": "the brigade. The corps was ordered to advance upon the enemy directly opj",
+"y": 319,
+"co": ""
+},
+{
+"leaf": 852,
+"kind": "prose",
+"text": "site the city. With the One Ilundred and Sixth on the right, Sixty-ninth",
+"y": 365,
+"co": ""
+},
+{
+"leaf": 852,
+"kind": "prose",
+"text": "centre, and the Seventy-second on the left, the line moved ont over onr wprka;^",
+"y": 414,
+"co": ""
+},
+{
+"leaf": 852,
+"kind": "prose",
+"text": "of his breast- works his infantry poured in an effective fire. Moving across 1",
+"y": 510,
+"co": ""
+},
+{
+"leaf": 852,
+"kind": "prose",
+"text": "intervening space at double quick his fortifications were carried and occupied?",
+"y": 558,
+"co": ""
+},
+{
+"leaf": 852,
+"kind": "prose",
+"text": "At night the brigade was relieved by troops from the Third Division- The|",
+"y": 605,
+"co": ""
+},
+{
+"leaf": 852,
+"kind": "prose",
+"text": "loss in IdUedin this engagement was six. On the 2l8t it moved with the corpaS",
+"y": 653,
+"co": ""
+},
+{
+"leaf": 852,
+"kind": "prose",
+"text": "to the left, near the Jerusalem Plank Eoad, where it was engaged in advanc-l",
+"y": 701,
+"co": ""
+},
+{
+"leaf": 852,
+"kind": "prose",
+"text": "ing the lines and fortifying them. Early in August, the term of service off",
+"y": 750,
+"co": ""
+},
+{
+"leaf": 852,
+"kind": "prose",
+"text": "Petersburg, and ordered to Philadelphia, where, on the 24th, it was mustered",
+"y": 847,
+"co": ""
+},
+{
+"leaf": 852,
+"kind": "prose",
+"text": "Charles W. West Adj't... Aus. 10, ■ Mustered out with regiment, August 24, 1S64.",
+"y": 1982,
+"co": "FS"
+},
+{
+"leaf": 854,
+"kind": "head-far",
+"text": "836 SEVBNTT-SECOITD SEGI3IENT,",
+"y": 180,
+"co": "FS"
+},
+{
+"leaf": 856,
+"kind": "head-far",
+"text": "838 SBVEIfTY-SBCOND EEaiMENT,",
+"y": 180,
+"co": "FS"
+},
+{
+"leaf": 856,
+"kind": "recruited",
+"text": "reckuited at philadelphia.",
+"y": 405,
+"co": "A"
+},
+{
+"leaf": 858,
+"kind": "recruited",
+"text": "RECRUITED .-^.T PHILADELPHIA.",
+"y": 2359,
+"co": "B"
+},
+{
+"leaf": 860,
+"kind": "head-far",
+"text": "842 SBVBNTY-SECOin) EEGIitBN^T,",
+"y": 170,
+"co": "B"
+},
+{
+"leaf": 862,
+"kind": "recruited",
+"text": "recruited at philadelphia.",
+"y": 401,
+"co": "D"
+},
+{
+"leaf": 864,
+"kind": "head-far",
+"text": "846 SEVEJfTT-SECOKD KEGEVtENT,",
+"y": 175,
+"co": "D"
+},
+{
+"leaf": 864,
+"kind": "head-far",
+"text": "s",
+"y": 298,
+"co": "D"
+},
+{
+"leaf": 864,
+"kind": "recruited",
+"text": "recruited at philadelphia.",
+"y": 2430,
+"co": "E"
+},
+{
+"leaf": 866,
+"kind": "head-far",
+"text": "848 SBTENTT-SECOilT) EEGtMENT,",
+"y": 186,
+"co": "E"
+},
+{
+"leaf": 867,
+"kind": "foot",
+"text": "107— VOL. II.",
+"y": 2662,
+"co": "E"
+},
+{
+"leaf": 868,
+"kind": "head-far",
+"text": "COjUPANT F.",
+"y": 299,
+"co": "E"
+},
+{
+"leaf": 868,
+"kind": "head-far",
+"text": "EECKTJITED AT PHILADELPHIA.",
+"y": 372,
+"co": "E"
+},
+{
+"leaf": 870,
+"kind": "head-far",
+"text": "852 SE\\'B*fTr-SECOND KEGEVIENT,",
+"y": 188,
+"co": "E"
+},
+{
+"leaf": 870,
+"kind": "head-far",
+"text": "P",
+"y": 403,
+"co": "E"
+},
+{
+"leaf": 870,
+"kind": "recruited",
+"text": "RECRUITED AT PHILADELPHIA.",
+"y": 1031,
+"co": "G"
+},
+{
+"leaf": 872,
+"kind": "recruited",
+"text": "RECRUITED AT PHILADELPHIA.",
+"y": 1953,
+"co": "H"
+},
+{
+"leaf": 875,
+"kind": "head-far",
+"text": "OOilPANT I.",
+"y": 289,
+"co": "H"
+},
+{
+"leaf": 875,
+"kind": "recruited",
+"text": "RECRUITED AT PHILADELPHIA.",
+"y": 364,
+"co": "I"
+},
+{
+"leaf": 875,
+"kind": "head-far",
+"text": "..... BA-VK. \".y.Vs'.^^cT , E21IARE3.",
+"y": 514,
+"co": "I"
+},
+{
+"leaf": 876,
+"kind": "head-far",
+"text": "858 SEVENTT-SECOITD KEaiMENT,",
+"y": 187,
+"co": "I"
+},
+{
+"leaf": 878,
+"kind": "head-far",
+"text": "860 SEVENTY-SECOND EEGIXENT,",
+"y": 188,
+"co": "I"
 }
 ]
 }

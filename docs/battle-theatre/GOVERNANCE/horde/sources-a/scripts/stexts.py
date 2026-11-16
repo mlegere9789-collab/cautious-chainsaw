@@ -110,6 +110,7 @@ FETCHED = [
     ('LOC-CWM-SICKLES1', 'loc_cwm_q_sickles1.json', 'json', 'loc_cwm_q_sickles1', 'https://www.loc.gov/collections/civil-war-maps/?q=sickles&fo=json&c=25', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, q=sickles'),
     ('LOC-CWM-WHITNEY1', 'loc_cwm_q_whitney1.json', 'json', 'loc_cwm_q_whitney1', 'https://www.loc.gov/collections/civil-war-maps/?q=whitney&fo=json&c=25', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, q=whitney'),
     ('LOC-CWM-HQGETT', 'loc_cwm_q_headquarters_gettysburg.json', 'json', 'loc_cwm_q_headquarters_gettysburg', 'https://www.loc.gov/collections/civil-war-maps/?q=headquarters+gettysburg&fo=json&c=25', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, q=headquarters gettysburg'),
+    ('LOC-CWM-GNMPC', 'loc_cwm_f_gnmpc2.json', 'json', 'loc_cwm_f_gnmpc2', 'https://www.loc.gov/collections/civil-war-maps/?c=20&fa=contributor:gettysburg+national+military+park+commission&fo=json&q=gettysburg', 'Library of Congress collection query (JSON)', 'Civil War Maps collection, contributor Gettysburg National Military Park Commission'),
     ('LOC-IIIF-cw0350500', 'tile_info_cw0350500.json', 'json', 'tile_info_cw0350500', 'https://tile.loc.gov/image-services/iiif/service:gmd:gmd382:g3822:g3822g:cw0350500/info.json', 'Library of Congress IIIF image service (info.json)', 'image size of the Warren extract'),
     ('IA-ATLAS-META', 'ia_atlas_meta.html', 'json', 'ia_atlas_meta', 'https://archive.org/metadata/atlastoaccompany00unit', 'Internet Archive item metadata (JSON)', 'Atlas to accompany the official records, IA item atlastoaccompany00unit'),
     ('IA-ATLAS-SEARCH', 'ia_search_atlas.html', 'json', 'ia_search_atlas', 'https://archive.org/advancedsearch.php?q=title%3A%28atlas+to+accompany+the+official+records%29&fl%5B%5D=identifier&fl%5B%5D=title&fl%5B%5D=date&rows=20&output=json', 'Internet Archive advanced search (JSON)', 'copies of the Atlas on archive.org'),
@@ -175,6 +176,13 @@ def build():
         reg[k] = dict(key=k, url=m['url'], source_class='National Park Service document (United States government work), text layer of the PDF', description=desc,
                       retrieved=m.get('fetched_at'), http_status=m.get('http'), raw_path=None, raw_sha256=m.get('sha256'), raw_bytes=m.get('bytes'),
                       local_path=m['text_path'], local_sha256=sha(tp), manifest_text_sha256=m.get('text_sha256'), conversion='pdftotext (web-evidence workstream)')
+    # Official Records, Series I vol. 27 (raw OCR, tmp/library/or27)
+    for key, rel, desc in (
+        ('OR-27-2', 'tmp/library/or27/cu31924077728255_djvu.txt', 'Official Records, Series I, vol. 27, part 2 (Cornell scan, archive.org item cu31924077728255)'),
+    ):
+        tp = os.path.join(ROOT, rel)
+        reg[key] = dict(key=key, url='https://archive.org/details/cu31924077728255', source_class='primary (official report written 1863-65; Government Printing Office volume 1889, raw OCR, single witness)', description=desc,
+                        retrieved=None, local_path=rel, local_sha256=sha(tp), conversion='as is (djvu text)')
     # project documents of this repository (own measurements and notes; never an independent source)
     for key, rel, desc in (
         ('PROJ-BASEMAP-README', 'docs/basemap1863/maps/README.md', 'georeferencing README of the basemap1863 project (own measurements)'),

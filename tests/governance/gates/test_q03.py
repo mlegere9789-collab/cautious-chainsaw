@@ -319,6 +319,12 @@ class Drawn(Q03Base):
         rec = self.go(w)
         self.fails(rec, 'Q03/Q03.1/drawn/us-1c-1d-meredith-2wi', 'not valid on 1863-07-03')
 
+    def test_an_export_with_no_drawn_unit_is_an_empty_domain_not_a_pass(self):
+        w = self.world()
+        w.make_export(units=())
+        rec = self.go(w)
+        self.blocked(rec, 'Q03/Q03.1/drawn-figures')
+
     def test_without_the_export_the_drawn_part_is_blocked_not_passed(self):
         w = self.world()
         rec = self.go(w, with_export=False, units='^US\\.2WI$')
@@ -443,6 +449,7 @@ class Structures(Q03Base):
         w.add_building('STR-CHURCH', 'Church', rec='bld-presbyterian-church', built='site since 1842; building rebuilt later')
         rec = self.go(w)
         self.fails(rec, 'Q03/Q03.3/object/STR-CHURCH', 'later')
+        self.fails(rec, 'Q03/Q03.4/registry/buildings', 'STR-CHURCH')
 
     def test_mass_known_only_from_the_1868_survey_is_fail(self):
         w = self.world()

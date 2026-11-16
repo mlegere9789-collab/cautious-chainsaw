@@ -1,7 +1,7 @@
 {
  "format": "roster2-sources-pointer/1",
  "work_item": "conf-nc",
- "generated": "2026-11-16T01:04:35Z",
+ "generated": "2026-11-16T01:49:37Z",
  "access_rules": "archive.org metadata and /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround",
  "sources": [
   {
@@ -347,7 +347,7 @@
      "imprint_quote": "RALEIGH :\n\\_she  &  Gatmng,  State  Printers  and  Binders.",
      "imprint_quote_offset_in_text": 244,
      "year_printed_in_quote": false,
-     "year_source": "the item date 1882 (and the printed \"1882.\" on the title page of the Emory copy of the same volume)",
+     "year_source": "the item date 1882 (and the printed \"1882.\" in the imprint of the other copy of the same volume, NC-MOORE-1882.2, offset 491)",
      "authority_quote": "General  Assembly  of  North  Carolina  do  enact",
      "authority_quote_offset_in_text": 423
     }
@@ -442,7 +442,7 @@
      "imprint_quote": "RALEIGH:\nAshe  &  Gatling,  State  Printers  and  Binders.",
      "imprint_quote_offset_in_text": 428,
      "year_printed_in_quote": false,
-     "year_source": "the item date 1882 (and the printed \"1882.\" on the title page of the Emory copy of the same volume)",
+     "year_source": "the item date 1882 (and the printed \"1882.\" in the imprint of the other copy of the same volume, NC-MOORE-1882.3~b, offset 281)",
      "authority_quote": "General  Assembly  of  North  Carolina  do  enact",
      "authority_quote_offset_in_text": 617
     }
@@ -620,7 +620,7 @@
      "imprint_quote": "RALEIGH:\nAshe  &  Gatling,  State  Printers  and  Binders,",
      "imprint_quote_offset_in_text": 404,
      "year_printed_in_quote": false,
-     "year_source": "the item date 1882 (and the printed \"1882.\" on the title page of the Emory copy of the same volume)",
+     "year_source": "the item date 1882 (and the printed \"1882.\" in the imprint of the other copy of the same volume, NC-MOORE-1882.4~b, offset 271)",
      "authority_quote": "ROSTER  OF  NORTH  CAROLINA  TROOPS",
      "authority_quote_offset_in_text": 534
     }
@@ -719,6 +719,623 @@
   }
  ],
  "derived_texts": [],
+ "unit_files": [
+  {
+   "unit": "c-nc-1st-north-carolina-infantry",
+   "designation": "1st North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/1st-north-carolina-infantry.jsonl.gz",
+   "rows": 1583,
+   "file_bytes": 34600,
+   "file_sha256": "bcb926288cbf2488487bb128423f5f0c3c566a1b85e844a227b67534659a50e5",
+   "raw_lines_sha256": "bc94ecad0f3c7de0a0bd1c7869b4483de4d917ab51d2f05f1de88f48860f1beb",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/1st-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 18598,
+   "flags_sha256": "c7388874e88de170b452e4eec631a27fe19f436f7747696f3b48022ace0c67a3",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-2nd-north-carolina-infantry",
+   "designation": "2nd North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-infantry.jsonl.gz",
+   "rows": 1361,
+   "file_bytes": 30169,
+   "file_sha256": "47ca5b73d09064a6f695a61b0553667bfeec66ff7de621063ed43f9370a00557",
+   "raw_lines_sha256": "51fee028a94943e76dab89c887a9617a4aa7fc081aa81f997c49821ce71a3a45",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 15370,
+   "flags_sha256": "226add946ba8d424deb3b2f25ecb07524fc2b52aacabd44d809ae2956730cb88",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-3rd-north-carolina-infantry",
+   "designation": "3rd North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/3rd-north-carolina-infantry.jsonl.gz",
+   "rows": 1701,
+   "file_bytes": 33556,
+   "file_sha256": "6002da12870e3154680b3a1e926064c6104cb3c5df22cd8f1229ba55ca703d0b",
+   "raw_lines_sha256": "83ce34e780419be22bc64dc261e452d8a398a47a52a8a5736b4a17307fe28409",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/3rd-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 18381,
+   "flags_sha256": "752e92ec18456441acc34d0bf29c9cb206b64b298a7700e1503e8531d411b9e2",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-4th-north-carolina-infantry",
+   "designation": "4th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/4th-north-carolina-infantry.jsonl.gz",
+   "rows": 1594,
+   "file_bytes": 25992,
+   "file_sha256": "f1bfc3b880b2f4ea84fbdc4c0911383ac93fcfebc7db7a652d6de57632a84303",
+   "raw_lines_sha256": "614a44e9435ead81b3ce8191b7732c856fdad4d6d337fe8d5a03d1f47cc75b3a",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/4th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 17216,
+   "flags_sha256": "939e485acb3217a54545c2e2bd60d0bd32d86798f698e6311df14503d2fa1583",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-5th-north-carolina-infantry",
+   "designation": "5th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/5th-north-carolina-infantry.jsonl.gz",
+   "rows": 1804,
+   "file_bytes": 34586,
+   "file_sha256": "d077a8fdcec6586ebce75378fc5883c64e61050c402e9a06cf025957a3b9adab",
+   "raw_lines_sha256": "fa6419c27aae8ebd855619363ec8c826b0c52680a5db5b02179ac55b567bfec7",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/5th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 19357,
+   "flags_sha256": "733252ec07d2e6c8beb2a227c27bfed9f9931c2b06059aed673b919360a83de7",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-6th-north-carolina-infantry",
+   "designation": "6th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/6th-north-carolina-infantry.jsonl.gz",
+   "rows": 1791,
+   "file_bytes": 32989,
+   "file_sha256": "23a209519d03908942fa86c67154b4dc5df6c2460d60453a356e71878fb66362",
+   "raw_lines_sha256": "15204339e6abcdd29f311f23e52fc460051deb2ade20013da5c607427a6532a6",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/6th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 20131,
+   "flags_sha256": "71a12d6c85205a5916c58aae525f9fe812ad227a4b2090513b9d6a11deb6c40e",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-7th-north-carolina-infantry",
+   "designation": "7th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/7th-north-carolina-infantry.jsonl.gz",
+   "rows": 1507,
+   "file_bytes": 29608,
+   "file_sha256": "8ce813f1d6ec7ff2a054494963e02f1ea73746f295acf0b5c4a55a5f1bb66ff7",
+   "raw_lines_sha256": "04319a6b83c348f746b0891042db392a42c55e166bf8931dc9c5931afb866577",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/7th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 18014,
+   "flags_sha256": "40081f69b7985623bef6ca91aba1e8afdc15a2eea2dac3480b0c888da2e40657",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-1st-north-carolina-cavalry",
+   "designation": "1st North Carolina Cavalry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/1st-north-carolina-cavalry.jsonl.gz",
+   "rows": 1661,
+   "file_bytes": 30259,
+   "file_sha256": "31d836b86fc1fb9800a0b9982c169dfce3ce9c0ccff3e0a99c7c2339b93f08cd",
+   "raw_lines_sha256": "8bb38be34b52fa842266146e792d9e4b3ecec280cb874e2872dff55d1fb35ae9",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/1st-north-carolina-cavalry.flags.json.gz",
+   "flags_bytes": 19484,
+   "flags_sha256": "50fd26d31adefde7ea440a6107e421e30bd0f8e966ba0d9c917107e8d1af87a1",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-battery-a-1st-north-carolina-artillery",
+   "designation": "Battery A, 1st North Carolina Artillery",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/battery-a-1st-north-carolina-artillery.jsonl.gz",
+   "rows": 284,
+   "file_bytes": 5679,
+   "file_sha256": "9c2d38a09df8f8d31b22a69c240376df07a2ba9047da4ed2b655a5975b418437",
+   "raw_lines_sha256": "f0398dca98ee8a4ae4943dd0d4163ca723144906758ccd8906ce927eaa5b5d20",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/battery-a-1st-north-carolina-artillery.flags.json.gz",
+   "flags_bytes": 4741,
+   "flags_sha256": "af6c654e9ab09f5969a502d3a7cc16a285d246c216ca4d237282b5fabe87af68",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-rowan-artillery",
+   "designation": "Rowan Artillery",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/rowan-artillery.jsonl.gz",
+   "rows": 212,
+   "file_bytes": 4078,
+   "file_sha256": "b70a85cda1fdb79d5ad004bfde3f79085234ea4072430b5a713b014ccd358ef3",
+   "raw_lines_sha256": "f776cf4b24e63694628c7ee0e0576635ca082c530ff10c7751d257d82f5e6132",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/rowan-artillery.flags.json.gz",
+   "flags_bytes": 4071,
+   "flags_sha256": "be780a5c49e6b5040968b82a0f0fc905fd37a19769c52304aeb66402c05da22d",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-11th-north-carolina-infantry",
+   "designation": "11th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/11th-north-carolina-infantry.jsonl.gz",
+   "rows": 1393,
+   "file_bytes": 25157,
+   "file_sha256": "ffb169c1e50782c737d6f672783e7b67950f621c838e9b77bf4bda6f8a7c487b",
+   "raw_lines_sha256": "0a5deb34c1f1ac74608f1261709a030e04d933b2eb7b5141fa884ce3f6b3dafc",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/11th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 16946,
+   "flags_sha256": "ae93f80603e36ed1ffe6cbc0cc03f24178169bce06595b55a2dfdfd189f260fd",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-12th-north-carolina-infantry",
+   "designation": "12th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/12th-north-carolina-infantry.jsonl.gz",
+   "rows": 1564,
+   "file_bytes": 26294,
+   "file_sha256": "e36944817b56d67564d891a2828955e39b557ae2c56cedc17cd494d60e36e05d",
+   "raw_lines_sha256": "60d4bfbbd10276b6596c5bf8966560a0f29f0a3948847f2ba9f4819f535a05f8",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/12th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 16611,
+   "flags_sha256": "8bec3d775943ded36f1eae0de9602aac3d5e33d0bfc40954c22f0d8a9e582e2d",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-13th-north-carolina-infantry",
+   "designation": "13th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/13th-north-carolina-infantry.jsonl.gz",
+   "rows": 1460,
+   "file_bytes": 28929,
+   "file_sha256": "4e9f169be58d6262b2fa149b5d3b57acb27bd36e18d7f09563f9e8b184461dd2",
+   "raw_lines_sha256": "9e9818898ef56d2fc8a0c73cbb1eaddcc2c4ae643c7fb996913d32362875c6c9",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/13th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 17047,
+   "flags_sha256": "452afe2127fb0e4b399eb10968888b4991e708eafbacfcf1052817156220bc4b",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-14th-north-carolina-infantry",
+   "designation": "14th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/14th-north-carolina-infantry.jsonl.gz",
+   "rows": 1478,
+   "file_bytes": 27617,
+   "file_sha256": "b1f434d8ec17bf4c80ecaa8a4aa0597738671cadb52bd67c97f3cf39b0f9926b",
+   "raw_lines_sha256": "37eb254f7e59a21eb2728d47759ec63075e03cdf145ac2eff70ad204cdbb0c88",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/14th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 16016,
+   "flags_sha256": "52cb0b88b029bfe6b0cf3973bd6afbb7375cd01dd913376128dcf571ccd74655",
+   "text_ids": [
+    "NC-MOORE-1882.1~b"
+   ]
+  },
+  {
+   "unit": "c-nc-16th-north-carolina-infantry",
+   "designation": "16th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/16th-north-carolina-infantry.jsonl.gz",
+   "rows": 1436,
+   "file_bytes": 28755,
+   "file_sha256": "31eea058db5b5cd76498d7f2faa8ed122bedebdcf6072513275b65b10377337b",
+   "raw_lines_sha256": "a924e127352477fe7c9ffbd03f6bd1956f5ec9daa3ce78289476b69ef6d3a907",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/16th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 16541,
+   "flags_sha256": "2d9d1481b1f08672ee27fdce46305361f1854ae243f9771cbf7376f73be58284",
+   "text_ids": [
+    "NC-MOORE-1882.2"
+   ]
+  },
+  {
+   "unit": "c-nc-18th-north-carolina-infantry",
+   "designation": "18th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/18th-north-carolina-infantry.jsonl.gz",
+   "rows": 1752,
+   "file_bytes": 32169,
+   "file_sha256": "0feb94f025d084a74933d208dcb2c23d97b28183dff9f7479afa9aad1d8a58ec",
+   "raw_lines_sha256": "7637456ee673573d0c8918069a776fb964801762f47f9c5965446ecc5d48fe4a",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/18th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 19645,
+   "flags_sha256": "7148b0b114bcf309bc927aafb80a9ec00b7ab81dd66675716f08d2339dd7c630",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-2nd-north-carolina-cavalry",
+   "designation": "2nd North Carolina Cavalry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-cavalry.jsonl.gz",
+   "rows": 1291,
+   "file_bytes": 23818,
+   "file_sha256": "eda0d1ef33e4cf84434bf8426179fd2528c1ed73fbcfa55d018cc136db135701",
+   "raw_lines_sha256": "22a9f4151e3b2993f0a1661f08305a8296bbfe42a443be54a386cc1d2f432fd4",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-cavalry.flags.json.gz",
+   "flags_bytes": 15889,
+   "flags_sha256": "b7eaccbfe79f0a489ee8a2bf2983b9e1f90be6c14a1ef0ba8886914713c66ae4",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-20th-north-carolina-infantry",
+   "designation": "20th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/20th-north-carolina-infantry.jsonl.gz",
+   "rows": 1210,
+   "file_bytes": 23897,
+   "file_sha256": "90f6f426e8514a5aba985e497326e85e967ad0c8dfe201b73872f1739bd66eb8",
+   "raw_lines_sha256": "95435467386c4458d2ec117742c8a6eae123426f68028212a558096af2470a10",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/20th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 14501,
+   "flags_sha256": "a09b6007a4fb96d90398caa91e8f2d26101d00103d8c64986e27dc9ca89cd436",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-21st-north-carolina-infantry",
+   "designation": "21st North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/21st-north-carolina-infantry.jsonl.gz",
+   "rows": 1364,
+   "file_bytes": 24089,
+   "file_sha256": "948a39844d4ed1a363bcf2280674efae416987127a8b214981d903d2a55cd02b",
+   "raw_lines_sha256": "3089bd3c13b1aae2b80092a8d7908a13991879c9eac8613818f9eb9cddf6d7d8",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/21st-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 15130,
+   "flags_sha256": "a4034904be1f2cbe3183a123f0787ecb06d714d2b04b91727b8be6dd3a92eb9a",
+   "text_ids": [
+    "NC-MOORE-1882.2"
+   ]
+  },
+  {
+   "unit": "c-nc-22nd-north-carolina-infantry",
+   "designation": "22nd North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/22nd-north-carolina-infantry.jsonl.gz",
+   "rows": 1951,
+   "file_bytes": 34089,
+   "file_sha256": "77fcc104f70c2259b24fe9dfc755ebf4a5228bd929dcfdbf0b74bc0a9bd86c05",
+   "raw_lines_sha256": "4779e81fa78768ec0a0a80d01f6d4e27a4a96ac69997402e0929e4a1902e6397",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/22nd-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 20840,
+   "flags_sha256": "ee9bfe4233e4ced442e34e0d0a632a875b78999b7a4374f86c4c9c6f47040b21",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-23rd-north-carolina-infantry",
+   "designation": "23rd North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/23rd-north-carolina-infantry.jsonl.gz",
+   "rows": 1462,
+   "file_bytes": 27451,
+   "file_sha256": "7fb8f6f9517d1e0303632c7a77f9b622201846bd5f7b7603ab616165c582659f",
+   "raw_lines_sha256": "02c46812ee67fde0488892cd9bcbbdfadb2f29784e13dc106eb754b59442a58a",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/23rd-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 16323,
+   "flags_sha256": "c4efde4765c51ee45158c70489d5c0ed732b8316250aeedeafdebb33c4e9d8d6",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-26th-north-carolina-infantry",
+   "designation": "26th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/26th-north-carolina-infantry.jsonl.gz",
+   "rows": 1929,
+   "file_bytes": 34055,
+   "file_sha256": "a3df41f12ea4b5ee44ab1b74e85b86d100322f30c233dc45d40ae8966cac4058",
+   "raw_lines_sha256": "780c25ead0f3adf0f937c0e83c77360fb0b22682aa876db2881423fa24eefcda",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/26th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 21504,
+   "flags_sha256": "acb95427c215f35e11504137ce854307dade83f9d662b5a3726c9a61013c8262",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-28th-north-carolina-infantry",
+   "designation": "28th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/28th-north-carolina-infantry.jsonl.gz",
+   "rows": 1818,
+   "file_bytes": 32447,
+   "file_sha256": "1e8fefcd2371bb12d80f7b2ab4107038874153797d90ac41b2bd4e4cce7f72e9",
+   "raw_lines_sha256": "c3d0c607b1c99059e9fea543b9fd472fabbee613d8ddc0cd0fc5866b55f09952",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/28th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 19930,
+   "flags_sha256": "c7f197c5d25734d692f71bdbf88cdd09933e5524894f1d4f914dfd1a3fab94bf",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-30th-north-carolina-infantry",
+   "designation": "30th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/30th-north-carolina-infantry.jsonl.gz",
+   "rows": 1538,
+   "file_bytes": 28344,
+   "file_sha256": "27e2c7d543dd46532d7a5e7a579de02bcb9a9ab9814416ccb4158d7cc3e8a57a",
+   "raw_lines_sha256": "829ac631a2795d9cbafb41e2dadad483cca442896f26da48144375de21bf2e2f",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/30th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 17212,
+   "flags_sha256": "fddc00dc59ce2b603c1541ccc7006b59bffb1ea58c13b0386194db45401725fb",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-32nd-north-carolina-infantry",
+   "designation": "32nd North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/32nd-north-carolina-infantry.jsonl.gz",
+   "rows": 1297,
+   "file_bytes": 22893,
+   "file_sha256": "e0dbb12218a459aa1a7ff1ab0c8eca0d971d3c19a151c5a52b9a8bd84f33bf5a",
+   "raw_lines_sha256": "2a646f2c510c74ccfcfc840a90c7903c12c18ecf91220303ac01a995663c3565",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/32nd-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 14925,
+   "flags_sha256": "6f8d544d8a6e5cc7fb0171b47eeedd8ce61ad076919fb6884e56b61a906d57e3",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-33rd-north-carolina-infantry",
+   "designation": "33rd North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/33rd-north-carolina-infantry.jsonl.gz",
+   "rows": 1709,
+   "file_bytes": 31480,
+   "file_sha256": "b393c505d4d92c99a63906678a5c2ec1bd4506583aa15664b46614405568de2e",
+   "raw_lines_sha256": "4456fd8cfd0b0c722a399c3d39a89307cd5926389e037f0828feabdc6c8ded3b",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/33rd-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 19427,
+   "flags_sha256": "999ad0fa44393b8507c312f3218137e23b49dbf9d215db5451ff8de2b35468ad",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-34th-north-carolina-infantry",
+   "designation": "34th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/34th-north-carolina-infantry.jsonl.gz",
+   "rows": 1343,
+   "file_bytes": 24469,
+   "file_sha256": "cf0c6a2d7c3a8c7b9a3f04e902f7d72338ccd82b729c1bdfa2d150033aea734f",
+   "raw_lines_sha256": "6ae419c37dca710fd8e78b78f9b4e19426d4dc70049523b22df8b576a053115b",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/34th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 15290,
+   "flags_sha256": "378ca3694b9532436918d5f3ba988abd68e8b7957601a0199dcf8b572f6fd5b7",
+   "text_ids": [
+    "NC-MOORE-1882.2~b"
+   ]
+  },
+  {
+   "unit": "c-nc-37th-north-carolina-infantry",
+   "designation": "37th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/37th-north-carolina-infantry.jsonl.gz",
+   "rows": 1762,
+   "file_bytes": 32425,
+   "file_sha256": "7278c29092f411c90daf99f11c131b384870719e24d2aca7acd4b27b6b92885f",
+   "raw_lines_sha256": "43e0012642a121991916776cd0c15a3e47563b6b1d2229a722168c1d1016fcf5",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/37th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 19070,
+   "flags_sha256": "69792cba1e4c6dfaacd29e4bc3cd4361cc6997019116f505ad6da306100f5f07",
+   "text_ids": [
+    "NC-MOORE-1882.3"
+   ]
+  },
+  {
+   "unit": "c-nc-38th-north-carolina-infantry",
+   "designation": "38th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/38th-north-carolina-infantry.jsonl.gz",
+   "rows": 1275,
+   "file_bytes": 24327,
+   "file_sha256": "c24b5b472fd284163f74aefe660fff685dca1bb62e90db553c8a81f42e65c236",
+   "raw_lines_sha256": "44db51a6ae1936abd354091994da5b4700378fa304a0dacf9988584dd631d6a7",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/38th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 15236,
+   "flags_sha256": "91a0d787c17c516d484bd184867eb288821dd7af60778a1a903b87a026c19f1a",
+   "text_ids": [
+    "NC-MOORE-1882.3"
+   ]
+  },
+  {
+   "unit": "c-nc-43rd-north-carolina-infantry",
+   "designation": "43rd North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/43rd-north-carolina-infantry.jsonl.gz",
+   "rows": 1239,
+   "file_bytes": 21582,
+   "file_sha256": "892e209358a48cf32b114f9fbd89417f896ebbb6527df3bc4c0d9fdce95aa974",
+   "raw_lines_sha256": "035cd2165dbc5f2660d79d666d06b5ec31e61fc326d798a00fb2225d8f958bea",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/43rd-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 14514,
+   "flags_sha256": "9222af4a9235357d87ebc072d03e6b443466274edbd1b6cdda7e03966de2dbac",
+   "text_ids": [
+    "NC-MOORE-1882.3~b"
+   ]
+  },
+  {
+   "unit": "c-nc-45th-north-carolina-infantry",
+   "designation": "45th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/45th-north-carolina-infantry.jsonl.gz",
+   "rows": 1434,
+   "file_bytes": 22870,
+   "file_sha256": "d10ec11a804a33c5b71c41ecd21ae59202c47dfe8a8c580e5c04fbfdcfb10ed4",
+   "raw_lines_sha256": "18aac24d15f23f50c2466c64a287be067e0d18773c15cfb5d8aa06e0dba0713d",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/45th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 16435,
+   "flags_sha256": "cf5e11509e6fac89a8c67f7a9ecae098e8bd91f0d7c8c255fde341ca037fa363",
+   "text_ids": [
+    "NC-MOORE-1882.3"
+   ]
+  },
+  {
+   "unit": "c-nc-47th-north-carolina-infantry",
+   "designation": "47th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/47th-north-carolina-infantry.jsonl.gz",
+   "rows": 1283,
+   "file_bytes": 21053,
+   "file_sha256": "7f8f72bea51ca64cd3bb83ada94a4e24a123dad2fe8a2c8adf8a715f1d7eeedc",
+   "raw_lines_sha256": "0d581e02db310826b6cdb116139538622932808dc720791bcde5fc147fd30e4b",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/47th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 15446,
+   "flags_sha256": "052d441927d04f11094fdf3867f330c6a19da82cddb7066cd45dc2decc4fc719",
+   "text_ids": [
+    "NC-MOORE-1882.3"
+   ]
+  },
+  {
+   "unit": "c-nc-52nd-north-carolina-infantry",
+   "designation": "52nd North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/52nd-north-carolina-infantry.jsonl.gz",
+   "rows": 1297,
+   "file_bytes": 21502,
+   "file_sha256": "7021587b5dc3afbbd378c992430a2669c8945cb5b047ae696e33364ca1974dbf",
+   "raw_lines_sha256": "ee8ffeb2662853a81ef031204f098bccc044d30b4af7d77dfcfa3b0c220ce828",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/52nd-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 14968,
+   "flags_sha256": "99c90c5b286e52f5198bd3224a5b85eb9bbe24433ea63bfb1bde52b05d66c6e6",
+   "text_ids": [
+    "NC-MOORE-1882.3"
+   ]
+  },
+  {
+   "unit": "c-nc-53rd-north-carolina-infantry",
+   "designation": "53rd North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/53rd-north-carolina-infantry.jsonl.gz",
+   "rows": 1316,
+   "file_bytes": 21537,
+   "file_sha256": "97a4a9b69db404fa01beeea3775b80883633cc09c01237f372cca565574265db",
+   "raw_lines_sha256": "51018a3cb1b4d109465736c7fe85130e5925a1fa897984df247c8d67118e1ebc",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/53rd-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 15275,
+   "flags_sha256": "7adb9915845d57a306b1f6328873e86134a4c287fe894a6169ae748170540223",
+   "text_ids": [
+    "NC-MOORE-1882.3"
+   ]
+  },
+  {
+   "unit": "c-nc-55th-north-carolina-infantry",
+   "designation": "55th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/55th-north-carolina-infantry.jsonl.gz",
+   "rows": 1206,
+   "file_bytes": 20585,
+   "file_sha256": "7e1b559e694694d356c03913ed259319a93e5ae9c25a50b5d729809ecc2a3706",
+   "raw_lines_sha256": "6d9d6fca54270ee14685c41db6d60be45a065d227b4eed8a6fd0b0538252bb01",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/55th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 14625,
+   "flags_sha256": "8ed6670f747cedcef7e10d1cbfe727bc345c5eba4a0385502e4135e2b867b20c",
+   "text_ids": [
+    "NC-MOORE-1882.3"
+   ]
+  },
+  {
+   "unit": "c-nc-57th-north-carolina-infantry",
+   "designation": "57th North Carolina Infantry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/57th-north-carolina-infantry.jsonl.gz",
+   "rows": 1033,
+   "file_bytes": 17623,
+   "file_sha256": "a3bc93054e8d78ab187c85f9d763232999db12ec55bfbf5e607929c36c7f1d69",
+   "raw_lines_sha256": "e2b34b7e51de653dd767482b0b0ea2cc342ae1ae3d614641c48c456516397dda",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/57th-north-carolina-infantry.flags.json.gz",
+   "flags_bytes": 11565,
+   "flags_sha256": "10b69a48e164399faa77fd4bc4c380fd1ea0e60d98948444f99e4e75e4c37ab5",
+   "text_ids": [
+    "NC-MOORE-1882.3~b"
+   ]
+  },
+  {
+   "unit": "c-nc-4th-north-carolina-cavalry",
+   "designation": "4th North Carolina Cavalry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/4th-north-carolina-cavalry.jsonl.gz",
+   "rows": 881,
+   "file_bytes": 12254,
+   "file_sha256": "daf12290ff36b428134179512dacfecf7b0a5e518c454cbfc4a95a085de81b42",
+   "raw_lines_sha256": "9b5e3b876edb3e371aa757d249f6db6dc729d84e8f3f33a5c4edc14633be9fe3",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/4th-north-carolina-cavalry.flags.json.gz",
+   "flags_bytes": 10100,
+   "flags_sha256": "67bad3df05b2a63b5d938ba6c4d2bf45e730a03cc0465a8a6ecab467f7a5b64f",
+   "text_ids": [
+    "NC-MOORE-1882.3"
+   ]
+  },
+  {
+   "unit": "c-nc-5th-north-carolina-cavalry",
+   "designation": "5th North Carolina Cavalry",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/5th-north-carolina-cavalry.jsonl.gz",
+   "rows": 1325,
+   "file_bytes": 19259,
+   "file_sha256": "993a23706054494d991465cd50a8e0ee441bb759cbe88c09de8109811e473dfc",
+   "raw_lines_sha256": "5836b6afbcfa45593470ee981367936a7bcb7b10ad05762248109bca910c2525",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/5th-north-carolina-cavalry.flags.json.gz",
+   "flags_bytes": 15054,
+   "flags_sha256": "5d3ca7b8cbd10f78e10485a08d66cc3add031943045de8bb91125d2a50552973",
+   "text_ids": [
+    "NC-MOORE-1882.4"
+   ]
+  },
+  {
+   "unit": "c-nc-2nd-north-carolina-battalion",
+   "designation": "2nd North Carolina Battalion",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-battalion.jsonl.gz",
+   "rows": 553,
+   "file_bytes": 9313,
+   "file_sha256": "4004fdda83e88fad067cb1a7a8c58ee452581cd765bb9070f7a61c6a517b49e6",
+   "raw_lines_sha256": "9dc4c3f23781c573bd7b910622b52fb7683c1d5bb7b6999850d7eaa776828ffd",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-battalion.flags.json.gz",
+   "flags_bytes": 7191,
+   "flags_sha256": "7d04971baf779273fe1201c63edc6ee3ef5d87ae5a5f24b054747a506741754c",
+   "text_ids": [
+    "NC-MOORE-1882.4~b"
+   ]
+  },
+  {
+   "unit": "c-nc-branch-artillery",
+   "designation": "Branch Artillery",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/branch-artillery.jsonl.gz",
+   "rows": 142,
+   "file_bytes": 2679,
+   "file_sha256": "4c036109fc959e6fdb2979b37d60a90e4fd8bda999c44ca1537022b690e8d8fb",
+   "raw_lines_sha256": "ac0db9b8cbd62870b48dd3356418a0586dfd771afe0af5b5b4509a4680af469b",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/branch-artillery.flags.json.gz",
+   "flags_bytes": 3158,
+   "flags_sha256": "917a2a217145f85dbed36fa99fe33115f4e5c6543bec5e942b586dfe6788ecf2",
+   "text_ids": [
+    "NC-MOORE-1882.4~b"
+   ]
+  },
+  {
+   "unit": "c-nc-charlotte-artillery",
+   "designation": "Charlotte Artillery",
+   "path": "docs/battle-theatre/rosters/data2/confederate/nc/charlotte-artillery.jsonl.gz",
+   "rows": 148,
+   "file_bytes": 3095,
+   "file_sha256": "543deed99e78d00a3995381e6cba3c98128fa78ed35410d32d177312a8331bed",
+   "raw_lines_sha256": "21884dc40598ae968604fe15e17b135beafb8ed33d7e8e7a05e15322912ffff3",
+   "flags_path": "docs/battle-theatre/rosters/data2/confederate/nc/charlotte-artillery.flags.json.gz",
+   "flags_bytes": 3445,
+   "flags_sha256": "cff1f39b1c01f1cd75367632d2516344c5184dd864f66aa5dfbf25ca3b26072a",
+   "text_ids": [
+    "NC-MOORE-1882.1"
+   ]
+  }
+ ],
  "not_used": [
   {
    "source_id": "NC-CLARK-1901",

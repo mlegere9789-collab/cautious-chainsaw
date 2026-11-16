@@ -1,6 +1,6 @@
 {
 "unit": "u-pa-96th-pennsylvania-infantry",
-"rows": 1178,
+"rows": 1185,
 "lost_name_lines": [
 {
 "leaf": 411,
@@ -9,14 +9,6 @@
 "why": "no name (the text layer lost the name cell)",
 "left": "do",
 "rest": ". Aug. 27, '61, 3 Discharged by General Order, July, 1862."
-},
-{
-"leaf": 413,
-"y": 1120,
-"co": "B",
-"why": "no name (the text layer lost the name cell)",
-"left": "hecruited",
-"rest": "in schuylkill county."
 },
 {
 "leaf": 420,
@@ -115,7 +107,36 @@
 "rest": "Sent. 20, '61, c Dishonorably discharged — date unknown."
 }
 ],
-"orphans": [],
+"orphans": [
+{
+"leaf": 413,
+"why": "text right of the name columns and no row above",
+"text": "DATK OP MUSTER",
+"y": 349,
+"co": "A"
+},
+{
+"leaf": 414,
+"why": "text right of the name columns and no row above",
+"text": "DATR OF MUSTER t |",
+"y": 359,
+"co": "B"
+},
+{
+"leaf": 421,
+"why": "text right of the name columns and no row above",
+"text": "PATE OF MUSTER",
+"y": 388,
+"co": "F"
+},
+{
+"leaf": 424,
+"why": "text right of the name columns and no row above",
+"text": "s",
+"y": 514,
+"co": "G"
+}
+],
 "headings": [
 {
 "leaf": 410,
@@ -214,5 +235,217 @@
 "text": "Company K."
 }
 ],
-"company_gaps": []
+"company_gaps": [],
+"skipped_lines": [
+{
+"leaf": 411,
+"kind": "head-far",
+"text": "g",
+"y": 287,
+"co": "BAND"
+},
+{
+"leaf": 411,
+"kind": "recruited",
+"text": "RECRUITED IN SCHUYLKILL COUNTY.",
+"y": 1034,
+"co": "A"
+},
+{
+"leaf": 413,
+"kind": "head-far",
+"text": "pi",
+"y": 300,
+"co": "A"
+},
+{
+"leaf": 413,
+"kind": "head-far",
+"text": "JTASfl!. RANK. KEMARKS.",
+"y": 367,
+"co": "A"
+},
+{
+"leaf": 413,
+"kind": "head-far",
+"text": "E",
+"y": 422,
+"co": "A"
+},
+{
+"leaf": 413,
+"kind": "recruited",
+"text": "hecruited in schuylkill county.",
+"y": 1120,
+"co": "B"
+},
+{
+"leaf": 415,
+"kind": "recruited",
+"text": "hecruited in schuylkill county,",
+"y": 475,
+"co": "C"
+},
+{
+"leaf": 417,
+"kind": "recruited",
+"text": "recruited in schuylkill county.",
+"y": 466,
+"co": "D"
+},
+{
+"leaf": 418,
+"kind": "recruited",
+"text": "recruited in luzerne and schuylkill counties.",
+"y": 2363,
+"co": "E"
+},
+{
+"leaf": 420,
+"kind": "head-far",
+"text": "3",
+"y": 363,
+"co": "E"
+},
+{
+"leaf": 420,
+"kind": "head-far",
+"text": "1",
+"y": 482,
+"co": "E"
+},
+{
+"leaf": 420,
+"kind": "recruited",
+"text": "recruited in schuylkill county.",
+"y": 2984,
+"co": "F"
+},
+{
+"leaf": 421,
+"kind": "foot",
+"text": "51 — YOL. III.",
+"y": 3638,
+"co": "F"
+},
+{
+"leaf": 422,
+"kind": "recruited",
+"text": "recruited in dauphin, berks and schuylkill counties.",
+"y": 2331,
+"co": "G"
+},
+{
+"leaf": 424,
+"kind": "head-far",
+"text": "401 NliTETY-SIXTH EEGDIENT,",
+"y": 220,
+"co": "G"
+},
+{
+"leaf": 424,
+"kind": "head-far",
+"text": "H",
+"y": 323,
+"co": "G"
+},
+{
+"leaf": 424,
+"kind": "head-far",
+"text": "a",
+"y": 386,
+"co": "G"
+},
+{
+"leaf": 424,
+"kind": "head-far",
+"text": "KEHABES.",
+"y": 430,
+"co": "G"
+},
+{
+"leaf": 424,
+"kind": "head-far",
+"text": "B",
+"y": 463,
+"co": "G"
+},
+{
+"leaf": 424,
+"kind": "recruited",
+"text": "recruited in schuylkill county\".",
+"y": 2879,
+"co": "H"
+},
+{
+"leaf": 425,
+"kind": "head-far",
+"text": "H",
+"y": 297,
+"co": "H"
+},
+{
+"leaf": 425,
+"kind": "head-far",
+"text": "f.",
+"y": 360,
+"co": "H"
+},
+{
+"leaf": 425,
+"kind": "head-far",
+"text": "DATR OP MUSTKB 1",
+"y": 384,
+"co": "H"
+},
+{
+"leaf": 426,
+"kind": "head-far",
+"text": "UATE OP MUSTEK 1",
+"y": 388,
+"co": "H"
+},
+{
+"leaf": 426,
+"kind": "head-far",
+"text": "SAHX. BANK. BEMARKS.",
+"y": 406,
+"co": "H"
+},
+{
+"leaf": 426,
+"kind": "recruited",
+"text": "RECRUITED IN SCHUYLKILL COUNTY.",
+"y": 3304,
+"co": "I"
+},
+{
+"leaf": 427,
+"kind": "head-far",
+"text": "9",
+"y": 337,
+"co": "I"
+},
+{
+"leaf": 428,
+"kind": "head-far",
+"text": "s",
+"y": 340,
+"co": "I"
+},
+{
+"leaf": 428,
+"kind": "head-far",
+"text": "VAMB. RAKK. 5EMARKS.",
+"y": 384,
+"co": "I"
+},
+{
+"leaf": 428,
+"kind": "recruited",
+"text": "recruited in schuylkill county.",
+"y": 2481,
+"co": "K"
+}
+]
 }

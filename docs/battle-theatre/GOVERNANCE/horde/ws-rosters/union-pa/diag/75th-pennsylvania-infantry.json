@@ -1,7 +1,15 @@
 {
 "unit": "u-pa-75th-pennsylvania-infantry",
-"rows": 1238,
+"rows": 1241,
 "lost_name_lines": [
+{
+"leaf": 940,
+"y": 1800,
+"co": "FS",
+"why": "no name (the text layer lost the name cell)",
+"left": "",
+"rest": "Promoted from Corporal company A, March 1,"
+},
 {
 "leaf": 941,
 "y": 562,
@@ -153,6 +161,14 @@
 "why": "no name (the text layer lost the name cell)",
 "left": ".. do",
 "rest": "Sept. 29, '64,"
+},
+{
+"leaf": 951,
+"y": 1568,
+"co": "E",
+"why": "no name (the text layer lost the name cell)",
+"left": "",
+"rest": "Mustered out with company, September 1, 1865."
 },
 {
 "leaf": 951,
@@ -313,6 +329,14 @@
 "why": "no name (the text layer lost the name cell)",
 "left": "..do",
 "rest": "Mar. 18, '64, 3"
+},
+{
+"leaf": 958,
+"y": 435,
+"co": "H",
+"why": "no name (the text layer lost the name cell)",
+"left": "",
+"rest": "Deserted July 6, 1862."
 }
 ],
 "orphans": [
@@ -320,25 +344,15 @@
 "leaf": 954,
 "why": "text right of the name columns and no row above",
 "text": "t.,'Y.",
-"y": 1926
-},
-{
-"leaf": 958,
-"why": "text right of the name columns and no row above",
-"text": "buried in Military Asylum Cemetery, D. C.",
-"y": 496
-},
-{
-"leaf": 959,
-"why": "text right of the name columns and no row above",
-"text": "Pa., July 1, 1S63— disch. by G. O., July\"4, 1865.",
-"y": 522
+"y": 1926,
+"co": "F"
 },
 {
 "leaf": 962,
 "why": "text right of the name columns and no row above",
 "text": "U:^fASSIGNED MEN\".",
-"y": 1686
+"y": 1686,
+"co": "K"
 }
 ],
 "headings": [
@@ -439,5 +453,189 @@
 "text": "Company K."
 }
 ],
-"company_gaps": []
+"company_gaps": [],
+"skipped_lines": [
+{
+"leaf": 941,
+"kind": "head-far",
+"text": "T",
+"y": 295,
+"co": "BAND"
+},
+{
+"leaf": 941,
+"kind": "head-far",
+"text": "..... Ei.VK. ISTO SEKTICK. KEHAEKi.",
+"y": 317,
+"co": "BAND"
+},
+{
+"leaf": 941,
+"kind": "head-far",
+"text": "i",
+"y": 366,
+"co": "BAND"
+},
+{
+"leaf": 941,
+"kind": "recruited",
+"text": "KECRUITED AT PHILADELPHIA.",
+"y": 918,
+"co": "A"
+},
+{
+"leaf": 942,
+"kind": "head-far",
+"text": "'\"\"^\"'mm",
+"y": 12,
+"co": "A"
+},
+{
+"leaf": 942,
+"kind": "head-far",
+"text": "924 SEVENTY-FIFTH EEGIilENT,",
+"y": 178,
+"co": "A"
+},
+{
+"leaf": 943,
+"kind": "recruited",
+"text": "recruited at philadelphi.^.",
+"y": 1465,
+"co": "B"
+},
+{
+"leaf": 945,
+"kind": "recruited",
+"text": "RECRtniTED AT PHILADELPHIA.",
+"y": 2033,
+"co": "C"
+},
+{
+"leaf": 947,
+"kind": "head-far",
+"text": ")ATE OP MPS'",
+"y": 320,
+"co": "C"
+},
+{
+"leaf": 947,
+"kind": "recruited",
+"text": "RECRUITED AT PHILADELPHIA.",
+"y": 2425,
+"co": "D"
+},
+{
+"leaf": 947,
+"kind": "foot",
+"text": "117— VOL. II.",
+"y": 2682,
+"co": "D"
+},
+{
+"leaf": 948,
+"kind": "head-far",
+"text": "a",
+"y": 268,
+"co": "D"
+},
+{
+"leaf": 948,
+"kind": "head-far",
+"text": "KA3CK. I.ITO SBKTIOB.",
+"y": 326,
+"co": "D"
+},
+{
+"leaf": 949,
+"kind": "recruited",
+"text": "recruited at phil.a.delphia.",
+"y": 2049,
+"co": "E"
+},
+{
+"leaf": 950,
+"kind": "head-far",
+"text": "932 SEVE:jfTY-FrFTH KEGIltEJfT,",
+"y": 163,
+"co": "E"
+},
+{
+"leaf": 952,
+"kind": "recruited",
+"text": "recr'uited at phil.a.delphi.a.",
+"y": 2312,
+"co": "F"
+},
+{
+"leaf": 954,
+"kind": "head-far",
+"text": "936 SEVENTY-FIFTH KEGEMENT,",
+"y": 130,
+"co": "F"
+},
+{
+"leaf": 954,
+"kind": "recruited",
+"text": "RECRUITED AT PHILADELPHIA.",
+"y": 2034,
+"co": "G"
+},
+{
+"leaf": 956,
+"kind": "head-far",
+"text": "938 SEVENTY-FIFTH KBGIMEN'T,",
+"y": 140,
+"co": "G"
+},
+{
+"leaf": 956,
+"kind": "head-far",
+"text": ".ViMB. ...v.. I.VTOSKETJCB. .H..U.HS.",
+"y": 296,
+"co": "G"
+},
+{
+"leaf": 956,
+"kind": "recruited",
+"text": "kecruited at philadelphia.",
+"y": 2100,
+"co": "H"
+},
+{
+"leaf": 958,
+"kind": "head-far",
+"text": "940 SEVE:S^TT-FrFTH EEGEMUNT,",
+"y": 153,
+"co": "H"
+},
+{
+"leaf": 958,
+"kind": "recruited",
+"text": "RECRUITED AT PHILADELPHIA.",
+"y": 1940,
+"co": "I"
+},
+{
+"leaf": 961,
+"kind": "head-far",
+"text": "T",
+"y": 303,
+"co": "I"
+},
+{
+"leaf": 961,
+"kind": "head-far",
+"text": "JliMB. Si-tK. INTO 9ERT1CK. SEUASKS.",
+"y": 331,
+"co": "I"
+},
+{
+"leaf": 961,
+"kind": "recruited",
+"text": "recruited at philadelphia.",
+"y": 905,
+"co": "K"
+}
+]
 }

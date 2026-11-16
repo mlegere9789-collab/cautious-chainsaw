@@ -13,13 +13,14 @@
 //                                                                                        passes everything also refreshes deliver/bt-staging/dist; deliver/bt-staging/LAST-VERIFY.txt says what happened
 //   node tools/bt/verify_staging.mjs --dist deliver/bt-staging/dist [--zip file.zip] [--source docs/battle-theatre] [--frames 20] [--json report.json] [--only dist|source]
 //   node tools/bt/verify_staging.mjs --doc --dist <dist> --zip <zip> [--selftest <tap.log>] [--verify <report.json>] [--queued "<text>"] [--write]     the "Current build" block of app/docs/NETLIFY-STAGING.md, written from FILES only (the pack, the static checks run on it, the
-//                                                                                        TAP log of tests/bt-pack, the report of a real run); without --write it is printed
+//                                                                                        TAP log of tests/bt-pack, the report of a real run, and a look ahead: the copy audit of today over the roster data and the data files
+//                                                                                        no page loads, so that the document never states a result of another day; --no-look-ahead leaves that row out); without --write it is printed
 //   add --static-only for the checks that need no browser (manifest, zip, links, names, left-out paths, load census, copy audit); --query a=b for a development shortcut (never the official check)
 //   pictures: every walk saves screenshots (the landing page, the soldiers close up, dawn, dusk, night, rain, a selected unit, the added layers on, and the first pages of a static section) to
 //   tmp/bt-spec/verify/shots/<time>/<dist|source>-<nn>-<name>.png (--shots <dir>, --no-shots, --viewport 1280x720; default 640x360). They are for a person to look at: the check does not judge them.
 // Run it through the machine lock (tools/horde/bench.sh): a software frame takes seconds. Exit 0 only when every check passes.
 import fs from 'node:fs'; import path from 'node:path'; import http from 'node:http'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
-import { pack, trace, audit, SECTIONS, IMPORT_RE, CSS_URL_RE, EXCLUDE } from './pack_theatre.mjs';
+import { pack, trace, audit, auditFiles, SECTIONS, IMPORT_RE, CSS_URL_RE, EXCLUDE } from './pack_theatre.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), REPO = path.resolve(here, '../..'), BT = path.join(REPO, 'docs/battle-theatre');
 const posix = p => p.split(path.sep).join('/');
@@ -352,9 +353,29 @@ export function findRequestNotes(hitFiles, requestsDir = path.join(BT, 'GOVERNAN
   const files = [].concat(hitFiles), out = []; for (const f of fs.readdirSync(requestsDir).filter(n => n.endsWith('.md'))) { let t = ''; try { t = fs.readFileSync(path.join(requestsDir, f), 'utf8'); } catch { continue; } const n = files.filter(h => t.includes(h)).length; if (n && /copy audit|AUDIT/i.test(t)) out.push({ f, n, m: fs.statSync(path.join(requestsDir, f)).mtimeMs }); }
   return out.sort((x, y) => y.n - x.n || y.m - x.m).slice(0, max).map(x => x.f);          // the note that names most of the hit files first (one note may carry the whole fix), then the newest
 }
+/** The hits of the roster data (rosters/data2) that the shipping copy would still have: the "generated" date keys of the index files (units.json, sources/*.json) are the publication filter's and are not counted. */
+export const rosterHits = hits => hits.filter(h => !/^rosters\/data2\/(units\.json|sources\/[\w.-]+\.json)$/.test(h.file) || !/"generated"/.test(h.text || ''));
+const slimHit = h => ({ file: h.file, line: h.line ?? null, match: String(h.match ?? h.where ?? '').slice(0, 60), ...(h.kind ? { kind: h.kind } : {}) });
+/** The copy audit, with the rules of TODAY, over what this build does not ship: the roster data (the roster section will ship it) and the data files of app/data that no page loads. A look ahead for the document:
+ *  the text of NETLIFY-STAGING.md never states a result of another day, it is written from this run. btDir = docs/battle-theatre of the tree to look at; dist = the finished build (what it ships is not "not shipped"). */
+export function lookAhead({ btDir = BT, dist = null } = {}) {
+  const out = { at: new Date().toISOString(), roster: null, unshipped: null }, isDir = p => { try { return fs.statSync(p).isDirectory(); } catch { return false; } };
+  const shipped = new Set(dist && isFile(path.join(dist, 'MANIFEST.json')) ? JSON.parse(fs.readFileSync(path.join(dist, 'MANIFEST.json'), 'utf8')).files.map(f => f.path) : []), rel = f => posix(path.relative(btDir, f));
+  const area = (dir, name) => { const d = path.join(btDir, dir); if (!isDir(d)) return null; const left = walk(d).filter(f => !shipped.has(rel(f))); if (!left.length) return null; return { dir, files: left.length, gzip: left.filter(f => /\.gz$/i.test(f)).length, hits: auditFiles(left, rel, new Set()), name }; };
+  const r = area('rosters/data2'); if (r) { const { name, ...x } = r; out.roster = { ...x, hits: rosterHits(x.hits).map(slimHit) }; }      // what a roster section would ship is not "not shipped": a file of the build is left out of the count
+  if (dist) { const u = area('app/data'); if (u) { const { name, gzip, ...x } = u; out.unshipped = { ...x, hits: x.hits.map(slimHit) }; } }
+  return out;
+}
+/** The sentence of the document about one look-ahead area: the count, the files and lines, and the request notes that name those files. */
+function lookAheadText(a, name, requestsDir) {
+  if (!a) return null;
+  const files = [...new Set(a.hits.map(h => h.file))], plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's'), list = a.hits.slice(0, 14).map(h => '`' + h.file + (h.line ? ':' + h.line : '') + '`').join(', ') + (a.hits.length > 14 ? ` and ${a.hits.length - 14} more` : '');
+  const notes = a.hits.length ? findRequestNotes(files, requestsDir) : [];
+  return `${name} (\`${a.dir}\`, ${plural(a.files, 'file')}${a.gzip ? ', ' + a.gzip + ' of them gzip' : ''}): ${a.hits.length ? `**${plural(a.hits.length, 'hit')}** in ${plural(files.length, 'file')}: ${list}${notes.length ? '; requests: ' + notes.map(n => '`' + n + '`').join(', ') : '; no request note names these files yet'}` : '**0 hits**'}`;
+}
 /** The markdown between the two markers of NETLIFY-STAGING.md. dist and zip are the newest pack; the trace report sits beside the dist (the pack wrote it). selftestLog: the TAP output of tests/bt-pack;
  *  report: the JSON of a real run (--json); queued: a sentence for a run that has not finished. Every number comes from a file; `now` is only the time stamp. */
-export function renderStagingBlock({ dist, zip, selftestLog = null, report = null, queued = null, now = new Date(), requestsDir = undefined, repoRoot = REPO }) {
+export function renderStagingBlock({ dist, zip, selftestLog = null, report = null, queued = null, now = new Date(), requestsDir = undefined, repoRoot = REPO, lookAhead: ahead = null }) {
   dist = path.resolve(dist);
   const J = f => JSON.parse(fs.readFileSync(f, 'utf8')), man = J(path.join(dist, 'MANIFEST.json'));
   if (!zip) { const dd = path.join(repoRoot, 'deliver'), cand = fs.existsSync(dd) ? fs.readdirSync(dd).filter(f => f.startsWith(`gettysburg-BT-staging-${man.version}`) && f.endsWith('.zip')) : []; if (!cand.length) throw new Error(`no zip of build ${man.version} in deliver/: give --zip`); zip = path.join(dd, cand[0]); }
@@ -383,6 +404,10 @@ export function renderStagingBlock({ dist, zip, selftestLog = null, report = nul
   const hits = tr.audit || [], hitFiles = [...new Set(hits.map(h => h.file))];
   if (hits.length) { const notes = findRequestNotes(hitFiles, requestsDir); L.push(`| Copy audit | **${plural(hits.length, 'hit')}** in ${plural(hitFiles.length, 'file')} that belong to other workstreams: ${hits.map(h => `\`${h.file}:${h.line}\``).join(', ')}. The newest requests that name these files, with the exact change, are in \`GOVERNANCE/horde/requests/\`: ${notes.length ? notes.map(n => '`' + n + '`').join(', ') : 'none found'}. The rules are described under "Copy audit" below. |`); }
   else L.push('| Copy audit | **0 hits** (rules: see "Copy audit" below) |');
+  { const wc = tr.auditReview ? Object.entries(tr.auditReview).filter(([k]) => k !== 'tool path').map(([k, v]) => `${k} ${v.count}`) : [], tp = tr.auditReview && tr.auditReview['tool path'] ? tr.auditReview['tool path'].count : 0, ph = hits.filter(h => h.kind === 'process').length;
+    if (tr.auditReview) L.push(`| Copy audit, what is only counted | ${wc.length ? wc.join(', ') : 'nothing'}; ${plural(tp, 'script path')} cited in shipped text. These words and labels are also used in another sense (a render pass, a session of a page, a label of an identifier): the acceptance review rules on them, they fail nothing. The words of the working process that name a unit of work (workstream, shard, the folder GOVERNANCE/horde, the task brief, a research or later session, "in this round") are hits${hits.length ? `: ${ph} of the ${plural(hits.length, 'hit')} above ${ph === 1 ? 'is' : 'are'} of that kind` : ''}. |`); }
+  if (ahead && (ahead.roster || ahead.unshipped)) { const parts = [lookAheadText(ahead.roster, 'Roster data', requestsDir), lookAheadText(ahead.unshipped, 'Data files that no page loads', requestsDir)].filter(Boolean);
+    L.push(`| Copy audit, look ahead (not part of this build) | The same audit, run at ${utc(ahead.at)} over files this build does not ship, so that this document never states a result of another day. ${parts.join('. ')}. They count the day a page loads them. |`); }
   const sc = tr.scrubbed || [], nm = sc.reduce((n, x) => n + x.removed.length, 0); if (sc.length) L.push(`| Publication filter | ${sc.length} data files ship without ${plural(nm, 'member')} that name the program that made the file (delegated decision DD-STG-01; the working files keep them; the list is in \`MANIFEST.json\`, "scrubbed"). |`);
   if (selftestLog) { const t = fs.readFileSync(selftestLog, 'utf8'), n = k => +((new RegExp(`^# ${k} (\\d+)`, 'm').exec(t) || [0, 0])[1]), red = [...t.matchAll(/^not ok \d+ - (.+)$/gm)].map(m => m[1]);
     L.push(`| Self-tests | \`tests/bt-pack\` (the packer on the real tree and on a made-up one; the checks of the verification on made-up folders): ${n('tests')} tests, ${n('pass')} pass, ${n('fail')} fail, ${n('skipped')} not run (the one that starts a browser).${red.length ? ` The ${red.length} red: ${red.map(x => '"' + x.replace(/ \(.*$/, '').slice(0, 90) + '"').join(', ')}. Each of them reads the real tree for what the copy rules keep out of a published build: a sentence that says how a file was made, a tool name, the two letters AI as a word (the shipping gate, the kit and data check, the roster data); none is loosened.` : ''} |`); }
@@ -425,7 +450,7 @@ async function main() {
   if (has('--help') || has('-h')) { const head = []; for (const l of fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n')) { if (!l.startsWith('//')) break; head.push(l.slice(3)); } console.log(head.join('\n')); return; }
   if (has('--doc')) {
     const rf = opt('--verify'), report = rf ? { ...JSON.parse(fs.readFileSync(path.resolve(rf), 'utf8')), reportFile: path.resolve(rf) } : null;
-    const block = renderStagingBlock({ dist: opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist'), zip: opt('--zip'), selftestLog: opt('--selftest') || null, report, queued: opt('--queued') || null });
+    const distDoc = opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist'), block = renderStagingBlock({ dist: distDoc, zip: opt('--zip'), selftestLog: opt('--selftest') || null, report, queued: opt('--queued') || null, lookAhead: has('--no-look-ahead') ? null : lookAhead({ dist: path.resolve(distDoc) }) });
     if (has('--write')) console.log('written to ' + writeStagingBlock(block, opt('--doc-file') ? path.resolve(opt('--doc-file')) : STAGING_DOC)); else console.log(block); return;
   }
   const frames = +opt('--frames') || 20, crawlMax = +opt('--crawl-max') || 150, query = opt('--query') || '', only = opt('--only'), t0 = Date.now(), print = s => console.log(s);

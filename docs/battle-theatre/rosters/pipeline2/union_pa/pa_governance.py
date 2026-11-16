@@ -66,7 +66,7 @@ def main():
           'The lines are not written to the unit files (a line without a name is not a roster line) and are listed with their text and their place on the leaf in `GOVERNANCE/horde/ws-rosters/union-pa/diag/<unit>.json`. The five largest: %s.' % (
               fmt(tot_lost), lost_units, n_units, pct(tot_lost, tot_lost + tot_lines), fmt(tot_lost + tot_lines), biglist),
           'The only text layer of these volumes is the ABBYY reading kept by the Internet Archive; its word boxes carry no word for the name cell of these lines, and no second reading of the text exists in the tree (G02). The name is printed on the page and can be read only from the page image.',
-          'The word-box files of the five volumes (aligned to the pinned text), the pinned search text of each leaf, the rendered page images of %d pages (on each the names of the lost lines are printed and legible by eye).' % len(checks),
+          'The word-box files of the five volumes (aligned to the pinned text), the pinned search text of each leaf, the rendered page images of %d pages, of which %d hold lines whose name was lost (on those pages the names are printed and legible by eye).' % (len(checks), sum(1 for c in checks if c['lost'])),
           'None. No name is supplied from the earlier family run, from another list or from the order of the lines.',
           'A reading of the name column of the page image for each listed line (leaf and vertical place are in the diag file), stored as a further segment of the unit file with the reading engine named, and checked against the neighbouring lines.',
           'documented that the line exists (rank, date and remark of the line are in the text layer); the name is unknown', '-',

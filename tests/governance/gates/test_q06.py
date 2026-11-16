@@ -22,7 +22,7 @@ R1, R2, CAV, OPEN, EDGE, NOF = 'us-1c-1d-r1', 'us-1c-1d-r2', 'us-cav-1d-c1', 'us
 
 
 def run(D=None, mutate_d=None, cover=None, drop_open=False):
-    env = Env(out=tempfile.mkdtemp(prefix='q06-test-'))
+    env = Env(root=F.ROOT, out=tempfile.mkdtemp(prefix='q06-test-'))
     D = copy.deepcopy(D) if D is not None else F.q06_dump()
     if mutate_d:
         mutate_d(D)
@@ -186,6 +186,13 @@ class NotDeployed(unittest.TestCase):                 # Q06.2
             beh(D, R2)['formations'][0]['t'] = 45000.0
         self.assertEqual(one(run(mutate_d=early, cover=COVER), 'Q06.2', 'Q06.2/%s/delegated' % R2)['result'], 'FAIL')
 
+    def test_a_change_of_formation_that_precedes_the_entry_fails_even_when_a_leg_has_ended_before_it(self):
+        def odd(D):
+            beh(D, R2)['entry']['t'] = 45500.0                 # the entry is recorded after the legs and the change of formation (a corrupted order)
+        x = one(run(mutate_d=odd, cover=COVER), 'Q06.2', 'Q06.2/%s/delegated' % R2)
+        self.assertEqual(x['result'], 'FAIL')
+        self.assertIn('precedes the entry', x['reason'])
+
     def test_a_change_of_formation_before_the_unit_has_marched_anywhere_fails(self):
         def early(D):
             beh(D, R2)['formations'][0]['t'] = 45150.0
@@ -342,7 +349,7 @@ class RealProduct(unittest.TestCase):
     UNIT = 'us-1c-1d-meredith-19in'
 
     def runner(self, mutation, units=None):
-        env = Env(out=tempfile.mkdtemp(prefix='q06-e2e-'))
+        env = Env(root=F.ROOT, out=tempfile.mkdtemp(prefix='q06-e2e-'))
         K = Q.load_inputs(Record('Q06', env), env, run_checker=False)
         rec, out = Q.run(env, mutate=os.path.join(MUT, mutation) if mutation else None, write=False, inputs=K, extra=['--scenarios', 'default', '--units', units or self.UNIT])
         return out

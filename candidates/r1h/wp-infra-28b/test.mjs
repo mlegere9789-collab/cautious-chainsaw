@@ -342,9 +342,9 @@ test('group: group.json is what gen.mjs writes and each of its anchors is found 
 test('group: the earlier parameter set (31 characters, notes of 140) stays selectable: gen.mjs --set earlier gives a group that applies and behaves by its constants', async () => {
   assert.ok(tree.patched, 'the tree under test is the untouched R1g tree: there is no group to take the sets from');
   fs.mkdirSync(SCRATCH, { recursive: true });
-  const groupEarlier = path.join(SCRATCH, 'group-earlier.json');
-  const outDir = path.join(SCRATCH, 'earlier');
-  const report = path.join(SCRATCH, 'report-earlier.json');
+  const groupEarlier = path.join(SCRATCH, `group-earlier-${process.pid}.json`);     // per process: two runs of this file may overlap under the lock
+  const outDir = path.join(SCRATCH, `earlier-${process.pid}`);
+  const report = path.join(SCRATCH, `report-earlier-${process.pid}.json`);
   try {
     let r = cp.spawnSync(process.execPath, [path.join(REPO, 'candidates', 'r1h', 'wp-infra-28b', 'gen.mjs'), '--set', 'earlier', '--out', path.relative(REPO, groupEarlier)], { cwd: REPO, encoding: 'utf8' });
     assert.equal(r.status, 0, r.stdout + r.stderr);

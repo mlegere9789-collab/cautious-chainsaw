@@ -11,7 +11,7 @@
 // What no script can do and what stays with a person: LOOK at the montages (the machine only measures them), and the rows for Safari, Firefox, a phone, a device without float32-filterable and the 600-frame timing split.
 import fs from 'node:fs'; import path from 'node:path'; import { spawnSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
 import { checkRun, checkCompare } from './weather3d-gpu-check.mjs';
-import { SOFTWARE_ADAPTER_RE } from './weather3d-gpu-lib.mjs';
+import { adapterVerdict } from './weather3d-gpu-lib.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 
@@ -44,14 +44,15 @@ const readJson = f => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } c
 // what the machine could check, from the files the steps wrote. Pure (reads files only). Nothing in the result is a visual judgment.
 export function summarize(out, o = {}) {
   const root = path.resolve(out), R = { generated: o.now || null, out: root, runs: {}, compare: {}, shell: {}, rows: {}, owed: [], problems: [], realGpu: null };
-  const adapters = [];
+  // one entry per run that is present, whatever its record says (a run with no record, an empty one or 'unknown' is an entry that names nothing: it can never be counted as hardware, and it is never skipped)
+  const adapters = [], addAdapter = (run, ...recs) => { const v = adapterVerdict(...recs); adapters.push({ run, adapter: v.text, named: v.named, software: v.software }); };
   for (const [dir, cases] of [['main', 16], ['close', 6]]) {
     for (const api of ['webgpu', 'webgl2']) {
       const s = readJson(path.join(root, dir, api, 'summary.json')); if (!s) { if (dir === 'main' || !o.skipClose) R.runs[dir + '-' + api] = { present: false }; continue; }
       const c = checkRun(s, { cases }), passMs = api === 'webgpu' ? Object.values(s.cases || {}).map(x => x.gpuStats && x.gpuStats.passMs).filter(v => typeof v === 'number') : [];
       R.runs[dir + '-' + api] = { present: true, ok: c.ok, problems: c.problems, facts: c.facts, realGpuRun: !!s.realGpu, size: [s.w, s.h], gpuLayer: s.diagInit && s.diagInit.gpu ? { ok: s.diagInit.gpu.ok, weatherOk: s.diagInit.gpu.weatherOk, fxOk: s.diagInit.gpu.fxOk, log: s.diagInit.gpu.log, warnings: s.diagInit.gpu.warnings } : null,
         passMs: passMs.length ? { n: passMs.length, median: +median(passMs).toFixed(3), p95: +pct(passMs, 0.95).toFixed(3), max: Math.max(...passMs) } : null };
-      if (c.facts.adapter) adapters.push({ run: dir + '-' + api, adapter: c.facts.adapter, software: SOFTWARE_ADAPTER_RE.test(c.facts.adapter) });
+      addAdapter(dir + '-' + api, s.diagEnd && s.diagEnd.adapter, s.diagInit && s.diagInit.adapter);
     }
     const cmp = readJson(path.join(root, dir, 'compare', 'summary.json')); if (cmp) { const k = checkCompare(cmp); R.compare[dir] = { ok: k.ok, problems: k.problems, facts: k.facts, worst: cmp.rows.slice().sort((a, b) => b.all.meanAbs - a.all.meanAbs).slice(0, 3).map(r => ({ case: r.case, meanAbs: r.all.meanAbs })) }; }
   }
@@ -59,11 +60,15 @@ export function summarize(out, o = {}) {
     const s = readJson(path.join(root, dir, (dir === 'crowd' ? 'theatre-real-' : 'theatre-') + api, 'summary.json')); if (!s) continue;
     const e = s.entered || {}, ad = e.adapter ? JSON.stringify(e.adapter) : null, st = e.status || null;
     R.shell[dir + '-' + api] = { present: true, entered: !!e.ready, ribbon: e.ribbon || null, weatherDrawn: st ? !!st.weather : null, effectsDrawn: st ? !!st.effects : null, gpuLayer: e.gpu || null, glLayer: e.gl || null, errors: s.errors || [], consoleProblems: s.consoleProblems || [], gpuErrors: ((s.diagEnd || {}).gpuErrors || []).length, wgslMessages: ((s.diagEnd || {}).wgsl || []).length, cases: Object.keys(s.cases || {}).length, realGpuRun: !!s.realGpu, adapter: ad };
-    if (ad) adapters.push({ run: dir + '-' + api, adapter: ad, software: SOFTWARE_ADAPTER_RE.test(ad) });
+    addAdapter(dir + '-' + api, e.adapter);
   }
   const shellCmp = readJson(path.join(root, 'shell', 'theatre-compare', 'summary.json')); if (shellCmp) { const k = checkCompare(shellCmp); R.compare.shell = { ok: k.ok, problems: k.problems, facts: k.facts }; }
   const crowdCmp = readJson(path.join(root, 'crowd', 'theatre-real-compare', 'summary.json')); if (crowdCmp) { const k = checkCompare(crowdCmp); R.compare.crowd = { ok: k.ok, problems: k.problems, facts: k.facts }; }
-  R.adapters = adapters; R.realGpu = adapters.length > 0 && adapters.every(a => !a.software) && Object.values(R.runs).filter(x => x.present).every(x => x.realGpuRun);
+  // the answer to "was this a real-GPU run": every present run (main, close, shell, crowd) carries an adapter record that NAMES hardware and is not a software one, was started with --real-gpu, and the two main runs are there.
+  // An empty record ({}), empty strings or 'unknown' name nothing and count as no hardware (the same rule as the run checker: adapterVerdict in weather3d-gpu-lib.mjs).
+  const mainMissing = ['main-webgpu', 'main-webgl2'].filter(k => !(R.runs[k] && R.runs[k].present)), listOf = a => a.map(x => x.run).join(', ');
+  const notRealRun = [...Object.entries(R.runs).filter(([, x]) => x.present && !x.realGpuRun).map(([k]) => k), ...Object.entries(R.shell).filter(([, x]) => !x.realGpuRun).map(([k]) => k)];
+  R.adapters = adapters; R.realGpu = adapters.length > 0 && mainMissing.length === 0 && adapters.every(a => a.named && !a.software) && notRealRun.length === 0;
   const run = k => R.runs[k] || { present: false }, mark = x => (!x.present ? 'not run' : x.ok ? 'clean' : 'PROBLEMS');
   const E = R.rows, snap = (k) => { const r = run(k); return r.present ? { run: mark(r), problems: r.problems.slice(0, 5) } : { run: 'not run' }; };
   E['W-E1'] = { what: 'the layer builds and runs on the hardware, both APIs: no validation error, no compiler message, no device loss', webgpu: snap('main-webgpu'), webgl2: snap('main-webgl2'), closeWebgpu: snap('close-webgpu'), closeWebgl2: snap('close-webgl2'), gpuLayer: run('main-webgpu').gpuLayer || null, owed: 'the other devices of the row (Intel Arc, AMD, Apple Chrome and Safari, a mid-range Android phone): run this command on each' };
@@ -75,7 +80,14 @@ export function summarize(out, o = {}) {
   const cs = run('main-webgpu').facts && run('main-webgpu').facts.canvasShot, cg = run('main-webgl2').facts && run('main-webgl2').facts.canvasShot; E['W-E7'] = { what: 'the real canvas shows what the read-back shows (page.screenshot of the page against the read-back, per case)', webgpu: cs || 'no canvas pictures in the run', webgl2: cg || 'no canvas pictures in the run', owed: 'LOOK at one canvas picture by hand next to its montage' };
   E['W-E8'] = { what: 'the optional GPU-cull compute shader', webgpuComputeCheck: (readJson(path.join(root, 'main', 'webgpu', 'summary.json')) || {}).computeCheck || null, owed: 'wiring it (indirect draws) and comparing it with the CPU cull is open; this command only checks that its pipeline builds' };
   E['W-E9'] = { what: 'the adapters the runs recorded are the hardware of the row', adapters, realGpu: R.realGpu };
-  if (!R.realGpu) R.problems.push(adapters.length ? 'NOT A REAL-GPU RESULT: ' + (adapters.some(a => a.software) ? 'a run recorded a software adapter (' + adapters.filter(a => a.software).map(a => a.run).join(', ') + ')' : 'a run is not a --real-gpu run') : 'NOT A REAL-GPU RESULT: no run recorded an adapter');
+  if (!R.realGpu) {
+    const P = m => R.problems.push('NOT A REAL-GPU RESULT: ' + m);
+    if (!adapters.length) P('no run recorded an adapter');
+    if (adapters.some(a => a.software)) P('a run recorded a software adapter (' + listOf(adapters.filter(a => a.software)) + ')');
+    if (adapters.some(a => !a.named && !a.software)) P('a run recorded no adapter that names hardware, the record is missing, empty or says unknown (' + listOf(adapters.filter(a => !a.named && !a.software)) + ')');
+    if (adapters.length && mainMissing.length) P('a main run is missing (' + mainMissing.join(', ') + ')');
+    if (notRealRun.length) P('a run is not a --real-gpu run (' + notRealRun.join(', ') + ')');
+  }
   for (const [k, v] of Object.entries(R.runs)) if (v.present && !v.ok) R.problems.push(k + ': ' + v.problems.slice(0, 3).join('; '));
   for (const [k, v] of Object.entries(R.compare)) if (!v.ok) R.problems.push('compare ' + k + ': ' + v.problems.slice(0, 3).join('; '));
   for (const [k, v] of Object.entries(R.shell)) { if (!v.entered) R.problems.push(k + ': the shell did not start'); if (v.errors.length) R.problems.push(k + ': ' + String(v.errors[0]).slice(0, 160)); if (v.gpuErrors) R.problems.push(k + ': ' + v.gpuErrors + ' WebGPU error(s)'); }
@@ -86,7 +98,7 @@ export function renderMarkdown(R) {
   const L = [];
   L.push(R.realGpu ? '# Real-GPU run of the weather and effects layers: machine results' : '# NOT A REAL-GPU RESULT: ' + R.problems.filter(p => /^NOT A REAL/.test(p)).map(p => p.replace(/^NOT A REAL-GPU RESULT: /, '')).join('; '));
   L.push('', 'This file is what the machine could check. It contains no visual judgment: the pictures still have to be looked at (section E of `BROWSER-VERIFICATION-LIST-WEATHER.md`). Rows are ticked there, by a person who has looked, never by this file.', '');
-  L.push('Adapters recorded: ' + (R.adapters.length ? R.adapters.map(a => `${a.run}: ${a.adapter.slice(0, 140)}${a.software ? ' (SOFTWARE)' : ''}`).join(' | ') : 'none'), '');
+  L.push('Adapters recorded: ' + (R.adapters.length ? R.adapters.map(a => `${a.run}: ${(a.adapter || 'no record').slice(0, 140)}${a.software ? ' (SOFTWARE)' : ''}${!a.named && !a.software ? ' (NAMES NO HARDWARE)' : ''}`).join(' | ') : 'none'), '');
   if (R.problems.length) { L.push('## Problems', ...R.problems.map(p => '* ' + p), ''); } else L.push('No problem found by the checks.', '');
   for (const [id, row] of Object.entries(R.rows)) { L.push(`## ${id}: ${row.what}`, '```json', JSON.stringify(Object.fromEntries(Object.entries(row).filter(([k]) => k !== 'what')), null, 1), '```', ''); }
   return L.join('\n');

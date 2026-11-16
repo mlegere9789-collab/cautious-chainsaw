@@ -27,6 +27,7 @@ def ROWS(prev):
               'documented', 'supported', [
                   C('LOC-99447491', 'The maps are entitled: First day\'s battle. Second day\'s battle. Third day\'s battle.', locator='item.notes[2]'),
                   C('LOC-99447491', '3 maps, col., each 74 x 71 cm.', locator='item.medium'),
+                  C('LOC-99447491', 'Boston, John B. Bachelder, 1876.', locator='item.created_published'),
               ], note='This does not establish that the W&M items are copies of the same print.'),
         ],
         stays_unsupported=['Existence and content of the W&M entries; whether images are online'],
@@ -45,7 +46,7 @@ def ROWS(prev):
         pdf_claim='Bachelder Papers 1863-1894 (10 boxes, 7 volumes; microfilm 102264), New Hampshire Historical Society: letters, copybooks, album; correspondence with veterans, maps are not the main content; finding aid; paper and microfilm; "Available for research", reproduction needs permission; not digitized; the commercial Ladd edition (3 volumes, about 2,128 pages) is copyrighted and must not be ingested or reproduced, cite only; letters were collected 10 to 30 years after the battle; R3.',
         corrected_claim=(
             'Partly supported. Documented from NPS texts: the New Hampshire Historical Society holds John B. Bachelder\'s correspondence ("Bachelder Correspondence, New Hampshire Historical Society, microfilm reel 1"), used by NPS historians; '
-            'the letters cited by NPS run from 1866 (Col. Andrew Cowan, 20 August 1866) to 1889 and later, so "collected 10 to 30 years after the battle" is too narrow at the early end; '
+            'the three letters cited here date from 1866 (Col. Andrew Cowan, 20 August 1866), 1886 and 1889, so "collected 10 to 30 years after the battle" is too narrow at the early end; '
             'a published edition exists: David L. and Audrey J. Ladd, ed., The Bachelder Papers (Dayton: Morningside House, Inc., 1994). '
             'Blocked, not re-asserted: every number and access statement of the NHHS finding aid (10 boxes and 7 volumes, 7.26 linear feet, collection 1921.001, microfilm 102264, "available for research", reproduction permission) and the Ladd edition\'s "3 volumes, about 2,128 pages".'),
         sub_claims=[
@@ -54,7 +55,7 @@ def ROWS(prev):
                   C('NPS-COMMON-PRIDE-1', 'Bachelder Correspondence, New Hampshire Historical Society, microfilm reel 1.', note='Georg 1981, footnote to a letter of Capt. Walter Owen, 6 August 1886'),
                   C('NPS-HARMON-FARM', 'J. B. Bachelder Papers, New Hampshire Historical Society, p. 420'),
               ]),
-            S('R12.006.b', 'letter_dates', 'Letters to Bachelder cited by the NPS date from 1866 (Cowan, 20 August 1866), 1883, 1886, 1887 and 1889; so the collection\'s letters are not all 10 to 30 years after the battle.',
+            S('R12.006.b', 'letter_dates', 'Letters to Bachelder cited by the NPS include one of 20 August 1866 (Cowan, three years after the battle), one of 6 August 1886 (Owen) and one of 21 October 1889 (McDermott); so the collection\'s letters are not all 10 to 30 years after the battle.',
               'documented', 'supported', [
                   C('NPS-COMMON-PRIDE-2', 'Colonel Andrew Cowan, August 20, 1866 letter to John B. Bachelder, in Bachelder Correspondence, New Hampshire Historical Society, Microfilm Reel 1', note='footnote'),
                   C('NPS-COMMON-PRIDE-1', 'Captain Walter Owen, August 6, 1886, letter to John B. Bachelder, Bachelder Correspondence, New Hampshire Historical Society, microfilm reel 1.'),
@@ -69,7 +70,7 @@ def ROWS(prev):
             S('R12.006.e', 'not_digitized', 'The Bachelder Papers are not digitized (PDF statement).', 'open_gap', 'unsupported', [], note='The finding aid does not say so; treat as unverified.'),
         ],
         stays_unsupported=['all NHHS finding-aid figures and access/permission statements', 'whether the papers are digitized', 'Ladd edition volumes/pages'],
-        register_refs=[],
+        register_refs=['sources-a-EG-03'],
         blocked_host=[HOST('NHHS-finding-aid', 'https://www.nhhistory.org/NHHS/media/NHHS-Media-Library/PDFs/Finding-Aids/Bachelder_John_B-_Papers_1921-001.pdf', 'NHHS finding aid PDF (8 pages): Extent, Access Restrictions, Copyright and Conditions Governing Use, Related Materials (microfilm), series descriptions; copy verbatim.')],
         product_consequence=['none for terrain; any use of testimony from the papers must cite a legally obtained copy (the Ladd edition is copyrighted)'],
         lookups=['www.nhhistory.org robots.txt: proxy refusal (2026-11-13, 2026-11-16)'],
@@ -87,7 +88,7 @@ def ROWS(prev):
             'and lists "Cope, Emmor Bradley. \'Battlefield of Gettysburg, Pa., 1st, 2nd, & 3rd of July, 1863.\' (October 1863)"; Georg (NPS, 1981) calls it "E. B. Cope\'s \'horseback\' survey map of the battlefield in October 1863" and the Little Round Top CLR names it the "Cope (horseback survey)". '
             'So the map is dated October 1863; no reachable source gives "August" for Cope. The words "August ... 1863" belong to a different map: an NPS study says S. G. Elliott\'s map was "surveyed sometime between August and November of 1863". '
             'Further documented: the Cope map shows lines of breastworks (NPS-EISE-CLR1, Fig. 1.3, "1863 Cope Map indicating line of breastworks"; the NPS Record of Treatment: "The Cope Map depicts a Confederate redoubt on the high point at the western edge of Houck Field"); '
-            'a post-battle map "based on survey by Major E. B. Cope" is reproduced from Atlas to accompany the Official Records plate XL (= Atlas plate 40, listed in the Atlas index for Gettysburg, map 2); '
+            'a post-battle map "based on survey by Major E. B. Cope" is reproduced in an NPS report from the Atlas to accompany the Official Records, plate XL (Roman numeral for 40; the Atlas index lists a Gettysburg map on plate 40, map 2, and credits Warren: the link of the NPS detail to map 2 is an inference); '
             'the park holds a copy of Cope\'s map from RG 77 at NARA ("Copy on file ... Archives"); LOC 99447498 is a blue-print "Gettysburg battlefield" by Cope and Hewitt dated 1863 (1 print, blue, with Confederate positions hand col. in red, 44 x 26 cm, scale ca. 1:26,000). '
             'Not established: that LOC 99447498 is the same work as NARA E 105a-1; the NAID 176246318; Warren\'s annotation text ("mostly from horseback sketches based on the map of Adams County"); the scan itself.'),
         sub_claims=[
@@ -109,7 +110,11 @@ def ROWS(prev):
                   C('LOC-99447498', '1 print, blue, with Confederate positions hand col. in red, 44 x 26 cm.', locator='item.medium'),
                   C('LOC-99447498', 'Shows troops and artillery points, drainage, roads, railroads, dwellings with names of occupants, several points of interest on the battlefield, and a few of the highest points by hachures.', locator='item.notes[1]'),
                   C('LOC-99447498', 'Scale ca. 1:26,000.', locator='item.notes[3]'),
+                  C('LOC-99447498', 'LC Civil War Maps (2nd ed.), 330', locator='item.notes[4]'),
+                  C('LOC-99447498', 'item.library_of_congress_control_number: 99447498', locator='LCCN'),
                   C('LOC-99447498', 'width: 3098', locator='resources JP2'),
+                  C('LOC-99447498', 'height: 5100', locator='resources JP2'),
+                  C('LOC-99447498', 'size: 2390352', locator='resources JP2'),
                   C('LOC-99447498', 'size: 47417036', locator='resources TIFF'),
                   C('LOC-99447498', LOC_RIGHTS, locator='item.rights'),
               ]),
@@ -129,7 +134,7 @@ def ROWS(prev):
         ],
         stays_unsupported=['"August" as a start of Cope\'s fieldwork (no source)', 'NAID 176246318 and Warren\'s annotation text (NARA blog only)', 'whether LOC 99447498 = NARA E 105a-1', 'the map image (no scan of E 105a-1; LOC 99447498 not downloaded)'],
         conflicts_carried=['Cope survey date: PDF "August to October 1863" vs NPS "October 1863" (Elliott: "between August and November of 1863")'],
-        register_refs=['sources-a-EG-02'],
+        register_refs=['sources-a-EG-02', 'sources-a-EG-12'],
         blocked_host=[HOST('NARA-blog', NARA_BLOG, 'Caption and paragraph on E 105a-1 (NAID 176246318): Warren\'s annotation on the Cope map (horseback sketches, map of Adams County) and any date it gives; copy verbatim.')],
         product_consequence=[
             'terrain_sources.json row 7: replace "survey made August to October 1863" by "map dated October 1863 (NPS Administrative History); fieldwork window not stated"; keep the Aug-Nov window with Elliott (row 10)',
@@ -163,6 +168,7 @@ def ROWS(prev):
                   C('LOC-2004629149', 'Relief shown by hachures.', locator='item.notes[0]'),
                   C('LOC-2004629149', '"Entered according to act of Congress in the year 1857 by Robert P. Smith..."', locator='item.notes[1]'),
                   C('LOC-2004629149', '"Entered according to act of Congress in the year 1858 by M.S & E. Converse..."', locator='item.notes[2]'),
+                  C('LOC-2004629149', 'item.library_of_congress_control_number: 2004629149', locator='LCCN'),
               ]),
             S('R12.008.b', 'image_and_rights', 'JP2 16639 x 11740 px (29,588,681 bytes); TIFF master 586,043,720 bytes; free to use unless a Rights Advisory is present (none); credit line Library of Congress, Geography and Map Division.',
               'documented', 'supported', [
@@ -213,6 +219,7 @@ def ROWS(prev):
                   C('LOC-G3880', 'G3880 186- .M5', locator='item.call_number'),
                   C('LOC-G3880', '1 map : photocopy pos. ; 64 x 40 cm.', locator='item.medium'),
                   C('LOC-G3880', 'Relief shown by hachures.', locator='item.notes[0]'),
+                  C('LOC-G3880', 'g3880.cw0508800', locator='resource id'),
               ]),
             S('R12.009.b', 'derivation_and_content', 'It is a reduced and redrawn version of the index map of the War Department atlas "Military Maps Illustrating the Operations of the Armies of the Potomac & James" (Office of the Chief of Engineers, 1869) and indicates cities, roads, railroads, drainage and defensive works near Richmond and Petersburg: a campaign route map, not a Gettysburg battlefield source.',
               'documented', 'supported', [
@@ -248,7 +255,11 @@ def ROWS(prev):
                   C('LOC-99447501', '1 map col. 80 x 58 cm.', locator='item.medium'),
                   C('LOC-99447501', 'Inset: Plan of the National Cemetery.', locator='item.notes[0]'),
                   C('LOC-99447501', 'Scale 1:9051.', locator='item.notes[2]'),
+                  C('LOC-99447501', 'G3824.G3S5 1863 .E5', locator='item.call_number'),
+                  C('LOC-99447501', 'LC Civil War Maps (2nd ed.), 333', locator='item.notes[4]'),
+                  C('LOC-99447501', 'item.library_of_congress_control_number: 99447501', locator='LCCN'),
                   C('LOC-99447501', 'width: 7057', locator='resources JP2'),
+                  C('LOC-99447501', 'height: 9869', locator='resources JP2'),
                   C('LOC-99447501', 'size: 10528312', locator='resources JP2'),
                   C('LOC-99447501', 'size: 208954208', locator='resources TIFF'),
                   C('LOC-99447501', LOC_RIGHTS, locator='item.rights'),
@@ -291,7 +302,7 @@ def ROWS(prev):
         pdf_claim='LOC Civil War Maps collection: about 2,240 maps and charts, 76 atlases and sketchbooks, plus Hotchkiss 341 manuscript maps and sketchbooks, and Sherman; 130 hits for "gettysburg"; Bachelder, John B. is a contributor on 10 of them; IIIF/GIF; free to use unless an item carries a rights advisory (none on sampled items); Hotchkiss Gettysburg-specific maps, Sickles/Meade headquarters sketches and a map attributed to a "Lt. Edwin Whitney" were not found or verified; treat the Whitney name as unverified; R2.',
         corrected_claim=(
             'Confirmed: the collection query q=gettysburg returns 130 results; the contributor facets read Sneden, Robert Knox 16; Gettysburg National Military Park Commission 11; Bachelder, John B. 10; United States. Army. Corps of Engineers 8; Cope, Emmor B. 4. '
-            'Corrected: (1) the collection count shown on item records is 2,338 (the PDF\'s "about 2,240" is out of date); (2) Hotchkiss Gettysburg maps ARE in the collection: 2005625069 "[Sketch of the battlefield of Gettysburg, July 1st and 2nd, 1863]" (48 x 38 cm, Hotchkiss Map Collection rights text), 2005625067 and 2005625066 (preliminary sketches with troop positions, July 2, 1863), and Hotchkiss route maps 2005625065 and 2005625068 (credited to Hotchkiss, Jedediah); '
+            'Corrected: (1) the collection count shown on item records is 2,338 (the PDF\'s "about 2,240" is out of date); (2) Hotchkiss Gettysburg maps ARE in the collection: 2005625069 "[Sketch of the battlefield of Gettysburg, July 1st and 2nd, 1863]" (48 x 38 cm, Hotchkiss Map Collection rights text), 2005625067 and 2005625066 (preliminary sketches with troop positions, July 2, 1863), and Hotchkiss route maps 2005625065 and 2005625068 (credited to Hotchkiss, Jedediah); the Official Records also document Hotchkiss\'s "map of the battle-field of Gettysburg" (sent with Ewell\'s report, part 2, p. 452), though which LOC sheet it is stays unstated; '
             '(3) no map by any Whitney of Gettysburg exists in the collection: q=whitney gives one item, William H. Whitney\'s lower Shenandoah Valley map, and q=edwin whitney gives zero; the "Lt. Edwin Whitney" name has no support; '
             '(4) no Sickles or Meade headquarters sketch was found: q=sickles+headquarters+gettysburg and q=meade+headquarters+gettysburg give zero; q=sickles gives nine items (Sneden\'s Third Corps plans among them), q=headquarters+gettysburg six, none such a sketch. '
             'Items 2005625069 and the Hotchkiss collection carry a different rights text (noncommercial, educational and research purposes; written permission may be needed beyond fair use); treat Hotchkiss items as research-use until the owner decides. '
@@ -318,10 +329,14 @@ def ROWS(prev):
               ], note='The PDF\'s "about 2,240" is older; the collection grows.'),
             S('R12.011.c', 'hotchkiss_gettysburg_items', 'The query q=hotchkiss+gettysburg returns Gettysburg sketches 2005625069 ([Sketch of the battlefield of Gettysburg, July 1st and 2nd, 1863], 1 ms. map : col. ; 48 x 38 cm; LC Civil War maps 2nd ed. H162), 2005625067 and 2005625066 ([Preliminary sketch of the battle of Gettysburg showing troop positions, July 2, 1863]), and Hotchkiss route maps 2005625065 and 2005625068 (contributor Hotchkiss, Jedediah).',
               'documented', 'supported', [
+                  C('LOC-CWM-HOTCHKISS', 'results[1].id: http://www.loc.gov/item/2005625069/'),
                   C('LOC-CWM-HOTCHKISS', 'results[1].title: [Sketch of the battlefield of Gettysburg, July 1st and 2nd, 1863]'),
+                  C('LOC-CWM-HOTCHKISS', 'results[2].id: http://www.loc.gov/item/2005625067/'),
                   C('LOC-CWM-HOTCHKISS', 'results[2].title: [Preliminary sketch of the battle of Gettysburg showing troop positions, July 2, 1863]'),
                   C('LOC-CWM-HOTCHKISS', 'results[3].id: http://www.loc.gov/item/2005625066/'),
+                  C('LOC-CWM-HOTCHKISS', 'results[4].id: http://www.loc.gov/item/2005625065/'),
                   C('LOC-CWM-HOTCHKISS', 'results[4].contributor[1]: hotchkiss, jedediah'),
+                  C('LOC-CWM-HOTCHKISS', 'results[5].id: http://www.loc.gov/item/2005625068/'),
                   C('LOC-CWM-HOTCHKISS', 'results[5].contributor[0]: hotchkiss, jedediah'),
                   C('LOC-2005625069', '1 ms. map : col. ; 48 x 38 cm.', locator='item.medium'),
                   C('LOC-2005625069', 'LC Civil War maps (2nd ed.), H162', locator='item.notes'),
@@ -332,6 +347,7 @@ def ROWS(prev):
                   C('LOC-2005625069', 'The maps in the <em>Hotchkiss Map Collection</em> were published prior to 1922', locator='item.rights'),
                   C('LOC-2005625069', 'access to these materials for noncommercial, educational, and research purposes and is not aware of any U.S. copyright protection', locator='item.rights'),
                   C('LOC-2005625069', 'Note that the written permission of the copyright owners and/or other rights holders', locator='item.rights'),
+                  C('LOC-2005625069', 'item.library_of_congress_control_number: 2005625069', locator='LCCN'),
               ], note='Owner decision (R12 rights): treat as research-use until decided.'),
             S('R12.011.e', 'whitney_not_found', 'No Gettysburg map by any Whitney is in the collection: q=whitney+gettysburg and q=whitney each return one item, William H. Whitney\'s lower Shenandoah Valley map; q=edwin+whitney returns zero. The name "Lt. Edwin Whitney" has no support.',
               'documented', 'supported', [
@@ -347,16 +363,20 @@ def ROWS(prev):
                   C('LOC-CWM-SICKLES1', 'results[0].title: Plan shewing [sic] the Rebel concentrated assault on the 3rd Corps, July 2nd'),
                   C('LOC-CWM-HQGETT', 'pagination.of: 6', locator='q=headquarters gettysburg'),
               ], note='A negative on keyword queries in one LOC collection; it does not prove no such sketch exists elsewhere.'),
-            S('R12.011.g', 'loc_crawl_rules', 'LOC robots.txt disallows /search for all agents and asks for a crawl delay of 5 seconds; the /collections/ JSON and /item/ JSON paths were used at 5.5 s spacing.',
+            S('R12.011.g', 'loc_crawl_rules', 'LOC robots.txt disallows /search for all crawlers and sets Crawl-Delay 5; this shard requested only /item/, /resource/ and /collections/ paths, spaced above that delay.',
               'documented', 'supported', [
                   C('ROBOTS-LOC', 'Disallow: /search'),
                   C('ROBOTS-LOC', 'Crawl-Delay: 5'),
               ]),
-            BLK('R12.011.h', 'about_collection_counts', 'About-this-collection page: about 2,240 maps and charts, 76 atlases and sketchbooks, Hotchkiss 341 manuscript maps and sketchbooks, and Sherman.',
+            S('R12.011.h', 'ewell_transmits_hotchkiss_gettysburg_map', 'A Hotchkiss map of the battlefield of Gettysburg is documented in the Official Records: Lieut. Gen. Ewell\'s report sends "the accompanying maps of the campaign by Capt. Jed Hotchkiss, topographical engineer, being the map of routes to and from Gettysburg, map of the battle-field of Winchester, and map of the battle-field of Gettysburg".',
+              'documented', 'supported', [
+                  C('OR-27-2', 'Hotchkiss, topographical engineer, being the map of routes to and froin Gettysburg, map of the battle-field of Winchester, and map of the battle-field of (Gettysburg.', part=2, report_id='OR27-2-R467', report_author='Lieut. Gen. Richard S. Ewell', printed_page='452', page_basis='running head (tools/bt/or27_find --verify)'),
+              ], note='Which of the LOC sheets (2005625069 and others) is the map Ewell sent is not stated; the LOC records name no author for 2005625069, 2005625067, 2005625066. Checked with tools/bt/or27_find.py --verify (part 2, offsets 1682982-1683075 for the longer phrase).'),
+            BLK('R12.011.i', 'about_collection_counts', 'About-this-collection page: about 2,240 maps and charts, 76 atlases and sketchbooks, Hotchkiss 341 manuscript maps and sketchbooks, and Sherman.',
                 'PDF statement; the page https://www.loc.gov/collections/civil-war-maps/about-this-collection/ answered HTTP 403 (refused) on 2026-11-13, as did the Hotchkiss about page.'),
         ],
         stays_unsupported=['the "About this collection" counts (76 atlases and sketchbooks; Hotchkiss 341; Sherman)', 'authorship of 2005625069, 2005625067, 2005625066 (record silent)', 'existence of Sickles/Meade headquarters sketches elsewhere'],
-        register_refs=['sources-a-EG-08'],
+        register_refs=['sources-a-EG-08', 'sources-a-EG-12'],
         blocked_host=[
             HOST('LOC-about-civil-war-maps', 'https://www.loc.gov/collections/civil-war-maps/about-this-collection/', 'Collection description: counts of maps and charts, atlases and sketchbooks, the Hotchkiss and Sherman parts (loc.gov itself answers 403 to this client; read in a browser).', status='refused_http_403'),
             HOST('LOC-about-hotchkiss', 'https://www.loc.gov/collections/hotchkiss-maps/about-this-collection/', 'Hotchkiss collection description (341 manuscript maps and sketchbooks) and its rights statement.', status='refused_http_403'),

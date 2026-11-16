@@ -120,7 +120,7 @@ def compile_prog(name, vs, fs):
     if not ok.value: b = C.create_string_buffer(65536); G['getProgramInfoLog'](p, 65536, None, b); raise SystemExit(f'program {name} did not link:\n' + b.value.decode())
     return p
 SAMPLERS = [('uHeight', 0), ('uAerial', 1), ('uSh0', 2), ('uSh1', 3), ('uSold0', 4), ('uSold1', 5), ('uUnits', 6), ('uVat', 7), ('uAtlas', 8), ('uPose', 9), ('uGuns', 10), ('uEv', 11), ('uSrc', 12), ('uHdr', 12), ('uDepthT', 13), ('uBloom', 14), ('uDepth', 13)]
-cur = None; nops = 0; nframe = 0
+cur = None; curname = None; nops = 0; nframe = 0; SKIP = set((arg('--skip') or '').split(','))
 for op in ops:
     k = op[0]; nops += 1
     if k == 'createTexture': H_[op[1]] = gen(G['genTextures'])
@@ -154,7 +154,7 @@ for op in ops:
                 if l >= 0: G['uniform1i'](l, u)
         check('finishProgs')
     elif k == 'getUniformLocation': H_[op[1]] = G['getUniformLocation'](H_[op[2]], op[3].encode())
-    elif k == 'useProgram': G['useProgram'](h(op[1]))
+    elif k == 'useProgram': G['useProgram'](h(op[1])); curname = next((nm for nm, pp in progs if pp == h(op[1])), None)
     elif k == 'uniform1i': G['uniform1i'](H_[op[1]['h']] if isinstance(op[1], dict) else -1, op[2])
     elif k == 'uniform1f': G['uniform1f'](H_[op[1]['h']] if isinstance(op[1], dict) else -1, op[2])
     elif k == 'uniform4f': G['uniform4f'](H_[op[1]['h']] if isinstance(op[1], dict) else -1, *op[2:6])
@@ -163,9 +163,9 @@ for op in ops:
     elif k == 'depthFunc': G['depthFunc'](op[1])
     elif k == 'depthMask': G['depthMask'](1 if op[1] else 0)
     elif k == 'drawArraysInstanced':
-        if arg('--skip') != 'imp': G['drawArraysInstanced'](*op[1:5])
+        if curname is None or curname[2:] not in SKIP and 'imp' not in SKIP: G['drawArraysInstanced'](*op[1:5])
     elif k == 'drawElementsInstanced':
-        if arg('--skip') != 'mesh': G['drawElementsInstanced'](op[1], op[2], op[3], C.c_void_p(op[4]), op[5])
+        if not (curname and curname[2:] in SKIP) and 'mesh' not in SKIP: G['drawElementsInstanced'](op[1], op[2], op[3], C.c_void_p(op[4]), op[5])
     elif k == 'frame':
         label, fu = op[1], op[2]; G['bindFramebuffer'](0x8D40, host['fbo']); G['viewport'](0, 0, W, H); G['clearColor'](*SKY, 1.0); G['clearDepthf'](1.0); G['depthMask'](1); G['clear'](0x4100)
         G['bindBuffer'](0x8A11, host['fu']); arr = (C.c_float * 128)(*fu); G['bufferSubData'](0x8A11, 0, 512, C.cast(arr, vp)); G['bindBufferBase'](0x8A11, 0, host['fu']); G['bindBufferBase'](0x8A11, 1, host['pal'])
@@ -186,17 +186,29 @@ def strip(name, rows, w, h, zoom, cy=H // 2):
     rs = [np.concatenate([crop(images[l], W // 2, cy, w, h, zoom) for l in row], axis=1) for row in rows if all(l in images for l in row)]
     if rs: sheet = np.concatenate(rs, axis=0); png(os.path.join(outd, name), sheet.shape[1], sheet.shape[0], sheet)
 fr = {f['label']: f for f in meta['frames']}
-def nums(grp, scene='track'): return sorted({f['D'] for f in meta['frames'] if f['grp'] == grp and f['scene'] == scene})
-nearD = nums('near'); farD = [D for D in nums('far') if 70 <= D <= 84]
 lab = lambda m, D, sc='track': f'{sc}-{m}-{D:g}'
-if nearD:
-    a, b = nearD[:len(nearD) // 2], nearD[len(nearD) // 2:]
-    strip('strip-near-a.png', [[lab('fade', D) for D in a], [lab('hard', D) for D in a]], 170, 260, 1)
-    strip('strip-near-b.png', [[lab('fade', D) for D in b], [lab('hard', D) for D in b]], 170, 260, 1)
-if farD: strip('strip-far.png', [[lab('fade', D) for D in farD], [lab('hard', D) for D in farD]], 64, 80, 3)
-for sc, w_, h_, z_, nm in (('diag', 640, 360, 1, 'diag-near.png'),):
-    if all(lab(m, 8, sc) in images for m in ('fade', 'hard')): png(os.path.join(outd, nm), W, H * 2, np.concatenate([images[lab('fade', 8, sc)], images[lab('hard', 8, sc)]], axis=0))
+def film(name, Ds, w, h, zoom, cy):
+    """the middle man through a boundary: one column per distance, the cross-fade row above the hard row; the crop is centred on the man (the camera looks at him)"""
+    Ds = [D for D in Ds if lab('fade', D) in images and lab('hard', D) in images]
+    if Ds: strip(name, [[lab('fade', D) for D in Ds], [lab('hard', D) for D in Ds]], w, h, zoom, cy)
+    return Ds
+film('film-l0-l1.png', [9.5, 9.75, 10, 10.25, 10.5, 10.75, 11, 11.25, 11.5], 90, 190, 1, 200)
+film('film-l0-l1-face.png', [9.5, 10, 10.5, 11, 11.5], 80, 100, 3, 145)
+film('film-l0-l1-feet.png', [9.5, 10, 10.5, 11, 11.5], 90, 60, 3, 286)
+film('film-l1-l2.png', [12.5, 12.75, 13, 13.25, 13.5, 13.75, 14, 14.25, 14.5], 80, 160, 1, 195)
+film('film-l1-l2-face.png', [12.5, 13, 13.5, 14, 14.5], 70, 90, 3, 150)
+film('film-l2-imp.png', [72, 75, 77, 79, 81, 84], 46, 58, 5, 186)
+if all(lab(m, 8, 'diag') in images for m in ('fade', 'hard')): png(os.path.join(outd, 'diag-near.png'), W, H * 2, np.concatenate([images[lab('fade', 8, 'diag')], images[lab('hard', 8, 'diag')]], axis=0))
 if all(lab(m, 60, 'diag') in images for m in ('fade', 'hard')): strip('diag-far.png', [[lab('fade', 60, 'diag')], [lab('hard', 60, 'diag')]], 320, 180, 2)
-json.dump({'context': G['getString'](0x1F02).decode(), 'renderer': G['getString'](0x1F01).decode(), 'ops': nops, 'frames': nframe, 'gl_errors': errs, 'frame_meta': meta['frames']}, open(os.path.join(outd, 'summary.json'), 'w'), indent=1)
+# how much the picture around the man changes from one frame to the next: the mean absolute difference of the crop, in 8-bit levels, for the cross-fade and the hard swap
+def series(Ds, w, h, cy):
+    out = {}
+    for m in ('fade', 'hard'):
+        v = [(a, b, float(np.abs(crop(images[lab(m, a)], W // 2, cy, w, h, 1).astype(int) - crop(images[lab(m, b)], W // 2, cy, w, h, 1).astype(int)).mean())) for a, b in zip(Ds, Ds[1:]) if lab(m, a) in images and lab(m, b) in images]
+        out[m] = v
+    return out
+STEPS = {'L0 to L1 (9.5 to 11.5 m, steps of 0.25)': series([9.5 + 0.25 * i for i in range(9)], 90, 190, 200), 'L1 to L2 (12.5 to 14.5 m)': series([12.5 + 0.25 * i for i in range(9)], 80, 160, 195), 'L2 to the impostor (72 to 86 m, steps of 1)': series(list(range(72, 87)), 46, 58, 186)}
+for k, v in STEPS.items(): print(k, '| fade max step %.2f' % max(x[2] for x in v['fade']), '| hard max step %.2f' % max(x[2] for x in v['hard']), '| fade steps', [round(x[2], 1) for x in v['fade']], '| hard steps', [round(x[2], 1) for x in v['hard']])
+json.dump({'steps': STEPS, 'context': G['getString'](0x1F02).decode(), 'renderer': G['getString'](0x1F01).decode(), 'ops': nops, 'frames': nframe, 'gl_errors': errs, 'frame_meta': meta['frames']}, open(os.path.join(outd, 'summary.json'), 'w'), indent=1)
 if xv: xv.terminate(); xv.wait()
 print('GL errors:', errs or 'none'); sys.exit(1 if errs else 0)

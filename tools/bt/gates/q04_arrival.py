@@ -34,6 +34,7 @@ for _p in (HERE, os.path.join(HERE, 'lib'), os.path.abspath(os.path.join(HERE, '
 
 from oobgates_common import cond, first_failed, gate_rows, layer_dump, register_state, sub_requirements_for  # noqa: E402
 from pq_common import Env, InputMissing, Record, base_parser, guarded_main, node_version  # noqa: E402
+from q456_inputs import register_inputs  # noqa: E402
 
 GATE = 'Q04'
 EPOCH = datetime.datetime(1863, 6, 1)
@@ -364,13 +365,6 @@ def evaluate(rec, env, D, K):
         firsts = [run_start(c) for r in recs for c in (r.get('classes') or {}).values() if run_start(c) is not None]
         regid = u.get('register')
         rs = register_state_light(reg, regid)
-        f = []
-        if TIER_DOCUMENTED in tiers:
-            f.append('the arrival tier is shown as documented although the ledger gate (%s, kind %s) is %s' % (b.get('owner'), b.get('kind'), b.get('tier')))
-        if not rs['open']:
-            f.append('no open register entry for the gap (%s: %s)' % (regid, rs['why']))
-        if b.get('abs_min') is not None and firsts and min(firsts) < b['abs_min'] - EPS:
-            f.append('presence at minute %s precedes the floor event (%s) the gate gives' % (min(firsts), b['abs_min']))
         conds = [cond('the arrival carries a tier below documented (inferred, plausible-procedural or open gap)', TIER_DOCUMENTED not in tiers, 'tiers %s' % tiers),
                  cond('an open register entry records the gap', rs['open'], '%s: %s' % (regid, rs['why'])),
                  cond('the unit is not present before the floor event of its gate', not (b.get('abs_min') is not None and firsts and min(firsts) < b['abs_min'] - EPS), 'first presence %s, floor %s' % (min(firsts) if firsts else None, b.get('abs_min')))]
@@ -384,7 +378,9 @@ def evaluate(rec, env, D, K):
         us = [u for u in units if under(u['id'], prefixes)]
         sub = sorted(set(rows))
         if not us:
-            rec.item('Q04/Q04.6/%s' % name.split(' ')[0].strip("'").lower() + '-' + re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-'), 'BLOCKED-INPUT', 'input missing: no unit of the layer belongs to the case %s' % name, {}, check='Q04.6', sub_requirements=sub)
+            if sel:
+                continue                                               # a partial scan: the case is judged only where some of its units were scanned
+            rec.item('Q04/Q04.6/%s' % re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-'), 'BLOCKED-INPUT', 'input missing: no unit of the layer belongs to the case %s' % name, {}, check='Q04.6', sub_requirements=sub)
             continue
         iid = 'Q04/Q04.6/%s' % re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')
         failing = sorted({uid for u in us for (res, _, _) in per_unit_items.get(u['id'], []) if res != 'PASS' for uid in [u['id']]})
@@ -453,6 +449,7 @@ def run(env, dump=None, inputs=None, write=True, mutate=None, argv=None, extra=(
     rec.extra['time_grid'] = {'step_s': 60, 'boundaries': True, 'mode': D['grid']['mode'], 'fraction_done': 1.0 if D['grid']['mode'] == 'dense' and D['scenario_set'].get('complete') else 0.0}
     rec.extra['scenario_set'] = {'id': D['scenario_set']['id'], 'count': D['scenario_set']['count'], 'groups': D['scenario_set']['groups']}
     rec.extra['cross_check_with_check_arrivals'] = (K.get('cross') or {})
+    register_inputs(rec, env, D, node_files=('tools/bt/gates/q04_arrival.mjs',))
     evaluate(rec, env, D, K)
     out = rec.finish()
     if write:

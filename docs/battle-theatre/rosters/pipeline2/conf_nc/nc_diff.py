@@ -6,7 +6,20 @@
 
 The changes are listed, never hidden: a line that moved from one reading to another is a change of the parser, not of a printed word.
 """
-import os, sys, json, glob, difflib, collections
+import os, sys, json, glob, difflib, collections, re
+
+ABBR = re.compile(r"(?:Thos|Chas|Benj|Robt|Saml|Danl|Jno|Jas|Geo|Wm|Alex|Edw|Jos|Hy|Nath|Fredk|Matt|Fred|Theo|Jord)\.")
+
+
+def defect_classes(rows):
+    """(rows whose name is a county phrase, rows whose remarks end with a given-name abbreviation that begins the next head) in file order."""
+    county = sum(1 for r in rows if re.search(r"\bco\.?$", r[0], re.I))
+    given = 0
+    for i, r in enumerate(rows[:-1]):
+        t = r[3].split()
+        if t and ABBR.fullmatch(t[-1]):
+            given += 1
+    return county, given
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import nc_lib as L
@@ -29,7 +42,13 @@ def main(old_dir):
                 if tag == 'equal':
                     continue
                 blocks.append({'before': [[x[0], x[2], x[3][:60]] for x in a[i1:i2]], 'after': [[x[0], x[2], x[3][:60]] for x in b[j1:j2]]})
-        out['units'][ho['u']] = {'rows_before': len(a), 'rows_after': len(b), 'blocks': blocks}
+        cb, gb = defect_classes(a)
+        ca, ga = defect_classes(b)
+        out['units'][ho['u']] = {'rows_before': len(a), 'rows_after': len(b), 'blocks': blocks, 'county_name_rows': [cb, ca], 'given_name_abbreviation_at_end_of_remarks': [gb, ga]}
+        tot['county_name_rows_before'] += cb
+        tot['county_name_rows_after'] += ca
+        tot['given_name_abbreviation_before'] += gb
+        tot['given_name_abbreviation_after'] += ga
         tot['units_changed'] += 1 if blocks else 0
         tot['blocks'] += len(blocks)
         tot['rows_before'] += len(a)
