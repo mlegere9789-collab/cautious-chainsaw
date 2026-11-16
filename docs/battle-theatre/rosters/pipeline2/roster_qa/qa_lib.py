@@ -21,7 +21,17 @@ TMP = os.path.join(ROOT, 'tmp', 'library', 'rosters')
 QTMP = os.path.join(TMP, '_qa')
 PDFDIR = os.path.join(TMP, '_pdf')
 
-ITEMS = {'union-me': 'me', 'union-nh': 'nh', 'union-vt': 'vt', 'union-ma': 'ma'}
+# Rounds.  Round 1 (the default) is the sample of the four closed Union items, kept in data2/qa as it was written; later rounds name their own item set and write to
+# data2/qa/round<N> (environment variable RQA_ROUND=N), so that the evidence of an earlier round is never overwritten (PRODUCTION-PLAN 9.10.3 point 2).
+ROUND = os.environ.get('RQA_ROUND', '1')
+QA_ROOT = os.path.join(D2, 'qa')
+if ROUND != '1':
+    QA = os.path.join(QA_ROOT, 'round' + ROUND)
+ITEMS_BY_ROUND = {
+    '1': {'union-me': ('union', 'me'), 'union-nh': ('union', 'nh'), 'union-vt': ('union', 'vt'), 'union-ma': ('union', 'ma')},
+    '2': {'conf-nc': ('confederate', 'nc')},
+}
+ITEMS = {'union-me': 'me', 'union-nh': 'nh', 'union-vt': 'vt', 'union-ma': 'ma'}      # round 1 (kept for the round 1 tools)
 
 _src_cache = {}
 
@@ -69,10 +79,10 @@ def load_source(text_id):
 
 
 def unit_files():
-    """All stored files of the four closed items: [(item id, state code, path)], unit files and _other- files."""
+    """All stored files of the items of the round (RQA_ROUND, default 1: the four closed Union items): [(item id, state code, path)], unit files and _other- files."""
     out = []
-    for item, st in ITEMS.items():
-        for p in sorted(glob.glob(os.path.join(D2, 'union', st, '*.jsonl.gz'))):
+    for item, (army, st) in ITEMS_BY_ROUND[ROUND].items():
+        for p in sorted(glob.glob(os.path.join(D2, army, st, '*.jsonl.gz'))):
             out.append((item, st, p))
     return out
 

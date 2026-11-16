@@ -15,7 +15,6 @@
    "^SS-",
    "^SStone-"
   ],
-  "generator": "tools/bt/build_structures.py",
   "row_count": 88,
   "rule_count": 4,
   "window_semantics": "time.window = [earliest, latest, default]. granularity \"clock\": at least one bound is a printed clock time. granularity \"date\": bounds are the start (00:00) and 23:59 of the printed date(s); the position inside the day is NOT known and state_at reports it as indeterminate. \"default\" is non-null only where the PDF prints a single time for the transition. earliest null = not printed (\"by X\"); state_at then places the change at the latest bound and flags it.",

@@ -1,0 +1,64 @@
+OK       no sub-requirement outside the ten classes
+OK       2.2 class TL count 691 equals requirements.json 691
+OK       2.2 class EP count 14 equals requirements.json 14
+OK       2.2 class SS count 88 equals requirements.json 88
+OK       2.2 class WK count 18 equals requirements.json 18
+OK       2.2 class GE count 18 equals requirements.json 18
+OK       2.2 class PE count 14 equals requirements.json 14
+OK       2.2 class CT count 45 equals requirements.json 45
+OK       2.2 class CF count 47 equals requirements.json 47
+OK       2.2 class TOP count 22 equals requirements.json 22
+OK       2.2 class OA count 12 equals requirements.json 12
+OK       2.2 total equals the number of rows
+OK       1.1 origin counts
+OK       1.3 "on all N rows" equals the total
+OK       OA rows are OA01..OAnn without a gap
+OK       3.10 defines one derived gate per OA row
+OK       3.10 says "twelve rows" and OA-G01 to OA-G12 for 12 rows
+OK       3.9 sixteen requirements have a single row
+OK       5 RC items: 71
+OK       5 every requirement R01..R22 has its RC items numbered from 1 without a gap
+OK       2.3 and 3.9: 39 of the 71 are the children of the 12 single-row requirements
+OK       5 each top row of requirements.json appears in section 5
+OK       U-01..U-28 contiguous
+OK       Contents names U-01..U-28
+OK       A-01..A-60 contiguous
+OK       Contents names A-01..A-60
+OK       DD-G01..DD-G20 contiguous in section 7
+OK       header names DD-G01 to DD-G20
+OK       every DD-G of section 7 is a row of the decisions file
+OK       sections 1..11 present in order
+OK       28 gate sections Q01..Q28
+OK       no cited page outside 1..144
+OK       1.5 register counts
+OK       1.5 register folder: 496 files, 9 not in the index
+OK       3.8 / 9: 47 conflicts and check_governance fixes 691 and 47
+OK       TL-1 seed tiers
+OK       TL-1 overlay tiers
+OK       TL-1 status_effective counts
+OK       1.4 the five unclassified rows are named
+STALE    1.3 timeline correction counts :: `timeline_corrections/` holds 430 records over 291 row ids (231 row-level and 199 supplementary; 53 ids have more than one record; 60 ids have supplementary records only)
+STALE    1.3 evidence correction counts :: `evidence_corrections/` holds 2,997 records over 193 ids (167 row-level and 2,830 supplementary; 86 ids have more than one record; 26 have supplementary records only)
+STALE    1.3 records on top rows
+STALE    1.3 confirmed or corrected with nothing left: 55 and 88 (159 records have the verdict, 104 of them list something)
+OK       1.3 no verdict word outside the list of the derivation
+OK       1.3 alias spelling count
+STALE    1.3 row-level records by class :: {'R14.S': (88, 88, 52, 0, 0), 'R14.E': (18, 18, 9, 0, 0), 'R13.G': (18, 18, 11, 0, 0), 'R13.P': (14, 14, 9, 0, 0), 'R12': (45, 26, 7, 2, 17), 'R03.C': (47, 0, 0, 5, 42), 'R22': (14, 0, 0, 14, 0)}
+STALE    1.3 / SS-2: all 88 S rows have a row-level record, 52 clean
+OK       Q25 every status word in use is a row of the spec table (a word outside the table is FAIL by CT-1 and Q25.2)
+OK       Q25 the status-word table reproduces the counts of the three files
+OK       Q25 ids after merging: 58
+OK       Q10.1 night minutes 10,380 + 1,694 = 12,074 at the integer minute
+OK       Q10.1 at mid-minute 10,381 + 1,693 = 12,074
+OK       Q10.1 grid 27,360 + 2,880 minutes
+OK       TL-13 rows wholly outside the clock are T1-001, T1-002 and T3-209 to T3-219 (13 rows; 12 by the date field)
+OK       SS-12 S-077 has the phase Construction inside the clock and Open and Closed beyond it
+OK       SS-12 S-081 is a state of 19 November inside the clock
+OK       SS-10 the rows out of the battle scope are S-078 and S-079
+OK       U-06 the clock of the viewer: BATTLE 26 June to 15 July 00:00, EPILOGUE 18 to 20 November 00:00
+STALE    2.3 / Q21 / 9 vegetation: 927 units in 8 classes, 589 claims :: field 549, woods 185, scatter 103, orchard 85, marsh 2, wheatfield 1, cleared 1, boulder 1
+OK       Q17 / 9 realization results: digest fc85b8db0fca8cae, 4 realized, 20 with a record, 671 without
+OK       Q16 the set P is empty: documented_position_count is 0 and no statement of where the camera stood gives a coordinate
+OK       Q16 photo-match counts: 191 registry records, 145 statements, 20 poses, 3 places
+OK       7 threshold ids are unique and T-Q21-1 to T-Q21-3 are rows of the registry (42 thresholds)
+{"checks": 51, "ok": 51, "mismatches": 0, "mismatched": [], "soft_checks_stale": 7, "stale": ["1.3 timeline correction counts", "1.3 evidence correction counts", "1.3 records on top rows", "1.3 confirmed or corrected with nothing left: 55 and 88 (159 records have the verdict, 104 of them list something)", "1.3 row-level records by class", "1.3 / SS-2: all 88 S rows have a row-level record, 52 clean", "2.3 / Q21 / 9 vegetation: 927 units in 8 classes, 589 claims"]}

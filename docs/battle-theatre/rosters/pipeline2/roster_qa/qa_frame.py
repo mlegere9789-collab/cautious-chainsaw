@@ -1,5 +1,8 @@
 """The sampling frame and the seeded draw of the roster-qa item (PLAN.md 4.4 on the roster2/2 files).  Standard library only.
 
+Rounds: round 1 (default) is the four closed Union items, written to data2/qa; RQA_ROUND=2 is the North Carolina item (conf-nc, Moore 1882), written to data2/qa/round2 with its own seed
+and its own exclusions (qa_lib.ITEMS_BY_ROUND); the frame and the draw of round 1 are never rewritten by a later round.
+
     python3 -I qa_frame.py build      write data2/qa/frame.json (every page of the four closed items with its strata) and data2/qa/draw.json
     python3 -I qa_frame.py show [STRATUM [N]]   the first N pages of a stratum's draw order with their rows and the damage score
 
@@ -26,8 +29,18 @@ sys.path.insert(0, HERE)
 import qa_lib as Q
 R = Q.R
 
-SEED = 'roster-qa-round1-2026-11-14'
-EXCLUDED = {('annualreportofad1863main', 798): 'pilot page read by the pilot author (pilot/QA-SAMPLE.md, Maine report 1863 book p. 579)'}
+SEEDS = {'1': 'roster-qa-round1-2026-11-14', '2': 'roster-qa-round2-2026-11-16'}
+SEED = SEEDS[Q.ROUND]
+EXCLUDED_BY_ROUND = {
+    '1': {('annualreportofad1863main', 798): 'pilot page read by the pilot author (pilot/QA-SAMPLE.md, Maine report 1863 book p. 579)'},
+    # round 2 (North Carolina, Moore 1882): the pages that an engineer of the item or of the pilot already looked at, in both scans of volume 2 (the same printed page has another leaf in each scan)
+    '2': {('rosterofnorthcar02nort', 130): 'page looked at by the engineer of conf-nc (reports/conf-nc.md section 5 item 13: 2nd North Carolina Cavalry, Company A, printed page 116)',
+          ('05913252.3310.emory.edu', 126): 'the same printed page 116 of volume 2 in the second scan (looked at by the engineer of conf-nc in the other scan)',
+          ('rosterofnorthcar02nort', 406): 'pilot page read by the pilot author (pilot/QA-SAMPLE.md, Moore vol. 2 printed page 382), in the scan whose leaf is 406',
+          ('05913252.3310.emory.edu', 392): 'pilot page read by the pilot author (pilot/QA-SAMPLE.md, Moore vol. 2 printed page 382), in the scan whose leaf is 392',
+          ('05913252.3310.emory.edu', 391): 'the pilot note names "IA leaf n391" for printed page 382: the page before it in this scan is excluded as well, in case the leaf number counts from 1'},
+}
+EXCLUDED = EXCLUDED_BY_ROUND[Q.ROUND]
 
 FAMILY = {
     'ME-AGR-1863-APPD': ('ME-RET', 'cols', 'Maine Adjutant General report 1863, Appendix D: company returns'),
@@ -37,6 +50,17 @@ FAMILY = {
     'VT-ROSTER-1892': ('VT-REV', 'cols', 'Revised Roster of Vermont Volunteers 1892'),
     'MA-SSM-1931': ('MA-SSM', 'flow', 'Massachusetts Soldiers, Sailors and Marines in the Civil War (1931)'),
 }
+FAMILY_NC = {'E': ('NC-MOO-E', 'flow', 'Moore, Roster of North Carolina Troops 1882: the four volumes of the second scan (Emory University copies, identifiers 05913252.33NN.emory.edu)'),
+             'G': ('NC-MOO-G', 'flow', 'Moore, Roster of North Carolina Troops 1882: the four volumes of the first scan (Internet Archive, Google and Library copies)')}
+
+
+def family_of(sid, ident):
+    """(family, layout, name) of a segment: by source id; the Moore roll is two families by scan (the two scans are two text layers of the same print)."""
+    if sid == 'NC-MOORE-1882':
+        return FAMILY_NC['E' if ident.endswith('.emory.edu') else 'G']
+    return FAMILY[sid]
+
+
 OFFICER_RE = re.compile(r"(colonel|lieut|major|captain|capt\b|adjutant|surgeon|quartermaster|chaplain|commiss.?d officers|field and staff|acting field officer)", re.I)
 NH_OFFICER_RE = re.compile(r"\bas\s+(Capt|Lieut|1st Lieut|2d Lieut|Col|Maj|Adjt|Surg|Chap|Q\.?\s?M|Com)", re.I)
 
@@ -66,8 +90,8 @@ def build():
         for seg, rows in segs:
             text, pm, ent = Q.load_source(seg['t'])
             sid = seg['s']
-            fam, lay, famname = FAMILY[sid]
             ident = ent['ia_identifier']
+            fam, lay, famname = family_of(sid, ident)
             for r in rows:
                 name, rank, co, rem, page, off, rd = r
                 leaf = pm.leaf(off)

@@ -87,7 +87,7 @@ export class CrowdGL {
   scene(gl) {
     const F = this.F; if (!F) return; gl.disable(gl.CULL_FACE); gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LESS); gl.depthMask(true); gl.disable(gl.BLEND);
     this._run(false);
-    if (F.impostors && this.S.imp.layers) { this.bindAll(); gl.useProgram(this.P.imp); gl.uniform4f(this.loc.uR, F.r2, 0, 0, 0); gl.bindVertexArray(this.empty); gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, F.nWorld); gl.bindVertexArray(null); this.stats.farInstances = F.nWorld; }
+    if (F.impostors && this.S.imp.layers) { this.bindAll(); gl.useProgram(this.P.imp); gl.uniform4f(this.loc.uR, F.r2, F.band, F.hyst, F.dabPx); gl.bindVertexArray(this.empty); gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, F.nWorld); gl.bindVertexArray(null); this.stats.farInstances = F.nWorld; }
     gl.activeTexture(gl.TEXTURE0);
   }
   shadow(gl) { gl.disable(gl.CULL_FACE); this._run(true); gl.activeTexture(gl.TEXTURE0); }

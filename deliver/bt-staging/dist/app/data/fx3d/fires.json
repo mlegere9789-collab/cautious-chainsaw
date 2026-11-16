@@ -1,7 +1,6 @@
 {
  "meta": {
   "schema": "fx3d-fires-1",
-  "built_by": "app/tools/build-fx3d-data.mjs",
   "note": "Fire windows are the windows of structures/state_schedule.json (date-granular unless a clock is printed). A fire with a date-only window is drawn at params.fire.uncertain_intensity and marked \"time uncertain\" inside its window; it is never given an invented ignition time. Flames never exist before the window start; a host that knows the cause (a shell strike on the barn) may call ignite(fireId, t) with t inside the window and the fire then starts exactly there."
  },
  "sources": [

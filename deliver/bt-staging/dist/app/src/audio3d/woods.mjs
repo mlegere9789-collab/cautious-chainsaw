@@ -1,7 +1,7 @@
 // Woods mask for the sound engine (closes the "hook only" part of AUD-G08 / EG-AUD-G08).
 //
-// Input: data/audio3d/woods-mask.json (built by app/tools/build-audio3d-woods.mjs from the repository's 1863 woods layer, a reconstruction from the Warren survey
-// of 1868-69) and the app's lon/lat -> metres function (T.xz: x east, z south). Output: woodsAt(x, z) -> 0 or 1, memoised on a 10 m grid (the layer's own
+// Input: data/audio3d/woods-mask.json (the 1863 woods layer, a reconstruction from the Warren survey
+// of 1868-69, rasterised) and the app's lon/lat -> metres function (T.xz: x east, z south). Output: woodsAt(x, z) -> 0 or 1, memoised on a 10 m grid (the layer's own
 // positional error is 30 to 40 m, so 10 m cells lose nothing).
 //
 // WHAT THE MASK IS USED FOR (planner.mjs): the two documented accounts of echo in woods (Culp's Hill: "the echoing of the woods increased the appalling roar",

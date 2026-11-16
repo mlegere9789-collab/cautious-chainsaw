@@ -1,13 +1,18 @@
 // Harness (not a gate): the real shell with the real crowd (127,572 figures, the real layer, July 3 13:30) on software rendering, the camera put at chosen distances from the middle man of the largest infantry unit that is on the field,
 // every distance drawn twice: with the HARD swap between levels (crowd.lod.band = 0, hyst = 0: the earlier behaviour) and with the CROSS-FADE. The picture of each shot is read back in the frame's own task.
-//   tools/horde/bench.sh node docs/battle-theatre/app/tests/crowd-lod-shots.mjs <outDir> [webgl2|webgpu] [--w=640] [--h=360] [--sets=b10,b13,b75,dab,purity] [--entry-timeout=1500] [--extra=a=b&c=d]
+//   tools/horde/bench.sh node docs/battle-theatre/app/tests/crowd-lod-shots.mjs <outDir> [webgl2|webgpu] [--w=640] [--h=360] [--sets=dg8,dg60,dg190,b10,b13,b75,dab,purity,sw10,sw13,sw75,swdab] [--entry-timeout=1500] [--extra=a=b&c=d]
 // The field of view is chosen so that a metre at a given distance covers the same number of pixels as at 1080p and 60 degrees (the radii of the levels are defined in pixels: lodRadii), so the boundaries are at
 // their 10, 13 and 75 m and the dab at 267 m whatever the size of the picture; a smaller picture is only fewer pixels around the same men.
+// The unit it picks (the largest infantry unit on the field) is on the march in a column of fours about a kilometre long: the camera stands BESIDE the column, at the distance D from its middle man (in front of him it would stand among the men).
 //   b10   the swap of level 0 for level 1 (10 m):   distances 8.4 .. 11.6 m      b13  level 1 for level 2 (13 m): 11 .. 15 m
 //   b75   level 2 for the impostor (75 m):          distances 60 .. 90 m         dab  the baked view for the flat dab (267 m): 230 .. 305 m
+//   dg8, dg60, dg190  the camera D = 8, 60 and 190 m from the column, looking 40 degrees along it: the men in view stand at a continuous range of distances (9 to 15 m, 64 to 116 m, 204 to 368 m), so the levels and
+//                     the fades are side by side in one picture (the rank that swaps first in the hard picture and the gradual change in the cross-fade picture)
+//   sw10, sw13, sw75, swdab  a SWEEP: the camera moves in small steps through the boundary and the picture around the man is compared with the one before: the hard swap shows a spike at the step where men change level,
+//                     the cross-fade none (the largest step against the median step, and the share of the pixels that change by more than 24 levels)
 //   purity  the same time and camera reached by two different histories, in bytes
-// Output: <outDir>/<api>/<set>-<mode>-<distance>.png, <set>-<distance>-montage.png (hard | cross-fade | difference x4, the middle of the picture at 3x), summary.json (stats of the crowd per shot, differences), console.log.
-// Software rendering only (SwiftShader). Nothing here is a real-GPU result.
+// Output: <outDir>/<api>/<set>-<mode>-<distance>.png, <set>-<distance>-montage.png (hard | cross-fade | difference x4, the middle of the picture at 3x; the dg sets: the whole picture), sweep-<set>.png (the steps as bars),
+// summary.json (stats of the crowd per shot, differences, sweeps), console.log. Software rendering only (SwiftShader). Nothing here is a real-GPU result.
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
 import { serve } from '../tools/serve.mjs';
@@ -17,8 +22,15 @@ const args = process.argv.slice(2), flag = (k, d) => { const a = args.find(x => 
 const pos = args.filter(a => !a.startsWith('--')), outRoot = path.resolve(pos[0] || '.'), api = pos[1] === 'webgpu' ? 'webgpu' : 'webgl2', W = +flag('w', 640), H = +flag('h', 360), ENTRY_MS = +flag('entry-timeout', 1500) * 1000, EXTRA = flag('extra', '');
 const SETS = {
   b10: { what: 'level 0 for level 1 at 10 m', dists: [8.4, 9.2, 10.0, 10.8, 11.6], eye: 1.7 }, b13: { what: 'level 1 for level 2 at 13 m', dists: [11, 12, 13, 14, 15], eye: 1.7 },
-  b75: { what: 'level 2 for the impostor at 75 m', dists: [60, 68, 75, 82, 90], eye: 2.5 }, dab: { what: 'the baked view for the flat dab at 267 m', dists: [230, 250, 267, 285, 305], eye: 4 } };
-const want = (flag('sets', 'b10,b13,b75,dab,purity')).split(',').filter(Boolean), out = path.join(outRoot, api); fs.mkdirSync(out, { recursive: true });
+  b75: { what: 'level 2 for the impostor at 75 m', dists: [60, 68, 75, 82, 90], eye: 2.5 }, dab: { what: 'the baked view for the flat dab at 267 m', dists: [230, 250, 267, 285, 305], eye: 4 },
+  dg8: { what: 'looking 40 degrees along the column from 8 m: the men at 9 to 15 m, levels 0, 1 and 2 side by side', dists: [8], eye: 1.7, turn: 40, whole: true },
+  dg60: { what: 'looking 40 degrees along the column from 60 m: the men at 64 to 116 m, level 2 and the impostor side by side', dists: [60], eye: 2.5, turn: 40, whole: true },
+  dg190: { what: 'looking 40 degrees along the column from 190 m: the men at 204 to 368 m, the baked view and the flat dab side by side', dists: [190], eye: 4, turn: 40, whole: true } };
+// the sweeps: the camera at D = from, from + step, ... to (the same eye height and look as the set of the same boundary)
+const SWEEPS = {
+  sw10: { what: 'sweep through the swap of level 0 for level 1 (10 m)', from: 9.4, to: 10.6, step: 0.04, eye: 1.7 }, sw13: { what: 'sweep through the swap of level 1 for level 2 (13 m)', from: 12.4, to: 13.6, step: 0.04, eye: 1.7 },
+  sw75: { what: 'sweep through the swap of level 2 for the impostor (75 m)', from: 66, to: 84, step: 0.6, eye: 2.5 }, swdab: { what: 'sweep through the baked view for the dab (267 m)', from: 240, to: 294, step: 1.8, eye: 4 } };
+const want = (flag('sets', 'dg8,dg60,dg190,b10,b13,b75,dab,purity,sw10,sw13,sw75,swdab')).split(',').filter(Boolean), out = path.join(outRoot, api); fs.mkdirSync(out, { recursive: true });
 const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).toFixed(0).padStart(5) + 's', ...a), logs = [];
 const summary = { api, w: W, h: H, started: new Date().toISOString(), sets: {}, errors: [], purity: null }, save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
 const srv = await serve(0), port = srv.address().port, url = `http://127.0.0.1:${port}/app/index.html?history=real&api=${api}&structures=off&fx=off&ext=off${EXTRA ? '&' + EXTRA : ''}`;

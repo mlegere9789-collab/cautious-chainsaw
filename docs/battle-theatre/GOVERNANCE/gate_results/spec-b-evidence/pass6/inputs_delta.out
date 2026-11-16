@@ -1,0 +1,294 @@
+# BASE 52261939 HEAD 5f2a4ef4 checked 2026-11-16T02:34:35Z UTC
+gate	path	status	last_commit	changed_since_base	files_changed_since_base	dirty_in_working_tree
+Q01	docs/battle-theatre/kit/verified_oob.json	ABSENT	-	-	0	0
+Q01	tools/bt/gates/q01_oob.py	present	f0a4cba3 11-16 00:44	CHANGED	1	0
+Q01	tools/bt/gates/q01_layer.mjs	present	ec5cd18b 11-16 00:03	CHANGED	1	0
+Q01	tools/bt/gates/oobgates_common.py	present	ec5cd18b 11-16 00:03	CHANGED	1	0
+Q01	tools/bt/gates/oob_layer_lib.mjs	present	78a4e0f9 11-16 00:24	CHANGED	1	0
+Q01	tests/governance/gates/test_q01.py	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q01	docs/battle-theatre/GOVERNANCE/gate_results/Q01.json	present	f0a4cba3 11-16 00:44	CHANGED	1	0
+Q01	docs/battle-theatre/history/units.json	present	b1f6814d 11-04 12:20	same	0	0
+Q01	docs/battle-theatre/history/arrivals.json	present	b1f6814d 11-04 12:20	same	0	0
+Q01	docs/battle-theatre/history/not_on_field.json	present	b1f6814d 11-04 12:20	same	0	0
+Q01	docs/battle-theatre/kit/kit_specs.json	present	38fc56fe 11-14 00:06	same	0	0
+Q01	docs/battle-theatre/kit/artillery_batteries.json	present	b1f6814d 11-04 12:20	same	0	0
+Q01	docs/battle-theatre/kit/cavalry_units.json	present	d4dbc355 11-11 19:45	same	0	0
+Q01	docs/battle-theatre/kit/weapons.json	present	daa4bb25 11-14 00:26	same	0	0
+Q01	docs/battle-theatre/kit/evidence	present	46fbeec6 11-16 01:51	CHANGED	8	0
+Q01	docs/battle-theatre/kit/overrides	present	82d95249 11-14 00:56	same	0	0
+Q01	docs/battle-theatre/history/undrawn/roster-gaps.json	present	8daedf35 11-13 23:55	same	0	0
+Q01	tools/bt/check_arrivals.py	present	b1f6814d 11-04 12:20	same	0	0
+Q01	tools/bt/kit_verified.py	present	2c27d056 11-14 00:36	same	0	0
+Q01	tools/bt/kit_evidence_check.py	present	daa4bb25 11-14 00:26	same	0	0
+Q01	docs/battle-theatre/app/data/kit-crosswalk.json	present	d4dbc355 11-11 19:45	same	0	0
+Q01	docs/battle-theatre/app/tests/history.test.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q02	tools/bt/gates/q02_provenance.py	present	f0a4cba3 11-16 00:44	CHANGED	1	0
+Q02	tools/bt/gates/q02_layer.mjs	present	78a4e0f9 11-16 00:24	CHANGED	1	0
+Q02	tools/bt/gates/datum_classes.json	present	78a4e0f9 11-16 00:24	CHANGED	1	0
+Q02	tools/bt/gates/lib	present	f0a4cba3 11-16 00:44	CHANGED	6	0
+Q02	tests/governance/gates/test_q02.py	present	f0a4cba3 11-16 00:44	CHANGED	1	0
+Q02	docs/battle-theatre/GOVERNANCE/gate_results/Q02.json	present	51638815 11-16 01:00	CHANGED	1	0
+Q02	tools/bt/validate_provenance.py	present	b1f6814d 11-04 12:20	same	0	0
+Q02	docs/battle-theatre/app/src/history/contract.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q02	docs/battle-theatre/app/data-contract.md	present	b1f6814d 11-04 12:20	same	0	0
+Q02	docs/battle-theatre/history/positions	present	b1f6814d 11-04 12:20	same	0	0
+Q02	docs/battle-theatre/GOVERNANCE/timeline_verified.jsonl	present	c0eab6cf 11-11 16:16	same	0	0
+Q02	docs/battle-theatre/GOVERNANCE/conflicts_structured.json	present	b1f6814d 11-04 12:20	same	0	0
+Q02	docs/battle-theatre/history/undrawn	present	46fbeec6 11-16 01:51	CHANGED	6	0
+Q02	docs/battle-theatre/app/src/history/real.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q03	tools/bt/gates/q03_anachronism.py	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q03	tools/bt/gates/q03_structures.py	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q03	tools/bt/gates/q03_scene.mjs	present	092aa98a 11-16 01:41	CHANGED	1	0
+Q03	tools/bt/gates/q03_flags.json	present	bc77b0bf 11-16 01:10	CHANGED	1	0
+Q03	tests/governance/gates/test_q03.py	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q03	tests/governance/gates/test_q03_scene.py	present	092aa98a 11-16 01:41	CHANGED	1	0
+Q03	tools/bt/check_kit.py	present	b1f6814d 11-04 12:20	same	0	0
+Q03	tools/bt/check_figures.py	present	d4dbc355 11-11 19:45	same	0	0
+Q03	docs/battle-theatre/app/data/figures-validation.json	present	d4dbc355 11-11 19:45	same	0	0
+Q03	docs/battle-theatre/kit	present	46fbeec6 11-16 01:51	CHANGED	8	0
+Q03	docs/battle-theatre/app/src/ext	present	188b5dea 11-16 00:13	CHANGED	4	0
+Q03	docs/battle-theatre/app/data/site-memorials.json	present	b2911abf 11-13 19:41	same	0	0
+Q03	docs/battle-theatre/app/data/site-memorial-years.json	present	ab5eced6 11-13 20:22	same	0	0
+Q03	docs/battle-theatre/app/data/structures3d.json	present	b1f6814d 11-04 12:20	same	0	0
+Q03	docs/battle-theatre/app/src/figures3d	present	b94f68e9 11-11 18:53	same	0	0
+Q03	docs/battle-theatre/app/tests/manifest.test.mjs	present	44857c38 11-11 18:46	same	0	0
+Q03	docs/battle-theatre/app/tests/ext-monuments.test.mjs	present	82dcbdaa 11-15 23:23	same	0	0
+Q04	tools/bt/gates/q04_arrival.py	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q04	tools/bt/gates/q04_arrival.mjs	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q04	tools/bt/gates/q456_lib.mjs	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q04	tests/governance/gates/test_q04.py	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q04	tools/bt/check_arrivals.py	present	b1f6814d 11-04 12:20	same	0	0
+Q04	docs/battle-theatre/sim	present	b1f6814d 11-04 12:20	same	0	0
+Q04	docs/battle-theatre/app/src/history	present	98eb2309 11-11 20:10	same	0	0
+Q04	docs/battle-theatre/app/src/stage.mjs	present	44857c38 11-11 18:46	same	0	0
+Q04	docs/battle-theatre/history/arrivals.json	present	b1f6814d 11-04 12:20	same	0	0
+Q04	docs/battle-theatre/app/tests/arrival.spec.mjs	present	1a8dd154 11-13 19:11	same	0	0
+Q04	docs/battle-theatre/app/tests/history.test.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q05	tools/bt/gates/q05_speed.py	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q05	tools/bt/gates/q05_speed.mjs	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q05	tests/governance/gates/test_q05.py	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q05	docs/battle-theatre/app/src/history	present	98eb2309 11-11 20:10	same	0	0
+Q05	docs/battle-theatre/app/src/stage.mjs	present	44857c38 11-11 18:46	same	0	0
+Q05	docs/battle-theatre/app/src/config.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q05	docs/battle-theatre/sim	present	b1f6814d 11-04 12:20	same	0	0
+Q05	docs/battle-theatre/app/tests/history.test.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q05	docs/battle-theatre/app/tests/daypos.test.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q05	docs/battle-theatre/app/tests/unit.test.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q06	tools/bt/gates/q06_path.py	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q06	tools/bt/gates/q06_path.mjs	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q06	tests/governance/gates/test_q06.py	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q06	docs/battle-theatre/app/src/history	present	98eb2309 11-11 20:10	same	0	0
+Q06	docs/battle-theatre/history/undrawn	present	46fbeec6 11-16 01:51	CHANGED	6	0
+Q06	docs/battle-theatre/history/undrawn/status.json	present	8daedf35 11-13 23:55	same	0	0
+Q06	docs/battle-theatre/app/data/placement.json	present	d4dbc355 11-11 19:45	same	0	0
+Q06	docs/battle-theatre/app/data/sibling-approach.json	present	b1f6814d 11-04 12:20	same	0	0
+Q06	docs/battle-theatre/app/tests/sibling.test.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q07	docs/battle-theatre/structures	present	b1f6814d 11-04 12:20	same	0	0
+Q07	tools/bt/check_structures.py	present	b1f6814d 11-04 12:20	same	0	0
+Q07	docs/battle-theatre/app/data/structures3d.json	present	b1f6814d 11-04 12:20	same	0	0
+Q07	docs/battle-theatre/app/tests/structures3d.test.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q07	docs/battle-theatre/app/tests/structures-ws6.test.mjs	present	cd773c04 11-11 16:31	same	0	0
+Q07	docs/battle-theatre/app/tests/structures3d.spec.mjs	present	1a8dd154 11-13 19:11	same	0	0
+Q07	docs/battle-theatre/GOVERNANCE/evidence_corrections/fence-1.jsonl	present	ec5cd18b 11-16 00:03	CHANGED	1	0
+Q07	docs/battle-theatre/GOVERNANCE/evidence_corrections/fence-2.jsonl	present	188b5dea 11-16 00:13	CHANGED	1	0
+Q07	docs/battle-theatre/GOVERNANCE/evidence_corrections/fence-3.jsonl	present	c70fd5c3 11-16 00:50	CHANGED	1	0
+Q08	docs/battle-theatre/structures/structures.json	present	b1f6814d 11-04 12:20	same	0	0
+Q08	docs/battle-theatre/structures/works_stages.json	present	b1f6814d 11-04 12:20	same	0	0
+Q08	docs/battle-theatre/app/data/works3d.json	present	cd773c04 11-11 16:31	same	0	0
+Q08	tools/bt/check_structures.py	present	b1f6814d 11-04 12:20	same	0	0
+Q08	docs/battle-theatre/app/tests/structures-ws6.test.mjs	present	cd773c04 11-11 16:31	same	0	0
+Q08	docs/battle-theatre/GOVERNANCE/evidence_corrections/fence-1.jsonl	present	ec5cd18b 11-16 00:03	CHANGED	1	0
+Q08	docs/battle-theatre/GOVERNANCE/evidence_corrections/terrain-1.jsonl	present	bc77b0bf 11-16 01:10	CHANGED	1	0
+Q08	docs/battle-theatre/GOVERNANCE/evidence_corrections/terrain-2.jsonl	present	092aa98a 11-16 01:41	CHANGED	1	0
+Q08	docs/battle-theatre/life	present	46fbeec6 11-16 01:51	CHANGED	6	0
+Q09	docs/battle-theatre/structures/state_schedule.json	present	b1f6814d 11-04 12:20	same	0	0
+Q09	docs/battle-theatre/structures/hospitals.json	present	b1f6814d 11-04 12:20	same	0	0
+Q09	docs/battle-theatre/app/data/fx3d/fires.json	present	27ed635f 11-04 15:20	same	0	0
+Q09	tools/bt/check_structures.py	present	b1f6814d 11-04 12:20	same	0	0
+Q09	docs/battle-theatre/town	present	46fbeec6 11-16 01:51	CHANGED	6	0
+Q09	docs/battle-theatre/app/tests/fx3d.test.mjs	present	70a5b2b2 11-13 20:01	same	0	0
+Q10	docs/battle-theatre/app/tests/sky.spec.mjs	present	1a8dd154 11-13 19:11	same	0	0
+Q10	docs/battle-theatre/app/src/config.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q10	docs/battle-theatre/app/src/weather3d	present	6bb4d1d7 11-13 21:13	same	0	0
+Q10	docs/battle-theatre/app/src/fx3d	present	70a5b2b2 11-13 20:01	same	0	0
+Q10	docs/battle-theatre/environment	present	639586b8 11-11 17:00	same	0	0
+Q10	tools/bt/check_environment.py	present	b1f6814d 11-04 12:20	same	0	0
+Q10	docs/battle-theatre/app/tests/weather3d.test.mjs	present	b94f68e9 11-11 18:53	same	0	0
+Q10	docs/battle-theatre/app/tests/weather3d-gpu.test.mjs	present	51638815 11-16 01:00	CHANGED	1	0
+Q10	docs/battle-theatre/app/tests/weather3d-gpu-check.mjs	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q10	docs/battle-theatre/app/tests/results/weather3d-webgpu	present	e8b35b67 11-15 23:12	same	0	0
+Q10	docs/battle-theatre/app/docs/GATE-HOOKS.md	present	394ba6e5 11-16 01:21	CHANGED	1	0
+Q11	docs/battle-theatre/environment	present	639586b8 11-11 17:00	same	0	0
+Q11	tools/bt/ephemeris.py	present	b1f6814d 11-04 12:20	same	0	0
+Q11	tools/bt/check_environment.py	present	b1f6814d 11-04 12:20	same	0	0
+Q11	docs/battle-theatre/app/src/astro.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q12	docs/battle-theatre/sim	present	b1f6814d 11-04 12:20	same	0	0
+Q12	docs/battle-theatre/app/tests/scrub.spec.mjs	present	c70fd5c3 11-16 00:50	CHANGED	1	0
+Q12	docs/battle-theatre/app/tests/casualties.spec.mjs	present	c70fd5c3 11-16 00:50	CHANGED	1	0
+Q12	docs/battle-theatre/app/tests/lib.mjs	present	394ba6e5 11-16 01:21	CHANGED	1	0
+Q12	docs/battle-theatre/app/tests/results/sw-round-1	present	394ba6e5 11-16 01:21	CHANGED	12	0
+Q12	docs/battle-theatre/app/tests/results/SW-STATUS.md	present	394ba6e5 11-16 01:21	CHANGED	1	0
+Q12	tools/bt/check_structures.py	present	b1f6814d 11-04 12:20	same	0	0
+Q12	docs/battle-theatre/app/tests/unit.test.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q13	docs/battle-theatre/app/src/audio3d	present	018558fe 11-14 00:16	same	0	0
+Q13	docs/battle-theatre/app/src/audio-host.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q13	docs/battle-theatre/app/data/audio3d	present	2c27d056 11-14 00:36	same	0	0
+Q13	docs/battle-theatre/app/tests/audio3d.test.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q13	docs/battle-theatre/app/tests/audio-host.test.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q13	docs/battle-theatre/app/tests/audio3d-round2.test.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q13	docs/battle-theatre/environment/weather_timeline.json	present	639586b8 11-11 17:00	same	0	0
+Q14	docs/battle-theatre/kit/verified_batteries.json	ABSENT	-	-	0	0
+Q14	tools/bt/gates/q14_ordnance.py	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q14	tools/bt/gates/q14_layer.mjs	present	78a4e0f9 11-16 00:24	CHANGED	1	0
+Q14	tests/governance/gates/test_q14.py	present	78a4e0f9 11-16 00:24	CHANGED	1	0
+Q14	docs/battle-theatre/GOVERNANCE/gate_results/Q14.json	present	f0a4cba3 11-16 00:44	CHANGED	1	0
+Q14	docs/battle-theatre/kit/artillery_batteries.json	present	b1f6814d 11-04 12:20	same	0	0
+Q14	docs/battle-theatre/kit/KIT-NOTES.md	present	38fc56fe 11-14 00:06	same	0	0
+Q14	docs/battle-theatre/drill	present	b1f6814d 11-04 12:20	same	0	0
+Q14	tools/bt/drill_check.py	present	b1f6814d 11-04 12:20	same	0	0
+Q14	docs/battle-theatre/app/data/battery-guns.json	present	b1f6814d 11-04 12:20	same	0	0
+Q14	docs/battle-theatre/app/data/artillery-train.json	present	cd773c04 11-11 16:31	same	0	0
+Q14	docs/battle-theatre/app/tests/structures-ws6.test.mjs	present	cd773c04 11-11 16:31	same	0	0
+Q14	docs/battle-theatre/app/tests/fx3d.test.mjs	present	70a5b2b2 11-13 20:01	same	0	0
+Q14	docs/battle-theatre/app/tests/anim3d.test.mjs	present	76b3cca8 11-04 20:39	same	0	0
+Q15	docs/battle-theatre/app/tests/perf.spec.mjs	present	1a8dd154 11-13 19:11	same	0	0
+Q15	docs/battle-theatre/app/tests/lib.mjs	present	394ba6e5 11-16 01:21	CHANGED	1	0
+Q15	docs/battle-theatre/GOVERNANCE/hardware_profile.json	present	b1f6814d 11-04 12:20	same	0	0
+Q15	docs/battle-theatre/app/tests/structures3d.spec.mjs	present	1a8dd154 11-13 19:11	same	0	0
+Q15	tools/accept/thresholds.json	present	b1f6814d 11-04 12:20	same	0	0
+Q16	tools/bt/photomatch	present	12b7908d 11-16 00:34	CHANGED	3	0
+Q16	docs/battle-theatre/app/tests/photomatch-q16.test.mjs	present	188b5dea 11-16 00:13	CHANGED	1	0
+Q16	tests/photomatch.test.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q16	docs/battle-theatre/app/docs/PHOTOMATCH.md	present	78a4e0f9 11-16 00:24	CHANGED	1	0
+Q16	docs/battle-theatre/GOVERNANCE/evidence_corrections/web-photomatch.jsonl	present	c2704ba8 11-14 01:27	same	0	0
+Q17	tools/bt/realize	present	6a5b4715 11-15 23:43	CHANGED	3	0
+Q17	docs/battle-theatre/GOVERNANCE/realizations	present	6a5b4715 11-15 23:43	CHANGED	1	0
+Q17	tools/bt/check_coverage.py	present	6d8ac7cd 11-11 16:02	same	0	0
+Q17	tests/governance	present	46fbeec6 11-16 01:51	CHANGED	38	0
+Q17	docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl	present	b1f6814d 11-04 12:20	same	0	0
+Q17	docs/battle-theatre/GOVERNANCE/timeline_verified.jsonl	present	c0eab6cf 11-11 16:16	same	0	0
+Q17	docs/battle-theatre/GOVERNANCE/timeline_windows.jsonl	present	b1f6814d 11-04 12:20	same	0	0
+Q17	docs/battle-theatre/GOVERNANCE/timeline_corrections	present	46fbeec6 11-16 01:51	CHANGED	7	0
+Q17	docs/battle-theatre/GOVERNANCE/epilogue_seed.jsonl	present	b1f6814d 11-04 12:20	same	0	0
+Q17	docs/battle-theatre/GOVERNANCE/register_index.json	present	eb9b2912 11-11 17:23	same	0	0
+Q18	docs/battle-theatre/GOVERNANCE/requirements.json	present	8daedf35 11-13 23:55	same	0	0
+Q18	tools/bt/check_governance.py	present	6d8ac7cd 11-11 16:02	same	0	0
+Q18	tools/bt/check_coverage.py	present	6d8ac7cd 11-11 16:02	same	0	0
+Q18	tools/bt/link_subreqs.py	present	6d8ac7cd 11-11 16:02	same	0	0
+Q18	tools/bt/register_from_proposed.py	present	6d8ac7cd 11-11 16:02	same	0	0
+Q18	docs/battle-theatre/GOVERNANCE/register_index.json	present	eb9b2912 11-11 17:23	same	0	0
+Q18	docs/battle-theatre/GOVERNANCE/register_aliases.json	present	6d8ac7cd 11-11 16:02	same	0	0
+Q18	docs/battle-theatre/GOVERNANCE/subreq_links.json	present	8c7b602e 11-08 22:25	same	0	0
+Q19	tools/bt/gates/q19_claims.py	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q19	tests/governance/gates/test_q19.py	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q19	docs/battle-theatre/GOVERNANCE/gate_results/Q19.json	present	51638815 11-16 01:00	CHANGED	1	0
+Q19	docs/battle-theatre/GOVERNANCE/claim_ledger.json	ABSENT	-	-	0	0
+Q19	docs/battle-theatre/history/positions	present	b1f6814d 11-04 12:20	same	0	0
+Q19	docs/battle-theatre/app/tools/claim-ledger.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q19	docs/battle-theatre/GOVERNANCE/conflict_register.json	present	b1f6814d 11-04 12:20	same	0	0
+Q19	docs/battle-theatre/GOVERNANCE/conflicts_structured.json	present	b1f6814d 11-04 12:20	same	0	0
+Q19	docs/battle-theatre/GOVERNANCE/decisions/conflict_defaults.json	present	74b45c8b 11-11 15:59	same	0	0
+Q19	docs/battle-theatre/library/or27_claim_checks.json	present	b1f6814d 11-04 12:20	same	0	0
+Q19	docs/battle-theatre/app/tests/claims.test.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q19	docs/battle-theatre/app/tests/scenario-defaults.test.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q19	docs/battle-theatre/fidelity/tools/check_quotes.py	present	8afbbf9c 10-19 14:53	same	0	0
+Q20	tools/bt/gates/q20_cavalry.py	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q20	tools/bt/gates/q20_layer.mjs	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q20	tests/governance/gates/test_q20.py	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q20	docs/battle-theatre/GOVERNANCE/gate_results/Q20.json	present	f0a4cba3 11-16 00:44	CHANGED	1	0
+Q20	docs/battle-theatre/kit/cavalry_action_table.json	ABSENT	-	-	0	0
+Q20	docs/battle-theatre/kit/cavalry_units.json	present	d4dbc355 11-11 19:45	same	0	0
+Q20	docs/battle-theatre/app/data/cavalry-horses.json	present	98eb2309 11-11 20:10	same	0	0
+Q20	docs/battle-theatre/app/src/history/cavalry.mjs	present	98eb2309 11-11 20:10	same	0	0
+Q20	docs/battle-theatre/app/tests/cavalry-ws10.test.mjs	present	98eb2309 11-11 20:10	same	0	0
+Q20	tools/bt/check_kit.py	present	b1f6814d 11-04 12:20	same	0	0
+Q21	docs/battle-theatre/app/src/ext/vegetation	present	188b5dea 11-16 00:13	CHANGED	4	0
+Q21	docs/battle-theatre/app/data/vegetation.json	present	092aa98a 11-16 01:41	CHANGED	1	0
+Q21	tools/bt/vegetation	present	092aa98a 11-16 01:41	CHANGED	6	0
+Q21	docs/battle-theatre/app/tests/vegetation.test.mjs	present	092aa98a 11-16 01:41	CHANGED	1	0
+Q21	docs/battle-theatre/app/tests/vegetation-shell.test.mjs	present	fac51c5e 11-14 00:46	same	0	0
+Q21	docs/battle-theatre/app/tests/vegetation-scene.test.mjs	present	22342a6d 11-15 23:53	CHANGED	1	0
+Q21	docs/battle-theatre/app/tests/vegetation-wind.test.mjs	present	82d95249 11-14 00:56	same	0	0
+Q21	docs/battle-theatre/app/tests/vegetation-browser.mjs	present	394ba6e5 11-16 01:21	CHANGED	1	0
+Q21	docs/battle-theatre/app/docs/VEGETATION-NOTES.md	present	46fbeec6 11-16 01:51	CHANGED	1	0
+Q21	docs/battle-theatre/GOVERNANCE/evidence_corrections/web-nps-landscape.jsonl	present	f0a4cba3 11-16 00:44	CHANGED	1	0
+Q22	docs/battle-theatre/environment/weather_timeline.json	present	639586b8 11-11 17:00	same	0	0
+Q22	tools/bt/check_environment.py	present	b1f6814d 11-04 12:20	same	0	0
+Q22	docs/battle-theatre/app/src/weather3d	present	6bb4d1d7 11-13 21:13	same	0	0
+Q22	docs/battle-theatre/app/src/environment.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q22	docs/battle-theatre/app/tests/weather3d.test.mjs	present	b94f68e9 11-11 18:53	same	0	0
+Q22	docs/battle-theatre/app/tests/weather3d-gpu.test.mjs	present	51638815 11-16 01:00	CHANGED	1	0
+Q22	docs/battle-theatre/app/docs/BROWSER-VERIFICATION-LIST-WEATHER.md	present	e8b35b67 11-15 23:12	same	0	0
+Q22	docs/battle-theatre/app/docs/WEATHER3D-WEBGPU-NOTES.md	present	bc77b0bf 11-16 01:10	CHANGED	1	0
+Q22	docs/battle-theatre/app/docs/GATE-HOOKS.md	present	394ba6e5 11-16 01:21	CHANGED	1	0
+Q23	tools/bt/gates/q23_marking.py	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q23	tools/bt/gates/q23_app.mjs	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q23	tools/bt/gates/content_classes.json	present	f0a4cba3 11-16 00:44	CHANGED	1	0
+Q23	tests/governance/gates/test_q23.py	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q23	tests/governance/gates/test_q23_app.py	present	12b7908d 11-16 00:34	CHANGED	1	0
+Q23	docs/battle-theatre/GOVERNANCE/gate_results/Q23.json	present	51638815 11-16 01:00	CHANGED	1	0
+Q23	docs/battle-theatre/GOVERNANCE/register_index.json	present	eb9b2912 11-11 17:23	same	0	0
+Q23	docs/battle-theatre/GOVERNANCE/register	present	eb9b2912 11-11 17:23	same	0	0
+Q23	tools/bt/check_coverage.py	present	6d8ac7cd 11-11 16:02	same	0	0
+Q23	docs/battle-theatre/app/src/ui/extensions.mjs	present	0fef6b4e 11-13 22:04	same	0	0
+Q23	docs/battle-theatre/app/docs/GATE-HOOKS.md	present	394ba6e5 11-16 01:21	CHANGED	1	0
+Q23	docs/battle-theatre/app/src/config.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q23	docs/battle-theatre/app/src/overlay.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q23	docs/battle-theatre/app/tests/ext-loader.test.mjs	present	018558fe 11-14 00:16	same	0	0
+Q24	docs/battle-theatre/app/tests/results	present	394ba6e5 11-16 01:21	CHANGED	19	0
+Q24	tools/accept/lib/imgdiff.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q24	tools/accept/thresholds.json	present	b1f6814d 11-04 12:20	same	0	0
+Q24	docs/battle-theatre/app/tests/weather3d-shots.mjs	present	fb80f3aa 11-11 16:23	same	0	0
+Q25	tools/bt/gates/q25_library.py	present	ec5cd18b 11-16 00:03	CHANGED	1	0
+Q25	tools/bt/gates/lib/acquisition_list.json	present	ec5cd18b 11-16 00:03	CHANGED	1	0
+Q25	tests/governance/gates/test_q25.py	present	ec5cd18b 11-16 00:03	CHANGED	1	0
+Q25	docs/battle-theatre/GOVERNANCE/gate_results/Q25.json	present	51638815 11-16 01:00	CHANGED	1	0
+Q25	docs/battle-theatre/GOVERNANCE/library	present	78a4e0f9 11-16 00:24	CHANGED	1	0
+Q25	docs/battle-theatre/terrain/terrain_sources.json	present	b1f6814d 11-04 12:20	same	0	0
+Q25	tools/bt/terrain_check.py	present	b1f6814d 11-04 12:20	same	0	0
+Q25	docs/battle-theatre/app/tests/audio3d.test.mjs	present	d4dbc355 11-11 19:45	same	0	0
+Q26	docs/battle-theatre/app/data/casualty-flow.json	ABSENT	-	-	0	0
+Q26	docs/battle-theatre/structures/hospitals.json	present	b1f6814d 11-04 12:20	same	0	0
+Q26	docs/battle-theatre/app/data/casualty-sources.json	present	b1f6814d 11-04 12:20	same	0	0
+Q26	docs/battle-theatre/app/data/engagements.json	present	b1f6814d 11-04 12:20	same	0	0
+Q26	docs/battle-theatre/medical	present	46fbeec6 11-16 01:51	CHANGED	7	0
+Q26	tools/bt/medical	present	a0b89b64 11-14 01:17	same	0	0
+Q26	docs/battle-theatre/app/tests/medical-evidence.test.mjs	present	a0b89b64 11-14 01:17	same	0	0
+Q26	docs/battle-theatre/app/tests/casualties.test.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q26	docs/battle-theatre/app/tests/casualties.spec.mjs	present	c70fd5c3 11-16 00:50	CHANGED	1	0
+Q27	docs/battle-theatre/GOVERNANCE/budget	present	5f2a4ef4 11-16 02:30	CHANGED	1	0
+Q28	docs/battle-theatre/GOVERNANCE/epilogue_seed.jsonl	present	b1f6814d 11-04 12:20	same	0	0
+Q28	docs/battle-theatre/GOVERNANCE/conflict_register.json	present	b1f6814d 11-04 12:20	same	0	0
+Q28	docs/battle-theatre/app/src/clock.mjs	present	b1f6814d 11-04 12:20	same	0	0
+Q28	docs/battle-theatre/environment/ephemeris_1863.json	present	b1f6814d 11-04 12:20	same	0	0
+Q28	docs/battle-theatre/GOVERNANCE/evidence_corrections/web-newspapers.jsonl	present	092aa98a 11-16 01:41	CHANGED	1	0
+
+# per gate: inputs listed, inputs changed since BASE (committed or dirty)
+Q01	22	7	tools/bt/gates/q01_oob.py; tools/bt/gates/q01_layer.mjs; tools/bt/gates/oobgates_common.py; tools/bt/gates/oob_layer_lib.mjs; tests/governance/gates/test_q01.py; GOVERNANCE/gate_results/Q01.json; kit/evidence
+Q02	14	7	tools/bt/gates/q02_provenance.py; tools/bt/gates/q02_layer.mjs; tools/bt/gates/datum_classes.json; tools/bt/gates/lib; tests/governance/gates/test_q02.py; GOVERNANCE/gate_results/Q02.json; history/undrawn
+Q03	17	8	tools/bt/gates/q03_anachronism.py; tools/bt/gates/q03_structures.py; tools/bt/gates/q03_scene.mjs; tools/bt/gates/q03_flags.json; tests/governance/gates/test_q03.py; tests/governance/gates/test_q03_scene.py; kit; app/src/ext
+Q04	11	4	tools/bt/gates/q04_arrival.py; tools/bt/gates/q04_arrival.mjs; tools/bt/gates/q456_lib.mjs; tests/governance/gates/test_q04.py
+Q05	10	3	tools/bt/gates/q05_speed.py; tools/bt/gates/q05_speed.mjs; tests/governance/gates/test_q05.py
+Q06	9	4	tools/bt/gates/q06_path.py; tools/bt/gates/q06_path.mjs; tests/governance/gates/test_q06.py; history/undrawn
+Q07	9	3	GOVERNANCE/evidence_corrections/fence-1.jsonl; GOVERNANCE/evidence_corrections/fence-2.jsonl; GOVERNANCE/evidence_corrections/fence-3.jsonl
+Q08	9	4	GOVERNANCE/evidence_corrections/fence-1.jsonl; GOVERNANCE/evidence_corrections/terrain-1.jsonl; GOVERNANCE/evidence_corrections/terrain-2.jsonl; life
+Q09	6	1	town
+Q10	11	3	app/tests/weather3d-gpu.test.mjs; app/tests/weather3d-gpu-check.mjs; app/docs/GATE-HOOKS.md
+Q11	4	0	
+Q12	8	5	app/tests/scrub.spec.mjs; app/tests/casualties.spec.mjs; app/tests/lib.mjs; app/tests/results/sw-round-1; app/tests/results/SW-STATUS.md
+Q13	7	0	
+Q14	14	4	tools/bt/gates/q14_ordnance.py; tools/bt/gates/q14_layer.mjs; tests/governance/gates/test_q14.py; GOVERNANCE/gate_results/Q14.json
+Q15	5	1	app/tests/lib.mjs
+Q16	5	3	tools/bt/photomatch; app/tests/photomatch-q16.test.mjs; app/docs/PHOTOMATCH.md
+Q17	10	4	tools/bt/realize; GOVERNANCE/realizations; tests/governance; GOVERNANCE/timeline_corrections
+Q18	8	0	
+Q19	13	3	tools/bt/gates/q19_claims.py; tests/governance/gates/test_q19.py; GOVERNANCE/gate_results/Q19.json
+Q20	10	4	tools/bt/gates/q20_cavalry.py; tools/bt/gates/q20_layer.mjs; tests/governance/gates/test_q20.py; GOVERNANCE/gate_results/Q20.json
+Q21	10	8	app/src/ext/vegetation; app/data/vegetation.json; tools/bt/vegetation; app/tests/vegetation.test.mjs; app/tests/vegetation-scene.test.mjs; app/tests/vegetation-browser.mjs; app/docs/VEGETATION-NOTES.md; GOVERNANCE/evidence_corrections/web-nps-landscape.jsonl
+Q22	9	3	app/tests/weather3d-gpu.test.mjs; app/docs/WEATHER3D-WEBGPU-NOTES.md; app/docs/GATE-HOOKS.md
+Q23	14	7	tools/bt/gates/q23_marking.py; tools/bt/gates/q23_app.mjs; tools/bt/gates/content_classes.json; tests/governance/gates/test_q23.py; tests/governance/gates/test_q23_app.py; GOVERNANCE/gate_results/Q23.json; app/docs/GATE-HOOKS.md
+Q24	4	1	app/tests/results
+Q25	8	5	tools/bt/gates/q25_library.py; tools/bt/gates/lib/acquisition_list.json; tests/governance/gates/test_q25.py; GOVERNANCE/gate_results/Q25.json; GOVERNANCE/library
+Q26	9	2	medical; app/tests/casualties.spec.mjs
+Q27	1	1	GOVERNANCE/budget
+Q28	5	1	GOVERNANCE/evidence_corrections/web-newspapers.jsonl

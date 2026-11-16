@@ -12,7 +12,8 @@ export OMP_THREAD_LIMIT=1 NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca
 run() {
   echo "$(date -u +%FT%TZ) start $*" >> "$LOG"
   "$ROOT/tools/horde/bench.sh" python3 -I "$HERE/ocr.py" "$@" >> "$LOG" 2>&1
-  echo "$(date -u +%FT%TZ) end $1 exit $?" >> "$LOG"
+  rc=$?
+  echo "$(date -u +%FT%TZ) end $1 exit $rc" >> "$LOG"
 }
 if [ $# -gt 0 ]; then run "$@"; exit; fi
 run NPS-HS-SPANGLER-HENRY

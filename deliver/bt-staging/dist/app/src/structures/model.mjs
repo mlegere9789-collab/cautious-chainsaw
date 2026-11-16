@@ -1,6 +1,6 @@
 // The 3D structures of the Battle Theatre as data: objects (roads and railway, fences and walls, buildings and borough masses, markers), their meshes and instances in the
 // terrain frame, their state at a time (from the port of check_structures.state_at), culling lists and picking. No GPU here: src/structures/gpu.mjs draws what this builds.
-// Nothing is invented: geometry comes only from data/structures3d.json (built from the basemap1863 layers by tools/build-structures3d.mjs); dimensions the record prints are used
+// Nothing is invented: geometry comes only from data/structures3d.json (from the basemap1863 layers); dimensions the record prints are used
 // as printed, the rest are generic class defaults, carried on every object as `form` with the tier plausible-procedural.
 import { extrude, railPanelMesh, wormPanelMesh, stonePanelMesh, markerMesh, panelsAlong, clipRuns, ribbon, polyArea, centroidOf, GEN } from './geom.mjs';
 import { visualOf } from './visual-state.mjs';

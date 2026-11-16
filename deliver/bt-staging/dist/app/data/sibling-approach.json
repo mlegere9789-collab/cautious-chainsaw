@@ -1,6 +1,5 @@
 {
  "version": 1,
- "built_by": "tools/build-sibling-approach.mjs",
  "decision": "DEC-015",
  "register": "EG-0070",
  "note": "MODELLED roads of approach (kind sibling, tier plausible-procedural) and the verdict for every leaf unit that was an open gap in v5. Rule: tools/sibling-rule.mjs; hand-read classes: data/sibling-review.json; the loader (src/history/placement.mjs, validateSibling) recomputes the documented siblings of every record and refuses the file unless each record is complete, unanimous and crosses the loaded ground. Nothing here is a coordinate, a time or a quotation.",

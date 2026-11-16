@@ -1,0 +1,290 @@
+====================================================================================================
+Q01 verdict FAIL runnable_here True renderer_class mixed run 2026-11-16T00:36:14Z..2026-11-16T00:36:33Z
+command: python3 tools/bt/gates/q01_oob.py
+counts : {'BLOCKED-INPUT': 3510, 'COVERED': 0, 'FAIL': 133, 'N/A': 161, 'NOT-RUN': 0, 'PASS': 0}
+  Q01.1    BLOCKED-INPUT=1
+  Q01.2    BLOCKED-INPUT=726
+  Q01.3    BLOCKED-INPUT=568 N/A=158
+  Q01.4    BLOCKED-INPUT=162 N/A=3
+  Q01.5    BLOCKED-INPUT=593 FAIL=133
+  Q01.6    BLOCKED-INPUT=734
+  Q01.7    BLOCKED-INPUT=726
+incomplete_reasons: ["3510 item(s) NOT-RUN or BLOCKED-INPUT", "scenario set: sample (default and the six sample scenarios of history.test.mjs: a sample, never S*)", "time grid: 3271 of 27360 integer minutes evaluated directly (breakpoints+hourly)"]
+owed:
+   - Q01 needs `kit/verified_oob.json` to be written by its owner before any Q01.1 to Q01.4 or Q01.7 item can leave BLOCKED-INPUT; until then the verdict is INCOMPLETE
+   - Q01.6: the dense scan of every integer minute of the window (and one second either side of every boundary) was not run; heavy: run through tools/horde/bench.sh
+   - Q01.6: the scenario set S* (every combination of source-conflict values inside each interaction group) was not enumerated; this run covered 7 scenario(s): default and the six sample scenarios of history.test.mjs: a sample, never S*
+  --- Q01.1 BLOCKED-INPUT (1 items)
+          1  e.g. Q01/Q01.1/table/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison)
+  --- Q01.2 BLOCKED-INPUT (726 items)
+        726  e.g. Q01/Q01.2/cs-13va-winchester/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison)
+  --- Q01.3 BLOCKED-INPUT (568 items)
+        568  e.g. Q01/Q01.3/cs-1c-art/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison)
+  --- Q01.4 BLOCKED-INPUT (162 items)
+        162  e.g. Q01/Q01.4/cs-1c-hood-anderson/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison)
+  --- Q01.5 BLOCKED-INPUT (593 items)
+        593  e.g. Q01/Q01.5/cs-13va-winchester/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison) (layer-only finding: the arrivals record is complete)
+  --- Q01.5 FAIL (133 items)
+         91  e.g. Q01/Q01.5/cs-1c-mclaws-semmes-10ga/default :: presence window: place: the arrivals record gives the entry place: no road or direction of approach is printed in the ledger for this unit or any unit above it; route: the road of approach is named: no road of approach (open gap)
+         25  e.g. Q01/Q01.5/cs-1c-mclaws-semmes/default :: presence window: place and route: a unit under it is drawn with an entry place and a road of approach: no leaf unit under it has a place and a road
+         12  e.g. Q01/Q01.5/us-3c-2d-brewster-120ny/default :: presence window: place: the arrivals record gives the entry place: the road "Black Horse Tavern Road" does not cross into the loaded ground; AP-07 prints it for us-3c-2d; route: the road of approach is named: no road of approach (open gap)
+          2  e.g. Q01/Q01.5/cs-anv-hq/default :: presence window: place: the arrivals record gives the entry place: Open gap: the record gives no figure for this headquarters, so none is drawn.; route: the road of approach is named: no road of approach (open gap)
+  --- Q01.6 BLOCKED-INPUT (734 items)
+        726  e.g. Q01/Q01.6/cs-13va-winchester/default/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison) (layer-only finding: instances equal strength)
+          6  e.g. Q01/Q01.6/units-scan/sample-1/sample-1 :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison) (layer-only finding: all 726 units equal their strength in scenario sample-1)
+          1  e.g. Q01/Q01.6/cap-scan/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison) (layer-only finding: no cap constant in 189 files)
+          1  e.g. Q01/Q01.6/world-total/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison) (layer-only finding: the world holds exactly the drawn strengths)
+  --- Q01.7 BLOCKED-INPUT (726 items)
+        726  e.g. Q01/Q01.7/cs-13va-winchester/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison)
+====================================================================================================
+Q02 verdict FAIL runnable_here True renderer_class python run 2026-11-16T00:51:46Z..2026-11-16T00:52:12Z
+command: python3 tools/bt/gates/q02_provenance.py
+counts : {'BLOCKED-INPUT': 0, 'COVERED': 0, 'FAIL': 176, 'N/A': 76, 'NOT-RUN': 0, 'PASS': 49}
+  Q02.1    PASS=2
+  Q02.2    FAIL=38 N/A=5 PASS=12
+  Q02.3    FAIL=28 N/A=21
+  Q02.4    FAIL=39 N/A=10
+  Q02.5    FAIL=23 N/A=26
+  Q02.6    FAIL=28 PASS=10
+  Q02.7    FAIL=1
+  Q02.8    FAIL=10 N/A=14 PASS=25
+  Q02.9    FAIL=9
+incomplete_reasons: []
+owed:
+   - Q02.3 "the claim equals what the span supports" is not machine-checkable: it needs the fresh-context verification run of U-11 (Q27.5)
+  --- Q02.2 FAIL (38 items)
+          6  e.g. Q02/Q02.2/data.audio_sources :: 42 of 42 members fail: no tier (42)
+          4  e.g. Q02/Q02.2/data.fx_fires :: 2 of 9 members fail: plausible-procedural with neither a source id nor a procedural block (2)
+          4  e.g. Q02/Q02.2/gov.timeline :: 39 of 691 members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (39)
+          3  e.g. Q02/Q02.2/data.audio_calls :: 1 of 1 members fail: inferred with neither a source id nor reasoning (1)
+  --- Q02.3 FAIL (28 items)
+          4  e.g. Q02/Q02.3/data.audio_commands :: 30 of 30 members fail: no source extract (30); no source that is neither a lead nor weak (sources: ART-FA-70=unresolved) (4); no source that is neither a lead nor weak (sources: HAR-B03=unresolved) (4)
+          4  e.g. Q02/Q02.3/data.conflict_defaults :: 29 of 29 members fail: no source extract (29); no source that is neither a lead nor weak (sources: none) (29)
+          4  e.g. Q02/Q02.3/layer.arrivals :: 30 of 30 members fail: no source extract (30)
+          1  e.g. Q02/Q02.3/data.battery_guns :: 25 of 25 members fail: no source extract (25); no source that is neither a lead nor weak (sources: SS-ArtReserve=weak) (19); no source that is neither a lead nor weak (sources: Wiki-OOB-Union=lead, GburgDaily-Smith4NY=weak, SS-NYArt-1958=weak) (1)
+  --- Q02.4 FAIL (39 items)
+         22  e.g. Q02/Q02.4/data.artillery_train :: 9 of 9 members fail: no premise claim ids (the reasoning names no documented claim) (9); no reasoning (4)
+         10  e.g. Q02/Q02.4/data.conflict_defaults :: 7 of 7 members fail: no premise claim ids (the reasoning names no documented claim) (7)
+          1  e.g. Q02/Q02.4/data.placement_claims :: 68 of 77 members fail: no reasoning (68); no premise claim ids (the reasoning names no documented claim) (18); premise claim(s) POS-E-US-11C-2D-004 are not documented claims of the ledger (1)
+          1  e.g. Q02/Q02.4/data.sibling_approach :: 11 of 11 members fail: no reasoning (11); no premise claim ids (the reasoning names no documented claim) (3)
+  --- Q02.5 FAIL (23 items)
+         19  e.g. Q02/Q02.5/data.artillery_train :: 1 of 1 members fail: no procedural block (1); no register id for the gap (1)
+          3  e.g. Q02/Q02.5/data.sibling_approach :: 8 of 8 members fail: no procedural block (8)
+          1  e.g. Q02/Q02.5/data.vegetation :: 431 of 431 members fail: no procedural block (431); no register id for the gap (417); register id ws-world-veg-G01 is not an open entry of the register (1)
+  --- Q02.6 FAIL (28 items)
+         25  e.g. Q02/Q02.6/data.artillery_train :: 1 of 4 source ids used by the class are in no Source Manifest
+          3  e.g. Q02/Q02.6/manifest-kit :: 126 of 126 source entries lack date_written, rights or reliability_tier
+  --- Q02.7 FAIL (1 items)
+          1  e.g. Q02/Q02.7/conflicts :: 44 conflict(s) have a value with no source key, fewer than two values or no recorded alternatives
+  --- Q02.8 FAIL (10 items)
+          3  e.g. Q02/Q02.8/data.structures3d :: 3 of 446 members fail: rests on a lead source alone and is not flagged weak (3)
+          2  e.g. Q02/Q02.8/data.battery_guns :: 22 of 30 members fail: documented and every source is a lead or weak (SS-ArtReserve) (19); documented and every source is a lead or weak (Wiki-OOB-Union, GburgDaily-Smith4NY, SS-NYArt-1958) (1); documented and every source is a lead or weak (Wiki-OOB-Union, SS
+          1  e.g. Q02/Q02.8/data.fx_fires :: 2 of 5 members fail: documented and every source is a lead or weak (W-BG) (1); rests on a lead source alone and is not flagged weak (1)
+          1  e.g. Q02/Q02.8/gov.timeline :: 81 of 691 members fail: documented and every source is a lead or weak (W-RET) (14); rests on a lead source alone and is not flagged weak (11); documented and every source is a lead or weak (SS2) (7)
+  --- Q02.9 FAIL (9 items)
+          7  e.g. Q02/Q02.9/data.structures3d :: 449 of 449 members fail: state change without a state_schedule (449)
+          2  e.g. Q02/Q02.9/kit.kit_specs :: 628 of 628 members fail: kit item without valid_from and valid_to (628)
+====================================================================================================
+Q14 verdict FAIL runnable_here True renderer_class mixed run 2026-11-16T00:35:24Z..2026-11-16T00:35:41Z
+command: python3 tools/bt/gates/q14_ordnance.py
+counts : {'BLOCKED-INPUT': 101, 'COVERED': 0, 'FAIL': 61, 'N/A': 0, 'NOT-RUN': 1, 'PASS': 43}
+  Q14.1    FAIL=32 PASS=20
+  Q14.2    BLOCKED-INPUT=1 FAIL=4 PASS=18
+  Q14.3    BLOCKED-INPUT=1 PASS=1
+  Q14.4    FAIL=7 PASS=4
+  Q14.5    BLOCKED-INPUT=99 FAIL=6
+  Q14.6    FAIL=10
+  Q14.7    FAIL=2 NOT-RUN=1
+incomplete_reasons: ["102 item(s) NOT-RUN or BLOCKED-INPUT", "scenario set: sample (default and the six sample scenarios of history.test.mjs: a sample, never S*)"]
+owed:
+   - Q14.2: OCR texts of the manuals that are not under tmp/library/misc are read from tmp/bt-gates/library-misc when it exists; a run without either has NOT-RUN items
+   - Q14.4, Q14.6: the scenario set S* was not enumerated; this run covered 7 scenario(s): default and the six sample scenarios of history.test.mjs: a sample, never S*
+   - Q14.5 needs `kit/verified_batteries.json` to be written by its owner before any battery item can leave BLOCKED-INPUT
+   - Q14.6: the documented per-battery expenditures (Smith 4th NY 240 rounds, Wheeler 13th NY 850, Bigelow about three tons including 92 canister, McCarthy 20) are not mapped to roster batteries here; only the war-establishment stock of the Instruction for Field Artillery is applied
+   - Q14.7: the drill state machine of a gun detachment (ten states, B.6.14.3) is not compared with the product (needs a machine list of the product's detachment states)
+  --- Q14.1 FAIL (32 items)
+          8  e.g. Q14/Q14.1/3inch_navy_rifle/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids ['G17'], tier gap, placeholder None
+          7  e.g. Q14/Q14.1/gallager_carbine/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids ['G17'], tier documented, placeholder False; a documented tier needs a claim support that this run can re-match: a 
+          6  e.g. Q14/Q14.1/buck_and_ball_load/default :: weapons table: a documented tier needs a claim support that this run can re-match: a manual item (drill/*.json) that confirms it: the row says documented (row-level source list; claim-to-source map not printed; claim_support_verified false) and names no manual
+          3  e.g. Q14/Q14.1/colt_36_unconfirmed/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids ['G17'], tier plausible-procedural, placeholder True
+  --- Q14.2 BLOCKED-INPUT (1 items)
+          1  e.g. Q14/Q14.2/projectile-events/default :: input missing: empty domain: no fire plan of the crowd driver (the code the page runs) carries a target, a round or a range, so the shell emits no projectile event whose range or round could be checked
+  --- Q14.2 FAIL (4 items)
+          2  e.g. Q14/Q14.2/10pdr_parrott/gap :: the product draws 10pdr_parrott (5 batteries) and no per-elevation table of it is documented (W.1 gap); the gap is not covered: no register entry names this gap
+          1  e.g. Q14/Q14.2/14pdr_james_rifle/gap :: the product draws 14pdr_james_rifle (1 batteries) and no per-elevation table of it is documented (W.1 gap); the gap is not covered: no register entry names this gap
+          1  e.g. Q14/Q14.2/3inch_ordnance_rifle/gap :: the product draws 3inch_ordnance_rifle (6 batteries) and no per-elevation table of it is documented (W.1 gap); the gap is not covered: no register entry names this gap
+  --- Q14.3 BLOCKED-INPUT (1 items)
+          1  e.g. Q14/Q14.3/events/default :: input missing: empty domain: no fire plan of the crowd driver (the code the page runs) carries a target, a round or a range, so the shell emits no projectile event whose range or round could be checked (so no ammunition is chosen by range anywhere in the produ
+  --- Q14.4 FAIL (7 items)
+          6  e.g. Q14/Q14.4/plans-scan/sample-1 :: 1 of 5 plans exceed the ceiling in scenario sample-1
+          1  e.g. Q14/Q14.4/us-cav-2d-mcintosh-3pa:fire/default :: a figure of the fire plan fires 4 shots inside one 60-second window (at 2813432.722988 s); the plan's typical figure, a lead is 3 a minute (plan)
+  --- Q14.5 BLOCKED-INPUT (99 items)
+         81  e.g. Q14/Q14.5/cs-1c-art/default :: input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC Q14.5: guns by date and state with tier and citation, built from the Official Records; no table, no comparison) (layer-only finding: the guns drawn equal th
+         18  e.g. Q14/Q14.5/G-01/default :: input missing: no machine record of the batteries, gun types and counts at emplacement G-01 by time (structures.json holds the printed description only)
+  --- Q14.5 FAIL (6 items)
+          4  e.g. Q14/Q14.5/us-12c-art-1nym/default :: gun count: the pieces whose fire the crowd driver builds equal the guns drawn for the battery (a battery whose count is not stated fires no invented number of pieces): the crowd driver fires 33 piece(s); the layer draws 0 (status not_drawn)
+          1  e.g. Q14/Q14.5/army-total/CS :: the layer draws 0 confederate guns; the plan prints 281 to 282 on the field (p. 79, line 19308 of the plan text)
+          1  e.g. Q14/Q14.5/army-total/US :: the layer draws 124 union guns; the plan prints 366 to 372 on the field (p. 79, line 19308 of the plan text)
+  --- Q14.6 FAIL (10 items)
+          6  e.g. Q14/Q14.6/batteries-scan/sample-1 :: 4 of 4 firing batteries exceed the documented allowance in scenario sample-1
+          4  e.g. Q14/Q14.6/us-12c-art-1nym/default :: the battery fires 784105 rounds from 33 pieces over 1020600 s; the documented stock is 224 a gun and the campaign allowance double that (14784 for the battery)
+  --- Q14.7 FAIL (2 items)
+          1  e.g. Q14/Q14.7/crew-posts/default :: the product draws posts with no documented role/manual item: ['No. 8']; missing items []
+          1  e.g. Q14/Q14.7/crew-size/default :: crew size: a source conflict of the crew (eight or nine at the piece) is registered: no conflict about the crew in conflicts_structured.json (47) or in the kit conflicts; the product offers the crew size as a selectable scenario value (the crew posts differ wi
+  --- Q14.7 NOT-RUN (1 items)
+          1  e.g. Q14/Q14.7/drill-state-machine/default :: not implemented in this runner: the ten states of one gun detachment (B.6.14.3) and their timing need a machine list of the product's detachment states to compare with the kit's drill_states; owed
+====================================================================================================
+Q19 verdict FAIL runnable_here True renderer_class python run 2026-11-16T00:51:39Z..2026-11-16T00:51:46Z
+command: python3 tools/bt/gates/q19_claims.py
+counts : {'BLOCKED-INPUT': 1, 'COVERED': 0, 'FAIL': 121, 'N/A': 52, 'NOT-RUN': 0, 'PASS': 29}
+  Q19.1    FAIL=1
+  Q19.2    FAIL=46 PASS=3
+  Q19.3    FAIL=11 N/A=38
+  Q19.4    FAIL=49
+  Q19.5    FAIL=11 N/A=14 PASS=24
+  Q19.6    FAIL=2 PASS=1
+  Q19.7    BLOCKED-INPUT=1 FAIL=1 PASS=1
+incomplete_reasons: ["1 item(s) NOT-RUN or BLOCKED-INPUT"]
+owed:
+   - Q19.3 independence needs a recorded relation (`independent_of` or `derived_from`) on every Source Manifest entry; the owner of the manifest writes it, no runner invents one
+  --- Q19.1 FAIL (1 items)
+          1  e.g. Q19/Q19.1/census :: 39 of 49 visible data classes name no claim id on any member: data.artillery_train, data.audio_calls, data.audio_commands, data.audio_sources, data.audio_woods, data.battery_guns ...
+  --- Q19.2 FAIL (46 items)
+         41  e.g. Q19/Q19.2/data.artillery_train :: 10 of 10 members fail: no claim id: the datum cites no claim of the ledger (10)
+          5  e.g. Q19/Q19.2/data.daypositions :: 484 of 484 members fail: the claim has no span in a stored source (no quote with a report or source) (484)
+  --- Q19.3 FAIL (11 items)
+          1  e.g. Q19/Q19.3/data.placement :: 80 of 80 members fail: two or more sources but no pair is shown independent (independence not recorded for OR-WILLIAMS, HMDB13997) (9); two or more sources but no pair is shown independent (independence not recorded for FREE, CHAM, HMDB17934) (6); two or more 
+          1  e.g. Q19/Q19.3/gov.timeline :: 201 of 201 members fail: two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, OR27-2-R470) (10); two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R5
+          1  e.g. Q19/Q19.3/kit.cavalry_units :: 2 of 2 members fail: two or more sources but no pair is shown independent (independence not recorded for AR-Guns, CWNews-Carbine) (2)
+          1  e.g. Q19/Q19.3/kit.kit_specs :: 29 of 29 members fail: two or more sources but no pair is shown independent (independence not recorded for BGE-Dispatch, WisVets) (13); two or more sources but no pair is shown independent (independence not recorded for AR-Sharpshooting, SI-Berdan, HistoryNet-
+  --- Q19.4 FAIL (49 items)
+         47  e.g. Q19/Q19.4/data.artillery_train :: 10 of 10 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (10); the tier flag (inferred) is not shown in the product for this class (no mark 
+          1  e.g. Q19/Q19.4/layer.unit.approach :: 439 of 439 members have neither two independent sources nor a shown flag with an entry for the second source: the tier flag (plausible-procedural) is not shown in the product for this class (no mark code found) (226); the tier flag (inferred) is not shown in t
+          1  e.g. Q19/Q19.4/layer.units :: 1 of 726 members have neither two independent sources nor a shown flag with an entry for the second source: documented with sources that are not shown independent and no flag (1); no open register entry names where the second source would come from (1)
+  --- Q19.5 FAIL (11 items)
+          4  e.g. Q19/Q19.5/data.structures3d :: 3 of 446 members fail: lead-only support not flagged weak (3)
+          2  e.g. Q19/Q19.5/data.battery_guns :: 22 of 30 members fail: documented on lead or weak sources alone (SS-ArtReserve) (19); documented on lead or weak sources alone (Wiki-OOB-Union, GburgDaily-Smith4NY, SS-NYArt-1958) (1); documented on lead or weak sources alone (Wiki-OOB-Union, SS-Cushing-7888) 
+          1  e.g. Q19/Q19.5/data.fx_fires :: 2 of 5 members fail: documented on lead or weak sources alone (W-BG) (1); lead-only support not flagged weak (1)
+          1  e.g. Q19/Q19.5/gov.timeline :: 81 of 691 members fail: documented on lead or weak sources alone (W-RET) (14); lead-only support not flagged weak (11); documented on lead or weak sources alone (SS2) (7)
+  --- Q19.6 FAIL (2 items)
+          1  e.g. Q19/Q19.6/defaults-recorded :: 2 conflict(s) lack their delegated default, its tier, or two selectable values
+          1  e.g. Q19/Q19.6/value-support :: the support of 120 conflicting value(s) is not computable: a value names no source key, so its support cannot be computed (107); the independence of the sources of a value is not recorded in any Source Manifest (13)
+  --- Q19.7 BLOCKED-INPUT (1 items)
+          1  e.g. Q19/Q19.7/section-p-ledger :: input missing: the claim ledger of Section P over every datum class (claim_ledger.json or claim-ledger.json): claims, claim_support and conflicts as tables with character-offset spans
+  --- Q19.7 FAIL (1 items)
+          1  e.g. Q19/Q19.7/claims-have-spans :: 586 of 5374 ledger claims have no span (a claim without a span fails, P.4; open gaps are not claims)
+====================================================================================================
+Q20 verdict FAIL runnable_here True renderer_class mixed run 2026-11-16T00:35:41Z..2026-11-16T00:36:00Z
+command: python3 tools/bt/gates/q20_cavalry.py
+counts : {'BLOCKED-INPUT': 79, 'COVERED': 0, 'FAIL': 212, 'N/A': 8, 'NOT-RUN': 0, 'PASS': 20}
+  Q20.1    BLOCKED-INPUT=58 FAIL=12
+  Q20.2    BLOCKED-INPUT=21 FAIL=33 PASS=4
+  Q20.3    FAIL=54 N/A=4
+  Q20.4    FAIL=56 N/A=4
+  Q20.5    FAIL=48 PASS=14
+  Q20.6    FAIL=9 PASS=2
+incomplete_reasons: ["79 item(s) NOT-RUN or BLOCKED-INPUT"]
+owed:
+   - Q20.1 needs kit/verified_oob.json (the table of Q01) to be written by its owner
+   - Q20.2 needs the B.6.15.3 action table of the cavalry (June 26 to July 16, conflicts as ranges) as a machine table, kit/cavalry_action_table.json, before any presence interval can be compared
+   - Q20.6: a time-keyed schedule of the cavalry states per unit does not exist in the product; the foot-contact test checks the structure of the gaits, not documented speeds (G-ANIM-07)
+  --- Q20.1 BLOCKED-INPUT (58 items)
+         57  e.g. Q20/Q20.1/cs-2c-early-35vacavalrybn/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)
+          1  e.g. Q20/Q20.1/verified-oob/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: it decides which cavalry units are documented)
+  --- Q20.1 FAIL (12 items)
+          4  e.g. Q20/Q20.1/CS.CAV.11VA/default :: kit card CS.CAV.11VA (11th Virginia Cavalry) has no unit in the layer
+          2  e.g. Q20/Q20.1/CS.CAV.4NC/default :: kit card CS.CAV.4NC (4th North Carolina Cavalry) has no unit in the layer
+          1  e.g. Q20/Q20.1/CS.CAV.18VA/default :: kit card CS.CAV.18VA (18th Virginia Cavalry (Imboden)) has no unit in the layer
+          1  e.g. Q20/Q20.1/CS.CAV.62VA/default :: kit card CS.CAV.62VA (62nd Virginia Mounted Infantry) has no unit in the layer
+  --- Q20.2 BLOCKED-INPUT (21 items)
+         21  e.g. Q20/Q20.2/cs-2c-early-35vacavalrybn/default :: input missing: the B.6.15.3 action table of the cavalry (June 26 to July 16) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the documented intervals of presence of each unit 
+  --- Q20.2 FAIL (33 items)
+         33  e.g. Q20/Q20.2/cs-cav-chambliss-10va/default :: a documented cavalry unit (status on_field) is never present in the product: not drawn (Open gap: no road or direction of approach is printed in the ledger for this unit or any unit above it. Sibling-road rule (DEC-015, a modell)
+  --- Q20.3 FAIL (54 items)
+         33  e.g. Q20/Q20.3/cs-cav-chambliss-10va/default :: the unit is documented on the field and has no figures: no manifest
+         14  e.g. Q20/Q20.3/us-cav-1d-merritt-1us/default :: manifest: soldier types: a trooper, an officer and a trumpeter are among the figures: ranks {'private': 380}, instruments {'flag_none': 270, 'bugle': 55, 'guidon_swallowtail_cav': 55}
+          7  e.g. Q20/Q20.3/cs-2c-early-35vacavalrybn/default :: manifest: horse furniture: a saddle and a bridle among the accoutrements: accoutrements ['mcclellan_saddle_m1859']; a carbine, a sabre and a revolver among the arms: weapons ['burnside_carbine', 'm1841_mississippi', 'p1853_enfield', 'richmond_carbine', 'sharps
+  --- Q20.4 FAIL (56 items)
+         33  e.g. Q20/Q20.4/cs-cav-chambliss-10va/default :: the unit is documented on the field and has no riders, no horses
+         21  e.g. Q20/Q20.4/cs-2c-early-35vacavalrybn/default :: horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC Q20): EG-CAV-01: no such register entry
+          1  e.g. Q20/Q20.4/casualties/default :: no regimental data for horse casualties of every regiment exists in the repository; the product draws a flagged value and its gap EG-CAV-02 is not covered: EG-CAV-02: no such register entry
+          1  e.g. Q20/Q20.4/colour-type-condition/default :: no regimental data for horse colour and type distributions and condition per regiment (the furniture is judged in Q20.3) exists in the repository; the product draws a flagged value and its gap EG-FIG-0007 is not covered: EG-FIG-0007: no dated search log regist
+  --- Q20.5 FAIL (48 items)
+         48  e.g. Q20/Q20.5/CS.CAV.10VA/default :: arms: the regiment has an arms record from a source or flagged as such (weapon field with a tier and source keys or a flag): weapon field absent: the regiment inherits the army default
+  --- Q20.6 FAIL (9 items)
+          3  e.g. Q20/Q20.6/dismount-DM-CUSTER-5MI-JUL3/default :: dismounted fight DM-CUSTER-5MI-JUL3: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units ['us-cav-3d-custer-5mi'], drawn [False]; the unit shows horse holders: one in four of the dismounted: roles []
+          3  e.g. Q20/Q20.6/dismount-DM-CUSTER-6MI-JUL2/default :: dismounted fight DM-CUSTER-6MI-JUL2: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units ['us-cav-3d-custer-6mi'], drawn [False]; the share dismounted is a number (a printed fraction or a registered rule), not an
+          1  e.g. Q20/Q20.6/dismount-DM-GAMBLE-JUL1/default :: dismounted fight DM-GAMBLE-JUL1: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units ['us-cav-1d-gamble-8ny', 'us-cav-1d-gamble-3in', 'us-cav-1d-gamble-12il'], drawn [False, False, False]; the unit shows horse ho
+          1  e.g. Q20/Q20.6/dismount-DM-JENKINS-JUL3/default :: dismounted fight DM-JENKINS-JUL3: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units ['cs-cav-jenkins-14va', 'cs-cav-jenkins-16va', 'cs-cav-jenkins-17va', 'cs-cav-jenkins-34vabn', 'cs-cav-jenkins-36vabn'], drawn
+====================================================================================================
+Q23 verdict FAIL runnable_here True renderer_class python run 2026-11-16T00:51:34Z..2026-11-16T00:51:38Z
+command: python3 tools/bt/gates/q23_marking.py
+counts : {'BLOCKED-INPUT': 1, 'COVERED': 0, 'FAIL': 43, 'N/A': 6, 'NOT-RUN': 2, 'PASS': 50}
+  Q23.1    BLOCKED-INPUT=1 PASS=1
+  Q23.2    FAIL=18 N/A=6 PASS=31
+  Q23.3    FAIL=7 NOT-RUN=1 PASS=12
+  Q23.4    FAIL=1 PASS=5
+  Q23.5    FAIL=1
+  Q23.6    NOT-RUN=1
+  Q23.7    FAIL=1
+  Q23.8    FAIL=15 PASS=1
+incomplete_reasons: ["3 item(s) NOT-RUN or BLOCKED-INPUT"]
+owed:
+   - Q23.3 frames: the marks drawn at the default overlay state in frames (tools/horde/bench.sh node docs/battle-theatre/app/tests/ui.spec.mjs, software GL) and a person looking at the saved images (U-10); real-GPU confirmation is owed
+  --- Q23.1 BLOCKED-INPUT (1 items)
+          1  e.g. Q23/Q23.1/class-epilogue :: input missing: the product has no module for this class (The epilogue: Lincoln, the crowd and the platform (November 19)): the product has no epilogue module yet (gate Q28)
+  --- Q23.2 FAIL (18 items)
+         11  e.g. Q23/Q23.2/data.audio_sources :: 42 of 42 members are not flagged: no tier the product reads (none stated) (42)
+          3  e.g. Q23/Q23.2/data.daypositions :: 39 of 484 members are not flagged: render_flag 0 disagrees with the tier inferred (flag 1) (39)
+          3  e.g. Q23/Q23.2/env.ephemeris :: 1 of 1 members are not flagged: no tier the product reads (statement 'computed (not measured); the clock is a project co') (1)
+          1  e.g. Q23/Q23.2/kit.kit_specs :: 8 of 628 members are not flagged: no tier the product reads (statement 'weak') (5); no tier the product reads (none stated) (3)
+  --- Q23.3 FAIL (7 items)
+          4  e.g. Q23/Q23.3/class-clips :: no code that draws or prints a tier mark for this class was found in the interface files searched (overlay.mjs, structures/overlay.mjs, ui/*.mjs, ext/*): no code in the interface prints or draws a tier mark for an animation clip (the clip table carries a tier)
+          1  e.g. Q23/Q23.3/class-guns :: no code that draws or prints a tier mark for this class was found in the interface files searched (overlay.mjs, structures/overlay.mjs, ui/*.mjs, ext/*): the unit card lists the guns of a battery (gunsRows) but prints no tier for the gun count, and no overlay 
+          1  e.g. Q23/Q23.3/class-works :: works overlay: documented (OBJ-P-13) and inferred (OBJ-P-14) are drawn alike apart from colour (outline pattern and glyph the same); works overlay: OBJ-P-11: the object has neither a mapped line nor a place, so the overlay draws no mark for it; works overlay: 
+          1  e.g. Q23/Q23.3/declared-marks-figures3d :: 8 of 55 figure choices that are not documented declare no mark
+  --- Q23.3 NOT-RUN (1 items)
+          1  e.g. Q23/Q23.3/frames :: the marks drawn in frames at the default overlay state were not looked at: this runner has no browser (software GL through tools/horde/bench.sh, app/tests/ui.spec.mjs) and a frame counts only when someone looked at the saved image
+  --- Q23.4 FAIL (1 items)
+          1  e.g. Q23/Q23.4/audio-manifest :: 42 of 42 entries of the audio asset manifest do not carry the "modern reconstruction" or "modern recording" mark
+  --- Q23.5 FAIL (1 items)
+          1  e.g. Q23/Q23.5/individuals :: the overlay draws one mark per unit (Overlay.draw loops over the units); no mark is drawn for an individual soldier, though the register says: Tier overlay glyph 2 on every individual
+  --- Q23.6 NOT-RUN (1 items)
+          1  e.g. Q23/Q23.6/night :: legibility of the marks at night needs frames at night times with the overlay on (Q10.6, T-Q10-8): not run here
+  --- Q23.7 FAIL (1 items)
+          1  e.g. Q23/Q23.7/register :: 11 of 385 non-documented register entries have no marking (plus 0 unindexed entry file(s))
+  --- Q23.8 FAIL (15 items)
+         14  e.g. Q23/Q23.8/data.conflict_defaults :: 3 of 3 open gaps have no usable register entry
+          1  e.g. Q23/Q23.8/units-map-marker :: 108 open-gap units are not drawn and the overlay draws a mark only for a unit that is present on the stage: they have no map marker (the Units list shows their glyph)
+====================================================================================================
+Q25 verdict FAIL runnable_here True renderer_class python run 2026-11-16T00:51:34Z..2026-11-16T00:51:34Z
+command: python3 tools/bt/gates/q25_library.py
+counts : {'BLOCKED-INPUT': 1, 'COVERED': 0, 'FAIL': 237, 'N/A': 0, 'NOT-RUN': 0, 'PASS': 15}
+  Q25.1    FAIL=75 PASS=2
+  Q25.2    FAIL=158 PASS=9
+  Q25.4    BLOCKED-INPUT=1 FAIL=2 PASS=1
+  Q25.5    FAIL=2 PASS=3
+incomplete_reasons: ["1 item(s) NOT-RUN or BLOCKED-INPUT"]
+owed:
+   - Q25.3 second witness of the Official Records (HathiTrust, eHistory) is blocked by the hosts; the row needs a dated `unreachable` record, not a retry
+   - owner step for AUDIO (licence-checked): NOT WRITTEN: the status row has no owner_step (Q25.6)
+   - owner step for BACHELDER (print-only): NOT WRITTEN: the status row has no owner_step (Q25.6)
+   - owner step for MOTION (licence-checked): NOT WRITTEN: the status row has no owner_step (Q25.6)
+   - owner step for PRINT (print-only): NOT WRITTEN: the status row has no owner_step (Q25.6)
+   - owner step for RUMSEY (viewer-only): NOT WRITTEN: the status row has no owner_step (Q25.6)
+  --- Q25.1 FAIL (75 items)
+         72  e.g. Q25/Q25.1/untracked/acquired.json:BL-3 :: no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)
+          2  e.g. Q25/Q25.1/untracked/figures-ledger.json:FIG-L-ACWII-MOD :: no status row reaches this figures-ledger entry through the id map (untracked source, silently skipped, p. 138 Z.7)
+          1  e.g. Q25/Q25.1/untracked/candidates.json:BL3 :: no status row reaches this candidate entry through the id map (untracked source, silently skipped, p. 138 Z.7)
+  --- Q25.2 FAIL (158 items)
+         78  e.g. Q25/Q25.2/row/C11-COPE-ELLIOT :: no status row names this source (silently skipped, p. 138 Z.7)
+          8  e.g. Q25/Q25.2/row/C12-PA-2017-QL2 :: LIDAR-PA17: no named next action; no work-queue entry
+          8  e.g. Q25/Q25.2/row/C13-BUSEY-MARTIN :: PRINT: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only
+          8  e.g. Q25/Q25.2/status/PM-GARDNER-SKETCHBOOK-LOC#file :: no acquisition entry (hash, date, rights, quality) reaches this row through the id map
+  --- Q25.4 BLOCKED-INPUT (1 items)
+          1  e.g. Q25/Q25.4/terms-record :: input missing: GOVERNANCE/library/terms.json (a record per host that terms and robots rules were checked (host, date, what they permit))
+  --- Q25.4 FAIL (2 items)
+          1  e.g. Q25/Q25.4/blocked-hosts :: babel.hathitrust.org is not recorded as blocked in any status row (answered with a bot block on 2026-11-13); ehistory.osu.edu is not recorded as blocked in any status row (answered with a bot block on 2026-11-13)
+          1  e.g. Q25/Q25.4/throttle :: 1 pair(s) of acquisition entries from one host with the same second-resolution time
+  --- Q25.5 FAIL (2 items)
+          2  e.g. Q25/Q25.5/anim3d-clips :: 397 of 397 entries lack licence, source or method; 0 restricted entries are not excluded from export

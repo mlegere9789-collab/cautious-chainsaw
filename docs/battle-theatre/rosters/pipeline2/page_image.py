@@ -67,15 +67,22 @@ def download(url, dest, cap=BIG):
         return 0, repr(e)
 
 
+def pdf_remote_name(ident):
+    """Name of the text PDF inside the Internet Archive item.  Most items name it <identifier>.pdf; the Emory University scans (identifier 05913252.NNNN.emory.edu) name it
+    05913252_NNNN.pdf (read from the file list of the item metadata, Moore 1882 volumes 1 to 4).  The local copy is always <identifier>.pdf."""
+    m = re.match(r'^(\d+)\.(\d+)\.emory\.edu$', ident)
+    return '%s_%s.pdf' % (m.group(1), m.group(2)) if m else ident + '.pdf'
+
+
 def fetch(ident, want_scandata=False, cap=BIG):
     pdf = os.path.join(PDFDIR, ident + '.pdf')
     if not os.path.exists(pdf):
-        st, info = download('https://archive.org/cors/%s/%s.pdf' % (ident, ident), pdf, cap)
+        st, info = download('https://archive.org/cors/%s/%s' % (ident, pdf_remote_name(ident)), pdf, cap)
         if st != 200:
             return None, None, 'no PDF: %s' % (info,)
     sd = os.path.join(PDFDIR, ident + '_scandata.xml')
     if want_scandata and not os.path.exists(sd):
-        st, info = download('https://archive.org/cors/%s/%s_scandata.xml' % (ident, ident), sd, 50 * 1000 * 1000)
+        st, info = download('https://archive.org/cors/%s/%s_scandata.xml' % (ident, pdf_remote_name(ident)[:-len('.pdf')]), sd, 50 * 1000 * 1000)
         if st != 200:
             return pdf, None, 'no scan data: %s' % (info,)
     return pdf, (sd if os.path.exists(sd) else None), None
