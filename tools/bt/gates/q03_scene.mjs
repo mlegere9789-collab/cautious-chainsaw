@@ -47,6 +47,8 @@ await guard('flags', async () => {
   res.anv_patterns = {};
   for (const k of Object.keys(fl.ANV_STAR_SCENARIOS || {})) { try { const p = fl.flagPattern('anv_battle', 'intact', 256, 192, { anvScenario: k }); res.anv_patterns[k] = { ok: !!(p && p.rgba && p.rgba.length) }; } catch (e) { res.anv_patterns[k] = { ok: false, error: String(e.message || e).slice(0, 160) }; } }
   for (const d of SCENE_DATES) res.statutory[d] = ev.unionStarsOn(d);
+  // a figure code that takes the date: `starsOn(dateISO)` of src/figures3d/flags.mjs (the request GOVERNANCE/horde/requests/bt-gates-q03-kit-and-figure-data.md); until it exists the count is the constant US_STARS on every day
+  if (typeof fl.starsOn === 'function') { res.product_stars_by_date = {}; for (const d of SCENE_DATES) res.product_stars_by_date[d] = fl.starsOn(d); }
   return res;
 });
 
@@ -65,7 +67,8 @@ await guard('engine', async () => {
   const askedKnown = {}; for (const id of [...asked].sort()) { askedKnown[id] = E.knows(id); if (!(id in rows)) rows[id] = E.rowsFor(id); }
   // series of the objects the regression set and the pre-existing features name, at every integer minute and one second either side of every window bound of their rows
   const pre = structures.structures.filter(s => /^P-\d\d$/.test(s.id)).map(s => s.id).sort();
-  const reg = ['bld-mcpherson-farm', 'bld-mcpherson-farm#house', 'bld-mcpherson-farm#barn', 'bld-bliss-farm', 'bld-bliss-farm#house', 'bld-bliss-farm#barn', 'RD-avenues', 'FEN-emmitsburg-road'].filter(id => E.knows(id));
+  const outOfWindow = sched.rows.filter(r => r.out_of_battle_scope).flatMap(r => r.object_ids);        // the later fires and removals (S-078, S-079): the objects stand throughout
+  const reg = [...new Set(['bld-mcpherson-farm', 'bld-mcpherson-farm#house', 'bld-mcpherson-farm#barn', 'bld-bliss-farm', 'bld-bliss-farm#house', 'bld-bliss-farm#barn', 'RD-avenues', 'FEN-emmitsburg-road', ...outOfWindow])].filter(id => E.knows(id));
   const extra = new Set();
   const addWin = w => { for (const x of w || []) if (x) { const m = parseIso(x); for (const dm of [-1000, 0, 1000]) extra.add(m + dm); } };
   for (const r of sched.rows) { const t = r.time || {}; addWin(t.window); addWin(t.begin); addWin(t.finish); for (const sc of Object.values(r.scenarios || {})) { addWin(sc.window); addWin(sc.begin); addWin(sc.finish); addWin(sc.phase_open); } }

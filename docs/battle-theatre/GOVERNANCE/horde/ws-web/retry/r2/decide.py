@@ -10,6 +10,8 @@ Outcome vocabulary (field `outcome`):
   still_failed_host_refused         the egress proxy answers 403 to CONNECT for the host (probed again today); not worked around
   still_failed_http_error           the site answered an error code (and no other route exists)
   still_failed_no_source_found      asked again of the reachable full-text indexes (Chronicling America, archive.org, the National Park Service pages, the local corpus): no source states it
+  still_failed_local_hits_unread    the local re-run found matches that have not been read by hand yet (a hit is read before it is used): nothing is claimed
+  still_failed_retry_not_run        the only retry route (the re-run over the whole local corpus) is queued behind the machine lock and had not run when the file was written
   not_retried_blocked_host_instruction   host with its own bot block (note of 2026-11-13): no request made
   not_requested_robots_disallowed   the host's robots.txt disallows the path or host: no request made
   owner_only                        needs a visit or a request to an archive that is not on a reachable host
@@ -45,6 +47,9 @@ R_REFUSED = ('the egress proxy answers 403 to CONNECT for this host (probed 2026
 R_DNR = ('the host answers with its own bot protection (HTTP 403 from the site); the note of 2026-11-13 and the task say not to retry it: no request was made')
 R_NARA = ('catalog.archives.gov/robots.txt (read 2026-11-13, F-018) is "User-agent: * Disallow: /": no page of the host may be fetched by a program; no request was made; its API needs a key, '
           'which is a credential and is not used')
+PENDING_LOCAL = set()   # lookups whose question is in local_rescan.py and has no result yet (filled by assemble.py)
+R_PENDING = ('the re-run of the shard\'s own local question over the whole enlarged local corpus (r2/local_rescan.py, 12 questions over the saved texts) was queued behind the machine lock and had not '
+             'started when this file was written; nothing was read from it; after it has run, `python3 -I assemble.py` adds its result to this row')
 R_JSON = ('the HTML page of loc.gov answers the site\'s challenge page (HTTP 403, not solved or bypassed); the documented JSON interface of the same record (?fo=json, an allowed path) answered 200 and was read')
 
 # ------------------------------------------------------------------------------------------------ explicit dispositions
@@ -114,6 +119,9 @@ ov(['LKR-BH-fence-1-R14.E-14#bh0'], 'retrieved', 'the National Park Service page
 ov(['LKR-BH-fence-1-R14.E-17#bh0'], 'retrieved_no_statement', 'the item is identified as the National Park Service Civil War Series booklet "The Battle of Gettysburg" (npshistory.com/publications/civil_war_series/16): all 20 sections were fetched (F-201, F-330..F-348, 2026-11-16) and section 10 (the Second Corps on Cemetery Ridge on 2 July) was read: it contains no statement about rail breastworks on Cemetery Ridge (searched: breastwork, rails, fence rails, rail fence, barricade, stone wall)')
 ov(['LKR-BH-terrain-2-R13.P-01#bh1'], 'still_failed_host_refused', 'gettysburg.stonesentinels.com is refused by the egress proxy (CONNECT 403, probed again 2026-11-16, F-216); the National Park Service pages on the High Water Mark and the copse of trees (F-305) say "a clump of bushes and small trees" in 1863 and give the 1887 date of the iron fence (evidence line WLK2-copse-nps)')
 
+ov('LKR-fence-1-L6', 'still_failed_no_source_found', 'the question (is the word lunette or epaulement used of the East Cemetery Hill works?) was run again over the three local Official Records volumes on 2026-11-16: part 1 has no hit; part 2 has 3 matches, all in OR27-2-R400 (the Court of Inquiry on the fortifications of Winchester: "a flank to one of the lunettes"), none about Gettysburg; the corpus is closed, the word is not used of Gettysburg in the Official Records')
+ov('LKR-fence-3-L41', 'still_failed_no_source_found', 'the question was run again over the 198 saved National Park Service texts on 2026-11-16: the only hits are the Record of Treatment volume I (three variants of one text) that has Candy\'s brigade in a lane "to the stone wall" bordering Pardee Field (Abraham Spangler Field 8), already cited by terrain-2; no text calls any wall "the Pardee Field wall"')
+
 
 URL_KINDS = {'host_refused', 'http_error', 'web_failure', 'timeout', 'robots_disallowed', 'http_partial', 'tool_failure'}
 
@@ -165,6 +173,11 @@ def decide_auto(r, A, EV, row_hosts, host_of, DNR_HOSTS, REACH, evid_short):
             if read:
                 extra = '; reachable pages were also read in looking for the statement (%s) and do not state it' % ', '.join(a['attempt'] for a in read[:6])
             return {'outcome': 'still_failed_host_refused', 'reason': R_REFUSED.format(when=when) + extra}
+    if local and local[0]['matches'] > 0:
+        a = local[0]
+        return {'outcome': 'still_failed_local_hits_unread',
+                'reason': 'the shard\'s own local question was re-run over the current local corpus (%d of %d files match, %d matches); those matches were not read by hand in this pass, '
+                          'so nothing is claimed from them: the contexts are in the attempt, and each is to be read against its text before any use' % (a['files_with_match'], a['files_scanned'], a['matches'])}
     if n_ca or n_fts or local or read:
         parts = []
         if n_ca:
@@ -193,12 +206,17 @@ def run(inv, att, EV_BY_LK, OUT, SUMMARY, TODAY, row_hosts, host_of, DNR_HOSTS, 
         A = att.get(lk, [])
         EV = EV_BY_LK.get(lk, [])
         d = decide_auto(r, A, EV, row_hosts, host_of, DNR_HOSTS, REACH, evid_short)
+        pend = lk in PENDING_LOCAL
+        if pend and not A and d['outcome'] == 'still_failed_no_route':
+            d = {'outcome': 'still_failed_retry_not_run', 'reason': R_PENDING}
         out = {'lk_id': lk, 'retry_date': TODAY, 'origin': r['origin'], 'kind_recorded': r['kind'], 'status_recorded': r.get('orig_status'), 'date_recorded': r.get('orig_date'),
                'asked': (r['asked'] or '')[:1200], 'result_recorded': (r.get('orig_result') or '')[:900], 'urls_recorded': r['urls'], 'attempts': A,
                'outcome': d['outcome'], 'reason': d['reason']}
         for k in ('answer_extent', 'evidence_note'):
             if k in d:
                 out[k] = d[k]
+        if pend:
+            out['local_rerun_pending'] = R_PENDING
         if EV:
             out['evidence'] = [evid_short(e) for e in EV]
         if r.get('affects'):

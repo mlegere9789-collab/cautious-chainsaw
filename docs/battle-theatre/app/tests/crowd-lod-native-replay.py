@@ -6,6 +6,7 @@
 #   python3 -I docs/battle-theatre/app/tests/crowd-lod-native-replay.py <recordDir> <outDir> [--display :N]
 # Writes <outDir>/<label>.png (the frame, tone mapped), <outDir>/montage-*.png, <outDir>/summary.json. Exit 0 when every frame was drawn without a GL error.
 import os, sys, json, mmap, zlib, struct, math, subprocess, ctypes as C
+import numpy as np                      # tone mapping and the crops of the montages only
 HERE = os.path.dirname(os.path.abspath(__file__))
 rec, outd = os.path.abspath(sys.argv[1]), os.path.abspath(sys.argv[2]); os.makedirs(outd, exist_ok=True)
 def arg(k, d=None): return sys.argv[sys.argv.index(k) + 1] if k in sys.argv else d
@@ -79,16 +80,37 @@ assert G['checkFramebufferStatus'](0x8D40) == 0x8CD5, 'framebuffer incomplete'; 
 
 # ---- tone mapping and PNG (standard library)
 def png(path, w, h, rgb):
-    raw = b''.join(b'\x00' + rgb[y * w * 3:(y + 1) * w * 3] for y in range(h)); ch = lambda t, d: struct.pack('>I', len(d)) + t + d + struct.pack('>I', zlib.crc32(t + d) & 0xffffffff)
+    rgb = np.ascontiguousarray(rgb).reshape(h, w * 3).tobytes(); raw = b''.join(b'\x00' + rgb[y * w * 3:(y + 1) * w * 3] for y in range(h)); ch = lambda t, d: struct.pack('>I', len(d)) + t + d + struct.pack('>I', zlib.crc32(t + d) & 0xffffffff)
     open(path, 'wb').write(b'\x89PNG\r\n\x1a\n' + ch(b'IHDR', struct.pack('>IIBBBBB', w, h, 8, 2, 0, 0, 0)) + ch(b'IDAT', zlib.compress(raw, 6)) + ch(b'IEND', b''))
 EXPO = 1.0
-def tone(v): v = max(0.0, v) * EXPO; v = v / (1.0 + v); return int(255 * (v ** (1 / 2.2)) + 0.5)
+def tone(a): v = np.maximum(a[..., :3], 0.0) * EXPO; v = v / (1.0 + v); return (255 * np.power(v, 1 / 2.2) + 0.5).astype(np.uint8)       # Reinhard and a 2.2 gamma: a picture to look at, not the product's grading
 SKY = (0.40, 0.55, 0.80)
 
+# ---- optional self test of the host's part: the GLSL of the prototype's preamble (hAt, place) evaluated on the GPU for the middle man, against the numbers node computed (terrain height, position)
+def selftest(fu):
+    sys.path.insert(0, HERE); pre = open(os.path.join(rec, 'pre.glsl')).read() if os.path.exists(os.path.join(rec, 'pre.glsl')) else None
+    if not pre: print('selftest: no pre.glsl in the record directory'); return
+    vs = pre + 'void main() { gl_Position = vec4(0.0, 0.0, 0.0, 1.0); gl_PointSize = 1.0; }'
+    fs = pre + 'uniform int uI; layout(location=0) out vec4 o; void main() { Pl p = place(uI, cam.w); o = vec4(p.pos, hAt(p.pos.x, p.pos.z)); }'
+    pr = compile_prog('selftest', vs, fs); G['useProgram'](pr)
+    for blk, bind in (('FU', 0), ('PalU', 1)):
+        bi = G['getUniformBlockIndex'](pr, blk.encode())
+        if bi != 0xFFFFFFFF: G['uniformBlockBinding'](pr, bi, bind)
+    for s_, u in SAMPLERS:
+        l = G['getUniformLocation'](pr, s_.encode())
+        if l >= 0: G['uniform1i'](l, u)
+    fbo = gen(G['genFramebuffers']); G['bindFramebuffer'](0x8D40, fbo); t = gen(G['genTextures']); G['activeTexture'](0x84C0 + 15); G['bindTexture'](0x0DE1, t); G['texStorage2D'](0x0DE1, 1, 0x8814, 1, 1); G['framebufferTexture2D'](0x8D40, 0x8CE0, 0x0DE1, t, 0)
+    G['bindBuffer'](0x8A11, host['fu']); arr = (C.c_float * 128)(*fu); G['bufferSubData'](0x8A11, 0, 512, C.cast(arr, vp)); G['bindBufferBase'](0x8A11, 0, host['fu']); G['bindBufferBase'](0x8A11, 1, host['pal'])
+    for unit, key in ((0, 'height'), (1, 'aerial'), (4, 'sold0'), (5, 'sold1'), (6, 'units')): G['activeTexture'](0x84C0 + unit); G['bindTexture'](0x0DE1, host[key])
+    G['viewport'](0, 0, 1, 1); G['disable'](0xB71); G['useProgram'](pr); G['uniform1i'](G['getUniformLocation'](pr, b'uI'), meta['probe']['mid']); G['drawArraysInstanced'](0, 0, 1, 1)
+    # a point primitive: GL_POINTS = 0
+    buf = (C.c_float * 4)(); G['readPixels'](0, 0, 1, 1, RGBA, FLOAT, C.cast(buf, vp)); check('selftest')
+    pj = meta['probe']; print(f"selftest: GPU place(mid) = ({buf[0]:.2f}, {buf[1]:.2f}, {buf[2]:.2f}), hAt there = {buf[3]:.2f};  node: soldierPlace x z = ({pj['x']:.2f}, {pj['z']:.2f}), T.h = {pj['groundY']:.2f}")
+    G['bindFramebuffer'](0x8D40, host['fbo']); G['activeTexture'](0x84C0)
 # ---- the replay
 H_ = {}                                                       # the recorder's handles -> GL names (or uniform locations)
 h = lambda a: H_[a['h']] if isinstance(a, dict) else 0
-progs = []; images = {}; shots = []
+progs = []; images = {}; raw_ = {}; shots = []
 def compile_prog(name, vs, fs):
     def sh(kind, src):
         s = G['createShader'](kind); G['shaderSource'](s, 1, (cp * 1)(src.encode()), None); G['compileShader'](s); ok = i32(); G['getShaderiv'](s, 0x8B81, C.byref(ok)); b = C.create_string_buffer(65536); G['getShaderInfoLog'](s, 65536, None, b)
@@ -133,49 +155,48 @@ for op in ops:
         check('finishProgs')
     elif k == 'getUniformLocation': H_[op[1]] = G['getUniformLocation'](H_[op[2]], op[3].encode())
     elif k == 'useProgram': G['useProgram'](h(op[1]))
-    elif k == 'uniform1i': G['uniform1i'](h(op[1]) if not isinstance(op[1], dict) else H_[op[1]['h']], op[2]) if False else G['uniform1i'](H_[op[1]['h']] if isinstance(op[1], dict) else -1, op[2])
+    elif k == 'uniform1i': G['uniform1i'](H_[op[1]['h']] if isinstance(op[1], dict) else -1, op[2])
     elif k == 'uniform1f': G['uniform1f'](H_[op[1]['h']] if isinstance(op[1], dict) else -1, op[2])
     elif k == 'uniform4f': G['uniform4f'](H_[op[1]['h']] if isinstance(op[1], dict) else -1, *op[2:6])
     elif k == 'enable': G['enable'](op[1])
     elif k == 'disable': G['disable'](op[1])
     elif k == 'depthFunc': G['depthFunc'](op[1])
     elif k == 'depthMask': G['depthMask'](1 if op[1] else 0)
-    elif k == 'drawArraysInstanced': G['drawArraysInstanced'](*op[1:5])
-    elif k == 'drawElementsInstanced': G['drawElementsInstanced'](op[1], op[2], op[3], C.c_void_p(op[4]), op[5])
+    elif k == 'drawArraysInstanced':
+        if arg('--skip') != 'imp': G['drawArraysInstanced'](*op[1:5])
+    elif k == 'drawElementsInstanced':
+        if arg('--skip') != 'mesh': G['drawElementsInstanced'](op[1], op[2], op[3], C.c_void_p(op[4]), op[5])
     elif k == 'frame':
         label, fu = op[1], op[2]; G['bindFramebuffer'](0x8D40, host['fbo']); G['viewport'](0, 0, W, H); G['clearColor'](*SKY, 1.0); G['clearDepthf'](1.0); G['depthMask'](1); G['clear'](0x4100)
         G['bindBuffer'](0x8A11, host['fu']); arr = (C.c_float * 128)(*fu); G['bufferSubData'](0x8A11, 0, 512, C.cast(arr, vp)); G['bindBufferBase'](0x8A11, 0, host['fu']); G['bindBufferBase'](0x8A11, 1, host['pal'])
         for unit, key in ((0, 'height'), (1, 'aerial'), (2, None), (3, None), (4, 'sold0'), (5, 'sold1'), (6, 'units')):
             if key: G['activeTexture'](0x84C0 + unit); G['bindTexture'](0x0DE1, host[key])
         G['activeTexture'](0x84C0); cur = label; nframe += 1
+        if '--selftest' in sys.argv and nframe == 1: selftest(fu)
     elif k == 'end':
         G['finish'](); buf = (C.c_float * (W * H * 4))(); G['bindFramebuffer'](0x8D40, host['fbo']); G['readPixels'](0, 0, W, H, RGBA, FLOAT, C.cast(buf, vp)); check('frame ' + cur)
-        px = bytearray(W * H * 3)
-        for y in range(H):
-            sy = H - 1 - y
-            for x in range(W):
-                o = (sy * W + x) * 4; q = (y * W + x) * 3; px[q] = tone(buf[o]); px[q + 1] = tone(buf[o + 1]); px[q + 2] = tone(buf[o + 2])
-        images[cur] = bytes(px); png(os.path.join(outd, cur + '.png'), W, H, images[cur]); print('drawn', cur)
+        a = np.ctypeslib.as_array(buf).reshape(H, W, 4)[::-1].copy(); images[cur] = tone(a); raw_[cur] = a; png(os.path.join(outd, cur + '.png'), W, H, images[cur]); print('drawn', cur, 'covered pixels', int((np.abs(a[..., :3] - np.array(SKY)).max(-1) > 3e-3).sum()))
     else: raise SystemExit('replay: the recorded call ' + k + ' is not mapped (add it to crowd-lod-native-replay.py)')
 check('end of replay')
 # ---- montages: the middle of the frame (the unit's middle man) for each distance, the cross-fade row above the hard row
 def crop(img, cx, cy, w, h, zoom):
-    out = bytearray(w * zoom * h * zoom * 3)
-    for y in range(h * zoom):
-        for x in range(w * zoom):
-            sx = min(W - 1, max(0, cx - w // 2 + x // zoom)); sy = min(H - 1, max(0, cy - h // 2 + y // zoom)); q = (y * w * zoom + x) * 3; o = (sy * W + sx) * 3; out[q:q + 3] = img[o:o + 3]
-    return out
-def montage(name, dists, w, h, zoom, cy=H // 2):
-    cols = len(dists); tw, th = w * zoom, h * zoom; sheet = bytearray(tw * cols * th * 2 * 3)
-    for r, mode in enumerate(('fade', 'hard')):
-        for c, D in enumerate(dists):
-            t = crop(images[f'{mode}-{D}'], W // 2, cy, w, h, zoom)
-            for y in range(th): o = ((r * th + y) * tw * cols + c * tw) * 3; sheet[o:o + tw * 3] = t[y * tw * 3:(y + 1) * tw * 3]
-    png(os.path.join(outd, name), tw * cols, th * 2, bytes(sheet))
-have = lambda D: all(f'{m}-{D}' in images for m in ('fade', 'hard'))
-near = [D for D in (8, 9, 10, 11, 12, 13, 14) if have(D)]; far = [D for D in (70, 75, 80) if have(D)]
-if near: montage('montage-near-8-14m.png', near, 150, 200, 1)
-if far: montage('montage-far-70-80m.png', far, 80, 64, 4)
+    x0, y0 = max(0, cx - w // 2), max(0, cy - h // 2); c = img[y0:y0 + h, x0:x0 + w]; return np.repeat(np.repeat(c, zoom, 0), zoom, 1)
+def strip(name, rows, w, h, zoom, cy=H // 2):
+    """rows: lists of frame labels; every cell is the crop (w x h, enlarged by `zoom`) around the middle of its frame, where the camera looks at the man the strip follows."""
+    rs = [np.concatenate([crop(images[l], W // 2, cy, w, h, zoom) for l in row], axis=1) for row in rows if all(l in images for l in row)]
+    if rs: sheet = np.concatenate(rs, axis=0); png(os.path.join(outd, name), sheet.shape[1], sheet.shape[0], sheet)
+fr = {f['label']: f for f in meta['frames']}
+def nums(grp, scene='track'): return sorted({f['D'] for f in meta['frames'] if f['grp'] == grp and f['scene'] == scene})
+nearD = nums('near'); farD = [D for D in nums('far') if 70 <= D <= 84]
+lab = lambda m, D, sc='track': f'{sc}-{m}-{D:g}'
+if nearD:
+    a, b = nearD[:len(nearD) // 2], nearD[len(nearD) // 2:]
+    strip('strip-near-a.png', [[lab('fade', D) for D in a], [lab('hard', D) for D in a]], 170, 260, 1)
+    strip('strip-near-b.png', [[lab('fade', D) for D in b], [lab('hard', D) for D in b]], 170, 260, 1)
+if farD: strip('strip-far.png', [[lab('fade', D) for D in farD], [lab('hard', D) for D in farD]], 64, 80, 3)
+for sc, w_, h_, z_, nm in (('diag', 640, 360, 1, 'diag-near.png'),):
+    if all(lab(m, 8, sc) in images for m in ('fade', 'hard')): png(os.path.join(outd, nm), W, H * 2, np.concatenate([images[lab('fade', 8, sc)], images[lab('hard', 8, sc)]], axis=0))
+if all(lab(m, 60, 'diag') in images for m in ('fade', 'hard')): strip('diag-far.png', [[lab('fade', 60, 'diag')], [lab('hard', 60, 'diag')]], 320, 180, 2)
 json.dump({'context': G['getString'](0x1F02).decode(), 'renderer': G['getString'](0x1F01).decode(), 'ops': nops, 'frames': nframe, 'gl_errors': errs, 'frame_meta': meta['frames']}, open(os.path.join(outd, 'summary.json'), 'w'), indent=1)
 if xv: xv.terminate(); xv.wait()
 print('GL errors:', errs or 'none'); sys.exit(1 if errs else 0)

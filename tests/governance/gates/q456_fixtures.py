@@ -150,3 +150,104 @@ def q04_inputs():
     return {'bound': b, 'nof': {'units': [{'id': 'us-cav-2d-huey', 'status': 'never_on_field'}]},
             'arrivals': {'meta': {'named_periods': {'evening': {'t': '1863-07-02T19:32'}, 'sunrise_jul3': {'t': '1863-07-03T04:36'}}}, 'rows': [{'unit_id': 'cs-cav-hampton', 'detached_roles': [{'unit': 'cs-cav-hampton', 'location': 'hunterstown'}]}]},
             'register': {'EG-0005': {'id': 'EG-0005', 'status': 'open'}}, 'cross': {'compared': 0, 'differences': []}}
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Q05
+def _leg(i, t0, t1, length, gait, mean=None, mx=None, mn=None, zero=0, start=(0.0, 0.0), end=None):
+    dur = (t1 - t0) * 60.0
+    mean = length / dur if mean is None else mean
+    return {'i': i, 't0': t0, 't1': t1, 'dur_s': dur, 'length_m': length, 'mean_ms': mean, 'max_seg_ms': mean if mx is None else mx, 'min_seg_ms': mean if mn is None else mn, 'n_wp': 3, 'zero_time_moves': zero, 'gait': gait,
+            'tier': 'plausible-procedural', 'sources': ['PLACEMENT'], 'start': list(start), 'end': list(end if end is not None else (length, 0.0))}
+
+
+def _q05_behaviour(h, legs, *, arm='infantry', turns=None, offsets=None, step=None, gun_step=None, train=None, extent=40.0, entry_xz=(0.0, 0.0)):
+    joins = []
+    for k, l in enumerate(legs):
+        prev = legs[k - 1] if k else None
+        joins.append({'i': k, 'd_m': 0.0, 'gap_s': 0.0 if k == 0 else 600.0, 'after': 'leg' if prev else 'entry'})
+    return {'hash': h, 'arm': arm, 'drawn': True, 'render': 'moving', 'klass': 1 if arm == 'cavalry' else 0, 'extent_m': extent, 'n_events': 30, 'arrival': {'earliest': 44940, 'default': 45120, 'latest': 45120},
+            'enter': {'t': 45120, 'xz': list(entry_xz)}, 'legs': legs, 'joins': joins, 'turns': turns if turns is not None else [{'t': 45200.0, 'dA': 0.3, 'turn_s': 25.0, 'r_m': extent, 'v_ms': 1.25, 'omega_peak': 0.018, 'rot_peak_ms': 0.72, 'edge_peak_ms': 1.44, 'edge_sum_ms': 1.97, 'edge_mean_ms': 1.35}],
+            'step': step or {'max': 2.44, 'at': 45121.0, 'n_over': 0, 'pairs': 300, 'offenders': [], 'vmax_at_pair': {'d': 2.44, 'dt': 1}}, 'gun_step': gun_step, 'train': train, 'offsets': offsets if offsets is not None else [], 'n_crew_groups': 0, 'max_turn_edge_ms': 1.44}
+
+
+def q05_dump():
+    U = [_unit('us-aop', 'army', None, None, drawn=False), _unit('us-1c-1d-r1', 'regiment', 'infantry', 'us-aop', deps=['C-004'], group=4), _unit('us-1c-art-b1', 'battery', 'artillery', 'us-aop'), _unit('us-cav-1d-c1', 'regiment', 'cavalry', 'us-aop', kind='cav')]
+    for u in U:
+        u['register'] = 'EG-0001'
+    h = {u['id']: 'h-' + u['id'] for u in U}
+    h['us-1c-1d-r1'] = 'i1'
+    leg_dq = _leg(0, 45120.0, 45200.0, 11700.0, 'double_quick', mean=2.4375, mx=2.4384, mn=2.4366)
+    leg_m = _leg(1, 45800.0, 46000.0, 15000.0, 'march', mean=1.25)
+    tr_ok = {'windows': 3, 'samples': 900, 'lists': {k: {'max_ms': v, 'at': 45300.0, 'n': 100} for k, v in {'guns': 0.0, 'limbers': 1.3, 'caissons': 1.3, 'wagons': 1.2, 'horses': 1.5, 'drivers': 1.5}.items()}}
+    off = [{'kind': 'ledger_vs_edge', 'unit': 'us-1c-1d-r1', 'stop': 'PO-01', 'place': 'McPherson Ridge', 'documented': 44000.0, 'arrives': 44052.0, 'distance_m': 7600, 'late_min': 52, 'road': 'Emmitsburg Road', 'list': 'offsets'}]
+    B = {'us-1c-1d-r1': {'i1': _q05_behaviour('i1', [leg_dq, leg_m], offsets=off)},
+         'us-1c-art-b1': {'h-us-1c-art-b1': _q05_behaviour('h-us-1c-art-b1', [_leg(0, 45120.0, 45500.0, 28500.0, 'march', mean=1.25)], arm='artillery', train=tr_ok, extent=56.0)},
+         'us-cav-1d-c1': {'h-us-cav-1d-c1': _q05_behaviour('h-us-cav-1d-c1', [_leg(0, 45120.0, 45500.0, 28500.0, 'march', mean=1.25)], arm='cavalry', extent=60.0)}}
+    grid = {'mode': 'dense', 'samples': 27375, 'integer_minutes': 27361}
+    return {
+        'schema': 'q05-dump/1', 'layer': {'id': 'real-1', 'units': len(U)}, 'ground': GROUND, 'battle': {'from': FROM, 'to': TO}, 'grid': {'mode': 'dense', 'from': FROM, 'to': TO, 'boundary_s': 1, 'resolution_m': 1.0},
+        'units': U, 'hashes': {'default': h, 'scenarios': {'delegated': {}, 'pdf': {}}},
+        'scenarios': {'delegated': {'id': 'delegated', 'kind': 'named', 'group': None, 'varied': [], 'choices': {'C-004': 'delegated'}, 'optionText': {}, 'changed': 0}, 'pdf': {'id': 'pdf', 'kind': 'named', 'group': None, 'varied': ['C-004'], 'choices': {'C-004': 'recommended'}, 'optionText': {}, 'changed': 0}},
+        'scenario_set': {'id': 'S*', 'complete': True, 'count': 2, 'groups': [{'id': 4, 'conflicts': ['C-004'], 'options': {'C-004': ['delegated', 'recommended']}, 'product': 2, 'units': 1}], 'options': {}, 'factorisation': {'scenarios': 2, 'violations': [], 'joint': [{'scenario': 'pdf', 'compared': 4, 'mismatches': [], 'n_mismatch': 0}], 'checked_units': 4, 'rule': 'fixture'}, 'restriction_check': {'checked': False}},
+        'behaviours': B, 'scans': [{'scenario': 'delegated', 'scanned_units': 4, 'full': True, 'grid': grid, 'load': {'events': 100, 'rejected': 0, 'unsupported': 0}, 'refused_total': 0, 'ms': 10}],
+        'selected_units': None, 'bounds': {'foot_upper': 2.5146, 'cavalry_upper': 4.4704, 'team_upper': 6.096, 'factor': 1.0001}, 'product': {'speed': {'march': 1.25, 'double_quick': 2.4384}, 'stage': {'TURN_S': 25, 'MAX_TURN_EDGE_MS': 4.4}, 'train': {'layout_turn_s': 240}}, 'train_run': True,
+    }
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Q06
+def _q06_leg(i, t0, t1, start, end, *, gait='march', tier='plausible-procedural', sources=('PLACEMENT', 'GAZETTEER'), mean=None):
+    import math
+    ln = math.hypot(end[0] - start[0], end[1] - start[1])
+    return {'i': i, 't0': t0, 't1': t1, 'length_m': ln, 'mean_ms': (ln / ((t1 - t0) * 60.0)) if mean is None else mean, 'max_seg_ms': (ln / ((t1 - t0) * 60.0)) if mean is None else mean, 'gait': gait, 'tier': tier, 'sources': list(sources),
+            'start': list(start), 'end': list(end), 'start_ll': [-77.26 + start[0] * 1e-5, 39.78 + start[1] * 1e-5], 'end_ll': [-77.26 + end[0] * 1e-5, 39.78 + end[1] * 1e-5]}
+
+
+def _q06_behaviour(h, *, render='moving', legs=None, formations=(), leave=None, layout=None, entry=True, approach=True, status='on_field', arm='infantry'):
+    legs = legs if legs is not None else [_q06_leg(0, 45120.0, 45200.0, (-3500.0, 100.0), (-1500.0, 600.0)), _q06_leg(1, 45200.0, 45260.0, (-1500.0, 600.0), (-900.0, 300.0))]
+    joins = []
+    for k, l in enumerate(legs):
+        joins.append({'i': k, 'd_m': 0.0, 'gap_s': 0.0, 'after': 'leg' if k else 'entry'})
+    last = (legs[-2] if (leave and len(legs) > 1) else legs[-1]) if legs else None          # the fighting position is where the chain ends, before the march out
+    return {
+        'hash': h, 'arm': arm, 'level': 'regiment', 'status': status, 'render': render, 'render_reason': 'Placed by a printed approach road and dated place(s)', 'tier': 'plausible-procedural', 'register': 'EG-0001', 'drawn': render in ('moving', 'edge_only'), 'count': 300,
+        'plan': {'status': render, 'reason': '', 'road': 'Emmitsburg Road', 'column_index': 1, 'column_size': 3, 'n_stops': 2, 'n_days': 0, 'n_days_feasible': 0, 'n_skipped': 0, 'n_departures': 1 if leave else 0, 'approach': 'AP-01'},
+        'stops': [{'po': 'PO-01', 'place': 'McPherson Ridge', 't_doc': 45200.0, 'depart_doc': None, 'place_tier': 'inferred', 'conflict': None, 'heading_deg': 70.0}],
+        'days': [], 'approach': ({'id': 'AP-01', 'road': 'Emmitsburg Road', 'tier': 'plausible-procedural', 'owner': 'us-1c', 'owner_level': 'corps', 'inherited': True, 'modelled': False, 'register': 'EG-0005', 'claim': None, 'row': 'us-1c', 'kind': None, 'has_sources': True} if approach else None),
+        'arrival': {'earliest': 45120.0, 'default': 45120.0, 'latest': 45120.0, 'tier': 'plausible-procedural', 'entry_status': 'resolved: where Emmitsburg Road leaves the loaded ground', 'entry': {'lng': -77.26, 'lat': 39.78, 'sigma_m': 40}},
+        'entry': ({'t': 45120.0, 'lng': -77.26, 'lat': 39.78, 'x': -3500.0, 'z': 100.0, 'outside_box': True, 'outside_ground': True, 'd_road_m': 0.0, 'road': 'Emmitsburg Road', 'queue_offset_m': 46, 'crossing_s': 3139.0, 'clamped': False} if entry else None),
+        'legs': legs, 'joins': joins, 'slot': {'lng': -77.25, 'lat': 39.79, 'x': last['end'][0], 'z': last['end'][1], 'heading_deg': 70.0} if last else None, 'end_vs_slot_m': 0.0,
+        'layout': layout or {'kind': 'cav' if arm == 'cavalry' else 'col', 'has_alt': bool(formations), 'base': 'column_fours', 'alt': 'line' if formations else None, 'formation_kind': 'column_fours'},
+        'formations': list(formations), 'formation_default_s': 90, 'leave': leave, 'n_events': 20,
+    }
+
+
+def q06_dump():
+    U = [_unit('us-aop', 'army', None, None, drawn=False), _unit('us-1c-1d-r1', 'regiment', 'infantry', 'us-aop', deps=['C-004'], group=4), _unit('us-1c-1d-r2', 'regiment', 'infantry', 'us-aop'), _unit('us-cav-1d-c1', 'regiment', 'cavalry', 'us-aop', kind='cav'),
+         _unit('us-2c-1d-open', 'regiment', 'infantry', 'us-aop', drawn=False, render='not_drawn'), _unit('us-6c-2d-edge', 'regiment', 'infantry', 'us-aop', render='edge_only'), _unit('us-cav-2d-huey', 'brigade', None, None, status='never_on_field', drawn=False)]
+    for u in U:
+        u['render'] = {'us-aop': 'aggregate', 'us-2c-1d-open': 'not_drawn', 'us-6c-2d-edge': 'edge_only', 'us-cav-2d-huey': 'not_on_field'}.get(u['id'], 'moving')
+        u['drawn'] = u['render'] in ('moving', 'edge_only')
+    h = {u['id']: 'q-' + u['id'] for u in U}
+    dep_legs = [_q06_leg(0, 45120.0, 45200.0, (-3500.0, 100.0), (-1500.0, 600.0)), _q06_leg(1, 45200.0, 45260.0, (-1500.0, 600.0), (-900.0, 300.0)), _q06_leg(2, 46000.0, 46100.0, (-900.0, 300.0), (-3600.0, 150.0))]
+    leave = {'t': 46100.0, 'march_before': {'t1': 46100.0, 'end_ll': [-77.2936, 39.7815], 'end_in_box': False, 'start_vs_last_slot_m': None}}
+    form = [{'t': 45261.0, 'formation': 'line', 'duration_s': 90, 'tier': 'plausible-procedural', 'clause': 'CL-001', 'sources': ['PLACEMENT']}]
+    B = {'us-1c-1d-r1': {'q-us-1c-1d-r1': _q06_behaviour('q-us-1c-1d-r1')},
+         'us-1c-1d-r2': {'q-us-1c-1d-r2': _q06_behaviour('q-us-1c-1d-r2', legs=dep_legs, leave=leave, formations=form)},
+         'us-cav-1d-c1': {'q-us-cav-1d-c1': _q06_behaviour('q-us-cav-1d-c1', arm='cavalry')},
+         'us-2c-1d-open': {'q-us-2c-1d-open': _q06_behaviour('q-us-2c-1d-open', render='not_drawn', legs=[], entry=False, approach=False)},
+         'us-6c-2d-edge': {'q-us-6c-2d-edge': _q06_behaviour('q-us-6c-2d-edge', render='edge_only', legs=[])},
+         'us-cav-2d-huey': {'q-us-cav-2d-huey': _q06_behaviour('q-us-cav-2d-huey', render='not_on_field', legs=[], entry=False, approach=False, status='never_on_field')}}
+    B['us-6c-2d-edge']['q-us-6c-2d-edge']['plan'].update({'status': 'edge_only', 'reason': 'a road of approach is printed; no place after arrival is printed for this unit', 'n_stops': 0})
+    B['us-6c-2d-edge']['q-us-6c-2d-edge']['slot'] = None
+    B['us-2c-1d-open']['q-us-2c-1d-open']['render_reason'] = 'Open gap: no road or direction of approach is printed in the ledger for this unit or any unit above it.'
+    return {
+        'schema': 'q06-dump/1', 'layer': {'id': 'real-1', 'units': len(U)}, 'ground': GROUND, 'battle': {'from': FROM, 'to': TO}, 'units': U, 'hashes': {'default': h, 'scenarios': {'delegated': {}, 'pdf': {}}},
+        'scenarios': {'delegated': {'id': 'delegated', 'kind': 'named', 'group': None, 'varied': [], 'choices': {'C-004': 'delegated'}, 'optionText': {}, 'changed': 0}, 'pdf': {'id': 'pdf', 'kind': 'named', 'group': None, 'varied': ['C-004'], 'choices': {'C-004': 'recommended'}, 'optionText': {}, 'changed': 0}},
+        'scenario_set': {'id': 'S*', 'complete': True, 'count': 2, 'groups': [{'id': 4, 'conflicts': ['C-004'], 'options': {'C-004': ['delegated', 'recommended']}, 'product': 2, 'units': 1}], 'options': {}, 'factorisation': {'scenarios': 2, 'violations': [], 'joint': [{'scenario': 'pdf', 'compared': 6, 'mismatches': [], 'n_mismatch': 0}], 'checked_units': len(U), 'rule': 'fixture'}, 'restriction_check': {'checked': False}},
+        'behaviours': B, 'scans': [], 'selected_units': None, 'product': {'speed': {'march': 1.25, 'double_quick': 2.4384}, 'formation_seconds': 90}, 'resolution_m': 1.0,
+    }
+
+
+def q06_inputs_undrawn():
+    return {'files': {'us-1c-1d-art': {'present': True, 'records': 10}}, 'by_unit': {'us-2c-1d-open': {'position': 3, 'arrival': 1}}, 'status': {'us-2c-1d-open': {'reason': 'no_road', 'claims_own': {'total': 4, 'usable': 4}}},
+            'checker': {'command': 'check_undrawn.py --all', 'exit': 0, 'files': {'us-1c-1d-art': {'records': 10, 'units_named': 2, 'errors': 0, 'warnings': 0}}}}

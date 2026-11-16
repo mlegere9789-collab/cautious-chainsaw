@@ -148,12 +148,12 @@
    "problems": 0,
    "note": "no other group on disk patches watch-together.html at the time of this run: nothing is claimed about groups that do not exist yet"
   },
-  "mutants": "not yet run: queued behind the machine lock",
-  "browser_check": "not yet run: queued behind the machine lock"
+  "mutants": "no result yet: the run is queued behind the machine lock (tools/horde/bench.sh node candidates/r1h/wp-infra-28b/mutants.mjs); when it has run its result is candidates/r1h/wp-infra-28b/evidence/mutants.json, and a missing file means it has not run",
+  "browser_check": "no result yet: the run is queued behind the machine lock (tools/horde/bench.sh node candidates/r1h/wp-infra-28b/browser-check.mjs --tree tmp/r1h-cand/wp-infra-28b/dist --base release/R1g/dist); when it has run its result is candidates/r1h/wp-infra-28b/evidence/browser-check.json, and a missing file means it has not run"
  },
  "notes": [
   "Not run: real PeerJS traffic between two browsers over the public broker (T0-WTP specs on the full train, for the release workstream; the entry lists it as owed); any GPU, timing or train-build figure; the existing tests/t0 specs named in the request note (read, not run); a phone or an engine other than Chromium.",
-  "The proof record above was written by prove.mjs run directly (3 s wall, light); the same command is queued behind the machine lock and rewrites this file when it runs. The mutation run and the real-Chromium pass are queued behind the lock too; their results appear under evidence/ and in the evidence block above only when they have run.",
+  "The proof record above (anchors, red, green, passes) was written by prove.mjs run directly on 2026-11-16 (3 s wall, light, no browser); the same command is queued behind the machine lock and rewrites those fields when it runs. The mutation run and the real-Chromium pass exist only as queued locked jobs (the lock is held back by timing jobs of other workstreams); their results are the files under evidence/ and are not in this record until they have run.",
   "No sibling group file existed on disk for watch-together.html when coordination-check.mjs ran: nothing is claimed about the anchors of wp-content-09b, wp-seo-04b or wp-seo-11b beyond the lint-located TICK and REALTIME text and the head and footer text, which lie outside every anchor. Run it again when those groups exist.",
   "Nothing is registered in a train, deployed or committed by this item. The group adds no overlay file."
  ]

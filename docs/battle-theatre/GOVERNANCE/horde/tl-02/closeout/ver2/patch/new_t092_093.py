@@ -49,7 +49,7 @@ ROW('T1-092', 'corrected',
               SR(S_OR, r'cupola|belfry|steeple', what='cupola in the OR')],
     register=REG('Clock time of the seminary steeple scene (Jerome, Buford, Reynolds); the ladder; the original of Jerome\'s letter (T1-092, T1-093)', 'Jerome\'s own letter of 1865 was found at second hand and gives "seven A.M." and "half an hour" but no clock time for the meeting; a ladder from the attic to the cupola is in no text read; the original letter was not seen.',
                  'Show the steeple scene as documented (Jerome 1865 as a claim; New York 1900 and Bachelder 1873 as later narrative) with no clock hour; mark the sighting hour inferred (about 09:30 if Reynolds met Buford at about ten, Weld via Meade 1913); omit the ladder.', 'documented', category='conflicting sources',
-                 competing='steeple (Jerome 1865, New York 1900) / field on the right of the road (Weld 1863)', impact='Seminary steeple scene', ask='optional owner act: ask the U.S. Army Military History Institute (Bachelder Papers) for a copy of Jerome\'s letter of 18 Oct 1865; Claude contacts no third party', rids='R11', existing='tl-02-EG-003'),
+                 competing='steeple (Jerome 1865, New York 1900) / field on the right of the road (Weld 1863)', impact='Seminary steeple scene', ask='optional owner act: ask the U.S. Army Military History Institute (Bachelder Papers) for a copy of Jerome\'s letter of 18 Oct 1865; contacting a third party is owner-only; the work does not do it', rids='R11', existing='tl-02-EG-003'),
     related=['T1-086', 'T1-093', 'T1-096', 'T1-091', 'tl-02-EG-003'])
 
 # ---------------------------------------------------------------------------------------------------------------- T1-093

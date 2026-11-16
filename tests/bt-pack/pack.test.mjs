@@ -4,7 +4,7 @@
 // and reduced working files.
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import crypto from 'node:crypto'; import { execFileSync } from 'node:child_process';
 import zlib from 'node:zlib';
-import { pack, trace, audit, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, AUDIT_ALLOW, AUDIT_PRODUCTION, WITHHELD, PROJECT, EXCLUDE, scrubMakerMembers, jsonMembers, isMakerMember, sizeByFolder, loadCensus, KNOWN_LOADS, CENSUS_OK } from '../../tools/bt/pack_theatre.mjs';
+import { pack, trace, audit, auditFiles, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, AUDIT_ALLOW, AUDIT_PRODUCTION, AUDIT_PROCESS, AUDIT_PROCESS_RE, AUDIT_REVIEW_RE, AUDIT_REVIEW_ONLY, WITHHELD, PROJECT, EXCLUDE, scrubMakerMembers, jsonMembers, isMakerMember, sizeByFolder, loadCensus, KNOWN_LOADS, CENSUS_OK } from '../../tools/bt/pack_theatre.mjs';
 import { readZipDirectory } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
@@ -236,9 +236,15 @@ test('copy audit: a production statement that wraps onto the next line of a comm
   fs.writeFileSync(f('g.mjs'), body(['// first line says nothing', '// second line says (tools/build-x.mjs) and that is one hit, on line 2', 'export const A = 1;'])); h = audit(d); assert.equal(h.length, 1); assert.equal(h[0].line, 2); assert.ok(!h[0].wrapped, 'a statement inside one line is the line rule, not the wrapped one');
   fs.rmSync(d, { recursive: true, force: true });
 });
-test('copy audit: words of the working process are counted for review', () => {
-  const d = fs.mkdtempSync(path.join(os.tmpdir(), 'btaud-')); fs.writeFileSync(path.join(d, 'a.json'), '"no source was opened by this workstream", "horde/tl-12/results.jsonl", "two shards", "this pass"');
-  fs.writeFileSync(path.join(d, 'b.json'), '"checked with tools/bt/check_x.py and app/tools/build-y.mjs"'); const r = auditReview(d); assert.equal(r['tool path'].count, 2); assert.equal(audit(d).length, 0, 'tool paths are counted for review, not failed'); assert.equal(r.workstream.count, 1); assert.equal(r.horde.count, 1); assert.equal(r.shard.count, 1); assert.equal(r['this pass'].count, 1); assert.equal(audit(d).length, 0);
+test('copy audit: what is only counted for review is counted by category; the words that fail are not counted twice', () => {
+  const d = fs.mkdtempSync(path.join(os.tmpdir(), 'btaud-')); fs.writeFileSync(path.join(d, 'a.json'), '"a horde of stragglers", "bind group 1 holds this pass\'s data", "bookmarks last for this session", "ws10: riders", "Round 3: six variants"');
+  fs.writeFileSync(path.join(d, 'b.json'), '"checked with tools/bt/check_x.py and app/tools/build-y.mjs"'); const r = auditReview(d);
+  assert.equal(audit(d).length, 0, 'none of these words is a hit: the product uses them in another sense, or they are labels of identifiers');
+  assert.equal(r['tool path'].count, 2); assert.equal(r.horde.count, 1); assert.equal(r['this pass'].count, 1); assert.equal(r['this session'].count, 1); assert.equal(r['ws label'].count, 1); assert.equal(r['round label'].count, 1);
+  fs.writeFileSync(path.join(d, 'c.json'), '"no source was opened by this workstream", "GOVERNANCE/horde/tl-12/results.jsonl", "two shards", "the task brief says evening"'); const r2 = auditReview(d);
+  for (const k of ['workstream', 'shard', 'task brief']) assert.equal(r2[k], undefined, k + ' is a failing word: it is a hit, not a count');
+  assert.equal(r2.horde.count, 1, 'the working folder GOVERNANCE/horde/ is a hit and is not counted again; the plain word still is');
+  assert.equal(audit(d).filter(h => h.file === 'c.json').length, 1, 'one hit per line');
   fs.rmSync(d, { recursive: true, force: true });
 });
 test('the shipped kit and data files carry no production note', () => {
@@ -561,12 +567,74 @@ test('copy audit: a printed given name in the name field of a roster row is data
   assert.ok(AUDIT_ALLOW.every(a => a.file instanceof RegExp && a.why && a.match && a.before), 'every allowance names its file, the word, the text in front of it and why');
   assert.ok(AUDIT_ALLOW.every(a => /rosters/.test(a.file.source)), 'no allowance outside the roster data');
 });
-test('real roster data: the printed names pass, nothing else in the 118 files is a hit (a second look at the files the roster section will ship)', () => {
-  const dir = path.join(BT, 'rosters/data2'); if (!fs.existsSync(dir)) return;
-  const d = fs.mkdtempSync(path.join(os.tmpdir(), 'btros-')); try { fs.mkdirSync(path.join(d, 'rosters'), { recursive: true }); fs.cpSync(dir, path.join(d, 'rosters/data2'), { recursive: true });
-    const hits = audit(d).filter(h => !/^rosters\/data2\/(units\.json|sources\/[\w.-]+\.json)$/.test(h.file) || !/"generated"/.test(h.text || ''));      // the "generated" date keys of the index files are the publication filter's (next tests)
-    assert.deepEqual(hits, [], 'hits in the roster data:\n' + hits.map(h => `${h.file}:${h.line} ${h.match}`).join('\n')); } finally { fs.rmSync(d, { recursive: true, force: true }); }
+test('copy audit: the words of the working process are hits of kind process, in the shapes of the real files; the same words in another sense are not', () => {
+  const HIT = [
+    ['"status": "seeded_unverified: no source was opened by this workstream; the manual items are the ones docs/battle-theatre/drill/ already extracted",', 'workstream'],
+    ['"_doc": "Counts the Official Records give for four batteries, as read by shard terrain-1 (GOVERNANCE/horde/terrain-1/proposed-register/terrain-1-EG-17.md: Hunt p.229-231).",', 'shard'],
+    ["    } catch (e) { w.error = String(e.message || e); console.warn('workstream 6 lists not built:', w.error); }", 'workstream'],
+    ['// What is drawn and why (data/artillery-train.json carries every value; GOVERNANCE/horde/ws6-structures/proposed-register/ has the open items):', 'horde'],
+    ["the OR evidence is the shards' second-witness extraction (the raw OR scan is not in this checkout)", 'shards'],
+    ['report). The task brief says | evening. Preferred: early- | to-mid afternoon', 'task brief'],
+    ['// Evidence ledger of the figure models (2026-11-04, shard vis-figures): the primary-source passages', 'shard'],
+    ['whose text was NOT located in this round, so any change in it is unchecked', 'in this round'],
+    ['// CAVALRY HORSES AND DISMOUNTED CAVALRY (workstream ws10: riders, horses, horse casualties)', 'workstream'],
+    ['the table was read in a research session of 14 July', 'research session'],
+    ['checked again in a later session', 'later session'],
+    ['{"id":"workstream6","x":1}', 'workstream'], ['"horde/tl-12/results.jsonl"', 'horde'], ['see shards.json', 'shards'],
+    ['verified in an earlier session and a previous session', 'earlier session'], ['for this round only', 'for this round'],
+  ];
+  for (const [t, word] of HIT) {
+    const h = auditOf({ 'a.txt': 'plain line\n' + t + '\n' });
+    assert.equal(h.length, 1, `should be one hit: ${t} -> ${JSON.stringify(h)}`); assert.equal(h[0].kind, 'process', t); assert.equal(h[0].line, 2, t); assert.match(h[0].match, new RegExp(word.replace(/ /g, '\\s'), 'i'), t);
+    assert.equal(auditOf({ 'a.jsonl.gz': gz('{"f":"x"}\n' + t + '\n') }).length, 1, 'the same line inside a gzip file: ' + t);
+  }
+  const MISS = [
+    ['a horde of stragglers and wagons choked the Baltimore Pike', 'the plain word of a source: counted for review, not failed'],
+    ["bind group 1 holds this pass's data; the second pass draws the shadows", 'a render pass'],
+    ['your bookmarks last for this session', 'a page session'],
+    ['15th Congress, 1st Session, chapter 34 (An Act to establish the flag of the United States)', 'a session of Congress'],
+    ['ws10 and WS9:HASKELL-1908 and ws6-EG-05', 'identifiers and labels are counted, not failed'],
+    ['Round 3: six variants of every state', 'a label'],
+    ['the workstreamer and the shardless wall', 'longer words are not the words of the list'],
+    ['the Fifth Corps fought in the last round of the attack on the Peach Orchard', 'round alone is not the process'],
+  ];
+  for (const [t, what] of MISS) { const h = auditOf({ 'a.txt': 'x ' + t + ' y' }); assert.equal(h.length, 0, `should not be a hit (${what}): ${t} -> ${JSON.stringify(h)}`); }
+  // one hit per line even with several words; a file NAME is read too; the parts are plain patterns that AUDIT_PROCESS_RE holds, and the rules of AUDIT_RE (read by the kit tools) are untouched
+  assert.equal(auditOf({ 'a.txt': 'shard terrain-1 of the workstream, GOVERNANCE/horde/x, the task brief\n' }).length, 1);
+  const nm = auditOf({ 'app/data/shard-3.json': '{}', 'app/data/ok.json': '{}', 'x/workstream-6.txt': 'plain' }); assert.deepEqual(nm.map(h => [h.file, h.where, h.kind]).sort(), [['app/data/shard-3.json', 'name', 'process'], ['x/workstream-6.txt', 'name', 'process']]);
+  assert.ok(AUDIT_PROCESS.length >= 6 && AUDIT_PROCESS.every(x => typeof x === 'string')); for (const x of AUDIT_PROCESS) assert.ok(AUDIT_PROCESS_RE.source.includes(x), 'every process rule is part of AUDIT_PROCESS_RE');
+  for (const w of ['workstream', 'shard', 'horde', 'task brief', 'research session']) assert.ok(!AUDIT_RE.source.includes(w), `AUDIT_RE (read by tools/bt/kit_evidence_lib.py) does not carry the process rule for ${w}`);
+  // the old list of review words is never shortened: each word is a hit now or is counted
+  for (const [w, how] of [['workstream', 'hit'], ['shard', 'hit'], ['task brief', 'hit'], ['research session', 'hit'], ['later session', 'hit'], ['horde', 'count'], ['this session', 'count'], ['our pass', 'count'], ['this pass', 'count']]) {
+    assert.match(w, new RegExp(AUDIT_REVIEW_RE.source, 'i'), w + ' is still in the list of working-process words'); const d = fs.mkdtempSync(path.join(os.tmpdir(), 'btaud-')); fs.writeFileSync(path.join(d, 'a.txt'), `x ${w} y`);
+    try { assert.equal(audit(d).length, how === 'hit' ? 1 : 0, w); const r = auditReview(d); assert.equal(Object.values(r).reduce((n, v) => n + v.count, 0), how === 'count' ? 1 : 0, w + ' is ' + (how === 'count' ? 'counted' : 'not counted twice')); } finally { fs.rmSync(d, { recursive: true, force: true }); }
+  }
+  assert.ok(AUDIT_REVIEW_ONLY.every(([k, re]) => k && re instanceof RegExp && re.global));
 });
+test('fixture: a build whose shipped file names a unit of work never gets the clean zip name (a count that fails nothing is not a gate)', () => {
+  const root = fx('zipname-process', r => put(r, 'app/data/monuments.json', '{"note":"no source was opened by this workstream"}\n')), hit = pack({ root, cfg: FIXTURE_CFG, out: path.join(tmp, 'zp-a/dist'), zipDir: path.join(tmp, 'zp-a') });
+  assert.equal(hit.clean, false); assert.equal(hit.audit.length, 1); assert.equal(hit.audit[0].kind, 'process'); assert.equal(hit.audit[0].file, 'app/data/monuments.json');
+  assert.equal(path.basename(hit.zip), `gettysburg-BT-staging-${hit.version}-AUDIT-HITS-1.zip`); assert.ok(!fs.existsSync(path.join(tmp, 'zp-a', `gettysburg-BT-staging-${hit.version}.zip`)), 'no zip with the plain name');
+  patch(root, 'app/data/monuments.json', 'no source was opened by this workstream', 'no source was opened for this file'); const ok = pack({ root, cfg: FIXTURE_CFG, out: path.join(tmp, 'zp-b/dist'), zipDir: path.join(tmp, 'zp-b') });
+  assert.equal(ok.clean, true); assert.equal(path.basename(ok.zip), `gettysburg-BT-staging-${ok.version}.zip`);
+  const flat = pack({ root: fx('zipname-process2', r => put(r, 'app/data/monuments.json', '{"note":"a horde of stragglers; this pass draws the shadows; ws10"}\n')), cfg: FIXTURE_CFG, out: path.join(tmp, 'zp-c/dist'), zipDir: path.join(tmp, 'zp-c') });
+  assert.equal(flat.clean, true, 'words that are only counted do not flag a build'); assert.ok(flat.auditReview['this pass'].count === 1 && flat.auditReview.horde.count === 1 && flat.auditReview['ws label'].count === 1);
+});
+test('copy audit: a folder is audited in place under the name it would have in a build (prefix), with the reviewed allowances of that path; auditFiles takes a list', () => {
+  const d = fs.mkdtempSync(path.join(os.tmpdir(), 'btaud-')); try {
+    fs.mkdirSync(path.join(d, 'union/nh'), { recursive: true }); fs.writeFileSync(path.join(d, 'union/nh/5th.jsonl.gz'), gz('{"f":"roster2/2","u":"u-nh-5th"}\n[218,"Mansfield, Claude.","","Co. I",12]\n'));
+    assert.equal(audit(d).length, 1, 'without a prefix the folder has no allowance'); assert.deepEqual(audit(d, { prefix: 'rosters/data2/' }), [], 'under its name in a build the printed given name is data');
+    fs.writeFileSync(path.join(d, 'union/nh/6th.jsonl.gz'), gz('{"f":"roster2/2"}\n[1,"Smith, John","","shard terrain-1",2]\n')); const h = audit(d, { prefix: 'rosters/data2/' });
+    assert.equal(h.length, 1); assert.equal(h[0].file, 'rosters/data2/union/nh/6th.jsonl.gz'); assert.equal(h[0].kind, 'process'); assert.equal(h[0].line, 2); assert.equal(h[0].gzip, true);
+    const f = path.join(d, 'union/nh/6th.jsonl.gz'), l = auditFiles([f], () => 'app/data/x.jsonl.gz', new Set()); assert.equal(l.length, 1); assert.equal(l[0].file, 'app/data/x.jsonl.gz');
+  } finally { fs.rmSync(d, { recursive: true, force: true }); }
+});
+test('real roster data: the printed names pass, nothing else in the roster files is a hit (a second look at the files the roster section will ship; red until the owners of the files answer the request notes)', () => {
+  const dir = path.join(BT, 'rosters/data2'); if (!fs.existsSync(dir)) return;
+  const hits = audit(dir, { prefix: 'rosters/data2/' }).filter(h => !/^rosters\/data2\/(units\.json|sources\/[\w.-]+\.json)$/.test(h.file) || !/"generated"/.test(h.text || ''));      // the "generated" date keys of the index files are the publication filter's (next tests)
+  assert.deepEqual(hits, [], 'hits in the roster data:\n' + hits.map(h => `${h.file}:${h.line} ${h.match}`).join('\n'));
+});
+
 
 test('publication filter: jsonMembers finds scalar members and skips what is inside strings', () => {
   const t = '{"a":1,"built_by":"tools/x.mjs","n":{"generator":"scripts/y.py","k":["x",{"builder":"tools/bt/z.py"}]},"note":"he wrote \\"built_by\\": \\"a/b\\" here","generated":"2026-11-04"}';

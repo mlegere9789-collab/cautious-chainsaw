@@ -80,6 +80,7 @@ def main():
             'on_rolls': {'yes': len(on['yes']), 'no': len(on['no']), 'unknown': n - len(on['yes']) - len(on['no'])},
             'names_gettysburg': len(flags['names_gettysburg']), 'gettysburg_dated': len(flags['gettysburg_dated']),
             'head_kinds': {k: len(v) for k, v in flags['head_kinds'].items()}, 'company_inferred': [{k: c[k] for k in ('first_row', 'last_row', 'n_rows', 'co', 'rule', 'heading')} for c in flags['company_inferred']],
+            'company_skips': [{k: c[k] for k in ('first_row', 'last_row', 'n_rows', 'co', 'rule', 'heading')} for c in flags.get('company_skips', [])],
             'verify': {'ok': s['verify_ok'], 'v1': s['v1'], 'v3': s['v3'], 'remark_ok': s['remark_ok'], 'remark_empty': s['remark_empty'], 'remark_gap_rows': s['remark_gap_rows'], 'remarks_not_found': s['rows_with_remarks_not_found']},
             'scan': {'why': s['why'], 'rows_by_scan': s['rows_by_scan'], 'heading_defects': s['heading_defects'], 'dups_dropped': {k: v for k, v in s['dups_dropped'].items()}, 'section': s['section']},
         })

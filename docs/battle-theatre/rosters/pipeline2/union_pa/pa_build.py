@@ -49,6 +49,7 @@ def process_unit(u, caches, assert_all=True):
     ranges = [(u['a'], u['b'])] + list(u['also'])
     state = {'co': '', 'letter': None}
     rows, rejected, orphans, headings, skips = [], [], [], [], collections.Counter()
+    skipped = []
     notes = []
     leafinfo = {}
     for a, b in ranges:
@@ -110,8 +111,8 @@ def process_unit(u, caches, assert_all=True):
                     orphans.append({'leaf': leaf, 'why': it[3], 'text': it[1][:100], 'y': round(it[2]), 'co': state['co']})
                 elif kind == 'skip':
                     skips[it[1]] += 1
-                    if it[1] == 'note':
-                        pass
+                    if it[1] in ('head-far', 'foot', 'footnote', 'note', 'prose', 'recruited'):
+                        skipped.append({'leaf': leaf, 'kind': it[1], 'text': it[2][:140], 'y': round(it[3]), 'co': state['co']})
             leafinfo[leaf] = li
     # a company title that the text layer lost leaves a gap in the letters: the rows of the company before the gap may hold the rows of the missing ones
     letters = [h['co'] for h in headings if h['kind'].startswith('company') and h['co'] in RW.LETTERS]
@@ -127,7 +128,7 @@ def process_unit(u, caches, assert_all=True):
     for x in rows:
         if x['row'][2] in q_cos:
             x['facts']['flags'].append('Q')
-    return {'rows': rows, 'rejected': rejected, 'orphans': orphans, 'headings': headings, 'skips': dict(skips), 'leafinfo': leafinfo,
+    return {'rows': rows, 'rejected': rejected, 'orphans': orphans, 'headings': headings, 'skips': dict(skips), 'skipped': skipped, 'leafinfo': leafinfo,
             'company_gaps': [{'after': a, 'missing': ''.join(m)} for a, m in gaps]}
 
 
@@ -155,6 +156,7 @@ def main(argv):
             rej = [x for x in rej if x['co'] in u['co']]
             orph = [x for x in orph if x.get('co') in u['co']]
             res['rejected'], res['orphans'] = rej, orph
+            res['skipped'] = [x for x in res['skipped'] if x.get('co') in u['co']]
         else:
             keep = rows
         cnt = collections.Counter()
@@ -167,7 +169,7 @@ def main(argv):
         if not dry:
             json.dump(report[u['key']], open(os.path.join(L.WORK, 'unitinfo-%s.json' % u['key']), 'w'), indent=0)
             with open(os.path.join(L.WORK, 'rows-%s.json' % u['key']), 'w', encoding='utf-8') as f:
-                json.dump({'unit': u['key'], 'rows': keep, 'rejected': res['rejected'], 'orphans': res['orphans'], 'headings': res['headings'], 'company_gaps': res['company_gaps']},
+                json.dump({'unit': u['key'], 'rows': keep, 'rejected': res['rejected'], 'orphans': res['orphans'], 'headings': res['headings'], 'company_gaps': res['company_gaps'], 'skipped': res['skipped']},
                           f, ensure_ascii=False, separators=(',', ':'), default=list)
         print('%-62s cut %5d kept %5d rejected %4d orphans %4d  cpu %.1f' % (u['key'][5:], len(rows), len(keep), len(res['rejected']),
                                                                           len(res['orphans']), time.process_time() - t0), flush=True)

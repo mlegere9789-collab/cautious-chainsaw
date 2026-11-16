@@ -125,7 +125,8 @@ class World:
         import re
         pre = sorted(s['id'] for s in d['structures']['structures'] if re.match(r'^P-\d\d$', s['id']))
         pre_drawn = sorted(s['id'] for s in d['structures']['structures'] if s.get('kind') == 'preexisting_wall_or_fence')
-        reg = [i for i in ('bld-mcpherson-farm', 'bld-mcpherson-farm#house', 'bld-mcpherson-farm#barn', 'bld-bliss-farm', 'bld-bliss-farm#house', 'bld-bliss-farm#barn', 'RD-avenues', 'FEN-emmitsburg-road') if i in ids]
+        oow = [o for r in sched_rows if r.get('out_of_battle_scope') for o in r['object_ids']]
+        reg = [i for i in dict.fromkeys(['bld-mcpherson-farm', 'bld-mcpherson-farm#house', 'bld-mcpherson-farm#barn', 'bld-bliss-farm', 'bld-bliss-farm#house', 'bld-bliss-farm#barn', 'RD-avenues', 'FEN-emmitsburg-road'] + oow) if i in ids]
         t0 = datetime.datetime(1863, 6, 26)
         times = set()
         for a, b in ((datetime.datetime(1863, 6, 26), datetime.datetime(1863, 7, 14, 23, 59)), (datetime.datetime(1863, 11, 18), datetime.datetime(1863, 11, 19, 23, 59))):

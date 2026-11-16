@@ -30,6 +30,8 @@ BASE_E = os.path.join(HERE, 'base_E.jsonl')
 BASE_T = os.path.join(HERE, 'base_T.jsonl')
 INDEX = os.path.join(HERE, 'evidence2_index.json')
 LINES_E, LINES_T, INDEXD, FAILS = [], [], {}, []
+_a3 = {i['id']: i for i in json.load(open(os.path.join(rlib.GOV, 'library', 'acquired_3.json')))['items']}
+ROT2 = _a3['NPS-CLR-ROT-V2']
 FETCH = {r['fid']: r for r in rlib.read_jsonl(os.path.join(rlib.RETRY, 'fetches.jsonl'))}
 _text = {}
 
@@ -113,7 +115,7 @@ def ocr_cite(pdf_page, quote, excerpt=None, corrections=None):
     path = 'tmp/library/web/retry/F-350/ocr3/ocr_p7-11.txt'
     off, raw = find_in(path, quote if excerpt is None else excerpt)
     img = 'tmp/library/web/retry/F-350/ocr3/img/p%03d.png' % pdf_page
-    c = {'author': 'National Park Service', 'date': 'undated typescript study (npshistory.com copy, fetched 2026-11-16)', 'local_path': path, 'page_marker': '=== PDF PAGE %d ===' % pdf_page, 'pdf_page': pdf_page,
+    c = {'author': 'K. R. Georg (Kathleen Georg, research historian, Gettysburg National Military Park), National Park Service', 'date': '1978-06-16 (cover label of the typescript: "K R Georg, June 16, 1978"; npshistory.com copy fetched 2026-11-16)', 'date_basis': 'the cover (PDF page 1) was looked at: the label reads "THE DEVELOPMENT & CARE OF THE SOLDIERS\' NATIONAL CEMETERY ENCLOSURES AT GETTYSBURG / K R Georg / June 16, 1978"; image tmp/library/web/retry/F-350/pages/title-001.png', 'local_path': path, 'page_marker': '=== PDF PAGE %d ===' % pdf_page, 'pdf_page': pdf_page,
          'printed_page': CEM[pdf_page], 'quote': quote, 'quote_mode': 'exact' if excerpt is None else 'cleaned', 'retrieved': RETRIEVED,
          'source_class': 'official secondary (National Park Service study, typescript photocopy)', 'source_id': 'NPS-CEM-ENCLOSURES', 'source_text_excerpt': None if excerpt is None else rlib.norm_ws(raw),
          'text_sha256': rlib.sha_file(rlib.abspath(path)), 'text_variant': 'machine reading (tesseract eng, --psm 6, 300 dpi) of the page image; the PDF text layer is scrambled and was not used',
@@ -314,7 +316,7 @@ def build():
     emit([('E', 'R14.S-082')], 'cemstudy-division-fence-built',
          'R14.S-082: the National Park Service study of the cemetery enclosures says "The first enclosure to be completed was the division fence between the Evergreen and National Cemeteries", described by the local newspaper as an "iron railing", of wrought-iron gas pipe rails (1 1/4 inch) in panels of three through cast-iron posts, 1726 feet long (960 feet from the Baltimore Pike southwest, then 766 feet south), at $2.35 to $2.55 a linear foot, citing Wills to Curtin of 6 March 1865 and the Adams Sentinel of 9 May 1865 and the Gettysburg Compiler of 8 May 1865',
          'documented', c, 'supports_sub_claim',
-         'The study gives no day of completion: its own cited dates fix the window "by 6 March 1865 (Wills to Curtin), described in the local papers of 8-9 May 1865", and with the line of 8 July 1864 (next line) the fence cannot have stood on 19 Nov 1863 (an inference from these dates: no text describes the line itself on that day). The CLR\'s "fall of 1864" read earlier is consistent. The page images of pp. 3 to 8 of the study were read; the rest of the study (the Baltimore Pike fence and gates, the granite wall, later maintenance, printed pp. 9 on) is not read here. Quotes are cut from the machine reading of the page image; the page image was looked at.',
+         'The study gives no day of completion: its own cited dates fix the window "by 6 March 1865 (Wills to Curtin), described in the local papers of 8-9 May 1865", and with the line of 8 July 1864 (next line) the fence cannot have stood on 19 Nov 1863 (an inference from these dates: no text describes the line itself on that day). The CLR\'s "fall of 1864" read earlier is consistent. The study is dated 16 June 1978 on its cover label (earlier notes called it the 1980s study). The page images of pp. 3 to 8 of the study were read; the rest of the study (the Baltimore Pike fence and gates, the granite wall, later maintenance, printed pp. 9 on) is not read here. Quotes are cut from the machine reading of the page image; the page image was looked at.',
          '1864-07 to 1865-05', lk, 'official National Park Service study quoting dated letters and newspapers; the dates are the study\'s citations, not read in the originals here')
     c = [ocr_cite(9, 'attempted to wheedle out of the "iron railing" fence by taking advantage of the "or otherwise" phrase.', excerpt='attempted to wheedle out of the "iron railing" fence by taking advan- tage of the "or otherwise" phrase.', corrections=[['advan- tage', 'advantage']]),
          ocr_cite(9, 'He wrote to J. R. Bartlett (Commissioner from Rhode Island) on July 8, 1864, that "If we can now avoid the expense of the fence between the two cemeteries we should do so. I think that a low ornamental hedge might be planted there at a trifling expense which would answer any purpose."')]
@@ -378,6 +380,21 @@ def build():
          'documented', c, 'supports_sub_claim',
          'This closes the page-image check that fence-3 L8 owed (pdftoppm was not installed then): the figures fence-3 used (194 panels, $174, $15 of $1,028) are right and the PDF\'s embedded text layer, which reads 195 panels and $175 and "$15>, out of $1,028 g", is wrong. The NPS web page on the Brian farm agrees on 194 panels but prints the claim total as $575 (line WLK2-brien-nps): the two NPS texts differ on the amount claimed and both stand as printed, no default. Only the two pages named were re-read from images; the rest of the study keeps the machine reading fence-3 used.',
          '1863-07 (claim of the 1870s)', ['LKR-fence-3-L8', 'LKR-fence-3-L54', 'LKR-BH-fence-3-R14.S-063#bh0', 'LKR-BH-fence-3-R14.S-063#bh1'], 'official National Park Service study (1972) reading the claim files; digits checked against the page images in this pass')
+
+    # ================================================================== batch 6: a statement found by the local re-run of the shards' own questions (fence-2 L33)
+    path = 'tmp/library/web/nps/NPS-CLR-ROT-V2/NPS-CLR-ROT-V2.txt'
+    quote = 'On the night of July 2, the house was probably used as a temporary shelter by wounded Confederates before they could be evacuated to field hospitals west of Seminary Ridge.'
+    exc = 'On the night of July 2, the house was probably used as a temporary shelter by wounded Confederates before they could be evacuated to feld hospitals west of Seminary Ridge.'
+    off, raw = find_in(path, exc)
+    c = [{'author': 'National Park Service', 'date': ROT2['date'], 'local_path': path, 'page_marker': '=== PAGE 170 ===', 'pdf_page': 170, 'printed_page': '152', 'quote': quote, 'quote_mode': 'cleaned', 'retrieved': RETRIEVED,
+          'source_class': 'official secondary (National Park Service report)', 'source_id': 'NPS-CLR-ROT-V2', 'source_text_excerpt': rlib.norm_ws(raw), 'ocr_corrections': [['feld hospitals', 'field hospitals']],
+          'text_sha256': rlib.sha_file(rlib.abspath(path)), 'text_variant': 'text of the PDF as served (pdftotext), the acquisition\'s .txt variant; "feld" is the lost fi ligature of the PDF text', 'text_offset': off, 'text_offset_end': off + len(raw),
+          'title': ROT2['title'], 'url': ROT2['url'], 'source_pdf_sha256': ROT2['sha256'], 'page_basis': 'section FENCING, Bushman/Hammer Yard Modern Picket Fence, printed p. 152 (PDF p. 170); the sentence carries footnote 14'}]
+    emit([('E', 'R14.S-032')], 'bushman-house-shelter',
+         'R14.S-032 (the open sub-claim on Confederate hospital use of the Rose, Bushman and Slyder buildings): the National Park Service Record of Treatment (vol. 2) says that "On the night of July 2, the house was probably used as a temporary shelter by wounded Confederates before they could be evacuated to field hospitals west of Seminary Ridge" (the Bushman/Hammer house)',
+         'inferred', c, 'supports_in_part',
+         'The National Park Service hedges it itself ("probably"), and the footnote it carries (14) was not read here, so the tier is inferred, not documented. It concerns the Bushman/Hammer HOUSE only and a shelter of the night of 2 July before evacuation west of Seminary Ridge; it does not support hospital or cover use of the Rose house or barn, the Bushman barn or the Slyder house, and it does not give the eight burials at the Bushman farm. The Twelfth Corps hospital "around the house of Geo. Bushman" (Sanitary Commission report, already cited in this row) is the Union use of the same farm, on 3 July and after.',
+         '1863-07-02 (night)', ['LKR-fence-2-L33', 'LKR-fence-2-L2', 'LKR-BH-fence-2-R14.S-032#bh0'], 'official National Park Service report stating a hedged inference; basis not read')
 
 
 def merge():

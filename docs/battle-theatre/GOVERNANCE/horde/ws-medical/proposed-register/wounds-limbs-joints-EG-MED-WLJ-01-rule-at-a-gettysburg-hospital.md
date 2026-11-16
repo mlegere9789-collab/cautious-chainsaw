@@ -1,0 +1,21 @@
+# EG-MED-WLJ-01: The rule of choice between amputation, excision and saving the limb as practised at a named Gettysburg hospital is not stated by any text read
+
+| Field | Content |
+|---|---|
+| ID | EG-MED-WLJ-01 |
+| Requirement IDs | OA12 (accurate field hospitals, battle trauma and period-accurate treatment); PDF B.8.5; gate Q26; Law clauses 3, 4 and 7 |
+| Category | evidence missing (searched, not found) |
+| Description | The period manuals (Gross 1862, Tripler 1862, Chisolm 1864) and the Surgical History's own review give the rules as the surgeons of the war stated them (rows 140 to 147, 152 to 159, 160 to 164, 034 to 043, 044 to 050), and the History prints each named Gettysburg case with the operation done (rows c3.* from 095 on). No surgeon's narrative or report among the texts read says which rule a named Gettysburg field hospital (First, Second, Third, Fifth, Eleventh or Twelfth Corps, the Seminary, the town) followed or how the cases of the thigh, knee and leg were sorted. The corps medical directors' reports and Surgeon Janes's report are not local (EG-MED-PLAN-01). |
+| Why literal 100% is not possible or blocked | The record does not state it, or the text is not available to this project (Law cl.3); nothing is invented to fill it. |
+| Evidence searched | Searched on 2026-11-16: the three surgical volumes of the Surgical History (chapters IX and X in full for the Gettysburg cases; the review of the femur, pages 338 to 343; the knee, pages 411 to 427), Gross, Tripler, Chisolm 1864, the two reports of Otis (1867, 1869), the Army Medical Museum catalogue (the Gettysburg entries for the humerus). Not read: Official Records vol. 27 part 1 beyond Letterman's report (read by the planning step), Letterman 1866 (read by other groups), Jacobs, the Patriot Daughters, Souder and the Sanitary Commission report for this question. |
+| Autonomous substitute applied | None. The rule is stated as each period source states it, with its author; the History's own review is carried as the History's statement (it quotes surgeons of the Union and one of the Confederate service). |
+| Strongest evidence-based reconstruction | A scene that shows a choice (a patient with a splinted thigh, a stump) marks it as the period's rule and not as a record of the surgeon at that table; the named Gettysburg cases are shown as the cases they are (Robeson, Sickles, the Texan, the 25 prisoners of Peters) and are not used as weights. |
+| Confidence tier | documented for each statement as printed; open gap for the rule at a named Gettysburg hospital (row 191) |
+| Competing values | Gross (1862): five circumstances that justify or demand amputation, and no amputation until reaction; Tripler (1862): primary amputation within 48 to 60 hours and chloroform in the hospital, not on the field; Chisolm (1864): in the field primary amputation 'offers the best chances for life' for a compound fracture of the thigh and 'in rejecting amputations we lose more lives than we save limbs', but a compound fracture of the upper third is to be treated as in the arm; the History: conservation 49.9 per cent. against primary amputation 49.8 per cent. mortality, with the remark that conserved cases were selected. The rows carry each; none is chosen. |
+| Product marking | A card or panel that shows a choice says whose rule it follows; the gap marker with this id. |
+| Visual and audio impact | the stump or splint a patient of a drawn hospital carries; the order of operations at a table |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None needed for the evidence. |
+| Agent recommendation | Look for the corps medical directors' reports (the Second Corps medical director, the First Corps, the Eleventh), Surgeon Janes's report of Camp Letterman, the case reports in the Philadelphia and Baltimore medical journals of 1863 and 1864 that the History cites for Gettysburg (for example Peters in the American Medical Times, 1864), and the National Archives returns (a request, owner-only). |
+| Status | open (proposed by bt-medical, group wounds-limbs-joints, 2026-11-16; not yet in register/) |
+| Owner decision and date | (filled only from the Decision Log) |

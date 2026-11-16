@@ -116,6 +116,7 @@ FETCHED = [
     ('EPT-ROOT', 'aws_ept_pa_south_central.json', 'json', 'aws_ept_pa_south_central', 'https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_PA_South_Central_B1_2017_LAS_2019/ept.json', 'public cloud-storage object (Entwine EPT root, USGS 3DEP lidar on AWS)', 'EPT root of USGS_LPC_PA_South_Central_B1_2017_LAS_2019'),
     ('EPT-BUILD', 'ept_build.json', 'json', 'ept_build', 'https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_PA_South_Central_B1_2017_LAS_2019/ept-build.json', 'public cloud-storage object (Entwine build record)', 'EPT build record'),
     ('EPT-SRC-18SUK309410', 'ept_src_18SUK309410.json', 'json', 'ept_src_18SUK309410', 'https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_PA_South_Central_B1_2017_LAS_2019/ept-sources/USGS_LPC_PA_South_Central_B1_2017_18SUK309410_LAS_2019.json', 'public cloud-storage object (EPT source record read from the LAZ header)', 'LAZ tile 18SUK309410 (Gettysburg), project PA_South_Central_B1_2017'),
+    ('EPT-BUCKET-LIST-PA', 's3_list_usgs_lidar_pa.xml', 'txt', 's3_list_usgs_lidar_pa', 'https://s3-us-west-2.amazonaws.com/usgs-lidar-public?delimiter=/&prefix=USGS_LPC_PA&max-keys=200', 'public cloud-storage bucket listing (S3 XML)', 'prefixes of the public USGS lidar bucket that start with USGS_LPC_PA'),
     ('NPS-REHAB-PAGE', 'nps_rehab.html', 'html', 'nps_rehab', 'https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm', 'National Park Service web page', 'Battlefield Rehabilitation at Gettysburg National Military Park'),
     ('NPS-PLANNING-PAGE', 'nps_planning.html', 'html', 'nps_planning', 'https://www.nps.gov/gett/getinvolved/planning.htm', 'National Park Service web page', 'Gettysburg NMP planning page (Fire Management Plan, Little Round Top CLR)'),
     ('NPSHISTORY-INDEX', 'npshist_index.html', 'html', 'npshist_index', 'https://www.npshistory.com/publications/gett/index.htm', 'npshistory.com index of Gettysburg NMP publications', 'index of NPS publications for Gettysburg'),
@@ -135,6 +136,7 @@ NPS_LIB = {
     'NPS-CLR-ROT-V2': 'Cultural Landscape Report for Gettysburg NMP, Record of Treatment, vol. II (2018)',
     'NPS-CLR-CEMETERY': 'Cultural Landscape Report for Gettysburg National Cemetery (2017)',
     'NPS-COMMON-PRIDE-1': '"A Common Pride and Fame": The Attack and Repulse of Pickett\'s Division, Part I (Georg, 1981)',
+    'NPS-COMMON-PRIDE-2': '"A Common Pride and Fame": The Attack and Repulse of Pickett\'s Division, Part II (Georg, 1981)',
     'NPS-HARMON-FARM': 'Harmon Farm / Springs Hotel Woods study (NPS)',
     'NPS-HS-MCPHERSON': 'Historic Structure Report, McPherson Farm (NPS)',
     'NPS-EISE-CLR1': 'Cultural Landscape Report for Eisenhower National Historic Site, vol. 1',
@@ -173,9 +175,35 @@ def build():
         reg[k] = dict(key=k, url=m['url'], source_class='National Park Service document (United States government work), text layer of the PDF', description=desc,
                       retrieved=m.get('fetched_at'), http_status=m.get('http'), raw_path=None, raw_sha256=m.get('sha256'), raw_bytes=m.get('bytes'),
                       local_path=m['text_path'], local_sha256=sha(tp), manifest_text_sha256=m.get('text_sha256'), conversion='pdftotext (web-evidence workstream)')
+    # project documents of this repository (own measurements and notes; never an independent source)
+    for key, rel, desc in (
+        ('PROJ-BASEMAP-README', 'docs/basemap1863/maps/README.md', 'georeferencing README of the basemap1863 project (own measurements)'),
+        ('PROJ-ELEV-NOTES', 'docs/battle-theatre/terrain/elev1863/ELEV-NOTES.md', 'elev1863 notes: Warren label anchors and trusted coverage (own measurements)'),
+        ('PROJ-TERRAIN-STATUS', 'docs/battle-theatre/terrain/terrain_pipeline_status.md', 'terrain pipeline status notes (own)'),
+    ):
+        tp = os.path.join(ROOT, rel)
+        reg[key] = dict(key=key, url=None, source_class='project document of this repository (own measurement or note), not an independent source', description=desc,
+                        retrieved=None, local_path=rel, local_sha256=sha(tp), conversion='as is (markdown)')
+    # own derived summaries (computed by this script from saved bodies; sha256 of the inputs recorded in the text)
+    lst = json.load(open(os.path.join(FETCH, 'ept_sources_list.json')))
+    lines = ['EPT source list (ept-sources/list.json), sha256 %s, bytes %d' % (sha(os.path.join(FETCH, 'ept_sources_list.json')), os.path.getsize(os.path.join(FETCH, 'ept_sources_list.json'))),
+             'source files listed: %d' % len(lst),
+             'status inserted: %d' % sum(1 for e in lst if e.get('status') == 'inserted'),
+             'sum of points: %d' % sum(e.get('points', 0) for e in lst)]
+    tp = os.path.join(TEXT, 'own_ept_sources_summary.txt')
+    open(tp, 'w', encoding='utf-8', newline='').write('\n'.join(lines) + '\n')
+    reg['OWN-EPT-SOURCES-SUMMARY'] = dict(key='OWN-EPT-SOURCES-SUMMARY', url='https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_PA_South_Central_B1_2017_LAS_2019/ept-sources/list.json', source_class='own computation from a saved public cloud-storage object (counts and sums)', description='counts of the EPT source list', retrieved=(lk('ept_sources_list') or {}).get('utc'), local_path=os.path.relpath(tp, ROOT), local_sha256=sha(tp), conversion='computed')
+    man2 = json.load(open(os.path.join(NPS, 'MANIFEST.json')))['items']
+    ml = []
+    for k in ('NPS-CLR-LRT', 'NPS-CLR-1STDAY', 'NPS-CLR-CEMETERY', 'NPS-CLR-ROT-V1', 'NPS-CLR-ROT-V2', 'NPS-ADHI', 'NPS-GMP-1999-V1'):
+        m = man2[k]
+        ml.append('%s | url %s | bytes %s | http %s | fetched %s | sha256 %s' % (k, m['url'], m.get('bytes'), m.get('http'), m.get('fetched_at'), m.get('sha256')))
+    tp = os.path.join(TEXT, 'own_nps_manifest_extract.txt')
+    open(tp, 'w', encoding='utf-8', newline='').write('\n'.join(ml) + '\n')
+    reg['OWN-NPS-MANIFEST'] = dict(key='OWN-NPS-MANIFEST', url=None, source_class='extract of the local manifest of the NPS library (tmp/library/web/nps/MANIFEST.json, web-evidence workstream)', description='size, URL and hash of the NPS PDFs read', retrieved=None, local_path=os.path.relpath(tp, ROOT), local_sha256=sha(tp), conversion='manifest lines')
     # own HEAD records (response headers) as a text
     heads = []
-    for id_ in ('head_jp2_cw0350500', 'head_tifZ_cw0350500', 'head_tif_cw0350500', 'head_ept_sources_list', 'head_ept_build'):
+    for id_ in ('head_jp2_cw0350500', 'head_tifZ_cw0350500', 'head_tif_cw0350500', 'head_ept_sources_list', 'head_ept_build', 'head_nps_lrt_clr'):
         r = lk(id_)
         if r:
             h = r.get('headers') or {}

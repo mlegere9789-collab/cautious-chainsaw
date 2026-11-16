@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-16T01:18:50Z",
- "parser_hash": "6a4093b3ac53",
+ "generated": "2026-11-16T01:38:14Z",
+ "parser_hash": "a5df78324b0e",
  "units": {
   "c-nc-16th-north-carolina-infantry": {
    "rows": 1436,
    "raw_bytes": 126250,
-   "gz_bytes": 28766,
-   "sha256": "74537890ce8b2ff34b986b697d8cde58843fb2dd8fc85a0d58839db4572d2e0c",
+   "gz_bytes": 28760,
+   "sha256": "2cb93852105f49b200ffeae32bfee665ceb3993dd9c1d7d6fe166c3da6b49b83",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -54,20 +54,20 @@
    }
   },
   "c-nc-1st-north-carolina-infantry": {
-   "rows": 1587,
-   "raw_bytes": 143428,
-   "gz_bytes": 34613,
-   "sha256": "3463fc058ebc21853f81f484cf0f8bc78dfaac4487a08207446f4927ffe114d9",
+   "rows": 1584,
+   "raw_bytes": 143396,
+   "gz_bytes": 34608,
+   "sha256": "90e7aee3ff0bd7111577fea3a422dc98b30fe404fd25d1f454a69725b2ffc948",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1576,
-   "remark_empty": 11,
+   "remark_ok": 1575,
+   "remark_empty": 9,
    "remark_gap_rows": 2,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1557 against 1484 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 2 company headings read by the sequence or pages held twice, against 2)",
+   "why": "score 1554 against 1481 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 2 company headings read by the sequence or pages held twice, against 2)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -80,12 +80,12 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1666,
-     "after_dedupe": 1666
+     "parsed": 1663,
+     "after_dedupe": 1663
     },
     "b": {
-     "parsed": 1587,
-     "after_dedupe": 1587
+     "parsed": 1584,
+     "after_dedupe": 1584
     }
    },
    "texts": [
@@ -105,20 +105,20 @@
    }
   },
   "c-nc-2nd-north-carolina-infantry": {
-   "rows": 1359,
-   "raw_bytes": 117401,
-   "gz_bytes": 30165,
-   "sha256": "48b9d7e813bd8044c137a4b36b9e975e350d690622b53f878362dea6f2e210f1",
+   "rows": 1361,
+   "raw_bytes": 117427,
+   "gz_bytes": 30169,
+   "sha256": "51fee028a94943e76dab89c887a9617a4aa7fc081aa81f997c49821ce71a3a45",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1357,
+   "remark_ok": 1359,
    "remark_empty": 2,
    "remark_gap_rows": 0,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1359 against 1301 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 6)",
+   "why": "score 1361 against 1303 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 6)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -131,12 +131,12 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1768,
-     "after_dedupe": 1768
+     "parsed": 1770,
+     "after_dedupe": 1770
     },
     "b": {
-     "parsed": 1359,
-     "after_dedupe": 1359
+     "parsed": 1361,
+     "after_dedupe": 1361
     }
    },
    "texts": [
@@ -156,20 +156,20 @@
    }
   },
   "c-nc-3rd-north-carolina-infantry": {
-   "rows": 1702,
-   "raw_bytes": 145937,
-   "gz_bytes": 33564,
-   "sha256": "1898d7682acb47d90bb6e2cd721b14d309901eb9bc975df45453537672b0fcc9",
+   "rows": 1701,
+   "raw_bytes": 145923,
+   "gz_bytes": 33556,
+   "sha256": "83ce34e780419be22bc64dc261e452d8a398a47a52a8a5736b4a17307fe28409",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1701,
+   "remark_ok": 1700,
    "remark_empty": 1,
    "remark_gap_rows": 3,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1702 against 1620 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 2)",
+   "why": "score 1701 against 1620 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 2)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -186,8 +186,8 @@
      "after_dedupe": 1650
     },
     "b": {
-     "parsed": 1702,
-     "after_dedupe": 1702
+     "parsed": 1701,
+     "after_dedupe": 1701
     }
    },
    "texts": [
@@ -207,20 +207,20 @@
    }
   },
   "c-nc-4th-north-carolina-infantry": {
-   "rows": 1597,
-   "raw_bytes": 111850,
-   "gz_bytes": 26044,
-   "sha256": "9852c6a8f9ab9ebf9da6e207ba298d9675e1ef5072e8ba0aef7c2b9e467991f8",
+   "rows": 1594,
+   "raw_bytes": 111777,
+   "gz_bytes": 25992,
+   "sha256": "614a44e9435ead81b3ce8191b7732c856fdad4d6d337fe8d5a03d1f47cc75b3a",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1594,
-   "remark_empty": 3,
+   "remark_ok": 1592,
+   "remark_empty": 2,
    "remark_gap_rows": 0,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1597 against 1502 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "why": "score 1594 against 1501 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -233,12 +233,12 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1517,
-     "after_dedupe": 1517
+     "parsed": 1516,
+     "after_dedupe": 1516
     },
     "b": {
-     "parsed": 1597,
-     "after_dedupe": 1597
+     "parsed": 1594,
+     "after_dedupe": 1594
     }
    },
    "texts": [
@@ -258,20 +258,20 @@
    }
   },
   "c-nc-5th-north-carolina-infantry": {
-   "rows": 1807,
-   "raw_bytes": 141667,
-   "gz_bytes": 34602,
-   "sha256": "bb210be1db183ed404d62b79547bd6f6ea9a6a0c83056da24f1823578905e8c5",
+   "rows": 1804,
+   "raw_bytes": 141626,
+   "gz_bytes": 34586,
+   "sha256": "fa6419c27aae8ebd855619363ec8c826b0c52680a5db5b02179ac55b567bfec7",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1806,
+   "remark_ok": 1803,
    "remark_empty": 1,
    "remark_gap_rows": 1,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1777 against 1592 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 2 company headings read by the sequence or pages held twice, against 2)",
+   "why": "score 1774 against 1591 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 2 company headings read by the sequence or pages held twice, against 2)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -284,12 +284,12 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1622,
-     "after_dedupe": 1622
+     "parsed": 1621,
+     "after_dedupe": 1621
     },
     "b": {
-     "parsed": 1807,
-     "after_dedupe": 1807
+     "parsed": 1804,
+     "after_dedupe": 1804
     }
    },
    "texts": [
@@ -309,20 +309,20 @@
    }
   },
   "c-nc-6th-north-carolina-infantry": {
-   "rows": 1790,
-   "raw_bytes": 137730,
-   "gz_bytes": 32983,
-   "sha256": "548834cecf20f75848d0d43d0e93dc9a286ab919ef3f56c0a6622b023ecc51b5",
+   "rows": 1791,
+   "raw_bytes": 137742,
+   "gz_bytes": 32989,
+   "sha256": "15204339e6abcdd29f311f23e52fc460051deb2ade20013da5c607427a6532a6",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1788,
+   "remark_ok": 1789,
    "remark_empty": 2,
    "remark_gap_rows": 1,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1775 against 1689 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 0)",
+   "why": "score 1776 against 1690 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 0)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -335,12 +335,12 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1689,
-     "after_dedupe": 1689
+     "parsed": 1690,
+     "after_dedupe": 1690
     },
     "b": {
-     "parsed": 1790,
-     "after_dedupe": 1790
+     "parsed": 1791,
+     "after_dedupe": 1791
     }
    },
    "texts": [
@@ -361,19 +361,19 @@
   },
   "c-nc-7th-north-carolina-infantry": {
    "rows": 1508,
-   "raw_bytes": 122934,
-   "gz_bytes": 29617,
-   "sha256": "0e53b953fadf8472c2654dc75b6dbddf627c8b9ac272fc562c793f9500e7899c",
+   "raw_bytes": 122927,
+   "gz_bytes": 29619,
+   "sha256": "129d14e96a55ea40d65b430d6ddd69e7ec35fd488614fb097dc9da8a40c4ec0a",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1508,
-   "remark_empty": 0,
+   "remark_ok": 1507,
+   "remark_empty": 1,
    "remark_gap_rows": 1,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1493 against 1414 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 1)",
+   "why": "score 1493 against 1413 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 1)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -386,8 +386,8 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1429,
-     "after_dedupe": 1429
+     "parsed": 1428,
+     "after_dedupe": 1428
     },
     "b": {
      "parsed": 1508,
@@ -411,20 +411,20 @@
    }
   },
   "c-nc-1st-north-carolina-cavalry": {
-   "rows": 1662,
-   "raw_bytes": 118513,
-   "gz_bytes": 30265,
-   "sha256": "f99db277a80efe0cd0cfc422fb5387081f13d10df118cd9a5b8435eede5cdd70",
+   "rows": 1661,
+   "raw_bytes": 118499,
+   "gz_bytes": 30259,
+   "sha256": "8bb38be34b52fa842266146e792d9e4b3ecec280cb874e2872dff55d1fb35ae9",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1659,
+   "remark_ok": 1658,
    "remark_empty": 3,
    "remark_gap_rows": 2,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1662 against 1460 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "why": "score 1661 against 1460 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -441,8 +441,8 @@
      "after_dedupe": 1475
     },
     "b": {
-     "parsed": 1662,
-     "after_dedupe": 1662
+     "parsed": 1661,
+     "after_dedupe": 1661
     }
    },
    "texts": [
@@ -462,20 +462,20 @@
    }
   },
   "c-nc-battery-a-1st-north-carolina-artillery": {
-   "rows": 285,
-   "raw_bytes": 20423,
-   "gz_bytes": 5698,
-   "sha256": "334f6a89feb397efa31dbb1ba6d30cda5bbb4921ff494b5df4574664b7f9cc1b",
+   "rows": 284,
+   "raw_bytes": 20409,
+   "gz_bytes": 5679,
+   "sha256": "f0398dca98ee8a4ae4943dd0d4163ca723144906758ccd8906ce927eaa5b5d20",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 285,
+   "remark_ok": 284,
    "remark_empty": 0,
    "remark_gap_rows": 0,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 285 against 154 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "why": "score 284 against 154 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -492,8 +492,8 @@
      "after_dedupe": 154
     },
     "b": {
-     "parsed": 285,
-     "after_dedupe": 285
+     "parsed": 284,
+     "after_dedupe": 284
     }
    },
    "texts": [
@@ -513,20 +513,20 @@
    }
   },
   "c-nc-rowan-artillery": {
-   "rows": 213,
-   "raw_bytes": 14847,
-   "gz_bytes": 4086,
-   "sha256": "6d725fafb33b759f6d5e78f970abbbdd116b5db7efd522cb8ad1e6643572c2ac",
+   "rows": 212,
+   "raw_bytes": 14833,
+   "gz_bytes": 4078,
+   "sha256": "f776cf4b24e63694628c7ee0e0576635ca082c530ff10c7751d257d82f5e6132",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 213,
+   "remark_ok": 212,
    "remark_empty": 0,
    "remark_gap_rows": 0,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 213 against 205 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "why": "score 212 against 205 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -543,8 +543,8 @@
      "after_dedupe": 205
     },
     "b": {
-     "parsed": 213,
-     "after_dedupe": 213
+     "parsed": 212,
+     "after_dedupe": 212
     }
    },
    "texts": [
@@ -616,9 +616,9 @@
   },
   "c-nc-11th-north-carolina-infantry": {
    "rows": 1393,
-   "raw_bytes": 109758,
-   "gz_bytes": 25166,
-   "sha256": "7a8262febc7e35b3772ff903d97dd4d0c28fce7ccba71aa6833741eaf811a504",
+   "raw_bytes": 109759,
+   "gz_bytes": 25157,
+   "sha256": "0a5deb34c1f1ac74608f1261709a030e04d933b2eb7b5141fa884ce3f6b3dafc",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -666,20 +666,20 @@
    }
   },
   "c-nc-12th-north-carolina-infantry": {
-   "rows": 1565,
-   "raw_bytes": 118075,
-   "gz_bytes": 26313,
-   "sha256": "7716ef5e7270909851ba6a3073bf59c7e6632a80247abba7fc640ca3f461911b",
+   "rows": 1564,
+   "raw_bytes": 118030,
+   "gz_bytes": 26294,
+   "sha256": "60d4bfbbd10276b6596c5bf8966560a0f29f0a3948847f2ba9f4819f535a05f8",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
    "remark_ok": 1562,
-   "remark_empty": 3,
+   "remark_empty": 2,
    "remark_gap_rows": 1,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1550 against 1525 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 0)",
+   "why": "score 1549 against 1524 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 0)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -692,12 +692,12 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1525,
-     "after_dedupe": 1525
+     "parsed": 1524,
+     "after_dedupe": 1524
     },
     "b": {
-     "parsed": 1565,
-     "after_dedupe": 1565
+     "parsed": 1564,
+     "after_dedupe": 1564
     }
    },
    "texts": [
@@ -720,7 +720,7 @@
    "rows": 1460,
    "raw_bytes": 128231,
    "gz_bytes": 28929,
-   "sha256": "18a789215d021dfb18366e0417e4388116b6847d00be5335132466f452c861a1",
+   "sha256": "9e9818898ef56d2fc8a0c73cbb1eaddcc2c4ae643c7fb996913d32362875c6c9",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -730,7 +730,7 @@
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1445 against 1426 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 0)",
+   "why": "score 1460 against 1426 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -739,7 +739,7 @@
    },
    "heading_defects": {
     "a": 0,
-    "b": 1
+    "b": 0
    },
    "rows_by_scan": {
     "a": {
@@ -819,20 +819,20 @@
    }
   },
   "c-nc-18th-north-carolina-infantry": {
-   "rows": 1753,
-   "raw_bytes": 141576,
-   "gz_bytes": 32182,
-   "sha256": "5fc73227cb118505cbe8c405bd5b19f40e1e520b1a389da98e24d1ad88b9c9f5",
+   "rows": 1752,
+   "raw_bytes": 141561,
+   "gz_bytes": 32169,
+   "sha256": "7637456ee673573d0c8918069a776fb964801762f47f9c5965446ecc5d48fe4a",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1752,
+   "remark_ok": 1751,
    "remark_empty": 1,
    "remark_gap_rows": 1,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1753 against 1735 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "why": "score 1752 against 1733 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -845,12 +845,12 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1750,
-     "after_dedupe": 1750
+     "parsed": 1748,
+     "after_dedupe": 1748
     },
     "b": {
-     "parsed": 1753,
-     "after_dedupe": 1753
+     "parsed": 1752,
+     "after_dedupe": 1752
     }
    },
    "texts": [
@@ -870,20 +870,20 @@
    }
   },
   "c-nc-2nd-north-carolina-cavalry": {
-   "rows": 1292,
-   "raw_bytes": 94735,
-   "gz_bytes": 23832,
-   "sha256": "f5659f96843fa82d423f43d01f1eb3be9b98ec96121b6dec07f8e121d91ddd2d",
+   "rows": 1291,
+   "raw_bytes": 94721,
+   "gz_bytes": 23818,
+   "sha256": "55353d22d1e1969928be1e08f3d0c32e1a5f5eae2af86600b8f43d7ae5e8acfa",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1291,
+   "remark_ok": 1290,
    "remark_empty": 1,
    "remark_gap_rows": 2,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1292 against 1239 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 3)",
+   "why": "score 1291 against 1239 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 3)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -913,8 +913,8 @@
      "after_dedupe": 1284
     },
     "b": {
-     "parsed": 1292,
-     "after_dedupe": 1292
+     "parsed": 1291,
+     "after_dedupe": 1291
     }
    },
    "texts": [
@@ -936,8 +936,8 @@
   "c-nc-20th-north-carolina-infantry": {
    "rows": 1210,
    "raw_bytes": 108092,
-   "gz_bytes": 23904,
-   "sha256": "83f53f1219e650ad9bcaa19ff28aa484e29aad03c3ce5130ecf366c8cb8fec87",
+   "gz_bytes": 23897,
+   "sha256": "95435467386c4458d2ec117742c8a6eae123426f68028212a558096af2470a10",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -987,8 +987,8 @@
   "c-nc-21st-north-carolina-infantry": {
    "rows": 1364,
    "raw_bytes": 105874,
-   "gz_bytes": 24120,
-   "sha256": "9e0e969750988991db3a766b34ec1cb82e63a331b21130c6b67eded1c1e7ab7a",
+   "gz_bytes": 24116,
+   "sha256": "03106a82172d883acfe39c1c16d163694f43efe3b77357655619db04c9f047c6",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -1038,8 +1038,8 @@
   "c-nc-22nd-north-carolina-infantry": {
    "rows": 1951,
    "raw_bytes": 153192,
-   "gz_bytes": 34087,
-   "sha256": "c9726e5e43d5a04e3e52f141506fa331e1b44c15c36dddc49498d3f40ec27785",
+   "gz_bytes": 34089,
+   "sha256": "4779e81fa78768ec0a0a80d01f6d4e27a4a96ac69997402e0929e4a1902e6397",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -1087,20 +1087,20 @@
    }
   },
   "c-nc-23rd-north-carolina-infantry": {
-   "rows": 1463,
-   "raw_bytes": 125555,
-   "gz_bytes": 27476,
-   "sha256": "4142ae07342fe7dbf3091bc9f4d63b389552b80f9747d7dd9c791e6616f3b2a0",
+   "rows": 1462,
+   "raw_bytes": 125521,
+   "gz_bytes": 27451,
+   "sha256": "02c46812ee67fde0488892cd9bcbbdfadb2f29784e13dc106eb754b59442a58a",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
    "remark_ok": 1462,
-   "remark_empty": 1,
+   "remark_empty": 0,
    "remark_gap_rows": 1,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1463 against 1319 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 6)",
+   "why": "score 1462 against 1318 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 6)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -1126,12 +1126,12 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1629,
-     "after_dedupe": 1533
+     "parsed": 1628,
+     "after_dedupe": 1532
     },
     "b": {
-     "parsed": 1463,
-     "after_dedupe": 1463
+     "parsed": 1462,
+     "after_dedupe": 1462
     }
    },
    "texts": [
@@ -1153,8 +1153,8 @@
   "c-nc-26th-north-carolina-infantry": {
    "rows": 1929,
    "raw_bytes": 159028,
-   "gz_bytes": 34062,
-   "sha256": "bdda3984cd2fde06df820955bee598ed29fc3d96ad1ab09e307ba0b1145b56bf",
+   "gz_bytes": 34055,
+   "sha256": "780c25ead0f3adf0f937c0e83c77360fb0b22682aa876db2881423fa24eefcda",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -1253,20 +1253,20 @@
    }
   },
   "c-nc-30th-north-carolina-infantry": {
-   "rows": 1537,
-   "raw_bytes": 129912,
-   "gz_bytes": 28343,
-   "sha256": "3d6370c3d561a8c5b644869d0d04ded30e42f331a2d01b579a6a832bbb2edd26",
+   "rows": 1538,
+   "raw_bytes": 129924,
+   "gz_bytes": 28344,
+   "sha256": "829ac631a2795d9cbafb41e2dadad483cca442896f26da48144375de21bf2e2f",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1537,
+   "remark_ok": 1538,
    "remark_empty": 0,
    "remark_gap_rows": 2,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1537 against 1330 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 8)",
+   "why": "score 1538 against 1331 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 8)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -1304,12 +1304,12 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1802,
-     "after_dedupe": 1610
+     "parsed": 1803,
+     "after_dedupe": 1611
     },
     "b": {
-     "parsed": 1537,
-     "after_dedupe": 1537
+     "parsed": 1538,
+     "after_dedupe": 1538
     }
    },
    "texts": [
@@ -1381,9 +1381,9 @@
   },
   "c-nc-33rd-north-carolina-infantry": {
    "rows": 1710,
-   "raw_bytes": 136129,
-   "gz_bytes": 31493,
-   "sha256": "bf1f333b1711ec6f8307066712246692fae963ecd7118f3afb5ac6d42693a2cd",
+   "raw_bytes": 136128,
+   "gz_bytes": 31492,
+   "sha256": "146dd16c7bfb69fefe44641a514e2e6e33a1750a4e541f28195e86d3242896a1",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -1393,7 +1393,7 @@
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 1695 against 1688 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 1)",
+   "why": "score 1695 against 1687 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 1)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -1406,8 +1406,8 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1703,
-     "after_dedupe": 1703
+     "parsed": 1702,
+     "after_dedupe": 1702
     },
     "b": {
      "parsed": 1710,
@@ -1433,8 +1433,8 @@
   "c-nc-34th-north-carolina-infantry": {
    "rows": 1343,
    "raw_bytes": 113837,
-   "gz_bytes": 24467,
-   "sha256": "7b466bb4baedbf2b6147afee0720ca18a977232c2a64be973eb1fcf5d4cc19d8",
+   "gz_bytes": 24469,
+   "sha256": "6ae419c37dca710fd8e78b78f9b4e19426d4dc70049523b22df8b576a053115b",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -1637,8 +1637,8 @@
   "c-nc-45th-north-carolina-infantry": {
    "rows": 1434,
    "raw_bytes": 112364,
-   "gz_bytes": 22877,
-   "sha256": "a87ac5670aa8ef17f10bfa00eb10754798ffd837b8e376b9d4c21eaab151b9c7",
+   "gz_bytes": 22870,
+   "sha256": "18aac24d15f23f50c2466c64a287be067e0d18773c15cfb5d8aa06e0dba0713d",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -1739,8 +1739,8 @@
   "c-nc-52nd-north-carolina-infantry": {
    "rows": 1297,
    "raw_bytes": 102601,
-   "gz_bytes": 21506,
-   "sha256": "171a49a74cb15b3481ec0594c8a2543e347cf36ab09b0055ffb4df6f6cd33ca4",
+   "gz_bytes": 21502,
+   "sha256": "ee8ffeb2662853a81ef031204f098bccc044d30b4af7d77dfcfa3b0c220ce828",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -1841,8 +1841,8 @@
   "c-nc-55th-north-carolina-infantry": {
    "rows": 1206,
    "raw_bytes": 93594,
-   "gz_bytes": 20588,
-   "sha256": "56f4070dcc3dd1a288e284d2e7d2f2601186fadf3f50e8b138537be968639381",
+   "gz_bytes": 20585,
+   "sha256": "6d9d6fca54270ee14685c41db6d60be45a065d227b4eed8a6fd0b0538252bb01",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -1943,8 +1943,8 @@
   "c-nc-4th-north-carolina-cavalry": {
    "rows": 881,
    "raw_bytes": 58817,
-   "gz_bytes": 12255,
-   "sha256": "18cc15e397fb3aca73f000cb2cb9a5f349aaaa9821ab1a6119faf06ae3f3f425",
+   "gz_bytes": 12254,
+   "sha256": "9b5e3b876edb3e371aa757d249f6db6dc729d84e8f3f33a5c4edc14633be9fe3",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
@@ -1992,20 +1992,20 @@
    }
   },
   "c-nc-5th-north-carolina-cavalry": {
-   "rows": 1326,
-   "raw_bytes": 89448,
-   "gz_bytes": 19278,
-   "sha256": "e29bb0e760c74a0b393c7a2c1f60c9c7e8bbfdd205805ed724704fc5696e5e3c",
+   "rows": 1325,
+   "raw_bytes": 89398,
+   "gz_bytes": 19259,
+   "sha256": "5836b6afbcfa45593470ee981367936a7bcb7b10ad05762248109bca910c2525",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 1322,
+   "remark_ok": 1321,
    "remark_empty": 4,
    "remark_gap_rows": 1,
    "rows_with_remarks_not_found": 0,
    "primary": "a",
    "second": "b",
-   "why": "score 1326 against 1321 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "why": "score 1325 against 1321 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -2018,8 +2018,8 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 1326,
-     "after_dedupe": 1326
+     "parsed": 1325,
+     "after_dedupe": 1325
     },
     "b": {
      "parsed": 1321,
@@ -2043,20 +2043,20 @@
    }
   },
   "c-nc-2nd-north-carolina-battalion": {
-   "rows": 552,
-   "raw_bytes": 40055,
-   "gz_bytes": 9307,
-   "sha256": "f868ef9bab83f2aaf08164abf26b23bca417be304fdbc8691f8d203bfe0d9b37",
+   "rows": 553,
+   "raw_bytes": 40067,
+   "gz_bytes": 9313,
+   "sha256": "9dc4c3f23781c573bd7b910622b52fb7683c1d5bb7b6999850d7eaa776828ffd",
    "verify_ok": true,
    "v1": 0,
    "v3": 0,
-   "remark_ok": 552,
+   "remark_ok": 553,
    "remark_empty": 0,
    "remark_gap_rows": 0,
    "rows_with_remarks_not_found": 0,
    "primary": "b",
    "second": "a",
-   "why": "score 552 against 544 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "why": "score 553 against 545 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
    "supplement_rows": 0,
    "supplement_runs": [],
    "dups_dropped": {
@@ -2069,12 +2069,12 @@
    },
    "rows_by_scan": {
     "a": {
-     "parsed": 544,
-     "after_dedupe": 544
+     "parsed": 545,
+     "after_dedupe": 545
     },
     "b": {
-     "parsed": 552,
-     "after_dedupe": 552
+     "parsed": 553,
+     "after_dedupe": 553
     }
    },
    "texts": [

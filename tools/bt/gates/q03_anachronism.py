@@ -27,7 +27,6 @@ Checks and items (an item is never coarser than the gate text allows):
 
 Exit code: 0 PASS, 1 FAIL, 2 INCOMPLETE, 3 runner error.
 """
-import copy
 import json
 import os
 import re
@@ -460,6 +459,29 @@ def drawn_figures(env, V, rec, kit, R, fp, exp):
                         st.samples.append(msg)
             except Exception as e:  # noqa: BLE001
                 st.raised.append('the arrival checker raised %s: %s' % (type(e).__name__, str(e)[:100]))
+            # the shell dresses a unit from the manifest of its first day for as long as it is drawn: every item the first day allows must still be valid on every later scene day (the unit is drawn to the end of the window
+            # unless its events end it earlier: the stricter reading is taken)
+            lost_later = []
+            for field in CK.FIELD_ORDER:
+                if field in ('weapon', 'bayonet') and ent['branch'] not in CK.LONG_ARM_BRANCHES:
+                    continue
+                try:
+                    spec0, ents0, _o = CK.resolve_field(kit, ku, field, date, var, 'private')
+                    if spec0 is None:
+                        continue
+                    items0 = {e_['item'] for e_ in ents0}
+                    for d in [x for x in BATTLE_DATES if x > date]:
+                        lost = items0 - {e_['item'] for e_ in CK.resolve_field(kit, ku, field, d, var, 'private')[1]}
+                        if lost:
+                            lost_later.append('%s %s: %s not valid on %s' % (hid, field, ','.join(sorted(lost)), d))
+                            break
+                except Exception:  # noqa: BLE001
+                    continue
+            extra['items_valid_on_every_later_day_drawn'] = not lost_later
+            if lost_later:
+                st.fail['DRESS_INVALID_ON_A_LATER_DAY'] = len(lost_later)
+                st.cls[2] = st.cls.get(2, 0) + len(lost_later)
+                st.samples.append(lost_later[0])
             iid = 'Q03/Q03.1/drawn/%s%s' % (hid, '/' + var if var else '')
             ok = judge_unit(rec, iid, st, ent, fp, 'Q03.1', [hid], R.unit(hid), extra)
             results[(hid, var)] = {'ok': ok, 'stats': st}
@@ -666,16 +688,16 @@ def star_items(rec, dump, R):
         if not fl:
             rec.item(iid, 'BLOCKED-INPUT', 'input missing: the app\'s flag code could not be read (q03_scene.mjs flags section)', {'date': date}, check='Q03.2', sub_requirements=R.unit(None))
             continue
-        want, have = (fl.get('statutory') or {}).get(date), fl.get('us_stars')
+        want, have = (fl.get('statutory') or {}).get(date), (fl.get('product_stars_by_date') or {}).get(date, fl.get('us_stars'))
         ok_pattern = all(p.get('ok') for k, p in (fl.get('patterns') or {}).items() if k in ('us_national', 'cav_guidon'))
-        ev = {'date': date, 'statutory_stars': want, 'drawn_stars': have, 'star_function': fl.get('star_function'), 'takes_a_date': fl.get('star_count_takes_a_date'), 'statute_source': fl.get('statutory_source'),
+        ev = {'date': date, 'statutory_stars': want, 'drawn_stars': have, 'star_function': fl.get('star_function'), 'takes_a_date': fl.get('star_count_takes_a_date') or bool(fl.get('product_stars_by_date')), 'statute_source': fl.get('statutory_source'),
               'national_pattern_builds': ok_pattern, 'note': 'the plan prints no star count; the statutory count (1818 act sec. 2 with the Kansas and West Virginia admissions) is the app\'s own evidence module'}
         if want is None or have is None:
             rec.item(iid, 'BLOCKED-INPUT', 'input missing: no statutory or drawn star count for %s' % date, ev, check='Q03.2', sub_requirements=R.unit(None))
         elif not ok_pattern:
             rec.item(iid, 'FAIL', 'the national colour pattern does not build', ev, check='Q03.2', sub_requirements=R.unit(None))
         elif want != have:
-            rec.item(iid, 'FAIL', 'on %s the statute gives %s stars and the figure code draws %s on every day (flagPattern takes no date: US_STARS is a constant)' % (date, want, have), ev, check='Q03.2', sub_requirements=R.unit(None))
+            rec.item(iid, 'FAIL', 'on %s the statute gives %s stars and the figure code draws %s%s' % (date, want, have, '' if fl.get('product_stars_by_date') else ' on every day (flagPattern takes no date: US_STARS is a constant)'), ev, check='Q03.2', sub_requirements=R.unit(None))
         else:
             rec.item(iid, 'PASS', 'the national colour has %s stars on %s, the statutory count' % (have, date), ev, check='Q03.2', sub_requirements=R.unit(None))
     for scen in ('pdf_p70', 'nps'):
@@ -925,6 +947,7 @@ def main(argv=None):
     env = pq.Env(args.root, args.out)
     rec = pq.Record(GATE, env, renderer_class='mixed', argv=['python3', 'tools/bt/gates/q03_anachronism.py'] + (argv if argv is not None else sys.argv[1:]))
     rec.tool_versions['python'] = sys.version.split()[0]
+    rec.renderer_class = 'python'          # the class of each item; the record header says mixed (python, node; the turntable audit is swgl and owed)
     S = Side(rec, args.no_write)
     rec.note('Q03.3 reading (stricter wins, GATE-SPEC ambiguity rule): a structure passes only with a registry row that says present_1863, an existence start the data states for July 1863 (a build date, a record that calls it pre-existing, or a period note that says it stood), '
              'an existence end that does not fall inside the window without a schedule row, and a state schedule (a record whose schedule rows exist). "Probable", "unreviewed" and "only on the 1868-69 survey" do not establish existence in July 1863.')
@@ -932,9 +955,15 @@ def main(argv=None):
              'because an address ("89 Steinwehr Avenue") is not an avenue. The ground audit (b) is BLOCKED-INPUT until the terrain work writes GOVERNANCE/ground_audit/audit.json; the product\'s own statement that the ground is the modern landscape is a FAIL, never a pass (A-33, X-11).')
     rec.note('Q03.1 flags: a validator flag is acceptable only when every variant passes, the flag is marked in the manifest and on the figure card, and a register entry that is open and complete (L1) names the flag class (tools/bt/gates/q03_flags.json). Marking in the picture is Q23\'s.')
     rec.note('No COVERED: Q03 has no register or flag branch of its own (GATE-SPEC K3).')
+    rec.note('Q03.1 class 1 (presence): the arrival half is checked for every drawn figure with the presence test bound to the unit\'s arrival gate and a negative control on the day before; the validator gates arrival only (kit_presence: departures are not gated), so the departure half '
+             '("has already left") is not checked by this runner; Q04.4 judges departures in the scene.')
+    rec.incomplete('Q03.1 class 1: the departure half of the presence test (a soldier whose unit has already left is absent) is not checked here; the B.6.12 validator gates arrival only')
     if UNIT_FILTER is not None:
         rec.incomplete('restricted by --units %s: not every unit was scanned (U-26)' % args.units)
     tmp = tempfile.mkdtemp(prefix='q03-')
+    for rel, role in (('GOVERNANCE/requirements.json', 'sub-requirement rows'), ('GOVERNANCE/register_index.json', 'register index'), ('history/units.json', 'roster'), ('history/arrivals.json', 'arrival gates'),
+                      ('history/not_on_field.json', 'units not on the field'), ('GOVERNANCE/conflicts_structured.json', 'conflicts of the arrival gates'), ('terrain/terrain_sources.json', 'terrain source catalogue (Cope map)')):
+        rec.add_input(env.btp(rel), role)
     try:
         R = Rows(env)
         V = Validators(env)
@@ -985,35 +1014,51 @@ def main(argv=None):
         except (pq.InputMissing, OSError, ValueError) as e:
             exp_error = str(e)
             rec.note('the drawn-figure export could not be made: %s' % e)
+    if dump is not None:
+        rec.extra['node_child'] = {'sections': dump.get('sections'), 'errors': [e[:200] for e in (dump.get('errors') or [])], 'node': dump.get('node'), 'bt': dump.get('bt')}
+    if exp is not None:
+        stored_fn = os.path.join(env.bt, 'app', 'data', 'figures-validation.json')
+        rec.add_input(stored_fn, 'the stored result of check_figures.py (a file, not a fresh run, U-21)')
+        stored = None
+        if os.path.isfile(stored_fn):
+            try:
+                stored = json.load(open(stored_fn, encoding='utf-8')).get('export_digest')
+            except (OSError, ValueError):
+                stored = None
+        rec.extra['figure_export'] = {'units': len(exp.get('units') or []), 'figures': sum(u.get('figures', 0) for u in (exp.get('units') or [])), 'export_digest': exp.get('export_digest'), 'stored_figures_validation_digest': stored,
+                                      'stored_file_is_current': (stored == exp.get('export_digest')) if stored else None}
     # ---- Q03.1, Q03.2 (kit side)
     pop, drawn = {}, {}
     SD = Side(rec, args.no_write)
     if kit is not None:
-        kit_specs(V, rec, kit, R)
-        validator_selftests(V, rec, kit, R, args.skip_selftests)
-        pop = population(V, rec, kit, R, fp)
-        absent_units(V, rec, kit, R)
+        q3s.safe(rec, 'kit-specs', kit_specs, V, rec, kit, R)
+        q3s.safe(rec, 'validator-selftests', validator_selftests, V, rec, kit, R, args.skip_selftests)
+        pop = q3s.safe(rec, 'population', population, V, rec, kit, R, fp) or {}
+        q3s.safe(rec, 'absent-units', absent_units, V, rec, kit, R)
         if args.skip_drawn:
             rec.item('Q03/Q03.1/drawn-figures', 'NOT-RUN', 'the validation of every drawn figure was skipped by --skip-drawn', {'skipped': True}, check='Q03.1', sub_requirements=R.unit())
             rec.incomplete('the drawn-figure validation was skipped')
         elif exp is None:
             rec.item('Q03/Q03.1/drawn-figures', 'BLOCKED-INPUT', 'input missing: the figures the shell draws could not be exported (%s)' % (exp_error or 'no export'), {'missing': exp_error}, check='Q03.1', sub_requirements=R.unit())
         else:
-            drawn = drawn_figures(env, V, rec, kit, R, fp, exp)
-        flag_items(rec, fp, pop, drawn, R)
-        class7(rec, kit, R)
-        validity_census(V, rec, kit, SD, R)
+            drawn = q3s.safe(rec, 'drawn-figures', drawn_figures, env, V, rec, kit, R, fp, exp) or {}
+        q3s.safe(rec, 'flag-items', flag_items, rec, fp, pop, drawn, R)
+        q3s.safe(rec, 'class7', class7, rec, kit, R)
+        q3s.safe(rec, 'validity-census', validity_census, V, rec, kit, SD, R)
         if args.skip_dates:
             rec.item('Q03/Q03.2/dates', 'NOT-RUN', 'the scan of every scene day was skipped by --skip-dates', {'skipped': True}, check='Q03.2', sub_requirements=R.unit())
             rec.incomplete('the scan of every scene day was skipped')
         else:
-            date_scan(V, rec, kit, R, exp)
-    star_items(rec, dump, R)
+            q3s.safe(rec, 'date-scan', date_scan, V, rec, kit, R, exp)
+    rec.renderer_class = 'node'            # what the app's own code says (the node child): flags, engine, model, ext, train
+    q3s.safe(rec, 'stars', star_items, rec, dump, R)
     # ---- Q03.3, Q03.4, Q03.5, Q03.7 (structures, scene)
     q3s.run(env, rec, V, dump, R, SD, args)
     # ---- Q03.6
+    rec.renderer_class = 'python'
     if kit is not None:
-        regression(V, rec, kit, env, dump, exp, pop, R)
+        q3s.safe(rec, 'regression', regression, V, rec, kit, env, dump, exp, pop, R)
+    rec.renderer_class = 'mixed'
     return pq.finish_cli(rec, args)
 
 

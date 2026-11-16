@@ -122,7 +122,7 @@ def rank_phrase(toks, j, limit=5):
 SURNAME = re.compile(r"^[^\w\s]{0,2}[A-Z](?:[A-Za-z'’\-\^\\\.\*&0-9\|\(\)]|[;:](?=[A-Za-z])){1,23}[,;:][\-—~'’\"\*\^]{0,2}$")
 SURNAME_DOT = re.compile(r"^[^\w\s]{0,2}[A-Z][A-Za-z'’\-\^\\\*&]{2,23}\.$")
 ABBREV_NAME = {'wm', 'jas', 'jno', 'thos', 'geo', 'chas', 'benj', 'danl', 'robt', 'saml', 'edw', 'alex', 'archd', 'nath', 'hy', 'jr', 'sr', 'jun', 'zach', 'jos', 'fred', 'josh', 'ed', 'mich', 'nich', 'sam',
-               'dav', 'cha', 'jon', 'wn', 'jos', 'elij', 'js', 'chr', 'xt', 'senr', 'esq', 'dr', 'rev', 'mr'}
+               'dav', 'cha', 'jon', 'wn', 'jos', 'elij', 'js', 'chr', 'xt', 'senr', 'esq', 'dr', 'rev', 'mr', 'matt', 'theo', 'jord'}
 PLACE = {'gettysburg', 'richmond', 'station', 'bern', 'hill', 'mill', 'manassas', 'fredericksburg', 'petersburg', 'wilderness', 'harbor', 'kinston', 'wilmington', 'raleigh', 'hospital', 'chancellorsville',
          'sharpsburg', 'williamsburg', 'malvern', 'pines', 'mechanicsville', 'winchester', 'spotsylvania', 'cedar', 'creek', 'wagner', 'charleston', 'goldsboro', 'salisbury', 'danville', 'virginia',
          'carolina', 'maryland', 'pennsylvania', 'georgia', 'tennessee', 'alabama', 'florida', 'mississippi', 'texas', 'kentucky', 'south', 'north', 'court', 'house', 'fort', 'point', 'camp', 'navy', 'army',
@@ -335,8 +335,8 @@ def match_S(S, i, bd=2):
         dot = True                                 # "Davis. A. M., e." / "Griswold. John, e.": a period for the comma, only before an initial or a given name and the marker
     elif SURNAME_LOWER.match(t0):
         lower = True                               # "liaker, Ambrose, e." : the first letter garbled; only at a strong boundary with a marker
-    elif SURNAME_SPLIT1.match(t0) and i + 2 < n and SURNAME_SPLIT2.match(toks[i + 1][2]) and bd >= 1:
-        split = True                               # "Daugh ton, Joseph, e." : a surname split by the scan; only with a strict marker
+    elif SURNAME_SPLIT1.match(t0) and i + 2 < n and SURNAME_SPLIT2.match(toks[i + 1][2]) and alpha(toks[i + 1][2]) not in ABBREV_BAD and bd >= 1:
+        split = True                               # "Daugh ton, Joseph, e." : a surname split by the scan; only with a strict marker; the second part is no abbreviation ("Wilkes co.;" is a county, not a split surname)
     else:
         return None
     w = alpha(t0)
@@ -431,9 +431,9 @@ def find_heads(S, a, b, section, ev_idx):
         order = (match_G, match_S) if section in ('officers', 'fs', 'nco') else (match_S, match_G)
         prev = toks[i - 1][2] if i > 0 else ''
         for fn in order:
-            if fn is match_G and bd < 1 and (re.fullmatch(r"(?:at|in|of|to|from|and|by|near|for|on|the|as|a|an|with|or|but)", prev) or re.search(r"[A-Za-z]-$", prev)
+            if fn is match_G and bd < 1 and not (re.search(r"\.[,;]?$", toks[i][2]) and alpha(toks[i][2]) in ABBREV_NAME) and (re.fullmatch(r"(?:at|in|of|to|from|and|by|near|for|on|the|as|a|an|with|or|but)", prev) or re.search(r"[A-Za-z]-$", prev)
                                              or alpha(prev) in ('com', 'co', 'company', 'pany', 'comp', 'regt', 'reg', 'cav', 'battalion', 'bn', 'regiment')):
-                continue
+                continue                          # (a name abbreviation such as Wm. or Thos. may begin a head after "Bertie co." or "65th Regiment.": the head still needs a rank phrase or a marker)
             g = fn(S, i, bd) if fn is match_S else fn(S, i)
             if g and not contiguous(S, i, g[1]):
                 g = None                          # a heading or a running head stands between the name tokens: the name would not be in the text as one run

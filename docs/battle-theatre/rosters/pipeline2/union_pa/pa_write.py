@@ -140,7 +140,8 @@ def write_unit(u):
     # ---- diagnostics
     os.makedirs(DIAG, exist_ok=True)
     rej = [r for r in d['rejected'] if u['co'] is None or r['co'] in u['co']]
-    json.dump({'unit': u['key'], 'rows': n, 'lost_name_lines': rej, 'orphans': d['orphans'], 'headings': d['headings'], 'company_gaps': d.get('company_gaps', [])},
+    json.dump({'unit': u['key'], 'rows': n, 'lost_name_lines': rej, 'orphans': d['orphans'], 'headings': d['headings'], 'company_gaps': d.get('company_gaps', []),
+               'skipped_lines': d.get('skipped', [])},
               open(os.path.join(DIAG, u['key'][len('u-pa-'):] + '.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
     return path, meta, flags
 

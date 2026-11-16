@@ -38,9 +38,11 @@ def src_class(key):
     if key.startswith('EPT'):
         return CLASS['EPT']
     if key.startswith('OWN'):
-        return CLASS['OWN']
+        return REG[key]['source_class'] if key in ('OWN-EPT-SOURCES-SUMMARY', 'OWN-NPS-MANIFEST') else CLASS['OWN']
     if key.startswith('ROBOTS'):
         return CLASS['ROBOTS']
+    if key.startswith('PROJ'):
+        return REG[key]['source_class']
     return REG[key].get('source_class')
 
 
@@ -155,7 +157,7 @@ def main():
         r = json.loads(l)
         prev[r['id']] = r
     rows = []
-    for mod in ('rows_a', 'rows_b', 'rows_c'):
+    for mod in ('rows_a', 'rows_b', 'rows_d', 'rows_c'):
         m = importlib.import_module(mod)
         rows += m.ROWS(prev) if callable(getattr(m, 'ROWS', None)) else m.ROWS
     ids = [r['id'] for r in rows]

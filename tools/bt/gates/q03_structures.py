@@ -32,6 +32,18 @@ def is_construction(state, stage):
 KIND_OF_VEHICLE = {'limber': 'limber', 'caisson': 'caisson', 'wagon': 'battery_wagon', 'forge': 'forge'}
 
 
+def safe(rec, name, fn, *args, **kw):
+    """Run one phase of the gate. An exception does not end the run and is never a pass: it becomes a BLOCKED-INPUT item that names it, and the verdict stays INCOMPLETE at best."""
+    try:
+        return fn(*args, **kw)
+    except Exception as e:  # noqa: BLE001
+        import traceback
+        tb = traceback.format_exc().strip().splitlines()
+        rec.item('Q03/phase-error/%s' % name, 'BLOCKED-INPUT', 'input missing: the phase %s could not run to its end (%s: %s)' % (name, type(e).__name__, str(e)[:160]), {'phase': name, 'traceback_tail': tb[-4:]}, check='Q03')
+        rec.incomplete('the phase %s raised %s' % (name, type(e).__name__))
+        return None
+
+
 def read_json_opt(path):
     try:
         with open(path, encoding='utf-8') as f:
@@ -148,6 +160,8 @@ def judge_drawn_object(o, d3rec, props, srec, eng):
             end_note = 'destroyed in 1863: schedule rows %s' % ','.join(rows[:3])
     if o.get('dropped'):
         reasons.append('the model dropped the object (no geometry on the loaded ground)')
+    if str(status or '').startswith('not_drawn') and not o.get('dropped'):
+        reasons.append('the record says it is not drawn (status %s) but the scene draws it' % status)
     if not sid:
         reasons.append('no state schedule: the object is linked to no structures.json record')
     elif not (known or asked):
@@ -156,7 +170,7 @@ def judge_drawn_object(o, d3rec, props, srec, eng):
         reasons.append('no state schedule: no schedule row names %s (the engine answers "no scheduled state, initial state unspecified in B.8.7")' % sid)
     else:
         res['schedule'] = True
-    ok = res['registry'] and res['start'] and res['end'] and res['schedule'] and not o.get('dropped') and not probs
+    ok = res['registry'] and res['start'] and res['end'] and res['schedule'] and not o.get('dropped') and not probs and not str(status or '').startswith('not_drawn')
     return ok, reasons, {'basis': basis, 'built': (d3rec or {}).get('built'), 'status': status, 'represents': (d3rec or {}).get('represents') or (props or {}).get('geometry_represents'), 'record': (o.get('rec') or None), 'state_id': o.get('state_id'),
                          'schedule_rows': rows, 'registry_present_1863': None if props is None else props.get('present_1863'), 'checks': res, 'end_note': end_note, 'tier': o.get('tier')}
 
@@ -194,6 +208,42 @@ def q033_objects(env, rec, inp, dump, R, SD):
             rec.item(iid, 'FAIL', ('; '.join(reasons))[:480], ev, check='Q03.3', subjects=[o['id']], sub_requirements=sub)
         out[o['id']] = (ok, reasons, ev, o)
     return out
+
+
+def q033_out_of_window(env, rec, inp, dump, R):
+    """The rows that lie outside the window (S-078, S-079: the McPherson house burned in 1895, the Codori barn came down in 1882, the Rose barn burned in 1910): at every minute of both windows, in every scenario, the
+    object stands and is in none of the later states (GATE-SPEC 3.2: "the item is a negative check")."""
+    eng = engine_facts(dump)
+    rows = [r for r in ((inp.sched or {}).get('rows') or []) if r.get('out_of_battle_scope')]
+    if inp.sched is None or not rows:
+        rec.item('Q03/Q03.3/stands-throughout', 'BLOCKED-INPUT', 'input missing: no row of state_schedule.json lies outside the battle window (S-078 and S-079 are named by the gate text)', {}, check='Q03.3', sub_requirements=R.struct())
+        return
+    for r in rows:
+        later = [t.strip().lower() for t in (r.get('to_state') or '').split(';') if t.strip()]
+        for oid in r['object_ids']:
+            iid = 'Q03/Q03.3/stands-throughout/%s/%s' % (r['id'], oid)
+            sub = R.struct(oid.split('#')[0])
+            if not eng:
+                rec.item(iid, 'BLOCKED-INPUT', 'input missing: the state engine of the node child', {}, check='Q03.3', subjects=[oid], sub_requirements=sub)
+                continue
+            ser = (eng.get('series') or {}).get(oid)
+            ev = {'row': r['id'], 'later_state': r.get('to_state'), 'time_printed': (r.get('time') or {}).get('printed'), 'scenarios': sorted((ser or {}).keys())}
+            bad = []
+            if not ser:
+                bad.append('the engine has no series for %s' % oid)
+            for sc, runs in sorted((ser or {}).items()):
+                for run_ in runs:
+                    st = (run_.get('state') or '').lower()
+                    if run_.get('present') is False:
+                        bad.append('scenario %s: absent at %s (%s)' % (sc, run_['iso'], st[:40]))
+                        break
+                    if any(t and t in st for t in later) or BURN.search(st) or re.search(r'\b(1882|1895|1910)\b', st):
+                        bad.append('scenario %s: in a later state at %s (%s)' % (sc, run_['iso'], st[:50]))
+                        break
+            if bad:
+                rec.item(iid, 'FAIL', '%s must stand throughout the window (row %s is out of the battle scope): %s' % (oid, r['id'], '; '.join(bad[:2]))[:380], dict(ev, problems=bad[:4]), check='Q03.3', subjects=[oid], sub_requirements=sub)
+            else:
+                rec.item(iid, 'PASS', '%s stands at every minute of both windows in every scenario (%d): the later state "%s" (%s) is never reached' % (oid, len(ser), r.get('to_state'), r['id']), ev, check='Q03.3', subjects=[oid], sub_requirements=sub)
 
 
 def q033_works(env, rec, inp, dump, R):
@@ -678,13 +728,16 @@ def regression_structures(env, rec, dump, V, item, CASE):
 
 # ============================================================================================================ the run
 def run(env, rec, V, dump, R, SD, args):
-    inp = Inputs(env, rec)
-    objs = q033_objects(env, rec, inp, dump, R, SD)
-    q033_works(env, rec, inp, dump, R)
-    q033_records(env, rec, inp, dump, R)
-    q034_registry(env, rec, inp, dump, R, SD, objs)
-    q034_avenues(env, rec, inp, dump, R)
-    q034_memorials(env, rec, dump, R)
-    q034_ground(env, rec, R)
-    q035(env, rec, inp, dump, R)
-    q037(env, rec, inp, dump, R)
+    inp = safe(rec, 'structure-inputs', Inputs, env, rec)
+    if inp is None:
+        return
+    objs = safe(rec, 'q033-objects', q033_objects, env, rec, inp, dump, R, SD)
+    safe(rec, 'q033-works', q033_works, env, rec, inp, dump, R)
+    safe(rec, 'q033-out-of-window', q033_out_of_window, env, rec, inp, dump, R)
+    safe(rec, 'q033-records', q033_records, env, rec, inp, dump, R)
+    safe(rec, 'q034-registry', q034_registry, env, rec, inp, dump, R, SD, objs)
+    safe(rec, 'q034-avenues', q034_avenues, env, rec, inp, dump, R)
+    safe(rec, 'q034-memorials', q034_memorials, env, rec, dump, R)
+    safe(rec, 'q034-ground', q034_ground, env, rec, R)
+    safe(rec, 'q035', q035, env, rec, inp, dump, R)
+    safe(rec, 'q037', q037, env, rec, inp, dump, R)

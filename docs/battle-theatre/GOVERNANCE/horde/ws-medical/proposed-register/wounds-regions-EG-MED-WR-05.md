@@ -5,9 +5,9 @@
 | ID | EG-MED-WR-05 |
 | Requirement IDs | OA12 (accurate field hospitals, battle trauma and period-accurate treatment); PDF B.8.5; gate Q26; Law clauses 3, 4 and 7 |
 | Category | evidence not yet entered |
-| Description | The first surgical volume names Gettysburg 305 times in its second scan and the 1876 volume 167 times (tables of engagements and chapters of other groups included). The file enters 57 named cases (56 of Gettysburg), chosen for the hospital named, the dressing or operation and the course: cases of the chest (8 named at the hospital of the Fifth Corps, 7 of them with the hermetical sealing of Assistant Surgeon Howard), the head, neck, spine, abdomen and pelvis, and 8 specimens of the Army Medical Museum (gap row 278). |
+| Description | The scratch lists of the group hold 265 passages naming Gettysburg in the first surgical volume (160 in the chapter on the head, 44 chest, 36 face, 13 spine, 10 neck, 2 elsewhere) and 151 in the 1876 volume. The file enters 57 named cases (56 of Gettysburg), chosen for the hospital named, the dressing or operation and the course: cases of the chest (8 named at the hospital of the Fifth Corps, 7 of them with the hermetical sealing of Assistant Surgeon Howard), the head, neck, spine, abdomen and pelvis, and 8 specimens of the Army Medical Museum (gap row 278). |
 | Why literal 100% is not possible or blocked | Time: the texts are local and the work is possible; this is not a limit of the record. |
-| Evidence searched | Every passage naming Gettysburg in the chapters of this group was listed by offset; the selection is the rows. |
+| Evidence searched | The passages naming Gettysburg in the first and second surgical volumes were listed by offset in scratch files of the group (265 and 151 passages); the selection is the rows. |
 | Autonomous substitute applied | None; the rows entered are complete as rows. |
 | Strongest evidence-based reconstruction | A further pass entering the rest as single rows would give the flows between the field hospitals and the general hospitals by unit and day. |
 | Confidence tier | documented (the rows entered); open gap (the rest) |

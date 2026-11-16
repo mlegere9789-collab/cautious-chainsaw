@@ -33,7 +33,15 @@ for r in rlib.read_jsonl(os.path.join(HERE, 'fts_attempts.jsonl')):
     FTS[r['id']] = r
 FTS_OLD = rlib.read_jsonl(os.path.join(RETRY, 'fts_log.jsonl'))
 CA_OLD = rlib.read_jsonl(os.path.join(RETRY, 'ca_log.jsonl'))
-LOCAL = json.load(open(os.path.join(HERE, 'local_rescan_results.json'))) if os.path.exists(os.path.join(HERE, 'local_rescan_results.json')) else {}
+LOCAL = {}
+for _fn in ('local_rescan_small.json', 'local_rescan_results.json'):
+    _p = os.path.join(HERE, _fn)
+    if os.path.exists(_p):
+        _d = json.load(open(_p))
+        for _k, _v in _d.items():
+            if not _k.startswith('_'):
+                _v['_run_at'] = _d['_meta']['run_at']
+                LOCAL[_k] = _v
 EVID = []
 for p in ('evidence_corrections', 'timeline_corrections'):
     EVID += rlib.read_jsonl(os.path.join(rlib.GOV, p, 'web-lookups.jsonl'))
@@ -73,6 +81,36 @@ OLD_FTS_ROWS = {'jacobs': ['LKR-T2-053', 'LKR-T2-068', 'LKR-T2-073', 'LKR-T2-113
                 'jerome': ['LKR-T1-092', 'LKR-tl-02-L7']}
 OLD_CA_ROWS = {'Sandoe': ['LKR-T1-013', 'LKR-tl-01-L1'], 'Gettysburg Wade killed bullet baking': ['LKR-fence-2-L54']}
 
+
+EXTRA_F = {'F-320': ['LKR-fence-2-L123'], 'F-321': ['LKR-fence-2-L123'], 'F-318': ['LKR-fence-2-L87'], 'F-350': ['LKR-fence-2-L87'], 'F-161': ['LKR-BH-fence-3-R14.S-066#bh1'], 'F-317': [], 'F-309': []}
+
+
+def _img(p):
+    return {'file': p, 'sha256': rlib.sha_file(rlib.abspath(p))}
+
+
+MANUAL = {
+    'LKR-terrain-2-L2': [{'attempt': 'LT-or27-selftest', 'kind': 'local_tool_run', 'at': '2026-11-16T01:30:00Z', 'command': 'python3 -I tools/bt/or27_find.py --self-test',
+                          'says': 'ends "SELF-TEST OK" (exit 0, 0.9 s); the three Official Records volume texts are in tmp/library/or27', 'text_file': 'tmp/library/or27/cu31924077699761_djvu.txt',
+                          'text_sha256': rlib.sha_file(rlib.abspath('tmp/library/or27/cu31924077699761_djvu.txt'))}],
+    'LKR-fence-3-L8': [{'attempt': 'LT-brien-images', 'kind': 'local_page_image_reading', 'at': '2026-11-16T01:25:00Z', 'tool': 'pdftoppm (now installed) at 130 and 150 dpi, viewed; tesseract at 300 dpi',
+                        'pdf': 'tmp/library/web/nps/NPS-BRIEN-FARM/NPS-BRIEN-FARM.pdf', 'pdf_sha256': '76a1a095b7fae524fe440a0f1c606b02ed0a65b4f810a3756283c0dcdaa40eda', 'pages': [7, 15],
+                        'images': [_img('tmp/library/web/retry/F-366/img/p007.png'), _img('tmp/library/web/retry/F-366/img/p015.png')], 'text_file': 'tmp/library/web/retry/F-366/ocr_p7-15.txt',
+                        'text_sha256': rlib.sha_file(rlib.abspath('tmp/library/web/retry/F-366/ocr_p7-15.txt')),
+                        'says': 'page images read: "194 panels ... worth $174; stone fence destroyed worth $5.00" (printed p. 134) and "received only $15, out of $1,028 requested" (printed p. 5); the PDF text layer misreads them (195, $175)'}],
+    'LKR-fence-3-L84': [{'attempt': 'LT-cemstudy-images', 'kind': 'local_page_image_reading', 'at': '2026-11-16T01:20:00Z', 'tool': 'pdftoppm 115 and 300 dpi, viewed; tesseract at 300 dpi (pages 7-11)',
+                         'pdf': 'tmp/library/web/retry/F-350/cemetery-enclosures.pdf', 'pdf_sha256': 'a9c293c13a6e82890f883c28e7eebb4208928af8b5ad28cfc86a9e12061c29c2', 'pages': [1, 7, 8, 9, 10, 11],
+                         'images': [_img('tmp/library/web/retry/F-350/ocr3/img/p%03d.png' % n) for n in (7, 8, 9, 10, 11)] + [_img('tmp/library/web/retry/F-350/pages/title-001.png')],
+                         'text_file': 'tmp/library/web/retry/F-350/ocr3/ocr_p7-11.txt', 'text_sha256': rlib.sha_file(rlib.abspath('tmp/library/web/retry/F-350/ocr3/ocr_p7-11.txt')),
+                         'says': 'cover: K R Georg, June 16, 1978; printed p. 8: "The first enclosure to be completed was the division fence between the Evergreen and National Cemeteries" (iron railing of gas pipe, 1726 feet, Wills to Curtin 6 March 1865); p. 6 note 13: Wills, 8 July 1864, "If we can now avoid the expense of the fence between the two cemeteries we should do so"'}],
+    'LKR-tl-01-L6': [{'attempt': 'LT-jacobs-verbatim', 'kind': 'local_text_read', 'at': '2026-11-16T01:10:00Z', 'text_file': 'tmp/library/ws9/JACOBS-1864__notesonrebelinva00jaco_djvu.txt',
+                      'text_sha256': rlib.sha_file(rlib.abspath('tmp/library/ws9/JACOBS-1864__notesonrebelinva00jaco_djvu.txt')), 'says': 'p. 25: "one of these officers was on the College cupola making observations"; p. 15: the Confederate cavalry at "3J p. m."'}],
+    'LKR-r03-1-L2': [{'attempt': 'LT-bl3-law', 'kind': 'local_text_read', 'at': '2026-11-16T01:22:00Z', 'text_file': 'tmp/library/misc/battlesleadersof03cent_djvu.txt',
+                      'text_sha256': rlib.sha_file(rlib.abspath('tmp/library/misc/battlesleadersof03cent_djvu.txt')), 'says': 'Law, "The Struggle for Round Top", Battles and Leaders vol. III pp. 318 ff.: every "minutes" in the article\'s pages read; no ten- or fifteen-minute interval about Vincent'}],
+}
+MANUAL['LKR-tl-02-L5'] = MANUAL['LKR-tl-02-L6'] = MANUAL['LKR-tl-01-L6']
+MANUAL['LKR-fence-2-L87'] = MANUAL['LKR-fence-3-L84']
+MANUAL['LKR-r03-1-L4'] = MANUAL['LKR-r03-1-L2']
 
 EXTRA = {'C07': ['LKR-BH-fence-3-R14.S-066#bh1'], 'A08': ['LKR-BH-fence-3-R14.S-066#bh1'], 'B06': ['LKR-BH-fence-3-R14.S-066#bh1'], 'B27': ['LKR-BH-fence-3-R14.S-066#bh1', 'LKR-T3-137'],
          'C08': ['LKR-fence-2-L7', 'LKR-fence-2-L9', 'LKR-fence-2-L125'], 'C04': ['LKR-fence-2-L122'], 'A04': ['LKR-fence-2-L122'], 'B16': ['LKR-fence-2-L122']}
@@ -181,7 +219,7 @@ def build():
         a = fetch_attempt(f)
         for lk in f.get('lk') or []:
             add(lk, a)
-        for lk in OLD_F.get(fid, []):
+        for lk in OLD_F.get(fid, []) + EXTRA_F.get(fid, []):
             add(lk, a)
     # host probes of 2026-11-13 (F-101..F-139, no row list): by host
     probes = [f for fid, f in FETCH.items() if 101 <= int(fid.split('-')[1]) <= 139 or 203 <= int(fid.split('-')[1]) <= 241 or int(fid.split('-')[1]) in (370, 371)]
@@ -212,10 +250,11 @@ def build():
                 for lk in rows:
                     add(lk, a)
     for lk, v in LOCAL.items():
-        if lk.startswith('_'):
-            continue
-        add(lk, {'attempt': 'LR-' + lk, 'kind': 'local_rescan', 'at': LOCAL['_meta']['run_at'], 'asked': v['asked'], 'regex': v['regex'], 'files_scanned': v['files_scanned'], 'files_with_match': v['files_with_match'],
+        add(lk, {'attempt': 'LR-' + lk, 'kind': 'local_rescan', 'at': v['_run_at'], 'asked': v['asked'], 'regex': v['regex'], 'files_scanned': v['files_scanned'], 'files_with_match': v['files_with_match'],
                  'matches': v['matches'], 'first_contexts': v['first_contexts'][:2], 'says': '%d of %d local files match (%d matches) for the shard\'s own question, re-run over the current local corpus' % (v['files_with_match'], v['files_scanned'], v['matches'])})
+    for lk, lst in MANUAL.items():
+        for a in lst:
+            add(lk, a)
     return att
 
 

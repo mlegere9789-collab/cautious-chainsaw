@@ -16,7 +16,7 @@
 // modules that are not in the build (tests/bt-pack keeps a reviewed list of both). The directory layout of docs/battle-theatre is kept (the shell resolves its siblings by relative
 // URL). Rewritten on the way out: app/index.html (home links, noindex, build stamp) and the files of PROJECT (reduced to the fields the shell reads). Files matching WITHHELD are never
 // shipped, are listed in MANIFEST.json and are reported by the real run. Nothing is uploaded or deployed by this tool.
-// The copy audit (AUDIT_RE below) runs on the finished dist. A build with hits exits 2, prints every line, and its zip is named gettysburg-BT-staging-<id>-AUDIT-HITS-<n>.zip: the plain
+// The copy audit (AUDIT_RE for the tools, the makers and the AI names; AUDIT_PROCESS for the words of the working process: workstream, shard, the working folder GOVERNANCE/horde, the task brief) runs on the finished dist. A build with hits exits 2, prints every line, and its zip is named gettysburg-BT-staging-<id>-AUDIT-HITS-<n>.zip: the plain
 // name means "clean" and nothing else (the zips of earlier flagged builds are removed by the next pack; a clean zip never is). tools/bt/verify_staging.mjs does the whole honest run
 // (snapshot, pack, static checks, browser walk of the dist and of the source, comparison); tests/bt-pack holds the self-tests of both tools.
 import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url'; import { createRequire } from 'node:module';
@@ -416,7 +416,7 @@ export function makeZip(entries) {   // entries: [{name, data}] sorted by caller
 
 // ---- copy audit: nothing in the shipped files may say how the site was made (GOVERNANCE/FINAL-ACCEPTANCE.md, copy audit rules)
 // names of tools and makers; statements that a file was made by a tool; the word "agent" where it means a maker of the site (not a figure of the simulation, not a person of 1863);
-// markers of internal notes. Case-insensitive.
+// markers of internal notes. Case-insensitive. The words of the working process (a unit of work, a working folder) are AUDIT_PROCESS further down: hits of kind 'process'.
 const AUDIT_KEY_GENERATED = String.raw`"generated(?:_?(?:at|by|on|from))?"\s*:`;
 const AUDIT_KEY_MAKER = String.raw`"(?:(?:built|made|produced|written|created|exported|compiled)[_ -]?(?:by|with)|generator|builder|build[_-]?(?:script|tool))"\s*:\s*"[^"\n]*(?:\/|\.(?:mjs|cjs|js|py|sh)\b)`;
 // Statements that name the program that made a file or a piece of data. Added 2026-11-14, after a read of the real shipped files showed forms that the rules above did not see: "Written to data/x.json by
@@ -450,6 +450,21 @@ export const AUDIT_RE = new RegExp([
 ].join('|'), 'i');
 // the two letters as a word (case-sensitive, between spaces or punctuation)
 export const AUDIT_CS_RE = /(?:^|[\s("'“‘>\[])(AI|A\.I\.)(?=$|[\s)."'”’,;:!?<\]])/;
+// Words of the working process: how the work was divided and checked. The owner's rule keeps the way the site was made out of every shipped file, and a unit of work ("workstream 6", "shard terrain-1", a folder of
+// GOVERNANCE/horde, "the task brief", "in this round") says how it was made as much as a tool name does. Until 2026-11-16 these words were only COUNTED for review (AUDIT_REVIEW_RE) and a build whose files said "no source
+// was opened by this workstream" in 20 lines of 7 files still got the clean name: a count that fails nothing is not a gate. They are hits now, read with the same line rules and the same reviewed allowances (AUDIT_ALLOW)
+// as every other rule, and they are kept OUT of AUDIT_RE so that the tools that read AUDIT_RE (tools/bt/kit_evidence_lib.py, tests of other lanes) keep the rules they were written against; a tool that wants the same
+// strictness reads AUDIT_PROCESS_RE too (request note bt-spec-health-process-words-*.md). Every part is a plain pattern. What stays a count (auditReview): the words the product also uses in another sense (a render
+// "pass", "this session" of a page, the plain word "horde") and the labels of identifiers (ws6, ws10, "Round 3").
+export const AUDIT_PROCESS = [
+  String.raw`\bworkstreams?(?![a-z])`,                                                                                 // "workstream 6", "this workstream"
+  String.raw`\bshards?(?![a-z])`,                                                                                      // "shard terrain-1", "the shards' extraction" (a unit of work of the process)
+  String.raw`\bhorde\/|\/horde\b`,                                                                                      // the working folder GOVERNANCE/horde/... (the plain word "horde" of a source stays a count)
+  String.raw`\btask briefs?\b`,                                                                                         // "the task brief says evening"
+  String.raw`\b(?:research|later|earlier|previous|prior|coding|working) sessions?\b`,                                   // a session of the work ("this session" and "1st Session" of Congress are not)
+  String.raw`\b(?:in|during|for) this round\b`,                                                                         // "not located in this round", "unverified on a GPU in this round"
+];
+export const AUDIT_PROCESS_RE = new RegExp(AUDIT_PROCESS.join('|'), 'i');
 // names that are searched in binary files too (image and audio metadata)
 export const AUDIT_BIN_RE = /claude|anthropic|chatgpt|openai|midjourney|stable.diffusion/i;
 // reviewed exceptions, decided one match at a time: { file: RegExp on the shipped path, match: RegExp on the matched word, before: RegExp on the text of the line in front of the match, after: RegExp on the text
@@ -464,10 +479,11 @@ export const AUDIT_ALLOW = [
   { file: /^rosters\/data2\/.+\.flags\.json\.gz$/, match: /^Claude$/, before: new RegExp(String.raw`"normalised_names":\[(?:"(?:[^"\\]|\\.)*",)*"(?:${NAME_WORD}\s+){0,3}$`), after: new RegExp(String.raw`^(?:\s+${NAME_WORD}){0,3}"`),
     why: 'the same printed given name, normalised ("Given Surname"), in the name list of a flag file' },
 ];
-// words of the working process that name no tool: counted and reported with every pack (not a failing hit), so that the acceptance copy audit can rule on them
+// Every word of the working process that the packer knows, as one list. Since 2026-11-16 most of them FAIL (AUDIT_PROCESS above); this list stays exported for the tools that read it (tests/photomatch-q16.test.mjs
+// keeps a text clear of all of them) and is never shortened. What auditReview() only COUNTS, because the product also uses the word in another sense or because it is the label of an identifier, is AUDIT_REVIEW_ONLY.
 export const AUDIT_REVIEW_RE = /\b(workstreams?|horde|shards?|task brief|research session|this session|later session|our pass|this pass)\b/gi;
 const BINARY = /\.(jpe?g|png|bin|zip|webp|gif|glb|wav|ogg|mp3|m4a|flac|woff2?|ttf|otf|wasm|ktx2|pdf)$/i;
-const AUDIT_RE_ALL = new RegExp(AUDIT_RE.source, 'gi'), AUDIT_CS_RE_ALL = new RegExp(AUDIT_CS_RE.source, 'g');
+const AUDIT_RE_ALL = new RegExp(AUDIT_RE.source, 'gi'), AUDIT_CS_RE_ALL = new RegExp(AUDIT_CS_RE.source, 'g'), AUDIT_PROCESS_RE_ALL = new RegExp(AUDIT_PROCESS_RE.source, 'gi');
 // The four statement forms of AUDIT_PRODUCTION (the fifth is a key). A statement that ends in the name of a program that ships in this build is about the product ("made per scenario by real.mjs"), not about its maker.
 const PROD_STATEMENT_ALL = new RegExp(AUDIT_PRODUCTION.slice(0, 4).join('|'), 'gi'), PROD_STATEMENT = new RegExp(AUDIT_PRODUCTION.slice(0, 4).join('|'), 'i');
 const AUDIT_MAKER_KEY = new RegExp([AUDIT_KEY_GENERATED, AUDIT_KEY_MAKER, AUDIT_PRODUCTION[4]].join('|'), 'i'), PROD_END = /(?:^|[\s/(])([\w.-]+\.(?:py|mjs|cjs|js|sh))\)?$/;
@@ -475,14 +491,14 @@ const shippedProgram = (word, shipped) => { if (!shipped || AUDIT_MAKER_KEY.test
 // the hit of one line (one per line, as the count in the zip name says): the first match that no reviewed allowance covers; the words of AUDIT_RE come before the two letters of AUDIT_CS_RE. A match the
 // allowances cover does not hide a later match of the same line. start = where the matched word begins in the line. shipped = the file names of the build (a program that ships is not a maker of the site).
 function lineHit(L, rel, extra = {}, shipped = null) {
-  for (const re of [AUDIT_RE_ALL, AUDIT_CS_RE_ALL]) {
+  for (const [re, kind] of [[AUDIT_RE_ALL, null], [AUDIT_PROCESS_RE_ALL, 'process'], [AUDIT_CS_RE_ALL, null]]) {
     re.lastIndex = 0; let m;
     while ((m = re.exec(L))) {
       if (m[0] === '') { re.lastIndex++; continue; }
       const word = (m[1] && m[0].length <= 4 ? m[1] : m[0]).trim(), start = m[1] && m[0].length <= 4 ? m.index + m[0].length - m[1].length : m.index;
       if (AUDIT_ALLOW.some(a => a.file.test(rel) && (!a.match || a.match.test(word)) && (!a.before || a.before.test(L.slice(0, start))) && (!a.after || a.after.test(L.slice(start + word.length))))) continue;
       if (shippedProgram(word, shipped)) continue;
-      return { file: rel, line: 0, match: word, text: L.slice(Math.max(0, m.index - 50), m.index + 80), ...extra };
+      return { file: rel, line: 0, match: word, text: L.slice(Math.max(0, m.index - 50), m.index + 80), ...(kind ? { kind } : {}), ...extra };
     }
   }
   return null;
@@ -500,16 +516,23 @@ function wrapHit(L, next, rel, extra = {}, shipped = null) {
   }
   return null;
 }
-export function audit(dist) {
-  const hits = [], all = walk(dist), shipped = new Set(all.map(f => path.basename(f)));
-  for (const f of all) {
-    const rel = posix(path.relative(dist, f)); if (AUDIT_RE.test(rel)) hits.push({ file: rel, where: 'name' });
+/** The copy audit of a finished dist. `prefix` goes in front of every path: it audits a folder in place under the name it would have in a build (the roster data with 'rosters/data2/', so that the reviewed
+ *  allowances that name that folder apply). A hit of kind 'process' is a word of the working process (AUDIT_PROCESS). */
+export function audit(dist, { prefix = '' } = {}) {
+  const all = walk(dist);
+  return auditFiles(all, f => prefix + posix(path.relative(dist, f)), new Set(all.map(f => path.basename(f))));
+}
+/** The audit over a list of files: relOf(file) is the path the build gives the file, shippedNames the file names of the build (a program that ships is not a maker of the site). */
+export function auditFiles(files, relOf, shippedNames) {
+  const hits = [];
+  for (const f of files) {
+    const rel = relOf(f); if (AUDIT_RE.test(rel)) hits.push({ file: rel, where: 'name' }); else if (AUDIT_PROCESS_RE.test(rel)) hits.push({ file: rel, where: 'name', kind: 'process' });
     let buf = fs.readFileSync(f), gz = false;
     if (/\.gz$/i.test(f)) {       // a gzip file is opened: what is inside is shipped too (the roster unit files are .jsonl.gz)
       try { buf = zlib.gunzipSync(buf); gz = true; } catch (e) { hits.push({ file: rel, where: 'unreadable', match: 'gzip: ' + String(e.message).slice(0, 60) }); continue; }
     }
     if (BINARY.test(f) || (gz && buf.subarray(0, 8192).includes(0))) { const m = AUDIT_BIN_RE.exec(buf.toString('latin1')); if (m) hits.push({ file: rel, where: 'binary', match: m[0], ...(gz ? { gzip: true } : {}) }); continue; }
-    const lines = buf.toString('utf8').split('\n'), prog = /\.(mjs|cjs|js|html?)$/i.test(f) ? shipped : null;      // only a program's own comments and strings can describe the product: a data or text file that names a program as its maker is a hit, shipped or not
+    const lines = buf.toString('utf8').split('\n'), prog = /\.(mjs|cjs|js|html?)$/i.test(f) ? shippedNames : null;      // only a program's own comments and strings can describe the product: a data or text file that names a program as its maker is a hit, shipped or not
     for (let i = 0; i < lines.length; i++) { const ex = gz ? { gzip: true } : {}, h = lineHit(lines[i], rel, ex, prog) || (i + 1 < lines.length ? wrapHit(lines[i], lines[i + 1], rel, ex, prog) : null); if (h) hits.push({ ...h, line: i + 1 }); }
   }
   return hits;
@@ -517,9 +540,12 @@ export function audit(dist) {
 // paths of the repository's scripts cited in shipped text ("tools/bt/check_x.py", "app/tools/build-y.mjs"): a checker cited as the method of a reading is evidence, a builder cited as the maker of a file is
 // a production note (the audit above catches the explicit forms); the rest is counted here so that the acceptance copy audit can rule on it
 export const AUDIT_TOOLPATH_RE = /\b(?:docs\/battle-theatre\/)?(?:app\/)?tools\/[\w./-]+\.(?:mjs|cjs|py|js|sh)\b/g;
+// What auditReview() still only counts (the acceptance review rules on it; it fails nothing): the plain word "horde" (a source may say it; the working folder GOVERNANCE/horde/ is a hit), "this session" of a page, a render
+// "pass" ("this pass's data" of a shader), and the labels of identifiers: ws6, ws10 (lower case: the upper-case source ids of the library, WS9:..., are opaque ids of a source) and "Round 3".
+export const AUDIT_REVIEW_ONLY = [['horde', /\bhorde\b(?!\/)(?<!\/horde)/gi], ['this session', /\bthis session\b/gi], ['our pass', /\bour pass\b/gi], ['this pass', /\bthis pass\b/gi], ['ws label', /\bws\d+[\w-]*/g], ['round label', /\bRound \d+\b/g]];
 export function auditReview(dist) {
   const out = {}, add = (k, rel) => { const o = out[k] || (out[k] = { count: 0, files: {} }); o.count++; o.files[rel] = (o.files[rel] || 0) + 1; };
-  for (const f of walk(dist)) { if (BINARY.test(f)) continue; const rel = posix(path.relative(dist, f)), text = fs.readFileSync(f, 'utf8'); for (const m of text.matchAll(AUDIT_REVIEW_RE)) add(m[1].toLowerCase().replace(/^(workstream|shard)s$/, '$1'), rel); for (const m of text.matchAll(AUDIT_TOOLPATH_RE)) add('tool path', rel); }
+  for (const f of walk(dist)) { if (BINARY.test(f)) continue; const rel = posix(path.relative(dist, f)), text = fs.readFileSync(f, 'utf8'); for (const [k, re] of AUDIT_REVIEW_ONLY) for (const m of text.matchAll(re)) add(k, rel); for (const m of text.matchAll(AUDIT_TOOLPATH_RE)) add('tool path', rel); }
   return out;
 }
 
@@ -733,7 +759,7 @@ else if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(impo
   const review = Object.fromEntries(Object.entries(r.auditReview).map(([k, v]) => [k, v.count]));
   console.log(JSON.stringify({ version: r.version, out: r.out, files: r.files, bytes: r.bytes, zip: r.zip, zipBytes: r.zipBytes, zipSha256: r.zipSha256, clean: r.clean, bytesByFolder: r.bytesByFolder, counts: r.counts, pages: t.pages.length, sections: t.sections.map(s => `${s.path} (${s.files} files)`),
     withheld: t.withheld.map(w => `${w.pattern}: ${w.files} files`), reduced: t.projected.map(p => p.path), computedImports: t.computedImports.filter(c => c.status !== 'address').map(c => `${c.status}: ${c.file}: ${c.arg}`),
-    unshippedLiterals: t.unshippedLiterals.length, external: t.external, notes: t.notes.length, auditHits: r.audit.length, internalWordsForReview: review,
+    unshippedLiterals: t.unshippedLiterals.length, external: t.external, notes: t.notes.length, auditHits: r.audit.length, auditProcessWordHits: r.audit.filter(h => h.kind === 'process').length, wordsCountedForReview: review,
     loadCensus: r.census.available ? { loads: r.census.loads, ...r.census.counts, findings: r.census.findings.length } : r.census.reason }, null, 1));
   console.log('trace report: ' + path.join(path.dirname(r.out), 'trace-report.json'));
   if (r.census.available && r.census.findings.length) { console.error('LOAD CENSUS FINDINGS (a load of the shipped code that the build does not clearly answer; see "loadCensus" in the trace report):'); for (const e of r.census.findings) console.error(' ', `${e.status} ${e.file}:${e.line} [${e.how}] ${e.address.slice(0, 100)}${e.detail ? ' => ' + e.detail : ''}`); }

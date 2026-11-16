@@ -203,7 +203,7 @@ def row_codes(r, vocab):
         cs.add('N')
     if kind not in ('S-mark', 'G-rank') or r.get('lone_dropped') or r.get('lowercase_head'):
         cs.add('H')
-    if r.get('co_rule') in ('sequence', 'skip', 'out-of-sequence', 'inferred-after-privates'):
+    if r.get('co_rule') in ('sequence', 'out-of-sequence', 'inferred-after-privates'):
         cs.add('C')
     if rank_damaged(rank):
         cs.add('R')
@@ -246,7 +246,7 @@ def make_flags(unit_key, rows, vocab, raw_sha, extra=None):
             kinds[r['kind']].append(i)
     unc = sorted(set(i for c in byc.values() for i in c))
     # company_inferred: stretches of rows under a heading whose letter the sequence gave
-    ci = []
+    ci, cskip = [], []
     cur = None
     for i, r in enumerate(rows):
         rule = r.get('co_rule')
@@ -256,7 +256,7 @@ def make_flags(unit_key, rows, vocab, raw_sha, extra=None):
                 cur['n_rows'] += 1
             else:
                 cur = {'first_row': i, 'last_row': i, 'n_rows': 1, 'co': r['row'][2], 'rule': rule, 'heading': r.get('co_heading'), 'offset': r.get('co_off')}
-                ci.append(cur)
+                (cskip if rule == 'skip' else ci).append(cur)
     out = {
         'f': 'roster2-flags/1', 'u': unit_key, 'n': n, 'unit_file_raw_lines_sha256': raw_sha,
         'about': 'row numbers count the rows of the unit file in file order from 0; "ocr_uncertain" = the printed line is damaged in the text layer in at least one of the ways of the codes below '
@@ -264,7 +264,8 @@ def make_flags(unit_key, rows, vocab, raw_sha, extra=None):
                  'separation dates only and is no statement that the man was at Gettysburg; "normalised_names" only re-orders the printed tokens as Given Surname and strips stray marks at their '
                  'ends, no letter is changed ("" where the printed head has no comma after the surname); "names_gettysburg" lists the rows whose printed remarks name Gettysburg (an '
                  'OCR-tolerant match, a lower bound) and "gettysburg_dated" those whose clause also prints 1, 2 or 3 July 1863; "head_kinds" lists the rows whose head was cut by a rule that is a '
-                 'reading, by kind; "segment_of_row" lists the rows that were read from the second scan (supplement)',
+                 'reading, by kind; "company_inferred" lists the stretches of rows under a company letter that the sequence of headings gave (flag C) and "company_skips" the stretches under a clean printed '
+                 'letter that skips a letter of the sequence (the letter is the printed one, no flag); "segment_of_row" lists the rows that were read from the second scan (supplement)',
         'codes': CODES,
         'rows': {c: v for c, v in byc.items() if v},
         'ocr_uncertain': unc,
@@ -277,7 +278,7 @@ def make_flags(unit_key, rows, vocab, raw_sha, extra=None):
         'normalised_names': norm,
         'names_gettysburg': names_g, 'gettysburg_dated': g_dated,
         'head_kinds': {k: v for k, v in sorted(kinds.items())},
-        'company_inferred': ci,
+        'company_inferred': ci, 'company_skips': cskip,
         'printed_page_from_running_head': [],
     }
     if extra:

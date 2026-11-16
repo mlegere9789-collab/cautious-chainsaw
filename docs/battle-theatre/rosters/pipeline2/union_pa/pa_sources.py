@@ -62,7 +62,7 @@ def main():
             'files': [{k: f[k] for k in ('role', 'name', 'url', 'bytes', 'sha256', 'local_path', 'retrieved_utc', 'http_status')} for f in files],
             'djvu_xml': {'name': x['name'], 'bytes': x['bytes'], 'sha256': x['sha256'], 'url': x['url'], 'retrieved_utc': x['retrieved_utc'], 'http_status': 200,
                          'kept': 'transient: the word boxes were read once into the work cache of the volume and the file deleted (deleted_utc in the manifest); '
-                                 'used to place every printed line on the page (pipeline2/union_pa)'},
+                                 'used to place every printed line on the page (the position of each word); not kept in the tree'},
             'rights': {
                 'basis': 'public domain (United States publication before 1929)',
                 'evidence': {
@@ -102,9 +102,19 @@ def main():
     # unit files and sidecars: bytes and sha256
     files = []
     outdir = os.path.join(L.D2, 'union', 'pa')
-    for fn in sorted(os.listdir(outdir)):
-        p = os.path.join(outdir, fn)
-        files.append({'name': fn, 'bytes': os.path.getsize(p), 'sha256': L.R.sha256_file(p)})
+    rel = 'docs/battle-theatre/rosters/data2/union/pa/'
+    for u in PU.U:
+        base = u['key'][len('u-pa-'):]
+        p = os.path.join(outdir, base + '.jsonl.gz')
+        if not os.path.exists(p):
+            continue
+        head, segs, meta = L.R.read_unit(p)
+        fp, cp = os.path.join(outdir, base + '.flags.json.gz'), os.path.join(outdir, base + '.cells.json.gz')
+        files.append({'unit': u['key'], 'designation': head['name'], 'path': rel + base + '.jsonl.gz', 'rows': sum(len(rr) for _, rr in segs),
+                      'file_bytes': os.path.getsize(p), 'file_sha256': L.R.sha256_file(p), 'raw_lines_sha256': meta['sha256'],
+                      'flags_path': rel + base + '.flags.json.gz', 'flags_bytes': os.path.getsize(fp), 'flags_sha256': L.R.sha256_file(fp),
+                      'cells_path': rel + base + '.cells.json.gz', 'cells_bytes': os.path.getsize(cp), 'cells_sha256': L.R.sha256_file(cp),
+                      'text_ids': [L.text_id(u['vol'])]})
     ptr['unit_files'] = files
     os.makedirs(os.path.join(R2, 'sources'), exist_ok=True)
     with open(os.path.join(R2, 'sources', 'union-pa.json'), 'w', encoding='utf-8') as f:
@@ -120,7 +130,7 @@ def main():
     man['generated_utc'] = now()
     with open(L.MANIFEST, 'w', encoding='utf-8') as f:
         json.dump(man, f, ensure_ascii=False, indent=1)
-    print('pointer written;', len(sources), 'sources;', len(files), 'unit files')
+    print('pointer written;', len(sources), 'sources;', len(files), 'units')
 
 
 if __name__ == '__main__':

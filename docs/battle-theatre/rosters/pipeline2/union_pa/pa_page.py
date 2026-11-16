@@ -67,16 +67,28 @@ def is_header_line(toks):
     return fz >= 3 and fz + small >= 0.75 * len(ks)
 
 
-_FOOT_RE = re.compile(r'^(?P<pre>[0-9A-Za-z]{1,4})[VvYyW][OoQ0Uu][LlIi1EeFfKkrR|!][IilLUuHhVvTtNn1|]{0,5}[a-z]?$')
+_FOOT_RE = re.compile(r'^(?P<pre>[0-9A-Za-z]{1,4})[VvYyWTt]?[OoQ0Uu][LlIi1EeFfKkrR|!][IilLUuHhVvYyTtNn1|]{0,5}[a-z]?$')
 
 
 def is_foot_line(toks, i, n):
-    """The signature mark at the foot of a page ("84 - VOL. III."), damaged or intact: a number, VOL, a roman numeral, nothing else."""
-    if len(toks) > 5 or any(T.is_month_loose(t) for t in toks):
+    """The signature mark at the foot of a page ("84 - VOL. III."), damaged or intact: a number, VOL, a roman numeral, nothing else; or what is left of it
+    (a number alone, a few short tokens with a digit) on one of the last lines of the page."""
+    if len(toks) > 5 or any(T.is_month_loose(t) for t in toks) or any(T.is_ditto(t) for t in toks):
         return False
-    k = ''.join(re.sub(r'[^A-Za-z0-9]', '', t) for t in toks)
+    cores = [T.core(t) for t in toks if T.core(t)]
+    if not cores:
+        return False
+    k = ''.join(cores)
     m = _FOOT_RE.match(k)
-    return bool(m) and (any(c.isdigit() for c in m.group('pre')) or i >= n - 4)
+    if m and (any(c.isdigit() for c in m.group('pre')) or i >= n - 4):
+        return True
+    if i >= n - 4 and len(cores) == 1 and len(cores[0]) <= 4 and any(c.isdigit() for c in cores[0]) and not any(c.islower() for c in cores[0]):
+        return True                       # the page number or the signature number alone ("85", "4G")
+    if i >= n - 4 and len(toks) <= 4 and all(len(c) <= 5 for c in cores) and any(c.isdigit() for c in k) and re.search(r'[OQ0U][LlIiEeFfK1|!]', k) and sum(c.isalpha() for c in k) <= 7:
+        return True                       # "81 - OL 1V", "69 - TOL. n."
+    if i >= n - 2 and len(toks) <= 4 and all(len(c) <= 5 for c in cores) and any(c.isdigit() for c in k) and sum(c.isalpha() for c in k) <= 6:
+        return True                       # what remains of a signature mark on the last lines of the page
+    return False
 
 
 _FOOTNOTE_MARK = re.compile(r'^[*\u2020\u2021\u00a7^|]+$|^[tfjJ]$|^[*\u2020\u2021\u00a7^]+[A-Z][a-z]+$')
@@ -192,6 +204,15 @@ def build_lines(ws):
 NOTE_RE = re.compile(r'following\s+abbrev|abbreviat|prepara?tion\s+of\s+rem|used\s+in\s+the\s+prep', re.I)
 RECRUIT_RE = re.compile(r'^(?:rec|bec|kec|reo|rec\^|kooruit|keor|eeor|recr|recruit|raised|organi[sz]ed|enrolled|mustered|recruitl)', re.I)
 MARKS = re.compile(r"^[^A-Za-z0-9]*$")
+
+
+def is_recruit_tok(tok):
+    """The first word of a "RECRUITED AT ..." line, damaged or intact."""
+    t = re.sub(r'^[^A-Za-z]+', '', tok)
+    if RECRUIT_RE.match(t):
+        return True
+    a = re.sub(r'[^a-z]', '', t.lower())
+    return len(a) >= 7 and T.lev(a, 'recruited', 3) <= 3
 _DATEISH = re.compile(r"^[.,'‘’`\"]*\d{1,4}[.,;:]*$")
 # the first word of a remark that stands alone on a line whose name, rank and date cells the text layer lost
 REMARK_START = re.compile(r'^(?:died|disch|dis\b|dism|not\b|must|mus\b|kill|wound|wd\b|capt|cap\b|absen|abs\b|trans|tr\b|deser|promo|pr\b|resign|draft|missing|mis\b|drop|subst|vet\b|taken|appoint|commiss|honor|prison|parol|sick|never|supp|unknown|exch|retir|cashier|expir|detail|re-?enl|reenl)', re.I)
@@ -265,6 +286,9 @@ def analyse_leaf(rec, ctx):
         xd = statistics.median(mem)
         nd = len(mem)
     out['info'].update(xd=None if xd is None else round(xd), nd=nd, xd_source=src if xd is not None else 'none')
+    if not mw and len(ws) < 40:
+        out['info']['kind'] = 'narrative'      # a leaf with a few words and no date at all (a blank or half-blank scan): no table
+        return out
     if xd is None or src == 'inherited' or nd < 5:
         ts = out['info']['table_score']
         if src == 'inherited' and ts >= 0.3:
@@ -370,11 +394,14 @@ def analyse_leaf(rec, ctx):
                 hd = None     # a name that begins like a heading word ("Compton, James H")
         right_alnum = [w for w in right if T.core(w['w'])]
         far_above = y < y_first_month - 2.2 * (pitch0 or 40)
-        is_recruit = bool(RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', toks[0]))) and len(toks) >= 2
+        is_recruit = is_recruit_tok(toks[0]) and len(toks) >= 2
+        recognised = is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)
         if not has_month and not hd and (i < 3 or far_above) and not any(
                 B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l) and (
-                not right_alnum or (far_above and not is_recruit) or is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)):
-            out['items'].append(('skip', 'head', txt, y))      # the running head, the page number, the column headings (a table line has cells right of the name)
+                not right_alnum or (far_above and not is_recruit) or recognised):
+            # the running head, the page number, the column headings (a table line has cells right of the name); a line that no head pattern recognises
+            # and that is skipped only for its place above the first dated line is kept in the list of skipped lines as head-far
+            out['items'].append(('skip', 'head' if (recognised or not T.core(txt)) else 'head-far', txt, y))
             continue
         if not has_month and not hd and (is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)) and i < 4:
             out['items'].append(('skip', 'head', txt, y))
@@ -388,8 +415,8 @@ def analyse_leaf(rec, ctx):
             ctx['seen_heading'] = True
             last_row = None
             continue
-        if not has_month and RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', toks[0])) and (xn is None or x0 > xn + 0.04 * W or (
-                len(toks) >= 3 and re.match(r'^[Aa][TtIiRr]?[.,]?$', toks[1]) and toks[0][:1].isupper())) and (x0 < B2 or last_row is None) and len(toks) >= 2:
+        if not has_month and is_recruit_tok(toks[0]) and (xn is None or x0 > xn + 0.04 * W or (
+                len(toks) >= 3 and re.match(r'^(?:[Aa][TtIiRr]?|[Ii][Nn]|[Ff][Rr][Oo][Mm])[.,]?$', toks[1]) and toks[0][:1].isupper())) and (x0 < B2 or last_row is None) and len(toks) >= 2:
             out['items'].append(('skip', 'recruited', txt, y))
             prev_items = [it for it in out['items'][:-1] if it[0] in ('heading', 'row', 'skip', 'orphan')]
             near_heading = any(it[0] == 'heading' and y - it[-1] < 4.2 * (pitch0 or 40) for it in out['items'][-3:-1])
@@ -400,6 +427,11 @@ def analyse_leaf(rec, ctx):
             continue
         # a line of running prose (a narrative page ends above the roll, a footnote under the table): words stand in the rank and date columns where a
         # table line has a rank word, a month or nothing at all
+        if pre_roll and not has_month and len(l) >= 3 and toks[0][:1].islower() and len(T.core(toks[0])) >= 3 and not any(
+                B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l):
+            out['items'].append(('skip', 'prose', txt, y))      # the end of a sentence of the narrative above the roll ("office of the State.")
+            last_row = None
+            continue
         if pre_roll and not has_month and len(l) >= 6 and left_alnum:
             mid = [w for w in l if B1 - 0.02 * W <= w['x0'] < xd + 0.12 * W and len(T.core(w['w'])) >= 3 and sum(c.isalpha() for c in w['w']) >= 3]
             if len(mid) >= 2 and not any(B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l):

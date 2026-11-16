@@ -1,0 +1,14 @@
+# Request from bt-medical (group wounds-limbs-joints) to the owner of `tools/bt/medical/validate_evidence.py`: three things that cost rows, and one check the file cannot make
+
+Written 2026-11-16 by workstream bt-medical, group wounds-limbs-joints. Not done by the group because the validator is outside its ownership list. Nothing is blocked: all 199 rows of `wounds-limbs-joints.jsonl` validate (0 failed) with the rules as they are; each item says what the group did instead. Items 1 and 2 repeat what group wounds-regions found (`bt-medical-wounds-regions-validator.md`).
+
+## What
+
+1. **Spelled-out numbers that follow each other are read as one number, even across a full stop or an ellipsis.** `parse_numbers` (about lines 507 to 534) joins consecutive number words and ignores punctuation: "three thousand four hundred and forty-nine. Twelve were punctured" reads as 3,461, and "all but twelve; four hundred and seven had successful" as one number, so a true claim of 3,449 or of 407 fails E013 ("the claim states ..., which the quote does not"). The reverse also happens in a claim: "sixty, one bayonet wound" reads as 61. The group split such sentences into two rows (`med.wounds-limbs-joints.058`/`059`, `181`/`182`) and reworded claims ("of which one was").
+   *Asked:* let a sentence end (a full stop, a semicolon or a quote-piece boundary) end a run of number words, or say in PLAN.md section 5 that writers must keep a non-number word between two spelled-out numbers.
+
+2. **E013 says more than the code does** (the same point as item 1 of the wounds-regions note): a computed number is exempt only in `value`, not in the claim; the group's three inferred rows keep the computed number in `value` and out of `claim`.
+
+3. **The page hint of the Surgical History and of Tripler is often wrong by more than two pages** (72 W002 rows here; for Tripler the heads before the offset gave page 53 for text that stands under the head of page 56, because the OCR reads that head as `50`). The printed pages of the rows were read from the running heads by hand; a model that reads the head numbers of both parities (`NN INJURIES ...` and `SECT. N.] ... NN`) and tolerates OCR slips of one digit (`5T` for 57, `50` for 56, `15` for 75) would remove most of the warnings.
+
+4. **What the file cannot check: a digit that both the quote and the claim carry but that the OCR misread.** One such slip was found by comparing the two scans and settled by a page image: the first-issue OCR of Case 698 reads 18th Mississippi, the page reads 13th (row `med.wounds-limbs-joints.129`); unit numbers, company letters and initials are not protected by E011 because the quote carries the same slip. A second-scan comparison (`tmp/medical-wounds-limbs-joints/tools/xcheck.py` and `xcheck2.py`, scratch, not shipped) found it; a check that every digit-token of a claim occurs also in the second scan's passage, where one exists, could be added to the validator as a warning.

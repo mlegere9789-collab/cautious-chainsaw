@@ -37,6 +37,7 @@ GATE = 'Q05'
 FACTOR = 1.0001                       # T-Q05-2 (DD-G01): the upper bound is exact up to the rounding factor 1.0001
 JOIN_M = 1.0                          # T-Q05-1 (DD-G01): path joins and position resolution
 NOF = ('never_on_field', 'never_main_field', 'documented_absent')
+Q05_4_ENTRIES = []                      # open register entries of level L3 that record the lateness of a documented time against the documented rate (none exists: EG-0001, EG-0005 and EG-0070 name other gaps)
 Q05_5_ENTRIES = {'cavalry-mount': ['EG-ANIM-07'], 'limber': [], 'caisson': [], 'wagon-forge': [], 'gun-piece': []}      # open register entries that hold a missing range; none of them has a dated search log (L3) today
 VEHICLE_LISTS = {'limbers': 'limber', 'caissons': 'caisson', 'wagons': 'wagon-forge', 'guns': 'gun-piece'}
 TEAM_LISTS = ('horses', 'drivers')
@@ -77,6 +78,7 @@ def evaluate(rec, env, D, K):
     rec.threshold('T-Q05-2', FACTOR, 'DD-G01', 'upper bound of a speed class: the documented figure times this rounding factor')
     rec.threshold('T-Q06-1', 90, 'DD-G01', 'deployment duration in seconds (plausible-procedural until a manual figure is read): used by Q06, recorded here for the shared bounds')
     doc = K.get('doc')
+    cover = K.get('cover') or covered_by_register                  # tests pass a stand-in for the register check
     fz = ss.get('factorisation') or {}
     bad_f = list(fz.get('violations') or []) + [j for j in (fz.get('joint') or []) if j.get('n_mismatch')]
     g_ev = {'groups': ss.get('groups'), 'count': ss.get('count'), 'violations': fz.get('violations'), 'joint': fz.get('joint'), 'rule': fz.get('rule'), 'complete': ss.get('complete')}
@@ -200,25 +202,22 @@ def evaluate(rec, env, D, K):
                 f3 = f3[:4] + ['and %d more turns or joins' % n_more]
             ev3 = dict(base, joins=joins[:40], n_turns=len(turns), turns_over=len([t for t in turns if t['edge_peak_ms'] > upper]), worst_turn=worst, extent_m=R.get('extent_m'), stage=(D.get('product') or {}).get('stage'))
             rec.item('Q05/Q05.3/%s/%s' % (uid, lab), 'FAIL' if f3 else 'PASS', ('unit %s under %s: ' % (uid, lab) + '; '.join(f3)) if f3 else 'unit %s under %s: %d legs join within %s m and never overlap; %d turns, the far end never moves faster than %.4f m/s' % (uid, lab, len(legs), JOIN_M, len(turns), upper), ev3, check='Q05.3', subjects=[uid], scenario=lab, sub_requirements=sub)
-            # ---- Q05.4: lateness the layer keeps as an offset
-            reg = register_state(env, u.get('register')) if u.get('register') else None
+            # ---- Q05.4: lateness the layer keeps as an offset (COVERED needs an open register entry of level L3 that records the lateness; the unit's generic entries name other gaps)
             for k, o in enumerate(R.get('offsets') or []):
                 late = o.get('late_min') or 0
                 if late <= 0:
                     continue
                 kept = not any('above the' in x and 'segment' in x for x in f1)
-                held = bool(reg and reg['open'])
                 nm = '%s/%s/%s' % (o.get('list'), o.get('kind'), o.get('stop') or o.get('claim') or k)
-                why = []
+                ok, reasons, states = cover(env, Q05_4_ENTRIES)
+                ev4 = dict(base, offset=o, register_ids=Q05_4_ENTRIES, register=[{'id': s_['id'], 'open': s_['open'], 'link_level': s_.get('link_level')} for s_ in states], unit_register=u.get('register'))
+                iid4 = 'Q05/Q05.4/%s/%s/%s' % (uid, lab, nm)
                 if not kept:
-                    why.append('the layer exceeds the speed bound to meet the time')
-                if not held:
-                    why.append('no open register entry holds the lateness (%s)' % (u.get('register')))
-                ev4 = dict(base, offset=o, register=reg)
-                if why:
-                    rec.item('Q05/Q05.4/%s/%s/%s' % (uid, lab, nm), 'FAIL', 'unit %s under %s, %s: %d min late: %s' % (uid, lab, nm, late, '; '.join(why)), ev4, check='Q05.4', subjects=[uid], scenario=lab, sub_requirements=sub)
+                    rec.item(iid4, 'FAIL', 'unit %s under %s, %s: %d min late and the layer exceeds the speed bound to meet the time' % (uid, lab, nm, late), ev4, check='Q05.4', subjects=[uid], scenario=lab, sub_requirements=sub)
+                elif ok:
+                    rec.item(iid4, 'COVERED', 'unit %s under %s, %s: the documented time cannot be met at the documented rate: the layer keeps the bound, reports %d minutes of lateness and an open register entry of level L3 holds it (COVERED: the verdict stays INCOMPLETE, K3)' % (uid, lab, nm, late), ev4, check='Q05.4', subjects=[uid], scenario=lab, sub_requirements=sub, register_ids=Q05_4_ENTRIES)
                 else:
-                    rec.item('Q05/Q05.4/%s/%s/%s' % (uid, lab, nm), 'COVERED', 'unit %s under %s, %s: the documented time cannot be met at the documented rate: the layer keeps the bound, reports %d minutes of lateness and the open register entry %s holds it (COVERED: the verdict stays INCOMPLETE, K3)' % (uid, lab, nm, late, u.get('register')), ev4, check='Q05.4', subjects=[uid], scenario=lab, sub_requirements=sub)
+                    rec.item(iid4, 'BLOCKED-INPUT', 'input missing: an open register entry of level L3 that records the lateness of %d minutes (the layer keeps the speed bound and reports the offset; %s)' % (late, '; '.join(reasons) or 'no register entry names this gap'), ev4, check='Q05.4', subjects=[uid], scenario=lab, sub_requirements=sub)
     # ---- Q05.5: classes with no documented range
     cons = doc['foot']['upper'] * FACTOR
     for klass, ids in sorted(Q05_5_ENTRIES.items()):
@@ -238,7 +237,7 @@ def evaluate(rec, env, D, K):
             measured = dict(m)
             over = m['max_ms'] > cons
             what = 'no documented range of movement exists for the %s (the plan gives none for limbers or wagons and the gait tables are for horses); the fastest measured entity moves at %.3f m/s' % (klass, m['max_ms'])
-        ok, reasons, states = covered_by_register(env, ids)
+        ok, reasons, states = cover(env, ids)
         ev5 = {'class': klass, 'measured': measured, 'conservative_bound_ms': round(cons, 6), 'register_ids': ids, 'register': [{'id': s['id'], 'open': s['open'], 'link_level': s.get('link_level')} for s in states], 'reasons': reasons}
         iid = 'Q05/Q05.5/%s' % klass
         if over:
@@ -247,6 +246,7 @@ def evaluate(rec, env, D, K):
             rec.item(iid, 'COVERED', '%s; an open register entry of level L3 holds the gap and the conservative bound is respected (COVERED until a source is read; the verdict stays INCOMPLETE, K3)' % what, ev5, check='Q05.5', sub_requirements=rows, register_ids=ids)
         else:
             rec.item(iid, 'BLOCKED-INPUT', 'input missing: a documented range of movement for the class %s: %s; %s' % (klass, what, '; '.join(reasons) or 'no register entry names this gap'), ev5, check='Q05.5', sub_requirements=rows, register_ids=ids)
+    rec.owe('Q05.4: an open register entry, with the dated search log of GATE-SPEC 1.4, that records the offsets of the layer (report().offsets, defects and state_offsets: a documented time that the documented rate cannot meet), so that the lateness items can be COVERED instead of BLOCKED-INPUT')
     rec.owe('Q05.5: a documented rate of movement for limbers, caissons, wagons and the forge, gun pieces on the road and a cavalry column (the Instruction for Field Artillery 1863 and Wheeler 1863 give horse speeds, not vehicle or column rates) and an open L3 register entry with a dated search log for each class (GATE-SPEC 1.4)')
     rec.note('Q05.1: the documented upper bound of foot movement is the urgent double quick, 180 steps a minute of 33 inches (drill-timing.json double_quick_urgent, Hardee para 114; the step is inferred, the cadence documented); the 165-step double quick (2.305 m/s) is the lower end of the double-quick range. Horses: the manuals give point speeds for walk, trot and gallop, so only an upper bound exists; the slowest documented gallop of the three bases is the bound (the sources conflict: each is a selectable basis)')
     rec.note('Q05.3: the turn of a formation is the stage\'s rigid rotation about the unit\'s origin; the far end of a column moves perpendicular to the unit\'s advance, so its speed is sqrt(v^2 + (omega r)^2) with omega the peak rate of the smoothstep turn (1.5 x angle / turn time); the sum v + omega r is carried in the evidence')

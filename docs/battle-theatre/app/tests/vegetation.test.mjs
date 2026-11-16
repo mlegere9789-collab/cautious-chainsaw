@@ -151,7 +151,7 @@ test('the park landscape evidence: every vegetation row of the corrections is a 
   const sk = t => String(t).toLowerCase().replace(/[^a-z0-9]+/g, '');
   const ids = new Set(DATA.claims.map(c => c.id)), held = DATA.claims.map(c => sk(c.quote));
   const py = n => fs.readFileSync(path.join(REPO, 'tools', 'bt', 'vegetation', n), 'utf8');
-  const leftOut = new Set([...(py('gen_nps_corrections.py') + py('gen_nps_claims.py')).matchAll(/NPSX-[A-Z0-9-]+-p\d+-\d+/g)].map(m => m[0]));
+  const leftOut = new Set([...(py('gen_nps_corrections.py') + py('gen_nps_claims.py')).matchAll(/NPSX-[A-Za-z0-9-]+-p\d+-\d+/g)].map(m => m[0]));
   if (fs.existsSync(f)) {
     const rows = fs.readFileSync(f, 'utf8').split('\n').filter(Boolean).map(l => JSON.parse(l)).filter(r => /^R20/.test(r.id)); assert.ok(rows.length > 200, 'the vegetation rows of the corrections: ' + rows.length);
     const missing = [];
@@ -534,6 +534,31 @@ test('the choice CF-VEG-HOUCK: the Slaughter Pen study of Houck\'s land against 
   // the third reading: Big Round Top, the Brien farm, the McClean and Leister reports
   assert.ok(byLc('LC-WOOD-0002').claims.some(([c, r]) => c === 'VC-NPSC-BRT-ECOLOGY-p003-02' && r === 'exact') && /before 1850/.test(claimOf('VC-NPSC-BRT-ECOLOGY-p003-02').says));
   for (const id of ['VC-NPSC-HSR-LEISTER-BARN-p021-03', 'VC-NPSC-HSR-LEISTER-BARN-p023-01', 'VC-NPSC-MCCLEAN-HOUSE-BARN-p018-01']) assert.equal(claimOf(id).placed, false, id + ' is listed as not placed');
+});
+
+test('the fourth reading (16 November): the vista report on the line of 2 July and the Warren map along Plum Run, the Rock Creek report, the Harmon study and two HABS reports; each claim has its place or its reason for none, and nothing is counted twice', () => {
+  const placed = { 'VC-NPSC-VISTA-CUTTING-p008-01': 'area', 'VC-NPSC-VISTA-CUTTING-p008-02': 'area', 'VC-NPSC-VISTA-CUTTING-p011-02': 'nearest', 'VC-NPSC-VISTA-CUTTING-p013-01': 'area', 'VC-NPSC-VISTA-CUTTING-p013-02': 'area', 'VC-NPSC-ROCK-CREEK-p013-01': 'area', 'VC-NPSC-HABS-pa3988-p006-01': 'nearest' };
+  for (const [id, role] of Object.entries(placed)) { const c = claimOf(id); assert.ok(c && c.placed !== false, id + ' is placed'); assert.ok(M.units.some(u => u.claims.some(([x, r]) => x === id && r === role)), id + ' is cited with the role ' + role); }
+  assert.deepEqual(M.units.filter(u => u.claims.some(([x]) => x === 'VC-NPSC-VISTA-CUTTING-p011-02')).map(u => u.lc), ['LC-WOOD-0032'], 'the hedged map symbol west of the Den is on the one wood that holds the point, not on the woods round it');
+  assert.ok(byLc('LC-WOOD-0002').claims.some(([c, r]) => c === 'VC-NPSC-VISTA-CUTTING-p008-02b' && r === 'exact'), 'the wooded slopes of Big Round Top are on its wood');
+  assert.ok(byLc('LC-FIELD-0001').claims.some(([c, r]) => c === 'VC-NPSC-VISTA-CUTTING-p008-03' && r === 'exact'), 'the open ground the report names is on the Wheatfield');
+  assert.ok(byLc('LC-WET-0001').claims.some(([c, r]) => c === 'VC-NPSC-VISTA-CUTTING-p012-01' && r === 'exact'), 'the swamp of the Warren map is the marsh polygon');
+  for (const id of ['VC-NPSC-VISTA-CUTTING-p012-02', 'VC-NPSC-HARMON-FARM-p033-01', 'VC-NPSC-HABS-pa3648-p055-01', 'VC-NPSC-HABS-pa3648-p173-01']) { const c = claimOf(id); assert.equal(c.placed, false, id + ' is listed as not placed'); assert.ok(c.note && c.note.length > 40, id + ' says why'); }
+  // the hedged ones stay inferred; a later map is never documented for 1863
+  assert.equal(claimOf('VC-NPSC-VISTA-CUTTING-p011-02').tier, 'inferred'); assert.equal(claimOf('VC-NPSC-HABS-pa3648-p173-01').tier, 'inferred'); assert.match(claimOf('VC-NPSC-HABS-pa3648-p173-01').note, /1890s/);
+  // the Harmon claim is the same acres as the Cultural Landscape Report's Harman claim: kept a damage statement, so the district mix counts the farm once
+  assert.equal(claimOf('VC-NPSC-HARMON-FARM-p033-01').kind, 'damage'); assert.equal(claimOf('VC-NPS-033').about.crops.wheat, 10);
+  assert.equal(DATA.meta.mix.farms.filter(f => f.farm === 'harman').length, 1, 'the Harman acres are in the mix once'); assert.deepEqual(DATA.meta.mix.farms.find(f => f.farm === 'harman').acres, { wheat: 10, rye: 5 });
+  assert.match(claimOf('VC-NPSC-HARMON-FARM-p033-01').note, /William Comfort/, 'the two names of the claimant are both carried');
+  // quotes with OCR damage are kept as saved, with the cleaned reading beside them
+  for (const id of ['VC-NPSC-ROCK-CREEK-p013-01', 'VC-NPSC-VISTA-CUTTING-p013-02']) assert.match(claimOf(id).note, /Letter for letter as saved/, id);
+  assert.match(claimOf('VC-NPSC-ROCK-CREEK-p013-01').quote, /rooks/); assert.match(claimOf('VC-NPSC-ROCK-CREEK-p013-01').note, /bristling with rocks/);
+  // the three statements about the ridge and its woods are cited for the Warren reading of CF-VEG-HOUCK, and the clear-cut reading keeps its own
+  const by = M.scenarios['CF-VEG-HOUCK'].options.as_warren.by; for (const id of ['VC-NPSC-VISTA-CUTTING-p008-01', 'VC-NPSC-VISTA-CUTTING-p008-02', 'VC-NPSC-VISTA-CUTTING-p011-02']) assert.ok(by.includes(id), id);
+  assert.match(M.scenarios['CF-VEG-HOUCK'].why, /vista-cutting report of about 1940/); assert.equal(M.scenarios['CF-VEG-HOUCK'].default, 'as_warren');
+  // none of them sets a crop or a species by itself (they are about open ground, woods and what was cut later)
+  for (const id of Object.keys(placed).concat(['VC-NPSC-VISTA-CUTTING-p008-03', 'VC-NPSC-VISTA-CUTTING-p012-01'])) assert.ok(!M.units.some(u => u.crop_claim === id), id + ' sets no crop');
+  assert.ok(/denuded of trees since the battle/.test(claimOf('VC-NPSC-HABS-pa3988-p006-01').quote) && DATA.gaps.find(g => g.id === 'G19').what.includes('VC-NPSC-HABS-pa3988-p006-01'), 'the grove said felled after the battle is in the gap of the grove');
 });
 
 test('the table of names: every feature a timeline row can name resolves to a unit, with the rule that found it and the tier of that identification', () => {

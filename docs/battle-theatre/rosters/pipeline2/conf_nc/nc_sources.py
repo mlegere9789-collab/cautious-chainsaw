@@ -140,16 +140,40 @@ def source_entries(summary):
                 'ia_licenseurl': _one(mdd.get('licenseurl')), 'ia_contributor': t['ia_contributor'], 'imprint': _one(mdd.get('publisher')) or t['ia_publisher'], 'year': 1882,
                 'why': 'the State of North Carolina\'s own roster, printed at Raleigh by the state printers in 1882 under an act of the General Assembly ("compiled ... for the proper editing and preparation of a Roster of the troops furnished by North Carolina"): a US publication of 1882',
                 'imprint_quote': iq, 'imprint_quote_offset_in_text': ioff, 'year_printed_in_quote': bool(iq and '1882' in iq),
-                'year_source': 'the item date 1882 (and the printed "1882." on the title page of the Emory copy of the same volume)' if not (iq and '1882' in iq) else 'the printed title page',
+                'year_source': 'the item date 1882' if not (iq and '1882' in iq) else 'the printed title page',
                 'authority_quote': aq, 'authority_quote_offset_in_text': aoff}},
             'role': 'roll',
             'status': ('parsed: primary reading of %d units' % len(used.get(tid, []))) if used.get(tid) else 'read as the second reading of the units whose primary scan is the other copy of the volume; no line of a unit file is read from it',
             'used_for': sorted(used.get(tid, [])),
         })
+    # a text whose own imprint the text layer damaged: the printed year of the other copy of the same volume, where that copy has it, is named as a second witness
+    for e in ents:
+        if not e['rights']['evidence']['year_printed_in_quote']:
+            vol = e['text_id'].split('.')[1].split('~')[0]
+            other = [x for x in ents if x is not e and x['text_id'].split('.')[1].split('~')[0] == vol and x['rights']['evidence']['year_printed_in_quote']]
+            if other:
+                e['rights']['evidence']['year_source'] = 'the item date 1882 (and the printed "1882." in the imprint of the other copy of the same volume, %s, offset %d)' % (other[0]['text_id'], other[0]['rights']['evidence']['imprint_quote_offset_in_text'])
     return ents
 
 
 U_VOL = {}
+
+
+def unit_files():
+    """One entry per unit file: path, rows, size and sha256 of the file and of its raw lines, the flag file and the text ids (the form of the New Hampshire pointer file)."""
+    import gzip
+    sys.path.insert(0, os.path.join(L.R2, 'pipeline2'))
+    import r2lib as R
+    import nc_units as U
+    out = []
+    for u in U.UNITS:
+        rel = 'docs/battle-theatre/rosters/data2/confederate/nc/%s.jsonl.gz' % u[0][len('c-nc-'):]
+        path = os.path.join(L.ROOT, rel)
+        head, segs, meta = R.read_unit(path)
+        fl = path[:-len('.jsonl.gz')] + '.flags.json.gz'
+        out.append({'unit': u[0], 'designation': u[1], 'path': rel, 'rows': head['n'], 'file_bytes': os.path.getsize(path), 'file_sha256': sha(path), 'raw_lines_sha256': meta['sha256'],
+                    'flags_path': rel[:-len('.jsonl.gz')] + '.flags.json.gz', 'flags_bytes': os.path.getsize(fl), 'flags_sha256': sha(fl), 'text_ids': [sg['t'] for sg, rs in segs]})
+    return out
 
 
 def main(argv):
@@ -167,7 +191,7 @@ def main(argv):
         pointer = {
             'format': 'roster2-sources-pointer/1', 'work_item': 'conf-nc', 'generated': now,
             'access_rules': 'archive.org metadata and /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround',
-            'sources': ents, 'derived_texts': [],
+            'sources': ents, 'derived_texts': [], 'unit_files': unit_files(),
             'not_used': [
                 {'source_id': 'NC-CLARK-1901', 'identifier': 'cu31924092908536 (and four more volumes)', 'title': 'Clark, Histories of the Several Regiments and Battalions from North Carolina in the Great War 1861-65', 'year': 1901,
                  'status': 'lead, not read for this item: the narrative histories print present-for-duty figures and officer lists inside prose for some regiments; they are not a roll and no line was made from them (gap EG-ROS-NC-05)'},

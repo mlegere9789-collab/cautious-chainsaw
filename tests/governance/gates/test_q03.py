@@ -4,7 +4,6 @@ schedule are copied, the drawn objects, the registry, the register and the dump 
     python3 tests/governance/gates/test_q03.py            (python unittest; no node, no network; each test runs the runner on a scratch tree restricted to one or two kit units, so the verdict is INCOMPLETE)
     GATES_DIR=<folder holding q03_anachronism.py without its checks>  python3 tests/governance/gates/test_q03.py     (the red run: the tests must fail against a runner that checks nothing)
 """
-import copy
 import json
 import os
 import sys
@@ -312,6 +311,14 @@ class Drawn(Q03Base):
         rec = self.go(w)
         self.fails(rec, 'Q03/Q03.1/drawn/us-1c-1d-meredith-2wi', 'ANACH_ZOUAVE')
 
+    def test_dress_the_unit_wears_on_its_first_day_that_is_not_valid_on_a_later_day_it_is_still_drawn_is_fail(self):
+        w = self.world()
+        for e in w.kit['kit_specs.json']['units'][UNIT]['fields']['headgear']['allowed']:
+            e['valid_to'] = '1863-07-02'
+        w.make_export()
+        rec = self.go(w)
+        self.fails(rec, 'Q03/Q03.1/drawn/us-1c-1d-meredith-2wi', 'not valid on 1863-07-03')
+
     def test_without_the_export_the_drawn_part_is_blocked_not_passed(self):
         w = self.world()
         rec = self.go(w, with_export=False, units='^US\\.2WI$')
@@ -381,6 +388,15 @@ class Validity(Q03Base):
         for d in W.SCENE_DATES:
             self.passes(rec, 'Q03/Q03.2/stars/%s' % d)
 
+    def test_a_figure_code_that_follows_the_date_passes_where_it_equals_the_statute_and_fails_where_not(self):
+        w = self.world()
+        w.make_dump(mutate=lambda d: d['flags'].update(product_stars_by_date={dte: (34 if dte <= '1863-07-04' else 35) for dte in W.SCENE_DATES}))
+        rec = self.go(w)
+        self.passes(rec, 'Q03/Q03.2/stars/1863-07-03')
+        self.fails(rec, 'Q03/Q03.2/stars/1863-07-04', '35')                      # the code draws 34 on the 4th, the statute gives 35 (the star is effective from 4 July)
+        self.passes(rec, 'Q03/Q03.2/stars/1863-07-05')
+        self.passes(rec, 'Q03/Q03.2/stars/1863-11-19')
+
     def test_a_national_colour_that_does_not_build_is_fail(self):
         w = self.world()
         w.make_dump(mutate=lambda d: d['flags']['patterns'].update(us_national={'ok': False, 'error': 'star count 33'}))
@@ -415,6 +431,12 @@ class Structures(Q03Base):
         rec = self.go(w)
         self.fails(rec, 'Q03/Q03.3/object/STR-REP', 'the drawn geometry is a later building')
         self.fails(rec, 'Q03/Q03.4/registry/buildings', 'represents a later building')
+
+    def test_an_object_the_record_says_is_not_drawn_but_the_scene_draws_is_fail(self):
+        w = self.world()
+        w.add_building('STR-DUP', 'Duplicate mass', rec='bld-schmucker-hall', built='1832', status='not_drawn_duplicate_of_penn_hall')
+        rec = self.go(w)
+        self.fails(rec, 'Q03/Q03.3/object/STR-DUP', 'not drawn')
 
     def test_building_the_build_note_calls_later_is_fail(self):
         w = self.world()
@@ -460,6 +482,28 @@ class Structures(Q03Base):
                 s['preexisting'] = False
         rec = self.go(w)
         self.fails(rec, 'Q03/Q03.3/record/bld-codori-farm', 'existed before the battle')
+
+    def test_the_rose_and_codori_barns_and_the_mcpherson_house_stand_throughout(self):
+        rec = self.go(self.world())
+        for row, oid in (('S-078', 'bld-mcpherson-farm#house'), ('S-079', 'bld-rose-farm#barn'), ('S-079', 'bld-codori-farm#barn')):
+            self.passes(rec, 'Q03/Q03.3/stands-throughout/%s/%s' % (row, oid))
+
+    def test_a_barn_that_is_gone_in_the_window_is_fail(self):
+        w = self.world()
+        w.make_dump(mutate=lambda d: d['engine']['series']['bld-codori-farm#barn']['default'].append({'iso': '1863-07-08T10:00', 's': 0, 'state': 'Burned 1910; torn down 1882', 'status': 'after', 'present': True, 'stage': None, 'progress': None, 'rows': []}))
+        self.fails(self.go(w), 'Q03/Q03.3/stands-throughout/S-079/bld-codori-farm#barn', 'later state')
+
+    def test_a_house_the_engine_removes_is_fail(self):
+        w = self.world()
+        w.make_dump(mutate=lambda d: d['engine']['series']['bld-mcpherson-farm#house']['default'].append({'iso': '1863-07-09T10:00', 's': 0, 'state': 'gone', 'status': 'after', 'present': False, 'stage': None, 'progress': None, 'rows': []}))
+        self.fails(self.go(w), 'Q03/Q03.3/stands-throughout/S-078/bld-mcpherson-farm#house', 'absent')
+
+    def test_without_an_out_of_window_row_the_negative_check_is_blocked(self):
+        w = self.world()
+        for r in w.struct['state_schedule.json']['rows']:
+            r.pop('out_of_battle_scope', None)
+        w.make_dump()
+        self.blocked(self.go(w), 'Q03/Q03.3/stands-throughout')
 
     def test_a_hospital_with_no_closing_window_is_fail(self):
         w = self.world()
@@ -873,6 +917,18 @@ class InputMissing(Q03Base):
         self.blocked(rec, 'Q03/Q03.1/kit-specs')
         self.assertEqual([i for i in rec['items'] if i['id'].startswith('Q03/Q03.1/unit/')], [])
         self.assertEqual(rec['verdict'] in ('PASS',), False)
+
+    def test_a_phase_that_raises_is_a_blocked_item_and_the_run_goes_on(self):
+        w = self.world()
+        del w.kit['kit_specs.json']['units'][UNIT]['presence']
+        rec = self.go(w, with_export=False)
+        errs = [i for i in rec['items'] if i['id'].startswith('Q03/phase-error/')]
+        self.assertTrue(errs, 'a phase that raises must leave a trace')
+        for i in errs:
+            self.assertEqual(i['result'], 'BLOCKED-INPUT')
+            self.assertTrue(i['reason'].startswith('input missing:'))
+        self.assertTrue(any(i['id'].startswith('Q03/Q03.3/') for i in rec['items']), 'the structure phases still ran')
+        self.assertNotEqual(rec['verdict'], 'PASS')
 
     def test_no_structure_records_is_blocked_input(self):
         w = self.world()
