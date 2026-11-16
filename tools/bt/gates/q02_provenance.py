@@ -30,11 +30,15 @@ import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, 'lib'))
+for _p in (HERE, os.path.join(HERE, 'lib')):          # explicit, so that `python3 -I` (no script folder on sys.path) finds the modules
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 import pq_common as pq  # noqa: E402
 import datum_scan as ds  # noqa: E402
 import extracts as ex  # noqa: E402
 import loadlist  # noqa: E402
+import runmeta  # noqa: E402
+import verification as vf  # noqa: E402
 
 GATE = 'Q02'
 LOAD_EXT = ('.json', '.jsonl', '.bin', '.png', '.webp', '.glb', '.gltf', '.ogg', '.mp3', '.wav', '.jpg', '.jpeg')
@@ -51,8 +55,10 @@ def top_reasons(pairs, n=8):
     return dict(sorted(c.items(), key=lambda kv: (-kv[1], kv[0]))[:n])
 
 
-def scan_item(rec, check, cid, domain, fn, *, ok_reason, fail_reason, na_reason=None, notrun=None, extra=None, gate='Q02', **kw):
-    """One item (class, check): `fn(member)` returns the list of reasons that member fails; every member of the domain is judged (K10)."""
+def scan_item(rec, check, cid, domain, fn, *, ok_reason, fail_reason, na_reason=None, notrun=None, extra=None, gate='Q02', judgment=None, **kw):
+    """One item (class, check): `fn(member)` returns the list of reasons that member fails; every member of the domain is judged (K10).
+    `judgment(domain, item_id)` -> (verdict dict of lib/verification.py, owed question) is asked only when no member fails and no text is missing: a part that no program decides
+    (U-29, 1.10) leaves the item NOT-RUN until a verification record names it `agree`; `disagree` is FAIL."""
     scanned, failing, nr = 0, [], []
     for m in domain:
         scanned += 1
@@ -71,6 +77,18 @@ def scan_item(rec, check, cid, domain, fn, *, ok_reason, fail_reason, na_reason=
         rec.item(iid, 'FAIL', '%d of %d members fail: %s' % (len({i for i, _ in failing}), scanned, '; '.join('%s (%d)' % (r, c) for r, c in list(ev['reasons'].items())[:3])), ev, check=check, **kw)
     elif notrun:
         rec.item(iid, 'NOT-RUN', notrun, ev, check=check, **kw)
+    elif judgment is not None:
+        j, question = judgment(domain, iid)
+        ev['judgment'] = {k: v for k, v in j.items() if v is not None}
+        ok_text = ok_reason % scanned if '%d' in ok_reason else ok_reason
+        if j['status'] == 'disagree':
+            rec.item(iid, 'FAIL', 'an independent verification disagrees (%s) for %s: %s' % (', '.join(j['by']), ', '.join(j['disagree'][:3]), j.get('note') or ''), ev, check=check, **kw)
+        elif j['status'] == 'agree':
+            rec.item(iid, 'PASS', '%s; an independent verification (%s) agrees that each claim equals what its span supports' % (ok_text, ', '.join(j['by'])), ev, check=check, **kw)
+        else:
+            rec.owe(question)
+            rec.item(iid, 'NOT-RUN', 'every check that a program decides holds (%s); the part that no program decides, that each claim equals what its span supports, is owed to an independent verification (U-29, 1.10): %s of %d members verified%s' % (
+                ok_text, j.get('verified') or 0, scanned, '; the verifier could not confirm it' if j['status'] == 'cannot_confirm' else ''), ev, check=check, **kw)
     else:
         rec.item(iid, 'PASS', ok_reason % scanned if '%d' in ok_reason else ok_reason, ev, check=check, **kw)
 
@@ -240,12 +258,16 @@ def main(argv=None):
     args = ap.parse_args(argv)
     env = pq.Env(args.root, args.out)
     rec = pq.Record(GATE, env, argv=['python3', 'tools/bt/gates/q02_provenance.py'] + (argv if argv is not None else sys.argv[1:]))
-    rec.threshold('T-Q02-1', pq.MAX_QUOTE_WORDS, 'PLAN (p. 134, E.6; working limit 14 words)', 'words in a source extract')
-    rec.owe('Q02.3 "the claim equals what the span supports" is not machine-checkable: it needs the fresh-context verification run of U-11 (Q27.5)')
+    reg = runmeta.read_registry(env, rec)
+    runmeta.set_max_quote_words(runmeta.threshold(rec, env, reg, 'T-Q02-1', pq.MAX_QUOTE_WORDS, key='max_words', metric='words in a source extract', decision='PLAN (p. 134, E.6; working limit 14 words)'))
+    ver = vf.Verifications(env, rec, GATE)
+    rec.owe('Q02.3 judgment part (U-29, 1.10): that each documented claim equals what its span supports is decided by no program; the runner re-finds every extract and applies the number rule, and a '
+            'class of documented members is PASS only when a verification record of gate_results/verification/ names it with the verdict agree')
     try:
         registry = rec.read_json(args.registry, 'datum-class registry')
     except pq.InputMissing as e:
         rec.blocked('Q02/Q02.1/census', str(e), 'the datum-class registry')
+        finish_meta(rec, env, ver)
         return pq.finish_cli(rec, args)
     wanted = set(args.classes.split(',')) if args.classes else None
     if wanted:
@@ -351,7 +373,8 @@ def main(argv=None):
 
         scan_item(rec, 'Q02.3', cid, doc_ms, q3, ok_reason='all %d documented members have a non-lead source and a short extract that was found again in the stored text', fail_reason='',
                   na_reason='no member of the class is documented', notrun=lambda: ('%d documented member(s) have an extract whose source text is not on this machine' % len(set(unverifiable))) if unverifiable else None,
-                  extra=lambda: {'extracts_found_again': matched, 'extracts_without_stored_text': len(set(unverifiable)), 'span_basis': 'the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted'})
+                  extra=lambda: {'extracts_found_again': matched, 'extracts_without_stored_text': len(set(unverifiable)), 'span_basis': 'the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted'},
+                  judgment=lambda dom, iid, cid=cid: judge_claims(ver, dom, iid, cid))
         # Q02.4, Q02.5
         scan_item(rec, 'Q02.4', cid, [m for m in ms if m['tier'] == 'inferred'], lambda m: ds.check_inferred(m, ctx), ok_reason='all %d inferred members have reasoning and documented premises', fail_reason='', na_reason='no member of the class is inferred')
         scan_item(rec, 'Q02.5', cid, [m for m in ms if m['tier'] == 'plausible-procedural'], lambda m: ds.check_procedural(m, ctx), ok_reason='all %d plausible-procedural members have the procedural block and an open register id', fail_reason='',
@@ -378,7 +401,36 @@ def main(argv=None):
     for p in ts.used_inputs():
         rec.add_input(p, 'stored source text')
     rec.extra['text_store'] = ts.status()
+    finish_meta(rec, env, ver)
     return pq.finish_cli(rec, args)
+
+
+def judge_claims(ver, domain, iid, cid):
+    """Q02.3, the part no program decides: that the claim equals what its span supports (GATE-SPEC-A 1.10, U-29). Verdict of the verification records, and the question that is owed."""
+    members = [m['id'] for m in domain]
+    question = ('%s: independent verification owed (U-29, 1.10): does each of the %d documented claims of class %s equal what its span supports (the numbers of the claim are in the span; '
+                'the rest is for a reader)? Answer agree, disagree or cannot_confirm in a record of gate_results/verification/ that names this item, or `%s#<member id>` for one member' % (iid, len(members), cid, iid))
+    return ver.judge(iid, members), question
+
+
+def stamp_rows(rec, env):
+    """The rows of requirements.json that an item of Q02 bears on: a conflict item its own row R03.C-nnn, every other item the top row R03.0000 (the gate_ids of both name Q02)."""
+    rows = set(runmeta.rows_of_gate(env, GATE))
+
+    def f(it):
+        m = re.match(r'^Q02/Q02\.7/(C-\d+)$', it['id'])
+        if m and 'R03.%s' % m.group(1) in rows:
+            return ['R03.%s' % m.group(1)]
+        return ['R03.0000'] if 'R03.0000' in rows else []
+    runmeta.stamp_rows(rec, f)
+
+
+def finish_meta(rec, env, ver):
+    """What every record of this runner gets last: the verdicts of the verification records, the rows of the items, the code hashes."""
+    ver.apply_disagreements()
+    rec.extra['verification'] = ver.summary()
+    stamp_rows(rec, env)
+    runmeta.runner_inputs(rec, env)
 
 
 if __name__ == '__main__':

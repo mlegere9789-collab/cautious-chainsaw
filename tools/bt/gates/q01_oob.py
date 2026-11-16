@@ -29,7 +29,7 @@ for _p in (HERE, os.path.join(HERE, 'lib'), os.path.abspath(os.path.join(HERE, '
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from oobgates_common import ChildFailed, cond, first_failed, gate_rows, layer_dump, sub_requirements_for, surnames, table_surname  # noqa: E402
+from oobgates_common import ChildFailed, cond, first_failed, gate_rows, layer_dump, load_thresholds, runner_version, sub_requirements_for, surnames, table_surname, threshold_value  # noqa: E402
 from pq_common import Env, InputMissing, Record, base_parser, finish_cli, guarded_main, is_placeholder, node_version  # noqa: E402
 
 GATE = 'Q01'
@@ -220,7 +220,7 @@ def rematch(matcher, line, reg=None, declared=None, env=None):
     return matcher.find(sid, q)
 
 
-def check_table(rec, env, T, matcher, evidence, k1):
+def check_table(rec, env, T, matcher, evidence, k1, max_words=14):
     """The table-level item Q01.1."""
     units = T.get('units') or {}
     conds, hard = [], []
@@ -286,7 +286,7 @@ def check_table(rec, env, T, matcher, evidence, k1):
         if is_placeholder(q):
             stat['no_quote'].append('%s %s %s' % (uid, field, eid))
             continue
-        if len(str(q).split()) > 14:
+        if len(str(q).split()) > max_words:
             stat['long_quote'].append('%s %s %s' % (uid, field, eid))
             continue
         if eid not in seen:
@@ -442,39 +442,74 @@ def q013_strength(rec, ctx, L, T):
             continue
         matching = pick_ranges(u, t)
         cands = matching or rs
-        inside = [k for k, r in cands.items() if r['low'] <= pt <= r['high']] if lo is None else [k for k, r in cands.items() if r['low'] <= lo and hi <= r['high']]
+        # a range that spans dates is compared only with the sub-range of the date the layer figure names (`by_as_of`), never on its wide span (kit/evidence/PLAN.md, Q01 comparison rule; DD-G-OOB-10)
+        as_of = u['strength'].get('as_of') or None
+        eff, date_notes = {}, []
+        for k, r in cands.items():
+            by_date = r.get('by_as_of') or {}
+            if as_of and by_date:                                     # a layer figure that names its date is compared with the figure(s) of that date only
+                sub = by_date.get(as_of)
+                if sub is None:
+                    date_notes.append('%s has figures dated %s and none dated %s as the layer figure is' % (k, sorted(by_date), as_of))
+                    continue
+                eff[k] = {'low': sub['low'], 'high': sub['high'], 'tier': r.get('tier')}
+            elif r.get('spans_dates'):
+                date_notes.append('%s spans the dates %s and the layer figure names no date' % (k, sorted(by_date)))
+                continue
+            else:
+                eff[k] = {'low': r['low'], 'high': r['high'], 'tier': r.get('tier')}
+        effm = {k: v for k, v in eff.items() if k in matching}
+        inside = [k for k, r in eff.items() if r['low'] <= pt <= r['high']] if lo is None else [k for k, r in eff.items() if r['low'] <= lo and hi <= r['high']]
         drawn_n = u['strength'].get('drawn') or 0
-        wide = [k for k, r in cands.items() if r['low'] < r['high']]
-        carried = [k for k, r in matching.items() if lo == r['low'] and hi == r['high']]
+        wide = [k for k, r in eff.items() if r['low'] < r['high']]
+        carried = [k for k, r in effm.items() if lo == r['low'] and hi == r['high']]
         conds = [cond('same basis: the layer names the basis key or cites a source of the table row', bool(matching), None if matching else 'the layer record (basis_key %r, sources %s) names no basis or source of the table row (%s)' % (u['strength'].get('basis_key'), u['strength'].get('sources'), ', '.join(sorted(rs)))),
-                 cond('the layer figure lies in a verified range', bool(inside), '%s not in %s' % (pt if lo is None else [lo, hi], {k: [r['low'], r['high']] for k, r in cands.items()}))]
+                 cond('the layer figure lies in a verified range', bool(inside), '%s not in %s' % (pt if lo is None else [lo, hi], {k: [r['low'], r['high']] for k, r in (eff or cands).items()}))]
+        if as_of or any(r.get('spans_dates') for r in cands.values()):
+            conds.append(cond('the date of the figure: a layer figure is compared only with the table figures of its own date, and a range that spans dates is never used on its wide span', not date_notes, '; '.join(date_notes) if date_notes else None))
         if lo is not None and u['drawn'] and drawn_n:
             conds.append(cond('the figures drawn lie inside the range the layer carries', lo <= drawn_n <= hi, '%s drawn, the layer carries %s' % (drawn_n, [lo, hi]) if not (lo <= drawn_n <= hi) else None))
         if matching:
-            k0 = [k for k in matching if matching[k]['low'] < matching[k]['high']]
+            k0 = [k for k in effm if effm[k]['low'] < effm[k]['high']]
             if k0:
-                conds.append(cond('no range is collapsed: the layer carries the table range', bool(carried), 'the layer carries %s, the table range is %s: a collapsed or absent range' % ('no range' if lo is None else [lo, hi], {k: [matching[k]['low'], matching[k]['high']] for k in k0}) if not carried else None))
+                conds.append(cond('no range is collapsed: the layer carries the table range', bool(carried), 'the layer carries %s, the table range is %s: a collapsed or absent range' % ('no range' if lo is None else [lo, hi], {k: [effm[k]['low'], effm[k]['high']] for k in k0}) if not carried else None))
         elif wide:
-            conds.append(cond('no range is collapsed: the layer carries the table range', False, 'the table has a range %s and the layer carries %s: collapsed' % ({k: [rs[k]['low'], rs[k]['high']] for k in wide}, 'no range' if lo is None else [lo, hi])))
+            conds.append(cond('no range is collapsed: the layer carries the table range', False, 'the table has a range %s and the layer carries %s: collapsed' % ({k: [eff[k]['low'], eff[k]['high']] for k in wide}, 'no range' if lo is None else [lo, hi])))
         bad = first_failed(conds)
-        ev = {'conditions': conds, 'layer': {'kind': kind, 'min': lo, 'max': hi, 'point': pt, 'basis': (u['strength'].get('basis') or '')[:160], 'basis_key': u['strength'].get('basis_key'), 'sources': u['strength'].get('sources'), 'tier': u['strength'].get('tier')},
+        ev = {'conditions': conds, 'layer': {'kind': kind, 'min': lo, 'max': hi, 'point': pt, 'basis': (u['strength'].get('basis') or '')[:160], 'basis_key': u['strength'].get('basis_key'), 'sources': u['strength'].get('sources'), 'tier': u['strength'].get('tier'), 'as_of': as_of},
               'table': {'status': t.get('status'), 'ranges': fmt_ranges(t)}}
         if bad:
             mk(rec, ctx, 'Q01.3', uid, 'default', 'FAIL', 'strength: ' + '; '.join(bad), ev)
         else:
-            tiers = {matching[k]['tier'] for k in matching}
-            mk(rec, ctx, 'Q01.3', uid, 'default', 'PASS', 'the layer figure lies in the verified range of the same basis and carries it' + ('' if tiers == {'documented'} else ' (against a flagged %s value)' % '/'.join(sorted(tiers))), ev)
+            tiers = {effm[k]['tier'] for k in effm}
+            mk(rec, ctx, 'Q01.3', uid, 'default', 'PASS', 'the layer figure lies in the verified range of the same basis and carries it' + ('' if tiers == {'documented'} else ' (against a flagged %s value)' % '/'.join(sorted(t_ for t_ in tiers if t_))), ev)
 
 
-def table_leaf_interval(tu, leaves, kind):
+def table_leaf_interval(tu, leaves, kind, by=None):
+    """(low, high, date_problems) of the sum of the table ranges of one kind over the leaves, or None when a leaf has no range of that kind.
+    A range that has figures of more than one date is added up on the figure of the date the layer names for that leaf (`strength.as_of`); a leaf whose layer figure names no date (or a date the table
+    has no figure for) cannot use the wide span of such a range: it is listed in `date_problems` and the sum of that kind is not usable (DD-G-OOB-10)."""
     lo = hi = 0
+    problems = []
     for x in leaves:
         r = ranges_of(tu.get(x)).get(kind)
         if r is None:
             return None
-        lo += r['low']
-        hi += r['high']
-    return lo, hi
+        by_date = r.get('by_as_of') or {}
+        as_of = (((by or {}).get(x) or {}).get('strength') or {}).get('as_of')
+        if as_of and by_date:
+            sub = by_date.get(as_of)
+            if sub is None:
+                problems.append('%s: no table figure is dated %s (it has %s)' % (x, as_of, sorted(by_date)))
+                continue
+            lo += sub['low']
+            hi += sub['high']
+        elif r.get('spans_dates'):
+            problems.append('%s: the range spans the dates %s and the layer figure names no date' % (x, sorted(by_date)))
+        else:
+            lo += r['low']
+            hi += r['high']
+    return lo, hi, problems
 
 
 def table_leaves_under(tu, uid):
@@ -513,25 +548,43 @@ def q014_rollups(rec, ctx, L, T):
         kinds = set()
         for x in tleaves:
             kinds |= set(ranges_of(tu[x]))
-        full = {}
+        full, date_excluded = {}, {}
         for k in sorted(kinds):
-            iv = table_leaf_interval(tu, tleaves, k)
+            iv = table_leaf_interval(tu, tleaves, k, by)
             if iv:
-                full[k] = iv
-        own = {k: [r['low'], r['high']] for k, r in ranges_of(t).items()} if t else {}
+                if iv[2]:
+                    date_excluded[k] = iv[2][:3]
+                else:
+                    full[k] = (iv[0], iv[1])
+        own_all = ranges_of(t) if t else {}
+        own, own_excluded = {}, {}
+        lay_asof = (by.get(uid) or {}).get('strength', {}).get('as_of') if uid in by else None
+        for k, r in own_all.items():                                          # the unit's own verified total: a range that spans dates is not used on its wide span either
+            bd = r.get('by_as_of') or {}
+            if lay_asof and bd:
+                sub = bd.get(lay_asof)
+                if sub is None:
+                    own_excluded[k] = 'no table figure is dated %s' % lay_asof
+                else:
+                    own[k] = [sub['low'], sub['high']]
+            elif r.get('spans_dates'):
+                own_excluded[k] = 'the range spans the dates %s and the layer names no date for this unit' % sorted(bd)
+            else:
+                own[k] = [r['low'], r['high']]
         ev = {'layer_sum': s_layer, 'layer_leaves_drawn': len(lay), 'layer_leaves': len(leaves), 'table_leaves': len(tleaves), 'table_leaf_sums': {k: list(v) for k, v in full.items()}, 'table_own_ranges': own,
-              'unverified_table_leaves': sorted(x for x in tleaves if not ranges_of(tu[x]))[:10]}
+              'unverified_table_leaves': sorted(x for x in tleaves if not ranges_of(tu[x]))[:10], 'sums_not_usable_for_want_of_a_date': date_excluded, 'own_ranges_not_usable_for_want_of_a_date': own_excluded}
         army = u['level'] == 'army'
         inside_leaf = [k for k, (a, b) in full.items() if a <= s_layer <= b]
         inside_own = [k for k, (a, b) in own.items() if a <= s_layer <= b]
-        if not full and not (army and own):
+        if not full and not (army and own) and not date_excluded and not (army and own_excluded):
             mk(rec, ctx, 'Q01.4', uid, 'default', 'BLOCKED-INPUT', 'input missing: the table has no verified range for %d of the %d units under it, so it has no roll-up to compare with (layer sum %d)' % (len([x for x in tleaves if not ranges_of(tu[x])]) or len(tleaves), len(tleaves), s_layer), ev)
             continue
         conds = []
-        if full:
-            conds.append(cond('the layer sum lies inside the sum of the table ranges of one kind', bool(inside_leaf), 'layer %d, table sums %s' % (s_layer, {k: list(v) for k, v in full.items()}) if not inside_leaf else None))
-        if army and own:
-            conds.append(cond('the army total lies inside the verified total', bool(inside_own), 'layer %d, table %s' % (s_layer, own) if not inside_own else None))
+        if full or date_excluded:
+            conds.append(cond('the layer sum lies inside the sum of the table ranges of one kind (a range that spans dates only on the figure of the date the layer names, never on its wide span)', bool(inside_leaf),
+                              ('layer %d, table sums %s%s' % (s_layer, {k: list(v) for k, v in full.items()}, '; not usable for want of a date: %s' % date_excluded if date_excluded else '')) if not inside_leaf else None))
+        if army and (own or own_excluded):
+            conds.append(cond('the army total lies inside the verified total', bool(inside_own), ('layer %d, table %s%s' % (s_layer, own, '; not usable for want of a date: %s' % own_excluded if own_excluded else '')) if not inside_own else None))
         bad = first_failed(conds)
         if bad:
             mk(rec, ctx, 'Q01.4', uid, 'default', 'FAIL', 'roll-up: ' + '; '.join(bad), ev)
@@ -706,12 +759,12 @@ def q017_commanders(rec, ctx, L, T):
 
 
 # ======================================================================================== the run
-def evaluate(rec, env, L, T, matcher=None, evidence=None, k1=None):
+def evaluate(rec, env, L, T, matcher=None, evidence=None, k1=None, max_words=14):
     ctx = build_context(rec, env, L, T)
     if T is None:
         rec.item('Q01/Q01.1/table/default', 'BLOCKED-INPUT', MISSING, {'missing': TABLE_REL}, check='Q01.1', scenario='default', subjects=['table'], sub_requirements=ctx['rows'])
     else:
-        check_table(rec, env, T, matcher, evidence, k1)
+        check_table(rec, env, T, matcher, evidence, k1, max_words)
     q012_unit_set(rec, ctx, L, T)
     q013_strength(rec, ctx, L, T)
     q014_rollups(rec, ctx, L, T)
@@ -749,6 +802,11 @@ def run(env, layer=None, table='load', matcher='default', evidence=None, write=T
         rec.add_input(env.btp(rel), 'data' if rel.endswith('.json') else 'code')
     for fn in ('q01_oob.py', 'q01_layer.mjs', 'oob_layer_lib.mjs', 'oobgates_common.py'):
         rec.add_input(os.path.join(HERE, fn), 'runner')
+    runner_version(rec, [os.path.join(HERE, fn) for fn in ('q01_oob.py', 'q01_layer.mjs', 'oob_layer_lib.mjs', 'oobgates_common.py')])
+    reg = load_thresholds(env)
+    if reg:
+        rec.add_input(reg['path'], 'thresholds')
+    max_words = threshold_value(rec, reg, 'T-Q02-1', 'max_words', 14, 'PLAN p. 134, E.6 (the repository working limit is 14 words)')
     T = None
     if table == 'load':
         tf = table_path or env.btp(TABLE_REL)
@@ -762,7 +820,7 @@ def run(env, layer=None, table='load', matcher='default', evidence=None, write=T
         layer = layer_dump(env, 'q01_layer.mjs', ['--scenarios', scenarios], mutate=mutate)
     if matcher == 'default':
         matcher = default_matcher(env) if T is not None else None
-    evaluate(rec, env, layer, T, matcher, evidence, k1_classes)
+    evaluate(rec, env, layer, T, matcher, evidence, k1_classes, max_words)
     rec.extra['table'] = {'path': env.rel(table_path) if table_path else 'docs/battle-theatre/' + TABLE_REL, 'present': T is not None, 'schema': (T or {}).get('schema'), 'units': len((T or {}).get('units') or {}), 'diagnostic_copy': bool(table_path)}
     if table_path:
         rec.note('DIAGNOSTIC RUN: the table was read from %s, not from kit/verified_oob.json; this record is not the gate result' % env.rel(table_path))

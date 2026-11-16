@@ -165,7 +165,10 @@
    "file_kept": true,
    "rights_basis": "United States government work",
    "rights_note": null,
-   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread"
+   "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread",
+   "ocr_text_path": "tmp/library/web/nps/NPS-MCMILLAN-HOUSE/NPS-MCMILLAN-HOUSE.ocr.txt",
+   "ocr_text_sha256": "8c8bba513bc2a68d89a706614b3c8b66cbc7be43fa5f9d5038043e885bef78bd",
+   "ocr_engine": "tesseract 5.3.4 eng, --psm 6, OMP_THREAD_LIMIT=1; pdftoppm -r 300 -gray; speck filter of scripts/ocr.py (connected components outside the text lines removed)"
   },
   {
    "id": "NPS-CLI-CEMETERY",
@@ -707,7 +710,7 @@
    "rights_note": null,
    "text_quality": "text layer of the PDF as served (pdftotext 24.02.0); not proofread",
    "ocr_text_path": "tmp/library/web/nps/NPS-SLAUGHTER-PEN/NPS-SLAUGHTER-PEN.ocr.txt",
-   "ocr_text_sha256": "17d92c500fa03bc509cfef76787959912a181dd9afff30edc74c135f655e957a",
+   "ocr_text_sha256": "5ddc08e9d112aa811452b50d9829ad13518937f0b350da1cc852a1608e919d98",
    "ocr_engine": "tesseract 5.3.4 eng, --psm 6, OMP_THREAD_LIMIT=1; pdftoppm -r 300 -gray; speck filter of scripts/ocr.py (connected components outside the text lines removed)"
   },
   {

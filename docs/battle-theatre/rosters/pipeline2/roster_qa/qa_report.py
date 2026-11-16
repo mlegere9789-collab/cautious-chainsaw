@@ -542,6 +542,7 @@ def main():
     audit_files = glob.glob(os.path.join(Q.QA, '**', '*.json'), recursive=True) + [os.path.join(Q.R2, 'sources', 'roster-qa.json')] + glob.glob(os.path.join(Q.WSQ, '*'))
     pat = _re.compile(r"\bAI\b|Claude|Anthropic|\bagents?\b|\bsub-?agents?\b|\bLLM\b|\bGPT\b|artificial intelligence", _re.I)
     ah = {}
+    ah_ctx = {}
     for fp in audit_files:
         try:
             tx = open(fp, encoding='utf-8', errors='replace').read()
@@ -550,7 +551,9 @@ def main():
         m_ = [x.group(0) for x in pat.finditer(tx)]
         if m_:
             ah[os.path.relpath(fp, Q.ROOT).replace(os.sep, '/')] = m_
-    A('9. **Copy audit (Law; rule 6 of the task).** A word search (AI, Claude, Anthropic, agent, subagent, LLM, GPT, artificial intelligence) over the %d files this item wrote under `data2/qa`, `GOVERNANCE/horde/ws-rosters/roster-qa` and the pointer file found %d file(s) with a hit: %s. %s None of these files is loaded by the roster page; `data2/qa` is a work area and must not be packed (request note `GOVERNANCE/horde/requests/bt-rosters-roster-qa-work-files.md`); the derived-text ledger is kept there, not under `data2/sources/`, because the packer audits that folder for statements of how a file was made.' % (len(audit_files), len(ah), '; '.join('`%s`: %s' % (k, ', '.join(sorted(set(v)))) for k, v in ah.items()) or 'none', 'The hit is a printed given name of the source (the Maine participants list prints a man named Ai), kept as printed (Law 1 and 4).' if ah else ''))
+            mm = pat.search(tx)
+            ah_ctx[os.path.relpath(fp, Q.ROOT).replace(os.sep, '/')] = tx[max(0, mm.start() - 28):mm.end() + 28].replace('\n', ' ').replace('`', "'")
+    A('9. **Copy audit (Law; rule 6 of the task).** A word search (AI, Claude, Anthropic, agent, subagent, LLM, GPT, artificial intelligence) over the %d files this item wrote under `data2/qa`, `GOVERNANCE/horde/ws-rosters/roster-qa` and the pointer file found %d file(s) with a hit: %s. %s None of these files is loaded by the roster page; `data2/qa` is a work area and must not be packed (request note `GOVERNANCE/horde/requests/bt-rosters-roster-qa-work-files.md`); the derived-text ledger is kept there, not under `data2/sources/`, because the packer audits that folder for statements of how a file was made.' % (len(audit_files), len(ah), '; '.join('`%s`: %s' % (k, ', '.join(sorted(set(v)))) for k, v in ah.items()) or 'none', ('The hits are words of the sources or of their text layers, not statements about how this work was made; the context of the first hit of each file is: %s. They are kept as stored (Law 1 and 4).' % '; '.join('`%s`: "...%s..."' % (os.path.basename(k), v) for k, v in sorted(ah_ctx.items()))) if ah else ''))
     A('')
     # ------------------------------------------------------------------ 6
     A('## 6. Sources and rights')

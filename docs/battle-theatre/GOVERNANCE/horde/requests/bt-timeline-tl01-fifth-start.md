@@ -1,6 +1,6 @@
 # Request note from bt-timeline (shard tl-01): the corrections file changed again (fifth start, 2026-11-16)
 
-Written 2026-11-16 by the owner of GOVERNANCE/horde/tl-01. Nothing outside the shard's own files was changed except the appended lines of decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL01-15 to DD-TL01-17 and a fourth correction note) and progress.md (two lines).
+Written 2026-11-16 by the owner of GOVERNANCE/horde/tl-01. Nothing outside the shard's own files was changed except the appended lines of decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-TL01-15 to DD-TL01-17 and four correction notes, the fourth to the seventh; the later notes govern where they differ from the earlier ones) and progress.md (four lines: one milestone line and three lines that correct figures of the earlier ones; the lines were appended, none was rewritten).
 
 ## 1. Integrator (tools/bt/merge_horde.py)
 

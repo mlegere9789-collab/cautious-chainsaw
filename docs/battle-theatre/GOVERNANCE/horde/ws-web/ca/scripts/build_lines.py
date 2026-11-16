@@ -396,22 +396,63 @@ def load_lookups():
     return out
 
 
+_NORMTXT = {}
+
+
+def norm_text(pid):
+    """whitespace-collapsed page text with line-end hyphens joined, cached (the lookups read the same pages again and again)"""
+    if pid not in _NORMTXT:
+        _NORMTXT[pid] = calib.norm(calib.page_text(pid), dehyphen=True)
+    return _NORMTXT[pid]
+
+
+_LK_CACHE = None
+_LK_CACHE_PATH = os.path.join(calib.TMP, 'cache', 'lookups_cache.json')
+
+
+def _lk_cache():
+    global _LK_CACHE
+    if _LK_CACHE is None:
+        try:
+            _LK_CACHE = json.load(open(_LK_CACHE_PATH, encoding='utf-8'))
+        except Exception:
+            _LK_CACHE = {}
+    return _LK_CACHE
+
+
+def _lk_save():
+    os.makedirs(os.path.dirname(_LK_CACHE_PATH), exist_ok=True)
+    tmp = _LK_CACHE_PATH + '.tmp%d' % os.getpid()
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(_lk_cache(), f)
+    os.replace(tmp, _LK_CACHE_PATH)
+
+
 def run_lookup(spec, man):
+    """Regular-expression lookup over the saved pages of a date window. The result is cached under tmp (key: patterns, window, and the
+    page ids with their text hashes), so a rebuild with the same saved pages does not scan again; a changed page set changes the key."""
     import os as _os
     pages = [pid for pid, m in man.items() if spec['window'][0] <= m['date'] <= spec['window'][1] and _os.path.exists(calib.page_paths(pid)[0])]
+    key = hashlib.sha1(json.dumps([spec['patterns'], list(spec['window']), SEARCHED_ON, sorted((pid, man[pid]['text_sha256']) for pid in pages)]).encode('utf-8')).hexdigest()
+    cached = _lk_cache().get(key)
+    if cached is not None:
+        return cached
     rxs = [re.compile(p, re.I) for p in spec['patterns']]
     hits = []
     for pid in sorted(pages):
-        t = calib.norm(calib.page_text(pid), dehyphen=True)
+        t = norm_text(pid)
         for rx in rxs:
             m = rx.search(t)
             if m:
                 hits.append({'page_id': pid, 'pattern': rx.pattern, 'context': t[max(0, m.start() - 80):m.end() + 100]})
                 break
     titles = sorted({man[p]['lccn'] for p in pages})
-    return {'patterns': spec['patterns'], 'window': list(spec['window']), 'pages_searched': len(pages), 'titles_searched': len(titles),
-            'page_list_in': 'pages.jsonl (the saved pages of the window; the saved set is what searches and issue enumeration returned, not every page printed)',
-            'hits': len(hits), 'hit_pages': hits[:12], 'searched_on': SEARCHED_ON, 'method': 'regular expressions over the saved reading text, line-end hyphens joined, case-insensitive'}
+    res = {'patterns': spec['patterns'], 'window': list(spec['window']), 'pages_searched': len(pages), 'titles_searched': len(titles),
+           'page_list_in': 'pages.jsonl (the saved pages of the window; the saved set is what searches and issue enumeration returned, not every page printed)',
+           'hits': len(hits), 'hit_pages': hits[:12], 'searched_on': SEARCHED_ON, 'method': 'regular expressions over the saved reading text, line-end hyphens joined, case-insensitive'}
+    _lk_cache()[key] = res
+    _lk_save()
+    return res
 
 
 def build():

@@ -272,6 +272,16 @@ class States(unittest.TestCase):                # Q20.6
         self.assertEqual(one(run(mutate_d=undraw), 'Q20.6', 'dismount-DM-T')['result'], 'FAIL')
 
 
+class RegistryAndVersion(unittest.TestCase):          # runner version and diagnostic table
+    def test_the_record_names_the_runner_version(self):
+        out = run()
+        self.assertRegex(out['runner_version'], r'^[0-9a-f]{16}$')
+        self.assertIn('q20_cavalry.py', out['runner_files'])
+
+    def test_the_diagnostic_table_option_is_refused_for_the_stored_record(self):
+        self.assertEqual(Q.main(['--table', '/nonexistent/verified_oob.json', '--quiet', '--no-gait-test']), 3)
+
+
 class RealData(unittest.TestCase):
     """The real node child and the real gait test on the real product, writing into a scratch folder."""
 

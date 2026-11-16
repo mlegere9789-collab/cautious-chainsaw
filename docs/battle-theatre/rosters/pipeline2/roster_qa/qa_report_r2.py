@@ -156,7 +156,7 @@ def section_lines():
     rate = {tid: len(d['name_err']) / d['rows'] for tid, d in tx.items() if d['rows'] >= 30}
     lo = min(rate, key=rate.get) if rate else None
     hi = max(rate, key=rate.get) if rate else None
-    A('* **The texts differ (Measured, section 8.4).** The roll was read from two scans of the same print, and the file of each unit is built from the scan with the better measured score; the texts differ in what the pages show: of the texts with at least 30 compared lines, the lowest share of lines with a name error is %s (%s, %d of %s lines) and the highest %s (%s, %d of %s lines); the table of 8.4 gives every text.' % (
+    A('* **The texts differ (Measured, section 8.4).** The roll was read from two scans of the same print, and the file of each unit is built from the scan with the better measured score (Documented: the conf-nc report, text ids per unit); the texts differ in what the pages show: of the texts with at least 30 compared lines, the lowest share of lines with a name error is %s (%s, %d of %s lines) and the highest %s (%s, %d of %s lines); the table of 8.4 gives every text.' % (
         pct(len(tx[lo]['name_err']), tx[lo]['rows']) if lo else 'n/a', lo, len(tx[lo]['name_err']) if lo else 0, f(tx[lo]['rows']) if lo else '0',
         pct(len(tx[hi]['name_err']), tx[hi]['rows']) if hi else 'n/a', hi, len(tx[hi]['name_err']) if hi else 0, f(tx[hi]['rows']) if hi else '0'))
     A('* **Verdicts against the files (Measured, section 8.3).** %s' % (
@@ -326,6 +326,20 @@ def section_lines():
     A('**How well the flag sees the errors (Measured, the pages compared at all three levels).** %s lines were compared; the flag files mark %s of them ocr_uncertain; %s lines are in error; %s of the lines in error are marked (recall %s); %s of the marked lines are in error (precision %s). A mark is a pattern of damage that the parser knows, not a reading of the page: lines that no pattern matched are wrong as often as the flag misses them.' % (
         f(nrows3), f(fl_rows), f(err_all), f(fl_err), pct(fl_err, err_all), f(fl_err), pct(fl_err, fl_rows)))
     A('')
+    # the same measures in the flag files as they are now (the pages whose lines are unchanged; qa_current.py matches the lines by their position on the leaf)
+    if cur:
+        comp = [pg for pg in cur['pages'] if pg.get('flag_now')]
+        e_now = sum(pg['flag_now']['error_rows'] for pg in comp)
+        f_now = sum(pg['flag_now']['error_rows_flagged'] for pg in comp)
+        c3 = [pg for pg in comp if pg['flag_now']['levels'] == 'NDR']
+        r3 = sum(pg['flag_now']['rows_flagged'] for pg in c3)
+        e3 = sum(pg['flag_now']['error_rows'] for pg in c3)
+        f3 = sum(pg['flag_now']['error_rows_flagged'] for pg in c3)
+        same = (f_now == n_flag and e_now == n_err_rows and f3 == fl_err and r3 == fl_rows)
+        A('**The same two measures in the flag files as they are now (Measured, %d of %d pages, those whose lines are unchanged).** %s of the %s lines in error are marked (%s); on the pages compared at all three levels the flag marks %s lines, %s of the %s lines in error are marked (recall %s) and %s of the marked lines are in error (precision %s).%s' % (
+            len(comp), len(vs), f(f_now), f(e_now), pct(f_now, e_now), f(r3), f(f3), f(e3), pct(f3, e3), f(f3), pct(f3, r3),
+            ' These are the figures above: the flag files were not rewritten between the sitting and this report.' if same else ' These differ from the figures above because the flag files were rewritten after some pages were looked at; the figures of this paragraph describe the files as they are.'))
+        A('')
     # by scan: names and any error among rows
     famv = collections.defaultdict(list)
     for v in vs:
@@ -458,7 +472,7 @@ def section_lines():
                 A('| %s | %s | %s | %d | %d (%s) | %d (%s) |' % (lab, fam, grp, a, b, pct(b, a), c, pct(c, a)))
             A('')
     else:
-        A('NOT RUN: the test on 20 pages per scan family (`RQA_ROUND=2 python3 -I qa_route_test.py run`) is queued through `tools/horde/bench.sh` and had not been given a slot when this section was written; it is owed (G-QA06 and the line G-QA07 of `GAPS.md`).')
+        A('NOT RUN: the test on 20 pages per scan family (`RQA_ROUND=2 python3 -I qa_route_test.py run`) is queued through `tools/horde/bench.sh` and had not been given a slot when this section was written; it is owed (G-QA06 of `GAPS.md` for round 1 and G-QA08 for round 2).')
         A('')
     # ---------------------------------------------------------------- 8.8
     A('### 8.8 Sources and rights (round 2)')
@@ -483,11 +497,57 @@ def section_lines():
     A('2. **The first entry of a page can be missing from the stored lines although the text layer holds it.** `05913252.3309.emory.edu/62`: Charles C. Tew, Colonel (the first line of the 2nd North Carolina Infantry roll), is in the text layer and in no stored line (a garbled initial in the head: `(\'.`); `05913252.3309.emory.edu/511` (rebuilt file): B. P. Jenkins, 1st Sergt.; `rosterofnorthcar02nort/32`: C. M. McLeod, 1st Sergeant. The conf-nc report says that unparsed text is counted in the diagnostics; these lines are lines of the roll.')
     A('3. **A printed misprint is stored as printed.** `rosterofnorthcar03moor/536`: John F. Lipps, "pr. September 22d, \'24" (the same capture as the line of Wm. C. Fletcher below, \'64): the print says \'24 and so does the stored line; it is not counted as an error, and a reader of the file sees a year before the enlistment of the man (enlisted 1862).')
     A('4. **A dash prints an unknown date.** `rosterofnorthcar03moor/536` ("e. --;") and `05913252.3309.emory.edu/250` ("Fullbright, --,"): the stored line keeps a bullet or nothing where the print has the dash (punctuation only, not an error, but the name field of `Fullbright` has no given name).')
-    A('5. **Margin marks become letters (volume 3 page 344, `rosterofnorthcar03moor/352`).** The ink marks of the copy in the left margin stand in four of the five names with an error as a stray letter or character (`V Bowden, Rufus`, `J Carlisle, James PI.`); the same pattern as the Massachusetts margins of round 1 (section 5, item 3).')
-    A('6. **The artillery pages of volume 1 in the first scan are dark and bold** (`rosternorthcaro00moorgoog/384` and `/383`, the Charlotte Artillery): 22 of 52 lines have a name error on one of them; the file of the unit is built from this text because the second scan scored lower for the unit (conf-nc report 3).')
-    A('7. **A damaged heading is inherited by every line under it** (`05913252.3309.emory.edu/511`: PRIVATES read PRIVATE- and NON-COMMISSIONED OFFICERS read XOX-COMMI8SIOXED OFFICERS; the 32 lines of the page carry a wrong rank word on 30 lines).')
-    A('8. **Lines of a clean page are marked uncertain wholesale** (`05913252.3309.emory.edu/472`, `rosterofnorthcar02nort/20`): the flag file marks every line of the page because the company heading is damaged (flag C) or the company letter is inferred; the lines themselves read well (6 of 47 and 21 of 40 lines in error), and the company letter is right on every line (checked against the running heads of the neighbouring pages).')
-    A('9. **A rebuild while the sample was taken** (8.3): the lines of 4 verdict pages moved to other row numbers and the lines of one page changed (the fragment line of the Jenkins entry was dropped); the row number of a line in a unit file is not a stable name for it, its offset in the pinned text is.')
+    byp = {v['page']: v for v in vs}
+
+    def rows_in_error(pid, pred=None):
+        v = byp.get(pid)
+        if not v:
+            return None
+        seen = {}
+        for e in v['errors']:
+            seen.setdefault(e['i'], []).append(e)
+        return sum(1 for i, es in seen.items() if (pred is None or any(pred(e) for e in es)))
+
+    def name_err(pid):
+        return rows_in_error(pid, lambda e: any(k.startswith('name-') for k in e['kinds']))
+
+    def rank_err(pid):
+        return rows_in_error(pid, lambda e: 'rank' in e['kinds'])
+
+    def stored_n(pid):
+        v = byp.get(pid)
+        return v['rows_stored'] if v else None
+
+    def flagged_n(pid):
+        v = byp.get(pid)
+        return v['rows_flagged_ocr_uncertain'] if v else None
+
+    cur_page = {pg['page']: pg for pg in (cur['pages'] if cur else [])}
+
+    def flagged_now(pid):
+        fn = (cur_page.get(pid) or {}).get('flag_now')
+        return fn['rows_flagged'] if fn else None
+
+    pid_m = 'rosterofnorthcar03moor/352'
+    if pid_m in byp:
+        n_mm = rows_in_error(pid_m, lambda e: 'margin mark' in (e.get('note') or ''))
+        A('5. **Margin marks become letters (volume 3 page 344, `%s`).** The ink marks of the copy in the left margin (check marks) stand in the stored name of %d of the %d lines in error of this page as a stray letter or character in front of the name (`V Bowden, Rufus`, `J Carlisle, James PI.`, and a triangle in front of `Bowden, Wm.`); the other lines in error of the page are character misreads (`Bfockley` for Blockley, where the print has a speck on the l; `R S.` for P. S.). The free-text note of the verdict says "four of the five names carry a stray letter or character": that count is a slip of the note, the count here is made from the error lines of the verdict, which are as written. The same pattern as the Massachusetts margins of round 1 (section 5, item 3).' % (pid_m, n_mm, rows_in_error(pid_m)))
+    pid_g, pid_g2 = 'rosternorthcaro00moorgoog/384', 'rosternorthcaro00moorgoog/383'
+    if pid_g in byp and pid_g2 in byp:
+        A('6. **The artillery pages of volume 1 in the first scan are dark and bold** (`%s` and `/383`, the Charlotte Artillery): %d of %d lines of leaf 384 have a name error (leaf 383: %d of %d); the file of the unit is built from this text (conf-nc report, table of the text ids: NC-MOORE-1882.1, leaves 383 to 386).' % (pid_g, name_err(pid_g), stored_n(pid_g), name_err(pid_g2), stored_n(pid_g2)))
+    pid_h = '05913252.3309.emory.edu/511'
+    if pid_h in byp:
+        v = byp[pid_h]
+        A('7. **A damaged heading is inherited by every line under it** (`%s`: PRIVATES read PRIVATE- and NON-COMMISSIONED OFFICERS read XOX-COMMI8SIOXED OFFICERS; of the %d lines of the page %d carry a wrong rank word, and %d lines are in error in all).' % (pid_h, stored_n(pid_h), rank_err(pid_h), rows_in_error(pid_h)))
+    pid_c = '05913252.3309.emory.edu/472'
+    if pid_c in byp:
+        fn = flagged_now(pid_c)
+        A('8. **A clean page can be marked uncertain wholesale** (`%s`): the flag file marks %d of the %d lines of the page ocr_uncertain (in the flag files as they are now: %s) because the company heading is damaged (flag C); %d of the %d lines are in error (the lines read well) and the company letter is right on every line (checked against the running heads of the neighbouring pages). The same measure on `rosterofnorthcar02nort/20`: the flag file marks %d of %d lines and %d lines are in error (the free-text note of that verdict says that the flag file marks all 40 lines: a slip of the note, the verdict data and the file show %d); the flag does not follow the quality of the page in either direction.' % (
+            pid_c, flagged_n(pid_c), stored_n(pid_c), ('%d' % fn) if fn is not None else 'not comparable', rows_in_error(pid_c), stored_n(pid_c),
+            flagged_n('rosterofnorthcar02nort/20') or 0, stored_n('rosterofnorthcar02nort/20') or 0, rows_in_error('rosterofnorthcar02nort/20') or 0, flagged_n('rosterofnorthcar02nort/20') or 0))
+    if cur:
+        sup_n = len(glob.glob(os.path.join(QA2, 'superseded', '*.json')))
+        A('9. **A rebuild while the sample was taken** (8.3): the lines of %d verdict pages moved to other row numbers (same lines); the lines of %d page%s changed after the first verdict, which is kept under `superseded/` and not counted, and the page was looked at again against the new lines (the Jenkins entry of `05913252.3309.emory.edu/511` lost the fragment line that the earlier build stored for its tail); %d verdict page%s differ from the files as they are now; the row number of a line in a unit file is not a stable name for it, its offset in the pinned text is.' % (cur['summary'].get('renumbered', 0), sup_n, '' if sup_n == 1 else 's', cur['summary']['different'], '' if cur['summary']['different'] == 1 else 's'))
     A('')
     A('### 8.10 Not run, owed')
     A('')

@@ -30,7 +30,7 @@ for _p in (HERE, os.path.join(HERE, 'lib'), os.path.abspath(os.path.join(HERE, '
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from oobgates_common import cond, covered_by_register, first_failed, gate_rows, layer_dump, sub_requirements_for  # noqa: E402
+from oobgates_common import cond, covered_by_register, first_failed, gate_rows, layer_dump, runner_version, sub_requirements_for  # noqa: E402
 from pq_common import Env, InputMissing, Record, base_parser, guarded_main, node_version  # noqa: E402
 
 GATE = 'Q20'
@@ -62,7 +62,7 @@ def state_names(plan):
     return out
 
 
-def load_inputs(rec, env):
+def load_inputs(rec, env, table_path=None):
     K = {}
     for key, rel, role in (('kit', 'kit/cavalry_units.json', 'data'), ('horses', 'app/data/cavalry-horses.json', 'data'), ('weapons', 'kit/weapons.json', 'data')):
         try:
@@ -70,9 +70,9 @@ def load_inputs(rec, env):
         except InputMissing as e:
             K[key] = None
             K.setdefault('missing', []).append(str(e))
-    for key, rel in (('table', TABLE_REL), ('actions', ACTION_REL)):
+    for key, path in (('table', table_path or env.btp(TABLE_REL)), ('actions', env.btp(ACTION_REL))):
         try:
-            K[key] = rec.read_json(env.btp(rel), 'table')
+            K[key] = rec.read_json(path, 'table')
         except InputMissing:
             K[key] = None
     try:
@@ -288,13 +288,18 @@ def evaluate(rec, env, D, K, gait=None, gap_cover=None):
         rec.incomplete('inputs missing: %s' % '; '.join(K['missing']))
 
 
-def run(env, dump=None, inputs=None, write=True, mutate=None, argv=None, gait='run', gap_cover=None):
+def run(env, dump=None, inputs=None, write=True, mutate=None, argv=None, gait='run', gap_cover=None, table_path=None):
     rec = Record(GATE, env, renderer_class='mixed', argv=argv)
     rec.tool_versions['node'] = node_version()
-    K = inputs if inputs is not None else load_inputs(rec, env)
+    runner_version(rec, [os.path.join(HERE, fn) for fn in ('q20_cavalry.py', 'q20_layer.mjs', 'oob_layer_lib.mjs', 'oobgates_common.py')])
+    K = inputs if inputs is not None else load_inputs(rec, env, table_path)
     D = dump if dump is not None else layer_dump(env, 'q20_layer.mjs', [], mutate=mutate)
     g = gait_test(env) if gait == 'run' else gait
     evaluate(rec, env, D, K, g, gap_cover)
+    rec.extra['verified_oob_table'] = {'path': env.rel(table_path) if table_path else 'docs/battle-theatre/' + TABLE_REL, 'present': K.get('table') is not None, 'schema': (K.get('table') or {}).get('schema'),
+                                       'units': len((K.get('table') or {}).get('units') or {}), 'diagnostic_copy': bool(table_path)}
+    if table_path:
+        rec.note('DIAGNOSTIC RUN: the order-of-battle table was read from %s, not from kit/verified_oob.json; this record is not the gate result' % env.rel(table_path))
     out = rec.finish()
     if write:
         rec.write(out)
@@ -305,9 +310,13 @@ def main(argv=None):
     ap = base_parser(__doc__.split('\n')[0])
     ap.add_argument('--mutate', default=None, help='test hook: a module that injects a defect into the real pipeline (see oob_layer_lib.mjs)')
     ap.add_argument('--no-gait-test', action='store_true', help='do not run the application gait test (the item is then NOT-RUN)')
+    ap.add_argument('--table', default=None, help='diagnostic: read the order-of-battle table from this path (for example a scratch build of kit_verified.py); refused when the record would go to GOVERNANCE/gate_results')
     a = ap.parse_args(argv)
     env = Env(root=a.root, out=a.out)
-    rec, out = run(env, write=not a.no_write, mutate=a.mutate, gait=None if a.no_gait_test else 'run', argv=['python3', 'tools/bt/gates/q20_cavalry.py'] + list(argv if argv is not None else sys.argv[1:]))
+    if a.table and os.path.abspath(env.out) == os.path.abspath(os.path.join(env.gov, 'gate_results')) and not a.no_write:
+        sys.stderr.write('refused: --table is a diagnostic; give --out <scratch folder> or --no-write\n')
+        return 3
+    rec, out = run(env, write=not a.no_write, mutate=a.mutate, gait=None if a.no_gait_test else 'run', table_path=a.table, argv=['python3', 'tools/bt/gates/q20_cavalry.py'] + list(argv if argv is not None else sys.argv[1:]))
     if not a.quiet:
         c = out['counts']
         print('Q20 verdict %s: %d items, PASS %d, COVERED %d, FAIL %d, NOT-RUN %d, BLOCKED-INPUT %d, N/A %d' % (out['verdict'], out['totals']['items'], c['PASS'], c['COVERED'], c['FAIL'], c['NOT-RUN'], c['BLOCKED-INPUT'], c['N/A']))

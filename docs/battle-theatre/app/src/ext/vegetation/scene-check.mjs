@@ -36,6 +36,7 @@ export function checkScene(model, opts = {}) {
         if (!near(out[5], g.trample)) fail(u, t, 'trampled share in the scene is not the schedule\'s');
         if (!near(out[6], g.cut)) fail(u, t, 'cut share in the scene is not the schedule\'s');
         if (!near(out[7], g.lodging)) fail(u, t, 'laid-flat share in the scene is not the schedule\'s');
+        if (!near(out[17], g.burn || 0)) fail(u, t, 'burnt share in the scene is not the schedule\'s');
         if (out[12] !== (STAGECODE[g.stage] ?? 0)) fail(u, t, 'stage code in the scene is not the schedule\'s stage ' + g.stage);
         if (!(u.woods && tr) && !near(out[14], g.hStanding ? mid(g.hStanding) : 0)) fail(u, t, 'standing height in the scene is not the schedule\'s');      // (in a wood the floats of texel 3 hold the canopy colour)
       } else for (let k = 0; k < 8; k++) if (out[k] !== 0) fail(u, t, 'a unit with no ground state has ground in the scene');

@@ -1,6 +1,6 @@
-# Independent sample of the stored lines against page images, round 1 (Maine, New Hampshire, Vermont, Massachusetts) (work item roster-qa, OA03)
+# Independent sample of the stored lines against page images, rounds 1 and 2 (round 1: Maine, New Hampshire, Vermont, Massachusetts; round 2: North Carolina, section 8) (work item roster-qa, OA03)
 
-Written 15 November 2026, 23:56 UTC by the roster workstream. Evidence labels as in `PLAN.md`: **Measured** (a command run for this report produced it), **Documented** (a source text or a file says it), **Computed**, **Inferred**, **Not run**. Every number below is computed by `pipeline2/roster_qa/qa_report.py` from `data2/qa/` (frame, draw, one verdict file per page looked at, statistics, claims check, second-reading tests, recovered lines), the unit files and the logs under `GOVERNANCE/horde/ws-rosters/roster-qa/`; no count is typed (figures quoted from the reports and plans of other items are named with their source). No stored line, flag file or ledger of another item was changed.
+Written 16 November 2026, 03:44 UTC by the roster workstream. Evidence labels as in `PLAN.md`: **Measured** (a command run for this report produced it), **Documented** (a source text or a file says it), **Computed**, **Inferred**, **Not run**. Every number below is computed by `pipeline2/roster_qa/qa_report.py` from `data2/qa/` (frame, draw, one verdict file per page looked at, statistics, claims check, second-reading tests, recovered lines), the unit files and the logs under `GOVERNANCE/horde/ws-rosters/roster-qa/`; no count is typed (figures quoted from the reports and plans of other items are named with their source). No stored line, flag file or ledger of another item was changed.
 
 ## 0. Summary
 
@@ -11,6 +11,8 @@ Written 15 November 2026, 23:56 UTC by the roster workstream. Evidence labels as
 * **The claims of the four reports (Measured, section 3).** 920 claims of the reports of Maine, New Hampshire, Vermont and Massachusetts (per-unit line counts, lines per segment, ocr_uncertain, on-the-rolls counts, Gettysburg counts, damage codes, totals), the flag-file and unit-file hashes of the pointer files of all four items and every hash and size of the ledgers and manifests kept locally were recomputed from the files: 920 hold, 0 do not. **At the start of the second sitting 53 of 919 claims did not hold, all of union-ma** (the damage-code counts of its report and the bytes and sha256 of its 24 flag files in its pointer file: the flag files were rewritten on 14 November at 01:30, after the report and the pointer file); they were regenerated from the files by the scripts of that item (section 3) and the check is clean now, and its node test passes 124 of 124 (it passed 100 of 124 before). `verify_unit.py --all` on the four items: 54 files, 0 V1 and 0 V3 defects; `build_index.py --lint`: 0 defects; 23 node tests of the New Hampshire item (23 pass, 0 fail) and 124 node tests of the Massachusetts item (124 pass, 0 fail).
 * **The second-reading route (Measured, section 4).** 13 of the 13 lines that the first layer lost and that were tried (the 6 Vermont lines of `diag-no-name.json` and 7 of the 106 Maine index lines of `diag-index.json`) were read by tesseract and are recovered, each with its own locator in a derived text (`data2/qa/pageread-ledger.json`) and confirmed by looking at the line on the page image (and again by the second sitting on the stored crops: 13 of 13 agree); none is written into a unit file. The eight Maine index leaves without text are scanner-deleted leaves (`pageType Delete`) between consecutive printed pages: nothing is lost there. Compared with the first layer, tesseract marks as SUSPECT between 94 and 100 percent of the lines that the sample reader found in error (4.1); the agreement of the two engines on 20 pages per family (4.2) is OWED: the test was queued through the machine lock and had not run when this report was written.
 * **Not run / owed (section 7).** The Pennsylvania muster years and the Florida 6.1 percent (no unit files of those items yet); the cells sidecar of the Vermont files (page-order reading of the lines flagged O) as a second reading; the 299 to 628 lines per stratum that the plan asks for were not reached because every stratum failed first; fresh pages after the parsers are fixed; a third reader on every disagreement (the second sitting re-read 5 of the 35 pages and is the same role, not an independent person); browser, timing, real-GPU checks (not part of this work).
+
+* **Round 2, North Carolina (Measured, section 8).** 25 pages of the 41 units of conf-nc (Moore, Roster of North Carolina Troops, 1882; two scans of each of four volumes) were looked at in 4 strata (source scan x officers pages or other pages; seed `roster-qa-round2-2026-11-16`): **939 stored lines compared with the print; 4 of 4 strata fail at least one gate by the ladder of PLAN.md 4.4 and no gate of any stratum passes (R-G9 not passed for conf-nc)**; 16 of the 16 gate cells fail; no gate cell is open. The verdicts of all 25 pages describe the stored lines as they are now (`qa_current.py`: 21 identical, 4 with the same lines under new row numbers). The claims of the conf-nc report: 1,474 of 1,501 recomputed claims hold, 27 do not (section 8.6). The second-reading route test on the two Moore scan families is owed (section 8.7).
 
 ## 1. Lines per unit against the strength
 
@@ -335,7 +337,7 @@ Reading. Without the decile pages 9 of the 11 strata still reach 4 or more error
 
 ## 4. The second-reading route
 
-Route (Measured, `pipeline2/page_image.py` and `pipeline2/roster_qa/qa_render.py`): the item PDF from `https://archive.org/cors/<id>/<id>.pdf` (one request, 1.2 s after the previous one, generic client name), the leaf found through the scan data where the PDF has fewer pages than the item has leaves, the page cut out with pdftoppm at 300 dpi, the table rules whitened (a threshold relative to the page background: the Maine scans are grey, about 155 on a scale of 255, and a fixed threshold erased the text and made tesseract return nothing on two pages before it was fixed), tesseract 5.3.4 `eng` psm 6 at one thread (0.9 to 4.2 s of CPU a page on the pages looked at, from their read records). The PDFs are transient (569,772,251 bytes in all; kept on disk until the route test of 4.2 has run, then dropped with `qa_render.py drop`; sha256 in the pointer file).
+Route (Measured, `pipeline2/page_image.py` and `pipeline2/roster_qa/qa_render.py`): the item PDF from `https://archive.org/cors/<id>/<id>.pdf` (one request, 1.2 s after the previous one, generic client name), the leaf found through the scan data where the PDF has fewer pages than the item has leaves, the page cut out with pdftoppm at 300 dpi, the table rules whitened (a threshold relative to the page background: the Maine scans are grey, about 155 on a scale of 255, and a fixed threshold erased the text and made tesseract return nothing on two pages before it was fixed), tesseract 5.3.4 `eng` psm 6 at one thread (0.9 to 4.2 s of CPU a page on the pages looked at, from their read records). The PDFs are transient (955,974,126 bytes in all; kept on disk until the route test of 4.2 has run, then dropped with `qa_render.py drop`; sha256 in the pointer file).
 
 ### 4.1 What a second reading is worth, on the pages that were looked at
 
@@ -393,7 +395,7 @@ Not tried: the other 99 lost Maine index lines (the route is proved on the 7; th
 6. **Run-over lines of table remarks** (a remark that wraps is printed with its overflow bracketed at the right of the line below or above it: `[for wds.`, `[May 12, '64.`, on Vermont leaf 117 `['63, for disab.` stands on the line above the remark it completes and `[19, '65.` on the line below) are stored on the row of the line they stand beside in Vermont, Maine returns and the Massachusetts margin; the printing convention is the cause, the geometry rule cannot tell.
 7. **Draw position 2 of MA-SSM-officers was passed over by the first sitting** (it looked at positions 1 and 3; no file records why) and the first report called the sample a prefix of the draw order; the second sitting looked at the page (leaf 631: 19 lines, 4 in error) and section 2.1 states the prefix test from the verdicts.
 8. **A verdict miscounted the men of a printed table** (Maine returns, leaf 224, 1st Cavalry): the first verdict counts 17 men (15 in the table and 2 below); the print shows 19 (the block Joined Field and Staff since Nov. 1, 1862 has 4 men); the text layer holds all 19 names, the stored rows 17 of them. Recorded in the addendum of the page (section 2.5); no stored line was changed.
-9. **Copy audit (Law; rule 6 of the task).** A word search (AI, Claude, Anthropic, agent, subagent, LLM, GPT, artificial intelligence) over the 135 files this item wrote under `data2/qa`, `GOVERNANCE/horde/ws-rosters/roster-qa` and the pointer file found 1 file(s) with a hit: `docs/battle-theatre/rosters/data2/qa/pages/maineatgettysbur01main-0513.verdict.json`: Ai. The hit is a printed given name of the source (the Maine participants list prints a man named Ai), kept as printed (Law 1 and 4). None of these files is loaded by the roster page; `data2/qa` is a work area and must not be packed (request note `GOVERNANCE/horde/requests/bt-rosters-roster-qa-work-files.md`); the derived-text ledger is kept there, not under `data2/sources/`, because the packer audits that folder for statements of how a file was made.
+9. **Copy audit (Law; rule 6 of the task).** A word search (AI, Claude, Anthropic, agent, subagent, LLM, GPT, artificial intelligence) over the 195 files this item wrote under `data2/qa`, `GOVERNANCE/horde/ws-rosters/roster-qa` and the pointer file found 2 file(s) with a hit: `docs/battle-theatre/rosters/data2/qa/round2/pages/rosterofnorthcar02nort-0192.verdict.json`: Ai; `docs/battle-theatre/rosters/data2/qa/pages/maineatgettysbur01main-0513.verdict.json`: Ai. The hits are words of the sources or of their text layers, not statements about how this work was made; the context of the first hit of each file is: `maineatgettysbur01main-0513.verdict.json`: "...infantry#2457",    "name": "Ai Waterhouse",    "off": 1128..."; `rosterofnorthcar02nort-0192.verdict.json`: "...  ],    "stored": "Adolphus Ai Moss",    "printed": "Adolp...". They are kept as stored (Law 1 and 4). None of these files is loaded by the roster page; `data2/qa` is a work area and must not be packed (request note `GOVERNANCE/horde/requests/bt-rosters-roster-qa-work-files.md`); the derived-text ledger is kept there, not under `data2/sources/`, because the packer audits that folder for statements of how a file was made.
 
 ## 6. Sources and rights
 
@@ -409,6 +411,14 @@ Only the item PDFs of sources that the four items parsed were fetched (archive.o
 | VT-ROSTER-1892 | 1 | `cu31924080774148` | 1892 | 67,408,335 | `df49af98...0bb600a4` | public domain (United States publication before 1929) |
 | MA-SSM-1931 | 1 | `massachusettssol11931mass` | 1931 | 63,757,338 | `86b9901e...c687003b` | printed 1931 (state publication, NORWOOD, MASS. PRINTED AT THE NORWOOD PRESS), after the 1929 cutoff: public d |
 | MA-SSM-1931 | 2 | `massachusettssol21931mass` | 1931 | 67,278,670 | `c76ba611...97d4d6b1` | printed 1931 (state publication, NORWOOD, MASS.), after the 1929 cutoff: public domain is not established by t |
+| NC-MOORE-1882 | 1 | `rosternorthcaro00moorgoog` | 1882 | 26,310,300 | `bf870c7b...5bfab123` | public domain (United States publication before 1929) |
+| NC-MOORE-1882 | 1 | `05913252.3309.emory.edu` | 1882 | 23,839,734 | `1dda26b2...5805c3c1` | public domain (United States publication before 1929) |
+| NC-MOORE-1882 | 2 | `rosterofnorthcar02nort` | 1882 | 53,035,273 | `6c66da28...38ccaeab` | public domain (United States publication before 1929) |
+| NC-MOORE-1882 | 2 | `05913252.3310.emory.edu` | 1882 | 30,304,591 | `e59c6997...f8a55f36` | public domain (United States publication before 1929) |
+| NC-MOORE-1882 | 3 | `rosterofnorthcar03moor` | 1882 | 118,245,709 | `cd19cd7b...465cf299` | public domain (United States publication before 1929) |
+| NC-MOORE-1882 | 3 | `05913252.3311.emory.edu` | 1882 | 29,467,409 | `38d20850...b829cd92` | public domain (United States publication before 1929) |
+| NC-MOORE-1882 | 4 | `rosterofnorthcar04moor` | 1882 | 88,928,230 | `5d70f052...3a96742e` | public domain (United States publication before 1929) |
+| NC-MOORE-1882 | 4 | `05913252.3312.emory.edu` | 1882 | 14,905,058 | `80fda651...4b120121` | public domain (United States publication before 1929) |
 
 Rights per name: a recovered row names its derived text (`QA-PAGEREAD.<identifier>-<leaf>`), whose ledger entry gives the item, the leaf, the sha256 of the PDF and of the text, and the rights note above.
 
@@ -425,4 +435,268 @@ Registered (lines appended to `rosters/GAPS.md` as G-QA01 to G-QA06: G-QA01 is E
 Owner steps: none new. Delegated decisions made here: DD-ROS-QA-01 to DD-ROS-QA-05 (appended to `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md`).
 
 **Not run in this item:** a browser, any timing, a real-GPU or phone check; the Pennsylvania and Florida tests; the cells sidecar; more than 2 to 5 pages per stratum; the 299 to 628 lines per stratum of the plan (every stratum failed first); an independent third person as reader of the disagreements (the second sitting is the same role and re-read 5 of the 35 pages).
+
+## 8. Round 2: North Carolina (work item conf-nc, Moore 1882)
+
+Written 16 November 2026, 03:44 UTC by the roster workstream, appended to this report by `qa_report.py` (sections 0 to 7 are round 1 and are unchanged; their numbers are those of 15 November). Round 2 is run with the same tools as round 1 (`RQA_ROUND=2`: `qa_lib.py` writes to `data2/qa/round2` and reads the 41 unit files of conf-nc; `qa_frame.py` builds the frame and the draw with its own seed; `qa_render.py`, `qa_compare.py`, `qa_verdict.py` and `qa_stats.py` are unchanged); the round 1 evidence is not touched. Every number below is computed by `pipeline2/roster_qa/qa_report_r2.py` from `data2/qa/round2/`, the unit files and the flag files; none is typed.
+
+### 8.0 Summary
+
+* **The sample (Measured).** 25 pages, 939 stored lines compared with the print, in 4 strata (two scans of the Moore roll x officers pages and other pages), seeded draw (seed `roster-qa-round2-2026-11-16`, 1,305 pages and 54,236 lines in the frame; at least a third of every stratum's pages from its lowest OCR-confidence decile), every page looked at one by one with the Read tool on the page image (the item PDF through `archive.org/cors`, one page cut out with pdftoppm, transient, never stored).
+* **Result (Measured).** **4 of 4 strata fail at least one gate by the ladder of PLAN.md 4.4** (4 or more errors at the gate; the ladder allows 3 at its largest sample of 773 lines): 16 of the 16 gate cells fail; **no stratum passes R-G9, and conf-nc may not be published as checked.** Every gate cell is decided.
+* **What is wrong (Measured, section 8.4).** The text layer differs from the print in characters (the digit 6 read 0, G, B or (; the digit 1 read l, i or I; the letter e read c, o or a mark; m read in or rn; whole names garbled) and, more than in the four Union items, in the cut of the entries: the text layer runs the entries of a roll together, so that the first words of the next entry stand at the end of a line (rem-extra), a name loses its first word or its initials (name-cut), the rank word or the carried heading stands in the name or in the rank field, and two or more printed entries are stored as one line (merge). The flag files mark only part of the lines in error (section 8.4).
+* **The texts differ (Measured, section 8.4).** The roll was read from two scans of the same print, and the file of each unit is built from the scan with the better measured score; the texts differ in what the pages show: of the texts with at least 30 compared lines, the lowest share of lines with a name error is 4.8 percent (NC-MOORE-1882.3, 12 of 251 lines) and the highest 35.7 percent (NC-MOORE-1882.1, 25 of 70 lines); the table of 8.4 gives every text.
+* **Verdicts against the files (Measured, section 8.3).** The stored lines of every page that was looked at are the lines its verdict lists (21 of 25 pages identical, 4 with the same lines under new row numbers because the rebuild of the item removed lines earlier in the file; 939 lines; `qa_current.py`).
+* **The claims of the conf-nc report (Measured, section 8.6).** 1,501 claims of the report (per-unit lines, damage codes, flags, company letters, field and staff lines, totals, file sizes and sha256 values of the pointer file) were recomputed from the unit files, the flag files and the pointer file: 1,474 hold, 27 do not hold; they are listed in 8.6.
+* **The second-reading route (Measured, section 8.7).** The test on 20 pages per Moore scan family is OWED: it was queued through the machine lock and had not run when this section was written.
+
+### 8.1 Lines per unit against the strength
+
+"Strength" is the value of the baseline order of battle (`baseline/dist/data/oob`, second hand, from Busey and Martin as the earlier families recorded it); **no strength range with a declared basis exists for these units** (`history/units.json` holds `strength: null` for the 41 units, as the conf-nc report says in its section 1). A whole-war roll is not comparable with the strength present on 1 to 3 July 1863: Moore prints every man who served in a unit at any time of the war. "Printed total" is Moore's own count of the regiment or battalion, read by the conf-nc item from the Recapitulation; it is shown as the report gives it (`reports/conf-nc.md` 1.1) and is not read again here.
+
+| unit | lines in the file | baseline strength | lines / strength | scan the file was read from | pages of the sample that hold a line of the unit | lines of the unit on those pages | of them in error |
+|---|---|---|---|---|---|---|---|
+| 11th North Carolina Infantry | 1,393 | 617 | 2.26 | NC-MOORE-1882.1~b (1,393) | 0 | 0 | 0 |
+| 12th North Carolina Infantry | 1,562 | 219 | 7.13 | NC-MOORE-1882.1~b (1,562) | 1 | 47 | 6 |
+| 13th North Carolina Infantry | 1,455 | 232 | 6.27 | NC-MOORE-1882.1~b (1,455) | 1 | 32 | 30 |
+| 14th North Carolina Infantry | 1,476 | 292 | 5.05 | NC-MOORE-1882.1~b (1,476) | 0 | 0 | 0 |
+| 16th North Carolina Infantry | 1,435 | 321 | 4.47 | NC-MOORE-1882.2 (1,435) | 5 | 195 | 49 |
+| 18th North Carolina Infantry | 1,752 | 346 | 5.06 | NC-MOORE-1882.2~b (1,752) | 0 | 0 | 0 |
+| 1st North Carolina Cavalry | 1,658 | no baseline row | - | NC-MOORE-1882.1~b (1,658) | 0 | 0 | 0 |
+| 1st North Carolina Infantry | 1,582 | 359 | 4.41 | NC-MOORE-1882.1~b (1,582) | 0 | 0 | 0 |
+| 20th North Carolina Infantry | 1,208 | 372 | 3.25 | NC-MOORE-1882.2~b (1,208) | 0 | 0 | 0 |
+| 21st North Carolina Infantry | 1,363 | 472 | 2.89 | NC-MOORE-1882.2 (1,363) | 4 | 140 | 20 |
+| 22nd North Carolina Infantry | 1,951 | 263 | 7.42 | NC-MOORE-1882.2~b (1,951) | 0 | 0 | 0 |
+| 23rd North Carolina Infantry | 1,461 | 406 | 3.60 | NC-MOORE-1882.2~b (1,461) | 0 | 0 | 0 |
+| 26th North Carolina Infantry | 1,927 | 843 | 2.29 | NC-MOORE-1882.2~b (1,927) | 0 | 0 | 0 |
+| 28th North Carolina Infantry | 1,815 | 346 | 5.25 | NC-MOORE-1882.2~b (1,815) | 0 | 0 | 0 |
+| 2nd North Carolina Battalion | 552 | 240 | 2.30 | NC-MOORE-1882.4~b (552) | 0 | 0 | 0 |
+| 2nd North Carolina Cavalry | 1,291 | no baseline row | - | NC-MOORE-1882.2~b (1,291) | 0 | 0 | 0 |
+| 2nd North Carolina Infantry | 1,359 | 247 | 5.50 | NC-MOORE-1882.1~b (1,359) | 1 | 17 | 11 |
+| 30th North Carolina Infantry | 1,538 | 233 | 6.60 | NC-MOORE-1882.2~b (1,538) | 0 | 0 | 0 |
+| 32nd North Carolina Infantry | 1,296 | 465 | 2.79 | NC-MOORE-1882.2~b (1,296) | 1 | 18 | 10 |
+| 33rd North Carolina Infantry | 1,708 | 291 | 5.87 | NC-MOORE-1882.2~b (1,708) | 0 | 0 | 0 |
+| 34th North Carolina Infantry | 1,343 | 310 | 4.33 | NC-MOORE-1882.2~b (1,343) | 0 | 0 | 0 |
+| 37th North Carolina Infantry | 1,761 | 347 | 5.07 | NC-MOORE-1882.3 (1,761) | 0 | 0 | 0 |
+| 38th North Carolina Infantry | 1,273 | 221 | 5.76 | NC-MOORE-1882.3 (1,273) | 1 | 41 | 1 |
+| 3rd North Carolina Infantry | 1,699 | 479 | 3.55 | NC-MOORE-1882.1~b (1,699) | 2 | 81 | 14 |
+| 43rd North Carolina Infantry | 1,238 | 568 | 2.18 | NC-MOORE-1882.3~b (1,238) | 0 | 0 | 0 |
+| 45th North Carolina Infantry | 1,433 | 431 | 3.32 | NC-MOORE-1882.3 (1,433) | 2 | 84 | 7 |
+| 47th North Carolina Infantry | 1,283 | 567 | 2.26 | NC-MOORE-1882.3 (1,283) | 1 | 54 | 5 |
+| 4th North Carolina Cavalry | 881 | no baseline row | - | NC-MOORE-1882.3 (881) | 0 | 0 | 0 |
+| 4th North Carolina Infantry | 1,590 | 252 | 6.31 | NC-MOORE-1882.1~b (1,590) | 0 | 0 | 0 |
+| 52nd North Carolina Infantry | 1,296 | 553 | 2.34 | NC-MOORE-1882.3 (1,296) | 0 | 0 | 0 |
+| 53rd North Carolina Infantry | 1,316 | 375 | 3.51 | NC-MOORE-1882.3 (1,316) | 2 | 72 | 4 |
+| 55th North Carolina Infantry | 1,206 | 640 | 1.88 | NC-MOORE-1882.3 (1,206) | 0 | 0 | 0 |
+| 57th North Carolina Infantry | 1,032 | 326 | 3.17 | NC-MOORE-1882.3~b (1,032) | 0 | 0 | 0 |
+| 5th North Carolina Cavalry | 1,323 | no baseline row | - | NC-MOORE-1882.4 (1,323) | 0 | 0 | 0 |
+| 5th North Carolina Infantry | 1,803 | 473 | 3.81 | NC-MOORE-1882.1~b (1,803) | 1 | 33 | 15 |
+| 6th North Carolina Infantry | 1,788 | 443 | 4.04 | NC-MOORE-1882.1~b (1,788) | 1 | 55 | 28 |
+| 7th North Carolina Infantry | 1,506 | 400 | 3.77 | NC-MOORE-1882.1~b (1,506) | 0 | 0 | 0 |
+| Battery A, 1st North Carolina Artillery | 284 | 80 | 3.55 | NC-MOORE-1882.1~b (284) | 0 | 0 | 0 |
+| Branch Artillery | 142 | no baseline row | - | NC-MOORE-1882.4~b (142) | 0 | 0 | 0 |
+| Charlotte Artillery | 148 | no baseline row | - | NC-MOORE-1882.1 (148) | 2 | 70 | 25 |
+| Rowan Artillery | 212 | 95 | 2.23 | NC-MOORE-1882.1~b (212) | 0 | 0 | 0 |
+| **all** | **54,339** | | | | | **939** | **225** |
+
+Reading the table. The files hold lines of men who served up to 1865 (a line per name entry of the printed roll, rank headings and officers included), so lines exceed the strength by a factor of 1.88 to 7.42 for the units with a baseline row (35 of 41); nothing is merged and nothing is capped. "Lines of the unit on those pages" counts the lines that were compared, not a sample estimate of the file.
+
+### 8.2 The sample (design as run in round 2)
+
+* **Frame.** A page is a leaf of an Internet Archive item that holds at least one stored line of conf-nc: 1,305 pages, 54,236 lines (the first draw of the item gave 54,387 lines on 1,310 pages including the 5 excluded pages). Excluded, as the pilot page was in round 1: the pages that an engineer of conf-nc or the author of the pilot had already looked at (rosterofnorthcar02nort leaf 130; 05913252.3310.emory.edu leaf 126; rosterofnorthcar02nort leaf 406; 05913252.3310.emory.edu leaf 392; 05913252.3310.emory.edu leaf 391). The frame was built on 16 November 2026 from the files as they stood; the sha256 of the raw lines of every file is in `data2/qa/round2/frame.json`; the item was rebuilt by its own engineer while the sample was taken (8.3 says what that changed).
+* **Strata.** The roll is one source printed once and read from two scans, two text layers of the same print with different errors (the item picks, per unit, the scan with the better measured score). A stratum is therefore the scan x the kind of page: NC-MOO-E (the four Emory scans, Moore 1882, second scan (Emory University copies, identifiers 05913252.33NN.emory.edu)) and NC-MOO-G (the four Internet Archive scans, Moore 1882, first scan (Internet Archive items rosternorthcaro00moorgoog, rosterofnorthcar02nort, 03moor, 04moor)), each as officers pages (at least 3 lines and at least a quarter officer lines; rule in `qa_frame.py`) and other pages. Frame: NC-MOO-E-officers: 214 pages, 6,480 lines, 21 decile pages (damage score 0.297 or more); NC-MOO-E-other: 730 pages, 33,029 lines, 73 decile pages (damage score 0.300 or more); NC-MOO-G-officers: 71 pages, 1,999 lines, 7 decile pages (damage score 0.273 or more); NC-MOO-G-other: 290 pages, 12,728 lines, 29 decile pages (damage score 0.200 or more).
+* **Draw.** As round 1 (sha256 of `seed | stratum | identifier | leaf`, decile pages at positions 1, 4, 7, ...). Order and decile of every stratum: `data2/qa/round2/draw.json`. Positions looked at: NC-MOO-E-officers 1,2,3,4; NC-MOO-E-other 1,2,3,4; NC-MOO-G-officers 1,2,3,4; NC-MOO-G-other 1,2,3,4,5,6,7,8,9,10,11,12,13.
+* **Reader.** One sitting of the sample reader (16 November 2026), who had not written the parsers of conf-nc (before the first page it read the report of the item, the flag file of one unit and the five-line change of the head rule in `nc_parse.py` that the rebuild then in progress carried, to judge what the rebuild would change; it did not read the parser further). The page image is looked at with the Read tool (200 dpi view; 300 to 800 dpi crops for a doubtful character); tesseract 5.3.4 (psm 6, the table rules whitened first) is a pre-screen only and decides nothing. The company letter of a page that has no heading of its own is read from the running heads of the pages before and after it (Moore prints "Company X-Nth Regiment" on the odd pages). The third reader of the plan does not exist as a third person; a doubtful character, zoomed and still doubtful, is not counted as an error (the verdict says so in its note).
+* **Levels, comparison rule, decision rule.** As in 2.1: levels N (name, rank or carried heading, company, existence and cut of the line), D (the dates of the remarks), R (the other remark words); the first pages of a stratum are compared at all three levels; a level that a stratum has already failed decisively (4 errors at the gate) is not compared on its further pages (`levels` in every verdict says what was compared; this stops the reading where the result is decided and does not lower a gate: a gate that was not decided is shown OPEN). Case, punctuation and spacing are ignored; every other differing character is an error. Gates and kinds as in 2.1; PASS needs the ladder (299 lines with 0 errors, 473 with at most 1, 628 with at most 2, 773 with at most 3), FAIL is 4 or more errors, never lowered.
+* **What is new in the reading (round 2).** (1) The pages are single-column with one printed entry to a line or two, so the comparison is entry by entry; an entry whose text stands inside the remarks of the line before it is a `merge` at that line (not a missed line), an entry that no stored line holds at all is a missed line (`missed_lines`). (2) The first words or the initials of the next entry at the end of a line are `rem-extra` at that line and `name-cut` at the next one (each counted at its own gate). (3) A damaged carried heading (PRIVATES read PRIVATE-) is a `rank` error at every line under it, as in round 1 (ME-RET leaf 414); a page with such a heading says so in its note, as one defect that costs many lines.
+
+### 8.3 Result per stratum
+
+Errors / lines compared, one-sided 95 percent Clopper-Pearson upper bound, decision. R-G2 and R-G3b are counted only on pages looked at at that level.
+
+| stratum | pages in the frame | lines in the frame | pages looked at (decile pages) | lines compared | R-G1 names | R-G2 dates | R-G3 structure | R-G3 reading of the remark |
+|---|---|---|---|---|---|---|---|---|
+| NC-MOO-E-officers | 214 | 6,480 | 4 (2) | 102 | 21 / 102, 28.28%, **FAIL** | 15 / 102, 21.74%, **FAIL** | 4 / 102, 8.75%, **FAIL** | 22 / 102, 29.34%, **FAIL** |
+| NC-MOO-E-other | 730 | 33,029 | 4 (2) | 181 | 18 / 181, 14.39%, **FAIL** | 27 / 102, 34.61%, **FAIL** | 29 / 181, 21.2%, **FAIL** | 8 / 102, 13.71%, **FAIL** |
+| NC-MOO-G-officers | 71 | 1,999 | 4 (2) | 99 | 16 / 99, 23.51%, **FAIL** | 15 / 99, 22.37%, **FAIL** | 9 / 99, 15.33%, **FAIL** | 18 / 99, 25.76%, **FAIL** |
+| NC-MOO-G-other | 290 | 12,728 | 13 (5) | 557 | 54 / 557, 12.01%, **FAIL** | 14 / 126, 16.82%, **FAIL** | 5 / 557, 1.88%, **FAIL** | 8 / 126, 11.16%, **FAIL** |
+
+Pages looked at, one line each (stratum, draw position, D = in the lowest decile, levels, lines, lines in error, kind of the first error rows):
+
+| page (identifier / leaf) | printed page | unit(s) | stratum | draw position | decile | levels | lines | in error | lines named as printed but stored only inside another line | printed lines with no stored line |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `05913252.3309.emory.edu/62` | 46 | 2nd North Carolina Infantry | NC-MOO-E-officers | 1 | D | NDR | 17 | 11 | 0 | 1 |
+| `05913252.3309.emory.edu/116` | 100 | 3rd North Carolina Infantry | NC-MOO-E-officers | 2 |  | NDR | 34 | 12 | 0 | 0 |
+| `05913252.3310.emory.edu/580` | 570 | 32nd North Carolina Infantry | NC-MOO-E-officers | 3 |  | NDR | 18 | 10 | 0 | 0 |
+| `05913252.3309.emory.edu/193` | 177 | 5th North Carolina Infantry | NC-MOO-E-officers | 4 | D | NDR | 33 | 15 | 2 | 0 |
+| `05913252.3309.emory.edu/472` | 456 | 12th North Carolina Infantry | NC-MOO-E-other | 1 | D | NDR | 47 | 6 | 0 | 0 |
+| `05913252.3309.emory.edu/250` | 234 | 6th North Carolina Infantry | NC-MOO-E-other | 2 |  | NDR | 55 | 28 | 0 | 0 |
+| `05913252.3309.emory.edu/111` | 95 | 3rd North Carolina Infantry | NC-MOO-E-other | 3 |  | N | 47 | 2 | 0 | 0 |
+| `05913252.3309.emory.edu/511` | 495 | 13th North Carolina Infantry | NC-MOO-E-other | 4 | D | N | 32 | 30 | 2 | 1 |
+| `rosterofnorthcar02nort/191` | 175 | 21st North Carolina Infantry | NC-MOO-G-officers | 1 | D | NDR | 17 | 8 | 1 | 0 |
+| `rosterofnorthcar03moor/291` | 283 | 45th North Carolina Infantry | NC-MOO-G-officers | 2 |  | NDR | 29 | 4 | 0 | 0 |
+| `rosterofnorthcar02nort/192` | 176 | 21st North Carolina Infantry | NC-MOO-G-officers | 3 |  | NDR | 30 | 10 | 0 | 0 |
+| `rosterofnorthcar02nort/32` | 22 | 16th North Carolina Infantry | NC-MOO-G-officers | 4 | D | NDR | 23 | 18 | 4 | 1 |
+| `rosterofnorthcar02nort/20` | 10 | 16th North Carolina Infantry | NC-MOO-G-other | 1 | D | NDR | 40 | 21 | 0 | 0 |
+| `rosterofnorthcar03moor/536` | 528 | 53rd North Carolina Infantry | NC-MOO-G-other | 2 |  | NDR | 31 | 4 | 0 | 0 |
+| `rosterofnorthcar03moor/286` | 278 | 45th North Carolina Infantry | NC-MOO-G-other | 3 |  | NDR | 55 | 3 | 0 | 0 |
+| `rosterofnorthcar02nort/38` | 28 | 16th North Carolina Infantry | NC-MOO-G-other | 4 | D | N | 41 | 4 | 0 | 0 |
+| `rosterofnorthcar02nort/202` | 186 | 21st North Carolina Infantry | NC-MOO-G-other | 5 |  | N | 53 | 1 | 0 | 0 |
+| `rosterofnorthcar02nort/14` | None | 16th North Carolina Infantry | NC-MOO-G-other | 6 |  | N | 52 | 1 | 0 | 0 |
+| `rosterofnorthcar02nort/29` | 19 | 16th North Carolina Infantry | NC-MOO-G-other | 7 | D | N | 39 | 5 | 1 | 0 |
+| `rosterofnorthcar02nort/217` | 201 | 21st North Carolina Infantry | NC-MOO-G-other | 8 |  | N | 40 | 1 | 0 | 0 |
+| `rosterofnorthcar03moor/68` | 60 | 38th North Carolina Infantry | NC-MOO-G-other | 9 |  | N | 41 | 1 | 0 | 0 |
+| `rosternorthcaro00moorgoog/384` | 351 | Charlotte Artillery | NC-MOO-G-other | 10 | D | N | 52 | 22 | 0 | 0 |
+| `rosterofnorthcar03moor/512` | 504 | 53rd North Carolina Infantry | NC-MOO-G-other | 11 |  | N | 41 | 0 | 0 | 0 |
+| `rosterofnorthcar03moor/352` | 344 | 47th North Carolina Infantry | NC-MOO-G-other | 12 |  | N | 54 | 5 | 0 | 0 |
+| `rosternorthcaro00moorgoog/383` | 350 | Charlotte Artillery | NC-MOO-G-other | 13 | D | N | 18 | 3 | 0 | 0 |
+
+**The verdicts against the files as they are now** (`qa_current.py`, `data2/qa/round2/verdicts-vs-files.json`, 2026-11-16T03:41:20Z): of 25 pages, 21 have exactly the lines of their verdict, 4 have the same lines under other row numbers (the rebuild of conf-nc removed lines earlier in the same unit file; offset, name, rank, company and remarks of every line are unchanged) and 0 have changed lines (939 lines in the verdicts). The frame was built from the first build of the item (54,387 lines in all); the rebuild of the item at 03:05 UTC on 16 November, with a changed rule for the heads of entries (`nc_parse.py`, a short lower-case word is no surname), leaves 54,339 lines in the 41 files now, and 29 of the 41 files differ from the frame hashes.
+
+One page was looked at again against the rebuilt lines because its lines changed: `05913252.3309.emory.edu-0511.verdict.build1-0202-UTC.json`; the earlier verdict is kept under `data2/qa/round2/superseded/` and is not counted.
+
+Reading the decisions. FAIL means 4 or more errors at the gate: more than the ladder allows even at 773 lines, whatever further lines are drawn. A gate shown OPEN is not decided and no pass is claimed. Lines of one page are not independent draws (a damaged heading costs every line under it; entries run together cost two lines at once); the plan's own arithmetic treats lines as independent and so does this table.
+
+16 of 16 gate cells fail; of them 15 also have a one-sided 95 percent lower bound above 1.0 percent (the true rate is above the 1.0 percent of the requirement at that confidence).
+
+### 8.4 What kinds of error, by stratum and by scan
+
+Rows with the kind (a row with two kinds counts at both), from the verdicts of all levels compared (a level that was not compared on a page does not count there):
+
+| kind | NC-MOO-E-officers | NC-MOO-E-other | NC-MOO-G-officers | NC-MOO-G-other | all |
+|---|---|---|---|---|---|
+| `name-char` | 12 | 14 | 11 | 47 | 84 |
+| `name-cut` | 9 | 4 | 5 | 9 | 27 |
+| `rank` | 3 | 28 | 4 | 4 | 39 |
+| `merge` | 2 | 2 | 5 | 1 | 10 |
+| `rem-char` | 12 | 6 | 12 | 7 | 37 |
+| `rem-date` | 15 | 27 | 15 | 14 | 71 |
+| `rem-missing` | 1 | 0 | 1 | 0 | 2 |
+| `rem-extra` | 9 | 2 | 5 | 1 | 17 |
+
+**The flag files and the lines in error (Measured).** Of the 225 lines found in error, 100 (44.4 percent) are marked ocr_uncertain by the flag file of the unit as it stood when the page was looked at; 100 (44.4 percent) carry at least one damage code of that file (N name, H head cut by a rule that is a reading, C company letter inferred, R rank text damaged, Y year or date damaged, G garbage marks, M possible second entry, W word damaged; the legend of each file is in the file); the other lines in error are lines that no pattern of the flag file matched. Rows in error by code: C 21, G 22, H 34, M 5, N 33, R 8, W 21, Y 15.
+
+**How well the flag sees the errors (Measured, the pages compared at all three levels).** 429 lines were compared; the flag files mark 140 of them ocr_uncertain; 150 lines are in error; 71 of the lines in error are marked (recall 47.3 percent); 71 of the marked lines are in error (precision 50.7 percent). A mark is a pattern of damage that the parser knows, not a reading of the page: lines that no pattern matched are wrong as often as the flag misses them.
+
+**The same two measures in the flag files as they are now (Measured, 25 of 25 pages, those whose lines are unchanged).** 100 of the 225 lines in error are marked (44.4 percent); on the pages compared at all three levels the flag marks 140 lines, 71 of the 150 lines in error are marked (recall 47.3 percent) and 71 of the marked lines are in error (precision 50.7 percent). These are the figures above: the flag files were not rewritten between the sitting and this report.
+
+**The two scans (Measured).** Pooled over the pages looked at (not a stratified estimate: the number of pages per stratum is in 8.3, the draw puts a third of the pages in the lowest decile, and the stopping rule leaves the levels D and R on fewer pages):
+
+| scan family | pages | lines compared | lines with a name error (R-G1) | lines with a structure error (R-G3a) | lines with any error at the pages compared at all three levels | lines at all three levels |
+|---|---|---|---|---|---|---|
+| NC-MOO-E | 8 | 283 | 39 (13.8 percent) | 33 (11.7 percent) | 82 (40.2 percent) | 204 |
+| NC-MOO-G | 17 | 656 | 70 (10.7 percent) | 14 (2.1 percent) | 68 (30.2 percent) | 225 |
+
+**The texts (Measured).** The same pages by the text (volume and scan) that holds the lines:
+
+| text id | pages | lines compared | lines with a name error | lines with a structure error | lines at all three levels | of them in error |
+|---|---|---|---|---|---|---|
+| NC-MOORE-1882.1 | 2 | 70 | 25 (35.7 percent) | 2 (2.9 percent) | 0 | 0 (n/a) |
+| NC-MOORE-1882.1~b | 7 | 265 | 32 (12.1 percent) | 33 (12.5 percent) | 186 | 72 (38.7 percent) |
+| NC-MOORE-1882.2 | 9 | 335 | 33 (9.9 percent) | 11 (3.3 percent) | 110 | 57 (51.8 percent) |
+| NC-MOORE-1882.2~b | 1 | 18 | 7 (38.9 percent) | 0 (0.0 percent) | 18 | 10 (55.6 percent) |
+| NC-MOORE-1882.3 | 6 | 251 | 12 (4.8 percent) | 1 (0.4 percent) | 115 | 11 (9.6 percent) |
+
+**Without the lowest-decile pages (Measured).** The decile pages hold the lines that the flag files mark most; the pooled rates above are upper estimates of a whole stratum. The same counts on the pages outside the decile:
+
+| stratum | pages outside the decile | lines | R-G1 | R-G2 | R-G3a | R-G3b |
+|---|---|---|---|---|---|---|
+| NC-MOO-E-officers | 2 | 52 | 11 / 52 | 7 / 52 | 0 / 52 | 7 / 52 |
+| NC-MOO-E-other | 2 | 102 | 9 / 102 | 25 / 55 | 0 / 102 | 6 / 55 |
+| NC-MOO-G-officers | 2 | 59 | 8 / 59 | 2 / 59 | 1 / 59 | 4 / 59 |
+| NC-MOO-G-other | 8 | 367 | 13 / 367 | 1 / 86 | 1 / 367 | 2 / 86 |
+
+**Mechanisms seen (Measured; the counts are rows with the mechanism, taken from the notes of the verdicts):** a damaged carried heading is the rank of every line under it: 26; the first word or the initials of a name stand in the remarks of the line above: 21; the first words or initials of the next entry stand at the end of a line: 15; two or more printed entries stored as one line: 10; a carried heading stands where the printed rank belongs: 5.
+
+**The pre-screen (Measured, `second-reading-detector.json`).** On the pages compared at all three levels, how often tesseract's comparison with the stored text points at the lines the reader found in error:
+
+| scan family | lines at all three levels | lines in error | in error and marked SUSPECT | in error and marked AGREE | clean lines marked AGREE |
+|---|---|---|---|---|---|
+| NC-MOO-E | 204 | 82 | 73 (89.0 percent) | 8 | 58 of 122 (47.5 percent) |
+| NC-MOO-G | 225 | 68 | 66 (97.1 percent) | 2 | 62 of 157 (39.5 percent) |
+
+### 8.5 Defect list returned to conf-nc (dated 16 November 2026; stored lines are not changed)
+
+What the parser or a second reading must change, from the verdicts (examples are the stored and the printed text of a recorded error; the page and the row are in `data2/qa/round2/pages/*.verdict.json`):
+
+1. **A damaged carried heading is the rank of every line under it** (26 rows). Example, `05913252.3309.emory.edu/511`: stored `^PRIVATE-`, printed `PRIVATES`.
+2. **The first word or the initials of a name stand in the remarks of the line above** (21 rows). Example, `05913252.3309.emory.edu/62`: stored `B. Hughes`, printed `James B. Hughes`.
+3. **The first words or initials of the next entry stand at the end of a line** (15 rows). Example, `05913252.3309.emory.edu/62`: stored `Pitt co. James`, printed `Pitt co.`.
+4. **Two or more printed entries stored as one line** (10 rows). Example, `05913252.3309.emory.edu/193`: stored `Joseph L. Hayes ... May 5th, '62. Frank Strange, 1st Lieu-t.; Cumberland co.; p. from 2d Lieutenant.`, printed `two entries, Joseph L. Hayes and Frank Strange, 1st Lieut.`.
+5. **A carried heading stands where the printed rank belongs** (5 rows). Example, `05913252.3309.emory.edu/62`: stored `^FIELD AND STAFF`, printed `Assistant-Surgeon`.
+6. **Characters of the text layer**: the digit 6 read 0, G, B or an opening bracket, the digit 1 read l, i or I (`Ist`, `ls%`), the digit 5 read o, the letter e read c, o or a mark, m read rn or in, u read ii, and whole names garbled (`Upcliurc&` for Upchurch); the rows of this kind are the `name-char`, `rem-char` and `rem-date` rows of 8.4; no parser rule repairs them (a stored line is the text layer as it reads), they need the second reading of the page image (EG-ROS-NC-02 of the item).
+7. **Printed lines with no stored line**: 3 printed entries with no stored line at all (`missed_lines` of the verdicts); 10 printed entries stored only inside the remarks of another line (merge).
+
+Strata and gates failed: NC-MOO-E-officers: R-G1/R-G2/R-G3a/R-G3b; NC-MOO-E-other: R-G1/R-G2/R-G3a/R-G3b; NC-MOO-G-officers: R-G1/R-G2/R-G3a/R-G3b; NC-MOO-G-other: R-G1/R-G2/R-G3a/R-G3b.
+
+### 8.6 The claims of the conf-nc report, re-verified against its files
+
+`qa_claims_nc.py` (2026-11-16T03:37:51Z; `data2/qa/round2/claims-check.json`) recomputed from the unit files, the flag files, the pointer file and the ledger: the per-unit lines, damage codes, ocr_uncertain, on-the-rolls, Gettysburg counts, company letters and field and staff lines of the report tables, the totals of its summary, the bytes and sha256 of the files named in its pointer file (the 41 unit files and flag files; the eight texts of the ledger), and the sha256 of the raw lines kept in each flag file. **1,501 claims were checked: 1,474 hold, 27 do not hold.**
+
+* 1st North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1583, the files say 1582.
+* 2nd North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1361, the files say 1359.
+* 3rd North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1701, the files say 1699.
+* 4th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1594, the files say 1590.
+* 5th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1804, the files say 1803.
+* 6th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1791, the files say 1788.
+* 7th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1507, the files say 1506.
+* 1st North Carolina Cavalry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1661, the files say 1658.
+* 12th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1564, the files say 1562.
+* 13th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1460, the files say 1455.
+* 14th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1478, the files say 1476.
+* 16th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1436, the files say 1435.
+* 20th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1210, the files say 1208.
+* 21st North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1364, the files say 1363.
+* 23rd North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1462, the files say 1461.
+* 26th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1929, the files say 1927.
+* 28th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1818, the files say 1815.
+* 32nd North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1297, the files say 1296.
+* 33rd North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1709, the files say 1708.
+* 37th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1762, the files say 1761.
+* 38th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1275, the files say 1273.
+* 43rd North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1239, the files say 1238.
+* 45th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1434, the files say 1433.
+* 52nd North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1297, the files say 1296.
+* 57th North Carolina Infantry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1033, the files say 1032.
+* 5th North Carolina Cavalry, reconciliation.json: the lines it reconciled equal the unit file: the report says 1325, the files say 1323.
+* 2nd North Carolina Battalion, reconciliation.json: the lines it reconciled equal the unit file: the report says 553, the files say 552.
+
+* verify_unit.py on the 41 files has not been run (owed): output expected in GOVERNANCE/horde/ws-rosters/roster-qa/r2/verify-nc.jsonl
+
+### 8.7 The second-reading route on the Moore scans
+
+NOT RUN: the test on 20 pages per scan family (`RQA_ROUND=2 python3 -I qa_route_test.py run`) is queued through `tools/horde/bench.sh` and had not been given a slot when this section was written; it is owed (G-QA06 of `GAPS.md` for round 1 and G-QA08 for round 2).
+
+### 8.8 Sources and rights (round 2)
+
+Only the item PDFs of the Moore scans that were drawn were fetched (archive.org `/cors/` only; one request at a time, 1.2 s apart; the file names of the Emory items differ from the identifiers, `page_image.pdf_remote_name`). The pointer file `rosters/sources/roster-qa.json` lists identifier, title, year, url, bytes and sha256 of each; the rights block is copied from `rosters/sources/conf-nc.json` (public domain, United States publication before 1929: Raleigh, 1882); the PDFs are transient (bytes and sha256 stay in the pointer file and in `tmp/library/rosters/MANIFEST-roster-qa.json`).
+
+| text id | Internet Archive item | printed year | PDF bytes | PDF sha256 | rights basis |
+|---|---|---|---|---|---|
+| NC-MOORE-1882.1 | `rosternorthcaro00moorgoog` | 1882 | 26,310,300 | `bf870c7b...5bfab123` | public domain (United States publication before 1929) |
+| NC-MOORE-1882.1~b | `05913252.3309.emory.edu` | 1882 | 23,839,734 | `1dda26b2...5805c3c1` | public domain (United States publication before 1929) |
+| NC-MOORE-1882.2 | `rosterofnorthcar02nort` | 1882 | 53,035,273 | `6c66da28...38ccaeab` | public domain (United States publication before 1929) |
+| NC-MOORE-1882.2~b | `05913252.3310.emory.edu` | 1882 | 30,304,591 | `e59c6997...f8a55f36` | public domain (United States publication before 1929) |
+| NC-MOORE-1882.3 | `rosterofnorthcar03moor` | 1882 | 118,245,709 | `cd19cd7b...465cf299` | public domain (United States publication before 1929) |
+| NC-MOORE-1882.3~b | `05913252.3311.emory.edu` | 1882 | 29,467,409 | `38d20850...b829cd92` | public domain (United States publication before 1929) |
+| NC-MOORE-1882.4 | `rosterofnorthcar04moor` | 1882 | 88,928,230 | `5d70f052...3a96742e` | public domain (United States publication before 1929) |
+| NC-MOORE-1882.4~b | `05913252.3312.emory.edu` | 1882 | 14,905,058 | `80fda651...4b120121` | public domain (United States publication before 1929) |
+
+### 8.9 Anomalies seen (round 2; each is in the verdict of the page named)
+
+1. **The page number of the text layer and the print differ.** `05913252.3309.emory.edu/62`: the text layer prints the running head page as 48 and the page map says 46 (the print says 46); `rosterofnorthcar02nort/14`: the page map has no printed page number for the leaf and the print shows 4. The stored `page` of a line is the page map's; the leaf and offset are exact.
+2. **The first entry of a page can be missing from the stored lines although the text layer holds it.** `05913252.3309.emory.edu/62`: Charles C. Tew, Colonel (the first line of the 2nd North Carolina Infantry roll), is in the text layer and in no stored line (a garbled initial in the head: `('.`); `05913252.3309.emory.edu/511` (rebuilt file): B. P. Jenkins, 1st Sergt.; `rosterofnorthcar02nort/32`: C. M. McLeod, 1st Sergeant. The conf-nc report says that unparsed text is counted in the diagnostics; these lines are lines of the roll.
+3. **A printed misprint is stored as printed.** `rosterofnorthcar03moor/536`: John F. Lipps, "pr. September 22d, '24" (the same capture as the line of Wm. C. Fletcher below, '64): the print says '24 and so does the stored line; it is not counted as an error, and a reader of the file sees a year before the enlistment of the man (enlisted 1862).
+4. **A dash prints an unknown date.** `rosterofnorthcar03moor/536` ("e. --;") and `05913252.3309.emory.edu/250` ("Fullbright, --,"): the stored line keeps a bullet or nothing where the print has the dash (punctuation only, not an error, but the name field of `Fullbright` has no given name).
+5. **Margin marks become letters (volume 3 page 344, `rosterofnorthcar03moor/352`).** The ink marks of the copy in the left margin (check marks) stand in the stored name of 3 of the 5 lines in error of this page as a stray letter or character in front of the name (`V Bowden, Rufus`, `J Carlisle, James PI.`, and a triangle in front of `Bowden, Wm.`); the other lines in error of the page are character misreads (`Bfockley` for Blockley, where the print has a speck on the l; `R S.` for P. S.). The free-text note of the verdict says "four of the five names carry a stray letter or character": that count is a slip of the note, the count here is made from the error lines of the verdict, which are as written. The same pattern as the Massachusetts margins of round 1 (section 5, item 3).
+6. **The artillery pages of volume 1 in the first scan are dark and bold** (`rosternorthcaro00moorgoog/384` and `/383`, the Charlotte Artillery): 22 of 52 lines of leaf 384 have a name error (leaf 383: 3 of 18); the file of the unit is built from this text (conf-nc report, table of the text ids: NC-MOORE-1882.1, leaves 383 to 386).
+7. **A damaged heading is inherited by every line under it** (`05913252.3309.emory.edu/511`: PRIVATES read PRIVATE- and NON-COMMISSIONED OFFICERS read XOX-COMMI8SIOXED OFFICERS; of the 32 lines of the page 28 carry a wrong rank word, and 30 lines are in error in all).
+8. **A clean page can be marked uncertain wholesale** (`05913252.3309.emory.edu/472`): the flag file marks 47 of the 47 lines of the page ocr_uncertain (in the flag files as they are now: 47) because the company heading is damaged (flag C); 6 of the 47 lines are in error (the lines read well) and the company letter is right on every line (checked against the running heads of the neighbouring pages). The same measure on `rosterofnorthcar02nort/20`: the flag file marks 8 of 40 lines and 21 lines are in error (the free-text note of that verdict says that the flag file marks all 40 lines: a slip of the note, the verdict data and the file show 8); the flag does not follow the quality of the page in either direction.
+9. **A rebuild while the sample was taken** (8.3): the lines of 4 verdict pages moved to other row numbers (same lines); the lines of 1 page changed after the first verdict, which is kept under `superseded/` and not counted, and the page was looked at again against the new lines (the Jenkins entry of `05913252.3309.emory.edu/511` lost the fragment line that the earlier build stored for its tail); 0 verdict pages differ from the files as they are now; the row number of a line in a unit file is not a stable name for it, its offset in the pinned text is.
+
+### 8.10 Not run, owed
+
+* The pages that the stopping rule left uncompared: the gates shown OPEN in 8.3 and the levels D and R of the strata whose first pages already failed them need fresh pages after conf-nc is corrected (a later round draws a new seed and excludes the pages of this one, `EXCLUDED_BY_ROUND` in `qa_frame.py`).
+* The second reading of the damaged lines of conf-nc from page images (EG-ROS-NC-02 of the item; the route is tested in 8.7 and in section 4) and of the printed lines that no stored line holds; the Pennsylvania muster years (union-pa had no report when this section was written) and the Florida losses (conf-fl has no unit file).
+* A third person as reader of the disagreements; a browser, any timing, a real-GPU or phone check (not part of this work).
 

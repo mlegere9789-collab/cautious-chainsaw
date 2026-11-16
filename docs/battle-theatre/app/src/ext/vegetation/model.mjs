@@ -16,7 +16,7 @@ export const TIERS = ['documented', 'inferred', 'plausible-procedural', 'open ga
 export const QUOTE_MAX_WORDS = 14;
 const RANK = Object.fromEntries(TIERS.map((t, i) => [t, i]));
 /** Words by which a passage speaks of damage; a documented event must cite at least one documented passage that uses them (a lexical guard: whether the passage supports the claim is a reading, set down in the event's basis). */
-export const DAMAGE_RE = /trampl|trodden|trod\b|scarred|stripped|splinter|damag|destroy|batter|bullet|shell|shot\b|lopped|cut off|ruin/i;
+export const DAMAGE_RE = /trampl|trodden|trod\b|scarred|stripped|splinter|damag|destroy|batter|bullet|shell|shot\b|lopped|cut off|ruin|burn/i;
 export const weakest = (...ts) => ts.filter(Boolean).reduce((a, b) => (RANK[b] > RANK[a] ? b : a), 'documented');
 
 // ---------------------------------------------------------------------------------------------------------------------------------- time
@@ -151,14 +151,14 @@ function eventAmount(model, u, e, tMin) {
   return hit[1] * fin * ramp(tMin, ev.from_min, ev.to_min);
 }
 export function damageAt(model, u, tMin) {
-  let tr = 1, st = 1; const hits = [];
+  let tr = 1, st = 1, bu = 1; const hits = [];
   for (const [id] of (u.ev || [])) {
     const ev = model.events.get(id); if (!ev) continue;
     const a = eventAmount(model, u, ev, tMin);
     if (a > 0) hits.push(id);
-    if (ev.kind === 'trample') tr *= 1 - a; else if (ev.kind === 'strip') st *= 1 - a;
+    if (ev.kind === 'trample') tr *= 1 - a; else if (ev.kind === 'strip') st *= 1 - a; else if (ev.kind === 'burn') bu *= 1 - a;
   }
-  return { trample: 1 - tr, strip: 1 - st, events: hits };
+  return { trample: 1 - tr, strip: 1 - st, burn: 1 - bu, events: hits };
 }
 export function lodgingAt(model, u, tMin, choices) {
   const L = model.cal.lodging, opt = model.scenarios['CF-VEG-RAIN'].options[scenarioOption(model, choices, 'CF-VEG-RAIN')];
@@ -192,7 +192,7 @@ export function fruitAt(model, u, tMin) {
 export function stateAt(model, unit, tMin, choices) {
   const u = model.unit(unit); if (!u) throw new Error('no unit ' + unit);
   const season = tMin >= SEASON_SPLIT ? 'epilogue' : 'window';
-  const dm = damageAt(model, u, tMin); if (season === 'epilogue') dm.trample = 0;                 // the crop of 1863 is gone by November: a trampled field is stubble, plough or sprouts like the rest
+  const dm = damageAt(model, u, tMin); if (season === 'epilogue') { dm.trample = 0; dm.burn = 0; }                 // the crop of 1863 is gone by November: a trampled field is stubble, plough or sprouts like the rest, and the grass has grown over a burnt patch (inferred)
   const out = { id: u.id, cls: u.cls, name: u.name, t: tMin, season, tiers: {}, claims: u.claims, events: dm.events };
   let lrtNote = null;
   const crop = cropOf(model, u, choices);
@@ -200,9 +200,11 @@ export function stateAt(model, unit, tMin, choices) {
   else if (crop) {
     const cs = cropState(model, u, tMin, choices);
     const lodge = season === 'window' && cs.cut < 0.5 ? lodgingAt(model, u, tMin, choices) : 0;     // only a standing crop can be laid flat by the rain
-    const flat = clamp(dm.trample, 0, 1);
-    out.ground = { crop, label: model.cal.crops[crop].label, stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h.map(v => v * (1 - 0.82 * flat) * (1 - 0.45 * lodge)), hStanding: cs.h, cut: cs.cut, cutAt: Number.isFinite(cs.cutAt) ? cs.cutAt : null, shockH: cs.shockH || null, trample: flat, lodging: lodge };
+    const wear = u.yard ? lerp(u.yard.wear[0], u.yard.wear[1], u01(u.seed, 'wear')) : 0;            // a farmyard is worn by the farm's own use before any army reaches it (an unsourced range: G25)
+    const flat = clamp(1 - (1 - dm.trample) * (1 - wear), 0, 1);
+    out.ground = { crop, label: u.yard ? 'Farmyard grass, worn' : model.cal.crops[crop].label, wear, stage: cs.stage, color: cs.color, colorRange: cs.colorRange, h: cs.h.map(v => v * (1 - 0.82 * flat) * (1 - 0.45 * lodge)), hStanding: cs.h, cut: cs.cut, cutAt: Number.isFinite(cs.cutAt) ? cs.cutAt : null, shockH: cs.shockH || null, trample: flat, burn: clamp(dm.burn, 0, 1), lodging: lodge };
     out.tiers.crop = u.crop_tier; out.tiers.stage = u.crop_tier === 'documented' ? cs.tier : weakest(cs.tier, u.crop_tier); out.tiers.height = out.tiers.stage; out.tiers.colour = 'plausible-procedural';
+    if (u.yard) out.tiers.wear = u.yard.wear_tier;
     out.why = cs.why;
   }
   if (u.woods || u.cls === 'woods' || u.cls === 'scatter') {
@@ -367,10 +369,10 @@ export function checkVegetation(model, opts = {}) {
         for (const k of Object.keys(s.tiers)) if (!TIERS.includes(s.tiers[k])) fail(u, t, `tier of ${k} is ${s.tiers[k]}`);
         if (s.ground) {
           const g = s.ground, c = (u.crop ? cal.crops[g.crop] : null) || null;               // the schedule of the unit's crop (a boulder ground or a wood's floor has no crop of the calendar)
-          if (!finite(...g.color, ...g.h, g.cut, g.trample, g.lodging)) fail(u, t, 'non-finite ground state');
+          if (!finite(...g.color, ...g.h, g.cut, g.trample, g.lodging, g.burn)) fail(u, t, 'non-finite ground state');
           if (g.color.some(v => v < 0 || v > 1)) fail(u, t, 'colour outside 0..1');
           if (g.h[0] < -1e-9 || g.h[0] > g.h[1] + 1e-9) fail(u, t, 'height range inverted');
-          if (g.trample < -1e-9 || g.trample > 1 + 1e-9 || g.cut < -1e-9 || g.cut > 1 + 1e-9) fail(u, t, 'share outside 0..1');
+          if (g.trample < -1e-9 || g.trample > 1 + 1e-9 || g.cut < -1e-9 || g.cut > 1 + 1e-9 || g.burn < -1e-9 || g.burn > 1 + 1e-9) fail(u, t, 'share outside 0..1');
           if (c && s.season === 'window' && g.cut === 0) {              // standing crop: colour and height lie inside the keyframe ranges that bracket the unit's own time
             const te = t - u.p.ripe_off_d * DAY, ks = c.keys, lo = ks.filter(k => k.t <= te).pop() || ks[0], hi = ks.find(k => k.t >= te) || ks[ks.length - 1];
             for (let i = 0; i < 3; i++) {
@@ -397,7 +399,7 @@ export function checkVegetation(model, opts = {}) {
           if (!win && s.trees.leafFull > 0.3 + 1e-9) fail(u, t, 'leaf-on in the epilogue');
         }
         // nothing before its time: no damage before its event starts
-        for (const [eid] of u.ev || []) { const e = model.events.get(eid); if (t < e.from_min && ((e.kind === 'trample' && s.ground && s.ground.trample > 1e-9 && s.events.includes(eid)) || (e.kind === 'strip' && s.trees && s.trees.strip > 1e-9 && s.events.includes(eid)))) fail(u, t, `damage of ${eid} before ${e.from}`); }
+        for (const [eid] of u.ev || []) { const e = model.events.get(eid); if (t < e.from_min && ((e.kind === 'trample' && s.ground && s.ground.trample > 1e-9 && s.events.includes(eid)) || (e.kind === 'strip' && s.trees && s.trees.strip > 1e-9 && s.events.includes(eid)) || (e.kind === 'burn' && s.ground && s.ground.burn > 1e-9 && s.events.includes(eid)))) fail(u, t, `damage of ${eid} before ${e.from}`); }
         // trampling never decreases with time (the order of asking is the sampled order, ascending)
         if (choices === choicesList[0] && s.ground && s.season === 'window') { const k = u.id, last = prevTr.get(k); if (last != null && s.ground.trample < last - 1e-9) fail(u, t, 'trampling went down with time'); prevTr.set(k, s.ground.trample); }
       }

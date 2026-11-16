@@ -1,5 +1,99 @@
 [
 {
+"extract": "Forage is very scarce, and we have mainly to rely on grass",
+"via": "OR27",
+"same_text": true,
+"locator": {
+"report": "OR27-2-R426",
+"who": "OR27-2-R426 Gen. Robert E. Lee",
+"page": "298",
+"char_start": 1129657,
+"char_end": 1129726
+},
+"gate": "found",
+"numbers_in_span": true,
+"id": "VC-OR-040",
+"passage": [
+1129657,
+1129745
+],
+"how": "curated",
+"ok": true,
+"words": 12,
+"coverage": null
+},
+{
+"extract": "grass and grain sliould be cut and fed to the animals",
+"via": "OR27",
+"same_text": true,
+"locator": {
+"report": "OR27-3-D1925",
+"who": "OR27-3-D1925 Headquarters Army of Northern Virginia, -> Maj.  Gen.  George  E.  Pickett,  Commanding,  &c., July 9, 1863.",
+"page": "987",
+"char_start": 2694588,
+"char_end": 2694651
+},
+"gate": "found",
+"numbers_in_span": true,
+"id": "VC-OR-041",
+"passage": [
+2694588,
+2694745
+],
+"how": "curated",
+"ok": true,
+"words": 11,
+"coverage": null
+},
+{
+"extract": "wheat was fed to horses, which would otherwise have been without feed",
+"via": "OR27",
+"same_text": true,
+"locator": {
+"report": "OR27-1-R159",
+"who": "OR27-1-R159 Brig. Gen. Heiuy Prince",
+"page": "537",
+"char_start": 1877355,
+"char_end": 1877435
+},
+"gate": "found",
+"numbers_in_span": false,
+"numbers_missing": [
+"9"
+],
+"id": "VC-OR-042",
+"passage": [
+1877340,
+1877435
+],
+"how": "curated",
+"ok": true,
+"words": 12,
+"coverage": null
+},
+{
+"extract": "tbe wheat aad oats, •bicb they used for bedding",
+"via": "NPS:NPS-EISE-HRS",
+"same_text": true,
+"locator": {
+"char_start": 93086,
+"char_end": 93133,
+"pdf_page": 49
+},
+"gate": "found",
+"numbers_in_span": true,
+"id": "VC-NPSC-EISE-HRS-p049-01",
+"passage": [
+93067,
+93169
+],
+"how": "curated",
+"ok": true,
+"words": 9,
+"coverage": null,
+"why": "the typescript's text layer misreads letters (tbe, aad, bicb); kept as saved"
+},
+{
 "extract": "fields of wheat, now nearly ripe, with grass and pastures, with some peach orchards",
 "via": "WS9:HASKELL-1908",
 "same_text": true,

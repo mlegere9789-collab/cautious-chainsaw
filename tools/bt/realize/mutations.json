@@ -3345,7 +3345,7 @@
  {
   "id": "checks-veg-height-lo",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "if (lo != null && g.h[0] < lo * (1 - tol) - 1e-9) return no(",
+  "find": "if (lo != null && gh[0] < lo * (1 - tol) - 1e-9) return no(",
   "replace": "if (false) return no(",
   "rule": "vegetation_state heights: the drawn range starts at or above the row's minimum less the margin",
   "tests": [
@@ -3356,7 +3356,7 @@
  {
   "id": "checks-veg-height-hi",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "if (hi != null && g.h[1] > hi * (1 + tol) + 1e-9) return no(",
+  "find": "if (hi != null && gh[1] > hi * (1 + tol) + 1e-9) return no(",
   "replace": "if (false) return no(",
   "rule": "vegetation_state heights: the drawn range ends at or below the row's maximum plus the margin",
   "tests": [
@@ -3367,8 +3367,8 @@
  {
   "id": "checks-veg-margin-lo",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "g.h[0] < lo * (1 - tol) - 1e-9",
-  "replace": "g.h[0] < lo * (1 + tol) - 1e-9",
+  "find": "gh[0] < lo * (1 - tol) - 1e-9",
+  "replace": "gh[0] < lo * (1 + tol) - 1e-9",
   "rule": "vegetation_state heights: the margin widens the row's range downward",
   "tests": [
    "rules",
@@ -3378,8 +3378,8 @@
  {
   "id": "checks-veg-margin-hi",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "g.h[1] > hi * (1 + tol) + 1e-9",
-  "replace": "g.h[1] > hi * (1 - tol) + 1e-9",
+  "find": "gh[1] > hi * (1 + tol) + 1e-9",
+  "replace": "gh[1] > hi * (1 - tol) + 1e-9",
   "rule": "vegetation_state heights: the margin widens the row's range upward",
   "tests": [
    "rules",
@@ -3935,5 +3935,38 @@
    "inputs"
   ],
   "pattern": "adapters work through the real module path"
+ },
+ {
+  "id": "schema-veg-height-basis-values",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!['drawn', 'standing'].includes(a.height_basis)) bad(",
+  "replace": "if (false) bad(",
+  "rule": "vegetation_state: a height basis is drawn or standing",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-height-basis-needs-height",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "else if (!heights.length) bad('height_basis belongs to a check that names a height');",
+  "replace": "",
+  "rule": "vegetation_state: a height basis belongs to a check that names a height",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-height-basis",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "const gh = g && (a.height_basis === 'standing' ? g.hStanding : g.h), what",
+  "replace": "const gh = g && g.h, what",
+  "rule": "vegetation_state: a standing height is read from the crop's own height before the fight and the rain flatten it",
+  "tests": [
+   "rules",
+   "main"
+  ]
  }
 ]

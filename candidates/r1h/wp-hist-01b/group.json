@@ -1,0 +1,88 @@
+{
+ "group": "PG-r1h-wp-hist-01b",
+ "train": "R1h",
+ "optional": true,
+ "description": "Ask the Historian page (historian.html), backlog wp-hist-01b: the question field is 16 px with a visible label; a polite live region receives the answer count or the no-result sentence; a failed load of any of the 15 data files shows an inline message with a Retry button that reads them all again; the first-person lines carry the catalogue wording (rows 9 and 10 of chapter 11, Appendix A). Head tags are not touched. Superseded when the candidate page of WP-HIST-11 ships.",
+ "patches": [
+  {
+   "id": "r1h-wp-hist-01b-css-row",
+   "target": "historian.html",
+   "find": "#ask-row { position: sticky; bottom: 0; display: flex; gap: 10px;",
+   "repl": "#ask-row { position: sticky; bottom: 0; display: flex; flex-wrap: wrap; gap: 6px 10px;",
+   "expect": 1,
+   "note": "the sticky bar (line 82) wraps so the label takes its own line above the field and the Ask button; the row gap is 6 px, the column gap stays 10 px"
+  },
+  {
+   "id": "r1h-wp-hist-01b-css-input",
+   "target": "historian.html",
+   "find": "#ask { flex: 1; padding: 14px 18px; font-size: 15px;",
+   "repl": "#ask { flex: 1; min-width: 0; padding: 14px 18px; font-size: 16px;",
+   "expect": 1,
+   "note": "the field (line 83) is 16 px (no zoom on focus in iOS Safari); min-width 0 lets it share the second line with the button on a 320 px screen"
+  },
+  {
+   "id": "r1h-wp-hist-01b-css-new",
+   "target": "historian.html",
+   "find": "  #loading { font-family: sans-serif; color: var(--muted); padding: 20px 0; }\n",
+   "repl": "  #loading { font-family: sans-serif; color: var(--muted); padding: 20px 0; }\n  .hx-label { flex: 0 0 100%; font-family: sans-serif; font-size: 13px; line-height: 1.4; color: var(--muted); }\n  .hx-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }\n  .hx-fail { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin: 20px 0; padding: 14px 18px; background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 10px; font-family: sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink); }\n  .hx-fail p { flex: 1 1 240px; margin: 0; }\n  .hx-retry { min-width: 44px; min-height: 44px; padding: 0 22px; border: none; border-radius: 10px; background: var(--gold); color: #0a0a14; font-family: sans-serif; font-size: 14px; font-weight: bold; cursor: pointer; }\n  .hx-retry:focus-visible { outline: 2px solid #c9a24b; outline-offset: 2px; }\n",
+   "expect": 1,
+   "note": "new rules after the #loading rule (line 86): the visible label, the visually hidden live region, the failure box and the Retry button (44 px target, 2 px focus outline)"
+  },
+  {
+   "id": "r1h-wp-hist-01b-html-regions",
+   "target": "historian.html",
+   "find": "  <div id=\"loading\">Loading the battle's records&hellip;</div>\n",
+   "repl": "  <div id=\"loading\">Loading the battle's records&hellip;</div>\n  <div id=\"load-error\" role=\"alert\"></div>\n  <div id=\"hx-status\" class=\"hx-sr\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\"></div>\n",
+   "expect": 1,
+   "note": "line 106: the container of the failure message (an alert, empty until a load fails) and the polite live region (visually hidden, present from the first paint so that a screen reader watches it)"
+  },
+  {
+   "id": "r1h-wp-hist-01b-html-label",
+   "target": "historian.html",
+   "find": "    <input id=\"ask\" type=\"text\" aria-label=\"Ask the Historian a question\" placeholder=",
+   "repl": "    <label class=\"hx-label\" for=\"ask\">Ask the Historian a question</label>\n    <input id=\"ask\" type=\"text\" placeholder=",
+   "expect": 1,
+   "note": "line 110: the visible label carries the words of the old aria-label, which goes (the label names the field; the visible and the spoken name are the same)"
+  },
+  {
+   "id": "r1h-wp-hist-01b-js-load",
+   "target": "historian.html",
+   "find": "  const [oobResults, vigResults, chronResults, terrain] = await Promise.all([\n    Promise.all(OOB_FILES.map(f => fetch('/data/oob/' + f).then(r => r.json()))),\n    Promise.all(VIGNETTE_FILES.map(f => fetch('/data/' + f).then(r => r.json()))),\n    Promise.all(CHRON_FILES.map((f, i) => fetch('/data/' + f).then(r => r.json()).then(d => ({ day: i + 1, ...d, events: (d.events || []).map(e => (e && e.tick ? { ...e, time: GTBGTime.f(e.tick, 'compat') } : e)) })))),\n    fetch('/data/terrain.json').then(r => r.json()),\n  ]);\n",
+   "repl": "  // The 15 data files are read through getJSON(), so a failed request, an error status or a file that is not a JSON object ends the load in\n  // one place.  The page then shows a message with a Retry button; pressing it reads all the files again.\n  const loadingEl = document.getElementById('loading');\n  const errorEl = document.getElementById('load-error');\n  const statusEl = document.getElementById('hx-status');\n  function getJSON(url) {\n    return fetch(url).then(r => {\n      if (!r.ok) throw new Error(url + ': HTTP ' + r.status);\n      return r.json();\n    }).then(d => {\n      if (d === null || typeof d !== 'object') throw new Error(url + ': not a JSON object');\n      return d;\n    });\n  }\n  function loadRecords() {\n    return Promise.all([\n      Promise.all(OOB_FILES.map(f => getJSON('/data/oob/' + f))),\n      Promise.all(VIGNETTE_FILES.map(f => getJSON('/data/' + f))),\n      Promise.all(CHRON_FILES.map((f, i) => getJSON('/data/' + f).then(d => ({ day: i + 1, ...d, events: (d.events || []).map(e => (e && e.tick ? { ...e, time: GTBGTime.f(e.tick, 'compat') } : e)) })))),\n      getJSON('/data/terrain.json'),\n    ]);\n  }\n  // Shows the failure message where the loading line was and settles when Retry is pressed (once: the button is disabled at the first press).\n  // After a press the new button takes focus, because the one that was pressed is gone.\n  function waitForRetry(refocus) {\n    return new Promise(resolve => {\n      const box = document.createElement('div');\n      box.className = 'hx-fail';\n      const note = document.createElement('p');\n      note.textContent = 'The battle’s records couldn’t be loaded. Check your connection and try again.';\n      const retry = document.createElement('button');\n      retry.type = 'button';\n      retry.className = 'hx-retry';\n      retry.textContent = 'Retry';\n      retry.addEventListener('click', () => {\n        if (retry.disabled) return;\n        retry.disabled = true;\n        errorEl.textContent = '';\n        loadingEl.style.display = '';\n        resolve();\n      });\n      box.appendChild(note);\n      box.appendChild(retry);\n      loadingEl.style.display = 'none';\n      errorEl.textContent = '';\n      errorEl.appendChild(box);\n      if (refocus) retry.focus();\n    });\n  }\n  let records = null, retried = false;\n  while (!records) {\n    try { records = await loadRecords(); }\n    catch (err) { await waitForRetry(retried); retried = true; }\n  }\n  const [oobResults, vigResults, chronResults, terrain] = records;\n",
+   "expect": 1,
+   "note": "lines 131-136: the one Promise.all of the 15 fetches becomes getJSON + loadRecords inside a retry loop; every later line of the script is unchanged and still sees oobResults, vigResults, chronResults and terrain"
+  },
+  {
+   "id": "r1h-wp-hist-01b-js-helpers",
+   "target": "historian.html",
+   "find": "  function ask(query) {\n",
+   "repl": "  // The polite live region (#hx-status) gets one short sentence per question: how many answers, or that nothing matched.\n  const COUNT_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];\n  function say(text) {\n    if (statusEl) statusEl.textContent = text;\n  }\n  function brief(text) {\n    return text.length > 60 ? text.slice(0, 59).trim() + '…' : text;\n  }\n\n  function ask(query) {\n",
+   "expect": 1,
+   "note": "line 244: say(), brief() and the count words, placed before ask()"
+  },
+  {
+   "id": "r1h-wp-hist-01b-js-answers-none",
+   "target": "historian.html",
+   "find": "      addMsg('bot', \"I couldn't find anything specific about that in the regimental records, stories, chronology, or terrain data. Try a regiment name (e.g. \\\"1st Minnesota\\\"), a place (\\\"Devil's Den\\\"), or a moment (\\\"Pickett's Charge\\\").\");\n",
+   "repl": "      addMsg('bot', 'Nothing in the records matches “' + esc(query) + '”. Try a regiment (1st Minnesota), a place (Devil’s Den), or a moment (Pickett’s Charge).');\n      say('Nothing in the records matches “' + brief(query) + '”.');\n",
+   "expect": 1,
+   "note": "line 253: the first-person no-result line becomes the catalogue sentence (row 10); the question is escaped; the live region gets the sentence without the advice"
+  },
+  {
+   "id": "r1h-wp-hist-01b-js-answers-count",
+   "target": "historian.html",
+   "find": "    for (const { e } of ranked) {\n      const out = e.render();\n      addMsg('bot', out.html, out);\n    }\n    settle(asked);\n  }\n",
+   "repl": "    for (const { e } of ranked) {\n      const out = e.render();\n      addMsg('bot', out.html, out);\n    }\n    say((COUNT_WORDS[ranked.length] || ranked.length) + (ranked.length === 1 ? ' answer' : ' answers') + ' for “' + brief(query) + '”, above the question box.');\n    settle(asked);\n  }\n",
+   "expect": 1,
+   "note": "lines 257-262: after the answers are in the transcript the live region says how many there are"
+  },
+  {
+   "id": "r1h-wp-hist-01b-js-greeting",
+   "target": "historian.html",
+   "find": "  addMsg('bot', \"I'm ready. Ask me about a regiment, a commander, a place on the battlefield, or a specific moment.\");\n})();",
+   "repl": "  addMsg('bot', 'Ask about a regiment, a commander, a place, or a moment.');\n  if (retried) askEl.focus({ preventScroll: true });\n})();",
+   "expect": 1,
+   "note": "lines 274-275: the first-person greeting becomes the catalogue sentence (row 10); after a successful Retry the question field takes focus, because the pressed button is gone"
+  }
+ ]
+}

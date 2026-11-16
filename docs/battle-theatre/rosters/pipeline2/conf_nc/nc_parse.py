@@ -247,6 +247,19 @@ class Stream:
             for (so, piece) in split_glue(s0, tk):
                 self.toks.append((so, so + len(piece), piece, line_start and k == 0 and so == s0))
 
+    def county_names(self):
+        """Capitalised words that stand right before "co." / "CO." at least three times in the section: the county names of this text (taken from the text, none typed)."""
+        if getattr(self, '_counties', None) is None:
+            cnt = {}
+            toks = self.toks
+            for j in range(1, len(toks)):
+                if re.fullmatch(r"(?:co|CO)[\.,;:]*", toks[j][2]):
+                    w = re.sub(r"[^A-Za-z]", "", toks[j - 1][2])
+                    if re.fullmatch(r"[A-Z][a-z]{2,18}", w):
+                        cnt[w] = cnt.get(w, 0) + 1
+            self._counties = {w for w, n in cnt.items() if n >= 3}
+        return self._counties
+
 
 # ------------------------------------------------------------------ head matching
 
@@ -281,6 +294,22 @@ def county_phrase(toks, j, limit=3):
     if j < n and CO_TOK.match(toks[j][2]) and toks[j][2].lower().startswith(('co', 'cc')) and len(toks[j][2].strip('.,;:')) <= 6:
         return 0
     return 0
+
+
+def after_remark_end(S, i):
+    """True when token i stands right after the end of the remarks of the entry before, and the scan joined the next entry to that line, so that the first name of the next entry stands in the text
+    after a county abbreviation or after a unit designation instead of at a line start:
+      "Pitt co. James B. Hughes, Surgeon, cm. ..."          a county abbreviation "co." / "CO." (a mark may follow it) whose word before it is a capitalised county name
+      "tr. to 46th Regiment. William E. Lawrence, 2d Corporal"   "Regiment." / "Regt." / "Battalion." / "Bn." that ends with a mark (the remark of the entry before ends there)
+    "Com." / "Co. B" (a company) and a lower-case or abbreviated word before "co." do not count."""
+    toks = S.toks
+    if i < 2:
+        return False
+    p = toks[i - 1][2]
+    if re.fullmatch(r"(?:co|CO)[\.,;:]*", p):
+        w = toks[i - 2][2]
+        return bool(re.fullmatch(r"[^\w\s]{0,2}[A-Z][A-Za-z'’\-]{2,18}", w)) and alpha(w) not in ABBREV_BAD and not is_rankword(w)
+    return bool(re.fullmatch(r"(?:Regiment|Regt|Battalion|Bn)[\.,;]+", p))
 
 
 def evidence_at(S, j, name_last):
@@ -398,6 +427,8 @@ def match_G(S, i):
         core_last = re.sub(r"[^A-Za-z]", "", last)
         if core_last.islower() and len(core_last) <= 3 and re.search(r"[\.;:]", last):
             continue                                  # a short lower-case word that ends with a full stop or a semicolon is no surname: "Burke eo.;" is a county whose abbreviation the scan damaged (the promotion that follows belongs to the entry before); a lower-case fragment that ends with a comma ("Alf red," "Rough ton,") is the second half of a surname the scan split and stays a head
+        if core_last.islower() and len(core_last) <= 3 and re.sub(r"[^A-Za-z]", "", toks[k - 2][2]) in S.county_names() and not re.fullmatch(r"man|son|ton|ham|ley|den", core_last):
+            continue                                  # a county name and a damaged "co" ("Duplin cor," "Rockingham wx," "Northampton cov,"): the county that ends the entry before, not a split surname ("Alf red,")
         front = [toks[x][2] for x in range(i, k - 1)]
         if any((not given_ok(f, garbled_ok=True) and not re.fullmatch(r"[A-Z][A-Za-z\|\(\)1]{1,2}\.", f)) or (sentence_end(f) and not re.fullmatch(r"[A-Z][A-Za-z\|\(\)1]{1,2}\.", f))
                or (alpha(f) in PLACE and not initial_tok(f) and not re.search(r"[,;]$", f)) or (len(alpha(f)) >= 3 and is_rankword(f)) or alpha(f) in ABBREV_BAD for f in front):
@@ -433,17 +464,20 @@ def find_heads(S, a, b, section, ev_idx):
         got = None
         order = (match_G, match_S) if section in ('officers', 'fs', 'nco') else (match_S, match_G)
         prev = toks[i - 1][2] if i > 0 else ''
+        remark_end_prev = after_remark_end(S, i)          # the line of the next entry was joined to the line of the entry before: its first name stands right after "<County> co." or "<N>th Regiment."
         for fn in order:
-            if fn is match_G and bd < 1 and not (re.search(r"\.[,;]?$", toks[i][2]) and alpha(toks[i][2]) in ABBREV_NAME) and (re.fullmatch(r"(?:at|in|of|to|from|and|by|near|for|on|the|as|a|an|with|or|but)", prev) or re.search(r"[A-Za-z]-$", prev)
+            if fn is match_G and bd < 1 and not remark_end_prev and not (re.search(r"\.[,;]?$", toks[i][2]) and alpha(toks[i][2]) in ABBREV_NAME) and (re.fullmatch(r"(?:at|in|of|to|from|and|by|near|for|on|the|as|a|an|with|or|but)", prev) or re.search(r"[A-Za-z]-$", prev)
                                              or alpha(prev) in ('com', 'co', 'company', 'pany', 'comp', 'regt', 'reg', 'cav', 'battalion', 'bn', 'regiment')):
                 continue                          # (a name abbreviation such as Wm. or Thos. may begin a head after "Bertie co." or "65th Regiment.": the head still needs a rank phrase or a marker)
             g = fn(S, i, bd) if fn is match_S else fn(S, i)
+            if g and fn is match_G and remark_end_prev and bd < 1 and any(re.search(r"[,;]$", toks[x][2]) and not re.fullmatch(r"(?i)(?:jr|sr|jun|senr|esq)\.?[,;]?", toks[x + 1][2]) for x in range(i, g[1])):
+                g = None                          # a given-name head that begins right after the end of the remarks of the entry before is "First [Middle] Surname": a token of it before the last that ends with a comma means that a surname-first name ("Moody, David") begins after a stray mark
             if g and not contiguous(S, i, g[1]):
                 g = None                          # a heading or a running head stands between the name tokens: the name would not be in the text as one run
             if g:
                 kind = g[0]
-                if bd == 0 and kind not in ('S-mark', 'G-rank'):
-                    continue                      # no boundary: only a head with a strict marker or a rank phrase may begin here
+                if bd == 0 and kind not in ('S-mark', 'G-rank') and not (remark_end_prev and kind == 'G-mark'):
+                    continue                      # no boundary: only a head with a strict marker or a rank phrase may begin here (a given-name head with a marker too, right after the end of the remarks of the entry before)
                 if bd == 1 and not (kind in ('S-mark', 'G-rank', 'G-mark', 'S-rank', 'S-county', 'S-mark-junk', 'S-month')):
                     continue
                 got = g

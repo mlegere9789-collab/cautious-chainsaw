@@ -212,6 +212,71 @@ class StrengthOneCondition(unittest.TestCase):      # each condition of Q01.3 al
         self.assertIn('same basis', r['reason'])
 
 
+class StrengthDates(unittest.TestCase):    # Q01.3 and Q01.4, the date of a figure: a range that spans dates is never used on its wide span (kit/evidence/PLAN.md; DD-G-OOB-10)
+    KEY = 'taken_into_action|officers_and_men'
+
+    def _table(self, unit='us-1c-1d-b1-r1', by=None, low=100, high=320, spans=True):
+        t = F.oob_table()
+        r = t['units'][unit]['strength']['ranges'][self.KEY]
+        r.update({'low': low, 'high': high, 'spans_dates': spans, 'lines': len(by or {}) or 1,
+                  'by_as_of': by or {'1863-07-01': {'low': 280, 'high': 320, 'lines': 1}, '1863-07-04': {'low': 100, 'high': 150, 'lines': 1}}})
+        return t
+
+    def _layer(self, unit='us-1c-1d-b1-r1', **upd):
+        layer = F.with_layer_commanders(F.layer_dump())
+        for u in layer['units']:
+            if u['id'] == unit:
+                u['strength'].update(upd)
+        return layer
+
+    def test_the_wide_span_of_a_range_that_spans_dates_is_not_a_pass(self):
+        # the layer carries the whole span 100 to 320 and names no date: it lies "inside" the wide span, which the rule forbids
+        out = run(layer=self._layer(min=100, max=320, drawn=300), table=self._table())
+        r = items(out, 'Q01.3', 'us-1c-1d-b1-r1')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('spans the dates', r['reason'])
+
+    def test_the_sub_range_of_the_date_the_layer_names_passes(self):
+        out = run(layer=self._layer(as_of='1863-07-01'), table=self._table())
+        self.assertEqual(result_of(out, 'Q01.3', 'us-1c-1d-b1-r1'), 'PASS')
+
+    def test_a_figure_outside_the_sub_range_of_its_own_date_fails(self):
+        out = run(layer=self._layer(as_of='1863-07-04'), table=self._table())          # 280 to 320 carried, the figures of 4 July are 100 to 150
+        r = items(out, 'Q01.3', 'us-1c-1d-b1-r1')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('lies in a verified range', r['reason'])
+
+    def test_a_date_the_table_has_no_figure_for_fails(self):
+        out = run(layer=self._layer(as_of='1863-07-02'), table=self._table())
+        r = items(out, 'Q01.3', 'us-1c-1d-b1-r1')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('none dated 1863-07-02', r['reason'])
+
+    def test_a_single_dated_range_is_not_used_for_a_figure_of_another_date(self):
+        out = run(layer=self._layer(as_of='1863-07-03'))
+        r = items(out, 'Q01.3', 'us-1c-1d-b1-r1')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('none dated 1863-07-03', r['reason'])
+
+    def test_a_roll_up_over_a_leaf_that_spans_dates_cannot_pass_on_the_wide_span(self):
+        by = {'1863-07-01': {'low': 240, 'high': 260, 'lines': 1}, '1863-07-04': {'low': 10, 'high': 20, 'lines': 1}}
+        t = self._table('us-1c-1d-b1-r2', by=by, low=10, high=260)
+        out = run(layer=F.with_layer_commanders(F.layer_dump()), table=t)          # the layer sum 550 lies inside the wide sum 290 to 580, which must not be used
+        r = items(out, 'Q01.4', 'us-1c-1d-b1')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('for want of a date', json.dumps(r['evidence']) + r['reason'])
+
+    def test_a_roll_up_over_dated_leaf_figures_uses_the_sub_ranges(self):
+        by = {'1863-07-01': {'low': 240, 'high': 260, 'lines': 1}, '1863-07-04': {'low': 10, 'high': 20, 'lines': 1}}
+        t = self._table('us-1c-1d-b1-r2', by=by, low=10, high=260)
+        layer = self._layer('us-1c-1d-b1-r2', as_of='1863-07-01')
+        out = run(layer=layer, table=t)
+        self.assertEqual(result_of(out, 'Q01.4', 'us-1c-1d-b1'), 'PASS')
+        layer = self._layer('us-1c-1d-b1-r2', as_of='1863-07-04', drawn=250)                 # the same drawn figures, dated 4 July: the 4 July sum is 290 to 340 and the layer sum 550 is outside
+        out = run(layer=layer, table=t)
+        self.assertEqual(result_of(out, 'Q01.4', 'us-1c-1d-b1'), 'FAIL')
+
+
 class Rollups(unittest.TestCase):          # Q01.4
     def test_a_roll_up_outside_the_sum_of_the_ranges_is_a_failure(self):
         layer = F.with_layer_commanders(F.layer_dump())
@@ -440,6 +505,48 @@ class TableItself(unittest.TestCase):      # Q01.1
         t = F.oob_table()
         t['units']['us-1c-1d-b1-r1']['strength']['ranges']['taken_into_action|officers_and_men']['basis'] = ''
         self.assertEqual(items(run(table=t), 'Q01.1', 'table')[0]['result'], 'FAIL')
+
+
+class RegistryAndVersion(unittest.TestCase):          # the threshold registry (GATE-SPEC 1.7, U-20), the runner version and the diagnostic table
+    def _root_with(self, thresholds):
+        root = tempfile.mkdtemp(prefix='q01-root-')
+        d = os.path.join(root, 'docs', 'battle-theatre', 'GOVERNANCE', 'gate_results')
+        os.makedirs(d)
+        if thresholds is not None:
+            with open(os.path.join(d, 'thresholds.json'), 'w', encoding='utf-8') as f:
+                json.dump(thresholds, f)
+        return root
+
+    def _run_in(self, root):
+        env = Env(root=root, out=tempfile.mkdtemp(prefix='q01-test-'))
+        rec, out = Q.run(env, layer=F.with_layer_commanders(F.layer_dump()), table=F.oob_table(), matcher=F.FakeMatcher(), evidence=F.evidence_lines(), write=False, k1_classes=F.K1_FIXTURE)
+        return out
+
+    def test_the_record_names_the_runner_version_and_the_threshold_it_used(self):
+        out = run()
+        self.assertRegex(out['runner_version'], r'^[0-9a-f]{16}$')
+        self.assertIn('q01_oob.py', out['runner_files'])
+        self.assertEqual([(t['id'], t['value']) for t in out['thresholds']], [('T-Q02-1', 14)])
+
+    def test_a_stricter_recorded_threshold_is_applied(self):
+        out = self._run_in(self._root_with({'schema': 'bt-thresholds/1', 'unset': [], 'thresholds': [{'id': 'T-Q02-1', 'value': {'max_words': 6}, 'decisions': ['DD-TEST'], 'status': ['PLAN']}]}))
+        r = items(out, 'Q01.1', 'table')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('long quote', r['reason'])
+        self.assertEqual([(t['id'], t['value']) for t in out['thresholds']], [('T-Q02-1', 6)])
+
+    def test_a_threshold_that_is_unset_makes_the_gate_incomplete(self):
+        out = self._run_in(self._root_with({'schema': 'bt-thresholds/1', 'unset': ['T-Q02-1'], 'thresholds': [{'id': 'T-Q02-1', 'value': None, 'decisions': [], 'status': ['UNSET']}]}))
+        self.assertEqual(out['verdict'], 'INCOMPLETE')
+        self.assertTrue(any('UNSET' in x for x in out['incomplete_reasons']))
+
+    def test_a_missing_registry_uses_the_constant_and_says_so(self):
+        out = self._run_in(self._root_with(None))
+        self.assertTrue(any('T-Q02-1' in n and 'constant' in n for n in out['notes']))
+        self.assertEqual(out['thresholds'][0]['value'], 14)
+
+    def test_the_diagnostic_table_option_is_refused_for_the_stored_record(self):
+        self.assertEqual(Q.main(['--table', '/nonexistent/verified_oob.json', '--quiet']), 3)
 
 
 class RealData(unittest.TestCase):

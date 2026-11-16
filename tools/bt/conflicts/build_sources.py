@@ -25,7 +25,7 @@ MARK = '<!-- APPEND-ONLY BELOW: tools/bt/conflicts/add_source.py appends here; r
 
 # town-ledger ids that have nothing to say about the 47 conflicts (buildings, maps, college catalogues, claims lists): not seeded; add_source.py --from-town ID adopts any of them
 EXCLUDE_WEB = re.compile(r'^(NPS-HABS|NPS-NEWSLETTER|NPS-TOURIST|NPS-TRAILS|NPSGOV-(NATURE|NEWS|EISE|ART))')
-EXCLUDE = re.compile(r'^(HABS|PACOLLEGE|WARREN|HOPKINS|SANBORN|LOC-PHOTO|SEM-IMAGES|WAUD|WENTZ|RUPP|WARCLAIMS|ADAMS-SENTINEL-OTHER|GBG-COMPILER-OTHER|CENSUS|NPS-ROAD|LOC-CA|BACHELDER-18|COPE|HOTCHKISS|ELLIOTT|GNMP-1900|WOELTJE|NY-MONUMENTS|PLAN-PDF|CONEWAGO|NPS-DESIGN|NPS-EISE|NPS-GETTYSBURG-COLLEGE|NPS-BRYAN|NPS-DCP-GUINN|NPS-NRCA|NPS-BRT-ECOLOGY|NPSGOV-(GRASSLANDS|PLANTS|NATURAL|PLANNING|BATTLEFIELD-REHAB))')
+EXCLUDE = re.compile(r'^(HABS|PACOLLEGE|WARREN|HOPKINS|SANBORN|LOC-PHOTO|SEM-IMAGES|WAUD|WENTZ|RUPP|WARCLAIMS|ADAMS-SENTINEL-OTHER|GBG-COMPILER-OTHER|ADAMS-SENTINEL-1860|GBG-COMPILER-1860|CENSUS|NPS-ROAD|LOC-CA|BACHELDER-18|COPE|HOTCHKISS|ELLIOTT|GNMP-1900|WOELTJE|NY-MONUMENTS|PLAN-PDF|CONEWAGO|NPS-DESIGN|NPS-EISE|NPS-GETTYSBURG-COLLEGE|NPS-BRYAN|NPS-DCP-GUINN|NPS-NRCA|NPS-BRT-ECOLOGY|NPSGOV-(GRASSLANDS|PLANTS|NATURAL|PLANNING|BATTLEFIELD-REHAB))')
 
 KIND_BY_ID = {
     'FREMANTLE-1864': 'private_letter_or_diary', 'HASKELL-1908': 'private_letter_or_diary', 'JACOBS-1864': 'early_narrative', 'HOSPSCENES-1864': 'early_narrative',
@@ -320,22 +320,27 @@ def section9_and_10(keep10):
 
 
 def build():
+    import fcntl
     secs, led = gather()
     leads = lead_rows()
-    keep10 = None
-    if os.path.exists(L.SOURCES_MD):
-        cur = L.read_text(L.SOURCES_MD)
-        i = cur.find('## 10. Acquired by the conflict researchers')
-        if i >= 0:
-            keep10 = cur[i:].rstrip('\n')
-    lines = render(secs, leads)
-    tail = section9_and_10(keep10)
-    text = '\n'.join(lines + tail)
-    if not text.endswith('\n'):
-        text += '\n'
-    os.makedirs(L.CONF, exist_ok=True)
-    with open(L.SOURCES_MD, 'w', encoding='utf-8', newline='\n') as f:
-        f.write(text)
+    os.makedirs(L.TMP, exist_ok=True)
+    with open(os.path.join(L.TMP, 'SOURCES.md.lock'), 'a') as lf:
+        fcntl.flock(lf, fcntl.LOCK_EX)          # the same lock as add_source.py: a rebuild never loses a row appended meanwhile
+        keep10 = None
+        if os.path.exists(L.SOURCES_MD):
+            cur = L.read_text(L.SOURCES_MD)
+            i = cur.find('## 10. Acquired by the conflict researchers')
+            if i >= 0:
+                keep10 = cur[i:].rstrip('\n')
+        lines = render(secs, leads)
+        tail = section9_and_10(keep10)
+        text = '\n'.join(lines + tail)
+        if not text.endswith('\n'):
+            text += '\n'
+        os.makedirs(L.CONF, exist_ok=True)
+        with open(L.SOURCES_MD, 'w', encoding='utf-8', newline='\n') as f:
+            f.write(text)
+        fcntl.flock(lf, fcntl.LOCK_UN)
     # families
     ctx = L.new_ctx()
     T = L.town()

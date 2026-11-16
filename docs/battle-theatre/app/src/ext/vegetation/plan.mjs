@@ -12,7 +12,7 @@ export const NEVER = 1e9;
 export function makeGrid(W, H, cell) { const nx = Math.ceil(W / cell), nz = Math.ceil(H / cell); return { W, H, cell, nx, nz, x0: -W / 2, z0: -H / 2, visit: new Float32Array(nx * nz).fill(NEVER), mask: new Uint8Array(nx * nz) }; }
 
 /** the cells whose centre lies inside a unit that can be trampled (a field, the Wheatfield, the cleared slope, an orchard's grass): the only cells the plan records */
-export function rasterMask(model, project, grid, classes = ['field', 'wheatfield', 'cleared', 'orchard']) {
+export function rasterMask(model, project, grid, classes = ['field', 'wheatfield', 'cleared', 'orchard', 'yard']) {
   const { cell, nx, nz, x0, z0 } = grid; let n = 0;
   for (const u of model.units) {
     if (!classes.includes(u.cls)) continue;

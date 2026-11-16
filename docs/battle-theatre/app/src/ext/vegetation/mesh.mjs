@@ -4,7 +4,7 @@
 import { triangulate } from '../../structures/geom.mjs';
 import { placeTrees } from './model.mjs';
 
-export const LAYER = { field: 0, wheatfield: 0, cleared: 1, marsh: 1, boulder: 1, orchard: 2, scatter: 3, woods: 3 };
+export const LAYER = { field: 0, wheatfield: 0, cleared: 1, marsh: 1, boulder: 1, yard: 1, orchard: 2, scatter: 3, woods: 3 };
 export const CHUNK_M = 250;
 export const TREE_STRIDE = 9;        // floats per tree: x, z, height, crown radius, species, seed, strip draw, shape, unit
 

@@ -98,6 +98,16 @@ class Ranges(unittest.TestCase):                       # Q14.2
         self.assertEqual(r['result'], 'NOT-RUN')
         self.assertFalse(r['pass'])
 
+    def test_an_extract_of_fifteen_words_or_more_is_not_a_documented_support(self):          # T-Q02-1, plan p. 134, E.6
+        r = one(run(ocr=F.FakeOcr(phrase='long_quote')), 'Q14.2', '@5')
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('longer than', r['reason'])
+
+    def test_the_ocr_store_refuses_a_phrase_over_the_threshold_before_looking_for_it(self):
+        store = Q.OcrStore(Env(out=tempfile.mkdtemp(prefix='q14-ocr-')), {}, max_words=14)
+        self.assertEqual(store.phrase('X', ' '.join(['word'] * 15)), 'long_quote')
+        self.assertEqual(store.phrase('X', ' '.join(['word'] * 14)), 'no_text')                    # a short phrase goes on to the text, which is not there
+
     def test_an_inverse_that_does_not_return_the_documented_elevation_fails(self):
         D = F.q14_dump()
         D['ballistics']['inverse'][1]['ok'] = False
@@ -325,6 +335,17 @@ class Crew(unittest.TestCase):                         # Q14.7
         r = one(run(), 'Q14.7', 'drill-state-machine')
         self.assertEqual(r['result'], 'NOT-RUN')
         self.assertFalse(r['pass'])
+
+
+class RegistryAndVersion(unittest.TestCase):          # runner version, threshold registry, diagnostic table
+    def test_the_record_names_the_runner_version_and_the_threshold_it_used(self):
+        out = run(vb=F.q14_vb())
+        self.assertRegex(out['runner_version'], r'^[0-9a-f]{16}$')
+        self.assertIn('q14_ordnance.py', out['runner_files'])
+        self.assertEqual([(t['id'], t['value']) for t in out['thresholds']], [('T-Q02-1', 14)])
+
+    def test_the_diagnostic_table_option_is_refused_for_the_stored_record(self):
+        self.assertEqual(Q.main(['--table', '/nonexistent/verified_batteries.json', '--quiet']), 3)
 
 
 class RealData(unittest.TestCase):

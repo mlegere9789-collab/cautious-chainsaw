@@ -806,6 +806,8 @@ EVENTS = [
      'claims': ['VC-NPSC-HSR-LEISTER-BARN-p013-05'], 'basis': 'the report says that when Mrs. Leister came back several days after she left on the evening of 1 July dead horses littered the yard and the crops were trampled; the house was the army\'s headquarters from the night of 2 July and the farm lay under the cannonade of 3 July; the report gives no hour, so the window runs from the evening of 2 July to the end of the cannonade and the share is a range'},
     {'id': 'EV-VEG-13', 'kind': 'trample', 'label': 'The Weikert yard and orchard: the wounded, 2 July evening', 'unit_lc': 'YARD-j_weikert', 'from': '1863-07-02T18:30', 'to': '1863-07-02T22:00', 'final': [0.4, 0.8], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
      'claims': ['VC-LIB-045'], 'basis': 'Tillie Pierce (Jacob Weikert\'s farm): on the evening of 2 July the orchard and the space round the buildings were covered with the wounded; the ground under many bodies is trodden and laid with straw and blankets; the hours are those of the evening of the fighting and the share is a range'},
+    {'id': 'EV-VEG-14', 'kind': 'burn', 'label': 'The Bliss farmyard: the house and barn burned, 3 July', 'unit_lc': 'YARD-bliss', 'from': '1863-07-03T09:00', 'to': '1863-07-03T11:30', 'final': [0.3, 0.65], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-NPSC-CLI-PCB-p034-01'], 'basis': 'General Hays ordered the Bliss house and barn burned on the morning of 3 July and by 11:30 a.m. the buildings were destroyed (the report); the plan\'s timeline row says they burned with hay, straw and cartridge paper. The burning of the buildings is documented; that the grass of the yard round them was scorched and burnt is an inference (the plan\'s rule: burn spread is plausible-procedural and started only at a documented fire); the hours are the morning up to the hour the report gives and the share is a range; the grass has grown again by 19 November (inferred)'},
 ]
 
 
@@ -1067,8 +1069,11 @@ def source_manifest(claims):
                 mp = os.path.join(ROOT, 'tmp', 'library', 'web', 'veg', key + '.meta.json')
                 it = load(mp) if os.path.exists(mp) else {}
             it = it or {}
-            y = year_of(it.get('date') or it.get('date_written') or titles.get(key))
-            e['date_written'] = str(y) if y else 'not stated'
+            import re as _re
+            nm = _re.search(r'(?:COMPILER|SENTINEL)-(\d{4}-\d\d-\d\d)$', key)
+            y = int(nm.group(1)[:4]) if nm else year_of(it.get('date') or it.get('date_written') or titles.get(key))
+            e['date_written'] = nm.group(1) if nm else (str(y) if y else 'not stated')
+            e['date_written_basis'] = 'the issue date' if nm else ('the year of the edition or report the library saved (the passage may be older: a book of the 1890s can print a letter of 1863)' if y else 'the saved text shows none')
             e['rights'] = it.get('licence_basis') or it.get('rights_basis') or it.get('rights') or 'not recorded in the ledger'
             if y:
                 e['reliability_tier'] = 2 if y <= 1864 else (3 if y <= 1928 else 4)
@@ -1208,6 +1213,7 @@ def write_all(args):
         'sources': {'landcover_sha256': {n: sha256_file(os.path.join(LC, n + '.geojson')) for n in ('woods_1863', 'orchards_1863', 'scattered_trees_1863', 'marsh_wetland_1863', 'boulder_fields_1863', 'open_cleared_1863', 'fields_documented_1863', 'open_ground_1863')},
                     'claims_sha256': sha256_file(CLAIMS)},
         'coverage': coverage,
+        'yard': TB.YARD,
         'named': named,
         'rows': rows_out,
         'units_of_measure': {'height': 'metres (ground height, m; tree height, m)', 'time': 'minutes since 1863-06-01 00:00 local mean time', 'area': 'acres (area_ac), hectares for per_ha'},

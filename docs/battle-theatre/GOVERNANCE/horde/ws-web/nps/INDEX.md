@@ -50,7 +50,7 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPS-CLR-CEMETERY | 466 (440) | 55 |
 | NPS-GMP-1999-V1 | 447 (439) | 52 |
 | NPS-ADHI | 451 (445) | 25 |
-| NPS-SLAUGHTER-PEN | 60 (49) | 9 |
+| NPS-SLAUGHTER-PEN | 60 (49) | 75 |
 | NPS-CEM-DEDICATION | 33 (28) | 0 |
 | NPS-NRCA-2017 | 286 (273) | 8 |
 | NPS-BOUNDARY-1988 | 65 (59) | 8 |
@@ -279,7 +279,7 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPSGOV-WARFIELD-HOUSE | 1 (1) | 4 |
 | NPSGOV-WISLER-HOUSE | 1 (1) | 1 |
 
-Total extracts: 1533 from 170 sources.
+Total extracts: 1599 from 170 sources.
 
 ## NPS-DEV-POLICY
 
@@ -380,6 +380,7 @@ Total extracts: 1533 from 170 sources.
 - Text: `tmp/library/web/nps/NPS-MCMILLAN-HOUSE/NPS-MCMILLAN-HOUSE.txt`, 5563 bytes, sha256 `a9cb533ecfa1b658549d004aedde8b225fa324a5b0e61e0ed8d6b388bad3c1b7`; 5 of 15 pages carry text
 - Rights basis: United States government work
 - Extracts written: 0 (not yet read for extracts)
+- OCR text (made by `scripts/ocr.py`, never replaces the text layer): `tmp/library/web/nps/NPS-MCMILLAN-HOUSE/NPS-MCMILLAN-HOUSE.ocr.txt`, sha256 `8c8bba513bc2a68d89a706614b3c8b66cbc7be43fa5f9d5038043e885bef78bd`; engine: tesseract 5.3.4 eng, --psm 6, OMP_THREAD_LIMIT=1; pdftoppm -r 300 -gray; speck filter of scripts/ocr.py (connected components outside the text lines removed)
 
 ## NPS-CLI-CEMETERY
 
@@ -731,8 +732,8 @@ Total extracts: 1533 from 170 sources.
 - File as served: 47536739 bytes, sha256 `f7a98c4b934fdcceddf85a3397a4048f598026404760d74fce3c7fd4983c9668` (PDF deleted after text extraction to stay inside the disk budget)
 - Text: `tmp/library/web/nps/NPS-SLAUGHTER-PEN/NPS-SLAUGHTER-PEN.txt`, 98691 bytes, sha256 `211e2cfa8a0483cd4d1133072428aca791fe94ab51b8ba7059392475e34f526a`; 49 of 60 pages carry text
 - Rights basis: United States government work
-- Extracts written: 9 (fences 1, fields-woodlots 6, other-landscape 2)
-- OCR text (made by `scripts/ocr.py`, never replaces the text layer): `tmp/library/web/nps/NPS-SLAUGHTER-PEN/NPS-SLAUGHTER-PEN.ocr.txt`, sha256 `17d92c500fa03bc509cfef76787959912a181dd9afff30edc74c135f655e957a`; engine: tesseract 5.3.4 eng, --psm 6, OMP_THREAD_LIMIT=1; pdftoppm -r 300 -gray; speck filter of scripts/ocr.py (connected components outside the text lines removed)
+- Extracts written: 75 (farm-buildings 1, fences 13, fields-woodlots 37, monuments-later 3, other-landscape 21)
+- OCR text (made by `scripts/ocr.py`, never replaces the text layer): `tmp/library/web/nps/NPS-SLAUGHTER-PEN/NPS-SLAUGHTER-PEN.ocr.txt`, sha256 `5ddc08e9d112aa811452b50d9829ad13518937f0b350da1cc852a1608e919d98`; engine: tesseract 5.3.4 eng, --psm 6, OMP_THREAD_LIMIT=1; pdftoppm -r 300 -gray; speck filter of scripts/ocr.py (connected components outside the text lines removed)
 
 ## NPS-CEM-DEDICATION
 

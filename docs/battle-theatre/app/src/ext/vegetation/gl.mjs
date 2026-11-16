@@ -20,7 +20,7 @@ const smooth01 = x => { const t = Math.min(1, Math.max(0, x)); return t * t * (3
  *   texel 0  colour (sRGB), crop code             texel 1  height now (m, after trampling and laying flat), trampled share, cut share, laid-flat share
  *   texel 2  tier code, leaf cover, stripped share, row direction (degrees)
  *   texel 3  stage code, then for a crop: shock height, standing height before any trampling (m); for a wood: its canopy as seen from above (sRGB)
- *   texel 4  the share of the unit's trees that is drawn (1 unless a reading of Little Round Top or of Houck's ground leaves it lightly wooded or unwooded or clear-cut), then three zeros
+ *   texel 4  the share of the unit's trees that is drawn (1 unless a reading of Little Round Top or of Houck's ground leaves it lightly wooded or unwooded or clear-cut), the burnt share of the ground (a farmyard where a house and barn burned), then two zeros
  * Pure: the same (model, unit, minute, choices) always writes the same numbers.
  */
 export function packUnitState(M, u, tq, choices, canopy, out, o, co = 0) {
@@ -36,7 +36,7 @@ export function packUnitState(M, u, tq, choices, canopy, out, o, co = 0) {
     for (let c = 0; c < 3; c++) out[o + 13 + c] = bare[c] + (canopy[co + c] - bare[c]) * k;
   }
   out[o + 8] = TIERCODE[s.tiers.stage || s.tiers.species || s.tier] ?? 2; out[o + 9] = tr ? tr.leaf : 1; out[o + 10] = tr ? tr.strip : 0; out[o + 11] = (u.p && u.p.rows_deg) || 0;
-  out[o + 16] = tr && tr.keep != null ? tr.keep : 1; out[o + 17] = out[o + 18] = out[o + 19] = 0;
+  out[o + 16] = tr && tr.keep != null ? tr.keep : 1; out[o + 17] = g && g.burn ? g.burn : 0; out[o + 18] = out[o + 19] = 0;
 }
 const unpackPlain = gl => { gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false); };   // the pixel-store state is the context's, shared with every other layer
 
@@ -65,7 +65,7 @@ uniform sampler2D uVisit; uniform float uT; uniform vec4 uGrid; uniform float uO
 in vec3 vWp; flat in float vU; out vec4 o;
 void main() {
   int u = int(vU + 0.5);
-  vec4 s0 = stx(u, 0), s1 = stx(u, 1), s2 = stx(u, 2), s3 = stx(u, 3);
+  vec4 s0 = stx(u, 0), s1 = stx(u, 1), s2 = stx(u, 2), s3 = stx(u, 3), s4 = stx(u, 4);
   int crop = int(s0.w + 0.5);
   float hgt = s1.x, tr = s1.y, cutf = s1.z, lodge = s1.w; float tier = s2.x; float rows = s2.w; float stage = s3.x;
   vec2 xz = vWp.xz; float dist = length(vWp - cam.xyz);
@@ -97,6 +97,9 @@ void main() {
   flatCol = mix(flatCol, s2l(vec3(0.43, 0.34, 0.23)) * (0.8 + 0.4 * n4), 0.5 * bare);
   col = mix(col, flatCol, clamp(trampled, 0.0, 1.0));
   col = mix(col, col * vec3(0.80, 0.74, 0.58) * (0.85 + 0.3 * mat), lodged * 0.6);
+  // burnt ground (a farmyard where the house and barn burned): charred grass and ash, in patches that grow with the share; a plausible-procedural stand-in, the record gives the fire, not the look of the ground
+  float burnt = ground ? smoothstep(pch - 0.1, pch + 0.1, s4.y * 1.3) : 0.0;
+  col = mix(col, s2l(vec3(0.075, 0.066, 0.058)) * (0.8 + 0.5 * n4) + s2l(vec3(0.34, 0.33, 0.31)) * 0.12 * mat, burnt * 0.9);
   if (uOverlay > 0.5) {
     int ti = int(tier + 0.5); vec3 tc = uTierCol[ti]; float hatch = 0.0;
     if (ti == 1) hatch = hln(xz.x + xz.y, 7.0, 0.2);

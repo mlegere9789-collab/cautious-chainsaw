@@ -32,7 +32,7 @@ for _p in (HERE, os.path.join(HERE, 'lib'), os.path.abspath(os.path.join(HERE, '
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from oobgates_common import cond, covered_by_register, first_failed, gate_rows, layer_dump  # noqa: E402
+from oobgates_common import cond, covered_by_register, first_failed, gate_rows, layer_dump, load_thresholds, runner_version, threshold_value  # noqa: E402
 from pq_common import Env, InputMissing, Record, base_parser, guarded_main, is_placeholder, node_version, sha256_file  # noqa: E402
 
 GATE = 'Q14'
@@ -51,8 +51,9 @@ class OcrStore:
     """The OCR text of the manuals named in drill/*.json `sources` (ocr_file, sha256): read from the path the source names or, failing that, from the scratch copy tmp/bt-gates/library-misc;
     a text whose sha256 differs from the pinned one is not the acquired text (status sha_mismatch). Nothing is fetched."""
 
-    def __init__(self, env, sources):
+    def __init__(self, env, sources, max_words=14):
         self.env, self.sources, self.cache = env, sources or {}, {}
+        self.max_words = max_words                  # T-Q02-1: an extract the gate relies on is under 15 words (plan p. 134, E.6)
 
     def load(self, manual):
         if manual in self.cache:
@@ -71,6 +72,8 @@ class OcrStore:
         return out
 
     def phrase(self, manual, phrase):
+        if len(str(phrase or '').split()) > self.max_words:
+            return 'long_quote'
         t = self.load(manual)
         if t is None:
             return 'no_text'
@@ -95,7 +98,7 @@ class OcrStore:
 
 
 # ======================================================================================== inputs
-def load_inputs(rec, env):
+def load_inputs(rec, env, table_path=None):
     K = {}
     for key, rel, role in (('weapons', 'kit/weapons.json', 'data'), ('ord', 'drill/ordnance_tables.json', 'data'), ('art', 'drill/drill_artillery.json', 'data'), ('inf', 'drill/drill_infantry.json', 'data'),
                            ('fx', 'app/data/fx3d/weapons.json', 'data'), ('guns', 'app/data/battery-guns.json', 'data'), ('structures', 'structures/structures.json', 'data'), ('conflicts', 'GOVERNANCE/conflicts_structured.json', 'data')):
@@ -105,7 +108,7 @@ def load_inputs(rec, env):
             K[key] = None
             K.setdefault('missing', []).append(str(e))
     try:
-        K['vb'] = rec.read_json(env.btp(VB_REL), 'table')
+        K['vb'] = rec.read_json(table_path or env.btp(VB_REL), 'table')
     except InputMissing:
         K['vb'] = None
     try:
@@ -249,6 +252,8 @@ def q142_ranges(rec, env, D, K, ocr, rows, gap_entries=None):
         ev['ocr'] = [{'item': f['item'], 'phrase': a, 'figure': b} for f, (a, b) in zip(found, res)]
         if any(a == 'found' and b == 'found' for a, b in res):
             rec.item(sid, 'PASS', 'the printed value %s yd at %s deg stands in %s and was found again in the OCR text of the manual in this run' % (r['range_yd'], r['elev_deg'], found[0]['item']), ev, **kw(r['piece']))
+        elif any(a == 'long_quote' for a, b in res):
+            rec.item(sid, 'FAIL', 'the extract of %s that supports the value is longer than %d words (T-Q02-1, plan p. 134, E.6): the value is not shown documented by a short extract' % (found[0]['item'], ocr.max_words), ev, **kw(r['piece']))
         elif any(a in ('no_text', 'sha_mismatch') or b in ('no_text', 'sha_mismatch') for a, b in res):
             rec.item(sid, 'NOT-RUN', 'the value matches %s but the OCR text of %s is not on this machine (or is not the pinned acquisition): the figure is not re-matched here' % (found[0]['item'], found[0]['manual']), ev, **kw(r['piece']))
         else:
@@ -406,8 +411,10 @@ def q144_rates(rec, env, D, K, ocr, rows, gap_entries=None):
                 ph = [x for r in cev['items'] for x in r['phrases']]
                 if all(x == 'found' for x in ph):
                     rec.item(iid, 'PASS', 'no piece fires more than %d shots in any 60-second window of this plan (largest %d, %d shots over %.0f s); the documented maximum was found again in the manuals\' OCR text' % (ceil, mx, p['shots'], p['window_s']), ev, **kw)
-                else:
+                elif any(x in ('no_text', 'sha_mismatch') for x in ph) and not any(x in ('not_found', 'long_quote') for x in ph):
                     rec.item(iid, 'NOT-RUN', 'within the documented maximum (%d, largest %d) but the manual phrases are not re-matched here (OCR text not on this machine)' % (ceil, mx), ev, **kw)
+                else:
+                    rec.item(iid, 'FAIL', 'within the figure (%d, largest %d) but the manual phrase that documents the maximum is not shown: %s' % (ceil, mx, sorted(set(x for x in ph if x != 'found'))), ev, **kw)
             else:
                 ok, why, states = covered_by_register(env, gap_entries['rate'])
                 ev['register'] = states
@@ -638,13 +645,23 @@ def evaluate(rec, env, D, K, ocr=None, gap_entries=None):
         rec.incomplete('inputs missing: %s' % '; '.join(K['missing']))
 
 
-def run(env, dump=None, inputs=None, ocr=None, write=True, mutate=None, scenarios='sample', argv=None, gap_entries=None):
+def run(env, dump=None, inputs=None, ocr=None, write=True, mutate=None, scenarios='sample', argv=None, gap_entries=None, table_path=None):
     rec = Record(GATE, env, renderer_class='mixed', argv=argv)
     rec.tool_versions['node'] = node_version()
-    K = inputs if inputs is not None else load_inputs(rec, env)
+    runner_version(rec, [os.path.join(HERE, fn) for fn in ('q14_ordnance.py', 'q14_layer.mjs', 'oob_layer_lib.mjs', 'oobgates_common.py')])
+    reg = load_thresholds(env)
+    if reg:
+        rec.add_input(reg['path'], 'thresholds')
+    max_words = threshold_value(rec, reg, 'T-Q02-1', 'max_words', 14, 'PLAN p. 134, E.6 (the repository working limit is 14 words)')
+    K = inputs if inputs is not None else load_inputs(rec, env, table_path)
+    if ocr is None:
+        ocr = OcrStore(env, K.get('sources'), max_words)
     D = dump if dump is not None else layer_dump(env, 'q14_layer.mjs', ['--scenarios', scenarios], mutate=mutate)
     evaluate(rec, env, D, K, ocr, gap_entries)
-    rec.extra['verified_battery_table'] = {'path': 'docs/battle-theatre/' + VB_REL, 'present': K.get('vb') is not None, 'schema': (K.get('vb') or {}).get('schema'), 'batteries': len((K.get('vb') or {}).get('batteries') or {})}
+    rec.extra['verified_battery_table'] = {'path': env.rel(table_path) if table_path else 'docs/battle-theatre/' + VB_REL, 'present': K.get('vb') is not None, 'schema': (K.get('vb') or {}).get('schema'),
+                                           'batteries': len((K.get('vb') or {}).get('batteries') or {}), 'diagnostic_copy': bool(table_path)}
+    if table_path:
+        rec.note('DIAGNOSTIC RUN: the battery table was read from %s, not from kit/verified_batteries.json; this record is not the gate result' % env.rel(table_path))
     out = rec.finish()
     if write:
         rec.write(out)
@@ -655,9 +672,13 @@ def main(argv=None):
     ap = base_parser(__doc__.split('\n')[0])
     ap.add_argument('--scenarios', default='sample', choices=['default', 'sample', 'ofat'], help='scenario set for the fire plans (default: sample = default and six samples; none is S*)')
     ap.add_argument('--mutate', default=None, help='test hook: a module that injects a defect into the real pipeline (see oob_layer_lib.mjs)')
+    ap.add_argument('--table', default=None, help='diagnostic: read the battery table from this path (for example a scratch build of kit_verified.py); refused when the record would go to GOVERNANCE/gate_results')
     a = ap.parse_args(argv)
     env = Env(root=a.root, out=a.out)
-    rec, out = run(env, write=not a.no_write, mutate=a.mutate, scenarios=a.scenarios, argv=['python3', 'tools/bt/gates/q14_ordnance.py'] + list(argv if argv is not None else sys.argv[1:]))
+    if a.table and os.path.abspath(env.out) == os.path.abspath(os.path.join(env.gov, 'gate_results')) and not a.no_write:
+        sys.stderr.write('refused: --table is a diagnostic; give --out <scratch folder> or --no-write\n')
+        return 3
+    rec, out = run(env, write=not a.no_write, mutate=a.mutate, scenarios=a.scenarios, table_path=a.table, argv=['python3', 'tools/bt/gates/q14_ordnance.py'] + list(argv if argv is not None else sys.argv[1:]))
     if not a.quiet:
         c = out['counts']
         print('Q14 verdict %s: %d items, PASS %d, COVERED %d, FAIL %d, NOT-RUN %d, BLOCKED-INPUT %d, N/A %d' % (out['verdict'], out['totals']['items'], c['PASS'], c['COVERED'], c['FAIL'], c['NOT-RUN'], c['BLOCKED-INPUT'], c['N/A']))

@@ -81,20 +81,35 @@ def main():
         renum = bool(diffs) and not content
         nid += ident
         nren += renum
-        out['pages'].append({'page': v['page'], 'stratum': v['stratum'], 'lines_in_verdict': len(listed), 'lines_now_on_the_leaf': len(now), 'identical': ident, 'renumbered_only': renum, 'differences': diffs[:50]})
+        # the flag files as they are now, by the position of the line on the page (valid when the lines are the same: identical or renumbered)
+        flag_now = None
+        if ident or renum:
+            errs_ = {}
+            for e in v['errors']:
+                errs_.setdefault(e['i'], e)
+            def marked(k):
+                stem_, r_ = now[k]
+                return r_['n'] in ocr_now.get(stem_, set())
+            flag_now = {'rows': len(now), 'rows_flagged': sum(1 for k in range(len(now)) if marked(k)), 'error_rows': len(errs_),
+                        'error_rows_flagged': sum(1 for i in errs_ if i < len(now) and marked(i)), 'levels': v['levels']}
+        out['pages'].append({'page': v['page'], 'stratum': v['stratum'], 'lines_in_verdict': len(listed), 'lines_now_on_the_leaf': len(now), 'identical': ident, 'renumbered_only': renum, 'flag_now': flag_now, 'differences': diffs[:50]})
         print('%-40s %-16s verdict %3d now %3d %s' % (v['page'], v['stratum'], len(listed), len(now), 'identical' if ident else ('same lines, row numbers moved (%d)' % len(diffs)) if renum else 'DIFFERENT (%d differences)' % len(content)))
-    # lines in error on the pages looked at: flagged ocr_uncertain when the verdict was written and in the flag files as they are now (the Massachusetts flag files were rewritten after the first sitting)
+    # lines in error on the pages looked at: flagged ocr_uncertain when the verdict was written and in the flag files as they are now (the flag files of an item can be rewritten after
+    # the sitting; the lines of a page are matched by their position on the leaf, which is valid for identical and renumbered pages; a page whose lines changed is not counted 'now')
     fam_flags = {}
+    nowpage = {pg['page']: pg for pg in out['pages']}
     for v in Q.load_verdicts():
         rows_ = {}
         for e in v['errors']:
             rows_.setdefault(e['i'], e)
-        d = fam_flags.setdefault(v['family'], {'rows_in_error': 0, 'flagged_at_verdict': 0, 'flagged_now': 0})
+        d = fam_flags.setdefault(v['family'], {'rows_in_error': 0, 'flagged_at_verdict': 0, 'rows_in_error_comparable_now': 0, 'flagged_now': 0})
+        fn = nowpage[v['page']]['flag_now']
         for i, e in rows_.items():
-            stem, n = e['rid'].split('#')
             d['rows_in_error'] += 1
             d['flagged_at_verdict'] += 1 if e.get('flagged_ocr_uncertain') else 0
-            d['flagged_now'] += 1 if int(n) in ocr_now.get(stem, set()) else 0
+        if fn is not None:
+            d['rows_in_error_comparable_now'] += fn['error_rows']
+            d['flagged_now'] += fn['error_rows_flagged']
     out['error_rows_flagged'] = fam_flags
     out['summary'] = {'pages': len(verdicts), 'identical': nid, 'renumbered': nren, 'different': len(verdicts) - nid - nren, 'lines_in_verdicts': sum(len(v['rows_listed']) for v in verdicts),
                       'files_in_frame': frame_files['files_in_frame'], 'files_differing_from_frame': len(frame_files['differ_from_frame']), 'files_missing_now': len(frame_files['missing_now'])}

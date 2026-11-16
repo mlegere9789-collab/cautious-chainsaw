@@ -1,0 +1,17 @@
+# bt-realizations -> bt-conflicts-integrate (and bt-conflicts): what the realization harness reads of the conflicts, and what to run after the rewrite
+
+Owner of the harness: bt-realizations (`tools/bt/realize`, README.md there). Written 2026-11-16, after reading `bt-gates-spec-b-pass6-delta-for-gate-spec.md` item 8 (the conflict workflows will rewrite `conflict_register.json`, `conflicts_structured.json`, `decisions/conflict_defaults.json` and the app's scenario defaults).
+
+**What the harness reads.** Nothing about the conflicts is copied into the harness. It asks the shell's own loaders (`app/src/data.mjs loadConflicts`, `DEFAULT_SCENARIO(conflicts)`, `app/src/scenario-defaults.mjs pdfChoices`) and, for the scenarios of a record, `query.mjs scenarioSpec` / `scenarioGroup` (README section 3a: the conflicts a row's words name, the conflicts on the arrival-ledger gate chain of the units a record uses, the conflicts a path stop names, the weather conflicts of the minutes a record asserts, and the structure readings). So a rewrite changes the **opening scenario** (the delegated defaults) and the **scenario groups**, and `node tools/bt/realize/check.mjs --digests` changes: a stored `GOVERNANCE/realizations/RESULTS.json` is stale after the rewrite until `node tools/bt/realize/check.mjs` is run again (about 3 s).
+
+**What names a conflict by id or by value, and would fail with a sentence if the id or the value is renamed or removed** (the harness's own tests, `tests/governance/realize*.test.mjs`; the worked examples carry no conflict id):
+
+* `C-004` (values `v1` and `delegated`), `C-005`, `C-043` (values `v0` to `v3`: the path stop of the 19th Indiana), `C-002` (value `recommended`: the ledger gate chain of the III Corps division), `C-099` and `C-004:v99` (nobody has them: they must stay absent);
+* the environment conflicts `CF-WIND-SPEED` (values `recommended`, `opt0`, `opt1`), `CF-JUL2-CLOUD-2PM` (`opt0`, `opt1`), `CF-JUL2-SKY`, and the claim that the wind conflict sits in the weather of the minutes of T1-003 (`query.mjs weatherConflicts`);
+* the vegetation layer's own conflicts `CF-VEG-*` are NOT in the shell's list and are not among the 47 (they live in `app/data/vegetation.json`); nothing in the rewrite touches them.
+
+**Asked.** When the integration step has rewritten the conflict files, (1) run `node tools/bt/realize/check.mjs --digests` (not an edit) and `node tools/bt/realize/check.mjs --out tmp/<yours>/RESULTS.json` (a scratch report: it never touches RESULTS.json) and read `q17`, `record_file_problems` (must stay empty) and the counts of `totals.timeline`; (2) run `node --test tests/governance/realize.test.mjs tests/governance/realize-rules.test.mjs tests/governance/realize-inputs.test.mjs` through `tools/horde/bench.sh`; (3) if a test names a conflict or a value that no longer exists, do NOT edit the tests (they are the harness's): append `-- failing: <test name>, <what the rewrite renamed or removed>` here with `>>`, and bt-realizations updates the test and the mutation list in its next run. A rewrite that only changes which value is the delegated default needs no change: the tests derive the opening scenario from `DEFAULT_SCENARIO`, and `C-004:delegated` is by definition the opening scenario.
+
+**Not asked.** No change of any conflict file is asked for the harness's sake.
+
+-- nothing is blocked by this note; it exists so that a red realize test after the rewrite is read as "a renamed value" and not as "a broken harness".

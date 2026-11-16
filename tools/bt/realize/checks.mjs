@@ -463,9 +463,10 @@ export class Runner {
     if (a.stage_in != null) { if (!g) return miss('the plot has no ground state'); if (![].concat(a.stage_in).includes(g.stage)) return no(`the stage is "${g.stage}", the check needs ${list(a.stage_in)}`); }
     const f = VEG_HEIGHTS.some(k => k.startsWith('height_ft') && a[k] != null) ? (this.tol.vegetation || {}).ft_to_m ?? 0.3048 : 1, lo = (a.height_ft_min ?? a.height_m_min) != null ? (a.height_ft_min ?? a.height_m_min) * f : null, hi = (a.height_ft_max ?? a.height_m_max) != null ? (a.height_ft_max ?? a.height_m_max) * f : null;
     if (lo != null || hi != null) {
-      if (!g || !Array.isArray(g.h)) return miss('the plot has no drawn height');
-      if (lo != null && g.h[0] < lo * (1 - tol) - 1e-9) return no(`the drawn height starts at ${num(g.h[0], 2)} m, the row says at least ${num(lo, 2)} m (${num(lo * (1 - tol), 2)} m with the stated ${round(tol * 100, 1)} per cent)`);
-      if (hi != null && g.h[1] > hi * (1 + tol) + 1e-9) return no(`the drawn height reaches ${num(g.h[1], 2)} m, the row says at most ${num(hi, 2)} m (${num(hi * (1 + tol), 2)} m with the stated ${round(tol * 100, 1)} per cent)`);
+      const gh = g && (a.height_basis === 'standing' ? g.hStanding : g.h), what = a.height_basis === 'standing' ? 'standing' : 'drawn';       // "standing": the crop's own height before the fight and the rain flatten it; "drawn": what the picture shows now
+      if (!g || !Array.isArray(gh)) return miss(`the plot has no ${what} height`);
+      if (lo != null && gh[0] < lo * (1 - tol) - 1e-9) return no(`the ${what} height starts at ${num(gh[0], 2)} m, the row says at least ${num(lo, 2)} m (${num(lo * (1 - tol), 2)} m with the stated ${round(tol * 100, 1)} per cent)`);
+      if (hi != null && gh[1] > hi * (1 + tol) + 1e-9) return no(`the ${what} height reaches ${num(gh[1], 2)} m, the row says at most ${num(hi, 2)} m (${num(hi * (1 + tol), 2)} m with the stated ${round(tol * 100, 1)} per cent)`);
     }
     const share = { cut: g && g.cut, trample: g && g.trample, lodging: g && g.lodging, leaf: tr && tr.leaf, strip: tr && tr.strip, keep: tr && tr.keep };
     for (const k of VEG_SHARES) {

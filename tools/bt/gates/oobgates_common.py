@@ -165,6 +165,58 @@ def table_surname(name):
     return toks[-1].lower() if toks else ''
 
 
+# ---------------------------------------------------------------- thresholds and runner version
+THRESHOLDS_REL = 'gate_results/thresholds.json'
+
+
+def load_thresholds(env):
+    """The threshold registry `GOVERNANCE/gate_results/thresholds.json` (schema bt-thresholds/1, GATE-SPEC 1.7, U-20): {id: row} or None when the file is absent or unreadable.
+    A runner reads a threshold from here, records it in its result (`Record.threshold`) and falls back to its constant only with a note that says so."""
+    fn = os.path.join(env.gov, *THRESHOLDS_REL.split('/'))
+    try:
+        with open(fn, encoding='utf-8') as f:
+            doc = json.load(f)
+        rows = {r['id']: r for r in doc.get('thresholds') or [] if isinstance(r, dict) and r.get('id')}
+        return {'rows': rows, 'unset': list(doc.get('unset') or []), 'path': fn}
+    except (OSError, ValueError, TypeError):
+        return None
+
+
+def threshold_value(rec, reg, tid, key, default, decision_hint=None):
+    """The value of one threshold id from the registry (`value[key]`), recorded in the result record with its decision ids. When the registry or the row is absent, or the row is UNSET, the
+    constant `default` is used and the record says so in a note (never silently); an UNSET row makes the gate INCOMPLETE (GATE-SPEC U-20)."""
+    row = ((reg or {}).get('rows') or {}).get(tid)
+    if row is None:
+        rec.note('threshold %s is not in gate_results/thresholds.json: the constant %r of the runner is used' % (tid, default))
+        rec.threshold(tid, default, decision_hint or 'constant of the runner (registry missing)', metric=key)
+        return default
+    if 'UNSET' in (row.get('status') or []):
+        rec.incomplete('threshold %s is UNSET in gate_results/thresholds.json' % tid)
+        rec.threshold(tid, None, 'UNSET', metric=key)
+        return default
+    v = (row.get('value') or {}).get(key)
+    if v is None:
+        rec.note('threshold %s has no value %r in the registry: the constant %r of the runner is used' % (tid, key, default))
+        rec.threshold(tid, default, ', '.join(row.get('decisions') or []) or 'constant of the runner', metric=key)
+        return default
+    rec.threshold(tid, v, ', '.join(row.get('decisions') or []) or ', '.join(row.get('status') or []) or 'registry', metric=key)
+    return v
+
+
+def runner_version(rec, files):
+    """A short version of the runner that made a record: the first 16 hex digits of the sha256 over the sorted (name, sha256) pairs of its files. A record does not otherwise say which runner wrote it."""
+    import hashlib
+    from pq_common import sha256_file
+    parts = []
+    for fn in sorted(files):
+        if os.path.isfile(fn):
+            parts.append('%s %s' % (os.path.basename(fn), sha256_file(fn)))
+    v = hashlib.sha256('\n'.join(parts).encode('utf-8')).hexdigest()[:16]
+    rec.extra['runner_version'] = v
+    rec.extra['runner_files'] = [os.path.basename(f) for f in sorted(files)]
+    return v
+
+
 def first_failed(conds):
     return [c['name'] + ((': ' + c['detail']) if c.get('detail') else '') for c in conds if not c['ok']]
 

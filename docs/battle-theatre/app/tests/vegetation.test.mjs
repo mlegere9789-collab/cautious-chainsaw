@@ -585,3 +585,53 @@ test('a choice of the understory reading places the woods again and rewrites the
   assert.equal(v.choose('CF-VEG-UNDER', 'as_classed'), true); assert.ok(await until(() => v.status().trees === n0), 'back to the reading it began with: the same trees ' + v.status().trees);
   VEG.dispose();
 });
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------- 16 November: the farmyards, the short quotes
+test('the farmyards: a unit class of its own for the yard of every farmstead the structures layer places, drawn over the field cell, plausible-procedural in outline and worn ground, with the events that passages name', () => {
+  const yards = DATA.units.filter(u => u.cls === 'yard'); assert.ok(yards.length >= 20 && yards.length <= 30, 'yards: ' + yards.length);
+  assert.equal(DATA.meta.counts.by_class.yard, yards.length);
+  assert.ok(DATA.units.indexOf(yards[0]) > DATA.units.findLastIndex(u => u.cls !== 'yard'), 'the yards come after every other unit, so that no other id moved');
+  for (const u of yards) {
+    assert.equal(u.geom_tier, 'plausible-procedural', u.id + ': no source outlines a yard'); assert.match(u.lc, /^YARD-/); assert.equal(u.crop, 'pasture'); assert.equal(u.crop_tier, 'plausible-procedural');
+    assert.ok(u.yard && u.yard.farm && u.yard.wear[0] > 0 && u.yard.wear[1] <= 0.6 && u.yard.wear_tier === 'plausible-procedural', u.id + ' has its worn share as a range with a tier');
+    assert.ok(u.area_ac > 0.15 && u.area_ac < 0.9, u.id + ' is the size of a farmyard, not a field: ' + u.area_ac + ' acres'); assert.ok(!u.woods && !u.orchard, 'a yard draws no trees: the trees of its farm are in the woodlots and orchards');
+    assert.ok(DATA.farms.some(f => f.id === u.yard.farm), u.id + ' belongs to a farm of the data');
+  }
+  assert.ok(DATA.meta.yard && DATA.meta.yard.basis && DATA.meta.yard.tier === 'plausible-procedural', 'the basis of the yards is in the data once');
+  assert.ok(DATA.gaps.some(g => g.id === 'G25' && /yard/i.test(g.title)), 'the gap of the yards is registered');
+  // the state: worn grass before any army came, trampled further inside the hours of an event, and the tier says what it is made of
+  const mc = M.units.find(u => u.lc === 'YARD-mcmillan'), ev = M.events.get('EV-VEG-11'); assert.ok(mc && ev && mc.ev.some(([id]) => id === 'EV-VEG-11'));
+  const before = stateAt(M, mc, T('1863-06-28T12:00'), {}), after = stateAt(M, mc, T('1863-07-01T20:00'), {}), nov = stateAt(M, mc, T('1863-11-19T12:00'), {});
+  assert.equal(before.cls, 'yard'); assert.ok(before.ground.wear >= mc.yard.wear[0] && before.ground.wear <= mc.yard.wear[1] && before.ground.trample >= mc.yard.wear[0] - 1e-9, 'worn before the battle: ' + before.ground.trample);
+  assert.ok(after.ground.trample > before.ground.trample + 0.05, 'the battery wore the yard further: ' + before.ground.trample + ' -> ' + after.ground.trample); assert.ok(after.events.includes('EV-VEG-11'));
+  assert.ok(nov.ground.trample >= mc.yard.wear[0] - 1e-9, 'the wear of the farm\'s own use is still there in November'); assert.equal(before.ground.label, 'Farmyard grass, worn'); assert.equal(before.tiers.wear, 'plausible-procedural'); assert.equal(before.tier, 'plausible-procedural');
+  assert.deepEqual(stateAt(M, mc, T('1863-07-01T20:00'), {}), after, 'the same ask gives the same record');
+  for (const [lc, eid, cid] of [['YARD-leister', 'EV-VEG-12', 'VC-NPSC-HSR-LEISTER-BARN-p013-05'], ['YARD-j_weikert', 'EV-VEG-13', 'VC-LIB-045'], ['YARD-mcmillan', 'EV-VEG-11', 'VC-NPSX-CLI-PCB-p072-02'], ['YARD-bliss', 'EV-VEG-14', 'VC-NPSC-CLI-PCB-p034-01']]) {
+    const u = M.units.find(x => x.lc === lc), e = M.events.get(eid); assert.ok(u && e, lc); assert.equal(e.tier, 'inferred'); assert.equal(e.magnitude_tier, 'plausible-procedural'); assert.ok(e.claims.includes(cid)); assert.ok(u.claims.some(([c, r]) => c === cid && r === 'nearest'), lc + ' cites the passage that names it');
+    assert.ok(!stateAt(M, u, e.from_min - 1, {}).events.includes(eid), 'nothing before its time'); const key = e.kind === 'burn' ? 'burn' : 'trample'; assert.ok(stateAt(M, u, e.to_min + 10, {}).ground[key] > stateAt(M, u, e.from_min - 1, {}).ground[key] + 0.02, lc + ': the event added to the ' + key);
+  }
+  assert.ok(!yards.some(u => (u.ev || []).some(([id]) => ['EV-VEG-07', 'EV-VEG-08', 'EV-VEG-09', 'EV-VEG-10'].includes(id))), 'tree-stripping events do not reach a yard');
+  const r = checkVegetation(M); assert.equal(r.ok, true, JSON.stringify(r.failures.slice(0, 3))); assert.ok(r.summary.byClass.yard && r.summary.byClass.yard.units === yards.length && r.summary.byClass.yard.failures === 0, 'the gate hook reports the class yard');
+});
+
+test('the claims carry short quotes the gate can find again: at most 14 words, copied from the saved text, inside the passage the claim rests on, with the id of the source as the text store knows it', () => {
+  const words = c => c.quote.trim().split(/\s+/).length; let over = 0, printed = 0, variant = 0;
+  for (const c of DATA.claims) { if (words(c) > 14) over++; if (c.quote_printed) printed++; if (String(c.src).includes('#')) variant++; }
+  assert.equal(over, 0, 'claims with a quote of more than 14 words'); assert.ok(printed >= 15 && printed <= 40, 'claims read as printed where the saved words are broken: ' + printed); assert.ok(variant >= 30 && variant <= 80, 'claims found only in a saved text variant: ' + variant);
+  for (const c of DATA.claims.filter(x => x.fam === 'OR27')) assert.match(c.src, /^OR27-[123]-R\d+$/, c.id);
+  const fams = Object.fromEntries(['OR27', 'NPS', 'WS9', 'NPSWEB', 'WEB'].map(f => [f, DATA.claims.filter(c => c.fam === f).length])); assert.ok(fams.NPS > 400 && fams.WS9 >= 59 && fams.OR27 >= 39, JSON.stringify(fams));
+  const man = DATA.meta.source_manifest; assert.ok(Object.keys(man).length >= 55);
+  for (const [k, m] of Object.entries(man)) { assert.ok(m.title && m.fam && m.rights && m.date_written, k); assert.ok(m.date_written === 'not stated' || m.date_written_basis || m.fam === 'OR27', k + ' says what its date is'); assert.ok(!('independent_of' in m), k + ': no relation between sources is claimed'); }
+  assert.ok(DATA.claims.every(c => !c.loc.span || (c.loc.char_start >= c.loc.span[0] && c.loc.char_end <= c.loc.span[1] + 2)), 'a quote lies inside its passage');
+  assert.ok(DATA.claims.every(c => c.loc.char_end == null || c.loc.char_end > c.loc.char_start), 'every offset pair runs forward');
+});
+
+test('burnt ground: a farmyard where a house and barn burned is scorched inside the hours of the fire, never before, and green again by 19 November (the plan: burn spread is plausible-procedural and starts only at a documented fire)', () => {
+  const u = M.units.find(x => x.lc === 'YARD-bliss'), e = M.events.get('EV-VEG-14'); assert.ok(u && e && e.kind === 'burn'); assert.equal(e.tier, 'inferred'); assert.equal(e.magnitude_tier, 'plausible-procedural');
+  assert.ok(M.claims.get('VC-NPSC-CLI-PCB-p034-01').tier === 'documented' && DAMAGE_RE.test(M.claims.get('VC-NPSC-CLI-PCB-p034-01').says), 'the fire of the buildings is a documented passage');
+  const b = stateAt(M, u, T('1863-07-03T08:59'), {}), m = stateAt(M, u, T('1863-07-03T10:15'), {}), a = stateAt(M, u, T('1863-07-03T12:00'), {}), later = stateAt(M, u, T('1863-07-14T12:00'), {}), nov = stateAt(M, u, T('1863-11-19T12:00'), {});
+  assert.equal(b.ground.burn, 0); assert.ok(m.ground.burn > 0 && m.ground.burn < a.ground.burn, 'it grows through the morning'); assert.ok(a.ground.burn >= 0.3 * 0.9 - 0.15 && a.ground.burn <= 0.65 + 1e-9, 'the final share is a range: ' + a.ground.burn);
+  assert.equal(later.ground.burn, a.ground.burn, 'it stays through the window'); assert.equal(nov.ground.burn, 0, 'the grass has grown again by 19 November'); assert.ok(a.events.includes('EV-VEG-14'));
+  assert.deepEqual(e.units, [u.id], 'only the Bliss yard burns');
+  assert.ok(DAMAGE_RE.test('the buildings were burned'), 'burning is a word of damage');
+});

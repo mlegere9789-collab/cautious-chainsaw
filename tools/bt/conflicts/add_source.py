@@ -117,7 +117,8 @@ def main(argv):
     print(line)
     if '--dry-run' in flags:
         return 0
-    lock = L.SOURCES_MD + '.lock'
+    os.makedirs(L.TMP, exist_ok=True)
+    lock = os.path.join(L.TMP, 'SOURCES.md.lock')          # outside the committed tree; build_sources.py takes the same lock
     with open(lock, 'a') as lf:
         fcntl.flock(lf, fcntl.LOCK_EX)
         with open(L.SOURCES_MD, encoding='utf-8', newline='') as f:
