@@ -207,6 +207,77 @@ def resolve_xf(c):
         pg = page_fields(raw, a, b, c.get('pp'))
     return dict(base, source_id=ref, source_class=m['cls'], part=None, report_id=None, **pg, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=sha, provenance=m['prov'])
 
+# --- wave 6 (2026-11-16): pages fetched by the web workstream (its ledger docs/.../ws-web/retry/fetches.jsonl, one record per F-id) and files downloaded by this shard
+# (NPS Gettysburg Seminar Papers and Clark's regimental histories of North Carolina, vol. 5; md5 or sha256 checked, provenance in tmp/fence-1/dl/sem/provenance.json).
+WEBF_LEDGER = {}
+_wl = os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/horde/ws-web/retry/fetches.jsonl')
+if os.path.exists(_wl):
+    for _l in open(_wl, encoding='utf-8'):
+        if _l.strip():
+            _r = json.loads(_l)
+            if _r.get('fid') and _r.get('http') == 200 and _r.get('fid') not in WEBF_LEDGER: WEBF_LEDGER[_r['fid']] = _r
+_NPSWEB = 'secondary (National Park Service web page, United States government work; HTML text of the page as served on 2026-11-16 to the web workstream)'
+WEBF_META = {
+  'F-300': dict(cls=_NPSWEB, title="5th United States Artillery, Battery D (Hazlett's Battery) Monument (U.S. National Park Service, nps.gov/places)"),
+  'F-321': dict(cls=_NPSWEB, title="Fortifications on Little Round Top Then & Now (U.S. National Park Service, nps.gov/places)"),
+  'F-322': dict(cls=_NPSWEB, title="Culp's Hill (U.S. National Park Service, nps.gov/gett/learn/historyculture)"),
+  'F-325': dict(cls=_NPSWEB, title="Buildings and Farms Then & Now (U.S. National Park Service, nps.gov/gett/learn/photosmultimedia)"),
+  'F-332': dict(cls='secondary (National Park Service Civil War Series, The Battle of Gettysburg, a booklet of the 1990s on the npshistory.com site; HTML text of the section as served on 2026-11-16 to the web workstream)', title='National Park Civil War Series: The Battle of Gettysburg, section 3'),
+  'F-338': dict(cls='secondary (National Park Service Civil War Series booklet; HTML text of the section as served on 2026-11-16)', title='National Park Civil War Series: The Battle of Gettysburg, section 10'),
+  'F-339': dict(cls='secondary (National Park Service Civil War Series, The Battle of Gettysburg, a booklet of the 1990s on the npshistory.com site; HTML text of the section as served on 2026-11-16 to the web workstream)', title='National Park Civil War Series: The Battle of Gettysburg, section 11'),
+  'F-342': dict(cls='secondary (National Park Service Civil War Series, The Battle of Gettysburg, a booklet of the 1990s on the npshistory.com site; HTML text of the section as served on 2026-11-16 to the web workstream)', title='National Park Civil War Series: The Battle of Gettysburg, section 14'),
+  'F-353': dict(cls='secondary (published battlefield guide, Gettysburg 1892, public domain; raw OCR of the Brigham Young University copy digitised by the Internet Archive, single witness; a second OCR of another copy is F-352)', title='Minnigh, Luther W., Gettysburg: What They Did Here (1892), second scan', book=True),
+}
+_sem_prov = os.path.join(ROOT, 'tmp/fence-1/dl/sem/provenance.json')
+SEM_PROV = json.load(open(_sem_prov, encoding='utf-8'))['files'] if os.path.exists(_sem_prov) else {}
+_SEMCLS = 'secondary (National Park Service Gettysburg Seminar Papers, essay by a park historian or invited scholar, United States government publication on npshistory.com; text extracted from the PDF with pdftotext -layout, one witness)'
+XD_REG = {
+  'NPS-SEM11-E8': dict(file='sem11-essay8', title='Bert H. Barnett, "Our Position Was Finely Adapted To Its Use": The Guns of Cemetery Hill (Gettysburg Seminar Papers, volume 11, The Second Day at Gettysburg, essay 8)'),
+  'NPS-SEM9-E4': dict(file='sem9-essay4', title='Bert Barnett, "If Ever Men Stayed By Their Guns": Leadership in the 1st and 11th Corps Artillery on the First Day of the Battle of Gettysburg (Gettysburg Seminar Papers, volume 9, essay 4)'),
+  'NPS-SEM10-E5': dict(file='sem10-essay5', title='D. Scott Hartwig, "I Have Never Seen the Like Before": Herbst Woods, July 1, 1863 (Gettysburg Seminar Papers, volume 10, The Gettysburg Campaign and First Day of Battle, essay 5)'),
+  'NPS-SEM10-E8': dict(file='sem10-essay8', title='Troy D. Harman, "It Was Their Intention, While Entangling Us, To Cut Us Off From The Town": the 11th Army Corps and the Battle North of Town (Gettysburg Seminar Papers, volume 10, essay 8)'),
+  'NPS-SEM11-E7': dict(file='sem11-essay7', title='Matt Atkinson, "We Were Now Complete Masters of the Field": Ambrose Wright\'s Attack on July 2 (Gettysburg Seminar Papers, volume 11, essay 7)'),
+  'NPS-SEM12-E5': dict(file='sem12-essay5', title='Matthew Atkinson, "More May Have Been Required of Them Than They Were Able to Perform": Seminary Ridge on July 3 (Gettysburg Seminar Papers, volume 12, The Third Day at Gettysburg, essay 5)'),
+  'NPS-SEM5-E6': dict(file='sem5-essay6', key='sem5-essay6.htm', title='Timothy H. Smith, "These Were Days of Horror": The Story of the Gettysburg Civilians (Gettysburg Seminar Papers, volume 5, Unsung Heroes of Gettysburg, essay 6; HTML)'),
+}
+CLARK5 = dict(path='tmp/fence-1/dl/historiesofsever05clar/historiesofsever05clar_djvu.txt', md5='a52f54bea84a88ed3599b9787d8ed9c4',
+              cls='secondary (published regimental histories of North Carolina, Raleigh 1901, public domain mark on the archive.org record; raw OCR of the New York Public Library scan, single witness; the chapter of Captain Louis G. Young, Pettigrew\'s adjutant general, is a participant account written about 1900, the chapter of Captain S. A. Ashe a retrospective compilation)',
+              prov=dict(archive_item='https://archive.org/details/historiesofsever05clar', title="Clark, Walter (ed.), Histories of the several regiments and battalions from North Carolina, in the great war 1861-'65, vol. 5 (Raleigh: E. M. Uzzell, 1901)",
+                        ledger='downloaded by this workstream 2026-11-16 from https://archive.org/cors/historiesofsever05clar/historiesofsever05clar_djvu.txt (one request); md5 equals the archive.org record (a52f54bea84a88ed3599b9787d8ed9c4); sha256 in local_sha256'))
+
+def resolve_w6(c):
+    src, ref, q, occ = c['src'], c['ref'], c['quote'], c.get('occ'); qn = norm_query(q)
+    base = dict(quote=q, role=c['role'], note=c.get('note'), match='exact (whitespace-normalised, case-sensitive)')
+    if c.get('reading'): base['reading'] = c['reading']
+    if src == 'WEBF':
+        rec = WEBF_LEDGER[ref]; meta = WEBF_META[ref]
+        tp = rec.get('text_file') or rec['file']; p = os.path.join(ROOT, tp)
+        want = rec['text_sha256'] if rec.get('text_file') else rec['sha256']
+        if file_sha(p) != want: raise SystemExit('SHA MISMATCH vs the ws-web ledger: ' + ref)
+        a, b, raw = find_in_file(p, qn, occ, ref, q)
+        if meta.get('book'): pg = page_fields(raw, a, b, c.get('pp'))
+        else: pg = dict(printed_page=c.get('pp'), page_basis='web page: no pagination' if not c.get('pp') else 'given by the engineer')
+        prov = dict(asked_url=rec.get('asked_url'), final_url=rec.get('final_url'), retrieved_utc=rec.get('at'), http=rec.get('http'), file_sha256=rec.get('sha256'), text_sha256=rec.get('text_sha256'),
+                    title=meta['title'], ledger='docs/battle-theatre/GOVERNANCE/horde/ws-web/retry/fetches.jsonl (bt-web-evidence workstream, fid %s)' % ref)
+        return dict(base, source_id='WEB-' + ref, source_class=meta['cls'], part=None, report_id=None, **pg, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), provenance=prov)
+    if src == 'XD' and ref == 'CLARK-NC-V5-1901':
+        m = CLARK5; p = os.path.join(ROOT, m['path'])
+        if _md5(p) != m['md5']: raise SystemExit('MD5 MISMATCH vs archive.org record: ' + ref)
+        a, b, raw = find_in_file(p, qn, occ, ref, q)
+        return dict(base, source_id=ref, source_class=m['cls'], part=None, report_id=None, **page_fields(raw, a, b, c.get('pp')), offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), provenance=m['prov'])
+    if src == 'XD':
+        m = XD_REG[ref]; pv = SEM_PROV[m.get('key') or m['file'] + '.pdf']; p = os.path.join(ROOT, 'tmp/fence-1/dl/sem', pv['text_file'])
+        if file_sha(p) != pv['text_sha256']: raise SystemExit('SHA MISMATCH vs provenance.json: ' + ref)
+        a, b, raw = find_in_file(p, qn, occ, ref, q)
+        if pv.get('pages'):
+            pdfp = raw[:a].count('\f') + 1
+            pg = dict(printed_page=c.get('pp'), pdf_page=str(pdfp), page_basis='PDF page %d of %d of the essay as downloaded (the essay has its own page numbers, not read from the text)' % (pdfp, pv['pages']))
+        else:
+            pg = dict(printed_page=c.get('pp'), pdf_page=None, page_basis='HTML essay on the web (no pagination)')
+        prov = dict(url=pv['url'], retrieved_utc=pv['retrieved_utc'], http=pv['http'], file_bytes=pv['bytes'], file_sha256=pv['sha256'], title=m['title'], text_method=pv['text_method'], ledger='tmp/fence-1/dl/sem/provenance.json (this workstream)')
+        return dict(base, source_id=ref, source_class=_SEMCLS, part=None, report_id=None, **pg, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), provenance=prov)
+    raise SystemExit('bad wave-6 src ' + src + ' ' + ref)
+
 def attach_image(rec, c):
     iid = c.get('image')
     if not iid: return rec
@@ -335,9 +406,15 @@ def resolve_old(c):
         if len(idxs) > 1 and occ is None: raise SystemExit('AMBIGUOUS (%d) in %s: %r' % (len(idxs), ref, q))
         i = idxs[occ or 0]; a, b = nm[i], nm[i + len(qn) - 1] + 1
         prov = None
-        if ref in NPS_MAN: prov = dict(url=NPS_MAN[ref].get('url'), fetched_utc=NPS_MAN[ref].get('fetched_at'), ledger='tmp/library/web/nps/MANIFEST.json (bt-web workstream)')
+        if ref in NPS_MAN and ref.startswith('NPS-HABS-'):
+            _rj = json.load(open(os.path.join(NPSD, ref, ref + '.record.json'), encoding='utf-8')); _it = _rj.get('item') or {}
+            _x = (NPS_MAN[ref].get('extra_files') or [{}])[0]
+            prov = dict(url='https://www.loc.gov/item/%s/' % ref[len('NPS-HABS-'):], data_pdf_url=_x.get('url'), data_pdf_sha256=_x.get('sha256'), fetched_utc=NPS_MAN[ref].get('fetched_at'),
+                        title=_it.get('title'), ledger='tmp/library/web/nps/MANIFEST.json (bt-web workstream; Library of Congress HABS record, typed data pages of the survey)')
+        elif ref in NPS_MAN: prov = dict(url=NPS_MAN[ref].get('url'), fetched_utc=NPS_MAN[ref].get('fetched_at'), ledger='tmp/library/web/nps/MANIFEST.json (bt-web workstream)')
         elif ref in NPS_PAGES: prov = dict(url=NPS_PAGES[ref]['url'], fetched_utc=NPS_PAGES[ref]['retrieved'], ledger='GOVERNANCE/evidence_corrections/web-nps-landscape.jsonl (bt-web workstream)')
         cls = 'secondary (National Park Service report, United States government work; text layer of the PDF)' if ref not in NPS_PAGES else 'secondary (National Park Service web page, United States government work; saved text)'
+        if ref.startswith('NPS-HABS-'): cls = 'secondary (Historic American Buildings Survey record of the Library of Congress, written by National Park Service staff; typed data pages of the 1950s-60s, OCR text layer of the PDF)'
         return dict(source_id=ref, source_class=cls, part=None, report_id=None, provenance=prov,
                     printed_page=c.get('pp'), pdf_page=nps_page(raw, a), quote=q, offset=[a, b], local_path=os.path.relpath(p, ROOT), match='exact (whitespace-normalised, case-sensitive)',
                     role=c['role'], note=c.get('note'))
@@ -361,6 +438,8 @@ def resolve(c):
 def _resolve(c):
     if c['src'] == 'XF':
         rec = resolve_xf(c)
+    elif c['src'] in ('WEBF', 'XD'):
+        rec = resolve_w6(c)
     elif c['src'] in ('ACQ', 'KIT', 'K2', 'NPSW', 'CA', 'OR1W'):
         rec = resolve_new(c)
     else:
@@ -418,7 +497,7 @@ def main():
                    sub_claims=[dict(sc=rid + '.' + s['sc'], claim=s['claim'], tier=s['tier'], support=s['support'], citations=s['citations'], note=s['note']) for s in r['sub_claims']],
                    stays_unsupported=r['stays_unsupported'], conflicts_carried=r['conflicts_carried'], register_refs=r['register_refs'], blocked_host=r['blocked_host'],
                    product_consequence=r['product_consequence'], recheck=recheck, lookups=r['lookups'], changes_vs_previous=r['changes_vs_previous'], notes=r['notes'],
-                   built='2026-11-15', revision='close-out 2026-11-13 (rev 1); reopened 2026-11-14 for page images and newly local texts (rev 2); third pass 2026-11-15 for the Official Records sweep, the texts that arrived after rev 2 and two more page images (rev 3)')
+                   built='2026-11-16', revision='close-out 2026-11-13 (rev 1); reopened 2026-11-14 for page images and newly local texts (rev 2); third pass 2026-11-15 for the Official Records sweep, the texts that arrived after rev 2 and two more page images (rev 3); fourth pass 2026-11-16 for the pages the web workstream fetched, the NPS Gettysburg Seminar Papers, Clark vol. 5 and the HABS records (rev 4)')
         out.append(rec)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w', encoding='utf-8') as f:

@@ -1,0 +1,653 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "05913252.3309.emory.edu/111",
+ "levels": "N",
+ "stratum": "NC-MOO-E-other",
+ "family": "NC-MOO-E",
+ "layout": "flow",
+ "kind": "other",
+ "draw_position": 3,
+ "in_lowest_decile": false,
+ "printed_page": 95,
+ "rows_stored": 47,
+ "rows_checked": 47,
+ "rows_in_error": 2,
+ "rows_ok": 45,
+ "rows_flagged_ocr_uncertain": 3,
+ "errors": [
+  {
+   "i": 24,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Newsom, 0.",
+   "printed": "Newsom, O.",
+   "note": "the capital letter O read as the digit zero",
+   "rid": "3rd-north-carolina-infantry#644",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 35,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Stokes, \\V. B.",
+   "printed": "Stokes, W. B.",
+   "note": "the W is lightly inked at its left stroke and is read \\V",
+   "rid": "3rd-north-carolina-infantry#655",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "G",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "Printed page 95 (Third Regiment, Company D, privates M to T); 47 printed entries, all 47 stored, no merged or split line seen in the names and the cut of the lines; the page is the third drawn page of NC-MOO-E-other."
+ ],
+ "reader": "full page view at 200 dpi (Read tool); names, rank headings, company and the cut of every line compared with the print (level N only: the dates and the remark words are not compared because R-G2 and R-G3b of this stratum had failed on the first two pages); the company letter D of all lines checked against the running head of this page (Company D, Third Regiment) and of the neighbouring pages",
+ "tesseract_prescreen": {
+  "agree": 13,
+  "near": 1,
+  "suspect": 33,
+  "unstored_lines": 1
+ },
+ "read": {
+  "pdf_sha256": "1dda26b2e9ce5e6272e0d85b2567e1b1818af12123552a36717e677c5805c3c1",
+  "pdf_page": 112,
+  "view_png_sha256": "a0bcdd3f9551b772ca08ec32e07061337fbaa79920d3decefeda05aa188a7eda",
+  "render300_sha256": "6c9fb58ed905c643301868838c0387c1b23188cb0581d7f972606a6de84ea079",
+  "tess_sha256": "3e000f094ac4164e82fff9d4c9b7486e4bd1f6c61efa52cee83521062c37cc68",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.934
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "3rd-north-carolina-infantry#620",
+   "name": "Manning, Abram",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "3271decd5417d425516e9f6f183f120fd68c4c61e11ef76008ca3520f2cb8fe9",
+   "off": 341936,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "3rd-north-carolina-infantry#621",
+   "name": "Manning, Samuel",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "faea5bf2fdba8b9280a2d509ce66cbbaa5447902555ebd2cb9b08f25aa0b6da5",
+   "off": 342022,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "3rd-north-carolina-infantry#622",
+   "name": "Manning, Lillington",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "339293a434652bbffc06b296fcde8013a9502251c817e3fdc75321f3cea6b21d",
+   "off": 342098,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "3rd-north-carolina-infantry#623",
+   "name": "Manning, Theophilus",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "301b31148b58e3185ad1e55e2874054e7132904e26dfaa1c928f1a8a85fcada9",
+   "off": 342184,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "3rd-north-carolina-infantry#624",
+   "name": "McGlawhorn, Alfred",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "879e58ec9b1c284b79cd96437da98acf2fc34792853b871181fd65aad909e244",
+   "off": 342287,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "3rd-north-carolina-infantry#625",
+   "name": "McGlawhorn, Luke",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "7ab0ea046eaa09ba3927e74ea0b36dcce3d9cdb2387655ae4ee75c5b95f6e6c3",
+   "off": 342365,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "3rd-north-carolina-infantry#626",
+   "name": "Mills, Samuel",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "f2f21c5af82b8729646c12c12f3297d4dcabfbe5efbcc990e1dc4c615024ace8",
+   "off": 342440,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "3rd-north-carolina-infantry#627",
+   "name": "McNiel, A. B.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "19ddeba65a3547c8a33d1c15d4866e807ac7f30c0b76c702424e03fc3cb29d93",
+   "off": 342513,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "3rd-north-carolina-infantry#628",
+   "name": "Mills, Calvin",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "b122ae9ff7edd76d2c6809deaa136e0ca8087e86828a12b3fa889bcabca9fe11",
+   "off": 342566,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "3rd-north-carolina-infantry#629",
+   "name": "McNiel, D. G.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "2db809fc7d22bf4493a44c655db1c0ba0acedfcffa74812113bd6a7e674394e5",
+   "off": 342638,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "3rd-north-carolina-infantry#630",
+   "name": "Meeks, Nathaniel",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "6cf2c99ded32d58a3b6a0e550a75273350d76ea596f44c414896f45e2f98257e",
+   "off": 342689,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "3rd-north-carolina-infantry#631",
+   "name": "McGowan, Geo. F.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "2db809fc7d22bf4493a44c655db1c0ba0acedfcffa74812113bd6a7e674394e5",
+   "off": 342765,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "3rd-north-carolina-infantry#632",
+   "name": "McClenny, John H.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "038a4a828bd367d76e80fcfa091efb6e4d202c581087449ef279af9c29c5a9c3",
+   "off": 342819,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "3rd-north-carolina-infantry#633",
+   "name": "Moore, Warren",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "19ddeba65a3547c8a33d1c15d4866e807ac7f30c0b76c702424e03fc3cb29d93",
+   "off": 342923,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "3rd-north-carolina-infantry#634",
+   "name": "Moore, John A.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "f9714c32b9f1f7f89621d095588ad1d86144ce48b4e27aa61a0bdf3670991fb1",
+   "off": 342975,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "3rd-north-carolina-infantry#635",
+   "name": "Moore, Gideon R.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "f42e98342b2cc667b32bcfc2d5651f68c53578eb02756cd9873ba23f1de250d4",
+   "off": 343073,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "3rd-north-carolina-infantry#636",
+   "name": "Musgrave, Lewis",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "4c6cb3173fb021af9d3bcec68a008291856d9ae6a304a0f0d06488b341c3c019",
+   "off": 343131,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "3rd-north-carolina-infantry#637",
+   "name": "Musgrave, Crawford",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "e63c602d7bd0237c5bf9a4d0b8745d903a380e5bdd4e991493aae8c2edf5ce5d",
+   "off": 343186,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "3rd-north-carolina-infantry#638",
+   "name": "Neill, Joseph E.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "0a5e3fd83806f988078d18def822ef31614bb8038d9cb5795c351a7fefab6f45",
+   "off": 343284,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 19,
+   "rid": "3rd-north-carolina-infantry#639",
+   "name": "Needham, Elias",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "d44acf3b8df3cd3286b1b68e08cd02bed6d743295c361d4920bc28f15fd7dddc",
+   "off": 343390,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 20,
+   "rid": "3rd-north-carolina-infantry#640",
+   "name": "Newsom, Alfred",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "7056b7952da00f611c264db9d9735478850b15371ee21075be13623ab6c71aac",
+   "off": 343451,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "3rd-north-carolina-infantry#641",
+   "name": "Needham, James",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "b28bd1abc867d5e6d4b888f6107692472b58a5fbbba2bc0b07681578bb062e6e",
+   "off": 343504,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "3rd-north-carolina-infantry#642",
+   "name": "Newsom, William",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "3534ae1b05a7e4a61039a9cecafb0c3842901347cb900bef43ed93bfd49bcfa6",
+   "off": 343580,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 23,
+   "rid": "3rd-north-carolina-infantry#643",
+   "name": "Nelson, Lemuel",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "53f0fa5eca43980988cd90acc36d7657cd0ae80b96756c3db1dc7920a59c5a1d",
+   "off": 343634,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 24,
+   "rid": "3rd-north-carolina-infantry#644",
+   "name": "Newsom, 0.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "2db809fc7d22bf4493a44c655db1c0ba0acedfcffa74812113bd6a7e674394e5",
+   "off": 343709,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 25,
+   "rid": "3rd-north-carolina-infantry#645",
+   "name": "Nobles, James",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "c41a0d031079579408ae9a4c24f053d05ffe929d5e92ab536e2b8bd27f4d3b0c",
+   "off": 343756,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 26,
+   "rid": "3rd-north-carolina-infantry#646",
+   "name": "Parker, Jesse S.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "9e783253fee439253ea6af1ea526e1a89940a89fb87316b3e5d6a7e6fc04e647",
+   "off": 343827,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "G",
+    "Y"
+   ]
+  },
+  {
+   "i": 27,
+   "rid": "3rd-north-carolina-infantry#647",
+   "name": "Padgett, Hinton",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "ae145bc30995ac81b55925859ca4807f508ee32da7bb42eddc62cd3d92b5f411",
+   "off": 343890,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 28,
+   "rid": "3rd-north-carolina-infantry#648",
+   "name": "Penn, Charles",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "93b7273421886a12e1963533f12473138c557859f828047008967bdc28b265bb",
+   "off": 343949,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 29,
+   "rid": "3rd-north-carolina-infantry#649",
+   "name": "Ringgold, Locket",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "ebbce95bbf362e7f44ddc1028cdb52b1955538b8d29a573e9e810fe0816fe7c9",
+   "off": 344006,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 30,
+   "rid": "3rd-north-carolina-infantry#650",
+   "name": "Rochelle, Napoleon B.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "63bdf57b4958dd5cf4343d4f714be90fe75e688b5aa1f2f6a090f3e41c26559d",
+   "off": 344057,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 31,
+   "rid": "3rd-north-carolina-infantry#651",
+   "name": "Rochelle, John T.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "2b8ba237f15cee8a13efd165c605b6586e4995fceda8ed583f1549b55c682022",
+   "off": 344166,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 32,
+   "rid": "3rd-north-carolina-infantry#652",
+   "name": "Rouse, Asa",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "6a65829e041d614741da74dc9c050aade315125554bea051155e4f42dd46bd24",
+   "off": 344276,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 33,
+   "rid": "3rd-north-carolina-infantry#653",
+   "name": "Rouse, Geo. W.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "fec398dd7ad244b7ec490a51ad36c928f730c3a774e6fe4bb3f171a486e3ced4",
+   "off": 344324,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 34,
+   "rid": "3rd-north-carolina-infantry#654",
+   "name": "Slaughter, Cannon",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "db2bf062f798c4d1b2932dfe2d7356f682bbe7de1e859c96ca6a0a569ab356fb",
+   "off": 344427,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 35,
+   "rid": "3rd-north-carolina-infantry#655",
+   "name": "Stokes, \\V. B.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "c22e9c69ce6580c6cef27ac2876b33815719cd9ebb7e0320593474404bd1bcc2",
+   "off": 344531,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "G",
+    "N"
+   ]
+  },
+  {
+   "i": 36,
+   "rid": "3rd-north-carolina-infantry#656",
+   "name": "Smith, Hogan H.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "d66b99b6433534436c0de4ca9f6db8e096e55aee78389e2bdfd0ccba19e0c50e",
+   "off": 344625,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 37,
+   "rid": "3rd-north-carolina-infantry#657",
+   "name": "Smith, William H.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "77d85db5052f4fe5ef7dc8c61d2e1fa34cddee589a6f7a8c3fbc274d96453a0c",
+   "off": 344720,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 38,
+   "rid": "3rd-north-carolina-infantry#658",
+   "name": "Stine, William T.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "5713f5fcade6a5c94e85d11cbf6d2f4ef06a6d62c40cd334279b9d3945497ba9",
+   "off": 344798,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 39,
+   "rid": "3rd-north-carolina-infantry#659",
+   "name": "Stokes, John W.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "93b7273421886a12e1963533f12473138c557859f828047008967bdc28b265bb",
+   "off": 344877,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 40,
+   "rid": "3rd-north-carolina-infantry#660",
+   "name": "Taylor, John",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "6639cee6d1646e1ab016d218c286243c0ce4907366adfd6b9acef16271e3ba2c",
+   "off": 344938,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 41,
+   "rid": "3rd-north-carolina-infantry#661",
+   "name": "Tinsdale, Jesse",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "cbff9d128349dbbcffedc6ea6cfe07c8cb3bc59de42ecdebe1bb6868668c4000",
+   "off": 345010,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 42,
+   "rid": "3rd-north-carolina-infantry#662",
+   "name": "Teal, William E.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "ae8312a30f8d1c36aeb8425d82362a525bb8ddf5001152ecb03d01a45e0cbbfa",
+   "off": 345142,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 43,
+   "rid": "3rd-north-carolina-infantry#663",
+   "name": "Terry, S. H.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "d1652d07dd5cc8006c031ca024875e13ffd36846f989c2da13fd1efbbb8d22bd",
+   "off": 345219,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 44,
+   "rid": "3rd-north-carolina-infantry#664",
+   "name": "Tripp, Caleb",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "006557f09d3d4c530b35fb4d267a864ccf864cdd9f00e38c734f526b69f1af6e",
+   "off": 345269,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 45,
+   "rid": "3rd-north-carolina-infantry#665",
+   "name": "Tucker, William",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "8338d18ba58b109f4954824a570c51cfce04e918c78c7d265ee3fb9991d38d4e",
+   "off": 345318,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 46,
+   "rid": "3rd-north-carolina-infantry#666",
+   "name": "Thruston, William J. T.",
+   "rank": "^PRIVATES",
+   "co": "D",
+   "remarks_sha256": "4030a07df6dadb2f33f1cd892aa87e03d53fb98782929e47a4df9513e81c8864",
+   "off": 345376,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-16T02:53:43Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "AGREE",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "AGREE",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "AGREE",
+  "17": "SUSPECT",
+  "18": "SUSPECT",
+  "19": "NEAR",
+  "20": "AGREE",
+  "21": "SUSPECT",
+  "22": "SUSPECT",
+  "23": "SUSPECT",
+  "24": "SUSPECT",
+  "25": "SUSPECT",
+  "26": "SUSPECT",
+  "27": "AGREE",
+  "28": "SUSPECT",
+  "29": "AGREE",
+  "30": "AGREE",
+  "31": "AGREE",
+  "32": "AGREE",
+  "33": "SUSPECT",
+  "34": "SUSPECT",
+  "35": "SUSPECT",
+  "36": "SUSPECT",
+  "37": "AGREE",
+  "38": "AGREE",
+  "39": "AGREE",
+  "40": "SUSPECT",
+  "41": "SUSPECT",
+  "42": "AGREE",
+  "43": "SUSPECT",
+  "44": "SUSPECT",
+  "45": "SUSPECT",
+  "46": "SUSPECT"
+ }
+}

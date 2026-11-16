@@ -32,7 +32,7 @@ test('code made from a string cannot be shown to be safe: eval and Function', ()
 });
 test('findings come with their line and column, in source order, one per use', () => {
   const src = 'const a = 1;\nconst t = Date.now();\n\nconst r = Math.random() + Math.random();\nconst p = performance.now();\n';
-  const r = nondeterminismIn(src); assert.deepEqual(r.map(x => [x.rule, x.line]), [['Date.now', 2], ['Math.random', 4], ['Math.random', 4], ['performance.now', 5]]); assert.equal(r[0].col, 11); assert.equal(r[1].col, 11); assert.equal(r[2].col, 28); assert.ok(r[1].col < r[2].col);
+  const r = nondeterminismIn(src); assert.deepEqual(r.map(x => [x.rule, x.line]), [['Date.now', 2], ['Math.random', 4], ['Math.random', 4], ['performance.now', 5]]); assert.equal(r[0].col, 11); assert.equal(r[1].col, 11); assert.equal(r[2].col, 27); assert.ok(r[1].col < r[2].col);
   assert.deepEqual(nondeterminismIn(''), []); assert.deepEqual(nondeterminismIn('// Math.random()\n'), []);
 });
 test('what is allowed on purpose is not reported: bounded waits, dates built from their inputs, type tests, GPU-time statistics, names that only look like the globals', () => {
@@ -43,11 +43,14 @@ test('what is allowed on purpose is not reported: bounded waits, dates built fro
   clean('const isDate = x instanceof Date;', 'instanceof Date'); clean('class Tick { constructor(passMs) { this.passMs = passMs; } } const ms = 1e3 * Math.floor(2.5); const v = Math.sqrt(2) + Math.max(1, 2) + Math.PI;', 'Math functions that are pure, and a field called passMs');
   clean('const o = { performance: 1, Date: 2, Math: 3, crypto: 4 }; const x = o.performance + o.Date + o.Math + o.crypto;', 'property names that spell a global');
   clean('const o = { random() { return 4; }, now: () => 3 }; const x = o.random() + o.now();', 'methods called random and now on something else');
-  clean('function f(performance, crypto, Date) { return performance + crypto; }', 'parameters that shadow a global'); clean('const g = (performance) => performance * 2;', 'an arrow parameter that shadows a global');
+  clean('function f(performance, crypto, Date) { return 1; }', 'parameters that are named like a global but never used'); clean('const g = (performance) => 2;', 'an arrow parameter named like a global but never used');
   clean('import { performance } from "node:perf_hooks"; export const x = 1;', 'an import is not a use'); clean('label: for (;;) { break label; }', 'labels');
   clean('const s = "Math.random() Date.now() performance.now()"; const t = `performance.now() ${1 + 1}`; /* Date.now() */ // new Date()\n', 'strings, template text and comments');
   clean('export function f(x) { return x.a * 2 + Math.sin(x.b) - Math.floor(x.c); }', 'ordinary arithmetic');
   clean('const fixed = new Date(0); const now = fixed.getTime();', 'a variable called now');
+});
+test('the lint is not scope aware, and says so by being conservative: a parameter that shadows a global and is USED is reported (rename it)', () => {
+  found('function f(performance) { return performance.now(); }', /^performance\.now$/); found('function f(performance, crypto) { return performance + crypto; }', /performance used as a value/); found('const g = (Math) => Math.random();', /^Math\.random$/);
 });
 test('a text that is not a module is an error, never "nothing found"', () => {
   for (const bad of ['const = ;', 'function (', 'export default {', '}}}']) assert.throws(() => nondeterminismIn(bad), undefined, bad);

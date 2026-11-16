@@ -1,7 +1,7 @@
 // The inputs and the outputs of the realization harness: the digest of the inputs, the merge of a partial run, the gazetteer's unknown names, the author tools, and the documents that state facts about the
 // harness. Node only (a scratch copy of the tree under tmp/ for the digest tests, tools/bt/realize/tree.mjs; it never writes into the real tree).
 //   node --test tests/governance/realize-inputs.test.mjs
-import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path'; import os from 'node:os'; import { spawnSync } from 'node:child_process';
+import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path'; import os from 'node:os'; import { spawnSync } from 'node:child_process'; import { pathToFileURL } from 'node:url';
 import { P, TL, clone, ex, examples, run } from './realize-lib.mjs';
 import { ROOT, REAL, GOV, readJSON, readJSONL, readText, noteRead, trackedReads } from '../../tools/bt/realize/lib.mjs';
 import { makeTree, removeTree } from '../../tools/bt/realize/tree.mjs';
@@ -40,7 +40,15 @@ test('the digest of the inputs: the correction files, the register, the requirem
 });
 test('the digest of the inputs: a record, the shell\'s source tree, the terrain and the weather parameters are inputs', () => {
   digestPairs('c', [[{ [G + 'realizations/EXAMPLES.jsonl']: t => t.replace('"harness": "bt-realize-1"', '"harness": "bt-realize-1", "note0": "x"') }, 'records', true], [{ 'docs/battle-theatre/app/src/clock.mjs': t => t + '\n// a changed line of the shell\n' }, 'app_src', true],
-    [{ 'docs/battle-theatre/render/prototype/data/terrain.json': t => t + ' ' }, 'data', true], [{ 'docs/battle-theatre/app/data/fx3d/params.json': t => t + ' ' }, 'data', true]]);
+    [{ 'docs/battle-theatre/render/prototype/data/terrain.json': t => t + ' ' }, 'data', true], [{ 'docs/battle-theatre/app/data/fx3d/params.json': t => t + ' ' }, 'data', true], [{ 'docs/battle-theatre/app/data/vegetation.json': t => t + ' ' }, 'data', true]]);
+});
+test('the vegetation layer is asked only if the product loads it: a layer that src/ext/index.mjs does not list answers that it is not there (query.mjs loadVegetation; the product loads nothing else)', () => {
+  const scratch = 'tmp/realize/scratch-veg-unlisted', ask = root => { const o = spawnSync('node', ['--input-type=module', '-e', `const { openProduct } = await import(${JSON.stringify(pathToFileURL(path.join(root, 'tools/bt/realize/query.mjs')).href)}); const P = await openProduct(); console.log(JSON.stringify({ available: P.veg.available, reason: P.veg.reason || null, ids: P.veg.ids }));`], { encoding: 'utf8', cwd: root, maxBuffer: 1 << 26, env: { ...process.env, BT_REALIZE_REAL_ROOT: ROOT } }); assert.equal(o.status, 0, o.stderr); return JSON.parse(o.stdout); };
+  try {
+    const listed = ask(makeTree(scratch)); assert.equal(listed.available, true, 'the layer the product lists is loaded'); assert.ok(listed.ids.includes('CF-VEG-RAIN'));
+    const root = makeTree(scratch + '-edit', { files: { 'docs/battle-theatre/app/src/ext/index.mjs': t => t.replace('vegetation/index.mjs', 'vegetation/gone.mjs') } }), unlisted = ask(root);
+    assert.equal(unlisted.available, false, 'a module the product does not list is not loaded, so it is not asked'); assert.match(unlisted.reason, /not listed in src\/ext\/index\.mjs/); assert.deepEqual(unlisted.ids, [], 'and its conflicts are no scenarios');
+  } finally { removeTree(scratch); removeTree(scratch + '-edit'); }
 });
 test('the digest of the inputs: the reports the harness writes and the result written back into a record are not inputs; a change of the harness changes the harness digest', () => {
   digestPairs('d', [[{ [G + 'realizations/RESULTS.json']: t => t + ' ', [G + 'realizations/gazetteer.json']: t => t + ' ' }, null, false],
@@ -163,6 +171,12 @@ test('the author tools: row names the places that are unknown, cas expands a for
   assert.ok(brig.events > 0 && brig.killed > 0, 'the brigade has losses: a formation id is expanded'); assert.ok(brig.events > leaf.events && brig.leaves >= 2 && leaf.leaves === 1);
   const sum = P.leaves('us-1c-1d-meredith').map(l => P.scene().casualties(toMinT('1863-07-01T10:00'), toMinT('1863-07-01T16:00'), l).events).reduce((a, b) => a + b, 0); assert.equal(brig.events, sum, 'the sum of its leaves, as the casualty check counts them');
   assert.match(q('cas', '1863-07-01T10:00', '1863-07-01T16:00', 'no-such-unit').stdout, /no unit no-such-unit/);
+  // the vegetation layer: the plots a name finds, the conflicts of the layer, the state of a plot, the group of a vegetation record before it is written (q.mjs veg, group --plots --where)
+  const veg0 = q('veg'); assert.equal(veg0.status, 0, veg0.stderr); assert.match(veg0.stdout, /CF-VEG-RAIN +default bounded +values bounded, pdf_flattened, none/); assert.match(veg0.stdout, /927 plots; classes wheatfield/);
+  assert.match(q('veg', 'Wheatfield').stdout, /^V-0001 +LC-FIELD-0001 +\[wheatfield, wheat, [\d.]+ ac\] +Wheatfield \(George Rose farm\)/m); assert.match(q('veg', 'xyzzy').stdout, /no plot of the layer is named by "xyzzy"/);
+  const st = JSON.parse(q('veg', 'LC-FIELD-0001', '1863-07-02T08:00').stdout); assert.equal(st.id, 'V-0001'); assert.equal(st.ground.crop, 'wheat'); assert.equal(st.ground.cut, 0);
+  const st2 = JSON.parse(q('veg', 'V-0927', '1863-07-02T08:00', '--scenario', 'CF-VEG-LRT:wiki_unwooded').stdout); assert.equal(st2.trees.keep, 0); assert.equal(st2.choices_asked['CF-VEG-LRT'], 'wiki_unwooded');
+  const vg = q('group', 'T2-075', '--plots', 'LC-FIELD-0001', '--where', 'cls=woods', '--from', '1863-07-02T06:00', '--to', '1863-07-02T12:00'); assert.equal(vg.status, 0, vg.stderr); assert.match(vg.stdout, /vegetation LC-FIELD-0001, \{"cls":"woods"\} over 1863-07-02T06:00\.\.1863-07-02T12:00/); assert.match(vg.stdout, /^ {2}CF-VEG-HARVEST +changes the vegetation \(early, late; V-0001 at /m); assert.match(vg.stdout, /CF-VEG-LRT:wiki_unwooded/);
   assert.equal(JSON.parse(q('cas', '1863-06-26T00:00', '1863-06-30T00:00').stdout).events, 0, 'no man falls before the battle');
 });
 const toMinT = s => { const m = /^1863-(\d\d)-(\d\d)T(\d\d):(\d\d)$/.exec(s); const d = { 6: 0, 7: 30 }[+m[1]]; return (d + +m[2] - 1) * 1440 + +m[3] * 60 + +m[4]; };

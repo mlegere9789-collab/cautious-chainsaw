@@ -1,0 +1,449 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "rosterofnorthcar02nort/191",
+ "levels": "NDR",
+ "stratum": "NC-MOO-G-officers",
+ "family": "NC-MOO-G",
+ "layout": "flow",
+ "kind": "officers",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 175,
+ "rows_stored": 17,
+ "rows_checked": 17,
+ "rows_in_error": 8,
+ "rows_ok": 9,
+ "rows_flagged_ocr_uncertain": 6,
+ "errors": [
+  {
+   "i": 0,
+   "kinds": [
+    "rem-char"
+   ],
+   "stored": "era,",
+   "printed": "cm.",
+   "note": "the commission mark cm. read era",
+   "rid": "21st-north-carolina-infantry#0",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 0,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": ".lune, '61",
+   "printed": "June, '61",
+   "note": "the month J read as a point",
+   "rid": "21st-north-carolina-infantry#0",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 1,
+   "kinds": [
+    "rem-char"
+   ],
+   "stored": "Lincoln eo.",
+   "printed": "Lincoln co.",
+   "rid": "21st-north-carolina-infantry#1",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 1,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "May 3d, '6;5",
+   "printed": "May 3d, '63",
+   "rid": "21st-north-carolina-infantry#1",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 2,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "\\V. W. Kirkland",
+   "printed": "W. W. Kirkland",
+   "rid": "21st-north-carolina-infantry#2",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "G",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "cm. P'eb. 1st, '62",
+   "printed": "cm. Feb. 1st, '62",
+   "note": "the month F read P'",
+   "rid": "21st-north-carolina-infantry#4",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 8,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "cm. March 12th, '03",
+   "printed": "cm. March 12th, '63",
+   "rid": "21st-north-carolina-infantry#8",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "Aug. 2Sth, '02",
+   "printed": "Aug. 28th, '62",
+   "rid": "21st-north-carolina-infantry#11",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 15,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "«i. M. Hoke",
+   "printed": "G. M. Hoke",
+   "rid": "21st-north-carolina-infantry#15",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N",
+    "R"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 15,
+   "kinds": [
+    "rank"
+   ],
+   "stored": "Lst Lieut",
+   "printed": "1st Lieut. and Adjutant",
+   "note": "the digit 1 of the rank read L",
+   "rid": "21st-north-carolina-infantry#15",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N",
+    "R"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 16,
+   "kinds": [
+    "merge"
+   ],
+   "stored": "Forsyth co. Hamilton Shepperd, A. O, S.",
+   "printed": "two entries, J. R. Vogler, A. Q. M. and Hamilton Shepperd, A. C. S.",
+   "note": "the second printed entry stands in the remarks of the first and has no line of its own",
+   "rid": "21st-north-carolina-infantry#16",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [
+  {
+   "i": 5,
+   "field": "name",
+   "stored": "R» K. Pepper",
+   "printed": "R. K. Pepper"
+  },
+  {
+   "i": 16,
+   "field": "rank",
+   "stored": "A. Q,. M.",
+   "printed": "A. Q. M."
+  }
+ ],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "Field and Staff of the 21st North Carolina Infantry (first page of the regiment), printed page 175; 18 printed entries, 17 stored lines (the Shepperd entry is inside row 16, counted as merge at that row and not as a missed line)."
+ ],
+ "reader": "full page view at 200 dpi (Read tool); every stored line compared with the print at the levels N, D and R",
+ "tesseract_prescreen": {
+  "agree": 4,
+  "near": 1,
+  "suspect": 12,
+  "unstored_lines": 8
+ },
+ "read": {
+  "pdf_sha256": "6c66da2809202e06ea1a74c2af120c9405c48f9d042d94f9de32563338ccaeab",
+  "pdf_page": 185,
+  "view_png_sha256": "7a931a0ce3fd1c8a2ca68c550da01f0ba1cd123eb202166d5f9f0b16e25ac480",
+  "render300_sha256": "3c97686c01f905942743822f4ec5e0d6407c84529108e89b6ccb16f9c9447d4b",
+  "tess_sha256": "994067f6e785dbb58b62c37fa59bf69eec15199feadff851363ba0540827c40d",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.821
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "21st-north-carolina-infantry#0",
+   "name": "William W. Kirkland",
+   "rank": "Colonel",
+   "co": "FS",
+   "remarks_sha256": "fe673767cc1a55f35e1ca7c7c61ae8bda71421d228011e8a4064ac17d006e174",
+   "off": 579433,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "21st-north-carolina-infantry#1",
+   "name": "Robert F. Hoke",
+   "rank": "Colonel",
+   "co": "FS",
+   "remarks_sha256": "fc6ca5334895724b024ff1518c0fd8630005c4e6c84a32e35e0a1b5463aba64e",
+   "off": 579536,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "21st-north-carolina-infantry#2",
+   "name": "\\V. W. Kirkland",
+   "rank": "Colonel",
+   "co": "FS",
+   "remarks_sha256": "97c63c6892a882521aa8a49592025cb09d5c7879cee6852b2ada688c75e702e3",
+   "off": 579721,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "G",
+    "N"
+   ]
+  },
+  {
+   "i": 3,
+   "rid": "21st-north-carolina-infantry#3",
+   "name": "James M, Leach",
+   "rank": "Lieut. Colonel",
+   "co": "FS",
+   "remarks_sha256": "18450d2a9f39f5f2a98399eb777702161ab151e9fad6a289f987aab1a58bf80e",
+   "off": 579776,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "W"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "21st-north-carolina-infantry#4",
+   "name": "William L. Scott",
+   "rank": "Lieut. Colonel",
+   "co": "FS",
+   "remarks_sha256": "3ef30a223ab248c25aaf37538e35762a7b211363494378457327d86053ef13e5",
+   "off": 579870,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "21st-north-carolina-infantry#5",
+   "name": "R» K. Pepper",
+   "rank": "Lieut. Colonel",
+   "co": "FS",
+   "remarks_sha256": "803abafd63c16dca0189cf80673c1d8964e6851847fc5b1729cdc8b5c122ab44",
+   "off": 579947,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 6,
+   "rid": "21st-north-carolina-infantry#6",
+   "name": "Saunders Fulton",
+   "rank": "Lieut. Colonel",
+   "co": "FS",
+   "remarks_sha256": "96f99ef45748703986923781772273ee0fa196021fef2801a22ab14052dc79ef",
+   "off": 580072,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "21st-north-carolina-infantry#7",
+   "name": "B. Y. Graves",
+   "rank": "Lieut. Colonel",
+   "co": "FS",
+   "remarks_sha256": "218b516f50590851cb982530d80d9b63302aece39065488d5b4aec0acb3bd5d5",
+   "off": 580188,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "21st-north-carolina-infantry#8",
+   "name": "W. S. Rankin",
+   "rank": "Lieut. Colonel",
+   "co": "FS",
+   "remarks_sha256": "b40c8038134968bcf566de258a7101ed580f11a1dccfb96525b1527bb79964a9",
+   "off": 580309,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "21st-north-carolina-infantry#9",
+   "name": "J. M. Richardson",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "76d723b64fa0668e900a4012437408f280548ff1d041760ecf1fd7dec83fb498",
+   "off": 580427,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "21st-north-carolina-infantry#10",
+   "name": "Saunders Fulton",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "f2adad6ba0197d60ff1ba63af8e60e9775774f767c16a0a8e8b09226aeb151f7",
+   "off": 580495,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "21st-north-carolina-infantry#11",
+   "name": "B. Y. Graves",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "4b557cba4fd25bd1d650ae82db4dd3d31507722cb7420a382ee2129f320b960c",
+   "off": 580603,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "21st-north-carolina-infantry#12",
+   "name": "Alexander Miller",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "4882d353eab41c72b9b4d95f0e399df9af7ab08634405c8a4c9d51f2dbb84186",
+   "off": 580682,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "21st-north-carolina-infantry#13",
+   "name": "W. S. Rankin",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "7dba2234d32b2aafd5196b404989c4f286dd0104743e0256b7c42b049c76fdb7",
+   "off": 580772,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 14,
+   "rid": "21st-north-carolina-infantry#14",
+   "name": "W. J. Sfohl",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "6283d1483b8180e162b1e91e55fbf34cefb4727a8b88a4319e108c08680242dd",
+   "off": 580888,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "21st-north-carolina-infantry#15",
+   "name": "«i. M. Hoke",
+   "rank": "Lst Lieut",
+   "co": "FS",
+   "remarks_sha256": "bc6bfbef09867a86e2460dc1e70a507dc959c4eee153ba42cdcb307501e2938d",
+   "off": 580956,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "N",
+    "R"
+   ]
+  },
+  {
+   "i": 16,
+   "rid": "21st-north-carolina-infantry#16",
+   "name": "J. R. Vogler",
+   "rank": "A. Q,. M.",
+   "co": "FS",
+   "remarks_sha256": "682aa22e570cff8a7b9537ecc89d1b6d45de05ff23648fb9ad9e916769754235",
+   "off": 581019,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-16T02:57:01Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "NEAR",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "AGREE",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "AGREE",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "AGREE",
+  "13": "SUSPECT",
+  "14": "AGREE",
+  "15": "SUSPECT",
+  "16": "SUSPECT"
+ }
+}

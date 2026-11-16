@@ -69,7 +69,7 @@ ctl "pages: a Q gate cited to a page that is not p. 136" $R check_pages "$OUT/c7
 mk c8; printf '\nThe runner reads `tools/bt/no_such_folder/no_such_file.py`.\n' >> "$OUT/c8.md"
 ctl "paths: a path that does not exist" $R check_paths "$OUT/c8.md"
 # 9 a count that does not match the files
-mk c9; edit "$OUT/c9.md" "(969 rows on 2026-11-15:" "(966 rows on 2026-11-15:"
+mk c9; edit "$OUT/c9.md" "(969 rows on 2026-11-16:" "(966 rows on 2026-11-16:"
 ctl "counts: 966 rows where the file has 969" $R check_counts "$OUT/c9.md"
 # 10 an ambiguity row is missing (numbering not contiguous)
 mk c10; dropline "$OUT/c10.md" "| A-30 |"
@@ -81,8 +81,8 @@ ctl "counts: 12 rows outside the clock where the files give 13" $R check_counts 
 mk c12; dropline "$OUT/c12.md" "| T-Q21-2 |"
 ctl "counts: T-Q21-2 missing from the threshold registry" $R check_counts "$OUT/c12.md"
 # 13 a decision id that is not a row of the decisions file
-mk c13; edit "$OUT/c13.md" "- **DD-G20** the rows whose own time lies outside" "- **DD-G21** the rows whose own time lies outside"
-ctl "counts: DD-G21 is not a row of the decisions file" $R check_counts "$OUT/c13.md"
+mk c13; edit "$OUT/c13.md" "- **DD-G25** three smaller readings of revision 5" "- **DD-G26** three smaller readings of revision 5"
+ctl "counts: DD-G26 is not a row of the decisions file" $R check_counts "$OUT/c13.md"
 # 14 a requirement-level check item removed
 mk c14; edit "$OUT/c14.md" "RC-R20.3 photo-match against 1863 photographs where a position is documented" "photo-match against 1863 photographs where a position is documented"
 ctl "counts: RC-R20.3 removed (70 items, not 71)" $R check_counts "$OUT/c14.md"
@@ -92,6 +92,32 @@ ctl "counts: the phases of S-077 beyond the clock misdescribed" $R check_counts 
 # 16 soft: a stale count of a moving file is listed as STALE and does not fail the run
 mk c16; edit "$OUT/c16.md" "holds 927 units in eight polygon classes" "holds 900 units in eight polygon classes"
 if $R check_counts "$OUT/c16.md" | grep -q '2.3 / Q21 / 9 vegetation'; then echo "ok    soft: a stale vegetation count is listed as STALE"; pass=$((pass+1)); else echo "FAIL  soft: a stale vegetation count was not listed"; fail=$((fail+1)); fi
+
+# 17 (revision 5) the cavalry states put back to 14 where the plan's table prints 17
+mk c17; edit "$OUT/c17.md" "The 17 states of the table of B.6.15.7" "The 14 states of B.6.15.7"
+ctl "counts: Q20.6 says 14 states where the table of B.6.15.7 prints 17" $R check_counts "$OUT/c17.md"
+# 18 (revision 5) the last ambiguity row is missing (the Contents line names A-01..A-67)
+mk c18; dropline "$OUT/c18.md" "| A-67 |"
+ctl "counts: A-67 missing while the Contents names A-01..A-67" $R check_counts "$OUT/c18.md"
+# 19 (revision 5) the guards of Q27.1 are not the guards of Appendix F
+mk c19; edit "$OUT/c19.md" "the no-progress halt and the cache snapshot interval) are not spend caps" "the no-progress halt) are not spend caps"
+ctl "counts: Q27.1 names four of the five guards that are not spend caps" $R check_counts "$OUT/c19.md"
+# 20 (revision 5) a decision id of the runners that is not a row of the decisions file
+mk c20; edit "$OUT/c20.md" "The runner of Q20 had read 17 (DD-G-OOB-09)." "The runner of Q20 had read 17 (DD-G-OOB-19)."
+ctl "counts: DD-G-OOB-19 is not a row of the decisions file" $R check_counts "$OUT/c20.md"
+# 21 (revision 5) the threshold row of Q27 loses its words about the spend caps
+mk c21; edit "$OUT/c21.md" "| T-Q27-1 | Q27 spend caps, guards, N sessions |" "| T-Q27-1 | Q27 caps, guards, N sessions |"
+ctl "counts: the row T-Q27-1 no longer says spend caps" $R check_counts "$OUT/c21.md"
+# 22 (revision 5) a planned path that nobody announced
+mk c22; printf '\nThe resolutions are read by `tools/bt/conflicts/no_such_validator.py`.\n' >> "$OUT/c22.md"
+ctl "paths: a planned path that is not announced" $R check_paths "$OUT/c22.md"
+# 23 (revision 5) soft: a stale result count of a runner is listed as STALE and does not fail the run
+mk c23; edit "$OUT/c23.md" "3,804 items" "3,805 items"
+if $R check_counts "$OUT/c23.md" | grep -q '11.9 result files'; then echo "ok    soft: a stale result count of a runner is listed as STALE"; pass=$((pass+1)); else echo "FAIL  soft: a stale result count of a runner was not listed"; fail=$((fail+1)); fi
+
+# 24 (revision 5) a threshold of section 7 changed while thresholds.json is not
+mk c24; edit "$OUT/c24.md" "| T-Q15-1 | Q15 p95 paced | none | 20 ms | 20 ms |" "| T-Q15-1 | Q15 p95 paced | none | 20 ms | 21 ms |"
+ctl "thresholds: T-Q15-1 changed in section 7 and not in thresholds.json" python3 -I "$HERE/gen_thresholds.py" --check "$OUT/c24.md" "$HERE/../thresholds.json"
 
 echo "controls: $((pass+fail)), reported or clean as expected: $pass, missed: $fail"
 [ "$fail" -eq 0 ]

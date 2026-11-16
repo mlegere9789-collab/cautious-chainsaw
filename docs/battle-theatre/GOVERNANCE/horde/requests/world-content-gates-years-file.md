@@ -1,0 +1,13 @@
+# To bt-gates (Q02, Q19, Q23 runners), from bt-world-content: app/data/site-memorial-years.json changed on 2026-11-16
+
+Not urgent; read before the next run of the runners that list this file (datum class `data.site_memorial_years`, claims). Nothing in your files was touched.
+
+## What changed
+* The file now holds 75 rows (was 33): 74 documented, 1 inferred, 437 memorials without a row (the open gap ws-world-EG-MON-01). sha256 of the file now: `ae4cdd797ab4bd187bb45bd8ef3d55dbb58dc98b2dd8963305f222062c9f2de7`.
+* Every quotation, second phrase and printed heading of a row is at most 14 words (the plan, p. 134, E.6). Your last Q02.3 run listed 9 rows with extracts of 15 to 28 words; those rows now carry a short lead in `quote` (the year) and the item that names the memorial in `says` (a second phrase, 14 words at most, found again in the same entry of the saved text). Fields: `quote` (holds the year), `says` (optional; holds the name, or the word "dedicated" or "installed"), `printed` (the report's heading with its park number, park-number rows and one inventory row), `via` ("name" or "park number"), `what` ("dedicated", "installed", "dated"; absent on the chronology rows), `mnPrinted`, `agree` (the words the report's heading and the site's name share).
+* A second kind of row: `via` "park number" (41 rows, source NPS-CLR-1STDAY, the Cultural Landscape Report for First Day, 2021): the report's entry carries the park number (MN) that the site gives the memorial. The page validator `validateYears` (src/ext/site-places.mjs) states every condition; the builder `tests/ext-site-years.mjs --check` cuts each heading, number, phrase and page again from the saved text (tmp/library/web/nps/NPS-CLR-1STDAY/NPS-CLR-1STDAY.raw.txt) and exits 1 when one differs; the readings are in `GOVERNANCE/horde/ws-world/memorial-years-extra.json` (readings left out are listed there with their reasons).
+* One more source id is cited: NPS-CLR-1STDAY (url, title, date and the sha256 of the saved text are in the `sources` block of the file). Your Q02.3 run resolved none of NPS-CLI-PCB, -LRT and -ERR ("unresolved"): the three ids and the new one are the web workstream's (GOVERNANCE/horde/ws-web/nps/sources.json, library/acquired_3.json); if the runner looks them up in library/status.json they have to be put there by whoever owns that file.
+* Facts of `checkLaterMemorials(mem, T, years)` (GATE-HOOKS.md): yearDocumented 74, yearInferred 1, yearOpenGap 437.
+
+## Not changed
+`sceneObjectsAt`, `marksFor`, `checkTourBookmarks`, `validateMemorials`, `validateTour` and the layer declaration (`LAYER`): same behaviour.

@@ -1,0 +1,124 @@
+TAP version 13
+# Subtest: the site's data is found: the tracked baseline build is in this checkout, and every site tree that carries an entry bundle holds the same 512 monuments, 16 stops and 9 state memorials
+ok 1 - the site's data is found: the tracked baseline build is in this checkout, and every site tree that carries an entry bundle holds the same 512 monuments, 16 stops and 9 state memorials
+  ---
+  duration_ms: 2419.345072
+  type: 'test'
+  ...
+# Subtest: no drift: the copies in app/data equal the site's data in every tree of this checkout, and the hashes recorded with them are the hashes of what they hold
+ok 2 - no drift: the copies in app/data equal the site's data in every tree of this checkout, and the hashes recorded with them are the hashes of what they hold
+  ---
+  duration_ms: 1848.788294
+  type: 'test'
+  ...
+# Subtest: the copies are reproducible: rebuilt from the primary tree they are the same bytes as the files in app/data (nothing was edited by hand)
+ok 3 - the copies are reproducible: rebuilt from the primary tree they are the same bytes as the files in app/data (nothing was edited by hand)
+  ---
+  duration_ms: 197.526641
+  type: 'test'
+  ...
+# Subtest: the Views list and the added panels offer the same places: the shell's own copy (data/site-bookmarks.json, which feeds the Views list) records the pinned source hashes and agrees with the copies read here in every name, position and viewpoint
+ok 4 - the Views list and the added panels offer the same places: the shell's own copy (data/site-bookmarks.json, which feeds the Views list) records the pinned source hashes and agrees with the copies read here in every name, position and viewpoint
+  ---
+  duration_ms: 2.254107
+  type: 'test'
+  ...
+# Subtest: the projection keeps exactly the fields a mark, a row and a bookmark need and stops at a field it does not know (a new field of the site is a decision, not a silent loss)
+ok 5 - the projection keeps exactly the fields a mark, a row and a bookmark need and stops at a field it does not know (a new field of the site is a decision, not a silent loss)
+  ---
+  duration_ms: 173.785279
+  type: 'test'
+  ...
+# Subtest: drift is noticed: a changed coordinate, a changed name, a changed hash, a missing file, a changed pin
+ok 6 - drift is noticed: a changed coordinate, a changed name, a changed hash, a missing file, a changed pin
+  ---
+  duration_ms: 18701.491596
+  type: 'test'
+  ...
+# Subtest: the check reads the site and writes only the two copies: no site file is opened for writing
+ok 7 - the check reads the site and writes only the two copies: no site file is opened for writing
+  ---
+  duration_ms: 1.024044
+  type: 'test'
+  ...
+# Subtest: the years file is fit against the list and carries the hash of what it holds; the rule that fills it is in the file
+ok 8 - the years file is fit against the list and carries the hash of what it holds; the rule that fills it is in the file
+  ---
+  duration_ms: 48.680312
+  type: 'test'
+  ...
+# Subtest: the rule on a report text: a memorial is read where the report names it by the site's own name and says it was erected; what the rule leaves out is left out with its reason
+ok 9 - the rule on a report text: a memorial is read where the report names it by the site's own name and says it was erected; what the rule leaves out is left out with its reason
+  ---
+  duration_ms: 11.672121
+  type: 'test'
+  ...
+# Subtest: a quotation is a short phrase (at most 14 words, the plan p. 134 E.6): a long chronology entry is quoted by its lead and, apart, the item that names the memorial; both are found again in the text
+ok 10 - a quotation is a short phrase (at most 14 words, the plan p. 134 E.6): a long chronology entry is quoted by its lead and, apart, the item that names the memorial; both are found again in the text
+  ---
+  duration_ms: 1.42476
+  type: 'test'
+  ...
+# Subtest: the years file equals what the saved report texts give, and the texts are the ones it was read from
+ok 11 - the years file equals what the saved report texts give, and the texts are the ones it was read from
+  ---
+  duration_ms: 13006.893019
+  type: 'test'
+  ...
+# Subtest: a hand reading is cut again from the saved text: a park number the site gives the memorial, the heading, the quotation, the page and the words that agree; the heading and the quotation are read with line-break hyphens joined
+ok 12 - a hand reading is cut again from the saved text: a park number the site gives the memorial, the heading, the quotation, the page and the words that agree; the heading and the quotation are read with line-break hyphens joined
+  ---
+  duration_ms: 1.394578
+  type: 'test'
+  ...
+# Subtest: a hand reading that differs from its text, or is not the one memorial it claims, is refused with the reason (negative controls)
+ok 13 - a hand reading that differs from its text, or is not the one memorial it claims, is refused with the reason (negative controls)
+  ---
+  duration_ms: 27.772678
+  type: 'test'
+  ...
+# Subtest: buildFile with readings: a reading adds its year, a second report with another year for the same memorial takes both out, the left-out readings are listed with their reasons, the file is fit
+ok 14 - buildFile with readings: a reading adds its year, a second report with another year for the same memorial takes both out, the left-out readings are listed with their reasons, the file is fit
+  ---
+  duration_ms: 1.667037
+  type: 'test'
+  ...
+# Subtest: the readings file: every row is a reading of the kind the rule allows, the left-out readings carry their reasons, the first day report and the inventory are both named; it holds no year the list itself claims
+ok 15 - the readings file: every row is a reading of the kind the rule allows, the left-out readings carry their reasons, the first day report and the inventory are both named; it holds no year the list itself claims
+  ---
+  duration_ms: 9.839227
+  type: 'test'
+  ...
+# Subtest: without the saved texts the reader says so instead of passing: driftYears reports skipped
+ok 16 - without the saved texts the reader says so instead of passing: driftYears reports skipped
+  ---
+  duration_ms: 0.457278
+  type: 'test'
+  ...
+# Subtest: the list of added layers carries the two modules; every path of the list is one the loader accepts; the files are there; each module exports only what the contract names
+ok 17 - the list of added layers carries the two modules; every path of the list is one the loader accepts; the files are there; each module exports only what the contract names
+  ---
+  duration_ms: 7.876726
+  type: 'test'
+  ...
+# Subtest: copy audit: no shipped file of the two modules (code, notes, data) names a tool, a maker or a process; the packer's own rules are the rules
+ok 18 - copy audit: no shipped file of the two modules (code, notes, data) names a tool, a maker or a process; the packer's own rules are the rules
+  ---
+  duration_ms: 46.329846
+  type: 'test'
+  ...
+# Subtest: what is written about the data in the shipped files points at the site, not at the way the copy was made: the tree and bundle it is read from are named, nothing else
+ok 19 - what is written about the data in the shipped files points at the site, not at the way the copy was made: the tree and bundle it is read from are named, nothing else
+  ---
+  duration_ms: 1.386357
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 38937.118217

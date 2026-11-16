@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Writes tools/bt/conflicts/selftest/c001-valid.json: a complete, VALID resolution file of conflict C-001, built from the real register, the real first delegated
+default and real Official Records passages (Meade's report, Hunt's report). It is a fixture for the self-test of validate_resolution.py, not a research result:
+the self-test copies it, plants one defect at a time and demands that the validator catches each.
+
+    python3 -I tools/bt/conflicts/selftest/make_base.py
+"""
+import json
+import os
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, '..'))
+import cfl_lib as L
+
+
+def build():
+    cid = 'C-001'
+    reg = L.register()[cid]
+    st = L.structured()[cid]
+    d = L.defaults()[cid]
+    meade = {
+        'source': 'OR27-1', 'source_class': 'primary', 'part': 'OR27-1-R006', 'page': '115', 'page_basis': 'scan_leaf', 'text_offset': 389835,
+        'quote': 'arriving there at 1 a. m. of the 2d',
+        'witness': {'name': 'George G. Meade', 'role': 'Major General commanding the Army of the Potomac', 'side': 'union'},
+        'written': {'date': '1863-10-01', 'kind': 'official_report'}, 'vantage': 'commander_present', 'knew_by': 'eyewitness', 'clock': 'union', 'hedge': 'exact',
+        'group': 'meade', 'exact': True, 'states': {'times': ['01:00'], 'numbers': [1], 'dates': ['07-02']},
+    }
+    light = {
+        'source': 'OR27-1', 'source_class': 'primary', 'part': 'OR27-1-R006', 'page': '115', 'page_basis': 'scan_leaf', 'text_offset': 389881,
+        'quote': 'So soon as it was light, I proceeded to inspect the position occupied',
+        'witness': {'name': 'George G. Meade', 'role': 'Major General commanding the Army of the Potomac', 'side': 'union'},
+        'written': {'date': '1863-10-01', 'kind': 'official_report'}, 'vantage': 'commander_present', 'knew_by': 'eyewitness', 'clock': 'union', 'hedge': 'exact',
+        'group': 'meade', 'exact': False, 'states': {'phrases': ['So soon as it was light']},
+    }
+    hunt = {
+        'source': 'OR27-1', 'source_class': 'primary', 'part': 'OR27-1-R028', 'page': '232', 'page_basis': 'scan_leaf', 'text_offset': 762427,
+        'quote': 'reached Gettysburg about 2 a. m. of the 2d',
+        'witness': {'name': 'Henry J. Hunt', 'role': 'Brigadier General, Chief of Artillery, Army of the Potomac', 'side': 'union'},
+        'written': {'date': '1863-09-27', 'kind': 'official_report'}, 'vantage': 'not_stated', 'knew_by': 'relayed_report', 'clock': 'union', 'hedge': 'about',
+        'group': 'hunt', 'exact': True, 'states': {'times': ['02:00'], 'numbers': [2], 'dates': ['07-02']},
+    }
+    positions = [
+        {'id': 'C-001-P1', 'origin': 'pdf_value', 'pdf_label': st['values'][0]['label'], 'scenario_ids': ['C-001-S1'], 'source_keys': ['SS1', 'W-D1'],
+         'label': 'after midnight (the plan\'s first value)', 'kind': 'period', 'value': {'text': 'after midnight', 'date': '1863-07-02', 'part_of_day': 'night'},
+         'tier': 'inferred', 'clock': 'unspecified', 'stance': 'selectable', 'derived': True, 'flags': ['single_source'], 'support': [dict(meade, exact=False)],
+         'inference': {'step': 'Meade\'s own 1 a. m. lies after midnight, so the value is consistent with the record; it names no hour', 'from': ['C-001-P3']},
+         'reason_not_chosen': {'kind': 'tolerance', 'text': 'It names no hour; the default, 01:00, lies inside it.'}},
+        {'id': 'C-001-P2', 'origin': 'pdf_value', 'pdf_label': st['values'][1]['label'], 'scenario_ids': ['C-001-S2'], 'source_keys': ['EPP'],
+         'label': 'about 04:00 (one timeline web page)', 'kind': 'time', 'value': {'at': '1863-07-02T04:00', 'approx': True}, 'tier': 'open gap', 'clock': 'unspecified',
+         'stance': 'selectable', 'flags': ['unsourced', 'lead_only'], 'support': [],
+         'failed_lookups': [{'where': 'Official Records Ser. I vol. 27 parts 1-3', 'query': 'Meade arrived Gettysburg 4 a. m. / four o\'clock Jul 2', 'outcome': 'not_found', 'at': '2026-11-16'}],
+         'reason_not_chosen': {'kind': 'no_source', 'text': 'No report or letter of the time gives 4 a.m.; Meade himself says 1 a.m.'}},
+        {'id': 'C-001-P3', 'origin': 'pdf_default', 'pdf_label': st['pdf_recommended_default'], 'scenario_ids': ['C-001-S3', 'C-001-S4', 'C-001-DEFAULT'],
+         'label': 'about 01:00 on Jul 2, inspection of the line at first light', 'kind': 'time', 'value': {'at': '1863-07-02T01:00', 'approx': True}, 'tier': 'documented',
+         'clock': 'union', 'stance': 'default', 'flags': ['single_source'], 'support': [meade, light]},
+        {'id': 'C-001-P4', 'origin': 'research', 'label': 'about 02:00 on Jul 2 (Hunt)', 'kind': 'time', 'value': {'at': '1863-07-02T02:00', 'approx': True}, 'tier': 'documented',
+         'clock': 'union', 'stance': 'selectable', 'flags': ['single_source'], 'support': [hunt],
+         'reason_not_chosen': {'kind': 'rounding', 'text': 'Hunt\'s "about 2" is a rounded report of the same arrival that Meade himself puts at 1 a.m.'}},
+    ]
+    return {
+        'schema': 'conflict-resolution-1', 'id': cid, 'topic': reg['topic'], 'researched': '2026-11-16', 'researcher': 'selftest fixture (not a research result)',
+        'event_date': '1863-07-02',
+        'pdf_row': {'page': reg['page'], 'text': reg['text'], 'values': [v['label'] for v in st['values']], 'recommended_default': st['pdf_recommended_default'],
+                    'selectable_alternatives': st['selectable_alternatives']},
+        'first_delegated': {'default_scenario_id': d['default_scenario_id'], 'default_label': d['default_label'], 'tier': d['tier'], 'basis': d['basis'],
+                            'scenario_ids': [s['id'] for s in d['scenarios']]},
+        'class': 'weighted', 'tier': 'documented',
+        'basis': {'kind': 'official_records', 'text': 'Meade\'s own report of 1 Oct 1863 (OR 27/1 p.115): he arrived at 1 a.m. of the 2d and inspected the position as soon as it was light.'},
+        'default': {'mode': 'position', 'positions': ['C-001-P3'], 'label': 'about 01:00 on Jul 2, inspection of the line at first light',
+                    'animation': {'at': '1863-07-02T01:00', 'rule': 'best_supported', 'note': 'Meade\'s own hour; the line is inspected at first light, no clock given'}},
+        'positions': positions,
+        'weighing': {
+            'summary': 'Meade states his own arrival (1 a.m.); Hunt, who relays it, says about 2; the plan\'s "after midnight" agrees; "about 04:00" has no source.',
+            'who': 'Meade commanded the army and wrote the passage about his own arrival; Hunt, chief of artillery, relays it; the 04:00 value comes from a web timeline.',
+            'when': 'Meade wrote on 1 Oct 1863 and Hunt on 27 Sep 1863: both are reports of the autumn, 3 months after the event, the best record there is.',
+            'where': 'Meade was the man who arrived; Hunt\'s place at the time is not stated in the passage.',
+            'how_knew': 'Meade knew from his own ride; Hunt\'s "about" marks a rounded hearsay figure.',
+            'clock': 'Both reports use the Union clock; no correction for the Confederate clock is needed.',
+            'independence': 'Meade and Hunt are two writers but Hunt may rely on Meade\'s headquarters; counted as one line of knowledge for the default.'},
+        'source_panel_text': 'About 01:00 on Jul 2: Meade\'s own report puts his arrival at 1 a.m. and his inspection of the line at first light. Hunt\'s report says about 2 a.m. The plan\'s "after midnight" agrees; "about 04:00" (one web timeline) has no source in the record. All four values stay selectable.',
+        'holds': {'pdf_default': {'holds': 'yes', 'note': 'The plan\'s 01:00 agrees with Meade; its word pre-dawn is first light in Meade.'},
+                  'first_delegated': {'holds': 'yes', 'note': 'The first delegated default is confirmed unchanged by the reading of the report.'}},
+        'readers': [{'kind': 'arrivals_row', 'ref': 'us-aop-hq', 'must_change': False, 'note': 'gate default 01:00 stays'}],
+        'failed_searches': [],
+        'what_would_change_it': 'A dated order or dispatch of 2 July placing the arrival of the commanding general at another hour.',
+    }
+
+
+if __name__ == '__main__':
+    out = os.path.join(HERE, 'c001-valid.json')
+    with open(out, 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(build(), f, ensure_ascii=False, indent=1)
+        f.write('\n')
+    print('wrote', out)

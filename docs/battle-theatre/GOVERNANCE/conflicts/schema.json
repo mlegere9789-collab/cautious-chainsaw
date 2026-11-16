@@ -1,0 +1,422 @@
+{
+ "schema": "conflict-resolution-1",
+ "purpose": "One resolution file per conflict: docs/battle-theatre/GOVERNANCE/conflicts/resolutions/C-0xx.json. It holds the PDF row and the first delegated default (quoted), every position (every value stays selectable), the weighing, the default (value, range, window or unresolved set), the class and tier, the plain-English source-panel text and the lists a reviewer and the integration step need. Read by tools/bt/conflicts/validate_resolution.py; the enumerations below are the ones that program uses.",
+ "doc": "docs/battle-theatre/GOVERNANCE/conflicts/PLAN.md",
+ "validator": "python3 -I tools/bt/conflicts/validate_resolution.py C-0xx | --all [--complete] | --self-test",
+ "top_required": [
+  "schema",
+  "id",
+  "topic",
+  "researched",
+  "researcher",
+  "event_date",
+  "pdf_row",
+  "first_delegated",
+  "class",
+  "tier",
+  "basis",
+  "default",
+  "positions",
+  "weighing",
+  "source_panel_text",
+  "holds",
+  "readers",
+  "failed_searches",
+  "what_would_change_it"
+ ],
+ "top_optional": [
+  "readers_note",
+  "owner_note",
+  "notes",
+  "supersedes"
+ ],
+ "classes": [
+  "settled",
+  "weighted",
+  "irreducible",
+  "gap"
+ ],
+ "tiers": [
+  "documented",
+  "inferred",
+  "plausible-procedural",
+  "open gap"
+ ],
+ "class_tiers": {
+  "settled": [
+   "documented",
+   "inferred"
+  ],
+  "weighted": [
+   "documented",
+   "inferred"
+  ],
+  "irreducible": [
+   "documented",
+   "inferred"
+  ],
+  "gap": [
+   "plausible-procedural",
+   "open gap"
+  ]
+ },
+ "class_meaning": {
+  "settled": "the better sources agree and every other value is explained by clock, rounding, place of observation, a different event or later memory",
+  "weighted": "the evidence favours one value but does not settle it: a better-weighted value is the default, the others stay selectable with the reason they were not chosen",
+  "irreducible": "the record itself is divided: the figure or time is a range, a window or a set of claims that stay side by side, with a declared basis",
+  "gap": "no source settles the point: the list of failed searches is given; the default is a marked stand-in (plausible-procedural) or an open gap, never a filled-in guess"
+ },
+ "basis_kinds": [
+  "official_records",
+  "contemporaneous_other",
+  "later_report",
+  "reminiscence",
+  "secondary",
+  "institutional",
+  "inferred",
+  "procedural",
+  "gap"
+ ],
+ "origins": [
+  "pdf_value",
+  "pdf_default",
+  "first_delegated",
+  "research"
+ ],
+ "kinds": [
+  "time",
+  "time_window",
+  "period",
+  "date",
+  "date_window",
+  "duration",
+  "count",
+  "count_range",
+  "quantity",
+  "place",
+  "person",
+  "category",
+  "none"
+ ],
+ "kind_values": {
+  "time": "{\"at\": \"1863-07-02T01:00\"} (ISO local date-time; optional \"approx\": true, \"tolerance_min\": n)",
+  "time_window": "{\"from\": \"1863-07-02T21:00\", \"to\": \"1863-07-03T00:00\"}",
+  "period": "{\"text\": \"pre-dawn\", \"date\": \"1863-07-02\", \"part_of_day\": \"pre_dawn\"} (a part of the day with no clock; the phrase must stand in the quote)",
+  "date": "{\"date\": \"1863-07-04\"} (optional \"part_of_day\")",
+  "date_window": "{\"from\": \"1863-07-02\", \"to\": \"1863-07-03\"}",
+  "duration": "{\"minutes\": 10} or {\"low\": 10, \"high\": 15}",
+  "count": "{\"n\": 386} or {\"parts\": [400, 25]} (n is the sum of the parts); optional \"unit\"",
+  "count_range": "{\"low\": 218, \"high\": 368, \"unit\": \"men\"}",
+  "quantity": "{\"n\": 2, \"unit\": \"mph\"} or {\"low\": 2, \"high\": 6, \"unit\": \"mph\"}",
+  "place": "{\"text\": \"Devil's Den\"}",
+  "person": "{\"text\": \"Birney\"}",
+  "category": "{\"text\": \"stopped short of the crest\"}",
+  "none": "{\"text\": \"no clock time in the sources\"} (a statement about the record; never documented)"
+ },
+ "position_required": [
+  "id",
+  "origin",
+  "label",
+  "kind",
+  "value",
+  "tier",
+  "clock",
+  "stance"
+ ],
+ "position_optional": [
+  "pdf_label",
+  "scenario_ids",
+  "support",
+  "failed_lookups",
+  "flags",
+  "reason_not_chosen",
+  "inference",
+  "derived",
+  "procedural_basis",
+  "source_keys",
+  "approx",
+  "note"
+ ],
+ "flags": [
+  "single_source",
+  "unsourced",
+  "lead_only",
+  "weak",
+  "memoir_only",
+  "contradicted",
+  "unclear_clock",
+  "different_event"
+ ],
+ "reason_kinds": [
+  "clock",
+  "rounding",
+  "tolerance",
+  "place_of_observation",
+  "different_event",
+  "later_memory",
+  "elsewhere",
+  "contradicted_by_primary",
+  "outweighed",
+  "no_source",
+  "lead_only",
+  "unclear_expression",
+  "equal_standing",
+  "within_range",
+  "misprint"
+ ],
+ "reason_meaning": {
+  "clock": "the other value is read on another clock (Union or Confederate time, local mean time) and the gap is that of the clocks",
+  "rounding": "the same moment, rounded or remembered to a different quarter or half hour",
+  "tolerance": "an 'about' or 'before' expression whose tolerance covers the default",
+  "place_of_observation": "another place or unit saw another moment (head or tail of a column, one battery)",
+  "different_event": "the value dates another act than the one the conflict is about",
+  "later_memory": "a reminiscence, outweighed by the record written at the time",
+  "elsewhere": "the writer was not there, or relays what he heard",
+  "contradicted_by_primary": "a primary source states otherwise (name it in weighing)",
+  "outweighed": "weaker sources overall: a lower class of writing, or fewer independent witnesses",
+  "no_source": "no source was found for this value (failed_lookups lists the lookups)",
+  "lead_only": "the value rests on a lead (web page, forum, aggregator) only",
+  "unclear_expression": "the expression cannot be read as a clock time or a figure",
+  "equal_standing": "irreducible: the value stays side by side with the default",
+  "within_range": "the value lies inside the declared range or window",
+  "misprint": "a demonstrable slip of the printed source"
+ },
+ "documented_kinds": [
+  "order_or_dispatch",
+  "official_report",
+  "private_letter_or_diary",
+  "newspaper_1863",
+  "reference_table",
+  "early_narrative"
+ ],
+ "written_kinds": [
+  "order_or_dispatch",
+  "official_report",
+  "private_letter_or_diary",
+  "newspaper_1863",
+  "early_narrative",
+  "postwar_narrative",
+  "later_history",
+  "proceedings_or_tablet",
+  "reference_table",
+  "institutional",
+  "lead"
+ ],
+ "written_rank": {
+  "order_or_dispatch": 6,
+  "private_letter_or_diary": 5,
+  "official_report": "5 within 30 days of the event, 4 within 730 days, 3 after",
+  "newspaper_1863": 4,
+  "reference_table": 4,
+  "early_narrative": 3,
+  "postwar_narrative": 2,
+  "proceedings_or_tablet": 2,
+  "later_history": 1,
+  "institutional": 1,
+  "lead": 0
+ },
+ "vantages": [
+  "commander_present",
+  "present",
+  "staff_present",
+  "elsewhere",
+  "not_stated",
+  "not_applicable"
+ ],
+ "knew_by": [
+  "eyewitness",
+  "own_orders",
+  "relayed_report",
+  "computed",
+  "not_stated",
+  "not_applicable"
+ ],
+ "clocks": [
+  "union",
+  "confederate",
+  "unspecified",
+  "not_applicable"
+ ],
+ "hedges": [
+  "exact",
+  "about",
+  "upper",
+  "lower",
+  "soon_after",
+  "window"
+ ],
+ "page_bases": [
+  "scan_leaf",
+  "running_head",
+  "interpolated",
+  "pdf_marker",
+  "as_read",
+  "none"
+ ],
+ "default_keys": [
+  "mode",
+  "positions",
+  "label",
+  "value",
+  "range",
+  "basis_text",
+  "animation",
+  "note"
+ ],
+ "default_modes": [
+  "position",
+  "range",
+  "window",
+  "unresolved_set"
+ ],
+ "animation_rules": [
+  "earliest_documented",
+  "best_supported",
+  "midpoint",
+  "range_end",
+  "follows_printed_strength",
+  "none"
+ ],
+ "weighing_keys": [
+  "summary",
+  "who",
+  "when",
+  "where",
+  "how_knew",
+  "clock",
+  "independence"
+ ],
+ "reader_kinds": [
+  "timeline_row",
+  "arrivals_row",
+  "gate",
+  "app_data",
+  "app_code",
+  "test",
+  "doc",
+  "other"
+ ],
+ "limits": {
+  "source_panel_text_max": 400,
+  "source_panel_text_min": 60,
+  "label_max": 120,
+  "reason_text": [
+   20,
+   220
+  ],
+  "quote_chars": [
+   20,
+   700
+  ],
+  "failed_searches_min": {
+   "gap": 3,
+   "irreducible": 2
+  }
+ },
+ "citation_keys": {
+  "required": [
+   "source",
+   "source_class",
+   "page_basis",
+   "text_offset",
+   "quote",
+   "written",
+   "vantage",
+   "knew_by",
+   "clock",
+   "group"
+  ],
+  "page_or_note": "page (the printed page as a string; for a `markers` text the PDF page index) or page = null with page_note",
+  "optional": [
+   "id",
+   "part",
+   "page",
+   "quote_mode",
+   "raw",
+   "ocr_note",
+   "page_image_viewed",
+   "printed_page",
+   "page_note",
+   "witness",
+   "clock_note",
+   "hedge",
+   "states",
+   "exact",
+   "note"
+  ],
+  "witness": "{\"name\": who wrote it, \"role\": rank, office or unit, \"side\": union|confederate|civilian|other|institution}",
+  "written": "{\"date\": \"YYYY-MM-DD\" (or YYYY-MM, YYYY), \"kind\": one of written_kinds}",
+  "states": "{\"times\": [\"HH:MM\"], \"numbers\": [n], \"dates\": [\"MM-DD\"], \"phrases\": [text]}: what the quote states; every item is checked against the quote",
+  "exact": "true when the quote states exactly the value of the position (needed for tier documented)",
+  "group": "the line of knowledge the passage belongs to: two citations with the same group count as one source (a subordinate's report and the report that relays it share a group)"
+ },
+ "error_codes": [
+  "json_parse",
+  "not_object",
+  "unknown_key",
+  "missing_key",
+  "schema_version",
+  "id_mismatch",
+  "topic_mismatch",
+  "pdf_row_mismatch",
+  "delegated_mismatch",
+  "enum",
+  "class_tier",
+  "tier_better_than_support",
+  "documented_needs_non_lead",
+  "documented_not_exact",
+  "documented_needs_witness_class",
+  "lead_cannot_document",
+  "default_lead_only",
+  "class_mode",
+  "inferred_basis",
+  "procedural_basis",
+  "value_not_stated",
+  "pdf_value_dropped",
+  "scenario_dropped",
+  "scenario_unknown",
+  "pdf_label_missing",
+  "pdf_label_mismatch",
+  "duplicate_position",
+  "default_unknown_position",
+  "default_shape",
+  "default_basis",
+  "default_range",
+  "default_animation",
+  "stance_mismatch",
+  "reason_missing",
+  "reason_shape",
+  "flags_missing",
+  "failed_lookups_missing",
+  "failed_lookup_shape",
+  "failed_searches_missing",
+  "failed_search_shape",
+  "panel_missing",
+  "panel_length",
+  "label_length",
+  "banned_copy",
+  "weighing_missing",
+  "readers_missing",
+  "holds_missing",
+  "basis_shape",
+  "position_shape",
+  "cite_shape",
+  "cite_missing_field",
+  "source_unknown",
+  "source_class",
+  "quote_not_found",
+  "offset_mismatch",
+  "page_mismatch",
+  "page_basis",
+  "page_leafmap",
+  "text_changed",
+  "quote_too_short",
+  "quote_too_long",
+  "text_unavailable",
+  "ocr_rules",
+  "state_not_in_quote",
+  "states_shape",
+  "written_date",
+  "witness"
+ ]
+}

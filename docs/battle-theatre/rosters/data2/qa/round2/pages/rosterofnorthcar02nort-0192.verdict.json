@@ -1,0 +1,591 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "rosterofnorthcar02nort/192",
+ "levels": "NDR",
+ "stratum": "NC-MOO-G-officers",
+ "family": "NC-MOO-G",
+ "layout": "flow",
+ "kind": "officers",
+ "draw_position": 3,
+ "in_lowest_decile": false,
+ "printed_page": 176,
+ "rows_stored": 30,
+ "rows_checked": 30,
+ "rows_in_error": 10,
+ "rows_ok": 20,
+ "rows_flagged_ocr_uncertain": 3,
+ "errors": [
+  {
+   "i": 3,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "J. E. Douthlte",
+   "printed": "J. E. Douthite",
+   "rid": "21st-north-carolina-infantry#20",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "rem-missing"
+   ],
+   "stored": "(no remarks)",
+   "printed": "Virginia.",
+   "note": "the word Virginia. printed after the name is in the name field of the next line",
+   "rid": "21st-north-carolina-infantry#22",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "Virgiuiaj J. P. Moore",
+   "printed": "J. P. Moore",
+   "note": "the remark word Virginia. of the line above stands in the name field",
+   "rid": "21st-north-carolina-infantry#23",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 7,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "r. Dec. 2;M, '61",
+   "printed": "r. Dec. 23d, '61",
+   "rid": "21st-north-carolina-infantry#24",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Adolphus Ai Moss",
+   "printed": "Adolphus A. Moss",
+   "rid": "21st-north-carolina-infantry#28",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 12,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": ".Tames C. Beall",
+   "printed": "James C. Beall",
+   "rid": "21st-north-carolina-infantry#29",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 13,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Jolm H. Miller",
+   "printed": "John H. Miller",
+   "rid": "21st-north-carolina-infantry#30",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 23,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "James D. Mclver",
+   "printed": "James D. McIver",
+   "note": "a lower-case l for the capital I",
+   "rid": "21st-north-carolina-infantry#40",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "W"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 23,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "k. May 5th, '68",
+   "printed": "k. May 5th, '63",
+   "rid": "21st-north-carolina-infantry#40",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "W"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 24,
+   "kinds": [
+    "rem-char"
+   ],
+   "stored": "Randolpli co.",
+   "printed": "Randolph co.",
+   "rid": "21st-north-carolina-infantry#41",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 25,
+   "kinds": [
+    "rank"
+   ],
+   "stored": "oth Sergeant",
+   "printed": "5th Sergeant",
+   "rid": "21st-north-carolina-infantry#42",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "H",
+    "R"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [
+  {
+   "i": 7,
+   "field": "name",
+   "stored": "James M. Leach,-",
+   "printed": "James M. Leach,"
+  },
+  {
+   "i": 16,
+   "field": "remarks",
+   "stored": "cm, Au^g. 9th",
+   "printed": "cm. Aug. 9th"
+  }
+ ],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "Printed page 176 (the end of the Field and Staff of the 21st North Carolina Infantry, then Company A: officers and non-commissioned officers); 30 printed entries, all 30 stored."
+ ],
+ "reader": "full page view at 200 dpi (Read tool); every stored line compared with the print at the levels N, D and R",
+ "tesseract_prescreen": {
+  "agree": 8,
+  "near": 0,
+  "suspect": 22,
+  "unstored_lines": 2
+ },
+ "read": {
+  "pdf_sha256": "6c66da2809202e06ea1a74c2af120c9405c48f9d042d94f9de32563338ccaeab",
+  "pdf_page": 186,
+  "view_png_sha256": "2011f531f84f7802645b4c68a688168bee9e76ec8b029238321bfeade9ee93bc",
+  "render300_sha256": "8dfddda1779977f0ab1c228a8cf141bf8fd13d33c0e7a648bb4a07df3cdd59c7",
+  "tess_sha256": "ea9a9772598957ad984dc196d3407ef6ae2a2ba59ca79d9f5c7c81cb48a61a70",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.935
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "21st-north-carolina-infantry#17",
+   "name": "Thomas Keen",
+   "rank": "Surgeon",
+   "co": "FS",
+   "remarks_sha256": "f9c79036b25ef86da1ff93700d34472c1226ff1363dbc5813c85d43c3158323e",
+   "off": 581131,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "21st-north-carolina-infantry#18",
+   "name": "George A. Foote",
+   "rank": "Surgeon",
+   "co": "FS",
+   "remarks_sha256": "0f712cf825922441d71021959f69b369e95390f0d133ca0db8b0d5f18447629a",
+   "off": 581177,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "21st-north-carolina-infantry#19",
+   "name": "J. S. Tanner",
+   "rank": "Surgeon",
+   "co": "FS",
+   "remarks_sha256": "e12b37970bee956c9ce7616422bc4a23f3bd5cd6493521513b38ddad6ec09c63",
+   "off": 581224,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "21st-north-carolina-infantry#20",
+   "name": "J. E. Douthlte",
+   "rank": "Asst. Surgeon",
+   "co": "FS",
+   "remarks_sha256": "2159771579f1051e0dec0111059bd9f79ab4c1194f87574ed829b0c74f6ccc33",
+   "off": 581261,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "21st-north-carolina-infantry#21",
+   "name": "Jacob Thompson",
+   "rank": "Asst. Surgeon",
+   "co": "FS",
+   "remarks_sha256": "2159771579f1051e0dec0111059bd9f79ab4c1194f87574ed829b0c74f6ccc33",
+   "off": 581300,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "21st-north-carolina-infantry#22",
+   "name": "E. M. McMahan",
+   "rank": "Asst. Surgeon",
+   "co": "FS",
+   "remarks_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "off": 581338,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "21st-north-carolina-infantry#23",
+   "name": "Virgiuiaj J. P. Moore",
+   "rank": "Chaplain",
+   "co": "FS",
+   "remarks_sha256": "2159771579f1051e0dec0111059bd9f79ab4c1194f87574ed829b0c74f6ccc33",
+   "off": 581373,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "21st-north-carolina-infantry#24",
+   "name": "James M. Leach,-",
+   "rank": "Captain",
+   "co": "A",
+   "remarks_sha256": "73f39132627763aed19ad2d789d3f2c0b0450c725fdec141688fc356aa143f40",
+   "off": 581435,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "21st-north-carolina-infantry#25",
+   "name": "Jacob C. Hedgecock",
+   "rank": "Captain",
+   "co": "A",
+   "remarks_sha256": "390225a519b07600f21bffb6e3c312a0a3514d5648af5d9c6931253c5c940a28",
+   "off": 581551,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "21st-north-carolina-infantry#26",
+   "name": "James F. Beall",
+   "rank": "Captain",
+   "co": "A",
+   "remarks_sha256": "d7151447cefe2fa33121ac3bcf98117ea07e4f8b2654046f88838b7729b2658a",
+   "off": 581679,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "21st-north-carolina-infantry#27",
+   "name": "Jacob C. Hedgecock",
+   "rank": "1st Lieut.",
+   "co": "A",
+   "remarks_sha256": "83c1e5e47bf36f3d5bdd0f0769d63988b0281076d181c480add573a562407201",
+   "off": 581766,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "21st-north-carolina-infantry#28",
+   "name": "Adolphus Ai Moss",
+   "rank": "1st Lieut.",
+   "co": "A",
+   "remarks_sha256": "5a60e68ef2806820e16bd33e8f352dcfef3765c18b264795ffbceb2782de0f69",
+   "off": 581854,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "21st-north-carolina-infantry#29",
+   "name": ".Tames C. Beall",
+   "rank": "1st Lieut.",
+   "co": "A",
+   "remarks_sha256": "d8acd67025aa7f0d6a936122f86293390059d5ec26ac722bcad0a7d327f00461",
+   "off": 581933,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "21st-north-carolina-infantry#30",
+   "name": "Jolm H. Miller",
+   "rank": "1st Lieut.",
+   "co": "A",
+   "remarks_sha256": "6327fe33b9543b5ed45f05aa11a210da14ae6a290a59b5dca09848ce72de37f8",
+   "off": 582028,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "21st-north-carolina-infantry#31",
+   "name": "A. A. Moss",
+   "rank": "2d Lieut.",
+   "co": "A",
+   "remarks_sha256": "3e08be23ca85d46e32f556f1bd978528e02d13060e659296848d64d26631410c",
+   "off": 582098,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "21st-north-carolina-infantry#32",
+   "name": "B. A. Smith",
+   "rank": "2d Lieut.",
+   "co": "A",
+   "remarks_sha256": "4b42bb097f2b0b70877c000620513b7cbb938ed185a8d978514f19ff0c99ac72",
+   "off": 582180,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "21st-north-carolina-infantry#33",
+   "name": "R. A. Wommack",
+   "rank": "2d Lieut.",
+   "co": "A",
+   "remarks_sha256": "fa8ca3c6765903cc577b50af6897f028df2b7862850e464a9cc89ab83cf4a4c7",
+   "off": 582267,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "G",
+    "W"
+   ]
+  },
+  {
+   "i": 17,
+   "rid": "21st-north-carolina-infantry#34",
+   "name": "James F. Beall",
+   "rank": "2d Lieut.",
+   "co": "A",
+   "remarks_sha256": "9fdd159eb41f29a06fcee67ede91db4ad644ade8d11b805d0311b4bd6c0c03e3",
+   "off": 582358,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "21st-north-carolina-infantry#35",
+   "name": "James P. Oakes",
+   "rank": "2d Lieut.",
+   "co": "A",
+   "remarks_sha256": "8412c89ce1e3a0e4f4f343a40044a810172e849a91734ad630668725fcf12991",
+   "off": 582433,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 19,
+   "rid": "21st-north-carolina-infantry#36",
+   "name": "Lewis C. Powers",
+   "rank": "2d Lieut.",
+   "co": "A",
+   "remarks_sha256": "bc457fd299087f0e1e4e26d754f92875a16f41e92e70c1c3bf31340e7133acc5",
+   "off": 582566,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 20,
+   "rid": "21st-north-carolina-infantry#37",
+   "name": "J. H. Miller",
+   "rank": "2d Lieut.",
+   "co": "A",
+   "remarks_sha256": "f5ceee618c870d90a2fc6d25b0e7f3697ee4f20a7d4be61549fa9888acc3b91e",
+   "off": 582701,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "21st-north-carolina-infantry#38",
+   "name": "R. A. Wommack",
+   "rank": "1st Sergeant",
+   "co": "A",
+   "remarks_sha256": "cb0add94a2cb16f56559775fb237982ae481721733e82e9ef7cbfb3145242922",
+   "off": 582816,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "21st-north-carolina-infantry#39",
+   "name": "James F. Beall",
+   "rank": "2d Sergeant",
+   "co": "A",
+   "remarks_sha256": "1c0c8c02ec1171e71c53974583e27c82c0ecf7e8b1d83797ddd6fbf4a0a4259f",
+   "off": 582921,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 23,
+   "rid": "21st-north-carolina-infantry#40",
+   "name": "James D. Mclver",
+   "rank": "3d Sergeant",
+   "co": "A",
+   "remarks_sha256": "f80d2b6e004cac55853bd95f1871c44d2d0f2804b4550d2e4d4cc2e6de0e54bc",
+   "off": 583031,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "W"
+   ]
+  },
+  {
+   "i": 24,
+   "rid": "21st-north-carolina-infantry#41",
+   "name": "Wm. A. Leach",
+   "rank": "4th Sergeant",
+   "co": "A",
+   "remarks_sha256": "eca952c3199db8fcc4da3e7cd1a034b3e729c204341112ddc667b3ffb236d7e9",
+   "off": 583149,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 25,
+   "rid": "21st-north-carolina-infantry#42",
+   "name": "Harris, F. A",
+   "rank": "oth Sergeant",
+   "co": "A",
+   "remarks_sha256": "aea51f64d5f593b1ae4276e7aa726103d712d92f4ba22a17da635937fab6559d",
+   "off": 583261,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "H",
+    "R"
+   ]
+  },
+  {
+   "i": 26,
+   "rid": "21st-north-carolina-infantry#43",
+   "name": "B. F. Myres",
+   "rank": "1st Corporal",
+   "co": "A",
+   "remarks_sha256": "cff4e69f64401b0cdc5761513f1407f24127ac9fedeb83789605d905e83ba6cf",
+   "off": 583330,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 27,
+   "rid": "21st-north-carolina-infantry#44",
+   "name": "J. J. Grubb",
+   "rank": "2d Corporal",
+   "co": "A",
+   "remarks_sha256": "c65111c531cdcbd7db034794df1b712e2de4741bbfc7a54499dadb9ae9f8fff3",
+   "off": 583440,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 28,
+   "rid": "21st-north-carolina-infantry#45",
+   "name": "John A. Styres",
+   "rank": "3d Corporal",
+   "co": "A",
+   "remarks_sha256": "2afd8e5856d82377e88377063bf098709d630c7c14303b03ff0bab231ff955c6",
+   "off": 583534,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 29,
+   "rid": "21st-north-carolina-infantry#46",
+   "name": "Henry P. Fezor",
+   "rank": "4th Corporal",
+   "co": "A",
+   "remarks_sha256": "82ea16d9740fdbdaf83e95b86ccadec4295bd541800cd7f557d79f21e5b7ed01",
+   "off": 583622,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-16T02:57:51Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "AGREE",
+  "2": "AGREE",
+  "3": "SUSPECT",
+  "4": "AGREE",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "AGREE",
+  "9": "AGREE",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "SUSPECT",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "SUSPECT",
+  "23": "SUSPECT",
+  "24": "SUSPECT",
+  "25": "SUSPECT",
+  "26": "SUSPECT",
+  "27": "AGREE",
+  "28": "SUSPECT",
+  "29": "AGREE"
+ }
+}

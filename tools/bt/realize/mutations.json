@@ -1527,8 +1527,8 @@
  {
   "id": "schema-entities-unknown",
   "file": "tools/bt/realize/schema.mjs",
-  "find": "['units', 'structures', 'places', 'schedule', 'works', 'cards'].includes(k)) add('entities_unknown'",
-  "replace": "['units', 'structures', 'places', 'schedule', 'works', 'cards', 'foo'].includes(k) || true) add('entities_unknown_off'",
+  "find": "['units', 'structures', 'places', 'schedule', 'works', 'cards', 'plots'].includes(k)) add('entities_unknown'",
+  "replace": "['units', 'structures', 'places', 'schedule', 'works', 'cards', 'plots', 'foo'].includes(k) || true) add('entities_unknown_off'",
   "rule": "an entity list is one the harness knows",
   "tests": [
    "rules",
@@ -1758,8 +1758,8 @@
  {
   "id": "checks-falsifiable",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "if (!can) res.problems.push({ code: 'assert_vacuous'",
-  "replace": "if (false) res.problems.push({ code: 'assert_vacuous'",
+  "find": "if (!can) res.problems.push({ code: 'assert_vacuous', detail: `checks[${i}] (${a.type}) holds",
+  "replace": "if (false) res.problems.push({ code: 'assert_vacuous', detail: `checks[${i}] (${a.type}) holds",
   "rule": "assert_vacuous: a weather or sky bound that no minute of the theatre clock violates",
   "tests": [
    "rules",
@@ -1835,8 +1835,8 @@
  {
   "id": "checks-quantifier-quote-row",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "if (a.quantifier_quote != null && hasQuote(text, a.quantifier_quote)) {",
-  "replace": "if (a.quantifier_quote != null) {",
+  "find": "if (!multi.length) continue;\n      if (a.quantifier_quote != null && hasQuote(text, a.quantifier_quote)) {",
+  "replace": "if (!multi.length) continue;\n      if (a.quantifier_quote != null) {",
   "rule": "the words that support any are the row's own",
   "tests": [
    "rules",
@@ -2253,8 +2253,8 @@
  {
   "id": "checks-group-weather-span",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "structures: [...ids('structures'), ...ids('works')], span: wx })",
-  "replace": "structures: [...ids('structures'), ...ids('works')], span: null })",
+  "find": "structures: [...ids('structures'), ...ids('works')], span: wx, vegetation: veg })",
+  "replace": "structures: [...ids('structures'), ...ids('works')], span: null, vegetation: veg })",
   "rule": "the weather conflicts of the minutes a record asserts are in its group",
   "tests": [
    "rules",
@@ -2275,8 +2275,8 @@
  {
   "id": "checks-group-structures",
   "file": "tools/bt/realize/checks.mjs",
-  "find": "structures: [...ids('structures'), ...ids('works')], span: wx })",
-  "replace": "structures: [], span: wx })",
+  "find": "structures: [...ids('structures'), ...ids('works')], span: wx, vegetation: veg })",
+  "replace": "structures: [], span: wx, vegetation: veg })",
   "rule": "the readings of the structures and works a record uses are in its group",
   "tests": [
    "rules",
@@ -2971,8 +2971,8 @@
  {
   "id": "schema-casualty-tol-wider",
   "file": "tools/bt/realize/schema.mjs",
-  "find": "else if (a.tol_pct != null && stated != null && !(isNum(a.tol_pct) && a.tol_pct > 0 && a.tol_pct <= stated)) wide(",
-  "replace": "else if (false) wide(",
+  "find": "else if (a.tol_pct != null && stated != null && !(isNum(a.tol_pct) && a.tol_pct > 0 && a.tol_pct <= stated)) wide(`tol_pct ${JSON.stringify(a.tol_pct)} is wider than the stated ${stated} per cent (tolerances.json units.casualties)",
+  "replace": "else if (false) wide(`tol_pct ${JSON.stringify(a.tol_pct)} is wider than the stated ${stated} per cent (tolerances.json units.casualties)",
   "rule": "a record may ask for a smaller share of the printed number of men, never a larger",
   "tests": [
    "rules",
@@ -3040,6 +3040,775 @@
   "find": "case 'not_queryable': return fail('assertion_unavailable',",
   "replace": "case 'not_queryable': return ok({}); void fail('assertion_unavailable',",
   "rule": "a not_queryable probe always fails with assertion_unavailable",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-share-min-zero",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "else if (lo <= 0) vac(",
+  "replace": "else if (false) vac(",
+  "rule": "vegetation_state: a share minimum of 0 is satisfied by every state of every plot (assert_vacuous)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-share-max-one",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "else if (hi >= 1) vac(",
+  "replace": "else if (false) vac(",
+  "rule": "vegetation_state: a share maximum of 1 is satisfied by every state of every plot (assert_vacuous)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-share-range-min",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!(isNum(lo) && lo >= 0 && lo <= 1)) bad(",
+  "replace": "if (false) bad(",
+  "rule": "vegetation_state: a share minimum is a number from 0 to 1",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-share-range-max",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!(isNum(hi) && hi >= 0 && hi <= 1)) bad(",
+  "replace": "if (false) bad(",
+  "rule": "vegetation_state: a share maximum is a number from 0 to 1",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-share-min-above-max",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (isNum(lo) && isNum(hi) && lo > hi) bad(",
+  "replace": "if (false) bad(",
+  "rule": "vegetation_state: a share minimum above its maximum is satisfied by nothing",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-names-list",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "Array.isArray(a[k]) && a[k].length && a[k].every(x => typeof x === 'string' && x.trim()))) bad(`${k} is a non-empty list of names",
+  "replace": "Array.isArray(a[k]) && a[k].every(x => typeof x === 'string' && x.trim()))) bad(`${k} is a non-empty list of names",
+  "rule": "vegetation_state: crop_in, stage_in and understory_in are non-empty lists of names",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-fruit-shape",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "Object.keys(a.fruit_stage_in).length && Object.values",
+  "replace": "true && Object.values",
+  "rule": "vegetation_state: fruit_stage_in names at least one species",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-events-shape",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "Array.isArray(a.events_include) && a.events_include.length && a.events_include.every",
+  "replace": "Array.isArray(a.events_include) && a.events_include.every",
+  "rule": "vegetation_state: events_include is a non-empty list of ids",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-height-positive",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!(isNum(a[k]) && a[k] > 0)) bad(`${k} ${JSON.stringify(a[k])} is a height above 0`)",
+  "replace": "if (!(isNum(a[k]) && a[k] >= 0)) bad(`${k} ${JSON.stringify(a[k])} is a height above 0`)",
+  "rule": "vegetation_state: a height is above 0",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-ft-and-m",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (heights.some(k => k.startsWith('height_ft')) && heights.some(k => k.startsWith('height_m'))) bad(",
+  "replace": "if (false) bad(",
+  "rule": "vegetation_state: a height is printed in feet or in metres, not both",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-height-min-max",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "a[`height_${u}_min`] > a[`height_${u}_max`]) bad(",
+  "replace": "a[`height_${u}_min`] > a[`height_${u}_max`] + 1e9) bad(",
+  "rule": "vegetation_state: a height minimum above its maximum is satisfied by nothing",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-tol-wider",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "!(isNum(a.tol_pct) && a.tol_pct > 0 && a.tol_pct <= stated)) wide(`tol_pct ${JSON.stringify(a.tol_pct)} is wider than the stated ${stated} per cent (tolerances.json vegetation)",
+  "replace": "!(isNum(a.tol_pct) && a.tol_pct > 0 && a.tol_pct <= stated + 100)) wide(`tol_pct ${JSON.stringify(a.tol_pct)} is wider than the stated ${stated} per cent (tolerances.json vegetation)",
+  "rule": "vegetation_state: a record may ask for a smaller height margin, never a larger (tolerance_wider_than_stated)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-tol-needs-height",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.tol_pct != null && !heights.length) bad(",
+  "replace": "if (false) bad(",
+  "rule": "vegetation_state: tol_pct belongs to a check that names a height",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-min-plots-floor",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (Number.isInteger(a.min_plots) && a.min_plots < 1) wide(",
+  "replace": "if (false) wide(",
+  "rule": "vegetation_state: min_plots below the floor of one plot is refused (tolerance_wider_than_stated)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-min-plots-selector",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.plot != null) bad('min_plots belongs to a check that selects plots with \"where\"')",
+  "replace": "if (false) bad('min_plots belongs to a check that selects plots with \"where\"')",
+  "rule": "vegetation_state: min_plots belongs to a selector",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-plot-xor",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (hasPlot === hasWhere) add(",
+  "replace": "if (false) add(",
+  "rule": "vegetation_state: exactly one of plot and where",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-plot-string",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (hasPlot && !(typeof a.plot === 'string' && a.plot.trim())) add(",
+  "replace": "if (false) add(",
+  "rule": "vegetation_state: a plot is a non-empty name",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-where-keys",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "['cls', 'crop'].includes(k) && names(w[k])",
+  "replace": "names(w[k])",
+  "rule": "vegetation_state: a selector has the keys cls and crop only",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-where-names",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "['cls', 'crop'].includes(k) && names(w[k])",
+  "replace": "['cls', 'crop'].includes(k)",
+  "rule": "vegetation_state: a selector key names a class or crop, or a non-empty list of them",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-where-quote",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.quote == null) add('assert_field', `${at} (vegetation_state): a check with \"where\" needs \"quote\"",
+  "replace": "if (false) add('assert_field', `${at} (vegetation_state): a check with \"where\" needs \"quote\"",
+  "rule": "vegetation_state: a selector needs the quote that names the class",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-height-in-quote",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "for (const k of VEG_HEIGHTS) if (a[k] != null && isFinite(a[k]) && !numIn(a.quote, a[k])) add(",
+  "replace": "for (const k of VEG_HEIGHTS) if (false && a[k] != null && isFinite(a[k]) && !numIn(a.quote, a[k])) add(",
+  "rule": "vegetation_state: a height is printed in the check's own quote (number_not_in_quote)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-used-plots",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (a.type === 'vegetation_state' && typeof a.plot === 'string') used.plots.add(a.plot);",
+  "replace": "if (false) used.plots.add(a.plot);",
+  "rule": "a record lists the plots its checks use (entity_undeclared)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-same-plots",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "same('plots', used.plots, 'plot');",
+  "replace": "void 0;",
+  "rule": "a record lists no plot that no check uses (entity_unused)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-entities-known",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "['units', 'structures', 'places', 'schedule', 'works', 'cards', 'plots'].includes(k)) add('entities_unknown'",
+  "replace": "['units', 'structures', 'places', 'schedule', 'works', 'cards'].includes(k)) add('entities_unknown'",
+  "rule": "entities.plots is a known entity list",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-veg-kind-needs",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "structure_state: [['structure_state', 'vegetation_state']]",
+  "replace": "structure_state: [['structure_state']]",
+  "rule": "a structure_state record may be proved by a vegetation_state assertion",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-crop",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (![].concat(a.crop_in).includes(g.crop)) return no(",
+  "replace": "if (false) return no(",
+  "rule": "vegetation_state crop_in: the crop the picture draws on the plot",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-stage",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (![].concat(a.stage_in).includes(g.stage)) return no(",
+  "replace": "if (false) return no(",
+  "rule": "vegetation_state stage_in: the stage of the crop",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-height-lo",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (lo != null && g.h[0] < lo * (1 - tol) - 1e-9) return no(",
+  "replace": "if (false) return no(",
+  "rule": "vegetation_state heights: the drawn range starts at or above the row's minimum less the margin",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-height-hi",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (hi != null && g.h[1] > hi * (1 + tol) + 1e-9) return no(",
+  "replace": "if (false) return no(",
+  "rule": "vegetation_state heights: the drawn range ends at or below the row's maximum plus the margin",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-margin-lo",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "g.h[0] < lo * (1 - tol) - 1e-9",
+  "replace": "g.h[0] < lo * (1 + tol) - 1e-9",
+  "rule": "vegetation_state heights: the margin widens the row's range downward",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-margin-hi",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "g.h[1] > hi * (1 + tol) + 1e-9",
+  "replace": "g.h[1] > hi * (1 - tol) + 1e-9",
+  "rule": "vegetation_state heights: the margin widens the row's range upward",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-share-min",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (lo2 != null && v < lo2 - 1e-9) return no(",
+  "replace": "if (false) return no(",
+  "rule": "vegetation_state shares: at least the minimum",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-share-max",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (hi2 != null && v > hi2 + 1e-9) return no(",
+  "replace": "if (false) return no(",
+  "rule": "vegetation_state shares: at most the maximum",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-treeless",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if ((k === 'leaf' || k === 'strip') && tr && tr.keep === 0) return miss(",
+  "replace": "if (false) return miss(",
+  "rule": "vegetation_state: a plot the reading makes treeless has no leaf to check",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-understory",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!a.understory_in.includes(tr.understory)) return no(",
+  "replace": "if (false) return no(",
+  "rule": "vegetation_state understory_in",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-fruit",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!want.includes(fr.stage)) return no(",
+  "replace": "if (false) return no(",
+  "rule": "vegetation_state fruit_stage_in: the stage of the fruit of a species",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-events",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!(st.events || []).includes(id)) return no(",
+  "replace": "if (false) return no(",
+  "rule": "vegetation_state events_include: the damage events of the layer in force",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-none",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (plots.length < need) return fail('vegetation_plot_none'",
+  "replace": "if (false) return fail('vegetation_plot_none'",
+  "rule": "vegetation_state: a selector that finds no plot holds nothing",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-min-plots",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "const need = Math.max(a.min_plots ?? 1, (this.tol.vegetation || {}).min_plots ?? 1);",
+  "replace": "const need = (this.tol.vegetation || {}).min_plots ?? 1;",
+  "rule": "vegetation_state: a record may ask for more plots than the floor",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-quantifier-any",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (q === 'any') return { ok: true, sample, nOk };",
+  "replace": "if (false) return { ok: true, sample, nOk };",
+  "rule": "vegetation_state: any plot satisfies the quantifier any",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-mode-all",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (mode === 'all') return fail('vegetation_mismatch', `at ${isoOf(t)}: plot ${r.bad.plot}",
+  "replace": "if (false) return fail('vegetation_mismatch', `at ${isoOf(t)}: plot ${r.bad.plot}",
+  "rule": "vegetation_state: mode all holds at every whole minute",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-plot-unknown-bind",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!u) { res.problems.push({ code: 'vegetation_plot_unknown'",
+  "replace": "if (false) { res.problems.push({ code: 'vegetation_plot_unknown'",
+  "rule": "a plot a record lists must be a plot of the layer (binding)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-plot-unknown-check",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!u) return fail('vegetation_plot_unknown'",
+  "replace": "if (false) return fail('vegetation_plot_unknown'",
+  "rule": "a plot a check names must be a plot of the layer (check)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-bind-shared-word",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "rtkV.has(w) && w.length >= 4 && !VEG_STOP.has(w)",
+  "replace": "w.length >= 4 && !VEG_STOP.has(w)",
+  "rule": "a plot is bound to the row by a word of its name that the row also has",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-bind-stop-words",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "rtkV.has(w) && w.length >= 4 && !VEG_STOP.has(w)",
+  "replace": "rtkV.has(w) && w.length >= 4",
+  "rule": "a word every wood or orchard has does not bind a plot",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-bind-via-quote",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "else if (via && hasQuote(text, via)) { B.plots.push({ id, unit: u.id, how: 'declared', via }); B.declared++; }",
+  "replace": "else if (via) { B.plots.push({ id, unit: u.id, how: 'declared', via }); B.declared++; }",
+  "rule": "the words that declare a plot are the row's own",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-where-words",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "else if (!list.some(w => qw.has(w))) res.problems.push({ code: 'plot_not_bound'",
+  "replace": "else if (false) res.problems.push({ code: 'plot_not_bound'",
+  "rule": "a selector is named by a word of the check's own quote",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-where-unknown-class",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!list) res.problems.push({ code: 'assert_field', detail: `checks[${i}] (vegetation_state): where.${kind}",
+  "replace": "if (false) res.problems.push({ code: 'assert_field', detail: `checks[${i}] (vegetation_state): where.${kind}",
+  "rule": "a selector class or crop the harness has no words for is refused",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-quantifier-any-quote",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (n > 1) { if (a.quantifier_quote != null && hasQuote(text, a.quantifier_quote))",
+  "replace": "if (false) { if (a.quantifier_quote != null && hasQuote(text, a.quantifier_quote))",
+  "rule": "any plot of a class needs the row's own words that say part of them is meant",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-falsifiable",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!can) res.problems.push({ code: 'assert_vacuous', detail: `checks[${i}] (vegetation_state)",
+  "replace": "if (false) res.problems.push({ code: 'assert_vacuous', detail: `checks[${i}] (vegetation_state)",
+  "rule": "vegetation_state: an assertion no plot of the layer violates proves nothing",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-control-skips-missing",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "miss = d => (control ? null : no(d))",
+  "replace": "miss = d => no(d)",
+  "rule": "the control test does not count a plot that has no part to look at as a violation",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-group",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "span: wx, vegetation: veg });",
+  "replace": "span: wx, vegetation: null });",
+  "rule": "the scenario group takes in the conflicts of the layer that reach the plots",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-group-report",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "...(c.vegetation ? { vegetation: c.vegetation } : {}) })),",
+  "replace": "})),",
+  "rule": "RESULTS says how a conflict of the layer reaches a record",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-veg-dispatch",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "case 'vegetation_state': return this._vegetation(c);",
+  "replace": "case 'vegetation_state': return fail('assert_type', 'x');",
+  "rule": "vegetation_state is a known assertion",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-select-treeless",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "&& !((u.cls === 'woods' || u.cls === 'scatter') && cls.length && this.stateAt(u, t0, choices).trees?.keep === 0));",
+  "replace": ");",
+  "rule": "a class of woodlots is the woodlots the picture draws",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-select-crop",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "crop.includes(this.mod.cropOf(this.model, u, choices))",
+  "replace": "crop.includes(u.crop)",
+  "rule": "a class selected by crop is the crop drawn under the reading",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-spec-default",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "...(m[2] === vc.default ? {} : { [m[1]]: m[2] })",
+  "replace": "[m[1]]: m[2]",
+  "rule": "the layer's own default value is no choice (string scenario)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-spec-bad-value",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (!vo) throw new Error(`conflict ${m[1]} (the vegetation layer) has no value",
+  "replace": "if (false) throw new Error(`conflict ${m[1]} (the vegetation layer) has no value",
+  "rule": "a value the layer does not have is refused (string scenario)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-obj-bad-value",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (!vc.options[choices[k]]) throw new Error(",
+  "replace": "if (false) throw new Error(",
+  "rule": "a value the layer does not have is refused (object scenario)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-obj-default",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (choices[k] === vc.default) delete choices[k]; }",
+  "replace": "}",
+  "rule": "the layer's own default value is no choice (object scenario)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-scene-key",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "shell = this.shellChoices(sc.choices), key = JSON.stringify(shell); let s = this._scenes.get(key);",
+  "replace": "shell = this.shellChoices(sc.choices), key = JSON.stringify(sc.choices); let s = this._scenes.get(key);",
+  "rule": "a scene is built once for all values of the layer's conflicts",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-weather-key",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "shell = this.shellChoices(sc.choices), W = await this.weather(shell)",
+  "replace": "shell = sc.choices, W = await this.weather(shell)",
+  "rule": "the weather is built once for all values of the layer's conflicts",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-shell-choices",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "filter(([k]) => !(k in this.veg.scenarios)))",
+  "replace": "filter(() => true))",
+  "rule": "the shell's choices are the conflicts C-nnn, not the layer's",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-veg-choices",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "filter(([k]) => k in this.veg.scenarios))",
+  "replace": "filter(() => false))",
+  "rule": "the layer's choices are the conflicts CF-VEG-*",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-reach-differs",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "!== JSON.stringify(V.stateAt(u, t, {}))) { hit =",
+  "replace": "=== JSON.stringify(V.stateAt(u, t, {}))) { hit =",
+  "rule": "a conflict of the layer reaches a plot when it changes its state",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-reach-selector-sets",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "for (const w of where) for (const ch of sets) for (const u of V.select(w, ch)) sel.set(u.id, u);",
+  "replace": "for (const w of where) for (const u of V.select(w, {})) sel.set(u.id, u);",
+  "rule": "a selector takes in the plots it finds under any value of any conflict",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-group-specs",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "for (const r of vreach) for (const key of Object.keys(this.veg.scenarios[r.id].options)) specs.push(`${r.id}:${key}`);",
+  "replace": "",
+  "rule": "one scenario per value of every conflict of the layer that reaches the record",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-veg-load-listed",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (!ext.listed.includes('vegetation/index.mjs')) return NO_VEG(",
+  "replace": "if (false) return NO_VEG(",
+  "rule": "the layer is asked only if the product loads it",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "tol-veg-ft-to-m",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"ft_to_m\": 0.3048,",
+  "replace": "\"ft_to_m\": 1,",
+  "rule": "feet are metres times 0.3048",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tol-veg-height-tol",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"height_tol_pct\": 10,",
+  "replace": "\"height_tol_pct\": 60,",
+  "rule": "the height margin is 10 per cent",
   "tests": [
    "rules",
    "main"

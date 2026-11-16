@@ -259,6 +259,24 @@ def cut_cleaned(page_text, quote, lig=False):
     return (norm(shown), corrections, norm(quote)), None, flat[a:b + 1]
 
 
+_FOLD = str.maketrans({'\u2019': "'", '\u2018': "'", '\u201c': '"', '\u201d': '"', '\u2013': '-', '\u2014': '-', '\u2212': '-', '\u00a0': ' '})
+
+
+def _fold(s):
+    """One-to-one folding of curly quotes and dashes to ASCII (same length, so an index in the folded text is the same
+    index in the original). Used only to LOCATE an anchor typed in ASCII; the quote is always cut from the original text."""
+    return s.translate(_FOLD)
+
+
+def _find_all(flat, a):
+    """Start positions of anchor `a` in `flat`: exact first, then with curly quotes and dashes folded to ASCII."""
+    starts = [m.start() for m in re.finditer(re.escape(a), flat)]
+    if starts:
+        return starts, a
+    ff, fa = _fold(flat), _fold(a)
+    return [m.start() for m in re.finditer(re.escape(fa), ff)], fa
+
+
 def cut(page_text, anchor):
     flat = norm(page_text)
     ms = re.fullmatch(r'#s(\d+)(?:-(\d+))?', anchor.strip())
@@ -275,23 +293,27 @@ def cut(page_text, anchor):
         occ, anchor = int(m.group(1)), anchor[:m.start()]
     if '>>>' in anchor:
         a, b = [norm(x) for x in anchor.split('>>>', 1)]
-        starts = [m.start() for m in re.finditer(re.escape(a), flat)]
+        starts, fa = _find_all(flat, a)
         if occ is None and len(starts) != 1:
             return None, 'start anchor found %d times: %r' % (len(starts), a)
         if occ is not None and not (1 <= occ <= len(starts)):
             return None, 'occurrence %d of start anchor not present (%d found): %r' % (occ, len(starts), a)
         st = starts[(occ or 1) - 1]
-        e = flat.find(b, st + len(a) - min(len(a), len(b)))
+        folded = flat if fa == a else _fold(flat)
+        fb = b if fa == a else _fold(b)
+        e = folded.find(fb, st + len(a) - min(len(a), len(b)))
         if e < 0:
             return None, 'end anchor not found after start: %r' % b
         return flat[st:e + len(b)], None
     a = norm(anchor)
-    n = flat.count(a)
+    starts, fa = _find_all(flat, a)
+    n = len(starts)
     if occ is None and n != 1:
         return None, 'quote found %d times: %r' % (n, a[:80])
     if occ is not None and not (1 <= occ <= n):
         return None, 'occurrence %d not present (%d found): %r' % (occ, n, a[:80])
-    return a, None
+    st = starts[(occ or 1) - 1]
+    return flat[st:st + len(a)], None
 
 
 def resolve(page_text, anchor, td):

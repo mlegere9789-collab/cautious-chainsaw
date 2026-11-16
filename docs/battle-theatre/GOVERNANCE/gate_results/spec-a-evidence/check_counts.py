@@ -67,7 +67,7 @@ for k in ('TL', 'EP', 'SS', 'WK', 'GE', 'PE', 'CT', 'CF', 'TOP', 'OA'):
     check(f'2.2 class {k} count {rows22.get(k)} equals requirements.json {cls[k]}', rows22.get(k) == cls[k])
 check('2.2 total equals the number of rows', has(r'\| \| Total \| \| %d \|' % len(subs), sec22), f'{len(subs)} rows')
 orig = collections.Counter(s['origin'] for s in subs)
-check('1.1 origin counts', has(r'\(%d rows on 2026-11-15: %d `origin: pdf`, %d `origin: owner_chat`' % (len(subs), orig['pdf'], orig['owner_chat'])), str(dict(orig)))
+check('1.1 origin counts', has(r'\(%d rows on 2026-11-16: %d `origin: pdf`, %d `origin: owner_chat`' % (len(subs), orig['pdf'], orig['owner_chat'])), str(dict(orig)))
 check('1.3 "on all N rows" equals the total', has(r'on all %d rows' % len(subs)))
 oa = sorted(s['id'][:4] for s in subs if klass(s['id']) == 'OA')
 check('OA rows are OA01..OAnn without a gap', oa == [f'OA{i:02d}' for i in range(1, len(oa) + 1)], str(oa))
@@ -92,7 +92,7 @@ check('5 each top row of requirements.json appears in section 5', all(has(r'\| %
 
 # ---------------------------------------------------------------- numbering
 u = sorted(set(int(x) for x in re.findall(r'(?m)^- \*\*U-(\d\d)\b', spec)))
-check('U-01..U-%02d contiguous' % (u[-1] if u else 0), u == list(range(1, len(u) + 1)) and len(u) == 28, str(len(u)))
+check('U-01..U-%02d contiguous' % (u[-1] if u else 0), u == list(range(1, len(u) + 1)) and len(u) == 29, str(len(u)))
 check('Contents names U-01..U-%02d' % (u[-1] if u else 0), has(r'universal rules U-01\.\.U-%02d' % u[-1]))
 a_ids = sorted(int(x) for x in re.findall(r'(?m)^\| A-(\d\d) \|', spec))
 check('A-01..A-%02d contiguous' % (a_ids[-1] if a_ids else 0), a_ids == list(range(1, len(a_ids) + 1)), str(a_ids[-3:]))
@@ -240,7 +240,7 @@ vcls = collections.Counter(u.get('cls') for u in veg['units'])
 vtxt = ', '.join('%s %d' % (k, n) for k, n in vcls.most_common())
 soft('2.3 / Q21 / 9 vegetation: %d units in %d classes, %d claims' % (len(veg['units']), len(vcls), len(veg['claims'])),
      has(r'`app/data/vegetation.json` holds %d units in eight polygon classes \(%s;' % (len(veg['units']), re.escape(vtxt))) and len(vcls) == 8 and has(r'\) and %d claims \|' % len(veg['claims']))
-     and has(r'present on 2026-11-15 with %d units in eight polygon classes and %d claims' % (len(veg['units']), len(veg['claims']))) and has(r'`app/data/vegetation.json`: %d units and %d claims on 2026-11-15' % (len(veg['units']), len(veg['claims']))), vtxt)
+     and has(r'present on 2026-11-16 with %d units in eight polygon classes and %d claims' % (len(veg['units']), len(veg['claims']))) and has(r'`app/data/vegetation.json`: %d units and %d claims on 2026-11-16' % (len(veg['units']), len(veg['claims']))), vtxt)
 
 # ---------------------------------------------------------------- realization results (soft)
 rz = J('realizations/RESULTS.json'); q17 = rz['q17']; rzt = rz['totals']['timeline']
@@ -268,6 +268,54 @@ sec7 = section('## 7. Threshold registry', '## 8. Ambiguity register')
 t_rows = re.findall(r'(?m)^\| (T-[A-Z0-9]+-\d+(?: \(T-[A-Z0-9]+-\d+\))?) \|', sec7)
 t_ids = [i for row in t_rows for i in re.findall(r'T-[A-Z0-9]+-\d+', row)]   # a row with an alias (`T-Q07-1 (T-SS-1)`) defines two ids
 check('7 threshold ids are unique and T-Q21-1 to T-Q21-3 are rows of the registry (%d thresholds)' % len(t_ids), len(t_ids) == len(set(t_ids)) and all(('T-Q21-%d' % i) in t_ids for i in (1, 2, 3)) and has(r'the thresholds \(the same %d ids\)' % len(t_ids)) and len(t_ids) == 42, str(len(t_ids)))
+
+
+# ---------------------------------------------------------------- revision 5 (2026-11-16): the cavalry states, the owner's order, the runners
+# A-61: the table of B.6.15.7 on p. 89 prints 17 rows (states); Q20.6 and A-61 say 17 and no text says 14
+from plan_lib import load_pages
+_p89 = load_pages()[89]
+_i = _p89.index('B.6.15.7 Cavalry state'); _seg = _p89[_i:_p89.index('Fixed facts for the arrival rule', _i)].split('\n')[4:]
+_states = [l for l in _seg[0::2] if l.strip()]
+check('A-61 the table of B.6.15.7 prints %d state rows (17) and the spec says so, with no "14 states" left' % len(_states),
+      len(_states) == 17 and _states[0] == 'march_column' and _states[-1].startswith('absent') and has(r'The 17 states of the table of B\.6\.15\.7') and has(r'the table of 17 rows')
+      and not has(r'14 states of B\.6\.15\.7') and not has(r'14-state list') and has(r'\| A-61 \|'), str(len(_states)))
+# Q27: the owner's order is recorded where the spec says it is, and the guards the spec names are the guards of Appendix F and of the budget file
+_budget = json.load(open(os.path.join(GOV, 'budget', 'phase_budget.json'), encoding='utf-8'))
+_od = _budget.get('owner_decision_2026_11_16', {})
+_dl = open(os.path.join(GOV, 'decision_log.md'), encoding='utf-8').read()
+_pages = load_pages()
+_guard_words = ['Per-job turn limit', 'Per-job spend limit', 'Concurrency limit for headless jobs', 'GPU power and temperature guard', 'No-progress halt', 'Cache snapshot interval']
+_f = re.sub(r'\s+', ' ', _pages[143] + ' ' + _pages[144])
+check('Q27 the owner order: caps none in phase_budget.json, DEC-OWNER-2026-11-16 point 5 in the decision log, the six guards of Appendix F (pp. 143-144) are the six keys of the budget file',
+      _od.get('caps') == 'none' and 'DEC-OWNER-2026-11-16' in _dl and 'there is no budget cap' in _dl and '5. Budget: there is no budget cap' in _dl
+      and all(w in _f for w in _guard_words) and len(_budget['global_guard']) == 6
+      and sorted(_budget['global_guard']) == sorted(['per_job_turn_limit', 'per_job_spend_limit', 'concurrency_limit', 'gpu_power_temp_guard', 'no_progress_halt_sessions', 'cache_snapshot_interval'])
+      and has(r'the per-job turn limit, the concurrency limit, the GPU power and temperature guard, the no-progress halt and the cache snapshot interval') and has(r'six global guards') and has(r'`owner_decision_2026_11_16`'), str(_od)[:200])
+check('Q27 T-Q27-1 and A-62 say the spend caps are none by the order and name the five other guards', has(r'\| T-Q27-1 \| Q27 spend caps, guards, N sessions \|') and has(r'\| A-62 \|') and has(r'the five other guards') and has(r'`DEC-OWNER-2026-11-16` point 5'))
+# DD-G-* ids that the spec names (the runners' decisions, 11.9) are rows of the decisions file
+_named = sorted(set(re.findall(r'DD-G-(?:OOB|Q0[3-6])-\d\d', spec)))
+_missing_gg = [x for x in _named if not re.search(r'(?m)^\| %s \|' % re.escape(x), decisions)]
+check('11.9 every DD-G-* id of the runners that the spec names is a row of the decisions file (%d named)' % len(_named), len(_named) >= 4 and not _missing_gg, str(_missing_gg))
+# the result files of the runners and the tests: soft (their owners are still writing)
+_RES = {}
+for _g in ('Q01', 'Q02', 'Q14', 'Q19', 'Q20', 'Q23', 'Q25'):
+    _fp = os.path.join(GOV, 'gate_results', _g + '.json')
+    if os.path.exists(_fp):
+        _d = json.load(open(_fp, encoding='utf-8')); _c = _d['counts']
+        _order = ['PASS', 'FAIL', 'BLOCKED-INPUT', 'NOT-RUN', 'COVERED', 'N/A']
+        _txt = ', '.join('{:,} {}'.format(_c[k], k) for k in sorted((k for k in _order if _c.get(k)), key=lambda k: (-_c[k], _order.index(k))))
+        _RES[_g] = '`%s.json` (%s UTC): %s; {:,} items = %s'.format(len(_d['items'])) % (_g, _d['finished_utc'][11:16], _d['verdict'], _txt)
+_ok = bool(_RES) and all(v in spec for v in _RES.values())
+soft('11.9 result files of the runners (%d of 28 gates have one) as the spec states them' % len(_RES), _ok and has(r'a result file exists for 7 of the 28 gates') and len(_RES) == 7, str([v for v in _RES.values() if v not in spec])[:300])
+_tests = {}
+for _f2 in sorted(glob.glob(os.path.join(ROOT, 'tests', 'governance', 'gates', 'test_q*.py'))):
+    _tests[os.path.basename(_f2)] = len(re.findall(r'(?m)^\s*def test_', open(_f2, encoding='utf-8').read()))
+soft('11.9 counts of test functions of the runners: %s' % ', '.join('%s %d' % (k[5:-3], v) for k, v in _tests.items()),
+     all(has(r'`%s` \(%d\)' % (re.escape(k), v)) for k, v in _tests.items()), str(_tests))
+_cf = os.path.join(GOV, 'conflicts')
+_plan = os.path.exists(os.path.join(_cf, 'PLAN.md')); _res = glob.glob(os.path.join(_cf, 'resolutions', 'C-*.json'))
+soft('3.8 / 9 the conflicts folder: PLAN.md %s, %d resolution files (the spec says none and no PLAN.md at about 02:50 UTC)' % ('present' if _plan else 'absent', len(_res)),
+     (not _plan) and not _res and has(r'no `PLAN\.md`, no dossier and no resolution'))
 
 bad = [r for r in results if not r[1]]
 print(json.dumps({'checks': len(results), 'ok': len(results) - len(bad), 'mismatches': len(bad), 'mismatched': [r[0] for r in bad], 'soft_checks_stale': len(stale), 'stale': stale}))

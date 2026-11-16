@@ -24,6 +24,18 @@ def main_text(raw):
     return re.sub(r'\n{3,}', '\n\n', t).strip()
 
 
+def trim(t):
+    """Reading aid: drop the archive banner, the news-release navigation lines and everything from 'Tags:' or 'RSS Feed'."""
+    for stop in ('\nTags:', '\nRSS Feed'):
+        j = t.find(stop)
+        if j > 0:
+            t = t[:j]
+    drop = ('NPS.gov', 'Park Home', 'Learn About the Park', 'News', 'News Releases', 'News Release', 'You are viewing ARCHIVED content',
+            'This content was published online before January 20, 2025.')
+    out = [l for l in t.split('\n') if l.strip() not in drop and not l.startswith('Please note that this content is NOT UPDATED')]
+    return re.sub(r'\n{3,}', '\n\n', '\n'.join(out)).strip()
+
+
 def main():
     a = sys.argv[1:]
     if a and a[0] == '--list':
@@ -36,7 +48,7 @@ def main():
     for sid in a:
         p = os.path.join(PAGES, sid, sid + '.txt')
         print('=' * 20, sid)
-        print(main_text(open(p, encoding='utf-8').read()))
+        print(trim(main_text(open(p, encoding='utf-8').read())))
 
 
 if __name__ == '__main__':

@@ -70,6 +70,20 @@ def key_weights(says, about, feature, passage):
     return w
 
 
+def garble(window):
+    """how damaged the words of a window look: single letters (a letter-spaced text layer), punctuation inside a word, a word of three or more letters with no vowel"""
+    g = 0.0
+    for t in window:
+        a = re.sub(r'[^A-Za-z]', '', t)
+        if len(a) == 1 and a.lower() not in ('a', 'i') and not t[0].isdigit():
+            g += 1.2
+        elif re.search(r'[A-Za-z][.:;!?^~*|][A-Za-z]', t):
+            g += 1.5
+        elif len(a) >= 4 and not re.search(r'[aeiouyAEIOUY]', a):
+            g += 1.0
+    return g
+
+
 def ranked_windows(passage, says, about, feature, maxw=MAXW, top=400):
     """every window of 3 to maxw words of the passage, best first: (score, coverage, words)"""
     tk = toks(passage)
@@ -85,7 +99,7 @@ def ranked_windows(passage, says, about, feature, maxw=MAXW, top=400):
             if j > len(tk):
                 break
             cov = set(n for n in nt[i:j] if n in w)
-            sc = sum(w[n] for n in cov) - 0.04 * L
+            sc = sum(w[n] for n in cov) - 0.04 * L - garble(tk[i:j])
             if i == 0 or re.search(r'[.;:!?,]["\')\]]*$', tk[i - 1]):
                 sc += 0.6
             if j == len(tk) or re.search(r'[.;:!?,]["\')\]]*$', tk[j - 1]):
@@ -159,7 +173,7 @@ def gate_id(c):
     return src.split(':', 1)[1].split('#')[0]
 
 
-def try_candidate(c, cand, ts, ex):
+def try_candidate(c, cand, ts, ex, strict=False):
     """verify one candidate against the saved text (skeleton compare of srcs.py) and the gate library: -> (record, None) or (None, why).
     A claim found in a text variant (NPS:<ID>#layout, #raw: the plain text interleaves two-column pages) is tried in the plain text first: the gate's store reads the plain text only."""
     src = c['src']
@@ -175,6 +189,8 @@ def try_candidate(c, cand, ts, ex):
             break
     if r is None:
         return None, 'the extract is not found in the saved text of ' + src
+    if strict and r.get('defect'):
+        return None, 'the saved words are damaged (a lost glyph of the text layer)'
     raw = raw_slice(dict(c, src=via), r['locator'])
     found = r['found']
     if raw is not None:
@@ -186,7 +202,7 @@ def try_candidate(c, cand, ts, ex):
     if len(re.sub(r'\W', '', found)) < 12:
         return None, 'fewer than 12 letters and digits'
     rec = {'extract': found, 'via': via}
-    if r.get('defect'):
+    if r.get('defect') or len(found.split()) > len(cand.split()) * 1.4 + 1:       # a lost glyph, or a letter-spaced text layer: the saved words are the extract, the words as printed are for the reader
         rec['printed'] = cand
     rec['locator'] = {k: v for k, v in r['locator'].items() if k in ('char_start', 'char_end', 'pdf_page', 'page', 'report', 'who')}
     if src == 'OR27':
@@ -237,19 +253,23 @@ def run(write=True):
             continue
         ranked = ranked_windows(passage, c['says'], c.get('about'), c.get('feature'))
         first, chosen, tried, last_why = None, None, 0, None
-        for sc, cov, cand in ranked:
-            rec, why = try_candidate(c, cand, ts, ex)
-            tried += 1
-            if rec is None:
-                last_why = why
-                continue
-            rec['coverage'] = round(cov, 2)
-            if first is None:
-                first = rec
-            if rec.get('numbers_in_span') is not False:
-                chosen = rec
-                break
-            if tried > 120:
+        for strict in (True, False):
+            tried = 0
+            for sc, cov, cand in ranked:
+                rec, why = try_candidate(c, cand, ts, ex, strict=strict)
+                tried += 1
+                if rec is None:
+                    last_why = why
+                    continue
+                rec['coverage'] = round(cov, 2)
+                if first is None:
+                    first = rec
+                if rec.get('numbers_in_span') is not False:
+                    chosen = rec
+                    break
+                if tried > 120:
+                    break
+            if chosen is not None or (strict and first is not None):
                 break
         chosen = chosen or first
         if chosen is None:
@@ -295,9 +315,9 @@ def main():
             c, e = claims[i], out[i]
             passage = c['quote'] if c.get('restored') else c['quote_found']
             print('#%d %s [%s] %s%s%s' % (i, c['id'], c['src'], c['tier'], ' RESTORED' if c.get('restored') else '', '' if e.get('ok') else ' ** NOT OK: ' + str(e.get('error'))))
-            print('  SAYS: %s' % c['says'])
+            print('  SAYS: %s' % (c['says'] if len(c['says']) < 240 else c['says'][:237] + '...'))
             if len(passage.split()) > MAXW and ((e.get('coverage') or 0) < 0.85 or not e.get('ok')):
-                print('  PASSAGE(%dw): %s' % (len(passage.split()), passage))
+                print('  PASSAGE(%dw): %s' % (len(passage.split()), passage if len(passage) < 360 else passage[:357] + '...'))
             print('  EXT(%sw,%s,cov=%s,g=%s%s): %s' % (e.get('words'), e['how'], e.get('coverage'), e.get('gate'), (',NUMS MISSING ' + ','.join(e.get('numbers_missing', []))) if e.get('numbers_missing') else '', e['extract']))
         return 0
     if a.check:

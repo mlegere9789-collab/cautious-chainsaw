@@ -91,7 +91,7 @@ WG.render = async function (spec) {
     gpuStats: gpu ? { ...gpu.stats, ok: gpu.ok, weatherOk: gpu.weatherOk, fxOk: gpu.fxOk, failed: gpu.failed } : null, glStats: gl ? { ...gl.stats, ok: gl.ok, weatherOk: gl.weatherOk, fxOk: gl.fxOk } : null, hostLog: info ? info.log.slice(0, 6) : [] };
 };
 WG.diag = () => { const fi = FXON ? fxHost.instance() : null; return { api: WG.host && WG.host.api, hostLog: WG.host ? WG.host.log : [], flags0: WG.flags0, flags: WG.host ? { ...WG.host.R.o.flags } : null, fxLog: fi ? fi.log : null,
-  gpu: fi && fi.gpu ? { ok: fi.gpu.ok, weatherOk: fi.gpu.weatherOk, fxOk: fi.gpu.fxOk, failed: fi.gpu.failed, log: fi.gpu.log, warnings: fi.gpu.warnings, bytes: fi.gpu.bytes } : null, gl: fi && fi.gl ? { ok: fi.gl.ok, log: fi.gl.log } : null,
+  gpu: fi && fi.gpu ? { ok: fi.gpu.ok, weatherOk: fi.gpu.weatherOk, fxOk: fi.gpu.fxOk, failed: fi.gpu.failed, log: fi.gpu.log, warnings: fi.gpu.warnings, bytes: fi.gpu.bytes, timing: !!fi.gpu.timing } : null, gl: fi && fi.gl ? { ok: fi.gl.ok, log: fi.gl.log } : null,
   adapter: WG.host && WG.host.info, gpuErrors: window.__gpuErrors || [], wgsl: window.__wgslMessages || [], modules: window.__gpuLabels || [] }; };
 WG.checkCompute = async () => {               // the optional GPU-cull compute shader of fx3d (WGSL_COMPUTE): is it valid WGSL, and does a pipeline build with the device's limits?
   const R = WG.host && WG.host.R, d = R && R.dev; if (!d) return { skipped: 'no WebGPU device' };
@@ -102,6 +102,28 @@ WG.checkCompute = async () => {               // the optional GPU-cull compute s
   return { messages: info.messages.map(x => ({ type: x.type, line: x.lineNum, col: x.linePos, msg: String(x.message).slice(0, 300) })), pipelineOk: !!pipe, pipelineError: err, validation: sc ? String(sc.message).slice(0, 700) : null, limits: { maxComputeInvocationsPerWorkgroup: lim.maxComputeInvocationsPerWorkgroup, maxComputeWorkgroupSizeX: lim.maxComputeWorkgroupSizeX } };
 };
 WG.resize = async (w, h) => { WG.host.resize(w, h); WG.w = w; WG.h = h; };
+// Timing (tests/weather3d-gpu-timing.mjs; W-E4, W-C1 and W-C2 of BROWSER-VERIFICATION-LIST-WEATHER.md): `frames` frames of one case with the layer's passes in the mode `mode` ('both' | 'off' | 'weather' | 'fx'; the prototype's own sky and
+// particles are off in all four, so 'off' is the baseline of the layer's cost), after `warm` frames that are not counted. The simulation advances one 60th of a second per frame, as in the shell at speed 1, and fxHost.update runs every
+// frame. Per counted frame: the CPU time of fxHost.update (updMs), the CPU time of host.frame (encMs), the time from the start of host.frame to the completion of its GPU work (doneMs: WebGPU queue.onSubmittedWorkDone, WebGL2
+// gl.finish), the sprites of the frame, and, on WebGPU where the device has timestamp queries, the layer's GPU pass time of every frame whose result arrived (passMs). The frame is not read back and not presented (the canvas is the
+// stand-in texture of HOOKS), so doneMs is throughput, not paced by the display. All frames run inside one validation scope.
+WG.timing = async function ({ spec, frames = 600, warm = 120, mode = 'both' }) {
+  if (!WG.ready) throw new Error('the harness is not ready: ' + WG.error);
+  const host = WG.host, R = host.R, cam = WG.cam, env = WG.env, L = world.show.line, fi = FXON ? fxHost.instance() : null, dev = R.dev || null, gl = R.gl || null, t0 = spec.tMin; WG.choices = spec.choices || {};
+  placeCamera(cam, spec, { T, geo: WG.geo, smp: env.sample(t0, sample), line: L }); P.anchor(cam, spec.plan); if (spec.aim) aimCamera(cam, P, spec.aim);
+  if (fi) { fi.opts.drawWeather = mode === 'both' || mode === 'weather'; fi.opts.drawFx = mode === 'both' || mode === 'fx'; }
+  const out = { mode, frames, warm, updMs: [], encMs: [], doneMs: [], sprites: [], passMs: [], validation: null }; let lastN = fi && fi.gpu ? fi.gpu.stats.passMsN : 0;
+  if (dev) dev.pushErrorScope('validation');
+  for (let k = -warm; k < frames; k++) {
+    const tMin = t0 + (k + warm) / 3600, smp = env.sample(tMin, sample), wx = env.weatherAt(tMin, WG.choices), lt = env.light(smp, { nightFloor: 0.34 }, wx, light); host.setLight(lt.sunDir, lt.exposure);
+    const a = performance.now(), info = fi ? fxHost.update({ tMin, cam }) : null, b = performance.now(); host.frame(40 + (tMin * 60) % 7200, cam); const c = performance.now();
+    if (dev) await dev.queue.onSubmittedWorkDone(); else if (gl) gl.finish(); const d = performance.now();
+    if (k >= 0) { out.updMs.push(b - a); out.encMs.push(c - b); out.doneMs.push(d - b); out.sprites.push(info ? info.effects.nSprites : 0); }
+    if (fi && fi.gpu && fi.gpu.stats.passMsN !== lastN) { lastN = fi.gpu.stats.passMsN; if (k >= 0) out.passMs.push(fi.gpu.stats.passMs); }
+  }
+  if (dev) { const e = await dev.popErrorScope(); out.validation = e ? String(e.message).slice(0, 600) : null; }
+  if (fi) { fi.opts.drawWeather = true; fi.opts.drawFx = true; } return out;
+};
 // Negative controls of this harness (tests/weather3d-gpu-negctl.mjs; judged by checkNegativeControl in weather3d-gpu-check.mjs): errors made on purpose that the machinery behind "no validation error" must see. Run once, at the end, WebGPU only.
 WG.negativeControl = async spec => {
   const R = WG.host && WG.host.R, d = R && R.dev; if (!d) return { skipped: 'no WebGPU device' };

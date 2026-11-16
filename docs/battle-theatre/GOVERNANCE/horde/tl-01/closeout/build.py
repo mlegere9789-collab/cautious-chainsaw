@@ -46,6 +46,7 @@ if os.path.exists(_a3):
 LOCAL = json.load(open(os.path.join(HERE, 'acquired_tl01.json'), encoding='utf-8'))
 import extra_sources as X      # fourth start of the close-out (2026-11-15): the town books and the newspaper pages saved after the earlier passes
 import rows_patch as RP         # the additions of that start, applied to the row data before every quote is re-matched
+import rows_patch5 as RP5       # the additions of the fifth start (2026-11-16): newspaper pages saved after the fourth start had searched
 OR_SHA = {1: None, 2: None, 3: None}
 OR_INDEX = {r['id']: r for r in json.load(open(os.path.join(ROOT, 'docs', 'battle-theatre', 'library', 'or27_index.json'), encoding='utf-8'))['records']}
 
@@ -353,6 +354,7 @@ def main():
         except ModuleNotFoundError:
             if '--partial' not in sys.argv: raise
     RP.apply(rows)
+    RP5.apply(rows)
     X.register(LIB, FIXED_PAGE, LABEL, sorted({c_['src'] for r_ in rows for c_ in r_.get('cites', {}).values()}))
     seed = [json.loads(l) for l in open(os.path.join(G, 'timeline_seed.jsonl'), encoding='utf-8')][:57]
     seed_by = {r['id']: r for r in seed}

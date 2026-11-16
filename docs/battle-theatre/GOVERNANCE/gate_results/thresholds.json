@@ -1,0 +1,715 @@
+{
+ "count": 41,
+ "generated_from": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md section 7 (Threshold registry), by spec-a-evidence/gen_thresholds.py; never edited by hand",
+ "rule": "A threshold with the status UNSET makes its gate INCOMPLETE; a value may be tightened by a recorded decision and never loosened without a recorded owner decision (1.8). A row whose value is null states its figure only in words (the adopted text).",
+ "schema": "bt-thresholds/1",
+ "section_7_sha256": "306c88a79fa0664ae75e50bab26eeff4b83d8f3b979fd2bdd473cbc0adde3609",
+ "thresholds": [
+  {
+   "adopted": "at most 14 words",
+   "aliases": [],
+   "decisions": [],
+   "gate": "Q02, Q03, Q25 length of a quotation or an extract",
+   "id": "T-Q02-1",
+   "in_code": "fewer than 15 words (`drill_check.py`, `or27_claims.py`)",
+   "plan": "under 15 words (p. 134, E.6)",
+   "status": [
+    "PLAN"
+   ],
+   "status_text": "PLAN",
+   "value": {
+    "max_words": 14
+   }
+  },
+  {
+   "adopted": "1.0 m",
+   "aliases": [],
+   "decisions": [
+    "DD-G01"
+   ],
+   "gate": "Q05 path joins",
+   "id": "T-Q05-1",
+   "in_code": "within 1 m",
+   "plan": "none (\"continuous trajectories\")",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G01)",
+   "value": {
+    "max_join_m": 1.0
+   }
+  },
+  {
+   "adopted": "the manual figures per gait and mover class; upper bound exact up to the rounding factor 1.0001",
+   "aliases": [],
+   "decisions": [
+    "DD-G01"
+   ],
+   "gate": "Q05 speed bounds",
+   "id": "T-Q05-2",
+   "in_code": "double-quick bound times 1.0001",
+   "plan": "none; sources are the manuals (p. 135, M.1)",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G01)",
+   "value": {
+    "rounding_factor": 1.0001
+   }
+  },
+  {
+   "adopted": "the manual figure when read; until then 90 s, plausible-procedural, marked",
+   "aliases": [],
+   "decisions": [
+    "DD-G01"
+   ],
+   "gate": "Q06 deployment duration",
+   "id": "T-Q06-1",
+   "in_code": "90 s tuning value (DEC-008)",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G01)",
+   "value": {
+    "deployment_s": 90
+   }
+  },
+  {
+   "adopted": "the product's declared transition duration, read and recorded in each run",
+   "aliases": [
+    "T-SS-1"
+   ],
+   "decisions": [
+    "DD-G02"
+   ],
+   "gate": "Q07, Q09 visible span of a point change",
+   "id": "T-Q07-1",
+   "in_code": "declared transition tables of the structures layer",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G02)",
+   "value": null
+  },
+  {
+   "adopted": "12",
+   "aliases": [],
+   "decisions": [],
+   "gate": "Q08 tool count",
+   "id": "T-Q08-1",
+   "in_code": "12",
+   "plan": "12 spades for the 6th Wisconsin (p. 93)",
+   "status": [
+    "PLAN"
+   ],
+   "status_text": "PLAN",
+   "value": {
+    "max_tools": 12
+   }
+  },
+  {
+   "adopted": "24 of 255",
+   "aliases": [],
+   "decisions": [
+    "DD-G03"
+   ],
+   "gate": "Q10 frame and region mean luminance",
+   "id": "T-Q10-1",
+   "in_code": "mean at least 24 of 255",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G03)",
+   "value": {
+    "min_mean": 24,
+    "of": 255
+   }
+  },
+  {
+   "adopted": "6",
+   "aliases": [],
+   "decisions": [
+    "DD-G03"
+   ],
+   "gate": "Q10",
+   "id": "T-Q10-2",
+   "in_code": "5th percentile at least 6",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G03)",
+   "value": {
+    "min_p5": 6
+   }
+  },
+  {
+   "adopted": "2% below 8",
+   "aliases": [],
+   "decisions": [
+    "DD-G03"
+   ],
+   "gate": "Q10",
+   "id": "T-Q10-3",
+   "in_code": "under 2% of pixels below 8",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G03)",
+   "value": {
+    "level": 8,
+    "max_share_below": 0.02
+   }
+  },
+  {
+   "adopted": "0.2",
+   "aliases": [],
+   "decisions": [
+    "DD-G03"
+   ],
+   "gate": "Q10 frame Michelson contrast (p95, p5)",
+   "id": "T-Q10-4",
+   "in_code": "at least 0.2",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G03)",
+   "value": {
+    "min_michelson": 0.2
+   }
+  },
+  {
+   "adopted": "0.75; 12",
+   "aliases": [],
+   "decisions": [
+    "DD-G03"
+   ],
+   "gate": "Q10 night against day",
+   "id": "T-Q10-5",
+   "in_code": "night under 0.75 of day; lowest floor setting mean at least 12",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G03)",
+   "value": {
+    "floor_setting_min_mean": 12,
+    "night_over_day_max": 0.75
+   }
+  },
+  {
+   "adopted": "every grid minute of the night set (12,074 minutes, Q10.1) and one second either side of every night-activity or light-source state change, analytic floor at every minute; a run that has rendered a fraction records it and is INCOMPLETE",
+   "aliases": [],
+   "decisions": [
+    "DD-G03",
+    "DD-G10"
+   ],
+   "gate": "Q10 picture grid",
+   "id": "T-Q10-6",
+   "in_code": "ten sample times",
+   "plan": "none (\"every night time\")",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G10; it replaces the 10-minute grid inside DD-G03)",
+   "value": null
+  },
+  {
+   "adopted": "UNSET: the runner records the size the selection hit-test uses; INCOMPLETE until recorded",
+   "aliases": [],
+   "decisions": [],
+   "gate": "Q10 minimum projected size of an entity \"in view\"",
+   "id": "T-Q10-7",
+   "in_code": "none",
+   "plan": "none",
+   "status": [
+    "UNSET"
+   ],
+   "status_text": "UNSET",
+   "value": null
+  },
+  {
+   "adopted": "by kind of part: text 4.5:1, or 3:1 where it is large (at least 24 px, or at least 18.66 px at weight 700 or more); non-text parts (outline, fill, glyph) 3:1; the WCAG contrast ratio on 8-bit sRGB pixels, the mark against the frame pixels around it, the method recorded",
+   "aliases": [],
+   "decisions": [
+    "DD-G03",
+    "DD-G13"
+   ],
+   "gate": "Q10 contrast of unit markers and tier tags at night",
+   "id": "T-Q10-8",
+   "in_code": "none (`FINAL-ACCEPTANCE.md` item 7 says `contrast (WCAG AA)` and gives no figure)",
+   "plan": "none (\"stay legible\", p. 114)",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G13; it tightens DD-G03)",
+   "value": {
+    "bold_weight": 700,
+    "large_bold_px": 18.66,
+    "large_px": 24,
+    "large_text_ratio": 3.0,
+    "non_text_ratio": 3.0,
+    "text_ratio": 4.5
+   }
+  },
+  {
+   "adopted": "UNSET: the runner measures the same metric on the day frames of the same views and the value is recorded by decision; INCOMPLETE until then",
+   "aliases": [],
+   "decisions": [],
+   "gate": "Q10 entity-against-surround Michelson contrast",
+   "id": "T-Q10-9",
+   "in_code": "none (the existing 0.2 is a frame metric)",
+   "plan": "none",
+   "status": [
+    "UNSET"
+   ],
+   "status_text": "UNSET",
+   "value": null
+  },
+  {
+   "adopted": "0.05 degrees",
+   "aliases": [],
+   "decisions": [
+    "DD-G04"
+   ],
+   "gate": "Q11 sun altitude and azimuth",
+   "id": "T-Q11-1",
+   "in_code": "0.05 degrees",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G04)",
+   "value": {
+    "max_deg": 0.05
+   }
+  },
+  {
+   "adopted": "0.5 degrees",
+   "aliases": [],
+   "decisions": [
+    "DD-G04"
+   ],
+   "gate": "Q11 moon altitude, azimuth, phase angle",
+   "id": "T-Q11-2",
+   "in_code": "0.5 degrees",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G04)",
+   "value": {
+    "max_deg": 0.5
+   }
+  },
+  {
+   "adopted": "2.0 minutes",
+   "aliases": [],
+   "decisions": [
+    "DD-G04"
+   ],
+   "gate": "Q11 rise, set, twilight times",
+   "id": "T-Q11-3",
+   "in_code": "2.0 minutes",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G04)",
+   "value": {
+    "max_min": 2.0
+   }
+  },
+  {
+   "adopted": "1.0 minute",
+   "aliases": [],
+   "decisions": [],
+   "gate": "Q11 full-moon instant",
+   "id": "T-Q11-4",
+   "in_code": "1.0 minute",
+   "plan": "within one minute of the published value (p. 111, B.10.2)",
+   "status": [
+    "PLAN"
+   ],
+   "status_text": "PLAN",
+   "value": {
+    "max_min": 1.0
+   }
+  },
+  {
+   "adopted": "0.0006 degrees",
+   "aliases": [],
+   "decisions": [
+    "DD-G04"
+   ],
+   "gate": "Q11 stored table against product",
+   "id": "T-Q11-5",
+   "in_code": "0.0006 degrees",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G04)",
+   "value": {
+    "max_deg": 0.0006
+   }
+  },
+  {
+   "adopted": "equal to T-Q11-1",
+   "aliases": [],
+   "decisions": [
+    "DD-G04"
+   ],
+   "gate": "Q11 shadow azimuth in frames",
+   "id": "T-Q11-6",
+   "in_code": "none",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G04)",
+   "value": null
+  },
+  {
+   "adopted": "UNSET; measured on the real GPU",
+   "aliases": [],
+   "decisions": [],
+   "gate": "Q12 jump latency",
+   "id": "T-Q12-1",
+   "in_code": "none",
+   "plan": "\"within budget\" (p. 124), no figure",
+   "status": [
+    "UNSET"
+   ],
+   "status_text": "UNSET",
+   "value": null
+  },
+  {
+   "adopted": "at least 100, forward and backward",
+   "aliases": [],
+   "decisions": [],
+   "gate": "Q12 random jump times",
+   "id": "T-Q12-2",
+   "in_code": "not tested at that size",
+   "plan": "100 (p. 130, D.7 phase 12)",
+   "status": [
+    "PLAN"
+   ],
+   "status_text": "PLAN",
+   "value": {
+    "min_random_jumps": 100
+   }
+  },
+  {
+   "adopted": "1 ms",
+   "aliases": [],
+   "decisions": [
+    "DD-G05"
+   ],
+   "gate": "Q13 delay",
+   "id": "T-Q13-1",
+   "in_code": "1 ms",
+   "plan": "none (\"within tolerance\", p. 5)",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G05)",
+   "value": {
+    "max_ms": 1
+   }
+  },
+  {
+   "adopted": "20 ms",
+   "aliases": [],
+   "decisions": [
+    "DD-G05"
+   ],
+   "gate": "Q15 p95 paced",
+   "id": "T-Q15-1",
+   "in_code": "20 ms",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G05)",
+   "value": {
+    "p95_paced_ms": 20
+   }
+  },
+  {
+   "adopted": "10 ms",
+   "aliases": [],
+   "decisions": [
+    "DD-G05"
+   ],
+   "gate": "Q15 CPU plus GPU p95 uncapped",
+   "id": "T-Q15-2",
+   "in_code": "10 ms",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G05)",
+   "value": {
+    "p95_uncapped_ms": 10
+   }
+  },
+  {
+   "adopted": "50 ms",
+   "aliases": [],
+   "decisions": [
+    "DD-G05"
+   ],
+   "gate": "Q15 long task",
+   "id": "T-Q15-3",
+   "in_code": "50 ms",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G05)",
+   "value": {
+    "max_long_task_ms": 50
+   }
+  },
+  {
+   "adopted": "100 ms",
+   "aliases": [],
+   "decisions": [
+    "DD-G05"
+   ],
+   "gate": "Q15 input answer",
+   "id": "T-Q15-4",
+   "in_code": "100 ms",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G05)",
+   "value": {
+    "max_input_answer_ms": 100
+   }
+  },
+  {
+   "adopted": "UNSET until the first documented camera position exists",
+   "aliases": [],
+   "decisions": [],
+   "gate": "Q16 reprojection RMS and landmark count",
+   "id": "T-Q16-1",
+   "in_code": "none (verdicts written by eye)",
+   "plan": "none",
+   "status": [
+    "UNSET"
+   ],
+   "status_text": "UNSET",
+   "value": null
+  },
+  {
+   "adopted": "the same; a record may tighten and never widen",
+   "aliases": [],
+   "decisions": [
+    "DD-RZ-01"
+   ],
+   "gate": "Q17 distance tolerance of `at a place`",
+   "id": "T-Q17-1",
+   "in_code": "`tools/bt/realize/tolerances.json`: the place's own uncertainty by kind (ridge 350, hill 250, knoll 200, woods, field, orchard, work and wall 150, farm 80, building and bridge 40, spring 50, area 300, town 350 m); a mapped line: its positional error plus 20 m",
+   "plan": "none",
+   "status": [
+    "RECORDED"
+   ],
+   "status_text": "RECORDED (DD-RZ-01)",
+   "value": null
+  },
+  {
+   "adopted": "margin 0, the exact window (U-18); the part-of-day conventions as stated (morning before noon, afternoon noon to civil dusk 20:04, evening from 18:00, night civil dusk to civil dawn 04:03) without the margin at their edges; never a margin in Q04, Q05 or Q06",
+   "aliases": [],
+   "decisions": [
+    "DD-G09",
+    "DD-RZ-02"
+   ],
+   "gate": "Q17 the clock window of a row and the parts of the day",
+   "id": "T-Q17-2",
+   "in_code": "the harness widens a printed clock time by 20 minutes at each end (DD-RZ-02)",
+   "plan": "the offset between the armies' clocks is not applied to any row and is carried as uncertainty (p. 9, B.2)",
+   "status": [
+    "RECORDED",
+    "NOT ADOPTED"
+   ],
+   "status_text": "the conventions RECORDED (DD-RZ-02); the margin NOT ADOPTED (DD-G09)",
+   "value": null
+  },
+  {
+   "adopted": "the same; `any` only where the row says `part of`",
+   "aliases": [],
+   "decisions": [
+    "DD-RZ-03"
+   ],
+   "gate": "Q17 formations",
+   "id": "T-Q17-3",
+   "in_code": "every leaf unit on the field must be drawn and satisfy the check",
+   "plan": "none",
+   "status": [
+    "RECORDED"
+   ],
+   "status_text": "RECORDED (DD-RZ-03)",
+   "value": null
+  },
+  {
+   "adopted": "the same minimum, and the quote is re-matched in the stored source text (1.3)",
+   "aliases": [],
+   "decisions": [
+    "DD-G17"
+   ],
+   "gate": "Q21 claim quote of the vegetation data",
+   "id": "T-Q21-1",
+   "in_code": "`checkVegetation`: a quote of at least 12 characters, one of the two allowed tiers and a place in its source",
+   "plan": "under 15 words (p. 134, E.6; T-Q02-1)",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G17)",
+   "value": null
+  },
+  {
+   "adopted": "at least those, plus both sides of every damage-event boundary and every scenario of S* that reaches a vegetation unit",
+   "aliases": [],
+   "decisions": [
+    "DD-G17"
+   ],
+   "gate": "Q21 states a run must cover",
+   "id": "T-Q21-2",
+   "in_code": "`app/tests/vegetation.test.mjs`: more than 400,000 states; the default times are 06:00, 12:00 and 18:00 of every day from 26 June to 15 July, every event boundary and noon on 19 November, with six sets of the three vegetation conflicts",
+   "plan": "none (the gate says per field per date)",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G17)",
+   "value": null
+  },
+  {
+   "adopted": "the same, never lowered",
+   "aliases": [],
+   "decisions": [
+    "DD-G17"
+   ],
+   "gate": "Q21 scene floors of `checkScene`",
+   "id": "T-Q21-3",
+   "in_code": "more than 60,000 trees, more than 50,000 ground-cover triangles, trees on a wood or orchard at 75 to 125 per cent (orchards 60 to 150) of its density",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G17)",
+   "value": null
+  },
+  {
+   "adopted": "the precision of the timeline value (temperature to one degree F as printed; discrete channels exact)",
+   "aliases": [],
+   "decisions": [
+    "DD-G05"
+   ],
+   "gate": "Q22 continuous channels",
+   "id": "T-Q22-1",
+   "in_code": "none",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G05)",
+   "value": null
+  },
+  {
+   "adopted": "at most 0.1",
+   "aliases": [],
+   "decisions": [
+    "DD-G05"
+   ],
+   "gate": "Q24 per-pixel colour threshold",
+   "id": "T-Q24-1",
+   "in_code": "0.1 (main site)",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G05)",
+   "value": {
+    "max_pixel_threshold": 0.1
+   }
+  },
+  {
+   "adopted": "at most 0.002",
+   "aliases": [],
+   "decisions": [
+    "DD-G05"
+   ],
+   "gate": "Q24 differing-pixel ratio",
+   "id": "T-Q24-2",
+   "in_code": "0.002 (main site)",
+   "plan": "none",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G05)",
+   "value": {
+    "max_diff_ratio": 0.002
+   }
+  },
+  {
+   "adopted": "that count, recorded",
+   "aliases": [],
+   "decisions": [
+    "DD-G06"
+   ],
+   "gate": "OA01 enter and back cycles",
+   "id": "T-OA01-1",
+   "in_code": "the count in `leak.spec`",
+   "plan": "none (owner)",
+   "status": [
+    "ADOPTED-PROVISIONAL"
+   ],
+   "status_text": "ADOPTED-PROVISIONAL (DD-G06)",
+   "value": null
+  },
+  {
+   "adopted": "97% as the floor, actual reported",
+   "aliases": [],
+   "decisions": [],
+   "gate": "OA06 documented share",
+   "id": "T-OA06-1",
+   "in_code": "none",
+   "plan": "owner: `well over 97%`",
+   "status": [
+    "OWNER FIGURE"
+   ],
+   "status_text": "OWNER FIGURE",
+   "value": {
+    "min_share": 0.97
+   }
+  },
+  {
+   "adopted": "the three spend and compute caps of every phase and the per-job spend limit: `none` by the owner's order of 2026-11-16; the five other guards and the N of the no-progress halt: owner-approved values or the owner's recorded `none`",
+   "aliases": [],
+   "decisions": [],
+   "gate": "Q27 spend caps, guards, N sessions",
+   "id": "T-Q27-1",
+   "in_code": "all null; `owner_decision_2026_11_16` records `none` for the spend caps",
+   "plan": "none (Appendix F blank, p. 143)",
+   "status": [
+    "OWNER"
+   ],
+   "status_text": "OWNER (spend caps decided; five guards open)",
+   "value": null
+  }
+ ],
+ "unset": [
+  "T-Q10-7",
+  "T-Q10-9",
+  "T-Q12-1",
+  "T-Q16-1"
+ ]
+}

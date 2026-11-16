@@ -1,0 +1,833 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "05913252.3309.emory.edu/472",
+ "levels": "NDR",
+ "stratum": "NC-MOO-E-other",
+ "family": "NC-MOO-E",
+ "layout": "flow",
+ "kind": "other",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 456,
+ "rows_stored": 47,
+ "rows_checked": 47,
+ "rows_in_error": 6,
+ "rows_ok": 41,
+ "rows_flagged_ocr_uncertain": 47,
+ "errors": [
+  {
+   "i": 2,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "Warren co. Austin",
+   "printed": "Warren co.",
+   "note": "the first word of the next entry (Austin W. Green) stands at the end of this line",
+   "rid": "12th-north-carolina-infantry#900",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "C"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "W. Green",
+   "printed": "Austin W. Green",
+   "note": "the given name Austin is in the remarks of the line above",
+   "rid": "12th-north-carolina-infantry#901",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "C"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "...2nd N. C. Battalion. Thomas",
+   "printed": "...2nd N. C. Battalion.",
+   "note": "the first word of the next entry (Thomas .H Green) stands at the end of this line",
+   "rid": "12th-north-carolina-infantry#901",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "C"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": ".H Green",
+   "printed": "Thomas .H Green",
+   "note": "the given name Thomas is in the remarks of the line above (the print has a stray point before the H)",
+   "rid": "12th-north-carolina-infantry#902",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "C"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 27,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "e. May 12th, '6L",
+   "printed": "e. May 12th, '61",
+   "rid": "12th-north-carolina-infantry#925",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "C",
+    "Y"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 28,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "e. Oct. 14i,h, '61",
+   "printed": "e. Oct. 14th, '61",
+   "rid": "12th-north-carolina-infantry#926",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "C",
+    "W"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 39,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Duke, Myriek D.",
+   "printed": "Duke, Myrick D.",
+   "rid": "12th-north-carolina-infantry#937",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "C"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [
+  {
+   "i": 13,
+   "field": "name",
+   "stored": "Bobbitt, Wm. H„",
+   "printed": "Bobbitt, Wm. H.,"
+  }
+ ],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "Printed page 456 (twelfth Regiment, Company F: four non-commissioned officers and the privates A to F); 47 printed entries, all 47 stored; all 47 lines are marked ocr_uncertain by the flag file (the heading of the company is damaged: flag C), yet the lines on this page read well; the company letter is right on every line."
+ ],
+ "reader": "full page view at 200 dpi (Read tool); every stored line compared with the print at the levels N, D and R; the company letter F of all lines checked against the running heads of the neighbouring pages 455 and 457 (Company F, Twelfth Regiment; crop of the heads)",
+ "tesseract_prescreen": {
+  "agree": 34,
+  "near": 1,
+  "suspect": 12,
+  "unstored_lines": 1
+ },
+ "read": {
+  "pdf_sha256": "1dda26b2e9ce5e6272e0d85b2567e1b1818af12123552a36717e677c5805c3c1",
+  "pdf_page": 473,
+  "view_png_sha256": "65656769895df61c7cf7d27c9562569f627efda8e145631f6bda172f1f9a8614",
+  "render300_sha256": "ffeb4c7b5a5b169560b9170c8408498141c931239be0bf0f3abc6ef66c275d07",
+  "tess_sha256": "ca898625144d593496ed92cf63045320965d291c9bcf81fcd694327d802ca6e1",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.981
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "12th-north-carolina-infantry#898",
+   "name": "Thomas M. Bellamy",
+   "rank": "4th Sergt.",
+   "co": "F",
+   "remarks_sha256": "082651cf51cf8157d28c8edce808e422e8452f5497281263594d35a2b947fef3",
+   "off": 1480663,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 1,
+   "rid": "12th-north-carolina-infantry#899",
+   "name": "Richard B. Davis",
+   "rank": "1st Corporal",
+   "co": "F",
+   "remarks_sha256": "4c9a9e56aca7e0d015299a0b1fb52a1711b62cf874e3674779308fbc52edf2f8",
+   "off": 1480735,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 2,
+   "rid": "12th-north-carolina-infantry#900",
+   "name": "Edward P. Parris",
+   "rank": "2d Corporal",
+   "co": "F",
+   "remarks_sha256": "933d776ec85ca506fe2b62957034749651a83f8f478e45391db34dab8218310d",
+   "off": 1480843,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 3,
+   "rid": "12th-north-carolina-infantry#901",
+   "name": "W. Green",
+   "rank": "3d Corporal",
+   "co": "F",
+   "remarks_sha256": "184203b4558b54e105c200dd32822ba5732696bd763e594ac50a5b9ac54c0695",
+   "off": 1480922,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "12th-north-carolina-infantry#902",
+   "name": ".H Green",
+   "rank": "4th Corporal",
+   "co": "F",
+   "remarks_sha256": "34a8c8211e18d08254ddc80c989bdf1bd2824f99d4b09f637662f7637100c9f7",
+   "off": 1481038,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 5,
+   "rid": "12th-north-carolina-infantry#903",
+   "name": "Allen, Jacob S.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "b6f21307611fa335b39042cea1b7fd1684572ce95296481d2b9529ea284f3c08",
+   "off": 1481145,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 6,
+   "rid": "12th-north-carolina-infantry#904",
+   "name": "Allen, Turner",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "c9cfdfe2d9614c9bd8b7e301535613b3f78712a695538d875e119ccfa8bad1d6",
+   "off": 1481206,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 7,
+   "rid": "12th-north-carolina-infantry#905",
+   "name": "Allen, Daniel",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "9392c66d85d56c3c999be17d1d604c40d0661662f120f9ab1d8a29b34caf4426",
+   "off": 1481303,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 8,
+   "rid": "12th-north-carolina-infantry#906",
+   "name": "Allen, Peter H.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "01f2e4719a84bdf16ee59e5b4f4cd7c8dcb80f741846f7b1c2fa601a2a870602",
+   "off": 1481397,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 9,
+   "rid": "12th-north-carolina-infantry#907",
+   "name": "Allen, Hugh J.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "1f729733bf751a4a05dcd33966aab3e57af0b63de412c1f7129d659d5f9d7a8e",
+   "off": 1481483,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 10,
+   "rid": "12th-north-carolina-infantry#908",
+   "name": "Allen, Austin",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "96969e29fc794877acf5031a035214558684bc061339a24d528e119f4266bb01",
+   "off": 1481582,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 11,
+   "rid": "12th-north-carolina-infantry#909",
+   "name": "Angerman, Wm. H.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "8ba986c6e5743c715674a4d15737df73fbeabffc990b5a1562d384800b32b15d",
+   "off": 1481635,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 12,
+   "rid": "12th-north-carolina-infantry#910",
+   "name": "Bobbitt, Henry",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "8ba986c6e5743c715674a4d15737df73fbeabffc990b5a1562d384800b32b15d",
+   "off": 1481716,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 13,
+   "rid": "12th-north-carolina-infantry#911",
+   "name": "Bobbitt, Wm. H„",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "ac7775788b75bcd0f2d44f3ea928e7205aa2595cedd639992d6cf938ac2efefa",
+   "off": 1481794,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C",
+    "N"
+   ]
+  },
+  {
+   "i": 14,
+   "rid": "12th-north-carolina-infantry#912",
+   "name": "Bobbitt, Plummer A.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "615cc4cdae67c79ed8873e6887e0a8676ef9adae223d287480fcca40d012077f",
+   "off": 1481849,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 15,
+   "rid": "12th-north-carolina-infantry#913",
+   "name": "Bottam, James M.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "7b0e4fcf8a335c3007c47c2cc9f4aedc4df348a8ac125b4df2496d7b9995c567",
+   "off": 1481908,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 16,
+   "rid": "12th-north-carolina-infantry#914",
+   "name": "Brooks, Silas",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "af7036efa6a8d56e9077ba910da709d981eaab27adc8e32106f9207f8619317c",
+   "off": 1481966,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 17,
+   "rid": "12th-north-carolina-infantry#915",
+   "name": "Brown, Charles C",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "7b0e4fcf8a335c3007c47c2cc9f4aedc4df348a8ac125b4df2496d7b9995c567",
+   "off": 1482053,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 18,
+   "rid": "12th-north-carolina-infantry#916",
+   "name": "Baker, John",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "13dece48ced51a495aa76219d090741200474f4acd4b09174f18ad3ee609de20",
+   "off": 1482111,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 19,
+   "rid": "12th-north-carolina-infantry#917",
+   "name": "Branman, Dennis",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "ed26626f89470c889aa8875314e60d5ffa3db3c1f3594e218aa380fa3dc0d488",
+   "off": 1482180,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 20,
+   "rid": "12th-north-carolina-infantry#918",
+   "name": "Bartlett, Leonidas J.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "c9cfdfe2d9614c9bd8b7e301535613b3f78712a695538d875e119ccfa8bad1d6",
+   "off": 1482235,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 21,
+   "rid": "12th-north-carolina-infantry#919",
+   "name": "Bellany, T. M.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "4b5a345e42cb57aa5234ea74b30681f6c9d1cf51e564927a2e72127c9f84f83b",
+   "off": 1482342,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 22,
+   "rid": "12th-north-carolina-infantry#920",
+   "name": "Cheek, Wm. H.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "84cd0d25ddef246cb99dbfb61a933484b90b9080f166ba43504e0cb2c277a95f",
+   "off": 1482404,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 23,
+   "rid": "12th-north-carolina-infantry#921",
+   "name": "Cheek, Thomas",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "7579d07f95f86d6c015bdce1efc86b442dfe4c267c67c9c0bba64c5a3c7a4a59",
+   "off": 1482484,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 24,
+   "rid": "12th-north-carolina-infantry#922",
+   "name": "Cannon, Wm. H.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "306bd0f3958c0422583c77908e0555d8802a01d2215975090013a03580c01864",
+   "off": 1482579,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 25,
+   "rid": "12th-north-carolina-infantry#923",
+   "name": "Cottrell, Thomas H.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "31554b4231a14ee730b6ab70c1c4c1fb1a76817c8476508b6aeaa21f58128890",
+   "off": 1482635,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 26,
+   "rid": "12th-north-carolina-infantry#924",
+   "name": "Capps, Wm. H.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "0d186a8f1af33a0ef62ae152f95d8245af95317c25c77dd833dab59be102edf2",
+   "off": 1482692,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 27,
+   "rid": "12th-north-carolina-infantry#925",
+   "name": "Crowder, Bartlett",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "72f8a77cff64737c882a78a7debdc66ec33926a53a7878b463da2f0fd0b0746f",
+   "off": 1482785,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C",
+    "Y"
+   ]
+  },
+  {
+   "i": 28,
+   "rid": "12th-north-carolina-infantry#926",
+   "name": "Cook, John T.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "2ce38017ad6407d86fe30a9bedbf731cadaa982e7e19a43638e90f5a0ad4d959",
+   "off": 1482865,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C",
+    "W"
+   ]
+  },
+  {
+   "i": 29,
+   "rid": "12th-north-carolina-infantry#927",
+   "name": "Collins, Michael",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "754bfd6ca7f262dba4e7baaad774dde59d426104aee55191f9bea70141cc0739",
+   "off": 1482980,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 30,
+   "rid": "12th-north-carolina-infantry#928",
+   "name": "Davis, John A.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "2d2823f39c92a034cc6b49372530d2703596de3ab4acd5172ac19a8c868801c1",
+   "off": 1483043,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 31,
+   "rid": "12th-north-carolina-infantry#929",
+   "name": "Davis, Thomas E.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "03f8c39ded4048faf19dd34e877ec30af9944dc77f33689b15d630c628d12b80",
+   "off": 1483097,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 32,
+   "rid": "12th-north-carolina-infantry#930",
+   "name": "Davis, Wallace W.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "bde59866fd288b06dcab0b8c28bd0d6775e46b31ad664cc782cd6f9f403858de",
+   "off": 1483151,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 33,
+   "rid": "12th-north-carolina-infantry#931",
+   "name": "Dawtin, Samuel W.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "521190c88682da496d537af1f21de75c62f027e81f78723d82ae7f48d122cafa",
+   "off": 1483239,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 34,
+   "rid": "12th-north-carolina-infantry#932",
+   "name": "Darnell, Wm. E.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "7b0e4fcf8a335c3007c47c2cc9f4aedc4df348a8ac125b4df2496d7b9995c567",
+   "off": 1483295,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 35,
+   "rid": "12th-north-carolina-infantry#933",
+   "name": "Draper, Jerry",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "e8c42477fa28e7be1a741df8ec24364e79d04a0b527fba75ec1fa2d50878b7c6",
+   "off": 1483352,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 36,
+   "rid": "12th-north-carolina-infantry#934",
+   "name": "Duke, George M.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "2230a990d980e3381471dd5ec9d244cce1626247fb23870fa30a3c9ce63f07a1",
+   "off": 1483446,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 37,
+   "rid": "12th-north-carolina-infantry#935",
+   "name": "Duke, Joseph H.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "7ea43720c821e3b6b7afe3d4749e878144ec619e8f8e017a4f038137c3597b3b",
+   "off": 1483502,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 38,
+   "rid": "12th-north-carolina-infantry#936",
+   "name": "Duke, Matthew",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "34cac6867a7d3398665bbc0e4335cee42a364c8893fd6b2ca5eadbceb5522d53",
+   "off": 1483562,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 39,
+   "rid": "12th-north-carolina-infantry#937",
+   "name": "Duke, Myriek D.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "306bd0f3958c0422583c77908e0555d8802a01d2215975090013a03580c01864",
+   "off": 1483616,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 40,
+   "rid": "12th-north-carolina-infantry#938",
+   "name": "Dorsey, A. S.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "b9da47f2807d5af8112e28abbdd9f5aaf3c42587fe3da0c0b656cdf8844ed168",
+   "off": 1483673,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 41,
+   "rid": "12th-north-carolina-infantry#939",
+   "name": "Evans, R.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "47a1f19540814429325462efd2ebffaed0d57f74b9b3eff9be25acdde63dd6e2",
+   "off": 1483726,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C",
+    "H"
+   ]
+  },
+  {
+   "i": 42,
+   "rid": "12th-north-carolina-infantry#940",
+   "name": "Evans, John L.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "fc5f71c683b3dec7a6c8054cd4912ec3b36c95a59211039a502aae131a255721",
+   "off": 1483749,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 43,
+   "rid": "12th-north-carolina-infantry#941",
+   "name": "Edwards, Robert V.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "306bd0f3958c0422583c77908e0555d8802a01d2215975090013a03580c01864",
+   "off": 1483804,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 44,
+   "rid": "12th-north-carolina-infantry#942",
+   "name": "Egerton, Wm. H.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "3302a6419fb308cc76695e591dbd003780250395ddc1f01925f0b1f72f39f099",
+   "off": 1483864,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 45,
+   "rid": "12th-north-carolina-infantry#943",
+   "name": "Fitts, James H.",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "2e279446b28e30b5845ec94005db955aa8ea102c0028faecba94429c8b06db1b",
+   "off": 1483963,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  },
+  {
+   "i": 46,
+   "rid": "12th-north-carolina-infantry#944",
+   "name": "Fitts, Henry",
+   "rank": "^PRIVATES",
+   "co": "F",
+   "remarks_sha256": "666058462100f52532fd2ebbb3e378b0d91cb740660923a0ecc9d7a14e7a8347",
+   "off": 1484055,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "C"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-16T02:49:41Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "SUSPECT",
+  "2": "AGREE",
+  "3": "NEAR",
+  "4": "AGREE",
+  "5": "AGREE",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "AGREE",
+  "9": "AGREE",
+  "10": "AGREE",
+  "11": "AGREE",
+  "12": "AGREE",
+  "13": "AGREE",
+  "14": "AGREE",
+  "15": "SUSPECT",
+  "16": "AGREE",
+  "17": "AGREE",
+  "18": "AGREE",
+  "19": "AGREE",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "AGREE",
+  "23": "SUSPECT",
+  "24": "AGREE",
+  "25": "AGREE",
+  "26": "AGREE",
+  "27": "AGREE",
+  "28": "SUSPECT",
+  "29": "AGREE",
+  "30": "AGREE",
+  "31": "SUSPECT",
+  "32": "SUSPECT",
+  "33": "AGREE",
+  "34": "AGREE",
+  "35": "AGREE",
+  "36": "AGREE",
+  "37": "AGREE",
+  "38": "AGREE",
+  "39": "SUSPECT",
+  "40": "SUSPECT",
+  "41": "AGREE",
+  "42": "AGREE",
+  "43": "AGREE",
+  "44": "AGREE",
+  "45": "AGREE",
+  "46": "AGREE"
+ }
+}

@@ -3,7 +3,7 @@
 #     tools/horde/bench.sh bash docs/battle-theatre/GOVERNANCE/gate_results/spec-b-evidence/pass6/heavy_a.sh
 # One lock slot, steps one after the other, cheapest first so that partial results exist early:
 #   1 the browser capability probe (after the container restart of about 02:20 UTC);
-#   2 the seven gate runners that have a stored result, each run into a SCRATCH folder (tmp/bt-gates/pass6/results; GOVERNANCE/gate_results is NOT touched), to measure their cost and to compare with the stored files;
+#   2 (the seven gate runners that have a stored result were moved out of this job: each needs under 30 s of CPU and was run directly, niced, into the scratch folder tmp/bt-gates/pass6/results by run_light2.sh);
 #   3 the heavy realization test file of tests/governance (realize-inputs.test.mjs: it runs check_coverage.py and compares its Q17 block with the harness);
 #   4 the two test files of tests/bt-pack (the copy audit of the shipped dist);
 #   5 tools/bt/check_figures.py WITHOUT --write.
@@ -30,13 +30,6 @@ step() { name="$1"; shift
   printf '%s\t%s\texit %s\twall %s s\tcpu %s s\n' "$t0" "$name" "$rc" "$1" "$(echo "$2 + $3" | bc)" >> "$E/heavy-a-runs.tsv"
 }
 step browser_caps    node "$S/browser_caps.mjs"
-step run_q25         python3 tools/bt/gates/q25_library.py --out "$R" --quiet
-step run_q23         python3 tools/bt/gates/q23_marking.py --out "$R" --quiet
-step run_q19         python3 tools/bt/gates/q19_claims.py --out "$R" --quiet
-step run_q02         python3 tools/bt/gates/q02_provenance.py --out "$R" --quiet
-step run_q01         python3 tools/bt/gates/q01_oob.py --out "$R" --quiet
-step run_q14         python3 tools/bt/gates/q14_ordnance.py --out "$R" --quiet
-step run_q20         python3 tools/bt/gates/q20_cavalry.py --out "$R" --quiet
 step realize_inputs_test node --test --test-reporter=tap tests/governance/realize-inputs.test.mjs
 step bt_pack_test    node --test --test-reporter=tap tests/bt-pack/pack.test.mjs tests/bt-pack/verify.test.mjs
 step check_figures   python3 -I tools/bt/check_figures.py --quiet

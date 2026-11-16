@@ -1,0 +1,458 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "rosterofnorthcar03moor/291",
+ "levels": "NDR",
+ "stratum": "NC-MOO-G-officers",
+ "family": "NC-MOO-G",
+ "layout": "flow",
+ "kind": "officers",
+ "draw_position": 2,
+ "in_lowest_decile": false,
+ "printed_page": 283,
+ "rows_stored": 29,
+ "rows_checked": 29,
+ "rows_in_error": 4,
+ "rows_ok": 25,
+ "rows_flagged_ocr_uncertain": 1,
+ "errors": [
+  {
+   "i": 15,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "p. Lieutenant April 18th, '63. Green",
+   "printed": "p. Lieutenant April 18th, '63.",
+   "note": "the first word of the next entry (Green F. Daniel) stands at the end of this line",
+   "rid": "45th-north-carolina-infantry#1076",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 16,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "F. Daniel",
+   "printed": "Green F. Daniel",
+   "note": "the given name Green is in the remarks of the line above",
+   "rid": "45th-north-carolina-infantry#1077",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 23,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Allen, A. J.3",
+   "printed": "Allen, A. J.,",
+   "note": "the comma after the initials read as the digit 3",
+   "rid": "45th-north-carolina-infantry#1084",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 26,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "Rockingham co. j",
+   "printed": "Rockingham co.",
+   "note": "a speck at the right margin is read as the letter j",
+   "rid": "45th-north-carolina-infantry#1087",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "Company H of the 45th North Carolina Infantry, printed page 283 (officers, non-commissioned officers and the first privates); 29 printed entries, all 29 stored. A clean page of the first scan: 25 of 29 lines agree with the print in every character that counts."
+ ],
+ "reader": "full page view at 200 dpi (Read tool); every stored line compared with the print at the levels N, D and R; the company letter H of all lines read from the heading and the running head of this page (Company H, Forty-Fifth Regiment)",
+ "tesseract_prescreen": {
+  "agree": 4,
+  "near": 0,
+  "suspect": 25,
+  "unstored_lines": 2
+ },
+ "read": {
+  "pdf_sha256": "cd19cd7b0f1e2fe6b21f6d68ae5e57eb886e60a2efa99368d26ef7f9465cf299",
+  "pdf_page": 291,
+  "view_png_sha256": "9ae8f643558945213a6bc58a9f62f307375cbef09359f97f0fed1065e22ec71e",
+  "render300_sha256": "97526cc6158d976d22a5ffca338b87725614810db44bd4111dac89b64a566855",
+  "tess_sha256": "3ac221d36506690a0526a6a7ad87da848153e44dfc126f54ded89dc01b3c609c",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.994
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "45th-north-carolina-infantry#1061",
+   "name": "William J. Courts",
+   "rank": "Captain",
+   "co": "H",
+   "remarks_sha256": "800245ae9b2ae0d64cc68dde60519733554dd8f18a3df3cb48906dac9cee53a4",
+   "off": 868554,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "45th-north-carolina-infantry#1062",
+   "name": "Marcus C. Holderby",
+   "rank": "Captain",
+   "co": "H",
+   "remarks_sha256": "37aa3d6389c46717634f400987c6a27df3e15a593e95e0939af7c4d40a294ee1",
+   "off": 868656,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "45th-north-carolina-infantry#1063",
+   "name": "John W. Foster",
+   "rank": "Captain",
+   "co": "H",
+   "remarks_sha256": "b1b8c4d11a9f4676b8d96a80f49c8657a45aade056fe8dab99a447703b86ee22",
+   "off": 868753,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "45th-north-carolina-infantry#1064",
+   "name": "Thomas S. Galloway",
+   "rank": "Captain",
+   "co": "H",
+   "remarks_sha256": "37cdbefc8776fda2f58776d3e5e4fe6bed13d5e9ebf3c4f40813511ed3a3d5ea",
+   "off": 868847,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "45th-north-carolina-infantry#1065",
+   "name": "M. C. Holderby",
+   "rank": "1st Lieut.",
+   "co": "H",
+   "remarks_sha256": "4d7686c789ad260933fcb5eb1eb0ce1cc19ac527ade6d0747669ef63f93b26d5",
+   "off": 868975,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "45th-north-carolina-infantry#1066",
+   "name": "John W. Foster",
+   "rank": "1st Lieut.",
+   "co": "H",
+   "remarks_sha256": "1847aff2dca9b3369e7b73371a9f9b9dbabd461b6cceb356f18d474ae0bc7d16",
+   "off": 869064,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "45th-north-carolina-infantry#1067",
+   "name": "Philemon Neal",
+   "rank": "1st Lieut.",
+   "co": "H",
+   "remarks_sha256": "4fc20f0d7f9ba7c64e54feedf15560e2c6f70d5c409bbcf746a8b4a1fa8a26fa",
+   "off": 869154,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "45th-north-carolina-infantry#1068",
+   "name": "James F. Burton",
+   "rank": "1st Lieut.",
+   "co": "H",
+   "remarks_sha256": "6f40a541d74c0106c74bc2ce3afde0b4a8a36258b377007005a6b81a532ecd32",
+   "off": 869249,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "45th-north-carolina-infantry#1069",
+   "name": "John W. Foster",
+   "rank": "2d Lieut.",
+   "co": "H",
+   "remarks_sha256": "f7f285ed4e62edcffa5dba1bb1e6668e31e49711e144de66c6ce8c2fea9af794",
+   "off": 869362,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "45th-north-carolina-infantry#1070",
+   "name": "Philemon Neal",
+   "rank": "2d Lieut.",
+   "co": "H",
+   "remarks_sha256": "1a169ae667888ff38f97cab2f36727fdfcda59d821a5f0d3d9715205a6ea1b50",
+   "off": 869467,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "45th-north-carolina-infantry#1071",
+   "name": "J. M. Benton",
+   "rank": "2d Lieut.",
+   "co": "H",
+   "remarks_sha256": "b5405122bddc4d8b856d6f37ec56ae4aa8b5a9322cedac2cadba5ce91a6f0d9d",
+   "off": 869556,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "45th-north-carolina-infantry#1072",
+   "name": "A. W. Watkins",
+   "rank": "2d Lieut.",
+   "co": "H",
+   "remarks_sha256": "8b6200b8d7ad89a40a352d5caf56a82b95ecc2ad48d4624acfc260d97f93b366",
+   "off": 869668,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "45th-north-carolina-infantry#1073",
+   "name": "J. F. Barton",
+   "rank": "2d Lieut.",
+   "co": "H",
+   "remarks_sha256": "50a16352422886f47d2b7a3ee0f601fa3817b9128e580036604d73ae265ae1ab",
+   "off": 869763,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "45th-north-carolina-infantry#1074",
+   "name": "John W. Foster",
+   "rank": "1st Sergeant",
+   "co": "H",
+   "remarks_sha256": "0e3c54c3747de2e45a28e07be1ef1099eaecd3504435058bca4ce699e580d8cf",
+   "off": 869843,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "45th-north-carolina-infantry#1075",
+   "name": "James M. Benton",
+   "rank": "2d Sergeant",
+   "co": "H",
+   "remarks_sha256": "19a2253224853adfd506f18ffa2c1d95a8a8d72fabf6934583d956415e922d3c",
+   "off": 869967,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "45th-north-carolina-infantry#1076",
+   "name": "A. W. Watkins",
+   "rank": "3d Sergeant",
+   "co": "H",
+   "remarks_sha256": "11da3776cb2262c7d4ac5cfde70e37820caa5662f1671c050bb1bda70d5ede4f",
+   "off": 870080,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "45th-north-carolina-infantry#1077",
+   "name": "F. Daniel",
+   "rank": "4th Sergeant",
+   "co": "H",
+   "remarks_sha256": "d466825d2a58589a9b2653bcffdf42da0650d1ea2e0871fa1e2e279ac06f34e3",
+   "off": 870196,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "45th-north-carolina-infantry#1078",
+   "name": "Charles A. Watkins",
+   "rank": "5th Sergeant",
+   "co": "H",
+   "remarks_sha256": "bda086db78d3942f1e95bea7d517687342e110be890c38d5172c0a1adc8cab1e",
+   "off": 870288,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "45th-north-carolina-infantry#1079",
+   "name": "Robert H. Dodson",
+   "rank": "1st Corporal",
+   "co": "H",
+   "remarks_sha256": "684cb35edad69720376171308c51b55d6d15e463081ea88c40e3534a4483a733",
+   "off": 870427,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 19,
+   "rid": "45th-north-carolina-infantry#1080",
+   "name": "John T. Lumpkin",
+   "rank": "2d Corporal",
+   "co": "H",
+   "remarks_sha256": "684cb35edad69720376171308c51b55d6d15e463081ea88c40e3534a4483a733",
+   "off": 870503,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 20,
+   "rid": "45th-north-carolina-infantry#1081",
+   "name": "William Burton",
+   "rank": "3d Corporal",
+   "co": "H",
+   "remarks_sha256": "56ba7694aec1b3fbd2fd8f90e7ed7e88af894e9233377062f5101eb808150fde",
+   "off": 870577,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "45th-north-carolina-infantry#1082",
+   "name": "James M. Miller",
+   "rank": "4th Corporal",
+   "co": "H",
+   "remarks_sha256": "bbd1a9ef427f0af4c36d21ecb2558c65194f560912727ec83d1db2b041ab3048",
+   "off": 870672,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 22,
+   "rid": "45th-north-carolina-infantry#1083",
+   "name": "Atkins, N. T.",
+   "rank": "^PRIVATES",
+   "co": "H",
+   "remarks_sha256": "684cb35edad69720376171308c51b55d6d15e463081ea88c40e3534a4483a733",
+   "off": 870781,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 23,
+   "rid": "45th-north-carolina-infantry#1084",
+   "name": "Allen, A. J.3",
+   "rank": "^PRIVATES",
+   "co": "H",
+   "remarks_sha256": "f71348d23baf32051d8ec66d00bc3ea169cb9b5133fb160461226a9cd2bd49b9",
+   "off": 870838,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 24,
+   "rid": "45th-north-carolina-infantry#1085",
+   "name": "Blackwell, J. M.",
+   "rank": "^PRIVATES",
+   "co": "H",
+   "remarks_sha256": "eeac713f5dc85c524b7256738eeb25ea8c47565e1916ab356cbe3f8d8ddc7633",
+   "off": 870914,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 25,
+   "rid": "45th-north-carolina-infantry#1086",
+   "name": "Braun, J. C",
+   "rank": "^PRIVATES",
+   "co": "H",
+   "remarks_sha256": "be2bbc2e8ea26e29f80ff9887c5932474b59a7935c1ea1d6c2973d8142e56ead",
+   "off": 870978,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 26,
+   "rid": "45th-north-carolina-infantry#1087",
+   "name": "Braun, P. D.",
+   "rank": "^PRIVATES",
+   "co": "H",
+   "remarks_sha256": "074e96489873d6e62d663bb256caae5ee8ed467d0fb819cec90b6601850fb5c2",
+   "off": 871042,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 27,
+   "rid": "45th-north-carolina-infantry#1088",
+   "name": "Braun, S. E.",
+   "rank": "^PRIVATES",
+   "co": "H",
+   "remarks_sha256": "ecd1070da74da58b9aa8bd95afcd34df8ec61a27ba55f1fcb1cf06017f41864b",
+   "off": 871105,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 28,
+   "rid": "45th-north-carolina-infantry#1089",
+   "name": "Braun, L. H.",
+   "rank": "^PRIVATES",
+   "co": "H",
+   "remarks_sha256": "1bf376937475c46a6f9ae37bb703315cdee2fb21b69cd199a41f25cfc4f7a087",
+   "off": 871179,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-16T02:57:23Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "AGREE",
+  "11": "AGREE",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "SUSPECT",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "SUSPECT",
+  "23": "SUSPECT",
+  "24": "SUSPECT",
+  "25": "AGREE",
+  "26": "SUSPECT",
+  "27": "AGREE",
+  "28": "SUSPECT"
+ }
+}

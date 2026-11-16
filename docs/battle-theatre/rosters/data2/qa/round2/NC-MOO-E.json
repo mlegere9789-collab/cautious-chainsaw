@@ -95,57 +95,91 @@
   "NC-MOO-E-other": {
    "pages_in_stratum": 730,
    "rows_in_stratum": 33029,
-   "pages_looked_at": 0,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "pages_looked_at": 4,
+   "decile_pages_looked_at": 2,
+   "rows_looked_at": 182,
+   "draw_positions": [
+    3,
+    2,
+    1,
+    4
+   ],
+   "pages": [
+    "05913252.3309.emory.edu/111",
+    "05913252.3309.emory.edu/250",
+    "05913252.3309.emory.edu/472",
+    "05913252.3309.emory.edu/511"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 182,
+     "errors": 19,
+     "rate_percent": 10.44,
+     "upper95_percent": 14.94,
+     "lower95_percent": 6.94,
+     "decision": "FAIL"
     },
     "R-G2": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 102,
+     "errors": 27,
+     "rate_percent": 26.47,
+     "upper95_percent": 34.61,
+     "lower95_percent": 19.39,
+     "decision": "FAIL"
     },
     "R-G3a": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 182,
+     "errors": 30,
+     "rate_percent": 16.48,
+     "upper95_percent": 21.69,
+     "lower95_percent": 12.12,
+     "decision": "FAIL"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 102,
+     "errors": 8,
+     "rate_percent": 7.84,
+     "upper95_percent": 13.71,
+     "lower95_percent": 3.96,
+     "decision": "FAIL"
     },
     "any": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
+     "rows": 102,
+     "errors": 34,
+     "rate_percent": 33.33,
+     "upper95_percent": 41.8,
+     "lower95_percent": 25.61,
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
-   "missed_lines": 0,
+   "error_kinds_count": {
+    "name-char": 14,
+    "rem-date": 27,
+    "rem-char": 6,
+    "rem-extra": 2,
+    "name-cut": 4,
+    "name-nonperson": 1,
+    "rank": 29,
+    "merge": 2
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-char": 6,
+    "rem-date": 10,
+    "rem-char": 5,
+    "rem-extra": 2,
+    "name-cut": 4,
+    "name-nonperson": 1,
+    "rank": 8,
+    "merge": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "rem-date": 17,
+    "name-char": 8,
+    "rem-char": 1,
+    "rank": 21,
+    "merge": 1
+   },
+   "missed_lines": 1,
    "census_complete": false
   }
  },
@@ -153,6 +187,10 @@
   "05913252.3309.emory.edu/62",
   "05913252.3309.emory.edu/116",
   "05913252.3309.emory.edu/193",
-  "05913252.3310.emory.edu/580"
+  "05913252.3310.emory.edu/580",
+  "05913252.3309.emory.edu/111",
+  "05913252.3309.emory.edu/250",
+  "05913252.3309.emory.edu/472",
+  "05913252.3309.emory.edu/511"
  ]
 }

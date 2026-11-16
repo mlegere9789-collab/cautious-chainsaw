@@ -43,68 +43,23 @@
   "Re-checked in this container on 2026-11-13 23:30 to 23:40 UTC (tmp/r1h-cand/status-B2/runs): tools/data/manifest.mjs verify (71 of 71, 0 changed) and emit_legacy.mjs --verify (0 changed); ops/legal-drafts/verify-facts.mjs on release/R1g/dist (no FAIL, 1 WARN); tests/t0/seo.spec.mjs 17 of 17; tests/t0/headers.spec.mjs --no-browser 13 pass, 4 skipped, 1 FAILED (HDR-11, the stand-in tile folder); node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline 1,764 error-severity findings (4,217 with the warnings; NAME 186, COUNT 8, WE 8, DEVLOG 0, PERSONAL_EMAIL 0); tests/historian/times-node22.test.mjs 4 of 4 under Node 22.23.4; src/config/tokens.test.mjs and src/foundation.test.mjs 23 of 23. Not re-run after the container restart at 23:23 UTC unless listed here: the long suites of the first pass; their inputs did not change since (git log of tests/time, tools/time, src/lib/time, tests/data, tools/data, data-src, tests/copy, tools/copy and tests/historian shows only the ver-hist-node change to tools/historian/ingest/times.mjs and the new test tests/historian/times-node22.test.mjs).",
   "Probed by this survey on 2026-11-13 23:56 to 23:58 UTC (one request per probe, no retry, nothing worked around): https://archive.org/download/warofrebellion271unit/warofrebellion271unit_hocr_pageindex.json.gz answers 302 to dn760100.eu.archive.org, which the proxy refuses (CONNECT tunnel failed, response 403); the same item through https://archive.org/cors/ answers 200 to HEAD; the project fetcher refuses the /cors/ form (RightsRefusal); see VER-HIST-CORPUS. Not run: the Historian corpus build and the 87 tests that need it.",
   "Run by the third pass of the part B survey, 2026-11-14 (under 30 s of CPU each, no browser): node --test src/config/tokens.test.mjs src/foundation.test.mjs 23 of 23 and node --test tests/historian/times-node22.test.mjs 4 of 4, both under Node 22.23.4; node tools/data/manifest.mjs verify (71 files, 0 changed); node tools/ledger/validate.mjs and node tools/environment/validate.mjs 0 errors, 0 warnings each; scripted checks (tmp/r1h-cand/status-B3): every id family of chapters 09 to 16 against the items (none missing), the 98 nodes and 12 milestones of 15-roadmap.json in items-A.json or this file, every delegated_row naming an existing row of docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md, every status annotation in the text against the item it names (117 annotations, no contradiction), every negative claim about a file (\"no X exists\") against git ls-files (none contradicted), every patch id against release/R1g/anchors.json, the 60 spot checks of tmp/r1h-cand/status-B2/spot_checks.py against release/R1g/dist (60 of 60); docs/plan/STATUS/merge_status.py and check_backlog.py in a scratch layout with this file (tmp/r1h-cand/status-B3/scratch): ok. Not run: any browser suite, Lighthouse, any real device, the eight acceptance passes, the Historian corpus build.",
-  "Fourth pass of the part B survey, from 2026-11-15 22:53 UTC, after a container restart (up 4 minutes at 22:56 UTC; the background jobs of 2026-11-14 did not survive, among them the queued paired Node 22 and Node 24 run of candidate ver-hist-node, so its STATUS.json still says passes false and no suite-node22.log exists). Read from the tree: the main-site areas (src, historian-src, data-src, tools/data, tools/time, tools/historian, tests/data, tests/time, tests/historian, tests/copy, tools/copy, tests/t0, release, ops) are unchanged since the third pass (git diff from commit 2c27d056), and tools/t0 differs only in tools/t0/r1g/suites_sources.json, the registry of suite logs; what changed since 2026-11-14 00:37 UTC is the records: candidate wp-arch-09 is closed (candidates/r1h/wp-arch-09/STATUS.json passes true at 2026-11-14 01:16 UTC: node --test src/config/tokens.test.mjs src/foundation.test.mjs 23 of 23 under Node 22.23.4 and 24.22.1, node --test tests/time/*.test.mjs 638 of 638, red-first log kept), candidate ver-hist-node is built with its three test files green on both Nodes but not recorded as passing, docs/accept/R1G-SUITES.json was regenerated at 2026-11-14 01:21 UTC (80 suites, last result ok for 61 and not ok for 19; pagesmaps.R1a 34 of 34 with T0_CHROME set), and rows C11 to C14 and VHN-1 were appended to docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md (none changes an item of this file). Run again today, each under 30 s of CPU and no browser: node tools/data/manifest.mjs verify (71 of 71, 0 changed); node tools/data/emit_legacy.mjs --verify (0 changed); node tools/ledger/validate.mjs and node tools/environment/validate.mjs (0 errors, 0 warnings each); node tools/data/validate.mjs on the legacy tree (68 rules, PASS); node --test src/config/tokens.test.mjs src/foundation.test.mjs (23 of 23), tests/historian/times-node22.test.mjs (4 of 4) and verify-ingest-clock.test.mjs (2 pass, 1 skipped) under Node 22.23.4; tmp/r1h-cand/status-B2/spot_checks.py against release/R1g/dist (60 of 60) and verify_b.py (0 problems); tmp/r1h-cand/status-B4/coverage.py (every id family of chapters 09 to 16, the 98 nodes and 12 milestones of 15-roadmap.json: nothing missing) and testids.py (the test ids cited by SHIPPED and BUILT_NOT_SHIPPED items against the test sources: 189 at the start with LIB-09 and T0-DEV-14 not found as written, both corrected in this pass; 193 in the final text, only the deviation row T0-DEV-14 is not a test id). Re-measured on the tree the same day and found as written: node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline (1,764 error-severity findings, 4,217 in all; DASH 989 in 81 files; the per-file counts of REALTIME 12, TICK on pages 9, AIPERSONA 4, ALIAS 1, ABSENCE 2, EMOJI 15, TIMEFMT 9, CASUALTY 2 and COUNT 1 in the bundle, and DASH 915, TIMEFMT 450, NAME 39, CASUALTY 21, IDLEAK 11 and TICK 8 in the data), node tools/data/validate.mjs --data-dir release/R1g/dist/data --no-site (R001 10, R002 0, R003 44, R004 36, X001 915, D001 1, D002 70, N007 7, N009 0, N003 175, C003 490), the data-src candidate counts (569 units, 28 collisions, 79 aliases and 16 unresolved, 138 rights rows, 8 VI Corps brigades, 130 roll-up rows, 22 cavalry regiments), the 2,473 DATA patches (2,364 on 69 files), the 72 authoring keys and 9 files with the Mapbox token literal. Not run: any browser suite, Lighthouse, any real device, the eight acceptance passes, the Historian corpus build, the long node suites (tests/time, tests/copy, tests/historian whole), whose inputs did not change."
+  "Fourth pass of the part B survey, from 2026-11-15 22:53 UTC, after a container restart (up 4 minutes at 22:56 UTC; the background jobs of 2026-11-14 did not survive, among them the queued paired Node 22 and Node 24 run of candidate ver-hist-node, so its STATUS.json still says passes false and no suite-node22.log exists). Read from the tree: the main-site areas (src, historian-src, data-src, tools/data, tools/time, tools/historian, tests/data, tests/time, tests/historian, tests/copy, tools/copy, tests/t0, release, ops) are unchanged since the third pass (git diff from commit 2c27d056), and tools/t0 differs only in tools/t0/r1g/suites_sources.json, the registry of suite logs; what changed since 2026-11-14 00:37 UTC is the records: candidate wp-arch-09 is closed (candidates/r1h/wp-arch-09/STATUS.json passes true at 2026-11-14 01:16 UTC: node --test src/config/tokens.test.mjs src/foundation.test.mjs 23 of 23 under Node 22.23.4 and 24.22.1, node --test tests/time/*.test.mjs 638 of 638, red-first log kept), candidate ver-hist-node is built with its three test files green on both Nodes but not recorded as passing, docs/accept/R1G-SUITES.json was regenerated at 2026-11-14 01:21 UTC (80 suites, last result ok for 61 and not ok for 19; pagesmaps.R1a 34 of 34 with T0_CHROME set), and rows C11 to C14 and VHN-1 were appended to docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md (none changes an item of this file). Run again today, each under 30 s of CPU and no browser: node tools/data/manifest.mjs verify (71 of 71, 0 changed); node tools/data/emit_legacy.mjs --verify (0 changed); node tools/ledger/validate.mjs and node tools/environment/validate.mjs (0 errors, 0 warnings each); node tools/data/validate.mjs on the legacy tree (68 rules, PASS); node --test src/config/tokens.test.mjs src/foundation.test.mjs (23 of 23), tests/historian/times-node22.test.mjs (4 of 4) and verify-ingest-clock.test.mjs (2 pass, 1 skipped) under Node 22.23.4; tmp/r1h-cand/status-B2/spot_checks.py against release/R1g/dist (60 of 60) and verify_b.py (0 problems); tmp/r1h-cand/status-B4/coverage.py (every id family of chapters 09 to 16, the 98 nodes and 12 milestones of 15-roadmap.json: nothing missing) and testids.py (the test ids cited by SHIPPED and BUILT_NOT_SHIPPED items against the test sources: 189 at the start with LIB-09 and T0-DEV-14 not found as written, both corrected in this pass; 193 in the final text, only the deviation row T0-DEV-14 is not a test id). Re-measured on the tree the same day and found as written: node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline (1,764 error-severity findings, 4,217 in all; DASH 989 in 81 files; the per-file counts of REALTIME 12, TICK on pages 9, AIPERSONA 4, ALIAS 1, ABSENCE 2, EMOJI 15, TIMEFMT 9, CASUALTY 2 and COUNT 1 in the bundle, and DASH 915, TIMEFMT 450, NAME 39, CASUALTY 21, IDLEAK 11 and TICK 8 in the data), node tools/data/validate.mjs --data-dir release/R1g/dist/data --no-site (R001 10, R002 0, R003 44, R004 36, X001 915, D001 1, D002 70, N007 7, N009 0, N003 175, C003 490), the data-src candidate counts (569 units, 28 collisions, 79 aliases and 16 unresolved, 138 rights rows, 8 VI Corps brigades, 130 roll-up rows, 22 cavalry regiments), the 2,473 DATA patches (2,364 on 69 files), the 72 authoring keys and 9 files with the Mapbox token literal. Not run: any browser suite, Lighthouse, any real device, the eight acceptance passes, the Historian corpus build, the long node suites (tests/time, tests/copy, tests/historian whole), whose inputs did not change.",
+  "Fifth pass of the part B survey, 2026-11-16 from 02:30 UTC (container up 13 minutes, load 15 from other engineers; every run below under 30 s of CPU, no browser, nothing through the lock). Changes in the main-site areas since the fourth pass (git log since 2026-11-15 23:00 UTC): none in src, historian-src, data-src, tools/data, tools/time, tools/historian, tests/data, tests/time, tests/historian, tests/copy, tools/copy, tests/t0, tools/t0, release, ops or docs/plan/FINAL; new or changed: candidates/r1h/wp-infra-28b (passes true), candidates/r1h/ver-hist-node/HANDOFF.md, docs/decisions rows A74, C15, C16, W28B-1 to W28B-4, docs/accept/R1G-STATUS.md (two lines of 2026-11-16: the timing triage state and the interim functional triage), docs/plan/STATUS (items-A.json pass 5, merge pass 3: STATUS.md and backlog.json of 2026-11-16 00:04 UTC are stale against the wp-infra-28b record and the new rows, merge_status.py --check exits 1 until the planner merges). Run again today: tmp/r1h-cand/status-B2/verify_b.py (0 problems), spot_checks.py against release/R1g/dist (60 of 60), status-B4/coverage.py (every id family of chapters 09 to 16, the 98 nodes and 12 milestones: nothing missing; the 28 corrections, 57 audit ids and the five exit criteria were matched by hand against chapter 16 sections 1.2 and 3.2), testids.py (195 test tokens, only the deviation row T0-DEV-14 is not a test id), traincheck.py (31 train claims, 0 wrong) and cmdcheck.py (21 command shapes), plus the new tmp/r1h-cand/status-B5/spot_checks2.py (34 claims of OPEN_BUILDABLE items of chapters 09 and 10 proved against the tree, all hold) and the status-annotation check (141 'ID (STATUS)' annotations of this file against the current statuses of both files: 0 contradictions); node tools/data/manifest.mjs verify (71 of 71, 0 changed), node tools/data/emit_legacy.mjs --verify (0 changed), node tools/ledger/validate.mjs and node tools/environment/validate.mjs (0 errors, 0 warnings each), node --test src/config/tokens.test.mjs src/foundation.test.mjs (23 of 23) and tests/historian/times-node22.test.mjs with verify-ingest-clock.test.mjs (7 tests, 6 pass, 1 skipped) under Node 22.23.4, node tools/data/validate.mjs on release/R1g/dist/data (R001 10, R002 0, R003 44, R004 36, X001 915, D001 1, D002 70, N003 175, N007 7, N009 0, C003 490, as before), node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline --rules REALTIME,TICK,ABSENCE,AIPERSONA,ALIAS (REALTIME 12 in 6 files, TICK 21 in 4, AIPERSONA 4 in 3, ALIAS 1, ABSENCE 2 warnings), node candidates/r1h/_lib/prove.mjs wp-infra-28b --check (consistent), the red run of candidates/r1h/wp-infra-28b/test.mjs on release/R1g/dist (22 tests, 4 pass, 18 fail) and node candidates/r1h/wp-infra-28b/gen.mjs --check (9 anchors, once each). Read from the tree for the re-grade: the four Report-Only policy classes and the enforced frame-ancestors lines of release/R1g/dist/_headers, the head tags of the 26 pages (og and twitter counts), sw.js, the 13 tests of tests/t0/r0.mjs, tools/accept/checks/c5_perf.mjs runSoak. Not run: any browser suite, Lighthouse, any real device, the eight acceptance passes, the Historian corpus build and the paired Node 22 and 24 run of ver-hist-node (no run-suites process exists since the pause), the candidate wp-infra-28b mutation run and browser check (no result file), the long node suites, any live-site check (a read-only request of the owner's site is allowed but nothing in this file depends on it: ops/RELEASE-LOG.md has no deploy row)."
  ],
  "counts": {
   "SHIPPED": 98,
-  "BUILT_NOT_SHIPPED": 58,
-  "OPEN_BUILDABLE": 220,
+  "BUILT_NOT_SHIPPED": 60,
+  "OPEN_BUILDABLE": 222,
   "OPEN_NEEDS_DECISION": 90,
   "OWNER_ONLY": 102,
   "SUPERSEDED": 18
  },
- "total": 586,
+ "total": 590,
  "counts_by_kind": {
-  "audit-correction": {
-   "OWNER_ONLY": 4,
-   "SHIPPED": 14,
-   "OPEN_BUILDABLE": 9,
-   "OPEN_NEEDS_DECISION": 2
-  },
-  "audit-id": {
-   "SHIPPED": 12,
-   "OPEN_BUILDABLE": 35,
-   "OPEN_NEEDS_DECISION": 4,
-   "OWNER_ONLY": 5,
-   "BUILT_NOT_SHIPPED": 1
-  },
-  "chapter-decision": {
-   "OWNER_ONLY": 24,
-   "OPEN_NEEDS_DECISION": 44,
-   "SHIPPED": 4,
-   "SUPERSEDED": 7
-  },
-  "decision-gate": {
-   "SUPERSEDED": 6
-  },
-  "exit-criterion": {
-   "OPEN_BUILDABLE": 4,
-   "OWNER_ONLY": 1
-  },
-  "milestone": {
-   "OWNER_ONLY": 5,
-   "OPEN_BUILDABLE": 4,
-   "OPEN_NEEDS_DECISION": 3
-  },
-  "new-finding": {
-   "SHIPPED": 22,
-   "OPEN_BUILDABLE": 22,
-   "OWNER_ONLY": 4,
-   "BUILT_NOT_SHIPPED": 2,
-   "SUPERSEDED": 1,
-   "OPEN_NEEDS_DECISION": 3
-  },
   "roadmap-node": {
    "OPEN_BUILDABLE": 15,
    "OPEN_NEEDS_DECISION": 3,
    "BUILT_NOT_SHIPPED": 3
-  },
-  "verification-debt": {
-   "OWNER_ONLY": 34,
-   "OPEN_BUILDABLE": 39,
-   "BUILT_NOT_SHIPPED": 7,
-   "SHIPPED": 1,
-   "OPEN_NEEDS_DECISION": 4
   },
   "work-package": {
    "OWNER_ONLY": 12,
@@ -115,22 +70,68 @@
    "BUILT_NOT_SHIPPED": 35
   },
   "work-package-part": {
+   "OPEN_BUILDABLE": 51,
    "OWNER_ONLY": 13,
-   "OPEN_BUILDABLE": 48,
    "SHIPPED": 34,
    "SUPERSEDED": 2,
    "OPEN_NEEDS_DECISION": 5,
-   "BUILT_NOT_SHIPPED": 10
+   "BUILT_NOT_SHIPPED": 11
+  },
+  "verification-debt": {
+   "OWNER_ONLY": 34,
+   "OPEN_BUILDABLE": 39,
+   "BUILT_NOT_SHIPPED": 7,
+   "SHIPPED": 1,
+   "OPEN_NEEDS_DECISION": 4
+  },
+  "chapter-decision": {
+   "OWNER_ONLY": 24,
+   "OPEN_NEEDS_DECISION": 44,
+   "SHIPPED": 4,
+   "SUPERSEDED": 7
+  },
+  "milestone": {
+   "OWNER_ONLY": 5,
+   "OPEN_BUILDABLE": 4,
+   "OPEN_NEEDS_DECISION": 3
+  },
+  "decision-gate": {
+   "SUPERSEDED": 6
+  },
+  "audit-id": {
+   "SHIPPED": 12,
+   "OPEN_BUILDABLE": 35,
+   "OPEN_NEEDS_DECISION": 4,
+   "OWNER_ONLY": 5,
+   "BUILT_NOT_SHIPPED": 1
+  },
+  "new-finding": {
+   "SHIPPED": 22,
+   "OPEN_BUILDABLE": 21,
+   "BUILT_NOT_SHIPPED": 3,
+   "OWNER_ONLY": 4,
+   "SUPERSEDED": 1,
+   "OPEN_NEEDS_DECISION": 3
+  },
+  "audit-correction": {
+   "OWNER_ONLY": 4,
+   "SHIPPED": 14,
+   "OPEN_BUILDABLE": 9,
+   "OPEN_NEEDS_DECISION": 2
+  },
+  "exit-criterion": {
+   "OPEN_BUILDABLE": 4,
+   "OWNER_ONLY": 1
   }
  },
  "counts_by_chapter": {
   "09": {
-   "OPEN_BUILDABLE": 25,
+   "OPEN_BUILDABLE": 26,
    "OPEN_NEEDS_DECISION": 9,
    "OWNER_ONLY": 22,
    "SUPERSEDED": 3,
    "SHIPPED": 12,
-   "BUILT_NOT_SHIPPED": 1
+   "BUILT_NOT_SHIPPED": 2
   },
   "10": {
    "OPEN_BUILDABLE": 18,
@@ -148,7 +149,7 @@
    "OWNER_ONLY": 3
   },
   "12": {
-   "OPEN_BUILDABLE": 20,
+   "OPEN_BUILDABLE": 22,
    "SHIPPED": 16,
    "BUILT_NOT_SHIPPED": 3,
    "OPEN_NEEDS_DECISION": 5,
@@ -177,10 +178,10 @@
   },
   "16": {
    "SHIPPED": 49,
-   "OPEN_BUILDABLE": 73,
+   "OPEN_BUILDABLE": 72,
    "OPEN_NEEDS_DECISION": 11,
    "OWNER_ONLY": 19,
-   "BUILT_NOT_SHIPPED": 3,
+   "BUILT_NOT_SHIPPED": 4,
    "SUPERSEDED": 1
   }
  },
@@ -337,6 +338,10 @@
      "status": "SHIPPED"
     },
     {
+     "id": "WP-INFRA-22b",
+     "status": "OPEN_BUILDABLE"
+    },
+    {
      "id": "WP-INFRA-04b",
      "status": "SHIPPED"
     }
@@ -354,6 +359,10 @@
     {
      "id": "WP-QA-07",
      "status": "SHIPPED"
+    },
+    {
+     "id": "WP-QA-07b",
+     "status": "OPEN_BUILDABLE"
     },
     {
      "id": "WP-QA-04a",
@@ -430,7 +439,7 @@
     },
     {
      "id": "WP-INFRA-28b",
-     "status": "OPEN_BUILDABLE"
+     "status": "BUILT_NOT_SHIPPED"
     },
     {
      "id": "WP-CONTENT-01a",
@@ -1132,6 +1141,10 @@
      "status": "SHIPPED"
     },
     {
+     "id": "WP-QA-22b",
+     "status": "OPEN_BUILDABLE"
+    },
+    {
      "id": "WP-QA-08a",
      "status": "SHIPPED"
     },
@@ -1413,8 +1426,8 @@
    "kind": "roadmap-node",
    "title": "Header and redirect generator for both URL spellings; caching classes; hashed data paths",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Shipped part: the generator tools/t0/config/gen.mjs writes _headers, _redirects and netlify.toml from the built pages (train R1c onwards, release/R1g/dist/_headers: one block per page in both spellings, invariant \"each header NAME is produced by at most ONE matching rule\", cache rules per class; items WP-INFRA-10, WP-INFRA-11a, WP-QA-03, all SHIPPED; tests/t0/headers.spec.mjs HDR-01..13 and 20..24, run 2026-11-13 in this container on release/R1g/dist with --no-browser: 13 pass, 4 skipped (browser and online tests), 1 FAILED: HDR-11, because the folder tiles1863/v1-65d491b8 is not named after the hash of its files (the Linux-staged stand-in tile pyramid recorded in docs/accept/R1G-STATUS.md 2026-11-04 20:35; the owner's own staged pyramid is needed for a zip). Open parts: hashed data paths (WP-INFRA-11b, WP-DATA-21), the guide served inline under a versioned name (WP-INFRA-11c), the COOP header (WP-INFRA-10b).",
-   "next_step": "Finish the three open items together with the data packs (WP-DATA-21); everything else in the node is done.",
+   "evidence": "Shipped part: the generator tools/t0/config/gen.mjs writes _headers, _redirects and netlify.toml from the built pages (train R1c onwards, release/R1g/dist/_headers: one block per page in both spellings, invariant \"each header NAME is produced by at most ONE matching rule\", cache rules per class; items WP-INFRA-10, WP-INFRA-11a, WP-QA-03, all SHIPPED; tests/t0/headers.spec.mjs HDR-01..13 and 20..24, run 2026-11-13 in this container on release/R1g/dist with --no-browser: 13 pass, 4 skipped (browser and online tests), 1 FAILED: HDR-11, because the folder tiles1863/v1-65d491b8 is not named after the hash of its files (the Linux-staged stand-in tile pyramid recorded in docs/accept/R1G-STATUS.md 2026-11-04 20:35; the owner's own staged pyramid is needed for a zip). The release workstream's triage of 2026-11-16 (docs/accept/R1G-STATUS.md, the interim line of the functional triage) reproduced it: HDR-11 fails identically on R1g and on R1f in 2 of 2 runs each and passes on R1c (no tiles), and with only that assertion turned into a note it passes on R1g and on R1f; the stand-in folder holds files whose content hash is v1-22e20fb7 (its index.json says so), and the verdict file docs/accept/R1G-TRIAGE-functional.json that the line promises does not exist yet. Open parts: hashed data paths (WP-INFRA-11b, WP-DATA-21), the guide served inline under a versioned name (WP-INFRA-11c), the COOP header (WP-INFRA-10b), the production noindex rows (WP-INFRA-10c).",
+   "next_step": "Finish the four open items (WP-INFRA-11b with the data packs of WP-DATA-21, 11c, 10b and 10c); everything else in the node is done.",
    "size": "M",
    "files": [
     "tools/t0/config/gen.mjs",
@@ -1547,8 +1560,8 @@
    "kind": "work-package",
    "title": "Header architecture and generator",
    "status": "SHIPPED",
-   "evidence": "Train R1c onwards (config hook tools/t0/config/gen.mjs; R1d to R1g through tools/t0/base1863/config_hook.mjs): release/R1g/dist/_headers states the invariant \"each header NAME is produced by at most ONE matching rule\", has one block per page in both spellings, per-class Report-Only CSP and Permissions-Policy, and a comment-only netlify.toml. Tests: tests/t0/headers.spec.mjs HDR-01, HDR-02 (one rule per header name per URL), HDR-08 (guard rails, staging noindex only in /*), HDR-09/10 (probe and emulator); run 2026-11-13 in this container on release/R1g/dist with --no-browser: 13 pass, 4 skipped (browser and online tests), 1 FAILED: HDR-11, because the folder tiles1863/v1-65d491b8 is not named after the hash of its files (the Linux-staged stand-in tile pyramid recorded in docs/accept/R1G-STATUS.md 2026-11-04 20:35; the owner's own staged pyramid is needed for a zip). Recorded deviations (ops/header-decisions.md): X-Frame-Options DENY with frame-ancestors 'none' instead of SAMEORIGIN/'self'; Permissions-Policy already narrowed per class; the valid scanner rules are kept (HDR-05 asserts them).",
-   "next_step": "None for the generator. The missing COOP header is WP-INFRA-10b; reporting endpoints wait for the collector decision (WP-INFRA-15).",
+   "evidence": "Train R1c onwards (config hook tools/t0/config/gen.mjs; R1d to R1g through tools/t0/base1863/config_hook.mjs): release/R1g/dist/_headers states the invariant \"each header NAME is produced by at most ONE matching rule\", has one block per page in both spellings, per-class Report-Only CSP and Permissions-Policy, and a comment-only netlify.toml. Tests: tests/t0/headers.spec.mjs HDR-01, HDR-02 (one rule per header name per URL), HDR-08 (guard rails, staging noindex only in /*), HDR-09/10 (probe and emulator); run 2026-11-13 in this container on release/R1g/dist with --no-browser: 13 pass, 4 skipped (browser and online tests), 1 FAILED: HDR-11, because the folder tiles1863/v1-65d491b8 is not named after the hash of its files (the Linux-staged stand-in tile pyramid recorded in docs/accept/R1G-STATUS.md 2026-11-04 20:35; the owner's own staged pyramid is needed for a zip). The release workstream's triage of 2026-11-16 (docs/accept/R1G-STATUS.md, the interim line of the functional triage) reproduced it: HDR-11 fails identically on R1g and on R1f in 2 of 2 runs each and passes on R1c (no tiles), and with only that assertion turned into a note it passes on R1g and on R1f; the stand-in folder holds files whose content hash is v1-22e20fb7 (its index.json says so), and the verdict file docs/accept/R1G-TRIAGE-functional.json that the line promises does not exist yet. Recorded deviations (ops/header-decisions.md): X-Frame-Options DENY with frame-ancestors 'none' instead of SAMEORIGIN/'self'; Permissions-Policy already narrowed per class; the valid scanner rules are kept (HDR-05 asserts them). Not in this item: the production-only per-path noindex rows of the plan (WP-INFRA-10c), COOP (WP-INFRA-10b), Reporting-Endpoints (WP-INFRA-15).",
+   "next_step": "None for the generator as built. The missing COOP header is WP-INFRA-10b, the missing production noindex rows are WP-INFRA-10c; reporting endpoints wait for the collector decision (WP-INFRA-15).",
    "size": "S",
    "files": [
     "tools/t0/config/gen.mjs",
@@ -1566,7 +1579,7 @@
    "title": "Canonical URL and redirect matrix (train S1)",
    "status": "OPEN_BUILDABLE",
    "evidence": "Not shipped: release/R1g/dist/_redirects has the netlify.app host rule, the dev-page 404s and the scanner rules only; no /x.html to /x rule. Every sub-page canonical and og:url (22 of the 23 canonicals; the home page is the bare root) and 19 of the 20 sitemap <loc> still end in .html (re-counted 2026-11-15 on the 26 html files of the dist); prod-probe HP-10 and HP-11 are expected red \"from S1\"; tools/t0/verify_release.mjs V6 pins titles, canonicals and the sitemap as identity invariants (tools/t0/identity-R1g.json), so the change needs its own train. D-URL is a class D decision whose default (extensionless, forced 301) applies.",
-   "next_step": "Prepare train S1 as a separate candidate: generated 301! rows for both spellings of every page and /landing.html, canonical, og:url, JSON-LD url, sitemap and internal links rewritten in one group, a redirect-matrix test on the local Netlify emulator (tools/accept/lib/netlify_server.mjs), a new identity file. Before it is published the owner must verify Search Console and bank the 28-day baseline (WP-SEO-01) and check the rules once on the staging site (WP-DEC-05: pretty URLs versus forced redirects cannot be proven without Netlify).",
+   "next_step": "Prepare train S1 as a separate candidate (it also carries the redirect or removal of apple-touch-icon-precomposed.png that WP-INFRA-13 asks for): generated 301! rows for both spellings of every page and /landing.html, canonical, og:url, JSON-LD url, sitemap and internal links rewritten in one group, a redirect-matrix test on the local Netlify emulator (tools/accept/lib/netlify_server.mjs), a new identity file. Before it is published the owner must verify Search Console and bank the 28-day baseline (WP-SEO-01) and check the rules once on the staging site (WP-DEC-05: pretty URLs versus forced redirects cannot be proven without Netlify).",
    "size": "L",
    "files": [
     "tools/t0/config/gen.mjs",
@@ -1584,7 +1597,7 @@
    "title": "Embed class fix",
    "status": "SHIPPED",
    "evidence": "Train R1c onwards (generated config): /embed and /embed.html each send one Content-Security-Policy: frame-ancestors *, no X-Frame-Options and no inherited Report-Only policy (checked in release/R1g/dist/_headers); every other page sends X-Frame-Options: DENY and frame-ancestors 'none'. Tests: headers.spec HDR-03 and HDR-20 (real Chrome, cross-origin page: /embed and /embed.html frame; /, /privacy, /dashboard, /ar do not), prod-probe HP-06, HP-07. The page is noindex by its robots meta (seo.spec T0-SEO-05) instead of an X-Robots-Tag header. The stricter embed policy of the plan (default-src 'none' with hashed script and style) is part of WP-INFRA-17.",
-   "next_step": "None.",
+   "next_step": "None for the two defects the audit named (the unframeable /embed and the contradictory headers). The rest of the WP: X-Robots-Tag: noindex for /embed (Path A) is WP-INFRA-10c; the stricter embed policy (default-src 'none' with hashed script and style) is WP-INFRA-17; the plan's framing test on three engines runs on Chrome only (HDR-03, HDR-20), its Firefox and WebKit part is WP-QA-21b.",
    "size": "S",
    "files": [
     "tools/t0/config/gen.mjs",
@@ -1668,14 +1681,32 @@
    "kind": "work-package",
    "title": "R0 service worker, kill switch, head edits",
    "status": "SHIPPED",
-   "evidence": "Train R0 onwards, R0 mechanism (templates tools/t0/mechanism/, code tools/t0/t0build/mechanism.py): release/R1g/dist/sw.js has no install precache, no skipWaiting, never handles navigations, caches only same-origin ok basic /assets/* (and the versioned /tiles1863/*), purges only gbg-* caches and leaves /data/, /hx/, /api/, /.netlify/ alone; registration is idle-time; the stylesheet is a plain link. Kill switch ops/sw-kill.js is kept outside the dist. Tests: tests/t0/r0.mjs T0-R0-01..13 (one Document, controller without navigation, upgrade drill from the old worker, rename drill, kill drill, loader retry), prod-probe T0-03, T0-04, HP-08; R1G-STATUS records r0 suites green on the frozen trains and no R1g defect. No /reset page with Clear-Site-Data exists (the WP lists it beside the kill switch).",
-   "next_step": "None for the worker. A /reset page is optional hardening: decide with the release workstream.",
+   "evidence": "Train R0 onwards, R0 mechanism (templates tools/t0/mechanism/, code tools/t0/t0build/mechanism.py): release/R1g/dist/sw.js has no install precache, no skipWaiting, never handles navigations, caches only same-origin ok basic /assets/* (and the versioned /tiles1863/*), purges only gbg-* caches and leaves /data/, /hx/, /api/, /.netlify/ alone; registration is idle-time; the stylesheet is a plain link. Kill switch ops/sw-kill.js is kept outside the dist. Tests: tests/t0/r0.mjs T0-R0-01..13 (one Document, controller without navigation, upgrade drill from the old worker, rename drill, kill drill, loader retry), prod-probe T0-03, T0-04, HP-08; R1G-STATUS records r0 suites green on the frozen trains and no R1g defect. No /reset page with Clear-Site-Data and no update prompt exist (the WP lists both: WP-INFRA-22b).",
+   "next_step": "None for the R0 worker as built. The update prompt, the reset page and the fetch-handler measurement of the same WP are WP-INFRA-22b.",
    "size": "S",
    "files": [
     "tools/t0/t0build/mechanism.py",
     "ops/sw-kill.js",
     "tests/t0/r0.mjs",
     "tests/t0/prod-probe.mjs"
+   ],
+   "roadmap_node": "RM-06"
+  },
+  {
+   "id": "WP-INFRA-22b",
+   "chapter": "09",
+   "kind": "work-package-part",
+   "title": "Service worker update prompt (SKIP_WAITING, Reload or Later), /reset page with Clear-Site-Data, warm-visit measurement of the fetch handler",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Not shipped, read in release/R1g/dist on 2026-11-16: sw.js has no message listener at all (no SKIP_WAITING) and never calls skipWaiting; index.html registers the worker with a bare navigator.serviceWorker.register('/sw.js') and has no controllerchange or update code; there is no reset page (no reset.html, no Clear-Site-Data row in _headers). The shipped design is the quiet one: a new worker waits until every tab is closed (tests T0-R0-04 and T0-R0-10) and the new bytes arrive through the hashed names (T0-R0-05, T0-R0-11), so a visitor is never prompted. WP-INFRA-22 items (2), (4) and (5) ask for more: reload on controllerchange only after the visitor accepts a toast (Reload or Later, no focus steal, not bottom-anchored) fed by a SKIP_WAITING message, a /reset page with Clear-Site-Data: \"cache\", \"storage\" and a JavaScript fallback that warns that bookmarks are removed, and keeping the fetch handler only if the warm-visit LCP improves by at least 100 ms against a build without it; D-SW (docs/plan/FINAL/01-decision-register.md) names the prompt toast among its defaults. Nothing in items-A.json or in this file carries them (grep SKIP_WAITING, /reset and Clear-Site-Data over both files: only this item and VD09-4, which is about Safari). The data stale-while-revalidate of the same item is a recorded deviation (ops/T0-DEVIATIONS.md row 21, delegated row A67); kill-sw.yml does not apply to zip publishing (WP-INFRA-09 is SUPERSEDED: the kill switch is ops/sw-kill.js deployed as /sw.js, as the header comment of sw.js says). The roadmap node RM-06 (items-A.json, SHIPPED) names WP-INFRA-22 among its source work packages; its own description (no-reload worker plus kill switch) is met, this is the rest of the WP.",
+   "next_step": "Candidate worker-and-page group under candidates/r1h/, red first: a message handler for SKIP_WAITING in sw.js (the built file is patched by a group, as group BASE1863 does for its tile cache; its generating template tools/t0/mechanism/sw.js.tmpl and tools/t0/t0build/mechanism.py belong to the release workstream); in the registration script an aria-live Reload or Later prompt shown when a worker is waiting, with a reload only after Reload and no navigation for 3 seconds without it (plan test 7 of WP-QA-07: WP-QA-07b); a static /reset page and its Clear-Site-Data row in the generated _headers; the keep-or-remove decision for the fetch handler needs a warm-visit LCP measurement on a real device (software GL here gives none), so that part is owed and stays open until it is made. No decision is needed (D-SW default); the shipped silent behaviour stays the default until a train carries the group.",
+   "size": "M",
+   "files": [
+    "tools/t0/mechanism/sw.js.tmpl",
+    "tools/t0/t0build/mechanism.py",
+    "tests/t0/r0.mjs",
+    "ops/sw-kill.js",
+    "docs/plan/FINAL/01-decision-register.md"
    ],
    "roadmap_node": "RM-06"
   },
@@ -2036,12 +2067,28 @@
    "roadmap_node": "RM-23"
   },
   {
+   "id": "WP-INFRA-10c",
+   "chapter": "09",
+   "kind": "work-package-part",
+   "title": "Production noindex rows: X-Robots-Tag on /embed, /data/* and /.well-known/*",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Not shipped: grep -ci x-robots release/R1g/dist/_headers gives 0. The generator (tools/t0/config/gen.mjs, contextLine) writes X-Robots-Tag: noindex, nofollow into /* only for a staging or preview build, so in a production zip no path sends a noindex header; /embed and /embed.html are noindex by their robots meta alone (404.html, ar.html and embed.html are the only pages with a noindex meta), /data/* and the manifest send none. The plan asks for per-path production rows: WP-INFRA-10 item (4) lists /data/*, /hx/* (WP-INFRA-34b), /.well-known/* (WP-INFRA-21b), /embed and the pages the SEO chapter marks noindex as production-only noindex rows, and WP-INFRA-14 Path A adds X-Robots-Tag: noindex to the /embed block. WP-INFRA-10 and WP-INFRA-14 were graded SHIPPED without this part.",
+   "next_step": "Request to the release workstream: emit production-only X-Robots-Tag: noindex rows for /embed and /embed.html and /data/* in tools/t0/config/gen.mjs (and /.well-known/* with WP-INFRA-21b, /hx/* with WP-INFRA-34b), keep the staging variant's noindex, nofollow in /* so that no URL gets the name from two rules (HDR-01 and HDR-02 hold), and add an HDR test that a production tree sends the rows and a staging tree sends the one /* row. No decision is needed: the plan states it.",
+   "size": "S",
+   "files": [
+    "tools/t0/config/gen.mjs",
+    "tests/t0/headers.spec.mjs",
+    "ops/header-decisions.md"
+   ],
+   "roadmap_node": "RM-23"
+  },
+  {
    "id": "WP-INFRA-11a",
    "chapter": "09",
    "kind": "work-package-part",
    "title": "Caching per asset class and the never-reuse-a-name rule",
    "status": "SHIPPED",
-   "evidence": "Train R0 (hashed names for the entry, both lazy chunks and the stylesheet; ledger ops/used-names.txt, gate row ledger, verify_release names check) and train R1c onwards (generated cache rules). Checked in release/R1g/dist/_headers: HTML no-cache, must-revalidate; /assets/* immutable for one year; /data/* max-age=3600; /icons/* one day without immutable; /sw.js no-store; /version.json no-cache; /tiles1863/* immutable (versioned folder). Tests: headers.spec HDR-04 and HDR-11 (fixed-name files never immutable; HDR-11 is the one red row of the no-browser run on R1g in this container, because the stand-in tile folder tiles1863/v1-65d491b8 is not named after the hash of its own files, and it passes in full on a scratch copy with that folder renamed to its computed hash: items-A.json VER-HDR-11), build_selftest (ledger), prod-probe HP-08, HP-09, T0-08.",
+   "evidence": "Train R0 (hashed names for the entry, both lazy chunks and the stylesheet; ledger ops/used-names.txt, gate row ledger, verify_release names check) and train R1c onwards (generated cache rules). Checked in release/R1g/dist/_headers: HTML no-cache, must-revalidate; /assets/* immutable for one year; /data/* max-age=3600; /icons/* one day without immutable; /sw.js no-store; /version.json no-cache; /tiles1863/* immutable (versioned folder). Tests: headers.spec HDR-04 and HDR-11 (fixed-name files never immutable; HDR-11 is the one red row of the no-browser run on R1g in this container, because the stand-in tile folder tiles1863/v1-65d491b8 is not named after the hash of its own files, and it passes in full on a scratch copy with that folder renamed to its computed hash: items-A.json VER-HDR-11; the release workstream's triage of 2026-11-16 reproduced it identically on R1f and R1g and calls it environment, docs/accept/R1G-STATUS.md), build_selftest (ledger), prod-probe HP-08, HP-09, T0-08.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -2091,7 +2138,7 @@
    "title": "Publish-tree hygiene: dev pages and the orphan worker removed, pre-deploy gate",
    "status": "SHIPPED",
    "evidence": "Train R1a onwards: page group PG-core deletes diagnostics.html and unit-rendering-reference.html; _redirects forces 404 on both spellings (R1c config); the R0 mechanism deletes the orphan assets/InterpolationWorker-ufiwa2-e.js. Tests: pages-core T0-PGC-24, headers.spec HDR-05, verify_release V3, prod-probe HP-13b; the pre-deploy gate is tools/t0/gate.mjs (10 rows, all ok in release/R1g/gate.json: parse, unresolved-globals, anchors, ledger, references, no-legacy-asset-names, r0-mechanism, no-owner-notes, data-untouched, bytes).",
-   "next_step": "None. apple-touch-icon-precomposed.png is still in the tree (the WP says remove or redirect it; unverified whether iOS still probes it): leave it unless a device check says otherwise.",
+   "next_step": "None for the dev pages, the orphan worker and the gate. apple-touch-icon-precomposed.png is still shipped (release/R1g/dist) and _redirects has no row for it, while the WP says remove it or 301 it (whether iOS still probes the name is unverified): that row travels with WP-INFRA-12.",
    "size": "S",
    "files": [
     "tools/t0/patches/PG-core.json",
@@ -2123,7 +2170,7 @@
    "kind": "work-package-part",
    "title": "CSP stage 0: per-class Report-Only policy",
    "status": "SHIPPED",
-   "evidence": "Train R1c onwards (generated config): each page class has its own Report-Only policy (app: Mapbox, Google and NPS frames; map pages: api.mapbox.com script and style; text pages: self only; the RUM host is in connect-src; no font hosts). Tests: headers.spec HDR-06 (full origin list, still report-only, per-page markup origins covered), HDR-21 (real Chrome: every page loads with 0 violations and 0 policy warnings), HDR-22 (negative control). The policy has no report endpoint (WP-INFRA-15).",
+   "evidence": "Train R1c onwards (generated config): each page class has its own Report-Only policy (app: Mapbox, Google and NPS frames; map pages: api.mapbox.com script and style; text pages: self only; the RUM host is in connect-src; no font hosts). Tests: headers.spec HDR-06 (full origin list, still report-only, per-page markup origins covered), HDR-21 (real Chrome: every page loads with 0 violations and 0 policy warnings), HDR-22 (negative control). The policy has no report endpoint (WP-INFRA-15). The per-class policies carry none of manifest-src, upgrade-insecure-requests and form-action, and the headers carry no report-uri, report-to or Reporting-Endpoints (grep of release/R1g/dist/_headers: 0 each); the plan lists them under stage 0, and they are carried by WP-INFRA-16b (the directives) and WP-INFRA-15 (reporting).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -2136,10 +2183,10 @@
    "id": "WP-INFRA-16b",
    "chapter": "09",
    "kind": "work-package-part",
-   "title": "CSP stage 1: enforced base-uri, object-src and form-action beside frame-ancestors",
+   "title": "CSP stage 1: enforced base-uri, object-src and form-action beside frame-ancestors, and the manifest-src and upgrade-insecure-requests of stage 0",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Partly shipped: the enforced header is \"Content-Security-Policy: frame-ancestors 'none'\" (or * on the embed class) and nothing else; base-uri, object-src and form-action exist only in the Report-Only policy (release/R1g/dist/_headers). The WP asks for the four directives enforced on every HTML path.",
-   "next_step": "Request to the release workstream: extend the enforced header to frame-ancestors, base-uri 'none', object-src 'none', form-action 'self' (the Historian page has the only form), with an HDR test and the real-Chrome crawl of HDR-21 on the candidate.",
+   "evidence": "Partly shipped: the enforced header is \"Content-Security-Policy: frame-ancestors 'none'\" (or * on the embed class) and nothing else (50 path blocks with 'none', 2 with *). base-uri 'self' and object-src 'none' exist only in the Report-Only policies; form-action, manifest-src and upgrade-insecure-requests exist nowhere in release/R1g/dist/_headers (grep count 0; an earlier text of this item said form-action was in the Report-Only policy, which is wrong). The WP asks for the four directives enforced on every HTML path, and its stage 0 asks for manifest-src and upgrade-insecure-requests.",
+   "next_step": "Request to the release workstream: extend the enforced header to frame-ancestors, base-uri 'none', object-src 'none', form-action 'self' (the Historian page has the only form), with an HDR test and the real-Chrome crawl of HDR-21 on the candidate; add manifest-src 'self' and upgrade-insecure-requests to the per-class policies (stage 0 of the WP) after checking that no page loads a subresource over http.",
    "size": "S",
    "files": [
     "tools/t0/config/gen.mjs",
@@ -2254,8 +2301,8 @@
    "kind": "work-package-part",
    "title": "Manifest: truthful description, lang, start_url source tag, shortcuts",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Open in release/R1g/dist/manifest.json: the description still says \"in real time -- 467 regiments and batteries across 675 five-minute snapshots\" (three retired claims; the home page meta description was already corrected), there is no lang field, start_url is \"/\" without ?source=pwa, and there are no shortcuts. name and short_name wait for the identity train S2 by design.",
-   "next_step": "Candidate page patch on manifest.json: description from the corrected home description, lang \"en-US\", start_url \"/?source=pwa\", shortcuts to Ask the Historian, Search and Turning Points; test with images.spec T0-RIMG-12 (manifest parses, no installability error) and a copy_lint run on the file.",
+   "evidence": "Open in release/R1g/dist/manifest.json: the description still says \"in real time -- 467 regiments and batteries across 675 five-minute snapshots\" (three retired claims; the home page meta description was already corrected), there is no lang field, start_url is \"/\" without ?source=pwa, and there are no shortcuts. name and short_name wait for the identity train S2 by design. There is no scope member either (the plan lists scope \"/\"; the default scope of start_url \"/\" is the same, so this is the plan's spelling, not a behaviour).",
+   "next_step": "Candidate page patch on manifest.json: description from the corrected home description, lang \"en-US\", scope \"/\", start_url \"/?source=pwa\", shortcuts to Ask the Historian, Search and Turning Points; test with images.spec T0-RIMG-12 (manifest parses, no installability error) and a copy_lint run on the file.",
    "size": "S",
    "files": [
     "tools/t0/patches/PG-maps.json",
@@ -2320,15 +2367,27 @@
    "chapter": "09",
    "kind": "work-package-part",
    "title": "Watch Together hardening: unguessable room codes, connection cap, guest message validation",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "Open in release/R1g/dist/watch-together.html: room codes come from Math.random (no crypto.getRandomValues in the file), the host keeps an unbounded connections array (no cap), and no test covers the guest-side message check. Part A of the WP lists all three.",
-   "next_step": "Candidate page patch: codes from crypto.getRandomValues over the longer alphabet, close the 21st connection, accept only {type:\"goto\", tick, note} with the same limits as the import; extend wtpeer.spec with fuzz payloads and the cap.",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "Built as a candidate, in no train: candidates/r1h/wp-infra-28b (built 2026-11-16; route candidate-group, base release/R1g/dist; STATUS.json passes true, checked 2026-11-16T01:48Z; HANDOFF.md; request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-infra-28b.md). group.json is the optional page group PG-r1h-wp-infra-28b (train label R1h, 9 patches r1h-wp-infra-28b-* on release/R1g/dist/watch-together.html, each anchor found once): the room code is 6 characters of the 28-character alphabet BCDFGHJKMNPQRSTVWXYZ23456789 drawn with crypto.getRandomValues (no Math.random and no fallback: a browser without it starts no session), a host keeps at most 20 connections and closes the 21st and later, a guest passes to goToTick only a plain {type 'goto', integer tick 1..675, note of at most 280 characters} object, and the join input, the join check and the Live Sync sentence say 6 characters and no longer say \"in real time\". Parameters follow delegated row C08 (the plan's earlier set of 31 characters and notes of 140 stays selectable: node candidates/r1h/wp-infra-28b/gen.mjs --set earlier); rows W28B-1 to W28B-4 record four further choices. Re-run by this survey on 2026-11-16 (light, no browser): node candidates/r1h/_lib/prove.mjs wp-infra-28b --check (\"passes=true (on disk: true) consistent\"); R1H_BASE=release/R1g/dist node --test candidates/r1h/wp-infra-28b/test.mjs on the untouched R1g tree: 22 tests, 4 pass, 18 fail (red first); node candidates/r1h/wp-infra-28b/gen.mjs --check (group.json is what gen.mjs writes, 9 anchors found once each, none overlapping). The candidate's own record: 22 of 22 green on a scratch tree under Node 22.23.4 and 24.22.1; a wire check through the real peerjs 1.5.4 file that the page pins (sha384 equal to the page's SRI) carries the host's 7 messages to the guest and refuses every hostile shape that is still invalid after the wire (3 shapes become plain valid messages inside the serializer and are accepted as such); copy_lint REALTIME 2 to 1 with the group applied, no rule rises. Not shipped: tools/t0/patches holds no PG-r1h-wp-infra-28b.json and trains.json has no train R1h, so release/R1g/dist/watch-together.html is unchanged (checked 2026-11-16: room codes from Math.random, no crypto.getRandomValues, an unbounded connections array, no guest check). Not run: the candidate's mutation run (mutants.mjs, 32 one-place breakages) and its real-Chromium pass (browser-check.mjs) are queued behind the machine lock and have no result file (candidates/r1h/wp-infra-28b/evidence holds only coordination.json and wire-check.json); T0-WTP on a full train; real PeerJS traffic between two browsers over the public broker; any phone.",
+   "next_step": "Release workstream, as its request note asks (tests/t0 and tools/t0 are theirs): (1) change four lines of two specs that pin the 5-character code (tests/t0/wtpeer.spec.mjs lines 69 and 110, tests/t0/pages-maps.spec.mjs lines 397 and 398) and add the cases T0-WTP-05 (the host keeps 20 of 25 connections), 06 (a guest ignores 20 hostile payloads and follows a valid message) and 07 (codes from crypto.getRandomValues, 30 distinct ids); (2) red first: run the edited wtpeer spec on release/R1g/dist (T0-WTP-01, 03, 05, 06 and 07 must fail); (3) copy candidates/r1h/wp-infra-28b/group.json to tools/t0/patches/PG-r1h-wp-infra-28b.json and register it in train R1h (--with PG-r1h-wp-infra-28b, or drop optional); (4) run tests/t0/wtpeer.spec.mjs, pages-maps PG-05a to 05c and pages-core T0-PGC-19 to 21 on that train through the machine lock. Main-site side: run candidates/r1h/wp-infra-28b/mutants.mjs and browser-check.mjs through the lock and keep their result files; re-run coordination-check.mjs when the sibling groups for watch-together.html (WP-CONTENT-09b, WP-SEO-04b, WP-SEO-11b) exist. Owner-only: nothing.",
    "size": "S",
    "files": [
-    "tools/t0/patches/PG-core.json",
-    "tests/t0/wtpeer.spec.mjs"
+    "candidates/r1h/wp-infra-28b/group.json",
+    "candidates/r1h/wp-infra-28b/test.mjs",
+    "candidates/r1h/wp-infra-28b/HANDOFF.md",
+    "candidates/r1h/wp-infra-28b/STATUS.json",
+    "docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-infra-28b.md",
+    "tests/t0/wtpeer.spec.mjs",
+    "tests/t0/pages-maps.spec.mjs"
    ],
-   "roadmap_node": "RM-14"
+   "roadmap_node": "RM-14",
+   "delegated_row": [
+    "C08",
+    "W28B-1",
+    "W28B-2",
+    "W28B-3",
+    "W28B-4"
+   ]
   },
   {
    "id": "WP-INFRA-30a",
@@ -2548,7 +2607,7 @@
    "title": "Watch Together: hotfix, earlier retirement or a funded relay; alert channel; GitHub plan; the 10 h per month ceiling; fund On-site mode or not",
    "status": "OPEN_NEEDS_DECISION",
    "evidence": "Watch Together stays live (rows A16 and A34: peer-to-peer as shipped, relay a candidate); the offline pack and On-site mode stay in scope (row A37, WP-INFRA-24); the ceiling is capacity (OD-1, superseded); the alert channel and GitHub plan are the owner's accounts.",
-   "next_step": "Delegated conservative (rows A16, A34, A37, B03, B13; row A04 for the collector): keep peer-to-peer Live Sync live as shipped and disclose its third parties in the privacy text (A16); keep the relay a candidate and fund none (A34); keep On-site mode and the offline pack in scope, built on the own 1863 tiles with no Mapbox tile cached (A37, B03), the field test being the owner's; the alert channel is GitHub issues with no new account (B13); the GitHub plan is a payment (QA-OD-1) and the 10 hour ceiling is capacity (OD-1, superseded). Way back: the owner retires or funds any of these by a recorded decision.",
+   "next_step": "Delegated conservative (rows A16, A34, A37, B03, B13; row A04 for the collector): keep peer-to-peer Live Sync live as shipped (its hardening, WP-INFRA-28b, is built as candidate wp-infra-28b and waits for registration) and disclose its third parties in the privacy text (A16); keep the relay a candidate and fund none (A34); keep On-site mode and the offline pack in scope, built on the own 1863 tiles with no Mapbox tile cached (A37, B03), the field test being the owner's; the alert channel is GitHub issues with no new account (B13); the GitHub plan is a payment (QA-OD-1) and the 10 hour ceiling is capacity (OD-1, superseded). Way back: the owner retires or funds any of these by a recorded decision.",
    "size": "M",
    "files": [
     "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
@@ -3104,8 +3163,8 @@
    "kind": "work-package-part",
    "title": "Social tag parity for train S1: og:site_name, og:locale, og:description equal to the description, cards on privacy and terms",
    "status": "OPEN_BUILDABLE",
-   "evidence": "Open in release/R1g/dist: og:site_name is on 0 pages; og:description differs from the meta description on 10 of the 21 pages that have both; privacy.html and terms.html have no og or twitter tags (seo.spec T0-SEO-10 excludes them).",
-   "next_step": "Candidate page group for the S1 train: add the missing tags and make og:description equal the description; extend T0-SEO-10 to assert equality and to include privacy and terms.",
+   "evidence": "Open in release/R1g/dist: og:site_name is on 0 pages; og:description differs from the meta description on 10 of the 21 pages that have both; privacy.html and terms.html have no og or twitter tags (seo.spec T0-SEO-10 excludes them). twitter:title, twitter:description, twitter:image and twitter:image:alt are on 11 of the 20 pages that carry twitter:card; the 9 pages that PG-zseo gave only the card (cinematic-export, find-ancestor, ground-remembers, historian, immersive, living-ledger, regiment, turning-points, watch-together) fall back to the og tags; og:locale is on 0 pages (checked 2026-11-16).",
+   "next_step": "Candidate page group for the S1 train: add the missing tags and make og:description equal the description; extend T0-SEO-10 to assert equality and to include privacy and terms; add the four twitter tags to the 9 pages above and og:locale to all.",
    "size": "S",
    "files": [
     "tools/t0/seo/gen_zseo.py",
@@ -3757,7 +3816,7 @@
    "title": "User guide content: truth audit and new structure",
    "status": "SHIPPED",
    "evidence": "Train R1d onwards (overlay tools/t0/overlay/R1d/user-guide.pdf, byte-identical to docs/guide/out/user-guide.pdf and to release/R1g/dist/user-guide.pdf, checked today): the guide was rewritten from docs/guide/content.json for the final screen (clock in words, the legend, the Monuments layer, the phone Tools sheet; decision 5 of docs/decisions/R1D-PROVISIONAL-DECISIONS-2026-10-22.md); screenshots are captured from a build and a shot fails when a named control is missing. Checks: tools/guide/verify.mjs; tests/copy/guide.test.mjs and verify-guide-pdf.test.mjs (node --test tests/copy/*.test.mjs run 2026-11-13: 17 fail (Node 22: 110 tests, 87 pass, 6 skipped; same 17 under Node 24): guide.test.mjs and trust-pages.test.mjs stop because the generators still assert that every time anchor is in state \"proposed\" (data-src/time/time_anchors.json now has 25 reviewed, 4 contested, 4 proposed), VER-CLAIM-01..11 and VER-LINT-01..04 fail). The guide was built from R1d (build 753e318f); tools/guide/verify.mjs was not re-run against R1g in this pass.",
-   "next_step": "Before any hand-over re-run node tools/guide/verify.mjs against the release zip (FINAL-ACCEPTANCE: tutorial PDF updated).",
+   "next_step": "Before any hand-over re-run node tools/guide/verify.mjs against the release zip (FINAL-ACCEPTANCE: tutorial PDF updated). The plan's accept names two gates that exist only as candidates: claims.json (WP-QA-24a) and check_parity (WP-CONTENT-05, run against train R1c, not R1g). One plan point was not examined by the earlier passes: the plan asks for no screenshots of the live map in the guide (D-MEDIA: own or public-domain basemap only), and the shipped guide's figures are 50 captures of the running site (docs/guide/shots, tools/guide/shots.mjs); no recorded decision accepts that; delegated row B22 records the conservative choice.",
    "size": "S",
    "files": [
     "docs/guide/content.json",
@@ -3999,15 +4058,18 @@
    "kind": "work-package-part",
    "title": "Phase 0 leftovers: persona wording and the alias row",
    "status": "OPEN_BUILDABLE",
-   "evidence": "node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline (run 2026-11-13) still reports rule AIPERSONA 4 (historian.html \"I couldn't find\" and \"I'm ready\"; \"search-and-answer assistant\" in index.html and site-nav.js), ALIAS 1 (the designation of the alias stub in data/oob/union_regiments_i_ii_corps.json), ABSENCE 2.",
-   "next_step": "Candidate page and data patches with the style-guide wording (\"Ask the Historian: a search of the site's records\"), red-first with copy_lint --rules AIPERSONA,ALIAS,ABSENCE on the scratch tree.",
+   "evidence": "node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline (run 2026-11-13) still reports rule AIPERSONA 4 (historian.html \"I couldn't find\" and \"I'm ready\"; \"search-and-answer assistant\" in index.html and site-nav.js), ALIAS 1 (the designation of the alias stub in data/oob/union_regiments_i_ii_corps.json), ABSENCE 2 (warnings: \"State unrecorded\" in find-ancestor.html line 176 and \"Commander unrecorded\" in search.html line 164; the search.html line belongs to WP-PAGE-20 of items-A.json by delegated row C16, which also stops this item from touching search.html).",
+   "next_step": "Candidate page and data patches with the style-guide wording (\"Ask the Historian: a search of the site's records\"), red-first with copy_lint --rules AIPERSONA,ALIAS,ABSENCE on the scratch tree (search.html is left to WP-PAGE-20, row C16).",
    "size": "S",
    "files": [
     "tools/copy/copy_lint.mjs",
     "docs/content/STYLEGUIDE.md",
     "tools/t0/patches/PG-zcopy2.json"
    ],
-   "roadmap_node": "RM-14"
+   "roadmap_node": "RM-14",
+   "delegated_row": [
+    "C16"
+   ]
   },
   {
    "id": "WP-CONTENT-02a",
@@ -4072,8 +4134,8 @@
    "kind": "work-package-part",
    "title": "Clock copy leftovers: \"minute by minute\", \"real time\", \"tick\" on pages",
    "status": "OPEN_BUILDABLE",
-   "evidence": "node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline (run 2026-11-13): REALTIME 12 (living-ledger.html 4, index.html 2, manifest.json 2, watch-together.html 2, site-nav.js 1, immersive.html 1) and TICK on pages 9 (watch-together.html 7, cinematic-export.html 2).",
-   "next_step": "Candidate page patches removing the claims (Immersive's true \"real time\" wording stays if the style guide allows it), with copy_lint --rules REALTIME,TICK on the scratch tree; the manifest part is WP-INFRA-23b.",
+   "evidence": "node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline (run 2026-11-13): REALTIME 12 (living-ledger.html 4, index.html 2, manifest.json 2, watch-together.html 2, site-nav.js 1, immersive.html 1) and TICK on pages 9 (watch-together.html 7, cinematic-export.html 2). Update 2026-11-16: one of the 2 REALTIME hits of watch-together.html (the Live Sync sentence) is removed by the optional group PG-r1h-wp-infra-28b of candidate wp-infra-28b (copy_lint REALTIME 2 to 1 with that group applied; its anchors lie outside this item's text), so this item keeps the other hit (the span after \"Share this code\") and all 7 TICK labels of that page.",
+   "next_step": "Candidate page patches removing the claims (Immersive's true \"real time\" wording stays if the style guide allows it), with copy_lint --rules REALTIME,TICK on the scratch tree; the manifest part is WP-INFRA-23b. For watch-together.html run node candidates/r1h/wp-infra-28b/coordination-check.mjs beside it: it applies every sibling group on disk and reports overlaps.",
    "size": "S",
    "files": [
     "tools/copy/copy_lint.mjs",
@@ -4105,14 +4167,17 @@
    "title": "Guide: PDF/UA validation, HTML edition, A4, inline delivery",
    "status": "OPEN_BUILDABLE",
    "evidence": "Open: no veraPDF or other PDF/UA validation is recorded (the PDF is tagged by Chrome, not certified); the shipped guide is Letter only; no /guide HTML page ships; the file is served as an attachment under an unversioned name (WP-INFRA-11c). An older candidate has an HTML edition and an A4 PDF (candidates/user-guide/index.html, gettysburg-user-guide-a4.pdf; \"Status: CANDIDATE. Inert.\").",
-   "next_step": "Run a PDF/UA validator on the shipped file and record the result (label the PDF \"tagged, not certified\" until it passes), produce the HTML edition and A4 from docs/guide/content.json, and ship them as a candidate page group.",
+   "next_step": "Run a PDF/UA validator on the shipped file and record the result (label the PDF \"tagged, not certified\" until it passes), produce the HTML edition and A4 from docs/guide/content.json, and ship them as a candidate page group; capture the figures that show the map over the site's own 1863 base map, not the Mapbox basemap (delegated row B22: the plan's D-MEDIA).",
    "size": "M",
    "files": [
     "candidates/user-guide/README.md",
     "docs/guide/content.json",
     "tools/guide/pdf_tools.py"
    ],
-   "roadmap_node": "RM-82"
+   "roadmap_node": "RM-82",
+   "delegated_row": [
+    "B22"
+   ]
   },
   {
    "id": "WP-CONTENT-12a",
@@ -4501,7 +4566,7 @@
    "kind": "work-package",
    "title": "Header, redirect, cache and CSP contract tests, probe",
    "status": "SHIPPED",
-   "evidence": "Repository tooling used by the release routine (no site bytes of its own): tests/t0/headers.spec.mjs HDR-01..13, 20..24 on the generated config (suite headers.R1c), the Netlify rule emulator tools/t0/config/emulate.mjs, ops/headers-probe.mjs and tests/t0/prod-probe.mjs (HP-01..15 with the train from which each must be green). run 2026-11-13 in this container on release/R1g/dist with --no-browser: 13 pass, 4 skipped (browser and online tests), 1 FAILED: HDR-11, because the folder tiles1863/v1-65d491b8 is not named after the hash of its files (the Linux-staged stand-in tile pyramid recorded in docs/accept/R1G-STATUS.md 2026-11-04 20:35; the owner's own staged pyramid is needed for a zip). The 6-hourly schedule is WP-INFRA-08b; the S1 rows HP-10..12 are red by design until train S1.",
+   "evidence": "Repository tooling used by the release routine (no site bytes of its own): tests/t0/headers.spec.mjs HDR-01..13, 20..24 on the generated config (suite headers.R1c), the Netlify rule emulator tools/t0/config/emulate.mjs, ops/headers-probe.mjs and tests/t0/prod-probe.mjs (HP-01..15 with the train from which each must be green). run 2026-11-13 in this container on release/R1g/dist with --no-browser: 13 pass, 4 skipped (browser and online tests), 1 FAILED: HDR-11, because the folder tiles1863/v1-65d491b8 is not named after the hash of its files (the Linux-staged stand-in tile pyramid recorded in docs/accept/R1G-STATUS.md 2026-11-04 20:35; the owner's own staged pyramid is needed for a zip). The release workstream's triage of 2026-11-16 (docs/accept/R1G-STATUS.md, the interim line of the functional triage) reproduced it: HDR-11 fails identically on R1g and on R1f in 2 of 2 runs each and passes on R1c (no tiles), and with only that assertion turned into a note it passes on R1g and on R1f; the stand-in folder holds files whose content hash is v1-22e20fb7 (its index.json says so), and the verdict file docs/accept/R1G-TRIAGE-functional.json that the line promises does not exist yet. The 6-hourly schedule is WP-INFRA-08b; the S1 rows HP-10..12 are red by design until train S1.",
    "next_step": "None for the contract tests.",
    "size": "S",
    "files": [
@@ -4539,8 +4604,8 @@
    "kind": "work-package",
    "title": "Stale-code trap, R0 acceptance, patch-runner gate",
    "status": "SHIPPED",
-   "evidence": "Repository tooling used by the release routine (no site bytes of its own): tests/t0/r0.mjs T0-R0-01..13 (fresh profile, seeded old-worker upgrade, rename drill, kill drill, entry 404 retry), tests/t0/build_selftest.py (10 properties of the builder incl. refusal of its own output and of a changed anchor), gate rows anchors and ledger, tools/t0/determinism.py (every train rebuilt byte-identical), tools/t0/overlap.py with its self-test. R1G-STATUS 2026-11-04: determinism identical for 8 trains, overlap PASS, 3,386 patch records with 0 anchor failures for R1g.",
-   "next_step": "None.",
+   "evidence": "Repository tooling used by the release routine (no site bytes of its own): tests/t0/r0.mjs T0-R0-01..13 (fresh profile, seeded old-worker upgrade, rename drill, kill drill, entry 404 retry), tests/t0/build_selftest.py (10 properties of the builder incl. refusal of its own output and of a changed anchor), gate rows anchors and ledger, tools/t0/determinism.py (every train rebuilt byte-identical), tools/t0/overlap.py with its self-test. R1G-STATUS 2026-11-04: determinism identical for 8 trains, overlap PASS, 3,386 patch records with 0 anchor failures for R1g. The plan's accept says \"all seven tests\": the first four are covered by tests/t0/r0.mjs (fresh profile T0-R0-01..03 and 12, seeded upgrade T0-R0-04, 05 and 10, rename drill T0-R0-11, kill drill T0-R0-06) with the 404 loader retry (T0-R0-07); the other three (a 5xx answer is never cached, /hx/ /api/ /.netlify/ are never cached and navigations are never served by the worker, the update prompt) have no test: WP-QA-07b.",
+   "next_step": "None for the tests and the gate that exist; the three missing tests of the plan's seven are WP-QA-07b.",
    "size": "S",
    "files": [
     "tests/t0/r0.mjs",
@@ -4548,6 +4613,22 @@
     "tools/t0/determinism.py",
     "tools/t0/overlap.py",
     "tools/t0/build.py"
+   ],
+   "roadmap_node": "RM-07"
+  },
+  {
+   "id": "WP-QA-07b",
+   "chapter": "12",
+   "kind": "work-package-part",
+   "title": "Stale-code trap tests still missing: 5xx never cached, /hx/ /api/ /.netlify/ never cached and no navigation served by the worker, the update prompt",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "WP-QA-07 lists seven R0 tests; tests/t0/r0.mjs has 13 (T0-R0-01..13) and none serves a 503 for a hashed asset or asks whether it was cached, none requests /hx/, /api/ or /.netlify/ through the worker, and none asserts that a navigation is not answered by it (grep of tests/ and tools/t0 for fromServiceWorker finds only tests/t0/base1863.spec.mjs; no 503 or 5xx appears in r0.mjs); the update-prompt test needs the prompt (WP-INFRA-22b). sw.js satisfies the first two by code (it puts only ok, status 200, basic answers, handles only /assets/ and /tiles1863/, and returns early for navigations: checked 2026-11-16 in release/R1g/dist/sw.js), so these are missing proofs, not known defects.",
+   "next_step": "Request to the release workstream (tests/t0 is theirs): add T0-R0-14 (a hashed asset answered with 503 reaches the page and is not cached; the next request goes to the network) and T0-R0-15 (a fetch of /hx/x, /api/x and /.netlify/x and a navigation are not served from a gbg-* cache and report no worker as their source), each red first on a scratch worker mutated to cache 5xx or to handle navigations, and send the cases as a request note under docs/battle-theatre/GOVERNANCE/horde/requests/. The prompt test follows WP-INFRA-22b.",
+   "size": "S",
+   "files": [
+    "tests/t0/r0.mjs",
+    "tools/t0/mechanism/sw.js.tmpl",
+    "docs/plan/FINAL/12-qa-ci-release.md"
    ],
    "roadmap_node": "RM-07"
   },
@@ -4675,12 +4756,29 @@
    "kind": "work-package",
    "title": "Soak and long-session job",
    "status": "SHIPPED",
-   "evidence": "Repository tooling used by the release routine (no site bytes of its own): the soak of acceptance check 5 (tools/accept/checks/c5_perf.mjs: 600 s for acceptance runs, heap growth limit 10 percent after forced GC, desktop and phone shells). docs/accept/R1-FINAL-REPORT.md measured +6.47 percent on R1d; docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md). A weekly 60-minute run and DOM-node and listener counts are not part of it. Trains: acceptance check 5 (the soak) gates every train; it was measured on R1d (+6.47 percent heap growth, docs/accept/R1-FINAL-REPORT.md) and in the complete run of R1f, and has not run on R1g (only checks 1, 2 and 8 have, as scoped and incomplete runs: docs/accept/R1G-STATUS.md lines of 2026-11-04 23:59 and 2026-11-13); no suite row of docs/accept/R1G-SUITES.json covers it.",
-   "next_step": "None for the acceptance soak; add node and listener counts if a leak is suspected.",
+   "evidence": "Repository tooling used by the release routine (no site bytes of its own): the soak of acceptance check 5 (tools/accept/checks/c5_perf.mjs: 600 s for acceptance runs, heap growth limit 10 percent after forced GC, desktop and phone shells). docs/accept/R1-FINAL-REPORT.md measured +6.47 percent on R1d; docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md). It samples DOM nodes and JS event listeners with CDP Memory.getDOMCounters beside the heap and reports a defect at +25 percent growth (runSoak in c5_perf.mjs; the plan asks for +-5 percent and a heap growth of at most 30 MB), and it has no p95 frame drift, no 20 bfcache cycles, no weekly 60-minute run, no seeded-leak negative control and no CI job: WP-QA-22b. Trains: acceptance check 5 (the soak) gates every train; it was measured on R1d (+6.47 percent heap growth, docs/accept/R1-FINAL-REPORT.md) and in the complete run of R1f, and has not run on R1g (only checks 1, 2 and 8 have, as scoped and incomplete runs: docs/accept/R1G-STATUS.md lines of 2026-11-04 23:59 and 2026-11-13); no suite row of docs/accept/R1G-SUITES.json covers it.",
+   "next_step": "None for the acceptance soak as built; the rest of the WP (the plan's limits, the cadence, the seeded listener leak, the wake lock) is WP-QA-22b.",
    "size": "S",
    "files": [
     "tools/accept/checks/c5_perf.mjs",
     "tools/accept/thresholds.json"
+   ],
+   "roadmap_node": "RM-72"
+  },
+  {
+   "id": "WP-QA-22b",
+   "chapter": "12",
+   "kind": "work-package-part",
+   "title": "Long-session soak as the plan specifies it: CDP metrics, DOM and listener limits of 5 percent, frame drift, 20 bfcache cycles, a seeded listener leak that fails it, wake lock",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Not built as the plan states it (WP-QA-22): Playwright and CDP Performance.getMetrics and HeapProfiler on /map at 8x with day loops, panel open and close, layout switches and 20 bfcache cycles; assertions of heap growth at most 30 MB, DOM nodes and listeners within 5 percent, no long-task growth and a p95 frame drift (relative, because software WebGL makes absolute times meaningless); the cadence (a weekly 60-minute run on staging, every release candidate, a 10-minute mini-soak nightly); navigator.wakeLock only while playing and released on pause or when hidden, unit-tested; accept: green in CI and a seeded listener leak fails it. What exists is acceptance check 5 (tools/accept/checks/c5_perf.mjs runSoak: heap growth limit 10 percent after forced GC, DOM nodes and listeners flagged at +25 percent, a heartbeat, crash detection, 600 s in the acceptance run) with no CI, no seeded-leak control and no schedule. No shipped file uses navigator.wakeLock (grep of release/R1g/dist empty), so the wake-lock rule has no implementation in the legacy bundle to test; it belongs to the rebuilt app.",
+   "next_step": "Request to the release workstream (tests/t0 and tools/accept are theirs): build the soak spec on the existing harness (tests/t0/lib.mjs with its CDP session) as a suite row with a mutant (a page that leaks a listener per tick, which the spec must fail), run on release/R1g/dist through the machine lock with the timing window, and keep the tighter limits in the spec rather than in tools/accept/thresholds.json (which says never to loosen it); the weekly cadence needs a scheduler (WP-INFRA-08b, WP-INFRA-32); the wake-lock unit test waits for the rebuilt app.",
+   "size": "M",
+   "files": [
+    "tools/accept/checks/c5_perf.mjs",
+    "tools/accept/thresholds.json",
+    "tests/t0/lib.mjs",
+    "docs/plan/FINAL/12-qa-ci-release.md"
    ],
    "roadmap_node": "RM-72"
   },
@@ -5041,7 +5139,7 @@
    "title": "Cross-browser and hostile-environment automation",
    "status": "OPEN_BUILDABLE",
    "evidence": "Not built: no Firefox or WebKit run exists (only Chromium is installed in this container and nothing may be installed), no in-app-browser user-agent matrix, no translate simulator, no blocker profile (see WP-INFRA-31).",
-   "next_step": "Chromium part now (user-agent matrix, forced dark, translate simulator, key codes); Firefox and WebKit runs are blocked in this container and stay owed until a machine with those engines runs them.",
+   "next_step": "Include the framing test of WP-INFRA-14 (/embed frames, / and /privacy do not) on all three engines. Chromium part now (user-agent matrix, forced dark, translate simulator, key codes); Firefox and WebKit runs are blocked in this container and stay owed until a machine with those engines runs them.",
    "size": "M",
    "files": [
     "tests/t0/lib.mjs",
@@ -6816,13 +6914,16 @@
    "title": "Unit and place page-data export",
    "status": "OPEN_BUILDABLE",
    "evidence": "Not built: no units/<slug>.json export exists. Inputs: the unit registry and index (WP-DATA-06b, WP-DATA-20) and the corpus passages with page citations; the unit pages themselves wait for the SEO decision (WP-SEO-16, WP-SEO-20).",
-   "next_step": "Emit the export with at most three excerpts of at most 120 words per unit, each with citation, scan address, licence and reviewer field, no page for the alias stub; the thin-content gate of WP-SEO-15 decides what is indexed.",
+   "next_step": "Wait for VER-HIST-CORPUS (delegated row C16: the verbatim checks of the excerpts need the Official Records text that only the corpus build writes, and that text is not in this container). Then emit the export with at most three excerpts of at most 120 words per unit, each with citation, scan address, licence and reviewer field, no page for the alias stub; the thin-content gate of WP-SEO-15 decides what is indexed.",
    "size": "M",
    "files": [
     "data-src/build/unit_index.json",
     "historian-src/corpus/or27/manifest.json"
    ],
-   "roadmap_node": "RM-75"
+   "roadmap_node": "RM-75",
+   "delegated_row": [
+    "C16"
+   ]
   },
   {
    "id": "WP-HIST-23",
@@ -7122,13 +7223,17 @@
    "title": "Historian tooling did not load under the container default Node 22 (inline regex modifier): fixed in the tree",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built by candidate candidates/r1h/ver-hist-node (checkpoint 6bb4d1d7, 2026-11-13 21:13; route source-rebuild, no train and no patch group involved): tools/historian/ingest/times.mjs no longer holds the inline modifier group (the meridiem is spelled out in both cases by the helpers both() and ci; the capitals-only branch is kept) and the new test tests/historian/times-node22.test.mjs pins it: no modifier group under tools/historian, tests/historian, historian-src/core, historian-src/page and src/lib/time; the meridiem cases (\"a. m.\", \"A. M.\", \"P.M.\", \"AM\", \"10 p.m.\" are read; a bare \"am\" or \"pm\" and \"Am\" are not); 263 pinned readings taken from the old text; every spelling of the meridiem. Red first: candidates/r1h/ver-hist-node/red-atime-node22.log and red-suite-node22.log (22 of 34 files do not load). The candidate's differential run reads 625,025 corpus inputs, 5,572 claims, 2,480,184 exhaustive, 400,000 fuzz and 400,000 grammar inputs with 0 mismatches against the old text (candidates/r1h/ver-hist-node/differential-node24.json, tmp/r1h-cand/ver-hist-node/differential-node24.log). Re-run by this survey 2026-11-13 23:35: node --test tests/historian/times-node22.test.mjs under Node 22.23.4: 4 tests, 4 pass, 0 fail, 0 skipped (exit 0). The candidate's own whole-suite run under Node 22.23.4 gave 478 tests, 391 pass, 0 fail, 87 skipped with no file failing to load. The candidate's STATUS.json still says passes false: the formal paired run (candidates/r1h/ver-hist-node/run-suites.sh, then check-totals.mjs) had not finished, so no suite log is registered there yet.",
-   "next_step": "Start the job again (the restart seen on 2026-11-15, up 4 minutes at 22:56 UTC, lost the one queued since 2026-11-14 01:21 UTC), first and in the background: tools/horde/bench.sh --timing bash candidates/r1h/ver-hist-node/run-suites.sh > tmp/r1h-cand/ver-hist-node/run-suites.out 2>&1 &. Alone behind the exclusive lock it runs the whole tests/historian suite under Node 22.23.4 and Node 24.22.1, then check-totals.mjs --write and record.sh, which writes passes true only if every recorded command exits 0 (record.mjs --check writes nothing); afterwards python3 docs/plan/STATUS/check_backlog.py --rerun ver-hist-node re-runs the record. Nothing else: no train, no engines field (the pattern was rewritten instead of pinning Node 24; delegated row VHN-1).",
+   "next_step": "Start the job again: the one queued on 2026-11-14 01:21 UTC was lost in the restart of 2026-11-15, and the one queued again on 2026-11-16 00:06 UTC (pid 6920, HANDOFF.md of the candidate) was lost with the pause of the campaign (no run-suites process on 2026-11-16 at 02:40 UTC, tmp/r1h-cand/ver-hist-node/run-suites.out has 0 bytes, STATUS.json still says passes false), so start it first and in the background: setsid nohup tools/horde/bench.sh --timing bash candidates/r1h/ver-hist-node/run-suites.sh > tmp/r1h-cand/ver-hist-node/run-suites.out 2>&1 < /dev/null &. VER-HIST-CORPUS waits for it (delegated row C16: the paired run hashes tools/historian, tests/historian, historian-src, src/lib/time and data-src/time, so an edit there during the run would void it). Alone behind the exclusive lock it runs the whole tests/historian suite under Node 22.23.4 and Node 24.22.1, then check-totals.mjs --write and record.sh, which writes passes true only if every recorded command exits 0 (record.mjs --check writes nothing); afterwards python3 docs/plan/STATUS/check_backlog.py --rerun ver-hist-node re-runs the record. Nothing else: no train, no engines field (the pattern was rewritten instead of pinning Node 24; delegated row VHN-1).",
    "size": "S",
    "files": [
     "tools/historian/ingest/times.mjs",
     "tests/historian/times-node22.test.mjs",
     "candidates/r1h/ver-hist-node/STATUS.json",
     "candidates/r1h/ver-hist-node/HANDOFF.md"
+   ],
+   "delegated_row": [
+    "VHN-1",
+    "C16"
    ]
   },
   {
@@ -7138,13 +7243,16 @@
    "title": "The Historian corpus build and the 87 tests that need it have never run in this container (the archive.org download path is blocked here)",
    "status": "OPEN_BUILDABLE",
    "evidence": "Found by this survey, 2026-11-13. The whole Historian suite (candidates/r1h/ver-hist-node log tmp/r1h-cand/ver-hist-node/suite-node22-normal.log: 478 tests, 391 pass, 0 fail, 87 skipped under Node 22.23.4) skips 87 tests, all for one reason: 79 need historian-src/raw/or27 (git-ignored; written by node tools/historian/ingest/corpus.mjs build) and 8 need tmp/historian-cache. So the corpus-level claims of the BUILT items (report and dispatch segmentation, the linkers and their labelled set, the time-claim extraction, the passage checks VI-TX-1..5 and VI-CK-3) are proven here only by the tests that do not need the corpus, and the committed tables historian-src/corpus/or27/*.json have not been reproduced here. The build reads 15 files of the Internet Archive items warofrebellion271unit, 272unit and 273unit (djvu.txt, page_numbers.json, scandata.xml, hocr_pageindex.json.gz, hocr_searchtext.txt.gz; about 20 MB; the sha256 of each is in historian-src/corpus/or27/manifest.json). The 3 local copies in tmp/library/or27 (cu31924077699761, cu31924077700262, cu31924077728255) are other scans and cannot stand in for them. Probed on 2026-11-13 with one 15 KB file (warofrebellion271unit_hocr_pageindex.json.gz): the build's URL form https://archive.org/download/... answers 302 to dn760100.eu.archive.org and the proxy refuses that host (curl: CONNECT tunnel failed, response 403; the project fetcher: fetch failed), recorded as blocked and not worked around; the form this environment permits, https://archive.org/cors/<identifier>/<file>, answers 200 to a HEAD request, but tools/historian/ingest/fetch.mjs refuses it (RightsRefusal: identifier or host not registered), because sourceForUrl reads the identifier only from /details/, /download/, /stream/, /metadata/ and /items/ paths.",
-   "next_step": "Teach sourceForUrl (tools/historian/ingest/fetch.mjs) to read the identifier from /cors/<identifier>/ URLs and give the corpus build one switch that requests the /cors/ form while the provenance rows and the cache key keep the canonical /download/ URL; fetch the 15 files at no more than 1 request per second and compare each sha256 with historian-src/corpus/or27/manifest.json (a difference is a finding, not something to fix); run node tools/historian/ingest/corpus.mjs build with --out set to a scratch folder through tools/horde/bench.sh and diff its tables against the committed ones; then run node --test tests/historian/*.test.mjs under Node 22 and Node 24 (the 87 skips become passes or named failures) and record the totals. No test is loosened and no committed table is overwritten by this item.",
+   "next_step": "Wait for VER-HIST-NODE (delegated row C16: the paired Node 22 and 24 run hashes tools/historian, tests/historian and historian-src, so an edit of fetch.mjs or a new historian-src/raw folder during that run would void it). Then teach sourceForUrl (tools/historian/ingest/fetch.mjs) to read the identifier from /cors/<identifier>/ URLs and give the corpus build one switch that requests the /cors/ form while the provenance rows and the cache key keep the canonical /download/ URL; fetch the 15 files at no more than 1 request per second and compare each sha256 with historian-src/corpus/or27/manifest.json (a difference is a finding, not something to fix); run node tools/historian/ingest/corpus.mjs build with --out set to a scratch folder through tools/horde/bench.sh and diff its tables against the committed ones; then run node --test tests/historian/*.test.mjs under Node 22 and Node 24 (the 87 skips become passes or named failures) and record the totals. No test is loosened and no committed table is overwritten by this item.",
    "size": "M",
    "files": [
     "tools/historian/ingest/fetch.mjs",
     "tools/historian/ingest/corpus.mjs",
     "historian-src/corpus/or27/manifest.json",
     "tests/historian/"
+   ],
+   "delegated_row": [
+    "C16"
    ]
   },
   {
@@ -8430,7 +8538,7 @@
    "kind": "audit-id",
    "title": "First-visit service-worker reload (double load)",
    "status": "SHIPPED",
-   "evidence": "Closed in train R0: the worker never handles navigations, no skipWaiting, no reload on controllerchange (WP-INFRA-22). Tests: tests/t0/r0.mjs T0-R0-01..13 (one Document on the first visit, upgrade drill from the old worker). Closing work packages: WP-T0-04, WP-T0-05, WP-PERF-05 (SHIPPED), WP-INFRA-22 (SHIPPED), WP-QA-07 (SHIPPED).",
+   "evidence": "Closed in train R0: the worker never handles navigations, no skipWaiting, no reload on controllerchange (WP-INFRA-22). Tests: tests/t0/r0.mjs T0-R0-01..13 (one Document on the first visit, upgrade drill from the old worker). Closing work packages: WP-T0-04, WP-T0-05, WP-PERF-05 (SHIPPED), WP-INFRA-22 (SHIPPED; its open rest, the update prompt and the reset page, WP-INFRA-22b, is not needed for this finding), WP-QA-07 (SHIPPED; the three tests of the plan's seven that do not exist are WP-QA-07b, open).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -8591,7 +8699,7 @@
    "kind": "audit-id",
    "title": "\"1x (real time)\" label wrong",
    "status": "OPEN_BUILDABLE",
-   "evidence": "The clock label is held and the speed label corrected (group CLOCK, CP row); remaining \"real time\" claims on pages and the manifest: copy_lint rule REALTIME 12 findings (living-ledger 4, index 2, manifest 2, watch-together 2, site-nav 1, immersive 1; WP-CONTENT-09b). Closing work packages: WP-TIME-11 (BUILT_NOT_SHIPPED), WP-TIME-16, WP-CONTENT-09 (09a SHIPPED, 09b OPEN_BUILDABLE).",
+   "evidence": "The clock label is held and the speed label corrected (group CLOCK, CP row); remaining \"real time\" claims on pages and the manifest: copy_lint rule REALTIME 12 findings (living-ledger 4, index 2, manifest 2, watch-together 2, site-nav 1, immersive 1; WP-CONTENT-09b). One of the 2 watch-together hits is removed by candidate group PG-r1h-wp-infra-28b (WP-INFRA-28b, BUILT_NOT_SHIPPED). Closing work packages: WP-TIME-11 (BUILT_NOT_SHIPPED), WP-TIME-16, WP-CONTENT-09 (09a SHIPPED, 09b OPEN_BUILDABLE).",
    "next_step": "Remove the remaining \"real time\" claims on the pages and in the manifest: copy_lint rule REALTIME reports 12 findings (living-ledger 4, index 2, manifest 2, watch-together 2, site-nav 1, immersive 1); WP-CONTENT-09b does the pages and WP-INFRA-23b the manifest.",
    "size": "S",
    "files": [
@@ -9389,14 +9497,15 @@
    "chapter": "16",
    "kind": "new-finding",
    "title": "Watch Together stored XSS and guessable codes",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "Half shipped, half open (re-read 2026-11-14: release/R1g/dist/watch-together.html builds its room codes with Math.random, 1 occurrence and no crypto.getRandomValues, and keeps an unbounded connections array). Shipped: the XSS is closed in train R1a (PG-core: textContent rows, imports validated; PeerJS on demand with SRI) and a connection that is still opening is never closed (R1f PG-zfix). Tests: pages-core T0-PGC-19..21, wtpeer T0-WTP-01..04. Open, so the finding is not closed: unguessable codes, connection cap, guest validation (WP-INFRA-28b, wave-1 candidate wp-infra-28b). Closing work packages: WP-T0-12 (SHIPPED), WP-PAGEC-15, 16, 35, WP-INFRA-28 (28a SHIPPED, 28b OPEN_BUILDABLE). Container result (docs/accept/R1G-SUITES.json): r1.wtpeer 2 of 4 (T0-WTP-01 and 03 fail); the functional values are right (closedWhileConnecting 0, no connecting peer destroyed) and the only failing assertion is Chrome's software-GL console warning \"GPU stall due to ReadPixels\", identical on R1f (docs/accept/R1G-STATUS.md, 2026-11-08); the suite was 4 of 4 on R1f after PG-zfix on the Windows machine (R1F-FINAL-REPORT). Not acceptance evidence either way (items-A.json VER-LAYOUT-TIMING).",
-   "next_step": "WP-INFRA-28b: codes from crypto.getRandomValues, close the 21st connection, accept only {goto, tick 1..675, note up to 280} from a guest; the finding closes with it.",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "Half shipped, half built (re-read 2026-11-14 and 2026-11-16: release/R1g/dist/watch-together.html builds its room codes with Math.random, 1 occurrence and no crypto.getRandomValues, and keeps an unbounded connections array). Shipped: the XSS is closed in train R1a (PG-core: textContent rows, imports validated; PeerJS on demand with SRI) and a connection that is still opening is never closed (R1f PG-zfix). Tests: pages-core T0-PGC-19..21, wtpeer T0-WTP-01..04. Built and in no train, so the finding is not closed: unguessable codes, connection cap and guest validation are the optional group PG-r1h-wp-infra-28b of candidate candidates/r1h/wp-infra-28b (passes true, 2026-11-16; WP-INFRA-28b). Closing work packages: WP-T0-12 (SHIPPED), WP-PAGEC-15, 16, 35, WP-INFRA-28 (28a SHIPPED, 28b BUILT_NOT_SHIPPED). Container result (docs/accept/R1G-SUITES.json): r1.wtpeer 2 of 4 (T0-WTP-01 and 03 fail); the functional values are right (closedWhileConnecting 0, no connecting peer destroyed) and the only failing assertion is Chrome's software-GL console warning \"GPU stall due to ReadPixels\", identical on R1f (docs/accept/R1G-STATUS.md, 2026-11-08); the suite was 4 of 4 on R1f after PG-zfix on the Windows machine (R1F-FINAL-REPORT). Not acceptance evidence either way (items-A.json VER-LAYOUT-TIMING).",
+   "next_step": "WP-INFRA-28b: the release workstream registers candidate group PG-r1h-wp-infra-28b in a train once the spec changes of its request note (docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-infra-28b.md) are in; the finding closes with it.",
    "size": "S",
    "files": [
     "tools/t0/patches/PG-core.json",
     "tests/t0/wtpeer.spec.mjs",
-    "docs/plan/FINAL/16-audit-corrections-and-new-findings.md"
+    "docs/plan/FINAL/16-audit-corrections-and-new-findings.md",
+    "candidates/r1h/wp-infra-28b/group.json"
    ]
   },
   {
@@ -9506,7 +9615,7 @@
    "kind": "new-finding",
    "title": "Backgrounded tab makes the simulation leap ahead",
    "status": "SHIPPED",
-   "evidence": "Closed in train R1a (bug:I-dt-cap, frame delta capped at 100 ms). Test: journeys T0-DT-01. Closing work packages: WP-T0-06 (SHIPPED), WP-ARCH-15, WP-QA-22 (SHIPPED).",
+   "evidence": "Closed in train R1a (bug:I-dt-cap, frame delta capped at 100 ms). Test: journeys T0-DT-01. Closing work packages: WP-T0-06 (SHIPPED), WP-ARCH-15, WP-QA-22 (SHIPPED; the CI soak of the plan is WP-QA-22b).",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -9577,7 +9686,7 @@
    "kind": "new-finding",
    "title": "Stale-code trap: entry name carried 45 byte streams; cache-first worker",
    "status": "SHIPPED",
-   "evidence": "Closed in train R0 (hashed names, ledger of used names, no-reload worker, kill switch). Tests: r0 T0-R0-01..13, gate ledger row, determinism.py. Closing work packages: WP-T0-04, WP-T0-05 (SHIPPED), WP-INFRA-22 (SHIPPED), WP-INFRA-11 (11a SHIPPED), WP-PERF-24.",
+   "evidence": "Closed in train R0 (hashed names, ledger of used names, no-reload worker, kill switch). Tests: r0 T0-R0-01..13, gate ledger row, determinism.py. Closing work packages: WP-T0-04, WP-T0-05 (SHIPPED), WP-INFRA-22 (SHIPPED; its open rest, the update prompt and the reset page, WP-INFRA-22b, is not needed for this finding), WP-INFRA-11 (11a SHIPPED), WP-PERF-24.",
    "next_step": "None.",
    "size": "S",
    "files": [
@@ -10598,7 +10707,7 @@
    ]
   }
  ],
- "updated": "2026-11-15",
- "revision": "Second pass, 2026-11-13 23:00 UTC to 2026-11-14 01:00 UTC, continuing the interrupted second pass: the file of the first pass (19:55 UTC, kept as tmp/r1h-cand/status-B2/items-B.before-pass2.json) was re-checked against the repository after the work of other engineers since (candidates ver-hist-node and wp-arch-09, docs/accept/R1G-SUITES.json, R1G-STATUS.md): tmp/r1h-cand/status-B2/verify_b.py (paths, test ids, patch ids, delegated rows), spot_checks.py (59 claims against release/R1g/dist and anchors.json), runs/ (re-run checks), a coverage check of every id family of chapters 09 to 16 and of the 98 nodes and 12 milestones of 15-roadmap.json against items-A.json and this file (nothing missing), and a read of the patch groups, trains and tests named by the SHIPPED items. Changes: four items no longer claim that the shipped Historian page says \"not an AI model\" (PG-zcopy2 removes those words); VER-HIST-NODE is BUILT_NOT_SHIPPED (candidate ver-hist-node); the src/ and Node 22 statements follow the tree; red suites are disclosed where a SHIPPED item cites them; every SHIPPED audit correction names its train, group and test; the SHIPPED release-tooling items name the trains they gate; two patch ids are written in full; the PG-core patch count is exact (121 records); VER-HIST-CORPUS (the unbuilt Historian corpus and its 87 skipped tests) and the six decision gates DG-0..DG-5 are new items; every OWNER_ONLY item now states its act in full instead of pointing at another item. Third pass, 2026-11-14 00:10 UTC to 2026-11-14 00:37 UTC (tmp/r1h-cand/status-B3/apply_pass3.py; the file of the second pass is kept as tmp/r1h-cand/status-B3/items-B.before-pass3.json): NF-14 is OPEN_BUILDABLE (its guessable-codes half is open in release/R1g/dist/watch-together.html) and VD14-9 is OPEN_BUILDABLE (three of its four lookups can be made here); the suite totals follow docs/accept/R1G-SUITES.json as regenerated at 2026-11-14 00:04 UTC (60 ok, 20 not ok, pagesmaps.R1a newly red) and the 11 SHIPPED items that cite the pages-maps suite say so; the acceptance checks that have run on R1g are named exactly; built groundwork that earlier passes had not named is now in the items it belongs to: the quality-checked source list and ingest queue (data-src/sources-v2: WP-HIST-20, 23, 24, 27, 28), the weather dataset (WP-HIST-28, VD14-9) and the conflict ledger (WP-DATA-08b, WP-CONTENT-08, WP-HIST-21, VD13-1, HB-01, HB-05); seven pointer-only or stale next steps now name the act (CORR-18, CORR-19, AUDIT-E4, CORR-28, NF-29, CORR-23, WP-HIST-06). Fourth pass, 2026-11-15 from 22:53 UTC (tmp/r1h-cand/status-B4/apply_pass4.py; the file of the third pass is kept as tmp/r1h-cand/status-B4/items-B.before-pass4.json): the file was re-read against the tree after the container restart and the records written since the third pass (candidates wp-arch-09 closed and ver-hist-node built, docs/accept/R1G-SUITES.json regenerated at 2026-11-14 01:21 UTC, rows C11 to C14 and VHN-1 of the delegated decisions); no status changed. Changes: the suite totals follow the regenerated registry (61 ok, 19 not ok) and pagesmaps.R1a is 34 of 34 in the repeat with T0_CHROME set, so the 11 SHIPPED items that cite the pages-maps suite, VD12-1 and V18 no longer call it red, and the results of pagesmaps.R1b and R1c are named as the partial proxy re-run of 2026-11-11 they come from; LIB-01..09 is corrected to the 10 tests of lib_selftest.mjs and T0-DEV-14 is tied to its row; twelve pointer-only next steps of OPEN_NEEDS_DECISION items now state the delegated conservative choice and the way back (INFRA-OD-6, Q-DATA-2, OD-2, OD-9, OD-18, OD-19, AUDIT-H1, AUDIT-E2, NF-44, NF-45, VD12-4, O-16-2); the next step of VER-HIST-NODE names how its record is really written (run-suites.sh ends with check-totals.mjs --write and record.sh; record.mjs --check writes nothing) and that the queued job was lost in the restart; the counts that the earlier text had slightly wrong are re-measured on the tree: the sitemap and canonical forms (WP-INFRA-12, RM-24, WP-SEO-05, WP-SEO-06a, AUDIT-E5: 19 of the 20 sitemap entries end in .html, the root is the 20th), the file and byte counts of historian-src/dist (WP-HIST-03, WP-HIST-06), the row count of placements_day1_ticks1_50.json (WP-DATA-09b) and the line range of OOB_FILES in search.html (WP-DATA-20); the src/ ground fact names the closed candidate.",
+ "updated": "2026-11-16",
+ "revision": "Second pass, 2026-11-13 23:00 UTC to 2026-11-14 01:00 UTC, continuing the interrupted second pass: the file of the first pass (19:55 UTC, kept as tmp/r1h-cand/status-B2/items-B.before-pass2.json) was re-checked against the repository after the work of other engineers since (candidates ver-hist-node and wp-arch-09, docs/accept/R1G-SUITES.json, R1G-STATUS.md): tmp/r1h-cand/status-B2/verify_b.py (paths, test ids, patch ids, delegated rows), spot_checks.py (59 claims against release/R1g/dist and anchors.json), runs/ (re-run checks), a coverage check of every id family of chapters 09 to 16 and of the 98 nodes and 12 milestones of 15-roadmap.json against items-A.json and this file (nothing missing), and a read of the patch groups, trains and tests named by the SHIPPED items. Changes: four items no longer claim that the shipped Historian page says \"not an AI model\" (PG-zcopy2 removes those words); VER-HIST-NODE is BUILT_NOT_SHIPPED (candidate ver-hist-node); the src/ and Node 22 statements follow the tree; red suites are disclosed where a SHIPPED item cites them; every SHIPPED audit correction names its train, group and test; the SHIPPED release-tooling items name the trains they gate; two patch ids are written in full; the PG-core patch count is exact (121 records); VER-HIST-CORPUS (the unbuilt Historian corpus and its 87 skipped tests) and the six decision gates DG-0..DG-5 are new items; every OWNER_ONLY item now states its act in full instead of pointing at another item. Third pass, 2026-11-14 00:10 UTC to 2026-11-14 00:37 UTC (tmp/r1h-cand/status-B3/apply_pass3.py; the file of the second pass is kept as tmp/r1h-cand/status-B3/items-B.before-pass3.json): NF-14 is OPEN_BUILDABLE (its guessable-codes half is open in release/R1g/dist/watch-together.html) and VD14-9 is OPEN_BUILDABLE (three of its four lookups can be made here); the suite totals follow docs/accept/R1G-SUITES.json as regenerated at 2026-11-14 00:04 UTC (60 ok, 20 not ok, pagesmaps.R1a newly red) and the 11 SHIPPED items that cite the pages-maps suite say so; the acceptance checks that have run on R1g are named exactly; built groundwork that earlier passes had not named is now in the items it belongs to: the quality-checked source list and ingest queue (data-src/sources-v2: WP-HIST-20, 23, 24, 27, 28), the weather dataset (WP-HIST-28, VD14-9) and the conflict ledger (WP-DATA-08b, WP-CONTENT-08, WP-HIST-21, VD13-1, HB-01, HB-05); seven pointer-only or stale next steps now name the act (CORR-18, CORR-19, AUDIT-E4, CORR-28, NF-29, CORR-23, WP-HIST-06). Fourth pass, 2026-11-15 from 22:53 UTC (tmp/r1h-cand/status-B4/apply_pass4.py; the file of the third pass is kept as tmp/r1h-cand/status-B4/items-B.before-pass4.json): the file was re-read against the tree after the container restart and the records written since the third pass (candidates wp-arch-09 closed and ver-hist-node built, docs/accept/R1G-SUITES.json regenerated at 2026-11-14 01:21 UTC, rows C11 to C14 and VHN-1 of the delegated decisions); no status changed. Changes: the suite totals follow the regenerated registry (61 ok, 19 not ok) and pagesmaps.R1a is 34 of 34 in the repeat with T0_CHROME set, so the 11 SHIPPED items that cite the pages-maps suite, VD12-1 and V18 no longer call it red, and the results of pagesmaps.R1b and R1c are named as the partial proxy re-run of 2026-11-11 they come from; LIB-01..09 is corrected to the 10 tests of lib_selftest.mjs and T0-DEV-14 is tied to its row; twelve pointer-only next steps of OPEN_NEEDS_DECISION items now state the delegated conservative choice and the way back (INFRA-OD-6, Q-DATA-2, OD-2, OD-9, OD-18, OD-19, AUDIT-H1, AUDIT-E2, NF-44, NF-45, VD12-4, O-16-2); the next step of VER-HIST-NODE names how its record is really written (run-suites.sh ends with check-totals.mjs --write and record.sh; record.mjs --check writes nothing) and that the queued job was lost in the restart; the counts that the earlier text had slightly wrong are re-measured on the tree: the sitemap and canonical forms (WP-INFRA-12, RM-24, WP-SEO-05, WP-SEO-06a, AUDIT-E5: 19 of the 20 sitemap entries end in .html, the root is the 20th), the file and byte counts of historian-src/dist (WP-HIST-03, WP-HIST-06), the row count of placements_day1_ticks1_50.json (WP-DATA-09b) and the line range of OOB_FILES in search.html (WP-DATA-20); the src/ ground fact names the closed candidate. Fifth pass, 2026-11-16 from 02:30 UTC (tmp/r1h-cand/status-B5/apply_pass5.py; the file of the fourth pass is kept as tmp/r1h-cand/status-B5/items-B.before-pass5.json): the file was re-read against the tree after the pause of the campaign and the work of other engineers since the fourth pass (candidate wp-infra-28b, delegated rows A74, C15, C16 and W28B-1 to W28B-4, the two 2026-11-16 lines of docs/accept/R1G-STATUS.md, items-A.json pass 5). Two statuses changed because a candidate was built: WP-INFRA-28b and NF-14 are BUILT_NOT_SHIPPED (candidate wp-infra-28b, passes true, in no train). The rest comes from a re-read of the plan text of every SHIPPED work package against release/R1g/dist and the tests (the method that items-A.json pass 5 used when it found four packages graded on group names alone): the single SHIPPED packages WP-INFRA-10, 14, 22 and WP-QA-07 and 22 each had plan parts that no item of either file carried, and four open parts are added for them (WP-INFRA-10c production noindex rows, WP-INFRA-22b update prompt and reset page, WP-QA-07b three missing R0 tests, WP-QA-22b the plan's soak); the shipped parts keep their status. Statements corrected from the tree: WP-INFRA-16b said form-action was in the Report-Only policy (it is in no header; manifest-src and upgrade-insecure-requests are also absent from stage 0), WP-QA-22 said the acceptance soak has no DOM-node and listener counts (it samples them and flags +25 percent), twitter:title, description, image and image:alt are missing on 9 pages (WP-SEO-04b), the manifest has no scope member (WP-INFRA-23b), apple-touch-icon-precomposed.png has no redirect row (WP-INFRA-12), the VER-HIST-NODE run queued on 2026-11-16 00:06 UTC was lost with the pause, the HDR-11 failure is triaged by the release workstream as environment (four items), and the delegated rows C16 and B22 are attached to the items they govern. Counts: SHIPPED 98, BUILT_NOT_SHIPPED 60, OPEN_BUILDABLE 222, OPEN_NEEDS_DECISION 90, OWNER_ONLY 102, SUPERSEDED 18; 590 items.",
  "not_itemised": "Chapter 15 also holds governance text that is not work and carries no completion state of its own: the stop rules (section 5.6 and stop_rules of 15-roadmap.json), the cut order and the never-cut list (section 5.8), the risk register (section 11), the first-30-days table (section 12, dated 2026-10-01 to 2026-10-30), the 17 reconciliations of section 13, the tranche names P0..P7 and the freeze windows (2026-11-15..2026-11-20, 2027-06-25..2027-07-05, 2027-11-15..2027-11-20 and Fridays after 12:00 ET; the first of them starts on 2026-11-15, and the plan asks that no train be published inside a window). Their work is carried by the nodes, milestones and decisions they name (the six decision gates DG-0..DG-5 are items here); section 14 (traceability) is checked by the same ids. Nothing in them is dropped: each rule applies to every item above."
 }

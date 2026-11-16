@@ -10,4 +10,6 @@ suf="${1:-v4}"
 for s in check_counts check_structure check_gate_parts check_paths check_pages check_quotes; do
   python3 -I "$s.py" > "${s}_${suf}.out" 2>&1; echo "$s exit=$?"
 done
-python3 -I report_problems.py --saved "$suf"
+python3 -I report_problems.py --saved "$suf"; rc=$?
+python3 -I gen_thresholds.py --check || rc=1
+exit $rc

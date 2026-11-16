@@ -8,14 +8,16 @@ export function makePlan(groundAt) {
   const at = (u, v, h = 0) => { const x = plan.A[0] + plan.f[0] * u + plan.r[0] * v, z = plan.A[2] + plan.f[2] * u + plan.r[2] * v; return [x, groundAt(x, z) + h, z]; };
   function advance(t0, t1) {
     if (!plan.on) return 0; let n = 0; const d = plan.f;
-    if (plan.guns) for (let t = Math.ceil(t0 / 10) * 10; t < t1; t += 10) for (let g = 0; g < 6; g++) {
-      const tt = t + g * 0.7, id = 1000 + g + Math.floor(t), p = at(45, -25 + g * 10, 1.1);
+    // plan.dense (default 1: the plan of the 16 cases, event for event): `dense` times the guns and the men, in rows behind each other (a battery of six every 12 m of depth, a line of 60 men every 14 m), for the timing harness
+    const dn = Math.floor(Number(plan.dense)), dense = Number.isFinite(dn) && dn > 1 ? dn : 1, nG = 6 * dense, nV = 60 * dense;
+    if (plan.guns) for (let t = Math.ceil(t0 / 10) * 10; t < t1; t += 10) for (let g = 0; g < nG; g++) {
+      const c = g % 6, row = Math.floor(g / 6), tt = t + c * 0.7 + (row % 5) * 0.13, id = dense === 1 ? 1000 + g + Math.floor(t) : 1000 + g + Math.floor(t / 10) * nG, p = at(45 + row * 12, -25 + c * 10, 1.1);
       bus.emit('fire', 'US-ART', g, tt, 'cannon', p, d, { weaponId: 'napoleon_12pdr_m1857', round: 'shell', tier: 'inferred', cycleS: 40, ranksBack: 0, fuze: 'time', fuzeS: 2, gunIdx: g, shotId: id }); n++;
-      const q = at(230 + g * 14, -60 + g * 24, 14); bus.emit('impact', 'US-ART', g, tt + 2.0, 'shell_burst', q, d, { fireT: tt, weaponId: 'napoleon_12pdr_m1857', speedMs: 300, balls: 0, shotId: id }); n++;
-      if (g % 3 === 0) { const s = at(160 + g * 10, -40 + g * 20, 0.3); bus.emit('impact', 'US-ART', g, tt + 1.6, 'solid_strike', s, d, { fireT: tt, weaponId: 'napoleon_12pdr_m1857', speedMs: 380, balls: 0, shotId: id + 500 }); n++; }
+      const q = at(230 + c * 14 + row * 12, -60 + c * 24, 14); bus.emit('impact', 'US-ART', g, tt + 2.0, 'shell_burst', q, d, { fireT: tt, weaponId: 'napoleon_12pdr_m1857', speedMs: 300, balls: 0, shotId: id }); n++;
+      if (c % 3 === 0) { const s = at(160 + c * 10 + row * 12, -40 + c * 20, 0.3); bus.emit('impact', 'US-ART', g, tt + 1.6, 'solid_strike', s, d, { fireT: tt, weaponId: 'napoleon_12pdr_m1857', speedMs: 380, balls: 0, shotId: dense === 1 ? id + 500 : id + 500000 }); n++; }
     }
-    if (plan.volleys) for (let t = Math.ceil(t0 / 6) * 6; t < t1; t += 6) for (let i = 0; i < 60; i++) {
-      const p = at(30 + (i % 2) * 1.2, -30 + i, 1.4); bus.emit('fire', 'US-INF', i, t + (i % 7) * 0.3, 'long_arm', p, d, { weaponId: 'm1861_springfield', round: 'ball', tier: 'inferred', cycleS: 20, ranksBack: i % 2 }); n++;
+    if (plan.volleys) for (let t = Math.ceil(t0 / 6) * 6; t < t1; t += 6) for (let i = 0; i < nV; i++) {
+      const col = i % 60, line = Math.floor(i / 60), p = at(30 + (col % 2) * 1.2 + line * 14, -30 + col, 1.4); bus.emit('fire', 'US-INF', i, t + (col % 7) * 0.3, 'long_arm', p, d, { weaponId: 'm1861_springfield', round: 'ball', tier: 'inferred', cycleS: 20, ranksBack: col % 2 }); n++;
     }
     if (plan.falls) for (let t = Math.ceil(t0 / 4) * 4; t < t1; t += 4) { const i = Math.floor(t / 4) % 40; bus.emit('fall', 'US-INF', i, t, i % 9 === 0 ? 'horse_fall' : 'fall_back', at(38, -20 + i, 0), { fate: 'killed' }); n++; }
     if (plan.march) for (let t = Math.ceil(t0); t < t1; t += 1) { bus.emit('unit_march', 'US-MARCH', t, 300, 110, 1.4, at(18, 0, 0), plan.yaw + Math.PI / 2, 'quick_time', { surface: 'road', lengthM: 90 }); n++; }

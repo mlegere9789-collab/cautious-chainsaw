@@ -28,6 +28,8 @@ export const AREA = { 'NPS-CLI-PCB': { lat: 39.8070, lng: -77.2400, r: 2000 }, '
 const SUFFIX_OK = [{ re: /^ and Fence\b/ }, { re: /^ and Flank Markers\b/ }, { re: /^ and Right Flank Marker\b/ }, { re: /^ and Benches\b/ }, { re: /^ and Marker Sponsor Tablet\b/, any: true }, { re: /^ \((?:Left Flank Marker|ca\.[^)]*)\)/ }, { re: /^ is placed\b/, any: true }];
 const AFTER_OK = /^(?:[.;,]| and (?:the )?\d| and Major| and Michigan| and Company| and the |$)/;      // what may follow the name (or its suffix): the end of the item, or the next item of the list
 
+/** The lead of a long chronology entry: its words up to the first one that ends in a colon (the year and what was done: "CE 1886 Memorialized Monuments/markers are erected:"), at most 14 words; the entry's item that names the memorial is given apart. */
+export const leadQuote = q => { const w = q.split(' ').slice(0, P.QUOTE_WORDS), c = w.findIndex(x => x.endsWith(':')); return (c >= 0 ? w.slice(0, c + 1) : w).join(' '); };
 export const sha256 = b => crypto.createHash('sha256').update(b).digest('hex');
 export const canon = v => JSON.stringify(v, (k, x) => (x && typeof x === 'object' && !Array.isArray(x) ? Object.fromEntries(Object.keys(x).sort().map(q => [q, x[q]])) : x));
 const metres = (lat1, lng1, lat2, lng2) => Math.hypot((lng2 - lng1) * 111320 * Math.cos((lat1 + lat2) / 2 * Math.PI / 180), (lat2 - lat1) * 110574);
@@ -61,7 +63,7 @@ export function deriveYears(mem, reports, curation = { exclude: [] }) {
         const why = list.length > 1 ? 'two entries of the site share the name' : !((suf && suf.x.any) || AFTER_OK.test(after)) ? 'the report continues the name with words that are not a fence, a flank marker or a bracket (a position marker, for example)' : null;
         const q = ent.slice(0, hit.index + name.length + cut), page = pageAt(r, m.index), ca = /\(ca\.\s*(\d{4})\s*[-–]\s*(\d{4})\)/.exec(q), long = P.wordCount(q) > P.QUOTE_WORDS,
           row = { no: list[0].no, name, year: ca ? +ca[1] : y1, yearTo: ca ? +ca[2] : y2, source: r.id, pdfPage: page ? page.n : null, printedPage: page ? printedPage(r, page) : null,
-            quote: long ? q.split(' ').slice(0, P.QUOTE_WORDS).join(' ') : q, ...(long ? { says: ent.slice(hit.index, hit.index + name.length + cut) } : {}),      // a quotation is a short phrase (14 words): where the entry is longer, the first words (the year) and, apart, the item that names the memorial
+            quote: long ? leadQuote(q) : q, ...(long ? { says: ent.slice(hit.index, hit.index + name.length + cut) } : {}),      // a quotation is a short phrase (14 words): where the entry is longer, the first words (the year) and, apart, the item that names the memorial
             approx: !!ca || /\(ca\./.test(q), tier: /\(ca\./.test(q) ? 'inferred' : 'documented' };
         if (why) { left.push({ no: list.map(x => x.no), name, source: r.id, year: y1, why }); continue; }
         if (excluded.has(row.no)) { left.push({ no: [row.no], name, source: r.id, year: y1, why: excluded.get(row.no) }); continue; }
