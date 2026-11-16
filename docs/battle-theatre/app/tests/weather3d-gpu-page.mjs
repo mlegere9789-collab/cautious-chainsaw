@@ -14,6 +14,7 @@ import * as fxHost from '../src/fx-host.mjs';
 import { makePlan, placeCamera, aimCamera } from './weather3d-gpu-plan.mjs';
 import { GSTRIDE } from '../src/fx3d/pack.mjs';
 import { WIND_HIST_N } from '../src/fx3d/wind.mjs';
+import { deviceControls, frameControl } from './weather3d-gpu-negctl.mjs';
 
 const Q = new URLSearchParams(location.search);
 const API = Q.get('api') === 'webgl2' ? 'webgl2' : 'webgpu', W = +Q.get('w') || 640, H = +Q.get('h') || 360, SOLD = +Q.get('soldiers') || 12000;
@@ -101,6 +102,12 @@ WG.checkCompute = async () => {               // the optional GPU-cull compute s
   return { messages: info.messages.map(x => ({ type: x.type, line: x.lineNum, col: x.linePos, msg: String(x.message).slice(0, 300) })), pipelineOk: !!pipe, pipelineError: err, validation: sc ? String(sc.message).slice(0, 700) : null, limits: { maxComputeInvocationsPerWorkgroup: lim.maxComputeInvocationsPerWorkgroup, maxComputeWorkgroupSizeX: lim.maxComputeWorkgroupSizeX } };
 };
 WG.resize = async (w, h) => { WG.host.resize(w, h); WG.w = w; WG.h = h; };
+// Negative controls of this harness (tests/weather3d-gpu-negctl.mjs; judged by checkNegativeControl in weather3d-gpu-check.mjs): errors made on purpose that the machinery behind "no validation error" must see. Run once, at the end, WebGPU only.
+WG.negativeControl = async spec => {
+  const R = WG.host && WG.host.R, d = R && R.dev; if (!d) return { skipped: 'no WebGPU device' };
+  const fi = FXON ? fxHost.instance() : null, t0 = performance.now(), out = { frame: await frameControl(s => WG.render(s), fi && fi.gpu, d, spec) };
+  Object.assign(out, await deviceControls(d, { w: window })); out.ms = Math.round(performance.now() - t0); return out;
+};
 WG.dispose = async () => { try { fxHost.dispose(); } catch (e) { WG.log.push('fx dispose: ' + e.message); } try { WG.host.destroy(); } catch (e) { WG.log.push('host destroy: ' + e.message); } };
 
 // ---- capture of one frame's layer pass (WebGPU only; ?capture=1; driver tests/weather3d-gpu-capture.mjs): everything the weather and effects pass reads in that frame (the prototype's frame block, the layer's two

@@ -120,12 +120,64 @@ def gate_store():
         return None, None
 
 
+def strip_context_numbers(c):
+    """the sentence of the claim without the numbers that only say WHEN or in which book (years of publication, the day of the month a claim is dated to): they are context, not statements that an extract has to carry"""
+    t = c['says']
+    t = re.sub(r'\b(1[5-9]\d\d)\b', ' ', t)
+    wh = c.get('when') or {}
+    days = set()
+    for k in (wh.values() if isinstance(wh, dict) else [wh]):
+        if isinstance(k, str):
+            m = re.match(r'^\d{4}-\d\d-(\d\d)', k)
+            if m:
+                days.add(str(int(m.group(1))))
+    for d in days:
+        t = re.sub(r'(?<![\d.,])' + d + r'(?![\d.,])(?=\s*(?:July|June|Jul|Jun|st|nd|rd|th|\b))', ' ', t) if False else t
+    t = re.sub(r'\b(\d{1,2})(?:st|nd|rd|th)?\s+(?:of\s+)?(?:July|June|November|Nov)\b', ' ', t)
+    t = re.sub(r'\b(?:July|June|November|Nov)\s+(\d{1,2})\b', ' ', t)
+    return t
+
+
 def gate_id(c):
     """the id the gate's text store knows: the report id for the Official Records, the library id (no family, no variant) for the others"""
     src = c['src']
     if src == 'OR27':
         return c['locator'].get('report')
     return src.split(':', 1)[1].split('#')[0]
+
+
+def try_candidate(c, cand, ts, ex):
+    """verify one candidate against the saved text (skeleton compare of srcs.py) and the gate library: -> (record, None) or (None, why)"""
+    r = srcs.verify(c['src'], cand, report=c['locator'].get('report') if c['src'] == 'OR27' else None)
+    if not r.get('ok'):
+        return None, 'the extract is not found in the saved text of ' + c['src']
+    found = r['found']
+    if len(found.split()) > MAXW:
+        return None, 'more than %d words in the saved text' % MAXW
+    if len(re.sub(r'\W', '', found)) < 12:
+        return None, 'fewer than 12 letters and digits'
+    rec = {'extract': found}
+    if r.get('defect'):
+        rec['printed'] = cand
+    rec['locator'] = {k: v for k, v in r['locator'].items() if k in ('char_start', 'char_end', 'pdf_page', 'page', 'report', 'who')}
+    if c['src'] == 'OR27':
+        rec['locator']['report'] = c['locator'].get('report')
+        rec['locator']['who'] = c['locator'].get('who')
+    if ts is not None:
+        gid = gate_id(c)
+        if c['src'] == 'OR27':
+            g = ts.find_or27(found, gid, None)
+        else:
+            g = ts.find(gid, found) if ts.has_text(gid) else {'status': 'no_text'}
+        rec['gate'] = g.get('status')
+        if g.get('status') not in ('found', 'no_text'):
+            return None, 'the gate library does not find the extract (%s)' % g.get('status')
+        if g.get('status') == 'found':
+            okn, miss = ex.numbers_in_span(strip_context_numbers(c), found + ' ' + (g.get('span_text') or ''))
+            rec['numbers_in_span'] = bool(okn)
+            if not okn:
+                rec['numbers_missing'] = miss
+    return rec, None
 
 
 def run(write=True):
@@ -136,55 +188,47 @@ def run(write=True):
     for c in claims:
         cid = c['id']
         passage = c['quote'] if c.get('restored') else c['quote_found']
-        why = None
+        base = {'id': cid, 'passage': [c['locator'].get('char_start'), c['locator'].get('char_end')]}
         if cid in cur:
-            cand = cur[cid]['extract'] if isinstance(cur[cid], dict) else cur[cid]
-            why = cur[cid].get('why') if isinstance(cur[cid], dict) else None
-            cov, n, how = None, len(cand.split()), 'curated'
-        else:
-            cand, cov, n = best_window(passage, c['says'], c.get('about'), c.get('feature'))
-            how = 'whole' if n == len(passage.split()) and len(passage.split()) <= MAXW else 'rule'
-        r = srcs.verify(c['src'], cand, report=c['locator'].get('report') if c['src'] == 'OR27' else None)
-        rec = {'id': cid, 'how': how, 'words': len(cand.split()), 'coverage': None if cov is None else round(cov, 2)}
-        if not r.get('ok'):
-            rec.update(ok=False, extract=cand, error='the extract is not found in the saved text of ' + c['src'])
-            flags.append((cid, rec['error']))
+            e = cur[cid]
+            cand = e['extract'] if isinstance(e, dict) else e
+            rec, why = try_candidate(c, cand, ts, ex)
+            if rec is None:
+                out.append(dict(base, how='curated', ok=False, extract=cand, error=why))
+                flags.append((cid, 'curated extract: ' + why))
+                continue
+            rec.update(base, how='curated', ok=True, words=len(rec['extract'].split()), coverage=None)
+            if isinstance(e, dict) and e.get('why'):
+                rec['why'] = e['why']
+            if rec.get('numbers_in_span') is False and not (isinstance(e, dict) and e.get('numbers_ok')):
+                flags.append((cid, 'numbers of the claim not in the span: %s' % ','.join(rec['numbers_missing'])))
             out.append(rec)
             continue
-        found = r['found']
-        rec['extract'] = found                                 # the source's own words, whitespace collapsed
-        if c.get('restored'):
-            rec['printed'] = cand if r.get('defect') else None
-        rec['locator'] = {k: v for k, v in r['locator'].items() if k in ('char_start', 'char_end', 'pdf_page', 'page', 'report', 'who')}
-        if c['src'] == 'OR27':
-            rec['locator']['report'] = c['locator'].get('report')
-            rec['locator']['who'] = c['locator'].get('who')
-        rec['passage'] = [c['locator'].get('char_start'), c['locator'].get('char_end')]
-        if len(found.split()) > MAXW:
-            rec.update(ok=False, error='more than %d words' % MAXW)
-            flags.append((cid, rec['error']))
-        elif len(re.sub(r'\W', '', found)) < 12:
-            rec.update(ok=False, error='fewer than 12 letters and digits')
-            flags.append((cid, rec['error']))
-        else:
-            rec['ok'] = True
-        if why:
-            rec['why'] = why
-        if ts is not None and rec.get('ok'):
-            gid = gate_id(c)
-            if c['src'] == 'OR27':
-                g = ts.find_or27(found, gid, None)
-            else:
-                g = ts.find(gid, found) if ts.has_text(gid) else {'status': 'no_text'}
-            rec['gate'] = g.get('status')
-            if g.get('status') != 'found':
-                flags.append((cid, 'the gate library does not find the extract (%s)' % g.get('status')))
-            else:
-                okn, miss = ex.numbers_in_span(c['says'], found + ' ' + (g.get('span_text') or ''))
-                rec['numbers_in_span'] = bool(okn)
-                if not okn:
-                    rec['numbers_missing'] = miss
-        out.append(rec)
+        ranked = ranked_windows(passage, c['says'], c.get('about'), c.get('feature'))
+        first, chosen, tried, last_why = None, None, 0, None
+        for sc, cov, cand in ranked:
+            rec, why = try_candidate(c, cand, ts, ex)
+            tried += 1
+            if rec is None:
+                last_why = why
+                continue
+            rec['coverage'] = round(cov, 2)
+            if first is None:
+                first = rec
+            if rec.get('numbers_in_span') is not False:
+                chosen = rec
+                break
+            if tried > 120:
+                break
+        chosen = chosen or first
+        if chosen is None:
+            out.append(dict(base, how='rule', ok=False, extract=ranked[0][2], error=last_why or 'no window'))
+            flags.append((cid, last_why or 'no window'))
+            continue
+        chosen.update(base, how='whole' if len(passage.split()) <= MAXW else 'rule', ok=True, words=len(chosen['extract'].split()))
+        if chosen.get('numbers_in_span') is False:
+            flags.append((cid, 'numbers of the claim not in the span: %s' % ','.join(chosen['numbers_missing'])))
+        out.append(chosen)
     if write:
         with open(OUT, 'w', encoding='utf-8') as f:
             json.dump(out, f, indent=0, ensure_ascii=False)
@@ -204,11 +248,11 @@ def main():
         for i in range(lo, min(hi, len(claims))):
             c, e = claims[i], out[i]
             passage = c['quote'] if c.get('restored') else c['quote_found']
-            print('#%d %s [%s] %s%s' % (i, c['id'], c['src'], c['tier'], ' RESTORED' if c.get('restored') else ''))
-            print('  SAYS:   %s' % c['says'])
-            if len(passage.split()) > MAXW:
+            print('#%d %s [%s] %s%s%s' % (i, c['id'], c['src'], c['tier'], ' RESTORED' if c.get('restored') else '', '' if e.get('ok') else ' ** NOT OK: ' + str(e.get('error'))))
+            print('  SAYS: %s' % c['says'])
+            if len(passage.split()) > MAXW and ((e.get('coverage') or 0) < 0.85 or not e.get('ok')):
                 print('  PASSAGE(%dw): %s' % (len(passage.split()), passage))
-            print('  EXTRACT(%dw,%s,cov=%s,gate=%s,nums=%s): %s' % (e['words'], e['how'], e['coverage'], e.get('gate'), e.get('numbers_in_span'), e['extract']))
+            print('  EXT(%sw,%s,cov=%s,g=%s%s): %s' % (e.get('words'), e['how'], e.get('coverage'), e.get('gate'), (',NUMS MISSING ' + ','.join(e.get('numbers_missing', []))) if e.get('numbers_missing') else '', e['extract']))
         return 0
     if a.check:
         prev = json.load(open(OUT, encoding='utf-8')) if os.path.exists(OUT) else None
@@ -218,7 +262,7 @@ def main():
     n_whole = sum(1 for e in out if e['how'] == 'whole')
     n_rule = sum(1 for e in out if e['how'] == 'rule')
     n_cur = sum(1 for e in out if e['how'] == 'curated')
-    low = [e for e in out if e['how'] == 'rule' and (e['coverage'] or 0) < 0.7]
+    low = [e for e in out if e['how'] == 'rule' and (e.get('coverage') or 0) < 0.7]
     nums = [e for e in out if e.get('numbers_in_span') is False]
     print('%d claims: %d whole passage (14 words or fewer), %d chosen by the rule, %d curated; %d with coverage under 70%%; %d with numbers not in the span; %d flagged' % (len(out), n_whole, n_rule, n_cur, len(low), len(nums), len(flags)))
     for cid, why in flags[:40]:

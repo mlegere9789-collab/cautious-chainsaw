@@ -68,9 +68,9 @@ test('the check reads the site and writes only the two copies: no site file is o
 });
 
 // ---------------------------------------------------------------- the years some National Park Service reports print
-const years = readJSON('site-memorial-years.json'), curation = JSON.parse(fs.readFileSync(Y.CURATION, 'utf8')), haveLib = Y.REPORTS.every(id => Y.readReport(id));
+const years = readJSON('site-memorial-years.json'), curation = JSON.parse(fs.readFileSync(Y.CURATION, 'utf8')), extra = JSON.parse(fs.readFileSync(Y.EXTRA, 'utf8')), haveLib = !Y.loadSources().skipped;
 test('the years file is fit against the list and carries the hash of what it holds; the rule that fills it is in the file', () => {
-  assert.deepEqual(Y.validateYearsFile(years, mem), []); assert.equal(years.copy.yearsSha256, canonHash(years.years)); assert.match(years.rule, /letter for letter/); assert.deepEqual(Object.keys(years.sources).sort(), ['NPS-CLI-ERR', 'NPS-CLI-LRT', 'NPS-CLI-PCB']);
+  assert.deepEqual(Y.validateYearsFile(years, mem), []); assert.equal(years.copy.yearsSha256, canonHash(years.years)); assert.match(years.rule, /letter for letter/); assert.match(years.rule, /park number/); assert.deepEqual(Object.keys(years.sources).sort(), ['NPS-CLI-ERR', 'NPS-CLI-LRT', 'NPS-CLI-PCB', 'NPS-CLR-1STDAY']);
   const t = clone(years); t.years[3].year += 1; assert.match(Y.validateYearsFile(t, mem).join(' | '), /do not match the hash the file records/); assert.ok(Y.validateYearsFile({}, mem).length);
 });
 test('the rule on a report text: a memorial is read where the report names it by the site\'s own name and says it was erected; what the rule leaves out is left out with its reason', () => {
@@ -101,9 +101,9 @@ test('the rule on a report text: a memorial is read where the report names it by
 });
 test('the years file equals what the saved report texts give, and the texts are the ones it was read from', { skip: !haveLib && 'NOT RUN: the saved report texts (tmp/library/web/nps, local scratch) are not in this checkout; the file was checked for fitness only' }, () => {
   const d = Y.driftYears(years, mem, curation); assert.equal(d.skipped, false); assert.deepEqual(d.problems, []); if (d.notes.length) console.log('# note: the description of a report differs from the web list it was copied from:', d.notes.join('; '));       // a note, not a failure: the web list is another workstream's and may be corrected
-  const reports = Y.REPORTS.map(id => Y.readReport(id)), built = Y.buildFile(mem, reports, JSON.parse(fs.readFileSync(Y.SOURCES_META, 'utf8')), curation); assert.deepEqual(built.file.years, years.years, 'the rule makes the same years from the texts, field for field'); assert.equal(built.file.copy.yearsSha256, years.copy.yearsSha256);
+  const src = Y.loadSources(), reports = [...src.reports, ...src.extraReports], built = Y.buildFile(mem, src.reports, JSON.parse(fs.readFileSync(Y.SOURCES_META, 'utf8')), curation, src.extra, src.extraReports); assert.deepEqual(built.problems, [], 'every hand reading is found again in its text'); assert.deepEqual(built.file.years, years.years, 'the rules make the same years from the texts, field for field'); assert.equal(built.file.copy.yearsSha256, years.copy.yearsSha256);
   for (const id of Object.keys(years.sources)) { assert.equal(years.sources[id].url, built.file.sources[id].url); assert.equal(years.sources[id].textSha256, built.file.sources[id].textSha256); }
-  for (const y of years.years) { const r = reports.find(x => x.id === y.source); assert.ok(r.norm.includes(y.quote), `${y.no} ${y.name}: the quotation is in the text of ${y.source}`); const pg = r.pages.find(p => p.n === y.pdfPage); assert.ok(pg, 'page'); }
+  for (const y of years.years) { const r = Y.dehyphenated(reports.find(x => x.id === y.source)); assert.ok(r.d.includes(y.quote), `${y.no} ${y.name}: the quotation is in the text of ${y.source}`); const pg = r.pages.find(p => p.n === y.pdfPage); assert.ok(pg, 'page'); }
   const t = clone(years); t.years[0].year = 1930; assert.match(Y.driftYears(t, mem, curation).problems.join(' | '), /differ from what the saved report texts give/);
   const u = clone(years); u.sources['NPS-CLI-PCB'].textSha256 = '0'.repeat(64); assert.match(Y.driftYears(u, mem, curation).problems.join(' | '), /not the one the file was read from/);
   assert.ok(built.left.every(l => l.why && l.name), 'every name left out has its reason'); assert.ok(built.left.some(l => [].concat(l.no).includes(327)), 'the memorial the curation leaves out is among them');

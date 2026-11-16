@@ -1,0 +1,532 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "05913252.3309.emory.edu/62",
+ "levels": "NDR",
+ "stratum": "NC-MOO-E-officers",
+ "family": "NC-MOO-E",
+ "layout": "flow",
+ "kind": "officers",
+ "draw_position": 1,
+ "in_lowest_decile": true,
+ "printed_page": 46,
+ "rows_stored": 17,
+ "rows_checked": 17,
+ "rows_in_error": 11,
+ "rows_ok": 6,
+ "rows_flagged_ocr_uncertain": 6,
+ "errors": [
+  {
+   "i": 0,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "\\V R. Cox",
+   "printed": "W. R. Cox",
+   "note": "the first letter is a W whose left stroke is faint in the scan; the text layer reads \\V",
+   "rid": "2nd-north-carolina-infantry#0",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "G",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 1,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "August 30th, '61",
+   "printed": "August 30th, '64",
+   "note": "the year digit (crop at 500 dpi: '64)",
+   "rid": "2nd-north-carolina-infantry#1",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 2,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "cm. May 8th, '01",
+   "printed": "cm. May 8th, '61",
+   "note": "the digit 6 read as 0",
+   "rid": "2nd-north-carolina-infantry#2",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "W. K. Cox",
+   "printed": "W. R. Cox",
+   "rid": "2nd-north-carolina-infantry#3",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 3,
+   "kinds": [
+    "rem-char"
+   ],
+   "stored": "from M»jor",
+   "printed": "from Major",
+   "rid": "2nd-north-carolina-infantry#3",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "May 8Wi, '61 ... May 17th, '02 ... in '6-1",
+   "printed": "May 8th, '61 ... May 17th, '62 ... in '64",
+   "note": "the ordinal th read Wi, the digits 6 and 4 read 0 and 6-1",
+   "rid": "2nd-north-carolina-infantry#5",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "rem-char"
+   ],
+   "stored": "Wake eo",
+   "printed": "Wake co",
+   "rid": "2nd-north-carolina-infantry#5",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 11,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "Pitt co. James",
+   "printed": "Pitt co.",
+   "note": "the first word of the next entry (James B. Hughes) stands at the end of this line",
+   "rid": "2nd-north-carolina-infantry#11",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "R"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 12,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "B. Hughes",
+   "printed": "James B. Hughes",
+   "note": "the given name James is in the remarks of the line above",
+   "rid": "2nd-north-carolina-infantry#12",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 13,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "p. Surgeon M arch 3d, '63. L. A.",
+   "printed": "p. Surgeon March 3d, '63.",
+   "note": "the initials of the next entry (L. A. Stith) stand at the end of this line",
+   "rid": "2nd-north-carolina-infantry#13",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "Stith, Assistant^Surgeon",
+   "printed": "L. A. Stith, Assistant-Surgeon",
+   "note": "the initials L. A. are in the remarks of the line above and the rank word stands in the name",
+   "rid": "2nd-north-carolina-infantry#14",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "G",
+    "H",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "rank"
+   ],
+   "stored": "^FIELD AND STAFF",
+   "printed": "Assistant-Surgeon",
+   "note": "the carried heading stands where the printed rank belongs",
+   "rid": "2nd-north-carolina-infantry#14",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "G",
+    "H",
+    "N"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "Wilson co. W.",
+   "printed": "Wilson co.",
+   "note": "the first letter of the next entry (W. H. H. Cobb) stands at the end of this line",
+   "rid": "2nd-north-carolina-infantry#14",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "G",
+    "H",
+    "N"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 15,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "H. H. Cobb",
+   "printed": "W. H. H. Cobb",
+   "note": "the initial W. is in the remarks of the line above",
+   "rid": "2nd-north-carolina-infantry#15",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 16,
+   "kinds": [
+    "rem-char"
+   ],
+   "stored": "i1. in '62",
+   "printed": "r. in '62",
+   "rid": "2nd-north-carolina-infantry#16",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "W"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [
+  {
+   "i": 7,
+   "field": "name",
+   "stored": "W S. Stallings",
+   "printed": "W. S. Stallings"
+  },
+  {
+   "i": 9,
+   "field": "remarks",
+   "stored": "Adju. tant General",
+   "printed": "Adju-tant General (line-end hyphen)"
+  },
+  {
+   "i": 16,
+   "field": "name",
+   "stored": "Alfred A, Watson",
+   "printed": "Alfred A. Watson"
+  }
+ ],
+ "unverifiable": [],
+ "missed_lines": [
+  "Charles C. Tew, Colonel, cm. May 8th, '61; Orange co.; k. at Sharpsburg September 17th, '62. (the first line of the page; the text layer holds it, no stored line accounts for it)"
+ ],
+ "notes": [
+  "Doubtful and not counted: row 10 (William T. Faircloth) stored cm. March 11th, '62; the second digit of the day is damaged in the print and reads as 4 (a crossbar) at 800 dpi, not certain; row 1 the day 30th is damaged in the print (not certain). Printed page number of the leaf is 46 (the text layer prints 48)."
+ ],
+ "reader": "full page view at 200 dpi (Read tool); crops at 500 dpi (the Cobb line) and 400 and 800 dpi (the Faircloth and Hilliard lines); every stored line compared with the print at the levels N, D and R",
+ "tesseract_prescreen": {
+  "agree": 3,
+  "near": 0,
+  "suspect": 14,
+  "unstored_lines": 9
+ },
+ "read": {
+  "pdf_sha256": "1dda26b2e9ce5e6272e0d85b2567e1b1818af12123552a36717e677c5805c3c1",
+  "pdf_page": 63,
+  "view_png_sha256": "74bccc4fb28d9c7be23569efaa66b5dca3f98a7756d933f1f82d2ad1fd31c28d",
+  "render300_sha256": "8ea257dc26a9285dea6cb03ce5bbe14274e198e6ed282bfb779c20393f894a37",
+  "tess_sha256": "c25dc52c08c20e1f29b4928a08286420908ba7da54fd5b502eff414fdf7e709d",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.789
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "2nd-north-carolina-infantry#0",
+   "name": "\\V R. Cox",
+   "rank": "Colonel",
+   "co": "FS",
+   "remarks_sha256": "9b0c9e248eb20e2e9656b3c307601e4002d1a804a5a23d2b090a508fa8c68e0b",
+   "off": 174230,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "G",
+    "N"
+   ]
+  },
+  {
+   "i": 1,
+   "rid": "2nd-north-carolina-infantry#1",
+   "name": "John P. Cobb",
+   "rank": "Colonel",
+   "co": "FS",
+   "remarks_sha256": "af304e0df2fc78976c11abccad157cf3b5849344ba3700a4e2a1c80163525337",
+   "off": 174298,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "2nd-north-carolina-infantry#2",
+   "name": "William P» Bynum",
+   "rank": "Lieutenant-Colonel",
+   "co": "FS",
+   "remarks_sha256": "5a18bb8fa8b7f57ce40f0b29f921811fa1365604bd7630232f50ae592eefc86e",
+   "off": 174392,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 3,
+   "rid": "2nd-north-carolina-infantry#3",
+   "name": "W. K. Cox",
+   "rank": "Lieutenant-Colonel",
+   "co": "FS",
+   "remarks_sha256": "21c7d3df324c9f28dadc5e76daac9cec5f574267c4e292f22d9c29621540e059",
+   "off": 174492,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "2nd-north-carolina-infantry#4",
+   "name": "D. W. Hurtt",
+   "rank": "Lieutenant-Colonel",
+   "co": "FS",
+   "remarks_sha256": "0f999ea85e4ebef54aba55e25ebe08ee884f3fae2fe4fb3547add4be3e3b970a",
+   "off": 174556,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "2nd-north-carolina-infantry#5",
+   "name": "William R. Cox",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "e2f9815887960b2fe64fd22c93a6a8b941b4f8afa5eafaa8aea08c2eb87ec773",
+   "off": 174639,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 6,
+   "rid": "2nd-north-carolina-infantry#6",
+   "name": "John Howard",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "49f6ca98515f3757231a2124adb8ee86e422b16b1dac5ada9b931918cd5f1c34",
+   "off": 174787,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "2nd-north-carolina-infantry#7",
+   "name": "W S. Stallings",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "037f42a4b13d3c06195216040e87a41969302505b6de6ec16285bab3f03c0e16",
+   "off": 174867,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "2nd-north-carolina-infantry#8",
+   "name": "D. W. Hurtt",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "d2fd887897f635503f2d7a7cbb9bebeafeb337b121140c06357ec9933a5f175d",
+   "off": 174951,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "2nd-north-carolina-infantry#9",
+   "name": "Nicholas C. Hughes",
+   "rank": "Adjutant",
+   "co": "FS",
+   "remarks_sha256": "0f752ffedba72882f4a847f35a089903e4a2b4bdc01266b6410959787a86bca1",
+   "off": 175026,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "2nd-north-carolina-infantry#10",
+   "name": "William T. Faircloth",
+   "rank": "Assistant-Quartermaster",
+   "co": "FS",
+   "remarks_sha256": "c34c5072f5adcfcb969f211e997d068f1f9ca615537ed3c20ea70033c3160b16",
+   "off": 175175,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "2nd-north-carolina-infantry#11",
+   "name": "Louis Hilliard",
+   "rank": "Assistant-Commissary of Subsistence",
+   "co": "FS",
+   "remarks_sha256": "7ed8ddefdaf255848ff66d68fa7b39a0427ea3f4533f3c654c509c95fababca9",
+   "off": 175264,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "R"
+   ]
+  },
+  {
+   "i": 12,
+   "rid": "2nd-north-carolina-infantry#12",
+   "name": "B. Hughes",
+   "rank": "Surgeon",
+   "co": "FS",
+   "remarks_sha256": "f13ae5af4879809931bc7951cafe136b32615eb87898e0426dad85fbecbc599f",
+   "off": 175364,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "2nd-north-carolina-infantry#13",
+   "name": "George L. Kirby",
+   "rank": "Assistant-Surgeon",
+   "co": "FS",
+   "remarks_sha256": "cdeb4d1f6171a0e88cdfb7f80e8a78c1720458c4560cab6bbc9094938729c92a",
+   "off": 175423,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "2nd-north-carolina-infantry#14",
+   "name": "Stith, Assistant^Surgeon",
+   "rank": "^FIELD AND STAFF",
+   "co": "FS",
+   "remarks_sha256": "d072b822e14a171e3b989bc017e9b3d227c6a0130430ded50c01cf9c58f0d5a5",
+   "off": 175542,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "G",
+    "H",
+    "N"
+   ]
+  },
+  {
+   "i": 15,
+   "rid": "2nd-north-carolina-infantry#15",
+   "name": "H. H. Cobb",
+   "rank": "Assistant-Surgeon",
+   "co": "FS",
+   "remarks_sha256": "72dc34615c7718547c278ab67eb3b41dbee369757a4cdea712dbf6faf8380afb",
+   "off": 175587,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "2nd-north-carolina-infantry#16",
+   "name": "Alfred A, Watson",
+   "rank": "Chaplain",
+   "co": "FS",
+   "remarks_sha256": "3eec70ee142b1bd316845f2b7c426900d938a50223ecca6e2c13aef950529288",
+   "off": 175657,
+   "text_id": "NC-MOORE-1882.1~b",
+   "flag_codes": [
+    "W"
+   ]
+  }
+ ],
+ "verdict_utc": "2026-11-16T02:41:32Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "AGREE",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "AGREE",
+  "13": "SUSPECT",
+  "14": "AGREE",
+  "15": "SUSPECT",
+  "16": "SUSPECT"
+ }
+}

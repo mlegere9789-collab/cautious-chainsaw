@@ -39,8 +39,14 @@ def get(url, name=None, force=False):
             return {'url': url, 'status': 'cached', 'file': os.path.relpath(dst, ROOT)}
         def one():
             r = subprocess.run(['curl', '-sS', '-m', '300', '-A', 'Mozilla/5.0 (compatible; research fetch; 1 request per second)', '-o', dst + '.part', '-w', '%{http_code}\t%{redirect_url}\t%{content_type}', u], capture_output=True, text=True)
-            return (r.stdout or '\t\t').split('\t') + [r.stderr.strip()[:200]]
-        p = paced(host, one); code, loc, ctype, err = p[0], p[1] if len(p) > 1 else '', p[2] if len(p) > 2 else '', p[-1]
+            return (r.stdout or '\t\t').split('\t') + [('curl exit %d: ' % r.returncode if r.returncode else '') + r.stderr.strip()[:200]]
+        p = paced(host, one)
+        # a transfer that the proxy or the network cut short can still report HTTP 200 (2026-11-16: a 250 KB JSON arrived as 53 KB): curl's exit code says so, so it is a failure, retried twice with a pause
+        for _try in range(2):
+            if p[-1].startswith('curl exit') and p[0] == '200': time.sleep(5 * (_try + 1)); p = paced(host, one)
+            else: break
+        code, loc, ctype, err = p[0], p[1] if len(p) > 1 else '', p[2] if len(p) > 2 else '', p[-1]
+        if err.startswith('curl exit') and code == '200': code = 'partial'
         hops.append({'url': u, 'http': code})
         if code in ('301', '302', '303', '307', '308') and loc:
             if os.path.exists(dst + '.part'): os.remove(dst + '.part')

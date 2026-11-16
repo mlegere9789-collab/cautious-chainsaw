@@ -144,5 +144,40 @@
     "angle_rule": "half a unit of the last digit the row prints, never less than angle_floor_deg: 'altitude 37.9 deg' is matched to 0.05, 'altitude 10 deg' and 'azimuth 125' to 0.5. The number must be printed in the check's own quote (number_not_in_quote), and the digits it is printed with are read from that quote (lib.mjs angleTolerance); an azimuth is compared the short way round (359 and 1 are 2 degrees apart).",
     "angle_floor_deg": 0.05,
     "angle_floor_basis": "the sky is a table of sun and moon positions interpolated between its rows (app/src/environment.mjs, source 'table'); a row that prints 37.9 degrees for 16:00 is matched by the picture to 0.03 degrees, so a floor of 0.05 keeps the half unit of one decimal and does not ask for the table's own interpolation error to vanish."
+  },
+  "vegetation": {
+    "_doc": "How the picture's crops, woods and orchards (app/src/ext/vegetation, data/vegetation.json: a plot is a unit of the layer, V-nnnn, stable name `lc`) may differ from what a row says (gate Q17, assertion vegetation_state). These are rules of the CHECK, not historical claims. A record may ask for a tighter tolerance, never a wider one.",
+    "height_tol_pct": 10,
+    "height_tol_basis": "a height a row prints ('about 3.5-4.5 ft') is matched to the whole range of heights the picture draws for the plot at that minute (state.ground.h, metres: the layer draws every cell of the plot at a height inside that range): the range must lie inside the row's range widened by this share at each end, the same 10 per cent as the figures of a unit (units.figures). The number must be printed in the check's own quote (number_not_in_quote); feet are turned into metres with ft_to_m.",
+    "ft_to_m": 0.3048,
+    "reach_stride_min": 10,
+    "reach_stride_basis": "the probe that finds which conflicts of the layer reach a check (query.mjs vegetationReach) compares the state under each value of a conflict with the opening scenario's at the first minute, the last and every 10 minutes between: two readings of one of the layer's conflicts differ for as long as an event of the layer (90 minutes or more) or a day of its calendar, never for minutes; the check itself evaluates every whole minute.",
+    "min_plots": 1,
+    "min_plots_basis": "a check on a class of plots ('woodlots', 'oats') holds for the plots the selector finds; a selector that finds none holds for every product that draws no such plot, so it is refused (vegetation_plot_none): the floor is one plot, a record may ask for more.",
+    "control_basis": "a vegetation_state check that no plot of the layer violates at any of the layer's own sample minutes (every day of 26 Jun - 15 Jul at 06:00, 12:00 and 18:00, every event boundary, 19 Nov noon: model.mjs sampleTimes) in the scenario it holds in cannot tell the plot and minute the row is about from any other and is refused with assert_vacuous (the same rule as the control minutes of the weather and sky checks).",
+    "words": {
+      "_doc": "The words of a row that name a class of plots or a crop (the selector `where` of a check must be named by the check's own quote, as a unit is named by its designator or a structure by a distinctive word); one word of the quote in the list names it. The classes and crops are those of data/vegetation.json (units[].cls, calendar.crops).",
+      "cls": {
+        "woods": ["wood", "woods", "woodlot", "woodlots", "woodland", "woodlands", "timber", "forest"],
+        "orchard": ["orchard", "orchards"],
+        "field": ["field", "fields", "crop", "crops", "meadow", "meadows", "pasture", "pastures"],
+        "wheatfield": ["wheatfield", "wheat"],
+        "cleared": ["cleared", "clearing", "bare"],
+        "marsh": ["marsh", "marshy", "swamp", "bog"],
+        "boulder": ["boulder", "boulders", "rocky", "rock", "rocks"],
+        "scatter": ["tree", "trees", "grove", "groves", "copse", "thicket", "scattered"]
+      },
+      "crop": {
+        "wheat": ["wheat", "wheatfield", "wheatfields"],
+        "rye": ["rye"],
+        "barley": ["barley"],
+        "oats": ["oats", "oat"],
+        "corn": ["corn", "maize"],
+        "hay": ["hay", "meadow", "meadows", "timothy", "clover"],
+        "pasture": ["pasture", "pastures", "grazing", "grass"],
+        "open_rock": ["rocky", "rock", "boulder", "boulders", "grass"],
+        "marsh": ["marsh", "marshy", "swamp"]
+      }
+    }
   }
 }

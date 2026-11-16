@@ -32,7 +32,7 @@ const SWEEPS = {
   sw75: { what: 'sweep through the swap of level 2 for the impostor (75 m)', from: 66, to: 84, step: 0.6, eye: 2.5 }, swdab: { what: 'sweep through the baked view for the dab (267 m)', from: 240, to: 294, step: 1.8, eye: 4 } };
 const want = (flag('sets', 'dg8,dg60,dg190,b10,b13,b75,dab,purity,sw10,sw13,sw75,swdab')).split(',').filter(Boolean), out = path.join(outRoot, api); fs.mkdirSync(out, { recursive: true });
 const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).toFixed(0).padStart(5) + 's', ...a), logs = [];
-const summary = { api, w: W, h: H, started: new Date().toISOString(), sets: {}, errors: [], purity: null }, save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
+const summary = { api, w: W, h: H, started: new Date().toISOString(), sets: {}, sweeps: {}, errors: [], purity: null }, save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
 const srv = await serve(0), port = srv.address().port, url = `http://127.0.0.1:${port}/app/index.html?history=real&api=${api}&structures=off&fx=off&ext=off${EXTRA ? '&' + EXTRA : ''}`;
 let browser;
 const cw0 = 213, ch0 = 120;
@@ -61,10 +61,11 @@ try {
     // the subject: the middle man of the largest infantry unit on the field
     const st = a.stage, L = a.layer; let pick = -1, bc = 0; for (let i = 0; i < L.units.length; i++) if (st.present[i] === 1 && L.units[i].arm === 'infantry' && st.w.units[i].count > bc) { bc = st.w.units[i].count; pick = i; }
     if (pick < 0) throw new Error('no infantry unit on the field at 13:30 on July 3'); window.__subject = { index: pick, id: L.units[pick].id, name: L.units[pick].name, count: bc };
-    window.__shot = async (o) => {                           // o: { D, eye, along (metres along the line, 0 = the middle man), mode: 'hard'|'fade', t (minutes, optional) }
+    window.__shot = async (o) => {                           // o: { D (metres from the man, the camera BESIDE the column), eye (height above the ground), turn (degrees: look this far along the column, 0 = at the man), along (metres: the man this far further along the column, 0 = the middle man), mode: 'hard'|'fade', t (minutes, optional) }
       const crowd = host.crowd; crowd.lod.band = o.mode === 'hard' ? 0 : 0.075; crowd.lod.hyst = o.mode === 'hard' ? 0 : 0.10; if (o.t != null) { a.setTime(o.t); }
-      const u = st.w.units[pick], fi = u.first + (u.count >> 1), tmp = [0, 0, 0], { soldierPlace } = await import('/render/prototype/src/world.mjs'); soldierPlace(st.w, fi, host.animT ?? 0, tmp); const hd = st.ch[pick], fx = tmp[0] + Math.cos(hd) * (o.along || 0), fz = tmp[1] - Math.sin(hd) * (o.along || 0), fy = th.T.h(fx, fz);
-      const ex = fx + Math.sin(hd) * o.D, ez = fz + Math.cos(hd) * o.D, ey = th.T.h(ex, ez) + o.eye, tx = fx, ty = fy + 1.2, tz = fz, fov = 2 * Math.atan((R.H / 1080) * Math.tan(Math.PI / 6)) * 180 / Math.PI;
+      const u = st.w.units[pick], fi = u.first + (u.count >> 1), tmp = [0, 0, 0], { soldierPlace } = await import('/render/prototype/src/world.mjs'); soldierPlace(st.w, fi, host.animT ?? 0, tmp);
+      const hd = st.ch[pick], ax = Math.sin(hd), az = Math.cos(hd), sx = Math.cos(hd), sz = -Math.sin(hd), fx = tmp[0] + ax * (o.along || 0), fz = tmp[1] + az * (o.along || 0), fy = th.T.h(fx, fz);      // ahead = (sin h, cos h); the side of the column = (cos h, -sin h)
+      const ex = fx + sx * o.D, ez = fz + sz * o.D, ey = th.T.h(ex, ez) + o.eye, lt = o.D * Math.tan((o.turn || 0) * Math.PI / 180), tx = fx + ax * lt, tz = fz + az * lt, ty = th.T.h(tx, tz) + 1.2, fov = 2 * Math.atan((R.H / 1080) * Math.tan(Math.PI / 6)) * 180 / Math.PI;
       th.controls.flyTo({ x: ex, y: ey, z: ez, yaw: Math.atan2(tx - ex, tz - ez), pitch: Math.atan2(ty - ey, Math.hypot(tx - ex, tz - ez)), fov }, 0);
       await a.frames(2); window.__grab = true; await a.frames(2); const pic = await window.__grabP, s = crowd.stats; let b = ''; const d = pic.data; for (let i = 0; i < d.length; i += 0x8000) b += String.fromCharCode.apply(null, d.subarray(i, i + 0x8000));
       return { w: pic.w, h: pic.h, px: btoa(b), cam: { x: th.cam.x, y: th.cam.y, z: th.cam.z, yaw: th.cam.yaw, pitch: th.cam.pitch, fovDeg: th.cam.fov * 180 / Math.PI }, t: th.state.t, animT: host.animT,
@@ -72,23 +73,44 @@ try {
     };
   });
   summary.subject = await page.evaluate(() => window.__subject); say('subject', JSON.stringify(summary.subject)); save();
-  const shot = async (name, o) => { const t0 = Date.now(), r = await page.evaluate(o => window.__shot(o), o); r.px = u8(r.px); r.wallMs = Date.now() - t0; fs.writeFileSync(path.join(out, name + '.png'), encodePng(r.w, r.h, r.px)); return r; };
+  const shot = async (name, o, keep = true) => { const t0 = Date.now(), r = await page.evaluate(o => window.__shot(o), o); r.px = u8(r.px); r.wallMs = Date.now() - t0; if (keep) fs.writeFileSync(path.join(out, name + '.png'), encodePng(r.w, r.h, r.px)); return r; };
   for (const key of want.filter(k => SETS[k])) {
     const S = SETS[key], rec = summary.sets[key] = { what: S.what, shots: {}, pairs: [] }; say('set', key, S.what);
-    const strips = { hard: [], fade: [] };
+    const strips = { hard: [], fade: [] }, z = S.whole ? 1 : 3;
     for (const D of S.dists) {
       const pair = {}; for (const mode of ['hard', 'fade']) {
-        const r = await shot(`${key}-${mode}-${D}`, { D, eye: S.eye, mode }); pair[mode] = r; const { px, ...meta } = r; rec.shots[`${mode}-${D}`] = meta; say(`  ${key} ${mode} ${D} m`, `listed ${r.crowd.listed} L0 ${r.crowd.lod0} L1 ${r.crowd.lod1} L2 ${r.crowd.lod2} fading ${r.crowd.fading} bands ${r.crowd.bands}`, `${r.wallMs} ms`); }
-      const df = diffStats(pair.hard.px, pair.fade.px), cw = 213, ch = 120, x0 = Math.max(0, (W - cw) >> 1), y0 = Math.max(0, (H - ch) >> 1), z = 3, parts = [crop(pair.hard.px, W, H, x0, y0, cw, ch, z), crop(pair.fade.px, W, H, x0, y0, cw, ch, z), crop(df.img, W, H, x0, y0, cw, ch, z)];
-      const m = side(parts, cw * z, ch * z); fs.writeFileSync(path.join(out, `${key}-${D}-montage.png`), encodePng(m.w, m.h, m.data)); for (const mode of ['hard', 'fade']) strips[mode].push(crop(pair[mode].px, W, H, x0, y0, cw, ch, 2));
+        const r = await shot(`${key}-${mode}-${D}`, { D, eye: S.eye, turn: S.turn || 0, mode }); pair[mode] = r; const { px, ...meta } = r; rec.shots[`${mode}-${D}`] = meta; say(`  ${key} ${mode} ${D} m`, `listed ${r.crowd.listed} L0 ${r.crowd.lod0} L1 ${r.crowd.lod1} L2 ${r.crowd.lod2} fading ${r.crowd.fading} bands ${r.crowd.bands}`, `${r.wallMs} ms`); }
+      const PW = pair.hard.w, PH = pair.hard.h; rec.pw = PW; rec.ph = PH; const cw = S.whole ? PW : Math.min(cw0, PW), ch = S.whole ? PH : Math.min(ch0, PH), x0 = Math.max(0, (PW - cw) >> 1), y0 = Math.max(0, (PH - ch) >> 1);      // the picture's own size (the canvas may differ from the viewport asked for)
+      if (pair.fade.w !== PW || pair.fade.h !== PH) throw new Error('the two pictures of a pair differ in size');
+      const df = diffStats(pair.hard.px, pair.fade.px), parts = [crop(pair.hard.px, PW, PH, x0, y0, cw, ch, z), crop(pair.fade.px, PW, PH, x0, y0, cw, ch, z), crop(df.img, PW, PH, x0, y0, cw, ch, z)];
+      const m = side(parts, cw * z, ch * z); fs.writeFileSync(path.join(out, `${key}-${D}-montage.png`), encodePng(m.w, m.h, m.data)); for (const mode of ['hard', 'fade']) strips[mode].push(crop(pair[mode].px, PW, PH, x0, y0, cw, ch, S.whole ? 1 : 2));
       rec.pairs.push({ D, meanAbs: df.meanAbs, overShare: df.overShare }); say(`  ${key} ${D} m: hard against cross-fade, mean absolute difference ${df.meanAbs}, ${(df.overShare * 100).toFixed(2)} percent of the pixels differ by more than 24 levels`); save();
     }
-    for (const mode of ['hard', 'fade']) { const f = side(strips[mode], cw0 * 2, ch0 * 2); fs.writeFileSync(path.join(out, `${key}-filmstrip-${mode}.png`), encodePng(f.w, f.h, f.data)); }      // the distances in order, left to right, the middle of the picture at 2x
+    if (!S.whole && strips.hard.length) for (const mode of ['hard', 'fade']) { const f = side(strips[mode], 2 * Math.min(cw0, rec.pw), 2 * Math.min(ch0, rec.ph)); fs.writeFileSync(path.join(out, `${key}-filmstrip-${mode}.png`), encodePng(f.w, f.h, f.data)); }      // the distances in order, left to right, the middle of the picture at 2x
   }
-  // (the filmstrips are written at the end of each set, below)
+  // the sweeps: the camera moves a little at a time through the boundary; the picture around the man is compared with the one before. A swap of levels is a spike in the series, a cross-fade is not.
+  for (const key of want.filter(k => SWEEPS[k])) {
+    const S = SWEEPS[key], rec = summary.sweeps[key] = { what: S.what, from: S.from, to: S.to, step: S.step, modes: {} }; say('sweep', key, S.what);
+    const Ds = []; for (let k = 0; S.from + k * S.step <= S.to + 1e-9; k++) Ds.push(+(S.from + k * S.step).toFixed(4));
+    for (const mode of ['hard', 'fade']) {
+      const m = rec.modes[mode] = { D: Ds, meanAbs: [], overShare: [], fading: [], lod0: [], lod1: [], lod2: [], wallMs: [] }; let prev = null;
+      for (const D of Ds) {
+        const r = await shot(`${key}-${mode}-${D}`, { D, eye: S.eye, turn: 0, mode }, false), cw = Math.min(cw0, r.w), ch = Math.min(ch0, r.h), c = crop(r.px, r.w, r.h, Math.max(0, (r.w - cw) >> 1), Math.max(0, (r.h - ch) >> 1), cw, ch, 1); m.fading.push(r.crowd.fading); m.lod0.push(r.crowd.lod0); m.lod1.push(r.crowd.lod1); m.lod2.push(r.crowd.lod2); m.wallMs.push(r.wallMs);
+        if (prev) { const df = diffStats(prev, c); m.meanAbs.push(df.meanAbs); m.overShare.push(df.overShare); } prev = c;
+        if (Ds.indexOf(D) % 6 === 0) say(`  ${key} ${mode} ${D} m`, `L0 ${r.crowd.lod0} L1 ${r.crowd.lod1} L2 ${r.crowd.lod2} fading ${r.crowd.fading}`, `${r.wallMs} ms`);
+      }
+      const med = a => { const q = [...a].sort((p, r) => p - r); return q[q.length >> 1] || 0; }, floor = 1 / (cw0 * ch0);
+      m.stats = { overShare: { max: Math.max(...m.overShare), median: med(m.overShare), ratio: Math.max(...m.overShare) / Math.max(med(m.overShare), floor), atD: Ds[m.overShare.indexOf(Math.max(...m.overShare))] }, meanAbs: { max: Math.max(...m.meanAbs), median: med(m.meanAbs), ratio: Math.max(...m.meanAbs) / Math.max(med(m.meanAbs), 1e-4), atD: Ds[m.meanAbs.indexOf(Math.max(...m.meanAbs))] } };
+      say(`  ${key} ${mode}: largest step ${m.stats.overShare.max} of the pixels over 24 levels (median ${m.stats.overShare.median}, ratio ${m.stats.overShare.ratio.toFixed(1)}) at D = ${m.stats.overShare.atD}; mean absolute ${m.stats.meanAbs.max} (median ${m.stats.meanAbs.median}, ratio ${m.stats.meanAbs.ratio.toFixed(1)})`); save();
+    }
+    // the picture of the two series: bars of the share of changed pixels per step, the hard swap on top (red), the cross-fade below (blue), both on one scale
+    const n = rec.modes.hard.overShare.length, bw = 10, hh = 110, top = Math.max(...rec.modes.hard.overShare, ...rec.modes.fade.overShare, 1e-6), img = new Uint8Array(n * bw * hh * 2 * 4).fill(255);
+    for (const [row, mode, col] of [[0, 'hard', [200, 40, 40]], [1, 'fade', [40, 80, 200]]]) rec.modes[mode].overShare.forEach((v, i) => { const h = Math.max(v > 0 ? 1 : 0, Math.round(hh * 0.95 * v / top)); for (let y = 0; y < h; y++) for (let x = 1; x < bw - 1; x++) { const o = (((row + 1) * hh - 1 - y) * n * bw + i * bw + x) * 4; img[o] = col[0]; img[o + 1] = col[1]; img[o + 2] = col[2]; } });
+    fs.writeFileSync(path.join(out, `sweep-${key}.png`), encodePng(n * bw, hh * 2, img)); save();
+  }
   if (want.includes('purity')) {
     say('purity: the same time and camera by two histories');
-    const base = { D: 10, eye: 1.7, mode: 'fade' }, a1 = await shot('purity-a', base), other = await shot('purity-away', { D: 60, eye: 6, mode: 'fade', along: 15, t: 7 * 0 + (await page.evaluate(() => window.btApp.state.t)) + 30 }), back = await shot('purity-b', { ...base, t: a1.t });
+    const base = { D: 10, eye: 1.7, mode: 'fade' }, a1 = await shot('purity-a', base), other = await shot('purity-away', { D: 60, eye: 6, mode: 'fade', along: 15, t: (await page.evaluate(() => window.btApp.state.t)) + 30 }), back = await shot('purity-b', { ...base, t: a1.t });
     const same = a1.px.length === back.px.length && Buffer.compare(Buffer.from(a1.px), Buffer.from(back.px)) === 0, df = diffStats(a1.px, back.px); void other;
     summary.purity = { sameBytes: same, meanAbs: df.meanAbs, overShare: df.overShare, timeA: a1.t, timeB: back.t, cameraA: a1.cam, cameraB: back.cam }; say('purity', JSON.stringify(summary.purity)); save();
   }

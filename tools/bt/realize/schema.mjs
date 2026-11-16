@@ -43,7 +43,7 @@ export const SCENARIO_KEYWORDS = ['conflicts', 'group'];     // 'conflicts': the
 export const KINDS = ['unit_motion', 'unit_activity', 'arrival', 'structure_state', 'earthwork_build', 'artillery', 'weather_sky', 'casualty_flow', 'event_card', 'epilogue', 'not_realized'];
 // what each kind needs at least: one assertion from each inner list (and the extra rules in validateRecord)
 export const KIND_NEEDS = {
-  unit_motion: [['unit_moves']], unit_activity: [['unit_activity', 'unit_formation', 'unit_present', 'unit_figures']], arrival: [['unit_arrives', 'unit_absent']], structure_state: [['structure_state']], earthwork_build: [['work_stage']],
+  unit_motion: [['unit_moves']], unit_activity: [['unit_activity', 'unit_formation', 'unit_present', 'unit_figures']], arrival: [['unit_arrives', 'unit_absent']], structure_state: [['structure_state', 'vegetation_state']], earthwork_build: [['work_stage']],
   artillery: [['battery_guns']], weather_sky: [['weather', 'sky']], casualty_flow: [['casualty']], event_card: [['card_shown']], epilogue: [['epilogue_shown', 'card_shown']], not_realized: [],
 };
 // the assertion types: units = takes unit(s); time = takes a time; need = required fields; one = at least one of these; opt = optional fields
@@ -60,6 +60,7 @@ export const ASSERT = {
   structure_exists: { time: false, need: ['words'], opt: [] },
   structure_state: { time: true, need: ['structure'], opt: ['state', 'present', 'visual', 'schedule_row', 'hospital', 'drawn'] },
   work_stage:     { time: true, need: ['work'], opt: ['stage_min', 'stage_max', 'present', 'crew'] },
+  vegetation_state: { time: true, need: [], one: ['crop_in', 'stage_in', 'height_ft_min', 'height_ft_max', 'height_m_min', 'height_m_max', 'cut_min', 'cut_max', 'trample_min', 'trample_max', 'lodging_min', 'lodging_max', 'leaf_min', 'leaf_max', 'strip_min', 'strip_max', 'keep_min', 'keep_max', 'understory_in', 'fruit_stage_in', 'events_include'], opt: ['plot', 'where', 'min_plots', 'tol_pct'] },     // the crops, woods and orchards of the vegetation layer (src/ext/vegetation) at a minute: one plot (V-nnnn or its lc name) or the plots a selector { cls, crop } finds
   battery_guns:   { units: true, time: true, need: [], opt: ['guns_min', 'limbers_min', 'caissons_min', 'horses_min'] },
   weather:        { time: true, need: [], one: ['precip_kind_in', 'precip_intensity_min', 'precip_intensity_max', 'cloud_min', 'cloud_max', 'temp_f', 'wetness_min', 'wetness_max', 'wind_mph_min', 'wind_mph_max', 'wind_from_in', 'visibility_m_max', 'record'], opt: ['tol_f', 'value_quote'] },
   sky:            { time: true, need: [], one: ['sun_alt_min', 'sun_alt_max', 'sun_alt', 'sun_az', 'moon_alt', 'moon_az', 'moon_up', 'moon_illum_min', 'moon_illum_max', 'band_in', 'exposure_min'], opt: ['tol_deg'] },
@@ -92,6 +93,8 @@ export function assertionUnits(a) { const list = Array.isArray(a.units) ? a.unit
 export const STAGE_ACTIVITIES = ['march', 'double_quick', 'halt', 'stand', 'rest', 'fire', 'serve_guns', 'gallop', 'build_works', 'camp'];     // every activity the stage gives a unit that is on the field
 const VISUAL_KEY = /^(burn|dmg|down|gone|mix|vis)_(min|max)$/;
 const WEATHER_CONTENT = ['precip_kind_in', 'precip_intensity_min', 'precip_intensity_max', 'cloud_min', 'cloud_max', 'temp_f', 'wetness_min', 'wetness_max', 'wind_mph_min', 'wind_mph_max', 'wind_from_in', 'visibility_m_max'];
+export const VEG_SHARES = ['cut', 'trample', 'lodging', 'leaf', 'strip', 'keep'];                 // the shares of a plot the picture draws: ground.cut, .trample, .lodging and trees.leaf, .strip, .keep (each from 0 to 1)
+export const VEG_HEIGHTS = ['height_ft_min', 'height_ft_max', 'height_m_min', 'height_m_max'];
 export const ANGLE_FIELDS = { sun_alt: [-90, 90], sun_az: [0, 360], moon_alt: [-90, 90], moon_az: [0, 360] };     // the sky assertions that name an angle a row prints, and the range an angle lies in
 export function vacuityProblems(a, T = {}) {
   const out = [], vac = d => out.push({ code: 'assert_vacuous', detail: d }), wide = d => out.push({ code: 'tolerance_wider_than_stated', detail: d }), isNum = x => typeof x === 'number' && Number.isFinite(x);
@@ -135,6 +138,27 @@ export function vacuityProblems(a, T = {}) {
     case 'work_stage':
       if (a.present == null && !(isNum(a.stage_min) && a.stage_min > 0) && !(isNum(a.stage_max) && a.stage_max < 6)) vac('names no presence, no stage_min above 0 and no stage_max below 6 (the stages run 0 to 6): the crew alone says nothing about the work');
       break;
+    case 'vegetation_state': {
+      // a share the picture draws (cut, trampled, lodged, leaf, stripped, trees kept) lies between 0 and 1: a minimum of 0 and a maximum of 1 hold for every state of every plot
+      const bad = d => out.push({ code: 'assert_field', detail: d }), V = T.vegetation || {};
+      for (const k of VEG_SHARES) {
+        const lo = a[k + '_min'], hi = a[k + '_max'];
+        if (lo != null) { if (!(isNum(lo) && lo >= 0 && lo <= 1)) bad(`${k}_min ${JSON.stringify(lo)} is a share from 0 to 1`); else if (lo <= 0) vac(`${k}_min ${lo} is satisfied by every state of every plot (a share is 0 or more): the least that proves anything is above 0`); }
+        if (hi != null) { if (!(isNum(hi) && hi >= 0 && hi <= 1)) bad(`${k}_max ${JSON.stringify(hi)} is a share from 0 to 1`); else if (hi >= 1) vac(`${k}_max ${hi} is satisfied by every state of every plot (a share is 1 or less): the most that proves anything is below 1`); }
+        if (isNum(lo) && isNum(hi) && lo > hi) bad(`${k}_min ${lo} is above ${k}_max ${hi}: no state satisfies both`);
+      }
+      for (const k of ['crop_in', 'stage_in', 'understory_in']) if (a[k] != null && !(Array.isArray(a[k]) && a[k].length && a[k].every(x => typeof x === 'string' && x.trim()))) bad(`${k} is a non-empty list of names (found ${JSON.stringify(a[k]).slice(0, 60)})`);
+      if (a.fruit_stage_in != null && !(a.fruit_stage_in && typeof a.fruit_stage_in === 'object' && !Array.isArray(a.fruit_stage_in) && Object.keys(a.fruit_stage_in).length && Object.values(a.fruit_stage_in).every(l => Array.isArray(l) && l.length && l.every(x => typeof x === 'string' && x.trim())))) bad(`fruit_stage_in is { "<species>": ["<stage>", ...] } with at least one species (found ${JSON.stringify(a.fruit_stage_in).slice(0, 60)})`);
+      if (a.events_include != null && !(Array.isArray(a.events_include) && a.events_include.length && a.events_include.every(x => typeof x === 'string' && x.trim()))) bad(`events_include is a non-empty list of event ids of the layer (EV-VEG-nn) (found ${JSON.stringify(a.events_include).slice(0, 60)})`);
+      const heights = VEG_HEIGHTS.filter(k => a[k] != null);
+      for (const k of heights) if (!(isNum(a[k]) && a[k] > 0)) bad(`${k} ${JSON.stringify(a[k])} is a height above 0`);
+      if (heights.some(k => k.startsWith('height_ft')) && heights.some(k => k.startsWith('height_m'))) bad('a height is printed in feet or in metres: name height_ft_* or height_m_*, not both');
+      for (const u of ['ft', 'm']) if (isNum(a[`height_${u}_min`]) && isNum(a[`height_${u}_max`]) && a[`height_${u}_min`] > a[`height_${u}_max`]) bad(`height_${u}_min is above height_${u}_max: no state satisfies both`);
+      const stated = V.height_tol_pct;
+      if (a.tol_pct != null && !heights.length) bad('tol_pct belongs to a check that names a height');
+      else if (a.tol_pct != null && stated != null && !(isNum(a.tol_pct) && a.tol_pct > 0 && a.tol_pct <= stated)) wide(`tol_pct ${JSON.stringify(a.tol_pct)} is wider than the stated ${stated} per cent (tolerances.json vegetation): a record may ask for a smaller share, never a larger`);
+      if (a.min_plots != null) { if (a.plot != null) bad('min_plots belongs to a check that selects plots with "where"'); else if (!(Number.isInteger(a.min_plots) && a.min_plots >= 1)) { if (Number.isInteger(a.min_plots) && a.min_plots < 1) wide(`min_plots ${a.min_plots} is below the floor of ${V.min_plots ?? 1} plot (tolerances.json vegetation): a selector that finds nothing is satisfied by every product that draws no such plot`); else bad(`min_plots ${JSON.stringify(a.min_plots)} is a whole number of plots, 1 or more`); } }
+      break; }
     case 'sky':
       if (a.exposure_min != null && !(isNum(a.exposure_min) && a.exposure_min > 0)) vac(`exposure_min ${JSON.stringify(a.exposure_min)} is satisfied by black: the night floor of gate Q10 is above 0`);
       if (a.tol_deg != null && !(isNum(a.tol_deg) && a.tol_deg > 0)) out.push({ code: 'assert_field', detail: `tol_deg ${JSON.stringify(a.tol_deg)} is no tolerance: it is a number of degrees above 0 (and at most the half unit of the digits the row prints)` });
@@ -184,7 +208,7 @@ export function validateRecord(rec, ctx) {
   // ---- assertions
   const checks = Array.isArray(rec.checks) ? rec.checks : null;
   if (!checks || !checks.length) add('checks_missing', 'a record needs "checks": [ ... ] (the assertions that prove it)');
-  const used = { units: new Set(), structures: new Set(), places: new Set(), works: new Set(), cards: new Set() };
+  const used = { units: new Set(), structures: new Set(), places: new Set(), works: new Set(), cards: new Set(), plots: new Set() };
   for (const [i, a] of (checks || []).entries()) {
     const at = `checks[${i}]`;
     if (!a || typeof a !== 'object') { add('assert_bad', `${at} is not an object`); continue; }
@@ -217,6 +241,18 @@ export function validateRecord(rec, ctx) {
     if (a.type === 'weather' && a.temp_f != null && !numIn(a.quote, a.temp_f)) add('number_not_in_quote', `${at}: temp_f ${a.temp_f} must come from a printed number: give "quote" with the row's words containing ${a.temp_f}`);
     if (a.type === 'unit_figures' && a.approx != null && !numIn(a.quote, a.approx)) add('number_not_in_quote', `${at}: approx ${a.approx} must come from a printed number: give "quote" with the row's words containing it`);
     if (a.type === 'casualty') for (const k of ['killed_approx', 'wounded_approx', 'missing_approx', 'events_approx']) if (a[k] != null && isFinite(a[k]) && !numIn(a.quote, a[k])) add('number_not_in_quote', `${at}: ${k} ${a[k]} must come from a printed number: give "quote" with the row's words containing ${a[k]}`);
+    if (a.type === 'vegetation_state') {
+      // which plots: exactly one of a plot (V-nnnn or its lc name) and a selector { cls, crop } that must be named by the check's own quote (the runner binds it: plot_not_bound)
+      const hasPlot = a.plot != null, hasWhere = a.where != null;
+      if (hasPlot === hasWhere) add('assert_field', `${at} (vegetation_state): name exactly one of "plot" (a plot of the layer: V-nnnn or its lc name) and "where" (a selector { cls, crop })`);
+      if (hasPlot && !(typeof a.plot === 'string' && a.plot.trim())) add('assert_field', `${at} (vegetation_state): "plot" is the id or lc name of a plot (found ${JSON.stringify(a.plot).slice(0, 60)})`);
+      if (hasWhere) {
+        const w = a.where, names = x => typeof x === 'string' ? !!x.trim() : Array.isArray(x) && x.length > 0 && x.every(y => typeof y === 'string' && y.trim());
+        if (!(w && typeof w === 'object' && !Array.isArray(w)) || !Object.keys(w).length || !Object.keys(w).every(k => ['cls', 'crop'].includes(k) && names(w[k]))) add('assert_field', `${at} (vegetation_state): "where" is { "cls": <class or list>, "crop": <crop or list> } with at least one of them (found ${JSON.stringify(w).slice(0, 80)})`);
+        if (a.quote == null) add('assert_field', `${at} (vegetation_state): a check with "where" needs "quote": the words of the row that name the class or crop it selects (woodlots, oats ...)`);
+      }
+      for (const k of VEG_HEIGHTS) if (a[k] != null && isFinite(a[k]) && !numIn(a.quote, a[k])) add('number_not_in_quote', `${at}: ${k} ${a[k]} must come from a printed number: give "quote" with the row's words containing ${a[k]}`);
+    }
     if (a.type === 'sky') {
       const floorDeg = ((ctx.tolerances || {}).sky || {}).angle_floor_deg ?? 0.05, named = Object.keys(ANGLE_FIELDS).filter(k => a[k] != null);
       for (const k of named) {
@@ -228,6 +264,7 @@ export function validateRecord(rec, ctx) {
       if (a.tol_deg != null && !named.length) add('assert_field', `${at} (sky): tol_deg belongs to a check that names sun_alt, sun_az, moon_alt or moon_az`);
     }
     for (const u of assertionUnits(a)) used.units.add(entityId(u));
+    if (a.type === 'vegetation_state' && typeof a.plot === 'string') used.plots.add(a.plot);
     if (a.structure) used.structures.add(a.structure); if (a.work) used.works.add(a.work); if (a.crew && Array.isArray(a.crew.units)) for (const u of a.crew.units) used.units.add(entityId(u));
     for (const k of ['place', 'from', 'to', 'toward', 'along', 'away_from', 'at_place']) if (a[k] != null && typeof a[k] === 'string') used.places.add(a[k]);
     if ((a.type === 'card_shown' || a.type === 'epilogue_shown') && Array.isArray(a.rows)) for (const r of a.rows) used.cards.add(r);
@@ -256,11 +293,11 @@ export function validateRecord(rec, ctx) {
   const E = rec.entities && typeof rec.entities === 'object' ? rec.entities : null;
   if (!E) add('entities_missing', 'a record needs "entities": { units, structures, places, ... }');
   else {
-    for (const k of ['units', 'structures', 'places', 'schedule', 'works', 'cards']) if (E[k] != null && !Array.isArray(E[k])) add('entities_bad', `entities.${k} is a list (found ${JSON.stringify(E[k]).slice(0, 60)})`);
+    for (const k of ['units', 'structures', 'places', 'schedule', 'works', 'cards', 'plots']) if (E[k] != null && !Array.isArray(E[k])) add('entities_bad', `entities.${k} is a list (found ${JSON.stringify(E[k]).slice(0, 60)})`);
     const ids = k => new Set((Array.isArray(E[k]) ? E[k] : []).map(entityId));
     const same = (k, usedSet, label) => { const have = ids(k); for (const x of usedSet) if (!have.has(x)) add('entity_undeclared', `${label} ${x} is used by a check but not listed in entities.${k}`); for (const x of have) if (!usedSet.has(x)) add('entity_unused', `${label} ${x} is listed in entities.${k} but no check uses it`); };
-    same('units', used.units, 'unit'); same('structures', used.structures, 'structure'); same('works', used.works, 'work'); same('places', used.places, 'place'); same('cards', used.cards, 'card row');
-    for (const k of Object.keys(E)) if (!['units', 'structures', 'places', 'schedule', 'works', 'cards'].includes(k)) add('entities_unknown', `entities.${k} is not a known entity list`);
+    same('units', used.units, 'unit'); same('structures', used.structures, 'structure'); same('works', used.works, 'work'); same('places', used.places, 'place'); same('cards', used.cards, 'card row'); same('plots', used.plots, 'plot');
+    for (const k of Object.keys(E)) if (!['units', 'structures', 'places', 'schedule', 'works', 'cards', 'plots'].includes(k)) add('entities_unknown', `entities.${k} is not a known entity list`);
   }
   if (rec.result != null && typeof rec.result !== 'object') add('result_bad', '"result" is an object { realized, why, digest }');
   return { problems: P, span, used };

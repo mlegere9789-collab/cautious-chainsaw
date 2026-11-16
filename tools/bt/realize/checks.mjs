@@ -6,7 +6,7 @@
 // unit_not_moving, unit_wrong_activity, place_unknown, place_ambiguous, place_off_ground, structure_unknown, structure_not_drawn, structure_wrong_state, work_wrong_stage, weather_mismatch, sky_mismatch,
 // casualty_none, adapter_missing, card_not_shown, ...  A record is realized only when it is statically valid, every binding holds, and every assertion is ok in every scenario it lists.
 import { HARNESS, toMin, isoOf, round, hasQuote, fold, tokens, angDiff, COMPASS16, COMPASS_HALF_WIDTH, angleTolerance } from './lib.mjs';
-import { parseSpan, validateRecord, ASSERT, entityId, entityVia, assertionUnits, SCENARIO_KEYWORDS } from './schema.mjs';
+import { parseSpan, validateRecord, ASSERT, entityId, entityVia, assertionUnits, SCENARIO_KEYWORDS, VEG_SHARES, VEG_HEIGHTS } from './schema.mjs';
 import { coversInterval } from './timeline.mjs';
 import { measure, distM, outsideGround } from './gazetteer.mjs';
 
@@ -15,6 +15,8 @@ const CONTROL_STEP = 30;                                       // minutes betwee
 const SKY_FIELDS = new Set(['sun_alt_min', 'sun_alt_max', 'sun_alt', 'sun_az', 'moon_alt', 'moon_az', 'moon_up', 'moon_illum_min', 'moon_illum_max', 'band_in', 'exposure_min']);
 // words too common to tie a structure to a row (a structure is bound by a distinctive word of its name, its schedule row or its record: trestle, Wade, Bliss ...)
 const STRUCT_STOP = new Set(['town', 'farm', 'house', 'barn', 'street', 'road', 'building', 'buildings', 'church', 'hospital', 'burned', 'bridge', 'creek', 'rail', 'railroad', 'east', 'west', 'north', 'south', 'near', 'from', 'with', 'that', 'this', 'were', 'when', 'ridge', 'hill', 'gettysburg', 'station', 'farmhouse', 'stone', 'brick', 'wall', 'fence', 'works', 'earth']);
+// words too common to tie a plot of the vegetation layer to a row (a plot is bound by a distinctive word of its name, as a structure is: Wheatfield, Peach, Herbst, Ziegler ...; the layer's names carry the survey's own words)
+const VEG_STOP = new Set([...STRUCT_STOP, 'wood', 'woods', 'woodlot', 'woodlots', 'orchard', 'orchards', 'field', 'fields', 'meadow', 'grove', 'slope', 'slopes', 'tract', 'tracts', 'adjoining', 'sheet', 'warren', 'timber', 'bottom', 'lane', 'with', 'complex', 'cleared', 'wooded', 'summit', 'ridge', 'spur', 'survey', 'plot']);
 const minutesOf = span => { const a = Math.ceil(span.from - 1e-9), b = Math.floor(span.to + 1e-9); if (b < a) return [span.from]; const out = []; for (let t = a; t <= b; t++) out.push(t); return out; };
 const ok = (evidence = {}) => ({ ok: true, code: null, detail: null, evidence });
 const fail = (code, detail, evidence = {}) => ({ ok: false, code, detail, evidence });
@@ -44,11 +46,11 @@ export class Runner {
     try { return await this._runRecord(rec, opts); }
     catch (e) {
       const msg = String(e && e.message || e).slice(0, 300), id = rec && typeof rec === 'object' ? rec.id : null;
-      return { id, kind: rec && typeof rec === 'object' ? rec.kind : null, source: (opts && opts.source) || null, realized: false, codes: ['record_crash'], problems: [{ code: 'record_crash', detail: `the harness threw while it ran this record (a malformed record, or a defect of the harness): ${msg}` }], assertions: [], bindings: { units: [], places: [], structures: [], quantifiers: [], declared: 0 }, scenarios: [], why: `record_crash: ${msg}` };
+      return { id, kind: rec && typeof rec === 'object' ? rec.kind : null, source: (opts && opts.source) || null, realized: false, codes: ['record_crash'], problems: [{ code: 'record_crash', detail: `the harness threw while it ran this record (a malformed record, or a defect of the harness): ${msg}` }], assertions: [], bindings: { units: [], places: [], structures: [], plots: [], quantifiers: [], declared: 0 }, scenarios: [], why: `record_crash: ${msg}` };
     }
   }
   async _runRecord(rec, { source = null } = {}) {
-    const row = this.TL.byId.get(rec && rec.id), res = { id: rec && rec.id, kind: rec && rec.kind, source, realized: false, codes: [], problems: [], assertions: [], bindings: { units: [], places: [], structures: [], quantifiers: [], declared: 0 }, scenarios: [], why: null };
+    const row = this.TL.byId.get(rec && rec.id), res = { id: rec && rec.id, kind: rec && rec.kind, source, realized: false, codes: [], problems: [], assertions: [], bindings: { units: [], places: [], structures: [], plots: [], quantifiers: [], declared: 0 }, scenarios: [], why: null };
     const v = validateRecord(rec, { row, tolerances: this.tol, clock: this.TL.clock }); res.problems.push(...v.problems);
     if (!row || !v.span) { res.codes = uniq(res.problems.map(p => p.code)); res.why = res.problems.map(p => p.detail).slice(0, 3).join(' | '); return res; }
     res.window = { from: isoOf(v.span.from), to: isoOf(v.span.to) };
@@ -63,6 +65,12 @@ export class Runner {
       if (!a || (a.type !== 'weather' && a.type !== 'sky')) continue; const scs = plan.list.filter(x => !only[i] || only[i].includes(x.id)); if (!scs.length) continue;
       let can = false; try { for (const { spec } of scs) if (await this._falsifiable(a, spec)) { can = true; break; } } catch (e) { res.problems.push({ code: 'assert_error', detail: `checks[${i}] (${a.type}) threw while it was tried at the control minutes: ${String(e && e.message || e).slice(0, 200)}` }); continue; }
       if (!can) res.problems.push({ code: 'assert_vacuous', detail: `checks[${i}] (${a.type}) holds at every one of the ${this._control().length} minutes of the theatre clock tried (every ${CONTROL_STEP} minutes from ${isoOf(this.TL.clock[0][0])}): it cannot tell the minute the row is about from any other, so it proves nothing about the row` });
+    }
+    // a vegetation_state assertion that no plot of the layer violates at any of the layer's sample minutes cannot tell the plot and minute the row is about from any other (tolerances.json vegetation.control_basis)
+    for (const [i, a] of arr(rec.checks).entries()) {
+      if (!a || a.type !== 'vegetation_state' || !this.P.veg.available) continue; const scs = plan.list.filter(x => !only[i] || only[i].includes(x.id)); if (!scs.length) continue;
+      let can = false; try { for (const { spec } of scs) if (this._vegFalsifiable(a, spec)) { can = true; break; } } catch (e) { res.problems.push({ code: 'assert_error', detail: `checks[${i}] (vegetation_state) threw while it was tried on the plots of the layer: ${String(e && e.message || e).slice(0, 200)}` }); continue; }
+      if (!can) res.problems.push({ code: 'assert_vacuous', detail: `checks[${i}] (vegetation_state) holds for every plot of the layer at every one of its sample minutes (${this.P.veg.sampleTimes().length} minutes, ${this.P.veg.units.length} plots): it cannot tell the plot and minute the row is about from any other, so it proves nothing about the row` });
     }
     const results = [];
     for (const { spec, id: scId } of plan.list) {
@@ -97,14 +105,17 @@ export class Runner {
     const E = rec.entities || {}, ids = k => (Array.isArray(E[k]) ? E[k] : []).map(entityId).filter(x => typeof x === 'string'), spans = [];
     for (const a of arr(rec.checks)) if (a && (a.type === 'weather' || a.type === 'sky')) { const s = (a.t && parseSpanSafe(a.t)) || span; if (s) spans.push(s); }
     const wx = spans.length ? { from: Math.min(...spans.map(s => s.from)), to: Math.max(...spans.map(s => s.to)) } : null;
-    try { return await this.P.scenarioGroup({ text: `${row.text_raw || ''} ${row.claim_text || ''}`, units: ids('units').filter(id => this.P.unit(id)), structures: [...ids('structures'), ...ids('works')], span: wx }); }
+    // the plots and selectors of the vegetation checks, and the minutes they look at (the conflicts of the vegetation layer that change a plot in those minutes are in the group)
+    const vc = arr(rec.checks).filter(a => a && a.type === 'vegetation_state'), vs = vc.map(a => (a.t && parseSpanSafe(a.t)) || span).filter(Boolean);
+    const veg = vc.length && vs.length ? { plots: vc.map(a => a.plot).filter(x => typeof x === 'string'), where: vc.map(a => a.where).filter(w => w && typeof w === 'object' && !Array.isArray(w)), span: { from: Math.min(...vs.map(x => x.from)), to: Math.max(...vs.map(x => x.to)) } } : null;
+    try { return await this.P.scenarioGroup({ text: `${row.text_raw || ''} ${row.claim_text || ''}`, units: ids('units').filter(id => this.P.unit(id)), structures: [...ids('structures'), ...ids('works')], span: wx, vegetation: veg }); }
     catch (e) { res.problems.push({ code: 'scenario_group_error', detail: String(e && e.message || e).slice(0, 300) }); return null; }
   }
   // what the group needs and what the record runs or excludes (by the conflict choices and structure readings, whatever the scenarios are called): `complete` when every scenario of the group is run or excluded
   _groupReport(grp, plan) {
     const P = this.P, runKeys = new Set(plan.list.map(x => P.scenarioKey(x.spec))), exKeys = new Set(plan.excluded.map(x => x.key)), items = grp.specs.map((spec, i) => ({ id: grp.ids[i], key: P.scenarioKey(spec) }));
     const run = items.filter(x => runKeys.has(x.key)).map(x => x.id), excluded = items.filter(x => !runKeys.has(x.key) && exKeys.has(x.key)).map(x => x.id), missing = items.filter(x => !runKeys.has(x.key) && !exKeys.has(x.key)).map(x => x.id);
-    return { conflicts: grp.conflicts.map(c => ({ id: c.id, ...(c.named ? { named: true } : {}), ...(c.weather ? { weather: true } : {}), ...(c.units.length ? { units: c.units.map(u => `${u.unit} (${u.via.join('+')})`) } : {}) })), ...(Object.keys(grp.readings).length ? { readings: grp.readings } : {}), scenarios: items.map(x => x.id), run, excluded, missing, complete: missing.length === 0 };
+    return { conflicts: grp.conflicts.map(c => ({ id: c.id, ...(c.named ? { named: true } : {}), ...(c.weather ? { weather: true } : {}), ...(c.units.length ? { units: c.units.map(u => `${u.unit} (${u.via.join('+')})`) } : {}), ...(c.vegetation ? { vegetation: c.vegetation } : {}) })), ...(Object.keys(grp.readings).length ? { readings: grp.readings } : {}), scenarios: items.map(x => x.id), run, excluded, missing, complete: missing.length === 0 };
   }
   _scenarioPlan(rec, row, res, grp = null) {
     const P = this.P, list = [], seen = new Set(), items = Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario ?? 'default'], text = row.text_raw || row.claim_text;
@@ -167,6 +178,34 @@ export class Runner {
         else res.problems.push({ code: 'structure_not_bound', detail: `structure ${id} (${names.slice(0, 120)}) shares no word of 4 letters or more with the row's text; if the row names it in other words, give { "id": "${id}", "via": "<verbatim words of the row>" }` });
       }
     }
+    // the plots of the vegetation layer a check names (a plot is bound by a distinctive word of its name shared with the row, or declared with the row's own words) and the classes or crops a selector finds (named by a word of the check's own quote)
+    const V = P.veg, VW = (this.tol.vegetation || {}).words || {}, vegChecks = arr(rec.checks).map((a, i) => [a, i]).filter(([a]) => a && a.type === 'vegetation_state');
+    if ((arr(E.plots).length || vegChecks.length) && !V.available) res.problems.push({ code: 'adapter_missing', detail: V.reason });
+    else {
+      const rtkV = new Set(tokens(text));
+      for (const e of arr(E.plots)) {
+        const id = entityId(e), via = entityVia(e), u = V.resolve(id);
+        if (!u) { res.problems.push({ code: 'vegetation_plot_unknown', detail: `plot ${id} is not in the vegetation layer (a plot is V-nnnn or its lc name: LC-FIELD-0001; q.mjs veg lists them)` }); continue; }
+        const named = (V.meta.named || []).filter(n => n.unit === u.id).map(n => n.name), names = [u.name, u.lc, ...named].filter(Boolean).join(' '), common = tokens(names).filter(w => rtkV.has(w) && w.length >= 4 && !VEG_STOP.has(w));
+        if (common.length) B.plots.push({ id, unit: u.id, how: 'matched', by: common.slice(0, 4).join(',') });
+        else if (via && hasQuote(text, via)) { B.plots.push({ id, unit: u.id, how: 'declared', via }); B.declared++; }
+        else res.problems.push({ code: 'plot_not_bound', detail: `plot ${id} (${names.slice(0, 120)}) shares no distinctive word of 4 letters or more with the row's text; if the row names it in other words, give { "id": "${id}", "via": "<verbatim words of the row>" }` });
+      }
+      for (const [a, i] of vegChecks) {
+        if (a.where == null || typeof a.where !== 'object' || Array.isArray(a.where)) continue;
+        const qw = new Set(fold(a.quote || '').replace(/[^a-z0-9]+/g, ' ').split(' ').filter(Boolean));
+        for (const [kind, table] of [['cls', VW.cls || {}], ['crop', VW.crop || {}]]) for (const name of [].concat(a.where[kind] || [])) {
+          const list = table[name];
+          if (!list) res.problems.push({ code: 'assert_field', detail: `checks[${i}] (vegetation_state): where.${kind} "${name}" is not a ${kind} the harness can bind to words (${Object.keys(table).join(', ')})` });
+          else if (!list.some(w => qw.has(w))) res.problems.push({ code: 'plot_not_bound', detail: `checks[${i}] (vegetation_state): the quote of the check does not name ${kind} "${name}": it needs one of ${list.join(', ')}` });
+        }
+        // "any" plot of a class: the row must say, in its own words, that only part of it is meant (the same rule as "any" leaf of a formation, GATE-SPEC 6.4 V7)
+        if (a.quantifier === 'any') {
+          const n = V.select(a.where, P.scenarioSpec('default').choices).length;
+          if (n > 1) { if (a.quantifier_quote != null && hasQuote(text, a.quantifier_quote)) { B.quantifiers.push({ i, plots: n, via: a.quantifier_quote }); B.declared++; } else res.problems.push({ code: 'quantifier_any_unsupported', detail: `checks[${i}] (vegetation_state) accepts any one of the ${n} plots its selector finds: the row must say that only part of them is meant; give "quantifier_quote": "<verbatim words of the row>" (for example "some neighbouring fields")` }); }
+        }
+      }
+    }
     // a motion or activity row that "names no place" must name none: a place of the gazetteer in the row's words is a place the record has to relate the unit to (otherwise the reason would dodge the place check)
     if (typeof rec.place_unspecified === 'string' && found.size) { const named = [...found.values()].map(h => h.place); res.problems.push({ code: 'place_unspecified_but_named', detail: `the record says the row names no place ("${rec.place_unspecified.slice(0, 60)}"), but its words name ${named.slice(0, 4).map(p => p.id + ' ' + p.name).join('; ')}: relate the unit to the place (unit_at, from, to, toward, along) or leave the row not realized` }); }
     // "any" for a formation: the row must say, in its own words, that only part of it is meant (GATE-SPEC 6.4 V7, DD-RZ-03); otherwise one drawn leaf would stand for a whole division
@@ -197,6 +236,7 @@ export class Runner {
       case 'structure_exists': return this._structureExists(c);
       case 'structure_state': return this._structure(c);
       case 'work_stage': return this._work(c);
+      case 'vegetation_state': return this._vegetation(c);
       case 'weather': return this._weather(c);
       case 'sky': return this._sky(c);
       case 'casualty': return this._casualty(c);
@@ -392,6 +432,57 @@ export class Runner {
       ev.crew = cr.evidence.sample_ok;
     }
     return ok(ev);
+  }
+
+  // ---- the vegetation layer: the state of the plots a check names or selects, at every whole minute of its span, under the scenario's choices (the layer's own conflicts CF-VEG-* are scenario choices)
+  _vegetation(c) {
+    const a = c.a, V = this.P.veg; if (!V.available) return fail('adapter_missing', V.reason);
+    const choices = c.scenSpec.choices, mode = c.mode || 'any', q = a.quantifier || 'all', tol = (a.tol_pct ?? (this.tol.vegetation || {}).height_tol_pct ?? 10) / 100;
+    let plots; if (a.plot != null) { const u = V.resolve(a.plot); if (!u) return fail('vegetation_plot_unknown', `plot ${a.plot} is not in the vegetation layer (V-nnnn or the lc name of a plot)`); plots = [u]; }
+    else { plots = V.select(a.where, choices); const need = Math.max(a.min_plots ?? 1, (this.tol.vegetation || {}).min_plots ?? 1); if (plots.length < need) return fail('vegetation_plot_none', `the selector ${JSON.stringify(a.where)} finds ${plots.length} plot(s) of the layer under this scenario, the check needs ${need}: a class of plots that is not drawn holds nothing`, { plots: plots.length }); }
+    const hold = t => {                                       // does the check hold at this minute for the plots: every one (quantifier all) or some (any)? -> { ok, sample, bad }
+      let sample = null, bad = null, nOk = 0;
+      for (const u of plots) { const st = V.stateAt(u, t, choices), p = this._vegProblem(a, st, tol); if (!p) { nOk++; sample = sample || this._vegSample(st); if (q === 'any') return { ok: true, sample, nOk }; } else { bad = bad || { plot: u.id, ...p }; if (q === 'all') return { ok: false, bad, nOk }; } }
+      return q === 'any' ? { ok: false, bad, nOk } : { ok: true, sample, nOk };
+    };
+    let n = 0, firstOk = null, lastBad = null;
+    for (const t of c.mins) {
+      const r = hold(t);
+      if (r.ok) { n++; if (!firstOk) firstOk = { at: isoOf(t), plots: plots.length, quantifier: q, sample: r.sample }; if (mode === 'any') return ok(firstOk); }
+      else { lastBad = { t, bad: r.bad }; if (mode === 'all') return fail('vegetation_mismatch', `at ${isoOf(t)}: plot ${r.bad.plot}: ${r.bad.detail}`, { plots: plots.length, quantifier: q, plot: r.bad.plot }); }
+    }
+    if (mode === 'all' && n === c.mins.length) return ok(firstOk);
+    return fail('vegetation_mismatch', `no minute of the window matches${lastBad ? ` (last: ${isoOf(lastBad.t)}: plot ${lastBad.bad && lastBad.bad.plot}: ${lastBad.bad && lastBad.bad.detail})` : ''}`, { plots: plots.length, quantifier: q });
+  }
+  _vegSample(st) { const g = st.ground || {}, tr = st.trees || {}; return { plot: st.id, name: st.name, crop: g.crop ?? null, stage: g.stage ?? null, h_m: g.h ? g.h.map(x => round(x, 2)) : null, cut: g.cut != null ? round(g.cut, 2) : null, trample: g.trample != null ? round(g.trample, 2) : null, ...(st.trees ? { leaf: round(tr.leaf, 2), strip: round(tr.strip, 2), keep: tr.keep } : {}), tier: st.tier }; }
+  // the first thing a state does not satisfy -> { code, detail } or null. Heights: the whole range of heights the picture draws for the plot (ground.h) lies inside the row's range widened by tol at each end
+  _vegProblem(a, st, tol = 0.1) {
+    const g = st.ground, tr = st.trees, no = d => ({ code: 'vegetation_mismatch', detail: d }), list = x => [].concat(x).join(' or ');
+    if (a.crop_in != null) { if (!g) return no('the plot has no ground state'); if (![].concat(a.crop_in).includes(g.crop)) return no(`the crop is "${g.crop}", the check needs ${list(a.crop_in)}`); }
+    if (a.stage_in != null) { if (!g) return no('the plot has no ground state'); if (![].concat(a.stage_in).includes(g.stage)) return no(`the stage is "${g.stage}", the check needs ${list(a.stage_in)}`); }
+    const f = VEG_HEIGHTS.some(k => k.startsWith('height_ft') && a[k] != null) ? (this.tol.vegetation || {}).ft_to_m ?? 0.3048 : 1, lo = (a.height_ft_min ?? a.height_m_min) != null ? (a.height_ft_min ?? a.height_m_min) * f : null, hi = (a.height_ft_max ?? a.height_m_max) != null ? (a.height_ft_max ?? a.height_m_max) * f : null;
+    if (lo != null || hi != null) {
+      if (!g || !Array.isArray(g.h)) return no('the plot has no drawn height');
+      if (lo != null && g.h[0] < lo * (1 - tol) - 1e-9) return no(`the drawn height starts at ${num(g.h[0], 2)} m, the row says at least ${num(lo, 2)} m (${num(lo * (1 - tol), 2)} m with the stated ${round(tol * 100, 1)} per cent)`);
+      if (hi != null && g.h[1] > hi * (1 + tol) + 1e-9) return no(`the drawn height reaches ${num(g.h[1], 2)} m, the row says at most ${num(hi, 2)} m (${num(hi * (1 + tol), 2)} m with the stated ${round(tol * 100, 1)} per cent)`);
+    }
+    const share = { cut: g && g.cut, trample: g && g.trample, lodging: g && g.lodging, leaf: tr && tr.leaf, strip: tr && tr.strip, keep: tr && tr.keep };
+    for (const k of VEG_SHARES) {
+      const v = share[k], lo2 = a[k + '_min'], hi2 = a[k + '_max']; if (lo2 == null && hi2 == null) continue;
+      if (v == null || !Number.isFinite(v)) return no(`the plot has no ${k} (${['leaf', 'strip', 'keep'].includes(k) ? 'it carries no trees' : 'no ground state'})`);
+      if (lo2 != null && v < lo2 - 1e-9) return no(`${k} is ${num(v, 3)}, the check needs at least ${lo2}`);
+      if (hi2 != null && v > hi2 + 1e-9) return no(`${k} is ${num(v, 3)}, the check needs at most ${hi2}`);
+    }
+    if (a.understory_in != null) { if (!tr || tr.understory == null) return no('the plot has no understory (it is no wood)'); if (!a.understory_in.includes(tr.understory)) return no(`the understory is "${tr.understory}", the check needs ${list(a.understory_in)}`); }
+    if (a.fruit_stage_in != null) for (const [sp, want] of Object.entries(a.fruit_stage_in)) { const fr = st.fruit && st.fruit[sp]; if (!fr) return no(`the plot has no ${sp} fruit state`); if (!want.includes(fr.stage)) return no(`the ${sp} fruit is "${fr.stage}", the check needs ${list(want)}`); }
+    if (a.events_include != null) for (const id of a.events_include) if (!(st.events || []).includes(id)) return no(`the event ${id} is not in force (events in force: ${(st.events || []).join(', ') || 'none'})`);
+    return null;
+  }
+  // does some plot of the layer violate the assertion at some sample minute of the layer, under the choices of the scenario? (an assertion every plot satisfies at every sample minute proves nothing)
+  _vegFalsifiable(a, spec) {
+    const V = this.P.veg, choices = this.P.scenarioSpec(spec).choices, tol = (a.tol_pct ?? (this.tol.vegetation || {}).height_tol_pct ?? 10) / 100;
+    for (const t of V.sampleTimes()) for (const u of V.units) if (this._vegProblem(a, V.stateAt(u, t, choices), tol)) return true;
+    return false;
   }
 
   // ---- weather and sky

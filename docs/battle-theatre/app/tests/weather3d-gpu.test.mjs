@@ -24,7 +24,7 @@ import { makePlan, aimCamera } from './weather3d-gpu-plan.mjs';
 import { HOOKS, CHROME_ARGS, chromeArgs, REAL_GPU_ARGS } from './weather3d-gpu-lib.mjs';
 import { encodePng, decodePng, diffStats, CANVAS_SHOT_LIMIT } from './weather3d-gpu-lib.mjs'; import zlib from 'node:zlib';
 import { planSteps, summarize, renderMarkdown } from './weather3d-gpu-realrun.mjs'; import os from 'node:os';
-import { checkRun, checkCompare } from './weather3d-gpu-check.mjs';
+import { checkRun, checkCompare, checkNegativeControl } from './weather3d-gpu-check.mjs'; import { MARK, deviceControls, frameControl, stripMarked } from './weather3d-gpu-negctl.mjs';
 
 const APP = path.resolve(BT, 'app'), J = f => JSON.parse(fs.readFileSync(path.join(BT, f), 'utf8')), D = f => JSON.parse(fs.readFileSync(path.join(APP, 'data/fx3d', f), 'utf8'));
 const environment = new Environment(J('environment/ephemeris_1863.json'), J('environment/weather_timeline.json'));
@@ -506,4 +506,78 @@ test('the harness driver: extra Chrome flags are passed on and recorded in the s
   assert.match(src, /args: \[\.\.\.chromeArgs\(REALGPU\), \.\.\.EXTRA_CHROME_ARGS\] \}\); summary\.chromeArgs = \[\.\.\.chromeArgs\(REALGPU\), \.\.\.EXTRA_CHROME_ARGS\]; summary\.headed = args\.includes\('--headed'\)/);
   const pos = ['/out', 'webgpu', 'a,b'], flags = ['--chrome-arg=--disable-gpu-compositing', '--w=320', '--headed']; const argv = [...pos, ...flags];
   assert.deepEqual(argv.filter(a => !a.startsWith('--')), pos, 'a --chrome-arg=... flag is never taken for a positional argument');
+});
+
+// ---------- negative controls of the harness (2026-11-16): errors made on purpose that the machinery behind "no validation error" must see
+// A stand-in for a GPUDevice that behaves as the specification says (sighted: an error goes to the innermost error scope, or, with no scope, to the uncapturederror listeners) or that never reports anything (blind), plus the two paths of the
+// harness hook (HOOKS in weather3d-gpu-lib.mjs: the listener that fills window.__gpuErrors, the wrapper that fills window.__wgslMessages). Nothing here is a browser result.
+function fakeDevice({ sighted = true, hook = true, scopeCatchesModule = true } = {}) {
+  const listeners = new Set(), scopes = [], win = { __gpuErrors: ['an earlier error of the run'], __wgslMessages: [{ label: 'weather3d-mul', type: 'warning', msg: 'kept' }], __gpuLabels: ['weather3d-mul messages=1'] };
+  const raise = (msg, viaScope = true) => { if (!sighted) return; const sc = scopes[scopes.length - 1]; if (sc && viaScope) { if (!sc.err) sc.err = { message: msg }; } else if (!sc) setTimeout(() => { for (const h of [...listeners]) h({ error: { message: msg } }); }, 0); };
+  const d = {
+    addEventListener: (t, h) => { if (t === 'uncapturederror') listeners.add(h); }, removeEventListener: (t, h) => { listeners.delete(h); },
+    pushErrorScope: () => { scopes.push({ err: null }); }, popErrorScope: async () => scopes.pop().err,
+    createBuffer: desc => { if (!desc.usage) raise('Buffer usage must not be 0: ' + desc.label); return { destroy() { } }; },
+    createShaderModule: desc => { const bad = /vec2f\(1\.0, 2\.0\)/.test(desc.code); if (bad) raise('Error while parsing WGSL (' + desc.label + ')', scopeCatchesModule);
+      return { label: desc.label, async getCompilationInfo() { const messages = bad && sighted ? [{ type: 'error', message: 'cannot return a value of type vec2f from a function that returns vec4f', lineNum: 2 }] : []; if (hook) { win.__gpuLabels.push(desc.label + ' messages=' + messages.length); for (const m of messages) win.__wgslMessages.push({ label: desc.label, type: m.type, msg: m.message }); } return { messages }; } }; },
+    createRenderPipelineAsync: async desc => { if (sighted && desc.fragment.entryPoint !== 'fs') throw new Error('the entry point ' + desc.fragment.entryPoint + ' is not in the module'); return {}; },
+  };
+  if (hook) d.addEventListener('uncapturederror', e => win.__gpuErrors.push(String(e.error.message)));      // what HOOKS does at requestDevice
+  return { d, win };
+}
+const U_FAKE = { COPY_DST: 8, UNIFORM: 64 }, S_FAKE = { FRAGMENT: 2 };
+test('negative controls: a device that sees errors passes every control, what was made on purpose leaves the run\'s own lists alone, and the checker says so', async () => {
+  const { d, win } = fakeDevice(), nc = await deviceControls(d, { w: win, timeoutMs: 200, U: U_FAKE });
+  assert.deepEqual(nc.scope, { invalidCaught: true, message: nc.scope.message, validClean: true, validMessage: null }); assert.match(nc.scope.message, /usage must not be 0/);
+  assert.equal(nc.wgsl.errorMessageSeen, true); assert.equal(nc.wgsl.scopeCaught, true); assert.equal(nc.wgsl.hookRecorded, true); assert.equal(nc.wgsl.hookLabelled, true); assert.equal(nc.wgsl.line, 2);
+  assert.equal(nc.uncaptured.eventSeen, true); assert.equal(nc.uncaptured.hookRecorded, true); assert.deepEqual(nc.pipeline, { goodBuilt: true, badRejected: true, message: nc.pipeline.message });
+  assert.ok(nc.cleanup.gpuErrors >= 1 && nc.cleanup.wgslMessages >= 1 && nc.cleanup.modules >= 1, JSON.stringify(nc.cleanup));
+  assert.deepEqual(win.__gpuErrors, ['an earlier error of the run'], 'the run\'s own error is kept, the control\'s is gone'); assert.deepEqual(win.__wgslMessages, [{ label: 'weather3d-mul', type: 'warning', msg: 'kept' }]); assert.deepEqual(win.__gpuLabels, ['weather3d-mul messages=1']);
+  const j = checkNegativeControl({ frame: { skipped: 'the shell harness has no per-case validation scope' }, ...nc }); assert.equal(j.ran, true); assert.equal(j.ok, true, j.problems.join('; '));
+});
+test('negative controls: a device that sees nothing, a hook that records nothing and a scope that misses a shader error are each caught by the controls and named by the checker (a clean run is not vacuous)', async () => {
+  const frameOk = { skipped: 'x' }, run = async o => { const { d, win } = fakeDevice(o); return { ...(await deviceControls(d, { w: win, timeoutMs: 60, U: U_FAKE })), frame: frameOk }; };
+  const blind = checkNegativeControl(await run({ sighted: false })); assert.equal(blind.ok, false); for (const re of [/did not hand back a validation error that was made on purpose/, /carried no error/, /did not arrive as an uncapturederror event/, /was not refused/]) assert.ok(blind.problems.some(x => re.test(x)), re + ' in ' + JSON.stringify(blind.problems));
+  const deaf = checkNegativeControl(await run({ hook: false })); assert.equal(deaf.ok, false); assert.ok(deaf.problems.some(x => /hook did not record the compiler error/.test(x)) && deaf.problems.some(x => /hook did not record an uncaptured error/.test(x)), JSON.stringify(deaf.problems)); assert.ok(!deaf.problems.some(x => /did not hand back/.test(x)), 'only the hook is at fault');
+  const miss = checkNegativeControl(await run({ scopeCatchesModule: false })); assert.equal(miss.ok, false); assert.ok(miss.problems.some(x => /did not hand back the validation error of a shader module/.test(x)), JSON.stringify(miss.problems));
+});
+test('negative controls: the frame control swaps the weather pass\'s bind group for one of the wrong layout, the frame must report a validation error, the bind group is put back (also when the frame throws) and the layer is not stopped; a render that never reports an error is caught', async () => {
+  const dev = { createBindGroupLayout: x => ({ x }), createBuffer: () => ({ destroy() { } }), createBindGroup: x => ({ wrong: true, x }) };
+  const mk = () => ({ weatherOk: true, bgW: 'the layer\'s own bind group', failed: null });
+  { const gpu = mk(), own = gpu.bgW, seen = []; const render = async () => { seen.push(gpu.bgW === own ? 'own' : 'wrong'); return { validation: gpu.bgW === own ? null : 'Invalid BindGroup: the bind group layout does not match the pipeline layout' }; };
+    const r = await frameControl(render, gpu, dev, { tMin: 1 }, { U: U_FAKE, S: S_FAKE }); assert.deepEqual(seen, ['own', 'wrong', 'own']); assert.equal(gpu.bgW, own); assert.equal(r.cleanBefore, true); assert.match(r.brokenValidation, /Invalid BindGroup/); assert.equal(r.cleanAfter, true); assert.equal(r.layerStopped, false);
+    assert.equal(checkNegativeControl({ frame: r, scope: { invalidCaught: true, validClean: true }, wgsl: { errorMessageSeen: true, scopeCaught: true, hookRecorded: true }, uncaptured: { eventSeen: true, hookRecorded: true }, pipeline: { goodBuilt: true, badRejected: true } }).ok, true); }
+  { const gpu = mk(), own = gpu.bgW; const r = await frameControl(async () => ({ validation: null }), gpu, dev, {}, { U: U_FAKE, S: S_FAKE }); assert.equal(r.brokenValidation, null); assert.equal(gpu.bgW, own);
+    assert.ok(checkNegativeControl({ frame: r, scope: { invalidCaught: true, validClean: true }, wgsl: { errorMessageSeen: true, scopeCaught: true, hookRecorded: true }, uncaptured: { eventSeen: true, hookRecorded: true }, pipeline: { goodBuilt: true, badRejected: true } }).problems.some(x => /reported no validation error: the per-case validation/.test(x))); }
+  { const gpu = mk(), own = gpu.bgW; let n = 0; await assert.rejects(frameControl(async () => { if (++n === 2) throw new Error('the frame threw'); return { validation: null }; }, gpu, dev, {}, { U: U_FAKE, S: S_FAKE }), /the frame threw/); assert.equal(gpu.bgW, own, 'put back whatever happens'); }
+  { const gpu = { ...mk(), failed: 'Invalid BindGroup weather3d.bg' }; const r = await frameControl(async () => ({ validation: 'x' }), gpu, dev, {}, { U: U_FAKE, S: S_FAKE }); assert.equal(r.layerStopped, true); assert.ok(checkNegativeControl({ frame: r }).problems.some(x => /stopped the layer/.test(x))); }
+  assert.deepEqual(await frameControl(async () => ({}), { weatherOk: false }, dev, {}, { U: U_FAKE, S: S_FAKE }), { skipped: 'the layer has no weather pass on this device' }); assert.deepEqual(await frameControl(async () => ({}), null, dev, {}), { skipped: 'the layer has no weather pass on this device' });
+});
+test('negative controls: the run checker reads them (seen, not seen, absent, skipped), a run before 2026-11-16 is unchanged, a required control that did not run is a problem, and the shell row of the real-GPU command carries it', () => {
+  const good = { frame: { cleanBefore: true, brokenValidation: 'Invalid BindGroup', cleanAfter: true, layerStopped: false }, scope: { invalidCaught: true, validClean: true }, wgsl: { errorMessageSeen: true, scopeCaught: true, hookRecorded: true }, uncaptured: { eventSeen: true, hookRecorded: true }, pipeline: { goodBuilt: true, badRejected: true } };
+  assert.equal(checkNegativeControl(undefined).ran, false); assert.equal(checkNegativeControl(null).ok, null); assert.deepEqual(checkNegativeControl({ skipped: 'no WebGPU device' }), { ran: false, ok: null, skipped: 'no WebGPU device', problems: [] }); assert.equal(checkNegativeControl(good).ok, true);
+  { const s = okRun(); const r = checkRun(s); assert.equal(r.ok, true); assert.equal(r.facts.negativeControl, 'not run', 'a stored run of before the controls is unchanged'); assert.ok(checkRun(s, { negativeControl: true }).problems.some(x => /negative controls did not run/.test(x)), 'asked for, absent');
+    s.negativeControl = good; const q = checkRun(s, { negativeControl: true }); assert.equal(q.ok, true, q.problems.join('; ')); assert.equal(q.facts.negativeControl, 'seen');
+    for (const [k, v] of [['frame', { ...good.frame, brokenValidation: null }], ['scope', { invalidCaught: false, validClean: true }], ['wgsl', { ...good.wgsl, hookRecorded: false }], ['uncaptured', { eventSeen: false, hookRecorded: false }], ['pipeline', { goodBuilt: true, badRejected: false }]]) { const t = okRun(); t.negativeControl = { ...good, [k]: v }; const x = checkRun(t); assert.equal(x.ok, false, k); assert.equal(x.facts.negativeControl, 'NOT SEEN', k); assert.ok(x.problems.some(p => /^negative control: /.test(p)), k); }
+    for (const k of ['frame', 'scope', 'wgsl', 'uncaptured', 'pipeline']) { const t = okRun(); t.negativeControl = { ...good }; delete t.negativeControl[k]; assert.equal(checkRun(t).ok, false, 'a control missing from the record is a problem: ' + k); }
+    const sk = okRun(); sk.negativeControl = { skipped: 'no WebGPU device' }; assert.equal(checkRun(sk).facts.negativeControl, 'skipped: no WebGPU device'); assert.ok(checkRun(sk, { negativeControl: true }).problems.some(x => /did not run \(no WebGPU device\)/.test(x)));
+    const gl = { api: 'webgl2', finished: 1, errors: [], cases: { a: { pixels: { all: { mean: 5 } } } }, pure: {}, negativeControl: { skipped: 'ignored on WebGL2' } }; assert.equal(checkRun(gl, { negativeControl: true }).ok, true, 'WebGL2 runs have no WebGPU controls'); }
+  // the shell row of the one-command real-GPU run: a shell summary whose controls were not seen is a problem, one whose controls were seen says so, one without says "not run"
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'w3d-negctl-')); try {
+    const shell = nc => ({ api: 'webgpu', realGpu: false, errors: [], consoleProblems: [], cases: {}, entered: { ready: true, ribbon: 'x', status: { weather: true, effects: true }, adapter: { vendor: 'google', arch: 'swiftshader' } }, diagEnd: { gpuErrors: [], wgsl: [] }, ...(nc ? { negativeControl: nc } : {}) });
+    const put = (rel, o) => { const f = path.join(tmp, rel); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, JSON.stringify(o)); };
+    put('shell/theatre-webgpu/summary.json', shell(good)); assert.equal(summarize(tmp, { skipClose: true }).shell['shell-webgpu'].negativeControl, 'seen');
+    put('shell/theatre-webgpu/summary.json', shell(null)); { const R = summarize(tmp, { skipClose: true }); assert.equal(R.shell['shell-webgpu'].negativeControl, 'not run'); assert.ok(!R.problems.some(x => /negative control/.test(x))); }
+    put('shell/theatre-webgpu/summary.json', shell({ ...good, scope: { invalidCaught: false, validClean: true } })); { const R = summarize(tmp, { skipClose: true }); assert.match(R.shell['shell-webgpu'].negativeControl, /^NOT SEEN/); assert.ok(R.problems.some(x => /shell-webgpu: negative control NOT SEEN/.test(x)), R.problems.join(' | ')); }
+  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+});
+test('negative controls: the page harness, the driver and the shell harness run them once at the end on WebGPU only, the controls are free of clock and randomness, and what they make is marked and taken out of the console list', () => {
+  const R = f => fs.readFileSync(path.join(APP, 'tests', f), 'utf8'), page = R('weather3d-gpu-page.mjs'), drv = R('weather3d-gpu.mjs'), th = R('weather3d-gpu-theatre.mjs'), nc = R('weather3d-gpu-negctl.mjs');
+  assert.match(page, /import \{ deviceControls, frameControl \} from '\.\/weather3d-gpu-negctl\.mjs'/); assert.match(page, /WG\.negativeControl = async spec =>/); assert.match(page, /frameControl\(s => WG\.render\(s\), fi && fi\.gpu, d, spec\)/);
+  assert.match(drv, /api === 'webgpu' && !args\.includes\('--no-negctl'\) && list\.length/); assert.match(drv, /window\.WG\.negativeControl\(s\)/); assert.match(drv, /!l\.includes\('harness negative control'\)/);
+  assert.match(th, /api === 'webgpu' && !args\.includes\('--no-negctl'\)/); assert.match(th, /import\('\/app\/tests\/weather3d-gpu-negctl\.mjs'\)/); assert.match(th, /!l\.includes\('harness negative control'\)/);
+  assert.ok(!/Math\.random|Date\.now|performance\.now/.test(nc), 'nothing random and no clock in the controls (only setTimeout bounds)'); assert.equal(MARK, 'harness negative control');
+  for (const l of ['scoped, invalid', 'scoped, valid', 'wgsl type error', 'unscoped, invalid', 'valid wgsl']) assert.ok(nc.includes(`MARK + ' (${l})'`), l + ' is marked'); assert.ok(nc.includes("MARK + ' pipeline'") && nc.includes("MARK + ' layout'") && nc.includes("MARK + ' bind group'"));
+  const w = { __gpuErrors: ['a', MARK + ' (unscoped, invalid)', 'b'], __wgslMessages: [{ label: MARK + ' (wgsl type error)' }, { label: 'weather3d-add' }], __gpuLabels: [MARK + ' (valid wgsl) messages=0', 'weather3d-add messages=0'] };
+  assert.deepEqual(stripMarked(w), { gpuErrors: 1, wgslMessages: 1, modules: 1 }); assert.deepEqual(w.__gpuErrors, ['a', 'b']); assert.deepEqual(w.__wgslMessages, [{ label: 'weather3d-add' }]); assert.deepEqual(w.__gpuLabels, ['weather3d-add messages=0']); assert.deepEqual(stripMarked({}), { gpuErrors: 0, wgslMessages: 0, modules: 0 });
 });

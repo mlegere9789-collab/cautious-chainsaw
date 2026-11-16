@@ -1,9 +1,25 @@
 // Reads the summary.json files that tests/weather3d-gpu.mjs and weather3d-gpu-compare.mjs write and says, as a list of problems, whether a run was clean. Pure (no browser, no clock): the checks of the run, not
 // a gate; it never loosens anything, and what it cannot know (a real GPU) is not in it. A gate runner can call checkRun / checkCompare, or the command:
-//   node docs/battle-theatre/app/tests/weather3d-gpu-check.mjs <outDir> [--api=webgpu|webgl2] [--limit=6]       exit code 1 when a problem is found
+//   node docs/battle-theatre/app/tests/weather3d-gpu-check.mjs <outDir> [--api=webgpu|webgl2] [--limit=6] [--require-negative-control]       exit code 1 when a problem is found
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { CANVAS_SHOT_LIMIT, adapterVerdict } from './weather3d-gpu-lib.mjs';
 
+// The negative controls of a WebGPU run (summary.negativeControl, made by tests/weather3d-gpu-negctl.mjs): errors made on purpose that the machinery of the run must have SEEN, so that "no validation error" cannot mean
+// "nothing here sees errors". { ran: false } when the run has none (a run of before 2026-11-16, --no-negctl, or a device that was not there); otherwise every control must have come out as expected. Pure.
+export function checkNegativeControl(nc) {
+  if (!nc || typeof nc !== 'object') return { ran: false, ok: null, problems: [] }; if (nc.skipped) return { ran: false, ok: null, skipped: String(nc.skipped).slice(0, 120), problems: [] };
+  const p = [], f = nc.frame, sc = nc.scope, w = nc.wgsl, u = nc.uncaptured, pl = nc.pipeline, need = (ok, what) => { if (ok !== true) p.push(what); };
+  if (!f) p.push('no frame control in the record'); else if (!f.skipped) {
+    need(f.cleanBefore, 'the frame before the control already reported a validation error');
+    if (typeof f.brokenValidation !== 'string' || !f.brokenValidation) p.push('a frame with a bind group of the wrong layout reported no validation error: the per-case validation of the run would not see an error');
+    need(f.cleanAfter, 'the frame after the control (bind group put back) was not clean'); if (f.layerStopped) p.push('the control stopped the layer (the error reached the uncaptured-error path instead of the case\'s validation scope)');
+  }
+  if (!sc) p.push('no error-scope control in the record'); else { need(sc.invalidCaught, 'an error scope did not hand back a validation error that was made on purpose'); need(sc.validClean, 'an error scope reported an error for a valid call'); }
+  if (!w) p.push('no WGSL control in the record'); else { need(w.errorMessageSeen, 'the compiler messages of a shader module with a type error carried no error'); need(w.scopeCaught, 'an error scope did not hand back the validation error of a shader module with a type error'); need(w.hookRecorded, 'the harness hook did not record the compiler error of a shader module with a type error'); }
+  if (!u) p.push('no uncaptured-error control in the record'); else { need(u.eventSeen, 'an error made with no scope did not arrive as an uncapturederror event'); need(u.hookRecorded, 'the harness hook did not record an uncaptured error that was made on purpose'); }
+  if (!pl) p.push('no pipeline control in the record'); else { need(pl.goodBuilt, 'the control pipeline with a valid entry point did not build'); need(pl.badRejected, 'an asynchronous pipeline with a missing entry point was not refused'); }
+  return { ran: true, ok: p.length === 0, problems: p };
+}
 // one run of one API (the content of <outDir>/<api>/summary.json). expect: { cases: n } the number of cases the run was asked for (default: any, at least 1)
 export function checkRun(s, expect = {}) {
   const p = [], api = s && s.api; if (!s || !api) return { ok: false, problems: ['not a summary of weather3d-gpu.mjs'], facts: {} };
@@ -21,6 +37,8 @@ export function checkRun(s, expect = {}) {
     const bad = (end.wgsl || []).filter(m => m.type === 'error'); if (bad.length) p.push(bad.length + ' WGSL compiler error(s): ' + bad[0].label + ' ' + bad[0].line + ':' + bad[0].col + ' ' + bad[0].msg.slice(0, 120)); facts.compilerMessages = (end.wgsl || []).length; facts.modules = (end.modules || []).length;
     for (const [n, c] of cases) { if (c.validation) p.push(`${n}: validation error ${String(c.validation).slice(0, 160)}`); if (c.gpuStats && c.gpuStats.failed) p.push(`${n}: the layer stopped: ${String(c.gpuStats.failed).slice(0, 160)}`); if (!fxOff && c.gpuStats && c.gpuStats.weatherDraws < 1) p.push(`${n}: no weather draw`); }
     if (s.computeCheck && s.computeCheck.skipped == null && !s.computeCheck.pipelineOk) p.push('the optional compute pipeline did not build: ' + String(s.computeCheck.pipelineError || s.computeCheck.validation).slice(0, 160)); if (s.computeCheck && (s.computeCheck.messages || []).some(m => m.type === 'error')) p.push('the compute module has compiler errors');
+    const nc = checkNegativeControl(s.negativeControl); facts.negativeControl = nc.ran ? (nc.ok ? 'seen' : 'NOT SEEN') : nc.skipped ? 'skipped: ' + nc.skipped : 'not run'; for (const x of nc.problems) p.push('negative control: ' + x);
+    if (expect.negativeControl && !nc.ran) p.push('the negative controls did not run' + (nc.skipped ? ' (' + nc.skipped + ')' : ''));
   } else { const g = s.diagInit && s.diagInit.gl; if (g && (!g.ok || (g.log && g.log.length))) p.push('a WebGL2 program of the layer did not build: ' + JSON.stringify(g.log || []).slice(0, 200)); }
   for (const [k, v] of Object.entries(s.pure || {})) if (v.identical !== true) p.push(`scrub purity: ${k} is not identical (${v.bytesDiffering} bytes differ)`); facts.purityChecks = Object.keys(s.pure || {}).length;
   if (s.resize) { if (s.resize.smallValidation || s.resize.backValidation) p.push('validation error after a resize'); if (s.resize.backIdentical === false) p.push(`after a resize back to the first size the picture differs (${s.resize.backBytesDiffering} bytes)`); facts.resize = s.resize.backIdentical === true; }
@@ -43,7 +61,7 @@ export function checkCompare(c, limit = 6) {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const a = process.argv.slice(2), dir = path.resolve(a.find(x => !x.startsWith('--')) || '.'), lim = +((a.find(x => x.startsWith('--limit=')) || '--limit=6').split('=')[1]), only = (a.find(x => x.startsWith('--api=')) || '').split('=')[1];
   let bad = 0; const J = f => JSON.parse(fs.readFileSync(f, 'utf8'));
-  for (const api of ['webgpu', 'webgl2']) { if (only && only !== api) continue; const f = path.join(dir, api, 'summary.json'); if (!fs.existsSync(f)) { console.log(api + ': no summary'); bad++; continue; } const r = checkRun(J(f)); console.log(api + ': ' + (r.ok ? 'clean' : 'PROBLEMS'), JSON.stringify(r.facts)); for (const x of r.problems) console.log('  - ' + x); if (!r.ok) bad++; }
+  for (const api of ['webgpu', 'webgl2']) { if (only && only !== api) continue; const f = path.join(dir, api, 'summary.json'); if (!fs.existsSync(f)) { console.log(api + ': no summary'); bad++; continue; } const r = checkRun(J(f), { negativeControl: a.includes('--require-negative-control') }); console.log(api + ': ' + (r.ok ? 'clean' : 'PROBLEMS'), JSON.stringify(r.facts)); for (const x of r.problems) console.log('  - ' + x); if (!r.ok) bad++; }
   const cf = path.join(dir, 'compare', 'summary.json'); if (!only && fs.existsSync(cf)) { const r = checkCompare(J(cf), lim); console.log('compare: ' + (r.ok ? 'within the limit' : 'PROBLEMS'), JSON.stringify(r.facts)); for (const x of r.problems) console.log('  - ' + x); if (!r.ok) bad++; }
   process.exit(bad ? 1 : 0);
 }

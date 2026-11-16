@@ -52,6 +52,46 @@ function installFetchShim() {                           // every file the shell'
   };
 }
 const imp = rp => import(pathToFileURL(path.join(APP, rp)).href);
+// the modules the product lists in src/ext/index.mjs (the product loads nothing else)
+async function readExtList() {
+  const p = path.join(APP, 'src/ext/index.mjs'); if (!exists(p)) return { listed: [], file: null };
+  const m = await import(pathToFileURL(p).href + '?t=' + fs.statSync(p).mtimeMs); return { listed: Array.isArray(m.default) ? m.default.slice() : [], file: rel(p) };
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// the vegetation layer of the product: crops, woods and orchards by date (app/src/ext/vegetation: VegModel, stateAt, cropOf, pure and loadable in node, over app/data/vegetation.json), as the product loads it
+// (the module is listed in src/ext/index.mjs). The layer holds its own conflicts (CF-VEG-LRT, CF-VEG-UNDER, CF-VEG-HOUCK, CF-VEG-RAIN, CF-VEG-HARVEST, CF-VEG-MCPHERSON: model.scenarios; the shell's conflict
+// list does not carry them): a scenario of the harness chooses them as it chooses any conflict ("CF-VEG-RAIN:pdf_flattened", or a `choices` object), and a value equal to the layer's own default is no choice.
+// A plot is a unit of the layer: V-nnnn (assigned in a fixed order from the land-cover layer) or its stable name `lc` (LC-FIELD-0001); both name it.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const NO_VEG = reason => ({ available: false, reason, scenarios: {}, ids: [] });
+class Vegetation {
+  constructor(mod, data) {
+    this.available = true; this.mod = mod; this.model = new mod.VegModel(structuredClone(data)); this.meta = data.meta || {};
+    this.scenarios = this.model.scenarios; this.ids = Object.keys(this.scenarios).sort(); this.units = this.model.units;
+    this.byName = new Map(); for (const u of this.units) { this.byName.set(u.id, u); if (u.lc) this.byName.set(u.lc, u); }
+  }
+  defaultOf(id) { return this.scenarios[id].default; }
+  resolve(name) { return this.byName.get(name) || null; }
+  // the plots a selector { cls, crop } (a name or a list of names each) finds under the choices: the crop is the crop the picture draws under them (cropOf: CF-VEG-MCPHERSON changes the crop of some cells)
+  select(where, choices = {}) {
+    const w = where && typeof where === 'object' ? where : {}, cls = [].concat(w.cls || []), crop = [].concat(w.crop || []);
+    return this.units.filter(u => (!cls.length || cls.includes(u.cls)) && (!crop.length || crop.includes(this.mod.cropOf(this.model, u, choices))));
+  }
+  stateAt(u, tMin, choices = {}) { return this.mod.stateAt(this.model, u, T_(tMin), choices); }
+  sampleTimes() { return this.mod.sampleTimes(this.model); }
+  // the crops and the stages of each crop the layer knows (calendar.crops[crop].keys[].stage) and the leaf-bearing classes: what a check may name
+  crops() { return Object.keys(this.model.cal.crops); }
+  stagesOf(crop) { const c = this.model.cal.crops[crop]; return c ? [...new Set(c.keys.map(k => k.stage))] : []; }
+}
+async function loadVegetation() {
+  const modFile = path.join(APP, 'src/ext/vegetation/model.mjs'), dataFile = path.join(APP, 'data/vegetation.json');
+  if (!exists(modFile)) return NO_VEG('app/src/ext/vegetation/model.mjs does not exist: the product has no vegetation layer to ask');
+  if (!exists(dataFile)) return NO_VEG('app/data/vegetation.json does not exist: the vegetation layer has no data');
+  const ext = await readExtList(); if (!ext.listed.includes('vegetation/index.mjs')) return NO_VEG('the vegetation layer exists but is not listed in src/ext/index.mjs, so the product does not load it');
+  try { return new Vegetation(await imp('src/ext/vegetation/model.mjs'), readJSON(dataFile)); }
+  catch (e) { return NO_VEG(`the vegetation layer failed to load: ${String(e && e.message || e).slice(0, 200)}`); }
+}
 let SHARED = null;
 async function loadShared() {
   if (SHARED) return SHARED;
@@ -63,8 +103,8 @@ async function loadShared() {
   const raw = await data.loadHistoryData();
   const layer = createRealHistory({ raw, T, helpers: { civilDawn } }), world = worldFromUnits(T, geo, layer);
   const tolerances = readJSON(path.join(path.dirname(fileURLToPath(import.meta.url)), 'tolerances.json'));
-  const places = new Places({ tolerances });
-  SHARED = { T, geo, conflicts, eph, wxf, env, raw, layer, world, Stage, clock, contract, defaults, data, places, tolerances, createRealHistory };
+  const places = new Places({ tolerances }), veg = await loadVegetation();
+  SHARED = { T, geo, conflicts, eph, wxf, env, raw, layer, world, Stage, clock, contract, defaults, data, places, tolerances, veg, createRealHistory };
   return SHARED;
 }
 
@@ -85,7 +125,12 @@ export class Product {
     if (spec === 'default' || spec == null) return { ...def, key: 'default', choices: { ...def.choices }, structure: {} };
     if (spec === 'pdf') return { id: 'pdf-recommended', key: 'pdf', label: 'PDF recommended, pending owner', choices: defaults.pdfChoices(conflicts), structure: {} };
     if (typeof spec === 'string') {                  // "C-004:v1": the opening scenario with that one conflict on that value (the scenarios of a row's group, scenarioGroup)
-      const m = /^(C-\d{3}|CF-[A-Z0-9-]+):(\S+)$/.exec(spec), c = m && conflicts.find(x => x.id === m[1]), o = c && c.options.find(x => x.key === m[2]);
+      const m = /^(C-\d{3}|CF-[A-Z0-9-]+):(\S+)$/.exec(spec), vc = m && this.veg.scenarios[m[1]];
+      if (vc) {                                     // a conflict of the vegetation layer ("CF-VEG-RAIN:pdf_flattened"); the layer's own default is no choice, so that the scenario is the opening scenario itself
+        const vo = vc.options[m[2]]; if (!vo) throw new Error(`conflict ${m[1]} (the vegetation layer) has no value "${m[2]}" (${Object.keys(vc.options).join(', ')})`);
+        return { id: spec, key: spec, label: `${m[1]} = ${vo.label}`, choices: { ...def.choices, ...(m[2] === vc.default ? {} : { [m[1]]: m[2] }) }, structure: {} };
+      }
+      const c = m && conflicts.find(x => x.id === m[1]), o = c && c.options.find(x => x.key === m[2]);
       if (m && !c) throw new Error(`unknown conflict "${m[1]}" in scenario "${spec}"`); if (c && !o) throw new Error(`conflict ${m[1]} has no value "${m[2]}" (${c.options.map(x => x.key).join(', ')})`);
       if (o) return { id: spec, key: spec, label: `${m[1]} = ${o.label}`, choices: { ...def.choices, [m[1]]: m[2] }, structure: {} };
     }
@@ -93,6 +138,7 @@ export class Product {
       const from = spec.from || (spec.choices ? 'none' : 'default'), base = from === 'default' ? def.choices : from === 'pdf' ? defaults.pdfChoices(conflicts) : {};
       if (!['default', 'pdf', 'none'].includes(from)) throw new Error(`scenario "from" is default, pdf or none (found ${JSON.stringify(spec.from)})`);
       const choices = { ...base, ...(spec.choices || {}) }, structure = { ...(spec.structure || {}) };
+      for (const [k, vc] of Object.entries(this.veg.scenarios)) if (choices[k] != null) { if (!vc.options[choices[k]]) throw new Error(`conflict ${k} (the vegetation layer) has no value "${choices[k]}" (${Object.keys(vc.options).join(', ')})`); if (choices[k] === vc.default) delete choices[k]; }
       for (const [k, v] of Object.entries(structure)) if (typeof k !== 'string' || typeof v !== 'string' || !k || !v) throw new Error(`scenario structure readings are { "<structure id>": "<reading name>" } (found ${JSON.stringify(spec.structure)})`);
       return { id: 'custom', key: spec.id || this._computedId(spec, from, base), label: spec.label || spec.id || 'custom', choices, structure };
     }
@@ -103,6 +149,9 @@ export class Product {
     const all = [...parts, ...st]; return all.length ? (from === 'pdf' ? 'pdf+' : '') + all.join('+') : from === 'pdf' ? 'pdf' : from === 'default' ? 'default' : 'none-chosen';
   }
   scenarioId(spec = 'default') { return this.scenarioSpec(spec).key; }
+  // the choices the shell reads (the conflicts C-nnn and CF-WIND ...): the vegetation layer's CF-VEG-* choices change nothing in the stage, the weather or the structures, so a scene is built once for all of them
+  shellChoices(choices) { return Object.fromEntries(Object.entries(choices || {}).filter(([k]) => !(k in this.veg.scenarios))); }
+  vegChoices(choices) { return Object.fromEntries(Object.entries(choices || {}).filter(([k]) => k in this.veg.scenarios)); }
   // the scenarios of a row's conflict group (GATE-SPEC-A TL-8): the shell's default, and for every conflict a row names (C-nnn in its text) one scenario per selectable value, everything else on its default
   conflictScenarios(text) {
     const ids = [...new Set(String(text || '').match(/\bC-\d{3}\b/g) || [])], base = this.scenarioSpec('default'), out = ['default'];
@@ -134,12 +183,38 @@ export class Product {
     }
     return out;
   }
-  // -> { conflicts: [{ id, named, units: [{ unit, via }], weather }], readings: { id: [name] }, specs: [spec], ids: [scenario id] }; specs[0] is the opening scenario
-  async scenarioGroup({ text = '', units = [], structures = [], span = null } = {}) {
+  // a conflict of the vegetation layer REACHES a check when it changes the state of a plot the check looks at at some minute of the span: the plots it names (a V-nnnn or an lc), and the plots its selectors find under the opening scenario
+  // or under any one value of any conflict of the layer (CF-VEG-MCPHERSON gives some cells another crop). The probe compares the state under each value with the opening scenario's at the first minute, the last and every
+  // tolerances.json vegetation.reach_stride_min minutes between: a difference between two readings of one of the layer's conflicts lasts as long as an event of the layer (90 minutes or more) or a day of its calendar, never
+  // minutes; the check itself evaluates every whole minute. -> [{ id, how: { options: [values that change a plot], example: 'V-nnnn at <time>' } }]
+  vegetationReach({ plots = [], where = [], span = null } = {}) {
+    const V = this.veg; if (!V.available || !span) return [];
+    const sel = new Map(); for (const n of plots) { const u = V.resolve(n); if (u) sel.set(u.id, u); }
+    const sets = [{}]; for (const id of V.ids) for (const k of Object.keys(V.scenarios[id].options)) if (k !== V.defaultOf(id)) sets.push({ [id]: k });
+    for (const w of where) for (const ch of sets) for (const u of V.select(w, ch)) sel.set(u.id, u);
+    const a = Math.ceil(T_(span.from) - 1e-9), b = Math.floor(T_(span.to) + 1e-9), step = Math.max(1, (this.tolerances.vegetation || {}).reach_stride_min || 10), minutes = new Set([a <= b ? a : T_(span.from)]); if (a <= b) { for (let t = a; t <= b; t += step) minutes.add(t); minutes.add(b); }
+    const out = [];
+    for (const id of V.ids) {
+      const changed = []; let example = null;
+      for (const key of Object.keys(V.scenarios[id].options)) {
+        if (key === V.defaultOf(id)) continue;
+        let hit = null; for (const u of sel.values()) { for (const t of minutes) if (JSON.stringify(V.stateAt(u, t, { [id]: key })) !== JSON.stringify(V.stateAt(u, t, {}))) { hit = `${u.id} at ${isoOf(t)}`; break; } if (hit) break; }
+        if (hit) { changed.push(key); example = example || hit; }
+      }
+      if (changed.length) out.push({ id, how: { options: changed, example } });
+    }
+    return out;
+  }
+  // -> { conflicts: [{ id, named, units: [{ unit, via }], weather, vegetation? }], readings: { id: [name] }, specs: [spec], ids: [scenario id] }; specs[0] is the opening scenario. `vegetation` ({ plots, where, span }): the plots
+  // and selectors of a vegetation_state check and the minutes it looks at
+  async scenarioGroup({ text = '', units = [], structures = [], span = null, vegetation = null } = {}) {
     const named = [...new Set(String(text || '').match(/\bC-\d{3}\b/g) || [])].filter(id => this.conflicts.some(c => c.id === id)), reach = this.unitConflicts(units), wx = span ? await this.weatherConflicts(span.from, span.to) : [];
     const ids = [...new Set([...named, ...Object.keys(reach), ...wx])].sort(), conflicts = ids.map(id => ({ id, named: named.includes(id), units: reach[id] || [], weather: wx.includes(id) }));
+    const vreach = vegetation ? this.vegetationReach(vegetation) : [];
+    for (const r of vreach) conflicts.push({ id: r.id, named: false, units: [], weather: false, vegetation: r.how });
     const readings = await this.structureReadings(structures), specs = ['default'];
     for (const id of ids) { const c = this.conflicts.find(x => x.id === id); if (!c) continue; for (const o of c.options) if (o.key !== 'range') specs.push(`${id}:${o.key}`); }
+    for (const r of vreach) for (const key of Object.keys(this.veg.scenarios[r.id].options)) specs.push(`${r.id}:${key}`);
     for (const [id, rs] of Object.entries(readings)) for (const r of rs) specs.push({ structure: { [id]: r } });
     const seen = new Set(), uniq = specs.filter(x => { const k = this.scenarioKey(x); if (seen.has(k)) return false; seen.add(k); return true; });       // "C-004:delegated" is the opening scenario itself
     return { conflicts, readings, specs: uniq, ids: uniq.map(x => this.scenarioId(x)) };
@@ -150,9 +225,9 @@ export class Product {
   // structures bundle), and a record that runs its whole scenario group builds one per value of every conflict that reaches it: the least recently used are dropped beyond tolerances.json sampling.scenes_cached, so that a run
   // of the whole timeline never holds more than that. A scene asked for again after it was dropped is built again and answers the same: it is a function of its choices.
   scene(spec = 'default') {
-    const sc = this.scenarioSpec(spec), key = JSON.stringify(sc.choices); let s = this._scenes.get(key);
+    const sc = this.scenarioSpec(spec), shell = this.shellChoices(sc.choices), key = JSON.stringify(shell); let s = this._scenes.get(key);
     if (s) { this._scenes.delete(key); this._scenes.set(key, s); return s; }                      // the most recently used is last
-    s = new Scene(this, { id: sc.id, label: sc.label, choices: sc.choices }, key, spec); this._scenes.set(key, s);
+    s = new Scene(this, { id: sc.id, label: sc.label, choices: shell }, key, spec); this._scenes.set(key, s);
     const cap = Math.max(2, (this.tolerances.sampling && this.tolerances.sampling.scenes_cached) || 8); while (this._scenes.size > cap) this._scenes.delete(this._scenes.keys().next().value);
     return s;
   }
@@ -230,14 +305,11 @@ export class Product {
     return w;
   }
   async weatherAt(tMin, spec = 'default') {
-    const sc = this.scenarioSpec(spec), t = T_(tMin), W = await this.weather(sc.choices), drawn = W.at(t * 60, {}), record = this.env.weatherAt(t, sc.choices), sun = this.env.sample(t, {});
+    const sc = this.scenarioSpec(spec), t = T_(tMin), shell = this.shellChoices(sc.choices), W = await this.weather(shell), drawn = W.at(t * 60, {}), record = this.env.weatherAt(t, shell), sun = this.env.sample(t, {});
     return { t, iso: isoOf(t), drawn, record, sun };
   }
   // ---- extension modules the product lists (src/ext/index.mjs) and the adapters for event cards and the epilogue chapter
-  async extList() {
-    const p = path.join(APP, 'src/ext/index.mjs'); if (!exists(p)) return { listed: [], file: null };
-    const m = await import(pathToFileURL(p).href + '?t=' + fs.statSync(p).mtimeMs); return { listed: Array.isArray(m.default) ? m.default.slice() : [], file: rel(p) };
-  }
+  async extList() { return readExtList(); }
   async adapters_() {
     if (this.adapters) return this.adapters;
     const A = readJSON(path.join(path.dirname(fileURLToPath(import.meta.url)), 'adapters.json')), ext = await this.extList(), out = { ext, found: {} };

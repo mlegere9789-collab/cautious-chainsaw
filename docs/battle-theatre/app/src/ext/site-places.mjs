@@ -111,16 +111,31 @@ export function validateTour(d) {
   return p;
 }
 
-/** What is wrong with the file of years (data/site-memorial-years.json) set against the memorial list, as sentences; empty means fit. Structure only: the hash of the file is checked beside it. */
+/** "MN038-E" and "MN 38-E" are one park number: the form the site prints ("MN 38-E"). null when the text is no park number. */
+export const normMN = t => { const m = /^MN\s*0*(\d+)(?:-([A-Z]))?$/.exec(String(t == null ? '' : t).trim()); return m ? `MN ${m[1]}${m[2] ? '-' + m[2] : ''}` : null; };
+/** What a report says was done in the year it prints, as the quotation must show it: dedicated, installed, or the year in the tag of an inventory entry "(1885, Contributing)". */
+export const YEAR_WHAT = Object.freeze({ dedicated: /\bdedicated\b/, installed: /\binstalled\b/, dated: /\(\d{4}[,)]/ });
+export const WHAT_TEXT = Object.freeze({ dedicated: 'dedicated', installed: 'installed', dated: 'the year in the tag of its entry' });
+/** What is wrong with the file of years (data/site-memorial-years.json) set against the memorial list, as sentences; empty means fit. Structure only: the hash of the file is checked beside it.
+ *  A year comes by the memorial's own name ("name": the report prints the site's name letter for letter and the memorial is the only one of that name) or by its park number ("park number": the report's
+ *  entry carries the number the site gives it, no other memorial of the site has it, and the heading and the site's name share the words named in `agree`). */
 export function validateYears(yf, mem) {
   const p = []; if (!yf || !Array.isArray(yf.years) || !yf.sources || typeof yf.sources !== 'object') return ['the years file has no years or no sources'];
-  const byNo = new Map(mem.monuments.map(m => [m.no, m])), names = new Map(), seen = new Set(); for (const m of mem.monuments) names.set(m.name, (names.get(m.name) || 0) + 1);
+  const byNo = new Map(mem.monuments.map(m => [m.no, m])), names = new Map(), mns = new Map(), seen = new Set(); for (const m of mem.monuments) { names.set(m.name, (names.get(m.name) || 0) + 1); if (m.mn) mns.set(m.mn, (mns.get(m.mn) || 0) + 1); }
   for (const y of yf.years) {
     const w = `year of ${y && y.no}`; if (!y || !Number.isInteger(y.no) || !byNo.has(y.no)) { p.push(`${w}: not a memorial of the list`); continue; } if (seen.has(y.no)) p.push(`${w}: given twice`); seen.add(y.no);
-    const m = byNo.get(y.no); if (y.name !== m.name) p.push(`${w}: the name "${y.name}" is not the list's name "${m.name}"`); if (names.get(m.name) > 1) p.push(`${w}: the list has two memorials of that name`);
+    const m = byNo.get(y.no), via = y.via == null ? 'name' : y.via; if (y.name !== m.name) p.push(`${w}: the name "${y.name}" is not the list's name "${m.name}"`);
     if (!Number.isInteger(y.year) || y.year < 1863 || y.year > 2030) p.push(`${w}: the year ${y.year} is not a year after the battle`); if (y.yearTo != null && (!Number.isInteger(y.yearTo) || y.yearTo < y.year || y.yearTo > 2030)) p.push(`${w}: the end of the range is not a year after its start`);
     if (y.tier !== 'documented' && y.tier !== 'inferred') p.push(`${w}: the tier is ${y.tier}`); if (y.approx && y.tier === 'documented') p.push(`${w}: a year the report hedges (ca.) is not documented`);
-    if (typeof y.quote !== 'string' || !y.quote.includes(y.name) || !y.quote.includes(String(y.year))) p.push(`${w}: the quotation does not hold the name and the year`);
+    if (via === 'name') { if (names.get(m.name) > 1) p.push(`${w}: the list has two memorials of that name`); if (typeof y.quote !== 'string' || !y.quote.includes(y.name) || !y.quote.includes(String(y.year))) p.push(`${w}: the quotation does not hold the name and the year`); }
+    else if (via === 'park number') {
+      const mn = normMN(y.mnPrinted); if (!mn) p.push(`${w}: "${y.mnPrinted}" is not a park number`); else { if (mn !== m.mn) p.push(`${w}: the report's park number ${y.mnPrinted} is not the number the list gives it (${m.mn || 'none'})`); if (mns.get(m.mn) !== 1) p.push(`${w}: the park number ${m.mn} is the list's for ${mns.get(m.mn) || 0} memorials, not one`); }
+      if (typeof y.printed !== 'string' || !y.printed.includes(String(y.mnPrinted))) p.push(`${w}: the printed heading does not hold the park number`);
+      const ag = Array.isArray(y.agree) ? y.agree : []; if (ag.length < 2) p.push(`${w}: fewer than two words are named as the same in the report's heading and the list's name`);
+      for (const x of ag) { const t = String(x).toLowerCase(); if (!String(y.printed).toLowerCase().includes(t) || !m.name.toLowerCase().includes(t)) p.push(`${w}: "${x}" is not in both the report's heading and the list's name`); }
+      if (typeof y.quote !== 'string' || !y.quote.includes(String(y.year))) p.push(`${w}: the quotation does not hold the year`); if (!y.what) p.push(`${w}: it does not say what the report says was done (${Object.keys(YEAR_WHAT).join(', ')})`);
+    } else p.push(`${w}: the way it was matched (${y.via}) is neither "name" nor "park number"`);
+    if (y.what != null) { if (!YEAR_WHAT[y.what]) p.push(`${w}: "${y.what}" is not one of ${Object.keys(YEAR_WHAT).join(', ')}`); else if (typeof y.quote !== 'string' || !YEAR_WHAT[y.what].test(y.quote)) p.push(`${w}: the quotation does not say it was ${y.what}`); }
     if (!yf.sources[y.source]) p.push(`${w}: the source ${y.source} is not described`); if (!Number.isInteger(y.pdfPage) || y.pdfPage < 1) p.push(`${w}: no page`);
   }
   for (const [id, s] of Object.entries(yf.sources)) if (!s || !s.title || typeof s.url !== 'string' || !/^https:\/\//.test(s.url)) p.push(`source ${id}: no title or address`);
@@ -359,7 +374,12 @@ export const groundLine = it => (it.inside ? 'On the loaded ground' : `${fmtM(it
 /** The cell of the card that says when a memorial was put up: the year from a report, with the report, the page and the quotation, or the open gap. */
 export function yearCell(it, tierMark) {
   const y = it.year; if (!y) return `${tierMark(LAYER.yearTier)}<br><span class="mini">The year is not in the site's data.</span>`;
-  return `${tierMark(y.tier)} <b>${esc(yearText(y))}</b><br><span class="mini">${esc(y.publisher)}, ${esc(y.sourceTitle)}${y.sourceDate ? ' (' + esc(y.sourceDate) + ')' : ''}, PDF page ${y.pdfPage}${y.printedPage ? ' (' + esc(y.printedPage) + ')' : ''}: “${esc(y.quote)}”${y.approx ? ' The report says "ca.": the year is about, not exact.' : ''}</span>`;
+  return `${tierMark(y.tier)} <b>${esc(yearText(y))}</b>${y.what ? ` <span class="mini">(${esc(WHAT_TEXT[y.what] || y.what)})</span>` : ''}<br><span class="mini">${esc(y.publisher)}, ${esc(y.sourceTitle)}${y.sourceDate ? ' (' + esc(y.sourceDate) + ')' : ''}, PDF page ${y.pdfPage}${y.printedPage ? ' (' + esc(y.printedPage) + ')' : ''}: “${esc(y.quote)}”${y.approx ? ' The report says "ca.": the year is about, not exact.' : ''}</span>`;
+}
+/** How the report's entry was matched to this memorial, for the evidence section of the card (nothing for a memorial matched by its own name). */
+export function yearMatchCell(it) {
+  const y = it.year; if (!y || y.via !== 'park number') return '';
+  return `The report lists this memorial under the park number ${esc(y.mnPrinted)}, the number the site gives it ("${esc(it.mn)}"; no other memorial of the site has it), under the heading “${esc(y.printed)}”, which shares the words ${y.agree.map(x => '"' + esc(x) + '"').join(', ')} with the site's name.`;
 }
 /** The card of one memorial. tierMark: the shell's tier pill (ctx.tierMark). o.layerOn: the layer is on, so the card carries the button that puts the marks away (the notice gives way while a card is open). */
 export function memorialCardHTML(it, tierMark, o = {}) {
@@ -382,7 +402,7 @@ export function memorialCardHTML(it, tierMark, o = {}) {
       <details style="margin-top:12px"><summary class="mini" style="cursor:pointer">Evidence: the tier, the position, what \"after the battle\" rests on, the open gaps</summary>
       <table class="table" style="margin-top:6px"><tr><th>Tier</th><td>${tierMark(LAYER.tier)} <span class="mini">of the name, the text and the position: the site's list as it stands. It says nothing about July 1863.</span></td></tr>
         <tr><th>Position</th><td>${pos}</td></tr>${second}
-        <tr><th>After the battle</th><td><span class="mini">${esc(COPY.basis)}</span></td></tr>
+        <tr><th>After the battle</th><td><span class="mini">${esc(COPY.basis)}</span></td></tr>${it.year && it.year.via === 'park number' ? `<tr><th>The year</th><td><span class="mini">${yearMatchCell(it)}</span></td></tr>` : ''}
         <tr><th>Open gap</th><td><span class="mini">${gapCell}</span></td></tr></table></details>
       <div class="actions"><button type="button" class="btn-s" data-act="fly"><svg class="ic"><use href="#i-focus"/></svg>Fly to</button>${o.layerOn ? '<button type="button" class="btn-s" data-act="hide">Hide the marks</button>' : ''}</div>
     </div>`;
@@ -405,7 +425,7 @@ export function memorialPanelHTML(index, o, tm) {
     <p class="mini" id="xm-key" style="margin:0 0 10px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center"><span><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${SIDE_COLOR.Union};vertical-align:-1px"></span> Union</span><span><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${SIDE_COLOR.Confederate};vertical-align:-1px"></span> Confederate</span><span><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${SIDE_COLOR.Other};vertical-align:-1px"></span> Other</span><span><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:2px;border:1px solid ${SIDE_COLOR.Other}"></span> hollow: beyond the loaded ground</span><span>The dashed outline is the tier, inferred.</span></p>
     <details style="margin:0 0 10px"><summary class="mini" style="cursor:pointer">What this rests on, and what is not known</summary>
       <p class="mini" style="margin-top:8px">${e(COPY.basis)}</p>
-      <p class="mini" style="margin-top:8px">${tm(LAYER.yearTier)} ${e(COPY.year)} Gap ${e(LAYER.gap)}.${c.years && c.years.documented + c.years.inferred ? ` For ${c.years.documented + c.years.inferred} of the ${c.total} a National Park Service report prints the year for a memorial of the same name; it is on their cards with the report, the page and the quotation (${c.years.documented} documented, ${c.years.inferred} inferred). For the other ${c.years.openGap} the year is an open gap.` : ''}</p>
+      <p class="mini" style="margin-top:8px">${tm(LAYER.yearTier)} ${e(COPY.year)} Gap ${e(LAYER.gap)}.${c.years && c.years.documented + c.years.inferred ? ` For ${c.years.documented + c.years.inferred} of the ${c.total} a National Park Service report prints the year for the same memorial (by its name, or by the park number the site gives it); it is on their cards with the report, the page and the quotation (${c.years.documented} documented, ${c.years.inferred} inferred). For the other ${c.years.openGap} the year is an open gap.` : ''}</p>
       <p class="mini" style="margin-top:8px">${e(COPY.position)} The list states no source for ${c.withoutSource} of the ${c.total} positions; for ${c.withSource} it names a web listing. A mark says where the list puts a memorial today and nothing about July 1863. A mark is left out while the ground lies between the camera and the place (trees and buildings do not hide a mark), and a name is not put under a panel; the memorial you picked is always marked and named.</p>
       <p class="mini" style="margin-top:8px">${c.beyond} memorials lie beyond the loaded ground (6.2 by 6.1 km). They are listed and marked like the rest: the camera goes to the edge of the ground and looks toward them, and the mark stands at the height of the nearest loaded ground because the ground there is not loaded. Gap ${e(LAYER.groundGap)}.</p>
       ${o.integrity && o.integrity.checked ? '' : '<p class="mini" style="margin-top:8px">This address gives the page no way to check the list against the hash recorded with it; the check was left out.</p>'}</details>

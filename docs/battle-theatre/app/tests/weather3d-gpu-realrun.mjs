@@ -10,7 +10,7 @@
 // --headed: a visible Chrome window (where headless Chrome has no GPU access; on Windows and macOS headless Chrome usually has it). --dry: print the plan and stop. --report-only: only (re)write the result files from what is in <outDir>.
 // What no script can do and what stays with a person: LOOK at the montages (the machine only measures them), and the rows for Safari, Firefox, a phone, a device without float32-filterable and the 600-frame timing split.
 import fs from 'node:fs'; import path from 'node:path'; import { spawnSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
-import { checkRun, checkCompare } from './weather3d-gpu-check.mjs';
+import { checkRun, checkCompare, checkNegativeControl } from './weather3d-gpu-check.mjs';
 import { adapterVerdict } from './weather3d-gpu-lib.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -59,7 +59,8 @@ export function summarize(out, o = {}) {
   for (const dir of ['shell', 'crowd']) for (const api of ['webgpu', 'webgl2']) {
     const s = readJson(path.join(root, dir, (dir === 'crowd' ? 'theatre-real-' : 'theatre-') + api, 'summary.json')); if (!s) continue;
     const e = s.entered || {}, ad = e.adapter ? JSON.stringify(e.adapter) : null, st = e.status || null;
-    R.shell[dir + '-' + api] = { present: true, entered: !!e.ready, ribbon: e.ribbon || null, weatherDrawn: st ? !!st.weather : null, effectsDrawn: st ? !!st.effects : null, gpuLayer: e.gpu || null, glLayer: e.gl || null, errors: s.errors || [], consoleProblems: s.consoleProblems || [], gpuErrors: ((s.diagEnd || {}).gpuErrors || []).length, wgslMessages: ((s.diagEnd || {}).wgsl || []).length, cases: Object.keys(s.cases || {}).length, realGpuRun: !!s.realGpu, adapter: ad };
+    const nc = checkNegativeControl(s.negativeControl);
+    R.shell[dir + '-' + api] = { present: true, entered: !!e.ready, ribbon: e.ribbon || null, weatherDrawn: st ? !!st.weather : null, effectsDrawn: st ? !!st.effects : null, gpuLayer: e.gpu || null, glLayer: e.gl || null, errors: s.errors || [], consoleProblems: s.consoleProblems || [], gpuErrors: ((s.diagEnd || {}).gpuErrors || []).length, wgslMessages: ((s.diagEnd || {}).wgsl || []).length, cases: Object.keys(s.cases || {}).length, realGpuRun: !!s.realGpu, adapter: ad, negativeControl: nc.ran ? (nc.ok ? 'seen' : 'NOT SEEN: ' + nc.problems.slice(0, 3).join('; ')) : 'not run' };
     addAdapter(dir + '-' + api, e.adapter);
   }
   const shellCmp = readJson(path.join(root, 'shell', 'theatre-compare', 'summary.json')); if (shellCmp) { const k = checkCompare(shellCmp); R.compare.shell = { ok: k.ok, problems: k.problems, facts: k.facts }; }
@@ -70,7 +71,7 @@ export function summarize(out, o = {}) {
   const notRealRun = [...Object.entries(R.runs).filter(([, x]) => x.present && !x.realGpuRun).map(([k]) => k), ...Object.entries(R.shell).filter(([, x]) => !x.realGpuRun).map(([k]) => k)];
   R.adapters = adapters; R.realGpu = adapters.length > 0 && mainMissing.length === 0 && adapters.every(a => a.named && !a.software) && notRealRun.length === 0;
   const run = k => R.runs[k] || { present: false }, mark = x => (!x.present ? 'not run' : x.ok ? 'clean' : 'PROBLEMS');
-  const E = R.rows, snap = (k) => { const r = run(k); return r.present ? { run: mark(r), problems: r.problems.slice(0, 5) } : { run: 'not run' }; };
+  const E = R.rows, snap = (k) => { const r = run(k); return r.present ? { run: mark(r), problems: r.problems.slice(0, 5), negativeControl: (r.facts && r.facts.negativeControl) || undefined } : { run: 'not run' }; };
   E['W-E1'] = { what: 'the layer builds and runs on the hardware, both APIs: no validation error, no compiler message, no device loss', webgpu: snap('main-webgpu'), webgl2: snap('main-webgl2'), closeWebgpu: snap('close-webgpu'), closeWebgl2: snap('close-webgl2'), gpuLayer: run('main-webgpu').gpuLayer || null, owed: 'the other devices of the row (Intel Arc, AMD, Apple Chrome and Safari, a mid-range Android phone): run this command on each' };
   E['W-E2'] = { what: 'picture parity of WebGL2 and WebGPU', main: R.compare.main || 'not run', close: R.compare.close || 'not run', owed: 'LOOK at <out>/main/compare/*.png and <out>/close/compare/*.png (WebGL2 | WebGPU | difference x4): sky, stars, moon, cloud, mist, wet ground, smoke, flash light, dust, fire; in the close views burst, strike with clods, volley, falls dust, flames and sparks, fire light at night; no layer missing or doubled, no halo at the far plane' };
   E['W-E3'] = { what: 'the shell on WebGPU', shellWebgpu: R.shell['shell-webgpu'] || 'not run', shellWebgl2: R.shell['shell-webgl2'] || 'not run', compare: R.compare.shell || 'not run', crowd: R.shell['crowd-webgpu'] || 'not run (use --real-crowd)', owed: 'LOOK at <out>/shell/theatre-compare/*.png; 390 x 844 (a phone-size window) with ?api=webgpu by hand; the crowd of figures on WebGPU is the crowd lane\'s own item (BROWSER-VERIFICATION-LIST-CROWD.md 2)' };
@@ -90,7 +91,7 @@ export function summarize(out, o = {}) {
   }
   for (const [k, v] of Object.entries(R.runs)) if (v.present && !v.ok) R.problems.push(k + ': ' + v.problems.slice(0, 3).join('; '));
   for (const [k, v] of Object.entries(R.compare)) if (!v.ok) R.problems.push('compare ' + k + ': ' + v.problems.slice(0, 3).join('; '));
-  for (const [k, v] of Object.entries(R.shell)) { if (!v.entered) R.problems.push(k + ': the shell did not start'); if (v.errors.length) R.problems.push(k + ': ' + String(v.errors[0]).slice(0, 160)); if (v.gpuErrors) R.problems.push(k + ': ' + v.gpuErrors + ' WebGPU error(s)'); }
+  for (const [k, v] of Object.entries(R.shell)) { if (!v.entered) R.problems.push(k + ': the shell did not start'); if (v.errors.length) R.problems.push(k + ': ' + String(v.errors[0]).slice(0, 160)); if (v.gpuErrors) R.problems.push(k + ': ' + v.gpuErrors + ' WebGPU error(s)'); if (/^NOT SEEN/.test(v.negativeControl || '')) R.problems.push(k + ': negative control ' + v.negativeControl); }
   return R;
 }
 
