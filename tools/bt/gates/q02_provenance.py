@@ -60,7 +60,8 @@ def scan_item(rec, check, cid, domain, fn, *, ok_reason, fail_reason, na_reason=
             failing.append((m['id'], r))
     ev = {'class': cid, 'scanned': scanned, 'failing': len({i for i, _ in failing}), 'failures': len(failing), 'reasons': top_reasons(failing), 'first': pq.first_n([i for i, _ in failing]), 'tier_counts': tier_counts(domain)}
     if extra:
-        ev.update(extra)
+        ev.update(extra() if callable(extra) else extra)
+    notrun = notrun() if callable(notrun) else notrun
     if len(failing) > 20:
         ev['sidecar'] = rec.sidecar('%s-%s' % (check.replace('.', ''), cid.replace('.', '_')), [{'id': i, 'reason': r} for i, r in sorted(failing)])
     iid = '%s/%s/%s' % (gate, check, cid)
@@ -345,8 +346,8 @@ def main(argv=None):
             return reasons
 
         scan_item(rec, 'Q02.3', cid, doc_ms, q3, ok_reason='all %d documented members have a non-lead source and a short extract that was found again in the stored text', fail_reason='',
-                  na_reason='no member of the class is documented', notrun=('%d documented member(s) have an extract whose source text is not on this machine' % len(set(unverifiable))) if unverifiable else None,
-                  extra={'extracts_found_again': matched, 'extracts_without_stored_text': len(set(unverifiable)), 'span_basis': 'the extract itself (a claim number must stand in it)'})
+                  na_reason='no member of the class is documented', notrun=lambda: ('%d documented member(s) have an extract whose source text is not on this machine' % len(set(unverifiable))) if unverifiable else None,
+                  extra=lambda: {'extracts_found_again': matched, 'extracts_without_stored_text': len(set(unverifiable)), 'span_basis': 'the extract itself (a claim number must stand in it)'})
         # Q02.4, Q02.5
         scan_item(rec, 'Q02.4', cid, [m for m in ms if m['tier'] == 'inferred'], lambda m: ds.check_inferred(m, ctx), ok_reason='all %d inferred members have reasoning and documented premises', fail_reason='', na_reason='no member of the class is inferred')
         scan_item(rec, 'Q02.5', cid, [m for m in ms if m['tier'] == 'plausible-procedural'], lambda m: ds.check_procedural(m, ctx), ok_reason='all %d plausible-procedural members have the procedural block and an open register id', fail_reason='',

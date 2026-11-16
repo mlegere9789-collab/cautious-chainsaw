@@ -1,0 +1,305 @@
+test_documented_tier_with_a_broken_outline_is_reported (__main__.Q23App.test_documented_tier_with_a_broken_outline_is_reported) ... FAIL
+test_missing_style_for_a_tier_is_reported (__main__.Q23App.test_missing_style_for_a_tier_is_reported) ... FAIL
+test_overlay_that_draws_every_unit_as_a_circle_is_reported (__main__.Q23App.test_overlay_that_draws_every_unit_as_a_circle_is_reported) ... FAIL
+test_overlay_that_draws_every_unit_in_the_documented_colour_is_reported (__main__.Q23App.test_overlay_that_draws_every_unit_in_the_documented_colour_is_reported) ... FAIL
+test_overlay_that_loses_the_outline_pattern_in_footprint_mode_is_reported (__main__.Q23App.test_overlay_that_loses_the_outline_pattern_in_footprint_mode_is_reported) ... FAIL
+test_real_code_has_distinct_styles_and_draws_every_unit_in_its_tier (__main__.Q23App.test_real_code_has_distinct_styles_and_draws_every_unit_in_its_tier) ... FAIL
+test_real_works_overlay_marks_tier_by_colour_alone (__main__.Q23App.test_real_works_overlay_marks_tier_by_colour_alone) ... FAIL
+test_sound_panel_row_without_a_kind_label_is_reported (__main__.Q23App.test_sound_panel_row_without_a_kind_label_is_reported) ... FAIL
+test_sound_panel_that_drops_its_disclosure_is_reported (__main__.Q23App.test_sound_panel_that_drops_its_disclosure_is_reported) ... FAIL
+test_statement_without_a_tier_that_is_not_marked_is_reported (__main__.Q23App.test_statement_without_a_tier_that_is_not_marked_is_reported) ... FAIL
+test_tier_mark_hook_that_names_no_glyph_is_reported (__main__.Q23App.test_tier_mark_hook_that_names_no_glyph_is_reported) ... FAIL
+test_two_tiers_that_differ_by_colour_alone_are_reported (__main__.Q23App.test_two_tiers_that_differ_by_colour_alone_are_reported) ... FAIL
+
+======================================================================
+FAIL: test_documented_tier_with_a_broken_outline_is_reported (__main__.Q23App.test_documented_tier_with_a_broken_outline_is_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 105, in test_documented_tier_with_a_broken_outline_is_reported
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_missing_style_for_a_tier_is_reported (__main__.Q23App.test_missing_style_for_a_tier_is_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 110, in test_missing_style_for_a_tier_is_reported
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_overlay_that_draws_every_unit_as_a_circle_is_reported (__main__.Q23App.test_overlay_that_draws_every_unit_as_a_circle_is_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 115, in test_overlay_that_draws_every_unit_as_a_circle_is_reported
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_overlay_that_draws_every_unit_in_the_documented_colour_is_reported (__main__.Q23App.test_overlay_that_draws_every_unit_in_the_documented_colour_is_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 122, in test_overlay_that_draws_every_unit_in_the_documented_colour_is_reported
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_overlay_that_loses_the_outline_pattern_in_footprint_mode_is_reported (__main__.Q23App.test_overlay_that_loses_the_outline_pattern_in_footprint_mode_is_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 127, in test_overlay_that_loses_the_outline_pattern_in_footprint_mode_is_reported
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_real_code_has_distinct_styles_and_draws_every_unit_in_its_tier (__main__.Q23App.test_real_code_has_distinct_styles_and_draws_every_unit_in_its_tier)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 73, in test_real_code_has_distinct_styles_and_draws_every_unit_in_its_tier
+    r = self.run_child(['documented', 'documented (secondary)', 'not documented', 'computed (not measured)'])
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_real_works_overlay_marks_tier_by_colour_alone (__main__.Q23App.test_real_works_overlay_marks_tier_by_colour_alone)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 91, in test_real_works_overlay_marks_tier_by_colour_alone
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_sound_panel_row_without_a_kind_label_is_reported (__main__.Q23App.test_sound_panel_row_without_a_kind_label_is_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 147, in test_sound_panel_row_without_a_kind_label_is_reported
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_sound_panel_that_drops_its_disclosure_is_reported (__main__.Q23App.test_sound_panel_that_drops_its_disclosure_is_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 142, in test_sound_panel_that_drops_its_disclosure_is_reported
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_statement_without_a_tier_that_is_not_marked_is_reported (__main__.Q23App.test_statement_without_a_tier_that_is_not_marked_is_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 137, in test_statement_without_a_tier_that_is_not_marked_is_reported
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_tier_mark_hook_that_names_no_glyph_is_reported (__main__.Q23App.test_tier_mark_hook_that_names_no_glyph_is_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 132, in test_tier_mark_hook_that_names_no_glyph_is_reported
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+======================================================================
+FAIL: test_two_tiers_that_differ_by_colour_alone_are_reported (__main__.Q23App.test_two_tiers_that_differ_by_colour_alone_are_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 100, in test_two_tiers_that_differ_by_colour_alone_are_reported
+    r = self.run_child()
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q23_app.py", line 64, in run_child
+    self.assertEqual(p.returncode, 0, p.stderr[-600:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : e6-8bf8706317cd/scratchpad/stubs/q23_app.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.4
+
+
+----------------------------------------------------------------------
+Ran 12 tests in 2.111s
+
+FAILED (failures=12)

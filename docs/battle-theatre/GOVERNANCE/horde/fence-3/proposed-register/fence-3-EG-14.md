@@ -5,7 +5,7 @@
 | ID | fence-3-EG-14 |
 | Requirement IDs | R14, R07 |
 | Category | source conflict / evidence missing |
-| Description | S-076 (GOVERNANCE/evidence_corrections/fence-3.jsonl). The PDF prints the railroad as Cut -> Traffic resumes, 10 Jul (Wikipedia; "one source says 1865"). Re-matched 2026-11-13: Haupt's dispatch of 4 Jul 1863 from Hanover Junction (OR27-3 p.522) says he will repair the broken bridge between Hanover Junction and Littlestown, "commence to send off wounded; then return and take the Gettysburg Railroad, and commence repairing it". The only local timetable (the Compiler's standing "Change of Time" advertisement) appears in the issues of 13, 20 and 27 Jul alike and does not date the reopening; no text gives 10 Jul or 1865; a Library of Congress search of Chronicling America for 6-20 Jul 1863 returned six results (Iowa, Illinois and Maine papers of early July), none on the railroad. |
+| Description | S-076 (GOVERNANCE/evidence_corrections/fence-3.jsonl). The PDF prints the railroad as Cut -> Traffic resumes, 10 Jul (Wikipedia; "one source says 1865"). Re-matched 2026-11-13: Haupt's dispatch of 4 Jul 1863 from Hanover Junction (OR27-3 p.522) says he will repair the broken bridge between Hanover Junction and Littlestown, "commence to send off wounded; then return and take the Gettysburg Railroad, and commence repairing it". The only local timetable (the Compiler's standing "Change of Time" advertisement) appears in the issues of 13, 20 and 27 Jul alike and does not date the reopening; no text gives 10 Jul or 1865; a Library of Congress search of Chronicling America for 6-20 Jul 1863 returned six results (Iowa, Illinois and Maine papers of early July), none on the railroad. Round 3 (2026-11-16): the 246 local newspaper pages dated 6-15 Jul 1863 were scanned for the reopening of the Gettysburg railroad: six matches, all about the capture of a wagon train or a resort advertisement; the date the line reached the town station stays unsupported (R14.S-076). |
 | Why literal 100% is not possible or blocked | The reopening date lies in company or military-railroad records that are not local; the plan's source is Wikipedia (not admissible). |
 | Evidence searched | OR27 pts 1-3 (tools/bt/or27_find.py logic), the state volumes (New York, Pennsylvania, Maine, Michigan, Battles and Leaders 3), the 99-text library, the 73 NPS documents under tmp/library/web/nps and the NPS pages at www.nps.gov (re-read 2026-11-13); OR27 pt.3, the July 1863 newspapers. |
 | Autonomous substitute applied | Repairs begin after 4 Jul (documented); the two reopening values stay selectable scenarios with no default. |
@@ -17,5 +17,5 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | None. |
 | Agent recommendation | Read the U.S. Military Railroads construction records when reachable. |
-| Status | open (proposed 2026-11-13) |
+| Status | open (proposed 2026-11-13; updated 2026-11-16 (third reading)) |
 | Owner decision and date | (filled only from the Decision Log) |

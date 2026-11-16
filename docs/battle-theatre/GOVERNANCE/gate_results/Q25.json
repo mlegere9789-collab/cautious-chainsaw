@@ -1,0 +1,4685 @@
+{
+ "command": "python3 tools/bt/gates/q25_library.py",
+ "counts": {
+  "BLOCKED-INPUT": 1,
+  "COVERED": 0,
+  "FAIL": 237,
+  "N/A": 0,
+  "NOT-RUN": 0,
+  "PASS": 15
+ },
+ "finished_utc": "2026-11-16T00:30:52Z",
+ "gate": "Q25",
+ "incomplete_reasons": [
+  "1 item(s) NOT-RUN or BLOCKED-INPUT"
+ ],
+ "input_hashes": {
+  "docs/battle-theatre/BIBLE/plan-clean.txt": "5515b8ce322c142bdadcfd1a97c2a68c066e27c971b226ef852aa54a2f9210e7",
+  "docs/battle-theatre/GOVERNANCE/library/acquired.json": "2c5c9b8a8098017235b49b143dabbeab93f92db97557d313964a190d3c9f5a27",
+  "docs/battle-theatre/GOVERNANCE/library/acquired_2.json": "cbcea512bb952d1a6657036641aa493f59b4b99ca21915449ac77737123b238d",
+  "docs/battle-theatre/GOVERNANCE/library/acquired_3.json": "2de0766fa27a0e65f1f8294d8fe8e60b0e8f5a604b6b6dcd9ae2c3af01d72ebd",
+  "docs/battle-theatre/GOVERNANCE/library/candidates.json": "5924731e6e2555ea75bc70b9768312f088ad0ed61a7c9872a9ac3826e0dec178",
+  "docs/battle-theatre/GOVERNANCE/library/figures-ledger.json": "b16b8bef60499a23483d3aa5936f5666e01dd6d48fa40dca9ef7287fee56c1fb",
+  "docs/battle-theatre/GOVERNANCE/library/status.json": "432755d7afeb3d8ce599f48f3358e2a91f29ed103117a5c27480c2af0b8cd407",
+  "docs/battle-theatre/GOVERNANCE/library/status_2.json": "cd2c01f9920387e790134db8b4ce9ddcd6a193534505d1bebcc293ea268ca847",
+  "docs/battle-theatre/GOVERNANCE/library/status_3.json": "e3e0ce43544640a652204e8876d55a3ef6791400337c5c633037c0a77c4971ac",
+  "docs/battle-theatre/GOVERNANCE/library/terms.json": null,
+  "docs/battle-theatre/GOVERNANCE/library/work_queue.json": null,
+  "docs/battle-theatre/GOVERNANCE/register_index.json": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c",
+  "docs/battle-theatre/app/data/anim3d/clips.json": "c726d10cfce960175f4769b4873f426e612f6318e3baec7a870400b17fc7f01d",
+  "docs/battle-theatre/app/data/audio3d/sources.json": "5eff983ec5d1a7f95a8a17cdeb77a76658cb3aac927d417b24c551933ef8e294",
+  "docs/battle-theatre/app/data/figures3d/acw/manifest.json": "51a47aba61f767a905b02ae5cbbc6e09a98c46febec7597bd94da8ac27ea3724",
+  "docs/battle-theatre/app/data/figures3d/manifest.json": "d1e0a5a6897347fe6ec97e943539705f2ca3cec066357425c370892f977a9e95",
+  "docs/battle-theatre/medical/sources.json": "a0eff501c4847635deda3fe1e805e94ec30b64f83533205242d2c8f23739f7cd",
+  "docs/battle-theatre/terrain/terrain_sources.json": "607aba583365719af7c67b8d947f32d1a189b9a9369985064138580ee75548e4",
+  "tools/bt/gates/lib/acquisition_list.json": "9a635573fdd88bb4173b590f74edfa8e6a7d17e50a10de1207864243843b8bfa",
+  "tools/bt/gates/lib/library_ids.json": "58cb3cb6fcfc5d8c51eeb0a33e1a1079e6eb02be3064ef6e4a563e76ec31f37b"
+ },
+ "inputs": [
+  {
+   "bytes": 1005244,
+   "path": "docs/battle-theatre/BIBLE/plan-clean.txt",
+   "role": "governing text",
+   "sha256": "5515b8ce322c142bdadcfd1a97c2a68c066e27c971b226ef852aa54a2f9210e7"
+  },
+  {
+   "bytes": 24193,
+   "path": "docs/battle-theatre/GOVERNANCE/library/acquired.json",
+   "role": "acquisition ledger",
+   "sha256": "2c5c9b8a8098017235b49b143dabbeab93f92db97557d313964a190d3c9f5a27"
+  },
+  {
+   "bytes": 87124,
+   "path": "docs/battle-theatre/GOVERNANCE/library/acquired_2.json",
+   "role": "acquisition ledger",
+   "sha256": "cbcea512bb952d1a6657036641aa493f59b4b99ca21915449ac77737123b238d"
+  },
+  {
+   "bytes": 205074,
+   "path": "docs/battle-theatre/GOVERNANCE/library/acquired_3.json",
+   "role": "acquisition ledger",
+   "sha256": "2de0766fa27a0e65f1f8294d8fe8e60b0e8f5a604b6b6dcd9ae2c3af01d72ebd"
+  },
+  {
+   "bytes": 17762,
+   "path": "docs/battle-theatre/GOVERNANCE/library/candidates.json",
+   "role": "candidate list",
+   "sha256": "5924731e6e2555ea75bc70b9768312f088ad0ed61a7c9872a9ac3826e0dec178"
+  },
+  {
+   "bytes": 5981,
+   "path": "docs/battle-theatre/GOVERNANCE/library/figures-ledger.json",
+   "role": "figures ledger",
+   "sha256": "b16b8bef60499a23483d3aa5936f5666e01dd6d48fa40dca9ef7287fee56c1fb"
+  },
+  {
+   "bytes": 8664,
+   "path": "docs/battle-theatre/GOVERNANCE/library/status.json",
+   "role": "status file",
+   "sha256": "432755d7afeb3d8ce599f48f3358e2a91f29ed103117a5c27480c2af0b8cd407"
+  },
+  {
+   "bytes": 7460,
+   "path": "docs/battle-theatre/GOVERNANCE/library/status_2.json",
+   "role": "status file",
+   "sha256": "cd2c01f9920387e790134db8b4ce9ddcd6a193534505d1bebcc293ea268ca847"
+  },
+  {
+   "bytes": 4037,
+   "path": "docs/battle-theatre/GOVERNANCE/library/status_3.json",
+   "role": "status file",
+   "sha256": "e3e0ce43544640a652204e8876d55a3ef6791400337c5c633037c0a77c4971ac"
+  },
+  {
+   "missing": true,
+   "path": "docs/battle-theatre/GOVERNANCE/library/terms.json",
+   "role": "terms and robots record",
+   "sha256": null
+  },
+  {
+   "missing": true,
+   "path": "docs/battle-theatre/GOVERNANCE/library/work_queue.json",
+   "role": "work queue",
+   "sha256": null
+  },
+  {
+   "bytes": 593273,
+   "path": "docs/battle-theatre/GOVERNANCE/register_index.json",
+   "role": "register index",
+   "sha256": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c"
+  },
+  {
+   "bytes": 286267,
+   "path": "docs/battle-theatre/app/data/anim3d/clips.json",
+   "role": "asset manifest",
+   "sha256": "c726d10cfce960175f4769b4873f426e612f6318e3baec7a870400b17fc7f01d"
+  },
+  {
+   "bytes": 52345,
+   "path": "docs/battle-theatre/app/data/audio3d/sources.json",
+   "role": "asset ledger",
+   "sha256": "5eff983ec5d1a7f95a8a17cdeb77a76658cb3aac927d417b24c551933ef8e294"
+  },
+  {
+   "bytes": 670180,
+   "path": "docs/battle-theatre/app/data/figures3d/acw/manifest.json",
+   "role": "asset manifest",
+   "sha256": "51a47aba61f767a905b02ae5cbbc6e09a98c46febec7597bd94da8ac27ea3724"
+  },
+  {
+   "bytes": 5298,
+   "path": "docs/battle-theatre/app/data/figures3d/manifest.json",
+   "role": "asset manifest",
+   "sha256": "d1e0a5a6897347fe6ec97e943539705f2ca3cec066357425c370892f977a9e95"
+  },
+  {
+   "bytes": 179135,
+   "path": "docs/battle-theatre/medical/sources.json",
+   "role": "works named by DEC-OA10-12 item 5",
+   "sha256": "a0eff501c4847635deda3fe1e805e94ec30b64f83533205242d2c8f23739f7cd"
+  },
+  {
+   "bytes": 96874,
+   "path": "docs/battle-theatre/terrain/terrain_sources.json",
+   "role": "terrain source catalogue (B.9)",
+   "sha256": "607aba583365719af7c67b8d947f32d1a189b9a9369985064138580ee75548e4"
+  },
+  {
+   "bytes": 18887,
+   "path": "tools/bt/gates/lib/acquisition_list.json",
+   "role": "acquisition list",
+   "sha256": "9a635573fdd88bb4173b590f74edfa8e6a7d17e50a10de1207864243843b8bfa"
+  },
+  {
+   "bytes": 6635,
+   "path": "tools/bt/gates/lib/library_ids.json",
+   "role": "id map",
+   "sha256": "58cb3cb6fcfc5d8c51eeb0a33e1a1079e6eb02be3064ef6e4a563e76ec31f37b"
+  }
+ ],
+ "items": [
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "missing": [],
+    "rows": 71
+   },
+   "id": "Q25/Q25.1/plan-anchors",
+   "pass": true,
+   "reason": "every row of the list is anchored in the plan text on its page",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "rows": 138
+   },
+   "id": "Q25/Q25.1/status-ids-resolve",
+   "pass": true,
+   "reason": "every status id that a list row names exists in a status file",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-10-19",
+    "host": "archive.org",
+    "ledger": "acquired.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired.json:BL-3",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:56:08Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0004",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:43:29Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0005",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:43:35Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0006",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:43:37Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0007",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:43:39Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0008",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:43:41Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0009",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:56:08Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0010",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:28Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0011",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:31Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0012",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:34Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0014",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:36Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0015",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:38Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0016",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:40Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0017",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:42Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0018",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:44Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0019",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:47Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0020",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:49Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa0021",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:44:52Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1357",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:58:57Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1413",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:48:20Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1639",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:45:44Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1676",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:45:45Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1692",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:45:57Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1693",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:46:13Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1728",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:46:20Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1739",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:46:43Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1740",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:46:44Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1745",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:46:48Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1746",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:46:52Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1747",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:46:57Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1788",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:00Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1789",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:09Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1793",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:15Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1794",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:17Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1795",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:28Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1800",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:32Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1813",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:34Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1814",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:36Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1815",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:39Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1816",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:40Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1817",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:42Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1818",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:44Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1819",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:46Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa1820",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:48Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa2625",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:51Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa2627",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:47:57Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa3648",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:48:25Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa3988",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:48:01Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa4151",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:48:03Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa4165",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:48:05Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa4166",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-15T23:48:14Z",
+    "host": "www.loc.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPS-HABS-pa4187",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:24Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-BATTLEFIELD-REHAB",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:36Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-CEMETERY",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:46Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-CIVILIANS",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:49Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-COMMEM-WORKS",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:31Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-CONFED-LINE",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:52Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-CS-MONUMENTS",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:39Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-CULPS-HILL-REHAB",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:43Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-DEVILS-DEN-REHAB",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:33Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-EAST-CAVALRY",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:28Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-FIRST-DAY",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:44Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-GRASSLANDS",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:40Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-LRT-REHAB",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:26Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-NATURAL-FEATURES",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:47Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-PLANNING",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:27Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-PLANTS",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:34Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-TOWN",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:30Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-US-LINE",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:51Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-US-MONUMENTS",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:37Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-WARFIELD-HOUSE",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-13T19:00:42Z",
+    "host": "www.nps.gov",
+    "ledger": "acquired_3.json"
+   },
+   "id": "Q25/Q25.1/untracked/acquired_3.json:NPSGOV-WISLER-HOUSE",
+   "pass": false,
+   "reason": "no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-10-19",
+    "host": null,
+    "ledger": "candidates.json"
+   },
+   "id": "Q25/Q25.1/untracked/candidates.json:BL3",
+   "pass": false,
+   "reason": "no status row reaches this candidate entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-11-11",
+    "host": null,
+    "ledger": "figures-ledger.json"
+   },
+   "id": "Q25/Q25.1/untracked/figures-ledger.json:FIG-L-ACWII-MOD",
+   "pass": false,
+   "reason": "no status row reaches this figures-ledger entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.1",
+   "evidence": {
+    "date": "2026-10-31",
+    "host": null,
+    "ledger": "figures-ledger.json"
+   },
+   "id": "Q25/Q25.1/untracked/figures-ledger.json:FIG-L-GOULD-1869",
+   "pass": false,
+   "reason": "no status row reaches this figures-ledger entry through the id map (untracked source, silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "Bachelder maps, LOC Civil War Maps",
+    "parts": [
+     {
+      "part": "LOC-MAPS",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier resea",
+      "result": "FAIL",
+      "terminal": "blocked"
+     },
+     {
+      "part": "TM-BACHELDER-1876",
+      "reason": "acquired.json/TM-B1876-S1 lacks text quality; acquired.json/TM-B1876-S2 lacks text quality; acquired.json/TM-B1876-S3 lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     },
+     {
+      "part": "TM-BACHELDER-1883#ingested",
+      "reason": "acquired.json/TM-B1883-S3 lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     },
+     {
+      "part": "TM-BACHELDER-1883#remainder",
+      "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+      "result": "FAIL",
+      "terminal": null
+     },
+     {
+      "part": "TM-BACHELDER-1886-HOURLY",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after 2026-10-21 (2026-11-11 JACOBS-1864; 2026-11-11 LETTERMAN-1866; 2026-11-11 BACH-KEY-1864)",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "LOC-MAPS",
+     "TM-BACHELDER-1876",
+     "TM-BACHELDER-1883",
+     "TM-BACHELDER-1886-HOURLY"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C11-BACHELDER-MAPS-LOC",
+   "pass": false,
+   "reason": "LOC-MAPS: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record; TM-BACHELDER-1876: acquired.json/TM-B1876-S1 lacks text quality; acquired.json/TM-B1876-S2 lacks text quality; acquired.json/TM-B1876-S3 lacks text quality; TM-BACHELDER-1883#ingested: acquired.json/TM-B1883-S3 lacks text quality; TM-BACHELDER-1883#remainder: no ",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "Bachelder papers (originals), New Hampshire Historical Society",
+    "parts": [
+     {
+      "part": "BACHELDER",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "BACHELDER"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C11-BACHELDER-PAPERS",
+   "pass": false,
+   "reason": "BACHELDER: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "Cope survey, Elliot map via LOC, NARA, NPS"
+   },
+   "id": "Q25/Q25.2/row/C11-COPE-ELLIOT",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "Hopkins 1858 Map of Adams Co., LOC",
+    "parts": [
+     {
+      "part": "LOC-MAPS",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier resea",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "LOC-MAPS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C11-HOPKINS-1858",
+   "pass": false,
+   "reason": "LOC-MAPS: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "OR (1972 reprint scans), Internet Archive"
+   },
+   "id": "Q25/Q25.2/row/C11-OR-1972-IA",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "OR Atlas (plates 1-175)",
+    "parts": [
+     {
+      "part": "OR-ATLAS#ingested",
+      "reason": "acquired.json/OR-ATLAS lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     },
+     {
+      "part": "OR-ATLAS#remainder",
+      "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+      "result": "FAIL",
+      "terminal": null
+     },
+     {
+      "part": "TM-OR-ATLAS-GETTYSBURG",
+      "reason": "acquired.json/TM-OR-ATLAS lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "OR-ATLAS",
+     "TM-OR-ATLAS-GETTYSBURG"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C11-OR-ATLAS",
+   "pass": false,
+   "reason": "OR-ATLAS#ingested: acquired.json/OR-ATLAS lacks text quality; OR-ATLAS#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record); TM-OR-ATLAS-GETTYSBURG: acquired.json/TM-OR-ATLAS lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "OR volume 27 alternate HathiTrust copies (second witness)"
+   },
+   "id": "Q25/Q25.2/row/C11-OR27-ALT-HATHI",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "Official Records, Series I, vol. 27, Part 1 (Union reports)",
+    "parts": [
+     {
+      "part": "OR-27-1",
+      "reason": "no second-witness record for the Official Records (X.3 a: status diffed or unreachable, with host and date)",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "OR-27-1"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C11-OR27-P1",
+   "pass": false,
+   "reason": "OR-27-1: no second-witness record for the Official Records (X.3 a: status diffed or unreachable, with host and date)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "Official Records vol. 27, Part 2 (Confederate reports)",
+    "parts": [
+     {
+      "part": "OR-27-2",
+      "reason": "no second-witness record for the Official Records (X.3 a: status diffed or unreachable, with host and date)",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "OR-27-2"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C11-OR27-P2",
+   "pass": false,
+   "reason": "OR-27-2: no second-witness record for the Official Records (X.3 a: status diffed or unreachable, with host and date)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "Official Records vol. 27, Part 3 (correspondence)",
+    "parts": [
+     {
+      "part": "OR-27-3",
+      "reason": "no second-witness record for the Official Records (X.3 a: status diffed or unreachable, with host and date)",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "OR-27-3"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C11-OR27-P3",
+   "pass": false,
+   "reason": "OR-27-3: no second-witness record for the Official Records (X.3 a: status diffed or unreachable, with host and date)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "Warren 1895 sheet (Julius Bien, 1:23,000, spot heights), David Rumsey",
+    "parts": [
+     {
+      "part": "RUMSEY",
+      "reason": "no register id (a viewer-only source needs an open entry); no terms-read record (host, locator, date, what the terms permit)",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "RUMSEY"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C11-WARREN-1895-RUMSEY",
+   "pass": false,
+   "reason": "RUMSEY: no register id (a viewer-only source needs an open entry); no terms-read record (host, locator, date, what the terms permit)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "Warren map, LOC 1886 tracing extract",
+    "parts": [
+     {
+      "part": "LOC-MAPS",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier resea",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "LOC-MAPS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C11-WARREN-LOC-1886",
+   "pass": false,
+   "reason": "LOC-MAPS: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.1",
+    "label": "Warren map, NARA Record Group 77 (Civil Works Map File E 81)",
+    "parts": [
+     {
+      "part": "NARA-WARREN",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response)",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "NARA-WARREN"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C11-WARREN-NARA",
+   "pass": false,
+   "reason": "NARA-WARREN: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "Agricultural and damage records (PHMC census extracts, 1860 census, 1868 damage claims)"
+   },
+   "id": "Q25/Q25.2/row/C12-AGRI-DAMAGE",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "Allmaps (georeferencing IIIF maps)"
+   },
+   "id": "Q25/Q25.2/row/C12-ALLMAPS",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "Knowles/Esri/Smithsonian reconstruction"
+   },
+   "id": "Q25/Q25.2/row/C12-KNOWLES-RECON",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "LOC Civil War photographs",
+    "parts": [
+     {
+      "part": "LOC-PHOTO",
+      "reason": "no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     },
+     {
+      "part": "PM-LOC-DERIVATIVES",
+      "reason": "acquired_3.json/PM-LOC-DERIVATIVES lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     },
+     {
+      "part": "PM-LOC-RECORDS",
+      "reason": "acquired_3.json/PM-LOC-RECORDS lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "LOC-PHOTO",
+     "PM-LOC-DERIVATIVES",
+     "PM-LOC-RECORDS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C12-LOC-CWP",
+   "pass": false,
+   "reason": "LOC-PHOTO: no named next action; no work-queue entry; PM-LOC-DERIVATIVES: acquired_3.json/PM-LOC-DERIVATIVES lacks text quality; PM-LOC-RECORDS: acquired_3.json/PM-LOC-RECORDS lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "NPS Cultural Landscape Reports, historic structure reports, farm histories",
+    "parts": [
+     {
+      "part": "NPS-CLR#ingested",
+      "reason": "acquired_3.json/PM-NPS-ROT-FIGURES lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     },
+     {
+      "part": "NPS-CLR#remainder",
+      "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+      "result": "FAIL",
+      "terminal": null
+     }
+    ],
+    "status_ids": [
+     "NPS-CLR"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C12-NPS-CLR-HSR",
+   "pass": false,
+   "reason": "NPS-CLR#ingested: acquired_3.json/PM-NPS-ROT-FIGURES lacks text quality; NPS-CLR#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "NPS geologic GIS catalog dataset"
+   },
+   "id": "Q25/Q25.2/row/C12-NPS-GEOLOGIC",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "NPS GIS and 1863 georeferencing precedent"
+   },
+   "id": "Q25/Q25.2/row/C12-NPS-GIS-1863",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "NPS natural features and plants"
+   },
+   "id": "Q25/Q25.2/row/C12-NPS-NATURAL",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "NPS Then and Now (photo-match references)",
+    "parts": [
+     {
+      "part": "PM-NPS-THEN-AND-NOW",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "PM-NPS-THEN-AND-NOW"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C12-NPS-THEN-NOW",
+   "pass": true,
+   "reason": "ingested, with its evidence",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "NPS Tipton photographic prints (museum PDF)"
+   },
+   "id": "Q25/Q25.2/row/C12-NPS-TIPTON",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "South Central Pennsylvania 2017 QL2 lidar",
+    "parts": [
+     {
+      "part": "LIDAR-PA17",
+      "reason": "no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "LIDAR-PA17"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C12-PA-2017-QL2",
+   "pass": false,
+   "reason": "LIDAR-PA17: no named next action; no work-queue entry",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "PAMAP lidar 2006-2008",
+    "parts": [
+     {
+      "part": "LIDAR-PAMAP",
+      "reason": "no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "LIDAR-PAMAP"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C12-PAMAP",
+   "pass": false,
+   "reason": "LIDAR-PAMAP: no named next action; no work-queue entry",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "Photographic repositories (NARA RG 111-B, HABS/HAER, stereoview collections)"
+   },
+   "id": "Q25/Q25.2/row/C12-PHOTO-REPOS",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.2",
+    "label": "USGS 3DEP lidar (public EPT bucket)",
+    "parts": [
+     {
+      "part": "LIDAR-3DEP",
+      "reason": "no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "LIDAR-3DEP"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C12-USGS-3DEP",
+   "pass": false,
+   "reason": "LIDAR-3DEP: no named next action; no work-queue entry",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Acoustics (Ross; Maher gunshot acoustics)"
+   },
+   "id": "Q25/Q25.2/row/C13-ACOUSTICS",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Battles and Leaders of the Civil War"
+   },
+   "id": "Q25/Q25.2/row/C13-BATTLES-LEADERS",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Busey and Busey, Union Casualties and Confederate Casualties; Busey, These Honored Dead; Krick, Gettysburg Death Roster; Coco, Gettysburg’s Confederate Dead"
+   },
+   "id": "Q25/Q25.2/row/C13-BUSEY-KRICK-CASUALTY-ROLLS",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Busey and Martin, Regimental Strengths and Losses at Gettysburg",
+    "parts": [
+     {
+      "part": "PRINT",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "PRINT"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-BUSEY-MARTIN",
+   "pass": false,
+   "reason": "PRINT: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Myers, Jennie McCreary, Sarah Broadhead, Elizabeth Thorn, Wills letters",
+    "parts": [
+     {
+      "part": "WITNESS#ingested",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "WITNESS#remainder",
+      "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+      "result": "FAIL",
+      "terminal": null
+     }
+    ],
+    "status_ids": [
+     "WITNESS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-CIVILIAN-WITNESSES",
+   "pass": false,
+   "reason": "WITNESS#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Clark, Histories of the Several Regiments from North Carolina"
+   },
+   "id": "Q25/Q25.2/row/C13-CLARK-NC",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Coates and Thomas, An Introduction to Civil War Small Arms; Thomas, Ready, Aim, Fire!",
+    "parts": [
+     {
+      "part": "PRINT",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "PRINT"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-COATES-THOMAS",
+   "pass": false,
+   "reason": "PRINT: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Coco, A Vast Sea of Misery and his Gettysburg medical works",
+    "parts": [
+     {
+      "part": "PRINT",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "PRINT"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-COCO",
+   "pass": false,
+   "reason": "PRINT: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Coddington, The Gettysburg Campaign",
+    "parts": [
+     {
+      "part": "PRINT",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "PRINT"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-CODDINGTON",
+   "pass": false,
+   "reason": "PRINT: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Dyer, Compendium of the War of the Rebellion"
+   },
+   "id": "Q25/Q25.2/row/C13-DYER",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Fox, Regimental Losses in the American Civil War",
+    "parts": [
+     {
+      "part": "FOX",
+      "reason": "acquired.json/FOX-1889 lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "FOX"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-FOX",
+   "pass": false,
+   "reason": "FOX: acquired.json/FOX-1889 lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Frassanito, Gettysburg: A Journey in Time and later works"
+   },
+   "id": "Q25/Q25.2/row/C13-FRASSANITO",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Gottfried, The Maps of Gettysburg",
+    "parts": [
+     {
+      "part": "PRINT",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "PRINT"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-GOTTFRIED",
+   "pass": false,
+   "reason": "PRINT: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Les Jensen, Cadet Grey and Butternut Brown",
+    "parts": [
+     {
+      "part": "PRINT",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "PRINT"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-JENSEN",
+   "pass": false,
+   "reason": "PRINT: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Letterman’s report within OR vol. 27 Part 1; Medical Recollections (1866)",
+    "parts": [
+     {
+      "part": "OR-27-1",
+      "reason": "no second-witness record for the Official Records (X.3 a: status diffed or unreachable, with host and date)",
+      "result": "FAIL",
+      "terminal": "ingested"
+     },
+     {
+      "part": "LETTERMAN-1866",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "OR-27-1",
+     "LETTERMAN-1866"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-LETTERMAN",
+   "pass": false,
+   "reason": "OR-27-1: no second-witness record for the Official Records (X.3 a: status diffed or unreachable, with host and date)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Maine at Gettysburg (1898)",
+    "parts": [
+     {
+      "part": "ME-GB",
+      "reason": "acquired.json/ME-GB-1898 lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "ME-GB"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-ME-GB",
+   "pass": false,
+   "reason": "ME-GB: acquired.json/ME-GB-1898 lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Michigan at Gettysburg (1889)",
+    "parts": [
+     {
+      "part": "MI-GB",
+      "reason": "acquired.json/MI-GB-1889 lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "MI-GB"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-MI-GB",
+   "pass": false,
+   "reason": "MI-GB: acquired.json/MI-GB-1889 lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Museum collections (Smithsonian Open Access, NPS Gettysburg museum, state museums)"
+   },
+   "id": "Q25/Q25.2/row/C13-MUSEUM-COLLECTIONS",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Chronicling America and LOC newspapers",
+    "parts": [
+     {
+      "part": "NEWS#ingested",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "NEWS#remainder",
+      "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+      "result": "FAIL",
+      "terminal": null
+     }
+    ],
+    "status_ids": [
+     "NEWS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-NEWSPAPERS",
+   "pass": false,
+   "reason": "NEWS#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "NPS Civil War Series and handbooks"
+   },
+   "id": "Q25/Q25.2/row/C13-NPS-CIVIL-WAR-SERIES",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "NPS Gettysburg Seminar Papers",
+    "parts": [
+     {
+      "part": "NPS-SEM",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after 2026-11-11 (2026-11-13 PM-NPS-SLAUGHTER-PEN-PDF; 2026-11-13 NPS-DEV-POLICY; 2026-11-13 NPS-HSR-SLYDER)",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "NPS-SEM"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-NPS-SEMINAR",
+   "pass": false,
+   "reason": "NPS-SEM: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after 2026-11-11 (2026-11-13 PM-NPS-SLAUGHTER-PEN-PDF; 2026-11-13 NPS-DEV-POLICY; 2026-11-13 NPS-HSR-SLYDER)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "NPS Soldiers and Sailors database",
+    "parts": [
+     {
+      "part": "NPS-SS#lookups",
+      "reason": "no lookup recorded: with no lookup made the whole row is scheduled with its next action; no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     },
+     {
+      "part": "NPS-SS#bulk",
+      "reason": "no register id (the bulk remainder (blocked) needs an open entry); no reason for the block of the bulk remainder (bulk use needs a permission nobody is asked for, DEC-019)",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "NPS-SS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-NPS-SSS",
+   "pass": false,
+   "reason": "NPS-SS#lookups: no lookup recorded: with no lookup made the whole row is scheduled with its next action; no named next action; no work-queue entry; NPS-SS#bulk: no register id (the bulk remainder (blocked) needs an open entry); no reason for the block of the bulk remainder (bulk use needs a permission nobody is asked for, DEC-019)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "New York at Gettysburg (Final Report, 3 vols.)",
+    "parts": [
+     {
+      "part": "NY-GB",
+      "reason": "acquired.json/NY-GB-1900 lacks text quality; acquired.json/NY-GB-1900-v2 lacks text quality; acquired.json/NY-GB-1902-v3 lacks text quality; acquired.json/NY-GB-1900-v3-w lacks text quality; acquired.json/NY-GB-1902-v3-w2 lacks text quality; acquired.json/NY-GB-1900-v1-w lacks text quality; acquired",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "NY-GB"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-NY-GB",
+   "pass": false,
+   "reason": "NY-GB: acquired.json/NY-GB-1900 lacks text quality; acquired.json/NY-GB-1900-v2 lacks text quality; acquired.json/NY-GB-1902-v3 lacks text quality; acquired.json/NY-GB-1900-v3-w lacks text quality; acquired.json/NY-GB-1902-v3-w2 lacks text quality; acquired.json/NY-GB-1900-v1-w lacks text quality; acquired.json/NY-GB-1900-v1-w2 lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Ordnance and drill manuals (Gibbon, 1861 Ordnance Manual, Hardee, Casey)",
+    "parts": [
+     {
+      "part": "ORDNANCE",
+      "reason": "acquired.json/ORDNANCE-1861 lacks text quality; acquired.json/GIBBON-1860 lacks text quality; acquired.json/CASEY-1862-1 lacks text quality; acquired.json/CASEY-1862-2 lacks text quality; acquired.json/FIELDART-1863 lacks text quality; acquired.json/HARDEE-1861a lacks text quality; acquired.json/HAR",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "ORDNANCE"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-ORDNANCE-DRILL",
+   "pass": false,
+   "reason": "ORDNANCE: acquired.json/ORDNANCE-1861 lacks text quality; acquired.json/GIBBON-1860 lacks text quality; acquired.json/CASEY-1862-1 lacks text quality; acquired.json/CASEY-1862-2 lacks text quality; acquired.json/FIELDART-1863 lacks text quality; acquired.json/HARDEE-1861a lacks text quality; acquired.json/HARDEE-1861b lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Pennsylvania at Gettysburg",
+    "parts": [
+     {
+      "part": "PA-GB",
+      "reason": "acquired.json/PA-GB-1904 lacks text quality; acquired.json/PA-GB-1914a lacks text quality; acquired.json/PA-GB-1914b lacks text quality; acquired.json/PA-GB-1914-v2 lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "PA-GB"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-PA-GB",
+   "pass": false,
+   "reason": "PA-GB: acquired.json/PA-GB-1904 lacks text quality; acquired.json/PA-GB-1914a lacks text quality; acquired.json/PA-GB-1914b lacks text quality; acquired.json/PA-GB-1914-v2 lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Pfanz, Gettysburg: The First Day, The Second Day, Culp’s Hill and Cemetery Hill",
+    "parts": [
+     {
+      "part": "PRINT",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "PRINT"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-PFANZ",
+   "pass": false,
+   "reason": "PRINT: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Phisterer, The Union Army"
+   },
+   "id": "Q25/Q25.2/row/C13-PHISTERER",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Sharpshooter and field-hospital references"
+   },
+   "id": "Q25/Q25.2/row/C13-SHARPSHOOTER-HOSPITAL-REFS",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Southern Historical Society Papers",
+    "parts": [
+     {
+      "part": "SHSP#ingested",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "SHSP#remainder",
+      "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+      "result": "FAIL",
+      "terminal": null
+     }
+    ],
+    "status_ids": [
+     "SHSP"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-SHSP",
+   "pass": false,
+   "reason": "SHSP#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Other state volumes (MA, MN, VT, OH, NJ, WI, IN, VA, NC, GA, AL, SC, TX)",
+    "parts": [
+     {
+      "part": "STATE-OTHER#ingested",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "STATE-OTHER#remainder",
+      "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+      "result": "FAIL",
+      "terminal": null
+     }
+    ],
+    "status_ids": [
+     "STATE-OTHER"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-STATE-OTHER",
+   "pass": false,
+   "reason": "STATE-OTHER#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Stone Sentinels",
+    "parts": [
+     {
+      "part": "STONE-S",
+      "reason": "no named next action; no work-queue entry; the tier is not recorded as lead (p. 134, E.1, E.7)",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "STONE-S"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-STONE-SENTINELS",
+   "pass": false,
+   "reason": "STONE-S: no named next action; no work-queue entry; the tier is not recorded as lead (p. 134, E.1, E.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Uniform and equipment references"
+   },
+   "id": "Q25/Q25.2/row/C13-UNIFORM-REFS",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Warner, Generals in Blue and Generals in Gray",
+    "parts": [
+     {
+      "part": "PRINT",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "PRINT"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-WARNER",
+   "pass": false,
+   "reason": "PRINT: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Weather and astronomy (AMS, Signal Corps and Jacobs observations, ephemeris)",
+    "parts": [
+     {
+      "part": "JACOBS-1864",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "JACOBS-1864"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-WEATHER-ASTRONOMY",
+   "pass": true,
+   "reason": "ingested, with its evidence",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.3",
+    "label": "Witness accounts: Fremantle, Haskell, Chamberlain, Longstreet, Alexander, Gibbon, Sorrel, Hancock, Meade, Tillie Pierce, Sallie",
+    "parts": [
+     {
+      "part": "WITNESS#ingested",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "WITNESS#remainder",
+      "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+      "result": "FAIL",
+      "terminal": null
+     }
+    ],
+    "status_ids": [
+     "WITNESS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C13-WITNESS-ACCOUNTS",
+   "pass": false,
+   "reason": "WITNESS#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "C.1.4",
+    "label": "Autonomous-method sources (motion, audio, assets), licence readings in Part C.10",
+    "parts": [
+     {
+      "part": "MOTION#CMU-Mocap",
+      "reason": "no named next action; no work-queue entry; no owner step (an account or a licence acceptance is an owner-only act) written beside it",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     },
+     {
+      "part": "MOTION#100STYLE-CC-BY",
+      "reason": "no named next action; no work-queue entry; no owner step (an account or a licence acceptance is an owner-only act) written beside it",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     },
+     {
+      "part": "MOTION#Mixamo-Adobe-ID-owner-act",
+      "reason": "no named next action; no work-queue entry; no owner step (an account or a licence acceptance is an owner-only act) written beside it",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     },
+     {
+      "part": "AUDIO#Freesound-CC0-CC-BY",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     },
+     {
+      "part": "AUDIO#Smithsonian-Open-Access",
+      "reason": "no named next action; no work-queue entry; no owner step (an account or a licence acceptance is an owner-only act) written beside it",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     },
+     {
+      "part": "AUDIO#Poly-Haven-CC0",
+      "reason": "no named next action; no work-queue entry; no owner step (an account or a licence acceptance is an owner-only act) written beside it",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "MOTION",
+     "AUDIO"
+    ]
+   },
+   "id": "Q25/Q25.2/row/C14-AUTONOMOUS-SOURCES",
+   "pass": false,
+   "reason": "MOTION#CMU-Mocap: no named next action; no work-queue entry; no owner step (an account or a licence acceptance is an owner-only act) written beside it; MOTION#100STYLE-CC-BY: no named next action; no work-queue entry; no owner step (an account or a licence acceptance is an owner-only act) written beside it; MOTION#Mixamo-Adobe-ID-owner-act: no named next action; no work-queue entry; no owner step (an account or a licence acceptance is an owner-only act) written beside it; AUDIO#Smithsonian-Open-Access: no named next action; no work-queue entry; no owner step (an account or a licence acceptance",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "D.4.1",
+    "label": "American Battlefield Trust library"
+   },
+   "id": "Q25/Q25.2/row/D41-ABT-LIBRARY",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "D.4.1",
+    "label": "eHistory (Ohio State) transcribed text of the Official Records, serials 043 to 045"
+   },
+   "id": "Q25/Q25.2/row/D41-EHISTORY-TEXT-LAYER",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "D.4.1",
+    "label": "Gettysburg Daily Blog (plan handling: skip)"
+   },
+   "id": "Q25/Q25.2/row/D41-GETTYSBURG-DAILY-BLOG",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "D.4.2",
+    "label": "Ladd edition, The Bachelder Papers: Gettysburg in Their Own Words",
+    "parts": [
+     {
+      "part": "BACHELDER",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "BACHELDER"
+    ]
+   },
+   "id": "Q25/Q25.2/row/D42-LADD-EDITION",
+   "pass": false,
+   "reason": "BACHELDER: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "D.4.2",
+    "label": "Modern reprints with new introductions or indexing"
+   },
+   "id": "Q25/Q25.2/row/D42-MODERN-REPRINTS",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "D.4.2",
+    "label": "NARA catalog, Fold3, Gettysburg Foundation holdings, Gettysburg Discussion Group (not reached in the research)"
+   },
+   "id": "Q25/Q25.2/row/D42-NOT-REACHED",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "S. D. Gross, A Manual of Military Surgery, or Hints on the Emergencies of Field, Camp and Hospital P"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/GROSS-1861",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Gross's text reprinted at Augusta, Georgia: Steam Power Press, Chronicle & Sentinel, 1861 (a Confede"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/GROSS-1861-AUGUSTA",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "S. D. Gross, A Manual of Military Surgery, second edition, Philadelphia: J. B. Lippincott & Co., 186"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/GROSS-1862-2ED",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Gross's text reprinted at Richmond: J. W. Randolph, 1862 (a Confederate printing; its preface says t"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/GROSS-1862-RICHMOND",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Medical Recollections of the Army of the Potomac, New York: D. Appleton and Company, 1866 (title pag",
+    "parts": [
+     {
+      "part": "LETTERMAN-1866",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "LETTERMAN-1866"
+    ]
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/LETTERMAN-1866",
+   "pass": true,
+   "reason": "ingested, with its evidence",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "The Medical and Surgical History of the War of the Rebellion. (1861-1865) Part I. Volume I. Medical "
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P1V1-1870",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Part I, Volume II (the first surgical volume), Washington: Government Printing Office, 1870; its tab"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P1V2-1870",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "a second scan of the 1870 first surgical volume, identified by matching chapter and topic counts (it"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P1V2-1870-ALT",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "The Medical and Surgical History of the War of the Rebellion. Part II, Volume I. (2nd Medical volume"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P2V1-1879",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Part II, Volume II, Surgical History, first issue, Washington: Government Printing Office, 1876 (cha"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P2V2-1876",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Part II, Volume II, Surgical History, second issue, Washington: Government Printing Office, 1877"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P2V2-1877-2NDISSUE",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "The Medical and Surgical History of the War of the Rebellion. Part III, Volume I. (3rd Medical volum"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P3V1-1888",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Part III, Volume II, Surgical History, first issue, Washington: Government Printing Office, 1883 (ch"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P3V2-1883",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Part III, Volume II, Surgical History, second issue, Washington: Government Printing Office, 1883"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/MSHWR-P3V2-1883-2NDISSUE",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Tripler and Blackman, Hand-book for the Military Surgeon, second edition, Cincinnati: Robert Clarke "
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/TRIPLER-BLACKMAN-1861-2ED",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Tripler and Blackman, Hand-book for the Military Surgeon, Cincinnati: Robert Clarke & Co., 1861; no "
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/TRIPLER-BLACKMAN-1861-A",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Tripler and Blackman, Hand-book for the Military Surgeon, third edition, Cincinnati: Robert Clarke &"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/TRIPLER-BLACKMAN-1862-3ED",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "the same third edition, a different scan (Google; the file begins with Google's notice); use it to c"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/TRIPLER-BLACKMAN-1862-3ED-ALT",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Hospital gangrene : a lecture delivered to Prof. Blackman's class at the Medical College of Ohio, se"
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/TRIPLER-GANGRENE-1863",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Outlines of the chief camp diseases of the United States armies as observed during the present war. "
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/WOODWARD-CAMP-DISEASES-1863",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1862; the title page "
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/WOODWARD-STEWARD-1862",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "DEC-OA10-12",
+    "label": "Woodward, The Hospital Steward's Manual, Philadelphia: J. B. Lippincott & Co., 1863 (entered 1862); "
+   },
+   "id": "Q25/Q25.2/row/DEC-OA10-12/WOODWARD-STEWARD-1863",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "Warren, \"Battle Field of Gettysburg\", LOC 1886 Corps of Engineers tracing-linen extract (call no. G3",
+    "parts": [
+     {
+      "part": "LOC-MAPS",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier resea",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "LOC-MAPS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.001",
+   "pass": false,
+   "reason": "LOC-MAPS: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.001"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "Warren, \"Battle Field of Gettysburg\", National Archives original, RG 77 Civil Works Map File, Entry ",
+    "parts": [
+     {
+      "part": "NARA-WARREN",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response)",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "NARA-WARREN"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.002",
+   "pass": false,
+   "reason": "NARA-WARREN: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.002"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "Warren / War Department \"Map of the battle-field of Gettysburg\" 1895 (Julius Bien), David Rumsey (Li",
+    "parts": [
+     {
+      "part": "RUMSEY",
+      "reason": "no register id (a viewer-only source needs an open entry); no terms-read record (host, locator, date, what the terms permit)",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "RUMSEY"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.003",
+   "pass": false,
+   "reason": "RUMSEY: no register id (a viewer-only source needs an open entry); no terms-read record (host, locator, date, what the terms permit)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.003"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "Bachelder, \"Map of the battle field of Gettysburg, July 1st, 2nd, 3rd 1863\" (1876, Office of the Chi",
+    "parts": [
+     {
+      "part": "TM-BACHELDER-1876",
+      "reason": "acquired.json/TM-B1876-S1 lacks text quality; acquired.json/TM-B1876-S2 lacks text quality; acquired.json/TM-B1876-S3 lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "TM-BACHELDER-1876"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.004",
+   "pass": false,
+   "reason": "TM-BACHELDER-1876: acquired.json/TM-B1876-S1 lacks text quality; acquired.json/TM-B1876-S2 lacks text quality; acquired.json/TM-B1876-S3 lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.004"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "Bachelder day-by-day 1876 sheets, W&M special collections"
+   },
+   "id": "Q25/Q25.2/row/R12.005",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.005"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "Bachelder Papers 1863-1894 (10 boxes, 7 volumes; microfilm 102264), New Hampshire Historical Society",
+    "parts": [
+     {
+      "part": "BACHELDER",
+      "reason": "no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "BACHELDER"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.006",
+   "pass": false,
+   "reason": "BACHELDER: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.006"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "Cope map, NARA E 105a-1 (survey made August to October 1863 by Emmor B. Cope on horseback)"
+   },
+   "id": "Q25/Q25.2/row/R12.007",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.007"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "Hopkins, \"Map of Adams Co., Pennsylvania\" 1858 (Converse, Philadelphia), LOC call no. G3823.A3 1858 ",
+    "parts": [
+     {
+      "part": "LOC-MAPS",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier resea",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "LOC-MAPS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.008",
+   "pass": false,
+   "reason": "LOC-MAPS: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.008"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "Michler item at LOC (g3880.cw0508800)"
+   },
+   "id": "Q25/Q25.2/row/R12.009",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.009"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "Other RG 77 items described by NARA: Elliot's annotated map (graves, dead horses, defenses, field ho"
+   },
+   "id": "Q25/Q25.2/row/R12.010",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.010"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "LOC Civil War Maps collection",
+    "parts": [
+     {
+      "part": "LOC-MAPS",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier resea",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "LOC-MAPS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.011",
+   "pass": false,
+   "reason": "LOC-MAPS: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (2026-11-11 PM-LOC-RECORDS; 2026-11-13 PM-LOC-DERIVATIVES; 2026-11-14 PM-LOC-WIDE); the earlier research is not a dated record",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.011"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "OR Atlas (175 plates) on eHistory",
+    "parts": [
+     {
+      "part": "OR-ATLAS#ingested",
+      "reason": "acquired.json/OR-ATLAS lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     },
+     {
+      "part": "OR-ATLAS#remainder",
+      "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+      "result": "FAIL",
+      "terminal": null
+     },
+     {
+      "part": "TM-OR-ATLAS-GETTYSBURG",
+      "reason": "acquired.json/TM-OR-ATLAS lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "OR-ATLAS",
+     "TM-OR-ATLAS-GETTYSBURG"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.012",
+   "pass": false,
+   "reason": "OR-ATLAS#ingested: acquired.json/OR-ATLAS lacks text quality; OR-ATLAS#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record); TM-OR-ATLAS-GETTYSBURG: acquired.json/TM-OR-ATLAS lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.012"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 1",
+    "label": "NPS-cited War Department and Gettysburg Battlefield Memorial Association maps of 1863, 1868 and 1872"
+   },
+   "id": "Q25/Q25.2/row/R12.013",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.013"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 2",
+    "label": "NPS park GIS 1863 layers (Curtis Musselman, park GIS)"
+   },
+   "id": "Q25/Q25.2/row/R12.014",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.014"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 2",
+    "label": "Knowles et al. 2013 reconstruction (Anne Kelly Knowles lead; Dan Miller, Alex Tait for 1863 terrain;"
+   },
+   "id": "Q25/Q25.2/row/R12.015",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.015"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 2",
+    "label": "NPS rehabilitation program"
+   },
+   "id": "Q25/Q25.2/row/R12.016",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.016"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 2",
+    "label": "NPS Cultural Landscape Reports and Historic Structure Reports, farm histories, Seminar Papers",
+    "parts": [
+     {
+      "part": "NPS-CLR#ingested",
+      "reason": "acquired_3.json/PM-NPS-ROT-FIGURES lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     },
+     {
+      "part": "NPS-CLR#remainder",
+      "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+      "result": "FAIL",
+      "terminal": null
+     },
+     {
+      "part": "NPS-SEM",
+      "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after 2026-11-11 (2026-11-13 PM-NPS-SLAUGHTER-PEN-PDF; 2026-11-13 NPS-DEV-POLICY; 2026-11-13 NPS-HSR-SLYDER)",
+      "result": "FAIL",
+      "terminal": "blocked"
+     }
+    ],
+    "status_ids": [
+     "NPS-CLR",
+     "NPS-SEM"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.017",
+   "pass": false,
+   "reason": "NPS-CLR#ingested: acquired_3.json/PM-NPS-ROT-FIGURES lacks text quality; NPS-CLR#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record); NPS-SEM: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after 2026-11-11 (2026-11-13 PM-NPS-SLAUGHTER-PEN-PDF; 2026-11-13 NPS-DEV-POLICY; 2026-11-13 NPS-HSR-SLYDER)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.017"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 2",
+    "label": "Stone Sentinels, Farms and Buildings",
+    "parts": [
+     {
+      "part": "STONE-S",
+      "reason": "no named next action; no work-queue entry; the tier is not recorded as lead (p. 134, E.1, E.7)",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "STONE-S"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.018",
+   "pass": false,
+   "reason": "STONE-S: no named next action; no work-queue entry; the tier is not recorded as lead (p. 134, E.1, E.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.018"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 2",
+    "label": "NPS drone photogrammetry, Little Round Top west face (52 acres; senseFly eBee RTK, DJI Inspire 2)"
+   },
+   "id": "Q25/Q25.2/row/R12.019",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.019"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 2",
+    "label": "Existing game and model maps (Ultimate General discussion)"
+   },
+   "id": "Q25/Q25.2/row/R12.020",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.020"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "USGS South Central Pennsylvania 2017 QL2 LiDAR (13 counties including Adams; collected 2017-11-21 to",
+    "parts": [
+     {
+      "part": "LIDAR-PA17",
+      "reason": "no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "LIDAR-PA17"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.021",
+   "pass": false,
+   "reason": "LIDAR-PA17: no named next action; no work-queue entry",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.021"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "USGS 3DEP access routes",
+    "parts": [
+     {
+      "part": "LIDAR-3DEP",
+      "reason": "no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "LIDAR-3DEP"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.022",
+   "pass": false,
+   "reason": "LIDAR-3DEP: no named next action; no work-queue entry",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.022"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "PAMAP LiDAR 2006-2008 (Adams included; Adams listed among 2007 counties, date to verify)",
+    "parts": [
+     {
+      "part": "LIDAR-PAMAP",
+      "reason": "no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "LIDAR-PAMAP"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.023",
+   "pass": false,
+   "reason": "LIDAR-PAMAP: no named next action; no work-queue entry",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.023"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "Adams County ArcGIS server REST services"
+   },
+   "id": "Q25/Q25.2/row/R12.024",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.024"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "NPS Vegetation Mapping Inventory, GETT/EISE"
+   },
+   "id": "Q25/Q25.2/row/R12.025",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.025"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "NPS digital geology of GETT (from Stose and Bascom 1929, 1:62,500), IRMA ref 1041800"
+   },
+   "id": "Q25/Q25.2/row/R12.026",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.026"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "PASDA SSURGO (gSSURGO) soils for Pennsylvania"
+   },
+   "id": "Q25/Q25.2/row/R12.027",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.027"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "Penn Pilot historic aerials (PA Geological Survey / Penn State), 1937-42 and 1967-72",
+    "parts": [
+     {
+      "part": "PENN-PILOT",
+      "reason": "no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "PENN-PILOT"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.028",
+   "pass": false,
+   "reason": "PENN-PILOT: no named next action; no work-queue entry",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.028"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "Adams County 1996 orthophoto (about 2-ft pixels) and 1996 DEM (private firm, 5-ft contours, 1:4,800 "
+   },
+   "id": "Q25/Q25.2/row/R12.029",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.029"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "PA DCNR hydrography, USGS NHD"
+   },
+   "id": "Q25/Q25.2/row/R12.030",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.030"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 3",
+    "label": "NPS small-scale base (1:100,000 water quality base)"
+   },
+   "id": "Q25/Q25.2/row/R12.031",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.031"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 4",
+    "label": "Gardner, O'Sullivan and Gibson photographs, July 1863. Gardner and O'Sullivan reached Gettysburg 5 J",
+    "parts": [
+     {
+      "part": "LOC-PHOTO",
+      "reason": "no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     }
+    ],
+    "status_ids": [
+     "LOC-PHOTO"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.032",
+   "pass": false,
+   "reason": "LOC-PHOTO: no named next action; no work-queue entry",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.032"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 4",
+    "label": "LOC Civil War Photographs collection",
+    "parts": [
+     {
+      "part": "LOC-PHOTO",
+      "reason": "no named next action; no work-queue entry",
+      "result": "FAIL",
+      "terminal": "scheduled"
+     },
+     {
+      "part": "PM-LOC-DERIVATIVES",
+      "reason": "acquired_3.json/PM-LOC-DERIVATIVES lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     },
+     {
+      "part": "PM-LOC-RECORDS",
+      "reason": "acquired_3.json/PM-LOC-RECORDS lacks text quality",
+      "result": "FAIL",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "LOC-PHOTO",
+     "PM-LOC-DERIVATIVES",
+     "PM-LOC-RECORDS"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.033",
+   "pass": false,
+   "reason": "LOC-PHOTO: no named next action; no work-queue entry; PM-LOC-DERIVATIVES: acquired_3.json/PM-LOC-DERIVATIVES lacks text quality; PM-LOC-RECORDS: acquired_3.json/PM-LOC-RECORDS lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.033"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 4",
+    "label": "Frassanito, \"Gettysburg: A Journey in Time\" (1975)"
+   },
+   "id": "Q25/Q25.2/row/R12.034",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.034"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 4",
+    "label": "NPS \"Then and Now\"",
+    "parts": [
+     {
+      "part": "PM-NPS-THEN-AND-NOW",
+      "reason": "complete record",
+      "result": "PASS",
+      "terminal": "ingested"
+     }
+    ],
+    "status_ids": [
+     "PM-NPS-THEN-AND-NOW"
+    ]
+   },
+   "id": "Q25/Q25.2/row/R12.035",
+   "pass": true,
+   "reason": "ingested, with its evidence",
+   "renderer_class": "python",
+   "result": "PASS",
+   "sub_requirements": [
+    "R12.035"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 4",
+    "label": "Tyson brothers / William H. Tipton photographs"
+   },
+   "id": "Q25/Q25.2/row/R12.036",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.036"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 4",
+    "label": "Gettysburg College, Ron Perisho Collection"
+   },
+   "id": "Q25/Q25.2/row/R12.037",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.037"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 4",
+    "label": "Gettysburg History (Adams County Historical Society, ACHS)"
+   },
+   "id": "Q25/Q25.2/row/R12.038",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.038"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 4",
+    "label": "Pennsylvania state damage claims (Gettysburg Campaign claims, renumbered 1868, after federal claims "
+   },
+   "id": "Q25/Q25.2/row/R12.039",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.039"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 4",
+    "label": "Philippoteaux Cyclorama (opened Chicago 1883, 377 x 42 ft; restored 2003-08)"
+   },
+   "id": "Q25/Q25.2/row/R12.040",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.040"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 4",
+    "label": "PHMC agricultural census extracts"
+   },
+   "id": "Q25/Q25.2/row/R12.041",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.041"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 5",
+    "label": "NPS natural features and ecosystems"
+   },
+   "id": "Q25/Q25.2/row/R12.042",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.042"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 5",
+    "label": "NPS plants"
+   },
+   "id": "Q25/Q25.2/row/R12.043",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.043"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 5",
+    "label": "American Battlefield Trust, battlefield orchards"
+   },
+   "id": "Q25/Q25.2/row/R12.044",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.044"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "B.9 table 5",
+    "label": "Fence evidence"
+   },
+   "id": "Q25/Q25.2/row/R12.045",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL",
+   "sub_requirements": [
+    "R12.045"
+   ]
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "X.1",
+    "label": "The biography and memoir sets"
+   },
+   "id": "Q25/Q25.2/row/X1-BIOGRAPHY-MEMOIR-SETS",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "group": "X.1",
+    "label": "Regimental histories"
+   },
+   "id": "Q25/Q25.2/row/X1-REGIMENTAL-HISTORIES",
+   "pass": false,
+   "reason": "no status row names this source (silently skipped, p. 138 Z.7)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 6,
+    "entries": 6,
+    "files": [
+     "status_2.json"
+    ],
+    "local_files_hashed": 6,
+    "local_files_missing": 0,
+    "status_word": "ingested",
+    "terminal": "ingested",
+    "title": "BACHELDER-PD-PUBS"
+   },
+   "id": "Q25/Q25.2/status/BACHELDER-PD-PUBS",
+   "pass": true,
+   "reason": "ingested, with its evidence",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 5,
+    "entries": 5,
+    "files": [
+     "status_2.json"
+    ],
+    "local_files_hashed": 5,
+    "local_files_missing": 0,
+    "status_word": "ingested",
+    "terminal": "ingested",
+    "title": "CEMETERY-1863-74"
+   },
+   "id": "Q25/Q25.2/status/CEMETERY-1863-74",
+   "pass": true,
+   "reason": "ingested, with its evidence",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "entries": 1,
+    "files": [
+     "status_2.json"
+    ],
+    "local_files_hashed": 1,
+    "local_files_missing": 0,
+    "status_word": "partial",
+    "terminal": "ingested",
+    "title": "OR-25-PT2"
+   },
+   "id": "Q25/Q25.2/status/OR-25-PT2#ingested",
+   "pass": true,
+   "reason": "ingested, with its evidence",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "files": [
+     "status_2.json"
+    ],
+    "missing": [
+     "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)"
+    ],
+    "status_word": "partial",
+    "terminal": null,
+    "title": "OR-25-PT2"
+   },
+   "id": "Q25/Q25.2/status/OR-25-PT2#remainder",
+   "pass": false,
+   "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "entries": 1,
+    "files": [
+     "status_2.json"
+    ],
+    "local_files_hashed": 1,
+    "local_files_missing": 0,
+    "status_word": "partial",
+    "terminal": "ingested",
+    "title": "OR-29-PT2"
+   },
+   "id": "Q25/Q25.2/status/OR-29-PT2#ingested",
+   "pass": true,
+   "reason": "ingested, with its evidence",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "files": [
+     "status_2.json"
+    ],
+    "missing": [
+     "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)"
+    ],
+    "status_word": "partial",
+    "terminal": null,
+    "title": "OR-29-PT2"
+   },
+   "id": "Q25/Q25.2/status/OR-29-PT2#remainder",
+   "pass": false,
+   "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "entries": 1,
+    "files": [
+     "status_2.json"
+    ],
+    "local_files_hashed": 1,
+    "local_files_missing": 0,
+    "status_word": "partial",
+    "terminal": "ingested",
+    "title": "OR-SER3"
+   },
+   "id": "Q25/Q25.2/status/OR-SER3#ingested",
+   "pass": true,
+   "reason": "ingested, with its evidence",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "files": [
+     "status_2.json"
+    ],
+    "missing": [
+     "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)"
+    ],
+    "status_word": "partial",
+    "terminal": null,
+    "title": "OR-SER3"
+   },
+   "id": "Q25/Q25.2/status/OR-SER3#remainder",
+   "pass": false,
+   "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no register id (an unreadable source (X.3 k) needs an open entry)",
+     "no failed-read record (what was tested, the result, the date)"
+    ],
+    "status_word": "unusable",
+    "terminal": "blocked",
+    "title": "PM-GARDNER-SKETCHBOOK-LOC"
+   },
+   "id": "Q25/Q25.2/status/PM-GARDNER-SKETCHBOOK-LOC#failed-read",
+   "pass": false,
+   "reason": "no register id (an unreadable source (X.3 k) needs an open entry); no failed-read record (what was tested, the result, the date)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
+    ],
+    "status_word": "unusable",
+    "terminal": "ingested",
+    "title": "PM-GARDNER-SKETCHBOOK-LOC"
+   },
+   "id": "Q25/Q25.2/status/PM-GARDNER-SKETCHBOOK-LOC#file",
+   "pass": false,
+   "reason": "no acquisition entry (hash, date, rights, quality) reaches this row through the id map",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no register id (an unreadable source (X.3 k) needs an open entry)",
+     "no failed-read record (what was tested, the result, the date)"
+    ],
+    "status_word": "unusable",
+    "terminal": "blocked",
+    "title": "PM-GARDNER-SKETCHBOOK-TEXT"
+   },
+   "id": "Q25/Q25.2/status/PM-GARDNER-SKETCHBOOK-TEXT#failed-read",
+   "pass": false,
+   "reason": "no register id (an unreadable source (X.3 k) needs an open entry); no failed-read record (what was tested, the result, the date)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
+    ],
+    "status_word": "unusable",
+    "terminal": "ingested",
+    "title": "PM-GARDNER-SKETCHBOOK-TEXT"
+   },
+   "id": "Q25/Q25.2/status/PM-GARDNER-SKETCHBOOK-TEXT#file",
+   "pass": false,
+   "reason": "no acquisition entry (hash, date, rights, quality) reaches this row through the id map",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no register id (an unreadable source (X.3 k) needs an open entry)",
+     "no failed-read record (what was tested, the result, the date)"
+    ],
+    "status_word": "unusable",
+    "terminal": "blocked",
+    "title": "PM-GUTENBERG-SKETCHBOOK"
+   },
+   "id": "Q25/Q25.2/status/PM-GUTENBERG-SKETCHBOOK#failed-read",
+   "pass": false,
+   "reason": "no register id (an unreadable source (X.3 k) needs an open entry); no failed-read record (what was tested, the result, the date)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
+    ],
+    "status_word": "unusable",
+    "terminal": "ingested",
+    "title": "PM-GUTENBERG-SKETCHBOOK"
+   },
+   "id": "Q25/Q25.2/status/PM-GUTENBERG-SKETCHBOOK#file",
+   "pass": false,
+   "reason": "no acquisition entry (hash, date, rights, quality) reaches this row through the id map",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
+    ],
+    "status_word": "ingested",
+    "terminal": "ingested",
+    "title": "PM-LC-B815-273"
+   },
+   "id": "Q25/Q25.2/status/PM-LC-B815-273",
+   "pass": false,
+   "reason": "no acquisition entry (hash, date, rights, quality) reaches this row through the id map",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "entries": 1,
+    "files": [
+     "status_3.json"
+    ],
+    "local_files_hashed": 0,
+    "local_files_missing": 1,
+    "missing": [
+     "acquired_3.json/PM-LOC-MASTERS lacks text quality"
+    ],
+    "status_word": "partial",
+    "terminal": "ingested",
+    "title": "PM-LOC-MASTERS"
+   },
+   "id": "Q25/Q25.2/status/PM-LOC-MASTERS#ingested",
+   "pass": false,
+   "reason": "acquired_3.json/PM-LOC-MASTERS lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)"
+    ],
+    "status_word": "partial",
+    "terminal": null,
+    "title": "PM-LOC-MASTERS"
+   },
+   "id": "Q25/Q25.2/status/PM-LOC-MASTERS#remainder",
+   "pass": false,
+   "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
+    ],
+    "status_word": "partial",
+    "terminal": "ingested",
+    "title": "PM-LOC-NOT-DIGITIZED"
+   },
+   "id": "Q25/Q25.2/status/PM-LOC-NOT-DIGITIZED#ingested",
+   "pass": false,
+   "reason": "no acquisition entry (hash, date, rights, quality) reaches this row through the id map",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)"
+    ],
+    "status_word": "partial",
+    "terminal": null,
+    "title": "PM-LOC-NOT-DIGITIZED"
+   },
+   "id": "Q25/Q25.2/status/PM-LOC-NOT-DIGITIZED#remainder",
+   "pass": false,
+   "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "entries": 1,
+    "files": [
+     "status_3.json"
+    ],
+    "local_files_hashed": 0,
+    "local_files_missing": 1,
+    "missing": [
+     "acquired_3.json/PM-LOC-WIDE lacks text quality"
+    ],
+    "status_word": "ingested",
+    "terminal": "ingested",
+    "title": "PM-LOC-WIDE"
+   },
+   "id": "Q25/Q25.2/status/PM-LOC-WIDE",
+   "pass": false,
+   "reason": "acquired_3.json/PM-LOC-WIDE lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "hosts": [],
+    "last_failed_lookup_date": null,
+    "missing": [
+     "no register id (a blocked source needs an open entry)",
+     "no failed-lookup record (host, locator, date, response)"
+    ],
+    "status_word": "blocked",
+    "terminal": "blocked",
+    "title": "PM-NARA-CATALOG"
+   },
+   "id": "Q25/Q25.2/status/PM-NARA-CATALOG",
+   "pass": false,
+   "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "entries": 1,
+    "files": [
+     "status_3.json"
+    ],
+    "local_files_hashed": 0,
+    "local_files_missing": 0,
+    "missing": [
+     "acquired_3.json/PM-NPS-PLACE-PAGES lacks sha256, text quality"
+    ],
+    "status_word": "ingested",
+    "terminal": "ingested",
+    "title": "PM-NPS-PLACE-PAGES"
+   },
+   "id": "Q25/Q25.2/status/PM-NPS-PLACE-PAGES",
+   "pass": false,
+   "reason": "acquired_3.json/PM-NPS-PLACE-PAGES lacks sha256, text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
+    ],
+    "status_word": "ingested",
+    "terminal": "ingested",
+    "title": "PM-NPS-ROT-FIGURES"
+   },
+   "id": "Q25/Q25.2/status/PM-NPS-ROT-FIGURES",
+   "pass": false,
+   "reason": "no acquisition entry (hash, date, rights, quality) reaches this row through the id map",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
+    ],
+    "status_word": "partial",
+    "terminal": "ingested",
+    "title": "PM-NPS-SLAUGHTER-PEN-PDF"
+   },
+   "id": "Q25/Q25.2/status/PM-NPS-SLAUGHTER-PEN-PDF#ingested",
+   "pass": false,
+   "reason": "no acquisition entry (hash, date, rights, quality) reaches this row through the id map",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)"
+    ],
+    "status_word": "partial",
+    "terminal": null,
+    "title": "PM-NPS-SLAUGHTER-PEN-PDF"
+   },
+   "id": "Q25/Q25.2/status/PM-NPS-SLAUGHTER-PEN-PDF#remainder",
+   "pass": false,
+   "reason": "no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no register id (an unreadable source (X.3 k) needs an open entry)",
+     "no failed-read record (what was tested, the result, the date)"
+    ],
+    "status_word": "unusable",
+    "terminal": "blocked",
+    "title": "PM-NPS-TN-EXIF-GPS"
+   },
+   "id": "Q25/Q25.2/status/PM-NPS-TN-EXIF-GPS#failed-read",
+   "pass": false,
+   "reason": "no register id (an unreadable source (X.3 k) needs an open entry); no failed-read record (what was tested, the result, the date)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status_3.json"
+    ],
+    "missing": [
+     "no acquisition entry (hash, date, rights, quality) reaches this row through the id map"
+    ],
+    "status_word": "unusable",
+    "terminal": "ingested",
+    "title": "PM-NPS-TN-EXIF-GPS"
+   },
+   "id": "Q25/Q25.2/status/PM-NPS-TN-EXIF-GPS#file",
+   "pass": false,
+   "reason": "no acquisition entry (hash, date, rights, quality) reaches this row through the id map",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 0,
+    "files": [
+     "status.json"
+    ],
+    "hosts": [
+     "archive.org",
+     "collections.library.yale.edu",
+     "davidrumsey.com",
+     "digitalcommonwealth.org",
+     "geo.btaa.org",
+     "loc.gov",
+     "tile.loc.gov"
+    ],
+    "last_failed_lookup_date": "2026-10-21",
+    "later_successes": [
+     {
+      "at": "2026-11-11 (109 records), 2026-11-13 (18 records), 2026-11-14 (2 records outside cwp and 62 records of the wide search)",
+      "entry": "PM-LOC-RECORDS"
+     },
+     {
+      "at": "2026-11-11T16:40:29Z",
+      "entry": "JACOBS-1864"
+     },
+     {
+      "at": "2026-11-11T16:40:32Z",
+      "entry": "LETTERMAN-1866"
+     },
+     {
+      "at": "2026-11-11T16:40:33Z",
+      "entry": "BACH-KEY-1864"
+     },
+     {
+      "at": "2026-11-11T16:40:40Z",
+      "entry": "BACH-REPULSE-1870"
+     }
+    ],
+    "missing": [
+     "no register id (a blocked source needs an open entry)",
+     "no failed-lookup record (host, locator, date, response)",
+     "stale block, retry owed: a request to the same host succeeded after 2026-10-21 (2026-11-11 PM-LOC-RECORDS; 2026-11-11 JACOBS-1864; 2026-11-11 LETTERMAN-1866)"
+    ],
+    "status_word": "blocked",
+    "terminal": "blocked",
+    "title": "Access blocks met 2026-10-21 (recorded, not circumvented)"
+   },
+   "id": "Q25/Q25.2/status/TM-HOSTS-BLOCKED",
+   "pass": false,
+   "reason": "no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after 2026-10-21 (2026-11-11 PM-LOC-RECORDS; 2026-11-11 JACOBS-1864; 2026-11-11 LETTERMAN-1866)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.2",
+   "evidence": {
+    "acquisition_entries": 1,
+    "entries": 1,
+    "files": [
+     "status.json"
+    ],
+    "local_files_hashed": 0,
+    "local_files_missing": 1,
+    "missing": [
+     "acquired.json/TM-LOC99447494-J1 lacks text quality"
+    ],
+    "status_word": "ingested",
+    "terminal": "ingested",
+    "title": "LOC 99447494: Battle of Gettysburg July 1 1863 First day General position of troops 2 to 3.30 p.m. (plate II, 1:23,400)"
+   },
+   "id": "Q25/Q25.2/status/TM-LOC99447494",
+   "pass": false,
+   "reason": "acquired.json/TM-LOC99447494-J1 lacks text quality",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.4",
+   "evidence": {
+    "hosts": [
+     "babel.hathitrust.org",
+     "ehistory.osu.edu"
+    ],
+    "problems": [
+     "babel.hathitrust.org is not recorded as blocked in any status row (answered with a bot block on 2026-11-13)",
+     "ehistory.osu.edu is not recorded as blocked in any status row (answered with a bot block on 2026-11-13)"
+    ]
+   },
+   "id": "Q25/Q25.4/blocked-hosts",
+   "pass": false,
+   "reason": "babel.hathitrust.org is not recorded as blocked in any status row (answered with a bot block on 2026-11-13); ehistory.osu.edu is not recorded as blocked in any status row (answered with a bot block on 2026-11-13)",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.4",
+   "evidence": {
+    "flagged": []
+   },
+   "id": "Q25/Q25.4/copyrighted",
+   "pass": true,
+   "reason": "no acquisition entry has a copyrighted rights basis",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.4",
+   "evidence": {
+    "missing": "GOVERNANCE/library/terms.json"
+   },
+   "id": "Q25/Q25.4/terms-record",
+   "pass": false,
+   "reason": "input missing: GOVERNANCE/library/terms.json (a record per host that terms and robots rules were checked (host, date, what they permit))",
+   "renderer_class": "python",
+   "result": "BLOCKED-INPUT"
+  },
+  {
+   "check": "Q25.4",
+   "evidence": {
+    "entries_with_time": 223,
+    "hosts": 4,
+    "ledgers_with_day_resolution_only": [
+     "acquired.json"
+    ],
+    "violations": [
+     "www.loc.gov: NPS-HABS-pa0004 and NPS-HABS-pa0010 both at 2026-11-15T23:56:08"
+    ]
+   },
+   "id": "Q25/Q25.4/throttle",
+   "pass": false,
+   "reason": "1 pair(s) of acquisition entries from one host with the same second-resolution time",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.5",
+   "evidence": {
+    "entries": 397,
+    "file": "docs/battle-theatre/app/data/anim3d/clips.json",
+    "incomplete": [
+     "aim_from_ready lacks licence",
+     "ambulance_load_push lacks licence",
+     "ambulance_load_receive lacks licence",
+     "arms_atwill_from_shoulder lacks licence",
+     "arms_order_from_shoulder lacks licence",
+     "arms_rss_from_shoulder lacks licence",
+     "arms_shoulder_from_order lacks licence",
+     "arms_shoulder_from_rss lacks licence",
+     "arms_trail_from_order lacks licence",
+     "bayonet_charge lacks licence",
+     "bayonet_charge_end lacks licence",
+     "bayonet_fix lacks licence",
+     "bayonet_guard_cavalry lacks licence",
+     "bayonet_guard_infantry lacks licence",
+     "bayonet_parry lacks licence",
+     "bayonet_thrust lacks licence",
+     "bugler_call lacks licence",
+     "carry_litter_front lacks licence",
+     "carry_litter_rear lacks licence",
+     "chop_axe lacks licence"
+    ],
+    "incomplete_count": 397,
+    "restricted_not_excluded": []
+   },
+   "id": "Q25/Q25.5/anim3d-clips",
+   "pass": false,
+   "reason": "397 of 397 entries lack licence, source or method; 0 restricted entries are not excluded from export",
+   "renderer_class": "python",
+   "result": "FAIL"
+  },
+  {
+   "check": "Q25.5",
+   "evidence": {
+    "files": 44,
+    "first": [],
+    "not_in_a_manifest": 0
+   },
+   "id": "Q25/Q25.5/asset-census",
+   "pass": true,
+   "reason": "every binary asset file of the data folder is listed in an asset manifest",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.5",
+   "evidence": {
+    "entries": 42,
+    "file": "docs/battle-theatre/app/data/audio3d/sources.json",
+    "incomplete": [],
+    "incomplete_count": 0,
+    "restricted_not_excluded": []
+   },
+   "id": "Q25/Q25.5/audio3d-samples",
+   "pass": true,
+   "reason": "every entry has licence, source and method; every restricted licence is excluded from export",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.5",
+   "evidence": {
+    "covers": "figures3d/acw/",
+    "file": "docs/battle-theatre/app/data/figures3d/acw/manifest.json",
+    "missing": []
+   },
+   "id": "Q25/Q25.5/figures3d-acw-pack",
+   "pass": true,
+   "reason": "the pack record has licence, source and method",
+   "renderer_class": "python",
+   "result": "PASS"
+  },
+  {
+   "check": "Q25.5",
+   "evidence": {
+    "entries": 33,
+    "file": "docs/battle-theatre/app/data/figures3d/manifest.json",
+    "incomplete": [
+     "TIERS.json lacks licence, source, method",
+     "classes.json lacks licence, source, method",
+     "evidence.json lacks licence, source, method",
+     "flag-mean-colours.json lacks licence, source, method",
+     "gltf/confederate_default_private.glb lacks licence, source, method",
+     "gltf/horse_riding.glb lacks licence, source, method",
+     "gltf/iron_brigade_private.glb lacks licence, source, method",
+     "gltf/napoleon_12pdr_gun.glb lacks licence, source, method",
+     "gltf/union_cavalry_officer.glb lacks licence, source, method",
+     "gltf/union_musician.glb lacks licence, source, method",
+     "gltf/zouave_114pa_flagbearer.glb lacks licence, source, method",
+     "hair-cards.json lacks licence, source, method",
+     "hashes.json lacks licence, source, method",
+     "head-maps-preview.png lacks licence, source, method",
+     "head-maps.json lacks licence, source, method",
+     "impostor-atlas.json lacks licence, source, method",
+     "impostor-atlas.png lacks licence, source, method",
+     "materials.json lacks licence, source, method",
+     "parts.bin lacks licence, source, method",
+     "parts.json lacks licence, source, method"
+    ],
+    "incomplete_count": 33,
+    "restricted_not_excluded": []
+   },
+   "id": "Q25/Q25.5/figures3d-files",
+   "pass": false,
+   "reason": "33 of 33 entries lack licence, source or method; 0 restricted entries are not excluded from export",
+   "renderer_class": "python",
+   "result": "FAIL"
+  }
+ ],
+ "notes": [
+  "Q25.4 throttle: acquired.json record only the day of acquisition, so the one-request-per-second rule cannot be read from them"
+ ],
+ "owed": [
+  "Q25.3 second witness of the Official Records (HathiTrust, eHistory) is blocked by the hosts; the row needs a dated `unreachable` record, not a retry",
+  "owner step for AUDIO (licence-checked): NOT WRITTEN: the status row has no owner_step (Q25.6)",
+  "owner step for BACHELDER (print-only): NOT WRITTEN: the status row has no owner_step (Q25.6)",
+  "owner step for MOTION (licence-checked): NOT WRITTEN: the status row has no owner_step (Q25.6)",
+  "owner step for PRINT (print-only): NOT WRITTEN: the status row has no owner_step (Q25.6)",
+  "owner step for RUMSEY (viewer-only): NOT WRITTEN: the status row has no owner_step (Q25.6)"
+ ],
+ "renderer_class": "python",
+ "run_id": "20261116T003051Z-Q25",
+ "runnable_here": true,
+ "schema": "bt-gate-result/1",
+ "started_utc": "2026-11-16T00:30:51Z",
+ "status_summary": {
+  "acquisition_entries": 279,
+  "source_rows": 138,
+  "status_files": [
+   "status.json",
+   "status_2.json",
+   "status_3.json"
+  ],
+  "status_ids": 58,
+  "untracked_entries": 75,
+  "words": {
+   "blocked": 4,
+   "blocked-to-prior-research": 2,
+   "finder-not-authority": 1,
+   "ingested": 23,
+   "licence-checked": 2,
+   "partial": 13,
+   "print-only": 2,
+   "scheduled": 5,
+   "targeted-lookup-only": 1,
+   "unusable": 4,
+   "viewer-only": 1
+  }
+ },
+ "thresholds": [
+  {
+   "decision": "PLAN (p. 134, E.6; working limit 14 words)",
+   "id": "T-Q02-1",
+   "metric": "words in a quotation (not used by Q25)",
+   "value": 14
+  }
+ ],
+ "tool_versions": {
+  "python": "3.13.18"
+ },
+ "totals": {
+  "blocked_input": 1,
+  "by_check": {
+   "Q25.1": {
+    "BLOCKED-INPUT": 0,
+    "COVERED": 0,
+    "FAIL": 75,
+    "N/A": 0,
+    "NOT-RUN": 0,
+    "PASS": 2
+   },
+   "Q25.2": {
+    "BLOCKED-INPUT": 0,
+    "COVERED": 0,
+    "FAIL": 158,
+    "N/A": 0,
+    "NOT-RUN": 0,
+    "PASS": 9
+   },
+   "Q25.4": {
+    "BLOCKED-INPUT": 1,
+    "COVERED": 0,
+    "FAIL": 2,
+    "N/A": 0,
+    "NOT-RUN": 0,
+    "PASS": 1
+   },
+   "Q25.5": {
+    "BLOCKED-INPUT": 0,
+    "COVERED": 0,
+    "FAIL": 2,
+    "N/A": 0,
+    "NOT-RUN": 0,
+    "PASS": 3
+   }
+  },
+  "covered": 0,
+  "fail": 237,
+  "items": 253,
+  "n_a": 0,
+  "not_passing": 238,
+  "not_run": 0,
+  "pass": 15
+ },
+ "verdict": "FAIL"
+}

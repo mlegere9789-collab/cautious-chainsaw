@@ -157,7 +157,18 @@ class TextStore:
         m = self._load_or27()
         if m is None:
             return {'status': 'no_text', 'reason': 'Official Records text or index not on this machine (%s)' % self._or27_err}
-        hits = m.verify(quote)
+        mm = re.match(r'^OR27-(\d)-R\d+', str(report_id or ''))
+        parts = (int(mm.group(1)),) if mm and int(mm.group(1)) in (1, 2, 3) else (1, 2, 3)      # the report id names the part of the volume it is in
+        key = (fold(quote), parts, report_id, str(printed_page))
+        cache = self.__dict__.setdefault('_or27_cache', {})
+        if key in cache:
+            return cache[key]
+        r = self._find_or27(m, quote, report_id, printed_page, parts)
+        cache[key] = r
+        return r
+
+    def _find_or27(self, m, quote, report_id, printed_page, parts):
+        hits = m.verify(quote, parts=parts)
         recs = sorted({h['record'] for h in hits if h.get('record')})
         if report_id and report_id not in recs:
             return {'status': 'not_found', 'records': recs[:6], 'hits': len(hits)}

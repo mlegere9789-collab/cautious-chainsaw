@@ -382,6 +382,8 @@ def main():
         except ModuleNotFoundError:
             if '--partial' not in sys.argv: raise
     rows.sort(key=lambda r: int(r['id'].split('-')[1]))     # the row modules are not in id order (T1-124 sits beside T1-119)
+    if '--no-patch' not in sys.argv:                          # second reading of 2026-11-16 (claim-to-quote tie): rows_patch.py + patch_quotes.json
+        rows = importlib.import_module('rows_patch').apply(rows)
     seed = [json.loads(l) for l in open(os.path.join(G, 'timeline_seed.jsonl'), encoding='utf-8')][115:172]
     seed_by = {r['id']: r for r in seed}
     # The "before" values must be those of the shard as it was BEFORE the close-out, whatever the number of times this builder runs:

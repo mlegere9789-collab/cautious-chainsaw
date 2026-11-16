@@ -74,17 +74,18 @@ const CORE = String.raw`  // Live Sync limits, in one place so that a whole para
     const limit = 256 - (256 % chars.length);
     const bytes = new Uint8Array(32);
     let s = '';
-    while (s.length < WT.codeLength) {
+    for (let round = 0; s.length < WT.codeLength; round++) {
+      if (round >= 16) throw new Error('no usable random bytes');   // a broken source cannot hang the page
       crypto.getRandomValues(bytes);
       for (let i = 0; i < bytes.length && s.length < WT.codeLength; i++) if (bytes[i] < limit) s += chars[bytes[i] % chars.length];
     }
     return s;
   }
 
-  // A message from the host is untrusted data.  Only a plain object { type: 'goto', tick: integer 1..{{TICK_MAX}}, note: text of at most {{NOTE_MAX}}
-  // characters that does not start a tag } is accepted.  The result is a new object built from the checked values (control characters of
-  // the note become spaces); everything else (null, arrays, strings, buffers, extra or inherited fields, wrong types, numbers out of
-  // range, oversized text, markup) is dropped without any further work.
+  // A message from the host is untrusted data.  Only a plain object { type: 'goto', tick: integer 1..{{TICK_MAX}}, note: text } is accepted: the
+  // note has at most {{NOTE_MAX}} characters and does not start a tag (a < followed by a letter, !, /, ? or a control character).  The result is
+  // a new object built from the checked values (control characters of the note become spaces).  Everything else (null, arrays,
+  // strings, buffers, extra or inherited fields, wrong types, numbers out of range, oversized text, markup) is dropped at once.
   function parseGoto(data) {
     try {
       if (data === null || typeof data !== 'object') return null;
@@ -96,7 +97,7 @@ const CORE = String.raw`  // Live Sync limits, in one place so that a whole para
       if (typeof tick !== 'number' || !Number.isInteger(tick) || tick < 1 || tick > WT.tickMax) return null;
       let text = '';
       if (note !== undefined) {
-        if (typeof note !== 'string' || note.length > WT.noteMax || /<[A-Za-z!\/?]/.test(note)) return null;
+        if (typeof note !== 'string' || note.length > WT.noteMax || /<[A-Za-z!\/?\u0000-\u001f]/.test(note)) return null;
         text = note.replace(/[\u0000-\u001f\u007f-\u009f]/g, ' ').trim();
       }
       return { type: 'goto', tick, note: text };

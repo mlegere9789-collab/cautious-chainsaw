@@ -10,7 +10,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
-GATES = os.path.join(ROOT, 'tools', 'bt', 'gates')
+GATES = os.environ.get('BT_GATES_DIR') or os.path.join(ROOT, 'tools', 'bt', 'gates')           # BT_GATES_DIR: a copy of the runners with a defect injected (the mutation check of U-25)
 for p in (GATES, os.path.join(GATES, 'lib'), os.path.join(ROOT, 'tools', 'bt')):
     if p not in sys.path:
         sys.path.insert(0, p)
@@ -237,3 +237,42 @@ def q14_dump():
 def q14_vb(count=6, date='1863-07-02', state='present'):
     return {'schema': 'kit-verified-batteries-1', 'batteries': {'us-b1': {'name': 'Battery 1', 'status': 'verified', 'unverified': False, 'range_by_date': {date: {state: {'low': count, 'high': count, 'lines': 1}}},
                                                                          'guns': [{'as_of': date, 'state': state, 'pieces': [{'printed': 'six Napoleons', 'count': 6, 'type_candidates': ['napoleon_12pdr_m1857']}], 'total': count, 'tier': 'documented'}]}}, 'formations': {}}
+
+
+# ======================================================================================== Q20 fixtures
+def cav_unit(uid='us-cav-1d-merritt-6pa', kit_unit='US.CAV.6PA', n=380, drawn=True, status='on_field', army='US', date='1863-07-03', dismount=True, arm='cavalry'):
+    fields = {k: [{'items': [it], 'tier': 'inferred', 'count': n, 'weak': True}] for k, it in (('headgear', 'hardee_hat_cavalry_union'), ('coat', 'mounted_jacket_cavalry_union'), ('trousers', 'trousers_sky_blue'), ('shoes', 'boots_cav'))}
+    fields['accoutrements'] = [{'items': ['m1858_sword_belt_cav', 'mcclellan_saddle_m1859', 'bridle_union_cav', 'horse_furniture_union_misc'], 'tier': 'inferred', 'count': n, 'weak': True}]
+    fields['weapon'] = [{'items': ['sharps_carbine'], 'tier': 'plausible-procedural', 'count': n, 'weak': False}]
+    fields['sidearm_sword'] = [{'items': ['m1860_light_cav_saber'], 'tier': 'inferred', 'count': n - 80, 'weak': True}, {'items': ['colt_army_1860'], 'tier': 'inferred', 'count': 80, 'weak': True}]
+    u = {'id': uid, 'name': uid, 'army': army, 'level': 'regiment', 'arm': arm, 'parent': 'us-cav-1d', 'status': status, 'drawn': drawn, 'render': 'moving' if drawn else 'not_drawn', 'render_reason': 'fixture', 'strength_drawn': n if drawn else 0,
+         'enter_min': 46980 if drawn else None, 'arrival': {'earliest': 46980, 'default': 46980, 'latest': 46980} if drawn else None, 'kit': {'unit': kit_unit, 'how': 'rule', 'default': False},
+         'world': {'own': n if drawn else 0, 'klass': 1, 'mounted': n if drawn else 0, 'kind': 'cav'}, 'horse': {'riders': n, 'horses': {'min': 178, 'max': n, 'point': n}, 'tier': 'plausible-procedural', 'gap': 'EG-CAV-01'} if drawn else None,
+         'summary': {'t_min': 46990, 'date': date, 'present': True, 'kit_unit': kit_unit, 'n': n, 'by_field': fields, 'disputed': False} if drawn else None,
+         'figures': {'checked': n, 'with_manifest': n, 'without': 0, 'rank': {'private': n - 12, 'captain': 12}, 'role': {'rifleman': n}, 'instrument': {'bugle': 10, 'flag_none': n - 10}, 'weapon_items': {'sharps_carbine': n},
+                     'sidearm_items': {'m1860_light_cav_saber': n - 80, 'colt_army_1860': 80}} if drawn else None, 'dismount': None}
+    if drawn and dismount:
+        u['dismount'] = {'record': 'DM-T', 'share': 0.5, 'share_tier': 'documented', 'from': '1863-07-03T10:00', 'to': '1863-07-03T16:00', 'counts': {'n': n, 'dismounted': n // 2, 'holders': (n // 2) // 4, 'fighters': n // 2 - (n // 2) // 4, 'mounted': n - n // 2},
+                         'roles': {'mounted': n - n // 2, 'fight': n // 2 - (n // 2) // 4, 'hold': (n // 2) // 4}}
+    return u
+
+
+def q20_dump():
+    off = cav_unit('cs-cav-imboden', 'DEFAULT.confederate.cavalry', n=0, drawn=False, status='never_main_field', army='CS')
+    off['kit'] = {'unit': 'DEFAULT.confederate.cavalry', 'how': 'default', 'default': True}
+    return {'schema': 'q20-layer-dump/1', 'all_unit_ids': ['us-cav-1d-merritt-6pa', 'cs-cav-imboden'], 'units': [cav_unit(), off], 'world': {'mounted_total': 380, 'horses_total': 380},
+            'cavalry_module': {'holder': {'group': 4}, 'mounted_share': {'min': 0.47, 'max': 1}, 'dismounts': [{'id': 'DM-T', 'units': ['us-cav-1d-merritt-6pa'], 'share': 0.5, 'share_tier': 'documented', 'from': '1863-07-03T10:00', 'to': '1863-07-03T16:00'}],
+                               'gaps': [{'id': 'EG-CAV-01'}]},
+            'state_schedule': {'per_unit': True, 'mapping': {'march_column': ['march'], 'horse_holding': ['halt']}, 'basis': 'fixture'}, 'activities': {'march': {}, 'halt': {}, 'gallop': {}, 'stand': {}}}
+
+
+def q20_inputs():
+    plan = 'B.6.15.7 Cavalry state and behaviour list\nEach cavalry unit holds a time-keyed schedule of these states (plausible-procedural labels).\nState\nUsed for\nmarch_column\nApproach marches\nhorse_holding\nOne-in-four horse holders\nFixed facts for the arrival rule: x\n'
+    kit = {'cards': {'US.CAV.6PA': {'id': 'US.CAV.6PA', 'name': '6th Pennsylvania Cavalry', 'army': 'union'}},
+           'units': {'US.CAV.6PA': {'fields': {'weapon': {'allowed': [{'item': 'sharps_carbine'}], 'tier': 'inferred', 'weak_source': True, 'source_keys': ['CWTalk-Buford'], 'flagged': True}}}},
+           'behaviour_states': [{'state': 'march_column'}, {'state': 'horse_holding'}], 'horses': []}
+    table = {'schema': 'kit-verified-oob-1', 'units': {'us-cav-1d-merritt-6pa': {'name': '6th PA', 'arm': 'cavalry', 'level': 'regiment', 'in_roster': True}, 'cs-cav-imboden': {'name': 'Imboden', 'arm': 'cavalry', 'level': 'command', 'in_roster': True}}}
+    return {'kit': kit, 'horses': {}, 'weapons': {}, 'table': table, 'actions': None, 'plan': plan}
+
+
+GAIT_OK = {'status': 'ran', 'exit': 0, 'tests': 14, 'pass': 14, 'fail': 0, 'cancelled': 0, 'skipped': 0, 'todo': 0, 'not_run_marker': False}

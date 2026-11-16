@@ -38,11 +38,16 @@ def cluster_lines(ws, tilt=0.0, thr=14.0):
     for w in ws:
         w['yk'] = w['yc'] - tilt * w['x0']
     lines = []
+    last4 = []
     for w in sorted(ws, key=lambda w: (w['yk'], w['x0'])):
-        if lines and abs(w['yk'] - statistics.mean(x['yk'] for x in lines[-1][-4:])) < thr:
+        if lines and abs(w['yk'] - sum(last4) / len(last4)) < thr:
             lines[-1].append(w)
+            last4.append(w['yk'])
+            if len(last4) > 4:
+                last4.pop(0)
         else:
             lines.append([w])
+            last4 = [w['yk']]
     for l in lines:
         l.sort(key=lambda w: w['x0'])
     return lines

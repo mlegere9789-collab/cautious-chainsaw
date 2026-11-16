@@ -269,6 +269,7 @@ class Record:
             if os.path.isfile(fn):
                 shutil.copyfile(fn, prev)
             os.replace(tmp, fn)
+            os.chmod(fn, 0o644)
         finally:
             if os.path.exists(tmp):
                 os.unlink(tmp)

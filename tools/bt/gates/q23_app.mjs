@@ -10,8 +10,8 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : d; };
 const APP = path.resolve(opt('--app', path.resolve(here, '../../../docs/battle-theatre/app')));
-const OUT = opt('--out', null), TIERS_IN = opt('--tiers', null), NO_LAYER = args.includes('--no-layer');
-if (!OUT) { console.error('usage: node q23_app.mjs --out <file.json> [--tiers <file.json>] [--app <app dir>] [--no-layer]'); process.exit(2); }
+const OUT = opt('--out', null), TIERS_IN = opt('--tiers', null), NO_LAYER = args.includes('--no-layer'), UNITS_IN = opt('--units', null), OBJECTS_IN = opt('--objects', null);
+if (!OUT) { console.error('usage: node q23_app.mjs --out <file.json> [--tiers <file.json>] [--app <app dir>] [--no-layer] [--units <file.json>] [--objects <file.json>]'); process.exit(2); }
 const imp = f => import(pathToFileURL(path.join(APP, f)).href);
 const out = { schema: 'bt-q23-app/1', app: path.basename(APP), errors: [] };
 const guard = async (name, f) => { try { out[name] = await f(); } catch (e) { out.errors.push(name + ': ' + String(e && e.stack || e).split('\n').slice(0, 3).join(' | ')); out[name] = null; } };
@@ -108,6 +108,8 @@ function paths(log) {
 const glyphOf = ops => ops.includes('arc') ? 'circle' : ops.includes('rect') ? 'square' : ops.filter(o => o === 'lineTo').length === 3 ? 'diamond' : ops.filter(o => o === 'lineTo').length === 2 ? 'triangle' : 'polygon';
 
 let layerUnits = null, layerObjects = null, layerObjectProgress = null;
+if (UNITS_IN) layerUnits = JSON.parse(fs.readFileSync(UNITS_IN, 'utf8'));                                            // stand-in lists (tests): {id, short, tier} and works
+if (OBJECTS_IN) { layerObjects = JSON.parse(fs.readFileSync(OBJECTS_IN, 'utf8')); layerObjectProgress = () => 0.5; }
 if (!NO_LAYER) {
   const { loadRawFromDisk, terrainMeta } = await imp('tools/history-report.mjs');
   const { createRealHistory } = await imp('src/history/real.mjs');

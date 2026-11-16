@@ -178,6 +178,40 @@ class Strength(unittest.TestCase):         # Q01.3
         self.assertEqual(result_of(out, 'Q01.3', 'us-1c-1d-b1-r1'), 'PASS')
 
 
+class StrengthOneCondition(unittest.TestCase):      # each condition of Q01.3 alone, where the others hold
+    def _point_table(self):
+        t = F.oob_table()
+        key = 'taken_into_action|officers_and_men'
+        t['units']['us-1c-1d-b1-r1']['strength']['ranges'][key] = F.rng(300, 300)
+        for f in t['units']['us-1c-1d-b1-r1']['strength']['figures']:
+            f['low'], f['high'] = 300, 300
+        return t
+
+    def _layer(self, **upd):
+        layer = F.with_layer_commanders(F.layer_dump())
+        for u in layer['units']:
+            if u['id'] == 'us-1c-1d-b1-r1':
+                u['strength'].update({'min': None, 'max': None, 'kind': 'procedural', 'drawn': 300, 'basis_key': 'taken_into_action|officers_and_men', 'sources': ['OR27-1-R037']})
+                u['strength'].update(upd)
+        return layer
+
+    def test_the_figure_alone_outside_a_single_verified_figure_fails(self):
+        out = run(layer=self._layer(drawn=350), table=self._point_table(), evidence=F.evidence_lines(self._point_table()))
+        r = items(out, 'Q01.3', 'us-1c-1d-b1-r1')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('lies in a verified range', r['reason'])
+
+    def test_the_matching_figure_passes_where_the_range_is_a_single_figure(self):
+        out = run(layer=self._layer(), table=self._point_table(), evidence=F.evidence_lines(self._point_table()))
+        self.assertEqual(result_of(out, 'Q01.3', 'us-1c-1d-b1-r1'), 'PASS')
+
+    def test_the_basis_alone_that_is_not_the_tables_fails(self):
+        out = run(layer=self._layer(basis_key=None, sources=['SS-B3', 'PDF-B3']), table=self._point_table(), evidence=F.evidence_lines(self._point_table()))
+        r = items(out, 'Q01.3', 'us-1c-1d-b1-r1')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('same basis', r['reason'])
+
+
 class Rollups(unittest.TestCase):          # Q01.4
     def test_a_roll_up_outside_the_sum_of_the_ranges_is_a_failure(self):
         layer = F.with_layer_commanders(F.layer_dump())
@@ -294,6 +328,22 @@ class Commanders(unittest.TestCase):       # Q01.7
             if u['id'] == 'us-1c-1d-b1-r2':
                 u['commanders'] = ['Col. William Robinson']
         self.assertEqual(result_of(run(layer=layer), 'Q01.7', 'us-1c-1d-b1-r2'), 'FAIL')
+
+    def test_a_commander_that_the_layer_adds_to_the_tables_alone_fails(self):
+        layer = F.with_layer_commanders(F.layer_dump())
+        for u in layer['units']:
+            if u['id'] == 'us-1c-1d-b1-r2':
+                u['commanders'] = ['Col. Henry A. Morrow', 'Col. William Robinson']
+        r = items(run(layer=layer), 'Q01.7', 'us-1c-1d-b1-r2')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('names no commander that the table does not', r['reason'])
+
+    def test_a_commander_of_the_tables_succession_that_the_layer_lacks_alone_fails(self):
+        t = F.oob_table()
+        t['units']['us-1c-1d-b1-r2']['commanders'].append({'order': 2, 'name': 'John Smith', 'rank': 'Lieutenant Colonel', 'tier': 'documented', 'evidence_ids': ['ev:us-1c-1d-b1-r2:commander:1'], 'cite': {}})
+        r = items(run(table=t), 'Q01.7', 'us-1c-1d-b1-r2')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('by order of succession', r['reason'])
 
     def test_a_unit_whose_commander_the_layer_does_not_hold_fails_against_a_table_that_has_one(self):
         layer = F.layer_dump()                    # the real roster holds no regimental commander

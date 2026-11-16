@@ -26,7 +26,7 @@ def measure(key, scan):
     kept, dups = A.dedupe_leaves(p['rows'])
     co = p.get('company')
     defects = sum(1 for h in p['headings'] if h['rule'] in BAD_RULES and (not co or h['assigned'] == co))
-    second = sum(1 for r in kept if F.SECOND_MARK.search(r['row'][3]))
+    second = sum(1 for r in kept if F.second_marker(r['row'][3]))
     return {'scan': scan, 'parse': p, 'kept': kept, 'dups': dups, 'heading_defects': defects, 'second_marks': second,
             'recovered': sum(1 for r in kept if r['kind'] == 'S-recovered'), 'rows': len(kept), 'rows_before_dedupe': len(p['rows'])}
 
@@ -129,6 +129,14 @@ def main(argv):
             vocab = collections.Counter(json.load(f))
     os.makedirs(os.path.join(L.WS, 'diagnostics'), exist_ok=True)
     summary = {}
+    sp = os.path.join(L.WS, 'build-summary.json')
+    if os.path.exists(sp):
+        try:
+            old = json.load(open(sp, encoding='utf-8'))
+            if old.get('parser_hash') == C.parser_hash():
+                summary = old.get('units', {})
+        except Exception:
+            summary = {}
     for k, d in decs.items():
         segs = unit_rows(d)
         path, info = write_unit_file(d, segs)

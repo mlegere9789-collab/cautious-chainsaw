@@ -185,6 +185,13 @@ class Scanner:
         self._errors = {}
         self.classes = {c['id']: c for c in registry.get('classes', [])}
 
+    def by_source_class(self, name):
+        """The registry class whose members are the layer class `name` (the registry id may differ from the layer's own name)."""
+        for cid, c in self.classes.items():
+            if c['source'].get('kind') == 'layer' and c['source'].get('class') == name:
+                return cid
+        return None
+
     def members(self, cid):
         """The normalized members of a class, or None when its input is missing (the reason is in self.error(cid))."""
         if cid in self._members:

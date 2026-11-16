@@ -192,9 +192,10 @@ def marks_in_product(env, rec, cc, app):
 
 
 def register_link_check(env, rec, sc, reg_open_files):
-    ms = sc.members('layer.units')
+    uc = sc.by_source_class('layer.units')
+    ms = sc.members(uc) if uc else None
     if ms is None:
-        rec.item('Q23/Q23.3/register-link-units', 'BLOCKED-INPUT', 'input missing: %s' % sc.error('layer.units'), {}, check='Q23.3')
+        rec.item('Q23/Q23.3/register-link-units', 'BLOCKED-INPUT', 'input missing: %s' % (sc.error(uc) if uc else 'no datum class of the registry holds the units of the layer'), {}, check='Q23.3')
         return
     non = [m for m in ms if m['tier'] and m['tier'] != 'documented']
     bad = []
@@ -336,7 +337,8 @@ def gaps(env, rec, sc, app, cc, reg_open_files):
         rec.item('Q23/Q23.8/%s' % cid, 'FAIL' if (bad or miss_style) else 'PASS', ('%d of %d open gaps have no usable register entry' % (len(bad), len(g))) if bad else ('TIER_STYLE has no marker class for an open gap' if miss_style else
                  'every open gap of the class has an open register entry and the product has the gap marker class'), ev, check='Q23.8')
     # units that are not drawn have no map marker: the overlay draws only the units that are present on the stage
-    ms = sc.members('layer.units')
+    uc = sc.by_source_class('layer.units')
+    ms = sc.members(uc) if uc else None
     op = os.path.join(env.bt, 'app', 'src', 'overlay.mjs')
     if ms is not None and os.path.isfile(op):
         t = open(op, encoding='utf-8').read()

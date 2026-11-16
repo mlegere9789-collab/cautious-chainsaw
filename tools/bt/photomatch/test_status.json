@@ -46,14 +46,15 @@
  "tests": [
   "`node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs` (run directly: no browser, 12 s): 23 tests, 22 pass, 0 fail, 1 skipped (the optional render test). At the start of this session the file had 16 tests: 10 pass, 5 fail, 1 skipped (the data had run ahead of its checks: no verdicts yet for P13, P27, P28 and P29, P29 not rendered). Seven tests were added this session: the packer's own copy-audit rules on PHOTOMATCH.md (the document had carried tool paths and one working-process word, now removed; the rebuild commands moved into this report); the ledger of the further resources; review sheets present; the skyline wording of the verdict texts against the stored controls (the P29 text must say 18 of the 24 controls fit better); the P29 sheet numbers; the render determinism record; the staged-flag rule. The thresholds of tie_geometry.py and the pre-written criteria are asserted unchanged; no test was loosened.",
   "`node --test tests/photomatch.test.mjs` (the old test in the repository's tests/ folder, outside this task's ownership): 6 tests, 2 pass, 3 fail, 1 skipped: it asserts archive.org-only ledger urls, gazetteer-only pose anchors and the first-run verdicts.json shape; unchanged since the second pass (request notes bt-web-photomatch-old-test.md and bt-gates-photomatch-test-host-rule.md). It is not part of the app suite.",
-  "`PHOTOMATCH_RENDER=1 tools/horde/bench.sh node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs` and `tools/horde/bench.sh node --test docs/battle-theatre/app/tests/*.test.mjs` (the full app suite, 40 files): queued behind the machine lock at 23:05 and 23:09 UTC; result below if it came before this report was written."
+  "`PHOTOMATCH_RENDER=1 tools/horde/bench.sh node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs` (queued at 23:05 UTC) and `tools/horde/bench.sh node --test docs/battle-theatre/app/tests/*.test.mjs` (the full app suite, 40 files; queued at 23:09 UTC): NOT RUN. No slot was granted by 00:29 UTC: the lock had 33 to 42 waiters and its two slots were held by other jobs for 17 to 40 minutes. The waiters were left queued and write tmp/photomatch/work/q16_render_test_20261115.out and tmp/photomatch/work/full_suite_20261115.out if they get a slot; if they were stopped with this session, run the two commands again through the lock. The renderer's determinism itself was checked through the lock at 22:56 UTC (render_determinism.json); the full app suite is the check that is owed."
  ],
  "owed": [
   "No real-GPU rendering: every render is software GL (SwiftShader); nothing here is a timing or a real-GPU visual result.",
   "No master TIFF beyond the two Cemetery Hill views (4096-px working copies kept); no full-resolution matching.",
   "The NARA catalog (reachable, but a JavaScript shell only: its API needs a key, an owner act), the 5 records of the wide search that the Library has not digitized, the Sketch Book letterpress (images only at 1024 px) and the NARA Prologue blog on the Devil's Den sharpshooter (the PDF's source for the staged flag; a host that was not in the list of reachable hosts) were not read.",
   "Figures of the Record of Treatment that no catalogued image matched are statements without a photograph; the park's catalogue numbers (GETT 41135) need the park's help (owner step).",
-  "The skyline test could not be applied to the other poses: they have no documented place, and the NPS area words (a farm, a hill) do not fix the camera within the depth of the scene."
+  "The skyline test could not be applied to the other poses: they have no documented place, and the NPS area words (a farm, a hill) do not fix the camera within the depth of the scene.",
+  "The full node suite of the app (`node --test docs/battle-theatre/app/tests/*.test.mjs`, 40 files) through the machine lock: queued, not run (see Tests). Only the photomatch test file (23 tests) was run, directly, because it needs no browser."
  ],
  "governance_note": "Nothing was added to requirements.json, gates.json or register/ (proposals ws10-EG-13 to ws10-EG-16 and an update of EG-10, written on 2026-11-14, and ws10-EG-17 on 2026-11-15). `check_governance.py` was run again in the fourth session (exit 0, 0 of 969 sub-requirements passing; its coverage lines for Q17, Q18 and Q23 fail on other workstreams' unfinished work): no milestone is claimed. Delegated decisions DD-PM-06 to DD-PM-10 were appended to decisions/DELEGATED-DECISIONS-2026-11-11.md on 2026-11-14 (the section 'Added 2026-11-14 by bt-web photo-match'); DD-G16 of bt-gates takes the same reading of the plan's wording. The fourth session appended two delegated decisions to the same file (DD-PM-11: the further resources of the wide-search records are fetched and looked at like those of the first catalogue; DD-PM-12: a pencil date note on a verso keeps its record in the July scope as a flagged lead); the corrections it made (a counted rank, five registry texts, one registry class) are corrections of what the sources and the files say, not choices among alternatives. A notice for bt-gates is in requests/bt-web-photomatch-fourth-session.md.",
  "photomatch_q16_test": {
@@ -61,7 +62,7 @@
   "pass": 22,
   "fail": 0,
   "skipped": 1,
-  "skipped_what": "the optional render determinism test (PHOTOMATCH_RENDER=1), queued behind the machine lock since 2026-11-15 23:05 UTC; the determinism itself was checked by the full re-run of all 120 render files recorded in render_determinism.json"
+  "skipped_what": "the optional render determinism test (PHOTOMATCH_RENDER=1), queued behind the machine lock from 2026-11-15 23:05 UTC and not granted a slot by 00:29 UTC; the determinism itself was checked by the full re-run of all 120 render files through the lock at 22:56 UTC (render_determinism.json)"
  },
  "old_test": {
   "command": "node --test tests/photomatch.test.mjs",
@@ -69,5 +70,5 @@
   "fail": 3,
   "why": "it asserts archive.org-only ledger urls, gazetteer-only anchors and the first-run verdicts.json shape; the file is in the repository's tests/ folder, outside the ownership of this task; see the request notes bt-web-photomatch-old-test.md and bt-gates-photomatch-test-host-rule.md"
  },
- "full_node_suite": "queued at 2026-11-15 23:09 UTC behind the machine lock; see the Tests section"
+ "full_node_suite": "not run: queued behind the machine lock from 2026-11-15 23:09 UTC, no slot granted by 00:29 UTC"
 }

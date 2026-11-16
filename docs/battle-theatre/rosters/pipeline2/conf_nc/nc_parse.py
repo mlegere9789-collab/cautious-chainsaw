@@ -179,7 +179,7 @@ def given_ok(t, before_mark=False, lower_ok=False, garbled_ok=False):
         return False
     if not lower_ok and core[0].islower() and not initial_tok(t) and a not in GIVEN_LOWER_OK:
         return False
-    if re.search(r"\.$", core) and not initial_tok(t) and a not in ABBREV_NAME and not before_mark:
+    if re.search(r"\.$", core) and not initial_tok(t) and a not in ABBREV_NAME and not before_mark and not re.fullmatch(r"[A-Z][A-Za-z]{1,3}\.[,;]?", core):
         return False
     return True
 
@@ -259,7 +259,7 @@ def boundary(S, i, ev_idx_set):
     if i == 0 or i in ev_idx_set:
         return 2
     p = S.toks[i - 1][2]
-    if alpha(p) in ('com', 'co', 'company', 'regt', 'reg', 'cav', 'battalion', 'bn') and not S.toks[i][3]:
+    if alpha(p) in ('com', 'co', 'company', 'pany', 'comp', 'regt', 'reg', 'cav', 'battalion', 'bn', 'regiment') and not S.toks[i][3]:
         return 0                                    # a letter after "Com." is a company letter, not the start of a name
     if re.search(r"[\.;!\?][,\)\]\"'’\-—~\*\^/]{0,2}$", p):
         return 2
@@ -321,11 +321,14 @@ def match_S(S, i, bd=2):
     dot = False
     lower = False
     split = False
+    comma_apart = False
     if SURNAME.match(t0):
         pass
+    elif re.fullmatch(r"[A-Z][A-Za-z'’\-]{2,23}", t0) and i + 2 < n and re.fullmatch(r"[,;]", toks[i + 1][2]):
+        comma_apart = True                         # "Denny , Walter, e." : the comma stands apart from the surname
     elif SURNAME_DOT.match(t0) and i + 1 < n and (initial_tok(toks[i + 1][2]) or (re.match(r"^[A-Z][A-Za-z'’\-]{2,}[,;]$", toks[i + 1][2]) and i + 2 < n and MARK_STRONG.match(toks[i + 2][2]))):
         dot = True                                 # "Davis. A. M., e." / "Griswold. John, e.": a period for the comma, only before an initial or a given name and the marker
-    elif SURNAME_LOWER.match(t0) and bd >= 2:
+    elif SURNAME_LOWER.match(t0):
         lower = True                               # "liaker, Ambrose, e." : the first letter garbled; only at a strong boundary with a marker
     elif SURNAME_SPLIT1.match(t0) and i + 2 < n and SURNAME_SPLIT2.match(toks[i + 1][2]) and bd >= 1:
         split = True                               # "Daugh ton, Joseph, e." : a surname split by the scan; only with a strict marker
@@ -333,13 +336,13 @@ def match_S(S, i, bd=2):
         return None
     w = alpha(t0)
     month_name = is_month(t0) and len(w) <= 5
-    if len(w) < 2 or (w in ABBREV_BAD and w not in ('may', 'march', 'june', 'july', 'august', 'april')):
+    if len(w) < 3 or (w in ABBREV_BAD and w not in ('may', 'march', 'june', 'july', 'august', 'april')):
         return None
     if re.match(r"^[^\w\s]{0,2}[0-9]", t0):
         return None
     if len(w) >= 5 and is_rankword(t0) and not split and (w != 'major' or (i + 1 < n and re.match(r"^(?:cm|em|crn|cin|cni)[\.,;:]", toks[i + 1][2]))):
         return None                                # a rank word is no surname: the head of an officer entry the other matcher could not read
-    j = i + (2 if split else 1)
+    j = i + (2 if (split or comma_apart) else 1)
     lone = 0
     given = 0
     while j < n and j <= i + 6:
@@ -347,7 +350,7 @@ def match_S(S, i, bd=2):
         ev = evidence_at(S, j, toks[j - 1][2])
         if ev:
             kind = ev[0]
-            if (dot or lower or split or month_name) and kind not in ('mark',):
+            if (dot or lower or split or month_name or comma_apart) and kind not in ('mark',):
                 return None
             if given == 0 and kind not in ('mark',):
                 return None                           # surname alone needs a strong marker
@@ -388,7 +391,8 @@ def match_G(S, i):
         if len(alpha(last)) < 2 or alpha(last) in ABBREV_BAD:
             continue
         front = [toks[x][2] for x in range(i, k - 1)]
-        if any(not given_ok(f, garbled_ok=True) or sentence_end(f) or (alpha(f) in PLACE and not initial_tok(f) and not re.search(r"[,;]$", f)) or (len(alpha(f)) >= 3 and is_rankword(f)) for f in front):
+        if any((not given_ok(f, garbled_ok=True) and not re.fullmatch(r"[A-Z][A-Za-z\|\(\)1]{1,2}\.", f)) or (sentence_end(f) and not re.fullmatch(r"[A-Z][A-Za-z\|\(\)1]{1,2}\.", f))
+               or (alpha(f) in PLACE and not initial_tok(f) and not re.search(r"[,;]$", f)) or (len(alpha(f)) >= 3 and is_rankword(f)) or alpha(f) in ABBREV_BAD for f in front):
             continue
         if not (given_ok(last, before_mark=True, lower_ok=True)) or (len(alpha(last)) >= 3 and is_rankword(last)):
             continue
@@ -422,7 +426,8 @@ def find_heads(S, a, b, section, ev_idx):
         order = (match_G, match_S) if section in ('officers', 'fs', 'nco') else (match_S, match_G)
         prev = toks[i - 1][2] if i > 0 else ''
         for fn in order:
-            if fn is match_G and bd < 1 and (re.fullmatch(r"(?:at|in|of|to|from|and|by|near|for|on|the|as|a|an|with|or|but)", prev) or re.search(r"[A-Za-z]-$", prev)):
+            if fn is match_G and bd < 1 and (re.fullmatch(r"(?:at|in|of|to|from|and|by|near|for|on|the|as|a|an|with|or|but)", prev) or re.search(r"[A-Za-z]-$", prev)
+                                             or alpha(prev) in ('com', 'co', 'company', 'pany', 'comp', 'regt', 'reg', 'cav', 'battalion', 'bn', 'regiment')):
                 continue
             g = fn(S, i, bd) if fn is match_S else fn(S, i)
             if g and not contiguous(S, i, g[1]):

@@ -182,6 +182,8 @@ def q141_weapons(rec, env, D, K, rows):
     for wid in ((K.get('fx') or {}).get('weapons') or {}):
         fired[wid] = 'the FX weapon catalogue (app/data/fx3d/weapons.json)'
     for b in D['batteries']:
+        if b['guns']['status'] != 'drawn':
+            continue
         for t in b['guns']['types']:
             fired.setdefault(t['type_id'], 'a drawn battery (%s)' % b['id'])
     for wid in sorted(fired):

@@ -308,7 +308,7 @@ def main(argv=None):
     dp = os.path.join(env.bt, 'app', 'data', 'claim-dispositions.json')
     try:
         disp = rec.read_json(dp, 'disposition table')
-        n_claims = sum(len(sc.members(c) or []) for c in ('ledger.positions',) if sc.members(c) is not None)
+        n_claims = sum(len(sc.members(c) or []) for c, k in sc.classes.items() if k['source'].get('kind') == 'jsonl' and any(re.search(r'positions_[A-E]\.jsonl$', f) for f in k['source'].get('files', [])))
         rows_n = len(disp.get('rows') or [])
         rec.item('Q19/Q19.7/disposition-rows', 'PASS' if rows_n == n_claims and n_claims else 'FAIL', ('the disposition table has one row per claim (%d)' % rows_n) if rows_n == n_claims and n_claims else
                  'the disposition table has %d rows and the position ledgers %d claims' % (rows_n, n_claims), {'rows': rows_n, 'claims': n_claims}, check='Q19.7')

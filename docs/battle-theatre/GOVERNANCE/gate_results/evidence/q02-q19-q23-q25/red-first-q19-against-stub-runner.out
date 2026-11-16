@@ -1,0 +1,316 @@
+test_a_source_derived_from_the_other_is_not_independent (__main__.Q19.test_a_source_derived_from_the_other_is_not_independent) ... FAIL
+test_claim_id_that_resolves_in_no_ledger_is_fail (__main__.Q19.test_claim_id_that_resolves_in_no_ledger_is_fail) ... FAIL
+test_claim_without_a_span_is_fail (__main__.Q19.test_claim_without_a_span_is_fail) ... FAIL
+test_clean_world_passes_and_covered_counts (__main__.Q19.test_clean_world_passes_and_covered_counts) ... ERROR
+test_conflict_whose_values_have_no_recorded_independence_has_no_computable_support (__main__.Q19.test_conflict_whose_values_have_no_recorded_independence_has_no_computable_support) ... FAIL
+test_conflict_without_a_delegated_default_is_fail (__main__.Q19.test_conflict_without_a_delegated_default_is_fail) ... FAIL
+test_conflicts_with_link_to_a_register_conflict_resolves (__main__.Q19.test_conflicts_with_link_to_a_register_conflict_resolves) ... ERROR
+test_conflicts_with_link_to_nothing_is_fail (__main__.Q19.test_conflicts_with_link_to_nothing_is_fail) ... FAIL
+test_datum_that_cites_a_claim_with_no_span_is_fail (__main__.Q19.test_datum_that_cites_a_claim_with_no_span_is_fail) ... FAIL
+test_datum_without_a_claim_id_is_fail (__main__.Q19.test_datum_without_a_claim_id_is_fail) ... FAIL
+test_default_without_a_tier_is_fail (__main__.Q19.test_default_without_a_tier_is_fail) ... FAIL
+test_default_without_its_label_is_fail (__main__.Q19.test_default_without_its_label_is_fail) ... ERROR
+test_disposition_table_that_misses_a_claim_is_fail (__main__.Q19.test_disposition_table_that_misses_a_claim_is_fail) ... FAIL
+test_documented_on_lead_only_is_fail (__main__.Q19.test_documented_on_lead_only_is_fail) ... FAIL
+test_documented_single_source_without_a_flag_is_fail (__main__.Q19.test_documented_single_source_without_a_flag_is_fail) ... FAIL
+test_flag_that_the_product_never_shows_is_fail (__main__.Q19.test_flag_that_the_product_never_shows_is_fail) ... FAIL
+test_flagged_datum_with_no_entry_for_the_second_source_is_fail (__main__.Q19.test_flagged_datum_with_no_entry_for_the_second_source_is_fail) ... FAIL
+test_inferred_datum_whose_tier_mark_is_not_shown_for_its_class_is_fail (__main__.Q19.test_inferred_datum_whose_tier_mark_is_not_shown_for_its_class_is_fail) ... FAIL
+test_lead_does_not_count_as_a_second_source (__main__.Q19.test_lead_does_not_count_as_a_second_source) ... FAIL
+test_missing_ledger_of_section_p_is_blocked_never_a_pass (__main__.Q19.test_missing_ledger_of_section_p_is_blocked_never_a_pass) ... ERROR
+test_missing_registry_is_blocked_not_a_pass (__main__.Q19.test_missing_registry_is_blocked_not_a_pass) ... FAIL
+test_register_entry_that_is_closed_does_not_name_a_second_source (__main__.Q19.test_register_entry_that_is_closed_does_not_name_a_second_source) ... FAIL
+test_two_runs_give_identical_items (__main__.Q19.test_two_runs_give_identical_items) ... ok
+test_two_sources_that_share_a_root_are_not_independent (__main__.Q19.test_two_sources_that_share_a_root_are_not_independent) ... FAIL
+test_two_sources_whose_independence_is_not_recorded_are_not_independent (__main__.Q19.test_two_sources_whose_independence_is_not_recorded_are_not_independent) ... FAIL
+test_visible_class_with_no_claim_id_anywhere_is_listed_by_the_census (__main__.Q19.test_visible_class_with_no_claim_id_anywhere_is_listed_by_the_census) ... FAIL
+
+======================================================================
+ERROR: test_clean_world_passes_and_covered_counts (__main__.Q19.test_clean_world_passes_and_covered_counts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 40, in test_clean_world_passes_and_covered_counts
+    self.assertEqual(by['Q19/Q19.4/t.units']['result'], 'PASS')          # two independent sources
+                     ~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'Q19/Q19.4/t.units'
+
+======================================================================
+ERROR: test_conflicts_with_link_to_a_register_conflict_resolves (__main__.Q19.test_conflicts_with_link_to_a_register_conflict_resolves)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 174, in test_conflicts_with_link_to_a_register_conflict_resolves
+    self.assertEqual(fx.items_by_id(r)['Q19/Q19.6/claim-conflict-links']['result'], 'PASS')
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'Q19/Q19.6/claim-conflict-links'
+
+======================================================================
+ERROR: test_default_without_its_label_is_fail (__main__.Q19.test_default_without_its_label_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 151, in test_default_without_its_label_is_fail
+    it = [i for i in r['items'] if i['id'] == 'Q19/Q19.6/defaults-recorded'][0]
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_missing_ledger_of_section_p_is_blocked_never_a_pass (__main__.Q19.test_missing_ledger_of_section_p_is_blocked_never_a_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 181, in test_missing_ledger_of_section_p_is_blocked_never_a_pass
+    it = fx.items_by_id(r)['Q19/Q19.7/section-p-ledger']
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'Q19/Q19.7/section-p-ledger'
+
+======================================================================
+FAIL: test_a_source_derived_from_the_other_is_not_independent (__main__.Q19.test_a_source_derived_from_the_other_is_not_independent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 91, in test_a_source_derived_from_the_other_is_not_independent
+    self.fails(self.go(w), 'share a root or one derives from the other', 'Q19/Q19.3/t.units')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'share a root or one derives from the other' under Q19/Q19.3/t.units; FAIL items: []
+
+======================================================================
+FAIL: test_claim_id_that_resolves_in_no_ledger_is_fail (__main__.Q19.test_claim_id_that_resolves_in_no_ledger_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 66, in test_claim_id_that_resolves_in_no_ledger_is_fail
+    self.fails(self.go(w), 'resolves in no ledger', 'Q19/Q19.2/t.things')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'resolves in no ledger' under Q19/Q19.2/t.things; FAIL items: []
+
+======================================================================
+FAIL: test_claim_without_a_span_is_fail (__main__.Q19.test_claim_without_a_span_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 72, in test_claim_without_a_span_is_fail
+    self.fails(r, 'no span', 'Q19/Q19.2/t.claims')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no span' under Q19/Q19.2/t.claims; FAIL items: []
+
+======================================================================
+FAIL: test_conflict_whose_values_have_no_recorded_independence_has_no_computable_support (__main__.Q19.test_conflict_whose_values_have_no_recorded_independence_has_no_computable_support)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 163, in test_conflict_whose_values_have_no_recorded_independence_has_no_computable_support
+    self.fails(self.go(w), 'not computable', 'Q19/Q19.6/value-support')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'not computable' under Q19/Q19.6/value-support; FAIL items: []
+
+======================================================================
+FAIL: test_conflict_without_a_delegated_default_is_fail (__main__.Q19.test_conflict_without_a_delegated_default_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 145, in test_conflict_without_a_delegated_default_is_fail
+    self.fails(self.go(w), 'lack their delegated default', 'Q19/Q19.6/defaults-recorded')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'lack their delegated default' under Q19/Q19.6/defaults-recorded; FAIL items: []
+
+======================================================================
+FAIL: test_conflicts_with_link_to_nothing_is_fail (__main__.Q19.test_conflicts_with_link_to_nothing_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 168, in test_conflicts_with_link_to_nothing_is_fail
+    self.fails(self.go(w), 'point at neither a claim nor a conflict', 'Q19/Q19.6/claim-conflict-links')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'point at neither a claim nor a conflict' under Q19/Q19.6/claim-conflict-links; FAIL items: []
+
+======================================================================
+FAIL: test_datum_that_cites_a_claim_with_no_span_is_fail (__main__.Q19.test_datum_that_cites_a_claim_with_no_span_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 78, in test_datum_that_cites_a_claim_with_no_span_is_fail
+    self.fails(self.go(w), 'has no span', 'Q19/Q19.2/t.things')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'has no span' under Q19/Q19.2/t.things; FAIL items: []
+
+======================================================================
+FAIL: test_datum_without_a_claim_id_is_fail (__main__.Q19.test_datum_without_a_claim_id_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 61, in test_datum_without_a_claim_id_is_fail
+    self.fails(self.go(w), 'no claim id', 'Q19/Q19.2/t.things')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no claim id' under Q19/Q19.2/t.things; FAIL items: []
+
+======================================================================
+FAIL: test_default_without_a_tier_is_fail (__main__.Q19.test_default_without_a_tier_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 158, in test_default_without_a_tier_is_fail
+    self.fails(self.go(w), 'lack their delegated default', 'Q19/Q19.6/defaults-recorded')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'lack their delegated default' under Q19/Q19.6/defaults-recorded; FAIL items: []
+
+======================================================================
+FAIL: test_disposition_table_that_misses_a_claim_is_fail (__main__.Q19.test_disposition_table_that_misses_a_claim_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 189, in test_disposition_table_that_misses_a_claim_is_fail
+    self.fails(self.go(w), 'disposition table has 0 rows', 'Q19/Q19.7/disposition-rows')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'disposition table has 0 rows' under Q19/Q19.7/disposition-rows; FAIL items: []
+
+======================================================================
+FAIL: test_documented_on_lead_only_is_fail (__main__.Q19.test_documented_on_lead_only_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 139, in test_documented_on_lead_only_is_fail
+    self.fails(self.go(w), 'documented on lead or weak sources alone', 'Q19/Q19.5/t.things')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'documented on lead or weak sources alone' under Q19/Q19.5/t.things; FAIL items: []
+
+======================================================================
+FAIL: test_documented_single_source_without_a_flag_is_fail (__main__.Q19.test_documented_single_source_without_a_flag_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 111, in test_documented_single_source_without_a_flag_is_fail
+    self.fails(self.go(w), 'documented with', 'Q19/Q19.4/t.things')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'documented with' under Q19/Q19.4/t.things; FAIL items: []
+
+======================================================================
+FAIL: test_flag_that_the_product_never_shows_is_fail (__main__.Q19.test_flag_that_the_product_never_shows_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 118, in test_flag_that_the_product_never_shows_is_fail
+    self.fails(self.go(w), 'no code of the product shows it', 'Q19/Q19.4/t.claims')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no code of the product shows it' under Q19/Q19.4/t.claims; FAIL items: []
+
+======================================================================
+FAIL: test_flagged_datum_with_no_entry_for_the_second_source_is_fail (__main__.Q19.test_flagged_datum_with_no_entry_for_the_second_source_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 123, in test_flagged_datum_with_no_entry_for_the_second_source_is_fail
+    self.fails(self.go(w), 'no open register entry names where the second source would come from', 'Q19/Q19.4/t.claims')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no open register entry names where the second source would come from' under Q19/Q19.4/t.claims; FAIL items: []
+
+======================================================================
+FAIL: test_inferred_datum_whose_tier_mark_is_not_shown_for_its_class_is_fail (__main__.Q19.test_inferred_datum_whose_tier_mark_is_not_shown_for_its_class_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 133, in test_inferred_datum_whose_tier_mark_is_not_shown_for_its_class_is_fail
+    self.fails(self.go(w), 'is not shown in the product for this class', 'Q19/Q19.4/t.things')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'is not shown in the product for this class' under Q19/Q19.4/t.things; FAIL items: []
+
+======================================================================
+FAIL: test_lead_does_not_count_as_a_second_source (__main__.Q19.test_lead_does_not_count_as_a_second_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 105, in test_lead_does_not_count_as_a_second_source
+    self.fails(r, 'neither two independent sources', 'Q19/Q19.4/t.units')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'neither two independent sources' under Q19/Q19.4/t.units; FAIL items: []
+
+======================================================================
+FAIL: test_missing_registry_is_blocked_not_a_pass (__main__.Q19.test_missing_registry_is_blocked_not_a_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 195, in test_missing_registry_is_blocked_not_a_pass
+    self.assertNotEqual(rec['verdict'], 'PASS')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'PASS' == 'PASS'
+
+======================================================================
+FAIL: test_register_entry_that_is_closed_does_not_name_a_second_source (__main__.Q19.test_register_entry_that_is_closed_does_not_name_a_second_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 128, in test_register_entry_that_is_closed_does_not_name_a_second_source
+    self.fails(self.go(w), 'no open register entry names', 'Q19/Q19.4/t.claims')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no open register entry names' under Q19/Q19.4/t.claims; FAIL items: []
+
+======================================================================
+FAIL: test_two_sources_that_share_a_root_are_not_independent (__main__.Q19.test_two_sources_that_share_a_root_are_not_independent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 98, in test_two_sources_that_share_a_root_are_not_independent
+    self.fails(self.go(w), 'share a root', 'Q19/Q19.3/t.units')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'share a root' under Q19/Q19.3/t.units; FAIL items: []
+
+======================================================================
+FAIL: test_two_sources_whose_independence_is_not_recorded_are_not_independent (__main__.Q19.test_two_sources_whose_independence_is_not_recorded_are_not_independent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 85, in test_two_sources_whose_independence_is_not_recorded_are_not_independent
+    self.fails(r, 'independence not recorded', 'Q19/Q19.3/t.units')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 28, in fails
+    self.assertTrue(hit, 'no FAIL item with %r under %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:110]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'independence not recorded' under Q19/Q19.3/t.units; FAIL items: []
+
+======================================================================
+FAIL: test_visible_class_with_no_claim_id_anywhere_is_listed_by_the_census (__main__.Q19.test_visible_class_with_no_claim_id_anywhere_is_listed_by_the_census)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 55, in test_visible_class_with_no_claim_id_anywhere_is_listed_by_the_census
+    it = self.fails(self.go(w, expect_exit=1), 'name no claim id on any member', 'Q19/Q19.1/census')
+                    ~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q19.py", line 23, in go
+    self.assertEqual(code, expect_exit, out)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : 
+
+----------------------------------------------------------------------
+Ran 26 tests in 4.028s
+
+FAILED (failures=21, errors=4)

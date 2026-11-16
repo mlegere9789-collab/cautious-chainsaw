@@ -1,7 +1,7 @@
 // A fake page for the Live Sync tests: the inline scripts of watch-together.html run in node:vm against a fake DOM, a fake mapboxgl, a fake
 // PeerJS and a clock that the test controls.  Nothing here is a browser: it proves what the page SCRIPT does with what it is given.
 //
-//   const page = await loadPage(html, { getRandomValues, noCrypto });
+//   const page = await loadPage(html, { getRandomValues, noCrypto, allowMathRandom, preload: [{ code, filename }], sandbox: { ...extra globals } });
 //   await page.hostStart();  page.peers.at(-1).emit('open');  ...
 //
 // What the page script can be seen doing (goToTick is private to the page, so its effects are what is observed): the caption bar text,
@@ -146,13 +146,18 @@ export async function loadPage(html, opts = {}) {
     navigator: { userAgent: 'node-vm' },
   };
   if (!opts.noCrypto) sandbox.crypto = cryptoSpy;
+  Object.assign(sandbox, opts.sandbox || {});
   const ctx = vm.createContext(sandbox);
   vm.runInContext('globalThis.window = globalThis;', ctx);
-  vm.runInContext('globalThis.__randomCalls = 0; Math.random = function () { globalThis.__randomCalls++; throw new Error("Math.random was called"); };', ctx);
+  // Math.random is counted, and by default it throws: a test that is about something else sets allowMathRandom so that a page which still
+  // uses it (release/R1g/dist) can be driven far enough for that test to fail for its own reason
+  vm.runInContext(`globalThis.__randomCalls = 0; { const real = Math.random; Math.random = function () { globalThis.__randomCalls++; ${opts.allowMathRandom ? 'return real.call(Math);' : 'throw new Error("Math.random was called");'} }; }`, ctx);
 
   const onRejection = (reason) => { rejections.push(reason); };
   process.on('unhandledRejection', onRejection);
 
+  for (const pre of opts.preload || []) vm.runInContext(pre.code, ctx, { filename: pre.filename || 'preload.js' });   // e.g. the pinned PeerJS file, for the wire check
+  if (opts.preload && opts.preload.length) { sandbox.__FakePeer = FakePeer; vm.runInContext('globalThis.Peer = globalThis.__FakePeer;', ctx); }   // a preloaded library may define its own Peer: the page keeps talking to the fake
   for (const body of timeScripts) vm.runInContext(body, ctx, { filename: 'watch-together.html#time' });
   vm.runInContext(script, ctx, { filename: 'watch-together.html#live-sync' });
   await Promise.all(domHandlers.map((h) => h.call(document)));

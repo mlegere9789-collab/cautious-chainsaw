@@ -38,6 +38,22 @@ RANK_VOC = {'colonel', 'lieutenant', 'lieut', 'lt', 'col', 'major', 'maj', 'capt
 ORD_RANK = re.compile(r"^[1-9](?:st|d|nd|rd|th)$")
 MARKS = "\"'`^*|[]()<>~_•■#:;,.-—"
 BAD_MARK = re.compile(r"[\^|~■•{}\\<>_]")
+def second_marker(rem):
+    """A second enlistment/commission marker (e. cm. em. + a month or a year) inside the remarks with a name-like run (a capitalised token ending with a comma) right
+    before it: the remarks probably hold another entry."""
+    toks = rem.split()
+    for i in range(1, len(toks) - 1):
+        t = toks[i]
+        if re.fullmatch(r"(?:e|cm|em|en|crn|cin|cni|ern)[\.,;:]+[\-—~'’\"\^\*]{0,2}", t) or re.fullmatch(r"(?:e|cm|em)[\.,;:]+[A-Z][a-z]{2,}\S*", t):
+            glued = bool(re.fullmatch(r"(?:e|cm|em)[\.,;:]+[A-Z][a-z]{2,}\S*", t))
+            nxt = toks[i + 1]
+            if glued or re.match(r"^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|in|['’`‘\"])", nxt, re.I):
+                look = toks[max(1, i - 6):i]
+                if any(re.match(r"^[^\w\s]{0,2}[A-Z][A-Za-z'’\-\.]*,", x) for x in look):
+                    return True
+    return False
+
+
 SECOND_MARK = re.compile(r"(?:^|\s)(?:e|cm|em|en|crn|cin|cni|ern)\.\s+(?:[A-Z][a-z]{2,}|in\s+['’]|['’])|(?:^|\s)(?:e|cm|em)[\.,;:]+[A-Z][a-z]{2,}")
 NAMELIKE_RUN = re.compile(r"\.\s+[A-Z][A-Za-z'’\-]{2,},\s+[A-Z][A-Za-z\.\-]*\.?,?\s+(?:e|cm|em)\.")
 TOKCLEAN = re.compile(r"[^a-z]")
@@ -62,10 +78,10 @@ def name_damaged(name, kind):
             return True
         if len(re.sub(r"[^A-Za-z]", "", c)) >= 2:
             alpha_toks += 1
-    if alpha_toks < 2 and not re.match(r"^[A-Z][a-z]+$", name.strip(MARKS)) and kind.startswith('S'):
-        return True
-    if kind.startswith('S') and alpha_toks < 2 and ',' in name or (kind.startswith('S') and len(toks) < 2):
-        return True
+    if kind.startswith('S'):
+        given = [t for t in toks[1:] if re.search(r"[A-Za-z]", t)]
+        if not given:
+            return True                                   # a surname alone: the given name is lost in the text layer
     return False
 
 
@@ -195,7 +211,7 @@ def row_codes(r, vocab):
         cs.add('Y')
     if garbage(name, rem):
         cs.add('G')
-    if SECOND_MARK.search(rem) or NAMELIKE_RUN.search(rem):
+    if second_marker(rem) or NAMELIKE_RUN.search(rem):
         cs.add('M')
     if word_damaged(rem, vocab):
         cs.add('W')
