@@ -1,6 +1,6 @@
 # Request to the world-content workstream (and the kit owners): product changes from the terrain-1 close-out (R13.G-01..G-16)
 
-From: bt-evidence, shard terrain-1, 2026-11-13 (first close-out) and 2026-11-16 (round 3; rows changed in round 3 are marked ROUND 3). Evidence: `GOVERNANCE/evidence_corrections/terrain-1.jsonl` (17 rows, 131 sub-claims, 454 citations, each with a verbatim quote, offset, report and printed page where the source has one; id form `R13.G-nn.x`). Register entries: `horde/terrain-1/proposed-register/terrain-1-EG-01..17.md`. Delegated decisions: `decisions/DELEGATED-DECISIONS-2026-11-11.md`, rows DD-TERRAIN1-01..12 with the correction lines of 2026-11-13 and 2026-11-16 and DD-TERRAIN1-13 to -15. Nothing in a product file was edited by this shard. Nothing is marked passing; no gate was run.
+From: bt-evidence, shard terrain-1, 2026-11-13 (first close-out) and 2026-11-16 (round 3; rows changed in round 3 are marked ROUND 3). Evidence: `GOVERNANCE/evidence_corrections/terrain-1.jsonl` (17 rows, 131 sub-claims, 460 citations, each with a verbatim quote, offset, report and printed page where the source has one; id form `R13.G-nn.x`). Register entries: `horde/terrain-1/proposed-register/terrain-1-EG-01..17.md`. Delegated decisions: `decisions/DELEGATED-DECISIONS-2026-11-11.md`, rows DD-TERRAIN1-01..12 with the correction lines of 2026-11-13 and 2026-11-16 and DD-TERRAIN1-13 to -15. Nothing in a product file was edited by this shard. Nothing is marked passing; no gate was run.
 
 ## ROUND 3 at a glance (2026-11-16): what differs from the note of 2026-11-13
 
@@ -63,3 +63,13 @@ Fences levelled by a pioneer party between Calef's night position and his new po
 ## F. Not touched / owed
 
 blocked_host pages are listed per row in the corrections file (14 groups of keys; the PDF prints no URL for 13 of them; the CivilWarTalk Whitworth thread URL is printed under another key). The Oak Hill tablet text, Stone Sentinels, HistoryNet, Gettysburg Daily, Emerging Civil War, StrategyPage, ABT and Civil War News pages could not be read here and are not asserted.
+
+## G. Shipped files that name this shard (copy audit) and counts that are now re-verified (ROUND 3, 2026-11-16)
+
+CLAUDE.md: no shipped file may mention how the site was produced. Four lines of shipped files name this shard and a GOVERNANCE path (found by a grep of `docs/battle-theatre/app` on 2026-11-16; this shard did not edit them):
+
+- `docs/battle-theatre/app/data/artillery-train.json` line 27 (`_doc`): "...as read by shard terrain-1 (GOVERNANCE/horde/terrain-1/proposed-register/terrain-1-EG-17.md ...)".
+- `docs/battle-theatre/app/src/structures/artillery.mjs` line 38: the `basis` string shown with a filled gun count reads "Official Records, read by shard terrain-1, not re-verified here: ...".
+- `docs/battle-theatre/app/data/works3d.json` line 269 ("(shard terrain-1, G-03)") and line 527 ("(shard terrain-1, EG-12)").
+
+Requested change: rewrite each as a plain source statement (Official Records Ser. I vol. 27, report, printed page) without the shard name or the GOVERNANCE path. The counts those lines call "not re-verified" are now re-verified verbatim with offsets and printed pages in `evidence_corrections/terrain-1.jsonl` (Stewart six 12-pdr and Wiedrich's six (Osborn p.747) or four (Hunt, Wainwright), Hall six 3-inch, Stevens six 12-pdr, Reynolds six 3-inch: rows R13.G-02.a and R13.G-03.a, with the report ids and pages in each citation), so their tier may be documented where one report states the count; where two reports disagree (Wiedrich four or six) keep the selector. The statements at works3d.json 269 (G-03: 'a small earthwork thrown up in its front') and 527 (G-12: no earthwork reported) remain true after round 3.

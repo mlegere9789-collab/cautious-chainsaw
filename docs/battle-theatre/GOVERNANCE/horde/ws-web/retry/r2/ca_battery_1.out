@@ -12,3 +12,32 @@ C12 | serenaded President Gettysburg | 1863-11-18/1863-11-23 | searched: 10 resu
 C13 | Weikert Gettysburg | 1863-07-01/1863-12-31 | searched: 2 results in index, 2 read, 2 with the term, 0 with the proximity
 C14 | Leister Gettysburg | 1863-07-01/1863-12-31 | searched: 2 results in index, 2 read, 2 with the term, 0 with the proximity
 C15 | Hummelbaugh | 1863-07-01/1863-12-31 | searched: 0 results in index, 0 read, 0 with the term, 0 with the proximity
+C16 | Jennie Wade Gettysburg killed bread | 1863-07-01/1863-12-31 | searched: 0 results in index, 0 read, 0 with the term, 0 with the proximity
+C17 | Rummel barn Gettysburg | 1863-07-01/1863-12-31 | searched: 0 results in index, 0 read, 0 with the term, 0 with the proximity
+C18 | Codori Gettysburg | 1863-07-01/1863-12-31 | searched: 0 results in index, 0 read, 0 with the term, 0 with the proximity
+C19 | Plum Run Gettysburg wounded | 1863-07-01/1863-08-31 | searched: 32 results in index, 15 read, 0 with the term, 0 with the proximity
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/docs/battle-theatre/GOVERNANCE/horde/ws-web/retry/r2/ca_battery.py", line 83, in <module>
+    main()
+    ~~~~^^
+  File "/home/user/cautious-chainsaw/docs/battle-theatre/GOVERNANCE/horde/ws-web/retry/r2/ca_battery.py", line 74, in main
+    res = run_spec(sp)
+  File "/home/user/cautious-chainsaw/docs/battle-theatre/GOVERNANCE/horde/ws-web/retry/r2/ca_battery.py", line 40, in run_spec
+    path, note = ca2.page_text(m)
+                 ~~~~~~~~~~~~~^^^
+  File "/home/user/cautious-chainsaw/docs/battle-theatre/GOVERNANCE/horde/ws-web/retry/r2/ca2.py", line 82, in page_text
+    text, words, info = rebuild_cols.rebuild(raw)
+                        ~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/user/cautious-chainsaw/docs/battle-theatre/GOVERNANCE/horde/ws-web/ca/scripts/rebuild_cols.py", line 101, in rebuild
+    W, H, lines = read_lines(path)
+                  ~~~~~~~~~~^^^^^^
+  File "/home/user/cautious-chainsaw/docs/battle-theatre/GOVERNANCE/horde/ws-web/ca/scripts/rebuild_cols.py", line 38, in read_lines
+    root = ET.parse(f).getroot()
+           ~~~~~~~~^^^
+  File "/usr/local/lib/python3.13/xml/etree/ElementTree.py", line 1219, in parse
+    tree.parse(source, parser)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/xml/etree/ElementTree.py", line 573, in parse
+    self._root = parser._parse_whole(source)
+                 ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+xml.etree.ElementTree.ParseError: unclosed token: line 1411, column 6

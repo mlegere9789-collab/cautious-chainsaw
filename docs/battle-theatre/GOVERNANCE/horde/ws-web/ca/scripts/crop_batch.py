@@ -10,7 +10,7 @@ Tags: 'tag' for a single run, 'tag_1', 'tag_2' ... for several. Each crop is rec
 A job whose crops are all saved already is skipped (no request).
 Prints one line per crop: tag, path, size.
 """
-import hashlib, json, os, sys
+import hashlib, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import calib, rebuild_cols
 
@@ -36,24 +36,30 @@ def load_images():
 
 
 def find_runs(words, quote):
-    """Token run of the quote in the word list, cut into runs at column breaks. Returns list of lists of word tuples, or None."""
-    qt = quote.split()
-    n = len(qt)
-    toks = [w[0] for w in words]
-    for s in range(len(toks) - n + 1):
-        if toks[s:s + n] == qt:
-            seg = words[s:s + n]
-            runs, cur = [], [seg[0]]
-            for prev, w in zip(seg, seg[1:]):
-                px, py, pw, ph = prev[4]
-                x, y, ww, hh = w[4]
-                if y < py - 8 * max(ph, 60):      # the reading jumped back up the page: the next column starts here
-                    runs.append(cur)
-                    cur = []
-                cur.append(w)
+    """Locate the quote in the word list (words joined by single spaces, the same view as the collapsed reading text; column markers of the
+    reading text are left out of the quote) and cut the words into runs at column breaks. Returns list of lists of word tuples, or None."""
+    import bisect
+    quote = ' '.join(re.sub(r'=== COLUMN \d+ ===', ' ', quote).split())
+    joined, starts = '', []
+    for w in words:
+        starts.append(len(joined))
+        joined += w[0] + ' '
+    i = joined.find(quote)
+    if i < 0:
+        return None
+    a = bisect.bisect_right(starts, i) - 1
+    b = bisect.bisect_right(starts, i + len(quote) - 1) - 1
+    seg = words[a:b + 1]
+    runs, cur = [], [seg[0]]
+    for prev, w in zip(seg, seg[1:]):
+        px, py, pw, ph = prev[4]
+        x, y, ww, hh = w[4]
+        if y < py - 8 * max(ph, 60):      # the reading jumped back up the page: the next column starts here
             runs.append(cur)
-            return runs
-    return None
+            cur = []
+        cur.append(w)
+    runs.append(cur)
+    return runs
 
 
 def main():

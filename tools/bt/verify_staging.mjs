@@ -1,6 +1,6 @@
 // Real-run check of a packed Battle Theatre staging build. The packer (tools/bt/pack_theatre.mjs) finds what the page loads by reading the code; this tool finds out what the page
 // ACTUALLY loads, with a browser (software WebGL2, one at a time), and compares:
-//   1. static: the dist matches its MANIFEST.json byte for byte; the zip holds exactly the dist (names, sizes, CRC-32) and its .sha256 file is right; every relative import of the dist exists; the load census of the packer (syntax tree of the code, not patterns) finds no load that the build does not answer;
+//   1. static: the dist matches its MANIFEST.json byte for byte; the zip holds exactly the dist (names, sizes, CRC-32) and its .sha256 file is right; every relative import of the dist exists; no path that the packer leaves out on purpose (EXCLUDE: files no page loads, the work folder rosters/data2/qa) is in the dist; the load census of the packer (syntax tree of the code, not patterns) finds no load that the build does not answer;
 //   2. the packed dist is served the way Netlify serves it (its _headers file applied) and walked: enter the theatre with the figures on, start the sound (what a click does), let the added
 //      layers (src/ext) settle, run the scene at 3 July 13:30, fly to a unit, play at 2x and at 60x, go to dawn, dusk and night of 3 July and to 4 July 15:00 (rain), open every drawer, select a unit, switch every added layer
 //      on and open every added panel, press Back; then every page of each static section (app/roster when it exists) is visited, its links followed and its controls pressed;
@@ -14,7 +14,7 @@
 //   node tools/bt/verify_staging.mjs --dist deliver/bt-staging/dist [--zip file.zip] [--source docs/battle-theatre] [--frames 20] [--json report.json] [--only dist|source]
 //   node tools/bt/verify_staging.mjs --doc --dist <dist> --zip <zip> [--selftest <tap.log>] [--verify <report.json>] [--queued "<text>"] [--write]     the "Current build" block of app/docs/NETLIFY-STAGING.md, written from FILES only (the pack, the static checks run on it, the
 //                                                                                        TAP log of tests/bt-pack, the report of a real run); without --write it is printed
-//   add --static-only for the checks that need no browser (manifest, zip, links, names, copy audit); --query a=b for a development shortcut (never the official check)
+//   add --static-only for the checks that need no browser (manifest, zip, links, names, left-out paths, load census, copy audit); --query a=b for a development shortcut (never the official check)
 //   pictures: every walk saves screenshots (the landing page, the soldiers close up, dawn, dusk, night, rain, a selected unit, the added layers on, and the first pages of a static section) to
 //   tmp/bt-spec/verify/shots/<time>/<dist|source>-<nn>-<name>.png (--shots <dir>, --no-shots, --viewport 1280x720; default 640x360). They are for a person to look at: the check does not judge them.
 // Run it through the machine lock (tools/horde/bench.sh): a software frame takes seconds. Exit 0 only when every check passes.
@@ -385,7 +385,7 @@ export function renderStagingBlock({ dist, zip, selftestLog = null, report = nul
   else L.push('| Copy audit | **0 hits** (rules: see "Copy audit" below) |');
   const sc = tr.scrubbed || [], nm = sc.reduce((n, x) => n + x.removed.length, 0); if (sc.length) L.push(`| Publication filter | ${sc.length} data files ship without ${plural(nm, 'member')} that name the program that made the file (delegated decision DD-STG-01; the working files keep them; the list is in \`MANIFEST.json\`, "scrubbed"). |`);
   if (selftestLog) { const t = fs.readFileSync(selftestLog, 'utf8'), n = k => +((new RegExp(`^# ${k} (\\d+)`, 'm').exec(t) || [0, 0])[1]), red = [...t.matchAll(/^not ok \d+ - (.+)$/gm)].map(m => m[1]);
-    L.push(`| Self-tests | \`tests/bt-pack\` (the packer on the real tree and on a made-up one; the checks of the verification on made-up folders): ${n('tests')} tests, ${n('pass')} pass, ${n('fail')} fail, ${n('skipped')} not run (the one that starts a browser).${red.length ? ` The ${red.length} red: ${red.map(x => '"' + x.replace(/ \(.*$/, '').slice(0, 90) + '"').join(', ')}. Each of them reads the real tree for a sentence that says how a file was made (the shipping gate, the kit and data check, the roster data); none is loosened.` : ''} |`); }
+    L.push(`| Self-tests | \`tests/bt-pack\` (the packer on the real tree and on a made-up one; the checks of the verification on made-up folders): ${n('tests')} tests, ${n('pass')} pass, ${n('fail')} fail, ${n('skipped')} not run (the one that starts a browser).${red.length ? ` The ${red.length} red: ${red.map(x => '"' + x.replace(/ \(.*$/, '').slice(0, 90) + '"').join(', ')}. Each of them reads the real tree for what the copy rules keep out of a published build: a sentence that says how a file was made, a tool name, the two letters AI as a word (the shipping gate, the kit and data check, the roster data); none is loosened.` : ''} |`); }
   L.push('');
   if (queued) L.push(queued, '');
   if (report && report.distRun && report.sourceRun) {

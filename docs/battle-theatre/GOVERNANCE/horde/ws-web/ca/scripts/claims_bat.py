@@ -189,7 +189,7 @@ CLAIMS = [
                     'vastly changed from that of Friday. The sky is overcast with heavy, dark, low hanging clouds, and at intervals the rain pours down in torrents. The fresh fields on which the battle was fought have become so softened '
                     'that the task of transporting the wounded in ambulances is one of no little difficulty."'),
          tier='documented', state_date='1863-07-04 to 1863-07-05',
-         cites=[dict(page=HER6_10, span=('tbe weather yesterday and to day', 'uo Utile difficulty.'),
+         cites=[dict(page=HER6_10, span=('s bapieut slier', 'uo Utile difficulty.'),
                      attribution="MR. GALEN H. OsllORN'S DESPATCH.",
                      heading='Mr. Galen H. Osborn\'s Despatch. Field of Battle, near Gettysburg, Pa., July 5\u20147 A. M.', heading_img='b_her10_head',
                      reprint={'status': 'original', 'from': 'the Herald\'s own correspondent (the paragraph follows the heading "MR. GALEN H. OSBORN\'S DESPATCH. Field of Battle, near Gettysburg, Pa., July 5—7 A. M.", read from the print)', 'basis': "MR. GALEN H. OsllORN'S DESPATCH."})],

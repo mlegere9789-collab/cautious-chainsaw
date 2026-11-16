@@ -1,7 +1,7 @@
 {
  "format": "roster2-sources-pointer/1",
  "work_item": "conf-nc",
- "generated": "2026-11-16T00:40:31Z",
+ "generated": "2026-11-16T01:04:35Z",
  "access_rules": "archive.org metadata and /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround",
  "sources": [
   {
@@ -84,8 +84,10 @@
     }
    },
    "role": "roll",
-   "status": "read as the second reading of the units whose primary scan is the other copy of the volume; no line of a unit file is read from it",
-   "used_for": []
+   "status": "parsed: primary reading of 1 units",
+   "used_for": [
+    "c-nc-charlotte-artillery"
+   ]
   },
   {
    "source_id": "NC-MOORE-1882",
@@ -265,9 +267,10 @@
     }
    },
    "role": "roll",
-   "status": "parsed: primary reading of 1 units",
+   "status": "parsed: primary reading of 2 units",
    "used_for": [
-    "c-nc-16th-north-carolina-infantry"
+    "c-nc-16th-north-carolina-infantry",
+    "c-nc-21st-north-carolina-infantry"
    ]
   },
   {
@@ -350,11 +353,10 @@
     }
    },
    "role": "roll",
-   "status": "parsed: primary reading of 12 units",
+   "status": "parsed: primary reading of 11 units",
    "used_for": [
     "c-nc-18th-north-carolina-infantry",
     "c-nc-20th-north-carolina-infantry",
-    "c-nc-21st-north-carolina-infantry",
     "c-nc-22nd-north-carolina-infantry",
     "c-nc-23rd-north-carolina-infantry",
     "c-nc-26th-north-carolina-infantry",

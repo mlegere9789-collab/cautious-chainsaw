@@ -185,6 +185,9 @@ def finalize_row(row, info, text, pm, ti, leaf):
         rank_str = rank_tail
     else:
         rank_str = ' '.join(w['w'] for w in rank_w)
+    if rank_str.startswith('^'):
+        rank_str = rank_str.lstrip('^')      # a scanner mark in front of the rank word would read as the marker of a carried heading in the file
+        flags.add('G')
     # a name needs at least one word with a letter or digit
     if not any(T.core(t) for _, t in name_str_tokens):
         return None, 'no name (the text layer lost the name cell)'

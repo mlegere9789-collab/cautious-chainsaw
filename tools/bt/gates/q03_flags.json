@@ -1,0 +1,28 @@
+{
+  "_doc": "Which register entries the Q03 runner accepts as the registration of each validator flag class (GATE-SPEC Q03.1: a flag is acceptable only when every variant passes and the flag is marked and registered). An entry is listed only when its own title or description names the subject of the flag; nothing is guessed. The runner then asks of each entry: open or awaiting owner, every field of the record present and not a placeholder, and an owner question (link level L1 of GATE-SPEC 1.4). An empty list means that no register entry names the flag class, which the runner reports as a failure of the flag. Written 2026-11-16 from GOVERNANCE/register_index.json (487 entries searched for: 140th, Berdan, badge, kepi, private purchase, Spencer, Whitworth, Zouave, dress, uniform).",
+  "flags": {
+    "DISPUTED_FLAGGED": {
+      "by_dispute": {
+        "DISP-140NY-DRESS": ["EG-0009"],
+        "DISP-BERDAN-GREEN-BLUE": []
+      },
+      "basis": "EG-0009 is titled '140th NY dress (regulation blue vs Zouave from 3 Jun 1863)'. No register entry names the Berdan Sharpshooters' green or blue uniform dispute (EG-0301 is about rounds fired); the kit data names it as DISP-BERDAN-GREEN-BLUE with owner decision PENDING OWNER."
+    },
+    "FLAG_BADGE_UNRESOLVED": {
+      "register_ids": ["EG-0015"],
+      "basis": "EG-0015 is titled 'Corps badge status per regiment; XII Corps star; Cavalry sabers' (badge shapes from a forum-quoted table, weak): the badge colour of a division the plan does not print is the same open question."
+    },
+    "FLAG_KEPI_PRIVATE_PURCHASE": {
+      "register_ids": [],
+      "basis": "No register entry names the kepi worn as a private purchase by Confederate cavalrymen (B.6.15.4, a plausible-procedural exception flagged by the validator). EG-0016 is the general entry for Confederate dress below brigade and does not name it."
+    },
+    "FLAG_WHITWORTH_EXCEPTION": {
+      "register_ids": [],
+      "basis": "No register entry names the Whitworth rifle as a flagged exception for a Confederate sharpshooter. EG-0164 is about Hurt's Whitworth guns."
+    },
+    "FLAG_SPENCER_DISPUTED_WINDOW": {
+      "register_ids": ["EG-0268"],
+      "basis": "EG-0268 is titled 'Spencer arms of the Michigan Brigade at Hunterstown (T2-148)': the Spencer window of 30 June to 2 July on the 5th and 6th Michigan is that question."
+    }
+  }
+}

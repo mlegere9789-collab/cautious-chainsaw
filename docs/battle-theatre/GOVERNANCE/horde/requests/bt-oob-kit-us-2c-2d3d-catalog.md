@@ -1,0 +1,18 @@
+# Request: catalog items missing for kit group us-2c-2d3d (workstream bt-oob-kit)
+
+Written 2026-11-16. The lines of `docs/battle-theatre/kit/evidence/us-2c-2d3d.jsonl` give `weapon_id` or `item_id` null where the catalog of `groups.json` has no item; the integrator decides what to add (a catalog addition is a code change). The printed words are the source's. Line ids in brackets.
+
+## Weapons (`weapon_id` null)
+
+- smooth-bore muskets of the Springfield pattern, calibre .69, model not named, with buck and ball: the 4th Ohio (0344, 0459, 0460), 12th New Jersey (0346, 0347), 8th Ohio (0351, 0352). The catalog has `smoothbore_69_musket_unspecified` (used where the source gives calibre .69 or says "Springfield muskets", e.g. 0459-0460) and `m1842_smoothbore`.
+- Harper's Ferry muskets, old smooth-bore guns altered from flint-lock to percussion (the 42d New York, 1861, 0355); "many of the guns dignified by the name of rifles were only flint-lock muskets, altered" (69th, 71st, 72d Pennsylvania, autumn 1861, 0399-0401); Harper's Ferry rifles of calibre .69 (15th Massachusetts, one company, 0413): no catalog item for the .69 Harper's Ferry rifle (the catalog has `harpers_ferry_rifle_m1855`, the .58).
+- heavy telescopic rifles (1st Company Massachusetts Sharpshooters, 1861, 0417): `scoped_target_rifle` is the nearest.
+- sabre or sword bayonets (named in the 1st Minnesota's history for its Mississippi rifles in 1861, 0353): no catalog item for the sabre bayonet (the catalog has `socket_bayonet`).
+- rifles left on the ground, gathered up and loaded (the 71st Pennsylvania on 3 July, 0389): field finds; the catalog has `field_finds_any_arm`.
+
+## Dress (`item_id` null)
+
+- Second Corps badge in the form the source gives without a colour (8th Ohio 0367, 14th Connecticut 0374, 111th New York 0492): the colour is given by the division (`badge_II_white`, `badge_II_blue` exist).
+- Zouave dress of the 72d Pennsylvania (Fire Zouaves, 1861: cut-away jacket with rows of bright bell buttons, bright shirt with the company letter, light-blue pants cut wide with red stripes, white leggings, regulation cap; 0392-0396), of the 10th New York (fez; dark brown jacket trimmed with red and a red vest; light-blue trousers trimmed with red; white canvas leggings; 0422-0425) and of the 1st Delaware (0383): the catalog has `zouave_dress_unspecified_*` and items of the 5th, 44th and 146th New York and the 114th Pennsylvania only.
+- gray overcoats with brilliant red lining (20th Massachusetts, 0379); gray uniforms issued to the California Regiment (71st Pennsylvania, 0398); high black felt hats with black feather plumes, a gilt eagle and a gilt bugle (106th Pennsylvania, 0405); black felt hat, black pants, woolen shirts of various colors with red predominating (1st Minnesota, 1861, 0380-0382); light blue trousers, dark blue coats and black hats (15th Massachusetts, 1861, 0414-0416); trousers between sky blue and pea green, baggy the whole length (19th Maine, 1862, 0433); Garibaldi dress of the 39th New York: the catalog has `black_plumed_hat_39ny`, `bersaglieri_tunic_39ny`, `gaiters_white_39ny`, `trousers_39ny_red_outseam`; the source says dark blue cloth, black leather leggings and a Garibaldi hat with black feather (0375-0377).
+- flags: a new flag presented by the ladies of Minnesota inscribed with the battles (1st Minnesota, April 1863, 0489); colors received from the Government after the exchange (126th New York, 0491); the green flag (69th Pennsylvania, 0490, `flag_green_irish`); the original regimental colors and the national flag (19th Maine, 0488, `regimental_color_union`, `national_color_us`).

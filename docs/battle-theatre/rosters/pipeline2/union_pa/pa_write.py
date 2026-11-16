@@ -32,6 +32,7 @@ CODES = {
     'S': 'a name word does not follow the name in the text layer: the name was cut there and the word stands in the remarks',
     'C': 'the company title above the line is damaged or lost in the text layer: the letter is taken from the order of the titles (or from the place that says where the company was recruited)',
     'O': 'the text layer lists the words of the line in another order than the page does (the cells file gives the order of the page)',
+    'Q': 'the company letter may be wrong: a company title is missing from the text layer after the title of this line\'s company (a gap in the letters), and the rows of the missing company stand under this letter',
     'L': 'the line runs over more than six printed lines',
 }
 ON_ROLLS_RULE = ('inferred only from printed dates: "yes" needs a clean printed date of muster on or before 30 June 1863 and no separation printed (discharge, death, '
@@ -139,7 +140,7 @@ def write_unit(u):
     # ---- diagnostics
     os.makedirs(DIAG, exist_ok=True)
     rej = [r for r in d['rejected'] if u['co'] is None or r['co'] in u['co']]
-    json.dump({'unit': u['key'], 'rows': n, 'lost_name_lines': rej, 'orphans': d['orphans'], 'headings': d['headings']},
+    json.dump({'unit': u['key'], 'rows': n, 'lost_name_lines': rej, 'orphans': d['orphans'], 'headings': d['headings'], 'company_gaps': d.get('company_gaps', [])},
               open(os.path.join(DIAG, u['key'][len('u-pa-'):] + '.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
     return path, meta, flags
 

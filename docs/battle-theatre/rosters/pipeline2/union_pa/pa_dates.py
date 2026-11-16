@@ -7,7 +7,7 @@ A date is read only in the clean printed forms (month, day, year of two or four 
 import re
 
 MONTHS = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6, 'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12}
-_MON = re.compile(r"^[.'‘’`\"]*(Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sept?|Oct|Nov|Dec)[a-z]{0,6}[.,;:]*$")
+_MON = re.compile(r"^[.'‘’`\"]*(Jan\.?|January|Feb\.?|February|Mar\.?|March|Mch\.?|Apr\.?|April|May|June?|July?|Aug\.?|August|Sept?\.?|September|Oct\.?|October|Nov\.?|November|Dec\.?|December)[.,;:]*$")
 _DAY = re.compile(r"^[.,]*(\d{1,2})[.,;:]*$")
 _YEAR = re.compile(r"^[.'‘’`\"■•]*(?:18)?(6[1-5])[.,;:—\-]*$")
 _YEAR4 = re.compile(r"^[.'‘’`\"]*(18)(6[1-5])[.,;:—\-]*$")

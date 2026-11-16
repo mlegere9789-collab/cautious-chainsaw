@@ -4,8 +4,8 @@ Group `us-1c-1d-art` of `groups.json`: the I Corps entry, Wadsworth's First Divi
 
 ## 1. Result
 
-- **519 records**: 273 documented, 240 inferred, 4 open gaps, 2 source records (the two texts acquired for this group). No plausible-procedural record (the group files never hold that tier). Every datum carries its tier, a citation and a quote of at most 14 words that the checker finds in the text; a record that rests on a non-officer text (a state volume's sketch or inscription, a regimental history, a guide) is at most inferred, with its reasoning.
-- The file grew from 152 records (first pass) to 306 (second pass) and now to 519. No claim id was renumbered or reused; the ids of the earlier passes stand.
+- **524 records**: 273 documented, 245 inferred, 4 open gaps, 2 source records (the two texts acquired for this group). No plausible-procedural record (the group files never hold that tier). Every datum carries its tier, a citation and a quote of at most 14 words that the checker finds in the text; a record that rests on a non-officer text (a state volume's sketch or inscription, a regimental history, a guide) is at most inferred, with its reasoning.
+- The file grew from 152 records (first pass) to 306 (second pass) and now to 524. No claim id was renumbered or reused; the ids of the earlier passes stand.
 - `python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py us-1c-1d-art --complete`: 0 errors, 2 warnings (records 0084 and 0209, whose notes say why no anchor exists), 0 of 17 leaf units still owed anything.
 - The file is rebuilt from spec modules by code (offsets, pages, passages and quotes are computed from the local texts, not typed); the scratch builder is under `tmp/units-us-1c-1d-art/` (not shipped).
 - Every conflict is carried and none is resolved: 35 clusters (section 4), conflict links reciprocal inside the file (the two links to ids outside it, `POS-A-1CA-001` and `RC-08`, are named in the records).
@@ -16,7 +16,7 @@ All 23 unit ids that carry records. Counts are records; kinds: arr arrival, road
 
 | Unit | Name | Records | Kinds | Earliest own arrival |
 |---|---|---|---|---|
-| `us-1c` | I Corps (corps entry) | 15 | str 3 arr 3 rid 2 dep 2 pos 2 road 1 march 1 order 1 | 0389, 06/30 (day only), R007, inferred |
+| `us-1c` | I Corps (corps entry) | 16 | arr 4 str 3 rid 2 dep 2 pos 2 road 1 march 1 order 1 | 0389, 06/30 (day only), R007, inferred |
 | `us-1c-1d` | First Division, Wadsworth | 42 | pos 21 eng 7 arr 4 march 4 order 3 road 2 mov 1 | 0345, 06/30 (day only), R029, documented |
 | `us-1c-1d-meredith` | First Brigade (Iron Brigade), Meredith | 26 | pos 10 order 6 str 4 eng 3 arr 2 road 1 | 0504, 06/30 12:00 (approx.), CURTIS-1891, inferred |
 | `us-1c-1d-meredith-2wi` | 2nd Wisconsin | 13 | pos 4 eng 4 mov 2 rid 1 road 1 str 1 | none of its own (see section 3) |
@@ -28,9 +28,9 @@ All 23 unit ids that carry records. Counts are records; kinds: arr arrival, road
 | `us-1c-1d-cutler-7in` | 7th Indiana | 17 | pos 8 arr 2 mov 2 gap 2 eng 1 dep 1 str 1 | 0037, 07/01 (day only), R037, documented |
 | `us-1c-1d-cutler-56pa` | 56th Pennsylvania | 18 | str 5 mov 4 eng 4 pos 2 rid 1 road 1 arr 1 | 0514, 06/30 12:00, PA1-S018, documented |
 | `us-1c-1d-cutler-76ny` | 76th New York | 18 | str 5 mov 5 pos 4 eng 2 arr 1 road 1 | 0043, 07/01 10:30 (approx.), R039, documented |
-| `us-1c-1d-cutler-84ny` | 84th New York (14th Brooklyn) | 29 | pos 10 eng 10 mov 7 str 2 | none of its own (see section 3) |
-| `us-1c-1d-cutler-95ny` | 95th New York | 21 | pos 12 mov 3 str 2 night 2 eng 2 | none of its own (see section 3) |
-| `us-1c-1d-cutler-147ny` | 147th New York | 25 | pos 8 mov 8 eng 5 str 2 arr 1 road 1 | 0044, 07/01 09:30 (approx.), NY3-S006, inferred |
+| `us-1c-1d-cutler-84ny` | 84th New York (14th Brooklyn) | 31 | pos 11 eng 11 mov 7 str 2 | none of its own (see section 3) |
+| `us-1c-1d-cutler-95ny` | 95th New York | 22 | pos 13 mov 3 str 2 night 2 eng 2 | none of its own (see section 3) |
+| `us-1c-1d-cutler-147ny` | 147th New York | 26 | mov 9 pos 8 eng 5 str 2 arr 1 road 1 | 0044, 07/01 09:30 (approx.), NY3-S006, inferred |
 | `us-1c-art` | Artillery Brigade, Wainwright | 26 | pos 8 eng 6 order 5 arr 2 road 1 gap 1 rid 1 mov 1 march 1 | 0074, 07/01 10:30 (approx.), R071, documented |
 | `us-1c-art-2me` | 2nd Maine Battery (Hall) | 35 | pos 13 mov 7 arr 6 eng 4 str 2 road 1 night 1 march 1 | 0346, 06/30 (day only), R029, documented |
 | `us-1c-art-5me` | 5th Maine Battery (Stevens) | 29 | pos 12 eng 9 mov 2 night 2 rid 1 arr 1 road 1 str 1 | 0086, 07/01 (day only), ME-S004, inferred |
@@ -52,9 +52,9 @@ Records by source (the source of each record's quote):
 | DAWES-1890 | 21 |
 | State volumes (PA1) | 17 |
 | CURTIS-1891 | 12 |
+| State volumes (BL3) | 8 |
 | State volumes (NY1) | 7 |
 | BACH-WHATTOSEE-1889 | 7 |
-| State volumes (BL3) | 3 |
 | State volumes (MI) | 2 |
 | State volumes (FOX) | 1 |
 | IN-1913 | 1 |
@@ -63,7 +63,7 @@ What the third pass added to what the earlier passes held: the group's own repor
 
 Facts of the pass worth naming (all in the file, each with its quote):
 
-- Dates before 1 July: the First Corps on the night of 30 June (Marsh Run or Marsh Creek, Howard R243, itinerary R007, Doubleday R029, Morrow R033, Dawes' letter, Curtis, Hofmann: noon at Marsh Creek on the south bank by the pike bridge; Emmitsburg except Wadsworth's division, Bachelder 1889).
+- Dates before 1 July: the First Corps on the night of 30 June (Marsh Run or Marsh Creek: Howard R243, the itinerary R007, Hunt 1887, Doubleday R029, Morrow R033, Dawes' letter, Curtis, Hofmann, who prints noon at Marsh Creek on the south bank by the pike bridge; Emmitsburg except Wadsworth's division: Bachelder 1889).
 - Routes: the leaving point at the Codori house (Hofmann, Pierce, the 95th sketch, Bachelder), Cooper's battery on the western road by the White bridge and Willoughby Run (Gardner, Bachelder), the order of the corps artillery on the march.
 - Positions anchored on monuments and markers (MON-154, MON-291, MON-297, MON-298, MON-303, MON-357): each anchor carries the printed statement that the monument stands where the unit stood.
 - Times: clocks printed in numerals are coded as clocks; times in words ("eleven o'clock", "lo o'clock" for 10) are carried by sequence with the hour in the note (second request note).
@@ -127,7 +127,7 @@ Records are named by their last four digits. "R" is an Official Records report. 
 | 31 | 0273, 0428 | Cooper's retirement through the town: about 5 p. m. (Cooper) against after 4 p. m. (Gardner) |
 | 32 | 0291, 0292 | the 24th Michigan on 5 July: moved to near the ground of the final charge (Sergeant Green) against Culp's Hill (Captain Edwards' dateline) |
 | 33 | 0304, 0305 | Whittier's afternoon after the "morning of the 3d instant": 2 July or 3 July |
-| 34 | 0388, 0389, 0496 | the First Corps on the night of 30 June: Marsh Run (Howard, itinerary) against Emmitsburg except Wadsworth's division at Marsh Creek (Bachelder 1889); the three are records of the corps, and records 0497 and 0498 (Wadsworth's division and Hall's battery at Marsh Creek) agree with all three |
+| 34 | 0388, 0389, 0496, 0524 | the First Corps on the night of 30 June: Marsh Run (Howard, the itinerary, Hunt 1887) against Emmitsburg except Wadsworth's division at Marsh Creek (Bachelder 1889); the four are records of the corps, and records 0497 and 0498 (Wadsworth's division and Hall's battery at Marsh Creek) agree with all four |
 | 35 | 0415, 0429 | Cooper's battery at the seminary: about 2 p. m. (Maine volume) against about 3 p. m. (Gardner) |
 
 Smaller disagreements are written in the notes of the records and are not made clusters (for example the officer who ordered the 95th New York and the Fourteenth Brooklyn to the left: Reynolds in Cutler's report and Bachelder, Wadsworth in Hedges and the 95th sketch; the place and the time are the same in all of them).
@@ -177,6 +177,8 @@ Network: no request was made in this pass; the texts used were already local. A 
 
 ## 9. What was checked, and what was not run
 
-Run: the group checker with `--complete` on the file as it stands (0 errors, 2 warnings), and before every publish of the pass; the file is the output of the builder (`make3.py --publish`) from the spec modules, which refuses to replace the file when the checker reports an error, and a fresh build from the specs is byte-identical to the file (sha256 `f2c4486d2ea1ed62d18cde661d4c9b3dd6964c85b7e7b0ccf73c4935a34bac3c`); a full read of every new record against its passage before it was published; the copy audit of the file, this report, the proposed entries and the request notes (no mention of how the data was produced and no tool or company name; the only hit of a search for such words is the register template's own row label "Autonomous substitute applied").
+Run: the group checker with `--complete` on the file as it stands (0 errors, 2 warnings), and before every publish of the pass; the file is the output of the builder (`make3.py --publish`) from the spec modules, which refuses to replace the file when the checker reports an error, and a fresh build from the specs is byte-identical to the file (sha256 `8b363b60c6cb03d131d3484c98e22f74e75a45edf4e3e80864dc8ea7846d5e1e`); a full read of every new record against its passage before it was published; the copy audit of the file, this report, the proposed entries and the request notes (no mention of how the data was produced and no tool or company name; the only hit of a search for such words is the register template's own row label "Autonomous substitute applied").
 
-Not run: the checker over all groups and its self-test (queued behind the timing jobs of the machine lock and not completed when this report was written, see the progress line), the governance check, any browser job, any gate runner, the node suite. Nothing was committed, pushed or deployed and no `passes` flag was touched. No credential, account or key was used; the texts used were already local.
+Also run: `check_undrawn.py --self-test` (self-test OK) and `python3 tools/bt/check_governance.py` (ok: true, no fails; its notes about unfinished coverage of other requirements are not about this group).
+
+Not run: `check_undrawn.py --all` (the checker over all groups): it was queued through `tools/horde/bench.sh` behind the timing jobs of the machine lock for about 25 minutes, never got a slot and was stopped; the group's own check, which is what bears on this file, ran many times (9 seconds each). No browser job, no gate runner and no node suite was run. Nothing was committed, pushed or deployed and no `passes` flag was touched. No credential, account or key was used.

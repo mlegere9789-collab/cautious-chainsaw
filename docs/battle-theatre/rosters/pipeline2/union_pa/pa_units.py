@@ -8,8 +8,8 @@ title leaf of the three-years regiment.
 
 RANGES: (volume, first leaf, last leaf) of the leaves that may hold the regiment's rolls: from the leaf that carries the regiment's title
 (the narrative history comes first and is skipped by the page classifier) up to the leaf before the next title.  The leaf is the 0-based
-index of the item's page images (the same index as the hocr page index).  `also` lists leaves of the same regiment that the book prints
-elsewhere (volume 4 binds the rolls of the 145th and 147th Regiments a second time among the cavalry).
+index of the item's page images (the same index as the hocr page index).  `also` lists further leaf ranges of the same unit (the independent batteries C and F stand in two places of volume 5).  Volume 4
+holds pages 545 to 560 twice (leaves 577-592 and 981-996; the item's page-number file numbers the second set 945 to 960): the repeat is not read.
 Every range was checked against the printed running heads (pa_check_ranges.py writes the check to the diagnostics directory).
 """
 # key, designation, volume, bates number, first leaf, last leaf, companies (None = every company of the regiment), extra leaf ranges
@@ -92,8 +92,8 @@ u('u-pa-140th-pennsylvania-infantry', 4, 140, 439, 468)
 u('u-pa-141st-pennsylvania-infantry', 4, 141, 469, 495)
 u('u-pa-142nd-pennsylvania-infantry', 4, 142, 496, 518)
 u('u-pa-143rd-pennsylvania-infantry', 4, 143, 519, 549)
-u('u-pa-145th-pennsylvania-infantry', 4, 145, 550, 582, also=[(982, 986)])
-u('u-pa-147th-pennsylvania-infantry', 4, 147, 583, 608, also=[(987, 996)])
+u('u-pa-145th-pennsylvania-infantry', 4, 145, 550, 582, note='leaves 982-986 repeat leaves 578-582 (a signature of pages 545-560 is scanned twice in this volume); not read twice')
+u('u-pa-147th-pennsylvania-infantry', 4, 147, 583, 608, note='leaves 987-996 repeat leaves 583-592; not read twice')
 u('u-pa-148th-pennsylvania-infantry', 4, 148, 609, 642)
 u('u-pa-149th-pennsylvania-infantry', 4, 149, 643, 680)
 u('u-pa-150th-pennsylvania-infantry', 4, 150, 681, 712)

@@ -86,37 +86,49 @@ def heading_of(toks):
         return ('unassigned', '')
     if re.search(r'^recruits?$', k) or re.search(r'unattached|unas', k):
         return ('unassigned', '')
-    # company / battery heading: the word "Company" (or Battery, Troop) may be split or damaged by the text layer ("Co MPAN T B .", "COMPAjVfY G.")
-    acc, k = '', 0
-    word = None
-    while k < len(toks) and len(acc) < 7:
-        acc += re.sub(r'[^A-Za-z0-9]', '', toks[k])
-        k += 1
-    accl = acc.lower()
-    if len(accl) >= 7 and accl[0] in 'cb' and len(toks) <= 8 and toks[0][:1] in ('C', 'B', 'c', 'b') and (toks[0][:1].isupper() or toks[0][:2].isupper()):
-        if accl[0] == 'c' and T.lev(accl[:7], 'company', 2) <= 2:
-            word = 'company'
-        elif accl[0] == 'b' and T.lev(accl[:7], 'battery', 2) <= 2:
-            word = 'battery'
-    if word is None and len(accl) == 5 and accl == 'troop':
-        word = 'troop'
-    if word and not any(T.is_month(t) for t in toks):
-        rest = toks[k:]
-        extra = len(acc) - 7
-        if k == 1 and extra >= 2:
-            pass                                   # one damaged word of 9 or 10 characters: the word itself, the letter follows
-        elif extra == 1 and not rest:
-            return ('company', acc[7].upper() if acc[7].isalpha() else '?')   # the letter glued to the word ("COMPANYB.")
-        if not rest:
-            return ('company', '?')
-        t1 = re.sub(r'[^A-Za-z0-9]', '', rest[0])
-        after = rest[1:]
-        # after the letter: nothing, or the place of recruitment ("recruited at ..."), or marks; a remark ("company H - date unknown") is no heading
-        ok_after = (not after) or RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', after[0])) or all(not re.sub(r'[^A-Za-z0-9]', '', t) for t in after)
-        if (len(t1) == 1 or (len(t1) == 2 and t1[0] == t1[1])) and ok_after:
-            return ('company', t1[0].upper())
-        if (t1 == '' or RECRUIT_RE.match(t1)) and ok_after:
-            return ('company', '?')
+    # company / battery heading: the word "Company" (or Battery, Troop) may be split or damaged by the text layer ("Co MPAN T B .", "Co ]& PANT H.")
+    if not (len(toks) <= 8 and toks[0][:1] in ('C', 'B', 'c', 'b') and (toks[0][:1].isupper() or toks[0][:2].isupper())):
+        return None
+    if any(T.is_month(t) for t in toks):
+        return None
+    best = None
+    acc = ''
+    for k in range(1, min(len(toks), 5) + 1):
+        acc += re.sub(r'[^A-Za-z0-9]', '', toks[k - 1])
+        al = acc.lower()
+        if len(al) < 5:
+            continue
+        for word in ('company', 'battery'):
+            if al[0] != word[0]:
+                continue
+            d = T.lev(al, word, 3)
+            if k == 1 and len(al) >= 8:
+                d = min(d, T.lev(al[:7], word, 3))
+            if (d <= 1) or (d <= 2 and len(al) >= 6):
+                if best is None or d < best[0] or (d == best[0] == 1 and k > best[1]):
+                    best = (d, k, word)
+        if len(al) > 9:
+            break
+    if best is None and len(toks) >= 1 and re.sub(r'[^A-Za-z0-9]', '', toks[0]).lower() == 'troop':
+        best = (0, 1, 'troop')
+    if best is None:
+        return None
+    k = best[1]
+    rest = toks[k:]
+    if not rest:
+        return ('company?', '?')
+    t1 = re.sub(r'[^A-Za-z0-9]', '', rest[0])
+    after = rest[1:]
+    # after the letter: nothing, or the place of recruitment ("recruited at ..."), or marks; a remark ("company H - date unknown") is no heading
+    after_w = [t for t in after if re.sub(r'[^A-Za-z0-9]', '', t)]
+    ok_after = (not after_w) or bool(RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', after_w[0])))
+    if (len(t1) == 1 or (len(t1) == 2 and t1[0] == t1[1])) and ok_after:
+        wf = bool(re.fullmatch(r"[A-Z][.,]?\*?", rest[0].strip())) and len(t1) == 1 and best[0] <= 1
+        return ('company' if wf else 'company?', t1[0].upper())
+    if t1 == '' and ok_after:
+        return ('company?', '?')
+    if RECRUIT_RE.match(t1):
+        return ('company?', '?')                      # the letter is not there: "COMPANT^. RECRUITED AT ..."
     return None
 
 
@@ -241,6 +253,7 @@ def analyse_leaf(rec, ctx):
     last_row = None            # the row dict that a continuation line may join
     last_y = None
     row_ys = []
+    pre_roll = not ctx.get('seen_heading') and ctx.get('dated_rows', 0) < 3     # nothing of the roll has been seen yet in this unit: the page may begin with narrative
     for i, l in enumerate(lines):
         toks = tok_text(l)
         txt = line_txt(l)
@@ -262,7 +275,7 @@ def analyse_leaf(rec, ctx):
             hd = None
         else:
             hd = heading_of(toks)
-            if hd and hd[0] == 'company' and (x0 < (xn if xn is not None else 0.12 * W) + 0.04 * W and len(toks) > 3):
+            if hd and hd[0].startswith('company') and (x0 < (xn if xn is not None else 0.12 * W) + 0.04 * W and len(toks) > 3):
                 hd = None     # a name that begins like a heading word ("Compton, James H")
         if not has_month and not hd and (i < 3 or y < y_first_month - 2.2 * (pitch0 or 40)) and not any(
                 B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l):
@@ -277,6 +290,7 @@ def analyse_leaf(rec, ctx):
             continue
         if hd:
             out['items'].append(('heading', hd[0], hd[1], txt, y))
+            ctx['seen_heading'] = True
             last_row = None
             continue
         if not has_month and RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', toks[0])) and (xn is None or x0 > xn + 0.04 * W) and (x0 < B2 or last_row is None) and len(toks) >= 2:
@@ -285,15 +299,17 @@ def analyse_leaf(rec, ctx):
             near_heading = any(it[0] == 'heading' and y - it[-1] < 4.2 * (pitch0 or 40) for it in out['items'][-3:-1])
             if not near_heading and x0 > (xn if xn is not None else 0) + 0.12 * W:
                 # the line that says where the company was recruited stands without the heading above it: the heading was lost by the text layer
-                out['items'].insert(len(out['items']) - 1, ('heading', 'company', '?', '(inferred from the recruited line) ' + txt, y - 1))
+                out['items'].insert(len(out['items']) - 1, ('heading', 'company?', '?', '(inferred from the recruited line) ' + txt, y - 1))
             last_row = None
             continue
-        # a line of running prose (a narrative page ends above the roll, a footnote under the table): many words, no cell gaps, starts in the name column
-        if not has_month and len(l) >= 6 and left_alnum and max(l[k + 1]['x0'] - l[k]['x1'] for k in range(len(l) - 1)) < 0.045 * W and not any(
-                B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l):
-            out['items'].append(('skip', 'prose', txt, y))
-            last_row = None
-            continue
+        # a line of running prose (a narrative page ends above the roll, a footnote under the table): words stand in the rank and date columns where a
+        # table line has a rank word, a month or nothing at all
+        if pre_roll and not has_month and len(l) >= 6 and left_alnum:
+            mid = [w for w in l if B1 - 0.02 * W <= w['x0'] < xd + 0.12 * W and len(T.core(w['w'])) >= 3 and sum(c.isalpha() for c in w['w']) >= 3]
+            if len(mid) >= 2 and not any(B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l):
+                out['items'].append(('skip', 'prose', txt, y))
+                last_row = None
+                continue
         if not has_month and not right and left_alnum and all(T.core(w['w']).isdigit() or T.core(w['w']).lower() in ('vol', 'il', 'ill', 'iii', 'ii', 'iv', 'v', 'i', 'l') for w in left_alnum):
             out['items'].append(('skip', 'foot', txt, y))        # the signature mark at the foot of a page ("104", "131 - VOL. III.")
             continue
@@ -307,12 +323,28 @@ def analyse_leaf(rec, ctx):
             out['items'].append(('orphan', txt, y, 'text right of the name columns and no row above'))
             continue
         # --- an anchor line: a table line with a name, a rank or a date at the date column
-        row = {'y': y, 'lines': 1, 'left_w': left, 'post_w': list(right), 'cont_w': [], 'flags': set(), 'h': h, 'line': i}
+        row = {'y': y, 'lines': 1, 'left_w': left, 'post_w': list(right), 'cont_w': [], 'flags': set(), 'h': h, 'line': i, 'dated': has_month}
         out['items'].append(('row', row))
         if last_y is not None and y - last_y > 0:
             d = y - last_y
             if pitch is None or d < pitch * 1.6:
                 pitch = d if pitch is None else 0.8 * pitch + 0.2 * d
         last_row, last_y = row, y
+    # a roll page that begins with the end of the regiment's narrative: lines without a date that stand next to prose lines are prose too
+    items = out['items']
+    first_hd = next((k for k, it in enumerate(items) if it[0] == 'heading'), len(items))
+    ctx['dated_rows'] = ctx.get('dated_rows', 0) + sum(1 for it in items if it[0] == 'row' and it[1]['dated'])
+    changed = pre_roll
+    while changed:
+        changed = False
+        for k, it in enumerate(items):
+            if k >= first_hd:
+                break
+            if it[0] == 'row' and not it[1]['dated'] and not any(T.is_ditto(w['w']) for w in it[1]['left_w']):
+                prev = items[k - 1] if k > 0 else None
+                nxt = items[k + 1] if k + 1 < len(items) else None
+                if (prev and prev[0] == 'skip' and prev[1] in ('prose', 'head')) or (nxt and nxt[0] == 'skip' and nxt[1] in ('prose',)):
+                    items[k] = ('skip', 'prose', ' '.join(w['w'] for w in it[1]['left_w'] + it[1]['post_w'] + it[1]['cont_w']), it[1]['y'])
+                    changed = True
     out['info']['pitch'] = None if pitch is None else round(pitch, 1)
     return out

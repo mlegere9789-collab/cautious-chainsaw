@@ -104,7 +104,8 @@ function makeWorld(blocks) {
   blocks.forEach((u, ui) => {
     const first = count; let n = 0; const sp = u.spacing || 0.55;
     for (let i = 0; i < u.nx; i++) for (let j = 0; j < u.nz; j++) { sold.push((i - (u.nx - 1) / 2) * sp, -j * sp, 0.5, ui); n++; count++; }
-    units.push({ first, count: n, radius: Math.hypot(u.nx * sp, u.nz * sp) / 2 + 3, klass: u.klass || 0 }); unitF.push(u.x, u.z, u.heading || 0, 0, 0, 0, 0, u.klass || 0, 0, -1, first, n);
+    let rad = 0; for (let q = first; q < count; q++) rad = Math.max(rad, Math.hypot(sold[q * 4], sold[q * 4 + 1]));      // the prototype's definition: the farthest slot from the unit's origin, plus 3 m
+    units.push({ first, count: n, radius: rad + 3, klass: u.klass || 0 }); unitF.push(u.x, u.z, u.heading || 0, 0, 0, 0, 0, u.klass || 0, 0, -1, first, n);
   });
   const sold1 = new Float32Array(count * 4); for (let i = 0; i < count; i++) sold1[i * 4] = 1e9;
   return { units, unitF: Float32Array.from(unitF), sold: Float32Array.from(sold), sold1, count, T: FLAT };
@@ -182,6 +183,44 @@ test('mounted units: horses and riders are one figure number, the larger sphere 
   for (let j = 0; j < n; j++) assert.equal(L.mount[j], 1);
   const side = camAt(0, 1.7, 0, Math.PI / 2 - 0.01); const L2 = new FigureList(32); select(w, L2, side); assert.ok(L2.n < n, 'looking away: fewer in view');
 });
+
+// ---------------------------------------------------------------------------------------------------- the selection against a brute-force reference
+// The reference does what the rule says with none of the shortcuts: every figure of every present unit, no unit-level cull, everything sorted. selectFigures must give the same list, the same level masks and dither words,
+// the same budget radius, on random worlds and cameras (units of every size and kind, cameras inside, beside and behind them, far and close).
+function referenceSelect(w, c, opt, rad, animT, presentArr) {
+  const b = opt.band, h = opt.hyst, K = opt.budget, M = b > 0 ? opt.softMargin : 0, in0 = rad.r0 * (1 + b), rOut = rad.r2 * (1 + h) * (1 + b), tmp = [0, 0, 0], list = [], bud = [];
+  const pl = c.planes, side = (x, y, z) => { let e = -1e9; for (let i = 0; i < 16; i += 4) e = Math.max(e, -(pl[i] * x + pl[i + 1] * y + pl[i + 2] * z + pl[i + 3])); return e; };
+  for (let ui = 0; ui < w.units.length; ui++) { if (presentArr[ui] !== 1) continue; const u = w.units[ui], mounted = u.klass === 1, sph = mounted ? opt.mountedSphere : opt.footSphere, yo = mounted ? 1.3 : 0.9;
+    for (let k = 0; k < u.count; k++) { const i = u.first + k; soldierPlace(w, i, animT, tmp); const x = tmp[0], z = tmp[1], y = yo, d = Math.hypot(x - c.cam.x, y - c.cam.y, z - c.cam.z); if (d > rOut) continue;
+      const vis = sphereInFrustum(pl, x, y, z, sph) && unitMayList(w, u, c, rad, opt), nu = d / figureScale(i, h);
+      // a figure of a unit that the frustum test of the whole unit refuses is not visible either (the unit's sphere contains its men's spheres)
+      const visReal = sphereInFrustum(pl, x, y, z, sph); void vis;
+      if (nu < in0) { const e = side(x, y, z) - sph, wt = visReal ? 1 : M > 0 ? (e <= 0 ? 1 : Math.max(0, 1 - e / (M * d + sph))) : 0; if (wt > 0) bud.push({ nu, wt, idx: bud.length }); }
+      if (visReal) list.push({ i, ui, nu }); } }
+  let r0e = rad.r0, total = 0; for (const e of bud) total += e.wt;
+  if (total > K) { bud.sort((a, z) => a.nu - z.nu || a.idx - z.idx); let cum = 0, nk = bud[bud.length - 1].nu; for (const e of bud) { cum += e.wt; if (cum >= K) { nk = e.nu; break; } } r0e = Math.min(rad.r0, b > 0 ? nk / (1 + b) : nk * (1 + 1e-9)); }
+  const out = [], q = [0, 0, 0]; for (const f of list) { thresholds(f.nu, r0e, rad.r1, rad.r2, b, q); if (q[2] <= 0) continue; const P = [0, 0, 0]; let lo = 0, mask = 0; for (let k = 0; k < 3; k++) { if (q[k] > lo) { mask |= 1 << k; P[k] = packRange(lo, q[k]); lo = q[k]; } } out.push({ fig: f.i, mask, P, nu: f.nu }); }
+  return { out, r0e };
+}
+const unitMayList = () => true;
+test('selectFigures equals a brute-force reference (list, level masks, dither words, budget radius) on 120 random worlds and cameras, with the cross-fade and with the hard swap', () => {
+  let seed = 987654321; const rnd = () => (seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 4294967296; let cut = 0, soft = 0, listedTotal = 0, trials = 0;
+  for (let trial = 0; trial < 120; trial++) {
+    const nb = 2 + Math.floor(rnd() * 5), blocks = []; for (let u = 0; u < nb; u++) blocks.push({ x: (rnd() - 0.5) * 80, z: (rnd() - 0.5) * 80, nx: 3 + Math.floor(rnd() * 40), nz: 3 + Math.floor(rnd() * 30), spacing: 0.4 + rnd() * 1.6, heading: rnd() * 6.28, klass: rnd() < 0.15 ? 1 : 0 });
+    const w = makeWorld(blocks), pres = new Uint8Array(w.units.length); for (let u = 0; u < pres.length; u++) pres[u] = rnd() < 0.9 ? 1 : 0;
+    const inside = rnd() < 0.5, cx = inside ? blocks[0].x + (rnd() - 0.5) * 6 : (rnd() - 0.5) * 140, cz = inside ? blocks[0].z - rnd() * 8 : (rnd() - 0.5) * 140, c = camAt(cx, 1.7 + rnd() * 6, cz, rnd() * 6.28, (0.3 + rnd() * 1.2), 16 / 9), rad = lodRadii(360 + Math.floor(rnd() * 3) * 360, c.cam.fov, { nearR: 40, midR: 300 });
+    for (const opt of [lodOptions(), lodOptions({ band: 0, hyst: 0 })]) {
+      const L = new FigureList(32), n = selectFigures(L, { world: w, T: FLAT, present: pres, cam: c.cam, planes: c.planes, rad, animT: 100, opt, nUnits: w.units.length }), ref = referenceSelect(w, c, opt, rad, 100, pres); trials++; listedTotal += n;
+      assert.equal(n, ref.out.length, `trial ${trial} (${opt.band ? 'fade' : 'hard'}): listed ${n} against ${ref.out.length}`); assert.ok(Math.abs(L.stats.r0e - ref.r0e) < 1e-9, `trial ${trial}: r0e ${L.stats.r0e} against ${ref.r0e}`); if (L.stats.budgetCut) cut++; if (L.stats.budgetCounted > L.stats.listed) soft++;
+      // the reference's order is the unit order and the figure order: the same as the list's
+      for (let j = 0; j < n; j++) { const r = ref.out[j]; assert.equal(L.fig[j], r.fig, `trial ${trial} entry ${j}: figure`); assert.equal(L.mask[j], r.mask, `trial ${trial} figure ${r.fig}: mask ${L.mask[j]} against ${r.mask}`); for (let k = 0; k < 3; k++) assert.equal(L.p[j * 3 + k], (r.mask >> k) & 1 ? r.P[k] : 0, `trial ${trial} figure ${r.fig} level ${k}: dither word`); }
+      assert.ok(L.stats.nL0 <= opt.budget);
+    }
+  }
+  console.log(`# reference check: ${trials} selections, ${listedTotal} listed figures compared, the budget cut in ${cut}, men outside the view counted for the budget in ${soft}`);
+  assert.ok(cut > 5 && soft > 5, 'the random worlds reach the budget and its soft margin');
+});
+
 test('the selection reads nothing but its inputs: no Math.random and no wall clock in lod.mjs', async () => {
   const { readFileSync } = await import('node:fs'); const src = readFileSync(new URL('../src/crowd/lod.mjs', import.meta.url), 'utf8').replace(/\/\/.*$/gm, '');
   assert.ok(!/Math\.random|Date\.now|performance\.now|new Date|setTimeout|requestAnimationFrame/.test(src));

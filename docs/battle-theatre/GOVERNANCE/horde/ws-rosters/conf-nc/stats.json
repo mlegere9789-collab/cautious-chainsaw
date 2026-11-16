@@ -1,0 +1,7803 @@
+{
+ "format": "conf-nc-stats/1",
+ "units": {
+  "c-nc-1st-north-carolina-infantry": {
+   "key": "c-nc-1st-north-carolina-infantry",
+   "designation": "1st North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 1,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1599,
+   "baseline": {
+    "id": "C-1NC",
+    "strength": 359,
+    "casualties": 135,
+    "designation": "1st North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": null,
+    "status": "the figure is damaged, short or missing in the text layer of the scans read (None; i,742-): not read as a number",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": null,
+     "b": "i,742-"
+    },
+    "quote": {
+     "a": [
+      "first  Regiment  numbered  all.  told,   .  . .    ....  1, 742;",
+      1113548,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "First  Regiment  numbered  all  told,. .    i,742-",
+      1112558,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/1st-north-carolina-infantry.jsonl.gz",
+   "lines": 1587,
+   "raw_bytes": 143428,
+   "gz_bytes": 34613,
+   "sha256_raw": "3463fc058ebc21853f81f484cf0f8bc78dfaac4487a08207446f4927ffe114d9",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1587
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 128,
+    "B": 177,
+    "C": 161,
+    "D": 175,
+    "E": 145,
+    "F": 154,
+    "FS": 22,
+    "G": 142,
+    "H": 159,
+    "I": 166,
+    "K": 158
+   },
+   "rank_printed": 183,
+   "with_remarks": 1576,
+   "page_null": 381,
+   "flags": {
+    "N": 58,
+    "H": 110,
+    "C": 287,
+    "R": 3,
+    "Y": 58,
+    "G": 96,
+    "M": 12,
+    "W": 69
+   },
+   "ocr_uncertain": 553,
+   "on_rolls": {
+    "yes": 697,
+    "no": 246,
+    "unknown": 644
+   },
+   "names_gettysburg": 61,
+   "gettysburg_dated": 10,
+   "head_kinds": {
+    "G-mark": 25,
+    "S-county": 4,
+    "S-event": 14,
+    "S-mark-junk": 5,
+    "S-mark-weak": 20,
+    "S-month": 1,
+    "S-rank": 4,
+    "S-recovered": 18
+   },
+   "company_inferred": [
+    {
+     "first_row": 663,
+     "last_row": 807,
+     "n_rows": 145,
+     "co": "E",
+     "rule": "sequence",
+     "heading": "€OMPANY E."
+    },
+    {
+     "first_row": 962,
+     "last_row": 1103,
+     "n_rows": 142,
+     "co": "G",
+     "rule": "sequence",
+     "heading": "COMPANY a"
+    }
+   ],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1576,
+    "remark_empty": 11,
+    "remark_gap_rows": 2,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1557 against 1484 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 2 company headings read by the sequence or pages held twice, against 2)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1666,
+      "after_dedupe": 1666
+     },
+     "b": {
+      "parsed": 1587,
+      "after_dedupe": 1587
+     }
+    },
+    "heading_defects": {
+     "a": 2,
+     "b": 2
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      35065,
+      191155,
+      "FIRST  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      31462,
+      173802,
+      "FIRST  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1666,
+    "matched": 849,
+    "only_in_file": 36,
+    "only_in_second": 13,
+    "replace_blocks": 245,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 120,
+     "B": 165,
+     "C": 149,
+     "D": 171,
+     "E": 142,
+     "F": 155,
+     "FS": 21,
+     "G": 141,
+     "H": 146,
+     "I": 144,
+     "K": 160,
+     "L": 152
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-1NC.csv",
+    "lines": 1599,
+    "matched": 1530,
+    "only_in_file": 24,
+    "only_in_earlier": 38,
+    "replace_blocks": 28,
+    "company_counts": {
+     "A": 131,
+     "B": 174,
+     "C": 164,
+     "D": 174,
+     "E": 145,
+     "F": 160,
+     "FS": 19,
+     "G": 150,
+     "H": 157,
+     "I": 165,
+     "K": 160
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 56,
+    "only_in_earlier_by_key": 68
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 8,
+    "sequence": 2
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-2nd-north-carolina-infantry": {
+   "key": "c-nc-2nd-north-carolina-infantry",
+   "designation": "2nd North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 2,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1374,
+   "baseline": {
+    "id": "C-2NC",
+    "strength": 247,
+    "casualties": 91,
+    "designation": "2nd North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": null,
+    "status": "the figure is damaged, short or missing in the text layer of the scans read (None; IA35-): not read as a number",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": null,
+     "b": "IA35-"
+    },
+    "quote": {
+     "a": [
+      "Second  Regiment,. ...........    1,435;",
+      1113613,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Second  Regiment                       ••••  IA35-",
+      1112609,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-infantry.jsonl.gz",
+   "lines": 1359,
+   "raw_bytes": 117401,
+   "gz_bytes": 30165,
+   "sha256_raw": "48b9d7e813bd8044c137a4b36b9e975e350d690622b53f878362dea6f2e210f1",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1359
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 111,
+    "B": 152,
+    "C": 127,
+    "D": 121,
+    "E": 156,
+    "F": 147,
+    "FS": 17,
+    "G": 140,
+    "H": 111,
+    "I": 140,
+    "K": 137
+   },
+   "rank_printed": 189,
+   "with_remarks": 1357,
+   "page_null": 0,
+   "flags": {
+    "N": 44,
+    "H": 90,
+    "R": 6,
+    "Y": 49,
+    "G": 82,
+    "M": 11,
+    "W": 53
+   },
+   "ocr_uncertain": 249,
+   "on_rolls": {
+    "yes": 498,
+    "no": 242,
+    "unknown": 619
+   },
+   "names_gettysburg": 32,
+   "gettysburg_dated": 4,
+   "head_kinds": {
+    "G-mark": 10,
+    "S-county": 6,
+    "S-event": 8,
+    "S-mark-junk": 10,
+    "S-mark-weak": 24,
+    "S-rank": 2,
+    "S-recovered": 13
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1357,
+    "remark_empty": 2,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1359 against 1301 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 6)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1768,
+      "after_dedupe": 1768
+     },
+     "b": {
+      "parsed": 1359,
+      "after_dedupe": 1359
+     }
+    },
+    "heading_defects": {
+     "a": 6,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      191155,
+      350227,
+      "SECOND  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      173802,
+      289661,
+      "SECOND  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1768,
+    "matched": 515,
+    "only_in_file": 15,
+    "only_in_second": 54,
+    "replace_blocks": 182,
+    "second_only_runs": [
+     {
+      "at_file_row": 710,
+      "second_rows": [
+       681,
+       728
+      ]
+     }
+    ],
+    "company_counts": {
+     "A": 105,
+     "B": 151,
+     "C": 120,
+     "D": 116,
+     "E": 148,
+     "F": 193,
+     "FS": 16,
+     "G": 117,
+     "H": 148,
+     "I": 145,
+     "K": 132,
+     "L": 112,
+     "M": 132,
+     "N": 133
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-2NC.csv",
+    "lines": 1374,
+    "matched": 1331,
+    "only_in_file": 14,
+    "only_in_earlier": 30,
+    "replace_blocks": 12,
+    "company_counts": {
+     "A": 110,
+     "B": 156,
+     "C": 131,
+     "D": 124,
+     "E": 160,
+     "F": 148,
+     "FS": 15,
+     "G": 140,
+     "H": 114,
+     "I": 141,
+     "K": 135
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 28,
+    "only_in_earlier_by_key": 43
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 40
+  },
+  "c-nc-3rd-north-carolina-infantry": {
+   "key": "c-nc-3rd-north-carolina-infantry",
+   "designation": "3rd North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 3,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1703,
+   "baseline": {
+    "id": "C-3NC",
+    "strength": 479,
+    "casualties": 196,
+    "designation": "3rd North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1780,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,780.",
+     "b": "1,780."
+    },
+    "quote": {
+     "a": [
+      "Third  Regiment, ,            1,780.",
+      1113654,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Third  Regiment,    1,780.",
+      1112660,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/3rd-north-carolina-infantry.jsonl.gz",
+   "lines": 1702,
+   "raw_bytes": 145937,
+   "gz_bytes": 33564,
+   "sha256_raw": "1898d7682acb47d90bb6e2cd721b14d309901eb9bc975df45453537672b0fcc9",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1702
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 167,
+    "B": 158,
+    "C": 167,
+    "D": 164,
+    "E": 181,
+    "F": 155,
+    "FS": 20,
+    "G": 181,
+    "H": 163,
+    "I": 173,
+    "K": 173
+   },
+   "rank_printed": 224,
+   "with_remarks": 1701,
+   "page_null": 0,
+   "flags": {
+    "N": 51,
+    "H": 88,
+    "R": 7,
+    "Y": 46,
+    "G": 75,
+    "M": 6,
+    "W": 55
+   },
+   "ocr_uncertain": 249,
+   "on_rolls": {
+    "yes": 722,
+    "no": 338,
+    "unknown": 642
+   },
+   "names_gettysburg": 160,
+   "gettysburg_dated": 58,
+   "head_kinds": {
+    "G-mark": 10,
+    "S-county": 2,
+    "S-event": 3,
+    "S-mark-junk": 14,
+    "S-mark-weak": 18,
+    "S-month": 1,
+    "S-rank": 2,
+    "S-recovered": 23
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1701,
+    "remark_empty": 1,
+    "remark_gap_rows": 3,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1702 against 1620 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 2)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1650,
+      "after_dedupe": 1650
+     },
+     "b": {
+      "parsed": 1702,
+      "after_dedupe": 1702
+     }
+    },
+    "heading_defects": {
+     "a": 2,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      350227,
+      493957,
+      "THIRD  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      289661,
+      433216,
+      "THIRD  REGIMENT-INFANTRY,"
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1650,
+    "matched": 1006,
+    "only_in_file": 33,
+    "only_in_second": 12,
+    "replace_blocks": 351,
+    "second_only_runs": [
+     {
+      "at_file_row": 1014,
+      "second_rows": [
+       983,
+       988
+      ]
+     }
+    ],
+    "company_counts": {
+     "A": 161,
+     "B": 154,
+     "C": 163,
+     "D": 159,
+     "E": 175,
+     "F": 150,
+     "FS": 18,
+     "G": 179,
+     "H": 155,
+     "I": 169,
+     "K": 167
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-3NC.csv",
+    "lines": 1703,
+    "matched": 1655,
+    "only_in_file": 13,
+    "only_in_earlier": 16,
+    "replace_blocks": 31,
+    "company_counts": {
+     "A": 166,
+     "B": 156,
+     "C": 168,
+     "D": 165,
+     "E": 182,
+     "F": 153,
+     "FS": 21,
+     "G": 182,
+     "H": 163,
+     "I": 174,
+     "K": 173
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 46,
+    "only_in_earlier_by_key": 47
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-4th-north-carolina-infantry": {
+   "key": "c-nc-4th-north-carolina-infantry",
+   "designation": "4th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 4,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1604,
+   "baseline": {
+    "id": "C-4NC",
+    "strength": 252,
+    "casualties": 82,
+    "designation": "4th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": null,
+    "status": "the figure is damaged, short or missing in the text layer of the scans read (483.; r,483.): not read as a number",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "483.",
+     "b": "r,483."
+    },
+    "quote": {
+     "a": [
+      "Fourth  Regiment,    ............   ..............   1 ,483.",
+      1113691,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Fourth  Regiment,        . .    ...         r,483.",
+      1112687,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/4th-north-carolina-infantry.jsonl.gz",
+   "lines": 1597,
+   "raw_bytes": 111850,
+   "gz_bytes": 26044,
+   "sha256_raw": "9852c6a8f9ab9ebf9da6e207ba298d9675e1ef5072e8ba0aef7c2b9e467991f8",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1597
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 173,
+    "B": 133,
+    "C": 189,
+    "D": 121,
+    "E": 192,
+    "F": 129,
+    "FS": 14,
+    "G": 133,
+    "H": 249,
+    "I": 119,
+    "K": 145
+   },
+   "rank_printed": 220,
+   "with_remarks": 1594,
+   "page_null": 0,
+   "flags": {
+    "N": 73,
+    "H": 79,
+    "R": 7,
+    "Y": 32,
+    "G": 98,
+    "M": 13,
+    "W": 59
+   },
+   "ocr_uncertain": 277,
+   "on_rolls": {
+    "yes": 989,
+    "no": 103,
+    "unknown": 505
+   },
+   "names_gettysburg": 17,
+   "gettysburg_dated": 5,
+   "head_kinds": {
+    "G-mark": 6,
+    "S-county": 3,
+    "S-event": 1,
+    "S-mark-junk": 13,
+    "S-mark-weak": 11,
+    "S-recovered": 33
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1594,
+    "remark_empty": 3,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1597 against 1502 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1517,
+      "after_dedupe": 1517
+     },
+     "b": {
+      "parsed": 1597,
+      "after_dedupe": 1597
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      493957,
+      600253,
+      "FOURTH  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      433216,
+      539077,
+      "FOURTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1517,
+    "matched": 970,
+    "only_in_file": 46,
+    "only_in_second": 20,
+    "replace_blocks": 296,
+    "second_only_runs": [
+     {
+      "at_file_row": 326,
+      "second_rows": [
+       312,
+       317
+      ]
+     }
+    ],
+    "company_counts": {
+     "A": 172,
+     "B": 123,
+     "C": 180,
+     "D": 116,
+     "E": 175,
+     "F": 127,
+     "FS": 11,
+     "G": 122,
+     "H": 236,
+     "I": 118,
+     "K": 137
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-4NC.csv",
+    "lines": 1604,
+    "matched": 1516,
+    "only_in_file": 23,
+    "only_in_earlier": 30,
+    "replace_blocks": 36,
+    "company_counts": {
+     "A": 175,
+     "B": 131,
+     "C": 188,
+     "D": 121,
+     "E": 193,
+     "F": 129,
+     "FS": 14,
+     "G": 135,
+     "H": 250,
+     "I": 123,
+     "K": 145
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 81,
+    "only_in_earlier_by_key": 88
+   },
+   "notes": [
+    {
+     "off": 434649,
+     "co": "FS",
+     "text": "Note.— This Regiment was very imperfectly reported, both in the \" Roll of i£°nor\" ana the returns sent to Richmond, and now to be seen in the Archives Office, of the War Department, in Washington. Thi"
+    }
+   ],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-5th-north-carolina-infantry": {
+   "key": "c-nc-5th-north-carolina-infantry",
+   "designation": "5th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 5,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1817,
+   "baseline": {
+    "id": "C-5NC",
+    "strength": 473,
+    "casualties": 299,
+    "designation": "5th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1837,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,837.",
+     "b": "1,837-"
+    },
+    "quote": {
+     "a": [
+      "Fifth  Regiment,   1,837.",
+      1113752,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Fifth  Regiment,                   ..  1,837-",
+      1112738,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/5th-north-carolina-infantry.jsonl.gz",
+   "lines": 1807,
+   "raw_bytes": 141667,
+   "gz_bytes": 34602,
+   "sha256_raw": "bb210be1db183ed404d62b79547bd6f6ea9a6a0c83056da24f1823578905e8c5",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1807
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 202,
+    "B": 192,
+    "C": 209,
+    "D": 159,
+    "E": 152,
+    "F": 179,
+    "FS": 18,
+    "G": 197,
+    "H": 179,
+    "I": 169,
+    "K": 151
+   },
+   "rank_printed": 227,
+   "with_remarks": 1806,
+   "page_null": 0,
+   "flags": {
+    "N": 66,
+    "H": 104,
+    "C": 388,
+    "R": 8,
+    "Y": 59,
+    "G": 98,
+    "M": 14,
+    "W": 59
+   },
+   "ocr_uncertain": 637,
+   "on_rolls": {
+    "yes": 613,
+    "no": 182,
+    "unknown": 1012
+   },
+   "names_gettysburg": 166,
+   "gettysburg_dated": 18,
+   "head_kinds": {
+    "G-mark": 19,
+    "S-county": 6,
+    "S-event": 1,
+    "S-mark-junk": 10,
+    "S-mark-weak": 28,
+    "S-month": 4,
+    "S-rank": 2,
+    "S-recovered": 15
+   },
+   "company_inferred": [
+    {
+     "first_row": 412,
+     "last_row": 620,
+     "n_rows": 209,
+     "co": "C",
+     "rule": "sequence",
+     "heading": "COMPANY G."
+    },
+    {
+     "first_row": 932,
+     "last_row": 1110,
+     "n_rows": 179,
+     "co": "F",
+     "rule": "inferred-after-privates",
+     "heading": "OFFICERS (company heading lost)"
+    }
+   ],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1806,
+    "remark_empty": 1,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1777 against 1592 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 2 company headings read by the sequence or pages held twice, against 2)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1622,
+      "after_dedupe": 1622
+     },
+     "b": {
+      "parsed": 1807,
+      "after_dedupe": 1807
+     }
+    },
+    "heading_defects": {
+     "a": 2,
+     "b": 2
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      600253,
+      734108,
+      "FIFTH  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      539077,
+      676108,
+      "FIFTH   REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1622,
+    "matched": 805,
+    "only_in_file": 53,
+    "only_in_second": 12,
+    "replace_blocks": 307,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 197,
+     "B": 179,
+     "C": 201,
+     "D": 151,
+     "E": 151,
+     "F": 166,
+     "FS": 16,
+     "G": 187,
+     "H": 108,
+     "I": 147,
+     "K": 119
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-5NC.csv",
+    "lines": 1817,
+    "matched": 1746,
+    "only_in_file": 14,
+    "only_in_earlier": 25,
+    "replace_blocks": 39,
+    "company_counts": {
+     "A": 199,
+     "B": 194,
+     "C": 209,
+     "D": 159,
+     "E": 154,
+     "F": 179,
+     "FS": 18,
+     "G": 200,
+     "H": 183,
+     "I": 171,
+     "K": 151
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 61,
+    "only_in_earlier_by_key": 71
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 8,
+    "sequence": 1,
+    "inferred-after-privates": 1
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-6th-north-carolina-infantry": {
+   "key": "c-nc-6th-north-carolina-infantry",
+   "designation": "6th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 6,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1810,
+   "baseline": {
+    "id": "C-6NC",
+    "strength": 443,
+    "casualties": 106,
+    "designation": "6th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1802,
+    "status": "one scan prints the figure, the other damages it or has no line (l,So2.)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,802.",
+     "b": "l,So2."
+    },
+    "quote": {
+     "a": [
+      "Sixth  Regiment,   1,802.",
+      1113778,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Sixth  Regiment,        ..  l,So2.",
+      1112784,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/6th-north-carolina-infantry.jsonl.gz",
+   "lines": 1790,
+   "raw_bytes": 137730,
+   "gz_bytes": 32983,
+   "sha256_raw": "548834cecf20f75848d0d43d0e93dc9a286ab919ef3f56c0a6622b023ecc51b5",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1790
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 172,
+    "B": 180,
+    "C": 158,
+    "D": 177,
+    "E": 186,
+    "F": 179,
+    "FS": 25,
+    "G": 172,
+    "H": 180,
+    "I": 179,
+    "K": 182
+   },
+   "rank_printed": 211,
+   "with_remarks": 1788,
+   "page_null": 0,
+   "flags": {
+    "N": 82,
+    "H": 106,
+    "C": 186,
+    "R": 9,
+    "Y": 44,
+    "G": 78,
+    "M": 18,
+    "W": 64
+   },
+   "ocr_uncertain": 456,
+   "on_rolls": {
+    "yes": 735,
+    "no": 394,
+    "unknown": 661
+   },
+   "names_gettysburg": 112,
+   "gettysburg_dated": 57,
+   "head_kinds": {
+    "G-mark": 9,
+    "S-county": 4,
+    "S-event": 1,
+    "S-mark-junk": 13,
+    "S-mark-weak": 33,
+    "S-month": 2,
+    "S-recovered": 17
+   },
+   "company_inferred": [
+    {
+     "first_row": 712,
+     "last_row": 897,
+     "n_rows": 186,
+     "co": "E",
+     "rule": "sequence",
+     "heading": "COxMPANY E."
+    }
+   ],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1788,
+    "remark_empty": 2,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1775 against 1689 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1689,
+      "after_dedupe": 1689
+     },
+     "b": {
+      "parsed": 1790,
+      "after_dedupe": 1790
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 1
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      734108,
+      866832,
+      "SIXTH  REGIMENT— INFANTRY,"
+     ],
+     "b": [
+      676108,
+      808975,
+      "SIXTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1689,
+    "matched": 1015,
+    "only_in_file": 26,
+    "only_in_second": 6,
+    "replace_blocks": 334,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 162,
+     "B": 170,
+     "C": 156,
+     "D": 165,
+     "E": 180,
+     "F": 177,
+     "FS": 18,
+     "G": 168,
+     "H": 160,
+     "I": 166,
+     "K": 167
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-6NC.csv",
+    "lines": 1810,
+    "matched": 1757,
+    "only_in_file": 10,
+    "only_in_earlier": 30,
+    "replace_blocks": 20,
+    "company_counts": {
+     "A": 173,
+     "B": 181,
+     "C": 162,
+     "D": 179,
+     "E": 188,
+     "F": 184,
+     "FS": 26,
+     "G": 173,
+     "H": 180,
+     "I": 180,
+     "K": 184
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 33,
+    "only_in_earlier_by_key": 53
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 9,
+    "sequence": 1
+   },
+   "preamble_tokens": 35
+  },
+  "c-nc-7th-north-carolina-infantry": {
+   "key": "c-nc-7th-north-carolina-infantry",
+   "designation": "7th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 7,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1526,
+   "baseline": {
+    "id": "C-7NC",
+    "strength": 400,
+    "casualties": 182,
+    "designation": "7th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1513,
+    "status": "one scan prints the figure, the other damages it or has no line (i,5I3-)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,513.",
+     "b": "i,5I3-"
+    },
+    "quote": {
+     "a": [
+      "Seventh  Regiment,    1,513.",
+      1113804,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Seventh  Regiment        ..      ..                          i,5I3-",
+      1112819,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/7th-north-carolina-infantry.jsonl.gz",
+   "lines": 1508,
+   "raw_bytes": 122934,
+   "gz_bytes": 29617,
+   "sha256_raw": "0e53b953fadf8472c2654dc75b6dbddf627c8b9ac272fc562c793f9500e7899c",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1508
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 152,
+    "B": 151,
+    "C": 157,
+    "D": 158,
+    "E": 145,
+    "F": 124,
+    "FS": 23,
+    "G": 141,
+    "H": 149,
+    "I": 156,
+    "K": 152
+   },
+   "rank_printed": 229,
+   "with_remarks": 1508,
+   "page_null": 0,
+   "flags": {
+    "N": 34,
+    "H": 45,
+    "C": 158,
+    "R": 2,
+    "Y": 39,
+    "G": 53,
+    "M": 10,
+    "W": 44
+   },
+   "ocr_uncertain": 314,
+   "on_rolls": {
+    "yes": 744,
+    "no": 402,
+    "unknown": 362
+   },
+   "names_gettysburg": 60,
+   "gettysburg_dated": 20,
+   "head_kinds": {
+    "G-mark": 8,
+    "S-county": 3,
+    "S-event": 4,
+    "S-mark-junk": 3,
+    "S-mark-weak": 6,
+    "S-recovered": 7
+   },
+   "company_inferred": [
+    {
+     "first_row": 483,
+     "last_row": 640,
+     "n_rows": 158,
+     "co": "D",
+     "rule": "sequence",
+     "heading": "COMPANY L>."
+    }
+   ],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1508,
+    "remark_empty": 0,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1493 against 1414 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1429,
+      "after_dedupe": 1429
+     },
+     "b": {
+      "parsed": 1508,
+      "after_dedupe": 1508
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 1
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      866832,
+      986431,
+      "SEVENTH  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      808975,
+      928927,
+      "SEVENTH   REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1429,
+    "matched": 770,
+    "only_in_file": 22,
+    "only_in_second": 13,
+    "replace_blocks": 245,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 141,
+     "B": 145,
+     "C": 153,
+     "D": 150,
+     "E": 129,
+     "F": 122,
+     "FS": 22,
+     "G": 133,
+     "H": 143,
+     "I": 146,
+     "K": 145
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-7NC.csv",
+    "lines": 1526,
+    "matched": 1460,
+    "only_in_file": 7,
+    "only_in_earlier": 23,
+    "replace_blocks": 34,
+    "company_counts": {
+     "A": 153,
+     "B": 155,
+     "C": 159,
+     "D": 162,
+     "E": 149,
+     "F": 121,
+     "FS": 22,
+     "G": 144,
+     "H": 150,
+     "I": 159,
+     "K": 152
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 47,
+    "only_in_earlier_by_key": 65
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 9,
+    "sequence": 1
+   },
+   "preamble_tokens": 35
+  },
+  "c-nc-1st-north-carolina-cavalry": {
+   "key": "c-nc-1st-north-carolina-cavalry",
+   "designation": "1st North Carolina Cavalry",
+   "arm": "cavalry",
+   "moore": {
+    "volume": "1",
+    "number": 9,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 0,
+   "baseline": {
+    "id": null,
+    "strength": null,
+    "casualties": null,
+    "designation": null
+   },
+   "printed_total": {
+    "value": 1630,
+    "status": "one scan prints the full figure, the other lost its leading digit and comma (630.)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "630.",
+     "b": "1,630."
+    },
+    "quote": {
+     "a": [
+      "Ninth  Regiment,    1 ,630.",
+      1113860,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Ninth  Regiment,               1,630.",
+      1112951,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/1st-north-carolina-cavalry.jsonl.gz",
+   "lines": 1662,
+   "raw_bytes": 118513,
+   "gz_bytes": 30265,
+   "sha256_raw": "f99db277a80efe0cd0cfc422fb5387081f13d10df118cd9a5b8435eede5cdd70",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1662
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 171,
+    "B": 147,
+    "C": 154,
+    "D": 167,
+    "E": 144,
+    "F": 160,
+    "FS": 19,
+    "G": 159,
+    "H": 187,
+    "I": 173,
+    "K": 181
+   },
+   "rank_printed": 232,
+   "with_remarks": 1659,
+   "page_null": 0,
+   "flags": {
+    "N": 73,
+    "H": 144,
+    "R": 4,
+    "Y": 30,
+    "G": 63,
+    "M": 17,
+    "W": 62
+   },
+   "ocr_uncertain": 309,
+   "on_rolls": {
+    "yes": 859,
+    "no": 334,
+    "unknown": 469
+   },
+   "names_gettysburg": 19,
+   "gettysburg_dated": 4,
+   "head_kinds": {
+    "G-mark": 16,
+    "S-county": 32,
+    "S-event": 8,
+    "S-mark-junk": 7,
+    "S-mark-weak": 20,
+    "S-month": 2,
+    "S-recovered": 17
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1659,
+    "remark_empty": 3,
+    "remark_gap_rows": 2,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1662 against 1460 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1475,
+      "after_dedupe": 1475
+     },
+     "b": {
+      "parsed": 1662,
+      "after_dedupe": 1662
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1100798,
+      1211891,
+      "NINTH  REGIMENT-CAVALRY."
+     ],
+     "b": [
+      1035889,
+      1148140,
+      "NINTH  REGIMENT— CAVALRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1475,
+    "matched": 700,
+    "only_in_file": 32,
+    "only_in_second": 14,
+    "replace_blocks": 241,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 156,
+     "B": 128,
+     "C": 123,
+     "D": 109,
+     "E": 139,
+     "F": 140,
+     "FS": 16,
+     "G": 153,
+     "H": 171,
+     "I": 163,
+     "K": 177
+    }
+   },
+   "earlier": null,
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-battery-a-1st-north-carolina-artillery": {
+   "key": "c-nc-battery-a-1st-north-carolina-artillery",
+   "designation": "Battery A, 1st North Carolina Artillery",
+   "arm": "artillery",
+   "moore": {
+    "volume": "1",
+    "number": 10,
+    "kind": "regiment",
+    "company": "A"
+   },
+   "identification": "OR 27 pt. 2 index: \"Manly's (B. C.) Artillery. See North Carolina Troops, Confederate, 1st Regiment, Battery A\"; Moore: Tenth Regiment (First Artillery), Company A, Captain Basil C. Manly",
+   "earlier_rows": 300,
+   "baseline": {
+    "id": "C-ART-Manly",
+    "strength": 80,
+    "casualties": 12,
+    "designation": "Manly's Battery (1st NC Artillery)"
+   },
+   "printed_total": {
+    "value": 1266,
+    "status": "both scans print the same figure",
+    "covers": "the whole regiment or battalion, every company",
+    "figures": {
+     "a": "1,266.",
+     "b": "1,266."
+    },
+    "quote": {
+     "a": [
+      "Tenth  Regiment,    1,266.",
+      1113888,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Tenth  Regiment,.      ...                 ..    1,266.",
+      1112989,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/battery-a-1st-north-carolina-artillery.jsonl.gz",
+   "lines": 285,
+   "raw_bytes": 20423,
+   "gz_bytes": 5698,
+   "sha256_raw": "334f6a89feb397efa31dbb1ba6d30cda5bbb4921ff494b5df4574664b7f9cc1b",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 285
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 285
+   },
+   "rank_printed": 42,
+   "with_remarks": 285,
+   "page_null": 0,
+   "flags": {
+    "N": 12,
+    "H": 15,
+    "Y": 2,
+    "G": 20,
+    "M": 6,
+    "W": 6
+   },
+   "ocr_uncertain": 52,
+   "on_rolls": {
+    "yes": 191,
+    "no": 22,
+    "unknown": 72
+   },
+   "names_gettysburg": 12,
+   "gettysburg_dated": 2,
+   "head_kinds": {
+    "S-event": 3,
+    "S-mark-weak": 5,
+    "S-recovered": 3
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 285,
+    "remark_empty": 0,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 285 against 154 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 154,
+      "after_dedupe": 154
+     },
+     "b": {
+      "parsed": 285,
+      "after_dedupe": 285
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1211891,
+      1303750,
+      "TENTH  REGIMENT-ARTILLERY."
+     ],
+     "b": [
+      1148140,
+      1240195,
+      "TENTH  REGIMENT-ARTILLERY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 154,
+    "matched": 92,
+    "only_in_file": 12,
+    "only_in_second": 2,
+    "replace_blocks": 21,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 154
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-ART-Manly.csv",
+    "lines": 300,
+    "matched": 272,
+    "only_in_file": 3,
+    "only_in_earlier": 12,
+    "replace_blocks": 6,
+    "company_counts": {
+     "A": 300
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 12,
+    "only_in_earlier_by_key": 27
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 1
+   },
+   "preamble_tokens": 35
+  },
+  "c-nc-rowan-artillery": {
+   "key": "c-nc-rowan-artillery",
+   "designation": "Rowan Artillery",
+   "arm": "artillery",
+   "moore": {
+    "volume": "1",
+    "number": 10,
+    "kind": "regiment",
+    "company": "D"
+   },
+   "identification": "OR 27 pt. 2 index: \"Reilly's (James) Artillery. See Rowan Artillery\"; Moore: Tenth Regiment (First Artillery), Company D, Captain James Reilly (OCR Rellly); 168 of the men printed with a county are of Rowan county",
+   "earlier_rows": 217,
+   "baseline": {
+    "id": "C-ART-Reilly",
+    "strength": 95,
+    "casualties": 16,
+    "designation": "Reilly's Battery (Rowan Artillery NC)"
+   },
+   "printed_total": {
+    "value": 1266,
+    "status": "both scans print the same figure",
+    "covers": "the whole regiment or battalion, every company",
+    "figures": {
+     "a": "1,266.",
+     "b": "1,266."
+    },
+    "quote": {
+     "a": [
+      "Tenth  Regiment,    1,266.",
+      1113888,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Tenth  Regiment,.      ...                 ..    1,266.",
+      1112989,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/rowan-artillery.jsonl.gz",
+   "lines": 213,
+   "raw_bytes": 14847,
+   "gz_bytes": 4086,
+   "sha256_raw": "6d725fafb33b759f6d5e78f970abbbdd116b5db7efd522cb8ad1e6643572c2ac",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 213
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "D": 213
+   },
+   "rank_printed": 26,
+   "with_remarks": 213,
+   "page_null": 0,
+   "flags": {
+    "N": 14,
+    "H": 17,
+    "R": 1,
+    "Y": 6,
+    "G": 17,
+    "M": 6,
+    "W": 5
+   },
+   "ocr_uncertain": 47,
+   "on_rolls": {
+    "yes": 128,
+    "no": 13,
+    "unknown": 72
+   },
+   "names_gettysburg": 2,
+   "gettysburg_dated": 0,
+   "head_kinds": {
+    "G-mark": 3,
+    "S-county": 1,
+    "S-mark-weak": 3,
+    "S-recovered": 6
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 213,
+    "remark_empty": 0,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 213 against 205 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 205,
+      "after_dedupe": 205
+     },
+     "b": {
+      "parsed": 213,
+      "after_dedupe": 213
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1211891,
+      1303750,
+      "TENTH  REGIMENT-ARTILLERY."
+     ],
+     "b": [
+      1148140,
+      1240195,
+      "TENTH  REGIMENT-ARTILLERY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 205,
+    "matched": 100,
+    "only_in_file": 3,
+    "only_in_second": 4,
+    "replace_blocks": 27,
+    "second_only_runs": [],
+    "company_counts": {
+     "D": 205
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-ART-Reilly.csv",
+    "lines": 217,
+    "matched": 199,
+    "only_in_file": 4,
+    "only_in_earlier": 6,
+    "replace_blocks": 10,
+    "company_counts": {
+     "D": 217
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 14,
+    "only_in_earlier_by_key": 18
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 1
+   },
+   "preamble_tokens": 35
+  },
+  "c-nc-11th-north-carolina-infantry": {
+   "key": "c-nc-11th-north-carolina-infantry",
+   "designation": "11th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 11,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1405,
+   "baseline": {
+    "id": "C-11NC",
+    "strength": 617,
+    "casualties": 295,
+    "designation": "11th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1429,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,429.",
+     "b": "1,429."
+    },
+    "quote": {
+     "a": [
+      "Eleventh  Regiment,   1,429.",
+      1113915,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Eleventh  Regiment,                   1,429.",
+      1113045,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/11th-north-carolina-infantry.jsonl.gz",
+   "lines": 1393,
+   "raw_bytes": 109758,
+   "gz_bytes": 25166,
+   "sha256_raw": "7a8262febc7e35b3772ff903d97dd4d0c28fce7ccba71aa6833741eaf811a504",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1393
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 150,
+    "B": 153,
+    "C": 126,
+    "D": 125,
+    "E": 124,
+    "F": 111,
+    "FS": 20,
+    "G": 152,
+    "H": 138,
+    "I": 170,
+    "K": 124
+   },
+   "rank_printed": 183,
+   "with_remarks": 1393,
+   "page_null": 0,
+   "flags": {
+    "N": 42,
+    "H": 61,
+    "C": 124,
+    "R": 8,
+    "Y": 29,
+    "G": 47,
+    "M": 15,
+    "W": 34
+   },
+   "ocr_uncertain": 278,
+   "on_rolls": {
+    "yes": 808,
+    "no": 236,
+    "unknown": 349
+   },
+   "names_gettysburg": 285,
+   "gettysburg_dated": 110,
+   "head_kinds": {
+    "G-mark": 6,
+    "S-event": 4,
+    "S-mark-junk": 7,
+    "S-mark-weak": 10,
+    "S-rank": 1,
+    "S-recovered": 12
+   },
+   "company_inferred": [
+    {
+     "first_row": 574,
+     "last_row": 697,
+     "n_rows": 124,
+     "co": "E",
+     "rule": "sequence",
+     "heading": "-COMPANY E."
+    }
+   ],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1393,
+    "remark_empty": 0,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1378 against 1370 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1370,
+      "after_dedupe": 1370
+     },
+     "b": {
+      "parsed": 1393,
+      "after_dedupe": 1393
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 1
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1303750,
+      1410368,
+      "ELEVENTH  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      1240195,
+      1346590,
+      "ELEVENTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1370,
+    "matched": 816,
+    "only_in_file": 21,
+    "only_in_second": 22,
+    "replace_blocks": 252,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 146,
+     "B": 148,
+     "C": 124,
+     "D": 123,
+     "E": 129,
+     "F": 101,
+     "FS": 23,
+     "G": 142,
+     "H": 138,
+     "I": 170,
+     "K": 126
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-11NC.csv",
+    "lines": 1405,
+    "matched": 1361,
+    "only_in_file": 6,
+    "only_in_earlier": 15,
+    "replace_blocks": 22,
+    "company_counts": {
+     "A": 151,
+     "B": 156,
+     "C": 129,
+     "D": 124,
+     "E": 127,
+     "F": 110,
+     "FS": 24,
+     "G": 152,
+     "H": 138,
+     "I": 169,
+     "K": 125
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 31,
+    "only_in_earlier_by_key": 43
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 9,
+    "sequence": 1
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-12th-north-carolina-infantry": {
+   "key": "c-nc-12th-north-carolina-infantry",
+   "designation": "12th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 12,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1562,
+   "baseline": {
+    "id": "C-12NC",
+    "strength": 219,
+    "casualties": 132,
+    "designation": "12th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1592,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,592.",
+     "b": "1,592."
+    },
+    "quote": {
+     "a": [
+      "Twelfth  Regiment   1,592.",
+      1113972,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Twelfth  Regiment,                            1,592.",
+      1113141,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/12th-north-carolina-infantry.jsonl.gz",
+   "lines": 1565,
+   "raw_bytes": 118075,
+   "gz_bytes": 26313,
+   "sha256_raw": "7716ef5e7270909851ba6a3073bf59c7e6632a80247abba7fc640ca3f461911b",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1565
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 176,
+    "B": 144,
+    "C": 184,
+    "D": 153,
+    "E": 197,
+    "F": 143,
+    "FS": 34,
+    "G": 146,
+    "H": 160,
+    "I": 100,
+    "K": 128
+   },
+   "rank_printed": 225,
+   "with_remarks": 1562,
+   "page_null": 0,
+   "flags": {
+    "N": 45,
+    "H": 50,
+    "C": 143,
+    "R": 9,
+    "Y": 14,
+    "G": 29,
+    "M": 1,
+    "W": 44
+   },
+   "ocr_uncertain": 274,
+   "on_rolls": {
+    "yes": 761,
+    "no": 265,
+    "unknown": 539
+   },
+   "names_gettysburg": 38,
+   "gettysburg_dated": 9,
+   "head_kinds": {
+    "G-mark": 4,
+    "S-county": 2,
+    "S-event": 1,
+    "S-mark-junk": 2,
+    "S-mark-weak": 5,
+    "S-month": 3,
+    "S-recovered": 24
+   },
+   "company_inferred": [
+    {
+     "first_row": 888,
+     "last_row": 1030,
+     "n_rows": 143,
+     "co": "F",
+     "rule": "sequence",
+     "heading": "COMPANY R"
+    }
+   ],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1562,
+    "remark_empty": 3,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1550 against 1525 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1525,
+      "after_dedupe": 1525
+     },
+     "b": {
+      "parsed": 1565,
+      "after_dedupe": 1565
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 1
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1478530,
+      1592118,
+      "TWELFTH  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      1414667,
+      1528274,
+      "TWELFTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1525,
+    "matched": 1171,
+    "only_in_file": 38,
+    "only_in_second": 2,
+    "replace_blocks": 232,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 171,
+     "B": 141,
+     "C": 176,
+     "D": 151,
+     "E": 192,
+     "F": 138,
+     "FS": 33,
+     "G": 140,
+     "H": 156,
+     "I": 99,
+     "K": 128
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-12NC.csv",
+    "lines": 1562,
+    "matched": 1513,
+    "only_in_file": 10,
+    "only_in_earlier": 8,
+    "replace_blocks": 33,
+    "company_counts": {
+     "A": 176,
+     "B": 144,
+     "C": 185,
+     "D": 152,
+     "E": 197,
+     "F": 144,
+     "FS": 34,
+     "G": 144,
+     "H": 160,
+     "I": 99,
+     "K": 127
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 52,
+    "only_in_earlier_by_key": 49
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 9,
+    "sequence": 1
+   },
+   "preamble_tokens": 34
+  },
+  "c-nc-13th-north-carolina-infantry": {
+   "key": "c-nc-13th-north-carolina-infantry",
+   "designation": "13th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 13,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1466,
+   "baseline": {
+    "id": "C-13NC",
+    "strength": 232,
+    "casualties": 148,
+    "designation": "13th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1633,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,633.",
+     "b": "1,633."
+    },
+    "quote": {
+     "a": [
+      "Thireeenth  Regiment,   1,633.",
+      1113999,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Thireeenth  Regiment,                       ....  1,633.",
+      1113194,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/13th-north-carolina-infantry.jsonl.gz",
+   "lines": 1460,
+   "raw_bytes": 128231,
+   "gz_bytes": 28929,
+   "sha256_raw": "18a789215d021dfb18366e0417e4388116b6847d00be5335132466f452c861a1",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1460
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 148,
+    "B": 157,
+    "C": 158,
+    "D": 127,
+    "E": 160,
+    "F": 142,
+    "FS": 23,
+    "G": 114,
+    "H": 148,
+    "I": 143,
+    "K": 140
+   },
+   "rank_printed": 220,
+   "with_remarks": 1458,
+   "page_null": 0,
+   "flags": {
+    "N": 56,
+    "H": 62,
+    "C": 142,
+    "R": 5,
+    "Y": 27,
+    "G": 48,
+    "M": 9,
+    "W": 43
+   },
+   "ocr_uncertain": 309,
+   "on_rolls": {
+    "yes": 674,
+    "no": 410,
+    "unknown": 376
+   },
+   "names_gettysburg": 140,
+   "gettysburg_dated": 25,
+   "head_kinds": {
+    "G-mark": 6,
+    "S-county": 1,
+    "S-event": 4,
+    "S-mark-junk": 10,
+    "S-mark-weak": 25,
+    "S-recovered": 8
+   },
+   "company_inferred": [
+    {
+     "first_row": 773,
+     "last_row": 914,
+     "n_rows": 142,
+     "co": "F",
+     "rule": "sequence",
+     "heading": "COMPANY F-"
+    }
+   ],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1458,
+    "remark_empty": 2,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1445 against 1426 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1426,
+      "after_dedupe": 1426
+     },
+     "b": {
+      "parsed": 1460,
+      "after_dedupe": 1460
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 1
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1592118,
+      1718985,
+      "THIRTEENTH  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      1528274,
+      1654577,
+      "THIRTEENTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1426,
+    "matched": 1029,
+    "only_in_file": 26,
+    "only_in_second": 8,
+    "replace_blocks": 244,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 147,
+     "B": 158,
+     "C": 158,
+     "D": 125,
+     "E": 153,
+     "F": 140,
+     "FS": 22,
+     "G": 108,
+     "H": 140,
+     "I": 139,
+     "K": 136
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-13NC.csv",
+    "lines": 1466,
+    "matched": 1428,
+    "only_in_file": 9,
+    "only_in_earlier": 14,
+    "replace_blocks": 19,
+    "company_counts": {
+     "A": 147,
+     "B": 158,
+     "C": 159,
+     "D": 130,
+     "E": 162,
+     "F": 140,
+     "FS": 22,
+     "G": 116,
+     "H": 149,
+     "I": 143,
+     "K": 140
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 31,
+    "only_in_earlier_by_key": 37
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 9,
+    "sequence": 1
+   },
+   "preamble_tokens": 38
+  },
+  "c-nc-14th-north-carolina-infantry": {
+   "key": "c-nc-14th-north-carolina-infantry",
+   "designation": "14th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "1",
+    "number": 14,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1490,
+   "baseline": {
+    "id": "C-14NC",
+    "strength": 292,
+    "casualties": 106,
+    "designation": "14th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1557,
+    "status": "one scan prints the full figure, the other lost its leading digit and comma (557.)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,557-",
+     "b": "557."
+    },
+    "quote": {
+     "a": [
+      "Fourteenth  Regiment,   1,557-",
+      1114030,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Fourteenth  Regiment,.    1, 557.",
+      1113251,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/14th-north-carolina-infantry.jsonl.gz",
+   "lines": 1478,
+   "raw_bytes": 120272,
+   "gz_bytes": 27617,
+   "sha256_raw": "37eb254f7e59a21eb2728d47759ec63075e03cdf145ac2eff70ad204cdbb0c88",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1~b",
+     "rows": 1478
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.1~b",
+   "company_counts": {
+    "A": 148,
+    "B": 138,
+    "C": 139,
+    "D": 157,
+    "E": 143,
+    "F": 149,
+    "FS": 24,
+    "G": 145,
+    "H": 151,
+    "I": 126,
+    "K": 158
+   },
+   "rank_printed": 224,
+   "with_remarks": 1477,
+   "page_null": 0,
+   "flags": {
+    "N": 47,
+    "H": 55,
+    "R": 4,
+    "Y": 5,
+    "G": 44,
+    "M": 10,
+    "W": 35
+   },
+   "ocr_uncertain": 146,
+   "on_rolls": {
+    "yes": 666,
+    "no": 363,
+    "unknown": 449
+   },
+   "names_gettysburg": 38,
+   "gettysburg_dated": 7,
+   "head_kinds": {
+    "G-mark": 4,
+    "S-county": 3,
+    "S-event": 2,
+    "S-mark-junk": 9,
+    "S-mark-weak": 13,
+    "S-rank": 1,
+    "S-recovered": 9
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1477,
+    "remark_empty": 1,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1478 against 1422 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1437,
+      "after_dedupe": 1437
+     },
+     "b": {
+      "parsed": 1478,
+      "after_dedupe": 1478
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1718985,
+      1836537,
+      "FOURTEENTH  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      1654577,
+      1772055,
+      "FOURTEENTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1437,
+    "matched": 1108,
+    "only_in_file": 43,
+    "only_in_second": 11,
+    "replace_blocks": 234,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 146,
+     "B": 140,
+     "C": 137,
+     "D": 157,
+     "E": 142,
+     "F": 145,
+     "G": 140,
+     "H": 151,
+     "I": 122,
+     "K": 157
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-14NC.csv",
+    "lines": 1490,
+    "matched": 1441,
+    "only_in_file": 13,
+    "only_in_earlier": 24,
+    "replace_blocks": 21,
+    "company_counts": {
+     "A": 148,
+     "B": 139,
+     "C": 138,
+     "D": 160,
+     "E": 143,
+     "F": 149,
+     "FS": 26,
+     "G": 146,
+     "H": 154,
+     "I": 126,
+     "K": 161
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 37,
+    "only_in_earlier_by_key": 49
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 34
+  },
+  "c-nc-16th-north-carolina-infantry": {
+   "key": "c-nc-16th-north-carolina-infantry",
+   "designation": "16th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 16,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1446,
+   "baseline": {
+    "id": "C-16NC",
+    "strength": 321,
+    "casualties": 209,
+    "designation": "16th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1507,
+    "status": "one scan prints the full figure, the other lost its leading digit and comma (507.)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "507.",
+     "b": "1,507."
+    },
+    "quote": {
+     "a": [
+      "Sixteenth  Regiment,   1, 507.",
+      1114095,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Sixteenth  Regiment                 ..       ..      ..  -1,507.",
+      1113346,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/16th-north-carolina-infantry.jsonl.gz",
+   "lines": 1436,
+   "raw_bytes": 126250,
+   "gz_bytes": 28766,
+   "sha256_raw": "74537890ce8b2ff34b986b697d8cde58843fb2dd8fc85a0d58839db4572d2e0c",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2",
+     "rows": 1436
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.2",
+   "company_counts": {
+    "A": 101,
+    "B": 114,
+    "C": 148,
+    "D": 142,
+    "E": 140,
+    "F": 113,
+    "FS": 21,
+    "G": 145,
+    "H": 111,
+    "I": 135,
+    "K": 123,
+    "M": 143
+   },
+   "rank_printed": 219,
+   "with_remarks": 1436,
+   "page_null": 225,
+   "flags": {
+    "N": 60,
+    "H": 76,
+    "C": 143,
+    "R": 8,
+    "Y": 52,
+    "G": 84,
+    "M": 16,
+    "W": 88
+   },
+   "ocr_uncertain": 401,
+   "on_rolls": {
+    "yes": 736,
+    "no": 369,
+    "unknown": 331
+   },
+   "names_gettysburg": 82,
+   "gettysburg_dated": 35,
+   "head_kinds": {
+    "G-mark": 12,
+    "S-mark-junk": 2,
+    "S-mark-weak": 8,
+    "S-month": 1,
+    "S-recovered": 36
+   },
+   "company_inferred": [
+    {
+     "first_row": 1192,
+     "last_row": 1334,
+     "n_rows": 143,
+     "co": "M",
+     "rule": "skip",
+     "heading": "COMPANY M."
+    }
+   ],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1436,
+    "remark_empty": 0,
+    "remark_gap_rows": 2,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1421 against 1408 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1436,
+      "after_dedupe": 1436
+     },
+     "b": {
+      "parsed": 1423,
+      "after_dedupe": 1423
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 1
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      3341,
+      128875,
+      "SIXTEENTH  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      3123,
+      128411,
+      "SIXTEENTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2~b",
+    "lines": 1423,
+    "matched": 1154,
+    "only_in_file": 12,
+    "only_in_second": 13,
+    "replace_blocks": 180,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 100,
+     "B": 116,
+     "C": 145,
+     "D": 144,
+     "E": 137,
+     "F": 113,
+     "FS": 18,
+     "G": 148,
+     "H": 107,
+     "I": 130,
+     "K": 121,
+     "M": 144
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-16NC.csv",
+    "lines": 1446,
+    "matched": 1380,
+    "only_in_file": 11,
+    "only_in_earlier": 20,
+    "replace_blocks": 42,
+    "company_counts": {
+     "A": 103,
+     "B": 116,
+     "C": 144,
+     "D": 144,
+     "E": 141,
+     "F": 113,
+     "FS": 22,
+     "G": 145,
+     "H": 115,
+     "I": 136,
+     "K": 123,
+     "M": 144
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 56,
+    "only_in_earlier_by_key": 66
+   },
+   "notes": [
+    {
+     "off": 5616,
+     "co": "A",
+     "text": "Note.— The muster roll of this Company was not reported in the Roll of Honor, and all my efforts thus far to procure a copy of It have proved abortive. I have reasons to hope that I maj' yet secure it"
+    },
+    {
+     "off": 124517,
+     "co": "A",
+     "text": "Note.— By a singular piece of good fortune the rcvU of this coniptiny has reach- ed me, just as the press had reached the end of the regiment. I insert it at the wi'ong end as the best arrangement now"
+    }
+   ],
+   "heading_rules": {
+    "missing-roll": 1,
+    "letter": 9,
+    "skip": 1,
+    "late": 1
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-18th-north-carolina-infantry": {
+   "key": "c-nc-18th-north-carolina-infantry",
+   "designation": "18th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 18,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1771,
+   "baseline": {
+    "id": "C-18NC",
+    "strength": 346,
+    "casualties": 158,
+    "designation": "18th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1677,
+    "status": "one scan prints the full figure, the other lost its leading digit and comma (77.)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "77.",
+     "b": "1,677."
+    },
+    "quote": {
+     "a": [
+      "Eighteenth  Regiment,   I,°77.",
+      1114158,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Eighteenth  Regiment      ...  1,677.",
+      1113445,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/18th-north-carolina-infantry.jsonl.gz",
+   "lines": 1753,
+   "raw_bytes": 141576,
+   "gz_bytes": 32182,
+   "sha256_raw": "5fc73227cb118505cbe8c405bd5b19f40e1e520b1a389da98e24d1ad88b9c9f5",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1753
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 206,
+    "B": 173,
+    "C": 167,
+    "D": 158,
+    "E": 167,
+    "F": 160,
+    "FS": 16,
+    "G": 193,
+    "H": 155,
+    "I": 183,
+    "K": 175
+   },
+   "rank_printed": 199,
+   "with_remarks": 1752,
+   "page_null": 0,
+   "flags": {
+    "N": 111,
+    "H": 125,
+    "R": 3,
+    "Y": 48,
+    "G": 65,
+    "M": 28,
+    "W": 60
+   },
+   "ocr_uncertain": 309,
+   "on_rolls": {
+    "yes": 815,
+    "no": 452,
+    "unknown": 486
+   },
+   "names_gettysburg": 34,
+   "gettysburg_dated": 16,
+   "head_kinds": {
+    "G-mark": 13,
+    "S-county": 28,
+    "S-event": 6,
+    "S-mark-junk": 1,
+    "S-mark-weak": 9,
+    "S-month": 1,
+    "S-recovered": 15
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1752,
+    "remark_empty": 1,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1753 against 1735 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1750,
+      "after_dedupe": 1750
+     },
+     "b": {
+      "parsed": 1753,
+      "after_dedupe": 1753
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      229297,
+      367658,
+      "EIGHTEENTH  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      222260,
+      360184,
+      "EIGHTEENTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1750,
+    "matched": 1426,
+    "only_in_file": 20,
+    "only_in_second": 16,
+    "replace_blocks": 217,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 212,
+     "B": 173,
+     "C": 165,
+     "D": 156,
+     "E": 165,
+     "F": 162,
+     "FS": 18,
+     "G": 191,
+     "H": 147,
+     "I": 184,
+     "K": 177
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-18NC.csv",
+    "lines": 1771,
+    "matched": 1415,
+    "only_in_file": 13,
+    "only_in_earlier": 18,
+    "replace_blocks": 230,
+    "company_counts": {
+     "A": 212,
+     "B": 174,
+     "C": 166,
+     "D": 158,
+     "E": 168,
+     "F": 164,
+     "FS": 19,
+     "G": 190,
+     "H": 154,
+     "I": 184,
+     "K": 182
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 334,
+    "only_in_earlier_by_key": 352
+   },
+   "notes": [
+    {
+     "off": 293001,
+     "co": "F",
+     "text": "Note— I have been unable to tell the counties from which this compcny was derived. The Roll of Honor and the field returns sent to Richmond were- alike silent on the subject,"
+    }
+   ],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 34
+  },
+  "c-nc-2nd-north-carolina-cavalry": {
+   "key": "c-nc-2nd-north-carolina-cavalry",
+   "designation": "2nd North Carolina Cavalry",
+   "arm": "cavalry",
+   "moore": {
+    "volume": "2",
+    "number": 19,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 0,
+   "baseline": {
+    "id": null,
+    "strength": null,
+    "casualties": null,
+    "designation": null
+   },
+   "printed_total": {
+    "value": 1205,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,205.",
+     "b": "1,205."
+    },
+    "quote": {
+     "a": [
+      "Nineteenth  Regiment,   1,205.",
+      1114189,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Nineteenth  Regiment,. .. .        ..  1,205.",
+      1113483,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-cavalry.jsonl.gz",
+   "lines": 1292,
+   "raw_bytes": 94735,
+   "gz_bytes": 23832,
+   "sha256_raw": "f5659f96843fa82d423f43d01f1eb3be9b98ec96121b6dec07f8e121d91ddd2d",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1292
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 148,
+    "B": 154,
+    "C": 151,
+    "D": 116,
+    "E": 113,
+    "F": 86,
+    "FS": 19,
+    "G": 149,
+    "H": 120,
+    "I": 121,
+    "K": 115
+   },
+   "rank_printed": 241,
+   "with_remarks": 1291,
+   "page_null": 0,
+   "flags": {
+    "N": 70,
+    "H": 72,
+    "R": 4,
+    "Y": 22,
+    "G": 49,
+    "M": 10,
+    "W": 20
+   },
+   "ocr_uncertain": 186,
+   "on_rolls": {
+    "yes": 714,
+    "no": 268,
+    "unknown": 310
+   },
+   "names_gettysburg": 2,
+   "gettysburg_dated": 1,
+   "head_kinds": {
+    "G-mark": 9,
+    "S-county": 11,
+    "S-event": 3,
+    "S-mark-weak": 4,
+    "S-recovered": 14
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1291,
+    "remark_empty": 1,
+    "remark_gap_rows": 2,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1292 against 1239 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 3)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1389,
+      "after_dedupe": 1284
+     },
+     "b": {
+      "parsed": 1292,
+      "after_dedupe": 1292
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [
+      {
+       "leaf": 134,
+       "dup_of": 132,
+       "n": 53,
+       "overlap": 0.77
+      },
+      {
+       "leaf": 135,
+       "dup_of": 133,
+       "n": 52,
+       "overlap": 0.84
+      }
+     ],
+     "b": []
+    },
+    "section": {
+     "a": [
+      373350,
+      471687,
+      "NINETEENTH  REGIMENT— CAVALRY."
+     ],
+     "b": [
+      360184,
+      451605,
+      "NINETEENTH  REGIMENT-CAVALRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1284,
+    "matched": 1050,
+    "only_in_file": 15,
+    "only_in_second": 7,
+    "replace_blocks": 159,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 145,
+     "B": 150,
+     "C": 152,
+     "D": 115,
+     "E": 114,
+     "F": 85,
+     "FS": 19,
+     "G": 148,
+     "H": 119,
+     "I": 122,
+     "K": 115
+    }
+   },
+   "earlier": null,
+   "notes": [
+    {
+     "off": 364843,
+     "co": "A",
+     "text": "Note.— With the exception of the original commissioned officers, the resi- dences of the men composing this company can no where be found by me. I know, however, that they were all from Cherokee and M"
+    },
+    {
+     "off": 408339,
+     "co": "E",
+     "text": "Note.— This company was constituted by men of the counties of Wilson and JCash, but with the few exceptions given above I am unable to say to which of ihe two shires the individuals belonged."
+    },
+    {
+     "off": 413787,
+     "co": "F",
+     "text": "Note. — This company was not reported in the Roll of Honor, and only the above meagre record is to be had from the Archives Office."
+    }
+   ],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-20th-north-carolina-infantry": {
+   "key": "c-nc-20th-north-carolina-infantry",
+   "designation": "20th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 20,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1208,
+   "baseline": {
+    "id": "C-20NC",
+    "strength": 372,
+    "casualties": 236,
+    "designation": "20th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1278,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,278.",
+     "b": "1,278."
+    },
+    "quote": {
+     "a": [
+      "Twentieth  Regiment,        1,278.",
+      1114220,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Twentieth  Regiment,. .             ..                ......  1,278.",
+      1113529,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/20th-north-carolina-infantry.jsonl.gz",
+   "lines": 1210,
+   "raw_bytes": 108092,
+   "gz_bytes": 23904,
+   "sha256_raw": "83f53f1219e650ad9bcaa19ff28aa484e29aad03c3ce5130ecf366c8cb8fec87",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1210
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 132,
+    "B": 137,
+    "C": 108,
+    "D": 134,
+    "E": 134,
+    "F": 110,
+    "FS": 10,
+    "G": 120,
+    "H": 141,
+    "I": 115,
+    "K": 69
+   },
+   "rank_printed": 191,
+   "with_remarks": 1210,
+   "page_null": 0,
+   "flags": {
+    "N": 79,
+    "H": 77,
+    "R": 4,
+    "Y": 19,
+    "G": 52,
+    "M": 8,
+    "W": 41
+   },
+   "ocr_uncertain": 191,
+   "on_rolls": {
+    "yes": 718,
+    "no": 270,
+    "unknown": 222
+   },
+   "names_gettysburg": 112,
+   "gettysburg_dated": 35,
+   "head_kinds": {
+    "G-mark": 10,
+    "S-county": 4,
+    "S-mark-junk": 4,
+    "S-mark-weak": 11,
+    "S-rank": 1,
+    "S-recovered": 11
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1210,
+    "remark_empty": 0,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1210 against 1171 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 2)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1201,
+      "after_dedupe": 1201
+     },
+     "b": {
+      "parsed": 1210,
+      "after_dedupe": 1210
+     }
+    },
+    "heading_defects": {
+     "a": 2,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      471687,
+      579141,
+      "TWENTIETH  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      451605,
+      558813,
+      "TWENTIETH  REGIMENT-INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1201,
+    "matched": 974,
+    "only_in_file": 13,
+    "only_in_second": 6,
+    "replace_blocks": 153,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 131,
+     "B": 135,
+     "C": 112,
+     "D": 135,
+     "E": 133,
+     "F": 111,
+     "FS": 10,
+     "G": 111,
+     "H": 142,
+     "I": 114,
+     "K": 67
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-20NC.csv",
+    "lines": 1208,
+    "matched": 957,
+    "only_in_file": 11,
+    "only_in_earlier": 7,
+    "replace_blocks": 160,
+    "company_counts": {
+     "A": 132,
+     "B": 140,
+     "C": 110,
+     "D": 135,
+     "E": 132,
+     "F": 113,
+     "FS": 10,
+     "G": 115,
+     "H": 142,
+     "I": 114,
+     "K": 65
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 253,
+    "only_in_earlier_by_key": 251
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-21st-north-carolina-infantry": {
+   "key": "c-nc-21st-north-carolina-infantry",
+   "designation": "21st North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 21,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1425,
+   "baseline": {
+    "id": "C-21NC",
+    "strength": 472,
+    "casualties": 106,
+    "designation": "21st North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1287,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,287.",
+     "b": "1,287."
+    },
+    "quote": {
+     "a": [
+      "Twenty-First  Regiment,.   1,287.",
+      1114255,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Twenty-First  Regiment,.      ..             ..      ..         1,287.",
+      1113598,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/21st-north-carolina-infantry.jsonl.gz",
+   "lines": 1364,
+   "raw_bytes": 105874,
+   "gz_bytes": 24120,
+   "sha256_raw": "9e0e969750988991db3a766b34ec1cb82e63a331b21130c6b67eded1c1e7ab7a",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2",
+     "rows": 1364
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.2",
+   "company_counts": {
+    "A": 128,
+    "B": 80,
+    "C": 125,
+    "D": 161,
+    "E": 91,
+    "F": 140,
+    "FS": 24,
+    "G": 100,
+    "H": 150,
+    "I": 119,
+    "K": 126,
+    "M": 120
+   },
+   "rank_printed": 231,
+   "with_remarks": 1362,
+   "page_null": 0,
+   "flags": {
+    "N": 47,
+    "H": 67,
+    "C": 245,
+    "R": 12,
+    "Y": 24,
+    "G": 57,
+    "M": 15,
+    "W": 74
+   },
+   "ocr_uncertain": 430,
+   "on_rolls": {
+    "yes": 712,
+    "no": 215,
+    "unknown": 437
+   },
+   "names_gettysburg": 74,
+   "gettysburg_dated": 3,
+   "head_kinds": {
+    "G-mark": 8,
+    "S-county": 3,
+    "S-event": 1,
+    "S-mark-junk": 3,
+    "S-mark-weak": 4,
+    "S-rank": 3,
+    "S-recovered": 29
+   },
+   "company_inferred": [
+    {
+     "first_row": 232,
+     "last_row": 356,
+     "n_rows": 125,
+     "co": "C",
+     "rule": "sequence",
+     "heading": "COMPANY G."
+    },
+    {
+     "first_row": 1244,
+     "last_row": 1363,
+     "n_rows": 120,
+     "co": "M",
+     "rule": "skip",
+     "heading": "COMPANY M."
+    }
+   ],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1362,
+    "remark_empty": 2,
+    "remark_gap_rows": 2,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1334 against 1333 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 2 company headings read by the sequence or pages held twice, against 2)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1364,
+      "after_dedupe": 1364
+     },
+     "b": {
+      "parsed": 1363,
+      "after_dedupe": 1363
+     }
+    },
+    "heading_defects": {
+     "a": 2,
+     "b": 2
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      579141,
+      681736,
+      "TWENTY-FIRST  REG1MENT--INFANTRY."
+     ],
+     "b": [
+      558813,
+      661145,
+      "TWENTY-FIRST  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2~b",
+    "lines": 1363,
+    "matched": 1128,
+    "only_in_file": 10,
+    "only_in_second": 12,
+    "replace_blocks": 172,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 126,
+     "B": 81,
+     "C": 125,
+     "D": 160,
+     "E": 90,
+     "F": 143,
+     "FS": 24,
+     "G": 100,
+     "H": 151,
+     "I": 118,
+     "K": 127,
+     "M": 118
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-21NC.csv",
+    "lines": 1425,
+    "matched": 1303,
+    "only_in_file": 12,
+    "only_in_earlier": 47,
+    "replace_blocks": 40,
+    "company_counts": {
+     "A": 129,
+     "B": 81,
+     "C": 126,
+     "D": 165,
+     "E": 91,
+     "F": 142,
+     "FS": 22,
+     "G": 147,
+     "H": 151,
+     "I": 120,
+     "K": 130,
+     "M": 121
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 61,
+    "only_in_earlier_by_key": 122
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 9,
+    "sequence": 1,
+    "skip": 1
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-22nd-north-carolina-infantry": {
+   "key": "c-nc-22nd-north-carolina-infantry",
+   "designation": "22nd North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 22,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1972,
+   "baseline": {
+    "id": "C-22NC",
+    "strength": 263,
+    "casualties": 179,
+    "designation": "22nd North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1866,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,866.",
+     "b": "1,866."
+    },
+    "quote": {
+     "a": [
+      "Twenty-Second  Regiment,   1,866.",
+      1114289,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Twenty-Second  Regiment,..    ..               1,866.",
+      1113669,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/22nd-north-carolina-infantry.jsonl.gz",
+   "lines": 1951,
+   "raw_bytes": 153192,
+   "gz_bytes": 34087,
+   "sha256_raw": "c9726e5e43d5a04e3e52f141506fa331e1b44c15c36dddc49498d3f40ec27785",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1951
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 201,
+    "B": 182,
+    "C": 108,
+    "D": 157,
+    "E": 193,
+    "F": 169,
+    "FS": 28,
+    "G": 156,
+    "H": 208,
+    "I": 198,
+    "K": 164,
+    "L": 187
+   },
+   "rank_printed": 244,
+   "with_remarks": 1950,
+   "page_null": 0,
+   "flags": {
+    "N": 125,
+    "H": 155,
+    "R": 4,
+    "Y": 25,
+    "G": 69,
+    "M": 17,
+    "W": 69
+   },
+   "ocr_uncertain": 329,
+   "on_rolls": {
+    "yes": 913,
+    "no": 503,
+    "unknown": 535
+   },
+   "names_gettysburg": 87,
+   "gettysburg_dated": 20,
+   "head_kinds": {
+    "G-mark": 50,
+    "S-county": 2,
+    "S-event": 2,
+    "S-mark-junk": 1,
+    "S-mark-weak": 17,
+    "S-rank": 2,
+    "S-recovered": 33
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1950,
+    "remark_empty": 1,
+    "remark_gap_rows": 3,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1951 against 1938 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1953,
+      "after_dedupe": 1953
+     },
+     "b": {
+      "parsed": 1951,
+      "after_dedupe": 1951
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      681736,
+      830687,
+      "TWENTY-SECOND  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      661145,
+      809887,
+      "TWENTY-SECOND  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1953,
+    "matched": 1659,
+    "only_in_file": 15,
+    "only_in_second": 14,
+    "replace_blocks": 220,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 198,
+     "B": 179,
+     "C": 109,
+     "D": 157,
+     "E": 191,
+     "F": 169,
+     "FS": 31,
+     "G": 156,
+     "H": 209,
+     "I": 200,
+     "K": 164,
+     "L": 190
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-22NC.csv",
+    "lines": 1972,
+    "matched": 1651,
+    "only_in_file": 14,
+    "only_in_earlier": 20,
+    "replace_blocks": 228,
+    "company_counts": {
+     "A": 199,
+     "B": 180,
+     "C": 110,
+     "D": 158,
+     "E": 194,
+     "F": 173,
+     "FS": 34,
+     "G": 158,
+     "H": 211,
+     "I": 202,
+     "K": 164,
+     "L": 189
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 292,
+    "only_in_earlier_by_key": 313
+   },
+   "notes": [
+    {
+     "off": 694556,
+     "co": "C",
+     "text": "Note. — This roll was sent with the others of the same command and was marked Company A. This was evidently a mistake, as that company was given in another roll which corresponds with the record in th"
+    }
+   ],
+   "heading_rules": {
+    "letter": 11
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-23rd-north-carolina-infantry": {
+   "key": "c-nc-23rd-north-carolina-infantry",
+   "designation": "23rd North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 23,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1476,
+   "baseline": {
+    "id": "C-23NC",
+    "strength": 406,
+    "casualties": 236,
+    "designation": "23rd North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1510,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,510,",
+     "b": "1,510,"
+    },
+    "quote": {
+     "a": [
+      "Twenty-Third  Regiment,   1,510,",
+      1114323,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Twenty-Third  Regiment,.      ..                 1,510,",
+      1113723,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/23rd-north-carolina-infantry.jsonl.gz",
+   "lines": 1463,
+   "raw_bytes": 125555,
+   "gz_bytes": 27476,
+   "sha256_raw": "4142ae07342fe7dbf3091bc9f4d63b389552b80f9747d7dd9c791e6616f3b2a0",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1463
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 137,
+    "B": 160,
+    "C": 149,
+    "D": 153,
+    "E": 140,
+    "F": 151,
+    "FS": 21,
+    "G": 166,
+    "H": 135,
+    "I": 127,
+    "K": 124
+   },
+   "rank_printed": 205,
+   "with_remarks": 1462,
+   "page_null": 0,
+   "flags": {
+    "N": 63,
+    "H": 67,
+    "R": 4,
+    "Y": 23,
+    "G": 43,
+    "M": 8,
+    "W": 44
+   },
+   "ocr_uncertain": 196,
+   "on_rolls": {
+    "yes": 777,
+    "no": 350,
+    "unknown": 336
+   },
+   "names_gettysburg": 172,
+   "gettysburg_dated": 37,
+   "head_kinds": {
+    "G-mark": 7,
+    "S-county": 5,
+    "S-event": 2,
+    "S-mark-junk": 1,
+    "S-mark-weak": 9,
+    "S-month": 2,
+    "S-recovered": 25
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1462,
+    "remark_empty": 1,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1463 against 1319 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 6)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1629,
+      "after_dedupe": 1533
+     },
+     "b": {
+      "parsed": 1463,
+      "after_dedupe": 1463
+     }
+    },
+    "heading_defects": {
+     "a": 4,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [
+      {
+       "leaf": 290,
+       "dup_of": 288,
+       "n": 47,
+       "overlap": 0.76
+      },
+      {
+       "leaf": 291,
+       "dup_of": 289,
+       "n": 49,
+       "overlap": 0.83
+      }
+     ],
+     "b": []
+    },
+    "section": {
+     "a": [
+      830687,
+      968219,
+      "TWENTY-THIRD  REGIMENT-INFANTRY,"
+     ],
+     "b": [
+      809887,
+      933657,
+      "TWENTY-THIRD  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1533,
+    "matched": 964,
+    "only_in_file": 8,
+    "only_in_second": 11,
+    "replace_blocks": 125,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 137,
+     "B": 161,
+     "C": 151,
+     "D": 151,
+     "E": 142,
+     "F": 152,
+     "FS": 21,
+     "G": 166,
+     "H": 69,
+     "I": 132,
+     "K": 127,
+     "L": 124
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-23NC.csv",
+    "lines": 1476,
+    "matched": 1268,
+    "only_in_file": 5,
+    "only_in_earlier": 18,
+    "replace_blocks": 149,
+    "company_counts": {
+     "A": 138,
+     "B": 160,
+     "C": 153,
+     "D": 153,
+     "E": 143,
+     "F": 151,
+     "FS": 20,
+     "G": 169,
+     "H": 138,
+     "I": 129,
+     "K": 122
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 195,
+    "only_in_earlier_by_key": 208
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 23
+  },
+  "c-nc-26th-north-carolina-infantry": {
+   "key": "c-nc-26th-north-carolina-infantry",
+   "designation": "26th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 26,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1954,
+   "baseline": {
+    "id": "C-26NC",
+    "strength": 843,
+    "casualties": 588,
+    "designation": "26th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1898,
+    "status": "one scan prints the figure, the other damages it or has no line (i.SgS.)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "i.SgS.",
+     "b": "1,898."
+    },
+    "quote": {
+     "a": [
+      "Twenty-Sixth  Regiment,   i.SgS.",
+      1114429,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Twenty-Sixth  Regiment,        ..     ...                  1,898.",
+      1113854,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/26th-north-carolina-infantry.jsonl.gz",
+   "lines": 1929,
+   "raw_bytes": 159028,
+   "gz_bytes": 34062,
+   "sha256_raw": "bdda3984cd2fde06df820955bee598ed29fc3d96ad1ab09e307ba0b1145b56bf",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1929
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 199,
+    "B": 183,
+    "C": 189,
+    "D": 187,
+    "E": 206,
+    "F": 228,
+    "FS": 16,
+    "G": 185,
+    "H": 168,
+    "I": 184,
+    "K": 184
+   },
+   "rank_printed": 201,
+   "with_remarks": 1929,
+   "page_null": 0,
+   "flags": {
+    "N": 81,
+    "H": 92,
+    "R": 2,
+    "Y": 31,
+    "G": 52,
+    "M": 18,
+    "W": 57
+   },
+   "ocr_uncertain": 246,
+   "on_rolls": {
+    "yes": 1151,
+    "no": 314,
+    "unknown": 464
+   },
+   "names_gettysburg": 505,
+   "gettysburg_dated": 270,
+   "head_kinds": {
+    "G-mark": 9,
+    "S-county": 1,
+    "S-event": 2,
+    "S-mark-junk": 3,
+    "S-mark-weak": 15,
+    "S-month": 1,
+    "S-recovered": 30
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1929,
+    "remark_empty": 0,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1929 against 1925 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1940,
+      "after_dedupe": 1940
+     },
+     "b": {
+      "parsed": 1929,
+      "after_dedupe": 1929
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1221874,
+      1377377,
+      "TWENTY-SIXTH  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      1171886,
+      1327028,
+      "TWENTY-SIXTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1940,
+    "matched": 1599,
+    "only_in_file": 15,
+    "only_in_second": 25,
+    "replace_blocks": 213,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 196,
+     "B": 182,
+     "C": 190,
+     "D": 190,
+     "E": 210,
+     "F": 226,
+     "FS": 17,
+     "G": 189,
+     "H": 171,
+     "I": 186,
+     "K": 183
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-26NC.csv",
+    "lines": 1954,
+    "matched": 1589,
+    "only_in_file": 4,
+    "only_in_earlier": 27,
+    "replace_blocks": 226,
+    "company_counts": {
+     "A": 200,
+     "B": 182,
+     "C": 191,
+     "D": 190,
+     "E": 212,
+     "F": 226,
+     "FS": 17,
+     "G": 189,
+     "H": 173,
+     "I": 187,
+     "K": 187
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 336,
+    "only_in_earlier_by_key": 361
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 36
+  },
+  "c-nc-28th-north-carolina-infantry": {
+   "key": "c-nc-28th-north-carolina-infantry",
+   "designation": "28th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 28,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1828,
+   "baseline": {
+    "id": "C-28NC",
+    "strength": 346,
+    "casualties": 157,
+    "designation": "28th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1826,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,826.",
+     "b": "1,826."
+    },
+    "quote": {
+     "a": [
+      "Twenty-Eighth  Regiment,   1,826.",
+      1114500,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Twenty-Eighth  Regiment,.    1,826.",
+      1113981,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/28th-north-carolina-infantry.jsonl.gz",
+   "lines": 1818,
+   "raw_bytes": 148411,
+   "gz_bytes": 32447,
+   "sha256_raw": "c3d0c607b1c99059e9fea543b9fd472fabbee613d8ddc0cd0fc5866b55f09952",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1818
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 207,
+    "B": 179,
+    "C": 207,
+    "D": 163,
+    "E": 162,
+    "F": 164,
+    "FS": 33,
+    "G": 164,
+    "H": 178,
+    "I": 183,
+    "K": 178
+   },
+   "rank_printed": 249,
+   "with_remarks": 1814,
+   "page_null": 0,
+   "flags": {
+    "N": 64,
+    "H": 53,
+    "R": 4,
+    "Y": 31,
+    "G": 25,
+    "M": 9,
+    "W": 54
+   },
+   "ocr_uncertain": 199,
+   "on_rolls": {
+    "yes": 983,
+    "no": 477,
+    "unknown": 358
+   },
+   "names_gettysburg": 155,
+   "gettysburg_dated": 17,
+   "head_kinds": {
+    "G-mark": 14,
+    "S-county": 6,
+    "S-event": 2,
+    "S-mark-weak": 7,
+    "S-month": 3,
+    "S-recovered": 7
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1814,
+    "remark_empty": 4,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1818 against 1648 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 5)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1900,
+      "after_dedupe": 1900
+     },
+     "b": {
+      "parsed": 1818,
+      "after_dedupe": 1818
+     }
+    },
+    "heading_defects": {
+     "a": 5,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1449096,
+      1600736,
+      "TWENTY-EIGHTH  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      1386365,
+      1530831,
+      "TWENTY-EIGHTH  REGIMENT-INFANTRY,"
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1900,
+    "matched": 857,
+    "only_in_file": 5,
+    "only_in_second": 120,
+    "replace_blocks": 96,
+    "second_only_runs": [
+     {
+      "at_file_row": 1236,
+      "second_rows": [
+       1046,
+       1156
+      ]
+     }
+    ],
+    "company_counts": {
+     "A": 206,
+     "B": 176,
+     "C": 206,
+     "D": 165,
+     "E": 163,
+     "F": 78,
+     "FS": 37,
+     "G": 167,
+     "H": 163,
+     "I": 180,
+     "K": 182,
+     "L": 177
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-28NC.csv",
+    "lines": 1828,
+    "matched": 1583,
+    "only_in_file": 7,
+    "only_in_earlier": 15,
+    "replace_blocks": 189,
+    "company_counts": {
+     "A": 206,
+     "B": 178,
+     "C": 210,
+     "D": 166,
+     "E": 164,
+     "F": 168,
+     "FS": 37,
+     "G": 163,
+     "H": 175,
+     "I": 185,
+     "K": 176
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 234,
+    "only_in_earlier_by_key": 244
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-30th-north-carolina-infantry": {
+   "key": "c-nc-30th-north-carolina-infantry",
+   "designation": "30th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 30,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1541,
+   "baseline": {
+    "id": "C-30NC",
+    "strength": 233,
+    "casualties": 74,
+    "designation": "30th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1552,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,552.",
+     "b": "1552."
+    },
+    "quote": {
+     "a": [
+      "Thirtieth  Regiment,   1,552.",
+      1114568,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Thirtieth  Regiment,.  .    ..,  „    1552.",
+      1114065,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/30th-north-carolina-infantry.jsonl.gz",
+   "lines": 1537,
+   "raw_bytes": 129912,
+   "gz_bytes": 28343,
+   "sha256_raw": "3d6370c3d561a8c5b644869d0d04ded30e42f331a2d01b579a6a832bbb2edd26",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1537
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 150,
+    "B": 136,
+    "C": 152,
+    "D": 149,
+    "E": 153,
+    "F": 148,
+    "FS": 21,
+    "G": 137,
+    "H": 155,
+    "I": 179,
+    "K": 157
+   },
+   "rank_printed": 217,
+   "with_remarks": 1537,
+   "page_null": 0,
+   "flags": {
+    "N": 51,
+    "H": 41,
+    "R": 3,
+    "Y": 17,
+    "G": 39,
+    "M": 5,
+    "W": 31
+   },
+   "ocr_uncertain": 142,
+   "on_rolls": {
+    "yes": 810,
+    "no": 519,
+    "unknown": 208
+   },
+   "names_gettysburg": 38,
+   "gettysburg_dated": 7,
+   "head_kinds": {
+    "G-mark": 9,
+    "S-event": 1,
+    "S-mark-junk": 2,
+    "S-mark-weak": 7,
+    "S-recovered": 13
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1537,
+    "remark_empty": 0,
+    "remark_gap_rows": 2,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1537 against 1330 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 8)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1802,
+      "after_dedupe": 1610
+     },
+     "b": {
+      "parsed": 1537,
+      "after_dedupe": 1537
+     }
+    },
+    "heading_defects": {
+     "a": 4,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [
+      {
+       "leaf": 570,
+       "dup_of": 568,
+       "n": 53,
+       "overlap": 0.9
+      },
+      {
+       "leaf": 571,
+       "dup_of": 569,
+       "n": 43,
+       "overlap": 0.71
+      },
+      {
+       "leaf": 572,
+       "dup_of": 568,
+       "n": 53,
+       "overlap": 0.82
+      },
+      {
+       "leaf": 573,
+       "dup_of": 569,
+       "n": 43,
+       "overlap": 0.76
+      }
+     ],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1699888,
+      1848270,
+      "THIRTIETH  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      1623365,
+      1750250,
+      "THIRTIETH  REGIMENT-INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1610,
+    "matched": 1025,
+    "only_in_file": 13,
+    "only_in_second": 6,
+    "replace_blocks": 77,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 148,
+     "B": 134,
+     "C": 152,
+     "D": 147,
+     "E": 151,
+     "F": 148,
+     "FS": 23,
+     "G": 138,
+     "H": 75,
+     "I": 155,
+     "K": 179,
+     "L": 160
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-30NC.csv",
+    "lines": 1541,
+    "matched": 1383,
+    "only_in_file": 8,
+    "only_in_earlier": 10,
+    "replace_blocks": 122,
+    "company_counts": {
+     "A": 149,
+     "B": 137,
+     "C": 153,
+     "D": 148,
+     "E": 155,
+     "F": 149,
+     "FS": 24,
+     "G": 138,
+     "H": 154,
+     "I": 178,
+     "K": 156
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 151,
+    "only_in_earlier_by_key": 155
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-32nd-north-carolina-infantry": {
+   "key": "c-nc-32nd-north-carolina-infantry",
+   "designation": "32nd North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 32,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1300,
+   "baseline": {
+    "id": "C-32NC",
+    "strength": 465,
+    "casualties": 202,
+    "designation": "32nd North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1235,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,235.",
+     "b": "1,235."
+    },
+    "quote": {
+     "a": [
+      "Thirty-Second  Regiment,   1,235.",
+      1114730,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Thirty-Second  Regiment      ..  1,235.",
+      1114257,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/32nd-north-carolina-infantry.jsonl.gz",
+   "lines": 1297,
+   "raw_bytes": 104313,
+   "gz_bytes": 22893,
+   "sha256_raw": "2a646f2c510c74ccfcfc840a90c7903c12c18ecf91220303ac01a995663c3565",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1297
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 117,
+    "B": 105,
+    "C": 100,
+    "D": 121,
+    "E": 147,
+    "F": 129,
+    "FS": 21,
+    "G": 106,
+    "H": 121,
+    "I": 194,
+    "K": 136
+   },
+   "rank_printed": 210,
+   "with_remarks": 1297,
+   "page_null": 0,
+   "flags": {
+    "N": 38,
+    "H": 39,
+    "R": 1,
+    "Y": 15,
+    "G": 28,
+    "M": 7,
+    "W": 12
+   },
+   "ocr_uncertain": 108,
+   "on_rolls": {
+    "yes": 779,
+    "no": 269,
+    "unknown": 249
+   },
+   "names_gettysburg": 101,
+   "gettysburg_dated": 16,
+   "head_kinds": {
+    "G-mark": 8,
+    "S-event": 1,
+    "S-mark-weak": 5,
+    "S-month": 1,
+    "S-rank": 1,
+    "S-recovered": 7
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1297,
+    "remark_empty": 0,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1297 against 1224 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1374,
+      "after_dedupe": 1374
+     },
+     "b": {
+      "parsed": 1297,
+      "after_dedupe": 1297
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1944342,
+      2052687,
+      "THIRTY-SECOND  REGIMENT-INFANTRY,"
+     ],
+     "b": [
+      1846153,
+      1947492,
+      "THIRTY-SECOND  REGIMENT-INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1374,
+    "matched": 1027,
+    "only_in_file": 4,
+    "only_in_second": 4,
+    "replace_blocks": 114,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 118,
+     "B": 104,
+     "C": 100,
+     "D": 122,
+     "E": 145,
+     "F": 129,
+     "FS": 21,
+     "G": 105,
+     "H": 121,
+     "I": 195,
+     "K": 79,
+     "L": 135
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-32NC.csv",
+    "lines": 1300,
+    "matched": 1130,
+    "only_in_file": 5,
+    "only_in_earlier": 8,
+    "replace_blocks": 134,
+    "company_counts": {
+     "A": 118,
+     "B": 105,
+     "C": 101,
+     "D": 123,
+     "E": 146,
+     "F": 129,
+     "FS": 20,
+     "G": 105,
+     "H": 122,
+     "I": 195,
+     "K": 136
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 167,
+    "only_in_earlier_by_key": 170
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 22
+  },
+  "c-nc-33rd-north-carolina-infantry": {
+   "key": "c-nc-33rd-north-carolina-infantry",
+   "designation": "33rd North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 33,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1714,
+   "baseline": {
+    "id": "C-33NC",
+    "strength": 291,
+    "casualties": 142,
+    "designation": "33rd North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": null,
+    "status": "the figure is damaged, short or missing in the text layer of the scans read (i,6oo.; l,6oo.): not read as a number",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "i,6oo.",
+     "b": "l,6oo."
+    },
+    "quote": {
+     "a": [
+      "Thirty-Third  Regiment,   i,6oo.",
+      1114764,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Thirty-Third  Regiment,          l,6oo.",
+      1114297,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/33rd-north-carolina-infantry.jsonl.gz",
+   "lines": 1710,
+   "raw_bytes": 136129,
+   "gz_bytes": 31493,
+   "sha256_raw": "bf1f333b1711ec6f8307066712246692fae963ecd7118f3afb5ac6d42693a2cd",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1710
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 175,
+    "B": 152,
+    "C": 173,
+    "D": 173,
+    "E": 179,
+    "F": 168,
+    "FS": 38,
+    "G": 163,
+    "H": 158,
+    "I": 168,
+    "K": 163
+   },
+   "rank_printed": 235,
+   "with_remarks": 1708,
+   "page_null": 0,
+   "flags": {
+    "N": 53,
+    "H": 67,
+    "C": 152,
+    "R": 3,
+    "Y": 12,
+    "G": 22,
+    "M": 9,
+    "W": 21
+   },
+   "ocr_uncertain": 268,
+   "on_rolls": {
+    "yes": 923,
+    "no": 383,
+    "unknown": 404
+   },
+   "names_gettysburg": 60,
+   "gettysburg_dated": 12,
+   "head_kinds": {
+    "G-mark": 14,
+    "S-county": 16,
+    "S-event": 2,
+    "S-mark-junk": 1,
+    "S-mark-weak": 2,
+    "S-recovered": 12
+   },
+   "company_inferred": [
+    {
+     "first_row": 213,
+     "last_row": 364,
+     "n_rows": 152,
+     "co": "B",
+     "rule": "sequence",
+     "heading": "COxMPANY B."
+    }
+   ],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1708,
+    "remark_empty": 2,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1695 against 1688 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1703,
+      "after_dedupe": 1703
+     },
+     "b": {
+      "parsed": 1710,
+      "after_dedupe": 1710
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 1
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      2052687,
+      2185014,
+      "THIRTY-THIRD  REGIMENT— INFANTRY,"
+     ],
+     "b": [
+      1947492,
+      2079445,
+      "THIRTY-THIRD  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1703,
+    "matched": 1535,
+    "only_in_file": 12,
+    "only_in_second": 3,
+    "replace_blocks": 135,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 175,
+     "B": 150,
+     "C": 173,
+     "D": 173,
+     "E": 179,
+     "F": 168,
+     "FS": 36,
+     "G": 165,
+     "H": 157,
+     "I": 165,
+     "K": 162
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-33NC.csv",
+    "lines": 1714,
+    "matched": 1526,
+    "only_in_file": 8,
+    "only_in_earlier": 8,
+    "replace_blocks": 144,
+    "company_counts": {
+     "A": 175,
+     "B": 152,
+     "C": 172,
+     "D": 172,
+     "E": 180,
+     "F": 169,
+     "FS": 38,
+     "G": 166,
+     "H": 159,
+     "I": 168,
+     "K": 163
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 183,
+    "only_in_earlier_by_key": 187
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 9,
+    "sequence": 1
+   },
+   "preamble_tokens": 34
+  },
+  "c-nc-34th-north-carolina-infantry": {
+   "key": "c-nc-34th-north-carolina-infantry",
+   "designation": "34th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "2",
+    "number": 34,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1346,
+   "baseline": {
+    "id": "C-34NC",
+    "strength": 310,
+    "casualties": 195,
+    "designation": "34th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1382,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,382.",
+     "b": "1,382."
+    },
+    "quote": {
+     "a": [
+      "Thirty-Fourth  Regiment,   1,382.",
+      1114797,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Thirty-Fourth  Regiment          1,382.",
+      1114337,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/34th-north-carolina-infantry.jsonl.gz",
+   "lines": 1343,
+   "raw_bytes": 113837,
+   "gz_bytes": 24467,
+   "sha256_raw": "7b466bb4baedbf2b6147afee0720ca18a977232c2a64be973eb1fcf5d4cc19d8",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.2~b",
+     "rows": 1343
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.2~b",
+   "company_counts": {
+    "A": 129,
+    "B": 142,
+    "C": 154,
+    "D": 114,
+    "E": 151,
+    "F": 143,
+    "FS": 24,
+    "G": 107,
+    "H": 112,
+    "I": 114,
+    "K": 153
+   },
+   "rank_printed": 214,
+   "with_remarks": 1343,
+   "page_null": 0,
+   "flags": {
+    "N": 42,
+    "H": 44,
+    "R": 3,
+    "Y": 10,
+    "G": 29,
+    "M": 7,
+    "W": 27
+   },
+   "ocr_uncertain": 123,
+   "on_rolls": {
+    "yes": 693,
+    "no": 443,
+    "unknown": 207
+   },
+   "names_gettysburg": 63,
+   "gettysburg_dated": 12,
+   "head_kinds": {
+    "G-mark": 12,
+    "S-county": 5,
+    "S-event": 1,
+    "S-mark-junk": 2,
+    "S-mark-weak": 2,
+    "S-month": 1,
+    "S-recovered": 12
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1343,
+    "remark_empty": 0,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1343 against 1322 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1337,
+      "after_dedupe": 1337
+     },
+     "b": {
+      "parsed": 1343,
+      "after_dedupe": 1343
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      2185014,
+      2296248,
+      "THIRTY-FOORTH  REGIMENT-INFANTRY"
+     ],
+     "b": [
+      2079445,
+      2190517,
+      "THIRTY-FOURTH  REGIMENT-INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1337,
+    "matched": 1194,
+    "only_in_file": 6,
+    "only_in_second": 1,
+    "replace_blocks": 121,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 128,
+     "B": 141,
+     "C": 154,
+     "D": 113,
+     "E": 150,
+     "F": 142,
+     "FS": 24,
+     "G": 108,
+     "H": 112,
+     "I": 113,
+     "K": 152
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-34NC.csv",
+    "lines": 1346,
+    "matched": 1300,
+    "only_in_file": 7,
+    "only_in_earlier": 7,
+    "replace_blocks": 27,
+    "company_counts": {
+     "A": 130,
+     "B": 144,
+     "C": 155,
+     "D": 115,
+     "E": 152,
+     "F": 144,
+     "FS": 21,
+     "G": 106,
+     "H": 113,
+     "I": 116,
+     "K": 150
+    },
+    "source": "NC-MOORE-1882-v2-emory",
+    "only_in_file_by_key": 43,
+    "only_in_earlier_by_key": 46
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 22
+  },
+  "c-nc-37th-north-carolina-infantry": {
+   "key": "c-nc-37th-north-carolina-infantry",
+   "designation": "37th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "3",
+    "number": 37,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1780,
+   "baseline": {
+    "id": "C-37NC",
+    "strength": 347,
+    "casualties": 153,
+    "designation": "37th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1928,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,928.",
+     "b": "1,928."
+    },
+    "quote": {
+     "a": [
+      "Thirty-Seventh  Regiment,   1,928.",
+      1114901,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Thirty-Seventh  Regiment    ..        ..         1,928.",
+      1114447,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/37th-north-carolina-infantry.jsonl.gz",
+   "lines": 1762,
+   "raw_bytes": 157050,
+   "gz_bytes": 32425,
+   "sha256_raw": "43e0012642a121991916776cd0c15a3e47563b6b1d2229a722168c1d1016fcf5",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.3",
+     "rows": 1762
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.3",
+   "company_counts": {
+    "A": 192,
+    "B": 161,
+    "C": 159,
+    "D": 185,
+    "E": 161,
+    "F": 170,
+    "FS": 36,
+    "G": 188,
+    "H": 166,
+    "I": 170,
+    "K": 174
+   },
+   "rank_printed": 296,
+   "with_remarks": 1760,
+   "page_null": 104,
+   "flags": {
+    "N": 21,
+    "H": 37,
+    "R": 6,
+    "Y": 8,
+    "G": 19,
+    "M": 11,
+    "W": 42
+   },
+   "ocr_uncertain": 128,
+   "on_rolls": {
+    "yes": 955,
+    "no": 532,
+    "unknown": 275
+   },
+   "names_gettysburg": 124,
+   "gettysburg_dated": 30,
+   "head_kinds": {
+    "G-mark": 18,
+    "S-county": 3,
+    "S-event": 2,
+    "S-mark-weak": 3,
+    "S-recovered": 4
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1760,
+    "remark_empty": 2,
+    "remark_gap_rows": 2,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1762 against 1748 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1762,
+      "after_dedupe": 1762
+     },
+     "b": {
+      "parsed": 1748,
+      "after_dedupe": 1748
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      3518,
+      158444,
+      "THIRTY-SEVENTH  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      3310,
+      158405,
+      "THIRTY-SEVENTH  REGIMENT-INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3~b",
+    "lines": 1748,
+    "matched": 1531,
+    "only_in_file": 17,
+    "only_in_second": 5,
+    "replace_blocks": 172,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 193,
+     "B": 161,
+     "C": 157,
+     "D": 184,
+     "E": 161,
+     "F": 168,
+     "FS": 35,
+     "G": 184,
+     "H": 166,
+     "I": 170,
+     "K": 169
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-37NC.csv",
+    "lines": 1780,
+    "matched": 1739,
+    "only_in_file": 2,
+    "only_in_earlier": 18,
+    "replace_blocks": 19,
+    "company_counts": {
+     "A": 194,
+     "B": 166,
+     "C": 163,
+     "D": 186,
+     "E": 163,
+     "F": 170,
+     "FS": 36,
+     "G": 189,
+     "H": 168,
+     "I": 171,
+     "K": 174
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 23,
+    "only_in_earlier_by_key": 41
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-38th-north-carolina-infantry": {
+   "key": "c-nc-38th-north-carolina-infantry",
+   "designation": "38th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "3",
+    "number": 38,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1282,
+   "baseline": {
+    "id": "C-38NC-S",
+    "strength": 221,
+    "casualties": 167,
+    "designation": "38th North Carolina Infantry (Scales's Brigade)"
+   },
+   "printed_total": {
+    "value": 1358,
+    "status": "one scan prints the figure, the other damages it or has no line (i>358.)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,358.",
+     "b": "i>358."
+    },
+    "quote": {
+     "a": [
+      "Thirty-Eighth  Regiment   1,358.",
+      1114936,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Thirty-Eighth  Regiment      i>358.",
+      1114503,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/38th-north-carolina-infantry.jsonl.gz",
+   "lines": 1275,
+   "raw_bytes": 111818,
+   "gz_bytes": 24327,
+   "sha256_raw": "44db51a6ae1936abd354091994da5b4700378fa304a0dacf9988584dd631d6a7",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.3",
+     "rows": 1275
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.3",
+   "company_counts": {
+    "A": 132,
+    "B": 146,
+    "C": 129,
+    "D": 110,
+    "E": 141,
+    "F": 114,
+    "FS": 27,
+    "G": 117,
+    "H": 108,
+    "I": 116,
+    "K": 135
+   },
+   "rank_printed": 228,
+   "with_remarks": 1274,
+   "page_null": 0,
+   "flags": {
+    "N": 25,
+    "H": 24,
+    "R": 2,
+    "Y": 5,
+    "G": 19,
+    "M": 7,
+    "W": 20
+   },
+   "ocr_uncertain": 89,
+   "on_rolls": {
+    "yes": 666,
+    "no": 501,
+    "unknown": 108
+   },
+   "names_gettysburg": 94,
+   "gettysburg_dated": 27,
+   "head_kinds": {
+    "G-mark": 4,
+    "S-county": 2,
+    "S-event": 1,
+    "S-mark-junk": 4,
+    "S-month": 1,
+    "S-recovered": 7
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1274,
+    "remark_empty": 1,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1275 against 1273 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1275,
+      "after_dedupe": 1275
+     },
+     "b": {
+      "parsed": 1273,
+      "after_dedupe": 1273
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      158444,
+      268438,
+      "THIRTY-EIGHTH  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      158405,
+      268279,
+      "THIRTY-EIGHTH  REGIMENT-INFANTRY,"
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3~b",
+    "lines": 1273,
+    "matched": 1130,
+    "only_in_file": 8,
+    "only_in_second": 9,
+    "replace_blocks": 110,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 132,
+     "B": 148,
+     "C": 128,
+     "D": 108,
+     "E": 141,
+     "F": 114,
+     "FS": 26,
+     "G": 119,
+     "H": 108,
+     "I": 113,
+     "K": 136
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-38NC-S.csv",
+    "lines": 1282,
+    "matched": 1257,
+    "only_in_file": 3,
+    "only_in_earlier": 10,
+    "replace_blocks": 12,
+    "company_counts": {
+     "A": 133,
+     "B": 149,
+     "C": 129,
+     "D": 110,
+     "E": 142,
+     "F": 115,
+     "FS": 27,
+     "G": 118,
+     "H": 108,
+     "I": 114,
+     "K": 137
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 18,
+    "only_in_earlier_by_key": 25
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-43rd-north-carolina-infantry": {
+   "key": "c-nc-43rd-north-carolina-infantry",
+   "designation": "43rd North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "3",
+    "number": 43,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1255,
+   "baseline": {
+    "id": "C-43NC",
+    "strength": 568,
+    "casualties": 263,
+    "designation": "43rd North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1205,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,205.",
+     "b": "1,205."
+    },
+    "quote": {
+     "a": [
+      "Forty-Third  Regiment,   1,205.",
+      1115097,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Forty-Third  Regiment,   •   1,205.",
+      1114692,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/43rd-north-carolina-infantry.jsonl.gz",
+   "lines": 1239,
+   "raw_bytes": 99528,
+   "gz_bytes": 21582,
+   "sha256_raw": "035cd2165dbc5f2660d79d666d06b5ec31e61fc326d798a00fb2225d8f958bea",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.3~b",
+     "rows": 1239
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.3~b",
+   "company_counts": {
+    "A": 116,
+    "B": 86,
+    "C": 120,
+    "D": 106,
+    "E": 121,
+    "F": 123,
+    "FS": 17,
+    "G": 129,
+    "H": 133,
+    "I": 154,
+    "K": 134
+   },
+   "rank_printed": 182,
+   "with_remarks": 1238,
+   "page_null": 0,
+   "flags": {
+    "N": 25,
+    "H": 17,
+    "R": 8,
+    "Y": 25,
+    "G": 20,
+    "M": 15,
+    "W": 46
+   },
+   "ocr_uncertain": 117,
+   "on_rolls": {
+    "yes": 818,
+    "no": 196,
+    "unknown": 225
+   },
+   "names_gettysburg": 123,
+   "gettysburg_dated": 50,
+   "head_kinds": {
+    "G-mark": 2,
+    "S-county": 1,
+    "S-event": 1,
+    "S-mark-junk": 1,
+    "S-mark-weak": 3,
+    "S-recovered": 5
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1238,
+    "remark_empty": 1,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1239 against 1228 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1243,
+      "after_dedupe": 1243
+     },
+     "b": {
+      "parsed": 1239,
+      "after_dedupe": 1239
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      590869,
+      687429,
+      "FORTY-THIRD  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      590517,
+      686948,
+      "FORTY-THIRD  REGIMENT-INFANTRY,"
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3",
+    "lines": 1243,
+    "matched": 1129,
+    "only_in_file": 2,
+    "only_in_second": 5,
+    "replace_blocks": 93,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 118,
+     "B": 86,
+     "C": 120,
+     "D": 107,
+     "E": 120,
+     "F": 125,
+     "FS": 17,
+     "G": 129,
+     "H": 133,
+     "I": 154,
+     "K": 134
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-43NC.csv",
+    "lines": 1255,
+    "matched": 1098,
+    "only_in_file": 0,
+    "only_in_earlier": 13,
+    "replace_blocks": 107,
+    "company_counts": {
+     "A": 121,
+     "B": 87,
+     "C": 120,
+     "D": 108,
+     "E": 121,
+     "F": 127,
+     "FS": 19,
+     "G": 130,
+     "H": 133,
+     "I": 154,
+     "K": 135
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 141,
+    "only_in_earlier_by_key": 157
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-45th-north-carolina-infantry": {
+   "key": "c-nc-45th-north-carolina-infantry",
+   "designation": "45th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "3",
+    "number": 45,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1443,
+   "baseline": {
+    "id": "C-45NC",
+    "strength": 431,
+    "casualties": 178,
+    "designation": "45th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1339,
+    "status": "one scan prints the figure, the other damages it or has no line (!,339-)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "!,339-",
+     "b": "1,339."
+    },
+    "quote": {
+     "a": [
+      "Forty-Fifth  Regiment,       !,339-",
+      1115168,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Forty-Fifth  Regiment,.     .  .*    1,339.",
+      1114772,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/45th-north-carolina-infantry.jsonl.gz",
+   "lines": 1434,
+   "raw_bytes": 112364,
+   "gz_bytes": 22877,
+   "sha256_raw": "a87ac5670aa8ef17f10bfa00eb10754798ffd837b8e376b9d4c21eaab151b9c7",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.3",
+     "rows": 1434
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.3",
+   "company_counts": {
+    "A": 123,
+    "B": 137,
+    "C": 143,
+    "D": 150,
+    "E": 169,
+    "F": 148,
+    "FS": 29,
+    "G": 162,
+    "H": 131,
+    "I": 112,
+    "K": 130
+   },
+   "rank_printed": 210,
+   "with_remarks": 1433,
+   "page_null": 0,
+   "flags": {
+    "N": 31,
+    "H": 19,
+    "Y": 8,
+    "G": 6,
+    "M": 6,
+    "W": 18
+   },
+   "ocr_uncertain": 75,
+   "on_rolls": {
+    "yes": 976,
+    "no": 317,
+    "unknown": 141
+   },
+   "names_gettysburg": 191,
+   "gettysburg_dated": 37,
+   "head_kinds": {
+    "G-mark": 3,
+    "S-county": 1,
+    "S-mark-junk": 1,
+    "S-mark-weak": 2,
+    "S-recovered": 5
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1433,
+    "remark_empty": 1,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1434 against 1433 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1434,
+      "after_dedupe": 1434
+     },
+     "b": {
+      "parsed": 1433,
+      "after_dedupe": 1433
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      787862,
+      896102,
+      "FORTY-FIFTH  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      787278,
+      895373,
+      "FORTY-FIFTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3~b",
+    "lines": 1433,
+    "matched": 1314,
+    "only_in_file": 6,
+    "only_in_second": 6,
+    "replace_blocks": 96,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 123,
+     "B": 139,
+     "C": 143,
+     "D": 151,
+     "E": 168,
+     "F": 148,
+     "FS": 27,
+     "G": 162,
+     "H": 130,
+     "I": 114,
+     "K": 128
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-45NC.csv",
+    "lines": 1443,
+    "matched": 1409,
+    "only_in_file": 3,
+    "only_in_earlier": 12,
+    "replace_blocks": 22,
+    "company_counts": {
+     "A": 124,
+     "B": 138,
+     "C": 144,
+     "D": 150,
+     "E": 170,
+     "F": 148,
+     "FS": 30,
+     "G": 162,
+     "H": 132,
+     "I": 114,
+     "K": 131
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 25,
+    "only_in_earlier_by_key": 34
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-47th-north-carolina-infantry": {
+   "key": "c-nc-47th-north-carolina-infantry",
+   "designation": "47th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "3",
+    "number": 47,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1275,
+   "baseline": {
+    "id": "C-47NC",
+    "strength": 567,
+    "casualties": 174,
+    "designation": "47th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1297,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,297.",
+     "b": "1,297."
+    },
+    "quote": {
+     "a": [
+      "Forty-Seventh  Regiment        1,297.",
+      1115235,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Forty-Seventh  Regiment              1,297.",
+      1114856,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/47th-north-carolina-infantry.jsonl.gz",
+   "lines": 1283,
+   "raw_bytes": 99502,
+   "gz_bytes": 21053,
+   "sha256_raw": "0d581e02db310826b6cdb116139538622932808dc720791bcde5fc147fd30e4b",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.3",
+     "rows": 1283
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.3",
+   "company_counts": {
+    "A": 157,
+    "B": 127,
+    "C": 105,
+    "D": 133,
+    "E": 117,
+    "F": 115,
+    "FS": 20,
+    "G": 153,
+    "H": 119,
+    "I": 124,
+    "K": 113
+   },
+   "rank_printed": 173,
+   "with_remarks": 1283,
+   "page_null": 0,
+   "flags": {
+    "N": 24,
+    "H": 23,
+    "R": 1,
+    "Y": 7,
+    "G": 32,
+    "M": 9,
+    "W": 23
+   },
+   "ocr_uncertain": 98,
+   "on_rolls": {
+    "yes": 913,
+    "no": 228,
+    "unknown": 142
+   },
+   "names_gettysburg": 209,
+   "gettysburg_dated": 35,
+   "head_kinds": {
+    "G-mark": 7,
+    "S-county": 2,
+    "S-mark-junk": 2,
+    "S-month": 1,
+    "S-recovered": 5
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1283,
+    "remark_empty": 0,
+    "remark_gap_rows": 2,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1283 against 1277 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1283,
+      "after_dedupe": 1283
+     },
+     "b": {
+      "parsed": 1277,
+      "after_dedupe": 1277
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      997718,
+      1093770,
+      "FORTY-SEVENTH  REGIMENT-INFANTRY."
+     ],
+     "b": [
+      996865,
+      1092458,
+      "FORTY-SEVENTH  REGIMENT-INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3~b",
+    "lines": 1277,
+    "matched": 1131,
+    "only_in_file": 10,
+    "only_in_second": 5,
+    "replace_blocks": 118,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 157,
+     "B": 127,
+     "C": 104,
+     "D": 135,
+     "E": 116,
+     "F": 115,
+     "FS": 18,
+     "G": 149,
+     "H": 119,
+     "I": 124,
+     "K": 113
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-47NC.csv",
+    "lines": 1275,
+    "matched": 1228,
+    "only_in_file": 16,
+    "only_in_earlier": 9,
+    "replace_blocks": 25,
+    "company_counts": {
+     "A": 159,
+     "B": 129,
+     "C": 105,
+     "D": 134,
+     "E": 117,
+     "F": 116,
+     "FS": 20,
+     "G": 138,
+     "H": 118,
+     "I": 123,
+     "K": 116
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 55,
+    "only_in_earlier_by_key": 47
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-52nd-north-carolina-infantry": {
+   "key": "c-nc-52nd-north-carolina-infantry",
+   "designation": "52nd North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "3",
+    "number": 52,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1315,
+   "baseline": {
+    "id": "C-52NC",
+    "strength": 553,
+    "casualties": 228,
+    "designation": "52nd North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1279,
+    "status": "one scan prints the figure, the other damages it or has no line (!,279.)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "!,279.",
+     "b": "1,279."
+    },
+    "quote": {
+     "a": [
+      "Fifty-Second   Regiment,   !,279.",
+      1115411,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Fifty-Second   Regiment,   1,279.",
+      1115042,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/52nd-north-carolina-infantry.jsonl.gz",
+   "lines": 1297,
+   "raw_bytes": 102601,
+   "gz_bytes": 21506,
+   "sha256_raw": "171a49a74cb15b3481ec0594c8a2543e347cf36ab09b0055ffb4df6f6cd33ca4",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.3",
+     "rows": 1297
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.3",
+   "company_counts": {
+    "A": 116,
+    "B": 139,
+    "C": 107,
+    "D": 88,
+    "E": 134,
+    "F": 183,
+    "FS": 17,
+    "G": 134,
+    "H": 138,
+    "I": 127,
+    "K": 114
+   },
+   "rank_printed": 167,
+   "with_remarks": 1293,
+   "page_null": 0,
+   "flags": {
+    "N": 21,
+    "H": 35,
+    "R": 2,
+    "Y": 5,
+    "G": 12,
+    "M": 14,
+    "W": 22
+   },
+   "ocr_uncertain": 97,
+   "on_rolls": {
+    "yes": 950,
+    "no": 166,
+    "unknown": 181
+   },
+   "names_gettysburg": 162,
+   "gettysburg_dated": 113,
+   "head_kinds": {
+    "G-mark": 4,
+    "S-county": 10,
+    "S-event": 1,
+    "S-mark-junk": 3,
+    "S-month": 2,
+    "S-recovered": 10
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1293,
+    "remark_empty": 4,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1297 against 1273 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1297,
+      "after_dedupe": 1297
+     },
+     "b": {
+      "parsed": 1288,
+      "after_dedupe": 1288
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 1
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1437585,
+      1537081,
+      "FIFTY-SECOND  REGIMENT— INFANTRY,"
+     ],
+     "b": [
+      1435892,
+      1535292,
+      "FIFTY-SECOND  REGIMENT— INFANTRY,"
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3~b",
+    "lines": 1288,
+    "matched": 1168,
+    "only_in_file": 11,
+    "only_in_second": 3,
+    "replace_blocks": 102,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 115,
+     "B": 138,
+     "C": 106,
+     "D": 89,
+     "E": 133,
+     "F": 181,
+     "FS": 18,
+     "G": 134,
+     "H": 137,
+     "I": 127,
+     "K": 110
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-52NC.csv",
+    "lines": 1315,
+    "matched": 1260,
+    "only_in_file": 3,
+    "only_in_earlier": 17,
+    "replace_blocks": 27,
+    "company_counts": {
+     "A": 119,
+     "B": 140,
+     "C": 108,
+     "D": 90,
+     "E": 136,
+     "F": 185,
+     "FS": 19,
+     "G": 135,
+     "H": 142,
+     "I": 127,
+     "K": 114
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 37,
+    "only_in_earlier_by_key": 55
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-53rd-north-carolina-infantry": {
+   "key": "c-nc-53rd-north-carolina-infantry",
+   "designation": "53rd North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "3",
+    "number": 53,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1319,
+   "baseline": {
+    "id": "C-53NC",
+    "strength": 375,
+    "casualties": 151,
+    "designation": "53rd North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1269,
+    "status": "one scan prints the full figure, the other lost its leading digit and comma (269.)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "269.",
+     "b": "1,269."
+    },
+    "quote": {
+     "a": [
+      "Fifty-Third  Regiment,   1 ,  269.",
+      1115445,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Fifty-Third  Regiment,   1,269.",
+      1115076,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/53rd-north-carolina-infantry.jsonl.gz",
+   "lines": 1316,
+   "raw_bytes": 99796,
+   "gz_bytes": 21537,
+   "sha256_raw": "51018a3cb1b4d109465736c7fe85130e5925a1fa897984df247c8d67118e1ebc",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.3",
+     "rows": 1316
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.3",
+   "company_counts": {
+    "A": 125,
+    "B": 132,
+    "C": 135,
+    "D": 116,
+    "E": 137,
+    "F": 146,
+    "FS": 28,
+    "G": 100,
+    "H": 132,
+    "I": 136,
+    "K": 129
+   },
+   "rank_printed": 201,
+   "with_remarks": 1316,
+   "page_null": 0,
+   "flags": {
+    "N": 27,
+    "H": 22,
+    "R": 3,
+    "Y": 12,
+    "G": 12,
+    "M": 3,
+    "W": 19
+   },
+   "ocr_uncertain": 89,
+   "on_rolls": {
+    "yes": 902,
+    "no": 253,
+    "unknown": 161
+   },
+   "names_gettysburg": 83,
+   "gettysburg_dated": 56,
+   "head_kinds": {
+    "G-mark": 3,
+    "S-county": 5,
+    "S-event": 1,
+    "S-mark-junk": 2,
+    "S-recovered": 6
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1316,
+    "remark_empty": 0,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1316 against 1310 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1316,
+      "after_dedupe": 1316
+     },
+     "b": {
+      "parsed": 1310,
+      "after_dedupe": 1310
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1537081,
+      1633038,
+      "FIFTY-THIRD  REGIMENT — INFANTRY."
+     ],
+     "b": [
+      1535292,
+      1631187,
+      "FIFTY-THIRD  REGIMENT-INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3~b",
+    "lines": 1310,
+    "matched": 1166,
+    "only_in_file": 4,
+    "only_in_second": 0,
+    "replace_blocks": 120,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 124,
+     "B": 132,
+     "C": 134,
+     "D": 116,
+     "E": 137,
+     "F": 144,
+     "FS": 28,
+     "G": 99,
+     "H": 133,
+     "I": 134,
+     "K": 129
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-53NC.csv",
+    "lines": 1319,
+    "matched": 1285,
+    "only_in_file": 3,
+    "only_in_earlier": 4,
+    "replace_blocks": 22,
+    "company_counts": {
+     "A": 125,
+     "B": 132,
+     "C": 135,
+     "D": 118,
+     "E": 137,
+     "F": 145,
+     "FS": 29,
+     "G": 100,
+     "H": 133,
+     "I": 137,
+     "K": 128
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 31,
+    "only_in_earlier_by_key": 34
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 34
+  },
+  "c-nc-55th-north-carolina-infantry": {
+   "key": "c-nc-55th-north-carolina-infantry",
+   "designation": "55th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "3",
+    "number": 55,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1217,
+   "baseline": {
+    "id": "C-55NC",
+    "strength": 640,
+    "casualties": 256,
+    "designation": "55th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1165,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,165.",
+     "b": "1,165."
+    },
+    "quote": {
+     "a": [
+      "Fifty-Fifth  Regiment,   1,165.",
+      1115516,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Fifty-Fifth  Regiment              1,165.",
+      1115143,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/55th-north-carolina-infantry.jsonl.gz",
+   "lines": 1206,
+   "raw_bytes": 93594,
+   "gz_bytes": 20588,
+   "sha256_raw": "56f4070dcc3dd1a288e284d2e7d2f2601186fadf3f50e8b138537be968639381",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.3",
+     "rows": 1206
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.3",
+   "company_counts": {
+    "A": 132,
+    "B": 112,
+    "C": 119,
+    "D": 135,
+    "E": 102,
+    "F": 144,
+    "FS": 28,
+    "G": 104,
+    "H": 101,
+    "I": 107,
+    "K": 122
+   },
+   "rank_printed": 194,
+   "with_remarks": 1206,
+   "page_null": 0,
+   "flags": {
+    "N": 18,
+    "H": 31,
+    "R": 2,
+    "Y": 9,
+    "G": 9,
+    "M": 6,
+    "W": 24
+   },
+   "ocr_uncertain": 83,
+   "on_rolls": {
+    "yes": 912,
+    "no": 160,
+    "unknown": 134
+   },
+   "names_gettysburg": 152,
+   "gettysburg_dated": 32,
+   "head_kinds": {
+    "G-mark": 8,
+    "S-county": 4,
+    "S-event": 2,
+    "S-mark-junk": 1,
+    "S-mark-weak": 4,
+    "S-month": 3,
+    "S-recovered": 6
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1206,
+    "remark_empty": 0,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1206 against 1144 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1206,
+      "after_dedupe": 1206
+     },
+     "b": {
+      "parsed": 1159,
+      "after_dedupe": 1159
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 1
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1678340,
+      1768775,
+      "FIFTY-FIFTH  REGIMENT— INFANTRY."
+     ],
+     "b": [
+      1676397,
+      1767167,
+      "FIFTY-FIFTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3~b",
+    "lines": 1159,
+    "matched": 991,
+    "only_in_file": 15,
+    "only_in_second": 3,
+    "replace_blocks": 119,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 132,
+     "B": 113,
+     "C": 121,
+     "D": 135,
+     "E": 98,
+     "F": 144,
+     "FS": 25,
+     "G": 105,
+     "H": 101,
+     "I": 107,
+     "K": 78
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-55NC.csv",
+    "lines": 1217,
+    "matched": 1166,
+    "only_in_file": 3,
+    "only_in_earlier": 11,
+    "replace_blocks": 30,
+    "company_counts": {
+     "A": 133,
+     "B": 116,
+     "C": 121,
+     "D": 134,
+     "E": 102,
+     "F": 145,
+     "FS": 28,
+     "G": 104,
+     "H": 101,
+     "I": 108,
+     "K": 125
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 40,
+    "only_in_earlier_by_key": 51
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 34
+  },
+  "c-nc-57th-north-carolina-infantry": {
+   "key": "c-nc-57th-north-carolina-infantry",
+   "designation": "57th North Carolina Infantry",
+   "arm": "infantry",
+   "moore": {
+    "volume": "3",
+    "number": 57,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 1047,
+   "baseline": {
+    "id": "C-57NC",
+    "strength": 326,
+    "casualties": 110,
+    "designation": "57th North Carolina Infantry"
+   },
+   "printed_total": {
+    "value": 1012,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "1,012.",
+     "b": "1,012."
+    },
+    "quote": {
+     "a": [
+      "Fifty-Seventh  Regiment,        1,012.",
+      1115579,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Fifty-Seventh  Regiment,      1,012.",
+      1115233,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/57th-north-carolina-infantry.jsonl.gz",
+   "lines": 1033,
+   "raw_bytes": 80903,
+   "gz_bytes": 17623,
+   "sha256_raw": "e2b34b7e51de653dd767482b0b0ea2cc342ae1ae3d614641c48c456516397dda",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.3~b",
+     "rows": 1033
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.3~b",
+   "company_counts": {
+    "A": 118,
+    "B": 116,
+    "C": 121,
+    "D": 124,
+    "E": 83,
+    "F": 68,
+    "FS": 13,
+    "G": 105,
+    "H": 118,
+    "I": 120,
+    "K": 47
+   },
+   "rank_printed": 154,
+   "with_remarks": 1031,
+   "page_null": 0,
+   "flags": {
+    "N": 51,
+    "H": 32,
+    "R": 6,
+    "Y": 15,
+    "G": 27,
+    "M": 12,
+    "W": 31
+   },
+   "ocr_uncertain": 123,
+   "on_rolls": {
+    "yes": 651,
+    "no": 226,
+    "unknown": 156
+   },
+   "names_gettysburg": 14,
+   "gettysburg_dated": 3,
+   "head_kinds": {
+    "G-mark": 2,
+    "S-county": 1,
+    "S-mark-weak": 3,
+    "S-recovered": 13
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1031,
+    "remark_empty": 2,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1033 against 1022 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1037,
+      "after_dedupe": 1037
+     },
+     "b": {
+      "parsed": 1033,
+      "after_dedupe": 1033
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1864663,
+      1943758,
+      "override"
+     ],
+     "b": [
+      1863600,
+      1942557,
+      "FIFTY-SEVENTH  REGIMENT— INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3",
+    "lines": 1037,
+    "matched": 896,
+    "only_in_file": 7,
+    "only_in_second": 6,
+    "replace_blocks": 108,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 117,
+     "B": 117,
+     "C": 121,
+     "D": 125,
+     "E": 84,
+     "F": 69,
+     "FS": 13,
+     "G": 107,
+     "H": 119,
+     "I": 118,
+     "K": 47
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-57NC.csv",
+    "lines": 1047,
+    "matched": 889,
+    "only_in_file": 5,
+    "only_in_earlier": 14,
+    "replace_blocks": 114,
+    "company_counts": {
+     "A": 116,
+     "B": 118,
+     "C": 124,
+     "D": 126,
+     "E": 84,
+     "F": 70,
+     "FS": 13,
+     "G": 109,
+     "H": 119,
+     "I": 121,
+     "K": 47
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 143,
+    "only_in_earlier_by_key": 157
+   },
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-4th-north-carolina-cavalry": {
+   "key": "c-nc-4th-north-carolina-cavalry",
+   "designation": "4th North Carolina Cavalry",
+   "arm": "cavalry",
+   "moore": {
+    "volume": "3",
+    "number": 59,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 0,
+   "baseline": {
+    "id": null,
+    "strength": null,
+    "casualties": null,
+    "designation": null
+   },
+   "printed_total": {
+    "value": 864,
+    "status": "one scan prints the figure, the other damages a character of it (S64.)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "S64.",
+     "b": "864."
+    },
+    "quote": {
+     "a": [
+      "Fifty-Ninth  Regiment,   .».       S64.",
+      1115654,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Fifty-Ninth  Regiment    ..            864.",
+      1115313,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/4th-north-carolina-cavalry.jsonl.gz",
+   "lines": 881,
+   "raw_bytes": 58817,
+   "gz_bytes": 12255,
+   "sha256_raw": "18cc15e397fb3aca73f000cb2cb9a5f349aaaa9821ab1a6119faf06ae3f3f425",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.3",
+     "rows": 881
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.3",
+   "company_counts": {
+    "A": 112,
+    "B": 124,
+    "C": 85,
+    "D": 91,
+    "E": 110,
+    "F": 91,
+    "FS": 21,
+    "G": 93,
+    "H": 85,
+    "I": 2,
+    "K": 67
+   },
+   "rank_printed": 136,
+   "with_remarks": 881,
+   "page_null": 0,
+   "flags": {
+    "N": 21,
+    "H": 24,
+    "R": 3,
+    "Y": 5,
+    "G": 7,
+    "M": 12,
+    "W": 8
+   },
+   "ocr_uncertain": 63,
+   "on_rolls": {
+    "yes": 710,
+    "no": 66,
+    "unknown": 105
+   },
+   "names_gettysburg": 1,
+   "gettysburg_dated": 0,
+   "head_kinds": {
+    "G-mark": 2,
+    "S-event": 6,
+    "S-mark-junk": 1,
+    "S-mark-weak": 1,
+    "S-month": 1,
+    "S-recovered": 1
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 881,
+    "remark_empty": 0,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 881 against 878 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 881,
+      "after_dedupe": 881
+     },
+     "b": {
+      "parsed": 878,
+      "after_dedupe": 878
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1996009,
+      2051395,
+      "FIFTY-NINTH  REGIMENT-fCjpijY,"
+     ],
+     "b": [
+      1994787,
+      2050103,
+      "FIFTY-NINTH  REGIMENT-CAVALRY.,"
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3~b",
+    "lines": 878,
+    "matched": 799,
+    "only_in_file": 5,
+    "only_in_second": 2,
+    "replace_blocks": 67,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 112,
+     "B": 124,
+     "C": 87,
+     "D": 90,
+     "E": 111,
+     "F": 89,
+     "FS": 21,
+     "G": 91,
+     "H": 84,
+     "I": 2,
+     "K": 67
+    }
+   },
+   "earlier": null,
+   "notes": [
+    {
+     "off": 2046564,
+     "co": "I",
+     "text": "Note. — I have not been able to obtain the roll of the men composing this Com* pany, but if it should be discovered, the names will be inserted in an appendix to this volume."
+    }
+   ],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 33
+  },
+  "c-nc-5th-north-carolina-cavalry": {
+   "key": "c-nc-5th-north-carolina-cavalry",
+   "designation": "5th North Carolina Cavalry",
+   "arm": "cavalry",
+   "moore": {
+    "volume": "4",
+    "number": 63,
+    "kind": "regiment",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 0,
+   "baseline": {
+    "id": null,
+    "strength": null,
+    "casualties": null,
+    "designation": null
+   },
+   "printed_total": {
+    "value": 1330,
+    "status": "one scan prints the figure, the other damages it or has no line (None)",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": null,
+     "b": "1,330."
+    },
+    "quote": {
+     "a": [
+      "Sixty-Third  Regiment,   i,33°-",
+      1115793,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Sixty-Third  Regiment    .  .  1,330.",
+      1115484,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/5th-north-carolina-cavalry.jsonl.gz",
+   "lines": 1326,
+   "raw_bytes": 89448,
+   "gz_bytes": 19278,
+   "sha256_raw": "e29bb0e760c74a0b393c7a2c1f60c9c7e8bbfdd205805ed724704fc5696e5e3c",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.4",
+     "rows": 1326
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.4",
+   "company_counts": {
+    "A": 146,
+    "B": 145,
+    "C": 109,
+    "D": 132,
+    "E": 115,
+    "F": 151,
+    "FS": 18,
+    "G": 151,
+    "H": 132,
+    "I": 113,
+    "K": 114
+   },
+   "rank_printed": 163,
+   "with_remarks": 1322,
+   "page_null": 0,
+   "flags": {
+    "N": 32,
+    "H": 29,
+    "R": 2,
+    "Y": 5,
+    "G": 8,
+    "M": 12,
+    "W": 18
+   },
+   "ocr_uncertain": 93,
+   "on_rolls": {
+    "yes": 1070,
+    "no": 127,
+    "unknown": 129
+   },
+   "names_gettysburg": 0,
+   "gettysburg_dated": 0,
+   "head_kinds": {
+    "G-mark": 1,
+    "S-county": 2,
+    "S-event": 1,
+    "S-mark-junk": 2,
+    "S-mark-weak": 2,
+    "S-month": 1,
+    "S-recovered": 8
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 1322,
+    "remark_empty": 4,
+    "remark_gap_rows": 1,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 1326 against 1321 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 1326,
+      "after_dedupe": 1326
+     },
+     "b": {
+      "parsed": 1321,
+      "after_dedupe": 1321
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      50697,
+      134409,
+      "SIXTY-THIRD  REGIMENT-CAVALRY."
+     ],
+     "b": [
+      50519,
+      134205,
+      "SIXTY-THIRD  REGIMENT— CAVALRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.4~b",
+    "lines": 1321,
+    "matched": 1223,
+    "only_in_file": 10,
+    "only_in_second": 5,
+    "replace_blocks": 84,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 144,
+     "B": 143,
+     "C": 106,
+     "D": 132,
+     "E": 115,
+     "F": 154,
+     "FS": 18,
+     "G": 150,
+     "H": 132,
+     "I": 113,
+     "K": 114
+    }
+   },
+   "earlier": null,
+   "notes": [],
+   "heading_rules": {
+    "letter": 10
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-2nd-north-carolina-battalion": {
+   "key": "c-nc-2nd-north-carolina-battalion",
+   "designation": "2nd North Carolina Battalion",
+   "arm": "infantry",
+   "moore": {
+    "volume": "4",
+    "number": 2,
+    "kind": "battalion",
+    "company": ""
+   },
+   "identification": null,
+   "earlier_rows": 560,
+   "baseline": {
+    "id": "C-2NC-B",
+    "strength": 240,
+    "casualties": 122,
+    "designation": "2nd North Carolina Battalion"
+   },
+   "printed_total": {
+    "value": 571,
+    "status": "both scans print the same figure",
+    "covers": "the regiment or battalion",
+    "figures": {
+     "a": "571.",
+     "b": "571."
+    },
+    "quote": {
+     "a": [
+      "Second  Battalion — Infantry    571.",
+      1116299,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Second  Battalion — Infantry                    571.",
+      1116055,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-battalion.jsonl.gz",
+   "lines": 552,
+   "raw_bytes": 40055,
+   "gz_bytes": 9307,
+   "sha256_raw": "f868ef9bab83f2aaf08164abf26b23bca417be304fdbc8691f8d203bfe0d9b37",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.4~b",
+     "rows": 552
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.4~b",
+   "company_counts": {
+    "A": 128,
+    "B": 114,
+    "D": 4,
+    "E": 4,
+    "F": 97,
+    "FS": 7,
+    "G": 86,
+    "H": 112
+   },
+   "rank_printed": 86,
+   "with_remarks": 552,
+   "page_null": 0,
+   "flags": {
+    "N": 11,
+    "H": 9,
+    "R": 2,
+    "Y": 17,
+    "G": 30,
+    "M": 5,
+    "W": 19
+   },
+   "ocr_uncertain": 76,
+   "on_rolls": {
+    "yes": 353,
+    "no": 41,
+    "unknown": 158
+   },
+   "names_gettysburg": 54,
+   "gettysburg_dated": 10,
+   "head_kinds": {
+    "G-mark": 1,
+    "S-mark-junk": 3,
+    "S-mark-weak": 1,
+    "S-rank": 1,
+    "S-recovered": 3
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 552,
+    "remark_empty": 0,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 552 against 544 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 544,
+      "after_dedupe": 544
+     },
+     "b": {
+      "parsed": 552,
+      "after_dedupe": 552
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      563988,
+      602419,
+      "SECOND  BATTALION-INFANTRY."
+     ],
+     "b": [
+      563574,
+      601984,
+      "SECOND  BATTALION-INFANTRY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.4",
+    "lines": 544,
+    "matched": 490,
+    "only_in_file": 5,
+    "only_in_second": 0,
+    "replace_blocks": 46,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 128,
+     "B": 114,
+     "D": 4,
+     "E": 4,
+     "F": 97,
+     "FS": 7,
+     "G": 86,
+     "H": 104
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-2NC-B.csv",
+    "lines": 560,
+    "matched": 493,
+    "only_in_file": 3,
+    "only_in_earlier": 7,
+    "replace_blocks": 48,
+    "company_counts": {
+     "A": 128,
+     "B": 116,
+     "D": 4,
+     "E": 4,
+     "F": 97,
+     "FS": 7,
+     "G": 90,
+     "H": 114
+    },
+    "source": "NC-MOORE-1882-v4",
+    "only_in_file_by_key": 58,
+    "only_in_earlier_by_key": 66
+   },
+   "notes": [
+    {
+     "off": 582130,
+     "co": "C",
+     "text": "Note.— There seems to have been no organization of this name in the Second Battalion. After Company B, I find the next Company marked D,"
+    },
+    {
+     "off": 582596,
+     "co": "D",
+     "text": "Note.— The rolls of the non-commissioned officers and men belonging to Companies D and E have not been found accessible. They were Georgia Com- panies serving with a North Carolina Battalion."
+    }
+   ],
+   "heading_rules": {
+    "letter": 8
+   },
+   "preamble_tokens": 39
+  },
+  "c-nc-branch-artillery": {
+   "key": "c-nc-branch-artillery",
+   "designation": "Branch Artillery",
+   "arm": "artillery",
+   "moore": {
+    "volume": "4",
+    "number": 5,
+    "kind": "battalion",
+    "company": "F"
+   },
+   "identification": "OR 27 pt. 2 index: \"Latham's (A. C.) Artillery. See Branch Artillery\"; Moore: Fifth Battalion Light Artillery (\"originally the Thirteenth Battalion\"), Company F, Captain Alexander C. Latham",
+   "earlier_rows": 0,
+   "baseline": {
+    "id": null,
+    "strength": null,
+    "casualties": null,
+    "designation": null
+   },
+   "printed_total": {
+    "value": 1017,
+    "status": "both scans print the same figure",
+    "covers": "the whole regiment or battalion, every company",
+    "figures": {
+     "a": "1,017.",
+     "b": "1,017."
+    },
+    "quote": {
+     "a": [
+      "Fifth  Battalion — Light  Artillery,    1,017.",
+      1116418,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Fifth  Battalion— Light  Artillery,.      ..               ..  1,017.",
+      1116257,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/branch-artillery.jsonl.gz",
+   "lines": 142,
+   "raw_bytes": 9786,
+   "gz_bytes": 2679,
+   "sha256_raw": "ac0db9b8cbd62870b48dd3356418a0586dfd771afe0af5b5b4509a4680af469b",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.4~b",
+     "rows": 142
+    }
+   ],
+   "primary": "b",
+   "primary_text": "NC-MOORE-1882.4~b",
+   "company_counts": {
+    "F": 142
+   },
+   "rank_printed": 29,
+   "with_remarks": 141,
+   "page_null": 0,
+   "flags": {
+    "N": 14,
+    "H": 7,
+    "R": 2,
+    "Y": 6,
+    "G": 7,
+    "M": 4,
+    "W": 6
+   },
+   "ocr_uncertain": 32,
+   "on_rolls": {
+    "yes": 64,
+    "no": 9,
+    "unknown": 69
+   },
+   "names_gettysburg": 0,
+   "gettysburg_dated": 0,
+   "head_kinds": {
+    "S-month": 1,
+    "S-recovered": 4
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 141,
+    "remark_empty": 1,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 142 against 131 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 146,
+      "after_dedupe": 146
+     },
+     "b": {
+      "parsed": 142,
+      "after_dedupe": 142
+     }
+    },
+    "heading_defects": {
+     "a": 1,
+     "b": 0
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      647784,
+      708795,
+      "FIFTH  BATTALION-LIGHT  ARTILLERY."
+     ],
+     "b": [
+      647240,
+      708232,
+      "FIFTH  BATTALION-LIGHT  ARTILLERY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.4",
+    "lines": 146,
+    "matched": 120,
+    "only_in_file": 0,
+    "only_in_second": 2,
+    "replace_blocks": 20,
+    "second_only_runs": [],
+    "company_counts": {
+     "F": 146
+    }
+   },
+   "earlier": null,
+   "notes": [
+    {
+     "off": 708074,
+     "co": "F",
+     "text": "Note.— The men credited to Beaufort county were probably from the town of Beaufort in Carteret county."
+    }
+   ],
+   "heading_rules": {
+    "letter": 1
+   },
+   "preamble_tokens": 32
+  },
+  "c-nc-charlotte-artillery": {
+   "key": "c-nc-charlotte-artillery",
+   "designation": "Charlotte Artillery",
+   "arm": "artillery",
+   "moore": {
+    "volume": "1",
+    "number": 10,
+    "kind": "regiment",
+    "company": "C"
+   },
+   "identification": "OR 27 pt. 2 index: \"Charlotte Artillery. See North Carolina Troops, 1st Regiment, Battery C\" and \"Graham's (Joseph) Artillery. See North Carolina Troops, Confederate, 1st Regiment, Battery C\"; Moore: Tenth Regiment (First Artillery), Company C (the men printed are chiefly of Mecklenburg county; the officers list holds one captain, Arthur B. Williams: the roll of this company is partial)",
+   "earlier_rows": 0,
+   "baseline": {
+    "id": null,
+    "strength": null,
+    "casualties": null,
+    "designation": null
+   },
+   "printed_total": {
+    "value": 1266,
+    "status": "both scans print the same figure",
+    "covers": "the whole regiment or battalion, every company",
+    "figures": {
+     "a": "1,266.",
+     "b": "1,266."
+    },
+    "quote": {
+     "a": [
+      "Tenth  Regiment,    1,266.",
+      1113888,
+      "NC-MOORE-1882.4"
+     ],
+     "b": [
+      "Tenth  Regiment,.      ...                 ..    1,266.",
+      1112989,
+      "NC-MOORE-1882.4~b"
+     ]
+    }
+   },
+   "file": "docs/battle-theatre/rosters/data2/confederate/nc/charlotte-artillery.jsonl.gz",
+   "lines": 148,
+   "raw_bytes": 9072,
+   "gz_bytes": 3095,
+   "sha256_raw": "21884dc40598ae968604fe15e17b135beafb8ed33d7e8e7a05e15322912ffff3",
+   "segments": [
+    {
+     "t": "NC-MOORE-1882.1",
+     "rows": 148
+    }
+   ],
+   "primary": "a",
+   "primary_text": "NC-MOORE-1882.1",
+   "company_counts": {
+    "C": 148
+   },
+   "rank_printed": 15,
+   "with_remarks": 148,
+   "page_null": 0,
+   "flags": {
+    "N": 16,
+    "H": 19,
+    "R": 1,
+    "Y": 12,
+    "G": 5,
+    "W": 9
+   },
+   "ocr_uncertain": 42,
+   "on_rolls": {
+    "yes": 61,
+    "no": 6,
+    "unknown": 81
+   },
+   "names_gettysburg": 0,
+   "gettysburg_dated": 0,
+   "head_kinds": {
+    "G-mark": 6,
+    "S-mark-weak": 5,
+    "S-recovered": 4
+   },
+   "company_inferred": [],
+   "verify": {
+    "ok": true,
+    "v1": 0,
+    "v3": 0,
+    "remark_ok": 148,
+    "remark_empty": 0,
+    "remark_gap_rows": 0,
+    "remarks_not_found": 0
+   },
+   "scan": {
+    "why": "score 148 against 134 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+    "rows_by_scan": {
+     "a": {
+      "parsed": 148,
+      "after_dedupe": 148
+     },
+     "b": {
+      "parsed": 149,
+      "after_dedupe": 149
+     }
+    },
+    "heading_defects": {
+     "a": 0,
+     "b": 1
+    },
+    "dups_dropped": {
+     "a": [],
+     "b": []
+    },
+    "section": {
+     "a": [
+      1211891,
+      1303750,
+      "TENTH  REGIMENT-ARTILLERY."
+     ],
+     "b": [
+      1148140,
+      1240195,
+      "TENTH  REGIMENT-ARTILLERY."
+     ]
+    }
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1~b",
+    "lines": 149,
+    "matched": 105,
+    "only_in_file": 0,
+    "only_in_second": 1,
+    "replace_blocks": 31,
+    "second_only_runs": [],
+    "company_counts": {
+     "C": 149
+    }
+   },
+   "earlier": null,
+   "notes": [],
+   "heading_rules": {
+    "letter": 1
+   },
+   "preamble_tokens": 38
+  }
+ },
+ "totals": {
+  "lines": 54403,
+  "raw_bytes": 4362304,
+  "gz_bytes": 987866,
+  "units_with_file": 41,
+  "flag_N": 1918,
+  "flag_H": 2329,
+  "flag_C": 1968,
+  "flag_R": 168,
+  "flag_Y": 908,
+  "flag_G": 1675,
+  "flag_M": 421,
+  "flag_W": 1535,
+  "ocr_uncertain": 8483,
+  "on_rolls_yes": 29810,
+  "on_rolls_no": 11210,
+  "on_rolls_unknown": 13383,
+  "names_gettysburg": 3834,
+  "gettysburg_dated": 1203,
+  "page_null": 710,
+  "primary_NC-MOORE-1882.1~b": 14,
+  "head_G-mark": 362,
+  "head_S-county": 179,
+  "head_S-event": 92,
+  "head_S-mark-junk": 143,
+  "head_S-mark-weak": 345,
+  "head_S-month": 33,
+  "head_S-rank": 20,
+  "head_S-recovered": 530,
+  "primary_NC-MOORE-1882.2": 2,
+  "primary_NC-MOORE-1882.2~b": 11,
+  "primary_NC-MOORE-1882.3": 8,
+  "primary_NC-MOORE-1882.3~b": 2,
+  "primary_NC-MOORE-1882.4": 1,
+  "primary_NC-MOORE-1882.4~b": 2,
+  "primary_NC-MOORE-1882.1": 1
+ },
+ "units_without_file": []
+}

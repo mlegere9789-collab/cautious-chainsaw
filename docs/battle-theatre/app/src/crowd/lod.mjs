@@ -122,9 +122,9 @@ export function selectFigures(L, c) {
   for (let ui = 0; ui < nU; ui++) {
     if (present[ui] !== 1) continue; const u = w.units[ui], o = ui * 12, ux = f[o], uz = f[o + 1], uy = T.h(ux, uz) + 1, dU = Math.hypot(ux - cx, uy - cy, uz - cz);
     if (dU - u.radius > rOut) continue;
-    const strict = sphereInFrustum(planes, ux, uy, uz, u.radius + 2);
-    if (!strict && !(M > 0 && dU - u.radius < in0Max && sphereInFrustum(planes, ux, uy, uz, u.radius + 2 + M * dU + 2))) continue;           // out of view, and no man of it can use up the budget
-    const mounted = u.klass === 1, sph = mounted ? opt.mountedSphere : opt.footSphere, yo = mounted ? 1.3 : 0.9;
+    const mounted = u.klass === 1, sph = mounted ? opt.mountedSphere : opt.footSphere, yo = mounted ? 1.3 : 0.9, ur = u.radius + Math.max(2, sph);      // the unit's sphere and the sphere of a man standing at its edge (a led horse stands up to 12 m from its man)
+    const strict = sphereInFrustum(planes, ux, uy, uz, ur);
+    if (!strict && !(M > 0 && dU - u.radius < in0Max && sphereInFrustum(planes, ux, uy, uz, ur + M * dU + 2))) continue;           // out of view, and no man of it can use up the budget
     for (let k = 0; k < u.count; k++) {
       const i = u.first + k; soldierPlace(w, i, animT, tmp); const x = tmp[0], z = tmp[1], y = T.h(x, z) + yo, dx = x - cx, dy = y - cy, dz = z - cz, d2 = dx * dx + dy * dy + dz * dz;
       if (d2 > rOutSq) continue; const vis = strict && sphereInFrustum(planes, x, y, z, sph); let nu = -1;

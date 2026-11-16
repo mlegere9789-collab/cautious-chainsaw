@@ -201,8 +201,9 @@ _OVERLAY = None
 
 
 def overlay():
-    """readings_overlay.json: readings of the print made by looking at image crops, keyed by (page id, first 60 characters of the resolved quote).
-    Entry: {page, start, imgs: [tags of images.jsonl], reading, corrections: [[ocr, print], ...], viewed: date, note?}.
+    """readings_overlay.json: readings of the print made by looking at image crops, keyed by (page id, sha1 of the resolved quote): a reading
+    belongs to exactly the words of the quote it was made for.
+    Entry: {page, start, quote_sha1, imgs: [tags of images.jsonl], reading, corrections: [[ocr, print], ...], viewed: date, note?}.
     A cite that names no 'img' of its own takes the overlay entry that matches its resolved quote."""
     global _OVERLAY
     if _OVERLAY is None:
@@ -210,7 +211,7 @@ def overlay():
         p = os.path.join(calib.CA_DOCS, 'readings_overlay.json')
         if os.path.exists(p):
             for e in json.load(open(p, encoding='utf-8')):
-                k = (e['page'], calib.norm(e['start'])[:60])
+                k = (e['page'], e['quote_sha1'])
                 if k in _OVERLAY:
                     raise SystemExit('duplicate overlay entry %s' % (k,))
                 _OVERLAY[k] = e
@@ -315,7 +316,7 @@ def citation(c, man):
     tags = c.get('img')
     reading, corrections, viewed, onote = c.get('reading'), c.get('corrections') or [], c.get('viewed') or VIEWED_DEFAULT, None
     if not tags:
-        ov = overlay().get((pid, quote[:60]))
+        ov = overlay().get((pid, hashlib.sha1(quote.encode('utf-8')).hexdigest()))
         if ov:
             tags, reading, corrections, viewed, onote = ov['imgs'], ov['reading'], ov.get('corrections') or [], ov.get('viewed') or viewed, ov.get('note')
     if isinstance(tags, str):

@@ -7,7 +7,7 @@ import re
 from functools import lru_cache
 
 _MONTHS = ('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec')
-MONTH_STRICT = re.compile(r"^[.'‘’`\"]*(Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sept?|Oct|Nov|Dec)[a-z]{0,6}[.,;:]*$")
+MONTH_STRICT = re.compile(r"^[.'‘’`\"]*(Jan\.?|January|Feb\.?|February|Mar\.?|March|Mch\.?|Apr\.?|April|May|June?|July?|Aug\.?|August|Sept?\.?|September|Oct\.?|October|Nov\.?|November|Dec\.?|December)[.,;:]*$")
 # the month word of a damaged date cell: the same with the slips seen in the text layer (Mav, Muc, Juno, Julv, Mcli ...)
 MONTH_LOOSE = re.compile(r"^[.'‘’`\"]*(Jan|Feb|Mar|Apr|Ma[yvu]|Mac|Mch|Jun|Jul|Aug|Sep|Oct|Nov|Dec|Juno|Julv|Muc)[a-z]{0,6}[.,;:]*$", re.I)
 

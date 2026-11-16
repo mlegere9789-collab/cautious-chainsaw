@@ -485,7 +485,7 @@ CLAIMS = [
          cites=[dict(page=CHI21, span=('Four score and seven years ago, oar', 'in a great contest.'),
                      attribution='[Special Dispatch to the Chicago Tribune.]',
                      reprint={'status': 'original', 'from': 'special dispatch to the Chicago Tribune', 'basis': '[Special Dispatch to the Chicago Tribune.]'}),
-                dict(page=NASH24, span=('Four-score and seven years ago our fathers established', 'great contest'),
+                dict(page=NASH24, span=('rour-6core ana seven years ago', 'in a great contest'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'the heading and source of this passage were not read'})],
          row_effect='adds a printed variant to E-011 (selectable scenario of the wording as reported in 1863); not a reading to be used as Lincoln\'s text',
          remains='who produced the variant; whether other Western papers print it',

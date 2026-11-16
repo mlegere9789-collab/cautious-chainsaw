@@ -60,10 +60,11 @@ await guard('engine', async () => {
   for (const id of ids) { known[id] = E.knows(id); rows[id] = E.rowsFor(id); scenarios[id] = E.scenariosFor(id); }
   // every id that a drawn object names as its record or state (data/structures3d.json), asked of the engine as the page asks it
   const d3 = rj('app/data/structures3d.json'), asked = new Set();
-  for (const k of ['buildings', 'points', 'fences', 'roads']) for (const o of d3[k] || []) { if (o.rec) asked.add(o.rec); if (o.state_id) asked.add(o.state_id); }
+  const recId = x => (x && typeof x === 'object' ? x.id : x);
+  for (const k of ['buildings', 'points', 'fences', 'roads']) for (const o of d3[k] || []) { const r = recId(o.rec); if (r) asked.add(r); if (o.state_id) asked.add(o.state_id); }
   const askedKnown = {}; for (const id of [...asked].sort()) { askedKnown[id] = E.knows(id); if (!(id in rows)) rows[id] = E.rowsFor(id); }
   // series of the objects the regression set and the pre-existing features name, at every integer minute and one second either side of every window bound of their rows
-  const pre = structures.structures.filter(s => s.kind === 'preexisting_wall_or_fence').map(s => s.id).sort();
+  const pre = structures.structures.filter(s => /^P-\d\d$/.test(s.id)).map(s => s.id).sort();
   const reg = ['bld-mcpherson-farm', 'bld-mcpherson-farm#house', 'bld-mcpherson-farm#barn', 'bld-bliss-farm', 'bld-bliss-farm#house', 'bld-bliss-farm#barn', 'RD-avenues', 'FEN-emmitsburg-road'].filter(id => E.knows(id));
   const extra = new Set();
   const addWin = w => { for (const x of w || []) if (x) { const m = parseIso(x); for (const dm of [-1000, 0, 1000]) extra.add(m + dm); } };
@@ -146,7 +147,7 @@ if (NO_LAYER) { out.train = null; out.works3d = null; out.sections.train = 'skip
     const d3w = rj('app/data/works3d.json'), gaz = new Gazetteer(rj('app/data/gazetteer.json'));
     const W = buildWorks3D({ data: d3w, inputs: { structures, sched, works, hospitals }, T, gaz, units: L.units, events: both.events });
     const pre = W.preexisting();
-    const preIds = new Set(structures.structures.filter(s => s.kind === 'preexisting_wall_or_fence').map(s => s.id));
+    const preIds = new Set(structures.structures.filter(s => /^P-\d\d$/.test(s.id)).map(s => s.id));
     return { works: W.works.map(o => ({ id: o.id, alias: o.alias || [], pre_existing: W.engine && W.engine.byId.get(o.id) ? W.engine.byId.get(o.id).preexisting === true : null })), preexisting: pre.map(p => ({ id: p.id, present: p.present, construction: p.construction, progress: p.progress })),
       pre_ids_in_works: W.works.filter(o => preIds.has(o.id) || (o.alias || []).some(a => preIds.has(a))).map(o => o.id) };
   });
