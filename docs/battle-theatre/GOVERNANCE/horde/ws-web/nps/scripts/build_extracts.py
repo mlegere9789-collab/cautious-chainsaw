@@ -437,7 +437,7 @@ def main():
                 'text_defect': s.get('text_defect'),
                 'text_variant': variant or 'reading-order',
                 'text_path': tpath, 'text_sha256': tsha,
-                'retrieved': RETRIEVED,
+                'retrieved': (s.get('fetched_at') or '')[:10] or RETRIEVED,
                 'source_kind': s.get('kind', 'official secondary (National Park Service report)'),
                 'tier_proposed': {'stated': 'documented', 'hedged': 'inferred', 'conflict': 'inferred'}[cert],
                 'tier_basis': {'stated': 'official secondary source states it as fact; the 1863 basis is whatever the report cites (see quote and the report page)',

@@ -20,7 +20,7 @@ const smooth01 = x => { const t = Math.min(1, Math.max(0, x)); return t * t * (3
  *   texel 0  colour (sRGB), crop code             texel 1  height now (m, after trampling and laying flat), trampled share, cut share, laid-flat share
  *   texel 2  tier code, leaf cover, stripped share, row direction (degrees)
  *   texel 3  stage code, then for a crop: shock height, standing height before any trampling (m); for a wood: its canopy as seen from above (sRGB)
- *   texel 4  the share of the unit's trees that is drawn (1 unless a reading of Little Round Top leaves it lightly wooded or unwooded), then three zeros
+ *   texel 4  the share of the unit's trees that is drawn (1 unless a reading of Little Round Top or of Houck's ground leaves it lightly wooded or unwooded or clear-cut), then three zeros
  * Pure: the same (model, unit, minute, choices) always writes the same numbers.
  */
 export function packUnitState(M, u, tq, choices, canopy, out, o, co = 0) {

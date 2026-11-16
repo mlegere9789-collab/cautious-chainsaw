@@ -23,6 +23,7 @@ const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).
 const summary = { api, w: W, h: H, started: new Date().toISOString(), sets: {}, errors: [], purity: null }, save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
 const srv = await serve(0), port = srv.address().port, url = `http://127.0.0.1:${port}/app/index.html?history=real&api=${api}&structures=off&fx=off&ext=off${EXTRA ? '&' + EXTRA : ''}`;
 let browser;
+const cw0 = 213, ch0 = 120;
 const u8 = b64 => { const b = Buffer.from(b64, 'base64'); return new Uint8Array(b.buffer, b.byteOffset, b.length); };
 function diffStats(a, b) { let sum = 0, over = 0; const n = a.length / 4, d = new Uint8Array(a.length); for (let i = 0; i < n; i++) { let m = 0; for (let c = 0; c < 3; c++) { const v = Math.abs(a[i * 4 + c] - b[i * 4 + c]); sum += v; if (v > m) m = v; d[i * 4 + c] = Math.min(255, v * 4); } d[i * 4 + 3] = 255; if (m > 24) over++; } return { meanAbs: +(sum / (n * 3)).toFixed(4), overShare: +(over / n).toFixed(5), img: d }; }
 function crop(px, w, h, x0, y0, cw, ch, z) { const o = new Uint8Array(cw * z * ch * z * 4); for (let y = 0; y < ch * z; y++) for (let x = 0; x < cw * z; x++) { const s = ((y0 + (y / z | 0)) * w + x0 + (x / z | 0)) * 4, d = (y * cw * z + x) * 4; o[d] = px[s]; o[d + 1] = px[s + 1]; o[d + 2] = px[s + 2]; o[d + 3] = 255; } return o; }
@@ -62,14 +63,17 @@ try {
   const shot = async (name, o) => { const t0 = Date.now(), r = await page.evaluate(o => window.__shot(o), o); r.px = u8(r.px); r.wallMs = Date.now() - t0; fs.writeFileSync(path.join(out, name + '.png'), encodePng(r.w, r.h, r.px)); return r; };
   for (const key of want.filter(k => SETS[k])) {
     const S = SETS[key], rec = summary.sets[key] = { what: S.what, shots: {}, pairs: [] }; say('set', key, S.what);
+    const strips = { hard: [], fade: [] };
     for (const D of S.dists) {
       const pair = {}; for (const mode of ['hard', 'fade']) {
         const r = await shot(`${key}-${mode}-${D}`, { D, eye: S.eye, mode }); pair[mode] = r; const { px, ...meta } = r; rec.shots[`${mode}-${D}`] = meta; say(`  ${key} ${mode} ${D} m`, `listed ${r.crowd.listed} L0 ${r.crowd.lod0} L1 ${r.crowd.lod1} L2 ${r.crowd.lod2} fading ${r.crowd.fading} bands ${r.crowd.bands}`, `${r.wallMs} ms`); }
       const df = diffStats(pair.hard.px, pair.fade.px), cw = 213, ch = 120, x0 = Math.max(0, (W - cw) >> 1), y0 = Math.max(0, (H - ch) >> 1), z = 3, parts = [crop(pair.hard.px, W, H, x0, y0, cw, ch, z), crop(pair.fade.px, W, H, x0, y0, cw, ch, z), crop(df.img, W, H, x0, y0, cw, ch, z)];
-      const m = side(parts, cw * z, ch * z); fs.writeFileSync(path.join(out, `${key}-${D}-montage.png`), encodePng(m.w, m.h, m.data));
+      const m = side(parts, cw * z, ch * z); fs.writeFileSync(path.join(out, `${key}-${D}-montage.png`), encodePng(m.w, m.h, m.data)); for (const mode of ['hard', 'fade']) strips[mode].push(crop(pair[mode].px, W, H, x0, y0, cw, ch, 2));
       rec.pairs.push({ D, meanAbs: df.meanAbs, overShare: df.overShare }); say(`  ${key} ${D} m: hard against cross-fade, mean absolute difference ${df.meanAbs}, ${(df.overShare * 100).toFixed(2)} percent of the pixels differ by more than 24 levels`); save();
     }
+    for (const mode of ['hard', 'fade']) { const f = side(strips[mode], cw0 * 2, ch0 * 2); fs.writeFileSync(path.join(out, `${key}-filmstrip-${mode}.png`), encodePng(f.w, f.h, f.data)); }      // the distances in order, left to right, the middle of the picture at 2x
   }
+  // (the filmstrips are written at the end of each set, below)
   if (want.includes('purity')) {
     say('purity: the same time and camera by two histories');
     const base = { D: 10, eye: 1.7, mode: 'fade' }, a1 = await shot('purity-a', base), other = await shot('purity-away', { D: 60, eye: 6, mode: 'fade', along: 15, t: 7 * 0 + (await page.evaluate(() => window.btApp.state.t)) + 30 }), back = await shot('purity-b', { ...base, t: a1.t });

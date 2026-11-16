@@ -1,6 +1,6 @@
 # Evidence pass: group `wounds-weapons` (weapons, missiles and the wounds they made)
 
-Written 2026-11-15 by the evidence engineer of the medical workstream (OA12). File of the rows: `wounds-weapons.jsonl` (279 rows). Plan and contract: `PLAN.md`, `groups.json`. Proposed register entries: `GOVERNANCE/horde/ws-medical/proposed-register/wounds-weapons-EG-MED-WW-01` to `-08`. Delegated decisions: `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md`, section of 2026-11-15 (DD-MED-WW-01 to -03).
+Written 2026-11-15 and 2026-11-16 by the evidence engineer of the medical workstream (OA12). File of the rows: `wounds-weapons.jsonl` (279 rows). Plan and contract: `PLAN.md`, `groups.json`. Proposed register entries: `GOVERNANCE/horde/ws-medical/proposed-register/wounds-weapons-EG-MED-WW-01` to `-08`. Delegated decisions: `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md`, section of 2026-11-15 (DD-MED-WW-01 to -03).
 
 ## 1. Result in numbers
 
@@ -114,7 +114,7 @@ The OCR text garbles Table CXXI, Table CXV and Letterman's table of page 86. For
 * **Letterman, page 86** (rows `232` to `249` by region, total `250`, inferred share `251`): the book heads the table "Wounded in the First Corps", the heading of the table of page 83; its total, 7,100, equals the sum of the seven corps tables of pages 79 to 85 (2,565 + 534 + 672 + 1,149 + 1,796 + 332 + 52), so it is the army total. The columns (cannon-ball, shell, bullet, unclassified) are read from the image; the four missile columns add to the number wounded in every row printed and each column adds to the Total row (86, 811, 3,519, 2,684).
 * **Fig. 373** (page 697): the caption's calibres and weights were read from a 2x rendering; the OCR's Spencer calibre .55 is .56 and Sharp's (52 is .52 (rows `051`, `052`).
 
-The numbers of these rows are not yet read by a second person (EG-MED-WW-07); a card that shows a digit from them waits for that reading.
+Table CXV was re-read by the same reader from a 330 dpi rendering of PDF page 772 after the rows were written; every cell of the seventeen rows and the aggregates agreed with the rows (including the knee joint and metatarsal rows that carry no digits in the OCR). The numbers of these rows are still not read by a second person (EG-MED-WW-07); a card that shows a digit from them waits for that reading.
 
 ## 5. Conflicts carried (every reading a row; no default is set by the evidence rows)
 

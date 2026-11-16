@@ -1,5 +1,5 @@
 {
- "_doc": "Files fetched for the close-out of timeline shard tl-01. archive.org only, one request at a time, no login. Raw files live under tmp/tl-01/dl (untracked). Fourth start (2026-11-15): the items \"ca-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at most one per second); the crops are regenerated from the url; the files under tmp/tl-01/crops are untracked scratch. Fourth start, later the same day: the items cu31924028852619 and greatinvasionof102hoke are the whole-book PDFs of the two books added to the builder (extra_sources.py); only the pages listed under pages_viewed were rendered and looked at; the PDFs are untracked scratch under tmp/tl-01/dl/books2.",
+ "_doc": "Files fetched for the close-out of timeline shard tl-01. archive.org only, one request at a time, no login. Raw files live under tmp/tl-01/dl (untracked). Fourth start (2026-11-15): the items \"ca-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at most one per second); the crops are regenerated from the url; the files under tmp/tl-01/crops are untracked scratch. Fourth start, later the same day: the items cu31924028852619 and greatinvasionof102hoke are the whole-book PDFs of the two books added to the builder (extra_sources.py); only the pages listed under pages_viewed were rendered and looked at; the PDFs are untracked scratch under tmp/tl-01/dl/books2. The item hs-mcpherson-farm.pdf (the National Park Service study of the McPherson farm, npshistory.com) was fetched once in the same way, to view the cited pages.",
  "items": [
   {
    "archive_identifier": "gettysburg-compiler-1863-06-29",
@@ -311,6 +311,17 @@
    "local_path": "tmp/tl-01/dl/books2/greatinvasionof102hoke.pdf",
    "pages_viewed": "printed pages 169-171 (PDF 171-173), 183 (PDF 185), 217 (PDF 219), 232-233 (PDF 234-235), 251-252 (PDF 257-258), 559 (PDF 567), rendered at 80 dpi with pdftoppm and viewed; the offset between PDF page and printed page is not constant (+2 at pp.169-233, +6 at pp.247-252, +8 at pp.553-559, unnumbered plate pages lie between)",
    "purpose": "J. Hoke, The Great Invasion of 1863 (Dayton, Ohio 1887): page images of the pages cited for rows T1-005, 014, 020, 040, 043, 045, 047, to check the digits and words read in the text layer (dates, the requisition list, hours); the text layer of the same book (tmp/library/town/HOKE-1887) stays the searched text"
+  },
+  {
+   "archive_identifier": "NPS-HS-MCPHERSON (www.npshistory.com)",
+   "file": "hs-mcpherson-farm.pdf",
+   "url": "https://www.npshistory.com/publications/gett/hs-mcpherson-farm.pdf",
+   "bytes": 30427394,
+   "sha256": "b251d6d74b7de43dac616335db6fa2bf3d52f3be5053e014d12ff96343b16af8",
+   "fetched_at": "2026-11-16",
+   "local_path": "tmp/tl-01/dl/nps/hs-mcpherson-farm.pdf",
+   "pages_viewed": "PDF pages 28, 100, 101 and 106 = printed pages 26, 98, 99 and 104 (printed page = PDF page minus 2 on these pages), rendered at 100 dpi with pdftoppm and viewed",
+   "purpose": "Edward McPherson Farm: Historical Study (National Park Service, 1977): page images of the pages cited for row T1-050 (the narrative on printed p.26; the petition of John T. Slentz on p.98; Appendix B, the affidavit of Jan 8 1883, on p.104), to check the hour and the fractions read in the letter-spaced text layer; the file is the one of the library index (library/acquired_3.json, same sha256), which keeps the text only; one request, no login"
   }
  ],
  "lookups_failed_or_blocked": [

@@ -102,7 +102,8 @@ def rank_phrase(toks, j, limit=5):
     else:
         if k < n and re.fullmatch(r"p\.?", toks[k][2]) and k + 1 < n and (ORD_TOK.match(toks[k + 1][2]) or (len(alpha(toks[k + 1][2])) >= 4 and is_rankword(toks[k + 1][2]))):
             k += 1
-        if k < n and ORD_TOK.match(toks[k][2]):
+        if k < n and (ORD_TOK.match(toks[k][2]) or (len(toks[k][2].strip(",.;:'\"")) <= 4 and k + 1 < n and alpha(toks[k + 1][2]) in ('sergeant', 'corporal', 'lieutenant', 'lieut', 'sergt', 'corpl', 'serg', 'sergeaut', 'corpora')
+                                                   and not re.fullmatch(r"[A-Za-z]\.?,?", toks[k][2]))):
             k += 1
             if k >= n:
                 return 0
@@ -389,7 +390,7 @@ def match_G(S, i):
         return None
     for k in range(i + 2, min(i + 6, n) + 1):         # name tokens i .. k-1
         last = toks[k - 1][2]
-        if not (re.search(r"[,;]$", last) or (re.search(r"[A-Za-z]\.$", last) and len(alpha(last)) >= 4)):
+        if not (re.search(r"[,;][\-—~'’\"\*\^]{0,2}$", last) or (re.search(r"[A-Za-z]\.$", last) and len(alpha(last)) >= 4)):
             continue
         if len(alpha(last)) < 2 or alpha(last) in ABBREV_BAD:
             continue
@@ -407,6 +408,15 @@ def match_G(S, i):
     return None
 
 
+def contiguous(S, a, b):
+    """True when the tokens a..b of the stream follow one another in the text with only white space between them (nothing was taken out between them)."""
+    toks = S.toks
+    for t in range(a, b):
+        if S.text[toks[t][1]:toks[t + 1][0]].strip():
+            return False
+    return True
+
+
 def find_heads(S, a, b, section, ev_idx):
     """Heads of the token range a..b (indexes into S.toks): [(token index, kind, last name token index, rank end index or None)].  Greedy from the left,
     then a second pass for strict markers that stand inside the remarks of a head (a merged entry whose name the first pass could not read)."""
@@ -422,6 +432,8 @@ def find_heads(S, a, b, section, ev_idx):
             if fn is match_G and bd < 1 and (re.fullmatch(r"(?:at|in|of|to|from|and|by|near|for|on|the|as|a|an|with|or|but)", prev) or re.search(r"[A-Za-z]-$", prev)):
                 continue
             g = fn(S, i, bd) if fn is match_S else fn(S, i)
+            if g and not contiguous(S, i, g[1]):
+                g = None                          # a heading or a running head stands between the name tokens: the name would not be in the text as one run
             if g:
                 kind = g[0]
                 if bd == 0 and kind not in ('S-mark', 'G-rank'):

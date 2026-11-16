@@ -1,7 +1,7 @@
 // Q16 photo-match: structural checks of the registry, no browser. Run: node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs
 // Optional determinism check of the renderer (needs system Chrome with software GL; run through the machine lock): PHOTOMATCH_RENDER=1 node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs
 // The checks hold without the gitignored image files; when a file under tmp/ is present its size and hash are checked too.
-import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import { execFileSync } from 'node:child_process';
+import { pathToFileURL } from 'node:url'; import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import { execFileSync } from 'node:child_process';
 const ROOT = path.resolve(import.meta.dirname, '../../../..'), PM = path.join(ROOT, 'tools/bt/photomatch'), J = f => JSON.parse(fs.readFileSync(path.join(PM, f), 'utf8'));
 const cat = J('catalogue.json'), add = J('catalogue_additions.json'), wide = J('catalogue_wide_items.json'), wled = J('wide_images_ledger.json'), led = J('images_ledger.json'), st = J('position_statements.json'), poses = J('poses.json'), res = J('resolved_poses.json'), ver = J('verdicts.json'), reg = J('photograph_registry.json');
 const crit = J('criteria.json'), figs = J('nps_figures.json');
@@ -186,6 +186,11 @@ test('render determinism record: every render of every registered pose was repro
 test('the photo-match document shipped with the app carries no copy that the audit forbids', () => {
   const d = fs.readFileSync(path.join(ROOT, 'docs/battle-theatre/app/docs/PHOTOMATCH.md'), 'utf8'); assert.ok(d.length > 2000); assert.doesNotMatch(d, new RegExp(['\\bA' + 'I\\b', 'Cla' + 'ude', 'Anthro' + 'pic', '\\bage' + 'nts?\\b', 'suba' + 'gent', '\\bLL' + 'M\\b', 'language' + ' model'].join('|'), 'i'));
   assert.match(d, /not passing/i);
+});
+test('the photo-match document passes the packer\'s own copy audit (tools/bt/pack_theatre.mjs): no audit word, no working-process word, no tool path', async () => {
+  const A = await import(pathToFileURL(path.join(ROOT, 'tools/bt/pack_theatre.mjs')).href), d = fs.readFileSync(path.join(ROOT, 'docs/battle-theatre/app/docs/PHOTOMATCH.md'), 'utf8');
+  const hits = d.split('\n').map((L, i) => { const m = A.AUDIT_RE.exec(L) || A.AUDIT_CS_RE.exec(L); return m ? `L${i + 1}: ${m[0].trim()}` : null; }).filter(Boolean);
+  assert.deepEqual(hits, [], 'audit words'); assert.deepEqual([...d.matchAll(A.AUDIT_REVIEW_RE)].map(m => m[0]), [], 'working-process words'); assert.deepEqual([...d.matchAll(A.AUDIT_TOOLPATH_RE)].map(m => m[0]), [], 'tool paths');
 });
 test('render is deterministic (SwiftShader), optional', { skip: !process.env.PHOTOMATCH_RENDER }, () => {
   const h = () => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'tmp/photomatch/renders/P03_base.png'))).digest('hex');

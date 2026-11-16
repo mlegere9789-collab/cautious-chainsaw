@@ -5,27 +5,28 @@ A separate, test-only site made from the current page shell. It is not the produ
 ## Current build
 
 <!-- CURRENT-BUILD:start -->
-Written 2026-11-14 01:18 UTC. It states only what was measured; every number comes from a file named here (`tmp/bt-spec/`, `deliver/`).
+Written 2026-11-16 00:13 UTC. It states only what was measured; every number comes from a file named here (`tmp/bt-spec/`, `deliver/`).
 
-**Newest pack: build `3a41137d`**, packed 2026-11-14 01:18 UTC from the working tree of that moment (git a0b89b64 plus the uncommitted work of the other workstreams). The tree keeps changing under it: a later pack has another id.
+**Newest pack: build `23d4ac79`**, packed 2026-11-16 00:11 UTC from the working tree of that moment (git ec5cd18b plus the uncommitted work of the other workstreams). The tree keeps changing under it: a later pack has another id.
 
 | | |
 |---|---|
-| Zip | `deliver/gettysburg-BT-staging-3a41137d-AUDIT-HITS-9.zip` (**flagged: the copy audit found hits, so this is not an acceptable build; do not upload it**) |
-| Size | 7,837,842 bytes (7.8 MB) |
-| SHA-256 | `4e7c3949d353b071f4f9623608341e30597b087d16a816b73e383ea3418f81fe` (the same line is in `gettysburg-BT-staging-3a41137d-AUDIT-HITS-9.zip.sha256`) |
-| Real-browser run | **not this build**: the last one that ran walked build `9a2eb789` (below, with the files that differ) |
-| Contents | 245 files, 17.3 MB unzipped. Largest folders: render/prototype 6.0 MB, app/data 5.1 MB, app/src 2.3 MB, kit 1.4 MB, environment 0.8 MB, history 0.7 MB. 178 modules of `app/src` (163 reached from the page by imports, 15 shipped with their folder and imported by no page), 28 data files of `app/data`, 12 renderer files; no roster section (`app/roster` does not exist yet). |
-| Static checks | manifest ok (244 files); zip against dist ok (`unzip -t`: ok); links inside the dist ok (543 checked); names the owner's Windows can unpack ok (245 paths); no notes or leftovers ok; the data loaders of the shell run from the dist alone in node ok (36 requests, 35 files). |
-| Copy audit | **9 hits** in 9 files that belong to other workstreams: `app/data/battery-guns.json:3`, `app/data/engagements.json:3`, `app/data/gazetteer.json:1`, `app/src/anim3d/gaits.mjs:73`, `app/src/figures3d/evidence.mjs:2`, `app/src/figures3d/skeleton.mjs:193`, `app/src/figures3d/tiers.mjs:1`, `app/src/history/gazetteer.mjs:1`, `app/src/structures/model.mjs:3`. The newest requests that name these files, with the exact change, are in `GOVERNANCE/horde/requests/`: `bt-spec-health-copy-audit-comment-patch.md`, `bt-oob-kit-build-guns-doc.md`, `bt-renderer-staging-copy-audit-2.md`, `bt-units-positions-staging-copy-audit-2.md`, `bt-world-content-staging-copy-audit-2.md`. The rules are described under "Copy audit" below. |
+| Zip | `deliver/gettysburg-BT-staging-23d4ac79-AUDIT-HITS-9.zip` (**flagged: the copy audit found hits, so this is not an acceptable build; do not upload it**) |
+| Size | 7,884,742 bytes (7.9 MB) |
+| SHA-256 | `e8b3094dd636133c17a2845a0417bba5d083dd3db03722026f6d57e705944f36` (the same line is in `gettysburg-BT-staging-23d4ac79-AUDIT-HITS-9.zip.sha256`) |
+| Real-browser run | **not this build**: the last one that ran walked build `aca2fd2d` (below, with the files that differ) |
+| Contents | 246 files, 17.5 MB unzipped. Largest folders: render/prototype 6.0 MB, app/data 5.3 MB, app/src 2.3 MB, kit 1.4 MB, environment 0.8 MB, history 0.7 MB. 179 modules of `app/src` (164 reached from the page by imports, 15 shipped with their folder and imported by no page), 28 data files of `app/data`, 12 renderer files; no roster section (`app/roster` does not exist yet). |
+| Static checks | manifest ok (245 files); zip against dist ok (`unzip -t`: ok); links inside the dist ok (548 checked); names the owner's Windows can unpack ok (246 paths); no notes or leftovers ok; the data loaders of the shell run from the dist alone in node ok (36 requests, 35 files). |
+| Load census | the syntax trees of 191 modules and 1 page were read, independently of the patterns of the trace, and every address the code loads was compared with the build: 77 loads (7 reviewed, 66 resolved, 3 plumbing, 1 withheld); 0 findings; files in the build only because the census found a load of them: none. |
+| Copy audit | **9 hits** in 9 files that belong to other workstreams: `app/data/battery-guns.json:3`, `app/data/engagements.json:3`, `app/data/gazetteer.json:1`, `app/src/anim3d/gaits.mjs:73`, `app/src/figures3d/evidence.mjs:2`, `app/src/figures3d/skeleton.mjs:193`, `app/src/figures3d/tiers.mjs:1`, `app/src/history/gazetteer.mjs:1`, `app/src/structures/model.mjs:3`. The newest requests that name these files, with the exact change, are in `GOVERNANCE/horde/requests/`: `bt-spec-health-copy-audit-apply-all.md`, `bt-renderer-staging-copy-audit-2.md`, `bt-spec-health-copy-audit-comment-patch.md`, `bt-units-positions-staging-copy-audit-2.md`, `bt-world-content-staging-copy-audit-2.md`. The rules are described under "Copy audit" below. |
 | Publication filter | 14 data files ship without 14 members that name the program that made the file (delegated decision DD-STG-01; the working files keep them; the list is in `MANIFEST.json`, "scrubbed"). |
-| Self-tests | `tests/bt-pack` (the packer on the real tree and on a made-up one; the checks of the verification on made-up folders): 76 tests, 72 pass, 3 fail, 1 not run (the one that starts a browser). The 3 red: "the shipped kit and data files carry no production note", "copy audit of the shipped dist is clean", "real roster data: the printed names pass, nothing else in the 118 files is a hit". Each of them reads the real tree for a sentence that says how a file was made (the shipping gate, the kit and data check, the roster data); none is loosened. |
+| Self-tests | `tests/bt-pack` (the packer on the real tree and on a made-up one; the checks of the verification on made-up folders): 87 tests, 83 pass, 3 fail, 1 not run (the one that starts a browser). The 3 red: "the shipped kit and data files carry no production note", "copy audit of the shipped dist is clean", "real roster data: the printed names pass, nothing else in the 118 files is a hit". Each of them reads the real tree for a sentence that says how a file was made (the shipping gate, the kit and data check, the roster data); none is loosened. |
 
-**Newest real-browser verification: build `9a2eb789`**, 2026-11-14 00:08 UTC, 36.47 minutes, software WebGL2 (ANGLE / SwiftShader), 20 frames per step, window 640x360. The packed site was served the way Netlify serves it (its `_headers` applied) and walked, then the snapshot of the source tree was walked the same way and the two request logs were compared.
+**Newest real-browser verification: build `aca2fd2d`**, 2026-11-15 23:29 UTC, 42.44 minutes, software WebGL2 (ANGLE / SwiftShader), 20 frames per step, window 640x360. The packed site was served the way Netlify serves it (its `_headers` applied) and walked, then the snapshot of the source tree was walked the same way and the two request logs were compared.
 
 | | packed site | source snapshot |
 |---|---|---|
-| Requests | 228 (223 different URLs) | 228 (223 different URLs) |
+| Requests | 229 (224 different URLs) | 229 (224 different URLs) |
 | Not answered 2xx (404s) | 0 | 0 |
 | Console or page errors | 0 | 0 |
 | Theatre entered, sound | true, started: true (the Start sound button in Settings) | true, started: true (the Start sound button in Settings) |
@@ -33,15 +34,13 @@ Written 2026-11-14 01:18 UTC. It states only what was measured; every number com
 | Added layers | monuments.mjs running, tour.mjs running, vegetation running | monuments.mjs running, tour.mjs running, vegetation running |
 | Pictures | 9 | 9 |
 
-Compared: URLs the source run loaded that the dist lacks: 0; console or page errors only in the packed site: 0; shipped files this walk never requested: 16 of 243 (they ship because the trace found a reference; the list is in the report). **Walk and comparison: passed**. Report: `tmp/bt-spec/verify/official4.json`; pictures: `tmp/bt-spec/verify/shots/20261114T0008Z`.
-
-Copy audit of the verified build: 3 hit(s) under the rules of the run, 12 under the rules of today (see "Copy audit" below); the walk does not depend on it.
+Compared: URLs the source run loaded that the dist lacks: 0; console or page errors only in the packed site: 0; shipped files this walk never requested: 18 of 246 (they ship because the trace found a reference; the list is in the report). **Walk and comparison: passed**. Report: `tmp/bt-spec/verify/official5.json`; pictures: `tmp/bt-spec/verify/shots/20261115T2329Z`.
 
 Requests the browser reports as failed although the server answered them (`requestfailed`): packed site `net::ERR_ABORTED /app/src/ext/index.mjs`; source snapshot `net::ERR_ABORTED /app/src/ext/index.mjs`. The check does not count an aborted request as a failure of its own: every path the server saw is judged by its status, and a missing file would be a 404 there. The two walks show the same, so it is a matter of the product, not of the packaging.
 
-**The newest pack is not the verified build.** Against build `9a2eb789` it differs in 12 files (the two pages that carry the build number differ only by it): 0 left out, 2 added (app/src/ext/vegetation/scene-check.mjs, app/src/ext/vegetation/wind.mjs), 10 changed (app/data/audio3d/woods-mask.json, app/data/vegetation.json, app/src/audio3d/woods.mjs, app/src/ext/vegetation/gl.mjs, app/src/ext/vegetation/index.mjs, app/src/ext/vegetation/model.mjs, app/src/ext/vegetation/shell.mjs, app/src/ui/ext-panel.mjs, app/src/ui/panels.mjs, kit/weapons.json). Those are covered by the trace and the static checks above, not by the real run.
+**The newest pack is not the verified build.** Against build `aca2fd2d` it differs in 11 files (the two pages that carry the build number differ only by it): 0 left out, 0 added (none), 11 changed (app/data/vegetation.json, app/src/crowd/crowd.mjs, app/src/crowd/gl.mjs, app/src/crowd/gpu.mjs, app/src/crowd/lod.mjs, app/src/crowd/shaders-gl.mjs, app/src/crowd/shaders-wgsl.mjs, app/src/ext/vegetation/gl.mjs, app/src/ext/vegetation/index.mjs, app/src/ext/vegetation/model.mjs, app/src/ext/vegetation/scene-check.mjs). Those are covered by the trace and the static checks above, not by the real run.
 
-To check the zip you hold against the line above on Windows: open a command window in the folder of the zip and run `certutil -hashfile gettysburg-BT-staging-3a41137d-AUDIT-HITS-9.zip SHA256`; the long hexadecimal line must be the same.
+To check the zip you hold against the line above on Windows: open a command window in the folder of the zip and run `certutil -hashfile gettysburg-BT-staging-23d4ac79-AUDIT-HITS-9.zip SHA256`; the long hexadecimal line must be the same.
 <!-- CURRENT-BUILD:end -->
 
 ## Build

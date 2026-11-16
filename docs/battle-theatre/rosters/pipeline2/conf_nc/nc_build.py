@@ -100,6 +100,7 @@ def main(argv):
                 i += 1
         keys = [k for k in keys if k in sel]
     write = '--no-write' not in argv
+    vocab_only = '--vocab-only' in argv
     t0 = time.time()
     decs = {}
     for k in keys:
@@ -109,8 +110,23 @@ def main(argv):
                                                                                          d['m']['a']['rows'], d['m']['a']['defects'], d['m']['b']['rows'], d['m']['b']['defects'], d['why'][:60]), flush=True)
     if not write:
         return 0
-    # vocabulary of the remarks of every line written (for the damaged-word mark)
-    vocab = F.build_vocab(r['row'][3] for d in decs.values() for sg, rows in unit_rows(d) for r in rows)
+    # vocabulary of the remarks of every line written (for the damaged-word mark); computed over all units once and kept, so that a chunked run writes the same marks
+    vpath = os.path.join(C.CACHE, 'vocab.%s.json' % C.parser_hash())
+    if vocab_only or not os.path.exists(vpath):
+        allk = [u[0] for u in U.UNITS if u[3] is not None]
+        for k in allk:
+            if k not in decs:
+                decs[k] = decide(k)
+        vocab = F.build_vocab(r['row'][3] for d in decs.values() for sg, rows in unit_rows(d) for r in rows)
+        with open(vpath, 'w', encoding='utf-8') as f:
+            json.dump(vocab, f)
+        print('vocabulary', len(vocab), 'words', flush=True)
+        if vocab_only:
+            return 0
+        decs = {k: v for k, v in decs.items() if k in keys}
+    else:
+        with open(vpath, encoding='utf-8') as f:
+            vocab = collections.Counter(json.load(f))
     os.makedirs(os.path.join(L.WS, 'diagnostics'), exist_ok=True)
     summary = {}
     for k, d in decs.items():

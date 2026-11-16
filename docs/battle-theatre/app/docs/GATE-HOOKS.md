@@ -133,3 +133,4 @@ Commands (the first three are node and need no browser; the last two need one: r
 | `node app/tests/crowd-lod-shots.mjs <outDir> [webgl2\|webgpu] [--sets=b10,b13,b75,dab,purity]` | the real shell with the real crowd: the camera at chosen distances from the middle man of the largest infantry unit, each distance drawn with the hard swap and with the cross-fade, montages and difference images, the same time and camera by two histories in bytes | Q12, Q24 |
 
 Correction to the sentence above the last table: the first two commands (the two `node --test` files) need no browser; the last two (`crowd-lod-lab.mjs`, `crowd-lod-shots.mjs`) need one.
+| `node --test app/tests/crowd-lod-build.test.mjs` | the real crowd built in node with a stand-in backend (about 20 s of CPU): the draw lists of `prepare` at 6, 10, 13, 40 and 75 m read back and checked against the selection (levels, dither ranges, palette slots, horses of a cavalry unit, purity in bytes, hard mode) | Q12, Q15 |

@@ -1,0 +1,21 @@
+# EG-LIFE-0205: Rations and meals of the Second Corps as a whole on 2-3 July: no corps-level statement
+
+| Field | Content |
+|---|---|
+| ID | EG-LIFE-0205 |
+| Requirement IDs | R03, R18, OA11 |
+| Category | evidence missing |
+| Description | No text of this group says that rations were issued to, or a meal cooked by, the Second Corps as a whole on 2-3 July; the plan asks for the cooking before the cannonade of 3 July. |
+| Why literal 100% is not possible or blocked | The statements are a regiment's: the 7th Michigan "destitute of food nearly two days" and "supperless" on 2 July, the 19th Maine "no rations ... until after the fighting of the day was ended" on 3 July, the 57th New York's "such a breakfast as could be gotten" before daylight on 3 July, Gibbon's lunch with Hancock, Cowan's breakfast, the 116th Pennsylvania's lunch, and the park report's "most Union soldiers ... would not have a breakfast"; no issue, no hour and no ration quantity for the corps. Literal 100% is impossible here (Law cl.3). |
+| Evidence searched | Group us-2c (evidence file us-2c.jsonl, open gap row us-2c-R257); searched list of the row:<br>  - OR-27-1: owned records R076-R132: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_not_applicable<br>  - NPS-COMMON-PRIDE-1: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_ambiguous<br>  - NPS-COMMON-PRIDE-2: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_not_applicable<br>  - NPS-COMMON-PRIDE-3: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_not_applicable<br>  - NPS-BRIEN-FARM: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_not_applicable<br>  - NPS-HSR-LEISTER-BARN: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_not_applicable<br>  - PA-GB-1904: II Corps regimental sections: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_ambiguous<br>  - PA-GB-1914-v2: II Corps regimental sections: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_ambiguous<br>  - NY-GB-1900: II Corps regimental sections: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_ambiguous<br>  - NY-GB-1900-v2: II Corps regimental sections: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_ambiguous<br>  - ME-GB-1898: II Corps regimental sections: ration\w*\|breakfast\|dinner\|supper\|\bcoffee\|hard-?tack\|haversack\|\bcook\w*: hit_ambiguous |
+| Autonomous substitute applied | None applied by this file as a documented row: the generic basis is the period practice, rows with source class period_manual of this file, plausible-procedural (us-2c-R262: the ration table; us-2c-R264: supper and coffee at a bivouac; us-2c-R263: coffee boiled at the camp-fire); no meal hour is given by any of them. |
+| Strongest evidence-based reconstruction | The regiments' own rows: us-2c-R199 (19th Maine, no rations until after the fighting), us-2c-R187 (57th New York breakfast before daylight), us-2c-R228 (the park report: no breakfast), us-2c-R226 (Cowan's breakfast), us-2c-R221 (Gibbon's brunch), us-2c-R214 (116th Pennsylvania lunch), us-2c-R008 (7 July: 64th New York, rations received). |
+| Confidence tier | documented / inferred (the regiments' rows); plausible-procedural (the practice) |
+| Competing values | The hours of Gibbon's lunch differ (C-GIBBON-LUNCH-JUL3). |
+| Product marking | Tier glyph 2 on a meal scene without a regimental row: "meal at a bivouac: practice of the period, not documented for this unit". |
+| Visual and audio impact | The Second Corps line on the morning and the lull of 3 July. |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | Keep a corps-level ration scene as plausible-procedural only? |
+| Agent recommendation | Yes; show hunger where the rows say it (19th Maine, 7th Michigan) and no issue where none is stated. |
+| Status | proposed (not yet in register/) |
+| Owner decision and date | (filled only from the Decision Log) |

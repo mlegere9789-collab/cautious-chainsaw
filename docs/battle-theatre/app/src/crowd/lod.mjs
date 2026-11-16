@@ -15,20 +15,22 @@
 //     Men outside the view use up the budget with a weight that falls from 1 at the edge of the view to 0 over an angular margin (softMargin, 0.2 rad): a whole rank of men entering the view in one step of a
 //     turn would otherwise move the radius by a whole gap of ranks (the real layer has more than 96 men within 10 m of 18 to 23 percent of its men: the budget binds in its dense columns).
 //   * ranges are packed into the unused fourth word of the instance record: low 16 bits lo * 65534, high 16 bits hi * 65534 (hi >= 65534 means no upper bound); the word 0 means "keep everything".
-// HARD MODE (band = 0): the same code with no band and no dispersion: every threshold is a step. It is the earlier behaviour (a hard swap at the radius, the K nearest men at LOD0) and exists to compare pictures
-// and to test that the cross-fade removes the step; it is not a setting of the product.
+//   * the impostor (shaders-gl.mjs IMP_VS, shaders-wgsl.mjs vs_imp) fades in over the band of the low mesh's outer radius, takes the next of its 8 baked views with the share fract(yaw / 45 degrees), and gives way to the flat dab
+//     over the same band of its height in pixels, the dab narrowing to the baked silhouette (LOD_DAB); the shaders repeat the formulas of this file and tests/crowd-lod.test.mjs pins their text to it.
+// HARD MODE (band = 0): the same code with no band and no spread: every threshold is a step. It is the earlier behaviour (a hard swap at the radius, the K nearest visible men at LOD0, the nearest baked view, the whole-quad dab)
+// and exists to compare pictures and to test that the cross-fade removes the step; it is not a setting of the product.
 import { hsh, sphereInFrustum } from '../../../render/prototype/src/math.mjs';
 import { soldierPlace } from '../../../render/prototype/src/world.mjs';
 
 export const LOD_BASE = Object.freeze({ r0: 10, r1: 13, r2: 75 });                      // metres at 1080p, 60 degrees (figures3d handover.json)
 export const LOD0_BUDGET = 96;                                                          // men at LOD0 at once (the pose palette has this many slots)
 export const LOD_FADE = Object.freeze({ width: 0.15, band: 0.075, hysteresis: 0.10, dabPx: 7, softMargin: 0.2 });   // width = 2 * band; hysteresis = the half-width of the per-figure threshold spread; dabPx = height of an impostor below which it is a dab
-export const LOD_Q = 65534;
+export const LOD_Q = 65534;                                                             // ranges are 16-bit integers 0 .. LOD_Q
 // the flat dab of a small figure (below dabPx pixels high) fills its whole impostor quad; the baked figure fills 18 percent of it (131 upright foot classes of data/figures3d/impostor-atlas.png: mean silhouette area 0.181 of the quad,
 // bounding box 22.1 of 48 texels wide and 56.1 of 64 high, empty 0.105 of the quad above the head and 0.018 below the feet, so the mean width over the height 0.181 / 0.877 = 0.206). A cross-fade from one to the other
 // cannot hide a five-fold jump of area, so the dab narrows to the figure's footprint as the figure grows: from the whole quad at lowPx pixels (the earlier look of a small figure, kept) to a strip w wide that leaves top
 // and bottom of the quad's height empty at dabPx, where the baked view takes over.
-export const LOD_DAB = Object.freeze({ w: 0.21, top: 0.105, bottom: 0.018, lowPx: 3 });                                                             // ranges are 16-bit integers 0 .. LOD_Q
+export const LOD_DAB = Object.freeze({ w: 0.21, top: 0.105, bottom: 0.018, lowPx: 3 });
 const H30 = Math.PI / 6;
 
 // ---------------------------------------------------------------------------------------------------- options and radii

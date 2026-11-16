@@ -212,9 +212,9 @@ The NPS Then-And-Now pages credit "Library of Congress" without an id. 18 of the
 | `verdicts.json, registry_data.py, build_registry.py -> photograph_registry.json` | the verdicts and the per-photograph registry (one entry for each of the 191 records) |
 | `crops.py, sheets.py` | print areas and contact sheets |
 
-Run: `python3 tools/bt/photomatch/build_statements.py && tools/horde/bench.sh node tools/bt/photomatch/run.mjs && python3 tools/bt/photomatch/compose.py && python3 tools/bt/photomatch/measure_c1.py && tools/horde/bench.sh python3 tools/bt/photomatch/skyline_test.py && python3 tools/bt/photomatch/catalogue_wide_items.py && python3 tools/bt/photomatch/build_registry.py && python3 tools/bt/photomatch/make_doc.py`. Test: `node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`.
+The files of this folder rebuild the registry, the renders and this document from the saved sources. Test of the data: `node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`.
 
-## Limits (registered as gaps: GOVERNANCE/horde/ws10-photomatch/proposed-register/)
+## Limits (registered as proposed Evidence-Gap Register entries ws10-EG-01 to ws10-EG-16)
 
 - The terrain is modern bare ground with the repository's 2023 building outlines at a default one-storey height: no 1863 trees, rocks, crops or fences in the near field, so only far ridge lines, hills, roads and mapped footprints can be compared (EG-03).
 - The focal length and plate of every exposure are unknown; 40 degrees horizontal is a generic assumption and renders at 30 and 50 degrees accompany every pose (EG-04).

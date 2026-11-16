@@ -1,0 +1,861 @@
+{
+ "schema": "bt-datum-classes/1",
+ "_doc": "The datum-class registry of GATE-SPEC.md Q02.1 (the census). Every data file that the page loads (found by the static scan of app/src and render/prototype/src in lib/loadlist.py) has to be in the `files` of at least one class, or the census is FAIL. `source` says where the members of the class are read from (lib/datum_scan.py): the real history layer (`layer`, dumped by q02_layer.mjs with the app's own code), a JSON path, JSONL ledgers, or every tier-bearing record of a file (`walk`). `visible` marks the classes whose values change what is seen or heard (the census of Q19.1). `validity` (`kit` or `state`) marks classes whose items need valid_from/valid_to (Q02.9) or a state_schedule. `claims` marks classes whose records carry source extracts that are re-matched in the stored text (Q02.3). The registry names no tier, source or extract: those are read from the data, never written here.",
+ "classes": [
+  {
+   "id": "layer.units",
+   "label": "History layer: units (the units table)",
+   "source": {
+    "kind": "layer",
+    "class": "layer.units"
+   },
+   "files": [
+    "docs/battle-theatre/history/units.json",
+    "docs/battle-theatre/history/arrivals.json",
+    "docs/battle-theatre/history/not_on_field.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "app/src/data.mjs loadHistoryData: units, arrivals, notOnField"
+   ]
+  },
+  {
+   "id": "layer.unit.strength",
+   "label": "History layer: the strength of each unit",
+   "source": {
+    "kind": "layer",
+    "class": "layer.unit.strength"
+   },
+   "files": [],
+   "visible": true
+  },
+  {
+   "id": "layer.unit.casualties",
+   "label": "History layer: the casualty share of each unit",
+   "source": {
+    "kind": "layer",
+    "class": "layer.unit.casualties"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/casualty-sources.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "app/src/data.mjs loadHistoryData: casualtySources"
+   ]
+  },
+  {
+   "id": "layer.unit.guns",
+   "label": "History layer: the guns of each battery (ordnance)",
+   "source": {
+    "kind": "layer",
+    "class": "layer.unit.guns"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/battery-guns.json",
+    "docs/battle-theatre/kit/artillery_batteries.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "app/src/data.mjs loadHistoryData: batteryGuns, kitArtillery"
+   ]
+  },
+  {
+   "id": "layer.unit.approach",
+   "label": "History layer: the road of approach of each unit (movements)",
+   "source": {
+    "kind": "layer",
+    "class": "layer.unit.approach"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/sibling-approach.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "app/src/data.mjs loadHistoryData: siblingApproach"
+   ]
+  },
+  {
+   "id": "layer.arrivals",
+   "label": "History layer: arrivals",
+   "source": {
+    "kind": "layer",
+    "class": "layer.arrivals"
+   },
+   "files": [],
+   "visible": true
+  },
+  {
+   "id": "layer.events",
+   "label": "History layer: events (the movements, activities and losses of the units)",
+   "source": {
+    "kind": "layer",
+    "class": "layer.events"
+   },
+   "files": [],
+   "visible": true
+  },
+  {
+   "id": "layer.kit_items",
+   "label": "History layer: kit manifests, one datum per item (equipment_items, uniform_specs)",
+   "source": {
+    "kind": "layer",
+    "class": "layer.kit_items"
+   },
+   "files": [
+    "docs/battle-theatre/kit/kit_specs.json",
+    "docs/battle-theatre/kit/weapons.json",
+    "docs/battle-theatre/kit/cavalry_units.json",
+    "docs/battle-theatre/app/data/kit-crosswalk.json",
+    "docs/battle-theatre/app/data/figures-validation.json"
+   ],
+   "visible": true,
+   "validity": "kit",
+   "loaded_by": [
+    "app/src/data.mjs loadHistoryData: kit, kitWeapons, kitCavalry, kitCrosswalk, figuresValidation"
+   ]
+  },
+  {
+   "id": "layer.objects",
+   "label": "History layer: works and structures carried by the layer (objects)",
+   "source": {
+    "kind": "layer",
+    "class": "layer.objects"
+   },
+   "files": [
+    "docs/battle-theatre/structures/works_stages.json",
+    "docs/battle-theatre/app/data/works3d.json"
+   ],
+   "visible": true,
+   "validity": "state",
+   "loaded_by": [
+    "app/src/data.mjs loadHistoryData: works",
+    "app/src/structures/index.mjs"
+   ]
+  },
+  {
+   "id": "layer.provenance.claims",
+   "label": "History layer: the ledger claims carried by the units (claims)",
+   "source": {
+    "kind": "layer",
+    "class": "layer.provenance.claims"
+   },
+   "files": [],
+   "visible": true,
+   "claims": true
+  },
+  {
+   "id": "gov.timeline",
+   "label": "Timeline rows (the Events list and cards), with the evidence of the row-level correction records",
+   "source": {
+    "kind": "timeline",
+    "file": "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl",
+    "corrections": [
+     "docs/battle-theatre/GOVERNANCE/timeline_corrections"
+    ]
+   },
+   "files": [
+    "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl",
+    "docs/battle-theatre/GOVERNANCE/timeline_windows.jsonl"
+   ],
+   "visible": true,
+   "claims": true,
+   "loaded_by": [
+    "app/src/data.mjs loadTimeline"
+   ]
+  },
+  {
+   "id": "gov.register",
+   "label": "Evidence-Gap Register entries (register_entries)",
+   "source": {
+    "kind": "register",
+    "file": "docs/battle-theatre/GOVERNANCE/register_index.json"
+   },
+   "files": [
+    "docs/battle-theatre/GOVERNANCE/register_index.json"
+   ],
+   "visible": false,
+   "loaded_by": [
+    "app/src/data.mjs loadTimeline"
+   ]
+  },
+  {
+   "id": "gov.conflict_register",
+   "label": "Source conflicts as printed (conflicts)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/GOVERNANCE/conflict_register.json"
+   },
+   "files": [
+    "docs/battle-theatre/GOVERNANCE/conflict_register.json"
+   ],
+   "visible": true,
+   "conflicts": true,
+   "loaded_by": [
+    "app/src/data.mjs loadConflicts"
+   ]
+  },
+  {
+   "id": "gov.conflicts_structured",
+   "label": "Source conflicts, structured (conflicts)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/GOVERNANCE/conflicts_structured.json"
+   },
+   "files": [
+    "docs/battle-theatre/GOVERNANCE/conflicts_structured.json"
+   ],
+   "visible": true,
+   "conflicts": true,
+   "loaded_by": [
+    "app/src/data.mjs loadHistoryData: conflicts"
+   ]
+  },
+  {
+   "id": "data.conflict_defaults",
+   "label": "Delegated defaults of the conflicts (scenario defaults)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/conflict-defaults.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/conflict-defaults.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "app/src/data.mjs loadConflicts"
+   ]
+  },
+  {
+   "id": "ledger.positions",
+   "label": "Position ledgers A to E (claims of the history layer)",
+   "source": {
+    "kind": "jsonl",
+    "files": [
+     "docs/battle-theatre/history/positions/positions_A.jsonl",
+     "docs/battle-theatre/history/positions/positions_B.jsonl",
+     "docs/battle-theatre/history/positions/positions_C.jsonl",
+     "docs/battle-theatre/history/positions/positions_D.jsonl",
+     "docs/battle-theatre/history/positions/positions_E.jsonl"
+    ],
+    "id_field": "claim_id"
+   },
+   "files": [],
+   "visible": true,
+   "claims": true
+  },
+  {
+   "id": "ledger.troopmaps",
+   "label": "Troop-map ledgers (claims read from the Bachelder sheets)",
+   "source": {
+    "kind": "jsonl",
+    "files": [
+     "docs/battle-theatre/history/positions/troopmap_jul1_b1876.jsonl",
+     "docs/battle-theatre/history/positions/troopmap_jul2_b1876.jsonl",
+     "docs/battle-theatre/history/positions/troopmap_jul3_b1876.jsonl",
+     "docs/battle-theatre/history/positions/troopmap_jul1_hour_loc99447494.jsonl"
+    ],
+    "id_field": "claim_id"
+   },
+   "files": [],
+   "visible": true,
+   "claims": true
+  },
+  {
+   "id": "data.artillery_train",
+   "label": "Artillery train (ordnance, vehicles)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/artillery-train.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/artillery-train.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.audio_calls",
+   "label": "Audio: bugle and drum calls (sounds)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/audio3d/calls.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/audio3d/calls.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.audio_commands",
+   "label": "Audio: command words (sounds)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/audio3d/commands.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/audio3d/commands.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.audio_sources",
+   "label": "Audio: the recordings ledger (sound samples)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/audio3d/sources.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/audio3d/sources.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.audio_woods",
+   "label": "Audio: woods mask (derived from the vegetation)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/audio3d/woods-mask.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/audio3d/woods-mask.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.daypositions",
+   "label": "Day positions read from the troop maps (positions, claims)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/daypositions.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/daypositions.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ],
+   "claims": true
+  },
+  {
+   "id": "data.engagements",
+   "label": "Engagement windows of formations (activities)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/engagements.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/engagements.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.flag_colours",
+   "label": "Mean colours of the flag textures (textures)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/figures3d/flag-mean-colours.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/figures3d/flag-mean-colours.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.skeleton",
+   "label": "Figure skeleton and rig (models)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/figures3d/skeleton.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/figures3d/skeleton.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.fx_fires",
+   "label": "Effects: fires (effects)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/fx3d/fires.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/fx3d/fires.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.fx_params",
+   "label": "Effects: parameters, with their tiers in fx3d/TIERS.json (effects)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/fx3d/TIERS.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/fx3d/TIERS.json",
+    "docs/battle-theatre/app/data/fx3d/params.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.fx_weapons",
+   "label": "Effects: weapons (ordnance)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/fx3d/weapons.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/fx3d/weapons.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.gazetteer",
+   "label": "Gazetteer of named places (places)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/gazetteer.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/gazetteer.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.placement_claims",
+   "label": "Placement claims carried to the page (claims)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/placement-claims.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/placement-claims.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ],
+   "claims": true
+  },
+  {
+   "id": "data.placement",
+   "label": "Placement of the printed ledger cells (positions, movements)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/placement.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/placement.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.site_bookmarks",
+   "label": "The site's tour stops and monuments as camera bookmarks (places)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/site-bookmarks.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/site-bookmarks.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.site_memorial_years",
+   "label": "Years of the later memorials (claims)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/site-memorial-years.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/site-memorial-years.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ],
+   "claims": true
+  },
+  {
+   "id": "data.site_memorials",
+   "label": "The later memorials (places)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/site-memorials.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/site-memorials.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.site_tour_stops",
+   "label": "Tour stops (places)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/site-tour-stops.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/site-tour-stops.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "data.structures3d",
+   "label": "Structures: fences, buildings, points, roads (structures)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/structures3d.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/structures3d.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ],
+   "validity": "state"
+  },
+  {
+   "id": "data.vegetation",
+   "label": "Vegetation of July 1863 (vegetation_states, claims)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/vegetation.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/vegetation.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ],
+   "validity": "state",
+   "claims": true
+  },
+  {
+   "id": "env.ephemeris",
+   "label": "Ephemeris of the sun and moon (computed)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/environment/ephemeris_1863.json"
+   },
+   "files": [
+    "docs/battle-theatre/environment/ephemeris_1863.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "env.weather",
+   "label": "Weather and light timeline (weather_states)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/environment/weather_timeline.json"
+   },
+   "files": [
+    "docs/battle-theatre/environment/weather_timeline.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "kit.artillery_batteries",
+   "label": "Kit: artillery batteries (ordnance)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/kit/artillery_batteries.json"
+   },
+   "files": [
+    "docs/battle-theatre/kit/artillery_batteries.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "structures.hospitals",
+   "label": "Hospitals and the medical system (places, activities)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/structures/hospitals.json"
+   },
+   "files": [
+    "docs/battle-theatre/structures/hospitals.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ]
+  },
+  {
+   "id": "structures.state_schedule",
+   "label": "Structure state schedule (state changes)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/structures/state_schedule.json"
+   },
+   "files": [
+    "docs/battle-theatre/structures/state_schedule.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ],
+   "validity": "state"
+  },
+  {
+   "id": "structures.structures",
+   "label": "Structures table (structures)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/structures/structures.json"
+   },
+   "files": [
+    "docs/battle-theatre/structures/structures.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ],
+   "validity": "state"
+  },
+  {
+   "id": "structures.works_stages",
+   "label": "Works and construction stages (structures)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/structures/works_stages.json"
+   },
+   "files": [
+    "docs/battle-theatre/structures/works_stages.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "static scan of app/src"
+   ],
+   "validity": "state"
+  },
+  {
+   "id": "data.sibling_approach",
+   "label": "Sibling approach records (movements)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/sibling-approach.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/sibling-approach.json"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "app/src/data.mjs loadHistoryData: siblingApproach"
+   ]
+  },
+  {
+   "id": "data.battery_guns",
+   "label": "Battery guns matched to the kit (ordnance)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/battery-guns.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/battery-guns.json"
+   ],
+   "visible": true
+  },
+  {
+   "id": "data.casualty_sources",
+   "label": "Casualty figures (casualties)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/casualty-sources.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/casualty-sources.json"
+   ],
+   "visible": true
+  },
+  {
+   "id": "data.kit_crosswalk",
+   "label": "Kit crosswalk (kit manifests)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/kit-crosswalk.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/kit-crosswalk.json"
+   ],
+   "visible": true
+  },
+  {
+   "id": "data.figures_validation",
+   "label": "Figures validation report (kit manifests)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/figures-validation.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/figures-validation.json"
+   ],
+   "visible": true
+  },
+  {
+   "id": "data.works3d",
+   "label": "Works of the 3D scene (works)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/app/data/works3d.json"
+   },
+   "files": [
+    "docs/battle-theatre/app/data/works3d.json"
+   ],
+   "visible": true,
+   "validity": "state"
+  },
+  {
+   "id": "kit.kit_specs",
+   "label": "Kit specifications (kit_manifests, uniform_specs)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/kit/kit_specs.json"
+   },
+   "files": [
+    "docs/battle-theatre/kit/kit_specs.json"
+   ],
+   "visible": true,
+   "validity": "kit"
+  },
+  {
+   "id": "kit.weapons",
+   "label": "Weapons (equipment_items)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/kit/weapons.json"
+   },
+   "files": [
+    "docs/battle-theatre/kit/weapons.json"
+   ],
+   "visible": true
+  },
+  {
+   "id": "kit.cavalry_units",
+   "label": "Cavalry units (kit_manifests)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/kit/cavalry_units.json"
+   },
+   "files": [
+    "docs/battle-theatre/kit/cavalry_units.json"
+   ],
+   "visible": true
+  },
+  {
+   "id": "hist.units",
+   "label": "Unit tree (units)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/history/units.json"
+   },
+   "files": [
+    "docs/battle-theatre/history/units.json"
+   ],
+   "visible": true
+  },
+  {
+   "id": "hist.arrivals",
+   "label": "Arrival ledger (arrivals, departures)",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/history/arrivals.json"
+   },
+   "files": [
+    "docs/battle-theatre/history/arrivals.json"
+   ],
+   "visible": true
+  },
+  {
+   "id": "hist.not_on_field",
+   "label": "Units not on the field",
+   "source": {
+    "kind": "walk",
+    "file": "docs/battle-theatre/history/not_on_field.json"
+   },
+   "files": [
+    "docs/battle-theatre/history/not_on_field.json"
+   ],
+   "visible": true
+  },
+  {
+   "id": "terrain.ground",
+   "label": "The ground: height model and aerial photograph (terrain_features)",
+   "source": {
+    "kind": "file",
+    "file": "docs/battle-theatre/render/prototype/data/terrain.json"
+   },
+   "files": [
+    "docs/battle-theatre/render/prototype/data/terrain.json",
+    "docs/battle-theatre/render/prototype/data/height.bin",
+    "docs/battle-theatre/render/prototype/data/aerial.jpg"
+   ],
+   "visible": true,
+   "loaded_by": [
+    "render/prototype/src/world.mjs loadTerrain"
+   ]
+  }
+ ]
+}

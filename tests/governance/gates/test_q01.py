@@ -132,9 +132,14 @@ class Strength(unittest.TestCase):         # Q01.3
         layer = F.with_layer_commanders(F.layer_dump())
         for u in layer['units']:
             if u['id'] == 'us-1c-1d-b1-r1':
-                u['strength']['drawn'] = 450
+                u['strength']['drawn'] = 450                 # 450 soldiers drawn against a carried range of 280 to 320
         out = run(layer=layer)
         self.assertEqual(result_of(out, 'Q01.3', 'us-1c-1d-b1-r1'), 'FAIL')
+        layer = F.with_layer_commanders(F.layer_dump())
+        for u in layer['units']:
+            if u['id'] == 'us-1c-1d-b1-r1':
+                u['strength'].update({'min': 400, 'max': 450, 'drawn': 420})          # a range of the layer's own that the table does not give
+        self.assertEqual(result_of(run(layer=layer), 'Q01.3', 'us-1c-1d-b1-r1'), 'FAIL')
 
     def test_a_row_the_table_has_no_verified_strength_for_is_blocked_not_failed_and_not_passed(self):
         t = F.oob_table()
@@ -160,7 +165,7 @@ class Strength(unittest.TestCase):         # Q01.3
         layer = F.with_layer_commanders(F.layer_dump())
         for u in layer['units']:
             if u['id'] == 'us-1c-1d-b1-r1':
-                u['strength'].update({'min': 280, 'max': 320, 'kind': 'ranged'})
+                u['strength'].update({'basis_key': None, 'sources': ['SS-B3', 'PDF-B3']})          # the right numbers, a basis that is the plan's and not the table's
         out = run(layer=layer)
         self.assertEqual(result_of(out, 'Q01.3', 'us-1c-1d-b1-r1'), 'FAIL')
 
@@ -168,8 +173,7 @@ class Strength(unittest.TestCase):         # Q01.3
         layer = F.with_layer_commanders(F.layer_dump())
         for u in layer['units']:
             if u['id'] == 'us-1c-1d-b1-r1':
-                u['strength'].update({'min': 280, 'max': 320, 'kind': 'ranged', 'basis_key': 'taken_into_action|officers_and_men', 'sources': ['OR27-1-R037']})
-                u['tier'] = 'documented'
+                u['strength'].update({'basis_key': None, 'sources': ['OR27-1-R037']})              # the basis named by the source of the table's own evidence line
         out = run(layer=layer)
         self.assertEqual(result_of(out, 'Q01.3', 'us-1c-1d-b1-r1'), 'PASS')
 
@@ -246,6 +250,18 @@ class OneToOne(unittest.TestCase):         # Q01.6
         layer['onetoone']['scenarios']['default']['units']['us-1c-1d-b1-r3']['world_count'] = 4
         self.assertEqual(result_of(run(layer=layer), 'Q01.6', 'us-1c-1d-b1-r3/default'), 'FAIL')
 
+    def test_a_unit_that_differs_in_another_scenario_is_found_by_that_scenarios_scan(self):
+        layer = F.with_layer_commanders(F.layer_dump())
+        d = layer['onetoone']['scenarios']['default']['units']
+        layer['onetoone']['scenarios']['sample-1'] = {'times': 10, 'units': {k: dict(v, violations=[]) for k, v in d.items()}}
+        layer['onetoone']['scenarios']['sample-1']['units']['us-1c-1d-b1-r2']['violations'] = [{'t_min': 1120, 'expected': 250, 'rendered': 0, 'why': 'not drawn'}]
+        layer['onetoone']['scenarios']['sample-1']['units']['us-1c-1d-b1-r2']['n_violations'] = 1
+        out = run(layer=layer)
+        r = items(out, 'Q01.6', 'units-scan')
+        self.assertEqual([x['result'] for x in r], ['FAIL'])
+        self.assertIn('us-1c-1d-b1-r2', json.dumps(r[0]['evidence']['failing']))
+        self.assertEqual(out['verdict'], 'FAIL')
+
     def test_a_cap_constant_in_the_source_is_a_failure(self):
         layer = F.with_layer_commanders(F.layer_dump())
         layer['cap_scan']['hits'] = [{'file': 'src/crowd/x.mjs', 'pattern': 'MAX_FIGURES', 'line': 3}]
@@ -306,6 +322,22 @@ class TableItself(unittest.TestCase):      # Q01.1
         self.assertEqual(r['result'], 'NOT-RUN')
         self.assertFalse(r['pass'])
 
+    def test_an_ocr_corrected_extract_cannot_be_rematched_in_the_text_and_is_not_run_not_failed(self):
+        ev = F.evidence_lines()
+        ev[R1]['quote_mode'] = 'ocr_corrected'
+        out = run(evidence=ev)
+        r = items(out, 'Q01.1', 'table')[0]
+        self.assertEqual(r['result'], 'NOT-RUN')
+        self.assertIn('OCR', r['reason'])
+        self.assertNotEqual(out['verdict'], 'PASS')
+
+    def test_an_extract_of_fifteen_words_or_more_is_a_failure(self):
+        ev = F.evidence_lines()
+        ev[R1]['quote'] = 'between 280 and 320 men were present on the field that day according to the report of the colonel'
+        r = items(run(evidence=ev), 'Q01.1', 'table')[0]
+        self.assertEqual(r['result'], 'FAIL')
+        self.assertIn('long quote', r['reason'])
+
     def test_no_matcher_at_all_is_not_run(self):
         out = run(matcher=None)
         self.assertEqual(items(out, 'Q01.1', 'table')[0]['result'], 'NOT-RUN')
@@ -324,7 +356,14 @@ class TableItself(unittest.TestCase):      # Q01.1
             f['low'], f['high'] = 999, 999
         r = items(run(table=t, evidence=ev), 'Q01.1', 'table')[0]
         self.assertEqual(r['result'], 'FAIL')
-        self.assertIn('number', r['reason'])
+        self.assertIn('value mismatch', r['reason'])                # the table's figure is not the figure of the evidence line it cites
+        ev2 = F.evidence_lines()
+        ev2[R1]['value'] = {'low': 999, 'high': 999}                # the line states a figure that its own extract does not hold
+        for f in t['units']['us-1c-1d-b1-r1']['strength']['figures']:
+            f['low'], f['high'] = 999, 999
+        r2 = items(run(table=t, evidence=ev2), 'Q01.1', 'table')[0]
+        self.assertEqual(r2['result'], 'FAIL')
+        self.assertIn('number', r2['reason'])
 
     def test_a_documented_value_with_a_lead_source_is_a_failure(self):
         ev = F.evidence_lines()
@@ -358,6 +397,9 @@ class RealData(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        cls.req = os.path.join(F.ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'requirements.json')
+        with open(cls.req, 'rb') as f:
+            cls.req_before = f.read()
         cls.out_dir = tempfile.mkdtemp(prefix='q01-real-')
         cls.code = Q.main(['--out', cls.out_dir, '--quiet'])
         with open(os.path.join(cls.out_dir, 'Q01.json'), encoding='utf-8') as f:
@@ -389,12 +431,14 @@ class RealData(unittest.TestCase):
         for chk in ('Q01.1', 'Q01.2', 'Q01.3', 'Q01.4', 'Q01.7'):
             xs = [i for i in self.rec['items'] if i['check'] == chk]
             self.assertTrue(xs, chk)
-            self.assertTrue(all(i['result'] == 'BLOCKED-INPUT' and i['reason'].startswith('input missing:') for i in xs), chk)
+            self.assertTrue(any(i['result'] == 'BLOCKED-INPUT' for i in xs), chk)
+            self.assertTrue(all((i['result'] == 'BLOCKED-INPUT' and i['reason'].startswith('input missing:')) or i['result'] == 'N/A' for i in xs), chk)
         self.assertNotEqual(self.rec['verdict'], 'PASS')
 
-    def test_no_pass_flag_is_written_anywhere(self):
-        req = os.path.join(F.ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'requirements.json')
-        self.assertFalse('Q01.json' in open(req, encoding='utf-8').read())
+    def test_the_runner_writes_no_pass_flag_and_leaves_requirements_json_alone(self):
+        with open(self.req, 'rb') as f:
+            self.assertEqual(f.read(), self.req_before)
+        self.assertEqual(sorted(os.listdir(self.out_dir)), ['Q01.json'])
 
 
 class RealDataInjectedDefect(unittest.TestCase):

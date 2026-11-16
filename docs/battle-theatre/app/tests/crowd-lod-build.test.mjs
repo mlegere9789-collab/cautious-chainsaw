@@ -13,7 +13,7 @@ import { minOf } from '../src/clock.mjs';
 import { perspective, lookAt, mul, frustumPlanes } from '../../render/prototype/src/math.mjs';
 import { soldierPlace } from '../../render/prototype/src/world.mjs';
 import { Crowd } from '../src/crowd/crowd.mjs';
-import { decodeRange, LOD0_BUDGET } from '../src/crowd/lod.mjs';
+import { decodeRange, edgeRange, LOD0_BUDGET } from '../src/crowd/lod.mjs';
 
 const raw = loadRawFromDisk(), TM = terrainMeta(), { T } = await nodeWorld(), geo = makeGeo(T);
 const L = createRealHistory({ raw, T: TM, helpers: { civilDawn: m => m + 4 * 60 + 3 } }), world = worldFromUnits(T, geo, L), stage = new Stage({ layer: L, world, T, geo });
@@ -50,7 +50,7 @@ for (const D of [6, 10, 13, 40, 75]) test(`prepare at ${D} m: the records of eve
     void last; if (mask & (mask - 1)) two++; checked++;
     if (mask & 1) { const s = crowd.fl.slot[j]; assert.ok(!slots.has(s), 'two men share a palette slot'); slots.add(s); assert.ok(s < crowd.nearCap); }
   }
-  console.log(`# ${D} m: ${n} figures listed, ${two} inside a cross-fade, ${recs} records in ${F.draws.length} draws, ${nearRecs} part records of ${slots.size} men at LOD0, r0e ${crowd.stats.r0e.toFixed(2)} m, budget cut ${crowd.stats.budgetCut}`);
+  console.log(`# ${D} m: ${n} figures listed, ${two} inside a cross-fade, ${recs} records in ${F.draws.length} draws, ${nearRecs} part records of ${slots.size} men at LOD0, r0e ${crowd.stats.r0e.toFixed(2)} m, budget cut ${crowd.stats.budgetCut}; CPU select ${crowd.stats.selectMs.toFixed(1)} ms, animation and records ${crowd.stats.animMs.toFixed(1)} ms (a shared machine: not a measurement)`);
   assert.equal(checked, n); assert.equal(slots.size, crowd.stats.lod0); assert.ok(slots.size <= LOD0_BUDGET);
   // every level's last range reaches the far share: the sum of ranges plus the impostor's share is the whole of [0, 1)
   for (let j = 0; j < n; j++) { let hi = 0; for (let lvl = 0; lvl < 3; lvl++) if ((fl.mask[j] >> lvl) & 1) hi = Math.min(decodeRange(fl.p[j * 3 + lvl]).hi, 1); assert.ok(hi > 0 && hi <= 1); }
@@ -75,4 +75,21 @@ test('a unit of horsemen: the horse is drawn at the levels of its rider with the
   const riders = new Map(); for (let j = 0; j < fl.n; j++) if (fl.mount[j]) riders.set(fl.fig[j], j); let horses = 0;
   for (const d of F.draws) { const info = mm.get(d.first); if (!info || info.kind !== 'horse') continue; for (let q = 0; q < d.n; q++) { const r = d.off / 48 + q, fig = u32[r * 12 + 8], j = riders.get(fig); if (j === undefined) continue; horses++; assert.ok((fl.mask[j] >> info.level) & 1, 'the horse is at a level of its rider'); assert.equal(u32[r * 12 + 11], fl.p[j * 3 + info.level]); } }
   console.log(`# horsemen ${L.units[ci].id}: ${riders.size} riders listed, ${horses} horse records checked`); assert.ok(riders.size === 0 || horses > 0);
+});
+
+test('the train and the works fade out over the band of their 350 m limit: a dither range [0, q), nothing beyond, full inside', () => {
+  const D0 = 10, c0 = camera(D0), fwd = c0.fwd, at = d => ({ x: c0.x + fwd[0] * d / Math.hypot(fwd[0], fwd[2]), z: c0.z + fwd[2] * d / Math.hypot(fwd[0], fwd[2]) });   // a point d metres ahead on the ground (the view looks along fwd)
+  const ds = [100, 330, 349, 360, 380, 420], nB = world.units.findIndex((u, i) => i < L.units.length && stage.present[i] === 1 && u.count > 0), g = [];
+  for (const d of ds) { const p = at(d); g.push(p.x, p.z, T.h(p.x, p.z), 0, nB, d, 0, 0); }
+  const lists = { artillery: { guns: new Float32Array(g), limbers: [], caissons: [], wagons: [], horses: [], drivers: [] }, works: { crew: [] }, workMesh: null }; crowd.setExtrasSource(() => lists);
+  try {
+    crowd.prepare(c0, ANIM_T); const F = crowd.frameData, u32 = new Uint32Array(F.inst.buffer, F.inst.byteOffset, F.instBytes / 4), want = ds.map(d => edgeRange(Math.hypot(at(d).x - c0.x, at(d).z - c0.z), 350, crowd.lod.band));
+    const first = new Map(); first.set(crowd.ex.carriage.firstIndex, 'carriage'); first.set(crowd.ex.tube.firstIndex, 'tube'); const got = [];
+    for (const d of F.draws) if (first.get(d.first) === 'carriage') for (let q = 0; q < d.n; q++) { const r = d.off / 48 + q; got.push({ x: new Float32Array(u32.buffer, u32.byteOffset + r * 48, 12)[0], P: u32[r * 12 + 11] }); }
+    const drawn = want.filter(w => w >= 0); assert.equal(got.length, drawn.length, `${got.length} guns drawn of ${ds.length}: the one beyond ${350 * 1.075} m is not`); assert.ok(want[want.length - 1] === -1 && want[0] === 0, 'full inside, nothing beyond');
+    assert.deepEqual(got.map(g2 => g2.P), drawn, 'each gun carries the range of its own distance'); assert.ok(got.some(g2 => g2.P > 0), 'at least one gun is inside the band');
+    for (const g2 of got) if (g2.P) { const r = decodeRange(g2.P); assert.equal(r.lo, 0); assert.ok(r.hi > 0 && r.hi < 1); }
+    // hard mode: a step at 350 m, as before
+    crowd.lod.band = 0; crowd.prepare(c0, ANIM_T); const F2 = crowd.frameData, u2 = new Uint32Array(F2.inst.buffer, F2.inst.byteOffset, F2.instBytes / 4); let n2 = 0; for (const d of F2.draws) if (first.get(d.first) === 'carriage') for (let q = 0; q < d.n; q++) { n2++; assert.equal(u2[(d.off / 48 + q) * 12 + 11], 0); } assert.equal(n2, ds.filter(d => d < 350).length, 'hard mode: the guns inside 350 m only, each in full');
+  } finally { crowd.lod.band = 0.075; crowd.setExtrasSource(null); }
 });

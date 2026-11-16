@@ -103,6 +103,11 @@ test('a partial run written over the earlier file recomputes the totals, q17 and
     assert.equal(d3.q17.complete, false); assert.equal(d3.q17.ok, false, 'one realized row is not the Q17 verdict'); assert.equal(d3.q17.ok_strict, false); assert.equal(d3.scope.partial, true); assert.equal(d3.totals.timeline.rows, 1);
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 });
+// the list of mutations the tests are checked with (mutate.mjs): every snippet occurs once in its file, changes it, and leaves a file that parses. Not run inside a scratch copy that the mutation check itself made (there one snippet is gone on purpose).
+test('the list of mutations is applicable: every snippet occurs exactly once, changes its file, and leaves a file that still parses (mutate.mjs --check)', { skip: !!process.env.BT_REALIZE_REAL_ROOT && path.resolve(process.env.BT_REALIZE_REAL_ROOT) !== ROOT }, () => {
+  const out = node(ROOT, ['mutate.mjs', '--check']); assert.equal(out.status, 0, out.stdout + out.stderr); assert.match(out.stdout, /\d+ mutations, 0 not applicable, 0 that leave a file that does not parse/);
+  const n = +/^(\d+) mutations/m.exec(out.stdout)[1]; assert.ok(n >= 200, `the list holds the rules of the harness (${n})`); const ids = readJSON(path.join(ROOT, 'tools/bt/realize/mutations.json')).map(m => m.id); assert.equal(new Set(ids).size, ids.length, 'a mutation id occurs once');
+});
 test('the committed RESULTS.json is consistent with itself: totals and q17 are those of its rows, scenarios and clock are reported (check.mjs)', () => {
   const p = path.join(REAL, 'RESULTS.json'); assert.ok(fs.existsSync(p), 'RESULTS.json is written by the full run'); const d = readJSON(p);
   assert.equal(Object.keys(d.rows).length, 691); assert.equal(Object.keys(d.epilogue).length, 14); assert.deepEqual(d.totals, summarize(d.rows, d.epilogue));

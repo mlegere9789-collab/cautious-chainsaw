@@ -118,17 +118,29 @@ def evidence_ids_of(tu):
     p = tu.get('presence')
     if p and p.get('tier') == 'documented':
         for e in p.get('evidence_ids') or []:
-            out.append(('roster', e, 'documented', []))
+            out.append(('roster', e, 'documented', [], None))
     for c in tu.get('commanders') or []:
         if c.get('tier') == 'documented':
             for e in c.get('evidence_ids') or []:
-                out.append(('commander', e, 'documented', []))
+                out.append(('commander', e, 'documented', [], None))
     for f in ((tu.get('strength') or {}).get('figures') or []):
         if f.get('tier') == 'documented':
             nums = sorted({x for x in (f.get('low'), f.get('high'), f.get('officers'), f.get('enlisted')) if isinstance(x, int) and not isinstance(x, bool) and x > 0})
             for e in f.get('evidence_ids') or []:
-                out.append(('strength', e, 'documented', nums))
+                out.append(('strength', e, 'documented', nums, (f.get('low'), f.get('high'))))
     return out
+
+
+def required_numbers(field, line, fallback):
+    """The numbers of a value that its extract must contain: the kit's own rule (kit_evidence_lib.value_numbers: a total that is the sum of a printed officers-and-men split is derived and exempt)."""
+    v = line.get('value')
+    if field == 'strength' and isinstance(v, dict):
+        try:
+            import kit_evidence_lib as K  # noqa: PLC0415
+            return K.value_numbers('strength', v)
+        except Exception:
+            pass
+    return fallback
 
 
 def _numbers_ok(nums, quote):
@@ -146,8 +158,8 @@ def _numbers_ok(nums, quote):
 
 
 def load_evidence_lines(env, ids, preset=None):
-    """Evidence lines by id: from `preset` (tests) or from kit/evidence/<group>.jsonl. Returns (lines, files read)."""
-    lines, files = dict(preset or {}), []
+    """Evidence lines by id: from `preset` (tests) or from kit/evidence/<group>.jsonl. Returns (lines, files read, sources declared in those files)."""
+    lines, files, declared = dict(preset or {}), [], {}
     need = {i for i in ids if i not in lines}
     for g in sorted({i.split(':')[0] for i in need}):
         fn = os.path.join(env.bt, 'kit', 'evidence', g + '.jsonl')
@@ -163,20 +175,48 @@ def load_evidence_lines(env, ids, preset=None):
                     o = json.loads(ln)
                 except ValueError:
                     continue
+                if o.get('type') == 'source' and o.get('id'):
+                    declared[o['id']] = o
                 if o.get('id') in need:
                     lines[o['id']] = o
-    return lines, files
+    return lines, files, declared
 
 
-def rematch(matcher, line):
-    """Find the extract of one evidence line in the stored source text: status found | not_found | no_text | no_source | bad_quote."""
+_FOLDED = {}
+
+
+def _find_in_file(env, rec, quote):
+    """Find an extract in the stored text of a source of the registry or declared in an evidence file (a `local_path` under the repository)."""
+    lp = rec.get('local_path')
+    if not lp:
+        return {'status': 'no_source'}
+    fn = os.path.join(env.root, *lp.split('/'))
+    if not os.path.isfile(fn):
+        return {'status': 'no_text', 'reason': 'text not on this machine: %s' % lp}
+    if fn not in _FOLDED:
+        from extracts import FoldedText  # noqa: PLC0415
+        with open(fn, encoding='utf-8', errors='replace', newline='') as f:
+            _FOLDED[fn] = FoldedText(fn, f.read())
+    return {'status': 'found' if _FOLDED[fn].find(quote) >= 0 else 'not_found'}
+
+
+def rematch(matcher, line, reg=None, declared=None, env=None):
+    """Find the extract of one evidence line in the stored source text: status found | not_found | no_text | no_source | image_only.
+    An OCR-corrected extract (`quote_mode` ocr_corrected or image_row) was read from the page image: it is not in the stored text by construction, so this runner cannot re-match it (NOT-RUN, never a pass)."""
     q, sid = line.get('quote'), line.get('source_id')
+    if line.get('quote_mode') in ('ocr_corrected', 'image_row'):
+        return {'status': 'image_only', 'reason': 'the extract is an OCR correction checked against the page image, which this runner does not read'}
     if matcher is None:
         return {'status': 'no_text', 'reason': 'no text store'}
     if str(sid or '').startswith('OR27'):
         return matcher.find_or27(q, line.get('report_id'), line.get('printed_page'))
-    if line.get('report_id') and hasattr(matcher, 'find_statevol') and str(line.get('report_id')).count('-') >= 0 and line.get('part') is None:
-        return matcher.find_statevol(q, volume=sid, section=line.get('report_id'))
+    rec = (reg or {}).get(sid) or (declared or {}).get(sid)
+    if rec and env is not None:
+        idx = str(rec.get('index') or '')
+        if idx.startswith('statevol:'):
+            return matcher.find_statevol(q, volume=idx.split(':', 1)[1], section=line.get('report_id'))
+        if rec.get('local_path'):
+            return _find_in_file(env, rec, q)
     return matcher.find(sid, q)
 
 
@@ -223,17 +263,21 @@ def check_table(rec, env, T, matcher, evidence, k1):
         reg = None
     want = []
     for uid, tu in sorted(units.items()):
-        for field, eid, tier, nums in evidence_ids_of(tu):
-            want.append((uid, field, eid, nums))
-    lines, files = load_evidence_lines(env, [w[2] for w in want], evidence)
+        for field, eid, tier, nums, lohi in evidence_ids_of(tu):
+            want.append((uid, field, eid, nums, lohi))
+    lines, files, declared = load_evidence_lines(env, [w[2] for w in want], evidence)
     for fn in files:
         rec.add_input(fn, 'evidence')
-    stat = {'values': len(want), 'matched': 0, 'not_found': [], 'no_text': [], 'no_line': [], 'lead': [], 'long_quote': [], 'number_missing': [], 'no_quote': []}
+    stat = {'values': len(want), 'matched': 0, 'not_found': [], 'no_text': [], 'image_only': [], 'no_line': [], 'lead': [], 'long_quote': [], 'number_missing': [], 'no_quote': [], 'value_mismatch': []}
     seen = {}
-    for uid, field, eid, nums in want:
+    for uid, field, eid, nums, lohi in want:
         ln = lines.get(eid)
         if ln is None:
             stat['no_line'].append('%s %s %s' % (uid, field, eid))
+            continue
+        lv = ln.get('value')
+        if lohi is not None and isinstance(lv, dict) and 'low' in lv and (lv.get('low'), lv.get('high')) != tuple(lohi):
+            stat['value_mismatch'].append('%s %s %s: table %s, evidence line %s' % (uid, field, eid, list(lohi), [lv.get('low'), lv.get('high')]))
             continue
         if src_is_lead(ln.get('source_id'), reg):
             stat['lead'].append('%s %s %s (%s)' % (uid, field, eid, ln.get('source_id')))
@@ -246,24 +290,27 @@ def check_table(rec, env, T, matcher, evidence, k1):
             stat['long_quote'].append('%s %s %s' % (uid, field, eid))
             continue
         if eid not in seen:
-            seen[eid] = rematch(matcher, ln)
+            seen[eid] = rematch(matcher, ln, reg, declared, env)
         r = seen[eid]
         st = r.get('status')
         if st == 'found':
-            ok, miss = _numbers_ok(nums, q)
+            ok, miss = _numbers_ok(required_numbers(field, ln, nums), q)
             if not ok:
                 stat['number_missing'].append('%s %s %s: %s not in the extract' % (uid, field, eid, miss))
             else:
                 stat['matched'] += 1
         elif st == 'no_text':
             stat['no_text'].append('%s %s %s' % (uid, field, eid))
+        elif st == 'image_only':
+            stat['image_only'].append('%s %s %s' % (uid, field, eid))
         else:
             stat['not_found'].append('%s %s %s (%s)' % (uid, field, eid, st))
-    problems = [k for k in ('not_found', 'no_line', 'lead', 'long_quote', 'number_missing', 'no_quote') if stat[k]]
+    problems = [k for k in ('not_found', 'no_line', 'lead', 'long_quote', 'number_missing', 'no_quote', 'value_mismatch') if stat[k]]
     conds.append(cond('every documented value: its evidence line exists, its source is not a lead, its extract is under 15 words, it is found in the stored source text in this run and every number of the value is in it',
-                      not problems and not stat['no_text'] and stat['values'] > 0,
+                      not problems and not stat['no_text'] and not stat['image_only'] and stat['values'] > 0,
                       ('; '.join('%s %d (%s)' % (k.replace('_', ' '), len(stat[k]), '; '.join(stat[k][:2])) for k in problems) or ('source text not on this machine for %d value(s)' % len(stat['no_text']) if stat['no_text'] else
-                       ('no documented value to re-match' if not stat['values'] else None))), **{k: len(v) if isinstance(v, list) else v for k, v in stat.items()}))
+                       ('%d extract(s) are OCR corrections checked against the page image, which this runner does not read' % len(stat['image_only']) if stat['image_only'] else ('no documented value to re-match' if not stat['values'] else None)))),
+                      **{k: len(v) if isinstance(v, list) else v for k, v in stat.items()}))
     failed = [c for c in conds if not c['ok']]
     ev = {'conditions': conds, 'units': len(units), 'by_status': {s: sum(1 for t in units.values() if t.get('status') == s) for s in sorted({t.get('status') for t in units.values()} - {None})},
           'in_roster': sum(1 for t in units.values() if t.get('in_roster')), 'table_only': sum(1 for t in units.values() if not t.get('in_roster')), 'rematch': {k: (v if not isinstance(v, list) else v[:8]) for k, v in stat.items()},
@@ -271,12 +318,12 @@ def check_table(rec, env, T, matcher, evidence, k1):
     id_ = 'Q01/Q01.1/table/default'
     if not units or T.get('schema') not in SCHEMAS:
         rec.item(id_, 'BLOCKED-INPUT', 'input missing: an eligible verified OOB table (%s)' % '; '.join(first_failed(conds[:2])), ev, check='Q01.1', scenario='default')
-    elif any(c['name'].startswith('every documented value') and not c['ok'] for c in conds) and not problems and stat['no_text']:
+    elif any(c['name'].startswith('every documented value') and not c['ok'] for c in conds) and not problems and (stat['no_text'] or stat['image_only']):
         others = [c for c in failed if not c['name'].startswith('every documented value')]
         if others:
             rec.item(id_, 'FAIL', 'the table is not fit: ' + '; '.join(first_failed(others)), ev, check='Q01.1', scenario='default')
         else:
-            rec.item(id_, 'NOT-RUN', 'the extracts of %d documented value(s) cannot be re-matched here: the source text is not on this machine (the table is not shown to be verified)' % len(stat['no_text']), ev, check='Q01.1', scenario='default')
+            rec.item(id_, 'NOT-RUN', 'the extracts of %d documented value(s) cannot be re-matched here (%d: source text not on this machine; %d: OCR corrections read from the page image): the table is not shown to be verified' % (len(stat['no_text']) + len(stat['image_only']), len(stat['no_text']), len(stat['image_only'])), ev, check='Q01.1', scenario='default')
     elif failed:
         rec.item(id_, 'FAIL', 'the table is not fit: ' + '; '.join(first_failed(failed)), ev, check='Q01.1', scenario='default')
     else:
@@ -396,10 +443,13 @@ def q013_strength(rec, ctx, L, T):
         matching = pick_ranges(u, t)
         cands = matching or rs
         inside = [k for k, r in cands.items() if r['low'] <= pt <= r['high']] if lo is None else [k for k, r in cands.items() if r['low'] <= lo and hi <= r['high']]
+        drawn_n = u['strength'].get('drawn') or 0
         wide = [k for k, r in cands.items() if r['low'] < r['high']]
         carried = [k for k, r in matching.items() if lo == r['low'] and hi == r['high']]
         conds = [cond('same basis: the layer names the basis key or cites a source of the table row', bool(matching), None if matching else 'the layer record (basis_key %r, sources %s) names no basis or source of the table row (%s)' % (u['strength'].get('basis_key'), u['strength'].get('sources'), ', '.join(sorted(rs)))),
                  cond('the layer figure lies in a verified range', bool(inside), '%s not in %s' % (pt if lo is None else [lo, hi], {k: [r['low'], r['high']] for k, r in cands.items()}))]
+        if lo is not None and u['drawn'] and drawn_n:
+            conds.append(cond('the figures drawn lie inside the range the layer carries', lo <= drawn_n <= hi, '%s drawn, the layer carries %s' % (drawn_n, [lo, hi]) if not (lo <= drawn_n <= hi) else None))
         if matching:
             k0 = [k for k in matching if matching[k]['low'] < matching[k]['high']]
             if k0:
@@ -536,27 +586,56 @@ def q015_presence(rec, ctx, L, T):
             mk(rec, ctx, 'Q01.5', uid, 'default', 'PASS', 'arrivals record with window, place, route and sources' if u['status'] not in OFF_FIELD else 'a not-on-the-field record; not drawn', ev)
 
 
+def one_to_one_conditions(v):
+    exp = v['expected_drawn']
+    conds = [cond('rendered instances equal the present strength', v['rendered_when_present'] == exp, 'rendered %s, strength %s' % (v['rendered_when_present'], exp)),
+             cond('an undrawn unit has no instance', v['drawn_flag'] or (v['world_count'] == 0 and v['crew_groups'] == 0), 'world count %s' % v['world_count']),
+             cond('at every grid time evaluated the rendered count equals the present strength', not v['violations'] and not v.get('n_violations'), json.dumps(v['violations'][:2]) if v['violations'] else None, n=v.get('n_violations', len(v['violations'])))]
+    ev_iv, st_iv = v.get('event_intervals') or [], v.get('present_intervals') or []
+    if exp and ev_iv:
+        inside = bool(st_iv) and st_iv[0][0] <= ev_iv[0][0] and (st_iv[0][1] is None or (ev_iv[0][1] is not None and st_iv[0][1] >= ev_iv[0][1]))
+        conds.append(cond('the stage window contains the interval the layer events print (the unit is never hidden while the layer has it on the field)', inside, 'stage window %s, events %s' % (st_iv, ev_iv)))
+    ev = {'conditions': conds, 'expected': exp, 'world_count': v['world_count'], 'crew_groups': v['crew_groups'], 'rendered_when_present': v['rendered_when_present'], 'violations': v['violations'][:5]}
+    return conds, ev
+
+
 def q016_onetoone(rec, ctx, L, T):
     oo = L.get('onetoone') or {}
     scs = oo.get('scenarios') or {}
     for sid in sorted(scs):
         units = scs[sid].get('units') or {}
+        if sid != 'default':
+            # an exhaustive scan of every unit in one scenario: one item whose evidence lists every failing member (GATE-SPEC 1.1, K10)
+            bad, n = [], 0
+            for u in sorted(L['units'], key=lambda x: x['id']):
+                v = units.get(u['id'])
+                n += 1
+                if v is None:
+                    bad.append({'unit': u['id'], 'why': 'the node child reported nothing for this unit'})
+                    continue
+                conds, ev = one_to_one_conditions(v)
+                if first_failed(conds):
+                    bad.append({'unit': u['id'], 'why': '; '.join(first_failed(conds))[:300], 'violations': v['violations'][:2]})
+            ev = {'units_checked': n, 'failing': bad, 'grid_times': scs[sid].get('times')}
+            iid = 'units-scan/%s' % sid
+            if bad:
+                rec.item('Q01/Q01.6/%s/%s' % (iid, sid), 'FAIL', 'one-to-one in scenario %s: %d of %d units differ (%s)' % (sid, len(bad), n, ', '.join(b['unit'] for b in bad[:3])), dict(ev, layer_only_result='FAIL'), check='Q01.6', scenario=sid,
+                         subjects=sorted(b['unit'] for b in bad), sub_requirements=ctx['rows'])
+            elif T is None:
+                rec.item('Q01/Q01.6/%s/%s' % (iid, sid), 'BLOCKED-INPUT', MISSING + ' (layer-only finding: all %d units equal their strength in scenario %s)' % (n, sid), dict(ev, layer_only_result='PASS', missing=TABLE_REL), check='Q01.6', scenario=sid,
+                         subjects=['all-units'], sub_requirements=ctx['rows'])
+            else:
+                rec.item('Q01/Q01.6/%s/%s' % (iid, sid), 'PASS', 'every one of the %d units: rendered instances equal the present strength at every time evaluated in scenario %s' % (n, sid), ev, check='Q01.6', scenario=sid, subjects=['all-units'], sub_requirements=ctx['rows'])
+            continue
         for u in sorted(L['units'], key=lambda x: x['id']):
             uid = u['id']
             v = units.get(uid)
             if v is None:
                 mk(rec, ctx, 'Q01.6', '%s/%s' % (uid, sid), sid, 'FAIL', 'the node child reported nothing for this unit', {}, unit=uid)
                 continue
+            conds, ev = one_to_one_conditions(v)
             exp = v['expected_drawn']
-            conds = [cond('rendered instances equal the present strength', v['rendered_when_present'] == exp, 'rendered %s, strength %s' % (v['rendered_when_present'], exp)),
-                     cond('an undrawn unit has no instance', v['drawn_flag'] or (v['world_count'] == 0 and v['crew_groups'] == 0), 'world count %s' % v['world_count']),
-                     cond('at every grid time evaluated the rendered count equals the present strength', not v['violations'] and not v.get('n_violations'), json.dumps(v['violations'][:2]) if v['violations'] else None, n=v.get('n_violations', len(v['violations'])))]
-            ev_iv, st_iv = v.get('event_intervals') or [], v.get('present_intervals') or []
-            if exp and ev_iv:
-                inside = bool(st_iv) and st_iv[0][0] <= ev_iv[0][0] and (st_iv[0][1] is None or (ev_iv[0][1] is not None and st_iv[0][1] >= ev_iv[0][1]))
-                conds.append(cond('the stage window contains the interval the layer events print (the unit is never hidden while the layer has it on the field)', inside, 'stage window %s, events %s' % (st_iv, ev_iv)))
             bad = first_failed(conds)
-            ev = {'conditions': conds, 'expected': exp, 'world_count': v['world_count'], 'crew_groups': v['crew_groups'], 'rendered_when_present': v['rendered_when_present'], 'violations': v['violations'][:5]}
             if bad:
                 mk(rec, ctx, 'Q01.6', '%s/%s' % (uid, sid), sid, 'FAIL', 'one-to-one: ' + '; '.join(bad), dict(ev, layer_only_result='FAIL'), unit=uid)
             elif T is None:
@@ -658,7 +737,7 @@ def default_matcher(env):
         return None
 
 
-def run(env, layer=None, table='load', matcher='default', evidence=None, write=True, mutate=None, scenarios='sample', argv=None, k1_classes=None):
+def run(env, layer=None, table='load', matcher='default', evidence=None, write=True, mutate=None, scenarios='sample', argv=None, k1_classes=None, table_path=None):
     rec = Record(GATE, env, renderer_class='mixed', argv=argv)
     rec.tool_versions['node'] = node_version()
     for rel in ('history/units.json', 'history/arrivals.json', 'history/not_on_field.json', 'app/data/placement-claims.json', 'GOVERNANCE/conflicts_structured.json', 'kit/evidence/sources.json',
@@ -668,7 +747,7 @@ def run(env, layer=None, table='load', matcher='default', evidence=None, write=T
         rec.add_input(os.path.join(HERE, fn), 'runner')
     T = None
     if table == 'load':
-        tf = env.btp(TABLE_REL)
+        tf = table_path or env.btp(TABLE_REL)
         try:
             T = rec.read_json(tf, 'table')
         except InputMissing:
@@ -680,7 +759,9 @@ def run(env, layer=None, table='load', matcher='default', evidence=None, write=T
     if matcher == 'default':
         matcher = default_matcher(env) if T is not None else None
     evaluate(rec, env, layer, T, matcher, evidence, k1_classes)
-    rec.extra['table'] = {'path': 'docs/battle-theatre/' + TABLE_REL, 'present': T is not None, 'schema': (T or {}).get('schema'), 'units': len((T or {}).get('units') or {})}
+    rec.extra['table'] = {'path': env.rel(table_path) if table_path else 'docs/battle-theatre/' + TABLE_REL, 'present': T is not None, 'schema': (T or {}).get('schema'), 'units': len((T or {}).get('units') or {}), 'diagnostic_copy': bool(table_path)}
+    if table_path:
+        rec.note('DIAGNOSTIC RUN: the table was read from %s, not from kit/verified_oob.json; this record is not the gate result' % env.rel(table_path))
     out = rec.finish()
     if write:
         rec.write(out)
@@ -691,9 +772,13 @@ def main(argv=None):
     ap = base_parser(__doc__.split('\n')[0])
     ap.add_argument('--scenarios', default='sample', choices=['default', 'sample', 'ofat'], help='scenario set of Q01.6 (default: sample = default and six samples; none of them is S*)')
     ap.add_argument('--mutate', default=None, help='test hook: a module that injects a defect into the real pipeline (see oob_layer_lib.mjs)')
+    ap.add_argument('--table', default=None, help='diagnostic: read the table from this path (for example a scratch build of kit_verified.py); refused when the record would go to GOVERNANCE/gate_results')
     a = ap.parse_args(argv)
     env = Env(root=a.root, out=a.out)
-    rec, out = run(env, write=not a.no_write, mutate=a.mutate, scenarios=a.scenarios, argv=['python3', 'tools/bt/gates/q01_oob.py'] + list(argv if argv is not None else sys.argv[1:]))
+    if a.table and os.path.abspath(env.out) == os.path.abspath(os.path.join(env.gov, 'gate_results')) and not a.no_write:
+        sys.stderr.write('refused: --table is a diagnostic; give --out <scratch folder> or --no-write\n')
+        return 3
+    rec, out = run(env, write=not a.no_write, mutate=a.mutate, scenarios=a.scenarios, table_path=a.table, argv=['python3', 'tools/bt/gates/q01_oob.py'] + list(argv if argv is not None else sys.argv[1:]))
     if not a.quiet:
         c = out['counts']
         print('Q01 verdict %s: %d items, PASS %d, COVERED %d, FAIL %d, NOT-RUN %d, BLOCKED-INPUT %d, N/A %d' % (out['verdict'], out['totals']['items'], c['PASS'], c['COVERED'], c['FAIL'], c['NOT-RUN'], c['BLOCKED-INPUT'], c['N/A']))

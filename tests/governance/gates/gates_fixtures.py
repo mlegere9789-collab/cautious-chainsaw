@@ -89,12 +89,12 @@ def tunit(name, army, level, arm, parent, group='us-1c', in_roster=True, status=
 def oob_table():
     """The verified table that matches layer_dump(): the regiments have OR figures, the corps one verified figure, the brigade none of its own."""
     units = {
-        'us-aop': tunit('Army of the Potomac', 'US', 'army', None, None, group='army-hq', commanders=[('George G. Meade', 'Major General')], strength_ranges={'present_for_duty|officers_and_men': rng(90000, 95000, basis='present_for_duty|officers_and_men')}, uid='us-aop'),
+        'us-aop': tunit('Army of the Potomac', 'US', 'army', None, None, group='army-hq', commanders=[('George G. Meade', 'Major General')], strength_ranges={'present_for_duty|officers_and_men': rng(500, 600, basis='present_for_duty|officers_and_men')}, uid='us-aop'),
         'us-1c': tunit('I Corps', 'US', 'corps', None, 'us-aop', commanders=[('John F. Reynolds', 'Major General')], strength_ranges={'present_for_duty|officers_and_men': rng(12000, 12200, basis='present_for_duty|officers_and_men')}, uid='us-1c'),
         'us-1c-1d-b1': tunit('1st Brigade', 'US', 'brigade', 'infantry', 'us-1c', commanders=[('Samuel J. Williams', 'Colonel')], uid='us-1c-1d-b1'),
         'us-1c-1d-b1-r1': tunit('19th Indiana', 'US', 'regiment', 'infantry', 'us-1c-1d-b1', commanders=[('Samuel J. Williams', 'Colonel')], strength_ranges={'taken_into_action|officers_and_men': rng(280, 320)}, uid='us-1c-1d-b1-r1'),
         'us-1c-1d-b1-r2': tunit('24th Michigan', 'US', 'regiment', 'infantry', 'us-1c-1d-b1', commanders=[('Henry A. Morrow', 'Colonel')], strength_ranges={'taken_into_action|officers_and_men': rng(240, 260)}, uid='us-1c-1d-b1-r2'),
-        'us-1c-1d-b1-r3': tunit('Detached regiment', 'US', 'regiment', 'infantry', 'us-1c-1d-b1', engaged='no', status='partly', uid='us-1c-1d-b1-r3'),
+        'us-1c-1d-b1-r3': tunit('Detached regiment', 'US', 'regiment', 'infantry', 'us-1c-1d-b1', engaged='no', status='partly', uid='us-1c-1d-b1-r3', commanders=[('Alonzo Smith', 'Colonel')]),
     }
     units['us-1c-1d-b1-r3']['fields']['strength'] = 'unverified'
     return {'schema': 'kit-verified-oob-1', '_doc': 'fixture', 'rules': {}, 'inputs': {}, 'totals': {'units': len(units), 'evidence_lines_used': 5, 'rejected_lines': 0, 'verified': 5, 'partly': 1, 'unverified': 0},
@@ -102,12 +102,17 @@ def oob_table():
 
 
 def with_layer_commanders(layer):
-    """Give the fixture layer commanders that equal the fixture table (the regiment commanders the real roster does not hold)."""
+    """The layer as it should look once it adopts the verified table: the regimental commanders the real roster does not hold, and the strengths carried as the table's ranges with their basis key
+    (the real layer holds printed single figures and procedural shares: that is why Q01.3 fails on it)."""
     d = copy.deepcopy(layer)
-    names = {'us-aop': ['MG George G. Meade'], 'us-1c': ['MG John F. Reynolds'], 'us-1c-1d-b1': ['Col. Samuel J. Williams'], 'us-1c-1d-b1-r1': ['Col. Samuel J. Williams'], 'us-1c-1d-b1-r2': ['Col. Henry A. Morrow']}
+    names = {'us-aop': ['MG George G. Meade'], 'us-1c': ['MG John F. Reynolds'], 'us-1c-1d-b1': ['Col. Samuel J. Williams'], 'us-1c-1d-b1-r1': ['Col. Samuel J. Williams'], 'us-1c-1d-b1-r2': ['Col. Henry A. Morrow'], 'us-1c-1d-b1-r3': ['Col. Alonzo Smith']}
+    ranges = {'us-1c': (12000, 12200, 'present_for_duty|officers_and_men'), 'us-1c-1d-b1-r1': (280, 320, 'taken_into_action|officers_and_men'), 'us-1c-1d-b1-r2': (240, 260, 'taken_into_action|officers_and_men')}
     for u in d['units']:
         if u['id'] in names:
             u['commanders'] = names[u['id']]
+        if u['id'] in ranges:
+            lo, hi, key = ranges[u['id']]
+            u['strength'].update({'min': lo, 'max': hi, 'kind': 'ranged', 'basis_key': key, 'basis': 'range from the Official Records, basis ' + key, 'tier': 'documented', 'weak_source': False, 'sources': ['OR27-1-R037']})
     return d
 
 

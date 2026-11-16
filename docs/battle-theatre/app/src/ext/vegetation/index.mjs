@@ -1,7 +1,7 @@
 // The vegetation of July 1863 in the theatre (requirement R20, gate Q21): crop, meadow and stubble fields, woodlots, orchards, thickets and single trees, with the state of each at
 // the minute of the clock (standing, being cut, cut, trampled where the troops the theatre draws walked, trees stripped where the record says so), every part tagged with its tier and
 // the claims that bear on it. The data is data/vegetation.json (tools/bt/vegetation); the state is the pure function of model.mjs; the drawing is gl.mjs (WebGL2 only: on WebGPU the
-// panel says so and nothing is drawn). The panel (More, then Vegetation of July 1863) holds the switches, the three source conflicts as choices, a card for the ground under the
+// panel says so and nothing is drawn). The panel (More, then Vegetation of July 1863) holds the switches, the source conflicts as choices (six), a card for the ground under the
 // cross-hair, a list of places to look at, the tiers and the gaps. ?veg=off keeps the whole module out of a visit.
 import { VegModel, stateAt, checkVegetation, scenarioOption, isoMin, minToIso, TIERS, weakest, SEASON_SPLIT, sceneMinute } from './model.mjs';
 import { buildDecals, buildTrees, LAYER } from './mesh.mjs';
