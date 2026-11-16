@@ -1,4 +1,4 @@
-# EG-LIFE-0103: Culp's Hill works (E-02): which regiment began first, and at what hour
+# EG-LIFE-0103: Culp's Hill works (E-02, and its schedule row S-014): which regiment began first, and at what hour
 
 | Field | Content |
 |---|---|

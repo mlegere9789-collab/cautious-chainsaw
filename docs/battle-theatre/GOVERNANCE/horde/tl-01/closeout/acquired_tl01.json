@@ -1,5 +1,5 @@
 {
- "_doc": "Files fetched for the close-out of timeline shard tl-01. archive.org only, one request at a time, no login. Raw files live under tmp/tl-01/dl (untracked). Fourth start (2026-11-15): the items \"ca-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at most one per second); the crops are regenerated from the url; the files under tmp/tl-01/crops are untracked scratch.",
+ "_doc": "Files fetched for the close-out of timeline shard tl-01. archive.org only, one request at a time, no login. Raw files live under tmp/tl-01/dl (untracked). Fourth start (2026-11-15): the items \"ca-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at most one per second); the crops are regenerated from the url; the files under tmp/tl-01/crops are untracked scratch. Fourth start, later the same day: the items cu31924028852619 and greatinvasionof102hoke are the whole-book PDFs of the two books added to the builder (extra_sources.py); only the pages listed under pages_viewed were rendered and looked at; the PDFs are untracked scratch under tmp/tl-01/dl/books2.",
  "items": [
   {
    "archive_identifier": "gettysburg-compiler-1863-06-29",
@@ -289,6 +289,28 @@
    "local_path": "tmp/tl-01/crops/ca-spy-0708-gregg.jpg",
    "pages_viewed": "viewed",
    "purpose": "Worcester Daily Spy, Jul 8 1863, page 1: \"A dispatch from Gen. Gregg, at Caledonia iron works, fourteen miles west of Gettysburg, at 4 A. M. to-day\" (row T1-005)"
+  },
+  {
+   "archive_identifier": "cu31924028852619",
+   "file": "cu31924028852619.pdf",
+   "url": "https://archive.org/cors/cu31924028852619/cu31924028852619.pdf",
+   "bytes": 79955174,
+   "sha256": "f54377d5c9424215ba07c27b7d87920a28a36ae166f7f029d7a4015b8d0a0bfb",
+   "fetched_at": "2026-11-15",
+   "local_path": "tmp/tl-01/dl/books2/cu31924028852619.pdf",
+   "pages_viewed": "PDF pages 907-910 = printed pages 153-156 of the Adams County part (here PDF page = printed page + 754), rendered at 80 dpi with pdftoppm and viewed",
+   "purpose": "History of Cumberland and Adams Counties, Pennsylvania (Warner, Beers and Co., 1886): page images of the pages cited for rows T1-007, 009, 010, 014, 017, 018, 020, 045, to check the digits read in the text layer (735 men, 200 strong, the requisition list, 3 o'clock, half past ten); the text layer of the same book (tmp/library/town/HISTORY-ADAMS-1886) stays the searched text"
+  },
+  {
+   "archive_identifier": "greatinvasionof102hoke",
+   "file": "greatinvasionof102hoke.pdf",
+   "url": "https://archive.org/cors/greatinvasionof102hoke/greatinvasionof102hoke.pdf",
+   "bytes": 36118022,
+   "sha256": "6775b15c23282d445fa4d36591af2bdf2667042262fb3b92654dba08a653cfa8",
+   "fetched_at": "2026-11-15",
+   "local_path": "tmp/tl-01/dl/books2/greatinvasionof102hoke.pdf",
+   "pages_viewed": "printed pages 169-171 (PDF 171-173), 183 (PDF 185), 217 (PDF 219), 232-233 (PDF 234-235), 251-252 (PDF 257-258), 559 (PDF 567), rendered at 80 dpi with pdftoppm and viewed; the offset between PDF page and printed page is not constant (+2 at pp.169-233, +6 at pp.247-252, +8 at pp.553-559, unnumbered plate pages lie between)",
+   "purpose": "J. Hoke, The Great Invasion of 1863 (Dayton, Ohio 1887): page images of the pages cited for rows T1-005, 014, 020, 040, 043, 045, 047, to check the digits and words read in the text layer (dates, the requisition list, hours); the text layer of the same book (tmp/library/town/HOKE-1887) stays the searched text"
   }
  ],
  "lookups_failed_or_blocked": [
@@ -301,6 +323,11 @@
    "what": "Reprint of the Jacobs weather readings in the Gettysburg Compiler, July-August 1885",
    "where": "archive.org djvu text of the eight issues 1885-07-07 to 1885-08-25 (gettysburg-compiler-1885-MM-DD), searched for meteorolog, thermomet, Jacobs",
    "result": "no article found (hits are advertisements and 1885 weather notes). Recorded as a failed lookup; the eight scratch texts were deleted after the search."
+  },
+  {
+   "what": "Page images of the two books (HISTORY-ADAMS-1886, HOKE-1887) through the archive.org page-image path, to check the digits read in the text layer",
+   "where": "https://archive.org/download/<identifier>/page/n<k>.jpg (one request)",
+   "result": "refused by the network proxy with HTTP 403; not retried and not worked around. The two whole-book PDFs were then fetched through the https://archive.org/cors/<identifier>/<file> path (one request each, see the two items above) and the cited pages were rendered locally."
   }
  ]
 }

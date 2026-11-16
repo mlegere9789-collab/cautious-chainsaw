@@ -11,7 +11,7 @@ import fs from 'node:fs'; import path from 'node:path';
 import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
 import { serve } from '../tools/serve.mjs';
 import { encodePng, chromeArgs, HOOKS } from './weather3d-gpu-lib.mjs';
-import { LOD_Q, packRange, fadeBand, figureScale, dabShare } from '../src/crowd/lod.mjs';
+import { LOD_Q, packRange, fadeBand, figureScale, dabShare, dabFootprint } from '../src/crowd/lod.mjs';
 
 const args = process.argv.slice(2), outRoot = path.resolve(args[0] || '.'), which = args[1] || 'both', APIS = which === 'both' ? ['webgl2', 'webgpu'] : [which];
 const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).toFixed(0).padStart(5) + 's', ...a);
@@ -62,21 +62,25 @@ async function runApi(api) {
     }
     // ---- hard mode: a step at 0.995 r2 (the earlier behaviour)
     for (const [r2, want] of [[dist * 1.01, 0], [dist * 0.99, 1]]) { const r = await shot('imp-hard-' + r2.toFixed(1), { dist: D, fovDeg: FOV, draws: [], imp: { r2, band: 0, hyst: 0 } }), m = drawn(r) / full; check(`hard mode: r2 ${r2.toFixed(1)} against the distance ${dist.toFixed(1)}: ${want ? 'drawn' : 'hidden'}`, near(m, want, 0.03), { measured: +m.toFixed(4) }); }
-    // ---- the dab: the same impostor seen 5, 7 and 9 pixels high (the field of view sets the height) from 400 m, over twelve sub-pixel offsets of the camera (the figure is a few dozen pixels)
+    // ---- the dab: the same impostor seen 5, 7 and 9 pixels high (the field of view sets the height) from 400 m, over sixteen sub-pixel offsets of the camera (the figure is a few dozen pixels). The shader keeps the baked view with the
+    // share 1 - dm and the flat dab with the share dm inside the dab's footprint (a strip that narrows from the whole quad at 3 px to the silhouette at 7 px: LOD_DAB); a dab fragment outside the footprint is not drawn. The counts are taken
+    // against the pixels of the whole quad (the hard-mode picture of the same shot, which fills it).
     const QH = 64 / 32 * 0.93, DD = 400, fovFor = hpx => 2 * Math.atan(QH * 90 / (hpx * DD)) * 180 / Math.PI, cx = 160, cy = 90, win = [];
     for (let y = cy - 12; y <= cy + 12; y++) for (let x = cx - 12; x <= cx + 12; x++) win.push(y * 320 + x);
-    const impAt = (hpx, s) => shot(`dab-${hpx}-${s}`, { dist: DD, fovDeg: fovFor(hpx), dx: s * 0.05, draws: [], imp: { r2: 1, band: 0.075, hyst: 0.1 } });
+    const impAt = (hpx, s, band = 0.075) => shot(`dab-${hpx}-${band ? '' : 'hard-'}${s}`, { dist: DD, fovDeg: fovFor(hpx), dx: s * 0.05, draws: [], imp: { r2: 1, band, hyst: band ? 0.1 : 0 } });
     const bgAt = hpx => shot(`dab-bg-${hpx}`, { dist: DD, fovDeg: fovFor(hpx), draws: [] });
     const region = async hpx => { const b = await bgAt(hpx), r = await impAt(hpx, 0), pts = win.filter(i => l1(px(r, i), px(b, i)) > 60); return { b, r, pts }; };
     const tex = await region(20), dabr = await region(5), meanOf = (r, pts) => { const s = [0, 0, 0]; for (const i of pts) { const p = px(r, i); s[0] += p[0]; s[1] += p[1]; s[2] += p[2]; } return s.map(v => v / Math.max(1, pts.length)); };
-    const ys = dabr.pts.map(i => (i / 320) | 0), ymid = (Math.min(...ys) + Math.max(...ys)) / 2, top = dabr.pts.filter(i => ((i / 320) | 0) < ymid), bot = dabr.pts.filter(i => ((i / 320) | 0) >= ymid);
-    const texRef = meanOf(tex.r, tex.pts), dabTop = meanOf(dabr.r, top), dabBot = meanOf(dabr.r, bot);
-    check('the baked view and the two dab colours can be told apart', l1(texRef, dabTop) > 100 && l1(texRef, dabBot) > 100 && tex.pts.length > 40 && dabr.pts.length > 10, { texRef, dabTop, dabBot, texPixels: tex.pts.length, dabPixels: dabr.pts.length });
+    const hardDab = await impAt(5, 0, 0), hpts = win.filter(i => l1(px(hardDab, i), px(dabr.b, i)) > 60), ys = hpts.map(i => (i / 320) | 0), ymid = (Math.min(...ys) + Math.max(...ys)) / 2, top = hpts.filter(i => ((i / 320) | 0) < ymid), bot = hpts.filter(i => ((i / 320) | 0) >= ymid);
+    const texRef = meanOf(tex.r, tex.pts), dabTop = meanOf(hardDab, top), dabBot = meanOf(hardDab, bot);
+    check('the baked view and the two dab colours can be told apart', l1(texRef, dabTop) > 100 && l1(texRef, dabBot) > 100 && tex.pts.length > 40 && hpts.length > 10, { texRef, dabTop, dabBot, texPixels: tex.pts.length, dabPixels: hpts.length });
     sum.numbers.dab = [];
     for (const hpx of [5, 7, 9]) {
-      let nDab = 0, nTex = 0; for (let s = 0; s < 12; s++) { const r = await impAt(hpx, s); for (const i of win) { const p = px(r, i), cand = [l1(p, texRef), l1(p, dabTop), l1(p, dabBot)]; let k = 0; for (let q = 1; q < 3; q++) if (cand[q] < cand[k]) k = q; if (cand[k] > 45) continue; if (k === 0) nTex++; else nDab++; } }
-      const measured = nDab / Math.max(1, nDab + nTex), want = dabShare(hpx, fig0, 0.075, 7); sum.numbers.dab.push({ hpx, measured, expected: want, pixels: nDab + nTex });
-      check(`dab at ${hpx} px: ${(want * 100).toFixed(0)} percent of the impostor is the flat dab`, near(measured, want, 0.2) && (nDab + nTex) > 100, { measured: +measured.toFixed(3), expected: +want.toFixed(3), pixels: nDab + nTex });
+      let nDab = 0, nTex = 0, nQuad = 0; const b = await bgAt(hpx);
+      for (let s = 0; s < 16; s++) { const r = await impAt(hpx, s), ref = await impAt(hpx, s, 0); for (const i of win) { if (l1(px(ref, i), px(b, i)) > 60) nQuad++; const p = px(r, i), cand = [l1(p, texRef), l1(p, dabTop), l1(p, dabBot)]; let k = 0; for (let q = 1; q < 3; q++) if (cand[q] < cand[k]) k = q; if (cand[k] > 45) continue; if (k === 0) nTex++; else nDab++; } }
+      const dm = dabShare(hpx, fig0, 0.075, 7), ft = dabFootprint(hpx * fig0, 0.075, 7), foot = ft.w * (1 - ft.top - ft.bottom), mDab = nDab / Math.max(1, nQuad), mTex = nTex / Math.max(1, nQuad), wDab = foot * dm, wTex = 1 - dm;
+      sum.numbers.dab.push({ hpx, dabShare: dm, footprint: foot, measuredDab: mDab, expectedDab: wDab, measuredTex: mTex, expectedTex: wTex, quadPixels: nQuad });
+      check(`dab at ${hpx} px: the flat dab covers ${(wDab * 100).toFixed(0)} percent of the quad's pixels (share ${(dm * 100).toFixed(0)} percent of a footprint of ${(foot * 100).toFixed(0)} percent), the baked view ${(wTex * 100).toFixed(0)} percent`, near(mDab, wDab, 0.1) && near(mTex, wTex, 0.12) && nQuad > 300, { measuredDab: +mDab.toFixed(3), expectedDab: +wDab.toFixed(3), measuredTex: +mTex.toFixed(3), expectedTex: +wTex.toFixed(3), quadPixels: nQuad });
     }
     // ---- the eight baked views: between two the fragment takes the next view with the share fract(yn) (a fresh backend whose atlas has a colour of its own for each view)
     await page.evaluate(() => window.LAB.useAtlas('views')); const hd = await page.evaluate(() => window.LAB.heading()), vref = [], VD = 60, VFOV = 6;

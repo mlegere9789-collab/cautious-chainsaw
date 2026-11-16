@@ -17,5 +17,9 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | Keep the sector scenarios? (delegated decisions DD-F2-06 and DD-F2-07 propose them) |
 | Agent recommendation | Yes; never take profiles from modern rebuilt walls. |
-| Status | open (re-checked 2026-11-14; replaces the 2026-11-13 text) (register EG-0089 carries the earlier text) |
+| Status | open (re-checked 2026-11-14; replaces the 2026-11-13 text) (register EG-0089 carries the earlier text); third reading 2026-11-15/16, see the addendum |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Round 3 addendum (third reading, 2026-11-15/16)
+
+S-023: the NPS web page "Culp's Hill" (www.nps.gov, updated 2022-01-20, saved 2026-11-13) says "At mid-morning on July 2, elements of the Twelfth Corps arrived to reinforce the hill, including the 1,400 man brigade of George S. Greene" and quotes Greene's "As soon as we were in position, we began to intrench ourselves and throw up breastworks": a conflicting secondary start value against 05:00 (Geary), about 06:00 (Greene, Godard, von Hammerstein) and about 04:00 (Barnum); carried as a selectable value, not chosen. The NPS summary of the earthen works (Record of Treatment vol. I, printed p.57) says that "in a few areas such as Culp's Hill, elaborate defense works consisted of log cribs filled with stone and earth, built to five feet in height" (a modern summary; the text layer reads "fve" for five, the page image was not checked). S-050: the same web page gives "before sunrise on July 3" and "after six hours of fighting" as a secondary duration value for the whole fight (not for the bombardment). No change to the sector windows, finish values or wall distances above.

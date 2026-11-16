@@ -1,4 +1,4 @@
-# Main site: status of the master plan, 2026-11-15
+# Main site: status of the master plan, 2026-11-16
 
 Merged from `items-A.json` (chapters 01 to 08b, 522 items) and `items-B.json` (chapters 09 to 16, 586 items) by `python3 docs/plan/STATUS/merge_status.py`; the work list is `backlog.json` (one entry per open item) and the rules for candidates are in `candidates/r1h/README.md`. Nothing in this file is a claim about the live site: **nothing is deployed** (ops/RELEASE-LOG.md has no deploy row, production still serves deploy 6abd6d62); every SHIPPED item is in the release candidate, train R1g (release id 52cec836), only.
 
@@ -53,6 +53,12 @@ Ground facts (from the two surveys; run results quoted there are in their `groun
   - Run: node --test src/config/tokens.test.mjs src/foundation.test.mjs through the machine lock (23 of 23, Node 22.23.4); node tools/environment/validate.mjs and node tools/ledger/validate.mjs (0 errors, 0 warnings each); npm run time:check and npm run data:check (exit 0, about 10 s of CPU each); python3 docs/plan/STATUS/check_backlog_selftest.py (exit 0); the live site read twice (version.json answers 404, the index names the baseline bundle: nothing is published). release/verify-all.json, written by the release workstream at 22:55 UTC, has failures [] for all eight trains.
   - Changes of this pass: VER-PAGESMAPS closed (the cold-cache repeat with T0_CHROME set is green); WP-PAGE-20, WP-PAGE-23 and WP-PAGEC-05 re-graded from SHIPPED to OPEN_BUILDABLE and WP-PAGEC-07 to BUILT_NOT_SHIPPED after a read of the plan text against release/R1g/dist; PROV-R1E-OOB, PROV-R1F-F7 and PROV-R1F-PK6 added for open lines of the provisional decision files (rows A72 and A73); row A74 corrects the hold of A35 on the index.html meta description; the entries of backlog.json go from 715 to 720; PROV-R1E-OOB and WP-PAGEC-07 get an area override.
   - Not run by this pass: any browser suite, Lighthouse, any real device, the eight acceptance passes, the node suites of tests/time, tests/data and tests/historian (the first two were queued behind the machine lock and cancelled before they started; nothing under their code changed since 2026-11-13).
+- **2026-11-16 (merge pass 3, from 23:35 UTC on 2026-11-15)**
+  - Read-only checks (a few seconds of CPU each, no browser, nothing through the machine lock): merge_status.py --check, check_backlog.py and verify_merge.py held before any change (720 entries, 103 done, 113 delegated rows); wp-arch-09 re-checked: node --test src/config/tokens.test.mjs src/foundation.test.mjs gives 23 of 23 under Node 22.23.4 and under 24.22.1, and git shows no change under src, tests/time, tools/time or data-src/time since the commit before its record was written (ab91396d against the working tree), so the recorded run of tests/time (638 of 638, 495 s in shared mode) still describes the same inputs; it was not repeated. ver-hist-node stays open: no suite-node22.log or suite-node24.log exists and run-suites.out is empty (its queued job was lost in the restart of 22:51 UTC); at 23:53 UTC two timing jobs of the release workstream waited ahead of any new one (load average 22), so the paired run starts when the lock allows.
+  - The premises of the 30-entry batch were re-measured on release/R1g/dist and the tree, entry by entry: copy_lint REALTIME 12 and TICK 9 on pages, AIPERSONA 4, ALIAS 1, ABSENCE 2; manifest.json (no lang, start_url "/", no shortcuts, three retired claims); the og:description of the 10 differing pages; the one anchor of audit-h5 (count 1); 404.html, embed.html (3 fetches, parts of 13,743 to 15,915 bytes), cinematic-export.html, historian.html, watch-together.html (Math.random, no cap, 5-letter text); the 4, 60, 1 and 11 authoring keys and the one video-channel string of the data; TM-V3, TM-V4, TM-V5 (10 groups), TM-V13, TM-V19 and TM-V20 of npm run time:check; S005 106, G004 35, N008 and H001 deferred in tools/data/validate.mjs; M001 612 and L001 18; the embedded datasets of the bundle through extractEmbeddedDatasets; every file named under reads exists.
+  - Corrections to the authored text of the batch (each was an inexact statement, found by those measurements): wp-page-18 and wp-pagec-12 named patch ids as if they were markers in the pages (they are ids of groups PG-core and PG-maps; the acceptance now names the text the patches leave); wp-data-16 (the bundle has 8 timeline markers, 20 story markers, 16 tour stops, 16 narrated stops and no tutorial step; the first-shot marker is at tick 12 in the bundle and 17 in moments.json); wp-data-15a (the bundle keys are lon and src); wp-data-05b (the 19 .flag reads of the bundle are the unit-flag glyph, not the chronology key); wp-arch-06 (the data files alone give 27 unit ids at tick 1, the plan says 71); wp-hist-36 (registry links sit under links[].url); wp-time-06 (the retired figures include "430000" and the one record_count of 4,890 against 66 rows); wp-time-08 (the t530 words stand in two disclaimer notes, and both Alexander notes occur verbatim in the local ws9 text of his memoir, so the lookup is expected to end "found" and the group adds the printed page and source key).
+  - Changes to the backlog: wp-hist-22-units now waits for the new entry ver-hist-corpus (its verbatim checks need the Official Records text that only the corpus build writes, and that text is not in this container; the three tmp/library/or27 copies are other scans); ver-hist-corpus (the former verification-record entry of VER-HIST-CORPUS) is now an authored source-rebuild entry of wave 2 that waits for ver-hist-node; wp-page-20 (Search hotfix, re-graded in pass 5) is authored as a wave-2 entry and owns search.html, so wp-content-01b no longer touches it; wave 2 holds 3 entries; the batch has 30 entries again (28 of wave 1, wp-page-20, wp-arch-10-toolchain); rows C15 and C16 appended to docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md.
+  - Not run by this pass: any browser suite, Lighthouse, any real device, the eight acceptance passes, node --test tests/time/*.test.mjs, tests/data and tests/historian in full, the paired Node 22 and Node 24 run of ver-hist-node, and every build of an entry of the batch (none has started: candidates/r1h holds only wp-arch-09 as done and the partial ver-hist-node).
 
 ## By chapter
 
@@ -86,8 +92,8 @@ Chapters 08a and 08b are the two halves of the sub-page chapter (08a Tier-1 page
 | Route | Entries | Open |
 |---|---:|---:|
 | candidate patch group (candidates/r1h/<id>/) | 234 | 234 |
-| source-rebuild (src/, historian-src/, data-src/) | 149 | 148 |
-| verification record (evidence, not a change) | 40 | 40 |
+| source-rebuild (src/, historian-src/, data-src/) | 150 | 149 |
+| verification record (evidence, not a change) | 39 | 39 |
 | request to the release workstream | 8 | 8 |
 | closes with its children | 187 | 187 |
 | decision record | 102 | 0 |
@@ -125,10 +131,10 @@ The first 30 entries in order that have an authored acceptance, are not done, wa
 | 23 | `wp-hist-36` | source-rebuild | S | 1 | tools/historian/ops: corpus-integrity (sha256 of manifest sources and 3 local OR27 copies; absent raw files exit 3, never ok; flipped byte exits 1) and monthly-links (dry-run list; --run max 1 req/s/host, blocked hosts never retried, dated log line); tests use a local server. |
 | 24 | `wp-data-04a` | source-rebuild | S | 1 | rights_audit.mjs --data-dir/--csv/--md: audit the data that R1g ships (row per data file and bundle dataset, closed action set, diff against the legacy audit listed, nothing applied); defaults unchanged so data:check still reproduces the old outputs byte for byte. |
 | 25 | `wp-dec-12` | candidate-group | S | 1 | Candidate docs/BROWSERS.md, browserslist, tools/es-check.mjs (acorn over every dist .js, seeded newer syntax = red) and a WebGL2 gate stub; floor numbers from the register only; passes on release/R1g/dist assets; nothing ships. |
-| 26 | `wp-content-01b` | candidate-group | S | 1 | Group removing "search-and-answer assistant" (index.html, site-nav.js), the alias stub's database wording (alias_for kept) and two absence-as-fact strings; copy_lint AIPERSONA,ALIAS,ABSENCE = 0 on touched files (R1g: 4/1/2); historian.html left to wp-hist-01b; no title or meta change. |
+| 26 | `wp-content-01b` | candidate-group | S | 1 | Group removing "search-and-answer assistant" (index.html, site-nav.js), the alias stub's database wording (alias_for kept) and find-ancestor's absence-as-fact string; copy_lint AIPERSONA,ALIAS,ABSENCE = 0 on touched files; no title or meta change; historian, search pages: other entries. |
 | 27 | `wp-time-08` | candidate-group | S | 1 | Research record + data check: the two Alexander quotations at ticks 521 and 524 are not OR27 text but occur verbatim in the local ws9 memoir (1907); record each with its match and page, patch only what the matcher does not confirm; the t530 words stand only in two disclaimers. |
-| 28 | `wp-hist-22-units` | source-rebuild | M | 1 | historian-src/export/units.mjs: one units/<slug>.json per unit with <=3 excerpts of <=120 words, each verbatim from a cited corpus report with citation, scan address, licence id, reviewer null; no file for the alias stub; deterministic; schema, verbatim and tier checks. Units slice only. |
-| 29 | `wp-pagec-12` | candidate-group | S | 1 | Group on ar.html with a node:vm test and fake media/orientation/geolocation: motion permission requested first; after any denial no live track and clearWatch called; Exit stops both; distinct role=alert message per error code; page stays noindex and hidden. Red on R1g. |
+| 28 | `wp-pagec-12` | candidate-group | S | 1 | Group on ar.html with a node:vm test and fake media/orientation/geolocation: motion permission requested first; after any denial no live track and clearWatch called; Exit stops both; distinct role=alert message per error code; page stays noindex and hidden. Red on R1g. |
+| 29 | `wp-page-20` | candidate-group | S | 2 | Group on search.html, node:vm test on real data: no subsequence tier ("lincoln" empty), alias_for skipped ("14th brooklyn" = U-84NY), meta without "Commander unrecorded" or a dangling separator, escaped output, aria-pressed chips in a group, labelled search box, no autofocus on touch |
 | 30 | `wp-arch-10-toolchain` | source-rebuild | M | 2 | Toolchain half of WP-ARCH-09: exact pins (React 18.3.1, zustand 5, mapbox-gl 3.24.1, TS 5.9.x, Vite 8, ESLint stack, stylelint, knip, size-limit, es-check); lint and style rules each proved red/green by fixtures; one-day Vite smoke; proved in a scratch install, root edits by request note. |
 
 ### Wave 1: the first dispatch batch (30 entries, 1 done)
@@ -163,18 +169,21 @@ Authored against the repository; pairwise independent (disjoint write sets, no d
 | 24 | `wp-hist-36` | source-rebuild | S | open | Nothing re-checks the Historian corpus or its source links after the build; a silent change would go unseen. | tools/historian/ops: corpus-integrity (sha256 of manifest sources and 3 local OR27 copies; absent raw files exit 3, never ok; flipped byte exits 1) and monthly-links (dry-run list; --run max 1 req/s/host, blocked hosts never retried, dated log line); tests use a local server. |
 | 25 | `wp-data-04a` | source-rebuild | S | open | The rights audit describes legacy/dist, not the data that ships (R1g); counsel and owner must judge what visitors get. | rights_audit.mjs --data-dir/--csv/--md: audit the data that R1g ships (row per data file and bundle dataset, closed action set, diff against the legacy audit listed, nothing applied); defaults unchanged so data:check still reproduces the old outputs byte for byte. |
 | 26 | `wp-dec-12` | candidate-group | S | open | No documented browser floor, no syntax gate: nothing stops a build from shipping syntax an older supported browser cannot parse. | Candidate docs/BROWSERS.md, browserslist, tools/es-check.mjs (acorn over every dist .js, seeded newer syntax = red) and a WebGL2 gate stub; floor numbers from the register only; passes on release/R1g/dist assets; nothing ships. |
-| 27 | `wp-content-01b` | candidate-group | S | open | The home page and the nav still describe the Historian as a "search-and-answer assistant"; one data row carries database wording; two gaps are phrased as facts about the past. | Group removing "search-and-answer assistant" (index.html, site-nav.js), the alias stub's database wording (alias_for kept) and two absence-as-fact strings; copy_lint AIPERSONA,ALIAS,ABSENCE = 0 on touched files (R1g: 4/1/2); historian.html left to wp-hist-01b; no title or meta change. |
+| 27 | `wp-content-01b` | candidate-group | S | open | The home page and the nav still describe the Historian as a "search-and-answer assistant"; one data row carries database wording; two gaps are phrased as facts about the past. | Group removing "search-and-answer assistant" (index.html, site-nav.js), the alias stub's database wording (alias_for kept) and find-ancestor's absence-as-fact string; copy_lint AIPERSONA,ALIAS,ABSENCE = 0 on touched files; no title or meta change; historian, search pages: other entries. |
 | 28 | `wp-time-08` | candidate-group | S | open | The two Alexander notes quoted in the day-3 rows at ticks 521 and 524 are not printed in the Official Records; Law 4 forbids shipping a quotation without a verified source, and the source (Alexander's memoir, 1907) is local in tmp/library/ws9. | Research record + data check: the two Alexander quotations at ticks 521 and 524 are not OR27 text but occur verbatim in the local ws9 memoir (1907); record each with its match and page, patch only what the matcher does not confirm; the t530 words stand only in two disclaimers. |
-| 29 | `wp-hist-22-units` | source-rebuild | M | open | Unit pages, Ask the Historian and the SEO pages all need one export of what the corpus says per unit, with citations and rights fields. | historian-src/export/units.mjs: one units/<slug>.json per unit with <=3 excerpts of <=120 words, each verbatim from a cited corpus report with citation, scan address, licence id, reviewer null; no file for the alias stub; deterministic; schema, verbatim and tier checks. Units slice only. |
+| 29 | `wp-hist-22-units` | source-rebuild | M | waits for `ver-hist-corpus` | Unit pages, Ask the Historian and the SEO pages all need one export of what the corpus says per unit, with citations and rights fields. | historian-src/export/units.mjs: one units/<slug>.json per unit with <=3 excerpts of <=120 words, each verbatim from a cited corpus report with citation, scan address, licence id, reviewer null; no file for the alias stub; deterministic; schema, verbatim and tier checks. Units slice only. |
 | 30 | `wp-pagec-12` | candidate-group | S | open | The hidden AR page asks for the camera before motion permission and leaves the camera and position watch running after a failure. | Group on ar.html with a node:vm test and fake media/orientation/geolocation: motion permission requested first; after any denial no live track and clearWatch called; Exit stops both; distinct role=alert message per error code; page stays noindex and hidden. Red on R1g. |
 
-### Wave 2: entries authored after wave 1 (1 entry, 0 done)
+### Wave 2: entries authored after wave 1 (4 entries, 0 done)
 
 Authored against the repository when the entry was reached; an entry may wait for an earlier one (State). Slices of items cut into parts are listed here too.
 
 | # | Id | Route | Size | State | Why it is first | Check (short) |
 |---:|---|---|---|---|---|---|
-| 1 | `wp-arch-10-toolchain` | source-rebuild | M | open | Without pinned tools and the smoke, none of the rebuild entries after the foundation can run a lint or a build; this is the half of WP-ARCH-09 that the foundation record leaves open. | Toolchain half of WP-ARCH-09: exact pins (React 18.3.1, zustand 5, mapbox-gl 3.24.1, TS 5.9.x, Vite 8, ESLint stack, stylelint, knip, size-limit, es-check); lint and style rules each proved red/green by fixtures; one-day Vite smoke; proved in a scratch install, root edits by request note. |
+| 1 | `wp-page-20` | candidate-group | S | open | The Search page, a front door of the site, answers "lincoln" with 351 irrelevant hits, lists a database alias stub as a result, prints "Commander unrecorded" 27 times and a dangling separator 142 times, writes unescaped HTML and has an unlabelled autofocus input. | Group on search.html, node:vm test on real data: no subsequence tier ("lincoln" empty), alias_for skipped ("14th brooklyn" = U-84NY), meta without "Commander unrecorded" or a dangling separator, escaped output, aria-pressed chips in a group, labelled search box, no autofocus on touch |
+| 2 | `wp-arch-10-toolchain` | source-rebuild | M | open | Without pinned tools and the smoke, none of the rebuild entries after the foundation can run a lint or a build; this is the half of WP-ARCH-09 that the foundation record leaves open. | Toolchain half of WP-ARCH-09: exact pins (React 18.3.1, zustand 5, mapbox-gl 3.24.1, TS 5.9.x, Vite 8, ESLint stack, stylelint, knip, size-limit, es-check); lint and style rules each proved red/green by fixtures; one-day Vite smoke; proved in a scratch install, root edits by request note. |
+| 3 | `ver-hist-corpus` | source-rebuild | M | waits for `ver-hist-node` | 87 of the 478 historian tests skip in this container because the Internet Archive download path is blocked and the fetcher refuses the permitted /cors/ spelling; every corpus-level claim of the BUILT Historian work is unproven here until the corpus is rebuilt, and the unit and place exports need its text. | sourceForUrl accepts /cors/ (unregistered, refused, banned stay refused) behind one switch that keeps canonical provenance and cache keys; fetch the 15 OR27 files at 1 req/s, compare sha256 with the manifest, rebuild to scratch and diff the tables, run the historian suite on node 22 and 24 |
+| 4 | `wp-seo-11b` | candidate-group | S | open | Crawlers and visitors without JavaScript find no navigation on 20 pages: the footer is built by site-nav.js at DOMContentLoaded. A static group exists (20 patches) and was never checked in a browser, so it ships nowhere. | Group of the 20 static footer-link patches of PG-zseo-opt on R1g: node test (static list equals the site-nav menu, one mount per page, only those files change) plus a browser check on a scratch build (one footer, layout shift not larger, 44 px targets, links present with JS off), numbers in evidence.json. |
 
 ### Entries that close part of a plan item (the rest has an entry of its own)
 
@@ -187,50 +196,50 @@ Authored against the repository when the entry was reached; an entry may wait fo
 
 | Order | Id | Route | Size | Tier | Waits for | Note |
 |---:|---|---|---|---|---|---|
-| 31 | `wp-infra-26` | candidate-group | S | survival |  | owner-gated: owner reads |
-| 32 | `wp-infra-03c` | candidate-group | S | survival |  |  |
-| 33 | `wp-dec-17` | source-rebuild | S | survival |  |  |
-| 34 | `wp-perf-24` | candidate-group | S | survival |  |  |
-| 35 | `wp-pagec-18` | candidate-group | S | survival |  |  |
-| 36 | `wp-page-20` | candidate-group | S | survival |  |  |
-| 37 | `copy-plan-refs` | release-request | S | survival |  |  |
-| 38 | `ver-j7` | release-request | S | survival |  |  |
-| 39 | `ver-mfix` | release-request | S | survival |  |  |
-| 40 | `wp-infra-03b` | candidate-group | M | survival |  |  |
-| 41 | `wp-infra-05` | candidate-group | M | survival |  | owner-gated: owner step |
-| 42 | `wp-qa-01` | candidate-group | M | survival |  |  |
-| 43 | `wp-dec-01` | source-rebuild | M | survival |  |  |
-| 44 | `wp-perf-01` | candidate-group | M | survival |  | owner-gated: owner-only |
-| 45 | `wp-qa-04b` | candidate-group | M | survival |  |  |
-| 46 | `wp-ux-05` | source-rebuild | M | survival |  |  |
-| 47 | `amd-t0-2` | candidate-group | M | survival |  |  |
-| 48 | `wp-ux-04` | source-rebuild | L | survival |  | size L: slice first |
-| 49 | `wp-infra-04d` | candidate-group | S | survival |  |  |
-| 50 | `wp-seo-11b` | candidate-group | S | legacy-a-line |  |  |
-| 51 | `wp-hist-34` | source-rebuild | S | legacy-a-line |  | owner-gated: counsel, owner's review |
-| 52 | `wp-content-20b` | candidate-group | S | legacy-a-line |  |  |
-| 53 | `hb-02` | verification-record | S | legacy-a-line |  | owner-gated: reviewer's |
-| 54 | `owner-2026-10-04-5` | candidate-group | S | legacy-a-line |  |  |
-| 55 | `vd11-3` | verification-record | S | legacy-a-line |  | owner-gated: counsel, owner review |
-| 56 | `vd14-5` | verification-record | S | legacy-a-line |  |  |
-| 57 | `wp-seo-12` | candidate-group | M | legacy-a-line |  | owner-gated: owner inputs |
-| 58 | `wp-data-01` | candidate-group | M | legacy-a-line |  |  |
-| 59 | `wp-data-02` | source-rebuild | M | legacy-a-line | `wp-data-01` |  |
-| 60 | `wp-data-03` | source-rebuild | M | legacy-a-line | `wp-data-01` |  |
-| 61 | `wp-qa-11` | candidate-group | M | legacy-a-line |  |  |
-| 62 | `wp-hist-05` | source-rebuild | M | legacy-a-line |  |  |
-| 63 | `wp-hist-02` | source-rebuild | M | legacy-a-line |  | owner-gated: a person's sign-off |
-| 64 | `wp-content-04` | source-rebuild | M | legacy-a-line |  |  |
-| 65 | `wp-content-05` | candidate-group | M | legacy-a-line | `wp-content-04` |  |
-| 66 | `wp-content-06` | candidate-group | M | legacy-a-line | `wp-content-04`, `wp-content-05` |  |
-| 67 | `wp-page-09` | candidate-group | M | legacy-a-line |  |  |
-| 68 | `wp-a11y-31` | candidate-group | M | legacy-a-line |  | owner-gated: owner inputs |
-| 69 | `wp-content-16a` | candidate-group | M | legacy-a-line |  |  |
-| 70 | `wp-content-17` | candidate-group | M | legacy-a-line |  |  |
+| 34 | `wp-infra-26` | candidate-group | S | survival |  | owner-gated: owner reads |
+| 35 | `wp-infra-03c` | candidate-group | S | survival |  |  |
+| 36 | `wp-dec-17` | source-rebuild | S | survival |  |  |
+| 37 | `wp-perf-24` | candidate-group | S | survival |  |  |
+| 38 | `wp-pagec-18` | candidate-group | S | survival |  |  |
+| 39 | `copy-plan-refs` | release-request | S | survival |  |  |
+| 40 | `ver-j7` | release-request | S | survival |  |  |
+| 41 | `ver-mfix` | release-request | S | survival |  |  |
+| 42 | `wp-infra-03b` | candidate-group | M | survival |  |  |
+| 43 | `wp-infra-05` | candidate-group | M | survival |  | owner-gated: owner step |
+| 44 | `wp-qa-01` | candidate-group | M | survival |  |  |
+| 45 | `wp-dec-01` | source-rebuild | M | survival |  |  |
+| 46 | `wp-perf-01` | candidate-group | M | survival |  | owner-gated: owner-only |
+| 47 | `wp-qa-04b` | candidate-group | M | survival |  |  |
+| 48 | `wp-ux-05` | source-rebuild | M | survival |  |  |
+| 49 | `amd-t0-2` | candidate-group | M | survival |  |  |
+| 50 | `wp-ux-04` | source-rebuild | L | survival |  | size L: slice first |
+| 51 | `wp-infra-04d` | candidate-group | S | survival |  |  |
+| 52 | `wp-hist-34` | source-rebuild | S | legacy-a-line |  | owner-gated: counsel, owner's review |
+| 53 | `wp-content-20b` | candidate-group | S | legacy-a-line |  |  |
+| 54 | `hb-02` | verification-record | S | legacy-a-line |  | owner-gated: reviewer's |
+| 55 | `owner-2026-10-04-5` | candidate-group | S | legacy-a-line |  |  |
+| 56 | `vd11-3` | verification-record | S | legacy-a-line |  | owner-gated: counsel, owner review |
+| 57 | `vd14-5` | verification-record | S | legacy-a-line |  |  |
+| 58 | `wp-seo-12` | candidate-group | M | legacy-a-line |  | owner-gated: owner inputs |
+| 59 | `wp-data-01` | candidate-group | M | legacy-a-line |  |  |
+| 60 | `wp-data-02` | source-rebuild | M | legacy-a-line | `wp-data-01` |  |
+| 61 | `wp-data-03` | source-rebuild | M | legacy-a-line | `wp-data-01` |  |
+| 62 | `wp-qa-11` | candidate-group | M | legacy-a-line |  |  |
+| 63 | `wp-hist-05` | source-rebuild | M | legacy-a-line |  |  |
+| 64 | `wp-hist-02` | source-rebuild | M | legacy-a-line |  | owner-gated: a person's sign-off |
+| 65 | `wp-content-04` | source-rebuild | M | legacy-a-line |  |  |
+| 66 | `wp-content-05` | candidate-group | M | legacy-a-line | `wp-content-04` |  |
+| 67 | `wp-content-06` | candidate-group | M | legacy-a-line | `wp-content-04`, `wp-content-05` |  |
+| 68 | `wp-page-09` | candidate-group | M | legacy-a-line |  |  |
+| 69 | `wp-a11y-31` | candidate-group | M | legacy-a-line |  | owner-gated: owner inputs |
+| 70 | `wp-content-16a` | candidate-group | M | legacy-a-line |  |  |
+| 71 | `wp-content-17` | candidate-group | M | legacy-a-line |  |  |
+| 72 | `wp-hist-33` | source-rebuild | M | legacy-a-line |  |  |
+| 73 | `wp-hist-04` | source-rebuild | M | legacy-a-line |  |  |
 
 ## Delegated decisions
 
-`docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md` holds 108 rows (A: 73, B: 21, C: 14). Every OPEN_NEEDS_DECISION item of both files is governed by at least one row (checked by the merge); the C rows record the decisions this merge itself needed (route, layout, closing rules). An override by the owner in writing replaces any row.
+`docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md` holds 110 rows (A: 73, B: 21, C: 16). Every OPEN_NEEDS_DECISION item of both files is governed by at least one row (checked by the merge); the C rows record the decisions this merge itself needed (route, layout, closing rules). An override by the owner in writing replaces any row.
 
 ## OWNER_ONLY: every step only the owner can take
 

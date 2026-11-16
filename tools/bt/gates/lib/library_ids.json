@@ -1,0 +1,302 @@
+{
+ "schema": "bt-library-ids/1",
+ "_doc": "The id map of GATE-SPEC.md Q25 between the rows of the status files (GOVERNANCE/library/status*.json) and the entries of the acquisition ledgers (acquired*.json, candidates.json, figures-ledger.json). An entry that none of the rules below reaches is an untracked source: FAIL (silently skipped, PDF p. 138 Z.7). The map is evidence, not a decision: a rule is written only where the status row's own title, note or reason names the source (checked by reading those rows on 2026-11-15); nothing is mapped to make a row pass. Rules are tried in this order for every entry: (1) `map` (explicit id), (2) `prefix`, (3) `queue_source` (acquired_2.json), (4) `url_rules` (first rule whose host and path match), (5) the entry id equals a status id. `r12_to_status` maps the 45 catalogue rows of B.9 (R12.001 to R12.045, terrain/terrain_sources.json) to the status rows whose title names the source; an R12 row that is not listed has no status row.",
+ "acquired_to_status": {
+  "acquired.json": {
+   "map": {
+    "OR-27-1": "OR-27-1",
+    "OR-27-2": "OR-27-2",
+    "OR-27-3": "OR-27-3",
+    "OR-ATLAS": "OR-ATLAS",
+    "ME-GB-1898": "ME-GB",
+    "MI-GB-1889": "MI-GB",
+    "FOX-1889": "FOX",
+    "ORDNANCE-1861": "ORDNANCE",
+    "GIBBON-1860": "ORDNANCE",
+    "CASEY-1862-1": "ORDNANCE",
+    "CASEY-1862-2": "ORDNANCE",
+    "FIELDART-1863": "ORDNANCE",
+    "HARDEE-1861a": "ORDNANCE",
+    "HARDEE-1861b": "ORDNANCE",
+    "TM-B1876-S1": "TM-BACHELDER-1876",
+    "TM-B1876-S2": "TM-BACHELDER-1876",
+    "TM-B1876-S3": "TM-BACHELDER-1876",
+    "TM-B1883-S3": "TM-BACHELDER-1883",
+    "TM-LOC99447494-J1": "TM-LOC99447494",
+    "TM-OR-ATLAS": "TM-OR-ATLAS-GETTYSBURG",
+    "TM-WARREN-1869": "LOC-MAPS",
+    "RC-HOPKINS-1858": "LOC-MAPS"
+   },
+   "prefix": {
+    "PA-GB-": "PA-GB",
+    "NY-GB-": "NY-GB"
+   }
+  },
+  "acquired_2.json": {
+   "map": {
+    "ORSER3-v2": "OR-SER3",
+    "OR-25-1": "OR-25-PT2",
+    "OR-29-1": "OR-29-PT2",
+    "CEM-REPORT-1867": "CEMETERY-1863-74",
+    "CEM-BARTLETT-1874": "CEMETERY-1863-74",
+    "CEM-INDIANA-1865": "CEMETERY-1863-74",
+    "EVERETT-1864": "CEMETERY-1863-74",
+    "MA-BURIAL-1863": "CEMETERY-1863-74"
+   },
+   "queue_source": {
+    "ADAMS-SENTINEL": "NEWS",
+    "GBG-COMPILER": "NEWS",
+    "STATE-OTHER": "STATE-OTHER",
+    "WITNESS": "WITNESS",
+    "BACHELDER": "BACHELDER-PD-PUBS",
+    "SHSP": "SHSP",
+    "status_id:JACOBS": "JACOBS-1864",
+    "LETTERMAN": "LETTERMAN-1866"
+   }
+  },
+  "acquired_3.json": {
+   "url_rules": [
+    {
+     "host": "www.npshistory.com",
+     "path_contains": "/series/symposia/gettysburg_seminars/",
+     "status": "NPS-SEM"
+    },
+    {
+     "host": "www.npshistory.com",
+     "path_contains": "/publications/",
+     "status": "NPS-CLR"
+    },
+    {
+     "host": "www.npshistory.com",
+     "path_contains": "/handbooks/",
+     "status": "NPS-CLR"
+    }
+   ]
+  },
+  "candidates.json": {
+   "map": {
+    "PA-GB": "PA-GB",
+    "NY-GB": "NY-GB",
+    "ME-GB": "ME-GB",
+    "MI-GB": "MI-GB",
+    "FOX": "FOX",
+    "GBG-FIRST": "BACHELDER-PD-PUBS",
+    "OR-ATLAS": "OR-ATLAS",
+    "ORDNANCE": "ORDNANCE",
+    "ARTILLERIST": "ORDNANCE",
+    "HARDEE": "ORDNANCE",
+    "CASEY": "ORDNANCE"
+   }
+  },
+  "figures-ledger.json": {
+   "map": {}
+  }
+ },
+ "r12_to_status": {
+  "1": [
+   "LOC-MAPS"
+  ],
+  "2": [
+   "NARA-WARREN"
+  ],
+  "3": [
+   "RUMSEY"
+  ],
+  "4": [
+   "TM-BACHELDER-1876"
+  ],
+  "6": [
+   "BACHELDER"
+  ],
+  "8": [
+   "LOC-MAPS"
+  ],
+  "11": [
+   "LOC-MAPS"
+  ],
+  "12": [
+   "OR-ATLAS",
+   "TM-OR-ATLAS-GETTYSBURG"
+  ],
+  "17": [
+   "NPS-CLR",
+   "NPS-SEM"
+  ],
+  "18": [
+   "STONE-S"
+  ],
+  "21": [
+   "LIDAR-PA17"
+  ],
+  "22": [
+   "LIDAR-3DEP"
+  ],
+  "23": [
+   "LIDAR-PAMAP"
+  ],
+  "28": [
+   "PENN-PILOT"
+  ],
+  "32": [
+   "LOC-PHOTO"
+  ],
+  "33": [
+   "LOC-PHOTO",
+   "PM-LOC-DERIVATIVES",
+   "PM-LOC-RECORDS"
+  ],
+  "35": [
+   "PM-NPS-THEN-AND-NOW"
+  ]
+ },
+ "asset_matchers": [
+  {
+   "name": "Freesound",
+   "file": "docs/battle-theatre/app/data/audio3d/sources.json",
+   "list": "sources",
+   "field": "sourceUrl",
+   "contains": "freesound.org",
+   "id_field": "ledgerId",
+   "require": [
+    "licence",
+    "sourceUrl",
+    "howRecorded",
+    "sha256",
+    "retrieved"
+   ]
+  },
+  {
+   "name": "Smithsonian",
+   "file": "docs/battle-theatre/app/data/audio3d/sources.json",
+   "list": "sources",
+   "field": "sourceUrl",
+   "contains": "si.edu",
+   "id_field": "ledgerId",
+   "require": [
+    "licence",
+    "sourceUrl",
+    "howRecorded",
+    "sha256",
+    "retrieved"
+   ]
+  },
+  {
+   "name": "Poly Haven",
+   "file": "docs/battle-theatre/app/data/audio3d/sources.json",
+   "list": "sources",
+   "field": "sourceUrl",
+   "contains": "polyhaven.com",
+   "id_field": "ledgerId",
+   "require": [
+    "licence",
+    "sourceUrl",
+    "howRecorded",
+    "sha256",
+    "retrieved"
+   ]
+  }
+ ],
+ "asset_tables": [
+  {
+   "id": "audio3d-samples",
+   "file": "docs/battle-theatre/app/data/audio3d/sources.json",
+   "list": [
+    "sources"
+   ],
+   "id_field": "ledgerId",
+   "file_field": "file",
+   "licence": [
+    "licence"
+   ],
+   "source": [
+    "sourceUrl"
+   ],
+   "method": [
+    "howRecorded"
+   ],
+   "licence_field": "licence",
+   "restricted_check": "shippable"
+  },
+  {
+   "id": "figures3d-files",
+   "file": "docs/battle-theatre/app/data/figures3d/manifest.json",
+   "list": [
+    "files"
+   ],
+   "prefix": "figures3d/",
+   "licence": [
+    "licence",
+    "license",
+    "rights"
+   ],
+   "source": [
+    "source",
+    "origin",
+    "generated_by"
+   ],
+   "method": [
+    "method",
+    "generated_by",
+    "built_by"
+   ]
+  },
+  {
+   "id": "figures3d-acw-pack",
+   "file": "docs/battle-theatre/app/data/figures3d/acw/manifest.json",
+   "pack": true,
+   "covers": "figures3d/acw/",
+   "licence": [
+    "rights.licence_basis"
+   ],
+   "source": [
+    "source.archive"
+   ],
+   "method": [
+    "generated_by"
+   ]
+  },
+  {
+   "id": "anim3d-clips",
+   "file": "docs/battle-theatre/app/data/anim3d/clips.json",
+   "list": [
+    "clips"
+   ],
+   "id_field": "id",
+   "licence": [
+    "licence",
+    "license"
+   ],
+   "source": [
+    "src",
+    "gap"
+   ],
+   "method": [
+    "generated_by"
+   ]
+  }
+ ],
+ "asset_extensions": [
+  ".png",
+  ".webp",
+  ".glb",
+  ".gltf",
+  ".ogg",
+  ".mp3",
+  ".wav",
+  ".bin",
+  ".jpg",
+  ".jpeg"
+ ],
+ "bot_blocked_hosts": [
+  {
+   "host": "babel.hathitrust.org",
+   "date": "2026-11-13",
+   "source": "task rules of the bt-gates workstream (answered with its own bot block; blocked, not retried)"
+  },
+  {
+   "host": "ehistory.osu.edu",
+   "date": "2026-11-13",
+   "source": "task rules of the bt-gates workstream (answered with its own bot block; blocked, not retried)"
+  }
+ ]
+}

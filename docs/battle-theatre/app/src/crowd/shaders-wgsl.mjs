@@ -96,7 +96,7 @@ struct IOut { @builtin(position) pos: vec4f, @location(0) wp: vec3f, @location(1
   let n = fract(ign(i.pos.xy) + i.v.w); if (n < i.f.x) { discard; }                                          // [0, lo) is kept by the 3D levels
   var u = n; if (i.f.x > 0.0) { u = (n - i.f.x) / (1.0 - i.f.x); } if (u > i.v.z) { discard; } var uu = u; if (i.v.z < 1.0) { uu = u / i.v.z; }      // u, uu: uniform numbers again (the share kept, the share of the dab)
   let toCam = normalize(F.cam.xyz - i.wp); let hc = normalize(vec3f(toCam.x, 0.0, toCam.z));
-  if (uu < i.f.y) { let fw = mix(1.0, ${LOD_DAB.w.toFixed(3)}, i.f.w); let mg = ${LOD_DAB.margin.toFixed(3)} * i.f.w; if (abs(i.q.x - 0.5) > 0.5 * fw || i.q.y < mg || i.q.y > 1.0 - mg) { discard; }
+  if (uu < i.f.y) { let fw = mix(1.0, ${LOD_DAB.w.toFixed(3)}, i.f.w); let mt = ${LOD_DAB.top.toFixed(3)} * i.f.w; let mb = ${LOD_DAB.bottom.toFixed(3)} * i.f.w; if (abs(i.q.x - 0.5) > 0.5 * fw || i.q.y < mb || i.q.y > 1.0 - mt) { discard; }
     let mm = select(${MATC.TROUSERS}, ${MATC.COAT}, i.q.y > 0.45); let m = resolveMat(mm, i.w);
     return vec4f(fogged(lit(m.alb, m.rough, m.metal, normalize(hc * 0.7 + vec3f(0.0, 0.7, 0.0)), i.wp, 1.0, 0.8), i.wp), 1.0); }
   var view = i.v.x; if (i.f.z > 0.0 && fract(ign(i.pos.yx) + fract(i.v.w * 7.0 + 0.37)) < i.f.z) { view = (view + 1.0) % 8.0; }

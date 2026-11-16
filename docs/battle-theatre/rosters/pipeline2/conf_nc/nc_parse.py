@@ -48,11 +48,11 @@ def is_month(t):
 
 YEARISH = re.compile(r"^['`‘’\"]?[0-9OoSsIl\(\)\!]{2}[\.,;:]*$")
 MARK_STRONG = re.compile(r"^(?:e|cm|em|en|enl|crn|cin|cni|cnn|ern|ciri|eni|enlisted|Enlisted|Enl)(?:[\.,;:]+[\-—~'’\"\^\*]{0,2}|[\^\-—~\*]{1,2})$")
-MARK_BARE = re.compile(r"^(?:e|cm|em)$")
+MARK_BARE = re.compile(r"^(?:e|cm|em|enlisted|Enlisted)$")
 MARK_WEAK = re.compile(r"^(?:c|o|a|6|«|\^|¢|ε|е|€|G|0|\*|©|ie)[\.,;:]+[\-—~'’\"\^\*]{0,2}$")
 EVENT = re.compile(r"^(?:d|dg|dt|k|w|p|pr|r|tr|m|c|res|dis|disch|dismissed|killed|died|wounded|promoted|resigned|transferred|detailed|captured|missing|deserted)\.?[,;]?$")
 CO_TOK = re.compile(r"^(?:[cCoOeEG][oO0cCqQeE]|co|CO|Co|county|County|cc|ca|oo|ee)[\.,;:\s]*[,;]?$")
-ORD_TOK = re.compile(r"^(?:[0-9IilLsS]{1,2}(?:st|d|nd|rd|th|cl|sl)|[0-9]{1,2}d|[1I]st|[2z]d|[3]d|ist|Isi|lst|2cl|Zd)[\.,;]?$", re.I)
+ORD_TOK = re.compile(r"^[^\w\s]{0,2}[0-9IilLsSZzo\-]{1,2}(?:st|d|nd|rd|th|lh|tb|tli|cl|sl|ih|tii|tn|ud)[\.,;]?$", re.I)
 
 RANK_WORDS = ['colonel', 'lieutenant', 'lieut', 'lieutenaut', 'major', 'captain', 'adjutant', 'surgeon', 'assistant', 'chaplain', 'quartermaster', 'sergeant', 'sergt', 'corporal', 'musician',
               'bugler', 'artificer', 'farrier', 'blacksmith', 'saddler', 'sadler', 'wagoner', 'teamster', 'fifer', 'drummer', 'guidon', 'ensign', 'commissary', 'hospital', 'steward', 'ordnance',
@@ -86,9 +86,9 @@ def is_rankword(t):
 INIT_RANKS = [('a', 'q', 'm'), ('a', 'c', 's'), ('q', 'm'), ('o', 'm'), ('a', 'a', 'g')]
 
 
-def rank_phrase(toks, j, limit=4):
-    """Number of tokens of a rank phrase starting at token j (0 when none).  A phrase: optional ordinal, then rank words (single letters count only inside
-    the lettered ranks A. Q. M., A. C. S., Q. M.); it ends after a token that ends with a comma or semicolon, or when the next token is no rank word."""
+def rank_phrase(toks, j, limit=5):
+    """Number of tokens of a rank phrase starting at token j (0 when none).  A phrase: optional "p." (promoted), optional ordinal, then rank words (single letters count
+    only inside the lettered ranks A. Q. M., A. C. S., Q. M.); it ends after a token that ends with a comma or semicolon, or when the next token is no rank word."""
     n = len(toks)
     k = j
     ini = [alpha(toks[x][2]) for x in range(j, min(j + 3, n))]
@@ -100,6 +100,8 @@ def rank_phrase(toks, j, limit=4):
     if lettered:
         k = j + lettered
     else:
+        if k < n and re.fullmatch(r"p\.?", toks[k][2]) and k + 1 < n and (ORD_TOK.match(toks[k + 1][2]) or (len(alpha(toks[k + 1][2])) >= 4 and is_rankword(toks[k + 1][2]))):
+            k += 1
         if k < n and ORD_TOK.match(toks[k][2]):
             k += 1
             if k >= n:
@@ -109,13 +111,13 @@ def rank_phrase(toks, j, limit=4):
         k += 1
     cnt = k - j
     while k < n and cnt < limit and not re.search(r'[,;]$', toks[k - 1][2]) and (is_rankword(toks[k][2]) and len(alpha(toks[k][2])) >= 2 or re.fullmatch(r"(?i)[ms]\.?[,;]?", toks[k][2]) and lettered
-                                                                              or re.fullmatch(r"(?i)major|colonel|master|steward|surgeon|sergt?\.?|sergeant", toks[k][2].strip('.,;'))):
+                                                                              or re.fullmatch(r"(?i)major|colonel|master|steward|surgeon|sergt?\.?|sergeant|of|subsistence|ordnance|artillery|engineers|volunteers|general", toks[k][2].strip('.,;'))):
         k += 1
         cnt += 1
     return k - j
 
 
-SURNAME = re.compile(r"^[^\w\s]{0,2}[A-Z][A-Za-z'’\-\^\\\.\*&0-9\|\(\)]{1,23}[,;:][\-—~'’\"\*\^]{0,2}$")
+SURNAME = re.compile(r"^[^\w\s]{0,2}[A-Z](?:[A-Za-z'’\-\^\\\.\*&0-9\|\(\)]|[;:](?=[A-Za-z])){1,23}[,;:][\-—~'’\"\*\^]{0,2}$")
 SURNAME_DOT = re.compile(r"^[^\w\s]{0,2}[A-Z][A-Za-z'’\-\^\\\*&]{2,23}\.$")
 ABBREV_NAME = {'wm', 'jas', 'jno', 'thos', 'geo', 'chas', 'benj', 'danl', 'robt', 'saml', 'edw', 'alex', 'archd', 'nath', 'hy', 'jr', 'sr', 'jun', 'zach', 'jos', 'fred', 'josh', 'ed', 'mich', 'nich', 'sam',
                'dav', 'cha', 'jon', 'wn', 'jos', 'elij', 'js', 'chr', 'xt', 'senr', 'esq', 'dr', 'rev', 'mr'}
@@ -157,8 +159,12 @@ LONEMARK = re.compile(r"^[,;:\.\-—\*]{1,2}$")
 GIVEN_LOWER_OK = {'jr', 'sr', 'jun', 'senr', 'esq'}
 
 
-def given_ok(t, before_mark=False, lower_ok=False):
+def given_ok(t, before_mark=False, lower_ok=False, garbled_ok=False):
     """A token that may stand in the given-name part of a name (after the surname, or before the surname of a given-first name)."""
+    if re.fullmatch(r"[^\w\s]{1,3}\.[,;]?", t) and len(t) <= 4 and garbled_ok:
+        return True                                   # "('." : an initial the scan damaged beyond reading (kept as printed)
+    if re.fullmatch(r"[0-9]{1,2}\.[,;]?", t) and garbled_ok:
+        return True                                   # "51." "11.": a damaged initial
     if not GIVEN.match(t):
         return False
     a = alpha(t)
@@ -202,8 +208,9 @@ class Stream:
     """Tokens of text[a:b] with absolute offsets: toks[i] = (start, end, text, line_start).  Headings become events positioned before a token index;
     furniture lines are left out (their spans are kept)."""
 
-    def __init__(self, text, a, b):
+    def __init__(self, text, a, b, leaf_starts=None):
         self.text, self.a, self.b = text, a, b
+        leaf_starts = leaf_starts or set()
         self.toks = []
         self.events = []         # (token index, kind, payload text, offset)
         self.furniture = []      # (start, end)
@@ -213,7 +220,7 @@ class Stream:
             lt = [(off + m.start(), off + m.end(), m.group(0)) for m in TOK.finditer(ln)]
             evs = L.heading_scan(lt)
             if not evs:
-                if L.is_furniture(ln):
+                if L.is_furniture(ln) or (off in leaf_starts and L.is_furniture_leaf_first(ln)):
                     self.furniture.append((off, off + len(ln)))
                     continue
                 self._body(lt, True)
@@ -322,8 +329,8 @@ def match_S(S, i, bd=2):
     split = False
     if SURNAME.match(t0):
         pass
-    elif SURNAME_DOT.match(t0) and i + 1 < n and initial_tok(toks[i + 1][2]):
-        dot = True                                 # "Davis. A. M., e." : a period for the comma, only before an initial
+    elif SURNAME_DOT.match(t0) and i + 1 < n and (initial_tok(toks[i + 1][2]) or (re.match(r"^[A-Z][A-Za-z'’\-]{2,}[,;]$", toks[i + 1][2]) and i + 2 < n and MARK_STRONG.match(toks[i + 2][2]))):
+        dot = True                                 # "Davis. A. M., e." / "Griswold. John, e.": a period for the comma, only before an initial or a given name and the marker
     elif SURNAME_LOWER.match(t0) and bd >= 2:
         lower = True                               # "liaker, Ambrose, e." : the first letter garbled; only at a strong boundary with a marker
     elif SURNAME_SPLIT1.match(t0) and i + 2 < n and SURNAME_SPLIT2.match(toks[i + 1][2]) and bd >= 1:
@@ -336,6 +343,8 @@ def match_S(S, i, bd=2):
         return None
     if re.match(r"^[^\w\s]{0,2}[0-9]", t0):
         return None
+    if len(w) >= 5 and is_rankword(t0) and not split and (w != 'major' or (i + 1 < n and re.match(r"^(?:cm|em|crn|cin|cni)[\.,;:]", toks[i + 1][2]))):
+        return None                                # a rank word is no surname: the head of an officer entry the other matcher could not read
     j = i + (2 if split else 1)
     lone = 0
     given = 0
@@ -355,8 +364,11 @@ def match_S(S, i, bd=2):
             j += 1
             continue
         nxt_is_mark = j + 1 < n and (MARK_STRONG.match(toks[j + 1][2]) or MARK_WEAK.match(toks[j + 1][2]))
-        if not given_ok(tj, before_mark=nxt_is_mark):
+        if not given_ok(tj, before_mark=nxt_is_mark, garbled_ok=nxt_is_mark):
             return None
+        if re.search(r"[,;]$", tj) and not nxt_is_mark and j + 1 < n and not re.fullmatch(r"(?i)(?:jr|sr|jun|[23]d|[23]nd|3rd|esq)\.?[,;]?", toks[j + 1][2]) \
+                and evidence_at(S, j + 1, tj) is None:
+            return None                           # a comma-ended token in the middle of the name: a new head starts there ("... Gettysburg, Rivenbark, John W., e.")
         given += 1
         j += 1
     return None
@@ -371,7 +383,7 @@ def match_G(S, i):
     toks = S.toks
     n = len(toks)
     t0 = toks[i][2]
-    if not given_ok(t0) or sentence_end(t0) or not (re.match(r"^[^\w\s]{0,2}[A-Z]", t0) or initial_tok(t0)):
+    if not given_ok(t0, garbled_ok=True) or sentence_end(t0) or not (re.match(r"^[^\w\s]{0,2}[A-Z]", t0) or initial_tok(t0) or re.fullmatch(r"[^\w\s]{1,3}\.[,;]?", t0) or re.fullmatch(r"[0-9]{1,2}\.", t0)):
         return None
     if alpha(t0) in PLACE and not initial_tok(t0):
         return None
@@ -382,7 +394,7 @@ def match_G(S, i):
         if len(alpha(last)) < 2 or alpha(last) in ABBREV_BAD:
             continue
         front = [toks[x][2] for x in range(i, k - 1)]
-        if any(not given_ok(f) or sentence_end(f) or (alpha(f) in PLACE and not initial_tok(f) and not re.search(r"[,;]$", f)) or (len(alpha(f)) >= 3 and is_rankword(f)) for f in front):
+        if any(not given_ok(f, garbled_ok=True) or sentence_end(f) or (alpha(f) in PLACE and not initial_tok(f) and not re.search(r"[,;]$", f)) or (len(alpha(f)) >= 3 and is_rankword(f)) for f in front):
             continue
         if not (given_ok(last, before_mark=True, lower_ok=True)) or (len(alpha(last)) >= 3 and is_rankword(last)):
             continue
@@ -405,14 +417,15 @@ def find_heads(S, a, b, section, ev_idx):
         bd = boundary(S, i, ev_idx)
         got = None
         order = (match_G, match_S) if section in ('officers', 'fs', 'nco') else (match_S, match_G)
+        prev = toks[i - 1][2] if i > 0 else ''
         for fn in order:
-            if fn is match_G and bd < 1:
+            if fn is match_G and bd < 1 and (re.fullmatch(r"(?:at|in|of|to|from|and|by|near|for|on|the|as|a|an|with|or|but)", prev) or re.search(r"[A-Za-z]-$", prev)):
                 continue
             g = fn(S, i, bd) if fn is match_S else fn(S, i)
             if g:
                 kind = g[0]
-                if bd == 0 and kind != 'S-mark':
-                    continue                      # no boundary: only a clean surname-first head with a strict marker may begin here
+                if bd == 0 and kind not in ('S-mark', 'G-rank'):
+                    continue                      # no boundary: only a head with a strict marker or a rank phrase may begin here
                 if bd == 1 and not (kind in ('S-mark', 'G-rank', 'G-mark', 'S-rank', 'S-county')):
                     continue
                 got = g
@@ -479,7 +492,7 @@ def read_letter(payload):
 def parse_section(tid, a, b, co_start='', verbose=False):
     """Rows of the section text[a:b] of the text id: a dict with rows (7-field plus extras), notes, events, diagnostics."""
     text, pm, ent = L.load(tid)
-    S = Stream(text, a, b)
+    S = Stream(text, a, b, leaf_starts=set(pm.starts))
     toks = S.toks
     n = len(toks)
     ev_by_idx = {}

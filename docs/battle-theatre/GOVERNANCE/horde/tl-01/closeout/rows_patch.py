@@ -10,6 +10,9 @@ from rowlib import *
 
 QUOTES = {
     'cht_140': 'The rebels captured a train of 110 wagons near Rockville, Md.',
+    'hoke_visit': "On Tuesday, June 16th, as has been said, while Jenkins' cavalry occupied Chambersburg, a marauding party visited these works, and upon the condition that they should be spared, all the horses and mules belonging to the premises were delivered to them.",
+    'sen_23d': "Tuesday the 23d a portion of Jenkins' cavalry caino upini the works",
+    'trib_horses': 'The horses were produced, and taken away by the General. This occurred on Tuesday, the 23d of June.',
     'hist_10': "By ten o'clock the next day the rear of their army had moved out and were pursuing their way toward the east.",
     'hist_1030': "June 30, at half past ten o'clock in the morning, Buford passed through Gettysburg upon a reconnoisance in force",
     'hist_3pm': "the advance g^ard of the rebels, 200 strong, galloped into Gettysburg about 3 o' clock on the afternoon of the 26th,",
@@ -69,6 +72,50 @@ IMG = {
 }
 
 PB_HIST_154 = 'running head "154 HISTORY OF ADAMS COUNTY." before the passage and "HISTORY OF ADAMS COUNTY. 155" after it (a short line of the page that ends in the number 735 is not a head and is ignored by hand)'
+
+HOKE_PDF = {'169': 171, '170': 172, '171': 173, '183': 185, '217': 219, '232': 234, '233': 235, '251': 257, '252': 258, '559': 567}   # PDF page of the archive.org PDF that carries the printed page (the offset is not constant: unnumbered plates lie between)
+
+def HIMG(page, shown):
+    """image_check text for the county history of 1886: PDF page = printed page + 754 (Adams County part), pages 153-156 rendered and viewed in the fourth start"""
+    return ('page image of printed page %s of the Adams County part (archive.org item cu31924028852619, PDF page %d; acquired_tl01.json), viewed in the fourth start of the close-out, reads: "%s"' % (page, int(page) + 754, shown))
+
+def KIMG(page, shown):
+    """image_check text for Hoke 1887: the pages in HOKE_PDF were rendered and viewed in the fourth start"""
+    return ('page image of printed page %s (archive.org item greatinvasionof102hoke, PDF page %d; acquired_tl01.json), viewed in the fourth start of the close-out, reads: "%s"' % (page, HOKE_PDF[page], shown))
+
+BOOK_IMG = {   # citation key -> what the page image shows (attached to every citation of that key whose source is one of the two books; see the end of apply())
+    'hist_jenkins': HIMG(153, "Jenkins' Cavalry galloped into Gettysburg the afternoon of the 26th of June."),
+    'hist_guards': HIMG(153, 'Guards were posted about the public buildings and some of the stores, and a few, but very few, private houses.'),
+    'hist_sidewalks': HIMG(153, 'When permitted to stack arms, or put themselves at rest, they lay down on the sidewalks and in the streets with their knapsacks under their heads.'),
+    'hist_demand': HIMG(153, 'namely: 1,200 pounds of sugar, 600 pounds of coffee, 60 barrels of flour, 1,000 pounds of salt, 7,000 pounds of bacon, 10 barrels of whisky, 10 barrels of onions, 1,000 pairs of shoes and 500 hats, or, in lieu of all this, $5,000 in cash.'),
+    'hist_735': HIMG(154, 'On the 24th a regiment of Pennsylvania Volunteer Militia, numbering 735 men, of which Company A was nearly entirely students from Pennsylvania College, had been started from Harrisburg and Carlisle to Gettysburg.'),
+    'hist_thu': HIMG(154, 'Col. Jennings and his command had reached this place on Thursday, and Randall and about 100 men from Philadelphia had also reached here.'),
+    'hist_sent': HIMG(154, "Jennings and his command were sent out on the Chambersburg Turnpike on the morning of the 26th. When they met the rebels, in the afternoon, the enemy captured nearly all of Jenning's advance guard—about forty men"),
+    'hist_3pm': HIMG(154, "the advance guard of the rebels, 200 strong, galloped into Gettysburg about 3 o'clock on the afternoon of the 26th,"),
+    'hist_10': HIMG(155, "By ten o'clock the next day the rear of their army had moved out and were pursuing their way toward the east."),
+    'hist_1030': HIMG(156, "June 30, at half past ten o'clock in the morning, Buford passed through Gettysburg upon a reconnoisance in force, passing along the Chambersburg road."),
+    'hoke_date': KIMG('169', "In the morning of this day—Friday, 26th,—Early's division left its camp at Greenwood, where it had remained") + ' (continued on printed page 170, PDF page 172: "over the previous day, and proceeded by the pike to Gettysburg on its way to York")',
+    'hoke_burn': KIMG('170', 'While on their way across the mountain they burned the Caledonia Iron Works, which belonged to Hon. Thaddeus Stevens. These works were situated about two miles east of Greenwood, at the base of the South Mountain, and about ten miles from Chambersburg.'),
+    'hoke_visit': KIMG('170', "On Tuesday, June 16th, as has been said, while Jenkins' cavalry occupied Chambersburg, a marauding party visited these works, and upon the condition that they should be spared, all the horses and mules belonging to the premises were delivered to them."),
+    'hoke_arrive': KIMG('171', "In the afternoon of this day Early's division reached Gettysburg, when a requisition was made upon the authorities"),
+    'hoke_demand': KIMG('171', 'sixty barrels of flour, seven thousand pounds of pork or bacon, one thousand two hundred pounds of sugar, one hundred pounds of coffee, one thousand pounds salt, forty bushels onions, one thousand pairs shoes, five hundred hats; or, ten thousand dollars in money.'),
+    'hoke_road': KIMG('171', 'I found the iron works above mentioned on the road aforesaid, where it begins to ascend the South Mountain, and they were burned by my order, and on my own responsibility.'),
+    'hoke_order': KIMG('171', 'I found the iron works above mentioned on the road aforesaid, where it begins to ascend the South Mountain, and they were burned by my order, and on my own responsibility.'),
+    'hoke_nocol': KIMG('171', 'No column of our troops was sent to burn the iron works of Thaddeus Stevens, near Greenwood, in the campaign into Pennsylvania, in 1863.'),
+    'hoke_left': KIMG('183', "In the morning of this day Early's division, which had left Gettysburg some time on Friday afternoon, reached the town of York."),
+    'hoke_steeple': KIMG('217', 'In the evening of this day—Monday, June 29th,—some time after dark, in company with two of our citizens, I went up into the steeple of the Reformed Church to take observations.'),
+    'hoke_fires': KIMG('217', "The line of the railroad could be traced by the numerous fires still burning. The sound of the drum was heard in the direction of Pickett's Camp. Along the South Mountain, for miles up and down the valley, innumerable lights were seen."),
+    'hoke_time': KIMG('217', 'Some time in the after part of this night, probably about one or two o\'clock, I was awakened by my wife'),
+    'hoke_stream': KIMG('217', 'we saw a continuous stream of wagons driven hurriedly through our street. They were coming back from the direction of Harrisburg, and turning east at the Public Square, drove on out the Gettysburg pike.'),
+    'hoke_pike': KIMG('217', 'turning east at the Public Square, drove on out the Gettysburg pike. Although these wagons were heavily loaded, as the grinding noise they made indicated, they were sometimes driven at a trot.'),
+    'hoke_rumble': KIMG('217', 'A low, rumbling noise could be heard which sounded strange in the stillness of the night, as if the whole valley were filled with moving trains.'),
+    'hoke_ewell': KIMG('217', "These wagons proved to be part of Ewell's train, and their rapid passage eastward was a part in the great act of the concentration about Gettysburg"),
+    'hoke_pettig': KIMG('232', "About half past nine o'clock in the morning a detachment from Heth's division under General Pettigrew left their encampment at Cashtown and advanced upon a reconnoisance to within about one mile of Gettysburg. They had with them a number of wagons, and it was supposed"),
+    'hoke_pettig2': KIMG('233', 'Approaching the town, this detachment halted, and after a careful observation by the officers, through their field-glasses, they withdrew and encamped at Marsh Creek.'),
+    'hoke_union1': KIMG('251', "At night the head of Stuart's column rested at Union Mills, half way between Westminster and Littlestown."),
+    'hoke_union2': KIMG('252', 'Stuart, who had bivouacked over night at Union Mills, midway between Westminster and Littlestown,'),
+    'hoke_buford': KIMG('559', 'General Buford in command of a division of Federal cavalry passed through Gettysburg in the afternoon of the day (Tuesday), and apprised of the presence of the enemy, encamped over night midway between Gettysburg and the enemy at Marsh Creek.'),
+}
 
 def LH(quote, page=None, **kw):
     """History of Cumberland and Adams Counties 1886, Adams County part, page 154 (the passage lies between the heads of pages 154 and 155)"""
@@ -140,26 +187,44 @@ def apply(rows):
     sub_add(r, "The seed's \"about 2 miles out from camp\" is the distance from Early's camp at Greenwood: Hoke has the works about two miles east of Greenwood and the division in camp at Greenwood on Jun 25 (the identification of the seed's camp with Greenwood is inferred)",
             'inferred', 'supported', ['hoke_burn', 'hoke_date'])
     scen_extend(r, 'A', '; Hoke 1887 pp.169-170 (the division left Greenwood on the morning of Friday Jun 26 and burned the works on its way across the mountain, before it reached Gettysburg in the afternoon)', 'hoke_date', 'hoke_burn')
+    # the earlier visit of Jenkins' cavalry to the works (the horses and mules were taken): two dates, carried as scenarios V1 and V2 (a conflict apart from the date of the burning)
+    r['cites'].update({
+        'sen_23d': L('ADAMS-SENTINEL-1863-07-21', Q['sen_23d'], reading="On Tuesday the 23d a portion of Jenkins' cavalry came upon the works ...", image_check=IMG_S3),
+        'trib_horses': L('ADAMS-SENTINEL-1863-09-08', Q['trib_horses'], reading='... This occurred on Tuesday, the 23d of June. (the sentence before it is read in the text layer only)', image_check=IMG_S2,
+                         note='a correspondent of the Tribune, reprinted in the Sentinel of Sep 8 1863'),
+        'hoke_visit': L('HOKE-1887', Q['hoke_visit'], note="a later book; the passage names no source for the date (the next sentence names Mr. Sweeney, the manager of the works, as the source of his talk with General Early)"),
+    })
+    sub_add(r, "An earlier visit to the works by a portion of Jenkins' cavalry, at which the horses were handed over, is dated Tuesday Jun 23 by the Adams Sentinel of Jul 21 1863 (\"On Tuesday the 23d a portion of Jenkins' cavalry came upon the works\") and by the Tribune correspondent reprinted in the Sentinel of Sep 8 1863 (the horses were produced and taken away by the General; \"This occurred on Tuesday, the 23d of June\")",
+            'documented', 'conflict', ['sen_23d', 'trib_horses'])
+    sub_add(r, "Hoke (1887, p.170) dates the earlier visit a week before: \"On Tuesday, June 16th, as has been said, while Jenkins' cavalry occupied Chambersburg, a marauding party visited these works\", and upon the condition that they should be spared all the horses and mules belonging to the premises were delivered to them",
+            'inferred', 'conflict', ['hoke_visit'])
+    r['scenarios'] += [
+        sc('V1', "Earlier visit of a portion of Jenkins' cavalry to the works, at which the horses were handed over: Tuesday, Jun 23 (the unit field of this record carries this date; a conflict apart from the date of the burning, scenarios A and B)",
+           'Adams Sentinel Jul 21 1863 p.3 and Sep 8 1863 p.2 (the Tribune correspondent, reprinted)', 'documented', ['sen_23d', 'trib_horses']),
+        sc('V2', "Earlier visit of a marauding party to the works, at which all the horses and mules were delivered: Tuesday, Jun 16, while Jenkins' cavalry occupied Chambersburg (a conflict apart from the date of the burning, scenarios A and B)",
+           'Hoke 1887 p.170 (a later book; the passage names no source for the date)', 'inferred', ['hoke_visit']),
+    ]
     r['claim']['text'] = ("The works were burned by the rebels: the Gettysburg Compiler of Jun 29 says on Friday (Jun 26) on their route hitherward; the Adams Sentinel (Jul 21 and Sep 8 1863) puts General Early at the works on Thursday Jun 25 and has Col. French's cavalry apply the torch, the works reduced to ashes. "
                           "Both dates are carried as scenarios, no default. Hoke (1887) agrees with the Compiler on the day: the division left its camp at Greenwood on the morning of Friday Jun 26 and burned the works, about two miles east of Greenwood, on its way across the mountain, before it reached Gettysburg in the afternoon; "
                           "he prints General Early's own letter of 1886: the works were burned by his order and on his own responsibility. The Evening Star (Jul 1) and the Worcester Daily Spy (Jul 2) of 1863 confirm the destruction (the Spy prints a loss of about $100,000). "
                           "NOT documented: the hour of the burning (the order of events in Hoke puts it in the forenoon of Jun 26, inferred) and any construction-schedule detail.")
-    r['claim']['marking'] = 'event: documented from newspapers of the time, Hoke (1887) and Early\'s letter; date: two scenarios; time of day: inferred (forenoon, Hoke); hour: gap'
-    r['remains'] = ['hour of the burning', 'which date is right (Jun 25 or Jun 26)']
+    r['claim']['marking'] = 'event: documented from newspapers of the time, Hoke (1887) and Early\'s letter; date: two scenarios; time of day: inferred (forenoon, Hoke); hour: gap; date of the earlier visit of Jenkins\' cavalry (horses taken): two scenarios (V1, V2)'
+    r['remains'] = ['hour of the burning', 'which date is right (Jun 25 or Jun 26)', "which date is right for the earlier visit of Jenkins' cavalry (Jun 16 or Jun 23)"]
     r['searched'] = list(r['searched']) + [
         SRCH4 + "Hoke, The Great Invasion of 1863 (HOKE-1887, tmp/library/town), pp.169-171 read: the division left Greenwood on the morning of Friday Jun 26, the works about two miles east of Greenwood burned on the way across the mountain, Early's letter of 1886 ('burned by my order'); History of Cumberland and Adams Counties 1886 (HISTORY-ADAMS-1886): regex Stevens.{0,100}(furnace|iron works|forge)|Caledonia (iron|furnace|works): only the later rebuilding of the works, no date or hour",
         SRCH4 + "1863 newspaper pages (tmp/library/web/ca, the pages dated Jun 26 - Aug 31 1863): regex Stevens.{0,80}(furnace|iron works|iron mill|forge)|Caledonia: the dispatches of Jun 30 - Jul 4 repeat the destruction; Evening Star Jul 1 and Worcester Daily Spy Jul 2 cited; none gives the day or the hour",
+        SRCH4 + "the earlier visit of Jenkins' cavalry to the works (horses and mules taken): the Adams Sentinel of Jul 21 and Sep 8 1863 (already searched in the earlier passes) say Tuesday Jun 23, Hoke p.170 (query: marauding, in HOKE-1887, 7 windows, one about the works) says Tuesday Jun 16; the OR search above (Caledonia|Stevens iron works) found no report of the visit",
     ]
-    r['register'].update(title='Caledonia iron works: date (Jun 25 or Jun 26) and hour',
-        why="Two accounts disagree on the day (Friday Jun 26: Compiler of Jun 29 1863 and Hoke 1887; Thursday Jun 25: Tribune letter and Adams Sentinel); no source gives an hour; no report of the burning from Early's command is in the OR.",
+    r['register'].update(title='Caledonia iron works: date (Jun 25 or Jun 26), hour, and date of the earlier visit (Jun 16 or Jun 23)',
+        why="Two accounts disagree on the day (Friday Jun 26: Compiler of Jun 29 1863 and Hoke 1887; Thursday Jun 25: Tribune letter and Adams Sentinel); no source gives an hour; no report of the burning from Early's command is in the OR. The earlier visit of Jenkins' cavalry (horses and mules taken) is dated Tuesday Jun 23 by the Adams Sentinel (Jul 21 and Sep 8 1863) and Tuesday Jun 16 by Hoke (1887).",
         recon="Burned on Jun 25 or Jun 26 by order of General Early (his letter of 1886), the torch applied by Col. French's cavalry (Sentinel; Hoke); the works about two miles east of Greenwood; forenoon of Jun 26 inferred (Hoke); shown with both scenarios",
-        competing='Friday Jun 26 (Compiler, Jun 29; Hoke 1887: forenoon, inferred) / Thursday Jun 25 (Tribune letter and Adams Sentinel) / seed Jun 26 after 08:00')
+        competing="Friday Jun 26 (Compiler, Jun 29; Hoke 1887: forenoon, inferred) / Thursday Jun 25 (Tribune letter and Adams Sentinel) / seed Jun 26 after 08:00; earlier visit of Jenkins' cavalry: Tuesday Jun 23 (Adams Sentinel Jul 21 and Sep 8 1863) / Tuesday Jun 16 (Hoke 1887, while Jenkins' cavalry occupied Chambersburg)")
 
     # ------------------------------------------------------------------------------------------------------------------ T1-007
     r = by['T1-007']
     r['cites'].update({
         'hist_thu': LH(Q['hist_thu'], '154'),
-        'hist_735': LH(Q['hist_735'], '154', note='the number 735 as read in the text layer; it agrees with the 735 of Jacobs 1864 p.13; page image not viewed'),
+        'hist_735': LH(Q['hist_735'], '154', note='the number 735 as read in the text layer and on the page image; it agrees with the 735 of Jacobs 1864 p.13'),
         'wni_fri': CA('CA-sn83045784-1863-07-02-p3', Q['wni_fri'], reading="Col. Jennings's regiment left Harrisburg on Thursday for Gettysburg. On Friday morning the regiment went to Gettysburg.", image=IMG['wni'],
                       witness='Weekly National Intelligencer, Jul 2 1863: a dispatch dated Hanover Junction, Jun 27 (the Philadelphia Bulletin special, also printed by the Chicago Daily Tribune of Jun 29)'),
     })
@@ -183,10 +248,10 @@ def apply(rows):
     # ------------------------------------------------------------------------------------------------------------------ T1-014
     r = by['T1-014']
     r['cites'].update({
-        'hist_3pm': LH(Q['hist_3pm'], '154', note='the number 200 as read in the text layer; page image not viewed'),
+        'hist_3pm': LH(Q['hist_3pm'], '154', note='the number 200 and the hour "3 o\'clock" as read in the text layer and on the page image'),
         'hist_jenkins': LH(Q['hist_jenkins']),
-        'hist_demand': LH(Q['hist_demand'], note='the list as read in the text layer (digits not viewed on the page image); the county history gives $5,000 in cash and no value of the goods'),
-        'hoke_demand': L('HOKE-1887', Q['hoke_demand'], note='the text layer prints "coifee" and "live hundred hats"; the quantities as read in the text layer, page image not viewed'),
+        'hist_demand': LH(Q['hist_demand'], note='the list as read in the text layer and on the page image (the text layer prints "$5, 000"); the county history gives $5,000 in cash and no value of the goods'),
+        'hoke_demand': L('HOKE-1887', Q['hoke_demand'], note='the text layer prints "coifee" and "live hundred hats"; the page image reads "one hundred pounds of coffee" and "five hundred hats", the other quantities as in the text layer'),
         'star_fri': CA('CA-sn83045462-1863-07-01-p2', Q['star_fri'], reading="The place was occupied on Friday afternoon last by four thousand five hundred Rebels under command of General Early; they had with them twenty pieces of light artillery.", image=IMG['star_fri'],
                        witness='Evening Star (Washington), Jul 1 1863: an informant who was in Gettysburg when the rebel troops entered, reported by a Philadelphia Inquirer correspondent at Harrisburg, Jun 30'),
     })
@@ -194,7 +259,7 @@ def apply(rows):
     sub_add(r, "Hoke (1887, p.171) lists the requisition otherwise than Jacobs: 60 barrels of flour, 7,000 pounds of pork or bacon, 1,200 pounds of sugar, 100 pounds of coffee (Jacobs 600), 1,000 pounds of salt, 40 bushels of onions (Jacobs 10 barrels), 1,000 pairs of shoes and 500 hats, or ten thousand dollars in money (Jacobs: goods worth $6,000, or $5,000 cash); no whisky",
             'inferred', 'conflict', ['hoke_demand', 'jac_demand', 'jac_demand2', 'hist_demand'])
     r['scenarios'] = [sc('A', "Early's requisition as Jacobs gives it: 1,200 lb sugar, 600 lb coffee, 60 barrels of flour, 1,000 lb salt, 7,000 lb bacon, 10 barrels of whisky, 10 barrels of onions, 1,000 pairs of shoes, 500 hats, worth $6,000, or $5,000 cash", 'Jacobs 1864 pp.16-17 (eyewitness at Gettysburg); the county history of 1886 p.153 has the same list with $5,000 in cash', 'documented', ['jac_demand', 'jac_demand2', 'hist_demand']),
-                      sc('B', "Early's requisition as Hoke gives it: 60 barrels of flour, 7,000 lb pork or bacon, 1,200 lb sugar, 100 lb coffee, 1,000 lb salt, 40 bushels of onions, 1,000 pairs of shoes, 500 hats, or $10,000 in money", 'Hoke 1887 p.171 (a later book that names no source for the list; quantities as read in the text layer)', 'inferred', ['hoke_demand'])]
+                      sc('B', "Early's requisition as Hoke gives it: 60 barrels of flour, 7,000 lb pork or bacon, 1,200 lb sugar, 100 lb coffee, 1,000 lb salt, 40 bushels of onions, 1,000 pairs of shoes, 500 hats, or $10,000 in money", 'Hoke 1887 p.171 (a later book that names no source for the list; quantities as read on the page image)', 'inferred', ['hoke_demand'])]
     sub_add(r, "The county history of 1886 (p.153) has Jenkins' cavalry gallop into Gettysburg on the afternoon of the 26th (the Compiler of Jun 29 1863 names the advance of about 150 men as White's cavalry)", 'inferred', 'contradicted', ['hist_jenkins', 'cmp_entry3'])
 
     # ------------------------------------------------------------------------------------------------------------------ T1-017
@@ -445,6 +510,15 @@ def apply(rows):
     for rid, text in NONE.items():
         r = by[rid]
         r['searched'] = list(r['searched']) + [SRCH4 + text]
+
+    # the page images of the two books were viewed in the fourth start (BOOK_IMG): attach what they show to every citation of those books
+    for r_ in rows:
+        for k_, c_ in r_.get('cites', {}).items():
+            if c_.get('src') in ('HISTORY-ADAMS-1886', 'HOKE-1887') and k_ in BOOK_IMG and not c_.get('image_check'):
+                c_['image_check'] = BOOK_IMG[k_]
+    for r_ in rows:
+        for k_, c_ in r_.get('cites', {}).items():
+            assert c_.get('src') not in ('HISTORY-ADAMS-1886', 'HOKE-1887') or c_.get('image_check'), ('no page-image check for', r_['id'], k_)
 
 
 # window limits whose origin changes with the fourth start (merged into build.LIMIT_NOTES)

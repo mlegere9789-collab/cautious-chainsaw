@@ -22,7 +22,7 @@ function mkBank(nb = 36) {              // identity matrices for every bone of f
   let dirty = [0, rows - 1]; return { width, rows, tpf, data, takeDirty() { const d = dirty; dirty = null; return d; } };
 }
 async function setup() {
-  T = await loadTerrain(URLS.proto); world = buildWorld(T, { total: 1500, horses: 100, gunRate: 0 }); for (let i = 0; i < world.count; i++) world.sold1[i * 4] = 1e9;
+  T = await loadTerrain(URLS.proto); world = buildWorld(T, { total: 1500, horses: 100, gunRate: 1 }); for (let i = 0; i < world.count; i++) world.sold1[i * 4] = 1e9;
   const canvas = document.getElementById('c'); canvas.width = W; canvas.height = H;
   const ropts = { base: URLS.proto, nearQ: 1, midQ: 0.35, nearR: 0.01, midR: 0.01, shadowSize: 1024, midMode: 'vat', fxAlpha: 0.75, exposure: 1 };
   host = await RenderHost.create({ canvas, world, api: API, opts: ropts, replaceCanvas: () => canvas }); host.resize(W, H); cam = LAB.cam = new Camera();

@@ -31,6 +31,7 @@ export class Crowd {
     this.host = host; this.layer = o.layer; this.world = o.world; this.stage = o.stage; this.T = o.T; this.api = host.api; this.dead = false; this.settings = o.settings || { nearR: 40, midR: 300 };
     this.stats = { lod0: 0, lod1: 0, lod2: 0, horse: 0, far: 0, draws: 0, tris: 0, records: 0, selectMs: 0, animMs: 0, bakeMs: 0, parts: 0, classes: 0, fading: 0, listed: 0, r0e: 0, budgetCut: false, bands: [0, 0, 0] }; this.meshes = new MeshStore(); this.tmp = [0, 0, 0]; this.pl = { view: new Float32Array(16), proj: new Float32Array(16), vp: new Float32Array(16), planes: new Float32Array(24) };
     // the cross-fade between levels (lod.mjs): o.lod = { band, hyst, budget } overrides the defaults; the object stays live (a test sets band = 0 and hyst = 0 for the hard swap it replaces)
+    this.Backend = o.backend || null;                         // a test passes its own backend class (the draw lists are then inspected in node, without a GPU); the shell leaves it out
     this.nearCap = LOD0_BUDGET; this.lod = lodOptions({ ...(o.lod || {}), mountedSphere: 2.2 + LED.back_m }); this.lod.budget = Math.min(this.lod.budget, this.nearCap);
     this.fl = new FigureList(4096); this.inst = new ArrayBuffer(48 * 4096); this.instF = new Float32Array(this.inst); this.instU = new Uint32Array(this.inst); this.pose = new Float32Array(this.nearCap * 61 * 12);
     this.partCache = new Map(); this.draws = []; this.rowsTmp = new Float64Array(3); this.nUnits = this.world.units.length; this.lastR = { r0: 0, r1: 0, r2: 0 };
@@ -67,7 +68,7 @@ export class Crowd {
     imp.data = atl; progress(0.95, 'Starting the figure pass'); await tick();
     const S = this.S = { count: this.D.count, nVariants: this.D.nVariants, nslot: NSLOT, inst: this.D.inst, varInfo: this.D.varInfo, varPal: this.D.varPal, pal: buildPal(flagMean), palW: PAL_W, palH: PAL_H, nearCap: this.nearCap, banks: { human: this.bank.human, horse: this.bank.horse }, imp };
     const R = this.host.R; R.o.flags.near = 0; R.o.flags.mid = 0; R.o.flags.far = 0; R.cfg.nearR = 0.01; R.cfg.midR = 0.01;            // the prototype soldiers off: its selection pass sees no unit in range
-    if (this.api === 'webgpu') { const { CrowdGPU } = await import('./gpu.mjs'); this.be = new CrowdGPU(this.host, this); } else { const { CrowdGL } = await import('./gl.mjs'); this.be = new CrowdGL(this.host, this); }
+    if (this.Backend) this.be = new this.Backend(this.host, this); else if (this.api === 'webgpu') { const { CrowdGPU } = await import('./gpu.mjs'); this.be = new CrowdGPU(this.host, this); } else { const { CrowdGL } = await import('./gl.mjs'); this.be = new CrowdGL(this.host, this); }
     this.be.init(S); this.host.setCrowd(this);
     this.driver.anim.setPlacement((id, k, t, out) => this.placement(id, k, out));
     this.stats.buildMs = Math.round(performance.now() - t0); this.stats.classes = nC; progress(1, 'Figures ready');

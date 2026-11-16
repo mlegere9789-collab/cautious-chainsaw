@@ -17,5 +17,9 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | None (delegated decision DD-F2-09 proposes the default) |
 | Agent recommendation | Keep all values selectable. |
-| Status | open (proposed 2026-11-14) |
+| Status | open (proposed 2026-11-14); third reading 2026-11-15/16, see the addendum |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Round 3 addendum (third reading, 2026-11-15/16)
+
+S-050: the NPS web page "Culp's Hill" says "before sunrise on July 3, fighting resumed" and "after six hours of fighting, the Union line held firm": a secondary duration value for the whole infantry and artillery fight, consistent with the start values above (03:30 to 04:30) and an end about 10:00-11:00, not a value for the bombardment; carried beside the four start values, no value selected. Damage to the works (splintered head logs, shell craters) still has no source. Status unchanged.

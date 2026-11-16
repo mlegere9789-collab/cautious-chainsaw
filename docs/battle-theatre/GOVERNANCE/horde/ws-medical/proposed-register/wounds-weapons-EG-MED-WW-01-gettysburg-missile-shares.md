@@ -1,0 +1,21 @@
+# EG-MED-WW-01: No table of the wounded of Gettysburg by the character of the missile is in the local texts
+
+| Field | Content |
+|---|---|
+| ID | EG-MED-WW-01 |
+| Requirement IDs | OA12 (accurate field hospitals, battle trauma and period-accurate treatment); PDF B.8.5; gate Q26; Law clauses 3, 4 and 7 |
+| Category | evidence missing (searched, not found) |
+| Description | The Surgical History tabulates shot wounds by the nature of the projectile for the whole war (Table CXXI, printed page 696: 245,790 shot wounds, the missile ascertained in 141,961) and prints named Gettysburg cases, but no table for Gettysburg. Letterman prints a classified table (cannon-ball, shell, bullet, unclassified) for the Army of the Potomac at Fredericksburg (page 86) and the form for such a return in his Appendix (page 193); his pages on Gettysburg (153 to 160) give counts, not missiles. A weight over weapon for the patients of a Gettysburg hospital is therefore borrowed. |
+| Why literal 100% is not possible or blocked | The record does not state it, or the text is not available to this project (Law cl.3); nothing is invented to fill it. |
+| Evidence searched | Searched on 2026-11-15: the three surgical volumes of the Surgical History (all Gettysburg passages; named cases only), Official Records vol. 27 parts 1 and 2 (the reports of Letterman, Cuyler, Vollum, Guild, Patterson; no classification by missile), Letterman 1866 (pages 79 to 87 and 153 to 160 and the Appendix form), the Sanitary Commission report of 1863, Souder, Hospital Scenes, Jacobs. The corps medical directors' reports and Surgeon Janes's report are not local (EG-MED-PLAN-01). |
+| Autonomous substitute applied | Two selectable bases, both borrowed and marked: A, Table CXXI by seat of injury (rows t121.* of the evidence file, aggregate row med.wounds-weapons.131); B, Letterman's Fredericksburg table (rows lf.*, total row med.wounds-weapons.250). The conflict set cs.missile-share-basis carries them; the Army-wide artillery share is about 9.9 per cent. of known missiles and Letterman's is about 20.3 per cent. of classed wounds. |
+| Strongest evidence-based reconstruction | Each patient of a hospital is drawn from the weights of the viewer's chosen basis; the card says the weight is borrowed; no Gettysburg percentage is shown. |
+| Confidence tier | documented for each table as it is printed; plausible-procedural for the borrowing (rows med.wounds-weapons.268 and .269); open gap for the Gettysburg table (row .263) |
+| Competing values | Table CXXI: conoidal ball 108,049, round or musket ball 16,742, pistol or buckshot 3,008, explosive musket balls 130, solid shot 359, fragments of shell 12,520, grape, canister, etc. 1,153 (141,961 of known missile) against Letterman at Fredericksburg: cannon-ball 86, shell 811, bullet 3,519, unclassified 2,684 (7,100). |
+| Product marking | The scene or card carries the tier mark and, for an open gap, the gap marker with this id. |
+| Visual and audio impact | groups wounds-regions, triage-first-aid, the sampling table of the hospital scenes (weapon by region), the missile word on a patient card |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | Delegated: DD-MED-WW-01 (default basis A, B selectable, both marked borrowed). The owner may change it. |
+| Agent recommendation | Look for the corps medical directors' reports (Janes, Letterman's staff) and the Surgeon General's Office returns of July 1863 (record group of the Surgeon General's Office, catalog.archives.gov; a request is owner-only); Brinton's consolidated statement of gunshot wounds of 1 July 1863. |
+| Status | open (proposed by bt-medical, group wounds-weapons, 2026-11-15; not yet in register/) |
+| Owner decision and date | (filled only from the Decision Log) |

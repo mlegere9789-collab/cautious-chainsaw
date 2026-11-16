@@ -19,3 +19,7 @@
 | Agent recommendation | Keep all four. |
 | Status | open (re-checked 2026-11-14) |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Round 3 addendum (third reading, 2026-11-15/16)
+
+The quotes of S-031 were re-validated against the raw local texts by offset and by text search (0 problems); no new local evidence was found for the open parts; the text above is unchanged.

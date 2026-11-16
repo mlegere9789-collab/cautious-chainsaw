@@ -17,5 +17,9 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | None |
 | Agent recommendation | Drop the fire effect. |
-| Status | open (re-checked 2026-11-14) |
+| Status | open (re-checked 2026-11-14); third reading 2026-11-15/16, see the addendum |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Round 3 addendum (third reading, 2026-11-15/16)
+
+S-033: the wheat "clipped by fire" was searched again on 2026-11-15 in two passes (the memoirs and histories of the ws9 library and every ws9 text: 0 matches; every text under tmp/library, wheat-field near burning, burned, flames or blaz: 4 files, none a fire in the Wheatfield: "eyes ablaze" in the two copies of Pennsylvania at Gettysburg, "blazonry" in Maine at Gettysburg, and a passage on another farm in the Eisenhower farm study); the claim stays unsupported. No change otherwise.

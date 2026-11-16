@@ -99,7 +99,7 @@ void main() {
   float n = fract(ign(gl_FragCoord.xy) + vV.w); if (n < vF.x) discard;                                       // [0, lo) is kept by the 3D levels
   float u = vF.x > 0.0 ? (n - vF.x) / (1.0 - vF.x) : n; if (u > vV.z) discard; float uu = vV.z < 1.0 ? u / vV.z : u;      // u, uu: uniform numbers again (the share kept, the share of the dab)
   vec3 toCam = normalize(cam.xyz - vWp); vec3 hc = normalize(vec3(toCam.x, 0.0, toCam.z));
-  if (uu < vF.y) { float fw = mix(1.0, ${LOD_DAB.w.toFixed(3)}, vF.w), mg = ${LOD_DAB.margin.toFixed(3)} * vF.w; if (abs(vQ.x - 0.5) > 0.5 * fw || vQ.y < mg || vQ.y > 1.0 - mg) discard;
+  if (uu < vF.y) { float fw = mix(1.0, ${LOD_DAB.w.toFixed(3)}, vF.w), mt = ${LOD_DAB.top.toFixed(3)} * vF.w, mb = ${LOD_DAB.bottom.toFixed(3)} * vF.w; if (abs(vQ.x - 0.5) > 0.5 * fw || vQ.y < mb || vQ.y > 1.0 - mt) discard;
     int mm = vQ.y > 0.45 ? ${MATC.COAT} : ${MATC.TROUSERS}; MatR m = resolveMat(mm, vW); o = vec4(fogged(lit(m.alb, m.rough, m.metal, normalize(hc * 0.7 + vec3(0.0, 0.7, 0.0)), vWp, 1.0, 0.8), vWp), 1.0); return; }
   float view = vV.x; if (vF.z > 0.0 && fract(ign(gl_FragCoord.yx) + fract(vV.w * 7.0 + 0.37)) < vF.z) view = mod(view + 1.0, 8.0);
   int px = int(view) * 48 + clamp(int(vQ.x * 48.0), 0, 47), py = clamp(int((1.0 - vQ.y) * 64.0), 0, 63); vec4 t = texelFetch(uImp, ivec3(px, py, int(vV.y)), 0); int mat = int(t.r * 255.0 + 0.5); if (mat == 0) discard;

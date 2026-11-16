@@ -87,14 +87,14 @@ test('the eight baked views of the impostor: a figure takes the next view with t
 });
 
 test('the dab narrows to the footprint of the baked figure: the whole quad at 3 px, the measured silhouette at 7 px, continuous between, the whole quad in hard mode', () => {
-  const f = h => dabFootprint(h, 0.075); assert.deepEqual(f(2), { w: 1, margin: 0, k: 0 }); assert.deepEqual(f(3), { w: 1, margin: 0, k: 0 }); assert.ok(near(f(7).w, LOD_DAB.w) && near(f(7).margin, LOD_DAB.margin) && near(f(9).w, LOD_DAB.w));
-  let prev = f(3); for (let h = 3; h <= 7; h += 0.01) { const c = f(h); assert.ok(c.w <= prev.w + 1e-12 && Math.abs(c.w - prev.w) < 0.02, `h ${h}`); prev = c; } assert.deepEqual(dabFootprint(5, 0), { w: 1, margin: 0, k: 0 });
+  const f = h => dabFootprint(h, 0.075); assert.deepEqual(f(2), { w: 1, top: 0, bottom: 0, k: 0 }); assert.deepEqual(f(3), { w: 1, top: 0, bottom: 0, k: 0 }); assert.ok(near(f(7).w, LOD_DAB.w) && near(f(7).top, LOD_DAB.top) && near(f(7).bottom, LOD_DAB.bottom) && near(f(9).w, LOD_DAB.w));
+  let prev = f(3); for (let h = 3; h <= 7; h += 0.01) { const c = f(h); assert.ok(c.w <= prev.w + 1e-12 && Math.abs(c.w - prev.w) < 0.02, `h ${h}`); prev = c; } assert.deepEqual(dabFootprint(5, 0), { w: 1, top: 0, bottom: 0, k: 0 });
   // the numbers are the baked atlas's: 131 upright foot classes of data/figures3d/impostor-atlas.png (R = material id, 0 = empty)
   const dir = new URL('../data/figures3d/', import.meta.url), png = decodePng(fs.readFileSync(new URL('impostor-atlas.png', dir))), rows = JSON.parse(fs.readFileSync(new URL('impostor-atlas.json', dir), 'utf8')).rows.filter(r => r.height_m < 2.3);
   let area = 0, bw = 0, bh = 0, top = 0, bottom = 0, n = 0; for (const r of rows) for (let v = 0; v < 8; v++) { let cnt = 0, minx = 99, maxx = -1, miny = 99, maxy = -1; for (let y = 0; y < 64; y++) for (let x = 0; x < 48; x++) if (png.data[(((r.row * 64 + y) * png.w) + v * 48 + x) * 4]) { cnt++; minx = Math.min(minx, x); maxx = Math.max(maxx, x); miny = Math.min(miny, y); maxy = Math.max(maxy, y); } area += cnt / (48 * 64); bw += maxx - minx + 1; bh += maxy - miny + 1; top += miny / 64; bottom += (63 - maxy) / 64; n++; }
-  area /= n; bw /= n; bh /= n; top /= n; bottom /= n; console.log(`# the baked atlas: ${rows.length} upright classes, mean silhouette ${area.toFixed(3)} of the quad, bounding box ${bw.toFixed(1)} x ${bh.toFixed(1)} of 48 x 64, empty margin ${top.toFixed(3)} above and ${bottom.toFixed(3)} below; the dab: width ${LOD_DAB.w}, margin ${LOD_DAB.margin}`);
-  assert.ok(rows.length > 100); assert.ok(Math.abs(area / (bh / 64) - LOD_DAB.w) < 0.02, `the mean width over the height ${area / (bh / 64)}`); assert.ok(Math.abs(top - LOD_DAB.margin) < 0.03 && Math.abs(bottom - LOD_DAB.margin) < 0.03);
-  assert.ok(Math.abs(LOD_DAB.w * (1 - 2 * LOD_DAB.margin) - area) < 0.02, 'the dab at its narrowest has the area of the silhouette');
+  area /= n; bw /= n; bh /= n; top /= n; bottom /= n; console.log(`# the baked atlas: ${rows.length} upright classes, mean silhouette ${area.toFixed(3)} of the quad, bounding box ${bw.toFixed(1)} x ${bh.toFixed(1)} of 48 x 64, empty margin ${top.toFixed(3)} above and ${bottom.toFixed(3)} below; the dab: width ${LOD_DAB.w}, empty ${LOD_DAB.top} above and ${LOD_DAB.bottom} below`);
+  assert.ok(rows.length > 100); assert.ok(Math.abs(area / (bh / 64) - LOD_DAB.w) < 0.02, `the mean width over the height ${area / (bh / 64)}`); assert.ok(Math.abs(top - LOD_DAB.top) < 0.01 && Math.abs(bottom - LOD_DAB.bottom) < 0.01);
+  assert.ok(Math.abs(LOD_DAB.w * (1 - LOD_DAB.top - LOD_DAB.bottom) - area) < 0.01, 'the dab at its narrowest has the area of the silhouette');
 });
 
 // ---------------------------------------------------------------------------------------------------- the selection on a synthetic world
@@ -137,13 +137,16 @@ test('selection: every figure in range and in view is listed at one or two adjac
 });
 test('the LOD0 budget is a radius: at most K men have a LOD0 share, they are the nearest in effective distance, the radius is cut to the K-th and the band ends there', () => {
   const w = makeWorld([{ x: 0, z: 6, nx: 30, nz: 40, spacing: 0.5 }]), c = camAt(0, 1.7, 0), opt = lodOptions(), L = new FigureList(256), n = select(w, L, c, opt), st = L.stats;
-  assert.ok(st.budgetCut && st.r0e < 10 && st.r0e > 0.5, `r0e ${st.r0e}`); assert.ok(st.nL0 <= LOD0_BUDGET && st.nL0 >= LOD0_BUDGET - 2, `${st.nL0} men at LOD0`);
+  assert.ok(st.budgetCut && st.r0e < 10 && st.r0e > 0.5, `r0e ${st.r0e}`); assert.ok(st.nL0 <= LOD0_BUDGET && st.nL0 >= LOD0_BUDGET * 0.6, `${st.nL0} men at LOD0 (the men just outside the view use up part of the budget with a soft weight)`);
   let withL0 = 0, maxNuL0 = 0, minNuNo = 1e9; for (let j = 0; j < n; j++) { if (L.mask[j] & 1) { withL0++; maxNuL0 = Math.max(maxNuL0, L.nu[j]); } else minNuNo = Math.min(minNuNo, L.nu[j]); }
   assert.equal(withL0, st.nL0); assert.ok(maxNuL0 <= minNuNo + 1e-9, 'the men with a LOD0 share are the nearest'); assert.ok(maxNuL0 < st.r0e * 1.075 + 1e-9);
   // a pose palette of K slots is enough: count the figures with a LOD0 share over a camera sweep through the block
   for (let z = -5; z < 25; z += 0.7) { const L2 = new FigureList(256); select(w, L2, camAt(0, 1.7, z), opt); assert.ok(L2.stats.nL0 <= opt.budget, `camera at z ${z}: ${L2.stats.nL0}`); }
   // a sparse unit never meets the budget: r0e stays r0
   const sp = makeWorld([{ x: 0, z: 8, nx: 5, nz: 5, spacing: 3 }]), L3 = new FigureList(64); select(sp, L3, c, opt); assert.equal(L3.stats.budgetCut, false); assert.equal(L3.stats.r0e, 10);
+  // the men outside the view use up the budget only within the margin: a block entirely behind the camera uses none of it, a block beside it some
+  const behind = makeWorld([{ x: 0, z: -2, nx: 40, nz: 40, spacing: 0.5 }]), Lb = new FigureList(64); select(behind, Lb, camAt(0, 1.7, 0, 0), opt); assert.equal(Lb.n, 0, 'nobody of a block behind the camera is listed'); assert.ok(Lb.stats.budgetCounted > 0, 'but the men of it that stand beside the view are counted');
+  const far = makeWorld([{ x: 0, z: -30, nx: 30, nz: 30, spacing: 0.5 }]), Lf = new FigureList(64); select(far, Lf, camAt(0, 1.7, 0, 0), opt); assert.equal(Lf.stats.budgetCounted, 0, 'a block 15 m or more behind is out of the reach of LOD0 and counts for nothing');
   // hard mode: exactly the K nearest by distance
   const L4 = new FigureList(256), hard = lodOptions({ band: 0, hyst: 0 }); select(w, L4, c, hard); assert.equal(L4.stats.nL0, LOD0_BUDGET);
   const tmp = [0, 0, 0], ds = []; for (let j = 0; j < L4.n; j++) ds.push([Math.sqrt(L4.d2[j]), L4.fig[j], L4.mask[j] & 1]); ds.sort((a, b) => a[0] - b[0] || a[1] - b[1]); void tmp;
@@ -164,12 +167,14 @@ test('continuity: a camera moving 2 cm at a time changes no level of any figure 
     for (let z = -40; z < 8; z += step) { select(w, L, camAt(0.3, 1.7, z), opt); const cov = coverage(L); if (prev) for (const [fig, c] of cov) { const p = prev.get(fig); if (!p) continue; for (let k = 0; k < 3; k++) { const s = Math.abs(c[k] - p[k]); if (s > worst) { worst = s; worstAt = `fig ${fig} level ${k} at z ${z.toFixed(2)}`; } if (s > 0.2) hist++; } } prev = cov; }
     return { worst, worstAt, hist }; };
   const soft = sweep(lodOptions()), hard = sweep(lodOptions({ band: 0, hyst: 0 }));
+  console.log(`# camera 2 cm steps through two blocks: largest step of any level of any figure ${soft.worst.toFixed(4)} (${soft.worstAt}); the hard swap ${hard.worst} (${hard.hist} steps over 0.2)`);
   assert.ok(soft.worst < 0.12 && soft.hist === 0, `with the cross-fade the largest step of a level's coverage is ${soft.worst.toFixed(4)} (${soft.worstAt}) per ${step} m`);
   assert.ok(hard.worst === 1 && hard.hist > 20, `the hard swap steps by ${hard.worst} (${hard.hist} steps over 0.2): ${hard.worstAt}`);
 });
 test('continuity of the budget radius: turning the camera on the spot inside a dense block moves no man by more than a share of the band per step', () => {
   const w = makeWorld([{ x: 0, z: 0, nx: 50, nz: 50, spacing: 0.55 }]), opt = lodOptions(); let prev = null, worst = 0, steps = 0; const L = new FigureList(256);
   for (let yaw = -1.2; yaw < 1.2; yaw += 0.004) { select(w, L, camAt(0.2, 1.7, -0.6, yaw), opt); const cov = coverage(L); if (prev) for (const [fig, c] of cov) { const p = prev.get(fig); if (!p) continue; worst = Math.max(worst, Math.abs(c[0] - p[0])); } prev = cov; steps++; assert.ok(L.stats.nL0 <= opt.budget); }
+  console.log(`# turning on the spot inside a block of 2,500 men in steps of 0.23 degrees: the largest change of a man's LOD0 share ${worst.toFixed(3)} (${steps} steps; budget radius ${L.stats.r0e.toFixed(2)} m)`);
   assert.ok(steps > 500 && worst < 0.5, `turning in steps of 0.23 degrees: the largest change of a man's LOD0 share is ${worst.toFixed(3)}`);
 });
 test('mounted units: horses and riders are one figure number, the larger sphere of a led horse is used, and the same ranges apply', () => {
@@ -191,7 +196,7 @@ test('WebGL2 shaders: the fade word is decoded as lod.mjs packs it, every level 
   assert.match(FIG_FS, /flat in vec3 vFade/); assert.match(FIG_FS, /if \(!fadeKeep\(vFade, gl_FragCoord\.xy\)\) discard;/);
   assert.match(IMP_VS, /hsh\(uint\(gl_InstanceID\) \* 13u \+ 5u\)/); assert.match(IMP_VS, /hash1\(uint n\) \{ return hsh\(n \* 7u \+ 3u\)/); assert.match(IMP_VS, /t \* t \* \(3\.0 - 2\.0 \* t\)/); assert.match(IMP_VS, /\(nu - r \* \(1\.0 - b\)\) \/ \(2\.0 \* r \* b\)/);
   assert.match(IMP_VS, /floor\(\(1\.0 - sF\) \* 65534\.0 \+ 0\.5\)/); assert.match(IMP_VS, /uR\.x \* \(1\.0 - b\) \* \(1\.0 - hy\)/); assert.match(IMP_VS, /1\.0 - bandS\(hpx \* fsc, uR\.w, b\)/); assert.match(IMP_VS, /if \(hpx < 3\.0\)/);
-  assert.ok(IMP_FS.includes(`mix(1.0, ${LOD_DAB.w.toFixed(3)}, vF.w)`) && IMP_FS.includes(`${LOD_DAB.margin.toFixed(3)} * vF.w`)); assert.ok(IMP_VS.includes(`smoothstep(${LOD_DAB.lowPx.toFixed(1)}, uR.w, hpx * fsc)`));
+  assert.ok(IMP_FS.includes(`mix(1.0, ${LOD_DAB.w.toFixed(3)}, vF.w)`) && IMP_FS.includes(`${LOD_DAB.top.toFixed(3)} * vF.w`) && IMP_FS.includes(`${LOD_DAB.bottom.toFixed(3)} * vF.w`)); assert.ok(IMP_VS.includes(`smoothstep(${LOD_DAB.lowPx.toFixed(1)}, uR.w, hpx * fsc)`));
   assert.match(IMP_FS, /if \(n < vF\.x\) discard/); assert.match(IMP_FS, /\(n - vF\.x\) \/ \(1\.0 - vF\.x\)/); assert.match(IMP_FS, /uu < vF\.y/);
   assert.match(IMP_VS, /view = b > 0\.0 \? mod\(floor\(yn\), 8\.0\) : mod\(floor\(yn \+ 0\.5\), 8\.0\), fv = b > 0\.0 \? fract\(yn\) : 0\.0/); assert.match(IMP_FS, /fract\(ign\(gl_FragCoord\.yx\) \+ fract\(vV\.w \* 7\.0 \+ 0\.37\)\) < vF\.z\) view = mod\(view \+ 1\.0, 8\.0\)/);
 });
@@ -202,7 +207,7 @@ test('WebGPU shaders: the same decode, the same discards, the same hashes, band 
   assert.match(W, /hsh\(ii \* 13u \+ 5u\)/); assert.match(W, /hsh\(ii \* 7u \+ 3u\)/); assert.match(W, /t \* t \* \(3\.0 - 2\.0 \* t\)/); assert.match(W, /\(nu - r \* \(1\.0 - b\)\) \/ \(2\.0 \* r \* b\)/);
   assert.match(W, /floor\(\(1\.0 - sF\) \* 65534\.0 \+ 0\.5\)/); assert.match(W, /cfg\.r2 \* \(1\.0 - b\) \* \(1\.0 - hy\)/); assert.match(W, /1\.0 - bandS\(hpx \* fsc, cfg\.dab, b\)/); assert.match(W, /if \(hpx < 3\.0\)/);
   assert.match(W, /view = floor\(yn \+ 0\.5\) % 8\.0; var fv = 0\.0; if \(b > 0\.0\) \{ view = floor\(yn\) % 8\.0; fv = fract\(yn\); \}/); assert.match(W, /fract\(ign\(i\.pos\.yx\) \+ fract\(i\.v\.w \* 7\.0 \+ 0\.37\)\) < i\.f\.z\) \{ view = \(view \+ 1\.0\) % 8\.0; \}/);
-  assert.ok(W.includes(`mix(1.0, ${LOD_DAB.w.toFixed(3)}, i.f.w)`) && W.includes(`${LOD_DAB.margin.toFixed(3)} * i.f.w`)); assert.ok(W.includes(`smoothstep(${LOD_DAB.lowPx.toFixed(1)}, cfg.dab, hpx * fsc)`));
+  assert.ok(W.includes(`mix(1.0, ${LOD_DAB.w.toFixed(3)}, i.f.w)`) && W.includes(`${LOD_DAB.top.toFixed(3)} * i.f.w`) && W.includes(`${LOD_DAB.bottom.toFixed(3)} * i.f.w`)); assert.ok(W.includes(`smoothstep(${LOD_DAB.lowPx.toFixed(1)}, cfg.dab, hpx * fsc)`));
   assert.match(W, /if \(n < i\.f\.x\) \{ discard; \}/); assert.match(W, /\(n - i\.f\.x\) \/ \(1\.0 - i\.f\.x\)/); assert.match(W, /uu < i\.f\.y/); assert.match(strip(W), /struct Cfg \{ tpf: u32, pad0: u32, r2: f32, band: f32, hyst: f32, dab: f32, pad2: f32, pad3: f32 \}/);
   // the two ports use one set of constants
   for (const [a, b] of [[/65534\.0/g, 65534.0]]) { void a; void b; } assert.equal((W.match(/65534\.0/g) || []).length >= 4, true);

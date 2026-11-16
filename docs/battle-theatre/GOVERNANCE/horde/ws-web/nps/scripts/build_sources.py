@@ -60,7 +60,7 @@ def main():
             'pages': m.get('pages'), 'pages_with_text': m.get('pages_with_text'),
             'text_path': m.get('text_path'), 'text_bytes': m.get('text_bytes'), 'text_sha256': m.get('text_sha256'),
             'layout_text_path': m.get('layout_text_path'), 'layout_text_sha256': m.get('layout_text_sha256'),
-            'file_kept': m.get('file_kept'), 'file_path': m.get('file_path'),
+            'file_kept': m.get('file_kept'), 'file_path': m.get('file_path'), 'extra_files': m.get('extra_files'),
             'failure': m.get('reason'),
             'rights_basis': mm.get('rights_basis', RIGHTS),
             'rights_note': mm.get('rights_note'),
@@ -131,6 +131,8 @@ def main():
             f.write('- Author: %s | Date: %s%s\n' % (s['author'] or 'not stated', s['date'] or 'not stated', (' | Series: ' + s['series']) if s['series'] else ''))
             f.write('- URL: %s (HTTP %s, fetched %s)\n' % (s['url'], s['http'], s['fetched_at']))
             f.write('- File as served: %s bytes, sha256 `%s`%s\n' % (s['bytes'], s['sha256'], '' if s['file_kept'] else ' (PDF deleted after text extraction to stay inside the disk budget)'))
+            for ef in (s.get('extra_files') or []):
+                f.write('- Second file as served (%s): %s, %s bytes, sha256 `%s`, fetched %s\n' % (ef['what'], ef['url'], ef['bytes'], ef['sha256'], ef['fetched_at']))
             f.write('- Text: `%s`, %s bytes, sha256 `%s`; %s of %s pages carry text\n' % (s['text_path'], s['text_bytes'], s['text_sha256'], s['pages_with_text'], s['pages']))
             f.write('- Rights basis: %s%s\n' % (s['rights_basis'], ('. ' + s['rights_note']) if s['rights_note'] else ''))
             if s['text_quality']:
@@ -173,6 +175,8 @@ def main():
                 'rights_basis': s['rights_basis'], 'rights_note': s['rights_note'],
                 'text_quality': s['text_quality'] or 'text layer of the PDF as served (pdftotext 24.02.0); not proofread',
             }
+            if s.get('extra_files'):
+                ent['extra_files'] = s['extra_files']
             if s.get('ocr_text_sha256'):
                 ent['ocr_text_path'], ent['ocr_text_sha256'], ent['ocr_engine'] = s['ocr_text_path'], s['ocr_text_sha256'], s['ocr_engine']
             if s['id'] in byid:

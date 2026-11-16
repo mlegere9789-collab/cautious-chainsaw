@@ -177,7 +177,7 @@ def main():
     if det:
         lo = 100 * min(d_['recall_of_errors'] for d_ in det['families'].values())
         hi = 100 * max(d_['recall_of_errors'] for d_ in det['families'].values())
-        tail = 'between %.0f and %.0f percent of the lines that the sample reader found in error (4.1); the agreement of the two engines on 20 pages per family is in 4.2.' % (lo, hi)
+        tail = 'between %.0f and %.0f percent of the lines that the sample reader found in error (4.1); %s.' % (lo, hi, 'the agreement of the two engines on 20 pages per family is in 4.2' if sr else 'the agreement of the two engines on 20 pages per family (4.2) is OWED: the test was queued through the machine lock and had not run when this report was written')
     else:
         tail = 'n/a.'
     A('* **The second-reading route (Measured, section 4).** %d of the %d lines that the first layer lost and that were tried (the %d Vermont lines of `diag-no-name.json` and %d of the %d Maine index lines of `diag-index.json`) were read by tesseract and are recovered, each with its own locator in a derived text (`data2/qa/pageread-ledger.json`) and confirmed by looking at the line on the page image%s; none is written into a unit file. The eight Maine index leaves without text are scanner-deleted leaves (`pageType Delete`) between consecutive printed pages: nothing is lost there. Compared with the first layer, tesseract marks as SUSPECT ' % (n_rec_vt + n_rec_me, len(rec_vt['rows']) + len(rec_me['rows']), len(rec_vt['rows']), len(rec_me['rows']), n_lost_me, (' (and again by the second sitting on the stored crops: %d of %d agree)' % (rchk['summary']['agree'], rchk['summary']['lines'])) if rchk else '') + tail)

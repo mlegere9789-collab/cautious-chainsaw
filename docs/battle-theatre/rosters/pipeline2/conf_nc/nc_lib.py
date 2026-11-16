@@ -92,6 +92,29 @@ def is_furniture(s):
     return False
 
 
+def is_furniture_leaf_first(s):
+    """The first line of a leaf is the running head of the printed page; the OCR garbles it beyond the exact test of is_furniture.  Relaxed test, used for that line only:
+    a short line whose words are close to two of Carolina, Troops, Regiment or Battalion, Company, or to one of them together with a page number."""
+    s = s.strip()
+    if not s or len(s) > 70:
+        return False
+    w = _words(s)
+    if not w or len(w) > 9:
+        return False
+    if re.search(r"\b(?:e|cm|em)[\.,]\s+[A-Za-z]{3,}|\bco\b\.", s, re.I):
+        return False
+    score = 0
+    if _has(w, 'carolina', 4, 0.55):
+        score += 1
+    if _has(w, 'troops', 4, 0.6):
+        score += 1
+    if _has(w, 'regiment', 5, 0.55) or _has(w, 'battalion', 6, 0.55):
+        score += 1
+    if _has(w, 'company', 5, 0.55):
+        score += 1
+    return score >= 2 or (score >= 1 and re.search(r"[0-9]", s) is not None and len(w) <= 5)
+
+
 # ------------------------------------------------------------------ headings
 
 LETTERS = list('ABCDEFGHIKLMNOP')       # Moore letters the companies A, B, C, D, E, F, G, H, I, K, L, M ... (no J)

@@ -17,5 +17,9 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | None now (delegated decision DD-F2-05 proposes the default) |
 | Agent recommendation | Keep both scenarios. |
-| Status | open (re-checked 2026-11-14) (register EG-0087 carries the earlier text) |
+| Status | open (re-checked 2026-11-14) (register EG-0087 carries the earlier text); third reading 2026-11-15/16, see the addendum |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Round 3 addendum (third reading, 2026-11-15/16)
+
+S-044: the NPS web pages "Evergreen Cemetery Gatehouse Then & Now" and "Buildings and Farms Then and Now" (saved 2026-11-13) say the gatehouse "was used to shelter wounded and suffered damage from the fighting that raged in front of it on the evening of July 2" and "suffered only moderate damage"; the clock window of the printed row stays the plan's own (no text). S-044 is now corrected and closed. S-045: nothing new for the iron fences and monuments; the saved Chronicling America pages of 1863 have no passage with Evergreen near a fence, railing, tombstone, monument, obelisk, headstone or gate (0 files). Competing values unchanged except that S-044 adds "evening of 2 Jul (NPS web pages)" for the gatehouse only.

@@ -17,5 +17,9 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | None (delegated decision DD-F2-10 proposes the default) |
 | Agent recommendation | Adopt the sourced times. |
-| Status | open (proposed 2026-11-14) |
+| Status | open (proposed 2026-11-14); third reading 2026-11-15/16, see the addendum |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Round 3 addendum (third reading, 2026-11-15/16)
+
+S-027, S-047, S-048: the U.S. Sanitary Commission's report (J. H. Douglas, 15 Aug 1863; local text tmp/library/medical/USSC-GETTYSBURG-1863) adds (a) "a hospital to the left of our line, just in the rear of Weed's Hill, where General Weed fell" that received the last stores from the Commission's wagons during the battle (Little Round Top; the identification with the Weikert house is by place, inferred; S-027 and S-047); (b) the end sites in July 1863: the Third Corps hospital "on high ground south of Schwartz's house, about 100 rods above the junction of White's Creek with Rock Creek, on Schwietzel's farm" (2,550 wounded) and the Fifth Corps hospital in three divisions (the First on Mr. Little's farm south of White's Creek, the Second south of Mrs. Jesse Clapsaddle's house across Lousy Run, the Third half a mile west of Two Taverns on Jesse Werley's farm; 1,400 wounded), and "the surgeons had decided upon the different points where the Corps Hospitals were to be formed" on the afternoon of 2 Jul (S-048); the report does not date a move of those hospitals, so the printed relocation on the night of 2 Jul stays unsupported and the V Corps move after the cannonade of 3 Jul (NY vol. 3) stays the only dated one. The 1993 list of the corps-hospital tablets (completed August 1914) repeats the Hospital Road description ("runs south from Granite Schoolhouse Road, crosses Rock Creek below White Run, becomes Goulden Road"). Status unchanged: open.

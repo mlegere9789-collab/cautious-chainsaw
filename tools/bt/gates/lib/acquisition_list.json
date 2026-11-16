@@ -1,0 +1,753 @@
+{
+ "schema": "bt-acquisition-list/1",
+ "_doc": "The machine list of acquisition rows of GATE-SPEC.md Q25.1, written from the plan text: Appendix C.1.1 to C.1.4 (pp. 139-141), the categories of X.1 (p. 137) that no C.1 row names, the reachable library of D.4.1 (pp. 125-126) and the print-only list of D.4.2 (p. 126). Each row has a stable id, the plan page, an `anchor` (words that stand on that page of BIBLE/plan-clean.txt; the runner re-finds every anchor in the plan text at every run), and `status_ids` (the rows of library/status*.json whose own title or note names the source; a row with an empty list has no status row today and is FAIL, silently skipped, p. 138 Z.7). The 45 catalogue items of B.9 (R12.001 to R12.045) are read from terrain/terrain_sources.json at run time and mapped by `library_ids.json` (`r12_to_status`); the sources that a recorded decision names (DEC-OA10-12 item 5: the medical works) are read from medical/sources.json at run time (`decision_sources`). A status id named here is never invented: it has to exist in a status file or the row is FAIL (unresolved status id).",
+ "decision_sources": [
+  {
+   "decision": "DEC-OA10-12",
+   "item": 5,
+   "requirement": "OA12",
+   "registry": "docs/battle-theatre/medical/sources.json",
+   "id_prefixes": [
+    "MSHWR-",
+    "GROSS-",
+    "TRIPLER-",
+    "WOODWARD-",
+    "LETTERMAN-1866"
+   ],
+   "quote": "The Medical and Surgical History of the War of the Rebellion"
+  }
+ ],
+ "rows": [
+  {
+   "id": "C11-OR27-P1",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "Official Records, Series I, vol. 27, Part 1 (Union reports)",
+   "anchor": "Official Records , Series I, vol. 27, Part 1 (Union reports)",
+   "status_ids": [
+    "OR-27-1"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C11-OR27-P2",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "Official Records vol. 27, Part 2 (Confederate reports)",
+   "anchor": "Same, Part 2 (Confederate reports)",
+   "status_ids": [
+    "OR-27-2"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C11-OR27-P3",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "Official Records vol. 27, Part 3 (correspondence)",
+   "anchor": "Same, Part 3 (correspondence)",
+   "status_ids": [
+    "OR-27-3"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C11-OR27-ALT-HATHI",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "OR volume 27 alternate HathiTrust copies (second witness)",
+   "anchor": "OR volume 27 alternate HathiTrust copies",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C11-OR-1972-IA",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "OR (1972 reprint scans), Internet Archive",
+   "anchor": "OR (1972 reprint scans)",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C11-OR-ATLAS",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "OR Atlas (plates 1-175)",
+   "anchor": "plate selection for Gettysburg (plate numbers not verified in notes)",
+   "status_ids": [
+    "OR-ATLAS",
+    "TM-OR-ATLAS-GETTYSBURG"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C11-WARREN-LOC-1886",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "Warren map, LOC 1886 tracing extract",
+   "anchor": "Warren map, LOC 1886 tracing extract (1:2400, 4-ft contours)",
+   "status_ids": [
+    "LOC-MAPS"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C11-WARREN-NARA",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "Warren map, NARA Record Group 77 (Civil Works Map File E 81)",
+   "anchor": "Warren map, NARA Record Group 77 (Civil Works Map File E 81)",
+   "status_ids": [
+    "NARA-WARREN"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C11-WARREN-1895-RUMSEY",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "Warren 1895 sheet (Julius Bien, 1:23,000, spot heights), David Rumsey",
+   "anchor": "Warren 1895 sheet (Julius Bien, 1:23,000, spot heights)",
+   "status_ids": [
+    "RUMSEY"
+   ],
+   "kind": "viewer-only"
+  },
+  {
+   "id": "C11-HOPKINS-1858",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "Hopkins 1858 Map of Adams Co., LOC",
+   "anchor": "Hopkins 1858",
+   "status_ids": [
+    "LOC-MAPS"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C11-BACHELDER-MAPS-LOC",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "Bachelder maps, LOC Civil War Maps",
+   "anchor": "Bachelder maps LOC Civil War Maps",
+   "status_ids": [
+    "LOC-MAPS",
+    "TM-BACHELDER-1876",
+    "TM-BACHELDER-1883",
+    "TM-BACHELDER-1886-HOURLY"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C11-COPE-ELLIOT",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "Cope survey, Elliot map via LOC, NARA, NPS",
+   "anchor": "Cope survey, Elliot map via LOC, NARA, NPS",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C11-BACHELDER-PAPERS",
+   "group": "C.1.1",
+   "page": 139,
+   "name": "Bachelder papers (originals), New Hampshire Historical Society",
+   "anchor": "Bachelder papers (originals) New Hampshire Historical Society",
+   "status_ids": [
+    "BACHELDER"
+   ],
+   "kind": "print-only"
+  },
+  {
+   "id": "C12-USGS-3DEP",
+   "group": "C.1.2",
+   "page": 139,
+   "name": "USGS 3DEP lidar (public EPT bucket)",
+   "anchor": "USGS 3DEP lidar (public EPT bucket)",
+   "status_ids": [
+    "LIDAR-3DEP"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C12-PA-2017-QL2",
+   "group": "C.1.2",
+   "page": 139,
+   "name": "South Central Pennsylvania 2017 QL2 lidar",
+   "anchor": "South Central Pennsylvania 2017 QL2 lidar",
+   "status_ids": [
+    "LIDAR-PA17"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C12-PAMAP",
+   "group": "C.1.2",
+   "page": 139,
+   "name": "PAMAP lidar 2006-2008",
+   "anchor": "PAMAP lidar 2006-2008",
+   "status_ids": [
+    "LIDAR-PAMAP"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C12-NPS-CLR-HSR",
+   "group": "C.1.2",
+   "page": 139,
+   "name": "NPS Cultural Landscape Reports, historic structure reports, farm histories",
+   "anchor": "NPS Cultural Landscape Reports, historic structure reports, farm histories",
+   "status_ids": [
+    "NPS-CLR"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C12-NPS-GIS-1863",
+   "group": "C.1.2",
+   "page": 140,
+   "name": "NPS GIS and 1863 georeferencing precedent",
+   "anchor": "NPS GIS and 1863 georeferencing precedent",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C12-NPS-THEN-NOW",
+   "group": "C.1.2",
+   "page": 140,
+   "name": "NPS Then and Now (photo-match references)",
+   "anchor": "photo-match references",
+   "status_ids": [
+    "PM-NPS-THEN-AND-NOW"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C12-NPS-NATURAL",
+   "group": "C.1.2",
+   "page": 140,
+   "name": "NPS natural features and plants",
+   "anchor": "NPS natural features and plants",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C12-NPS-GEOLOGIC",
+   "group": "C.1.2",
+   "page": 140,
+   "name": "NPS geologic GIS catalog dataset",
+   "anchor": "NPS geologic GIS",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C12-KNOWLES-RECON",
+   "group": "C.1.2",
+   "page": 140,
+   "name": "Knowles/Esri/Smithsonian reconstruction",
+   "anchor": "Knowles/Esri/Smithsonian reconstruction",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C12-NPS-TIPTON",
+   "group": "C.1.2",
+   "page": 140,
+   "name": "NPS Tipton photographic prints (museum PDF)",
+   "anchor": "NPS Tipton photographic prints (museum PDF)",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C12-LOC-CWP",
+   "group": "C.1.2",
+   "page": 140,
+   "name": "LOC Civil War photographs",
+   "anchor": "LOC Civil War photographs",
+   "status_ids": [
+    "LOC-PHOTO",
+    "PM-LOC-DERIVATIVES",
+    "PM-LOC-RECORDS"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C12-ALLMAPS",
+   "group": "C.1.2",
+   "page": 140,
+   "name": "Allmaps (georeferencing IIIF maps)",
+   "anchor": "Allmaps https://allmaps.org/",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C12-AGRI-DAMAGE",
+   "group": "C.1.2",
+   "page": 140,
+   "name": "Agricultural and damage records (PHMC census extracts, 1860 census, 1868 damage claims)",
+   "anchor": "Agricultural and damage records",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C12-PHOTO-REPOS",
+   "group": "C.1.2",
+   "page": 140,
+   "name": "Photographic repositories (NARA RG 111-B, HABS/HAER, stereoview collections)",
+   "anchor": "Photographic repositories",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C13-BUSEY-MARTIN",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Busey and Martin, Regimental Strengths and Losses at Gettysburg",
+   "anchor": "Busey and Martin,",
+   "status_ids": [
+    "PRINT"
+   ],
+   "kind": "print-only"
+  },
+  {
+   "id": "C13-CODDINGTON",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Coddington, The Gettysburg Campaign",
+   "anchor": "Coddington,",
+   "status_ids": [
+    "PRINT"
+   ],
+   "kind": "print-only"
+  },
+  {
+   "id": "C13-PFANZ",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Pfanz, Gettysburg: The First Day, The Second Day, Culp’s Hill and Cemetery Hill",
+   "anchor": "Pfanz,",
+   "status_ids": [
+    "PRINT"
+   ],
+   "kind": "print-only"
+  },
+  {
+   "id": "C13-GOTTFRIED",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Gottfried, The Maps of Gettysburg",
+   "anchor": "Gottfried,",
+   "status_ids": [
+    "PRINT"
+   ],
+   "kind": "print-only"
+  },
+  {
+   "id": "C13-WARNER",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Warner, Generals in Blue and Generals in Gray",
+   "anchor": "Warner,",
+   "status_ids": [
+    "PRINT"
+   ],
+   "kind": "print-only"
+  },
+  {
+   "id": "C13-COATES-THOMAS",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Coates and Thomas, An Introduction to Civil War Small Arms; Thomas, Ready, Aim, Fire!",
+   "anchor": "Coates and Thomas,",
+   "status_ids": [
+    "PRINT"
+   ],
+   "kind": "print-only"
+  },
+  {
+   "id": "C13-JENSEN",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Les Jensen, Cadet Grey and Butternut Brown",
+   "anchor": "Les Jensen,",
+   "status_ids": [
+    "PRINT"
+   ],
+   "kind": "print-only"
+  },
+  {
+   "id": "C13-COCO",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Coco, A Vast Sea of Misery and his Gettysburg medical works",
+   "anchor": "Coco,",
+   "status_ids": [
+    "PRINT"
+   ],
+   "kind": "print-only"
+  },
+  {
+   "id": "C13-BUSEY-KRICK-CASUALTY-ROLLS",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Busey and Busey, Union Casualties and Confederate Casualties; Busey, These Honored Dead; Krick, Gettysburg Death Roster; Coco, Gettysburg’s Confederate Dead",
+   "anchor": "Busey and Busey,",
+   "status_ids": [],
+   "kind": "print-only"
+  },
+  {
+   "id": "C13-FRASSANITO",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Frassanito, Gettysburg: A Journey in Time and later works",
+   "anchor": "Frassanito,",
+   "status_ids": [],
+   "kind": "print-only"
+  },
+  {
+   "id": "C13-PA-GB",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Pennsylvania at Gettysburg",
+   "anchor": "Pennsylvania at Gettysburg",
+   "status_ids": [
+    "PA-GB"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-NY-GB",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "New York at Gettysburg (Final Report, 3 vols.)",
+   "anchor": "New York at Gettysburg (Final Report, 3 vols.)",
+   "status_ids": [
+    "NY-GB"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-ME-GB",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Maine at Gettysburg (1898)",
+   "anchor": "Maine at Gettysburg (1898)",
+   "status_ids": [
+    "ME-GB"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-MI-GB",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Michigan at Gettysburg (1889)",
+   "anchor": "Michigan at Gettysburg (1889)",
+   "status_ids": [
+    "MI-GB"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-STATE-OTHER",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Other state volumes (MA, MN, VT, OH, NJ, WI, IN, VA, NC, GA, AL, SC, TX)",
+   "anchor": "Other state volumes (MA, MN, VT, OH, NJ, WI, IN, VA, NC, GA, AL, SC, TX)",
+   "status_ids": [
+    "STATE-OTHER"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-SHSP",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Southern Historical Society Papers",
+   "anchor": "Southern Historical Society Papers",
+   "status_ids": [
+    "SHSP"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-FOX",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Fox, Regimental Losses in the American Civil War",
+   "anchor": "Fox, Regimental Losses in the American Civil War",
+   "status_ids": [
+    "FOX"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-BATTLES-LEADERS",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Battles and Leaders of the Civil War",
+   "anchor": "Battles and Leaders",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C13-DYER",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Dyer, Compendium of the War of the Rebellion",
+   "anchor": "Dyer’s Compendium",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C13-PHISTERER",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Phisterer, The Union Army",
+   "anchor": "Phisterer,",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C13-CLARK-NC",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Clark, Histories of the Several Regiments from North Carolina",
+   "anchor": "Clark,",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C13-WITNESS-ACCOUNTS",
+   "group": "C.1.3",
+   "page": 140,
+   "name": "Witness accounts: Fremantle, Haskell, Chamberlain, Longstreet, Alexander, Gibbon, Sorrel, Hancock, Meade, Tillie Pierce, Sallie",
+   "anchor": "Witness accounts: Fremantle, Haskell, Chamberlain, Longstreet, Alexander",
+   "status_ids": [
+    "WITNESS"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-CIVILIAN-WITNESSES",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "Myers, Jennie McCreary, Sarah Broadhead, Elizabeth Thorn, Wills letters",
+   "anchor": "Myers, Jennie McCreary, Sarah Broadhead, Elizabeth Thorn, Wills letters",
+   "status_ids": [
+    "WITNESS"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-LETTERMAN",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "Letterman’s report within OR vol. 27 Part 1; Medical Recollections (1866)",
+   "anchor": "Letterman’s report within OR vol. 27 Part 1",
+   "status_ids": [
+    "OR-27-1",
+    "LETTERMAN-1866"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-NPS-SEMINAR",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "NPS Gettysburg Seminar Papers",
+   "anchor": "NPS Gettysburg Seminar Papers",
+   "status_ids": [
+    "NPS-SEM"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-NPS-CIVIL-WAR-SERIES",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "NPS Civil War Series and handbooks",
+   "anchor": "NPS Civil War Series and handbooks",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C13-NPS-SSS",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "NPS Soldiers and Sailors database",
+   "anchor": "NPS Soldiers and Sailors database",
+   "status_ids": [
+    "NPS-SS"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-NEWSPAPERS",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "Chronicling America and LOC newspapers",
+   "anchor": "Chronicling America and LOC newspapers",
+   "status_ids": [
+    "NEWS"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-STONE-SENTINELS",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "Stone Sentinels",
+   "anchor": "Stone Sentinels https://gettysburg.stonesentinels.com/",
+   "status_ids": [
+    "STONE-S"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-UNIFORM-REFS",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "Uniform and equipment references",
+   "anchor": "Uniform and equipment references",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C13-SHARPSHOOTER-HOSPITAL-REFS",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "Sharpshooter and field-hospital references",
+   "anchor": "Sharpshooter and field-hospital references",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C13-MUSEUM-COLLECTIONS",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "Museum collections (Smithsonian Open Access, NPS Gettysburg museum, state museums)",
+   "anchor": "Museum collections",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C13-ORDNANCE-DRILL",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "Ordnance and drill manuals (Gibbon, 1861 Ordnance Manual, Hardee, Casey)",
+   "anchor": "Ordnance and drill manuals",
+   "status_ids": [
+    "ORDNANCE"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-WEATHER-ASTRONOMY",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "Weather and astronomy (AMS, Signal Corps and Jacobs observations, ephemeris)",
+   "anchor": "Weather and astronomy",
+   "status_ids": [
+    "JACOBS-1864"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "C13-ACOUSTICS",
+   "group": "C.1.3",
+   "page": 141,
+   "name": "Acoustics (Ross; Maher gunshot acoustics)",
+   "anchor": "Acoustics https://acoustics.org",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "C14-AUTONOMOUS-SOURCES",
+   "group": "C.1.4",
+   "page": 141,
+   "name": "Autonomous-method sources (motion, audio, assets), licence readings in Part C.10",
+   "anchor": "Autonomous-method sources (motion, audio, assets)",
+   "status_ids": [
+    "MOTION",
+    "AUDIO"
+   ],
+   "kind": "free"
+  },
+  {
+   "id": "X1-REGIMENTAL-HISTORIES",
+   "group": "X.1",
+   "page": 137,
+   "name": "Regimental histories",
+   "anchor": "regimental histories",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "X1-BIOGRAPHY-MEMOIR-SETS",
+   "group": "X.1",
+   "page": 137,
+   "name": "The biography and memoir sets",
+   "anchor": "the biography and memoir sets",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "D41-EHISTORY-TEXT-LAYER",
+   "group": "D.4.1",
+   "page": 125,
+   "name": "eHistory (Ohio State) transcribed text of the Official Records, serials 043 to 045",
+   "anchor": "eHistory (Ohio State) transcribed text",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "D41-ABT-LIBRARY",
+   "group": "D.4.1",
+   "page": 126,
+   "name": "American Battlefield Trust library",
+   "anchor": "American Battlefield Trust library",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "D41-GETTYSBURG-DAILY-BLOG",
+   "group": "D.4.1",
+   "page": 126,
+   "name": "Gettysburg Daily Blog (plan handling: skip)",
+   "anchor": "Gettysburg Daily Blog, not a primary archive",
+   "status_ids": [],
+   "kind": "free"
+  },
+  {
+   "id": "D42-LADD-EDITION",
+   "group": "D.4.2",
+   "page": 126,
+   "name": "Ladd edition, The Bachelder Papers: Gettysburg in Their Own Words",
+   "anchor": "Ladd edition, The Bachelder Papers",
+   "status_ids": [
+    "BACHELDER"
+   ],
+   "kind": "print-only"
+  },
+  {
+   "id": "D42-MODERN-REPRINTS",
+   "group": "D.4.2",
+   "page": 126,
+   "name": "Modern reprints with new introductions or indexing",
+   "anchor": "Modern reprints with new introductions or indexing",
+   "status_ids": [],
+   "kind": "print-only"
+  },
+  {
+   "id": "D42-NOT-REACHED",
+   "group": "D.4.2",
+   "page": 126,
+   "name": "NARA catalog, Fold3, Gettysburg Foundation holdings, Gettysburg Discussion Group (not reached in the research)",
+   "anchor": "NARA catalog, Fold3, Gettysburg Foundation holdings, Gettysburg Discussion Group",
+   "status_ids": [],
+   "kind": "free"
+  }
+ ]
+}

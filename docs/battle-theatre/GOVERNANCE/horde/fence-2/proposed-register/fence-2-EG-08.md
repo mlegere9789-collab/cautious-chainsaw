@@ -17,5 +17,9 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | None |
 | Agent recommendation | Do not draw head logs as documented. |
-| Status | open (re-checked 2026-11-14; the OCR digit item is closed) (register EG-0089 carries the earlier text) |
+| Status | open (re-checked 2026-11-14; the OCR digit item is closed) (register EG-0089 carries the earlier text); third reading 2026-11-15/16, see the addendum |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Round 3 addendum (third reading, 2026-11-15/16)
+
+S-025: Bachelder (1873, p.97) is a second source (beside Greene, 1893) that the traverse "constructed at the angle" stood on the night of 2 Jul and was the position held in the engagement of the morning of 3 Jul (S-025.4); neither dates the beginning of the work. "Extra head logs" searched again over every text under tmp/library: 8 occurrences in 6 files, none about Culp's Hill or a work of 2 Jul 1863 (the Union works at Chancellorsville on 6 May 1863 in Alexander 1907 carry "head-logs", which shows the army's practice two months earlier but is not a Gettysburg statement); still unsupported. S-023: the NPS web page's "mid-morning" start and the NPS summary of the earthen works (log cribs filled with stone and earth, five feet, "in a few areas such as Culp's Hill") are recorded as general statements; the 300 yd and 800 yd lengths stay unsupported (leads: HMDB marker 13997, https://www.hmdb.org/m.asp?m=13997, and the Gettysburg Daily page key GD-219, no URL recorded; both hosts refused on 2026-11-13 and 2026-11-15). Status unchanged.

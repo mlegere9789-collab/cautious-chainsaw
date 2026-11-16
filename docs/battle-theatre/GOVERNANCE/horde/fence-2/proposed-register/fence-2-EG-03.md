@@ -17,5 +17,9 @@
 | Review status | internal review only (DEC-006: no public review label) |
 | Owner decision requested | None now |
 | Agent recommendation | Adopt the sector split. |
-| Status | open (re-checked 2026-11-14) (register EG-0088 carries the earlier text) |
+| Status | open (re-checked 2026-11-14) (register EG-0088 carries the earlier text); third reading 2026-11-15/16, see the addendum |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Round 3 addendum (third reading, 2026-11-15/16)
+
+Pointer for fence-3 (the place belongs to its rows, not to a fence-2 row, so it is not cited in fence-2.jsonl): the NPS research study "A Common Pride and Fame: The Attack and Repulse of Pickett's Division, July 3, 1863, Part I" (Kathleen R. Georg, Research Historian, GNMP; cover dated 1/81) says: "This fencing had been torn down for a distance along the road north of the Codori farm buildings during the fighting on the previous day, and had been transformed into a "breast-works" of loose rails by two Union regiments in that vicinity." Location: tmp/library/web/nps/NPS-COMMON-PRIDE-1/NPS-COMMON-PRIDE-1.txt, characters 231128 to 231372, file page 128, sha256 fcc1c87159129c0b549133b9e52e151854afaa831f6e6045ad9f4227f8603079. It is a second-hand statement of the NPS (the study quotes J. H. Moore, 7th Tennessee, on the 3 Jul advance) that part of the Emmitsburg Road fence north of the Codori buildings was torn down on 2 Jul ("the previous day"), which agrees with the split of the printed "intact morning Jul 3" proposed here; the sector map stays fence-3's. No fence-2 text changes.

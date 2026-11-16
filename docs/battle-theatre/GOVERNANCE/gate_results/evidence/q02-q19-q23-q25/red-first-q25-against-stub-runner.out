@@ -1,0 +1,512 @@
+test_acquired_entry_that_no_status_reaches_is_untracked_fail (__main__.Q25.test_acquired_entry_that_no_status_reaches_is_untracked_fail) ... FAIL
+test_asset_file_in_no_manifest_is_fail (__main__.Q25.test_asset_file_in_no_manifest_is_fail) ... FAIL
+test_asset_without_licence_source_or_method_is_fail (__main__.Q25.test_asset_without_licence_source_or_method_is_fail) ... FAIL
+test_block_that_is_not_stale_when_no_later_success (__main__.Q25.test_block_that_is_not_stale_when_no_later_success) ... ERROR
+test_blocked_lookup_missing_a_field_is_fail (__main__.Q25.test_blocked_lookup_missing_a_field_is_fail) ... FAIL
+test_blocked_with_a_closed_or_unknown_register_entry_is_fail (__main__.Q25.test_blocked_with_a_closed_or_unknown_register_entry_is_fail) ... FAIL
+test_blocked_without_a_failed_lookup_record_is_fail (__main__.Q25.test_blocked_without_a_failed_lookup_record_is_fail) ... FAIL
+test_blocked_without_register_id_is_fail (__main__.Q25.test_blocked_without_register_id_is_fail) ... FAIL
+test_bot_blocked_host_must_be_recorded_and_not_retried (__main__.Q25.test_bot_blocked_host_must_be_recorded_and_not_retried) ... FAIL
+test_clean_world_passes (__main__.Q25.test_clean_world_passes) ... FAIL
+test_copyrighted_acquisition_is_fail (__main__.Q25.test_copyrighted_acquisition_is_fail) ... FAIL
+test_host_without_a_terms_entry_is_fail (__main__.Q25.test_host_without_a_terms_entry_is_fail) ... FAIL
+test_ingested_with_no_acquisition_entry_is_fail (__main__.Q25.test_ingested_with_no_acquisition_entry_is_fail) ... FAIL
+test_ingested_without_rights_or_quality_is_fail (__main__.Q25.test_ingested_without_rights_or_quality_is_fail) ... FAIL
+test_ingested_without_sha256_is_fail (__main__.Q25.test_ingested_without_sha256_is_fail) ... FAIL
+test_later_status_file_wins_and_is_merged (__main__.Q25.test_later_status_file_wins_and_is_merged) ... ERROR
+test_list_row_without_a_status_is_fail (__main__.Q25.test_list_row_without_a_status_is_fail) ... FAIL
+test_local_file_that_does_not_match_its_recorded_hash_is_fail (__main__.Q25.test_local_file_that_does_not_match_its_recorded_hash_is_fail) ... FAIL
+test_local_file_that_matches_is_accepted (__main__.Q25.test_local_file_that_matches_is_accepted) ... ok
+test_missing_plan_is_blocked_input_never_a_pass (__main__.Q25.test_missing_plan_is_blocked_input_never_a_pass) ... ERROR
+test_missing_status_files_make_every_item_blocked (__main__.Q25.test_missing_status_files_make_every_item_blocked) ... FAIL
+test_missing_terms_record_is_blocked_input (__main__.Q25.test_missing_terms_record_is_blocked_input) ... ERROR
+test_partial_remainder_scheduled_needs_its_own_record (__main__.Q25.test_partial_remainder_scheduled_needs_its_own_record) ... FAIL
+test_partial_without_a_remainder_record_is_fail (__main__.Q25.test_partial_without_a_remainder_record_is_fail) ... FAIL
+test_plan_anchor_that_is_not_on_its_page_is_fail (__main__.Q25.test_plan_anchor_that_is_not_on_its_page_is_fail) ... ERROR
+test_print_only_needs_owner_step_and_register_entry (__main__.Q25.test_print_only_needs_owner_step_and_register_entry) ... FAIL
+test_restricted_licence_must_be_excluded_from_export (__main__.Q25.test_restricted_licence_must_be_excluded_from_export) ... FAIL
+test_scheduled_for_now_is_not_a_reason (__main__.Q25.test_scheduled_for_now_is_not_a_reason) ... FAIL
+test_scheduled_queue_entry_that_is_not_in_the_queue_is_fail (__main__.Q25.test_scheduled_queue_entry_that_is_not_in_the_queue_is_fail) ... FAIL
+test_scheduled_with_no_work_queue_file_is_fail_not_pass (__main__.Q25.test_scheduled_with_no_work_queue_file_is_fail_not_pass) ... FAIL
+test_scheduled_without_reason_next_action_or_queue_entry_is_fail (__main__.Q25.test_scheduled_without_reason_next_action_or_queue_entry_is_fail) ... FAIL
+test_stale_block_is_fail_when_the_host_answered_later (__main__.Q25.test_stale_block_is_fail_when_the_host_answered_later) ... FAIL
+test_status_id_named_by_a_row_that_exists_nowhere_is_fail (__main__.Q25.test_status_id_named_by_a_row_that_exists_nowhere_is_fail) ... FAIL
+test_the_runner_writes_nothing_but_its_own_record (__main__.Q25.test_the_runner_writes_nothing_but_its_own_record) ... /home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/BIBLE/plan-clean.txt'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/fixture/acquisition_list.json'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/fixture/library_ids.json'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/library/status.json'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/library/acquired.json'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/library/terms.json'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/library/work_queue.json'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/register_index.json'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/register/EG-0001.md'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/terrain/terrain_sources.json'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/app/data/audio3d/sources.json'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:327: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/app/data/audio3d/a1.ogg'>
+  before = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in w if isinstance(w[k], (str, bytes, dict, list))}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/BIBLE/plan-clean.txt'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/fixture/acquisition_list.json'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/fixture/library_ids.json'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/library/status.json'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/library/acquired.json'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/library/terms.json'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/library/work_queue.json'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/register_index.json'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/GOVERNANCE/register/EG-0001.md'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/terrain/terrain_sources.json'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/app/data/audio3d/sources.json'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py:329: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/btgate-ff9qx55f/repo/docs/battle-theatre/app/data/audio3d/a1.ogg'>
+  after = {k: open(os.path.join(s.root, *k.split('/')), 'rb').read() for k in before}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_two_requests_to_one_host_in_the_same_second_break_the_throttle (__main__.Q25.test_two_requests_to_one_host_in_the_same_second_break_the_throttle) ... FAIL
+test_two_runs_give_identical_items (__main__.Q25.test_two_runs_give_identical_items) ... ok
+test_unmapped_status_word_is_fail (__main__.Q25.test_unmapped_status_word_is_fail) ... FAIL
+test_word_outside_the_table_is_never_guessed_even_in_another_case (__main__.Q25.test_word_outside_the_table_is_never_guessed_even_in_another_case) ... FAIL
+
+======================================================================
+ERROR: test_block_that_is_not_stale_when_no_later_success (__main__.Q25.test_block_that_is_not_stale_when_no_later_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 196, in test_block_that_is_not_stale_when_no_later_success
+    self.assertEqual(fx.items_by_id(rec)['Q25/Q25.2/row/ROW-BLK']['result'], 'COVERED')
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'Q25/Q25.2/row/ROW-BLK'
+
+======================================================================
+ERROR: test_later_status_file_wins_and_is_merged (__main__.Q25.test_later_status_file_wins_and_is_merged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 243, in test_later_status_file_wins_and_is_merged
+    self.assertIn('status_2.json', fx.items_by_id(rec)['Q25/Q25.2/row/ROW-SCH']['evidence']['parts'][0]['reason'] + 'status_2.json')    # the row is judged as ingested (needs an acquisition entry)
+                                   ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'Q25/Q25.2/row/ROW-SCH'
+
+======================================================================
+ERROR: test_missing_plan_is_blocked_input_never_a_pass (__main__.Q25.test_missing_plan_is_blocked_input_never_a_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 256, in test_missing_plan_is_blocked_input_never_a_pass
+    it = fx.items_by_id(rec)['Q25/Q25.1/plan-anchors']
+         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'Q25/Q25.1/plan-anchors'
+
+======================================================================
+ERROR: test_missing_terms_record_is_blocked_input (__main__.Q25.test_missing_terms_record_is_blocked_input)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 279, in test_missing_terms_record_is_blocked_input
+    it = fx.items_by_id(rec)['Q25/Q25.4/terms-record']
+         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'Q25/Q25.4/terms-record'
+
+======================================================================
+ERROR: test_plan_anchor_that_is_not_on_its_page_is_fail (__main__.Q25.test_plan_anchor_that_is_not_on_its_page_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 250, in test_plan_anchor_that_is_not_on_its_page_is_fail
+    self.assertEqual(fx.items_by_id(rec)['Q25/Q25.1/plan-anchors']['result'], 'FAIL')
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'Q25/Q25.1/plan-anchors'
+
+======================================================================
+FAIL: test_acquired_entry_that_no_status_reaches_is_untracked_fail (__main__.Q25.test_acquired_entry_that_no_status_reaches_is_untracked_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 128, in test_acquired_entry_that_no_status_reaches_is_untracked_fail
+    rec = self.go(w, expect_exit=1)
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 67, in go
+    self.assertEqual(code, expect_exit, out)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : 
+
+======================================================================
+FAIL: test_asset_file_in_no_manifest_is_fail (__main__.Q25.test_asset_file_in_no_manifest_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 321, in test_asset_file_in_no_manifest_is_fail
+    self.fails(self.go(w), 'binary asset files are in no asset manifest', 'Q25/Q25.5/asset-census')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'binary asset files are in no asset manifest' in Q25/Q25.5/asset-census; FAIL items: []
+
+======================================================================
+FAIL: test_asset_without_licence_source_or_method_is_fail (__main__.Q25.test_asset_without_licence_source_or_method_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 306, in test_asset_without_licence_source_or_method_is_fail
+    self.fails(self.go(w), 'lack licence, source or method', 'Q25/Q25.5/samples')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'lack licence, source or method' in Q25/Q25.5/samples; FAIL items: []
+
+======================================================================
+FAIL: test_blocked_lookup_missing_a_field_is_fail (__main__.Q25.test_blocked_lookup_missing_a_field_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 183, in test_blocked_lookup_missing_a_field_is_fail
+    self.fails(self.go(w), 'lacks response')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'lacks response' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_blocked_with_a_closed_or_unknown_register_entry_is_fail (__main__.Q25.test_blocked_with_a_closed_or_unknown_register_entry_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 170, in test_blocked_with_a_closed_or_unknown_register_entry_is_fail
+    self.fails(self.go(w), 'EG-9999 is not in register_index.json')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'EG-9999 is not in register_index.json' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_blocked_without_a_failed_lookup_record_is_fail (__main__.Q25.test_blocked_without_a_failed_lookup_record_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 178, in test_blocked_without_a_failed_lookup_record_is_fail
+    self.fails(self.go(w), 'no failed-lookup record')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no failed-lookup record' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_blocked_without_register_id_is_fail (__main__.Q25.test_blocked_without_register_id_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 165, in test_blocked_without_register_id_is_fail
+    self.fails(self.go(w), 'no register id')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no register id' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_bot_blocked_host_must_be_recorded_and_not_retried (__main__.Q25.test_bot_blocked_host_must_be_recorded_and_not_retried)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 291, in test_bot_blocked_host_must_be_recorded_and_not_retried
+    self.fails(self.go(w), 'not recorded as blocked')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'not recorded as blocked' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_clean_world_passes (__main__.Q25.test_clean_world_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 82, in test_clean_world_passes
+    self.assertGreater(len(rec['inputs']), 5)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 not greater than 5
+
+======================================================================
+FAIL: test_copyrighted_acquisition_is_fail (__main__.Q25.test_copyrighted_acquisition_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 300, in test_copyrighted_acquisition_is_fail
+    self.fails(self.go(w), 'marked copyrighted')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'marked copyrighted' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_host_without_a_terms_entry_is_fail (__main__.Q25.test_host_without_a_terms_entry_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 286, in test_host_without_a_terms_entry_is_fail
+    self.fails(self.go(w), 'no complete terms and robots record')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no complete terms and robots record' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_ingested_with_no_acquisition_entry_is_fail (__main__.Q25.test_ingested_with_no_acquisition_entry_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 147, in test_ingested_with_no_acquisition_entry_is_fail
+    self.fails(self.go(w), 'no acquisition entry')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no acquisition entry' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_ingested_without_rights_or_quality_is_fail (__main__.Q25.test_ingested_without_rights_or_quality_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 141, in test_ingested_without_rights_or_quality_is_fail
+    r = self.fails(self.go(w), 'lacks rights basis, text quality')
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'lacks rights basis, text quality' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_ingested_without_sha256_is_fail (__main__.Q25.test_ingested_without_sha256_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 134, in test_ingested_without_sha256_is_fail
+    self.fails(self.go(w), 'lacks sha256')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'lacks sha256' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_list_row_without_a_status_is_fail (__main__.Q25.test_list_row_without_a_status_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 114, in test_list_row_without_a_status_is_fail
+    rec = self.go(w, expect_exit=1)
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 67, in go
+    self.assertEqual(code, expect_exit, out)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : 
+
+======================================================================
+FAIL: test_local_file_that_does_not_match_its_recorded_hash_is_fail (__main__.Q25.test_local_file_that_does_not_match_its_recorded_hash_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 153, in test_local_file_that_does_not_match_its_recorded_hash_is_fail
+    self.fails(self.go(w), 'does not match the recorded sha256')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'does not match the recorded sha256' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_missing_status_files_make_every_item_blocked (__main__.Q25.test_missing_status_files_make_every_item_blocked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 265, in test_missing_status_files_make_every_item_blocked
+    rec = self.go(w, expect_exit=2)
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 67, in go
+    self.assertEqual(code, expect_exit, out)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2 : 
+
+======================================================================
+FAIL: test_partial_remainder_scheduled_needs_its_own_record (__main__.Q25.test_partial_remainder_scheduled_needs_its_own_record)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 229, in test_partial_remainder_scheduled_needs_its_own_record
+    self.fails(self.go(w), 'no work-queue entry')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no work-queue entry' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_partial_without_a_remainder_record_is_fail (__main__.Q25.test_partial_without_a_remainder_record_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 224, in test_partial_without_a_remainder_record_is_fail
+    self.fails(self.go(w), 'no record of the remainder')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no record of the remainder' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_print_only_needs_owner_step_and_register_entry (__main__.Q25.test_print_only_needs_owner_step_and_register_entry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 234, in test_print_only_needs_owner_step_and_register_entry
+    self.fails(self.go(w), 'no owner step')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no owner step' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_restricted_licence_must_be_excluded_from_export (__main__.Q25.test_restricted_licence_must_be_excluded_from_export)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 313, in test_restricted_licence_must_be_excluded_from_export
+    self.fails(self.go(w), 'restricted entries are not excluded', 'Q25/Q25.5/samples')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'restricted entries are not excluded' in Q25/Q25.5/samples; FAIL items: []
+
+======================================================================
+FAIL: test_scheduled_for_now_is_not_a_reason (__main__.Q25.test_scheduled_for_now_is_not_a_reason)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 207, in test_scheduled_for_now_is_not_a_reason
+    self.fails(self.go(w), 'no reason that is not "for now"')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no reason that is not "for now"' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_scheduled_queue_entry_that_is_not_in_the_queue_is_fail (__main__.Q25.test_scheduled_queue_entry_that_is_not_in_the_queue_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 212, in test_scheduled_queue_entry_that_is_not_in_the_queue_is_fail
+    self.fails(self.go(w), 'is not in work_queue.json')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'is not in work_queue.json' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_scheduled_with_no_work_queue_file_is_fail_not_pass (__main__.Q25.test_scheduled_with_no_work_queue_file_is_fail_not_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 218, in test_scheduled_with_no_work_queue_file_is_fail_not_pass
+    self.fails(rec, 'work_queue.json')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'work_queue.json' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_scheduled_without_reason_next_action_or_queue_entry_is_fail (__main__.Q25.test_scheduled_without_reason_next_action_or_queue_entry_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 202, in test_scheduled_without_reason_next_action_or_queue_entry_is_fail
+    self.fails(self.go(w), needle)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'no reason' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_stale_block_is_fail_when_the_host_answered_later (__main__.Q25.test_stale_block_is_fail_when_the_host_answered_later)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 189, in test_stale_block_is_fail_when_the_host_answered_later
+    self.fails(self.go(w), 'stale block, retry owed')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'stale block, retry owed' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_status_id_named_by_a_row_that_exists_nowhere_is_fail (__main__.Q25.test_status_id_named_by_a_row_that_exists_nowhere_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 122, in test_status_id_named_by_a_row_that_exists_nowhere_is_fail
+    self.fails(rec, 'do not exist', 'Q25/Q25.2/row/ROW-ING')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'do not exist' in Q25/Q25.2/row/ROW-ING; FAIL items: []
+
+======================================================================
+FAIL: test_two_requests_to_one_host_in_the_same_second_break_the_throttle (__main__.Q25.test_two_requests_to_one_host_in_the_same_second_break_the_throttle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 273, in test_two_requests_to_one_host_in_the_same_second_break_the_throttle
+    self.fails(self.go(w), 'same second-resolution time')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'same second-resolution time' in Q25/; FAIL items: []
+
+======================================================================
+FAIL: test_unmapped_status_word_is_fail (__main__.Q25.test_unmapped_status_word_is_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 103, in test_unmapped_status_word_is_fail
+    rec = self.go(w, expect_exit=1)
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 67, in go
+    self.assertEqual(code, expect_exit, out)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : 
+
+======================================================================
+FAIL: test_word_outside_the_table_is_never_guessed_even_in_another_case (__main__.Q25.test_word_outside_the_table_is_never_guessed_even_in_another_case)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 109, in test_word_outside_the_table_is_never_guessed_even_in_another_case
+    self.fails(self.go(w), 'unmapped status word')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/cautious-chainsaw/tests/governance/gates/test_q25.py", line 72, in fails
+    self.assertTrue(hit, 'no FAIL item with %r in %s; FAIL items: %s' % (needle, prefix, [(i['id'], i['reason'][:100]) for i in rec['items'] if i['result'] == 'FAIL']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true : no FAIL item with 'unmapped status word' in Q25/; FAIL items: []
+
+----------------------------------------------------------------------
+Ran 38 tests in 7.363s
+
+FAILED (failures=30, errors=5)

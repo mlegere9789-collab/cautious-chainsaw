@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "file": "docs/plan/STATUS/backlog.json",
- "generated": "2026-11-15",
+ "generated": "2026-11-16",
  "generator": "python3 docs/plan/STATUS/merge_status.py (validate: python3 docs/plan/STATUS/check_backlog.py)",
  "sources": [
   "docs/plan/STATUS/items-A.json",
@@ -42,13 +42,13 @@
    "done/source-rebuild": 1,
    "open/candidate-group": 234,
    "open/release-request": 8,
-   "open/source-rebuild": 148,
+   "open/source-rebuild": 149,
    "open/umbrella": 187,
-   "open/verification-record": 40
+   "open/verification-record": 39
   },
   "wave_1": 30,
   "wave_1_done": 1,
-  "wave_2": 1,
+  "wave_2": 4,
   "wave_2_done": 0,
   "next_batch": 30,
   "done": 103,
@@ -92,8 +92,8 @@
   "wp-dec-12",
   "wp-content-01b",
   "wp-time-08",
-  "wp-hist-22-units",
   "wp-pagec-12",
+  "wp-page-20",
   "wp-arch-10-toolchain"
  ],
  "items": [
@@ -139,6 +139,13 @@
    ],
    "context_files": [],
    "depends_on": [],
+   "decision": {
+    "rows": [
+     "C16"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: two entries run in the same batch only when they write no common path and no test of one needs an output of the other (rows C11 and C14 stay). Where a test needs output of another entry, the entry waits for it by de"
+   },
    "value": "Unblocks every historian verification under the default node of the container; all later historian items are checked with it.",
    "acceptance": "Red first: under the default node (v22.23.4) `node --test tests/historian/atime.test.mjs` fails to load tools/historian/ingest/times.mjs (SyntaxError: the regular-expression modifier group (?-i:...) in the MER pattern needs V8 12.5 or later). Done when (1) times.mjs contains no modifier group and keeps the exact readings: new tests/historian/times-node22.test.mjs pins at least 12 readings (read: \"a. m.\", \"A. M.\", \"P.M.\", \"AM\", \"10 p.m.\"; not read: bare lower-case \"am\"/\"pm\" as in \"1 am informed\", and \"Am\"), and the offsets and values of the 23 cases of tests/historian/atime.test.mjs are unchanged; (2) under the default node `node --test tests/historian/*.test.mjs` loads every file (zero \"failed to load\") and its pass, fail and skip totals are identical to the same command under /opt/node24/bin/node on the same tree (both totals recorded in STATUS.json; run through tools/horde/bench.sh); (3) atime.test.mjs passes 23 of 23 under both nodes. No test is skipped, loosened or deleted to get there (git diff of tests/historian shows only the one new file). State on 2026-11-14: (1) and (3) are built and green on both nodes; what is left of (2) is the paired run `tools/horde/bench.sh --timing bash candidates/r1h/ver-hist-node/run-suites.sh` (start it first, in the background: it waits for every job that holds the machine lock) and `node candidates/r1h/ver-hist-node/check-totals.mjs --write`, then the record is written again with the full command list in HANDOFF.md (`record.mjs --check` only re-runs, it does not flip passes). run-suites.sh fixes the test-file list and the hashed files once at the start, so files that other entries add meanwhile do not invalidate the run; an edit of an existing file still does.",
    "acceptance_basis": "authored against the repository on 2026-11-13",
@@ -203,7 +210,7 @@
     "summary": "Delegated: where the plan gives two parameter sets, the later one that the plan itself says supersedes the first is used: room code of 6 characters from a 28-character alphabet drawn with crypto.getRandomValues, note of at most 280 characte"
    },
    "value": "Closes the last open security items of Live Sync (guessable room codes, unbounded host connections, unvalidated guest messages).",
-   "acceptance": "candidates/r1h/wp-infra-28b/group.json (PG-r1h-wp-infra-28b, target watch-together.html only, every anchor asserted once) plus test.mjs that runs the patched page script in node:vm with a fake PeerJS and fake DOM. Assertions: (1) room codes: randomCode() draws with crypto.getRandomValues, no Math.random is left in the code path (source assertion), codes have 6 characters from a 28-character alphabet without look-alike letters (the alphabet is listed in the test), 2,000 generated codes are all valid and at least 1,990 are distinct; (2) host cap: of 25 incoming connections the first 20 are kept and connections 21..25 are closed (conn.close called, not added to the list); (3) the guest handler (conn.on(\"data\")) passes to goToTick only an object {type:\"goto\", tick: integer 1..675, note: string <= 280 characters with control characters stripped}; 20 fuzz payloads (null, array, string, number, extra keys including __proto__, tick 0, 676, 1.5, \"5\", NaN, Infinity, a note of 281 characters, a note with <img onerror>, a nested object, a 10 MB string) never reach goToTick, and a valid payload does, its note shown as text only; (4) the visible sentence that says \"5-letter code\" says 6 characters, and the page makes no claim of \"real time\". Red on release/R1g/dist (Math.random, no cap, unvalidated data), green on the scratch tree. Coordination: wp-content-09b owns every other REALTIME and TICK hit of watch-together.html; this group owns only the Live Sync sentence and the code, cap and validation lines; anchors must not overlap. The survey also asks to extend tests/t0/wtpeer.spec.mjs with the fuzz payloads and the cap: that file is the release workstream's, so the request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-infra-28b.md names the exact cases (the 20 payloads of this test and the 25-connection cap case) and the expected results; the group is not registered before that spec runs.",
+   "acceptance": "candidates/r1h/wp-infra-28b/group.json (PG-r1h-wp-infra-28b, target watch-together.html only, every anchor asserted once) plus test.mjs that runs the patched page script in node:vm with a fake PeerJS and fake DOM. Assertions: (1) room codes: randomCode() draws with crypto.getRandomValues, no Math.random is left in the code path (source assertion), codes have 6 characters from a 28-character alphabet without look-alike letters (the alphabet is listed in the test), 2,000 generated codes are all valid and at least 1,990 are distinct; (2) host cap: of 25 incoming connections the first 20 are kept and connections 21..25 are closed (conn.close called, not added to the list); (3) the guest handler (conn.on(\"data\")) passes to goToTick only an object {type:\"goto\", tick: integer 1..675, note: string <= 280 characters with control characters stripped}; 20 fuzz payloads (null, array, string, number, extra keys including __proto__, tick 0, 676, 1.5, \"5\", NaN, Infinity, a note of 281 characters, a note with <img onerror>, a nested object, a 10 MB string) never reach goToTick, and a valid payload does, its note shown as text only; (4) the code length is 6 in every place that says or enforces 5 on R1g, so that a 6-character code can be typed and accepted: the Live Sync sentence (line 126: \"shares a 5-letter code ... in real time\"), the join input (line 160: placeholder \"Enter a 5-letter code\" and maxlength=\"5\"), the generator loop (`for (let i = 0; i < 5; i++)` in randomCode, currently a 24-letter alphabet from Math.random) and the join check (`code.length !== 5` with the message \"enter the 5-letter code first\", line 370); the Live Sync sentence no longer says \"in real time\" (REALTIME hit of line 126 is this group's; the hit of line 163, \"in real time, on their own screen\", is wp-content-09b's). Red on release/R1g/dist (Math.random, no cap, unvalidated data, length 5), green on the scratch tree. Coordination: wp-content-09b owns every other REALTIME and TICK hit of watch-together.html; this group owns only the Live Sync sentence and the code, cap and validation lines; anchors must not overlap. The survey also asks to extend tests/t0/wtpeer.spec.mjs with the fuzz payloads and the cap: that file is the release workstream's, so the request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-infra-28b.md names the exact cases (the 20 payloads of this test and the 25-connection cap case) and the expected results; the group is not registered before that spec runs.",
    "acceptance_basis": "authored against the repository on 2026-11-13",
    "short": "Group on watch-together.html with a node:vm test: 6-char codes from crypto.getRandomValues (28-char alphabet, no Math.random), host closes connections 21+, guest accepts only {goto, tick int 1..675, note<=280}; 20 fuzz payloads rejected. Red on R1g, green with the group.",
    "owed": "Two real browsers hosting and joining over PeerJS (tests/t0/wtpeer.spec.mjs T0-WTP-01..04 on the full train, through the machine lock) is for the release workstream.",
@@ -899,7 +906,7 @@
    ],
    "depends_on": [],
    "value": "The shipped data schema still states \"430,000+\" records and 600-700 units per tick; chronology still carries a typed tick formula.",
-   "acceptance": "tools/time/relabel-data.mjs gains `--group-out <file>` which writes a patch group (target data/...) computed against release/R1g/dist/data (not legacy), taken to candidates/r1h/wp-time-06/group.json; every anchor asserted once or its true count. Test.mjs, red on R1g and green on the scratch tree: (1) data/placement_schema.json no longer contains \"430,000\" nor \"600-700\", each day's real_time string equals the one the time module (src/lib/time) computes for that day's first and last tick, and the record_count description equals what the placement files hold; (2) the `tick_formula` metadata of the three chronology files is a pointer to time_anchors.json (the string names the file), and no chronology `time` value is changed by this group (the rows keep the strings the CLOCK group wrote; only metadata changes); (3) JSON still parses; the TM-V3, TM-V4 and TM-V13 checks of tools/time/rules.mjs run against the scratch data report no finding for the touched fields (run `node tools/time/validate.mjs` logic through its exported rules on the scratch tree, or the equivalent assertions in test.mjs). The existing `npm run time:check` and `node --test tests/time/*.test.mjs` stay green (638 of 638 on 2026-11-13). Nothing outside the listed metadata fields changes (a diff of the scratch tree against R1g lists only those files and keys).",
+   "acceptance": "tools/time/relabel-data.mjs gains `--group-out <file>` which writes a patch group (target data/...) computed against release/R1g/dist/data (not legacy), taken to candidates/r1h/wp-time-06/group.json; every anchor asserted once or its true count. Test.mjs, red on R1g and green on the scratch tree: (1) data/placement_schema.json no longer contains \"430,000\" (purpose: \"all 430,000+ unit placement records\"), \"430000\" (total_placement_records: \"approximately 430000\") nor \"600-700\" (expected_units_per_tick); each day's real_time string (R1g: \"5:00am July 1 to 12:40am July 2\", \"5:00am July 2 to 7:50pm July 2\", \"5:00am July 3 to 8:05pm July 3\") equals the one the time module (src/lib/time) computes for that day's first and last tick; and the one record_count that exists (metadata.record_count 4,890 in data/placements_day1_ticks1_50.json against 66 rows there; the other eight chunk files carry none; TM-V13 reports the mismatch) equals what its file holds; (2) the `tick_formula` metadata of the three chronology files is a pointer to time_anchors.json (the string names the file), and no chronology `time` value is changed by this group (the rows keep the strings the CLOCK group wrote; only metadata changes); (3) JSON still parses; the TM-V3, TM-V4 and TM-V13 checks of tools/time/rules.mjs run against the scratch data report no finding for the touched fields (run `node tools/time/validate.mjs` logic through its exported rules on the scratch tree, or the equivalent assertions in test.mjs). The existing `npm run time:check` and `node --test tests/time/*.test.mjs` stay green (638 of 638 on 2026-11-13). Nothing outside the listed metadata fields changes (a diff of the scratch tree against R1g lists only those files and keys).",
    "acceptance_basis": "authored against the repository on 2026-11-13",
    "short": "relabel-data.mjs --group-out writes a data patch group against R1g: placement_schema.json loses \"430,000+\" and \"600-700\" and gets the model's day spans; chronology tick_formula becomes a pointer; no chronology time changes; TM-V3/V4/V13 clean; tests/time stay 638/638.",
    "owed": "Visual check of the Historian page timeline (browser).",
@@ -960,7 +967,7 @@
    ],
    "depends_on": [],
    "value": "Shipped data still carries authoring notes and one string naming a video channel; derived strengths carry no basis.",
-   "acceptance": "Group on data/*.json (regex patches with exact asserted counts) plus data-src/policy/release_exclusions.json and tests. Red on R1g, green on the scratch tree: (1) the authoring keys \"flag\", \"flag_notes\", \"data_correction\" and \"supplements_file\" occur 0 times in the patched data files (on R1g: 4, 60, 1 and 11 occurrences; the bundle and the pages read none of them: grep of release/R1g/dist html and js is empty); (2) no data string names a video channel or \"YouTube\" (R1g: 1, in oob/union_artillery.json, Hall's Battery); the sentence is dropped, never reworded into a claim; (3) every JSON file still parses and every value that is not an authoring key is unchanged (the test diffs parsed trees: only the removed keys differ); (4) a basis field \"facts-only\" is added only to strengths that data-src/authorities already records as Busey and Martin derived; no new attribution is invented, a field without that record gets nothing, and the list of touched fields is in HANDOFF.md; (5) data-src/policy/release_exclusions.json lists the exclusions of the first dataset release (positions, Busey and Martin derived numbers, the Historian corpus) and tests/data/release_exclusions.test.mjs fails when a listed field appears in the scratch tree (seeded red case included). `node --test tests/data/*.test.mjs` and `npm run data:check` stay green.",
+   "acceptance": "Group on data/*.json (regex patches with exact asserted counts) plus data-src/policy/release_exclusions.json and tests. Red on R1g, green on the scratch tree: (1) the authoring keys \"flag\", \"flag_notes\", \"data_correction\" and \"supplements_file\" occur 0 times in the patched data files (on R1g: 4, 60, 1 and 11 occurrences; the pages read none of them and the bundle reads none of the three longer keys: grep of release/R1g/dist html and js is empty for flag_notes, data_correction and supplements_file; the bundle's 19 `.flag` reads belong to the unit-flag glyph layout and the trail toggle, not to the chronology key, whose 4 occurrences are engine notes on the events at ticks 267, 320 and 326 of day 2 and tick 455 of day 3, which historian.html's own comment says are never shown: the test re-checks that no reader of chronology events uses `.flag`); (2) no data string names a video channel or \"YouTube\" (R1g: 1, in oob/union_artillery.json, Hall's Battery); the sentence is dropped, never reworded into a claim; (3) every JSON file still parses and every value that is not an authoring key is unchanged (the test diffs parsed trees: only the removed keys differ); (4) a basis field \"facts-only\" is added only to strengths that data-src/authorities already records as Busey and Martin derived; no new attribution is invented, a field without that record gets nothing, and the list of touched fields is in HANDOFF.md; (5) data-src/policy/release_exclusions.json lists the exclusions of the first dataset release (positions, Busey and Martin derived numbers, the Historian corpus) and tests/data/release_exclusions.test.mjs fails when a listed field appears in the scratch tree (seeded red case included). `node --test tests/data/*.test.mjs` and `npm run data:check` stay green.",
    "acceptance_basis": "authored against the repository on 2026-11-13",
    "short": "Data group on R1g: authoring keys flag, flag_notes, data_correction, supplements_file (4/60/1/11 today) and the one video-channel string removed, all else equal in parsed form; facts-only basis only where data-src/authorities says so; exclusions file, seeded-leak test.",
    "owed": "Counsel and owner decisions on rights actions (WP-DATA-05a) stay owner-only; this item does not apply them.",
@@ -1647,7 +1654,7 @@
     "index.html",
     "site-nav.js",
     "data/oob/union_regiments_i_ii_corps.json",
-    "the two ABSENCE files named by the lint"
+    "find-ancestor.html"
    ],
    "reads": [
     "docs/content/STYLEGUIDE.md",
@@ -1659,10 +1666,17 @@
     "tools/t0/patches/PG-zcopy2.json"
    ],
    "depends_on": [],
+   "decision": {
+    "rows": [
+     "C16"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: two entries run in the same batch only when they write no common path and no test of one needs an output of the other (rows C11 and C14 stay). Where a test needs output of another entry, the entry waits for it by de"
+   },
    "value": "The home page and the nav still describe the Historian as a \"search-and-answer assistant\"; one data row carries database wording; two gaps are phrased as facts about the past.",
-   "acceptance": "Group, red on R1g and green with the group: `node tools/copy/copy_lint.mjs <scratch files> --no-baseline --rules AIPERSONA,ALIAS,ABSENCE` reports 0 on the touched files while R1g reports AIPERSONA 4 (historian.html 2, which belong to wp-hist-01b, plus index.html and site-nav.js: \"search-and-answer assistant\"), ALIAS 1 (the alias stub designation in data/oob/union_regiments_i_ii_corps.json) and ABSENCE 2. The new wording follows STYLEGUIDE (\"Ask the Historian: a search of the site's records\"); the alias row's designation is replaced by neutral wording that keeps `alias_for` intact (the search synonym U-14BK stays working: assert alias_for and the id are unchanged, row B15); the two ABSENCE strings are rephrased to say what is not recorded, not that something did not happen. No title, name or meta description of index.html changes (rows A01, A29), index.html strings outside the meta description only; historian.html is not touched (wp-hist-01b). JSON still parses and only the one designation field differs in parsed form.",
+   "acceptance": "Group, red on R1g and green with the group: `node tools/copy/copy_lint.mjs <scratch files> --no-baseline --rules AIPERSONA,ALIAS,ABSENCE` reports 0 on the touched files while R1g reports AIPERSONA 4 (historian.html 2, which belong to wp-hist-01b, plus index.html and site-nav.js: \"search-and-answer assistant\"), ALIAS 1 (the alias stub designation in data/oob/union_regiments_i_ii_corps.json) and ABSENCE 2 (find-ancestor.html:176 \"unrecorded\" and search.html:164 \"Commander unrecorded\"; the second belongs to wp-page-20, which owns search.html and rewrites that line, so this group does not touch search.html and its test expects ABSENCE 1 on find-ancestor.html only; wp-page-20 carries the requirement of 0 on search.html). The new wording follows STYLEGUIDE (\"Ask the Historian: a search of the site's records\"); the alias row's designation is replaced by neutral wording that keeps `alias_for` intact (the search synonym U-14BK stays working: assert alias_for and the id are unchanged, row B15); the ABSENCE string of find-ancestor.html is rephrased to say what is not recorded, not that something did not happen. No title, name or meta description of index.html changes (rows A01, A29), index.html strings outside the meta description only; historian.html is not touched (wp-hist-01b). JSON still parses and only the one designation field differs in parsed form.",
    "acceptance_basis": "authored against the repository on 2026-11-13",
-   "short": "Group removing \"search-and-answer assistant\" (index.html, site-nav.js), the alias stub's database wording (alias_for kept) and two absence-as-fact strings; copy_lint AIPERSONA,ALIAS,ABSENCE = 0 on touched files (R1g: 4/1/2); historian.html left to wp-hist-01b; no title or meta change.",
+   "short": "Group removing \"search-and-answer assistant\" (index.html, site-nav.js), the alias stub's database wording (alias_for kept) and find-ancestor's absence-as-fact string; copy_lint AIPERSONA,ALIAS,ABSENCE = 0 on touched files; no title or meta change; historian, search pages: other entries.",
    "owed": "Visual check; the Historian search of U-14BK in a browser.",
    "done_evidence": null
   },
@@ -1718,75 +1732,15 @@
    ],
    "depends_on": [],
    "value": "The two Alexander notes quoted in the day-3 rows at ticks 521 and 524 are not printed in the Official Records; Law 4 forbids shipping a quotation without a verified source, and the source (Alexander's memoir, 1907) is local in tmp/library/ws9.",
-   "acceptance": "Identify the rows first: the plan's t525 and t530 (chapter 04, section 6 table) are legacy row numbers, not ticks of the shipped file. In release/R1g/dist/data/chronology_day3.json the t525 material now stands in the row at tick 521 (the 1:25 p.m. note: \"If you are to advance at all, you must come at once ...\") and the row at tick 524 (the 1:40 p.m. note: \"For God's sake come quick. The 18 guns have gone. ...\"); the t530 words (\"I would not make the charge now\") stand in the shipped data only inside two disclaimer notes that say they are not in Alexander's memoir (the narrative of the row at tick 524 in chronology_day3.json and the end of vignette V-015 in vignettes_part2.json: 2 hits on 2026-11-15, neither is a quotation of a source). On 2026-11-14 `python -I tools/bt/or27_find.py --verify` finds none of \"If you are to advance at all\", \"For God's sake come quick\" or \"The 18 guns\" in the local OR27 text (they are not Official Records text). Measured on 2026-11-15 (whitespace-normalised search of tmp/library/ws9/ALEXANDER-1907__militarymemoirso00alex_djvu.txt, archive.org id militarymemoirso00alex, Alexander, Military Memoirs of a Confederate, 1907): both notes occur there verbatim (\"If you are to advance at all, you must come at once or we will not be able to support you as we ought. But the enemy's fire has not slackened materially and there are still 18 guns firing from the cemetery.\" and \"For God's sake come quick. The 18 guns have gone. Come quick or my ammunition will not let me support you properly.\"), the 1:25 note at about character 945,700 and the 1:40 note at about 946,400 of the normalised text, and \"would not make the charge\" occurs 0 times, which supports the existing sentence that the t530 words are not in the memoir; the expected outcome is therefore \"found\" for both rows, with the memoir page taken from the running heads of the OCR text and the memoir named as a retrospective source (1907), not as an Official Records report. evidence.json holds, for every quotation mark of the day-3 rows at ticks 510 to 545 (those two rows carry them today): the current text, every search made (pattern, part or text, result count) in tmp/library/or27 and tmp/library/ws9, and the outcome, and it records that the t530 wording is absent. Outcome \"found\": a source (OR Ser. I vol. 27 part, report id, printed page as `python -I tools/bt/or27_find.py` cites it, or the ws9 title and page) and a short verbatim quote that `python -I tools/bt/or27_find.py --verify \"<quote>\"` confirms (the test runs it and requires exit 0) or, for a ws9 text, a quote the test finds in that file; the row then carries the quote with its source key and the wording the source gives. Outcome \"not found\": the lookup is recorded as FAILED with the searches, and the quotation marks are removed from the row (the sentence stays as a plain statement only if the same sentence is supported by a non-lead source, otherwise the claim is reworded to what the record supports, or marked as a visible gap). Group.json patches data/chronology_day3.json accordingly (anchors asserted once; when every quotation is found and carries its source the group may hold no patch and the test asserts both rows unchanged), test.mjs checks the patched rows, that no other row changes, that every remaining quotation mark of the rows has a verified source in evidence.json, and that the JSON parses. No quote is written that the matcher did not confirm; a quote found only on a blog, Wikipedia or from memory is not a source.",
+   "acceptance": "Identify the rows first: the plan's t525 and t530 (chapter 04, section 6 table) are legacy row numbers, not ticks of the shipped file. In release/R1g/dist/data/chronology_day3.json the t525 material now stands in the row at tick 521 (the 1:25 p.m. note: \"If you are to advance at all, you must come at once ...\") and the row at tick 524 (the 1:40 p.m. note: \"For God's sake come quick. The 18 guns have gone. ...\"); the t530 words (\"I would not make the charge now\") stand in the shipped data only inside two disclaimer notes that say they are not in Alexander's memoir (the narrative of the row at tick 524 in chronology_day3.json and the end of vignette V-015 in vignettes_part2.json: 2 hits on 2026-11-15, neither is a quotation of a source). On 2026-11-14 `python -I tools/bt/or27_find.py --verify` finds none of \"If you are to advance at all\", \"For God's sake come quick\" or \"The 18 guns\" in the local OR27 text (they are not Official Records text). Measured on 2026-11-15 (whitespace-normalised search of tmp/library/ws9/ALEXANDER-1907__militarymemoirso00alex_djvu.txt, archive.org id militarymemoirso00alex, Alexander, Military Memoirs of a Confederate, 1907): both notes occur there verbatim (\"If you are to advance at all, you must come at once or we will not be able to support you as we ought. But the enemy's fire has not slackened materially and there are still 18 guns firing from the cemetery.\" and \"For God's sake come quick. The 18 guns have gone. Come quick or my ammunition will not let me support you properly.\"), the 1:25 note at about character 945,700 and the 1:40 note at about 946,400 of the normalised text, and \"would not make the charge\" occurs 0 times, which supports the existing sentence that the t530 words are not in the memoir; the expected outcome is therefore \"found\" for both rows, with the memoir page taken from the running heads of the OCR text (for example the page that carries \"THIRD DAY\" and its number before the quoted note) and the memoir named as a retrospective source (1907), not as an Official Records report. The two rows already name the memoir (1907) in their narrative but give no page, so the expected group is not empty: one patch per row adds the printed page and the source key to the narrative (anchors asserted once), which is what makes the test red on R1g; if the page cannot be read from the running heads the lookup for the page is recorded as failed and the narrative says only what is verified. evidence.json holds, for every quotation mark of the day-3 rows at ticks 510 to 545 (those two rows carry them today): the current text, every search made (pattern, part or text, result count) in tmp/library/or27 and tmp/library/ws9, and the outcome, and it records that the t530 wording is absent. Outcome \"found\": a source (OR Ser. I vol. 27 part, report id, printed page as `python -I tools/bt/or27_find.py` cites it, or the ws9 title and page) and a short verbatim quote that `python -I tools/bt/or27_find.py --verify \"<quote>\"` confirms (the test runs it and requires exit 0) or, for a ws9 text, a quote the test finds in that file; the row then carries the quote with its source key and the wording the source gives. Outcome \"not found\": the lookup is recorded as FAILED with the searches, and the quotation marks are removed from the row (the sentence stays as a plain statement only if the same sentence is supported by a non-lead source, otherwise the claim is reworded to what the record supports, or marked as a visible gap). Group.json patches data/chronology_day3.json accordingly (anchors asserted once; when every quotation is found and carries its source the group may hold no patch and the test asserts both rows unchanged), test.mjs checks the patched rows, that no other row changes, that every remaining quotation mark of the rows has a verified source in evidence.json, and that the JSON parses. No quote is written that the matcher did not confirm; a quote found only on a blog, Wikipedia or from memory is not a source.",
    "acceptance_basis": "authored against the repository on 2026-11-13",
    "short": "Research record + data check: the two Alexander quotations at ticks 521 and 524 are not OR27 text but occur verbatim in the local ws9 memoir (1907); record each with its match and page, patch only what the matcher does not confirm; the t530 words stand only in two disclaimers.",
    "owed": "A historian's confirmation of the wording remains owner-side.",
    "done_evidence": null
   },
   {
-   "id": "wp-hist-22-units",
-   "order": 28,
-   "wave": 1,
-   "done": false,
-   "title": "Unit page-data export: one units/<slug>.json per unit with cited excerpts (slice of WP-HIST-22)",
-   "source": {
-    "part": "B",
-    "id": "WP-HIST-22",
-    "kind": "slice of work-package",
-    "status": "OPEN_BUILDABLE",
-    "chapter": "14",
-    "size": "M"
-   },
-   "chapter": "14",
-   "area": "historian",
-   "tier": "grade-a",
-   "tranche": "P5",
-   "roadmap_nodes": [
-    "RM-75"
-   ],
-   "size": "M",
-   "route": {
-    "type": "source-rebuild",
-    "dirs": [
-     "historian-src/",
-     "tools/historian/",
-     "tests/historian/"
-    ],
-    "record": "candidates/r1h/wp-hist-22-units/"
-   },
-   "files": [
-    "historian-src/export/units.mjs",
-    "historian-src/export/schema.units.json",
-    "tests/historian/export-units.test.mjs",
-    "candidates/r1h/wp-hist-22-units/STATUS.json",
-    "candidates/r1h/wp-hist-22-units/HANDOFF.md"
-   ],
-   "touches": [],
-   "reads": [
-    "data-src/build/unit_index.json",
-    "data-src/build/unit_registry.json",
-    "historian-src/corpus/or27/manifest.json",
-    "historian-src/corpus/or27/reports.json",
-    "historian-src/core",
-    "docs/plan/FINAL/14-ask-the-historian-expansion.md (WP-HIST-22)"
-   ],
-   "context_files": [
-    "data-src/build/unit_index.json",
-    "historian-src/corpus/or27/manifest.json"
-   ],
-   "depends_on": [],
-   "value": "Unit pages, Ask the Historian and the SEO pages all need one export of what the corpus says per unit, with citations and rights fields.",
-   "acceptance": "Red first: tests/historian/export-units.test.mjs fails before the exporter exists. `node historian-src/export/units.mjs --out tmp/r1h-cand/wp-hist-22-units/export` writes one `units/<slug>.json` per unit of data-src/build/unit_index.json that has at least one Official Records passage (and none for the alias stub U-14BK), each with at most three excerpts of at most 120 words, every excerpt carrying its citation (volume, part, report id, printed page), the scan address, the licence id (from docs/historian/sources.yaml) and `reviewer: null`; the build is deterministic (two runs byte-identical, content-hashed file names listed in an index). The test asserts: schema validity of every file, the word limits, every excerpt is a verbatim substring of the corpus text of the report named in its citation (no rewriting), no excerpt from a source that is not Tier A or B in the registry, the alias stub has no file, and a unit with no passage has no file and is listed in the index with `reason: \"no passage\"`. Runs under node 22 and 24 (after ver-hist-node) or states which; the export ships nowhere (HANDOFF.md). This is the units slice of WP-HIST-22; the places slice is the entry wp-hist-22-places and the item is not closed until both are done.",
-   "acceptance_basis": "authored against the repository on 2026-11-13",
-   "short": "historian-src/export/units.mjs: one units/<slug>.json per unit with <=3 excerpts of <=120 words, each verbatim from a cited corpus report with citation, scan address, licence id, reviewer null; no file for the alias stub; deterministic; schema, verbatim and tier checks. Units slice only.",
-   "owed": "Unit pages themselves wait for the SEO thin-content gate (WP-SEO-15). The place leg is wp-hist-22-places.",
-   "slice_of": "wp-hist-22",
-   "done_evidence": null
-  },
-  {
    "id": "wp-pagec-12",
-   "order": 29,
+   "order": 28,
    "wave": 1,
    "done": false,
    "title": "AR: hide and minimal-safe test build",
@@ -1836,6 +1790,74 @@
    "acceptance_basis": "authored against the repository on 2026-11-13",
    "short": "Group on ar.html with a node:vm test and fake media/orientation/geolocation: motion permission requested first; after any denial no live track and clearWatch called; Exit stops both; distinct role=alert message per error code; page stays noindex and hidden. Red on R1g.",
    "owed": "A real iPhone (iOS 17/18) and Android run is owner-side (on-site device test).",
+   "done_evidence": null
+  },
+  {
+   "id": "wp-page-20",
+   "order": 29,
+   "wave": 2,
+   "done": false,
+   "title": "Search hotfix",
+   "source": {
+    "part": "A",
+    "id": "WP-PAGE-20",
+    "kind": "work package (finding group)",
+    "status": "OPEN_BUILDABLE",
+    "chapter": "08a",
+    "size": "S"
+   },
+   "chapter": "08a",
+   "area": "pages",
+   "tier": "survival",
+   "tranche": "P2",
+   "roadmap_nodes": [
+    "RM-14",
+    "RM-22"
+   ],
+   "size": "S",
+   "route": {
+    "type": "candidate-group",
+    "dir": "candidates/r1h/wp-page-20/",
+    "train": "R1h (cumulative on R1g, release id 52cec836)",
+    "register": "release workstream: tools/t0/trains.json after the proof passes"
+   },
+   "files": [
+    "candidates/r1h/wp-page-20/group.json",
+    "candidates/r1h/wp-page-20/overlay/",
+    "candidates/r1h/wp-page-20/test.mjs",
+    "candidates/r1h/wp-page-20/STATUS.json",
+    "candidates/r1h/wp-page-20/HANDOFF.md"
+   ],
+   "touches": [
+    "search.html"
+   ],
+   "reads": [
+    "release/R1g/dist/search.html",
+    "release/R1g/dist/data/oob (alias_for: U-14BK)",
+    "docs/plan/FINAL/08a-subpages-A-B.md (section 5.2, WP-20 hotfix)",
+    "tests/t0/pages-core.spec.mjs",
+    "tools/copy/copy_lint.mjs"
+   ],
+   "context_files": [
+    "tools/t0/patches/PG-core.json",
+    "tools/t0/patches/PG-polish.json",
+    "tests/t0/pages-core.spec.mjs",
+    "docs/plan/FINAL/08a-subpages-A-B.md"
+   ],
+   "depends_on": [],
+   "decision": {
+    "rows": [
+     "C15",
+     "C16"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: the page shows the percentage that the record itself carries; where casualty_percentage is null and the record has a numeric strength above zero and a numeric casualties figure, it shows casualties divided by streng"
+   },
+   "value": "The Search page, a front door of the site, answers \"lincoln\" with 351 irrelevant hits, lists a database alias stub as a result, prints \"Commander unrecorded\" 27 times and a dangling separator 142 times, writes unescaped HTML and has an unlabelled autofocus input.",
+   "acceptance": "Group on search.html (every anchor asserted once; head meta tags untouched, wp-seo-04b owns og and twitter; the \"Commander unrecorded\" line, which wp-content-01b no longer touches, is rewritten here) with a node:vm test that runs the inline scripts of the patched file (the GTBGTime block and the page script) against the real data files of the tree through a fetch stub (release/R1g/dist/data) and a minimal DOM, red on R1g and green with the group. Measured on release/R1g/dist on 2026-11-15 by simulating the page's own score(): 521 index entries (467 regiments); \"lincoln\" 351 hits and \"lee\" 451 hits of which 8 contain the text; \"14th brooklyn\" 3 hits including the alias stub U-14BK; 27 regiment records without a commander name (printed \"Commander unrecorded\"); 142 without casualty_percentage (printed with a trailing separator), 141 of them with numeric strength and casualties. Assertions: (1) score() ends at the substring tiers (the loop after the comment \"subsequence check\" is gone): \"lincoln\" returns no result and the empty state reads No matches for \"lincoln\" with the query inserted as text; \"lee\" returns only records whose searchText contains \"lee\" (at most 8); (2) records with alias_for are skipped when the index is built: \"14th brooklyn\" returns exactly one regiment, U-84NY, and no result has the id U-14BK; (3) the meta line is built from the parts that exist ([state, commander name, \"<pct>% casualties\"] joined with a middle dot, never an empty part, never a trailing separator); the percentage is casualties/strength rounded to one decimal, computed only when casualty_percentage is null and both numbers are plain numbers (141 records gain one, the 142nd gets none, no value is invented); for the 467 regiment records no meta contains \"Commander unrecorded\" or ends in a separator; for these 30 queries no rendered result contains \"Commander unrecorded\", \"alias for\" or a trailing separator: 14th brooklyn, lincoln, lee, 20th maine, 1st minnesota, 69th pennsylvania, iron brigade, irish brigade, cushing, hancock, longstreet, meade, chamberlain, armistead, wheatfield, peach orchard, devil's den, little round top, culp's hill, cemetery ridge, the angle, seminary, railroad cut, herbst, barlow, oak ridge, spangler, round top, stuart, pettigrew; (4) output is escaped: a stub index record whose title is `<img src=x onerror=alert(1)>` renders as text and creates no element (title, meta and count are set as text; hrefs keep encodeURIComponent); (5) the four chips are `<button type=\"button\" aria-pressed>` (true on the active one, switched on click) inside an element with role=\"group\" aria-label=\"Filter by type\"; the box is type=\"search\", has a `<label for=\"search-box\">` (visually hidden is allowed) and no autofocus attribute: script focuses it only when matchMedia(\"(pointer: fine)\") matches (both answers stubbed); (6) the loading text reads \"Searching...\" in place of \"Building search index...\", the count and the empty state sit in role=\"status\" regions, and the count shows the number of matches before the 40-row cap (more than 40 matches say \"N results, showing the first 40\"); (7) shipped rules stay: chip text contrast on the page background of at least 6:1 computed in the test from the style block (R1g: 6.39 for the muted chip, 7.49 for the active one), min-height 44px on .filter-chip, the 12 px floors; copy_lint ABSENCE, AIPERSONA, REALTIME and TICK report 0 on the file (R1g: ABSENCE 1, at the meta line). Not part of this entry and not claimed: the engine rebuild of WP-PAGE-21 (ranking over 1,000 documents, batteries, brigades, commanders) and the URL state and keyboard work of WP-PAGE-22.",
+   "acceptance_basis": "authored against the repository on 2026-11-15",
+   "short": "Group on search.html, node:vm test on real data: no subsequence tier (\"lincoln\" empty), alias_for skipped (\"14th brooklyn\" = U-84NY), meta without \"Commander unrecorded\" or a dangling separator, escaped output, aria-pressed chips in a group, labelled search box, no autofocus on touch",
+   "owed": "Lighthouse accessibility and CLS 0.1466 at 4x CPU, a keyboard-only walk and contrast on a real device: pages-core and the accessibility suites of the release workstream, through the lock.",
    "done_evidence": null
   },
   {
@@ -1915,8 +1937,230 @@
    "done_evidence": null
   },
   {
-   "id": "wp-infra-26",
+   "id": "ver-hist-corpus",
    "order": 31,
+   "wave": 2,
+   "done": false,
+   "title": "The Historian corpus build and the 87 tests that need it have never run in this container (the archive.org download path is blocked here)",
+   "source": {
+    "part": "B",
+    "id": "VER-HIST-CORPUS",
+    "kind": "verification-debt",
+    "status": "OPEN_BUILDABLE",
+    "chapter": "14",
+    "size": "M"
+   },
+   "chapter": "14",
+   "area": "historian",
+   "tier": "legacy-a-line",
+   "tranche": null,
+   "roadmap_nodes": [],
+   "size": "M",
+   "route": {
+    "type": "source-rebuild",
+    "dirs": [
+     "historian-src/",
+     "tools/historian/",
+     "tests/historian/"
+    ],
+    "record": "candidates/r1h/ver-hist-corpus/"
+   },
+   "files": [
+    "tools/historian/ingest/fetch.mjs (small Edit: sourceForUrl)",
+    "tools/historian/ingest/corpus.mjs (small Edit: one switch)",
+    "tools/historian/ingest/cli.mjs (small Edit: the same switch for fetch and segment)",
+    "tests/historian/fetch-cors.test.mjs",
+    "candidates/r1h/ver-hist-corpus/evidence.json",
+    "candidates/r1h/ver-hist-corpus/STATUS.json",
+    "candidates/r1h/ver-hist-corpus/HANDOFF.md"
+   ],
+   "touches": [],
+   "reads": [
+    "tools/historian/ingest/fetch.mjs",
+    "tools/historian/ingest/corpus.mjs",
+    "tools/historian/ingest/cli.mjs",
+    "tools/historian/lib/sources.mjs",
+    "historian-src/corpus/or27/manifest.json",
+    "docs/historian/sources.yaml",
+    "tests/historian/or27-rebuild.test.mjs",
+    "tests/historian/ingest.test.mjs",
+    "tests/historian/ingest-classes.test.mjs",
+    "tmp/r1h-cand/ver-hist-node/suite-node22-normal.log",
+    "docs/plan/STATUS/items-B.json (VER-HIST-CORPUS)"
+   ],
+   "context_files": [
+    "tools/historian/ingest/fetch.mjs",
+    "tools/historian/ingest/corpus.mjs",
+    "historian-src/corpus/or27/manifest.json",
+    "tests/historian/"
+   ],
+   "depends_on": [
+    "ver-hist-node"
+   ],
+   "decision": {
+    "rows": [
+     "C16"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: two entries run in the same batch only when they write no common path and no test of one needs an output of the other (rows C11 and C14 stay). Where a test needs output of another entry, the entry waits for it by de"
+   },
+   "value": "87 of the 478 historian tests skip in this container because the Internet Archive download path is blocked and the fetcher refuses the permitted /cors/ spelling; every corpus-level claim of the BUILT Historian work is unproven here until the corpus is rebuilt, and the unit and place exports need its text.",
+   "acceptance": "Starts only after ver-hist-node is done: its paired run hashes tools/historian, tests/historian and historian-src, so an edit of fetch.mjs or a new historian-src/raw folder during that run would void it. Red first: tests/historian/fetch-cors.test.mjs fails before the change: on the tree as it is, sourceForUrl(registry, \"https://archive.org/cors/warofrebellion271unit/warofrebellion271unit_djvu.txt\") returns null, so the gate raises RightsRefusal (\"the identifier or host is not registered\") although the form is answered 200 by this environment while the /download/ form answers 302 to a host the proxy refuses (recorded as blocked on 2026-11-13, not worked around). Done when: (1) sourceForUrl reads the identifier from /cors/<identifier>/ paths too (one small Edit of its path pattern); an unregistered identifier, a refused identifier (the reprint warrebellionaco00cowlgoog) and a banned host still raise RightsRefusal under the /cors/ spelling (tested beside the existing cases); (2) one switch (a flag of corpus.mjs and cli.mjs, or the environment variable HX_FETCH_FORM=cors, documented in the file headers) makes the build request https://archive.org/cors/<id>/<file> while the provenance rows written to the corpus tables and the cache key sha1(canonical URL|range) keep the canonical /download/ URL: a test with a fake fetch proves the request URL, the cache key (the cached 2 MB sample that tests/historian/ingest-classes.test.mjs reads has the key f11f20ae12aa762c081bfa37941181caf600c8a5), the provenance URL and that a second run downloads 0 bytes; (3) with the switch the 15 files named in historian-src/corpus/or27/manifest.json (warofrebellion271unit, 272unit and 273unit: djvu.txt, page_numbers.json, scandata.xml, hocr_pageindex.json.gz, hocr_searchtext.txt.gz; about 20 MB in all) are fetched at no more than one request per second per host into tmp/historian-cache (git-ignored) and the sha256 of each is compared with the manifest: a difference is a finding recorded in evidence.json (what, expected, found), never fixed or patched around, and a refused host or an answer other than 200 is recorded as blocked or failed; the 2 MB range sample of or27-1 is fetched by `node tools/historian/ingest/cli.mjs fetch or27-1 --sample` with the same switch; (4) `node tools/historian/ingest/corpus.mjs build --raw tmp/r1h-cand/ver-hist-corpus/raw --out tmp/r1h-cand/ver-hist-corpus/out` runs through tools/horde/bench.sh and its tables are compared with the committed historian-src/corpus/or27/*.json: identical, or every differing table and its row counts listed in evidence.json (no committed table is overwritten); (5) the same build then fills historian-src/raw/or27 (git-ignored) and `node --test tests/historian/*.test.mjs` runs under Node 22.23.4 and /opt/node24/bin/node 24.22.1 through bench.sh: the 87 skips of the baseline run (478 tests, 391 pass, 0 fail, 87 skipped under Node 22: tmp/r1h-cand/ver-hist-node/suite-node22-normal.log) become passes or named failures, and both totals are recorded in STATUS.json. A named failure is a finding, not something to fix here. No test is loosened, skipped or deleted, no committed table changes, and no source outside the registered Internet Archive identifiers is contacted (hathitrust and ehistory stay blocked and untouched).",
+   "acceptance_basis": "authored against the repository on 2026-11-15",
+   "short": "sourceForUrl accepts /cors/ (unregistered, refused, banned stay refused) behind one switch that keeps canonical provenance and cache keys; fetch the 15 OR27 files at 1 req/s, compare sha256 with the manifest, rebuild to scratch and diff the tables, run the historian suite on node 22 and 24",
+   "owed": "A run through the machine lock (the corpus build and two suite runs are heavy); about 20 MB from archive.org at one request per second; the paired timing run of ver-hist-node must be finished first.",
+   "done_evidence": null
+  },
+  {
+   "id": "wp-hist-22-units",
+   "order": 32,
+   "wave": 1,
+   "done": false,
+   "title": "Unit page-data export: one units/<slug>.json per unit with cited excerpts (slice of WP-HIST-22)",
+   "source": {
+    "part": "B",
+    "id": "WP-HIST-22",
+    "kind": "slice of work-package",
+    "status": "OPEN_BUILDABLE",
+    "chapter": "14",
+    "size": "M"
+   },
+   "chapter": "14",
+   "area": "historian",
+   "tier": "grade-a",
+   "tranche": "P5",
+   "roadmap_nodes": [
+    "RM-75"
+   ],
+   "size": "M",
+   "route": {
+    "type": "source-rebuild",
+    "dirs": [
+     "historian-src/",
+     "tools/historian/",
+     "tests/historian/"
+    ],
+    "record": "candidates/r1h/wp-hist-22-units/"
+   },
+   "files": [
+    "historian-src/export/units.mjs",
+    "historian-src/export/schema.units.json",
+    "tests/historian/export-units.test.mjs",
+    "candidates/r1h/wp-hist-22-units/STATUS.json",
+    "candidates/r1h/wp-hist-22-units/HANDOFF.md"
+   ],
+   "touches": [],
+   "reads": [
+    "data-src/build/unit_index.json",
+    "data-src/build/unit_registry.json",
+    "historian-src/corpus/or27/manifest.json",
+    "historian-src/corpus/or27/reports.json",
+    "historian-src/core",
+    "docs/plan/FINAL/14-ask-the-historian-expansion.md (WP-HIST-22)"
+   ],
+   "context_files": [
+    "data-src/build/unit_index.json",
+    "historian-src/corpus/or27/manifest.json"
+   ],
+   "depends_on": [
+    "ver-hist-corpus"
+   ],
+   "decision": {
+    "rows": [
+     "C16"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: two entries run in the same batch only when they write no common path and no test of one needs an output of the other (rows C11 and C14 stay). Where a test needs output of another entry, the entry waits for it by de"
+   },
+   "value": "Unit pages, Ask the Historian and the SEO pages all need one export of what the corpus says per unit, with citations and rights fields.",
+   "acceptance": "Waits for ver-hist-corpus (changed 2026-11-15 after a read of the tree): the corpus text that every verbatim check below needs is not in this container. The committed tables historian-src/corpus/or27/*.json hold offsets (sentence start and end, page, leaf) and no report text; the text comes from the three Internet Archive items warofrebellion271unit, 272unit and 273unit through `node tools/historian/ingest/corpus.mjs build`, whose raw folder historian-src/raw/or27 is git-ignored and absent today; the three copies in tmp/library/or27 (cu31924077699761 and its two siblings) are other scans and cannot stand in. The exporter reads that folder and, when it is absent, exits non-zero naming it (the test never passes by skipping). Red first: tests/historian/export-units.test.mjs fails before the exporter exists. `node historian-src/export/units.mjs --out tmp/r1h-cand/wp-hist-22-units/export` writes one `units/<slug>.json` per unit of data-src/build/unit_index.json that has at least one Official Records passage (and none for the alias stub U-14BK), each with at most three excerpts of at most 120 words, every excerpt carrying its citation (volume, part, report id, printed page), the scan address, the licence id (from docs/historian/sources.yaml) and `reviewer: null`; the build is deterministic (two runs byte-identical, content-hashed file names listed in an index). The test asserts: schema validity of every file, the word limits, every excerpt is a verbatim substring of the corpus text of the report named in its citation (no rewriting), no excerpt from a source that is not Tier A or B in the registry, the alias stub has no file, and a unit with no passage has no file and is listed in the index with `reason: \"no passage\"`. Runs under node 22 and 24 (after ver-hist-node) or states which; the export ships nowhere (HANDOFF.md). This is the units slice of WP-HIST-22; the places slice is the entry wp-hist-22-places and the item is not closed until both are done.",
+   "acceptance_basis": "authored against the repository on 2026-11-13",
+   "short": "historian-src/export/units.mjs: one units/<slug>.json per unit with <=3 excerpts of <=120 words, each verbatim from a cited corpus report with citation, scan address, licence id, reviewer null; no file for the alias stub; deterministic; schema, verbatim and tier checks. Units slice only.",
+   "owed": "Unit pages themselves wait for the SEO thin-content gate (WP-SEO-15). The place leg is wp-hist-22-places.",
+   "slice_of": "wp-hist-22",
+   "done_evidence": null
+  },
+  {
+   "id": "wp-seo-11b",
+   "order": 33,
+   "wave": 2,
+   "done": false,
+   "title": "Static footer links on the 20 sub-pages for crawlers and visitors without JavaScript",
+   "source": {
+    "part": "B",
+    "id": "WP-SEO-11b",
+    "kind": "work-package-part",
+    "status": "BUILT_NOT_SHIPPED",
+    "chapter": "10",
+    "size": "S"
+   },
+   "chapter": "10",
+   "area": "seo",
+   "tier": "legacy-a-line",
+   "tranche": "P3",
+   "roadmap_nodes": [
+    "RM-25"
+   ],
+   "size": "S",
+   "route": {
+    "type": "candidate-group",
+    "dir": "candidates/r1h/wp-seo-11b/",
+    "train": "R1h (cumulative on R1g, release id 52cec836)",
+    "register": "release workstream: tools/t0/trains.json after the proof passes"
+   },
+   "files": [
+    "candidates/r1h/wp-seo-11b/group.json",
+    "candidates/r1h/wp-seo-11b/overlay/",
+    "candidates/r1h/wp-seo-11b/test.mjs",
+    "candidates/r1h/wp-seo-11b/STATUS.json",
+    "candidates/r1h/wp-seo-11b/HANDOFF.md",
+    "candidates/r1h/wp-seo-11b/evidence.json"
+   ],
+   "touches": [
+    "search.html",
+    "dashboard.html",
+    "compare.html",
+    "camera.html",
+    "documentary.html",
+    "report.html",
+    "education.html",
+    "aftermath.html",
+    "sandbox.html",
+    "viewshed.html",
+    "regiment.html",
+    "ground-remembers.html",
+    "historian.html",
+    "immersive.html",
+    "watch-together.html",
+    "turning-points.html",
+    "find-ancestor.html",
+    "cinematic-export.html",
+    "living-ledger.html",
+    "ar.html (footer mount only)"
+   ],
+   "reads": [
+    "tools/t0/seo/optional/PG-zseo-opt.json",
+    "release/R1g/dist/site-nav.js (GROUPS, the footer branch of render)",
+    "release/R1g/dist/*.html",
+    "tests/t0/seo.spec.mjs",
+    "tests/t0/lib.mjs",
+    "docs/plan/FINAL/10-seo-growth.md (WP-SEO-11)"
+   ],
+   "context_files": [
+    "tools/t0/seo/optional/PG-zseo-opt.json",
+    "docs/seo/SEO-AND-VITALS-AUDIT.md"
+   ],
+   "depends_on": [],
+   "value": "Crawlers and visitors without JavaScript find no navigation on 20 pages: the footer is built by site-nav.js at DOMContentLoaded. A static group exists (20 patches) and was never checked in a browser, so it ships nowhere.",
+   "acceptance": "candidates/r1h/wp-seo-11b/group.json holds the 20 patches ZSEO-OPT-footer-links-<page> of tools/t0/seo/optional/PG-zseo-opt.json (read, not edited), re-identified r1h-wp-seo-11b-<page> in a group named PG-r1h-wp-seo-11b; the prefetch patch and the home-title patch of that file are not part of this entry (the title is an owner decision, row A01; the prefetch needs its own measurement). Measured on 2026-11-15: all 22 anchors of the file apply once on release/R1g/dist, among them `<div id=\"gtbg-footer-mount\"></div>` on the 20 pages. test.mjs, red on R1g and green with the group, no browser: (1) each of the 20 pages holds a `<nav aria-label=\"All pages\">` inside the footer mount whose hrefs are Home plus every item href of window.GTBG_MENU.GROUPS of release/R1g/dist/site-nav.js except the page itself (the test evaluates site-nav.js in node:vm to read GROUPS: 19 items today, so the static list cannot drift from the menu), and every href resolves to a file of the tree; (2) each page still has exactly one gtbg-footer-mount and nothing else of its markup changed (a diff of the scratch tree against R1g lists only these 20 files and only this element). Browser verification, through tools/horde/bench.sh with software rendering (a scratch full tree: `python3 tools/t0/build.py --train R1g --patches <copy of tools/t0/patches plus the group file> --out tmp/r1h-cand/wp-seo-11b/full`, then Playwright chromium; map tiles and third-party requests blocked so the pages load fast): on each of the 20 pages with JavaScript on, exactly one footer exists after DOMContentLoaded (the static nav is replaced, never duplicated: site-nav.js swaps the mount by outerHTML), the sum of layout-shift entries (PerformanceObserver) with the group is not larger than without it (both recorded per page), and with JavaScript off the static links are present in the delivered HTML; the footer links of the 390 px viewport are at least 44 by 44 css px or the ones that are not are listed (reported, not fixed here). Everything measured goes to evidence.json (page, with and without the group, numbers); a failed check keeps the entry open and is reported with its page; nothing is loosened. HANDOFF.md names the train row and the identity-file lines (twenty pages change) for the release workstream and says that the owner decision on the home title (row A01) is separate.",
+   "acceptance_basis": "authored against the repository on 2026-11-15",
+   "short": "Group of the 20 static footer-link patches of PG-zseo-opt on R1g: node test (static list equals the site-nav menu, one mount per page, only those files change) plus a browser check on a scratch build (one footer, layout shift not larger, 44 px targets, links present with JS off), numbers in evidence.json.",
+   "owed": "Real-device and real-GPU timing, and the release workstream's identity-file lines and train registration; the browser check here runs under software rendering and says so.",
+   "done_evidence": null
+  },
+  {
+   "id": "wp-infra-26",
+   "order": 34,
    "wave": null,
    "done": false,
    "title": "Interim privacy correction and data-flow inventory",
@@ -1968,7 +2212,7 @@
   },
   {
    "id": "wp-infra-03c",
-   "order": 32,
+   "order": 35,
    "wave": null,
    "done": false,
    "title": "Mapbox token programme: KEY-01 Referer contract probe and blank-map notice",
@@ -2013,7 +2257,7 @@
   },
   {
    "id": "wp-dec-17",
-   "order": 33,
+   "order": 36,
    "wave": null,
    "done": false,
    "title": "Commit the ADRs and record ratification",
@@ -2056,7 +2300,7 @@
   },
   {
    "id": "wp-perf-24",
-   "order": 34,
+   "order": 37,
    "wave": null,
    "done": false,
    "title": "Cache values and fingerprinting",
@@ -2101,7 +2345,7 @@
   },
   {
    "id": "wp-pagec-18",
-   "order": 35,
+   "order": 38,
    "wave": null,
    "done": false,
    "title": "Turning Points: moment ids, corrected anchors",
@@ -2145,56 +2389,8 @@
    "done_evidence": null
   },
   {
-   "id": "wp-page-20",
-   "order": 36,
-   "wave": null,
-   "done": false,
-   "title": "Search hotfix",
-   "source": {
-    "part": "A",
-    "id": "WP-PAGE-20",
-    "kind": "work package (finding group)",
-    "status": "OPEN_BUILDABLE",
-    "chapter": "08a",
-    "size": "S"
-   },
-   "chapter": "08a",
-   "area": "pages",
-   "tier": "survival",
-   "tranche": "P2",
-   "roadmap_nodes": [
-    "RM-14",
-    "RM-22"
-   ],
-   "size": "S",
-   "route": {
-    "type": "candidate-group",
-    "dir": "candidates/r1h/wp-page-20/",
-    "train": "R1h (cumulative on R1g, release id 52cec836)",
-    "register": "release workstream: tools/t0/trains.json after the proof passes"
-   },
-   "files": [
-    "candidates/r1h/wp-page-20/group.json",
-    "candidates/r1h/wp-page-20/overlay/",
-    "candidates/r1h/wp-page-20/test.mjs",
-    "candidates/r1h/wp-page-20/STATUS.json",
-    "candidates/r1h/wp-page-20/HANDOFF.md"
-   ],
-   "reads": [],
-   "context_files": [
-    "tools/t0/patches/PG-core.json",
-    "tools/t0/patches/PG-polish.json",
-    "tests/t0/pages-core.spec.mjs",
-    "docs/plan/FINAL/08a-subpages-A-B.md"
-   ],
-   "depends_on": [],
-   "acceptance": "Proof: candidates/r1h/wp-page-20/ holds group.json and/or overlay/ with every anchor asserted on release/R1g/dist, test.mjs that FAILS on the untouched tree and PASSES on the scratch tree of the group, HANDOFF.md, and `node candidates/r1h/_lib/prove.mjs wp-page-20` exits 0 and writes STATUS.json with passes true (anchors ok, red exit non-zero, green exit 0). Specific check (survey next step, 2026-11-13): Candidate page group under candidates/r1h/ with a red-first test (the two named cases and the 30 sampled queries, run on release/R1g/dist and on the patched tree), handed to the release workstream for train R1h: delete the subsequence tier, skip alias_for records, build the meta from the fields that exist, escape the output, chips as buttons with aria-pressed in a labelled group, type=search without autofocus on coarse pointers, \"Searching...\" and \"No matches for\" copy. Plan acceptance (docs/plan/FINAL, WP-PAGE-20): \"14th brooklyn\" -> exactly 1 regiment; \"lincoln\" -> empty state; 30 sampled queries free of \"Commander unrecorded\", \"alias for\", trailing separator; chips >= 6:1, >= 44 px coarse. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
-   "acceptance_basis": "machine proof clause + next-step + plan-accept",
-   "done_evidence": null
-  },
-  {
    "id": "copy-plan-refs",
-   "order": 37,
+   "order": 39,
    "wave": null,
    "done": false,
    "title": "Internal plan references in shipped comments",
@@ -2236,7 +2432,7 @@
   },
   {
    "id": "ver-j7",
-   "order": 38,
+   "order": 40,
    "wave": null,
    "done": false,
    "title": "T0-J7 red on R1g in the container",
@@ -2276,7 +2472,7 @@
   },
   {
    "id": "ver-mfix",
-   "order": 39,
+   "order": 41,
    "wave": null,
    "done": false,
    "title": "T0-MFIX-02 and T0-MFIX-11 red on R1g in the container (-10 and -12 were red only in the first full run)",
@@ -2316,7 +2512,7 @@
   },
   {
    "id": "wp-infra-03b",
-   "order": 40,
+   "order": 42,
    "wave": null,
    "done": false,
    "title": "Mapbox token programme: one config module for the token literals",
@@ -2361,7 +2557,7 @@
   },
   {
    "id": "wp-infra-05",
-   "order": 41,
+   "order": 43,
    "wave": null,
    "done": false,
    "title": "Secret hygiene and supply chain",
@@ -2410,7 +2606,7 @@
   },
   {
    "id": "wp-qa-01",
-   "order": 42,
+   "order": 44,
    "wave": null,
    "done": false,
    "title": "Repository, CI skeleton, expiring registries, governance",
@@ -2458,7 +2654,7 @@
   },
   {
    "id": "wp-dec-01",
-   "order": 43,
+   "order": 45,
    "wave": null,
    "done": false,
    "title": "Boot-contract spike under production-equivalent load",
@@ -2502,7 +2698,7 @@
   },
   {
    "id": "wp-perf-01",
-   "order": 44,
+   "order": 46,
    "wave": null,
    "done": false,
    "title": "Measurement foundation and baseline of record",
@@ -2549,7 +2745,7 @@
   },
   {
    "id": "wp-qa-04b",
-   "order": 45,
+   "order": 47,
    "wave": null,
    "done": false,
    "title": "Hooks contract for the rebuilt app (?test=1, window.__gtbg, data-shell)",
@@ -2594,7 +2790,7 @@
   },
   {
    "id": "wp-ux-05",
-   "order": 46,
+   "order": 48,
    "wave": null,
    "done": false,
    "title": "One moments.json with chapters and anchors",
@@ -2640,7 +2836,7 @@
   },
   {
    "id": "amd-t0-2",
-   "order": 47,
+   "order": 49,
    "wave": null,
    "done": false,
    "title": "Amendment: gold trail as a Mapbox line layer fed by the unit keyframes",
@@ -2682,7 +2878,7 @@
   },
   {
    "id": "wp-ux-04",
-   "order": 48,
+   "order": 50,
    "wave": null,
    "done": false,
    "title": "URL-state contract",
@@ -2732,7 +2928,7 @@
   },
   {
    "id": "wp-infra-04d",
-   "order": 49,
+   "order": 51,
    "wave": null,
    "done": false,
    "title": "NPS video frame of the tour panel: click-to-load or link-out",
@@ -2782,53 +2978,8 @@
    "done_evidence": null
   },
   {
-   "id": "wp-seo-11b",
-   "order": 50,
-   "wave": null,
-   "done": false,
-   "title": "Static footer links on the 20 sub-pages for crawlers and visitors without JavaScript",
-   "source": {
-    "part": "B",
-    "id": "WP-SEO-11b",
-    "kind": "work-package-part",
-    "status": "BUILT_NOT_SHIPPED",
-    "chapter": "10",
-    "size": "S"
-   },
-   "chapter": "10",
-   "area": "seo",
-   "tier": "legacy-a-line",
-   "tranche": "P3",
-   "roadmap_nodes": [
-    "RM-25"
-   ],
-   "size": "S",
-   "route": {
-    "type": "candidate-group",
-    "dir": "candidates/r1h/wp-seo-11b/",
-    "train": "R1h (cumulative on R1g, release id 52cec836)",
-    "register": "release workstream: tools/t0/trains.json after the proof passes"
-   },
-   "files": [
-    "candidates/r1h/wp-seo-11b/group.json",
-    "candidates/r1h/wp-seo-11b/overlay/",
-    "candidates/r1h/wp-seo-11b/test.mjs",
-    "candidates/r1h/wp-seo-11b/STATUS.json",
-    "candidates/r1h/wp-seo-11b/HANDOFF.md"
-   ],
-   "reads": [],
-   "context_files": [
-    "tools/t0/seo/optional/PG-zseo-opt.json",
-    "docs/seo/SEO-AND-VITALS-AUDIT.md"
-   ],
-   "depends_on": [],
-   "acceptance": "Proof: candidates/r1h/wp-seo-11b/ holds group.json and/or overlay/ with every anchor asserted on release/R1g/dist, test.mjs that FAILS on the untouched tree and PASSES on the scratch tree of the group, HANDOFF.md, and `node candidates/r1h/_lib/prove.mjs wp-seo-11b` exits 0 and writes STATUS.json with passes true (anchors ok, red exit non-zero, green exit 0). Specific check (survey next step, 2026-11-13): Remaining work: the browser check named in the notes (no duplicate footer, no layout shift, 44 px targets) on a scratch tree, then registration as a page group by the release workstream. Plan acceptance (docs/plan/FINAL, WP-SEO-11): depth <= 3, orphans 0, >= 3 inbound links per indexable page, 0 links to redirected URLs; `curl` of a sub-page shows nav/footer links. Not claimed: anything that needs a real browser, GPU, device or the live site is listed as owed in HANDOFF.md.",
-   "acceptance_basis": "machine proof clause + next-step + plan-accept",
-   "done_evidence": null
-  },
-  {
    "id": "wp-hist-34",
-   "order": 51,
+   "order": 52,
    "wave": null,
    "done": false,
    "title": "Legal and privacy alignment for the Historian",
@@ -2882,7 +3033,7 @@
   },
   {
    "id": "wp-content-20b",
-   "order": 52,
+   "order": 53,
    "wave": null,
    "done": false,
    "title": "Public changelog and known issues",
@@ -2928,7 +3079,7 @@
   },
   {
    "id": "hb-02",
-   "order": 53,
+   "order": 54,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-02: Confederate OOB, 22 cavalry commanders, Union OOB check against Official Records No. 9",
@@ -2970,7 +3121,7 @@
   },
   {
    "id": "owner-2026-10-04-5",
-   "order": 54,
+   "order": 55,
    "wave": null,
    "done": false,
    "title": "Owner decision: creator bio approved (first person, \"for the love of history\"); the public contact is the site address only",
@@ -3014,7 +3165,7 @@
   },
   {
    "id": "vd11-3",
-   "order": 55,
+   "order": 56,
    "wave": null,
    "done": false,
    "title": "Mapbox 3.24.1 telemetry payload (V5), Google satellite verification wording and HMDB, Stone Sentinels, Wikipedia rights (V10)",
@@ -3058,7 +3209,7 @@
   },
   {
    "id": "vd14-5",
-   "order": 56,
+   "order": 57,
    "wave": null,
    "done": false,
    "title": "OCR quality proxy (hs1-13) and QA harness (hs1-16) piloted on Official Records part 1",
@@ -3097,7 +3248,7 @@
   },
   {
    "id": "wp-seo-12",
-   "order": 57,
+   "order": 58,
    "wave": null,
    "done": false,
    "title": "Trust pack integration (About, Sources, Corrections, Changelog, Contact, Accessibility, FAQ)",
@@ -3147,7 +3298,7 @@
   },
   {
    "id": "wp-data-01",
-   "order": 58,
+   "order": 59,
    "wave": null,
    "done": false,
    "title": "Baseline freeze, authoring repository, legacy-compatible emitter",
@@ -3198,7 +3349,7 @@
   },
   {
    "id": "wp-data-02",
-   "order": 59,
+   "order": 60,
    "wave": null,
    "done": false,
    "title": "Versioning: manifest, data_version, changelog, version stamps",
@@ -3252,7 +3403,7 @@
   },
   {
    "id": "wp-data-03",
-   "order": 60,
+   "order": 61,
    "wave": null,
    "done": false,
    "title": "Schemas, 60-rule validator, ratchet, CI",
@@ -3306,7 +3457,7 @@
   },
   {
    "id": "wp-qa-11",
-   "order": 61,
+   "order": 62,
    "wave": null,
    "done": false,
    "title": "Data validators",
@@ -3353,7 +3504,7 @@
   },
   {
    "id": "wp-hist-05",
-   "order": 62,
+   "order": 63,
    "wave": null,
    "done": false,
    "title": "Entity registry, unit crosswalk, aliases",
@@ -3404,7 +3555,7 @@
   },
   {
    "id": "wp-hist-02",
-   "order": 63,
+   "order": 64,
    "wave": null,
    "done": false,
    "title": "Source registry, tier gate, rights retro-audit",
@@ -3459,7 +3610,7 @@
   },
   {
    "id": "wp-content-04",
-   "order": 64,
+   "order": 65,
    "wave": null,
    "done": false,
    "title": "facts.json and check_facts",
@@ -3509,7 +3660,7 @@
   },
   {
    "id": "wp-content-05",
-   "order": 65,
+   "order": 66,
    "wave": null,
    "done": false,
    "title": "features.json, glossary, parity gate",
@@ -3558,7 +3709,7 @@
   },
   {
    "id": "wp-content-06",
-   "order": 66,
+   "order": 67,
    "wave": null,
    "done": false,
    "title": "Style guide, string catalogue, disclaimers, copy lint",
@@ -3610,7 +3761,7 @@
   },
   {
    "id": "wp-page-09",
-   "order": 67,
+   "order": 68,
    "wave": null,
    "done": false,
    "title": "Names, counts, validation; derived data",
@@ -3654,7 +3805,7 @@
   },
   {
    "id": "wp-a11y-31",
-   "order": 68,
+   "order": 69,
    "wave": null,
    "done": false,
    "title": "Accessibility statement, conformance report, feedback, guide",
@@ -3703,7 +3854,7 @@
   },
   {
    "id": "wp-content-16a",
-   "order": 69,
+   "order": 70,
    "wave": null,
    "done": false,
    "title": "Corrections page and its log",
@@ -3751,7 +3902,7 @@
   },
   {
    "id": "wp-content-17",
-   "order": 70,
+   "order": 71,
    "wave": null,
    "done": false,
    "title": "About, Contact, glossary page, site map",
@@ -3798,7 +3949,7 @@
   },
   {
    "id": "wp-hist-33",
-   "order": 71,
+   "order": 72,
    "wave": null,
    "done": false,
    "title": "Governance: citation permanence, corrections intake, changelog, /sources and /method feed",
@@ -3848,7 +3999,7 @@
   },
   {
    "id": "wp-hist-04",
-   "order": 72,
+   "order": 73,
    "wave": null,
    "done": false,
    "title": "Fetch, OCR normaliser, page map",
@@ -3899,7 +4050,7 @@
   },
   {
    "id": "wp-hist-06",
-   "order": 73,
+   "order": 74,
    "wave": null,
    "done": false,
    "title": "Build, emit, validate (deterministic, content-hashed, two versions kept)",
@@ -3950,7 +4101,7 @@
   },
   {
    "id": "wp-hist-07",
-   "order": 74,
+   "order": 75,
    "wave": null,
    "done": false,
    "title": "Evaluation harness, golden sets and gates",
@@ -4001,7 +4152,7 @@
   },
   {
    "id": "wp-a11y-26",
-   "order": 75,
+   "order": 76,
    "wave": null,
    "done": false,
    "title": "Ask the Historian UI contract and interim fix",
@@ -4045,7 +4196,7 @@
   },
   {
    "id": "wp-hist-09",
-   "order": 76,
+   "order": 77,
    "wave": null,
    "done": false,
    "title": "Data lake to entities, facts, authority tables",
@@ -4095,7 +4246,7 @@
   },
   {
    "id": "wp-hist-10",
-   "order": 77,
+   "order": 78,
    "wave": null,
    "done": false,
    "title": "Composers, render linter I1-I8, refusals and conversation state",
@@ -4150,7 +4301,7 @@
   },
   {
    "id": "wp-pagec-07",
-   "order": 78,
+   "order": 79,
    "wave": null,
    "done": false,
    "title": "Historian: layout, scroll, input bar, accessibility",
@@ -4199,7 +4350,7 @@
   },
   {
    "id": "hb-03",
-   "order": 79,
+   "order": 80,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-03: 28 dual-meaning ids; 61 crosswalk rows and 22 with no match; density numbering",
@@ -4243,7 +4394,7 @@
   },
   {
    "id": "wp-page-24",
-   "order": 80,
+   "order": 81,
    "wave": null,
    "done": false,
    "title": "Unit content model and picker",
@@ -4287,7 +4438,7 @@
   },
   {
    "id": "wp-data-06b",
-   "order": 81,
+   "order": 82,
    "wave": null,
    "done": false,
    "title": "Unit registry, id crosswalk, collisions and aliases (candidates) and the remaining ids",
@@ -4345,7 +4496,7 @@
   },
   {
    "id": "wp-data-07b",
-   "order": 82,
+   "order": 83,
    "wave": null,
    "done": false,
    "title": "VI Corps brigade records, reciprocity, misfiles, roll-ups, missing fields (candidates)",
@@ -4400,7 +4551,7 @@
   },
   {
    "id": "wp-data-20",
-   "order": 83,
+   "order": 84,
    "wave": null,
    "done": false,
    "title": "Unit index, batteries and the page consumers",
@@ -4453,7 +4604,7 @@
   },
   {
    "id": "wp-hist-08",
-   "order": 84,
+   "order": 85,
    "wave": null,
    "done": false,
    "title": "search-core: normalisation, repair, linking, intent, ranking, no-answer gate",
@@ -4509,7 +4660,7 @@
   },
   {
    "id": "wp-hist-11",
-   "order": 85,
+   "order": 86,
    "wave": null,
    "done": false,
    "title": "UI v2 and integration (accessibility, performance, adapters, search.html)",
@@ -4567,7 +4718,7 @@
   },
   {
    "id": "wp-pagec-08",
-   "order": 86,
+   "order": 87,
    "wave": null,
    "done": false,
    "title": "Historian: answer-card UI, states, conversation",
@@ -4617,7 +4768,7 @@
   },
   {
    "id": "d-hist-arch",
-   "order": 87,
+   "order": 88,
    "wave": null,
    "done": false,
    "title": "Historian architecture: static retrieval, records only",
@@ -4665,7 +4816,7 @@
   },
   {
    "id": "wp-qa-02b",
-   "order": 88,
+   "order": 89,
    "wave": null,
    "done": false,
    "title": "Static gates still missing: route manifest, translate hint, robots policy, manifest fields, source maps",
@@ -4710,7 +4861,7 @@
   },
   {
    "id": "wp-a11y-23",
-   "order": 89,
+   "order": 90,
    "wave": null,
    "done": false,
    "title": "Copy, sensory characteristics, abbreviations, dead code",
@@ -4754,7 +4905,7 @@
   },
   {
    "id": "wp-content-02b",
-   "order": 90,
+   "order": 91,
    "wave": null,
    "done": false,
    "title": "In-app copy leftovers in the bundle and Help chunk",
@@ -4802,7 +4953,7 @@
   },
   {
    "id": "wp-infra-10b",
-   "order": 91,
+   "order": 92,
    "wave": null,
    "done": false,
    "title": "Cross-Origin-Opener-Policy same-origin in the /* block",
@@ -4845,7 +4996,7 @@
   },
   {
    "id": "wp-infra-11c",
-   "order": 92,
+   "order": 93,
    "wave": null,
    "done": false,
    "title": "User guide PDF served inline under a versioned name",
@@ -4889,7 +5040,7 @@
   },
   {
    "id": "wp-seo-06a",
-   "order": 93,
+   "order": 94,
    "wave": null,
    "done": false,
    "title": "Sitemap index with lastmod, shorter cache for robots and sitemaps",
@@ -4935,7 +5086,7 @@
   },
   {
    "id": "wp-infra-16b",
-   "order": 94,
+   "order": 95,
    "wave": null,
    "done": false,
    "title": "CSP stage 1: enforced base-uri, object-src and form-action beside frame-ancestors",
@@ -4978,7 +5129,7 @@
   },
   {
    "id": "wp-qa-25",
-   "order": 95,
+   "order": 96,
    "wave": null,
    "done": false,
    "title": "Operations ceiling, drills, continuity checks, test health",
@@ -5023,7 +5174,7 @@
   },
   {
    "id": "wp-infra-07a",
-   "order": 96,
+   "order": 97,
    "wave": null,
    "done": false,
    "title": "Vendor register ops/vendors.yaml with exit triggers",
@@ -5067,7 +5218,7 @@
   },
   {
    "id": "wp-infra-34b",
-   "order": 97,
+   "order": 98,
    "wave": null,
    "done": false,
    "title": "Historian platform reservation: /hx/* header rules (immutable, noindex, manifest no-cache)",
@@ -5113,7 +5264,7 @@
   },
   {
    "id": "wp-perf-23",
-   "order": 98,
+   "order": 99,
    "wave": null,
    "done": false,
    "title": "Historian performance contract",
@@ -5157,7 +5308,7 @@
   },
   {
    "id": "wp-seo-02a",
-   "order": 99,
+   "order": 100,
    "wave": null,
    "done": false,
    "title": "KPI ledger, SEO release log and traffic-quality templates",
@@ -5202,7 +5353,7 @@
   },
   {
    "id": "hb-01",
-   "order": 100,
+   "order": 101,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-01: Confederate casualty authority and the Busey and Martin edition and pages",
@@ -5247,7 +5398,7 @@
   },
   {
    "id": "hb-04",
-   "order": 101,
+   "order": 102,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-04: The detachment U-11PA-R-F, the commander of C-61VA, artillery completeness (306 versus about 370 batteries, 194 versus about 283 guns)",
@@ -5289,7 +5440,7 @@
   },
   {
    "id": "hb-08",
-   "order": 102,
+   "order": 103,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-08: Successions: 15 of 42 not reflected; sample ten page-level citations",
@@ -5331,7 +5482,7 @@
   },
   {
    "id": "hb-10",
-   "order": 103,
+   "order": 104,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-10: Speeds, frontage, timing default and cap sign-off (Casey 1862, Hardee 1855)",
@@ -5373,7 +5524,7 @@
   },
   {
    "id": "nf-gap-1",
-   "order": 104,
+   "order": 105,
    "wave": null,
    "done": false,
    "title": "Gap: 48 value-and-JSX zero-render sites (app-latent-41) have only the generic ESLint criterion",
@@ -5413,7 +5564,7 @@
   },
   {
    "id": "reg-flag-6",
-   "order": 105,
+   "order": 106,
    "wave": null,
    "done": false,
    "title": "MapLibre version to re-measure",
@@ -5454,7 +5605,7 @@
   },
   {
    "id": "v13",
-   "order": 106,
+   "order": 107,
    "wave": null,
    "done": false,
    "title": "Historian: budgets, OCR gates, QA harness, feedback logging, reader-index offsets, phone latency",
@@ -5494,7 +5645,7 @@
   },
   {
    "id": "vd10-4",
-   "order": 107,
+   "order": 108,
    "wave": null,
    "done": false,
    "title": "Vendor crawler token spellings, any consumer of llms.txt, Google sitemap ping retirement",
@@ -5533,7 +5684,7 @@
   },
   {
    "id": "vd10-5",
-   "order": 108,
+   "order": 109,
    "wave": null,
    "done": false,
    "title": "Rich-result gallery at build time; WebPage.reviewedBy acceptance",
@@ -5572,7 +5723,7 @@
   },
   {
    "id": "vd10-8",
-   "order": 109,
+   "order": 110,
    "wave": null,
    "done": false,
    "title": "20th Maine strength (386 in the data against 358 elsewhere), whether landing.html was ever indexed, search-assistant reliance on Bing",
@@ -5612,7 +5763,7 @@
   },
   {
    "id": "vd11-5",
-   "order": 110,
+   "order": 111,
    "wave": null,
    "done": false,
    "title": "Standards codes for the lessons (V7), D-CLOCK numbers waiting for the signed anchor file (V8)",
@@ -5651,7 +5802,7 @@
   },
   {
    "id": "vd11-7",
-   "order": 111,
+   "order": 112,
    "wave": null,
    "done": false,
    "title": "One definition of the dash baseline (V16): raw 1,938, non-metadata 1,799, rendered 1,639, subset 1,591",
@@ -5691,7 +5842,7 @@
   },
   {
    "id": "vd11-8",
-   "order": 112,
+   "order": 113,
    "wave": null,
    "done": false,
    "title": "Bibliographic data of the inclusive-history candidate sources (V18) and the carried unverified findings (pagesB-23, ux-flows-22, pages-C-40, -79, -84, hist-current-27)",
@@ -5733,7 +5884,7 @@
   },
   {
    "id": "vd12-2",
-   "order": 113,
+   "order": 114,
    "wave": null,
    "done": false,
    "title": "Referer injection honoured for api.mapbox.com; RUM blocking without console error; WEBGL_lose_context recovery on mapbox-gl 3.24.1",
@@ -5773,7 +5924,7 @@
   },
   {
    "id": "vd12-5",
-   "order": 114,
+   "order": 115,
    "wave": null,
    "done": false,
    "title": "Observatory CLI, PDF/UA checker, iOS 16 coverage and device-cloud price",
@@ -5812,7 +5963,7 @@
   },
   {
    "id": "vd13-4",
-   "order": 115,
+   "order": 116,
    "wave": null,
    "done": false,
    "title": "Whether the 28 hourly Bachelder maps exist digitally",
@@ -5851,7 +6002,7 @@
   },
   {
    "id": "vd13-5",
-   "order": 116,
+   "order": 117,
    "wave": null,
    "done": false,
    "title": "East Cavalry Field truth; C-McClanahan-ART versus the horse-artillery batteries",
@@ -5890,7 +6041,7 @@
   },
   {
    "id": "vd14-2",
-   "order": 117,
+   "order": 118,
    "wave": null,
    "done": false,
    "title": "Internet Archive reader index offsets on all Official Records parts and the state books",
@@ -5931,7 +6082,7 @@
   },
   {
    "id": "vd14-9",
-   "order": 118,
+   "order": 119,
    "wave": null,
    "done": false,
    "title": "NPS on the soldier roster data; contractor authorship of NPS reports; Bachelder maps; the weather primary",
@@ -5979,7 +6130,7 @@
   },
   {
    "id": "ver-copy-suite",
-   "order": 119,
+   "order": 120,
    "wave": null,
    "done": false,
    "title": "Copy test suite has 17 failures: the guide and trust-page generators assert that every time anchor is \"proposed\"",
@@ -6023,7 +6174,7 @@
   },
   {
    "id": "ver16-4",
-   "order": 120,
+   "order": 121,
    "wave": null,
    "done": false,
    "title": "Annex verification 4: the placed-id definition (87, 95 or 100 unresolved ids)",
@@ -6063,7 +6214,7 @@
   },
   {
    "id": "wp-a11y-20",
-   "order": 121,
+   "order": 122,
    "wave": null,
    "done": false,
    "title": "Motion policy",
@@ -6106,7 +6257,7 @@
   },
   {
    "id": "wp-pagec-22",
-   "order": 122,
+   "order": 123,
    "wave": null,
    "done": false,
    "title": "Find Ancestor: honest naming, three steps, link-outs",
@@ -6149,7 +6300,7 @@
   },
   {
    "id": "wp-pagec-27",
-   "order": 123,
+   "order": 124,
    "wave": null,
    "done": false,
    "title": "Living Ledger: disclosure, labels, clock, copy",
@@ -6191,7 +6342,7 @@
   },
   {
    "id": "wp-qa-06b",
-   "order": 124,
+   "order": 125,
    "wave": null,
    "done": false,
    "title": "Lighthouse runs, rising performance floor, exception register",
@@ -6237,7 +6388,7 @@
   },
   {
    "id": "wp-qa-16b",
-   "order": 125,
+   "order": 126,
    "wave": null,
    "done": false,
    "title": "Promotion checks and versioning: changelog and version bump, freeze calendar, version.json with data and time-model versions",
@@ -6283,7 +6434,7 @@
   },
   {
    "id": "wp-page-23",
-   "order": 126,
+   "order": 127,
    "wave": null,
    "done": false,
    "title": "Report hotfix",
@@ -6333,7 +6484,7 @@
   },
   {
    "id": "wp-infra-11b",
-   "order": 127,
+   "order": 128,
    "wave": null,
    "done": false,
    "title": "Hashed data paths /data/<name>.<hash>.json listed in the page (stale-while-revalidate for legacy names is not added)",
@@ -6388,7 +6539,7 @@
   },
   {
    "id": "wp-seo-09b",
-   "order": 128,
+   "order": 129,
    "wave": null,
    "done": false,
    "title": "Structured data: Event location, per-template types, validator in CI",
@@ -6434,7 +6585,7 @@
   },
   {
    "id": "wp-seo-11c",
-   "order": 129,
+   "order": 130,
    "wave": null,
    "done": false,
    "title": "Link-graph CI, visible breadcrumbs, related blocks, /site-map page",
@@ -6478,7 +6629,7 @@
   },
   {
    "id": "wp-page-12",
-   "order": 130,
+   "order": 131,
    "wave": null,
    "done": false,
    "title": "CSP-clean templates, one config module",
@@ -6524,7 +6675,7 @@
   },
   {
    "id": "wp-pagec-04",
-   "order": 131,
+   "order": 132,
    "wave": null,
    "done": false,
    "title": "CSP readiness and per-path Permissions-Policy",
@@ -6568,7 +6719,7 @@
   },
   {
    "id": "wp-infra-08b",
-   "order": 132,
+   "order": 133,
    "wave": null,
    "done": false,
    "title": "Monitoring: scheduled probe, certificate and domain expiry checks, one alert channel",
@@ -6613,7 +6764,7 @@
   },
   {
    "id": "wp-qa-18",
-   "order": 133,
+   "order": 134,
    "wave": null,
    "done": false,
    "title": "Synthetic monitors, smoke, alert routing",
@@ -6658,7 +6809,7 @@
   },
   {
    "id": "wp-infra-06b",
-   "order": 134,
+   "order": 135,
    "wave": null,
    "done": false,
    "title": "Backup, restore, continuity: secret-free inventory file, restore-drill script, static lite snapshot",
@@ -6704,7 +6855,7 @@
   },
   {
    "id": "wp-content-13",
-   "order": 135,
+   "order": 136,
    "wave": null,
    "done": false,
    "title": "Microcopy, states, alt text, reading-level gate, landing copy",
@@ -6753,7 +6904,7 @@
   },
   {
    "id": "wp-content-19",
-   "order": 136,
+   "order": 137,
    "wave": null,
    "done": false,
    "title": "Accessibility statement",
@@ -6800,7 +6951,7 @@
   },
   {
    "id": "wp-data-09b",
-   "order": 137,
+   "order": 138,
    "wave": null,
    "done": false,
    "title": "Compat data drop 1.0.1: the remaining text and structure items, with a version bump",
@@ -6852,7 +7003,7 @@
   },
   {
    "id": "wp-infra-27b",
-   "order": 138,
+   "order": 139,
    "wave": null,
    "done": false,
    "title": "Privacy-and-data panel with \"Clear my saved data\"",
@@ -6897,7 +7048,7 @@
   },
   {
    "id": "wp-page-14",
-   "order": 139,
+   "order": 140,
    "wave": null,
    "done": false,
    "title": "Copy, voice, typography; text lint",
@@ -6943,7 +7094,7 @@
   },
   {
    "id": "wp-content-16b",
-   "order": 140,
+   "order": 141,
    "wave": null,
    "done": false,
    "title": "In-app \"Report an error in this record\" links",
@@ -6987,7 +7138,7 @@
   },
   {
    "id": "wp-hist-03",
-   "order": 141,
+   "order": 142,
    "wave": null,
    "done": false,
    "title": "The /hx/ platform: headers, CSP, robots rules, spikes",
@@ -7036,7 +7187,7 @@
   },
   {
    "id": "wp-time-07",
-   "order": 142,
+   "order": 143,
    "wave": null,
    "done": false,
    "title": "Content triage: wrong-day, misordered, composite events",
@@ -7088,7 +7239,7 @@
   },
   {
    "id": "wp-time-09",
-   "order": 143,
+   "order": 144,
    "wave": null,
    "done": false,
    "title": "Placement arrival audit and kinematics",
@@ -7137,7 +7288,7 @@
   },
   {
    "id": "wp-perf-02",
-   "order": 144,
+   "order": 145,
    "wave": null,
    "done": false,
    "title": "Budgets file, per-route gates, ratchet",
@@ -7181,7 +7332,7 @@
   },
   {
    "id": "wp-qa-13",
-   "order": 145,
+   "order": 146,
    "wave": null,
    "done": false,
    "title": "Bundle, request and network budgets",
@@ -7226,7 +7377,7 @@
   },
   {
    "id": "wp-data-14a-minimap",
-   "order": 146,
+   "order": 147,
    "wave": null,
    "done": false,
    "title": "Minimap bounds constant of the bundle follows the map extent (bundle patch, slice of WP-DATA-14a)",
@@ -7294,7 +7445,7 @@
   },
   {
    "id": "wp-data-14b",
-   "order": 147,
+   "order": 148,
    "wave": null,
    "done": false,
    "title": "Terrain elevations against 3DEP, summit snapping",
@@ -7346,7 +7497,7 @@
   },
   {
    "id": "wp-seo-30b",
-   "order": 148,
+   "order": 149,
    "wave": null,
    "done": false,
    "title": "SEO CI job, redirect matrix, five-user-agent parity, monitors, runbook",
@@ -7391,7 +7542,7 @@
   },
   {
    "id": "d-url",
-   "order": 149,
+   "order": 150,
    "wave": null,
    "done": false,
    "title": "Extensionless canonical URLs (train S1)",
@@ -7433,7 +7584,7 @@
   },
   {
    "id": "exit-16-4",
-   "order": 150,
+   "order": 151,
    "wave": null,
    "done": false,
    "title": "X-4: each of the 44 non-confirmed findings is verified, dropped or waived with a date",
@@ -7473,7 +7624,7 @@
   },
   {
    "id": "hb-05",
-   "order": 151,
+   "order": 152,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-05: Highest loss rate C-8VA, Pickett 2,700 versus 2,614, 26th NC, 1st Minnesota, Iverson, Avery, Lincoln, Alexander",
@@ -7519,7 +7670,7 @@
   },
   {
    "id": "hb-06",
-   "order": 152,
+   "order": 153,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-06: East Cavalry Field rows t560-565, Farnsworth, LOC-021, V-020; tick-1 staging; Pickett's presence",
@@ -7561,7 +7712,7 @@
   },
   {
    "id": "hb-07",
-   "order": 153,
+   "order": 154,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-07: Monuments: 20 suspect coordinates, mn, \"1,328\"; 30 terrain points and 10 canonical places",
@@ -7603,7 +7754,7 @@
   },
   {
    "id": "hb-09",
-   "order": 154,
+   "order": 155,
    "wave": null,
    "done": false,
    "title": "Historian backlog H-09: Aftermath facts (Vicksburg, storm, wagon train, Potomac, 2,400 residents, Everett and Lincoln) and bibliography (Gottfried 2007 or 2013, Coddington 1968 or 1984); sensitive-content policy",
@@ -7645,7 +7796,7 @@
   },
   {
    "id": "prov-r1e-oob",
-   "order": 155,
+   "order": 156,
    "wave": null,
    "done": false,
    "title": "R1E open line: two strength figures still unsettled (the 6th US Cavalry at Fairfield, the total of Paul's Brigade)",
@@ -7700,7 +7851,7 @@
   },
   {
    "id": "prov-r1g-i6",
-   "order": 156,
+   "order": 157,
    "wave": null,
    "done": false,
    "title": "Major garbage collection of 80-110 ms in 5 to 7 percent of cold loads",
@@ -7742,7 +7893,7 @@
   },
   {
    "id": "v16",
-   "order": 157,
+   "order": 158,
    "wave": null,
    "done": false,
    "title": "Observability, prevention and test-hook proposals and closure hygiene",
@@ -7781,7 +7932,7 @@
   },
   {
    "id": "v17",
-   "order": 158,
+   "order": 159,
    "wave": null,
    "done": false,
    "title": "Pages-C and other findings not verified: Historian conversation, Immersive, Turning Points, Find Ancestor, Ledger, Terms clauses",
@@ -7823,7 +7974,7 @@
   },
   {
    "id": "v2",
-   "order": 159,
+   "order": 160,
    "wave": null,
    "done": false,
    "title": "Real-tile boot and Lighthouse; one trace on a real phone",
@@ -7863,7 +8014,7 @@
   },
   {
    "id": "vd11-2",
-   "order": 160,
+   "order": 161,
    "wave": null,
    "done": false,
    "title": "App behaviours behind guide and Help claims: first-launch overlay order (V2), Order of Battle hierarchy (V3), how the 231 brigade-only regiments are drawn (V4), offline behaviour after R0 (V9), NPS video captions (V15), state of earlier bug findings (V17)",
@@ -7903,7 +8054,7 @@
   },
   {
    "id": "vd12-6",
-   "order": 161,
+   "order": 162,
    "wave": null,
    "done": false,
    "title": "The 43 unconfirmed findings and Labs on real hardware",
@@ -7942,7 +8093,7 @@
   },
   {
    "id": "vd13-1",
-   "order": 162,
+   "order": 163,
    "wave": null,
    "done": false,
    "title": "Confederate casualties: Official Records part 2 Guild total and method, the Busey and Martin edition",
@@ -7985,7 +8136,7 @@
   },
   {
    "id": "vd13-6",
-   "order": 163,
+   "order": 164,
    "wave": null,
    "done": false,
    "title": "Drill-manual speeds, frontage, gun interval; \"15 of 42 successions not reflected\"; meaning of mn, origin of the 512, the 1,328 claim",
@@ -8020,48 +8171,6 @@
    ],
    "depends_on": [],
    "acceptance": "Proof: candidates/r1h/vd13-6/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs vd13-6 --evidence candidates/r1h/vd13-6/evidence.json --test \"<command>\"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named. Specific check (survey next step, 2026-11-13): Read the manuals, cite pages, re-derive the succession check.",
-   "acceptance_basis": "machine proof clause + next-step",
-   "done_evidence": null
-  },
-  {
-   "id": "ver-hist-corpus",
-   "order": 164,
-   "wave": null,
-   "done": false,
-   "title": "The Historian corpus build and the 87 tests that need it have never run in this container (the archive.org download path is blocked here)",
-   "source": {
-    "part": "B",
-    "id": "VER-HIST-CORPUS",
-    "kind": "verification-debt",
-    "status": "OPEN_BUILDABLE",
-    "chapter": "14",
-    "size": "M"
-   },
-   "chapter": "14",
-   "area": "historian",
-   "tier": "legacy-a-line",
-   "tranche": null,
-   "roadmap_nodes": [],
-   "size": "M",
-   "route": {
-    "type": "verification-record",
-    "dir": "candidates/r1h/ver-hist-corpus/",
-    "record": "evidence file plus STATUS.json and HANDOFF.md"
-   },
-   "files": [
-    "candidates/r1h/ver-hist-corpus/evidence.json",
-    "candidates/r1h/ver-hist-corpus/STATUS.json",
-    "candidates/r1h/ver-hist-corpus/HANDOFF.md"
-   ],
-   "reads": [],
-   "context_files": [
-    "tools/historian/ingest/fetch.mjs",
-    "tools/historian/ingest/corpus.mjs",
-    "historian-src/corpus/or27/manifest.json",
-    "tests/historian/"
-   ],
-   "depends_on": [],
-   "acceptance": "Proof: candidates/r1h/ver-hist-corpus/evidence.json states the question, the method (commands run, sources with edition and page, or the measurement), and one outcome per point: confirmed, refuted, not found (a failed lookup is recorded as failed) or blocked (a refused host is recorded as blocked, never worked around); every figure and quotation it cites is re-checked by the test command that `node candidates/r1h/_lib/record.mjs ver-hist-corpus --evidence candidates/r1h/ver-hist-corpus/evidence.json --test \"<command>\"` runs (exit 0), HANDOFF.md says what was not run; where the answer needs a person, a device or an account the outcome is blocked and the owner step is named. Specific check (survey next step, 2026-11-13): Teach sourceForUrl (tools/historian/ingest/fetch.mjs) to read the identifier from /cors/<identifier>/ URLs and give the corpus build one switch that requests the /cors/ form while the provenance rows and the cache key keep the canonical /download/ URL; fetch the 15 files at no more than 1 request per second and compare each sha256 with historian-src/corpus/or27/manifest.json (a difference is a finding, not something to fix); run node tools/historian/ingest/corpus.mjs build with --out set to a scratch folder through tools/horde/bench.sh and diff its tables against the committed ones; then run node --test tests/historian/*.test.mjs under Node 22 and Node 24 (the 87 skips become passes or named failures) and record the totals. No test is loosened and no committed table is overwritten by this item.",
    "acceptance_basis": "machine proof clause + next-step",
    "done_evidence": null
   },
@@ -13916,6 +14025,13 @@
     "wp-hist-14",
     "wp-data-14a"
    ],
+   "decision": {
+    "rows": [
+     "C16"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: two entries run in the same batch only when they write no common path and no test of one needs an output of the other (rows C11 and C14 stay). Where a test needs output of another entry, the entry waits for it by de"
+   },
    "value": "The place half of the same export; it cannot start before the place linkers and the places file exist.",
    "acceptance": "Red first: tests/historian/export-places.test.mjs fails before the exporter exists. The same export as the units slice for places: one `places/<slug>.json` per place of data-src/geo/places.json that has at least one corpus passage linked by the place linkers of WP-HIST-14, at most three excerpts of at most 120 words each with citation, scan address, licence id and `reviewer: null`, deterministic and content-hashed, no excerpt that is not a verbatim substring of the cited report, no place whose coordinate conflict is unresolved presented with a chosen coordinate (the file carries each source value and `chosen: null`, as in places.json). The test reuses the units slice's checks (shared helper, not copied) and adds the place-linker precision figure that WP-HIST-14 measured; if that measurement is not on record the file says \"unmeasured\" and the item states it. Not closed before wp-hist-22-units.",
    "acceptance_basis": "authored against the repository on 2026-11-13",
@@ -26438,6 +26554,13 @@
     "wp-hist-22-units",
     "wp-hist-22-places"
    ],
+   "decision": {
+    "rows": [
+     "C16"
+    ],
+    "recorded": true,
+    "summary": "Delegated, conservative: two entries run in the same batch only when they write no common path and no test of one needs an output of the other (rows C11 and C14 stay). Where a test needs output of another entry, the entry waits for it by de"
+   },
    "acceptance": "Proof: every child is done (wp-hist-22-units, wp-hist-22-places); then the exit check of the node or finding named in the plan is re-run on the candidate and recorded. Specific check (survey next step, 2026-11-13): Emit the export with at most three excerpts of at most 120 words per unit, each with citation, scan address, licence and reviewer field, no page for the alias stub; the thin-content gate of WP-SEO-15 decides what is indexed. Plan acceptance (docs/plan/FINAL, WP-HIST-22): schema-valid export; sample pages Lighthouse SEO/a11y >= 95.",
    "acceptance_basis": "machine proof clause + next-step + plan-accept",
    "slices": [

@@ -19,3 +19,7 @@
 | Agent recommendation | Adopt the dusk Jul 1 build. |
 | Status | open (re-checked 2026-11-14) (register EG-0092 carries the earlier text) |
 | Owner decision and date | (filled only from the Decision Log) |
+
+## Round 3 addendum (third reading, 2026-11-15/16)
+
+The quotes of S-020 and S-026 were re-validated against the raw local texts by offset and by text search (0 problems); no new local evidence was found for the open parts; the text above is unchanged.

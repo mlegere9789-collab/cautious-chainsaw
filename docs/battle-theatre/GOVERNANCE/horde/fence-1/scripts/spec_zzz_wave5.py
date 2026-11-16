@@ -303,6 +303,12 @@ def apply(R_):
     tail(r, "Wave 5 (2026-11-15): Wiedrich (Battery I, 1st NY) says the Louisiana brigade about 8 p. m. on Jul 2 'got into the intrenchments of my battery' (OR27-1-R265 p. 752), a second hour (about 20:00) at which the works existed.")
     lines(r, 'changes_vs_previous', "wave 5: Wiedrich's battery intrenchments were in use about 20:00 Jul 2 (OR27-1-R265)")
 
+    r = R_['R14.E-12']
+    more(r, 'e', C('NPS', 'NPS-TPG-COMMEM', "Examples include artillery lunettes on East Cemetery Hill rebuilt with added earth and turf in the 1880s", role='context', reading="Examples include artillery lunettes on East Cemetery Hill rebuilt with added earth and turf in the 1880s (the NPS treatment guidelines for the commemorative area; the East Cemetery Hill lunettes were rebuilt, so no 1863 profile may be taken from them)"),
+         note="WAVE 5: the NPS treatment guidelines (TPG-COMMEM, p. 10) say the East Cemetery Hill lunettes were 'rebuilt with added earth and turf in the 1880s' (the CLR of 2014 says 1878): the preserved profile is a rebuilt one.")
+    r = R_['R14.E-18']
+    more(r, 'g', C('NPS', 'NPS-TPG-COMMEM', "and Rodes’s CS Division breastworks along Seminary Avenue rebuilt around 1896", role='context', reading="...Rodes's CS Division breastworks along Seminary Avenue rebuilt around 1896 with a stone wall in place of the original parapet wall of stacked rails that had disappeared after the battle (NPS treatment guidelines, p. 10)"),
+         note="WAVE 5: the NPS treatment guidelines name Rodes's Division breastworks along Seminary Avenue, whose original parapet wall was of stacked rails and 'had disappeared after the battle' (rebuilt about 1896 as a stone wall): the 1863 form is stacked rails, the standing wall is a rebuild; no day of building is given.")
     # ============================================================ E-05 / E-07 / E-08 / E-10 / E-03: Culp's Hill, Twelfth Corps reports not cited before
     r = R_['R14.E-05']
     add(r, S('h', "Abatis: after the Twelfth Corps was established on its new line on the morning of Jul 2 'a strong force was detailed for the construction of breastworks and abatis' (Slocum); the 145th NY 'built breastworks and abatis' (Price).", 'documented', 'supported', [

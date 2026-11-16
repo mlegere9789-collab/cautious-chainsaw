@@ -1,4 +1,4 @@
-# EG-LIFE-0102: Culp's Hill works of the evening of 1 July (E-02): tools of the 6th Wisconsin
+# EG-LIFE-0102: Culp's Hill works of the evening of 1 July (E-02, and its schedule row S-014): tools of the 6th Wisconsin
 
 | Field | Content |
 |---|---|
