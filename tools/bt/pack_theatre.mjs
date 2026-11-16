@@ -8,7 +8,8 @@
 //      new Worker('literal') and the like; an address that ends in '/' or stops at a placeholder takes the folder (or every file with that prefix, and only those with the printed ending);
 //   4. style sheets: url(...) and @import;
 //   5. folders that ship whole: SHIP_WHOLE (the shell's module folder, so no computed import can miss a module; every module in it is scanned like a loaded one), INCLUDE and
-//      EXTRA_DIRS (data read through a base path the scan cannot follow) and the static sections;
+//      EXTRA_DIRS (data read through a base path the scan cannot follow) and the static sections; EXCLUDE (files of those folders that no page loads, and work folders such as rosters/data2/qa)
+//      is applied to every one of these routes, an index file that names a path included: an excluded path is never added to the build and never scanned;
 //   6. the load census (loadCensus): the syntax tree of every shipped module and inline script is read independently of the patterns above; every address the code loads is evaluated and compared with the
 //      build, what is found missing is shipped and named in the notes, what cannot be placed is a finding (trace-report.json "loadCensus"; tests/bt-pack fails on it; `--census` prints it).
 // What the trace cannot prove is checked by a REAL run (tools/bt/verify_staging.mjs) and listed by the trace itself: computed imports of an unknown form and file-like literals of loaded
@@ -43,6 +44,14 @@ export const SECTIONS = ['app/roster'];
 // checks it again on every run and fails when a module starts to name one), and the real run of 2026-11-13 (tools/bt/verify_staging.mjs, 227 requests, the whole theatre with figures,
 // effects, sound, drawers and added layers) never asked for it. They are folders that ship whole because a loader names its folder (`new URL('../../data/audio3d/', import.meta.url)`,
 // `URLS.data + 'fx3d/'`) and lists the files it needs by name; the rest of the folder is left out so that the zip holds what the page loads and nothing else. Listed in MANIFEST.json ("leftOut").
+// An entry names a file or a FOLDER (every file under it). A path under an entry is refused by EVERY route of the trace (a page, an import, an address in the code, a folder address, a style sheet, an index
+// file that names it, the census) before it is added to the build, so it is never shipped, never scanned for what it names in its turn, and never reached through an index that lists it. The census calls a
+// load of such a path "excluded" (a finding: the page would answer 404), and MANIFEST.json lists the entry with the number of files that were refused, when any route reached it.
+// rosters/data2/qa is of the second kind: not a folder that ships whole with a few files left out, but a WORK folder beside the roster data that no route may carry (request note bt-rosters-roster-qa-work-files.md;
+// DD-ROS-QA-05): the page reads of the independent sample of the roster data, one verdict per page, the draw and its statistics, the claims check and the ledger of the derived texts. It is not roster data: no unit
+// file, no entry of rosters/data2/INDEX.json and no page of the roster section names it (tests/bt-pack reads the real index for it), whether the section reads the index (the index route ships INDEX.json and
+// the files it names) or takes the whole folder (`new URL('../../rosters/data2/', import.meta.url)`: everything but this folder ships). A summary of the sample for the roster page is a small file made elsewhere
+// (app/roster/data/), never a file of this folder.
 export const EXCLUDE = [
   { path: 'app/data/audio3d/documented-reports.json', why: 'not requested by any page of this build' },
   { path: 'app/data/audio3d/gaps.json', why: 'not requested by any page of this build' },
@@ -50,6 +59,7 @@ export const EXCLUDE = [
   { path: 'app/data/audio3d/weapons-sound-map.json', why: 'not requested by any page of this build' },
   { path: 'app/data/fx3d/GAPS.json', why: 'not requested by any page of this build' },
   { path: 'app/data/fx3d/TIERS.json', why: 'not requested by any page of this build' },
+  { path: 'rosters/data2/qa', why: 'a working folder beside the roster data, not roster data: no unit file, index entry or roster page names it' },
 ];
 // not loaded by the shell today; listed in the manifest so the owner can see they were considered, never shipped
 export const NOT_LOADED = ['GOVERNANCE/timeline_verified.jsonl', 'GOVERNANCE/decisions/conflict_defaults.json'];
@@ -107,9 +117,13 @@ export function trace(opts = {}) {
   const files = new Map(), problems = [], notes = [], withheld = new Map(), computed = [], literals = [], external = new Set(), importMap = new Map();
   const rel = abs => posix(path.relative(root, abs)), inRoot = abs => abs === root || abs.startsWith(root + path.sep);
   const reached = [], later = [], seenMod = new Map(), seenPage = new Set(), seenCss = new Set(), seenJson = new Set(), pageDirs = new Set();
+  // EXCLUDE: a file or folder that no route may carry. The refusal is made here, where every route ends, so an excluded file is not shipped, not scanned for what it names, and not followed through an index.
+  const exPath = e => (typeof e === 'string' ? e : e.path).replace(/\/+$/, ''), keptOut = new Map();     // entry path -> the files a route asked for and the build refused
+  const excludedBy = r => cfg.exclude.find(e => { const d = exPath(e); return r === d || r.startsWith(d + '/'); });
   const ship = (abs, why) => {
     if (!inRoot(abs)) { notes.push(`outside the packed folder, not shipped: ${rel(abs)} (${why})`); return false; }
     const r = rel(abs); for (const w of cfg.withheld) if (w.match.test(r)) { if (!withheld.has(w.id)) withheld.set(w.id, { id: w.id, pattern: w.pattern, why: w.why, files: new Set(), referencedBy: new Set() }); const e = withheld.get(w.id); e.files.add(r); e.referencedBy.add(why); return false; }
+    const ex = excludedBy(r); if (ex) { const d = exPath(ex); if (!keptOut.has(d)) keptOut.set(d, new Set()); keptOut.get(d).add(r); return false; }
     if (!files.has(abs)) files.set(abs, new Set()); files.get(abs).add(why); return true;
   };
   const follow = (abs, mode, why) => { if (CODE_EXT.test(abs)) (mode === 'reached' ? reached : later).push({ f: abs, mode, why }); else if (/\.css$/i.test(abs)) scanCss(abs, mode); else if (/\.html?$/i.test(abs) && mode === 'reached') scanPage(abs); };
@@ -261,9 +275,9 @@ export function trace(opts = {}) {
     census = loadCensus(censusArgs());
   }
   if (!census.available) problems.push(census.reason);
-  const leftOut = [];
-  for (const e of cfg.exclude) { const d = typeof e === 'string' ? e : e.path, abs = path.join(root, d), gone = []; for (const f of [...files.keys()]) if (f === abs || f.startsWith(abs + path.sep)) { files.delete(f); gone.push(rel(f)); } if (gone.length) leftOut.push({ path: d, files: gone.length, why: typeof e === 'string' ? '' : e.why || '' }); }
-  const shippedByCensus = byCensus.filter(x => files.has(path.join(root, x.path)));        // not the ones EXCLUDE took out again
+  const leftOut = [];       // the entries of EXCLUDE that some route reached, with the number of files that were refused (an entry no route reaches has nothing to leave out and is not listed)
+  for (const e of cfg.exclude) { const d = exPath(e), n = keptOut.has(d) ? keptOut.get(d).size : 0; if (n) leftOut.push({ path: d, files: n, why: typeof e === 'string' ? '' : e.why || '' }); }
+  const shippedByCensus = byCensus.filter(x => files.has(path.join(root, x.path)));        // not the ones EXCLUDE refused
   if (shippedByCensus.length) notes.push(`${shippedByCensus.length} file(s) are in the build because the load census found a load of them that the patterns of the trace do not follow (extend the patterns): ${shippedByCensus.slice(0, 6).map(x => x.path).join(', ')}${shippedByCensus.length > 6 ? ', ...' : ''}`);
   // ---- working files that are shipped reduced: every shipped module that names one must be a listed reader, reading it the listed way
   const projected = [];

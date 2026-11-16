@@ -34,11 +34,11 @@ def resolve_letter(raw, prev):
     exp = next_letter(prev)
     if raw == exp and raw in RW.LETTERS:
         return raw, False
-    if raw == prev and raw in RW.LETTERS:
+    if prev is not None and raw == prev and raw in RW.LETTERS:
         return raw, False
     if exp and (raw in ('?', '') or raw in RW.CONFUSE.get(exp, '') or raw.isdigit()):
         return exp, True
-    if raw in RW.LETTERS and prev in RW.LETTERS and RW.LETTERS.index(raw) > RW.LETTERS.index(prev):
+    if raw in RW.LETTERS and prev is not None and prev in RW.LETTERS and RW.LETTERS.index(raw) > RW.LETTERS.index(prev):
         return raw, False            # letters skipped: the headings between were not found (reported as a gap in the sequence)
     return (exp or '?'), True
 
@@ -140,6 +140,7 @@ def main(argv):
                             'flags': dict(cnt), 'skips': res['skips'], 'companies': dict(collections.Counter(x['row'][2] for x in rows)),
                             'leaves': {k: {kk: vv for kk, vv in v.items() if vv is not None} for k, v in res['leafinfo'].items()}}
         if not dry:
+            json.dump(report[u['key']], open(os.path.join(L.WORK, 'unitinfo-%s.json' % u['key']), 'w'), indent=0)
             with open(os.path.join(L.WORK, 'rows-%s.json' % u['key']), 'w', encoding='utf-8') as f:
                 json.dump({'unit': u['key'], 'rows': keep, 'rejected': res['rejected'], 'orphans': res['orphans'], 'headings': res['headings']},
                           f, ensure_ascii=False, separators=(',', ':'), default=list)

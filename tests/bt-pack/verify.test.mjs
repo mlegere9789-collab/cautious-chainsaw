@@ -2,8 +2,8 @@
 // means something. The walk of the real theatre needs a browser, the machine lock and minutes: it is not here. The walk of a static section (a small page set) is, when a browser starts.
 //   node --test tests/bt-pack/verify.test.mjs            (the last test starts a browser for a few seconds: run it through tools/horde/bench.sh, or set BT_PACK_NO_BROWSER=1 to skip it)
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
-import { pack, trace, BT } from '../../tools/bt/pack_theatre.mjs';
-import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections, checkPortableNames, makeShooter, renderStagingBlock, writeStagingBlock, findRequestNotes, censusVerdict, BLOCK_START, BLOCK_END } from '../../tools/bt/verify_staging.mjs';
+import { pack, trace, BT, EXCLUDE } from '../../tools/bt/pack_theatre.mjs';
+import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkLeftOut, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections, checkPortableNames, makeShooter, renderStagingBlock, writeStagingBlock, findRequestNotes, censusVerdict, BLOCK_START, BLOCK_END } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btverify-')); test.after(() => fs.rmSync(tmp, { recursive: true, force: true }));
@@ -55,6 +55,22 @@ test('no notes in the dist: a README, a source map, a log, a backup or a dot fil
   assert.equal(checkNoNotes(p.out).ok, true);
   const buf = Buffer.from(fs.readFileSync(p.zip)), withComment = Buffer.concat([buf.subarray(0, buf.length - 2), Buffer.from([4, 0]), Buffer.from('note')]); fs.writeFileSync(path.join(tmp, 'commented.zip'), withComment); fs.copyFileSync(p.zip + '.sha256', path.join(tmp, 'commented.zip.sha256'));
   assert.ok(checkZip(path.join(tmp, 'commented.zip'), p.out).problems.some(x => /carries a comment/.test(x)));
+});
+// What the packer leaves out on purpose (EXCLUDE: the files of the shipped folders that no page loads, and the work folder rosters/data2/qa of the roster sample; request note bt-rosters-roster-qa-work-files.md) is
+// looked for in the finished dist by the real run, independently of the rule that kept it out.
+test('left-out paths: a dist that carries a file of EXCLUDE or of the work folder rosters/data2/qa fails the check (and the "Current build" row says so); a clean pack, a sibling that only starts like the folder and either spelling of a rule pass', () => {
+  assert.ok(EXCLUDE.some(e => e.path === 'rosters/data2/qa'), 'the real list holds the rule for the work folder of the roster sample');
+  const p = build('lo'), c = checkLeftOut(p.out); assert.deepEqual(c.problems, []); assert.equal(c.ok, true); assert.equal(c.rules, EXCLUDE.length);
+  const ok = b => { assert.match(b, /none of the \d+ paths the build leaves out on purpose \(work folders such as `rosters\/data2\/qa`\) ships ok;/); return b; }; ok(renderStagingBlock({ dist: p.out, zip: p.zip }));
+  for (const f of ['rosters/data2/qa/stats.json', 'rosters/data2/qa/pages/p1.verdict.json', 'app/data/fx3d/GAPS.json']) {
+    const abs = path.join(p.out, f); fs.mkdirSync(path.dirname(abs), { recursive: true }); fs.writeFileSync(abs, '{}'); const r = checkLeftOut(p.out); assert.equal(r.ok, false, f); assert.deepEqual(r.problems, ['a path the build leaves out on purpose ships: ' + f]);
+    assert.match(renderStagingBlock({ dist: p.out, zip: p.zip }), /\) ships FAILED;/, 'the Current build block says so: ' + f); fs.rmSync(abs); }
+  fs.rmSync(path.join(p.out, 'rosters/data2/qa'), { recursive: true, force: true }); assert.deepEqual(checkLeftOut(p.out).problems, [], 'the files are gone again');
+  fs.writeFileSync(path.join(p.out, 'rosters/data2/qa'), '{}'); assert.deepEqual(checkLeftOut(p.out).problems, ['a path the build leaves out on purpose ships: rosters/data2/qa'], 'a file named like the folder'); fs.rmSync(path.join(p.out, 'rosters/data2/qa'));
+  fs.mkdirSync(path.join(p.out, 'rosters/data2/qa-summary'), { recursive: true }); fs.writeFileSync(path.join(p.out, 'rosters/data2/qa-summary/summary.json'), '{}');
+  assert.deepEqual(checkLeftOut(p.out).problems, [], 'rosters/data2/qa-summary is not under rosters/data2/qa');
+  fs.mkdirSync(path.join(p.out, 'rosters/data2/qa'), { recursive: true }); fs.writeFileSync(path.join(p.out, 'rosters/data2/qa/x.json'), '{}');
+  assert.equal(checkLeftOut(p.out, ['rosters/data2/qa/']).problems.length, 1, 'a plain path with a trailing slash'); assert.equal(checkLeftOut(p.out, [{ path: 'rosters/data2/qa', why: 'x' }]).problems.length, 1, 'an entry with a reason'); assert.equal(checkLeftOut(p.out, []).ok, true, 'no rule, nothing to find');
 });
 test('data pipeline in node: the loaders of the real shell run from the packed dist alone; a missing data file is found and named', () => {
   const real = pack({ out: path.join(tmp, 'real-pipe/dist'), zipDir: path.join(tmp, 'real-pipe'), zip: false }), ok = checkDataPipeline(real.out);

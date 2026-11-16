@@ -16,6 +16,7 @@ HER6_10 = 'sn83030313/1863-07-06/ed-1/seq-10'  # same, image 10
 INT6 = 'sn83026172/1863-07-06/ed-1/seq-1'      # Daily National Intelligencer, Mon. 6 July, image 1
 POR6 = 'sn83016025/1863-07-06/ed-1/seq-3'      # Portland Daily Press, Mon. 6 July, image 3
 WOR8 = 'sn83021205/1863-07-08/ed-1/seq-1'      # Worcester Daily Spy, Wed. 8 July, image 1
+WOR6_2 = 'sn83021205/1863-07-06/ed-1/seq-2'    # Worcester Daily Spy, Mon. 6 July, image 2
 CHI10 = 'sn84031490/1863-07-10/ed-1/seq-2'     # Chicago Daily Tribune, Fri. 10 July, image 2
 TRIB13 = 'sn83030213/1863-07-13/ed-1/seq-1'    # New-York Daily Tribune, Mon. 13 July, image 1
 HER24 = 'sn83030313/1863-07-24/ed-1/seq-2'     # New York Herald, Fri. 24 July, image 2
@@ -70,11 +71,8 @@ CLAIMS = [
                     'the gallant Twelfth corps, under General Slocum, and for three or four hours on Thursday the men of that command did their utmost to strengthen the place, and by two o\'clock P. M. had constructed, with timber, '
                     'stones and earth, a good breastwork, which extended the whole length of the ridge, and which numerous officers of the corps affirmed they could hold against any force."'),
          tier='documented', state_date='1863-07-02',
-         cites=[dict(page=HER6_4, span=('for three or four bourn', 'any force,'), img='b_her_works',
+         cites=[dict(page=HER6_4, span=('had been entrusted', 'any force,'),
                      attribution="MR. <;E0. w. HOSMRK'8 DESPATCH.",
-                     reading=('...to the gallant Twelfth corps, under General Slocum, and for three or four hours on Thursday the men of that command did their utmost to strengthen the place, and by two o\'clock P. M. had constructed, '
-                              'with timber, stones and earth, a good breastwork, which extended the whole length of the ridge, and which numerous officers of the corps affirmed they could hold against any force.'),
-                     corrections=[['bourn', 'hours'], ['Ihursdav', 'Thursday'], ['I hat com maud di<l their inmost', 'that command did their utmost'], ['Utc place', 'the place'], ['o\'clook f. M', 'o\'clock P. M.'], ['coast rue tad', 'constructed'], ['stooea and e.rth', 'stones and earth'], ['wh.ch', 'which'], ['tha wltola length of tha ridge', 'the whole length of the ridge'], ['bold', 'hold']],
                      reprint={'status': 'original', 'from': 'the Herald\'s own correspondent (the heading reads "MR. GEO. W. HOSMER\'S DESPATCH. Army of the Potomac, July 4, 1863", read from the print)', 'basis': "MR. <;E0. w. HOSMRK'8 DESPATCH."})],
          row_effect=('bears on the start-time conflict of the Twelfth Corps works (T1-200: night of 1-2 July per DMNA, about 06:00 per HistoryNet; T2-081: largely complete from about 10:00 to noon): the Herald prints a duration and an end hour for Thursday '
                      '(three or four hours of work, a good breastwork finished by two o\'clock P. M.) and says nothing of night work; the words imply a start about 10:00 to 11:00 on 2 July, which is an inference from the printed hours, not a printed start time; '
@@ -119,7 +117,12 @@ CLAIMS = [
                     'morning, "The day is now overcast, and dark, and cool. The sky threatens rain, and fog already obscures the outer field of battle"; C. C. Coffin of the Boston Journal (printed by the Chicago Tribune, 10 July) '
                     'writes "Two guns, deep and heavy, at four o\'clock. It was a cloudy, sultry morning. The clouds hung thick and heavy, and came down low upon the hills."'),
          tier='documented', state_date='1863-07-03',
-         cites=[dict(page=WOR4_3, span=('The day is now over cast', 'obscures the outer field of battle.'), img='b_wor_fog',
+         cites=[dict(page=WOR4_3, span=('The third day\u2019s bat tle began', 'this morning.'), img='b_wor_nyt',
+                     attribution='Special to the Now York Times.', dateline='Gettysburg, July 3.',
+                     reading='The third day\'s battle began at four this morning.',
+                     corrections=[['bat tle', 'battle']],
+                     reprint={'status': 'reprint', 'from': 'a special to the New York Times (heading "Special to the New York Times.", datelined Gettysburg, July 3)', 'basis': 'Special to the Now York Times.'}),
+                dict(page=WOR4_3, span=('The day is now over cast', 'obscures the outer field of battle.'), img='b_wor_fog',
                      attribution='Special to the Now York Times.', dateline='Gettysburg, July 3.',
                      reading=('The day is now overcast, and dark, and cool. The sky threatens rain, and fog already obscures the outer field of battle.'),
                      corrections=[['over cast', 'overcast'], ['Tne sky', 'The sky']],
@@ -168,13 +171,16 @@ CLAIMS = [
          independence='an official dispatch printed in many papers (one text)'),
 
     dict(ids=['T3-164', 'R15.0000'], key='rain-philadelphia-carlisle-0705',
-         sub_claim=('A dispatch of 5 July printed by the Portland Daily Press (6 July) and the Worcester Daily Spy: "Philadelphia, July 5. The rain is falling copiously here. There was a severe storm near Carlisle yesterday. '
-                    'It is hoped that the Potomac has risen by this time, rendering the ford useless."'),
+         sub_claim=('A dispatch of 5 July printed by the Portland Daily Press and the Worcester Daily Spy (6 July): the Portland paper prints "Philadelphia, July 5. The rain is falling copiously here. There was a severe storm near Carlisle yesterday.\u2014'
+                    'It is hoped that the Potomac has risen by this time, rendering the ford useless."; the Spy prints "The rain is falling copiously here. There was a severe storm near Carlisle yesterday. '
+                    'It is hoped that the Potomac has risen by this time so as to render the fords useless." (the closing words differ between the two papers).'),
          tier='documented', state_date='1863-07-04 to 1863-07-05',
          cites=[dict(page=POR6, span=('Philadelphia, July 5. The rain is falling', 'ford useless.'), img='b_por_rain',
                      reading='PHILADELPHIA, July 5. The rain is falling copiously here. There was a severe storm near Carlisle yesterday.—It is hoped that the Potomac has risen by this time, rendering the ford useless.',
                      corrections=[['l\'otomac', 'Potomac']],
-                     reprint={'status': 'wire', 'from': 'a telegraphic dispatch (the same sentences stand in the Worcester Daily Spy of 6 July); no agency named on the page text read', 'basis': 'identical wording in a second paper'})],
+                     reprint={'status': 'wire', 'from': 'a telegraphic dispatch (the same sentences stand in the Worcester Daily Spy of 6 July); no agency named on the page text read', 'basis': 'near-identical wording in a second paper'}),
+                dict(page=WOR6_2, span=('Philadelphia, .fuly 5. \u2014The rain is falling', 'fords useless.'),
+                     reprint={'status': 'wire', 'from': 'a telegraphic dispatch (the same sentences stand in the Portland Daily Press of 6 July); no agency named on the page text read', 'basis': 'near-identical wording in a second paper'})],
          row_effect='adds a severe storm near Carlisle (about 35 miles north of Gettysburg) on 4 July and rain at Philadelphia on 5 July: consistent with the row\'s rain on 4-5 July, not a Gettysburg observation',
          remains='the hour of the Carlisle storm; Gettysburg is not named'),
 
@@ -183,10 +189,9 @@ CLAIMS = [
                     'vastly changed from that of Friday. The sky is overcast with heavy, dark, low hanging clouds, and at intervals the rain pours down in torrents. The fresh fields on which the battle was fought have become so softened '
                     'that the task of transporting the wounded in ambulances is one of no little difficulty."'),
          tier='documented', state_date='1863-07-04 to 1863-07-05',
-         cites=[dict(page=HER6_10, span=('tbe weather yesterday and to day', 'in torrenU'), img='b_her_weather',
+         cites=[dict(page=HER6_10, span=('tbe weather yesterday and to day', 'uo Utile difficulty.'),
                      attribution="MR. GALEN H. OsllORN'S DESPATCH.",
-                     reading='As it always happens after a great battle, the weather yesterday and to-day is vastly changed from that of Friday. The sky is overcast with heavy, dark, low hanging clouds, and at intervals the rain pours down in torrents. The fresh fields on which the battle was fought have be[come so softened that ...]',
-                     corrections=[['tbe', 'the'], ['H vastly', 'is vastly'], ['Frl ?lav', 'Fri-day'], ['fbe sky', 'The sky'], ['ram pours do?n', 'rain pours down'], ['torrenU', 'torrents']],
+                     heading='Mr. Galen H. Osborn\'s Despatch. Field of Battle, near Gettysburg, Pa., July 5\u20147 A. M.', heading_img='b_her10_head',
                      reprint={'status': 'original', 'from': 'the Herald\'s own correspondent (the paragraph follows the heading "MR. GALEN H. OSBORN\'S DESPATCH. Field of Battle, near Gettysburg, Pa., July 5—7 A. M.", read from the print)', 'basis': "MR. GALEN H. OsllORN'S DESPATCH."})],
          row_effect=('supports rain at Gettysburg on 4 July and the morning of 5 July (T3-164, T3-173) and the soft, muddy ground; "yesterday and to-day" means 4 and 5 July as the despatch is dated 5 July, 7 a.m.; '
                      'the heading position of the paragraph (after a rule line) is read from the OCR layer and the print, the paragraph may belong to a following despatch of the same page'),
@@ -224,6 +229,7 @@ CLAIMS = [
                     'privates in many of the private houses".'),
          tier='documented', state_date='1863-07-17',
          cites=[dict(page=HER24, span=('Ihey can be obtained', 'The deaths In number.'), img='b_her24_num',
+                     heading="Mr. N. Davidson's Despatch. Gettysburg, Pa., July 17, 1863", heading_img='b_her24_head',
                      reading='They can be obtained after a time at Washington. The number will aggregate about 10,000. Of these there are still here about 3,500, over half of which are amputations. Of the latter it is estimated that at least one in three will prove fatal. The deaths in hospital so far are about ten per cent of the original number.',
                      corrections=[['Ihey', 'They'], ['wW ag?regale', 'will aggregate'], ['eliU here about ^,500.over half', 'still here about 3,500, over half'], ['Of U? latter it la estimated L?piUl eo far', 'Of the latter it is estimated ... in hospital so far'], ['lutai', 'fatal']],
                      reprint={'status': 'original', 'from': 'a despatch of the Herald\'s correspondent N. Davidson, Gettysburg, July 17, 1863 (heading read from the print)', 'basis': 'Gettysburg, Pa., July 17, 1863 (print)'}),

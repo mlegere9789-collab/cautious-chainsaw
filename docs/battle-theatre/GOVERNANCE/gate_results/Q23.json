@@ -21,7 +21,7 @@
   "NOT-RUN": 2,
   "PASS": 50
  },
- "finished_utc": "2026-11-16T00:44:03Z",
+ "finished_utc": "2026-11-16T00:51:38Z",
  "gate": "Q23",
  "incomplete_reasons": [
   "3 item(s) NOT-RUN or BLOCKED-INPUT"
@@ -527,11 +527,11 @@
   "docs/battle-theatre/GOVERNANCE/register/EG-W3D-G08.md": "ba8577de97f540c68d38b6d47a244864bf877bfcb2e7ccf3589ceeda524ac803",
   "docs/battle-theatre/GOVERNANCE/register_index.json": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "b7f6027a45d9e72d2d5c146f189f99d62ae1c035424e4d0c8567b0e83fc73fb9",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "a370f92d7528e00a5279c13507abc2a6f56edeaf6bdea589602773bd33d6a4e0",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "ed2c0b0a1d6ccda3cb7bdc95eb241080774fdf7f9b8418085d32c298b55b1b31",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl": "ae480799061ada00de5584afb455523317880c18ea4bb90bdb83f8f332fcff65",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl": "f34e36226b0b7e8378edf180c59a8f1720ebe447231bce8ba356baa60396585d",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl": "982a9969840c317dc6e7c1dce8e07acf12c3046329446c42e0ade9bee4332889",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-nps-landscape.jsonl": "fd44217eaa0c7a519441727fa159713b5c219539682a121e3f7d174490747ebf",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-photomatch.jsonl": "ca60ff50bdf9583e8dc5f7a86a2a1ef553cd70dc83bd2774e4ca2d190a1812c3",
   "docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl": "3c763c8802d5d5b9ab9ca8a8336cc0956f9e0cb8316c8a805b8bcfebc78af2b0",
@@ -3604,16 +3604,16 @@
    "sha256": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f"
   },
   {
-   "bytes": 903597,
+   "bytes": 906477,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl",
    "role": "timeline correction records",
-   "sha256": "b7f6027a45d9e72d2d5c146f189f99d62ae1c035424e4d0c8567b0e83fc73fb9"
+   "sha256": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639"
   },
   {
-   "bytes": 1230537,
+   "bytes": 1230999,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl",
    "role": "timeline correction records",
-   "sha256": "a370f92d7528e00a5279c13507abc2a6f56edeaf6bdea589602773bd33d6a4e0"
+   "sha256": "9a5fa49814cf6b6d27df1f8267bdefad8915616d300a547fc99bfcc23d71c0d0"
   },
   {
    "bytes": 717206,
@@ -3628,10 +3628,10 @@
    "sha256": "ae480799061ada00de5584afb455523317880c18ea4bb90bdb83f8f332fcff65"
   },
   {
-   "bytes": 514200,
+   "bytes": 536959,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl",
    "role": "timeline correction records",
-   "sha256": "f34e36226b0b7e8378edf180c59a8f1720ebe447231bce8ba356baa60396585d"
+   "sha256": "982a9969840c317dc6e7c1dce8e07acf12c3046329446c42e0ade9bee4332889"
   },
   {
    "bytes": 82498,
@@ -6721,10 +6721,10 @@
   "Q23.3 frames: the marks drawn at the default overlay state in frames (tools/horde/bench.sh node docs/battle-theatre/app/tests/ui.spec.mjs, software GL) and a person looking at the saved images (U-10); real-GPU confirmation is owed"
  ],
  "renderer_class": "python",
- "run_id": "20261116T004357Z-Q23",
+ "run_id": "20261116T005134Z-Q23",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-16T00:43:57Z",
+ "started_utc": "2026-11-16T00:51:34Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",

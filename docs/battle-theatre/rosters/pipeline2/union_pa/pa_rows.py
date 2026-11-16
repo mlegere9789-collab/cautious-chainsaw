@@ -154,6 +154,12 @@ def finalize_row(row, info, text, pm, ti, leaf):
             break
     nz = [w for w in left if w['x0'] < cut_x]
     rz = [w for w in left if w['x0'] >= cut_x]
+    # a middle initial that stands in the rank column's area right behind the name ("Taylor, William H..") is a name word, unless it sits on the rule
+    xrule = info.get('xrule')
+    while nz and rz and re.match(r'^[A-HJ-KM-Z][.,]*$', rz[0]['w']) and not (xrule is not None and abs(rz[0]['x0'] - xrule) <= 0.008 * W) \
+            and rz[0]['x0'] - nz[-1]['x1'] < 0.04 * W and not T.is_ditto(rz[0]['w']):
+        nz.append(rz.pop(0))
+        flags.add('G') if False else None
     # the name zone: leading marks left of the first letter-bearing token are marks of the margin, not name words
     while nz and not T.core(nz[0]['w']) and nz[0]['x0'] < xn - 0.01 * W:
         marks.append(nz.pop(0))
@@ -215,8 +221,11 @@ def finalize_row(row, info, text, pm, ti, leaf):
     placed = [w for w in placed if w['off'] not in nm_offs]
     remarks = ' '.join(w['w'] for w in placed)
     rd = (placed[0]['off'] - off) if placed else 0
-    page_order = [w['off'] for w in sorted([w for w in rem_w if w['off'] is not None and w['off'] not in nm_offs],
-                                           key=lambda w: (w['li'], w['x0']))]
+    page_sorted = sorted(placed, key=lambda w: (w['li'], w['x0']))
+    rem_page = ' '.join(w['w'] for w in page_sorted)
+    big = [w for w in placed if len(T.core(w['w'])) >= 2]
+    if [w['off'] for w in sorted(big, key=lambda w: (w['li'], w['x0']))] != [w['off'] for w in big]:
+        flags.add('O')            # the text layer lists the words of the line in another order than the page (beyond the term digit and marks)
     if unaligned:
         flags.add('W')
     if marks:
@@ -250,5 +259,5 @@ def finalize_row(row, info, text, pm, ti, leaf):
     rec = R.row(name, rank_str, '', remarks, pm.printed(leaf), off, rd)
     facts = {'leaf': leaf, 'y': round(row['y']), 'lines': row['lines'], 'glued': glued, 'flags': sorted(flags), 'unaligned': [w['w'] for w in unaligned],
              'name_split': [w['w'] for w in leftover], 'marks': [w['w'] for w in marks], 'h': round(row['h'])}
-    return {'row': rec, 'facts': facts, 'page_order': page_order,
-            'cells': {'name': name, 'rank': rank_str}}, None
+    facts['rem_page'] = rem_page if rem_page != remarks else ''
+    return {'row': rec, 'facts': facts}, None

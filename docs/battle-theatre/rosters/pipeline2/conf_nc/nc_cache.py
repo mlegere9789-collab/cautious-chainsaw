@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import nc_lib as L, nc_parse as P, nc_sections as S, nc_units as U
 
 CACHE = os.path.join(L.ROOT, 'tmp', 'library', 'rosters', '_nc_cache')
-_SRC = ['nc_lib.py', 'nc_parse.py', 'nc_sections.py', 'nc_units.py']
+_SRC = ['nc_lib.py', 'nc_parse.py', 'nc_sections.py']      # the unit table is not part of the parse: a section is found by its number
 
 
 def parser_hash():

@@ -8,7 +8,7 @@
   "NOT-RUN": 0,
   "PASS": 29
  },
- "finished_utc": "2026-11-16T00:42:57Z",
+ "finished_utc": "2026-11-16T00:44:09Z",
  "gate": "Q19",
  "incomplete_reasons": [
   "1 item(s) NOT-RUN or BLOCKED-INPUT"
@@ -26,7 +26,7 @@
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "e3e0ce43544640a652204e8876d55a3ef6791400337c5c633037c0a77c4971ac",
   "docs/battle-theatre/GOVERNANCE/register_index.json": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "b7f6027a45d9e72d2d5c146f189f99d62ae1c035424e4d0c8567b0e83fc73fb9",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "a370f92d7528e00a5279c13507abc2a6f56edeaf6bdea589602773bd33d6a4e0",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "ed2c0b0a1d6ccda3cb7bdc95eb241080774fdf7f9b8418085d32c298b55b1b31",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl": "ae480799061ada00de5584afb455523317880c18ea4bb90bdb83f8f332fcff65",
@@ -141,10 +141,10 @@
    "sha256": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f"
   },
   {
-   "bytes": 903597,
+   "bytes": 906477,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl",
    "role": "timeline correction records",
-   "sha256": "b7f6027a45d9e72d2d5c146f189f99d62ae1c035424e4d0c8567b0e83fc73fb9"
+   "sha256": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639"
   },
   {
    "bytes": 1230537,
@@ -7732,10 +7732,10 @@
   "Q19.3 independence needs a recorded relation (`independent_of` or `derived_from`) on every Source Manifest entry; the owner of the manifest writes it, no runner invents one"
  ],
  "renderer_class": "python",
- "run_id": "20261116T004250Z-Q19",
+ "run_id": "20261116T004403Z-Q19",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-16T00:42:50Z",
+ "started_utc": "2026-11-16T00:44:03Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",

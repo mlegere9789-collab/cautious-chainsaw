@@ -16,9 +16,13 @@ regiment or battalion that is one battery or one company of the Official Records
   Rowan Artillery                   Tenth Regiment -- Artillery, Co. D    captain James Reilly in both (OR table "Rowan, Reilly")
   Branch Artillery                  Fifth Battalion -- Light Artillery,   captain Alexander C. Latham in both (OR table "Branch, Latham");
                                     Co. F                                 Moore prints the battalion as "originally the Thirteenth Battalion"
-  Charlotte Artillery               (not found)                           no entry of Moore names it: gap (see the report)
+  Charlotte Artillery               Tenth Regiment -- Artillery, Co. C    OR 27 pt. 2 index (printed p. 1009, 1012): "Charlotte Artillery. See North
+                                                                          Carolina Troops, 1st Regiment, Battery C" and "Graham's (Joseph) Artillery. See North
+                                                                          Carolina Troops, Confederate, 1st Regiment, Battery C"; Moore's Company C names men of
+                                                                          Mecklenburg county (Charlotte) first
 
-Each identification that rests on a captain's name is a Moore-side inference and is marked as such in the report; it never rests on memory.
+Each identification that rests on a captain's name or on the counties of the men is a Moore-side inference and is marked as such in the report; the Official Records
+index lines that name the battery of the 1st North Carolina Artillery are quoted there with their offsets.  It never rests on memory.
 """
 
 # key, designation, arm, volume, section number, section kind, company filter ('' = the whole section: field and staff and every company)
@@ -63,10 +67,16 @@ UNITS = [
     ('c-nc-5th-north-carolina-cavalry', '5th North Carolina Cavalry', 'cavalry', '4', 63, 'regiment', ''),
     ('c-nc-2nd-north-carolina-battalion', '2nd North Carolina Battalion', 'infantry', '4', 2, 'battalion', ''),
     ('c-nc-branch-artillery', 'Branch Artillery', 'artillery', '4', 5, 'battalion', 'F'),
-    ('c-nc-charlotte-artillery', 'Charlotte Artillery', 'artillery', None, None, None, None),
+    ('c-nc-charlotte-artillery', 'Charlotte Artillery', 'artillery', '1', 10, 'regiment', 'C'),
 ]
 
 UNIT = {u[0]: u for u in UNITS}
+IDENT = {   # unit key -> basis of the identification with the Moore section (quoted in the report)
+    'c-nc-battery-a-1st-north-carolina-artillery': 'OR 27 pt. 2 index: "Manly\'s (B. C.) Artillery. See North Carolina Troops, Confederate, 1st Regiment, Battery A"; Moore: Tenth Regiment (First Artillery), Company A, Captain Basil C. Manly',
+    'c-nc-charlotte-artillery': 'OR 27 pt. 2 index: "Charlotte Artillery. See North Carolina Troops, 1st Regiment, Battery C" and "Graham\'s (Joseph) Artillery. See North Carolina Troops, Confederate, 1st Regiment, Battery C"; Moore: Tenth Regiment (First Artillery), Company C (the men printed are chiefly of Mecklenburg county; the officers list holds one captain, Arthur B. Williams: the roll of this company is partial)',
+    'c-nc-rowan-artillery': 'OR 27 pt. 2 index: "Reilly\'s (James) Artillery. See Rowan Artillery"; Moore: Tenth Regiment (First Artillery), Company D, Captain James Reilly (OCR Rellly); 168 of the men printed with a county are of Rowan county',
+    'c-nc-branch-artillery': 'OR 27 pt. 2 index: "Latham\'s (A. C.) Artillery. See Branch Artillery"; Moore: Fifth Battalion Light Artillery ("originally the Thirteenth Battalion"), Company F, Captain Alexander C. Latham',
+}
 EARLIER = {   # earlier roll file of data/C-NCLA (the second reading used for the reconciliation)
     'c-nc-1st-north-carolina-infantry': 'C-1NC', 'c-nc-2nd-north-carolina-infantry': 'C-2NC', 'c-nc-3rd-north-carolina-infantry': 'C-3NC', 'c-nc-4th-north-carolina-infantry': 'C-4NC',
     'c-nc-5th-north-carolina-infantry': 'C-5NC', 'c-nc-6th-north-carolina-infantry': 'C-6NC', 'c-nc-7th-north-carolina-infantry': 'C-7NC', 'c-nc-11th-north-carolina-infantry': 'C-11NC',

@@ -5,6 +5,7 @@
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import crypto from 'node:crypto'; import { execFileSync } from 'node:child_process';
 import zlib from 'node:zlib';
 import { pack, trace, audit, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, AUDIT_ALLOW, AUDIT_PRODUCTION, WITHHELD, PROJECT, EXCLUDE, scrubMakerMembers, jsonMembers, isMakerMember, sizeByFolder, loadCensus, KNOWN_LOADS, CENSUS_OK } from '../../tools/bt/pack_theatre.mjs';
+import { readZipDirectory } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btpack-')); let A, B;
@@ -73,15 +74,38 @@ test('tripwire: recorded sounds. Nothing in the shell loads them today; when a m
 // The evidence is twofold: the real run (tools/bt/verify_staging.mjs) never asked for them, and this test: no shipped module names one outside a comment. The day a module does,
 // this fails and says which: take the entry out of EXCLUDE (the file then ships again) and run the real run.
 const stripComments = src => src.replace(/\/\*[\s\S]*?\*\//g, '').split('\n').map(l => l.replace(/(^|[^:'"`\w])\/\/.*$/, '$1')).join('\n');
-test('left out: no page loads the files of EXCLUDE; no shipped module names one outside a comment; MANIFEST.json lists them; nothing of anim3d data ships', () => {
+test('left out: no page loads the files of EXCLUDE; no shipped module names one outside a comment; MANIFEST.json lists the entries the build left files out of; nothing of anim3d data ships', () => {
   const names = EXCLUDE.map(e => (typeof e === 'string' ? e : e.path)), all = new Set(distFiles(A.out)), m = JSON.parse(fs.readFileSync(path.join(A.out, 'MANIFEST.json'), 'utf8'));
   for (const f of all) assert.ok(!names.some(n => f === n || f.startsWith(n + '/')), 'a left-out file is in the build: ' + f);
   assert.ok(![...all].some(f => f.startsWith('app/data/anim3d/')), 'no animation catalogue file ships: no module names one');
   const codeFiles = [...all].filter(f => /\.(mjs|js|html)$/.test(f)), code = codeFiles.map(f => [f, stripComments(fs.readFileSync(path.join(A.out, f), 'utf8'))]);
-  const candidates = [...names.flatMap(n => { const abs = path.join(BT, n); return fs.existsSync(abs) && fs.statSync(abs).isDirectory() ? fs.readdirSync(abs).map(x => path.join(n, x)) : [n]; }), ...fs.readdirSync(path.join(BT, 'app/data/anim3d')).map(x => 'app/data/anim3d/' + x)];
+  const isDir = n => { const abs = path.join(BT, n); return fs.existsSync(abs) && fs.statSync(abs).isDirectory(); };
+  // a FOLDER of EXCLUDE (rosters/data2/qa) is looked for by its path (a string that names data2/qa or something under it), never by the names of its children: 'pages' or 'stats.json' are words that code uses for other things
+  for (const n of names.filter(isDir)) { const tail = n.split('/').slice(-2).join('/').replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), re = new RegExp('([\'"`])[^\'"`\\n]*' + tail + '(?:/[^\'"`\\n]*)?\\1'), hit = code.filter(([, x]) => re.test(x)).map(([f]) => f); assert.deepEqual(hit, [], `${n} is a work folder that the build never ships, but ${hit.join(', ')} names it as a string outside a comment: the page must not load from it (a summary of its content is a small file made elsewhere, e.g. app/roster/data/)`); }
+  const candidates = [...names.filter(n => !isDir(n)), ...fs.readdirSync(path.join(BT, 'app/data/anim3d')).map(x => 'app/data/anim3d/' + x)];
   // a loader passes the whole name as a string ('params.json', URLS.data + 'fx3d/GAPS.json'); prose that mentions a file of the same name (figures3d/TIERS.json in a tier table) is not a load
   for (const n of candidates) { const b = path.basename(n).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), re = new RegExp('([\'"`])(?:[\\w./-]*/)?' + b + '\\1'), hit = code.filter(([, s]) => re.test(s)).map(([f]) => f); assert.deepEqual(hit, [], `${n} is left out of the build but ${hit.join(', ')} names it as a string outside a comment: take it out of EXCLUDE and run the real run`); }
-  assert.deepEqual(m.leftOut.map(l => l.path).sort(), names.filter(n => fs.existsSync(path.join(BT, n))).sort(), 'MANIFEST.json lists every left-out entry that exists');
+  // an entry is listed when some route reached it (the audio3d and fx3d files are reached through the folders that ship whole); a work folder that no route reaches has nothing to leave out and is not listed
+  const reached = new Set(trace().leftOut.map(l => l.path));
+  assert.deepEqual(m.leftOut.map(l => l.path).sort(), [...reached].sort(), 'MANIFEST.json lists the entries the build left files out of');
+  for (const n of names) if (fs.existsSync(path.join(BT, n)) && !isDir(n)) assert.ok(reached.has(n), 'a file of EXCLUDE that exists is reached by a folder that ships whole and is left out of it, so it is listed: ' + n);
+});
+// rosters/data2/qa is the work folder of the independent sample of the roster data (page reads, one verdict per page, the draw and its statistics, the claims check, the ledger of the derived texts). It is not
+// roster data and must not ship, whatever the way the roster section follows its data (request note bt-rosters-roster-qa-work-files.md, DD-ROS-QA-05). The rule is in EXCLUDE; this test reads the REAL tree: the rule
+// is there, nothing of the folder is traced or in the dist, and no index of the roster data (the index of the data, its units file, the source files, every JSON of the section) names a path under it.
+test('left out: the work folder of the roster sample (rosters/data2/qa) is excluded, is not in the build and is named by no index of the roster data', () => {
+  const rule = EXCLUDE.find(e => e.path === 'rosters/data2/qa'); assert.ok(rule && rule.why, 'EXCLUDE in tools/bt/pack_theatre.mjs holds the rule for rosters/data2/qa (request note bt-rosters-roster-qa-work-files.md)');
+  assert.ok(!A.traced.some(f => f.startsWith('rosters/data2/qa/')), 'nothing of the work folder is traced'); assert.ok(!distFiles(A.out).some(f => f.startsWith('rosters/data2/qa/')), 'nothing of the work folder is in the dist');
+  const QA = path.join(BT, 'rosters/data2/qa'), under = abs => { const r = path.relative(QA, abs); return r === '' || (!r.startsWith('..') && !path.isAbsolute(r)); }, fileLike = /^(?:\.{0,2}\/)?[\w@.-]+(?:\/[\w@.-]+)*\.[A-Za-z0-9]+$/;
+  const idx = []; for (const f of ['rosters/data2/INDEX.json', 'rosters/data2/units.json']) if (fs.existsSync(path.join(BT, f))) idx.push(f);
+  const src = path.join(BT, 'rosters/data2/sources'); if (fs.existsSync(src)) for (const f of fs.readdirSync(src)) if (f.endsWith('.json')) idx.push('rosters/data2/sources/' + f);
+  const sec = path.join(BT, 'app/roster'); if (fs.existsSync(sec)) for (const f of fs.readdirSync(sec, { recursive: true }).map(x => String(x).split(path.sep).join('/'))) if (f.endsWith('.json')) idx.push('app/roster/' + f);
+  const named = [];
+  for (const f of idx) { const abs = path.join(BT, f); let j; try { j = JSON.parse(fs.readFileSync(abs, 'utf8')); } catch { continue; }
+    const visit = v => { if (typeof v === 'string') { if (v.length < 300 && fileLike.test(v) && [path.dirname(abs), sec].some(d => under(path.resolve(d, v)))) named.push(`${f}: ${v}`); } else if (Array.isArray(v)) v.forEach(visit); else if (v && typeof v === 'object') Object.values(v).forEach(visit); };
+    visit(j); }
+  assert.deepEqual(named, [], `an index of the roster data names a file of the work folder rosters/data2/qa, which never ships (the page would answer 404): derive a small file for the page elsewhere (e.g. app/roster/data/)`);
+  assert.ok(idx.length > 0 || !fs.existsSync(path.join(BT, 'rosters/data2')), 'the roster index files were read (' + idx.length + ')');
 });
 test('computed imports: every one in the tree is of a form the trace follows (or is on the reviewed list)', () => {
   const bad = trace().computedImports.filter(c => c.status === 'unresolved');
@@ -318,7 +342,7 @@ test('fixture: an index file OUTSIDE the section that a page of the section load
   assert.ok(t.why['rosters/data2/pa/u1.json'].some(w => /listed in rosters\/data2\/INDEX\.json/.test(w)), JSON.stringify(t.why['rosters/data2/pa/u1.json']));
   assert.ok(t.notes.some(n => /do not resolve/.test(n) && /pa\/not-there\.json/.test(n)), 'a name that does not resolve is noted: ' + t.notes.join(' | '));
 });
-test('fixture: a section that loads its index by a literal address ships the index and the files it names and not the working folders beside it; a folder address takes the whole folder (the census agrees)', t => {
+test('fixture: a section that loads its index by a literal address ships the index and the files it names and not the working folders beside it; a folder address takes the whole folder except the work folder rosters/data2/qa (the census agrees)', t => {
   const mk = name => fx(name, r => {
     put(r, 'rosters/data2/INDEX.json', JSON.stringify({ format: 'x/1', armies: { union: { me: { units: [{ file: 'union/me/a.jsonl.gz', flags: 'union/me/a.flags.json.gz', cells: null }] } } } }));
     put(r, 'rosters/data2/union/me/a.jsonl.gz', 'gz-a'); put(r, 'rosters/data2/union/me/a.flags.json.gz', 'gz-flags'); put(r, 'rosters/data2/qa/work.json', '{"qa":1}\n'); put(r, 'rosters/data2/sources/s.json', '{"s":1}\n');
@@ -328,8 +352,46 @@ test('fixture: a section that loads its index by a literal address ships the ind
   for (const f of ['rosters/data2/INDEX.json', 'rosters/data2/union/me/a.jsonl.gz', 'rosters/data2/union/me/a.flags.json.gz']) assert.ok(t1.files.includes(f), 'ships: ' + f);
   for (const f of ['rosters/data2/qa/work.json', 'rosters/data2/sources/s.json']) assert.ok(!t1.files.includes(f), 'not shipped, the page does not load it: ' + f);
   const byFolder = mk('roster-folder'); put(byFolder, 'app/roster/roster.js', "const DATA = new URL('../../rosters/data2/', import.meta.url);\nexport const load = name => fetch(new URL(name, DATA));\n");
-  const t2 = trace({ root: byFolder, cfg: FIXTURE_CFG }); for (const f of ['rosters/data2/INDEX.json', 'rosters/data2/union/me/a.jsonl.gz', 'rosters/data2/qa/work.json', 'rosters/data2/sources/s.json']) assert.ok(t2.files.includes(f), 'a folder address takes the whole folder: ' + f);
+  const t2 = trace({ root: byFolder, cfg: FIXTURE_CFG }); for (const f of ['rosters/data2/INDEX.json', 'rosters/data2/union/me/a.jsonl.gz', 'rosters/data2/sources/s.json']) assert.ok(t2.files.includes(f), 'a folder address takes the whole folder: ' + f);
+  assert.ok(!t2.files.includes('rosters/data2/qa/work.json'), 'a folder address does not take the work folder of the roster sample (EXCLUDE rosters/data2/qa; request note bt-rosters-roster-qa-work-files.md)');
+  assert.deepEqual(t2.leftOut.map(l => [l.path, l.files]), [['rosters/data2/qa', 1]], 'the build says what it refused'); assert.deepEqual(t1.leftOut, [], 'the index route never reaches the work folder: nothing to leave out');
   if (loadCensus({ files: [] }).available) for (const T of [t1, t2]) assert.deepEqual(T.census.findings, [], 'the census places both routes: ' + JSON.stringify(T.census.findings.map(f => f.address)));
+});
+// The work folder of the roster sample never ships by any route a section can follow its data (request note bt-rosters-roster-qa-work-files.md). Every route is tried, with a made-up index that NAMES a file of the
+// folder and a made-up file of the folder that names a unit file, so that "not shipped" and "not followed" are both proved. The audit reads only what ships.
+test('fixture: the work folder rosters/data2/qa never ships, whatever the way the section follows its data (index, index that names it, folder address, literal address); an index inside it is not followed; the copy audit has nothing of it to read', () => {
+  const rule = EXCLUDE.find(e => e.path === 'rosters/data2/qa'); assert.ok(rule && rule.why, 'EXCLUDE in tools/bt/pack_theatre.mjs holds the rule for rosters/data2/qa (request note bt-rosters-roster-qa-work-files.md)');
+  const QA_TEXT = JSON.stringify({ note: 'second sitting: read by a subagent', pages: ['union/me/b.jsonl.gz'], again: 'qa/pages/p1.verdict.json' });      // a text that the copy audit would report, and a list that names a unit file
+  const mk = (name, code) => fx(name, r => {
+    put(r, 'app/roster/roster.js', code);
+    put(r, 'rosters/data2/INDEX.json', JSON.stringify({ format: 'x/1', units: [{ file: 'union/me/a.jsonl.gz' }], sample: 'qa/stats.json' }));           // an index that names a file of the work folder
+    put(r, 'rosters/data2/union/me/a.jsonl.gz', zlib.gzipSync(Buffer.from('[1,"Smith, John","Pvt.","Co. A",12]\n'))); put(r, 'rosters/data2/union/me/b.jsonl.gz', zlib.gzipSync(Buffer.from('[1,"Jones, Ann","Pvt.","Co. B",13]\n')));      // b is named only by a file of the work folder
+    put(r, 'rosters/data2/sources/s.json', '{"s":1}\n'); put(r, 'rosters/data2/qa/stats.json', QA_TEXT); put(r, 'rosters/data2/qa/pages/p1.verdict.json', '{"v":1}\n'); put(r, 'rosters/data2/qa/recovered/union-me.json', '{"r":1}\n');
+  });
+  const INDEX = "const indexUrl = new URL('../../rosters/data2/INDEX.json', import.meta.url);\nexport const load = async () => { const idx = await (await fetch(indexUrl)).json(); return Promise.all(idx.units.map(u => fetch(new URL(u.file, indexUrl)))); };\n";
+  const routes = { index: INDEX, folder: "const DATA = new URL('../../rosters/data2/', import.meta.url);\nexport const load = name => fetch(new URL(name, DATA));\n",
+    literal: INDEX + "export const stats = () => fetch('../../rosters/data2/qa/stats.json');\n",
+    qaFolder: INDEX + "const QA = new URL('../../rosters/data2/qa/', import.meta.url);\nexport const verdict = id => fetch(new URL(id + '.verdict.json', QA));\n" };
+  for (const [name, code] of Object.entries(routes)) {
+    const t = trace({ root: mk('qa-' + name, code), cfg: FIXTURE_CFG }); assert.deepEqual(t.problems, [], name);
+    assert.deepEqual(t.files.filter(f => f.startsWith('rosters/data2/qa')), [], `${name}: nothing of the work folder is in the build`);
+    assert.ok(t.files.includes('rosters/data2/INDEX.json') && t.files.includes('rosters/data2/union/me/a.jsonl.gz'), `${name}: the roster data is`);
+    if (name === 'folder') assert.ok(t.files.includes('rosters/data2/union/me/b.jsonl.gz') && t.files.includes('rosters/data2/sources/s.json'), 'the folder address takes the rest of the folder');
+    else assert.ok(!t.files.includes('rosters/data2/union/me/b.jsonl.gz'), `${name}: a unit file that only a file of the work folder names is not followed there`);
+    const left = t.leftOut.find(l => l.path === 'rosters/data2/qa'); assert.ok(left && left.files >= 1 && left.why, `${name}: the build says that it refused the work folder (the index names it, or a folder or literal address reaches it)`);
+    if (name === 'literal' || name === 'qaFolder') assert.ok(t.census.findings.some(f => f.status === 'excluded' && /app\/roster\/roster\.js$/.test(f.file)), `${name}: a page that loads from the work folder is a finding of the census (it would answer 404): ` + JSON.stringify(t.census.findings));
+    else if (t.census.available) assert.deepEqual(t.census.findings, [], `${name}: the census finds nothing to say`);
+  }
+  // pack(): the dist, the manifest, the zip and the audit. The made-up file of the folder says "subagent": it is not in the dist, so the audit does not see it; the same text in a file that does ship is a hit (the audit is live)
+  const root = mk('qa-pack', routes.folder), out = path.join(tmp, 'qa-pack/dist'), r = pack({ root, cfg: FIXTURE_CFG, out, zipDir: path.join(tmp, 'qa-pack') });
+  assert.deepEqual(r.audit, [], JSON.stringify(r.audit)); assert.deepEqual(distFiles(out).filter(f => f.startsWith('rosters/data2/qa')), []);
+  const man = JSON.parse(fs.readFileSync(path.join(out, 'MANIFEST.json'), 'utf8')); assert.deepEqual(man.leftOut.map(l => [l.path, l.files]), [['rosters/data2/qa', 3]]); assert.ok(!man.files.some(f => f.path.startsWith('rosters/data2/qa')));
+  assert.deepEqual(readZipDirectory(fs.readFileSync(r.zip)).map(e => e.name).filter(f => f.startsWith('rosters/data2/qa')), [], 'nor is it in the zip');
+  put(root, 'rosters/data2/sources/s.json', QA_TEXT); const again = pack({ root, cfg: FIXTURE_CFG, out: path.join(tmp, 'qa-pack2/dist'), zip: false });
+  assert.ok(again.audit.some(h => h.file === 'rosters/data2/sources/s.json' && /subagent/i.test(h.match)), 'the same text in a file that ships is a hit: ' + JSON.stringify(again.audit));
+  // the older spelling of an entry (a plain string, with a trailing slash) works the same way, and without any rule the folder address WOULD take the folder (so none of the above is true by accident)
+  const tStr = trace({ root: mk('qa-string', routes.folder), cfg: { ...FIXTURE_CFG, exclude: ['rosters/data2/qa/'] } }); assert.ok(!tStr.files.some(f => f.startsWith('rosters/data2/qa')) && tStr.leftOut[0].path === 'rosters/data2/qa', 'a string entry with a trailing slash');
+  assert.ok(trace({ root: mk('qa-norule', routes.folder), cfg: { ...FIXTURE_CFG, exclude: [] } }).files.includes('rosters/data2/qa/stats.json'), 'a folder address takes the work folder when nothing excludes it');
 });
 test('fixture: no section folder, no section (the shell alone still packs)', () => {
   const root = fx('noroster', r => { fs.rmSync(path.join(r, 'app/roster'), { recursive: true }); fs.rmSync(path.join(r, 'rosters'), { recursive: true }); }), t = trace({ root, cfg: FIXTURE_CFG });

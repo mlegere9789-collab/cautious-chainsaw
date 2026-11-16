@@ -533,6 +533,7 @@ def parse_section(tid, a, b, co_start='', verbose=False):
     state = {'co': co_start, 'section': None, 'head': '', 'prev_section': None, 'comp_since_priv': True, 'started': False, 'co_rule': '', 'co_heading': '', 'co_off': None}
     parts, log = [], []
     heading_log = []
+    seen_cos = set()
     for ci in range(len(cuts)):
         ti = cuts[ci]
         for (kind, payload, off) in ev_by_idx.get(ti, []):
@@ -544,10 +545,18 @@ def parse_section(tid, a, b, co_start='', verbose=False):
                 exp = 'A' if prev in ('FS', '', None) else (L.LETTERS[L.LETTERS.index(prev) + 1] if prev in L.LETTERS and L.LETTERS.index(prev) + 1 < len(L.LETTERS) else None)
                 hmap = L.CMAP.get(hl, hl.upper())
                 rule = 'letter'
+                hl = re.sub(r"[^A-Za-z0-9€]", "", hl) if re.match(r"^[A-Z][^A-Za-z0-9]", hl) else hl      # "A--" (a dash after the letter): the letter alone
+                if ti < n and alpha(toks[ti][2]) == 'missing':
+                    # "COMPANY A-- Missing.": Moore prints that the muster roll of the company was not found; no rows follow; the company counts as not yet printed
+                    heading_log.append({'off': off, 'heading': ' '.join(payload.split()) + ' ' + toks[ti][2], 'letter_read': hl, 'assigned': hl if hl in L.LETTERS else exp, 'rule': 'missing-roll', 'prev': prev})
+                    state.update(co=(hl if hl in L.LETTERS else exp), section='officers', head='', comp_since_priv=True, started=True, co_rule='letter', co_heading=' '.join(payload.split()), co_off=off)
+                    continue
                 if exp and (hl == exp or hmap == exp):
                     co = exp
                 elif exp and (hl in L.CONFUSE.get(exp, ()) or hmap in L.CONFUSE.get(exp, ()) or hmap not in L.LETTERS):
                     co, rule = exp, 'sequence'                # the printed letter is one the scan confuses with the expected letter, or no letter: the sequence gives it
+                elif exp and hl in L.LETTERS and L.LETTERS.index(hl) < L.LETTERS.index(exp) and hl not in seen_cos:
+                    co, rule = hl, 'late'                     # a clean letter that no heading above had: a company printed out of order (the 16th Regiment's Company A stands at the end)
                 elif hl in L.LETTERS and exp and L.LETTERS.index(hl) > L.LETTERS.index(exp) and L.LETTERS.index(hl) - L.LETTERS.index(exp) <= 3:
                     co, rule = hl, 'skip'                     # a clean letter further on: the roll has no company in between
                 elif exp:
@@ -555,6 +564,7 @@ def parse_section(tid, a, b, co_start='', verbose=False):
                 else:
                     co, rule = hmap, 'out-of-sequence'
                 heading_log.append({'off': off, 'heading': ' '.join(payload.split()), 'letter_read': hl, 'assigned': co, 'rule': rule, 'prev': prev})
+                seen_cos.add(co)
                 state.update(co=co, section='officers', head='', comp_since_priv=True, started=True, co_rule=rule, co_heading=' '.join(payload.split()), co_off=off)
             elif kind == 'fs':
                 state.update(co='FS', section='fs', head=head_text(kind, payload), started=True, co_rule='', co_heading='', co_off=None)

@@ -1,110 +1,182 @@
-# us-1c-1d-art: Union I Corps, Wadsworth's division (Meredith, Cutler) and Wainwright's artillery brigade: report of the researcher
+# us-1c-1d-art: report of the third pass (2026-11-16)
 
-Workstream bt-units, 2026-11-13. File: `history/undrawn/us-1c-1d-art.jsonl` (152 records, claim ids U-us-1c-1d-art-0001 to 0153; the number 0115 is not used: a record that was dropped because its passage ran over 4,000 characters). Proposed register entries: `GOVERNANCE/horde/ws-units/proposed-register/us-1c-1d-art-*.md` (4). Request note: `GOVERNANCE/horde/requests/bt-units-us-1c-1d-art-statevol-index.md`.
+Group `us-1c-1d-art` of `groups.json`: the I Corps entry, Wadsworth's First Division (Meredith's Iron Brigade, Cutler's brigade) and Wainwright's Artillery Brigade, with the two roster-gap units. Deliverable: `history/undrawn/us-1c-1d-art.jsonl`, in the contract of `undrawn/PLAN.md`. This report replaces the one of 2026-11-13 (152 records). Workstream bt-units.
 
 ## 1. Result
 
-`python3 -I history/undrawn/tools/check_undrawn.py us-1c-1d-art --complete` exits 0: 0 errors, 1 warning (record 0084, Hall's battery "to the rear" on 3 July: the place is only the words "the rear", the anchor is none, and the note says why), 0 of the 17 leaf units still owed anything (0 of 77 items). `check_undrawn.py --all` exits 0 over the three group files present now (this one, us-hq-artres, us-1c-2d-3d), `--self-test` prints OK, and `python3 tools/bt/check_governance.py` exits 0 (`ok: true`, no fails; its coverage notes Q17, Q18 and Q23 report the project's own unfinished work and none concerns this file). Not run: any browser or rendering check, the node suite, the integrator commands (`derive_status.mjs`, `build_roster_gaps.py`, `build_groups.py`) and any gate. No `passes` flag was touched, nothing was committed, merged or deployed.
+- **519 records**: 273 documented, 240 inferred, 4 open gaps, 2 source records (the two texts acquired for this group). No plausible-procedural record (the group files never hold that tier). Every datum carries its tier, a citation and a quote of at most 14 words that the checker finds in the text; a record that rests on a non-officer text (a state volume's sketch or inscription, a regimental history, a guide) is at most inferred, with its reasoning.
+- The file grew from 152 records (first pass) to 306 (second pass) and now to 519. No claim id was renumbered or reused; the ids of the earlier passes stand.
+- `python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py us-1c-1d-art --complete`: 0 errors, 2 warnings (records 0084 and 0209, whose notes say why no anchor exists), 0 of 17 leaf units still owed anything.
+- The file is rebuilt from spec modules by code (offsets, pages, passages and quotes are computed from the local texts, not typed); the scratch builder is under `tmp/units-us-1c-1d-art/` (not shipped).
+- Every conflict is carried and none is resolved: 35 clusters (section 4), conflict links reciprocal inside the file (the two links to ids outside it, `POS-A-1CA-001` and `RC-08`, are named in the records).
 
-Records by kind: unit 3, arrival 16, arrival_road 13, march 1, position 34, movement 6, engagement 18, night_position 4, strength 33, line_order 11, road_identification 7, source 2, gap 4. Tiers: documented 74, inferred 72, open gap 4 (the two `source` records carry no tier); 32 records are marked `ocr_uncertain`. No plausible-procedural record was written: a share the layer draws without a figure stays the builder's, and the gaps below say so.
+## 2. Units done
 
-Every quote is at most 14 words and was found by code in the local text at the recorded offset; every `printed` field stands in the passage; every passage is at most 4,000 characters, was read in full, and was checked against the statement it carries (a statement that ran past its passage was trimmed or the passage widened). The records were written by a builder (`tmp/units-us-1c-1d-art/tools/`: `lib.py`, `make.py`, `grab.py`, `specs_*.py`; `ids.json` keeps the claim numbers stable; all untracked). To rebuild after an edit of a spec: `python3 -I tmp/units-us-1c-1d-art/tools/make.py specs_core specs_iron specs_cutler specs_art specs_misc specs_dawes specs_curtis`.
+All 23 unit ids that carry records. Counts are records; kinds: arr arrival, road arrival_road, march, pos position, mov movement, eng engagement, night night_position, dep departure, str strength, order line_order, rid road_identification, gap, unit. The last column is the earliest arrival record of the unit's own (record, date/hour, source, tier).
 
-## 2. What closed each unit
-
-Citations are claim numbers of this file. A formation (corps, division, brigade, artillery brigade) is covered through its own records and its leaf units' records; a leaf unit with a blank cell is covered by the formation above it, as the contract allows.
-
-| Unit | Arrival | Path | Positions (days 1 to 3 July) | Strength |
+| Unit | Name | Records | Kinds | Earliest own arrival |
 |---|---|---|---|---|
-| I Corps | by the division | by the division | by the division | about 8,300 on entering the battle (0001) and about 8,200 at the beginning (0002), both Doubleday, carried as a conflict |
-| 1st Division (Wadsworth) | about 10 a. m. on the Cashtown road three-quarters of a mile west of Gettysburg (Wadsworth, 0004); column of the morning (0003) | | 1 July about 2 p. m.: a little to the right of the railroad (Howard, inferred 0153); 2 July: the hill on the right of the cemetery, Culp's Hill (Newton 0007; Wadsworth 0005); attacked about sundown (0008); 3 July: attacked in the morning (0006), "as before reported" at dawn (0009) | none of its own |
-| Iron Brigade (Meredith) | about 10 a. m. (Mansfield 0015); 9 a. m. (Morrow, 0016) and about 10 a. m. (Robinson, 0021) carried | the Emmitsburg road (Robinson, inferred 0017) | by its regiments below | Fox 1,883 engaged (0012); Dawes 1,800 who marched (0125); brigade guard 2 officers and 100 men (0116, 0117); three orders of the line carried (0010, 0137, 0138) |
-| 2nd Wisconsin | by the brigade | Emmitsburg pike (Mansfield, 0013 identification, 0018) | by the brigade | 302 (Doubleday, 0019) |
-| 6th Wisconsin | by the brigade | Emmitsburg Road, last in the column (Dawes 1890, 0120, 0121) | 1 July night to 3 July: Culp's Hill (0126, 0128, 0132), to Greene at dusk and back at midnight (0129, 0130, 0131), the Seventh Indiana on its right (0127) | 340 officers and men who marched (0122, 0123); 420 who started from the turnpike fence (0124), carried as a conflict |
-| 7th Wisconsin | about 10 a. m. (Robinson, 0021) | the Emmitsburg to Gettysburg road, 5 miles out (0014, 0020) | by the brigade | **open gap** (0111) |
-| 19th Indiana | by the brigade | by the brigade | by the brigade | 288 (Doubleday 0026; Indiana report of 1913, 0027) |
-| 24th Michigan | about 9 a. m. (Morrow, 0016) | the Emmitsburg road (Curtis 1891, 0134) | 1 July evening: Culp's Hill, facing the town (Curtis 0135); 2 and 3 July: Culp's Hill (Morrow 0024, 0025); monument faces northwest (0110) | 468 enlisted (Morrow 0022); 496 with 28 officers (inscription 0023; Curtis 0136) |
-| Cutler's brigade | by the division | the pike over the Marsh Creek bridge (Hofmann 1889, 0029 identification, 0030) | 2 July early morning: the hill between the First Brigade and Greene (Cutler, 0033); the 2d and 3d in the trenches (0034, 0035) | none of its own; two orders of the column carried (0031, 0032) |
-| 7th Indiana | afternoon of 1 July, detached at Emmitsburg, joined at Gettysburg (Grover 0036; Cutler 0037) | **open gap** (0113) | the hill east of Gettysburg until the evening of 3 July (0038, 0039); ordered to Cemetery Hill that evening (0040), about 3 p. m. (Pye, 0041), late afternoon (Hofmann, 0042), carried | **open gap** (0112) |
-| 56th Pennsylvania | by the division | Emmitsburg and Gettysburg road near Marsh Creek (Hofmann, 0028, 0067) | 2 July engaged on the ridge in rear of the town (0072); 3 July to Cemetery Hill (0042) | 17 officers and 235 enlisted men (Hofmann 0068, 0070; Cutler 0069, 0071) |
-| 76th New York | about 10.30 a. m. near the seminary (Cook, 0043) | by the brigade | by the brigade | 348 men and 27 officers (Cutler 0045, 0047) against 346 and 24 (Bachelder 0046, 0048), both carried; "number engaged 348" (inscription 0049) |
-| 84th New York | by the brigade | by the brigade | 1 July 10:30 a. m. (inscription 0118); 2 July second line, then to Greene near dark (0052, 0053); 3 July relieved at sunrise, then to Geary (0054, 0055) | 356 officers and men (inscription 0050; Low 0051) |
-| 95th New York | by the brigade | by the brigade | 2 July the intrenchments on the right (0058); 3 July the same until about 3 p. m. (0059), to the cemetery (0041) and there at night (0060) | 24 officers and 239 men present for duty on 30 June (0056, 0057) |
-| 147th New York | about 9:30 a. m. (regimental sketch, 0044) | the Emmitsburg Pike (Pierce, 0061) | East Cemetery Hill to the morning of 2 July, then Culp's Hill (0064); hurried to Greene on the evening of 2 July (0065); next day (0066) | 380 (Cutler 0062; Pierce 0063) |
-| Artillery brigade (Wainwright) | within some 2 miles at about 10.30 a. m. (0074); across the fields toward the seminary (0075); march order of the morning (0073) | the Emmitsburg road (Maine sketch, inferred 0076) | 3 July: engagement in the morning and the afternoon (0078, 0079); Hunt's line from right to left (0080) | an **open gap** for Batteries L, B (4th US) and E only (0114) |
-| 2nd Maine (Hall) | ordered in about 10.15 a. m. (Hunt 0081); first shots 10.45 a. m. (Hall 0082), carried | the Emmitsburg Pike (Pierce, inferred 0083) | 2 July: half the battery in Osborn's line south of the Baltimore pike, facing the Emmitsburg (Hunt, inferred 0152); 3 July at the rear (Hall 0084) | 150 on the rolls (Maine sketch, 0085) |
-| 5th Maine (Stevens) | between ten and eleven o'clock (Maine sketch, 0086) | the Emmitsburg road (0077 identification, 0087) | 1 July at daylight between Marsh Creek and Gettysburg (0089); the morning engagement carried on two dates (0090, 0091, 0092); Hunt's 3 July line (0093) | 136 present for duty (Maine sketch, 0088) |
-| Battery L, 1st New York (Reynolds, Breck) | about 11 a. m. (Breck, 0094); between 10 and 11 o'clock (Breck 1889, 0140) | the pike leading to Gettysburg (0141 identification, 0142) | 1 July: the orchard south of the Cashtown road and the south side of the wood (Wainwright, 0150, 0151); 2 July: front and right of the cemetery gate (0095), right of Ricketts' battery (0145); 3 July: the same (0096), second from the right in Hunt's line (0097), not engaged (0139), carried | **open gap** (0114) |
-| Battery E, 1st New York | attached to Battery L (0106 table footnote, 0107 sketch) | | | **open gap** with Battery L (0114) |
-| Battery B, 1st Pennsylvania (Cooper) | about noon on the left of the Third Division (Cooper, 0098) | the Hagerstown-(Fairfield) road (Gardner, 0099, 0100) | 1 July: the oat-field 350 yards (Wainwright, 0146) or 380 yards (Hunt, 0147) south of the Cashtown road, and at sunset the crest in rear of Gettysburg, fronting northeast (0109); 3 July: about 3 p. m. (0102) or 1 p. m. (Gardner, 0103) | 114 present for duty (Gardner, 0101) |
-| Battery B, 4th US (Stewart) | by the brigade | by the brigade | 1 July: half the battery between the Cashtown pike and the railroad and half across it (0148), the left half swung on the pike to enfilade (0149); 2 July: two guns on the Baltimore pike facing the town, two behind the right guns of Ricketts' battery (Ricketts, 0143, 0144); 3 July (Hunt, 0104) | **open gap** (0114) |
-| Company L, 1st Maine Cavalry (I Corps headquarters) | | | 1 July: reported to Doubleday, driving back stragglers at the close of the day (0108) | none |
+| `us-1c` | I Corps (corps entry) | 15 | str 3 arr 3 rid 2 dep 2 pos 2 road 1 march 1 order 1 | 0389, 06/30 (day only), R007, inferred |
+| `us-1c-1d` | First Division, Wadsworth | 42 | pos 21 eng 7 arr 4 march 4 order 3 road 2 mov 1 | 0345, 06/30 (day only), R029, documented |
+| `us-1c-1d-meredith` | First Brigade (Iron Brigade), Meredith | 26 | pos 10 order 6 str 4 eng 3 arr 2 road 1 | 0504, 06/30 12:00 (approx.), CURTIS-1891, inferred |
+| `us-1c-1d-meredith-2wi` | 2nd Wisconsin | 13 | pos 4 eng 4 mov 2 rid 1 road 1 str 1 | none of its own (see section 3) |
+| `us-1c-1d-meredith-6wi` | 6th Wisconsin | 35 | pos 16 mov 5 str 3 eng 3 order 2 night 2 march 2 road 1 arr 1 | 0505, 06/30 (day only), DAWES-1890, documented |
+| `us-1c-1d-meredith-7wi` | 7th Wisconsin | 13 | pos 4 eng 3 mov 2 rid 1 road 1 arr 1 gap 1 | 0021, 07/01 10:00 (approx.), R036, documented |
+| `us-1c-1d-meredith-19in` | 19th Indiana | 7 | pos 3 str 2 eng 2 | none of its own (see section 3) |
+| `us-1c-1d-meredith-24mi` | 24th Michigan | 25 | pos 9 mov 4 str 3 eng 3 arr 2 march 2 road 1 night 1 | 0376, 06/30 (day only), R033, documented |
+| `us-1c-1d-cutler` | Second Brigade, Cutler | 35 | pos 12 eng 8 mov 7 order 3 rid 1 road 1 night 1 march 1 arr 1 | 0481, 07/01 (day only), NY2-S021, inferred |
+| `us-1c-1d-cutler-7in` | 7th Indiana | 17 | pos 8 arr 2 mov 2 gap 2 eng 1 dep 1 str 1 | 0037, 07/01 (day only), R037, documented |
+| `us-1c-1d-cutler-56pa` | 56th Pennsylvania | 18 | str 5 mov 4 eng 4 pos 2 rid 1 road 1 arr 1 | 0514, 06/30 12:00, PA1-S018, documented |
+| `us-1c-1d-cutler-76ny` | 76th New York | 18 | str 5 mov 5 pos 4 eng 2 arr 1 road 1 | 0043, 07/01 10:30 (approx.), R039, documented |
+| `us-1c-1d-cutler-84ny` | 84th New York (14th Brooklyn) | 29 | pos 10 eng 10 mov 7 str 2 | none of its own (see section 3) |
+| `us-1c-1d-cutler-95ny` | 95th New York | 21 | pos 12 mov 3 str 2 night 2 eng 2 | none of its own (see section 3) |
+| `us-1c-1d-cutler-147ny` | 147th New York | 25 | pos 8 mov 8 eng 5 str 2 arr 1 road 1 | 0044, 07/01 09:30 (approx.), NY3-S006, inferred |
+| `us-1c-art` | Artillery Brigade, Wainwright | 26 | pos 8 eng 6 order 5 arr 2 road 1 gap 1 rid 1 mov 1 march 1 | 0074, 07/01 10:30 (approx.), R071, documented |
+| `us-1c-art-2me` | 2nd Maine Battery (Hall) | 35 | pos 13 mov 7 arr 6 eng 4 str 2 road 1 night 1 march 1 | 0346, 06/30 (day only), R029, documented |
+| `us-1c-art-5me` | 5th Maine Battery (Stevens) | 29 | pos 12 eng 9 mov 2 night 2 rid 1 arr 1 road 1 str 1 | 0086, 07/01 (day only), ME-S004, inferred |
+| `us-1c-art-1nyl` | Battery L, 1st New York (Reynolds) | 38 | pos 15 eng 13 mov 5 arr 2 rid 1 road 1 night 1 | 0094, 07/01 11:00 (approx.), R074, documented |
+| `us-1c-art-1pab` | Battery B, 1st Pennsylvania (Cooper) | 36 | pos 12 eng 11 mov 4 arr 3 road 2 str 2 rid 1 night 1 | 0425, 06/30 (day only), PA2-S031, documented |
+| `us-1c-art-4usb` | Battery B, 4th US (Stewart) | 10 | pos 6 eng 3 night 1 | none of its own (see section 3) |
+| `us-1c-art-1nye` | Battery E, 1st New York (attached to Battery L; roster gap) | 2 | unit 2 | none of its own (see section 3) |
+| `us-1c-hq-1mecav-l` | 1st Maine Cavalry, Company L (I Corps headquarters; roster gap) | 2 | unit 1 march 1 | none of its own (see section 3) |
 
-## 3. Strengths, as ranges with their bases
+Records by source (the source of each record's quote):
 
-Strengths are kept as printed, never reduced to one number; each record names its basis (`what`) and date. For the infantry the figures are those the reports give for 1 July: Doubleday's table of men who went into the battle (2nd Wisconsin 302, 19th Indiana 288), Morrow's table (24th Michigan 468 enlisted men, 496 with the 28 officers of the inscription and Curtis), Dawes (6th Wisconsin 340, with 420 who started in the charge), Hofmann and Cutler (56th Pennsylvania 17 officers and 235), Cutler (76th New York 348 men and 27 officers; 147th New York 380) and the monument inscription (84th New York 356); the 95th New York's 24 officers and 239 men are the muster of 30 June. The batteries: Hall 150 on the rolls and Stevens 136 (Maine sketches, tier inferred), Cooper 114 present for duty (Gardner, a lieutenant of the battery, tier documented). The roster's equal shares (366 a regiment of the Iron Brigade, 1,830 for the brigade) and the plan's corps figure (12,160) are leads, not sources: Doubleday prints about 8,300 and about 8,200 for the corps, Fox 1,883 and Dawes 1,800 for the brigade.
+| Source | Records |
+|---|---|
+| Official Records, Series I, vol. 27, parts 1 and 3 | 306 |
+| State volumes (NY2) | 36 |
+| State volumes (NY3) | 35 |
+| State volumes (PA2) | 34 |
+| State volumes (ME) | 31 |
+| DAWES-1890 | 21 |
+| State volumes (PA1) | 17 |
+| CURTIS-1891 | 12 |
+| State volumes (NY1) | 7 |
+| BACH-WHATTOSEE-1889 | 7 |
+| State volumes (BL3) | 3 |
+| State volumes (MI) | 2 |
+| State volumes (FOX) | 1 |
+| IN-1913 | 1 |
 
-## 4. Conflicts carried (17 clusters in 16 items below, the 76th New York's men and officers being two; every member is kept, each names the others in `conflicts_with`; none is resolved)
+What the third pass added to what the earlier passes held: the group's own reports were read again for sentences no record covered (a coverage tool lists the sentences that overlap no passage) and the neighbouring reports were swept for the group's units; the regimental addresses, sketches, inscriptions and tablets of the New York volumes (NY2-S013, S018, S021; NY3-S006, S023, S024) were scanned sentence by sentence with the coverage tool and every passage about the group's units read in full; the Maine volume's sketches of Hall's and Stevens' batteries (ME-S001, ME-S004), Gardner's address for Cooper's battery (PA2-S031), Hofmann's address for the 56th Pennsylvania (PA1-S018), the commission's narrative of the first day (NY1-S001), the chapters of Dawes and Curtis for 30 June to 5 July and Bachelder's guide of 1889 were read for the same purpose.
 
-1. Corps strength: about 8,300 (0001) or about 8,200 (0002), one report.
-2. Arrival of the division and the Cutler regiments: about 10 a. m. (0004), 10.30 a. m. (0043), about 9:30 a. m. (0044).
-3. Order of the Iron Brigade's line: Doubleday (0010), Morrow (0137), Robinson (0138).
-4. Iron Brigade strength: Fox 1,883 (0012), Dawes 1,800 (0125).
-5. Iron Brigade arrival hour: about 10 a. m. (0015), about 9 a. m. (0016), about 10 a. m. (0021).
-6. Order of Cutler's column: Hofmann (0031), Pierce (0032) (the Fourteenth Brooklyn and the 95th trade places).
-7. The order to Cemetery Hill on 3 July: evening (Grover, 0040), about 3 p. m. (Pye, 0041), late afternoon (Hofmann, 0042).
-8. 76th New York: 348 men (0045) or 346 (0046); 27 officers (0047) or 24 (0048).
-9. Artillery arrival: Wainwright about 10.30 a. m. within 2 miles (0074), Breck about 11 a. m. at the scene (0094).
-10. Hall's battery: ordered in about 10.15 a. m. (Hunt, 0081), opened 10.45 a. m. (Hall, 0082).
-11. Whittier's "morning of the 3d instant": the OCR day read as 2 July (0090) or as printed, 3 July (0091).
-12. Cooper on 3 July: about 3 p. m. (Cooper, 0102), 1 p. m. (Gardner, 0103).
-13. 6th Wisconsin strength: 340 (0122), 420 (0124).
-14. The Fifth Maine at daylight on 1 July between Marsh Creek and Gettysburg (0089) against the brigade two miles from Emmitsburg on the night of 30 June (ledger claim POS-A-1CA-001).
-15. Battery L on 3 July: held its position and fired (0096), not engaged (Breck 1889, 0139).
-16. Cooper's oat-field: some 350 yards (Wainwright, 0146) or about 380 yards (Hunt, 0147) south of the Cashtown road.
-17. Not coded as conflicts because they agree: Breck's 1889 hour for Battery L (between 10 and 11, 0140) with 0094; Ricketts' "six guns" for Battery L (note of 0145) against five (Breck, Wainwright), a recollection printed with "I think".
+Facts of the pass worth naming (all in the file, each with its quote):
 
-## 5. Open gaps (4 gap records; each has its proposed register entry)
+- Dates before 1 July: the First Corps on the night of 30 June (Marsh Run or Marsh Creek, Howard R243, itinerary R007, Doubleday R029, Morrow R033, Dawes' letter, Curtis, Hofmann: noon at Marsh Creek on the south bank by the pike bridge; Emmitsburg except Wadsworth's division, Bachelder 1889).
+- Routes: the leaving point at the Codori house (Hofmann, Pierce, the 95th sketch, Bachelder), Cooper's battery on the western road by the White bridge and Willoughby Run (Gardner, Bachelder), the order of the corps artillery on the march.
+- Positions anchored on monuments and markers (MON-154, MON-291, MON-297, MON-298, MON-303, MON-357): each anchor carries the printed statement that the monument stands where the unit stood.
+- Times: clocks printed in numerals are coded as clocks; times in words ("eleven o'clock", "lo o'clock" for 10) are carried by sequence with the hour in the note (second request note).
+- Facing: only where a compass word or a named place is printed (facing the town, toward Oak Hill, west and northwest, the northwest of the Twenty-fourth Michigan's monument); never inferred.
+- Builds on the ground: the four lunettes of Cooper's battery (finished on the morning of 2 July, the start not printed), the breastworks of Cutler's brigade on Culp's Hill (no hour printed), the earthworks of the batteries outside the cemetery gate at dusk on 1 July. No earthwork is placed before its printed window.
 
-| Gap record | What | Register entry |
+## 3. Gaps and units without a record of their own
+
+**Four open gaps** (each with what was searched, and a proposed register entry in `GOVERNANCE/horde/ws-units/proposed-register/us-1c-1d-art-*.md`; none is in `register/` yet, the integrator or the owner files them):
+
+| Claim | Unit | What is missing | Searched (count of source entries, now including Bachelder 1889 and Curtis) |
+|---|---|---|---|
+| 0111 | 7th Wisconsin | strength on 1 July | 7 entries; the OR reports of the brigade, Fox, Dawes, Curtis, Bachelder, a pattern search over the volumes and the texts; Busey and Martin is not public domain and is not acquired |
+| 0112 | 7th Indiana | strength on 1 July | 7 entries; the one figure found is a later historian's "nearly five hundred" (record 0293, inferred) |
+| 0113 | 7th Indiana | the road from Emmitsburg to Gettysburg on 1 July | 6 entries; Grover, Cutler and Hofmann print the detachment and the junction at Cemetery Hill and no road; the 95th sketch prints only that the regiment guarded trains |
+| 0114 | Batteries L, B (4th US), E | strength on 1 July | 5 entries; the returns, Wainwright, Breck, Hunt, the Battery E and L sections of NY3 print losses and guns, not strength |
+
+Each gap has a proposed way to draw the unit that is not in the file (the corps-level road for the 7th Indiana, the battery's gun count for the batteries); the product marking for such a unit must say "open gap" and name the register entry.
+
+**Units with no arrival record of their own**: the 14th Brooklyn (84th New York), the 95th New York, the 19th Indiana, the 2nd Wisconsin (road only), Battery B 4th US, Battery E 1st New York and Company L 1st Maine Cavalry. The reports of Fowler (R040) and Pye (R041) print no hour or place for the arrival of their regiments; no report of the 19th Indiana is among the reports read; Battery B (4th US) has the hour of its help to Wadsworth (R032) and its places, not an arrival. These units are carried with the arrival of the brigade or the corps above them (records 0004, 0030, 0481 for Cutler's brigade; 0015 and 0017 for the Iron Brigade; 0074 and 0076 for the artillery brigade): that is what the checker requires and what the sources print; it is not an arrival of their own and the integrator must not give them a time of their own.
+
+**Roster-gap units**: Battery E, 1st New York (records 0106 and 0107: the organization table prints it as "attached" to Battery L and the sketch says it was transferred to L on 20 June 1863 and fought with it; it has no separate entry in any report, so it is drawn as part of Battery L and its strength is in gap 0114) and the 1st Maine Cavalry, Company L (records 0105 and a march record: it stood at corps headquarters as Reynolds' escort, Doubleday prints; no figure of its own).
+
+**Days and places not printed**: for the batteries on 2 and 3 July, some positions are given by the printed words only ("on the hill", "outside the cemetery gate"); where a printed word names no anchor the record keeps the words and the checker's two warnings say so (0084, 0209).
+
+## 4. Conflicts carried (35 clusters, none resolved)
+
+Records are named by their last four digits. "R" is an Official Records report. Each cluster is a set of records that cannot all be true; the integrator carries them as selectable scenarios.
+
+| # | Records | What differs |
 |---|---|---|
-| 0111 | strength of the 7th Wisconsin: no figure in the Official Records, Fox, Dawes or the local texts | `us-1c-1d-art-7wi-strength` |
-| 0112 | strength of the 7th Indiana: no figure in R037, R038, Fox or the Indiana report of 1913 | `us-1c-1d-art-7in-strength` |
-| 0113 | the road by which the 7th Indiana came from Emmitsburg on 1 July: Grover and Cutler print no road (it was detached at Emmitsburg) | `us-1c-1d-art-7in-path` |
-| 0114 | strength of Battery L, Battery B (4th US) and Battery E (covers lists the three): the reports print losses and guns, the organization table commanders; the abstract of returns (R008) is a line for the brigade after the battle | `us-1c-1d-art-batteries-strength` |
+| 1 | 0089, `POS-A-1CA-001` | where the Fifth Maine Battery was at daylight on 1 July: with the artillery brigade between Marsh Creek and Gettysburg (Maine sketch) against the layer's claim; Wainwright (R071) puts the main body about 2 miles from Emmitsburg with marching orders about 8 o'clock |
+| 2 | 0186, `RC-08` | "the Fairfield road" of Dawes (R035): the Hagerstown road or the road from the Peach Orchard (concordance row RC-08, request note 1) |
+| 3 | 0001, 0002 | Doubleday's two figures for the First Corps at the start: about 8,300 and about 8,200 |
+| 4 | 0004, 0015, 0016, 0021, 0043, 0044, 0194, 0209, 0311 | the arrival of the division and the brigades on 1 July: 9 a. m. (24th Michigan), 9:30 (147th New York), about 10 (division, Iron Brigade, 7th Wisconsin), 10.10 (Buford's dispatch of the head of the column), 10:15 (Wadsworth), 10:30 (76th New York), 11 (56th Pennsylvania engaged) |
+| 5 | 0010, 0137, 0138, 0502 | the line of the Iron Brigade: Doubleday, Second, Seventh Wisconsin, Nineteenth Indiana, Twenty-fourth Michigan from right to left; Morrow, the Nineteenth Indiana on the left of the Twenty-fourth and the Seventh Wisconsin on its right; Robinson, the Seventh on the right of the Second; Curtis, the Twenty-fourth in the centre, the Nineteenth on its left, the Seventh and Second Wisconsin on its right |
+| 6 | 0012, 0125 | strength of the Iron Brigade: 1,883 engaged (Fox) against 1,800 (Dawes); the plan's roster holds 1,830 |
+| 7 | 0031, 0032 | order of Cutler's regiments: Hofmann's column (76th NY, 56th PA, 147th NY, 95th NY, 14th Brooklyn) against Pierce's formation (guard of 18, 76th, 56th, 147th, 14th Brooklyn, 95th) |
+| 8 | 0040, 0041, 0042 | the detachment of the 56th Pennsylvania, 7th Indiana and 95th New York to the cemetery on 3 July: the evening (Grover), about 3 p. m. (Pye), late afternoon (Hofmann) |
+| 9, 10 | 0045 to 0048 | strength of the 76th New York: 348 men and 27 officers (Cutler) against 346 and 24 (Bachelder); one record per figure, men and officers |
+| 11 | 0053, 0453, 0454 | the night encounter of the 14th Brooklyn on 2 July: near dark (Fowler), after dark (Low, 1887), about 9 P. M. (the tablet on Culp's Hill) |
+| 12 | 0073, 0495 | the march order of the corps on 1 July: first division, third, artillery brigade, second (Wainwright) against the batteries of Stevens, Reynolds and Stewart behind the first division on the pike and Cooper with the third division on a western road (Bachelder) |
+| 13 | 0074, 0094 | the arrival of the artillery brigade: about 10.30 within 2 miles (Wainwright), about 11 a. m. at the scene (Breck) |
+| 14 | 0081, 0082 | Hall's battery into action: 10.15 and 500 yards beyond the seminary (Hunt), 10.45 and 400 yards (Hall) |
+| 15 | 0084, 0152, 0278, 0312, 0313, 0410 | Hall's battery on 2 and 3 July: to the rear for repairs on 2 July (Hall, Maine volume) against in Osborn's line on the hill on the 2nd and 3rd (Hunt, Osborn) |
+| 16 | 0090, 0091 | Whittier's "morning of the 3d instant" fire at 1,500 yards: read as 2 July or as 3 July |
+| 17 | 0092, 0401 | the Fifth Maine on 3 July: engaged an hour early in the morning (R073) against not actively engaged (Maine volume) |
+| 18 | 0096, 0139, 0455 | Battery L on 3 July: engaged from Cemetery Hill (monument inscription), not engaged (Breck 1889), replied at first and was then forbidden (Breck's report, record 0387) |
+| 19 | 0098, 0425, 0426 | Cooper's battery on 30 June: camp near Emmitsburg (R075) against Marsh Creek (Doubleday, Gardner) |
+| 20 | 0102, 0103 | Cooper's battery to the front on 3 July: about 3 p. m. (Cooper) against 1 p. m. (Gardner) |
+| 21 | 0122, 0124 | the Sixth Wisconsin: 340 in the ranks against 420 who started from the turnpike fence (Dawes, one chapter) |
+| 22 | 0146, 0147, 0427 | Cooper's first position of 1 July: an oat-field 350 yards (Wainwright) or 380 yards (Hunt) south of the Cashtown road, or a crest south of the McPherson wood (Gardner) |
+| 23 | 0189, 0503 | the capture at the railroad cut: the Second Mississippi of Davis' brigade (Dawes) against Archer's remnant (Curtis) |
+| 24 | 0218, 0219 | the 147th New York's retreat: held until relieved by a charge (Cutler, Doubleday) against not cut off, ordered by Wadsworth's adjutant (Pierce) |
+| 25 | 0228, 0230, 0456, 0457, 0522 | the 14th Brooklyn and the gun of Hall's battery: recaptured by the charge (Fowler's report, the commission narrative) against drawn off by one of Hall's officers (Fowler's letter of 1888 quoted by Pierce); the regiment stayed at the cut until the final retreat (monument) against left it for the brigade and the seminary (R040, R037) |
+| 26 | 0232, 0233 | who sent the 7th Indiana to Culp's Hill on 1 July: Wadsworth (Cutler) or Hancock (Hofmann); Hunt (BL3, record 0294) has Wadsworth lead it and Hancock order Wadsworth there |
+| 27 | 0249, 0250 | the Fifth Maine at the seminary: on Stewart's left (Whittier) or to the right of Cooper (Wainwright, Maine volume) |
+| 28 | 0251, 0252, 0253, 0402 | the Fifth Maine's knoll on the night of 1 July: right and rear of Cemetery Hill (Whittier), right and 50 yards in front of the other batteries (Wainwright), the knoll at the end of Culp's Hill sent by Hancock (Maine volume) |
+| 29 | 0258, 0265 | the retirement of 1 July: all batteries down the pike and through the town (Wainwright) against four of Battery L's pieces to the Taneytown road (Breck) |
+| 30 | 0262, 0298 | Battery L's second position: 500 yards behind the first, west of the seminary (Breck) against the field south of the pike behind the McPherson woods facing north (commission narrative) |
+| 31 | 0273, 0428 | Cooper's retirement through the town: about 5 p. m. (Cooper) against after 4 p. m. (Gardner) |
+| 32 | 0291, 0292 | the 24th Michigan on 5 July: moved to near the ground of the final charge (Sergeant Green) against Culp's Hill (Captain Edwards' dateline) |
+| 33 | 0304, 0305 | Whittier's afternoon after the "morning of the 3d instant": 2 July or 3 July |
+| 34 | 0388, 0389, 0496 | the First Corps on the night of 30 June: Marsh Run (Howard, itinerary) against Emmitsburg except Wadsworth's division at Marsh Creek (Bachelder 1889); the three are records of the corps, and records 0497 and 0498 (Wadsworth's division and Hall's battery at Marsh Creek) agree with all three |
+| 35 | 0415, 0429 | Cooper's battery at the seminary: about 2 p. m. (Maine volume) against about 3 p. m. (Gardner) |
 
-Each gap lists at least three searches, two of them in texts on this machine; Busey and Martin (regimental strengths) is named `NOT-ACQUIRED` in all four, because it is not public domain and only the owner can obtain it. Sweeps over all the state volumes in the closing pass found no strength of the 7th Indiana, of Battery L or of Stewart's battery, and one figure for the 7th Wisconsin that the gap already names (Fox: 249 present for duty in December 1863).
+Smaller disagreements are written in the notes of the records and are not made clusters (for example the officer who ordered the 95th New York and the Fourteenth Brooklyn to the left: Reynolds in Cutler's report and Bachelder, Wadsworth in Hedges and the 95th sketch; the place and the time are the same in all of them).
 
-## 6. Roster actions
+## 5. Evidence read
 
-Two roster-gap entries belong to the group. `us-1c-hq-1mecav-l` (1st Maine Cavalry, Company L, Capt. Constantine Taylor): a `unit` record with action add (0105, the organization table) and a `march` record of 1 July (0108, Doubleday: Taylor commanded Reynolds' escort and drove back stragglers at the close of the day). `us-1c-art-1nye` (Battery E, 1st New York): a `unit` record with action attached to `us-1c-art-1nyl` (0106, the table's footnote; 0107, the Battery E sketch of the state volume). The plan draws Battery E as a battery of its own with a full share; both records say the table prints it attached.
+**Official Records, Series I, vol. 27, part 1** (read in the group's own reports and swept for the units in the neighbours'): R028 (Hunt), R029 (Doubleday), R030 (Newton), R032 (Wadsworth), R033 to R036 (Morrow, Mansfield, Dawes, Robinson), R037 (Cutler), R038 to R042 (Grover, Cook, Fowler, Pye, Hofmann), R071 to R075 (Wainwright, Hall, Whittier, Breck, Cooper), R007 to R009 (itinerary, returns, organization), and for corroboration or conflict R006, R061, R067, R076, R231, R243, R253, R264, R271, R272, R293, R307, R311, R312, R327, R328, R337, R374 and one page of part 3. The sentence-coverage tool was run over the group's own reports. For the brigade and regimental reports (R032 to R042, R072 to R075) the sentences it still lists name no place, hour, strength or order of a unit of the group (staff officers, decorations, individual acts, later days of the march). For the long reports of Hunt (R028), Doubleday (R029) and Wainwright (R071) it still lists 128, 156 and 23 sentences that contain place or time words; they concern the army, other corps and other batteries, were swept for the group's units in the earlier passes and were not re-read one by one after the last additions.
 
-## 7. Defects found
+**State volumes** (section ids): NY1-S001; NY2-S013 (76th New York: inscription, Bachelder's address), S018 (14th Brooklyn: inscription, two tablets, Low's oration, Fowler's address), S021 (95th New York: sketch, Hedges' address); NY3-S006 (147th New York: sketch, Pierce, Fowler's letter), S023 and S024 (Battery E and L: inscriptions, Breck's address, the oration of Gen. John A. Reynolds); PA1-S018 (Hofmann); PA2-S031 (Gardner), S035 (Ricketts); ME-S001, ME-S004 (the Second and Fifth Maine Batteries, the sketch of the artillery brigade); MI-S009 (24th Michigan); BL3-S028 (Hunt, 1887); FOX-S002, S204, S209.
 
-1. **The Seventh Indiana's arrival gate.** The layer gives it the division's gate (a 10 a. m. arrival); both Grover and Cutler put its arrival on the afternoon of 1 July (0036, 0037). Merged, the records fix the gate; until then the unit would appear before its documented arrival.
-2. **State-volume index headings** (request note written): `NY2-S013` (headed the 73d New York) holds the 76th; `NY3-S023` (Battery C) holds Batteries C, D and E; `NY3-S024` (headed Battery G) holds Battery L; `ME-S001` (front matter) holds Hall's sketch; `ME-S004` (Sixteenth Regiment participants) holds Stevens'; `NY3-S006` lists one author for two texts.
-3. **OCR of the Official Records**: the 2d is printed 3d in R037 ("the 3d and 3d instant"), R040 and R073 and as a heading "July 3" over the entry of 2 July in R030, and 3d as Sd in R073; also Niaeteenth, carne, oflSicers, Casntown, Enmiits- burg, "1 1" for 11. The records keep the printed words in `quote` and say in `note` how the day was read; R073 is carried on two dates (0090, 0091).
-4. **The plan and roster figures are not sources.** The corps figure 12,160, the brigade 1,830 and the equal share of 366 for each Iron Brigade regiment do not match any report; the records above carry what the reports print.
-5. **A late find of mine in the first pass** (stated, not hidden): the first search for Battery L in the state volumes was capped at ten hits, and the index heading of its section is Battery G, so the whole sketch and dedication of Reynolds' Battery (NY3-S024) was not read until the closing pass. It prints no strength; it adds a second witness to the arrival and road (0140, 0141, 0142) and the conflict of 3 July (0139). The gap record of the batteries had described the wrong section; it now lists NY3-S023 and NY3-S024 as they are.
-6. **A second late find**: a sweep of the state volumes for Stewart's battery found Ricketts' sketch (PA2-S035), which places Battery B (4th US) and Battery L on 2 July (0143 to 0145); a second reading of Wainwright's, Hunt's and Howard's reports found positions that neither the ledgers nor my first pass held (0146 to 0153). The group's records are therefore not the end of what these two reports print: see section 10.
+**Texts acquired for this group** (declared by `source` records inside the file, public domain, archive.org, read by the builder from `tmp/units-us-1c-1d-art/texts/`):
 
-## 8. Read and not read
+| Record | Source | Archive identifier | Bytes | sha256 |
+|---|---|---|---|---|
+| 0119 | `DAWES-1890`, Service with the Sixth Wisconsin Volunteers (1890) | `servsixthwiscon00dawerich` | 850,918 | `b168059e595763a9d53e209a09d286f84ce60cb55a67654e28cabd18e9c367a7` |
+| 0133 | `CURTIS-1891`, History of the Twenty-fourth Michigan of the Iron Brigade (1891) | `24thmichiganiron00curtrich` | 1,215,856 | `722f4b6fe42095cc8e85aba788402fbd63e41129794cd522af43fffa7be9f1f9` |
 
-Official Records, volume 27 part 1, dumped and read in full: R029 (Doubleday), R030 and R031 (Newton; Rosengarten, ordnance only, nothing positional), R032 (Wadsworth), R033 (Morrow), R034 (Mansfield), R035 (Dawes), R036 (Robinson), R037 (Cutler), R038 (Grover), R039 (Cook), R040 (Fowler), R041 (Pye), R042 (Hofmann), R071 (Wainwright), R072 (Hall), R073 (Whittier), R074 (Breck), R075 (Cooper). Read in part: R028 (Hunt: the passages that name the First Corps and its batteries, found by term and then read; the rest of the 339 lines was not read), R009 (the organization table: the First Corps and artillery brigade entries and their footnotes), R007 (the itinerary: by term), R008 (the abstract of returns: the first 60 lines; its First Corps artillery line is for the brigade after the battle), R243 (Howard's report of 31 August: the passages that name the First Corps, found by term and then read, pp. 702 to 704; the ledger holds four of its claims and one more position was added, 0153). Only the heads were opened of R337 (Buford), OR27-3-D0920, D0922 and D0970 (the ledgers hold their claims, POS-A-CV1-008, 035, 036, 041). Not read: R013 (the casualty return).
+**Texts of the library read this pass**: `BACH-WHATTOSEE-1889` (and the 1873 edition, which prints the same sentences and is the same witness), `IN-1913` (the roster and regimental sketches: no narrative of the 7th Indiana, the 19th's loss only), `MEADE-LL-v2` (read for the group's units: a compilation from the reports; no record). Searched by pattern for the units' names and not read in full, no record made: `PIERCE-F-1914`, `NJ-TOOMBS-1888`, `NJ-FINAL-1891`, `HASKELL-1908`, `ALEXANDER-1907`, `LONGSTREET-1896`, `SHSP-04`, `SHSP-05`, `SHSP-06`, `BACH-REPULSE-1870`, `BACH-STORY-1904`, `OH-DED-1887`, `MN-1ST-1916`; the 1863 newspapers were not searched for these units in this pass.
 
-State volumes and local texts: the sections cited (`MI-S009`, `NY2-S013`, `NY2-S018`, `NY2-S021`, `NY3-S006`, `NY3-S023`, `NY3-S024`, `ME-S001`, `ME-S004`, `PA1-S018`, `PA2-S031`, `PA2-S035`), read in the passages that name the units; the first 4,000 characters of `NY1-S019`, `NY1-S034`, `NY1-S048`, `NY1-S053`, `NY1-S066`, `NY3-S051`, `NY3-S055`, `NY3-S078` (nothing taken); `PA1B-S014` (Hofmann's reprint, searched by clock words); Fox (`FOX-S002`, `FOX-S077`, `FOX-S165`, `FOX-S204`, `FOX-S206`, `FOX-S208`, `FOX-S209`: losses and notes; no strength of the open gaps); the Indiana report of 1913 (`IN-1913`, the sketches of the 7th and 19th Indiana); regex sweeps for strengths over the state volumes and the local texts (BL3 and BACH-STORY-1904 among them) and, in the closing pass, for strengths and facing of the batteries and the 7th Indiana and 7th Wisconsin over the state volumes. The monument locations of the state volumes were not used as evidence of 1863 places except where a record says so (0110, a monument's facing, tier inferred).
+**Not read, owner-only**: Busey and Martin, Regimental Strengths and Losses at Gettysburg (not public domain; reading it needs a purchase or licence, an owner act). It is the likeliest source for the four strength gaps.
 
-Texts acquired (public domain, published before 1930; the only requests made were nine to archive.org, paced 1.2 seconds or more apart: six searches and three downloads, of which one, the Wisconsin History Commission's 1910 reprint of Haskell's account of the Second Corps, was not about these units and was deleted): `DAWES-1890`, Rufus R. Dawes, Service with the Sixth Wisconsin Volunteers (archive identifier `servsixthwiscon00dawerich`, 850,918 bytes, sha256 `b168059e595763a9d53e209a09d286f84ce60cb55a67654e28cabd18e9c367a7`, 13 records), and `CURTIS-1891`, O. B. Curtis, History of the Twenty-fourth Michigan of the Iron Brigade (`24thmichiganiron00curtrich`, 1,215,856 bytes, sha256 `722f4b6fe42095cc8e85aba788402fbd63e41129794cd522af43fffa7be9f1f9`, 3 records). Both are under `tmp/units-us-1c-1d-art/texts/` (untracked) and declared by the two `source` records (0119, 0133); the integrator must keep them when the file is merged: on a machine without them `--complete` exits 2 for the 16 records that cite them (13 cite Dawes, 3 cite Curtis), which the plan allows only when the texts are listed in the notes, as they are here (the `tmp/` folder is not tracked by git). Candidates seen and not acquired: Charles King's The Iron Brigade (1902, a novel).
+Network: no request was made in this pass; the texts used were already local. A proxy notice about a connection to a host outside the allow-list appeared once earlier in the session; it was not an action of this group.
 
-## 9. Owner-only acts
+## 6. Defects found in the earlier file and corrected in this pass
 
-- Acquire Busey and Martin, Regimental Strengths and Losses at Gettysburg (not public domain; purchase or licence): it would reopen the four gaps (7th Wisconsin and 7th Indiana strengths; Batteries L, 4th US B and E).
-- Decide, in the Decision Log, the marked reconstruction for each gap (the layer's equal share stays plausible-procedural and marked until then) and whether the Emmitsburg Road, the road of the corps entry (AP-01), stands as the 7th Indiana's marked approach (inferred; the regiment was detached at Emmitsburg, no report prints its road).
-- Choose the default view among the carried conflicts (section 4) or leave them selectable; none was chosen here.
+- Records that stated more than their passage prints (a footnote read as text of the sentence, an hour of arrival put at 3:30 where 3 p. m. is printed, an adjective not in the passage, "after half an hour" outside the quoted span) were corrected or their passages widened; each correction was made against the full text of the passage.
+- One conflict that was not one (Hall at 9 a. m. against Wadsworth at 8 a. m.: two different things) was removed; conflicts exist only where two statements about the same thing differ.
+- One sentence was dropped as a record because it prints no place (Newton: the First Division "also not engaged").
+- Places printed as roads were re-anchored (a road is not a place: `along_road` with the place it was near); `printed` fields that were not verbatim in the passage were made verbatim; statements over 400 characters were cut to what the passage prints.
+- OCR defects of the texts were read, not copied: `2d` and `3d` printed `3d` and `3d`, `Gulp's` for Culp's, `lo` for 10, `i` and `I` for 1, split words (`Sev enth`, `hun dred`, `construc tion`), a page head inside a sentence. The records say so in their notes and carry `ocr_uncertain` where a figure is read through a defect.
+- Two lists the checker cannot read (clock words, the gazetteer's lack of Emmitsburg) are in the request notes below.
 
-## 10. Owed
+## 7. Not coded, and why
 
-- A second pass for departure records (4 and 5 July) and for the movements of 1 July between 10.30 a. m. and 4 p. m. of each battery, and the 1 and 2 July places of Hall's, Stevens', Cooper's and Reynolds' batteries that Wainwright's, Hunt's and the battery reports print and the ledgers or this file do not yet hold (found only by re-reading R071, R028 and R243 line by line: 8 records in this pass).
-- A line-by-line pass of the regimental sketches for 1 July movements and gaits of each regiment (for example the 147th New York's advance across the Chambersburg Pike, NY3-S006), which the ledgers may hold in ledger E.
-- The Seventh Wisconsin's road at Gettysburg itself and a second witness for the 19th Indiana's and 2nd Wisconsin's own positions of 2 and 3 July: both rest on the brigade records.
-- The integrator commands after a merge (section 1), and the browser check of the drawn layer: not run for this task.
+- The march of 25 to 29 June (the Potomac at Edwards Ferry, Middletown, Frederick on the 28th, the rear guard of 29 June, the bivouac after midnight near the southern end of Emmitsburg): outside the loaded ground and no gazetteer id for Emmitsburg or Frederick (request note 2); the 30 June records carry what falls inside.
+- The 24th Michigan's fourth, fifth and sixth lines of battle (Curtis): no place is printed for the fourth and fifth, the sixth is the barricade already in record 0180; the regiment's lines of the first three are in Morrow's records.
+- The dispute whether the 147th New York was "rescued" (Pierce against Doubleday's book as he quotes it, and Fowler): a matter of interpretation of other regiments' acts; the positions and the retreat orders are coded, the claim of rescue is not.
+- "Twenty-eight of the enemy's guns at once opened" on Battery L (the orator Reynolds quoting Bachelder): hearsay of the orator, not a datum of a unit of this group.
+- The casualties of Battery L on 1 July (1 killed, 15 wounded, 1 missing on its monument): carried in the statement of the engagement record 0458; the contract has no casualty record.
+- Meade's Life and Letters (Stewart's battery "First United States Artillery" posted on Cutler's line): an apparent misprint for Fourth in a compilation; not coded.
+- Counts that are not strengths: the 75 men of the 147th New York rallied behind Seminary Ridge are in the note of record 0488 and not a strength record; the 26 men who followed Captain Edwards through the town (Curtis) are not coded.
+
+## 8. Owner-only acts and requests
+
+- Owner-only: buying or licensing Busey and Martin to read the four strength gaps; filing the four proposed register entries; any decision on the default of any conflict cluster (Law 6: none was made here, no recommended default is logged; nothing was appended to the delegated decisions).
+- Request notes of this group in `GOVERNANCE/horde/requests/`: `bt-units-us-1c-1d-art-statevol-index.md` (section headings of the state-volume index), `bt-units-us-1c-1d-art-clock-forms.md` (hours printed in words, the Fairfield road, the 10:20 gate of the division against printed arrivals), `bt-units-us-1c-1d-art-clock-forms-2.md` (three more words-only hours, a gazetteer entry for Emmitsburg and Frederick).
+
+## 9. What was checked, and what was not run
+
+Run: the group checker with `--complete` on the file as it stands (0 errors, 2 warnings), and before every publish of the pass; the file is the output of the builder (`make3.py --publish`) from the spec modules, which refuses to replace the file when the checker reports an error, and a fresh build from the specs is byte-identical to the file (sha256 `f2c4486d2ea1ed62d18cde661d4c9b3dd6964c85b7e7b0ccf73c4935a34bac3c`); a full read of every new record against its passage before it was published; the copy audit of the file, this report, the proposed entries and the request notes (no mention of how the data was produced and no tool or company name; the only hit of a search for such words is the register template's own row label "Autonomous substitute applied").
+
+Not run: the checker over all groups and its self-test (queued behind the timing jobs of the machine lock and not completed when this report was written, see the progress line), the governance check, any browser job, any gate runner, the node suite. Nothing was committed, pushed or deployed and no `passes` flag was touched. No credential, account or key was used; the texts used were already local.

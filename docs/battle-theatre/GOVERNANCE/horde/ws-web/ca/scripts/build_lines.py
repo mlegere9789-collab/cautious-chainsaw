@@ -22,7 +22,7 @@ Output: ../../../../timeline_corrections/web-newspapers.jsonl  (ids T*, E*)
         ../../../../evidence_corrections/web-newspapers.jsonl  (ids R*)
 One line per (id, claim); the first cite is 'citation', the others 'more_citations'. A quote that is not found is an error.
 """
-import difflib, glob, importlib.util, json, os, re, sys
+import difflib, glob, hashlib, importlib.util, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import calib, rebuild_cols
 
@@ -38,6 +38,8 @@ PAGE_REPRINT = {}
 
 
 LENIENT = '--lenient' in sys.argv     # fragment problems are printed as warnings instead of stopping the build
+NEEDS_IMAGES = {}                     # (page id, resolved quote) -> job tag of every citation whose print has not been viewed yet
+FAST = '--check' in sys.argv          # iteration mode: no reprint search (shares_text_with left empty) and nothing is written
 _VALID = None
 
 
@@ -55,6 +57,44 @@ def valid_ids():
             v.add(sr['id'])
         _VALID = v
     return _VALID
+
+
+PAPER_NAMES = [   # (regular expression of the way a sub_claim names the paper, lccn(s) of the paper whose page must be cited)
+    (r'Wheeling (Daily )?(Intelligencer|Register)', ('sn84026845', 'sn86092517')),
+    (r'Chicago (Daily )?Tribune', ('sn84031490',)),
+    (r'New[- ]York (Daily )?Tribune', ('sn83030213',)),
+    (r'New[- ]York Herald', ('sn83030313',)),
+    (r'(National|Daily National|Washington) Intelligencer', ('sn83026172', 'sn83045784')),
+    (r'(Daily National |Washington )?Republican', ('sn86053570',)),
+    (r'Evening Star', ('sn83045462',)),
+    (r'Worcester (Daily )?Spy', ('sn83021205',)),
+    (r'Portland (Daily )?Press', ('sn83016025',)),
+    (r'Nashville (Daily )?Union', ('sn83025718',)),
+    (r'Gate City', ('sn83025182',)),
+    (r'(Indianapolis )?(Daily )?State Sentinel', ('sn82015683', 'sn82014306')),
+    (r'Richmond (Daily )?(Dispatch|Whig|Enquirer)', ('sn84024738', 'sn84024669', 'sn84024735')),
+]
+BARE_NAMES = [(r'(?<![A-Za-z-])Intelligencer\b', ('sn83026172', 'sn84026845', 'sn83045784')), (r'(?<![A-Za-z-])Star\b', ('sn83045462',)),
+              (r'(?<![A-Za-z-])Republican\b', ('sn86053570',)), (r'(?<![A-Za-z-])Tribune\b', ('sn83030213', 'sn84031490')),
+              (r'(?<![A-Za-z-])Herald\b', ('sn83030313',)), (r'(?<![A-Za-z-])Spy\b', ('sn83021205',))]
+
+
+def check_papers(c, cites):
+    """Every newspaper that the sub_claim names as printing something must be the paper of at least one citation of the claim.
+    Returns the names that are not backed by a citation (a heuristic over the claim text; bare names such as 'the Star' count too)."""
+    have = {x['lccn'] for x in cites}
+    text = c['sub_claim']
+    missing = []
+    for rx, lccns in PAPER_NAMES:
+        for m in re.finditer(rx, text):
+            if not (set(lccns) & have):
+                missing.append(m.group(0))
+            text = text[:m.start()] + ' ' * (m.end() - m.start()) + text[m.end():]
+    for rx, lccns in BARE_NAMES:
+        for m in re.finditer(rx, text):
+            if not (set(lccns) & have):
+                missing.append(m.group(0))
+    return sorted(set(missing))
 
 
 def load_modules():
@@ -177,32 +217,34 @@ def overlay():
     return _OVERLAY
 
 
-def _bracketless(s):
-    """editorial [..] insertions of the claim text (and printed [Applause]) are left out on both sides of a fragment comparison"""
-    return re.sub(r'\[[^\]]*\]', '', s)
-
-
 def alnum_key(s):
-    return re.sub(r'[^a-z0-9]+', '', _bracketless(s).lower().replace('’', "'").replace('‘', "'"))
+    return re.sub(r'[^a-z0-9]+', '', s.lower().replace('\u2019', "'").replace('\u2018', "'"))
+
+
+def quoted_fragments(text):
+    """Text between a pair of double quotes, quote marks paired in order of appearance (1st with 2nd, 3rd with 4th ..)."""
+    pos = [i for i, ch in enumerate(text) if ch == '"']
+    return [text[a + 1:b] for a, b in zip(pos[0::2], pos[1::2])]
 
 
 def check_fragments(c, cites):
-    """Every double-quoted fragment of 30+ characters of the sub_claim must stand (letters and digits only, case-insensitive, editorial
-    [..] left out) in the print reading of a citation (ocr_check.reading), in its quote, dateline or attribution, or in the heading read
-    from the print (reprint.from). Returns the list of unmatched fragments."""
+    """Every double-quoted fragment of 30+ characters of the sub_claim must stand (letters and digits only, case-insensitive) in the print
+    reading of a citation (ocr_check.reading), in its quote, dateline or attribution, or in the heading read from the print (reprint.from).
+    Editorial [..] insertions and '...' of the fragment cut it into parts; every part of 12+ characters must be found.
+    Returns the list of unmatched fragments."""
     blobs = []
     for x in cites:
         oc = x.get('ocr_check') or {}
-        for part in (oc.get('reading'), x.get('quote'), x.get('dateline'), x.get('attribution'), (x.get('reprint') or {}).get('from')):
+        for part in (oc.get('reading'), x.get('quote'), x.get('dateline'), x.get('attribution'), (x.get('reprint') or {}).get('from'), x.get('heading')):
             if part:
                 blobs.append(alnum_key(part))
     bad = []
-    for fr in re.findall(r'"([^"]{30,})"', c['sub_claim']):
-        parts = [alnum_key(p) for p in re.split(r'\.\.\.|…', fr)]
-        parts = [p for p in parts if len(p) >= 12]
-        if not parts:
+    for fr in quoted_fragments(c['sub_claim']):
+        if len(fr) < 30:
             continue
-        if not all(any(p in b for b in blobs) for p in parts):
+        parts = [alnum_key(p) for p in re.split(r'\[[^\]]*\]|\.\.\.|\u2026', fr)]
+        parts = [p for p in parts if len(p) >= 12]
+        if parts and not all(any(p in b for b in blobs) for p in parts):
             bad.append(fr)
     return bad
 
@@ -294,6 +336,7 @@ def citation(c, man):
             ocr['note'] = onote
     else:
         ocr = {'method': 'none: the saved OCR text only; the print of this passage was not viewed', 'reading': None, 'corrections': []}
+        NEEDS_IMAGES.setdefault((pid, quote), 'r3_%s_%s_%s' % (m['lccn'][2:], m['date'][5:].replace('-', ''), hashlib.sha1((pid + quote).encode()).hexdigest()[:6]))
     cit = {
         'source_id': 'CA-%s-%s-ed%d-seq%d' % (m['lccn'], m['date'], m['edition'], m['seq']),
         'source_class': 'contemporary newspaper page (1863), digitised by the Library of Congress (Chronicling America); text is the OCR layer of the page',
@@ -321,12 +364,21 @@ def citation(c, man):
         'dateline': c.get('dateline'),
         'attribution': c.get('attribution'),
         'reprint': rep,
-        'shares_text_with': shares(pid, quote, man),
+        'shares_text_with': [] if FAST else shares(pid, quote, man),
         'ocr_check': ocr,
         'context_before': ctx_before,
     }
     if c.get('note'):
         cit['note'] = c['note']
+    if c.get('heading'):
+        cit['heading'] = c['heading']
+        if c.get('heading_img'):
+            hi = image_manifest().get((pid, c['heading_img']))
+            if not hi:
+                raise SystemExit('no image record %s %s (heading)' % (pid, c['heading_img']))
+            cit['heading_image'] = {'image_url': hi['url'], 'image_sha256': hi['sha256'], 'region_px': hi['region_px'],
+                                    'viewed': c.get('heading_viewed') or VIEWED_DEFAULT,
+                                    'method': 'the heading as printed above the passage, read from the page image region'}
     return cit
 
 
@@ -385,6 +437,14 @@ def build():
             else:
                 errors.extend(msg)
                 continue
+        unbacked = check_papers(c, cites)
+        if unbacked and not c.get('allow_papers'):
+            msg = '[%s %s] the sub_claim names paper(s) with no citation of that paper: %s' % (c['_module'], c['key'], ', '.join(unbacked))
+            if LENIENT:
+                warnings.append(msg)
+            else:
+                errors.append(msg)
+                continue
         for tid in c['ids']:
             if tid not in valid_ids():
                 errors.append('[%s %s] unknown id %s' % (c['_module'], c['key'], tid))
@@ -439,6 +499,13 @@ def build():
 
 def main():
     lt, le = build()
+    if '--needs-images' in sys.argv:
+        out = sys.argv[sys.argv.index('--needs-images') + 1]
+        json.dump([{'page': k[0], 'quote': k[1], 'tag': v} for k, v in sorted(NEEDS_IMAGES.items())], open(out, 'w', encoding='utf-8'), indent=1)
+        print('%d citation(s) without a viewed image written to %s' % (len(NEEDS_IMAGES), out))
+    if FAST:
+        print('check only: %d timeline lines, %d evidence lines built, nothing written' % (len(lt), len(le)))
+        return
     for path, lines in ((OUT_T, lt), (OUT_E, le)):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w', encoding='utf-8') as f:

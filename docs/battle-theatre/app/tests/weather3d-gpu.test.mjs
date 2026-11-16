@@ -500,3 +500,10 @@ test('the headed-under-Xvfb probe: five flag sets, a driver that names the probe
   assert.match(dr, /timeout -k 10 200 xvfb-run -a -s "-screen 0 1280x720x24" node "\$HERE\/weather3d-gpu-xvfb-probe\.mjs"/, 'every set in its own process with a hard limit'); assert.ok(!/Math\.random/.test(pr), 'nothing random');
   assert.match(pr, /\.\.\/\.\.\/\.\.\/\.\.\/node_modules\/playwright-core\/index\.mjs/, 'the repository\'s own Playwright, like the other harnesses');
 });
+test('the harness driver: extra Chrome flags are passed on and recorded in the summary, and the headed mode is recorded', () => {
+  const src = fs.readFileSync(path.join(APP, 'tests/weather3d-gpu.mjs'), 'utf8');
+  assert.match(src, /const EXTRA_CHROME_ARGS = args\.filter\(a => a\.startsWith\('--chrome-arg='\)\)\.map\(a => a\.slice\('--chrome-arg='\.length\)\)/);
+  assert.match(src, /args: \[\.\.\.chromeArgs\(REALGPU\), \.\.\.EXTRA_CHROME_ARGS\] \}\); summary\.chromeArgs = \[\.\.\.chromeArgs\(REALGPU\), \.\.\.EXTRA_CHROME_ARGS\]; summary\.headed = args\.includes\('--headed'\)/);
+  const pos = ['/out', 'webgpu', 'a,b'], flags = ['--chrome-arg=--disable-gpu-compositing', '--w=320', '--headed']; const argv = [...pos, ...flags];
+  assert.deepEqual(argv.filter(a => !a.startsWith('--')), pos, 'a --chrome-arg=... flag is never taken for a positional argument');
+});

@@ -1,0 +1,875 @@
+{
+ "_doc": "Hour tokens (a clock time or an hour such as 11.30, 4 p. m., 12 m., 3 o'clock) of the Official Records quotes of timeline_corrections/tl-03.jsonl, read by eye on the page image on 2026-11-16: for each of the 87 quotes that carry an hour token (63 scan leaves) the line was cropped from the page image (pdftoppm, 130 dpi, tmp/kit-plan/or27-pdf/<identifier>.pdf) at the word boxes of the text layer of the PDF (pdftotext -bbox) and the hour compared with the token of the quote; the scripts are in closeout/audit/review/hourquotes.py and hourcrops.py. This is a reading of the hours only, not of the other digits of the quotes, and it is not the second-OCR comparison (ocr2.py), which is still queued. Result: 87 of 87 agree with the quote, except that the Fourth Georgia (T1-121 w13) reads 12 o'clock on the image against 13 in the OCR text (already carried).",
+ "items": [
+  {
+   "n": 0,
+   "row": "T1-116",
+   "key": "g_1155h",
+   "part": 3,
+   "scan_leaf": 475,
+   "printed_page": "470",
+   "hour_token_in_quote": "11.55",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 1,
+   "row": "T1-116",
+   "key": "huey_jun30",
+   "part": 1,
+   "scan_leaf": 993,
+   "printed_page": "970",
+   "hour_token_in_quote": "11 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 2,
+   "row": "T1-117",
+   "key": "w1030",
+   "part": 1,
+   "scan_leaf": 377,
+   "printed_page": "354",
+   "hour_token_in_quote": "10.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 3,
+   "row": "T1-117",
+   "key": "b11",
+   "part": 1,
+   "scan_leaf": 338,
+   "printed_page": "315",
+   "hour_token_in_quote": "11 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 4,
+   "row": "T1-117",
+   "key": "mcf1030",
+   "part": 1,
+   "scan_leaf": 350,
+   "printed_page": "327",
+   "hour_token_in_quote": "10.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 5,
+   "row": "T1-117",
+   "key": "s11",
+   "part": 1,
+   "scan_leaf": 352,
+   "printed_page": "329",
+   "hour_token_in_quote": "11 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 6,
+   "row": "T1-117",
+   "key": "dana11",
+   "part": 1,
+   "scan_leaf": 358,
+   "printed_page": "335",
+   "hour_token_in_quote": "11 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 7,
+   "row": "T1-117",
+   "key": "row11",
+   "part": 1,
+   "scan_leaf": 335,
+   "printed_page": "312",
+   "hour_token_in_quote": "11 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 8,
+   "row": "T1-117",
+   "key": "bax11",
+   "part": 1,
+   "scan_leaf": 330,
+   "printed_page": "307",
+   "hour_token_in_quote": "11 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 9,
+   "row": "T1-117",
+   "key": "coul11",
+   "part": 1,
+   "scan_leaf": 315,
+   "printed_page": "292",
+   "hour_token_in_quote": "11 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 10,
+   "row": "T1-117",
+   "key": "d_burden",
+   "part": 1,
+   "scan_leaf": 268,
+   "printed_page": "245",
+   "hour_token_in_quote": "10.15",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 11,
+   "row": "T1-117",
+   "key": "wis12",
+   "part": 1,
+   "scan_leaf": 356,
+   "printed_page": "333",
+   "hour_token_in_quote": "12 m.",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 12,
+   "row": "T1-118",
+   "key": "doles1",
+   "part": 2,
+   "scan_leaf": 586,
+   "printed_page": "581",
+   "hour_token_in_quote": "1 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 13,
+   "row": "T1-119",
+   "key": "h5",
+   "part": 2,
+   "scan_leaf": 642,
+   "printed_page": "637",
+   "hour_token_in_quote": "5 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 14,
+   "row": "T1-119",
+   "key": "hill5",
+   "part": 2,
+   "scan_leaf": 612,
+   "printed_page": "607",
+   "hour_token_in_quote": "5 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 15,
+   "row": "T1-119",
+   "key": "h9",
+   "part": 2,
+   "scan_leaf": 642,
+   "printed_page": "637",
+   "hour_token_in_quote": "9 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 16,
+   "row": "T1-119",
+   "key": "j_2pm",
+   "part": 2,
+   "scan_leaf": 648,
+   "printed_page": "643",
+   "hour_token_in_quote": "2 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 17,
+   "row": "T1-120",
+   "key": "h8",
+   "part": 1,
+   "scan_leaf": 724,
+   "printed_page": "701",
+   "hour_token_in_quote": "8 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 18,
+   "row": "T1-120",
+   "key": "h330",
+   "part": 1,
+   "scan_leaf": 724,
+   "printed_page": "701",
+   "hour_token_in_quote": "3.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 19,
+   "row": "T1-120",
+   "key": "s7",
+   "part": 1,
+   "scan_leaf": 750,
+   "printed_page": "727",
+   "hour_token_in_quote": "7 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 20,
+   "row": "T1-120",
+   "key": "dil10",
+   "part": 1,
+   "scan_leaf": 777,
+   "printed_page": "754",
+   "hour_token_in_quote": "10 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 21,
+   "row": "T1-120",
+   "key": "osb10",
+   "part": 1,
+   "scan_leaf": 770,
+   "printed_page": "747",
+   "hour_token_in_quote": "10 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 22,
+   "row": "T1-120",
+   "key": "ban11",
+   "part": 1,
+   "scan_leaf": 779,
+   "printed_page": "756",
+   "hour_token_in_quote": "11 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 23,
+   "row": "T1-120",
+   "key": "dobke11",
+   "part": 1,
+   "scan_leaf": 757,
+   "printed_page": "734",
+   "hour_token_in_quote": "11 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 24,
+   "row": "T1-120",
+   "key": "s1130",
+   "part": 1,
+   "scan_leaf": 750,
+   "printed_page": "727",
+   "hour_token_in_quote": "11.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 25,
+   "row": "T1-120",
+   "key": "h12",
+   "part": 1,
+   "scan_leaf": 725,
+   "printed_page": "702",
+   "hour_token_in_quote": "12 m.",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 26,
+   "row": "T1-120",
+   "key": "h1230",
+   "part": 1,
+   "scan_leaf": 725,
+   "printed_page": "702",
+   "hour_token_in_quote": "12.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 27,
+   "row": "T1-120",
+   "key": "harris1",
+   "part": 1,
+   "scan_leaf": 738,
+   "printed_page": "715",
+   "hour_token_in_quote": "1 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 28,
+   "row": "T1-120",
+   "key": "brady12",
+   "part": 1,
+   "scan_leaf": 739,
+   "printed_page": "716",
+   "hour_token_in_quote": "2 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 29,
+   "row": "T1-120",
+   "key": "st2",
+   "part": 1,
+   "scan_leaf": 744,
+   "printed_page": "721",
+   "hour_token_in_quote": "2 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 30,
+   "row": "T1-120",
+   "key": "s2pm",
+   "part": 1,
+   "scan_leaf": 751,
+   "printed_page": "728",
+   "hour_token_in_quote": "2 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 31,
+   "row": "T1-121",
+   "key": "d330",
+   "part": 2,
+   "scan_leaf": 586,
+   "printed_page": "581",
+   "hour_token_in_quote": "3.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 32,
+   "row": "T1-121",
+   "key": "w13",
+   "part": 2,
+   "scan_leaf": 589,
+   "printed_page": "584",
+   "hour_token_in_quote": "13 o'clock",
+   "reading_on_page_image": "image reads 12 o'clock; the OCR text and the stored quote print 13 (the known reading, stored as image_check on the citation)"
+  },
+  {
+   "n": 33,
+   "row": "T1-121",
+   "key": "m4",
+   "part": 2,
+   "scan_leaf": 589,
+   "printed_page": "584",
+   "hour_token_in_quote": "4 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 34,
+   "row": "T1-122",
+   "key": "c1230",
+   "part": 1,
+   "scan_leaf": 315,
+   "printed_page": "292",
+   "hour_token_in_quote": "12.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 35,
+   "row": "T1-122",
+   "key": "r_noon",
+   "part": 1,
+   "scan_leaf": 313,
+   "printed_page": "290",
+   "hour_token_in_quote": "5 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 36,
+   "row": "T1-122",
+   "key": "c3pm",
+   "part": 1,
+   "scan_leaf": 315,
+   "printed_page": "292",
+   "hour_token_in_quote": "3 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 37,
+   "row": "T1-123",
+   "key": "d_head",
+   "part": 3,
+   "scan_leaf": 466,
+   "printed_page": "461",
+   "hour_token_in_quote": "1.10",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 38,
+   "row": "T1-123",
+   "key": "d_later",
+   "part": 3,
+   "scan_leaf": 466,
+   "printed_page": "461",
+   "hour_token_in_quote": "1.15",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 39,
+   "row": "T1-123",
+   "key": "h_taney",
+   "part": 1,
+   "scan_leaf": 390,
+   "printed_page": "367",
+   "hour_token_in_quote": "11 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 40,
+   "row": "T1-123",
+   "key": "h_before1",
+   "part": 1,
+   "scan_leaf": 390,
+   "printed_page": "367",
+   "hour_token_in_quote": "1 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 41,
+   "row": "T1-123",
+   "key": "h110",
+   "part": 1,
+   "scan_leaf": 391,
+   "printed_page": "368",
+   "hour_token_in_quote": "1.10",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 42,
+   "row": "T1-123",
+   "key": "meade_tt",
+   "part": 1,
+   "scan_leaf": 93,
+   "printed_page": "70",
+   "hour_token_in_quote": "12 m.",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 43,
+   "row": "T1-125",
+   "key": "h_2",
+   "part": 2,
+   "scan_leaf": 484,
+   "printed_page": "479",
+   "hour_token_in_quote": "2 o'clock",
+   "reading_on_page_image": "agrees with the quote (the digit 2 is slightly smeared in the scan)"
+  },
+  {
+   "n": 44,
+   "row": "T1-125",
+   "key": "g_3",
+   "part": 2,
+   "scan_leaf": 497,
+   "printed_page": "492",
+   "hour_token_in_quote": "3 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 45,
+   "row": "T1-126",
+   "key": "d130",
+   "part": 1,
+   "scan_leaf": 272,
+   "printed_page": "249",
+   "hour_token_in_quote": "1.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 46,
+   "row": "T1-126",
+   "key": "good12",
+   "part": 2,
+   "scan_leaf": 607,
+   "printed_page": "602",
+   "hour_token_in_quote": "12 m.",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 47,
+   "row": "T1-126",
+   "key": "brown12",
+   "part": 2,
+   "scan_leaf": 582,
+   "printed_page": "577",
+   "hour_token_in_quote": "12 m.",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 48,
+   "row": "T1-126",
+   "key": "dan12",
+   "part": 2,
+   "scan_leaf": 571,
+   "printed_page": "566",
+   "hour_token_in_quote": "12 m.",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 49,
+   "row": "T1-126",
+   "key": "owens1",
+   "part": 2,
+   "scan_leaf": 581,
+   "printed_page": "576",
+   "hour_token_in_quote": "1 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 50,
+   "row": "T1-126",
+   "key": "lee230",
+   "part": 2,
+   "scan_leaf": 322,
+   "printed_page": "317",
+   "hour_token_in_quote": "2.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 51,
+   "row": "T1-126",
+   "key": "hill230",
+   "part": 2,
+   "scan_leaf": 612,
+   "printed_page": "607",
+   "hour_token_in_quote": "2.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 52,
+   "row": "T1-126",
+   "key": "how245",
+   "part": 1,
+   "scan_leaf": 726,
+   "printed_page": "703",
+   "hour_token_in_quote": "2.45",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 53,
+   "row": "T1-126",
+   "key": "davis3",
+   "part": 2,
+   "scan_leaf": 654,
+   "printed_page": "649",
+   "hour_token_in_quote": "3 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 54,
+   "row": "T1-132",
+   "key": "will_rain",
+   "part": 1,
+   "scan_leaf": 765,
+   "printed_page": "742",
+   "hour_token_in_quote": "5 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 55,
+   "row": "T1-132",
+   "key": "koe_stop",
+   "part": 1,
+   "scan_leaf": 763,
+   "printed_page": "740",
+   "hour_token_in_quote": "3.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 56,
+   "row": "T1-133",
+   "key": "eng3",
+   "part": 2,
+   "scan_leaf": 661,
+   "printed_page": "656",
+   "hour_token_in_quote": "3 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 57,
+   "row": "T1-134",
+   "key": "row4",
+   "part": 1,
+   "scan_leaf": 336,
+   "printed_page": "313",
+   "hour_token_in_quote": "4 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 58,
+   "row": "T1-134",
+   "key": "d4",
+   "part": 1,
+   "scan_leaf": 273,
+   "printed_page": "250",
+   "hour_token_in_quote": "4 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 59,
+   "row": "T1-142",
+   "key": "lam2",
+   "part": 2,
+   "scan_leaf": 595,
+   "printed_page": "590",
+   "hour_token_in_quote": "2 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 60,
+   "row": "T1-142",
+   "key": "grim4",
+   "part": 2,
+   "scan_leaf": 594,
+   "printed_page": "589",
+   "hour_token_in_quote": "4 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 61,
+   "row": "T1-143",
+   "key": "h3",
+   "part": 1,
+   "scan_leaf": 391,
+   "printed_page": "368",
+   "hour_token_in_quote": "3 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 62,
+   "row": "T1-143",
+   "key": "h525",
+   "part": 1,
+   "scan_leaf": 389,
+   "printed_page": "366",
+   "hour_token_in_quote": "5.25",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 63,
+   "row": "T1-143",
+   "key": "how4",
+   "part": 1,
+   "scan_leaf": 719,
+   "printed_page": "696",
+   "hour_token_in_quote": "4 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 64,
+   "row": "T1-143",
+   "key": "slo4",
+   "part": 1,
+   "scan_leaf": 791,
+   "printed_page": "768",
+   "hour_token_in_quote": "4 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 65,
+   "row": "T1-143",
+   "key": "how430",
+   "part": 1,
+   "scan_leaf": 727,
+   "printed_page": "704",
+   "hour_token_in_quote": "4.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 66,
+   "row": "T1-145",
+   "key": "s_three",
+   "part": 1,
+   "scan_leaf": 751,
+   "printed_page": "728",
+   "hour_token_in_quote": "3 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 67,
+   "row": "T1-146",
+   "key": "w_11",
+   "part": 1,
+   "scan_leaf": 253,
+   "printed_page": "230",
+   "hour_token_in_quote": "11 a. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 68,
+   "row": "T1-149",
+   "key": "d_330",
+   "part": 2,
+   "scan_leaf": 586,
+   "printed_page": "581",
+   "hour_token_in_quote": "3.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 69,
+   "row": "T1-150",
+   "key": "w345",
+   "part": 1,
+   "scan_leaf": 289,
+   "printed_page": "266",
+   "hour_token_in_quote": "3.45",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 70,
+   "row": "T1-150",
+   "key": "h4",
+   "part": 1,
+   "scan_leaf": 727,
+   "printed_page": "704",
+   "hour_token_in_quote": "4 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 71,
+   "row": "T1-150",
+   "key": "h410",
+   "part": 1,
+   "scan_leaf": 727,
+   "printed_page": "704",
+   "hour_token_in_quote": "4.10",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 72,
+   "row": "T1-154",
+   "key": "dan12",
+   "part": 2,
+   "scan_leaf": 571,
+   "printed_page": "566",
+   "hour_token_in_quote": "12 m.",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 73,
+   "row": "T1-155",
+   "key": "p3",
+   "part": 2,
+   "scan_leaf": 666,
+   "printed_page": "661",
+   "hour_token_in_quote": "3 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 74,
+   "row": "T1-155",
+   "key": "p4",
+   "part": 2,
+   "scan_leaf": 666,
+   "printed_page": "661",
+   "hour_token_in_quote": "4 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 75,
+   "row": "T1-156",
+   "key": "d_w345",
+   "part": 1,
+   "scan_leaf": 274,
+   "printed_page": "251",
+   "hour_token_in_quote": "3.45",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 76,
+   "row": "T1-157",
+   "key": "h_3000",
+   "part": 1,
+   "scan_leaf": 720,
+   "printed_page": "697",
+   "hour_token_in_quote": "10 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 77,
+   "row": "T1-157",
+   "key": "h320",
+   "part": 1,
+   "scan_leaf": 726,
+   "printed_page": "703",
+   "hour_token_in_quote": "3.20",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 78,
+   "row": "T1-157",
+   "key": "s_5",
+   "part": 1,
+   "scan_leaf": 753,
+   "printed_page": "730",
+   "hour_token_in_quote": "5 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 79,
+   "row": "T1-164",
+   "key": "how_ridge",
+   "part": 1,
+   "scan_leaf": 725,
+   "printed_page": "702",
+   "hour_token_in_quote": "11.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 80,
+   "row": "T1-164",
+   "key": "h3",
+   "part": 1,
+   "scan_leaf": 391,
+   "printed_page": "368",
+   "hour_token_in_quote": "3 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 81,
+   "row": "T1-164",
+   "key": "h_slocum",
+   "part": 1,
+   "scan_leaf": 391,
+   "printed_page": "368",
+   "hour_token_in_quote": "6 o'clock",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 82,
+   "row": "T1-164",
+   "key": "how_7",
+   "part": 1,
+   "scan_leaf": 727,
+   "printed_page": "704",
+   "hour_token_in_quote": "7 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 83,
+   "row": "T1-164",
+   "key": "mea_7",
+   "part": 1,
+   "scan_leaf": 138,
+   "printed_page": "115",
+   "hour_token_in_quote": "7 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 84,
+   "row": "T1-165",
+   "key": "b_230",
+   "part": 2,
+   "scan_leaf": 576,
+   "printed_page": "571",
+   "hour_token_in_quote": "2.30",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 85,
+   "row": "T1-172",
+   "key": "c_trans",
+   "part": 1,
+   "scan_leaf": 316,
+   "printed_page": "293",
+   "hour_token_in_quote": "5 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  },
+  {
+   "n": 86,
+   "row": "T1-172",
+   "key": "c_ref",
+   "part": 1,
+   "scan_leaf": 316,
+   "printed_page": "293",
+   "hour_token_in_quote": "5 p. m",
+   "reading_on_page_image": "agrees with the quote"
+  }
+ ]
+}

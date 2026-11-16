@@ -133,8 +133,7 @@ def main(argv):
     if os.path.exists(sp):
         try:
             old = json.load(open(sp, encoding='utf-8'))
-            if old.get('parser_hash') == C.parser_hash():
-                summary = old.get('units', {})
+            summary = old.get('units', {})
         except Exception:
             summary = {}
     for k, d in decs.items():

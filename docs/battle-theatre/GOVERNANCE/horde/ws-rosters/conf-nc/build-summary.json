@@ -1,7 +1,58 @@
 {
- "generated": "2026-11-16T00:49:33Z",
- "parser_hash": "f905758ceb9d",
+ "generated": "2026-11-16T00:59:51Z",
+ "parser_hash": "6a4093b3ac53",
  "units": {
+  "c-nc-16th-north-carolina-infantry": {
+   "rows": 1436,
+   "raw_bytes": 126250,
+   "gz_bytes": 28766,
+   "sha256": "74537890ce8b2ff34b986b697d8cde58843fb2dd8fc85a0d58839db4572d2e0c",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1436,
+   "remark_empty": 0,
+   "remark_gap_rows": 2,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 1421 against 1408 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 1,
+    "b": 1
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1436,
+     "after_dedupe": 1436
+    },
+    "b": {
+     "parsed": 1423,
+     "after_dedupe": 1423
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.2"
+   ],
+   "section": {
+    "a": [
+     3341,
+     128875,
+     "SIXTEENTH  REGIMENT— INFANTRY."
+    ],
+    "b": [
+     3123,
+     128411,
+     "SIXTEENTH  REGIMENT— INFANTRY."
+    ]
+   }
+  },
   "c-nc-1st-north-carolina-infantry": {
    "rows": 1587,
    "raw_bytes": 143428,
@@ -512,6 +563,57 @@
     ]
    }
   },
+  "c-nc-charlotte-artillery": {
+   "rows": 148,
+   "raw_bytes": 9072,
+   "gz_bytes": 3095,
+   "sha256": "21884dc40598ae968604fe15e17b135beafb8ed33d7e8e7a05e15322912ffff3",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 148,
+   "remark_empty": 0,
+   "remark_gap_rows": 0,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 148 against 134 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 1
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 148,
+     "after_dedupe": 148
+    },
+    "b": {
+     "parsed": 149,
+     "after_dedupe": 149
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.1"
+   ],
+   "section": {
+    "a": [
+     1211891,
+     1303750,
+     "TENTH  REGIMENT-ARTILLERY."
+    ],
+    "b": [
+     1148140,
+     1240195,
+     "TENTH  REGIMENT-ARTILLERY."
+    ]
+   }
+  },
   "c-nc-11th-north-carolina-infantry": {
    "rows": 1393,
    "raw_bytes": 109758,
@@ -713,57 +815,6 @@
      1654577,
      1772055,
      "FOURTEENTH  REGIMENT— INFANTRY."
-    ]
-   }
-  },
-  "c-nc-16th-north-carolina-infantry": {
-   "rows": 1436,
-   "raw_bytes": 126250,
-   "gz_bytes": 28767,
-   "sha256": "2545d00f2a2bace7328f8ffe15e60cbf7ecb03f5d5b698e0a0243f51f5d06e9b",
-   "verify_ok": true,
-   "v1": 0,
-   "v3": 0,
-   "remark_ok": 1436,
-   "remark_empty": 0,
-   "remark_gap_rows": 2,
-   "rows_with_remarks_not_found": 0,
-   "primary": "a",
-   "second": "b",
-   "why": "score 1391 against 1378 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 3 company headings read by the sequence or pages held twice, against 3)",
-   "supplement_rows": 0,
-   "supplement_runs": [],
-   "dups_dropped": {
-    "a": [],
-    "b": []
-   },
-   "heading_defects": {
-    "a": 3,
-    "b": 3
-   },
-   "rows_by_scan": {
-    "a": {
-     "parsed": 1436,
-     "after_dedupe": 1436
-    },
-    "b": {
-     "parsed": 1423,
-     "after_dedupe": 1423
-    }
-   },
-   "texts": [
-    "NC-MOORE-1882.2"
-   ],
-   "section": {
-    "a": [
-     3341,
-     128875,
-     "SIXTEENTH  REGIMENT— INFANTRY."
-    ],
-    "b": [
-     3123,
-     128411,
-     "SIXTEENTH  REGIMENT— INFANTRY."
     ]
    }
   },
@@ -1032,6 +1083,1064 @@
      661145,
      809887,
      "TWENTY-SECOND  REGIMENT— INFANTRY."
+    ]
+   }
+  },
+  "c-nc-23rd-north-carolina-infantry": {
+   "rows": 1463,
+   "raw_bytes": 125555,
+   "gz_bytes": 27476,
+   "sha256": "4142ae07342fe7dbf3091bc9f4d63b389552b80f9747d7dd9c791e6616f3b2a0",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1462,
+   "remark_empty": 1,
+   "remark_gap_rows": 1,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 1463 against 1319 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 6)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [
+     {
+      "leaf": 290,
+      "dup_of": 288,
+      "n": 47,
+      "overlap": 0.76
+     },
+     {
+      "leaf": 291,
+      "dup_of": 289,
+      "n": 49,
+      "overlap": 0.83
+     }
+    ],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 4,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1629,
+     "after_dedupe": 1533
+    },
+    "b": {
+     "parsed": 1463,
+     "after_dedupe": 1463
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.2~b"
+   ],
+   "section": {
+    "a": [
+     830687,
+     968219,
+     "TWENTY-THIRD  REGIMENT-INFANTRY,"
+    ],
+    "b": [
+     809887,
+     933657,
+     "TWENTY-THIRD  REGIMENT— INFANTRY."
+    ]
+   }
+  },
+  "c-nc-26th-north-carolina-infantry": {
+   "rows": 1929,
+   "raw_bytes": 159028,
+   "gz_bytes": 34062,
+   "sha256": "bdda3984cd2fde06df820955bee598ed29fc3d96ad1ab09e307ba0b1145b56bf",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1929,
+   "remark_empty": 0,
+   "remark_gap_rows": 1,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 1929 against 1925 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 1,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1940,
+     "after_dedupe": 1940
+    },
+    "b": {
+     "parsed": 1929,
+     "after_dedupe": 1929
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.2~b"
+   ],
+   "section": {
+    "a": [
+     1221874,
+     1377377,
+     "TWENTY-SIXTH  REGIMENT— INFANTRY."
+    ],
+    "b": [
+     1171886,
+     1327028,
+     "TWENTY-SIXTH  REGIMENT— INFANTRY."
+    ]
+   }
+  },
+  "c-nc-28th-north-carolina-infantry": {
+   "rows": 1818,
+   "raw_bytes": 148411,
+   "gz_bytes": 32447,
+   "sha256": "c3d0c607b1c99059e9fea543b9fd472fabbee613d8ddc0cd0fc5866b55f09952",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1814,
+   "remark_empty": 4,
+   "remark_gap_rows": 1,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 1818 against 1648 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 5)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 5,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1900,
+     "after_dedupe": 1900
+    },
+    "b": {
+     "parsed": 1818,
+     "after_dedupe": 1818
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.2~b"
+   ],
+   "section": {
+    "a": [
+     1449096,
+     1600736,
+     "TWENTY-EIGHTH  REGIMENT— INFANTRY."
+    ],
+    "b": [
+     1386365,
+     1530831,
+     "TWENTY-EIGHTH  REGIMENT-INFANTRY,"
+    ]
+   }
+  },
+  "c-nc-30th-north-carolina-infantry": {
+   "rows": 1537,
+   "raw_bytes": 129912,
+   "gz_bytes": 28343,
+   "sha256": "3d6370c3d561a8c5b644869d0d04ded30e42f331a2d01b579a6a832bbb2edd26",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1537,
+   "remark_empty": 0,
+   "remark_gap_rows": 2,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 1537 against 1330 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 8)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [
+     {
+      "leaf": 570,
+      "dup_of": 568,
+      "n": 53,
+      "overlap": 0.9
+     },
+     {
+      "leaf": 571,
+      "dup_of": 569,
+      "n": 43,
+      "overlap": 0.71
+     },
+     {
+      "leaf": 572,
+      "dup_of": 568,
+      "n": 53,
+      "overlap": 0.82
+     },
+     {
+      "leaf": 573,
+      "dup_of": 569,
+      "n": 43,
+      "overlap": 0.76
+     }
+    ],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 4,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1802,
+     "after_dedupe": 1610
+    },
+    "b": {
+     "parsed": 1537,
+     "after_dedupe": 1537
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.2~b"
+   ],
+   "section": {
+    "a": [
+     1699888,
+     1848270,
+     "THIRTIETH  REGIMENT-INFANTRY."
+    ],
+    "b": [
+     1623365,
+     1750250,
+     "THIRTIETH  REGIMENT-INFANTRY."
+    ]
+   }
+  },
+  "c-nc-32nd-north-carolina-infantry": {
+   "rows": 1297,
+   "raw_bytes": 104313,
+   "gz_bytes": 22893,
+   "sha256": "2a646f2c510c74ccfcfc840a90c7903c12c18ecf91220303ac01a995663c3565",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1297,
+   "remark_empty": 0,
+   "remark_gap_rows": 0,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 1297 against 1224 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 1,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1374,
+     "after_dedupe": 1374
+    },
+    "b": {
+     "parsed": 1297,
+     "after_dedupe": 1297
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.2~b"
+   ],
+   "section": {
+    "a": [
+     1944342,
+     2052687,
+     "THIRTY-SECOND  REGIMENT-INFANTRY,"
+    ],
+    "b": [
+     1846153,
+     1947492,
+     "THIRTY-SECOND  REGIMENT-INFANTRY."
+    ]
+   }
+  },
+  "c-nc-33rd-north-carolina-infantry": {
+   "rows": 1710,
+   "raw_bytes": 136129,
+   "gz_bytes": 31493,
+   "sha256": "bf1f333b1711ec6f8307066712246692fae963ecd7118f3afb5ac6d42693a2cd",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1708,
+   "remark_empty": 2,
+   "remark_gap_rows": 1,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 1695 against 1688 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 1 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 1,
+    "b": 1
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1703,
+     "after_dedupe": 1703
+    },
+    "b": {
+     "parsed": 1710,
+     "after_dedupe": 1710
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.2~b"
+   ],
+   "section": {
+    "a": [
+     2052687,
+     2185014,
+     "THIRTY-THIRD  REGIMENT— INFANTRY,"
+    ],
+    "b": [
+     1947492,
+     2079445,
+     "THIRTY-THIRD  REGIMENT— INFANTRY."
+    ]
+   }
+  },
+  "c-nc-34th-north-carolina-infantry": {
+   "rows": 1343,
+   "raw_bytes": 113837,
+   "gz_bytes": 24467,
+   "sha256": "7b466bb4baedbf2b6147afee0720ca18a977232c2a64be973eb1fcf5d4cc19d8",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1343,
+   "remark_empty": 0,
+   "remark_gap_rows": 0,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 1343 against 1322 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 1,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1337,
+     "after_dedupe": 1337
+    },
+    "b": {
+     "parsed": 1343,
+     "after_dedupe": 1343
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.2~b"
+   ],
+   "section": {
+    "a": [
+     2185014,
+     2296248,
+     "THIRTY-FOORTH  REGIMENT-INFANTRY"
+    ],
+    "b": [
+     2079445,
+     2190517,
+     "THIRTY-FOURTH  REGIMENT-INFANTRY."
+    ]
+   }
+  },
+  "c-nc-37th-north-carolina-infantry": {
+   "rows": 1762,
+   "raw_bytes": 157050,
+   "gz_bytes": 32425,
+   "sha256": "43e0012642a121991916776cd0c15a3e47563b6b1d2229a722168c1d1016fcf5",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1760,
+   "remark_empty": 2,
+   "remark_gap_rows": 2,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 1762 against 1748 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1762,
+     "after_dedupe": 1762
+    },
+    "b": {
+     "parsed": 1748,
+     "after_dedupe": 1748
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.3"
+   ],
+   "section": {
+    "a": [
+     3518,
+     158444,
+     "THIRTY-SEVENTH  REGIMENT-INFANTRY."
+    ],
+    "b": [
+     3310,
+     158405,
+     "THIRTY-SEVENTH  REGIMENT-INFANTRY."
+    ]
+   }
+  },
+  "c-nc-38th-north-carolina-infantry": {
+   "rows": 1275,
+   "raw_bytes": 111818,
+   "gz_bytes": 24327,
+   "sha256": "44db51a6ae1936abd354091994da5b4700378fa304a0dacf9988584dd631d6a7",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1274,
+   "remark_empty": 1,
+   "remark_gap_rows": 1,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 1275 against 1273 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1275,
+     "after_dedupe": 1275
+    },
+    "b": {
+     "parsed": 1273,
+     "after_dedupe": 1273
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.3"
+   ],
+   "section": {
+    "a": [
+     158444,
+     268438,
+     "THIRTY-EIGHTH  REGIMENT-INFANTRY."
+    ],
+    "b": [
+     158405,
+     268279,
+     "THIRTY-EIGHTH  REGIMENT-INFANTRY,"
+    ]
+   }
+  },
+  "c-nc-43rd-north-carolina-infantry": {
+   "rows": 1239,
+   "raw_bytes": 99528,
+   "gz_bytes": 21582,
+   "sha256": "035cd2165dbc5f2660d79d666d06b5ec31e61fc326d798a00fb2225d8f958bea",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1238,
+   "remark_empty": 1,
+   "remark_gap_rows": 1,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 1239 against 1228 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 1,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1243,
+     "after_dedupe": 1243
+    },
+    "b": {
+     "parsed": 1239,
+     "after_dedupe": 1239
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.3~b"
+   ],
+   "section": {
+    "a": [
+     590869,
+     687429,
+     "FORTY-THIRD  REGIMENT-INFANTRY."
+    ],
+    "b": [
+     590517,
+     686948,
+     "FORTY-THIRD  REGIMENT-INFANTRY,"
+    ]
+   }
+  },
+  "c-nc-45th-north-carolina-infantry": {
+   "rows": 1434,
+   "raw_bytes": 112364,
+   "gz_bytes": 22877,
+   "sha256": "a87ac5670aa8ef17f10bfa00eb10754798ffd837b8e376b9d4c21eaab151b9c7",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1433,
+   "remark_empty": 1,
+   "remark_gap_rows": 0,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 1434 against 1433 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1434,
+     "after_dedupe": 1434
+    },
+    "b": {
+     "parsed": 1433,
+     "after_dedupe": 1433
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.3"
+   ],
+   "section": {
+    "a": [
+     787862,
+     896102,
+     "FORTY-FIFTH  REGIMENT-INFANTRY."
+    ],
+    "b": [
+     787278,
+     895373,
+     "FORTY-FIFTH  REGIMENT— INFANTRY."
+    ]
+   }
+  },
+  "c-nc-47th-north-carolina-infantry": {
+   "rows": 1283,
+   "raw_bytes": 99502,
+   "gz_bytes": 21053,
+   "sha256": "0d581e02db310826b6cdb116139538622932808dc720791bcde5fc147fd30e4b",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1283,
+   "remark_empty": 0,
+   "remark_gap_rows": 2,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 1283 against 1277 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1283,
+     "after_dedupe": 1283
+    },
+    "b": {
+     "parsed": 1277,
+     "after_dedupe": 1277
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.3"
+   ],
+   "section": {
+    "a": [
+     997718,
+     1093770,
+     "FORTY-SEVENTH  REGIMENT-INFANTRY."
+    ],
+    "b": [
+     996865,
+     1092458,
+     "FORTY-SEVENTH  REGIMENT-INFANTRY."
+    ]
+   }
+  },
+  "c-nc-52nd-north-carolina-infantry": {
+   "rows": 1297,
+   "raw_bytes": 102601,
+   "gz_bytes": 21506,
+   "sha256": "171a49a74cb15b3481ec0594c8a2543e347cf36ab09b0055ffb4df6f6cd33ca4",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1293,
+   "remark_empty": 4,
+   "remark_gap_rows": 0,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 1297 against 1273 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 1
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1297,
+     "after_dedupe": 1297
+    },
+    "b": {
+     "parsed": 1288,
+     "after_dedupe": 1288
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.3"
+   ],
+   "section": {
+    "a": [
+     1437585,
+     1537081,
+     "FIFTY-SECOND  REGIMENT— INFANTRY,"
+    ],
+    "b": [
+     1435892,
+     1535292,
+     "FIFTY-SECOND  REGIMENT— INFANTRY,"
+    ]
+   }
+  },
+  "c-nc-53rd-north-carolina-infantry": {
+   "rows": 1316,
+   "raw_bytes": 99796,
+   "gz_bytes": 21537,
+   "sha256": "51018a3cb1b4d109465736c7fe85130e5925a1fa897984df247c8d67118e1ebc",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1316,
+   "remark_empty": 0,
+   "remark_gap_rows": 0,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 1316 against 1310 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1316,
+     "after_dedupe": 1316
+    },
+    "b": {
+     "parsed": 1310,
+     "after_dedupe": 1310
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.3"
+   ],
+   "section": {
+    "a": [
+     1537081,
+     1633038,
+     "FIFTY-THIRD  REGIMENT — INFANTRY."
+    ],
+    "b": [
+     1535292,
+     1631187,
+     "FIFTY-THIRD  REGIMENT-INFANTRY."
+    ]
+   }
+  },
+  "c-nc-55th-north-carolina-infantry": {
+   "rows": 1206,
+   "raw_bytes": 93594,
+   "gz_bytes": 20588,
+   "sha256": "56f4070dcc3dd1a288e284d2e7d2f2601186fadf3f50e8b138537be968639381",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1206,
+   "remark_empty": 0,
+   "remark_gap_rows": 1,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 1206 against 1144 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 1
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1206,
+     "after_dedupe": 1206
+    },
+    "b": {
+     "parsed": 1159,
+     "after_dedupe": 1159
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.3"
+   ],
+   "section": {
+    "a": [
+     1678340,
+     1768775,
+     "FIFTY-FIFTH  REGIMENT— INFANTRY."
+    ],
+    "b": [
+     1676397,
+     1767167,
+     "FIFTY-FIFTH  REGIMENT— INFANTRY."
+    ]
+   }
+  },
+  "c-nc-57th-north-carolina-infantry": {
+   "rows": 1033,
+   "raw_bytes": 80903,
+   "gz_bytes": 17623,
+   "sha256": "e2b34b7e51de653dd767482b0b0ea2cc342ae1ae3d614641c48c456516397dda",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1031,
+   "remark_empty": 2,
+   "remark_gap_rows": 0,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 1033 against 1022 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 1,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1037,
+     "after_dedupe": 1037
+    },
+    "b": {
+     "parsed": 1033,
+     "after_dedupe": 1033
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.3~b"
+   ],
+   "section": {
+    "a": [
+     1864663,
+     1943758,
+     "override"
+    ],
+    "b": [
+     1863600,
+     1942557,
+     "FIFTY-SEVENTH  REGIMENT— INFANTRY."
+    ]
+   }
+  },
+  "c-nc-4th-north-carolina-cavalry": {
+   "rows": 881,
+   "raw_bytes": 58817,
+   "gz_bytes": 12255,
+   "sha256": "18cc15e397fb3aca73f000cb2cb9a5f349aaaa9821ab1a6119faf06ae3f3f425",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 881,
+   "remark_empty": 0,
+   "remark_gap_rows": 0,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 881 against 878 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 881,
+     "after_dedupe": 881
+    },
+    "b": {
+     "parsed": 878,
+     "after_dedupe": 878
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.3"
+   ],
+   "section": {
+    "a": [
+     1996009,
+     2051395,
+     "FIFTY-NINTH  REGIMENT-fCjpijY,"
+    ],
+    "b": [
+     1994787,
+     2050103,
+     "FIFTY-NINTH  REGIMENT-CAVALRY.,"
+    ]
+   }
+  },
+  "c-nc-5th-north-carolina-cavalry": {
+   "rows": 1326,
+   "raw_bytes": 89448,
+   "gz_bytes": 19278,
+   "sha256": "e29bb0e760c74a0b393c7a2c1f60c9c7e8bbfdd205805ed724704fc5696e5e3c",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 1322,
+   "remark_empty": 4,
+   "remark_gap_rows": 1,
+   "rows_with_remarks_not_found": 0,
+   "primary": "a",
+   "second": "b",
+   "why": "score 1326 against 1321 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 1326,
+     "after_dedupe": 1326
+    },
+    "b": {
+     "parsed": 1321,
+     "after_dedupe": 1321
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.4"
+   ],
+   "section": {
+    "a": [
+     50697,
+     134409,
+     "SIXTY-THIRD  REGIMENT-CAVALRY."
+    ],
+    "b": [
+     50519,
+     134205,
+     "SIXTY-THIRD  REGIMENT— CAVALRY."
+    ]
+   }
+  },
+  "c-nc-2nd-north-carolina-battalion": {
+   "rows": 552,
+   "raw_bytes": 40055,
+   "gz_bytes": 9307,
+   "sha256": "f868ef9bab83f2aaf08164abf26b23bca417be304fdbc8691f8d203bfe0d9b37",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 552,
+   "remark_empty": 0,
+   "remark_gap_rows": 0,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 552 against 544 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 0)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 0,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 544,
+     "after_dedupe": 544
+    },
+    "b": {
+     "parsed": 552,
+     "after_dedupe": 552
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.4~b"
+   ],
+   "section": {
+    "a": [
+     563988,
+     602419,
+     "SECOND  BATTALION-INFANTRY."
+    ],
+    "b": [
+     563574,
+     601984,
+     "SECOND  BATTALION-INFANTRY."
+    ]
+   }
+  },
+  "c-nc-branch-artillery": {
+   "rows": 142,
+   "raw_bytes": 9786,
+   "gz_bytes": 2679,
+   "sha256": "ac0db9b8cbd62870b48dd3356418a0586dfd771afe0af5b5b4509a4680af469b",
+   "verify_ok": true,
+   "v1": 0,
+   "v3": 0,
+   "remark_ok": 141,
+   "remark_empty": 1,
+   "remark_gap_rows": 0,
+   "rows_with_remarks_not_found": 0,
+   "primary": "b",
+   "second": "a",
+   "why": "score 142 against 131 (rows after the pages held twice were taken out, minus the rows of company letters the other scan does not have, minus 15 per defect: 0 company headings read by the sequence or pages held twice, against 1)",
+   "supplement_rows": 0,
+   "supplement_runs": [],
+   "dups_dropped": {
+    "a": [],
+    "b": []
+   },
+   "heading_defects": {
+    "a": 1,
+    "b": 0
+   },
+   "rows_by_scan": {
+    "a": {
+     "parsed": 146,
+     "after_dedupe": 146
+    },
+    "b": {
+     "parsed": 142,
+     "after_dedupe": 142
+    }
+   },
+   "texts": [
+    "NC-MOORE-1882.4~b"
+   ],
+   "section": {
+    "a": [
+     647784,
+     708795,
+     "FIFTH  BATTALION-LIGHT  ARTILLERY."
+    ],
+    "b": [
+     647240,
+     708232,
+     "FIFTH  BATTALION-LIGHT  ARTILLERY."
     ]
    }
   }

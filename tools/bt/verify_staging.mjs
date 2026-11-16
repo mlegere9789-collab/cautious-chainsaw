@@ -19,7 +19,7 @@
 //   tmp/bt-spec/verify/shots/<time>/<dist|source>-<nn>-<name>.png (--shots <dir>, --no-shots, --viewport 1280x720; default 640x360). They are for a person to look at: the check does not judge them.
 // Run it through the machine lock (tools/horde/bench.sh): a software frame takes seconds. Exit 0 only when every check passes.
 import fs from 'node:fs'; import path from 'node:path'; import http from 'node:http'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
-import { pack, trace, audit, SECTIONS, IMPORT_RE, CSS_URL_RE } from './pack_theatre.mjs';
+import { pack, trace, audit, SECTIONS, IMPORT_RE, CSS_URL_RE, EXCLUDE } from './pack_theatre.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), REPO = path.resolve(here, '../..'), BT = path.join(REPO, 'docs/battle-theatre');
 const posix = p => p.split(path.sep).join('/');
@@ -93,6 +93,12 @@ export function checkZip(zip, dist) {
 export function checkNoNotes(dist) {
   const bad = walk(dist).map(f => posix(path.relative(dist, f))).filter(f => /(^|\/)(readme|notes?|todo|changelog)(\.[a-z]+)?$/i.test(f) || /\.(md|map|log|orig|bak|tmp|rej|swp)$|~$/i.test(f) || /(^|\/)\.[^/]+$/.test(f));
   return { ok: bad.length === 0, problems: bad.map(f => 'a notes or leftover file ships: ' + f) };
+}
+/** Nothing that the packer leaves out on purpose may be in the dist: the files of EXCLUDE that no page loads and the work folders that no route may carry (rosters/data2/qa: the page reads, verdicts and draws of the
+ *  roster sample; request note bt-rosters-roster-qa-work-files.md). A second reading of the finished dist, independent of the rule that kept them out. `exclude` is the list of the packer (entries with a path, or plain paths). */
+export function checkLeftOut(dist, exclude = EXCLUDE) {
+  const rules = exclude.map(e => (typeof e === 'string' ? e : e.path).replace(/\/+$/, '')), bad = walk(dist).map(f => posix(path.relative(dist, f))).filter(f => rules.some(r => f === r || f.startsWith(r + '/')));
+  return { ok: bad.length === 0, problems: bad.map(f => 'a path the build leaves out on purpose ships: ' + f), rules: rules.length };
 }
 /** Names the owner's machine can unpack and a URL can carry. The zip is dropped on Netlify as it is, but the same files are often unzipped on Windows first: no character Windows or a URL cannot carry, no device name (CON, NUL,
  *  COM1 ...), no name that ends in a dot or a space, no two paths that differ only by letter case, no path longer than maxPath (the folder the owner unzips into takes about 80 of the 260 characters Windows allows). */
@@ -354,7 +360,7 @@ export function renderStagingBlock({ dist, zip, selftestLog = null, report = nul
   if (!zip) { const dd = path.join(repoRoot, 'deliver'), cand = fs.existsSync(dd) ? fs.readdirSync(dd).filter(f => f.startsWith(`gettysburg-BT-staging-${man.version}`) && f.endsWith('.zip')) : []; if (!cand.length) throw new Error(`no zip of build ${man.version} in deliver/: give --zip`); zip = path.join(dd, cand[0]); }
   zip = path.resolve(zip);
   const trf = path.join(path.dirname(dist), 'trace-report.json'), tr = isFile(trf) ? J(trf) : { built: {}, audit: [], counts: {}, modules: {}, bytesByFolder: {} };
-  const st = { manifest: checkManifest(dist), zip: checkZip(zip, dist), links: checkInternalLinks(dist), notes: checkNoNotes(dist), names: checkPortableNames(dist), pipeline: checkDataPipeline(dist) };
+  const st = { manifest: checkManifest(dist), zip: checkZip(zip, dist), links: checkInternalLinks(dist), notes: checkNoNotes(dist), leftOut: checkLeftOut(dist), names: checkPortableNames(dist), pipeline: checkDataPipeline(dist) };
   const zbuf = fs.readFileSync(zip), zsha = sha256(zbuf), zname = path.basename(zip), flagged = /AUDIT-HITS/.test(zname);
   if (!zname.includes(man.version)) throw new Error(`the zip ${zname} does not carry the build ${man.version} of the dist`);
   if (isFile(zip + '.sha256') && !fs.readFileSync(zip + '.sha256', 'utf8').startsWith(zsha)) throw new Error('the .sha256 file beside the zip is not the hash of the zip');
@@ -371,7 +377,7 @@ export function renderStagingBlock({ dist, zip, selftestLog = null, report = nul
   const folders = Object.entries(tr.bytesByFolder || {}).slice(0, 6).map(([k, v]) => `${k} ${mb(v)} MB`).join(', '), mods = tr.modules || {}, c = tr.counts || {};
   L.push(`| Contents | ${man.files.length + 1} files, ${mb(unz)} MB unzipped. Largest folders: ${folders}. ${c.modules} modules of \`app/src\` (${(mods.loaded || []).filter(f => f.startsWith('app/src/')).length} reached from the page by imports, ${(mods.shippedOnly || []).filter(f => f.startsWith('app/src/')).length} shipped with their folder and imported by no page), ${c.appData} data files of \`app/data\`, ${c.renderer} renderer files; ${(tr.sections || []).length ? 'static sections: ' + tr.sections.map(x => `\`${x.path}\` (${x.files} files, ${x.pages.length} pages)`).join(', ') : 'no roster section (`app/roster` does not exist yet)'}. |`);
   const ok = x => x && x.ok ? 'ok' : 'FAILED';
-  L.push(`| Static checks | manifest ${ok(st.manifest)} (${st.manifest.files} files); zip against dist ${ok(st.zip)} (\`unzip -t\`: ${st.zip.unzipTest}); links inside the dist ${ok(st.links)} (${st.links.checked} checked); names the owner's Windows can unpack ${ok(st.names)} (${st.names.checked} paths); no notes or leftovers ${ok(st.notes)}; the data loaders of the shell run from the dist alone in node ${ok(st.pipeline)} (${st.pipeline.requests} requests, ${st.pipeline.distinct} files). |`);
+  L.push(`| Static checks | manifest ${ok(st.manifest)} (${st.manifest.files} files); zip against dist ${ok(st.zip)} (\`unzip -t\`: ${st.zip.unzipTest}); links inside the dist ${ok(st.links)} (${st.links.checked} checked); names the owner's Windows can unpack ${ok(st.names)} (${st.names.checked} paths); no notes or leftovers ${ok(st.notes)}; none of the ${st.leftOut.rules} paths the build leaves out on purpose (work folders such as \`rosters/data2/qa\`) ships ${ok(st.leftOut)}; the data loaders of the shell run from the dist alone in node ${ok(st.pipeline)} (${st.pipeline.requests} requests, ${st.pipeline.distinct} files). |`);
   if (tr.loadCensus) { const lc = tr.loadCensus, by = tr.shippedByCensus || [], cnt = Object.entries(lc.counts || {}).map(([k, v]) => `${v} ${k}`).join(', ');
     L.push(lc.available === false ? `| Load census | **NOT RUN**: ${lc.reason} |` : `| Load census | the syntax trees of ${lc.scanned} modules and ${plural(lc.pagesScanned || 0, 'page')} were read, independently of the patterns of the trace, and every address the code loads was compared with the build: ${plural(lc.loads, 'load')} (${cnt}); ${lc.findings.length ? '**' + plural(lc.findings.length, 'finding') + '**: ' + lc.findings.slice(0, 4).map(f => `${f.status} \`${f.file}:${f.line}\``).join(', ') : '0 findings'}; files in the build only because the census found a load of them: ${by.length ? by.map(x => '`' + x.path + '`').join(', ') : 'none'}. |`); }
   const hits = tr.audit || [], hitFiles = [...new Set(hits.map(h => h.file))];
@@ -439,17 +445,18 @@ async function main() {
     if (r.audit.length) { failures.push(`copy audit: ${r.audit.length} hit(s) in the packed files (the zip is named "-AUDIT-HITS-${r.audit.length}")`); for (const h of r.audit) notes.push(`audit hit ${h.file}:${h.line ?? ''} ${h.match}`); }
   }
   if (!zip) { const v = checkManifest(dist).version; const cand = v && fs.existsSync(path.join(REPO, 'deliver')) ? fs.readdirSync(path.join(REPO, 'deliver')).filter(f => f.startsWith(`gettysburg-BT-staging-${v}`) && f.endsWith('.zip')) : []; if (cand.length) zip = path.join(REPO, 'deliver', cand[0]); }
-  rep.static = { manifest: checkManifest(dist), zip: zip ? checkZip(zip, dist) : null, links: checkInternalLinks(dist), notes: checkNoNotes(dist), names: checkPortableNames(dist), pipeline: checkDataPipeline(dist) };
+  rep.static = { manifest: checkManifest(dist), zip: zip ? checkZip(zip, dist) : null, links: checkInternalLinks(dist), notes: checkNoNotes(dist), leftOut: checkLeftOut(dist), names: checkPortableNames(dist), pipeline: checkDataPipeline(dist) };
   const traceOfSource = trace({ root: sourceRoot }), cv = censusVerdict(traceOfSource.census, traceOfSource.byCensus); rep.census = cv.summary; failures.push(...cv.failures); notes.push(...cv.notes);
   if (!rep.static.pipeline.ok) failures.push('DATA PIPELINE in node: ' + rep.static.pipeline.problems.slice(0, 5).join('; ')); notes.push(...rep.static.pipeline.notes);
   if (!rep.static.notes.ok) failures.push('NOTES in the dist: ' + rep.static.notes.problems.slice(0, 5).join('; '));
+  if (!rep.static.leftOut.ok) failures.push('LEFT-OUT PATHS in the dist: ' + rep.static.leftOut.problems.slice(0, 5).join('; '));
   if (!rep.static.names.ok) failures.push('NAMES in the dist: ' + rep.static.names.problems.slice(0, 5).join('; '));
   if (!rep.static.manifest.ok) failures.push('MANIFEST: ' + rep.static.manifest.problems.slice(0, 5).join('; '));
   if (!zip) notes.push('no zip was found for this dist: the zip was not checked'); else if (!rep.static.zip.ok) failures.push('ZIP: ' + rep.static.zip.problems.slice(0, 5).join('; '));
   if (!rep.static.links.ok) failures.push('LINKS inside the dist: ' + rep.static.links.problems.slice(0, 5).join('; '));
   print(`static: load census ${cv.summary ? (cv.summary.available ? `${cv.summary.loads} loads in ${cv.summary.scanned} modules (${Object.entries(cv.summary.counts).map(([k, v]) => v + ' ' + k).join(', ')}), ${cv.summary.findings.length} finding(s)` : 'NOT RUN') : 'no result'}`);
   print(`static: data pipeline in node ${rep.static.pipeline.ok ? 'ok' : 'FAILED'} (${rep.static.pipeline.requests} requests, ${rep.static.pipeline.distinct} files)`);
-  print(`static: manifest ${rep.static.manifest.ok ? 'ok' : 'FAILED'} (${rep.static.manifest.files} files), zip ${zip ? (rep.static.zip.ok ? 'ok' : 'FAILED') : 'not checked'}${zip ? ' (' + path.basename(zip) + ', unzip -t: ' + rep.static.zip.unzipTest + ')' : ''}, links ${rep.static.links.ok ? 'ok' : 'FAILED'} (${rep.static.links.checked} checked), names ${rep.static.names.ok ? 'ok' : 'FAILED'} (${rep.static.names.checked} paths)`);
+  print(`static: manifest ${rep.static.manifest.ok ? 'ok' : 'FAILED'} (${rep.static.manifest.files} files), zip ${zip ? (rep.static.zip.ok ? 'ok' : 'FAILED') : 'not checked'}${zip ? ' (' + path.basename(zip) + ', unzip -t: ' + rep.static.zip.unzipTest + ')' : ''}, links ${rep.static.links.ok ? 'ok' : 'FAILED'} (${rep.static.links.checked} checked), names ${rep.static.names.ok ? 'ok' : 'FAILED'} (${rep.static.names.checked} paths), left-out paths absent ${rep.static.leftOut.ok ? 'ok' : 'FAILED'} (${rep.static.leftOut.rules} rules)`);
   // the root page of the dist forwards to the shell
   try { const s = await serveDir(dist); const r = await fetch(`http://127.0.0.1:${s.port}/`); const body = await r.text(); await s.close(); if (!(r.status === 200 && /url=app\/index\.html/.test(body))) failures.push('the root page of the dist does not forward to app/index.html'); } catch (e) { failures.push('root page check failed: ' + e.message); }
   if (has('--static-only')) { rep.failures = failures; rep.notes = notes; rep.ok = failures.length === 0; rep.official = false; if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1)); for (const n of notes) print('note: ' + n);

@@ -4,7 +4,7 @@
 //   FIXTURE_CFG       the packer settings of this tree (the same shape as the constants of pack_theatre.mjs)
 // The tests patch single lines of these files (the texts "// MARK", "import './theatre.mjs';", "href=\"units.html\"", "url(./img/bg.png)" and ".map(r => r.id)" must stay as they are).
 import fs from 'node:fs'; import path from 'node:path';
-import { WITHHELD } from '../../tools/bt/pack_theatre.mjs';
+import { WITHHELD, EXCLUDE } from '../../tools/bt/pack_theatre.mjs';
 
 const PNG = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 0]);       // the signature of a PNG and nothing else: the packer only copies it
 
@@ -118,7 +118,8 @@ export function makeFixture(dir) {
 }
 
 export const FIXTURE_CFG = {
-  pages: ['app/index.html'], extraDirs: ['render/prototype/data'], include: ['app/data/audio'], shipWhole: ['app/src'], sections: ['app/roster'], exclude: [],
+  pages: ['app/index.html'], extraDirs: ['render/prototype/data'], include: ['app/data/audio'], shipWhole: ['app/src'], sections: ['app/roster'],
+  exclude: EXCLUDE.filter(e => e.path === 'rosters/data2/qa'),      // the real rule for the work folder of the roster sample (the audio3d and fx3d entries name files this tree does not have); pack.test.mjs checks that the rule is there
   withheld: WITHHELD,
   project: [{ path: 'GOVERNANCE/register_index.json', keep: ['id'], readers: [{ file: 'app/src/theatre.mjs', use: /register_index\.json'\)\)\.json\(\)\)\.map\(r => r\.id\)/ }],
     why: 'The shell reads only the entry ids; the working file also carries internal notes.' }],

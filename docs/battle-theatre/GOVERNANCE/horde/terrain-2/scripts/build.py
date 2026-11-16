@@ -10,6 +10,8 @@ from tlib import ROOT, OR_BY_ID, OR_SHA, OR_PATH, get_part, norm_query
 OUT = os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/evidence_corrections/terrain-2.jsonl')
 RESULTS = os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/horde/terrain-2/results.jsonl')
 RECHECK = os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/horde/OR-RECHECK/results.jsonl')
+_WR = os.path.join(ROOT, 'tmp/terrain-2/nps/web_registry.json')
+WEBREG = json.load(open(_WR)) if os.path.exists(_WR) else {}
 CLASS = {'OR': 'primary (official report written 1863-65; Government Printing Office volume 1889, raw OCR, single witness unless a second scan is listed)'}
 LIB_CLASS = {}  # filled by lib_class()
 _SHA_CACHE = {}
@@ -94,6 +96,12 @@ def resolve(c):
         i0, i1 = sp[occ or 0]; a, b = nm[i0], nm[i1 - 1] + 1; quote = nt[i0:i1]
         pg = None
         for mm in re.finditer(r'=== PAGE (\d+) ===', raw[:a]): pg = mm.group(1)
+        wr = WEBREG.get(ref)
+        if wr:
+            return dict(source_id=ref, source_class='secondary (National Park Service web page; United States government work; text conversion of the saved page)', part=None, report_id=None,
+                        printed_page=None, pdf_page=None, url=wr['url'], fetch_id=wr['fetch_id'], fetched_at=wr['fetched_at'], html_sha256=wr['html_sha256'], fetched_by=wr['fetched_by'],
+                        quote=quote, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)',
+                        role=c['role'], note=c.get('note'))
         return dict(source_id=ref, source_class='secondary (National Park Service document, United States government work; text layer of the PDF)', part=None, report_id=None,
                     printed_page=c.get('page'), pdf_page=pg, quote=quote, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)',
                     role=c['role'], note=c.get('note'))

@@ -93,7 +93,7 @@ def heading_of(toks):
         acc += re.sub(r'[^A-Za-z0-9]', '', toks[k])
         k += 1
     accl = acc.lower()
-    if len(accl) >= 7 and accl[0] in 'cb' and len(toks) <= 8:
+    if len(accl) >= 7 and accl[0] in 'cb' and len(toks) <= 8 and toks[0][:1] in ('C', 'B', 'c', 'b') and (toks[0][:1].isupper() or toks[0][:2].isupper()):
         if accl[0] == 'c' and T.lev(accl[:7], 'company', 2) <= 2:
             word = 'company'
         elif accl[0] == 'b' and T.lev(accl[:7], 'battery', 2) <= 2:
@@ -110,9 +110,12 @@ def heading_of(toks):
         if not rest:
             return ('company', '?')
         t1 = re.sub(r'[^A-Za-z0-9]', '', rest[0])
-        if len(t1) == 1 or (len(t1) == 2 and t1[0] == t1[1]):
+        after = rest[1:]
+        # after the letter: nothing, or the place of recruitment ("recruited at ..."), or marks; a remark ("company H - date unknown") is no heading
+        ok_after = (not after) or RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', after[0])) or all(not re.sub(r'[^A-Za-z0-9]', '', t) for t in after)
+        if (len(t1) == 1 or (len(t1) == 2 and t1[0] == t1[1])) and ok_after:
             return ('company', t1[0].upper())
-        if t1 == '' or RECRUIT_RE.match(t1):
+        if (t1 == '' or RECRUIT_RE.match(t1)) and ok_after:
             return ('company', '?')
     return None
 
@@ -215,6 +218,15 @@ def analyse_leaf(rec, ctx):
     B1 = (xr - 0.016 * W) if xr is not None else (xd - 0.098 * W)       # left edge of the rank cell (the name cell ends before it)
     out['info']['B1'] = round(B1)
     out['info']['W_'] = W
+    # the rule between the name column and the rank column prints marks ("I", "l", "!", "j", ":") at one x on every line of the page
+    rx = []
+    for l in lines:
+        if any(T.is_month(w['w']) and abs(w['x0'] - xd) <= 0.03 * W for w in l):
+            for w in l:
+                if B1 - 0.04 * W <= w['x0'] < B2 and (not T.core(w['w']) or T.core(w['w']) in ('I', 'i', 'l', 'L', '1', 'j', 'J')):
+                    rx.append(w['x0'])
+    xrule = G.peak(rx, width=max(12, 0.007 * W), minn=5)[0] if rx else None
+    out['info']['xrule'] = None if xrule is None else round(xrule)
     hs = [line_height(l) for l in lines if any(T.is_month(w['w']) and abs(w['x0'] - xd) <= 0.03 * W for w in l)]
     hmed = statistics.median(hs) if hs else None
     out['info']['hrow'] = None if hmed is None else round(hmed)
@@ -237,7 +249,7 @@ def analyse_leaf(rec, ctx):
         has_month = any(T.is_month(w['w']) and abs(w['x0'] - xd) <= 0.03 * W for w in l)
         left = [w for w in l if w['x0'] < B2]
         right = [w for w in l if w['x0'] >= B2]
-        left_alnum = [w for w in left if T.core(w['w'])]
+        left_alnum = [w for w in left if len(T.core(w['w'])) >= 2 or (len(T.core(w['w'])) == 1 and T.core(w['w']).isupper() and T.core(w['w']) not in 'ILJ')]
         h = line_height(l)
         # --- the note on the abbreviations and everything under it
         if note_from is not None or (NOTE_RE.search(txt) and not has_month and x0 < xd):
@@ -267,13 +279,19 @@ def analyse_leaf(rec, ctx):
             out['items'].append(('heading', hd[0], hd[1], txt, y))
             last_row = None
             continue
-        if not has_month and RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', toks[0])) and (xn is None or x0 > xn + 0.04 * W) and len(toks) >= 2:
+        if not has_month and RECRUIT_RE.match(re.sub(r'^[^A-Za-z]+', '', toks[0])) and (xn is None or x0 > xn + 0.04 * W) and (x0 < B2 or last_row is None) and len(toks) >= 2:
             out['items'].append(('skip', 'recruited', txt, y))
             prev_items = [it for it in out['items'][:-1] if it[0] in ('heading', 'row', 'skip', 'orphan')]
-            near_heading = any(it[0] == 'heading' and y - it[-1] < 2.6 * (pitch0 or 40) for it in out['items'][-3:-1])
+            near_heading = any(it[0] == 'heading' and y - it[-1] < 4.2 * (pitch0 or 40) for it in out['items'][-3:-1])
             if not near_heading and x0 > (xn if xn is not None else 0) + 0.12 * W:
                 # the line that says where the company was recruited stands without the heading above it: the heading was lost by the text layer
                 out['items'].insert(len(out['items']) - 1, ('heading', 'company', '?', '(inferred from the recruited line) ' + txt, y - 1))
+            last_row = None
+            continue
+        # a line of running prose (a narrative page ends above the roll, a footnote under the table): many words, no cell gaps, starts in the name column
+        if not has_month and len(l) >= 6 and left_alnum and max(l[k + 1]['x0'] - l[k]['x1'] for k in range(len(l) - 1)) < 0.045 * W and not any(
+                B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l):
+            out['items'].append(('skip', 'prose', txt, y))
             last_row = None
             continue
         if not has_month and not right and left_alnum and all(T.core(w['w']).isdigit() or T.core(w['w']).lower() in ('vol', 'il', 'ill', 'iii', 'ii', 'iv', 'v', 'i', 'l') for w in left_alnum):

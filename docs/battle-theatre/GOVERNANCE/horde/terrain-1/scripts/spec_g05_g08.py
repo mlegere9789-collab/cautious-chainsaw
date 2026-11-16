@@ -34,7 +34,7 @@ ROWS.append(R(
             C('NPS', 'NPS-SLAUGHTER-PEN', "Since the four front guns could not be depressed enough to cover any Confederate advance through the Plum Run gorge between Round Top and the", note="NPS text layer garbled after 'the'; the NPS cites Smith's 1892 book")]),
         S('f', 'movement', "Two guns in the Plum Run valley: Smith ran to the rear section and fired canister on the force coming through the gorge; the OR report says the section fired obliquely through the gully; Benning wrote of the terrible fire of two guns that swept the gorge.", 'documented', 'supported', [
             C('OR1', 'R184', "I then went to the rear, and opened that section of guns, firing obliquely through the gully, doing good execution"),
-            C('OR2', 'R458', "Where that line crossed the gorge running between the peak an<l the mountain, a point 500 or GOO yards in the rear of the peak, were two other guns.", note="OCR 'an<l', 'GOO' for 'and', '600'"),
+            C('OR2', 'R458', "Where that line crossed the gorge running between the peak an<l the mountain, a point 500 or GOO yards in the rear of the peak, were two other guns.", note="OCR 'an<l', 'GOO' for 'and', '600': both other archive.org scans of part 2 read 'or 600 yards' (digit audit 2026-11-16)"),
             C('OR2', 'R458', "by the terrible fire from them which swept down the goro-e.", note="OCR 'goro-e' for 'gorge'"),
             C('LIB', 'NY-GB-1902-v3', "The remaining two guns were stationed in rear about seventy-five yards, where they could be used to advantage, covering the Plum Run Gorge passage"),
             C('LIB', 'NY-GB-1902-v3', "their battle flag drops three different times from the effect of our canister")],
@@ -95,7 +95,7 @@ ROWS.append(R(
         S('b', 'hour', "March: moved to the left about 4:30 p.m. (Hunt, Martin); Garrard's brigade was moved rapidly forward from about 4 p.m.", 'documented', 'supported', [
             C('OR1', 'R217', "the brigade with the division remained idle, lying by their arms until about 4 p. m. At this time the brigade was moved rapidly forward"),
             C('OR1', 'R028', "About 4.30 p. m. Hazlett's battery was moved to the extreme left"),
-            C('OR1', 'R221', "On the 2d instant, about 4.30 p. m., Battery D, Fifth U. S. Artillery, was moved to the left of the First Division about three-quarters of a mile")]),
+            C('OR1', 'R221', "On the 2d instant, about 4.30 p. m., Battery D, Fifth U. S. Artillery, was moved to the left of the First Division about three-quarters of a mile", note="digit audit 2026-11-16: the Cornell scan and warofrebellion271unit read '2d'; warofrebellion012701rootrich reads 'the 3d' (OCR); Hunt (R028 p.236) also has the move on 2 Jul, so '2d' stands")]),
         S('c', 'hour', "First fire: 'immediately upon taking up the position' and a continuous fire until dark; Hazlett was shot after the battery had been engaged only about an hour and died at 8 p.m. The PDF's 17:45 first fire is in no source and would put Hazlett's wound after 18:45.", 'documented', 'contradicted', [
             C('OR1', 'R221', "Immediately upon taking up the position, the battery opened upon the enemy, who was engaging the First Division, completely enfilading the enemy's lines with marked effect"),
             C('OR1', 'R221', "The battery kept up a continuous fire until dark"),

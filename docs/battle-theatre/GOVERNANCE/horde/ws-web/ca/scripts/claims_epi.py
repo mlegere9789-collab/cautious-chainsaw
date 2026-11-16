@@ -98,15 +98,17 @@ CLAIMS = [
          remains='the OCR layer of this page is poor; only the viewed print supports the wording; the account\'s author and heading not read'),
 
     dict(ids=['E-001', 'R22.0001'], key='arrival-wire-afternoon',
-         sub_claim=('A dispatch printed from Gettysburg on 19 Nov (Evening Star, National Intelligencer, Daily Gate City of Keokuk) says the President and the '
-                    'party accompanying him "arrived here yesterday afternoon, and soon thereafter a special train from Harrisburg brought" Governor Curtin '
-                    'and several other Governors; it gives no hour.'),
+         sub_claim=('A dispatch datelined Gettysburg, Nov. 19, was printed by the Evening Star (19 Nov) and by the National Intelligencer and the Daily Gate City of Keokuk (20 Nov). '
+                    'The Star prints "The President and party who accompanied him arrived yesterday afternoon, and soon thereafter a special train from Harrisburg brought Gov. Curtin and several other Governors, '
+                    'together with numerous gentlemen of military and civil life" (the Intelligencer prints "Governor Curtin"); the Gate City prints "President Lincoln and the distinguished party accompanying him arrived here '
+                    'yesterday afternoon, and soon after the special train from Harrisburg brought Gov. Curtin and several others"; no hour is given. All three end the dispatch with a sentence on the weather and the programme: '
+                    'the Star and the Intelligencer "The weather is fine to-day, and the programme has been carried out successfully", the Gate City "The weather is fine. The programme has been carried out successfully."'),
          tier='documented', state_date='1863-11-18',
-         cites=[dict(page=INT20, span=('arrived yesterday afternoon', 'military and civil life.'), reprint={'status': 'wire', 'from': None, 'basis': WIRE_NOTE}),
-                dict(page=GATE20, span=('arrived here yest', 'military and civil life.'), reprint={'status': 'wire', 'from': None, 'basis': WIRE_NOTE}),
-                dict(page=STAR19, span=('yesterday afternoon, and soon thereafter', 'e\'.vil life.'), reprint={'status': 'wire', 'from': None, 'basis': WIRE_NOTE})],
-         row_effect='consistent with the row (arrival in the evening is not contradicted; "afternoon" is vague)',
-         remains='no hour; one dispatch printed three times',
+         cites=[dict(page=STAR19, span=('THE DEDICATION OF THc7oLDIER', 'aucces&tully.'), reprint={'status': 'wire', 'from': None, 'basis': WIRE_NOTE}),
+                dict(page=INT20, span=('Gettysburg, Nov. 19', 'out successfully.'), dateline='Gettysburg, Nov. 19', reprint={'status': 'wire', 'from': None, 'basis': WIRE_NOTE}),
+                dict(page=GATE20, span=('Gettysburg, Nov. 19.', 'out successfully.'), reprint={'status': 'wire', 'from': None, 'basis': WIRE_NOTE})],
+         row_effect='consistent with the row (arrival in the evening is not contradicted; "afternoon" is vague); the Gate City rewrites the sentence (it is not word for word the Star and Intelligencer text)',
+         remains='no hour; one dispatch printed three times (the Gate City in a shortened rewrite)',
          independence='one dispatch, three printings'),
 
     # ------------------------------------------------------------------ E-001 / E-002  Seward at the Harper house
@@ -140,15 +142,16 @@ CLAIMS = [
     dict(ids=['E-002', 'R22.0002', 'E-001', 'R22.0001'], key='serenade-late-hour',
          sub_claim=('The Nashville Daily Union (24 Nov), quoting "the reporter of the Cincinnati Gazette", prints: "Last evening, the 18th, at a late hour, '
                     'the President and others were serenaded; in response to which Mr. Lincoln excused himself, and speeches were made by Judge Shannon, of '
-                    'Pittsburg, Mr. [McNeagh?] of Philadelphia, J. W. Forney, and Montgomery Blair." The New-York Tribune (20 Nov) prints that the train '
+                    'Pittsburg, Mr. McNeagh [as printed] of Philadelphia, J. W. Forney, and Montgomery Blair." The Chicago Tribune (21 Nov) prints the same sentence, naming "McVeagh of Philadelphia" in the OCR layer (name read from the print below). '
+                    'The New-York Tribune (20 Nov) prints that the train '
                     'carrying the Governors "was delayed by a slight accident until nearly midnight", and that the President, Secretary Seward and Col. '
                     'Forney "were serenaded, and each replied to the compliment".'),
          tier='documented', state_date='1863-11-18',
-         cites=[dict(page=NASH24, span=('Last evening, the ISth, at a late hour', 'excus cuied himself,'), img='nash24_gaz',
+         cites=[dict(page=NASH24, span=('Last evening, the ISth, at a late hour', 'Montgomery Blair.'),
                      attribution='The reporter of the Cincinnati Gazette adds the fallowing:',
-                     reading='Last evening, the 18th, at a late hour, the President and others were serenaded; in response to which Mr. Lincoln excused himself, and speeches were made by Judge Shannon, of Pittsburg, Mr. McNeagh [as printed] of Philadelphia, J. W. Forney',
-                     corrections=[['ISth', '18th'], ['ia response', 'in response'], ['excus cuied', 'excused']],
                      reprint={'status': 'reprint', 'from': 'the reporter of the Cincinnati Gazette', 'basis': 'The reporter of the Cincinnati Gazette adds the fallowing:'}),
+                dict(page=CHI21, span=('Lott evening at a late hour', 'Montgomery* Blair.'),
+                     reprint={'status': 'unknown', 'from': None, 'basis': 'no source named on the page text read; the sentence is the same as the Nashville Daily Union prints under the Cincinnati Gazette reporter'}),
                 dict(page=TRIB20, span=("The President's party arrived last evening", 'were serenaded, and cach replied to the compliment.'), img='trib20_serenade',
                      reading=("The President's party arrived last evening, but the train which conveyed the Governors was delayed by a slight accident until nearly "
                               "midnight, so that they were not able to participate in the proceedings of the night, which were of a marked character. The "
@@ -158,7 +161,7 @@ CLAIMS = [
                      reprint={'status': 'unknown', 'from': None, 'basis': 'the dispatch of 19 Nov is unsigned on the page text read'})],
          row_effect='agrees with E-002 that there was a late serenade on the night of 18 Nov; "about 23:00" is not stated by either paper ("a late hour", "nearly midnight" is the Governors\' train)',
          remains='the exact hour of the Glee Club serenade; the order of the speakers; the Nashville text names a "Mr. McNeagh" (print) whose identity is not established here',
-         independence='the Nashville passage is a reprint of a Cincinnati Gazette report; the Tribune passage is an unsigned dispatch'),
+         independence='the Nashville and Chicago passages are one report (the Nashville paper names the Cincinnati Gazette reporter); the Tribune passage is an unsigned dispatch'),
 
     # ------------------------------------------------------------------ E-004  procession
     dict(ids=['E-004', 'R22.0004'], key='procession-0900-1000-guns',
@@ -228,13 +231,15 @@ CLAIMS = [
                      corrections=[['ar- ived', 'arrived'], ['Phe President', 'The President'], ['eivie', 'civic']],
                      dateline='GersyeBURe, Thursday, Nov. 19, 1563.',
                      reprint={'status': 'unknown', 'from': None, 'basis': 'unsigned dispatch'}),
+                dict(page=INT21, span=('he healot the procesmioli reaeled', 'before noon,'), reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
+                dict(page=STAR20, span=('head of the procession reached the plat', 'quarter before noon;'), reprint={'status': 'unknown', 'from': None, 'basis': 'no source named; the Republican prints the same passage'}),
                 dict(page=REP20, span=('The head of the procession reached the plat', 'were all In their places.'), img='rep20_noon',
                      reading=('The head of the procession reached the platform erected in the centre of the cemetery a quarter before noon; but some time was consumed in assigning the different bodies their position round the stand; and it was not until after 12 o\'clock that the President and others, assigned to seats upon the platform, were all in their places.'),
                      corrections=[['plat form creeled', 'platform erected'], ['consumrd', 'consumed'], ['U o\'clock', '12 o\'clock'], ['tbat', 'that']],
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named; the Star of 20 Nov prints the same passage'})],
          row_effect='the row has the troops forming a line "about 11:00 to noon"; the three hours printed (10:58, 11:15, 11:45) all lie in that range and differ from one another by up to 47 minutes; carried as selectable values, no default',
          remains='which clock the writers used; whether "the head of the procession" and "the assemblage" are the same event',
-         independence='three accounts; the Republican/Star passage is one text, the Chicago dispatch and the New-York dispatch are separate'),
+         independence='the Republican, Star and Intelligencer passages share one text (the Intelligencer shortened); the Chicago dispatch and the New-York dispatch are separate'),
 
     dict(ids=['E-005', 'R22.0005'], key='military-salute-line',
          sub_claim=('The New-York Tribune (20 Nov) prints that the procession "marched through the principal streets to the Cemetery, where the military formed in line '
@@ -273,16 +278,19 @@ CLAIMS = [
          remains='the band\'s home town and size; the piece played; the other papers call the opening piece a funeral dirge by "the band"'),
 
     dict(ids=['E-006', 'R22.0006', 'E-012', 'R22.0012'], key='opening-dirge',
-         sub_claim=('The Republican and the Evening Star (20 Nov) print that "the solemn ceremonies were commenced by the performance of a funeral dirge by the band, '
-                    'stationed in front of the platform" (signal given by B. B. French, one of the Chief Marshal\'s aides); the Intelligencer prints the same sentence.'),
+         sub_claim=('The Republican and the Evening Star (20 Nov) print that, all the arrangements having been completed, B. B. French, "acting as one of the Chief Marshal\'s Aides, gave the signal, and the solemn '
+                    'ceremonies were commenced by the performance of a funeral dirge by the band, stationed in front of the platform"; the National Intelligencer (21 Nov) prints that B. B. French, "one of the Chief Marshal\'s Aides, '
+                    'gave the signal, and the solemn ceremonies were commenced by the performance of a funeral dirge by the band" (without the position of the band).'),
          tier='documented', state_date='1863-11-19',
-         cites=[dict(page=REP20, span=('gave tho signal, and the sol emn ceremonies', 'front of the platform.'),
+         cites=[dict(page=REP20, span=('All the arrangements having been', 'front of the platform.'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named; the Star prints the same sentence'}),
-                dict(page=STAR20, span=('the sol emn ceremonies were commenced', 'frout of tbe platform.'),
+                dict(page=STAR20, span=('All the arrangements having bwn', 'frout of tbe platform.'),
+                     reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
+                dict(page=INT21, span=('and when all the ditterent bolies', 'by the ba.1 <1.'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'})],
-         row_effect='adds to E-006 (opening music: a funeral dirge by the band, not a named band) and to E-012 (a "dirge" is also printed at the opening, not only after Lincoln)',
-         remains='the name of the band at this point; the title of the piece',
-         independence='one account, two printings'),
+         row_effect='adds to E-006 (opening music: a funeral dirge by the band, not a named band here; B. B. French gave the signal) and to E-012 (a "dirge" is also printed at the opening, not only after Lincoln)',
+         remains='the name of the band at this point (the Chicago Tribune names Bergfeld\'s band, see the band claim); the title of the piece',
+         independence='one account, three printings'),
 
     dict(ids=['E-006', 'R22.0006'], key='start-after-noon',
          sub_claim=('The Republican and the Evening Star (20 Nov) print that "it was not until after 12 o\'clock that the President and others, assigned to seats upon the '
@@ -292,6 +300,7 @@ CLAIMS = [
          cites=[dict(page=REP20, span=('it was not until after', 'were all In their places.'), img='rep20_noon',
                      reading='and it was not until after 12 o\'clock that the President and others, assigned to seats upon the platform, were all in their places.',
                      corrections=[['U o\'clock', '12 o\'clock'], ['tbat', 'that']], reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
+                dict(page=STAR20, span=('and it was not until alter 12', 'all in their places.'), reprint={'status': 'unknown', 'from': None, 'basis': 'no source named; the Republican prints the same passage'}),
                 dict(page=CHI21, span=('and at half-paat eleven', 'called to order.'), img='chi21_times',
                      reading='and at half-past eleven the great assemblage was called to order.', corrections=[['half-paat', 'half-past']],
                      attribution='[Special Dispatch to the Chicago Tribune.]',
@@ -303,16 +312,23 @@ CLAIMS = [
 
     # ------------------------------------------------------------------ E-007  prayer, weather
     dict(ids=['E-007', 'R22.0007'], key='prayer-stockton',
-         sub_claim=('The prayer was offered by Rev. Thomas H. Stockton: the Intelligencer and the Republican print "Chaplain of the House (of Representatives)", the New-York '
-                    'Tribune and the Chicago Tribune print "Chaplain of the United States Senate"; the Intelligencer adds "the most profound silence prevailed and very '
-                    'many were affected to tears".'),
+         sub_claim=('The prayer was offered by Rev. Thomas H. Stockton: the Intelligencer prints "Chaplain of the House of Representatives", the Republican "Chaplain of the House", the Evening Star '
+                    '"Chaplain of the U. S. House of Representatives"; the New-York Tribune and the Chicago Tribune print "Chaplain of the United States Senate"; the Intelligencer and the Republican add '
+                    '"during which the most profound silence prevailed and very many were affected to tears".'),
          tier='documented', state_date='1863-11-19',
          cites=[dict(page=INT21, span=('A most impressive prayer was offered by', 'to tears.'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named; the Republican prints the same'}),
+                dict(page=REP20, span=('A most Impressive prayer was offered by', 'affected to tears.'),
+                     reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
+                dict(page=STAR20, span=('Rev. Thos. H. Stockton, Chaplain', 'then offered a'),
+                     reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
                 dict(page=TRIB21, span=('The Rev. Dr. Stockton, Chaplain of the United States Senate', 'fervent prayer'), img='trib21_birg',
                      reading='The Rev. Dr. Stockton, Chaplain of the United States Senate, then followed in a fervent prayer.',
                      attribution='From Our Special Correspondent.',
-                     reprint={'status': 'original', 'from': 'the Tribune\'s own correspondent', 'basis': 'From Our Special Correspondent.'})],
+                     reprint={'status': 'original', 'from': 'the Tribune\'s own correspondent', 'basis': 'From Our Special Correspondent.'}),
+                dict(page=CHI21, span=('Rev. Hr. Steckton', 'such a prayer os only he Is capable cf.'),
+                     attribution='[Special Dispatch to the Chicago Tribune.]',
+                     reprint={'status': 'original', 'from': 'special dispatch to the Chicago Tribune', 'basis': '[Special Dispatch to the Chicago Tribune.]'})],
          row_effect='agrees with the row (Rev. T. H. Stockton, prayer); the papers differ on his office (House or Senate chaplain)',
          remains='the length of the prayer'),
 
@@ -369,7 +385,7 @@ CLAIMS = [
          tier='documented', state_date='1863-11-19',
          cites=[dict(page=INT21, span=('Hon B. B. French now introduced', 'pronounced the eloquent oration'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
-                dict(page=REP20, span=('now introduced too lion. Edward Ererelt', 'pronounced TUK ORATION.'),
+                dict(page=REP20, span=('lion. tJ. is. rrcccn now introduced', 'pronounced TUK ORATION.'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
                 dict(page=CHI21, span=('Mr. Everett, tbe orator, proceeded', 'iu Hie delivery.'), img='chi21_times',
                      reading='Mr. Everett, the orator, proceeded with a discourse occupying two hours and four minutes in the delivery. [damaged letter in "four"]',
@@ -385,10 +401,7 @@ CLAIMS = [
                     'stand, with the single exception of calling upon the band to play the opening music, which I did in consequence of the temporary absence of the Marshal-in-Chief." The editor '
                     'adds that the omission was "made by the papers from which we copied our account of the Gettysburg ceremonies".'),
          tier='documented', state_date='1863-11-19',
-         cites=[dict(page=INT23, span=('That is an error. Marshal Lamon made all', 'Marshal-in Chief.'), img='int23_french',
-                     reading=('That is an error. Marshal Lamon made all the introductions and announcements from the stand, with the single exception of calling upon the band to play the opening music, '
-                              'which I did in consequence of the temporary absence of the Marshal-in-Chief. It is due to Marshal Lamon that I should say this'),
-                     corrections=[['announce ments', 'announcements'], ['Marshal-in Chief', 'Marshal-in-Chief']],
+         cites=[dict(page=INT23, span=('I perceive, in your account', 'Marshal-in Chief.'),
                      attribution='B. B. FRENCH.', dateline='Washington, NOVEMBER 21, 1863.',
                      reprint={'status': 'original', 'from': 'a signed letter of B. B. French to the editors, dated Washington, Nov. 21, 1863', 'basis': 'B. B. FRENCH.'}),
                 dict(page=INT23, span=('[We are glad that our friend', 'Nat. fat.]'), img='int23_note',
@@ -404,13 +417,13 @@ CLAIMS = [
     dict(ids=['E-009', 'R22.0009', 'E-011', 'R22.0011'], key='marshal-introduces-lincoln',
          sub_claim=('The Marshal introduced the President: Republican "Marshal Lamon introduced to the assemblage the President of the United States, who delivered the following '
                     'dedicatory remarks"; Intelligencer "The President then appeared at the foot of the platform, and, upon being introduced by the Marshal, was vociferously cheered '
-                    'by the vast audience"; Chicago Tribune "The Marshal then introduced President Lincoln".'),
+                    'by the vast audience"; Chicago Tribune "The Marshal then introduced President Lincoln, who spoke as follows, after the immense applause".'),
          tier='documented', state_date='1863-11-19',
          cites=[dict(page=REP20, span=('after which, Marshal Lamon Introduced', 'dedicatory remarks'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
                 dict(page=INT21, span=('The President then appeared at the foot of the plat', 'He spoke as follows'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
-                dict(page=CHI21, span=('The Marshal then introduced President Lincoln', 'epske as follows'),
+                dict(page=CHI21, span=('The Marshal then introduced President Lincoln', 'mense applause:'),
                      attribution='[Special Dispatch to the Chicago Tribune.]',
                      reprint={'status': 'original', 'from': 'special dispatch to the Chicago Tribune', 'basis': '[Special Dispatch to the Chicago Tribune.]'})],
          row_effect='adds to E-009: "Lamon introduces" is printed for the introduction of Lincoln, not of Everett; E-011: Lincoln was introduced by the Marshal and cheered',
@@ -444,37 +457,39 @@ CLAIMS = [
 
     # ------------------------------------------------------------------ E-011  the address and who was present
     dict(ids=['E-011', 'R22.0011'], key='address-printings-east',
-         sub_claim=('Lincoln\'s dedicatory remarks as printed on 20-21 Nov in the New-York Tribune, the Republican, the Intelligencer and the Star begin "Four score and seven years ago '
-                    'our fathers brought forth upon [on, in the Intelligencer] this continent a new nation, conceived in liberty and dedicated to the proposition that all men are '
-                    'created equal" with "[Applause]" after "created equal", and end "... shall not perish from the earth. [Long-continued applause.]" with "under God" in the '
-                    'sentence on "a new birth of freedom" (printed readings differ in small words between the papers).'),
+         sub_claim=('Lincoln\'s dedicatory remarks as printed on 20-21 Nov in the Republican, the New-York Tribune and the Intelligencer: the Republican prints "Four score and seven years ago our fathers brought forth upon this '
+                    'continent a new nation, conceived in liberty and dedicated to the proposition that all men are created equal. [Applause.]"; the New-York Tribune ends the remarks "that we here highly resolve that the dead shall '
+                    'not have died in vain (applause); that the nation shall, under God, have a new birth of freedom; and that Governments of the people, by the people, and for the people, shall not perish from the earth. '
+                    '[Long-continued applause.] Three cheers were here given for the President and the Governors of the States"; the Intelligencer ends "that we here highly resolve that these dead shall not have died in vain. [Applause.] '
+                    'That the nation shall, under God, have a new birth of freedom; and that Government of the people, by the people and for the people, shall not perish from the earth. [Long-Continued, applause.]" '
+                    '(the printed readings differ in small words between the papers).'),
          tier='documented', state_date='1863-11-19',
          cites=[dict(page=REP20, span=('Four score and seven years ago our fathers brought forth upon', 'created equal. Ap plause.'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
-                dict(page=TRIB20, span=('that we here highly resolve', 'shall not perish from'),
+                dict(page=TRIB20, span=('that we here highly resolve', 'Governors of the States,'),
                      dateline='GersyeBURe, Thursday, Nov. 19, 1563.',
                      reprint={'status': 'unknown', 'from': None, 'basis': 'unsigned dispatch'}),
-                dict(page=INT21, span=('are engaged in a great equal. [Applause ]', 'Now we'),
-                     note='in the Intelligencer\'s text the lines of two neighbouring columns are interleaved by the OCR layout, so the sentence is broken in the saved text',
+                dict(page=INT21, span=('that we here highly resolve that these dea l', 'Long-Continued, applause.]'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'})],
-         row_effect='adds to E-011 ("a few minutes at most"): the text printed on 20 Nov (the day after) as Lincoln\'s remarks; the printed readings vary and none is the later Bliss copy; applause marks are printed (applause after "created equal", after "detract", after "did here", after "nobly carried on", after "in vain", and "Long-continued applause" at the end)',
-         remains='the wording is a transcription by reporters; the differences between printings are listed in address_printings.json when it exists; which wording the film speaks is an owner decision (the row carries it as a scenario)',
-         independence='the four printings are not independent copies of a manuscript; their common source is the reporters\' transcription'),
+         row_effect='adds to E-011 ("a few minutes at most"): the text printed on 20 Nov (the day after) as Lincoln\'s remarks; the printed readings vary and none is the later Bliss copy; applause marks are printed (applause after "created equal", after "in vain", and "Long-continued applause" at the end, then three cheers for the President and the Governors)',
+         remains='the wording is a transcription by reporters; the differences between printings are listed in address_printings.json when it exists; which wording the film speaks is an owner decision (the row carries it as a scenario); the Star of 20-21 Nov does not print the remarks in the pages read',
+         independence='the three printings are not independent copies of a manuscript; their common source is the reporters\' transcription'),
 
     dict(ids=['E-011', 'R22.0011'], key='address-printings-western',
          sub_claim=('A second, different text of the remarks was telegraphed west and printed by the Chicago Tribune (21 Nov, special dispatch) and the Nashville Daily Union (24 Nov): '
                     '"Four score and seven years ago, our fathers established upon this continent a Government subscribed in liberty and dedicated to the fundamental principle that all '
-                    'mankind are created equal by a good God, and [applause] now we are engaged in a great contest" (Chicago, read from the print); it is a corrupt or paraphrased '
+                    'mankind are created equal by a good God, and [applause] now we are engaged in a great contest." (Chicago); the Nashville paper prints "Four-score and seven years ago our fathers established upon this continent a Government '
+                    'subscribed in liberty and dedicated to the fundamental principle that all mankind are created free and equal by a good God--[applause]--and now we are engaged in a great contest". It is a corrupt or paraphrased '
                     'report of the speech, not the text of the eastern papers.'),
          tier='documented', state_date='1863-11-19',
-         cites=[dict(page=CHI21, span=('Four score and seven years ago, oar', 'created equal by a good God'),
+         cites=[dict(page=CHI21, span=('Four score and seven years ago, oar', 'in a great contest.'),
                      attribution='[Special Dispatch to the Chicago Tribune.]',
                      reprint={'status': 'original', 'from': 'special dispatch to the Chicago Tribune', 'basis': '[Special Dispatch to the Chicago Tribune.]'}),
-                dict(page=NASH24, span=('ago our fathers established upon this continent', 'by a good God'),
+                dict(page=NASH24, span=('Four-score and seven years ago our fathers established', 'great contest'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'the heading and source of this passage were not read'})],
          row_effect='adds a printed variant to E-011 (selectable scenario of the wording as reported in 1863); not a reading to be used as Lincoln\'s text',
          remains='who produced the variant; whether other Western papers print it',
-         independence='the Chicago and Nashville passages are the same text'),
+         independence='the Chicago and Nashville passages are one report in two printings (the Nashville wording differs in "free and equal" and in the dashes)'),
 
     dict(ids=['E-011', 'R22.0011'], key='platform-governors',
          sub_claim=('Who stood on the platform as printed: the New-York Tribune\'s correspondent lists "Governor Curtin of Pennsylvania, Governor Seymour of New-York, Ex-Governor Tod of Ohio, '
@@ -524,7 +539,7 @@ CLAIMS = [
          independence='three separate accounts'),
 
     dict(ids=['E-013', 'R22.0013', 'E-006', 'R22.0006'], key='end-time-1400-1430',
-         sub_claim=('End of the exercises as printed: the New-York Tribune (20 Nov) and, in the same words, the Portland Daily Press and the Indianapolis Daily State Sentinel: the assemblage '
+         sub_claim=('End of the exercises as printed: the New-York Tribune (20 Nov) and, in the same words, the Indianapolis Daily State Sentinel (24 Nov): the assemblage '
                     '"separated at about 2 o\'clock"; the Chicago Tribune (special dispatch): "The ceremonies at the stand were concluded at 2½ o\'clock" (read from the print), and '
                     '"As soon as the benediction was pronounced, Gen. Couch called for cheers for Gov. Curtin and Gen. Schenck."'),
          tier='documented', state_date='1863-11-19',
@@ -533,10 +548,13 @@ CLAIMS = [
                      corrections=[['conclu ded at SX', 'concluded at 2½']],
                      dateline='HAUBzestißO, Nov. 20,1803.', attribution='[Special Dispatch to the Chicago Tribune.]',
                      reprint={'status': 'original', 'from': 'special dispatch to the Chicago Tribune (dated Harrisburg, Nov. 20, 1863 in the print)', 'basis': '[Special Dispatch to the Chicago Tribune.]'}),
+                dict(page=CHI21, span=('As soon as the benediction was pronounced', 'Gen. Schenck*'),
+                     attribution='[Special Dispatch to the Chicago Tribune.]',
+                     reprint={'status': 'original', 'from': 'special dispatch to the Chicago Tribune', 'basis': '[Special Dispatch to the Chicago Tribune.]'}),
                 dict(page=TRIB20, span=('the lnmncise assemblage separated at about 2 o', 'clock.'), img='trib20_2oclock',
                      reading='and the immense assemblage separated at about 2 o\'clock.', corrections=[['lnmncise', 'immense']],
                      reprint={'status': 'unknown', 'from': None, 'basis': 'unsigned dispatch'}),
-                dict(page='sn82015683/1863-11-24/ed-1/seq-2', span=('the immense assemblage separated at about', 'o\'clock'),
+                dict(page='sn82015683/1863-11-24/ed-1/seq-2', span=('After the delivery of this address, the dirge', 'about two o\'clock'),
                      reprint={'status': 'reprint', 'from': 'same sentence as the New-York Tribune of 20 Nov (source not named on the page text read)', 'basis': 'identical wording'})],
          row_effect=('differs from the row: the row says the program ended about 16:00 and derives the start backwards from it; the press prints an end at about 14:00 to 14:30. Opening at about 11:30 '
                      '(Chicago) plus a two-hour-four-minute oration leaves little room for the prayer, the music and Lincoln before 14:30, so the printed hours are carried beside the row\'s 16:00 as '
@@ -589,9 +607,7 @@ CLAIMS = [
          sub_claim=('The National Intelligencer (21 Nov) prints that after the ceremonies the President was escorted to his lodgings where "he was subsequently visited by a large number of citizens. '
                     'He returned to Washington in a special train, which left Gettysburg about seven o\'clock, and arrived here about one o\'clock on Friday morning."'),
          tier='documented', state_date='1863-11-19',
-         cites=[dict(page=INT21, span=('He returned to Washington in a special train', 'on Friday morning.'), img='int21_seven',
-                     reading='He returned to Washington in a special train, which left Gettysburg about seven o\'clock, and arrived here about one o\'clock on Friday morning.',
-                     corrections=[['train. which', 'train, which'], ['o’clock. and', 'o\'clock, and']],
+         cites=[dict(page=INT21, span=('he was subsequently visited by a large number of', 'on Friday morning.'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named; the Republican prints the same account (its hour is not legible in the OCR layer)'})],
          row_effect='differs from the row\'s "leaves by train about 18:00" (printed: about seven o\'clock in the Intelligencer, 8 in the Tribune correspondent); the arrival at Washington about one o\'clock on Friday morning is printed',
          remains='the hour is printed twice with different values (7 and 8); the row\'s 18:00 is in neither'),
@@ -625,6 +641,9 @@ CLAIMS = [
                      reading='At ten minutes past twelve o\'clock the train left the depot at Washington, and arrived at the Camden street depot twenty minutes past one, having made the run in one hour and ten minutes.',
                      corrections=[['ten minute.', 'ten minutes.']],
                      reprint={'status': 'reprint', 'from': 'the Baltimore Sun (the account ends "Balt. Sun.")', 'basis': 'Bail. Sun.'}),
+                dict(page=REP19, span=('A special train was also provided for the', 'until three o'),
+                     attribution='Bail. Sun.',
+                     reprint={'status': 'reprint', 'from': 'the Baltimore Sun (the account ends "Balt. Sun.")', 'basis': 'Bail. Sun.'}),
                 dict(page=STAR19P1, span=('Baltimore. Nov. I1-.?President Lincoln', 'tional Cemetery.'), img='star19_balt',
                      reading=('BALTIMORE, Nov. 18.\u2014President Lincoln and his suite, private secretary, and many other distinguished gentlemen from Washington, accompanied by a military guard and a band of music, '
                               'passed through Baltimore at 2 o\'clock this afternoon in a special train of four elegant cars, arranged by J. Prescott Smith, master of transportation, and furnished by the Baltimore and '
@@ -649,8 +668,7 @@ CLAIMS = [
                 dict(page=CHI21, span=('The Consecration of the Battle Cemetery, 50,000 PERSONS', 'ATTENDANCE.'), img='chi21_head',
                      reading='The Consecration of the Battle Cemetery, 50,000 PERSONS IN ATTENDANCE.', corrections=[['IST ATTENDANCE', 'IN ATTENDANCE']],
                      attribution='[Special Dispatch to the Chicago Tribune.]', reprint={'status': 'original', 'from': 'special dispatch to the Chicago Tribune (headline)', 'basis': '[Special Dispatch to the Chicago Tribune.]'}),
-                dict(page=NASH24, span=('placing it at SO.COO; others aa high as MJ.OOO.', 'MJ.OOO.'), img='nash24_num',
-                     reading='tendance is variously estimated—some placing it at 30,000; others as high as 50,000.', corrections=[['SO.COO', '30,000'], ['aa', 'as'], ['MJ.OOO', '50,000']],
+                dict(page=NASH24, span=('The number of persons in att', 'MJ.OOO.'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'heading and source not read'})],
          row_effect='adds: contemporaneous estimates of 15,000 (at the stand and in town), 30,000 and 50,000 (the row/NPS crowd conflict is carried as a range; no default)',
          remains='how any of the figures was obtained',
