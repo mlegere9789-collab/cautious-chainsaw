@@ -114,7 +114,7 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPS-HABS-pa1820 | 1 (1) | 0 |
 | NPS-HABS-pa2625 | 1 (1) | 0 |
 | NPS-HABS-pa2627 | 1 (1) | 0 |
-| NPS-HABS-pa3648 | 225 (225) | 21 |
+| NPS-HABS-pa3648 | 225 (225) | 23 |
 | NPS-HABS-pa3988 | 77 (77) | 8 |
 | NPS-HABS-pa4151 | 1 (1) | 1 |
 | NPS-HABS-pa4165 | 1 (1) | 1 |
@@ -141,7 +141,7 @@ How an extract is bound to its page: `quote` is cut from the saved text (never r
 | NPSGOV-WARFIELD-HOUSE | 1 (1) | 4 |
 | NPSGOV-WISLER-HOUSE | 1 (1) | 1 |
 
-Total extracts: 1308 from 88 sources.
+Total extracts: 1310 from 88 sources.
 
 ## NPS-DEV-POLICY
 
@@ -1492,7 +1492,7 @@ Total extracts: 1308 from 88 sources.
 - Text quality: page 0 is the record as the Library serves it (the notes verbatim; a significance note that ends in an ellipsis is the Library's own abridgement); page n is page n of the data PDF: the text layer of the Library's scan (typed forms of the 1950s carry recognition errors such as "Gulp" for "Culp"; every quote is checked against the page image) or, for the reports of the 1980s onward, born-digital text
 - Covers: record notes (page 0); data PDF: 225 page(s)
 - Feature states: The record states the building dates and what the programme found; a form or drawing set describes the building as measured (1930s to 2010s), so a material or plan statement refers to that date unless it says otherwise. Statements about July 1863 are the historian's account and are dated 1863 only where the text says so.
-- Extracts written: 21 (fences 8, fields-woodlots 3, monuments-later 3, other-landscape 7)
+- Extracts written: 23 (fences 8, fields-woodlots 3, monuments-later 3, other-landscape 9)
 - Used for extracts: see extracts/src/c0-habs.xdef (if no extract names this source, the record carries no statement on the 1863 landscape; see not_extracted.json)
 
 ## NPS-HABS-pa3988

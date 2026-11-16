@@ -8,7 +8,7 @@
   "NOT-RUN": 0,
   "PASS": 29
  },
- "finished_utc": "2026-11-16T00:31:05Z",
+ "finished_utc": "2026-11-16T00:44:09Z",
  "gate": "Q19",
  "incomplete_reasons": [
   "1 item(s) NOT-RUN or BLOCKED-INPUT"
@@ -26,8 +26,8 @@
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "e3e0ce43544640a652204e8876d55a3ef6791400337c5c633037c0a77c4971ac",
   "docs/battle-theatre/GOVERNANCE/register_index.json": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "612c9a4a4f6e2057e8049b69d729459340e739ccba6c2f71d85a5c71321fc569",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "a2daf33af2601b9bd670518789e1315bd6137088ac1c8788c556471e2f7bbda0",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "a370f92d7528e00a5279c13507abc2a6f56edeaf6bdea589602773bd33d6a4e0",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "ed2c0b0a1d6ccda3cb7bdc95eb241080774fdf7f9b8418085d32c298b55b1b31",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl": "ae480799061ada00de5584afb455523317880c18ea4bb90bdb83f8f332fcff65",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl": "f34e36226b0b7e8378edf180c59a8f1720ebe447231bce8ba356baa60396585d",
@@ -86,7 +86,7 @@
   "docs/battle-theatre/structures/state_schedule.json": "980d4420bf98c0d0f8715697936ebb8df5a40ec1bd6909ae5a66f576aff3a44d",
   "docs/battle-theatre/structures/structures.json": "b223dacf386d9983167d24561dc05a8466248096a7715a23dd25fa5bd2b1ad53",
   "docs/battle-theatre/structures/works_stages.json": "22c0c950efa34172d259260085effe210fe43dca64710747d0c5207b996209c2",
-  "tools/bt/gates/content_classes.json": "fd71ea2835c29b98644946370cb34e66855310d6e083e647203cd4d8d764d2ac",
+  "tools/bt/gates/content_classes.json": "fd793502153b7cab615462d0eb3c6d0cbc1888d4198cde7a18af26623959fc8f",
   "tools/bt/gates/datum_classes.json": "fdc85a450b152661e72825d7b60b589c6351321c91367c00ba5de2c0663f6c3e",
   "tools/bt/gates/q02_layer.mjs": "c99a3bc2359fa5d9cae3c9f0c6ea33d594dcf99258217ac511b0de2b679cd511",
   "tools/bt/gates/q23_app.mjs": "bb9e03d5b41c5814f80955a587605a9afb37873cf900ac0d56e6da962c6c0b40"
@@ -141,16 +141,16 @@
    "sha256": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f"
   },
   {
-   "bytes": 741485,
+   "bytes": 906477,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl",
    "role": "timeline correction records",
-   "sha256": "612c9a4a4f6e2057e8049b69d729459340e739ccba6c2f71d85a5c71321fc569"
+   "sha256": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639"
   },
   {
-   "bytes": 1184150,
+   "bytes": 1230537,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl",
    "role": "timeline correction records",
-   "sha256": "a2daf33af2601b9bd670518789e1315bd6137088ac1c8788c556471e2f7bbda0"
+   "sha256": "a370f92d7528e00a5279c13507abc2a6f56edeaf6bdea589602773bd33d6a4e0"
   },
   {
    "bytes": 717206,
@@ -501,10 +501,10 @@
    "sha256": "22c0c950efa34172d259260085effe210fe43dca64710747d0c5207b996209c2"
   },
   {
-   "bytes": 11113,
+   "bytes": 11358,
    "path": "tools/bt/gates/content_classes.json",
    "role": "content-class registry",
-   "sha256": "fd71ea2835c29b98644946370cb34e66855310d6e083e647203cd4d8d764d2ac"
+   "sha256": "fd793502153b7cab615462d0eb3c6d0cbc1888d4198cde7a18af26623959fc8f"
   },
   {
    "bytes": 22125,
@@ -1934,8 +1934,8 @@
      "sha256": "157cdb60744caf7c37f3122cf8ff8e6b3fffaedab7fa833438b018af3a813407"
     },
     "tier_counts": {
-     "documented": 568,
-     "inferred": 73,
+     "documented": 570,
+     "inferred": 71,
      "open gap": 39,
      "plausible-procedural": 11
     }
@@ -3368,8 +3368,8 @@
    "check": "Q19.3",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 199,
-    "failures": 199,
+    "failing": 201,
+    "failures": 201,
     "first": [
      "timeline:T1-001",
      "timeline:T1-002",
@@ -3402,14 +3402,14 @@
      "two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, OR27-2-R470)": 10,
      "two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R565, OR27-2-R565)": 5
     },
-    "scanned": 199,
+    "scanned": 201,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q193-gov_timeline.jsonl",
-     "rows": 199,
-     "sha256": "e8a4004ad24821e452ed0a6279e3bb327f40740bba92ab4e89a0296db6d2526d"
+     "rows": 201,
+     "sha256": "3ef4b04df91caf382a99ca2778f1d07f1aa963637957c34402679a9501656620"
     },
     "tier_counts": {
-     "documented": 176,
+     "documented": 178,
      "inferred": 20,
      "open gap": 2,
      "plausible-procedural": 1
@@ -3417,7 +3417,7 @@
    },
    "id": "Q19/Q19.3/gov.timeline",
    "pass": false,
-   "reason": "199 of 199 members fail: two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, OR27-2-R470) (10); two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R565, OR27-2-R565) (5); two or more sources but no pair is shown independent (independence not recorded for OR27-1-R044, OR27-1-R044, OR27-1-R044) (4)",
+   "reason": "201 of 201 members fail: two or more sources but no pair is shown independent (independence not recorded for OR27-2-R470, OR27-2-R470, OR27-2-R470) (10); two or more sources but no pair is shown independent (independence not recorded for OR27-2-R565, OR27-2-R565, OR27-2-R565) (5); two or more sources but no pair is shown independent (independence not recorded for OR27-1-R044, OR27-1-R044, OR27-1-R044) (4)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -5358,18 +5358,18 @@
      "documented on lead or weak sources alone": 70,
      "documented with 0 independent source(s) and no flag": 302,
      "documented with 1 independent source(s) and no flag": 90,
-     "documented with sources that are not shown independent and no flag": 176,
+     "documented with sources that are not shown independent and no flag": 178,
      "no open register entry names where the second source would come from": 691
     },
     "scanned": 691,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q194-gov_timeline.jsonl",
-     "rows": 1329,
-     "sha256": "2b10ef232c6abcef4f3f9f3a83598c8d779715bb01a90c5f8c496c7e13e2e957"
+     "rows": 1331,
+     "sha256": "62e52251a61a9b0575d0a2acf4f4223ee7a2dc9a4fa45102833d2fb450c22bea"
     },
     "tier_counts": {
-     "documented": 568,
-     "inferred": 73,
+     "documented": 570,
+     "inferred": 71,
      "open gap": 39,
      "plausible-procedural": 11
     },
@@ -5377,7 +5377,7 @@
    },
    "id": "Q19/Q19.4/gov.timeline",
    "pass": false,
-   "reason": "691 of 691 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (691); documented with 0 independent source(s) and no flag (302); documented with sources that are not shown independent and no flag (176)",
+   "reason": "691 of 691 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (691); documented with 0 independent source(s) and no flag (302); documented with sources that are not shown independent and no flag (178)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -5867,20 +5867,19 @@
     ],
     "flag_shown": {
      "single_source": false,
-     "tier_mark": false
+     "tier_mark": true
     },
     "flagged_and_covered": 0,
     "reasons": {
      "documented with 0 independent source(s) and no flag": 3,
      "documented with 1 independent source(s) and no flag": 69,
-     "no open register entry names where the second source would come from": 76,
-     "the tier flag (inferred) is not shown in the product for this class (no mark code found)": 4
+     "no open register entry names where the second source would come from": 76
     },
     "scanned": 76,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q19/Q194-layer_provenance_claims.jsonl",
-     "rows": 152,
-     "sha256": "fc174fae56d66748d6fa6a699c6e426fc9009005674bbd93ea77c2d91376b6b2"
+     "rows": 148,
+     "sha256": "d9068f8f2aba82f550b5f4378238052eb27cecd708d73c68dc838e37b1fee99e"
     },
     "tier_counts": {
      "documented": 72,
@@ -5890,7 +5889,7 @@
    },
    "id": "Q19/Q19.4/layer.provenance.claims",
    "pass": false,
-   "reason": "76 of 76 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (76); documented with 1 independent source(s) and no flag (69); the tier flag (inferred) is not shown in the product for this class (no mark code found) (4)",
+   "reason": "76 of 76 members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (76); documented with 1 independent source(s) and no flag (69); documented with 0 independent source(s) and no flag (3)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -7075,8 +7074,8 @@
      "sha256": "083b5117869e2235e2bc6329c2bbbfb3cdfe2cf3da5e1fbc51ccd9275fb48cb8"
     },
     "tier_counts": {
-     "documented": 568,
-     "inferred": 73,
+     "documented": 570,
+     "inferred": 71,
      "open gap": 39,
      "plausible-procedural": 11
     }
@@ -7733,10 +7732,10 @@
   "Q19.3 independence needs a recorded relation (`independent_of` or `derived_from`) on every Source Manifest entry; the owner of the manifest writes it, no runner invents one"
  ],
  "renderer_class": "python",
- "run_id": "20261116T003057Z-Q19",
+ "run_id": "20261116T004403Z-Q19",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-16T00:30:57Z",
+ "started_utc": "2026-11-16T00:44:03Z",
  "thresholds": [],
  "tool_versions": {
   "node": "v22.23.4",

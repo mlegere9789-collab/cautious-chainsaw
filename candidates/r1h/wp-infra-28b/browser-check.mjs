@@ -153,7 +153,7 @@ try {
   check(`all ${FUZZ_20.length + FUZZ_MORE.length} fuzz payloads are ignored in a real DOM`, bad.length === 0, bad.join(' | '));
   await send(`{ type: 'goto', tick: 7, note: '<img src=x onerror=window.__pwn=1>' }`);
   await gp.waitForTimeout(300);
-  check('a note with an img onerror runs nothing and adds nothing', (await gp.evaluate(() => window.__pwn === undefined && document.querySelectorAll('img').length === 0)) === true);
+  check('a note with an img onerror runs nothing and adds nothing', (await gp.evaluate(() => window.__pwn === undefined && document.querySelectorAll('img[src="x"]').length === 0 && document.querySelectorAll('#caption-bar *, #stops img').length === 0)) === true);
   check('no dialog opened', G.dialogs.length === 0 && P.dialogs.length === 0, [...G.dialogs, ...P.dialogs].join('|'));
   check('no console error or page error on the guest page', G.errors.length === 0, G.errors.join(' | '));
   check('no console error or page error on the host page', P.errors.length === 0, P.errors.join(' | '));

@@ -107,7 +107,7 @@ class Q02(unittest.TestCase):
     def test_number_of_the_claim_missing_from_the_extract_is_fail(self):
         w = W.world()
         W.things(w)[0]['claim_text'] = 'eleven soldiers 1863 and 12 flags'
-        self.fails(self.go(w), 'not in the extract', 'Q02/Q02.3/t.things')
+        self.fails(self.go(w), 'not in the span', 'Q02/Q02.3/t.things')
 
     def test_documented_on_a_lead_source_only_is_fail(self):
         w = W.world()

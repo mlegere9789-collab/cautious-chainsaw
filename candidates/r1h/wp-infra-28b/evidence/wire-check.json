@@ -1,0 +1,548 @@
+{
+ "when": "2026-11-16T00:42:58.125Z",
+ "library": "https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js",
+ "sri": "sha384-nlUQ8ZqCbvStErob+biJNzSgltf6urV3VGqhfIfzhmg9RXmpeRm76ELw0pYnKlTR",
+ "sriMatches": true,
+ "tree": "tmp/r1h-cand/wp-infra-28b/green",
+ "hostToGuest": [
+  {
+   "tick": 5,
+   "noteLength": 12,
+   "bytes": 35,
+   "protoIsObjectPrototype": true,
+   "reachedGoToTick": true,
+   "shownTick": 5
+  },
+  {
+   "tick": 6,
+   "noteLength": 0,
+   "bytes": 23,
+   "protoIsObjectPrototype": true,
+   "reachedGoToTick": true,
+   "shownTick": 6
+  },
+  {
+   "tick": 7,
+   "noteLength": 0,
+   "bytes": 23,
+   "protoIsObjectPrototype": true,
+   "reachedGoToTick": true,
+   "shownTick": 7
+  },
+  {
+   "tick": 8,
+   "noteLength": 280,
+   "bytes": 305,
+   "protoIsObjectPrototype": true,
+   "reachedGoToTick": true,
+   "shownTick": 8
+  },
+  {
+   "tick": 226,
+   "noteLength": 22,
+   "bytes": 54,
+   "protoIsObjectPrototype": true,
+   "reachedGoToTick": true,
+   "shownTick": 226
+  },
+  {
+   "tick": 675,
+   "noteLength": 11,
+   "bytes": 36,
+   "protoIsObjectPrototype": true,
+   "reachedGoToTick": true,
+   "shownTick": 675
+  },
+  {
+   "tick": 675,
+   "noteLength": 11,
+   "bytes": 36,
+   "protoIsObjectPrototype": true,
+   "reachedGoToTick": true,
+   "shownTick": 675
+  }
+ ],
+ "hostile": [
+  {
+   "id": "F01",
+   "what": "null",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F02",
+   "what": "an array that holds a valid message",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F03",
+   "what": "a string that holds a valid message as JSON",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F04",
+   "what": "a number",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F05",
+   "what": "an extra key",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F06",
+   "what": "an own __proto__ key (as JSON.parse makes it)",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F07",
+   "what": "moment 0",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F08",
+   "what": "moment 676",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F09",
+   "what": "moment 1.5",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F10",
+   "what": "moment as the string \"5\"",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F11",
+   "what": "moment NaN",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F12",
+   "what": "moment Infinity",
+   "skipped": "the serializer cannot carry it: Invalid integer"
+  },
+  {
+   "id": "F13",
+   "what": "a note of 281 characters",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F14",
+   "what": "a note that starts a tag (img onerror)",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F15",
+   "what": "nested objects as moment and note",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F16",
+   "what": "a string of 10 MB",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F17",
+   "what": "a message with a note of 10 MB",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F18",
+   "what": "no type",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F19",
+   "what": "another type (GOTO)",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "F20",
+   "what": "a negative moment",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M01",
+   "what": "undefined",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M02",
+   "what": "true",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M03",
+   "what": "the empty string",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M04",
+   "what": "the number 0",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M05",
+   "what": "a function",
+   "skipped": "the serializer cannot carry it: Type \"function\" not yet supported"
+  },
+  {
+   "id": "M06",
+   "what": "a symbol",
+   "skipped": "the serializer cannot carry it: Type \"symbol\" not yet supported"
+  },
+  {
+   "id": "M07",
+   "what": "the empty object",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M08",
+   "what": "type only",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M09",
+   "what": "moment null",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M10",
+   "what": "moment true",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M11",
+   "what": "moment as a BigInt",
+   "skipped": "the serializer cannot carry it: Type \"bigint\" not yet supported"
+  },
+  {
+   "id": "M12",
+   "what": "moment as a Number object",
+   "skipped": "the serializer cannot carry it: Type \"function Number() { [native code] }\" not yet supported"
+  },
+  {
+   "id": "M13",
+   "what": "moment as an array",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M14",
+   "what": "moment 5.0000001",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M15",
+   "what": "moment minus zero",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M16",
+   "what": "moment 2 to the 53rd",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M17",
+   "what": "note as a number",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M18",
+   "what": "note as an array",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M19",
+   "what": "note null",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M20",
+   "what": "note as a String object",
+   "skipped": "the serializer cannot carry it: Type \"function String() { [native code] }\" not yet supported"
+  },
+  {
+   "id": "M21",
+   "what": "a note that closes a script",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M22",
+   "what": "a note that opens a comment",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M23",
+   "what": "a note that opens a processing instruction",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M24",
+   "what": "a tag split by a control character",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M25",
+   "what": "type as an array",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M26",
+   "what": "type with a trailing space",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M27",
+   "what": "a Date",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M28",
+   "what": "a typed array",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M29",
+   "what": "an ArrayBuffer",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M30",
+   "what": "an instance of a class with the right fields",
+   "carried": true,
+   "validAfterTheWire": true,
+   "reachedGoToTick": true
+  },
+  {
+   "id": "M31",
+   "what": "fields only inherited from a prototype",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M32",
+   "what": "an object whose prototype carries the fields (what a __proto__ key makes in a binary reader)",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M33",
+   "what": "a symbol key beside the valid fields",
+   "carried": true,
+   "validAfterTheWire": true,
+   "reachedGoToTick": true
+  },
+  {
+   "id": "M34",
+   "what": "a non-enumerable extra key",
+   "carried": true,
+   "validAfterTheWire": true,
+   "reachedGoToTick": true
+  },
+  {
+   "id": "M35",
+   "what": "the key constructor",
+   "skipped": "the serializer cannot carry it: Type \"1\" not yet supported"
+  },
+  {
+   "id": "M36",
+   "what": "a JSON string of an array",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M37",
+   "what": "a note of 281 control characters",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M38",
+   "what": "a message that is only extra keys",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M39",
+   "what": "a note of exactly 281 characters made of a surrogate pair at the end",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "M40",
+   "what": "a nested valid message",
+   "carried": true,
+   "validAfterTheWire": false,
+   "reachedGoToTick": false
+  },
+  {
+   "id": "V01",
+   "what": "the first moment, empty note",
+   "valid": true,
+   "reachedGoToTick": true
+  },
+  {
+   "id": "V02",
+   "what": "the last moment, a note of exactly 280 characters",
+   "valid": true,
+   "reachedGoToTick": true
+  },
+  {
+   "id": "V03",
+   "what": "no note field",
+   "valid": true,
+   "reachedGoToTick": true
+  },
+  {
+   "id": "V04",
+   "what": "a note with comparison signs, an ampersand and a heart",
+   "valid": true,
+   "reachedGoToTick": true
+  },
+  {
+   "id": "V05",
+   "what": "control characters of both ranges in the note",
+   "valid": true,
+   "reachedGoToTick": true
+  },
+  {
+   "id": "V06",
+   "what": "an object without a prototype",
+   "valid": true,
+   "skipped": "the serializer cannot carry it: Cannot read properties of undefined (reading 'toString')"
+  },
+  {
+   "id": "V07",
+   "what": "fields in another order",
+   "valid": true,
+   "reachedGoToTick": true
+  },
+  {
+   "id": "V08",
+   "what": "a padded note",
+   "valid": true,
+   "reachedGoToTick": true
+  },
+  {
+   "id": "V09",
+   "what": "a note that is text with a markup look: an escaped tag",
+   "valid": true,
+   "reachedGoToTick": true
+  }
+ ],
+ "problems": [],
+ "protoKey": {
+  "unpackedPrototypeIsForeign": true,
+  "ownKeys": [
+   "type",
+   "tick",
+   "note"
+  ],
+  "reachedGoToTick": false
+ },
+ "summary": {
+  "hostMessages": 7,
+  "hostileCarried": 53,
+  "hostileNotCarried": 8,
+  "madeValidByTheSerializer": [
+   "M30",
+   "M33",
+   "M34"
+  ],
+  "valid": 9
+ }
+}

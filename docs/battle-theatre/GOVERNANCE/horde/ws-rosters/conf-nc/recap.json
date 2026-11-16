@@ -1,0 +1,825 @@
+{
+ "format": "moore-recapitulation/1",
+ "about": "Moore's own count of the men of each regiment: the RECAPITULATION at the end of volume 4 (\"First Regiment numbered all told ... 1,742\").",
+ "entries": {
+  "1-regiment": {
+   "label_regex": "First\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "first  Regiment  numbered  all.  told,   .  . .    ....  1, 742;",
+     "offset": 1113548,
+     "printed_figure": null,
+     "class": "none"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "First  Regiment  numbered  all  told,. .    i,742-",
+     "offset": 1112558,
+     "printed_figure": "i,742-",
+     "class": "damaged"
+    }
+   },
+   "value": null,
+   "status": "the figure is damaged, short or missing in the text layer of the scans read (None; i,742-): not read as a number"
+  },
+  "2-regiment": {
+   "label_regex": "Second\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Second  Regiment,. ...........    1,435;",
+     "offset": 1113613,
+     "printed_figure": null,
+     "class": "none"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Second  Regiment                       ••••  IA35-",
+     "offset": 1112609,
+     "printed_figure": "IA35-",
+     "class": "damaged"
+    }
+   },
+   "value": null,
+   "status": "the figure is damaged, short or missing in the text layer of the scans read (None; IA35-): not read as a number"
+  },
+  "3-regiment": {
+   "label_regex": "Third\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Third  Regiment, ,            1,780.",
+     "offset": 1113654,
+     "printed_figure": "1,780.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Third  Regiment,    1,780.",
+     "offset": 1112660,
+     "printed_figure": "1,780.",
+     "class": "clean4"
+    }
+   },
+   "value": 1780,
+   "status": "both scans print the same figure"
+  },
+  "4-regiment": {
+   "label_regex": "Fourth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Fourth  Regiment,    ............   ..............   1 ,483.",
+     "offset": 1113691,
+     "printed_figure": "483.",
+     "class": "clean3"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Fourth  Regiment,        . .    ...         r,483.",
+     "offset": 1112687,
+     "printed_figure": "r,483.",
+     "class": "damaged"
+    }
+   },
+   "value": null,
+   "status": "the figure is damaged, short or missing in the text layer of the scans read (483.; r,483.): not read as a number"
+  },
+  "5-regiment": {
+   "label_regex": "Fifth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Fifth  Regiment,   1,837.",
+     "offset": 1113752,
+     "printed_figure": "1,837.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Fifth  Regiment,                   ..  1,837-",
+     "offset": 1112738,
+     "printed_figure": "1,837-",
+     "class": "clean4"
+    }
+   },
+   "value": 1837,
+   "status": "both scans print the same figure"
+  },
+  "6-regiment": {
+   "label_regex": "Sixth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Sixth  Regiment,   1,802.",
+     "offset": 1113778,
+     "printed_figure": "1,802.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Sixth  Regiment,        ..  l,So2.",
+     "offset": 1112784,
+     "printed_figure": "l,So2.",
+     "class": "damaged"
+    }
+   },
+   "value": 1802,
+   "status": "one scan prints the figure, the other damages it or has no line (l,So2.)"
+  },
+  "7-regiment": {
+   "label_regex": "Seventh\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Seventh  Regiment,    1,513.",
+     "offset": 1113804,
+     "printed_figure": "1,513.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Seventh  Regiment        ..      ..                          i,5I3-",
+     "offset": 1112819,
+     "printed_figure": "i,5I3-",
+     "class": "damaged"
+    }
+   },
+   "value": 1513,
+   "status": "one scan prints the figure, the other damages it or has no line (i,5I3-)"
+  },
+  "9-regiment": {
+   "label_regex": "Ninth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Ninth  Regiment,    1 ,630.",
+     "offset": 1113860,
+     "printed_figure": "630.",
+     "class": "clean3"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Ninth  Regiment,               1,630.",
+     "offset": 1112951,
+     "printed_figure": "1,630.",
+     "class": "clean4"
+    }
+   },
+   "value": 1630,
+   "status": "one scan prints the full figure, the other lost its leading digit and comma (630.)"
+  },
+  "10-regiment": {
+   "label_regex": "Tenth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Tenth  Regiment,    1,266.",
+     "offset": 1113888,
+     "printed_figure": "1,266.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Tenth  Regiment,.      ...                 ..    1,266.",
+     "offset": 1112989,
+     "printed_figure": "1,266.",
+     "class": "clean4"
+    }
+   },
+   "value": 1266,
+   "status": "both scans print the same figure"
+  },
+  "11-regiment": {
+   "label_regex": "Eleventh\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Eleventh  Regiment,   1,429.",
+     "offset": 1113915,
+     "printed_figure": "1,429.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Eleventh  Regiment,                   1,429.",
+     "offset": 1113045,
+     "printed_figure": "1,429.",
+     "class": "clean4"
+    }
+   },
+   "value": 1429,
+   "status": "both scans print the same figure"
+  },
+  "12-regiment": {
+   "label_regex": "Twelfth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Twelfth  Regiment   1,592.",
+     "offset": 1113972,
+     "printed_figure": "1,592.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Twelfth  Regiment,                            1,592.",
+     "offset": 1113141,
+     "printed_figure": "1,592.",
+     "class": "clean4"
+    }
+   },
+   "value": 1592,
+   "status": "both scans print the same figure"
+  },
+  "13-regiment": {
+   "label_regex": "Thir\\w{3,6}th\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Thireeenth  Regiment,   1,633.",
+     "offset": 1113999,
+     "printed_figure": "1,633.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Thireeenth  Regiment,                       ....  1,633.",
+     "offset": 1113194,
+     "printed_figure": "1,633.",
+     "class": "clean4"
+    }
+   },
+   "value": 1633,
+   "status": "both scans print the same figure"
+  },
+  "14-regiment": {
+   "label_regex": "Fourteenth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Fourteenth  Regiment,   1,557-",
+     "offset": 1114030,
+     "printed_figure": "1,557-",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Fourteenth  Regiment,.    1, 557.",
+     "offset": 1113251,
+     "printed_figure": "557.",
+     "class": "clean3"
+    }
+   },
+   "value": 1557,
+   "status": "one scan prints the full figure, the other lost its leading digit and comma (557.)"
+  },
+  "16-regiment": {
+   "label_regex": "Sixteenth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Sixteenth  Regiment,   1, 507.",
+     "offset": 1114095,
+     "printed_figure": "507.",
+     "class": "clean3"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Sixteenth  Regiment                 ..       ..      ..  -1,507.",
+     "offset": 1113346,
+     "printed_figure": "1,507.",
+     "class": "clean4"
+    }
+   },
+   "value": 1507,
+   "status": "one scan prints the full figure, the other lost its leading digit and comma (507.)"
+  },
+  "18-regiment": {
+   "label_regex": "Eighteenth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Eighteenth  Regiment,   I,°77.",
+     "offset": 1114158,
+     "printed_figure": "77.",
+     "class": "clean3"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Eighteenth  Regiment      ...  1,677.",
+     "offset": 1113445,
+     "printed_figure": "1,677.",
+     "class": "clean4"
+    }
+   },
+   "value": 1677,
+   "status": "one scan prints the full figure, the other lost its leading digit and comma (77.)"
+  },
+  "19-regiment": {
+   "label_regex": "Nineteenth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Nineteenth  Regiment,   1,205.",
+     "offset": 1114189,
+     "printed_figure": "1,205.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Nineteenth  Regiment,. .. .        ..  1,205.",
+     "offset": 1113483,
+     "printed_figure": "1,205.",
+     "class": "clean4"
+    }
+   },
+   "value": 1205,
+   "status": "both scans print the same figure"
+  },
+  "20-regiment": {
+   "label_regex": "Twentieth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Twentieth  Regiment,        1,278.",
+     "offset": 1114220,
+     "printed_figure": "1,278.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Twentieth  Regiment,. .             ..                ......  1,278.",
+     "offset": 1113529,
+     "printed_figure": "1,278.",
+     "class": "clean4"
+    }
+   },
+   "value": 1278,
+   "status": "both scans print the same figure"
+  },
+  "21-regiment": {
+   "label_regex": "Twenty-First\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Twenty-First  Regiment,.   1,287.",
+     "offset": 1114255,
+     "printed_figure": "1,287.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Twenty-First  Regiment,.      ..             ..      ..         1,287.",
+     "offset": 1113598,
+     "printed_figure": "1,287.",
+     "class": "clean4"
+    }
+   },
+   "value": 1287,
+   "status": "both scans print the same figure"
+  },
+  "22-regiment": {
+   "label_regex": "Twenty-Second\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Twenty-Second  Regiment,   1,866.",
+     "offset": 1114289,
+     "printed_figure": "1,866.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Twenty-Second  Regiment,..    ..               1,866.",
+     "offset": 1113669,
+     "printed_figure": "1,866.",
+     "class": "clean4"
+    }
+   },
+   "value": 1866,
+   "status": "both scans print the same figure"
+  },
+  "23-regiment": {
+   "label_regex": "Twenty-Third\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Twenty-Third  Regiment,   1,510,",
+     "offset": 1114323,
+     "printed_figure": "1,510,",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Twenty-Third  Regiment,.      ..                 1,510,",
+     "offset": 1113723,
+     "printed_figure": "1,510,",
+     "class": "clean4"
+    }
+   },
+   "value": 1510,
+   "status": "both scans print the same figure"
+  },
+  "26-regiment": {
+   "label_regex": "Twenty-Sixth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Twenty-Sixth  Regiment,   i.SgS.",
+     "offset": 1114429,
+     "printed_figure": "i.SgS.",
+     "class": "damaged"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Twenty-Sixth  Regiment,        ..     ...                  1,898.",
+     "offset": 1113854,
+     "printed_figure": "1,898.",
+     "class": "clean4"
+    }
+   },
+   "value": 1898,
+   "status": "one scan prints the figure, the other damages it or has no line (i.SgS.)"
+  },
+  "28-regiment": {
+   "label_regex": "Twenty-Eighth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Twenty-Eighth  Regiment,   1,826.",
+     "offset": 1114500,
+     "printed_figure": "1,826.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Twenty-Eighth  Regiment,.    1,826.",
+     "offset": 1113981,
+     "printed_figure": "1,826.",
+     "class": "clean4"
+    }
+   },
+   "value": 1826,
+   "status": "both scans print the same figure"
+  },
+  "30-regiment": {
+   "label_regex": "Thirtieth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Thirtieth  Regiment,   1,552.",
+     "offset": 1114568,
+     "printed_figure": "1,552.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Thirtieth  Regiment,.  .    ..,  „    1552.",
+     "offset": 1114065,
+     "printed_figure": "1552.",
+     "class": "clean4"
+    }
+   },
+   "value": 1552,
+   "status": "both scans print the same figure"
+  },
+  "32-regiment": {
+   "label_regex": "Thirty-Second\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Thirty-Second  Regiment,   1,235.",
+     "offset": 1114730,
+     "printed_figure": "1,235.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Thirty-Second  Regiment      ..  1,235.",
+     "offset": 1114257,
+     "printed_figure": "1,235.",
+     "class": "clean4"
+    }
+   },
+   "value": 1235,
+   "status": "both scans print the same figure"
+  },
+  "33-regiment": {
+   "label_regex": "Thirty-Third\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Thirty-Third  Regiment,   i,6oo.",
+     "offset": 1114764,
+     "printed_figure": "i,6oo.",
+     "class": "damaged"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Thirty-Third  Regiment,          l,6oo.",
+     "offset": 1114297,
+     "printed_figure": "l,6oo.",
+     "class": "damaged"
+    }
+   },
+   "value": null,
+   "status": "the figure is damaged, short or missing in the text layer of the scans read (i,6oo.; l,6oo.): not read as a number"
+  },
+  "34-regiment": {
+   "label_regex": "Thirty-Fourth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Thirty-Fourth  Regiment,   1,382.",
+     "offset": 1114797,
+     "printed_figure": "1,382.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Thirty-Fourth  Regiment          1,382.",
+     "offset": 1114337,
+     "printed_figure": "1,382.",
+     "class": "clean4"
+    }
+   },
+   "value": 1382,
+   "status": "both scans print the same figure"
+  },
+  "37-regiment": {
+   "label_regex": "Thirty-Seventh\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Thirty-Seventh  Regiment,   1,928.",
+     "offset": 1114901,
+     "printed_figure": "1,928.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Thirty-Seventh  Regiment    ..        ..         1,928.",
+     "offset": 1114447,
+     "printed_figure": "1,928.",
+     "class": "clean4"
+    }
+   },
+   "value": 1928,
+   "status": "both scans print the same figure"
+  },
+  "38-regiment": {
+   "label_regex": "Thirty-Eighth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Thirty-Eighth  Regiment   1,358.",
+     "offset": 1114936,
+     "printed_figure": "1,358.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Thirty-Eighth  Regiment      i>358.",
+     "offset": 1114503,
+     "printed_figure": "i>358.",
+     "class": "damaged"
+    }
+   },
+   "value": 1358,
+   "status": "one scan prints the figure, the other damages it or has no line (i>358.)"
+  },
+  "43-regiment": {
+   "label_regex": "Forty-Third\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Forty-Third  Regiment,   1,205.",
+     "offset": 1115097,
+     "printed_figure": "1,205.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Forty-Third  Regiment,   •   1,205.",
+     "offset": 1114692,
+     "printed_figure": "1,205.",
+     "class": "clean4"
+    }
+   },
+   "value": 1205,
+   "status": "both scans print the same figure"
+  },
+  "45-regiment": {
+   "label_regex": "Forty-Fifth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Forty-Fifth  Regiment,       !,339-",
+     "offset": 1115168,
+     "printed_figure": "!,339-",
+     "class": "damaged"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Forty-Fifth  Regiment,.     .  .*    1,339.",
+     "offset": 1114772,
+     "printed_figure": "1,339.",
+     "class": "clean4"
+    }
+   },
+   "value": 1339,
+   "status": "one scan prints the figure, the other damages it or has no line (!,339-)"
+  },
+  "47-regiment": {
+   "label_regex": "Forty-Seventh\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Forty-Seventh  Regiment        1,297.",
+     "offset": 1115235,
+     "printed_figure": "1,297.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Forty-Seventh  Regiment              1,297.",
+     "offset": 1114856,
+     "printed_figure": "1,297.",
+     "class": "clean4"
+    }
+   },
+   "value": 1297,
+   "status": "both scans print the same figure"
+  },
+  "52-regiment": {
+   "label_regex": "Fifty-Second\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Fifty-Second   Regiment,   !,279.",
+     "offset": 1115411,
+     "printed_figure": "!,279.",
+     "class": "damaged"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Fifty-Second   Regiment,   1,279.",
+     "offset": 1115042,
+     "printed_figure": "1,279.",
+     "class": "clean4"
+    }
+   },
+   "value": 1279,
+   "status": "one scan prints the figure, the other damages it or has no line (!,279.)"
+  },
+  "53-regiment": {
+   "label_regex": "Fifty-Third\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Fifty-Third  Regiment,   1 ,  269.",
+     "offset": 1115445,
+     "printed_figure": "269.",
+     "class": "clean3"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Fifty-Third  Regiment,   1,269.",
+     "offset": 1115076,
+     "printed_figure": "1,269.",
+     "class": "clean4"
+    }
+   },
+   "value": 1269,
+   "status": "one scan prints the full figure, the other lost its leading digit and comma (269.)"
+  },
+  "55-regiment": {
+   "label_regex": "Fifty-Fifth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Fifty-Fifth  Regiment,   1,165.",
+     "offset": 1115516,
+     "printed_figure": "1,165.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Fifty-Fifth  Regiment              1,165.",
+     "offset": 1115143,
+     "printed_figure": "1,165.",
+     "class": "clean4"
+    }
+   },
+   "value": 1165,
+   "status": "both scans print the same figure"
+  },
+  "57-regiment": {
+   "label_regex": "Fifty-Seventh\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Fifty-Seventh  Regiment,        1,012.",
+     "offset": 1115579,
+     "printed_figure": "1,012.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Fifty-Seventh  Regiment,      1,012.",
+     "offset": 1115233,
+     "printed_figure": "1,012.",
+     "class": "clean4"
+    }
+   },
+   "value": 1012,
+   "status": "both scans print the same figure"
+  },
+  "59-regiment": {
+   "label_regex": "Fifty-Ninth\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Fifty-Ninth  Regiment,   .».       S64.",
+     "offset": 1115654,
+     "printed_figure": "S64.",
+     "class": "damaged"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Fifty-Ninth  Regiment    ..            864.",
+     "offset": 1115313,
+     "printed_figure": "864.",
+     "class": "clean3"
+    }
+   },
+   "value": 864,
+   "status": "one scan prints the figure, the other damages a character of it (S64.)"
+  },
+  "63-regiment": {
+   "label_regex": "Sixty-Third\\s+Regiment",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Sixty-Third  Regiment,   i,33°-",
+     "offset": 1115793,
+     "printed_figure": null,
+     "class": "none"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Sixty-Third  Regiment    .  .  1,330.",
+     "offset": 1115484,
+     "printed_figure": "1,330.",
+     "class": "clean4"
+    }
+   },
+   "value": 1330,
+   "status": "one scan prints the figure, the other damages it or has no line (None)"
+  },
+  "2-battalion": {
+   "label_regex": "Second\\s+Battalion",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Second  Battalion — Infantry    571.",
+     "offset": 1116299,
+     "printed_figure": "571.",
+     "class": "clean3"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Second  Battalion — Infantry                    571.",
+     "offset": 1116055,
+     "printed_figure": "571.",
+     "class": "clean3"
+    }
+   },
+   "value": 571,
+   "status": "both scans print the same figure"
+  },
+  "5-battalion": {
+   "label_regex": "Fifth\\s+Battalion",
+   "scans": {
+    "a": {
+     "text_id": "NC-MOORE-1882.4",
+     "quote": "Fifth  Battalion — Light  Artillery,    1,017.",
+     "offset": 1116418,
+     "printed_figure": "1,017.",
+     "class": "clean4"
+    },
+    "b": {
+     "text_id": "NC-MOORE-1882.4~b",
+     "quote": "Fifth  Battalion— Light  Artillery,.      ..               ..  1,017.",
+     "offset": 1116257,
+     "printed_figure": "1,017.",
+     "class": "clean4"
+    }
+   },
+   "value": 1017,
+   "status": "both scans print the same figure"
+  }
+ }
+}

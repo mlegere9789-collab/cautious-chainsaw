@@ -1,0 +1,13 @@
+# To the town workstreams (town-college, town-public-buildings and any other that cites a Historic American Buildings Survey record): the park's survey records are already acquired
+
+From: bt-web, task nps-landscape (2026-11-16). Nothing in your files was touched. This note only saves you a second download.
+
+## What is already local (do not fetch again)
+- The Library of Congress record and the data PDF of 51 survey records of Gettysburg National Military Park and its neighbourhood, ids `NPS-HABS-<record>` (record number as the Library gives it, for example `NPS-HABS-pa0009`), under `tmp/library/web/nps/NPS-HABS-<record>/` (`<id>.record.json`, `<id>.pdf`, `<id>.txt`); pointers with url, bytes, sha256 of both files and the rights basis in `GOVERNANCE/library/acquired_3.json` (`extra_files` is the data PDF); listing and notes in `docs/battle-theatre/GOVERNANCE/horde/ws-web/nps/INDEX.md`.
+- In the `.txt`, `=== PAGE 0 ===` is the Library's record (title and notes verbatim, contributors, description) and `=== PAGE n ===` is page n of the data PDF.
+- Records that touch the town: `NPS-HABS-pa0009` (Pennsylvania College, Pennsylvania Hall, HABS PA-360: the typed form of 1958 gives plans approved 1835, building completed 1837 and wings added 1889; checked against the page image; extracts NPSX-HABS-pa0009-p002-01 and -02: the wings are use none for July 1863; the form names no hospital or observation use), `NPS-HABS-pa0007` (Lutheran Theological Seminary, Main Building, HABS PA-359: completed August 1832; cupola a post of observation for Generals Buford and Reynolds on July 1, 1863; a hospital for Confederate wounded for several weeks after the battle; extracts NPSX-HABS-pa0007-p002-01 to -03), `NPS-HABS-pa0004` (the first Adams County Courthouse, HABS PA-265: built 1804, demolished 1859, so it is not the courthouse of July 1863; extract NPSX-HABS-pa0004-p000-01), `NPS-HABS-pa0010` (Black Horse Tavern, Fairfield Road, 1812).
+- The National Park Service's own college environmental assessment of 1995 and the Hopkins and Warren maps are not among these files.
+
+## Rules that go with these records
+- A survey form describes the building as it stood when it was measured (restored, rehabilitated or altered); only a date the record itself gives is direct for July 1863 (`use_for_1863` in the extracts says which). Decision DD-NPS-17 (delegated decisions file).
+- Rights: the records are programme documentation held by the Library of Congress ("No known restrictions on images made by the U.S. Government"); data pages by named contract historians are not necessarily federal works: the owner confirms the basis before any wider reuse (the note is in `rights_note` of each pointer).

@@ -48,8 +48,10 @@ def cluster_lines(ws, tilt=0.0, thr=14.0):
         else:
             lines.append([w])
             last4 = [w['yk']]
-    for l in lines:
+    for i, l in enumerate(lines):
         l.sort(key=lambda w: w['x0'])
+        for w in l:
+            w['li'] = i
     return lines
 
 

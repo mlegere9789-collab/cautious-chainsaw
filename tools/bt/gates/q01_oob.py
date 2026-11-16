@@ -55,7 +55,7 @@ K1_CLASSES = {
     'headquarters': {'level': r'^headquarters$', 'name': r'headquarters|head-quarters'},
     'medical staff': {'name': r'medical|surgeon|hospital'},
 }
-MISSING = 'input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1: per unit commander, strength range with basis, source and tier, built from OR27-1-R009, OR27-2-R424, OR27-1-R008 and OR27-2-R425; no table, no comparison)'
+MISSING = 'input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC Q01.1; no table, no comparison)'
 
 
 # ======================================================================================== helpers
@@ -578,6 +578,8 @@ def q015_presence(rec, ctx, L, T):
                     conds.append(cond('route: the road of approach is named', bool(app.get(uid)), 'no road of approach (open gap)' if not app.get(uid) else None))
             ev = {'conditions': conds, 'record': {k: a.get(k) for k in ('earliest', 'default', 'latest', 'entry', 'tier', 'sources')} if a else None, 'approach': app.get(uid)}
         bad = first_failed(conds)
+        if not bad:
+            ev.pop('conditions', None)
         if bad:
             mk(rec, ctx, 'Q01.5', uid, 'default', 'FAIL', 'presence window: ' + '; '.join(bad), dict(ev, layer_only_result='FAIL'))
         elif T is None:
@@ -595,7 +597,9 @@ def one_to_one_conditions(v):
     if exp and ev_iv:
         inside = bool(st_iv) and st_iv[0][0] <= ev_iv[0][0] and (st_iv[0][1] is None or (ev_iv[0][1] is not None and st_iv[0][1] >= ev_iv[0][1]))
         conds.append(cond('the stage window contains the interval the layer events print (the unit is never hidden while the layer has it on the field)', inside, 'stage window %s, events %s' % (st_iv, ev_iv)))
-    ev = {'conditions': conds, 'expected': exp, 'world_count': v['world_count'], 'crew_groups': v['crew_groups'], 'rendered_when_present': v['rendered_when_present'], 'violations': v['violations'][:5]}
+    ev = {'expected': exp, 'world_count': v['world_count'], 'crew_groups': v['crew_groups'], 'rendered_when_present': v['rendered_when_present'], 'violations': v['violations'][:5]}
+    if first_failed(conds):
+        ev['conditions'] = conds
     return conds, ev
 
 

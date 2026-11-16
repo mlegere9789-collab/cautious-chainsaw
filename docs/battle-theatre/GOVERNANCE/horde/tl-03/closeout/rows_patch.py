@@ -21,6 +21,7 @@ def _n(s):
 NEW_META = {
     ('T1-134', 'h_brock'): dict(report='OR27-2-R549'),
     ('T1-145', 's_inch'): dict(report='OR27-1-R253'),
+    ('T1-125', 'e_wood'): dict(report='OR27-2-R470'),
     ('T1-120', 'h_route'): dict(report='OR27-1-R243'),
     ('T1-141', 'r_succ'): dict(report='OR27-1-R043'),
     ('T1-145', 'how245'): dict(report='OR27-1-R243'),
@@ -28,6 +29,7 @@ NEW_META = {
     ('T1-131', 'r_org'): dict(report='OR27-2-R506'),
     ('T1-159', 'org_art'): dict(report='OR27-1-R009'),
     ('T1-139', 'tp_req'): dict(src='TPIERCE-1889'),
+    ('T1-146', 'w_alms'): dict(src='NY-GB-1900', note='New York at Gettysburg vol.1 (1900), narrative of the Eleventh Corps: "early in the action" and "that night" are the words of the narrative, which gives no hour'),
     ('T1-127', 'tp_dig'): dict(src='TPIERCE-1889', note='Tillie Pierce, At Gettysburg (1889), the chapter on her home during the battle: a recollection written long after; no hour and no profile of the works'),
     ('T1-168', 'tp_garret'): dict(src='TPIERCE-1889', note='Tillie Pierce, At Gettysburg (1889), the chapter on her home during the battle: the house is in the town, the garret is that of the adjoining house'),
     ('T1-141', 'ny_prey'): dict(src='NY-GB-1900-v2', note='the sketch of the 104th New York in the New York volume of 1900 (Colonel Gilbert G. Prey)'),
@@ -39,9 +41,10 @@ NOTES = {   # appended to the row's recheck text (becomes recheck_applied)
     'T1-118': 'Second reading 2026-11-16: the quote of Ewell now runs to the end of the clause (the flank of the same body).',
     'T1-119': 'Second reading 2026-11-16: the quotes now cover the position of Archer and Davis before the reserve (within a mile of the town) and the half hour, the half mile and the skirt of woods.',
     'T1-120': 'Second reading 2026-11-16: Howard\'s sentence on the routes of the three divisions is added (First Division by the direct route, Third and Second by Horner\'s Mill); the claim on the First Division no longer rests on a clause the quote did not contain.',
+    'T1-121': 'Second reading 2026-11-16: Willis\' quote now carries the march that brought the regiment to the neighborhood of Gettysburg and the enemy\'s demonstration in its front (the digit 13 of the OCR is read 12 on the page image, as before).',
     'T1-122': 'Second reading 2026-11-16: the quotes of Robinson and Coulter now run to the end of the sentence (the two positions of the First Brigade; the ammunition exhausted and the relief).',
     'T1-124': 'Second reading 2026-11-16: the letter of Apr 5 1876 now carries its date line and the clause on Anderson\'s division; Pendleton\'s clause on the artillery and the sentence on Heth are covered; Longstreet is no longer named in the claim on Fremantle (the quote does not name him).',
-    'T1-125': 'Second reading 2026-11-16: the quotes now run to the clauses the claims state (the flank; Hays in the centre, Smith in rear of Hoke).',
+    'T1-125': 'Second reading 2026-11-16: the quotes now run to the clauses the claims state (the flank; Hays in the centre, Smith in rear of Hoke); Early\'s clause that puts the Union force on a wooded hill on the west side of Rock Creek is cited.',
     'T1-127': 'Second reading 2026-11-16: Steinwehr\'s sentence is extended to the reserve artillery found in position and to Smith\'s Second Brigade on the north-west; a civilian recollection of the night digging on Cemetery Hill is added (Tillie Pierce 1889, found in the library text: "chopping, picking and shoveling" and "forming their line of breastworks", no hour, no profile).',
     'T1-130': 'Second reading 2026-11-16: the quotes now carry the skirmishers (97th New York) and the order that took the wall (104th New York).',
     'T1-131': 'Second reading 2026-11-16: the regimental commanders of the brigade named in the unit are cited from Rodes\' report.',
@@ -55,10 +58,14 @@ NOTES = {   # appended to the row's recheck text (becomes recheck_applied)
     'T1-143': 'Second reading 2026-11-16: Hancock\'s sentence now carries his staff (Lieut. Col. Morgan, Captain Hall) and the First and Eleventh Corps retiring through the town.',
     'T1-144': 'Second reading 2026-11-16: Gordon\'s quotes now carry the rapid advance and the line on the crest of a hill.',
     'T1-145': 'Second reading 2026-11-16: the scenarios on the hour (Howard 2.45; Hays a little after 2) had no citation and now carry theirs; Schurz\'s sentence on the First Brigade (contesting every inch of ground) is cited; the organization quote now carries the Second Brigade (Ames, Harris); Early\'s quote runs to the order to Hays and Hoke and to the fire opened with considerable effect.',
+    'T1-146': 'Second reading 2026-11-16: the New York volume (1900, in the library; the first pass had noted it as not local) has Wilkeson fatally wounded early in the action and dying that night in the Almshouse: the hour of his death stays open (no hour), the place and the night are cited; the hour of Fowler\'s death stays open.',
+    'T1-129': 'Second reading 2026-11-16: the claim of the 500 men left dead and wounded is attributed to Iverson (his own report).',
     'T1-150': 'Second reading 2026-11-16: the headline no longer says the line made its stand behind a barricade of rails (the sentences cited say the intrenchments in front of the seminary).',
     'T1-152': 'Second reading 2026-11-16: Jones\' quote now carries the order to fall back that the 26th did not receive and Pender\'s division passing over it.',
     'T1-154': 'Second reading 2026-11-16: the 45th New York quote now carries Hagy\'s farm and the Mummasburg road; the inference on the hour of the rally is moved to the open gap on the hour.',
-    'T1-155': 'Second reading 2026-11-16: Gamble\'s quote now carries "kept up the fire until the enemy approached so near".',
+    'T1-155': 'Second reading 2026-11-16: Gamble\'s quotes now carry the dismounted men behind a portion of a stone wall and "kept up the fire until the enemy ... approached so near".',
+    'T1-162': 'Second reading 2026-11-16: Early\'s quote now carries the order to Hays and Avery and the second line driven into the town in great confusion.',
+    'T1-166': 'Second reading 2026-11-16: Schurz\' and Steinwehr\'s sentences now run through the clauses the claims state; the brigade loss line of the order of battle now carries its first figure (k, 55; the OCR prints .55, and 55 + 228 + 314 is the 597 printed).',
     'T1-157': 'Second reading 2026-11-16: Howard\'s quote now carries Schurz\'s request for a brigade; Ewell\'s quote now carries the sentence on Early entering by the railroad and Rodes by the Cashtown road.',
     'T1-159': 'Second reading 2026-11-16: Wainwright\'s sentence now carries the order to Stevens, the fourth caisson (struck by a shell and destroyed) and Cemetery Hill with the Eleventh Corps batteries; Doubleday\'s sentence carries the heavy loss; the batteries of the unit are cited from the organization of the army.',
     'T1-160': 'Second reading 2026-11-16: Doubleday\'s sentences now carry the troops overpowered, the retreat made in comparative safety, and the hostile bayonets around the building.',
@@ -66,7 +73,6 @@ NOTES = {   # appended to the row's recheck text (becomes recheck_applied)
     'T1-163': 'Second reading 2026-11-16: the quote of Pierce 1914 now carries the sentence that names Hancock; Hancock\'s sentence carries his staff and the retiring corps.',
     'T1-164': 'Second reading 2026-11-16: Hancock\'s communication to Meade is quoted from the sentence that begins it; Howard\'s letter to the end of the sentence; the headline no longer says "about noon" for Howard\'s choice of Cemetery Ridge (he gives about 11.30 for the news of Reynolds\' death and no hour for the choice).',
     'T1-165': 'Second reading 2026-11-16: Brabble\'s quote now carries the stone barn; Lewis\' quote the colors.',
-    'T1-166': 'Second reading 2026-11-16: Schurz\'s sentence and Steinwehr\'s sentence now run through the clauses the claims state.',
     'T1-168': 'Second reading 2026-11-16: Hill\'s quote now carries his own two divisions and Anderson (the two divisions are Heth\'s and Pender\'s); Tillie Pierce\'s sentence on rebel sharpshooters in a garret is cited.',
     'T1-169': 'Second reading 2026-11-16: Hard\'s quotes now carry the row of batteries and the torrent of shot.',
     'T1-170': 'Second reading 2026-11-16: the quote of Hospital Scenes now runs to the nurses\' care.',
@@ -128,6 +134,19 @@ def apply(ROWS):
     sub_edit('T1-117', 8, claim='Reynolds, commanding the right wing, directs Doubleday to take command of the First Corps; when Reynolds is shot (about 10.15 a. m. by Doubleday\'s reckoning) the whole burden of the battle is thrown upon Doubleday')
     sub_edit('T1-120', 2, claim='The Third Division left its camp near Emmitsburg at 7 a. m. for Gettysburg by Horner\'s Mills; Howard: the First Division followed the First Corps by the direct route, the Third and the Second (Steinwehr) took the route by Horner\'s Mill; Schurz: the First Division arrived by the Emmitsburg road proper', add_keys=['h_route'])
     sub_edit('T1-124', 1, claim='Lee was on the ridge with Hill when Fremantle came in sight of Gettysburg at 4.30 p. m. ("we came in sight of Gettysburg, and joined General Lee and General Hill, who were on the top of one of the ridges")')
+    sub_edit('T1-125', 6, add_keys=['e_wood'])
+    sub_edit('T1-129', 4, claim='Iverson: 500 of his men were left lying dead and wounded on a line as straight as a dress parade')
+    sub_append('T1-146', 'New York at Gettysburg vol.1 (1900): Wilkeson, a young officer only nineteen years old, was fatally wounded early in the action by a shot from the enemy\'s artillery and was carried to the Almshouse, where he died that night within the Confederate lines (no hour)', 'documented', 'supported', ['w_alms'])
+    sub_edit('T1-146', 6, claim='The hour of Fowler\'s death and of Wilkeson\'s death (Wilkeson: that night, in the Almshouse, no hour); that either fell in a counterattack on the knoll')
+    by['T1-146']['remains'] = ['the hour of Fowler\'s death', 'the hour of Wilkeson\'s death (the narrative of 1900 says that night, in the Almshouse, and gives no hour)', 'that either fell in a late counterattack on Barlow\'s Knoll']
+    old_s = ' regex Fowler/Wilkeson: New York at Gettysburg vol.1 and the Connecticut volume are not in the library; the state volumes read give nothing earlier than the reports'
+    new_s = ' regex Fowler/Wilkeson (first pass): the Connecticut volume is not in the library; second reading 2026-11-16: the New York volume of 1900 (in the library, NY-GB-1900) and Battles and Leaders vol.3 both say that Wilkeson died that night in the Almshouse (the New York volume is cited; the Battles and Leaders text layer is interleaved in two columns at that place and is not quoted); no text read gives an hour of the death of either officer'
+    n_ = 0
+    for i_, x_ in enumerate(by['T1-146']['searched']):
+        if old_s in x_:
+            by['T1-146']['searched'][i_] = x_.replace(old_s, new_s); n_ += 1
+    assert n_ == 1, n_
+    replace_in('T1-146', 'event', 'on the north side of the York road (Barlow\'s division)', 'on the north side of the York road (Barlow\'s division) and dies that night in the Almshouse')
     sub_edit('T1-127', 2, claim='Coster\'s First Brigade on the north-east end of the hill in support of Wiedrich\'s battery, which was then in position; Smith\'s Second Brigade toward the north-west, supporting the reserve artillery of the corps')
     sub_append('T1-127', 'A civilian recollection (Tillie Pierce, 1889): through the night of the first day her father, at the garret window looking toward Cemetery Hill, could distinctly hear the Union troops "chopping, picking and shoveling" during the silent hours, and she writes that the men were forming their line of breastworks (no hour, no profile)', 'documented', 'supported', ['tp_dig'])
     replace_in('T1-127', 'event', '(no hour printed)', '(no hour printed); through the night the troops are heard chopping, picking and shoveling on Cemetery Hill (a civilian, Tillie Pierce, 1889)')

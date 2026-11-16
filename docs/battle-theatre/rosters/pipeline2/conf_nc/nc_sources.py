@@ -83,8 +83,12 @@ def _one(v):
 
 
 def imprint_quote(text):
-    """The printed imprint of the title page: a substring of the text, with its offset (verified), or None."""
-    for pat in (r"State\s+Printers[^\n]{0,40}\n[^\n]{0,80}\n?[^\n]{0,40}1882\.?", r"(?:Ash[be]?\s*&\s*Gatl\w+|Ashe\s*&\s*Gatling)[^\n]{0,80}\n?[^\n]{0,60}?1882\.?", r"1882\."):
+    """The printed imprint of the title page: a substring of the text, with its offset (verified), or None.  The first pattern that matches in the first 20,000 characters
+    wins: the imprint with the year, then the imprint of the state printers (title pages whose OCR lacks the year), then the year line alone."""
+    for pat in (r"State\s+Printers[^\n]{0,40}\n[^\n]{0,80}\n?[^\n]{0,40}1882\.?",
+                r"R[A-Za-z]{3,6}[Hh]\s*:?\s*\n?\s*[A-Za-z\\_]{2,5}[a-z]*\s*&\s*Gat\w+,?\s+State\s+Printers\s+and\s+Binders[\.,]",
+                r"(?:Ash[be]?\s*&\s*Gatl\w+|Ashe\s*&\s*Gatling)[^\n]{0,80}\n?[^\n]{0,60}?1882\.?",
+                r"State\s+Printers\s+and\s+B\w+[\.,]\s*\n?\s*P\w+\s+of\s+Edwards[^\n]{0,40}"):
         m = re.search(pat, text[:20000])
         if m:
             q = m.group(0)
@@ -109,9 +113,6 @@ def source_entries(summary):
     for k, u in summary['units'].items():
         for t in u['texts']:
             used.setdefault(t, []).append(k)
-    second = {}
-    for k, u in summary['units'].items():
-        second.setdefault('NC-MOORE-1882.%s%s' % (k and U_VOL[k], '' if u['second'] == 'a' else '~b'), []).append(k)
     ents = []
     for tid, ident, vol in IDS:
         t = led['texts'][tid]
@@ -138,7 +139,9 @@ def source_entries(summary):
                 'ia_date': t['ia_date'], 'ia_possible_copyright_status': t['ia_possible_copyright_status'], 'ia_access_restricted_item': t['ia_access_restricted_item'],
                 'ia_licenseurl': _one(mdd.get('licenseurl')), 'ia_contributor': t['ia_contributor'], 'imprint': _one(mdd.get('publisher')) or t['ia_publisher'], 'year': 1882,
                 'why': 'the State of North Carolina\'s own roster, printed at Raleigh by the state printers in 1882 under an act of the General Assembly ("compiled ... for the proper editing and preparation of a Roster of the troops furnished by North Carolina"): a US publication of 1882',
-                'imprint_quote': iq, 'imprint_quote_offset_in_text': ioff, 'authority_quote': aq, 'authority_quote_offset_in_text': aoff}},
+                'imprint_quote': iq, 'imprint_quote_offset_in_text': ioff, 'year_printed_in_quote': bool(iq and '1882' in iq),
+                'year_source': 'the item date 1882 (and the printed "1882." on the title page of the Emory copy of the same volume)' if not (iq and '1882' in iq) else 'the printed title page',
+                'authority_quote': aq, 'authority_quote_offset_in_text': aoff}},
             'role': 'roll',
             'status': ('parsed: primary reading of %d units' % len(used.get(tid, []))) if used.get(tid) else 'read as the second reading of the units whose primary scan is the other copy of the volume; no line of a unit file is read from it',
             'used_for': sorted(used.get(tid, [])),

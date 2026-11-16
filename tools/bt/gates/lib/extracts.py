@@ -47,10 +47,75 @@ def numbers(s):
     return out
 
 
+_ONES = 'zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split()
+_TENS = {2: 'twenty', 3: 'thirty', 4: 'forty', 5: 'fifty', 6: 'sixty', 7: 'seventy', 8: 'eighty', 9: 'ninety'}
+_ORD = 'zeroth first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth thirteenth fourteenth fifteenth sixteenth seventeenth eighteenth nineteenth twentieth'.split()
+
+
+_ORD_LAST = {'one': 'first', 'two': 'second', 'three': 'third', 'five': 'fifth', 'eight': 'eighth', 'nine': 'ninth', 'twelve': 'twelfth'}
+
+
+def _card(v):
+    if v < 20:
+        return _ONES[v]
+    if v < 100:
+        return _TENS[v // 10] + ('' if v % 10 == 0 else ' ' + _ONES[v % 10])
+    return _ONES[v // 100] + ' hundred' + ('' if v % 100 == 0 else ' and ' + _card(v % 100))
+
+
+def _ordinal(card):
+    head, _, last = card.rpartition(' ')
+    if last in _ORD_LAST:
+        o = _ORD_LAST[last]
+    elif last.endswith('y'):
+        o = last[:-1] + 'ieth'
+    else:
+        o = last + 'th'
+    return (head + ' ' + o).strip()
+
+
+def number_variants(n):
+    """The folded English words for a whole number 0..999: cardinal and ordinal, with and without 'and' ('one hundred and twenty five', 'forty sixth', 'fiftieth'). Empty for other numbers."""
+    if not re.fullmatch(r'\d{1,3}', n):
+        return set()
+    v = int(n)
+    c = _card(v)
+    out = {c, _ordinal(c)}
+    for x in list(out):
+        out.add(x.replace(' and ', ' '))
+    return out
+
+
+def number_words(n):
+    """English cardinal words of a whole number 0..999 as the folded text writes them, or None."""
+    return _card(int(n)) if re.fullmatch(r'\d{1,3}', n) else None
+
+
+def strip_subject(text, unit_id):
+    """The unit that a claim is about is its subject, not part of what it states: an ordinal such as '24th' that is the regiment number of the unit id is not counted."""
+    if not text or not unit_id:
+        return text
+    runs = set(re.findall(r'\d+', unit_id))
+    return re.sub(r'\b(\d+)(?:st|nd|rd|th|d)\b', lambda m: '' if m.group(1) in runs else m.group(0), text)
+
+
 def numbers_in_span(claim, span):
-    """Every number of `claim` stands in `span` (as a whole token after folding). Returns (ok, missing)."""
+    """Every number of `claim` stands in `span` (as a whole token after folding). Returns (ok, missing). A fraction written 3/4 is satisfied by a fraction word (quarter, half, third) or the same fraction."""
     sp = ' ' + _NONALNUM.sub(' ', unicodedata.normalize('NFKC', str(span or '')).lower().replace(',', '')) + ' '
-    missing = [n for n in dict.fromkeys(numbers(claim)) if (' ' + n.replace('.', ' ') + ' ') not in sp and (' ' + n + ' ') not in sp]
+    sp = re.sub(r'(?<=[a-z]) (?=(?:one|two|three|four|five|six|seven|eight|nine)\b)', ' ', sp)
+    claim = str(claim or '')
+    fr = re.findall(r'\d+\s*/\s*\d+', claim)
+    if fr:
+        claim = re.sub(r'\d+\s*/\s*\d+', ' ', claim)
+    missing = []
+    for f in fr:
+        if not (re.search(r'\b(quarter|quarters|half|halves|third|thirds|fifth|fifths|eighth)\b', sp) or f.replace(' ', '') in str(span or '').replace(' ', '')):
+            missing.append(f.replace(' ', ''))
+    for n in dict.fromkeys(numbers(claim)):
+        ords = [' ' + n + suf + ' ' for suf in ('st', 'nd', 'rd', 'th', 'd')] + [' ' + w + ' ' for w in number_variants(n)]
+        if (' ' + n.replace('.', ' ') + ' ') in sp or (' ' + n + ' ') in sp or any(o in sp for o in ords):
+            continue
+        missing.append(n)
     return (not missing), missing
 
 
@@ -86,6 +151,7 @@ class TextStore:
         self._paths = {}
         self._cache = {}
         self._or27 = None
+        self._used = set()
         self._sv = None
         self._or27_err = None
         self._sv_err = None
@@ -133,8 +199,12 @@ class TextStore:
         ft = self.text(source_id)
         if ft is None:
             return {'status': 'no_text', 'source': source_id}
+        self._used.add(ft.path)
         i = ft.find(quote)
-        return {'status': 'found' if i >= 0 else 'not_found', 'source': source_id, 'offset': i if i >= 0 else None}
+        r = {'status': 'found' if i >= 0 else 'not_found', 'source': source_id, 'offset': i if i >= 0 else None}
+        if i >= 0:
+            r['span_text'] = ft.text[max(0, i - 250): i + len(fold(quote)) + 250]       # the span of a text without sentence marks: 250 folded characters either side
+        return r
 
     # --------------------------------------------------------------- Official Records (report id, printed page)
     def _load_or27(self):
@@ -163,6 +233,11 @@ class TextStore:
         cache = self.__dict__.setdefault('_or27_cache', {})
         if key in cache:
             return cache[key]
+        for part in parts:
+            try:
+                self._used.add(m.raw_path(part) if hasattr(m, 'raw_path') else m.get_part(part).path)
+            except Exception:
+                pass
         r = self._find_or27(m, quote, report_id, printed_page, parts)
         cache[key] = r
         return r
@@ -174,11 +249,43 @@ class TextStore:
             return {'status': 'not_found', 'records': recs[:6], 'hits': len(hits)}
         if not hits:
             return {'status': 'not_found', 'records': [], 'hits': 0}
+        span = None
+        try:
+            sel = [h for h in hits if (not report_id or h.get('record') == report_id)]
+            if sel:
+                h = sel[0]
+                span = self._sentence(m.get_part(h['part']).text, h['start'], h['end'])
+        except Exception:
+            span = None
         page_ok = None
         if printed_page not in (None, ''):
             pages = [h['page'] for h in hits if (not report_id or h.get('record') == report_id)]
             page_ok = any(self._page_agrees(p, printed_page) for p in pages)
-        return {'status': 'found', 'records': recs[:6], 'hits': len(hits), 'page_ok': page_ok}
+        return {'status': 'found', 'records': recs[:6], 'hits': len(hits), 'page_ok': page_ok, 'span_text': span}
+
+    _ABBR = re.compile(r'(?:\b(?:Maj|Gen|Col|Lieut|Lt|Capt|Brig|Mr|Dr|St|No|Co|Gov|Sergt|Corp|Surg|Asst|Adjt|Mrs|Hon|vs|Pa|Va|Md|Mass|Penn|Cav|Inf|Art|Div|Corps|Brigr|Cos|Regt|Vols|Rept|Rep|etc|viz|inst|ult|prox)|\b[A-Za-z]|\b[ap]\. ?m)\.$')
+
+    @staticmethod
+    def _boundaries(text):
+        """Offsets just after a sentence end: a period, question or exclamation mark followed by space and a capital letter, unless the word before the period is an abbreviation or an initial."""
+        out = []
+        for m in re.finditer(r'[.?!]["\u201d\')]?\s+(?=[A-Z0-9])', text):
+            before = text[max(0, m.start() - 12):m.start() + 1]
+            if m.group(0)[0] == '.' and TextStore._ABBR.search(before):
+                continue
+            out.append(m.end())
+        return out
+
+    @staticmethod
+    def _sentence(text, a, b, reach=900):
+        """The sentence of the original text that holds [a, b): between the sentence ends around it, at most `reach` characters either side."""
+        lo, hi = max(0, a - reach), min(len(text), b + reach)
+        seg = text[lo:hi]
+        bs = TextStore._boundaries(seg)
+        pa, pb = a - lo, b - lo
+        start = max([x for x in bs if x <= pa] or [0])
+        end = min([x for x in bs if x >= pb] or [len(seg)])
+        return seg[start:end]
 
     @staticmethod
     def _page_range(x):
@@ -233,6 +340,10 @@ class TextStore:
                 V = self._sv_vol(mod, idx, key)
                 if V is None:
                     continue
+                try:
+                    self._used.add(os.path.join(mod.SI.RAW_DIR, mod.SI.VOLUMES[key]['file'] + '_djvu.txt'))
+                except Exception:
+                    pass
                 for cq in cands:
                     p = V.ntext.find(cq)
                     if p >= 0:
@@ -259,5 +370,9 @@ class TextStore:
                 cache[key] = None
         return cache[key]
 
+    def used_inputs(self):
+        """The stored text files that the run read (to be hashed as inputs of the record)."""
+        return sorted(self._used)
+
     def status(self):
-        return {'or27_error': self._or27_err, 'statevol_error': self._sv_err, 'texts_listed': len(self._paths)}
+        return {'or27_error': self._or27_err, 'statevol_error': self._sv_err, 'texts_listed': len(self._paths), 'texts_read': len(self._used)}

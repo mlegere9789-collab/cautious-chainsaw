@@ -52,7 +52,7 @@ const MUTANTS = [
   M('host-broadcast-raw', 'the host sends the note as it is', 'c.send(hostMessage(tick, note))', "c.send({ type: 'goto', tick, note })"),
   M('host-snapshot-raw', 'the late joiner snapshot is sent as it is', 'conn.send(hostMessage(currentTick, currentNote))', "conn.send({ type: 'goto', tick: currentTick, note: currentNote })"),
   M('join-still-5', 'the join check enforces 5', 'code.length !== WT.codeLength', 'code.length !== 5'),
-  M('input-still-5', 'the join input takes 5', 'placeholder="Enter a 6-character code" maxlength="6"', 'placeholder="Enter a 5-letter code" maxlength="5"'),
+  M('input-still-5', 'the join input takes 5', 'placeholder="Enter 6-character code" maxlength="6"', 'placeholder="Enter a 5-letter code" maxlength="5"'),
   M('sentence-in-real-time', 'the sentence says in real time again', 'as the host plays or jumps.', 'in real time.'),
   M('sentence-5-letter', 'the sentence says 5-letter', 'shares a 6-character code;', 'shares a 5-letter code;'),
 ];
@@ -64,16 +64,18 @@ if (argv.includes('--dry')) {
   process.exit(bad ? 2 : 0);
 }
 fs.rmSync(MUT, { recursive: true, force: true });
+const only = argv.includes('--only') ? new Set(argv[argv.indexOf('--only') + 1].split(',')) : null;   // a few mutants while iterating (the evidence file is written only for a full run)
 const results = [];
 for (const m of MUTANTS) {
+  if (only && !only.has(m.id)) continue;
   const n = page.split(m.from).length - 1;
   if (n !== 1) { console.error(`mutant ${m.id}: its anchor occurs ${n} times in the patched page; fix the mutant`); process.exit(2); }
   const dir = path.join(MUT, m.id);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'watch-together.html'), page.replace(m.from, () => m.to));
   const t0 = Date.now();
-  const r = cp.spawnSync(process.execPath, ['--test', 'candidates/r1h/wp-infra-28b/test.mjs'], {
-    cwd: REPO, encoding: 'utf8', timeout: 45000, maxBuffer: 64 * 1024 * 1024, env: { ...process.env, R1H_TREE: path.relative(REPO, dir), R1H_BASE: 'release/R1g/dist' },
+  const r = cp.spawnSync(process.execPath, ['--test', '--test-reporter=tap', 'candidates/r1h/wp-infra-28b/test.mjs'], {
+    cwd: REPO, encoding: 'utf8', timeout: 25000, maxBuffer: 64 * 1024 * 1024, env: { ...process.env, R1H_TREE: path.relative(REPO, dir), R1H_BASE: 'release/R1g/dist' },
   });
   const out = (r.stdout || '') + (r.stderr || '');
   const failed = [...out.matchAll(/^not ok \d+ - (.*)$/gm)].map((x) => x[1]);
@@ -84,6 +86,7 @@ for (const m of MUTANTS) {
 }
 fs.rmSync(MUT, { recursive: true, force: true });
 const survived = results.filter((r) => !r.killed);
+if (only) { console.log(`${results.length - survived.length} of ${results.length} selected mutants killed (partial run, no evidence file written)`); process.exit(survived.length ? 1 : 0); }
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, JSON.stringify({ when: new Date().toISOString(), test: 'candidates/r1h/wp-infra-28b/test.mjs', page: 'scratch tree of group.json', mutants: results.length, killed: results.length - survived.length, survived: survived.map((r) => r.id), results }, null, 1) + '\n');
 console.log(`${results.length - survived.length} of ${results.length} mutants killed; survivors: ${survived.map((r) => r.id).join(', ') || 'none'}`);

@@ -104,10 +104,11 @@ const CORE = String.raw`  // Live Sync limits, in one place so that a whole para
     } catch (e) { return null; }
   }
 
-  // What the host sends has to pass the same check on the guests' side: a note that a guest would drop (it starts a tag) goes out as an
-  // empty note, so the guests still follow the host to the moment.
+  // What the host sends has to pass the same check on the guests' side: a note is cut to the length a guest accepts, and a note that a guest
+  // would still drop (it starts a tag) goes out as an empty note, so the guests follow the host to the moment either way.
   function hostMessage(tick, note) {
-    return parseGoto({ type: 'goto', tick, note: typeof note === 'string' ? note : '' }) || { type: 'goto', tick, note: '' };
+    const text = typeof note === 'string' ? note.slice(0, WT.noteMax) : '';
+    return parseGoto({ type: 'goto', tick, note: text }) || { type: 'goto', tick, note: '' };
   }
 `;
 
@@ -133,7 +134,7 @@ const PATCHES = (P) => {
     {
       id: ID('join-input'), target: 'watch-together.html',
       find: 'placeholder="Enter a 5-letter code" maxlength="5"',
-      repl: fill('placeholder="Enter a {{CODE_LENGTH}}-character code" maxlength="{{CODE_LENGTH}}"'),
+      repl: fill('placeholder="Enter {{CODE_LENGTH}}-character code" maxlength="{{CODE_LENGTH}}"'),
       expect: 1,
       note: 'join input (line 160): a code of the new length can be typed',
     },

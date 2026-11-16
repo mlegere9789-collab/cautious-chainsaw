@@ -29,7 +29,7 @@ import calib, rebuild_cols
 GOV = os.path.abspath(os.path.join(calib.CA_DOCS, '..', '..', '..'))
 OUT_T = os.path.join(GOV, 'timeline_corrections', 'web-newspapers.jsonl')
 OUT_E = os.path.join(GOV, 'evidence_corrections', 'web-newspapers.jsonl')
-RETRIEVED = '2026-11-13'
+VIEWED_DEFAULT = '2026-11-13'   # date of the first image readings (an overlay or cite may carry its own 'viewed')
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 
@@ -136,6 +136,56 @@ def image_manifest():
     return _IMG
 
 
+_OVERLAY = None
+
+
+def overlay():
+    """readings_overlay.json: readings of the print made by looking at image crops, keyed by (page id, first 60 characters of the resolved quote).
+    Entry: {page, start, imgs: [tags of images.jsonl], reading, corrections: [[ocr, print], ...], viewed: date, note?}.
+    A cite that names no 'img' of its own takes the overlay entry that matches its resolved quote."""
+    global _OVERLAY
+    if _OVERLAY is None:
+        _OVERLAY = {}
+        p = os.path.join(calib.CA_DOCS, 'readings_overlay.json')
+        if os.path.exists(p):
+            for e in json.load(open(p, encoding='utf-8')):
+                k = (e['page'], calib.norm(e['start'])[:60])
+                if k in _OVERLAY:
+                    raise SystemExit('duplicate overlay entry %s' % (k,))
+                _OVERLAY[k] = e
+    return _OVERLAY
+
+
+def _bracketless(s):
+    """editorial [..] insertions of the claim text (and printed [Applause]) are left out on both sides of a fragment comparison"""
+    return re.sub(r'\[[^\]]*\]', '', s)
+
+
+def alnum_key(s):
+    return re.sub(r'[^a-z0-9]+', '', _bracketless(s).lower().replace('’', "'").replace('‘', "'"))
+
+
+def check_fragments(c, cites):
+    """Every double-quoted fragment of 30+ characters of the sub_claim must stand (letters and digits only, case-insensitive, editorial
+    [..] left out) in the print reading of a citation (ocr_check.reading), in its quote, dateline or attribution, or in the heading read
+    from the print (reprint.from). Returns the list of unmatched fragments."""
+    blobs = []
+    for x in cites:
+        oc = x.get('ocr_check') or {}
+        for part in (oc.get('reading'), x.get('quote'), x.get('dateline'), x.get('attribution'), (x.get('reprint') or {}).get('from')):
+            if part:
+                blobs.append(alnum_key(part))
+    bad = []
+    for fr in re.findall(r'"([^"]{30,})"', c['sub_claim']):
+        parts = [alnum_key(p) for p in re.split(r'\.\.\.|…', fr)]
+        parts = [p for p in parts if len(p) >= 12]
+        if not parts:
+            continue
+        if not all(any(p in b for b in blobs) for p in parts):
+            bad.append(fr)
+    return bad
+
+
 # ---- text sharing (reprints): 4-word shingles of the quote found in other saved pages of the same days
 _NORMS = {}
 
@@ -195,13 +245,28 @@ def citation(c, man):
             raise SystemExit('basis_quote NOT FOUND in %s: %s' % (rep['basis_page'], bq[:100]))
     qc = rebuild_cols.quote_confidence(page_words(pid)[1], quote)
     distinct_wc = len({w[1] for w in page_words(pid)[1]})
-    if c.get('img'):
-        im = image_manifest().get((pid, c['img']))
-        if not im:
-            raise SystemExit('no image record %s %s' % (pid, c['img']))
+    tags = c.get('img')
+    reading, corrections, viewed, onote = c.get('reading'), c.get('corrections') or [], c.get('viewed') or VIEWED_DEFAULT, None
+    if not tags:
+        ov = overlay().get((pid, quote[:60]))
+        if ov:
+            tags, reading, corrections, viewed, onote = ov['imgs'], ov['reading'], ov.get('corrections') or [], ov.get('viewed') or viewed, ov.get('note')
+    if isinstance(tags, str):
+        tags = [tags]
+    if tags:
+        ims = []
+        for t in tags:
+            im = image_manifest().get((pid, t))
+            if not im:
+                raise SystemExit('no image record %s %s' % (pid, t))
+            ims.append(im)
         ocr = {'method': 'the page image region of the passage was viewed (image service crop) and compared with the saved text',
-               'image_url': im['url'], 'image_sha256': im['sha256'], 'viewed': RETRIEVED,
-               'reading': c.get('reading'), 'corrections': c.get('corrections') or []}
+               'image_url': ims[0]['url'], 'image_sha256': ims[0]['sha256'], 'viewed': viewed,
+               'reading': reading, 'corrections': corrections}
+        if len(ims) > 1:
+            ocr['images'] = [{'tag': t, 'image_url': i['url'], 'image_sha256': i['sha256'], 'region_px': i['region_px']} for t, i in zip(tags, ims)]
+        if onote:
+            ocr['note'] = onote
     else:
         ocr = {'method': 'none: the saved OCR text only; the print of this passage was not viewed', 'reading': None, 'corrections': []}
     cit = {
@@ -218,7 +283,7 @@ def citation(c, man):
         'url': m['resource_url'],
         'alto_url': m['alto_url'],
         'alto_sha256': m['alto_sha256'],
-        'retrieved': RETRIEVED,
+        'retrieved': m['fetched_at'][:10],
         'local_path': m['local_path'],
         'text_sha256': m['text_sha256'],
         'page_chars': m['chars'],

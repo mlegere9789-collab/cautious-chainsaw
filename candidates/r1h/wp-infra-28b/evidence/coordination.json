@@ -1,0 +1,111 @@
+{
+ "when": "2026-11-16T00:43:05.268Z",
+ "siblings": [],
+ "foreignHits": [
+  {
+   "rule": "REALTIME",
+   "line": 126,
+   "text": "real time",
+   "insideAnchors": [
+    "r1h-wp-infra-28b-sentence"
+   ],
+   "thisGroupsOwn": true
+  },
+  {
+   "rule": "TICK",
+   "line": 141,
+   "text": "Tick",
+   "insideAnchors": [],
+   "thisGroupsOwn": false
+  },
+  {
+   "rule": "TICK",
+   "line": 141,
+   "text": "Tick",
+   "insideAnchors": [],
+   "thisGroupsOwn": false
+  },
+  {
+   "rule": "REALTIME",
+   "line": 165,
+   "text": "real time",
+   "insideAnchors": [],
+   "thisGroupsOwn": false
+  },
+  {
+   "rule": "TICK",
+   "line": 257,
+   "text": "Tick",
+   "insideAnchors": [],
+   "thisGroupsOwn": false
+  },
+  {
+   "rule": "TICK",
+   "line": 263,
+   "text": "tick",
+   "insideAnchors": [],
+   "thisGroupsOwn": false
+  },
+  {
+   "rule": "TICK",
+   "line": 285,
+   "text": "Tick",
+   "insideAnchors": [],
+   "thisGroupsOwn": false
+  },
+  {
+   "rule": "TICK",
+   "line": 285,
+   "text": "Tick",
+   "insideAnchors": [],
+   "thisGroupsOwn": false
+  },
+  {
+   "rule": "TICK",
+   "line": 415,
+   "text": "tick",
+   "insideAnchors": [],
+   "thisGroupsOwn": false
+  }
+ ],
+ "problems": [],
+ "note1": "no other group on disk patches watch-together.html at the time of this run: nothing is claimed about groups that do not exist yet",
+ "anchors": [
+  {
+   "id": "r1h-wp-infra-28b-sentence",
+   "lines": "126-126"
+  },
+  {
+   "id": "r1h-wp-infra-28b-join-input",
+   "lines": "160-160"
+  },
+  {
+   "id": "r1h-wp-infra-28b-core",
+   "lines": "298-303"
+  },
+  {
+   "id": "r1h-wp-infra-28b-broadcast",
+   "lines": "295-295"
+  },
+  {
+   "id": "r1h-wp-infra-28b-host-code",
+   "lines": "346-346"
+  },
+  {
+   "id": "r1h-wp-infra-28b-host-cap",
+   "lines": "354-355"
+  },
+  {
+   "id": "r1h-wp-infra-28b-host-snapshot",
+   "lines": "358-358"
+  },
+  {
+   "id": "r1h-wp-infra-28b-join-check",
+   "lines": "370-370"
+  },
+  {
+   "id": "r1h-wp-infra-28b-guest-data",
+   "lines": "384-386"
+  }
+ ]
+}

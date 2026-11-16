@@ -15,7 +15,7 @@ import nc_lib as L, nc_parse as P, nc_cache as C, nc_align as A, nc_flags as F, 
 import r2lib as R
 import verify_unit as V
 
-DEFECT_COST = 25          # rows a defect of a reading is worth (a scan with a damaged heading or a page held twice has lost or doubled about that many entries)
+DEFECT_COST = 15          # rows a defect of a reading is worth (a scan with a damaged heading or a page held twice has lost or doubled about that many entries)
 MIN_SUPPLEMENT = 5      # a stretch of at least this many rows that only the second scan holds is listed in the diagnostics (never merged)
 BAD_RULES = ('sequence', 'skip', 'out-of-sequence', 'inferred-after-privates')
 SRC = L.SOURCE_ID

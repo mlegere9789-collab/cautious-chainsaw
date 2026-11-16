@@ -492,3 +492,11 @@ test('real-GPU command: a folder of software runs is NOT a real-GPU result (said
     gp.diagEnd.adapter = { vendor: 'nvidia', arch: 'blackwell' }; gp.realGpu = false; put('main/webgpu/summary.json', gp); assert.equal(summarize(tmp, { skipClose: true }).realGpu, false, 'a run that was not started with --real-gpu is not one');
   } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
 });
+test('the headed-under-Xvfb probe: five flag sets, a driver that names the probe and bounds every set, the harness flags of the software run among them, and nothing random', () => {
+  const R = f => fs.readFileSync(path.join(APP, 'tests', f), 'utf8'), pr = R('weather3d-gpu-xvfb-probe.mjs'), dr = R('weather3d-gpu-xvfb-probe.sh');
+  assert.deepEqual([...pr.matchAll(/^  (H\d): /gm)].map(m => m[1]), ['H1', 'H2', 'H3', 'H4', 'H5']); assert.match(dr, /for S in \$\{SETS:-H1 H3 H2 H4 H5\}/);
+  for (const f of CHROME_ARGS) assert.ok(pr.includes(`'${f}'`), 'the first flag set is the harness flags: ' + f); assert.match(pr, /const BASE = \['--enable-unsafe-webgpu', '--enable-features=Vulkan,WebGPUService', '--ignore-gpu-blocklist', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'\]/);
+  assert.match(pr, /headless: false/, 'headed'); assert.match(pr, /execFileSync\('import', \['-window', 'root'/, 'the X screen capture'); assert.match(pr, /page\.screenshot\(\{ timeout: 25000 \}\)/);
+  assert.match(dr, /timeout -k 10 200 xvfb-run -a -s "-screen 0 1280x720x24" node "\$HERE\/weather3d-gpu-xvfb-probe\.mjs"/, 'every set in its own process with a hard limit'); assert.ok(!/Math\.random/.test(pr), 'nothing random');
+  assert.match(pr, /\.\.\/\.\.\/\.\.\/\.\.\/node_modules\/playwright-core\/index\.mjs/, 'the repository\'s own Playwright, like the other harnesses');
+});

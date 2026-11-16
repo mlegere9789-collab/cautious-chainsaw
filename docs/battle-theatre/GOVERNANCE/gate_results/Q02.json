@@ -46,7 +46,7 @@
   "NOT-RUN": 0,
   "PASS": 49
  },
- "finished_utc": "2026-11-16T00:34:09Z",
+ "finished_utc": "2026-11-16T00:44:28Z",
  "gate": "Q02",
  "incomplete_reasons": [],
  "input_hashes": {
@@ -57,8 +57,8 @@
   "docs/battle-theatre/GOVERNANCE/library/status_3.json": "e3e0ce43544640a652204e8876d55a3ef6791400337c5c633037c0a77c4971ac",
   "docs/battle-theatre/GOVERNANCE/register_index.json": "9cb387f9f8ad5282b7864536d157078a3fc4811c565f0f29272b80efda42083c",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "612c9a4a4f6e2057e8049b69d729459340e739ccba6c2f71d85a5c71321fc569",
-  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "a2daf33af2601b9bd670518789e1315bd6137088ac1c8788c556471e2f7bbda0",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639",
+  "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl": "a370f92d7528e00a5279c13507abc2a6f56edeaf6bdea589602773bd33d6a4e0",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-04.jsonl": "ed2c0b0a1d6ccda3cb7bdc95eb241080774fdf7f9b8418085d32c298b55b1b31",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-lookups.jsonl": "ae480799061ada00de5584afb455523317880c18ea4bb90bdb83f8f332fcff65",
   "docs/battle-theatre/GOVERNANCE/timeline_corrections/web-newspapers.jsonl": "f34e36226b0b7e8378edf180c59a8f1720ebe447231bce8ba356baa60396585d",
@@ -114,6 +114,41 @@
   "docs/battle-theatre/structures/state_schedule.json": "980d4420bf98c0d0f8715697936ebb8df5a40ec1bd6909ae5a66f576aff3a44d",
   "docs/battle-theatre/structures/structures.json": "b223dacf386d9983167d24561dc05a8466248096a7715a23dd25fa5bd2b1ad53",
   "docs/battle-theatre/structures/works_stages.json": "22c0c950efa34172d259260085effe210fe43dca64710747d0c5207b996209c2",
+  "tmp/library/misc/cu31924030924736_djvu.txt": "7c5e0b1bedbac34b5d5888df9f8c0a7245b44ac709373c527262ba17e17c6311",
+  "tmp/library/misc/cu31924052145475_djvu.txt": "a538722137a1b8497cd85c49fcb1c5aafdb677883d3cf8cedbba3740e42d7bd1",
+  "tmp/library/misc/finalreportonba00chatgoog_djvu.txt": "51d6548a9a3fc1f6188d5bb34a83f6d5afe6bea4906b76b7b12cadcfb6ac313d",
+  "tmp/library/misc/newyorkatgettysb0001unse_djvu.txt": "1fc4313f9a55dba48b4e0c0c5a59cb605097c9df156e42cf0f3be9ae0031a4f9",
+  "tmp/library/misc/pennsgettysburg02reynrich_djvu.txt": "24b14e4292d5899988b11cc0325fac813d865202b26ccd0270ace7ba63ee7a7b",
+  "tmp/library/misc/pennsylvaniaatge04penn_djvu.txt": "a819817be3edf5cd03f0f306e1b90b7e3c2598859c1ef2c0f2365815e7ac8668",
+  "tmp/library/or27/cu31924077699761_djvu.txt": "5c041e6ebc70cd4e33a325b411c7bec0b22ffa6dedbb71fbd4943fb57977a6ca",
+  "tmp/library/or27/cu31924077700262_djvu.txt": "3c7212f2954d83606e38fb00337fcaf78f85193b56b79a341d1f28659f4d93c1",
+  "tmp/library/or27/cu31924077728255_djvu.txt": "3d89c8396d3360cfe180d112d73f685603c95f68379d9dfb5a4f899133c86995",
+  "tmp/library/web/nps/NPS-CLI-1STDAY/NPS-CLI-1STDAY.txt": "350b95a26393c3430529a07f76a34d878522d5569403b7cd0f7901e61aa26ae2",
+  "tmp/library/web/nps/NPS-CLI-ERR/NPS-CLI-ERR.txt": "501123bb6b9cae8a09a714b9b720ed451b752beb8df5cdb4dd5b18779e19bf0b",
+  "tmp/library/web/nps/NPS-CLI-LRT/NPS-CLI-LRT.txt": "531850bc7d6616be47783f138aca8ec6f994ad92017cfaf558da172fd972c20a",
+  "tmp/library/web/nps/NPS-CLI-PCB/NPS-CLI-PCB.txt": "9e933e0a73ebc617a76ef7d758d318b8f3ef434874da6587a5845b6798d237bd",
+  "tmp/library/web/nps/NPS-CLR-1STDAY/NPS-CLR-1STDAY.txt": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+  "tmp/library/web/nps/NPS-HB9-1954/NPS-HB9-1954.txt": "26b54688d158c49a882f831fa66c4c52915aaaf30756728f5a09d3b31d5aa687",
+  "tmp/library/web/nps/NPS-HB9-1962/NPS-HB9-1962.txt": "cc2992ea30d5972bd9477551f31e9d2ed93e386f2288ca9692f0d37d8c1bdd8e",
+  "tmp/library/web/nps/NPS-MON-LOC-1932/NPS-MON-LOC-1932.txt": "30c6cfae70cdf9c77bc62a12e7e57ff0bc17811e241c59816713b0baf6709a3d",
+  "tmp/library/web/nps/NPS-TPG-COMMEM/NPS-TPG-COMMEM.txt": "760b40bce3c672264aff50109016fc833a6b6c1ceed2a89756c951c06892bbbb",
+  "tmp/library/web/nps/pages/NPSGOV-CIVILIANS/NPSGOV-CIVILIANS.txt": "c39f60baf34ac3165a9d3cb95ec12f6d849e420e2b356bfcf8daecc310083129",
+  "tmp/library/ws9/ADAMS-SENTINEL-1863-07-21__adams-sentinel-1863-07-21_djvu.txt": "957d18aa8947fe5853006cf3bf35be7047e626f8322e537e34f4f4a8a350c012",
+  "tmp/library/ws9/ALEXANDER-1907__militarymemoirso00alex_djvu.txt": "833381133e95e53e3ee95375e5e0419d39ef2486d7903ef3acc318aa9f857031",
+  "tmp/library/ws9/BACH-WHATTOSEE-1873__gettysburgwhatto00bach_djvu.txt": "0d2f6449ab69c5cbc8a67c83031115fa91aa4b8526b30dac8bab882d42088fc4",
+  "tmp/library/ws9/FREMANTLE-1864__threemonthsinsou00frem_djvu.txt": "ee25eca20c09ea509657500e05b8530b6b38de0b7fff2727c176f8c551958d3c",
+  "tmp/library/ws9/GBG-COMPILER-1863-06-29__gettysburg-compiler-1863-06-29_djvu.txt": "1f6c5cc96ff7644fb1e0a561e84a843e5bc5c53314365e99921d30b1ccdc5d5f",
+  "tmp/library/ws9/HOSPSCENES-1864__hospitalscenesaf00patr_djvu.txt": "ce65adad0698acc6cdadd236300e7997e90c77a82da2eeb70e6ac1aad4546d9c",
+  "tmp/library/ws9/IN-1913__indianaatfiftiet00pick_djvu.txt": "a6f97756722134912e4b74e91be3b59d24d1bb0d5aa4106d46df81f5d1f9768c",
+  "tmp/library/ws9/JACOBS-1864__notesonrebelinva00jaco_djvu.txt": "7e53753bb8fe50844be02e0cbba1d8e0c4ce8eeffd3c5b143455958638a9bb5b",
+  "tmp/library/ws9/MEADE-LL-v2__lifelettersofgeo02mead_djvu.txt": "ef1d8fd4985f0977de18c6429f346732ff900e1a77665f40f2a684408cfb458d",
+  "tmp/library/ws9/MN-1ST-1916__historyoffirstre00minn_djvu.txt": "e0ce17839dbf6783f4f34b7f9ab0c197744341e11844afb315a052630d0a8f6e",
+  "tmp/library/ws9/NJ-TOOMBS-1888__newjerseytroopsi00toom_djvu.txt": "f27e47821578c8f8610a3493336294a6dbd662f2c881d217138b40d5a2c3c6ec",
+  "tmp/library/ws9/OH-DED-1887__dedicationofohio00ohio_djvu.txt": "afe4fa175a1db3070f15481cb30d58527d511d3e76c2abe0549d9be1eacb7a6b",
+  "tmp/library/ws9/PIERCE-F-1914__battleofgettysbu00pier_djvu.txt": "23dcf0f436f83326939640fccad1b226f3d834b28f803a6663bf4bf74f07ac41",
+  "tmp/library/ws9/SHSP-04__southernhistoricv4sout_djvu.txt": "6bb81a6a226d7af38a2061f4512c4c894495423b738de723ef1a132ab10d2a94",
+  "tmp/library/ws9/SHSP-06__southernhistoricv6sout_djvu.txt": "366be018544b81d50dcff7f3c965394a5c520c335da9f687a2b28307c0e3c51a",
+  "tmp/library/ws9/TPIERCE-1889__atgettysburgorwh00alle_djvu.txt": "db450400b893a47b74b130b98affb7ec2eb984294fc5edc987a3ff5dc4ae1a06",
   "tools/bt/gates/datum_classes.json": "fdc85a450b152661e72825d7b60b589c6351321c91367c00ba5de2c0663f6c3e",
   "tools/bt/gates/q02_layer.mjs": "c99a3bc2359fa5d9cae3c9f0c6ea33d594dcf99258217ac511b0de2b679cd511",
   "tools/bt/gates/q23_app.mjs": "bb9e03d5b41c5814f80955a587605a9afb37873cf900ac0d56e6da962c6c0b40"
@@ -162,16 +197,16 @@
    "sha256": "a3b022ae79057423d2694f31c9eb23321df0c276bba13304eeba404b512a848f"
   },
   {
-   "bytes": 741485,
+   "bytes": 906477,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-02.jsonl",
    "role": "timeline correction records",
-   "sha256": "612c9a4a4f6e2057e8049b69d729459340e739ccba6c2f71d85a5c71321fc569"
+   "sha256": "b5f650815f5545b7035dcfd58a27c02d784dd080d5b01a7d05a9e8693edd1639"
   },
   {
-   "bytes": 1184150,
+   "bytes": 1230537,
    "path": "docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-03.jsonl",
    "role": "timeline correction records",
-   "sha256": "a2daf33af2601b9bd670518789e1315bd6137088ac1c8788c556471e2f7bbda0"
+   "sha256": "a370f92d7528e00a5279c13507abc2a6f56edeaf6bdea589602773bd33d6a4e0"
   },
   {
    "bytes": 717206,
@@ -502,6 +537,216 @@
    "path": "docs/battle-theatre/structures/works_stages.json",
    "role": "datum class structures.works_stages",
    "sha256": "22c0c950efa34172d259260085effe210fe43dca64710747d0c5207b996209c2"
+  },
+  {
+   "bytes": 352794,
+   "path": "tmp/library/misc/cu31924030924736_djvu.txt",
+   "role": "stored source text",
+   "sha256": "7c5e0b1bedbac34b5d5888df9f8c0a7245b44ac709373c527262ba17e17c6311"
+  },
+  {
+   "bytes": 1737369,
+   "path": "tmp/library/misc/cu31924052145475_djvu.txt",
+   "role": "stored source text",
+   "sha256": "a538722137a1b8497cd85c49fcb1c5aafdb677883d3cf8cedbba3740e42d7bd1"
+  },
+  {
+   "bytes": 2874403,
+   "path": "tmp/library/misc/finalreportonba00chatgoog_djvu.txt",
+   "role": "stored source text",
+   "sha256": "51d6548a9a3fc1f6188d5bb34a83f6d5afe6bea4906b76b7b12cadcfb6ac313d"
+  },
+  {
+   "bytes": 1348665,
+   "path": "tmp/library/misc/newyorkatgettysb0001unse_djvu.txt",
+   "role": "stored source text",
+   "sha256": "1fc4313f9a55dba48b4e0c0c5a59cb605097c9df156e42cf0f3be9ae0031a4f9"
+  },
+  {
+   "bytes": 1987191,
+   "path": "tmp/library/misc/pennsgettysburg02reynrich_djvu.txt",
+   "role": "stored source text",
+   "sha256": "24b14e4292d5899988b11cc0325fac813d865202b26ccd0270ace7ba63ee7a7b"
+  },
+  {
+   "bytes": 2145735,
+   "path": "tmp/library/misc/pennsylvaniaatge04penn_djvu.txt",
+   "role": "stored source text",
+   "sha256": "a819817be3edf5cd03f0f306e1b90b7e3c2598859c1ef2c0f2365815e7ac8668"
+  },
+  {
+   "bytes": 4015765,
+   "path": "tmp/library/or27/cu31924077699761_djvu.txt",
+   "role": "stored source text",
+   "sha256": "5c041e6ebc70cd4e33a325b411c7bec0b22ffa6dedbb71fbd4943fb57977a6ca"
+  },
+  {
+   "bytes": 3406812,
+   "path": "tmp/library/or27/cu31924077700262_djvu.txt",
+   "role": "stored source text",
+   "sha256": "3c7212f2954d83606e38fb00337fcaf78f85193b56b79a341d1f28659f4d93c1"
+  },
+  {
+   "bytes": 3946453,
+   "path": "tmp/library/or27/cu31924077728255_djvu.txt",
+   "role": "stored source text",
+   "sha256": "3d89c8396d3360cfe180d112d73f685603c95f68379d9dfb5a4f899133c86995"
+  },
+  {
+   "bytes": 271164,
+   "path": "tmp/library/web/nps/NPS-CLI-1STDAY/NPS-CLI-1STDAY.txt",
+   "role": "stored source text",
+   "sha256": "350b95a26393c3430529a07f76a34d878522d5569403b7cd0f7901e61aa26ae2"
+  },
+  {
+   "bytes": 257638,
+   "path": "tmp/library/web/nps/NPS-CLI-ERR/NPS-CLI-ERR.txt",
+   "role": "stored source text",
+   "sha256": "501123bb6b9cae8a09a714b9b720ed451b752beb8df5cdb4dd5b18779e19bf0b"
+  },
+  {
+   "bytes": 235077,
+   "path": "tmp/library/web/nps/NPS-CLI-LRT/NPS-CLI-LRT.txt",
+   "role": "stored source text",
+   "sha256": "531850bc7d6616be47783f138aca8ec6f994ad92017cfaf558da172fd972c20a"
+  },
+  {
+   "bytes": 280820,
+   "path": "tmp/library/web/nps/NPS-CLI-PCB/NPS-CLI-PCB.txt",
+   "role": "stored source text",
+   "sha256": "9e933e0a73ebc617a76ef7d758d318b8f3ef434874da6587a5845b6798d237bd"
+  },
+  {
+   "bytes": 1900019,
+   "path": "tmp/library/web/nps/NPS-CLR-1STDAY/NPS-CLR-1STDAY.txt",
+   "role": "stored source text",
+   "sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f"
+  },
+  {
+   "bytes": 89906,
+   "path": "tmp/library/web/nps/NPS-HB9-1954/NPS-HB9-1954.txt",
+   "role": "stored source text",
+   "sha256": "26b54688d158c49a882f831fa66c4c52915aaaf30756728f5a09d3b31d5aa687"
+  },
+  {
+   "bytes": 78195,
+   "path": "tmp/library/web/nps/NPS-HB9-1962/NPS-HB9-1962.txt",
+   "role": "stored source text",
+   "sha256": "cc2992ea30d5972bd9477551f31e9d2ed93e386f2288ca9692f0d37d8c1bdd8e"
+  },
+  {
+   "bytes": 63295,
+   "path": "tmp/library/web/nps/NPS-MON-LOC-1932/NPS-MON-LOC-1932.txt",
+   "role": "stored source text",
+   "sha256": "30c6cfae70cdf9c77bc62a12e7e57ff0bc17811e241c59816713b0baf6709a3d"
+  },
+  {
+   "bytes": 486113,
+   "path": "tmp/library/web/nps/NPS-TPG-COMMEM/NPS-TPG-COMMEM.txt",
+   "role": "stored source text",
+   "sha256": "760b40bce3c672264aff50109016fc833a6b6c1ceed2a89756c951c06892bbbb"
+  },
+  {
+   "bytes": 6402,
+   "path": "tmp/library/web/nps/pages/NPSGOV-CIVILIANS/NPSGOV-CIVILIANS.txt",
+   "role": "stored source text",
+   "sha256": "c39f60baf34ac3165a9d3cb95ec12f6d849e420e2b356bfcf8daecc310083129"
+  },
+  {
+   "bytes": 172351,
+   "path": "tmp/library/ws9/ADAMS-SENTINEL-1863-07-21__adams-sentinel-1863-07-21_djvu.txt",
+   "role": "stored source text",
+   "sha256": "957d18aa8947fe5853006cf3bf35be7047e626f8322e537e34f4f4a8a350c012"
+  },
+  {
+   "bytes": 1679470,
+   "path": "tmp/library/ws9/ALEXANDER-1907__militarymemoirso00alex_djvu.txt",
+   "role": "stored source text",
+   "sha256": "833381133e95e53e3ee95375e5e0419d39ef2486d7903ef3acc318aa9f857031"
+  },
+  {
+   "bytes": 268112,
+   "path": "tmp/library/ws9/BACH-WHATTOSEE-1873__gettysburgwhatto00bach_djvu.txt",
+   "role": "stored source text",
+   "sha256": "0d2f6449ab69c5cbc8a67c83031115fa91aa4b8526b30dac8bab882d42088fc4"
+  },
+  {
+   "bytes": 496842,
+   "path": "tmp/library/ws9/FREMANTLE-1864__threemonthsinsou00frem_djvu.txt",
+   "role": "stored source text",
+   "sha256": "ee25eca20c09ea509657500e05b8530b6b38de0b7fff2727c176f8c551958d3c"
+  },
+  {
+   "bytes": 212958,
+   "path": "tmp/library/ws9/GBG-COMPILER-1863-06-29__gettysburg-compiler-1863-06-29_djvu.txt",
+   "role": "stored source text",
+   "sha256": "1f6c5cc96ff7644fb1e0a561e84a843e5bc5c53314365e99921d30b1ccdc5d5f"
+  },
+  {
+   "bytes": 80071,
+   "path": "tmp/library/ws9/HOSPSCENES-1864__hospitalscenesaf00patr_djvu.txt",
+   "role": "stored source text",
+   "sha256": "ce65adad0698acc6cdadd236300e7997e90c77a82da2eeb70e6ac1aad4546d9c"
+  },
+  {
+   "bytes": 212262,
+   "path": "tmp/library/ws9/IN-1913__indianaatfiftiet00pick_djvu.txt",
+   "role": "stored source text",
+   "sha256": "a6f97756722134912e4b74e91be3b59d24d1bb0d5aa4106d46df81f5d1f9768c"
+  },
+  {
+   "bytes": 83332,
+   "path": "tmp/library/ws9/JACOBS-1864__notesonrebelinva00jaco_djvu.txt",
+   "role": "stored source text",
+   "sha256": "7e53753bb8fe50844be02e0cbba1d8e0c4ce8eeffd3c5b143455958638a9bb5b"
+  },
+  {
+   "bytes": 1326931,
+   "path": "tmp/library/ws9/MEADE-LL-v2__lifelettersofgeo02mead_djvu.txt",
+   "role": "stored source text",
+   "sha256": "ef1d8fd4985f0977de18c6429f346732ff900e1a77665f40f2a684408cfb458d"
+  },
+  {
+   "bytes": 1016854,
+   "path": "tmp/library/ws9/MN-1ST-1916__historyoffirstre00minn_djvu.txt",
+   "role": "stored source text",
+   "sha256": "e0ce17839dbf6783f4f34b7f9ab0c197744341e11844afb315a052630d0a8f6e"
+  },
+  {
+   "bytes": 598434,
+   "path": "tmp/library/ws9/NJ-TOOMBS-1888__newjerseytroopsi00toom_djvu.txt",
+   "role": "stored source text",
+   "sha256": "f27e47821578c8f8610a3493336294a6dbd662f2c881d217138b40d5a2c3c6ec"
+  },
+  {
+   "bytes": 13499,
+   "path": "tmp/library/ws9/OH-DED-1887__dedicationofohio00ohio_djvu.txt",
+   "role": "stored source text",
+   "sha256": "afe4fa175a1db3070f15481cb30d58527d511d3e76c2abe0549d9be1eacb7a6b"
+  },
+  {
+   "bytes": 696021,
+   "path": "tmp/library/ws9/PIERCE-F-1914__battleofgettysbu00pier_djvu.txt",
+   "role": "stored source text",
+   "sha256": "23dcf0f436f83326939640fccad1b226f3d834b28f803a6663bf4bf74f07ac41"
+  },
+  {
+   "bytes": 860186,
+   "path": "tmp/library/ws9/SHSP-04__southernhistoricv4sout_djvu.txt",
+   "role": "stored source text",
+   "sha256": "6bb81a6a226d7af38a2061f4512c4c894495423b738de723ef1a132ab10d2a94"
+  },
+  {
+   "bytes": 887720,
+   "path": "tmp/library/ws9/SHSP-06__southernhistoricv6sout_djvu.txt",
+   "role": "stored source text",
+   "sha256": "366be018544b81d50dcff7f3c965394a5c520c335da9f687a2b28307c0e3c51a"
+  },
+  {
+   "bytes": 125116,
+   "path": "tmp/library/ws9/TPIERCE-1889__atgettysburgorwh00alle_djvu.txt",
+   "role": "stored source text",
+   "sha256": "db450400b893a47b74b130b98affb7ec2eb984294fc5edc987a3ff5dc4ae1a06"
   },
   {
    "bytes": 22125,
@@ -1688,8 +1933,8 @@
      "sha256": "689bc598eb292a4d6bb774d300d54d78c3dedfefac96eccba8569228df79e3b9"
     },
     "tier_counts": {
-     "documented": 568,
-     "inferred": 73,
+     "documented": 570,
+     "inferred": 71,
      "open gap": 39,
      "plausible-procedural": 11
     },
@@ -2490,7 +2735,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.artillery_train",
@@ -2510,7 +2755,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.audio_calls",
@@ -2565,7 +2810,7 @@
      "rows": 60,
      "sha256": "b5ca8e854a6718d42bbd006dda351c1d6426aef6403590e5f5bd44cfd3d1b22e"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 30
     }
@@ -2587,7 +2832,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.audio_sources",
@@ -2607,7 +2852,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.audio_woods",
@@ -2659,7 +2904,7 @@
      "rows": 47,
      "sha256": "72982a13c88c460ef368e3766002907c6881a3ae3c3f353da5c6c8270bce68bf"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 25
     }
@@ -2681,7 +2926,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.casualty_sources",
@@ -2730,7 +2975,7 @@
      "rows": 58,
      "sha256": "1571548d74e45985e72a6a346cfbe266cbc08b050b35e6293ab289ae408c4465"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 29
     }
@@ -2780,7 +3025,7 @@
      "rows": 445,
      "sha256": "57e6779f4e7f09ef5f315382c419b183f95f03e539a7cd8630681fe68c5ccc37"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 445
     }
@@ -2802,7 +3047,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.engagements",
@@ -2832,7 +3077,7 @@
      "no source that is neither a lead nor weak (sources: W-BG=weak)": 1
     },
     "scanned": 4,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 4
     }
@@ -2887,7 +3132,7 @@
      "rows": 36,
      "sha256": "5f27cd2a530d24e5f9b1a799148040e9be3922b77ea14575e20e3a0ee49f91a7"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 18
     }
@@ -2930,7 +3175,7 @@
      "rows": 24,
      "sha256": "ff42fdb1ba8c44a9efc1bfbb95ca0c337caa79f70dd6327db9a93a9cc8f96a2d"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 12
     }
@@ -2952,7 +3197,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.gazetteer",
@@ -2972,7 +3217,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.placement",
@@ -3021,7 +3266,7 @@
      "rows": 180,
      "sha256": "b16c59acbe1b8bd836bf52f3a27fbd96119ef313ebd00b352f79fd4a01b75d7c"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 179
     }
@@ -3043,7 +3288,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.sibling_approach",
@@ -3063,7 +3308,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.site_bookmarks",
@@ -3118,7 +3363,7 @@
      "rows": 51,
      "sha256": "84c3f17b135febc399cc01fe22f3a2e38b60a351477e0c9bedffc1df9778eebe"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 32
     }
@@ -3140,7 +3385,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.site_memorials",
@@ -3160,7 +3405,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.site_tour_stops",
@@ -3180,7 +3425,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.skeleton",
@@ -3207,7 +3452,7 @@
      "no source that is neither a lead nor weak (sources: NPS-TREAT-2004=unresolved, LOC-BACH-1876=unresolved)": 3
     },
     "scanned": 3,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 3
     }
@@ -3264,7 +3509,7 @@
      "rows": 971,
      "sha256": "c7303a3cd8dde8072647ecc404c19ea73eae64e4a6afa5ed06db9c44f307d6af"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 539
     }
@@ -3286,7 +3531,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/data.works3d",
@@ -3306,7 +3551,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/env.ephemeris",
@@ -3355,7 +3600,7 @@
      "rows": 52,
      "sha256": "30e56f9778e3bca79ade5c2ceba85191f0a884353b7676ab29e68c563642ffb8"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 26
     }
@@ -3370,10 +3615,10 @@
    "check": "Q02.3",
    "evidence": {
     "class": "gov.timeline",
-    "extracts_found_again": 520,
-    "extracts_without_stored_text": 62,
-    "failing": 507,
-    "failures": 818,
+    "extracts_found_again": 504,
+    "extracts_without_stored_text": 70,
+    "failing": 511,
+    "failures": 826,
     "first": [
      "timeline:T1-001",
      "timeline:T1-002",
@@ -3399,27 +3644,27 @@
     "reasons": {
      "extract is 15 words (limit 14)": 7,
      "extract is 27 words (limit 14)": 6,
-     "extract is 29 words (limit 14)": 10,
+     "extract is 29 words (limit 14)": 11,
      "extract is 31 words (limit 14)": 6,
      "no source extract": 390,
      "no source that is neither a lead nor weak (sources: HUNT=unresolved)": 8,
      "no source that is neither a lead nor weak (sources: SS2=weak)": 7,
      "no source that is neither a lead nor weak (sources: W-RET=weak)": 14
     },
-    "scanned": 568,
+    "scanned": 570,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q023-gov_timeline.jsonl",
-     "rows": 818,
-     "sha256": "825d716a6f8a5314c8a80ae9da0da568bd6ffce233fcc53e89dcafcef195494d"
+     "rows": 826,
+     "sha256": "ab9c0c691464bc5f688e64503a6c973a6d43e3f4aa557cd6429392b95e7702ff"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
-     "documented": 568
+     "documented": 570
     }
    },
    "id": "Q02/Q02.3/gov.timeline",
    "pass": false,
-   "reason": "507 of 568 members fail: no source extract (390); no source that is neither a lead nor weak (sources: W-RET=weak) (14); extract is 29 words (limit 14) (10)",
+   "reason": "511 of 570 members fail: no source extract (390); no source that is neither a lead nor weak (sources: W-RET=weak) (14); extract is 29 words (limit 14) (11)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -3468,7 +3713,7 @@
      "rows": 361,
      "sha256": "9893b69d4459a908a7a6bb1bff7b85322f2da1eb9111af389cf51c5e259f89e7"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 211
     }
@@ -3525,7 +3770,7 @@
      "rows": 171,
      "sha256": "3b110c6ba0af3b48d99d6aea9823e0bf169e416a3a22391cd28824165e077a7c"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 88
     }
@@ -3576,7 +3821,7 @@
      "rows": 102,
      "sha256": "11edd183e49053d82a4038f060311892406673f3a93a460cfe8f39697db0548f"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 90
     }
@@ -3630,7 +3875,7 @@
      "rows": 37,
      "sha256": "46ba23c896d9354a53db6f2702909faed93c6f60d1bc63ee91a0d5431727fe82"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 33
     }
@@ -3680,7 +3925,7 @@
      "rows": 30,
      "sha256": "3e20b7964cc16ec76df6b1d74193c5c78bb330b902c7665f45b388b1e406b593"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 30
     }
@@ -3702,7 +3947,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/layer.events",
@@ -3739,7 +3984,7 @@
      "no source extract": 14
     },
     "scanned": 14,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 14
     }
@@ -3788,7 +4033,7 @@
      "rows": 23,
      "sha256": "f928a85603127260669934c60bdeb34c27af3c1f7212e8de96a1afcf2b78943d"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 12
     }
@@ -3817,7 +4062,7 @@
      "no source that is neither a lead nor weak (sources: PA1B-S027=unresolved)": 2
     },
     "scanned": 72,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 72
     }
@@ -3839,7 +4084,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/layer.unit.approach",
@@ -3859,7 +4104,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/layer.unit.casualties",
@@ -3901,7 +4146,7 @@
      "no source extract": 19
     },
     "scanned": 19,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 19
     }
@@ -3923,7 +4168,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/layer.unit.strength",
@@ -3947,7 +4192,7 @@
      "no source extract": 1
     },
     "scanned": 1,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 1
     }
@@ -3964,54 +4209,54 @@
     "class": "ledger.positions",
     "extracts_found_again": 3400,
     "extracts_without_stored_text": 0,
-    "failing": 2466,
-    "failures": 2520,
+    "failing": 1216,
+    "failures": 1261,
     "first": [
-     "positions_A.jsonl:POS-A-11A-001",
      "positions_A.jsonl:POS-A-11A-002",
-     "positions_A.jsonl:POS-A-11A-003",
-     "positions_A.jsonl:POS-A-11A-004",
-     "positions_A.jsonl:POS-A-11A-005",
      "positions_A.jsonl:POS-A-11A-007",
      "positions_A.jsonl:POS-A-11A-008",
      "positions_A.jsonl:POS-A-11A-013",
-     "positions_A.jsonl:POS-A-11A-014",
-     "positions_A.jsonl:POS-A-11A-015",
-     "positions_A.jsonl:POS-A-11A-018",
      "positions_A.jsonl:POS-A-11A-019",
-     "positions_A.jsonl:POS-A-11A-021",
      "positions_A.jsonl:POS-A-11A-022",
-     "positions_A.jsonl:POS-A-11A-023",
      "positions_A.jsonl:POS-A-11A-026",
      "positions_A.jsonl:POS-A-11A-027",
-     "positions_A.jsonl:POS-A-11A-028",
-     "positions_A.jsonl:POS-A-11A-031",
-     "positions_A.jsonl:POS-A-11A-032"
+     "positions_A.jsonl:POS-A-11A-035",
+     "positions_A.jsonl:POS-A-11A-039",
+     "positions_A.jsonl:POS-A-11A-040",
+     "positions_A.jsonl:POS-A-11A-041",
+     "positions_A.jsonl:POS-A-11A-044",
+     "positions_A.jsonl:POS-A-11A-045",
+     "positions_A.jsonl:POS-A-11A-046",
+     "positions_A.jsonl:POS-A-11A-047",
+     "positions_A.jsonl:POS-A-11A-049",
+     "positions_A.jsonl:POS-A-11A-050",
+     "positions_A.jsonl:POS-A-11A-051",
+     "positions_A.jsonl:POS-A-11A-052"
     ],
     "reasons": {
-     "number(s) 1 of the claim are not in the extract": 163,
-     "number(s) 1, 2 of the claim are not in the extract": 30,
-     "number(s) 2 of the claim are not in the extract": 169,
-     "number(s) 3 of the claim are not in the extract": 200,
-     "number(s) 30 of the claim are not in the extract": 62,
-     "number(s) 4 of the claim are not in the extract": 69,
-     "number(s) 5 of the claim are not in the extract": 75,
-     "number(s) 6 of the claim are not in the extract": 44
+     "number(s) 1 of the claim are not in the span": 65,
+     "number(s) 2 of the claim are not in the span": 127,
+     "number(s) 3 of the claim are not in the span": 154,
+     "number(s) 30 of the claim are not in the span": 34,
+     "number(s) 4 of the claim are not in the span": 44,
+     "number(s) 5 of the claim are not in the span": 40,
+     "number(s) 6 of the claim are not in the span": 25,
+     "number(s) 7 of the claim are not in the span": 15
     },
     "scanned": 3402,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q023-ledger_positions.jsonl",
-     "rows": 2520,
-     "sha256": "158c574edb3c857c29b85e1e4e6f9e29cf84f662891ac264362bb77192017667"
+     "rows": 1261,
+     "sha256": "098a1fcbe75f364d867d8c7d54ecd1674c719905cc87f9a2bb37a45037dd1e16"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 3402
     }
    },
    "id": "Q02/Q02.3/ledger.positions",
    "pass": false,
-   "reason": "2466 of 3402 members fail: number(s) 3 of the claim are not in the extract (200); number(s) 2 of the claim are not in the extract (169); number(s) 1 of the claim are not in the extract (163)",
+   "reason": "1216 of 3402 members fail: number(s) 3 of the claim are not in the span (154); number(s) 2 of the claim are not in the span (127); number(s) 1 of the claim are not in the span (65)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -4022,7 +4267,7 @@
     "extracts_found_again": 0,
     "extracts_without_stored_text": 445,
     "failing": 445,
-    "failures": 659,
+    "failures": 639,
     "first": [
      "troopmap_jul1_b1876.jsonl:TMJ1-001",
      "troopmap_jul1_b1876.jsonl:TMJ1-002",
@@ -4049,19 +4294,19 @@
      "no source that is neither a lead nor weak (sources: BACHELDER-1876-S1=unresolved)": 111,
      "no source that is neither a lead nor weak (sources: BACHELDER-1876-S2=unresolved)": 175,
      "no source that is neither a lead nor weak (sources: BACHELDER-1876-S3=unresolved)": 159,
-     "number(s) 1 of the claim are not in the extract": 16,
-     "number(s) 1.5 of the claim are not in the extract": 3,
-     "number(s) 125, 126 of the claim are not in the extract": 2,
-     "number(s) 2 of the claim are not in the extract": 6,
-     "number(s) 3 of the claim are not in the extract": 8
+     "number(s) 1 of the claim are not in the span": 5,
+     "number(s) 1.5 of the claim are not in the span": 3,
+     "number(s) 125, 126 of the claim are not in the span": 2,
+     "number(s) 16, 48, 19, 12 of the claim are not in the span": 2,
+     "number(s) 3 of the claim are not in the span": 4
     },
     "scanned": 445,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q023-ledger_troopmaps.jsonl",
-     "rows": 659,
-     "sha256": "d800fc5357dd7402799d9409525758e4b6fe69a1e829abb32db75c548a693763"
+     "rows": 639,
+     "sha256": "1c747e085cfa8194bf4ee8d49f7fcf61b5b4bd354961aa96e9853363b97e94a7"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 445
     }
@@ -4111,7 +4356,7 @@
      "rows": 26,
      "sha256": "349ce6adc05c3a7c8c9aa9fb2e5960508bad7a8d61505961a321e9af6f923539"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 13
     }
@@ -4168,7 +4413,7 @@
      "rows": 94,
      "sha256": "9be0bea4133fc81f5d25b6e8833392608185a370fd1bc9aeb35cbbf18448f158"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 48
     }
@@ -4225,7 +4470,7 @@
      "rows": 126,
      "sha256": "9063b15d8a9452800e027042458328d3fa960e6489f71c71cea2b9b45995235c"
     },
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {
      "documented": 64
     }
@@ -4247,7 +4492,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/structures.works_stages",
@@ -4267,7 +4512,7 @@
     "first": [],
     "reasons": {},
     "scanned": 0,
-    "span_basis": "the extract itself (a claim number must stand in it)",
+    "span_basis": "the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted",
     "tier_counts": {}
    },
    "id": "Q02/Q02.3/terrain.ground",
@@ -5111,8 +5356,8 @@
    "check": "Q02.4",
    "evidence": {
     "class": "gov.timeline",
-    "failing": 73,
-    "failures": 146,
+    "failing": 71,
+    "failures": 142,
     "first": [
      "timeline:T1-048",
      "timeline:T1-050",
@@ -5123,9 +5368,6 @@
      "timeline:T1-078",
      "timeline:T1-080",
      "timeline:T1-088",
-     "timeline:T1-092",
-     "timeline:T1-093",
-     "timeline:T1-111",
      "timeline:T1-114",
      "timeline:T1-124",
      "timeline:T1-126",
@@ -5133,25 +5375,28 @@
      "timeline:T1-132",
      "timeline:T1-135",
      "timeline:T1-137",
-     "timeline:T1-140"
+     "timeline:T1-140",
+     "timeline:T1-158",
+     "timeline:T1-171",
+     "timeline:T1-181"
     ],
     "reasons": {
-     "no premise claim ids (the reasoning names no documented claim)": 73,
-     "no reasoning": 73
+     "no premise claim ids (the reasoning names no documented claim)": 71,
+     "no reasoning": 71
     },
-    "scanned": 73,
+    "scanned": 71,
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q024-gov_timeline.jsonl",
-     "rows": 146,
-     "sha256": "3ac68aa237d159c221d7a690ae4700cdbcc62bea32095cd0fb7e076fdb9263cd"
+     "rows": 142,
+     "sha256": "bb0d1b003ba77a4c8dccbe721fcd5b2684d1573e81ebbbb49b77209193f5af55"
     },
     "tier_counts": {
-     "inferred": 73
+     "inferred": 71
     }
    },
    "id": "Q02/Q02.4/gov.timeline",
    "pass": false,
-   "reason": "73 of 73 members fail: no premise claim ids (the reasoning names no documented claim) (73); no reasoning (73)",
+   "reason": "71 of 71 members fail: no premise claim ids (the reasoning names no documented claim) (71); no reasoning (71)",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -7794,15 +8039,15 @@
     ],
     "sidecar": {
      "path": "docs/battle-theatre/GOVERNANCE/gate_results/evidence/Q02/Q026-unresolved-gov_timeline.jsonl",
-     "rows": 279,
-     "sha256": "5d6b5aadd6334cb82d8f8255b07785f7399d4762235378030f341015a62b9ffa"
+     "rows": 281,
+     "sha256": "1ba8722ea7dd79847080baa3dbe1c18175901928cfb48ca12530c10ad03ec57a"
     },
-    "source_ids_used": 500,
-    "unresolved": 279
+    "source_ids_used": 507,
+    "unresolved": 281
    },
    "id": "Q02/Q02.6/gov.timeline",
    "pass": false,
-   "reason": "279 of 500 source ids used by the class are in no Source Manifest",
+   "reason": "281 of 507 source ids used by the class are in no Source Manifest",
    "renderer_class": "python",
    "result": "FAIL"
   },
@@ -9002,8 +9247,8 @@
      "sha256": "fa88354cd121af109cfba1cea7d73edd2b1e2b6d01b38ed1acd00852f31cdb8d"
     },
     "tier_counts": {
-     "documented": 568,
-     "inferred": 73,
+     "documented": 570,
+     "inferred": 71,
      "open gap": 39,
      "plausible-procedural": 11
     }
@@ -9943,20 +10188,21 @@
   "units": 726
  },
  "notes": [
-  "Q02.3 span basis: the extract itself; the number rule of the citation checker (p. 126, D.4.3 stage 11) is applied to a claim text where the data has one"
+  "Q02.3 span basis: the sentence of the stored text that holds the extract; the number rule of the citation checker (p. 126, D.4.3 stage 11) is applied to a claim text where the data has one, with numbers written in words (0 to 99) accepted"
  ],
  "owed": [
   "Q02.3 \"the claim equals what the span supports\" is not machine-checkable: it needs the fresh-context verification run of U-11 (Q27.5)"
  ],
  "renderer_class": "python",
- "run_id": "20261116T003329Z-Q02",
+ "run_id": "20261116T004409Z-Q02",
  "runnable_here": true,
  "schema": "bt-gate-result/1",
- "started_utc": "2026-11-16T00:33:29Z",
+ "started_utc": "2026-11-16T00:44:09Z",
  "text_store": {
   "or27_error": null,
   "statevol_error": null,
-  "texts_listed": 239
+  "texts_listed": 239,
+  "texts_read": 35
  },
  "thresholds": [
   {

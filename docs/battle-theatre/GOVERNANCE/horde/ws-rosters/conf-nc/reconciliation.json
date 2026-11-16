@@ -1,0 +1,546 @@
+{
+ "format": "conf-nc-reconciliation/1",
+ "about": "Reconciliation of the new unit files of the conf-nc work item with two other readings of the same roll:",
+ "units": {
+  "c-nc-1st-north-carolina-infantry": {
+   "unit": "c-nc-1st-north-carolina-infantry",
+   "primary": "b",
+   "lines": 1581,
+   "company_counts": {
+    "A": 128,
+    "B": 174,
+    "C": 160,
+    "D": 175,
+    "E": 145,
+    "F": 154,
+    "FS": 22,
+    "G": 142,
+    "H": 159,
+    "I": 165,
+    "K": 157
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1659,
+    "matched": 843,
+    "only_in_file": 37,
+    "only_in_second": 16,
+    "replace_blocks": 243,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 120,
+     "B": 163,
+     "C": 146,
+     "D": 171,
+     "E": 141,
+     "F": 155,
+     "FS": 21,
+     "G": 141,
+     "H": 146,
+     "I": 144,
+     "K": 160,
+     "L": 151
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-1NC.csv",
+    "lines": 1599,
+    "matched": 1524,
+    "only_in_file": 24,
+    "only_in_earlier": 44,
+    "replace_blocks": 28,
+    "company_counts": {
+     "A": 131,
+     "B": 174,
+     "C": 164,
+     "D": 174,
+     "E": 145,
+     "F": 160,
+     "FS": 19,
+     "G": 150,
+     "H": 157,
+     "I": 165,
+     "K": 160
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 56,
+    "only_in_earlier_by_key": 74
+   }
+  },
+  "c-nc-2nd-north-carolina-infantry": {
+   "unit": "c-nc-2nd-north-carolina-infantry",
+   "primary": "b",
+   "lines": 1349,
+   "company_counts": {
+    "A": 111,
+    "B": 148,
+    "C": 127,
+    "D": 121,
+    "E": 154,
+    "F": 147,
+    "FS": 17,
+    "G": 139,
+    "H": 110,
+    "I": 139,
+    "K": 136
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1758,
+    "matched": 510,
+    "only_in_file": 16,
+    "only_in_second": 54,
+    "replace_blocks": 180,
+    "second_only_runs": [
+     {
+      "at_file_row": 704,
+      "second_rows": [
+       678,
+       725
+      ]
+     }
+    ],
+    "company_counts": {
+     "A": 105,
+     "B": 149,
+     "C": 119,
+     "D": 116,
+     "E": 148,
+     "F": 193,
+     "FS": 16,
+     "G": 116,
+     "H": 147,
+     "I": 145,
+     "K": 130,
+     "L": 112,
+     "M": 131,
+     "N": 131
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-2NC.csv",
+    "lines": 1374,
+    "matched": 1322,
+    "only_in_file": 13,
+    "only_in_earlier": 39,
+    "replace_blocks": 12,
+    "company_counts": {
+     "A": 110,
+     "B": 156,
+     "C": 131,
+     "D": 124,
+     "E": 160,
+     "F": 148,
+     "FS": 15,
+     "G": 140,
+     "H": 114,
+     "I": 141,
+     "K": 135
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 27,
+    "only_in_earlier_by_key": 52
+   }
+  },
+  "c-nc-3rd-north-carolina-infantry": {
+   "unit": "c-nc-3rd-north-carolina-infantry",
+   "primary": "b",
+   "lines": 1687,
+   "company_counts": {
+    "A": 165,
+    "B": 156,
+    "C": 165,
+    "D": 164,
+    "E": 180,
+    "F": 153,
+    "FS": 20,
+    "G": 180,
+    "H": 162,
+    "I": 171,
+    "K": 171
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1643,
+    "matched": 995,
+    "only_in_file": 32,
+    "only_in_second": 14,
+    "replace_blocks": 348,
+    "second_only_runs": [
+     {
+      "at_file_row": 1005,
+      "second_rows": [
+       977,
+       982
+      ]
+     }
+    ],
+    "company_counts": {
+     "A": 160,
+     "B": 154,
+     "C": 161,
+     "D": 159,
+     "E": 173,
+     "F": 149,
+     "FS": 18,
+     "G": 179,
+     "H": 155,
+     "I": 169,
+     "K": 166
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-3NC.csv",
+    "lines": 1703,
+    "matched": 1641,
+    "only_in_file": 12,
+    "only_in_earlier": 28,
+    "replace_blocks": 31,
+    "company_counts": {
+     "A": 166,
+     "B": 156,
+     "C": 168,
+     "D": 165,
+     "E": 182,
+     "F": 153,
+     "FS": 21,
+     "G": 182,
+     "H": 163,
+     "I": 174,
+     "K": 173
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 45,
+    "only_in_earlier_by_key": 61
+   }
+  },
+  "c-nc-4th-north-carolina-infantry": {
+   "unit": "c-nc-4th-north-carolina-infantry",
+   "primary": "b",
+   "lines": 1584,
+   "company_counts": {
+    "A": 173,
+    "B": 132,
+    "C": 188,
+    "D": 121,
+    "E": 187,
+    "F": 128,
+    "FS": 14,
+    "G": 131,
+    "H": 246,
+    "I": 119,
+    "K": 145
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1514,
+    "matched": 962,
+    "only_in_file": 47,
+    "only_in_second": 22,
+    "replace_blocks": 290,
+    "second_only_runs": [
+     {
+      "at_file_row": 325,
+      "second_rows": [
+       311,
+       316
+      ]
+     }
+    ],
+    "company_counts": {
+     "A": 171,
+     "B": 123,
+     "C": 179,
+     "D": 116,
+     "E": 175,
+     "F": 127,
+     "FS": 11,
+     "G": 122,
+     "H": 235,
+     "I": 118,
+     "K": 137
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-4NC.csv",
+    "lines": 1604,
+    "matched": 1506,
+    "only_in_file": 20,
+    "only_in_earlier": 40,
+    "replace_blocks": 36,
+    "company_counts": {
+     "A": 175,
+     "B": 131,
+     "C": 188,
+     "D": 121,
+     "E": 193,
+     "F": 129,
+     "FS": 14,
+     "G": 135,
+     "H": 250,
+     "I": 123,
+     "K": 145
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 78,
+    "only_in_earlier_by_key": 98
+   }
+  },
+  "c-nc-5th-north-carolina-infantry": {
+   "unit": "c-nc-5th-north-carolina-infantry",
+   "primary": "b",
+   "lines": 1793,
+   "company_counts": {
+    "A": 202,
+    "B": 190,
+    "C": 206,
+    "D": 156,
+    "E": 151,
+    "F": 179,
+    "FS": 18,
+    "G": 195,
+    "H": 179,
+    "I": 166,
+    "K": 151
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.1",
+    "lines": 1615,
+    "matched": 797,
+    "only_in_file": 54,
+    "only_in_second": 15,
+    "replace_blocks": 307,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 197,
+     "B": 177,
+     "C": 200,
+     "D": 149,
+     "E": 151,
+     "F": 166,
+     "FS": 16,
+     "G": 187,
+     "H": 108,
+     "I": 146,
+     "K": 118
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-5NC.csv",
+    "lines": 1817,
+    "matched": 1734,
+    "only_in_file": 12,
+    "only_in_earlier": 37,
+    "replace_blocks": 39,
+    "company_counts": {
+     "A": 199,
+     "B": 194,
+     "C": 209,
+     "D": 159,
+     "E": 154,
+     "F": 179,
+     "FS": 18,
+     "G": 200,
+     "H": 183,
+     "I": 171,
+     "K": 151
+    },
+    "source": "NC-MOORE-1882-v1-emory",
+    "only_in_file_by_key": 59,
+    "only_in_earlier_by_key": 83
+   }
+  },
+  "c-nc-26th-north-carolina-infantry": {
+   "unit": "c-nc-26th-north-carolina-infantry",
+   "primary": "b",
+   "lines": 1925,
+   "company_counts": {
+    "A": 199,
+    "B": 183,
+    "C": 188,
+    "D": 186,
+    "E": 206,
+    "F": 227,
+    "FS": 16,
+    "G": 184,
+    "H": 168,
+    "I": 184,
+    "K": 184
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.2",
+    "lines": 1932,
+    "matched": 1591,
+    "only_in_file": 21,
+    "only_in_second": 27,
+    "replace_blocks": 211,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 193,
+     "B": 181,
+     "C": 190,
+     "D": 189,
+     "E": 210,
+     "F": 226,
+     "FS": 17,
+     "G": 188,
+     "H": 171,
+     "I": 186,
+     "K": 181
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-26NC.csv",
+    "lines": 1954,
+    "matched": 1586,
+    "only_in_file": 4,
+    "only_in_earlier": 30,
+    "replace_blocks": 225,
+    "company_counts": {
+     "A": 200,
+     "B": 182,
+     "C": 191,
+     "D": 190,
+     "E": 212,
+     "F": 226,
+     "FS": 17,
+     "G": 189,
+     "H": 173,
+     "I": 187,
+     "K": 187
+    },
+    "source": "NC-MOORE-1882-v2",
+    "only_in_file_by_key": 335,
+    "only_in_earlier_by_key": 364
+   }
+  },
+  "c-nc-37th-north-carolina-infantry": {
+   "unit": "c-nc-37th-north-carolina-infantry",
+   "primary": "a",
+   "lines": 1762,
+   "company_counts": {
+    "A": 192,
+    "B": 161,
+    "C": 159,
+    "D": 185,
+    "E": 161,
+    "F": 170,
+    "FS": 36,
+    "G": 188,
+    "H": 166,
+    "I": 170,
+    "K": 174
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3~b",
+    "lines": 1745,
+    "matched": 1529,
+    "only_in_file": 20,
+    "only_in_second": 5,
+    "replace_blocks": 171,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 193,
+     "B": 161,
+     "C": 155,
+     "D": 184,
+     "E": 160,
+     "F": 168,
+     "FS": 35,
+     "G": 184,
+     "H": 166,
+     "I": 170,
+     "K": 169
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-37NC.csv",
+    "lines": 1780,
+    "matched": 1739,
+    "only_in_file": 2,
+    "only_in_earlier": 18,
+    "replace_blocks": 19,
+    "company_counts": {
+     "A": 194,
+     "B": 166,
+     "C": 163,
+     "D": 186,
+     "E": 163,
+     "F": 170,
+     "FS": 36,
+     "G": 189,
+     "H": 168,
+     "I": 171,
+     "K": 174
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 23,
+    "only_in_earlier_by_key": 41
+   }
+  },
+  "c-nc-55th-north-carolina-infantry": {
+   "unit": "c-nc-55th-north-carolina-infantry",
+   "primary": "a",
+   "lines": 1202,
+   "company_counts": {
+    "A": 131,
+    "B": 112,
+    "C": 119,
+    "D": 134,
+    "E": 102,
+    "F": 144,
+    "FS": 28,
+    "G": 103,
+    "H": 101,
+    "I": 106,
+    "K": 122
+   },
+   "second_scan": {
+    "text_id": "NC-MOORE-1882.3~b",
+    "lines": 1156,
+    "matched": 987,
+    "only_in_file": 16,
+    "only_in_second": 4,
+    "replace_blocks": 119,
+    "second_only_runs": [],
+    "company_counts": {
+     "A": 131,
+     "B": 113,
+     "C": 121,
+     "D": 134,
+     "E": 98,
+     "F": 144,
+     "FS": 25,
+     "G": 104,
+     "H": 101,
+     "I": 107,
+     "K": 78
+    }
+   },
+   "earlier": {
+    "file": "data/C-NCLA/units/C-55NC.csv",
+    "lines": 1217,
+    "matched": 1163,
+    "only_in_file": 2,
+    "only_in_earlier": 14,
+    "replace_blocks": 30,
+    "company_counts": {
+     "A": 133,
+     "B": 116,
+     "C": 121,
+     "D": 134,
+     "E": 102,
+     "F": 145,
+     "FS": 28,
+     "G": 104,
+     "H": 101,
+     "I": 108,
+     "K": 125
+    },
+    "source": "NC-MOORE-1882-v3",
+    "only_in_file_by_key": 39,
+    "only_in_earlier_by_key": 54
+   }
+  }
+ }
+}

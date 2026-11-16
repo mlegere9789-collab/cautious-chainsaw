@@ -273,7 +273,7 @@ test('host to guest: what the host sends passes the guests check (a note that st
     assert.deepEqual(c1.sent.map((m) => m.tick), [5, 6, 7, 8]);
     assert.equal(c1.sent[0].note, 'a plain note');
     assert.equal(c1.sent[1].note, '', 'a note that starts a tag must not be sent');
-    assert.ok(c1.sent[3].note.length <= 280);
+    assert.equal(c1.sent[3].note.length, 280, 'a note of 280 characters is sent whole');
     for (const w of wire) {
       const r = send(guest, gconn, w);       // the JSON text is evaluated in the guest realm: it is what a wire message is
       assert.ok(r.reached && !r.threw, `a message of the host did not reach goToTick: ${w.slice(0, 80)}`);
@@ -285,7 +285,7 @@ test('host to guest: what the host sends passes the guests check (a note that st
 test('code length: the join input takes 6 characters and says so; nothing in the page still says or enforces 5', () => {
   const tag = staticTag(html, 'join-code');
   assert.match(tag, /maxlength="6"/, tag);
-  assert.match(tag, /placeholder="Enter a 6-character code"/, tag);
+  assert.match(tag, /placeholder="Enter 6-character code"/, tag);
   assert.ok(!/maxlength="5"/.test(html), 'maxlength="5" is still in the page');
   assert.ok(!/5-letter|five-letter|5 letter/i.test(html), 'the page still speaks of a 5-letter code');
   const src = liveSyncScript(html);
@@ -366,6 +366,15 @@ test('group: the earlier parameter set (31 characters, notes of 140) stays selec
       assert.ok(send(page, conn, "{ type: 'goto', tick: 5, note: 'x'.repeat(140) }").reached, 'a note of 140');
       assert.ok(!send(page, conn, "{ type: 'goto', tick: 5, note: 'x'.repeat(141) }").reached, 'a note of 141');
     } finally { page.close(); }
+    // and the host of that set cuts a longer note of its own to what its guests accept
+    const host = await loadPage(earlierHtml);
+    try {
+      const peer = await host.hostOpen();
+      const c = new FakeConn('guest-1'); peer.emit('connection', c); c.emit('open');
+      host.addStop(9, 'y'.repeat(200));
+      assert.equal(c.sent.length, 1);
+      assert.equal(c.sent[0].note.length, 140, 'the note is cut to 140 for the guests of the earlier set');
+    } finally { host.close(); }
   } finally { fs.rmSync(groupEarlier, { force: true }); fs.rmSync(report, { force: true }); fs.rmSync(outDir, { recursive: true, force: true }); }
 });
 

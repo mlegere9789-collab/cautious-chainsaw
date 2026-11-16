@@ -46,7 +46,8 @@
     "layer.unit.strength",
     "layer.unit.casualties",
     "layer.arrivals",
-    "layer.events"
+    "layer.events",
+    "layer.provenance.claims"
    ],
    "mark_evidence": [
     {
@@ -65,6 +66,13 @@
       "Source key"
      ],
      "what": "the unit card shows the tier, the source keys and the register link"
+    },
+    {
+     "file": "docs/battle-theatre/app/src/ui/card-sections.mjs",
+     "patterns": [
+      "claim tier ${esc(c.tier)}"
+     ],
+     "what": "the unit card prints the tier of each ledger claim it lists"
     }
    ],
    "node_checks": [

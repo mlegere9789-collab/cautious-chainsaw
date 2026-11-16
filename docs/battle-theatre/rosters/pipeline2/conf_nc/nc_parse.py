@@ -297,9 +297,14 @@ def evidence_at(S, j, name_last):
         return ('mark', 1)
     if MARK_WEAK.match(t) and (is_month(nxt) or re.match(r"^['`‘’\"][0-9OoSsIl]", nxt)):
         return ('mark-weak', 1)
+    if len(t) <= 3 and re.search(r"[,;]$", name_last) and not re.fullmatch(r"[A-Z]\.?,?;?", t) and not re.fullmatch(r"[A-Za-z]{3}", t) and is_month(nxt) and not EVENT.match(t) \
+            and not re.fullmatch(r"(?:in|at|on|of|to|by|as|or|and)", t):
+        return ('mark-junk', 1)                         # a damaged marker: "*. June 4th", "t. May 13th", "e_ June 17th", "u. March 7th"
     c = county_phrase(toks, j)
     if c and re.search(r"[,;]$", name_last):
         return ('county', 0)
+    if is_month(t) and len(alpha(t)) >= 3 and re.search(r"[,;]$", name_last) and j + 1 < n and re.match(r"^(?:[0-9]{1,2}(?:st|nd|rd|th|d|lh|tb)?[,\.]?|['’`‘\"][0-9A-Za-z]{1,3}[,\.]?)$", nxt):
+        return ('month', 0)                             # the marker lost: the name is followed by its date
     if EVENT.match(t) and re.search(r"[;,]$", name_last) and t.endswith('.') or (EVENT.match(t) and re.search(r";$", name_last)):
         return ('event', 0)
     r = rank_phrase(toks, j)
@@ -436,7 +441,7 @@ def find_heads(S, a, b, section, ev_idx):
                 kind = g[0]
                 if bd == 0 and kind not in ('S-mark', 'G-rank'):
                     continue                      # no boundary: only a head with a strict marker or a rank phrase may begin here
-                if bd == 1 and not (kind in ('S-mark', 'G-rank', 'G-mark', 'S-rank', 'S-county')):
+                if bd == 1 and not (kind in ('S-mark', 'G-rank', 'G-mark', 'S-rank', 'S-county', 'S-mark-junk', 'S-month')):
                     continue
                 got = g
                 break

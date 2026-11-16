@@ -50,10 +50,13 @@ _SERVICE_RE = re.compile(r'(three|thkee|thbee|theee|threb|tiiree|tiikee|tiiree|t
 
 
 def is_service_line(toks):
-    """"THREE YEARS' SERVICE." (recto running head), "FIFTEENTH CAVALRY - THREE YEARS' SERVICE." and the like."""
-    s = ' '.join(toks)
-    k = _alpha(s)
-    return bool(re.search(r'serv[il1]c', k) or re.search(r'(years|tears|yeaes|yeabs|yeaks|months)s?\W?s?\W?serv', k) or ('years' in k and 'service' in k))
+    """"THREE YEARS' SERVICE." (recto running head), "FIFTEENTH CAVALRY - THREE YEARS' SERVICE." and the like, damaged or intact."""
+    ks = [_alpha(t) for t in toks]
+    ks = [k for k in ks if k]
+    sv = any(len(k) >= 5 and T.lev(k, 'service', 2) <= 2 for k in ks)
+    yr = any((len(k) >= 4 and (T.lev(k, 'years', 2) <= 2 or T.lev(k, 'months', 2) <= 2 or T.lev(k, 'year', 1) <= 1 or T.lev(k, 'tears', 1) <= 1))
+             for k in ks)
+    return sv and (yr or len(ks) <= 3)
 
 
 def is_regiment_head(toks):
@@ -84,15 +87,20 @@ def heading_of(toks):
     if re.search(r'^recruits?$', k) or re.search(r'unattached|unas', k):
         return ('unassigned', '')
     t0 = re.sub(r'[^A-Za-z0-9]', '', toks[0])
-    if COMPANY_RE.match(t0) or (len(t0) >= 4 and T.lev(t0.lower(), 'company', 2) <= 2 and t0[0] in 'Cc') or (len(t0) >= 5 and T.lev(t0.lower(), 'battery', 2) <= 2):
-        letter = ''
+    is_co = bool(re.match(r'^(Company|COMPANY|Battery|BATTERY|Troop|TROOP)$', t0)) or (
+        len(t0) >= 6 and T.lev(t0.lower(), 'company', 2) <= 2 and t0[0] in 'CcOo') or (len(t0) >= 6 and T.lev(t0.lower(), 'battery', 2) <= 2)
+    if is_co:
+        # "Company H." / "Company H. recruited at ..." / "Company I was disbanded ..." is a heading only when the word is followed by one short
+        # letter token (the company) and nothing that reads as a date; "company, June 13, 1864." is the end of a remark
         if len(toks) >= 2:
             t1 = re.sub(r'[^A-Za-z0-9]', '', toks[1])
             if len(t1) == 1 or (len(t1) == 2 and t1[0] == t1[1]):
-                letter = t1[0].upper()
-            elif t1:
-                letter = '?'
-        return ('company', letter)
+                if len(toks) == 2 or not any(T.is_month(t) for t in toks):
+                    return ('company', t1[0].upper())
+            if len(toks) <= 3 and t1 == '':
+                return ('company', '?')
+        elif len(toks) == 1:
+            return ('company', '?')
     return None
 
 
@@ -144,7 +152,7 @@ def analyse_leaf(rec, ctx):
     for l in lines:
         if len(l) >= 3:
             tot += 1
-            if max(l[k + 1]['x0'] - l[k]['x1'] for k in range(len(l) - 1)) >= 0.045 * W:
+            if max(l[k + 1]['x0'] - l[k]['x1'] for k in range(len(l) - 1)) >= 0.03 * W:
                 wide += 1
     out['info']['table_score'] = round(wide / tot, 2) if tot else 0.0
     # --- the date column: the peak of the month words that start a date cell
@@ -160,12 +168,14 @@ def analyse_leaf(rec, ctx):
         xd = statistics.median(mem)
         nd = len(mem)
     out['info'].update(xd=None if xd is None else round(xd), nd=nd, xd_source=src if xd is not None else 'none')
-    if xd is None or (src == 'inherited' and out['info']['table_score'] < 0.35) or (src == 'page' and nd < 3):
-        out['info']['kind'] = 'no-date-column' if out['info']['table_score'] >= 0.35 else 'narrative'
-        return out
-    if out['info']['table_score'] < 0.2:
-        out['info']['kind'] = 'narrative'
-        return out
+    if xd is None or src == 'inherited' or nd < 5:
+        ts = out['info']['table_score']
+        if src == 'inherited' and ts >= 0.3:
+            pass          # a table page whose date column the text layer lost: the columns of the neighbouring page are used
+        else:
+            out['info']['kind'] = 'no-date-column' if (ts >= 0.3 and xd is None) else 'narrative'
+            if out['info']['kind'] == 'narrative' or xd is None:
+                return out
     ctx['xd_ratio'] = xd / W if src == 'page' else ctx.get('xd_ratio')
     B2 = xd - 0.042 * W            # left of this: name and rank cells; right of it: date, term digit and remarks
     out['info']['B2'] = round(B2)
@@ -189,6 +199,9 @@ def analyse_leaf(rec, ctx):
     elif xr is not None:
         ctx['rk_ratio'] = xr / W
     out['info']['xr'] = None if xr is None else round(xr)
+    B1 = (xr - 0.016 * W) if xr is not None else (xd - 0.098 * W)       # left edge of the rank cell (the name cell ends before it)
+    out['info']['B1'] = round(B1)
+    out['info']['W_'] = W
     hs = [line_height(l) for l in lines if any(T.is_month(w['w']) and abs(w['x0'] - xd) <= 0.03 * W for w in l)]
     hmed = statistics.median(hs) if hs else None
     out['info']['hrow'] = None if hmed is None else round(hmed)
@@ -196,6 +209,10 @@ def analyse_leaf(rec, ctx):
     pitch = None
     ys = [statistics.mean(w['yk'] for w in l) for l in lines]
     note_from = None
+    month_ys = [ys[i] for i, l in enumerate(lines) if any(T.is_month(w['w']) and abs(w['x0'] - xd) <= 0.03 * W for w in l)]
+    y_first_month = min(month_ys) if month_ys else 0
+    dd = [b - a for a, b in zip(month_ys, month_ys[1:]) if 0 < b - a < 120]
+    pitch0 = statistics.median(dd) if dd else None
     last_row = None            # the row dict that a continuation line may join
     last_y = None
     row_ys = []
@@ -222,7 +239,11 @@ def analyse_leaf(rec, ctx):
             hd = heading_of(toks)
             if hd and hd[0] == 'company' and (x0 < (xn if xn is not None else 0.12 * W) + 0.04 * W and len(toks) > 3):
                 hd = None     # a name that begins like a heading word ("Compton, James H")
-        if not has_month and (i < 3 or y < 0.14 * (max(ys) if ys else 1)) and not hd and (is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)):
+        if not has_month and not hd and (i < 3 or y < y_first_month - 2.2 * (pitch0 or 40)) and not any(
+                B1 <= w['x0'] < B2 and (T.is_ditto(w['w']) or T.rank_like(w['w'])) for w in l):
+            out['items'].append(('skip', 'head', txt, y))
+            continue
+        if not has_month and not hd and (is_header_line(toks) or is_service_line(toks) or is_regiment_head(toks)) and i < 4:
             out['items'].append(('skip', 'head', txt, y))
             continue
         if not has_month and is_header_line(toks) and len(toks) <= 12:
@@ -237,18 +258,20 @@ def analyse_leaf(rec, ctx):
             out['items'].append(('skip', 'recruited', txt, y))
             last_row = None
             continue
+        if not has_month and not right and left_alnum and all(T.core(w['w']).isdigit() or T.core(w['w']).lower() in ('vol', 'il', 'ill', 'iii', 'ii', 'iv', 'v', 'i', 'l') for w in left_alnum):
+            out['items'].append(('skip', 'foot', txt, y))        # the signature mark at the foot of a page ("104", "131 - VOL. III.")
+            continue
         if not left_alnum and not has_month:
             # continuation line (wrapped remark) or a stray mark line
             if last_row is not None and (pitch is None or y - last_y <= 2.4 * pitch):
-                last_row['post_w'].extend(l)
+                last_row['cont_w'].extend(l)
                 last_row['lines'] += 1
                 last_y = y
                 continue
             out['items'].append(('orphan', txt, y, 'text right of the name columns and no row above'))
             continue
         # --- an anchor line: a table line with a name, a rank or a date at the date column
-        row = {'y': y, 'lines': 1, 'left_w': left, 'post_w': list(right), 'name_w': [], 'rank_w': [], 'marks_w': [], 'glued': None, 'flags': set(),
-               'h': h, 'line': i}
+        row = {'y': y, 'lines': 1, 'left_w': left, 'post_w': list(right), 'cont_w': [], 'flags': set(), 'h': h, 'line': i}
         out['items'].append(('row', row))
         if last_y is not None and y - last_y > 0:
             d = y - last_y

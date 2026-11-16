@@ -285,7 +285,7 @@ class Scanner:
                         m['sources'] = [str(sid)]
                     m['extra'].update({'report_id': s.get('report_id') or s.get('record_id'), 'printed_page': s.get('printed_page'), 'volume': s.get('volume'), 'section': s.get('section'),
                                        'work': s.get('work'), 'fidelity_check': d.get('fidelity_check'), 'claim_support_verified': d.get('claim_support_verified'), 'ledger': os.path.basename(rel),
-                                       'claim_text': d.get('activity') or d.get('claim') or None, 'kind': d.get('kind'), 'claim_id': d.get('claim_id')})
+                                       'claim_text': d.get('activity') or d.get('claim') or None, 'kind': d.get('kind'), 'claim_id': d.get('claim_id'), 'unit_id': d.get('unit_id')})
                     out.append(m)
             return out
         if kind == 'register':

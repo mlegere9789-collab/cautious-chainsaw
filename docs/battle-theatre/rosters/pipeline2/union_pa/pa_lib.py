@@ -75,10 +75,20 @@ def xml_leaves(path, wanted=None):
                 continue
             x0, yb, x1, yt = (int(t.group(i)) for i in range(1, 5))
             w = html.unescape(t.group(6)).strip()
-            if w:
-                ws.append({'x0': x0, 'x1': x1, 'yt': yt, 'yb': yb, 'w': w,
-                           'conf': int(t.group(5)) if t.group(5) is not None else None, 'ln': ln, 'seq': seq})
+            if not w:
+                continue
+            conf = int(t.group(5)) if t.group(5) is not None else None
+            parts = list(_TOK.finditer(w))
+            if len(parts) <= 1:
+                ws.append({'x0': x0, 'x1': x1, 'yt': yt, 'yb': yb, 'w': w, 'conf': conf, 'ln': ln, 'seq': seq})
                 seq += 1
+            else:
+                # one word box that holds several white-space tokens ("ed at"): one word per token, the box shared out by character count
+                n = len(w)
+                for m in parts:
+                    ws.append({'x0': x0 + (x1 - x0) * m.start() // n, 'x1': x0 + (x1 - x0) * m.end() // n, 'yt': yt, 'yb': yb,
+                               'w': m.group(0), 'conf': conf, 'ln': ln, 'seq': seq, 'split': 1})
+                    seq += 1
         yield leaf, ws
 
 

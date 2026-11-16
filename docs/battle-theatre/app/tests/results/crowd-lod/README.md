@@ -1,0 +1,8 @@
+# Results of the cross-fade between levels of detail (src/crowd/lod.mjs)
+
+Everything here was made on a machine without a GPU. Nothing is a real-GPU result. What each file is:
+
+* `cpu-sheet/sheet-10m.png`, `sheet-13m.png`, `sheet-75m.png`: made by `tests/crowd-lod-sheet.mjs` (node, 2 s). The real meshes of one man (a Union private) drawn by the figures3d software rasteriser (flat colours, one key light, a three-quarter view) at the pixel scale of 1080p at 60 degrees at 10, 13 and 75 m (the man is 193, 149 and 26 pixels tall), and the dither of `lod.mjs` applied to the two pictures with the JavaScript port of the shader. From left to right the finer level keeps 1, 3/4, 1/2, 1/4 and 0 of the pixels. Level 0 to 1, level 1 to 2, level 2 to the baked impostor. This is an illustration of what the dither does to the real meshes; it does not run the shaders.
+* `naga-report.json`: `tests/crowd-lod-naga.py`, the WGSL of the figure pass and its five pipelines on a second WebGPU implementation (wgpu-native, naga and wgpu-core validation, on SwiftShader's Vulkan): module, five pipelines and the bind group accepted, four negative controls refused.
+
+The browser runs (`tests/crowd-lod-lab.mjs`: the two real backends on synthetic quads with the dither measured on the GPU; `tests/crowd-lod-shots.mjs`: the real shell with the real crowd, the hard swap and the cross-fade side by side at the boundaries) write to `tmp/` while they run; their summaries and the pictures looked at are copied here when they have finished (see `app/docs/CROWD-NOTES.md`, section "Cross-fade between levels of detail", for what has run).

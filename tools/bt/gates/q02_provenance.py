@@ -128,26 +128,27 @@ def rematch(m, ts):
         if rid and str(rid).startswith('OR27-'):
             r = ts.find_or27(q, rid, page)
             if r['status'] == 'found' and r.get('page_ok') is False:
-                res.append(('page_mismatch', 'the extract is in %s but not on printed page %s' % (rid, page)))
+                res.append(('page_mismatch', 'the extract is in %s but not on printed page %s' % (rid, page), None))
             else:
-                res.append((r['status'], r.get('reason') or ('%s %s' % (rid, r.get('records', '')))))
+                res.append((r['status'], r.get('reason') or ('%s %s' % (rid, r.get('records', ''))), r.get('span_text')))
         elif vol:
             r = ts.find_statevol(q, vol, sec)
-            res.append((r['status'], r.get('reason') or '%s %s' % (vol, sec)))
+            res.append((r['status'], r.get('reason') or '%s %s' % (vol, sec), None))
         elif sid and ts.has_text(sid):
             r = ts.find(sid, q)
-            res.append((r['status'], sid))
+            res.append((r['status'], sid, r.get('span_text')))
         else:
-            res.append(('no_text', 'no stored text for source %s on this machine' % (sid or rid or 'none')))
+            res.append(('no_text', 'no stored text for source %s on this machine' % (sid or rid or 'none'), None))
     return res
 
 
-def numbers_ok(m):
-    ct = m['extra'].get('claim_text')
-    if not ct or not m['quote']:
+def numbers_ok(m, spans=()):
+    """Every number of the claim stands in the span: the extract and the passage around it that the text store found (a sentence of the Official Records; 250 folded characters either side elsewhere)."""
+    ct = ex.strip_subject(m['extra'].get('claim_text'), m['extra'].get('unit_id'))
+    if not ct or not (m['quote'] or spans):
         return []
-    ok, missing = ex.numbers_in_span(ct, m['quote'])
-    return [] if ok else ['number(s) %s of the claim are not in the extract' % ', '.join(missing[:4])]
+    ok, missing = ex.numbers_in_span(ct, ' '.join([m['quote'] or ''] + [s for s in spans if s]))
+    return [] if ok else ['number(s) %s of the claim are not in the span' % ', '.join(missing[:4])]
 
 
 # ------------------------------------------------------------------------------------------------------------- Q02.1 census, Q02.6 manifests, Q02.7 conflicts
@@ -332,22 +333,25 @@ def main(argv=None):
 
         def q3(m):
             nonlocal matched
-            reasons = list(ds.check_documented(m, ctx)) + numbers_ok(m)
+            reasons = list(ds.check_documented(m, ctx))
+            spans = []
             if m['quote'] or m['extra'].get('citations'):
-                for status, detail in rematch(m, ts):
+                for status, detail, span in rematch(m, ts):
                     if status == 'found':
                         matched += 1
+                        spans.append(span)
                     elif status in ('not_found', 'page_mismatch'):
                         reasons.append('the extract is not found in the stored text at the cited place (%s)' % detail if status == 'not_found' else detail)
                     elif status == 'bad_quote':
                         pass
                     elif status == 'no_text':
                         unverifiable.append(m['id'])
+            reasons += numbers_ok(m, spans)
             return reasons
 
         scan_item(rec, 'Q02.3', cid, doc_ms, q3, ok_reason='all %d documented members have a non-lead source and a short extract that was found again in the stored text', fail_reason='',
                   na_reason='no member of the class is documented', notrun=lambda: ('%d documented member(s) have an extract whose source text is not on this machine' % len(set(unverifiable))) if unverifiable else None,
-                  extra=lambda: {'extracts_found_again': matched, 'extracts_without_stored_text': len(set(unverifiable)), 'span_basis': 'the extract itself (a claim number must stand in it)'})
+                  extra=lambda: {'extracts_found_again': matched, 'extracts_without_stored_text': len(set(unverifiable)), 'span_basis': 'the sentence of the stored text that holds the extract (Official Records), 250 folded characters either side (other texts), the extract itself when no text was found; the unit that is the subject of a claim is not counted'})
         # Q02.4, Q02.5
         scan_item(rec, 'Q02.4', cid, [m for m in ms if m['tier'] == 'inferred'], lambda m: ds.check_inferred(m, ctx), ok_reason='all %d inferred members have reasoning and documented premises', fail_reason='', na_reason='no member of the class is inferred')
         scan_item(rec, 'Q02.5', cid, [m for m in ms if m['tier'] == 'plausible-procedural'], lambda m: ds.check_procedural(m, ctx), ok_reason='all %d plausible-procedural members have the procedural block and an open register id', fail_reason='',
@@ -367,10 +371,12 @@ def main(argv=None):
         # Q02.9
         if c.get('validity'):
             scan_item(rec, 'Q02.9', cid, ms, lambda m: ds.check_validity(m, ctx, c), ok_reason='every member has its validity dates or state_schedule', fail_reason='')
-    rec.note('Q02.3 span basis: the extract itself; the number rule of the citation checker (p. 126, D.4.3 stage 11) is applied to a claim text where the data has one')
+    rec.note('Q02.3 span basis: the sentence of the stored text that holds the extract; the number rule of the citation checker (p. 126, D.4.3 stage 11) is applied to a claim text where the data has one, with numbers written in words (0 to 99) accepted')
     if layer:
         rec.extra['layer'] = layer.get('layer')
         rec.extra['contract_validators_of_the_app'] = layer.get('contract')
+    for p in ts.used_inputs():
+        rec.add_input(p, 'stored source text')
     rec.extra['text_store'] = ts.status()
     return pq.finish_cli(rec, args)
 
