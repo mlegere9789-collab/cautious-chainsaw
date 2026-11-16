@@ -138,19 +138,18 @@ def collapse(s):
     return ' '.join(s.split())
 
 
-def probe_hits(relpath, anchors, near, window=300, max_hits=8, flags=re.I):
-    """Hits of a proximity probe in one text: [{'off': raw offset of the anchor, 'snippet': collapsed text around it}]. Hits closer than `window` are merged."""
+def probe_hits(relpath, anchors, near, window=300, max_hits=8, flags=re.I, score_terms=None, collect=80):
+    """Hits of a proximity probe in one text: [{'off': raw offset of the anchor, 'snippet': collapsed text around it, 'score': n}]. Hits closer than `window` are merged.
+    Up to `collect` hits are gathered in document order and the `max_hits` with the best score are returned (score: how many of `score_terms` stand in the window, plus 2
+    when a clock expression stands within 100 characters of the anchor)."""
     low = low_text(relpath)
     raw = raw_text(relpath)
     rxs = [re.compile(n, flags) for n in near]
-    offs = []
-    for a in anchors:
-        al = a.lower()
-        i = low.find(al)
-        while i >= 0:
-            offs.append(i)
-            i = low.find(al, i + len(al))
-    offs.sort()
+    clock = re.compile(CLOCK, re.I)
+    terms = [t.lower() for t in (score_terms or [])]
+    # whitespace in the OCR text is irregular (double spaces, line breaks): an anchor of several words matches across any run of white space
+    arx = re.compile('|'.join(r'\s+'.join(re.escape(w) for w in a.lower().split()) for a in anchors))
+    offs = [m.start() for m in arx.finditer(low)]
     out, last = [], -10 ** 9
     for o in offs:
         if o - last < window:
@@ -160,11 +159,14 @@ def probe_hits(relpath, anchors, near, window=300, max_hits=8, flags=re.I):
         if all(r.search(seg) for r in rxs):
             k = len(collapse(raw[a0:o]))
             s0 = max(0, k - 100)
-            out.append({'off': o, 'snippet': seg[s0:s0 + 220]})
+            near_txt = seg[max(0, k - 100):k + 160]
+            sc = sum(1 for t in terms if t in seg.lower()) + (2 if clock.search(near_txt) else 0)
+            out.append({'off': o, 'snippet': seg[s0:s0 + 220], 'score': sc})
             last = o
-            if len(out) >= max_hits:
+            if len(out) >= collect:
                 break
-    return out
+    out.sort(key=lambda h: (-h['score'], h['off']))
+    return out[:max_hits]
 
 
 def regex_hits(relpath, pattern, ctxn=150, max_hits=25, flags=re.I):

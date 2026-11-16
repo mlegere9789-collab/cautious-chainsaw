@@ -1,0 +1,668 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "rosterofnorthcar02nort/29",
+ "levels": "N",
+ "stratum": "NC-MOO-G-other",
+ "family": "NC-MOO-G",
+ "layout": "flow",
+ "kind": "other",
+ "draw_position": 7,
+ "in_lowest_decile": true,
+ "printed_page": 19,
+ "rows_stored": 39,
+ "rows_checked": 39,
+ "rows_in_error": 5,
+ "rows_ok": 34,
+ "rows_flagged_ocr_uncertain": 10,
+ "errors": [
+  {
+   "i": 0,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "M. Coi-bett",
+   "printed": "H. M. Corbett",
+   "note": "the first initial H. is missing from the line",
+   "rid": "16th-north-carolina-infantry#688",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 0,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "M. Coi-bett",
+   "printed": "H. M. Corbett",
+   "note": "rb read i-b... the letters r and b read as i-",
+   "rid": "16th-north-carolina-infantry#688",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 7,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "A. B. Long, 3d Coi-poral",
+   "printed": "A. B. Long",
+   "note": "the rank 3d Corporal stands in the name field",
+   "rid": "16th-north-carolina-infantry#695",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "H",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 7,
+   "kinds": [
+    "rank"
+   ],
+   "stored": "^NON-COMMISSIONED OFFICERS",
+   "printed": "3d Corporal",
+   "note": "the carried heading stands where the printed rank belongs",
+   "rid": "16th-north-carolina-infantry#695",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "H",
+    "N"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 9,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Atkinson, Jei'e.",
+   "printed": "Atkinson, Jere.",
+   "rid": "16th-north-carolina-infantry#697",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "W"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 9,
+   "kinds": [
+    "merge"
+   ],
+   "stored": "Atkinson, Jei'e. ... at Fredericks- burg. Alexander, J. C'e. May 9th, '61; Rutherford co. ; p. 2d Lieut.; w. at Sharpsburg.",
+   "printed": "two entries, Atkinson, Jere. and Alexander, J. C.",
+   "note": "the second printed entry stands in the remarks of the first and has no line of its own",
+   "rid": "16th-north-carolina-infantry#697",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "W"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 20,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Carpenter, Wiliiam W.",
+   "printed": "Carpenter, William W.",
+   "rid": "16th-north-carolina-infantry#708",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 32,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Grain, John T.",
+   "printed": "Crain, John T.",
+   "rid": "16th-north-carolina-infantry#720",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "G",
+    "Y"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "Printed page 19 (Sixteenth Regiment, Company G: non-commissioned officers and privates A to D); 40 printed entries, 39 stored lines (the Alexander entry is inside row 9, counted as merge)."
+ ],
+ "reader": "full page view at 200 dpi (Read tool); names, rank headings, company and the cut of every line compared with the print (level N only: R-G1, R-G2 and R-G3b of this stratum had failed on its first pages); the company letter G read from the running head of this page (Company G, Sixteenth Regiment) and the headings on the page",
+ "tesseract_prescreen": {
+  "agree": 11,
+  "near": 0,
+  "suspect": 28,
+  "unstored_lines": 3
+ },
+ "read": {
+  "pdf_sha256": "6c66da2809202e06ea1a74c2af120c9405c48f9d042d94f9de32563338ccaeab",
+  "pdf_page": 29,
+  "view_png_sha256": "671852f55bb9abf96a4d48472faf8e22d166f232447f8212e3256c4e701c0204",
+  "render300_sha256": "598b5c7d69bf4777e4d0b8e49fa3a026ebaafffbb686173328c9a6d4a45bbad4",
+  "tess_sha256": "70b7c20ad6018f191e8916220945617e08cad2e7d5d9c49e6ae6bb2d763b7d8e",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.927
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "16th-north-carolina-infantry#688",
+   "name": "M. Coi-bett",
+   "rank": "1st Sergeant",
+   "co": "G",
+   "remarks_sha256": "fc70e69af272b70fd6c0c42ee711bf2df8f0c487795c9cddc4a0a070a4abf0ae",
+   "off": 62276,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "16th-north-carolina-infantry#689",
+   "name": "G. H. Mills",
+   "rank": "2d Sergeant",
+   "co": "G",
+   "remarks_sha256": "33ab43a3ae11575af525c5210da3585ff24a619775855d792b3b0dcd852ddaeb",
+   "off": 62365,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "16th-north-carolina-infantry#690",
+   "name": "-John H. Bradley",
+   "rank": "3d Sergeant",
+   "co": "G",
+   "remarks_sha256": "a5994e28d8854db53761b592956a6c06197ef00ddc07cb01f3db49fd04ec38c4",
+   "off": 62474,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 3,
+   "rid": "16th-north-carolina-infantry#691",
+   "name": "F. D, Wood",
+   "rank": "4th Sergeant",
+   "co": "G",
+   "remarks_sha256": "9a9d6dd08e63f3316b02e3d0a2b3481dccd67a1d3ebc88818a873b4745f3f82b",
+   "off": 62593,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "Y"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "16th-north-carolina-infantry#692",
+   "name": "R. P. Gilky.",
+   "rank": "5th Sergeant",
+   "co": "G",
+   "remarks_sha256": "d75bb7d4fe3438522a07ac3d22203020e639c585bb48871d459d9fe1fd0ee25f",
+   "off": 62680,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "16th-north-carolina-infantry#693",
+   "name": "J. B. Carpenter",
+   "rank": "1st Corporal",
+   "co": "G",
+   "remarks_sha256": "e97a630ba87e75d7ebda6ef8b6d10abb844c82e73d97d8d127d78adf15c3761f",
+   "off": 62767,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "16th-north-carolina-infantry#694",
+   "name": "P. S. Fortune",
+   "rank": "2d Corporal",
+   "co": "G",
+   "remarks_sha256": "3c67ca06e8b2b12b37b0716475c3028534236bd9548e05251456ba43625b5737",
+   "off": 62860,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "16th-north-carolina-infantry#695",
+   "name": "A. B. Long, 3d Coi-poral",
+   "rank": "^NON-COMMISSIONED OFFICERS",
+   "co": "G",
+   "remarks_sha256": "9169378e91d3e8579b1fc64eb30ca10320fe0ed59b117585a17482e4ba8e7c44",
+   "off": 62955,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "H",
+    "N"
+   ]
+  },
+  {
+   "i": 8,
+   "rid": "16th-north-carolina-infantry#696",
+   "name": "J. L. Weaver",
+   "rank": "4th Corporal",
+   "co": "G",
+   "remarks_sha256": "cd9d90f04e9098f78d9c9f00b26c27060e47d394c80faa983c17285679451cd2",
+   "off": 63074,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "16th-north-carolina-infantry#697",
+   "name": "Atkinson, Jei'e.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "1b694bf52c9ae19f00d7c8942a05fd9391f3248e72b98a13173ec862fc8a973d",
+   "off": 63154,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "W"
+   ]
+  },
+  {
+   "i": 10,
+   "rid": "16th-north-carolina-infantry#698",
+   "name": "Arrowood, Gaither",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "9b756514f9cd086cabc28dfc469defbf7084a72edc02e08d5476cc1681d8650e",
+   "off": 63349,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "16th-north-carolina-infantry#699",
+   "name": "Allen, W, L",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "d416d18c82e1802546aef7d5b1a5cb0a606e2a82a12b0590edb088b57cc64968",
+   "off": 63448,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "G",
+    "H"
+   ]
+  },
+  {
+   "i": 12,
+   "rid": "16th-north-carolina-infantry#700",
+   "name": "Barbee, R. M.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "e7b69acf264b281df2dbb287aa1c240955b21111c782db8d746ba090b3fb7248",
+   "off": 63548,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "16th-north-carolina-infantry#701",
+   "name": "Bradley, Absalom",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "94dbe8281072b165fa7f66634ea42caa9fc4343aea55178f770b421e77b236d4",
+   "off": 63602,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "W"
+   ]
+  },
+  {
+   "i": 14,
+   "rid": "16th-north-carolina-infantry#702",
+   "name": "Bradley, Chesterfield",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "455bbb678fa54cf0df22cfb55bfd806e6275541a19020cbfc0cfc51185bbb136",
+   "off": 63684,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "16th-north-carolina-infantry#703",
+   "name": "Bradley, Burton",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "cd9d90f04e9098f78d9c9f00b26c27060e47d394c80faa983c17285679451cd2",
+   "off": 63770,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "16th-north-carolina-infantry#704",
+   "name": "Blanton, William",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "973bd18d0c76fe28cb2aee480ae0c6be7053af1234af5ce679f67c43698b7817",
+   "off": 63826,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "16th-north-carolina-infantry#705",
+   "name": "Carson, Daniel P.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "15a7f0f4f17c4ee6b43aeef9accf5eefe09e0a37e8c135c23e7640a957462146",
+   "off": 63931,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "16th-north-carolina-infantry#706",
+   "name": "Carson, James P.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "eac1cdcd664d5829216809a97c3ef76ba7081444fb9eab0d9d776cd2c7379655",
+   "off": 64037,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 19,
+   "rid": "16th-north-carolina-infantry#707",
+   "name": "Carpenter, P. D",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "8685dc5ede553da7b2beee1a4433d13fd5b8de871e6c18645842b0fd623a99f1",
+   "off": 64121,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "H"
+   ]
+  },
+  {
+   "i": 20,
+   "rid": "16th-north-carolina-infantry#708",
+   "name": "Carpenter, Wiliiam W.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "fb5281c6ff64a02b87d8ac4b7a64b17654ef5ac327905fdd351726dc8aa4084c",
+   "off": 64255,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "16th-north-carolina-infantry#709",
+   "name": "Church, James M.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "4112cb5a871aceb76c041e022a82e3144adb8da8351cc70e8adee715a5cb5864",
+   "off": 64365,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "G",
+    "Y"
+   ]
+  },
+  {
+   "i": 22,
+   "rid": "16th-north-carolina-infantry#710",
+   "name": "Church, William",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "a36a93cc525e266a4879984bca6fc70d7e71db61cf98d80319153fcd1b74ef67",
+   "off": 64447,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 23,
+   "rid": "16th-north-carolina-infantry#711",
+   "name": "Carpenter, Samuel",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "820a1844ec49f9178e97ccd6853642cb1727b95590825a37f61bbeff40e3eaa8",
+   "off": 64521,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 24,
+   "rid": "16th-north-carolina-infantry#712",
+   "name": "Coleman, Daniel M.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "1b5226a6741a675e6c0aa194025fb4bb19703c50a8c557ab36a0ee87efe3c154",
+   "off": 64602,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 25,
+   "rid": "16th-north-carolina-infantry#713",
+   "name": "Camp, Lewis",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "d0940792b7b10bc98e68cb0522d03d71c23a1b3d5aadbcf7b67a9fca82e98026",
+   "off": 64663,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 26,
+   "rid": "16th-north-carolina-infantry#714",
+   "name": "Camp, J.:C.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "007ed9f36445469992ec7bb3cb32103fea51796087e1d02ee171fb8c86bbf5af",
+   "off": 64718,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 27,
+   "rid": "16th-north-carolina-infantry#715",
+   "name": "Callahan, R. S.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "fd91759e0fd6249873c90651bd2f5affe93501807d8516cf2da03d701a93e052",
+   "off": 64789,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 28,
+   "rid": "16th-north-carolina-infantry#716",
+   "name": "Carson, A. B.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "d0940792b7b10bc98e68cb0522d03d71c23a1b3d5aadbcf7b67a9fca82e98026",
+   "off": 64893,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 29,
+   "rid": "16th-north-carolina-infantry#717",
+   "name": "Carrier, J. H.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "875cdd5c362d72d5e132bce41c69957ddf9cd4a79160c16f97b721f6847850cb",
+   "off": 64951,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 30,
+   "rid": "16th-north-carolina-infantry#718",
+   "name": "Cole, Joseph B.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "ca859a15c232d587a8abe856cf7f50789c7bffa05ae2df2e1a328b20652018a4",
+   "off": 65036,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 31,
+   "rid": "16th-north-carolina-infantry#719",
+   "name": "Cole, Elisha",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "5fd4c9d7a57f63f3781ea3f1e0956fa32f34454d95eae73ec4bcddfeebfc470b",
+   "off": 65093,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 32,
+   "rid": "16th-north-carolina-infantry#720",
+   "name": "Grain, John T.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "e5bc7b70459f73b63c08ea10e8a0eb33a5c3df7540b02bf72c6f9e8046904d4a",
+   "off": 65191,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": [
+    "G",
+    "Y"
+   ]
+  },
+  {
+   "i": 33,
+   "rid": "16th-north-carolina-infantry#721",
+   "name": "Dallas, D. B.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "a0019aeb349a7051bd47010a312d81c22a5b755a2faa687f154254d4efe89975",
+   "off": 65286,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 34,
+   "rid": "16th-north-carolina-infantry#722",
+   "name": "Deck, G. W.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "49af1f185018d663355e31f38b5740aa8d3183f0bc71e66554bd30df1cc1a79b",
+   "off": 65339,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 35,
+   "rid": "16th-north-carolina-infantry#723",
+   "name": "Davis, Alfred N.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "38c93ccc82cb1e49a690733f9438413da1ca4a2ff9ae9056174ef80d67f2d672",
+   "off": 65423,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 36,
+   "rid": "16th-north-carolina-infantry#724",
+   "name": "Davis, J. Webb",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "b94c9a770536f6f0fc217750aead38f28766018feb443ca3a69a0bca70774b6c",
+   "off": 65505,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 37,
+   "rid": "16th-north-carolina-infantry#725",
+   "name": "Depoust, Jesse R.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "f97887e1e45f9aaf362e4a823149242a8071e5ad302cc5ad1b08608a881de588",
+   "off": 65590,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  },
+  {
+   "i": 38,
+   "rid": "16th-north-carolina-infantry#726",
+   "name": "Dickerson, Rob't B.",
+   "rank": "^PRIVATES",
+   "co": "G",
+   "remarks_sha256": "5de7dfbca15fa631d01248ca74abcc687a4d1fa461198810a72cf77e5a9efae1",
+   "off": 65670,
+   "text_id": "NC-MOORE-1882.2",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-16T03:09:20Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "SUSPECT",
+  "2": "SUSPECT",
+  "3": "SUSPECT",
+  "4": "SUSPECT",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "AGREE",
+  "15": "AGREE",
+  "16": "AGREE",
+  "17": "SUSPECT",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "SUSPECT",
+  "21": "SUSPECT",
+  "22": "AGREE",
+  "23": "AGREE",
+  "24": "AGREE",
+  "25": "SUSPECT",
+  "26": "SUSPECT",
+  "27": "SUSPECT",
+  "28": "AGREE",
+  "29": "SUSPECT",
+  "30": "SUSPECT",
+  "31": "AGREE",
+  "32": "SUSPECT",
+  "33": "SUSPECT",
+  "34": "AGREE",
+  "35": "AGREE",
+  "36": "SUSPECT",
+  "37": "AGREE",
+  "38": "SUSPECT"
+ }
+}

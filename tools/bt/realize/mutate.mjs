@@ -19,6 +19,9 @@ import { makeTree, removeTree } from './tree.mjs';
 const here = path.dirname(new URL(import.meta.url).pathname), MUT = readJSON(path.join(here, 'mutations.json'));
 const argv = process.argv.slice(2), opt = n => { const i = argv.indexOf(n); return i < 0 ? null : (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true); };
 const OUT = typeof opt('--out') === 'string' ? path.resolve(opt('--out')) : path.join(REAL, 'MUTATION-CHECK.json');       // --out: write the report elsewhere (a development run must not replace the report of the tree)
+// --subset <regex>: run only the tests of the rules and main files whose names match (the tests of a rule added a moment ago, before the whole check is run). A development aid: it needs --out (it never replaces the report of the tree),
+// and a mutation it reports as survived is a mutation of which no test of the subset fails, not yet one that no test fails: run it again without --subset before it is called a survivor.
+const SUBSET = typeof opt('--subset') === 'string' ? opt('--subset') : null; if (SUBSET && typeof opt('--out') !== 'string') { console.error('--subset needs --out: a subset run is a development aid and never replaces the report of the tree'); process.exit(2); }
 const FILES = { rules: 'tests/governance/realize-rules.test.mjs', main: 'tests/governance/realize.test.mjs', inputs: 'tests/governance/realize-inputs.test.mjs' };
 
 export function applyMutation(text, m) {
@@ -46,7 +49,7 @@ const save = () => { const all = MUT.map(m => ({ id: m.id, file: m.file, rule: m
 const needed = [...new Set(list.flatMap(m => m.tests || ['rules', 'main']))];
 if (list.length && !argv.includes('--no-baseline')) {
   const root = makeTree('tmp/realize/mut/_baseline'); let bad = null;
-  try { for (const t of needed) { const r = spawnSync('node', ['--test', path.join(root, FILES[t])], { cwd: root, encoding: 'utf8', maxBuffer: 1 << 28, env: { ...process.env, BT_REALIZE_REAL_ROOT: ROOT }, timeout: 20 * 60 * 1000 }); console.log(`baseline ${t}: ${r.status === 0 ? 'all pass' : 'FAILS'}`); if (r.status !== 0) { bad = `${t}: ` + (r.stdout.match(/^not ok \d+ - .*/gm) || []).slice(0, 3).join(' | '); break; } } }
+  try { for (const t of needed) { const r = spawnSync('node', ['--test', ...(SUBSET && t !== 'inputs' ? ['--test-name-pattern=' + SUBSET] : []), path.join(root, FILES[t])], { cwd: root, encoding: 'utf8', maxBuffer: 1 << 28, env: { ...process.env, BT_REALIZE_REAL_ROOT: ROOT }, timeout: 20 * 60 * 1000 }); console.log(`baseline ${t}: ${r.status === 0 ? 'all pass' : 'FAILS'}`); if (r.status !== 0) { bad = `${t}: ` + (r.stdout.match(/^not ok \d+ - .*/gm) || []).slice(0, 3).join(' | '); break; } } }
   finally { removeTree('tmp/realize/mut/_baseline'); }
   if (bad) { console.error('the tests fail on the unmutated copy, so no mutation can be judged: ' + bad); process.exit(2); }
 }
@@ -57,7 +60,7 @@ for (const m of list) {
     const root = makeTree(scratch, { files: { [m.file]: t => applyMutation(t, m) } });
     for (const t of (m.tests || ['rules', 'main'])) {
       const f = FILES[t]; ran.push(t);
-      const r = spawnSync('node', ['--test', ...(t === 'inputs' && m.pattern ? ['--test-name-pattern=' + m.pattern] : []), path.join(root, f)], { cwd: root, encoding: 'utf8', maxBuffer: 1 << 28, env: { ...process.env, BT_REALIZE_REAL_ROOT: ROOT }, timeout: 20 * 60 * 1000 });
+      const r = spawnSync('node', ['--test', ...(t === 'inputs' && m.pattern ? ['--test-name-pattern=' + m.pattern] : SUBSET && t !== 'inputs' ? ['--test-name-pattern=' + SUBSET] : []), path.join(root, f)], { cwd: root, encoding: 'utf8', maxBuffer: 1 << 28, env: { ...process.env, BT_REALIZE_REAL_ROOT: ROOT }, timeout: 20 * 60 * 1000 });
       if (r.status !== 0) { status = 'killed'; killedBy = path.basename(f); const fails = (r.stdout.match(/^not ok \d+ - .*/gm) || []).slice(0, 3).map(x => x.replace(/^not ok \d+ - /, '')); detail = fails.length ? fails.join(' | ') : String((r.stderr || r.stdout || '').slice(0, 200)).replace(/\s+/g, ' '); break; }
     }
   } catch (e) { status = 'error'; detail = String(e.message || e).slice(0, 300); }

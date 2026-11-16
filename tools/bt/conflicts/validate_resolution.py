@@ -376,8 +376,8 @@ def check_positions(R, ctx, obj, cid, S, delegated):
                 miss = atoms_missing(atoms, stated_atoms([c for c, inf in nl_ok if c.get('exact') is True]))
                 if miss:
                     R.err('value_not_stated', '%s: documented, but the value is not stated by an exact citation: %s' % (w, '; '.join(miss)))
-                if not any(atoms.values()) and p.get('kind') != 'none':
-                    R.err('value_not_stated', '%s: the value has nothing a citation could state (check kind and value)' % w)
+                if not any(atoms.values()):
+                    R.err('value_not_stated', '%s: the value has nothing a citation could state (kind %s): a statement about the record, or a value with no checkable word, number or time, is never documented' % (w, p.get('kind')))
         elif tier == 'inferred':
             inf_ = p.get('inference')
             if not (isinstance(inf_, dict) and _s(inf_.get('step')) and len(inf_['step'].strip()) >= 20):
@@ -664,7 +664,22 @@ def validate_path(path, ctx):
         R.err('json_parse', err)
         return R
     fid = os.path.splitext(os.path.basename(path))[0]
-    return validate_obj(obj, os.path.basename(path), ctx, fid if L.ID_RE.match(fid) else None)
+    R = validate_obj(obj, os.path.basename(path), ctx, fid if L.ID_RE.match(fid) else None)
+    if L.ID_RE.match(fid) and os.path.abspath(os.path.dirname(path)) == os.path.abspath(L.RESOLUTIONS):
+        md = os.path.join(os.path.dirname(path), fid + '.md')
+        if not os.path.exists(md):
+            R.warn('account_missing', '%s.md (the plain-English account of at most two pages) does not exist yet' % fid)
+        else:
+            n = len(L.read_text(md))
+            if n > 9000:
+                R.warn('account_long', '%s.md has %d characters; the account is at most two pages (about 9,000 characters)' % (fid, n))
+            elif n < 800:
+                R.warn('account_short', '%s.md has only %d characters: say who wrote each position, when, where he stood, how he knew, the weighing and the decision' % (fid, n))
+            else:
+                bw = P.banned_words(L.read_text(md))
+                if bw:
+                    R.warn('banned_copy', '%s.md mentions %s: say nothing about how the site was made' % (fid, bw))
+    return R
 
 
 def res_path(cid):

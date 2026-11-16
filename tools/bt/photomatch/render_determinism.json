@@ -28,10 +28,22 @@
  "differing": [],
  "missing_in_rerun": [],
  "rerun": {
-  "command": "PM_RENDER_DIR=tmp/photomatch/renders_rerun tools/horde/bench.sh node tools/bt/photomatch/run.mjs (all poses, main + 30 and 50 degree fields, base and full)",
-  "start_utc": "2026-11-15T22:56:45Z",
-  "end_utc": "2026-11-15T22:57:17Z"
+  "command": "PM_RENDER_DIR=tmp/photomatch/renders_rerun_20261116 tools/horde/bench.sh node tools/bt/photomatch/run.mjs (all poses, main + 30 and 50 degree fields, base and full)",
+  "folder": "tmp/photomatch/renders_rerun_20261116",
+  "start_utc": "2026-11-16T02:48:09Z",
+  "end_utc": "2026-11-16T02:48:42Z"
  },
+ "earlier_reruns": [
+  {
+   "rerun": {
+    "command": "PM_RENDER_DIR=tmp/photomatch/renders_rerun tools/horde/bench.sh node tools/bt/photomatch/run.mjs (all poses, main + 30 and 50 degree fields, base and full)",
+    "start_utc": "2026-11-15T22:56:45Z",
+    "end_utc": "2026-11-15T22:57:17Z"
+   },
+   "files_identical_in_rerun": 120,
+   "files_expected": 120
+  }
+ ],
  "earlier_sessions": {
   "file": "tmp/photomatch/renders_prev.sha256 (the 96 renders of the 16 poses of the second pass, 2026-11-13, copied before the third pass re-rendered them)",
   "files": 96,

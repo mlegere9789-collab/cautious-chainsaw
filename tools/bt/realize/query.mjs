@@ -150,6 +150,8 @@ export class Product {
     const parts = Object.entries({ ...(spec.choices || {}) }).filter(([k, v]) => base[k] !== v).sort(([a], [b]) => (a < b ? -1 : 1)).map(([k, v]) => `${k}=${v}`), st = Object.entries(spec.structure || {}).sort(([a], [b]) => (a < b ? -1 : 1)).map(([k, v]) => `structure:${k}=${v}`);
     const all = [...parts, ...st]; return all.length ? (from === 'pdf' ? 'pdf+' : '') + all.join('+') : from === 'pdf' ? 'pdf' : from === 'default' ? 'default' : 'none-chosen';
   }
+  // the activities a unit can show: the stage's (the contract's ACTIVITIES table: a workstream that adds one, as the camp-life module will, is followed without a change here) and the two the picture adds (crowd/anim.mjs)
+  activities() { const stage = Object.keys(this.contract.ACTIVITIES); return { stage, names: [...new Set([...stage, 'halt_mounted', 'skirmish'])] }; }
   scenarioId(spec = 'default') { return this.scenarioSpec(spec).key; }
   // the choices the shell reads (the conflicts C-nnn and CF-WIND ...): the vegetation layer's CF-VEG-* choices change nothing in the stage, the weather or the structures, so a scene is built once for all of them
   shellChoices(choices) { return Object.fromEntries(Object.entries(choices || {}).filter(([k]) => !(k in this.veg.scenarios))); }

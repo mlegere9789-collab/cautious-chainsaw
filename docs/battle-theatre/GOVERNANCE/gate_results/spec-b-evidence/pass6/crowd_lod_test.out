@@ -1,0 +1,152 @@
+TAP version 13
+# \# the baked atlas: 131 upright classes, mean silhouette 0.181 of the quad, bounding box 22.1 x 56.1 of 48 x 64, empty margin 0.105 above and 0.018 below; the dab: width 0.21, empty 0.105 above and 0.018 below
+# \# camera 2 cm steps through two blocks: largest step of any level of any figure 0.0220 (fig 169 level 0 at z 3.54); the hard swap 1 (692 steps over 0.2)
+# \# turning on the spot inside a block of 2,500 men in steps of 0.23 degrees: the largest change of a man's LOD0 share 0.454 (600 steps; budget radius 5.09 m)
+# \# reference check: 240 selections, 46344 listed figures compared, the budget cut in 17, men outside the view counted for the budget in 15
+# Subtest: fadeBand: 0 inside r (1 - b), 1 beyond r (1 + b), a smoothstep between, symmetric about r, a step when b = 0
+ok 1 - fadeBand: 0 inside r (1 - b), 1 beyond r (1 + b), a smoothstep between, symmetric about r, a step when b = 0
+  ---
+  duration_ms: 38.735469
+  type: 'test'
+  ...
+# Subtest: the band is 15 percent wide and the spread 10 percent (the figures3d radius rule, FIGURES3D-NOTES 9.2)
+ok 2 - the band is 15 percent wide and the spread 10 percent (the figures3d radius rule, FIGURES3D-NOTES 9.2)
+  ---
+  duration_ms: 0.808502
+  type: 'test'
+  ...
+# Subtest: lodRadii: the figures3d distances at 1080p / 60 degrees, scaled by pixels and field of view, moved by the two sliders, always r0 <= r1 <= r2
+ok 3 - lodRadii: the figures3d distances at 1080p / 60 degrees, scaled by pixels and field of view, moved by the two sliders, always r0 <= r1 <= r2
+  ---
+  duration_ms: 0.27007
+  type: 'test'
+  ...
+# Subtest: figureScale and figurePhase are hashes of the figure number: deterministic, inside [1 - h, 1 + h], mean 1, and the numbers the shaders use
+ok 4 - figureScale and figurePhase are hashes of the figure number: deterministic, inside [1 - h, 1 + h], mean 1, and the numbers the shaders use
+  ---
+  duration_ms: 59.708062
+  type: 'test'
+  ...
+# Subtest: thresholds and shares: the four shares sum to 1, level 0 only near, the impostor only far, the middle levels in their rings, every share monotone in the distance
+ok 5 - thresholds and shares: the four shares sum to 1, level 0 only near, the impostor only far, the middle levels in their rings, every share monotone in the distance
+  ---
+  duration_ms: 5.418805
+  type: 'test'
+  ...
+# Subtest: packRange / decodeRange: round trip, the word 0 keeps everything, a full range is the word 0, neighbouring levels share their boundary exactly
+ok 6 - packRange / decodeRange: round trip, the word 0 keeps everything, a full range is the word 0, neighbouring levels share their boundary exactly
+  ---
+  duration_ms: 0.491232
+  type: 'test'
+  ...
+# Subtest: every fragment is drawn by exactly one level (or the impostor): no hole and no doubled pixel, over distances, figures and pixels (the gate-runner check)
+ok 7 - every fragment is drawn by exactly one level (or the impostor): no hole and no doubled pixel, over distances, figures and pixels (the gate-runner check)
+  ---
+  duration_ms: 214.877464
+  type: 'test'
+  ...
+# Subtest: the share of the pixels a level keeps equals its share (the noise is uniform): a 96 x 96 patch at five distances inside the bands
+ok 8 - the share of the pixels a level keeps equals its share (the noise is uniform): a 96 x 96 patch at five distances inside the bands
+  ---
+  duration_ms: 73.608517
+  type: 'test'
+  ...
+# Subtest: no pop: a level changes by at most the slope of the band per metre, so a 1 percent error of a distance moves a level by less than a tenth; the hard swap changes by the whole level
+ok 9 - no pop: a level changes by at most the slope of the band per metre, so a 1 percent error of a distance moves a level by less than a tenth; the hard swap changes by the whole level
+  ---
+  duration_ms: 88.650214
+  type: 'test'
+  ...
+# Subtest: the impostor and the dab: the far share is the complement of the three levels, the dab share goes from 0 to 1 over the band of the height
+ok 10 - the impostor and the dab: the far share is the complement of the three levels, the dab share goes from 0 to 1 over the band of the height
+  ---
+  duration_ms: 1.694362
+  type: 'test'
+  ...
+# Subtest: the eight baked views of the impostor: a figure takes the next view with the share fract(yn), so the picture changes continuously as the camera turns; the hard mode takes the nearest view
+ok 11 - the eight baked views of the impostor: a figure takes the next view with the share fract(yn), so the picture changes continuously as the camera turns; the hard mode takes the nearest view
+  ---
+  duration_ms: 53.347153
+  type: 'test'
+  ...
+# Subtest: the dab narrows to the footprint of the baked figure: the whole quad at 3 px, the measured silhouette at 7 px, continuous between, the whole quad in hard mode
+ok 12 - the dab narrows to the footprint of the baked figure: the whole quad at 3 px, the measured silhouette at 7 px, continuous between, the whole quad in hard mode
+  ---
+  duration_ms: 1242.823957
+  type: 'test'
+  ...
+# Subtest: selection: every figure in range and in view is listed at one or two adjacent levels whose ranges partition [0, 1); nobody beyond the last band is listed; nothing is dropped
+ok 13 - selection: every figure in range and in view is listed at one or two adjacent levels whose ranges partition [0, 1); nobody beyond the last band is listed; nothing is dropped
+  ---
+  duration_ms: 56.531442
+  type: 'test'
+  ...
+# Subtest: the LOD0 budget is a radius: at most K men have a LOD0 share, they are the nearest in effective distance, the radius is cut to the K-th and the band ends there
+ok 14 - the LOD0 budget is a radius: at most K men have a LOD0 share, they are the nearest in effective distance, the radius is cut to the K-th and the band ends there
+  ---
+  duration_ms: 270.140969
+  type: 'test'
+  ...
+# Subtest: purity: the same time and camera give the same lists, ranges and bytes however the camera got there (scrub purity)
+ok 15 - purity: the same time and camera give the same lists, ranges and bytes however the camera got there (scrub purity)
+  ---
+  duration_ms: 162.702336
+  type: 'test'
+  ...
+# Subtest: continuity: a camera moving 2 cm at a time changes no level of any figure by more than the slope of the band (the hard swap changes it by the whole level)
+ok 16 - continuity: a camera moving 2 cm at a time changes no level of any figure by more than the slope of the band (the hard swap changes it by the whole level)
+  ---
+  duration_ms: 4816.415516
+  type: 'test'
+  ...
+# Subtest: continuity of the budget radius: turning the camera on the spot inside a dense block moves no man by more than a share of the band per step
+ok 17 - continuity of the budget radius: turning the camera on the spot inside a dense block moves no man by more than a share of the band per step
+  ---
+  duration_ms: 434.421687
+  type: 'test'
+  ...
+# Subtest: mounted units: horses and riders are one figure number, the larger sphere of a led horse is used, and the same ranges apply
+ok 18 - mounted units: horses and riders are one figure number, the larger sphere of a led horse is used, and the same ranges apply
+  ---
+  duration_ms: 0.470802
+  type: 'test'
+  ...
+# Subtest: selectFigures equals a brute-force reference (list, level masks, dither words, budget radius) on 120 random worlds and cameras, with the cross-fade and with the hard swap
+ok 19 - selectFigures equals a brute-force reference (list, level masks, dither words, budget radius) on 120 random worlds and cameras, with the cross-fade and with the hard swap
+  ---
+  duration_ms: 1174.593901
+  type: 'test'
+  ...
+# Subtest: the selection reads nothing but its inputs: no Math.random and no wall clock in lod.mjs
+ok 20 - the selection reads nothing but its inputs: no Math.random and no wall clock in lod.mjs
+  ---
+  duration_ms: 19.382968
+  type: 'test'
+  ...
+# Subtest: WebGL2 shaders: the fade word is decoded as lod.mjs packs it, every level discards by it, the impostor uses the same hashes, band and dab
+ok 21 - WebGL2 shaders: the fade word is decoded as lod.mjs packs it, every level discards by it, the impostor uses the same hashes, band and dab
+  ---
+  duration_ms: 0.883814
+  type: 'test'
+  ...
+# Subtest: WebGPU shaders: the same decode, the same discards, the same hashes, band and dab as the WebGL2 ones
+ok 22 - WebGPU shaders: the same decode, the same discards, the same hashes, band and dab as the WebGL2 ones
+  ---
+  duration_ms: 1.217202
+  type: 'test'
+  ...
+# Subtest: ign in the shaders is the interleaved gradient noise of lod.mjs (the constants are the same text)
+ok 23 - ign in the shaders is the interleaved gradient noise of lod.mjs (the constants are the same text)
+  ---
+  duration_ms: 0.507198
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9508.579631

@@ -24,6 +24,7 @@ COLS = ['id', 'class', 'title', 'author', 'date', 'text', 'sha256', 'pages', 'fo
 MARK = '<!-- APPEND-ONLY BELOW: tools/bt/conflicts/add_source.py appends here; rebuilds of sections 1-9 keep everything under this line -->'
 
 # town-ledger ids that have nothing to say about the 47 conflicts (buildings, maps, college catalogues, claims lists): not seeded; add_source.py --from-town ID adopts any of them
+EXCLUDE_WEB = re.compile(r'^(NPS-HABS|NPSGOV-(NATURE|NEWS|EISE|ART))')
 EXCLUDE = re.compile(r'^(HABS|PACOLLEGE|WARREN|HOPKINS|SANBORN|LOC-PHOTO|SEM-IMAGES|WAUD|WENTZ|RUPP|WARCLAIMS|ADAMS-SENTINEL-OTHER|GBG-COMPILER-OTHER|CENSUS|NPS-ROAD|LOC-CA|BACHELDER-18|COPE|HOTCHKISS|ELLIOTT|GNMP-1900|WOELTJE|NY-MONUMENTS|PLAN-PDF|CONEWAGO|NPS-DESIGN|NPS-EISE|NPS-GETTYSBURG-COLLEGE|NPS-BRYAN|NPS-DCP-GUINN|NPS-NRCA|NPS-BRT-ECOLOGY|NPSGOV-(GRASSLANDS|PLANTS|NATURAL|PLANNING|BATTLEFIELD-REHAB))')
 
 KIND_BY_ID = {
@@ -176,7 +177,7 @@ def gather():
             add('books', row)
     for sid, i in list(a3.items()):
         p = i.get('local_path')
-        if p and p.endswith('.txt') and p not in seen_paths and not EXCLUDE.match(sid) and sid.startswith('NPS'):
+        if p and p.endswith('.txt') and p not in seen_paths and not EXCLUDE.match(sid) and not EXCLUDE_WEB.match(sid) and sid.startswith('NPS'):
             row = build_row(sid, 'official', i.get('title'), i.get('creator') or 'National Park Service', i.get('date'), p, i.get('rights_basis'), i.get('url'), 'acquired %s; %s' % ((i.get('fetched_at') or '')[:10], i.get('text_quality') or ''))
             add('nps', row)
     # medical library (Official statistics and the surgeons' reports on the wounded)
@@ -209,7 +210,11 @@ def lead_rows():
         ap = os.path.join(L.ROOT, p)
         if not os.path.exists(ap):
             continue
-        rows.append(build_row(sid, 'lead', title, 'working notes of the project (not a source)', '2026-11', p, 'project file', '-', 'a lead: it points to passages, it proves nothing and cannot make a value documented or inferred (Law 4); read the passage in the primary text it names', kind='lead'))
+        r = build_row(sid, 'lead', title, 'working notes of the project (not a source)', '2026-11', p, 'project file', '-', 'a lead: it points to passages, it proves nothing and cannot make a value documented or inferred (Law 4); read the passage in the primary text it names', kind='lead')
+        if r and re.search(r'/horde/tl-\d|/timeline_corrections/|/evidence_corrections/', p):
+            r['sha256'] = '-'
+            r['notes'] = 'a living working file of another workstream (rewritten while it works): not hash-pinned, its offsets drift. ' + r['notes']
+        rows.append(r)
     return [r for r in rows if r]
 
 

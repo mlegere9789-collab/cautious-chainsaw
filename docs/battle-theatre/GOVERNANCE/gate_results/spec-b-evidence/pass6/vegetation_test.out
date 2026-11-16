@@ -1,0 +1,250 @@
+TAP version 13
+# Subtest: the data is whole: schema, units with outlines and tiers, claims with quotes and places, every reference resolves
+ok 1 - the data is whole: schema, units with outlines and tiers, claims with quotes and places, every reference resolves
+  ---
+  duration_ms: 44.706859
+  type: 'test'
+  ...
+# Subtest: time: the minutes of the theatre clock, both ways
+ok 2 - time: the minutes of the theatre clock, both ways
+  ---
+  duration_ms: 500.645911
+  type: 'test'
+  ...
+# Subtest: the Wheatfield: documented standing wheat on 2 July, trampled in the engagement window (an inference from the documented movement, marked so), never before it
+ok 3 - the Wheatfield: documented standing wheat on 2 July, trampled in the engagement window (an inference from the documented movement, marked so), never before it
+  ---
+  duration_ms: 24.247747
+  type: 'test'
+  ...
+# Subtest: the calendar: wheat is cut inside its documented bounds and the order of asking does not matter
+ok 4 - the calendar: wheat is cut inside its documented bounds and the order of asking does not matter
+  ---
+  duration_ms: 47.488945
+  type: 'test'
+  ...
+# Subtest: corn and oats: stand through the window, never cut in it; hay is mown late; rye may be cut before the window
+ok 5 - corn and oats: stand through the window, never cut in it; hay is mown late; rye may be cut before the window
+  ---
+  duration_ms: 2.365222
+  type: 'test'
+  ...
+# Subtest: woods and orchards: full leaf in the window, leaf-off on 19 November, the damage events strip trees only inside their windows
+ok 6 - woods and orchards: full leaf in the window, leaf-off on 19 November, the damage events strip trees only inside their windows
+  ---
+  duration_ms: 31.031361
+  type: 'test'
+  ...
+# Subtest: scenarios: the three of Little Round Top, the harvest and the rain move what they say and nothing else
+ok 7 - scenarios: the three of Little Round Top, the harvest and the rain move what they say and nothing else
+  ---
+  duration_ms: 0.919453
+  type: 'test'
+  ...
+# Subtest: tiers: a state carries the weakest tier of its parts; documented only where a claim that names the polygon says so
+ok 8 - tiers: a state carries the weakest tier of its parts; documented only where a claim that names the polygon says so
+  ---
+  duration_ms: 37.482326
+  type: 'test'
+  ...
+# Subtest: Q21: the check passes over every unit, every sampled date and every scenario set, and it can fail
+ok 9 - Q21: the check passes over every unit, every sampled date and every scenario set, and it can fail
+  ---
+  duration_ms: 18650.142078
+  type: 'test'
+  ...
+# Subtest: trees: seeded, inside their polygon, at the unit's density; orchards in rows at their spacing
+ok 10 - trees: seeded, inside their polygon, at the unit's density; orchards in rows at their spacing
+  ---
+  duration_ms: 777.009636
+  type: 'test'
+  ...
+# Subtest: hashes and seeds: stable numbers
+ok 11 - hashes and seeds: stable numbers
+  ---
+  duration_ms: 0.378411
+  type: 'test'
+  ...
+# Subtest: the data lies inside the ground the theatre loads: every outline, every witness tree and every event disc
+ok 12 - the data lies inside the ground the theatre loads: every outline, every witness tree and every event disc
+  ---
+  duration_ms: 234.951189
+  type: 'test'
+  ...
+# Subtest: the park landscape evidence: every vegetation row of the corrections is a claim, a row left out with its reason, or a passage already held; later growth never sets a crop or a species
+ok 13 - the park landscape evidence: every vegetation row of the corrections is a claim, a row left out with its reason, or a passage already held; later growth never sets a crop or a species
+  ---
+  duration_ms: 531.021509
+  type: 'test'
+  ...
+# Subtest: claims and places agree: a claim is marked placed exactly when a unit cites it, the evidence from the library names its source edition, and a quote is never a paraphrase of fewer than 12 letters
+ok 14 - claims and places agree: a claim is marked placed exactly when a unit cites it, the evidence from the library names its source edition, and a quote is never a paraphrase of fewer than 12 letters
+  ---
+  duration_ms: 14.87242
+  type: 'test'
+  ...
+# Subtest: the shipped data says nothing of how it was made, and names no later tree as a tree of 1863
+ok 15 - the shipped data says nothing of how it was made, and names no later tree as a tree of 1863
+  ---
+  duration_ms: 92.158613
+  type: 'test'
+  ...
+# Subtest: the module is listed, and the gate hook is stated
+ok 16 - the module is listed, and the gate hook is stated
+  ---
+  duration_ms: 0.340902
+  type: 'test'
+  ...
+# Subtest: splitTriangle: every piece is short, the pieces cover the triangle
+ok 17 - splitTriangle: every piece is short, the pieces cover the triangle
+  ---
+  duration_ms: 0.912704
+  type: 'test'
+  ...
+# Subtest: the ground-cover mesh covers every unit, in short triangles, and stays on its unit
+ok 18 - the ground-cover mesh covers every unit, in short triangles, and stays on its unit
+  ---
+  duration_ms: 2210.001419
+  type: 'test'
+  ...
+# Subtest: trees: chunked, sorted, counted, all inside the ground
+ok 19 - trees: chunked, sorted, counted, all inside the ground
+  ---
+  duration_ms: 7115.662127
+  type: 'test'
+  ...
+# Subtest: the trample plan: a formation marks the ground it covered at the minute it first stood there, nothing else, and nothing twice
+ok 20 - the trample plan: a formation marks the ground it covered at the minute it first stood there, nothing else, and nothing twice
+  ---
+  duration_ms: 14.021957
+  type: 'test'
+  ...
+# Subtest: the stage as a provider: reads the cache and the presence windows as the stage does, and gives nothing for a unit that is not there
+ok 21 - the stage as a provider: reads the cache and the presence windows as the stage does, and gives nothing for a unit that is not there
+  ---
+  duration_ms: 0.513571
+  type: 'test'
+  ...
+# Subtest: the module reads the real stage the way the provider expects
+ok 22 - the module reads the real stage the way the provider expects
+  ---
+  duration_ms: 26.939075
+  type: 'test'
+  ...
+# Subtest: the module starts on a stand-in theatre: switches, panel, a card for the ground, the choices, and Back
+ok 23 - the module starts on a stand-in theatre: switches, panel, a card for the ground, the choices, and Back
+  ---
+  duration_ms: 141.102561
+  type: 'test'
+  ...
+# Subtest: the card of the ground can be written for every unit, at three dates, with nothing undefined or not a number in it
+ok 24 - the card of the ground can be written for every unit, at three dates, with nothing undefined or not a number in it
+  ---
+  duration_ms: 12822.198812
+  type: 'test'
+  ...
+# Subtest: ?veg=off keeps the module out of a visit; a missing data file is an error the loader can show
+ok 25 - ?veg=off keeps the module out of a visit; a missing data file is an error the loader can show
+  ---
+  duration_ms: 0.986434
+  type: 'test'
+  ...
+# Subtest: the module on a stand-in theatre with a recording GL: programs, hooks, the plan of the troops, the draw calls, and clean-up
+ok 26 - the module on a stand-in theatre with a recording GL: programs, hooks, the plan of the troops, the draw calls, and clean-up
+  ---
+  duration_ms: 7927.090181
+  type: 'test'
+  ...
+# Subtest: the standing crop near the camera: off by default, a fourth program when asked, drawn by chunks within range, not over the tier overlay, and a refused program leaves the rest of the layer alone
+ok 27 - the standing crop near the camera: off by default, a fourth program when asked, drawn by chunks within range, not over the tier overlay, and a refused program leaves the rest of the layer alone
+  ---
+  duration_ms: 18074.899529
+  type: 'test'
+  ...
+# Subtest: a program that fails to link is taken out of the renderer's list, so the layers that start after it still start
+ok 28 - a program that fails to link is taken out of the renderer's list, so the layers that start after it still start
+  ---
+  duration_ms: 4274.871458
+  type: 'test'
+  ...
+# Subtest: the Copse of Trees: the chestnut oaks of the account, no higher than the study reasons, inferred and marked so; the other clusters keep their species' own heights
+ok 29 - the Copse of Trees: the chestnut oaks of the account, no higher than the study reasons, inferred and marked so; the other clusters keep their species' own heights
+  ---
+  duration_ms: 2.111226
+  type: 'test'
+  ...
+# Subtest: Ziegler's Grove: oaks with some black cherry as the study infers, the Warren outline of 1868-69, and the gap said
+ok 30 - Ziegler's Grove: oaks with some black cherry as the study infers, the Warren outline of 1868-69, and the gap said
+  ---
+  duration_ms: 0.605035
+  type: 'test'
+  ...
+# Subtest: the Meyers orchard: apple trees about thirty feet apart (the report's hedge), placed by a rule, inferred; an orchard's age is documented only where a claim names its polygon
+ok 31 - the Meyers orchard: apple trees about thirty feet apart (the report's hedge), placed by a rule, inferred; an orchard's age is documented only where a claim names its polygon
+  ---
+  duration_ms: 14.162845
+  type: 'test'
+  ...
+# Subtest: the three trees the park's reports name: the butternut, the old pine and the white oak, each with its claim, its tier and the place it is found by
+ok 32 - the three trees the park's reports name: the butternut, the old pine and the white oak, each with its claim, its tier and the place it is found by
+  ---
+  duration_ms: 2.2108
+  type: 'test'
+  ...
+# Subtest: the understory conflict CF-VEG-UNDER: acts only on the woods no account describes, changes the shrubs placed and nothing else, and every option cites claims
+ok 33 - the understory conflict CF-VEG-UNDER: acts only on the woods no account describes, changes the shrubs placed and nothing else, and every option cites claims
+  ---
+  duration_ms: 443.497618
+  type: 'test'
+  ...
+# Subtest: the readings of Little Round Top: the new accounts bear on the east slope and the west slope, the light reading is inferred, the unwooded one has no account for it
+ok 34 - the readings of Little Round Top: the new accounts bear on the east slope and the west slope, the light reading is inferred, the unwooded one has no account for it
+  ---
+  duration_ms: 14.412131
+  type: 'test'
+  ...
+# Subtest: the crops the second reading placed by a rule: high wheat on 1 July, clover and tall grass on 3 July, each inferred and each on its own cell
+ok 35 - the crops the second reading placed by a rule: high wheat on 1 July, clover and tall grass on 3 July, each inferred and each on its own cell
+  ---
+  duration_ms: 0.774849
+  type: 'test'
+  ...
+# Subtest: the choice CF-VEG-MCPHERSON and the park's totals: both readings of one claim as a choice, the mix under each, the coverage check, the gap with its numbers
+ok 36 - the choice CF-VEG-MCPHERSON and the park's totals: both readings of one claim as a choice, the mix under each, the coverage check, the gap with its numbers
+  ---
+  duration_ms: 176.456347
+  type: 'test'
+  ...
+# Subtest: the choice CF-VEG-HOUCK: the Slaughter Pen study of Houck's land against the Warren woods; it acts on the woods and clusters in its box and nothing else, and the cleared ground is pasture
+ok 37 - the choice CF-VEG-HOUCK: the Slaughter Pen study of Houck's land against the Warren woods; it acts on the woods and clusters in its box and nothing else, and the cleared ground is pasture
+  ---
+  duration_ms: 0.998003
+  type: 'test'
+  ...
+# Subtest: the fourth reading (16 November): the vista report on the line of 2 July and the Warren map along Plum Run, the Rock Creek report, the Harmon study and two HABS reports; each claim has its place or its reason for none, and nothing is counted twice
+ok 38 - the fourth reading (16 November): the vista report on the line of 2 July and the Warren map along Plum Run, the Rock Creek report, the Harmon study and two HABS reports; each claim has its place or its reason for none, and nothing is counted twice
+  ---
+  duration_ms: 32.27386
+  type: 'test'
+  ...
+# Subtest: the table of names: every feature a timeline row can name resolves to a unit, with the rule that found it and the tier of that identification
+ok 39 - the table of names: every feature a timeline row can name resolves to a unit, with the rule that found it and the tier of that identification
+  ---
+  duration_ms: 0.503364
+  type: 'test'
+  ...
+# Subtest: a choice of the understory reading places the woods again and rewrites the tree buffer; the other choices leave the trees alone
+ok 40 - a choice of the understory reading places the woods again and rewrites the tree buffer; the other choices leave the trees alone
+  ---
+  duration_ms: 13215.723428
+  type: 'test'
+  ...
+1..40
+# tests 40
+# suites 0
+# pass 40
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 88946.085077

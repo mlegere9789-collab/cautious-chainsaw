@@ -14,7 +14,7 @@ from rows_patch import CA, sub_add, sub_append, sub_set, scen, scen_extend, _by
 HERE = os.path.dirname(os.path.abspath(__file__))
 Q = json.load(open(os.path.join(HERE, 'quotes5.json'), encoding='utf-8'))
 S5 = 'fifth start of the close-out, 2026-11-16, newspaper pages that were not local when the earlier passes searched (tmp/library/web/ca grew from 933 to 1,546 pages): '
-BUL = 'a special dispatch to the Philadelphia Bulletin dated Hanover Junction, Jun 27 1863 (the papers that print it name no informant); the same dispatch is printed, with differences in two figures, in at least eight papers of Jun 27 - Jul 4'
+BUL = 'a special dispatch to the Philadelphia Bulletin dated Hanover Junction, Jun 27 1863 (the papers that print it name no informant); the same dispatch is printed in at least eight papers of Jun 27 - Jul 4, with differences in two figures between the printings and with the last lines left out in some'
 
 def PIC(paper, page, item, reads):
     return ('page-image crop of the %s page %s (acquired_tl01.json, item %s; viewed in the fifth start of the close-out) reads: "%s"' % (paper, page, item, reads))
@@ -25,7 +25,7 @@ IMG5 = {
     'star_wolf': PIC('Evening Star', 2, 'ca5-star-0627-p2b', 'On Friday night the rebels encamped on Wolf\'s farm, a mile and a half from this side of the town. The force was represented to be 8,000 strong, with artillery[; the end of the sentence is cut by the crop edge]"; the figure of the strength is not legible in the crop'),
     'cht_wolf': PIC('Chicago Daily Tribune', 1, 'ca5-cht-0629-p1d', 'On Friday night the rebels encamped on Wolf\'s farm, half a mile this side of the town. Their force is represented to be 8,000 strong, with artillery, under command of Gen. Robinson. Their pickets were near Oxford. All"'),
     'star_1230': PIC('Evening Star', 2, 'ca5-star-0629-p2c', 'in, however, did not appear to heed [the warn]ing, and at about half-past twelve [o\'clock], and when the head of the train was [within] a short distance of the town it was met [by two rebel cavalrymen]"; the ends of the lines are cut by the crop edge'),
-    'spy_loss': PIC('Worcester Daily Spy', 1, 'ca5-spy-0703p1b', 'The rebels admitted that their loss in killed and wounded was greater than ours. Our loss was two privates killed and twenty-eight taken prisoners. The rebels also captured Lieut. Bowman, and the provost marshal of Westminster, with ten of his men."'),
+    'spy_loss': PIC('Worcester Daily Spy', 1, 'ca5-spy-0703-p1b', 'The rebels admitted that their loss in killed and wounded was greater than ours. Our loss was two privates killed and twenty-eight taken prisoners. The rebels also captured Lieut. Bowman, and the provost marshal of Westminster, with ten of his men."'),
     'dnl_wolf': PIC('Daily National Intelligencer', 3, 'ca5-dnl-0629-p3-wolf', 'Wolf\'s farm, a mile and a half this side of the town. Their force was represented to be eight thousand strong, with artillery. Gen. Robinson is in command. At midnight their pickets were near Oxford. All the rolling stock of the Gettysburg and Hanover railroad has been saved. The cars destroyed belonged to the Pennsylvania Central rail-"'),
     'cht_cars': PIC('Chicago Daily Tribune', 1, 'ca5-cht-0629-p1', 'At 3 o\'clock Friday afternoon our cavalry left Gettysburg. As the rebels entered, the telegraph operator, post master, and revenue assessor escaped. Before we left a train of sixteen freight cars, some with Col. Jennings\' supplies, were run to this side of the bridge at the edge of the t[own]. The bridge and train were afterwards destroyed by the rebels, and three members of the city troops, and three of our infantry are reported to have been captured. On Friday night the rebels encamped on Wolf\'s farm, half a mile this side of the t[own]."; the right ends of the lines are cut by the crop edge'),
     'cht_thu': PIC('Chicago Daily Tribune', 1, 'ca5-cht-0629-p1-thu', 'the rolling stock of the Gettysburg and Hanover Railroad has been saved. The cars destroyed belonged to the Northern and Pennsylvania Central Railroads. On Thursday night the rebel encampment extended from Cashtown to Fayetteville. The editor of the Gettysburg Star has been captured, and it is reported that one of our scouts has been shot."'),
@@ -44,6 +44,10 @@ IMG5 = {
     'her_126': PIC('New York Herald', 10, 'ca5-her-0702-p10c', 'General Early took one hundred and twenty-six prisoners at Gettysburg. These prisoners were taken [to] Carlisle and placed under guard [in the market house]"'),
     'inq_cav': PIC('Worcester Daily Spy', 1, 'ca5-spy-0701-p1', 'It is ascertained that a large body of federal cavalry have reached Gettysburg, taken possession of the town, and captured quite a number of rebels. Our army is gradually moving in that direction."'),
     'tim_hanover': PIC('Worcester Daily Spy', 1, 'ca5-spy-0702-p1', 'During the forenoon, Gens. Kilpatrick and Custer drove Stuart out of Hanover, after a splendid fight, and are still pursuing him—a part of his force going toward Gettysburg and a part toward York. During the day, Gen. Buford drove a regiment of rebel infantry out of Gettysburg, who also retired in a north-easterly direction."; the text layer prints Castar for Custer'),
+    'dnl_rail': PIC('Daily National Intelligencer', 3, 'ca5-dnl-0629-p3c and -p3d', 'Harrisburg, June 27, 5 P. M.\u2014The rebel column, under Gen. Early, which was at Gettysburg yesterday, reached the Northern Central railroad a few minutes after twelve to-day, at a point between York and Hanover Junction. The wires were cut, and no further news of their"'),
+    'cht_rail': PIC('Chicago Daily Tribune', 1, 'ca5-cht-0629-p1e', 'Harrisburg, June 27\u20146 P. M.\u2014The rebel columns, under General Early, which were at Gettysburg yesterday, reached the Northern Central Railroad, about ten o\'clock to-day, at a point between York and Hanover Junction"'),
+    'dnl_york': PIC('Daily National Intelligencer', 3, 'ca5-dnl-0629-p3f', 'YORK OCCUPIED BY THE ENEMY. Harrisburg, June 27.\u2014The rebels occupied York at [fi]ve o\'clock this evening. No resistance was made by our"; the first letters of five are cut by the crop edge'),
+    'star_150': PIC('Evening Star', 2, 'ca5-star-0629-p2d', 'esterday morning, between seven and eight [o\'clo]ck, a train, consisting of 150 wagons, each [wag]on drawn by six mules, left this city, [hav]ing been ordered to join the army at Fred-[eric]k, Maryland."; the ends of the lines are cut by the crop edge'),
     'ei_flag': PIC('Evening Star', 1, 'ca5-star-0702-p1b', 'Official advices from the Army of the Potomac state that a portion of our cavalry, under Gen. Kilpatrick, had a handsome fight yesterday with the enemy\'s cavalry at Hanover. He captured a battle-flag, a lieutenant [colonel, one] captain and forty-five privates. [Fifteen or] twenty of the enemy were killed."'),
     'ei_400': PIC('Evening Star', 1, 'ca5-star-0702-p1c', 'A Battle at Hanover. Harrisburg, July 1—9.30 p. m.—A battle took place yesterday afternoon at Hanover Junction between Pleasanton and the rebel cavalry. It lasted nearly the whole afternoon, and the result was the enemy lost 400 in killed, wounded and prisoners, besides six pieces of artillery."; the dispatch means Hanover (the Tribune of Jul 2 says "which probably means Hanover")'),
 }
@@ -69,7 +73,7 @@ def apply(rows):
     r = by['T1-004']
     r['cites']['cht_thu'] = cite('CA-sn84031490-1863-06-29-p1', 'cht_thu', 'On Thursday night the rebel encampment extended from Cashtown to Fayetteville. The editor of the Gettysburg Star has been captured, and it is reported that one of our scouts has been shot.',
                                   'cht_thu', witness='Chicago Daily Tribune, Jun 29 1863: ' + BUL + '; the text layer reads Coshtown')
-    sub_add(r, 'A dispatch of Jun 27 from Hanover Junction (a special to the Philadelphia Bulletin, printed in the Chicago Daily Tribune of Jun 29 and in at least five other papers; the Evening Star of Jun 27 prints Easttown for the first name) says that on Thursday night, Jun 25, the rebel encampment extended from Cashtown to Fayetteville',
+    sub_add(r, 'A dispatch of Jun 27 from Hanover Junction (a special to the Philadelphia Bulletin, printed in the Chicago Daily Tribune of Jun 29 and in at least four other papers; the text layer of the Evening Star of Jun 27 reads Easttown for the first name) says that on Thursday night, Jun 25, the rebel encampment extended from Cashtown to Fayetteville',
             'documented', 'supported', ['cht_thu'])
     r.setdefault('searched', []).append(S5 + 'Thursday-night and Cashtown-Fayetteville in the newspaper pages: the dispatch of Jun 27 above (8 printings); no hour of the start of the march on Jun 26 and no word on the temperature of the rain')
 
@@ -78,8 +82,10 @@ def apply(rows):
     r['cites']['cht_26th'] = cite('CA-sn84031490-1863-06-29-p1', 'cht_26th',
                                    'Good authority says that yesterday the 26th Pennsylvania militia regiment, under Capt. [sic] Jennings, went on a reconnoissance toward Gettysburg. When near there a company visited the town. While there, some rebels rushed in and drove them out. On returning the cars with the regiment ran off the track six miles this side of Gettysburg. They were encamped there temporarily',
                                    'cht_26th', witness='Chicago Daily Tribune, Jun 29 1863: a dispatch of Jun 27 on the news of Hanover ("Good authority says that yesterday", i.e. Jun 26); the text layer reads 2Cth for 26th and the page image shows 26')
-    sub_add(r, 'A dispatch of Jun 27 (Chicago Daily Tribune, Jun 29) says that on Jun 26 the 26th Pennsylvania militia, under Jennings, went on a reconnoissance toward Gettysburg, that a company visited the town and was driven out by rebels who rushed in, and that on returning the cars with the regiment ran off the track six miles this side of Gettysburg, where the regiment encamped temporarily: the six miles agree with the derailment at Swift Run (Compiler, Pennypacker, Richards); the date (a return on Jun 26, not the way out from Harrisburg on Jun 24-25) and the reconnoissance disagree with them. Carried with no default',
-            'documented', 'conflict', ['cht_26th'])
+    # the crop of the fourth start had cut the word Friday of the Weekly National Intelligencer dispatch; the crop of the fifth start shows it plain
+    r['cites']['wni_fri']['image_check'] = PIC('Weekly National Intelligencer', 3, 'ca5-wni-0702-p3', 'HANOVER JUNCTION, JUNE 27.—Col. Jennings\'s regiment left Harrisburg on Thursday for Gettysburg. On Friday morning the regiment went to Gettysburg. The Philadelphia city troops and another cavalry company preceded them. The cavalry was three miles beyond Marsh"; the word Friday, which the crop of the fourth start (ca-wni-0702-jennings) had cut, is plain')
+    sub_add(r, 'A dispatch of Jun 27 (Chicago Daily Tribune, Jun 29) says that on Jun 26 the 26th Pennsylvania militia, under Jennings, went on a reconnoissance toward Gettysburg, that a company visited the town and was driven out by rebels who rushed in, and that on returning the cars with the regiment ran off the track six miles this side of Gettysburg, where the regiment encamped temporarily: the six miles (Pennypacker: detained at Swift Run, six miles from Gettysburg) and the encampment on the spot (Compiler: the locomotive struck a cow at Swift Run and the regiment encamped on the spot) agree with the derailment at Swift Run; the date (a return on Jun 26, not the way out from Harrisburg on Jun 24: Compiler, Pennypacker) and the reconnoissance disagree with them. Carried with no default',
+            'documented', 'conflict', ['cht_26th', 'cmp_swift', 'penny_acc'])
     r.setdefault('searched', []).append(S5 + '26th, Jennings, Emergency and reconnoissance in the newspaper pages of Jun 26 - Jul 12 (92 windows against 47 before): the dispatch of Jun 27 above; no hour of arrival at Gettysburg')
 
     # ------------------------------------------------------------------------------------------------------------------ T1-010
@@ -92,10 +98,13 @@ def apply(rows):
         'star_300': cite('CA-sn83045462-1863-06-29-p1', 'star_300', "Col. Jenning's regiment, which had the skirmish at Gettysburg, arrived here to-day. He lost about three hundred men in prisoners and stragglers. The officers were sent to Richmond, and the men paroled.", 'star_300',
                          witness='Evening Star, Jun 29 1863: a Harrisburg dispatch of Jun 28 (the same words in the Chicago Daily Tribune of Jun 30, the Richmond Whig and other papers)'),
     })
+    import copy
+    for k_ in ('cmp_entry3', 'jac_cav'):
+        r['cites'][k_] = copy.deepcopy(by['T1-014']['cites'][k_])
     sub_add(r, 'A dispatch of the morning of Jun 27 from Hanover Junction (New-York Daily Tribune, Jun 29) says that Col. Jennings\'s regiment was routed by the rebels and that it was reported that 40 of them were taken prisoners; a Harrisburg dispatch of Jun 28 (Evening Star, Jun 29) says that the regiment lost about three hundred men in prisoners and stragglers, the officers being sent to Richmond and the men paroled',
             'documented', 'conflict', ['tri_jen40', 'star_300'])
     sub_add(r, 'Strength of the force that took prisoners on the Chambersburg pike: "seven or eight hundred strong", two or three miles outside of Gettysburg, on Friday afternoon (the paroled Michael Dowling, New-York Daily Tribune, Jun 29), against about 150 (Compiler) and 180 to 200 (Jacobs) for the cavalry that entered the town',
-            'documented', 'conflict', ['tri_dowling'])
+            'documented', 'conflict', ['tri_dowling', 'cmp_entry3', 'jac_cav'])
     scen_extend(r, 'A', '; about forty reported taken in a dispatch of the morning of Jun 27 (New-York Daily Tribune, Jun 29, page image)', 'tri_jen40')
     r['scenarios'].append(sc('D', 'About three hundred men lost in prisoners and stragglers (the regiment as a whole; the officers sent to Richmond, the men paroled)',
                              'Harrisburg dispatch of Jun 28, printed in the Evening Star of Jun 29 1863 p.1 (page image) and in other papers', 'documented', ['star_300']))
@@ -137,11 +146,12 @@ def apply(rows):
                          witness='Evening Star, Jun 27 1863: ' + BUL + '; the text layer reads th^ee for three'),
         'dnl_3pm': cite('CA-sn83026172-1863-06-29-p3', 'dnl_3pm', 'At three o\'clock on Friday afternoon our cavalry left Gettysburg as the rebels entered.', 'dnl_3pm',
                         witness='Daily National Intelligencer, Jun 29 1863: ' + BUL),
+        'cht_3pm': cite('CA-sn84031490-1863-06-29-p1', 'cht_3pm', 'At 3 o\'clock Friday afternoon our cavalry left Gettysburg.', 'cht_cars', witness='Chicago Daily Tribune, Jun 29 1863: ' + BUL),
         'star_noon25': cite('CA-sn83045462-1863-06-27-p1', 'star_noon25', 'We learn that a force of rebel cavalry entered and took possession of Gettysburg at noon yesterday, when the telegraph operator secured his instruments and left, arriving here last evening. The force was said to be fully 1,000 strong', 'star_noon25',
                             witness='Evening Star, Jun 27 1863: a report of the Baltimore American of the 26th ("yesterday" is Jun 25); the text layer reads lorce and oossession and the page image gives the words printed here'),
     })
     sub_add(r, 'Hour at which the Confederate force entered, by the Bulletin special of Jun 27: about three o\'clock on Friday afternoon our cavalry left Gettysburg as the rebels entered (Evening Star of Jun 27, Daily National Intelligencer of Jun 29, page images; "3 o\'clock Friday afternoon" in the Chicago Daily Tribune of Jun 29): the hour agrees with the Compiler and the county history',
-            'documented', 'supported', ['star_3pm', 'dnl_3pm'])
+            'documented', 'supported', ['star_3pm', 'dnl_3pm', 'cht_3pm'])
     sub_add(r, 'A report of the Baltimore American of Jun 26 (Evening Star, Jun 27) has a force of rebel cavalry, fully 1,000 strong, enter and take possession of Gettysburg at noon "yesterday" (Jun 25), the telegraph operator leaving with his instruments and arriving at Baltimore that evening, the place surrendering without opposition: a day and an hour that no other text read gives (Jacobs, the Compiler, the county history and the Bulletin special have the first rebel cavalry in the town on Friday afternoon, Jun 26)',
             'documented', 'conflict', ['star_noon25'])
     r['scenarios'].append(sc('C', 'First entry of the Confederate force at noon on Jun 25: cavalry fully 1,000 strong take possession; the telegraph operator leaves (Baltimore American of Jun 26)',
@@ -185,7 +195,7 @@ def apply(rows):
                          witness='Chicago Daily Tribune, Jun 29 1863: ' + BUL + ' (the Indiana State Sentinel of Jun 30 and the Burlington Weekly Hawk-Eye of Jul 4 print half a mile too); the text layer reads WolPs form'),
     })
     sub_add(r, 'The Bulletin special of Jun 27 says that on Friday night the rebels encamped on Wolf\'s farm, a mile and a half this side of the town (Evening Star, Jun 27, Daily National Intelligencer, Jun 29) or half a mile this side of the town (Chicago Daily Tribune, Jun 29), their force represented to be 8,000 strong with artillery under Gen. Robinson: the dispatch gives no bearing other than "this side of the town" (the side of the correspondent at Hanover Junction) and Wolf\'s farm is not identified on the ground; against Early (Hays\' brigade about a mile from Gettysburg, the other brigades near Mummasburg) and the Evening Star informant (about a mile). Carried with no default',
-            'documented', 'conflict', ['dnl_wolf', 'star_wolf', 'cht_wolf'])
+            'documented', 'conflict', ['dnl_wolf', 'star_wolf', 'cht_wolf', 'early_mum', 'early_hays', 'star_camp'])
     r['scenarios'].append(sc('A', 'A camp on Wolf\'s farm a mile and a half this side of the town; 8,000 strong with artillery', 'Bulletin special of Jun 27: Evening Star of Jun 27 p.2, Daily National Intelligencer of Jun 29 p.3 (page images), Weekly National Intelligencer of Jul 2', 'documented', ['dnl_wolf', 'star_wolf']))
     r['scenarios'].append(sc('B', 'A camp on Wolf\'s farm half a mile this side of the town; 8,000 strong with artillery', 'Bulletin special of Jun 27: Chicago Daily Tribune of Jun 29 p.1 (page image), Indiana State Sentinel of Jun 30, Burlington Weekly Hawk-Eye of Jul 4', 'documented', ['cht_wolf']))
     r.setdefault('searched', []).append(S5 + 'encamp, bivouac, camp, Wolf and Friday night with Gettysburg in the newspaper pages of Jun 26 - Jul 12: Wolf\'s farm (six printings, two distances); the militia prisoners\' lodging in the Court-house and the rain of the night are in none of the pages')
@@ -207,11 +217,13 @@ def apply(rows):
                           witness='Evening Star, Jun 29 1863 p.2: the head of an article that says a train of 150 wagons left Washington on the morning of Jun 28 and that twenty-eight wagons had been captured beyond Rockville that morning; the text layer reads IIIN\'DP.ED, FTf\'HT and Ml LES'),
         'dnl_178': cite('CA-sn83026172-1863-06-30-p3', 'dnl_178', 'We find, however, by last evening\'s city papers, that rumor in this case fell short of the truth, and that the number of wagons captured was one hundred and seventy-eight, and one thousand mules. The capture occurred about noon.', 'dnl_178',
                         witness='Daily National Intelligencer, Jun 30 1863: the paper had reduced the report of 150 to 120 in its issue of Jun 29; the text layer reads huinlrc\'1 and seeinly-ciaht'),
+        'star_150': cite('CA-sn83045462-1863-06-29-p2', 'star_150', 'a train, consisting of 150 wagons, each wagon drawn by six mules, left this city, having been ordered to join the army at Frederick, Maryland.', 'star_150',
+                         witness='Evening Star, Jun 29 1863 p.2: the account under the head of the 178 wagons; the train left between seven and eight o\'clock on the morning of Jun 28; the text layer reads Fred erick'),
         'star_1230': cite('CA-sn83045462-1863-06-29-p2', 'star_1230', 'at about half-past twelve o\'clock, and when the head of the train was within a short distance of the town it was met by two rebel cavalrymen', 'star_1230',
                           witness='Evening Star, Jun 29 1863 p.2: the account of the train'),
     })
     sub_add(r, 'Newspaper reports of Jun 29-30: a train of 150 wagons with six-mule teams left Washington on the morning of Jun 28 for Frederick; the Evening Star of Jun 29 heads its article "One hundred and seventy-eight wagons and over one thousand mules gobbled up" and the Daily National Intelligencer of Jun 30 says that the number of wagons captured was one hundred and seventy-eight, and one thousand mules, the capture about noon (the head of the train met two rebel cavalrymen at about half-past twelve, Evening Star)',
-            'documented', 'supported', ['star_178h', 'dnl_178', 'star_1230'])
+            'documented', 'supported', ['star_178h', 'dnl_178', 'star_1230', 'star_150'])
     r['scenarios'].append(sc('E', 'One hundred and seventy-eight wagons and about one thousand mules captured; the capture about noon (Evening Star, Daily National Intelligencer)',
                              'Evening Star of Jun 29 1863 p.2 (page image of the head) and Daily National Intelligencer of Jun 30 1863 p.3 (page image); against 125 to 150 in the Official Records, 140 and 175 in the Chicago and New-York Tribunes; no default', 'documented', ['star_178h', 'dnl_178']))
     r.setdefault('searched', []).append(S5 + 'Rockville, Capt. Page, Tenallytown and wagons in the newspaper pages of Jun 28 - Jul 5 (24 windows): a further count of 178 (two papers); the 120 of the Intelligencer of Jun 29 is its own reduction of a report of 150 and is not carried as a count')
@@ -227,9 +239,9 @@ def apply(rows):
                          witness='Worcester Daily Spy, Jul 3 1863: the same account; the text layer reads ta ken'),
     })
     sub_add(r, 'Hours in the press: about four o\'clock on Monday afternoon the Federal scouts reported a rebel force advancing on Westminster and about half an hour later the enemy was advancing in two directions (Baltimore American, Daily National Intelligencer Jul 1); General Stuart reached the town about 5 o\'clock and did not leave until daylight, the rebel party that fought the Delaware cavalry being his advance guard of about 300 (Worcester Daily Spy, Jul 3); against about 3.30 p.m. in Knight and about 5 p.m. in Stuart',
-            'documented', 'conflict', ['dnl_wm4', 'spy_wm5'])
-    sub_add(r, 'Losses in the press: our loss two privates killed and twenty-eight taken prisoners and the capture of Lieut. Bowman and the provost marshal with ten men; the rebels lost two lieutenants killed and fully a dozen wounded (Worcester Daily Spy, Jul 3), against the General Return (2 killed, 8 wounded, 39 captured or missing, 49 in all)',
-            'documented', 'conflict', ['spy_wm5', 'spy_loss'])
+            'documented', 'conflict', ['dnl_wm4', 'spy_wm5', 'knight_330', 'stuart5'])
+    sub_add(r, 'Losses in the press: our loss two privates killed and twenty-eight taken prisoners and the capture of Lieut. Bowman and the provost marshal with ten men; the rebels lost two lieutenants killed and fully a dozen wounded (Worcester Daily Spy, Jul 3), against the General Return (2 men killed, 8 wounded, 3 officers and 36 men captured or missing, 49 in all)',
+            'documented', 'conflict', ['spy_wm5', 'spy_loss', 'gr_westminster'])
     r['scenarios'].append(sc('A', 'Union loss 49: 2 men killed, 8 wounded, 3 officers and 36 men captured or missing (General Return of Casualties)', 'OR27-1 p.193', 'documented', ['gr_westminster']))
     r['scenarios'].append(sc('B', 'Union loss two privates killed and twenty-eight taken prisoners (30), with Lieut. Bowman and the provost marshal captured', 'Worcester Daily Spy of Jul 3 1863 p.1 (a prisoner of the rebels at Westminster)', 'documented', ['spy_wm5', 'spy_loss']))
     r.setdefault('searched', []).append(S5 + 'Westminster with Knight, Delaware, Stuart, charge and skirmish in the newspaper pages of Jun 29 - Jul 10 (10 new windows of 86): the hours and the losses above')
@@ -291,3 +303,46 @@ def apply(rows):
     r['scenarios'].append(sc('G', 'Confederate loss at Hanover as reported in the press of Jul 1-7: 400 killed, wounded and prisoners and six guns; or a battle-flag, a lieutenant colonel, a captain, 45 privates captured and 15 or 20 killed; or 35 killed admitted by Stuart',
                              'Evening Star of Jul 2 1863 p.1 (page images) and Richmond Whig of Jul 7 1863 p.2 (page image); against the casualty tables of the Official Records (scenarios A to F); no default', 'documented', ['ei_flag', 'ei_400', 'whig_35']))
     r.setdefault('searched', []).append(S5 + 'Hanover with killed, wounded, missing, captured and prisoners in the newspaper pages of Jun 30 - Jul 10: three press values for the Confederate loss; a Hanover-only figure of Stuart himself is in none of the pages')
+
+    # ------------------------------------------------------------------------------------------------------------------ T1-020
+    r = by['T1-020']
+    r['cites'].update({
+        'dnl_rail': cite('CA-sn83026172-1863-06-29-p3', 'dnl_rail', 'Harrisburg, June 27, 5 P. M.\u2014The rebel column, under Gen Early, which was at Gettysburg yesterday, reached the Northern Central railroad a few minutes after twelve to-day, at a point between York and Hanover Junction. The wires were cut,', 'dnl_rail',
+                         witness='Daily National Intelligencer, Jun 29 1863: a Harrisburg dispatch of Jun 27, 5 p.m.; the text layer reads HIARISNURG and Junc tion (the page image of the dateline line and of the hour line was viewed)'),
+        'cht_rail': cite('CA-sn84031490-1863-06-29-p1', 'cht_rail', 'Harrisburg, June 27\u20146 P. M.\u2014The rebel columns, under General Early, which were at Gettysburg yesterday, reached the Northern Central Railroad, about ten o\'clock to-day, at a point between York and Hanover Junction', 'cht_rail',
+                         witness='Chicago Daily Tribune, Jun 29 1863: the same dispatch with the dateline 6 p.m. and the hour ten; the text layer reads Habkbbceo, fi P. M. and TorkandHanovcr'),
+    })
+    sub_add(r, 'A Harrisburg dispatch of Jun 27 says that the rebel column under Early that was at Gettysburg yesterday reached the Northern Central railroad at a point between York and Hanover Junction a few minutes after twelve to-day (Daily National Intelligencer, Jun 29, dateline 5 p.m.) or about ten o\'clock to-day (Chicago Daily Tribune, Jun 29, dateline 6 p.m.) and that the wires were cut: a report of the Jun 27 march, naming Early\'s column where Early\'s report names White\'s cavalry (sub-claim 5), with an hour that differs between the printings. Carried with no default',
+            'documented', 'conflict', ['dnl_rail', 'cht_rail'])
+    r['scenarios'].append(sc('E', 'The column that was at Gettysburg on Jun 26 reaches the Northern Central railroad between York and Hanover Junction about noon of Jun 27 (a few minutes after twelve) and cuts the wires',
+                             'Harrisburg dispatch of Jun 27, 5 p.m., Daily National Intelligencer of Jun 29 p.3 (page image); the Chicago Daily Tribune of Jun 29 p.1 has about ten o\'clock (page image); no default', 'documented', ['dnl_rail']))
+    r['scenarios'].append(sc('F', 'The column that was at Gettysburg on Jun 26 reaches the Northern Central railroad between York and Hanover Junction about ten o\'clock of Jun 27 and cuts the wires',
+                             'Harrisburg dispatch of Jun 27, 6 p.m., Chicago Daily Tribune of Jun 29 p.1 (page image); against a few minutes after twelve in the Daily National Intelligencer; no default', 'documented', ['cht_rail']))
+    r.setdefault('searched', []).append(S5 + 'flagstaff, flagpole, liberty pole, cut down and chopped down with Gettysburg in the pages of Jun 26 - Jul 12 (17 windows, none about Gettysburg); Early, Gordon and the railroad on Jun 27: the Harrisburg dispatch above (eight printings)')
+
+    # ------------------------------------------------------------------------------------------------------------------ T1-032
+    r = by['T1-032']
+    r['cites']['dnl_york'] = cite('CA-sn83026172-1863-06-29-p3', 'dnl_york', 'Harrisburg, June 27 \u2014 The rebels occupied York at five o\'clock this evening. No resistance was made by our troops.', 'dnl_york',
+                                   witness='Daily National Intelligencer, Jun 29 1863: a Harrisburg dispatch of Jun 27 under the head York occupied by the enemy; the text layer reads at ) five and the first letters of five are cut by the crop edge of the page image')
+    sub_add(r, 'A Harrisburg dispatch of Jun 27 says that the rebels occupied York at five o\'clock that evening (Jun 27) and that no resistance was made by our troops: a day earlier than Early\'s report (Gordon in the morning of Jun 28) and Jacobs (Jun 28). Carried with no default',
+            'documented', 'conflict', ['dnl_york', 'early_28', 'jac_york'])
+    r['scenarios'].append(sc('C', 'The rebels occupy York at five o\'clock in the evening of Jun 27, without resistance (Harrisburg dispatch of Jun 27)',
+                             'Daily National Intelligencer of Jun 29 1863 p.3 (page image); against Gordon\'s entry in the morning of Jun 28 in Early\'s report and in Jacobs and the occupation on Jun 29 of the seed; no default', 'documented', ['dnl_york']))
+    r.setdefault('searched', []).append(S5 + 'York with occupied, entered and Early in the pages of Jun 27 - Jul 3: a dispatch of Jun 27 with the occupation at five o\'clock that evening')
+
+    # ------------------------------------------------------------------------------------------------------------------ register entries: competing values and remains
+    def competing(rid, more):
+        rg = by[rid].get('register')
+        if rg:
+            c = rg.get('competing') or '-'
+            rg['competing'] = more if c in ('-', '') else c + '; ' + more
+    competing('T1-010', 'about 40 taken (dispatch of Jun 27) against about 300 lost in prisoners and stragglers (dispatch of Jun 28); "seven or eight hundred" strong force against 150 to 200 cavalry')
+    competing('T1-012', 'also 126 (New York Herald), 100 arrived at Carlisle (Evening Star), about 300 lost in prisoners and stragglers (Evening Star)')
+    competing('T1-014', 'first entry at noon on Jun 25, cavalry fully 1,000 strong (Baltimore American of Jun 26) against about 15:00 on Jun 26 (Jacobs, Compiler, county history, Bulletin special); 13 or 16 freight cars (Bulletin special, two printings)')
+    competing('T1-015', '13 freight cars (Evening Star, Daily National Intelligencer) against 16 (Chicago Daily Tribune): printings of one dispatch of Jun 27; the cars of the Pennsylvania Central or of the Northern and Pennsylvania Central railroads')
+    competing('T1-017', 'camp on Wolf\'s farm a mile and a half this side of the town (Evening Star, Daily National Intelligencer) or half a mile (Chicago Daily Tribune) against Hays about a mile from the town and the rest near Mummasburg (Early)')
+    competing('T1-045', 'Buford takes possession and captures quite a number of rebels and drives a regiment of infantry out to the north-east (press of Jun 30) against the enemy within half a mile and pushed back toward Cashtown (Buford, Jacobs)')
+    competing('T1-046', 'a fight in the forenoon (Times special of Jun 30); all day until 7\u00bd p.m. (Captain McIrvin)')
+    competing('T1-051', 'press values of the Confederate loss: 400 and six guns / 45 privates and 15 or 20 killed / 35 killed admitted by Stuart')
+    r = by['T1-018']
+    r['remains'] = [x.replace('picket posts by name and place', 'picket posts by name and place other than the one near Oxford') if isinstance(x, str) else x for x in r['remains']]

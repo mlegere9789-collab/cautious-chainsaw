@@ -68,7 +68,7 @@ export const ASSERT = {
   card_shown:     { time: true, need: ['rows'], opt: ['tier'] },
   epilogue_shown: { time: true, need: ['rows'], opt: ['tier'] },
   place_known:    { time: false, need: ['place'], opt: ['on_ground'] },
-  not_queryable:  { time: false, need: ['words', 'capability'], opt: [] },     // a probe for a not_realized record whose row says something the harness has no assertion for (vegetation, sound, smoke, civilians ...): it always fails with assertion_unavailable
+  not_queryable:  { time: false, need: ['words', 'capability'], opt: [] },     // a probe for a not_realized record whose row says something the harness has no assertion for (sound, smoke and dust, civilians ...): it always fails with assertion_unavailable
 };
 export const UNIT_TYPES = Object.entries(ASSERT).filter(([, v]) => v.units).map(([k]) => k);
 export const MODES = ['any', 'all'];
@@ -96,7 +96,7 @@ const WEATHER_CONTENT = ['precip_kind_in', 'precip_intensity_min', 'precip_inten
 export const VEG_SHARES = ['cut', 'trample', 'lodging', 'leaf', 'strip', 'keep'];                 // the shares of a plot the picture draws: ground.cut, .trample, .lodging and trees.leaf, .strip, .keep (each from 0 to 1)
 export const VEG_HEIGHTS = ['height_ft_min', 'height_ft_max', 'height_m_min', 'height_m_max'];
 export const ANGLE_FIELDS = { sun_alt: [-90, 90], sun_az: [0, 360], moon_alt: [-90, 90], moon_az: [0, 360] };     // the sky assertions that name an angle a row prints, and the range an angle lies in
-export function vacuityProblems(a, T = {}) {
+export function vacuityProblems(a, T = {}, ACT = { names: ACTIVITY_NAMES, stage: STAGE_ACTIVITIES }) {
   const out = [], vac = d => out.push({ code: 'assert_vacuous', detail: d }), wide = d => out.push({ code: 'tolerance_wider_than_stated', detail: d }), isNum = x => typeof x === 'number' && Number.isFinite(x);
   const atLeast = (k, n, why) => { if (a[k] != null && !(isNum(a[k]) && a[k] >= n)) vac(`${k} ${JSON.stringify(a[k])} is satisfied by a product that shows ${why}: it proves nothing (the least that proves anything is ${n})`); };
   const floor = (k, stated) => { if (a[k] != null && stated != null && !(isNum(a[k]) && a[k] >= stated)) wide(`${k} ${JSON.stringify(a[k])} is below the stated floor of ${stated} (tolerances.json units): a record may ask for more, never for less`); };
@@ -123,7 +123,7 @@ export function vacuityProblems(a, T = {}) {
       if (a.tol_pct != null && U.figures && U.figures.tol_pct != null && !(isNum(a.tol_pct) && a.tol_pct <= U.figures.tol_pct)) wide(`tol_pct ${JSON.stringify(a.tol_pct)} is wider than the stated ${U.figures.tol_pct} per cent (tolerances.json units.figures): a record may ask for a smaller share, never a larger`);
       break;
     case 'unit_activity':
-      if (STAGE_ACTIVITIES.every(x => [].concat(a.activities || []).includes(x))) vac('lists every activity the stage gives a unit: any unit on the field satisfies it');
+      if (ACT.stage.every(x => [].concat(a.activities || []).includes(x))) vac('lists every activity the stage gives a unit: any unit on the field satisfies it');
       floor('min_minutes', (U.activity_floor || {}).min_minutes);
       break;
     case 'unit_moves': for (const k of ['min_minutes', 'min_displacement_m', 'min_closing_m']) floor(k, (U.moves_floor || {})[k]); break;
@@ -179,9 +179,10 @@ export function vacuityProblems(a, T = {}) {
 }
 
 // ---- static validation: everything that needs no product. Returns { problems: [{ code, detail }], span }.
-// ctx: { row (from timeline.mjs), tolerances }
+// ctx: { row (from timeline.mjs), tolerances, clock, activities }; `activities` ({ names, stage }: query.mjs activities()) are the activities the product's contract gives a unit today (a workstream that adds one, as the camp-life
+// module will, needs no change here); without it the static lists below are used
 export function validateRecord(rec, ctx) {
-  const P = [], add = (code, detail) => P.push({ code, detail }), row = ctx.row;
+  const P = [], add = (code, detail) => P.push({ code, detail }), row = ctx.row, ACT = ctx.activities || { names: ACTIVITY_NAMES, stage: STAGE_ACTIVITIES };
   if (!rec || typeof rec !== 'object' || Array.isArray(rec)) return { problems: [{ code: 'schema_not_object', detail: 'a record is one JSON object' }], span: null };
   if (rec.harness !== HARNESS) add('schema_harness', `"harness" must be "${HARNESS}" (found ${JSON.stringify(rec.harness)})`);
   if (rec.intended_kind != null && (!KINDS.includes(rec.intended_kind) || rec.intended_kind === 'not_realized')) add('schema_intended_kind', `intended_kind must be a kind other than not_realized (found ${JSON.stringify(rec.intended_kind)})`);
@@ -224,7 +225,7 @@ export function validateRecord(rec, ctx) {
     if (a.quantifier != null && !['all', 'any'].includes(a.quantifier)) add('assert_quantifier', `${at}: quantifier is "all" or "any"`);
     if (a.quantifier_quote != null && !hasQuote(row.claim_text, a.quantifier_quote)) add('quote_not_in_row', `${at}: quantifier_quote "${String(a.quantifier_quote).slice(0, 80)}" is not in the row text`);
     if (a.quantifier_quote != null && a.quantifier !== 'any') add('assert_field', `${at} (${a.type}): quantifier_quote belongs to a check with "quantifier": "any"`);
-    for (const p of vacuityProblems(a, ctx.tolerances || {})) add(p.code, `${at} (${a.type}): ${p.detail}`);
+    for (const p of vacuityProblems(a, ctx.tolerances || {}, ACT)) add(p.code, `${at} (${a.type}): ${p.detail}`);
     if (spec.time) {
       let s = null; try { s = parseSpan(a.t, null); } catch (e) { add('assert_time', `${at}: ${e.message}`); }
       if (s && span && (s.from < span.from || s.to > span.to)) add('assert_time_outside_window', `${at} (${a.type}): its time ${isoOf(s.from)}..${isoOf(s.to)} is outside the record window`);
@@ -235,7 +236,7 @@ export function validateRecord(rec, ctx) {
       if (a.words != null && !hasQuote(row.claim_text, a.words)) add('quote_not_in_row', `${at}: not_queryable words "${String(a.words).slice(0, 80)}" are not in the row text`);
       if (a.capability != null && !(typeof a.capability === 'string' && a.capability.trim().length >= 8)) add('assert_field', `${at} (not_queryable): "capability" says what the harness cannot ask the product (a sentence of at least 8 characters: "the vegetation layer: crop, height and leaf of a named plot")`);
     }
-    if (a.type === 'unit_activity') for (const x of [].concat(a.activities || [])) if (!ACTIVITY_NAMES.includes(x)) add('assert_activity', `${at}: unknown activity "${x}" (${ACTIVITY_NAMES.join(', ')})`);
+    if (a.type === 'unit_activity') for (const x of [].concat(a.activities || [])) if (!ACT.names.includes(x)) add('assert_activity', `${at}: unknown activity "${x}" (${ACT.names.join(', ')})`);
     if (a.quote != null && !hasQuote(row.claim_text, a.quote)) add('quote_not_in_row', `${at}: "${String(a.quote).slice(0, 80)}" is not in the row text`);
     const numIn = (q, n) => q != null && (String(q).replace(/(\d),(\d)/g, '$1$2').match(/\d+(?:\.\d+)?/g) || []).some(x => +x === +n);
     if (a.type === 'weather' && a.temp_f != null && !numIn(a.quote, a.temp_f)) add('number_not_in_quote', `${at}: temp_f ${a.temp_f} must come from a printed number: give "quote" with the row's words containing ${a.temp_f}`);

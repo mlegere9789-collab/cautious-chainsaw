@@ -1,9 +1,9 @@
 {
  "count": 41,
  "generated_from": "docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md section 7 (Threshold registry), by spec-a-evidence/gen_thresholds.py; never edited by hand",
+ "registry_rows_sha256": "41bc0d63d29b74428f316fc4ba7b8b6c8092c113ecd107195a7cf0d095612068",
  "rule": "A threshold with the status UNSET makes its gate INCOMPLETE; a value may be tightened by a recorded decision and never loosened without a recorded owner decision (1.8). A row whose value is null states its figure only in words (the adopted text).",
  "schema": "bt-thresholds/1",
- "section_7_sha256": "306c88a79fa0664ae75e50bab26eeff4b83d8f3b979fd2bdd473cbc0adde3609",
  "thresholds": [
   {
    "adopted": "at most 14 words",

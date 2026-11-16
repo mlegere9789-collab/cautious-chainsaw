@@ -310,7 +310,7 @@
  {
   "id": "schema-activity-names",
   "file": "tools/bt/realize/schema.mjs",
-  "find": "if (!ACTIVITY_NAMES.includes(x)) add('assert_activity'",
+  "find": "if (!ACT.names.includes(x)) add('assert_activity'",
   "replace": "if (false) add('assert_activity'",
   "rule": "an activity is one the product draws",
   "tests": [
@@ -1637,7 +1637,7 @@
  {
   "id": "schema-vac-activity-all",
   "file": "tools/bt/realize/schema.mjs",
-  "find": "if (STAGE_ACTIVITIES.every(x => [].concat(a.activities || []).includes(x))) vac(",
+  "find": "if (ACT.stage.every(x => [].concat(a.activities || []).includes(x))) vac(",
   "replace": "if (false) vac(",
   "rule": "assert_vacuous: an activity check that lists every activity the stage gives",
   "tests": [
@@ -3790,7 +3790,8 @@
   "rule": "the layer is asked only if the product loads it",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "vegetation layer is asked only"
  },
  {
   "id": "tol-veg-ft-to-m",
@@ -3809,6 +3810,39 @@
   "find": "\"height_tol_pct\": 10,",
   "replace": "\"height_tol_pct\": 60,",
   "rule": "the height margin is 10 per cent",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-activities-ctx",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "row = ctx.row, ACT = ctx.activities || { names: ACTIVITY_NAMES, stage: STAGE_ACTIVITIES };",
+  "replace": "row = ctx.row, ACT = { names: ACTIVITY_NAMES, stage: STAGE_ACTIVITIES };",
+  "rule": "validation takes the activities from the product's contract when it is given them",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-activities-ctx",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "clock: this.TL.clock, activities: this.P.activities() });",
+  "replace": "clock: this.TL.clock });",
+  "rule": "the runner asks the product's contract for the activities a record may name",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-activities-stage",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "const stage = Object.keys(this.contract.ACTIVITIES);",
+  "replace": "const stage = ['march', 'double_quick', 'halt', 'stand', 'rest', 'fire', 'serve_guns', 'gallop', 'build_works', 'camp'];",
+  "rule": "the stage's activities are the contract's table",
   "tests": [
    "rules",
    "main"

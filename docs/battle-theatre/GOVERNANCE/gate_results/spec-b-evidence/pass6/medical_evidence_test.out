@@ -1,1 +1,93 @@
 TAP version 13
+# Subtest: groups.json: 14 to 22 groups, ids of lowercase letters, digits and hyphens, every field the group passes need
+ok 1 - groups.json: 14 to 22 groups, ids of lowercase letters, digits and hyphens, every field the group passes need
+  ---
+  duration_ms: 1.408635
+  type: 'test'
+  ...
+# Subtest: sources.json: every source has a class the validator knows, an edition, rights, a file; a lead source is never documented evidence; planned files are marked as planned
+ok 2 - sources.json: every source has a class the validator knows, an edition, rights, a file; a lead source is never documented evidence; planned files are marked as planned
+  ---
+  duration_ms: 30.178999
+  type: 'test'
+  ...
+# Subtest: validate_evidence.py --self-test passes (88 checks on synthetic texts; nothing of the repository is read or written)
+ok 3 - validate_evidence.py --self-test passes (88 checks on synthetic texts; nothing of the repository is read or written)
+  ---
+  duration_ms: 2698.815326
+  type: 'test'
+  ...
+# Subtest: validate_evidence.py: --list-groups agrees with groups.json; a usage error, an unknown group and a missing group file exit 1
+ok 4 - validate_evidence.py: --list-groups agrees with groups.json; a usage error, an unknown group and a missing group file exit 1
+  ---
+  duration_ms: 2599.984156
+  type: 'test'
+  ...
+# Subtest: --check-sources: every local file of the registry and ledger has the recorded sha256 (NOT RUN when the texts are not in the checkout)
+ok 5 - --check-sources: every local file of the registry and ledger has the recorded sha256 (NOT RUN when the texts are not in the checkout)
+  ---
+  duration_ms: 2661.181396
+  type: 'test'
+  ...
+# Subtest: --all: every evidence row of every group file passes (NOT RUN when the texts are not in the checkout)
+not ok 6 - --all: every evidence row of every group file passes (NOT RUN when the texts are not in the checkout)
+  ---
+  duration_ms: 169679.290458
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/docs/battle-theatre/app/tests/medical-evidence.test.mjs:51:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    wounds-weapons: 293 rows, 0 failed
+    FAIL med.wounds-regions.409 (line 408)
+       E E013 the claim states 4, which the quote does not (state only the source's numbers, or use value_basis computed and tier inferred)
+    FAIL med.wounds-regions.412 (line 411)
+       E E013 the claim states 11, which the quote does not (state only the source's numbers, or use value_basis computed and tier inferred)
+    wounds-regions: 412 rows, 2 failed
+    wounds-limbs-joints: 201 rows, 0 failed
+    triage-first-aid: 3 rows, 0 failed
+    anaesthesia-analgesia: 2 rows, 0 failed
+    amputations: 4 rows, 0 failed
+    operations-excision-ligation: 1 rows, 0 failed
+    wound-care-splints: 1 rows, 0 failed
+    nursing-diet-ward: 4 rows, 0 failed
+    infection-complications: 1 rows, 0 failed
+    instruments-supplies: 2 rows, 0 failed
+    org-union-system: 12 rows, 0 failed
+    org-evacuation: 9 rows, 0 failed
+    org-aid-societies: 3 rows, 0 failed
+    org-confederate: 2 rows, 0 failed
+    sites-town: 2 rows, 0 failed
+    sites-west-north: 7 rows, 0 failed
+    sites-east-southeast: 4 rows, 0 failed
+    sites-south-southwest: 3 rows, 0 failed
+    camp-letterman: 4 rows, 0 failed
+    burial-practice: 3 rows, 0 failed
+    gettysburg-statistics: 8 rows, 0 failed
+    checked 981 rows in 22 group file(s): 2 failed
+    
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/docs/battle-theatre/app/tests/medical-evidence.test.mjs:53:48)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 5
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 178136.052941

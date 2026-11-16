@@ -71,6 +71,10 @@ WG.render = async function (spec) {
   P.anchor(cam, spec.plan);                                 // the stand-in plan is anchored at the camera and looks where it looks
   if (spec.aim) aimCamera(cam, P, spec.aim);               // optional: look at a point of the plan's frame (close views of one effect)
   const fi = FXON ? fxHost.instance() : null; if (fi) { fi.opts.drawWeather = spec.flags ? spec.flags.weather !== false : true; fi.opts.drawFx = spec.flags ? spec.flags.fx !== false : true; }
+  // The stand-in plan is a pure function of time only while its flags and its anchor stay as they are (in the shell the plan is the crowd's and does not change under the effects host). When a case changes them the effects
+  // replay from the case's time, as after a seek, so that a case gives the same state whatever case was drawn before it, also when the two share their minute (found 2026-11-16: the smoke case drew 163 sprites after the clouds case of
+  // the same minute and 6,379 after any other). A case that keeps flags and anchor (the purity repeats, a close view after its neighbour) continues the state as before.
+  const planKey = JSON.stringify(P.plan); if (fi && planKey !== WG.planKey) fi.prevT = null; WG.planKey = planKey;
   let info = null; if (FXON) { info = fxHost.update({ tMin, cam }); info = fxHost.update({ tMin, cam }); }
   const animT = 40 + (tMin * 60) % 7200, dev = R.dev || null;
   // the frame runs inside an animation frame, as in the shell
@@ -90,7 +94,8 @@ WG.render = async function (spec) {
     effects: info && { nEvents: info.effects.nEvents, nSprites: info.effects.nSprites, live: info.effects.liveEvents, fires: info.effects.fires, uncertain: info.effects.uncertainFires, text: info.effects.text },
     gpuStats: gpu ? { ...gpu.stats, ok: gpu.ok, weatherOk: gpu.weatherOk, fxOk: gpu.fxOk, failed: gpu.failed } : null, glStats: gl ? { ...gl.stats, ok: gl.ok, weatherOk: gl.weatherOk, fxOk: gl.fxOk } : null, hostLog: info ? info.log.slice(0, 6) : [] };
 };
-WG.diag = () => { const fi = FXON ? fxHost.instance() : null; return { api: WG.host && WG.host.api, hostLog: WG.host ? WG.host.log : [], flags0: WG.flags0, flags: WG.host ? { ...WG.host.R.o.flags } : null, fxLog: fi ? fi.log : null,
+WG.diag = async () => { const dv = WG.host && WG.host.R && WG.host.R.dev; if (dv) { try { await dv.queue.onSubmittedWorkDone(); } catch { /* the device is gone */ } }          // a round trip first: an uncaptured error that is still on its way has been dispatched when the lists are read
+  const fi = FXON ? fxHost.instance() : null; return { api: WG.host && WG.host.api, hostLog: WG.host ? WG.host.log : [], flags0: WG.flags0, flags: WG.host ? { ...WG.host.R.o.flags } : null, fxLog: fi ? fi.log : null,
   gpu: fi && fi.gpu ? { ok: fi.gpu.ok, weatherOk: fi.gpu.weatherOk, fxOk: fi.gpu.fxOk, failed: fi.gpu.failed, log: fi.gpu.log, warnings: fi.gpu.warnings, bytes: fi.gpu.bytes, timing: !!fi.gpu.timing } : null, gl: fi && fi.gl ? { ok: fi.gl.ok, log: fi.gl.log } : null,
   adapter: WG.host && WG.host.info, gpuErrors: window.__gpuErrors || [], wgsl: window.__wgslMessages || [], modules: window.__gpuLabels || [] }; };
 WG.checkCompute = async () => {               // the optional GPU-cull compute shader of fx3d (WGSL_COMPUTE): is it valid WGSL, and does a pipeline build with the device's limits?
@@ -143,7 +148,8 @@ WG.capture = async function (spec) {
   if (!gpu || !gpu.ok) throw new Error('the WebGPU layer did not build'); if (!(R.hdr.usage & GPUTextureUsage.COPY_SRC) || !(R.depth.usage & GPUTextureUsage.COPY_SRC)) throw new Error('open the page with ?capture=1');
   const smp = env.sample(tMin, sample), wx = env.weatherAt(tMin, WG.choices), lt = env.light(smp, { nightFloor: 0.34 }, wx, light); host.setLight(lt.sunDir, lt.exposure);
   placeCamera(cam, spec, { T, geo: WG.geo, smp, line: L }); P.anchor(cam, spec.plan); if (spec.aim) aimCamera(cam, P, spec.aim);
-  fi.opts.drawWeather = true; fi.opts.drawFx = true; let info = fxHost.update({ tMin, cam }); info = fxHost.update({ tMin, cam });
+  fi.opts.drawWeather = true; fi.opts.drawFx = true; const planKey = JSON.stringify(P.plan); if (planKey !== WG.planKey) fi.prevT = null; WG.planKey = planKey;           // as in WG.render: a changed plan replays
+  let info = fxHost.update({ tMin, cam }); info = fxHost.update({ tMin, cam });
   const d = R.dev, w = R.W, h = R.H, pad = n => Math.ceil(n / 256) * 256, bprH = pad(w * 8), bprD = pad(w * 4), animT = 40 + (tMin * 60) % 7200;
   const mk = (n, size) => d.createBuffer({ label: 'capture ' + n, size, usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ }), bPre = mk('pre', bprH * h), bPost = mk('post', bprH * h), bDep = mk('depth', bprD * h); let inp = null;
   const orig = gpu.draw;

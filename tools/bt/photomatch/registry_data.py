@@ -89,7 +89,7 @@ R = {
  '2018670874': ('STG', 'a body near Devil\'s Den (NPS Then-And-Now Devil\'s Den no. 5: the sharpshooter at the likely place of death, a gun and hat by his head; Gardner no. 263)'),
  '2018670882': ('NEAR', 'a pile of brush and stones with a bright sky strip (breast works on the extreme left)'),
  '2018670894': ('POS', 'the Trostle barn with dead horses in front; NPS Then-And-Now Trostle no. 2 (the cannonball hole in the brick gable); no side or distance is given'),
- '2018670908': ('POS', 'bodies gathered for burial with a lone tree and a wagon (July 5); no place beyond the Rose woods area'),
+ '2018670908': ('POS', "bodies gathered for burial with a lone tree and a wagon (July 5); the negative sleeve caption, which repeats Gardner's own title no. 268 of September 1863, names only 'near the Emmitsburg Road' (statements PS-LOC-2018670908-N and PS-GARDNER-CAT-268): no spot and no direction, and the Library's bracketed title and date come from Frassanito"),
  '2018670943': ('NEAR', 'a dead soldier on a slope with grass'),
  '2018671576': ('POSE', ''),
  '2018671578': ('STG', 'a body among rocks (stereo pair)'),

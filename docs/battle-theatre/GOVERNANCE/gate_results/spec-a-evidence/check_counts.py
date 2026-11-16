@@ -310,6 +310,8 @@ soft('11.9 result files of the runners (%d of 28 gates have one) as the spec sta
 _tests = {}
 for _f2 in sorted(glob.glob(os.path.join(ROOT, 'tests', 'governance', 'gates', 'test_q*.py'))):
     _tests[os.path.basename(_f2)] = len(re.findall(r'(?m)^\s*def test_', open(_f2, encoding='utf-8').read()))
+_no_res = [g for g in ('Q03', 'Q04', 'Q05', 'Q06') if os.path.exists(os.path.join(GOV, 'gate_results', g + '.json'))]
+soft('11.9 no result file for Q03 to Q06 yet (the spec says so; found: %s)' % (', '.join(_no_res) or 'none'), not _no_res and has(r'runners are written for 4 more \(Q03 to Q06, no result file yet'), str(_no_res))
 soft('11.9 counts of test functions of the runners: %s' % ', '.join('%s %d' % (k[5:-3], v) for k, v in _tests.items()),
      all(has(r'`%s` \(%d\)' % (re.escape(k), v)) for k, v in _tests.items()), str(_tests))
 _cf = os.path.join(GOV, 'conflicts')

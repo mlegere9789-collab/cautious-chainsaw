@@ -51,7 +51,7 @@ export class Runner {
   }
   async _runRecord(rec, { source = null } = {}) {
     const row = this.TL.byId.get(rec && rec.id), res = { id: rec && rec.id, kind: rec && rec.kind, source, realized: false, codes: [], problems: [], assertions: [], bindings: { units: [], places: [], structures: [], plots: [], quantifiers: [], declared: 0 }, scenarios: [], why: null };
-    const v = validateRecord(rec, { row, tolerances: this.tol, clock: this.TL.clock }); res.problems.push(...v.problems);
+    const v = validateRecord(rec, { row, tolerances: this.tol, clock: this.TL.clock, activities: this.P.activities() }); res.problems.push(...v.problems);
     if (!row || !v.span) { res.codes = uniq(res.problems.map(p => p.code)); res.why = res.problems.map(p => p.detail).slice(0, 3).join(' | '); return res; }
     res.window = { from: isoOf(v.span.from), to: isoOf(v.span.to) };
     try { await this._bindings(rec, row, res); } catch (e) { res.problems.push({ code: 'binding_error', detail: String(e && e.stack || e).slice(0, 300) }); }

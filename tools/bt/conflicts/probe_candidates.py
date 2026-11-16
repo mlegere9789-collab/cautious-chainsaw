@@ -57,6 +57,8 @@ def score(c, d):
 
 
 def probe(c):
+    if c.get('ident'):
+        return probe_ident(c, c['ident'])
     q = 'title:(%s) AND mediatype:texts' % ' '.join(sorted(toks(c['title']))[:6])
     cr = sorted(toks(c['creator']))
     if cr and 'congress' not in cr and 'society' not in cr:
@@ -80,7 +82,7 @@ def probe(c):
     best = docs[0]
     res['identifier'] = best['identifier']
     res['found_title'] = best.get('title')
-    res['found_date'] = str(best.get('date') or '')[:4]
+    res['found_date'] = (re.search(r'\d{4}', str(best.get('date') or '')) or [''])[0] if re.search(r'\d{4}', str(best.get('date') or '')) else ''
     res['alt'] = [d['identifier'] for d in docs[1:4]]
     body, err = get('https://archive.org/metadata/' + best['identifier'])
     if err:
@@ -103,6 +105,31 @@ def probe(c):
     res['score'] = round(sc, 1)
     res['notes'] = ('planned; archive.org item %s (%s, %s) answered the metadata API on %s; text file %s, %d bytes; the match is by title and date only: verify the edition and the volume before use'
                     % (best['identifier'], (best.get('title') or '')[:70], res['found_date'], L.today(), res['text_file'] or 'none', res['text_bytes']))
+    return res
+
+
+def probe_ident(c, ident):
+    res = {'key': c['key'], 'query': 'identifier ' + ident, 'status': None, 'notes': '', 'identifier': ident}
+    body, err = get('https://archive.org/metadata/' + ident)
+    if err:
+        res['status'] = 'blocked' if '403' in err or '407' in err else 'failed'
+        res['notes'] = 'metadata of %s: %s' % (ident, err)
+        return res
+    try:
+        m = json.loads(body)
+    except Exception:
+        res['status'], res['notes'] = 'failed', 'metadata unreadable'
+        return res
+    files = m.get('files') or []
+    djvu = [f for f in files if f.get('name', '').endswith('_djvu.txt')]
+    md = m.get('metadata') or {}
+    res['found_title'] = md.get('title')
+    res['found_date'] = re.search(r'\d{4}', str(md.get('date') or md.get('year') or '')).group(0) if re.search(r'\d{4}', str(md.get('date') or md.get('year') or '')) else ''
+    res['text_file'] = djvu[0]['name'] if djvu else None
+    res['text_bytes'] = int(djvu[0].get('size') or 0) if djvu else 0
+    res['status'] = 'reachable' if djvu else 'no_text_file'
+    res['notes'] = ('planned; archive.org item %s (%s, catalogued %s, volume %s) answered the metadata API on %s; text file %s, %d bytes; the identifier was found by a search on %s and the edition and volume must be verified before use'
+                    % (ident, (md.get('title') or '')[:70], res['found_date'], md.get('volume') or '-', L.today(), res['text_file'] or 'none', res['text_bytes'], L.today()))
     return res
 
 

@@ -1,0 +1,83 @@
+{
+ "set": "H3",
+ "args": [
+  "--enable-unsafe-webgpu",
+  "--enable-unsafe-swiftshader",
+  "--ignore-gpu-blocklist",
+  "--use-angle=swiftshader",
+  "--use-webgpu-adapter=swiftshader"
+ ],
+ "display": ":99",
+ "started": "2026-11-16T02:58:22.880Z",
+ "launched": true,
+ "probe": {
+  "done": true,
+  "lost": "destroyed: Device was destroyed.",
+  "errors": [],
+  "steps": [
+   "presented 30 frames"
+  ],
+  "adapter": {
+   "vendor": "google",
+   "architecture": "swiftshader",
+   "description": ""
+  },
+  "fmt": "rgba8unorm",
+  "drawImagePixel": [
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ "afterPresentS": 6,
+ "xscreen": {
+  "w": 1280,
+  "h": 720,
+  "sampled": 460800,
+  "orangeSamples": 0,
+  "min": [
+   0,
+   0,
+   0
+  ],
+  "max": [
+   255,
+   255,
+   255
+  ],
+  "mean": [
+   15.02,
+   15.41,
+   16.04
+  ]
+ },
+ "pageShot": {
+  "bytes": 1449,
+  "w": 640,
+  "h": 360,
+  "sampled": 230400,
+  "orangeSamples": 0,
+  "min": [
+   0,
+   0,
+   0
+  ],
+  "max": [
+   0,
+   0,
+   0
+  ],
+  "mean": [
+   0,
+   0,
+   0
+  ]
+ },
+ "afterShot": {
+  "lost": "destroyed: Device was destroyed.",
+  "errors": []
+ },
+ "console": [],
+ "wallS": 11.2
+}

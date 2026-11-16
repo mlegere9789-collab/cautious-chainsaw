@@ -59,6 +59,14 @@ export const CHROME_ARGS = ['--enable-unsafe-webgpu', '--enable-features=Vulkan,
 // check on the wrong machine, or with the software flags above, can never pass as a real-GPU result.
 export const REAL_GPU_ARGS = ['--enable-unsafe-webgpu', '--ignore-gpu-blocklist', ...(process.platform === 'linux' ? ['--enable-features=Vulkan'] : [])];
 export const chromeArgs = realGpu => (realGpu ? REAL_GPU_ARGS : CHROME_ARGS);
+// The REAL canvas of a WebGPU page on a machine without a GPU (found 2026-11-16, results/weather3d-webgpu/xvfb-probe, set H5): headed Chrome under a virtual X server (xvfb-run -a -s "-screen 0 1280x720x24" node ...) with
+// SwiftShader as the Vulkan driver and no Vulkan surface. The device stays alive, drawImage of the canvas, page.screenshot and an X screen capture all show what the page drew. Four other headed flag sets and all the headless ones
+// lose the device and show black. Software only: it is not a real-GPU result. --xvfb-canvas of the drivers means: these flags, headed, the real canvas, and the compositor-picture check (--canvas-shot).
+export const XVFB_CANVAS_ARGS = ['--use-vulkan=swiftshader', '--disable-vulkan-surface'];
+export function expandXvfbCanvas(a) {
+  if (!a.includes('--xvfb-canvas')) return a; const have = f => a.includes(f);
+  return [...a, ...['--headed', '--real-canvas', '--canvas-shot'].filter(f => !have(f)), ...XVFB_CANVAS_ARGS.filter(f => !have('--chrome-arg=' + f)).map(f => '--chrome-arg=' + f)];
+}
 export const SOFTWARE_ADAPTER_RE = /swiftshader|llvmpipe|lavapipe|softpipe|software|basic render|microsoft basic/i;
 // What a recorded adapter says about the machine, for the run checker and the one-command real-GPU run. The records are the prototype's `adapterInfo`: WebGPU { vendor, arch, device, desc } (an empty {} when the browser
 // gives no adapter.info), WebGL2 { vendor: 'webgl2', arch: <renderer>, renderer } with the renderer 'unknown' when the browser hides it (no WEBGL_debug_renderer_info). A record NAMES hardware only when at least one

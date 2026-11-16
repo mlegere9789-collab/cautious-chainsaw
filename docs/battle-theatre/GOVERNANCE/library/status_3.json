@@ -65,7 +65,7 @@
    "id": "PM-NARA-CATALOG",
    "task": "photomatch",
    "status": "blocked",
-   "reason": "reachable, but a plain request to any address of the catalog (and to its api/v2 path) returns the same 5 KB single-page-application shell, not data; the catalog API needs a key (an account, an owner act); a browser read was not made. No NARA description of a Gettysburg photograph was read"
+   "reason": "reachable, but a plain request to any address of the catalog (and to its api/v2 path) returns the same 5 KB single-page-application shell, not data; the catalog API needs a key (an account, an owner act); a browser read was not made. No NARA description of a Gettysburg photograph was read Checked ag"
   },
   {
    "id": "PM-LOC-NOT-DIGITIZED",
@@ -76,8 +76,8 @@
   {
    "id": "PM-GARDNER-SKETCHBOOK-LOC",
    "task": "photomatch",
-   "status": "unusable",
-   "reason": "the Library item holds the album pages as images (1024 px copies and 100 MB master TIFFs) without a text layer; at 1024 px the letterpress is too small for OCR and the masters were not fetched; the plate captions that LOC transcribed into its picture records are used (plates 35 and 39)"
+   "status": "ingested",
+   "reason": "resolved 2026-11-16: the Library item holds the album pages as images only, but the 100 MB master scans of the letterpress pages of the Gettysburg plates (album pages 77 to 95) are legible to OCR; they were fetched one at a time, read, and deleted (sha256 kept); plate 35 says 'This view is taken fro"
   },
   {
    "id": "PM-GUTENBERG-SKETCHBOOK",
@@ -89,7 +89,43 @@
    "id": "PM-NPS-TN-EXIF-GPS",
    "task": "photomatch",
    "status": "unusable",
-   "reason": "searched 2026-11-15: 47 saved NPS Then-And-Now pictures, 25 carry an EXIF block, none a GPS block: no coordinate"
+   "reason": "2026-11-15: the EXIF of the 47 saved JPEG files was read: 25 carry an EXIF block (Canon EOS 60D or 80D, 2016 to 2018, focal lengths 18 to 35 mm of the modern lens), none carries a GPS block: no coordinate there; the modern focal length is not the lens of the 1863 exposure"
+  },
+  {
+   "id": "PM-GARDNER-SB1-LETTERPRESS",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "10 letterpress pages of plates 35 to 44 read by machine from master scans (sha256 per scan and per text) and by eye; one page (plate 35) states where the camera stood"
+  },
+  {
+   "id": "PM-GARDNER-CATALOGUE-1863",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "40 scan pages of OCR text; titles, numbers and credits of the Gettysburg stereo views; no camera position beyond the words of the titles"
+  },
+  {
+   "id": "PM-LOC-ESSAYS-CAMERA-LIE",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "two essays read; staged flag of the sharpshooter series supported in the Library words (analysis attributed to Frassanito: lead for details)"
+  },
+  {
+   "id": "PM-LOC-RECORDS-REREAD-20261116",
+   "task": "photomatch",
+   "status": "ingested",
+   "reason": "191 of 191 records fetched again, none changed; 37 have a place or direction cue; 13 statements added"
+  },
+  {
+   "id": "PM-NPS-OTHER-HOSTS",
+   "task": "photomatch",
+   "status": "blocked",
+   "reason": "the egress proxy refuses the connection (connection reset with no HTTP answer) on 2026-11-16: not allowed for this session; the park museum catalogue (GETT 41135, the Historic Photograph Collection) therefore could not be read; not worked around; the owner step stays: ask the park"
+  },
+  {
+   "id": "PM-ARCHIVES-GOV",
+   "task": "photomatch",
+   "status": "blocked",
+   "reason": "the egress proxy refuses the connection on 2026-11-16; the NPS Then-And-Now pages and the Library essay carry the same statement in readable official words"
   }
  ]
 }

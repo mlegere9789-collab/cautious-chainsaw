@@ -204,14 +204,14 @@ test('rule: the weather and the sky are what the weather pass draws (checks.mjs 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 test('rule: a row the harness has no assertion for is recorded not_realized with a not_queryable probe; a realized record cannot carry one (schema.mjs not_queryable; checks.mjs _assert; DD-RZ-17)', async () => {
-  const text = 'Wheatfield wheat standing, golden-straw, about 3.5-4.5 ft; woodlots in full summer leaf'; A('Z-001', text, '1863-07-02T00:00', '1863-07-02T12:00', 'Jul 2 morning');
-  const cap = 'the vegetation layer: crop, stage and leaf of a named plot', probe = (extra = {}, check = {}, kind = 'not_realized') => rec('Z-001', kind, '1863-07-02T00:00', '1863-07-02T12:00', 'Wheatfield wheat standing', {}, [{ type: 'not_queryable', words: 'woodlots in full summer leaf', capability: cap, ...check }], { intended_kind: 'structure_state', missing: [{ code: 'assertion_unavailable', detail: 'the harness has no assertion that asks the vegetation layer for a plot', builder: 'harness' }], ...extra });
+  const text = 'Smoke from the batteries hangs over the field in the still air; dust rises from the Emmitsburg Road'; A('Z-001', text, '1863-07-02T00:00', '1863-07-02T12:00', 'Jul 2 morning');
+  const cap = 'the effects layer: the smoke and dust over the field at a minute', probe = (extra = {}, check = {}, kind = 'not_realized') => rec('Z-001', kind, '1863-07-02T00:00', '1863-07-02T12:00', 'Smoke from the batteries hangs over the field', {}, [{ type: 'not_queryable', words: 'dust rises from the Emmitsburg Road', capability: cap, ...check }], { intended_kind: 'weather_sky', missing: [{ code: 'assertion_unavailable', detail: 'the harness has no assertion that asks the vegetation layer for a plot', builder: 'harness' }], ...extra });
   const ok = await run(probe()); assert.equal(ok.realized, false); assert.deepEqual(ok.problems, [], JSON.stringify(ok.problems)); assert.equal(ok.missing.verified, true, 'the probe fails with the declared code'); assert.equal(ok.missing.stale, false); assert.ok(codesOf(ok).has('assertion_unavailable'));
-  assert.match(ok.assertions[0].detail, /the harness has no assertion for: the vegetation layer/); assert.match(ok.assertions[0].detail, /woodlots in full summer leaf/);
+  assert.match(ok.assertions[0].detail, /the harness has no assertion for: the effects layer/); assert.match(ok.assertions[0].detail, /dust rises from the Emmitsburg Road/);
   const other = await run(probe({ missing: [{ code: 'structure_unknown', detail: 'a code the probe does not give', builder: 'x' }] })); assert.equal(other.missing.verified, false); assert.deepEqual(other.missing.unverified, ['structure_unknown']);
   // a realized record is made of checks that can hold: a probe that always fails does not belong in it
-  const real = rec('Z-001', 'weather_sky', '1863-07-02T00:00', '1863-07-02T12:00', 'Wheatfield wheat standing', {}, [{ type: 'weather', t: { at: '1863-07-02T07:00' }, cloud_min: 0.8 }, { type: 'not_queryable', words: 'woodlots in full summer leaf', capability: cap }]); await mustFail(real, 'not_queryable_in_realized', 'a realized record that carries a probe that cannot hold');
-  await mustFail(probe({}, { words: 'woodlots in autumn colour' }), 'quote_not_in_row', 'the words are the row’s own'); await mustFail(probe({}, { capability: 'sound' }), 'assert_field', 'a capability is said in a sentence'); const nocap = probe(); delete nocap.checks[0].capability; await mustFail(nocap, 'assert_field', 'a probe says what the harness cannot ask');
+  const real = rec('Z-001', 'weather_sky', '1863-07-02T00:00', '1863-07-02T12:00', 'Smoke from the batteries hangs over the field', {}, [{ type: 'weather', t: { at: '1863-07-02T07:00' }, cloud_min: 0.8 }, { type: 'not_queryable', words: 'dust rises from the Emmitsburg Road', capability: cap }]); await mustFail(real, 'not_queryable_in_realized', 'a realized record that carries a probe that cannot hold');
+  await mustFail(probe({}, { words: 'dust rises from the Hanover Road' }), 'quote_not_in_row', 'the words are the row’s own'); await mustFail(probe({}, { capability: 'sound' }), 'assert_field', 'a capability is said in a sentence'); const nocap = probe(); delete nocap.checks[0].capability; await mustFail(nocap, 'assert_field', 'a probe says what the harness cannot ask');
   await mustFail(probe({}, { stage_min: 3 }), 'assert_unknown_field', 'no other field belongs to the probe');
 });
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -479,6 +479,20 @@ test('rule: casualty, gun, figure and activity assertions that every product sat
   await mustPass(act({ activities: ['stand'], min_minutes: 30 }));
   await vacuous(act({ activities: STAGE_ACTIVITIES }), 'every activity the stage gives a unit: any unit on the field does one of them');
   await mustPass(act({ activities: [...STAGE_ACTIVITIES].reverse().slice(1) }), 'all but one activity can still fail (a unit that does the one left out), so it is not refused');
+});
+test('rule: the activities a record may name are those the product\'s contract gives a unit today, not a list copied into the harness (query.mjs activities; schema.mjs validateRecord ACT; checks.mjs _runRecord)', async () => {
+  const act = P.activities(); assert.deepEqual(act.stage, Object.keys(P.contract.ACTIVITIES), 'the stage\'s activities are the contract\'s'); assert.ok(act.names.includes('halt_mounted') && act.names.includes('skirmish'), 'and the picture adds two');
+  assert.deepEqual([...STAGE_ACTIVITIES].sort(), [...act.stage].sort(), 'the static fallback of the harness is the contract\'s list today (a workstream that adds an activity changes the product, not this test: the runner reads the contract)');
+  A('AC-001', 'Meredith’s brigade rests in camp on the morning of Jul 1', '1863-07-01T08:00', '1863-07-01T09:00');
+  const mk = acts => rec('AC-001', 'unit_activity', '1863-07-01T08:00', '1863-07-01T09:00', 'Meredith’s brigade rests in camp', { units: ['us-1c-1d-meredith'] }, [{ type: 'unit_activity', units: ['us-1c-1d-meredith'], activities: acts }], { place_unspecified: 'the row names no place at all' });
+  const v = (acts, activities) => validateRecord(mk(acts), { row: TL.byId.get('AC-001'), tolerances: P.tolerances, clock: TL.clock, ...(activities ? { activities } : {}) }).problems.map(p => p.code);
+  assert.ok(v(['zzz_dance']).includes('assert_activity'), 'an activity nobody gives is refused');
+  const more = { names: [...act.names, 'zzz_dance'], stage: [...act.stage, 'zzz_dance'] };
+  assert.ok(!v(['zzz_dance'], more).includes('assert_activity'), 'an activity the product gives is accepted');
+  assert.ok(v(act.stage).includes('assert_vacuous') && !v(act.stage, more).includes('assert_vacuous'), 'a list of every activity the stage gives is vacuous only while it is every one: when the product adds one it is no longer every');
+  P.contract.ACTIVITIES.zzz_dance = { foot: 0, mounted: 0 };
+  try { const res = await run(mk(['zzz_dance'])); assert.ok(!codesOf(res).has('assert_activity'), 'the runner asks the contract: an activity added to it is a name the record may use'); } finally { delete P.contract.ACTIVITIES.zzz_dance; }
+  assert.ok((await run(mk(['zzz_dance']))).problems.some(p => p.code === 'assert_activity'), 'and refuses it again when the contract no longer has it');
 });
 test('rule: structure, work, weather and sky assertions that every product satisfies are refused (schema.mjs vacuityProblems, checks.mjs _falsifiable)', async () => {
   const t = TL.byId.get('T3-049'), [a, b] = t.window.intervals[0], to = isoOf(b), from = isoOf(Math.max(a, b - 30));

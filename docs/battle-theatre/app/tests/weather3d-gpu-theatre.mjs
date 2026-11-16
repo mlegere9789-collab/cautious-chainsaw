@@ -11,18 +11,20 @@ import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
 import { serve } from '../tools/serve.mjs';
 import { ALL_CASES, REAL_CASES, specOf } from './weather3d-gpu-cases.mjs';
 import { minOf as MO } from '../src/clock.mjs';
-import { encodePng, stats, chromeArgs, HOOKS } from './weather3d-gpu-lib.mjs';
+import { encodePng, stats, chromeArgs, HOOKS, expandXvfbCanvas, decodePng, diffStats } from './weather3d-gpu-lib.mjs';
+if (args.includes('--xvfb-canvas') && !process.env.DISPLAY) { console.error('--xvfb-canvas needs a display: run it as   xvfb-run -a -s "-screen 0 1280x720x24" node ' + process.argv[1] + ' ...'); process.exit(2); }
+const EXTRA_CHROME_ARGS = args.filter(a => a.startsWith('--chrome-arg=')).map(a => a.slice('--chrome-arg='.length));          // --chrome-arg=--flag (repeatable): more Chrome flags
 
-const args = process.argv.slice(2), flag = (k, d) => { const a = args.find(x => x.startsWith('--' + k + '=')); return a ? a.split('=')[1] : d; };
+const args = expandXvfbCanvas(process.argv.slice(2)), flag = (k, d) => { const a = args.find(x => x.startsWith('--' + k + '=')); return a ? a.split('=')[1] : d; };
 const pos = args.filter(a => !a.startsWith('--')), outRoot = path.resolve(pos[0] || '.'), api = pos[1] === 'webgl2' ? 'webgl2' : 'webgpu', only = (pos[2] || '').split(',').filter(Boolean);
-const W = +flag('w', 640), H = +flag('h', 360), TRACE = args.includes('--trace'), EXTRA = flag('q', ''), ENTRY_MS = +flag('entry-timeout', 1200) * 1000, REAL = args.includes('--real'), REALGPU = args.includes('--real-gpu'), out = path.join(outRoot, (REAL ? 'theatre-real-' : 'theatre-') + api); fs.mkdirSync(out, { recursive: true });
+const W = +flag('w', 640), H = +flag('h', 360), TRACE = args.includes('--trace'), EXTRA = flag('q', ''), ENTRY_MS = +flag('entry-timeout', 1200) * 1000, REAL = args.includes('--real'), REALGPU = args.includes('--real-gpu'), CANVAS_SHOT = !args.includes('--no-screenshot') && (args.includes('--canvas-shot') || REALGPU || args.includes('--real-canvas')), out = path.join(outRoot, (REAL ? 'theatre-real-' : 'theatre-') + api); fs.mkdirSync(out, { recursive: true });
 const DEFAULT = ['stars-jun28-0200', 'moon-jul3-2330', 'day-clouds-jul3-1400', 'wet-ground-jul4-1400', 'smoke-jul3-1400', 'smoke-night-jul2-2200', 'fire-sherfy-jul3-1500', 'dust-march-jul2-1100'];
 const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).toFixed(0).padStart(5) + 's', ...a);
 const srv = await serve(0), port = srv.address().port, url = `http://127.0.0.1:${port}/app/index.html?history=${REAL ? 'real' : 'stub'}&api=${api}&nearR=12&midR=60${EXTRA ? '&' + EXTRA : ''}`;
 const summary = { api, url, w: W, h: H, realGpu: REALGPU, started: new Date().toISOString(), cases: {}, errors: [] }, save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
 const logs = []; let browser;
 try {
-  browser = await chromium.launch({ channel: 'chrome', headless: !args.includes('--headed'), args: chromeArgs(REALGPU) });
+  summary.chromeArgs = [...chromeArgs(REALGPU), ...EXTRA_CHROME_ARGS]; summary.headed = args.includes('--headed'); browser = await chromium.launch({ channel: 'chrome', headless: !args.includes('--headed'), args: summary.chromeArgs });
   const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas') || REALGPU, trace: TRACE }); ctx.setDefaultTimeout(0);
   const page = await ctx.newPage(); page.on('console', m => { logs.push(m.type() + ': ' + m.text()); if (TRACE) say('  console', m.type(), m.text().slice(0, 200)); }); page.on('pageerror', e => logs.push('pageerror: ' + e.message)); page.on('crash', () => logs.push('PAGE CRASH')); page.on('response', r => { if (r.status() >= 400) logs.push('http ' + r.status() + ' ' + r.url()); });
   say('open', url); await page.goto(url, { waitUntil: 'load', timeout: 300000 });
@@ -60,8 +62,14 @@ try {
         gpuStats: gpu ? { ...gpu.stats, failed: gpu.failed } : null, glStats: gl ? { ...gl.stats } : null, flags: { ...th.host.R.o.flags }, t: th.state.t, census: spec.view === 'unit' ? window.__census : undefined, cam: { x: th.cam.x, y: th.cam.y, z: th.cam.z, yaw: th.cam.yaw, pitch: th.cam.pitch } };
     }, spec);
     const px = Buffer.from(r.px, 'base64'); delete r.px; const u8 = new Uint8Array(px.buffer, px.byteOffset, px.length), s = stats(r.w, r.h, u8);
-    fs.writeFileSync(path.join(out, c.name + '.rgba'), u8); fs.writeFileSync(path.join(out, c.name + '.png'), encodePng(r.w, r.h, u8)); r.pixels = s; r.what = c.what; r.wallMs = Date.now() - t0; fs.writeFileSync(path.join(out, c.name + '.json'), JSON.stringify(r, null, 1));
-    summary.cases[c.name] = { pixels: s, effects: r.effects && { nEvents: r.effects.nEvents, nSprites: r.effects.nSprites }, gpuStats: r.gpuStats, glStats: r.glStats, flags: r.flags, wallMs: r.wallMs };
+    fs.writeFileSync(path.join(out, c.name + '.rgba'), u8); fs.writeFileSync(path.join(out, c.name + '.png'), encodePng(r.w, r.h, u8)); r.pixels = s; r.what = c.what;
+    if (CANVAS_SHOT) {                       // the compositor's picture of the page (only the canvas is visible: the harness hides the rest) against the read-back of the same frame, kept as <case>-canvas.png
+      const t1 = Date.now(); try { await page.evaluate(() => new Promise(r2 => requestAnimationFrame(() => requestAnimationFrame(r2)))); const buf = await page.screenshot({ timeout: 25000 }); fs.writeFileSync(path.join(out, c.name + '-canvas.png'), buf); const img = decodePng(buf);
+        r.canvasShot = img.w === r.w && img.h === r.h ? { ...diffStats(u8, img.data, r.w, r.h), ms: Date.now() - t1 } : { error: `the screenshot is ${img.w} x ${img.h}, the read-back ${r.w} x ${r.h}`, ms: Date.now() - t1 };
+      } catch (e) { r.canvasShot = { error: String(e.message).split('\n')[0].slice(0, 200), ms: Date.now() - t1 }; }
+    }
+    r.wallMs = Date.now() - t0; fs.writeFileSync(path.join(out, c.name + '.json'), JSON.stringify(r, null, 1));
+    summary.cases[c.name] = { pixels: s, effects: r.effects && { nEvents: r.effects.nEvents, nSprites: r.effects.nSprites }, gpuStats: r.gpuStats, glStats: r.glStats, flags: r.flags, wallMs: r.wallMs, ...(r.canvasShot ? { canvasShot: r.canvasShot } : {}) };
     say(c.name.padEnd(26), 'mean', s.all.mean, 'min', s.all.min, 'black', s.all.blackShare, 'sprites', r.effects && r.effects.nSprites, r.gpuStats ? `gpu w${r.gpuStats.weatherDraws} f${r.gpuStats.fxDraws} failed=${r.gpuStats.failed}` : r.glStats ? `gl w${r.glStats.weatherDraws} f${r.glStats.fxDraws}` : ''); save();
   }
   // negative controls (tests/weather3d-gpu-negctl.mjs): errors made on purpose, to show that the error scope, the compiler messages and the uncaptured-error hook of THIS run see errors (WebGPU; --no-negctl leaves them out)

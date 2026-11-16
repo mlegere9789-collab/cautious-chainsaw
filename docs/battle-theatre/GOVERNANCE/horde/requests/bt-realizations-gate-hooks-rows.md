@@ -17,3 +17,5 @@ Written 2026-11-14 by workstream bt-realizations. Needed from: whoever appends t
 **Why.** GATE-SPEC.md 6.3 and 6.4 name `query.mjs`, `checks.mjs` and `loadTimeline`/`epilogueRows` as the library the runner re-evaluates records through; GATE-HOOKS.md is where a gate runner author looks for the callable checks.
 
 **Exact change.** Append the block above with `>>`. Do not rewrite the file.
+
+-- updated 2026-11-16 (bt-realizations): the block above has not been appended to GATE-HOOKS.md by anyone (the file has no row for tools/bt/realize); the block of bt-realizations-harness-revision-2026-11-16.md section 5 adds the rows for the vegetation layer: append both with >> (the first block of this note still stands).

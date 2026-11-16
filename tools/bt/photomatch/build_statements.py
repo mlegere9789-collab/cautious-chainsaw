@@ -42,6 +42,24 @@ def source(sid):
         p = os.path.join(WEB, fn + '.txt'); m = man_entry(url); t = open(p, encoding='utf-8').read()
         sources[sid] = {'id': sid, 'kind': 'National Park Service web page (official body; text of the saved page)', 'title': norm(t.split('\n')[0])[:200], 'url': url, 'local_text': os.path.relpath(p, ROOT), 'sha256_text': sha(p),
                         'retrieved': (m or {}).get('retrieved'), 'rights': 'United States government work', 'pages': {'page': t}}
+    elif sid.startswith('GARDNER-SB1-P'):
+        # Gardner's Photographic Sketch Book of the War, volume 1 (Library of Congress copy): the letterpress page read by machine from the master scan (sketch_master_ocr.py)
+        pg = int(sid[len('GARDNER-SB1-P'):]); sbm = json.load(open(os.path.join(ROOT, 'tmp', 'library', 'web', 'photomatch', 'sketchbook_v1', 'manifest.json')))['pages']['%05d' % pg]; p = os.path.join(ROOT, sbm['ocr_text'])
+        sources[sid] = {'id': sid, 'kind': "Gardner's Photographic Sketch Book of the War, volume 1 (1865-66): letterpress page of the Library of Congress digitized album (read by machine from the master scan; the photographer's own printed text)",
+                        'title': "Gardner's Photographic Sketch Book of the War, volume 1, album page %d (Library of Congress ppmsca.12834)" % pg, 'url': 'https://www.loc.gov/resource/ppmsca.12834/?sp=%d' % pg, 'local_text': os.path.relpath(p, ROOT), 'sha256_text': sha(p),
+                        'retrieved': sbm['retrieved_utc'][:10], 'rights': 'public domain (published 1865-66; the Library does not own rights to the work)', 'master_scan_url': sbm['url'], 'master_scan_sha256': sbm['master_sha256'], 'master_scan_bytes': sbm['master_bytes'],
+                        'ocr_note': 'tesseract (' + sbm['tesseract'] + ') on the text block at half master size; OCR errors exist (gothic titles, the binding edge); a quote is used only where the OCR text contains it letter for letter', 'pages': {pg: open(p, encoding='utf-8').read()}}
+    elif sid == 'GARDNER-CAT-1863':
+        p = os.path.join(ROOT, 'tmp', 'library', 'web', 'photomatch', 'gardner_catalogue1863', 'catalogue_fulltext.txt'); t = open(p, encoding='utf-8').read(); parts = re.split(r'=== PAGE (\d+) ===', t); pgs = {int(parts[i]): parts[i + 1] for i in range(1, len(parts), 2)}
+        sources[sid] = {'id': sid, 'kind': "Gardner's 'Catalogue of Photographic Incidents of the War' (September 1863), Library of Congress digitized copy (OCR text of the scan pages as served by the Library)", 'title': 'Catalogue of photographic incidents of the war, from the gallery of Alexander Gardner, photographer to the Army of the Potomac, September 1863',
+                        'url': 'https://www.loc.gov/item/18003926/', 'local_text': os.path.relpath(p, ROOT), 'sha256_text': sha(p), 'retrieved': time.strftime('%Y-%m-%d', time.gmtime(os.path.getmtime(p))), 'rights': 'public domain (published 1863)',
+                        'ocr_note': 'the OCR of this 1863 pamphlet is rough (ditto marks, dotted leaders); a quote is used only where the text contains it letter for letter; page numbers are the scan sequence numbers of the Library item gdcmassbookdig.catalogueofphoto00gard', 'pages': pgs}
+    elif sid.startswith('LOCESSAY-'):
+        nm = {'LOCESSAY-CONFUSED-IDENTITY': ('loc_essay_confused_identity.txt', 'The Case of Confused Identity (Does the Camera Ever Lie?), Civil War Glass Negatives and Related Prints, Library of Congress', 'https://www.loc.gov/collections/civil-war-glass-negatives/articles-and-essays/does-the-camera-ever-lie/the-case-of-confused-identity/'),
+              'LOCESSAY-MOVED-BODY': ('loc_essay_moved_body.txt', 'The Case of the Moved Body (Does the Camera Ever Lie?), Civil War Glass Negatives and Related Prints, Library of Congress', 'https://www.loc.gov/collections/civil-war-glass-negatives/articles-and-essays/does-the-camera-ever-lie/the-case-of-the-moved-body/')}[sid]
+        p = os.path.join(ROOT, 'tmp', 'library', 'web', 'photomatch', 'www.loc.gov', nm[0]); t = open(p, encoding='utf-8').read()
+        sources[sid] = {'id': sid, 'kind': 'Library of Congress web page (official body; the open JSON of the page, markup removed); the page says its analysis is based on the work of William Frassanito: every place or relation taken from it is a lead', 'title': nm[1], 'url': nm[2], 'local_text': os.path.relpath(p, ROOT),
+                        'sha256_text': sha(p), 'retrieved': time.strftime('%Y-%m-%d', time.gmtime(os.path.getmtime(p))), 'rights': 'Library of Congress web publication; read only, quoted briefly', 'pages': {'page': t}}
     else:
         base = os.path.join(NPS, sid); p = os.path.join(base, sid + '.txt'); pl = os.path.join(base, sid + '.layout.txt'); man = json.load(open(os.path.join(NPS, 'MANIFEST.json')))['items'].get(sid, {})
         pages = {}; t = open(p, encoding='utf-8', errors='replace').read(); parts = re.split(r'=== PAGE (\d+) ===', t)
@@ -83,7 +101,7 @@ def main():
             e = dict(st); e['quote'] = ' '.join(frags) if isinstance(st['quote'], list) else st['quote']
             if isinstance(st['quote'], list): e['quote_fragments'] = found; e['quote_note'] = 'two-column page: the caption lines are interleaved with the other column in the saved text; each fragment is verbatim and found in order'
             else: e.update(found[0]); e.pop('fragment', None)
-            e['page'] = found[0]['page'] if src['id'].startswith('NPS-') else ('record' if src['id'].startswith('LOC-') else 'page')
+            e['page'] = found[0]['page'] if src['id'].startswith(('NPS-', 'GARDNER-')) else ('record' if src['id'].startswith('LOC-') else 'page')
             e['tier'] = st.get('tier', 'documented'); e['coordinates_published'] = False
             e['source'] = {k: v for k, v in src.items() if k not in ('pages', 'layout_pages')}
             out.append(e)
@@ -100,12 +118,12 @@ def main():
         if 'quote_fragments' in e: c['quote_fragments'] = [f['fragment'] for f in e['quote_fragments']]; c['offset'] = e['quote_fragments'][0]['offset_in_normalised_page']
         else: c['offset'] = e.get('offset_in_normalised_page'); c['match'] = e.get('match')
         return c
-    groups = {'R12.032': [e for e in out if e['source']['id'].startswith(('LOC-', 'NPS-'))], 'R12.035': [e for e in out if e['source']['id'].startswith('NPSWEB-')]}
+    groups = {'R12.032': [e for e in out if e['source']['id'].startswith(('LOC-', 'NPS-', 'GARDNER-', 'LOCESSAY-'))], 'R12.035': [e for e in out if e['source']['id'].startswith('NPSWEB-')]}
     lines = []
     for rid, es in groups.items():
         sub = [{'sub_claim': e['says'], 'tier': e['tier'], 'precision': e['prec'], 'about_loc_records': e.get('loc') or e.get('cand') or [], 'identity_basis': e.get('ident'), 'citation': cite(e), 'note': e.get('note')} for e in es]
         lines.append({'id': rid, 'shard': 'web-photomatch', 'verdict': 'partially_supported',
-                      'corrected_claim': ('Gardner, O\'Sullivan, Gibson and Brady photographs of July 1863 (Library of Congress records and National Park Service publications): camera positions are stated in words only (place, viewing direction, reference objects); no source read gives a coordinate, a lens or a surveyed station. For one exposure (the view of Gettysburg from the Evergreen Cemetery lodge) the National Park Service names the camera place as the roof of the lodge, a building of known outline; for about thirty more photographs the Record of Treatment prints a direction of view and, for some, a named place (Rose Barn, McPherson Farm, Evergreen Cemetery Gatehouse, East Cemetery Hill, Little Round Top).' if rid == 'R12.032' else
+                      'corrected_claim': ('Gardner, O\'Sullivan, Gibson and Brady photographs of July 1863 (Library of Congress records, National Park Service publications and the photographer\'s own printed text, Gardner\'s Sketch Book of 1865-66 and his catalogue of September 1863): camera positions are stated in words only (place, viewing direction, reference objects); no source read gives a coordinate, a lens or a surveyed station. For one exposure (the view of Gettysburg from the Evergreen Cemetery lodge) the National Park Service names the camera place as the roof of the lodge, a building of known outline, and Gardner\'s own letterpress for plate 35 says that the view is taken from Cemetery Ridge with Seminary Ridge on the left of the picture; for about thirty more photographs the Record of Treatment prints a direction of view and, for some, a named place (Rose Barn, McPherson Farm, Evergreen Cemetery Gatehouse, East Cemetery Hill, Little Round Top).' if rid == 'R12.032' else
                                           'NPS Then-And-Now pages: the modern pictures were taken from the same location as the originals (stated); the pages give view directions and reference objects in words, no coordinates.'),
                       'subclaims': sub, 'unsupported': ['camera coordinates of any 1863 tripod position', 'focal length / plate size of any exposure', 'the 1863 trees, rocks and crops needed to compare near fields'],
                       'status_note': 'The position of a camera is therefore recoverable only by photo-match (PDF B.9.2 step 7); Q16 stays not passing.'})

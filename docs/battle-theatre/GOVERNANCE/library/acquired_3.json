@@ -1492,7 +1492,7 @@
    "pointer_sha256": {
     "catalogue.json": "9e151d843f0c53e495798ccf92342ca69f7a9d8008fc90e399b4fef3f2e7acfb",
     "catalogue_additions.json": "75563d435f8c480687716a4a7e2f7bcb819850dbcdfdf5dc88f8c58545ad08ed",
-    "catalogue_wide_items.json": "3cb21f4037de6fbaff984d7a37404a100e81fd1a07f8a21abf4fb10ce7fbcb90"
+    "catalogue_wide_items.json": "c758462f15d916b5ff2b10e568d4aa27c709e46c06ff567ff7d3003db2dc65b0"
    },
    "file_kept": true,
    "rights_basis": "LOC: no known restrictions on publication"
@@ -1557,7 +1557,7 @@
    "pointer_sha256": {
     "wide_images_ledger.json": "70130d6ea259d74f5958557b5730711466c8ee6fa5e14fb7db161c9dc6df02a1",
     "catalogue_wide.json": "0ba848598b6d4a4f28cab7f86bd362044d51339174882721a85cb837361e33c1",
-    "catalogue_wide_items.json": "3cb21f4037de6fbaff984d7a37404a100e81fd1a07f8a21abf4fb10ce7fbcb90"
+    "catalogue_wide_items.json": "c758462f15d916b5ff2b10e568d4aa27c709e46c06ff567ff7d3003db2dc65b0"
    },
    "file_kept": true,
    "rights_basis": "LOC: no known restrictions on publication, or an empty rights field on a 19th-century print (public domain by age: an inference)"
@@ -5422,6 +5422,130 @@
    "rights_basis": "United States government work",
    "rights_note": null,
    "text_quality": "web page text (tags stripped)"
+  },
+  {
+   "id": "NPSGOV-ART-CAMP-COLT",
+   "task": "nps-landscape",
+   "title": "Camp Colt: Gettysburg's Tank Training Camp (U.S. National Park Service)",
+   "creator": "National Park Service",
+   "date": "web page, undated unless noted; as served 2026-11-16",
+   "url": "https://www.nps.gov/articles/000/camp-colt.htm",
+   "bytes": 35517,
+   "sha256": "1bfcba0be950930eb7167ab75966391a16286ef2abcf7d09d36f5c3ae4483256",
+   "fetched_at": "2026-11-16T02:57:29Z",
+   "pages": 1,
+   "pages_with_text": 1,
+   "local_path": "tmp/library/web/nps/pages/NPSGOV-ART-CAMP-COLT/NPSGOV-ART-CAMP-COLT.txt",
+   "text_bytes": 4593,
+   "text_sha256": "b4d05b1a74095eea67fb45944b8016643ed7f0bd303f7f0e7de972d7edd1ed59",
+   "file_kept": true,
+   "rights_basis": "United States government work",
+   "rights_note": null,
+   "text_quality": "web page text (tags stripped)"
+  },
+  {
+   "id": "NPSGOV-ART-CITIZENSHIP-AT-CAMP-COLT",
+   "task": "nps-landscape",
+   "title": "Citizenship at Camp Colt (U.S. National Park Service)",
+   "creator": "National Park Service",
+   "date": "web page, undated unless noted; as served 2026-11-16",
+   "url": "https://www.nps.gov/articles/000/citizenship-at-camp-colt.htm",
+   "bytes": 45499,
+   "sha256": "13fadb6cfe691b80c6395d55d7884fd86d113731158b8853675349ec71cb87a8",
+   "fetched_at": "2026-11-16T02:57:32Z",
+   "pages": 1,
+   "pages_with_text": 1,
+   "local_path": "tmp/library/web/nps/pages/NPSGOV-ART-CITIZENSHIP-AT-CAMP-COLT/NPSGOV-ART-CITIZENSHIP-AT-CAMP-COLT.txt",
+   "text_bytes": 13854,
+   "text_sha256": "168225bdb3eb267b4e882d75e032846eeebde744835b61e70803c86764955474",
+   "file_kept": true,
+   "rights_basis": "United States government work",
+   "rights_note": null,
+   "text_quality": "web page text (tags stripped)"
+  },
+  {
+   "id": "NPSGOV-ART-THE-ARMYS-FIRST-TANK-SCHOOL-CAMP-COLT-AT-GETTYSBURG",
+   "task": "nps-landscape",
+   "title": "The Army's First Tank School: Camp Colt at Gettysburg (U.S. National Park Service)",
+   "creator": "National Park Service",
+   "date": "web page, undated unless noted; as served 2026-11-16",
+   "url": "https://www.nps.gov/articles/the-armys-first-tank-school-camp-colt-at-gettysburg.htm",
+   "bytes": 46831,
+   "sha256": "c127561189580d79596d6d02f7365728fef7c8618d7d3e61528a5326d7f0a689",
+   "fetched_at": "2026-11-16T02:57:34Z",
+   "pages": 1,
+   "pages_with_text": 1,
+   "local_path": "tmp/library/web/nps/pages/NPSGOV-ART-THE-ARMYS-FIRST-TANK-SCHOOL-CAMP-COLT-AT-GETTYSBURG/NPSGOV-ART-THE-ARMYS-FIRST-TANK-SCHOOL-CAMP-COLT-AT-GETTYSBURG.txt",
+   "text_bytes": 10007,
+   "text_sha256": "cd9a05eeeafb8c6bcab7179530b0743fd5929c27b8e32b1f55fa754051f7153a",
+   "file_kept": true,
+   "rights_basis": "United States government work",
+   "rights_note": null,
+   "text_quality": "web page text (tags stripped)"
+  },
+  {
+   "id": "PM-GARDNER-SB1-LETTERPRESS",
+   "task": "photomatch",
+   "title": "Gardner's Photographic Sketch Book of the War, volume 1 (1865-66), Library of Congress copy ppmsca.12834: the letterpress pages of the ten Gettysburg plates (35 to 44), 10 album pages read by machine from the master scans (tesseract) and by eye",
+   "creator": "Alexander Gardner (Library of Congress digitized album)",
+   "date": "1865-66",
+   "url": "https://www.loc.gov/resource/ppmsca.12834/ (master scans https://tile.loc.gov/storage-services/master/pnp/ppmsca/12800/12834/<page>u.tif, 100 MB each)",
+   "fetched_at": "2026-11-16",
+   "files": 10,
+   "bytes": 1008342586,
+   "local_path": "tmp/library/web/photomatch/sketchbook_v1/ (OCR text and the cut-out of each page; the master TIFFs were deleted after reading, their sha256 is in manifest.json)",
+   "pointer": "tools/bt/photomatch/sketchbook_concordance.json and tmp/library/web/photomatch/sketchbook_v1/manifest.json (sha256 of every master scan and of every OCR text)",
+   "pointer_sha256": "bba047f46ff4d038a85961a54334effd4f10a641f87270bbb950d1f9f91fd4b7",
+   "file_kept": true,
+   "rights_basis": "public domain (published 1865-66); the Library does not own rights to the work",
+   "note": "the master TIFFs are not kept (file_kept applies to the text); a statement quotes the OCR text only where it contains the quote letter for letter"
+  },
+  {
+   "id": "PM-GARDNER-CATALOGUE-1863",
+   "task": "photomatch",
+   "title": "Catalogue of photographic incidents of the war, from the gallery of Alexander Gardner (September 1863), Library of Congress copy: OCR text of the 40 scan pages as served by the Library's text service",
+   "creator": "Alexander Gardner",
+   "date": "1863-09",
+   "url": "https://www.loc.gov/item/18003926/ (text service tile.loc.gov/text-services/word-coordinates-service, one request per page)",
+   "fetched_at": "2026-11-16",
+   "files": 40,
+   "local_path": "tmp/library/web/photomatch/gardner_catalogue1863/",
+   "pointer": "tools/bt/photomatch/position_statements.json (source GARDNER-CAT-1863)",
+   "pointer_sha256": "6f04c25c57bdc8fd15ecffd6eb7a6459347c59ade11b56412f56a2243b1156f8",
+   "file_kept": true,
+   "rights_basis": "public domain (published 1863)"
+  },
+  {
+   "id": "PM-LOC-ESSAYS-CAMERA-LIE",
+   "task": "photomatch",
+   "title": "Library of Congress essays 'The Case of the Moved Body' and 'The Case of Confused Identity' (Does the Camera Ever Lie?, Civil War Glass Negatives and Related Prints): the open JSON of the two pages and their text; the essays say their analysis rests on Frassanito's work: every place or relation taken from them is a lead",
+   "creator": "Library of Congress, Prints and Photographs Division",
+   "url": "https://www.loc.gov/collections/civil-war-glass-negatives/articles-and-essays/does-the-camera-ever-lie/ (JSON of the pages: ?fo=json; the HTML pages answer 403 to this client and were not retried)",
+   "fetched_at": "2026-11-16",
+   "files": 2,
+   "bytes": 531984,
+   "local_path": "tmp/library/web/photomatch/www.loc.gov/",
+   "pointer": "tmp/library/web/photomatch/manifest.jsonl",
+   "pointer_sha256": {
+    "loc_essay_moved_body.json": "e2caf71228d106b5f57100fef4ffa91bd2d7d831a29a479c5b3edd116995e5d4",
+    "collections_civil-war-glass-negatives_articles-and-essays_does-the-camera-ever-lie_the-case-of-confused-identity__fo_jso": "5a1922728be83e09c30d35c550d305c207e7e8e483895b6aae334715ad4436c5"
+   },
+   "file_kept": true,
+   "rights_basis": "Library of Congress web publication; read only, quoted briefly"
+  },
+  {
+   "id": "PM-LOC-RECORDS-REREAD-20261116",
+   "task": "photomatch",
+   "title": "Library of Congress catalogue records (open JSON) of all 191 registered photographs, read again on 2026-11-16: 191 fetched, 0 failed, 0 changed since the first reading, 37 with a sentence that names a place or direction of view",
+   "creator": "Library of Congress",
+   "url": "https://www.loc.gov/pictures/item/<id>/?fo=json",
+   "fetched_at": "2026-11-16",
+   "files": 191,
+   "local_path": "tmp/library/web/photomatch/fourth/loc_items/",
+   "pointer": "tools/bt/photomatch/loc_reread_20261116.json (sha256 of each record)",
+   "pointer_sha256": "21b761a15de2b6db09b86c91922d0f6ee7313dd0917f93edbac873c729ca5267",
+   "file_kept": true,
+   "rights_basis": "LOC: no known restrictions on publication"
   }
  ],
  "blocked_or_failed": [
@@ -5458,7 +5582,7 @@
    "task": "photomatch",
    "url": "https://catalog.archives.gov/",
    "status": "blocked",
-   "reason": "reachable, but a plain request to any address of the catalog (and to its api/v2 path) returns the same 5 KB single-page-application shell, not data; the catalog API needs a key (an account, an owner act); a browser read was not made. No NARA description of a Gettysburg photograph was read"
+   "reason": "reachable, but a plain request to any address of the catalog (and to its api/v2 path) returns the same 5 KB single-page-application shell, not data; the catalog API needs a key (an account, an owner act); a browser read was not made. No NARA description of a Gettysburg photograph was read Checked again 2026-11-16: a plain request to api/v2/records/search without a key still returns the same 5 KB shell (http 200, html)."
   },
   {
    "id": "PM-LOC-NOT-DIGITIZED",
@@ -5471,8 +5595,8 @@
    "id": "PM-GARDNER-SKETCHBOOK-LOC",
    "task": "photomatch",
    "url": "https://www.loc.gov/item/01021785/ (Gardner's photographic sketch book of the war, 1865)",
-   "status": "images only",
-   "reason": "the Library item holds the album pages as images (1024 px copies and 100 MB master TIFFs) without a text layer; at 1024 px the letterpress is too small for OCR and the masters were not fetched; the plate captions that LOC transcribed into its picture records are used (plates 35 and 39)"
+   "status": "found",
+   "reason": "resolved 2026-11-16: the Library item holds the album pages as images only, but the 100 MB master scans of the letterpress pages of the Gettysburg plates (album pages 77 to 95) are legible to OCR; they were fetched one at a time, read, and deleted (sha256 kept); plate 35 says 'This view is taken from Cemetery Ridge' and 'on the left of the picture can be seen Seminary Ridge'"
   },
   {
    "id": "PM-GUTENBERG-SKETCHBOOK",
@@ -5494,6 +5618,20 @@
    "id": "NPSGOV-NEWS-GETTYSBURG-FOUNDATION-BUYS-SPANGLER-FARM",
    "reason": "curl: (56) CONNECT tunnel failed, response 403",
    "at": "2026-11-16T02:38:42Z"
+  },
+  {
+   "id": "PM-NPS-OTHER-HOSTS",
+   "task": "photomatch",
+   "url": "https://museum.nps.gov/, https://npgallery.nps.gov/, https://irma.nps.gov/, https://pubs.nps.gov/",
+   "status": "blocked",
+   "reason": "the egress proxy refuses the connection (connection reset with no HTTP answer) on 2026-11-16: not allowed for this session; the park museum catalogue (GETT 41135, the Historic Photograph Collection) therefore could not be read; not worked around; the owner step stays: ask the park"
+  },
+  {
+   "id": "PM-ARCHIVES-GOV",
+   "task": "photomatch",
+   "url": "https://www.archives.gov/publications/prologue (the NARA Prologue blog that the plan cites for the staged sharpshooter photograph)",
+   "status": "blocked",
+   "reason": "the egress proxy refuses the connection on 2026-11-16; the NPS Then-And-Now pages and the Library essay carry the same statement in readable official words"
   }
  ]
 }

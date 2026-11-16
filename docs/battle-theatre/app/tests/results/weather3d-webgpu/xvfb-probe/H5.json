@@ -1,0 +1,86 @@
+{
+ "set": "H5",
+ "args": [
+  "--enable-unsafe-webgpu",
+  "--enable-features=Vulkan,WebGPUService",
+  "--ignore-gpu-blocklist",
+  "--use-vulkan=swiftshader",
+  "--disable-vulkan-surface",
+  "--use-gl=angle",
+  "--use-angle=swiftshader",
+  "--enable-unsafe-swiftshader"
+ ],
+ "display": ":99",
+ "started": "2026-11-16T02:59:07.337Z",
+ "launched": true,
+ "probe": {
+  "done": true,
+  "lost": null,
+  "errors": [],
+  "steps": [
+   "presented 30 frames"
+  ],
+  "adapter": {
+   "vendor": "google",
+   "architecture": "swiftshader",
+   "description": ""
+  },
+  "fmt": "rgba8unorm",
+  "drawImagePixel": [
+   255,
+   128,
+   0,
+   255
+  ]
+ },
+ "afterPresentS": 5.4,
+ "xscreen": {
+  "w": 1280,
+  "h": 720,
+  "sampled": 460800,
+  "orangeSamples": 8192,
+  "min": [
+   0,
+   0,
+   0
+  ],
+  "max": [
+   255,
+   255,
+   255
+  ],
+  "mean": [
+   19.56,
+   17.69,
+   16.05
+  ]
+ },
+ "pageShot": {
+  "bytes": 1503,
+  "w": 640,
+  "h": 360,
+  "sampled": 230400,
+  "orangeSamples": 16384,
+  "min": [
+   0,
+   0,
+   0
+  ],
+  "max": [
+   255,
+   128,
+   0
+  ],
+  "mean": [
+   18.13,
+   9.1,
+   0
+  ]
+ },
+ "afterShot": {
+  "lost": null,
+  "errors": []
+ },
+ "console": [],
+ "wallS": 10.9
+}

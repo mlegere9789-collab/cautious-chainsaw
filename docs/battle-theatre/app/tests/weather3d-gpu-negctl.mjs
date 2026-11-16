@@ -17,8 +17,8 @@ export function stripMarked(w = globalThis) {
   return { gpuErrors: cut(w.__gpuErrors, x => String(x).includes(MARK)), wgslMessages: cut(w.__wgslMessages, x => x && String(x.label || '').startsWith(MARK)), modules: cut(w.__gpuLabels, x => String(x).startsWith(MARK)) };
 }
 
-// the four controls of one device. d: the GPUDevice the harness reports on. w: the page's global object (window), where the harness hook keeps its lists. timeoutMs bounds the wait for the uncaptured-error event.
-export async function deviceControls(d, { w = globalThis, timeoutMs = 4000, U = globalThis.GPUBufferUsage } = {}) {
+// the controls of one device. d: the GPUDevice the harness reports on. w: the page's global object (window), where the harness hook keeps its lists. timeoutMs bounds the wait for the uncaptured-error event after the round trip.
+export async function deviceControls(d, { w = globalThis, timeoutMs = 15000, U = globalThis.GPUBufferUsage } = {}) {
   const out = {};
   // (1) the error scope: a buffer with no usage is invalid and must come back from the scope; a valid buffer must not
   d.pushErrorScope('validation'); d.createBuffer({ label: MARK + ' (scoped, invalid)', size: 16, usage: 0 }); const e1 = await d.popErrorScope();
@@ -29,8 +29,10 @@ export async function deviceControls(d, { w = globalThis, timeoutMs = 4000, U = 
   const em = (info.messages || []).find(x => x.type === 'error');
   out.wgsl = { errorMessageSeen: !!em, message: short(em && em.message), line: em ? em.lineNum : null, scopeCaught: !!e3, hookRecorded: (w.__wgslMessages || []).some(x => x && x.label === badLabel && x.type === 'error'), hookLabelled: (w.__gpuLabels || []).some(x => String(x).startsWith(badLabel)) };
   // (3) an error made with no scope arrives as an uncapturederror event (the harness hook listens from the device's creation and records it; this listener only waits for it)
+  // Chrome delivers an uncaptured error when the GPU process answers, not when the call is made: found 2026-11-16, the event of a call with no later GPU command arrived tens of seconds late and was recorded by the hook after the
+  // control had given up. So the control makes a round trip to the GPU process (queue.onSubmittedWorkDone) after the invalid call: the error is returned before the answer to it, so the event has been dispatched by then.
   const evt = new Promise(res => { let t = null; const h = ev => { clearTimeout(t); d.removeEventListener('uncapturederror', h); res(short(ev && ev.error)); }; d.addEventListener('uncapturederror', h); t = setTimeout(() => { d.removeEventListener('uncapturederror', h); res(null); }, timeoutMs); });
-  d.createBuffer({ label: MARK + ' (unscoped, invalid)', size: 16, usage: 0 }); const ev = await evt; await new Promise(r => setTimeout(r, 50));
+  d.createBuffer({ label: MARK + ' (unscoped, invalid)', size: 16, usage: 0 }); if (d.queue && d.queue.onSubmittedWorkDone) await d.queue.onSubmittedWorkDone(); const ev = await evt; await new Promise(r => setTimeout(r, 50));
   out.uncaptured = { eventSeen: ev !== null, message: ev, hookRecorded: (w.__gpuErrors || []).some(x => String(x).includes(MARK + ' (unscoped, invalid)')) };
   // (4) the asynchronous pipeline: refused with a missing entry point, built with the right one (a refusal that also happened for a good pipeline would prove nothing)
   const good = d.createShaderModule({ label: MARK + ' (valid wgsl)', code: WGSL_OK }), pd = ep => ({ label: MARK + ' pipeline', layout: 'auto', vertex: { module: good, entryPoint: 'vs' }, fragment: { module: good, entryPoint: ep, targets: [{ format: 'rgba8unorm' }] } });

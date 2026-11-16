@@ -2281,15 +2281,25 @@
 "words": 13
 },
 {
+"extract": "Warren’s chief posi on was on the top of a large bu ernut tree",
+"via": "NPS:NPS-CLR-LRT",
+"printed": "Warren’s chief position was on the top of a large butternut tree",
+"locator": {
+"char_start": 243606,
+"char_end": 243668,
+"pdf_page": 119
+},
+"gate": "found",
+"numbers_in_span": true,
 "id": "VC-NPSC-CLR-LRT-p119-01",
 "passage": [
 243598,
 243696
 ],
 "how": "curated",
-"ok": false,
-"extract": "General Warren’s chief position was on the top of a large butternut tree",
-"error": "more than 14 words in the saved text"
+"ok": true,
+"words": 14,
+"coverage": null
 },
 {
 "extract": "base, as well as the slope on both sides is covered with oak trees",
@@ -2434,15 +2444,25 @@
 "coverage": null
 },
 {
+"extract": "narrow strip of woods, along which were sca ered a number of large rocks",
+"via": "NPS:NPS-CLR-LRT",
+"printed": "narrow strip of woods, along which were scattered a number of large rocks",
+"locator": {
+"char_start": 267177,
+"char_end": 267249,
+"pdf_page": 125
+},
+"gate": "found",
+"numbers_in_span": true,
 "id": "VC-NPSC-CLR-LRT-p125-05",
 "passage": [
 267131,
 267249
 ],
 "how": "curated",
-"ok": false,
-"extract": "a narrow strip of woods, along which were scattered a number of large rocks",
-"error": "more than 14 words in the saved text"
+"ok": true,
+"words": 14,
+"coverage": null
 },
 {
 "extract": "visible by reason of the bushes, chieﬂy small pines amongst the larger",
@@ -2666,15 +2686,28 @@
 "words": 12
 },
 {
+"extract": "were also cleared of tall trees in the direc on of the Whea ield",
+"via": "NPS:NPS-CLR-LRT",
+"printed": "were also cleared of tall trees in the direction of the Wheatfield",
+"locator": {
+"char_start": 88615,
+"char_end": 88679,
+"pdf_page": 39
+},
+"gate": "found",
+"numbers_in_span": false,
+"numbers_missing": [
+"40"
+],
 "id": "VC-NPSC-CLR-LRT-p039-02",
 "passage": [
 88608,
 88700
 ],
 "how": "curated",
-"ok": false,
-"extract": "Vistas were also cleared of tall trees in the direction of the Wheatfield",
-"error": "more than 14 words in the saved text"
+"ok": true,
+"words": 14,
+"coverage": null
 },
 {
 "extract": "thick growth of thin chestnut oaks that rose but little above my horse's head",
@@ -3177,151 +3210,151 @@
 "words": 14
 },
 {
-"extract": "farms had a woodlot or woods th a t provided almost all the needs",
+"extract": "farms had a woodlot or woods",
 "via": "NPS:NPS-DCP-LRT",
 "locator": {
 "char_start": 19458,
-"char_end": 19523,
+"char_end": 19486,
 "pdf_page": 14
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.59,
 "id": "VC-NPSC-DCP-LRT-p014-07",
 "passage": [
 19443,
 19668
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 6,
+"coverage": null
 },
 {
-"extract": "local canning in d u s try . The original orchard was 13 acres",
+"extract": "The original orchard was 13 acres",
 "via": "NPS:NPS-DCP-LRT",
 "locator": {
-"char_start": 20361,
+"char_start": 20390,
 "char_end": 20423,
 "pdf_page": 14
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.56,
 "id": "VC-NPSC-DCP-LRT-p014-08",
 "passage": [
 20068,
 20423
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 6,
+"coverage": null
 },
 {
-"extract": "south end of the p ark included those at the Rose",
+"extract": "included those at the Rose, Bushm an, and T ro stle farm s",
 "via": "NPS:NPS-DCP-LRT",
 "locator": {
-"char_start": 20537,
-"char_end": 20586,
+"char_start": 20560,
+"char_end": 20618,
 "pdf_page": 14
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.83,
 "id": "VC-NPSC-DCP-LRT-p014-09a",
 "passage": [
 20513,
 20618
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 11
+"words": 13,
+"coverage": null
 },
 {
-"extract": "south end of the p ark included those at the Rose",
+"extract": "included those at the Rose, Bushm an, and T ro stle farm s",
 "via": "NPS:NPS-DCP-LRT",
 "locator": {
-"char_start": 20537,
-"char_end": 20586,
+"char_start": 20560,
+"char_end": 20618,
 "pdf_page": 14
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.83,
 "id": "VC-NPSC-DCP-LRT-p014-09b",
 "passage": [
 20513,
 20618
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 11
+"words": 13,
+"coverage": null
 },
 {
-"extract": "south end of the p ark included those at the Rose",
+"extract": "included those at the Rose, Bushm an, and T ro stle farm s",
 "via": "NPS:NPS-DCP-LRT",
 "locator": {
-"char_start": 20537,
-"char_end": 20586,
+"char_start": 20560,
+"char_end": 20618,
 "pdf_page": 14
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.83,
 "id": "VC-NPSC-DCP-LRT-p014-09c",
 "passage": [
 20513,
 20618
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 11
+"words": 13,
+"coverage": null
 },
 {
-"extract": "woodlands have taken o ver areas th at were cleared lands at the time",
+"extract": "were cleared lands at the time of the battle",
 "via": "NPS:NPS-DCP-LRT",
 "locator": {
-"char_start": 28354,
-"char_end": 28423,
+"char_start": 28393,
+"char_end": 28437,
 "pdf_page": 18
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.83,
 "id": "VC-NPSC-DCP-LRT-p018-01",
 "passage": [
 28333,
 28437
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 9,
+"coverage": null
 },
 {
-"extract": "was used as a shortcut between Taneytown Road and Baltimore Pike by Union troops",
+"extract": "the time of the fighting the site was partially in agriculture and partially wooded",
 "via": "NPS:NPS-DCP-GUINN",
 "locator": {
-"char_start": 12499,
-"char_end": 12579,
+"char_start": 12341,
+"char_end": 12424,
 "pdf_page": 11
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.37,
 "id": "VC-NPSC-DCP-GUINN-p011-03",
 "passage": [
 12128,
 12657
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
-"extract": "1920s and 1930s, when strip development began along Taneytown Road. The historically open meadow",
+"extract": "historically open meadow sections of the site grew up into woods during this time",
 "via": "NPS:NPS-DCP-GUINN",
 "locator": {
-"char_start": 12821,
-"char_end": 12917,
+"char_start": 12893,
+"char_end": 12974,
 "pdf_page": 11
 },
 "gate": "found",
@@ -3330,55 +3363,55 @@
 "1920",
 "1930"
 ],
-"coverage": 0.65,
 "id": "VC-NPSC-DCP-GUINN-p011-05",
 "passage": [
 12781,
 13068
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
-"extract": "f the 95 acres was planted in crops—wheat, corn, oats, and grass",
+"extract": "the 95 acres was planted in crops—wheat, corn, oats, and grass",
 "via": "NPS:NPS-HS-MCPHERSON",
 "locator": {
-"char_start": 36419,
+"char_start": 36421,
 "char_end": 36483,
 "pdf_page": 23
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 1.0,
 "id": "VC-NPSC-HS-MCPHERSON-p023-01a",
 "passage": [
 36402,
 36483
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 11,
+"coverage": null
 },
 {
-"extract": "pasture fo r the stock and a young orchard fo r home preserving",
+"extract": "was in woodland and pasture",
 "via": "NPS:NPS-HS-MCPHERSON",
 "locator": {
-"char_start": 36546,
-"char_end": 36609,
+"char_start": 36526,
+"char_end": 36553,
 "pdf_page": 23
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.63,
 "id": "VC-NPSC-HS-MCPHERSON-p023-01b",
 "passage": [
 36402,
 36625
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 5,
+"coverage": null
 },
 {
 "extract": "orchard south o f the McPherson barn",
@@ -3401,31 +3434,33 @@
 "words": 7
 },
 {
-"extract": "f the r a ilr o a d g ra d in g",
+"extract": "a h igh w h e a t fie ld",
 "via": "NPS:NPS-HS-MCPHERSON",
+"printed": "a high wheat field",
 "locator": {
-"char_start": 65071,
-"char_end": 65102,
+"char_start": 65037,
+"char_end": 65061,
 "pdf_page": 43
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 1.0,
 "id": "VC-NPSC-HS-MCPHERSON-p043-01",
 "passage": [
 65029,
 65102
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 10,
+"coverage": null,
+"why": "the saved text of the study is letter-spaced (a h igh w h e a t fie ld); the extract is the saved words, the reading is the quote_printed"
 },
 {
-"extract": "hands and knees through the high wheat to escape d etectio n",
+"extract": "hands and knees through the high wheat",
 "via": "NPS:NPS-HS-MCPHERSON",
 "locator": {
 "char_start": 90874,
-"char_end": 90934,
+"char_end": 90912,
 "pdf_page": 63
 },
 "gate": "found",
@@ -3433,15 +3468,15 @@
 "numbers_missing": [
 "149"
 ],
-"coverage": 0.77,
 "id": "VC-NPSC-HS-MCPHERSON-p063-01",
 "passage": [
 90831,
 90934
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 7,
+"coverage": null
 },
 {
 "extract": "cornfields and orchard",
@@ -3464,16 +3499,16 @@
 "words": 3
 },
 {
-"extract": "length and width o f the grove was owned by John Herbst",
+"extract": "grove was owned by John Herbst a t the time",
 "via": "NPS:NPS-HS-MCPHERSON",
 "locator": {
-"char_start": 51732,
-"char_end": 51787,
+"char_start": 51757,
+"char_end": 51800,
 "pdf_page": 33
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.64,
+"coverage": 0.58,
 "id": "VC-NPSC-HS-MCPHERSON-p033-01a",
 "passage": [
 51692,
@@ -3481,7 +3516,7 @@
 ],
 "how": "rule",
 "ok": true,
-"words": 12
+"words": 10
 },
 {
 "extract": "McPherson woodlot, at that time, was north o f the Cashtown Pike and east",
@@ -3504,16 +3539,16 @@
 "words": 14
 },
 {
-"extract": "white oak, ju s t north o f Herbst Woods and the old fence",
+"extract": "Herbst Woods and the old fence",
 "via": "NPS:NPS-HS-MCPHERSON",
 "locator": {
-"char_start": 102698,
+"char_start": 102726,
 "char_end": 102756,
 "pdf_page": 70
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.46,
+"coverage": 0.3,
 "id": "VC-NPSC-HS-MCPHERSON-p070-01",
 "passage": [
 102688,
@@ -3521,14 +3556,15 @@
 ],
 "how": "rule",
 "ok": true,
-"words": 14
+"words": 6
 },
 {
-"extract": "18 a c r e s W h e a t 16",
+"extract": "18 a c r e s W h e a t",
 "via": "NPS:NPS-HS-MCPHERSON",
+"printed": "18 acres Wheat",
 "locator": {
 "char_start": 149601,
-"char_end": 149626,
+"char_end": 149623,
 "pdf_page": 99
 },
 "gate": "found",
@@ -3538,55 +3574,59 @@
 "4",
 "031"
 ],
-"coverage": 1.0,
 "id": "VC-NPSC-HS-MCPHERSON-p099-01",
 "passage": [
 149601,
 149692
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 11,
+"coverage": null,
+"why": "letter-spaced saved text; the table of the claim in the study lists wheat, corn, oats, grass and potatoes in the lines that follow"
 },
 {
-"extract": "h i s c r o p s a n d h",
+"extract": "c r o p s a n d h a y i n",
 "via": "NPS:NPS-HS-MCPHERSON",
+"printed": "crops and hay in",
 "locator": {
-"char_start": 155852,
-"char_end": 155875,
+"char_start": 155858,
+"char_end": 155883,
 "pdf_page": 101
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.0,
 "id": "VC-NPSC-HS-MCPHERSON-p101-01a",
 "passage": [
 155852,
 155938
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 13,
+"coverage": null,
+"why": "letter-spaced saved text"
 },
 {
-"extract": "y a s f o l l o w s — 18",
+"extract": "growing wheat",
 "via": "NPS:NPS-HS-MCPHERSON",
 "locator": {
-"char_start": 156072,
-"char_end": 156096,
-"pdf_page": 101
+"char_start": 122230,
+"char_end": 122243,
+"pdf_page": 82
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 1.0,
 "id": "VC-NPSC-HS-MCPHERSON-p101-01b",
 "passage": [
 156030,
 156129
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 2,
+"coverage": null,
+"why": "letter-spaced saved text; the 18 acres stand just before it"
 },
 {
 "extract": "fenced fields and a portion of an orchard north and west of Evergreen Cemetery",
@@ -3608,42 +3648,47 @@
 "words": 14
 },
 {
-"extract": "fields that interrupted the open spatial character.53 Land Use Since the late eighteenth century",
-"via": "NPS:NPS-CLR-CEMETERY#raw",
+"extract": "There were no trees, buildings (with one exception), or other features in these fields",
+"via": "NPS:NPS-CLR-CEMETERY",
 "locator": {
-"char_start": 118520,
-"char_end": 118616,
+"char_start": 121063,
+"char_end": 121149,
 "pdf_page": 45
 },
-"gate": "variant",
-"coverage": 0.31,
+"gate": "found",
+"numbers_in_span": true,
 "id": "VC-NPSC-CLR-CEMETERY-p045-05",
 "passage": [
 118440,
 119007
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
-"extract": "was used for fruit growing in 1863. The property was owned",
-"via": "NPS:NPS-CLR-CEMETERY#raw",
+"extract": "was used for fruit growing in 1863",
+"via": "NPS:NPS-CLR-CEMETERY",
 "locator": {
-"char_start": 119196,
-"char_end": 119254,
+"char_start": 118760,
+"char_end": 118794,
 "pdf_page": 45
 },
-"gate": "variant",
-"coverage": 0.41,
+"gate": "found",
+"numbers_in_span": false,
+"numbers_missing": [
+"82"
+],
 "id": "VC-NPSC-CLR-CEMETERY-p045-06",
 "passage": [
 119009,
 119469
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 11
+"words": 7,
+"coverage": null
 },
 {
 "extract": "The Menchy field was used for growing grass or grain in 1863",
@@ -3744,24 +3789,23 @@
 "words": 14
 },
 {
-"extract": "even spacing of nursery-grown trees, generally about 30 feet apart. The orchard probably included",
-"via": "NPS:NPS-CLR-CEMETERY",
+"extract": "Meyers apple orchard, which was described as “an orchard of gnarled old leafy trees",
+"via": "NPS:NPS-CLR-CEMETERY#raw",
 "locator": {
-"char_start": 132986,
-"char_end": 133083,
+"char_start": 129678,
+"char_end": 129761,
 "pdf_page": 48
 },
-"gate": "found",
-"numbers_in_span": true,
-"coverage": 0.42,
+"gate": "variant",
 "id": "VC-NPSC-CLR-CEMETERY-p048-02",
 "passage": [
 129545,
 130224
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
 "extract": "portion of the Meyers orchard visible in the background, fall 1863 or early 1864",
@@ -3783,64 +3827,65 @@
 "words": 14
 },
 {
-"extract": "le the western face of it was cleared of marketable or usable",
+"extract": "the western face of it was cleared of marketable or usable",
 "via": "NPS:NPS-SLAUGHTER-PEN",
 "locator": {
-"char_start": 8821,
+"char_start": 8824,
 "char_end": 8882,
 "pdf_page": 7
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.81,
 "id": "VC-NPSC-SLAUGHTER-PEN-p007-01",
 "passage": [
 8783,
 8906
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 11,
+"coverage": null
 },
 {
-"extract": "Jacob Weike.rt in . 1863; but the western face was. owned by Ephraim Hanaway",
+"extract": "Hanaway owned the acreage extending west- ward down the slope of Little Round Top",
 "via": "NPS:NPS-SLAUGHTER-PEN",
 "locator": {
-"char_start": 8946,
-"char_end": 9022,
+"char_start": 9025,
+"char_end": 9107,
 "pdf_page": 7
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.54,
 "id": "VC-NPSC-SLAUGHTER-PEN-p007-02",
 "passage": [
 8910,
 9119
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
-"extract": "Almost the entirety :of liis 47 acres",
+"extract": "Almost the entirety :of liis 47 acres was. clear- cut",
 "via": "NPS:NPS-SLAUGHTER-PEN",
 "locator": {
 "char_start": 9423,
-"char_end": 9460,
+"char_end": 9477,
 "pdf_page": 7
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 1.0,
 "id": "VC-NPSC-SLAUGHTER-PEN-p007-04",
 "passage": [
 9423,
 9506
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 7
+"words": 10,
+"coverage": null,
+"why": "the saved text of this scan is damaged (liis for his); kept as saved"
 },
 {
 "extract": "battle, and apparently had cleared the area from Wheatfield Road southward to Devil's Den",
@@ -3863,64 +3908,64 @@
 "words": 14
 },
 {
-"extract": "Houck, like Hanaway, li.ved in the borougfl of Gettysburg and tiad no improvements",
+"extract": "for pasture use of their animals",
 "via": "NPS:NPS-SLAUGHTER-PEN",
 "locator": {
-"char_start": 9509,
-"char_end": 9592,
+"char_start": 9707,
+"char_end": 9739,
 "pdf_page": 7
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.5,
 "id": "VC-NPSC-SLAUGHTER-PEN-p007-05",
 "passage": [
 9509,
 9739
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 6,
+"coverage": null
 },
 {
-"extract": "extreme 1eft at Dev fl 's Den, were the fields of the Snyder",
+"extract": "were the fields of the Snyder",
 "via": "NPS:NPS-SLAUGHTER-PEN",
 "locator": {
-"char_start": 14132,
+"char_start": 14163,
 "char_end": 14192,
 "pdf_page": 8
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.89,
 "id": "VC-NPSC-SLAUGHTER-PEN-p008-02",
 "passage": [
 14065,
 14201
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 6,
+"coverage": null
 },
 {
-"extract": "time of white settlement of the area between 1750 and 1780 to the present",
+"extract": "have been unsuited for any kind of agriculture",
 "via": "NPS:NPS-BRT-ECOLOGY",
 "locator": {
-"char_start": 2185,
-"char_end": 2258,
+"char_start": 2260,
+"char_end": 2306,
 "pdf_page": 3
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.63,
 "id": "VC-NPSC-BRT-ECOLOGY-p003-01",
 "passage": [
 2149,
 2306
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 8,
+"coverage": null
 },
 {
 "extract": "white pine, white oak, black oak and, in places, chestnut, were timbered before 1850",
@@ -3943,24 +3988,24 @@
 "words": 14
 },
 {
-"extract": "The flat bottom land below Big Round Top, especially to the northeast",
+"extract": "especially to the northeast, has been farmed for more than 150 years",
 "via": "NPS:NPS-BRT-ECOLOGY",
 "locator": {
-"char_start": 16774,
-"char_end": 16843,
+"char_start": 16816,
+"char_end": 16884,
 "pdf_page": 9
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.67,
 "id": "VC-NPSC-BRT-ECOLOGY-p009-01",
 "passage": [
 16774,
 16884
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 12,
+"coverage": null
 },
 {
 "extract": "On July 1, 1863, Abraham Brien owned a small farm on the southern outskirts",
@@ -3983,11 +4028,11 @@
 "words": 14
 },
 {
-"extract": "Col. Gilbert G. Prey of the 104th New York, part of Paul's Brigade, noted",
+"extract": "attack under shelter of the McLean buildings and shrubbery north of the Mummasburg road",
 "via": "NPS:NPS-MCCLEAN-HOUSE-BARN",
 "locator": {
-"char_start": 25289,
-"char_end": 25362,
+"char_start": 25401,
+"char_end": 25488,
 "pdf_page": 18
 },
 "gate": "found",
@@ -4101,24 +4146,24 @@
 "words": 9
 },
 {
-"extract": "Wheatfield and adjacent woods to the Peach Orchard, thence northerly to Emmittsburg Road",
+"extract": "northward along the wooded ridge to the Wheatfield, thence westerly through the Wheatfield",
 "via": "NPS:NPS-VISTA-CUTTING",
 "locator": {
-"char_start": 11029,
-"char_end": 11117,
+"char_start": 10949,
+"char_end": 11039,
 "pdf_page": 8
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.59,
 "id": "VC-NPSC-VISTA-CUTTING-p008-01",
 "passage": [
 10883,
 11117
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 13,
+"coverage": null
 },
 {
 "extract": "first struck the Federal Positions in the heavily wooded area extending from Devil's Den",
@@ -4161,24 +4206,24 @@
 "words": 14
 },
 {
-"extract": "Peach Orchard, the Wheatfield west of Little Round Top, the broad valley of Plum",
+"extract": "the fields in rear of the Federal position at the Peach Orchard, the Wheatfield",
 "via": "NPS:NPS-VISTA-CUTTING",
 "locator": {
-"char_start": 11581,
-"char_end": 11661,
+"char_start": 11530,
+"char_end": 11610,
 "pdf_page": 8
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.43,
 "id": "VC-NPSC-VISTA-CUTTING-p008-03",
 "passage": [
 13026,
 13320
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
 "extract": "is shown what appears to be a growth of smaller trees, and considerable underbrush",
@@ -4221,24 +4266,15 @@
 "words": 14
 },
 {
-"extract": "To the left of this open ground just north of the Wheatfield Road",
-"via": "NPS:NPS-VISTA-CUTTING",
-"locator": {
-"char_start": 18098,
-"char_end": 18164,
-"pdf_page": 12
-},
-"gate": "found",
-"numbers_in_span": true,
-"coverage": 0.62,
 "id": "VC-NPSC-VISTA-CUTTING-p012-02",
 "passage": [
 18098,
 18253
 ],
-"how": "rule",
-"ok": true,
-"words": 13
+"how": "curated",
+"ok": false,
+"extract": "open area at the present time which, according to the Warren Map, should be wooded",
+"error": "more than 14 words in the saved text"
 },
 {
 "extract": "Trostle buildings, the map shows a growth of trees and underbrush along Plum Run",
@@ -4301,24 +4337,15 @@
 "words": 14
 },
 {
-"extract": "crop fields. A potato patch and truck garden near the house was also destroyed",
-"via": "NPS:NPS-HARMON-FARM",
-"locator": {
-"char_start": 83853,
-"char_end": 83931,
-"pdf_page": 33
-},
-"gate": "found",
-"numbers_in_span": true,
-"coverage": 0.54,
 "id": "VC-NPSC-HARMON-FARM-p033-01",
 "passage": [
 83692,
 83931
 ],
-"how": "rule",
-"ok": true,
-"words": 14
+"how": "curated",
+"ok": false,
+"extract": "Finfruck claimed the loss of ten acres of wheat and five acres of rye by the movement",
+"error": "more than 14 words in the saved text"
 },
 {
 "extract": "The Ziegler's Grove area had been denuded of trees since the battle",
@@ -4341,24 +4368,15 @@
 "words": 12
 },
 {
-"extract": "Spangler's Meadow, at the border of a small patch of woods and an open",
-"via": "NPS:NPS-HABS-pa3648",
-"locator": {
-"char_start": 149460,
-"char_end": 149530,
-"pdf_page": 55
-},
-"gate": "found",
-"numbers_in_span": true,
-"coverage": 0.52,
 "id": "VC-NPSC-HABS-pa3648-p055-01",
 "passage": [
 149372,
 149614
 ],
-"how": "rule",
-"ok": true,
-"words": 14
+"how": "curated",
+"ok": false,
+"extract": "border of a small patch of woods and an open swale that characterized the landscape",
+"error": "more than 14 words in the saved text"
 },
 {
 "extract": "trace of an old farm lane, past what had been a field of wheat",
@@ -4401,24 +4419,24 @@
 "words": 14
 },
 {
-"extract": "larger fields to the south delineated by a mixture of worm and post",
+"extract": "included smaller fields to the north and larger fields to the south",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 74366,
-"char_end": 74433,
+"char_start": 74325,
+"char_end": 74392,
 "pdf_page": 49
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.47,
 "id": "VC-NPSX-CLI-PCB-p049-02",
 "passage": [
 74223,
 74450
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 12,
+"coverage": null
 },
 {
 "extract": "including a commercial orchard nursery at the McMillan Farm, and woodlots interrupted the open",
@@ -4481,24 +4499,24 @@
 "words": 13
 },
 {
-"extract": "orchards and fruit gardens punctuated the crop fields and meadows and were concentrated around",
+"extract": "Seven orchards and fruit gardens punctuated the crop fields and meadows",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 75579,
-"char_end": 75673,
+"char_start": 75573,
+"char_end": 75644,
 "pdf_page": 49
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.72,
 "id": "VC-NPSX-CLI-PCB-p049-07",
 "passage": [
 75573,
 75737
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 11,
+"coverage": null
 },
 {
 "extract": "Woodlots marked the southern end of Seminary Ridge and northern end of Warfield Ridge",
@@ -4521,44 +4539,47 @@
 "words": 14
 },
 {
-"extract": "nearly 1,200 yards of relatively open ground between Cemetery Ridge and Seminary Ridge",
+"extract": "the W. Bliss orchard provided the only substantial cover for both Union and Confederate",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 81697,
-"char_end": 81783,
+"char_start": 81586,
+"char_end": 81673,
 "pdf_page": 51
 },
 "gate": "found",
-"numbers_in_span": true,
-"coverage": 0.49,
+"numbers_in_span": false,
+"numbers_missing": [
+"1200"
+],
 "id": "VC-NPSX-CLI-PCB-p051-03",
 "passage": [
 81549,
 81783
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 14,
+"coverage": null
 },
 {
-"extract": "George Pickett’s Division as an avenue of approach on the morning of July 3",
+"extract": "The section of the lane that passed through the Emanuel Pitzer/Henry Spangler Woodlot",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 81354,
-"char_end": 81429,
+"char_start": 81239,
+"char_end": 81324,
 "pdf_page": 51
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.53,
 "id": "VC-NPSX-CLI-PCB-p051-04",
 "passage": [
 81239,
 81525
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 13,
+"coverage": null
 },
 {
 "extract": "trampled crops, rearranged stone walls and fencing forming breastworks, maimed and splintered woodlands",
@@ -4581,24 +4602,24 @@
 "words": 13
 },
 {
-"extract": "yard, from which they bombarded Confederate positions on Herr Ridge and damaged McMillan's corn",
+"extract": "bombarded Confederate positions on Herr Ridge and damaged McMillan's corn crop",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 126706,
-"char_end": 126801,
+"char_start": 126728,
+"char_end": 126806,
 "pdf_page": 72
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.61,
 "id": "VC-NPSX-CLI-PCB-p072-02",
 "passage": [
 126645,
 126806
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 11,
+"coverage": null
 },
 {
 "extract": "fencing was used in constructing entrenchments, and his crops and fruit trees were destroyed",
@@ -4641,24 +4662,24 @@
 "words": 12
 },
 {
-"extract": "The north-south fencing that separated these fields from the adjoining Bliss farm",
+"extract": "one of three crop fields that abutted the Emmitsburg Road",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 137989,
-"char_end": 138070,
+"char_start": 137826,
+"char_end": 137883,
 "pdf_page": 78
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.71,
 "id": "VC-NPSX-CLI-PCB-p078-02",
 "passage": [
 137820,
 138107
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 10,
+"coverage": null
 },
 {
 "extract": "fence lines and in the open crop fields and meadows of the Bliss farm",
@@ -4921,24 +4942,24 @@
 "words": 14
 },
 {
-"extract": "Confederate forces with both cover and concealment on July 2 and July 3",
+"extract": "A deciduous woodlot on the northern end of Warfield Ridge",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 129908,
-"char_end": 129979,
+"char_start": 129676,
+"char_end": 129733,
 "pdf_page": 73
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.53,
 "id": "VC-NPSX-CLI-PCB-p081-02",
 "passage": [
 149723,
 150101
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 10,
+"coverage": null
 },
 {
 "extract": "On July 4, Confederate troops re-established defensive positions within the woods and constructed breastworks",
@@ -5041,24 +5062,24 @@
 "words": 13
 },
 {
-"extract": "crops or meadow. In any event, the overall character of the field was open",
+"extract": "It was either in young orchard or in crops or meadow",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 154835,
-"char_end": 154909,
+"char_start": 154798,
+"char_end": 154850,
 "pdf_page": 82
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.7,
 "id": "VC-NPSX-CLI-PCB-p082-03",
 "passage": [
 154698,
 154953
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 11,
+"coverage": null
 },
 {
 "extract": "and oats. The western fields were in crops and a declining orchard",
@@ -5081,24 +5102,24 @@
 "words": 12
 },
 {
-"extract": "Union troops on the night of July 1 when skirmishers",
+"extract": "fencing and hedgerow that formed the western boundary of the farm",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 156713,
-"char_end": 156765,
+"char_start": 156804,
+"char_end": 156869,
 "pdf_page": 82
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.58,
 "id": "VC-NPSX-CLI-PCB-p082-05",
 "passage": [
 156671,
 156869
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 10
+"words": 11,
+"coverage": null
 },
 {
 "extract": "Peaches were planted 2008",
@@ -5161,24 +5182,24 @@
 "words": 12
 },
 {
-"extract": "Henry Spangler Farm were located between the Emmitsburg Road and Seminary Ridge. These fields",
+"extract": "were in crop and meadow and one was partially occupied by the Spangler Orchard",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 160325,
-"char_end": 160418,
+"char_start": 160419,
+"char_end": 160497,
 "pdf_page": 83
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.64,
 "id": "VC-NPSX-CLI-PCB-p083-04",
 "passage": [
 160293,
 160497
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
 "extract": "This deciduous woodlot is situated south of McMillan Woods on Seminary Ridge",
@@ -5241,64 +5262,64 @@
 "words": 13
 },
 {
-"extract": "meadow; one was partially occupied by an aging orchard once part of the Sherfy",
+"extract": "probably in both crop and meadow; one was partially occupied by an aging orchard",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 166308,
-"char_end": 166386,
+"char_start": 166282,
+"char_end": 166362,
 "pdf_page": 85
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.67,
 "id": "VC-NPSX-CLI-PCB-p085-01",
 "passage": [
 166200,
 166391
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
-"extract": "Emmitsburg and Wheatfield Roads and was the agricultural part of the pre-war Wentz farm",
+"extract": "most likely in crops and was entirely open in character",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 167365,
-"char_end": 167452,
+"char_start": 167461,
+"char_end": 167516,
 "pdf_page": 85
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.46,
 "id": "VC-NPSX-CLI-PCB-p085-02",
 "passage": [
 167282,
 167516
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 10,
+"coverage": null
 },
 {
-"extract": "the west by Emmitsburg Road (Figure 22). It was replanted with apples in 2005",
+"extract": "It was replanted with apples in 2005",
 "via": "NPS:NPS-CLI-PCB",
 "locator": {
-"char_start": 168035,
+"char_start": 168076,
 "char_end": 168112,
 "pdf_page": 85
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.68,
 "id": "VC-NPSX-CLI-PCB-p085-03",
 "passage": [
 167889,
 168112
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 7,
+"coverage": null
 },
 {
 "extract": "the rider fence depicted on 1863 Existing Condition map No. 12 by Kathy Harrison",
@@ -5464,44 +5485,44 @@
 "words": 10
 },
 {
-"extract": "wooded area containing several small and intermittent clumps of mature trees. Meadow and pasture",
+"extract": "primarily a sparsely wooded area containing several small and intermittent clumps of mature trees",
 "via": "NPS:NPS-CLI-ERR",
 "locator": {
-"char_start": 141381,
-"char_end": 141477,
+"char_start": 141360,
+"char_end": 141457,
 "pdf_page": 77
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.38,
 "id": "VC-NPSX-CLI-ERR-p094-01",
 "passage": [
 186322,
 186861
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
-"extract": "Views between Emmitsburg Road and Cemetery Ridge over the Codori-Trostle Thicket, however, were relatively",
+"extract": "Cemetery Ridge over the Codori-Trostle Thicket, however, were relatively unobstructed",
 "via": "NPS:NPS-CLI-ERR",
 "locator": {
-"char_start": 186863,
-"char_end": 186969,
+"char_start": 186897,
+"char_end": 186982,
 "pdf_page": 94
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.93,
 "id": "VC-NPSX-CLI-ERR-p094-02",
 "passage": [
 186863,
 186982
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 10,
+"coverage": null
 },
 {
 "extract": "grove of mature trees dominated the Codori Knoll in the middle of Cemetery Ridge",
@@ -5644,44 +5665,44 @@
 "words": 14
 },
 {
-"extract": "This tree designated the location of General Sickles and his staff on July 2",
+"extract": "a large oak tree located just south of Trostle Lane",
 "via": "NPS:NPS-CLI-ERR",
 "locator": {
-"char_start": 190632,
-"char_end": 190708,
+"char_start": 190579,
+"char_end": 190630,
 "pdf_page": 95
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.56,
 "id": "VC-NPSX-CLI-ERR-p095-08",
 "passage": [
 190519,
 190708
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 10,
+"coverage": null
 },
 {
-"extract": "fill in, especially along fence lines projecting out into the adjoining pastures and fields",
+"extract": "vegetation along the creek had been sparse enough for the opposing armies to see",
 "via": "NPS:NPS-CLI-ERR",
 "locator": {
-"char_start": 191722,
-"char_end": 191813,
+"char_start": 191543,
+"char_end": 191623,
 "pdf_page": 95
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.44,
 "id": "VC-NPSX-CLI-ERR-p095-10",
 "passage": [
 191520,
 191813
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
 "extract": "Trostle apple orchard in 2005 and the Klingel apple orchard in 2009",
@@ -5724,24 +5745,24 @@
 "words": 12
 },
 {
-"extract": "southern two-thirds of Klingel Field #2 (Figure 22). -Trostle Orchard. Replanted in 2005",
+"extract": "Two orchards existed in the Emmitsburg Road Ridge area during the battle",
 "via": "NPS:NPS-CLI-ERR",
 "locator": {
-"char_start": 200610,
-"char_end": 200698,
+"char_start": 200445,
+"char_end": 200517,
 "pdf_page": 97
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.51,
 "id": "VC-NPSX-CLI-ERR-p097-05",
 "passage": [
 200445,
 200754
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 12,
+"coverage": null
 },
 {
 "extract": "The landscape was characterized by an orthogonal pattern of fenced fields, widely scattered woodlots",
@@ -5784,24 +5805,24 @@
 "words": 13
 },
 {
-"extract": "Lee’s Headquarters site on Seminary Ridge along Chambersburg Pike, 1863. The orchard",
+"extract": "The orchard in the foreground belonged to C.H. Dustman",
 "via": "NPS:NPS-CLI-1STDAY",
 "locator": {
-"char_start": 80920,
-"char_end": 81004,
+"char_start": 80993,
+"char_end": 81047,
 "pdf_page": 43
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.79,
 "id": "VC-NPSX-CLI-1STDAY-p043-01",
 "passage": [
 80858,
 81047
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 9,
+"coverage": null
 },
 {
 "extract": "clearing woods on battle-era fields, replanting orchards, and rebuilding fence lines",
@@ -6419,16 +6440,16 @@
 "words": 14
 },
 {
-"extract": "field of wheat with Confederate burials and Johnson’s C.S. breastworks along east side, 1863",
+"extract": "Field #8 was an open field of wheat with Confederate burials and Johnson’s",
 "via": "NPS:NPS-CLI-1STDAY",
 "locator": {
-"char_start": 153684,
-"char_end": 153776,
+"char_start": 153663,
+"char_end": 153737,
 "pdf_page": 61
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.72,
+"coverage": 0.68,
 "id": "VC-NPSX-CLI-1STDAY-p061-01",
 "passage": [
 153663,
@@ -6436,7 +6457,7 @@
 ],
 "how": "rule",
 "ok": true,
-"words": 14
+"words": 13
 },
 {
 "extract": "Oak Hill, with west half a thicket and east half open field, 1863",
@@ -10535,16 +10556,16 @@
 "words": 4
 },
 {
-"extract": "In 1863 Big and Little Round Tops constituted a sig n ifican t woodland",
+"extract": "In 1863 Big and Little Round Tops",
 "via": "NPS:NPS-DCP-LRT",
 "locator": {
 "char_start": 19040,
-"char_end": 19111,
+"char_end": 19073,
 "pdf_page": 14
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 1.0,
+"coverage": 0.91,
 "id": "VC-NPS-029",
 "passage": [
 19040,
@@ -10552,7 +10573,7 @@
 ],
 "how": "rule",
 "ok": true,
-"words": 14
+"words": 7
 },
 {
 "extract": "by 1863 most woodlands had been cleared",

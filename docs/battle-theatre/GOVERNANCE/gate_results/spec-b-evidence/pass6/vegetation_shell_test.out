@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: the chunks hold exactly the triangles of the crop-bearing units, each once, in order, in the square it belongs to
+ok 1 - the chunks hold exactly the triangles of the crop-bearing units, each once, in order, in the square it belongs to
+  ---
+  duration_ms: 108.898811
+  type: 'test'
+  ...
+# Subtest: a chunk cut down: short edges, the same ground, the unit and the layer of every triangle kept
+ok 2 - a chunk cut down: short edges, the same ground, the unit and the layer of every triangle kept
+  ---
+  duration_ms: 105.799169
+  type: 'test'
+  ...
+# Subtest: the chunks near the camera are chosen by distance and by view; nothing far is chosen
+ok 3 - the chunks near the camera are chosen by distance and by view; nothing far is chosen
+  ---
+  duration_ms: 2.891004
+  type: 'test'
+  ...
+# Subtest: the cache of cut-down chunks: a limit, the least recently used leaves first, the ones in use stay, a build allowance per frame
+ok 4 - the cache of cut-down chunks: a limit, the least recently used leaves first, the ones in use stay, a build allowance per frame
+  ---
+  duration_ms: 0.430913
+  type: 'test'
+  ...
+# Subtest: the state texture the shaders read: texel 3 holds the stage, the shock height and the standing height of a crop; texel 0 the colour and the crop code
+ok 5 - the state texture the shaders read: texel 3 holds the stage, the shock height and the standing height of a crop; texel 0 the colour and the crop code
+  ---
+  duration_ms: 36.152182
+  type: 'test'
+  ...
+# Subtest: the two shaders: the parts a driver would refuse that can be seen without one
+ok 6 - the two shaders: the parts a driver would refuse that can be seen without one
+  ---
+  duration_ms: 13.564078
+  type: 'test'
+  ...
+# Subtest: the readings of Little Round Top reach the scene: the hill's east slope keeps all, half or none of its trees in the state texture, its ground is open rock when unwooded, and no other wood is touched
+ok 7 - the readings of Little Round Top reach the scene: the hill's east slope keeps all, half or none of its trees in the state texture, its ground is open rock when unwooded, and no other wood is touched
+  ---
+  duration_ms: 79.109923
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3807.805558

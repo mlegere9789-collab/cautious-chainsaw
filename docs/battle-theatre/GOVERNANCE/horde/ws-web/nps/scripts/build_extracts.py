@@ -299,8 +299,7 @@ def cut(page_text, anchor):
         if occ is not None and not (1 <= occ <= len(starts)):
             return None, 'occurrence %d of start anchor not present (%d found): %r' % (occ, len(starts), a)
         st = starts[(occ or 1) - 1]
-        folded = flat if fa == a else _fold(flat)
-        fb = b if fa == a else _fold(b)
+        folded, fb = _fold(flat), _fold(b)
         e = folded.find(fb, st + len(a) - min(len(a), len(b)))
         if e < 0:
             return None, 'end anchor not found after start: %r' % b

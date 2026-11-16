@@ -1,6 +1,6 @@
 {
  "_doc": "Camera-position statements for the Q16 photographs: what each source literally says about where the camera stood or which way it looked. Built by build_statements.py; every quote was found in the saved source text. tier documented = the source says it (it is a statement, not a coordinate); tier lead = a statement the source takes from a book that may not be used (Frassanito), listed so that nothing is hidden. No source read gives a coordinate.",
- "count": 145,
+ "count": 158,
  "sources": {
   "LOC-2012647712": {
    "id": "LOC-2012647712",
@@ -692,6 +692,119 @@
    "sha256_text": "f52830c59a6a9379992dea5459bcb9857e3dd05a50053b4feb9c2c78ba739b96",
    "retrieved": "2026-11-14",
    "rights": "LOC: no known restrictions on publication"
+  },
+  "GARDNER-SB1-P77": {
+   "id": "GARDNER-SB1-P77",
+   "kind": "Gardner's Photographic Sketch Book of the War, volume 1 (1865-66): letterpress page of the Library of Congress digitized album (read by machine from the master scan; the photographer's own printed text)",
+   "title": "Gardner's Photographic Sketch Book of the War, volume 1, album page 77 (Library of Congress ppmsca.12834)",
+   "url": "https://www.loc.gov/resource/ppmsca.12834/?sp=77",
+   "local_text": "tmp/library/web/photomatch/sketchbook_v1/p00077.ocr.txt",
+   "sha256_text": "4677b5f542a4a476da04e72912df76152b5bf2d2ac787a663c5115ab21e0794a",
+   "retrieved": "2026-11-16",
+   "rights": "public domain (published 1865-66; the Library does not own rights to the work)",
+   "master_scan_url": "https://tile.loc.gov/storage-services/master/pnp/ppmsca/12800/12834/00077u.tif",
+   "master_scan_sha256": "20906697492b70d7704b57ac1cae8d3ef004ac735fae111b1ff97fe97a00170d",
+   "master_scan_bytes": 99990982,
+   "ocr_note": "tesseract (tesseract 5.3.4) on the text block at half master size; OCR errors exist (gothic titles, the binding edge); a quote is used only where the OCR text contains it letter for letter"
+  },
+  "GARDNER-SB1-P85": {
+   "id": "GARDNER-SB1-P85",
+   "kind": "Gardner's Photographic Sketch Book of the War, volume 1 (1865-66): letterpress page of the Library of Congress digitized album (read by machine from the master scan; the photographer's own printed text)",
+   "title": "Gardner's Photographic Sketch Book of the War, volume 1, album page 85 (Library of Congress ppmsca.12834)",
+   "url": "https://www.loc.gov/resource/ppmsca.12834/?sp=85",
+   "local_text": "tmp/library/web/photomatch/sketchbook_v1/p00085.ocr.txt",
+   "sha256_text": "222e05f9fbe114aa9ff53d219e5429bd1c06ae4fa2695409f37d2cdc780e8c6b",
+   "retrieved": "2026-11-16",
+   "rights": "public domain (published 1865-66; the Library does not own rights to the work)",
+   "master_scan_url": "https://tile.loc.gov/storage-services/master/pnp/ppmsca/12800/12834/00085u.tif",
+   "master_scan_sha256": "62f8549ca475093bac5ef384cd86d83e366638b4cd74d5d18bb68fa95537f365",
+   "master_scan_bytes": 101259830,
+   "ocr_note": "tesseract (tesseract 5.3.4) on the text block at half master size; OCR errors exist (gothic titles, the binding edge); a quote is used only where the OCR text contains it letter for letter"
+  },
+  "GARDNER-SB1-P83": {
+   "id": "GARDNER-SB1-P83",
+   "kind": "Gardner's Photographic Sketch Book of the War, volume 1 (1865-66): letterpress page of the Library of Congress digitized album (read by machine from the master scan; the photographer's own printed text)",
+   "title": "Gardner's Photographic Sketch Book of the War, volume 1, album page 83 (Library of Congress ppmsca.12834)",
+   "url": "https://www.loc.gov/resource/ppmsca.12834/?sp=83",
+   "local_text": "tmp/library/web/photomatch/sketchbook_v1/p00083.ocr.txt",
+   "sha256_text": "ab509a738cc90328e290c9f7603163a6e5df0f2c7782a5f226f36611f21352b7",
+   "retrieved": "2026-11-16",
+   "rights": "public domain (published 1865-66; the Library does not own rights to the work)",
+   "master_scan_url": "https://tile.loc.gov/storage-services/master/pnp/ppmsca/12800/12834/00083u.tif",
+   "master_scan_sha256": "f59e5bf540b90f8e7f8912763cb268759a8ba097aca0fea4053e74063c386feb",
+   "master_scan_bytes": 100206850,
+   "ocr_note": "tesseract (tesseract 5.3.4) on the text block at half master size; OCR errors exist (gothic titles, the binding edge); a quote is used only where the OCR text contains it letter for letter"
+  },
+  "GARDNER-CAT-1863": {
+   "id": "GARDNER-CAT-1863",
+   "kind": "Gardner's 'Catalogue of Photographic Incidents of the War' (September 1863), Library of Congress digitized copy (OCR text of the scan pages as served by the Library)",
+   "title": "Catalogue of photographic incidents of the war, from the gallery of Alexander Gardner, photographer to the Army of the Potomac, September 1863",
+   "url": "https://www.loc.gov/item/18003926/",
+   "local_text": "tmp/library/web/photomatch/gardner_catalogue1863/catalogue_fulltext.txt",
+   "sha256_text": "6f04c25c57bdc8fd15ecffd6eb7a6459347c59ade11b56412f56a2243b1156f8",
+   "retrieved": "2026-11-16",
+   "rights": "public domain (published 1863)",
+   "ocr_note": "the OCR of this 1863 pamphlet is rough (ditto marks, dotted leaders); a quote is used only where the text contains it letter for letter; page numbers are the scan sequence numbers of the Library item gdcmassbookdig.catalogueofphoto00gard"
+  },
+  "LOC-2018670908": {
+   "id": "LOC-2018670908",
+   "kind": "Library of Congress catalogue record (open JSON of the record)",
+   "title": "Gettysburg, Pennsylvania. [Confederate dead gathered for burial, July 5, 1863]",
+   "url": "https://www.loc.gov/pictures/item/2018670908/",
+   "local_text": "tmp/photomatch/raw/item_2018670908.json",
+   "sha256_text": "426a79171d2ec31bb765bdd6f6d901d7d4c095fae65e80408d4e3de4bda385bd",
+   "retrieved": "2026-11-11",
+   "rights": "LOC: no known restrictions on publication"
+  },
+  "LOC-2008680497": {
+   "id": "LOC-2008680497",
+   "kind": "Library of Congress catalogue record (open JSON of the record)",
+   "title": "[Confederate dead near centre of battle-field, Gettysburg, Pa.]",
+   "url": "https://www.loc.gov/pictures/item/2008680497/",
+   "local_text": "tmp/photomatch/raw/item_2008680497.json",
+   "sha256_text": "84eab36a992764f00624ddf70d27b526808b8dd31a259bd92768b40f3fe4faac",
+   "retrieved": "2026-11-11",
+   "rights": "LOC: no known restrictions on publication"
+  },
+  "LOC-2018670757": {
+   "id": "LOC-2018670757",
+   "kind": "Library of Congress catalogue record (open JSON of the record)",
+   "title": "Gettysburg, Pennsylvania. [Confederate dead, view at the edge of the Rose woods, July 5, 1863]",
+   "url": "https://www.loc.gov/pictures/item/2018670757/",
+   "local_text": "tmp/photomatch/raw/item_2018670757.json",
+   "sha256_text": "4a104c06464fe8ffa33e662335939937afae4cd370e34bf50eda361fc479b752",
+   "retrieved": "2026-11-11",
+   "rights": "LOC: no known restrictions on publication"
+  },
+  "LOC-2004682792": {
+   "id": "LOC-2004682792",
+   "kind": "Library of Congress catalogue record (open JSON of the record)",
+   "title": "Dead at Little Round-Top - position of Berdan's Sharpshooters",
+   "url": "https://www.loc.gov/pictures/item/2004682792/",
+   "local_text": "tmp/photomatch/raw/item_2004682792.json",
+   "sha256_text": "d8e4e0a8f695909cef07893610ad3f7d8c7e8a25e26fb92f31faf4fbccb32206",
+   "retrieved": "2026-11-14",
+   "rights": "LOC: no known restrictions on publication"
+  },
+  "LOCESSAY-CONFUSED-IDENTITY": {
+   "id": "LOCESSAY-CONFUSED-IDENTITY",
+   "kind": "Library of Congress web page (official body; the open JSON of the page, markup removed); the page says its analysis is based on the work of William Frassanito: every place or relation taken from it is a lead",
+   "title": "The Case of Confused Identity (Does the Camera Ever Lie?), Civil War Glass Negatives and Related Prints, Library of Congress",
+   "url": "https://www.loc.gov/collections/civil-war-glass-negatives/articles-and-essays/does-the-camera-ever-lie/the-case-of-confused-identity/",
+   "local_text": "tmp/library/web/photomatch/www.loc.gov/loc_essay_confused_identity.txt",
+   "sha256_text": "f022a07822a8eea1c6f3f9341b3d95426df721dddaa416cf7c493f9515971fe4",
+   "retrieved": "2026-11-16",
+   "rights": "Library of Congress web publication; read only, quoted briefly"
+  },
+  "LOCESSAY-MOVED-BODY": {
+   "id": "LOCESSAY-MOVED-BODY",
+   "kind": "Library of Congress web page (official body; the open JSON of the page, markup removed); the page says its analysis is based on the work of William Frassanito: every place or relation taken from it is a lead",
+   "title": "The Case of the Moved Body (Does the Camera Ever Lie?), Civil War Glass Negatives and Related Prints, Library of Congress",
+   "url": "https://www.loc.gov/collections/civil-war-glass-negatives/articles-and-essays/does-the-camera-ever-lie/the-case-of-the-moved-body/",
+   "local_text": "tmp/library/web/photomatch/www.loc.gov/loc_essay_moved_body.txt",
+   "sha256_text": "5436eeb300b7830b453c82377bc42ce87cecd7d81309b3dcb6466217fa5cc47c",
+   "retrieved": "2026-11-16",
+   "rights": "Library of Congress web publication; read only, quoted briefly"
   }
  },
  "statements": [
@@ -2868,7 +2981,7 @@
    "says": "NPS Record of Treatment vol. I, Figure 28: the park collection (GETT 41135) number 2B2001, an 1863 photograph, is a view southeast from McPherson Farm",
    "prec": "place+dir",
    "ident": "image match: the figure image (extracted from the PDF, inverted to positive) matches LOC resource ppmsca.32853 (record 2012647719) with 503 inliers of 510 good matches (best other record: 7; nps_figures_to_loc.json); the same exposure is held as record 2012647706 (resource ppmsca.32840, 424 inliers); geometry (tie_geometry.py): SAME_SCENE, inlier fraction 0.99, scale 0.83, median residual 0.43 px, failed rotation; both images were looked at side by side and show the same scene",
-   "note": "two men standing in a field in front of a wood: the same photograph as ppmsca.32840 (record 2012647706; 424 inliers); both records match the same Metropolitan Museum print (MET268203) with a median residual under 1 px. The rule class of tie_geometry.py is SAME_SCENE only because the figure is turned 4.2 degrees against the bar of 4.0 degrees (inlier fraction 0.99, median residual 0.4 px); called the same photograph by looking: a print placed a little crooked on the scanner",
+   "note": "two men standing in a field in front of a wood: the same photograph as ppmsca.32840 (record 2012647706; 424 inliers); both records match the same Metropolitan Museum print (MET268203) with a median residual under 1 px. The rule class of tie_geometry.py is SAME_SCENE only because the figure is turned 4.2 degrees against the bar of 4.0 degrees (inlier fraction 0.99, median residual 0.4 px); called the same photograph by looking and by the 0.99 inlier fraction and the 0.4 px residual, which another exposure would not give (the turn is a difference between the two scans, not of the scene)",
    "page": 125,
    "offset_in_normalised_page": 36,
    "match": "exact",
@@ -3559,6 +3672,263 @@
    "tier": "lead",
    "page": "record",
    "offset_in_normalised_page": 0,
+   "match": "exact",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-GARDNER-SB1-P77",
+   "src": "GARDNER-SB1-P77",
+   "quote": "and on the left of the picture can be seen Seminary Ridge, where General Reynolds was killed. This view is taken from Cemetery Ridge, where our artillery was massed",
+   "loc": [
+    "2006685383",
+    "2014646001",
+    "2018671576"
+   ],
+   "res": [
+    "ppmsca.35051",
+    "cwpb.00084"
+   ],
+   "says": "Gardner's own letterpress for plate 35 ('Gettysburg, Pennsylvania'; printed credit: negative by T. H. O'Sullivan; July 1863): the view is taken from Cemetery Ridge, where the artillery was massed, and Seminary Ridge can be seen on the left of the picture; no spot on the ridge, no bearing, no height, no lens",
+   "prec": "place+dir",
+   "ident": "plate 35 is the Library's records 2006685383 (call number 'v. 1, no. 35') and 2014646001 (the record's note 'v. 1, pl. 35'); record 2018671576 (negative LC-B815-273) shows the same view by image match (204 and 170 inliers, both images looked at); no source states that",
+   "note": "Two photographers' names are printed for this view: the Sketch Book credits T. H. O'Sullivan, Gardner's catalogue of September 1863 lists no. 273 'Gettysburg from the Cemetery' in a block of Jas. F. Gibson's negatives (ditto marks in the OCR text); neither is used here. In the same book Gardner calls the knoll of the National Soldiers' Cemetery Cemetery Ridge (PS-GARDNER-SB1-P85) and also the ridge toward Round Top; which he means in plate 35 is not stated. The NPS names the roof of the Evergreen Cemetery lodge for the same exposure (PS-NPS-CLRCEM-126); the Library's summary of 2006685383 paraphrases the sentence (PS-LOC-2006685383-S).",
+   "quote_fragments": [
+    {
+     "fragment": "and on the left of the picture can be seen Seminary",
+     "page": 77,
+     "offset_in_normalised_page": 999,
+     "match": "exact"
+    },
+    {
+     "fragment": "Ridge, where General Reynolds was killed.",
+     "page": 77,
+     "offset_in_normalised_page": 1054,
+     "match": "exact"
+    },
+    {
+     "fragment": "This view is taken from Cemetery Ridge, where our artillery was massed",
+     "page": 77,
+     "offset_in_normalised_page": 1096,
+     "match": "exact"
+    }
+   ],
+   "quote_note": "two-column page: the caption lines are interleaved with the other column in the saved text; each fragment is verbatim and found in order",
+   "page": 77,
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-GARDNER-SB1-P85",
+   "src": "GARDNER-SB1-P85",
+   "quote": "The knoll shown in the sketch is that upon which the last assault of the enemy was made, and on which is situated the National Soldiers’ Cemetery.",
+   "loc": [
+    "2006692500",
+    "2012647705"
+   ],
+   "res": [],
+   "says": "Gardner's text for plate 39 ('Gateway of Cemetery, Gettysburg'): the knoll shown is the one on which the National Soldiers' Cemetery is situated, and the text begins by calling it Cemetery Ridge (context for the use of that name in plate 35); the text gives no camera place",
+   "prec": "place",
+   "ident": "plate 39 is the Library's record 2006692500 (call number 'v. 1, no. 39'); the Library's record 2012647705 (the cemetery gate, the lunettes of Stewart's battery) names the Sketch Book no. 39 in its own note",
+   "page": 85,
+   "offset_in_normalised_page": 137,
+   "match": "exact",
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-GARDNER-SB1-P83",
+   "src": "GARDNER-SB1-P83",
+   "quote": "position is on a steep ridge known as Little Round Top",
+   "loc": [
+    "2006685386"
+   ],
+   "res": [],
+   "says": "Gardner's text for plate 38 ('Interior of Breastworks on Round Top, Gettysburg'): the breastworks shown are on the steep ridge known as Little Round Top; the printed title says the view is of the interior of the works; the text gives no spot and no direction",
+   "prec": "place",
+   "ident": "plate 38 is the Library's record 2006685386 (call number 'v. 1, no. 38')",
+   "page": 83,
+   "offset_in_normalised_page": 339,
+   "match": "exact",
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-GARDNER-CAT-273",
+   "src": "GARDNER-CAT-1863",
+   "quote": "273. Gettysburg from the Cemetery",
+   "loc": [
+    "2018671576"
+   ],
+   "res": [
+    "cwpb.00084"
+   ],
+   "says": "Gardner's gallery listed in September 1863 a stereo view no. 273 titled 'Gettysburg from the Cemetery' (the Library's negative sleeve caption of LC-B815-273 repeats the title); the title names the place of view, not which cemetery, and no spot",
+   "prec": "place",
+   "ident": "stereo number: catalogue no. 273 and the negative number LC-B815-273 (the number the NPS cites); inferred, the series prefixes differ",
+   "page": 34,
+   "offset_in_normalised_page": 1749,
+   "match": "exact",
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-GARDNER-CAT-231",
+   "src": "GARDNER-CAT-1863",
+   "quote": "231. Line of Breast-works looking eastward, on Battle-field of Gettysburg",
+   "loc": [
+    "2018670645"
+   ],
+   "res": [
+    "cwpb.00841",
+    "cwpb.00842"
+   ],
+   "says": "Gardner's gallery listed in September 1863 a stereo view no. 231 titled 'Line of Breast-works looking eastward, on Battle-field of Gettysburg' (the Library's negative sleeve caption of LC-B811-231 repeats it): a direction of view in the photographer's own title; where the works are is not stated",
+   "prec": "dir",
+   "ident": "stereo number: catalogue no. 231 and the Library's call number LC-B811-231 of record 2018670645; inferred",
+   "page": 35,
+   "offset_in_normalised_page": 163,
+   "match": "exact",
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-GARDNER-CAT-268",
+   "src": "GARDNER-CAT-1863",
+   "quote": "268. View near the Emmitsburg road on the Battle-field of Gettysburg",
+   "loc": [
+    "2018670908"
+   ],
+   "res": [],
+   "says": "Gardner's gallery listed in September 1863 a stereo view no. 268 titled 'View near the Emmitsburg road on the Battle-field of Gettysburg' (the Library's negative sleeve caption of LC-B811-268 repeats it): a place named in the photographer's own title, no spot, no direction",
+   "prec": "place",
+   "ident": "stereo number: catalogue no. 268 and the Library's call number LC-B811-268 of record 2018670908; inferred",
+   "page": 34,
+   "offset_in_normalised_page": 2013,
+   "match": "exact",
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-LOC-2018670908-N",
+   "src": "LOC-2018670908",
+   "quote": "Caption from negative sleeve: View near the Emmitsburg Road on Battlefield of Gettysburg.",
+   "loc": [
+    "2018670908"
+   ],
+   "res": [],
+   "says": "negative sleeve caption: the view is near the Emmitsburg Road (the bracketed title and the exact date July 5 are the Library's, taken from Frassanito: not used)",
+   "prec": "place",
+   "ident": "record id",
+   "page": "record",
+   "offset_in_normalised_page": 226,
+   "match": "exact",
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-LOC-2008680497-S",
+   "src": "LOC-2008680497",
+   "quote": "Photograph shows dead soldiers, view taken at the edge of the Rose woods, July 5.",
+   "loc": [
+    "2008680497"
+   ],
+   "res": [],
+   "says": "the Library's summary places the view at the edge of the Rose woods on July 5 (no direction); the sister record 2018670757 of the same negative series takes its title and date from Frassanito, so the summary is probably his: lead",
+   "prec": "place",
+   "ident": "record id",
+   "tier": "lead",
+   "page": "record",
+   "offset_in_normalised_page": 67,
+   "match": "exact",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-LOC-2018670757-T",
+   "src": "LOC-2018670757",
+   "quote": "[Confederate dead, view at the edge of the Rose woods, July 5, 1863]",
+   "loc": [
+    "2018670757"
+   ],
+   "res": [],
+   "says": "the Library's bracketed title (title and exact date from Frassanito, per the record's own note: a lead) places the view at the edge of the Rose woods",
+   "prec": "place",
+   "ident": "record id",
+   "tier": "lead",
+   "page": "record",
+   "offset_in_normalised_page": 26,
+   "match": "exact",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-LOC-2004682792-S",
+   "src": "LOC-2004682792",
+   "quote": "Stereograph shows posed scene in Devil's Den/Slaughter Pen area, looking toward Little Round Top with Jacob Shenkel of 62nd Pennsylvania Infantry Regiment and others pretending to be dead.",
+   "loc": [
+    "2004682792"
+   ],
+   "res": [],
+   "says": "the Library's summary (from Frassanito, per the record's own note: a lead) calls the card a posed scene in the Devil's Den and Slaughter Pen area looking toward Little Round Top; staged-photograph flag respected",
+   "prec": "place+dir",
+   "ident": "record id",
+   "tier": "lead",
+   "page": "record",
+   "offset_in_normalised_page": 65,
+   "match": "exact",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-LOCESSAY-CONFUSED-REL",
+   "src": "LOCESSAY-CONFUSED-IDENTITY",
+   "quote": "Several clues indicate that the images are two views of the same scene taken from opposite sides.",
+   "loc": [
+    "2006685384",
+    "2006685385"
+   ],
+   "res": [],
+   "says": "the Library's essay: plate 36 (A Harvest of Death, negative LC-B8184-7964-A) and plate 37 (Field where General Reynolds Fell, LC-B8171-0234) are two views of the same group of dead taken from opposite sides (the essay's analysis is based on Frassanito: lead)",
+   "prec": "rel",
+   "ident": "plates 36 and 37 are the Library's records 2006685384 and 2006685385 (call numbers 'v. 1, no. 36' and 'no. 37'); the essay names the plates",
+   "tier": "lead",
+   "page": "page",
+   "offset_in_normalised_page": 7751,
+   "match": "exact",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-LOCESSAY-CONFUSED-PLACE",
+   "src": "LOCESSAY-CONFUSED-IDENTITY",
+   "quote": "Topographic clues convinced him that the photographs were made in open fields near the Rose farm and close to the Emmitsburg Road.",
+   "loc": [
+    "2006685384",
+    "2006685385"
+   ],
+   "res": [],
+   "says": "the Library's essay reports that Frassanito's topographic clues put plates 36 and 37 in open fields near the Rose farm and close to the Emmitsburg Road (a lead); the Library's own caption of the negative of plate 37 says 'near the McPherson woods': a conflict of place carried as it stands",
+   "prec": "place",
+   "ident": "plates 36 and 37 are the Library's records 2006685384 and 2006685385",
+   "tier": "lead",
+   "page": "page",
+   "offset_in_normalised_page": 8205,
+   "match": "exact",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-LOCESSAY-MOVED-PLACE",
+   "src": "LOCESSAY-MOVED-BODY",
+   "quote": "Geographic features place four of the six photographs at the southern slope of Devil's Den (top) and two at what Gardner called the \"sharpshooter's den\" (bottom).",
+   "loc": [
+    "2018666313",
+    "2018666314",
+    "2006692501",
+    "2006692502"
+   ],
+   "res": [],
+   "says": "the Library's essay (analysis based on Frassanito: lead): of six photographs of one dead soldier, four were made at the southern slope of Devil's Den and two at what Gardner called the sharpshooter's den, about forty yards away; staged-photograph flag respected (the body was moved and the rifle was probably a prop, the same essay)",
+   "prec": "place",
+   "ident": "plates 40 and 41 are the Library's records 2006692501 and 2006692502 (call numbers 'v. 1, no. 40' and 'no. 41'); 2018666314 and 2018666313 carry the captions and negative numbers LC-B8171-0277 and LC-B8171-7942 that the essay names",
+   "tier": "lead",
+   "page": "page",
+   "offset_in_normalised_page": 7110,
    "match": "exact",
    "coordinates_published": false
   }

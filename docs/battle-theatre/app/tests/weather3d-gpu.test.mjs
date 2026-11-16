@@ -21,7 +21,7 @@ import { createAnimBus } from '../src/anim3d/events.mjs';
 import { Camera } from '../../render/prototype/src/camera.mjs';
 import { CASES, EXTRA_CASES, ALL_CASES, REAL_CASES, specOf, SHERFY } from './weather3d-gpu-cases.mjs';
 import { makePlan, aimCamera } from './weather3d-gpu-plan.mjs';
-import { HOOKS, CHROME_ARGS, chromeArgs, REAL_GPU_ARGS } from './weather3d-gpu-lib.mjs';
+import { HOOKS, CHROME_ARGS, chromeArgs, REAL_GPU_ARGS, XVFB_CANVAS_ARGS, expandXvfbCanvas } from './weather3d-gpu-lib.mjs';
 import { encodePng, decodePng, diffStats, CANVAS_SHOT_LIMIT } from './weather3d-gpu-lib.mjs'; import zlib from 'node:zlib';
 import { planSteps, summarize, renderMarkdown } from './weather3d-gpu-realrun.mjs'; import os from 'node:os';
 import { checkRun, checkCompare, checkNegativeControl } from './weather3d-gpu-check.mjs'; import { MARK, deviceControls, frameControl, stripMarked } from './weather3d-gpu-negctl.mjs'; import { nondeterminismIn, drawPathFiles, relApp } from './weather3d-determinism-lint.mjs';
@@ -511,11 +511,13 @@ test('the harness driver: extra Chrome flags are passed on and recorded in the s
 // ---------- negative controls of the harness (2026-11-16): errors made on purpose that the machinery behind "no validation error" must see
 // A stand-in for a GPUDevice that behaves as the specification says (sighted: an error goes to the innermost error scope, or, with no scope, to the uncapturederror listeners) or that never reports anything (blind), plus the two paths of the
 // harness hook (HOOKS in weather3d-gpu-lib.mjs: the listener that fills window.__gpuErrors, the wrapper that fills window.__wgslMessages). Nothing here is a browser result.
-function fakeDevice({ sighted = true, hook = true, scopeCatchesModule = true } = {}) {
-  const listeners = new Set(), scopes = [], win = { __gpuErrors: ['an earlier error of the run'], __wgslMessages: [{ label: 'weather3d-mul', type: 'warning', msg: 'kept' }], __gpuLabels: ['weather3d-mul messages=1'] };
-  const raise = (msg, viaScope = true) => { if (!sighted) return; const sc = scopes[scopes.length - 1]; if (sc && viaScope) { if (!sc.err) sc.err = { message: msg }; } else if (!sc) setTimeout(() => { for (const h of [...listeners]) h({ error: { message: msg } }); }, 0); };
+function fakeDevice({ sighted = true, hook = true, scopeCatchesModule = true, lazy = false } = {}) {
+  // lazy: an uncaptured error is delivered when the next round trip to the GPU process answers (queue.onSubmittedWorkDone), as Chrome does; never otherwise
+  const listeners = new Set(), scopes = [], pending = [], win = { __gpuErrors: ['an earlier error of the run'], __wgslMessages: [{ label: 'weather3d-mul', type: 'warning', msg: 'kept' }], __gpuLabels: ['weather3d-mul messages=1'] };
+  const fire = msg => { for (const h of [...listeners]) h({ error: { message: msg } }); };
+  const raise = (msg, viaScope = true) => { if (!sighted) return; const sc = scopes[scopes.length - 1]; if (sc && viaScope) { if (!sc.err) sc.err = { message: msg }; } else if (!sc) { if (lazy) pending.push(msg); else setTimeout(() => fire(msg), 0); } };
   const d = {
-    addEventListener: (t, h) => { if (t === 'uncapturederror') listeners.add(h); }, removeEventListener: (t, h) => { listeners.delete(h); },
+    addEventListener: (t, h) => { if (t === 'uncapturederror') listeners.add(h); }, removeEventListener: (t, h) => { listeners.delete(h); }, queue: { onSubmittedWorkDone: async () => { while (pending.length) fire(pending.shift()); } },
     pushErrorScope: () => { scopes.push({ err: null }); }, popErrorScope: async () => scopes.pop().err,
     createBuffer: desc => { if (!desc.usage) raise('Buffer usage must not be 0: ' + desc.label); return { destroy() { } }; },
     createShaderModule: desc => { const bad = /vec2f\(1\.0, 2\.0\)/.test(desc.code); if (bad) raise('Error while parsing WGSL (' + desc.label + ')', scopeCatchesModule);
@@ -534,6 +536,13 @@ test('negative controls: a device that sees errors passes every control, what wa
   assert.ok(nc.cleanup.gpuErrors >= 1 && nc.cleanup.wgslMessages >= 1 && nc.cleanup.modules >= 1, JSON.stringify(nc.cleanup));
   assert.deepEqual(win.__gpuErrors, ['an earlier error of the run'], 'the run\'s own error is kept, the control\'s is gone'); assert.deepEqual(win.__wgslMessages, [{ label: 'weather3d-mul', type: 'warning', msg: 'kept' }]); assert.deepEqual(win.__gpuLabels, ['weather3d-mul messages=1']);
   const j = checkNegativeControl({ frame: { skipped: 'the shell harness has no per-case validation scope' }, ...nc }); assert.equal(j.ran, true); assert.equal(j.ok, true, j.problems.join('; '));
+});
+test('negative controls: an uncaptured error that Chrome delivers only when the next round trip to the GPU process answers is seen (the control makes that round trip), and one that is never delivered is not', async () => {
+  const lazy = fakeDevice({ lazy: true }), nc = await deviceControls(lazy.d, { w: lazy.win, timeoutMs: 100, U: U_FAKE }); assert.equal(nc.uncaptured.eventSeen, true, 'delivered at the round trip'); assert.equal(nc.uncaptured.hookRecorded, true, 'and recorded by the harness hook, before the control looked'); assert.deepEqual(lazy.win.__gpuErrors, ['an earlier error of the run']);
+  const j = checkNegativeControl({ frame: { skipped: 'x' }, ...nc }); assert.equal(j.ok, true, j.problems.join('; '));
+  const never = fakeDevice({ lazy: true }); never.d.queue.onSubmittedWorkDone = async () => { }; const nn = await deviceControls(never.d, { w: never.win, timeoutMs: 60, U: U_FAKE }); assert.equal(nn.uncaptured.eventSeen, false); assert.ok(checkNegativeControl({ frame: { skipped: 'x' }, ...nn }).problems.some(x => /did not arrive as an uncapturederror event/.test(x)));
+  assert.match(fs.readFileSync(path.join(APP, 'tests/weather3d-gpu-negctl.mjs'), 'utf8'), /d\.queue\.onSubmittedWorkDone\) await d\.queue\.onSubmittedWorkDone\(\); const ev = await evt/, 'the round trip is in the control');
+  assert.match(fs.readFileSync(path.join(APP, 'tests/weather3d-gpu-page.mjs'), 'utf8'), /WG\.diag = async \(\) => \{ const dv = WG\.host && WG\.host\.R && WG\.host\.R\.dev; if \(dv\) \{ try \{ await dv\.queue\.onSubmittedWorkDone\(\)/, 'the lists of errors are read after a round trip');
 });
 test('negative controls: a device that sees nothing, a hook that records nothing and a scope that misses a shader error are each caught by the controls and named by the checker (a clean run is not vacuous)', async () => {
   const frameOk = { skipped: 'x' }, run = async o => { const { d, win } = fakeDevice(o); return { ...(await deviceControls(d, { w: win, timeoutMs: 60, U: U_FAKE })), frame: frameOk }; };
@@ -620,4 +629,41 @@ test('scrub purity, behaviour: with Math.random, Date.now, new Date() and perfor
     globalThis.Date = class C extends sv.Date { constructor(...a) { if (a.length === 0) probe.newDate++; super(...a); } static now() { probe.dateNow++; return 0; } };
     try { Math.random(); Date.now(); new Date(); performance.now(); } finally { Math.random = sv.random; globalThis.performance.now = sv.perfNow; globalThis.Date = sv.Date; } } assert.deepEqual(probe, { random: 1, dateNow: 1, newDate: 1, perfNow: 1 });
   g.dispose(); h.dispose();
+});
+
+// ---------- the real canvas on the software adapter, and the second implementation's replay (2026-11-16)
+test('--xvfb-canvas: the flags that showed the real canvas, expanded to what the drivers need, without doubling a flag that is already there, and never part of a real-GPU set', () => {
+  assert.deepEqual(XVFB_CANVAS_ARGS, ['--use-vulkan=swiftshader', '--disable-vulkan-surface']); assert.ok(!REAL_GPU_ARGS.some(a => XVFB_CANVAS_ARGS.includes(a)), 'a software flag in a real-GPU set'); assert.ok(!CHROME_ARGS.some(a => XVFB_CANVAS_ARGS.includes(a)), 'the default software set is the earlier one');
+  assert.deepEqual(expandXvfbCanvas(['/o', 'webgl2']), ['/o', 'webgl2'], 'nothing changes without the flag'); const a = expandXvfbCanvas(['/o', 'webgpu', 'smoke', '--xvfb-canvas', '--w=320']);
+  assert.deepEqual(a.slice(0, 5), ['/o', 'webgpu', 'smoke', '--xvfb-canvas', '--w=320'], 'positional arguments stay where they are'); for (const f of ['--headed', '--real-canvas', '--canvas-shot', '--chrome-arg=--use-vulkan=swiftshader', '--chrome-arg=--disable-vulkan-surface']) assert.equal(a.filter(x => x === f).length, 1, f);
+  const b = expandXvfbCanvas(['--xvfb-canvas', '--headed', '--canvas-shot', '--chrome-arg=--use-vulkan=swiftshader']); for (const f of ['--headed', '--real-canvas', '--canvas-shot', '--chrome-arg=--use-vulkan=swiftshader', '--chrome-arg=--disable-vulkan-surface']) assert.equal(b.filter(x => x === f).length, 1, 'no flag twice: ' + f);
+  for (const f of ['weather3d-gpu.mjs', 'weather3d-gpu-theatre.mjs']) { const src = fs.readFileSync(path.join(APP, 'tests', f), 'utf8'); assert.match(src, /expandXvfbCanvas\(process\.argv\.slice\(2\)\)/, f); assert.match(src, /--xvfb-canvas needs a display: run it as   xvfb-run/, f); assert.match(src, /chromeArgs\(REALGPU\), \.\.\.EXTRA_CHROME_ARGS/, f + ' passes the extra flags to Chrome'); }
+  assert.match(fs.readFileSync(path.join(APP, 'tests/weather3d-gpu.mjs'), 'utf8'), /fs\.writeFileSync\(path\.join\(out, c\.name \+ '-canvas\.png'\), lastShot\)/, 'the compositor picture of the real canvas is kept next to the read-back');
+});
+test('stored evidence of 2026-11-16: the real canvas of a WebGPU page was captured on the software adapter in ONE headed-under-Xvfb flag set (H5) and in none of the other four; the pictures are there; the flags are the harness\'s own plus the two of XVFB_CANVAS_ARGS', () => {
+  const R = path.join(APP, 'tests/results/weather3d-webgpu/xvfb-probe'), J = f => JSON.parse(fs.readFileSync(path.join(R, f), 'utf8')), sets = Object.fromEntries(['H1', 'H2', 'H3', 'H4', 'H5'].map(k => [k, J(k + '.json')]));
+  for (const k of ['H1', 'H2', 'H3', 'H4']) { const r = sets[k]; assert.match(r.probe.lost, /^destroyed: Device was destroyed/, k + ' loses the device'); assert.equal(r.pageShot.orangeSamples, 0, k + ' page.screenshot shows no canvas'); assert.equal(r.xscreen.orangeSamples, 0, k + ' the X screen shows no canvas'); assert.deepEqual(r.probe.drawImagePixel, [0, 0, 0, 0], k); }
+  const h5 = sets.H5; assert.equal(h5.probe.lost, null, 'H5: the device stays alive'); assert.deepEqual(h5.probe.errors, []); assert.deepEqual(h5.probe.drawImagePixel, [255, 128, 0, 255], 'drawImage of the canvas reads what was drawn'); assert.equal(h5.pageShot.orangeSamples, 128 * 128, 'page.screenshot shows the whole 128 x 128 canvas'); assert.ok(h5.xscreen.orangeSamples >= 8000, 'the X screen capture shows it too: ' + h5.xscreen.orangeSamples); assert.equal(h5.display, ':99'.replace('99', String(h5.display.slice(1))), 'under a virtual X server');
+  assert.equal(h5.probe.adapter.architecture, 'swiftshader', 'a software adapter: not a real-GPU result'); assert.deepEqual(new Set(h5.args), new Set([...CHROME_ARGS, ...XVFB_CANVAS_ARGS]), 'the harness flags plus the two flags of XVFB_CANVAS_ARGS');
+  for (const k of ['H1', 'H2', 'H3', 'H4']) assert.ok(!sets[k].args.includes('--use-vulkan=swiftshader') || !sets[k].args.includes('--disable-vulkan-surface'), k + ' lacks the pair');
+  const px = (img, x, y) => Array.from(img.data.subarray((y * img.w + x) * 4, (y * img.w + x) * 4 + 3)), page = decodePng(fs.readFileSync(path.join(R, 'H5-page.png'))); assert.deepEqual([page.w, page.h], [640, 360]); assert.deepEqual(px(page, 64, 64), [255, 128, 0], 'the canvas is orange in the compositor\'s picture'); assert.deepEqual(px(page, 127, 127), [255, 128, 0]); assert.deepEqual(px(page, 400, 200), [0, 0, 0], 'and the page around it is black');
+  const xs = decodePng(fs.readFileSync(path.join(R, 'H5-xscreen.png'))); assert.deepEqual([xs.w, xs.h], [1280, 720]); assert.deepEqual(px(xs, 74, 161), [255, 128, 0], 'the same orange square in the picture of the X screen'); for (const k of ['H1', 'H2', 'H3', 'H4']) assert.deepEqual(px(decodePng(fs.readFileSync(path.join(R, k + '-page.png'))), 64, 64), [0, 0, 0], k + ' is black');
+  assert.match(fs.readFileSync(path.join(R, 'driver.log'), 'utf8'), /set H5 exit 0/);
+});
+test('stored evidence of 2026-11-16: 12 frames of the layer\'s pass captured on Chrome and replayed on the second WebGPU implementation (wgpu-native: naga and wgpu-core) agree to half-float rounding; the five negative controls are refused; software only', () => {
+  const R = path.join(APP, 'tests/results/weather3d-webgpu'), J = f => JSON.parse(fs.readFileSync(path.join(R, f), 'utf8')), rep = J('capture-replay-report.json'), cap = J('capture-summary.json');
+  assert.equal(rep.ok, true); assert.deepEqual(rep.problems, []); assert.equal(rep.software, true, 'the report says it is software'); assert.match(rep.implementation, /wgpu-native/); assert.equal(rep.adapter.adapter_type, 'CPU'); assert.match(rep.adapter.device, /SwiftShader/); assert.equal(cap.diagInit.adapter.arch, 'swiftshader'); assert.deepEqual(cap.errors, []);
+  for (const m of ['weather3d-mul', 'weather3d-add', 'fx3d-sprites', 'fx3d-cull-compute']) { assert.equal(rep.build.modules[m], true, m); assert.deepEqual(rep.build.compiler_messages[m], [], m + ' compiles with no message'); } assert.equal(Object.values(rep.build.pipelines).length, 4); assert.ok(Object.values(rep.build.pipelines).every(x => x === true), 'the four pipelines build');
+  assert.equal(Object.keys(rep.controls).length, 5); assert.ok(Object.values(rep.controls).every(v => /^refused: /.test(v)), 'every negative control is refused by that implementation');
+  const cases = Object.entries(rep.cases); assert.equal(cases.length, 12); assert.equal(Object.keys(cap.cases).length, 12);
+  for (const [n, c] of cases) { assert.equal(c.finite, true, n); assert.ok(c.maxAbs <= 0.001, `${n}: maximum absolute difference ${c.maxAbs} HDR units`); assert.ok(c.meanAbs < 1e-8, n); assert.ok(c.bitIdentical >= 0.9999, `${n}: ${c.bitIdentical} of the values bit-identical`); assert.ok(c.changedByPass >= 0.9999, n + ': the pass changed the pixels, so the comparison is not vacuous'); assert.equal(cap.cases[n].validation, null, n + ': no validation error in Chrome'); assert.equal(cap.cases[n].nSprites, c.nSprites, n + ': the same sprites'); }
+  assert.ok(cases.some(([, c]) => c.nSprites > 10000) && cases.some(([, c]) => c.nSprites === 0), 'frames with no effects and with 15,000 sprites'); assert.equal(rep.heightHash, cap.cases['smoke-jul3-1400'].heightHash, 'the terrain the replay rebuilt is the terrain Chrome drew');
+});
+
+test('harness: a case gives the same effects state whatever case was drawn before it (a changed stand-in plan replays from the case\'s time), and a case that keeps the plan continues as before', () => {
+  const pg = fs.readFileSync(path.join(APP, 'tests/weather3d-gpu-page.mjs'), 'utf8');
+  assert.equal((pg.match(/const planKey = JSON\.stringify\(P\.plan\)/g) || []).length, 2, 'in render and in capture'); assert.match(pg, /if \(fi && planKey !== WG\.planKey\) fi\.prevT = null; WG\.planKey = planKey;/, 'render: the host treats the next update as the first (seek and replay)');
+  assert.ok(pg.indexOf("const planKey = JSON.stringify(P.plan)") > pg.indexOf('P.anchor(cam, spec.plan)'), 'the key is taken after the plan was anchored'); assert.ok(pg.indexOf("planKey !== WG.planKey) fi.prevT = null") < pg.indexOf('info = fxHost.update({ tMin, cam }); info = fxHost.update({ tMin, cam }); }'), 'and before the first update');
+  // what the host does with prevT = null: the next update seeks and replays the window, even for the same minute (the shell's own rule, src/fx-host.mjs _drive)
+  const fh = fs.readFileSync(path.join(APP, 'src/fx-host.mjs'), 'utf8'); assert.match(fh, /if \(prev == null\) \{ this\.fx\.seek\(t\); this\.dirty = true; \}/); assert.match(fh, /if \(this\.dirty && settled && this\.anim && o\.driveAnim\) \{ this\._replay\(t - REPLAY_S, t\)/);
 });

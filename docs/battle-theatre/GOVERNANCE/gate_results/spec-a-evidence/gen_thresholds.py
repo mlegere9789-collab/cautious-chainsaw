@@ -88,7 +88,7 @@ def build(spec_text):
         'schema': 'bt-thresholds/1',
         'generated_from': 'docs/battle-theatre/GOVERNANCE/gate_results/GATE-SPEC-A.md section 7 (Threshold registry), by spec-a-evidence/gen_thresholds.py; never edited by hand',
         'rule': 'A threshold with the status UNSET makes its gate INCOMPLETE; a value may be tightened by a recorded decision and never loosened without a recorded owner decision (1.8). A row whose value is null states its figure only in words (the adopted text).',
-        'section_7_sha256': hashlib.sha256(sec.encode('utf-8')).hexdigest(),
+        'registry_rows_sha256': hashlib.sha256('\n'.join(l for l in sec.split('\n') if re.match(r'^\| T-[A-Z0-9]+-\d+', l)).encode('utf-8')).hexdigest(),
         'count': len(rows),
         'unset': [r['id'] for r in rows if 'UNSET' in r['status']],
         'thresholds': rows,
@@ -113,7 +113,7 @@ def main(argv):
             a, b = json.loads(have), json.loads(want)
             ia, ib = {r['id']: r for r in a['thresholds']}, {r['id']: r for r in b['thresholds']}
             diff = sorted(set(ia) ^ set(ib)) + sorted(k for k in set(ia) & set(ib) if ia[k] != ib[k])
-            print('thresholds.json differs from section 7: %s' % (', '.join(diff) or 'header only (section hash)')); return 1
+            print('thresholds.json differs from section 7: %s' % (', '.join(diff) or 'header only (hash of the registry rows)')); return 1
         print('thresholds.json equals section 7 (%d thresholds, %d unset)' % (json.loads(have)['count'], len(json.loads(have)['unset']))); return 0
     tmp = out_path + '.tmp'
     open(tmp, 'w', encoding='utf-8').write(want)

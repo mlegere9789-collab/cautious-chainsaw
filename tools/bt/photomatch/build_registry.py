@@ -18,7 +18,22 @@ STD = {
  'OUT': '{what}. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped.',
  'STG': 'Staged-photograph flag respected ({basis}). {what}. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered.',
 }
+SBC_PATH = os.path.join(HERE, 'sketchbook_concordance.json')
+def staged_extra():
+    """Fifth session (2026-11-16): the staged flag of the Devil's Den sharpshooter series rested on the owner's plan alone ('PDF cites NARA Prologue blog, not read here'). Two official bodies that can be read say it too: the
+    National Park Service (Then-And-Now pages, saved) and the Library of Congress (essay 'The Case of the Moved Body', saved; its analysis rests on Frassanito, so its details are a lead). Every quote is asserted to stand in its saved text."""
+    root = os.path.abspath(os.path.join(HERE, '..', '..', '..')); w = os.path.join(root, 'tmp', 'library', 'web', 'photomatch')
+    nps1 = open(os.path.join(w, 'www.nps.gov', 'places_gettysburg-then-now-sharpshooter.htm.txt'), encoding='utf-8').read(); nps2 = open(os.path.join(w, 'www.nps.gov', 'places_gettysburg-then-now-sharpshooter-location.htm.txt'), encoding='utf-8').read()
+    loc = open(os.path.join(w, 'www.loc.gov', 'loc_essay_moved_body.txt'), encoding='utf-8').read(); N = lambda t: ' '.join(t.split())
+    q1 = 'nor is it likely that the soldier fell in this location'; q2 = 'moved by the photographers from this location to another one some 40 yards away'; q3 = 'moved the corpse to this rocky niche and photographed him again'
+    assert q1 in N(nps1) and q2 in N(nps2) and q3 in N(loc), 'a staged-basis quote is not in its saved text'
+    return (" Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that '" + q1 + "' (Then-And-Now page) and of the original place near Devil's Den that the body would be '" + q2 + "' (Then-And-Now page); "
+            "the Library of Congress essay 'The Case of the Moved Body' says the two photographers '" + q3 + "' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).")
 def main():
+    SBC = json.load(open(SBC_PATH)) if os.path.exists(SBC_PATH) else {'plates': []}; sbc = {}
+    for pl_ in SBC['plates']:
+        for rid_ in list(pl_['loc_records_by_call_number']) + list(pl_['other_loc_records_of_the_same_view']): sbc[rid_] = pl_
+    STX = staged_extra()
     cat = J('catalogue.json')['photographs']; add = J('catalogue_additions.json')['photographs']; wide = J('catalogue_wide_items.json')['photographs'] if os.path.exists(os.path.join(HERE, 'catalogue_wide_items.json')) else []; st = J('position_statements.json')['statements']; ident = J('nps_then_to_loc.json')['queries']
     poses = J('poses.json')['poses']; ver = J('verdicts.json'); led = J('images_ledger.json')['images']; wled = J('wide_images_ledger.json')['images'] if os.path.exists(os.path.join(HERE, 'wide_images_ledger.json')) else {}
     xp = os.path.join(HERE, 'wide_extra_images_ledger.json'); xled = json.load(open(xp))['images'] if os.path.exists(xp) else {}; xmed = {}   # further resources of the records of the wide search (card backs, second halves, copy negatives)
@@ -52,6 +67,7 @@ def main():
         pk = c['loc_id']; code, what = RD.R[pk] if pk in RD.R else (W[pk]['code'], W[pk]['what']); poseids = by_loc.get(pk, [])
         staged = bool(c.get('staged_flag')) or code == 'STG'
         basis = (("NPS Then-And-Now, Devil's Den no. 8: the NPS calls this photograph staged and more than four months after the battle; " + RD.SCOPE_OUT[pk]) if pk in RD.SCOPE_OUT else None) or c.get('staged_basis') or ("same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged" if code == 'STG' else None)
+        if staged and basis and 'Weaver' not in basis and '11 November' not in basis and 'official sources that can be read' not in basis.lower(): basis = basis + STX
         e = {'loc_id': pk, 'title': c['title'], 'creator': c.get('creator'), 'date_as_catalogued': c.get('date_as_catalogued'), 'loc_url': c.get('loc_url'),
              'catalogue': 'wide search (third pass)' if c in wide else 'added by catalogue_additions.py' if c in add else 'catalogue.json', 'scope_july_1863_terrain': (pk not in RD.SCOPE_OUT) and ((pk in RD.SCOPE_IN) or bool(c.get('in_scope_july_1863_terrain') and code != 'OUT')),
              'scope_note': RD.SCOPE_OUT.get(pk) or RD.SCOPE_IN.get(pk) or (what if code == 'OUT' else None), 'same_exposure_as': sorted(set(c.get('same_exposure_as') or []) | rev.get(pk, set()) | set(getattr(RD, 'SAME_EXPOSURE', {}).get(pk, []))), 'superseded_pose_ids': sup.get(pk, []), 'staged_flag': staged, 'staged_basis': basis if staged else None,
@@ -67,6 +83,9 @@ def main():
             if e['same_exposure_as']: e['why'] += ' Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record ' + ', '.join(e['same_exposure_as']) + ' (both images were looked at).'
             for s_ in st:   # the National Park Service Record of Treatment statements (third pass): quoted from the statement itself so that this text cannot say that no place or direction is stated where the Park Service gives one
                 if s_['id'].startswith('PS-NPS-ROTV') and pk in (s_.get('loc') or []): e['why'] += ' ' + s_['says'].rstrip('. ') + ' (statement ' + s_['id'] + ').'
+        if pk in sbc and not poseids:
+            pl_ = sbc[pk]; e['why'] += (" Gardner's Photographic Sketch Book of the War, volume 1, plate %d (printed title '%s'; credit as printed: %s): the letterpress page (album page %d of the Library's copy) was read by machine from the master scan and by eye and "
+                                        % (pl_['plate'], pl_['printed_title'], pl_['printed_credit'].split('. ...')[0].rstrip('.'), pl_['letterpress_page'])) + ('says that the view is taken from Cemetery Ridge and that Seminary Ridge can be seen on the left of the picture (statement PS-GARDNER-SB1-P77).' if pl_['letterpress_states_where_the_camera_stood'] else 'describes the subject and the action, not where the camera stood.')
         if pk in xmed and WX:
             e['why'] += WX.sentence(pk, xmed[pk]); e['image_keys'] = sorted(set(e['image_keys']) | {'WIDEX|' + x['loc_id'] + '|' + x['resource'] for x in xmed[pk]})
         out.append(e)

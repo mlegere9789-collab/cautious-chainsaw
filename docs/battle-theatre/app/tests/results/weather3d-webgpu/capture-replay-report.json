@@ -1,0 +1,219 @@
+{
+ "implementation": "wgpu-native via wgpu-py 0.33.0",
+ "software": true,
+ "problems": [],
+ "build": {
+  "modules": {
+   "weather3d-mul": true,
+   "weather3d-add": true,
+   "fx3d-sprites": true,
+   "fx3d-cull-compute": true
+  },
+  "compiler_messages": {
+   "weather3d-mul": [],
+   "weather3d-add": [],
+   "fx3d-sprites": [],
+   "fx3d-cull-compute": []
+  },
+  "pipelines": {
+   "weather3d-mul": true,
+   "weather3d-add": true,
+   "fx3d-sprites": true,
+   "fx3d-cullCount (compute, optional, not wired)": true
+  }
+ },
+ "controls": {
+  "a type error in the WGSL (a vec3f variable given a f32)": "refused: Validation Error  Caused by:   In wgpuDeviceCreateShaderModule, label = 'bad1'  Shader validation error: Entry point fs at Fragment is inval",
+  "an unknown member in the WGSL (W.floor for W.floorC)": "refused: Validation Error  Caused by:   In wgpuDeviceCreateShaderModule, label = 'bad2'  Shader 'bad2' parsing error: invalid field accessor `floor` ",
+  "a layout that declares the scene depth as a float texture (the shader reads a depth texture)": "refused: Validation Error  Caused by:   In wgpuDeviceCreateRenderPipeline, label = 'weather3d-mul'     Error matching ShaderStages(FRAGMENT) shader r",
+  "a layout whose weather uniform block is hidden from the fragment stage": "refused: Validation Error  Caused by:   In wgpuDeviceCreateRenderPipeline, label = 'weather3d-mul'     Error matching ShaderStages(FRAGMENT) shader r",
+  "the same depth texture attached for writing and sampled in one pass (the layer attaches it read-only)": "refused: Validation Error  Caused by:   In wgpuCommandEncoderFinish     In a pass parameter       Attempted to use Texture with 'ctl depth' label (mi"
+ },
+ "cases": {
+  "dawn-fog-jul2-0430": {
+   "maxAbs": 0.000244140625,
+   "meanAbs": 8.830317744502315e-10,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 0.9999869791666667,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 1.0,
+   "meanAbsChange": 0.15596160292625427,
+   "nSprites": 0,
+   "what": "mist at the horizon, fog colour",
+   "close": true
+  },
+  "day-clouds-jul3-1400": {
+   "maxAbs": 0.00048828125,
+   "meanAbs": 2.1192762586805556e-09,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 0.9999869791666667,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 1.0,
+   "meanAbsChange": 0.09619206190109253,
+   "nSprites": 32,
+   "what": "daytime clouds",
+   "close": true
+  },
+  "dusk-jul2-2000": {
+   "maxAbs": 0.0001220703125,
+   "meanAbs": 4.4151588722511576e-10,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 0.9999826388888889,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 1.0,
+   "meanAbsChange": 0.2765086591243744,
+   "nSprites": 0,
+   "what": "twilight glow toward the sun",
+   "close": true
+  },
+  "dust-march-jul2-1100": {
+   "maxAbs": 0.00048828125,
+   "meanAbs": 7.064254195601852e-10,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 0.9999956597222223,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 0.9999956597222223,
+   "meanAbsChange": 0.0730913057923317,
+   "nSprites": 14951,
+   "what": "road dust of a marching column and dust at falls",
+   "close": true
+  },
+  "fire-sherfy-jul3-1500": {
+   "maxAbs": 0.0,
+   "meanAbs": 0.0,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 1.0,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 1.0,
+   "meanAbsChange": 0.11732526123523712,
+   "nSprites": 2250,
+   "what": "barn fire inside its window, half intensity (time uncertain)",
+   "close": true
+  },
+  "flash-night-jul2-2330": {
+   "maxAbs": 0.000244140625,
+   "meanAbs": 7.947285970052084e-10,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 0.9999869791666667,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 0.9999956597222223,
+   "meanAbsChange": 0.2003377228975296,
+   "nSprites": 1127,
+   "what": "muzzle flashes light the ground and men at night",
+   "close": true
+  },
+  "moon-zoom-jul2-2200": {
+   "maxAbs": 0.0001220703125,
+   "meanAbs": 8.830317744502315e-10,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 0.9999782986111111,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 1.0,
+   "meanAbsChange": 0.4785480499267578,
+   "nSprites": 0,
+   "what": "moon disc, second night",
+   "close": true
+  },
+  "night-floor-jul2-0100": {
+   "maxAbs": 0.0001220703125,
+   "meanAbs": 3.532127097800926e-10,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 0.9999913194444444,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 1.0,
+   "meanAbsChange": 0.19501568377017975,
+   "nSprites": 0,
+   "what": "night is never black: ground, men and sky",
+   "close": true
+  },
+  "smoke-jul3-1400": {
+   "maxAbs": 0.0,
+   "meanAbs": 0.0,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 1.0,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 1.0,
+   "meanAbsChange": 0.20815567672252655,
+   "nSprites": 6379,
+   "what": "musketry and cannon smoke, flashes, bursts, by day",
+   "close": true
+  },
+  "smoke-night-jul2-2200": {
+   "maxAbs": 0.0001220703125,
+   "meanAbs": 4.4151588722511576e-10,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 0.9999826388888889,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 1.0,
+   "meanAbsChange": 0.2402402013540268,
+   "nSprites": 1640,
+   "what": "smoke and flash light at night",
+   "close": true
+  },
+  "stars-jun28-0200": {
+   "maxAbs": 6.103515625e-05,
+   "meanAbs": 8.830317744502314e-11,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 0.9999956597222223,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 1.0,
+   "meanAbsChange": 0.5564497709274292,
+   "nSprites": 117,
+   "what": "stars and the night floor over the field",
+   "close": true
+  },
+  "wet-ground-jul4-1400": {
+   "maxAbs": 0.00048828125,
+   "meanAbs": 7.064254195601852e-10,
+   "p9999Abs": 0.0,
+   "over1_256": 0.0,
+   "bitIdentical": 0.9999956597222223,
+   "maxAbsAlpha": 0.0,
+   "finite": true,
+   "changedByPass": 1.0,
+   "meanAbsChange": 0.16392362117767334,
+   "nSprites": 0,
+   "what": "wet ground and puddles",
+   "close": true
+  }
+ },
+ "adapter": {
+  "vendor": "SwiftShader driver",
+  "architecture": "",
+  "device": "SwiftShader Device (Subzero)",
+  "description": "",
+  "stackgroup_min_size": 4,
+  "stackgroup_max_size": 128,
+  "vendor_id": 6880,
+  "device_id": 49374,
+  "adapter_type": "CPU",
+  "backend_type": "Vulkan"
+ },
+ "features_requested": [
+  "float32-filterable"
+ ],
+ "heightHash": 2461065505,
+ "ok": true
+}

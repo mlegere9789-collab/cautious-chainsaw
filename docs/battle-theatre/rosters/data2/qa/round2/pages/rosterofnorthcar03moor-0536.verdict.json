@@ -1,0 +1,514 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "rosterofnorthcar03moor/536",
+ "levels": "NDR",
+ "stratum": "NC-MOO-G-other",
+ "family": "NC-MOO-G",
+ "layout": "flow",
+ "kind": "other",
+ "draw_position": 2,
+ "in_lowest_decile": false,
+ "printed_page": 528,
+ "rows_stored": 31,
+ "rows_checked": 31,
+ "rows_in_error": 4,
+ "rows_ok": 27,
+ "rows_flagged_ocr_uncertain": 4,
+ "errors": [
+  {
+   "i": 4,
+   "kinds": [
+    "rem-date"
+   ],
+   "stored": "pr. in '61",
+   "printed": "pr. in '64",
+   "note": "crop at 600 dpi",
+   "rid": "53rd-north-carolina-infantry#1183",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G2"
+   ]
+  },
+  {
+   "i": 10,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Je«se F. Eller",
+   "printed": "Jesse F. Eller",
+   "note": "an s of the name read as a guillemet",
+   "rid": "53rd-north-carolina-infantry#1189",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 17,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "Wilkes co. Carson",
+   "printed": "Wilkes co.",
+   "note": "the first word of the next entry (Carson E. C. Wheeling) stands at the end of this line",
+   "rid": "53rd-north-carolina-infantry#1196",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 18,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "E. C. Wheeling",
+   "printed": "Carson E. C. Wheeling",
+   "note": "the given name Carson is in the remarks of the line above",
+   "rid": "53rd-north-carolina-infantry#1197",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "R"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 18,
+   "kinds": [
+    "rank"
+   ],
+   "stored": "oth Sergeant",
+   "printed": "5th Sergeant",
+   "note": "the digit 5 read o",
+   "rid": "53rd-north-carolina-infantry#1197",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "R"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  }
+ ],
+ "form_only": [
+  {
+   "i": 21,
+   "field": "remarks",
+   "stored": "e. •; Wilkes co.",
+   "printed": "e. --; Wilkes co. (the print has a dash for the unknown date)"
+  }
+ ],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "Printed page 528 (the end of Company I of the Fifty-Third Regiment, then Company K: officers, non-commissioned officers and the first privates); 31 printed entries, all 31 stored. Row 16 (John F. Lipps): the stored year '24 of the capture date is what the print shows (checked at 600 dpi), so it is not an error."
+ ],
+ "reader": "full page view at 200 dpi (Read tool); crops at 500 and 600 dpi of the Trull C., Jesse F. Eller, Wheeling and Lipps lines; every stored line compared with the print at the levels N, D and R; the company letters I (to the heading) and K (after it) checked against the running heads of the neighbouring pages 527 (Company I) and 529 (Company K) and the heading on the page",
+ "tesseract_prescreen": {
+  "agree": 15,
+  "near": 0,
+  "suspect": 16,
+  "unstored_lines": 2
+ },
+ "read": {
+  "pdf_sha256": "cd19cd7b0f1e2fe6b21f6d68ae5e57eb886e60a2efa99368d26ef7f9465cf299",
+  "pdf_page": 536,
+  "view_png_sha256": "637d2dc247d0324b3e338416454fa889b7501bf0b62d9ce3fd30bfd63af7a44d",
+  "render300_sha256": "8ebab0db19a7f86a22ef45a2a344a5c348b3f71cb94a29d952bad986d356a8d1",
+  "tess_sha256": "8888dbdc828090f2b82408b3f23b2d723e05823f41bd29ddf92b398c02065e85",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.982
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "53rd-north-carolina-infantry#1179",
+   "name": "Teal, T. H.",
+   "rank": "^PRIVATES",
+   "co": "I",
+   "remarks_sha256": "69d65a6adf41f9dc4135a486e603a2be01363b32aaea2a4fa76e00d0268c6bbd",
+   "off": 1622637,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "53rd-north-carolina-infantry#1180",
+   "name": "Tadlock, Uriah",
+   "rank": "^PRIVATES",
+   "co": "I",
+   "remarks_sha256": "dfc7fc4b1547b618ec891ad32573005cd3d1a4850c253e76c211c7b7cfdb5b01",
+   "off": 1622688,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "53rd-north-carolina-infantry#1181",
+   "name": "Trull, J. J.",
+   "rank": "^PRIVATES",
+   "co": "I",
+   "remarks_sha256": "67a5ec4dea07e34bcec536435653a83656b0b8f1fffbe31c877a2247f2ad2349",
+   "off": 1622754,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "53rd-north-carolina-infantry#1182",
+   "name": "Trull, J. H„",
+   "rank": "^PRIVATES",
+   "co": "I",
+   "remarks_sha256": "d27f952a4c37ce1d8a099339acc5b2a067d8ba19ab0aefd374715a15cf5911f1",
+   "off": 1622826,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 4,
+   "rid": "53rd-north-carolina-infantry#1183",
+   "name": "Trull, C",
+   "rank": "^PRIVATES",
+   "co": "I",
+   "remarks_sha256": "271d7d0c7178ac0b6ae04eeb945fad9c6ebddb34740d9594d4f00aeb2ebe490a",
+   "off": 1622895,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "53rd-north-carolina-infantry#1184",
+   "name": "Walden, William M.",
+   "rank": "^PRIVATES",
+   "co": "I",
+   "remarks_sha256": "69d65a6adf41f9dc4135a486e603a2be01363b32aaea2a4fa76e00d0268c6bbd",
+   "off": 1622971,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "53rd-north-carolina-infantry#1185",
+   "name": "Williams, J. C, Jr.",
+   "rank": "^PRIVATES",
+   "co": "I",
+   "remarks_sha256": "69d65a6adf41f9dc4135a486e603a2be01363b32aaea2a4fa76e00d0268c6bbd",
+   "off": 1623029,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "53rd-north-carolina-infantry#1186",
+   "name": "Webb, D. F.",
+   "rank": "^PRIVATES",
+   "co": "I",
+   "remarks_sha256": "f7b0be6c5d75b06886f8c936333288d5ff05009e855d2e3748784d984f28f5ca",
+   "off": 1623089,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "53rd-north-carolina-infantry#1187",
+   "name": "William J. Miller",
+   "rank": "Captain",
+   "co": "K",
+   "remarks_sha256": "6c7ea6f2d2a31e2fec85e2a8ec4d2ce6312b266f91084c7abac91f2b36949fa8",
+   "off": 1623179,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "53rd-north-carolina-infantry#1188",
+   "name": "Jesse F. Eller",
+   "rank": "Captain",
+   "co": "K",
+   "remarks_sha256": "424c59e8c008c240b37d0f717be1760aa3cbede5c7198bfba5f89b78b9dfb7d5",
+   "off": 1623288,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "53rd-north-carolina-infantry#1189",
+   "name": "Je«se F. Eller",
+   "rank": "1st Lieutenant",
+   "co": "K",
+   "remarks_sha256": "872959b6c980e264452ec3a21ba2ebd257f24fc476d9dce3f2770af463c7631f",
+   "off": 1623381,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "N"
+   ]
+  },
+  {
+   "i": 11,
+   "rid": "53rd-north-carolina-infantry#1190",
+   "name": "Thomas C. Miller",
+   "rank": "1st Lieutenant",
+   "co": "K",
+   "remarks_sha256": "a5027045df6e08cfb004a1669cc9f6bcd628cf720fffc52a660d1ee5f36ca3bb",
+   "off": 1623461,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "53rd-north-carolina-infantry#1191",
+   "name": "Thomas C. Miller",
+   "rank": "2d Lieutenant",
+   "co": "K",
+   "remarks_sha256": "77dbf6272beacfad86fca8a9ace82e466235c76854ecf8a31290ed422418aecf",
+   "off": 1623560,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "53rd-north-carolina-infantry#1192",
+   "name": "Thomas C. Land",
+   "rank": "2d Lieutenant",
+   "co": "K",
+   "remarks_sha256": "5e44a40ceff6b4f1d61ea44efca0fa063db23f1961287660ecb8cab2893fd7de",
+   "off": 1623640,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "53rd-north-carolina-infantry#1193",
+   "name": "David Eller",
+   "rank": "1st Sergeant",
+   "co": "K",
+   "remarks_sha256": "3e7a45fb2a6264390a9a8b55d9b6a785624369196f7e76b65f46bd725502275b",
+   "off": 1623740,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "53rd-north-carolina-infantry#1194",
+   "name": "John W. Tuplett",
+   "rank": "2d Sergeant",
+   "co": "K",
+   "remarks_sha256": "ab51d4cec51c6c80babd76173ae071fe2fb4c62d5f768a9f761931e572049572",
+   "off": 1623860,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 16,
+   "rid": "53rd-north-carolina-infantry#1195",
+   "name": "John F. Lipps",
+   "rank": "3d Sergeant",
+   "co": "K",
+   "remarks_sha256": "62bdd57104dc8b8385dd5af3876f2d5e4e21649b9ecb57b0624d9a1976430a90",
+   "off": 1623970,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "53rd-north-carolina-infantry#1196",
+   "name": "Lewis Waters",
+   "rank": "4th Sergeant",
+   "co": "K",
+   "remarks_sha256": "68667761b63baa5dca9b6441284c2cd2f749dc3e716a7fa4386929901401463c",
+   "off": 1624113,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 18,
+   "rid": "53rd-north-carolina-infantry#1197",
+   "name": "E. C. Wheeling",
+   "rank": "oth Sergeant",
+   "co": "K",
+   "remarks_sha256": "4b2fb5a4e16f77b95d25361b7decfa7d306efb48251801949fc61e5269b07cc1",
+   "off": 1624192,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "R"
+   ]
+  },
+  {
+   "i": 19,
+   "rid": "53rd-north-carolina-infantry#1198",
+   "name": "Elbert A. Brown",
+   "rank": "1st Corporal",
+   "co": "K",
+   "remarks_sha256": "137c0b664af0aaf9013376161def81c7280ec1a2009e62b29a6a8de773a9c70e",
+   "off": 1624302,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 20,
+   "rid": "53rd-north-carolina-infantry#1199",
+   "name": "Nathan P. Canter",
+   "rank": "2d Corporal",
+   "co": "K",
+   "remarks_sha256": "5928cbbb457d0cd5aacff7722b82339bc740cc70b09f2c01fc1675c1b937f555",
+   "off": 1624412,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 21,
+   "rid": "53rd-north-carolina-infantry#1200",
+   "name": "Wm. C. Fletcher",
+   "rank": "3d Corporal",
+   "co": "K",
+   "remarks_sha256": "d39002a09bdd9c626ddd023747811f4661a76ecb6b49e8a0c10427e719de02c5",
+   "off": 1624508,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": [
+    "G"
+   ]
+  },
+  {
+   "i": 22,
+   "rid": "53rd-north-carolina-infantry#1201",
+   "name": "James A. Vannoy",
+   "rank": "4th Corporal",
+   "co": "K",
+   "remarks_sha256": "fdcea44c21eb6e32783ce2cec055250156fc0243717c08c513bba7f28c079891",
+   "off": 1624604,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 23,
+   "rid": "53rd-north-carolina-infantry#1202",
+   "name": "Hamilton Barnett",
+   "rank": "Musician",
+   "co": "K",
+   "remarks_sha256": "bc3b41c6cd79343b95460a86f77b62d8e9fd2b7299b472b7b929784c82f3f249",
+   "off": 1624675,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 24,
+   "rid": "53rd-north-carolina-infantry#1203",
+   "name": "Ashley, Thos. M.",
+   "rank": "^PRIVATES",
+   "co": "K",
+   "remarks_sha256": "8b9dbb6dac40bfae3c7f9a02339962a3ae2a63345929f166c26613cd812643c5",
+   "off": 1624776,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 25,
+   "rid": "53rd-north-carolina-infantry#1204",
+   "name": "Adkins, John",
+   "rank": "^PRIVATES",
+   "co": "K",
+   "remarks_sha256": "f025f90a8ebebdca8391ea4ca608389ba932673742a11a605d2fcea7a16609e7",
+   "off": 1624831,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 26,
+   "rid": "53rd-north-carolina-infantry#1205",
+   "name": "Adkins, Alfred",
+   "rank": "^PRIVATES",
+   "co": "K",
+   "remarks_sha256": "076cd52a2c3603f98d40525418095556a5b8ab93114a60b79400e8385899c415",
+   "off": 1624882,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 27,
+   "rid": "53rd-north-carolina-infantry#1206",
+   "name": "Adkins, Drury P.",
+   "rank": "^PRIVATES",
+   "co": "K",
+   "remarks_sha256": "076cd52a2c3603f98d40525418095556a5b8ab93114a60b79400e8385899c415",
+   "off": 1624936,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 28,
+   "rid": "53rd-north-carolina-infantry#1207",
+   "name": "Ball, Alfred F.",
+   "rank": "^PRIVATES",
+   "co": "K",
+   "remarks_sha256": "b85e563006e3039ff4604a459c57b62b3e572063c951045234c898008b93f1ec",
+   "off": 1624993,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 29,
+   "rid": "53rd-north-carolina-infantry#1208",
+   "name": "Brown, William H.",
+   "rank": "^PRIVATES",
+   "co": "K",
+   "remarks_sha256": "f73c9dbf115be5cd934bd8203a6d1cefa5cff092197d5513f15b8414ca6f8b54",
+   "off": 1625068,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  },
+  {
+   "i": 30,
+   "rid": "53rd-north-carolina-infantry#1209",
+   "name": "Brookshire, Noah B.",
+   "rank": "^PRIVATES",
+   "co": "K",
+   "remarks_sha256": "9e0c6fce309d896cb1c5eea7c58136cb5c848920b5b5361014174e987165eddc",
+   "off": 1625192,
+   "text_id": "NC-MOORE-1882.3",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-16T03:04:47Z",
+ "tesseract_status": {
+  "0": "AGREE",
+  "1": "AGREE",
+  "2": "SUSPECT",
+  "3": "AGREE",
+  "4": "SUSPECT",
+  "5": "AGREE",
+  "6": "AGREE",
+  "7": "AGREE",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "SUSPECT",
+  "11": "SUSPECT",
+  "12": "AGREE",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "AGREE",
+  "16": "SUSPECT",
+  "17": "AGREE",
+  "18": "SUSPECT",
+  "19": "SUSPECT",
+  "20": "SUSPECT",
+  "21": "AGREE",
+  "22": "AGREE",
+  "23": "AGREE",
+  "24": "AGREE",
+  "25": "SUSPECT",
+  "26": "SUSPECT",
+  "27": "AGREE",
+  "28": "AGREE",
+  "29": "SUSPECT",
+  "30": "SUSPECT"
+ }
+}

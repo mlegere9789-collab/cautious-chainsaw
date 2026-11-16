@@ -1,0 +1,245 @@
+{
+ "url": "http://127.0.0.1:38897/app/tests/weather3d-gpu.html?api=webgpu&capture=1&w=640&h=360&soldiers=12000&tier=laptop",
+ "w": 640,
+ "h": 360,
+ "soldiers": 12000,
+ "tier": "laptop",
+ "started": "2026-11-16T02:59:22.680Z",
+ "cases": {
+  "stars-jun28-0200": {
+   "nSprites": 117,
+   "nEvents": 117,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 12463
+  },
+  "moon-zoom-jul2-2200": {
+   "nSprites": 0,
+   "nEvents": 0,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 7116
+  },
+  "dusk-jul2-2000": {
+   "nSprites": 0,
+   "nEvents": 0,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 5434
+  },
+  "dawn-fog-jul2-0430": {
+   "nSprites": 0,
+   "nEvents": 0,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 6588
+  },
+  "day-clouds-jul3-1400": {
+   "nSprites": 32,
+   "nEvents": 32,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 5369
+  },
+  "wet-ground-jul4-1400": {
+   "nSprites": 0,
+   "nEvents": 0,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 4843
+  },
+  "smoke-jul3-1400": {
+   "nSprites": 6379,
+   "nEvents": 702,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 22265
+  },
+  "smoke-night-jul2-2200": {
+   "nSprites": 1640,
+   "nEvents": 171,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 5821
+  },
+  "flash-night-jul2-2330": {
+   "nSprites": 1127,
+   "nEvents": 95,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 5933
+  },
+  "fire-sherfy-jul3-1500": {
+   "nSprites": 2250,
+   "nEvents": 161,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 14454
+  },
+  "dust-march-jul2-1100": {
+   "nSprites": 14951,
+   "nEvents": 4047,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 8266
+  },
+  "night-floor-jul2-0100": {
+   "nSprites": 0,
+   "nEvents": 0,
+   "validation": null,
+   "ok": true,
+   "heightHash": 2461065505,
+   "wallMs": 4625
+  }
+ },
+ "errors": [],
+ "diagInit": {
+  "api": "webgpu",
+  "hostLog": [],
+  "flags0": {
+   "terrain": 1,
+   "near": 1,
+   "mid": 1,
+   "far": 1,
+   "guns": 1,
+   "particles": false,
+   "shadows": 1,
+   "post": 1,
+   "bloom": 1,
+   "dof": 0,
+   "mblur": 0,
+   "sky": false
+  },
+  "flags": {
+   "terrain": 1,
+   "near": 1,
+   "mid": 1,
+   "far": 1,
+   "guns": 1,
+   "particles": false,
+   "shadows": 1,
+   "post": 1,
+   "bloom": 1,
+   "dof": 0,
+   "mblur": 0,
+   "sky": false
+  },
+  "fxLog": [],
+  "gpu": {
+   "ok": true,
+   "weatherOk": true,
+   "fxOk": true,
+   "failed": null,
+   "log": [],
+   "warnings": [],
+   "bytes": 1238292,
+   "timing": true
+  },
+  "gl": null,
+  "adapter": {
+   "vendor": "google",
+   "arch": "swiftshader",
+   "device": "",
+   "desc": ""
+  },
+  "gpuErrors": [],
+  "wgsl": [],
+  "modules": [
+   "terrain messages=0",
+   "sky messages=0",
+   "midBone messages=0",
+   "nearFoot messages=0",
+   "nearMnt messages=0",
+   "mid messages=0",
+   "gun messages=0",
+   "imp messages=0",
+   "imp messages=0",
+   "particles messages=0",
+   "post messages=0",
+   "weather3d-mul messages=0",
+   "weather3d-add messages=0",
+   "fx3d-sprites messages=0"
+  ]
+ },
+ "diagEnd": {
+  "api": "webgpu",
+  "hostLog": [],
+  "flags0": {
+   "terrain": 1,
+   "near": 1,
+   "mid": 1,
+   "far": 1,
+   "guns": 1,
+   "particles": false,
+   "shadows": 1,
+   "post": 1,
+   "bloom": 1,
+   "dof": 0,
+   "mblur": 0,
+   "sky": false
+  },
+  "flags": {
+   "terrain": 1,
+   "near": 1,
+   "mid": 1,
+   "far": 1,
+   "guns": 1,
+   "particles": false,
+   "shadows": 1,
+   "post": 1,
+   "bloom": 1,
+   "dof": 0,
+   "mblur": 0,
+   "sky": false
+  },
+  "fxLog": [],
+  "gpu": {
+   "ok": true,
+   "weatherOk": true,
+   "fxOk": true,
+   "failed": null,
+   "log": [],
+   "warnings": [],
+   "bytes": 1238292,
+   "timing": true
+  },
+  "gl": null,
+  "adapter": {
+   "vendor": "google",
+   "arch": "swiftshader",
+   "device": "",
+   "desc": ""
+  },
+  "gpuErrors": [],
+  "wgsl": [],
+  "modules": [
+   "terrain messages=0",
+   "sky messages=0",
+   "midBone messages=0",
+   "nearFoot messages=0",
+   "nearMnt messages=0",
+   "mid messages=0",
+   "gun messages=0",
+   "imp messages=0",
+   "imp messages=0",
+   "particles messages=0",
+   "post messages=0",
+   "weather3d-mul messages=0",
+   "weather3d-add messages=0",
+   "fx3d-sprites messages=0"
+  ]
+ },
+ "finished": "2026-11-16T03:01:25.791Z",
+ "consoleProblems": []
+}

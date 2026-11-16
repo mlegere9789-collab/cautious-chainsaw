@@ -276,60 +276,97 @@
   "NC-MOO-G-other": {
    "pages_in_stratum": 290,
    "rows_in_stratum": 12728,
-   "pages_looked_at": 0,
-   "decile_pages_looked_at": 0,
-   "rows_looked_at": 0,
-   "draw_positions": [],
-   "pages": [],
+   "pages_looked_at": 7,
+   "decile_pages_looked_at": 3,
+   "rows_looked_at": 311,
+   "draw_positions": [
+    6,
+    1,
+    7,
+    4,
+    5,
+    3,
+    2
+   ],
+   "pages": [
+    "rosterofnorthcar02nort/14",
+    "rosterofnorthcar02nort/20",
+    "rosterofnorthcar02nort/29",
+    "rosterofnorthcar02nort/38",
+    "rosterofnorthcar02nort/202",
+    "rosterofnorthcar03moor/286",
+    "rosterofnorthcar03moor/536"
+   ],
    "gates": {
     "R-G1": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 311,
+     "errors": 22,
+     "rate_percent": 7.07,
+     "upper95_percent": 9.95,
+     "lower95_percent": 4.84,
+     "decision": "FAIL"
     },
     "R-G2": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 126,
+     "errors": 14,
+     "rate_percent": 11.11,
+     "upper95_percent": 16.82,
+     "lower95_percent": 6.84,
+     "decision": "FAIL"
     },
     "R-G3a": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 311,
+     "errors": 3,
+     "rate_percent": 0.96,
+     "upper95_percent": 2.47,
+     "lower95_percent": 0.26,
+     "decision": "OPEN"
     },
     "R-G3b": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
-     "decision": "NOT LOOKED AT"
+     "rows": 126,
+     "errors": 8,
+     "rate_percent": 6.35,
+     "upper95_percent": 11.16,
+     "lower95_percent": 3.2,
+     "decision": "FAIL"
     },
     "any": {
-     "rows": 0,
-     "errors": 0,
-     "rate_percent": null,
-     "upper95_percent": null,
-     "lower95_percent": 0.0,
+     "rows": 126,
+     "errors": 28,
+     "rate_percent": 22.22,
+     "upper95_percent": 29.18,
+     "lower95_percent": 16.28,
      "decision": null
     }
    },
-   "error_kinds_count": {},
-   "error_kinds_on_rows_flagged_ocr_uncertain": {},
-   "error_kinds_on_rows_not_flagged": {},
+   "error_kinds_count": {
+    "name-char": 20,
+    "rem-date": 14,
+    "rem-char": 7,
+    "name-cut": 3,
+    "rank": 2,
+    "merge": 1,
+    "rem-extra": 1
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-char": 9,
+    "rem-date": 4,
+    "rem-char": 2,
+    "name-cut": 2,
+    "rank": 2,
+    "merge": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "name-char": 11,
+    "rem-date": 10,
+    "rem-char": 5,
+    "name-cut": 1,
+    "rem-extra": 1
+   },
    "missed_lines": 0,
    "census_complete": false
   }
  },
- "pages_looked_at": 12,
- "rows_looked_at": 383
+ "pages_looked_at": 19,
+ "rows_looked_at": 694
 }

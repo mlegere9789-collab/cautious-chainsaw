@@ -18,7 +18,9 @@
    "image_keys": [
     "LOC2008680497_cph.3a29646_r"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOC-2008680497-S"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
@@ -76,6 +78,7 @@
     "LOC2012647705_ppmsca.32839_v"
    ],
    "statement_ids": [
+    "PS-GARDNER-SB1-P85",
     "PS-LOC-2012647705-N",
     "PS-NPS-CLRCEM-124"
    ],
@@ -84,7 +87,7 @@
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "The gatehouse from a distance with earthwork lunettes in the foreground and a horse cart; no side or distance is stated (third view of the gatehouse; see P03 and P26 for the other two). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2006692500 (both images were looked at)."
+   "why": "The gatehouse from a distance with earthwork lunettes in the foreground and a horse cart; no side or distance is stated (third view of the gatehouse; see P03 and P26 for the other two). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2006692500 (both images were looked at). Gardner's Photographic Sketch Book of the War, volume 1, plate 39 (printed title 'Gateway of Cemetery, Gettysburg.'; credit as printed: Negative by T. H. O'Sullivan): the letterpress page (album page 85 of the Library's copy) was read by machine from the master scan and by eye and describes the subject and the action, not where the camera stood."
   },
   {
    "loc_id": "2012647707",
@@ -360,7 +363,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2012647833_ppmsca.32920_r",
     "LOC2012647833_ppmsca.32920_v"
@@ -462,7 +465,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged",
+   "staged_basis": "same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2012647849_ppmsca.32936_r",
     "LOC2012647849_ppmsca.32936_v"
@@ -473,7 +476,7 @@
    "class": "STG",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Staged-photograph flag respected (same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged). A body between two boulders: the same negative number (LC-B815-251) as record 2018670788, the staged Devil's Den sharpshooter; the title-only flag of the first run had missed this record. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+   "why": "Staged-photograph flag respected (same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged Official sources that can be read (added 2026-11-16): the National Park Service says ). A body between two boulders: the same negative number (LC-B815-251) as record 2018670788, the staged Devil's Den sharpshooter; the title-only flag of the first run had missed this record. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
   },
   {
    "loc_id": "2012648001",
@@ -660,6 +663,7 @@
     "LOC2014646001_ppmsca.35051_v"
    ],
    "statement_ids": [
+    "PS-GARDNER-SB1-P77",
     "PS-LOC-2014646001-N",
     "PS-NPS-ROTV1-75",
     "PS-NPS-ROTV1-F79top",
@@ -671,7 +675,7 @@
    ],
    "class": "POSE",
    "verdict": "does not",
-   "why": "P28: Same place and exposure as P27 (the Sketch Book print plate 35; a second print of it is record 2006685383); heading northwest = 315 degrees (the NPS word of the Record of Treatment, volumes I and II: a view northwest from Cemetery Hill); field 40 degrees (assumed). At the registered heading 315 degrees and the 40 degree field: T1 (pike in the left 55 percent of the frame) False (pike at 0.872 to 0.994 of the frame width, 40 visible vertices); T2 (horizon within 0.10 of 0.47) True (render 0.514); T3 (town band centre in 0.05 to 0.60) disagree (building outlines centre 0.579, GZ-072 at outside the frame, right). The criterion written before the render defines matches (all three pass), roughly (T2 and one of T1, T3 pass) and does not (T1 and T2 fail together, or the pike on the wrong side at both words); this combination (T1 fails, T2 passes, T3 disagrees) is not covered, so the conservative reading is taken: not matches, not roughly. By the sheet and the lines laid on the photograph (reports/P28_lines.jpg) the layout contradicts the photograph: at 315 degrees the Baltimore Pike lies at the right edge of the frame (0.87 to 0.99 of the width; out of the frame at the 30 degree field) and the town outlines stand in the right half, while in the photograph the pike runs from the lower left to the left of the centre and the town lies at the left and centre. Skyline test (C-P27-P28-2, heading free inside the sector, lens and vertical shift free): RMS 0.1043 degrees at heading -24.5 and field 25 (match-level); the station ranks 14 of 25 against 24 control stations 100 to 300 m away (controls 0.0795 to 0.2917, first quartile 0.1041), discriminated = False; camera height 5 m and 11 m: RMS 0.1042 and 0.1045. Verdict: does not, conditional on the heading word northwest (315 degrees) read at the centre of its sector; read from the photograph the heading lies at the boundary of the two NPS words (the exploratory courthouse reading in numbers), so the centre of northwest is about 20 degrees off. | superseded earlier pose P06 (does not): At the registered pose (East Cemetery Hill, Wiedrich monument plus 25 m east, looking to the borough) the model puts every building in a narrow band at the horizon (0.52 of the frame height) and shows no road; the photograph has the Baltimore Pike running from the lower left to the town at left centre, houses spread over the full frame width, a ridge behind them at 0.47 and a tent camp at the right. The apparent size and spread of the town differ by about a factor of 2: the camera was nearer the town and lower on the slope than assumed (sigma 150 m), and the model holds only 2023 outlines of surviving buildings. The verdict is on this pose only.",
+   "why": "P28: Same place and exposure as P27 (the Sketch Book print plate 35; a second print of it is record 2006685383); heading northwest = 315 degrees (the NPS word of the Record of Treatment, volumes I and II: a view northwest from Cemetery Hill); field 40 degrees (assumed). At the registered heading 315 degrees and the 40 degree field: T1 (pike in the left 55 percent of the frame) False (pike at 0.872 to 0.994 of the frame width, 40 visible vertices); T2 (horizon within 0.10 of 0.47) True (render 0.514); T3 (town band centre in 0.05 to 0.60) disagree (building outlines centre 0.579, GZ-072 at outside the frame, right). The criterion written before the render defines matches (all three pass), roughly (T2 and one of T1, T3 pass) and does not (T1 and T2 fail together, or the pike on the wrong side at both words); this combination (T1 fails, T2 passes, T3 disagrees) is not covered, so the conservative reading is taken: not matches, not roughly. By the sheet and the lines laid on the photograph (reports/P28_lines.jpg) the layout contradicts the photograph: at 315 degrees the Baltimore Pike lies at the right edge of the frame (0.87 to 0.99 of the width; out of the frame at the 30 degree field) and the town outlines stand in the right half, while in the photograph the pike runs from the lower left to the left of the centre and the town lies at the left and centre. Skyline test (C-P27-P28-2, heading free inside the sector, lens and vertical shift free): RMS 0.1043 degrees at heading -24.5 and field 25 (match-level); the station ranks 14 of 25 against 24 control stations 100 to 300 m away (controls 0.0795 to 0.2917, first quartile 0.1041), discriminated = False; camera height 5 m and 11 m: RMS 0.1042 and 0.1045. Verdict: does not, conditional on the heading word northwest (315 degrees) read at the centre of its sector; read from the photograph the heading lies at the boundary of the two NPS words (the exploratory courthouse reading in numbers), so the centre of northwest is about 20 degrees off. Fifth pass (2026-11-16): Gardner's own letterpress for plate 35 of the Sketch Book (the Library's digitized album, page 77, read by machine from the master scan and by eye; statement PS-GARDNER-SB1-P77) says: 'This view is taken from Cemetery Ridge, where our artillery was massed' and that Seminary Ridge 'can be seen' 'on the left of the picture'. It is a second source for the place, in the photographer's own words; it is consistent with the National Park Service place (the roof of the Evergreen Cemetery lodge on the cemetery knoll at the Baltimore Pike; Gardner's text for plate 39 calls the knoll of the National Soldiers' Cemetery Cemetery Ridge, but he also uses the name for the ridge toward Round Top) and it does not fix the building; it gives no spot, no bearing, no height and no lens, so the position stays inferred and no count changes. As a cue for the direction it is not a test (found after the renders were looked at) and changes nothing: at this pose's northwest heading and 40 degree field the gazetteer centre of Seminary Ridge (302.4 degrees from the gatehouse) stands at 0.18 of the frame width and the Seminary building (313.8) at 0.47, so the left-of-picture phrase is met at the northwest word and not at the north word of pose P27; but the same heading fails the pike test and puts the court house (349.6 degrees) outside the frame at x 1.37, while the photograph shows a tower at 0.737 of its width. The two National Park Service words and Gardner's phrase are carried as three readings that no single heading meets at 40 degrees; the free heading read from the tower (337.2 to 342.5 degrees, exploratory_heading.json, a fit and not a test) puts Oak Ridge (339.8) at x 0.5, the Seminary building at x -0.15 (outside the left edge) and the court house at x 0.74. None is chosen. The verdict (does not) rests on the criterion written before the render and is unchanged. | superseded earlier pose P06 (does not): At the registered pose (East Cemetery Hill, Wiedrich monument plus 25 m east, looking to the borough) the model puts every building in a narrow band at the horizon (0.52 of the frame height) and shows no road; the photograph has the Baltimore Pike running from the lower left to the town at left centre, houses spread over the full frame width, a ridge behind them at 0.47 and a tent camp at the right. The apparent size and spread of the town differ by about a factor of 2: the camera was nearer the town and lower on the slope than assumed (sigma 150 m), and the model holds only 2023 outlines of surviving buildings. The verdict is on this pose only.",
    "reviewed_image": true
   },
   {
@@ -1389,7 +1393,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018666313_cwp.4a40262_r",
     "LOC2018666313_cwp.4a40262_v",
@@ -1399,6 +1403,7 @@
     "LOC2018666313_ppmsc.00171_v"
    ],
    "statement_ids": [
+    "PS-LOCESSAY-MOVED-PLACE",
     "PS-PL-SHARP-HOME-LOC",
     "PS-PL-SHARP-HOME-STAGED",
     "PS-TN-DD7-STAGED"
@@ -1435,7 +1440,7 @@
    ],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018666314_cwp.4a39439_r",
     "LOC2018666314_cwpb.00915_r",
@@ -1446,6 +1451,7 @@
     "LOC2018666314_ppmsc.00172_v"
    ],
    "statement_ids": [
+    "PS-LOCESSAY-MOVED-PLACE",
     "PS-NPS-SPEN-8",
     "PS-PL-GARDNER263-LOC"
    ],
@@ -1605,7 +1611,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018670625_cwpb.00836_r",
     "LOC2018670625_cwpb.00836_v",
@@ -1671,6 +1677,7 @@
     "LOC2018670645_cwpb.00842_v"
    ],
    "statement_ids": [
+    "PS-GARDNER-CAT-231",
     "PS-LOC-2018670645-N"
    ],
    "nps_then_now_identity": [],
@@ -2235,7 +2242,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018670741_cwpb.00862_r",
     "LOC2018670741_cwpb.00862_v",
@@ -2286,7 +2293,9 @@
     "LOC2018670757_cwpb.00868_r",
     "LOC2018670757_cwpb.00868_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOC-2018670757-T"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
@@ -2362,7 +2371,7 @@
    ],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018670788_cwpb.00874_r",
     "LOC2018670788_cwpb.00874_v",
@@ -2432,7 +2441,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018670837_cwpb.00885_r",
     "LOC2018670837_cwpb.00885_v",
@@ -2552,7 +2561,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018670874_cwpb.00898_r",
     "LOC2018670874_cwpb.00898_v",
@@ -2681,13 +2690,16 @@
     "LOC2018670908_cwpb.00908_r",
     "LOC2018670908_cwpb.00908_v"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-GARDNER-CAT-268",
+    "PS-LOC-2018670908-N"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Bodies gathered for burial with a lone tree and a wagon (July 5); no place beyond the Rose woods area. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "Bodies gathered for burial with a lone tree and a wagon (July 5); the negative sleeve caption, which repeats Gardner's own title no. 268 of September 1863, names only 'near the Emmitsburg Road' (statements PS-LOC-2018670908-N and PS-GARDNER-CAT-268): no spot and no direction, and the Library's bracketed title and date come from Frassanito. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
   },
   {
    "loc_id": "2018670943",
@@ -2737,6 +2749,8 @@
     "LOC2018671576_cwpb.00084_v"
    ],
    "statement_ids": [
+    "PS-GARDNER-CAT-273",
+    "PS-GARDNER-SB1-P77",
     "PS-LOC-2018671576-N",
     "PS-NPS-CLRCEM-126",
     "PS-NPS-CLRCEM-126b"
@@ -2747,7 +2761,7 @@
    ],
    "class": "POSE",
    "verdict": "roughly",
-   "why": "P27: First test at a documented camera place. Place: the roof of the Evergreen Cemetery lodge (NPS Cemetery CLR Fig. 1.26, LC-B815-273 = this record), the centroid of the 2023 outline of the gatehouse, sigma 20 m, 8 m above the ground (assumed); heading north = 0 degrees (the NPS word); field 40 degrees (assumed). The record is a stereo negative; the Sketch Book print of the same view (record 2014646001, pose P28) matches its frames with one homography at about 1 px residual at every depth, so the station is the same. At the registered heading 0 degrees and the 40 degree field: T1 (pike in the left 55 percent of the frame) True (pike at 0.026 to 0.261 of the frame width, 52 visible vertices); T2 (horizon within 0.10 of 0.47) True (render 0.534); T3 (town band centre in 0.05 to 0.60) True (building outlines centre 0.462, GZ-072 at 0.218). By the letter of the criterion written before the render that is a match. The same criterion calls the three tests necessary conditions, and the same measurement passes all three for the superseded poses P06 and P07, whose verdict is does not, so they cannot carry a match alone. Looking at the sheet and at the model lines laid on the photograph (reports/P27_lines.jpg): the centre line of the Baltimore Pike lies inside the road of the photograph from the lower left to the left edge, the model's building outlines stand at the left of the horizon where the town is, and the render has no tents, walls, fences or trees. Skyline test (C-P27-P28-2, heading free inside the sector, lens and vertical shift free): RMS 0.0938 degrees at heading -0.5 and field 25 (match-level); the station ranks 14 of 25 against 24 control stations 100 to 300 m away (controls 0.0895 to 0.2873, first quartile 0.0934), discriminated = False; camera height 5 m and 11 m: RMS 0.0936 and 0.0939. Exploratory, not a test: the courthouse clock tower (identified by looking: the model note says about 70 ft clock tower) stands at 0.737 of the width of the Sketch Book print, and the model's courthouse outline would stand at 0.25 of the frame at the registered heading; the tower implies a heading of 337.2 to 342.5 degrees (field 50 to 30 degrees), at the boundary of the NPS words north and northwest. Verdict: roughly, conditional on the pose: the road side, the town band and the horizon agree, the landmark that can be read does not fall within a tenth of the frame at the registered heading, the model cannot supply individual structures to compare, and nothing here is a registration against T-Q16-1 (unset). | superseded earlier pose P07 (does not): The same assumed cemetery pose as P06 and the same result: the frame is a stereo sibling of P06 (road at the left, tents at the right, the town across the horizon) and the render shows a narrow band of footprints at the horizon and no road. Pose-conditional, as P06.",
+   "why": "P27: First test at a documented camera place. Place: the roof of the Evergreen Cemetery lodge (NPS Cemetery CLR Fig. 1.26, LC-B815-273 = this record), the centroid of the 2023 outline of the gatehouse, sigma 20 m, 8 m above the ground (assumed); heading north = 0 degrees (the NPS word); field 40 degrees (assumed). The record is a stereo negative; the Sketch Book print of the same view (record 2014646001, pose P28) matches its frames with one homography at about 1 px residual at every depth, so the station is the same. At the registered heading 0 degrees and the 40 degree field: T1 (pike in the left 55 percent of the frame) True (pike at 0.026 to 0.261 of the frame width, 52 visible vertices); T2 (horizon within 0.10 of 0.47) True (render 0.534); T3 (town band centre in 0.05 to 0.60) True (building outlines centre 0.462, GZ-072 at 0.218). By the letter of the criterion written before the render that is a match. The same criterion calls the three tests necessary conditions, and the same measurement passes all three for the superseded poses P06 and P07, whose verdict is does not, so they cannot carry a match alone. Looking at the sheet and at the model lines laid on the photograph (reports/P27_lines.jpg): the centre line of the Baltimore Pike lies inside the road of the photograph from the lower left to the left edge, the model's building outlines stand at the left of the horizon where the town is, and the render has no tents, walls, fences or trees. Skyline test (C-P27-P28-2, heading free inside the sector, lens and vertical shift free): RMS 0.0938 degrees at heading -0.5 and field 25 (match-level); the station ranks 14 of 25 against 24 control stations 100 to 300 m away (controls 0.0895 to 0.2873, first quartile 0.0934), discriminated = False; camera height 5 m and 11 m: RMS 0.0936 and 0.0939. Exploratory, not a test: the courthouse clock tower (identified by looking: the model note says about 70 ft clock tower) stands at 0.737 of the width of the Sketch Book print, and the model's courthouse outline would stand at 0.25 of the frame at the registered heading; the tower implies a heading of 337.2 to 342.5 degrees (field 50 to 30 degrees), at the boundary of the NPS words north and northwest. Verdict: roughly, conditional on the pose: the road side, the town band and the horizon agree, the landmark that can be read does not fall within a tenth of the frame at the registered heading, the model cannot supply individual structures to compare, and nothing here is a registration against T-Q16-1 (unset). Fifth pass (2026-11-16): Gardner's own letterpress for plate 35 of the Sketch Book (the Library's digitized album, page 77, read by machine from the master scan and by eye; statement PS-GARDNER-SB1-P77) says: 'This view is taken from Cemetery Ridge, where our artillery was massed' and that Seminary Ridge 'can be seen' 'on the left of the picture'. It is a second source for the place, in the photographer's own words; it is consistent with the National Park Service place (the roof of the Evergreen Cemetery lodge on the cemetery knoll at the Baltimore Pike; Gardner's text for plate 39 calls the knoll of the National Soldiers' Cemetery Cemetery Ridge, but he also uses the name for the ridge toward Round Top) and it does not fix the building; it gives no spot, no bearing, no height and no lens, so the position stays inferred and no count changes. As a cue for the direction it is not a test (found after the renders were looked at) and changes nothing: at the north heading of this pose and the assumed 40 degree field the left edge of the frame is 340 degrees, so the gazetteer centre of Seminary Ridge (302.4 degrees from the gatehouse) and the Seminary building (313.8) lie outside it (x -0.94 and -0.65 of the frame width); at the northwest heading of pose P28 they lie at 0.18 and 0.47. The verdict (roughly) rests on the criterion written before the render and is unchanged. | superseded earlier pose P07 (does not): The same assumed cemetery pose as P06 and the same result: the frame is a stereo sibling of P06 (road at the left, tents at the right, the town across the horizon) and the render shows a narrow band of footprints at the horizon and no road. Pose-conditional, as P06.",
    "reviewed_image": true
   },
   {
@@ -2762,7 +2776,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018671578_cwpb.00086_r",
     "LOC2018671578_cwpb.00086_v"
@@ -2866,7 +2880,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018672107_cwpb.00069_r",
     "LOC2018672107_cwpb.00069_v"
@@ -2966,7 +2980,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018672111_cwpb.00073_r",
     "LOC2018672111_cwpb.00073_v"
@@ -3146,7 +3160,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC2018672241_cwpb.03701_r",
     "LOC2018672241_cwpb.03701_v"
@@ -3208,7 +3222,7 @@
    ],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only. Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "LOC91732531_cph.3g01825_r",
     "LOC91732531_cph.3g01825_v",
@@ -3900,7 +3914,7 @@
    "class": "NEAR",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Close or middle view of a close view of boulders and the edge of a wooded slope in the Slaughter Pen with dead soldiers among the rocks (Gardner's Sketch Book plate 44, O'Sullivan; the NPS calls it a view southeast); no sky line, building or road. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. LOC ppmsca-12565 (record 2006692515, O'Sullivan, 'Slaughter pen, foot of Round Top', Gardner's Sketch Book plate 44) is called 'Plum Run Gorge and the Slaughter Pen. View southeast, 1863' in the Record of Treatment (volume II) (statement PS-NPS-ROTV2-65)."
+   "why": "Close or middle view of a close view of boulders and the edge of a wooded slope in the Slaughter Pen with dead soldiers among the rocks (Gardner's Sketch Book plate 44, O'Sullivan; the NPS calls it a view southeast); no sky line, building or road. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. LOC ppmsca-12565 (record 2006692515, O'Sullivan, 'Slaughter pen, foot of Round Top', Gardner's Sketch Book plate 44) is called 'Plum Run Gorge and the Slaughter Pen. View southeast, 1863' in the Record of Treatment (volume II) (statement PS-NPS-ROTV2-65). Gardner's Photographic Sketch Book of the War, volume 1, plate 44 (printed title 'Slaughter Pen, Foot of Round Top, Gettysburg.'; credit as printed: Negative by T. H. O'Sullivan): the letterpress page (album page 95 of the Library's copy) was read by machine from the master scan and by eye and describes the subject and the action, not where the camera stood."
   },
   {
    "loc_id": "2009630184",
@@ -4318,7 +4332,7 @@
    ],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)",
+   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions) Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "WIDEX|2025167167|stereo.2s57221",
     "WIDE|2025167167"
@@ -4329,7 +4343,7 @@
    "class": "STG",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)). Rock formations with two men and bodies among the rocks (title: Devil's Den; printed on the verso as a sight of the battlefield). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647845 (both images were looked at). Further images of this record (1: 1 back(s) of a card or mount), fetched on 2026-11-15 and looked at: the card back is a printed list of the series 'Sights and scenes from the battle-field of Gettysburg' (titles only)."
+   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions) Official sources that can be read (added 2026-11-16): the National Park Service says of the photograp). Rock formations with two men and bodies among the rocks (title: Devil's Den; printed on the verso as a sight of the battlefield). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647845 (both images were looked at). Further images of this record (1: 1 back(s) of a card or mount), fetched on 2026-11-15 and looked at: the card back is a printed list of the series 'Sights and scenes from the battle-field of Gettysburg' (titles only)."
   },
   {
    "loc_id": "2024640258",
@@ -4719,13 +4733,16 @@
     "WIDEX|2006685384|cph.3c37392",
     "WIDE|2006685384"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOCESSAY-CONFUSED-PLACE",
+    "PS-LOCESSAY-CONFUSED-REL"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "NEAR",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Close or middle view of dead soldiers lying in a field with riders far behind, a page of Gardner's Sketch Book (plate 36). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Further images of this record (1: 1 copy negative(s)), fetched on 2026-11-15 and looked at: the text on them is a title or label, a series list, the publisher's caption of what the picture shows, a studio stamp or an owner's note; none states a camera place or a direction."
+   "why": "Close or middle view of dead soldiers lying in a field with riders far behind, a page of Gardner's Sketch Book (plate 36). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Gardner's Photographic Sketch Book of the War, volume 1, plate 36 (printed title 'A Harvest of Death, Gettysburg, Pennsylvania.'; credit as printed: Negative by T. H. O'Sullivan): the letterpress page (album page 79 of the Library's copy) was read by machine from the master scan and by eye and describes the subject and the action, not where the camera stood. Further images of this record (1: 1 copy negative(s)), fetched on 2026-11-15 and looked at: the text on them is a title or label, a series list, the publisher's caption of what the picture shows, a studio stamp or an owner's note; none states a camera place or a direction."
   },
   {
    "loc_id": "2011648013",
@@ -4900,7 +4917,7 @@
    "same_exposure_as": [],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)",
+   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions) Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "WIDEX|2011649194|stereo.2s02669",
     "WIDE|2011649194"
@@ -4911,7 +4928,7 @@
    "class": "STG",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)). A woman walking past the rock formations of Devil's Den (a stereograph made between 1863 and 1880). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Further images of this record (1: 1 back(s) of a card or mount), fetched on 2026-11-15 and looked at: the text on them is a title or label, a series list, the publisher's caption of what the picture shows, a studio stamp or an owner's note; none states a camera place or a direction."
+   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions) Official sources that can be read (added 2026-11-16): the National Park Service says of the photograp). A woman walking past the rock formations of Devil's Den (a stereograph made between 1863 and 1880). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Further images of this record (1: 1 back(s) of a card or mount), fetched on 2026-11-15 and looked at: the text on them is a title or label, a series list, the publisher's caption of what the picture shows, a studio stamp or an owner's note; none states a camera place or a direction."
   },
   {
    "loc_id": "2006692501",
@@ -4927,18 +4944,20 @@
    ],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)",
+   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions) Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "WIDEX|2006692501|cph.3b44726",
     "WIDE|2006692501"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOCESSAY-MOVED-PLACE"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "STG",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)). A dead soldier and his rifle among rocks, a page of Gardner's Sketch Book (plate 40, a sharpshooter's last sleep). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2018666314 (both images were looked at). Further images of this record (1: 1 copy negative(s)), fetched on 2026-11-15 and looked at: the text on them is a title or label, a series list, the publisher's caption of what the picture shows, a studio stamp or an owner's note; none states a camera place or a direction."
+   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions) Official sources that can be read (added 2026-11-16): the National Park Service says of the photograp). A dead soldier and his rifle among rocks, a page of Gardner's Sketch Book (plate 40, a sharpshooter's last sleep). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2018666314 (both images were looked at). Gardner's Photographic Sketch Book of the War, volume 1, plate 40 (printed title 'A Sharpshooter's Last Sleep, Gettysburg, Pennsylvania.'; credit as printed: Alex. Gardner, Photographer): the letterpress page (album page 87 of the Library's copy) was read by machine from the master scan and by eye and describes the subject and the action, not where the camera stood. Further images of this record (1: 1 copy negative(s)), fetched on 2026-11-15 and looked at: the text on them is a title or label, a series list, the publisher's caption of what the picture shows, a studio stamp or an owner's note; none states a camera place or a direction."
   },
   {
    "loc_id": "2006692513",
@@ -4964,7 +4983,7 @@
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "The Trostle house with slaughtered animals behind it, a page of Gardner's Sketch Book (plate 42). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025160089 (both images were looked at)."
+   "why": "The Trostle house with slaughtered animals behind it, a page of Gardner's Sketch Book (plate 42). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2025160089 (both images were looked at). Gardner's Photographic Sketch Book of the War, volume 1, plate 42 (printed title 'Trossell's House, Battle-Field of Gettysburg.'; credit as printed: Negative by T. H. O'Sullivan): the letterpress page (album page 91 of the Library's copy) was read by machine from the master scan and by eye and describes the subject and the action, not where the camera stood."
   },
   {
    "loc_id": "2011648596",
@@ -5090,7 +5109,7 @@
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "The Leister house behind a picket fence from the road, a page of Gardner's Sketch Book (plate 43). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "The Leister house behind a picket fence from the road, a page of Gardner's Sketch Book (plate 43). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Gardner's Photographic Sketch Book of the War, volume 1, plate 43 (printed title 'Head-Quarters Major General George G. Meade, during the Battle of Gettysburg.'; credit as printed: Negative by T. H. O'Sullivan): the letterpress page (album page 93 of the Library's copy) was read by machine from the master scan and by eye and describes the subject and the action, not where the camera stood."
   },
   {
    "loc_id": "2021644150",
@@ -5235,7 +5254,9 @@
     "WIDEX|2004682792|stereo.2s03751",
     "WIDE|2004682792"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOC-2004682792-S"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "STG",
@@ -5282,7 +5303,7 @@
    ],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "the printed number 251 equals the number of the sharpshooter negative LC-B815-251 that the first pass flagged as staged (record 2012647849: Devil's Den sharpshooter; the series prefixes differ, so the tie is likely, not proven) and the frame shows a body among boulders in a rock gorge like that series; flagged to be safe; terrain and rocks only",
+   "staged_basis": "the printed number 251 equals the number of the sharpshooter negative LC-B815-251 that the first pass flagged as staged (record 2012647849: Devil's Den sharpshooter; the series prefixes differ, so the tie is likely, not proven) and the frame shows a body among boulders in a rock gorge like that series; flagged to be safe; terrain and rocks only Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "WIDEX|2013645929|ppmsca.35215",
     "WIDE|2013645929"
@@ -5313,13 +5334,15 @@
    "image_keys": [
     "WIDE|2006692500"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-GARDNER-SB1-P85"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "The Evergreen Cemetery gatehouse seen across ground with earthworks in front of it, a page of Gardner's Sketch Book (plate 39). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647705 (both images were looked at)."
+   "why": "The Evergreen Cemetery gatehouse seen across ground with earthworks in front of it, a page of Gardner's Sketch Book (plate 39). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 2012647705 (both images were looked at). Gardner's Photographic Sketch Book of the War, volume 1, plate 39 (printed title 'Gateway of Cemetery, Gettysburg.'; credit as printed: Negative by T. H. O'Sullivan): the letterpress page (album page 85 of the Library's copy) was read by machine from the master scan and by eye and describes the subject and the action, not where the camera stood."
   },
   {
    "loc_id": "2006685385",
@@ -5337,13 +5360,16 @@
    "image_keys": [
     "WIDE|2006685385"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOCESSAY-CONFUSED-PLACE",
+    "PS-LOCESSAY-CONFUSED-REL"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "NEAR",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Close or middle view of dead soldiers in a field, a page of Gardner's Sketch Book (plate 37, the field where General Reynolds fell). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+   "why": "Close or middle view of dead soldiers in a field, a page of Gardner's Sketch Book (plate 37, the field where General Reynolds fell). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered. Gardner's Photographic Sketch Book of the War, volume 1, plate 37 (printed title 'Field where General Reynolds Fell, Gettysburg.'; credit as printed: Negative by T. H. O'Sullivan): the letterpress page (album page 81 of the Library's copy) was read by machine from the master scan and by eye and describes the subject and the action, not where the camera stood."
   },
   {
    "loc_id": "2019635468",
@@ -5391,6 +5417,7 @@
     "WIDE|2006685383"
    ],
    "statement_ids": [
+    "PS-GARDNER-SB1-P77",
     "PS-LOC-2006685383-S"
    ],
    "nps_then_now_identity": [],
@@ -5399,7 +5426,7 @@
    ],
    "class": "POS",
    "verdict": "does not",
-   "why": "P28: Same place and exposure as P27 (the Sketch Book print plate 35; a second print of it is record 2006685383); heading northwest = 315 degrees (the NPS word of the Record of Treatment, volumes I and II: a view northwest from Cemetery Hill); field 40 degrees (assumed). At the registered heading 315 degrees and the 40 degree field: T1 (pike in the left 55 percent of the frame) False (pike at 0.872 to 0.994 of the frame width, 40 visible vertices); T2 (horizon within 0.10 of 0.47) True (render 0.514); T3 (town band centre in 0.05 to 0.60) disagree (building outlines centre 0.579, GZ-072 at outside the frame, right). The criterion written before the render defines matches (all three pass), roughly (T2 and one of T1, T3 pass) and does not (T1 and T2 fail together, or the pike on the wrong side at both words); this combination (T1 fails, T2 passes, T3 disagrees) is not covered, so the conservative reading is taken: not matches, not roughly. By the sheet and the lines laid on the photograph (reports/P28_lines.jpg) the layout contradicts the photograph: at 315 degrees the Baltimore Pike lies at the right edge of the frame (0.87 to 0.99 of the width; out of the frame at the 30 degree field) and the town outlines stand in the right half, while in the photograph the pike runs from the lower left to the left of the centre and the town lies at the left and centre. Skyline test (C-P27-P28-2, heading free inside the sector, lens and vertical shift free): RMS 0.1043 degrees at heading -24.5 and field 25 (match-level); the station ranks 14 of 25 against 24 control stations 100 to 300 m away (controls 0.0795 to 0.2917, first quartile 0.1041), discriminated = False; camera height 5 m and 11 m: RMS 0.1042 and 0.1045. Verdict: does not, conditional on the heading word northwest (315 degrees) read at the centre of its sector; read from the photograph the heading lies at the boundary of the two NPS words (the exploratory courthouse reading in numbers), so the centre of northwest is about 20 degrees off.",
+   "why": "P28: Same place and exposure as P27 (the Sketch Book print plate 35; a second print of it is record 2006685383); heading northwest = 315 degrees (the NPS word of the Record of Treatment, volumes I and II: a view northwest from Cemetery Hill); field 40 degrees (assumed). At the registered heading 315 degrees and the 40 degree field: T1 (pike in the left 55 percent of the frame) False (pike at 0.872 to 0.994 of the frame width, 40 visible vertices); T2 (horizon within 0.10 of 0.47) True (render 0.514); T3 (town band centre in 0.05 to 0.60) disagree (building outlines centre 0.579, GZ-072 at outside the frame, right). The criterion written before the render defines matches (all three pass), roughly (T2 and one of T1, T3 pass) and does not (T1 and T2 fail together, or the pike on the wrong side at both words); this combination (T1 fails, T2 passes, T3 disagrees) is not covered, so the conservative reading is taken: not matches, not roughly. By the sheet and the lines laid on the photograph (reports/P28_lines.jpg) the layout contradicts the photograph: at 315 degrees the Baltimore Pike lies at the right edge of the frame (0.87 to 0.99 of the width; out of the frame at the 30 degree field) and the town outlines stand in the right half, while in the photograph the pike runs from the lower left to the left of the centre and the town lies at the left and centre. Skyline test (C-P27-P28-2, heading free inside the sector, lens and vertical shift free): RMS 0.1043 degrees at heading -24.5 and field 25 (match-level); the station ranks 14 of 25 against 24 control stations 100 to 300 m away (controls 0.0795 to 0.2917, first quartile 0.1041), discriminated = False; camera height 5 m and 11 m: RMS 0.1042 and 0.1045. Verdict: does not, conditional on the heading word northwest (315 degrees) read at the centre of its sector; read from the photograph the heading lies at the boundary of the two NPS words (the exploratory courthouse reading in numbers), so the centre of northwest is about 20 degrees off. Fifth pass (2026-11-16): Gardner's own letterpress for plate 35 of the Sketch Book (the Library's digitized album, page 77, read by machine from the master scan and by eye; statement PS-GARDNER-SB1-P77) says: 'This view is taken from Cemetery Ridge, where our artillery was massed' and that Seminary Ridge 'can be seen' 'on the left of the picture'. It is a second source for the place, in the photographer's own words; it is consistent with the National Park Service place (the roof of the Evergreen Cemetery lodge on the cemetery knoll at the Baltimore Pike; Gardner's text for plate 39 calls the knoll of the National Soldiers' Cemetery Cemetery Ridge, but he also uses the name for the ridge toward Round Top) and it does not fix the building; it gives no spot, no bearing, no height and no lens, so the position stays inferred and no count changes. As a cue for the direction it is not a test (found after the renders were looked at) and changes nothing: at this pose's northwest heading and 40 degree field the gazetteer centre of Seminary Ridge (302.4 degrees from the gatehouse) stands at 0.18 of the frame width and the Seminary building (313.8) at 0.47, so the left-of-picture phrase is met at the northwest word and not at the north word of pose P27; but the same heading fails the pike test and puts the court house (349.6 degrees) outside the frame at x 1.37, while the photograph shows a tower at 0.737 of its width. The two National Park Service words and Gardner's phrase are carried as three readings that no single heading meets at 40 degrees; the free heading read from the tower (337.2 to 342.5 degrees, exploratory_heading.json, a fit and not a test) puts Oak Ridge (339.8) at x 0.5, the Seminary building at x -0.15 (outside the left edge) and the court house at x 0.74. None is chosen. The verdict (does not) rests on the criterion written before the render and is unchanged.",
    "reviewed_image": true
   },
   {
@@ -5475,13 +5502,15 @@
    "image_keys": [
     "WIDE|2006685386"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-GARDNER-SB1-P83"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "POS",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "A boulder-covered breastwork inside a woodland with smoke or haze, a page of Gardner's Sketch Book (plate 38, interior of the breastworks on Round Top). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+   "why": "A boulder-covered breastwork inside a woodland with smoke or haze, a page of Gardner's Sketch Book (plate 38, interior of the breastworks on Round Top). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged. Gardner's Photographic Sketch Book of the War, volume 1, plate 38 (printed title 'Interior of Breastworks on Round Top, Gettysburg.'; credit as printed: Negative by T. H. O'Sullivan): the letterpress page (album page 83 of the Library's copy) was read by machine from the master scan and by eye and describes the subject and the action, not where the camera stood."
   },
   {
    "loc_id": "2012647715",
@@ -5548,17 +5577,19 @@
    ],
    "superseded_pose_ids": [],
    "staged_flag": true,
-   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)",
+   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions) Official sources that can be read (added 2026-11-16): the National Park Service says of the photograph 'Home of a Rebel Sharpshooter' that 'nor is it likely that the soldier fell in this location' (Then-And-Now page) and of the original place near Devil's Den that the body would be 'moved by the photographers from this location to another one some 40 yards away' (Then-And-Now page); the Library of Congress essay 'The Case of the Moved Body' says the two photographers 'moved the corpse to this rocky niche and photographed him again' and that the rifle was probably the photographer's prop (the essay says its analysis rests on Frassanito: a lead for the details, not for the flag, which is the owner's plan and the Park Service's own words).",
    "image_keys": [
     "WIDE|2006692502"
    ],
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOCESSAY-MOVED-PLACE"
+   ],
    "nps_then_now_identity": [],
    "pose_ids": [],
    "class": "STG",
    "verdict": "cannot judge",
    "reviewed_image": true,
-   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions)). A dead soldier among rocks in a rocky gorge, a page of Gardner's Sketch Book (plate 41, home of a rebel sharpshooter). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 91732531 (both images were looked at)."
+   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (the staged Devil's Den photograph; terrain and rocks only, never body or prop positions) Official sources that can be read (added 2026-11-16): the National Park Service says of the photograp). A dead soldier among rocks in a rocky gorge, a page of Gardner's Sketch Book (plate 41, home of a rebel sharpshooter). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered. Same exposure as (a second print, a stereo sibling or the same plate in another book) catalogued record 91732531 (both images were looked at). Gardner's Photographic Sketch Book of the War, volume 1, plate 41 (printed title 'Home of a Rebel Sharpshooter, Gettysburg.'; credit as printed: Alex. Gardner, Photographer): the letterpress page (album page 89 of the Library's copy) was read by machine from the master scan and by eye and describes the subject and the action, not where the camera stood."
   }
  ]
 }

@@ -49,6 +49,20 @@ const underOf = P => box => P.evaluate(b => { const out = []; const add = (n, na
 const pinBoxOf = P => () => P.evaluate(() => { const lab = document.querySelector('#xt-pin-lab'), l = lab.getBoundingClientRect(); return { l: l.left, t: l.top, r: l.right, b: l.bottom, text: document.querySelector('#xt-pin-text').textContent, wrap: getComputedStyle(lab).whiteSpace, shown: !document.querySelector('#xt-pin').hidden }; });
 const nameBoxOf = P => () => P.evaluate(() => { const m = window.btApp.theatre.sitePlaces.memorials, lb = m.label(), st = document.querySelector('#bt-stage').getBoundingClientRect(); return lb ? { l: st.left + lb.x, t: st.top + lb.y, r: st.left + lb.x + lb.w, b: st.top + lb.y + lb.h, text: lb.text, side: lb.side } : null; });
 
+// An accessibility audit of parts of the page with axe-core (WCAG 2.0/2.1 A and AA and the best-practice rules; node_modules/axe-core): serious and critical findings fail the check, the others are listed in the notes.
+// It is a rule-based audit, not a screen reader and not a person: those stay owed. Colour contrast over the translucent panels is reported by axe as "incomplete" (it cannot know what lies behind) and is listed, not failed.
+const AXE = path.join(REPO, 'node_modules/axe-core/axe.min.js');
+const axeAudit = async (P, selectors, label) => {
+  if (!fs.existsSync(AXE)) { results.notes.push(`${label}: axe-core is not in node_modules; the accessibility audit was not run`); check(`${label}: accessibility audit NOT RUN (axe-core is missing)`, false, 'axe-core is not installed'); return null; }
+  if (!(await P.evaluate(() => !!window.axe))) await P.addScriptTag({ path: AXE });
+  const r = await P.evaluate(async sels => { const found = sels.map(x => [].concat(x).find(y => document.querySelector(y))).filter(Boolean);        // each entry: a selector, or alternatives (the first that is on the page) if (!found.length) return { none: true, sels }; const o = await window.axe.run({ include: found.map(x => [x]) }, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'] }, resultTypes: ['violations', 'incomplete'] });
+    const short = v => ({ id: v.id, impact: v.impact, nodes: v.nodes.length, help: v.help, sample: v.nodes.slice(0, 3).map(n => n.target.join(' ') + ' :: ' + String(n.failureSummary || '').replace(/\s+/g, ' ').slice(0, 200)) }); return { found, passes: o.passes.length, violations: o.violations.map(short), incomplete: o.incomplete.map(short) }; }, selectors);
+  if (r.none) { check(`${label}: the parts to audit are on the page`, false, r); return r; }
+  const bad = r.violations.filter(v => v.impact === 'serious' || v.impact === 'critical'), other = r.violations.filter(v => !(v.impact === 'serious' || v.impact === 'critical'));
+  results.notes.push(`${label}: axe-core ${r.passes} rules passed on ${r.found.join(', ')}; ${bad.length} serious or critical, ${other.length} other violation(s)${other.length ? ' (' + other.map(v => `${v.id} [${v.impact}] x${v.nodes}: ${v.sample[0] || ''}`).join(' | ') + ')' : ''}; ${r.incomplete.length} incomplete${r.incomplete.length ? ' (' + r.incomplete.map(v => v.id + ' x' + v.nodes).join(', ') + ')' : ''}`);
+  check(`${label}: axe-core finds no serious or critical accessibility violation`, bad.length === 0, bad); return r;
+};
+
 try {
   if (mode === 'look') {
     // ======================================================== a short walk in the shell as a viewer gets it (figures, structures, effects)
@@ -166,6 +180,7 @@ try {
   const fit = await P.evaluate(() => { const c = document.querySelector('#xm-chip').getBoundingClientRect(), col = document.querySelector('#bt-left').getBoundingClientRect(), dockEl = document.querySelector('.dock') || document.querySelector('#bt-dock'), dock = dockEl ? dockEl.getBoundingClientRect() : null, veg = document.querySelector('#veg-chip'), vr = veg && !veg.hidden ? veg.getBoundingClientRect() : null, clock = document.querySelector('.clockface').getBoundingClientRect(); return { chip: { top: c.top, bottom: c.bottom, h: c.height }, colBottom: col.bottom, dockTop: dock && dock.top, vh: innerHeight, clockH: clock.height, veg: vr && { h: vr.height, bottom: vr.bottom } }; });
   check('layer ON (1280 x 720, with the other added notices): the notice lies inside the left column and is not covered by the dock', fit.dockTop != null && fit.chip.bottom <= fit.colBottom + 1 && fit.chip.bottom <= fit.dockTop, fit);
   await s.shot('03-layer-on-cemetery-ridge');
+  await axeAudit(P, ['#xm-chip', ['.xp-body[data-xpanel="later-memorials"]', '#bt-drawer-body']], 'accessibility of the notice and the memorial panel (layer on)');
 
   // a memorial from the list: search, pick, card, flight
   await P.fill('#xm-q', 'Pennsylvania State Memorial'); await P.waitForFunction(() => /^[1-9]\d* of 512/.test(document.querySelector('#xm-count')?.textContent || '') && document.querySelector('#xm-list .item[data-no="46"]') && document.querySelectorAll('#xm-list .item').length < 60, null, { timeout: 300000 });
@@ -177,6 +192,7 @@ try {
   const room = await P.evaluate(() => { const card = document.querySelector('#xm-card'), r = card.getBoundingClientRect(), chip = document.querySelector('#xm-chip'), clock = document.querySelector('.clockface').getBoundingClientRect(); return { cardH: r.height, rootCard: document.querySelector('#theatre').dataset.card, notice: getComputedStyle(chip).display, hideBtn: !!card.querySelector('[data-act="hide"]'), clockH: clock.height, cardBottom: r.bottom, vh: innerHeight, evidenceOpen: card.querySelector('details')?.open }; });
   check('picked memorial: the card has room (the root says data-card on, the clock face shrinks, the notice gives way to the card), at least 220 px high, inside the screen, the evidence closed, the button that puts the marks away is on it', room.rootCard === 'on' && room.notice === 'none' && room.cardH >= 220 && room.cardBottom <= room.vh && room.evidenceOpen === false && room.hideBtn === true && room.clockH < 160, room);
   await s.shot('04-card-pennsylvania');
+  await axeAudit(P, ['#xm-card'], 'accessibility of a memorial card');
   // a memorial whose year a National Park Service report prints: the year, the report, the page and the quotation are on its card; no open gap for the year
   await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.select(8)); await P.waitForFunction(() => /1929/.test(document.querySelector('#xm-card')?.textContent || ''), null, { timeout: 300000 });
   const c8 = await P.evaluate(() => { const card = document.querySelector('#xm-card'), pills = [...card.querySelectorAll('.pill')].map(p => (p.dataset.tier || p.dataset.xm || '') + ':' + p.textContent.trim()); return { text: card.textContent.replace(/\s+/g, ' '), pills, counts: window.btApp.theatre.sitePlaces.memorials.counts().years }; });

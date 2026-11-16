@@ -5,6 +5,7 @@
 // --fx=off: the prototype alone (its own sky and particles, no weather or effects layer): the baseline that shows how far the two renderers are from each other without this layer.
 // --real-canvas: no stand-in for the canvas texture (on a machine with a real GPU).
 // --chrome-arg=<flag> (repeatable): one more Chrome command-line flag (for trying flag sets; the summary records the flags used). --headed under a virtual X server (xvfb-run -a -s "-screen 0 1280x720x24" node ...) is the way to try the real canvas on a machine without a GPU.
+// --xvfb-canvas: the real canvas on a machine without a GPU: headed Chrome with the SwiftShader Vulkan flags, --real-canvas and --canvas-shot (run it under xvfb-run -a -s "-screen 0 1280x720x24"; XVFB_CANVAS_ARGS in the lib; software only, not a real-GPU result); each case then also leaves the compositor's picture of the canvas as <case>-canvas.png.
 // --canvas-shot: after each case, page.screenshot (25 s limit) of the page and its difference from the read-back of the same frame (summary.cases[...].canvasShot: mean absolute difference per channel, p99, shares over 8 and 24 levels, or the error); on by default with --real-canvas and --real-gpu, off with --no-screenshot.
 // --real-gpu: the run is a real-GPU run: Chrome is started without the software-rasteriser flags (both APIs use the GPU Chrome picks), the real canvas is used, and checkRun fails the run when the recorded adapter is a software one.
 //   --headed opens a visible window (where headless Chrome has no GPU access).
@@ -16,7 +17,7 @@ import { serve } from '../tools/serve.mjs';
 import { CASES, EXTRA_CASES, ALL_CASES, specOf } from './weather3d-gpu-cases.mjs';
 import { minOf as MO } from '../src/clock.mjs';
 
-const args = process.argv.slice(2), flag = (k, d) => { const a = args.find(x => x.startsWith('--' + k + '=')); return a ? a.split('=')[1] : d; };
+const args = expandXvfbCanvas(process.argv.slice(2)), flag = (k, d) => { const a = args.find(x => x.startsWith('--' + k + '=')); return a ? a.split('=')[1] : d; };
 const pos = args.filter(a => !a.startsWith('--')), outRoot = path.resolve(pos[0] || '.'), api = pos[1] === 'webgl2' ? 'webgl2' : 'webgpu', only = (pos[2] || '').split(',').filter(Boolean);
 const W = +flag('w', 640), H = +flag('h', 360), SOLD = +flag('soldiers', 12000), TIER = flag('tier', 'laptop'), REPEAT = !args.includes('--no-repeat'), SHOT = !args.includes('--no-screenshot'), FXOFF = args.includes('--fx=off'), READY_MS = +flag('ready-timeout', 240) * 1000;
 const REALGPU = args.includes('--real-gpu'), out = path.join(outRoot, api); fs.mkdirSync(out, { recursive: true });
@@ -25,7 +26,8 @@ const EXTRA_CHROME_ARGS = args.filter(a => a.startsWith('--chrome-arg=')).map(a 
 const CANVAS_SHOT = !args.includes('--no-screenshot') && (args.includes('--canvas-shot') || REALGPU || args.includes('--real-canvas'));
 const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).toFixed(0).padStart(5) + 's', ...a);
 
-import { encodePng, stats, chromeArgs, HOOKS, decodePng, diffStats } from './weather3d-gpu-lib.mjs';
+import { encodePng, stats, chromeArgs, HOOKS, decodePng, diffStats, expandXvfbCanvas } from './weather3d-gpu-lib.mjs';
+if (args.includes('--xvfb-canvas') && !process.env.DISPLAY) { console.error('--xvfb-canvas needs a display: run it as   xvfb-run -a -s "-screen 0 1280x720x24" node ' + process.argv[1] + ' ...'); process.exit(2); }
 
 const srv = await serve(0), port = srv.address().port, url = `http://127.0.0.1:${port}/app/tests/weather3d-gpu.html?api=${api}&w=${W}&h=${H}&soldiers=${SOLD}&tier=${TIER}${FXOFF ? '&fx=off' : ''}`;
 // What the software adapter survives on the real canvas (each in its own page load, no stand-in): used only to say, with evidence, why the pictures are read back from a texture of our own.
@@ -59,10 +61,11 @@ try {
   summary.diagInit = await page.evaluate(() => window.WG.diag()); say('init: api', summary.diagInit.api, 'gpu', JSON.stringify(summary.diagInit.gpu && { ok: summary.diagInit.gpu.ok, weather: summary.diagInit.gpu.weatherOk, fx: summary.diagInit.gpu.fxOk, failed: summary.diagInit.gpu.failed }), 'gl', JSON.stringify(summary.diagInit.gl && summary.diagInit.gl.ok), 'errors', summary.diagInit.gpuErrors.length, 'wgsl msgs', summary.diagInit.wgsl.length); save();
   const list = (args.includes('--extra') ? EXTRA_CASES : only.length ? ALL_CASES : CASES).filter(c => !only.length || only.includes(c.name)), first = {};
   // the compositor's picture of the real canvas against the read-back of the same frame: two animation frames so the frame is presented, then page.screenshot (the page is the canvas: 0 margin, the canvas as large as the viewport)
+  let lastShot = null;                                                  // the compositor's PNG of the last case (kept as <case>-canvas.png: the picture of the real canvas itself, next to the read-back picture <case>.png)
   const canvasShot = async (px, w, h) => {
-    const t0 = Date.now();
+    const t0 = Date.now(); lastShot = null;
     try {
-      await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))); const img = decodePng(await page.screenshot({ timeout: 25000 }));
+      await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))); lastShot = await page.screenshot({ timeout: 25000 }); const img = decodePng(lastShot);
       if (img.w !== w || img.h !== h) return { error: `the screenshot is ${img.w} x ${img.h}, the read-back ${w} x ${h}`, ms: Date.now() - t0 };
       return { ...diffStats(px, img.data, w, h), ms: Date.now() - t0 };
     } catch (e) { return { error: String(e.message).split('\n')[0].slice(0, 200), ms: Date.now() - t0 }; }
@@ -73,7 +76,7 @@ try {
     return { r, px: u8, tag };
   };
   for (const c of list) {
-    const { r, px } = await run(c, undefined, CANVAS_SHOT); const s = stats(r.w, r.h, px); first[c.name] = px; fs.writeFileSync(path.join(out, c.name + '.rgba'), px); fs.writeFileSync(path.join(out, c.name + '.png'), encodePng(r.w, r.h, px));
+    const { r, px } = await run(c, undefined, CANVAS_SHOT); const s = stats(r.w, r.h, px); first[c.name] = px; if (CANVAS_SHOT && lastShot) fs.writeFileSync(path.join(out, c.name + '-canvas.png'), lastShot); fs.writeFileSync(path.join(out, c.name + '.rgba'), px); fs.writeFileSync(path.join(out, c.name + '.png'), encodePng(r.w, r.h, px));
     r.pixels = s; r.what = c.what; fs.writeFileSync(path.join(out, c.name + '.json'), JSON.stringify(r, null, 1)); summary.cases[c.name] = { w: r.w, h: r.h, format: r.format, frameMs: Math.round(r.frameMs), wallMs: r.wallMs, validation: r.validation, pixels: s, gpuStats: r.gpuStats, glStats: r.glStats, effects: r.effects && { nEvents: r.effects.nEvents, nSprites: r.effects.nSprites }, weather: r.weather, flags: r.flags, ...(r.canvasShot ? { canvasShot: r.canvasShot } : {}) };
     say(c.name.padEnd(26), 'frame', Math.round(r.frameMs) + 'ms', 'mean', s.all.mean, 'min', s.all.min, 'black', s.all.blackShare, 'sprites', r.effects && r.effects.nSprites, r.validation ? 'VALIDATION: ' + r.validation.slice(0, 160) : '', r.gpuStats ? `gpu w${r.gpuStats.weatherDraws} f${r.gpuStats.fxDraws}` : r.glStats ? `gl w${r.glStats.weatherDraws} f${r.glStats.fxDraws}` : '', r.canvasShot ? (r.canvasShot.error ? 'canvas shot FAILED: ' + r.canvasShot.error : 'canvas shot meanAbs ' + r.canvasShot.meanAbs) : ''); save();
   }
