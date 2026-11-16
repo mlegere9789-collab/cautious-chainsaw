@@ -1,4 +1,4 @@
-# Request from bt-life (group us-2c) to the owner of `report_assignments.json`: five Second Corps reports assigned to other groups by the header rules
+# Request from bt-life (group us-2c) to the owner of `report_assignments.json`: five Second Corps reports assigned to other groups by the header rules, and two batteries of other corps assigned to us-2c
 
 Date: 2026-11-15. From: workstream bt-life, evidence group us-2c. To: the owner of `tools/bt/life/assign_groups.py` and `docs/battle-theatre/life/evidence/report_assignments.json`; copy for the engineers of the groups `campaign-elsewhere`, `bridges-roads` and `us-army`.
 
@@ -16,10 +16,19 @@ Five Official Records reports (vol. 27 part 1) that name units of the Second Cor
 
 None of the five is an Artillery Reserve, Army headquarters or garrison report. The first three were assigned by the place line of the heading ("Camp near Harper's Ferry", "Baltimore", "In the Field, Md.") read as a department outside the Army of the Potomac; R118 by its subject (pioneers); R127 by the default of its side after the header check failed.
 
+### Two records assigned to us-2c that name batteries of other corps
+
+| Record | Report | Assigned to (how) | What it is |
+|---|---|---|---|
+| OR27-1-R185 | Lieut. Benjamin Freeborn, Battery E, First Rhode Island Light Artillery, near Warrenton, Va., 28 July 1863, printed p. 590 (page of the lead scan); the address line names "Art. Brig., Third Army Corps" | us-2c (`regiment_exact:us-2c-art-1ria`) | a Third Corps battery; group us-2c wrote no row from it (it states a position in the second line and a withdrawal under fire, no work or routine of the classes asked) |
+| OR27-1-R242 | Capt. George W. Adams, Battery G, First Rhode Island Light Artillery, near Warrenton, 14 August 1863, printed pp. 694-695 | us-2c (`regiment_exact:us-2c-art-1ria`) | a Sixth Corps battery (its itinerary runs Edwards Ferry, New Market, Westminster, Manchester); group us-2c wrote 13 rows from the itinerary of 28 June to 14 July (us-2c-R134 to us-2c-R146), all with the unit `us-6c-art-1rig` |
+
+The matcher took "First Rhode Island Light Artillery" for the regiment-level unit of the Second Corps; the II Corps batteries of that regiment are A (Arnold, `us-2c-art-1ria`) and B (Brown, `us-2c-art-1rib`), and the other letters belong to other corps. The suggested change is `OR27-1-R185` to us-3c and `OR27-1-R242` to us-6c; for R242 either the 13 rows move to `us-6c.jsonl` (the engineer of us-6c may take them as they stand, the unit id is already `us-6c-art-1rig`) or they stay in this file until that group has read the record.
+
 ## Why
 
 Extract-once: a record is read by the group whose units it names, so that no passage is read twice. If the five stay where they are, either the other groups read them and write rows that duplicate these (the validator's dedupe rule keeps the row of the group that owns the text, so one set would have to be dropped), or nobody reads them and their rows are lost. Nothing is lost now: the rows exist and validate (`validate_evidence.py us-2c`: 0 errors).
 
 ## The exact change asked
 
-In `report_assignments.json` set `group: "us-2c"` for `OR27-1-R079`, `OR27-1-R098`, `OR27-1-R114`, `OR27-1-R118` and `OR27-1-R127` (with `how: "reassigned: Second Corps report (request bt-life-us-2c-reassign-records)"`), then run `python3 -I tools/bt/life/build_groups.py` to refresh `groups.json`. If the owner prefers to keep them where they are, the engineers of the three other groups should be told that the five records are read and that their rows are in `us-2c.jsonl`, so that none writes a second set. No row of this file changes either way (the extra keys `x_record_owner*` may stay).
+In `report_assignments.json` set `group: "us-2c"` for `OR27-1-R079`, `OR27-1-R098`, `OR27-1-R114`, `OR27-1-R118` and `OR27-1-R127` (with `how: "reassigned: Second Corps report (request bt-life-us-2c-reassign-records)"`), then `OR27-1-R185` to `us-3c` and `OR27-1-R242` to `us-6c`, and run `python3 -I tools/bt/life/build_groups.py` to refresh `groups.json`. If the owner prefers to keep them where they are, the engineers of the three other groups should be told that the five records are read and that their rows are in `us-2c.jsonl`, so that none writes a second set. No row of this file changes either way (the extra keys `x_record_owner*` may stay).

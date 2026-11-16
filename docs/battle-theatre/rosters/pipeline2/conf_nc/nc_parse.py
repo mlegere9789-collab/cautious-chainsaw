@@ -49,6 +49,7 @@ def is_month(t):
 YEARISH = re.compile(r"^['`‘’\"]?[0-9OoSsIl\(\)\!]{2}[\.,;:]*$")
 MARK_STRONG = re.compile(r"^(?:e|cm|em|en|enl|crn|cin|cni|cnn|ern|ciri|eni|enlisted|Enlisted|Enl)(?:[\.,;:]+[\-—~'’\"\^\*]{0,2}|[\^\-—~\*]{1,2})$")
 MARK_BARE = re.compile(r"^(?:e|cm|em|enlisted|Enlisted)$")
+MARK_GLUED = re.compile(r"^(?:e|cm|em)[\.,;:]+[A-Z][a-z]{2,}\S*$")
 MARK_WEAK = re.compile(r"^(?:c|o|a|6|«|\^|¢|ε|е|€|G|0|\*|©|ie)[\.,;:]+[\-—~'’\"\^\*]{0,2}$")
 EVENT = re.compile(r"^(?:d|dg|dt|k|w|p|pr|r|tr|m|c|res|dis|disch|dismissed|killed|died|wounded|promoted|resigned|transferred|detailed|captured|missing|deserted)\.?[,;]?$")
 CO_TOK = re.compile(r"^(?:[cCoOeEG][oO0cCqQeE]|co|CO|Co|county|County|cc|ca|oo|ee)[\.,;:\s]*[,;]?$")
@@ -184,22 +185,14 @@ def given_ok(t, before_mark=False, lower_ok=False, garbled_ok=False):
 
 
 def split_glue(start, tok):
-    """Tokens of the text layer that hold two items ("M.,e."  /  "e.May"  /  ",e."): [(offset, text)] pieces; the offsets are exact."""
-    m = re.match(r"^(.+?[,;:])((?:e|c|o|cm|em)[\.,])(.*)$", tok)
+    """Tokens of the text layer that hold a name and its marker ("M.,e." / "A.,e.May" / ",e."): [(offset, text)] pieces; the offsets are exact.  The marker and whatever is
+    glued behind it stay ONE piece (a remark token must be the tail of the text token it starts in), "e.June" alone is not split."""
+    m = re.match(r"^(.+?[,;:])((?:e|c|o|cm|em)[\.,].*)$", tok)
     if m and len(m.group(1)) >= 2 and re.search(r"[A-Za-z]\.?[,;:]$", m.group(1)) and not re.match(r'^(?:co|Co|CO)', m.group(1)):
-        out = [(start, m.group(1)), (start + len(m.group(1)), m.group(2))]
-        if m.group(3):
-            out.append((start + len(m.group(1)) + len(m.group(2)), m.group(3)))
-        return out
-    m = re.match(r"^(,)(e[\.,])(.*)$", tok)
-    if m:
-        out = [(start, ','), (start + 1, m.group(2))]
-        if m.group(3):
-            out.append((start + 1 + len(m.group(2)), m.group(3)))
-        return out
-    m = re.match(r"^((?:e|cm|em)[\.\^\-~]{1,2})([A-Z][a-z]{2,}\S*)$", tok)
-    if m:
         return [(start, m.group(1)), (start + len(m.group(1)), m.group(2))]
+    m = re.match(r"^(,)(e[\.,].*)$", tok)
+    if m:
+        return [(start, ','), (start + 1, m.group(2))]
     return [(start, tok)]
 
 
@@ -298,7 +291,7 @@ def evidence_at(S, j, name_last):
         return None
     t = toks[j][2]
     nxt = toks[j + 1][2] if j + 1 < n else ''
-    if MARK_STRONG.match(t):
+    if MARK_STRONG.match(t) or MARK_GLUED.match(t):
         return ('mark', 1)
     if MARK_BARE.match(t) and (is_month(nxt) or re.match(r"^['`‘’\"]", nxt)):
         return ('mark', 1)
@@ -360,11 +353,11 @@ def match_S(S, i, bd=2):
                 return None                           # surname alone needs a strong marker
             end_rank = j + ev[1] if kind == 'rank' else None
             return ('S-' + kind, j - 1, end_rank)
-        if LONEMARK.match(tj) and lone == 0 and j + 1 < n and (MARK_STRONG.match(toks[j + 1][2])):
+        if LONEMARK.match(tj) and lone == 0 and j + 1 < n and (MARK_STRONG.match(toks[j + 1][2]) or MARK_GLUED.match(toks[j + 1][2])):
             lone += 1
             j += 1
             continue
-        nxt_is_mark = j + 1 < n and (MARK_STRONG.match(toks[j + 1][2]) or MARK_WEAK.match(toks[j + 1][2]))
+        nxt_is_mark = j + 1 < n and (MARK_STRONG.match(toks[j + 1][2]) or MARK_GLUED.match(toks[j + 1][2]) or MARK_WEAK.match(toks[j + 1][2]))
         if not given_ok(tj, before_mark=nxt_is_mark, garbled_ok=nxt_is_mark):
             return None
         if re.search(r"[,;]$", tj) and not nxt_is_mark and j + 1 < n and not re.fullmatch(r"(?i)(?:jr|sr|jun|[23]d|[23]nd|3rd|esq)\.?[,;]?", toks[j + 1][2]) \
@@ -454,15 +447,17 @@ def find_heads(S, a, b, section, ev_idx):
         own.update(range(hs, (rend if rend else last + 1) + 1))
     added = []
     for m in range(a + 2, b - 1):
-        if m in own or not MARK_STRONG.match(toks[m][2]):
+        if m in own or not (MARK_STRONG.match(toks[m][2]) or MARK_GLUED.match(toks[m][2])):
             continue
         nxt = toks[m + 1][2]
-        if not (is_month(nxt) or re.match(r"^['`‘’\"][0-9OoSsIl]", nxt)):
+        if not (MARK_GLUED.match(toks[m][2]) or is_month(nxt) or re.match(r"^['`‘’\"][0-9OoSsIl]", nxt)):
             continue
         k = m - 1
         while k >= a and m - k <= 7 and not sentence_end(toks[k][2]) and toks[k][2] not in ('co.', 'CO.') and not re.match(r"^['’`][0-9OoSsIl]{2}[\-,\.;]?$", toks[k][2]):
             k -= 1
         kstart = k + 1
+        while kstart < m - 1 and not contiguous(S, kstart, m - 1):
+            kstart += 1                               # a heading or a running head stands inside the run: the name starts after it
         run = toks[kstart:m]
         if not (2 <= len(run) <= 7):
             continue
@@ -499,6 +494,18 @@ def head_text(kind, payload):
 def read_letter(payload):
     m = re.match(r"^C[O0]MPAN[YV]\s*([^\s]{0,3})", payload)
     return (m.group(1) if m else '').strip('.,;:*\'"')
+
+
+def _merge_pieces(S, rem_toks):
+    """Pieces that split_glue cut out of one text token and that stand inside the remarks are joined again: a remark token must be a token of the text."""
+    out = []
+    for t in rem_toks:
+        if out and out[-1][1] == t[0]:
+            prev = out[-1]
+            out[-1] = (prev[0], t[1], S.text[prev[0]:t[1]], prev[3])
+        else:
+            out.append(t)
+    return out
 
 
 def parse_section(tid, a, b, co_start='', verbose=False):
@@ -608,7 +615,7 @@ def parse_section(tid, a, b, co_start='', verbose=False):
                     rank, rs = '', last + 1
                 if not rank and st['head']:
                     rank = '^' + st['head']
-                rem_toks = toks[rs:nxt]
+                rem_toks = _merge_pieces(S, toks[rs:nxt])
                 remarks = ' '.join(x[2] for x in rem_toks)
                 rd = (rem_toks[0][0] - off) if rem_toks else 0
                 leaf = pm.leaf(off)

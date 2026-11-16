@@ -56,7 +56,7 @@ function grabGL(R) { const gl = R.gl, w = R.W, h = R.H, px = new Uint8Array(w * 
 // the camera looks at figure 0 from dist metres on its -z side; the quads face -z; a smaller dz is nearer to the camera
 LAB.shot = async function (spec) {
   if (!LAB.ready) throw new Error('the lab is not ready: ' + LAB.error);
-  const R = host.R, t = spec.t ?? 100, tmp = [0, 0, 0]; soldierPlace(world, 0, t, tmp);      // the frame is drawn at this same time t: the impostor of figure 0 stands where the JS says const gx = tmp[0], gz = tmp[1], gy = T.h(gx, gz);
+  const R = host.R, t = spec.t ?? 100, tmp = [0, 0, 0]; soldierPlace(world, 0, t, tmp); const gx = tmp[0], gz = tmp[1], gy = T.h(gx, gz);      // the frame is drawn at this same time t: the impostor of figure 0 stands where the JS says
   const az = spec.az ?? Math.PI; cam.set(gx + spec.dist * Math.sin(az) * (spec.az == null ? 0 : 1), gy + 1.4, gz + spec.dist * Math.cos(az), 0, 0, spec.fovDeg || 30); cam.lookAtPoint(gx, gy + 1.4, gz); cam.x += spec.dx || 0;      // dx: a parallel shift of the camera (the figure moves a fraction of a pixel across the dither)
   const nrec = (spec.draws || []).length, inst = new ArrayBuffer(48 * Math.max(1, nrec)), f32 = new Float32Array(inst), u32 = new Uint32Array(inst), draws = [];
   (spec.draws || []).forEach((d, i) => { const e = quad(d.mat, d.dz || 0), o = i * 12; f32[o] = gx; f32[o + 1] = gz; f32[o + 2] = 0; f32[o + 3] = 1; u32[o + 8] = 0; u32[o + 9] = 0; u32[o + 10] = 0; u32[o + 11] = d.P >>> 0;

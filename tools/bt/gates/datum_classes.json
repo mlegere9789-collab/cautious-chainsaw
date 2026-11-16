@@ -175,6 +175,7 @@
     "docs/battle-theatre/GOVERNANCE/register_index.json"
    ],
    "visible": false,
+   "register_entries": true,
    "loaded_by": [
     "app/src/data.mjs loadTimeline"
    ]
@@ -295,8 +296,23 @@
    "id": "data.audio_commands",
    "label": "Audio: command words (sounds)",
    "source": {
-    "kind": "walk",
-    "file": "docs/battle-theatre/app/data/audio3d/commands.json"
+    "kind": "json",
+    "file": "docs/battle-theatre/app/data/audio3d/commands.json",
+    "members": [
+     {
+      "path": "words[]",
+      "inherit_tier": "tier_words"
+     },
+     {
+      "path": "phrases[]",
+      "inherit_tier": "tier_voice"
+     }
+    ],
+    "fields": {
+     "sources": [
+      "items"
+     ]
+    }
    },
    "files": [
     "docs/battle-theatre/app/data/audio3d/commands.json"
@@ -310,8 +326,15 @@
    "id": "data.audio_sources",
    "label": "Audio: the recordings ledger (sound samples)",
    "source": {
-    "kind": "walk",
-    "file": "docs/battle-theatre/app/data/audio3d/sources.json"
+    "kind": "json",
+    "file": "docs/battle-theatre/app/data/audio3d/sources.json",
+    "members": "sources[]",
+    "id_field": "ledgerId",
+    "fields": {
+     "sources": [
+      "sourceUrl"
+     ]
+    }
    },
    "files": [
     "docs/battle-theatre/app/data/audio3d/sources.json"
@@ -380,7 +403,8 @@
    "visible": true,
    "loaded_by": [
     "static scan of app/src"
-   ]
+   ],
+   "exempt": "mean colours measured from the flag textures of figures3d/textures; each flag texture is a member of the texture class, this file is a derived measurement and holds no claim about 1863"
   },
   {
    "id": "data.skeleton",
@@ -493,8 +517,13 @@
    "id": "data.site_bookmarks",
    "label": "The site's tour stops and monuments as camera bookmarks (places)",
    "source": {
-    "kind": "walk",
-    "file": "docs/battle-theatre/app/data/site-bookmarks.json"
+    "kind": "json",
+    "file": "docs/battle-theatre/app/data/site-bookmarks.json",
+    "members": [
+     "tour[]",
+     "monuments[]"
+    ],
+    "id_field": "id"
    },
    "files": [
     "docs/battle-theatre/app/data/site-bookmarks.json"
@@ -524,8 +553,19 @@
    "id": "data.site_memorials",
    "label": "The later memorials (places)",
    "source": {
-    "kind": "walk",
-    "file": "docs/battle-theatre/app/data/site-memorials.json"
+    "kind": "json",
+    "file": "docs/battle-theatre/app/data/site-memorials.json",
+    "members": [
+     "monuments[]",
+     "stars[]"
+    ],
+    "id_field": "no",
+    "fields": {
+     "sources": [
+      "src",
+      "source"
+     ]
+    }
    },
    "files": [
     "docs/battle-theatre/app/data/site-memorials.json"
@@ -539,8 +579,10 @@
    "id": "data.site_tour_stops",
    "label": "Tour stops (places)",
    "source": {
-    "kind": "walk",
-    "file": "docs/battle-theatre/app/data/site-tour-stops.json"
+    "kind": "json",
+    "file": "docs/battle-theatre/app/data/site-tour-stops.json",
+    "members": "tour[]",
+    "id_field": "id"
    },
    "files": [
     "docs/battle-theatre/app/data/site-tour-stops.json"
@@ -722,8 +764,9 @@
    "id": "data.casualty_sources",
    "label": "Casualty figures (casualties)",
    "source": {
-    "kind": "walk",
-    "file": "docs/battle-theatre/app/data/casualty-sources.json"
+    "kind": "json",
+    "file": "docs/battle-theatre/app/data/casualty-sources.json",
+    "members": "armies{}"
    },
    "files": [
     "docs/battle-theatre/app/data/casualty-sources.json"
@@ -740,7 +783,8 @@
    "files": [
     "docs/battle-theatre/app/data/kit-crosswalk.json"
    ],
-   "visible": true
+   "visible": true,
+   "exempt": "a join table from history unit ids to kit unit ids; the facts it joins are the members of layer.units and layer.kit_items"
   },
   {
    "id": "data.figures_validation",
@@ -752,7 +796,8 @@
    "files": [
     "docs/battle-theatre/app/data/figures-validation.json"
    ],
-   "visible": true
+   "visible": true,
+   "exempt": "a validation report computed by tools/bt over the figures the shell draws; it holds results, no datum about 1863"
   },
   {
    "id": "data.works3d",
@@ -801,42 +846,6 @@
    },
    "files": [
     "docs/battle-theatre/kit/cavalry_units.json"
-   ],
-   "visible": true
-  },
-  {
-   "id": "hist.units",
-   "label": "Unit tree (units)",
-   "source": {
-    "kind": "walk",
-    "file": "docs/battle-theatre/history/units.json"
-   },
-   "files": [
-    "docs/battle-theatre/history/units.json"
-   ],
-   "visible": true
-  },
-  {
-   "id": "hist.arrivals",
-   "label": "Arrival ledger (arrivals, departures)",
-   "source": {
-    "kind": "walk",
-    "file": "docs/battle-theatre/history/arrivals.json"
-   },
-   "files": [
-    "docs/battle-theatre/history/arrivals.json"
-   ],
-   "visible": true
-  },
-  {
-   "id": "hist.not_on_field",
-   "label": "Units not on the field",
-   "source": {
-    "kind": "walk",
-    "file": "docs/battle-theatre/history/not_on_field.json"
-   },
-   "files": [
-    "docs/battle-theatre/history/not_on_field.json"
    ],
    "visible": true
   },

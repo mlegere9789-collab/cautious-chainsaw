@@ -214,7 +214,7 @@ The NPS Then-And-Now pages credit "Library of Congress" without an id. 18 of the
 
 The files of this folder rebuild the registry, the renders and this document from the saved sources. Test of the data: `node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`.
 
-## Limits (registered as proposed Evidence-Gap Register entries ws10-EG-01 to ws10-EG-16)
+## Limits (registered as proposed Evidence-Gap Register entries ws10-EG-01 to ws10-EG-17)
 
 - The terrain is modern bare ground with the repository's 2023 building outlines at a default one-storey height: no 1863 trees, rocks, crops or fences in the near field, so only far ridge lines, hills, roads and mapped footprints can be compared (EG-03).
 - The focal length and plate of every exposure are unknown; 40 degrees horizontal is a generic assumption and renders at 30 and 50 degrees accompany every pose (EG-04).
@@ -222,4 +222,5 @@ The files of this folder rebuild the registry, the renders and this document fro
 - Positions named in words but not in the model (the McPherson quarry, De Trobriand Avenue and the Rose Woods edge, Seminary Lane, the Wheatfield Road and Crawford Avenue crossing) could be placed only as assumptions, or not at all (EG-10).
 - The NPS plate that labels the landmarks of the view north from Little Round Top is a photocopy and could not be mapped to the photograph (EG-11); the Trostle summer-kitchen footprint lies on the other side of the house from the photograph (EG-12).
 - The height of the camera on the gatehouse and the 1863 form of the building are not documented (EG-13); the two NPS words for the direction of the lodge-roof view differ by 45 degrees (EG-14).
+- The date of one card (the Tyson view from Seminary Ridge, record 2019635468) is [1863] for the Library and August 1863 for a pencil note on its verso, in an unknown hand (EG-17); the record stays in scope as a lead and has no pose.
 

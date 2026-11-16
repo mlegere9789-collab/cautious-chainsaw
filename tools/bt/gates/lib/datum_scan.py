@@ -252,10 +252,18 @@ class Scanner:
                     d['tier'] = (doc.get('meta') or {}).get('tier') if isinstance(doc.get('meta'), dict) else None
                 return [normalize(d, cid, fname, fields, self.tiernames)]
             out = []
-            for i, d in enumerate(select(doc, src.get('members', ''))):
-                if isinstance(d, dict):
-                    mid = '%s:%s' % (fname, d.get(src.get('id_field', 'id')) or d.get('_key') or i)
-                    out.append(normalize(d, cid, mid, fields, self.tiernames))
+            paths = src.get('members', '')
+            paths = paths if isinstance(paths, list) else [paths]
+            inh = src.get('inherit') or {}
+            for pth in paths:
+                pth_key, inherit_key = (pth['path'], pth.get('inherit_tier')) if isinstance(pth, dict) else (pth, inh.get('tier'))
+                for i, d in enumerate(select(doc, pth_key)):
+                    if isinstance(d, dict):
+                        d2 = d
+                        if 'tier' not in d and inherit_key and isinstance(doc.get(inherit_key), str):
+                            d2 = dict(d, tier=doc[inherit_key])
+                        mid = '%s:%s:%s' % (fname, pth_key, d.get(src.get('id_field', 'id')) or d.get('_key') or i)
+                        out.append(normalize(d2, cid, mid, fields, self.tiernames, {'inherited_tier': bool(d2 is not d)}))
             return out
         if kind == 'jsonl':
             out = []
@@ -270,7 +278,7 @@ class Scanner:
                         m['sources'] = [str(sid)]
                     m['extra'].update({'report_id': s.get('report_id') or s.get('record_id'), 'printed_page': s.get('printed_page'), 'volume': s.get('volume'), 'section': s.get('section'),
                                        'work': s.get('work'), 'fidelity_check': d.get('fidelity_check'), 'claim_support_verified': d.get('claim_support_verified'), 'ledger': os.path.basename(rel),
-                                       'claim_text': d.get('activity') or d.get('claim') or None, 'kind': d.get('kind')})
+                                       'claim_text': d.get('activity') or d.get('claim') or None, 'kind': d.get('kind'), 'claim_id': d.get('claim_id')})
                     out.append(m)
             return out
         if kind == 'register':
@@ -308,7 +316,7 @@ def load_timeline(sc, c):
         tier = cc.get('tier')
         raw_tier = tier or r.get('tier')
         cites = (row or {}).get('citations') or []
-        d = {'tier': raw_tier, 'sources': [c_.get('source_id') or c_.get('report_id') for c_ in cites if isinstance(c_, dict)] or keys}
+        d = {'tier': raw_tier, 'sources': [c_.get('report_id') or c_.get('source_id') for c_ in cites if isinstance(c_, dict)] or keys}
         m = normalize(d, c['id'], 'timeline:%s' % r['id'], None, sc.tiernames, {'seed_tier': r.get('tier'), 'seed_keys': keys, 'row_level_record': bool(row), 'verdict': (row or {}).get('verdict'),
                                                                                   'remains_unsupported': (row or {}).get('remains_unsupported'), 'citations': [{'key': c_.get('key'), 'source_id': c_.get('source_id'), 'report_id': c_.get('report_id'),
                                                                                                                                                                   'printed_page': c_.get('printed_page'), 'quote': c_.get('quote'), 'local_path': c_.get('source_file')}

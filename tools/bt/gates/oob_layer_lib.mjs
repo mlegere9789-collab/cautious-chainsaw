@@ -67,13 +67,13 @@ export async function build({ mutate = {}, stage = false } = {}) {
   const { worldFromUnits } = await imp('src/world-from-units.mjs');
   const clock = await imp('src/clock.mjs');
   const raw = loadRawFromDisk();
-  if (mutate.mutateRaw) mutate.mutateRaw(raw);
+  if (mutate.mutateRaw) await mutate.mutateRaw(raw);
   const { T } = await nodeWorld();
   const geo = makeGeo(T);
   const layer = createRealHistory({ raw, T: terrainMeta(), helpers: { civilDawn: m => m + 4 * 60 + 3 } });
-  if (mutate.mutateLayer) mutate.mutateLayer(layer);
+  if (mutate.mutateLayer) await mutate.mutateLayer(layer);
   const world = worldFromUnits(T, geo, layer);
-  if (mutate.mutateWorld) mutate.mutateWorld(world, layer);
+  if (mutate.mutateWorld) await mutate.mutateWorld(world, layer);
   const out = { raw, T, geo, layer, world, clock, BATTLE: clock.BATTLE };
   if (stage) out.Stage = (await imp('src/stage.mjs')).Stage;
   return out;

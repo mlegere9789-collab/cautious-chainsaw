@@ -40,7 +40,7 @@ for (const u of L.units) {
   const g = u.guns || {};
   if (g.status && g.status !== 'not_applicable') add('layer.unit.guns', rec('guns:' + u.id, { tier: g.tier, sources: g.sources, basis: g.reason || g.printed || null, weak_source: g.weak_source, extra: { status: g.status, count: g.count ?? null } }));
   const a = u.approach;
-  if (a && (a.id || a.tier)) add('layer.unit.approach', rec('approach:' + u.id, { tier: a.tier, sources: [], basis: a.text || null, register: a.register, claims: a.claims, quote: a.phrase, extra: { modelled: !!a.modelled, claim_tier: a.claim_tier || null, entry: a.id || null } }));
+  if (a && (a.id || a.tier)) add('layer.unit.approach', rec('approach:' + u.id, { tier: a.tier, sources: a.report ? [a.report] : [], basis: a.text || null, register: a.register, claims: a.claims, quote: a.phrase, extra: { modelled: !!a.modelled, claim_tier: a.claim_tier || null, entry: a.id || null } }));
   const p = u.provenance;
   if (p && p.claims) for (const id of Object.keys(p.claims).sort()) {
     const k = p.claims[id];

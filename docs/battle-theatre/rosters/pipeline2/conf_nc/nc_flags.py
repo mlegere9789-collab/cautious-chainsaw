@@ -38,7 +38,7 @@ RANK_VOC = {'colonel', 'lieutenant', 'lieut', 'lt', 'col', 'major', 'maj', 'capt
 ORD_RANK = re.compile(r"^[1-9](?:st|d|nd|rd|th)$")
 MARKS = "\"'`^*|[]()<>~_•■#:;,.-—"
 BAD_MARK = re.compile(r"[\^|~■•{}\\<>_]")
-SECOND_MARK = re.compile(r"(?:^|\s)(?:e|cm|em|en|crn|cin|cni|ern)\.\s+(?:[A-Z][a-z]{2,}|in\s+['’]|['’])")
+SECOND_MARK = re.compile(r"(?:^|\s)(?:e|cm|em|en|crn|cin|cni|ern)\.\s+(?:[A-Z][a-z]{2,}|in\s+['’]|['’])|(?:^|\s)(?:e|cm|em)[\.,;:]+[A-Z][a-z]{2,}")
 NAMELIKE_RUN = re.compile(r"\.\s+[A-Z][A-Za-z'’\-]{2,},\s+[A-Z][A-Za-z\.\-]*\.?,?\s+(?:e|cm|em)\.")
 TOKCLEAN = re.compile(r"[^a-z]")
 

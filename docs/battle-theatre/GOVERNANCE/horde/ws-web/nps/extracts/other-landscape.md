@@ -839,12 +839,12 @@ Rose Barn, Emmitsburg Road (U.S. Route 15), Gettysburg, Adams County, PA (Docume
 
 - **Rose barn: infantrymen of Semmes' Georgia Brigade took shelter there from the Union cannonading at the Peach Orchard; General Semmes was mortally wounded** (`NPSX-HABS-pa1692-p000-02`)
   - State date: **1863-07-02** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 0
-  - Repository ids: `STR-ROSE-BARN1`, `bld-rose-farm`
+  - Repository ids: `STR-ROSE-BARN1`, `bld-rose-farm#barn`, `H-21`
   - Claim: The record says Confederate infantrymen of Semmes' Georgia Brigade took shelter at the barn to avoid the cannonading of Union artillery at the Peach Orchard and that General Semmes was mortally wounded, in the record's words, during the second and third days of the battle
   - Quote: "At that time, Confederate infantryman of Semmes' Georgia Brigade took shelter there to avoid the cannonading of Union artillery at the Peach Orchard. While here General Semmes was mortally wounded during the second and third days of the battle."
 - **Rose barn: a number of Confederate soldiers were once buried in the immediate vicinity of the barn** (`NPSX-HABS-pa1692-p000-03`)
   - State date: **1863-07 (burials near the barn; the record says 'once buried')** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 0
-  - Repository ids: `STR-ROSE-BARN1`, `bld-rose-farm`
+  - Repository ids: `STR-ROSE-BARN1`, `bld-rose-farm#barn`, `H-21`
   - Claim: The record says a number of Confederate soldiers were once buried in the immediate vicinity of the barn
   - Quote: "A number of Confederate soldiers were once buried in the immediate vicinity of the barn."
 
@@ -854,7 +854,7 @@ Bushman Barn, Business U.S. 15, Emmitsburg Road, Gettysburg, Adams County, PA (D
 
 - **Bushman barn: 8 Confederate soldiers buried behind it** (`NPSX-HABS-pa1693-p000-03`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 0
-  - Repository ids: `STR-BUSHMAN-BARN1`, `bld-bushman-farm`
+  - Repository ids: `STR-BUSHMAN-BARN1`, `bld-bushman-farm#barn`, `H-21`
   - Claim: The record says 8 Confederate soldiers were buried behind the barn
   - Quote: "and 8 Confederate soldiers were buried behind it"
 

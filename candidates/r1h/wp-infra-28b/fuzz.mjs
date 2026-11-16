@@ -1,0 +1,85 @@
+// Payloads for the guest handler of Live Sync (conn.on("data")), written as JavaScript EXPRESSIONS so that each one is built in the realm
+// that receives it: node:vm in test.mjs, page.evaluate in a browser spec.  A payload built in another realm would carry that realm's
+// Object.prototype, which a real browser never delivers.
+//
+//   FUZZ_20   the twenty payloads of the acceptance: none may reach goToTick (the page must also not throw)
+//   FUZZ_MORE further shapes of the same kind: none may reach goToTick either
+//   VALID     messages that must reach goToTick, with the moment and the note the map must show
+export const FUZZ_20 = [
+  { id: 'F01', what: 'null', expr: 'null' },
+  { id: 'F02', what: 'an array that holds a valid message', expr: "[{ type: 'goto', tick: 5, note: 'x' }]" },
+  { id: 'F03', what: 'a string that holds a valid message as JSON', expr: `'{"type":"goto","tick":5,"note":"x"}'` },
+  { id: 'F04', what: 'a number', expr: '42' },
+  { id: 'F05', what: 'an extra key', expr: "{ type: 'goto', tick: 5, note: 'x', admin: true }" },
+  { id: 'F06', what: 'an own __proto__ key (as JSON.parse makes it)', expr: `JSON.parse('{"type":"goto","tick":5,"note":"x","__proto__":{"polluted":true}}')` },
+  { id: 'F07', what: 'moment 0', expr: "{ type: 'goto', tick: 0, note: '' }" },
+  { id: 'F08', what: 'moment 676', expr: "{ type: 'goto', tick: 676, note: '' }" },
+  { id: 'F09', what: 'moment 1.5', expr: "{ type: 'goto', tick: 1.5, note: '' }" },
+  { id: 'F10', what: 'moment as the string "5"', expr: "{ type: 'goto', tick: '5', note: '' }" },
+  { id: 'F11', what: 'moment NaN', expr: "{ type: 'goto', tick: NaN, note: '' }" },
+  { id: 'F12', what: 'moment Infinity', expr: "{ type: 'goto', tick: Infinity, note: '' }" },
+  { id: 'F13', what: 'a note of 281 characters', expr: "{ type: 'goto', tick: 5, note: 'x'.repeat(281) }" },
+  { id: 'F14', what: 'a note that starts a tag (img onerror)', expr: "{ type: 'goto', tick: 5, note: '<img src=x onerror=alert(1)>' }" },
+  { id: 'F15', what: 'nested objects as moment and note', expr: "{ type: 'goto', tick: { n: 5 }, note: { html: '<b>x</b>' } }" },
+  { id: 'F16', what: 'a string of 10 MB', expr: "'x'.repeat(10 * 1024 * 1024)" },
+  { id: 'F17', what: 'a message with a note of 10 MB', expr: "{ type: 'goto', tick: 5, note: 'a'.repeat(10 * 1024 * 1024) }" },
+  { id: 'F18', what: 'no type', expr: "{ tick: 5, note: 'x' }" },
+  { id: 'F19', what: 'another type (GOTO)', expr: "{ type: 'GOTO', tick: 5, note: 'x' }" },
+  { id: 'F20', what: 'a negative moment', expr: "{ type: 'goto', tick: -5, note: 'x' }" },
+];
+
+export const FUZZ_MORE = [
+  { id: 'M01', what: 'undefined', expr: 'undefined' },
+  { id: 'M02', what: 'true', expr: 'true' },
+  { id: 'M03', what: 'the empty string', expr: "''" },
+  { id: 'M04', what: 'the number 0', expr: '0' },
+  { id: 'M05', what: 'a function', expr: '() => ({ type: "goto", tick: 5, note: "x" })' },
+  { id: 'M06', what: 'a symbol', expr: "Symbol('goto')" },
+  { id: 'M07', what: 'the empty object', expr: '{}' },
+  { id: 'M08', what: 'type only', expr: "{ type: 'goto' }" },
+  { id: 'M09', what: 'moment null', expr: "{ type: 'goto', tick: null, note: '' }" },
+  { id: 'M10', what: 'moment true', expr: "{ type: 'goto', tick: true, note: '' }" },
+  { id: 'M11', what: 'moment as a BigInt', expr: "{ type: 'goto', tick: 5n, note: '' }" },
+  { id: 'M12', what: 'moment as a Number object', expr: "{ type: 'goto', tick: new Number(5), note: '' }" },
+  { id: 'M13', what: 'moment as an array', expr: "{ type: 'goto', tick: [5], note: '' }" },
+  { id: 'M14', what: 'moment 5.0000001', expr: "{ type: 'goto', tick: 5.0000001, note: '' }" },
+  { id: 'M15', what: 'moment minus zero', expr: "{ type: 'goto', tick: -0, note: '' }" },
+  { id: 'M16', what: 'moment 2 to the 53rd', expr: "{ type: 'goto', tick: 2 ** 53, note: '' }" },
+  { id: 'M17', what: 'note as a number', expr: "{ type: 'goto', tick: 5, note: 5 }" },
+  { id: 'M18', what: 'note as an array', expr: "{ type: 'goto', tick: 5, note: ['x'] }" },
+  { id: 'M19', what: 'note null', expr: "{ type: 'goto', tick: 5, note: null }" },
+  { id: 'M20', what: 'note as a String object', expr: "{ type: 'goto', tick: 5, note: new String('x') }" },
+  { id: 'M21', what: 'a note that closes a script', expr: "{ type: 'goto', tick: 5, note: 'a</script><script>alert(1)</script>' }" },
+  { id: 'M22', what: 'a note that opens a comment', expr: "{ type: 'goto', tick: 5, note: 'a<!-- b' }" },
+  { id: 'M23', what: 'a note that opens a processing instruction', expr: "{ type: 'goto', tick: 5, note: '<?xml version=1?>' }" },
+  { id: 'M24', what: 'a tag split by a control character', expr: "{ type: 'goto', tick: 5, note: '<\\u0000img src=x onerror=alert(1)>' }" },
+  { id: 'M25', what: 'type as an array', expr: "{ type: ['goto'], tick: 5, note: 'x' }" },
+  { id: 'M26', what: 'type with a trailing space', expr: "{ type: 'goto ', tick: 5, note: 'x' }" },
+  { id: 'M27', what: 'a Date', expr: 'new Date(0)' },
+  { id: 'M28', what: 'a typed array', expr: 'new Uint8Array([1, 2, 3])' },
+  { id: 'M29', what: 'an ArrayBuffer', expr: 'new ArrayBuffer(8)' },
+  { id: 'M30', what: 'an instance of a class with the right fields', expr: "new (class Message { constructor() { this.type = 'goto'; this.tick = 5; this.note = 'x'; } })()" },
+  { id: 'M31', what: 'fields only inherited from a prototype', expr: "Object.create({ type: 'goto', tick: 5, note: 'x' })" },
+  { id: 'M32', what: 'an object whose prototype carries the fields (what a __proto__ key makes in a binary reader)', expr: "(() => { const o = {}; o['__proto__'] = { type: 'goto', tick: 5, note: 'x' }; return o; })()" },
+  { id: 'M33', what: 'a symbol key beside the valid fields', expr: "{ type: 'goto', tick: 5, note: 'x', [Symbol('s')]: 1 }" },
+  { id: 'M34', what: 'a non-enumerable extra key', expr: "Object.defineProperty({ type: 'goto', tick: 5, note: 'x' }, 'hidden', { value: 1 })" },
+  { id: 'M35', what: 'the key constructor', expr: "{ type: 'goto', tick: 5, note: 'x', constructor: 1 }" },
+  { id: 'M36', what: 'a JSON string of an array', expr: `'[{"type":"goto","tick":5}]'` },
+  { id: 'M37', what: 'a note of 281 control characters', expr: "{ type: 'goto', tick: 5, note: '\\u0007'.repeat(281) }" },
+  { id: 'M38', what: 'a message that is only extra keys', expr: '{ a: 1, b: 2 }' },
+  { id: 'M39', what: 'a note of exactly 281 characters made of a surrogate pair at the end', expr: "{ type: 'goto', tick: 5, note: 'x'.repeat(280) + '\\ud83d' }" },
+  { id: 'M40', what: 'a nested valid message', expr: "{ type: 'goto', tick: 5, note: 'x', next: { type: 'goto', tick: 6, note: 'y' } }" },
+];
+
+// tick and note are what goToTick must be given (the control characters of a note become spaces and the note is trimmed)
+export const VALID = [
+  { id: 'V01', what: 'the first moment, empty note', expr: "{ type: 'goto', tick: 1, note: '' }", tick: 1, note: '' },
+  { id: 'V02', what: 'the last moment, a note of exactly 280 characters', expr: "{ type: 'goto', tick: 675, note: 'x'.repeat(280) }", tick: 675, note: 'x'.repeat(280) },
+  { id: 'V03', what: 'no note field', expr: "{ type: 'goto', tick: 12 }", tick: 12, note: '' },
+  { id: 'V04', what: 'a note with comparison signs, an ampersand and a heart', expr: "{ type: 'goto', tick: 226, note: 'Day two: 5 < 6 and 7 > 3, I <3 this & that' }", tick: 226, note: 'Day two: 5 < 6 and 7 > 3, I <3 this & that' },
+  { id: 'V05', what: 'control characters of both ranges in the note', expr: "{ type: 'goto', tick: 300, note: 'a\\nb\\u0007c\\u0085d' }", tick: 300, note: 'a b c d' },
+  { id: 'V06', what: 'an object without a prototype', expr: "Object.assign(Object.create(null), { type: 'goto', tick: 7, note: 'no prototype' })", tick: 7, note: 'no prototype' },
+  { id: 'V07', what: 'fields in another order', expr: "{ note: 'order does not matter', tick: 8, type: 'goto' }", tick: 8, note: 'order does not matter' },
+  { id: 'V08', what: 'a padded note', expr: "{ type: 'goto', tick: 100, note: '  padded  ' }", tick: 100, note: 'padded' },
+  { id: 'V09', what: 'a note that is text with a markup look: an escaped tag', expr: "{ type: 'goto', tick: 9, note: '&lt;b&gt; shown as text' }", tick: 9, note: '&lt;b&gt; shown as text' },
+];

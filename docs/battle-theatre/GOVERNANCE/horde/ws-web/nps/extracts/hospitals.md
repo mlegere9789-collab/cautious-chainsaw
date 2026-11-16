@@ -251,7 +251,7 @@ Lutheran Theological Seminary, Main Building, Gettysburg, Adams County, PA (Docu
 
 - **The Seminary's Main Building was a hospital for Confederate wounded for several weeks after the battle** (`NPSX-HABS-pa0007-p002-03`)
   - State date: **1863-07 (several weeks after the battle)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 2
-  - Repository ids: `STR-TOWN-SCHMUCKER_HALL`, `bld-schmucker-hall`
+  - Repository ids: `STR-TOWN-SCHMUCKER_HALL`, `bld-schmucker-hall`, `H-03`
   - Claim: The typed form says the building was used as a hospital for Confederate wounded for several weeks after the battle
   - Quote: "Building used as a hospital for Confederate wounded for several weeks after the battle"
 
@@ -261,7 +261,7 @@ Weikert Barn, Emmitsburg Road, U.S. 15, Gettysburg, Adams County, PA (Documentat
 
 - **Weikert barn: a temporary field hospital for Union troops on July 2-3, 1863** (`NPSX-HABS-pa0020-p000-01`)
   - State date: **1863-07-02 to 1863-07-03** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 0
-  - Repository ids: `STR-GWEIKERT-BARN1`
+  - Repository ids: `STR-GWEIKERT-BARN1`, `bld-weikert-farm`, `H-08`
   - Claim: The record says that during the battle the Weikert barn was used as a temporary field hospital by Union troops on July 2-3, 1863
   - Quote: "During the battle of Gettysburg, the barn was used as a temporary field hospital by Union troops on the July 2-3, 1863."
 
@@ -281,7 +281,7 @@ Bushman Barn, Business U.S. 15, Emmitsburg Road, Gettysburg, Adams County, PA (D
 
 - **Bushman barn: more than likely a field hospital during the battle** (`NPSX-HABS-pa1693-p000-02`)
   - State date: **1863-07 (hedged: more than likely)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 0
-  - Repository ids: `STR-BUSHMAN-BARN1`, `bld-bushman-farm`
+  - Repository ids: `STR-BUSHMAN-BARN1`, `bld-bushman-farm#barn`, `H-21`
   - Claim: The record says that during the battle the barn more than likely served as a field hospital
   - Quote: "During the battle, the barn more than likely served as a field hospital"
 
@@ -301,7 +301,7 @@ Trostle Farm, Summer Kitchen, United States Avenue, Gettysburg, Adams County, PA
 - **Trostle farm sheltered grievously wounded men during the remainder of the fight** (`NPSX-HABS-pa4187-p003-02`)
   - State date: **1863-07-02 to 1863-07-03** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 3 [2]
   - Repository ids: `STR-TROSTLE-HOUSE1`, `bld-trostle-farm`
-  - Claim: The report says that after the stand of the 9th Massachusetts battery the Trostle farm sheltered grievously wounded men during the remainder of the fight
+  - Claim: The report says that after the stand of the Massachusetts battery the Trostle farm sheltered grievously wounded men during the remainder of the fight
   - Quote: "Following this horrific experience, the Trostle Farm sheltered grievously wounded men during the remainder of the fight."
 
 ## NPS-HB9-1954

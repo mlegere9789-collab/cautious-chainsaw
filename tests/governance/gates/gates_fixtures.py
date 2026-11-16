@@ -171,3 +171,69 @@ def dump_json(path, obj):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(obj, f, ensure_ascii=False, indent=1)
     return path
+
+
+# ======================================================================================== Q14 fixtures
+class FakeOcr:
+    """What q14_ordnance.OcrStore gives the runner: whether a manual phrase and a printed figure are found again in the OCR text."""
+
+    def __init__(self, phrase='found', window='found'):
+        self._p, self._w = phrase, window
+
+    def phrase(self, manual, phrase):
+        return self._p
+
+    def window(self, manual, line, tokens, before=3, after=120):
+        return self._w
+
+    def load(self, manual):
+        return {'path': 'fixture', 'sha_ok': True}
+
+
+def q14_items():
+    rows = [{'elevation': '0', 'range_ocr': '325', 'range_yd_reading': 325, 'note': ''}, {'elevation': '3', 'range_ocr': '1,200', 'range_yd_reading': 1200, 'note': ''}, {'elevation': '5', 'range_ocr': '1,680', 'range_yd_reading': 1680, 'note': ''}]
+    return {
+        'ORD-RNG-FA-LT12': {'id': 'ORD-RNG-FA-LT12', 'manual': 'FIELDART-1863', 'verbatim': 'LI08T 12-PDB. QUN.. 2-5 Shot. 0 1 325 620', 'ocr_line': 6568, 'tier': 'documented', 'paraphrase': 'Light 12-pdr: shot read in pairs 0 deg 325, 3 deg 1,200, 5 deg 1,680.',
+                            'data': {'rows': rows}},
+        'ART-FA-100': {'id': 'ART-FA-100', 'manual': 'FIELDART-1863', 'verbatim': 'with sufficient deliberation for pointing, two solid shot or three canisters per minute', 'tier': 'documented'},
+        'ART-GB-21': {'id': 'ART-GB-21', 'manual': 'GIBBON-1860', 'verbatim': 'The mean rate is about one shot per minute, but when close pressed,', 'verbatim2': 'two or three shots per minute can be fired.', 'tier': 'documented'},
+        'ART-FA-101': {'id': 'ART-FA-101', 'manual': 'FIELDART-1863', 'verbatim': 'canister should begin at 350 yards, and the rapidity of the fire', 'verbatim2': 'double charges of canister may be used at 150 or 160 yards,', 'tier': 'documented'},
+        'ART-GB-22': {'id': 'ART-GB-22', 'manual': 'GIBBON-1860', 'verbatim': 'the maximum effect is produced at from 400 to 450 yards.', 'tier': 'documented'},
+        'ORD-BATT-WAR': {'id': 'ORD-BATT-WAR', 'manual': 'FIELDART-1863', 'verbatim': 'Total number of rounds with a battery..', 'data': {'per_gun': 224, 'light12_battery_rounds_total': 1344}, 'tier': 'documented'},
+        'ART-FA-116': {'id': 'ART-FA-116', 'manual': 'FIELDART-1863', 'verbatim': 'The campaign allowance of ammunition is double what has', 'tier': 'documented'},
+        'INF-RATE-01': {'id': 'INF-RATE-01', 'manual': 'CASEY-1862-1', 'verbatim': 'fire at least three rounds in a minute with ease', 'rate': '>= 3 rounds/minute (drill standard)', 'tier': 'documented'},
+        'ART-FA-03': {'id': 'ART-FA-03', 'manual': 'FIELDART-1863', 'verbatim': 'No. 1 sponges and rams', 'tier': 'documented'},
+    }
+
+
+def q14_inputs():
+    items = q14_items()
+    weapons = {'rifle_ok': {'id': 'rifle_ok', 'tier': 'inferred', 'weak_source': True, 'source_keys': ['Wiki-X'], 'conflicts': [], 'gap_ids': []}}
+    pieces = {'napoleon_12pdr_m1857': {'id': 'napoleon_12pdr_m1857', 'tier': 'inferred', 'weak_source': True, 'table_source_keys': ['Wiki-FieldArtACW'], 'conflicts': [{'id': 'C1', 'positions': [{'value_yd': 1619}, {'value_yd': 1680}]}],
+                                                  'gap_ids': [], 'manual_confirmation': [{'drill_item_ids': ['ORD-RNG-FA-LT12']}]}}
+    return {'weapons': {'weapons': weapons, 'meta': {'counts': {'drill_states': 12}},
+                        'ammunition': {'rates_and_ranges': [{'quantity': 'Rate', 'values': {'muzzle_loader_per_min': [2, 3], 'sharps_per_min': [8, 10]}}]},
+                        'artillery': {'pieces': pieces, 'conflicts': [{'id': 'CONF-NAP-CANISTER-RANGE', 'manual_check': 'FA manual: canister begins at 350 yd; double canister 150-160 yd'}],
+                                      'ammunition_choice': {'range_bands_yd': {'solid_shot_shell_case_beyond': 400, 'canister_inside': [350, 400], 'double_canister_inside': 150}, 'tier': 'inferred', 'manual_check': 'FA: double canister at 150-160 yd'},
+                                      'crew': {'roles': [{'role': 'gunner', 'manual_item_ids': ['ART-FA-03']}, {'role': 'No. 1', 'manual_item_ids': ['ART-FA-03']}]}}},
+            'fx': {'weapons': {'rifle_ok': {}}}, 'items': items, 'sources': {}, 'conflicts': {'conflicts': [{'id': 'C-900', 'topic': 'crew of a field piece: eight or nine', 'values': [{'label': '8'}, {'label': '9'}]}]},
+            'vb': None, 'plan': 'Total guns on the field (US / CS)\n366 / 282 (StrategyPage)\n366-372 Union, 281-282 Confederate\n', 'structures': {'structures': []}, 'guns': {}}
+
+
+def q14_dump():
+    bat = {'id': 'us-b1', 'name': 'Battery 1', 'army': 'US', 'level': 'battery', 'parent': 'us-art', 'status': 'on_field', 'drawn': True, 'render': 'moving', 'strength_drawn': 224, 'enter_min': 1000,
+           'guns': {'status': 'drawn', 'count': 6, 'types': [{'type_id': 'napoleon_12pdr_m1857', 'count': 6, 'printed_type': 'six Napoleons'}], 'printed': 'six Napoleons', 'kit_battery': 'US.ART.B1', 'tier': 'inferred', 'weak_source': True, 'sources': ['KIT-GUNS'], 'reason': None},
+           'world': {'guns': 6, 'crew_groups': 6, 'crew_total': 54}}
+    plan = {'unit': 'us-b1', 'animator': 'us-b1#gun0', 'crew': True, 'activity': 'serve_guns', 'seg': 0, 'mode': 'by_piece', 'weapon': 'cannon', 'weapon_id': None, 'round': None, 'target': None, 'n': 6, 'start_s': 60000, 'end_s': None,
+            'cycle_min': 30, 'cycle_max': 60, 'floor_s': 18, 'pace_spread': 0.06, 'tier': 'inferred', 'basis': 'fixture', 'dismounted_share': 0, 'window_s': 3600.0, 'shots': 300, 'max_in_60s': {'count': 2, 'figure': 0, 't_s': 60010.0}}
+    ball = {'table': {'napoleon_12pdr_m1857': {'shot': [[0, 325], [3, 1200], [5, 1680]], 'src': ['ORD-RNG-FA-LT12']}},
+            'rows': [{'piece': 'napoleon_12pdr_m1857', 'round': 'shot', 'elev_deg': e, 'range_yd': y, 'src': ['ORD-RNG-FA-LT12']} for e, y in ((0, 325), (3, 1200), (5, 1680))],
+            'inverse': [{'piece': 'napoleon_12pdr_m1857', 'round': 'shot', 'elev_deg': e, 'range_yd': y, 'elev_back': e, 'ok': True, 'flight_s': (None if e == 0 else 5.0)} for e, y in ((0, 325), (3, 1200), (5, 1680))],
+            'beyond': [{'piece': 'napoleon_12pdr_m1857', 'round': 'shot', 'top_yd': 1680, 'probe_yd': 1713.6, 'elevation_beyond': 'NaN', 'impact_beyond': None}]}
+    return {'schema': 'q14-layer-dump/1', 'scenarios': ['default'], 'scenario_set': {'id': 'fixture', 'complete': True, 'count': 1}, 'batteries': [bat], 'events': [{'scenario': 'default', 'unit': 'us-b1', 'piece': 'napoleon_12pdr_m1857', 'round': 'shot', 'range_m': 900.0, 'range_yd': 984.3, 'elevation_deg': 2.4, 'in_table': True, 'flight_s': 2.0}], 'drawn_guns': {'union': 369, 'confederate': 281}, 'ballistics': ball,
+            'plans': {'default': [plan]}, 'crew': {'posts': ['gunner', 'No. 1'], 'per_gun': 2, 'crowd_per_gun': 9, 'selectable': True, 'selectable_basis': 'fixture'}, 'window': {'from_s': 2160000, 'to_s': 3801600}}
+
+
+def q14_vb(count=6, date='1863-07-02', state='present'):
+    return {'schema': 'kit-verified-batteries-1', 'batteries': {'us-b1': {'name': 'Battery 1', 'status': 'verified', 'unverified': False, 'range_by_date': {date: {state: {'low': count, 'high': count, 'lines': 1}}},
+                                                                         'guns': [{'as_of': date, 'state': state, 'pieces': [{'printed': 'six Napoleons', 'count': 6, 'type_candidates': ['napoleon_12pdr_m1857']}], 'total': count, 'tier': 'documented'}]}}, 'formations': {}}

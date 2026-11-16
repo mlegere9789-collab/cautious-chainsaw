@@ -102,7 +102,7 @@ def main():
             cat['items'].append({'id': sid, 'url': url, 'listing_title': title, 'topics': topics})
         man['items'][sid] = {
             'id': sid, 'status': 'acquired', 'http': 200, 'fetched_at': iso(jp), 'bytes': os.path.getsize(jp), 'sha256': sha(jp), 'pages': max(len(pages) - 1, 1),
-            'pages_with_text': len([p for p in pages if len(p.strip()) > 80]), 'text_path': os.path.relpath(out, ROOT), 'text_bytes': os.path.getsize(out), 'text_sha256': sha(out),
+            'pages_with_text': (len([p for p in pages[1:] if len(p.strip()) > 80]) if len(pages) > 1 else 1), 'text_path': os.path.relpath(out, ROOT), 'text_bytes': os.path.getsize(out), 'text_sha256': sha(out),
             'file_kept': True, 'file_path': os.path.relpath(os.path.join(sdir, sid + '.record.json'), ROOT), 'content_type': 'application/json',
             'extra_files': extra,
         }

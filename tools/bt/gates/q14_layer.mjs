@@ -27,11 +27,12 @@ const YD = 0.9144;
 const crewOf = new Map();
 world.units.forEach((w, j) => { if (w.crew) { if (!crewOf.has(w.parent)) crewOf.set(w.parent, []); crewOf.get(w.parent).push(j); } });
 const batteries = [];
+const enterOf = new Map(layer.arrivals({}).map(a => [a.unit, a.default]));
 let unionGuns = 0, csGuns = 0;
 U.forEach((u, i) => {
   if (u.children.length || u.arm !== 'artillery') return;
   const g = u.guns, G = world.units[i].guns || 0, crew = crewOf.get(i) || [];
-  batteries.push({ id: u.id, name: u.name, army: u.side === 'union' ? 'US' : 'CS', level: u.level, parent: u.parent, status: u.status, drawn: !!u.drawn, render: u.render.status, strength_drawn: u.strength.drawn,
+  batteries.push({ id: u.id, name: u.name, army: u.side === 'union' ? 'US' : 'CS', level: u.level, parent: u.parent, status: u.status, drawn: !!u.drawn, render: u.render.status, strength_drawn: u.strength.drawn, enter_min: enterOf.has(u.id) ? enterOf.get(u.id) : null,
     guns: { status: g.status, count: g.count ?? null, types: (g.types || []).map(t => ({ type_id: t.type_id, count: t.count ?? null, printed_type: t.printed_type })), printed: g.printed ?? null, kit_battery: g.kit_battery ?? null, tier: g.tier, weak_source: g.weak_source ?? null, sources: g.sources, reason: g.reason ?? null },
     world: { guns: G, crew_groups: crew.length, crew_total: crew.reduce((s, j) => s + world.units[j].count, 0) } });
   if (G) { if (u.side === 'union') unionGuns += G; else csGuns += G; }
@@ -70,7 +71,7 @@ function analyse(p) {
   }
   return { window_s: r6(t1 - p.startS), shots: total, max_in_60s: { count: max, figure: fig, t_s: r6(at) } };
 }
-const plans = {};
+const plans = {}, events = [];
 const scenarios = scenarioList(kind, raw, layer);
 for (const sc of scenarios) {
   st.loadScenario({ id: sc.id, choices: sc.choices, optionText: sc.optionText }); D.reset();
@@ -82,6 +83,10 @@ for (const sc of scenarios) {
       const crew = ui >= U.length, parent = crew ? world.units[ui].parent : ui;
       list.push({ unit: U[parent].id, animator: D.unitId(ui), crew, activity: s.activity, seg: si, mode: p.mode, weapon: p.weapon, weapon_id: p.weaponId ?? null, round: p.round ?? null, target: p.target ?? null, n: p.n, start_s: r6(p.startS), end_s: Number.isFinite(p.endS) ? r6(p.endS) : null,
         cycle_min: p.cycleMin, cycle_max: p.cycleMax, floor_s: p.floor, pace_spread: p.paceSpread, tier: p.tier, basis: p.basis, dismounted_share: s.dm || 0, ...analyse(p) });
+      if (p.target && p.origin) {                        // a plan with a target is a projectile event with a range: what the product does with that range (the table, the round)
+        const range_m = Math.hypot(p.target.x - p.origin.x, p.target.z - p.origin.z), piece = p.weaponId || 'napoleon_12pdr_m1857', round = p.round || 'shot', imp = gunImpact(piece, round, range_m, 0, {});
+        events.push({ scenario: sc.id, unit: U[parent].id, piece, round, range_m: r6(range_m), range_yd: r6(range_m / YD), elevation_deg: imp ? r6(imp.elevDeg) : null, in_table: !!imp, flight_s: imp ? r6(imp.flightS) : null });
+      }
     });
   }
   plans[sc.id] = list;
@@ -89,6 +94,6 @@ for (const sc of scenarios) {
 
 writeOut(args.out, { schema: 'q14-layer-dump/1', layer: { id: layer.meta.id, units: U.length }, scenarios: scenarios.map(s => s.id),
   scenario_set: { id: kind, kind, count: scenarios.length, complete: false, note: kind === 'default' ? 'the default scenario only' : kind === 'ofat' ? 'default and every value of every linked conflict taken alone, not the Cartesian product inside the interaction groups' : 'default and the six sample scenarios of history.test.mjs: a sample, never S*' },
-  batteries, drawn_guns: { union: unionGuns, confederate: csGuns }, world: { guns: world.guns ? world.guns.length : null, comp: world.comp },
-  ballistics: { table: RANGE_TABLE_YD, rows, inverse, beyond }, plans, crew: { posts: CREW_POSTS.map(p => p[0]), per_gun: CREW_POSTS.length, crowd_per_gun: CREW_PER_GUN, gun_interval_m: GUN_INTERVAL_M, gun_period_s: GUN_PERIOD_S },
+  batteries, events, drawn_guns: { union: unionGuns, confederate: csGuns }, world: { guns: world.guns ? world.guns.length : null, comp: world.comp },
+  ballistics: { table: RANGE_TABLE_YD, rows, inverse, beyond }, plans, crew: { posts: CREW_POSTS.map(p => p[0]), per_gun: CREW_POSTS.length, crowd_per_gun: CREW_PER_GUN, gun_interval_m: GUN_INTERVAL_M, gun_period_s: GUN_PERIOD_S, selectable: false, selectable_basis: 'CREW_POSTS is a constant array of the posts; no scenario value or conflict choice reaches the world builder or the crowd driver' },
   window: { from_s: BATTLE.from * 60, to_s: BATTLE.to * 60 } });

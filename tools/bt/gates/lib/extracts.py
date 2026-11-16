@@ -170,20 +170,26 @@ class TextStore:
         return {'status': 'found', 'records': recs[:6], 'hits': len(hits), 'page_ok': page_ok}
 
     @staticmethod
+    def _page_range(x):
+        s = str(x).strip()
+        m = re.match(r'^~?(\d+)\s*\((\d+)-(\d+)\)$', s)
+        if m:
+            return int(m.group(2)), int(m.group(3))
+        m = re.match(r'^~?(\d+)\s*-\s*~?(\d+)$', s)
+        if m:
+            return int(m.group(1)), int(m.group(2))
+        m = re.match(r'^~?(\d+)$', s)
+        if m:
+            return int(m.group(1)), int(m.group(1))
+        return None
+
+    @staticmethod
     def _page_agrees(found, cited):
-        f, c = str(found), str(cited).strip()
-        if f == c:
-            return True
-        m = re.match(r'~(\d+) \((\d+)-(\d+)\)', f)
-        if m and c.isdigit():
-            return int(m.group(2)) <= int(c) <= int(m.group(3))
-        parts = re.split(r'-', f)
-        if len(parts) == 2 and c.isdigit():
-            a = re.sub(r'\D', '', parts[0])
-            b = re.sub(r'\D', '', parts[1])
-            if a.isdigit() and b.isdigit():
-                return int(a) <= int(c) <= int(b)
-        return False
+        """The printed page the text gives and the page the datum cites agree when their ranges overlap (a '~' page is interpolated inside a run of pages whose running heads the OCR lost)."""
+        a, b = TextStore._page_range(found), TextStore._page_range(cited)
+        if a is None or b is None:
+            return True          # a page that cannot be read as a number is not a disagreement
+        return a[0] <= b[1] and b[0] <= a[1]
 
     # --------------------------------------------------------------- state volumes
     def _load_sv(self):

@@ -160,7 +160,7 @@ await guard('overlay_objects', async () => {
   ov.resize(W, H, 1);
   const geo = { xz: (lng, lat) => [(lng + 77.3) * 9000 % 1500 + 40, (lat - 39.78) * 9000 % 1500 + 40] };
   const per = [], notDrawable = [];
-  const times = []; for (let d = 0; d < 20; d++) for (const h of [6, 12, 18]) times.push((d * 24 + h) * 60);
+  const times = []; for (let m = 0; m <= 20 * 1440; m += 30) times.push(m);
   for (const o of objs) {
     const prog = (oo, t) => (layerObjectProgress ? layerObjectProgress(oo, t) : 0.5);
     const t = times.find(tt => prog(o, tt) > 0);

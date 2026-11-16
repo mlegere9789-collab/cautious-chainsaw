@@ -1,0 +1,456 @@
+{
+ "schema": "bt-content-classes/1",
+ "_doc": "The census of content classes of GATE-SPEC.md Q23.1 (what the product draws or plays). `spec_names` are the names of the plan's list that a class covers (every name of the list must be covered, or the census is FAIL). `modules` are the folders and files of app/src that implement the class (every folder of app/src must be in a class or in `non_content`, or the census is FAIL). `mark_evidence` is the code that draws or prints the mark of a tier for the class: the runner finds each pattern in its file at every run (a static check; it cannot see what is drawn) and a class with no evidence is an unmarked class. `node_checks` name the results of node tools/bt/gates/q23_app.mjs that run the app's own code (overlay with a recording canvas, sound panel). `datum_classes` link the class to the data classes whose members the flag-in-data check (Q23.2) reads. Nothing here names a tier of any datum.",
+ "spec_list": [
+  "units",
+  "figures and their items",
+  "officers' and commanders' appearance",
+  "horses",
+  "guns",
+  "the artillery train",
+  "works",
+  "fences",
+  "buildings",
+  "markers",
+  "roads",
+  "the ground",
+  "vegetation",
+  "weather",
+  "effects",
+  "sounds",
+  "casualties",
+  "hospital activity",
+  "animation clips",
+  "the Events list and cards",
+  "the epilogue"
+ ],
+ "non_content": {
+  "ui/": "interface chrome: panels, docks and cards. They are where marks are shown, not content that is drawn.",
+  "config.mjs": "the shell constants (the tier styles are read from here)"
+ },
+ "classes": [
+  {
+   "id": "units",
+   "label": "Units: regiments, batteries and the formations above them, as marks over the picture and as cards",
+   "spec_names": [
+    "units"
+   ],
+   "modules": [
+    "history/",
+    "crowd/",
+    "overlay.mjs",
+    "stage.mjs"
+   ],
+   "datum_classes": [
+    "layer.units",
+    "layer.unit.strength",
+    "layer.unit.casualties",
+    "layer.arrivals",
+    "layer.events"
+   ],
+   "mark_evidence": [
+    {
+     "file": "docs/battle-theatre/app/src/overlay.mjs",
+     "patterns": [
+      "TIER_STYLE[tier]",
+      "GLYPH[S.glyph]"
+     ],
+     "what": "the unit overlay draws the glyph, outline pattern and colour of the unit's tier"
+    },
+    {
+     "file": "docs/battle-theatre/app/src/ui/card.mjs",
+     "patterns": [
+      "pill(u.tier)",
+      "regLink(u.register",
+      "Source key"
+     ],
+     "what": "the unit card shows the tier, the source keys and the register link"
+    }
+   ],
+   "node_checks": [
+    "overlay_units"
+   ],
+   "present": true
+  },
+  {
+   "id": "figures",
+   "label": "Figures and their items, the appearance of officers and commanders, horses and their tack",
+   "spec_names": [
+    "figures and their items",
+    "officers' and commanders' appearance",
+    "horses"
+   ],
+   "modules": [
+    "figures3d/"
+   ],
+   "datum_classes": [
+    "layer.kit_items",
+    "kit.kit_specs",
+    "kit.weapons",
+    "kit.cavalry_units"
+   ],
+   "mark_evidence": [
+    {
+     "file": "docs/battle-theatre/app/src/ui/card-sections.mjs",
+     "patterns": [
+      "weakest field tier",
+      "pill(hr.tier)"
+     ],
+     "what": "the unit card prints the tiers of the figure manifest and the tier of the horses"
+    }
+   ],
+   "node_checks": [],
+   "present": true
+  },
+  {
+   "id": "guns",
+   "label": "Guns and the artillery train",
+   "spec_names": [
+    "guns",
+    "the artillery train"
+   ],
+   "modules": [
+    "structures/artillery.mjs"
+   ],
+   "datum_classes": [
+    "layer.unit.guns",
+    "data.battery_guns",
+    "data.artillery_train",
+    "kit.artillery_batteries"
+   ],
+   "mark_evidence": [],
+   "node_checks": [],
+   "present": true,
+   "note": "the unit card lists the guns of a battery (gunsRows) but prints no tier for the gun count, and no overlay mark exists for a gun or the artillery train"
+  },
+  {
+   "id": "works",
+   "label": "Works: earthworks and emplacements drawn as they are built",
+   "spec_names": [
+    "works"
+   ],
+   "modules": [
+    "structures/works3d.mjs"
+   ],
+   "datum_classes": [
+    "layer.objects",
+    "structures.works_stages",
+    "data.works3d"
+   ],
+   "mark_evidence": [
+    {
+     "file": "docs/battle-theatre/app/src/overlay.mjs",
+     "patterns": [
+      "drawObjects(c, opts)",
+      "TIER_STYLE[o.tier]"
+     ],
+     "what": "the works overlay draws the tier colour of each object"
+    }
+   ],
+   "node_checks": [
+    "overlay_objects"
+   ],
+   "present": true
+  },
+  {
+   "id": "structures",
+   "label": "Fences, buildings, markers and roads",
+   "spec_names": [
+    "fences",
+    "buildings",
+    "markers",
+    "roads"
+   ],
+   "modules": [
+    "structures/"
+   ],
+   "datum_classes": [
+    "data.structures3d",
+    "structures.structures",
+    "structures.state_schedule"
+   ],
+   "mark_evidence": [
+    {
+     "file": "docs/battle-theatre/app/src/structures/overlay.mjs",
+     "patterns": [
+      "TIER_STYLE[o.tier]",
+      "setLineDash(st.dash)"
+     ],
+     "what": "the Evidence outlines of the structures use the tier colour, dash and glyph"
+    },
+    {
+     "file": "docs/battle-theatre/app/src/ui/object-card.mjs",
+     "patterns": [
+      "pill(o.tier)"
+     ],
+     "what": "the object card shows the tier"
+    }
+   ],
+   "node_checks": [],
+   "present": true
+  },
+  {
+   "id": "ground",
+   "label": "The ground (height model and aerial photograph)",
+   "spec_names": [
+    "the ground"
+   ],
+   "modules": [
+    "../../render/prototype/"
+   ],
+   "datum_classes": [
+    "terrain.ground"
+   ],
+   "mark_evidence": [
+    {
+     "file": "docs/battle-theatre/app/src/config.mjs",
+     "patterns": [
+      "export const GROUND_NOTE"
+     ],
+     "what": "the shell has the note that the ground is the modern landscape"
+    },
+    {
+     "file": "docs/battle-theatre/app/src/ui/panels.mjs",
+     "patterns": [
+      "<h3>The ground</h3><p>${esc(GROUND_NOTE)}</p>"
+     ],
+     "what": "the panel shows the note"
+    }
+   ],
+   "node_checks": [],
+   "present": true,
+   "note": "the ground is disclosed by one note, not per item (GATE-SPEC Q23 state)"
+  },
+  {
+   "id": "vegetation",
+   "label": "Vegetation of July 1863: fields, woods, orchards, trees",
+   "spec_names": [
+    "vegetation"
+   ],
+   "modules": [
+    "ext/vegetation/"
+   ],
+   "datum_classes": [
+    "data.vegetation"
+   ],
+   "mark_evidence": [
+    {
+     "file": "docs/battle-theatre/app/src/ext/vegetation/index.mjs",
+     "patterns": [
+      "tierMark(",
+      "registerLayerToggle(ID + '-tiers'"
+     ],
+     "what": "the layer shows tiers with the tier mark and a switch for the tier overlay"
+    }
+   ],
+   "node_checks": [],
+   "present": true
+  },
+  {
+   "id": "weather",
+   "label": "Weather and sky",
+   "spec_names": [
+    "weather"
+   ],
+   "modules": [
+    "weather3d/"
+   ],
+   "datum_classes": [
+    "env.weather",
+    "env.ephemeris"
+   ],
+   "mark_evidence": [],
+   "node_checks": [],
+   "present": true,
+   "note": "no code in the interface prints or draws a tier mark for the weather state"
+  },
+  {
+   "id": "effects",
+   "label": "Effects: smoke, fire, muzzle flash, blood, mud",
+   "spec_names": [
+    "effects"
+   ],
+   "modules": [
+    "fx3d/"
+   ],
+   "datum_classes": [
+    "data.fx_params",
+    "data.fx_fires",
+    "data.fx_weapons"
+   ],
+   "mark_evidence": [],
+   "node_checks": [],
+   "present": true,
+   "note": "no code in the interface prints or draws a tier mark for an effect"
+  },
+  {
+   "id": "sounds",
+   "label": "Sounds",
+   "spec_names": [
+    "sounds"
+   ],
+   "modules": [
+    "audio3d/"
+   ],
+   "datum_classes": [
+    "data.audio_calls",
+    "data.audio_commands",
+    "data.audio_sources",
+    "data.audio_woods"
+   ],
+   "mark_evidence": [
+    {
+     "file": "docs/battle-theatre/app/src/ui/sound-panel.mjs",
+     "patterns": [
+      "P.disclosure",
+      "kindLabel"
+     ],
+     "what": "the sound panel lists every sound family with its provenance kind and tier, and the disclosure"
+    }
+   ],
+   "node_checks": [
+    "audio"
+   ],
+   "present": true
+  },
+  {
+   "id": "casualties",
+   "label": "Casualties and their evacuation",
+   "spec_names": [
+    "casualties"
+   ],
+   "modules": [
+    "history/casualties.mjs"
+   ],
+   "datum_classes": [
+    "layer.unit.casualties",
+    "data.casualty_sources"
+   ],
+   "mark_evidence": [
+    {
+     "file": "docs/battle-theatre/app/src/ui/card-sections.mjs",
+     "patterns": [
+      "export function lossSection",
+      "pill(c.tier)"
+     ],
+     "what": "the unit card shows the tier of the loss share"
+    }
+   ],
+   "node_checks": [],
+   "present": true
+  },
+  {
+   "id": "hospitals",
+   "label": "Hospital sites and the activity at them",
+   "spec_names": [
+    "hospital activity"
+   ],
+   "modules": [
+    "structures/"
+   ],
+   "datum_classes": [
+    "structures.hospitals"
+   ],
+   "mark_evidence": [],
+   "node_checks": [],
+   "present": true,
+   "note": "no code in the interface prints or draws a tier mark for hospital activity"
+  },
+  {
+   "id": "clips",
+   "label": "Animation clips",
+   "spec_names": [
+    "animation clips"
+   ],
+   "modules": [
+    "anim3d/"
+   ],
+   "datum_classes": [],
+   "mark_evidence": [],
+   "node_checks": [],
+   "present": true,
+   "note": "no code in the interface prints or draws a tier mark for an animation clip (the clip table carries a tier)"
+  },
+  {
+   "id": "events",
+   "label": "The Events list and the event cards (timeline rows)",
+   "spec_names": [
+    "the Events list and cards"
+   ],
+   "modules": [
+    "data.mjs"
+   ],
+   "datum_classes": [
+    "gov.timeline"
+   ],
+   "mark_evidence": [
+    {
+     "file": "docs/battle-theatre/app/src/ui/panels.mjs",
+     "patterns": [
+      "glyphSVG(e.tier",
+      "TIERS.map(t"
+     ],
+     "what": "the Events list shows the tier glyph of every row and a filter by tier"
+    },
+    {
+     "file": "docs/battle-theatre/app/src/ui/dock.mjs",
+     "patterns": [
+      "TIER_STYLE[e.tier]"
+     ],
+     "what": "the time line marks timed events in the tier colour"
+    }
+   ],
+   "node_checks": [],
+   "present": true
+  },
+  {
+   "id": "epilogue",
+   "label": "The epilogue: Lincoln, the crowd and the platform (November 19)",
+   "spec_names": [
+    "the epilogue"
+   ],
+   "modules": [],
+   "datum_classes": [],
+   "mark_evidence": [],
+   "node_checks": [],
+   "present": false,
+   "note": "the product has no epilogue module yet (gate Q28)"
+  },
+  {
+   "id": "later_layers",
+   "label": "Later memorials and tour stops (ext modules): not 1863 content, marked as later",
+   "spec_names": [],
+   "modules": [
+    "ext/monuments.mjs",
+    "ext/tour.mjs",
+    "ext/site-places.mjs",
+    "ext/index.mjs",
+    "ext/"
+   ],
+   "datum_classes": [
+    "data.site_memorials",
+    "data.site_bookmarks",
+    "data.site_tour_stops",
+    "data.site_memorial_years"
+   ],
+   "mark_evidence": [
+    {
+     "file": "docs/battle-theatre/app/src/ext/monuments.mjs",
+     "patterns": [
+      "tierMark.style(P.LAYER.tier)"
+     ],
+     "what": "the memorial layer draws its tier"
+    },
+    {
+     "file": "docs/battle-theatre/app/src/ext/tour.mjs",
+     "patterns": [
+      "tierMark"
+     ],
+     "what": "the tour panel shows the tier"
+    }
+   ],
+   "node_checks": [],
+   "present": true
+  }
+ ]
+}
