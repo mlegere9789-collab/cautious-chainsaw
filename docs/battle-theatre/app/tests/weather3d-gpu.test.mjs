@@ -24,7 +24,7 @@ import { makePlan, aimCamera } from './weather3d-gpu-plan.mjs';
 import { HOOKS, CHROME_ARGS, chromeArgs, REAL_GPU_ARGS } from './weather3d-gpu-lib.mjs';
 import { encodePng, decodePng, diffStats, CANVAS_SHOT_LIMIT } from './weather3d-gpu-lib.mjs'; import zlib from 'node:zlib';
 import { planSteps, summarize, renderMarkdown } from './weather3d-gpu-realrun.mjs'; import os from 'node:os';
-import { checkRun, checkCompare, checkNegativeControl } from './weather3d-gpu-check.mjs'; import { MARK, deviceControls, frameControl, stripMarked } from './weather3d-gpu-negctl.mjs';
+import { checkRun, checkCompare, checkNegativeControl } from './weather3d-gpu-check.mjs'; import { MARK, deviceControls, frameControl, stripMarked } from './weather3d-gpu-negctl.mjs'; import { nondeterminismIn, drawPathFiles, relApp } from './weather3d-determinism-lint.mjs';
 
 const APP = path.resolve(BT, 'app'), J = f => JSON.parse(fs.readFileSync(path.join(BT, f), 'utf8')), D = f => JSON.parse(fs.readFileSync(path.join(APP, 'data/fx3d', f), 'utf8'));
 const environment = new Environment(J('environment/ephemeris_1863.json'), J('environment/weather_timeline.json'));
@@ -580,4 +580,44 @@ test('negative controls: the page harness, the driver and the shell harness run 
   for (const l of ['scoped, invalid', 'scoped, valid', 'wgsl type error', 'unscoped, invalid', 'valid wgsl']) assert.ok(nc.includes(`MARK + ' (${l})'`), l + ' is marked'); assert.ok(nc.includes("MARK + ' pipeline'") && nc.includes("MARK + ' layout'") && nc.includes("MARK + ' bind group'"));
   const w = { __gpuErrors: ['a', MARK + ' (unscoped, invalid)', 'b'], __wgslMessages: [{ label: MARK + ' (wgsl type error)' }, { label: 'weather3d-add' }], __gpuLabels: [MARK + ' (valid wgsl) messages=0', 'weather3d-add messages=0'] };
   assert.deepEqual(stripMarked(w), { gpuErrors: 1, wgslMessages: 1, modules: 1 }); assert.deepEqual(w.__gpuErrors, ['a', 'b']); assert.deepEqual(w.__wgslMessages, [{ label: 'weather3d-add' }]); assert.deepEqual(w.__gpuLabels, ['weather3d-add messages=0']); assert.deepEqual(stripMarked({}), { gpuErrors: 0, wgslMessages: 0, modules: 0 });
+});
+
+// ---------- scrub purity of the draw path (2026-11-16): the same simulation time and camera give the same pixels, so nothing that decides what is uploaded may read a clock or a random source
+test('scrub purity, static: no module of the weather layer, of the effects layer or of the host reads a clock or a random source (a syntax-tree lint over every file of the draw path, new files included)', () => {
+  const files = drawPathFiles(), found = [];
+  for (const f of files) for (const x of nondeterminismIn(fs.readFileSync(f, 'utf8'))) found.push(`${relApp(f)}:${x.line}:${x.col} ${x.rule}`);
+  assert.deepEqual(found, [], 'a clock or a random source in the draw path:\n' + found.join('\n'));
+  const rel = files.map(relApp); for (const d of ['src/weather3d', 'src/fx3d']) for (const f of fs.readdirSync(path.join(APP, d))) if (f.endsWith('.mjs')) assert.ok(rel.includes(d + '/' + f), d + '/' + f + ' is covered by the lint');
+  assert.ok(rel.includes('src/fx-host.mjs') && rel.includes('src/weather3d/gpu.mjs') && rel.includes('src/weather3d/gl.mjs') && rel.includes('src/fx3d/emit.mjs'), 'the host, both passes and the emitters are in the list'); assert.equal(new Set(rel).size, rel.length, 'no file twice'); assert.ok(files.length >= 20);
+});
+// the effects state at one time, as plain numbers (the frame object is reused by the host)
+const snapFrame = fr => ({ nEvents: fr.nEvents, nSprites: fr.nSprites, nLights: fr.nLights, events: Array.from(fr.events.subarray(0, fr.nEvents * GSTRIDE)), cum: Array.from(fr.cum.subarray(0, fr.nEvents + 1)), wind: Array.from(fr.windHist), lights: Array.from(fr.lights.subarray(0, fr.nLights * LIGHT_STRIDE)), now: fr.now });
+test('scrub purity, behaviour: with Math.random, Date.now, new Date() and performance.now replaced by counters, the weather state, the effects frame, the uniform blocks and the encoded pass read none of them; a scrub away and back gives the same state', async () => {
+  const camFx = c => ({ x: c.x, y: c.y, z: c.z, fwd: c.fwd, fov: c.fov, near: c.near, far: c.far, right: () => c.right(), up: () => c.up(), vp: c.vp });
+  const dev = mockDevice(), R = mockR(dev), g = await GPUPasses.create(R, { maxEvents: 4096, timing: false }), tl = timeline(), t0 = at(7, 2, 22), { h, cam, W } = await effectsFrame(t0);
+  // everything that could read the clock or the random source runs inside this synchronous section (no await: nothing else of this process can interleave)
+  const counts = { random: 0, dateNow: 0, newDate: 0, perfNow: 0 }, saved = { random: Math.random, Date, perfNow: globalThis.performance.now };
+  const counted = fn => {
+    Math.random = () => { counts.random++; return saved.random(); }; globalThis.performance.now = function () { counts.perfNow++; return saved.perfNow.call(this); };
+    globalThis.Date = class CountingDate extends saved.Date { constructor(...a) { if (a.length === 0) counts.newDate++; super(...a); } static now() { counts.dateNow++; return saved.Date.now(); } };
+    try { return fn(); } finally { Math.random = saved.random; globalThis.performance.now = saved.perfNow; globalThis.Date = saved.Date; }
+  };
+  const run = () => {
+    const A = snapFrame((h.update({ tSec: t0, cam: camFx(cam) }), h.update({ tSec: t0 + 8.05, cam: camFx(cam) }), h.cur.fr)), Wa = tl.at(t0 + 8.05, {});
+    h.update({ tSec: t0 + 400, cam: camFx(cam) }); h.update({ tSec: t0 + 408.05, cam: camFx(cam) });                       // a scrub far away ...
+    const B = snapFrame((h.update({ tSec: t0, cam: camFx(cam) }), h.update({ tSec: t0 + 8.05, cam: camFx(cam) }), h.cur.fr));       // ... and back to the same two times
+    const fr = h.cur.fr, u1 = packWeather(new Float32Array(WU_FLOATS), h.cur.W, fr), f1 = packFx(new Float32Array(FXU_FLOATS), fr, cam, cam.vp), u2 = packWeather(new Float32Array(WU_FLOATS), h.cur.W, fr), f2 = packFx(new Float32Array(FXU_FLOATS), fr, cam, cam.vp);
+    const enc = mockEnc(), enc2 = mockEnc(); g.draw(enc, h.cur.W, fr, cam, { weather: true, fx: true }); g.draw(enc2, h.cur.W, fr, cam, { weather: true, fx: true });
+    return { A, B, Wa, Wb: tl.at(t0 + 8.05, {}), u1: Array.from(u1), u2: Array.from(u2), f1: Array.from(f1), f2: Array.from(f2), e1: enc.log.map(l => l.slice(0, 3)), e2: enc2.log.map(l => l.slice(0, 3)) };
+  };
+  const r = counted(run);
+  assert.deepEqual(counts, { random: 0, dateNow: 0, newDate: 0, perfNow: 0 }, 'the draw path read the clock or the random source: ' + JSON.stringify(counts));
+  assert.ok(r.A.nSprites > 0 && r.A.nEvents > 0, 'the frame carries sprites, so the check looked at something'); assert.deepEqual(r.B, r.A, 'a scrub away and back to the same time gives the same effects state (events, cumulative sums, wind history, lights)');
+  assert.deepEqual(r.Wb, r.Wa, 'the weather state is a pure function of the time'); assert.deepEqual(r.u1, r.u2); assert.deepEqual(r.f1, r.f2); assert.deepEqual(r.e1, r.e2, 'the same pass is encoded for the same frame');
+  assert.equal(Math.random, saved.random); assert.equal(globalThis.Date, saved.Date); assert.equal(globalThis.performance.now, saved.perfNow, 'the replacements are put back');
+  // the counters really count: a clock read inside the section is seen (the check is not blind)
+  const probe = { random: 0, dateNow: 0, newDate: 0, perfNow: 0 }; { const sv = { random: Math.random, Date, perfNow: globalThis.performance.now }; Math.random = () => { probe.random++; return 0; }; globalThis.performance.now = () => { probe.perfNow++; return 0; };
+    globalThis.Date = class C extends sv.Date { constructor(...a) { if (a.length === 0) probe.newDate++; super(...a); } static now() { probe.dateNow++; return 0; } };
+    try { Math.random(); Date.now(); new Date(); performance.now(); } finally { Math.random = sv.random; globalThis.performance.now = sv.perfNow; globalThis.Date = sv.Date; } } assert.deepEqual(probe, { random: 1, dateNow: 1, newDate: 1, perfNow: 1 });
+  g.dispose(); h.dispose();
 });

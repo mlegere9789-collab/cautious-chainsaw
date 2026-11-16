@@ -455,33 +455,35 @@ export class Runner {
     return fail('vegetation_mismatch', `no minute of the window matches${lastBad ? ` (last: ${isoOf(lastBad.t)}: plot ${lastBad.bad && lastBad.bad.plot}: ${lastBad.bad && lastBad.bad.detail})` : ''}`, { plots: plots.length, quantifier: q });
   }
   _vegSample(st) { const g = st.ground || {}, tr = st.trees || {}; return { plot: st.id, name: st.name, crop: g.crop ?? null, stage: g.stage ?? null, h_m: g.h ? g.h.map(x => round(x, 2)) : null, cut: g.cut != null ? round(g.cut, 2) : null, trample: g.trample != null ? round(g.trample, 2) : null, ...(st.trees ? { leaf: round(tr.leaf, 2), strip: round(tr.strip, 2), keep: tr.keep } : {}), tier: st.tier }; }
-  // the first thing a state does not satisfy -> { code, detail } or null. Heights: the whole range of heights the picture draws for the plot (ground.h) lies inside the row's range widened by tol at each end
-  _vegProblem(a, st, tol = 0.1) {
-    const g = st.ground, tr = st.trees, no = d => ({ code: 'vegetation_mismatch', detail: d }), list = x => [].concat(x).join(' or ');
-    if (a.crop_in != null) { if (!g) return no('the plot has no ground state'); if (![].concat(a.crop_in).includes(g.crop)) return no(`the crop is "${g.crop}", the check needs ${list(a.crop_in)}`); }
-    if (a.stage_in != null) { if (!g) return no('the plot has no ground state'); if (![].concat(a.stage_in).includes(g.stage)) return no(`the stage is "${g.stage}", the check needs ${list(a.stage_in)}`); }
+  // the first thing a state does not satisfy -> { code, detail } or null. Heights: the whole range of heights the picture draws for the plot (ground.h) lies inside the row's range widened by tol at each end.
+  // `control` (the falsifiability test over the whole layer): a plot that has no such part to look at (no trees for a leaf check, no ground for a crop) is not a violation, it is not asked: only a value that differs counts
+  _vegProblem(a, st, tol = 0.1, control = false) {
+    const g = st.ground, tr = st.trees, no = d => ({ code: 'vegetation_mismatch', detail: d }), miss = d => (control ? null : no(d)), list = x => [].concat(x).join(' or ');
+    if (a.crop_in != null) { if (!g) return miss('the plot has no ground state'); if (![].concat(a.crop_in).includes(g.crop)) return no(`the crop is "${g.crop}", the check needs ${list(a.crop_in)}`); }
+    if (a.stage_in != null) { if (!g) return miss('the plot has no ground state'); if (![].concat(a.stage_in).includes(g.stage)) return no(`the stage is "${g.stage}", the check needs ${list(a.stage_in)}`); }
     const f = VEG_HEIGHTS.some(k => k.startsWith('height_ft') && a[k] != null) ? (this.tol.vegetation || {}).ft_to_m ?? 0.3048 : 1, lo = (a.height_ft_min ?? a.height_m_min) != null ? (a.height_ft_min ?? a.height_m_min) * f : null, hi = (a.height_ft_max ?? a.height_m_max) != null ? (a.height_ft_max ?? a.height_m_max) * f : null;
     if (lo != null || hi != null) {
-      if (!g || !Array.isArray(g.h)) return no('the plot has no drawn height');
+      if (!g || !Array.isArray(g.h)) return miss('the plot has no drawn height');
       if (lo != null && g.h[0] < lo * (1 - tol) - 1e-9) return no(`the drawn height starts at ${num(g.h[0], 2)} m, the row says at least ${num(lo, 2)} m (${num(lo * (1 - tol), 2)} m with the stated ${round(tol * 100, 1)} per cent)`);
       if (hi != null && g.h[1] > hi * (1 + tol) + 1e-9) return no(`the drawn height reaches ${num(g.h[1], 2)} m, the row says at most ${num(hi, 2)} m (${num(hi * (1 + tol), 2)} m with the stated ${round(tol * 100, 1)} per cent)`);
     }
     const share = { cut: g && g.cut, trample: g && g.trample, lodging: g && g.lodging, leaf: tr && tr.leaf, strip: tr && tr.strip, keep: tr && tr.keep };
     for (const k of VEG_SHARES) {
       const v = share[k], lo2 = a[k + '_min'], hi2 = a[k + '_max']; if (lo2 == null && hi2 == null) continue;
-      if (v == null || !Number.isFinite(v)) return no(`the plot has no ${k} (${['leaf', 'strip', 'keep'].includes(k) ? 'it carries no trees' : 'no ground state'})`);
+      if (v == null || !Number.isFinite(v)) return miss(`the plot has no ${k} (${['leaf', 'strip', 'keep'].includes(k) ? 'it carries no trees' : 'no ground state'})`);
+      if ((k === 'leaf' || k === 'strip') && tr && tr.keep === 0) return miss(`the plot draws no trees under this reading (trees.keep 0): its ${k} says nothing about a wood`);
       if (lo2 != null && v < lo2 - 1e-9) return no(`${k} is ${num(v, 3)}, the check needs at least ${lo2}`);
       if (hi2 != null && v > hi2 + 1e-9) return no(`${k} is ${num(v, 3)}, the check needs at most ${hi2}`);
     }
-    if (a.understory_in != null) { if (!tr || tr.understory == null) return no('the plot has no understory (it is no wood)'); if (!a.understory_in.includes(tr.understory)) return no(`the understory is "${tr.understory}", the check needs ${list(a.understory_in)}`); }
-    if (a.fruit_stage_in != null) for (const [sp, want] of Object.entries(a.fruit_stage_in)) { const fr = st.fruit && st.fruit[sp]; if (!fr) return no(`the plot has no ${sp} fruit state`); if (!want.includes(fr.stage)) return no(`the ${sp} fruit is "${fr.stage}", the check needs ${list(want)}`); }
+    if (a.understory_in != null) { if (!tr || tr.understory == null) return miss('the plot has no understory (it is no wood)'); if (tr.keep === 0) return miss('the plot draws no trees under this reading (trees.keep 0): it has no understory'); if (!a.understory_in.includes(tr.understory)) return no(`the understory is "${tr.understory}", the check needs ${list(a.understory_in)}`); }
+    if (a.fruit_stage_in != null) for (const [sp, want] of Object.entries(a.fruit_stage_in)) { const fr = st.fruit && st.fruit[sp]; if (!fr) return miss(`the plot has no ${sp} fruit state`); if (!want.includes(fr.stage)) return no(`the ${sp} fruit is "${fr.stage}", the check needs ${list(want)}`); }
     if (a.events_include != null) for (const id of a.events_include) if (!(st.events || []).includes(id)) return no(`the event ${id} is not in force (events in force: ${(st.events || []).join(', ') || 'none'})`);
     return null;
   }
   // does some plot of the layer violate the assertion at some sample minute of the layer, under the choices of the scenario? (an assertion every plot satisfies at every sample minute proves nothing)
   _vegFalsifiable(a, spec) {
     const V = this.P.veg, choices = this.P.scenarioSpec(spec).choices, tol = (a.tol_pct ?? (this.tol.vegetation || {}).height_tol_pct ?? 10) / 100;
-    for (const t of V.sampleTimes()) for (const u of V.units) if (this._vegProblem(a, V.stateAt(u, t, choices), tol)) return true;
+    for (const t of V.sampleTimes()) for (const u of V.units) if (this._vegProblem(a, V.stateAt(u, t, choices), tol, true)) return true;
     return false;
   }
 

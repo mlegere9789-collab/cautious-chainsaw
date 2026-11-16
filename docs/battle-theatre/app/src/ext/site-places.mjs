@@ -116,6 +116,9 @@ export const normMN = t => { const m = /^MN\s*0*(\d+)(?:-([A-Z]))?$/.exec(String
 /** What a report says was done in the year it prints, as the quotation must show it: dedicated, installed, or the year in the tag of an inventory entry "(1885, Contributing)". */
 export const YEAR_WHAT = Object.freeze({ dedicated: /\bdedicated\b/, installed: /\binstalled\b/, dated: /\(\d{4}[,)]/ });
 export const WHAT_TEXT = Object.freeze({ dedicated: 'dedicated', installed: 'installed', dated: 'the year in the tag of its entry' });
+/** A quotation is a short phrase of at most 14 words (the plan, p. 134, E.6: under 15); everything else is said in the words of the card. The count is the white-space-separated words. */
+export const QUOTE_WORDS = 14;
+export const wordCount = t => String(t == null ? '' : t).trim().split(/\s+/).filter(Boolean).length;
 /** What is wrong with the file of years (data/site-memorial-years.json) set against the memorial list, as sentences; empty means fit. Structure only: the hash of the file is checked beside it.
  *  A year comes by the memorial's own name ("name": the report prints the site's name letter for letter and the memorial is the only one of that name) or by its park number ("park number": the report's
  *  entry carries the number the site gives it, no other memorial of the site has it, and the heading and the site's name share the words named in `agree`). */
@@ -127,7 +130,7 @@ export function validateYears(yf, mem) {
     const m = byNo.get(y.no), via = y.via == null ? 'name' : y.via; if (y.name !== m.name) p.push(`${w}: the name "${y.name}" is not the list's name "${m.name}"`);
     if (!Number.isInteger(y.year) || y.year < 1863 || y.year > 2030) p.push(`${w}: the year ${y.year} is not a year after the battle`); if (y.yearTo != null && (!Number.isInteger(y.yearTo) || y.yearTo < y.year || y.yearTo > 2030)) p.push(`${w}: the end of the range is not a year after its start`);
     if (y.tier !== 'documented' && y.tier !== 'inferred') p.push(`${w}: the tier is ${y.tier}`); if (y.approx && y.tier === 'documented') p.push(`${w}: a year the report hedges (ca.) is not documented`);
-    if (via === 'name') { if (names.get(m.name) > 1) p.push(`${w}: the list has two memorials of that name`); if (typeof y.quote !== 'string' || !y.quote.includes(y.name) || !y.quote.includes(String(y.year))) p.push(`${w}: the quotation does not hold the name and the year`); }
+    if (via === 'name') { if (names.get(m.name) > 1) p.push(`${w}: the list has two memorials of that name`); if (typeof y.quote !== 'string' || !(y.quote + ' ' + (y.says || '')).includes(y.name) || !y.quote.includes(String(y.year))) p.push(`${w}: the quotation does not hold the name and the year`); }
     else if (via === 'park number') {
       const mn = normMN(y.mnPrinted); if (!mn) p.push(`${w}: "${y.mnPrinted}" is not a park number`); else { if (mn !== m.mn) p.push(`${w}: the report's park number ${y.mnPrinted} is not the number the list gives it (${m.mn || 'none'})`); if (mns.get(m.mn) !== 1) p.push(`${w}: the park number ${m.mn} is the list's for ${mns.get(m.mn) || 0} memorials, not one`); }
       if (typeof y.printed !== 'string' || !y.printed.includes(String(y.mnPrinted))) p.push(`${w}: the printed heading does not hold the park number`);
@@ -135,7 +138,9 @@ export function validateYears(yf, mem) {
       for (const x of ag) { const t = String(x).toLowerCase(); if (!String(y.printed).toLowerCase().includes(t) || !m.name.toLowerCase().includes(t)) p.push(`${w}: "${x}" is not in both the report's heading and the list's name`); }
       if (typeof y.quote !== 'string' || !y.quote.includes(String(y.year))) p.push(`${w}: the quotation does not hold the year`); if (!y.what) p.push(`${w}: it does not say what the report says was done (${Object.keys(YEAR_WHAT).join(', ')})`);
     } else p.push(`${w}: the way it was matched (${y.via}) is neither "name" nor "park number"`);
-    if (y.what != null) { if (!YEAR_WHAT[y.what]) p.push(`${w}: "${y.what}" is not one of ${Object.keys(YEAR_WHAT).join(', ')}`); else if (typeof y.quote !== 'string' || !YEAR_WHAT[y.what].test(y.quote)) p.push(`${w}: the quotation does not say it was ${y.what}`); }
+    if (y.what != null) { if (!YEAR_WHAT[y.what]) p.push(`${w}: "${y.what}" is not one of ${Object.keys(YEAR_WHAT).join(', ')}`); else if (typeof y.quote !== 'string' || !YEAR_WHAT[y.what].test(y.quote + ' ' + (y.says || ''))) p.push(`${w}: the quotation does not say it was ${y.what}`); }
+    for (const k of ['quote', 'says', 'printed']) if (y[k] != null && wordCount(y[k]) > QUOTE_WORDS) p.push(`${w}: the ${k === 'printed' ? 'printed heading' : k === 'says' ? 'second phrase' : 'quotation'} is ${wordCount(y[k])} words; a quotation is a short phrase of at most ${QUOTE_WORDS}`);
+    if (y.says != null && (typeof y.says !== 'string' || !y.says.trim())) p.push(`${w}: the second phrase is empty`);
     if (!yf.sources[y.source]) p.push(`${w}: the source ${y.source} is not described`); if (!Number.isInteger(y.pdfPage) || y.pdfPage < 1) p.push(`${w}: no page`);
   }
   for (const [id, s] of Object.entries(yf.sources)) if (!s || !s.title || typeof s.url !== 'string' || !/^https:\/\//.test(s.url)) p.push(`source ${id}: no title or address`);
@@ -374,7 +379,7 @@ export const groundLine = it => (it.inside ? 'On the loaded ground' : `${fmtM(it
 /** The cell of the card that says when a memorial was put up: the year from a report, with the report, the page and the quotation, or the open gap. */
 export function yearCell(it, tierMark) {
   const y = it.year; if (!y) return `${tierMark(LAYER.yearTier)}<br><span class="mini">The year is not in the site's data.</span>`;
-  return `${tierMark(y.tier)} <b>${esc(yearText(y))}</b>${y.what ? ` <span class="mini">(${esc(WHAT_TEXT[y.what] || y.what)})</span>` : ''}<br><span class="mini">${esc(y.publisher)}, ${esc(y.sourceTitle)}${y.sourceDate ? ' (' + esc(y.sourceDate) + ')' : ''}, PDF page ${y.pdfPage}${y.printedPage ? ' (' + esc(y.printedPage) + ')' : ''}: “${esc(y.quote)}”${y.approx ? ' The report says "ca.": the year is about, not exact.' : ''}</span>`;
+  return `${tierMark(y.tier)} <b>${esc(yearText(y))}</b>${y.what ? ` <span class="mini">(${esc(WHAT_TEXT[y.what] || y.what)})</span>` : ''}<br><span class="mini">${esc(y.publisher)}, ${esc(y.sourceTitle)}${y.sourceDate ? ' (' + esc(y.sourceDate) + ')' : ''}, PDF page ${y.pdfPage}${y.printedPage ? ' (' + esc(y.printedPage) + ')' : ''}: “${esc(y.quote)}”${y.says ? ` and, in the same entry, “${esc(y.says)}”` : ''}${y.approx ? ' The report says "ca.": the year is about, not exact.' : ''}</span>`;
 }
 /** How the report's entry was matched to this memorial, for the evidence section of the card (nothing for a memorial matched by its own name). */
 export function yearMatchCell(it) {

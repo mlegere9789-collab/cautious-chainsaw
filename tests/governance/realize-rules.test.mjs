@@ -653,3 +653,131 @@ test('rule: the totals count the realized rows whose group is not complete (chec
   const m = { a: row({ realized: true, clock_tolerance_used: true }), b: row({ realized: true, clock_tolerance_used: false }), c: row({ realized: true, clock_tolerance_used: null }), d: row({ clock_tolerance_used: true }), e: row({ realized: true, clock_tolerance_used: true }) };
   const M = summarize(m, {}); assert.equal(M.timeline.realized_clock_margin_used, 2, 'the realized rows whose record used the margin (a, e), not the one that did not (b) nor the row not realized (d)'); assert.equal(q17Of(M, { timelineRows: 5, epilogueRows: 0 }).realized_clock_margin_used, 2); assert.equal(M.timeline.uncovered_strict, 3);
 });
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// the vegetation layer: assertion vegetation_state (schema.mjs, checks.mjs _vegetation _vegProblem _vegFalsifiable _bindings, query.mjs Vegetation scenarioSpec vegetationReach; README section 4a)
+const veg = (id, from, to, quote, plots, checks, extra = {}) => rec(id, 'structure_state', from, to, quote, { plots }, checks, extra);
+const WHEAT = 'LC-FIELD-0001', PEACH = 'LC-ORCH-0206', LRT_E = 'LC-WOOD-LRT-E';
+test('rule: a vegetation_state check holds for what the layer draws on a plot and fails for what it does not (checks.mjs _vegetation, _vegProblem)', async () => {
+  A('VG-001', 'Wheatfield wheat standing, golden-straw, about 3.6-5.0 ft on the morning of Jul 2', '1863-07-02T06:00', '1863-07-02T12:00', 'Jul 2 morning');
+  const day = { from: '1863-07-02T06:00', to: '1863-07-02T12:00', mode: 'all' }, q = 'Wheatfield wheat standing';
+  const wf = extra => veg('VG-001', '1863-07-02T06:00', '1863-07-02T12:00', q, [WHEAT], [{ type: 'vegetation_state', plot: WHEAT, t: day, quote: q, ...extra }]);
+  const ok = await mustPass(wf({ crop_in: ['wheat'], stage_in: ['nearly_ripe'], cut_max: 0, trample_max: 0 }), 'the standing wheat of the Wheatfield on the morning of 2 July');
+  assert.ok(ok.assertions[0].evidence.sample && ok.assertions[0].evidence.sample.crop === 'wheat', 'the evidence says what was drawn');
+  await mustFail(wf({ crop_in: ['oats', 'corn'] }), 'vegetation_mismatch', 'a crop the plot is not');
+  await mustFail(wf({ stage_in: ['ripe', 'filling'] }), 'vegetation_mismatch', 'a stage the crop is not in');
+  await mustFail(wf({ cut_min: 0.5 }), 'vegetation_mismatch', 'a field cut where nothing is cut yet');
+  await mustFail(wf({ trample_min: 0.2 }), 'vegetation_mismatch', 'a field trampled before the fight');
+  await mustFail(wf({ lodging_min: 0.05 }), 'vegetation_mismatch', 'a crop laid by the rain before the rain');
+  await mustPass(wf({ trample_max: 0.01, lodging_max: 0.01 }), 'a bound the state meets');
+  await mustFail(wf({ events_include: ['EV-VEG-01'] }), 'vegetation_mismatch', 'a damage event of the layer that is not in force yet');
+  const res = await mustFail(wf({ crop_in: ['wheat'], leaf_min: 0.5 }), 'vegetation_mismatch', 'a leaf check on a plot that carries no trees'); assert.ok(/no leaf/.test(res.assertions.find(a => !a.ok).detail), 'the detail says the plot has no trees');
+  // the mode: "all" holds at every whole minute of the span, "any" at some
+  A('VG-002', 'Wheat was cut and trampled in the fighting at the Wheatfield', '1863-07-02T16:00', '1863-07-02T20:00', 'Jul 2 ~18:00');
+  const fight = (t, extra) => veg('VG-002', '1863-07-02T16:00', '1863-07-02T20:00', 'Wheat was cut and trampled', [WHEAT], [{ type: 'vegetation_state', plot: WHEAT, t, quote: 'Wheat was cut and trampled', ...extra }]);
+  await mustPass(fight({ at: '1863-07-02T18:30' }, { trample_min: 0.3, events_include: ['EV-VEG-01', 'EV-VEG-02'] }), 'trampled in the engagement window');
+  await mustFail(fight({ at: '1863-07-02T18:30' }, { trample_max: 0 }), 'vegetation_mismatch', 'untrampled at the hour of the fight');
+  await mustFail(fight({ from: '1863-07-02T16:00', to: '1863-07-02T18:30', mode: 'all' }, { trample_min: 0.3 }), 'vegetation_mismatch', 'mode all: the field is not trampled at every minute of the span');
+  await mustPass(fight({ from: '1863-07-02T16:00', to: '1863-07-02T18:30', mode: 'any' }, { trample_min: 0.3 }), 'mode any: trampled at some minute of the span');
+  // heights: the whole range the picture draws for the plot lies inside the row's range widened by the stated 10 per cent (tolerances.json vegetation.height_tol_pct); feet are metres x 0.3048
+  const ft = (lo, hi, extra = {}) => veg('VG-HT', '1863-07-02T06:00', '1863-07-02T12:00', `about ${lo}-${hi} ft`, [WHEAT], [{ type: 'vegetation_state', plot: WHEAT, t: { at: '1863-07-02T08:00' }, height_ft_min: lo, height_ft_max: hi, quote: `about ${lo}-${hi} ft`, ...extra }]);
+  const hrow = (lo, hi) => A('VG-HT', `Wheatfield wheat about ${lo}-${hi} ft`, '1863-07-02T06:00', '1863-07-02T12:00', 'Jul 2 morning');
+  hrow(3.6, 5.0); await mustPass(ft(3.6, 5.0), 'the picture draws 3.4 to 5.19 ft: inside 3.6-5.0 widened by 10 per cent (3.24 to 5.5)');
+  hrow(3.5, 4.5); const hi = await mustFail(ft(3.5, 4.5), 'vegetation_mismatch', 'taller than the row says: the drawn range reaches 5.19 ft, the row 4.5 (4.95 with the margin)'); assert.ok(/reaches/.test(hi.assertions.find(a => !a.ok).detail));
+  hrow(3.9, 5.2); const lo = await mustFail(ft(3.9, 5.2), 'vegetation_mismatch', 'lower than the row says: the drawn range starts at 3.40 ft, the row at 3.9 (3.51 with the margin)'); assert.ok(/starts/.test(lo.assertions.find(a => !a.ok).detail));
+  hrow(3.6, 5.0); await mustFail(ft(3.6, 5.0, { tol_pct: 1 }), 'vegetation_mismatch', 'a record may ask for a smaller margin: 1 per cent no longer holds');
+  A('VG-HM', 'Wheat 1.0-1.6 m high', '1863-07-02T06:00', '1863-07-02T12:00', 'Jul 2 morning');
+  const m = extra => veg('VG-HM', '1863-07-02T06:00', '1863-07-02T12:00', '1.0-1.6 m high', [WHEAT], [{ type: 'vegetation_state', plot: WHEAT, t: { at: '1863-07-02T08:00' }, quote: '1.0-1.6 m high', ...extra }]);
+  await mustPass(m({ height_m_min: 1.0, height_m_max: 1.6 }), 'metres as the row prints them');
+  A('VG-HM2', 'Wheat 1.0-1.2 m high', '1863-07-02T06:00', '1863-07-02T12:00', 'Jul 2 morning');
+  await mustFail(veg('VG-HM2', '1863-07-02T06:00', '1863-07-02T12:00', '1.0-1.2 m high', [WHEAT], [{ type: 'vegetation_state', plot: WHEAT, t: { at: '1863-07-02T08:00' }, quote: '1.0-1.2 m high', height_m_max: 1.2 }]), 'vegetation_mismatch', 'taller than 1.2 m (1.32 with the margin): 1.58 m is drawn');
+  // an orchard: leaf, fruit, damage
+  A('VG-003', 'Peach Orchard in leaf with orchard fruit ripening on Jul 2; the orchard is destroyed that evening', '1863-07-02T12:00', '1863-07-02T20:00', 'Jul 2');
+  const orch = (at, extra) => veg('VG-003', '1863-07-02T12:00', '1863-07-02T20:00', 'Peach Orchard in leaf', [PEACH], [{ type: 'vegetation_state', plot: PEACH, t: { at }, quote: 'Peach Orchard in leaf', ...extra }]);
+  await mustPass(orch('1863-07-02T12:00', { leaf_min: 0.9, strip_max: 0, fruit_stage_in: { peach: ['green_hard'], cherry: ['ripe'] } }), 'in full leaf at noon, nothing stripped, the fruit as the calendar draws it');
+  await mustFail(orch('1863-07-02T12:00', { fruit_stage_in: { peach: ['ripe'] } }), 'vegetation_mismatch', 'peaches ripe on 2 July');
+  await mustFail(orch('1863-07-02T12:00', { fruit_stage_in: { plum: ['ripe'] } }), 'vegetation_mismatch', 'a species the orchard does not draw');
+  await mustPass(orch('1863-07-02T19:00', { strip_min: 0.1, events_include: ['EV-VEG-03'] }), 'stripped by the evening of the fight');
+  await mustFail(orch('1863-07-02T19:00', { strip_max: 0 }), 'vegetation_mismatch', 'unstripped after the fight');
+});
+
+test('rule: a class of plots is the plots the picture draws; a named plot is never dropped (query.mjs Vegetation.select; checks.mjs _vegetation)', async () => {
+  const V = P.veg, woods = V.select({ cls: 'woods' }, {}), wooded = c => V.select({ cls: 'woods' }, c).length;
+  assert.ok(woods.length > 100, 'the layer has woodlots');
+  assert.ok(wooded({ 'CF-VEG-LRT': 'wiki_unwooded' }) < woods.length, 'a wood the reading takes the trees from is a bare plot there, not a woodlot');
+  assert.ok(wooded({ 'CF-VEG-HOUCK': 'clear_cut' }) < woods.length, 'a wood read as clear-cut and pastured is not drawn as a woodlot');
+  assert.ok(wooded({ 'CF-VEG-LRT': 'wiki_light_summit' }) === woods.length, 'half the trees are still trees');
+  assert.ok(V.select({ crop: 'oats' }, { 'CF-VEG-MCPHERSON': 'study-1977' }).length !== V.select({ crop: 'oats' }, {}).length, 'the crop is the crop drawn under the reading: the other transcription of the claim gives other cells oats');
+  assert.equal(V.select({ cls: 'woods', crop: 'oats' }, {}).length, 0, 'a class and a crop together are both asked');
+  A('VG-004', 'Woodlots in full summer leaf on Jul 2 morning; Little Round Top east slope is wooded', '1863-07-02T06:00', '1863-07-02T12:00', 'Jul 2 morning');
+  const all = (extra, sc) => veg('VG-004', '1863-07-02T06:00', '1863-07-02T12:00', 'Woodlots in full summer leaf', [], [{ type: 'vegetation_state', where: { cls: 'woods' }, t: { at: '1863-07-02T08:00' }, quote: 'Woodlots in full summer leaf', ...extra }], sc ? { scenario: sc } : {});
+  const full = await mustPass(all({ leaf_min: 0.9 }), 'every woodlot the layer draws is in full leaf on 2 July (the least is 0.92)'); assert.ok(full.assertions[0].evidence.plots > 100 && full.assertions[0].evidence.quantifier === 'all');
+  await mustFail(all({ leaf_min: 0.95 }), 'vegetation_mismatch', 'one woodlot below 0.95 is enough to fail "all"');
+  const anyQ = await mustPass(all({ leaf_min: 0.95, quantifier: 'any', quantifier_quote: 'Woodlots in full summer leaf' }), 'any: some woodlot at 0.95 or more, when the row says in its words that part of them is meant'); assert.equal(anyQ.bindings.quantifiers.length, 1); assert.ok(anyQ.bindings.quantifiers[0].plots > 100);
+  assert.deepEqual(declaredDetail(anyQ.bindings).map(x => x.kind), ['quantifier_any'], 'and it is listed as declared, for the reviewer');
+  await mustFail(all({ leaf_min: 0.95, quantifier: 'any' }), 'quantifier_any_unsupported', '"any" plot of a class stands for the class only where the row says part of it is meant');
+  await mustFail(all({ leaf_min: 0.95, quantifier: 'any', quantifier_quote: 'some woodlots in October' }), 'quote_not_in_row', 'a quantifier quote that is not the row\'s words');
+  // a named plot is never dropped: it fails the tree checks in a reading that takes its trees away, and passes in the opening scenario
+  const lrt = sc => veg('VG-004', '1863-07-02T06:00', '1863-07-02T12:00', 'Little Round Top east slope is wooded', [LRT_E], [{ type: 'vegetation_state', plot: LRT_E, t: { at: '1863-07-02T08:00' }, leaf_min: 0.9, quote: 'Little Round Top east slope is wooded' }], { scenario: sc });
+  await mustPass(lrt('default'), 'the east slope of Little Round Top is wooded under the reading of the Park Service');
+  await mustPass(lrt('CF-VEG-LRT:wiki_light_summit'), 'and half wooded under the light reading: still trees');
+  const bare = await mustFail(lrt('CF-VEG-LRT:wiki_unwooded'), 'vegetation_mismatch', 'a plot that the reading makes treeless is no wood: its leaf says nothing'); assert.ok(/draws no trees/.test(bare.assertions.find(a => !a.ok).detail));
+  const keep = r => { r.checks[0] = { ...r.checks[0], leaf_min: undefined, keep_max: 0.6 }; delete r.checks[0].leaf_min; return r; };
+  await mustPass(keep(lrt('CF-VEG-LRT:wiki_light_summit')), 'keep: half the trees are kept under the light reading');
+  await mustFail(keep(lrt('default')), 'vegetation_mismatch', 'all the trees are kept under the Park Service reading');
+});
+
+test('rule: a plot is the row\'s own: a distinctive word of its name, or the row\'s words declared (checks.mjs _bindings plots; GATE-SPEC 6.4 V2)', async () => {
+  A('VG-005', 'Wheatfield wheat standing on the morning of Jul 2; Woodlots in full summer leaf; oats green-yellow about 2.5-3 ft', '1863-07-02T06:00', '1863-07-02T12:00', 'Jul 2 morning');
+  const one = (plot, extra = {}, ent = [plot], quote = 'Wheatfield wheat standing') => veg('VG-005', '1863-07-02T06:00', '1863-07-02T12:00', quote, ent, [{ type: 'vegetation_state', plot: typeof plot === 'string' ? plot : plot.id, t: { at: '1863-07-02T08:00' }, quote, crop_in: ['wheat'], ...extra }]);
+  const good = await mustPass(one(WHEAT)); assert.equal(good.bindings.plots.length, 1); assert.equal(good.bindings.plots[0].how, 'matched'); assert.ok(good.bindings.plots[0].by.includes('wheatfield'));
+  await mustPass(one('V-0001'), 'the id and the lc name name the same plot');
+  await mustFail(one(PEACH, { crop_in: ['pasture'] }, [PEACH], 'Wheatfield wheat standing'), 'plot_not_bound', 'the Peach Orchard is not a plot the row names');
+  const via = await mustPass(one({ id: PEACH, via: 'Woodlots in full summer leaf' }, { crop_in: ['pasture'] }, [{ id: PEACH, via: 'Woodlots in full summer leaf' }], 'Woodlots in full summer leaf'), 'a plot the row names in other words, declared with the row\'s own words'); assert.equal(via.bindings.declared, 1);
+  assert.deepEqual(declaredDetail(via.bindings).map(x => [x.kind, x.id]), [['plot', PEACH]], 'what was declared is listed for the reviewer');
+  await mustFail(one({ id: PEACH, via: 'a field of clover' }, { crop_in: ['pasture'] }, [{ id: PEACH, via: 'a field of clover' }], 'Wheatfield wheat standing'), 'plot_not_bound', 'declared words that are not the row\'s');
+  await mustFail(one('V-9999', {}, ['V-9999']), 'vegetation_plot_unknown', 'a plot the layer does not have');
+  await mustFail(one(WHEAT, {}, []), 'entity_undeclared', 'a plot a check uses is listed in entities.plots');
+  await mustFail(one(WHEAT, {}, [WHEAT, PEACH]), 'entity_unused', 'and no plot is listed that no check uses');
+  // a selector is named by the check's own words
+  const sel = (where, quote, extra = {}) => veg('VG-005', '1863-07-02T06:00', '1863-07-02T12:00', quote, [], [{ type: 'vegetation_state', where, t: { at: '1863-07-02T08:00' }, quote, ...extra }]);
+  await mustPass(sel({ cls: 'woods' }, 'Woodlots in full summer leaf', { leaf_min: 0.9 }), 'woodlots are named by "Woodlots"');
+  await mustPass(sel({ crop: 'oats' }, 'oats green-yellow', { stage_in: ['headed_green'] }), 'a crop is named by its word');
+  await mustFail(sel({ cls: 'woods' }, 'Wheatfield wheat standing', { leaf_min: 0.9 }), 'plot_not_bound', 'a quote that does not name the class it selects');
+  await mustFail(sel({ crop: 'corn' }, 'oats green-yellow', { stage_in: ['young'] }), 'plot_not_bound', 'a crop the quote does not name');
+  await mustFail(sel({ cls: 'swamp' }, 'Woodlots in full summer leaf', { leaf_min: 0.9 }), 'assert_field', 'a class the harness has no words for');
+  await mustFail(sel({ crop: 'tobacco' }, 'oats green-yellow', { stage_in: ['young'] }), 'assert_field', 'a crop the harness has no words for');
+  const none = await mustFail(sel({ cls: 'woods', crop: 'oats' }, 'Woodlots oats', { leaf_min: 0.9 }), 'vegetation_plot_none', 'a selector that finds no plot holds for every product that draws none'); assert.ok(/finds 0 plot/.test(none.assertions.find(a => !a.ok).detail));
+  await mustFail(sel({ cls: 'woods' }, 'Woodlots in full summer leaf', { leaf_min: 0.9, min_plots: 5000 }), 'vegetation_plot_none', 'a record may ask for more plots than the layer has');
+  await mustPass(sel({ cls: 'woods' }, 'Woodlots in full summer leaf', { leaf_min: 0.9, min_plots: 100 }), 'and for some it has');
+});
+
+test('rule: a vegetation_state assertion that every plot satisfies, or that is malformed, is refused (schema.mjs vacuityProblems; checks.mjs _vegFalsifiable: assert_vacuous, assert_field)', async () => {
+  A('VG-006', 'Wheatfield wheat standing about 3.5-4.5 ft; Woodlots in full summer leaf; 3.5 ft', '1863-07-02T06:00', '1863-07-02T12:00', 'Jul 2 morning');
+  const q = 'Wheatfield wheat standing', wf = extra => veg('VG-006', '1863-07-02T06:00', '1863-07-02T12:00', q, [WHEAT], [{ type: 'vegetation_state', plot: WHEAT, t: { at: '1863-07-02T08:00' }, quote: q, ...extra }]);
+  await mustPass(wf({ cut_max: 0 }), 'a maximum of 0 is a statement: a cut field fails it');
+  for (const k of ['cut', 'trample', 'lodging', 'leaf', 'strip', 'keep']) { await vacuous(wf({ [`${k}_min`]: 0 }), `${k}_min 0 holds for every state of every plot`); await vacuous(wf({ [`${k}_max`]: 1 }), `${k}_max 1 holds for every state of every plot`); }
+  for (const bad of [{ cut_min: 1.5 }, { cut_max: -0.1 }, { leaf_min: '0.9' }, { trample_max: NaN }]) await mustFail(wf(bad), 'assert_field', `a share is a number from 0 to 1: ${JSON.stringify(bad)}`);
+  await mustFail(wf({ cut_min: 0.6, cut_max: 0.4 }), 'assert_field', 'a minimum above the maximum');
+  await mustFail(wf({}), 'assert_field', 'a check that says nothing about the plot');
+  for (const k of ['crop_in', 'stage_in', 'understory_in']) for (const bad of [[], 'wheat', [3], ['']]) await mustFail(wf({ [k]: bad }), 'assert_field', `${k} is a non-empty list of names: ${JSON.stringify(bad)}`);
+  for (const bad of [{}, { peach: [] }, { peach: 'ripe' }, []]) await mustFail(wf({ fruit_stage_in: bad }), 'assert_field', `fruit_stage_in is { species: [stages] }: ${JSON.stringify(bad)}`);
+  for (const bad of [[], 'EV-VEG-01', [7]]) await mustFail(wf({ events_include: bad }), 'assert_field', `events_include is a non-empty list of ids: ${JSON.stringify(bad)}`);
+  // the plots a check names
+  const who = (extra, entities = [WHEAT]) => veg('VG-006', '1863-07-02T06:00', '1863-07-02T12:00', q, entities, [{ type: 'vegetation_state', t: { at: '1863-07-02T08:00' }, quote: q, cut_max: 0, ...extra }]);
+  await mustFail(who({}, []), 'assert_field', 'neither a plot nor a selector'); await mustFail(who({ plot: WHEAT, where: { cls: 'woods' } }), 'assert_field', 'both a plot and a selector');
+  await mustFail(who({ plot: '' }, ['']), 'assert_field', 'an empty plot'); await mustFail(who({ where: {} }, []), 'assert_field', 'an empty selector'); await mustFail(who({ where: { cls: 'woods', size: 3 } }, []), 'assert_field', 'a selector key the harness does not know');
+  await mustFail(who({ where: { cls: [] } }, []), 'assert_field', 'an empty class list');
+  const noq = who({ where: { cls: 'woods' }, quote: undefined }, []); delete noq.checks[0].quote; await mustFail(noq, 'assert_field', 'a selector with no words of the row to name the class');
+  await mustFail(who({ plot: WHEAT, min_plots: 2 }), 'assert_field', 'min_plots belongs to a selector');
+  await mustFail(who({ where: { cls: 'woods' }, quote: 'Woodlots in full summer leaf', min_plots: 0, leaf_min: 0.9 }, []), 'tolerance_wider_than_stated', 'min_plots 0 is below the floor of one plot'); await mustFail(who({ where: { cls: 'woods' }, quote: 'Woodlots in full summer leaf', min_plots: 1.5, leaf_min: 0.9 }, []), 'assert_field', 'a whole number of plots');
+  // heights: positive numbers printed in the check's own quote, in one unit, a margin no wider than the stated 10 per cent
+  const ht = (extra, quote = 'about 3.5-4.5 ft') => veg('VG-006', '1863-07-02T06:00', '1863-07-02T12:00', quote, [WHEAT], [{ type: 'vegetation_state', plot: WHEAT, t: { at: '1863-07-02T08:00' }, quote, ...extra }]);
+  await mustFail(ht({ height_ft_min: 3.0 }), 'number_not_in_quote', 'a height the row does not print'); await mustFail(ht({ height_ft_max: 4.5, height_ft_min: 0 }), 'assert_field', 'a height above 0');
+  await mustFail(ht({ height_ft_min: 4.5, height_ft_max: 3.5 }), 'assert_field', 'a minimum above the maximum'); await mustFail(ht({ height_ft_min: 3.5, height_m_max: 1.2 }, 'about 3.5-4.5 ft 1.2'), 'assert_field', 'feet and metres together');
+  await mustFail(ht({ height_ft_min: 3.5, tol_pct: 25 }), 'tolerance_wider_than_stated', 'a margin wider than the stated one'); await mustFail(ht({ height_ft_min: 3.5, tol_pct: 0 }), 'tolerance_wider_than_stated', 'no margin at all is no tolerance'); await mustFail(wf({ cut_max: 0, tol_pct: 5 }), 'assert_field', 'tol_pct belongs to a height check');
+  // the runtime test: an assertion that no plot of the layer violates at any of its sample minutes
+  const crops = new Set(), stages = new Set(); const Vl = P.veg; for (const t of Vl.sampleTimes()) for (const u of Vl.units) { const g = Vl.stateAt(u, t, {}).ground; if (g) { crops.add(g.crop); stages.add(g.stage); } }
+  await vacuous(wf({ crop_in: [...crops] }), 'every crop the layer draws anywhere at any sample minute'); await vacuous(wf({ stage_in: [...stages] }), 'every stage it draws');
+  await mustPass(wf({ crop_in: [...crops].filter(c => c !== 'oats') }), 'a list that leaves one crop out is a statement');
+});

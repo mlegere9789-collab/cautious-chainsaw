@@ -1,8 +1,8 @@
 {
  "_doc": "Passages of the saved National Park Service texts whose window holds a picture credit or photographer word and a place or direction of view (rule in scan_nps_photos.py). A list of places to read, not statements. covered_by_a_statement = a statement of that source stores an offset for its quote that lies in this window (same page).",
- "sources_scanned": 118,
- "candidates": 340,
- "covered": 15,
+ "sources_scanned": 288,
+ "candidates": 353,
+ "covered": 36,
  "per_source": {
   "NPS-ADHI": 1,
   "NPS-BOUNDARY-1988": 1,
@@ -37,26 +37,95 @@
   "NPS-EXTENSION-1940": 0,
   "NPS-FD-2016": 1,
   "NPS-GMP-1999-V1": 0,
+  "NPS-HABS-pa0004": 0,
+  "NPS-HABS-pa0005": 0,
+  "NPS-HABS-pa0006": 0,
+  "NPS-HABS-pa0007": 0,
+  "NPS-HABS-pa0008": 0,
+  "NPS-HABS-pa0009": 0,
+  "NPS-HABS-pa0010": 0,
+  "NPS-HABS-pa0011": 0,
+  "NPS-HABS-pa0012": 0,
+  "NPS-HABS-pa0014": 0,
+  "NPS-HABS-pa0015": 0,
+  "NPS-HABS-pa0016": 0,
+  "NPS-HABS-pa0017": 0,
+  "NPS-HABS-pa0018": 0,
+  "NPS-HABS-pa0019": 0,
+  "NPS-HABS-pa0020": 0,
+  "NPS-HABS-pa0021": 0,
+  "NPS-HABS-pa1357": 0,
+  "NPS-HABS-pa1413": 0,
+  "NPS-HABS-pa1639": 0,
+  "NPS-HABS-pa1676": 0,
+  "NPS-HABS-pa1692": 0,
+  "NPS-HABS-pa1693": 0,
+  "NPS-HABS-pa1728": 0,
+  "NPS-HABS-pa1739": 0,
+  "NPS-HABS-pa1740": 0,
+  "NPS-HABS-pa1745": 0,
+  "NPS-HABS-pa1746": 0,
+  "NPS-HABS-pa1747": 0,
+  "NPS-HABS-pa1788": 0,
+  "NPS-HABS-pa1789": 0,
+  "NPS-HABS-pa1793": 0,
+  "NPS-HABS-pa1794": 0,
+  "NPS-HABS-pa1795": 0,
+  "NPS-HABS-pa1800": 0,
+  "NPS-HABS-pa1813": 0,
+  "NPS-HABS-pa1814": 0,
+  "NPS-HABS-pa1815": 0,
+  "NPS-HABS-pa1816": 0,
+  "NPS-HABS-pa1817": 0,
+  "NPS-HABS-pa1818": 0,
+  "NPS-HABS-pa1819": 0,
+  "NPS-HABS-pa1820": 0,
+  "NPS-HABS-pa2625": 0,
+  "NPS-HABS-pa2627": 0,
+  "NPS-HABS-pa3648": 7,
+  "NPS-HABS-pa3988": 5,
+  "NPS-HABS-pa4151": 0,
+  "NPS-HABS-pa4165": 0,
+  "NPS-HABS-pa4166": 0,
+  "NPS-HABS-pa4187": 0,
   "NPS-HARMON-FARM": 1,
   "NPS-HB9-1954": 2,
   "NPS-HB9-1962": 1,
   "NPS-HCSR": 0,
   "NPS-HS-MCPHERSON": 3,
+  "NPS-HS-SPANGLER-HENRY.ocr": 0,
   "NPS-HS-SPANGLER-HENRY": 0,
   "NPS-HSR-LEISTER-BARN": 15,
   "NPS-HSR-MCCLEAN-BARN": 7,
   "NPS-HSR-SLYDER": 0,
   "NPS-MCCLEAN-HOUSE-BARN": 3,
+  "NPS-MCMILLAN-HOUSE.ocr": 0,
   "NPS-MCMILLAN-HOUSE": 0,
   "NPS-MON-LOC-1932": 0,
   "NPS-MON-LOC-1993": 0,
   "NPS-NRCA-2017": 0,
+  "NPS-ROCK-CREEK.ocr": 0,
   "NPS-ROCK-CREEK": 0,
+  "NPS-SLAUGHTER-PEN.ocr": 0,
   "NPS-SLAUGHTER-PEN": 1,
   "NPS-SLYDER-GUIDE": 1,
   "NPS-SPANGLERS-SPRING": 1,
   "NPS-TPG-COMMEM": 6,
   "NPS-VISTA-CUTTING": 7,
+  "NPSGOV-ART-ADVANCE-TO-BREAK-THE-DEADLOCK-AT-GETTYSBURG-BATTLEFIELD": 0,
+  "NPSGOV-ART-AFRICAN-AMERICANS-GETTYSBURG": 0,
+  "NPSGOV-ART-ALONZO-CUSHING-GETTYSBURG": 0,
+  "NPSGOV-ART-CHARGE-FOR-VICTORY-OR-DEFEAT-AT-GETTYSBURG": 0,
+  "NPSGOV-ART-CHOICES-AND-COMMITMENTS-SOLDIER-AT-GETTYSBURG": 0,
+  "NPSGOV-ART-CHRISTMAS-EVE-ON-A-GETTYSBURG-FARM": 0,
+  "NPSGOV-ART-DYING-IN-THE-HOSPITAL": 0,
+  "NPSGOV-ART-FROM-THE-FRONT-LINES-TO-THE-HOSPITAL": 0,
+  "NPSGOV-ART-GETTYSBURG-CAMPAIGN": 0,
+  "NPSGOV-ART-GETTYSBURG-PARTNERSHIP": 0,
+  "NPSGOV-ART-NEUTRA-S-VISITOR-CENTER-AND-CYCLORAMA-AT-GETTYSBURG": 0,
+  "NPSGOV-ART-NPS-GEODIVERSITY-ATLAS-GETTYSBURG-NATIONAL-MILITARY-PARK-PENNSYLVANIA": 0,
+  "NPSGOV-ART-PHOTOGRAMMETRY-GETTYSBURG-CULTURAL": 0,
+  "NPSGOV-ART-RESTORING-A-GATEWAY-TO-GETTYSBURG": 0,
   "NPSGOV-BATTLEFIELD-REHAB": 0,
   "NPSGOV-CEMETERY": 0,
   "NPSGOV-CIVILIANS": 0,
@@ -66,10 +135,111 @@
   "NPSGOV-CULPS-HILL-REHAB": 0,
   "NPSGOV-DEVILS-DEN-REHAB": 0,
   "NPSGOV-EAST-CAVALRY": 0,
+  "NPSGOV-EDU-A-NATION-AT-WAR-TRAVELING-TRUNK-TABLE-5-THE-MEDICAL-CORPS-AT-WAR": 0,
+  "NPSGOV-EDU-ESSENTIAL-BACKGROUND-THE-BATTLE-OF-GETTYSBURG": 0,
+  "NPSGOV-EDU-FALLEN-SOLDIERS-EDUCATION-PROGRAM": 0,
+  "NPSGOV-EDU-FALLEN-SOLDIERS-POST-VISIT-LESSON": 0,
+  "NPSGOV-EDU-FALLEN-SOLDIERS-PRE-VISIT-LESSON": 1,
+  "NPSGOV-EDU-FIELD-HOSPITAL-EDUCATION-PROGRAM": 0,
+  "NPSGOV-EDU-PICKETT-S-CHARGE-EDUCATION-PROGRAM": 0,
+  "NPSGOV-EDU-ROUND-TOPS-EDUCATION-PROGRAM": 0,
+  "NPSGOV-EDU-ROUND-TOPS-FIELD-TRIP-PRE-VISIT-LESSON": 0,
+  "NPSGOV-EDU-SLYDER-FAMILY-FARM-EDUCATION-PROGRAM": 0,
+  "NPSGOV-EDU-SLYDER-FAMILY-FARM-POST-VISIT-LESSON": 0,
+  "NPSGOV-EDU-SLYDER-FAMILY-FARM-PRE-VISIT-LESSONS": 0,
+  "NPSGOV-EDU-THE-ROUND-TOPS-POST-VISIT-LESSON": 0,
+  "NPSGOV-EISE-LEARN-HISTORYCULTURE-EISENHOWER-AT-GETTYSBURG": 0,
+  "NPSGOV-EISE-LEARN-HISTORYCULTURE-EISENHOWERS-IN-GETTYSBURG": 0,
+  "NPSGOV-EISE-LEARN-HISTORYCULTURE-IKE-AND-THE-CIVIL-WAR": 0,
+  "NPSGOV-EISE-LEARN-HISTORYCULTURE-PLACES": 0,
+  "NPSGOV-EISE-LEARN-NATURE-NATURALFEATURESANDECOSYSTEMS": 0,
+  "NPSGOV-EISE-LEARN-NATURE-TREESANDSHRUBS": 0,
   "NPSGOV-FIRST-DAY": 0,
   "NPSGOV-GRASSLANDS": 0,
+  "NPSGOV-HC-ALABAMA-MONUMENT": 0,
+  "NPSGOV-HC-ARKANSAS-MONUMENT": 0,
+  "NPSGOV-HC-CUSHING-AT-GETTYSBURG": 0,
+  "NPSGOV-HC-DELAWARE-MEMORIAL": 0,
+  "NPSGOV-HC-FLORIDA-MONUMENT": 0,
+  "NPSGOV-HC-FLOWERING-PLANTS-LITTLE-ROUND-TOP": 0,
+  "NPSGOV-HC-GEORGIA-MONUMENT": 0,
+  "NPSGOV-HC-GETTYSBURG-OVERVIEW": 0,
+  "NPSGOV-HC-KENTUCKY-MEMORIAL": 0,
+  "NPSGOV-HC-LINCOLN-SPEECH-MEMORIAL": 0,
+  "NPSGOV-HC-LITTLE-ROUND-TOP-FAQ2": 0,
+  "NPSGOV-HC-LITTLE-ROUND-TOP-GRASSES": 0,
+  "NPSGOV-HC-LITTLE-ROUND-TOP-PLANTS": 0,
+  "NPSGOV-HC-LITTLE-ROUND-TOP-TREES": 0,
+  "NPSGOV-HC-LOUISIANA-MONUMENT": 0,
+  "NPSGOV-HC-LRT-PROGRESS-PHOTOS": 0,
+  "NPSGOV-HC-MISSISSIPPI": 0,
+  "NPSGOV-HC-NORTH-CAROLINA-MONUMENT": 0,
+  "NPSGOV-HC-PENNSYLVANIA-MEMORIAL": 0,
+  "NPSGOV-HC-SOLDIERS-AND-SAILORS-MONUMENT": 0,
+  "NPSGOV-HC-SOUTH-CAROLINA-MONUMENT": 0,
+  "NPSGOV-HC-STATE-OF-INDIANA-MONUMENT": 0,
+  "NPSGOV-HC-TENNESSEE-MONUMENT": 0,
+  "NPSGOV-HC-TEXAS-MONUMENT": 0,
+  "NPSGOV-HC-VIRGINIA-MONUMENT": 0,
   "NPSGOV-LRT-REHAB": 0,
   "NPSGOV-NATURAL-FEATURES": 0,
+  "NPSGOV-NATURE-ENVIRONMENTALFACTORS": 0,
+  "NPSGOV-NATURE-GEOLOGICFORMATIONS": 0,
+  "NPSGOV-NATURE-GRASSES": 0,
+  "NPSGOV-NATURE-NONNATIVESPECIES": 0,
+  "NPSGOV-NATURE-PRAIRIES": 0,
+  "NPSGOV-NATURE-PRESCRIBED-FIRES": 0,
+  "NPSGOV-NATURE-SCENICVISTAS": 0,
+  "NPSGOV-NATURE-TREESANDSHRUBS": 0,
+  "NPSGOV-NATURE-WATERQUALITY": 0,
+  "NPSGOV-NEWS-121STNY-MONUMENT-REPAIR-5-13": 0,
+  "NPSGOV-NEWS-5TH-US-ARTILLERY-MONUMENT-9-14": 0,
+  "NPSGOV-NEWS-ARCHEOLOGICAL-SURVEY-AT-LITTLE-ROUND-TOP": 0,
+  "NPSGOV-NEWS-BENNER-BARN-VANDALISM": 0,
+  "NPSGOV-NEWS-CEMETERY-RIDGE-FUNDING": 0,
+  "NPSGOV-NEWS-CEMETERY-RIDGE-REHAB-PROJECT": 0,
+  "NPSGOV-NEWS-CEMETERY-WATER-LINE": 0,
+  "NPSGOV-NEWS-CENTENNIAL-ACCOMPLISHMENTS": 0,
+  "NPSGOV-NEWS-CENTURY-OF-SACRIFICE": 0,
+  "NPSGOV-NEWS-CEREMONIAL-RIBBON-CUTTING-HELD-TO-CELEBRATE-THE-REOPENING-OF-LITTLE-ROUND-TOP": 0,
+  "NPSGOV-NEWS-CLOSURE-LITTLE-ROUND-TOP": 0,
+  "NPSGOV-NEWS-COMPREHENSIVE-TRAILS-PLAN": 0,
+  "NPSGOV-NEWS-COSTER-AVENUE": 0,
+  "NPSGOV-NEWS-CULP-RUN": 0,
+  "NPSGOV-NEWS-CULPS-HILL-PAVING-2024": 0,
+  "NPSGOV-NEWS-CULPS-HILL-REHAB": 0,
+  "NPSGOV-NEWS-CULTURAL-RESOURCE-SPECIALIST-RECOGNIZED": 0,
+  "NPSGOV-NEWS-CYCLORAMA-CENTER-EA-8-2012": 0,
+  "NPSGOV-NEWS-DEVIL-S-DEN-REOPENS": 0,
+  "NPSGOV-NEWS-DEVILS-DEN-REHAB-PROJECT": 0,
+  "NPSGOV-NEWS-FALL-INTO-HISTORY": 0,
+  "NPSGOV-NEWS-GETT-REHAB-GOALS": 0,
+  "NPSGOV-NEWS-GETTYSBURG-FORGOTTEN-HISTORY": 0,
+  "NPSGOV-NEWS-GETTYSBURG-ORCHARDS": 0,
+  "NPSGOV-NEWS-GRASSLAND-RESTORATION": 0,
+  "NPSGOV-NEWS-HARMAN-FARM-AQUIRED-3-25-11": 0,
+  "NPSGOV-NEWS-HAZARDOUS-TREES": 0,
+  "NPSGOV-NEWS-HERR-WOODS-1-2012": 0,
+  "NPSGOV-NEWS-HISTORIC-LEASING": 0,
+  "NPSGOV-NEWS-LEASING-HISTORIC-BATTLEFIELD-HOMES": 0,
+  "NPSGOV-NEWS-LITTLE-ROUND-TOP-PLAN": 0,
+  "NPSGOV-NEWS-LITTLE-ROUND-TOP-PRESCRIBED-FIRE": 0,
+  "NPSGOV-NEWS-LITTLE-ROUND-TOP-SELECT-TREE-CUTTING": 0,
+  "NPSGOV-NEWS-NATIONAL-CEMETERY-SPECIAL-EVENTS": 0,
+  "NPSGOV-NEWS-PARDEE-FIELD-PRESCRIBED-BURN": 0,
+  "NPSGOV-NEWS-PARK-AWARDS-HILL-BRADY-4-2014": 0,
+  "NPSGOV-NEWS-PRESCRIBED-BURN-COMPLETED-AT-LITTLE-ROUND-TOP": 0,
+  "NPSGOV-NEWS-PRESCRIBED-FIRES": 0,
+  "NPSGOV-NEWS-REHABILITATION-OF-CEMETERY-RIDGE-1-14": 0,
+  "NPSGOV-NEWS-SPRING-BATTLEFIELD-FORAY": 0,
+  "NPSGOV-NEWS-STONE-WALLS": 0,
+  "NPSGOV-NEWS-THREE-MONUMENTS-PROJECT-5-2012": 0,
+  "NPSGOV-NEWS-TOWERS-CLOSURE-FLAG-POLES": 0,
+  "NPSGOV-NEWS-TOWERS-CLOSURE": 0,
+  "NPSGOV-NEWS-TRAILS-PLAN": 0,
+  "NPSGOV-NEWS-VA-MEMORIAL-PRESERVATION": 0,
+  "NPSGOV-NEWS-WARFIELD-HOUSE": 0,
+  "NPSGOV-NEWS-WISLER-HOUSE-PARKING": 0,
   "NPSGOV-PLANNING": 0,
   "NPSGOV-PLANTS": 0,
   "NPSGOV-TOWN": 0,
@@ -920,7 +1090,7 @@
    "page": 58,
    "offset": 105,
    "window": "View southwest from Rose Barn, 1863 (GETT 41135, Historic Photograph Collection, 2B-2063). Figure 7. Gettysburg National Cemetery and Baltimore Pike, view southwest from observation tower on East Cemetery Hill with reconstructed lunettes in foreground, 1878 (GETT 41136, Tipton Collection, T1838A).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V1",
@@ -969,7 +1139,7 @@
    "page": 125,
    "offset": 80,
    "window": "View southeast from McPherson Farm, 1863 (GETT 41135, Historic Photograph Collection, 2B2001).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V1",
@@ -983,7 +1153,7 @@
    "page": 130,
    "offset": 158,
    "window": "View southeast, 1863 (GETT 41135, Historic Photograph Collection, 23S0340).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V1",
@@ -1032,7 +1202,7 @@
    "page": 159,
    "offset": 208,
    "window": "Detail of view northwest from Cemetery Hill, 1863 (Library of Congress, Digital ID ppmsca 35051).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V1",
@@ -1172,7 +1342,7 @@
    "page": 251,
    "offset": 100,
    "window": "Detail of view northeast from Little Round Top, 1863 (Library of Congress, Digital ID cwpb-01631).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V1",
@@ -1277,21 +1447,21 @@
    "page": 307,
    "offset": 150,
    "window": "View east from Evergreen Cemetery Gatehouse, 1863 (GETT 41135, Historic Photograph Collection, OS2B-2037).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V1",
    "page": 316,
    "offset": 170,
    "window": "Detail of view east from East Cemetery Hill, 1863 (GETT 41135, Historic Photograph Collection, 2B-2038a).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V1",
    "page": 317,
    "offset": 71,
    "window": "View north along Greene’s Brigade breastworks, 1863 (GETT 41136, Tipton Collection, T3452a).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V1",
@@ -1417,7 +1587,7 @@
    "page": 114,
    "offset": 133,
    "window": "View east, 1863 (GETT 41135, Historic Photograph Collection, 2B-2059).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
@@ -1431,7 +1601,7 @@
    "page": 116,
    "offset": 201,
    "window": "Detail of view west from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2090).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
@@ -1445,28 +1615,28 @@
    "page": 120,
    "offset": 167,
    "window": "Detail of view northwest from Rose Field 10, 1863 (GETT 41135, Historic Photograph Collection, 2B-2056a).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
    "page": 121,
    "offset": 83,
    "window": "View southwest from Rose Barn, 1863 (GETT 41135, Historic Photograph Collection, 2B-2063).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
    "page": 122,
    "offset": 151,
    "window": "View southwest from Rose Field 10, 1863 (GETT 41135, Historic Photograph Collection, 2B-2062).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
    "page": 123,
    "offset": 66,
    "window": "View southwest from Rose Field 10, 1863 (GETT 41135, Historic Photograph Collection, 2B-2060).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
@@ -1515,21 +1685,21 @@
    "page": 134,
    "offset": 179,
    "window": "Detail of view west from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2090).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
    "page": 149,
    "offset": 87,
    "window": "Detail of view northwest from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2090).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
    "page": 150,
    "offset": 120,
    "window": "View west, 1863 (Civil War Photographs Collection, United States Army Heritage and Education Center, Carlisle, PA).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
@@ -1543,7 +1713,7 @@
    "page": 152,
    "offset": 178,
    "window": "View southeast, 1863 (GETT 41135, Historic Photograph Collection, 2B-2083a).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
@@ -1557,7 +1727,7 @@
    "page": 178,
    "offset": 185,
    "window": "Detail of view southwest from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2090).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
@@ -1571,7 +1741,7 @@
    "page": 181,
    "offset": 87,
    "window": "Detail of view southwest from Little Round Top, 1863 (GETT 41135, Historic Photograph Collection, 2B-2090).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
@@ -1599,7 +1769,7 @@
    "page": 329,
    "offset": 87,
    "window": "Detail of view southeast from East Cemetery Hill, 1863 (GETT 41135, Historic Photograph Collection, 2B2B-2038u).",
-   "covered_by_a_statement": false
+   "covered_by_a_statement": true
   },
   {
    "source": "NPS-CLR-ROT-V2",
@@ -1907,6 +2077,90 @@
    "page": 38,
    "offset": 1776,
    "window": "Threats • While there have been many attempts to determine the exact location of the rostrum where Lincoln stood to deliver the Gettysburg Address, we can only make assumptions based on photographic and written evidence.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3648",
+   "page": 67,
+   "offset": 1664,
+   "window": "It was not until July of that year that the GBMA purchased a \"road machine to be used for the construction and maintenance in good order of avenues and driveways.\" Photographs of the avenues taken from the 1880s through the early 1890s reveal the rather haphazard efforts of the GBMA and many of the avenues can only be identified by the monuments as landmarks.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3648",
+   "page": 68,
+   "offset": 1350,
+   "window": "rpreters of the field.85 Even if the avenues were not necessarily constructed using the latest in road-building technology, the money, time and labor to open and maintain the avenues was significant enough that the 84 The GNMP Archives holds a large number of photographs of the development of the battlefield, many of which were taken by William Tipton.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3648",
+   "page": 71,
+   "offset": 1977,
+   "window": "Whereas once it \"afforded an unobstructed view of the almost the entire field,\" at the time of his writing it contained \"beautiful shrubbery at the expense of a magnificent landscape view.\"90 Overall, Bachelder held a romantic view of the battlefield and guided his readers to take 88 Ibid., 22.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3648",
+   "page": 152,
+   "offset": 2048,
+   "window": "Tipton photograph in Henry Sweetser Burrage, Gettysburg and Lincoln (New York: G.P.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3648",
+   "page": 162,
+   "offset": 1948,
+   "window": "The caption for the photograph identifies the culvert as the \"view northwest at culvert on United States Cavalry Avenue...with Lott Woods in distance on horizon.\"",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3648",
+   "page": 187,
+   "offset": 2001,
+   "window": "Bachelder plot an avenue 221 i^is landscape was particularly visible in a panoramic photograph taken (from the east to the west) of Camp Colt in 1918.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3648",
+   "page": 191,
+   "offset": 1533,
+   "window": "The footprint of a restaurant, called \"Round Top Restaurant,\" was planted right on the extreme edge of that boundary, apparently still in operation.225 A photograph in the Annual .Report for 1898 reveal that before the restaurant, a two-story wood frame house occupied the site, complete with a white picket fence.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3988",
+   "page": 4,
+   "offset": 3256,
+   "window": "1970 views of the Sales Center, Box 28, General Historical Photographic Prints, GNMP Archives.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3988",
+   "page": 61,
+   "offset": 2636,
+   "window": "This set includes architectural, structural, mechanical, 1S9 A series of progress photographs taken by E.D.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3988",
+   "page": 61,
+   "offset": 2903,
+   "window": "Two ariel photographs from 1973 also provide useful views of the Cyclorama Building's site.",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3988",
+   "page": 62,
+   "offset": 344,
+   "window": "Early Views: Construction photographs and early views can be found in the General Photographic Collection, GNMP Archives, including snapshots taken by the contractor .",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPS-HABS-pa3988",
+   "page": 62,
+   "offset": 687,
+   "window": "A set of photographs taken by photographer Lawrence Williams shortly after the building was completed were published in the monograph, Richard Neutra, 1961-66: Buildings and Projects, W.",
    "covered_by_a_statement": false
   },
   {
@@ -2243,6 +2497,13 @@
    "page": 21,
    "offset": 0,
    "window": "View of Little Round Top from the southwest at a point near Devil*s Den# At the left is a copy of a Brady photograph} at the right, a view from approximately the same position, December, 19i5y «",
+   "covered_by_a_statement": false
+  },
+  {
+   "source": "NPSGOV-EDU-FALLEN-SOLDIERS-PRE-VISIT-LESSON",
+   "page": 1,
+   "offset": 4214,
+   "window": "Library of Congress This image, taken in nearby Hanover, PA, in early 1864, documents the removal of soldier remains for re-internment in the Gettysburg National Cemetery.",
    "covered_by_a_statement": false
   },
   {

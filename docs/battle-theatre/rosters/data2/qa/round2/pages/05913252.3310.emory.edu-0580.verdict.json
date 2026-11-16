@@ -1,0 +1,426 @@
+{
+ "f": "roster-qa-verdict/1",
+ "page": "05913252.3310.emory.edu/580",
+ "levels": "NDR",
+ "stratum": "NC-MOO-E-officers",
+ "family": "NC-MOO-E",
+ "layout": "flow",
+ "kind": "officers",
+ "draw_position": 3,
+ "in_lowest_decile": false,
+ "printed_page": 570,
+ "rows_stored": 18,
+ "rows_checked": 18,
+ "rows_in_error": 10,
+ "rows_ok": 8,
+ "rows_flagged_ocr_uncertain": 1,
+ "errors": [
+  {
+   "i": 3,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "p. from Major. II.",
+   "printed": "p. from Major.",
+   "note": "the initial H. of the next entry (H. G. Lewis) stands at the end of this line",
+   "rid": "32nd-north-carolina-infantry#3",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 4,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "G. Lewis",
+   "printed": "H. G. Lewis",
+   "note": "the initial H. is in the remarks of the line above",
+   "rid": "32nd-north-carolina-infantry#4",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 5,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "K. C. Brabble",
+   "printed": "E. C. Brabble",
+   "rid": "32nd-north-carolina-infantry#5",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 8,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "Hichard H. Parker",
+   "printed": "Richard H. Parker",
+   "note": "the R is slightly damaged in the print",
+   "rid": "32nd-north-carolina-infantry#8",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 12,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "Pasquotank co. W.",
+   "printed": "Pasquotank co.",
+   "note": "the initial W. of the next entry stands at the end of this line",
+   "rid": "32nd-north-carolina-infantry#12",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 13,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "B. Strachan",
+   "printed": "W. B. Strachan",
+   "note": "the initial W. is in the remarks of the line above",
+   "rid": "32nd-north-carolina-infantry#13",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 14,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "U. H. Parker",
+   "printed": "B. H. Parker",
+   "rid": "32nd-north-carolina-infantry#14",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 15,
+   "kinds": [
+    "rem-extra"
+   ],
+   "stored": "p. Major and Colonel. 1>.",
+   "printed": "p. Major and Colonel.",
+   "note": "the initial D. of the next entry (D. B. Winston) stands at the end of this line",
+   "rid": "32nd-north-carolina-infantry#15",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "G"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 16,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "B. Winston",
+   "printed": "D. B. Winston",
+   "note": "the initial D. is in the remarks of the line above",
+   "rid": "32nd-north-carolina-infantry#16",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 17,
+   "kinds": [
+    "name-char"
+   ],
+   "stored": "William II. Hardison",
+   "printed": "William H. Hardison",
+   "rid": "32nd-north-carolina-infantry#17",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G1"
+   ]
+  }
+ ],
+ "form_only": [
+  {
+   "i": 10,
+   "field": "rank",
+   "stored": "A. Q,. M.",
+   "printed": "A. Q. M."
+  },
+  {
+   "i": 9,
+   "field": "remarks",
+   "stored": "1st Ser- geant",
+   "printed": "1st Ser-geant (line-end hyphen)"
+  }
+ ],
+ "unverifiable": [],
+ "missed_lines": [],
+ "notes": [
+  "Field and Staff of the 32nd North Carolina Infantry, printed page 570; 18 printed entries, all 18 stored. No date error on this page (all 18 lines compared at the date level)."
+ ],
+ "reader": "full page view at 200 dpi (Read tool); crops at 450 dpi of the Brabble, Parker (twice) and Hardison lines; every stored line compared with the print at the levels N, D and R",
+ "tesseract_prescreen": {
+  "agree": 5,
+  "near": 0,
+  "suspect": 13,
+  "unstored_lines": 8
+ },
+ "read": {
+  "pdf_sha256": "e59c69972972a111da23e5aad55c87361794b6608a2d0940f074c6eaf8a55f36",
+  "pdf_page": 581,
+  "view_png_sha256": "5de022e8e3500d7e2b78d92ce45ce63c01aac03e2ca2ecbd97d5df4cfdd3c0cf",
+  "render300_sha256": "af3043c762a15c40ef0490742b34b9834d2810eb3544992243bbe09f6b8ca046",
+  "tess_sha256": "dccf17813da141fd5253e008b7db7c21590f7d230e2b8d6107ef10d58702f5e7",
+  "right_page": true,
+  "share_in_pinned_leaf": 0.873
+ },
+ "rows_listed": [
+  {
+   "i": 0,
+   "rid": "32nd-north-carolina-infantry#0",
+   "name": "Edmund C. Brabble",
+   "rank": "Colonel",
+   "co": "FS",
+   "remarks_sha256": "2f31d9985c979c7fcf56c0b646e94cf4c349b1240bda14ffaafce8e492e78fc3",
+   "off": 1846438,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 1,
+   "rid": "32nd-north-carolina-infantry#1",
+   "name": "David G. Cowand",
+   "rank": "Colonel",
+   "co": "FS",
+   "remarks_sha256": "9ebef99e526d18494cf04c617e249ade1de112d0dd32c5ff9dcfeb35c6bf8b69",
+   "off": 1846583,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 2,
+   "rid": "32nd-north-carolina-infantry#2",
+   "name": "William T. Williams",
+   "rank": "Lieut.-Colonel",
+   "co": "FS",
+   "remarks_sha256": "475157b7406ac77f1129f1dbb4506f6c8b946467a448f9174e32224da896c307",
+   "off": 1846677,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 3,
+   "rid": "32nd-north-carolina-infantry#3",
+   "name": "David G. Cowand",
+   "rank": "Lieut.-Colonel",
+   "co": "FS",
+   "remarks_sha256": "a7f7a346f5c60020dca0bba1013af16194188355c676e4da1c3eec9bc5d6cd6c",
+   "off": 1846813,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 4,
+   "rid": "32nd-north-carolina-infantry#4",
+   "name": "G. Lewis",
+   "rank": "Lieut.-Colonel",
+   "co": "FS",
+   "remarks_sha256": "3919bf12a7ccbf05c752cb61b0451c55171776d23e14d6a9c8ea068a1dc4c92a",
+   "off": 1846911,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 5,
+   "rid": "32nd-north-carolina-infantry#5",
+   "name": "K. C. Brabble",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "c96e85dc0980c842ece30e076119c9c6a8d8381e2219c1e80e0839cb30a37747",
+   "off": 1846995,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 6,
+   "rid": "32nd-north-carolina-infantry#6",
+   "name": "D. G. Cowand",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "93bfd676c848ee960acbc29c99d19155f42d8749fe60b6e749bcd000d73d80d1",
+   "off": 1847094,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 7,
+   "rid": "32nd-north-carolina-infantry#7",
+   "name": "Henry G. Lewis",
+   "rank": "Major",
+   "co": "FS",
+   "remarks_sha256": "e2a51c54bb549695b4130ca6383337fe8c87d1709c9337e6959f830890a68d27",
+   "off": 1847185,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 8,
+   "rid": "32nd-north-carolina-infantry#8",
+   "name": "Hichard H. Parker",
+   "rank": "Adjutant",
+   "co": "FS",
+   "remarks_sha256": "bc0b30efd873e162e95c31f0a60a2097c40454b040bac19ab419cd375e5ac0e1",
+   "off": 1847330,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 9,
+   "rid": "32nd-north-carolina-infantry#9",
+   "name": "Francis A. Boyle",
+   "rank": "Adjutant",
+   "co": "FS",
+   "remarks_sha256": "5fe94229d5f89f141c40eda98560ef843c0de055de2b71da28f3d3ca2a614318",
+   "off": 1847459,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 10,
+   "rid": "32nd-north-carolina-infantry#10",
+   "name": "John L. Frensley",
+   "rank": "A. Q,. M.",
+   "co": "FS",
+   "remarks_sha256": "ebadd8f348d13f44d244caefb8bca02eb4f42fde1059a36e28111f11bd375edf",
+   "off": 1847572,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 11,
+   "rid": "32nd-north-carolina-infantry#11",
+   "name": "R. C. Perkins",
+   "rank": "A. C. S.",
+   "co": "FS",
+   "remarks_sha256": "4aa6d76780778b68f020855f87f613e9eb245c68d843c9545dc295baae2a6048",
+   "off": 1847646,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 12,
+   "rid": "32nd-north-carolina-infantry#12",
+   "name": "H. F. Butt",
+   "rank": "Surgeon",
+   "co": "FS",
+   "remarks_sha256": "239fdc5d070f94c723990ef89602f30c2ed48a3b310e15afa42a84eab84946e2",
+   "off": 1847713,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 13,
+   "rid": "32nd-north-carolina-infantry#13",
+   "name": "B. Strachan",
+   "rank": "Surgeon",
+   "co": "FS",
+   "remarks_sha256": "65bf1f2fdaffb57c3036f430d195cb9ce7295615764d06bedf57f9ae27366bc8",
+   "off": 1847780,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 14,
+   "rid": "32nd-north-carolina-infantry#14",
+   "name": "U. H. Parker",
+   "rank": "Asst. Surgeon",
+   "co": "FS",
+   "remarks_sha256": "12b44c8e3003761b6a6b9b7d8ad59104d81319b77b702879301bf45e910c9342",
+   "off": 1847839,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 15,
+   "rid": "32nd-north-carolina-infantry#15",
+   "name": "David G. Cowand",
+   "rank": "Sergeant Major",
+   "co": "FS",
+   "remarks_sha256": "cba3ef89f4576342e3081565713bebf93854abb72e11e50b13b855d04e52222c",
+   "off": 1847930,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": [
+    "G"
+   ]
+  },
+  {
+   "i": 16,
+   "rid": "32nd-north-carolina-infantry#16",
+   "name": "B. Winston",
+   "rank": "Sergeant Major",
+   "co": "FS",
+   "remarks_sha256": "432c9c372623f7546ce2afded71bedf79ad2bf5989dab6f44bbb1de67f5da7fb",
+   "off": 1848066,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  },
+  {
+   "i": 17,
+   "rid": "32nd-north-carolina-infantry#17",
+   "name": "William II. Hardison",
+   "rank": "Sergeant Major",
+   "co": "FS",
+   "remarks_sha256": "4f66217035341d3672d26a02f81aaeeed72289e1bf1f6f2473cc7a750a2e19ba",
+   "off": 1848168,
+   "text_id": "NC-MOORE-1882.2~b",
+   "flag_codes": []
+  }
+ ],
+ "verdict_utc": "2026-11-16T02:45:10Z",
+ "tesseract_status": {
+  "0": "SUSPECT",
+  "1": "AGREE",
+  "2": "AGREE",
+  "3": "SUSPECT",
+  "4": "AGREE",
+  "5": "SUSPECT",
+  "6": "SUSPECT",
+  "7": "SUSPECT",
+  "8": "SUSPECT",
+  "9": "SUSPECT",
+  "10": "AGREE",
+  "11": "AGREE",
+  "12": "SUSPECT",
+  "13": "SUSPECT",
+  "14": "SUSPECT",
+  "15": "SUSPECT",
+  "16": "SUSPECT",
+  "17": "SUSPECT"
+ }
+}

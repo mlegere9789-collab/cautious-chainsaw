@@ -1,0 +1,303 @@
+========================================================================================== Q01 FAIL {'BLOCKED-INPUT': 3510, 'COVERED': 0, 'FAIL': 133, 'N/A': 161, 'NOT-RUN': 0, 'PASS': 0}
+-- Q01.1 BLOCKED-INPUT 1
+      1  Q01/Q01.1/table/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN; no table, no comparison)
+-- Q01.2 BLOCKED-INPUT 726
+    726  Q01/Q01.2/cs-13va-winchester/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN; no table, no comparison)
+-- Q01.3 BLOCKED-INPUT 568
+    568  Q01/Q01.3/cs-1c-art/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN; no table, no comparison)
+-- Q01.4 BLOCKED-INPUT 162
+    162  Q01/Q01.4/cs-1c-hood-anderson/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN; no table, no comparison)
+-- Q01.5 BLOCKED-INPUT 593
+    593  Q01/Q01.5/cs-13va-winchester/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN; no table, no comparison) (layer-only finding: the arrivals record is complete)
+-- Q01.5 FAIL 133
+     91  Q01/Q01.5/cs-1c-mclaws-semmes-10ga/default :: presence window: place: the arrivals record gives the entry place: no road or direction of approach is printed in the ledger for this unit or any unit above it; route: the road of approach is named: no road of 
+     25  Q01/Q01.5/cs-1c-mclaws-semmes/default :: presence window: place and route: a unit under it is drawn with an entry place and a road of approach: no leaf unit under it has a place and a road
+     12  Q01/Q01.5/us-3c-2d-brewster-120ny/default :: presence window: place: the arrivals record gives the entry place: the road N does not cross into the loaded ground; AP-N prints it for us-Nc-Nd; route: the road of approach is named: no road of approach (open 
+      2  Q01/Q01.5/cs-anv-hq/default :: presence window: place: the arrivals record gives the entry place: Open gap: the record gives no figure for this headquarters, so none is drawn.; route: the road of approach is named: no road of approach (open 
+      1  Q01/Q01.5/cs-1c-art/default :: presence window: place: the arrivals record gives the entry place: Open gap: the record gives no figure for this artillery group, so none is drawn.; route: the road of approach is named: no road of approach (op
+      1  Q01/Q01.5/cs-2c-early-jones/default :: presence window: place: the arrivals record gives the entry place: a road of approach is printed for cs-Nc-early (Harrisburg Road), but reports of this unit print another (York road (Brown, chief of artillery, 
+      1  Q01/Q01.5/us-hancock-acting/default :: presence window: place: the arrivals record gives the entry place: Open gap: the record gives no figure for this person, so none is drawn.; route: the road of approach is named: no road of approach (open gap)
+-- Q01.6 BLOCKED-INPUT 734
+    726  Q01/Q01.6/cs-13va-winchester/default/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN; no table, no comparison) (layer-only finding: instances equal strength)
+      6  Q01/Q01.6/units-scan/sample-1/sample-1 :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN; no table, no comparison) (layer-only finding: all N units equal their strength in scenario sample-N)
+      1  Q01/Q01.6/cap-scan/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN; no table, no comparison) (layer-only finding: no cap constant in N files)
+      1  Q01/Q01.6/world-total/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN; no table, no comparison) (layer-only finding: the world holds exactly the drawn strengths)
+-- Q01.7 BLOCKED-INPUT 726
+    726  Q01/Q01.7/cs-13va-winchester/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN; no table, no comparison)
+========================================================================================== Q02 FAIL {'BLOCKED-INPUT': 0, 'COVERED': 0, 'FAIL': 176, 'N/A': 76, 'NOT-RUN': 0, 'PASS': 49}
+-- Q02.2 FAIL 38
+      6  Q02/Q02.2/data.audio_sources :: N of N members fail: no tier (N)
+      4  Q02/Q02.2/data.fx_fires :: N of N members fail: plausible-procedural with neither a source id nor a procedural block (N)
+      4  Q02/Q02.2/gov.timeline :: N of N members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (N)
+      3  Q02/Q02.2/data.audio_calls :: N of N members fail: inferred with neither a source id nor reasoning (N)
+      3  Q02/Q02.2/data.vegetation :: N of N members fail: plausible-procedural with neither a source id nor a procedural block (N); documented with no source id (N); inferred with neither a source id nor reasoning (N)
+      2  Q02/Q02.2/data.artillery_train :: N of N members fail: inferred with neither a source id nor reasoning (N); plausible-procedural with neither a source id nor a procedural block (N)
+      2  Q02/Q02.2/data.conflict_defaults :: N of N members fail: documented with no source id (N); plausible-procedural with neither a source id nor a procedural block (N); an open gap with no register entry (a gap is a register entry and a visible marke
+      2  Q02/Q02.2/data.fx_params :: N of N members fail: plausible-procedural with neither a source id nor a procedural block (N); documented with no source id (N)
+      1  Q02/Q02.2/data.daypositions :: N of N members fail: documented with no source id (N)
+      1  Q02/Q02.2/data.placement_claims :: N of N members fail: documented with no source id (N); inferred with neither a source id nor reasoning (N)
+      1  Q02/Q02.2/data.structures3d :: N of N members fail: an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (N); inferred with neither a source id nor reasoning (N)
+      1  Q02/Q02.2/env.ephemeris :: N of N members fail: tier statement N names no tier the product reads (N)
+      1  Q02/Q02.2/env.weather :: N of N members fail: documented with no source id (N); inferred with neither a source id nor reasoning (N); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (N)
+      1  Q02/Q02.2/kit.kit_specs :: N of N members fail: plausible-procedural with neither a source id nor a procedural block (N); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (N); inferred wi
+      1  Q02/Q02.2/kit.weapons :: N of N members fail: inferred with neither a source id nor reasoning (N); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (N); plausible-procedural with neithe
+      1  Q02/Q02.2/layer.kit_items :: N of N members fail: plausible-procedural with neither a source id nor a procedural block (N); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (N)
+      1  Q02/Q02.2/structures.hospitals :: N of N members fail: documented with no source id (N); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (N)
+      1  Q02/Q02.2/structures.state_schedule :: N of N members fail: inferred with neither a source id nor reasoning (N); tier statement N names no tier the product reads (N)
+      1  Q02/Q02.2/structures.structures :: N of N members fail: no tier (N); an open gap with no register entry (a gap is a register entry and a visible marker, never a datum) (N)
+      1  Q02/Q02.2/structures.works_stages :: N of N members fail: plausible-procedural with neither a source id nor a procedural block (N); inferred with neither a source id nor reasoning (N)
+-- Q02.3 FAIL 28
+      4  Q02/Q02.3/data.conflict_defaults :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: none) (N)
+      4  Q02/Q02.3/layer.arrivals :: N of N members fail: no source extract (N)
+      1  Q02/Q02.3/data.audio_commands :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: ART-FA-N=unresolved) (N); no source that is neither a lead nor weak (sources: HAR-BN=unresolved) (N)
+      1  Q02/Q02.3/data.battery_guns :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: SS-ArtReserve=weak) (N); no source that is neither a lead nor weak (sources: Wiki-OOB-Union=lead, GburgDaily-Smith
+      1  Q02/Q02.3/data.daypositions :: N of N members fail: no source that is neither a lead nor weak (sources: none) (N)
+      1  Q02/Q02.3/data.fx_fires :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: ECW-Bliss=unresolved, HMDB-N=unresolved, SS-Bliss=unresolved, CWT-Query=unresolved) (N); no source that is neither
+      1  Q02/Q02.3/data.fx_params :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: none) (N); no source that is neither a lead nor weak (sources: Hand-book of Artillery N p. N=unresolved, Field Man
+      1  Q02/Q02.3/data.placement_claims :: N of N members fail: no source that is neither a lead nor weak (sources: none) (N); no source extract (N)
+      1  Q02/Q02.3/data.site_memorial_years :: N of N members fail: no source that is neither a lead nor weak (sources: NPS-CLI-PCB=unresolved) (N); no source that is neither a lead nor weak (sources: NPS-CLI-LRT=unresolved) (N); no source that is neither a
+      1  Q02/Q02.3/data.structures3d :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: NPS-TREAT-N=unresolved, LOC-BACH-N=unresolved) (N)
+      1  Q02/Q02.3/data.vegetation :: N of N members fail: no source that is neither a lead nor weak (sources: NPS:NPS-CLR-NSTDAY=unresolved) (N); no source that is neither a lead nor weak (sources: NPS:NPS-CLI-NSTDAY=unresolved) (N); no source tha
+      1  Q02/Q02.3/gov.timeline :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: W-RET=weak) (N); extract is N words (limit N) (N)
+      1  Q02/Q02.3/kit.artillery_batteries :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: none) (N); no source that is neither a lead nor weak (sources: SS-ArtReserve=weak) (N)
+      1  Q02/Q02.3/kit.cavalry_units :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: none) (N); no source that is neither a lead nor weak (sources: Wiki-OOB-Union=lead) (N)
+      1  Q02/Q02.3/kit.weapons :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: NapoleonGuide=unresolved, Wiki-Napoleon=lead) (N); no source that is neither a lead nor weak (sources: StrategyPag
+      1  Q02/Q02.3/layer.objects :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: CWE-NMass=unresolved) (N); no source that is neither a lead nor weak (sources: GD-N=unresolved) (N)
+      1  Q02/Q02.3/layer.provenance.claims :: N of N members fail: no source that is neither a lead nor weak (sources: PANB-SN=unresolved) (N); no source that is neither a lead nor weak (sources: NYN-SN=unresolved) (N)
+      1  Q02/Q02.3/ledger.positions :: N of N members fail: number(s) N of the claim are not in the span (N); number(s) N of the claim are not in the span (N); number(s) N of the claim are not in the span (N)
+      1  Q02/Q02.3/ledger.troopmaps :: N of N members fail: no source that is neither a lead nor weak (sources: BACHELDER-N-SN=unresolved) (N); no source that is neither a lead nor weak (sources: BACHELDER-N-SN=unresolved) (N); no source that is nei
+      1  Q02/Q02.3/structures.hospitals :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: none) (N); no source that is neither a lead nor weak (sources: NMCWM-Letterman=unresolved) (N)
+      1  Q02/Q02.3/structures.state_schedule :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: HN-Spangler=unresolved) (N); no source that is neither a lead nor weak (sources: ECW-Hosp=unresolved) (N)
+      1  Q02/Q02.3/structures.structures :: N of N members fail: no source extract (N); no source that is neither a lead nor weak (sources: GD-N=unresolved) (N); no source that is neither a lead nor weak (sources: GD-Fences=unresolved) (N)
+-- Q02.4 FAIL 39
+     22  Q02/Q02.4/data.artillery_train :: N of N members fail: no premise claim ids (the reasoning names no documented claim) (N); no reasoning (N)
+     10  Q02/Q02.4/data.conflict_defaults :: N of N members fail: no premise claim ids (the reasoning names no documented claim) (N)
+      1  Q02/Q02.4/data.placement_claims :: N of N members fail: no reasoning (N); no premise claim ids (the reasoning names no documented claim) (N); premise claim(s) POS-E-US-NC-ND-N are not documented claims of the ledger (N)
+      1  Q02/Q02.4/data.sibling_approach :: N of N members fail: no reasoning (N); no premise claim ids (the reasoning names no documented claim) (N)
+      1  Q02/Q02.4/data.vegetation :: N of N members fail: no premise claim ids (the reasoning names no documented claim) (N); no reasoning (N); premise claim(s) VC-LIB-N VC-LIB-N are not documented claims of the ledger (N)
+      1  Q02/Q02.4/layer.provenance.claims :: N of N members fail: no reasoning (N); premise claim(s) POS-E-US-NC-ND-N are not documented claims of the ledger (N); premise claim(s) POS-E-US-NC-ART-NNYI-N are not documented claims of the ledger (N)
+      1  Q02/Q02.4/layer.unit.approach :: N of N members fail: no premise claim ids (the reasoning names no documented claim) (N); premise claim(s) POS-E-US-NC-ND-N are not documented claims of the ledger (N); premise claim(s) POS-E-US-NC-ART-NNYI-N PO
+      1  Q02/Q02.4/ledger.positions :: N of N members fail: premise claim(s) PD-Nc-hood-anderson-N are not documented claims of the ledger (N); premise claim(s) PD-Nc-hood-robertson-N are not documented claims of the ledger (N); premise claim(s) PD-
+      1  Q02/Q02.4/ledger.troopmaps :: N of N members fail: no reasoning (N); premise claim(s) TMN-N are not documented claims of the ledger (N); premise claim(s) TMN-N are not documented claims of the ledger (N)
+-- Q02.5 FAIL 23
+     19  Q02/Q02.5/data.artillery_train :: N of N members fail: no procedural block (N); no register id for the gap (N)
+      3  Q02/Q02.5/data.sibling_approach :: N of N members fail: no procedural block (N)
+      1  Q02/Q02.5/data.vegetation :: N of N members fail: no procedural block (N); no register id for the gap (N); register id ws-world-veg-GN is not an open entry of the register (N)
+-- Q02.6 FAIL 28
+     25  Q02/Q02.6/data.artillery_train :: N of N source ids used by the class are in no Source Manifest
+      3  Q02/Q02.6/manifest-kit :: N of N source entries lack date_written, rights or reliability_tier
+-- Q02.7 FAIL 1
+      1  Q02/Q02.7/conflicts :: N conflict(s) have a value with no source key, fewer than two values or no recorded alternatives
+-- Q02.8 FAIL 10
+      3  Q02/Q02.8/data.structures3d :: N of N members fail: rests on a lead source alone and is not flagged weak (N)
+      2  Q02/Q02.8/data.battery_guns :: N of N members fail: documented and every source is a lead or weak (SS-ArtReserve) (N); documented and every source is a lead or weak (Wiki-OOB-Union, GburgDaily-SmithNNY, SS-NYArt-N) (N); documented and every 
+      1  Q02/Q02.8/data.fx_fires :: N of N members fail: documented and every source is a lead or weak (W-BG) (N); rests on a lead source alone and is not flagged weak (N)
+      1  Q02/Q02.8/gov.timeline :: N of N members fail: documented and every source is a lead or weak (W-RET) (N); rests on a lead source alone and is not flagged weak (N); documented and every source is a lead or weak (SSN) (N)
+      1  Q02/Q02.8/kit.cavalry_units :: N of N members fail: documented and every source is a lead or weak (Wiki-OOB-Union) (N); documented and every source is a lead or weak (Wiki-OOB-Confed) (N); documented and every source is a lead or weak (Wiki-
+      1  Q02/Q02.8/kit.weapons :: N of N members fail: documented and every source is a lead or weak (Wiki-NpdrParrott, SS-Hazlett-N) (N)
+      1  Q02/Q02.8/structures.hospitals :: N of N members fail: documented and every source is a lead or weak (Wiki-Amb) (N)
+-- Q02.9 FAIL 9
+      7  Q02/Q02.9/data.structures3d :: N of N members fail: state change without a state_schedule (N)
+      2  Q02/Q02.9/kit.kit_specs :: N of N members fail: kit item without valid_from and valid_to (N)
+========================================================================================== Q14 FAIL {'BLOCKED-INPUT': 101, 'COVERED': 0, 'FAIL': 61, 'N/A': 0, 'NOT-RUN': 1, 'PASS': 43}
+-- Q14.1 FAIL 32
+      6  Q14/Q14.1/buck_and_ball_load/default :: weapons table: a documented tier needs a claim support that this run can re-match: a manual item (drill/*.json) that confirms it: the row says documented (row-level source list; claim-to-source map not printed;
+      6  Q14/Q14.1/gallager_carbine/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids [N], tier documented, placeholder False; a documented tier needs 
+      5  Q14/Q14.1/colt_navy_1851/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids [N], tier gap, placeholder False
+      3  Q14/Q14.1/3inch_navy_rifle/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids [N], tier gap, placeholder None
+      3  Q14/Q14.1/colt_36_unconfirmed/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids [N], tier plausible-procedural, placeholder True
+      2  Q14/Q14.1/scoped_target_rifle/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids [N, N], tier plausible-procedural, placeholder True
+      1  Q14/Q14.1/14pdr_james_rifle/default :: weapons table: every source conflict is carried as a range of at least two positions: conflicts without two positions: [N]
+      1  Q14/Q14.1/colt_pocket_revolver/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids [N], tier inferred, placeholder True
+      1  Q14/Q14.1/field_finds_any_arm/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids [], tier plausible-procedural, placeholder True
+      1  Q14/Q14.1/lorenz_m1854/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids [N], tier inferred, placeholder False
+      1  Q14/Q14.1/revolver_unspecified/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids [N], tier documented, placeholder True; a documented tier needs a
+      1  Q14/Q14.1/revolving_and_other_breechloaders_gap/default :: weapons table: the row is not a gap, a placeholder or an unspecified stand-in (a weapon the product fires needs a table row of its own): gap ids [N, N], tier gap, placeholder False
+      1  Q14/Q14.1/spencer_repeater/default :: weapons table: every source conflict is carried as a range of at least two positions: conflicts without two positions: [N]; a documented tier needs a claim support that this run can re-match: a manual item (dri
+-- Q14.2 BLOCKED-INPUT 1
+      1  Q14/Q14.2/projectile-events/default :: input missing: empty domain: no fire plan of the crowd driver (the code the page runs) carries a target, a round or a range, so the shell emits no projectile event whose range or round could be checked
+-- Q14.2 FAIL 4
+      2  Q14/Q14.2/10pdr_parrott/gap :: the product draws Npdr_parrott (N batteries) and no per-elevation table of it is documented (W.N gap); the gap is not covered: no register entry names this gap
+      1  Q14/Q14.2/14pdr_james_rifle/gap :: the product draws Npdr_james_rifle (N batteries) and no per-elevation table of it is documented (W.N gap); the gap is not covered: no register entry names this gap
+      1  Q14/Q14.2/3inch_ordnance_rifle/gap :: the product draws Ninch_ordnance_rifle (N batteries) and no per-elevation table of it is documented (W.N gap); the gap is not covered: no register entry names this gap
+-- Q14.3 BLOCKED-INPUT 1
+      1  Q14/Q14.3/events/default :: input missing: empty domain: no fire plan of the crowd driver (the code the page runs) carries a target, a round or a range, so the shell emits no projectile event whose range or round could be checked (so no a
+-- Q14.4 FAIL 7
+      6  Q14/Q14.4/plans-scan/sample-1 :: N of N plans exceed the ceiling in scenario sample-N
+      1  Q14/Q14.4/us-cav-2d-mcintosh-3pa:fire/default :: a figure of the fire plan fires N shots inside one N-second window (at N s); the plan's typical figure, a lead is N a minute (plan)
+-- Q14.5 BLOCKED-INPUT 99
+     81  Q14/Q14.5/cs-1c-art/default :: input missing: docs/battle-theatre/kit/verified_batteries.json (the verified battery table of GATE-SPEC QN: guns by date and state with tier and citation, built from the Official Records; no table, no compariso
+     18  Q14/Q14.5/G-01/default :: input missing: no machine record of the batteries, gun types and counts at emplacement G-N by time (structures.json holds the printed description only)
+-- Q14.5 FAIL 6
+      4  Q14/Q14.5/us-12c-art-1nym/default :: gun count: the pieces whose fire the crowd driver builds equal the guns drawn for the battery (a battery whose count is not stated fires no invented number of pieces): the crowd driver fires N piece(s); the lay
+      1  Q14/Q14.5/army-total/CS :: the layer draws N confederate guns; the plan prints N to N on the field (p. N line N of the plan text)
+      1  Q14/Q14.5/army-total/US :: the layer draws N union guns; the plan prints N to N on the field (p. N line N of the plan text)
+-- Q14.6 FAIL 10
+      6  Q14/Q14.6/batteries-scan/sample-1 :: N of N firing batteries exceed the documented allowance in scenario sample-N
+      4  Q14/Q14.6/us-12c-art-1nym/default :: the battery fires N rounds from N pieces over N s; the documented stock is N a gun and the campaign allowance double that (N for the battery)
+-- Q14.7 FAIL 2
+      1  Q14/Q14.7/crew-posts/default :: the product draws posts with no documented role/manual item: [N]; missing items []
+      1  Q14/Q14.7/crew-size/default :: crew size: a source conflict of the crew (eight or nine at the piece) is registered: no conflict about the crew in conflicts_structured.json (N) or in the kit conflicts; the product offers the crew size as a se
+-- Q14.7 NOT-RUN 1
+      1  Q14/Q14.7/drill-state-machine/default :: not implemented in this runner: the ten states of one gun detachment (B.N) and their timing need a machine list of the productNs drill_states; owed
+========================================================================================== Q19 FAIL {'BLOCKED-INPUT': 1, 'COVERED': 0, 'FAIL': 121, 'N/A': 52, 'NOT-RUN': 0, 'PASS': 29}
+-- Q19.1 FAIL 1
+      1  Q19/Q19.1/census :: N of N visible data classes name no claim id on any member: data.artillery_train, data.audio_calls, data.audio_commands, data.audio_sources, data.audio_woods, data.battery_guns ...
+-- Q19.2 FAIL 46
+     41  Q19/Q19.2/data.artillery_train :: N of N members fail: no claim id: the datum cites no claim of the ledger (N)
+      5  Q19/Q19.2/data.daypositions :: N of N members fail: the claim has no span in a stored source (no quote with a report or source) (N)
+-- Q19.3 FAIL 11
+      1  Q19/Q19.3/data.placement :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for OR-WILLIAMS, HMDBN) (N); two or more sources but no pair is shown independent (independence not recorded 
+      1  Q19/Q19.3/gov.timeline :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for ORN-N-RN ORN-N-RN ORN-N-RN) (N); two or more sources but no pair is shown independent (independence not r
+      1  Q19/Q19.3/kit.cavalry_units :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for AR-Guns, CWNews-Carbine) (N)
+      1  Q19/Q19.3/kit.kit_specs :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for BGE-Dispatch, WisVets) (N); two or more sources but no pair is shown independent (independence not record
+      1  Q19/Q19.3/kit.weapons :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for Nthmass, AR-Guns) (N); two or more sources but no pair is shown independent (independence not recorded fo
+      1  Q19/Q19.3/layer.arrivals :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for PDF-BN HESS, PLACEMENT) (N); two or more sources but no pair is shown independent (independence not recor
+      1  Q19/Q19.3/layer.events :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for ORN-CAS, PDF-TL) (N); two or more sources but no pair is shown independent (independence not recorded for
+      1  Q19/Q19.3/layer.kit_items :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for AHC-Sidebar, NPS-Accout) (N); two or more sources but no pair is shown independent (independence not reco
+      1  Q19/Q19.3/layer.unit.casualties :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for ORN-CAS, PDF-TL) (N)
+      1  Q19/Q19.3/layer.unit.guns :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for KIT-GUNS, NNYBty-Wheeler) (N)
+      1  Q19/Q19.3/layer.units :: N of N members fail: two or more sources but no pair is shown independent (independence not recorded for PDF-BN PLACEMENT, GAZETTEER) (N); two or more sources but no pair is shown independent (independence not 
+-- Q19.4 FAIL 49
+     20  Q19/Q19.4/data.audio_commands :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (N); documented with N independent 
+      7  Q19/Q19.4/data.audio_calls :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (N)
+      7  Q19/Q19.4/data.audio_sources :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (N); no tier and no flag (N)
+      5  Q19/Q19.4/data.artillery_train :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (N); the tier flag (inferred) is no
+      3  Q19/Q19.4/data.fx_params :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (N); the tier flag (plausible-proce
+      2  Q19/Q19.4/layer.arrivals :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (N); documented with sources that a
+      1  Q19/Q19.4/data.battery_guns :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (N); documented on lead or weak sou
+      1  Q19/Q19.4/layer.unit.approach :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: the tier flag (plausible-procedural) is not shown in the product for this class (no mark code found) (N)
+      1  Q19/Q19.4/layer.unit.guns :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (N); the tier flag (open gap) is no
+      1  Q19/Q19.4/layer.units :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: documented with sources that are not shown independent and no flag (N); no open register entry names whe
+      1  Q19/Q19.4/ledger.troopmaps :: N of N members have neither two independent sources nor a shown flag with an entry for the second source: no open register entry names where the second source would come from (N); the flag N is set in the data 
+-- Q19.5 FAIL 11
+      4  Q19/Q19.5/data.structures3d :: N of N members fail: lead-only support not flagged weak (N)
+      2  Q19/Q19.5/data.battery_guns :: N of N members fail: documented on lead or weak sources alone (SS-ArtReserve) (N); documented on lead or weak sources alone (Wiki-OOB-Union, GburgDaily-SmithNNY, SS-NYArt-N) (N); documented on lead or weak sour
+      1  Q19/Q19.5/data.fx_fires :: N of N members fail: documented on lead or weak sources alone (W-BG) (N); lead-only support not flagged weak (N)
+      1  Q19/Q19.5/gov.timeline :: N of N members fail: documented on lead or weak sources alone (W-RET) (N); lead-only support not flagged weak (N); documented on lead or weak sources alone (SSN) (N)
+      1  Q19/Q19.5/kit.cavalry_units :: N of N members fail: documented on lead or weak sources alone (Wiki-OOB-Union) (N); documented on lead or weak sources alone (Wiki-OOB-Confed) (N); documented on lead or weak sources alone (Wiki-OOB-Union, Wiki
+      1  Q19/Q19.5/kit.weapons :: N of N members fail: documented on lead or weak sources alone (Wiki-NpdrParrott, SS-Hazlett-N) (N); lead-only support not flagged weak (N)
+      1  Q19/Q19.5/structures.hospitals :: N of N members fail: documented on lead or weak sources alone (Wiki-Amb) (N)
+-- Q19.6 FAIL 2
+      1  Q19/Q19.6/defaults-recorded :: N conflict(s) lack their delegated default, its tier, or two selectable values
+      1  Q19/Q19.6/value-support :: the support of N conflicting value(s) is not computable: a value names no source key, so its support cannot be computed (N); the independence of the sources of a value is not recorded in any Source Manifest (N)
+-- Q19.7 BLOCKED-INPUT 1
+      1  Q19/Q19.7/section-p-ledger :: input missing: the claim ledger of Section P over every datum class (claim_ledger.json or claim-ledger.json): claims, claim_support and conflicts as tables with character-offset spans
+-- Q19.7 FAIL 1
+      1  Q19/Q19.7/claims-have-spans :: N of N ledger claims have no span (a claim without a span fails, P.N; open gaps are not claims)
+========================================================================================== Q20 FAIL {'BLOCKED-INPUT': 79, 'COVERED': 0, 'FAIL': 212, 'N/A': 8, 'NOT-RUN': 0, 'PASS': 20}
+-- Q20.1 BLOCKED-INPUT 58
+     57  Q20/Q20.1/cs-2c-early-35vacavalrybn/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN: it decides which cavalry units are documented) (layer-only finding: the unit has its kit card)
+      1  Q20/Q20.1/verified-oob/default :: input missing: docs/battle-theatre/kit/verified_oob.json (the verified order-of-battle table of GATE-SPEC QN: it decides which cavalry units are documented)
+-- Q20.1 FAIL 12
+      4  Q20/Q20.1/CS.CAV.11VA/default :: kit card CS.CAV.NVA (Nth Virginia Cavalry) has no unit in the layer
+      2  Q20/Q20.1/CS.CAV.4NC/default :: kit card CS.CAV.NNC (Nth North Carolina Cavalry) has no unit in the layer
+      1  Q20/Q20.1/CS.CAV.18VA/default :: kit card CS.CAV.NVA (Nth Virginia Cavalry (Imboden)) has no unit in the layer
+      1  Q20/Q20.1/CS.CAV.62VA/default :: kit card CS.CAV.NVA (Nnd Virginia Mounted Infantry) has no unit in the layer
+      1  Q20/Q20.1/CS.CAV.MCNEILL/default :: kit card CS.CAV.MCNEILL (McNeill's Partisan Rangers) has no unit in the layer
+      1  Q20/Q20.1/US.CAV.3WV/default :: kit card US.CAV.NWV (Nrd West Virginia Cavalry (Cos A, C)) has no unit in the layer
+      1  Q20/Q20.1/US.CAV.PURNELL_A/default :: kit card US.CAV.PURNELL_A (Purnell Legion Co A) has no unit in the layer
+      1  Q20/Q20.1/us-cav-1d-devin-3wvaandc/default :: cavalry set: the unit is documented off the field and is never drawn (with its record), or it has a cavalry kit card: no kit card: the figure pass resolves it to DEFAULT.union.cavalry (default)
+-- Q20.2 BLOCKED-INPUT 21
+     21  Q20/Q20.2/cs-2c-early-35vacavalrybn/default :: input missing: the B.N action table of the cavalry (June N to July N) as a machine table (docs/battle-theatre/kit/cavalry_action_table.json): kit/cavalry_units.json holds an `action_table_note` only, so the doc
+-- Q20.2 FAIL 33
+     33  Q20/Q20.2/cs-cav-chambliss-10va/default :: a documented cavalry unit (status on_field) is never present in the product: not drawn (Open gap: no road or direction of approach is printed in the ledger for this unit or any unit above it. Sibling-road rule 
+-- Q20.3 FAIL 54
+     33  Q20/Q20.3/cs-cav-chambliss-10va/default :: the unit is documented on the field and has no figures: no manifest
+     14  Q20/Q20.3/us-cav-1d-merritt-1us/default :: manifest: soldier types: a trooper, an officer and a trumpeter are among the figures: ranks {N: N}, instruments {N: N N: N N: N}
+      7  Q20/Q20.3/cs-2c-early-35vacavalrybn/default :: manifest: horse furniture: a saddle and a bridle among the accoutrements: accoutrements [N]; a carbine, a sabre and a revolver among the arms: weapons [N, N, N, N, N], sidearms [N, N]; soldier types: a trooper,
+-- Q20.4 FAIL 56
+     33  Q20/Q20.4/cs-cav-chambliss-10va/default :: the unit is documented on the field and has no riders, no horses
+     21  Q20/Q20.4/cs-2c-early-35vacavalrybn/default :: horses: its gap is a register entry that is open, complete and has a dated search log (a gap passes only as a flagged value, GATE-SPEC QN): EG-CAV-N: no such register entry
+      1  Q20/Q20.4/casualties/default :: no regimental data for horse casualties of every regiment exists in the repository; the product draws a flagged value and its gap EG-CAV-N is not covered: EG-CAV-N: no such register entry
+      1  Q20/Q20.4/colour-type-condition/default :: no regimental data for horse colour and type distributions and condition per regiment (the furniture is judged in QN) exists in the repository; the product draws a flagged value and its gap EG-FIG-N is not cove
+-- Q20.5 FAIL 48
+     48  Q20/Q20.5/CS.CAV.10VA/default :: arms: the regiment has an arms record from a source or flagged as such (weapon field with a tier and source keys or a flag): weapon field absent: the regiment inherits the army default
+-- Q20.6 FAIL 9
+      2  Q20/Q20.6/dismount-DM-CUSTER-5MI-JUL3/default :: dismounted fight DM-CUSTER-NMI-JULN: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units [N], drawn [False]; the unit shows horse holders: one in four of the dism
+      1  Q20/Q20.6/dismount-DM-CUSTER-6MI-JUL2/default :: dismounted fight DM-CUSTER-NMI-JULN: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units [N], drawn [False]; the share dismounted is a number (a printed fraction 
+      1  Q20/Q20.6/dismount-DM-DEVIN-6NY-JUL1/default :: dismounted fight DM-DEVIN-NNY-JULN: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units [N], drawn [False]; the unit shows horse holders: one in four of the dismo
+      1  Q20/Q20.6/dismount-DM-DEVIN-9NY-JUL1/default :: dismounted fight DM-DEVIN-NNY-JULN: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units [N], drawn [False]; the share dismounted is a number (a printed fraction o
+      1  Q20/Q20.6/dismount-DM-FARNSWORTH-1VT-JUL3/default :: dismounted fight DM-FARNSWORTH-NVT-JULN: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units [N], drawn [False]; the share dismounted is a number (a printed fract
+      1  Q20/Q20.6/dismount-DM-GAMBLE-JUL1/default :: dismounted fight DM-GAMBLE-JULN: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units [N, N, N], drawn [False, False, False]; the unit shows horse holders: one in 
+      1  Q20/Q20.6/dismount-DM-JENKINS-JUL3/default :: dismounted fight DM-JENKINS-JULN: every unit of the record is drawn (a dismounted fight is shown only for units on the screen): units [N, N, N, N, N], drawn [False, False, False, False, False]; the unit shows h
+      1  Q20/Q20.6/states/default :: cavalry states: every state is mapped to activities of the product that the layer can time-key per unit (contract ACTIVITIES): no mapping from the planNs activities exists; each cavalry unit holds a time-keyed 
+========================================================================================== Q23 FAIL {'BLOCKED-INPUT': 1, 'COVERED': 0, 'FAIL': 43, 'N/A': 6, 'NOT-RUN': 2, 'PASS': 50}
+-- Q23.1 BLOCKED-INPUT 1
+      1  Q23/Q23.1/class-epilogue :: input missing: the product has no module for this class (The epilogue: Lincoln, the crowd and the platform (November N)): the product has no epilogue module yet (gate QN)
+-- Q23.2 FAIL 18
+     11  Q23/Q23.2/data.audio_sources :: N of N members are not flagged: no tier the product reads (none stated) (N)
+      3  Q23/Q23.2/data.daypositions :: N of N members are not flagged: render_flag N disagrees with the tier inferred (flag N) (N)
+      3  Q23/Q23.2/env.ephemeris :: N of N members are not flagged: no tier the product reads (statement N) (N)
+      1  Q23/Q23.2/kit.kit_specs :: N of N members are not flagged: no tier the product reads (statement N) (N); no tier the product reads (none stated) (N)
+-- Q23.3 FAIL 7
+      4  Q23/Q23.3/class-clips :: no code that draws or prints a tier mark for this class was found in the interface files searched (overlay.mjs, structures/overlay.mjs, ui/*.mjs, ext/*): no code in the interface prints or draws a tier mark for
+      1  Q23/Q23.3/class-guns :: no code that draws or prints a tier mark for this class was found in the interface files searched (overlay.mjs, structures/overlay.mjs, ui/*.mjs, ext/*): the unit card lists the guns of a battery (gunsRows) but
+      1  Q23/Q23.3/class-works :: works overlay: documented (OBJ-P-N) and inferred (OBJ-P-N) are drawn alike apart from colour (outline pattern and glyph the same); works overlay: OBJ-P-N: the object has neither a mapped line nor a place, so th
+      1  Q23/Q23.3/declared-marks-figures3d :: N of N figure choices that are not documented declare no mark
+-- Q23.3 NOT-RUN 1
+      1  Q23/Q23.3/frames :: the marks drawn in frames at the default overlay state were not looked at: this runner has no browser (software GL through tools/horde/bench.sh, app/tests/ui.spec.mjs) and a frame counts only when someone looke
+-- Q23.4 FAIL 1
+      1  Q23/Q23.4/audio-manifest :: N of N entries of the audio asset manifest do not carry the N or N mark
+-- Q23.5 FAIL 1
+      1  Q23/Q23.5/individuals :: the overlay draws one mark per unit (Overlay.draw loops over the units); no mark is drawn for an individual soldier, though the register says: Tier overlay glyph N on every individual
+-- Q23.6 NOT-RUN 1
+      1  Q23/Q23.6/night :: legibility of the marks at night needs frames at night times with the overlay on (QN T-QN-N): not run here
+-- Q23.7 FAIL 1
+      1  Q23/Q23.7/register :: N of N non-documented register entries have no marking (plus N unindexed entry file(s))
+-- Q23.8 FAIL 15
+     14  Q23/Q23.8/data.conflict_defaults :: N of N open gaps have no usable register entry
+      1  Q23/Q23.8/units-map-marker :: N open-gap units are not drawn and the overlay draws a mark only for a unit that is present on the stage: they have no map marker (the Units list shows their glyph)
+========================================================================================== Q25 FAIL {'BLOCKED-INPUT': 1, 'COVERED': 0, 'FAIL': 237, 'N/A': 0, 'NOT-RUN': 0, 'PASS': 15}
+-- Q25.1 FAIL 75
+     72  Q25/Q25.1/untracked/acquired.json:BL-3 :: no status row reaches this acquisition entry through the id map (untracked source, silently skipped, p. N Z.N)
+      2  Q25/Q25.1/untracked/figures-ledger.json:FIG-L-ACWII-MOD :: no status row reaches this figures-ledger entry through the id map (untracked source, silently skipped, p. N Z.N)
+      1  Q25/Q25.1/untracked/candidates.json:BL3 :: no status row reaches this candidate entry through the id map (untracked source, silently skipped, p. N Z.N)
+-- Q25.2 FAIL 158
+     78  Q25/Q25.2/row/C11-COPE-ELLIOT :: no status row names this source (silently skipped, p. N Z.N)
+      8  Q25/Q25.2/row/C13-BUSEY-MARTIN :: PRINT: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it; the reason does not say print-only
+      8  Q25/Q25.2/status/PM-GARDNER-SKETCHBOOK-LOC#file :: no acquisition entry (hash, date, rights, quality) reaches this row through the id map
+      6  Q25/Q25.2/row/C11-BACHELDER-MAPS-LOC :: LOC-MAPS: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded and the block is undated (
+      6  Q25/Q25.2/status/OR-25-PT2#remainder :: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)
+      4  Q25/Q25.2/row/C11-OR27-P1 :: OR-N-N: no second-witness record for the Official Records (X.N a: status diffed or unreachable, with host and date)
+      4  Q25/Q25.2/status/PM-GARDNER-SKETCHBOOK-LOC#failed-read :: no register id (an unreadable source (X.N k) needs an open entry); no failed-read record (what was tested, the result, the date)
+      3  Q25/Q25.2/row/C11-BACHELDER-PAPERS :: BACHELDER: no register id (a print-only work (acquisition target) needs an open entry); no owner step (a purchase or a loan) written beside it
+      2  Q25/Q25.2/row/C11-OR-ATLAS :: OR-ATLAS#ingested: acquired.json/OR-ATLAS lacks text quality; OR-ATLAS#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record); TM-OR-ATLAS-GETT
+      2  Q25/Q25.2/row/C11-WARREN-1895-RUMSEY :: RUMSEY: no register id (a viewer-only source needs an open entry); no terms-read record (host, locator, date, what the terms permit)
+      2  Q25/Q25.2/row/C11-WARREN-NARA :: NARA-WARREN: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response)
+      2  Q25/Q25.2/row/C12-LOC-CWP :: LOC-PHOTO: no named next action; no work-queue entry; PM-LOC-DERIVATIVES: acquired_Njson/PM-LOC-DERIVATIVES lacks text quality; PM-LOC-RECORDS: acquired_Njson/PM-LOC-RECORDS lacks text quality
+      2  Q25/Q25.2/row/C12-PA-2017-QL2 :: LIDAR-PAN: no named next action; no work-queue entry
+      2  Q25/Q25.2/row/C12-PAMAP :: LIDAR-PAMAP: no named next action; no work-queue entry
+      2  Q25/Q25.2/row/C12-USGS-3DEP :: LIDAR-NDEP: no named next action; no work-queue entry
+      2  Q25/Q25.2/row/C13-CIVILIAN-WITNESSES :: WITNESS#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)
+      2  Q25/Q25.2/row/C13-STONE-SENTINELS :: STONE-S: no named next action; no work-queue entry; the tier is not recorded as lead (p. N E.N E.N)
+      1  Q25/Q25.2/row/C12-NPS-CLR-HSR :: NPS-CLR#ingested: acquired_Njson/PM-NPS-ROT-FIGURES lacks text quality; NPS-CLR#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)
+      1  Q25/Q25.2/row/C13-FOX :: FOX: acquired.json/FOX-N lacks text quality
+      1  Q25/Q25.2/row/C13-ME-GB :: ME-GB: acquired.json/ME-GB-N lacks text quality
+      1  Q25/Q25.2/row/C13-MI-GB :: MI-GB: acquired.json/MI-GB-N lacks text quality
+      1  Q25/Q25.2/row/C13-NEWSPAPERS :: NEWS#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)
+      1  Q25/Q25.2/row/C13-NPS-SEMINAR :: NPS-SEM: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after N-N-N (N-N-N PM-NPS-S
+      1  Q25/Q25.2/row/C13-NPS-SSS :: NPS-SS#lookups: no lookup recorded: with no lookup made the whole row is scheduled with its next action; no named next action; no work-queue entry; NPS-SS#bulk: no register id (the bulk remainder (blocked) need
+      1  Q25/Q25.2/row/C13-NY-GB :: NY-GB: acquired.json/NY-GB-N lacks text quality; acquired.json/NY-GB-N-vN lacks text quality; acquired.json/NY-GB-N-vN lacks text quality; acquired.json/NY-GB-N-vN-w lacks text quality; acquired.json/NY-GB-N-vN
+      1  Q25/Q25.2/row/C13-ORDNANCE-DRILL :: ORDNANCE: acquired.json/ORDNANCE-N lacks text quality; acquired.json/GIBBON-N lacks text quality; acquired.json/CASEY-N-N lacks text quality; acquired.json/CASEY-N-N lacks text quality; acquired.json/FIELDART-N
+      1  Q25/Q25.2/row/C13-PA-GB :: PA-GB: acquired.json/PA-GB-N lacks text quality; acquired.json/PA-GB-Na lacks text quality; acquired.json/PA-GB-Nb lacks text quality; acquired.json/PA-GB-N-vN lacks text quality
+      1  Q25/Q25.2/row/C13-SHSP :: SHSP#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)
+      1  Q25/Q25.2/row/C13-STATE-OTHER :: STATE-OTHER#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record)
+      1  Q25/Q25.2/row/C14-AUTONOMOUS-SOURCES :: MOTION#CMU-Mocap: no named next action; no work-queue entry; no owner step (an account or a licence acceptance is an owner-only act) written beside it; MOTION#NSTYLE-CC-BY: no named next action; no work-queue e
+      1  Q25/Q25.2/row/R12.004 :: TM-BACHELDER-N: acquired.json/TM-BN-SN lacks text quality; acquired.json/TM-BN-SN lacks text quality; acquired.json/TM-BN-SN lacks text quality
+      1  Q25/Q25.2/row/R12.017 :: NPS-CLR#ingested: acquired_Njson/PM-NPS-ROT-FIGURES lacks text quality; NPS-CLR#remainder: no record of the remainder (a partial row needs a remainder that is scheduled or blocked, with its own record); NPS-SEM
+      1  Q25/Q25.2/row/R12.028 :: PENN-PILOT: no named next action; no work-queue entry
+      1  Q25/Q25.2/row/R12.032 :: LOC-PHOTO: no named next action; no work-queue entry
+      1  Q25/Q25.2/status/PM-LOC-MASTERS#ingested :: acquired_Njson/PM-LOC-MASTERS lacks text quality
+      1  Q25/Q25.2/status/PM-LOC-WIDE :: acquired_Njson/PM-LOC-WIDE lacks text quality
+      1  Q25/Q25.2/status/PM-NARA-CATALOG :: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response)
+      1  Q25/Q25.2/status/PM-NPS-PLACE-PAGES :: acquired_Njson/PM-NPS-PLACE-PAGES lacks shaN text quality
+      1  Q25/Q25.2/status/TM-HOSTS-BLOCKED :: no register id (a blocked source needs an open entry); no failed-lookup record (host, locator, date, response); stale block, retry owed: a request to the same host succeeded after N-N-N (N-N-N PM-LOC-RECORDS; N
+      1  Q25/Q25.2/status/TM-LOC99447494 :: acquired.json/TM-LOCN-JN lacks text quality
+-- Q25.4 BLOCKED-INPUT 1
+      1  Q25/Q25.4/terms-record :: input missing: GOVERNANCE/library/terms.json (a record per host that terms and robots rules were checked (host, date, what they permit))
+-- Q25.4 FAIL 2
+      1  Q25/Q25.4/blocked-hosts :: babel.hathitrust.org is not recorded as blocked in any status row (answered with a bot block on N-N-N); ehistory.osu.edu is not recorded as blocked in any status row (answered with a bot block on N-N-N)
+      1  Q25/Q25.4/throttle :: N pair(s) of acquisition entries from one host with the same second-resolution time
+-- Q25.5 FAIL 2
+      2  Q25/Q25.5/anim3d-clips :: N of N entries lack licence, source or method; N restricted entries are not excluded from export

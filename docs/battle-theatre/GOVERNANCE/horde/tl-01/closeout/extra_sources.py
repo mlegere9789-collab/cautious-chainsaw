@@ -41,6 +41,10 @@ PAPERS = {
     'sn83045784': 'Weekly National Intelligencer',
     'sn83032312': 'Monmouth Herald and Inquirer (Freehold, N.J.)',
     'sn83032103': 'West-Jersey Pioneer (Bridgeton, N.J.)',
+    # added in the fifth start (2026-11-16): pages saved by the web-evidence workstream after the fourth start had searched
+    'sn83016025': 'The Portland Daily Press (Portland, Me.)',
+    'sn84024669': 'Richmond Whig (Richmond, Va.)',
+    'sn84024735': 'Richmond Enquirer (Richmond, Va.)',
 }
 CA_RX = re.compile(r'^CA-(sn\d{8})-(\d{4}-\d\d-\d\d)-p(\d+)$')
 

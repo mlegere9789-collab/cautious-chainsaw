@@ -73,10 +73,12 @@ class Vegetation {
   }
   defaultOf(id) { return this.scenarios[id].default; }
   resolve(name) { return this.byName.get(name) || null; }
-  // the plots a selector { cls, crop } (a name or a list of names each) finds under the choices: the crop is the crop the picture draws under them (cropOf: CF-VEG-MCPHERSON changes the crop of some cells)
+  // the plots a selector { cls, crop } (a name or a list of names each) finds under the choices, AS THE PICTURE DRAWS THEM: the crop is the crop drawn under them (cropOf: CF-VEG-MCPHERSON changes the crop of some cells),
+  // and a wood or a stand of trees that the choices read as treeless (CF-VEG-LRT unwooded, CF-VEG-HOUCK clear-cut: trees.keep 0) is a bare plot there, not a woodlot: a class of woodlots is the woodlots drawn. A plot NAMED
+  // by a check is never dropped: it fails the tree checks in such a reading, and the record says so or excludes the reading.
   select(where, choices = {}) {
-    const w = where && typeof where === 'object' ? where : {}, cls = [].concat(w.cls || []), crop = [].concat(w.crop || []);
-    return this.units.filter(u => (!cls.length || cls.includes(u.cls)) && (!crop.length || crop.includes(this.mod.cropOf(this.model, u, choices))));
+    const w = where && typeof where === 'object' ? where : {}, cls = [].concat(w.cls || []), crop = [].concat(w.crop || []), t0 = this.mod.WINDOW_FROM + 1440;
+    return this.units.filter(u => (!cls.length || cls.includes(u.cls)) && (!crop.length || crop.includes(this.mod.cropOf(this.model, u, choices))) && !((u.cls === 'woods' || u.cls === 'scatter') && cls.length && this.stateAt(u, t0, choices).trees?.keep === 0));
   }
   stateAt(u, tMin, choices = {}) { return this.mod.stateAt(this.model, u, T_(tMin), choices); }
   sampleTimes() { return this.mod.sampleTimes(this.model); }

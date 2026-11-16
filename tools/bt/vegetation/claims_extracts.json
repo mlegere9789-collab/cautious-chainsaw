@@ -36,22 +36,22 @@
 "words": 5
 },
 {
-"extract": "right of the Second Corps, a group of small trees, sassafras and oak",
+"extract": "oaks of considerable growth, along the position of the right of the Second Corps",
 "locator": {
-"char_start": 54370,
-"char_end": 54450
+"char_start": 54306,
+"char_end": 54399
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.73,
 "id": "VC-LIB-003",
 "passage": [
 54288,
 54505
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 14,
+"coverage": null
 },
 {
 "extract": "considerable woods immediately in front of the left of the Third Corps",
@@ -216,22 +216,22 @@
 "words": 7
 },
 {
-"extract": "stripping the cherry trees",
+"extract": "stripping the cherry trees on every hand and enjoying a royal feast",
 "locator": {
 "char_start": 187341,
-"char_end": 187370
+"char_end": 187419
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.67,
 "id": "VC-LIB-013",
 "passage": [
 187341,
 187518
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 4
+"words": 12,
+"coverage": null
 },
 {
 "extract": "As the trees are not dead, though their foliage is gone",
@@ -240,10 +240,7 @@
 "char_end": 54991
 },
 "gate": "found",
-"numbers_in_span": false,
-"numbers_missing": [
-"19"
-],
+"numbers_in_span": true,
 "coverage": 1.0,
 "id": "VC-LIB-014",
 "passage": [
@@ -255,22 +252,23 @@
 "words": 11
 },
 {
-"extract": "t garnered yesterday",
+"extract": "garnered yesterday",
 "locator": {
-"char_start": 151978,
+"char_start": 151980,
 "char_end": 151998
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 1.0,
 "id": "VC-LIB-015",
 "passage": [
 151942,
 151998
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 3
+"words": 2,
+"coverage": null,
+"why": "the saved text of the newspaper is badly broken around this sentence; the words that read cleanly are the extract and the offsets of the sentence are in loc.span"
 },
 {
 "extract": "lay in your liquors for harvest",
@@ -309,98 +307,112 @@
 "words": 14
 },
 {
+"extract": "splintered, the fences prostrate, the harvest trodden in the mud",
+"locator": {
+"char_start": 99131,
+"char_end": 99206
+},
+"gate": "found",
+"numbers_in_span": true,
 "id": "VC-LIB-018",
 "passage": [
 99131,
 99206
 ],
-"how": "rule",
-"ok": false,
-"extract": "splintered, the fences prostrate, the harvest trod- den in the mud",
-"error": "the gate library does not find the extract (not_found)"
+"how": "curated",
+"ok": true,
+"words": 10,
+"coverage": null
 },
 {
-"extract": "Gigantic trees were not duly stripped of leaves and branches, but in many",
+"extract": "of leaves and branches, but in many cases the trunks themselves were so scarred",
 "locator": {
-"char_start": 121282,
-"char_end": 121367
+"char_start": 121326,
+"char_end": 121418
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.58,
 "id": "VC-LIB-019",
 "passage": [
 121282,
 121452
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 14,
+"coverage": null
 },
 {
+"extract": "through orchard and meadow, and cornfield",
+"locator": {
+"char_start": 173419,
+"char_end": 173465
+},
+"gate": "found",
+"numbers_in_span": true,
 "id": "VC-LIB-020",
 "passage": [
 173393,
 173504
 ],
-"how": "rule",
-"ok": false,
-"extract": "over ridge and slope, through orchard and meadow, and cornfield, magnificent, grim, irre- sistible",
-"error": "the gate library does not find the extract (not_found)"
+"how": "curated",
+"ok": true,
+"words": 6,
+"coverage": null
 },
 {
-"extract": "The western side was denuded of timber the year",
+"extract": "The western side was denuded of timber the year before",
 "locator": {
 "char_start": 19707,
-"char_end": 19762
+"char_end": 19770
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.82,
 "id": "VC-LIB-026",
 "passage": [
 19707,
 19847
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 9
+"words": 10,
+"coverage": null
 },
 {
-"extract": "battle the wood had been recently cut away, on its western face",
+"extract": "the wood had been recently cut away, on its western face",
 "locator": {
-"char_start": 132128,
+"char_start": 132136,
 "char_end": 132202
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.73,
 "id": "VC-LIB-027",
 "passage": [
 132104,
 132329
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 11,
+"coverage": null
 },
 {
-"extract": "AND HOSPITAL HILLS. 13 with a heavy open growth of hardy timber",
+"extract": "with a heavy open growth of hardy timber",
 "locator": {
-"char_start": 23011,
+"char_start": 23045,
 "char_end": 23092
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.74,
 "id": "VC-LIB-028",
 "passage": [
 22908,
 23092
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 8,
+"coverage": null
 },
 {
 "extract": "healthy growth of fine old oak and hickory, many of the trees are battered",
@@ -457,22 +469,23 @@
 "words": 13
 },
 {
-"extract": "The timber wit! which it was covered, has been cut away since",
+"extract": "has been cut away since",
 "locator": {
-"char_start": 178862,
+"char_start": 178907,
 "char_end": 178934
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 1.0,
 "id": "VC-LIB-032",
 "passage": [
 178862,
 178949
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 5,
+"coverage": null,
+"why": "the words before it are broken in the saved text ('wit!', 'bat tie')"
 },
 {
 "extract": "hill lying west of the village cemetery, E-12, 13, was an open field",
@@ -511,33 +524,40 @@
 "words": 13
 },
 {
+"extract": "formed among the scattering trees at the base of",
+"locator": {
+"char_start": 111806,
+"char_end": 111864
+},
+"gate": "found",
+"numbers_in_span": true,
 "id": "VC-LIB-035",
 "passage": [
 111806,
 111884
 ],
-"how": "rule",
-"ok": false,
-"extract": "formed among the scatter- ing trees at the base of Little Kound Top",
-"error": "the gate library does not find the extract (not_found)"
+"how": "curated",
+"ok": true,
+"words": 9,
+"coverage": null
 },
 {
-"extract": "Culp's Hill, but which is now closed by the growth of trees",
+"extract": "an opening which then existed between Benner's Hill and Culp's Hill",
 "locator": {
-"char_start": 135376,
-"char_end": 135446
+"char_start": 135311,
+"char_end": 135388
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.76,
 "id": "VC-LIB-036",
 "passage": [
 135302,
 135446
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 11,
+"coverage": null
 },
 {
 "extract": "open grove on that part of Seminary Ridge lying directly opposite the Peach Orchard",
@@ -684,22 +704,22 @@
 "words": 13
 },
 {
-"extract": "across the valley below, and over the next hill into the woods beyond",
+"extract": "rocky front of that hill, across the valley below, and over the next hill",
 "locator": {
-"char_start": 56651,
-"char_end": 56732
+"char_start": 56620,
+"char_end": 56706
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.64,
 "id": "VC-LIB-025",
 "passage": [
 56589,
 56732
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 14,
+"coverage": null
 },
 {
 "extract": "Though late in the season, the harvest was just yielding to the sickle",
@@ -810,22 +830,15 @@
 "words": 8
 },
 {
-"extract": "scattered oak trees, on the brow of the ridge, being a part of Ziegler's",
-"locator": {
-"char_start": 12373,
-"char_end": 12446
-},
-"gate": "found",
-"numbers_in_span": true,
-"coverage": 1.0,
 "id": "VC-LIB-046",
 "passage": [
 12355,
 12453
 ],
-"how": "rule",
-"ok": true,
-"words": 14
+"how": "curated",
+"ok": false,
+"extract": "oak trees, on the brow of the ridge, being a part of Ziegler's Grove",
+"error": "the extract is not found in the saved text of WS9:OH-8TH-1889"
 },
 {
 "extract": "the wood clad outline of Gulps' Hill",
@@ -990,22 +1003,15 @@
 "words": 14
 },
 {
-"extract": "the country was open and that I could march through an open woodland",
-"locator": {
-"char_start": 377738,
-"char_end": 377818
-},
-"gate": "found",
-"numbers_in_span": true,
-"coverage": 0.6,
 "id": "VC-LIB-057",
 "passage": [
 377738,
 377849
 ],
-"how": "rule",
-"ok": true,
-"words": 13
+"how": "curated",
+"ok": false,
+"extract": "the country was open and that I could march through an open woodland pasture",
+"error": "more than 14 words in the saved text"
 },
 {
 "extract": "opened fire from some undergrowth and brushwood along a small ravine",
@@ -1044,26 +1050,15 @@
 "words": 14
 },
 {
-"extract": "sort of orchard while some farmers",
-"locator": {
-"char_start": 193410,
-"char_end": 193444,
-"pdf_page": 55
-},
-"gate": "found",
-"numbers_in_span": false,
-"numbers_missing": [
-"19"
-],
-"coverage": 0.26,
 "id": "VC-NPSC-CLI-LANDSCAPE-p055-04",
 "passage": [
 193183,
 193516
 ],
-"how": "rule",
-"ok": true,
-"words": 6
+"how": "curated",
+"ok": false,
+"extract": "Almost all of the active farms included some sort of orchard",
+"error": "the gate library does not find the extract (not_found)"
 },
 {
 "extract": "agricultural production. They were in the midst of the summer growing season",
@@ -1085,61 +1080,53 @@
 "words": 12
 },
 {
-"extract": "east, Dustman planted fruit trees",
-"locator": {
-"char_start": 98117,
-"char_end": 98150,
-"pdf_page": 43
-},
-"gate": "found",
-"numbers_in_span": true,
-"coverage": 0.76,
 "id": "VC-NPSC-CLR-1STDAY-p043-01",
 "passage": [
 98058,
 98150
 ],
-"how": "rule",
-"ok": true,
-"words": 5
+"how": "curated",
+"ok": false,
+"extract": "in the field to the east, Dustman planted fruit trees",
+"error": "the gate library does not find the extract (not_found)"
 },
 {
-"extract": "along fence lines or areas of poor rocky soil or boulder outcroppings",
+"extract": "Most hedgerows, however, were the result of natural and unmanaged growth of woody vegetation",
 "locator": {
-"char_start": 157864,
-"char_end": 157933,
+"char_start": 157771,
+"char_end": 157863,
 "pdf_page": 72
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.49,
 "id": "VC-NPSC-CLR-ROT-V1-p072-01",
 "passage": [
 157689,
 158007
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 14,
+"coverage": null
 },
 {
-"extract": "open character of Devil’s Den is documented in the 1863 Bachelder Map, 1863 Cope",
+"extract": "The open character of Devil’s Den is documented in the 1863 Bachelder Map",
 "locator": {
-"char_start": 263724,
-"char_end": 263804,
+"char_start": 263720,
+"char_end": 263793,
 "pdf_page": 140
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.58,
 "id": "VC-NPSC-CLR-ROT-V2-p140-01",
 "passage": [
 263720,
 263975
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 13,
+"coverage": null
 },
 {
 "extract": "successional woody vegetation flled Devil’s Den and contractors removed the non-historic woods in 2005",
@@ -1200,63 +1187,53 @@
 "words": 14
 },
 {
-"extract": "slopes of Li le Round Top were serving as the rear wood",
-"printed": "slopes of Little Round Top were serving as the rear wood",
-"locator": {
-"char_start": 44779,
-"char_end": 44834,
-"pdf_page": 19
-},
-"gate": "found",
-"numbers_in_span": true,
-"coverage": 0.4,
 "id": "VC-NPSC-CLR-LRT-p019-02",
 "passage": [
 44702,
 44918
 ],
-"how": "rule",
-"ok": true,
-"words": 12
+"how": "curated",
+"ok": false,
+"extract": "serving as the rear wood lots to farms located on flatter more arable lowland",
+"error": "more than 14 words in the saved text"
 },
 {
-"extract": "northeast slope of Li le Round Top; an 82-acre tract purchased by Jacob Weikert",
-"printed": "northeast slope of Little Round Top; an 82-acre tract purchased by Jacob Weikert",
+"extract": "a 20-acre tract purchased by George Bushman in 1861 as part of his property",
 "locator": {
-"char_start": 45839,
-"char_end": 45918,
+"char_start": 45725,
+"char_end": 45800,
 "pdf_page": 19
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.41,
 "id": "VC-NPSC-CLR-LRT-p019-05",
 "passage": [
 45639,
 46159
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
-"extract": "woods by the Springs and Hotel Company had dissolved all previous boundaries",
+"extract": "which had at one time divided the 43-acre tract amongst three separate farms",
 "locator": {
-"char_start": 6182,
-"char_end": 6258,
+"char_start": 6260,
+"char_end": 6336,
 "pdf_page": 5
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.4,
 "id": "VC-NPSC-HARMON-FARM-p005-01",
 "passage": [
 6161,
 6671
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 12
+"words": 13,
+"coverage": null
 },
 {
 "extract": "buildings, and peach, cherry, and plum trees gave variety to the predominantly apple orchard",
@@ -1278,23 +1255,23 @@
 "words": 14
 },
 {
-"extract": "Mill, Road, and none of those were transferred with the open tenant farm",
+"extract": "All of the woodlands/woodlots associated with the larger farm were north of Mill, Road",
 "locator": {
-"char_start": 13885,
-"char_end": 13957,
+"char_start": 13809,
+"char_end": 13895,
 "pdf_page": 7
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.72,
 "id": "VC-NPSC-HARMON-FARM-p007-03",
 "passage": [
 13809,
 13957
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 13
+"words": 14,
+"coverage": null
 },
 {
 "extract": "large timothy field between the barn and the woods concealed hundreds of gray crouching",
@@ -1474,29 +1451,29 @@
 "words": 12
 },
 {
-"extract": "New York from the Brien orchard at the rear of the house into position",
+"extract": "from the Brien orchard at the rear of the house into position when",
 "locator": {
-"char_start": 8487,
-"char_end": 8557,
+"char_start": 8496,
+"char_end": 8562,
 "pdf_page": 9
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.57,
 "id": "VC-NPSC-BRIEN-FARM-p009-01",
 "passage": [
 8433,
 8600
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 13,
+"coverage": null
 },
 {
-"extract": "1960s resulted in a shift from deciduous trees to successional forest (primarily of cedar",
+"extract": "The Horting portion of the wood was cut down sometime prior to NPS ownership",
 "locator": {
-"char_start": 147881,
-"char_end": 147970,
+"char_start": 147761,
+"char_end": 147837,
 "pdf_page": 80
 },
 "gate": "found",
@@ -1504,34 +1481,34 @@
 "numbers_missing": [
 "1960"
 ],
-"coverage": 0.52,
 "id": "VC-NPSC-CLI-PCB-p080-06",
 "passage": [
 147761,
 148136
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 14,
+"coverage": null
 },
 {
-"extract": "the west by H. Spangler Field 1. Ot was planted in apples in 2004-2005",
+"extract": "was planted in apples in 2004-2005",
 "locator": {
-"char_start": 162023,
+"char_start": 162059,
 "char_end": 162093,
 "pdf_page": 84
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 1.0,
 "id": "VC-NPSC-CLI-PCB-p084-01",
 "passage": [
 162023,
 162093
 ],
-"how": "whole",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 6,
+"coverage": null
 },
 {
 "extract": "historic limits in some places and encroaches on neighboring fields, particularly to the south",
@@ -1572,26 +1549,27 @@
 "words": 14
 },
 {
-"extract": "1915 and 1916, when approximately 450 trees were installed. The Codori and Trostle farms",
+"extract": "By 1927, the thicket had nearly doubled from its mid-1880s size",
 "locator": {
-"char_start": 193709,
-"char_end": 193797,
+"char_start": 194124,
+"char_end": 194187,
 "pdf_page": 96
 },
 "gate": "found",
 "numbers_in_span": false,
 "numbers_missing": [
+"450",
 "1880"
 ],
-"coverage": 0.51,
 "id": "VC-NPSC-CLI-ERR-p096-01",
 "passage": [
 193663,
 194346
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 11,
+"coverage": null
 },
 {
 "extract": "However, by the mid-1930s neither farm supported an orchard",
@@ -1787,22 +1765,22 @@
 "words": 14
 },
 {
-"extract": "past 65 - 70 years, to restore the 1863 characteristics of observation and fields",
+"extract": "non-historic trees that have grown up over the past 65 - 70 years",
 "locator": {
-"char_start": 7365,
-"char_end": 7446
+"char_start": 7318,
+"char_end": 7383
 },
 "gate": "found",
 "numbers_in_span": true,
-"coverage": 0.73,
 "id": "VC-NPSC-WEB-BATTLEFIELD-REHAB-p001-04",
 "passage": [
 7300,
 7482
 ],
-"how": "rule",
+"how": "curated",
 "ok": true,
-"words": 14
+"words": 13,
+"coverage": null
 },
 {
 "extract": "fields that have not been farmed over the past 65 years have become forests",
@@ -6542,10 +6520,10 @@
 "words": 4
 },
 {
-"extract": "By the early 1860s, the fields were farmed by Emanuel Ziegler",
+"extract": "By the early 1860s, Ziegler was cultivating wheat, oats, corn, and potatoes",
 "locator": {
-"char_start": 92094,
-"char_end": 92155,
+"char_start": 92241,
+"char_end": 92318,
 "pdf_page": 41
 },
 "gate": "found",
@@ -6553,7 +6531,7 @@
 "numbers_missing": [
 "1860"
 ],
-"coverage": 0.34,
+"coverage": 0.45,
 "id": "VC-NPSX-CLR-1STDAY-p041-02",
 "passage": [
 91948,
@@ -6561,7 +6539,7 @@
 ],
 "how": "rule",
 "ok": true,
-"words": 11
+"words": 12
 },
 {
 "extract": "which included three fenced fields and the southern",
@@ -6621,9 +6599,9 @@
 "words": 13
 },
 {
-"extract": "wagon shed, corn crib, carriage",
+"extract": "1.20).The farmstead also included a wagon shed, corn crib, carriage",
 "locator": {
-"char_start": 99940,
+"char_start": 99902,
 "char_end": 99971,
 "pdf_page": 43
 },
@@ -6637,7 +6615,7 @@
 ],
 "how": "rule",
 "ok": true,
-"words": 5
+"words": 10
 },
 {
 "extract": "By 1860, John Herbst was managing 140 acres",

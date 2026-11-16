@@ -104,6 +104,19 @@ def best_window(passage, says, about, feature, maxw=MAXW):
     return r[2], r[1], len(r[2].split())
 
 
+def raw_slice(c, loc):
+    """the saved text between the offsets of a locator (before whitespace is collapsed), or None"""
+    try:
+        if c['src'] == 'OR27':
+            import or27_find as F
+            P = F.get_part(loc['part'])
+            return P.text[loc['char_start']:loc['char_end']]
+        t = srcs.load(c['src'])
+        return t.raw[loc['char_start']:loc['char_end']]
+    except Exception:
+        return None
+
+
 def gate_store():
     """the gate's own text store, when its library is on the machine (tools/bt/gates/lib); None otherwise"""
     gl = os.path.join(ROOT, 'tools', 'bt', 'gates', 'lib')
@@ -147,30 +160,48 @@ def gate_id(c):
 
 
 def try_candidate(c, cand, ts, ex):
-    """verify one candidate against the saved text (skeleton compare of srcs.py) and the gate library: -> (record, None) or (None, why)"""
-    r = srcs.verify(c['src'], cand, report=c['locator'].get('report') if c['src'] == 'OR27' else None)
-    if not r.get('ok'):
-        return None, 'the extract is not found in the saved text of ' + c['src']
+    """verify one candidate against the saved text (skeleton compare of srcs.py) and the gate library: -> (record, None) or (None, why).
+    A claim found in a text variant (NPS:<ID>#layout, #raw: the plain text interleaves two-column pages) is tried in the plain text first: the gate's store reads the plain text only."""
+    src = c['src']
+    keys = [src.split('#')[0], src] if '#' in src else [src]
+    r, via = None, None
+    for k in keys:
+        try:
+            r0 = srcs.verify(k, cand, report=c['locator'].get('report') if k == 'OR27' else None)
+        except Exception:
+            continue
+        if r0.get('ok'):
+            r, via = r0, k
+            break
+    if r is None:
+        return None, 'the extract is not found in the saved text of ' + src
+    raw = raw_slice(dict(c, src=via), r['locator'])
     found = r['found']
+    if raw is not None:
+        joined = re.sub(r'\s+', ' ', re.sub(r'-[ \t]*\r?\n[ \t]*(?=[a-z])', '', raw)).strip()
+        if joined != found and re.sub(r'[^0-9A-Za-z]', '', joined).lower() == re.sub(r'[^0-9A-Za-z]', '', found).lower():
+            found = joined                                 # the printed word that a line end broke (trod-\nden) is written as the word: the gate folds it the same way
     if len(found.split()) > MAXW:
         return None, 'more than %d words in the saved text' % MAXW
     if len(re.sub(r'\W', '', found)) < 12:
         return None, 'fewer than 12 letters and digits'
-    rec = {'extract': found}
+    rec = {'extract': found, 'via': via}
     if r.get('defect'):
         rec['printed'] = cand
     rec['locator'] = {k: v for k, v in r['locator'].items() if k in ('char_start', 'char_end', 'pdf_page', 'page', 'report', 'who')}
-    if c['src'] == 'OR27':
+    if src == 'OR27':
         rec['locator']['report'] = c['locator'].get('report')
         rec['locator']['who'] = c['locator'].get('who')
     if ts is not None:
-        gid = gate_id(c)
-        if c['src'] == 'OR27':
+        gid = gate_id(dict(c, src=via))
+        if via == 'OR27':
             g = ts.find_or27(found, gid, None)
+        elif '#' in via:
+            g = {'status': 'variant'}                    # the extract is in a text variant that the gate's store does not read: not re-matched there (said, never a pass)
         else:
             g = ts.find(gid, found) if ts.has_text(gid) else {'status': 'no_text'}
         rec['gate'] = g.get('status')
-        if g.get('status') not in ('found', 'no_text'):
+        if g.get('status') not in ('found', 'no_text', 'variant'):
             return None, 'the gate library does not find the extract (%s)' % g.get('status')
         if g.get('status') == 'found':
             okn, miss = ex.numbers_in_span(strip_context_numbers(c), found + ' ' + (g.get('span_text') or ''))
@@ -241,7 +272,22 @@ def main():
     ap.add_argument('--check', action='store_true')
     ap.add_argument('--no-write', action='store_true')
     ap.add_argument('--only')
+    ap.add_argument('--context', nargs='+')
     a = ap.parse_args()
+    if a.context:
+        cl = {c['id']: c for c in json.load(open(VERIFIED, encoding='utf-8'))}
+        for cid in a.context:
+            c = cl[cid]
+            if c['src'] == 'OR27':
+                import or27_find as F
+                P = F.get_part(c['locator']['part'])
+                t = P.text
+            else:
+                t = srcs.load(c['src']).raw
+            a0, b0 = c['locator']['char_start'], c['locator']['char_end']
+            print('== %s [%s] %s' % (cid, c['src'], c['says']))
+            print(re.sub(r'\s+', ' ', t[max(0, a0 - 400):a0]) + ' [[[ ' + re.sub(r'\s+', ' ', t[a0:b0]) + ' ]]] ' + re.sub(r'\s+', ' ', t[b0:b0 + 400]))
+        return 0
     claims, out, flags = run(write=not (a.no_write or a.review or a.check))
     if a.review:
         lo, hi = a.review

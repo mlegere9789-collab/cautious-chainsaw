@@ -32,7 +32,7 @@ export function registerCoverage() {
 }
 
 // what a record DECLARED instead of letting the row's words bind it (GATE-SPEC 6.4 V2): a unit, place or structure given with "via", a formation taken as "any" leaf with the row's words that say part of it is meant; a reviewer reads exactly these
-export const declaredDetail = B => [...B.units.filter(x => x.how === 'declared').map(x => ({ kind: 'unit', id: x.id, via: x.via })), ...B.places.filter(x => x.how === 'declared').map(x => ({ kind: 'place', id: x.id, via: x.via })), ...B.structures.filter(x => x.how === 'declared').map(x => ({ kind: 'structure', id: x.id, via: x.via })), ...(B.quantifiers || []).map(x => ({ kind: 'quantifier_any', units: x.units, via: x.via }))];
+export const declaredDetail = B => [...B.units.filter(x => x.how === 'declared').map(x => ({ kind: 'unit', id: x.id, via: x.via })), ...B.places.filter(x => x.how === 'declared').map(x => ({ kind: 'place', id: x.id, via: x.via })), ...B.structures.filter(x => x.how === 'declared').map(x => ({ kind: 'structure', id: x.id, via: x.via })), ...(B.plots || []).filter(x => x.how === 'declared').map(x => ({ kind: 'plot', id: x.id, via: x.via })), ...(B.quantifiers || []).map(x => ({ kind: 'quantifier_any', ...(x.units ? { units: x.units } : { plots: x.plots }), via: x.via }))];
 
 // the two halves of the gate for one row: the visual realization (a scene; a card alone is a different CLASS) and the open register entry. q17_covered: realized (a card counts) or an open entry; q17_covered_strict: a row
 // realized counts STRICTLY (the conditions of GATE-SPEC 6.4 for a record valid for a Q17 PASS) only if it is a scene (a card alone is no visual realization: TL-4, TL-11, DD-G08), shows the whole row (no not_shown part: V7),

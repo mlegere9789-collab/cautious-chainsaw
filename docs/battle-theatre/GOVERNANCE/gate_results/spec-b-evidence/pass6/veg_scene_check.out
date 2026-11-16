@@ -1,0 +1,313 @@
+{
+ "data_bytes": 1942681,
+ "units": 927,
+ "claims": 589,
+ "checkVegetation": {
+  "gate": "Q21",
+  "ok": true,
+  "checked": 927000,
+  "failures": 0,
+  "first_failures": [],
+  "notRun": [
+   "pictures of the fields and trees (software renderer only; no real-GPU timing)",
+   "comparison with 1863 photographs (none analysed)"
+  ],
+  "summary": {
+   "units": 927,
+   "claims": 589,
+   "times": 100,
+   "scenarios": 10,
+   "states": 927000,
+   "byTier": {
+    "documented": 254,
+    "inferred": 142,
+    "plausible-procedural": 531,
+    "open gap": 0
+   },
+   "pure": true,
+   "backward": true,
+   "species": 17,
+   "byClass": {
+    "boulder": {
+     "units": 1,
+     "states": 1000,
+     "failures": 0
+    },
+    "cleared": {
+     "units": 1,
+     "states": 1000,
+     "failures": 0
+    },
+    "field": {
+     "units": 549,
+     "states": 549000,
+     "failures": 0
+    },
+    "marsh": {
+     "units": 2,
+     "states": 2000,
+     "failures": 0
+    },
+    "orchard": {
+     "units": 85,
+     "states": 85000,
+     "failures": 0
+    },
+    "scatter": {
+     "units": 103,
+     "states": 103000,
+     "failures": 0
+    },
+    "wheatfield": {
+     "units": 1,
+     "states": 1000,
+     "failures": 0
+    },
+    "woods": {
+     "units": 185,
+     "states": 185000,
+     "failures": 0
+    }
+   }
+  }
+ },
+ "checkScene": {
+  "gate": "Q21",
+  "part": "Q21.2 scene equals schedule",
+  "ok": true,
+  "checked": 252144,
+  "failures": 0,
+  "first_failures": [],
+  "notRun": [
+   "what the shaders make of these numbers (pictures are looked at in tests/vegetation-browser.mjs, on a software renderer only)",
+   "real-GPU timing"
+  ],
+  "facts": {
+   "units": 927,
+   "times": 34,
+   "choiceSets": 8,
+   "stateFloatsPerUnit": 20,
+   "trees": 124565,
+   "decalTriangles": 147165,
+   "densityChecked": 264,
+   "understory": {
+    "as_classed": {
+     "trees": 124565,
+     "woodsChecked": 172
+    },
+    "open_grown": {
+     "trees": 110819,
+     "woodsChecked": 171
+    },
+    "dense": {
+     "trees": 208470,
+     "woodsChecked": 177
+    }
+   },
+   "lrt": "24 entries",
+   "houck": {
+    "V-0648{}": [
+     119,
+     119,
+     1
+    ],
+    "V-0808{}": [
+     298,
+     298,
+     1
+    ],
+    "V-0824{}": [
+     205,
+     205,
+     1
+    ],
+    "V-0849{}": [
+     129,
+     129,
+     1
+    ],
+    "V-0906{}": [
+     103,
+     103,
+     1
+    ],
+    "V-0648{\"CF-VEG-LRT\":\"wiki_unwooded\"}": [
+     119,
+     119,
+     1
+    ],
+    "V-0808{\"CF-VEG-LRT\":\"wiki_unwooded\"}": [
+     298,
+     298,
+     1
+    ],
+    "V-0824{\"CF-VEG-LRT\":\"wiki_unwooded\"}": [
+     205,
+     205,
+     1
+    ],
+    "V-0849{\"CF-VEG-LRT\":\"wiki_unwooded\"}": [
+     129,
+     129,
+     1
+    ],
+    "V-0906{\"CF-VEG-LRT\":\"wiki_unwooded\"}": [
+     103,
+     103,
+     1
+    ],
+    "V-0648{\"CF-VEG-LRT\":\"wiki_light_summit\"}": [
+     119,
+     119,
+     1
+    ],
+    "V-0808{\"CF-VEG-LRT\":\"wiki_light_summit\"}": [
+     298,
+     298,
+     1
+    ],
+    "V-0824{\"CF-VEG-LRT\":\"wiki_light_summit\"}": [
+     205,
+     205,
+     1
+    ],
+    "V-0849{\"CF-VEG-LRT\":\"wiki_light_summit\"}": [
+     129,
+     129,
+     1
+    ],
+    "V-0906{\"CF-VEG-LRT\":\"wiki_light_summit\"}": [
+     103,
+     103,
+     1
+    ],
+    "V-0648{\"CF-VEG-RAIN\":\"pdf_flattened\"}": [
+     119,
+     119,
+     1
+    ],
+    "V-0808{\"CF-VEG-RAIN\":\"pdf_flattened\"}": [
+     298,
+     298,
+     1
+    ],
+    "V-0824{\"CF-VEG-RAIN\":\"pdf_flattened\"}": [
+     205,
+     205,
+     1
+    ],
+    "V-0849{\"CF-VEG-RAIN\":\"pdf_flattened\"}": [
+     129,
+     129,
+     1
+    ],
+    "V-0906{\"CF-VEG-RAIN\":\"pdf_flattened\"}": [
+     103,
+     103,
+     1
+    ],
+    "V-0648{\"CF-VEG-HARVEST\":\"early\"}": [
+     119,
+     119,
+     1
+    ],
+    "V-0808{\"CF-VEG-HARVEST\":\"early\"}": [
+     298,
+     298,
+     1
+    ],
+    "V-0824{\"CF-VEG-HARVEST\":\"early\"}": [
+     205,
+     205,
+     1
+    ],
+    "V-0849{\"CF-VEG-HARVEST\":\"early\"}": [
+     129,
+     129,
+     1
+    ],
+    "V-0906{\"CF-VEG-HARVEST\":\"early\"}": [
+     103,
+     103,
+     1
+    ],
+    "V-0648{\"CF-VEG-UNDER\":\"dense\"}": [
+     119,
+     119,
+     1
+    ],
+    "V-0808{\"CF-VEG-UNDER\":\"dense\"}": [
+     298,
+     298,
+     1
+    ],
+    "V-0824{\"CF-VEG-UNDER\":\"dense\"}": [
+     205,
+     205,
+     1
+    ],
+    "V-0849{\"CF-VEG-UNDER\":\"dense\"}": [
+     129,
+     129,
+     1
+    ],
+    "V-0906{\"CF-VEG-UNDER\":\"dense\"}": [
+     103,
+     103,
+     1
+    ],
+    "V-0648{\"CF-VEG-MCPHERSON\":\"study-1977\"}": [
+     119,
+     119,
+     1
+    ],
+    "V-0808{\"CF-VEG-MCPHERSON\":\"study-1977\"}": [
+     298,
+     298,
+     1
+    ],
+    "V-0824{\"CF-VEG-MCPHERSON\":\"study-1977\"}": [
+     205,
+     205,
+     1
+    ],
+    "V-0849{\"CF-VEG-MCPHERSON\":\"study-1977\"}": [
+     129,
+     129,
+     1
+    ],
+    "V-0906{\"CF-VEG-MCPHERSON\":\"study-1977\"}": [
+     103,
+     103,
+     1
+    ],
+    "V-0648{\"CF-VEG-HOUCK\":\"clear_cut\"}": [
+     119,
+     0,
+     0
+    ],
+    "V-0808{\"CF-VEG-HOUCK\":\"clear_cut\"}": [
+     298,
+     0,
+     0
+    ],
+    "V-0824{\"CF-VEG-HOUCK\":\"clear_cut\"}": [
+     205,
+     0,
+     0
+    ],
+    "V-0849{\"CF-VEG-HOUCK\":\"clear_cut\"}": [
+     129,
+     0,
+     0
+    ],
+    "V-0906{\"CF-VEG-HOUCK\":\"clear_cut\"}": [
+     103,
+     0,
+     0
+    ]
+   }
+  }
+ },
+ "wall_ms": 17394
+}

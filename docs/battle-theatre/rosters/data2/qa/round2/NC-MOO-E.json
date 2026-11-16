@@ -1,0 +1,158 @@
+{
+ "f": "roster-qa-family/1",
+ "family": "NC-MOO-E",
+ "strata": {
+  "NC-MOO-E-officers": {
+   "pages_in_stratum": 214,
+   "rows_in_stratum": 6480,
+   "pages_looked_at": 4,
+   "decile_pages_looked_at": 2,
+   "rows_looked_at": 102,
+   "draw_positions": [
+    1,
+    2,
+    4,
+    3
+   ],
+   "pages": [
+    "05913252.3309.emory.edu/62",
+    "05913252.3309.emory.edu/116",
+    "05913252.3309.emory.edu/193",
+    "05913252.3310.emory.edu/580"
+   ],
+   "gates": {
+    "R-G1": {
+     "rows": 102,
+     "errors": 21,
+     "rate_percent": 20.59,
+     "upper95_percent": 28.28,
+     "lower95_percent": 14.23,
+     "decision": "FAIL"
+    },
+    "R-G2": {
+     "rows": 102,
+     "errors": 15,
+     "rate_percent": 14.71,
+     "upper95_percent": 21.74,
+     "lower95_percent": 9.29,
+     "decision": "FAIL"
+    },
+    "R-G3a": {
+     "rows": 102,
+     "errors": 4,
+     "rate_percent": 3.92,
+     "upper95_percent": 8.75,
+     "lower95_percent": 1.35,
+     "decision": "FAIL"
+    },
+    "R-G3b": {
+     "rows": 102,
+     "errors": 22,
+     "rate_percent": 21.57,
+     "upper95_percent": 29.34,
+     "lower95_percent": 15.08,
+     "decision": "FAIL"
+    },
+    "any": {
+     "rows": 102,
+     "errors": 48,
+     "rate_percent": 47.06,
+     "upper95_percent": 55.66,
+     "lower95_percent": 38.59,
+     "decision": null
+    }
+   },
+   "error_kinds_count": {
+    "name-char": 12,
+    "rem-date": 15,
+    "rem-char": 12,
+    "rem-extra": 9,
+    "name-cut": 9,
+    "rank": 3,
+    "merge": 2,
+    "rem-missing": 1
+   },
+   "error_kinds_on_rows_flagged_ocr_uncertain": {
+    "name-char": 5,
+    "rem-date": 8,
+    "rem-char": 11,
+    "rem-extra": 6,
+    "name-cut": 4,
+    "rank": 3,
+    "merge": 2,
+    "rem-missing": 1
+   },
+   "error_kinds_on_rows_not_flagged": {
+    "rem-date": 7,
+    "name-char": 7,
+    "rem-char": 1,
+    "name-cut": 5,
+    "rem-extra": 3
+   },
+   "missed_lines": 1,
+   "census_complete": false
+  },
+  "NC-MOO-E-other": {
+   "pages_in_stratum": 730,
+   "rows_in_stratum": 33029,
+   "pages_looked_at": 0,
+   "decile_pages_looked_at": 0,
+   "rows_looked_at": 0,
+   "draw_positions": [],
+   "pages": [],
+   "gates": {
+    "R-G1": {
+     "rows": 0,
+     "errors": 0,
+     "rate_percent": null,
+     "upper95_percent": null,
+     "lower95_percent": 0.0,
+     "decision": "NOT LOOKED AT"
+    },
+    "R-G2": {
+     "rows": 0,
+     "errors": 0,
+     "rate_percent": null,
+     "upper95_percent": null,
+     "lower95_percent": 0.0,
+     "decision": "NOT LOOKED AT"
+    },
+    "R-G3a": {
+     "rows": 0,
+     "errors": 0,
+     "rate_percent": null,
+     "upper95_percent": null,
+     "lower95_percent": 0.0,
+     "decision": "NOT LOOKED AT"
+    },
+    "R-G3b": {
+     "rows": 0,
+     "errors": 0,
+     "rate_percent": null,
+     "upper95_percent": null,
+     "lower95_percent": 0.0,
+     "decision": "NOT LOOKED AT"
+    },
+    "any": {
+     "rows": 0,
+     "errors": 0,
+     "rate_percent": null,
+     "upper95_percent": null,
+     "lower95_percent": 0.0,
+     "decision": null
+    }
+   },
+   "error_kinds_count": {},
+   "error_kinds_on_rows_flagged_ocr_uncertain": {},
+   "error_kinds_on_rows_not_flagged": {},
+   "missed_lines": 0,
+   "census_complete": false
+  }
+ },
+ "verdicts": [
+  "05913252.3309.emory.edu/62",
+  "05913252.3309.emory.edu/116",
+  "05913252.3309.emory.edu/193",
+  "05913252.3310.emory.edu/580"
+ ]
+}

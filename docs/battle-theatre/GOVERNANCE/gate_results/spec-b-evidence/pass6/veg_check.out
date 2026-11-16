@@ -1,0 +1,77 @@
+{
+ "gate": "Q21",
+ "ok": true,
+ "checked": 927000,
+ "failures": 0,
+ "first_failures": [],
+ "notRun": [
+  "pictures of the fields and trees (software renderer only; no real-GPU timing)",
+  "comparison with 1863 photographs (none analysed)"
+ ],
+ "summary": {
+  "units": 927,
+  "claims": 589,
+  "times": 100,
+  "scenarios": 10,
+  "states": 927000,
+  "byTier": {
+   "documented": 254,
+   "inferred": 142,
+   "plausible-procedural": 531,
+   "open gap": 0
+  },
+  "pure": true,
+  "backward": true,
+  "species": 17,
+  "byClass": {
+   "boulder": {
+    "units": 1,
+    "states": 1000,
+    "failures": 0
+   },
+   "cleared": {
+    "units": 1,
+    "states": 1000,
+    "failures": 0
+   },
+   "field": {
+    "units": 549,
+    "states": 549000,
+    "failures": 0
+   },
+   "marsh": {
+    "units": 2,
+    "states": 2000,
+    "failures": 0
+   },
+   "orchard": {
+    "units": 85,
+    "states": 85000,
+    "failures": 0
+   },
+   "scatter": {
+    "units": 103,
+    "states": 103000,
+    "failures": 0
+   },
+   "wheatfield": {
+    "units": 1,
+    "states": 1000,
+    "failures": 0
+   },
+   "woods": {
+    "units": 185,
+    "states": 185000,
+    "failures": 0
+   }
+  }
+ },
+ "sample_times": 100,
+ "units": 927,
+ "claims": 589,
+ "schema": "bt-vegetation/1",
+ "wall_ms": 8612,
+ "hooks_declared": [
+  "Q21 checkVegetation(model, opts)"
+ ]
+}

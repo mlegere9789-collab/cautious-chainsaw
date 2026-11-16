@@ -1,0 +1,457 @@
+{
+ "per_file": {
+  "evidence_corrections/fence-1.jsonl": {
+   "rows": 35,
+   "verdict": {
+    "partially_supported": 21,
+    "corrected": 13,
+    "confirmed": 1
+   }
+  },
+  "evidence_corrections/fence-2.jsonl": {
+   "rows": 36,
+   "verdict": {
+    "corrected": 19,
+    "partially_supported": 12,
+    "confirmed": 4,
+    "unsupported": 1
+   }
+  },
+  "evidence_corrections/fence-3.jsonl": {
+   "rows": 36,
+   "verdict": {
+    "corrected": 21,
+    "partially_supported": 11,
+    "confirmed": 3,
+    "unsupported": 1
+   }
+  },
+  "evidence_corrections/sources-a.jsonl": {
+   "rows": 23,
+   "verdict": {
+    "partially_supported": 12,
+    "unsupported": 5,
+    "corrected": 5,
+    "confirmed": 1
+   }
+  },
+  "evidence_corrections/terrain-1.jsonl": {
+   "rows": 17,
+   "verdict": {
+    "gap": 1,
+    "corrected": 5,
+    "partially_supported": 7,
+    "confirmed": 4
+   }
+  },
+  "evidence_corrections/terrain-2.jsonl": {
+   "rows": 16,
+   "verdict": {
+    "corrected": 6,
+    "partially_supported": 4,
+    "confirmed": 5,
+    "unsupported": 1
+   }
+  },
+  "evidence_corrections/web-lookups.jsonl": {
+   "rows": 60,
+   "verdict": {
+    "partially_supported": 60
+   }
+  },
+  "evidence_corrections/web-newspapers.jsonl": {
+   "rows": 82,
+   "verdict": {
+    "partially_supported": 76,
+    "no_passage_found_in_saved_pages": 5,
+    "no_relevant_passage_found_in_saved_pages": 1
+   }
+  },
+  "evidence_corrections/web-nps-landscape.jsonl": {
+   "rows": 2688,
+   "verdict": {
+    "partially_supported": 2688
+   }
+  },
+  "evidence_corrections/web-photomatch.jsonl": {
+   "rows": 4,
+   "verdict": {
+    "partially_supported": 2,
+    "confirmed": 1,
+    "gap": 1
+   }
+  },
+  "timeline_corrections/tl-01.jsonl": {
+   "rows": 57,
+   "verdict": {
+    "confirmed": 10,
+    "partially_supported": 22,
+    "corrected": 24,
+    "unsupported": 1
+   }
+  },
+  "timeline_corrections/tl-02.jsonl": {
+   "rows": 58,
+   "verdict": {
+    "corrected": 41,
+    "confirmed": 6,
+    "partially_supported": 10,
+    "gap": 1
+   }
+  },
+  "timeline_corrections/tl-03.jsonl": {
+   "rows": 57,
+   "verdict": {
+    "corrected": 38,
+    "partially_supported": 17,
+    "unsupported": 1,
+    "confirmed": 1
+   }
+  },
+  "timeline_corrections/tl-04.jsonl": {
+   "rows": 58,
+   "verdict": {
+    "corrected": 28,
+    "confirmed": 11,
+    "partially_supported": 15,
+    "gap": 3,
+    "unsupported": 1
+   }
+  },
+  "timeline_corrections/web-lookups.jsonl": {
+   "rows": 56,
+   "verdict": {
+    "partially_supported": 56
+   }
+  },
+  "timeline_corrections/web-newspapers.jsonl": {
+   "rows": 101,
+   "verdict": {
+    "partially_supported": 85,
+    "no_passage_found_in_saved_pages": 9,
+    "passages_found_see_hit_pages": 6,
+    "no_relevant_passage_found_in_saved_pages": 1
+   }
+  },
+  "timeline_corrections/web-nps-landscape.jsonl": {
+   "rows": 42,
+   "verdict": {
+    "partially_supported": 42
+   }
+  },
+  "timeline_corrections/web-photomatch.jsonl": {
+   "rows": 1,
+   "verdict": {
+    "partially_supported": 1
+   }
+  }
+ },
+ "per_gate": {
+  "Q01": {
+   "rows": 2,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q02": {
+   "rows": 48,
+   "rows_with_a_line": 5,
+   "lines": 9
+  },
+  "Q03": {
+   "rows": 19,
+   "rows_with_a_line": 16,
+   "lines": 1838
+  },
+  "Q04": {
+   "rows": 2,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q05": {
+   "rows": 1,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q06": {
+   "rows": 1,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q07": {
+   "rows": 91,
+   "rows_with_a_line": 91,
+   "lines": 2231
+  },
+  "Q08": {
+   "rows": 22,
+   "rows_with_a_line": 22,
+   "lines": 2011
+  },
+  "Q09": {
+   "rows": 90,
+   "rows_with_a_line": 90,
+   "lines": 2161
+  },
+  "Q10": {
+   "rows": 1,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q11": {
+   "rows": 2,
+   "rows_with_a_line": 1,
+   "lines": 7
+  },
+  "Q12": {
+   "rows": 695,
+   "rows_with_a_line": 277,
+   "lines": 365
+  },
+  "Q13": {
+   "rows": 2,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q14": {
+   "rows": 20,
+   "rows_with_a_line": 18,
+   "lines": 20
+  },
+  "Q15": {
+   "rows": 1,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q16": {
+   "rows": 47,
+   "rows_with_a_line": 30,
+   "lines": 1184
+  },
+  "Q17": {
+   "rows": 708,
+   "rows_with_a_line": 292,
+   "lines": 559
+  },
+  "Q18": {
+   "rows": 1,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q19": {
+   "rows": 49,
+   "rows_with_a_line": 5,
+   "lines": 9
+  },
+  "Q20": {
+   "rows": 2,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q21": {
+   "rows": 1,
+   "rows_with_a_line": 1,
+   "lines": 406
+  },
+  "Q22": {
+   "rows": 1,
+   "rows_with_a_line": 1,
+   "lines": 7
+  },
+  "Q23": {
+   "rows": 1,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q24": {
+   "rows": 2,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q25": {
+   "rows": 48,
+   "rows_with_a_line": 29,
+   "lines": 47
+  },
+  "Q26": {
+   "rows": 2,
+   "rows_with_a_line": 2,
+   "lines": 712
+  },
+  "Q27": {
+   "rows": 2,
+   "rows_with_a_line": 0,
+   "lines": 0
+  },
+  "Q28": {
+   "rows": 15,
+   "rows_with_a_line": 15,
+   "lines": 131
+  }
+ },
+ "sets": {
+  "R14.S (schedule entries)": {
+   "rows": 88,
+   "rows_with_a_line": 88,
+   "lines": 377
+  },
+  "R14.E (works)": {
+   "rows": 18,
+   "rows_with_a_line": 18,
+   "lines": 92
+  },
+  "R13.G (gun emplacements)": {
+   "rows": 18,
+   "rows_with_a_line": 18,
+   "lines": 20
+  },
+  "R13.P (pre-existing features)": {
+   "rows": 14,
+   "rows_with_a_line": 14,
+   "lines": 54
+  },
+  "R12 (terrain catalogue, 45)": {
+   "rows": 45,
+   "rows_with_a_line": 28,
+   "lines": 46
+  },
+  "R03.C (conflicts, 47)": {
+   "rows": 47,
+   "rows_with_a_line": 5,
+   "lines": 9
+  },
+  "R11 (timeline rows, 691)": {
+   "rows": 691,
+   "rows_with_a_line": 277,
+   "lines": 365
+  },
+  "R22 rows (14 epilogue rows)": {
+   "rows": 14,
+   "rows_with_a_line": 14,
+   "lines": 129
+  },
+  "R02.0000": {
+   "rows": 1,
+   "rows_with_a_line": 1,
+   "lines": 1137
+  },
+  "R05.0000": {
+   "rows": 1,
+   "rows_with_a_line": 1,
+   "lines": 65
+  },
+  "R13.0000": {
+   "rows": 1,
+   "rows_with_a_line": 1,
+   "lines": 647
+  },
+  "R14.0000": {
+   "rows": 1,
+   "rows_with_a_line": 1,
+   "lines": 70
+  },
+  "R20.0000": {
+   "rows": 1,
+   "rows_with_a_line": 1,
+   "lines": 406
+  },
+  "R22.0000": {
+   "rows": 1,
+   "rows_with_a_line": 1,
+   "lines": 2
+  }
+ },
+ "lines_per_file_by_row_kind": {
+  "evidence_corrections/fence-1.jsonl": {
+   "R14.top": 1,
+   "R14.E": 18,
+   "R14.S": 16
+  },
+  "evidence_corrections/web-newspapers.jsonl": {
+   "R14.top": 1,
+   "R14.S": 1,
+   "R13.top": 2,
+   "R03.C": 3,
+   "R15.top": 7,
+   "R05.top": 2,
+   "R22": 64,
+   "R22.top": 2
+  },
+  "evidence_corrections/web-nps-landscape.jsonl": {
+   "R14.top": 68,
+   "R14.E": 72,
+   "R14.S": 243,
+   "R12": 20,
+   "R13.top": 644,
+   "R13.P": 35,
+   "R05.top": 63,
+   "R02.top": 1137,
+   "R20.top": 406
+  },
+  "evidence_corrections/web-lookups.jsonl": {
+   "R14.E": 2,
+   "R14.S": 45,
+   "R13.G": 2,
+   "R13.P": 5,
+   "R03.C": 6
+  },
+  "evidence_corrections/fence-2.jsonl": {
+   "R14.S": 36
+  },
+  "evidence_corrections/fence-3.jsonl": {
+   "R14.S": 36
+  },
+  "evidence_corrections/sources-a.jsonl": {
+   "R12.top": 1,
+   "R12": 22
+  },
+  "evidence_corrections/terrain-1.jsonl": {
+   "R13.top": 1,
+   "R13.G": 16
+  },
+  "evidence_corrections/terrain-2.jsonl": {
+   "R13.P": 14,
+   "R13.G": 2
+  },
+  "timeline_corrections/web-newspapers.jsonl": {
+   "R22": 65,
+   "R11": 36
+  },
+  "evidence_corrections/web-photomatch.jsonl": {
+   "R12": 4
+  },
+  "timeline_corrections/tl-01.jsonl": {
+   "R11": 57
+  },
+  "timeline_corrections/web-lookups.jsonl": {
+   "R11": 56
+  },
+  "timeline_corrections/web-nps-landscape.jsonl": {
+   "R11": 42
+  },
+  "timeline_corrections/tl-02.jsonl": {
+   "R11": 58
+  },
+  "timeline_corrections/tl-03.jsonl": {
+   "R11": 57
+  },
+  "timeline_corrections/tl-04.jsonl": {
+   "R11": 58
+  },
+  "timeline_corrections/web-photomatch.jsonl": {
+   "R11": 1
+  }
+ },
+ "top_rows_lines": {
+  "R02.0000": 1137,
+  "R05.0000": 65,
+  "R12.0000": 1,
+  "R13.0000": 647,
+  "R14.0000": 70,
+  "R15.0000": 7,
+  "R20.0000": 406,
+  "R22.0000": 2
+ },
+ "lines_not_matching_a_row": {},
+ "total_lines_matched": 3427,
+ "distinct_rows_with_a_line": 470
+}
