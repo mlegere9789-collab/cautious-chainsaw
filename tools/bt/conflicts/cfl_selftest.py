@@ -193,6 +193,23 @@ def _readers(o):
     o['readers'] = []
 
 
+def _source_keys(o):
+    pos(o, 'C-001-P1')['source_keys'] = ['ZZZ']
+
+
+def _window_no_animation(o):
+    o['default'] = {'mode': 'window', 'positions': ['C-001-P3', 'C-001-P4'], 'label': 'between 01:00 and 02:00 on Jul 2', 'basis_text': 'the two reports of the arrival: Meade 1 a.m., Hunt about 2 a.m.'}
+    for pid in ('C-001-P3', 'C-001-P4'):
+        pos(o, pid)['stance'] = 'default'
+        pos(o, pid).pop('reason_not_chosen', None)
+
+
+def _number_value_not_stated(o):
+    p = pos(o, 'C-001-P3')
+    p['kind'] = 'count'
+    p['value'] = {'n': 386}
+
+
 def _default_range_numeric(o):
     # a numeric default of mode position carries a range: plant it on a time position by changing kinds (the validator must not demand it for a time)
     pass
@@ -238,6 +255,9 @@ CASES = [
     ('failed lookup that found something', _failed_lookup_shape, ['failed_lookup_shape']),
     ('banned word in a label', _banned_label, ['banned_copy']),
     ('no readers and no note', _readers, ['readers_missing']),
+    ('source key that the PDF row does not print', _source_keys, ['source_keys_mismatch']),
+    ('numeric value whose number is in no quote', _number_value_not_stated, ['number_not_in_quote']),
+    ('time window default without the instant that drives the picture', _window_no_animation, ['default_animation']),
 ]
 
 

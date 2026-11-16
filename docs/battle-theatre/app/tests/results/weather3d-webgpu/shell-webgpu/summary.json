@@ -1,0 +1,757 @@
+{
+ "api": "webgpu",
+ "url": "http://127.0.0.1:36205/app/index.html?history=stub&api=webgpu&nearR=12&midR=60",
+ "w": 640,
+ "h": 360,
+ "realGpu": false,
+ "started": "2026-11-16T02:48:44.146Z",
+ "cases": {
+  "stars-jun28-0200": {
+   "pixels": {
+    "all": {
+     "mean": 33.985,
+     "min": 25.52,
+     "p1": 27.59,
+     "p50": 32.67,
+     "p99": 61.02,
+     "max": 195.37,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 31.635,
+     "min": 25.52,
+     "p1": 27.3,
+     "p50": 30.52,
+     "p99": 61.16,
+     "max": 194.44,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 36.162,
+     "min": 31.3,
+     "p1": 31.45,
+     "p50": 34.45,
+     "p99": 56.24,
+     "max": 188.23,
+     "blackShare": 0
+    }
+   },
+   "effects": {
+    "nEvents": 117,
+    "nSprites": 117
+   },
+   "gpuStats": {
+    "weatherDraws": 5,
+    "fxDraws": 5,
+    "spritesDrawn": 117,
+    "passes": 5,
+    "binds": 1,
+    "passMs": 1413.089754,
+    "passMsN": 4,
+    "gpuErrors": 0,
+    "failed": null
+   },
+   "glStats": null,
+   "flags": {
+    "terrain": 1,
+    "near": 1,
+    "mid": 1,
+    "far": 1,
+    "guns": 1,
+    "particles": false,
+    "shadows": 1,
+    "post": 1,
+    "bloom": 1,
+    "dof": 0,
+    "mblur": 0,
+    "sky": false
+   },
+   "wallMs": 36868
+  },
+  "moon-jul3-2330": {
+   "pixels": {
+    "all": {
+     "mean": 89.777,
+     "min": 34.5,
+     "p1": 49.15,
+     "p50": 87.24,
+     "p99": 126.09,
+     "max": 127.09,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 92.316,
+     "min": 50.1,
+     "p1": 52.17,
+     "p50": 94.88,
+     "p99": 125.02,
+     "max": 126.02,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 74.553,
+     "min": 34.5,
+     "p1": 45.65,
+     "p50": 68.28,
+     "p99": 125.02,
+     "max": 126.09,
+     "blackShare": 0
+    }
+   },
+   "effects": {
+    "nEvents": 1,
+    "nSprites": 1
+   },
+   "gpuStats": {
+    "weatherDraws": 11,
+    "fxDraws": 11,
+    "spritesDrawn": 1,
+    "passes": 11,
+    "binds": 1,
+    "passMs": 833.669502,
+    "passMsN": 10,
+    "gpuErrors": 0,
+    "failed": null
+   },
+   "glStats": null,
+   "flags": {
+    "terrain": 1,
+    "near": 1,
+    "mid": 1,
+    "far": 1,
+    "guns": 1,
+    "particles": false,
+    "shadows": 1,
+    "post": 1,
+    "bloom": 1,
+    "dof": 0,
+    "mblur": 0,
+    "sky": false
+   },
+   "wallMs": 35919
+  },
+  "day-clouds-jul3-1400": {
+   "pixels": {
+    "all": {
+     "mean": 200.641,
+     "min": 97.58,
+     "p1": 141.07,
+     "p50": 207.79,
+     "p99": 220.51,
+     "max": 223.79,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 201.325,
+     "min": 183.27,
+     "p1": 186.13,
+     "p50": 200.76,
+     "p99": 215.93,
+     "max": 219.14,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 191.701,
+     "min": 97.58,
+     "p1": 132.39,
+     "p50": 203.35,
+     "p99": 221.65,
+     "max": 223.79,
+     "blackShare": 0
+    }
+   },
+   "effects": {
+    "nEvents": 32,
+    "nSprites": 32
+   },
+   "gpuStats": {
+    "weatherDraws": 17,
+    "fxDraws": 17,
+    "spritesDrawn": 32,
+    "passes": 17,
+    "binds": 1,
+    "passMs": 280.384106,
+    "passMsN": 16,
+    "gpuErrors": 0,
+    "failed": null
+   },
+   "glStats": null,
+   "flags": {
+    "terrain": 1,
+    "near": 1,
+    "mid": 1,
+    "far": 1,
+    "guns": 1,
+    "particles": false,
+    "shadows": 1,
+    "post": 1,
+    "bloom": 1,
+    "dof": 0,
+    "mblur": 0,
+    "sky": false
+   },
+   "wallMs": 33104
+  },
+  "wet-ground-jul4-1400": {
+   "pixels": {
+    "all": {
+     "mean": 174.457,
+     "min": 107.07,
+     "p1": 119.57,
+     "p50": 181.14,
+     "p99": 215.65,
+     "max": 219.86,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 192.605,
+     "min": 142.34,
+     "p1": 174.93,
+     "p50": 189.07,
+     "p99": 216.51,
+     "max": 219.86,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 142.106,
+     "min": 107.07,
+     "p1": 116.43,
+     "p50": 142.28,
+     "p99": 170.93,
+     "max": 178.14,
+     "blackShare": 0
+    }
+   },
+   "effects": {
+    "nEvents": 0,
+    "nSprites": 0
+   },
+   "gpuStats": {
+    "weatherDraws": 23,
+    "fxDraws": 18,
+    "spritesDrawn": 32,
+    "passes": 23,
+    "binds": 1,
+    "passMs": 1057.770708,
+    "passMsN": 22,
+    "gpuErrors": 0,
+    "failed": null
+   },
+   "glStats": null,
+   "flags": {
+    "terrain": 1,
+    "near": 1,
+    "mid": 1,
+    "far": 1,
+    "guns": 1,
+    "particles": false,
+    "shadows": 1,
+    "post": 1,
+    "bloom": 1,
+    "dof": 0,
+    "mblur": 0,
+    "sky": false
+   },
+   "wallMs": 37646
+  },
+  "smoke-jul3-1400": {
+   "pixels": {
+    "all": {
+     "mean": 198.709,
+     "min": 92.9,
+     "p1": 116.54,
+     "p50": 210.72,
+     "p99": 222.86,
+     "max": 226,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 211.41,
+     "min": 190.18,
+     "p1": 195.32,
+     "p50": 212,
+     "p99": 222.79,
+     "max": 224,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 177.796,
+     "min": 92.9,
+     "p1": 110.46,
+     "p50": 188.7,
+     "p99": 223,
+     "max": 225,
+     "blackShare": 0
+    }
+   },
+   "effects": {
+    "nEvents": 702,
+    "nSprites": 6379
+   },
+   "gpuStats": {
+    "weatherDraws": 29,
+    "fxDraws": 23,
+    "spritesDrawn": 6379,
+    "passes": 29,
+    "binds": 1,
+    "passMs": 508.087311,
+    "passMsN": 25,
+    "gpuErrors": 0,
+    "failed": null
+   },
+   "glStats": null,
+   "flags": {
+    "terrain": 1,
+    "near": 1,
+    "mid": 1,
+    "far": 1,
+    "guns": 1,
+    "particles": false,
+    "shadows": 1,
+    "post": 1,
+    "bloom": 1,
+    "dof": 0,
+    "mblur": 0,
+    "sky": false
+   },
+   "wallMs": 92605
+  },
+  "smoke-night-jul2-2200": {
+   "pixels": {
+    "all": {
+     "mean": 66.456,
+     "min": 27.43,
+     "p1": 40.95,
+     "p50": 62.17,
+     "p99": 103.1,
+     "max": 151.72,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 71.746,
+     "min": 42.1,
+     "p1": 43.1,
+     "p50": 69.17,
+     "p99": 103.1,
+     "max": 135.24,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 63.637,
+     "min": 32.63,
+     "p1": 44.49,
+     "p50": 63.41,
+     "p99": 87.05,
+     "max": 99.91,
+     "blackShare": 0
+    }
+   },
+   "effects": {
+    "nEvents": 171,
+    "nSprites": 1640
+   },
+   "gpuStats": {
+    "weatherDraws": 35,
+    "fxDraws": 28,
+    "spritesDrawn": 1640,
+    "passes": 35,
+    "binds": 1,
+    "passMs": 1131.83831,
+    "passMsN": 29,
+    "gpuErrors": 0,
+    "failed": null
+   },
+   "glStats": null,
+   "flags": {
+    "terrain": 1,
+    "near": 1,
+    "mid": 1,
+    "far": 1,
+    "guns": 1,
+    "particles": false,
+    "shadows": 1,
+    "post": 1,
+    "bloom": 1,
+    "dof": 0,
+    "mblur": 0,
+    "sky": false
+   },
+   "wallMs": 71625
+  },
+  "fire-sherfy-jul3-1500": {
+   "pixels": {
+    "all": {
+     "mean": 182.513,
+     "min": 86.64,
+     "p1": 125.85,
+     "p50": 186.43,
+     "p99": 215.3,
+     "max": 240.63,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 174.752,
+     "min": 123.85,
+     "p1": 125.64,
+     "p50": 176.43,
+     "p99": 209.37,
+     "max": 213.21,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 190.895,
+     "min": 153.26,
+     "p1": 166.62,
+     "p50": 191.55,
+     "p99": 209.2,
+     "max": 215.06,
+     "blackShare": 0
+    }
+   },
+   "effects": {
+    "nEvents": 161,
+    "nSprites": 2250
+   },
+   "gpuStats": {
+    "weatherDraws": 41,
+    "fxDraws": 34,
+    "spritesDrawn": 2250,
+    "passes": 41,
+    "binds": 1,
+    "passMs": 730.273189,
+    "passMsN": 31,
+    "gpuErrors": 0,
+    "failed": null
+   },
+   "glStats": null,
+   "flags": {
+    "terrain": 1,
+    "near": 1,
+    "mid": 1,
+    "far": 1,
+    "guns": 1,
+    "particles": false,
+    "shadows": 1,
+    "post": 1,
+    "bloom": 1,
+    "dof": 0,
+    "mblur": 0,
+    "sky": false
+   },
+   "wallMs": 80808
+  },
+  "dust-march-jul2-1100": {
+   "pixels": {
+    "all": {
+     "mean": 181.037,
+     "min": 113.98,
+     "p1": 132.19,
+     "p50": 191.69,
+     "p99": 211.51,
+     "max": 214.44,
+     "blackShare": 0
+    },
+    "top": {
+     "mean": 198.183,
+     "min": 179.86,
+     "p1": 186.93,
+     "p50": 198.93,
+     "p99": 206,
+     "max": 208.21,
+     "blackShare": 0
+    },
+    "bottom": {
+     "mean": 153.513,
+     "min": 113.98,
+     "p1": 128.19,
+     "p50": 153.91,
+     "p99": 175.84,
+     "max": 184.4,
+     "blackShare": 0
+    }
+   },
+   "effects": {
+    "nEvents": 4047,
+    "nSprites": 14951
+   },
+   "gpuStats": {
+    "weatherDraws": 47,
+    "fxDraws": 39,
+    "spritesDrawn": 14951,
+    "passes": 47,
+    "binds": 1,
+    "passMs": 4329.145591,
+    "passMsN": 36,
+    "gpuErrors": 0,
+    "failed": null
+   },
+   "glStats": null,
+   "flags": {
+    "terrain": 1,
+    "near": 1,
+    "mid": 1,
+    "far": 1,
+    "guns": 1,
+    "particles": false,
+    "shadows": 1,
+    "post": 1,
+    "bloom": 1,
+    "dof": 0,
+    "mblur": 0,
+    "sky": false
+   },
+   "wallMs": 65910
+  }
+ },
+ "errors": [],
+ "entered": {
+  "ready": true,
+  "api": "webgpu",
+  "entryMs": 7660,
+  "ribbon": "Modelled placeholder · stand-in units and times, not history · WebGPU: weather and effects are not drawn, they have not been seen on this path (WebGL2 is the default)",
+  "fx": true,
+  "status": {
+   "api": "webgpu",
+   "weather": true,
+   "effects": true,
+   "stopped": false,
+   "failed": null,
+   "log": []
+  },
+  "fxLog": [],
+  "gpu": {
+   "ok": true,
+   "weatherOk": true,
+   "fxOk": true,
+   "failed": null,
+   "log": []
+  },
+  "gl": null,
+  "flags": {
+   "terrain": 1,
+   "near": 1,
+   "mid": 1,
+   "far": 1,
+   "guns": 1,
+   "particles": false,
+   "shadows": 1,
+   "post": 1,
+   "bloom": 1,
+   "dof": 0,
+   "mblur": 0,
+   "sky": false
+  },
+  "hostLog": [],
+  "adapter": {
+   "vendor": "google",
+   "arch": "swiftshader",
+   "device": "",
+   "desc": ""
+  }
+ },
+ "negativeControl": {
+  "frame": {
+   "skipped": "the shell harness has no per-case validation scope"
+  },
+  "scope": {
+   "invalidCaught": true,
+   "message": "Buffer usages must not be 0. - While calling [Device].CreateBuffer([BufferDescriptor \"\"harness negative control (scoped, invalid)\"\"]). ",
+   "validClean": true,
+   "validMessage": null
+  },
+  "wgsl": {
+   "errorMessageSeen": true,
+   "message": "return statement type must match its function return type, returned 'vec2<f32>', expected 'vec4<f32>'",
+   "line": 2,
+   "scopeCaught": true,
+   "hookRecorded": true,
+   "hookLabelled": true
+  },
+  "uncaptured": {
+   "eventSeen": false,
+   "message": null,
+   "hookRecorded": false
+  },
+  "pipeline": {
+   "goodBuilt": true,
+   "badRejected": true,
+   "message": "Entry point \"\"missingEntryPoint\"\" doesn't exist in the shader module [ShaderModule \"harness negative control (valid wgsl)\"]. - While validating fragment stage ([ShaderModule \"harness negative control (valid wgsl)\"], entr"
+  },
+  "cleanup": {
+   "gpuErrors": 1,
+   "wgslMessages": 1,
+   "modules": 2
+  }
+ },
+ "diagEnd": {
+  "status": {
+   "api": "webgpu",
+   "weather": true,
+   "effects": true,
+   "stopped": false,
+   "failed": null,
+   "log": []
+  },
+  "gpuErrors": [],
+  "wgsl": [],
+  "modules": [
+   "terrain messages=0",
+   "sky messages=0",
+   "midBone messages=0",
+   "nearFoot messages=0",
+   "nearMnt messages=0",
+   "mid messages=0",
+   "gun messages=0",
+   "imp messages=0",
+   "imp messages=0",
+   "particles messages=0",
+   "post messages=0",
+   "structures messages=0",
+   "weather3d-mul messages=0",
+   "weather3d-add messages=0",
+   "fx3d-sprites messages=0",
+   "weather3d-mul messages=0",
+   "weather3d-add messages=0",
+   "fx3d-sprites messages=0"
+  ],
+  "perf": {
+   "frames": 50,
+   "p50": 6416.5,
+   "p95": 25032.29999999999,
+   "p99": 26598.900000000023,
+   "max": 26598.900000000023,
+   "cpuP50": 9.799999999813735,
+   "cpuP95": 209.5,
+   "gpuP50": 5265.938216,
+   "gpuP95": 6428.444977,
+   "gpuMax": 7979.422618999999,
+   "phases": {
+    "light": 0.9000000001396984,
+    "stage": 12.699999999953434,
+    "upload": 24.700000000186265,
+    "structs": 24.600000000093132,
+    "fx": 123.5,
+    "ext": 3,
+    "render": 520.6999999999534,
+    "overlay": 11.300000000046566,
+    "ui": 2.0999999998603016
+   },
+   "long": [
+    {
+     "at": 10012,
+     "ms": 73
+    },
+    {
+     "at": 10502,
+     "ms": 624
+    },
+    {
+     "at": 17773,
+     "ms": 121
+    },
+    {
+     "at": 54089,
+     "ms": 421
+    },
+    {
+     "at": 83465,
+     "ms": 425
+    },
+    {
+     "at": 88988,
+     "ms": 82
+    },
+    {
+     "at": 116900,
+     "ms": 77
+    },
+    {
+     "at": 154547,
+     "ms": 71
+    },
+    {
+     "at": 160954,
+     "ms": 161
+    },
+    {
+     "at": 168485,
+     "ms": 210
+    },
+    {
+     "at": 245834,
+     "ms": 223
+    },
+    {
+     "at": 269563,
+     "ms": 52
+    },
+    {
+     "at": 292714,
+     "ms": 59
+    },
+    {
+     "at": 318184,
+     "ms": 111
+    },
+    {
+     "at": 429556,
+     "ms": 173
+    },
+    {
+     "at": 464989,
+     "ms": 99
+    },
+    {
+     "at": 465089,
+     "ms": 107
+    }
+   ],
+   "longEntry": [
+    {
+     "at": 2639,
+     "ms": 55
+    },
+    {
+     "at": 3113,
+     "ms": 819
+    },
+    {
+     "at": 4092,
+     "ms": 344
+    },
+    {
+     "at": 4925,
+     "ms": 933
+    },
+    {
+     "at": 6014,
+     "ms": 164
+    },
+    {
+     "at": 6666,
+     "ms": 1031
+    },
+    {
+     "at": 7830,
+     "ms": 101
+    },
+    {
+     "at": 9791,
+     "ms": 67
+    }
+   ],
+   "entryMs": 7660,
+   "mount": {
+    "chrome": 1,
+    "dock": 26.0999999998603,
+    "rest": 0.6000000000931323
+   },
+   "resizeMs": 0.30000000004656613
+  }
+ },
+ "finished": "2026-11-16T02:56:36.630Z",
+ "consoleLines": 3,
+ "consoleProblems": [
+  "error: ext monuments.mjs: init failed; it is skipped Error: the memorial years are not fit to show: year of 37: the quotation is 21 words; a quotation is a short phrase of at most 14 (and 63 more)\n    at Module.init (http://127.0.0.1:36205/app/src/ext/monuments.mjs:34:69)\n    at async Extensions._run (http://127.0.0.1:36205/app/src/ui/extensions.mjs:226:47)"
+ ]
+}

@@ -1,0 +1,12 @@
+    1s open http://127.0.0.1:36205/app/index.html?history=stub&api=webgpu&nearR=12&midR=60
+   13s entered {"ready":true,"api":"webgpu","entryMs":7660,"ribbon":"Modelled placeholder · stand-in units and times, not history · WebGPU: weather and effects are not drawn, they have not been seen on this path (WebGL2 is the default)","fx":true,"status":{"api":"webgpu","weather":true,"effects":true,"stopped":false,"failed":null,"log":[]},"fxLog":[],"gpu":{"ok":true,"weatherOk":true,"fxOk":true,"failed":null,"log":[]},"gl":null,"flags":{"terrain":1,"near":1,"mid":1,"far":1,"guns":1,"particles":false,"shadows":1,"post":1,"bloom":1,"dof":0,"mblur":0,"sky":false},"hostLog":[],"adapter":{"vendor":"google","arch":"swiftshader","device":"","desc":""}}
+   50s stars-jun28-0200           mean 33.985 min 25.52 black 0 sprites 117 gpu w5 f5 failed=null
+   86s moon-jul3-2330             mean 89.777 min 34.5 black 0 sprites 1 gpu w11 f11 failed=null
+  119s day-clouds-jul3-1400       mean 200.641 min 97.58 black 0 sprites 32 gpu w17 f17 failed=null
+  157s wet-ground-jul4-1400       mean 174.457 min 107.07 black 0 sprites 0 gpu w23 f18 failed=null
+  250s smoke-jul3-1400            mean 198.709 min 92.9 black 0 sprites 6379 gpu w29 f23 failed=null
+  321s smoke-night-jul2-2200      mean 66.456 min 27.43 black 0 sprites 1640 gpu w35 f28 failed=null
+  402s fire-sherfy-jul3-1500      mean 182.513 min 86.64 black 0 sprites 2250 gpu w41 f34 failed=null
+  468s dust-march-jul2-1100       mean 181.037 min 113.98 black 0 sprites 14951 gpu w47 f39 failed=null
+  472s negative control {"frame":{"skipped":"the shell harness has no per-case validation scope"},"scope":{"invalidCaught":true,"message":"Buffer usages must not be 0. - While calling [Device].CreateBuffer([BufferDescriptor \"\"harness negative control (scoped, invalid)\"\"]). ","validClean":true,"validMessage":null},"wgsl":{"errorMessageSeen":true,"message":"return statement type must match its function return type, returned 'vec2<f32>', expected 'vec4<f32>'","line":2,"scopeCaught":true,"hookRecorded":true,"hookLabelled":true},"uncaptured":{"eventSeen":false,"message":null,"hookRecorded":false},"pipeline":{"goodBuil
+  473s done errors 0 console problems 1 gpu errors 0

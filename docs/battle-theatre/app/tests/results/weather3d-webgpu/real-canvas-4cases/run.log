@@ -1,0 +1,12 @@
+    2s open http://127.0.0.1:42835/app/tests/weather3d-gpu.html?api=webgpu&w=640&h=360&soldiers=12000&tier=laptop
+   12s ready {"ready":true,"error":null,"log":["renderer api webgpu"]}
+   12s init: api webgpu gpu {"ok":true,"weather":true,"fx":true,"failed":null} gl null errors 0 wgsl msgs 0
+   23s stars-jun28-0200           frame 13ms mean 33.984 min 25.52 black 0 sprites 117  gpu w1 f1 canvas shot meanAbs 0
+   29s day-clouds-jul3-1400       frame 2ms mean 201.052 min 97.58 black 0 sprites 32  gpu w2 f2 canvas shot meanAbs 0
+   37s smoke-jul3-1400            frame 2ms mean 179.878 min 87.68 black 0 sprites 163  gpu w3 f3 canvas shot meanAbs 0
+   70s fire-sherfy-jul3-1500      frame 8ms mean 183.059 min 103.94 black 0 sprites 2250  gpu w4 f4 canvas shot meanAbs 0
+   71s compute shader check {"messages":[],"pipelineOk":true,"pipelineError":null,"validation":null,"limits":{"maxComputeInvocationsPerWorkgroup":256,"maxComputeWorkgroupSizeX":256}}
+  139s negative control {"frame":{"cleanBefore":true,"brokenValidation":"Bind group layout [BindGroupLayout \"weather3d.bglW\"] of pipeline layout [PipelineLayout \"weather3d.layout\"] does not match layout [BindGroupLayout \"harness negative control layout\"] of bind group [BindGroup \"harness nega","cleanAfter":true,"layerStopped":false},"scope":{"invalidCaught":true,"message":"Buffer usages must not be 0. - While calling [Device].CreateBuffer([BufferDescriptor \"\"harness negative control (scoped, invalid)\"\"]). ","validClean":true,"validMessage":null},"wgsl":{"errorMessageSeen":true,"message":"return statement t
+  140s after dispose {"gpuErrors":["DEVICE LOST destroyed: Device was destroyed."],"swap":{"standIn":false,"configured":0,"calls":0}}
+  147s swapchain probe {"offscreen":{"mode":"offscreen","done":true,"lost":null,"errors":[],"fmt":"rgba8unorm","px":[255,128,0,255],"screenshotPixel":[0,0,0,255]},"configure":{"mode":"configure","done":true,"lost":null,"errors":[],"fmt":"rgba8unorm","screenshotPixel":[0,0,0,255]},"present":{"mode":"present","done":true,"lost":null,"errors":[],"fmt":"rgba8unorm","screenshotPixel":[255,128,0,255]},"canvas-read":{"mode":"canvas-read","done":true,"lost":null,"errors":[],"fmt":"rgba8unorm","px":[255,128,0,255],"screenshotPixel":[255,128,0,255]}}
+  148s done errors 0 console problems 0 gpu errors 0

@@ -1,0 +1,1458 @@
+{
+ "f": "roster-qa-verdicts-vs-files/1",
+ "about": "The stored lines of every page that was looked at, now (unit files as they are in the tree) against the lines the verdict lists (as they stood when the page was compared with its image).",
+ "generated_utc": "2026-11-16T03:15:30Z",
+ "frame_files": {
+  "files_in_frame": 41,
+  "differ_from_frame": [
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/11th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1393,
+    "rows_now": 1393,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/12th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1564,
+    "rows_now": 1562,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/13th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1460,
+    "rows_now": 1455,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/14th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1478,
+    "rows_now": 1476,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/16th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1436,
+    "rows_now": 1435,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/1st-north-carolina-cavalry.jsonl.gz",
+    "rows_at_frame": 1661,
+    "rows_now": 1658,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/1st-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1583,
+    "rows_now": 1582,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/20th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1210,
+    "rows_now": 1208,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/21st-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1364,
+    "rows_now": 1363,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/22nd-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1951,
+    "rows_now": 1951,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/23rd-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1462,
+    "rows_now": 1461,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/26th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1929,
+    "rows_now": 1927,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/28th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1818,
+    "rows_now": 1815,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-battalion.jsonl.gz",
+    "rows_at_frame": 553,
+    "rows_now": 552,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/2nd-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1361,
+    "rows_now": 1359,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/32nd-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1297,
+    "rows_now": 1296,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/33rd-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1709,
+    "rows_now": 1708,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/37th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1762,
+    "rows_now": 1761,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/38th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1275,
+    "rows_now": 1273,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/3rd-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1701,
+    "rows_now": 1699,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/43rd-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1239,
+    "rows_now": 1238,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/45th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1434,
+    "rows_now": 1433,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/4th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1594,
+    "rows_now": 1590,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/52nd-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1297,
+    "rows_now": 1296,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/57th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1033,
+    "rows_now": 1032,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/5th-north-carolina-cavalry.jsonl.gz",
+    "rows_at_frame": 1325,
+    "rows_now": 1323,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/5th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1804,
+    "rows_now": 1803,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/6th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1791,
+    "rows_now": 1788,
+    "item": "conf-nc"
+   },
+   {
+    "file": "docs/battle-theatre/rosters/data2/confederate/nc/7th-north-carolina-infantry.jsonl.gz",
+    "rows_at_frame": 1507,
+    "rows_now": 1506,
+    "item": "conf-nc"
+   }
+  ],
+  "missing_now": [],
+  "rows_at_frame_by_item": {
+   "conf-nc": 54387
+  },
+  "rows_now_by_item": {
+   "conf-nc": 54339
+  }
+ },
+ "pages": [
+  {
+   "page": "05913252.3309.emory.edu/62",
+   "stratum": "NC-MOO-E-officers",
+   "lines_in_verdict": 17,
+   "lines_now_on_the_leaf": 17,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "05913252.3309.emory.edu/111",
+   "stratum": "NC-MOO-E-other",
+   "lines_in_verdict": 47,
+   "lines_now_on_the_leaf": 47,
+   "identical": false,
+   "renumbered_only": true,
+   "differences": [
+    {
+     "row": 0,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#620",
+     "now": "3rd-north-carolina-infantry#618"
+    },
+    {
+     "row": 1,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#621",
+     "now": "3rd-north-carolina-infantry#619"
+    },
+    {
+     "row": 2,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#622",
+     "now": "3rd-north-carolina-infantry#620"
+    },
+    {
+     "row": 3,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#623",
+     "now": "3rd-north-carolina-infantry#621"
+    },
+    {
+     "row": 4,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#624",
+     "now": "3rd-north-carolina-infantry#622"
+    },
+    {
+     "row": 5,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#625",
+     "now": "3rd-north-carolina-infantry#623"
+    },
+    {
+     "row": 6,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#626",
+     "now": "3rd-north-carolina-infantry#624"
+    },
+    {
+     "row": 7,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#627",
+     "now": "3rd-north-carolina-infantry#625"
+    },
+    {
+     "row": 8,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#628",
+     "now": "3rd-north-carolina-infantry#626"
+    },
+    {
+     "row": 9,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#629",
+     "now": "3rd-north-carolina-infantry#627"
+    },
+    {
+     "row": 10,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#630",
+     "now": "3rd-north-carolina-infantry#628"
+    },
+    {
+     "row": 11,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#631",
+     "now": "3rd-north-carolina-infantry#629"
+    },
+    {
+     "row": 12,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#632",
+     "now": "3rd-north-carolina-infantry#630"
+    },
+    {
+     "row": 13,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#633",
+     "now": "3rd-north-carolina-infantry#631"
+    },
+    {
+     "row": 14,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#634",
+     "now": "3rd-north-carolina-infantry#632"
+    },
+    {
+     "row": 15,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#635",
+     "now": "3rd-north-carolina-infantry#633"
+    },
+    {
+     "row": 16,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#636",
+     "now": "3rd-north-carolina-infantry#634"
+    },
+    {
+     "row": 17,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#637",
+     "now": "3rd-north-carolina-infantry#635"
+    },
+    {
+     "row": 18,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#638",
+     "now": "3rd-north-carolina-infantry#636"
+    },
+    {
+     "row": 19,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#639",
+     "now": "3rd-north-carolina-infantry#637"
+    },
+    {
+     "row": 20,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#640",
+     "now": "3rd-north-carolina-infantry#638"
+    },
+    {
+     "row": 21,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#641",
+     "now": "3rd-north-carolina-infantry#639"
+    },
+    {
+     "row": 22,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#642",
+     "now": "3rd-north-carolina-infantry#640"
+    },
+    {
+     "row": 23,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#643",
+     "now": "3rd-north-carolina-infantry#641"
+    },
+    {
+     "row": 24,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#644",
+     "now": "3rd-north-carolina-infantry#642"
+    },
+    {
+     "row": 25,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#645",
+     "now": "3rd-north-carolina-infantry#643"
+    },
+    {
+     "row": 26,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#646",
+     "now": "3rd-north-carolina-infantry#644"
+    },
+    {
+     "row": 27,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#647",
+     "now": "3rd-north-carolina-infantry#645"
+    },
+    {
+     "row": 28,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#648",
+     "now": "3rd-north-carolina-infantry#646"
+    },
+    {
+     "row": 29,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#649",
+     "now": "3rd-north-carolina-infantry#647"
+    },
+    {
+     "row": 30,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#650",
+     "now": "3rd-north-carolina-infantry#648"
+    },
+    {
+     "row": 31,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#651",
+     "now": "3rd-north-carolina-infantry#649"
+    },
+    {
+     "row": 32,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#652",
+     "now": "3rd-north-carolina-infantry#650"
+    },
+    {
+     "row": 33,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#653",
+     "now": "3rd-north-carolina-infantry#651"
+    },
+    {
+     "row": 34,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#654",
+     "now": "3rd-north-carolina-infantry#652"
+    },
+    {
+     "row": 35,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#655",
+     "now": "3rd-north-carolina-infantry#653"
+    },
+    {
+     "row": 36,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#656",
+     "now": "3rd-north-carolina-infantry#654"
+    },
+    {
+     "row": 37,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#657",
+     "now": "3rd-north-carolina-infantry#655"
+    },
+    {
+     "row": 38,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#658",
+     "now": "3rd-north-carolina-infantry#656"
+    },
+    {
+     "row": 39,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#659",
+     "now": "3rd-north-carolina-infantry#657"
+    },
+    {
+     "row": 40,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#660",
+     "now": "3rd-north-carolina-infantry#658"
+    },
+    {
+     "row": 41,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#661",
+     "now": "3rd-north-carolina-infantry#659"
+    },
+    {
+     "row": 42,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#662",
+     "now": "3rd-north-carolina-infantry#660"
+    },
+    {
+     "row": 43,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#663",
+     "now": "3rd-north-carolina-infantry#661"
+    },
+    {
+     "row": 44,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#664",
+     "now": "3rd-north-carolina-infantry#662"
+    },
+    {
+     "row": 45,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#665",
+     "now": "3rd-north-carolina-infantry#663"
+    },
+    {
+     "row": 46,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#666",
+     "now": "3rd-north-carolina-infantry#664"
+    }
+   ]
+  },
+  {
+   "page": "05913252.3309.emory.edu/116",
+   "stratum": "NC-MOO-E-officers",
+   "lines_in_verdict": 34,
+   "lines_now_on_the_leaf": 34,
+   "identical": false,
+   "renumbered_only": true,
+   "differences": [
+    {
+     "row": 0,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#840",
+     "now": "3rd-north-carolina-infantry#838"
+    },
+    {
+     "row": 1,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#841",
+     "now": "3rd-north-carolina-infantry#839"
+    },
+    {
+     "row": 2,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#842",
+     "now": "3rd-north-carolina-infantry#840"
+    },
+    {
+     "row": 3,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#843",
+     "now": "3rd-north-carolina-infantry#841"
+    },
+    {
+     "row": 4,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#844",
+     "now": "3rd-north-carolina-infantry#842"
+    },
+    {
+     "row": 5,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#845",
+     "now": "3rd-north-carolina-infantry#843"
+    },
+    {
+     "row": 6,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#846",
+     "now": "3rd-north-carolina-infantry#844"
+    },
+    {
+     "row": 7,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#847",
+     "now": "3rd-north-carolina-infantry#845"
+    },
+    {
+     "row": 8,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#848",
+     "now": "3rd-north-carolina-infantry#846"
+    },
+    {
+     "row": 9,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#849",
+     "now": "3rd-north-carolina-infantry#847"
+    },
+    {
+     "row": 10,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#850",
+     "now": "3rd-north-carolina-infantry#848"
+    },
+    {
+     "row": 11,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#851",
+     "now": "3rd-north-carolina-infantry#849"
+    },
+    {
+     "row": 12,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#852",
+     "now": "3rd-north-carolina-infantry#850"
+    },
+    {
+     "row": 13,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#853",
+     "now": "3rd-north-carolina-infantry#851"
+    },
+    {
+     "row": 14,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#854",
+     "now": "3rd-north-carolina-infantry#852"
+    },
+    {
+     "row": 15,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#855",
+     "now": "3rd-north-carolina-infantry#853"
+    },
+    {
+     "row": 16,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#856",
+     "now": "3rd-north-carolina-infantry#854"
+    },
+    {
+     "row": 17,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#857",
+     "now": "3rd-north-carolina-infantry#855"
+    },
+    {
+     "row": 18,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#858",
+     "now": "3rd-north-carolina-infantry#856"
+    },
+    {
+     "row": 19,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#859",
+     "now": "3rd-north-carolina-infantry#857"
+    },
+    {
+     "row": 20,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#860",
+     "now": "3rd-north-carolina-infantry#858"
+    },
+    {
+     "row": 21,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#861",
+     "now": "3rd-north-carolina-infantry#859"
+    },
+    {
+     "row": 22,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#862",
+     "now": "3rd-north-carolina-infantry#860"
+    },
+    {
+     "row": 23,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#863",
+     "now": "3rd-north-carolina-infantry#861"
+    },
+    {
+     "row": 24,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#864",
+     "now": "3rd-north-carolina-infantry#862"
+    },
+    {
+     "row": 25,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#865",
+     "now": "3rd-north-carolina-infantry#863"
+    },
+    {
+     "row": 26,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#866",
+     "now": "3rd-north-carolina-infantry#864"
+    },
+    {
+     "row": 27,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#867",
+     "now": "3rd-north-carolina-infantry#865"
+    },
+    {
+     "row": 28,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#868",
+     "now": "3rd-north-carolina-infantry#866"
+    },
+    {
+     "row": 29,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#869",
+     "now": "3rd-north-carolina-infantry#867"
+    },
+    {
+     "row": 30,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#870",
+     "now": "3rd-north-carolina-infantry#868"
+    },
+    {
+     "row": 31,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#871",
+     "now": "3rd-north-carolina-infantry#869"
+    },
+    {
+     "row": 32,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#872",
+     "now": "3rd-north-carolina-infantry#870"
+    },
+    {
+     "row": 33,
+     "field": "rid",
+     "verdict": "3rd-north-carolina-infantry#873",
+     "now": "3rd-north-carolina-infantry#871"
+    }
+   ]
+  },
+  {
+   "page": "05913252.3309.emory.edu/193",
+   "stratum": "NC-MOO-E-officers",
+   "lines_in_verdict": 33,
+   "lines_now_on_the_leaf": 33,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "05913252.3309.emory.edu/250",
+   "stratum": "NC-MOO-E-other",
+   "lines_in_verdict": 55,
+   "lines_now_on_the_leaf": 55,
+   "identical": false,
+   "renumbered_only": true,
+   "differences": [
+    {
+     "row": 0,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1644",
+     "now": "6th-north-carolina-infantry#1641"
+    },
+    {
+     "row": 1,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1645",
+     "now": "6th-north-carolina-infantry#1642"
+    },
+    {
+     "row": 2,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1646",
+     "now": "6th-north-carolina-infantry#1643"
+    },
+    {
+     "row": 3,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1647",
+     "now": "6th-north-carolina-infantry#1644"
+    },
+    {
+     "row": 4,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1648",
+     "now": "6th-north-carolina-infantry#1645"
+    },
+    {
+     "row": 5,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1649",
+     "now": "6th-north-carolina-infantry#1646"
+    },
+    {
+     "row": 6,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1650",
+     "now": "6th-north-carolina-infantry#1647"
+    },
+    {
+     "row": 7,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1651",
+     "now": "6th-north-carolina-infantry#1648"
+    },
+    {
+     "row": 8,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1652",
+     "now": "6th-north-carolina-infantry#1649"
+    },
+    {
+     "row": 9,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1653",
+     "now": "6th-north-carolina-infantry#1650"
+    },
+    {
+     "row": 10,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1654",
+     "now": "6th-north-carolina-infantry#1651"
+    },
+    {
+     "row": 11,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1655",
+     "now": "6th-north-carolina-infantry#1652"
+    },
+    {
+     "row": 12,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1656",
+     "now": "6th-north-carolina-infantry#1653"
+    },
+    {
+     "row": 13,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1657",
+     "now": "6th-north-carolina-infantry#1654"
+    },
+    {
+     "row": 14,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1658",
+     "now": "6th-north-carolina-infantry#1655"
+    },
+    {
+     "row": 15,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1659",
+     "now": "6th-north-carolina-infantry#1656"
+    },
+    {
+     "row": 16,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1660",
+     "now": "6th-north-carolina-infantry#1657"
+    },
+    {
+     "row": 17,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1661",
+     "now": "6th-north-carolina-infantry#1658"
+    },
+    {
+     "row": 18,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1662",
+     "now": "6th-north-carolina-infantry#1659"
+    },
+    {
+     "row": 19,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1663",
+     "now": "6th-north-carolina-infantry#1660"
+    },
+    {
+     "row": 20,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1664",
+     "now": "6th-north-carolina-infantry#1661"
+    },
+    {
+     "row": 21,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1665",
+     "now": "6th-north-carolina-infantry#1662"
+    },
+    {
+     "row": 22,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1666",
+     "now": "6th-north-carolina-infantry#1663"
+    },
+    {
+     "row": 23,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1667",
+     "now": "6th-north-carolina-infantry#1664"
+    },
+    {
+     "row": 24,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1668",
+     "now": "6th-north-carolina-infantry#1665"
+    },
+    {
+     "row": 25,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1669",
+     "now": "6th-north-carolina-infantry#1666"
+    },
+    {
+     "row": 26,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1670",
+     "now": "6th-north-carolina-infantry#1667"
+    },
+    {
+     "row": 27,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1671",
+     "now": "6th-north-carolina-infantry#1668"
+    },
+    {
+     "row": 28,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1672",
+     "now": "6th-north-carolina-infantry#1669"
+    },
+    {
+     "row": 29,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1673",
+     "now": "6th-north-carolina-infantry#1670"
+    },
+    {
+     "row": 30,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1674",
+     "now": "6th-north-carolina-infantry#1671"
+    },
+    {
+     "row": 31,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1675",
+     "now": "6th-north-carolina-infantry#1672"
+    },
+    {
+     "row": 32,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1676",
+     "now": "6th-north-carolina-infantry#1673"
+    },
+    {
+     "row": 33,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1677",
+     "now": "6th-north-carolina-infantry#1674"
+    },
+    {
+     "row": 34,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1678",
+     "now": "6th-north-carolina-infantry#1675"
+    },
+    {
+     "row": 35,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1679",
+     "now": "6th-north-carolina-infantry#1676"
+    },
+    {
+     "row": 36,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1680",
+     "now": "6th-north-carolina-infantry#1677"
+    },
+    {
+     "row": 37,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1681",
+     "now": "6th-north-carolina-infantry#1678"
+    },
+    {
+     "row": 38,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1682",
+     "now": "6th-north-carolina-infantry#1679"
+    },
+    {
+     "row": 39,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1683",
+     "now": "6th-north-carolina-infantry#1680"
+    },
+    {
+     "row": 40,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1684",
+     "now": "6th-north-carolina-infantry#1681"
+    },
+    {
+     "row": 41,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1685",
+     "now": "6th-north-carolina-infantry#1682"
+    },
+    {
+     "row": 42,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1686",
+     "now": "6th-north-carolina-infantry#1683"
+    },
+    {
+     "row": 43,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1687",
+     "now": "6th-north-carolina-infantry#1684"
+    },
+    {
+     "row": 44,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1688",
+     "now": "6th-north-carolina-infantry#1685"
+    },
+    {
+     "row": 45,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1689",
+     "now": "6th-north-carolina-infantry#1686"
+    },
+    {
+     "row": 46,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1690",
+     "now": "6th-north-carolina-infantry#1687"
+    },
+    {
+     "row": 47,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1691",
+     "now": "6th-north-carolina-infantry#1688"
+    },
+    {
+     "row": 48,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1692",
+     "now": "6th-north-carolina-infantry#1689"
+    },
+    {
+     "row": 49,
+     "field": "rid",
+     "verdict": "6th-north-carolina-infantry#1693",
+     "now": "6th-north-carolina-infantry#1690"
+    }
+   ]
+  },
+  {
+   "page": "05913252.3309.emory.edu/472",
+   "stratum": "NC-MOO-E-other",
+   "lines_in_verdict": 47,
+   "lines_now_on_the_leaf": 47,
+   "identical": false,
+   "renumbered_only": true,
+   "differences": [
+    {
+     "row": 0,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#898",
+     "now": "12th-north-carolina-infantry#897"
+    },
+    {
+     "row": 1,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#899",
+     "now": "12th-north-carolina-infantry#898"
+    },
+    {
+     "row": 2,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#900",
+     "now": "12th-north-carolina-infantry#899"
+    },
+    {
+     "row": 3,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#901",
+     "now": "12th-north-carolina-infantry#900"
+    },
+    {
+     "row": 4,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#902",
+     "now": "12th-north-carolina-infantry#901"
+    },
+    {
+     "row": 5,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#903",
+     "now": "12th-north-carolina-infantry#902"
+    },
+    {
+     "row": 6,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#904",
+     "now": "12th-north-carolina-infantry#903"
+    },
+    {
+     "row": 7,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#905",
+     "now": "12th-north-carolina-infantry#904"
+    },
+    {
+     "row": 8,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#906",
+     "now": "12th-north-carolina-infantry#905"
+    },
+    {
+     "row": 9,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#907",
+     "now": "12th-north-carolina-infantry#906"
+    },
+    {
+     "row": 10,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#908",
+     "now": "12th-north-carolina-infantry#907"
+    },
+    {
+     "row": 11,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#909",
+     "now": "12th-north-carolina-infantry#908"
+    },
+    {
+     "row": 12,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#910",
+     "now": "12th-north-carolina-infantry#909"
+    },
+    {
+     "row": 13,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#911",
+     "now": "12th-north-carolina-infantry#910"
+    },
+    {
+     "row": 14,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#912",
+     "now": "12th-north-carolina-infantry#911"
+    },
+    {
+     "row": 15,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#913",
+     "now": "12th-north-carolina-infantry#912"
+    },
+    {
+     "row": 16,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#914",
+     "now": "12th-north-carolina-infantry#913"
+    },
+    {
+     "row": 17,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#915",
+     "now": "12th-north-carolina-infantry#914"
+    },
+    {
+     "row": 18,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#916",
+     "now": "12th-north-carolina-infantry#915"
+    },
+    {
+     "row": 19,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#917",
+     "now": "12th-north-carolina-infantry#916"
+    },
+    {
+     "row": 20,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#918",
+     "now": "12th-north-carolina-infantry#917"
+    },
+    {
+     "row": 21,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#919",
+     "now": "12th-north-carolina-infantry#918"
+    },
+    {
+     "row": 22,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#920",
+     "now": "12th-north-carolina-infantry#919"
+    },
+    {
+     "row": 23,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#921",
+     "now": "12th-north-carolina-infantry#920"
+    },
+    {
+     "row": 24,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#922",
+     "now": "12th-north-carolina-infantry#921"
+    },
+    {
+     "row": 25,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#923",
+     "now": "12th-north-carolina-infantry#922"
+    },
+    {
+     "row": 26,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#924",
+     "now": "12th-north-carolina-infantry#923"
+    },
+    {
+     "row": 27,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#925",
+     "now": "12th-north-carolina-infantry#924"
+    },
+    {
+     "row": 28,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#926",
+     "now": "12th-north-carolina-infantry#925"
+    },
+    {
+     "row": 29,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#927",
+     "now": "12th-north-carolina-infantry#926"
+    },
+    {
+     "row": 30,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#928",
+     "now": "12th-north-carolina-infantry#927"
+    },
+    {
+     "row": 31,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#929",
+     "now": "12th-north-carolina-infantry#928"
+    },
+    {
+     "row": 32,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#930",
+     "now": "12th-north-carolina-infantry#929"
+    },
+    {
+     "row": 33,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#931",
+     "now": "12th-north-carolina-infantry#930"
+    },
+    {
+     "row": 34,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#932",
+     "now": "12th-north-carolina-infantry#931"
+    },
+    {
+     "row": 35,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#933",
+     "now": "12th-north-carolina-infantry#932"
+    },
+    {
+     "row": 36,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#934",
+     "now": "12th-north-carolina-infantry#933"
+    },
+    {
+     "row": 37,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#935",
+     "now": "12th-north-carolina-infantry#934"
+    },
+    {
+     "row": 38,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#936",
+     "now": "12th-north-carolina-infantry#935"
+    },
+    {
+     "row": 39,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#937",
+     "now": "12th-north-carolina-infantry#936"
+    },
+    {
+     "row": 40,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#938",
+     "now": "12th-north-carolina-infantry#937"
+    },
+    {
+     "row": 41,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#939",
+     "now": "12th-north-carolina-infantry#938"
+    },
+    {
+     "row": 42,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#940",
+     "now": "12th-north-carolina-infantry#939"
+    },
+    {
+     "row": 43,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#941",
+     "now": "12th-north-carolina-infantry#940"
+    },
+    {
+     "row": 44,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#942",
+     "now": "12th-north-carolina-infantry#941"
+    },
+    {
+     "row": 45,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#943",
+     "now": "12th-north-carolina-infantry#942"
+    },
+    {
+     "row": 46,
+     "field": "rid",
+     "verdict": "12th-north-carolina-infantry#944",
+     "now": "12th-north-carolina-infantry#943"
+    }
+   ]
+  },
+  {
+   "page": "05913252.3309.emory.edu/511",
+   "stratum": "NC-MOO-E-other",
+   "lines_in_verdict": 32,
+   "lines_now_on_the_leaf": 32,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "05913252.3310.emory.edu/580",
+   "stratum": "NC-MOO-E-officers",
+   "lines_in_verdict": 18,
+   "lines_now_on_the_leaf": 18,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar02nort/14",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 52,
+   "lines_now_on_the_leaf": 52,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar02nort/20",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 40,
+   "lines_now_on_the_leaf": 40,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar02nort/29",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 39,
+   "lines_now_on_the_leaf": 39,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar02nort/32",
+   "stratum": "NC-MOO-G-officers",
+   "lines_in_verdict": 23,
+   "lines_now_on_the_leaf": 23,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar02nort/38",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 41,
+   "lines_now_on_the_leaf": 41,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar02nort/191",
+   "stratum": "NC-MOO-G-officers",
+   "lines_in_verdict": 17,
+   "lines_now_on_the_leaf": 17,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar02nort/192",
+   "stratum": "NC-MOO-G-officers",
+   "lines_in_verdict": 30,
+   "lines_now_on_the_leaf": 30,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar02nort/202",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 53,
+   "lines_now_on_the_leaf": 53,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar03moor/286",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 55,
+   "lines_now_on_the_leaf": 55,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar03moor/291",
+   "stratum": "NC-MOO-G-officers",
+   "lines_in_verdict": 29,
+   "lines_now_on_the_leaf": 29,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  },
+  {
+   "page": "rosterofnorthcar03moor/536",
+   "stratum": "NC-MOO-G-other",
+   "lines_in_verdict": 31,
+   "lines_now_on_the_leaf": 31,
+   "identical": true,
+   "renumbered_only": false,
+   "differences": []
+  }
+ ],
+ "summary": {
+  "pages": 19,
+  "identical": 15,
+  "renumbered": 4,
+  "different": 0,
+  "lines_in_verdicts": 693,
+  "files_in_frame": 41,
+  "files_differing_from_frame": 29,
+  "files_missing_now": 0
+ },
+ "error_rows_flagged": {
+  "NC-MOO-E": {
+   "rows_in_error": 114,
+   "flagged_at_verdict": 53,
+   "flagged_now": 48
+  },
+  "NC-MOO-G": {
+   "rows_in_error": 79,
+   "flagged_at_verdict": 33,
+   "flagged_now": 33
+  }
+ }
+}

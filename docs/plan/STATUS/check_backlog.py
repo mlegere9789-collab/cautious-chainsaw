@@ -22,6 +22,8 @@ import merge_status as ms  # noqa: E402
 REPO = ms.REPO
 ID_RE = re.compile(r'^[a-z0-9]+(-[a-z0-9]+)*$')
 ROUTES = {'candidate-group', 'source-rebuild', 'verification-record', 'release-request', 'decision-record', 'umbrella'}
+# routes whose entries an engineer builds in a batch (row C18: a request note to the release workstream is a deliverable of its own, done when the note and HANDOFF.md exist)
+BATCH_ROUTES = ('candidate-group', 'source-rebuild', 'release-request')
 WRITE_OK = ('docs/plan/STATUS/', 'docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md', 'candidates/r1h/', 'src/', 'historian-src/', 'data-src/', 'tools/data/', 'tools/time/',
             'tools/historian/', 'tests/data/', 'tests/time/', 'tests/historian/', 'tmp/r1h-cand/', 'docs/battle-theatre/GOVERNANCE/horde/requests/main-site-')
 
@@ -108,7 +110,7 @@ def main(argv):
         if len(members) > ms.BATCH_SIZE:
             bad('wave %d has %d entries, at most %d' % (wn, len(members), ms.BATCH_SIZE))
         for e in members:
-            if e['route']['type'] not in ('candidate-group', 'source-rebuild'):
+            if e['route']['type'] not in BATCH_ROUTES:
                 bad('%s: wave %d entry is not a build entry' % (e['id'], wn))
             if e['size'] == 'L':
                 bad('%s: wave %d entry is size L' % (e['id'], wn))
@@ -143,7 +145,7 @@ def main(argv):
             bad('%s: next_batch holds an entry that is already done: take it out of the batch' % i)
         if e.get('wave') is None:
             bad('%s: next_batch holds an entry without an authored acceptance' % i)
-        if e['route']['type'] not in ('candidate-group', 'source-rebuild'):
+        if e['route']['type'] not in BATCH_ROUTES:
             bad('%s: next_batch holds an entry that is not a build entry' % i)
         for d in e['depends_on']:
             if d in by and not by[d]['done']:
@@ -160,7 +162,7 @@ def main(argv):
         ordered = sorted(items, key=lambda x: x['order'])
         expect = []
         for e in ordered:
-            if e['done'] or e.get('wave') is None or e['route']['type'] not in ('candidate-group', 'source-rebuild'):
+            if e['done'] or e.get('wave') is None or e['route']['type'] not in BATCH_ROUTES:
                 continue
             if any(not by[d]['done'] for d in e['depends_on'] if d in by):
                 continue

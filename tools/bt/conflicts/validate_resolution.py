@@ -301,6 +301,11 @@ def check_positions(R, ctx, obj, cid, S, delegated):
                     covered_values.setdefault('__default__', []).append(pid)
         elif _s(pl):
             R.err('pdf_label_mismatch', '%s: pdf_label is only for origin pdf_value or pdf_default' % w)
+        sk = p.get('source_keys')
+        if sk is not None:
+            allowed_keys = set(L.keys_in_text(L.register()[cid]['text']))
+            if not (isinstance(sk, list) and all(isinstance(k, str) for k in sk)) or (p.get('origin') in ('pdf_value', 'pdf_default') and not set(sk) <= allowed_keys):
+                R.err('source_keys_mismatch', '%s: source_keys %r are not source keys the PDF row prints (%s)' % (w, sk, ', '.join(sorted(allowed_keys)) or 'none'))
         sids = p.get('scenario_ids', [])
         if not isinstance(sids, list) or not all(isinstance(x, str) for x in sids):
             R.err('position_shape', '%s: scenario_ids is a list of the first-pass scenario ids this position carries (C-0xx-S1, C-0xx-DEFAULT ...)' % w)
@@ -361,6 +366,11 @@ def check_positions(R, ctx, obj, cid, S, delegated):
         # tier against the sources
         tier = p.get('tier')
         atoms = atoms_of(p)
+        if p.get('kind') in ('count', 'count_range', 'quantity', 'duration') and tier in ('documented', 'inferred') and p.get('derived') is not True and nl_ok:
+            have = stated_atoms([c for c, inf in nl_ok])['numbers']
+            lost = [n for n in sorted(atoms['numbers']) if not _num_in(n, have)]
+            if lost:
+                R.err('number_not_in_quote', '%s: the number(s) %s of the value are in no quote of its citations (states.numbers, each checked against its quote): a number stands in the source or the value is derived (derived true, inference.step)' % (w, lost))
         if tier == 'documented':
             if not nl_ok:
                 if sup and all(inf['lead'] for inf in infos[pid]):
@@ -425,6 +435,8 @@ def check_coverage(R, obj, cid, delegated, cov):
         for sid in delegated['scenario_ids']:
             if sid not in cov['scen']:
                 R.err('scenario_dropped', 'scenario %s of the first delegated default is carried by no position (scenario_ids): nothing is deleted' % sid)
+            elif len(cov['scen'][sid]) > 1:
+                R.warn('rubric', 'scenario %s is carried by %d positions (%s): one position per scenario is clearer' % (sid, len(cov['scen'][sid]), ', '.join(cov['scen'][sid])))
 
 
 def check_default(R, obj, cid, byid, S):
@@ -479,6 +491,19 @@ def check_default(R, obj, cid, byid, S):
             R.err('default_animation', 'default.animation is {"at": ISO date-time or null, "rule": one of %s, "note": ...}' % ', '.join(S['animation_rules']))
         elif an.get('at') is not None and not (isinstance(an['at'], str) and ISO_DT.match(an['at'])):
             R.err('default_animation', 'default.animation.at is an ISO local date-time YYYY-MM-DDTHH:MM or null')
+    an = d.get('animation')
+    if kinds <= {'time', 'time_window', 'period', 'date', 'date_window'} and kinds and mode in ('range', 'window', 'unresolved_set') and an is None:
+        R.err('default_animation', 'a %s default of a time needs animation {"at": the one instant that drives the picture (or null), "rule": ..., "note": ...}: say which instant stands for it (the gating rule of B.2.4: never earlier than the earliest source-supported time)' % mode)
+    if isinstance(an, dict) and isinstance(an.get('at'), str) and ISO_DT.match(an['at']):
+        sup_times = []
+        for pid, p in byid.items():
+            if p.get('kind') in ('time', 'time_window') and p.get('tier') in ('documented', 'inferred') and isinstance(p.get('value'), dict):
+                v = p['value']
+                for key in ('at', 'from', 'to'):
+                    if isinstance(v.get(key), str) and ISO_DT.match(v[key]):
+                        sup_times.append(v[key])
+        if sup_times and an['at'] < min(sup_times):
+            R.warn('rubric', 'default.animation.at %s is earlier than every source-supported value (%s): a unit is never shown before the earliest source-supported time (B.2.4)' % (an['at'], min(sup_times)))
     # class and mode
     if cls == 'irreducible' and mode == 'position':
         R.err('class_mode', 'class irreducible: the record itself is divided, so the default is a range, a window or an unresolved set with a declared basis, not one value')
@@ -762,6 +787,8 @@ def main(argv):
         if not ok:
             code = 1
     _write_summary(out, partial=True)
+    if '--json' in flags:
+        print(json.dumps(out, ensure_ascii=False, indent=1, default=list))
     return code
 
 

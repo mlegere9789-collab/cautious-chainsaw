@@ -58,8 +58,22 @@ def cite(sid, key, reading, imgkey=None, witness=None, **kw):
     if witness: d['witness'] = witness
     return CA(sid, Q[key], reading=reading, **d)
 
+def close_owed_readings(by):
+    """readings that the fourth start had only in the text layer and that the fifth start read on the page image"""
+    # the Press special of the Chicago Daily Tribune of Jul 3 (T1-044, T1-046): the first lines of the passage
+    for rid in ('T1-044', 'T1-046'):
+        c = by[rid]['cites']['press_9']
+        c['reading'] = c['reading'].replace('(the part of the sentence before "about six thousand strong" is read in the text layer only)', '(the whole passage was read on the page image)')
+        c['image_check'] = c['image_check'] + ' ' + PIC('Chicago Daily Tribune', 1, 'ca5-cht-0703-p1', 'Columbia, Pa., July 1.\u2014The 5th New York, 1st Vermont, 1st Virginia and 18th Pennsylvania cavalry regiments left Frederick, Md., on Saturday, moved forward to Hanover, and arrived there Tuesday morning, when they were charged upon in the rear by Stuart\'s rebel cavalry, about six thousand strong. The National forces numbered 1,800. The battle"')
+    # the Tribune correspondent reprinted in the Adams Sentinel of Sep 8 1863 (T1-005): the sentence before "This occurred on Tuesday"
+    c = by['T1-005']['cites']['trib_horses']
+    c['reading'] = 'The horses were produced, and taken away by the General. This occurred on Tuesday, the 23d of June.'
+    c['image_check'] = ('page 2 of the issue rendered from the archive.org PDF (acquired_tl01.json, item adams-sentinel-1863-09-08.pdf, 220 dpi, region x 2300, y 1090, 1500 by 260 pixels; viewed in the fifth start of the close-out) reads: '
+                        '"...General Jenkins replied in the affirmative. The horses were produced, and taken away by the General. This occurred on Tuesday, the 23d of June. On Thursday the enemy again returned, when General Early"')
+
 def apply(rows):
     by = _by(rows)
+    close_owed_readings(by)
 
     # ------------------------------------------------------------------------------------------------------------------ T1-003
     r = by['T1-003']
@@ -329,6 +343,18 @@ def apply(rows):
     r['scenarios'].append(sc('C', 'The rebels occupy York at five o\'clock in the evening of Jun 27, without resistance (Harrisburg dispatch of Jun 27)',
                              'Daily National Intelligencer of Jun 29 1863 p.3 (page image); against Gordon\'s entry in the morning of Jun 28 in Early\'s report and in Jacobs and the occupation on Jun 29 of the seed; no default', 'documented', ['dnl_york']))
     r.setdefault('searched', []).append(S5 + 'York with occupied, entered and Early in the pages of Jun 27 - Jul 3: a dispatch of Jun 27 with the occupation at five o\'clock that evening')
+
+    # ------------------------------------------------------------------------------------------------------------------ T1-049
+    r = by['T1-049']
+    r['cites']['habs_cupola'] = L('NPS-HABS-pa0007', Q['habs_cupola'], page='2',
+        page_basis='data page 2 of the 2-page PDF of the record (the marker === PAGE 2 === of the text file; the page carries the title of the survey sheet HABS No. PA-359); the text layer has no printed page number and the generic head rule would read the page of the book it cites (p. 36) as a head',
+        reading='Cupola used as post of observation by Union Generals Buford and Reynolds, July 1, 1863. Building used as a hospital for Confederate wounded for several weeks after the battle.',
+        image_check='page image of the data page (acquired_tl01.json, item NPS-HABS-pa0007.pdf; PDF page 2 rendered at 90 dpi and viewed in the fifth start of the close-out) reads, under Additional Data: "Cupola used as post of observation by Union Generals Buford and Reynolds, July 1, 1863. Building used as a hospital for Confederate wounded for several weeks after the battle. Leased in 1958 by the Adams County Historical Society for 39-year period." signed Frederick Tilberg, Senior Historian, Gettysburg National Military Park, March 21, 1966',
+        note='Historic American Buildings Survey record HABS PA-359, Lutheran Theological Seminary, Main Building (Library of Congress item pa0007; National Park Service documentation, a government work); a statement of a park historian of 1966, not a text of 1863')
+    sub_add(r, 'Historic American Buildings Survey record HABS PA-359 (Frederick Tilberg, Senior Historian of the Gettysburg National Military Park, March 21 1966) says of the Lutheran Theological Seminary Main Building: "Cupola used as post of observation by Union Generals Buford and Reynolds, July 1, 1863": the Seminary building again (scenario B), on Jul 1 and with Reynolds, where the 2021 report and Norton have Jun 30',
+            'documented', 'conflict', ['habs_cupola'])
+    scen_extend(r, 'B', '; Historic American Buildings Survey record HABS PA-359 of 1966 (the cupola of the Seminary Main Building used as a post of observation by Buford and Reynolds, July 1, 1863: page image viewed)', 'habs_cupola')
+    r.setdefault('searched', []).append(S5 + 'cupola, steeple, belfry, signal and observation with Buford, Reynolds and the college or the seminary in the National Park Service texts (acquired_3.json, now 275 items): the HABS record PA-359 of the Seminary Main Building (fetched 2026-11-15 23:43 UTC by the web-evidence workstream)')
 
     # ------------------------------------------------------------------------------------------------------------------ register entries: competing values and remains
     def competing(rid, more):

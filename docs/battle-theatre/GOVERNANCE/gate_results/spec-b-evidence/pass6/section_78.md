@@ -1,6 +1,6 @@
 ### 7.8 The sixth pass (16 November, from 02:30 UTC)
 
-Raw outputs are in `spec-b-evidence/pass6/`. The programs of this pass are `facts.py` and `implementation_facts.py` (`facts.out`, `implementation_facts.out`), `inputs_delta.py` (3.1; base 52261939; `inputs_delta.out`), `result_currency.py` (re-hashes the inputs that a stored record names), `result_digest.py` with `result_digest.out` and `reason_distribution.out` (why each stored record fails), `corrections_by_gate.py`, `library_counts.py`, `run_light.sh` (the light commands), `run_light2.sh` (the seven runners that have a stored record, run directly into a scratch folder), `heavy_a.sh` and `heavy_c.sh` (the two locked jobs), `gen_sections.py`, `gen_static.py`, `blocks_a.py`, `blocks_b.py` and `build_doc.py` (which applies this pass to `GATE-SPEC-B.before-pass6.md` and is idempotent: when a locked job finishes, `python3 -I pass6/gen_sections.py && python3 -I pass6/build_doc.py` rewrites this file with its result) and `quick_quotes.py` (the quotation check). `pass6/run_light.sh` ran 53 light commands from 02:42 UTC (HEAD 536b7773, load average 23 at its start and 22 to 31 while it ran; every command nice'd; none took the lock). Exit 0 for all except the three coverage checks that fail by design, `tests/photomatch.test.mjs` (the older file, as at the fifth pass) and the tests named in the table.
+Raw outputs are in `spec-b-evidence/pass6/`. The programs of this pass are `facts.py` and `implementation_facts.py` (`facts.out`, `implementation_facts.out`), `inputs_delta.py` (3.1; base 52261939; `inputs_delta.out`), `result_currency.py` (re-hashes the inputs that a stored record names), `result_digest.py` with `result_digest.out` and `reason_distribution.out` (why each stored record fails), `corrections_by_gate.py`, `library_counts.py`, `run_light.sh` (the light commands), `run_light2.sh` (the seven runners that have a stored record, run directly into a scratch folder), `heavy_a.sh` and `heavy_c.sh` (the two locked jobs), `gen_sections.py`, `gen_static.py`, `blocks_a.py`, `blocks_b.py` and `build_doc.py` (which applies this pass to `GATE-SPEC-B.before-pass6.md` and is idempotent: when a locked job finishes, `python3 -I pass6/gen_sections.py && python3 -I pass6/build_doc.py` rewrites this file with its result) and `quick_quotes.py` (the quotation check). `pass6/run_light.sh` ran 58 light commands from 02:42 UTC (HEAD 536b7773, load average 23 at its start and 22 to 31 while it ran; every command nice'd; none took the lock). An exit code other than 0 is the three coverage checks (which fail by design) and their test files, `tests/photomatch.test.mjs` (the older file, as at the fifth pass), `medical-evidence.test.mjs` (deviation 5 below) and the OA11 validator (its last line is in the table).
 
 | Run | Exit | CPU | Result |
 |---|---|---|---|
@@ -57,6 +57,13 @@ Raw outputs are in `spec-b-evidence/pass6/`. The programs of this pass are `fact
 | `vegetation_wind_test` | 0 | 0.1 s | 4 tests: 4 pass, 0 fail |
 | `weather3d_gpu_test` | 0 | 3.8 s | 43 tests: 43 pass, 0 fail |
 | `crowd_lod_test` | 0 | 2.1 s | 23 tests: 23 pass, 0 fail |
+| `realize_test` | 0 | 49 s | 27 tests: 27 pass, 0 fail |
+| `realize_rules_test` | 0 | 39 s | 42 tests: 42 pass, 0 fail |
+| `life_validate_all` | 1 | 6.1 s | 1383 row(s) in 7 file(s): 1 error(s), 30 warning(s) |
+| `medical_validate_all` | 0 | 32 s | checked 1003 rows in 22 group file(s): 0 failed |
+| `town_validate_all` | 0 | 6.2 s |   warn  terrain-changes-since-1863: no evidence file (not started) |
+
+**Run directly after the light script** (not under the lock, because locked job A had not started; niced; `pass6/light3-runs.tsv`, `pass6/bt_pack_test.out`): the two test files of `tests/bt-pack` (the packer and the copy audit of the shipped dist), 03:15 UTC, 96 tests of which 92 pass and 4 fail, 21 s of CPU and 121 s of wall time; the four failures are the copy-audit tests of section 6.
 
 **The seven runners with a stored record, run directly** (`pass6/run_light2.sh`, 02:55 to 02:59 UTC, each under 30 s of CPU, niced, into `tmp/bt-gates/pass6/results`; `GOVERNANCE/gate_results` was not touched; exit code 1 is the FAIL verdict):
 

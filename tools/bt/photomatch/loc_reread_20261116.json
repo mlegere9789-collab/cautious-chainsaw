@@ -1,6 +1,7 @@
 {
  "_doc": "Fifth photo-match session (2026-11-16): read the Library of Congress catalogue record of EVERY registered photograph again, fresh from the open JSON of the record, for any stated camera position.",
- "retrieved_utc": "2026-11-16T02:58:55Z",
+ "retrieved_utc": "2026-11-16T02:52:38Z",
+ "last_checked_utc": "2026-11-16T03:13:58Z",
  "records": 191,
  "fetched_ok": 191,
  "failed": [],
@@ -10,10 +11,13 @@
   {
    "loc_id": "2008680497",
    "title": "[Confederate dead near centre of battle-field, Gettysburg, Pa.]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOC-2008680497-S"
+   ],
+   "retrieved_utc": "2026-11-16T02:52:38Z",
    "sha256": "84eab36a992764f00624ddf70d27b526808b8dd31a259bd92768b40f3fe4faac",
    "bytes": 7405,
    "cues": [
@@ -27,13 +31,14 @@
   {
    "loc_id": "2012646949",
    "title": "The battle-field of Gettysburg. McPherson's woods in which Archer's (Confederate) Brigade was captured, view of the side",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2012646949-T",
     "PS-NPS-CLR1D-124"
    ],
+   "retrieved_utc": "2026-11-16T02:52:40Z",
    "sha256": "902a4b08c1c51c1864d83843e64a25f169480d7b08878756aac3a0b29f4e08df",
    "bytes": 7845,
    "cues": [
@@ -47,13 +52,15 @@
   {
    "loc_id": "2012647705",
    "title": "Battle-field of Gettysburg. The cemetery gate",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2012647705-N",
-    "PS-NPS-CLRCEM-124"
+    "PS-NPS-CLRCEM-124",
+    "PS-GARDNER-SB1-P85"
    ],
+   "retrieved_utc": "2026-11-16T02:52:42Z",
    "sha256": "f04c374c074b6d6fdb444252cbbf550bb01a8c77920c0ac1f40e933d27f4ebcd",
    "bytes": 8973,
    "cues": [],
@@ -62,7 +69,7 @@
   {
    "loc_id": "2012647707",
    "title": "Battle-field of Gettysburg. Temporary entrenchments thrown up by the Federal troops on Little Round Top. Big Round Top i",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -70,6 +77,7 @@
     "PS-PL-FORT-LOC",
     "PS-PL-FORT-OSULL"
    ],
+   "retrieved_utc": "2026-11-16T02:52:48Z",
    "sha256": "0531135c7f5ee0d6dfcec8df3398876b18fd860844b37b3f9eb39ecb0e95dd87",
    "bytes": 9112,
    "cues": [],
@@ -78,10 +86,11 @@
   {
    "loc_id": "2012647709",
    "title": "The battle-field of Gettysburg. The valley of the shadow of death. Between Round Top and Little Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:52:49Z",
    "sha256": "a585a855a61b18bb95da7881b9d04d161cca1469b65434c59ee1b26676f00ec6",
    "bytes": 8033,
    "cues": [],
@@ -90,12 +99,13 @@
   {
    "loc_id": "2012647712",
    "title": "Scene of the charge of the Louisiana Tigers. View taken from Cemetery Hill at about position of right gun of Wiedrich's ",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2012647712-T"
    ],
+   "retrieved_utc": "2026-11-16T02:52:52Z",
    "sha256": "6d4bdb68012e6a29365fbeae71edeb386cc408ae77f84ab441647db3e71a8c53",
    "bytes": 8169,
    "cues": [
@@ -109,10 +119,11 @@
   {
    "loc_id": "2012647716",
    "title": "Gettysburg, Pa. November 1863. Dedication of Gettysburg battlefield",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:52:54Z",
    "sha256": "866105d927bcc7e0e7292d0643d599bd785222dbe57cacac2c96588ad3ee6183",
    "bytes": 7285,
    "cues": [],
@@ -121,10 +132,11 @@
   {
    "loc_id": "2012647717",
    "title": "Gettysburg, Pa. Nov. 19, 1863. Crowd and marching troops on way to cemetery",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:52:57Z",
    "sha256": "1694645eaff70ed638933a9169295b4c35106dae71ba32950829023b1f0ce997",
    "bytes": 7311,
    "cues": [],
@@ -133,10 +145,11 @@
   {
    "loc_id": "2012647718",
    "title": "Gettysburg, Pa. July 1863. Battlefield of Gettysburg. Woods on left of Chambersburg Pike in which Archers Brigade was ca",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:52:58Z",
    "sha256": "6b0557b3113f4b516c9fc34f5f3b8285a1bd75b3728d6d83888ae81f7df811fe",
    "bytes": 7452,
    "cues": [],
@@ -145,12 +158,13 @@
   {
    "loc_id": "2012647719",
    "title": "Gettysburg, Pa. July 1863. Battlefield of Gettysburg. View of point of woods where General Reynolds was killed, July 1, ",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-ROTV1-F28"
    ],
+   "retrieved_utc": "2026-11-16T02:53:00Z",
    "sha256": "4588e41384677fc7e99bad58edbc126feb79e236291920dc0e6d26ef3687dabe",
    "bytes": 7259,
    "cues": [
@@ -164,10 +178,11 @@
   {
    "loc_id": "2012647822",
    "title": "Federal soldier disembowelled by a shell",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:04Z",
    "sha256": "0cff483b6628fa8c02cbd0426d665eb19823a52a0ab41508e5e50dd03f520993",
    "bytes": 9152,
    "cues": [],
@@ -176,7 +191,7 @@
   {
    "loc_id": "2012647823",
    "title": "Confederate dead",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -185,6 +200,7 @@
     "PS-TN-RW1-REF",
     "PS-TN-RW3-REL"
    ],
+   "retrieved_utc": "2026-11-16T02:53:07Z",
    "sha256": "e1fe8e7a30253e68b8945a6e1a4184adf35c1c10f7d460ffaa73f0e4d31d61f6",
    "bytes": 8770,
    "cues": [
@@ -198,10 +214,11 @@
   {
    "loc_id": "2012647833",
    "title": "Battlefield of Gettysburg. Dead Confederate sharpshooter at foot of Little Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:09Z",
    "sha256": "d888df5007c75ad1115965a4308425c346a8349e5ef4ea12bc2f9d323b16644e",
    "bytes": 8911,
    "cues": [],
@@ -210,10 +227,11 @@
   {
    "loc_id": "2012647834",
    "title": "Battlefield of Gettysburg.  Body of a soldier in \"the wheat field,\" evidently killed by the explosion of a shell",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:14Z",
    "sha256": "80a00a3d2fb78fe81ff1b2e88aad35577318c81c3ce513e485ee42a9e52bd487",
    "bytes": 9027,
    "cues": [],
@@ -222,10 +240,11 @@
   {
    "loc_id": "2012647835",
    "title": "Battlefield of Gettysburg. Bodies of dead Federal soldiers on the field of the first day's battle",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:17Z",
    "sha256": "82332b86914d166637ffc4d03d9a413d176cba4f70bb1b8c67433467e7ec4843",
    "bytes": 9110,
    "cues": [],
@@ -234,10 +253,11 @@
   {
    "loc_id": "2012647843",
    "title": "Dead in \"the wheat field\", Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:19Z",
    "sha256": "b1b4c2bab70a6cb454114a16081b2f0189cb78fd1322d65ab70b9a9ae3e3114f",
    "bytes": 7859,
    "cues": [],
@@ -246,10 +266,11 @@
   {
    "loc_id": "2012647849",
    "title": "Rocks could not save him at the battle of Gettysburg, Pa. July 1863",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:20Z",
    "sha256": "fe126dd26930ee15963fd9b01ab11c546d36e28df9871e5c8bcdcb66203088b3",
    "bytes": 7490,
    "cues": [],
@@ -258,10 +279,11 @@
   {
    "loc_id": "2012648001",
    "title": "Battlefield of Gettysburg. Bodies of dead Federal soldiers on the field of the first day's battle",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:23Z",
    "sha256": "43717d065edc6a57189609c56e9701fd8d60240cdc801c388f2751468e0fb6da",
    "bytes": 8132,
    "cues": [],
@@ -270,10 +292,11 @@
   {
    "loc_id": "2012650192",
    "title": "General Hospital, Gettysburg, August, 1863",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:24Z",
    "sha256": "7f3ada530dc3acdeae34e89ee15bd4c0bd7987ae902076adabb7aec2b379ec4e",
    "bytes": 7489,
    "cues": [],
@@ -282,10 +305,11 @@
   {
    "loc_id": "2012650193",
    "title": "U.S. Cristian [i.e. Christian] Commission at Gettysburg General Hospital, August, 1863",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:26Z",
    "sha256": "2a86233ba9b1cc4100f93503066fcd5bd4fef1b332c156d3096572b968652656",
    "bytes": 7538,
    "cues": [],
@@ -294,12 +318,13 @@
   {
    "loc_id": "2013645105",
    "title": "Battle-field of Gettysburg. Dead horses of Bigelow's (9th Massachusetts) battery",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "roughly",
    "statement_ids": [
     "PS-TN-TR1"
    ],
+   "retrieved_utc": "2026-11-16T02:53:28Z",
    "sha256": "91c67bba2c0ebf19bd28bf8ed67fec97b3d1d474bccbeb4828638ad56f5d4259",
    "bytes": 9384,
    "cues": [],
@@ -308,10 +333,11 @@
   {
    "loc_id": "2013645508",
    "title": "U.S. Sanitary Commission at Gettysburg General Hospital, August, 1863",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:31Z",
    "sha256": "b4a01236a84a02e45ddb44c2afa408f8098b887b16b136e9d9d4c09d8608c69a",
    "bytes": 7519,
    "cues": [],
@@ -320,10 +346,11 @@
   {
    "loc_id": "2014646000",
    "title": "Headquarters of the Sanitary Commission, Gettysburg, PA.",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:32Z",
    "sha256": "13d0a743d954414c6d9b0093cc431ac64ea2ed12662d7b465092ef0c59fc297f",
    "bytes": 8407,
    "cues": [],
@@ -332,15 +359,17 @@
   {
    "loc_id": "2014646001",
    "title": "View of Gettysburg from Cemetery Hill",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "does not",
    "statement_ids": [
     "PS-LOC-2014646001-N",
     "PS-NPS-ROTV1-75",
     "PS-NPS-ROTV2-131",
-    "PS-NPS-ROTV1-F79top"
+    "PS-NPS-ROTV1-F79top",
+    "PS-GARDNER-SB1-P77"
    ],
+   "retrieved_utc": "2026-11-16T02:53:34Z",
    "sha256": "8cd592679e22bb5129f8f28ea06ecb336113bfd8f13cc28a5ad98c71176f6060",
    "bytes": 8414,
    "cues": [
@@ -354,13 +383,14 @@
   {
    "loc_id": "2014646002",
    "title": "View of Gettysburg from the Northwest",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "P04: does not; P05: does not",
    "statement_ids": [
     "PS-LOC-2014646002-N1",
     "PS-LOC-2014646002-N2"
    ],
+   "retrieved_utc": "2026-11-16T02:53:36Z",
    "sha256": "e315d3188791f9dd9b351af0c70f826221bfbb92c437929498c9da960414bd3c",
    "bytes": 8299,
    "cues": [
@@ -374,10 +404,11 @@
   {
    "loc_id": "2014646151",
    "title": "Pennsylvania College, Gettysburg. August, 1863",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:38Z",
    "sha256": "17e8837decaebc9e60e121a684ac68e9e0ee6b1052f4afc943bd392ae060967e",
    "bytes": 7623,
    "cues": [],
@@ -386,7 +417,7 @@
   {
    "loc_id": "2018666296",
    "title": "[Gettysburg, Pa. Headquarters of Gen. George G. Meade on Cemetery Ridge]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "roughly",
    "statement_ids": [
@@ -400,6 +431,7 @@
     "PS-NPS-ROTV1-F209",
     "PS-NPS-ROTV2-F137"
    ],
+   "retrieved_utc": "2026-11-16T02:53:39Z",
    "sha256": "c6a130737f23a252ba4487d3600bce5c3b7da58c73980864e10a1a85c7a1d68b",
    "bytes": 10376,
    "cues": [],
@@ -408,13 +440,14 @@
   {
    "loc_id": "2018666297",
    "title": "[Gettysburg, Pa. Headquarters of Gen. Robert E. Lee on the Chambersburg Pike]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2018666297-T",
     "PS-NPS-CLR1D-151"
    ],
+   "retrieved_utc": "2026-11-16T02:53:43Z",
    "sha256": "39f57b09a831865cc09f16f29fbc3961ae6f37c9cad54bd149bdcc530871dbbe",
    "bytes": 11263,
    "cues": [],
@@ -423,13 +456,14 @@
   {
    "loc_id": "2018666298",
    "title": "[Gettysburg, Pa. The Bryan house on 2d Corps line, near scene of Pickett's Charge]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2018666298-T",
     "PS-NPS-BRIEN-9"
    ],
+   "retrieved_utc": "2026-11-16T02:53:45Z",
    "sha256": "deee3686d019e6fca66e5d5fdd89c896d3cc6c136ff0857a7663d3277ef54192",
    "bytes": 11380,
    "cues": [],
@@ -438,10 +472,11 @@
   {
    "loc_id": "2018666299",
    "title": "[Gettysburg, Pa., vicinity. G.J. White's house]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:53:50Z",
    "sha256": "3b13e80bc83146a23bec675be875e85f1a6076c1c214d2e92520904c9c1072dc",
    "bytes": 9765,
    "cues": [],
@@ -450,7 +485,7 @@
   {
    "loc_id": "2018666300",
    "title": "[Gettysburg, Pa. The cemetery gatehouse]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -460,6 +495,7 @@
     "PS-TN-BF3-JUL2",
     "PS-PL-GATEHOUSE-LOC"
    ],
+   "retrieved_utc": "2026-11-16T02:53:52Z",
    "sha256": "a148b6ae1838cc533096dcd994e7547b68727f2b27341bec89661da02e70c290",
    "bytes": 11069,
    "cues": [],
@@ -468,12 +504,13 @@
   {
    "loc_id": "2018666301",
    "title": "[Gettysburg, Pa. View of Little Round Top]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-VISTA-10"
    ],
+   "retrieved_utc": "2026-11-16T02:53:55Z",
    "sha256": "eedc4d7f70cde4c371058d8efa009ca03d7b349ca8eb6a293da8809445575ffe",
    "bytes": 9795,
    "cues": [],
@@ -482,12 +519,13 @@
   {
    "loc_id": "2018666302",
    "title": "[Gettysburg, Pa. Breastworks on Little Round Top; Round Top in distance]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "roughly",
    "statement_ids": [
     "PS-LOC-2018666302-T"
    ],
+   "retrieved_utc": "2026-11-16T02:53:57Z",
    "sha256": "bf9db293758a58f619b6087c18c502897b3596f25a0032c7ad28ce53b52efeb2",
    "bytes": 10878,
    "cues": [],
@@ -496,7 +534,7 @@
   {
    "loc_id": "2018666303",
    "title": "[Gettysburg, Pa. The center of the Federal position viewed from Little Round Top]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "roughly",
    "statement_ids": [
@@ -510,6 +548,7 @@
     "PS-PL-SUMMIT-SAME",
     "PS-NPS-ROTV1-F163"
    ],
+   "retrieved_utc": "2026-11-16T02:54:00Z",
    "sha256": "6cb0cfde7821045c0033742f6b1013291ba5f5127134dc5af2a533a5aa3b5d24",
    "bytes": 11514,
    "cues": [],
@@ -518,7 +557,7 @@
   {
    "loc_id": "2018666304",
    "title": "[Gettysburg, Pa. Interior view of breastworks on extreme left of the Federal line]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -526,6 +565,7 @@
     "PS-PL-FORT-LOC",
     "PS-PL-FORT-OSULL"
    ],
+   "retrieved_utc": "2026-11-16T02:54:02Z",
    "sha256": "6a993c54a8893e70abf98a667ca2be3d28e448aa90bbc941219772daf63766c1",
    "bytes": 11536,
    "cues": [],
@@ -534,10 +574,11 @@
   {
    "loc_id": "2018666305",
    "title": "[Gettysburg, Pa. Breastworks on left wing of the Federal line]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:04Z",
    "sha256": "b2463f290d0a6e00b75ad86833a859f0edee5598dcae143d2cf0d709293e9ef0",
    "bytes": 11309,
    "cues": [],
@@ -546,12 +587,13 @@
   {
    "loc_id": "2018666306",
    "title": "[Gettysburg, Pa. Alfred R. Waud, artist of Harper's Weekly, sketching on battlefield]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-PL-WAUD-LOC"
    ],
+   "retrieved_utc": "2026-11-16T02:54:06Z",
    "sha256": "9a8259f1b6c4a48b53926b7a042ffcb6c9310a9e63e09f7a2fc1dbfd3842cf27",
    "bytes": 11458,
    "cues": [],
@@ -560,10 +602,11 @@
   {
    "loc_id": "2018666307",
    "title": "[Gettysburg, Pa. Bodies of Federal soldiers, killed on July 1, near the McPherson woods]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:08Z",
    "sha256": "2b7987e27d22ee7ac3c3908a649ea5f2b7cafa395fbb591b8c8101921d9ca985",
    "bytes": 11701,
    "cues": [],
@@ -572,12 +615,13 @@
   {
    "loc_id": "2018666308",
    "title": "[Gettysburg, Pa. Confederate dead gathered for burial at the southwestern edge of the Rose woods, July 5, 1863]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-ROTV2-F15"
    ],
+   "retrieved_utc": "2026-11-16T02:54:10Z",
    "sha256": "64a25b47175075c4fc1945741782786f8a256779da5b2f0eb6c5f74755a7beba",
    "bytes": 11728,
    "cues": [],
@@ -586,10 +630,11 @@
   {
    "loc_id": "2018666309",
    "title": "[Gettysburg, Pa. Confederate dead at the edge of the Rose woods, July 5, 1863]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:11Z",
    "sha256": "10007621370393eb57b1e6afba48e7aa169a24adcccea5799ad8b336b395b4a1",
    "bytes": 11584,
    "cues": [],
@@ -598,7 +643,7 @@
   {
    "loc_id": "2018666310",
    "title": "[Gettysburg, Pa. Confederate dead gathered for burial at the edge of the Rose woods, July 5, 1863]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -609,6 +654,7 @@
     "PS-PL-RW3-WAGON",
     "PS-NPS-ROTV2-F27"
    ],
+   "retrieved_utc": "2026-11-16T02:54:14Z",
    "sha256": "0a3487fffd48b949ef4637d979a6ae16a57bbfeea6e10de745ce3d630ba5aa0c",
    "bytes": 13593,
    "cues": [],
@@ -617,7 +663,7 @@
   {
    "loc_id": "2018666311",
    "title": "[Gettysburg, Pa. Dead Confederate soldiers in the \"slaughter pen\" at the foot of Little Round Top]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -626,6 +672,7 @@
     "PS-PL-PLUMRUN-LOC",
     "PS-PL-PLUMRUN-ROCKS"
    ],
+   "retrieved_utc": "2026-11-16T02:54:16Z",
    "sha256": "79be8b73d438730b791d0f4c6b8b7ef20b2a8d7fb7d9e15dbfa0317a23a899b5",
    "bytes": 11554,
    "cues": [],
@@ -634,12 +681,13 @@
   {
    "loc_id": "2018666312",
    "title": "[Gettysburg, Pa. Four dead soldiers in the woods near Little Round Top]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-SPEN-7"
    ],
+   "retrieved_utc": "2026-11-16T02:54:18Z",
    "sha256": "f20de795c931d1812159a8d0d015eccfd675f488bac864953d05a7e9a91ea8b4",
    "bytes": 11527,
    "cues": [],
@@ -648,14 +696,16 @@
   {
    "loc_id": "2018666313",
    "title": "[Gettysburg, Pa. Dead Confederate soldier in Devil's Den]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-TN-DD7-STAGED",
     "PS-PL-SHARP-HOME-LOC",
-    "PS-PL-SHARP-HOME-STAGED"
+    "PS-PL-SHARP-HOME-STAGED",
+    "PS-LOCESSAY-MOVED-PLACE"
    ],
+   "retrieved_utc": "2026-11-16T02:54:20Z",
    "sha256": "07c0b7cfec6b398f6f88ed1684540924fa70de483e3c7880ddc01a606dc59506",
    "bytes": 12301,
    "cues": [],
@@ -664,13 +714,15 @@
   {
    "loc_id": "2018666314",
    "title": "[Gettysburg, Pa. Dead Confederate soldiers in \"the devil's den\"]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-SPEN-8",
-    "PS-PL-GARDNER263-LOC"
+    "PS-PL-GARDNER263-LOC",
+    "PS-LOCESSAY-MOVED-PLACE"
    ],
+   "retrieved_utc": "2026-11-16T02:54:21Z",
    "sha256": "66aab8811b5a24a47d7e4fc728fd49b0c18a49bbf01304a46796a71bbf01ec6a",
    "bytes": 12225,
    "cues": [],
@@ -679,13 +731,14 @@
   {
    "loc_id": "2018666315",
    "title": "[Gettysburg, Pa. Three Confederate prisoners]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2018666315-T",
     "PS-NPS-CLR1D-146"
    ],
+   "retrieved_utc": "2026-11-16T02:54:24Z",
    "sha256": "9eaa39eed41d6961862e1a786fabf8e15395387db478ee9477b6509e8c8b667f",
    "bytes": 11429,
    "cues": [],
@@ -694,10 +747,11 @@
   {
    "loc_id": "2018666316",
    "title": "[Gettysburg, Pa. John L. Burns, the \"old hero of Gettysburg,\" with gun and crutches]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:26Z",
    "sha256": "3499d84d0c696f16edd967faa1fc3e27560aa4a88dc995c00934f5bc2833a23e",
    "bytes": 11389,
    "cues": [],
@@ -706,10 +760,11 @@
   {
    "loc_id": "2018670368",
    "title": "W.D. Pender, C.S.A., killed at Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:28Z",
    "sha256": "c1624b53dd0e04a6170825e238d8784811ada642e775a3d6f3da903a72b72420",
    "bytes": 7868,
    "cues": [],
@@ -718,10 +773,11 @@
   {
    "loc_id": "2018670617",
    "title": "Gettysburg, Pennsylvania. Unfit for service. Artillery caisson and dead mule",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:30Z",
    "sha256": "1593892de023716f0cb2ddcdd5e8983bebcf551ca2f012f3f8b64396dda9a821",
    "bytes": 10319,
    "cues": [],
@@ -730,12 +786,13 @@
   {
    "loc_id": "2018670625",
    "title": "Gettysburg, Pennsylvania. Dead Confederate sharpshooter at the foot of Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-SPEN-4"
    ],
+   "retrieved_utc": "2026-11-16T02:54:32Z",
    "sha256": "9bf14cfb73f113601af0c186140b1c5ba86b5de2e2d4d26a62210d5548b3a5cb",
    "bytes": 9462,
    "cues": [],
@@ -744,10 +801,11 @@
   {
    "loc_id": "2018670636",
    "title": "Gettysburg, Pennsylvania. Line of breastworks on Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:33Z",
    "sha256": "0621b8771ad3065e06b924a19aa349be6a046fe03cd5abe8a89adde04293c728",
    "bytes": 10485,
    "cues": [],
@@ -756,12 +814,14 @@
   {
    "loc_id": "2018670645",
    "title": "Gettysburg, Pennsylvania. Line of breastworks looking eastward",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
-    "PS-LOC-2018670645-N"
+    "PS-LOC-2018670645-N",
+    "PS-GARDNER-CAT-231"
    ],
+   "retrieved_utc": "2026-11-16T02:54:37Z",
    "sha256": "f706a12faf655d07b0f9bc60f73277a2059d51834d7664a8256e86dc8c2f28c2",
    "bytes": 9423,
    "cues": [
@@ -779,7 +839,7 @@
   {
    "loc_id": "2018670660",
    "title": "Gettysburg, Pennsylvania. Unfinished Confederate graves near the center of the battlefield",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -787,6 +847,7 @@
     "PS-NPS-ROTV1-F6",
     "PS-NPS-ROTV2-F29"
    ],
+   "retrieved_utc": "2026-11-16T02:54:39Z",
    "sha256": "02b2a3c4a98f2916580af6b99f114bfa0b76d608031ea320f5a25031199b7da8",
    "bytes": 12715,
    "cues": [],
@@ -795,10 +856,11 @@
   {
    "loc_id": "2018670663",
    "title": "Hanover Junction, Pennsylvania. Bridge at Hanover Junction burned by Confederates before the battle of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:42Z",
    "sha256": "03768d7d7fbd8d10ca9c72c7bbf789d3ea1ab01496b046c8c5dff946d9e2c3c3",
    "bytes": 9134,
    "cues": [],
@@ -807,13 +869,14 @@
   {
    "loc_id": "2018670673",
    "title": "Gettysburg, Pennsylvania. Confederate soldiers as they fell near the center of the battlefield",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-TN-RW2-REF",
     "PS-PL-RW2-LOC"
    ],
+   "retrieved_utc": "2026-11-16T02:54:43Z",
    "sha256": "039ffd95f1fb004854835de29cc9d71840e6ec98c04435024442d941cadba81d",
    "bytes": 8042,
    "cues": [],
@@ -822,10 +885,11 @@
   {
    "loc_id": "2018670696",
    "title": "Gettysburg, Pennsylvania. Offices of U.S. Sanitary Commission",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:46Z",
    "sha256": "1cf28b17bdacad2f7860720e1b218ec1daea6a879cba3401df772e2c4a1cf830",
    "bytes": 7851,
    "cues": [],
@@ -834,10 +898,11 @@
   {
    "loc_id": "2018670700",
    "title": "Gettysburg, Pennsylvania. Woods on Culp's Hill showing the effect of musket fire",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:48Z",
    "sha256": "f280f7d5fe16f48181759e36ddae8f594c21564d1a497075392acaed62445af4",
    "bytes": 9100,
    "cues": [
@@ -855,10 +920,11 @@
   {
    "loc_id": "2018670701",
    "title": "Gettysburg, Pennsylvania. Battered trees on Culp's Hill",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:49Z",
    "sha256": "e3df888347f00bdc2e950d2c9c879c3dc41929d55120254b72c465cd7d9a56a3",
    "bytes": 9051,
    "cues": [],
@@ -867,12 +933,13 @@
   {
    "loc_id": "2018670702",
    "title": "Gettysburg, Pennsylvania. The cemetery gatehouse",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2018670702-T"
    ],
+   "retrieved_utc": "2026-11-16T02:54:51Z",
    "sha256": "db49f904b837948b505e31cb1ef72d50a98c21c83285960bcb7200fb6d9ae3ca",
    "bytes": 9021,
    "cues": [],
@@ -881,13 +948,14 @@
   {
    "loc_id": "2018670703",
    "title": "Gettysburg, Pennsylvania. View in wheatfield opposite our extreme left",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2018670703-N",
     "PS-NPS-ROTV2-F33"
    ],
+   "retrieved_utc": "2026-11-16T02:54:52Z",
    "sha256": "64946d4f24a1a328e62694f023004adebb01028850785454101048638ced93bb",
    "bytes": 10545,
    "cues": [],
@@ -896,12 +964,13 @@
   {
    "loc_id": "2018670704",
    "title": "Gettysburg, Pennsylvania. Federal breastworks in the wods on Culp's Hill",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-ROTV1-F233"
    ],
+   "retrieved_utc": "2026-11-16T02:54:54Z",
    "sha256": "544fa432fefd7a55d0608021a919811801c0a065a907e60fad7edb58b509365d",
    "bytes": 8471,
    "cues": [],
@@ -910,10 +979,11 @@
   {
    "loc_id": "2018670705",
    "title": "Gettysburg, Pennsylvania. Battered trees on Culp's Hill",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:54:55Z",
    "sha256": "072a8fca8fe96ae9101275384dba537f0c03063429948026132d1710916dcd7f",
    "bytes": 9161,
    "cues": [],
@@ -922,7 +992,7 @@
   {
    "loc_id": "2018670707",
    "title": "Gettysburg, Pennsylvania. Lutheran Theological Seminary",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -931,6 +1001,7 @@
     "PS-TN-BF2",
     "PS-PL-SEMINARY-LOC"
    ],
+   "retrieved_utc": "2026-11-16T02:54:57Z",
    "sha256": "303eab8468caa7ba2bd974a6e2c60c786cc82c422a3e661623c0cdc67d2e77ec",
    "bytes": 9050,
    "cues": [],
@@ -939,12 +1010,13 @@
   {
    "loc_id": "2018670708",
    "title": "Gettysburg, Pennsylvania. Big Round Top from entrenchments on Little Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "roughly",
    "statement_ids": [
     "PS-LOC-2018670708-N"
    ],
+   "retrieved_utc": "2026-11-16T02:54:58Z",
    "sha256": "a9620cd5ab2be9ccf4c365b06fc881cf64bc4b5013b07b1a7414e1366a157d7c",
    "bytes": 9192,
    "cues": [],
@@ -953,13 +1025,14 @@
   {
    "loc_id": "2018670709",
    "title": "Gettysburg, Pennsylvania. Little Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-VISTA-10",
     "PS-NPS-ROTV1-F193"
    ],
+   "retrieved_utc": "2026-11-16T02:55:00Z",
    "sha256": "ada076022fc38003cd7130b48ce8558013630a029e84ef8dc73e9c2d4138c6f4",
    "bytes": 9022,
    "cues": [],
@@ -968,10 +1041,11 @@
   {
    "loc_id": "2018670710",
    "title": "Gettysburg, Pennsylvania. John L. Burns, the \"old hero of Gettysburg,\" with gun and crutches",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:02Z",
    "sha256": "edab0be234a23dfff5114e52afd60fb9c6715041a95aa5e7b2befcf4d102784d",
    "bytes": 9411,
    "cues": [],
@@ -980,10 +1054,11 @@
   {
    "loc_id": "2018670711",
    "title": "Gettysburg, Pennsylvania. John L. Burns cottage. (Burns seated in doorway)",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:03Z",
    "sha256": "add5f4663245508eeaa1c877814ef8c6bd7cc63da3fd5c63e90737f333d7f908",
    "bytes": 9789,
    "cues": [
@@ -997,10 +1072,11 @@
   {
    "loc_id": "2018670717",
    "title": "Gettysburg, Pennsylvania. View of breastworks on Round Top the hill which formed our extreme left",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:05Z",
    "sha256": "7f2eb076e39bd7b2ad2ccb4fcfb609a56dbea4801836d9d9e4f12139da93ed45",
    "bytes": 10475,
    "cues": [
@@ -1018,10 +1094,11 @@
   {
    "loc_id": "2018670726",
    "title": "Gettysburg, Pennsylvania. Bodies of dead on right of Federal line",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:07Z",
    "sha256": "0cecc88e6c52fc15f96199fc126640c6d58ee43f1b1aa86ac85293997ac90ddb",
    "bytes": 9102,
    "cues": [],
@@ -1030,10 +1107,11 @@
   {
    "loc_id": "2018670733",
    "title": "Gettysburg, Pennsylvania. Federal dead on the right of the Federal lines, killed on July 1",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:08Z",
    "sha256": "64f038f3b7ed3ce7166365e21631acba96975f8ea4dbbb80adbf511908bbd3a9",
    "bytes": 9552,
    "cues": [],
@@ -1042,7 +1120,7 @@
   {
    "loc_id": "2018670741",
    "title": "Gettysburg, Pennsylvania. Dead sharpshooter on the right of Confederate line",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -1050,6 +1128,7 @@
     "PS-PL-SHARP-ORIG-LOC",
     "PS-PL-SHARP-ORIG-CAM"
    ],
+   "retrieved_utc": "2026-11-16T02:55:09Z",
    "sha256": "a3801e2c405cf8991fcf3c2f3991f43d8963431c8418e54a05e666e2418225c7",
    "bytes": 9443,
    "cues": [],
@@ -1058,10 +1137,13 @@
   {
    "loc_id": "2018670757",
    "title": "Gettysburg, Pennsylvania. [Confederate dead, view at the edge of the Rose woods, July 5, 1863]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOC-2018670757-T"
+   ],
+   "retrieved_utc": "2026-11-16T02:55:11Z",
    "sha256": "4a104c06464fe8ffa33e662335939937afae4cd370e34bf50eda361fc479b752",
    "bytes": 10574,
    "cues": [
@@ -1075,10 +1157,11 @@
   {
    "loc_id": "2018670772",
    "title": "Gettysburg, Pennsylvania. Headquarters of Gen. Robert E. Lee on the Chambersburg Pike",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:13Z",
    "sha256": "ae829454419ec910b421f719ca1de1493d74ba0ec9f949de04d5ab1cd4fd1f5e",
    "bytes": 9158,
    "cues": [],
@@ -1087,10 +1170,11 @@
   {
    "loc_id": "2018670776",
    "title": "Scene in the woods at foot of Round Top at Battle of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:14Z",
    "sha256": "05ee1d4cae7d9bbf6214067fd55aa2164d9f6ce255dd5ebc7946664ccd739adf",
    "bytes": 8734,
    "cues": [],
@@ -1099,13 +1183,14 @@
   {
    "loc_id": "2018670788",
    "title": "Gettysburg, Pennsylvania. Body of Confederate sharpshooter",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-PL-SHARP-HOME-LOC",
     "PS-PL-SHARP-HOME-STAGED"
    ],
+   "retrieved_utc": "2026-11-16T02:55:16Z",
    "sha256": "6fcdfb48b5806094e36cc42cc43d1b62400f40481db32288f46ca9ed6d69b215",
    "bytes": 12403,
    "cues": [],
@@ -1114,10 +1199,11 @@
   {
    "loc_id": "2018670802",
    "title": "Gettysburg, Pennsylvania. Slaughter pen at foot of Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:17Z",
    "sha256": "32c524c92f2a58f7b5fc3af9a410193e538e462feb1be0d37c2c6a8ef51a04e4",
    "bytes": 9527,
    "cues": [],
@@ -1126,10 +1212,11 @@
   {
    "loc_id": "2018670837",
    "title": "Gettysburg, Pennsylvania. Confederate sharpshooter killed by a shell",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:19Z",
    "sha256": "1c08ed5425474136ff77e74d58938ab07a242170ab6d9f0046df025db8a612a9",
    "bytes": 9451,
    "cues": [],
@@ -1138,12 +1225,13 @@
   {
    "loc_id": "2018670852",
    "title": "Gettysburg, Pennsylvania. [Confederate dead, view looking toward the orchard on the Rose farm, July 5, 1863]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2018670852-T"
    ],
+   "retrieved_utc": "2026-11-16T02:55:20Z",
    "sha256": "208b600a3714283e21e9396cf7b3a188aa372eb9b2686c3272a75e00525a3664",
    "bytes": 9525,
    "cues": [
@@ -1157,10 +1245,11 @@
   {
    "loc_id": "2018670859",
    "title": "Gettysburg, Pennsylvania. View of breast works on Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:22Z",
    "sha256": "88039f3f89b95531800e95e18b87434c3eace6cad4fb2cd5d68739c1acdf66d9",
    "bytes": 10322,
    "cues": [],
@@ -1169,13 +1258,14 @@
   {
    "loc_id": "2018670867",
    "title": "Gettysburg, Pennsylvania. \"Slaughter pen\" on left wing",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-SPEN-5",
     "PS-NPS-SPEN-5"
    ],
+   "retrieved_utc": "2026-11-16T02:55:23Z",
    "sha256": "0454a64b35fc477e02723ea2a11de2771ac4777f1cd743b337fc9bc8f500d000",
    "bytes": 12679,
    "cues": [],
@@ -1184,7 +1274,7 @@
   {
    "loc_id": "2018670874",
    "title": "Gettysburg, Pennsylvania. Dead Confederate sharpshooter",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -1192,6 +1282,7 @@
     "PS-PL-SHARP-ORIG-LOC",
     "PS-PL-SHARP-ORIG-CAM"
    ],
+   "retrieved_utc": "2026-11-16T02:55:25Z",
    "sha256": "6e14601052b44c0d3f92cbad5d002b9a5ad0ff6d43ee7c9fbae12fae6d7461c8",
    "bytes": 10040,
    "cues": [],
@@ -1200,10 +1291,11 @@
   {
    "loc_id": "2018670882",
    "title": "Gettysburg, Pennsylvania. Breast works on extreme left",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:27Z",
    "sha256": "0f3cea63fa9b45feccf0b01096abc26ca9e0966dc37ca73c89287798fb5a816e",
    "bytes": 7812,
    "cues": [],
@@ -1212,13 +1304,14 @@
   {
    "loc_id": "2018670894",
    "title": "Gettysburg, Pennsylvania. View at Trostle's barn where the 9th Massachusetts Battery was cut up",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2018670894-T",
     "PS-TN-TR2"
    ],
+   "retrieved_utc": "2026-11-16T02:55:29Z",
    "sha256": "d75347d7600839b43e8947fce0fc3dc2b17f4a775ef29c797f92142ba032be03",
    "bytes": 11820,
    "cues": [
@@ -1236,10 +1329,14 @@
   {
    "loc_id": "2018670908",
    "title": "Gettysburg, Pennsylvania. [Confederate dead gathered for burial, July 5, 1863]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-GARDNER-CAT-268",
+    "PS-LOC-2018670908-N"
+   ],
+   "retrieved_utc": "2026-11-16T02:55:31Z",
    "sha256": "426a79171d2ec31bb765bdd6f6d901d7d4c095fae65e80408d4e3de4bda385bd",
    "bytes": 9607,
    "cues": [
@@ -1253,10 +1350,11 @@
   {
    "loc_id": "2018670943",
    "title": "Gettysburg, Pennsylvania. Effect of a shell on a Confederate",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:32Z",
    "sha256": "eb2af024084884eda55a4f18c38da435539a2aee3f4c637ec9732869121cf1ae",
    "bytes": 9536,
    "cues": [],
@@ -1265,14 +1363,17 @@
   {
    "loc_id": "2018671576",
    "title": "Gettysburg, Pennsylvania. Gettysburg from the cemetery",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "roughly",
    "statement_ids": [
     "PS-LOC-2018671576-N",
     "PS-NPS-CLRCEM-126",
-    "PS-NPS-CLRCEM-126b"
+    "PS-NPS-CLRCEM-126b",
+    "PS-GARDNER-SB1-P77",
+    "PS-GARDNER-CAT-273"
    ],
+   "retrieved_utc": "2026-11-16T02:55:34Z",
    "sha256": "2322e10b7ac50e55009918c88d37afe850fca65ede630f13f28b4022a536297d",
    "bytes": 7879,
    "cues": [
@@ -1290,10 +1391,11 @@
   {
    "loc_id": "2018671578",
    "title": "Gettysburg, Pennsylvania. Dead Confederate sharpshooter in \"Devil's Den\"",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:35Z",
    "sha256": "ae7401b378f4cd813e8f0c058eea7ebafd3833dc8cd3bc10f0e3d8b984b3d999",
    "bytes": 9116,
    "cues": [],
@@ -1302,10 +1404,11 @@
   {
    "loc_id": "2018672035",
    "title": "Gettysburg, Pennsylvania. Gen. George G. Meade's headquarters",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:37Z",
    "sha256": "617e25cce930447e9cb79f22aa5ad28615de794894a742de558bdebfcec3781a",
    "bytes": 7928,
    "cues": [],
@@ -1314,10 +1417,11 @@
   {
    "loc_id": "2018672105",
    "title": "Gettysburg, Pennsylvania. Unfit for service. Artillery caisson and dead mule",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:38Z",
    "sha256": "6f84fc4f3f23e290dd6d19d895fe48e4a2014173bee56e0874a46a1b2bd4bc6f",
    "bytes": 8161,
    "cues": [],
@@ -1326,12 +1430,13 @@
   {
    "loc_id": "2018672106",
    "title": "Gettysburg, Pennsylvania. Confederate soldiers who had evidently been shelled by our batteries on Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-ROTV2-F31left"
    ],
+   "retrieved_utc": "2026-11-16T02:55:40Z",
    "sha256": "e053a10be905d497159fb0f549e8e8be1058ab6d630c44ff7c4bafc78eed231d",
    "bytes": 8279,
    "cues": [],
@@ -1340,10 +1445,11 @@
   {
    "loc_id": "2018672107",
    "title": "The home of a rebel sharpshooter, on battle field of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:43Z",
    "sha256": "3b1e890d6d338eba0f6fe8d09b84292b8e83f62b4df942977acabc4b05e0c82f",
    "bytes": 8006,
    "cues": [],
@@ -1352,10 +1458,11 @@
   {
    "loc_id": "2018672108",
    "title": "Gettysburg, Pennsylvania. Offices of U.S. Sanitary Commission",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:45Z",
    "sha256": "9d9beaf44acfff7835a2f2e00f744f9b0b3d61ffd69fe613fe7e1b5103012d3c",
    "bytes": 8156,
    "cues": [],
@@ -1364,10 +1471,11 @@
   {
    "loc_id": "2018672109",
    "title": "Gettysburg, Pennsylvania. Evidence of how severe the contest had been on the right",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:47Z",
    "sha256": "a14d1c73d8edf9351d20c343badcd4f7df24b2e6b871aa4b13868161501df989",
    "bytes": 7986,
    "cues": [],
@@ -1376,10 +1484,11 @@
   {
    "loc_id": "2018672110",
    "title": "Gettysburg, Pennsylvania. Scene in the woods at the foot of Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:49Z",
    "sha256": "0c36d369347d1eee4501a19e6daf9d04fd3e1bf08cc53ce37caf4e2ad0257129",
    "bytes": 8173,
    "cues": [],
@@ -1388,10 +1497,11 @@
   {
    "loc_id": "2018672111",
    "title": "Gettysburg, Pennsylvania. Body of Confederate sharpshooter",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:51Z",
    "sha256": "38c909c1d80779555005baeacfcee9b2084ea53ef35d9855bcdf623c4938c649",
    "bytes": 10298,
    "cues": [],
@@ -1400,10 +1510,11 @@
   {
    "loc_id": "2018672112",
    "title": "Gettysburg, Pennsylvania. View of breastworks on Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:52Z",
    "sha256": "448636774ee9115cac2b615b6bf0da2fa79a4dfdbaef419d942ed60ea1f4dcde",
    "bytes": 8146,
    "cues": [],
@@ -1412,10 +1523,11 @@
   {
    "loc_id": "2018672113",
    "title": "Gettysburg, Pennsylvania. View of breastworks on Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:55Z",
    "sha256": "d42068e3384d7ef700d980a2f42899a2fe3fa1aeee84657eac2b576130260fd7",
    "bytes": 7901,
    "cues": [],
@@ -1424,12 +1536,13 @@
   {
    "loc_id": "2018672114",
    "title": "Gettysburg, Pennsylvania. \"Slaughter Pen\" on left wing",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-SPEN-5"
    ],
+   "retrieved_utc": "2026-11-16T02:55:57Z",
    "sha256": "2630afdf1ed4d889007f42b55d18e83e696697497eebcde9c5359e82044c2d29",
    "bytes": 7914,
    "cues": [],
@@ -1438,10 +1551,11 @@
   {
    "loc_id": "2018672115",
    "title": "Gettysburg, Pennsylvania. Breast works on extreme left",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:55:59Z",
    "sha256": "811eca075d8ea0bdf2bb718060ccef3cd515d2afa1a632414740deafae5f6c32",
    "bytes": 7920,
    "cues": [],
@@ -1450,10 +1564,11 @@
   {
    "loc_id": "2018672117",
    "title": "Gettysburg, Pennsylvania. View of Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:01Z",
    "sha256": "ba011845e3adf791cd84282f19c36ddc693ed6a9e938ed8ca045e80cce42a5cf",
    "bytes": 8103,
    "cues": [],
@@ -1462,13 +1577,14 @@
   {
    "loc_id": "2018672207",
    "title": "Gettysburg, Pennsylvania. View of Little Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-VISTA-10",
     "PS-NPS-ROTV2-F67"
    ],
+   "retrieved_utc": "2026-11-16T02:56:02Z",
    "sha256": "8427951092cb1a5f9b96c016b8e9829d66ce0a74db20a3c68ee9eb5c5542525f",
    "bytes": 7738,
    "cues": [],
@@ -1477,12 +1593,13 @@
   {
    "loc_id": "2018672241",
    "title": "Gettysburg, Pennsylvania. Dead Confederate sharpshooter in \"the devil's den\"",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-PL-GARDNER263-LOC"
    ],
+   "retrieved_utc": "2026-11-16T02:56:04Z",
    "sha256": "388319ac719ac64a0cefccd51b63d40247005ec10550edd454c8d2d475a198d3",
    "bytes": 8442,
    "cues": [],
@@ -1491,12 +1608,13 @@
   {
    "loc_id": "2018672403",
    "title": "Gettysburg, Pennsylvania. Little Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-VISTA-10"
    ],
+   "retrieved_utc": "2026-11-16T02:56:06Z",
    "sha256": "28f38751682b3b269e15a95fdbaa57f39286235615d17dacff3d340eb69a7b3e",
    "bytes": 7709,
    "cues": [],
@@ -1505,13 +1623,14 @@
   {
    "loc_id": "91732531",
    "title": "Battle-field of Gettysburg--Dead Confederate sharpshooter at foot of Little Round Top [i.e., Devil's Den]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-PL-SHARP-HOME-LOC",
     "PS-PL-SHARP-HOME-STAGED"
    ],
+   "retrieved_utc": "2026-11-16T02:56:07Z",
    "sha256": "740178e0905e2b2a10af5576816ffa04bca9304aadac8b7275e8798913beca98",
    "bytes": 12059,
    "cues": [],
@@ -1520,10 +1639,11 @@
   {
    "loc_id": "91732534",
    "title": "Federal dead on the field of battle of first day, Gettysburg, Pennsylvania",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:11Z",
    "sha256": "c13c73893b9e1f42eee48f340acca65ccc7f8729853a2a319d626445f7239c07",
    "bytes": 8220,
    "cues": [],
@@ -1532,10 +1652,11 @@
   {
    "loc_id": "91732541",
    "title": "Federal dead on the field of battle of first day, Gettysburg, Pennsylvania",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:13Z",
    "sha256": "062e063d741697fe30b1228af04f41081259594d2b9ced56eb0d5de3aa44f72c",
    "bytes": 7693,
    "cues": [],
@@ -1544,10 +1665,11 @@
   {
    "loc_id": "91732542",
    "title": "[Federal dead on the field of battle of first day, Gettysburg, Pennsylvania]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:14Z",
    "sha256": "69b41afb10eb939352b226194755b196afccf49a7058908c5c3a4e2131f41fba",
    "bytes": 7587,
    "cues": [],
@@ -1556,10 +1678,11 @@
   {
    "loc_id": "91732546",
    "title": "[Dead horse on battlefield, Gettysburg, Pennsylvania]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:16Z",
    "sha256": "c82a4cfe2af4a0e3001e1a25f5f2b85e75c1698c7860ea6dbada60717dbfa325",
    "bytes": 8353,
    "cues": [],
@@ -1568,12 +1691,13 @@
   {
    "loc_id": "91732551",
    "title": "Dead horses of Bigelow's (9th Massachusetts) Battery",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-ROTV1-F353"
    ],
+   "retrieved_utc": "2026-11-16T02:56:17Z",
    "sha256": "eeea273a8e70fd9abe72ab79a54204e7515b549395984be474832f4070070da3",
    "bytes": 7585,
    "cues": [],
@@ -1582,12 +1706,13 @@
   {
    "loc_id": "2012647700",
    "title": "The battle-field of Gettysburg. Dead horses of Bigelows (9th Massachusetts) Battery",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-ROTV1-F355"
    ],
+   "retrieved_utc": "2026-11-16T02:56:19Z",
    "sha256": "dc3755813cb6cfb70cffc4183b4204a5fa7ff56ff6b555286b0561e39935d839",
    "bytes": 7778,
    "cues": [],
@@ -1596,12 +1721,13 @@
   {
    "loc_id": "2012647701",
    "title": "The battle-field of Gettysburg. Little Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-VISTA-10"
    ],
+   "retrieved_utc": "2026-11-16T02:56:24Z",
    "sha256": "6dc8dabe3099efc57534e018d502411a9a01d8758c2d43ef1ce3bd02ecc2efc6",
    "bytes": 7541,
    "cues": [],
@@ -1610,12 +1736,13 @@
   {
    "loc_id": "2012647702",
    "title": "The battle-field of Gettysburg. Bryan's house",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-BRIEN-9"
    ],
+   "retrieved_utc": "2026-11-16T02:56:26Z",
    "sha256": "3d481583eba4ee98c9d2a4dc3b994beb52eda8100955435fa6753b25a75b5d8a",
    "bytes": 7591,
    "cues": [],
@@ -1624,10 +1751,11 @@
   {
    "loc_id": "2012647703",
    "title": "Battle-field of Gettysburg. Scene of the charge of the Louisiana Tigers",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:27Z",
    "sha256": "3bb3857a3669b3335068e7adb57ea910c10306e822fbbd895c38abd5c538d01d",
    "bytes": 7888,
    "cues": [],
@@ -1636,13 +1764,14 @@
   {
    "loc_id": "2012647704",
    "title": "Battle-field of Gettysburg. Culp's Hill",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POSE",
    "verdict": "roughly",
    "statement_ids": [
     "PS-NPS-ROTV1-F213",
     "PS-LOC-2012647704-N"
    ],
+   "retrieved_utc": "2026-11-16T02:56:31Z",
    "sha256": "252c8adecf81610e977ee2537fbd8cf9bb6b830cc280b78e49d83d13f6e9032d",
    "bytes": 7682,
    "cues": [],
@@ -1651,7 +1780,7 @@
   {
    "loc_id": "2012647706",
    "title": "Battle-field of Gettysburg. Scene of General Reynold's death",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
@@ -1663,6 +1792,7 @@
     "PS-NPS-CLR1D-01",
     "PS-NPS-ROTV1-F28"
    ],
+   "retrieved_utc": "2026-11-16T02:56:34Z",
    "sha256": "76f91256e6b3d160cb95a7e5776621a3809dd4168419d0f06562125727c0a0eb",
    "bytes": 7934,
    "cues": [],
@@ -1671,7 +1801,7 @@
   {
    "loc_id": "2012647708",
    "title": "The battle-field of Gettysburg. Little Round Top and Round Top",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "roughly",
    "statement_ids": [
@@ -1680,6 +1810,7 @@
     "PS-TN-LRT1-DIR",
     "PS-PL-VALLEY-LOC"
    ],
+   "retrieved_utc": "2026-11-16T02:56:36Z",
    "sha256": "342195e448139dd4a82711dc4190382d5e5bc21ad19a3c965e9ed75713a1b744",
    "bytes": 7434,
    "cues": [],
@@ -1688,10 +1819,11 @@
   {
    "loc_id": "2012647714",
    "title": "Gettysburg, battlefield of, scene of Pickett's charge",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:39Z",
    "sha256": "21e0c0e641fd113b23ac73403339b3f871917e8b242c886fc097c4566255e75d",
    "bytes": 7960,
    "cues": [],
@@ -1700,13 +1832,14 @@
   {
    "loc_id": "2012647845",
    "title": "Devil's Den, Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-TN-DD8-STAGED",
     "PS-PL-WEAVER-DD"
    ],
+   "retrieved_utc": "2026-11-16T02:56:41Z",
    "sha256": "a8f576eb650c52fa4a34730e870ec161564717f28628a36550b7a8dc812054f1",
    "bytes": 7508,
    "cues": [],
@@ -1715,10 +1848,11 @@
   {
    "loc_id": "2012647846",
    "title": "Dead on Little Round Top, Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:42Z",
    "sha256": "1876b1f8f0f457ef681d217891339c37b3d9042ca1f36992c0ac04771279426e",
    "bytes": 7520,
    "cues": [],
@@ -1727,12 +1861,13 @@
   {
    "loc_id": "2012648410",
    "title": "General Lee's Headquarters. Mrs. Thompson's house, on Chambersburg Pike",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-CLR1D-THOMPSON65"
    ],
+   "retrieved_utc": "2026-11-16T02:56:44Z",
    "sha256": "47b913341115a121d4b8edbdbaceb2a15ed1bbc3e2020b360abecabb5601a01e",
    "bytes": 7442,
    "cues": [],
@@ -1741,10 +1876,11 @@
   {
    "loc_id": "2018670706",
    "title": "Gettysburg, Pennsylvania. McPherson's woods on left of the Chambersburg Pike",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:46Z",
    "sha256": "387329b62b2d48608f0759400252a0fffacc9c056276a399b308a31c80130e6c",
    "bytes": 9127,
    "cues": [],
@@ -1753,10 +1889,11 @@
   {
    "loc_id": "2018671419",
    "title": "Place where Gen. Reynolds was killed",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:48Z",
    "sha256": "c8948f2926f59790a237303e9e8aec78b146b3fe79f06d09490359b32e466ff5",
    "bytes": 9061,
    "cues": [
@@ -1770,10 +1907,11 @@
   {
    "loc_id": "2018671488",
    "title": "Meade's Hdqs. Gettysburg, Pa.",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:49Z",
    "sha256": "7d6541409b2910de384e454fd7187d42449829180b0801a01fee5e6eec573cb2",
    "bytes": 9023,
    "cues": [],
@@ -1782,10 +1920,11 @@
   {
    "loc_id": "98519365",
    "title": "Gen. G.G. Meade's headquarters, Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:51Z",
    "sha256": "4e0fa1b6df3c6a7fb4d2e08e5d159f0be34179a827804c296078939ee9693e4f",
    "bytes": 7482,
    "cues": [],
@@ -1794,10 +1933,11 @@
   {
    "loc_id": "95503135",
    "title": "[General Robert E. Lee's headquarters, Gettysburg, Pennsylvania]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:52Z",
    "sha256": "c355e353bbdb04d14750ecba2d6cc61d5089ad2e96935e17d4e7687c58da8cff",
    "bytes": 7174,
    "cues": [],
@@ -1806,12 +1946,13 @@
   {
    "loc_id": "2018672361",
    "title": "Gettysburg, Pennsylvania. View from Culp's hill",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2018672361-T"
    ],
+   "retrieved_utc": "2026-11-16T02:56:54Z",
    "sha256": "a0afe8e8b819ca3f1b54be230c527c2aa8561c8299810efe0a17a52a2497478b",
    "bytes": 7760,
    "cues": [
@@ -1829,10 +1970,11 @@
   {
    "loc_id": "2018667213",
    "title": "[Incidents of the war. A harvest of death, Gettysburg, July, 1863]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:56:56Z",
    "sha256": "84a5c2afcdd7fc33d212a1398fb746178c535b3a0245e6fd8ed7fcd1b54cdd49",
    "bytes": 9391,
    "cues": [],
@@ -1841,12 +1983,13 @@
   {
    "loc_id": "2006692515",
    "title": "Slaughter pen, foot of Round Top, Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-ROTV2-65"
    ],
+   "retrieved_utc": "2026-11-16T02:56:57Z",
    "sha256": "ff346157f10cbb3f312adabd07b4ef02e7cb04c1acf3e0ab4fe710ebb5dec59b",
    "bytes": 8364,
    "cues": [],
@@ -1855,12 +1998,13 @@
   {
    "loc_id": "2009630184",
    "title": "On the battlefield at Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-NPS-CLR1D-147"
    ],
+   "retrieved_utc": "2026-11-16T02:56:59Z",
    "sha256": "e93aa56b4aaba3bbc53a7f25ebdcdf4de98867b714cb059e4a2fb7c70ffd4479",
    "bytes": 10349,
    "cues": [],
@@ -1869,12 +2013,13 @@
   {
    "loc_id": "2004682780",
    "title": "Three \"Johnnie Reb\" Prisoners, captured at Gettysburg, 1863",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2004682780-S"
    ],
+   "retrieved_utc": "2026-11-16T02:57:01Z",
    "sha256": "a9b3e709bbf0945a4daf94e37f68d95e553832993284549a44873cc21fcb89c8",
    "bytes": 10668,
    "cues": [
@@ -1888,10 +2033,11 @@
   {
    "loc_id": "2025160089",
    "title": "Incidents of the War, Trosell's [i.e. Trostle's] House, Battle Field of Gettysburg, July 1863",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:02Z",
    "sha256": "9d317b3d891bc8c91feddcffd86d0c4842d1af618e3dfa183fe6d42141131ec7",
    "bytes": 7951,
    "cues": [
@@ -1905,10 +2051,11 @@
   {
    "loc_id": "2025160547",
    "title": "Jenny Wade, aged 20, killed by a stray ball, at the Battle of Gettysburg, July 3, 1863, buried on the 4th, with the vict",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:04Z",
    "sha256": "f5942ab7e59772866a7a130bad61a6cfb1ead761983e478c9a3f50689c7b6989",
    "bytes": 6305,
    "cues": [],
@@ -1917,12 +2064,13 @@
   {
    "loc_id": "2011649966",
    "title": "[Confederate dead gathered for burial at the southwestern edge of the Rose woods, Gettysburg, Pa., July 5, 1863]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2011649966-T"
    ],
+   "retrieved_utc": "2026-11-16T02:57:06Z",
    "sha256": "f52830c59a6a9379992dea5459bcb9857e3dd05a50053b4feb9c2c78ba739b96",
    "bytes": 10179,
    "cues": [],
@@ -1931,10 +2079,11 @@
   {
    "loc_id": "2025160541",
    "title": "Tablet erected by Battery B. in memory of the Battle of Gettysburg July 1, 2, 3, 1863 on Cemetery Ridge, showing Culp's ",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:08Z",
    "sha256": "d7099307d5757a2610f1232108a35c6e0f0facddf3bbdedb27b87aef80f5bfec",
    "bytes": 6480,
    "cues": [
@@ -1948,10 +2097,11 @@
   {
    "loc_id": "2013645948",
    "title": "Trossels house - battlefield Gettysburg - near to the barn on the left was where Sickles has his head quarters and lost ",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:10Z",
    "sha256": "f9165bf77b66ce005e723f752722b6e184b0b8fc0e54143ed1ff52490130030d",
    "bytes": 10177,
    "cues": [
@@ -1965,10 +2115,11 @@
   {
    "loc_id": "2024640246",
    "title": "Battle-field of Gettysburg Culp's Hill, from Ever-green Cemetery : rifle pits in foreground. The scene of a terrific mus",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:11Z",
    "sha256": "dc8837c5578f4e8a512a045937f663c8f85c977ed17331429908fd29f568d01a",
    "bytes": 7036,
    "cues": [],
@@ -1977,10 +2128,11 @@
   {
    "loc_id": "2025160363",
    "title": "The woods from which the 2d Mass. and 27th Indiana charged on the morning of July 3d, 1863. 3d Wisconsin, 13th N.J., and",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:14Z",
    "sha256": "c9fad51ab7dc883c156ded803109789a82f763baf939d440fbe923e1ad3629b9",
    "bytes": 7114,
    "cues": [],
@@ -1989,12 +2141,13 @@
   {
    "loc_id": "2025167175",
    "title": "Union [i.e. Confederate] dead at Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2025167175-S"
    ],
+   "retrieved_utc": "2026-11-16T02:57:16Z",
    "sha256": "b66ca8bd4f3a9f8a4c16b8cae7b241f066425e2aab4792cb0cd01c141205945d",
    "bytes": 12072,
    "cues": [
@@ -2008,10 +2161,11 @@
   {
    "loc_id": "2011660054",
    "title": "General Meade's Headquarters at Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:18Z",
    "sha256": "85a69d19f329de70d6a532b5775137fd88194b773ebecb12ff731d8071a6b124",
    "bytes": 10246,
    "cues": [],
@@ -2020,10 +2174,11 @@
   {
    "loc_id": "2025167173",
    "title": "On the battlefield of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:19Z",
    "sha256": "5e93b0cde9b5e91704f6da610072bde4d63f860c473ce57ba3f246cfa7f6d8dc",
    "bytes": 10426,
    "cues": [],
@@ -2032,10 +2187,11 @@
   {
    "loc_id": "2011660056",
    "title": "John L. Burns, the old hero of Gettysburgh (i.e. Gettysburg), recovering from his wounds",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:21Z",
    "sha256": "bb5f952d940f3d48cff972a53ca0e66a48cd4c0f5b92efd3e8f056bcc5bef0b8",
    "bytes": 10153,
    "cues": [],
@@ -2044,10 +2200,11 @@
   {
    "loc_id": "2011660071",
    "title": "\"The hero of Gettysburg\"",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:23Z",
    "sha256": "a2d05f43c40c7c72787d3516aae0d8ffff55cd74e45cf78ae9acad9f94402da0",
    "bytes": 10247,
    "cues": [],
@@ -2056,10 +2213,11 @@
   {
    "loc_id": "2025167831",
    "title": "The slaughter pen at Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:25Z",
    "sha256": "29354a3bc929ae13e8b4950b7455e80349b18b712290b7e061e3d95a383a6353",
    "bytes": 10423,
    "cues": [],
@@ -2068,10 +2226,11 @@
   {
    "loc_id": "2025167167",
    "title": "View of the dead at Devil's Den",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:27Z",
    "sha256": "bca9643f59b3b372d3419a3ffe6846cbd2f201dd5d5c193c5f15036e8d0d6197",
    "bytes": 9584,
    "cues": [],
@@ -2080,10 +2239,11 @@
   {
    "loc_id": "2024640258",
    "title": "Battle-field of Gettysburg Federal Breast-works on Culp's Hill, near the point which was charged and carried by the Rebe",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:29Z",
    "sha256": "d6e79ab9e18d1d0f8fd0789a39ddae0799436936913c9279916c46294ac0fd33",
    "bytes": 6589,
    "cues": [],
@@ -2092,10 +2252,11 @@
   {
    "loc_id": "2014647511",
    "title": "John Burns, the hero of Gettysburg Slaughter pen at Gettysburg /",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:30Z",
    "sha256": "5dd5600d768b7187a8e9852e6ee867c88626ec9d2b518dbbd85a68b13b6a01b1",
    "bytes": 10769,
    "cues": [],
@@ -2104,10 +2265,11 @@
   {
    "loc_id": "2011646175",
    "title": "War effect of a shell on a Confederate soldier at battle of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:32Z",
    "sha256": "0d9800c4bb548d12591cddcc4f90b64c74b15330ff17c0c2690a1d97636ab5ed",
    "bytes": 10410,
    "cues": [],
@@ -2116,10 +2278,11 @@
   {
    "loc_id": "2011649197",
    "title": "Wounded trees at Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:33Z",
    "sha256": "107cc96b088aedbaa1ede29cc0d73cad389497971a0fc4646cf8a9f614147dce",
    "bytes": 9576,
    "cues": [
@@ -2133,10 +2296,11 @@
   {
    "loc_id": "2011649196",
    "title": "Wounded trees at Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:35Z",
    "sha256": "d6dcef4d18cd77a3ed06a3b6c4ddce1250d3db30d818889741ffe7e3d371726e",
    "bytes": 9556,
    "cues": [
@@ -2150,10 +2314,11 @@
   {
    "loc_id": "2011646177",
    "title": "View of breastworks on Round Top - the hill which formed our extreme left at the battle of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:37Z",
    "sha256": "dfe3692bf5e79437544a417b0a69560aea50385bd1d3b2e5a423b72fd87f3346",
    "bytes": 9793,
    "cues": [
@@ -2171,10 +2336,11 @@
   {
    "loc_id": "2011647873",
    "title": "Federal dead on the field of battle of first day",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:42Z",
    "sha256": "1367eec0919cea7ae9d43f829940741e3347c223416fe9884cbc98020b690091",
    "bytes": 7971,
    "cues": [],
@@ -2183,12 +2349,13 @@
   {
    "loc_id": "2011649968",
    "title": "Union (i.e. Confederate) dead at Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2011649968-S"
    ],
+   "retrieved_utc": "2026-11-16T02:57:44Z",
    "sha256": "66fa307f2ccefbee9fa6dfb73345ff417561f6fd9f4c7c7a5d08963a0ba73bfa",
    "bytes": 10473,
    "cues": [
@@ -2202,10 +2369,11 @@
   {
    "loc_id": "2011649969",
    "title": "The slaughter pen at Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:46Z",
    "sha256": "09b3222aabcdc5ec8943dfc8d705503874f1239e0aa74b1bd805e866d2ecf796",
    "bytes": 9682,
    "cues": [],
@@ -2214,10 +2382,11 @@
   {
    "loc_id": "2025163077",
    "title": "\"The hero of Gettysburg\"",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:48Z",
    "sha256": "948b8e1b4c4065398e4d2cb2b9f01d89d99fb818e98e25189a028ea8419274ad",
    "bytes": 9776,
    "cues": [],
@@ -2226,10 +2395,11 @@
   {
    "loc_id": "2025169709",
    "title": "General Meade's headquarters at Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:49Z",
    "sha256": "97a40c7892b3adf1a5b7e0b368a157bd8742aedb943aa086e34437951e8c4f5f",
    "bytes": 10279,
    "cues": [
@@ -2243,10 +2413,11 @@
   {
    "loc_id": "2025162158",
    "title": "Breastworks on left wing, Battle of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:51Z",
    "sha256": "1aa38f53765ee0c2f7a06bb89100d059b93ff3e4fe2dbb60f8b1a6444271070e",
    "bytes": 9772,
    "cues": [],
@@ -2255,10 +2426,11 @@
   {
    "loc_id": "2025167163",
    "title": "Breast works on the left wing, Battle of Gettysburgh [i.e. Gettysburg]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:52Z",
    "sha256": "fd142cae7025a25b3f5e533c74b5ae5bd1e5a44970fd4b0cfae511602beca80c",
    "bytes": 9679,
    "cues": [],
@@ -2267,10 +2439,11 @@
   {
    "loc_id": "2025167164",
    "title": "Gettysburg (?)",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:54Z",
    "sha256": "5b2248bffa64975b32edf75ca9e664eee2c851930614e49253ea0c754d127898",
    "bytes": 8888,
    "cues": [],
@@ -2279,10 +2452,14 @@
   {
    "loc_id": "2006685384",
    "title": "A harvest of death, Gettysburg, Pennsylvania",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOCESSAY-CONFUSED-REL",
+    "PS-LOCESSAY-CONFUSED-PLACE"
+   ],
+   "retrieved_utc": "2026-11-16T02:57:56Z",
    "sha256": "48cfdcd16f26904cabc61fab09c001ac984ee18aa793c643d53857e6e4a18a94",
    "bytes": 9955,
    "cues": [],
@@ -2291,10 +2468,11 @@
   {
    "loc_id": "2011648013",
    "title": "In Trossel's barnyard, Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:58Z",
    "sha256": "4acda22a5d7160604e0e6f66894eab41f4737f1a4714ea71473b490731ef55fb",
    "bytes": 10918,
    "cues": [],
@@ -2303,10 +2481,11 @@
   {
    "loc_id": "2013645925",
    "title": "Confederate soldiers as they fell near the center of the battlefield of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:57:59Z",
    "sha256": "519d3ee843d74565a7dea1bca3d0bfe93d63f6bcfd3a9de35c5c81636a056d8c",
    "bytes": 8013,
    "cues": [],
@@ -2315,10 +2494,11 @@
   {
    "loc_id": "2011649970",
    "title": "The horrors of war",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:01Z",
    "sha256": "a6d27be0990c38efadc826b1f479736e3b7e94e77c043cece2348eca3151685e",
    "bytes": 10635,
    "cues": [],
@@ -2327,10 +2507,11 @@
   {
    "loc_id": "97501546",
    "title": "Gen. Lee's headquarters",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:03Z",
    "sha256": "cd47b84c18e24ca8c29e94ceb431a94973f7a030c460d20263c646e3c2c0eaba",
    "bytes": 9025,
    "cues": [],
@@ -2339,10 +2520,11 @@
   {
    "loc_id": "2015647569",
    "title": "Breastworks on the left wing, Battle of Gettysburgh",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:05Z",
    "sha256": "16e42405ef624596f7f9284a02b6ae044789a1076d32a3b8f084d3fd82799afa",
    "bytes": 9743,
    "cues": [],
@@ -2351,10 +2533,11 @@
   {
    "loc_id": "2011648011",
    "title": "View at Losser's (i.e. Trostle's) barn, where the 9th Massachusetts Battery was cut up",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:07Z",
    "sha256": "7400f65ccac5626654b6e1253d31930d676a282e497ae58750fdb2ef856ae322",
    "bytes": 9770,
    "cues": [],
@@ -2363,10 +2546,11 @@
   {
    "loc_id": "2011649194",
    "title": "Devil's Den",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:08Z",
    "sha256": "9481eefdab08db6b146eeeb8a9f94b8af601de4044238b9f01767bb8d684d2e4",
    "bytes": 8768,
    "cues": [],
@@ -2375,10 +2559,13 @@
   {
    "loc_id": "2006692501",
    "title": "A sharpshooter's last sleep, Gettysburg, Pennsylvania",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOCESSAY-MOVED-PLACE"
+   ],
+   "retrieved_utc": "2026-11-16T02:58:10Z",
    "sha256": "11f4162a3b513dfcb6118c8da39564fba2bbc29afc6a632f66aefb054278e656",
    "bytes": 8953,
    "cues": [],
@@ -2387,10 +2574,11 @@
   {
    "loc_id": "2006692513",
    "title": "Trossell's House, battle-field of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:12Z",
    "sha256": "d337dafd24367191e0c8d7ce42096dc0b8ee43876af6a1f82848aac766656da9",
    "bytes": 8638,
    "cues": [
@@ -2404,10 +2592,11 @@
   {
    "loc_id": "2011648596",
    "title": "Confederate soldiers who had evidently been shelled by our batteries on Round Top, at the Battle of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:14Z",
    "sha256": "0830000182591a14f19e78d8d4c4f08ceae6c55cc4d242c5cb4a134d4a15bbf5",
    "bytes": 9588,
    "cues": [],
@@ -2416,10 +2605,11 @@
   {
    "loc_id": "2011649195",
    "title": "Meadow over which the 2d Mass. and 27th Indiana charged on morning of July 3d. Woods occupied by Confederates, Johnson's",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:15Z",
    "sha256": "950f7fcebca5d252cc8c17ad6f1435d5bbfac74f9f8dec03dcb5abe4f4eb7786",
    "bytes": 10144,
    "cues": [
@@ -2433,10 +2623,11 @@
   {
    "loc_id": "97501523",
    "title": "Rock Creek, below Culp's Hill",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:17Z",
    "sha256": "1c31d8e89ee01878959856bd567ce203a9e1e8996a087f42f5545519b02fb3eb",
    "bytes": 8177,
    "cues": [],
@@ -2445,10 +2636,11 @@
   {
    "loc_id": "2026167922",
    "title": "[John L. Burns, veteran of the War of 1812, civilian who fought at the Battle of Gettysburg with Union troops, standing ",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:19Z",
    "sha256": "31be90d3694471d274abf381c6421be03efa5c25ad27ceacb3021a6286e6b509",
    "bytes": 8990,
    "cues": [],
@@ -2457,10 +2649,11 @@
   {
    "loc_id": "2006692514",
    "title": "Head-quarters Major General George G. Meade during the battle of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:21Z",
    "sha256": "bf918d2703935de3a5f45cefe01a70ce2201665d9c481f901337a7aae94538b0",
    "bytes": 7931,
    "cues": [
@@ -2474,10 +2667,11 @@
   {
    "loc_id": "2021644150",
    "title": "[Unidentified soldiers in Union uniforms of Captain Lewis Heckman's 1st Ohio Light Artillery, Battery K with cannon at t",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:23Z",
    "sha256": "06f845f7af767494ac990523100ea0c720a2453575f9cf508a72c0d9a7156608",
    "bytes": 8591,
    "cues": [],
@@ -2486,10 +2680,11 @@
   {
    "loc_id": "2017659617",
    "title": "[John L. Burns, veteran of the War of 1812, civilian who fought at the Battle of Gettysburg with Union troops, standing ",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:25Z",
    "sha256": "83a4e105456069e5bab7bd5a043aa06e6b6dde9d23e6cc1781db58d892573fb5",
    "bytes": 8760,
    "cues": [],
@@ -2498,10 +2693,11 @@
   {
    "loc_id": "2021644153",
    "title": "[Group of wounded soldiers with two female nurses in front of tents at General Hospital, near Gettysburg, Pennsylvania]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:27Z",
    "sha256": "8a773063c5077db5ed17bcc82a31d7b707f622e45be48d436fa4a688ae380e44",
    "bytes": 8422,
    "cues": [],
@@ -2510,10 +2706,11 @@
   {
    "loc_id": "2026167355",
    "title": "[Sergeant Benjamin Franklin Falls of Co. A, 19th Massachusetts Infantry Regiment in uniform standing behind two tattered",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:29Z",
    "sha256": "00f46a8e22bf920ba3041ea3eccbc02936cf57a2f1cc9478caa2cc505f4a5b4c",
    "bytes": 9313,
    "cues": [
@@ -2527,10 +2724,11 @@
   {
    "loc_id": "2020630902",
    "title": "[Mrs. Mason, Civil War nurse at Gettysburg]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:31Z",
    "sha256": "a6fdfe21e4a17cc54f0b9797f175571a8349d57cc44743e346aac05e4b4d6b5a",
    "bytes": 8432,
    "cues": [],
@@ -2539,10 +2737,13 @@
   {
    "loc_id": "2004682792",
    "title": "Dead at Little Round-Top - position of Berdan's Sharpshooters",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOC-2004682792-S"
+   ],
+   "retrieved_utc": "2026-11-16T02:58:33Z",
    "sha256": "d8e4e0a8f695909cef07893610ad3f7d8c7e8a25e26fb92f31faf4fbccb32206",
    "bytes": 11822,
    "cues": [
@@ -2556,10 +2757,11 @@
   {
    "loc_id": "2020634839",
    "title": "[Evergreen Cemetery gatehouse, Gettysburg, Pennsylvania]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:35Z",
    "sha256": "a1df14ef2cb5930d2f6c48c88db69192a60b392c13abfcaa9d2b7ae7aecb5a56",
    "bytes": 8692,
    "cues": [],
@@ -2568,10 +2770,11 @@
   {
    "loc_id": "2013645929",
    "title": "Rocks could not save him at the Battle of Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:36Z",
    "sha256": "8f17e69e531604dcf5f48962c26b5bcb1f549b5b638c4a3088d45d3ed0a7e180",
    "bytes": 9606,
    "cues": [],
@@ -2580,10 +2783,13 @@
   {
    "loc_id": "2006692500",
    "title": "Gateway of cemetery, Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-GARDNER-SB1-P85"
+   ],
+   "retrieved_utc": "2026-11-16T02:58:38Z",
    "sha256": "0c4e76c60569900321f8fb3da54680013908e8a1ec744dce08d0b8c888d856c6",
    "bytes": 8579,
    "cues": [
@@ -2597,10 +2803,14 @@
   {
    "loc_id": "2006685385",
    "title": "Field where General Reynolds fell, Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOCESSAY-CONFUSED-REL",
+    "PS-LOCESSAY-CONFUSED-PLACE"
+   ],
+   "retrieved_utc": "2026-11-16T02:58:39Z",
    "sha256": "c520e8868451f9662466d22b5a96e4b819055dfb0da14ad72243cce798b348b4",
    "bytes": 8358,
    "cues": [],
@@ -2609,12 +2819,13 @@
   {
    "loc_id": "2019635468",
    "title": "[Gettysburg from Seminary Ridge]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2019635468-T"
    ],
+   "retrieved_utc": "2026-11-16T02:58:41Z",
    "sha256": "a6ca1b3d2fc2f7f3a4b4be57e183ec3cb67dc6ddde51e774cf6f34296d07796f",
    "bytes": 8188,
    "cues": [],
@@ -2623,12 +2834,14 @@
   {
    "loc_id": "2006685383",
    "title": "Gettysburg, Pennsylvania",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "does not",
    "statement_ids": [
-    "PS-LOC-2006685383-S"
+    "PS-LOC-2006685383-S",
+    "PS-GARDNER-SB1-P77"
    ],
+   "retrieved_utc": "2026-11-16T02:58:43Z",
    "sha256": "53826969466b1af8b91d75b5931d37fafb7b65a60e4bbac0695808ad6ba5e07d",
    "bytes": 8450,
    "cues": [
@@ -2642,12 +2855,13 @@
   {
    "loc_id": "2025163097",
    "title": "Three \"Johnnie Reb\" prisoners",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2025163097-S"
    ],
+   "retrieved_utc": "2026-11-16T02:58:45Z",
    "sha256": "08d42a5d3d3ab963aa9f7a731c935210d1509faf72de44c39f37b098ec020528",
    "bytes": 9437,
    "cues": [
@@ -2661,12 +2875,13 @@
   {
    "loc_id": "2011649965",
    "title": "[Dead Confederate soldiers lying side by side on the battlefield of Gettysburg]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "NEAR",
    "verdict": "cannot judge",
    "statement_ids": [
     "PS-LOC-2011649965-S"
    ],
+   "retrieved_utc": "2026-11-16T02:58:49Z",
    "sha256": "9a6dd3121fabdb3f48b6ed7dce7d16cfaf28fa5d6446e169328ea22eb75ce00a",
    "bytes": 8091,
    "cues": [
@@ -2680,10 +2895,13 @@
   {
    "loc_id": "2006685386",
    "title": "Interior of breastworks on Round Top, Gettysburg",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "POS",
    "verdict": "cannot judge",
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-GARDNER-SB1-P83"
+   ],
+   "retrieved_utc": "2026-11-16T02:58:50Z",
    "sha256": "ea5cfc5692e3986ce028e3a072e29b79cd083c30372f465d6c1ae80e72aa7b36",
    "bytes": 8167,
    "cues": [],
@@ -2692,10 +2910,11 @@
   {
    "loc_id": "2012647715",
    "title": "Gettysburg, Pa. (day of Lincoln's address)",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:52Z",
    "sha256": "9960137a7c6bf8926b869f6a1ffce637861eb7c46920098683d39f00012e4862",
    "bytes": 5156,
    "cues": [],
@@ -2704,10 +2923,11 @@
   {
    "loc_id": "2019647064",
    "title": "[Battle-torn regimental flag of 2nd Wisconsin Infantry Regiment (Iron Brigade) damaged at the Battle of Gettysburg]",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "OUT",
    "verdict": "cannot judge",
    "statement_ids": [],
+   "retrieved_utc": "2026-11-16T02:58:54Z",
    "sha256": "7148525c135fc8536858f46327f317863b72ae7fb32dd784d744c26708cb0a40",
    "bytes": 8349,
    "cues": [],
@@ -2716,10 +2936,13 @@
   {
    "loc_id": "2006692502",
    "title": "Home of a rebel sharpshooter",
-   "fetch": "ok",
+   "fetch": "cached",
    "class": "STG",
    "verdict": "cannot judge",
-   "statement_ids": [],
+   "statement_ids": [
+    "PS-LOCESSAY-MOVED-PLACE"
+   ],
+   "retrieved_utc": "2026-11-16T02:58:55Z",
    "sha256": "5b9feef1c64006a1318ff9481575884d26b3beb5248e88759a2c0d03fd4e26f3",
    "bytes": 9400,
    "cues": [],

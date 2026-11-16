@@ -9,60 +9,61 @@
  "draw_position": 4,
  "in_lowest_decile": true,
  "printed_page": 495,
- "rows_stored": 33,
- "rows_checked": 33,
- "rows_in_error": 31,
+ "rows_stored": 32,
+ "rows_checked": 32,
+ "rows_in_error": 30,
  "rows_ok": 2,
- "rows_flagged_ocr_uncertain": 10,
+ "rows_flagged_ocr_uncertain": 9,
  "errors": [
   {
    "i": 0,
-   "kinds": [
-    "name-nonperson"
-   ],
-   "stored": "Edgecombe eo.",
-   "printed": "B. P. Jenkins",
-   "note": "the stored line is the tail of the Jenkins entry (the heading and the first words of the entry are in no stored line)",
-   "rid": "13th-north-carolina-infantry#926",
-   "flagged_ocr_uncertain": true,
-   "flag_codes": [
-    "N",
-    "R"
-   ],
-   "gates": [
-    "R-G1"
-   ]
-  },
-  {
-   "i": 0,
-   "kinds": [
-    "rank"
-   ],
-   "stored": "p. 2d Lieut.",
-   "printed": "1st Sergt.",
-   "note": "a fragment of the remarks stands in the rank field",
-   "rid": "13th-north-carolina-infantry#926",
-   "flagged_ocr_uncertain": true,
-   "flag_codes": [
-    "N",
-    "R"
-   ],
-   "gates": [
-    "R-G3"
-   ]
-  },
-  {
-   "i": 1,
    "kinds": [
     "name-cut"
    ],
    "stored": "Peal, 2d Se>-g.",
    "printed": "Wm. Peal, 2d Serg.",
    "note": "the given name Wm. is in the remarks of the line above and the rank word stands in the name field",
-   "rid": "13th-north-carolina-infantry#927",
+   "rid": "13th-north-carolina-infantry#922",
    "flagged_ocr_uncertain": true,
    "flag_codes": [
     "G",
+    "H",
+    "N"
+   ],
+   "gates": [
+    "R-G1"
+   ]
+  },
+  {
+   "i": 0,
+   "kinds": [
+    "rank"
+   ],
+   "stored": "^XOX-COMMI8SIOXED OFFICERS",
+   "printed": "2d Serg.",
+   "note": "the carried heading (garbled NON-COMMISSIONED OFFICERS) stands where the rank belongs",
+   "rid": "13th-north-carolina-infantry#922",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "G",
+    "H",
+    "N"
+   ],
+   "gates": [
+    "R-G3"
+   ]
+  },
+  {
+   "i": 1,
+   "kinds": [
+    "name-cut"
+   ],
+   "stored": "Stallings, 3d Sei'gt.",
+   "printed": "R. J. Stallings, 3d Sergt.",
+   "note": "the initials R. J. are in the remarks of the line above and the rank word stands in the name field",
+   "rid": "13th-north-carolina-infantry#923",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
     "H",
     "N"
    ],
@@ -76,45 +77,8 @@
     "rank"
    ],
    "stored": "^XOX-COMMI8SIOXED OFFICERS",
-   "printed": "2d Serg.",
-   "note": "the carried heading (garbled NON-COMMISSIONED OFFICERS) stands where the rank belongs",
-   "rid": "13th-north-carolina-infantry#927",
-   "flagged_ocr_uncertain": true,
-   "flag_codes": [
-    "G",
-    "H",
-    "N"
-   ],
-   "gates": [
-    "R-G3"
-   ]
-  },
-  {
-   "i": 2,
-   "kinds": [
-    "name-cut"
-   ],
-   "stored": "Stallings, 3d Sei'gt.",
-   "printed": "R. J. Stallings, 3d Sergt.",
-   "note": "the initials R. J. are in the remarks of the line above and the rank word stands in the name field",
-   "rid": "13th-north-carolina-infantry#928",
-   "flagged_ocr_uncertain": true,
-   "flag_codes": [
-    "H",
-    "N"
-   ],
-   "gates": [
-    "R-G1"
-   ]
-  },
-  {
-   "i": 2,
-   "kinds": [
-    "rank"
-   ],
-   "stored": "^XOX-COMMI8SIOXED OFFICERS",
    "printed": "3d Sergt.",
-   "rid": "13th-north-carolina-infantry#928",
+   "rid": "13th-north-carolina-infantry#923",
    "flagged_ocr_uncertain": true,
    "flag_codes": [
     "H",
@@ -125,14 +89,14 @@
    ]
   },
   {
-   "i": 3,
+   "i": 2,
    "kinds": [
     "merge"
    ],
-   "stored": "G. L. Brown ... p. Captain in \"64. W.T. Dupree, 1st Corporal, e. May 1st, '61; Edgecombe Co.; p Sergt.; w. a...",
+   "stored": "G. L. Brown ... p. Captain in \"64. W.T. Dupree, 1st Corporal, e. May 1st, '61; Edgecombe Co.; p Sergt.; w. at Wil- liamsburg and Chancellorsville.",
    "printed": "two entries, G. L. Brown, 4th Sergt. and W. T. Dupree, 1st Corporal",
    "note": "the second printed entry stands in the remarks of the first and has no line of its own",
-   "rid": "13th-north-carolina-infantry#929",
+   "rid": "13th-north-carolina-infantry#924",
    "flagged_ocr_uncertain": true,
    "flag_codes": [
     "M"
@@ -142,19 +106,34 @@
    ]
   },
   {
-   "i": 6,
+   "i": 5,
    "kinds": [
     "name-char"
    ],
    "stored": "G. M. Standi",
    "printed": "G. M. Stancil",
-   "rid": "13th-north-carolina-infantry#932",
+   "rid": "13th-north-carolina-infantry#927",
    "flagged_ocr_uncertain": true,
    "flag_codes": [
     "W"
    ],
    "gates": [
     "R-G1"
+   ]
+  },
+  {
+   "i": 6,
+   "kinds": [
+    "rank"
+   ],
+   "stored": "^PRIVATE-",
+   "printed": "PRIVATES",
+   "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
+   "rid": "13th-north-carolina-infantry#928",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
+   "gates": [
+    "R-G3"
    ]
   },
   {
@@ -165,9 +144,11 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#933",
-   "flagged_ocr_uncertain": false,
-   "flag_codes": [],
+   "rid": "13th-north-carolina-infantry#929",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "Y"
+   ],
    "gates": [
     "R-G3"
    ]
@@ -180,11 +161,9 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#934",
-   "flagged_ocr_uncertain": true,
-   "flag_codes": [
-    "Y"
-   ],
+   "rid": "13th-north-carolina-infantry#930",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
    "gates": [
     "R-G3"
    ]
@@ -197,7 +176,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#935",
+   "rid": "13th-north-carolina-infantry#931",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -212,7 +191,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#936",
+   "rid": "13th-north-carolina-infantry#932",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -227,7 +206,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#937",
+   "rid": "13th-north-carolina-infantry#933",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -242,7 +221,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#938",
+   "rid": "13th-north-carolina-infantry#934",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -257,7 +236,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#939",
+   "rid": "13th-north-carolina-infantry#935",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -272,7 +251,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#940",
+   "rid": "13th-north-carolina-infantry#936",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -287,7 +266,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#941",
+   "rid": "13th-north-carolina-infantry#937",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -302,7 +281,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#942",
+   "rid": "13th-north-carolina-infantry#938",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -317,9 +296,11 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#943",
-   "flagged_ocr_uncertain": false,
-   "flag_codes": [],
+   "rid": "13th-north-carolina-infantry#939",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "H"
+   ],
    "gates": [
     "R-G3"
    ]
@@ -332,11 +313,9 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#944",
-   "flagged_ocr_uncertain": true,
-   "flag_codes": [
-    "H"
-   ],
+   "rid": "13th-north-carolina-infantry#940",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
    "gates": [
     "R-G3"
    ]
@@ -349,7 +328,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#945",
+   "rid": "13th-north-carolina-infantry#941",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -364,7 +343,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#946",
+   "rid": "13th-north-carolina-infantry#942",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -379,7 +358,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#947",
+   "rid": "13th-north-carolina-infantry#943",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -394,7 +373,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#948",
+   "rid": "13th-north-carolina-infantry#944",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -409,9 +388,11 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#949",
-   "flagged_ocr_uncertain": false,
-   "flag_codes": [],
+   "rid": "13th-north-carolina-infantry#945",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "W"
+   ],
    "gates": [
     "R-G3"
    ]
@@ -424,11 +405,9 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#950",
-   "flagged_ocr_uncertain": true,
-   "flag_codes": [
-    "W"
-   ],
+   "rid": "13th-north-carolina-infantry#946",
+   "flagged_ocr_uncertain": false,
+   "flag_codes": [],
    "gates": [
     "R-G3"
    ]
@@ -441,7 +420,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#951",
+   "rid": "13th-north-carolina-infantry#947",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -456,7 +435,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#952",
+   "rid": "13th-north-carolina-infantry#948",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -471,7 +450,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#953",
+   "rid": "13th-north-carolina-infantry#949",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -486,7 +465,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#954",
+   "rid": "13th-north-carolina-infantry#950",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -501,7 +480,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#955",
+   "rid": "13th-north-carolina-infantry#951",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -516,9 +495,11 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#956",
-   "flagged_ocr_uncertain": false,
-   "flag_codes": [],
+   "rid": "13th-north-carolina-infantry#952",
+   "flagged_ocr_uncertain": true,
+   "flag_codes": [
+    "H"
+   ],
    "gates": [
     "R-G3"
    ]
@@ -531,7 +512,7 @@
    "stored": "^PRIVATE-",
    "printed": "PRIVATES",
    "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#957",
+   "rid": "13th-north-carolina-infantry#953",
    "flagged_ocr_uncertain": true,
    "flag_codes": [
     "H"
@@ -541,30 +522,13 @@
    ]
   },
   {
-   "i": 32,
-   "kinds": [
-    "rank"
-   ],
-   "stored": "^PRIVATE-",
-   "printed": "PRIVATES",
-   "note": "the carried heading is damaged in the text layer and every line under it carries the wrong word (26 lines, one damaged heading)",
-   "rid": "13th-north-carolina-infantry#958",
-   "flagged_ocr_uncertain": true,
-   "flag_codes": [
-    "H"
-   ],
-   "gates": [
-    "R-G3"
-   ]
-  },
-  {
-   "i": 15,
+   "i": 14,
    "kinds": [
     "name-char"
    ],
    "stored": "Blackwood, X.",
    "printed": "Blackwood, N.",
-   "rid": "13th-north-carolina-infantry#941",
+   "rid": "13th-north-carolina-infantry#936",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -572,14 +536,14 @@
    ]
   },
   {
-   "i": 16,
+   "i": 15,
    "kinds": [
     "merge"
    ],
    "stored": "Blount, L. W. ... at David's Island, X. Y Barnhill, M. T., c. May 1st, '61; Edgecombe CO.; w. at Gettysburg; p. tth Corp'l.",
    "printed": "two entries, Blount, L. W. and Barnhill, M. T.",
    "note": "the second printed entry stands in the remarks of the first and has no line of its own",
-   "rid": "13th-north-carolina-infantry#942",
+   "rid": "13th-north-carolina-infantry#937",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -587,13 +551,13 @@
    ]
   },
   {
-   "i": 19,
+   "i": 18,
    "kinds": [
     "name-char"
    ],
    "stored": "Bell, Xoah",
    "printed": "Bell, Noah",
-   "rid": "13th-north-carolina-infantry#945",
+   "rid": "13th-north-carolina-infantry#940",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -601,13 +565,13 @@
    ]
   },
   {
-   "i": 23,
+   "i": 22,
    "kinds": [
     "name-char"
    ],
    "stored": "Bosnian, James",
    "printed": "Bosman, James",
-   "rid": "13th-north-carolina-infantry#949",
+   "rid": "13th-north-carolina-infantry#944",
    "flagged_ocr_uncertain": false,
    "flag_codes": [],
    "gates": [
@@ -618,16 +582,16 @@
  "form_only": [],
  "unverifiable": [],
  "missed_lines": [
-  "B. P. Jenkins, 1st Sergt., e. May 1st, '61; Edgecombe co.; p. 2d Lieut. Oct. 15th, '61 r. April 27th, '62. (printed entry 1 of the non-commissioned officers; no stored line holds its name; the tail of the entry is the stored row 0)"
+  "B. P. Jenkins, 1st Sergt., e. May 1st, '61; Edgecombe co.; p. 2d Lieut. Oct. 15th, '61 r. April 27th, '62. (printed entry 1 of the non-commissioned officers; no stored line holds it in the rebuilt file; the earlier build stored its tail as a line whose name was Edgecombe eo.)"
  ],
  "notes": [
-  "Company G of the Thirteenth Regiment, printed page 495; 35 printed entries, 33 stored lines: the Jenkins entry has no line of its own (row 0 is its tail), the Dupree entry is inside row 3 and the Barnhill M. T. entry is inside row 16. The heading PRIVATES is damaged in the text layer (PRIVATE-) and also the heading NON-COMMISSIONED OFFICERS (XOX-COMMI8SIOXED OFFICERS)."
+  "Company G of the Thirteenth Regiment, printed page 495; 35 printed entries, 32 stored lines: the Jenkins entry has no line (the rebuild dropped the fragment line that the earlier build stored for its tail), the Dupree entry is inside row 2 and the Barnhill M. T. entry is inside row 15. The heading PRIVATES is damaged in the text layer (PRIVATE-) and also the heading NON-COMMISSIONED OFFICERS (XOX-COMMI8SIOXED OFFICERS)."
  ],
- "reader": "full page view at 200 dpi (Read tool); crops at 500 dpi of the heading and of the first lines; names, rank headings, company and the cut of every line compared with the print (level N only: R-G2 and R-G3b of this stratum had failed on its first two pages); the company letter G of all lines checked against the running head of this page (Company G, Thirteenth Regiment)",
+ "reader": "full page view at 200 dpi (Read tool; the print is the same page as for the first verdict of this page, looked at before the rebuild) with the lines of the rebuilt file in front: names, rank headings, company and the cut of every line compared with the print (level N only: R-G2 and R-G3b of this stratum had failed on its first two pages); the company letter G of all lines checked against the running head of this page (Company G, Thirteenth Regiment). The first verdict of this page (the build of 16 November 01:49 UTC, 33 lines) is kept in superseded/ because the rebuild of the item at 03:05 UTC changed the lines of this page.",
  "tesseract_prescreen": {
   "agree": 1,
   "near": 0,
-  "suspect": 32,
+  "suspect": 31,
   "unstored_lines": 11
  },
  "read": {
@@ -642,21 +606,7 @@
  "rows_listed": [
   {
    "i": 0,
-   "rid": "13th-north-carolina-infantry#926",
-   "name": "Edgecombe eo.",
-   "rank": "p. 2d Lieut.",
-   "co": "G",
-   "remarks_sha256": "7309b9760ea8343c854c360d6f25c761801ecfd1139b84890371fb06ffe4b878",
-   "off": 1608621,
-   "text_id": "NC-MOORE-1882.1~b",
-   "flag_codes": [
-    "N",
-    "R"
-   ]
-  },
-  {
-   "i": 1,
-   "rid": "13th-north-carolina-infantry#927",
+   "rid": "13th-north-carolina-infantry#922",
    "name": "Peal, 2d Se>-g.",
    "rank": "^XOX-COMMI8SIOXED OFFICERS",
    "co": "G",
@@ -670,8 +620,8 @@
    ]
   },
   {
-   "i": 2,
-   "rid": "13th-north-carolina-infantry#928",
+   "i": 1,
+   "rid": "13th-north-carolina-infantry#923",
    "name": "Stallings, 3d Sei'gt.",
    "rank": "^XOX-COMMI8SIOXED OFFICERS",
    "co": "G",
@@ -684,8 +634,8 @@
    ]
   },
   {
-   "i": 3,
-   "rid": "13th-north-carolina-infantry#929",
+   "i": 2,
+   "rid": "13th-north-carolina-infantry#924",
    "name": "G. L. Brown",
    "rank": "4th Sergt.",
    "co": "G",
@@ -697,8 +647,8 @@
    ]
   },
   {
-   "i": 4,
-   "rid": "13th-north-carolina-infantry#930",
+   "i": 3,
+   "rid": "13th-north-carolina-infantry#925",
    "name": "Rufus Atkinson",
    "rank": "2d Corporal",
    "co": "G",
@@ -708,8 +658,8 @@
    "flag_codes": []
   },
   {
-   "i": 5,
-   "rid": "13th-north-carolina-infantry#931",
+   "i": 4,
+   "rid": "13th-north-carolina-infantry#926",
    "name": "J. H. Keel",
    "rank": "3d Corporal",
    "co": "G",
@@ -719,8 +669,8 @@
    "flag_codes": []
   },
   {
-   "i": 6,
-   "rid": "13th-north-carolina-infantry#932",
+   "i": 5,
+   "rid": "13th-north-carolina-infantry#927",
    "name": "G. M. Standi",
    "rank": "4th Corporal",
    "co": "G",
@@ -732,8 +682,8 @@
    ]
   },
   {
-   "i": 7,
-   "rid": "13th-north-carolina-infantry#933",
+   "i": 6,
+   "rid": "13th-north-carolina-infantry#928",
    "name": "Adkins, W H.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -743,8 +693,8 @@
    "flag_codes": []
   },
   {
-   "i": 8,
-   "rid": "13th-north-carolina-infantry#934",
+   "i": 7,
+   "rid": "13th-north-carolina-infantry#929",
    "name": "Adkins, Lawrence",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -756,8 +706,8 @@
    ]
   },
   {
-   "i": 9,
-   "rid": "13th-north-carolina-infantry#935",
+   "i": 8,
+   "rid": "13th-north-carolina-infantry#930",
    "name": "Andrews, Kenneth",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -767,8 +717,8 @@
    "flag_codes": []
   },
   {
-   "i": 10,
-   "rid": "13th-north-carolina-infantry#936",
+   "i": 9,
+   "rid": "13th-north-carolina-infantry#931",
    "name": "Andrews, Edmund",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -778,8 +728,8 @@
    "flag_codes": []
   },
   {
-   "i": 11,
-   "rid": "13th-north-carolina-infantry#937",
+   "i": 10,
+   "rid": "13th-north-carolina-infantry#932",
    "name": "Andrews, W J.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -789,8 +739,8 @@
    "flag_codes": []
   },
   {
-   "i": 12,
-   "rid": "13th-north-carolina-infantry#938",
+   "i": 11,
+   "rid": "13th-north-carolina-infantry#933",
    "name": "Anderson, P. V.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -800,8 +750,8 @@
    "flag_codes": []
   },
   {
-   "i": 13,
-   "rid": "13th-north-carolina-infantry#939",
+   "i": 12,
+   "rid": "13th-north-carolina-infantry#934",
    "name": "Atkinson, M. B.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -811,8 +761,8 @@
    "flag_codes": []
   },
   {
-   "i": 14,
-   "rid": "13th-north-carolina-infantry#940",
+   "i": 13,
+   "rid": "13th-north-carolina-infantry#935",
    "name": "Brazelle, J. F.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -822,8 +772,8 @@
    "flag_codes": []
   },
   {
-   "i": 15,
-   "rid": "13th-north-carolina-infantry#941",
+   "i": 14,
+   "rid": "13th-north-carolina-infantry#936",
    "name": "Blackwood, X.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -833,8 +783,8 @@
    "flag_codes": []
   },
   {
-   "i": 16,
-   "rid": "13th-north-carolina-infantry#942",
+   "i": 15,
+   "rid": "13th-north-carolina-infantry#937",
    "name": "Blount, L. W.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -844,8 +794,8 @@
    "flag_codes": []
   },
   {
-   "i": 17,
-   "rid": "13th-north-carolina-infantry#943",
+   "i": 16,
+   "rid": "13th-north-carolina-infantry#938",
    "name": "Barnhill, J. C",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -855,8 +805,8 @@
    "flag_codes": []
   },
   {
-   "i": 18,
-   "rid": "13th-north-carolina-infantry#944",
+   "i": 17,
+   "rid": "13th-north-carolina-infantry#939",
    "name": "Bell, T.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -868,8 +818,8 @@
    ]
   },
   {
-   "i": 19,
-   "rid": "13th-north-carolina-infantry#945",
+   "i": 18,
+   "rid": "13th-north-carolina-infantry#940",
    "name": "Bell, Xoah",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -879,8 +829,8 @@
    "flag_codes": []
   },
   {
-   "i": 20,
-   "rid": "13th-north-carolina-infantry#946",
+   "i": 19,
+   "rid": "13th-north-carolina-infantry#941",
    "name": "Bell, Benjamin",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -890,8 +840,8 @@
    "flag_codes": []
   },
   {
-   "i": 21,
-   "rid": "13th-north-carolina-infantry#947",
+   "i": 20,
+   "rid": "13th-north-carolina-infantry#942",
    "name": "Burgess, Lawrence",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -901,8 +851,8 @@
    "flag_codes": []
   },
   {
-   "i": 22,
-   "rid": "13th-north-carolina-infantry#948",
+   "i": 21,
+   "rid": "13th-north-carolina-infantry#943",
    "name": "Bosman, Isaac",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -912,8 +862,8 @@
    "flag_codes": []
   },
   {
-   "i": 23,
-   "rid": "13th-north-carolina-infantry#949",
+   "i": 22,
+   "rid": "13th-north-carolina-infantry#944",
    "name": "Bosnian, James",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -923,8 +873,8 @@
    "flag_codes": []
   },
   {
-   "i": 24,
-   "rid": "13th-north-carolina-infantry#950",
+   "i": 23,
+   "rid": "13th-north-carolina-infantry#945",
    "name": "Burgess, George",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -936,8 +886,8 @@
    ]
   },
   {
-   "i": 25,
-   "rid": "13th-north-carolina-infantry#951",
+   "i": 24,
+   "rid": "13th-north-carolina-infantry#946",
    "name": "Brown, Wm.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -947,8 +897,8 @@
    "flag_codes": []
   },
   {
-   "i": 26,
-   "rid": "13th-north-carolina-infantry#952",
+   "i": 25,
+   "rid": "13th-north-carolina-infantry#947",
    "name": "Brantley, Benjamin F.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -958,8 +908,8 @@
    "flag_codes": []
   },
   {
-   "i": 27,
-   "rid": "13th-north-carolina-infantry#953",
+   "i": 26,
+   "rid": "13th-north-carolina-infantry#948",
    "name": "Chappell, S. E.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -969,8 +919,8 @@
    "flag_codes": []
   },
   {
-   "i": 28,
-   "rid": "13th-north-carolina-infantry#954",
+   "i": 27,
+   "rid": "13th-north-carolina-infantry#949",
    "name": "Chamberlain, L. L.",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -980,8 +930,8 @@
    "flag_codes": []
   },
   {
-   "i": 29,
-   "rid": "13th-north-carolina-infantry#955",
+   "i": 28,
+   "rid": "13th-north-carolina-infantry#950",
    "name": "C'oggins, Thomas",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -991,8 +941,8 @@
    "flag_codes": []
   },
   {
-   "i": 30,
-   "rid": "13th-north-carolina-infantry#956",
+   "i": 29,
+   "rid": "13th-north-carolina-infantry#951",
    "name": "Clark, Henry",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -1002,8 +952,8 @@
    "flag_codes": []
   },
   {
-   "i": 31,
-   "rid": "13th-north-carolina-infantry#957",
+   "i": 30,
+   "rid": "13th-north-carolina-infantry#952",
    "name": "Driver, Richardson",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -1015,8 +965,8 @@
    ]
   },
   {
-   "i": 32,
-   "rid": "13th-north-carolina-infantry#958",
+   "i": 31,
+   "rid": "13th-north-carolina-infantry#953",
    "name": "Eherun, Jerry",
    "rank": "^PRIVATE-",
    "co": "G",
@@ -1028,7 +978,7 @@
    ]
   }
  ],
- "verdict_utc": "2026-11-16T02:55:21Z",
+ "verdict_utc": "2026-11-16T03:15:10Z",
  "tesseract_status": {
   "0": "SUSPECT",
   "1": "SUSPECT",
@@ -1056,12 +1006,11 @@
   "23": "SUSPECT",
   "24": "SUSPECT",
   "25": "SUSPECT",
-  "26": "SUSPECT",
-  "27": "AGREE",
+  "26": "AGREE",
+  "27": "SUSPECT",
   "28": "SUSPECT",
   "29": "SUSPECT",
   "30": "SUSPECT",
-  "31": "SUSPECT",
-  "32": "SUSPECT"
+  "31": "SUSPECT"
  }
 }

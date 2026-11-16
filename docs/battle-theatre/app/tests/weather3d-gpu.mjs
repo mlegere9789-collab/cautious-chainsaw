@@ -20,6 +20,7 @@ import { minOf as MO } from '../src/clock.mjs';
 const args = expandXvfbCanvas(process.argv.slice(2)), flag = (k, d) => { const a = args.find(x => x.startsWith('--' + k + '=')); return a ? a.split('=')[1] : d; };
 const pos = args.filter(a => !a.startsWith('--')), outRoot = path.resolve(pos[0] || '.'), api = pos[1] === 'webgl2' ? 'webgl2' : 'webgpu', only = (pos[2] || '').split(',').filter(Boolean);
 const W = +flag('w', 640), H = +flag('h', 360), SOLD = +flag('soldiers', 12000), TIER = flag('tier', 'laptop'), REPEAT = !args.includes('--no-repeat'), SHOT = !args.includes('--no-screenshot'), FXOFF = args.includes('--fx=off'), READY_MS = +flag('ready-timeout', 240) * 1000;
+const STRIP = args.filter(a => a.startsWith('--strip-feature=')).map(a => a.slice('--strip-feature='.length));       // --strip-feature=float32-filterable (repeatable): the device is made WITHOUT that feature although the adapter has it (a stand-in for a device that lacks it; recorded in the summary)
 const REALGPU = args.includes('--real-gpu'), out = path.join(outRoot, api); fs.mkdirSync(out, { recursive: true });
 // the compositor's picture of the real canvas is compared with the read-back of the same frame whenever the real canvas is in use (--real-canvas, --real-gpu) or when asked (--canvas-shot); --no-screenshot switches it off
 const EXTRA_CHROME_ARGS = args.filter(a => a.startsWith('--chrome-arg=')).map(a => a.slice('--chrome-arg='.length));          // --chrome-arg=--flag (repeatable): more Chrome flags, for trying a flag set on a machine
@@ -43,12 +44,12 @@ async function swapchainProbe(browser, port) {
   }
   return res;
 }
-const summary = { api, url, w: W, h: H, soldiers: SOLD, tier: TIER, realGpu: REALGPU, started: new Date().toISOString(), cases: {}, pure: {}, errors: [], screenshot: null };
+const summary = { api, url, w: W, h: H, soldiers: SOLD, tier: TIER, realGpu: REALGPU, stripFeatures: STRIP, started: new Date().toISOString(), cases: {}, pure: {}, errors: [], screenshot: null };
 const save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
 const logs = []; let browser;
 try {
   browser = await chromium.launch({ channel: 'chrome', headless: !args.includes('--headed'), args: [...chromeArgs(REALGPU), ...EXTRA_CHROME_ARGS] }); summary.chromeArgs = [...chromeArgs(REALGPU), ...EXTRA_CHROME_ARGS]; summary.headed = args.includes('--headed');
-  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas') || REALGPU, trace: true }); ctx.setDefaultTimeout(0);
+  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas') || REALGPU, trace: true, stripFeatures: STRIP }); ctx.setDefaultTimeout(0);
   const page = await ctx.newPage(); page.on('console', m => logs.push(m.type() + ': ' + m.text())); page.on('pageerror', e => logs.push('pageerror: ' + e.message)); page.on('crash', () => logs.push('PAGE CRASH')); page.on('response', r => { if (r.status() >= 400) logs.push('http ' + r.status() + ' ' + r.url()); }); browser.on('disconnected', () => logs.push('BROWSER DISCONNECTED'));
   say('open', url); await page.goto(url, { waitUntil: 'load' });
   // the set-up takes seconds; when it does not finish the run says where it stands (stage, console, pending GPU promises) and ends instead of holding the machine

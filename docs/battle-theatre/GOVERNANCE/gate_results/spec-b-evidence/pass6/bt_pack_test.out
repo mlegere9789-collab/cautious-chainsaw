@@ -1,0 +1,8 @@
+totals: {'tests': '96', 'suites': '0', 'pass': '92', 'fail': '4', 'cancelled': '0', 'skipped': '0', 'todo': '0', 'duration_ms': '120908.786824'}
+not ok lines: 4
+   not ok 21 - the shipped kit and data files carry no production note
+   not ok 28 - copy audit of the shipped dist is clean (shipping gate; red = a source file mentions how the site was made)
+   not ok 58 - real roster data: the printed names pass, nothing else in the roster files is a hit (a second look at the files the roster section will ship; red until the owners of the files answer the request notes)
+   not ok 93 - look ahead: the copy audit of today over the roster data and the data files that no page loads, run in place; the document row is written from it and a build without it has no such row
+skipped tests: 0
+NOT RUN (NEEDS_GPU) lines: 0

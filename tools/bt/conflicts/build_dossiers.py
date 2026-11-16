@@ -100,6 +100,20 @@ def compile_near(near):
     return out
 
 
+def author_filter(sid, by):
+    """Predicate on a character offset of an Official Records part: the record the offset lies in was written by one of the names (author, heading or addressee)."""
+    n = int(sid[-1])
+    names = [x.lower() for x in by]
+
+    def ok(off):
+        r = S.or_record_at(n, off)
+        if r is None:
+            return False
+        blob = ' '.join(str(r.get(k) or '') for k in ('author', 'header_raw', 'toc_text', 'unit_scope', 'addressee')).lower()
+        return any(x in blob for x in names)
+    return ok
+
+
 def scan_all(only=None, log=print):
     """{cid: {probe index: {scope: [hit dict]}}} over the whole local library."""
     ctx, scopes = source_list()
@@ -117,7 +131,10 @@ def scan_all(only=None, log=print):
                 for i, pr in enumerate(DP.P[cid]['probes']):
                     if scope not in pr['scope']:
                         continue
-                    hits = S.probe_hits(rel, pr['anchors'], compile_near(pr['near']), pr['window'], PER_SOURCE[scope], score_terms=DP.P[cid]['terms'])
+                    if pr.get('by') and scope != 'or':
+                        continue
+                    acc = author_filter(sid, pr['by']) if pr.get('by') else None
+                    hits = S.probe_hits(rel, pr['anchors'], compile_near(pr['near']), pr['window'], PER_SOURCE[scope], score_terms=DP.P[cid]['terms'], accept=acc)
                     if hits:
                         res[i].setdefault(scope, []).extend([dict(h, sid=sid, part=part, path=rel, scope=scope) for h in hits])
             if n_files % 25 == 0:
@@ -172,6 +189,7 @@ def load_arrivals():
 
 
 TOKEN_FILES = None
+SUBJ = {}
 
 
 def token_files():
@@ -180,7 +198,7 @@ def token_files():
     groups = collections.OrderedDict()
     groups['shards'] = []
     for dp, dn, fn in os.walk(os.path.join(G, 'horde')):
-        dn[:] = [d for d in dn if d not in ('images', 'scripts', 'ws-conflicts', 'requests')]
+        dn[:] = [d for d in dn if d not in ('images', 'scripts', 'ws-conflicts')]
         for f in sorted(fn):
             if f.endswith(('.jsonl', '.md', '.json')):
                 p = os.path.join(dp, f)
@@ -214,17 +232,17 @@ def token_files():
 
 def token_scan(groups):
     """{cid: {group: [(path, lineno or row id, snippet)]}} for every C-0NN token in the file groups."""
-    rx = re.compile(r'\bC-0(?:0[1-9]|[1-3]\d|4[0-7])\b')
+    rx = re.compile(r'(?<![A-Za-z0-9])[Cc]-?(0(?:0[1-9]|[1-3]\d|4[0-7]))(?![0-9A-Za-z])')
     res = collections.defaultdict(lambda: collections.defaultdict(list))
     for g, files in groups.items():
         for p in files:
             try:
                 with open(p, encoding='utf-8', errors='replace') as f:
                     for n, line in enumerate(f, 1):
-                        if 'C-0' not in line:
+                        if not re.search(r'[Cc]-?0[0-4]\d', line):
                             continue
                         for m in rx.finditer(line):
-                            cid = m.group(0)
+                            cid = 'C-' + m.group(1)
                             a, b = max(0, m.start() - 140), min(len(line), m.end() + 180)
                             snip = ' '.join(line[a:b].split())
                             rid = None
@@ -245,6 +263,54 @@ def day_labels(event_date):
         e = d + datetime.timedelta(days=k)
         labs.append('%s %d' % (e.strftime('%b'), e.day))
     return labs
+
+
+def subject_scan(groups):
+    """{cid: [(k, path, line, snippet)]}: lines of the shard and correction files that contain at least two distinct terms of a profile (the shards often name an event, not the id)."""
+    prepared = {cid: [t.lower() for t in p['terms'] if len(t) >= 5] for cid, p in DP.P.items()}
+    res = {cid: [] for cid in DP.P}
+    for p in groups['shards'] + groups['corrections']:
+        if p.endswith('.md') and 'proposed-register' not in p and 'REPORT' not in p:
+            continue
+        try:
+            f = open(p, encoding='utf-8', errors='replace')
+        except OSError:
+            continue
+        rp = L.rel(p)
+        with f:
+            for n, line in enumerate(f, 1):
+                if len(line) < 40:
+                    continue
+                low = line.lower()
+                for cid, terms in prepared.items():
+                    k = 0
+                    first = None
+                    for t in terms:
+                        i = low.find(t)
+                        if i >= 0:
+                            k += 1
+                            if first is None:
+                                first = i
+                    if k >= 2:
+                        a = max(0, first - 120)
+                        res[cid].append((k, rp, n, ' '.join(line[a:a + 330].split())))
+        for cid in res:
+            if len(res[cid]) > 400:
+                res[cid].sort(key=lambda x: -x[0])
+                res[cid] = res[cid][:150]
+    out = {}
+    for cid, lst in res.items():
+        lst.sort(key=lambda x: (-x[0], x[1], x[2]))
+        per, keep = collections.Counter(), []
+        for k, p, n, sn in lst:
+            if per[p] >= 2:
+                continue
+            per[p] += 1
+            keep.append((k, p, n, sn))
+            if len(keep) >= 8:
+                break
+        out[cid] = keep
+    return out
 
 
 def subject_rows(terms, event_date):
@@ -483,6 +549,15 @@ def dossier(cid, ctx, scan_res, tokens, arr, cand, glossary_cache):
     if n == 0:
         w('- none beyond the first pass above.')
     w('')
+    ss = SUBJ.get(cid, [])
+    w('**Lines of the shards and correction files about the subject** (found by the words of the profile, not by the id; at least two of: %s):' % ', '.join(t for t in prof['terms'] if len(t) >= 5))
+    w('')
+    if ss:
+        for k, p, ln, sn in ss:
+            w('- `%s` %s: %s' % (p, ln, sn[:330]))
+    else:
+        w('- none.')
+    w('')
     # 5. passages
     w(SECTIONS[4])
     w('')
@@ -492,7 +567,7 @@ def dossier(cid, ctx, scan_res, tokens, arr, cand, glossary_cache):
     for i, pr in enumerate(prof['probes']):
         w('### %d.%d %s' % (5, i + 1, pr['label']))
         w('')
-        w('anchors: %s; near: %s; scopes: %s' % (', '.join('"%s"' % a for a in pr['anchors']), ' AND '.join('`%s`' % n for n in pr['near']) or '-', ', '.join(pr['scope'])))
+        w('anchors: %s; near: %s; scopes: %s%s' % (', '.join('"%s"' % a for a in pr['anchors']), ' AND '.join('`%s`' % n for n in pr['near']) or '-', ', '.join(pr['scope']), ('; only reports, letters and orders written by: %s' % ', '.join(pr['by'])) if pr.get('by') else ''))
         w('')
         hl = render_hits(ctx, scan_res[cid].get(i, {}))
         if hl:
@@ -559,7 +634,9 @@ def main(argv):
     print('scanning the library for %d conflicts ...' % (len(only) if only else 47))
     scan_res, ctx, scopes = scan_all(only)
     print('scan done in %.0f s; reading shards, timeline and code ...' % (time.time() - t0))
-    tokens = token_scan(token_files())
+    groups = token_files()
+    tokens = token_scan(groups)
+    SUBJ.update(subject_scan(groups))
     arr = load_arrivals()
     cand_path = os.path.join(L.TMP, 'candidates_probe.json')
     cand = L.load_json(cand_path) if os.path.exists(cand_path) else {'probed': 'not probed', 'items': []}

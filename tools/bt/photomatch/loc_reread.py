@@ -53,9 +53,11 @@ def main():
     rows = []; last = 0.0
     for p in (reg[:lim] if lim else reg):
         pk = p['loc_id']; dt = time.time() - last
-        if dt < 1.2: time.sleep(1.2 - dt)
-        st = fetch(pk); last = time.time()
+        if dt < 1.2 and not os.path.exists(os.path.join(OUT_DIR, f'item_{pk}.json')): time.sleep(1.2 - dt)   # pace only a request that goes to the network
+        st = fetch(pk); last = time.time() if st != 'cached' else last
         row = {'loc_id': pk, 'title': p['title'][:120], 'fetch': st, 'class': p['class'], 'verdict': p['verdict'], 'statement_ids': covered.get(pk, [])}
+        _f = os.path.join(OUT_DIR, f'item_{pk}.json')
+        if os.path.exists(_f): row['retrieved_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(os.path.getmtime(_f)))   # when the file was saved (a later run that finds it cached keeps this time)
         new = os.path.join(OUT_DIR, f'item_{pk}.json')
         if st in ('ok', 'cached'):
             b = open(new, 'rb').read(); row['sha256'] = sha(b); row['bytes'] = len(b)
@@ -71,7 +73,7 @@ def main():
                 row['changed_since_first_reading'] = ch
             else: row['changed_since_first_reading'] = 'no earlier copy of this record is saved (the record belongs to a later catalogue pass)'
         rows.append(row)
-    res = {'_doc': __doc__.split('\n')[0], 'retrieved_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'records': len(rows), 'fetched_ok': sum(1 for r in rows if r['fetch'] in ('ok', 'cached')),
+    res = {'_doc': __doc__.split('\n')[0], 'retrieved_utc': min((r['retrieved_utc'] for r in rows if r.get('retrieved_utc')), default=None), 'last_checked_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'records': len(rows), 'fetched_ok': sum(1 for r in rows if r['fetch'] in ('ok', 'cached')),
            'failed': [{'loc_id': r['loc_id'], 'fetch': r['fetch']} for r in rows if r['fetch'] not in ('ok', 'cached')], 'changed': [r['loc_id'] for r in rows if isinstance(r.get('changed_since_first_reading'), list) and r['changed_since_first_reading']],
            'records_with_cues': sum(1 for r in rows if r.get('cues')), 'rows': rows}
     json.dump(res, open(os.path.join(HERE, 'loc_reread_20261116.json'), 'w'), indent=1, ensure_ascii=False)

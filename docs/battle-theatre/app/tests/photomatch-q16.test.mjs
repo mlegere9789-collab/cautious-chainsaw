@@ -192,6 +192,54 @@ test('the photo-match document passes the packer\'s own copy audit (tools/bt/pac
   const hits = d.split('\n').map((L, i) => { const m = A.AUDIT_RE.exec(L) || A.AUDIT_CS_RE.exec(L); return m ? `L${i + 1}: ${m[0].trim()}` : null; }).filter(Boolean);
   assert.deepEqual(hits, [], 'audit words'); assert.deepEqual([...d.matchAll(A.AUDIT_REVIEW_RE)].map(m => m[0]), [], 'working-process words'); assert.deepEqual([...d.matchAll(A.AUDIT_TOOLPATH_RE)].map(m => m[0]), [], 'tool paths');
 });
+test('fresh reading of every Library record (2026-11-16): all fetched, none changed, every sentence that names a place or direction of view is a statement or has a written reading', () => {
+  const rr = J('loc_reread_20261116.json'), rv = J('loc_reread_review.json'); assert.equal(rr.records, reg.count); assert.equal(rr.fetched_ok, rr.records); assert.deepEqual(rr.failed, []); assert.deepEqual(rr.changed, []);
+  const regIds = new Set(reg.photographs.map(r => r.loc_id)), stIds = new Set(st.statements.map(s => s.id)); assert.equal(new Set(rr.rows.map(r => r.loc_id)).size, rr.records);
+  for (const r of rr.rows) {
+    assert.ok(regIds.has(r.loc_id), r.loc_id); assert.match(r.sha256, /^[0-9a-f]{64}$/, r.loc_id); for (const i of r.statement_ids) assert.ok(stIds.has(i), r.loc_id + ' ' + i);
+    const f = path.join(ROOT, 'tmp/library/web/photomatch/fourth/loc_items', 'item_' + r.loc_id + '.json'); if (fs.existsSync(f)) assert.equal(sha(f), r.sha256, r.loc_id + ' changed on disk after the reading');
+    if (r.cues && r.cues.length && !r.statement_ids.length) { const e = rv.records[r.loc_id]; assert.ok(e && e.kind && e.reading && e.reading.length > 30, r.loc_id + ' has a place or direction cue, no statement and no written reading'); }
+  }
+  assert.ok(rr.records_with_cues >= 30);
+});
+test('Sketch Book concordance: ten Gettysburg plates, tied to the Library records by the Library\'s own call numbers; only plate 35 says where the camera stood; the quotes stand in the saved machine readings of the master scans', () => {
+  const c = J('sketchbook_concordance.json'); assert.deepEqual(c.plates.map(p => p.plate), [35, 36, 37, 38, 39, 40, 41, 42, 43, 44]); const regIds = new Set(reg.photographs.map(r => r.loc_id));
+  for (const p of c.plates) {
+    assert.equal(p.plate_page, p.letterpress_page + 1, 'the letterpress page comes first in the album'); assert.ok(p.printed_title && p.printed_credit, p.plate); assert.match(p.letterpress_ocr_sha256, /^[0-9a-f]{64}$/); assert.match(p.master_scan_sha256, /^[0-9a-f]{64}$/);
+    for (const [r, call] of Object.entries(p.loc_records_by_call_number)) { assert.ok(regIds.has(r), r); assert.match(call, new RegExp('v\\. 1, no\\. ' + p.plate + '\\b'), r + ' ' + call); }
+    for (const r of p.other_loc_records_of_the_same_view) assert.ok(regIds.has(r), r);
+    const f = path.join(ROOT, p.letterpress_ocr_text); if (fs.existsSync(f)) assert.equal(sha(f), p.letterpress_ocr_sha256, 'OCR text of plate ' + p.plate + ' changed');
+    assert.equal(p.letterpress_states_where_the_camera_stood, p.plate === 35, 'plate ' + p.plate);
+    for (const i of p.letterpress_statements) { const s = st.statements.find(x => x.id === i); assert.ok(s, i); assert.equal(s.tier, 'documented', i); assert.ok(st.sources[s.src].master_scan_sha256, i); }
+  }
+  const s35 = st.statements.find(s => s.id === 'PS-GARDNER-SB1-P77'); assert.ok(s35 && s35.quote_fragments.length === 3 && s35.quote_fragments.every((f, i, a) => i === 0 || f.offset_in_normalised_page > a[i - 1].offset_in_normalised_page), 'the three fragments of plate 35 stand in order');
+  assert.ok(/Cemetery Ridge/.test(s35.quote) && /Seminary/.test(s35.quote) && s35.coordinates_published === false); for (const id of ['P27', 'P28']) assert.ok(poses.poses.find(p => p.id === id).statement_ids.includes('PS-GARDNER-SB1-P77'), id);
+  const f77 = path.join(ROOT, 'tmp/library/web/photomatch/sketchbook_v1/p00077.ocr.txt'); if (fs.existsSync(f77)) { const t = norm(fs.readFileSync(f77, 'utf8')); for (const f of s35.quote_fragments) assert.ok(t.includes(norm(f.fragment)), f.fragment); }
+});
+test('Gardner\'s catalogue of 1863 and the Library essays are sources with their hash; the essays and every statement that rests on them are leads; the three catalogue titles are tied by number and carry no camera position beyond the words of the title', () => {
+  for (const id of ['PS-GARDNER-CAT-273', 'PS-GARDNER-CAT-231', 'PS-GARDNER-CAT-268']) { const s = st.statements.find(x => x.id === id); assert.ok(s, id); assert.equal(s.src, 'GARDNER-CAT-1863'); assert.match(st.sources[s.src].sha256_text, /^[0-9a-f]{64}$/); assert.ok(/stereo number/.test(s.ident), id); assert.equal(s.coordinates_published, false); }
+  for (const s of st.statements.filter(x => x.src.startsWith('LOCESSAY-'))) { assert.equal(s.tier, 'lead', s.id); assert.ok(/Frassanito/.test(st.sources[s.src].kind), s.id + ' the source says that its analysis rests on Frassanito'); }
+  assert.ok(st.statements.filter(x => x.src.startsWith('LOCESSAY-')).length >= 3);
+});
+test('staged-photograph flags of the sharpshooter series carry the readable official sources (National Park Service and Library of Congress words) beside the plan, and every quote of them stands in its saved text', () => {
+  const flagged = reg.photographs.filter(r => r.staged_flag), ext = flagged.filter(r => /Official sources that can be read/.test(r.staged_basis)); assert.ok(ext.length >= 17); assert.ok(flagged.length - ext.length <= 3, 'only the Weaver scene records may lack it');
+  for (const r of flagged.filter(r => !ext.includes(r))) assert.match(r.staged_basis, /Weaver|11 November/, r.loc_id);
+  const w = path.join(ROOT, 'tmp/library/web/photomatch'), N = f => norm(fs.readFileSync(path.join(w, f), 'utf8')); if (fs.existsSync(path.join(w, 'www.loc.gov/loc_essay_moved_body.txt'))) {
+    assert.ok(N('www.nps.gov/places_gettysburg-then-now-sharpshooter.htm.txt').includes('nor is it likely that the soldier fell in this location')); assert.ok(N('www.nps.gov/places_gettysburg-then-now-sharpshooter-location.htm.txt').includes('moved by the photographers from this location to another one some 40 yards away'));
+    assert.ok(N('www.loc.gov/loc_essay_moved_body.txt').includes('moved the corpse to this rocky niche and photographed him again')); }
+  for (const r of reg.photographs.filter(r => r.staged_flag)) assert.equal(r.pose_ids.length, 0, r.loc_id + ' a staged record has no pose of its own');
+});
+test('the National Park Service text scan was run again over every saved text (325 texts, 359 passages): the passages of the newly scanned texts were read and none gives a camera place of July 1863; the fetcher no longer accepts a transfer that was cut short', () => {
+  const n = J('nps_scan_review_20261116.json'), sc = J('nps_photo_scan.json'); assert.ok(sc.sources_scanned >= 288); assert.equal(n.candidates, sc.candidates); assert.equal(n.sources_scanned, sc.sources_scanned); assert.ok(n.new_passages_read.length >= 19); assert.ok(n.sources_scanned_by_the_earlier_passes === 118);
+  for (const p of n.new_passages_read) { assert.ok(p.reading.length > 20, p.source); assert.equal(p.july_1863_camera_place, false, p.source + ' ' + p.page); }
+  const wg = fs.readFileSync(path.join(PM, 'webget.py'), 'utf8'); assert.match(wg, /curl exit/); assert.match(wg, /partial/); assert.match(wg, /returncode/);
+});
+test('the determinism record names every re-run (the 2026-11-15 one in earlier_reruns and the 2026-11-16 one), and the gate block of the fifth review counts the statements and still finds no documented camera position', () => {
+  const d = J('render_determinism.json'); assert.ok(d.rerun.folder.endsWith('renders_rerun_20261116')); assert.ok(d.earlier_reruns.length >= 1 && d.earlier_reruns.every(r => r.files_identical_in_rerun === r.files_expected)); assert.equal(d.files_identical_in_rerun, d.files_expected);
+  const g = ver.gate_q16, fp = g.fifth_pass; assert.equal(g.passes, false); assert.equal(g.documented_position_count, 0); assert.equal(fp.documented_positions_found, 0); assert.equal(fp.statements, st.count); assert.equal(fp.new_statements, st.count - 145); assert.equal(fp.staged_flags_respected, true);
+  assert.ok(g.reason.some(t => /Fifth pass \(2026-11-16\)/.test(t))); assert.ok(g.reason[0].includes('the ' + st.count + ' camera-position statements'));
+  for (const id of ['P27', 'P28']) assert.match(ver.pose_verdicts.find(v => v.pose === id).why, /Fifth pass \(2026-11-16\)/); assert.equal(ver.pose_verdicts.find(v => v.pose === 'P27').verdict, 'roughly'); assert.equal(ver.pose_verdicts.find(v => v.pose === 'P28').verdict, 'does not');
+});
 test('render is deterministic (SwiftShader), optional', { skip: !process.env.PHOTOMATCH_RENDER }, () => {
   const h = () => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'tmp/photomatch/renders/P03_base.png'))).digest('hex');
   execFileSync('node', [path.join(PM, 'run.mjs'), 'P03'], { cwd: ROOT, stdio: 'ignore' }); const a = h();

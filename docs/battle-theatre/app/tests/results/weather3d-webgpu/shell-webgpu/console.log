@@ -1,0 +1,8 @@
+error: ext monuments.mjs: init failed; it is skipped Error: the memorial years are not fit to show: year of 37: the quotation is 21 words; a quotation is a short phrase of at most 14 (and 63 more)
+    at Module.init (http://127.0.0.1:36205/app/src/ext/monuments.mjs:34:69)
+    at async Extensions._run (http://127.0.0.1:36205/app/src/ui/extensions.mjs:226:47)
+error: GPU error Buffer usages must not be 0.
+ - While calling [Device].CreateBuffer([BufferDescriptor ""harness negative control (unscoped, invalid)""]).
+
+warning: Buffer usages must not be 0.
+ - While calling [Device].CreateBuffer([BufferDescriptor ""harness negative control (unscoped, invalid)""]).

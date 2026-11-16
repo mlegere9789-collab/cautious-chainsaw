@@ -36,10 +36,11 @@ def tsv(path):
 
 LIGHT = tsv(os.path.join(HERE, 'light-runs.tsv'))
 LIGHT2 = tsv(os.path.join(HERE, 'light2-runs.tsv'))
+LIGHT3 = tsv(os.path.join(HERE, 'light3-runs.tsv'))
 HEA = tsv(os.path.join(HERE, 'heavy-a-runs.tsv'))
 HEC = tsv(os.path.join(HERE, 'heavy-c-runs.tsv'))
 RUNS = {}
-for d in (LIGHT, LIGHT2, HEA, HEC):
+for d in (LIGHT, LIGHT2, LIGHT3, HEA, HEC):
     RUNS.update(d)
 hm = lambda s: s[11:16] if s else '?'
 fmt = lambda x: ('%d' % round(x)) if x >= 10 else ('%.1f' % x)
@@ -78,8 +79,8 @@ def tok_T(name):
     label = TFILE.get(name, name)
     c = tap_counts(name)
     if not c or name not in RUNS:
-        return 'The test of `%s` was not run when this was written (%s).' % (label, 'its locked job had not started' if name in ('realize_inputs_test', 'bt_pack_test') else 'see 7.8')
-    s = '`%s` at %s UTC: %d tests, %s pass, %s fail%s (%s).' % (label, hm(RUNS[name]['start']), c['tests'], c.get('pass', '?'), c.get('fail', '?'), (', %d skipped' % c['skipped']) if c.get('skipped') else '', run_phrase(name))
+        return '%s: not run when this was written (%s).' % (label[0].upper() + label[1:] if label.startswith('the ') else '`%s`' % label, 'its locked job had not started' if name in ('realize_inputs_test', 'bt_pack_test') else 'see 7.8')
+    s = '%s at %s UTC: %d tests, %s pass, %s fail%s (%s).' % ((label[0].upper() + label[1:]) if label.startswith('the ') else '`%s`' % label, hm(RUNS[name]['start']), c['tests'], c.get('pass', '?'), c.get('fail', '?'), (', %d skipped' % c['skipped']) if c.get('skipped') else '', run_phrase(name))
     return s
 
 
@@ -129,7 +130,7 @@ def tok_R(g):
             return 'Run at this pass: not done (the locked job C, queued at 02:46:04 UTC, had not started when this was written; see 7.8).'
         return 'Re-run at this pass: not done when this was written.'
     c = cur['counts']
-    desc = 'verdict %s, %d items: PASS %d, FAIL %d, BLOCKED-INPUT %d, NOT-RUN %d, N/A %d, COVERED %d' % (cur['verdict'], len(cur['items']), c['PASS'], c['FAIL'], c['BLOCKED-INPUT'], c['NOT-RUN'], c['N/A'], c['COVERED'])
+    desc = 'verdict %s, %s items: PASS %s, FAIL %s, BLOCKED-INPUT %s, NOT-RUN %s, N/A %s, COVERED %s' % (cur['verdict'], format(len(cur['items']), ','), format(c['PASS'], ','), format(c['FAIL'], ','), format(c['BLOCKED-INPUT'], ','), format(c['NOT-RUN'], ','), format(c['N/A'], ','), format(c['COVERED'], ','))
     if stored is None:
         scn = cur.get('scenario_set') or {}
         return 'Run at this pass into a scratch folder (%s; no record is stored for this gate): %s%s.' % (run_phrase(name), desc, ('; scenarios %s (%s)' % (scn.get('id'), scn.get('count'))) if scn else '')
@@ -138,8 +139,23 @@ def tok_R(g):
         rel = 'the same verdict and the same counts as the stored record'
     else:
         sc = stored['counts']
-        rel = 'it differs from the stored record (%s; %d items): stored PASS %d, FAIL %d, BLOCKED-INPUT %d, N/A %d, NOT-RUN %d' % (stored['verdict'], len(stored['items']), sc['PASS'], sc['FAIL'], sc['BLOCKED-INPUT'], sc['N/A'], sc['NOT-RUN'])
+        rel = 'it differs from the stored record (%s; %s items): stored PASS %s, FAIL %s, BLOCKED-INPUT %s, N/A %s, NOT-RUN %s' % (stored['verdict'], format(len(stored['items']), ','), format(sc['PASS'], ','), format(sc['FAIL'], ','), format(sc['BLOCKED-INPUT'], ','), format(sc['N/A'], ','), format(sc['NOT-RUN'], ','))
     return 'Re-run at this pass into a scratch folder (%s): %s; %s.' % (run_phrase(name), desc, rel)
+
+
+def tok_RERUNS():
+    same, diff = [], []
+    for g in ('Q23', 'Q19', 'Q02', 'Q01', 'Q14', 'Q20', 'Q25'):
+        s = load(os.path.join(GR, g + '.json')); c = load(os.path.join(SCR, 'results', g + '.json'))
+        if s is None or c is None or ('run_' + g.lower()) not in RUNS:
+            continue
+        (same if (s['counts'] == c['counts'] and s['verdict'] == c['verdict']) else diff).append((g, len(s['items']), len(c['items'])))
+    if not same and not diff:
+        return 'the seven re-runs of 7.8 were not done when this was written.'
+    out = 'the re-runs of %s into a scratch folder gave the verdict and the counts of their stored records' % ', '.join(g for g, _, _ in same) if same else ''
+    for g, a_, b_ in diff:
+        out += ('; ' if out else '') + 'the re-run of %s differs from its stored record (%s items against %s) because inputs of that record changed in between (%s)' % (g, format(b_, ','), format(a_, ','), tok_CUR(g).rstrip('.').split('; ', 1)[1] if '; ' in tok_CUR(g) else 'see 7.8')
+    return out + '.'
 
 
 def lockstate():
@@ -197,6 +213,7 @@ def expand(t):
     t = re.sub(r'\{\{R:(Q\d\d)\}\}', lambda m: tok_R(m.group(1)), t)
     t = re.sub(r'\{\{CUR:(Q\d\d)\}\}', lambda m: tok_CUR(m.group(1)), t)
     t = t.replace('{{LOCKSTATE}}', lockstate())
+    t = t.replace('{{RERUNS}}', tok_RERUNS())
     qp = os.path.join(HERE, 'quotes_result.txt')
     t = t.replace('{{QUOTES}}', rd(qp).strip() if os.path.exists(qp) else 'it had not been run when this was written.')
     return t

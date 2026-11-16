@@ -201,10 +201,12 @@ def build():
             continue
         sec = second_scan(note, r)
         units = [SP.UNITS[u] for u in note['units']]
-        rec = {'id': 'CL-%03d' % n, 'units': units, 'subject': note['subject'], 'kind': note['kind'], 'when': note['when'], 'claim': note['claim'],
+        rec = {'id': 'CL-%03d' % n, 'units': units, 'subject': note['subject'], 'kind': note['kind'], 'when': note['when'], 'claim': note['claim'], 'strength_figure': note.get('strength'),
                'figures': [{'printed': p, 'value': v, 'what': w} for p, v, w in note['figures']],
                'quote': r['quote'], 't': r['t'], 'off': r['off'], 'end': r['end'], 'pg': r['pg'], 'leaf': r['leaf'], 'chapter': r['chapter'], 'second_scan': sec,
                'tier': 'documented: the quotation stands at this place of the pinned text and says what the claim says; the figure is the statement of the named author, not a muster'}
+        if note['phrase'] in SP.IMAGE:
+            rec['page_image_check'] = SP.IMAGE[note['phrase']]
         out.append(rec)
     if errors:
         print('\n'.join(errors))

@@ -1,0 +1,954 @@
+{
+ "format": "conf-nc-clark-check/1",
+ "notes": 85,
+ "second_scan_agrees": [
+  "CL-001",
+  "CL-002",
+  "CL-003",
+  "CL-004",
+  "CL-005",
+  "CL-007",
+  "CL-008",
+  "CL-009",
+  "CL-010",
+  "CL-011",
+  "CL-013",
+  "CL-015",
+  "CL-017",
+  "CL-018",
+  "CL-022",
+  "CL-023",
+  "CL-024",
+  "CL-025",
+  "CL-028",
+  "CL-029",
+  "CL-030",
+  "CL-031",
+  "CL-032",
+  "CL-033",
+  "CL-034",
+  "CL-035",
+  "CL-036",
+  "CL-038",
+  "CL-039",
+  "CL-040",
+  "CL-042",
+  "CL-043",
+  "CL-045",
+  "CL-046",
+  "CL-047",
+  "CL-048",
+  "CL-050",
+  "CL-051",
+  "CL-052",
+  "CL-053",
+  "CL-054",
+  "CL-055",
+  "CL-056",
+  "CL-058",
+  "CL-060",
+  "CL-063",
+  "CL-066",
+  "CL-067",
+  "CL-068",
+  "CL-069",
+  "CL-071",
+  "CL-072",
+  "CL-073",
+  "CL-074",
+  "CL-075",
+  "CL-076",
+  "CL-077",
+  "CL-078",
+  "CL-079",
+  "CL-080",
+  "CL-081",
+  "CL-082",
+  "CL-083",
+  "CL-084",
+  "CL-085"
+ ],
+ "second_scan_disagrees": [
+  "CL-012",
+  "CL-014",
+  "CL-016",
+  "CL-019",
+  "CL-021",
+  "CL-026",
+  "CL-041",
+  "CL-057",
+  "CL-059",
+  "CL-061",
+  "CL-062",
+  "CL-064",
+  "CL-070"
+ ],
+ "second_scan_not_found": [
+  "CL-006",
+  "CL-020",
+  "CL-027",
+  "CL-037",
+  "CL-044",
+  "CL-049",
+  "CL-065"
+ ],
+ "coverage": {
+  "c-nc-1st-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "First Regiment, by Colonel H. A. Brown, vol. 1 p. 135",
+     "text": "NC-CLARK-1901.1",
+     "from": 332844,
+     "to": 385644
+    }
+   ],
+   "scan": {
+    "sentences": 322,
+    "gettysburg_zone_sentences": 22,
+    "figure_sentences": 6,
+    "figure_sentences_with_men_or_losses": 1
+   },
+   "notes": 2,
+   "notes_by_kind": {
+    "casualties": 1,
+    "remaining_after": 1
+   }
+  },
+  "c-nc-2nd-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Second Regiment, by Captain Matt. Manly, vol. 1 p. 157",
+     "text": "NC-CLARK-1901.1",
+     "from": 385644,
+     "to": 430803
+    }
+   ],
+   "scan": {
+    "sentences": 336,
+    "gettysburg_zone_sentences": 19,
+    "figure_sentences": 2,
+    "figure_sentences_with_men_or_losses": 0
+   },
+   "notes": 0,
+   "notes_by_kind": {}
+  },
+  "c-nc-3rd-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Third Regiment, by Captains John Cowan and J. I. Metts (p. 177) and Colonel W. L. DeRosset (p. 215), vol. 1",
+     "text": "NC-CLARK-1901.1",
+     "from": 430803,
+     "to": 558136
+    }
+   ],
+   "scan": {
+    "sentences": 614,
+    "gettysburg_zone_sentences": 30,
+    "figure_sentences": 5,
+    "figure_sentences_with_men_or_losses": 1
+   },
+   "notes": 2,
+   "notes_by_kind": {
+    "taken_into_action": 1,
+    "remaining_after": 1
+   }
+  },
+  "c-nc-4th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Fourth Regiment, by Colonel E. A. Osborne, vol. 1 p. 229",
+     "text": "NC-CLARK-1901.1",
+     "from": 558136,
+     "to": 682639
+    }
+   ],
+   "scan": {
+    "sentences": 837,
+    "gettysburg_zone_sentences": 40,
+    "figure_sentences": 6,
+    "figure_sentences_with_men_or_losses": 1
+   },
+   "notes": 0,
+   "notes_by_kind": {}
+  },
+  "c-nc-5th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Fifth Regiment, by Maj. J. C. MacRae and Sergt.-maj. C. M. Busbee, vol. 1 p. 281",
+     "text": "NC-CLARK-1901.1",
+     "from": 682639,
+     "to": 710568
+    }
+   ],
+   "scan": {
+    "sentences": 156,
+    "gettysburg_zone_sentences": 11,
+    "figure_sentences": 2,
+    "figure_sentences_with_men_or_losses": 1
+   },
+   "notes": 4,
+   "notes_by_kind": {
+    "casualties": 3,
+    "present_for_duty": 1
+   }
+  },
+  "c-nc-6th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Sixth Regiment, by Captain Neill W. Ray (p. 293) and Major A. C. Avery (p. 337), vol. 1",
+     "text": "NC-CLARK-1901.1",
+     "from": 710568,
+     "to": 872885
+    }
+   ],
+   "scan": {
+    "sentences": 872,
+    "gettysburg_zone_sentences": 169,
+    "figure_sentences": 32,
+    "figure_sentences_with_men_or_losses": 3
+   },
+   "notes": 0,
+   "notes_by_kind": {}
+  },
+  "c-nc-7th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Seventh Regiment, by Captain J. S. Harris, vol. 1 p. 361",
+     "text": "NC-CLARK-1901.1",
+     "from": 872885,
+     "to": 934168
+    }
+   ],
+   "scan": {
+    "sentences": 323,
+    "gettysburg_zone_sentences": 41,
+    "figure_sentences": 5,
+    "figure_sentences_with_men_or_losses": 1
+   },
+   "notes": 3,
+   "notes_by_kind": {
+    "casualties": 2,
+    "remaining_after": 1
+   }
+  },
+  "c-nc-11th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Eleventh Regiment, by Col. W. J. Martin and Capt. E. R. Outlaw, vol. 1 p. 583",
+     "text": "NC-CLARK-1901.1",
+     "from": 1407911,
+     "to": 1460956
+    }
+   ],
+   "scan": {
+    "sentences": 288,
+    "gettysburg_zone_sentences": 87,
+    "figure_sentences": 26,
+    "figure_sentences_with_men_or_losses": 8
+   },
+   "notes": 11,
+   "notes_by_kind": {
+    "casualties": 6,
+    "taken_into_action": 4,
+    "strength_other": 1
+   }
+  },
+  "c-nc-12th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Twelfth Regiment, by Lieutenant W. A. Montgomery, vol. 1 p. 605",
+     "text": "NC-CLARK-1901.1",
+     "from": 1460956,
+     "to": 1581154
+    }
+   ],
+   "scan": {
+    "sentences": 649,
+    "gettysburg_zone_sentences": 93,
+    "figure_sentences": 17,
+    "figure_sentences_with_men_or_losses": 4
+   },
+   "notes": 3,
+   "notes_by_kind": {
+    "casualties": 2,
+    "present_for_duty": 1
+   }
+  },
+  "c-nc-13th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Thirteenth Regiment, by Captain R. S. Williams (p. 653), Adjutant N. S. Smith (p. 689), T. L. Rawley (p. 701), vol. 1",
+     "text": "NC-CLARK-1901.1",
+     "from": 1581154,
+     "to": 1701477
+    }
+   ],
+   "scan": {
+    "sentences": 886,
+    "gettysburg_zone_sentences": 45,
+    "figure_sentences": 10,
+    "figure_sentences_with_men_or_losses": 7
+   },
+   "notes": 5,
+   "notes_by_kind": {
+    "taken_into_action": 1,
+    "casualties": 2,
+    "remaining_after": 2
+   }
+  },
+  "c-nc-14th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Fourteenth Regiment, by Colonel R. T. Bennett, vol. 1 p. 705",
+     "text": "NC-CLARK-1901.1",
+     "from": 1701477,
+     "to": 1770020
+    }
+   ],
+   "scan": {
+    "sentences": 424,
+    "gettysburg_zone_sentences": 36,
+    "figure_sentences": 3,
+    "figure_sentences_with_men_or_losses": 0
+   },
+   "notes": 0,
+   "notes_by_kind": {}
+  },
+  "c-nc-16th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Sixteenth Regiment, by Lieutenant B. H. Cathey (p. 751) and Captain L. Harrill (p. 771), vol. 1",
+     "text": "NC-CLARK-1901.1",
+     "from": 1810040,
+     "to": 1861019
+    },
+    {
+     "label": "Supplemental sketch, Sixteenth Regiment, by First Lieutenant George H. Mills, vol. 4 p. 137",
+     "text": "NC-CLARK-1901.4",
+     "from": 299017,
+     "to": 511386
+    }
+   ],
+   "scan": {
+    "sentences": 1413,
+    "gettysburg_zone_sentences": 192,
+    "figure_sentences": 32,
+    "figure_sentences_with_men_or_losses": 12
+   },
+   "notes": 3,
+   "notes_by_kind": {
+    "casualties": 2,
+    "remaining_after": 1
+   }
+  },
+  "c-nc-18th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Eighteenth Regiment, by Adjutant William H. McLaurin (p. 16) and Private Thomas H. Sutton (p. 65), vol. 2",
+     "text": "NC-CLARK-1901.2",
+     "from": 35162,
+     "to": 191096
+    }
+   ],
+   "scan": {
+    "sentences": 905,
+    "gettysburg_zone_sentences": 94,
+    "figure_sentences": 27,
+    "figure_sentences_with_men_or_losses": 11
+   },
+   "notes": 3,
+   "notes_by_kind": {
+    "casualties": 2,
+    "remaining_after": 1
+   }
+  },
+  "c-nc-20th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Twentieth Regiment, by Brigadier-General Thomas F. Toon, vol. 2 p. 111",
+     "text": "NC-CLARK-1901.2",
+     "from": 264195,
+     "to": 305014
+    }
+   ],
+   "scan": {
+    "sentences": 261,
+    "gettysburg_zone_sentences": 15,
+    "figure_sentences": 6,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 4,
+   "notes_by_kind": {
+    "casualties": 3,
+    "present_for_duty": 1
+   }
+  },
+  "c-nc-21st-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Twenty-First Regiment, by Major James F. Beall (p. 129) and Lieutenant L. E. Powers (p. 147), vol. 2",
+     "text": "NC-CLARK-1901.2",
+     "from": 305014,
+     "to": 378895
+    }
+   ],
+   "scan": {
+    "sentences": 489,
+    "gettysburg_zone_sentences": 64,
+    "figure_sentences": 10,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 0,
+   "notes_by_kind": {}
+  },
+  "c-nc-22nd-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Twenty-Second Regiment, by Adjutant Graham Daves, vol. 2 p. 161",
+     "text": "NC-CLARK-1901.2",
+     "from": 378895,
+     "to": 424789
+    }
+   ],
+   "scan": {
+    "sentences": 247,
+    "gettysburg_zone_sentences": 47,
+    "figure_sentences": 17,
+    "figure_sentences_with_men_or_losses": 4
+   },
+   "notes": 3,
+   "notes_by_kind": {
+    "remaining_after": 1,
+    "casualties": 2
+   }
+  },
+  "c-nc-23rd-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Twenty-Third Regiment, by Captain V. E. Turner and Sergeant H. C. Wall, vol. 2 p. 181",
+     "text": "NC-CLARK-1901.2",
+     "from": 424789,
+     "to": 645719
+    }
+   ],
+   "scan": {
+    "sentences": 1555,
+    "gettysburg_zone_sentences": 176,
+    "figure_sentences": 34,
+    "figure_sentences_with_men_or_losses": 8
+   },
+   "notes": 4,
+   "notes_by_kind": {
+    "casualties": 3,
+    "present_for_duty": 1
+   }
+  },
+  "c-nc-26th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Twenty-Sixth Regiment, by Assistant Surgeon George C. Underwood, vol. 2 p. 303",
+     "text": "NC-CLARK-1901.2",
+     "from": 726790,
+     "to": 1022958
+    },
+    {
+     "label": "Unparalleled Loss (Company F, Twenty-Sixth Regiment, at Gettysburg), by Captain R. M. Tuttle, vol. 5 p. 599",
+     "text": "NC-CLARK-1901.5",
+     "from": 1391339,
+     "to": 1401298
+    }
+   ],
+   "scan": {
+    "sentences": 1725,
+    "gettysburg_zone_sentences": 612,
+    "figure_sentences": 205,
+    "figure_sentences_with_men_or_losses": 62
+   },
+   "notes": 44,
+   "notes_by_kind": {
+    "present_for_duty": 13,
+    "taken_into_action": 15,
+    "remaining_after": 3,
+    "casualties": 12,
+    "strength_other": 1
+   }
+  },
+  "c-nc-28th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Twenty-Eighth Regiment, by Brigadier-General J. H. Lane, vol. 2 p. 465",
+     "text": "NC-CLARK-1901.2",
+     "from": 1119547,
+     "to": 1167244
+    }
+   ],
+   "scan": {
+    "sentences": 291,
+    "gettysburg_zone_sentences": 30,
+    "figure_sentences": 8,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 4,
+   "notes_by_kind": {
+    "casualties": 3,
+    "remaining_after": 1
+   }
+  },
+  "c-nc-30th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Thirtieth Regiment, by Colonel P. M. Parker, vol. 2 p. 495",
+     "text": "NC-CLARK-1901.2",
+     "from": 1189834,
+     "to": 1214764
+    }
+   ],
+   "scan": {
+    "sentences": 203,
+    "gettysburg_zone_sentences": 9,
+    "figure_sentences": 2,
+    "figure_sentences_with_men_or_losses": 0
+   },
+   "notes": 0,
+   "notes_by_kind": {}
+  },
+  "c-nc-32nd-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Thirty-Second Regiment, by Private Henry A. London, vol. 2 p. 521",
+     "text": "NC-CLARK-1901.2",
+     "from": 1247399,
+     "to": 1287462
+    }
+   ],
+   "scan": {
+    "sentences": 170,
+    "gettysburg_zone_sentences": 61,
+    "figure_sentences": 25,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 3,
+   "notes_by_kind": {
+    "taken_into_action": 1,
+    "casualties": 2
+   }
+  },
+  "c-nc-33rd-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Thirty-Third Regiment, by Major J. A. Weston, vol. 2 p. 537",
+     "text": "NC-CLARK-1901.2",
+     "from": 1287462,
+     "to": 1396381
+    }
+   ],
+   "scan": {
+    "sentences": 720,
+    "gettysburg_zone_sentences": 104,
+    "figure_sentences": 18,
+    "figure_sentences_with_men_or_losses": 6
+   },
+   "notes": 3,
+   "notes_by_kind": {
+    "casualties": 2,
+    "remaining_after": 1
+   }
+  },
+  "c-nc-34th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Thirty-Fourth Regiment, by Lieutenant T. D. Lattimore, vol. 2 p. 581",
+     "text": "NC-CLARK-1901.2",
+     "from": 1396381,
+     "to": 1419622
+    }
+   ],
+   "scan": {
+    "sentences": 156,
+    "gettysburg_zone_sentences": 23,
+    "figure_sentences": 5,
+    "figure_sentences_with_men_or_losses": 1
+   },
+   "notes": 2,
+   "notes_by_kind": {
+    "remaining_after": 1,
+    "casualties": 1
+   }
+  },
+  "c-nc-37th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Thirty-Seventh Regiment, by Lieutenant Octavius A. Wiggins, vol. 2 p. 658",
+     "text": "NC-CLARK-1901.2",
+     "from": 1570807,
+     "to": 1626763
+    }
+   ],
+   "scan": {
+    "sentences": 315,
+    "gettysburg_zone_sentences": 35,
+    "figure_sentences": 12,
+    "figure_sentences_with_men_or_losses": 1
+   },
+   "notes": 3,
+   "notes_by_kind": {
+    "casualties": 2,
+    "remaining_after": 1
+   }
+  },
+  "c-nc-38th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Thirty-Eighth Regiment, by Lieutenant-Colonel George W. Flowers, vol. 2 p. 675",
+     "text": "NC-CLARK-1901.2",
+     "from": 1626763,
+     "to": 1681315
+    }
+   ],
+   "scan": {
+    "sentences": 365,
+    "gettysburg_zone_sentences": 28,
+    "figure_sentences": 8,
+    "figure_sentences_with_men_or_losses": 4
+   },
+   "notes": 3,
+   "notes_by_kind": {
+    "remaining_after": 2,
+    "casualties": 1
+   }
+  },
+  "c-nc-43rd-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Forty-Third Regiment, by Colonel Thomas S. Kenan, vol. 3 pp. 1 and 19",
+     "text": "NC-CLARK-1901.3",
+     "from": 4489,
+     "to": 52334
+    }
+   ],
+   "scan": {
+    "sentences": 250,
+    "gettysburg_zone_sentences": 24,
+    "figure_sentences": 5,
+    "figure_sentences_with_men_or_losses": 1
+   },
+   "notes": 3,
+   "notes_by_kind": {
+    "taken_into_action": 1,
+    "casualties": 2
+   }
+  },
+  "c-nc-45th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Forty-Fifth Regiment, by Sergeant Cyrus B. Watson, vol. 3 p. 35",
+     "text": "NC-CLARK-1901.3",
+     "from": 86624,
+     "to": 155062
+    }
+   ],
+   "scan": {
+    "sentences": 415,
+    "gettysburg_zone_sentences": 41,
+    "figure_sentences": 12,
+    "figure_sentences_with_men_or_losses": 4
+   },
+   "notes": 5,
+   "notes_by_kind": {
+    "taken_into_action": 1,
+    "casualties": 4
+   }
+  },
+  "c-nc-47th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Forty-Seventh Regiment, by Captain John H. Thorp (p. 83) and Lieutenant J. Rowan Rogers (p. 103), vol. 3",
+     "text": "NC-CLARK-1901.3",
+     "from": 203747,
+     "to": 275929
+    }
+   ],
+   "scan": {
+    "sentences": 398,
+    "gettysburg_zone_sentences": 137,
+    "figure_sentences": 42,
+    "figure_sentences_with_men_or_losses": 12
+   },
+   "notes": 7,
+   "notes_by_kind": {
+    "taken_into_action": 4,
+    "casualties": 2,
+    "remaining_after": 1
+   }
+  },
+  "c-nc-52nd-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Fifty-Second Regiment, by Adjutant John H. Robinson, vol. 3 p. 223",
+     "text": "NC-CLARK-1901.3",
+     "from": 540415,
+     "to": 617063
+    }
+   ],
+   "scan": {
+    "sentences": 389,
+    "gettysburg_zone_sentences": 90,
+    "figure_sentences": 23,
+    "figure_sentences_with_men_or_losses": 9
+   },
+   "notes": 7,
+   "notes_by_kind": {
+    "taken_into_action": 4,
+    "casualties": 3
+   }
+  },
+  "c-nc-53rd-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Fifty-Third Regiment, by Colonel James T. Morehead, vol. 3",
+     "text": "NC-CLARK-1901.3",
+     "from": 617063,
+     "to": 643479
+    }
+   ],
+   "scan": {
+    "sentences": 117,
+    "gettysburg_zone_sentences": 46,
+    "figure_sentences": 23,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 4,
+   "notes_by_kind": {
+    "taken_into_action": 1,
+    "casualties": 3
+   }
+  },
+  "c-nc-55th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Fifty-Fifth Regiment, by Adjutant Charles M. Cooke, vol. 3 p. 287",
+     "text": "NC-CLARK-1901.3",
+     "from": 687206,
+     "to": 754433
+    }
+   ],
+   "scan": {
+    "sentences": 400,
+    "gettysburg_zone_sentences": 74,
+    "figure_sentences": 25,
+    "figure_sentences_with_men_or_losses": 5
+   },
+   "notes": 1,
+   "notes_by_kind": {
+    "casualties": 1
+   }
+  },
+  "c-nc-57th-north-carolina-infantry": {
+   "chapters": [
+    {
+     "label": "Fifty-Seventh Regiment, by Colonel Hamilton C. Jones, vol. 3 p. 405",
+     "text": "NC-CLARK-1901.3",
+     "from": 984828,
+     "to": 1045586
+    }
+   ],
+   "scan": {
+    "sentences": 361,
+    "gettysburg_zone_sentences": 81,
+    "figure_sentences": 22,
+    "figure_sentences_with_men_or_losses": 5
+   },
+   "notes": 0,
+   "notes_by_kind": {}
+  },
+  "c-nc-2nd-north-carolina-battalion": {
+   "chapters": [
+    {
+     "label": "Second Battalion, by Lieutenant-Colonel Wharton J. Green, vol. 4 p. 243",
+     "text": "NC-CLARK-1901.4",
+     "from": 563129,
+     "to": 604632
+    }
+   ],
+   "scan": {
+    "sentences": 275,
+    "gettysburg_zone_sentences": 47,
+    "figure_sentences": 9,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 6,
+   "notes_by_kind": {
+    "taken_into_action": 1,
+    "casualties": 5
+   }
+  },
+  "c-nc-1st-north-carolina-cavalry": {
+   "chapters": [
+    {
+     "label": "Ninth Regiment (First Cavalry), by General Rufus Barringer (p. 417) and Colonel W. H. Cheek (p. 445), vol. 1",
+     "text": "NC-CLARK-1901.1",
+     "from": 1003969,
+     "to": 1176353
+    },
+    {
+     "label": "Addenda to the Ninth Regiment, vol. 1 p. 775",
+     "text": "NC-CLARK-1901.1",
+     "from": 1861019,
+     "to": 1881850
+    }
+   ],
+   "scan": {
+    "sentences": 1056,
+    "gettysburg_zone_sentences": 76,
+    "figure_sentences": 13,
+    "figure_sentences_with_men_or_losses": 5
+   },
+   "notes": 1,
+   "notes_by_kind": {
+    "strength_other": 1
+   }
+  },
+  "c-nc-2nd-north-carolina-cavalry": {
+   "chapters": [
+    {
+     "label": "Nineteenth Regiment (Second Cavalry), by Captain W. A. Graham (p. 79) and Brigadier-General William P. Roberts (p. 99), vol. 2",
+     "text": "NC-CLARK-1901.2",
+     "from": 191096,
+     "to": 264195
+    }
+   ],
+   "scan": {
+    "sentences": 435,
+    "gettysburg_zone_sentences": 51,
+    "figure_sentences": 8,
+    "figure_sentences_with_men_or_losses": 3
+   },
+   "notes": 1,
+   "notes_by_kind": {
+    "taken_into_action": 1
+   }
+  },
+  "c-nc-4th-north-carolina-cavalry": {
+   "chapters": [
+    {
+     "label": "Fifty-Ninth Regiment (Fourth Cavalry), by Lieutenant W. P. Shaw, vol. 3 p. 455",
+     "text": "NC-CLARK-1901.3",
+     "from": 1100619,
+     "to": 1143864
+    }
+   ],
+   "scan": {
+    "sentences": 198,
+    "gettysburg_zone_sentences": 37,
+    "figure_sentences": 8,
+    "figure_sentences_with_men_or_losses": 1
+   },
+   "notes": 0,
+   "notes_by_kind": {}
+  },
+  "c-nc-5th-north-carolina-cavalry": {
+   "chapters": [
+    {
+     "label": "Sixty-Third Regiment (Fifth Cavalry), by Major John M. Galloway (p. 529) and Private Paul B. Means (p. 545), vol. 3",
+     "text": "NC-CLARK-1901.3",
+     "from": 1275131,
+     "to": 1632585
+    }
+   ],
+   "scan": {
+    "sentences": 2148,
+    "gettysburg_zone_sentences": 107,
+    "figure_sentences": 21,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 0,
+   "notes_by_kind": {}
+  },
+  "c-nc-battery-a-1st-north-carolina-artillery": {
+   "chapters": [
+    {
+     "label": "Tenth Regiment (First Artillery), Light Batteries A, D, F and I, by Captain John A. Ramsay, vol. 1 p. 551",
+     "text": "NC-CLARK-1901.1",
+     "from": 1330128,
+     "to": 1407911
+    }
+   ],
+   "scan": {
+    "sentences": 534,
+    "gettysburg_zone_sentences": 44,
+    "figure_sentences": 6,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 1,
+   "notes_by_kind": {
+    "casualties": 1
+   }
+  },
+  "c-nc-rowan-artillery": {
+   "chapters": [
+    {
+     "label": "Tenth Regiment (First Artillery), Light Batteries A, D, F and I, by Captain John A. Ramsay, vol. 1 p. 551",
+     "text": "NC-CLARK-1901.1",
+     "from": 1330128,
+     "to": 1407911
+    }
+   ],
+   "scan": {
+    "sentences": 534,
+    "gettysburg_zone_sentences": 44,
+    "figure_sentences": 6,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 1,
+   "notes_by_kind": {
+    "casualties": 1
+   }
+  },
+  "c-nc-charlotte-artillery": {
+   "chapters": [
+    {
+     "label": "Tenth Regiment (First Artillery), Company C, Light Battery, by Captain A. B. Williams, vol. 1 p. 537",
+     "text": "NC-CLARK-1901.1",
+     "from": 1293821,
+     "to": 1330128
+    }
+   ],
+   "scan": {
+    "sentences": 193,
+    "gettysburg_zone_sentences": 29,
+    "figure_sentences": 4,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 1,
+   "notes_by_kind": {
+    "strength_other": 1
+   }
+  },
+  "c-nc-branch-artillery": {
+   "chapters": [
+    {
+     "label": "Thirteenth Battalion (Starr's), by Lieutenant J. H. Myrover, Captain Lewis H. Webb and Captain James D. Cumming, vol. 4 pp. 341, 355, 361",
+     "text": "NC-CLARK-1901.4",
+     "from": 786384,
+     "to": 839370
+    },
+    {
+     "label": "Tenth Regiment (First Artillery), Light Batteries A, D, F and I, by Captain John A. Ramsay, vol. 1 p. 551",
+     "text": "NC-CLARK-1901.1",
+     "from": 1330128,
+     "to": 1407911
+    }
+   ],
+   "scan": {
+    "sentences": 799,
+    "gettysburg_zone_sentences": 69,
+    "figure_sentences": 13,
+    "figure_sentences_with_men_or_losses": 2
+   },
+   "notes": 1,
+   "notes_by_kind": {
+    "casualties": 1
+   }
+  }
+ }
+}

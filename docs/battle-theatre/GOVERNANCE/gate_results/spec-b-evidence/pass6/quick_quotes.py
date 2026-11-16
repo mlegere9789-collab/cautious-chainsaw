@@ -39,7 +39,7 @@ for s in strings:
             frags.setdefault(f, []).append(s)
 # one scan of the repository
 pats = tempfile.NamedTemporaryFile('w', suffix='.txt', delete=False, encoding='utf-8')
-for f in frags:
+for f in sorted(frags, key=len, reverse=True):      # longest first: rg -o reports the first pattern that matches at a position, so a shorter fragment that is a prefix of a longer one must not come first
     pats.write(f.replace('\n', ' ') + '\n')
 pats.close()
 def scan(paths, globs):

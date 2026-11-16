@@ -81,6 +81,16 @@ def combine(fa, fb):
     return None, 'the figure is damaged, short or missing in the text layer of the scans read (%s; %s): not read as a number' % (fa, fb)
 
 
+# Figures that the text layers of both scans damage were read from the page image (the Emory copy of volume 4 rendered from its text PDF through pipeline2/page_image.py, 300 ppi, transient and
+# never stored; a crop of the lines was looked at and read again with tesseract 5).  key -> (value, printed line as the image shows it, leaf of NC-MOORE-1882.4~b, printed page)
+PAGE_IMAGE = {
+    '1-regiment': (1742, 'First Regiment numbered all told, ... 1,742.', 470, 456),
+    '2-regiment': (1435, 'Second Regiment, ... 1,435.', 470, 456),
+    '4-regiment': (1483, 'Fourth Regiment, ... 1,483.', 470, 456),
+    '33-regiment': (1600, 'Thirty-Third Regiment, ... 1,600.', 471, 457),
+}
+
+
 def main():
     res = {}
     texts = {}
@@ -104,7 +114,15 @@ def main():
         fa = ent['scans'].get('a', {}).get('printed_figure')
         fb = ent['scans'].get('b', {}).get('printed_figure')
         ent['value'], ent['status'] = combine(fa, fb)
-        res['%s-%s' % (num, kind)] = ent
+        key = '%s-%s' % (num, kind)
+        if ent['value'] is None and key in PAGE_IMAGE:
+            v, line, leaf, pg = PAGE_IMAGE[key]
+            ent['text_layer_status'] = ent['status']
+            ent['value'] = v
+            ent['value_source'] = 'page image'
+            ent['page_image'] = {'text_id': L.text_id('4', 'b'), 'leaf': leaf, 'printed_page': pg, 'line_as_printed': line, 'how': 'viewed: a 300 ppi crop of the lines was looked at and read again with tesseract 5'}
+            ent['status'] = 'read from the page image of leaf %d (printed page %d) of volume 4, Emory copy: %s (the text layers: %s; %s)' % (leaf, pg, line, fa, fb)
+        res[key] = ent
     out = {'format': 'moore-recapitulation/1', 'about': __doc__.split('\n\n')[0], 'entries': res}
     os.makedirs(L.WS, exist_ok=True)
     with open(os.path.join(L.WS, 'recap.json'), 'w', encoding='utf-8') as f:

@@ -95,3 +95,37 @@ test('the real-GPU command reads the timing runs: a software timing run is NOT a
     assert.ok(renderMarkdown(summarize(tmp, { skipClose: true, skipShell: true })).includes('W-E4'));
   } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
 });
+
+// The page function itself, run in node against stand-ins for the page's globals: the source is cut out of weather3d-gpu-page.mjs and evaluated, so what runs here is the text that runs in the browser.
+function pageTiming(over = {}) {
+  const pg = T('weather3d-gpu-page.mjs'), a = pg.indexOf('WG.timing = async function'), b = pg.indexOf('// Negative controls of this harness'); assert.ok(a > 0 && b > a, 'the function is in the page file');
+  const src = pg.slice(a, b).trim().replace(/^WG\.timing = /, '').replace(/;\s*$/, ''), calls = { scope: [], done: 0, finish: 0, frames: 0, updates: [], times: [], lights: 0, flags: [] }; let clock = 0;
+  const fi = { opts: { drawWeather: true, drawFx: true }, gpu: { stats: { passMsN: 0, passMs: null } } }, dev = { pushErrorScope: k => calls.scope.push('push ' + k), popErrorScope: async () => { calls.scope.push('pop'); return over.scopeError || null; }, queue: { onSubmittedWorkDone: async () => { calls.done++; } } };
+  const WG = { ready: true, host: { R: over.gl ? { gl: { finish: () => { calls.finish++; } } } : { dev }, setLight: () => { calls.lights++; }, frame: (t) => { calls.frames++; calls.flags.push([fi.opts.drawWeather, fi.opts.drawFx]); calls.times.push(t); } }, cam: { id: 'cam' }, env: { sample: t => ({ t }), weatherAt: () => ({}), light: () => ({ sunDir: [0, 1, 0], exposure: 1 }) }, geo: {}, choices: null, error: null };
+  const fxHost = { instance: () => fi, update: ({ tMin }) => { calls.updates.push(tMin); if (over.passes !== false) { fi.gpu.stats.passMsN++; fi.gpu.stats.passMs = 1 + calls.updates.length / 100; } return { effects: { nSprites: 1000 + calls.updates.length } }; } };
+  const perf = { now: () => (clock += 0.5) }, noop = () => { };
+  const fn = new Function('WG', 'world', 'P', 'sample', 'light', 'FXON', 'fxHost', 'placeCamera', 'aimCamera', 'T', 'performance', 'return (' + src + ')')(WG, { show: { line: {} } }, { anchor: noop }, {}, {}, over.fxoff ? false : true, fxHost, noop, noop, {}, perf);
+  return { fn, calls, fi, WG };
+}
+test('the page function runs in node: warm-up frames are not counted, the passes are toggled for the mode and switched on again, the simulation advances a 60th of a second per frame, the scope is pushed and popped once, and every series has one value per counted frame', async () => {
+  const { fn, calls, fi } = pageTiming(); const r = await fn({ spec: { tMin: 100 }, frames: 5, warm: 2, mode: 'weather' });
+  assert.equal(calls.frames, 7, 'warm + frames frames were drawn'); assert.equal(r.doneMs.length, 5); assert.equal(r.encMs.length, 5); assert.equal(r.updMs.length, 5); assert.equal(r.sprites.length, 5); assert.equal(r.passMs.length, 5, 'one pass time per counted frame'); assert.deepEqual(r.sprites, [1003, 1004, 1005, 1006, 1007], 'the warm-up frames (1001, 1002) are not counted');
+  assert.deepEqual(calls.flags.every(f => f[0] === true && f[1] === false), true, 'mode weather: the weather pass on, the sprite pass off for every frame'); assert.deepEqual([fi.opts.drawWeather, fi.opts.drawFx], [true, true], 'both passes are on again afterwards');
+  assert.deepEqual(calls.scope, ['push validation', 'pop']); assert.equal(r.validation, null); assert.equal(calls.done, 7, 'every frame waits for its GPU work'); assert.equal(calls.finish, 0); assert.equal(calls.lights, 7);
+  for (let k = 0; k < 7; k++) assert.ok(Math.abs(calls.updates[k] - (100 + k / 3600)) < 1e-12, 'minute ' + k + ': ' + calls.updates[k]); assert.ok(r.doneMs.every(x => x > 0) && r.encMs.every(x => x > 0) && r.updMs.every(x => x > 0), 'the clock is read');
+  for (const [mode, w, f] of [['both', true, true], ['off', false, false], ['fx', false, true]]) { const x = pageTiming(); await x.fn({ spec: { tMin: 1 }, frames: 2, warm: 1, mode }); assert.deepEqual(x.calls.flags[0], [w, f], mode); assert.deepEqual([x.fi.opts.drawWeather, x.fi.opts.drawFx], [true, true], mode + ' ends switched on'); }
+});
+test('the page function: a validation error in the frames is returned as text, a device without timestamp results has no pass series, WebGL2 finishes each frame instead of waiting on a queue, and a harness that is not ready refuses', async () => {
+  { const { fn } = pageTiming({ scopeError: { message: 'Invalid BindGroup weather3d.bg' } }); const r = await fn({ spec: { tMin: 1 }, frames: 2, warm: 0, mode: 'both' }); assert.match(r.validation, /Invalid BindGroup/); }
+  { const { fn } = pageTiming({ passes: false }); const r = await fn({ spec: { tMin: 1 }, frames: 3, warm: 1, mode: 'both' }); assert.deepEqual(r.passMs, [], 'no timestamp results: no pass time'); assert.equal(r.doneMs.length, 3); }
+  { const { fn, calls } = pageTiming({ gl: true, passes: false }); const r = await fn({ spec: { tMin: 1 }, frames: 3, warm: 2, mode: 'both' }); assert.equal(calls.finish, 5, 'gl.finish per frame'); assert.equal(calls.done, 0); assert.equal(r.validation, null); assert.equal(r.doneMs.length, 3); }
+  { const { fn } = pageTiming({ fxoff: true }); const r = await fn({ spec: { tMin: 1 }, frames: 2, warm: 0, mode: 'both' }); assert.deepEqual(r.sprites, [0, 0], 'the prototype alone has no effect sprites'); }
+  { const { fn, WG } = pageTiming(); WG.ready = false; WG.error = 'no adapter'; await assert.rejects(fn({ spec: { tMin: 1 } }), /the harness is not ready: no adapter/); }
+});
+
+test('the real-GPU command can shorten the timing steps for a quick check before the long run (--timing-frames, --timing-warm, --timing-rounds), and by default passes nothing so the driver\'s 600 / 120 / 2 stand', () => {
+  const dflt = planSteps({ out: '/x' }).filter(s => s.kind === 'timing'); for (const s of dflt) assert.ok(!s.args.some(a => /^--(frames|warm|rounds)=/.test(a)), s.name + ' passes no count by default');
+  const q = planSteps({ out: '/x', timingFrames: '30', timingWarm: '5', timingRounds: '1' }).filter(s => s.kind === 'timing'); for (const s of q) for (const a of ['--frames=30', '--warm=5', '--rounds=1']) assert.ok(s.args.includes(a), s.name + ' ' + a);
+  const one = planSteps({ out: '/x', timingFrames: '30' }).find(s => s.name === 'timing-webgpu'); assert.ok(one.args.includes('--frames=30') && !one.args.some(a => /^--(warm|rounds)=/.test(a)));
+  const src = fs.readFileSync(path.join(APP, 'tests/weather3d-gpu-realrun.mjs'), 'utf8'); assert.match(src, /timingFrames: flag\('timing-frames', null\)/); assert.match(src, /--timing-frames=600/);
+});

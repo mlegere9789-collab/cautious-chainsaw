@@ -82,9 +82,7 @@ class Vegetation {
   }
   stateAt(u, tMin, choices = {}) { return this.mod.stateAt(this.model, u, T_(tMin), choices); }
   sampleTimes() { return this.mod.sampleTimes(this.model); }
-  // the crops and the stages of each crop the layer knows (calendar.crops[crop].keys[].stage) and the leaf-bearing classes: what a check may name
-  crops() { return Object.keys(this.model.cal.crops); }
-  stagesOf(crop) { const c = this.model.cal.crops[crop]; return c ? [...new Set(c.keys.map(k => k.stage))] : []; }
+  crops() { return Object.keys(this.model.cal.crops); }          // the crops of the layer's calendar: what a selector may name
 }
 async function loadVegetation() {
   const modFile = path.join(APP, 'src/ext/vegetation/model.mjs'), dataFile = path.join(APP, 'data/vegetation.json');

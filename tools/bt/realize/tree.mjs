@@ -2,7 +2,7 @@
 // tools/bt/realize and tests/governance/realize* are COPIED, every other file the harness reads is reached through symbolic links into the real tree, and a file named in `files` is replaced by a private
 // copy (changed by the caller's function). Nothing here writes into the real tree: the scratch tree lives under tmp/ (gitignored) and is removed by removeTree.
 //
-//   const root = makeTree('tmp/realize/scratch-1', { files: { 'docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl': t => t + '\n' } });
+//   const root = makeTree('tmp/realize/scratch-1', { files: { 'docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl': t => t + '\n' }, add: { 'docs/battle-theatre/app/src/ext/event-cards.mjs': 'export const cardsAt = () => [];' } });
 //   spawnSync('node', [path.join(root, 'tools/bt/realize/check.mjs'), '--digests'])
 import fs from 'node:fs'; import path from 'node:path';
 import { ROOT } from './lib.mjs';
@@ -21,7 +21,7 @@ function privatize(dst, rel) {
   const f = path.join(here, parts[parts.length - 1]); if (fs.existsSync(f) && fs.lstatSync(f).isSymbolicLink()) fs.unlinkSync(f);
   return f;
 }
-export function makeTree(dst, { files = {} } = {}) {
+export function makeTree(dst, { files = {}, add = {} } = {}) {
   dst = path.resolve(ROOT, dst); fs.rmSync(dst, { recursive: true, force: true }); fs.mkdirSync(dst, { recursive: true });
   copyDir(path.join(ROOT, 'tools/bt/realize'), path.join(dst, 'tools/bt/realize')); copyDir(path.join(ROOT, 'tests/governance'), path.join(dst, 'tests/governance'), /^realize.*\.mjs$/);
   // top level links: docs (and anything else a path in `files` does not need privately)
@@ -36,6 +36,8 @@ export function makeTree(dst, { files = {} } = {}) {
     const before = fs.readFileSync(target, 'utf8'), after = typeof edit === 'function' ? edit(before) : String(edit);
     if (after === before) throw new Error(`makeTree: the edit of ${rel} changed nothing`); fs.writeFileSync(target, after);
   }
+  // `add`: files that do not exist in the real tree (a module another workstream has not written yet), { 'docs/battle-theatre/app/src/ext/event-cards.mjs': 'export ...' }; the directories on their way are real and hold links to their other entries
+  for (const [rel, content] of Object.entries(add)) { if (fs.existsSync(path.join(ROOT, rel))) throw new Error(`makeTree: ${rel} exists in the real tree: edit it with \`files\``); fs.writeFileSync(privatize(dst, rel), content); }
   return dst;
 }
 export const removeTree = dst => fs.rmSync(path.resolve(ROOT, dst), { recursive: true, force: true });

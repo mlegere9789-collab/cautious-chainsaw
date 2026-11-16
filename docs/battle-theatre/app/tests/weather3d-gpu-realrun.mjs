@@ -7,7 +7,7 @@
 //   4. shell-webgpu, shell-webgl2, shell-compare    the shell itself, entered like a visitor enters it, the weather and effects installed by the shell (W-E3); --real-crowd adds the real crowd of figures (long)
 //   then REAL-GPU-RESULT.json and REAL-GPU-RESULT.md: per row of section E what the machine could check (run checker, parity numbers, the adapter, the pass time, the canvas pictures) and what is still owed. A run on a
 //   machine without a GPU says so in the first line and counts for nothing: the run checker refuses to call a software adapter a real-GPU result.
-//   node docs/battle-theatre/app/tests/weather3d-gpu-realrun.mjs <outDir> [--headed] [--w=1920] [--h=1080] [--soldiers=12000] [--skip-close] [--skip-shell] [--skip-timing] [--real-crowd] [--dry] [--report-only]
+//   node docs/battle-theatre/app/tests/weather3d-gpu-realrun.mjs <outDir> [--headed] [--w=1920] [--h=1080] [--soldiers=12000] [--skip-close] [--skip-shell] [--skip-timing] [--timing-frames=600] [--timing-warm=120] [--timing-rounds=2] [--real-crowd] [--dry] [--report-only]
 // --headed: a visible Chrome window (where headless Chrome has no GPU access; on Windows and macOS headless Chrome usually has it). --dry: print the plan and stop. --report-only: only (re)write the result files from what is in <outDir>.
 // What no script can do and what stays with a person: LOOK at the montages (the machine only measures them), and the rows for Safari, Firefox, a phone, a device without float32-filterable and the 600-frame timing split.
 import fs from 'node:fs'; import path from 'node:path'; import { spawnSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
@@ -24,7 +24,8 @@ export function planSteps(o) {
   steps.push({ name: 'main-webgpu', script: 'weather3d-gpu.mjs', args: [sub('main'), 'webgpu', '--real-gpu', ...head, ...size, `--soldiers=${soldiers}`], kind: 'run', dir: 'main', api: 'webgpu' });
   steps.push({ name: 'main-webgl2', script: 'weather3d-gpu.mjs', args: [sub('main'), 'webgl2', '--real-gpu', ...head, ...size, `--soldiers=${soldiers}`], kind: 'run', dir: 'main', api: 'webgl2' });
   steps.push({ name: 'main-compare', script: 'weather3d-gpu-compare.mjs', args: [sub('main')], kind: 'compare', dir: 'main' });
-  if (!o.skipTiming) for (const api of ['webgpu', 'webgl2']) steps.push({ name: 'timing-' + api, script: 'weather3d-gpu-timing.mjs', args: [sub('timing'), api, '--real-gpu', ...head, ...size, `--soldiers=${soldiers}`], kind: 'timing', dir: 'timing', api });
+  const tm = ['frames', 'warm', 'rounds'].filter(k => o['timing' + k[0].toUpperCase() + k.slice(1)] != null).map(k => `--${k}=${o['timing' + k[0].toUpperCase() + k.slice(1)]}`);          // --timing-frames, --timing-warm, --timing-rounds: a quick check of the timing steps before the long run
+  if (!o.skipTiming) for (const api of ['webgpu', 'webgl2']) steps.push({ name: 'timing-' + api, script: 'weather3d-gpu-timing.mjs', args: [sub('timing'), api, '--real-gpu', ...head, ...size, `--soldiers=${soldiers}`, ...tm], kind: 'timing', dir: 'timing', api });
   if (!o.skipClose) {
     for (const api of ['webgpu', 'webgl2']) steps.push({ name: 'close-' + api, script: 'weather3d-gpu.mjs', args: [sub('close'), api, '--extra', '--no-screenshot', '--real-gpu', ...head, ...size, `--soldiers=${soldiers}`], kind: 'run', dir: 'close', api });
     steps.push({ name: 'close-compare', script: 'weather3d-gpu-compare.mjs', args: [sub('close')], kind: 'compare', dir: 'close' });
@@ -117,8 +118,8 @@ export function renderMarkdown(R) {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const a = process.argv.slice(2), pos = a.filter(x => !x.startsWith('--')), flag = (k, d) => { const x = a.find(y => y.startsWith('--' + k + '=')); return x ? x.split('=')[1] : d; };
-  if (!pos[0]) { console.log('usage: node docs/battle-theatre/app/tests/weather3d-gpu-realrun.mjs <outDir> [--headed] [--w=1920] [--h=1080] [--soldiers=12000] [--skip-close] [--skip-shell] [--skip-timing] [--real-crowd] [--dry] [--report-only]'); process.exit(2); }
-  const o = { out: pos[0], w: +flag('w', 1920), h: +flag('h', 1080), soldiers: +flag('soldiers', 12000), headed: a.includes('--headed'), skipClose: a.includes('--skip-close'), skipShell: a.includes('--skip-shell'), skipTiming: a.includes('--skip-timing'), realCrowd: a.includes('--real-crowd') }, steps = planSteps(o);
+  if (!pos[0]) { console.log('usage: node docs/battle-theatre/app/tests/weather3d-gpu-realrun.mjs <outDir> [--headed] [--w=1920] [--h=1080] [--soldiers=12000] [--skip-close] [--skip-shell] [--skip-timing] [--timing-frames=600] [--timing-warm=120] [--timing-rounds=2] [--real-crowd] [--dry] [--report-only]'); process.exit(2); }
+  const o = { out: pos[0], w: +flag('w', 1920), h: +flag('h', 1080), soldiers: +flag('soldiers', 12000), headed: a.includes('--headed'), skipClose: a.includes('--skip-close'), skipShell: a.includes('--skip-shell'), skipTiming: a.includes('--skip-timing'), timingFrames: flag('timing-frames', null), timingWarm: flag('timing-warm', null), timingRounds: flag('timing-rounds', null), realCrowd: a.includes('--real-crowd') }, steps = planSteps(o);
   if (a.includes('--dry')) { for (const s of steps) console.log(s.name.padEnd(16), 'node', s.script, s.args.join(' ')); process.exit(0); }
   fs.mkdirSync(path.join(path.resolve(o.out), 'logs'), { recursive: true });
   if (!a.includes('--report-only')) for (const s of steps) {

@@ -1,6 +1,6 @@
 # Request to bt-world-content: structures, schedule and works changes from the fence-1 evidence close-out
 
-From: bt-evidence (shard fence-1). Date: 2026-11-13, revised 2026-11-14 (wave 4, then wave 5 of 2026-11-15: E-03, E-04, E-05, E-07, E-08, E-10, E-12, E-13, E-14, E-17, E-18, S-002, S-004, S-005, S-007 (CORRECTION: 10:30 not 10:50), S-008, S-010, S-012, S-013, S-016 changed; wave 4: S-003, S-004, S-008, S-016, E-01, E-02, E-04, E-11, E-12, E-13, E-14, E-17, E-18, S-002, S-005, S-006, S-007, S-012, S-014 changed). Files you own and this note asks you to change: `docs/battle-theatre/structures/structures.json`, `state_schedule.json`, `works_stages.json`, `app/data/works3d.json` (and the scenario/default files that read them). I changed none of them.
+From: bt-evidence (shard fence-1). Date: 2026-11-13, revised 2026-11-14 (wave 4), 2026-11-15 (wave 5) and 2026-11-16 (wave 6: E-02, E-04, E-12, E-13, E-14, E-15, E-17, E-18, S-002, S-005, S-007, S-008, S-010, S-012, S-013, S-014 changed; each wave-6 line is marked WAVE 6 or named in the row; wave 5 of 2026-11-15: E-03, E-04, E-05, E-07, E-08, E-10, E-12, E-13, E-14, E-17, E-18, S-002, S-004, S-005, S-007 (CORRECTION: 10:30 not 10:50), S-008, S-010, S-012, S-013, S-016 changed; wave 4: S-003, S-004, S-008, S-016, E-01, E-02, E-04, E-11, E-12, E-13, E-14, E-17, E-18, S-002, S-005, S-006, S-007, S-012, S-014 changed). Files you own and this note asks you to change: `docs/battle-theatre/structures/structures.json`, `state_schedule.json`, `works_stages.json`, `app/data/works3d.json` (and the scenario/default files that read them). I changed none of them.
 
 Why: `GOVERNANCE/evidence_corrections/fence-1.jsonl` re-checked every citation of rows R14.E-01..E-18 and S-001..S-016 against the Official Records and added exact evidence; several rows now contradict the PDF-seeded records. Each change below names the row, the new value, its tier and the source; the quotes, report ids, pages and offsets are in the jsonl. Keep every PDF value as a selectable scenario; the defaults below are recorded as DD-FENCE1-xx in the delegated decisions.
 
@@ -29,10 +29,11 @@ The exact changes, by record:
 ### R14.E-04 (records: E-04, S-020, FEN-evergreen-cemetery, P-02, P-03) - verdict corrected
 
 - E-04 must not be built as a construction event for Cemetery Hill as a whole; keep the stone fences (pre-existing, P-02/P-03) and the per-gun earthworks (E-12) as the documented state; S-020 'Occupied and fortified (vague)' becomes 'Occupied; stone fences as cover; per-gun earthworks at dusk' (tier documented) with the 'fortified' wording marked gap
-- S-045 / FEN-evergreen-cemetery: add the scenario 'fences smashed Jul 3 about 13:00 (Howard)'; Jul 2 stays the PDF scenario (inferred)
+- S-045 / FEN-evergreen-cemetery: add the scenario 'fences smashed Jul 3 about 13:00 (Howard)'; Jul 2 is now documented-secondary (see the wave-6 line below)
 - Gates's rail-fence breastwork moves to E-17 (Cemetery Ridge)
 - E-04 lunette scenarios (same as E-12): default per the OR ('light earthworks at dusk by the battery crews'); selectable 'Steinwehr's division built solid lunettes with level platforms during Jul 1' (Bates 1875, Curtis 1891: documented-secondary, disputed) and 'only shallow holes for wheels and trails at about 15:00-15:30 Jul 1' (Hancock 1878, primary witness); the wording 'fortified' on S-020 carries the marker 'attributed to Steinwehr in books of 1875-1914; no 1863 report'
 - E-04: add a short breastwork at the 61st Ohio's position on Cemetery Hill (south of the town), existing by the morning of Jul 2 (OR27-1-R258; builder and form open, so a plausible-procedural low earth-and-stone breastwork): it does not turn Cemetery Hill into a 'fortified hill' as a whole
+- S-045 / FEN-evergreen-cemetery: fences down by Jul 2 (Breck's letter of Jul 2, documented-secondary) and further smashed in the cannonade of Jul 3 about 13:00 (Howard): both are state changes, the Jul 2 one is no longer only the PDF's scenario
 
 ### R14.E-05 (records: E-05, S-023, S-024) - verdict partially_supported
 
@@ -82,16 +83,19 @@ The exact changes, by record:
 
 - E-13 must not be 'no_construction': add a hasty stone defense for the 83rd PA (Jul 2 about 14:30-15:15, documented), built by the regiment; keep Company B's wall as pre-existing; the other three regiments stay 'no works found' (gap, not a fact)
 - E-13: add a small breastwork for the 44th NY on its stony side-hill position during Jul 2 (documented-secondary, 'We threw up a small breast-work'); at the 16th Michigan's front carry 'no stone breastworks on Jul 2, thrown up the night of Jul 3 principally by Crawford's division' (Hamilton 1892, via NPS) as a selectable alternative to the NPS 'night of Jul 2'
+- E-13: on the southeast slope (Vincent Spur) add a defensive stone wall built in 1863 (documented-secondary, unit and hour open; length, height and profile are gaps, the 1890s restoration is not an 1863 profile); the property stone walls dismantled for the breastworks are a state change of existing features (which ones is a gap)
 
 ### R14.E-14 (records: E-14, P-14) - verdict partially_supported
 
 - E-14 / S-043: replace the single builder by two documented scenarios: (A) Weed's brigade at night Jul 2 (Garrard), (B) Fisher's Reserves morning Jul 3 (Fisher); keep both; start window night Jul 2 to morning Jul 3; PDF 'five regiments + Ohio battery' stays a labelled PDF scenario; DD-05 'walls built' is confirmed by Garrard and Fisher
 - No 1863 profile from the rebuilt LRT walls
 - E-14 builder and clock scenarios on the slope: (A) Weed's brigade at night Jul 2 (Garrard; 91st Pa. 'during the night'; 140th NY 'in the dark'), default; (A2) the 146th NY told to erect a rough wall before the attack of Jul 2 (1915 history via NPS); (B) Fisher's Reserves morning Jul 3; (C) Crawford's division night Jul 3 at the 16th Michigan's front (Hamilton 1892); the 'Ohio battery' stays a PDF-only builder marked unsupported
+- E-14: the building window of the slope walls runs from 'immediately before and during battle' (NPS report; the 146th NY's instruction) through the night of Jul 2 and Jul 3 morning to the end of the occupation on Jul 5 ('extended and refined', NPS inventory); the stones come from dismantled property walls and boulders; the rebuilt 1882-1887 walls are not an 1863 profile
 
 ### R14.E-15 (records: E-15, G-06, S-038) - verdict partially_supported
 
 - E-15 / S-038: first-fire window moves to 'on arrival about 16:30' (documented), the 17:45 stays a PDF scenario; hauling method becomes a selector with the three accounts; no epaulement drawn (gap)
+- E-15: the hauling-method selector gains the NPS page's by-hand account (documented-secondary, no basis); still no default; first fire 17:45 and 'no epaulement' stay marked gaps
 
 ### R14.E-16 (records: E-16, P-05) - verdict partially_supported
 
@@ -108,7 +112,8 @@ The exact changes, by record:
 - E-17: add Jul 3 morning works for Caldwell's First Division of the Second Corps (units and clocks in sub-claim o): short breastworks, earthworks or rifle-pits in front of each regiment's line, begun early on the morning of the 3d, serviceable before noon; the 116th Pa.'s begins after Hancock moved the line forward and is 'quite formidable' by 11:00; no rails are named, so draw them as earth and stones (plausible-procedural fabric), not as rail piles
 - E-17: the 20th Mass. rifle-pit of the night of Jul 2 to 3 has a printed profile (a foot deep, a foot high, one shovel, 'too thin to stop anything more than a spent ball'): use it as the documented size of an overnight single-shovel work; the NPS 'earth against a low stone fence topped with rails' stays a selectable second form for the same regiment
 - E-17: show a 'slight breastwork along the entire crest' at the Artillery Reserve's position on the morning of Jul 3 (Tyler) as a documented, low line (one officer's statement for the crest he rode); keep the continuity of the whole ridge a marked gap; add the artillery earthworks of the First Volunteer Brigade (McGilvery) and of Dow's battery on the morning of Jul 3 (R13 gun positions)
-- E-17 / FEN-cemetery-ridge-walls: the Angle wall's 1863 state: 'certainly not over two feet high' with three or four rails stake and rider on top, thrown down in places on Jul 2 to let the guns through and rails used at the gaps and elsewhere (NPS 'Common Pride' quoting accounts; documented-secondary, partial): a state of the pre-existing wall, not a construction animation
+- E-17 / FEN-cemetery-ridge-walls: the Angle wall's 1863 state: 'certainly not over two feet high' with three or four rails stake and rider on top, thrown down in places on Jul 2 to let the guns through and rails used at the gaps and elsewhere (NPS 'Common Pride' quoting accounts; documented-secondary, partial): a state of the pre-existing wall, not a construction animation; the NPS seminar essay on Wright's attack has only one small opening for the artillery on the evening of Jul 2 (Brown's guns): the number of gaps is a selectable value
+- E-17: the Hall and Harrow line on Jul 3 may carry the fabric value 'rails covered with earth' with rifle pits and shallow trenches in front (documented-secondary, Ashe 1901; builder, hour and length open); defense works at the edge of the tree line north and west of the Brien house (NPS Brien study, Brady photograph) are a selectable work record with no dimensions
 
 ### R14.E-18 (records: E-18, G-14, S-009) - verdict corrected
 
@@ -117,6 +122,7 @@ The exact changes, by record:
 - E-18: show the stone wall just north of Spangler's Spring as Confederate breastworks (pre-existing wall, no construction) from the night of Jul 2 to the morning of Jul 3 (NPS 1940, documented-secondary)
 - E-18: add a Confederate 'earthworks built in 1863, day not stated' state for McMillan Woods, Pender's Division (Seminary Ridge), Poague's lunettes and Spangler Woods (NPS inventory), marked as a dated gap; the documented Jul 3-4 builds stay as listed
 - E-18: add a Confederate rock breastwork on the Round Top slopes early on Jul 3 (4th Alabama; OR27-2-R443; the report says 'the mountain'): a line of piled rock, built before the morning's fighting and held until late in the afternoon; the 'no Confederate works Jul 2-3' gap stays true for Seminary Ridge, Oak Hill and Benner's Hill
+- E-18: add a Confederate rifle-pit line in front of Seminary Ridge for the afternoon of Jul 3 (documented-secondary, participant 1901; builder, day and length open, plausible-procedural low earth pits); Oak Hill, Benner's Hill and Seminary Ridge on Jul 2 stay gap-marked
 
 ### R14.S-001 (records: bld-rock-creek-rr-bridge, S-001) - verdict corrected
 
@@ -125,8 +131,9 @@ The exact changes, by record:
 ### R14.S-002 (records: bld-pennsylvania-hall#cupola, S-002) - verdict partially_supported
 
 - S-002: split the signal-post event into the Jun 30 post (building scenario: the steeple of the college per Norton; the cupola of the Seminary building per the NPS) and the Jul 1 posts (the Seminary cupola in the morning; one of Howard's signal officers on the College cupola at 08:30, Jacobs); both tier documented for the event; the identity of the college building (Pennsylvania Hall or another) stays inferred
-- S-002: add the Jul 1 morning state 'Seminary cupola used by Buford and his signal officer' (documented-secondary: Bates quoting the signal officer, Toombs, NY monuments, Bachelder); the Jun 30 'steeple of the college' (Norton) stays a separate selectable object; the Pennsylvania Hall identity stays unsupported
-- S-002: the College cupola is a feature of the College's main building (octagonal, 17 ft across and 24 ft high, with observatory: History of Adams County 1886): model it on that building, tier documented for the cupola, the building name marked a gap
+- S-002: add the Jul 1 morning state 'Seminary cupola used by Buford and his signal officer' (documented-secondary: Bates quoting the signal officer, Toombs, NY monuments, Bachelder); the Jun 30 'steeple of the college' (Norton) stays a separate selectable object; the Pennsylvania Hall identity: see the S-002 CORRECTION below
+- S-002: the College cupola is a feature of the College's main building (octagonal, 17 ft across and 24 ft high, with observatory: History of Adams County 1886): model it on that building, tier documented for the cupola; the building name 'Pennsylvania Hall' is documented as an NPS name of the College's main building (see the S-002 CORRECTION below)
+- S-002 CORRECTION: 'Pennsylvania Hall' is a documented name (NPS 1988) for the College's main building that served as observation post and signal station during the battle (day not stated): the cupola of the College is documented as a post; the Jun 30 and Jul 1 attribution of single posts to each building stays as in the earlier consequences; the cupola's own description (octagonal, 17 ft across, 24 ft high, observatory) is from 1886
 
 ### R14.S-003 (records: FEN-mcpherson-railroad-grade, S-003) - verdict partially_supported
 
@@ -141,6 +148,7 @@ The exact changes, by record:
 - S-005: start clock 'from about 08:00' (documented) replaces 07:30 (PDF scenario, unsupported); add the right-angle rail work near Calef's battery (documented-secondary, builder Gamble's brigade) as a works record
 - S-005: label the ground with the names of the 1863 reports (McPherson's woods, McPherson's barn, McPherson's farm); 'McPherson Ridge' has no hit in OR parts 1-3 and is shown as the PDF's name
 - S-005 / S-006: add a fence-line use on the afternoon of Jul 1 north of the college grounds (the Eleventh Corps 'making the fences their line of defence', Sanitary Commission report 1863): documented-secondary, no fence type or length
+- S-005: the Iron Brigade held the Herbst Woods line from the lull of the late morning to the afternoon of Jul 1 without the rail barricade on the crest that its colonels asked for (documented-secondary: the request was refused); do not draw a barricade on the crest of McPherson's Ridge before the afternoon of Jul 1
 
 ### R14.S-006 (records: FEN-chambersburg-pike, S-006) - verdict partially_supported
 
@@ -158,6 +166,7 @@ The exact changes, by record:
 
 - S-008 / H-02: the Catholic church is a hospital from before noon on Jul 1 (Reily 1885, secondary) and for wounded of both armies on Jul 2-3 (Bates) through at least Jul 5 (Stoever; NPS), documented-secondary; the PDF's 'pews removed and boards laid' stays a marked gap (web page only); do not show pews removed as a fact
 - S-008 / H-02: the Catholic church is a hospital from before noon on Jul 1 (documented-secondary: Reily 1885) for several weeks; the PDF's 'by noon Jul 1' is therefore supported, the 'pews removed and boards laid' stays a marked gap
+- S-008 / H-02: inside the church show boards over the pews (documented-secondary, general for the churches used as hospitals); 'pews removed' stays a PDF scenario
 
 ### R14.S-009 (records: FEN-mcmillan, S-009) - verdict corrected
 

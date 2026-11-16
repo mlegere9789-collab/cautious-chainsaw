@@ -24,7 +24,7 @@ COLS = ['id', 'class', 'title', 'author', 'date', 'text', 'sha256', 'pages', 'fo
 MARK = '<!-- APPEND-ONLY BELOW: tools/bt/conflicts/add_source.py appends here; rebuilds of sections 1-9 keep everything under this line -->'
 
 # town-ledger ids that have nothing to say about the 47 conflicts (buildings, maps, college catalogues, claims lists): not seeded; add_source.py --from-town ID adopts any of them
-EXCLUDE_WEB = re.compile(r'^(NPS-HABS|NPSGOV-(NATURE|NEWS|EISE|ART))')
+EXCLUDE_WEB = re.compile(r'^(NPS-HABS|NPS-NEWSLETTER|NPS-TOURIST|NPS-TRAILS|NPSGOV-(NATURE|NEWS|EISE|ART))')
 EXCLUDE = re.compile(r'^(HABS|PACOLLEGE|WARREN|HOPKINS|SANBORN|LOC-PHOTO|SEM-IMAGES|WAUD|WENTZ|RUPP|WARCLAIMS|ADAMS-SENTINEL-OTHER|GBG-COMPILER-OTHER|CENSUS|NPS-ROAD|LOC-CA|BACHELDER-18|COPE|HOTCHKISS|ELLIOTT|GNMP-1900|WOELTJE|NY-MONUMENTS|PLAN-PDF|CONEWAGO|NPS-DESIGN|NPS-EISE|NPS-GETTYSBURG-COLLEGE|NPS-BRYAN|NPS-DCP-GUINN|NPS-NRCA|NPS-BRT-ECOLOGY|NPSGOV-(GRASSLANDS|PLANTS|NATURAL|PLANNING|BATTLEFIELD-REHAB))')
 
 KIND_BY_ID = {

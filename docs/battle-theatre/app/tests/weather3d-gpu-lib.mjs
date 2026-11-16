@@ -103,6 +103,8 @@ export function HOOKS(opts) {
   if (typeof GPUAdapter !== 'undefined') {
     const rd = GPUAdapter.prototype.requestDevice;
     GPUAdapter.prototype.requestDevice = async function (...a) {
+      // opts.stripFeatures: device features that are NOT requested although the adapter has them (a device that lacks them: W-E5 of the verification list is `float32-filterable`); recorded in window.__swap.stripped
+      if (opts && opts.stripFeatures && opts.stripFeatures.length && a[0] && a[0].requiredFeatures) { const had = [...a[0].requiredFeatures]; a[0] = { ...a[0], requiredFeatures: had.filter(f => !opts.stripFeatures.includes(f)) }; window.__swap.stripped = had.filter(f => opts.stripFeatures.includes(f)); }
       const d = await rd.apply(this, a);
       d.addEventListener('uncapturederror', e => window.__gpuErrors.push(String((e.error && e.error.message) || e).slice(0, 900)));
       d.lost.then(i => window.__gpuErrors.push('DEVICE LOST ' + i.reason + ': ' + i.message));

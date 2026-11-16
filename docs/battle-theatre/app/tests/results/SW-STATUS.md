@@ -203,7 +203,7 @@ Each result cell is taken from the LATEST run that contains the test (the run is
 
 ### webgl2.spec.mjs
 
-Source shell: `src-1-webgl2` (2026-11-13 19:13Z; 0 passed, 1 failed, 0 not run of 1; 6 min; live source tree, changed during the run); `src-2-webgl2` (2026-11-13 20:55Z; 1 passed, 0 failed, 0 not run of 1; 8 min; frozen source snapshot of commit 9e1e1777).  
+Source shell: `src-1-webgl2` (2026-11-13 19:13Z; 0 passed, 1 failed, 0 not run of 1; 6 min; live source tree, changed during the run); `src-2-webgl2` (2026-11-13 20:55Z; 1 passed, 0 failed, 0 not run of 1; 8 min; frozen source snapshot of commit 9e1e1777); `src-3-webgl2` (2026-11-16 03:11Z; ? passed, ? failed, ? not run of ?; running, or no end line; frozen source snapshot of commit c817c797).  
 Packed dist: `dist-1-webgl2` (2026-11-13 21:31Z; 1 passed, 0 failed, 0 not run of 1; 9 min; packed dist of commit 9e1e1777).  
 
 Each result cell is taken from the LATEST run that contains the test (the run is named when it is not the only one).

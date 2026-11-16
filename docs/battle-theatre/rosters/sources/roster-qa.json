@@ -1,7 +1,7 @@
 {
  "format": "roster2-sources-pointer/1",
  "work_item": "roster-qa",
- "generated": "2026-11-14T01:30:15Z",
+ "generated": "2026-11-16T03:18:54Z",
  "access_rules": "archive.org /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround; the page routes archive.org/download/<id>/page/ and iiif.archive.org are refused by the proxy and were not used",
  "sources": [
   {
@@ -474,6 +474,396 @@
      "checks": "the three text files were compared with the md5 and sha1 that the item metadata lists for them (ia_md5_matches, ia_sha1_matches in files[])"
     },
     "copied_from": "rosters/sources/union-ma.json (source massachusettssol21931mass)"
+   }
+  },
+  {
+   "source_id": "NC-MOORE-1882",
+   "volume": "1",
+   "text_id": "NC-MOORE-1882.1",
+   "identifier": "rosternorthcaro00moorgoog",
+   "title": "Roster of North Carolina troops in the war between the states",
+   "year": 1882,
+   "page_url": "https://archive.org/details/rosternorthcaro00moorgoog",
+   "url": "https://archive.org/cors/rosternorthcaro00moorgoog/rosternorthcaro00moorgoog.pdf",
+   "bytes": 26310300,
+   "sha256": "bf870c7be364c36c58f4f7bdd34361ada17e5682e2bff110ff50832f5bfab123",
+   "use": "single pages rendered with pdftoppm for the independent sample (round 2) and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "rosternorthcaro00moorgoog.pdf",
+     "remote_name": "rosternorthcaro00moorgoog.pdf",
+     "url": "https://archive.org/cors/rosternorthcaro00moorgoog/rosternorthcaro00moorgoog.pdf",
+     "bytes": 26310300,
+     "sha256": "bf870c7be364c36c58f4f7bdd34361ada17e5682e2bff110ff50832f5bfab123",
+     "retrieved_utc": "2026-11-16T02:37:25Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1882",
+     "ia_possible_copyright_status": "NOT_IN_COPYRIGHT",
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "Harvard University",
+     "imprint": "Raleigh, Ash & Gatling, state printers",
+     "year": 1882,
+     "why": "the State of North Carolina's own roster, printed at Raleigh by the state printers in 1882 under an act of the General Assembly (\"compiled ... for the proper editing and preparation of a Roster of the troops furnished by North Carolina\"): a US publication of 1882",
+     "imprint_quote": "State  Printers  and  Blndem.\nPreMes  of  Edwards,  Broughton  A  Go.\n1882.",
+     "imprint_quote_offset_in_text": 3752,
+     "year_printed_in_quote": true,
+     "year_source": "the printed title page",
+     "authority_quote": null,
+     "authority_quote_offset_in_text": null
+    },
+    "copied_from": "rosters/sources/conf-nc.json (source rosternorthcaro00moorgoog)"
+   }
+  },
+  {
+   "source_id": "NC-MOORE-1882",
+   "volume": "1",
+   "text_id": "NC-MOORE-1882.1~b",
+   "identifier": "05913252.3309.emory.edu",
+   "title": "Roster of North Carolina troops in the war between the states.",
+   "year": 1882,
+   "page_url": "https://archive.org/details/05913252.3309.emory.edu",
+   "url": "https://archive.org/cors/05913252.3309.emory.edu/05913252_3309.pdf",
+   "bytes": 23839734,
+   "sha256": "1dda26b2e9ce5e6272e0d85b2567e1b1818af12123552a36717e677c5805c3c1",
+   "use": "single pages rendered with pdftoppm for the independent sample (round 2) and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "05913252.3309.emory.edu.pdf",
+     "remote_name": "05913252_3309.pdf",
+     "url": "https://archive.org/cors/05913252.3309.emory.edu/05913252_3309.pdf",
+     "bytes": 23839734,
+     "sha256": "1dda26b2e9ce5e6272e0d85b2567e1b1818af12123552a36717e677c5805c3c1",
+     "retrieved_utc": "2026-11-16T02:37:29Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1882",
+     "ia_possible_copyright_status": null,
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "Emory University, Robert W. Woodruff Library",
+     "imprint": "Raleigh : Ash & Gatling, state printers",
+     "year": 1882,
+     "why": "the State of North Carolina's own roster, printed at Raleigh by the state printers in 1882 under an act of the General Assembly (\"compiled ... for the proper editing and preparation of a Roster of the troops furnished by North Carolina\"): a US publication of 1882",
+     "imprint_quote": "State  Printers  and  Binders.\nPresses  of  Edwards,  Broughton  &  Co.\n1882.",
+     "imprint_quote_offset_in_text": 258,
+     "year_printed_in_quote": true,
+     "year_source": "the printed title page",
+     "authority_quote": "ROSTER  OF  NORTH  CAROLINA  TROOPS",
+     "authority_quote_offset_in_text": 366
+    },
+    "copied_from": "rosters/sources/conf-nc.json (source 05913252.3309.emory.edu)"
+   }
+  },
+  {
+   "source_id": "NC-MOORE-1882",
+   "volume": "2",
+   "text_id": "NC-MOORE-1882.2",
+   "identifier": "rosterofnorthcar02nort",
+   "title": "Roster of North Carolina troops in the war between the states",
+   "year": 1882,
+   "page_url": "https://archive.org/details/rosterofnorthcar02nort",
+   "url": "https://archive.org/cors/rosterofnorthcar02nort/rosterofnorthcar02nort.pdf",
+   "bytes": 53035273,
+   "sha256": "6c66da2809202e06ea1a74c2af120c9405c48f9d042d94f9de32563338ccaeab",
+   "use": "single pages rendered with pdftoppm for the independent sample (round 2) and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "rosterofnorthcar02nort.pdf",
+     "remote_name": "rosterofnorthcar02nort.pdf",
+     "url": "https://archive.org/cors/rosterofnorthcar02nort/rosterofnorthcar02nort.pdf",
+     "bytes": 53035273,
+     "sha256": "6c66da2809202e06ea1a74c2af120c9405c48f9d042d94f9de32563338ccaeab",
+     "retrieved_utc": "2026-11-16T01:17:24Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    },
+    {
+     "role": "scandata",
+     "name": "rosterofnorthcar02nort_scandata.xml",
+     "remote_name": "rosterofnorthcar02nort_scandata.xml",
+     "url": "https://archive.org/cors/rosterofnorthcar02nort/rosterofnorthcar02nort_scandata.xml",
+     "bytes": 412644,
+     "sha256": "5180889241306818cd49baa61149b23da08b85393825498ac3de93ced7ee3405",
+     "retrieved_utc": "2026-11-16T01:17:40Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1882",
+     "ia_possible_copyright_status": null,
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "Boston Public Library",
+     "imprint": "Raleigh, Ash & Gatling, state printers",
+     "year": 1882,
+     "why": "the State of North Carolina's own roster, printed at Raleigh by the state printers in 1882 under an act of the General Assembly (\"compiled ... for the proper editing and preparation of a Roster of the troops furnished by North Carolina\"): a US publication of 1882",
+     "imprint_quote": "State  Printers  and  Binders,\nPresses  of  Edwards,  Broughton  &  Co.\n1882.",
+     "imprint_quote_offset_in_text": 491,
+     "year_printed_in_quote": true,
+     "year_source": "the printed title page",
+     "authority_quote": "ROSTER\nOF\nNORTH  CAROLINA  TROOPS",
+     "authority_quote_offset_in_text": 3201
+    },
+    "copied_from": "rosters/sources/conf-nc.json (source rosterofnorthcar02nort)"
+   }
+  },
+  {
+   "source_id": "NC-MOORE-1882",
+   "volume": "2",
+   "text_id": "NC-MOORE-1882.2~b",
+   "identifier": "05913252.3310.emory.edu",
+   "title": "Roster of North Carolina troops in the war between the states.",
+   "year": 1882,
+   "page_url": "https://archive.org/details/05913252.3310.emory.edu",
+   "url": "https://archive.org/cors/05913252.3310.emory.edu/05913252_3310.pdf",
+   "bytes": 30304591,
+   "sha256": "e59c69972972a111da23e5aad55c87361794b6608a2d0940f074c6eaf8a55f36",
+   "use": "single pages rendered with pdftoppm for the independent sample (round 2) and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "05913252.3310.emory.edu.pdf",
+     "remote_name": "05913252_3310.pdf",
+     "url": "https://archive.org/cors/05913252.3310.emory.edu/05913252_3310.pdf",
+     "bytes": 30304591,
+     "sha256": "e59c69972972a111da23e5aad55c87361794b6608a2d0940f074c6eaf8a55f36",
+     "retrieved_utc": "2026-11-16T02:37:33Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1882",
+     "ia_possible_copyright_status": null,
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "Emory University, Robert W. Woodruff Library",
+     "imprint": "Raleigh : Ash & Gatling, state printers",
+     "year": 1882,
+     "why": "the State of North Carolina's own roster, printed at Raleigh by the state printers in 1882 under an act of the General Assembly (\"compiled ... for the proper editing and preparation of a Roster of the troops furnished by North Carolina\"): a US publication of 1882",
+     "imprint_quote": "RALEIGH :\n\\_she  &  Gatmng,  State  Printers  and  Binders.",
+     "imprint_quote_offset_in_text": 244,
+     "year_printed_in_quote": false,
+     "year_source": "the item date 1882 (and the printed \"1882.\" in the imprint of the other copy of the same volume, NC-MOORE-1882.2, offset 491)",
+     "authority_quote": "General  Assembly  of  North  Carolina  do  enact",
+     "authority_quote_offset_in_text": 423
+    },
+    "copied_from": "rosters/sources/conf-nc.json (source 05913252.3310.emory.edu)"
+   }
+  },
+  {
+   "source_id": "NC-MOORE-1882",
+   "volume": "3",
+   "text_id": "NC-MOORE-1882.3",
+   "identifier": "rosterofnorthcar03moor",
+   "title": "Roster of North Carolina troops in the War between the states",
+   "year": 1882,
+   "page_url": "https://archive.org/details/rosterofnorthcar03moor",
+   "url": "https://archive.org/cors/rosterofnorthcar03moor/rosterofnorthcar03moor.pdf",
+   "bytes": 118245709,
+   "sha256": "cd19cd7b0f1e2fe6b21f6d68ae5e57eb886e60a2efa99368d26ef7f9465cf299",
+   "use": "single pages rendered with pdftoppm for the independent sample (round 2) and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "rosterofnorthcar03moor.pdf",
+     "remote_name": "rosterofnorthcar03moor.pdf",
+     "url": "https://archive.org/cors/rosterofnorthcar03moor/rosterofnorthcar03moor.pdf",
+     "bytes": 118245709,
+     "sha256": "cd19cd7b0f1e2fe6b21f6d68ae5e57eb886e60a2efa99368d26ef7f9465cf299",
+     "retrieved_utc": "2026-11-16T02:37:39Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    },
+    {
+     "role": "scandata",
+     "name": "rosterofnorthcar03moor_scandata.xml",
+     "remote_name": "rosterofnorthcar03moor_scandata.xml",
+     "url": "https://archive.org/cors/rosterofnorthcar03moor/rosterofnorthcar03moor_scandata.xml",
+     "bytes": 752927,
+     "sha256": "da31ee38fb130adf91f47298a1c25cf8efcfbb506f216411d73d1cbc4e5d384c",
+     "retrieved_utc": "2026-11-16T02:56:00Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1882",
+     "ia_possible_copyright_status": "Public records and public information compiled by the agencies of North Carolina government or its subdivisions are the property of the people (G.S. § 132); consequently the State Library of North Carolina considers this item to be in the public domain according to U.S. copyright law (see Title 17, U.S.C.). Responsibility for making an independent legal assessment of an item and securing any necessary permissions ultimately rests with persons desiring to use the item.",
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "State Library of North Carolina",
+     "imprint": "Raleigh, [N.C.] : Ashe & Gatling, State printers",
+     "year": 1882,
+     "why": "the State of North Carolina's own roster, printed at Raleigh by the state printers in 1882 under an act of the General Assembly (\"compiled ... for the proper editing and preparation of a Roster of the troops furnished by North Carolina\"): a US publication of 1882",
+     "imprint_quote": "RALEIGH:\nAshe  &  Gatling,  State  Printers  and  Binders.",
+     "imprint_quote_offset_in_text": 428,
+     "year_printed_in_quote": false,
+     "year_source": "the item date 1882 (and the printed \"1882.\" in the imprint of the other copy of the same volume, NC-MOORE-1882.3~b, offset 281)",
+     "authority_quote": "General  Assembly  of  North  Carolina  do  enact",
+     "authority_quote_offset_in_text": 617
+    },
+    "copied_from": "rosters/sources/conf-nc.json (source rosterofnorthcar03moor)"
+   }
+  },
+  {
+   "source_id": "NC-MOORE-1882",
+   "volume": "3",
+   "text_id": "NC-MOORE-1882.3~b",
+   "identifier": "05913252.3311.emory.edu",
+   "title": "Roster of North Carolina troops in the war between the states.",
+   "year": 1882,
+   "page_url": "https://archive.org/details/05913252.3311.emory.edu",
+   "url": "https://archive.org/cors/05913252.3311.emory.edu/05913252_3311.pdf",
+   "bytes": 29467409,
+   "sha256": "38d2085051d667f27be9def0b531f770a82bc5e07017f02e143a7b42b829cd92",
+   "use": "single pages rendered with pdftoppm for the independent sample (round 2) and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "05913252.3311.emory.edu.pdf",
+     "remote_name": "05913252_3311.pdf",
+     "url": "https://archive.org/cors/05913252.3311.emory.edu/05913252_3311.pdf",
+     "bytes": 29467409,
+     "sha256": "38d2085051d667f27be9def0b531f770a82bc5e07017f02e143a7b42b829cd92",
+     "retrieved_utc": "2026-11-16T02:37:50Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1882",
+     "ia_possible_copyright_status": null,
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "Emory University, Robert W. Woodruff Library",
+     "imprint": "Raleigh : Ash & Gatling, state printers",
+     "year": 1882,
+     "why": "the State of North Carolina's own roster, printed at Raleigh by the state printers in 1882 under an act of the General Assembly (\"compiled ... for the proper editing and preparation of a Roster of the troops furnished by North Carolina\"): a US publication of 1882",
+     "imprint_quote": "State  Printers  and  Binders.\nPresses  of  Edwards,  Broughton  &  Co.\n1882.",
+     "imprint_quote_offset_in_text": 281,
+     "year_printed_in_quote": true,
+     "year_source": "the printed title page",
+     "authority_quote": "ROSTER  OF  NORTH  CAROLINA  TROOPS",
+     "authority_quote_offset_in_text": 389
+    },
+    "copied_from": "rosters/sources/conf-nc.json (source 05913252.3311.emory.edu)"
+   }
+  },
+  {
+   "source_id": "NC-MOORE-1882",
+   "volume": "4",
+   "text_id": "NC-MOORE-1882.4",
+   "identifier": "rosterofnorthcar04moor",
+   "title": "Roster of North Carolina troops in the War between the states",
+   "year": 1882,
+   "page_url": "https://archive.org/details/rosterofnorthcar04moor",
+   "url": "https://archive.org/cors/rosterofnorthcar04moor/rosterofnorthcar04moor.pdf",
+   "bytes": 88928230,
+   "sha256": "5d70f0526727bcbdf81115b79c73cde2f5682d302a33c4364ad7e5623a96742e",
+   "use": "single pages rendered with pdftoppm for the independent sample (round 2) and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "rosterofnorthcar04moor.pdf",
+     "remote_name": "rosterofnorthcar04moor.pdf",
+     "url": "https://archive.org/cors/rosterofnorthcar04moor/rosterofnorthcar04moor.pdf",
+     "bytes": 88928230,
+     "sha256": "5d70f0526727bcbdf81115b79c73cde2f5682d302a33c4364ad7e5623a96742e",
+     "retrieved_utc": "2026-11-16T02:38:27Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1882",
+     "ia_possible_copyright_status": "Public records and public information compiled by the agencies of North Carolina government or its subdivisions are the property of the people (G.S. § 132); consequently the State Library of North Carolina considers this item to be in the public domain according to U.S. copyright law (see Title 17, U.S.C.). Responsibility for making an independent legal assessment of an item and securing any necessary permissions ultimately rests with persons desiring to use the item.",
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "State Library of North Carolina",
+     "imprint": "Raleigh, [N.C.] : Ashe & Gatling, State printers",
+     "year": 1882,
+     "why": "the State of North Carolina's own roster, printed at Raleigh by the state printers in 1882 under an act of the General Assembly (\"compiled ... for the proper editing and preparation of a Roster of the troops furnished by North Carolina\"): a US publication of 1882",
+     "imprint_quote": "RALEIGH:\nAshe  &  Gatling,  State  Printers  and  Binders,",
+     "imprint_quote_offset_in_text": 404,
+     "year_printed_in_quote": false,
+     "year_source": "the item date 1882 (and the printed \"1882.\" in the imprint of the other copy of the same volume, NC-MOORE-1882.4~b, offset 271)",
+     "authority_quote": "ROSTER  OF  NORTH  CAROLINA  TROOPS",
+     "authority_quote_offset_in_text": 534
+    },
+    "copied_from": "rosters/sources/conf-nc.json (source rosterofnorthcar04moor)"
+   }
+  },
+  {
+   "source_id": "NC-MOORE-1882",
+   "volume": "4",
+   "text_id": "NC-MOORE-1882.4~b",
+   "identifier": "05913252.3312.emory.edu",
+   "title": "Roster of North Carolina troops in the war between the states.",
+   "year": 1882,
+   "page_url": "https://archive.org/details/05913252.3312.emory.edu",
+   "url": "https://archive.org/cors/05913252.3312.emory.edu/05913252_3312.pdf",
+   "bytes": 14905058,
+   "sha256": "80fda651bea2cd9ca61f7cde9a02efe1b04a1639aa27110dd48ba0fe4b120121",
+   "use": "single pages rendered with pdftoppm for the independent sample (round 2) and for the second reading; the page images are never stored",
+   "files": [
+    {
+     "role": "pdf",
+     "name": "05913252.3312.emory.edu.pdf",
+     "remote_name": "05913252_3312.pdf",
+     "url": "https://archive.org/cors/05913252.3312.emory.edu/05913252_3312.pdf",
+     "bytes": 14905058,
+     "sha256": "80fda651bea2cd9ca61f7cde9a02efe1b04a1639aa27110dd48ba0fe4b120121",
+     "retrieved_utc": "2026-11-16T02:38:32Z",
+     "http_status": 200,
+     "kept": "transient: deleted after the run (bytes and sha256 stay here)"
+    }
+   ],
+   "rights": {
+    "basis": "public domain (United States publication before 1929)",
+    "evidence": {
+     "ia_date": "1882",
+     "ia_possible_copyright_status": null,
+     "ia_access_restricted_item": false,
+     "ia_licenseurl": null,
+     "ia_contributor": "Emory University, Robert W. Woodruff Library",
+     "imprint": "Raleigh : Ash & Gatling, state printers",
+     "year": 1882,
+     "why": "the State of North Carolina's own roster, printed at Raleigh by the state printers in 1882 under an act of the General Assembly (\"compiled ... for the proper editing and preparation of a Roster of the troops furnished by North Carolina\"): a US publication of 1882",
+     "imprint_quote": "State  Printers  and  Binder*.\nPresses  of  Edwards.  Broughtdn  &  Co,\n1882.",
+     "imprint_quote_offset_in_text": 271,
+     "year_printed_in_quote": true,
+     "year_source": "the printed title page",
+     "authority_quote": "General  Assembly  of  North  Carolina  do  enact",
+     "authority_quote_offset_in_text": 421
+    },
+    "copied_from": "rosters/sources/conf-nc.json (source 05913252.3312.emory.edu)"
    }
   }
  ],

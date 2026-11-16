@@ -1,5 +1,5 @@
 {
- "_doc": "Files fetched for the close-out of timeline shard tl-01. archive.org only, one request at a time, no login. Raw files live under tmp/tl-01/dl (untracked). Fourth start (2026-11-15): the items \"ca-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at most one per second); the crops are regenerated from the url; the files under tmp/tl-01/crops are untracked scratch. Fourth start, later the same day: the items cu31924028852619 and greatinvasionof102hoke are the whole-book PDFs of the two books added to the builder (extra_sources.py); only the pages listed under pages_viewed were rendered and looked at; the PDFs are untracked scratch under tmp/tl-01/dl/books2. The item hs-mcpherson-farm.pdf (the National Park Service study of the McPherson farm, npshistory.com) was fetched once in the same way, to view the cited pages. Fifth start (2026-11-16): the items \"ca5-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at least 1.2 s apart; the image id is built from the segment of the page record of the web-evidence workstream, horde/ws-web/ca/pages.jsonl); the crops are regenerated from the url; the files under tmp/tl-01/run5/crops are untracked scratch. Fifth start (2026-11-16): the items \"ca5-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at least 1.2 s apart; the image id is built from the segment of the page record of the web-evidence workstream, horde/ws-web/ca/pages.jsonl); the crops are regenerated from the url; the files under tmp/tl-01/run5/crops are untracked scratch.",
+ "_doc": "Files fetched for the close-out of timeline shard tl-01. archive.org only, one request at a time, no login. Raw files live under tmp/tl-01/dl (untracked). Fourth start (2026-11-15): the items \"ca-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at most one per second); the crops are regenerated from the url; the files under tmp/tl-01/crops are untracked scratch. Fourth start, later the same day: the items cu31924028852619 and greatinvasionof102hoke are the whole-book PDFs of the two books added to the builder (extra_sources.py); only the pages listed under pages_viewed were rendered and looked at; the PDFs are untracked scratch under tmp/tl-01/dl/books2. The item hs-mcpherson-farm.pdf (the National Park Service study of the McPherson farm, npshistory.com) was fetched once in the same way, to view the cited pages. Fifth start (2026-11-16): the items \"ca5-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at least 1.2 s apart; the image id is built from the segment of the page record of the web-evidence workstream, horde/ws-web/ca/pages.jsonl); the crops are regenerated from the url; the files under tmp/tl-01/run5/crops are untracked scratch. Fifth start (2026-11-16): the items \"ca5-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at least 1.2 s apart; the image id is built from the segment of the page record of the web-evidence workstream, horde/ws-web/ca/pages.jsonl); the crops are regenerated from the url; the files under tmp/tl-01/run5/crops are untracked scratch. Fifth start (2026-11-16): the items \"ca5-*\" are crops of page images of 1863 newspapers (IIIF regions of the Library of Congress image service, one request each, at least 1.2 s apart; the image id is built from the segment of the page record of the web-evidence workstream, horde/ws-web/ca/pages.jsonl); the crops are regenerated from the url; the files under tmp/tl-01/run5/crops are untracked scratch.",
  "items": [
   {
    "archive_identifier": "gettysburg-compiler-1863-06-29",
@@ -35,7 +35,7 @@
    "sha256": "66e5bbaabc0ec261ec7466c54f158c2faac07e88146d52215d9c63fc4b3ad8ca",
    "fetched_at": "2026-11-13",
    "local_path": "tmp/tl-01/dl/adams-sentinel-1863-09-08/adams-sentinel-1863-09-08.pdf",
-   "pages_viewed": "2",
+   "pages_viewed": "2 ; fifth start (2026-11-16): page 2 rendered at 220 dpi (region x 2300, y 1090, 1500 by 260 pixels, tmp/tl-01/run5/crops/sent0908p2-2.png) and the sentence before \"This occurred on Tuesday, the 23d of June\" read on the image (the horses were produced, and taken away by the General)",
    "purpose": "page image of page 2 read to confirm the reprinted Tribune letter on the destruction of the Stevens iron works (row T1-005)",
    "licence_basis": "public domain (United States newspaper published 1863)",
    "note": "The text layer of this PDF is the same OCR as the djvu text already in the library; citations give offsets in the library djvu text and a reading taken from the page image."
@@ -685,6 +685,28 @@
    "local_path": "tmp/tl-01/run5/crops/star0629p2d.jpg",
    "pages_viewed": "viewed",
    "purpose": "Evening Star, Jun 29 1863, page 2: a train of 150 wagons, each drawn by six mules, left Washington between seven and eight o'clock on the morning of Jun 28: row T1-026"
+  },
+  {
+   "id": "ca5-cht-0703-p1",
+   "archive_identifier": "sn84031490 (Chronicling America, Library of Congress)",
+   "url": "https://tile.loc.gov/image-services/iiif/service:ndnp:dlc:batch_dlc_edgewater_ver02:data:sn84031490:no_reel:1863070301:0001/1769,6373,818,283/full/0/default.jpg",
+   "bytes": 91987,
+   "sha256": "8ceeeb645e7ef8b738f112d8091bf4988953074791acb1e5c953afbfc79b8993",
+   "fetched_at": "2026-11-16 (one request, viewed in the fifth start of this close-out)",
+   "local_path": "tmp/tl-01/run5/crops/cht0703p1.jpg",
+   "pages_viewed": "viewed",
+   "purpose": "Chicago Daily Tribune, Jul 3 1863, page 1: the first lines of the Philadelphia Press special of Columbia, Jul 1 (the 5th New York ... charged upon in the rear by Stuart's rebel cavalry, about six thousand strong; 1,800): rows T1-044, T1-046"
+  },
+  {
+   "archive_identifier": "NPS-HABS-pa0007 (Historic American Buildings Survey record HABS PA-359, Library of Congress item pa0007, National Park Service)",
+   "file": "NPS-HABS-pa0007.pdf",
+   "url": "https://www.loc.gov/item/pa0007/",
+   "bytes": 47057,
+   "sha256": "174a49fbf5ed0fd0582983a0405a0c3be37dca93a38b801a469e06daca9f0e8f",
+   "fetched_at": "2026-11-15T23:43:37Z (library/acquired_3.json, saved by the web-evidence workstream; read, not fetched, in the fifth start)",
+   "local_path": "tmp/library/web/nps/NPS-HABS-pa0007/NPS-HABS-pa0007.pdf",
+   "pages_viewed": "PDF page 2 (the data page) rendered at 90 dpi and viewed in the fifth start (2026-11-16)",
+   "purpose": "Lutheran Theological Seminary, Main Building: the Additional Data line \"Cupola used as post of observation by Union Generals Buford and Reynolds, July 1, 1863\" (row T1-049)"
   }
  ],
  "lookups_failed_or_blocked": [

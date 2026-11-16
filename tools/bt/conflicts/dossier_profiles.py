@@ -15,6 +15,13 @@ def pr(label, anchors, near=None, scope=DEF, window=320):
     return dict(label=label, anchors=anchors, near=near or [], scope=list(scope), window=window)
 
 
+def byp(label, by, anchors, near=None, window=300):
+    """A probe of the Official Records restricted to the reports, letters and orders WRITTEN BY the named officers: a first-person report seldom names its author near the passage."""
+    x = pr(label, anchors, near, scope=(OR,), window=window)
+    x['by'] = by
+    return x
+
+
 P = {}
 
 P['C-001'] = dict(event_date='1863-07-02', kinds=['time'], focus='the hour Meade reached the field of Gettysburg on the night of Jul 1-2, and when he inspected the line',
@@ -441,3 +448,57 @@ P['C-047'] = dict(event_date='1863-07-01', kinds=['count_range'], focus='strengt
     acquire=['LIVERMORE-1900', 'PHISTERER-1883', 'BATES-1875', 'PARIS-1888-V3'])
 
 assert sorted(P) == ['C-%03d' % i for i in range(1, 48)], sorted(set(['C-%03d' % i for i in range(1, 48)]) - set(P))
+
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Probes of the first-person reports: one per conflict, restricted to the Official Records written by the officers who were there or who command those who were
+BY = {
+    'C-001': ("Meade, Hunt, Humphreys, Howard and Butterfield on the arrival at the field", ['meade', 'hunt', 'humphreys', 'howard', 'butterfield'], ['arrived', 'arriving', 'reached', 'headquarters'], ['CLOCK']),
+    'C-002': ("Humphreys and the Third Corps staff: bivouac and arrival", ['humphreys', 'sickles', 'birney', 'hunt'], ['bivouac', 'bivouacked', 'arrived', 'reached', 'halted'], ['CLOCK|midnight|daybreak|daylight']),
+    'C-003': ("Sykes, his division commanders and Slocum: the corps on the morning of Jul 2", ['sykes', 'barnes', 'ayres', 'crawford', 'slocum', 'chamberlain', 'sweitzer', 'tilton', 'day', 'burbank', 'weed'], ['arrived', 'reached', 'marched', 'halted', 'bivouac'], ['CLOCK|daylight|sunrise|daybreak']),
+    'C-004': ("Hancock, Gibbon, Caldwell, Hays and their brigades: arrival of the Second Corps", ['hancock', 'gibbon', 'caldwell', 'hays', 'webb', 'harrow', 'willard', 'carroll', 'kelly', 'zook', 'cross', 'brooke', 'hall', 'smyth'], ['arrived', 'reached', 'marched', 'bivouac', 'daylight', 'sunrise'], ['CLOCK|daylight|dawn|sunrise']),
+    'C-005': ("Kershaw, Longstreet, Law, Alexander: the march of Jul 2 from camp", ['kershaw', 'longstreet', 'law', 'robertson', 'benning', 'anderson', 'alexander'], ['left camp', 'marched', 'sunrise', 'daybreak', 'arrived', 'halted'], ['CLOCK|sunrise|daybreak|morning']),
+    'C-006': ("Longstreet and Lee: the morning of Jul 2", ['longstreet', 'lee'], ['morning', 'daybreak', 'sunrise', 'conference', 'interview', 'reported'], ['order|orders|attack|advance|conversation|headquarters']),
+    'C-007': ("McLaws's brigades: arrival on the ridge", ['mclaws', 'kershaw', 'barksdale', 'semmes', 'wofford'], ['arrived', 'marched', 'halted', 'ridge', 'sunrise'], ['CLOCK|sunrise|daybreak|morning']),
+    'C-008': ("Longstreet, Lee, McLaws, Hood, Alexander and Kershaw: the order to attack", ['longstreet', 'lee', 'mclaws', 'hood', 'alexander', 'kershaw'], ['ordered', 'order', 'directed'], ['CLOCK|noon|forenoon', 'attack|advance|move']),
+    'C-009': ("Berdan, Birney, Ward, Hunt and Sickles: the reconnaissance", ['berdan', 'birney', 'ward', 'hunt', 'de trobriand', 'graham', 'sickles'], ['reconnoi', 'sharpshooters', 'berdan'], ['CLOCK|noon|forenoon']),
+    'C-010': ("Sickles, Birney, Hunt, Hancock, Humphreys, Meade: the advance to the line", ['sickles', 'birney', 'hunt', 'hancock', 'humphreys', 'graham', 'ward', 'de trobriand', 'meade', 'randolph'], ['advance', 'advanced', 'moved', 'formed', 'line'], ['CLOCK|noon|afternoon']),
+    'C-011': ("Alexander, Longstreet and the brigade reports: the opening of the attack", ['alexander', 'longstreet', 'hood', 'law', 'robertson', 'benning', 'anderson', 'kershaw'], ['opened', 'advance', 'advanced', 'attack'], ['CLOCK|afternoon']),
+    'C-012': ("The brigade and regiment reports of the Round Top fight: minutes", ['rice', 'chamberlain', 'barnes', 'vincent', 'warren', 'weed', 'hazlett', 'sweitzer', 'tilton', 'oates', 'law'], ['minutes'], ['round top|hill|vincent|law']),
+    'C-013': ("Chamberlain, Rice and Barnes: the bayonet charge", ['chamberlain', 'rice', 'barnes'], ['bayonet', 'charge'], ['CLOCK|dark|dusk|twilight|sun|hour|minutes']),
+    'C-014': ("Chamberlain, Rice, Barnes and Vincent: prisoners", ['chamberlain', 'rice', 'barnes', 'vincent'], ['prisoners'], [r'\b\d{2,3}\b']),
+    'C-015': ("Chamberlain's own count of the regiment", ['chamberlain'], ['men', 'muskets', 'rifles', 'all told', 'strength', 'aggregate'], [r'\b3\d\d\b']),
+    'C-016': ("Law's brigade officers and the Union brigade reports: the 48th Alabama", ['sheffield', 'oates', 'law', 'robertson', 'hood', 'benning', 'bulger', 'anderson', 'rice', 'barnes', 'chamberlain'], ['forty-eighth', '48th', 'devil', 'round top'], ['alabama|position|ravine|hill']),
+    'C-017': ("Sickles, Birney, Hancock, Meade, Humphreys: the command of the corps", ['sickles', 'birney', 'hancock', 'meade', 'humphreys', 'butterfield'], ['command', 'assumed', 'wounded', 'relieved'], ['corps|sickles|birney']),
+    'C-018': ("Wright and the Union brigade and division reports: the crest", ['wright', 'wilcox', 'perry', 'lang', 'webb', 'stannard', 'gibbon', 'hancock', 'harrow', 'hall'], ['crest', 'ridge', 'georgia', 'brigade'], ['wright|georgia|reached|gained|drove|repulsed']),
+    'C-019': ("Johnson's division and the Twelfth Corps: the evening attack", ['johnson', 'steuart', 'walker', 'nicholls', 'jones', 'greene', 'geary', 'williams', 'slocum', 'kane', 'candy', 'lockwood', 'kenly', 'colgrove'], ['attack', 'advanced', 'assault', 'engaged', 'firing'], ['CLOCK|dark|dusk|sunset|evening|twilight']),
+    'C-020': ("Early, Hays, Hoke, Avery, Ricketts, Osborn, Wiedrich: the evening assault", ['early', 'hays', 'hoke', 'avery', 'godwin', 'ricketts', 'osborn', 'wiedrich', 'howard', 'carroll', 'coster', 'von gilsa', 'ames', 'krzyzanowski'], ['attack', 'assault', 'advanced', 'charge', 'repulse'], ['CLOCK|dark|dusk|twilight|evening']),
+    'C-021': ("Lee, Longstreet, Pickett and his brigades: the arrival of the division", ['lee', 'longstreet', 'pickett', 'garnett', 'kemper', 'armistead', 'alexander'], ['pickett', 'chambersburg', 'arrived', 'came up', 'joined'], ['arrived|reached|came up|joined|relieved|march', 'july|night|morning|afternoon']),
+    'C-022': ("Sedgwick and the Sixth Corps reports: the march and arrival", ['sedgwick', 'wright', 'howe', 'newton', 'neill', 'bartlett', 'torbert', 'russell', 'wheaton', 'shaler', 'eustis', 'meade'], ['arrived', 'marched', 'reached', 'came up', 'halted'], ['CLOCK|afternoon|evening']),
+    'C-023': ("Stuart, Hampton, Lee, Chambliss, Fitz. Lee: the arrival of the cavalry", ['stuart', 'hampton', 'lee', 'chambliss', 'fitz', 'robertson', 'jones'], ['arrived', 'joined', 'reached', 'reported', 'rejoined'], ['gettysburg|lee|army|ewell|hill|carlisle', 'CLOCK|afternoon|night|evening|noon']),
+    'C-024': ("The commanders who sat at the council: when it met", ['meade', 'butterfield', 'gibbon', 'williams', 'birney', 'newton', 'sedgwick', 'sykes', 'slocum', 'howard', 'hancock', 'warren', 'hunt'], ['council', 'consultation', 'conference'], ['CLOCK|night|evening|midnight|late']),
+    'C-025': ("Geary, Williams, Slocum and the brigades: the return to the hill", ['geary', 'williams', 'slocum', 'greene', 'candy', 'kane', 'lockwood', 'ruger', 'colgrove'], ['returned', 'reoccupied', 'back', 'position', 'works', 'breastworks'], ['CLOCK|night|morning|daylight|dawn']),
+    'C-026': ("Third Corps and Confederate reports: a barn burning", ['humphreys', 'brewster', 'burling', 'de trobriand', 'ward', 'graham', 'wilcox', 'lang', 'perry', 'posey', 'wright', 'kershaw', 'semmes', 'bigelow', 'clark', 'randolph', 'tompkins', 'mclaws', 'longstreet'], ['barn', 'burning', 'fire'], ['burn|flames|fired|set on fire']),
+    'C-027': ("Buford, Gamble, Devin, Merritt, Pleasonton: where the division went", ['buford', 'gamble', 'devin', 'merritt', 'pleasonton', 'kilpatrick'], ['taneytown', 'westminster', 'emmitsburg', 'frederick'], ['march|moved|ordered|arrived|proceeded|retired']),
+    'C-028': ("Hunt and the Twelfth Corps and Confederate reports: the guns open on Jul 3", ['hunt', 'williams', 'geary', 'slocum', 'greene', 'muhlenberg', 'winslow', 'rigby', 'johnson', 'steuart', 'walker', 'jones', 'daniel'], ['opened', 'artillery', 'batteries', 'daylight', 'dawn', 'fire'], ['CLOCK|daylight|dawn|morning']),
+    'C-029': ("Hunt, Alexander, Longstreet and the Second Corps reports: the end of the fire", ['hunt', 'alexander', 'longstreet', 'webb', 'hays', 'smyth', 'hall', 'harrow', 'gibbon', 'hancock', 'wainwright', 'osborn', 'cabell', 'peyton', 'lee'], ['ceased', 'silenced', 'slackened', 'abated', 'stopped', 'gradually', 'cease'], ['CLOCK|hour|p\\. ?m']),
+    'C-030': ("Pickett's and Pettigrew's reports and the Union defenders: the advance", ['pickett', 'longstreet', 'alexander', 'peyton', 'pettigrew', 'trimble', 'garnett', 'kemper', 'armistead', 'lee', 'hancock', 'webb', 'hays', 'gibbon'], ['advance', 'moved forward', 'step', 'started', 'ordered'], ['CLOCK|afternoon']),
+    'C-031': ("Ruger, Williams and the Culp's Hill reports: the end of the fight", ['ruger', 'colgrove', 'williams', 'slocum', 'geary', 'kane', 'greene', 'johnson', 'steuart', 'daniel', 'walker', 'jones'], ['continued', 'ceased', 'repulsed', 'charge', 'assault', 'withdrew'], ['CLOCK|morning|forenoon|noon']),
+    'C-032': ("The cavalry reports of Jul 3 east of the town", ['gregg', 'custer', 'mcintosh', 'stuart', 'hampton', 'chambliss', 'fitz', 'pennock', 'alger', 'town', 'miller', 'kilpatrick', 'farnsworth', 'merritt'], ['engaged', 'attack', 'charge', 'opened', 'skirmish'], ['CLOCK|noon|afternoon|morning']),
+    'C-033': ("Imboden, Pendleton and the commanders: the order for the train", ['imboden', 'pendleton', 'longstreet', 'lee', 'ewell', 'early', 'walker'], ['train', 'wagons', 'wounded', 'ordered', 'started', 'set out'], ['july|4th|5th|fourth|fifth|night|afternoon|evening']),
+    'C-034': ("Kilpatrick, Custer, Imboden, Ewell: wagons at Monterey Pass", ['kilpatrick', 'custer', 'farnsworth', 'richmond', 'imboden', 'ewell', 'early', 'ramseur', 'rodes', 'johnson', 'lee', 'gregg', 'merritt', 'mcintosh'], ['wagons', 'monterey', 'train', 'ambulances'], [r'\b\d{2,3}\b']),
+    'C-035': ("Buford, Gamble, Kilpatrick, Custer, Heth: prisoners at Falling Waters", ['buford', 'gamble', 'kilpatrick', 'custer', 'heth', 'pettigrew', 'lee', 'hill', 'pender', 'kellogg', 'davies', 'devin', 'merritt', 'farnsworth', 'richmond'], ['prisoners', 'falling waters', 'captured'], [r'\b\d{2,4}\b']),
+    'C-036': ("The cavalry commanders on Williamsport", ['buford', 'kilpatrick', 'imboden', 'lee', 'stuart', 'gamble', 'devin', 'merritt', 'pleasonton', 'hampton'], ['williamsport', 'boonsborough', 'funkstown'], ['july|6th|7th|sixth|seventh|attack|engaged']),
+    'C-037': ("The reports that name Barksdale's wound or death", ['mclaws', 'kershaw', 'humphreys', 'brewster', 'hall', 'willard', 'lee', 'longstreet', 'birney', 'hancock'], ['barksdale'], ['killed|mortally|wounded|died|fell|captured']),
+    'C-038': ("Medical directors and the Eleventh Corps: the wounded at the hospital", ['letterman', 'janes', 'howard', 'schurz', 'von steinwehr', 'guild', 'tripler'], ['spangler', 'hospital', 'wounded'], [r'\b\d{3,5}\b']),
+    'C-039': ("Howard, Doubleday, Buford, Warren, Meade, Butterfield on Hancock's arrival", ['hancock', 'howard', 'doubleday', 'buford', 'warren', 'schurz', 'wadsworth', 'robinson', 'meade', 'butterfield', 'newton', 'rowley', 'steinwehr'], ['arrived', 'reached', 'assumed command', 'took command', 'took charge', 'in command'], ['CLOCK|afternoon']),
+    'C-040': ("Doubleday, Wadsworth, Howard and others: the death of Reynolds", ['doubleday', 'wadsworth', 'meredith', 'cutler', 'rowley', 'biddle', 'wainwright', 'howard', 'schurz', 'buford', 'meade', 'hancock', 'robinson'], ['reynolds'], ['killed|fell|shot|death|dead|wounded', 'CLOCK|morning|forenoon|afternoon']),
+    'C-041': ("Rodes and the Second Corps' reports, and the Union First Corps: the opening on Oak Hill", ['rodes', 'iverson', 'daniel', 'ramseur', 'doles', "o'neal", 'carter', 'early', 'ewell', 'hill', 'heth', 'doubleday', 'robinson', 'paul', 'baxter', 'wainwright'], ['artillery', 'advance', 'attack', 'opened', 'engaged', 'moved'], ['CLOCK|afternoon|noon']),
+    'C-042': ("Lee, Heth, Hill, Pender, Rodes, Early, Longstreet: Lee on the field", ['lee', 'heth', 'hill', 'pender', 'rodes', 'early', 'ewell', 'longstreet'], ['arrived', 'reached', 'joined', 'present', 'came'], ['lee|general lee|commanding general', 'CLOCK|afternoon|noon']),
+    'C-043': ("Wadsworth, Howard, Doubleday, Robinson, Schurz: the order to retire", ['wadsworth', 'howard', 'doubleday', 'robinson', 'rowley', 'newton', 'schurz', 'barlow', 'schimmelfennig', 'krzyzanowski', 'coster', 'von amsberg', 'cutler', 'meredith', 'hancock', 'buford', 'devin'], ['retire', 'retreat', 'fall back', 'withdraw', 'order'], ['CLOCK|afternoon']),
+    'C-044': ("Medical directors on the general hospital", ['letterman', 'janes', 'tripler', 'hammond', 'couch'], ['general hospital', 'camp', 'tents', 'opened', 'established'], ['july|20|22']),
+    'C-046': ("The returns and reports of the dead and the wounded", ['guild', 'letterman', 'meade', 'lee', 'hunt', 'tripler'], ['killed', 'total', 'aggregate'], [r'\b\d{3,6}\b']),
+    'C-047': ("The returns of strength and the reports of the commanders", ['meade', 'lee', 'letterman', 'guild', 'butterfield', 'williams'], ['present for duty', 'aggregate', 'total', 'strength'], [r'\b\d{2,3},\d{3}\b']),
+}
+for _cid, (_label, _by, _anchors, _near) in BY.items():
+    P[_cid]['probes'].append(byp(_label, _by, _anchors, _near))

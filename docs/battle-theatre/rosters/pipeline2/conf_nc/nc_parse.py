@@ -396,8 +396,8 @@ def match_G(S, i):
         if len(alpha(last)) < 2 or alpha(last) in ABBREV_BAD:
             continue
         core_last = re.sub(r"[^A-Za-z]", "", last)
-        if core_last.islower() and len(core_last) <= 3:
-            continue                                  # a short lower-case word is no surname: "Burke eo.;" is a county whose abbreviation the scan damaged (the promotion that follows belongs to the entry before)
+        if core_last.islower() and len(core_last) <= 3 and re.search(r"[\.;:]", last):
+            continue                                  # a short lower-case word that ends with a full stop or a semicolon is no surname: "Burke eo.;" is a county whose abbreviation the scan damaged (the promotion that follows belongs to the entry before); a lower-case fragment that ends with a comma ("Alf red," "Rough ton,") is the second half of a surname the scan split and stays a head
         front = [toks[x][2] for x in range(i, k - 1)]
         if any((not given_ok(f, garbled_ok=True) and not re.fullmatch(r"[A-Z][A-Za-z\|\(\)1]{1,2}\.", f)) or (sentence_end(f) and not re.fullmatch(r"[A-Z][A-Za-z\|\(\)1]{1,2}\.", f))
                or (alpha(f) in PLACE and not initial_tok(f) and not re.search(r"[,;]$", f)) or (len(alpha(f)) >= 3 and is_rankword(f)) or alpha(f) in ABBREV_BAD for f in front):

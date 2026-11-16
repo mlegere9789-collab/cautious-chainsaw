@@ -16,3 +16,9 @@ Items 1-2 and 4 stop avoidable inconsistencies between the 22 evidence files; it
 ## The exact change asked
 
 1. `CLOCK_RE` as above (one line). 2. A line in `PLAN.md` section 4 stating the block rule. 3. One name in `build_groups.py` (`.report.md` or `.REPORT.md`). 4. A sentence in `contract.json` `dedupe_rule`.
+
+## Third run (2026-11-16): two more conventions used by group us-1c
+
+4. **Period words (DD-LIFE-02).** A window for a passage that gives a part of the day and no hour carries the bounds of the stated day; a tighter bound only from a stated clock time or a computed sunrise or sunset ("at dusk", "during the night"). Group us-1c reads "morning" as ending at noon and "afternoon" as beginning at noon (the words' own meaning, not an invented hour), and "evening" without a clock as the whole day. If the owner wants one rule for all groups, it belongs in `contract.json` (`window_bases`) and in PLAN section 4.
+5. **`ocr_repairs` on a quote that matches exactly.** When the OCR text of a scan misreads a digit and the row quotes the OCR text as printed, the row declares what the page reads in `ocr_repairs` (`basis: page_image`) although the match mode is exact; the validator accepts it and does not require it. See `bt-life-us-1c-second-reading-findings.md`.
+6. **The clock "12 m."** (noon) is not read by the validator as a clock (rows L059, L062, R060 use `stated_period` and say so, like the clock words in letters of item 1).

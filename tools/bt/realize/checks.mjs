@@ -30,7 +30,7 @@ const matchState = (want, got) => { const text = String(got ?? ''); return [].co
 export function specView(rec, only = []) {
   return arr(rec.checks).map((a, i) => {
     const t = a && a.t ? parseSpanSafe(a.t) : parseSpanSafe(rec.window), { type, t: _t, quote, note, ...rest } = a || {};
-    const subjects = [...(assertionUnits(a || {}).map(entityId)), ...(a && a.structure ? [a.structure] : []), ...(a && a.work ? [a.work] : []), ...(a && a.place ? [a.place] : [])];
+    const subjects = [...(assertionUnits(a || {}).map(entityId)), ...(a && a.structure ? [a.structure] : []), ...(a && a.work ? [a.work] : []), ...(a && a.place ? [a.place] : []), ...(a && typeof a.plot === 'string' ? [a.plot] : []), ...(a && a.where && typeof a.where === 'object' ? [`plots ${JSON.stringify(a.where)}`] : [])];
     return { t_start: t && isoOf(t.from), t_end: t && isoOf(t.to), subjects, scenarios: only[i] || null, probe: { type, ...rest }, expected: rec.kind === 'not_realized' ? 'fail with the codes the record gives' : 'ok', observed_ref: `RESULTS.json#/rows/${rec.id}/assertions/${i}` };
   });
 }

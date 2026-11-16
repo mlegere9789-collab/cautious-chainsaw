@@ -26,7 +26,11 @@ Gate OA-G11 and the plan (PLAN.md 9, "every work assigned to it has rows or a re
 2. Add the five (later the other two) to a library pointer file read by the builder (an `acquired_*.json` item: `id`, `title`, `local_path`, `archive_identifier`), with `local_path` set to a copy that will not be cleaned (the copies in `tmp/life-us-1c/lib/` are the group's scratch; `tmp/library/ws9/` is the place of the other texts). Ids used by the staged rows: `DAWES-1890`, `CURTIS-24MI-1891`, `DAVIS-13MA-1894`, `COOK-12MA-1882`, `SMALL-16ME-1886` (and `SMITH-76NY-1867`, `BENEDICT-VT-1886` when read).
 3. Run `python3 -I tools/bt/life/build_sources.py`.
 
-## What is waiting
+## What is waiting (updated 2026-11-16, third run)
+
+The staged rows are no longer appended as 35 lines: three scenarios (E01-ARRIVAL, E02-24MI-WHEN, 16ME-30JUN-8-vs-9) name rows of the main file, and every member of a scenario must list every other member. Use the builder or the merged file: `cd tmp/life-us-1c && python3 -I build.py rows_a rows_b rows_c rows_c2 rows_c3 rows_d rows_e rows_f rows_g rows_h rows_i rows_j rows_k rows_l rows_m rows_n rows_p` writes `docs/battle-theatre/life/evidence/us-1c.jsonl` with the staged rows in (the ids of the existing rows are pinned and do not move), or copy `tmp/life-us-1c/pending/us-1c.merged.jsonl` (332 lines at the time of writing; validated with a registry overlay: 0 errors, 0 warnings). The paragraph below is the earlier text.
+
+## What is waiting (earlier text)
 
 `tmp/life-us-1c/pending/us-1c.pending.jsonl`: 35 staged rows (ids `us-1c-L301`-`L332`, `R301`-`R344`) built by `tmp/life-us-1c/build_pending.py` from `tmp/life-us-1c/rows_p.py`. With a registry overlay (`tmp/life-us-1c/ovl.py`, `vovl.py`) the file validates (0 errors) and the merged file (the 297 rows of `us-1c.jsonl` plus the 35: 332 rows) validates with 0 errors and 0 warnings (`tmp/life-us-1c/pending/us-1c.merged.jsonl`). After the registry change the group's builder (`python3 -I tmp/life-us-1c/build.py rows_a rows_b rows_c rows_c2 rows_c3 rows_d rows_e rows_f rows_g rows_h rows_i rows_j rows_k rows_l rows_m rows_n rows_p`) writes `us-1c.jsonl` with them; or any engineer can append the 35 lines to `us-1c.jsonl` (ids are reserved and do not collide). Nothing here is claimed documented until then; the gap rows say so.
 

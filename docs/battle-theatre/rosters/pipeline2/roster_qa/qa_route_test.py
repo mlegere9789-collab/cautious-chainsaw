@@ -1,6 +1,6 @@
 """Test of the second-reading route (roster-qa task 4): 20 pages per source family read with tesseract and compared with the first text layer.
 
-    python3 -I qa_route_test.py run            render and read the pages, compare, write data2/qa/second-reading.json (run it through tools/horde/bench.sh)
+    python3 -I qa_route_test.py run            render and read the pages, compare, write data2/qa/second-reading.json (run it through tools/horde/bench.sh); RQA_ROUND=2: the two Moore scan families, data2/qa/round2/second-reading.json
     python3 -I qa_route_test.py detector       the detection power of the comparison on the pages that were looked at (from the verdicts; no rendering)
 
 Pages: the first 20 pages of the draw order of the stratum 'other' of each of the six families (the draw is a seeded random order of the pages, data2/qa/draw.json), the pages that
@@ -19,7 +19,7 @@ import qa_lib as Q
 import qa_render as RN
 import qa_compare as C
 
-FAMILIES = ['VT-REV', 'MA-SSM', 'NH-AYL', 'ME-RET', 'ME-IDX', 'ME-GET']
+FAMILIES = {'1': ['VT-REV', 'MA-SSM', 'NH-AYL', 'ME-RET', 'ME-IDX', 'ME-GET'], '2': ['NC-MOO-E', 'NC-MOO-G']}[Q.ROUND]      # round 2 (RQA_ROUND=2): the two scan families of Moore 1882
 
 
 def run():

@@ -12,6 +12,7 @@ import os, sys, json, re, time, hashlib, urllib.request, urllib.error, ssl
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import nc_lib as L
+import verify_unit as V
 
 UA = 'roster-research/1.0 (public-domain text; one request per second)'
 IDS = [  # text id, identifier, volume
@@ -19,6 +20,15 @@ IDS = [  # text id, identifier, volume
     ('NC-MOORE-1882.2', 'rosterofnorthcar02nort', '2'), ('NC-MOORE-1882.2~b', '05913252.3310.emory.edu', '2'),
     ('NC-MOORE-1882.3', 'rosterofnorthcar03moor', '3'), ('NC-MOORE-1882.3~b', '05913252.3311.emory.edu', '3'),
     ('NC-MOORE-1882.4', 'rosterofnorthcar04moor', '4'), ('NC-MOORE-1882.4~b', '05913252.3312.emory.edu', '4'),
+]
+CLARK_ID = 'NC-CLARK-1901'
+CLARK_RAW = os.path.join(L.ROOT, 'tmp', 'library', 'rosters', CLARK_ID)
+CLARK_IDS = [  # text id, identifier, volume  (Clark, Histories of the Several Regiments and Battalions from North Carolina in the Great War, 1861-'65, five volumes, 1901; the notes of nc_clark.py)
+    ('NC-CLARK-1901.1', 'cu31924092908536', '1'), ('NC-CLARK-1901.1~b', '01300611.3314.emory.edu', '1'),
+    ('NC-CLARK-1901.2', 'cu31924092908544', '2'), ('NC-CLARK-1901.2~b', '01300611.3315.emory.edu', '2'),
+    ('NC-CLARK-1901.3', 'cu31924092908551', '3'), ('NC-CLARK-1901.3~b', '01300611.3316.emory.edu', '3'),
+    ('NC-CLARK-1901.4', 'cu31924092908569', '4'), ('NC-CLARK-1901.4~b', '01300611.3317.emory.edu', '4'),
+    ('NC-CLARK-1901.5', 'historiesofsever05clar', '5'), ('NC-CLARK-1901.5~b', '01300611.3318.emory.edu', '5'),
 ]
 BASIS = 'public domain (United States publication before 1929)'
 _last = [0.0]
@@ -54,8 +64,9 @@ def sha(path):
 
 def fetch_metadata():
     out = {}
-    for tid, ident, vol in IDS:
-        dest = os.path.join(L.RAW, ident.replace('.', '_') if False else ident + '_metadata.json')
+    for tid, ident, vol in IDS + CLARK_IDS:
+        raw = CLARK_RAW if tid.startswith(CLARK_ID) else L.RAW
+        dest = os.path.join(raw, ident + '_metadata.json')
         if os.path.exists(dest) and os.path.getsize(dest) > 100:
             print('have', dest)
             continue
@@ -70,8 +81,8 @@ def fetch_metadata():
     return out
 
 
-def md_of(ident):
-    p = os.path.join(L.RAW, ident + '_metadata.json')
+def md_of(ident, raw=None):
+    p = os.path.join(raw or L.RAW, ident + '_metadata.json')
     if not os.path.exists(p):
         return None
     with open(p, encoding='utf-8') as f:
@@ -156,6 +167,59 @@ def source_entries(summary):
     return ents
 
 
+def clark_imprint_quote(text):
+    """The printed imprint of a Clark title page (a substring of the text with its offset, verified), or None."""
+    for pat in (r"(?:NASH|Nash)\s+B\w+,?\s+BOOK\s+AND\s+JOB\s+P\w+,?\s+\w+,?\s+N\.?\s+C\.?\s+1901", r"PUBLISHED\s+BY\s+THE\s+STATE\.?\s*\|?\s*(?:NASH|Nash)[^\n]{0,120}1901",
+                r"E\.\s*M\.\s*UZZELL[^\n]{0,60}1901", r"[^\n]{0,60}GOLDSBORO[^\n]{0,60}", r"PUBLISHED\s+BY\s+THE\s+STATE\.?"):
+        m = re.search(pat, text[:60000])
+        if m:
+            q = m.group(0)
+            assert text[m.start():m.end()] == q
+            return q, m.start()
+    return None, None
+
+
+def clark_entries(notes):
+    """Pointer entries of the Clark texts: read for notes only (role commission), never for a roster line."""
+    led = json.load(open(os.path.join(L.D2, 'sources', CLARK_ID + '.json'), encoding='utf-8'))
+    used = {}
+    for n in notes:
+        for u in n['units']:
+            used.setdefault(n['t'], set()).add(u)
+    ents = []
+    for tid, ident, vol in CLARK_IDS:
+        t = led['texts'][tid]
+        md = md_of(ident, CLARK_RAW) or {}
+        mdd = md.get('metadata', {})
+        text, pm, ent = V.load_source(CLARK_ID, tid)
+        iq, ioff = clark_imprint_quote(text)
+        files = []
+        for role in ('text', 'pageindex', 'page_numbers'):
+            f = t['files'][role]
+            files.append({'role': role, 'name': f['name'], 'url': 'https://archive.org/cors/%s/%s' % (ident, f['name']), 'bytes': f['bytes'], 'sha256': f['sha256'],
+                          'local_path': 'tmp/library/rosters/%s/%s' % (CLARK_ID, f['name']), 'retrieved_utc': t['retrieved'], 'http_status': 200})
+        mp = os.path.join(CLARK_RAW, ident + '_metadata.json')
+        if os.path.exists(mp):
+            files.append({'role': 'metadata', 'name': ident + '_metadata.json', 'url': 'https://archive.org/metadata/' + ident, 'bytes': os.path.getsize(mp), 'sha256': sha(mp),
+                          'local_path': 'tmp/library/rosters/%s/%s_metadata.json' % (CLARK_ID, ident), 'http_status': 200,
+                          'retrieved_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(os.path.getmtime(mp)))})
+        ents.append({
+            'source_id': CLARK_ID, 'volume': vol + ('' if not tid.endswith('~b') else ' (second scan)'), 'text_id': tid, 'identifier': ident, 'title': _one(mdd.get('title')) or t['ia_title'],
+            'year': 1901, 'creator': _one(mdd.get('creator')) or 'Clark, Walter, 1846-1924, ed', 'publisher': _one(mdd.get('publisher')) or t['ia_publisher'], 'contributor': t['ia_contributor'],
+            'ocr_engine': t.get('ia_ocr'), 'imagecount': t['ia_imagecount'], 'page_url': 'https://archive.org/details/' + ident,
+            'url': files[0]['url'], 'bytes': files[0]['bytes'], 'sha256': files[0]['sha256'], 'ia_title': t['ia_title'], 'ia_date': t['ia_date'], 'files': files,
+            'rights': {'basis': BASIS, 'evidence': {
+                'ia_date': t['ia_date'], 'ia_possible_copyright_status': t['ia_possible_copyright_status'], 'ia_access_restricted_item': t['ia_access_restricted_item'],
+                'ia_licenseurl': _one(mdd.get('licenseurl')), 'ia_contributor': t['ia_contributor'], 'imprint': _one(mdd.get('publisher')) or t['ia_publisher'], 'year': 1901,
+                'why': 'published by the State of North Carolina ("Published by the state", Goldsboro, Nash Brothers, printers, 1901; volume 1 Raleigh, E. M. Uzzell): a US publication of 1901',
+                'imprint_quote': iq, 'imprint_quote_offset_in_text': ioff, 'year_printed_in_quote': bool(iq and '1901' in iq), 'year_source': 'the item date 1901' if not (iq and '1901' in iq) else 'the printed title page'}},
+            'role': 'commission',
+            'status': 'read for notes (strength, present for duty, taken into action, losses) in the ledger data2/sources/NC-CLARK-1901.json; no roster line is made from it',
+            'used_for': sorted(used.get(tid, [])),
+        })
+    return ents
+
+
 U_VOL = {}
 
 
@@ -187,14 +251,16 @@ def main(argv):
                 U_VOL[u[0]] = u[3]
         summary = json.load(open(os.path.join(L.WS, 'build-summary.json'), encoding='utf-8'))
         ents = source_entries(summary)
+        clark = json.load(open(os.path.join(L.D2, 'sources', CLARK_ID + '.json'), encoding='utf-8'))
+        cents = clark_entries(clark.get('notes', []))
         now = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
         pointer = {
             'format': 'roster2-sources-pointer/1', 'work_item': 'conf-nc', 'generated': now,
             'access_rules': 'archive.org metadata and /cors/ downloads only, one request at a time, at least 1.2 s apart, generic client name; no login, key or bot-block workaround',
-            'sources': ents, 'derived_texts': [], 'unit_files': unit_files(),
+            'sources': ents + cents, 'derived_texts': [], 'unit_files': unit_files(),
+            'notes_file': {'path': 'docs/battle-theatre/rosters/data2/sources/NC-CLARK-1901.json', 'member': 'notes', 'count': len(clark.get('notes', [])),
+                           'about': 'statements of Clark (1901) about strength, present for duty, taken into action and losses of the units of this item, as notes in the ledger (work item first task 2), never as roster rows'},
             'not_used': [
-                {'source_id': 'NC-CLARK-1901', 'identifier': 'cu31924092908536 (and four more volumes)', 'title': 'Clark, Histories of the Several Regiments and Battalions from North Carolina in the Great War 1861-65', 'year': 1901,
-                 'status': 'lead, not read for this item: the narrative histories print present-for-duty figures and officer lists inside prose for some regiments; they are not a roll and no line was made from them (gap EG-ROS-NC-05)'},
                 {'source_id': 'NEWS-1863-CASUALTIES', 'identifier': None, 'title': 'Richmond and North Carolina newspapers, July to September 1863 (Chronicling America)', 'year': 1863,
                  'status': 'lead, not read: named casualties by regiment belong to the cross-cutting item roster-gettysburg-lists'},
             ],
@@ -205,20 +271,20 @@ def main(argv):
             json.dump(pointer, f, ensure_ascii=False, indent=1)
             f.write('\n')
         files = []
-        for e in ents:
+        for e in ents + cents:
             for fl in e['files']:
                 d = {k: fl[k] for k in ('role', 'name', 'url', 'bytes', 'sha256', 'local_path', 'retrieved_utc', 'http_status')}
                 if fl['role'] != 'metadata':
                     d['ledger_sha256'] = fl['sha256']
                     d['sha256_matches_ledger'] = sha(os.path.join(L.ROOT, fl['local_path'])) == fl['sha256']
-                d.update({'source_id': L.SOURCE_ID, 'text_id': e['text_id'], 'identifier': e['identifier']})
+                d.update({'source_id': e['source_id'], 'text_id': e['text_id'], 'identifier': e['identifier']})
                 files.append(d)
         man = {'format': 'roster-manifest/1', 'work_item': 'conf-nc', 'generated_utc': now,
                'rules': 'archive.org only (/metadata/ and /cors/), one request at a time, at least 1.2 s apart, a generic client name; no login, key or workaround', 'files': files}
         with open(os.path.join(L.ROOT, 'tmp', 'library', 'rosters', 'MANIFEST-conf-nc.json'), 'w', encoding='utf-8') as f:
             json.dump(man, f, ensure_ascii=False, indent=1)
             f.write('\n')
-        print('wrote pointer file and manifest:', len(ents), 'sources', len(files), 'files; sha256 matches:', all(x.get('sha256_matches_ledger', True) for x in files))
+        print('wrote pointer file and manifest:', len(ents), 'Moore texts,', len(cents), 'Clark texts,', len(files), 'files; sha256 matches:', all(x.get('sha256_matches_ledger', True) for x in files))
         return 0
     print(__doc__)
     return 1

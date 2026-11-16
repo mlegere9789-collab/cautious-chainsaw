@@ -102,8 +102,8 @@ EXTRA = {
 NOTES = []
 
 
-def N(units, vol, phrase, n, kind, subject, when, claim, figures, source=None, must=None, chap=None):
-    NOTES.append({'chap': chap, 'units': units, 'vol': vol, 'phrase': phrase, 'n': n, 'kind': kind, 'subject': subject, 'when': when, 'claim': claim, 'figures': figures, 'source': source, 'must': must or []})
+def N(units, vol, phrase, n, kind, subject, when, claim, figures, source=None, must=None, chap=None, strength=None):
+    NOTES.append({'strength': strength, 'chap': chap, 'units': units, 'vol': vol, 'phrase': phrase, 'n': n, 'kind': kind, 'subject': subject, 'when': when, 'claim': claim, 'figures': figures, 'source': source, 'must': must or []})
 
 
 # ----------------------------------------------------------------------------------------------------------------------------- 26th North Carolina (Underwood)
@@ -115,14 +115,14 @@ for letter, who, fig in (('A', 'Wagg', '97'), ('B', 'Wilson', '92'), ('C', 'Jarr
       'Underwood copies from the muster and pay roll of 30 June 1863 (kept by the regimental quartermaster J. J. Young) that Company %s of the 26th had %s present for duty.' % (letter, fig),
       [(fig, int(fig), 'present for duty')], must=[who])
 N(['i26'], '2', 'The total number present for duty was 885', 1, 'present_for_duty', 'regiment', '30 June 1863',
-  'Underwood states the total present for duty in the 26th, by the muster rolls of 30 June 1863, as 885 (the ten company figures above add to 885).', [('885', 885, 'present for duty')])
+  'Underwood states the total present for duty in the 26th, by the muster rolls of 30 June 1863, as 885 (the ten company figures above add to 885).', [('885', 885, 'present for duty')], strength=885)
 N(['i26'], '2', 'The muster rolls for 30 June, 1863, make the aggregate present', 1, 'present_for_duty', 'regiment', '30 June 1863; 1 July 1863',
   'Underwood: the muster rolls of 30 June 1863 make the aggregate present for duty (enlisted men) 885; allowing 10 per cent for extra duty and details he reckons about 800 muskets taken into battle on the first day (his own estimate).',
   [('885', 885, 'present for duty, enlisted men'), ('10 per cent', 10, 'allowance for extra duty and details'), ('800', 800, 'muskets taken into battle (his reckoning)')])
 N(['i26'], '2', 'with its 800 muskets', 1, 'taken_into_action', 'regiment', '1 July 1863',
-  'Underwood places the 26th in line on 1 July 1863 with 800 muskets (Pettigrew\'s four regiments being in full ranks).', [('800', 800, 'muskets')])
+  'Underwood places the 26th in line on 1 July 1863 with 800 muskets (Pettigrew\'s four regiments being in full ranks).', [('800', 800, 'muskets')], strength=800)
 N(['i26'], '2', 'We went in with over 800 men in the regiment', 1, 'taken_into_action', 'regiment', '1 July 1863 (letter of 4 July 1863)',
-  'Underwood prints a letter of the regimental quartermaster J. J. Young to Governor Vance, 4 July 1863: the regiment went in with over 800 men.', [('over 800', 800, 'men ("over" 800)')])
+  'Underwood prints a letter of the regimental quartermaster J. J. Young to Governor Vance, 4 July 1863: the regiment went in with over 800 men.', [('over 800', 800, 'men ("over" 800)')], strength=800)
 N(['i26'], '2', 'There came out of the first day\'s fight 216 all told, unhurt', 1, 'remaining_after', 'regiment', 'evening of 1 July 1863 (letter of 4 July 1863)',
   'Same letter: 216 all told came out of the first day\'s fight unhurt.', [('216', 216, 'unhurt after the first day')])
 N(['i26'], '2', 'Yesterday they were again engaged, and now have only about 80 men for duty', 1, 'remaining_after', 'regiment', '4 July 1863 (letter of 4 July 1863)',
@@ -166,14 +166,14 @@ N(['i26'], '5', 'led into action tAvo Lieuten- ants and 84 men', 2, 'taken_into_
   'Young (vol. 5): Captain Tuttle of the 26th led into action two lieutenants and 84 men; all of the officers and 83 men were killed or wounded.', [('84', 84, 'men'), ('83', 83, 'men killed or wounded')], source='young')
 N(['i26'], '5', 'had entered the battle of the first day with 820 muskets', 2, 'taken_into_action', 'regiment', '1 and 3 July 1863',
   'Robbins (vol. 5): the 26th entered the first day\'s battle with 820 muskets and lost 584 killed and wounded (71 per cent); it went into the third day\'s fight with 236 men and had 80 left.',
-  [('820', 820, 'muskets, first day'), ('584', 584, 'killed and wounded'), ('236', 236, 'men, third day'), ('80', 80, 'left')], source='robbins')
+  [('820', 820, 'muskets, first day'), ('584', 584, 'killed and wounded'), ('236', 236, 'men, third day'), ('80', 80, 'left')], source='robbins', strength=820)
 N(['i26'], '5', 'having lost over 71 per cent', 1, 'casualties', 'regiment', '1 July 1863',
   'Robbins (vol. 5): the 26th lost over 71 per cent of its numbers in killed and wounded in the first day\'s fight.', [('71 per cent', 71, 'killed and wounded, first day')], source='robbins')
 N(['i26', 'i11'], '5', 'The Twenty-sixth Xorth Carolina Regiment lost 549 out of 800', 2, 'casualties', 'the 26th and 11th Regiments', '1 July 1863',
   'Young (vol. 5): the 26th lost 549 out of 800; the 11th some 250 out of 550.', [('549', 549, '26th lost'), ('800', 800, '26th, out of'), ('250', 250, '11th lost'), ('550', 550, '11th, out of')], source='young')
 N(['i26'], '5', 'The Twenty-sixth, which went into action on the 1st 850 strong', 1, 'taken_into_action', 'regiment', '1 and 3 July 1863',
   'Jones (vol. 5, in the Pettigrew chapter): the 26th went into action on the 1st 850 strong and had for duty on the 3d only 230 men and not officers enough to command the companies.',
-  [('850', 850, 'strong, 1 July'), ('230', 230, 'for duty, 3 July')], source='young')
+  [('850', 850, 'strong, 1 July'), ('230', 230, 'for duty, 3 July')], source='young', strength=850)
 
 # ----------------------------------------------------------------------------------------------------------------------------- Pettigrew's brigade (vol. 5, vol. 3, vol. 1)
 N(PETTIGREW, '5', 'Pettigrew\'s Brigade about 3,000 strong', 1, 'taken_into_action', 'Pettigrew\'s brigade (four regiments present)', '1 July 1863',
@@ -206,13 +206,13 @@ N(['i52'], '3', 'The Adjutant of the regiment reported the losses', 1, 'casualti
 N(['i1'], '1', 'leaving most of our dead, thirty-eight in number, on the field', 1, 'casualties', 'regiment', 'night after the assault of 3 July 1863 (Culp\'s Hill)',
   'Brown (1st chapter): after the failed assault on the morning of the 3d the regiment fell back and retreated at night, leaving most of its dead, thirty-eight in number, on the field.', [('thirty-eight', 38, 'dead left on the field')])
 N(['i3'], '1', 'The battle of Gettysburg is generally conceded', 4, 'taken_into_action', 'regiment', 'July 1863',
-  'DeRosset (3rd chapter): entering the battle with three hundred guns the regiment was reduced by the killing and wounding of two hundred and twenty-three men.', [('three hundred', 300, 'guns'), ('two hundred and twenty- three', 223, 'killed and wounded')])
+  'DeRosset (3rd chapter): entering the battle with three hundred guns the regiment was reduced by the killing and wounding of two hundred and twenty-three men.', [('three hundred', 300, 'guns'), ('two hundred and twenty- three', 223, 'killed and wounded')], strength=300)
 N(['i3'], '1', 'When the regiment was mustered after the battle, seventy-seven muskets', 2, 'remaining_after', 'regiment', 'after the battle, July 1863',
   'DeRosset (3rd chapter): when the regiment was mustered after the battle seventy-seven muskets were all that could be gotten in the ranks; the loss was within a fraction of seventy-five per cent.', [('seventy-seven', 77, 'muskets in the ranks'), ('seventy-five per cent', 75, 'loss')])
 N(['i5'], '1', 'Its loss at Gettysburg is reported in the', 1, 'casualties', 'regiment', '1-3 July 1863',
   'MacRae/Busbee (5th chapter): the loss at Gettysburg is reported in the "Records of the Rebellion" at thirty-one killed and one hundred and twelve wounded.', [('thirty-one', 31, 'killed'), ('one hundred and twelve', 112, 'wounded')])
 N(['i13'], '1', 'In the first day\'s fight at Gettysburg the Thirteenth had only', 1, 'taken_into_action', 'regiment', '1 July 1863',
-  'Smith/Rawley (13th chapter): in the first day\'s fight at Gettysburg the 13th had only one hundred and eighty men in line.', [('one hundred and eighty', 180, 'men in line')])
+  'Smith/Rawley (13th chapter): in the first day\'s fight at Gettysburg the 13th had only one hundred and eighty men in line.', [('one hundred and eighty', 180, 'men in line')], strength=180)
 N(['i13'], '1', 'Of the one hundred and eighty men in the regiment one hundred and fifty', 2, 'casualties', 'regiment', '1 July 1863',
   'Same chapter: of the 180 men 150 were killed and wounded, leaving only thirty; only two officers were left.', [('one hundred and eighty', 180, 'men'), ('one hundred and fifty', 150, 'killed and wounded'), ('thirty', 30, 'left')])
 N(['i13'], '1', 'The next day fifteen men who had been left at Greencastle', 6, 'remaining_after', 'regiment', '2 and 3 July 1863',
@@ -274,7 +274,7 @@ N(IVERSON, '1', 'At Carlisle, the day before the battle, the reports showed that
 N(IVERSON, '1', 'The loss of Iverson\'s Brigade was reported at five hundred and twelve killed and wounded', 1, 'casualties', 'Iverson\'s brigade', '1 July 1863',
   'Montgomery (12th chapter): the loss of Iverson\'s brigade was reported at five hundred and twelve killed and wounded and three hundred and eight missing.', [('five hundred and twelve', 512, 'killed and wounded'), ('three hundred and eight', 308, 'missing')], chap='i12')
 N(['i26'], '5', 'which went in 900 rank and file', 3, 'taken_into_action', 'regiment', '1-3 July 1863',
-  'Vance (speech of 1875 reprinted in vol. 5): the 26th at Gettysburg went in 900 rank and file and came out with little over 100 men fit for duty; one company, 84 strong, reported every man and officer hit.', [('900', 900, 'rank and file'), ('100', 100, 'men fit for duty after the battle, "little over"'), ('84', 84, 'one company, strong')], source='vance')
+  'Vance (speech of 1875 reprinted in vol. 5): the 26th at Gettysburg went in 900 rank and file and came out with little over 100 men fit for duty; one company, 84 strong, reported every man and officer hit.', [('900', 900, 'rank and file'), ('100', 100, 'men fit for duty after the battle, "little over"'), ('84', 84, 'one company, strong')], source='vance', strength=900)
 N(['i26'], '5', 'No brigade in Pickett\'s division lost as many killed and wounded as the Twenty-sixth North Carolina', 1, 'casualties', 'regiment', '1-3 July 1863',
   'Clark (Review and Conclusion, quoting a speech): the 26th lost 86 killed and 502 wounded, the heaviest loss of any regiment in either army in any battle of the war.', [('86', 86, 'killed'), ('502', 502, 'wounded')], source='review')
 N(PETTIGREW + DANIEL, '5', 'The three brigades which lost more killed than any others in that battle', 1, 'casualties', 'Pettigrew\'s and Daniel\'s brigades (and Davis\')', '1-3 July 1863',
@@ -287,3 +287,49 @@ N(DANIEL, '4', 'This brigade went into the first day\'s fight at Gettysburg abou
   'London (brigade history, vol. 4): the brigade went into the first day\'s fight at Gettysburg about 2 o\'clock and lost over 600 men that afternoon and almost half of its men in the campaign.', [('600', 600, 'men lost on the afternoon of 1 July, "over"')], source='london')
 N(SCALES, '4', 'In this charge the brigade lost some 400 killed and wounded', 1, 'casualties', 'Scales\' brigade', '1 July 1863',
   'Rawley (brigade history, vol. 4): in the charge of 1 July the brigade lost some 400 killed and wounded, among them Colonel Scales, Captain Riddick and General Pender.', [('400', 400, 'killed and wounded, "some"')], source='rawley')
+
+
+# ----------------------------------------------------------------------------------------------------------------------------- page-image checks
+# Where the two scans read a figure differently, or one of them could not be matched, the page was rendered from the Emory copy (page_image.py route, 300 ppi, transient, never
+# stored), read again with tesseract 5 and, where "viewed" is stated, looked at by the engineer (a crop of the lines around the statement).  Key: the phrase of the note.
+# leaf = leaf of the Emory item (text id NC-CLARK-1901.<vol>~b); how = "viewed" (looked at, and read by tesseract) or "tesseract" (read by tesseract only); reads = what the image shows, per printed figure.
+IMAGE = {}
+
+
+def I(phrase, vol, page, leaf, how, reads, note):
+    IMAGE[phrase] = {'text_id': TEXT_B[vol], 'printed_page': page, 'leaf': leaf, 'how': how, 'reads': reads, 'result': note}
+
+
+for letter, fig, how in (('A', '97', 'viewed'), ('B', '92', 'viewed'), ('C', '80', 'viewed'), ('D', '79', 'viewed'), ('G', '91', 'viewed'), ('H', '78', 'viewed'), ('I', '74', 'viewed'), ('K', '99', 'viewed')):
+    I('present for duty, %s' % fig, '2', 371 if letter in 'ABCD' else 372, 435 if letter in 'ABCD' else 436, how, {fig: fig}, 'the printed figure is %s; the text layer reads it so (Company %s)' % (fig, letter))
+I('Captain, R. M. Tuttle ; First Lieutenant', '2', 371, 435, 'viewed', {'91': '91 (page 372, first line)'}, 'the printed figure is 91 (Company F, carried over the page break); the second scan could not be matched because the running head splits the entry')
+I('The total number present for duty was 885', '2', 372, 436, 'viewed', {'885': '885'}, 'the printed figure is 885')
+I('The muster rolls for 30 June, 1863, make the aggregate present', '2', 373, 437, 'viewed', {'885': '885 (first digit faded in the print; the text layer of the second scan reads *85, tesseract reads 485)', '800': '800', '10 per cent': '10 per cent'},
+  'the printed figure reads 885 (the glyph of the first digit is faded; the total on page 372 is printed 885 and the ten company figures add to 885); the text layer of the first scan is right')
+I('We went in with over 800 men in the regiment', '2', 357, 419, 'viewed', {'over 800': 'over 800 (first digit faded: tesseract S00, second scan *00)'}, 'the print reads 800 with a faded first digit; the text layer of the first scan reads it so')
+I('There came out of the first day\'s fight 216 all told, unhurt', '2', 357, 419, 'viewed', {'216': '216'}, 'the printed figure is 216')
+I('Yesterday they were again engaged, and now have only about 80 men for duty', '2', 357, 419, 'viewed', {'about 80': 'about 80 (first digit faded: second scan SO, tesseract 0)'}, 'the print reads 80 with a faded first digit; the text layer of the first scan reads it so')
+I('ascertained from the reports as given on the muster rolls of the companies, dated 31 August, 1863', '2', 373, 437, 'tesseract', {'139': '139', '535': '535'}, 'tesseract reads 139 and 535 as the text layer of the first scan does')
+I('the gallant old Twenty-sixth had 67 privates and 3 officers present', '2', 366, 428, 'viewed', {'67': '67', '3': '3', '800': '800', '70': '70', 'date': '3 July, 1863'},
+  'the print reads "the night of 3 July, 1863": the text layer of the first scan prints "8 July" (a damaged digit), the figures are as the text layer prints them; the date is not corrected in the quotation')
+I('Captain Duval, of Company A, reports that his company went into action', '2', 373, 437, 'viewed', {'92': '92', '11': '11', '66': '66'}, 'the printed figure is 92; the second scan reads 93 (an OCR error)')
+I('took into the battle 82 men', '2', 373, 437, 'tesseract', {'82': '82'}, 'tesseract reads 82 as the text layer does')
+I('out of 91 rank and file taken into action', '2', 416, 484, 'tesseract', {'91': '91'}, 'tesseract reads 91 as the text layer does; the second scan reads the figure damaged')
+I('carried into action 3 officers and 88 enlisted men', '5', 599, 675, 'viewed', {'3': '3', '88': '88 (both digits faded: tesseract 85, second scan SS)'}, 'the print reads 88 (two faded 8s); the statement of Orderly Sergeant Hood that follows also says 88')
+I('led into action tAvo Lieuten- ants and 84 men', '5', 131, 167, 'viewed', {'84': '84', '83': '83'}, 'the printed figures are 84 and 83')
+I('On the morn- ing of 1 July it numbered 2,800 to 3,000', '5', 131, 167, 'tesseract', {'2,800 to 3,000': '2,800 to 3,000', '935': '935'}, 'tesseract reads the figures as the text layer does')
+I('Company C, of the Eleventh, lost tAvo officers killed and 34 out of 38 men', '5', 131, 167, 'viewed', {'34': '34', '38': '38'}, 'the printed figures are 34 and 38')
+I('General Pettigrew had in line of battle that morning nearer 3,000 soldiers', '3', 105, 135, 'viewed', {'3,000': '3,000 (faded)', '2,500': '2,500 (faded)'}, 'the print reads 3,000 and 2,500; the second scan reads them damaged')
+I('Before night the Twentysixth and Eleventh', '3', 105, 135, 'viewed', {'two-thirds': 'two-thirds'}, 'the print reads two-thirds')
+I('The casualties in the regiment were 10 killed, 53 wounded', '2', 567, 661, 'viewed', {'10': '10 (faded)', '53': '53 (the second digit is faded in the print; the first scan and tesseract read 53, the second scan reads 5:)', '660': '660 (faded)', '1,355': '1,355 (the third digit faded; tesseract reads 1.555)'},
+  'the print reads 10 killed, 53 wounded, 660 and 1,355 with faded digits; the text layer of the first scan reads them so; the second scan reads two of them damaged')
+I('Its loss was IS killed and 92 wounded', '2', 478, 554, 'viewed', {'IS': '12 (the 2 has the shape of the 2 in 92)', '92': '92'}, 'the print reads "12 killed and 92 wounded": the first scan prints IS (damaged) and the second scan 19 (wrong), tesseract 1%')
+I('The reports of the battle give twenty-nine killed and ninety-three wounded', '2', 119, 149, 'tesseract', {'twenty-nine': 'twenty-nine', 'ninety-three': 'ninety-three'}, 'tesseract reads the words as the text layer does')
+I('General Iverson reports 500 men of his brigade killed', '2', 119, 149, 'tesseract', {'500': '500'}, 'tesseract reads 500 as the text layer of the first scan does')
+I('Scales\' Brigade had not one Field Officer left for duty', '2', 171, 213, 'tesseract', {'102': '102', '322': '322'}, 'tesseract reads 102 killed and 322 wounded as the text layer of the first scan does')
+I('Daniel\'s Brigade entered the battle of Gettysburg with 2,100 men', '2', 529, 617, 'tesseract', {'2,100': '2,100', '7T8': '778'}, 'the print reads 778 (tesseract): the first scan prints 7T8 (a damaged digit)')
+I('After the third day\'s fight the regiment had only about 40 men', '2', 693, 801, 'tesseract', {'about 40': 'about 40'}, 'tesseract reads about 40 as the text layer of the first scan does')
+I('Company B lost at Gettysburg out of about 65 men', '3', 264, 310, 'tesseract', {'65': '65', '8': '8', '22': '22'}, 'tesseract reads 65, 8 and 22 as the text layer of the first scan does; the second scan reads 65 as 05')
+I('The battle of Gettysburg is generally conceded', '1', 196, 232, 'tesseract', {'three hundred': 'three hundred', 'two hundred and twenty- three': 'two hundred and twenty-three'}, 'tesseract reads the words as the text layer does')
+I('When the regiment was mustered after the battle, seventy-seven muskets', '1', 196, 232, 'tesseract', {'seventy-seven': 'seventy-seven', 'seventy-five per cent': 'seventy-five per cent'}, 'tesseract reads the words as the text layer does')
+I('the regiment lost fifty killed and one hundred and fifty-nine wounded', '1', 590, 658, 'tesseract', {'fifty': 'fifty', 'one hundred and fifty-nine': 'one hundred and fifty-nine'}, 'tesseract reads the words as the text layer does')

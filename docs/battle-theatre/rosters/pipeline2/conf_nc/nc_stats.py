@@ -42,6 +42,8 @@ def main():
     recap = jload(os.path.join(L.WS, 'recap.json'))['entries']
     summ = jload(os.path.join(L.WS, 'build-summary.json'))
     rec = jload(os.path.join(L.WS, 'reconciliation.json'))['units']
+    clark = jload(os.path.join(L.D2, 'sources', 'NC-CLARK-1901.json')) if os.path.exists(os.path.join(L.D2, 'sources', 'NC-CLARK-1901.json')) else {}
+    cnotes = clark.get('notes', [])
     out = {'format': 'conf-nc-stats/1', 'units': {}, 'totals': {}}
     tot = collections.Counter()
     gaps = []
@@ -84,6 +86,12 @@ def main():
             'verify': {'ok': s['verify_ok'], 'v1': s['v1'], 'v3': s['v3'], 'remark_ok': s['remark_ok'], 'remark_empty': s['remark_empty'], 'remark_gap_rows': s['remark_gap_rows'], 'remarks_not_found': s['rows_with_remarks_not_found']},
             'scan': {'why': s['why'], 'rows_by_scan': s['rows_by_scan'], 'heading_defects': s['heading_defects'], 'dups_dropped': {k: v for k, v in s['dups_dropped'].items()}, 'section': s['section']},
         })
+        mine = [x for x in cnotes if key in x['units']]
+        cu = (clark.get('notes_units') or {}).get(key, {})
+        sf = [(x['strength_figure'], x['id']) for x in mine if x.get('strength_figure') is not None]
+        e['clark'] = {'notes': len(mine), 'by_kind': dict(collections.Counter(x['kind'] for x in mine)), 'ids': [x['id'] for x in mine],
+                      'strength_low': min(v for v, i in sf) if sf else None, 'strength_high': max(v for v, i in sf) if sf else None, 'strength_notes': [i for v, i in sf],
+                      'scan': cu.get('scan'), 'chapters': [c['label'] for c in cu.get('chapters', [])]}
         rr = rec.get(key)
         if rr:
             e['second_scan'] = rr['second_scan']
@@ -112,6 +120,15 @@ def main():
         tot['primary_' + e['primary_text']] += 1
         for k, v in e['head_kinds'].items():
             tot['head_' + k] += v
+    tot['clark_notes'] = len(cnotes)
+    tot['clark_units_with_notes'] = sum(1 for u in out['units'].values() if u.get('clark', {}).get('notes'))
+    tot['clark_units_without_notes'] = sum(1 for u in out['units'].values() if not u.get('clark', {}).get('notes'))
+    tot['clark_notes_second_scan_agrees'] = sum(1 for x in cnotes if x['second_scan'].get('agrees') is True)
+    tot['clark_notes_second_scan_other'] = sum(1 for x in cnotes if x['second_scan'].get('agrees') is not True)
+    tot['clark_notes_page_image'] = sum(1 for x in cnotes if x.get('page_image_check'))
+    tot['clark_notes_page_image_viewed'] = sum(1 for x in cnotes if (x.get('page_image_check') or {}).get('how') == 'viewed')
+    tot['clark_notes_with_strength'] = sum(1 for x in cnotes if x.get('strength_figure') is not None)
+    out['clark_kinds'] = dict(collections.Counter(x['kind'] for x in cnotes))
     out['totals'] = dict(tot)
     out['units_without_file'] = gaps
     with open(os.path.join(L.WS, 'stats.json'), 'w', encoding='utf-8') as f:

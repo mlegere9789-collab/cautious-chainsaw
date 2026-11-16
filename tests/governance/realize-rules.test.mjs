@@ -678,6 +678,7 @@ test('rule: a vegetation_state check holds for what the layer draws on a plot an
   const wf = extra => veg('VG-001', '1863-07-02T06:00', '1863-07-02T12:00', q, [WHEAT], [{ type: 'vegetation_state', plot: WHEAT, t: day, quote: q, ...extra }]);
   const ok = await mustPass(wf({ crop_in: ['wheat'], stage_in: ['nearly_ripe'], cut_max: 0, trample_max: 0 }), 'the standing wheat of the Wheatfield on the morning of 2 July');
   assert.ok(ok.assertions[0].evidence.sample && ok.assertions[0].evidence.sample.crop === 'wheat', 'the evidence says what was drawn');
+  assert.ok(ok.spec_view[0].subjects.includes(WHEAT), 'the spec view (the gate runner\'s reading of a record) names the plot the check is about');
   await mustFail(wf({ crop_in: ['oats', 'corn'] }), 'vegetation_mismatch', 'a crop the plot is not');
   await mustFail(wf({ stage_in: ['ripe', 'filling'] }), 'vegetation_mismatch', 'a stage the crop is not in');
   await mustFail(wf({ cut_min: 0.5 }), 'vegetation_mismatch', 'a field cut where nothing is cut yet');
@@ -725,7 +726,7 @@ test('rule: a class of plots is the plots the picture draws; a named plot is nev
   assert.equal(V.select({ cls: 'woods', crop: 'oats' }, {}).length, 0, 'a class and a crop together are both asked');
   A('VG-004', 'Woodlots in full summer leaf on Jul 2 morning; Little Round Top east slope is wooded', '1863-07-02T06:00', '1863-07-02T12:00', 'Jul 2 morning');
   const all = (extra, sc) => veg('VG-004', '1863-07-02T06:00', '1863-07-02T12:00', 'Woodlots in full summer leaf', [], [{ type: 'vegetation_state', where: { cls: 'woods' }, t: { at: '1863-07-02T08:00' }, quote: 'Woodlots in full summer leaf', ...extra }], sc ? { scenario: sc } : {});
-  const full = await mustPass(all({ leaf_min: 0.9 }), 'every woodlot the layer draws is in full leaf on 2 July (the least is 0.92)'); assert.ok(full.assertions[0].evidence.plots > 100 && full.assertions[0].evidence.quantifier === 'all');
+  const full = await mustPass(all({ leaf_min: 0.9 }), 'every woodlot the layer draws is in full leaf on 2 July (the least is 0.92)'); assert.deepEqual(full.spec_view[0].subjects, ['plots {"cls":"woods"}'], 'a class of plots is named in the spec view as the selector says it'); assert.ok(full.assertions[0].evidence.plots > 100 && full.assertions[0].evidence.quantifier === 'all');
   await mustFail(all({ leaf_min: 0.95 }), 'vegetation_mismatch', 'one woodlot below 0.95 is enough to fail "all"');
   const anyQ = await mustPass(all({ leaf_min: 0.95, quantifier: 'any', quantifier_quote: 'Woodlots in full summer leaf' }), 'any: some woodlot at 0.95 or more, when the row says in its words that part of them is meant'); assert.equal(anyQ.bindings.quantifiers.length, 1); assert.ok(anyQ.bindings.quantifiers[0].plots > 100);
   assert.deepEqual(declaredDetail(anyQ.bindings).map(x => x.kind), ['quantifier_any'], 'and it is listed as declared, for the reviewer');

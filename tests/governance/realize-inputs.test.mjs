@@ -32,6 +32,29 @@ function digestPairs(name, cases) {
   } finally { removeTree(scratch); removeTree(scratch + '-edit'); }
 }
 const G = 'docs/battle-theatre/GOVERNANCE/';
+test('the event-card and epilogue adapters work through the real module path: a module the product lists answers; one it does not list, one that throws and one without the function say why (query.mjs adapters_, _adapt)', () => {
+  const EXT = 'docs/battle-theatre/app/src/ext/', list = names => t => t.replace('export default [', 'export default [' + names.map(n => `\n  '${n}',`).join(''));
+  const ask = (root, expr) => { const o = spawnSync('node', ['--input-type=module', '-e', `const { openProduct } = await import(${JSON.stringify(pathToFileURL(path.join(root, 'tools/bt/realize/query.mjs')).href)}); const P = await openProduct(); console.log(JSON.stringify(await (${expr})));`], { encoding: 'utf8', cwd: root, maxBuffer: 1 << 26, env: { ...process.env, BT_REALIZE_REAL_ROOT: ROOT } }); assert.equal(o.status, 0, o.stderr); return JSON.parse(o.stdout); };
+  const T0 = 31 * 1440 + 12 * 60, card = (id, rows) => `{ id: '${id}', rows: ${JSON.stringify(rows)}, title: 'a card', tier: 'documented', from_min: ${T0 - 60}, to_min: ${T0 + 60} }`;
+  const trees = [];
+  try {
+    // 1. both modules exist and are listed: the product shows their cards, and the harness reads them (also by the name the product's hook file would give)
+    let root = makeTree('tmp/realize/scratch-adapt-1', { files: { [EXT + 'index.mjs']: list(['event-cards.mjs', 'epilogue.mjs']) }, add: { [EXT + 'event-cards.mjs']: `export const cardsAt = tMin => (tMin >= ${T0 - 60} && tMin <= ${T0 + 60} ? [${card('EC-1', ['T2-001'])}] : []);`, [EXT + 'epilogue.mjs']: `export const epilogueAt = tMin => (tMin >= 171 * 1440 ? [{ id: 'EP-1', rows: ['E-001'], title: 'x', tier: 'documented', from_min: 171 * 1440, to_min: 172 * 1440 }] : []);` } }); trees.push('tmp/realize/scratch-adapt-1');
+    const on = ask(root, `P.cardsAt(${T0})`), off = ask(root, `P.cardsAt(${T0 + 600})`), ep = ask(root, 'P.epilogueAt(171 * 1440 + 600)');
+    assert.equal(on.available, true); assert.equal(on.items.length, 1); assert.deepEqual(on.items[0].rows, ['T2-001']); assert.equal(off.available, true); assert.deepEqual(off.items, [], 'a module that shows no card at that minute is available and says none');
+    assert.equal(ep.available, true); assert.deepEqual(ep.items[0].rows, ['E-001']); assert.match(on.module, /src\/ext\/event-cards\.mjs$/);
+    // 2. a module that exists but is not listed (the product loads nothing else), and one that has no such function
+    root = makeTree('tmp/realize/scratch-adapt-2', { files: { [EXT + 'index.mjs']: list(['event-cards.mjs']) }, add: { [EXT + 'event-cards.mjs']: 'export const somethingElse = () => [];', [EXT + 'epilogue.mjs']: 'export const epilogueAt = () => [];' } }); trees.push('tmp/realize/scratch-adapt-2');
+    const nofn = ask(root, `P.cardsAt(${T0})`), unl = ask(root, `P.epilogueAt(${T0})`);
+    assert.equal(nofn.available, false); assert.match(nofn.reason, /exports none of cardsAt/); assert.equal(unl.available, false); assert.match(unl.reason, /exists but is not in src\/ext\/index\.mjs/);
+    // 3. a module that throws is a reason, not a crash of the harness
+    root = makeTree('tmp/realize/scratch-adapt-3', { files: { [EXT + 'index.mjs']: list(['event-cards.mjs']) }, add: { [EXT + 'event-cards.mjs']: "export const cardsAt = () => { throw new Error('the cards are not built'); };" } }); trees.push('tmp/realize/scratch-adapt-3');
+    const thr = ask(root, `P.cardsAt(${T0})`); assert.equal(thr.available, false); assert.match(thr.reason, /cardsAt threw: the cards are not built/);
+    // 4. no module at all (the real tree today)
+    const none = ask(makeTree('tmp/realize/scratch-adapt-4'), `P.cardsAt(${T0})`); trees.push('tmp/realize/scratch-adapt-4');
+    if (!fs.existsSync(path.join(ROOT, EXT + 'event-cards.mjs')) && !fs.existsSync(path.join(ROOT, EXT + 'cards.mjs'))) { assert.equal(none.available, false); assert.match(none.reason, /no module for event_cards/); }
+  } finally { for (const t of trees) removeTree(t); }
+});
 test('the digest of the inputs: the timeline files (seed, verified, windows) are inputs (check.mjs inputsDigest; the defect: tl-01.jsonl changed and the digest did not)', () => {
   digestPairs('a', [[{ [G + 'timeline_seed.jsonl']: bump }, 'governance', true], [{ [G + 'timeline_verified.jsonl']: bump }, 'governance', true], [{ [G + 'timeline_windows.jsonl']: bump }, 'governance', true]]);
 });

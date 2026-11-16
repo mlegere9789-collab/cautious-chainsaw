@@ -29,6 +29,7 @@ import plan_text as pt  # noqa: E402
 from authored_wave1a import WAVE1A  # noqa: E402
 from authored_wave1b import WAVE1B  # noqa: E402
 from authored_wave2 import WAVE2, WAVE2_ORDER  # noqa: E402
+from authored_wave3 import WAVE3, WAVE3_ORDER  # noqa: E402
 from authored_slices import SLICES  # noqa: E402
 
 REPO = pt.REPO
@@ -51,13 +52,14 @@ WAVE1_ORDER = ['ver-hist-node', 'wp-arch-09', 'wp-infra-28b', 'wp-content-09b', 
                'wp-pagec-24', 'wp-pagec-33', 'wp-seo-04b', 'wp-page-18', 'wp-time-06', 'wp-data-05b', 'wp-infra-21b', 'wp-data-16', 'wp-data-15a', 'wp-data-14a',
                'wp-data-08d', 'wp-time-18', 'wp-arch-06', 'wp-hist-36', 'wp-data-04a', 'wp-dec-12', 'wp-content-01b', 'wp-time-08', 'wp-hist-22-units', 'wp-pagec-12']
 # dispatch waves: wave 1 is the first batch (30 entries, historical: an entry of it may be done); wave 2 holds the entries authored after it (authored_wave2.py)
-WAVE_ORDERS = ((1, WAVE1_ORDER), (2, WAVE2_ORDER))
-ALL_WAVE_IDS = WAVE1_ORDER + WAVE2_ORDER
+WAVE_ORDERS = ((1, WAVE1_ORDER), (2, WAVE2_ORDER), (3, WAVE3_ORDER))
+ALL_WAVE_IDS = WAVE1_ORDER + WAVE2_ORDER + WAVE3_ORDER
 BATCH_SIZE = 30
 AUTHORED = {}
 AUTHORED.update(WAVE1A)
 AUTHORED.update(WAVE1B)
 AUTHORED.update(WAVE2)
+AUTHORED.update(WAVE3)
 for _spec in SLICES.values():
     for _sp in _spec['slices']:
         AUTHORED[_sp['id']] = _sp
@@ -515,7 +517,8 @@ def build():
             mnote = re.search(r'requests/(main-site-[a-z0-9-]+\.md)', it['next_step'])
             note = 'docs/battle-theatre/GOVERNANCE/horde/requests/' + (mnote.group(1) if mnote else 'main-site-%s.md' % sid)
             e['route'].update({'owner': 'release workstream (tools/t0, tests/t0, tools/accept, tools/ship)', 'record': 'candidates/r1h/%s/' % sid, 'request_note': note})
-            e['files'] = [note, 'candidates/r1h/%s/STATUS.json' % sid, 'candidates/r1h/%s/HANDOFF.md' % sid]
+            # an authored entry may list scratch files of its own folder beside the note (a runnable copy of the cases it asks for)
+            e['files'] = auth['files'] if auth and auth.get('files') else [note, 'candidates/r1h/%s/STATUS.json' % sid, 'candidates/r1h/%s/HANDOFF.md' % sid]
         else:
             e['files'] = []
         e['context_files'] = [f for f in it.get('files', []) if f not in e['files']]
@@ -619,7 +622,9 @@ def build():
         cls = {'leaf': 0, 'umbrella': 1, 'decision': 2}[e['_klass']]
         wave = wave_pos.get(sid, 1000)
         nidx = min([node_idx.get(n, 999) for n in e['roadmap_nodes']] or [999])
-        return (done, cls if not done else 0, wave, TIER_RANK[e['tier']], STATUS_RANK.get(it['status'], 3), SIZE_RANK[it['size']], nidx, sid)
+        # row C18: an entry with an authored acceptance (a wave) is ranked by the roadmap path it serves first and by its wave second, so the batch handed to the
+        # engineers holds the most valuable ready entries; entries without an authored acceptance keep the order of row C04 and follow the authored ones
+        return (done, cls if not done else 0, 0 if sid in wave_pos else 1, TIER_RANK[e['tier']], wave, STATUS_RANK.get(it['status'], 3), SIZE_RANK[it['size']], nidx, sid)
 
     ordered = sorted(entries, key=key)
     # stable topological pass: an entry waits for its open dependencies

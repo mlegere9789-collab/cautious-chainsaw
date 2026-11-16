@@ -20,8 +20,17 @@
      "class": "damaged"
     }
    },
-   "value": null,
-   "status": "the figure is damaged, short or missing in the text layer of the scans read (None; i,742-): not read as a number"
+   "value": 1742,
+   "status": "read from the page image of leaf 470 (printed page 456) of volume 4, Emory copy: First Regiment numbered all told, ... 1,742. (the text layers: None; i,742-)",
+   "text_layer_status": "the figure is damaged, short or missing in the text layer of the scans read (None; i,742-): not read as a number",
+   "value_source": "page image",
+   "page_image": {
+    "text_id": "NC-MOORE-1882.4~b",
+    "leaf": 470,
+    "printed_page": 456,
+    "line_as_printed": "First Regiment numbered all told, ... 1,742.",
+    "how": "viewed: a 300 ppi crop of the lines was looked at and read again with tesseract 5"
+   }
   },
   "2-regiment": {
    "label_regex": "Second\\s+Regiment",
@@ -41,8 +50,17 @@
      "class": "damaged"
     }
    },
-   "value": null,
-   "status": "the figure is damaged, short or missing in the text layer of the scans read (None; IA35-): not read as a number"
+   "value": 1435,
+   "status": "read from the page image of leaf 470 (printed page 456) of volume 4, Emory copy: Second Regiment, ... 1,435. (the text layers: None; IA35-)",
+   "text_layer_status": "the figure is damaged, short or missing in the text layer of the scans read (None; IA35-): not read as a number",
+   "value_source": "page image",
+   "page_image": {
+    "text_id": "NC-MOORE-1882.4~b",
+    "leaf": 470,
+    "printed_page": 456,
+    "line_as_printed": "Second Regiment, ... 1,435.",
+    "how": "viewed: a 300 ppi crop of the lines was looked at and read again with tesseract 5"
+   }
   },
   "3-regiment": {
    "label_regex": "Third\\s+Regiment",
@@ -83,8 +101,17 @@
      "class": "damaged"
     }
    },
-   "value": null,
-   "status": "the figure is damaged, short or missing in the text layer of the scans read (483.; r,483.): not read as a number"
+   "value": 1483,
+   "status": "read from the page image of leaf 470 (printed page 456) of volume 4, Emory copy: Fourth Regiment, ... 1,483. (the text layers: 483.; r,483.)",
+   "text_layer_status": "the figure is damaged, short or missing in the text layer of the scans read (483.; r,483.): not read as a number",
+   "value_source": "page image",
+   "page_image": {
+    "text_id": "NC-MOORE-1882.4~b",
+    "leaf": 470,
+    "printed_page": 456,
+    "line_as_printed": "Fourth Regiment, ... 1,483.",
+    "how": "viewed: a 300 ppi crop of the lines was looked at and read again with tesseract 5"
+   }
   },
   "5-regiment": {
    "label_regex": "Fifth\\s+Regiment",
@@ -524,8 +551,17 @@
      "class": "damaged"
     }
    },
-   "value": null,
-   "status": "the figure is damaged, short or missing in the text layer of the scans read (i,6oo.; l,6oo.): not read as a number"
+   "value": 1600,
+   "status": "read from the page image of leaf 471 (printed page 457) of volume 4, Emory copy: Thirty-Third Regiment, ... 1,600. (the text layers: i,6oo.; l,6oo.)",
+   "text_layer_status": "the figure is damaged, short or missing in the text layer of the scans read (i,6oo.; l,6oo.): not read as a number",
+   "value_source": "page image",
+   "page_image": {
+    "text_id": "NC-MOORE-1882.4~b",
+    "leaf": 471,
+    "printed_page": 457,
+    "line_as_printed": "Thirty-Third Regiment, ... 1,600.",
+    "how": "viewed: a 300 ppi crop of the lines was looked at and read again with tesseract 5"
+   }
   },
   "34-regiment": {
    "label_regex": "Thirty-Fourth\\s+Regiment",

@@ -28,6 +28,9 @@ def entry(doc, i):
 
 
 w1 = [e['id'] for e in base['items'] if e.get('wave') == 1]
+# victims are taken from the data, so the cases hold whichever entries are done or ranked first: two wave-1 candidate groups that are in the next batch
+b1 = [entry(base, i) for i in base['next_batch'] if entry(base, i).get('wave') == 1 and entry(base, i)['route']['type'] == 'candidate-group']
+V, V2 = b1[0]['id'], b1[1]['id']
 cases = []
 
 
@@ -38,31 +41,32 @@ def case(name, fn, expect):
 
 
 case('bad id', lambda d: entry(d, 'wp-infra-23b').__setitem__('id', 'WP_INFRA_23B'), 'bad id')
-case('unknown route', lambda d: entry(d, 'wp-pagec-30')['route'].__setitem__('type', 'magic'), 'unknown route')
-case('empty acceptance', lambda d: entry(d, 'wp-pagec-30').__setitem__('acceptance', ' '), 'empty acceptance')
-case('write outside ownership', lambda d: entry(d, 'wp-pagec-30')['files'].append('tools/t0/build.py'), 'outside this workstream')
-case('candidate file in another folder', lambda d: entry(d, 'wp-pagec-30')['files'].append('candidates/r1h/wp-pagec-33/test.mjs'), 'outside its own folder')
-case('wave 1 dependency', lambda d: entry(d, 'wp-pagec-30')['depends_on'].append('wp-pagec-33'), 'wave 1 not independent')
-case('wave 1 write overlap', lambda d: entry(d, 'wp-pagec-30')['files'].append('data-src/geo/places.json'), 'write sets overlap')
-case('wave 1 size L', lambda d: entry(d, 'wp-pagec-30').__setitem__('size', 'L'), 'size L')
-case('wave 1 short check too long', lambda d: entry(d, 'wp-pagec-30').__setitem__('short', 'x' * 300), 'short check of at most 290')
+case('unknown route', lambda d: entry(d, V)['route'].__setitem__('type', 'magic'), 'unknown route')
+case('empty acceptance', lambda d: entry(d, V).__setitem__('acceptance', ' '), 'empty acceptance')
+case('write outside ownership', lambda d: entry(d, V)['files'].append('tools/t0/build.py'), 'outside this workstream')
+case('candidate file in another folder', lambda d: entry(d, V)['files'].append('candidates/r1h/%s/test.mjs' % V2), 'outside its own folder')
+case('wave 1 dependency', lambda d: entry(d, V)['depends_on'].append(V2), 'wave 1 not independent')
+case('wave 1 write overlap', lambda d: entry(d, V)['files'].append('data-src/geo/places.json'), 'write sets overlap')
+case('wave 1 size L', lambda d: entry(d, V).__setitem__('size', 'L'), 'size L')
+case('wave 1 short check too long', lambda d: entry(d, V).__setitem__('short', 'x' * 300), 'short check of at most 290')
 case('wave 2 size L', lambda d: entry(d, 'wp-arch-10-toolchain').__setitem__('size', 'L'), 'wave 2 entry is size L')
 case('wave entry without authored acceptance', lambda d: entry(d, 'wp-arch-10-toolchain').__setitem__('acceptance_basis', 'machine proof clause'), 'no authored acceptance')
-case('next batch holds a done entry', lambda d: entry(d, 'wp-pagec-30').__setitem__('done', True), 'already done: take it out of the batch')
+case('next batch holds a done entry', lambda d: entry(d, V).__setitem__('done', True), 'already done: take it out of the batch')
 # an open build entry that waits for another open entry (found in the data, so the case does not depend on which entries happen to be done)
 waiting = next(e for e in base['items'] if not e['done'] and e['route']['type'] in ('candidate-group', 'source-rebuild') and e['id'] not in base['next_batch']
                and any(not entry(base, dep)['done'] for dep in e['depends_on']))
 case('next batch waits for an open entry', lambda d: d['next_batch'].append(waiting['id']), 'which is not done')
 case('next batch too long', lambda d: d['next_batch'].append(waiting['id']), 'at most 30')
-case('next batch holds an entry without a wave', lambda d: d['next_batch'].__setitem__(0, 'wp-infra-26'), 'without an authored acceptance')
-case('next batch write overlap', lambda d: entry(d, 'wp-pagec-33')['files'].append('candidates/r1h/wp-pagec-24/test.mjs'), 'next_batch write sets overlap')
+no_wave = next(e['id'] for e in base['items'] if not e['done'] and e.get('wave') is None and e['route']['type'] == 'candidate-group' and not e['depends_on'])
+case('next batch holds an entry without a wave', lambda d: d['next_batch'].__setitem__(0, no_wave), 'without an authored acceptance')
+case('next batch write overlap', lambda d: entry(d, V)['files'].append('candidates/r1h/%s/test.mjs' % V2), 'next_batch write sets overlap')
 case('next batch missing', lambda d: d.pop('next_batch'), 'next_batch is missing')
 openl = [e for e in base['items'] if not e['done'] and e.get('wave') is None]
 case('dependency order', lambda d: entry(d, openl[5]['id'])['depends_on'].append(openl[200]['id']), 'precedes its dependency')
 case('coverage', lambda d: d['items'].pop(), 'coverage')
-case('done without record', lambda d: entry(d, 'wp-pagec-30').__setitem__('done', True), 'done without STATUS.json')
+case('done without record', lambda d: entry(d, V).__setitem__('done', True), 'done without STATUS.json')
 case('decision without row', lambda d: entry(d, 'd-name').__setitem__('decision', {'rows': [], 'recorded': False}), 'without a delegated row')
-case('order gap', lambda d: entry(d, 'wp-pagec-30').__setitem__('order', 9999), 'order is not')
+case('order gap', lambda d: entry(d, V).__setitem__('order', 9999), 'order is not')
 bad = 0
 code, out = run(base)
 print('intact copy:', 'passes' if code == 0 else 'FAILS (%s)' % out.strip()[:300])

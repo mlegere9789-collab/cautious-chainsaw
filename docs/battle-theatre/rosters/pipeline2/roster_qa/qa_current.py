@@ -54,6 +54,7 @@ def main():
     out = {'f': 'roster-qa-verdicts-vs-files/1', 'about': 'The stored lines of every page that was looked at, now (unit files as they are in the tree) against the lines the verdict lists (as they stood when the page was compared with its image).',
            'generated_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'frame_files': frame_files, 'pages': [], 'summary': {}}
     nid = 0
+    nren = 0
     for v in verdicts:
         pg = fpage[v['page']]
         now = []
@@ -73,10 +74,15 @@ def main():
                               ('remarks_sha256', lr['remarks_sha256'], Q.sha256_bytes(r['remarks'].encode('utf-8'))), ('off', lr['off'], r['off']), ('text_id', lr['text_id'], r['text_id'])):
                 if a != b:
                     diffs.append({'row': k, 'field': fld, 'verdict': a, 'now': b})
+        # identical = every field equal; renumbered = every field but the row number in the file equal (a rebuild of the item removed lines earlier in the file: the verdict still
+        # describes these lines, whose offsets in the pinned text are unchanged); different = a line, its fields or their number changed
+        content = [x for x in diffs if x.get('field') != 'rid']
         ident = not diffs
+        renum = bool(diffs) and not content
         nid += ident
-        out['pages'].append({'page': v['page'], 'stratum': v['stratum'], 'lines_in_verdict': len(listed), 'lines_now_on_the_leaf': len(now), 'identical': ident, 'differences': diffs[:50]})
-        print('%-40s %-16s verdict %3d now %3d %s' % (v['page'], v['stratum'], len(listed), len(now), 'identical' if ident else 'DIFFERENT (%d differences)' % len(diffs)))
+        nren += renum
+        out['pages'].append({'page': v['page'], 'stratum': v['stratum'], 'lines_in_verdict': len(listed), 'lines_now_on_the_leaf': len(now), 'identical': ident, 'renumbered_only': renum, 'differences': diffs[:50]})
+        print('%-40s %-16s verdict %3d now %3d %s' % (v['page'], v['stratum'], len(listed), len(now), 'identical' if ident else ('same lines, row numbers moved (%d)' % len(diffs)) if renum else 'DIFFERENT (%d differences)' % len(content)))
     # lines in error on the pages looked at: flagged ocr_uncertain when the verdict was written and in the flag files as they are now (the Massachusetts flag files were rewritten after the first sitting)
     fam_flags = {}
     for v in Q.load_verdicts():
@@ -90,11 +96,11 @@ def main():
             d['flagged_at_verdict'] += 1 if e.get('flagged_ocr_uncertain') else 0
             d['flagged_now'] += 1 if int(n) in ocr_now.get(stem, set()) else 0
     out['error_rows_flagged'] = fam_flags
-    out['summary'] = {'pages': len(verdicts), 'identical': nid, 'different': len(verdicts) - nid, 'lines_in_verdicts': sum(len(v['rows_listed']) for v in verdicts),
+    out['summary'] = {'pages': len(verdicts), 'identical': nid, 'renumbered': nren, 'different': len(verdicts) - nid - nren, 'lines_in_verdicts': sum(len(v['rows_listed']) for v in verdicts),
                       'files_in_frame': frame_files['files_in_frame'], 'files_differing_from_frame': len(frame_files['differ_from_frame']), 'files_missing_now': len(frame_files['missing_now'])}
     Q.jdump(os.path.join(Q.QA, 'verdicts-vs-files.json'), out)
     print(json.dumps(out['summary']))
-    return 0 if nid == len(verdicts) else 1
+    return 0 if nid + nren == len(verdicts) else 1
 
 
 if __name__ == '__main__':

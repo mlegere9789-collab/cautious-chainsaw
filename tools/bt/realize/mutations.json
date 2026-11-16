@@ -3847,5 +3847,93 @@
    "rules",
    "main"
   ]
+ },
+ {
+  "id": "checks-specview-plot",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "...(a && typeof a.plot === 'string' ? [a.plot] : []), ",
+  "replace": "",
+  "rule": "the spec view names the plot a vegetation check is about",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-specview-where",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": ", ...(a && a.where && typeof a.where === 'object' ? [`plots ${JSON.stringify(a.where)}`] : [])];",
+  "replace": "];",
+  "rule": "the spec view names the class of plots a vegetation check is about",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-adapt-no-module",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (!a || !a.module) return { available: false, reason: `no module for ${name}",
+  "replace": "if (false) return { available: false, reason: `no module for ${name}",
+  "rule": "an adapter says when there is no module for event cards or the epilogue",
+  "tests": [
+   "inputs"
+  ],
+  "pattern": "adapters work through the real module path"
+ },
+ {
+  "id": "query-adapt-error",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (a.error) return { available: false, reason: a.error, module: a.module, items: [] };",
+  "replace": "",
+  "rule": "an adapter says why a module cannot be used (it exports none of the functions, it failed to load)",
+  "tests": [
+   "inputs"
+  ],
+  "pattern": "adapters work through the real module path"
+ },
+ {
+  "id": "query-adapt-listed",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (!a.listed) return { available: false, reason:",
+  "replace": "if (false) return { available: false, reason:",
+  "rule": "a module that src/ext/index.mjs does not list is not asked: the product loads nothing else",
+  "tests": [
+   "inputs"
+  ],
+  "pattern": "adapters work through the real module path"
+ },
+ {
+  "id": "query-adapt-throws",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "catch (e) { return { available: false, reason: `${a.module} ${a.fn} threw:",
+  "replace": "catch (e) { throw e; return { available: false, reason: `${a.module} ${a.fn} threw:",
+  "rule": "a module that throws is a reason, never a crash of the harness",
+  "tests": [
+   "inputs"
+  ],
+  "pattern": "adapters work through the real module path"
+ },
+ {
+  "id": "query-adapt-function",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "const fn = spec.functions.find(f => typeof m[f] === 'function');",
+  "replace": "const fn = spec.functions.find(f => true);",
+  "rule": "a module counts only if it exports one of the functions the contract names",
+  "tests": [
+   "inputs"
+  ],
+  "pattern": "adapters work through the real module path"
+ },
+ {
+  "id": "query-adapt-listed-flag",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "r.listed = extRel != null && ext.listed.includes(extRel);",
+  "replace": "r.listed = true;",
+  "rule": "an adapter is listed when src/ext/index.mjs names its module",
+  "tests": [
+   "inputs"
+  ],
+  "pattern": "adapters work through the real module path"
  }
 ]

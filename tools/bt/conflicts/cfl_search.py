@@ -62,8 +62,8 @@ def or_who(r):
     if r is None:
         return 'unindexed region'
     if r['part'] == 3:
-        return '%s %s' % (r['id'], (r.get('header_raw') or r.get('toc_text') or '')[:50])
-    return '%s %s %s' % (r['id'], r.get('rank') or '', r.get('author') or (r.get('toc_text') or '')[:40])
+        return '%s %s%s' % (r['id'], (r.get('header_raw') or r.get('toc_text') or '')[:50], (', dated %s' % r['date_raw']) if r.get('date_raw') else '')
+    return '%s %s %s%s' % (r['id'], r.get('rank') or '', r.get('author') or (r.get('toc_text') or '')[:40], (' (first dateline of the record: %s)' % r['date_text']) if r.get('date_text') else '')
 
 
 def describe(row, path, off, length, part=None):
@@ -138,7 +138,7 @@ def collapse(s):
     return ' '.join(s.split())
 
 
-def probe_hits(relpath, anchors, near, window=300, max_hits=8, flags=re.I, score_terms=None, collect=80):
+def probe_hits(relpath, anchors, near, window=300, max_hits=8, flags=re.I, score_terms=None, collect=80, accept=None):
     """Hits of a proximity probe in one text: [{'off': raw offset of the anchor, 'snippet': collapsed text around it, 'score': n}]. Hits closer than `window` are merged.
     Up to `collect` hits are gathered in document order and the `max_hits` with the best score are returned (score: how many of `score_terms` stand in the window, plus 2
     when a clock expression stands within 100 characters of the anchor)."""
@@ -153,6 +153,8 @@ def probe_hits(relpath, anchors, near, window=300, max_hits=8, flags=re.I, score
     out, last = [], -10 ** 9
     for o in offs:
         if o - last < window:
+            continue
+        if accept is not None and not accept(o):
             continue
         a0, b0 = max(0, o - window), min(len(raw), o + window)
         seg = collapse(raw[a0:b0])
